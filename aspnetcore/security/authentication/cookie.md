@@ -40,7 +40,7 @@ ms.locfileid: "51570108"
 
 应用程序的身份验证方案是不同的应用程序的 cookie 身份验证方案。 当 cookie 身份验证方案不提供给<xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>，它使用[CookieAuthenticationDefaults.AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) ("Cookie")。
 
-在中`Configure`方法，请使用`UseAuthentication`方法调用设置身份验证中间件`HttpContext.User`属性。 调用`UseAuthentication`方法之前调用`UseMvcWithDefaultRoute`或`UseMvc`:
+在中`Configure`方法，请使用`UseAuthentication`方法调用设置身份验证中间件`HttpContext.User`属性。在调用`UseMvcWithDefaultRoute`或`UseMvc`方法之前调用`UseAuthentication`:
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet2)]
 
