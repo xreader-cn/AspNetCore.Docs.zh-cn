@@ -3,14 +3,14 @@ title: 检查 ASP.NET Core 应用的 Details 和 Delete 方法
 author: rick-anderson
 description: 了解基本 ASP.NET Core MVC 应用中的详细信息控制器方法和视图。
 ms.author: riande
-ms.date: 03/07/2017
+ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: c5d21bc70aae4c1a1d10bb333871eeef25a1879c
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: c02a85b7c92a0cfa6125c5033b6cadd965f1662e
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50208000"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997183"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>检查 ASP.NET Core 应用的 Details 和 Delete 方法
 
@@ -18,17 +18,7 @@ ms.locfileid: "50208000"
 
 打开电影控制器，并检查 `Details` 方法：
 
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](start-mvc/sample/MvcMovie21/Controllers/MoviesController.cs?name=snippet_details)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_details)]
-
-::: moniker-end
+[!code-csharp[](start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_details)]
 
 创建此操作方法的 MVC 基架引擎添加显示调用方法的 HTTP 请求的注释。 在此情况下，它是包含三个 URL 段的 GET 请求，这三个段为 `Movies` 控制器、`Details` 方法和 `id` 值。 回顾这些在 Startup.cs 中定义的段。
 
@@ -38,17 +28,7 @@ EF 可以使用 `SingleOrDefaultAsync` 方法轻松搜索数据。 该方法中�
 
 检查 `Delete` 和 `DeleteConfirmed` 方法。
 
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](start-mvc/sample/MvcMovie21/Controllers/MoviesController.cs?name=snippet_delete)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_delete)]
-
-::: moniker-end
+[!code-csharp[](start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_delete)]
 
 请注意，`HTTP GET Delete` 方法不删除指定的电影，而是返回可在其中提交 (HttpPost) 删除的电影视图。 执行删除操作以响应 GET 请求（或者说，执行编辑操作、创建操作或更改数据的任何其他操作）会打开安全漏洞。
 
@@ -57,7 +37,6 @@ EF 可以使用 `SingleOrDefaultAsync` 方法轻松搜索数据。 该方法中�
 [!code-csharp[](start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_delete2)]
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_delete3)]
-
 
 公共语言运行时 (CLR) 需要重载方法拥有唯一的参数签名（相同的方法名称但不同的参数列表）。 但是，这里需要两个 `Delete` 方法 -- 一个用于 GET，另一个用于 POST -- 这两个方法拥有相同的参数签名。 （它们都需要接受单个整数作为参数。）
 
@@ -73,7 +52,7 @@ public async Task<IActionResult> Delete(int id, bool notUsed)
 
 ### <a name="publish-to-azure"></a>发布到 Azure
 
-有关部署到 Azure 的信息，请参阅[教程：在 Azure 应用服务中构建 .NET Core 和 SQL 数据库 Web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
+若要了解如何部署到 Azure，请参阅[教程：在 Azure 应用服务中生成 .NET Core 和 SQL 数据库 Web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
 
 > [!div class="step-by-step"]
 > [上一篇](validation.md)
