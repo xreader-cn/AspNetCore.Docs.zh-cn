@@ -1,3 +1,5 @@
+# [ASP.NET Core 文档](/aspnet/#pivot=core)
+
 # 概述
 ## [关于 ASP.NET Core](xref:index)
 ## [比较 ASP.NET Core 和 ASP.NET](xref:fundamentals/choose-between-aspnet-and-aspnetcore)
@@ -5,8 +7,14 @@
 
 # [入门](xref:getting-started)
 
+# 新增功能
+## [2.2 中的新变化](xref:aspnetcore-2.2)
+## [2.1 版中的新增功能](xref:aspnetcore-2.1)
+## [2.0 版中的新增功能](xref:aspnetcore-2.0)
+## [1.1 中的新增功能](xref:aspnetcore-1.1)
+
 # 教程
-## Web API
+## Web API 应用
 ### [创建 Web API](xref:tutorials/first-web-api)
 ### [使用 MongoDB 创建 Web API](xref:tutorials/first-mongo-app)
 ## Web 应用
@@ -121,7 +129,7 @@
 ### [自定义模型绑定](xref:mvc/advanced/custom-model-binding)
 ### [兼容性版本](xref:mvc/compatibility-version)
 
-# Web API
+# Web API 应用
 ## [概述](xref:web-api/index)
 
 ## 教程
@@ -376,6 +384,7 @@
 ### [响应缓存中间件](xref:performance/caching/middleware)
 ## [响应压缩](xref:performance/response-compression)
 ## [诊断工具](xref:performance/diagnostic-tools)
+## [负载测试和压力测试](xref:test/loadtests)
 
 # 其他主题
 ## [全球化和本地化](xref:fundamentals/localization)
@@ -410,12 +419,6 @@
 ### [共成员身份到标识](xref:migration/proper-to-2x/membership-to-core-identity)
 ### [HTTP 模块到中间件](xref:migration/http-modules)
 ## [日志记录（不是 ASP.NET Core）](xref:migration/logging-nonaspnetcore)
-
-# 新增功能
-## [2.2 中的新变化](xref:aspnetcore-2.2)
-## [2.1 版中的新增功能](xref:aspnetcore-2.1)
-## [2.0 版中的新增功能](xref:aspnetcore-2.0)
-## [1.1 中的新增功能](xref:aspnetcore-1.1)
 
 # [API 参考](/dotnet/api/?view=aspnetcore-2.2)
 
