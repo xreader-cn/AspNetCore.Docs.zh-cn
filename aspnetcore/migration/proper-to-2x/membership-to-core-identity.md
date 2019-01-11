@@ -4,14 +4,14 @@ author: isaac2004
 description: 了解如何迁移现有的 ASP.NET 应用程序使用成员资格到 ASP.NET Core 2.0 标识的身份验证。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/24/2018
+ms.date: 01/10/2019
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: 82158ec500151a0bb61fb1da55a53684367d9a4e
-ms.sourcegitcommit: 2e054638b69f2b14f6d67d9fa3664999172ee1b2
+ms.openlocfilehash: 0b7001a311eeaaa78e3d52e2ec66d33ad057c381
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2018
-ms.locfileid: "41825029"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207403"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>ASP.NET 成员资格身份验证从迁移到 ASP.NET Core 2.0 标识
 
@@ -36,28 +36,29 @@ ASP.NET Core 2.0 遵循[标识](/aspnet/identity/index)ASP.NET 4.5 中引入的�
 
 ASP.NET Core 2.0 标识查看架构的最快方法是创建新的 ASP.NET Core 2.0 应用程序。 请按照 Visual Studio 2017 中的执行以下步骤操作：
 
-* 选择“文件” > “新建” > “项目”。
-* 创建一个新**ASP.NET Core Web 应用程序**并将项目命名*CoreIdentitySample*。
-* 选择**ASP.NET Core 2.0**在下拉列表中，然后选择**Web 应用程序**。 此模板会生成[Razor 页面](xref:razor-pages/index)应用。 然后再单击**确定**，单击**更改身份验证**。
-* 选择**单个用户帐户**标识模板。 最后，单击**确定**，然后**确定**。 Visual Studio 创建项目时使用 ASP.NET Core 标识模板。
+1. 选择“文件” > “新建” > “项目”。
+1. 创建一个新**ASP.NET Core Web 应用程序**名为项目*CoreIdentitySample*。
+1. 选择**ASP.NET Core 2.0**在下拉列表中，然后选择**Web 应用程序**。 此模板会生成[Razor 页面](xref:razor-pages/index)应用。 然后再单击**确定**，单击**更改身份验证**。
+1. 选择**单个用户帐户**标识模板。 最后，单击**确定**，然后**确定**。 Visual Studio 创建项目时使用 ASP.NET Core 标识模板。
+1. 选择**工具** > **NuGet 包管理器** > **程序包管理器控制台**打开**包管理器控制台**(PMC) 窗口。
+1. 导航到项目根目录中 PMC 中，然后运行[Entity Framework (EF) Core](/ef/core) `Update-Database`命令。
 
-ASP.NET Core 2.0 标识使用[实体框架核心](/ef/core)与存储的身份验证数据的数据库进行交互。 为了使新创建的应用程序能够，那里需要使用数据库来存储此数据。 创建新的应用程序之后, 检查的数据库环境中的架构的最快方法是创建使用 Entity Framework 迁移的数据库。 此过程创建数据库、 在本地或其他位置，模拟该架构。 查看上述文档，有关详细信息。
+    ASP.NET Core 2.0 标识使用 EF Core 与存储身份验证数据的数据库进行交互。 为了使新创建的应用程序能够，那里需要使用数据库来存储此数据。 创建新的应用程序之后, 检查的数据库环境中的架构的最快方法是创建数据库使用[EF Core 迁移](/ef/core/managing-schemas/migrations/)。 此过程创建数据库、 在本地或其他位置，模拟该架构。 查看上述文档，有关详细信息。
 
-若要使用 ASP.NET Core 标识架构中创建数据库，运行`Update-Database`命令在 Visual Studio 的**程序包管理器控制台**(PMC) 窗口&mdash;位于**工具** > **NuGet 包管理器** > **程序包管理器控制台**。 PMC 支持正在运行的 Entity Framework 命令。
+    EF Core 命令中指定的数据库使用连接字符串*appsettings.json*。 下面的连接字符串上的目标数据库*localhost*名为*asp net core 标识*。 在此设置中，EF Core 配置为使用`DefaultConnection`连接字符串。
 
-Entity Framework 命令中指定的数据库使用连接字符串*appsettings.json*。 下面的连接字符串上的目标数据库*localhost*名为*asp net core 标识*。 在此设置中，实体框架配置为使用`DefaultConnection`连接字符串。
+    ```json
+    {
+      "ConnectionStrings": {
+        "DefaultConnection": "Server=localhost;Database=aspnet-core-identity;Trusted_Connection=True;MultipleActiveResultSets=true"
+      }
+    }
+    ```
+1. 选择**视图** > **SQL Server 对象资源管理器**。 展开中指定的数据库名称与对应的节点`ConnectionStrings:DefaultConnection`的属性*appsettings.json*。
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=aspnet-core-identity;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }
-}
-```
+    `Update-Database`命令创建与架构指定的数据库和任何所需的应用程序初始化的数据。 下图描绘了使用上述步骤创建的表结构。
 
-此命令可生成与架构指定的数据库和任何所需的应用程序初始化的数据。 下图描绘了使用上述步骤创建的表结构。
-
-   ![标识表](identity/_static/identity-tables.png)
+    ![标识表](identity/_static/identity-tables.png)
 
 ## <a name="migrate-the-schema"></a>迁移架构
 
@@ -65,105 +66,116 @@ Entity Framework 命令中指定的数据库使用连接字符串*appsettings.js
 
 ### <a name="users"></a>用户
 
-| *Identity(AspNetUsers)* |   | *Membership(aspnet_Users/aspnet_Membership)* ||
-| --- | --- | --- | --- | --- | --- |
-| **字段名称** | **Type**  |   **字段名称** | **Type**  |
-|`Id` | 字符串 | `aspnet_Users.UserId` | 字符串
-|`UserName` | 字符串 | `aspnet_Users.UserName` | 字符串
-|`Email` | 字符串 | `aspnet_Membership.Email` | 字符串
-|`NormalizedUserName` | 字符串 | `aspnet_Users.LoweredUserName` | 字符串
-|`NormalizedEmail` | 字符串 | `aspnet_Membership.LoweredEmail` | 字符串
-|`PhoneNumber` | 字符串 | `aspnet_Users.MobileAlias` | 字符串
-|`LockoutEnabled` | 位 | `aspnet_Membership.IsLockedOut` | 位
+|*标识<br>(dbo。AspNetUsers)*        ||*成员资格<br>(dbo.aspnet_Users / dbo.aspnet_Membership)*||
+|----------------------------------------|-----------------------------------------------------------|
+|**字段名称**                 |**Type**|**字段名称**                                    |**Type**|
+|`Id`                           |字符串  |`aspnet_Users.UserId`                             |字符串  |
+|`UserName`                     |字符串  |`aspnet_Users.UserName`                           |字符串  |
+|`Email`                        |字符串  |`aspnet_Membership.Email`                         |字符串  |
+|`NormalizedUserName`           |字符串  |`aspnet_Users.LoweredUserName`                    |字符串  |
+|`NormalizedEmail`              |字符串  |`aspnet_Membership.LoweredEmail`                  |字符串  |
+|`PhoneNumber`                  |字符串  |`aspnet_Users.MobileAlias`                        |字符串  |
+|`LockoutEnabled`               |位     |`aspnet_Membership.IsLockedOut`                   |位     |
 
 > [!NOTE]
 > 并非所有字段映射类似都于从成员资格到 ASP.NET Core 标识的一对一关系。 前面的表使用默认成员资格用户架构，并将其映射到 ASP.NET Core 标识架构。 用于成员资格的任何其他自定义字段需要手动映射。 在此映射中，则没有密码的映射因为两者之间不迁移密码条件和密码 salt。 **建议可保留为 null 的密码，并要求用户重置其密码。** 在 ASP.NET Core 标识`LockoutEnd`应设置为在将来的某个日期中，如果用户被锁定。迁移脚本所示。
 
 ### <a name="roles"></a>角色
 
-| *Identity(AspNetRoles)* |   | *Membership(aspnet_Roles)* ||
-| --- | --- | --- | --- | --- | --- |
-| **字段名称** | **Type**  |   **字段名称** | **Type**  |
-|`Id` | 字符串 | `RoleId` | 字符串
-|`Name` | 字符串 | `RoleName` | 字符串
-|`NormalizedName` | 字符串 | `LoweredRoleName` | 字符串
+|*标识<br>(dbo。AspNetRoles)*        ||*成员资格<br>(dbo.aspnet_Roles)*||
+|----------------------------------------|-----------------------------------|
+|**字段名称**                 |**Type**|**字段名称**   |**Type**         |
+|`Id`                           |字符串  |`RoleId`         | 字符串          |
+|`Name`                         |字符串  |`RoleName`       | 字符串          |
+|`NormalizedName`               |字符串  |`LoweredRoleName`| 字符串          |
 
 ### <a name="user-roles"></a>用户角色
 
-| *Identity(AspNetUserRoles)* |   | *Membership(aspnet_UsersInRoles)* ||
-| --- | --- | --- | --- | --- | --- |
-| **字段名称** | **Type**  |   **字段名称** | **Type**  |
-|`RoleId` | 字符串 | `RoleId` | 字符串
-|`UserId` | 字符串 | `UserId` | 字符串
+|*标识<br>(dbo。AspNetUserRoles)*||*成员资格<br>(dbo.aspnet_UsersInRoles)*||
+|------------------------------------|------------------------------------------|
+|**字段名称**           |**Type**  |**字段名称**|**Type**                   |
+|`RoleId`                 |字符串    |`RoleId`      |字符串                     |
+|`UserId`                 |字符串    |`UserId`      |字符串                     |
 
-创建的迁移脚本时，引用前面的映射表*用户*并*角色*。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含的现有 ASP.NET 成员身份架构和数据。 使用前面所述的步骤创建另一个数据库。 注释是以内联形式包含有关更多详细信息。
+创建的迁移脚本时，引用前面的映射表*用户*并*角色*。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含的现有 ASP.NET 成员身份架构和数据。 另*CoreIdentitySample*使用前面所述的步骤创建数据库。 注释是以内联形式包含有关更多详细信息。
 
 ```sql
 -- THIS SCRIPT NEEDS TO RUN FROM THE CONTEXT OF THE MEMBERSHIP DB
 BEGIN TRANSACTION MigrateUsersAndRoles
-use aspnetdb
+USE aspnetdb
 
 -- INSERT USERS
-INSERT INTO coreidentity.dbo.aspnetusers
-            (id,
-             username,
-             normalizedusername,
-             passwordhash,
-             securitystamp,
-             emailconfirmed,
-             phonenumber,
-             phonenumberconfirmed,
-             twofactorenabled,
-             lockoutend,
-             lockoutenabled,
-             accessfailedcount,
-             email,
-             normalizedemail)
-SELECT aspnet_users.userid,
-       aspnet_users.username,
-       aspnet_users.loweredusername,
-       --Creates an empty password since passwords don't map between the two schemas
+INSERT INTO CoreIdentitySample.dbo.AspNetUsers
+            (Id,
+             UserName,
+             NormalizedUserName,
+             PasswordHash,
+             SecurityStamp,
+             EmailConfirmed,
+             PhoneNumber,
+             PhoneNumberConfirmed,
+             TwoFactorEnabled,
+             LockoutEnd,
+             LockoutEnabled,
+             AccessFailedCount,
+             Email,
+             NormalizedEmail)
+SELECT aspnet_Users.UserId,
+       aspnet_Users.UserName,
+       -- The NormalizedUserName value is upper case in ASP.NET Core Identity
+       UPPER(aspnet_Users.UserName),
+       -- Creates an empty password since passwords don't map between the 2 schemas
        '',
-       --Security Stamp is a token used to verify the state of an account and is subject to change at any time. It should be initialized as a new ID.
+       /*
+        The SecurityStamp token is used to verify the state of an account and 
+        is subject to change at any time. It should be initialized as a new ID.
+       */
        NewID(),
-       --EmailConfirmed is set when a new user is created and confirmed via email. Users must have this set during migration to ensure they're able to reset passwords.
+       /*
+        EmailConfirmed is set when a new user is created and confirmed via email.
+        Users must have this set during migration to reset passwords.
+       */
        1,
-       aspnet_users.mobilealias,
+       aspnet_Users.MobileAlias,
        CASE
-         WHEN aspnet_Users.MobileAlias is null THEN 0
+         WHEN aspnet_Users.MobileAlias IS NULL THEN 0
          ELSE 1
        END,
-       --2-factor Auth likely wasn't setup in Membership for users, so setting as false.
+       -- 2FA likely wasn't setup in Membership for users, so setting as false.
        0,
        CASE
-         --Setting lockout date to time in the future (1000 years)
-         WHEN aspnet_membership.islockedout = 1 THEN Dateadd(year, 1000,
+         -- Setting lockout date to time in the future (1,000 years)
+         WHEN aspnet_Membership.IsLockedOut = 1 THEN Dateadd(year, 1000,
                                                      Sysutcdatetime())
          ELSE NULL
        END,
-       aspnet_membership.islockedout,
-       --AccessFailedAccount is used to track failed logins. This is stored in membership in multiple columns. Setting to 0 arbitrarily.
+       aspnet_Membership.IsLockedOut,
+       /*
+        AccessFailedAccount is used to track failed logins. This is stored in
+        Membership in multiple columns. Setting to 0 arbitrarily.
+       */
        0,
-       aspnet_membership.email,
-       aspnet_membership.loweredemail
-FROM   aspnet_users
-       LEFT OUTER JOIN aspnet_membership
-                    ON aspnet_membership.applicationid =
-                       aspnet_users.applicationid
-                       AND aspnet_users.userid = aspnet_membership.userid
-       LEFT OUTER JOIN coreidentity.dbo.aspnetusers
-                    ON aspnet_membership.userid = aspnetusers.id
-WHERE  aspnetusers.id IS NULL
+       aspnet_Membership.Email,
+       -- The NormalizedEmail value is upper case in ASP.NET Core Identity
+       UPPER(aspnet_Membership.Email)
+FROM   aspnet_Users
+       LEFT OUTER JOIN aspnet_Membership
+                    ON aspnet_Membership.ApplicationId =
+                       aspnet_Users.ApplicationId
+                       AND aspnet_Users.UserId = aspnet_Membership.UserId
+       LEFT OUTER JOIN CoreIdentitySample.dbo.AspNetUsers
+                    ON aspnet_Membership.UserId = AspNetUsers.Id
+WHERE  AspNetUsers.Id IS NULL
 
 -- INSERT ROLES
-INSERT INTO coreIdentity.dbo.aspnetroles(id,name)
-SELECT roleId,rolename
-FROM aspnet_roles;
+INSERT INTO CoreIdentitySample.dbo.AspNetRoles(Id, Name)
+SELECT RoleId, RoleName
+FROM aspnet_Roles;
 
 -- INSERT USER ROLES
-INSERT INTO coreidentity.dbo.aspnetuserroles(userid,roleid)
-SELECT userid,roleid
-FROM aspnet_usersinroles;
+INSERT INTO CoreIdentitySample.dbo.AspNetUserRoles(UserId, RoleId)
+SELECT UserId, RoleId
+FROM aspnet_UsersInRoles;
 
 IF @@ERROR <> 0
   BEGIN
@@ -174,7 +186,7 @@ IF @@ERROR <> 0
 COMMIT TRANSACTION MigrateUsersAndRoles
 ```
 
-完成后此脚本，使用成员资格用户填充前面创建的 ASP.NET Core 标识应用程序。 用户需要在登录之前更改其密码。
+完成操作后的脚本，使用成员资格用户填充前面创建的 ASP.NET Core 标识应用。 用户需要在登录之前更改其密码。
 
 > [!NOTE]
 > 如果成员资格系统必须具有不匹配其电子邮件地址的用户名的用户，不需要对创建早期为解决此问题的应用更改。 默认模板需要`UserName`和`Email`相同。 它们是不同的情况下，登录过程需要进行修改以使用`UserName`而不是`Email`。

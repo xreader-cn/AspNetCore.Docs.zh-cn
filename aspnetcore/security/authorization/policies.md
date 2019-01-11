@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core中基于策略的授权
 author: rick-anderson
-description: 了解如何创建和使用授权策略处理程序，用于实施 ASP.NET Core 应用程序中的授权要求。
+description: 了解如何创建和使用授权策略处理程序，以强制实施在 ASP.NET Core 应用中的授权要求。
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: 81ca6ad9ddba3de094762f5608bb6a5719bca7a1
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: 4e8a9ac6c0594f9bab67214aaa8cab9199cca29d
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36277977"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207390"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -34,7 +34,7 @@ ms.locfileid: "36277977"
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Requirements/MinimumAgeRequirement.cs?name=snippet_MinimumAgeRequirementClass)]
 
 > [!NOTE]
-> 一项要求不需要具有数据或属性。
+> 一项要求并不需要具有数据或属性。
 
 <a name="security-authorization-policies-based-authorization-handler"></a>
 
@@ -44,7 +44,7 @@ ms.locfileid: "36277977"
 
 一项要求可以有[多个处理程序](#security-authorization-policies-based-multiple-handlers)。 处理程序可以继承 [AuthorizationHandler\<<TRequirement >](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandler-1)，其中的 `TRequirement` 是需处理的要求。 另外，一个处理程序也可以通过实现 [IAuthorizationHandler](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationhandler) 来处理多个类型的要求。
 
-### <a name="use-a-handler-for-one-requirement"></a>为一个要求使用一个处理程序
+### <a name="use-a-handler-for-one-requirement"></a>一个要求使用一个处理程序
 
 <a name="security-authorization-handler-example"></a>
 
@@ -54,13 +54,13 @@ ms.locfileid: "36277977"
 
 前面的代码确定当前的用户主体是否有一个由已知的受信任颁发者颁发的出生日期声明。 缺少声明时，无法进行授权，这种情况下会返回已完成的任务。 存在声明时，会计算用户的年龄。 如果用户满足此要求所定义的最低年龄，则可以认为授权成功。 授权成功后，会调用 `context.Succeed`，使用满足的要求作为其唯一参数。
 
-### <a name="use-a-handler-for-multiple-requirements"></a>用于多个要求的处理程序
+### <a name="use-a-handler-for-multiple-requirements"></a>有关多个要求使用一个处理程序
 
-下面是一对多关系的示例，其中的权限处理程序使用三个要求：
+以下是一个对多关系的权限的处理程序可以在其中处理三种不同类型的要求的示例：
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Handlers/PermissionHandler.cs?name=snippet_PermissionHandlerClass)]
 
-前面的代码遍历[PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;不包含要求的属性标记为成功。 如果用户具有读取权限，他或她必须是所有者或发起人访问请求的资源。 如果用户已编辑或删除权限，他或她必须所有者才能访问请求的资源。 授权成功后，会调用 `context.Succeed`，使用满足的要求作为其唯一参数。
+前面的代码会遍历[PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;不包含要求的属性标记为成功。 有关`ReadPermission`要求，用户必须是所有者或主办方来访问所请求的资源。 情况下`EditPermission`或`DeletePermission`要求、 他或她必须是所有者才能访问请求的资源。
 
 <a name="security-authorization-policies-based-handler-registration"></a>
 
@@ -80,7 +80,7 @@ ms.locfileid: "36277977"
 
 * 处理程序通常不需要处理失败，因为同一要求的其他处理程序可能会成功。
 
-* 若要确保失败，即使其他要求处理程序成功，调用`context.Fail`。
+* 若要保证失败，即使其他要求处理程序会成功，请调用`context.Fail`。
 
 设置为 `false` 时，[InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 （在 ASP.NET Core 1.1 及更高版本中提供）会在已调用 `context.Fail` 的情况下不执行处理程序。 `InvokeHandlersAfterFailure` 默认为 `true`，这种情况下会调用所有处理程序。 这样要求以产生副作用，例如日志记录，这些始终发生即使`context.Fail`已在另一个处理程序调用。
 
@@ -104,7 +104,7 @@ ms.locfileid: "36277977"
 
 请确保这两个处理程序[已注册](xref:security/authorization/policies#security-authorization-policies-based-handler-registration)。 当策略评估 `BuildingEntryRequirement` 时，如果有一个处理程序成功，则策略评估成功。
 
-## <a name="using-a-func-to-fulfill-a-policy"></a>使用 func 来实现策略
+## <a name="using-a-func-to-fulfill-a-policy"></a>使用 func 满足策略
 
 有些情况下，策略很容易用代码实现。 可以在通过 `Func<AuthorizationHandlerContext, bool>` 策略生成器配置策略时提供 `RequireAssertion`。
 
