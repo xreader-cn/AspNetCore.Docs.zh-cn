@@ -5,14 +5,14 @@ description: 了解集成测试如何在基础结构级别（包括数据库、�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 01/11/2019
 uid: test/integration-tests
-ms.openlocfilehash: 9729925c89c212bb6e6fac1a484b6288697afe57
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 0f919d7715a26f1efdb37d35b047a7050e46a272
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450744"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249511"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>在 ASP.NET Core 中的集成测试
 
@@ -72,9 +72,9 @@ ms.locfileid: "52450744"
 
 1. SUT 的 web 主机配置。
 1. 创建测试服务器客户端以将请求提交到应用程序。
-1. *排列*执行测试步骤： 测试应用程序准备请求。
-1. *Act*执行测试步骤： 客户端提交该请求并接收响应。
-1. *Assert*执行测试步骤：*实际*响应中进行验证*传递*或者*失败*基于*预期*响应。
+1. *排列*执行测试步骤：测试应用程序准备请求。
+1. *Act*执行测试步骤：客户端提交该请求并接收响应。
+1. *Assert*执行测试步骤：*实际*响应中进行验证*传递*或*失败*基于*预期*响应。
 1. 过程持续进行的所有测试执行。
 1. 报告测试结果。
 
@@ -114,7 +114,7 @@ ms.locfileid: "52450744"
 
 [WebApplicationFactory&lt;TEntryPoint&gt; ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)用来创建[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)集成测试。 `TEntryPoint` 通常是 SUT 的入口点类`Startup`类。
 
-测试类将实现*类装置*接口 (`IClassFixture`) 表明类包含测试以及在测试类中提供共享的对象实例。
+测试类将实现*类装置*接口 ([IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)) 表明类包含测试以及在测试类中提供共享的对象实例。
 
 ### <a name="basic-test-of-app-endpoints"></a>基本应用程序终结点的测试
 
@@ -151,7 +151,7 @@ Web 主机配置可以通过继承创建独立的测试类于`WebApplicationFact
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
-   数据库在种子设定[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/integration-tests/samples)由执行`InitializeDbForTests`方法。 中介绍了方法[集成测试示例： 测试应用程序的组织](#test-app-organization)部分。
+   数据库在种子设定[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/integration-tests/samples)由执行`InitializeDbForTests`方法。 中介绍了方法[集成测试示例：测试应用程序的组织](#test-app-organization)部分。
 
 2. 使用自定义`CustomWebApplicationFactory`测试类中。 下面的示例使用中的工厂`IndexPageTests`类：
 
@@ -173,9 +173,9 @@ Web 主机配置可以通过继承创建独立的测试类于`WebApplicationFact
 
 * `GetDocumentAsync` &ndash; 接收[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) ，并返回`IHtmlDocument`。 `GetDocumentAsync` 使用工厂，用于准备*虚拟响应*根据原始`HttpResponseMessage`。 有关详细信息，请参阅[AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
 * `SendAsync` 扩展方法`HttpClient`compose [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) ，并调用[SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)以将请求提交到 SUT。 有关重载`SendAsync`接受 HTML 窗体 (`IHtmlFormElement`) 和以下：
-  - 提交窗体的按钮 (`IHtmlElement`)
-  - 窗体值集合 (`IEnumerable<KeyValuePair<string, string>>`)
-  - 提交按钮 (`IHtmlElement`) 和窗体值 (`IEnumerable<KeyValuePair<string, string>>`)
+  * 提交窗体的按钮 (`IHtmlElement`)
+  * 窗体值集合 (`IEnumerable<KeyValuePair<string, string>>`)
+  * 提交按钮 (`IHtmlElement`) 和窗体值 (`IEnumerable<KeyValuePair<string, string>>`)
 
 > [!NOTE]
 > [AngleSharp](https://anglesharp.github.io/)第三方分析用于演示目的，在本主题和示例应用程序中的库。 AngleSharp 不受支持或所需的集成测试的 ASP.NET Core 应用。 其他分析器可以使用，如[Html 灵活性包 (HAP)](http://html-agility-pack.net/)。 另一种方法是编写代码来直接处理防伪系统的请求验证令牌和防伪 cookie。

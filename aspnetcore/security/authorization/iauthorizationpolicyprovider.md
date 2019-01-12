@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2018
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: fdd8f9232c4332aa8307b9dbdfba6af48dfafa72
-ms.sourcegitcommit: 317f9be24db600499e79d25872d743af74bd86c0
+ms.openlocfilehash: ef3e81da6fb9e2e332b553607be35fcd79e9362d
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/02/2018
-ms.locfileid: "48045492"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249368"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>在 ASP.NET Core 中使用 IAuthorizationPolicyProvider 的自定义授权策略提供程序 
 
@@ -25,7 +25,7 @@ ms.locfileid: "48045492"
 * （适用于不同的房间号或年龄，例如） 使用了大量的策略，因此它不适合将与每个单个授权策略添加`AuthorizationOptions.AddPolicy`调用。
 * 在运行时基于外部数据源 （如数据库） 中的信息创建策略或通过其他机制动态确定授权要求。
 
-[查看或下载示例代码](https://github.com/aspnet/AuthSamples/tree/master/samples/CustomPolicyProvider)从[aspnet/AuthSamples GitHub 存储库](https://github.com/aspnet/AuthSamples)。 Aspnet/AuthSamples 存储库 ZIP 文件下载。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/AuthSamples/)从[AspNetCore GitHub 存储库](https://github.com/aspnet/AspNetCore)。 Aspnet/AuthSamples 存储库 ZIP 文件下载。
 解压缩*AuthSamples master.zip*文件。 导航到*示例/CustomPolicyProvider*项目文件夹。
 
 ## <a name="customize-policy-retrieval"></a>自定义策略检索
