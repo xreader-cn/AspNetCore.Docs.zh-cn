@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/10/2018
 uid: tutorials/first-web-api
-ms.openlocfilehash: c2b4dcddd5332330cd6e6abe7d3a12697cde845e
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 03936ee74836c7b214cb3dc4023a6e3c252f2a26
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381999"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207442"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>教程：使用 ASP.NET Core MVC 创建 Web API
 
@@ -311,7 +311,7 @@ ms.locfileid: "53381999"
 
 正如 [[HttpPost]](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) 属性所指示，前面的代码是 HTTP POST 方法。 该方法从 HTTP 请求正文获取待办事项的值。
 
-`CreatedAtRoute` 方法：
+`CreatedAtAction` 方法：
 
 * 返回 201 响应。 HTTP 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。
 * 向响应添加位置标头。 位置标头指定新建的待办事项的 URI。 有关详细信息，请参阅[创建的 10.2.2 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
@@ -398,7 +398,7 @@ ms.locfileid: "53381999"
 
 在本部分中，添加了使用 jQuery 调用 Web API 的 HTML 页面。 jQuery 启动请求，并用 API 响应中的详细信息更新页面。
 
-配置应用[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[启用默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)：
+配置应用[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[启用默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)：
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
