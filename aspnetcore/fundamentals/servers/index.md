@@ -4,14 +4,14 @@ author: guardrex
 description: 发现适用于 ASP.NET Core 的 Web 服务器 Kestrel 和 HTTP.sys。 了解如何选择服务器以及何时使用反向代理服务器。
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/11/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 2c209942ed219b6d6ca309d8aba94b264d421158
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 4210d67397c85a1608f79fc4ed9d283521356226
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637737"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249485"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -48,6 +48,8 @@ ASP.NET Core 模块：
   * 加载 [CoreCLR](/dotnet/standard/glossary#coreclr)。
   * 调用 `Program.Main`。
 * 处理 IIS 本机请求的生存期。
+
+定目标到 .NET Framework 的 ASP.NET Core 应用不支持进程内托管模型。
 
 下图说明了 IIS、ASP.NET Core 模块和进程内托管的应用之间的关系：
 
