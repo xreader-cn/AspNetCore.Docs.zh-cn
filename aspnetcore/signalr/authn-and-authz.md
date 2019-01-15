@@ -30,11 +30,11 @@ ms.locfileid: "53284406"
 
 Cookie 是特定于浏览器的方法，将发送访问令牌，但非浏览器客户端可以向他们发送。 使用时[.NET 客户端](xref:signalr/dotnet-client)，则`Cookies`属性可以配置在`.WithUrl`调用，以提供一个 cookie。 但是，使用 cookie 身份验证从.NET 客户端要求提供要交换的 cookie 身份验证数据的 API 应用。
 
-### <a name="bearer-token-authentication"></a>持有者令牌身份验证
+### <a name="bearer-token-authentication"></a>基于令牌的身份验证
 
-客户端可以提供访问令牌而不是使用 cookie。 服务器验证该令牌，并使用它来标识用户。 仅在建立连接时，才执行此验证。 连接的生命周期，服务器不会自动重新验证令牌吊销检查。
+客户端可以提供访问令牌而不是使用 cookie。 服务器验证该令牌，并使用它来标识用户。 仅在建立连接时，才执行此验证。 连接开启后，服务不会自动检查令牌是否过期。
 
-在服务器上，使用配置持有者令牌身份验证[JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)。
+在服务端，使用[JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置基于令牌的身份验证。。
 
 在 JavaScript 客户端，该令牌可以使用提供[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项。
 
