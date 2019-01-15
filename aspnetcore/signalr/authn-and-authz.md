@@ -22,7 +22,7 @@ ms.locfileid: "53284406"
 
 ## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>连接到的 SignalR hub 的用户进行身份验证
 
-可与 SignalR [ASP.NET Core 身份验证](xref:security/authentication/identity)若要将用户与每个连接相关联。 在中心，可以从访问身份验证数据[ `HubConnectionContext.User` ](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性。 身份验证允许中心与用户关联的所有连接上调用方法 (请参阅[SignalR 中管理用户和组](xref:signalr/groups)有关详细信息)。 多个连接可能包含单个用户相关联。
+可与 SignalR [ASP.NET Core 身份验证](xref:security/authentication/identity)若要将用户与每个连接相关联。 在中心，可以从访问身份验证数据[ `HubConnectionContext.User` ](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性。 身份验证允许中心与用户关联的所有连接上调用方法 (请参阅[SignalR 中管理用户和组](xref:signalr/groups)有关详细信息)。 单个用户可能有多个有效的链接信息。
 
 ### <a name="cookie-authentication"></a>Cookie 身份验证
 
