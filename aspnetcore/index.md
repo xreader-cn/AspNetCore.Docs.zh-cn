@@ -19,7 +19,7 @@ ms.locfileid: "53335294"
 
 ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/home)框架，用于生成基于云且连接 Internet 的新式应用程序。 使用 ASP.NET Core，您可以：
 
-* 建置 Web 应用程序和服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
+* 创建 Web 应用程序和服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
 * 在 Windows、macOS 和 Linux 上使用喜爱的开发工具。
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
@@ -62,7 +62,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 面向 .NET Core 有以下几个优势，并且这些优势会随着每次发布增加。 与 .NET Framework 相比，.NET Core 的部分优势包括：
 
 * 跨平台。 在 macOS、Linux 和 Windows 上运行。
-* 提高的性能
+* 增强的性能
 * 并行版本控制
 * 新 API
 * 开源
