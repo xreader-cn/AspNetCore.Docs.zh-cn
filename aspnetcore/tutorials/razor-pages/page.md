@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: acfc446732803c67714943fe3e5b7a31055ebcd7
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 2b68523ac84596bda2914d9c348ddea8c7ea9465
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862000"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207377"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -57,6 +57,12 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 
 `@model` 指令指定传递给 Razor 页面的模型类型。 在前面的示例中，`@model` 行使 `PageModel` 派生的类可用于 Razor 页面。 在页面上的 `@Html.DisplayNameFor` 和 `@Html.DisplayFor` [HTML 帮助程序](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers)中使用该模型。
+
+### <a name="the-layout-page"></a>布局页
+
+选择菜单链接（“RazorPagesMovie”、“主页”和“隐私”）。 每页显示相同的菜单布局。 菜单布局是在 Pages/Shared/_Layout.cshtml 文件中实现。 打开 Pages/Shared/_Layout.cshtml 文件。
+
+[布局](xref:mvc/views/layout)模板使你能够在一个位置指定网站的 HTML 容器布局，然后将它应用到网站中的多个页面。 查找 `@RenderBody()` 行。 `RenderBody` 是显示所创建的全部页面专用视图的占位符，已包装在布局页中。 例如，如果选择“隐私”链接，Pages/Privacy.cshtml 视图在 `RenderBody` 方法中呈现。
 
 <a name="vd"></a>
 ### <a name="viewdata-and-layout"></a>ViewData 和布局
@@ -169,4 +175,4 @@ Visual Studio for Mac 以用于标记帮助程序的特殊加粗字体显示 `<f
 
 > [!div class="step-by-step"]
 > [上一篇：添加模型](xref:tutorials/razor-pages/model)
-> [下一篇：数据库](xref:tutorials/razor-pages/sql)
+> [下一步：数据库](xref:tutorials/razor-pages/sql)

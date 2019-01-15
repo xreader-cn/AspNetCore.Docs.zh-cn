@@ -5,18 +5,18 @@ description: 了解如何在 ASP.NET Core 中使用控制器方法、视图和 D
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: e6bdaec6dfe681582a54bd39ce1c76bebe6f5fb2
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: cd1b0f2ccffaa660f137b8d739933e56018f2702
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997248"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249407"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core 中的控制器方法和视图
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-我们的电影应用有个不错的开始，但是展示效果还不够理想。 我们不希望看到时间（如下图所示的 12:00:00 AM），并且“ReleaseDate”应为两个词。
+电影应用的开头不错，但展示效果不理想，例如，ReleaseDate 应为两个词。
 
 ![索引视图：Release Date 为一个词（没有空格），每个电影发行日期都显示时间中午 12 点](working-with-sql/_static/m55.png)
 

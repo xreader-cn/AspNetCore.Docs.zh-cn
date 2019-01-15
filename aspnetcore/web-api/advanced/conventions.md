@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 481e3810f1e1aca40e0ee1ce3da6c67dc9d841f4
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 892fb8898c78a1645c766544715a8256462207c6
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425102"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249381"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
@@ -49,6 +49,8 @@ ASP.NET Core MVC 2.2 及更高版本在 `Microsoft.AspNetCore.Mvc.DefaultApiConv
     [ProducesResponseType(404)]
     [ProducesResponseType(400)]
     ```
+
+若要详细了解 `[ProducesDefaultResponseType]`，请参阅[默认响应](https://swagger.io/docs/specification/describing-responses/#default)。
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于控制器 &mdash; 将指定约定类型应用于控制器上的所有操作。 约定方法都带有提示，可确定要向其应用约定方法的操作。 有关提示的详细信息，请参阅[创建 Web API 约定](#create-web-api-conventions)）。
 

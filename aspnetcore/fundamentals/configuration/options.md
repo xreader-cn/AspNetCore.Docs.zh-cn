@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何使用选项模式来表示 ASP.NET Core 应用中的相关设置组。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 12/29/2018
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 0e3784de18be16e3217a015dd94f1b43b6621c1c
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 20365a078327d76693a40fa79a4a594e29e0901c
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577885"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099242"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core 中的选项模式
 
@@ -217,7 +217,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 包含 <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1> 的命名选项支持已作为示例 &num;6 在示例应用中进行了演示。
 
-命名选项支持允许应用在命名选项配置之间进行区分。 在示例应用中，命名选项是使用 <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*> 声明的。 `Configure` 调用了扩展方法 <xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*> 方法：
+命名选项支持允许应用在命名选项配置之间进行区分。 在示例应用中，命名选项通过 [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) 进行声明，其调用扩展方法 [ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*)：
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 

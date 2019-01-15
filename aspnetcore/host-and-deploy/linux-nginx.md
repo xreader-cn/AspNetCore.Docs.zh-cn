@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/20/2018
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 534c62c127e685af9c6076932943def25bd3ac06
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 24973e7bedcb219ac411948db8aa27d7219eac31
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997326"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099281"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -68,7 +68,7 @@ dotnet publish --configuration Release
 
 ### <a name="use-a-reverse-proxy-server"></a>使用反向代理服务器
 
-Kestrel 非常适合从 ASP.NET Core 提供动态内容。 但是，Web 服务功能不像服务器（如 IIS、Apache 或 Nginx）那样功能丰富。 反向代理服务器可以从 HTTP 服务器卸载服务静态内容、缓存请求、压缩请求和 SSL 终端等工作。 反向代理服务器可能驻留在专用计算机上，也可能与 HTTP 服务器一起部署。
+Kestrel 非常适合从 ASP.NET Core 提供动态内容。 但是，Web 服务功能不像服务器（如 IIS、Apache 或 Nginx）那样功能丰富。 反向代理服务器可以卸载 HTTP 服务器的工作负载，如提供静态内容、缓存请求、压缩请求和 HTTPS 终端。 反向代理服务器可能驻留在专用计算机上，也可能与 HTTP 服务器一起部署。
 
 鉴于此指南的目的，使用 Nginx 的单个实例。 它与 HTTP 服务器一起运行在同一服务器上。 根据要求，可以选择不同的设置。
 
@@ -349,7 +349,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 用其他必需模块配置服务器。 请考虑使用 [ModSecurity](https://www.modsecurity.org/) 等 Web 应用防火墙来加强对应用的保护。
 
-#### <a name="configure-ssl"></a>配置 SSL
+#### <a name="https-configuration"></a>HTTPS 配置
 
 * 通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 `443` 上的 HTTPS 流量。
 
@@ -357,7 +357,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 * 添加 `HTTP Strict-Transport-Security` (HSTS) 标头可确保由客户端发起的所有后续请求都通过 HTTPS。
 
-* 如果以后会禁用 SSL，则不要添加 HSTS 标头或选择相应的 `max-age`。
+* 如果以后会禁用 HTTPS，请勿添加 HSTS 头或选择相应的 `max-age`。
 
 添加 /etc/nginx/proxy.conf 配置文件：
 

@@ -5,12 +5,12 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: fc08efa433f688a0b9009aed35fdee2b0c228619
-ms.sourcegitcommit: e12f45ddcbe99102a74d4077df27d6c0ebba49c1
+ms.openlocfilehash: f1e0d91b27df4af7cbfb6f2547c94c0370c65d0d
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2018
-ms.locfileid: "39063294"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207497"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
@@ -20,7 +20,7 @@ ms.locfileid: "39063294"
 
 本教程使用现有 Web API，它具有两个终结点：分别返回总和和产品。 该产品方法有一个 bug，本教程已修复。
 
-下载[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp（一种 ASP.NET Core Web API）和 WebAppTests（Web API 的单元测试）。
+下载[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp (ASP.NET Core Web API) 和 WebAppTests（用于 Web API 的单元测试）。
 
 在命令行界面中，导航到 WebApp 文件夹。 运行下面的命令：
 
@@ -179,4 +179,4 @@ dotnet watch msbuild /t:Test
 
 ## <a name="dotnet-watch-in-github"></a>GitHub 中的 `dotnet-watch`
 
-`dotnet-watch` 是 GitHub [DotNetTools 存储库](https://github.com/aspnet/DotNetTools/tree/master/src/dotnet-watch)的一部分。
+`dotnet-watch` 是 GitHub [aspnet/AspNetCore 存储库](https://github.com/aspnet/AspNetCore/tree/master/src/Tools/dotnet-watch)的一部分。

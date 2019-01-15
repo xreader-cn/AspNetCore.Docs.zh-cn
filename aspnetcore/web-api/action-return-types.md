@@ -1,17 +1,17 @@
 ---
-title: ASP.NET Core Web API 中控制器操作的返回类型
+title: ASP.NET Core Web API 中的控制器操作返回类型
 author: scottaddie
 description: 了解在 ASP.NET Core Web API 中使用各种控制器操作方法返回类型的相关信息。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2018
+ms.date: 01/04/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: 84300eae4271c3ee4387be022c3576dc83e144eb
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 98d70e0379d353cff98a6d7a13f2dd00eb4da206
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207519"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098727"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 
@@ -60,7 +60,7 @@ ASP.NET Core 提供以下 Web API 控制器操作返回类型选项：
 
 [!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
 
-在上述操作中，当 `id` 代表的产品不在基础数据存储中时，则返回 404 状态代码。 调用 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 帮助方法作为 `return new NotFoundResult();` 的快捷方式。 如果产品确实存在，则返回代表有效负载的 `Product` 对象和状态代码 200。 调用 [Ok](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok) 帮助方法作为 `return new OkObjectResult(product);` 的快捷方式。
+在上述操作中，当 `id` 代表的产品不在基础数据存储中时，则返回 404 状态代码。 调用 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 帮助程序方法作为 `return new NotFoundResult();` 的快捷方式。 如果产品确实存在，则返回代表有效负载的 `Product` 对象和状态代码 200。 调用 [Ok](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok) 帮助程序方法作为 `return new OkObjectResult(product);` 的快捷方式。
 
 ### <a name="asynchronous-action"></a>异步操作
 
@@ -68,13 +68,18 @@ ASP.NET Core 提供以下 Web API 控制器操作返回类型选项：
 
 [!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-在上述操作中，模型验证失败时返回 400 状态代码，并且调用了 [BadRequest](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.badrequest) 帮助方法。 例如，以下模型指示请求必须提供 `Name` 属性和值。 因此，若请求中未能提供合适的 `Name`，则会导致模型验证失败。
+在上述代码中：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6)]
+* 如果项目说明包含“XYZ 小组件”，ASP.NET Core 运行时返回 400 状态代码 ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*))。
+* 在产品创建后，[CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) 方法生成 201 状态代码。 在此代码路径中，返回的对象是 `Product`。
 
-上述操作的其他已知返回代码是 201，由 [CreatedAtAction](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.createdataction) 帮助方法生成。 在此路径中，返回了 `Product` 对象。
+例如，以下模型指明请求必须包含 `Name` 和 `Description` 属性。 因此，如果没有在请求中提供 `Name` 和 `Description`，便会导致模型验证失败。
+
+[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
 
 ::: moniker range=">= aspnetcore-2.1"
+
+如果应用的是 ASP.NET Core 2.1 或更高版本中的 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，模型验证错误会导致 400 状态代码生成。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
 ## <a name="actionresultt-type"></a>ActionResult\<T> 类型
 
@@ -114,7 +119,12 @@ public ActionResult<IEnumerable<Product>> Get()
 
 [!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-如果模型验证失败，则调用 [BadRequest](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.badrequest#Microsoft_AspNetCore_Mvc_ControllerBase_BadRequest_Microsoft_AspNetCore_Mvc_ModelBinding_ModelStateDictionary_) 方法以返回 400 状态代码。 向它传递包含特定验证错误的 [ModelState](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.modelstate) 属性。 如果模型验证成功，则在数据库中创建产品。 返回 201 状态代码。
+在上述代码中：
+
+* 在以下情况下，ASP.NET Core 运行时返回 400 状态代码 ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*))：
+  * 已应用 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，且模型验证失败。
+  * 产品说明包含“XYZ 小组件”。
+* 在产品创建后，[CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) 方法生成 201 状态代码。 在此代码路径中，返回的对象是 `Product`。
 
 > [!TIP]
 > 从 ASP.NET Core 2.1 开始，使用 `[ApiController]` 特性修饰控制器类时，将启用操作参数绑定源推理。 复杂类型参数通过请求正文自动绑定。 因此，不会使用 [[FromBody]](/dotnet/api/microsoft.aspnetcore.mvc.frombodyattribute) 特性对前面操作中的 `product` 参数进行显示批注。

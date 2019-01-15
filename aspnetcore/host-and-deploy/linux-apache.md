@@ -6,12 +6,12 @@ ms.author: spboyer
 ms.custom: mvc
 ms.date: 12/20/2018
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 8c590743328885336498ca2446c618b13a7d2ce2
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 217dc840748ef33173ae6a8c001aee558864ec59
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997222"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099404"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -324,15 +324,15 @@ icmp-blocks:
 rich rules: 
 ```
 
-### <a name="ssl-configuration"></a>SSL 配置
+### <a name="https-configuration"></a>HTTPS 配置
 
-若要配置 Apache 用于 SSL，需使用 mod_ssl 模块。 安装了 httpd 模块时，也会安装了 mod_ssl 模块。 如果未安装，请使用 `yum` 将其添加到配置。
+若要为 Apache 配置 HTTPS，请使用 mod_ssl 模块。 安装了 httpd 模块时，也会安装了 mod_ssl 模块。 如果未安装，请使用 `yum` 将其添加到配置。
 
 ```bash
 sudo yum install mod_ssl
 ```
 
-若要强制使用 SSL，请安装 `mod_rewrite` 模块以启用 URL 重写：
+若要强制使用 HTTPS，请安装 `mod_rewrite` 模块以启用 URL 重写：
 
 ```bash
 sudo yum install mod_rewrite

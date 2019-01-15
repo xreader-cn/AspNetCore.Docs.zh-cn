@@ -5,12 +5,12 @@ description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 5267e5a49bb6ecdd4cef671989f111eae7a64ec4
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 321ffd6b0168d4befc950a58035d19561e879491
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381811"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249446"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -24,7 +24,7 @@ ms.locfileid: "53381811"
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_4)]
 
-上述代码返回 `View` 对象。 它使用视图模板对浏览器生成 HTML 响应。 类似上述 `Index` 方法的控制器方法（也称为操作方法）通常返回 [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult)（或派生自 `ActionResult` 的类），而非类似字符串的类型。
+上面的代码调用控制器的 <xref:Microsoft.AspNetCore.Mvc.Controller.View*> 方法。 它使用视图模板来生成 HTML 响应。 控制器方法（亦称为“操作方法”，如上面的 `Index` 方法）通常返回 <xref:Microsoft.AspNetCore.Mvc.IActionResult>（或派生自 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 的类），而不是 `string` 等类型。
 
 ## <a name="add-a-view"></a>添加视图
 
@@ -86,9 +86,9 @@ ms.locfileid: "53381811"
 
 [布局](xref:mvc/views/layout)模板使你能够在一个位置指定网站的 HTML 容器布局，然后将它应用到网站中的多个页面。 查找 `@RenderBody()` 行。 `RenderBody` 是显示创建的所有特定于视图的页面的占位符，已包装在布局页面中。 例如，如果选择“隐私”链接，Views/Home/Privacy.cshtml 视图将在 `RenderBody` 方法中呈现。
 
-## <a name="change-the-title-and-menu-link-in-the-layout-file"></a>更改布局文件中的标题和菜单链接
+## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>更改布局文件中的标题、页脚和菜单链接
 
-* 在标题元素中，将 `MvcMovie` 更改为 `Movie App`。
+* 在标题和页脚元素中，将 `MvcMovie` 更改为 `Movie App`。
 * 将定位点元素 `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` 更改为 `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`。
 
 下列标记显示了突出显示的更改：

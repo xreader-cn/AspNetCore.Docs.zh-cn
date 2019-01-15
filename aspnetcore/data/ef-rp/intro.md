@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: b66d20a46b29b6975512026fa940f7f9e50deeb5
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 868163ed621ef9818759efd72ed3d233dc958219
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425128"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249498"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -261,6 +261,8 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 在 Data 文件夹中，新建一个名为 DbInitializer.cs 的类文件，并添加以下代码：
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Intro)]
+
+注意:上面的代码对命名空间使用 `Models` (`namespace ContosoUniversity.Models`)，而不是 `Data`。 `Models` 与基架生成的代码一致。 有关详细信息，请参阅[此 GitHub 基架问题](https://github.com/aspnet/Scaffolding/issues/822)。
 
 该代码会检查数据库中是否存在任何学生。 如果 DB 中没有任何学生，则会使用测试数据初始化该 DB。 代码中使用数组存放测试数据而不是使用 `List<T>` 集合是为了优化性能。
 

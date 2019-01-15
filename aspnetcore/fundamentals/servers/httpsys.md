@@ -5,14 +5,14 @@ description: 了解 Windows 上适用于 ASP.NET Core 的 Web 服务器 HTTP.sys
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/03/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: a779fee53109d4c1cabb2005896e757f23467540
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 46538d256ae2c5f3b7e6c725fa8f29092759f69f
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637620"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098849"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -21,7 +21,7 @@ ms.locfileid: "53637620"
 [HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) 是仅在 Windows 上运行的[适用于 ASP.NET Core 的 Web 服务器](xref:fundamentals/servers/index)。 HTTP.sys 是 [Kestrel](xref:fundamentals/servers/kestrel) 服务器的替代选择，提供了一些 Kestrel 不提供的功能。
 
 > [!IMPORTANT]
-> HTTP.sys 与 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)不兼容，不能与 IIS 或 IIS Express 结合使用。
+> HTTP.sys 与 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)不兼容，无法与 IIS 或 IIS Express 结合使用。
 
 HTTP.sys 支持以下功能：
 
@@ -134,62 +134,133 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
 ### <a name="configure-windows-server"></a>配置 Windows Server
 
+1. 确定要为应用打开的端口，并使用 Windows 防火墙或 [PowerShell cmdlet](https://technet.microsoft.com/library/jj554906) 打开防火墙端口，以允许流量到达 HTTP.sys。 在部署到 Azure VM 时，在[网络安全组](/azure/virtual-network/security-overview)中打开端口。 在以下命令和应用配置中，使用的是端口 443。
+
+1. 如果需要，获取并安装 X.509 证书。
+
+   在 Windows 上，可使用 [New-SelfSignedCertificate PowerShell cmdlet](/powershell/module/pkiclient/new-selfsignedcertificate) 创建自签名证书。 有关不支持的示例，请参阅 [UpdateIISExpressSSLForChrome.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1)。
+
+   在服务器的“本地计算机” > “个人”存储中，安装自签名证书或 CA 签名证书。
+
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core**&ndash; 如果应用需要 .NET Core，请从 [.NET 所有下载](https://www.microsoft.com/net/download/all)获取并运行 .NET Core 安装程序。
-   * **.NET framework** &ndash; 如果应用要求 .NET Framework，请参阅 [.NET Framework：安装指南](/dotnet/framework/install/)，以查找安装说明。 安装所需的 .NET Framework。 最新 .NET Framework 的安装程序可从 [.NET 所有下载](https://www.microsoft.com/net/download/all)中找到。
+   * **.NET Core** &ndash; 如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Framework** &ndash; 如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
-2. 配置应用的 URL 和端口。
+   如果应用是[独立式部署](/dotnet/core/deploying/#framework-dependent-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
 
-   默认情况下，ASP.NET Core 绑定到 `http://localhost:5000`。 若要配置 URL 前缀和端口，选项包括使用：
+1. 在应用中配置 URL 和端口。
+
+   默认情况下，ASP.NET Core 绑定到 `http://localhost:5000`。 若要配置 URL 前缀和端口，可采用以下方法：
 
    * [UseUrls](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useurls)
    * `urls` 命令行参数
    * `ASPNETCORE_URLS` 环境变量
    * [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes)
 
-   下方的代码示例演示了如何使用 [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes)：
+   下面的代码示例展示了如何对端口 443 结合使用 [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes) 和服务器的本地 IP 地址 `10.0.0.4`：
 
-   [!code-csharp[](httpsys/sample/Program.cs?name=snippet1&highlight=11)]
+   [!code-csharp[](httpsys/sample_snapshot/Program.cs?name=snippet1&highlight=11)]
 
    `UrlPrefixes` 的一个优点是会为格式不正确的前缀立即生成一条错误消息。
 
-   `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。 有关 `UseUrls`、`urls` 和 `ASPNETCORE_URLS` 的详细信息，请参阅[在 ASP.NET Core 中托管](xref:fundamentals/host/index)主题。
+   `UrlPrefixes` 中的设置替代 `UseUrls`/`urls`/`ASPNETCORE_URLS` 设置。 因此，`UseUrls`、`urls` 和 `ASPNETCORE_URLS` 环境变量的一个优点是在 Kestrel 和 HTTP.sys 之间切换变得更加容易。 有关更多信息，请参见<xref:fundamentals/host/web-host>。
 
    HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
 
    > [!WARNING]
-   > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定可能会为应用带来安全漏洞。 此行为同时适用于强通配符和弱通配符。 使用显式主机名而不是通配符。 如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.mysub.com`）不具有此安全风险。 有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。
+   > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
 
-3. 预先注册 URL 前缀以绑定到 HTTP.sys，并设置 x.509 证书。
+1. 在服务器上预注册 URL 前缀。
 
-   如果未在 Windows 中预先注册 URL 前缀，请使用管理员特权运行应用。 唯一的例外是当使用端口号大于 1024 的 HTTP（而非 HTTPS）绑定到 localhost 时。 在这种情况下，无需使用管理员特权。
+   用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
-   1. 用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
+   使用 netsh.exe 工具为应用注册 URL：
 
-      以下示例显示了保留端口 80 和 443 的 URL 前缀的命令：
+   ```console
+   netsh http add urlacl url=<URL> user=<USER>
+   ```
 
-      ```console
-      netsh http add urlacl url=http://+:80/ user=Users
-      netsh http add urlacl url=https://+:443/ user=Users
-      ```
+   * `<URL>` &ndash; 完全限定的统一资源定位器 (URL)。 不要使用通配符绑定。 请使用有效主机名或本地 IP 地址。 URL 必须包含尾部反斜杠。
+   * `<USER>` &ndash; 指定用户名或用户组名称。
 
-      以下示例显示了如何分配 X.509 证书：
+   在以下示例中，服务器的本地 IP 地址是 `10.0.0.4`：
 
-      ```console
-      netsh http add sslcert ipport=0.0.0.0:443 certhash=MyCertHash_Here appid="{00000000-0000-0000-0000-000000000000}"
-      ```
+   ```console
+   netsh http add urlacl url=https://10.0.0.4:443/ user=Users
+   ```
 
-      *netsh.exe* 的参考文档：
+   在 URL 注册后，工具响应返回 `URL reservation successfully added`。
 
-      * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
-      * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+   若要删除已注册的 URL，请使用 `delete urlacl` 命令：
 
-   2. 如果需要，请创建自签名的 X.509 证书。
+   ```console
+   netsh http delete urlacl url=<URL>
+   ```
 
-      [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
+1. 在服务器上注册 X.509 证书。
 
-4. 打开防火墙端口以允许流量到达 HTTP.sys。 使用 *netsh.exe* 或 [PowerShell cmdlet](https://technet.microsoft.com/library/jj554906)。
+   使用 netsh.exe 工具为应用注册证书：
+
+   ```console
+   netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
+   ```
+
+   * `<IP>` &ndash; 指定绑定的本地 IP 地址。 不要使用通配符绑定。 请使用有效 IP 地址。
+   * `<PORT>` &ndash; 指定绑定的端口。
+   * `<THUMBPRINT>` &ndash; X.509 证书指纹。
+   * `<GUID>` &ndash; 开发人员生成的表示应用的 GUID，以供参考。
+
+   为了便于参考，将 GUID 作为包标记存储在应用中：
+
+   * 在 Visual Studio 中：
+     * 在“解决方案资源管理器”中，右键单击应用，并选择“属性”，以打开应用的项目属性。
+     * 选择“包”选项卡。
+     * 在“标记”字段中输入已创建的 GUID。
+   * 如果使用的不是 Visual Studio：
+     * 打开应用的项目文件。
+     * 使用已创建的 GUID，将 `<PackageTags>` 属性添加到新的或现有的 `<PropertyGroup>`：
+
+       ```xml
+       <PropertyGroup>
+         <PackageTags>9412ee86-c21b-4eb8-bd89-f650fbf44931</PackageTags>
+       </PropertyGroup>
+       ```
+
+   如下示例中：
+
+   * 服务器的本地 IP 地址是 `10.0.0.4`。
+   * 联机随机 GUID 生成器提供 `appid` 值。
+
+   ```console
+   netsh http add sslcert 
+       ipport=10.0.0.4:443 
+       certhash=b66ee04419d4ee37464ab8785ff02449980eae10 
+       appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
+   ```
+
+   在证书注册后，工具响应返回 `SSL Certificate successfully added`。
+
+   若要删除证书注册，请使用 `delete sslcert` 命令：
+
+   ```console
+   netsh http delete sslcert ipport=<IP>:<PORT>
+   ```
+
+   *netsh.exe* 的参考文档：
+
+   * [Netsh Commands for Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)（超文本传输协议 (HTTP) 的 Netsh 命令）
+   * [UrlPrefix Strings](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)（UrlPrefix 字符串）
+
+1. 运行应用。
+
+   结合使用 HTTP（而不是 HTTPS）和大于 1024 的端口号绑定到 localhost，无需管理员权限，即可运行应用。 对于其他配置（例如，使用本地 IP 地址或绑定到端口 443），必须有管理员权限才能运行应用。
+
+   应用在服务器的公共 IP 地址处响应。 此示例在 Internet 上的公共 IP 地址 `104.214.79.47` 处访问服务器。
+
+   此示例使用的是开发证书。 在绕过浏览器的不受信任证书警告后，页面安全加载。
+
+   ![显示应用索引页已加载的浏览器窗口](httpsys/_static/browser.png)
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 
@@ -197,6 +268,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
 ## <a name="additional-resources"></a>其他资源
 
+* [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
 * [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * <xref:fundamentals/host/index>

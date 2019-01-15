@@ -4,18 +4,18 @@ author: zuckerthoben
 description: 了解如何使用 NSwag 为 ASP.NET Core Web API 生成文档和帮助页面。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 12/30/2018
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 8af5bed1e042c4f6d83043b05084c51b3064a548
-ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
+ms.openlocfilehash: c03e7513edc3240f3f13f0c190e1ca9480e476af
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53595355"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098723"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag 和 ASP.NET Core 入门
 
-作者：[Christoph Nienaber](https://twitter.com/zuckerthoben) 和 [Rico Suter](https://rsuter.com)
+作者：[Christoph Nienaber](https://twitter.com/zuckerthoben)、[Rico Suter](https://rsuter.com) 和 [Dave Brock](https://twitter.com/daveabrock)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -29,27 +29,23 @@ ms.locfileid: "53595355"
 
 ::: moniker-end
 
-注册 NSwag 中间件，以便：
+NSwag 提供了下列功能：
 
-* 生成已实现的 Web API 的 Swagger 规范。
-* 为 Swagger UI 提供服务以浏览和测试 Web API。
+ * 能够使用 Swagger UI 和 Swagger 生成器。
+ * 灵活的代码生成功能。
 
-若要使用 [NSwag](https://github.com/RSuter/NSwag) ASP.NET Core 中间件，请安装 [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet 包。 此包包含用于生成 Swagger 规范、Swagger UI（v2 和 v3）和 [ReDoc UI](https://github.com/Rebilly/ReDoc) 并为其提供服务的中间件。
+借助 NSwag，无需使用现有 API。也就是说，可使用包含 Swagger 的第三方 API，并生成客户端实现。 使用 NSwag，可以加快开发周期，并轻松适应 API 更改。
 
-此外，强烈建议使用 NSwag 的代码生成功能。 请选择下列选项之一以使用代码生成功能：
+## <a name="register-the-nswag-middleware"></a>注册 NSwag 中间件
 
-* 使用 [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio)，这是一款 Windows 桌面应用，用于在 C# 和 TypeScript 中为 API 生成客户端代码。
-* 使用 [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) 或 [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) NuGet 包在项目中执行代码生成。
-* 使用[命令行](https://github.com/NSwag/NSwag/wiki/CommandLine)中的 NSwag。
-* 使用 [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) NuGet 包。
+注册 NSwag 中间件即可：
 
-## <a name="features"></a>功能
+ * 生成已实现的 Web API 的 Swagger 规范。
+ * 为 Swagger UI 提供服务以浏览和测试 Web API。
 
-使用 NSwag 的主要原因是它不仅能引入 Swagger UI 和 Swagger 生成器，还能利用灵活的代码生成功能。 无需现有API &mdash; 可使用包含 Swagger 的第三方 API 并让 NSwag 生成客户端实现。 无论哪种方式，开发周期都会加快，可以更轻松地适应 API 更改。
+若要使用 [NSwag](https://github.com/RSuter/NSwag) ASP.NET Core 中间件，请安装 [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet 包。 此包内的中间件可用于生成并提供Swagger 规范、Swagger UI（v2 和 v3）和 [ReDoc UI](https://github.com/Rebilly/ReDoc)。
 
-## <a name="package-installation"></a>包安装
-
-可使用以下方法添加 NuGet 包：
+若要安装 NSwag NuGet 包，请使用以下方法之一：
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -95,59 +91,75 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 ## <a name="add-and-configure-swagger-middleware"></a>添加并配置 Swagger 中间件
 
-在 `Startup` 类中导入以下命名空间：
+ 通过在 `Startup` 类中执行以下步骤，在 ASP.NET Core 应用中添加和配置 Swagger：
+
+* 导入下列命名空间：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_StartupConfigureImports)]
 
-在 `Startup.ConfigureServices` 方法中，注册所需的 Swagger 服务： 
+* 在 `ConfigureServices` 方法中，注册所需的 Swagger 服务：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_ConfigureServices&highlight=8)]
 
-在 `Startup.Configure` 方法中，启用中间件为生成的 Swagger 规范和 Swagger UI v3 提供服务：
+ * 在 `Configure` 方法中，启用中间件为生成的 Swagger 规范和 Swagger UI 提供服务：
 
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-10)]
+[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
-启动应用。 导航到 `http://localhost:<port>/swagger` 查看 Swagger UI。 导航到 `http://localhost:<port>/swagger/v1/swagger.json` 查看 Swagger 规范。
+ * 启动应用。 转到：
+   * `http://localhost:<port>/swagger`，以查看 Swagger UI。
+   * `http://localhost:<port>/swagger/v1/swagger.json`，以查看 Swagger 规范。
 
 ## <a name="code-generation"></a>代码生成
 
-### <a name="via-nswagstudio"></a>通过 NSwagStudio
+若要利用 NSwag 的代码生成功能，可选择以下选项之一：
 
-* 从官方 [GitHub 存储库](https://github.com/RSuter/NSwag/wiki/NSwagStudio)安装 NSwagStudio。
-* 启动 NSwagStudio。 在“Swagger 规范 URL”文本框中输入 swagger.json 文件 URL，然后单击“创建本地副本”按钮。
-* 选择“CSharp 客户端”作为客户端输出类型。 其他选项包括“TypeScript 客户端”和“CSharp Web API 控制器”。 使用 Web API 控制器基本上是一种反向生成。 它使用服务的规范来重新生成服务。
-* 单击“生成输出”按钮。 随即生成完整的 TodoApi.NSwag 项目 C# 客户端实现。 单击“输出”部分的“CSharp 客户端”选项卡，查看生成的客户端代码：
+ * [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) &ndash; 一款 Windows 桌面应用，用于以 C# 或 TypeScript 生成 API 客户端代码。
+ * [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) 或 [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) NuGet 包 - 用于在项目中生成代码。
+* 通过[命令行](https://github.com/NSwag/NSwag/wiki/CommandLine)使用 NSwag。
+ * [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) NuGet 包。
+
+
+### <a name="generate-code-with-nswagstudio"></a>使用 NSwagStudio 生成代码
+
+* 按照 [NSwagStudio GitHub 存储库](https://github.com/RSuter/NSwag/wiki/NSwagStudio)中的说明操作，以安装 NSwagStudio。
+ * 启动 NSwagStudio，并在“Swagger 规范 URL”文本框中输入 swagger.json 文件 URL。 例如，*http://localhost:44354/swagger/v1/swagger.json*。
+* 单击“创建本地副本”按钮，以生成 Swagger 规范的 JSON 表示形式。
+
+  ![创建 Swagger 规范的本地副本](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
+
+ * 在“输出”区域中，单击选中“C# 客户端”复选框。 也可以选中“TypeScript 客户端”或“C# Web API 控制器”，具体视项目而定。 如果选中“C# Web API 控制器”，服务规范会重新生成服务，起到反向生成的作用。
+* 单击“生成输出”，以生成 TodoApi.NSwag 项目的完整 C# 客户端实现。 若要查看生成的客户端代码，请单击“C# 客户端”选项卡：
 
 ```csharp
 //----------------------
 // <auto-generated>
-//     Generated using the NSwag toolchain v11.17.3.0 (NJsonSchema v9.10.46.0 (Newtonsoft.Json v9.0.0.0)) (http://NSwag.org)
+//     Generated using the NSwag toolchain v12.0.9.0 (NJsonSchema v9.13.10.0 (Newtonsoft.Json v11.0.0.0)) (http://NSwag.org)
 // </auto-generated>
 //----------------------
 
 namespace MyNamespace
 {
-    #pragma warning disable // Disable all warnings
+    #pragma warning disable
 
-    [System.CodeDom.Compiler.GeneratedCode("NSwag",
-        "11.17.3.0 (NJsonSchema v9.10.46.0 (Newtonsoft.Json v9.0.0.0))")]
-    public partial class TodoClient
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "12.0.9.0 (NJsonSchema v9.13.10.0 (Newtonsoft.Json v11.0.0.0))")]
+    public partial class TodoClient 
     {
-        private string _baseUrl = "http://localhost:50499";
+        private string _baseUrl = "https://localhost:44354";
+        private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public TodoClient()
+    
+        public TodoClient(System.Net.Http.HttpClient httpClient)
         {
-            _settings = new System.Lazy
-                <Newtonsoft.Json.JsonSerializerSettings>(() =>
+            _httpClient = httpClient; 
+            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
         }
-
-        public string BaseUrl
+    
+        public string BaseUrl 
         {
             get { return _baseUrl; }
             set { _baseUrl = value; }
@@ -157,46 +169,33 @@ namespace MyNamespace
 ```
 
 > [!TIP]
-> 基于“CSharp 客户端”选项卡的“设置”选项卡中定义的设置，生成 C# 客户端代码。修改设置以执行任务，例如默认命名空间重命名和同步方法生成。
+ > C# 客户端代码的生成依据是，“设置”选项卡中的选择。修改设置以执行任务，例如默认命名空间重命名和同步方法生成。
 
-* 将生成的 C# 代码复制到客户端项目的某个文件中（例如，[Xamarin.Forms](/xamarin/xamarin-forms/) 应用）。
+ * 将生成的 C# 代码复制到使用 API 的客户端项目内的文件中。
 * 开始使用 Web API：
 
 ```csharp
-var todoClient = new TodoClient();
+ var todoClient = new TodoClient();
 
 // Gets all to-dos from the API
-var allTodos = await todoClient.GetAllAsync();
+ var allTodos = await todoClient.GetAllAsync();
 
-// Create a new TodoItem, and save it in the API
+ // Create a new TodoItem, and save it via the API.
 var createdTodo = await todoClient.CreateAsync(new TodoItem());
 
 // Get a single to-do by ID
 var foundTodo = await todoClient.GetByIdAsync(1);
 ```
 
-> [!NOTE]
-> 可将基 URL 和/或 HTTP 客户端注入 API 客户端。 最佳做法是始终[重复使用 HttpClient](https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/)。
-
-### <a name="other-ways-to-generate-client-code"></a>生成客户端代码的其他方法
-
-可通过其他更适合你的工作流的方式生成客户端代码：
-
-* [MSBuild](https://www.nuget.org/packages/NSwag.MSBuild/)
-
-* [在代码中生成](https://github.com/NSwag/NSwag/wiki/SwaggerToCSharpClientGenerator)
-
-* [通过 T4 模板生成](https://github.com/NSwag/NSwag/wiki/T4)
-
-## <a name="customize"></a>自定义
+## <a name="customize-api-documentation"></a>自定义 API 文档
 
 Swagger 提供用于记录对象模型以便于使用 Web API 的选项。
 
 ### <a name="api-info-and-description"></a>API 信息和说明
 
-在 `Startup.Configure` 方法中，传递给 `UseSwagger` 方法的配置操作会添加诸如作者、许可证和说明的信息：
+在 `Startup.ConfigureServices` 方法中，传递给 `AddSwaggerDocument` 方法的配置操作会添加诸如作者、许可证和说明的信息：
 
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup2.cs?name=snippet_UseSwagger)]
+[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup2.cs?name=snippet_AddSwaggerDocument)]
 
 Swagger UI 显示版本的信息：
 
@@ -204,7 +203,7 @@ Swagger UI 显示版本的信息：
 
 ### <a name="xml-comments"></a>XML 注释
 
-可使用以下方法启用 XML 注释：
+ 若要启用 XML 注释，请执行以下步骤：
 
 # <a name="visual-studiotabvisual-studio-xml"></a>[Visual Studio](#tab/visual-studio-xml/)
 
@@ -264,11 +263,13 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range="<= aspnetcore-2.0"
 
-NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，建议使用 [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) 作为 Web API 操作的返回类型。 因此，NSwag 无法推断正在执行的操作和返回的结果。 请看下面的示例：
+ 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [IActionResult](xref:Microsoft.AspNetCore.Mvc.IActionResult)，因此无法推断正在执行的操作和返回的内容。
+
+请看下面的示例：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-上述操作返回 `IActionResult`，但在操作内部返回 [CreatedAtRoute](/dotnet/api/system.web.http.apicontroller.createdatroute) 或 [BadRequest](/dotnet/api/system.web.http.apicontroller.badrequest)。 使用数据注释告知客户端此操作会返回哪些 HTTP 状态代码。 使用以下属性修饰该操作：
+ 上述操作返回 `IActionResult`，但在操作内部返回 [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) 或 [BadRequest](xref:System.Web.Http.ApiController.BadRequest*)。 使用数据注释告知客户端，已知此操作会返回哪些 HTTP 状态代码。 使用以下属性修饰该操作：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
@@ -276,16 +277,20 @@ NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，建
 
 ::: moniker range=">= aspnetcore-2.1"
 
-NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，建议的 Web API 操作返回类型为 [ActionResult\<T>](/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1)。 因此，NSwag 仅可以推断 `T` 定义的返回类型。 无法推断操作中其他可能的返回类型。 请看下面的示例：
+ 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。 
+
+请看下面的示例：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-上述操作将返回 `ActionResult<T>`。 在操作中，它将返回 [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*)。 由于使用 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性修饰控制器，所以也可能出现 [BadRequest](xref:System.Web.Http.ApiController.BadRequest*) 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。 使用数据注释告知客户端此操作会返回哪些 HTTP 状态代码。 使用以下属性修饰该操作：
+上述操作将返回 `ActionResult<T>`。 在操作中，它将返回 [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*)。 由于使用 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性修饰控制器，所以也可能出现 [BadRequest](xref:System.Web.Http.ApiController.BadRequest*) 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。 使用数据注释告知客户端，已知此操作会返回哪些 HTTP 状态代码。 使用以下属性修饰该操作：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-在 ASP.NET Core 2.2 或更高版本中，约定可以用作使用 `[ProducesResponseType]` 显式修饰各操作的替代方法。 有关更多信息，请参见<xref:web-api/advanced/conventions>。
+在 ASP.NET Core 2.2 或更高版本中，可使用约定，而不是使用 `[ProducesResponseType]` 显式修饰各操作。 有关更多信息，请参见<xref:web-api/advanced/conventions>。
 
 ::: moniker-end
 
-Swagger 生成器现在可准确地描述此操作，且生成的客户端知道调用终结点时收到的内容。 强烈建议使用这些属性来修饰所有操作。 有关 API 操作应返回的 HTTP 响应的指导原则，请参阅 [RFC 7231 规范](https://tools.ietf.org/html/rfc7231#section-4.3)。
+ Swagger 生成器现在可准确地描述此操作，且生成的客户端知道调用终结点时收到的内容。 建议使用这些属性来修饰所有操作。 
+
+有关 API 操作应返回的 HTTP 响应的指导原则，请参阅 [RFC 7231 规范](https://tools.ietf.org/html/rfc7231#section-4.3)。
