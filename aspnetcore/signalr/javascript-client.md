@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/javascript-client
-ms.openlocfilehash: cd64a65889227d84615768bc3d8fddcd362fbba4
-ms.sourcegitcommit: eef99d14d96dc8c3c1bb0e2c4cb14da152f8a952
+ms.openlocfilehash: acdb4d1a59d980010fe89fe381190425cbb12901
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/07/2018
-ms.locfileid: "53022474"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341445"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -60,7 +60,7 @@ npm 安装中的包内容 *node_modules\\@aspnet\signalr\dist\browser* 文件夹
 JavaScript 客户端上中心通过调用公共方法[调用](/javascript/api/%40aspnet/signalr/hubconnection#invoke)方法[HubConnection](/javascript/api/%40aspnet/signalr/hubconnection)。 `invoke`方法接受两个参数：
 
 * 集线器方法的名称。 在以下示例中，中心上的方法名称是`SendMessage`。
-* 在集线器方法中定义的任何参数。 在以下示例中，参数名称是`message`。
+* 在集线器方法中定义的任何参数。 在以下示例中，参数名称是`message`。 示例代码使用的除 Internet Explorer 的所有主要浏览器的当前版本中支持的箭头函数语法。
 
   [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
 

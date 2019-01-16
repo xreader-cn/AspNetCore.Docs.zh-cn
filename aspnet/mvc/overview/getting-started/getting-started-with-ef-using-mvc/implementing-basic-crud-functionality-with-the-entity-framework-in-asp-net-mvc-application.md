@@ -1,40 +1,49 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
-title: 在 ASP.NET MVC 应用程序中实现基本的 CRUD 功能与实体框架 |Microsoft Docs
+title: 教程：在 ASP.NET MVC 中实现与实体框架 CRUD 功能 |Microsoft Docs
+description: 查看和自定义创建、 读取、 更新、 删除 (CRUD) 代码，可在控制器和视图中自动创建的 MVC 基架。
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
 ms.author: riande
-ms.date: 10/05/2015
+ms.date: 01/11/2019
+ms.topic: tutorial
 ms.assetid: a2f70ba4-83d1-4002-9255-24732726c4f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 08b5d38b38d3323e347f0f849ccc0c25fe49efb9
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 9c6f8f3a2ffc0a9c5e15111ae47c331dab24ff43
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912643"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341714"
 ---
-<a name="implementing-basic-crud-functionality-with-the-entity-framework-in-aspnet-mvc-application"></a>在 ASP.NET MVC 应用程序中实现基本的 CRUD 功能与实体框架
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-implement-crud-functionality-with-the-entity-framework-in-aspnet-mvc"></a>教程：在 ASP.NET MVC 中实现与实体框架 CRUD 功能
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
-在上一个教程中，创建了一个使用 Entity Framework 和 SQL Server LocalDB 来存储和显示数据的 MVC 应用程序。 在本教程中，将查看和自定义创建、 读取、 更新、 删除 (CRUD) MVC 基架自动为你创建在控制器和视图中的代码。
+在中[前一篇教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)，创建的存储和显示数据使用 Entity Framework (EF) 6 和 SQL Server LocalDB 的 MVC 应用程序。 在本教程中，您查看和自定义创建、 读取、 更新、 删除 (CRUD) MVC 基架自动为你创建在控制器和视图中的代码。
 
 > [!NOTE]
-> 为了在控制器和数据访问层之间创建一个抽象层，常见的做法是实现存储库模式。 为了保持这些教程内容简单并重点介绍如何使用 Entity Framework 本身，它们不使用存储库。 有关如何实现存储库的信息，请参阅[ASP.NET 数据访问内容映射](../../../../whitepapers/aspnet-data-access-content-map.md)。
+> 为了在控制器和数据访问层之间创建一个抽象层，常见的做法是实现存储库模式。 若要保持这些教程内容简单并重点介绍如何使用 EF 6 本身，它们不使用存储库。 有关如何实现存储库的信息，请参阅[ASP.NET 数据访问内容映射](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-在本教程中，你将创建以下网页：
+下面是你创建的 web 页面的示例：
 
-![Student_Details_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image1.png)
+![学生详细信息页的屏幕截图。](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image1.png)
 
-![Student_Edit_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image2.png)
+![学生的屏幕截图创建页。](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image2.png)
 
-![Student_delete_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image3.png)
+![屏幕截图 ot 学生删除页。](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image3.png)
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 创建详细信息页
+> * 更新“创建”页
+> * 更新的 HttpPost 编辑方法
+> * 更新“删除”页
+> * 关闭数据库连接
+> * 处理事务
+
+## <a name="prerequisites"></a>系统必备
+
+* [创建实体框架数据模型](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)
 
 ## <a name="create-a-details-page"></a>创建详细信息页
 
@@ -46,7 +55,7 @@ ms.locfileid: "48912643"
 
 密钥的值传递给方法作为`id`参数和来自*将数据路由*中**详细信息**索引页上的超链接。
 
-### <a name="tip-route-data"></a>提示：**路由数据**
+### <a name="tip-route-data"></a>提示:**路由数据**
 
 路由数据是在路由表中指定的 URL 段中找到的模型联编程序的数据。 例如，指定默认路由`controller`， `action`，和`id`段：
 
@@ -86,9 +95,7 @@ ms.locfileid: "48912643"
 
 3. 通过启动该程序打开的详细信息页 (**Ctrl**+**F5**)，选择**学生**选项卡上，，然后单击**的详细信息** Alexander Carson 的链接。 (如果按下**Ctrl**+**F5**而*Details.cshtml*文件处于打开状态，你收到 HTTP 400 错误。 这是因为 Visual Studio 尝试运行详细信息页上，但它未达到指定的学生，若要显示的链接。 如果发生这种情况，从 URL 中删除"学生/详细信息"和重试，或者，关闭浏览器中，右键单击项目，并单击**视图** > **用浏览器查看**。)
 
-    将看到所选学生的课程和年级列表：
-
-    ![Student_Details_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image4.png)
+    看到所选学生的课程和成绩列表。
 
 4. 关闭浏览器。
 
@@ -136,19 +143,15 @@ ms.locfileid: "48912643"
 
 3. 输入名称和无效的日期，然后单击**创建**可查看错误消息。
 
-    ![Students_Create_page_error_message](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image6.png)
-
     这是默认情况下获取的服务器端验证。 在更高版本的教程中，您将了解如何添加生成的客户端验证代码的属性。 以下突出显示的代码显示了中的模型验证检查**创建**方法。
 
     [!code-csharp[Main](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/samples/sample10.cs?highlight=1)]
 
 4. 将日期更改为有效值，并单击“创建”，查看“索引”页中显示的新学生。
 
-    ![Students_Index_page_with_new_student](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image7.png)
-
 5. 关闭浏览器。
 
-## <a name="update-the-edit-httppost-method"></a>更新编辑 HttpPost 方法
+## <a name="update-httppost-edit-method"></a>更新 HttpPost 编辑方法
 
 1. 替换<xref:System.Web.Mvc.HttpPostAttribute>`Edit`用下面的代码的操作方法：
 
@@ -189,11 +192,7 @@ ms.locfileid: "48912643"
 
 2. 通过启动该程序，运行页上选择**学生**选项卡上，，然后单击**编辑**超链接。
 
-   ![Student_Edit_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image8.png)
-
 3. 更改某些数据并单击“保存”。 请参阅索引页中更改的数据。
-
-   ![Students_Index_page_after_edit](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image9.png)
 
 4. 关闭浏览器。
 
@@ -229,9 +228,7 @@ ms.locfileid: "48912643"
 
     [!code-cshtml[Main](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/samples/sample15.cshtml?highlight=2)]
 
-4. 通过启动该程序，运行页上选择**学生**选项卡上，，然后单击**删除**超链接：
-
-    ![Student_Delete_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image10.png)
+4. 通过启动该程序，运行页上选择**学生**选项卡上，，然后单击**删除**超链接。
 
 5. 选择**删除**上显示的页面**是否确实要删除此？**。
 
@@ -249,16 +246,24 @@ ms.locfileid: "48912643"
 
 默认情况下，Entity Framework 隐式实现事务。 在方案中，对多个行或表进行更改，然后调用`SaveChanges`，Entity Framework 自动确保所做的更改的所有成功或全部失败。 如果完成某些更改后发生错误，这些更改会自动回退。 在需要更多控制&mdash;例如，如果你想要包括外部实体框架在事务中完成的操作&mdash;请参阅[使用事务](/ef/ef6/saving/transactions)。
 
-## <a name="summary"></a>总结
+## <a name="additional-resources"></a>其他资源
 
 现在有了一整套的执行简单的 CRUD 操作执行的页`Student`实体。 MVC 帮助程序用于生成数据字段的 UI 元素。 MVC 帮助程序的详细信息，请参阅[呈现窗体使用 HTML 帮助程序](/previous-versions/aspnet/dd410596(v=vs.98))（文章是的 MVC 3 但仍适用于 MVC 5)。
 
-在下一步的教程中，我们会通过添加排序和分页来扩展索引页的功能。
+EF 6 中的其他资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="next-steps"></a>后续步骤
 
-其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
+在本教程中，你将了解：
 
-> [!div class="step-by-step"]
-> [上一页](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)
-> [下一页](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+> [!div class="checklist"]
+> * 创建详细信息页
+> * 更新创建页
+> * 更新的 HttpPost 编辑方法
+> * 更新删除页
+> * 关闭的数据库连接
+> * 处理的事务
+
+转到下一步的文章，了解如何添加排序、 筛选和分页到项目。
+> [!div class="nextstepaction"]
+> [排序、筛选和分页](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)

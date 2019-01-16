@@ -1,33 +1,39 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 连接复原和命令截获使用实体框架中的 ASP.NET MVC 应用程序 |Microsoft Docs
+title: 教程：与 EF 在 ASP.NET MVC 应用中使用连接复原和命令拦截
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
+description: 在本教程介绍如何使用连接复原和命令拦截。 它们是两个重要的 Entity Framework 6 的功能。
 ms.author: riande
-ms.date: 01/13/2015
+ms.date: 01/14/2018
+ms.topic: tutorial
 ms.assetid: c89d809f-6c65-4425-a3fa-c9f6e8ac89f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: ab6a553100d704746840eaad512ec140d4576c44
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: fae5c7e1ad1000ed90630c3620b853de3a735d60
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911781"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341719"
 ---
-<a name="connection-resiliency-and-command-interception-with-the-entity-framework-in-an-aspnet-mvc-application"></a>连接复原和命令截获与 ASP.NET MVC 应用程序中的实体框架
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
-
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
+# <a name="tutorial-use-connection-resiliency-and-command-interception-with-entity-framework-in-an-aspnet-mvc-app"></a>教程：与实体框架在 ASP.NET MVC 应用中使用连接复原和命令拦截
 
 到目前为止该应用程序已经运行本地 IIS Express 中在开发计算机上。 若要使实际的应用程序可供其他人通过 Internet 使用，必须将其部署到 web 宿主提供程序，并需要将数据库部署到数据库服务器。
 
-在本教程中，您将学习如何使用 Entity Framework 6 的两个要部署到云环境时尤其有价值的功能： 连接复原 （自动重试的暂时性错误） 和命令截获 （捕获所有 SQL 查询发送到数据库才能登录或更改它们）。
+在本教程介绍如何使用连接复原和命令拦截。 它们是两个重要功能 Entity Framework 6 部署到云环境时的特别有用： 连接复原 （自动重试的暂时性错误） 和命令截获 (catch 所有 SQL 查询都发送到数据库若要记录或更改它们。）
 
 此连接复原和命令拦截教程是可选的。 如果跳过本教程中，需要在后续教程中进行一些细微调整。
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 启用连接复原
+> * 启用命令截获
+> * 测试新的配置
+
+## <a name="prerequisites"></a>系统必备
+
+* [排序、筛选和分页](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="enable-connection-resiliency"></a>启用连接复原
 
@@ -48,7 +54,7 @@ ms.locfileid: "48911781"
 只需启用连接复原能力是中派生自程序集创建一个类[DbConfiguration](https://msdn.microsoft.com/data/jj680699.aspx)类，并在该类中设置 SQL 数据库*执行策略*，即 EF 中另一种说法*重试策略*。
 
 1. 在 DAL 文件夹中，添加名为的类文件*SchoolConfiguration.cs*。
-2. 模板代码替换为以下代码：
+2. 将模板代码替换为以下代码：
 
     [!code-csharp[Main](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample1.cs)]
 
@@ -135,7 +141,7 @@ ms.locfileid: "48911781"
 
     您已编写的暂时性错误模拟代码可以通过在 UI 中输入一个不同的值导致暂时性错误的方式。 或者，可以编写以始终生成暂时性异常的序列，而检查特定的参数值的侦听器代码。 然后，仅当你想要生成暂时性错误时，可以添加侦听器。 如果这样做，但是，数据库初始化完成后不添加到侦听器。 换而言之，执行如查询一个实体集上的至少一个数据库操作，然后开始生成暂时性错误。 实体框架在数据库初始化期间执行多个查询和它们在事务中，因此在初始化期间的错误可能会导致上下文才能进入不一致的状态不会执行。
 
-## <a name="test-logging-and-connection-resiliency"></a>测试日志记录和连接弹性
+## <a name="test-the-new-configuration"></a>测试新的配置
 
 1. 按**F5**若要在调试模式下运行应用程序，然后单击**学生**选项卡。
 2. 查看 Visual Studio**输出**窗口以查看跟踪输出。 您可能需要向上滚动过去的某些 JavaScript 错误以获取到记录器所写入的日志。
@@ -167,14 +173,19 @@ ms.locfileid: "48911781"
     ![虚拟异常](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
 5. 取消注释*SetExecutionStrategy*行中*SchoolConfiguration.cs*。
 
-## <a name="summary"></a>总结
-
-在本教程中已了解如何启用连接复原和记录的实体框架撰写并发送到数据库的 SQL 命令。 在下一教程中，你将部署到 Internet 时，使用 Code First 迁移部署数据库应用程序。
-
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [下一页](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已启用的连接复原
+> * 已启用的命令截获
+> * 测试新的配置
+
+转到下一步的文章，了解有关 Code First 迁移和 Azure 部署信息。
+> [!div class="nextstepaction"]
+> [Code First 迁移和 Azure 部署](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)
