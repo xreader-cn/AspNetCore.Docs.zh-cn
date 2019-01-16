@@ -28,13 +28,13 @@ ASP.NET Core MVC 中的筛选器允许在请求处理管道中的特定阶段之
  * 确保所有请求都使用 HTTPS。
  * 响应缓存（对请求管道进行短路出路，以便返回缓存的响应）。 
 
-可以创建自定义筛选器来处理横切关注点。 筛选器可以避免跨操作复制代码。 例如，错误处理异常筛选器可以合并错误处理。
+可以创建自定义筛选器，用于处理横切关注点。 筛选器可以避免跨操作复制代码。 例如，错误处理异常筛选器可以合并错误处理。
 
 [查看或下载 GitHub 中的示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
 
 ## <a name="how-do-filters-work"></a>筛选器的工作原理
 
-筛选器在 *MVC 操作调用管道*（有时称为*筛选器管道*）内运行。  筛选器管道在 MVC 选择要执行的操作之后运行。
+筛选器在 *MVC 操作调用管道*（有时称为*筛选器管道*）内运行。  筛选器管道在 MVC 选择了要执行的操作之后运行。
 
 ![请求通过其他中间件、路由中间件、操作选择和 MVC 操作调用管道进行处理。 请求处理继续往回通过操作选择、路由中间件和各种其他中间件，变成发送到客户端的响应。](filters/_static/filter-pipeline-1.png)
 
@@ -58,7 +58,7 @@ ASP.NET Core MVC 中的筛选器允许在请求处理管道中的特定阶段之
 
 ## <a name="implementation"></a>实现
 
-筛选器通过不同的接口定义支持同步和异步实现。 
+通过不同的接口定义，筛选器同时支持同步和异步实现。 
 
 可在其管道阶段之前和之后运行代码的同步筛选器定义 On*Stage*Executing 方法和 On*Stage*Executed 方法。 例如，在调用操作方法之前调用 `OnActionExecuting`，在操作方法返回之后调用 `OnActionExecuted`。
 
@@ -89,7 +89,7 @@ ASP.NET Core MVC 中的筛选器允许在请求处理管道中的特定阶段之
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Filters/AddHeaderAttribute.cs?highlight=5,16)]
 
-属性允许筛选器采用参数，如上面的示例所示。 可将此属性添加到控制器或操作方法，并指定 HTTP 标头的名称和值：
+通过使用属性，筛选器可接收参数，如上面的示例所示。 可将此属性添加到控制器或操作方法，并指定 HTTP 标头的名称和值：
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
