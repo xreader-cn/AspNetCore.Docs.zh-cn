@@ -17,7 +17,7 @@ ms.locfileid: "54207455"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)
 
-ASP.NET Core MVC 中的筛选器允许在请求处理管道中的特定阶段之前或之后运行代码。
+通过使用 ASP.NET Core MVC 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。
 
 > [!IMPORTANT]
 > 本主题不适用于 Razor 页面。 ASP.NET Core 2.1 及更高版本支持适用于 Razor 页面的 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0)。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
