@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: a3ac1ac389892681e8c122d569e6325353ed6e88
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341675"
+---
 # [ASP.NET Core 文档](/aspnet/#pivot=core)
 
 # 概述
@@ -251,7 +259,9 @@
 ### [使用 CLI 工具进行发布](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 ### [使用 Visual Studio 和 Git 进行发布](xref:host-and-deploy/azure-apps/azure-continuous-deployment)
 ### [使用 Azure Pipelines 连续部署](/azure/devops/pipelines/get-started-yaml)
-### [解决启动错误](xref:host-and-deploy/azure-apps/troubleshoot)
+### [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)
+### [疑难解答](xref:host-and-deploy/azure-apps/troubleshoot)
+### [错误引用](xref:host-and-deploy/azure-iis-errors-reference)
 ## DevOps 
 ### [概述](xref:azure/devops/index)
 ### [工具和下载](xref:azure/devops/tools-and-downloads)
@@ -261,10 +271,11 @@
 ### [后续步骤](xref:azure/devops/next-steps)
 ## 使用 IIS 在 Windows 上进行托管
 ### [概述](xref:host-and-deploy/iis/index)
-### [IIS 疑难解答](xref:host-and-deploy/iis/troubleshoot)
 ### [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)
 ### [Visual Studio 中的 IIS 支持](xref:host-and-deploy/iis/development-time-iis-support)
 ### [IIS 模块](xref:host-and-deploy/iis/modules)
+### [疑难解答](xref:host-and-deploy/iis/troubleshoot)
+### [错误引用](xref:host-and-deploy/azure-iis-errors-reference)
 ## [Kestrel](xref:fundamentals/servers/kestrel)
 ## [HTTP.sys](xref:fundamentals/servers/httpsys)
 ## [在 Windows 服务中进行托管](xref:host-and-deploy/windows-service)
@@ -279,7 +290,6 @@
 ## [在 Web 场中托管](xref:host-and-deploy/web-farm)
 ## [Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles)
 ## [目录结构](xref:host-and-deploy/directory-structure)
-## [Azure 应用服务和 IIS 的错误参考](xref:host-and-deploy/azure-iis-errors-reference)
 ## [运行状况检查](xref:host-and-deploy/health-checks)
 
 # 安全和标识
@@ -420,6 +430,6 @@
 ### [HTTP 模块到中间件](xref:migration/http-modules)
 ## [日志记录（不是 ASP.NET Core）](xref:migration/logging-nonaspnetcore)
 
-# [API 参考](/dotnet/api/?view=aspnetcore-2.2)
+# [API 参考](/dotnet/api/?view=aspnetcore-2.1)
 
 # [参与](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md)
