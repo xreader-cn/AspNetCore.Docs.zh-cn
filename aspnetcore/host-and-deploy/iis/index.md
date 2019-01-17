@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 3239b4652d739ed2ac205c9daae7754dbd8e918c
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 83c084beb059d803811e9739d34bdbdd6bcff463
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249550"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341792"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -313,11 +313,6 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 1. 在托管系统上，创建一个文件夹以包含应用已发布的文件夹和文件。 [目录结构](xref:host-and-deploy/directory-structure)主题中介绍了应用的部署布局。
 
-1. 在新文件夹中创建一个“日志”文件夹，用于在启用 stdout 日志记录时保存 ASP.NET Core 模块 stdout 日志。 如果部署应用时有效负载中包含了“日志”文件夹，请跳过此步骤。 有关如何启用 MSBuild 以在本地生成项目时自动创建“日志”文件夹的说明，请参阅[目录结构](xref:host-and-deploy/directory-structure)主题。
-
-   > [!IMPORTANT]
-   > 仅使用 stdout 日志来解决应用启动失败的问题。 请勿使用 stdout 日志记录进行常规应用日志记录。 日志文件大小或创建的日志文件数没有限制。 应用池必须对写入日志的位置具有写入权限。 日志位置路径上的所有文件夹都必须存在。 有关 stdout 日志的详细信息，请参阅[日志创建和重定向](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection)。 有关 ASP.NET Core 应用中的日志记录信息，请参阅[日志记录](xref:fundamentals/logging/index)主题。
-
 1. 在“IIS 管理器”中，打开“连接”面板中的服务器节点。 右键单击“站点”文件夹。 选择上下文菜单中的“添加网站”。
 
 1. 提供网站名称，并将物理路径设置为应用的部署文件夹。 提供“绑定”配置，并通过选择“确定”创建网站：
@@ -547,7 +542,7 @@ IIS 管理进程使用 Windows 安全系统中应用池的名称创建安全标�
 
 1. 选择“位置”按钮，并确保该系统处于选中状态。
 
-1. 在“输入要选择的对象名称”区域中输入“IIS AppPool\\<app_pool_name>”。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 IIS AppPool\\<app_pool_name> 格式。
+1. 在“输入要选择的对象名称”区域中输入**IIS AppPool\\<app_pool_name>**。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
 
    ![应用文件夹的“选择用户或组”对话框：在选择“检查名称”前，将“DefaultAppPool”的应用池名称追加到对象名称区域中的“IIS AppPool”。](index/_static/select-users-or-groups-1.png)
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 4e5da1036b77e876899ccdea48bdec69454e1657
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: c55dbd5a9ac31f55daf1cb3146fb18b91b016919
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861480"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341584"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -20,7 +20,7 @@ ms.locfileid: "52861480"
 中间件是一种装配到应用管道以处理请求和响应的软件。 每个组件：
 
 * 选择是否将请求传递到管道中的下一个组件。
-* 可在调用管道中的下一个组件前后执行工作。
+* 可在管道中的下一个组件前后执行工作。
 
 请求委托用于生成请求管道。 请求委托处理每个 HTTP 请求。
 

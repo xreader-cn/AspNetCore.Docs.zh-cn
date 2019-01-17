@@ -4,14 +4,14 @@ author: rick-anderson
 description: 介绍如何使用 ASP.NET Core 创建并运行简单的 Hello World 应用的快速教程。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/11/2018
+ms.date: 01/15/2019
 uid: getting-started
-ms.openlocfilehash: dc85fe9189c93476859a6c00d60ec24d6eeec3fa
-ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
+ms.openlocfilehash: eee927f4306fa7757f3f361e6c6f367658512897
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53335307"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341805"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -87,7 +87,7 @@ cd aspnetcoreapp
 dotnet run
 ```
 
-浏览到 [https://localhost:5001](https://localhost:5001)。 单击“接受”，接受隐私和 cookie 政策。 此应用不保留个人信息。
+在命令行界面指明应用已启动后，转到 [https://localhost:5001](https://localhost:5001)。 单击“接受”，接受隐私和 cookie 政策。 此应用不保留个人信息。
 
 ## <a name="edit-a-razor-page"></a>编辑 Razor 页面
 

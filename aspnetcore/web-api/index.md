@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: web-api/index
-ms.openlocfilehash: a826bdecdd3a25eb23597123166695c169ba4229
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 8ba20c51f38a43adca4133a402c6d741379a4c54
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249433"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341607"
 ---
 # <a name="build-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 构建 Web API
 
@@ -133,7 +133,9 @@ services.AddMvc()
 > [!WARNING]
 > 当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。 `%2f` 不会转换为 `/`（非转移形式）。 如果值可能包含 `%2f`，则使用 `[FromQuery]`。
 
-没有 `[ApiController]` 特性时，将显式定义绑定源特性。 在下面的示例中，`[FromQuery]` 特性指示 `discontinuedOnly` 参数值在请求 URL 的查询字符串中提供：
+没有 `[ApiController]` 特性时，将显式定义绑定源特性。 如果没有 `[ApiController]` 或其他绑定源属性（如 `[FromQuery]`），ASP.NET Core 运行时会尝试使用复杂对象模型绑定器。 复杂对象模型绑定器从值提供程序（包含已定义的顺序）拉取数据。 例如，始终选择启用“body 模型绑定器”。
+
+在下面的示例中，`[FromQuery]` 特性指示 `discontinuedOnly` 参数值在请求 URL 的查询字符串中提供：
 
 [!code-csharp[](define-controller/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
 
@@ -245,3 +247,4 @@ services.AddMvc()
 * <xref:web-api/advanced/formatting>
 * <xref:tutorials/web-api-help-pages-using-swagger>
 * <xref:mvc/controllers/routing>
+****
