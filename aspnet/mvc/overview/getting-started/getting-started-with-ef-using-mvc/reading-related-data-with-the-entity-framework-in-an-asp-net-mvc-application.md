@@ -1,28 +1,22 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 读取相关的数据使用实体框架中的 ASP.NET MVC 应用程序 |Microsoft Docs
+title: 教程：读取使用 EF 在 ASP.NET MVC 应用中的相关的数据
+description: 在本教程将读取并显示相关的数据-即 Entity Framework 加载到导航属性的数据。
 author: tdykstra
-description: /ajax/tutorials/using-ajax-control-toolkit-controls-and-control-extenders-vb
 ms.author: riande
-ms.date: 11/07/2014
+ms.date: 01/17/2019
+ms.topic: tutorial
 ms.assetid: 18cdd896-8ed9-4547-b143-114711e3eafb
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 18d3720f891e2356af42b58389776f2d04eee39d
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 8660a75655b801364cce7c4b59847c5c00562a27
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913198"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396202"
 ---
-<a name="reading-related-data-with-the-entity-framework-in-an-aspnet-mvc-application"></a>读取相关数据与 ASP.NET MVC 应用程序中的实体框架
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
-
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
+# <a name="tutorial-read-related-data-with-ef-in-an-aspnet-mvc-app"></a>教程：读取使用 EF 在 ASP.NET MVC 应用中的相关的数据
 
 在上一教程中，您将完成学校数据模型。 在本教程将读取并显示相关的数据-即 Entity Framework 加载到导航属性的数据。
 
@@ -32,7 +26,18 @@ ms.locfileid: "48913198"
 
 ![Instructors_index_page_with_instructor_and_course_selected](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
 
-## <a name="lazy-eager-and-explicit-loading-of-related-data"></a>延迟、 及早计算，和显式加载相关数据
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 了解如何将加载相关的数据
+> * 创建课程页
+> * 创建讲师页
+
+## <a name="prerequisites"></a>系统必备
+
+* [创建更复杂的数据模型](creating-a-more-complex-data-model-for-an-asp-net-mvc-application.md)
+
+## <a name="learn-how-to-load-related-data"></a>了解如何将加载相关的数据
 
 有几种方法，实体框架可以相关的数据加载到实体的导航属性：
 
@@ -54,7 +59,7 @@ ms.locfileid: "48913198"
 
 但是，在某些情况下延迟加载是更高效。 预先加载可能会导致非常复杂的联接为其生成 SQL Server 无法有效地处理它。 或者，如果您需要访问实体的导航属性仅对一组实体的子集进行处理，延迟加载可能会更好地执行，因为预先加载将检索数据超过所需的数据。 如果看重性能，那么最好测试两种方式的性能，以便做出最佳选择。
 
-延迟加载可以屏蔽会导致性能问题的代码。 例如，（由于与数据库的多个往返） 未指定预先或显式加载，但处理大量的实体并在每次迭代中使用多个导航属性的代码可能是非常低效。 在开发使用本地 SQL 服务器中执行的应用程序可能具有性能问题时增加延迟时间和延迟加载由于移到 Azure SQL 数据库。 分析数据库查询的实际测试负载将有助于确定延迟加载是否适当。 有关详细信息请参阅[揭开面纱实体框架策略： 加载相关数据](https://msdn.microsoft.com/magazine/hh205756.aspx)并[使用 Entity Framework 减少 SQL Azure 的网络延迟到](https://msdn.microsoft.com/magazine/gg309181.aspx)。
+延迟加载可以屏蔽会导致性能问题的代码。 例如，（由于与数据库的多个往返） 未指定预先或显式加载，但处理大量的实体并在每次迭代中使用多个导航属性的代码可能是非常低效。 在开发使用本地 SQL 服务器中执行的应用程序可能具有性能问题时增加延迟时间和延迟加载由于移到 Azure SQL 数据库。 分析数据库查询的实际测试负载将有助于确定延迟加载是否适当。 有关详细信息请参阅[揭开面纱实体框架策略：加载相关的数据](https://msdn.microsoft.com/magazine/hh205756.aspx)并[使用 Entity Framework 减少 SQL Azure 的网络延迟](https://msdn.microsoft.com/magazine/gg309181.aspx)。
 
 ### <a name="disable-lazy-loading-before-serialization"></a>禁用延迟加载序列化之前
 
@@ -73,13 +78,19 @@ ms.locfileid: "48913198"
 
     [!code-csharp[Main](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample1.cs)]
 
-## <a name="create-a-courses-page-that-displays-department-name"></a>创建该显示院系名称的课程页
+## <a name="create-a-courses-page"></a>创建课程页
 
 `Course`实体包括导航属性包含`Department`院系的课程将分配到的实体。 若要在课程列表中显示的分配系的名称，您需要获取`Name`属性从`Department`中的实体`Course.Department`导航属性。
 
-创建名为的控制器`CourseController`(不 CoursesController) 用于`Course`实体类型，使用相同的选项**包含的 MVC 5 控制器视图，使用实体框架**用于之前所做的基架`Student`控制器，如下图中所示：
+创建名为的控制器`CourseController`(不 CoursesController) 用于`Course`实体类型，使用相同的选项**包含的 MVC 5 控制器视图，使用实体框架**用于之前所做的基架`Student`控制器：
 
-![Add_Controller_dialog_box_for_Course_controller](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
+| 设置 | 值 |
+| ------- | ----- |
+| Model 类 | 选择**课程 (ContosoUniversity.Models)**。 |
+| 数据上下文类 | 选择**SchoolContext (ContosoUniversity.DAL)**。 |
+| 控制器名称 | 输入*CourseController*。 同样，不*CoursesController*与*s*。 如果选择了**课程 (ContosoUniversity.Models)**，则**控制器名称**自动填充值。 必须更改的值。 |
+
+保留其他默认值，并添加控制器。
 
 打开*Controllers\CourseController.cs*并查看`Index`方法：
 
@@ -103,15 +114,9 @@ ms.locfileid: "48913198"
 
 运行页 (选择**课程**Contoso University 主页上的选项卡) 若要查看包含系名称列表。
 
-![Courses_index_page_with_department_names](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
+## <a name="create-an-instructors-page"></a>创建讲师页
 
-## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a>创建显示课程和注册的讲师页
-
-将在本部分中创建一个控制器并查看`Instructor`实体以显示讲师页：
-
-![Instructors_index_page_with_instructor_and_course_selected](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
-
-该页面通过以下方式读取和显示相关数据：
+将在本部分中创建一个控制器并查看`Instructor`实体以显示讲师页。 该页面通过以下方式读取和显示相关数据：
 
 - 讲师列表显示的相关的数据`OfficeAssignment`实体。 `Instructor` 和 `OfficeAssignment` 实体之间存在一对零或一的关系。 你将使用预先加载`OfficeAssignment`实体。 如前所述，需要主表所有检索行的相关数据时，预先加载通常更有效。 在这种情况下，你希望显示所有显示的讲师的办公室分配情况。
 - 当用户选择一名讲师，相关`Course`实体的显示。 `Instructor` 和 `Course` 实体之间存在多对多关系。 你将使用预先加载`Course`实体和其相关`Department`实体。 在这种情况下，可能延迟加载是更高效，因为你需要仅对所选讲师的课程。 但此示例显示的是如何在本身就位于导航属性内的实体中预先加载导航属性。
@@ -127,9 +132,15 @@ ms.locfileid: "48913198"
 
 ### <a name="create-the-instructor-controller-and-views"></a>创建讲师控制器和视图
 
-创建`InstructorController`(不 InstructorsController) 控制器使用 EF 读/写操作，如下图中所示：
+创建`InstructorController`(不 InstructorsController) 使用 EF 读/写操作的控制器：
 
-![Add_Controller_dialog_box_for_Instructor_controller](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
+| 设置 | 值 |
+| ------- | ----- |
+| Model 类 | 选择**讲师 (ContosoUniversity.Models)**。 |
+| 数据上下文类 | 选择**SchoolContext (ContosoUniversity.DAL)**。 |
+| 控制器名称 | 输入*InstructorController*。 同样，不*InstructorsController*与*s*。 如果选择了**课程 (ContosoUniversity.Models)**，则**控制器名称**自动填充值。 必须更改的值。 |
+
+保留其他默认值，并添加控制器。
 
 打开*Controllers\InstructorController.cs*并添加`using`语句`ViewModels`命名空间：
 
@@ -193,8 +204,6 @@ ms.locfileid: "48913198"
 
 运行应用程序，并选择**讲师**选项卡。页将显示`Location`属性的相关`OfficeAssignment`实体和一个空表单元时有无相关`OfficeAssignment`实体。
 
-![Instructors_index_page_with_nothing_selected](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
-
 在中*Views\Instructor\Index.cshtml*文件之后，结束`table`元素 （在文件末尾），添加以下代码。 选择讲师时，此代码显示与讲师相关的课程列表。
 
 [!code-cshtml[Main](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample18.cshtml)]
@@ -203,17 +212,13 @@ ms.locfileid: "48913198"
 
 运行该页并选择讲师。 此时会出现一个网格，其中显示有分配给所选讲师的课程，且还显示有每个课程的分配系的名称。
 
-![Instructors_index_page_with_instructor_selected](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
-
-在刚刚添加的代码块后，添加以下代码。 选择课程后，代码将显示参与课程的学生列表。
+在刚添加的代码块之后，添加以下代码。 选择课程后，代码将显示参与课程的学生列表。
 
 [!code-cshtml[Main](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample19.cshtml)]
 
 此代码读取`Enrollments`以便显示学生列表视图模型属性参加该课程。
 
 运行该页并选择讲师。 然后选择一门课程，查看参与的学生列表及其成绩。
-
-![Instructors_index_page_with_instructor_and_course_selected](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
 
 ### <a name="adding-explicit-loading"></a>添加显式加载
 
@@ -239,14 +244,20 @@ ms.locfileid: "48913198"
 
 立即运行讲师索引页，尽管已经更改数据的检索方式，您将看到的页上，显示的内容没有区别。
 
-## <a name="summary"></a>总结
-
-现在，你已使用所有三种方式 （延迟、 及早计算，和显式） 将相关的数据加载到导航属性。 下一个教程将介绍如何更新相关数据。
-
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](creating-a-more-complex-data-model-for-an-asp-net-mvc-application.md)
-> [下一页](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 介绍了如何加载相关的数据
+> * 创建课程页
+> * 创建讲师页
+
+转到下一步的文章，了解如何更新相关的数据。
+
+> [!div class="nextstepaction"]
+> [更新相关数据](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)

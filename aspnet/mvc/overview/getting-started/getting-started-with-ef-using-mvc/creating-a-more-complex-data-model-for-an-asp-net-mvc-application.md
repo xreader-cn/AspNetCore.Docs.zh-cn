@@ -1,36 +1,49 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application
-title: 创建用于 ASP.NET MVC 应用程序的更复杂的数据模型 |Microsoft Docs
+title: 教程：创建 ASP.NET MVC 应用的更复杂数据模型
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
+description: 在本教程将添加更多实体和关系并将通过指定格式设置、 验证和数据库映射规则来自定义数据模型。
 ms.author: riande
-ms.date: 11/07/2014
+ms.date: 01/16/2019
+ms.topic: tutorial
 ms.assetid: 46f7f3c9-274f-4649-811d-92222a9b27e2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 25cec8bb9384dbd053f8af12855171a54675a40e
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 50cbc184983b3e37c34332dad52bc0d70ade18c2
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912483"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396293"
 ---
-<a name="creating-a-more-complex-data-model-for-an-aspnet-mvc-application"></a>创建用于 ASP.NET MVC 应用程序的更复杂的数据模型
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-create-a-more-complex-data-model-for-an-aspnet-mvc-app"></a>教程：创建 ASP.NET MVC 应用的更复杂数据模型
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
-
-在前面的教程中，您过了由三个实体组成的简单数据模型。 在本教程将添加更多实体和关系并将通过指定格式设置、 验证和数据库映射规则来自定义数据模型。 您将看到自定义数据模型的两个方法： 通过将属性添加到实体类并通过将代码添加到数据库上下文类。
+在前面的教程中，您过了由三个实体组成的简单数据模型。 在本教程中添加更多实体和关系，并通过指定格式设置、 验证和数据库映射规则来自定义数据模型。 本文演示两种方式自定义数据模型： 通过将属性添加到实体类并通过将代码添加到数据库上下文类。
 
 完成本教程后，实体类将构成下图所示的完整数据模型：
 
 ![School_class_diagram](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image1.png)
 
-## <a name="customize-the-data-model-by-using-attributes"></a>使用特性自定义数据模型
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义数据模型
+> * 更新 Student 实体
+> * 创建 Instructor 实体
+> * 创建 OfficeAssignment 实体
+> * 修改 Course 实体
+> * 创建 Department 实体
+> * 修改 Enrollment 实体
+> * 将代码添加到数据库上下文
+> * 使用测试数据的种子数据库
+> * 添加迁移
+> * 更新数据库
+
+## <a name="prerequisites"></a>系统必备
+
+* [第一个迁移和部署代码](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+
+## <a name="customize-the-data-model"></a>自定义数据模型
 
 本节介绍如何使用指定格式化、验证和数据库映射规则的特性来自定义数据模型。 然后在多个以下各节，你将创建一种完整`School`通过添加数据模型属性对类已在模型中剩余的实体类型的创建和创建新类。
 
@@ -62,7 +75,7 @@ ms.locfileid: "48912483"
 
 如果您使用`DataType`属性与日期字段，则必须指定`DisplayFormat`还以确保字段正确呈现在 Chrome 浏览器中的属性。 有关详细信息，请参阅[此 StackOverflow 线程](http://stackoverflow.com/questions/12633471/mvc4-datatype-date-editorfor-wont-display-date-value-in-chrome-fine-in-ie)。
 
-有关如何处理在 MVC 中的其他日期格式的详细信息，请转到[MVC 5 简介： 检查编辑方法和编辑视图](../introduction/examining-the-edit-methods-and-edit-view.md)中的页和搜索&quot;国际化&quot;。
+有关如何处理在 MVC 中的其他日期格式的详细信息，请转到[MVC 5 简介：检查编辑方法和编辑视图](../introduction/examining-the-edit-methods-and-edit-view.md)中的页和搜索&quot;国际化&quot;。
 
 再次运行学生索引页，请注意注册日期不再显示时间。 相同，则为 true 的任何视图，它使用`Student`模型。
 
@@ -96,9 +109,7 @@ ms.locfileid: "48912483"
 
 Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁移。 您可以创建多个迁移，然后再运行`update-database`命令和所有迁移都应用中已创建的顺序。
 
-运行**创建**页上，然后输入名称超过 50 个字符。 单击“创建”时，客户端验证会显示一条错误消息。
-
-![客户端端 val 错误](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image3.png)
+运行**创建**页上，然后输入名称超过 50 个字符。 当您单击**创建**，客户端端验证会显示一条错误消息：*姓氏字段必须是具有最大长度为 50 的字符串。*
 
 ### <a name="the-column-attribute"></a>列属性
 
@@ -116,8 +127,6 @@ Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁
 
 在中**服务器资源管理器**，打开*学生*表设计器通过双击*学生*表。
 
-![](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image4.png)
-
 下图显示的原始列名称之前应用的前两个迁移。 除了从更改的列名称`FirstMidName`到`FirstName`，从已更改的两个名称列`MAX`长度为 50 个字符。
 
 ![](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image5.png)
@@ -127,10 +136,7 @@ Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁
 > [!NOTE]
 > 如果尚未按以下各节所述创建所有实体类就尝试进行编译，则可能会出现编译器错误。
 
-
-## <a name="complete-changes-to-the-student-entity"></a>完成对 Student 实体的更改
-
-![Student_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image6.png)
+## <a name="update-student-entity"></a>更新 Student 实体
 
 在中*Models\Student.cs*，添加的代码之前替换以下代码。 突出显示所作更改。
 
@@ -150,9 +156,7 @@ Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁
 
 `FullName` 是计算属性，可返回通过串联两个其他属性创建的值。 因此只有`get`访问器，但没有`FullName`将在数据库中生成列。
 
-## <a name="create-the-instructor-entity"></a>创建 Instructor 实体
-
-![Instructor_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image7.png)
+## <a name="create-instructor-entity"></a>创建 Instructor 实体
 
 创建*Models\Instructor.cs*，模板代码替换为以下代码：
 
@@ -176,9 +180,7 @@ Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁
 
 [!code-csharp[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample12.cs)]
 
-## <a name="create-the-officeassignment-entity"></a>创建 OfficeAssignment 实体
-
-![OfficeAssignment_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image8.png)
+## <a name="create-officeassignment-entity"></a>创建 OfficeAssignment 实体
 
 创建*Models\OfficeAssignment.cs*使用以下代码：
 
@@ -210,8 +212,6 @@ Entity Framework 使用迁移文件名前面预置的时间戳进行排序的迁
 
 ## <a name="modify-the-course-entity"></a>修改 Course 实体
 
-![Course_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image9.png)
-
 在中*Models\Course.cs*，添加的代码之前替换以下代码：
 
 [!code-csharp[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample15.cs)]
@@ -242,8 +242,6 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 ## <a name="create-the-department-entity"></a>创建 Department 实体
 
-![Department_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image10.png)
-
 创建*Models\Department.cs*使用以下代码：
 
 [!code-csharp[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample20.cs)]
@@ -268,14 +266,11 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
     [!code-csharp[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample23.cs)]
 
   > [!NOTE]
-  > 按照约定，Entity Framework 能针对不可为 null 的外键和多对多关系启用级联删除。 这可能导致循环级联删除规则，尝试添加迁移时该规则会造成异常。 例如，如果你未定义`Department.InstructorID`为可以为 null 的属性，你会收到以下异常消息:"引用关系会导致不允许的循环引用。" 如果您的业务规则需要`InstructorID`属性设置为不可为 null，必须使用以下 fluent API 语句禁用关系的级联删除：
+  > 按照约定，Entity Framework 能针对不可为 null 的外键和多对多关系启用级联删除。 这可能导致循环级联删除规则，尝试添加迁移时该规则会造成异常。 例如，如果你未定义`Department.InstructorID`为可以为 null 的属性，你会收到以下异常消息："引用关系会导致不允许的循环引用。" 如果您的业务规则需要`InstructorID`属性设置为不可为 null，必须使用以下 fluent API 语句禁用关系的级联删除：
 
 [!code-csharp[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample24.cs)]
 
-
 ## <a name="modify-the-enrollment-entity"></a>修改 Enrollment 实体
-
-![Enrollment_entity](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image11.png)
 
  在中*Models\Enrollment.cs*，添加的代码之前替换以下代码
 
@@ -312,15 +307,15 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 实体框架会自动创建`CourseInstructor`表，并且您读取和更新到通过读取和更新的间接`Instructor.Courses`和`Course.Instructors`导航属性。
 
-## <a name="entity-diagram-showing-relationships"></a>显示关系的实体关系图
+## <a name="entity-relationship-diagram"></a>实体关系图
 
 下图显示 Entity Framework Power Tools 针对已完成的学校模型创建的关系图。
 
-![School_data_model_diagram](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image15.png)
+![School_data_model_diagram](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image1.png)
 
 除了多对多关系线 (\*到\*) 和一个对多关系线 (1 到\*)，您可以看到对零或一一的关系线 (1 到 0..1) 之间`Instructor`和`OfficeAssignment`实体和 0-或--一对多关系线 (0..1 到\*) 之间的 Instructor 和 Department 实体。
 
-## <a name="customize-the-data-model-by-adding-code-to-the-database-context"></a>通过将代码添加到数据库上下文自定义数据模型
+## <a name="add-code-to-database-context"></a>将代码添加到数据库上下文
 
 接下来将添加到新的实体`SchoolContext`类，并自定义映射使用的某些[fluent API](https://msdn.microsoft.com/data/jj591617)调用。 API 是"fluent"，因为它通常用于按顺序排列的一系列方法调用连接成单个语句，如以下示例所示：
 
@@ -346,7 +341,7 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 有关"fluent API"语句会在后台执行的操作的信息，请参阅[Fluent API](https://blogs.msdn.com/b/aspnetue/archive/2011/05/04/entity-framework-code-first-tutorial-supplement-what-is-going-on-in-a-fluent-api-call.aspx)博客文章。
 
-## <a name="seed-the-database-with-test-data"></a>使用测试数据设定数据库种子
+## <a name="seed-database-with-test-data"></a>使用测试数据的种子数据库
 
 中的代码替换*migrations\ configuration.cs*文件与以下代码，以便为已创建的新实体提供种子数据。
 
@@ -358,7 +353,7 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 当您创建`Course`对象，初始化`Instructors`导航属性为空集合使用的代码`Instructors = new List<Instructor>()`。 这样就可以添加`Instructor`与此相关的实体`Course`通过使用`Instructors.Add`方法。 如果未创建一个空列表，您将无法添加这些关系，因为`Instructors`属性将为 null，并且不会有`Add`方法。 您也可以添加到构造函数的列表初始化。
 
-## <a name="add-a-migration-and-update-the-database"></a>添加迁移并更新数据库
+## <a name="add-a-migration"></a>添加迁移
 
 在 PMC 中，输入`add-migration`命令 (不执行操作`update-database`命令):
 
@@ -376,6 +371,8 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 当`Seed`方法运行时，它将插入中的行`Department`表和它将与现有`Course`到这些新行`Department`行。 如果尚未在 UI 中添加任何课程，然后不再需要"Temp"系或默认值上`Course.DepartmentID`列。 若要允许，有人可能已添加课程使用应用程序的可能性，您还想要更新`Seed`方法代码，以确保所有`Course`行 (而不仅仅是由早期运行的插入`Seed`方法) 具有有效`DepartmentID`值之前删除默认列中的值并删除"Temp"系。
 
+## <a name="update-the-database"></a>更新数据库
+
 完成编辑后&lt;*时间戳&gt;\_ComplexDataModel.cs*文件中，输入`update-database`PMC 执行迁移命令。
 
 [!code-powershell[Main](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/samples/sample35.ps1)]
@@ -391,7 +388,6 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 >
 > `update-database -TargetMigration:0`
 
-
 打开中的数据库**服务器资源管理器**像前面，并展开**表**节点以查看是否已创建的所有表。 (如果仍有**服务器资源管理器**从较早的时间打开，请单击**刷新**按钮。)
 
 ![](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image16.png)
@@ -402,14 +398,28 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 
 ![Table_data_in_CourseInstructor_table](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image17.png)
 
-## <a name="summary"></a>总结
-
-现在你就得到了更复杂的数据模型和相应的数据库。 以下教程中将了解有关访问相关的数据的不同方式的详细信息。
-
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [下一页](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义数据模型
+> * 已更新的 Student 实体
+> * 创建的 Instructor 实体
+> * 创建的 OfficeAssignment 实体
+> * 修改 Course 实体
+> * 创建 Department 实体
+> * 修改 Enrollment 实体
+> * 为数据库上下文添加的代码
+> * 使用测试数据植入的数据库
+> * 添加迁移
+> * 更新数据库
+
+转到下一步的文章，了解如何读取和显示 Entity Framework 加载到导航属性的相关的数据。
+
+> [!div class="nextstepaction"]
+> [读取相关数据](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)

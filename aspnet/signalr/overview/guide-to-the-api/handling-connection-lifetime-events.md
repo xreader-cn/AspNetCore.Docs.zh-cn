@@ -4,20 +4,19 @@ title: 了解和处理 SignalR 中的连接生存期事件 |Microsoft Docs
 author: pfletcher
 description: 本文介绍如何使用事件中心 API 公开的。
 ms.author: riande
-ms.date: 06/10/2014
+ms.date: 01/15/2019
 ms.assetid: 03960de2-8d95-4444-9169-4426dcc64913
 msc.legacyurl: /signalr/overview/guide-to-the-api/handling-connection-lifetime-events
 msc.type: authoredcontent
-ms.openlocfilehash: 6a354179a82eba1d4a64184bfdeb302472fabf5f
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 5aaec6795f714ba0877ec3b22eff45eb281b44aa
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287972"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396163"
 ---
 <a name="understanding-and-handling-connection-lifetime-events-in-signalr"></a>了解和处理 SignalR 中的连接生存期事件
 ====================
-通过[Patrick Fletcher](https://github.com/pfletcher)， [Tom Dykstra](https://github.com/tdykstra)
 
 [!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
@@ -32,7 +31,7 @@ ms.locfileid: "53287972"
 > ## <a name="software-versions-used-in-this-topic"></a>本主题中使用的软件版本
 >
 >
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> - [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 > - .NET 4.5
 > - SignalR 版本 2
 >
@@ -60,7 +59,7 @@ ms.locfileid: "53287972"
 
     - [ConnectionTimeout](#connectiontimeout)
     - [DisconnectTimeout](#disconnecttimeout)
-    - [保持连接](#keepalive)
+    - [KeepAlive](#keepalive)
     - [如何更改超时设置和 keepalive 设置](#changetimeout)
 - [如何通知用户有关的断开连接](#notifydisconnect)
 - [如何持续重新连接](#continuousreconnect)
@@ -147,7 +146,7 @@ API 参考主题的链接将指向.NET 4.5 版本的 API。 如果使用的.NET 
 
 > [!NOTE]
 >
-> **重要**:此处所述的事件的顺序不能保证。 SignalR 使每次尝试此方案中，根据不可预测的方式引发连接生存期事件，但有许多不同的网络事件以及基础通信框架，如传输 Api 处理它们的各种方法。 例如，`Reconnected`可能无法引发事件，当客户端重新连接，或`OnConnected`当尝试建立的连接不成功时，可能会运行在服务器上的处理程序。 本主题介绍的通常会生成某些典型的情况下的影响。
+> **重要说明**：此处所述的事件的顺序不能保证。 SignalR 使每次尝试此方案中，根据不可预测的方式引发连接生存期事件，但有许多不同的网络事件以及基础通信框架，如传输 Api 处理它们的各种方法。 例如，`Reconnected`可能无法引发事件，当客户端重新连接，或`OnConnected`当尝试建立的连接不成功时，可能会运行在服务器上的处理程序。 本主题介绍的通常会生成某些典型的情况下的影响。
 
 
 <a id="clientdisconnect"></a>
@@ -196,7 +195,7 @@ API 参考主题的链接将指向.NET 4.5 版本的 API。 如果使用的.NET 
 
 <a id="keepalive"></a>
 
-### <a name="keepalive"></a>保持连接
+### <a name="keepalive"></a>KeepAlive
 
 此设置表示要在通过空闲连接发送保持连接数据包之前等待时间的量。 默认值为 10 秒。 此值不能超过 1/3 的`DisconnectTimeout`值。
 

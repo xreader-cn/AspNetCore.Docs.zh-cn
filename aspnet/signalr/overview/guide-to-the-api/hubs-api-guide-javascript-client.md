@@ -4,20 +4,19 @@ title: ASP.NET SignalR 中心 API 指南-JavaScript 客户端 |Microsoft Docs
 author: pfletcher
 description: 本文档介绍了使用 SignalR 版本 2 中 JavaScript 客户端，如浏览器和 Windows 应用商店 (WinJS) applicat 中心 API...
 ms.author: riande
-ms.date: 09/28/2015
+ms.date: 01/15/2019
 ms.assetid: a9fd4dc0-1b96-4443-82ca-932a5b4a8ea4
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-javascript-client
 msc.type: authoredcontent
-ms.openlocfilehash: a8352045d99b77713c94ab809417c5dc4675557f
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 12d675b6a2f2f6acdd8c3a5d0d27b5ad2fb1efc4
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099268"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396306"
 ---
 <a name="aspnet-signalr-hubs-api-guide---javascript-client"></a>ASP.NET SignalR 中心 API 指南-JavaScript 客户端
 ====================
-通过[Patrick Fletcher](https://github.com/pfletcher)， [Tom Dykstra](https://github.com/tdykstra)
 
 [!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
@@ -30,7 +29,7 @@ ms.locfileid: "54099268"
 > ## <a name="software-versions-used-in-this-topic"></a>本主题中使用的软件版本
 >
 >
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> - [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 > - .NET 4.5
 > - SignalR 版本 2
 >
@@ -142,9 +141,7 @@ JavaScript 客户端需要对 jQuery 和 SignalR core JavaScript 文件的引用
 
 作为一般规则，用于指定将用于 CSS 或 JavaScript 文件"/ signalr/中心"URL 中使用相同的方法。 如果不使用波形符指定 URL，在某些情况下你的应用程序将正常工作时在 Visual Studio 中使用 IIS Express 测试，但部署到完整 IIS 时将失败并显示 404 错误。 有关详细信息，请参阅**解析对根级资源的引用**中[对于 ASP.NET Web 项目的 Visual Studio 中的 Web 服务器](https://msdn.microsoft.com/library/58wxa9w5.aspx)MSDN 站点上。
 
-当在调试模式下，Visual Studio 2013 中运行 web 项目，如果你使用 Internet Explorer 为您的浏览器，可以看到中的代理文件**解决方案资源管理器**下**脚本文档**，如中所示下图。
-
-![在解决方案资源管理器中的 JavaScript 生成的代理文件](hubs-api-guide-javascript-client/_static/image1.png)
+当在调试模式下，Visual Studio 2017 中运行 web 项目，如果你使用 Internet Explorer 为您的浏览器，可以看到中的代理文件**解决方案资源管理器**下**脚本**。
 
 若要查看该文件的内容，请双击**中心**。 如果没有使用 Visual Studio 2012 或 2013年和 Internet Explorer 中，或者你不在调试模式下，还可以通过浏览到"/ signalR/中心"URL 来获取文件的内容。 例如，如果您的网站在运行时`http://localhost:56699`，请转到`http://localhost:56699/SignalR/hubs`在浏览器中。
 
