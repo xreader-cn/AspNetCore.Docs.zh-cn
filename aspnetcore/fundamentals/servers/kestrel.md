@@ -32,7 +32,7 @@ Kestrel 支持以下方案：
 * HTTPS
 * 用于启用 [WebSocket](https://github.com/aspnet/websockets) 的不透明升级
 * 用于获得 Nginx 高性能的 Unix 套接字
-* HTTP/2（除非在 macOS&dagger; 上）
+* HTTP/2（除 macOS&dagger; 以外）
 
 macOS 的未来版本将支持 &dagger;HTTP/2。
 
