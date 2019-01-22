@@ -5,12 +5,12 @@ description: 了解如何生成使用电子邮件确认及密码重置功能的 
 ms.author: riande
 ms.date: 7/11/2018
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 4c2e62335bc7dd004829dbc2a8c1f62ea91f334f
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 0dc9907f9f54c8a0daf2e05a3769897e5145935f
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253034"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444137"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>帐户确认和 ASP.NET Core 中的密码恢复
 
@@ -204,7 +204,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 您可能需要展开导航栏以查看用户名称。
 
-![导航栏](accconfirm/_static/x.png)
+![navbar](accconfirm/_static/x.png)
 
 管理页显示与**配置文件**选定的选项卡。 **电子邮件**显示已确认一个复选框，表明该电子邮件。
 

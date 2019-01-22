@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/13/2018
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 3be220df4b14ed8dbbd1fab70f46578e9408aa26
-ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
+ms.openlocfilehash: 0aef2680f48b7923579f90943846f22734f61b50
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/14/2018
-ms.locfileid: "51635311"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444267"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
 
@@ -42,7 +42,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-设置密钥环存储位置 (例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage))。 必须设置位置，因为在调用`ProtectKeysWithAzureKeyVault`实现[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)禁用自动数据保护设置，包括密钥环存储位置。 前面的示例中使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序： Azure 和 Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis)。 您还可以保留使用本地密钥环[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)。
+设置密钥环存储位置 (例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage))。 必须设置位置，因为在调用`ProtectKeysWithAzureKeyVault`实现[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)禁用自动数据保护设置，包括密钥环存储位置。 前面的示例中使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序：Azure 和 Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis)。 您还可以保留使用本地密钥环[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)。
 
 `keyIdentifier`是用于密钥加密的密钥保管库密钥标识符 (例如， `https://contosokeyvault.vault.azure.net/keys/dataprotection/`)。
 
@@ -135,7 +135,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="setapplicationname"></a>SetApplicationName
 
-默认情况下，数据保护系统隔离应用程序不同，即使它们共享同一个物理密钥存储库。 这可以防止应用程序了解彼此的受保护的负载。
+默认情况下，数据保护系统隔离应用中的另一个基于其内容根路径，即使它们共享同一个物理密钥存储库。 这可以防止应用程序了解彼此的受保护的负载。
 
 若要共享受保护的应用之间的有效负载：
 

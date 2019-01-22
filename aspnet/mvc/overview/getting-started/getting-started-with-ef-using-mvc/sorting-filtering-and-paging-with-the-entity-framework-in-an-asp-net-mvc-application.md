@@ -1,35 +1,42 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 排序、 筛选和分页与实体框架中的 ASP.NET MVC 应用程序 |Microsoft Docs
+title: 教程：添加排序、 筛选和分页与实体框架在 ASP.NET MVC 应用程序 |Microsoft Docs
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
+description: 在本教程中添加排序、 筛选和分页功能**学生**索引页。 您还可以创建简单分组页。
 ms.author: riande
-ms.date: 10/08/2018
+ms.date: 01/14/2019
 ms.assetid: d5723e46-41fe-4d09-850a-e03b9e285bfa
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 9fabb5a90af715d4e96ff79b43bfff5a4600ac08
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.topic: tutorial
+ms.openlocfilehash: 1f18a15d39d58ffb4ac48cfccee6519d33294e85
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912769"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444190"
 ---
-# <a name="sorting-filtering-and-paging-with-the-entity-framework-in-an-aspnet-mvc-application"></a>排序、 筛选和分页与 ASP.NET MVC 应用程序中的实体框架
+# <a name="tutorial-add-sorting-filtering-and-paging-with-the-entity-framework-in-an-aspnet-mvc-application"></a>教程：添加排序、 筛选和分页与 ASP.NET MVC 应用程序中的实体框架
 
-通过[Tom Dykstra](https://github.com/tdykstra)
+在中[前一篇教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)，实现一组基本的 CRUD 操作执行的 web 页面`Student`实体。 在本教程中添加排序、 筛选和分页功能**学生**索引页。 您还可以创建简单分组页。
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
-在上一教程中，实现一组基本的 CRUD 操作执行的 web 页面`Student`实体。 在本教程将添加排序、 筛选和分页功能**学生**索引页。 同时，还将创建一个执行简单分组的页面。
-
-下图展示了完成操作后的页面外观。 列标题是用户可以单击以按该列排序的链接。 重复单击列标题可在升降排序顺序之间切换。
+下图显示了完成后页面外观。 列标题是用户可以单击以按该列排序的链接。 重复单击列标题可在升降排序顺序之间切换。
 
 ![Students_Index_page_with_paging](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
 
-## <a name="add-column-sort-links-to-the-students-index-page"></a>向学生索引页添加列排序链接
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 添加列排序链接
+> * 添加搜索框
+> * 添加分页
+> * 创建一个关于页
+
+## <a name="prerequisites"></a>系统必备
+
+* [实现基本的 CRUD 功能](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md)
+
+## <a name="add-column-sort-links"></a>添加列排序链接
 
 若要添加到学生索引页进行排序，你将更改`Index`方法`Student`控制器并将代码添加到`Student`索引视图。
 
@@ -70,13 +77,9 @@ ms.locfileid: "48912769"
 
 2. 运行页面，然后单击**姓氏**并**注册日期**列标题以验证排序是否工作。
 
-   ![Students_Index_page_with_sort_hyperlinks](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
-
    单击后**姓氏**标题下方，学生显示按降序姓氏的顺序。
 
-   ![在 web 浏览器中的学生索引视图](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
-## <a name="add-a-search-box-to-the-students-index-page"></a>向学生索引页添加搜索框
+## <a name="add-a-search-box"></a>添加搜索框
 
 若要添加筛选到学生索引页，将向视图添加一个文本框和一个提交按钮，并进行相应更改中的`Index`方法。 在文本框中，可以输入要在名字和姓氏字段中搜索的字符串。
 
@@ -103,15 +106,11 @@ ms.locfileid: "48912769"
 
 2. 运行页上，输入搜索字符串，然后单击**搜索**以验证筛选是否正常工作。
 
-   ![Students_Index_page_with_search_box](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
-
    请注意，URL 不包含"an"搜索字符串，这意味着，如果此页加入书签，您不会获得筛选的列表，当您使用书签。 这同样适用于列排序链接，因为它们将对整个列表进行排序。 将更改**搜索**按钮，本教程的后面使用筛选器条件的查询字符串。
 
-## <a name="add-paging-to-the-students-index-page"></a>向学生索引页添加分页
+## <a name="add-paging"></a>添加分页
 
-若要向学生索引页添加分页，首先你将安装**PagedList.Mvc** NuGet 包。 然后你将进行中的其他更改`Index`方法并添加分页链接到`Index`视图。 **PagedList.Mvc**是许多很好的分页和排序的 ASP.NET MVC 中，包之一，此处使用旨在仅作为示例，不为相对于其他选择为其建议。 下图显示了分页链接。
-
-![Students_index_page_with_paging](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
+若要向学生索引页添加分页，首先你将安装**PagedList.Mvc** NuGet 包。 然后你将进行中的其他更改`Index`方法并添加分页链接到`Index`视图。 **PagedList.Mvc**是许多很好的分页和排序的 ASP.NET MVC 中，包之一，此处使用旨在仅作为示例，不为相对于其他选择为其建议。
 
 ### <a name="install-the-pagedlistmvc-nuget-package"></a>安装 PagedList.MVC NuGet 包
 
@@ -124,8 +123,6 @@ NuGet **PagedList.Mvc**会自动安装包**PagedList**包作为依赖项。 **Pa
    ```text
    Install-Package PagedList.Mvc
    ```
-
-   ![安装 PagedList.Mvc](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
 
 3. 生成项目。
 
@@ -197,13 +194,9 @@ NuGet **PagedList.Mvc**会自动安装包**PagedList**包作为依赖项。 **Pa
 
 2. 运行页。
 
-   ![使用分页的学生索引页](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
-
    单击不同排序顺序的分页链接，以确保分页正常工作。 然后输入一个搜索字符串并再次尝试分页，以验证分页也可以正确地进行排序和筛选。
 
-   ![学生索引页与搜索筛选器文本](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
-
-## <a name="create-an-about-page-that-shows-student-statistics"></a>创建显示学生统计信息的“关于”页
+## <a name="create-an-about-page"></a>创建一个关于页
 
 对于 Contoso 大学网站的一页，将显示每个注册日期注册学生的数量。 这需要对组进行分组和简单计算。 若要完成此操作，需要执行以下操作：
 
@@ -249,14 +242,24 @@ NuGet **PagedList.Mvc**会自动安装包**PagedList**包作为依赖项。 **Pa
 
    ![About_page](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-在本教程中已了解如何创建数据模型并实现基本的 CRUD，排序、 筛选、 分页和分组功能。 下一教程将介绍有关展开数据模型的更高级主题。
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md)
-> [下一页](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 添加列排序链接
+> * 添加搜索框
+> * 添加分页
+> * 创建一个关于页
+
+转到下一步的文章，了解如何使用连接复原和命令拦截。
+> [!div class="nextstepaction"]
+> [连接复原和命令截获](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)

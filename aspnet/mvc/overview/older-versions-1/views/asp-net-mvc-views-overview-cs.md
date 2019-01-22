@@ -8,12 +8,12 @@ ms.date: 02/16/2008
 ms.assetid: 152ab1e5-aec2-4ea7-b8cc-27a24dd9acb8
 msc.legacyurl: /mvc/overview/older-versions-1/views/asp-net-mvc-views-overview-cs
 msc.type: authoredcontent
-ms.openlocfilehash: ac47caa46d93c6157926f1c9b5112555fae4f8f5
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: a8e64a99549584f150d64d909ac97210257b1147
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41830667"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444124"
 ---
 <a name="aspnet-mvc-views-overview-c"></a>ASP.NET MVC 视图概述 (C#)
 ====================
@@ -28,7 +28,7 @@ ms.locfileid: "41830667"
 
 对于 ASP.NET 或 Active Server Pages，ASP.NET MVC 不包括任何内容直接对应于一个页面。 ASP.NET MVC 应用程序中没有页面在浏览器的地址栏中键入的 URL 中的路径相对应的磁盘上。 到页面的 ASP.NET MVC 应用程序中最近的就是调用*视图*。
 
-ASP.NET MVC 应用程序、 传入浏览器请求映射到控制器操作。 控制器操作可能会返回一个视图。 但是，控制器操作可能会执行一些其他类型的操作时，例如将你重定向到另一个控制器操作。
+在 ASP.NET MVC 应用程序中，浏览器的传入请求映射到控制器操作。 控制器操作可能会返回一个视图。 但是，控制器操作可能会执行一些其他类型的操作时，例如将你重定向到另一个控制器操作。
 
 代码清单 1 包含名为 HomeController 的简单控制器。 HomeController 公开名为 index （） 和 Details() 的两个控制器操作。
 
@@ -75,7 +75,7 @@ View();
 
 例如，代码清单 2 中的视图显示当前日期和时间。
 
-**代码清单 2-\Views\Home\Index.aspx**
+**Listing 2 - \Views\Home\Index.aspx**
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample2.aspx)]
 
@@ -87,11 +87,11 @@ View();
 
 由于经常调用 response.write （），Microsoft 可快捷方式来调用 response.write （） 方法。 列表 3 中的视图使用分隔符&lt;%= 和 %&gt;作为调用 response.write （） 的快捷方式。
 
-**代码清单 3-Views\Home\Index2.aspx**
+**Listing 3 - Views\Home\Index2.aspx**
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample3.aspx)]
 
-可以使用任何.NET 语言在视图中生成动态内容。 通常情况下，您将使用 Visual Basic.NET 或 C# 编写你的控制器和视图。
+可以使用任何.NET 语言在视图中生成动态内容。 通常情况下，将使用 Visual Basic.NET 或C#若要编写在控制器和视图。
 
 ## <a name="using-html-helpers-to-generate-view-content"></a>使用 HTML 帮助器生成视图的内容
 
@@ -99,14 +99,14 @@ View();
 
 例如，清单 4 利用了三个 HTML 帮助程序-中的视图的 BeginForm()、 TextBox() 和 Password() 帮助器-生成一个登录名窗体 （请参阅图 1）。
 
-**列表 4-\Views\Home\Login.aspx**
+**Listing 4 -- \Views\Home\Login.aspx**
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample4.aspx)]
 
 
 [![新建项目对话框](asp-net-mvc-views-overview-cs/_static/image1.jpg)](asp-net-mvc-views-overview-cs/_static/image1.png)
 
-**图 01**： 一个标准的登录窗体 ([单击以查看实际尺寸的图像](asp-net-mvc-views-overview-cs/_static/image2.png))
+**图 01**:一个标准的登录窗体 ([单击此项可查看原尺寸图像](asp-net-mvc-views-overview-cs/_static/image2.png))
 
 
 所有 HTML 帮助器方法被调用视图的 Html 属性。 例如，通过调用 Html.TextBox() 方法呈现一个文本框。
@@ -115,7 +115,7 @@ View();
 
 使用 HTML 帮助器方法是可选的。 它们使您的生活更轻松通过减少的 HTML 和您需要自己编写的脚本。 列表 5 中的视图而无需使用 HTML 帮助器呈现的视图列表 4 中完全相同的形式。
 
-**列表 5-\Views\Home\Login.aspx**
+**Listing 5 -- \Views\Home\Login.aspx**
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample5.aspx)]
 
@@ -133,13 +133,13 @@ View();
 
 列表 7 中的视图从查看数据中检索消息并呈现到浏览器的消息。
 
-**列表 7-\Views\Product\Index.aspx**
+**Listing 7 -- \Views\Product\Index.aspx**
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample7.aspx)]
 
 请注意视图充分利用 Html.Encode() 的 HTML 帮助器方法，当呈现该消息。 Html.Encode() HTML 帮助器将特殊字符的编码等&lt;和&gt;到安全地在 web 页中显示的字符。 只要呈现在用户提交到网站的内容，应该对要阻止 JavaScript 注入攻击的内容进行编码。
 
-(因为我们创建消息自己在 ProductController 中，我们不真正需要对消息进行编码。 但是，它是一个好习惯以显示内容检索从视图中查看数据时，始终调用 Html.Encode() 方法。）
+（因为我们创建我们自己在 ProductController 中，我们的确不需要对消息进行编码的消息。 但是，它是一个好习惯以显示内容检索从视图中查看数据时，始终调用 Html.Encode() 方法。）
 
 在列表 7 中，我们利用了视图数据将简单的字符串消息从控制器传递到视图。 此外可以使用视图数据将传递其他类型的数据，如数据库记录，从控制器到视图的集合。 例如，如果你想要的产品数据库表的内容显示在视图中，则您会传递数据库的集合视图中记录的数据。
 
@@ -150,4 +150,4 @@ View();
 本教程提供简要介绍 ASP.NET MVC 视图、 视图数据和 HTML 帮助程序。 在第一个部分中，您学习了如何将新视图添加到你的项目。 您学习了，您必须要从特定控制器调用，到正确的文件夹添加一个视图。 接下来，我们讨论了 HTML 帮助程序的主题。 您学习了如何 HTML 帮助器使您能够轻松地生成标准的 HTML 内容。 最后，您学习了如何利用的视图数据将数据从控制器传递到视图。
 
 > [!div class="step-by-step"]
-> [下一篇](creating-custom-html-helpers-cs.md)
+> [下一页](creating-custom-html-helpers-cs.md)

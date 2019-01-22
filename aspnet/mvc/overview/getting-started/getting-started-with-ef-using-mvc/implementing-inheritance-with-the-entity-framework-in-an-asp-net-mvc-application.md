@@ -1,34 +1,43 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 在 ASP.NET MVC 5 应用程序 (12 的 11) 中实现继承使用 Entity Framework 6 |Microsoft Docs
+title: 模板：使用 EF 在 ASP.NET MVC 5 应用程序中实现继承
+description: 本教程将演示如何在数据模型中实现继承。
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
 ms.author: riande
-ms.date: 11/07/2014
+ms.date: 01/21/2019
+ms.topic: tutorial
 ms.assetid: 08834147-77ec-454a-bb7a-d931d2a40dab
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 613494d58d7652f69a52241bcd3a7e896bc5407c
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: df8715e4416ce3ccdf1d9e380addcded553d85f8
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912693"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444280"
 ---
-<a name="implementing-inheritance-with-the-entity-framework-6-in-an-aspnet-mvc-5-application-11-of-12"></a>在 ASP.NET MVC 5 应用程序 (12 的 11) 中实现继承，使用实体框架 6
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
-
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
+# <a name="template-implement-inheritance-with-ef-in-an-aspnet-mvc-5-app"></a>模板：使用 EF 的 ASP.NET MVC 5 应用程序中实现继承
 
 在上一教程中，你将处理并发异常。 本教程将演示如何在数据模型中实现继承。
 
 在面向对象的编程中，可以使用[继承](http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming))便于[代码重用](http://en.wikipedia.org/wiki/Code_reuse)。 在本教程中，将更改 `Instructor` 和 `Student` 类，以便从 `Person` 基类中派生，该基类包含教师和学生所共有的属性（如 `LastName`）。 不会添加或更改任何网页，但会更改部分代码，并将在数据库中自动反映这些更改。
 
-## <a name="options-for-mapping-inheritance-to-database-tables"></a>将继承映射到数据库表的选项
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 了解如何将继承映射到数据库
+> * 创建 Person 类
+> * 更新 Instructor 和 Student
+> * 将用户添加到模型
+> * 创建和更新迁移
+> * 测试实现
+> * 部署到 Azure
+
+## <a name="prerequisites"></a>系统必备
+
+* [实现继承](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+
+## <a name="map-inheritance-to-database"></a>将继承映射到数据库
 
 `Instructor`并`Student`中的类`School`数据模型具有完全相同的多个属性：
 
@@ -62,7 +71,9 @@ TPC 和 TPH 继承模式通常提供更好的性能在实体框架中比 TPT 继
 
 [!code-csharp[Main](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample1.cs)]
 
-## <a name="make-student-and-instructor-classes-inherit-from-person"></a>使 Student 和 Instructor 类从 Person 继承
+## <a name="update-instructor-and-student"></a>更新 Instructor 和 Student
+
+现在，更新*Instructor.cs*并*Sudent.cs*继承中的值*Person.sc*。
 
 在中*Instructor.cs*，派生`Instructor`类`Person`类，并删除键和姓名字段。 代码将如下所示：
 
@@ -72,7 +83,7 @@ TPC 和 TPH 继承模式通常提供更好的性能在实体框架中比 TPT 继
 
 [!code-csharp[Main](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample3.cs)]
 
-## <a name="add-the-person-entity-type-to-the-model"></a>将 Person 实体类型添加到模型
+## <a name="add-person-to-the-model"></a>将用户添加到模型
 
 在中*SchoolContext.cs*，添加`DbSet`属性`Person`实体类型：
 
@@ -80,7 +91,7 @@ TPC 和 TPH 继承模式通常提供更好的性能在实体框架中比 TPT 继
 
 以上是 Entity Framework 配置每个层次结构一张表继承所需的全部操作。 正如您将看到数据库更新时，它将具有`Person`表来代替`Student`和`Instructor`表。
 
-## <a name="create-and-update-a-migrations-file"></a>创建和更新的迁移文件
+## <a name="create-and-update-migrations"></a>创建和更新迁移
 
 在包管理器控制台 (PMC) 中，输入以下命令：
 
@@ -121,18 +132,13 @@ TPC 和 TPH 继承模式通常提供更好的性能在实体框架中比 TPT 继
 >
 > 使用新数据库没有数据迁移，和`update-database`命令是更有望完成且未出错。 有关如何删除数据库的说明，请参阅[如何从 Visual Studio 2012 中删除数据库](http://romiller.com/2013/05/17/how-to-drop-a-database-from-visual-studio-2012/)。 如果你接受这种方法，以继续本教程，请跳过部署步骤，本教程结束时或部署到新的站点和数据库。 如果将更新部署到您已被部署到已在同一站点时，EF 会那里相同的错误时自动运行迁移。 如果你想要解决的迁移错误，最佳资源是 Entity Framework 论坛或 StackOverflow.com 之一。
 
-
-## <a name="testing"></a>正在测试
+## <a name="test-the-implementation"></a>测试实现
 
 运行站点，并尝试各种页面。 一切都和以前一样。
 
 中**服务器资源管理器**展开**数据 Connections\SchoolContext** ，然后**表**，并可以看到**学生**和**讲师**已被取代，表**人员**表。 展开**Person**表，会看到它具有所有使用中的列**学生**并**讲师**表。
 
-![Server_Explorer_showing_Person_table](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
-
 右键单击 Person 表，然后单击“显示表数据”以查看鉴别器列。
-
-![](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
 
 下图说明了新的 School 数据库的结构：
 
@@ -144,22 +150,37 @@ TPC 和 TPH 继承模式通常提供更好的性能在实体框架中比 TPT 继
 
 1. 在 Visual Studio 中，右键单击该项目中的**解决方案资源管理器**，然后选择**发布**从上下文菜单。
 
-    ![在项目上下文菜单中发布](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
 2. 单击“发布” 。
 
-    ![publish](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
+    在默认浏览器中打开 Web 应用。
 
-   Web 应用将在默认浏览器中打开。
 3. 测试应用程序以验证它是否正常工作。
 
     首次运行页面访问数据库，Entity Framework 将运行所有迁移`Up`使数据库保持最新的当前数据模型所必需的方法。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-你已经为 `Person`、`Student` 和 `Instructor` 类实现了每个层次结构一张表继承。 有关此设置和其他继承结构的详细信息，请参阅[TPT 继承模式](https://msdn.microsoft.com/data/jj618293)并[TPH 继承模式](https://msdn.microsoft.com/data/jj618292)MSDN 上。 下一个教程将介绍如何处理各种相对高级的 Entity Framework 方案。
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [下一页](advanced-entity-framework-scenarios-for-an-mvc-web-application.md)
+有关此设置和其他继承结构的详细信息，请参阅[TPT 继承模式](https://msdn.microsoft.com/data/jj618293)并[TPH 继承模式](https://msdn.microsoft.com/data/jj618292)MSDN 上。 下一个教程将介绍如何处理各种相对高级的 Entity Framework 方案。
+
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已了解如何将继承映射到数据库
+> * 创建 Person 类
+> * 更新的 Instructor 和 Student
+> * 向模型添加的用户
+> * 创建和更新迁移
+> * 测试实现
+> * 部署到 Azure
+
+转到下一步的文章，了解需要注意的开发使用 Entity Framework Code First 的 ASP.NET web 应用程序的基础知识以外中转时很有用的主题。
+> [!div class="nextstepaction"]
+> [高级 Entity Framework 方案](advanced-entity-framework-scenarios-for-an-mvc-web-application.md)

@@ -1,36 +1,39 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 代码优先迁移和部署使用实体框架中的 ASP.NET MVC 应用程序 |Microsoft Docs
+title: 教程：在 ASP.NET MVC 应用中使用 EF 迁移并将其部署到 Azure
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
+description: 在本教程中，将启用 Code First 迁移和部署到 Azure 中云应用程序。
 ms.author: riande
-ms.date: 10/08/2018
+ms.date: 01/16/2019
+ms.topic: tutorial
 ms.assetid: d4dfc435-bda6-4621-9762-9ba270f8de4e
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 5c926c61cec5c7de43e2c3f0e377023b8ee799d0
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 131540113f5ac8ce9e15c8ab92b8dc7ee11de115
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913016"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444215"
 ---
-<a name="code-first-migrations-and-deployment-with-the-entity-framework-in-an-aspnet-mvc-application"></a>第一个迁移和部署使用实体框架在 ASP.NET MVC 应用程序中的代码
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-use-ef-migrations-in-an-aspnet-mvc-app-and-deploy-to-azure"></a>教程：在 ASP.NET MVC 应用中使用 EF 迁移并将其部署到 Azure
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
-到目前为止该应用程序已经运行本地 IIS Express 中在开发计算机上。 若要使实际的应用程序可供其他人通过 Internet 使用，必须将其部署到 web 宿主提供程序。 在本教程中，你将部署到 Azure 中云 Contoso 大学应用程序。
-
-本教程包含以下部分：
+到目前为止 Contoso 大学示例 web 应用程序已经运行本地 IIS Express 中在开发计算机上。 若要使实际的应用程序可供其他人通过 Internet 使用，必须将其部署到 web 宿主提供程序。 在本教程中，可以启用 Code First 迁移和部署到 Azure 中云应用程序：
 
 - 启用 Code First 迁移。 迁移功能，可更改数据模型并将其部署到生产环境所做的更改，通过更新数据库架构，而无需删除并重新创建数据库。
 - 将部署到 Azure。 此步骤是可选的;无部署项目的情况下，可以继续剩余的教程。
 
 我们建议使用持续集成过程使用源代码管理进行部署，但本教程不会介绍这些主题。 有关详细信息，请参阅[源代码管理](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/source-control)并[持续集成](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/continuous-integration-and-continuous-delivery)章[使用 Azure 构建实际云应用](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/introduction)。
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 启用 Code First 迁移
+> * 在 Azure 部署应用 （可选）
+
+## <a name="prerequisites"></a>系统必备
+
+- [连接复原和命令截获](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="enable-code-first-migrations"></a>启用 Code First 迁移
 
@@ -55,15 +58,11 @@ ms.locfileid: "48913016"
     add-migration InitialCreate
     ```
 
-    ![enable-migrations 命令](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
-
     `enable-migrations`命令创建*迁移*文件夹中的 ContosoUniversity 项目中，在该文件夹中放入*Configuration.cs*可编辑以配置 Migrations 的文件。
 
     (如果你错过了前面的步骤，指示您要更改数据库名称，迁移将查找现有数据库并自动执行`add-migration`命令。 这是好了，它只意味着在部署数据库之前，不会运行一次测试迁移代码。 在运行时，更高版本`update-database`命令不会发生因为数据库已存在。)
 
-    ![Migrations 文件夹](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
-
-    如您在前面，看到的初始值设定项类`Configuration`类包括`Seed`方法。
+    打开*ContosoUniversity\Migrations\Configuration.cs*文件。 如您在前面，看到的初始值设定项类`Configuration`类包括`Seed`方法。
 
     [!code-csharp[Main](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample3.cs)]
 
@@ -121,8 +120,6 @@ ms.locfileid: "48913016"
 
     `update-database`
 
-    ![](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
     `update-database`命令将运行`Up`方法来创建数据库，然后将它运行`Seed`方法来填充该数据库。 相同的过程将自动运行在生产环境中部署应用程序之后, 您将看到以下部分中。
 2. 使用**服务器资源管理器**一样在第一个教程中，检查数据库并运行应用程序以验证一切仍然正常相同像以前一样。
 
@@ -157,8 +154,6 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 
 2. 中输入的字符串**应用名称**框，以用作你的应用程序的唯一 URL。 完整的 URL 将包含你在此处输入的以及 Azure 应用服务的默认域的 (。 azurewebsites.net)。 如果**应用名称**已被使用，该向导会通知你带有红色*应用程序名称不可用*消息。 如果**应用名称**是可用，您看到一个绿色复选标记。
 
-    ![使用管理门户中的数据库链接创建](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/create-web-app-sql-resource.png)
-
 3. 在中**订阅**框中，选择要在其中的 Azure 订阅**应用服务**驻留。
 
 4. 在中**资源组**文本框中，选择一个资源组或新建一个。 此设置指定你的网站将运行在哪个数据中心。 有关资源组的详细信息，请参阅[资源组](/azure/azure-resource-manager/resource-group-overview#resource-groups)。
@@ -166,8 +161,6 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 5. 创建一个新**应用服务计划**通过单击*应用服务部分*，**新建**，然后填写**应用服务计划**（可以是相同的名称应用服务中），**位置**，并**定价层**（没有可用的选项）。
 
 6. 单击**SQL 数据库**，然后选择**创建新的数据库**或选择现有的数据库。
-
-    ![](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/new-sql-database.png)
 
 7. 在中**名称**框中，输入你的数据库的名称。
 8. 单击**目标服务器**框，并选择**创建新的服务器**。 或者，如果你之前创建一个服务器，您可以从可用服务器列表中选择该服务器。
@@ -187,8 +180,6 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 
 1. 在 Visual Studio 中，右键单击该项目中的**解决方案资源管理器**，然后选择**发布**从上下文菜单。
 
-    ![在解决方案资源管理器中发布菜单项](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
-
 2. 上**选取发布目标**页上，选择**应用服务**，然后**选择现有**，然后选择**发布**。
 
     ![选取发布目标页](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/publish-select-existing-azure-app-service.png)
@@ -197,11 +188,7 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 
 4. 上**应用服务**页上，选择**订阅**添加到应用服务。 下**视图**，选择**资源组**。 展开添加到应用服务的资源组，然后选择应用服务。 选择**确定**以发布应用。
 
-    ![选择应用服务](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/app-service-page.png)
-
 5. **输出**窗口将显示已执行的部署操作并报告成功完成部署。
-
-    ![报告部署成功的输出窗口](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/publish-output.png)
 
 6. 成功完成部署后的默认浏览器会自动打开指向已部署的 web 站点的 URL。
 
@@ -217,7 +204,7 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 
 ![Web.config 文件中的连接字符串](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image26.png)
 
-您可以找到在计算机上的 Web.config 文件的已部署的版本*ContosoUniversity\obj\Release\Package\PackageTmp\Web.config*。您可以访问已部署*Web.config*文件本身通过使用 FTP。 有关说明，请参阅[使用 Visual Studio 的 ASP.NET Web 部署： 部署代码更新](xref:web-forms/overview/deployment/visual-studio-web-deployment/deploying-a-code-update)。 按照说明开头的"若要使用 FTP 工具，需要以下三项： FTP URL、 用户名和密码。"
+您可以找到在计算机上的 Web.config 文件的已部署的版本*ContosoUniversity\obj\Release\Package\PackageTmp\Web.config*。您可以访问已部署*Web.config*文件本身通过使用 FTP。 有关说明，请参阅[使用 Visual Studio 的 ASP.NET Web 部署：部署代码更新](xref:web-forms/overview/deployment/visual-studio-web-deployment/deploying-a-code-update)。 按照说明开头的"若要使用 FTP 工具，需要以下三项： FTP URL、 用户名和密码。"
 
 > [!NOTE]
 > Web 应用不会实现安全性，以便找到 URL 的任何人可以更改的数据。 有关如何保护网站上的说明，请参阅[将包含成员资格、 OAuth 和 SQL 数据库的安全 ASP.NET MVC 应用部署到 Azure](/aspnet/core/security/authorization/secure-data)。 可以阻止其他人通过停止服务使用 Azure 管理门户中使用站点或**服务器资源管理器**Visual Studio 中。
@@ -234,16 +221,24 @@ Azure 中的 web 应用将在共享宿主环境，这意味着它在运行与其
 
 在部署部分中，您看到[MigrateDatabaseToLatestVersion](https://msdn.microsoft.com/library/hh829476(v=vs.103).aspx)初始值设定项正在使用。 代码首先还提供其他初始值设定项，包括[CreateDatabaseIfNotExists](https://msdn.microsoft.com/library/gg679221(v=vs.103).aspx) （默认值）， [DropCreateDatabaseIfModelChanges](https://msdn.microsoft.com/library/gg679604(v=VS.103).aspx) （它使用前面部分） 和[DropCreateDatabaseAlways](https://msdn.microsoft.com/library/gg679506(v=VS.103).aspx)。 `DropCreateAlways`初始值设定项也可用于设置单元测试的条件。 您还可以编写您自己初始值设定项，并且如果不想等待，直到应用程序从读取或写入数据库，您可以显式调用初始值设定项。
 
-有关初始值设定项的详细信息，请参阅[了解数据库初始值设定项中 Entity Framework Code First](http://www.codeguru.com/csharp/article.php/c19999/Understanding-Database-Initializers-in-Entity-Framework-Code-First.htm)和一书的第 6 章[Programming Entity Framework: Code First](http://shop.oreilly.com/product/0636920022220.do)作者： Julie Lerman和 Rowan Miller。
+有关初始值设定项的详细信息，请参阅[了解数据库初始值设定项中 Entity Framework Code First](http://www.codeguru.com/csharp/article.php/c19999/Understanding-Database-Initializers-in-Entity-Framework-Code-First.htm)和一书的第 6 章[Programming Entity Framework:代码优先](http://shop.oreilly.com/product/0636920022220.do)Julie Lerman 和 Rowan Miller 的。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-在本教程中，您学习了如何启用迁移和部署应用程序。 下一教程将介绍有关展开数据模型的更高级主题。
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](xref:whitepapers/aspnet-data-access-content-map)。
 
-> [!div class="step-by-step"]
-> [上一页](xref:mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application)
-> [下一页](xref:mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application)
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 启用的 Code First 迁移
+> * 部署 Azure （可选） 中的应用
+
+转到下一步的文章，了解如何为 ASP.NET MVC 应用程序创建更复杂的数据模型。
+> [!div class="nextstepaction"]
+> [创建更复杂的数据模型](creating-a-more-complex-data-model-for-an-asp-net-mvc-application.md)

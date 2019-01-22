@@ -1,30 +1,24 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 使用实体框架在 ASP.NET MVC 应用程序中更新相关的数据 |Microsoft Docs
+title: 教程：在 ASP.NET MVC 应用中使用 EF 更新相关的数据
+description: 在本教程中将更新相关的数据。 对于大多数关系，这可以通过更新外键字段或导航属性。
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
 ms.author: riande
-ms.date: 05/01/2015
+ms.date: 01/17/2019
+ms.topic: tutorial
 ms.assetid: 7ba88418-5d0a-437d-b6dc-7c3816d4ec07
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 647793a65dec8feaf37de561ad77b4585bb869a8
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 3f95470fd1832d7d25a331a1b6a9dfede7356f38
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912210"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444306"
 ---
-<a name="updating-related-data-with-the-entity-framework-in-an-aspnet-mvc-application"></a>使用实体框架在 ASP.NET MVC 应用程序中更新相关的数据
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-update-related-data-with-ef-in-an-aspnet-mvc-app"></a>教程：在 ASP.NET MVC 应用中使用 EF 更新相关的数据
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
-
-
-上一教程中显示相关的数据;在本教程中将更新相关的数据。 对于大多数关系，这可以通过更新外键字段或导航属性。 对于多对多关系，实体框架不会联接表直接公开，因此添加和删除实体与相应的导航属性。
+上一教程中显示相关的数据。 在本教程中将更新相关的数据。 对于大多数关系，这可以通过更新外键字段或导航属性。 对于多对多关系，实体框架不会联接表直接公开，因此添加和删除实体与相应的导航属性。
 
 下图是一些将会用到的页面。
 
@@ -34,7 +28,20 @@ ms.locfileid: "48912210"
 
 ![讲师编辑课程](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
 
-## <a name="customize-the-create-and-edit-pages-for-courses"></a>自定义课程的创建和编辑页面
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义课程页
+> * 将 office 添加到讲师页
+> * 向讲师页添加课程
+> * 更新 DeleteConfirmed
+> * 向创建页添加办公室位置和课程
+
+## <a name="prerequisites"></a>系统必备
+
+* [读取相关数据](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+
+## <a name="customize-courses-pages"></a>自定义课程页
 
 创建新的课程实体时，新实体必须与现有院系有关系。 为此，基架代码需包括控制器方法、创建视图和编辑视图，且视图中应包括用于选择院系的下拉列表。 下拉列表设置`Course.DepartmentID`外键属性，而这正是 Entity Framework 加载所需`Department`导航属性具有相应`Department`实体。 将用到基架代码，但需对其稍作更改，以便添加错误处理和对下拉列表进行排序。
 
@@ -82,19 +89,20 @@ ms.locfileid: "48912210"
 
 运行**创建**页面 (显示课程索引页，然后单击**创建新**) 并输入新课程的数据：
 
-![Course_create_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
+| 值 | 设置 |
+| ----- | ------- |
+| 数字 | 输入*1000年*。 |
+| 标题 | 输入*代数*。 |
+| 信用 | 输入*4*。 |
+|Department | 选择**数学**。 |
 
 单击 **“创建”**。 课程索引页将显示新课程添加到列表中。 索引页列表中的院系名称来自导航属性，表明已正确建立关系。
 
-![Course_Index_page_showing_new_course](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
-
 运行**编辑**页面 (显示课程索引页，然后单击**编辑**课程上)。
-
-![Course_edit_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
 
 更改页面上的数据，然后单击“保存”。 课程索引页将显示已更新的课程数据。
 
-## <a name="adding-an-edit-page-for-instructors"></a>添加讲师的编辑页面
+## <a name="add-office-to-instructors-page"></a>将 office 添加到讲师页
 
 编辑讲师记录时，有时希望能更新讲师的办公室分配。 `Instructor`实体具有对零或一一的关系与`OfficeAssignment`实体，这意味着必须处理以下情况：
 
@@ -116,7 +124,7 @@ ms.locfileid: "48912210"
 
 [!code-csharp[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample11.cs)]
 
-对引用`RetryLimitExceededException`需要`using`语句; 若要将其添加，请右键单击`RetryLimitExceededException`，然后单击**解决** - **使用 System.Data.Entity.Infrastructure**.
+对引用`RetryLimitExceededException`需要`using`语句。 若要将其添加，悬停在`RetryLimitExceededException`。 将出现此问题的说明。 选择**显示潜在修复**，然后单击**使用 System.Data.Entity.Infrastructure;**。
 
 ![解析为重试异常](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
 
@@ -138,13 +146,9 @@ ms.locfileid: "48912210"
 
 运行页 (选择**讲师**选项卡，然后单击**编辑**上)。 更改“办公室位置”，然后单击“保存”。
 
-![Changing_the_office_location](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
+## <a name="add-courses-to-instructors-page"></a>向讲师页添加课程
 
-## <a name="adding-course-assignments-to-the-instructor-edit-page"></a>添加课程分配给讲师编辑页
-
-讲师可能教授任意数量的课程。 现在可以通过使用一组复选框来更改课程分配，从而增强讲师编辑页面的性能，如以下屏幕截图所示：
-
-![Instructor_edit_page_with_courses](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
+讲师可能教授任意数量的课程。 现在，您将通过添加的功能来更改课程分配使用一组复选框来增强讲师编辑页面。
 
 之间的关系`Course`和`Instructor`实体是多对多，这意味着您不具有直接访问该联接表中的外键属性。 相反，添加和删除实体和`Instructor.Courses`导航属性。
 
@@ -204,20 +208,15 @@ ms.locfileid: "48912210"
 
 [!code-cshtml[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample23.cshtml?highlight=7-14)]
 
-运行**讲师索引**页面，查看分配给每位讲师的课程：
-
-![Instructor_index_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
+运行**讲师索引**页面，查看分配给每位讲师的课程。
 
 单击**编辑**上以查看编辑页。
 
-![Instructor_edit_page_with_courses](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image11.png)
-
 更改某些课程分配，然后单击**保存**。 所作更改将反映在索引页上。
 
- 注意： 此处所使用的编辑讲师课程数据的方法适用于有限数量的课程。 若是远大于此的集合，则需要使用不同的 UI 和不同的更新方法。
+ 注意:此处所使用的编辑讲师课程数据的方法适用于有限数量的课程。 若是远大于此的集合，则需要使用不同的 UI 和不同的更新方法。
 
-
-## <a name="update-the-deleteconfirmed-method"></a>更新 DeleteConfirmed 方法
+## <a name="update-deleteconfirmed"></a>更新 DeleteConfirmed
 
 在中*InstructorController.cs*，删除`DeleteConfirmed`方法并插入以下代码在其原位置。
 
@@ -258,21 +257,31 @@ ms.locfileid: "48912210"
 
 运行创建页，并添加一名讲师。
 
-![使用课程创建讲师](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image12.png)
-
 <a id="transactions"></a>
+
 ## <a name="handling-transactions"></a>处理事务
 
 中所述[基本的 CRUD 功能教程](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md)，默认情况下 Entity Framework 隐式实现事务。 有关在需要更多的控制-例如，如果你想要包括在事务中-Entity Framework 外部完成的操作的方案，请参阅[使用事务](https://msdn.microsoft.com/data/dn456843)MSDN 上。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-现在已经完成此简介使用相关数据。 到目前为止这些教程中使用过执行同步 I/O 的代码。 可以使应用程序通过实现异步代码，更有效地使用 web 服务器资源，这就是将在下一教程中执行的操作。
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-请在你喜欢本教程的内容，我们可以提高上留下反馈。
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [下一页](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-step"></a>下一步
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义的课程页
+> * 添加了的 office 到讲师页
+> * 向讲师页添加的课程
+> * 更新的 DeleteConfirmed
+> * 添加的办公室位置和课程向创建页
+
+转到下一步的文章，了解如何实现异步编程模型。
+> [!div class="nextstepaction"]
+> [异步编程模型](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)

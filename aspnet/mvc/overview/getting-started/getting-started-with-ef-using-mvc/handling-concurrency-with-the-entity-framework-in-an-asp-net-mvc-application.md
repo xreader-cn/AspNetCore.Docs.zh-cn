@@ -1,36 +1,41 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
-title: 处理使用 Entity Framework 6 的 ASP.NET MVC 5 应用程序 (10 / 12) 中的并发 |Microsoft Docs
+title: 教程：在 ASP.NET MVC 5 应用中处理并发和 EF
+description: 本教程演示如何使用乐观并发，多个用户在同一时间更新同一实体时处理冲突。
 author: tdykstra
-description: Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序...
 ms.author: riande
-ms.date: 12/08/2014
+ms.date: 01/21/2019
+ms.topic: tutorial
 ms.assetid: be0c098a-1fb2-457e-b815-ddca601afc65
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 22fd6bc92aa0d516e1bfeb5aa6a67d7246d977ac
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: b77b8d6f952472f4d3030f54665f970b8ace2caf
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913250"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444176"
 ---
-<a name="handling-concurrency-with-the-entity-framework-6-in-an-aspnet-mvc-5-application-10-of-12"></a>处理并发使用 Entity Framework 6 中的 ASP.NET MVC 5 应用程序 (10 / 12)
-====================
-通过[Tom Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-handle-concurrency-with-ef-in-an-aspnet-mvc-5-app"></a>教程：在 ASP.NET MVC 5 应用中处理并发和 EF
 
-[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+之前的教程介绍了如何更新数据。 本教程演示如何使用乐观并发，多个用户在同一时间更新同一实体时处理冲突。 更改使用的网页`Department`实体以使它们处理并发错误。 下图显示了“编辑”和“删除”页面，包括发生并发冲突时显示的一些消息。
 
-> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
+![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
 
+![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image15.png)
 
-之前的教程介绍了如何更新数据。 本教程介绍如何处理多个用户同时更新同一实体时出现的冲突。
+在本教程中，你将了解：
 
-你将更改使用的网页`Department`实体以使它们处理并发错误。 下图显示索引和删除页，包括一些并发冲突发生时显示的消息。
+> [!div class="checklist"]
+> * 了解并发冲突
+> * 添加乐观并发
+> * 修改部门控制器
+> * 测试并发处理
+> * 更新“删除”页
 
-![Department_Index_page_before_edits](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
+## <a name="prerequisites"></a>系统必备
 
-![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
+* [异步和存储过程](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="concurrency-conflicts"></a>并发冲突
 
@@ -46,11 +51,7 @@ ms.locfileid: "48913250"
 
 悲观并发的替代方法是*乐观并发*。 悲观并发是指允许发生并发冲突，并在并发冲突发生时作出正确反应。 例如，John 运行部门编辑页上，更改**预算**金额为 0.00 美元将英语系从 350,000.00 美元。
 
-![Changing_English_dept_budget_to_100000](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
 John 单击之前**保存**，Jane 运行相同的页和更改**开始日期**字段从 9/1/2007年到 2013 年 8 月 8 日。
-
-![Changing_English_dept_start_date_to_1999](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
 
 John 单击**保存**第一个和他的更改时在浏览器返回索引页上，然后 Jane 单击将看到**保存**。 接下来的情况取决于并发冲突的处理方式。 其中一些选项包括：
 
@@ -75,7 +76,7 @@ John 单击**保存**第一个和他的更改时在浏览器返回索引页上�
 
 在本教程的其余部分将添加[rowversion](https://msdn.microsoft.com/library/ms182776(v=sql.110).aspx)跟踪属性设置为`Department`实体，创建一个控制器和视图，并进行测试以验证是否一切运行正常。
 
-## <a name="add-an-optimistic-concurrency-property-to-the-department-entity"></a>向 Department 实体添加乐观并发属性
+## <a name="add-optimistic-concurrency"></a>添加乐观并发
 
 在中*Models\Department.cs*，添加一个名为跟踪属性`RowVersion`:
 
@@ -91,7 +92,7 @@ John 单击**保存**第一个和他的更改时在浏览器返回索引页上�
 
 [!code-console[Main](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample3.cmd)]
 
-## <a name="modify-the-department-controller"></a>修改部门控制器
+## <a name="modify-department-controller"></a>修改部门控制器
 
 在中*Controllers\DepartmentController.cs*，添加`using`语句：
 
@@ -135,37 +136,23 @@ John 单击**保存**第一个和他的更改时在浏览器返回索引页上�
 
 [!code-cshtml[Main](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample12.cshtml?highlight=18)]
 
-## <a name="testing-optimistic-concurrency-handling"></a>测试乐观并发处理
+## <a name="test-concurrency-handling"></a>测试并发处理
 
-运行站点，并单击**部门**:
-
-![Department_Index_page_before_edits](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
+运行站点，并单击**部门**。
 
 右键单击**编辑**英语系和选择的超链接**新选项卡中打开**然后单击**编辑**英语系的超链接。 两个选项卡显示相同的信息。
 
-![Department_Edit_page_before_changes](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
-
 在第一个浏览器选项卡中更改一个字段，然后单击“保存”。
-
-![Department_Edit_page_1_after_change](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
 
 浏览器显示具有更改值的索引页。
 
-![Departments_Index_page_after_first_budget_edit](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
-
-更改第二个浏览器选项卡中的字段，然后单击**保存**。
-
-![Department_Edit_page_2_after_change](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
-
-单击**保存**第二个浏览器选项卡中。看见一条错误消息：
+更改第二个浏览器选项卡中的字段，然后单击**保存**。 看见一条错误消息：
 
 ![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
 
 再次单击“保存”。 在第二个浏览器选项卡中输入的值是随原始值的第一个浏览器中更改的数据一起保存。 在索引页中出现时，可以看到已保存的值。
 
-![Department_Index_page_with_change_from_second_browser](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image11.png)
-
-## <a name="updating-the-delete-page"></a>正在更新删除页
+## <a name="update-the-delete-page"></a>更新“删除”页
 
 对于“删除”页，Entity Framework 以类似方式检测其他人编辑院系所引起的并发冲突。 当`HttpGet``Delete`方法会显示确认视图，该视图包含原始`RowVersion`隐藏字段中的值。 值为则供`HttpPost``Delete`在用户确认删除时调用的方法。 当 Entity Framework 创建 SQL`DELETE`命令时，它包括`WHERE`子句与原始`RowVersion`值。 如果命令导致零行受影响 （即数据行进行了更改后显示删除确认页），则引发并发异常，并`HttpGet Delete`错误标志设置为调用方法`true`以重新显示具有一条错误消息的确认页面。 还有可能零行受影响，因为该行已由另一个用户删除，因此在这种情况下显示不同的错误消息。
 
@@ -209,17 +196,11 @@ John 单击**保存**第一个和他的更改时在浏览器返回索引页上�
 
 运行院系索引页。 右键单击**删除**英语系和选择的超链接**新选项卡中打开**然后在第一个选项卡中单击**编辑**英语系的超链接。
 
-在第一个窗口，更改其中一个值，然后单击**保存**:
-
-![Department_Edit_page_after_change_before_delete](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image12.png)
+在第一个窗口，更改其中一个值，然后单击**保存**。
 
 索引页会反映此更改。
 
-![Departments_Index_page_after_budget_edit_before_delete](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image13.png)
-
 在第二个选项卡中，单击“删除”。
-
-![Department_Delete_confirmation_page_before_concurrency_error](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image14.png)
 
 你将看到并发错误消息，且已使用数据库中的当前内容刷新了“院系”值。
 
@@ -227,12 +208,27 @@ John 单击**保存**第一个和他的更改时在浏览器返回索引页上�
 
 如果再次单击“删除”，会重定向到已删除显示院系的索引页。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-处理并发冲突已介绍完毕。 有关其他方法来处理各种方案，并发的信息，请参阅[乐观并发模式](https://msdn.microsoft.com/data/jj592904)并[属性值使用方面](https://msdn.microsoft.com/data/jj592677)MSDN 上。 下一步的教程演示如何实现的每个层次结构一个表继承`Instructor`和`Student`实体。
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+
+## <a name="additional-resources"></a>其他资源
 
 其他实体框架资源的链接可在[ASP.NET 数据访问-推荐的资源](../../../../whitepapers/aspnet-data-access-content-map.md)。
 
-> [!div class="step-by-step"]
-> [上一页](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [下一页](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+有关其他方法来处理各种方案，并发的信息，请参阅[乐观并发模式](https://msdn.microsoft.com/data/jj592904)并[属性值使用方面](https://msdn.microsoft.com/data/jj592677)MSDN 上。 下一步的教程演示如何实现的每个层次结构一个表继承`Instructor`和`Student`实体。
+
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 介绍了并发冲突
+> * 添加了乐观并发
+> * 修改后的部门控制器
+> * 测试的并发处理
+> * 更新删除页
+
+转到下一步的文章，了解如何在数据模型中实现继承。
+> [!div class="nextstepaction"]
+> [数据模型中实现继承](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application.md)
