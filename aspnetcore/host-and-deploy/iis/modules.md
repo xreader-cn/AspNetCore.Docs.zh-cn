@@ -4,14 +4,14 @@ author: guardrex
 description: 了解适用于 ASP.NET Core 应用的活动和非活动 IIS 模块以及如何管理 IIS 模块。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/30/2018
+ms.date: 01/17/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: c6a6cc9b6b3410267c6f5034f824648a1ebbe10f
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 8c32a668b3945f0da0194162e19e965b4aed3934
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862234"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396267"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
@@ -28,7 +28,7 @@ ms.locfileid: "52862234"
 | **匿名身份验证**<br>`AnonymousAuthenticationModule`                                  | 是 | |
 | **基本身份验证**<br>`BasicAuthenticationModule`                                          | 是 | |
 | **客户端证书映射身份验证**<br>`CertificateMappingAuthenticationModule`      | 是 | |
-| **CGI**<br>`CgiModule`                                                                           | 否  | |
+| **CGI**<br>`CgiModule`                                                                           | No  | |
 | **配置验证**<br>`ConfigurationValidationModule`                                  | 是 | |
 | **HTTP 错误**<br>`CustomErrorModule`                                                           | No  | [状态代码页中间件](xref:fundamentals/error-handling#configure-status-code-pages) |
 | **自定义日志记录**<br>`CustomLoggingModule`                                                      | 是 | |
@@ -38,7 +38,7 @@ ms.locfileid: "52862234"
 | **动态压缩**<br>`DynamicCompressionModule`                                            | 是 | [响应压缩中间件](xref:performance/response-compression) |
 | **跟踪**<br>`FailedRequestsTracingModule`                                                     | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index#tracesource-provider) |
 | **文件缓存**<br>`FileCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
-| **HTTP 缓存**<br>`HttpCacheModule`                                                            | 否  | [响应缓存中间件](xref:performance/caching/middleware) |
+| **HTTP 缓存**<br>`HttpCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
 | **HTTP 日志记录**<br>`HttpLoggingModule`                                                          | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index) |
 | **HTTP 重定向**<br>`HttpRedirectionModule`                                                  | 是 | [URL 重写中间件](xref:fundamentals/url-rewriting) |
 | **IIS 客户端证书映射身份验证**<br>`IISCertificateMappingAuthenticationModule` | 是 | |
@@ -105,13 +105,13 @@ ms.locfileid: "52862234"
 
 如果选择使用 web.config 中的设置删除模块，请先解锁此模块和 web.config 的 `<modules>` 部分：
 
-1. 解锁服务器级别的模块。 在 IIS 管理器“连接”边栏中选择 IIS 服务器。 打开 IIS 区域中的模块。 在列表中选择该模块。 在右侧的“操作”边栏中，选择“解锁”。 解锁尽可能多稍后计划从 web.config 中删除的模块。
+1. 解锁服务器级别的模块。 在 IIS 管理器“连接”边栏中选择 IIS 服务器。 打开 IIS 区域中的模块。 在列表中选择该模块。 在右侧的“操作”边栏中，选择“解锁”。 如果该模块的操作条目显示为“锁定”，则该模块已被解锁，且无需任何操作。 解锁尽可能多稍后计划从 web.config 中删除的模块。
 
 2. 在不使用 web.config 的 `<modules>` 部分的情况下部署应用。如果使用包含 `<modules>` 部分的 web.config 部署应用，但未先在 IIS 管理器中解锁该部分，则配置管理器会在尝试解锁该部分时引发异常。 因此，请在不使用 `<modules>` 部分的情况下部署该应用。
 
-3. 解锁 web.config 的 `<modules>` 部分。在“连接”边栏中，选择“站点”中的网站。 在“管理”区域中，打开“配置编辑器”。 使用导航控件选择 `system.webServer/modules` 部分。 在右侧的“操作”边栏中，选择“解锁”该部分。
+3. 解锁 web.config 的 `<modules>` 部分。在“连接”边栏中，选择“站点”中的网站。 在“管理”区域中，打开“配置编辑器”。 使用导航控件选择 `system.webServer/modules` 部分。 在右侧的“操作”边栏中，选择“解锁”该部分。 如果该模块的操作条目显示为“锁定部分”，则该模块已被解锁，且无需任何操作。
 
-4. 此时，可使用 `<remove>` 元素将 `<modules>` 部分添加到 web.config 文件，从应用中删除模块。 可添加多个 `<remove>` 元素来删除多个模块。 如果在服务器上更改 web.config，请立即在本地对项目的 web.config 文件执行相同的更改。 以这种方式移除模块不会影响模块的使用与服务器上的其他应用程序。
+4. 可使用 `<remove>` 元素将 `<modules>` 部分添加到应用的本地 web.config 文件，从应用中删除模块。 可添加多个 `<remove>` 元素来删除多个模块。 如果在服务器上更改 web.config，请立即在本地对项目的 web.config 文件执行相同的更改。 以这种方式删除模块不会影响模块的使用与服务器上的其他应用。
 
    ```xml
    <configuration>
@@ -122,6 +122,26 @@ ms.locfileid: "52862234"
     </system.webServer>
    </configuration>
    ```
+   
+要使用 web.config 为 IIS Express 添加或删除模块，请修改 applicationHost.config 以解锁 `<modules>` 部分：
+
+1. 打开 {APPLICATION ROOT}\\.vs\config\applicationhost.config。
+
+1. 找到 IIS 模块的 `<section>` 元素，并将 `overrideModeDefault` 从 `Deny` 更改为 `Allow`：
+
+   ```xml
+   <section name="modules" 
+            allowDefinition="MachineToApplication" 
+            overrideModeDefault="Allow" />
+   ```
+   
+1. 找到 `<location path="" overrideMode="Allow"><system.webServer><modules>` 部分。 对于任何要删除的模块，请将 `lockItem` 从 `true` 设置为 `false`。 在以下示例中，已解锁 CGI 模块：
+
+   ```xml
+   <add name="CgiModule" lockItem="false" />
+   ```
+   
+1. 解锁 `<modules>` 部分和单个模块后，可使用应用的 web.config 文件添加或删除 IIS 模块，以便在 IIS Express 上运行应用。
 
 IIS 模块还可以使用 Appcmd.exe 删除。 该命令中提供 `MODULE_NAME` 和 `APPLICATION_NAME`：
 

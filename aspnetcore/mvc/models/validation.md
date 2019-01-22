@@ -4,14 +4,14 @@ author: tdykstra
 description: 了解 ASP.NET Core MVC 中的模型验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/04/2019
+ms.date: 01/14/2019
 uid: mvc/models/validation
-ms.openlocfilehash: f3a34972006b5fdee307c9a8d9989b2cc1e36893
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 7c8255097dfc72480794930ebe4d6cb568edbd7c
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099378"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396189"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的模型验证
 
@@ -35,7 +35,7 @@ ms.locfileid: "54099378"
 
 ```csharp
 [Required]
-public string MyProperty { get; set; } 
+public string MyProperty { get; set; }
 ```
 
 下面是一个应用的已批注 `Movie` 模型，该应用用于存储电影和电视节目的相关信息。 大多数属性都是必需属性，多个字符串属性具有长度要求。 此外，还有一个针对·`Price` 属性设置的从 0 到 $999.99 的数值范围限制，以及一个自定义验证特性。
@@ -78,6 +78,37 @@ MVC 支持从 `ValidationAttribute` 派生的所有用于验证的属性。 在 
 
 客户端验证要求与标记为 `Required` 的模型属性对应的表单域以及未标记为 `Required` 的不可为 null 的类型属性具有值。 `Required` 可用于控制客户端验证错误消息。
 
+::: moniker range=">= aspnetcore-2.1"
+
+## <a name="top-level-node-validation"></a>顶级节点验证
+
+顶级节点包括：
+
+* 操作参数
+* 控制器属性
+* 页处理程序参数
+* 页模型属性
+
+除了验证模型属性之外，还验证了模型绑定的顶级节点。 在示例应用的以下示例中，`VerifyPhone` 方法使用 <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> 验证表单的“电话”字段中的用户数据：
+
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyPhone)]
+
+顶级节点可以将 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> 与验证属性结合使用。 在示例应用的以下示例中，`CheckAge` 方法指定在提交表单时必须从查询字符串绑定 `age` 参数：
+
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_CheckAge)]
+
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
+
+当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
+
+“检查年限”页面上的第二个表单提交请求正文中的 `Age` 值，验证失败。 绑定失败，因为 `age` 参数必须来自查询字符串。
+
+默认情况下，验证处于启用状态，并由 <xref:Microsoft.AspNetCore.Mvc.MvcOptions> 的 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> 属性控制。 要禁用顶级节点验证，请在 MVC 选项 (`Startup.ConfigureServices`) 中将 `AllowValidatingTopLevelNodes` 设置为 `false`：
+
+[!code-csharp[](validation/sample_snapshot/Startup.cs?name=snippet_AddMvc&highlight=4)]
+
+::: moniker-end
+
 ## <a name="model-state"></a>模型状态
 
 模型状态表示已提交的 HTML 表单值中的验证错误。
@@ -104,7 +135,7 @@ MVC 将继续验证字段，直至达到错误数上限（默认为 200 个）�
 
 你可能需要手动运行验证。 为此，请调用 `TryValidateModel` 方法，如下所示：
 
-[!code-csharp[](validation/sample/MoviesController.cs?range=52)]
+[!code-csharp[](validation/sample/MoviesController.cs?name=snippet_TryValidateModel)]
 
 ## <a name="custom-validation"></a>自定义验证
 
@@ -112,17 +143,17 @@ MVC 将继续验证字段，直至达到错误数上限（默认为 200 个）�
 
 在下面的示例中，一项业务规则规定，用户不能将 1960 年以后发行的电影的流派设置为 *Classic*。 `[ClassicMovie]` 属性会先检查流派，如果是经典流派，则查看发行日期是否晚于 1960 年。 如果晚于 1960 年，则验证失败。 此属性采用一个表示年份的整数参数，可用于验证数据。 可以在该属性的构造函数中捕获该参数的值，如下所示：
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=9-28)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
 上面的 `movie` 变量表示一个 `Movie` 对象，其中包含要验证的表单提交中的数据。 在此例中，验证代码会根据规则检查 `ClassicMovieAttribute` 类的 `IsValid` 方法中的日期和流派。 验证成功时，`IsValid` 返回 `ValidationResult.Success` 代码。 验证失败时，返回 `ValidationResult` 和错误消息：
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=55-58)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_GetErrorMessage)]
 
 当用户修改 `Genre` 字段并提交表单时，`ClassicMovieAttribute` 的 `IsValid` 方法将验证该电影是否为经典电影。 将 `ClassicMovieAttribute` 像所有内置特性一样应用于属性（如 `ReleaseDate`）以确保执行验证，如前面的代码示例所示。 由于此示例仅适用于 `Movie` 类型，因此建议使用 `IValidatableObject`，如下一段中所示。
 
 也可以通过实现 `IValidatableObject` 接口上的 `Validate` 方法，将这段代码直接放入模型中。 如果自定义验证特性可用于验证各个属性，则可使用 `IValidatableObject` 来实现类级别的验证，如下所示。
 
-[!code-csharp[](validation/sample/MovieIValidatable.cs?range=32-40)]
+[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet_Validate)]
 
 ## <a name="client-side-validation"></a>客户端验证
 
@@ -130,13 +161,13 @@ MVC 将继续验证字段，直至达到错误数上限（默认为 200 个）�
 
 你必须有一个包含适当的 JavaScript 脚本引用的视图，才能让客户端验证正常工作，如下所示。
 
-[!code-cshtml[](validation/sample/Views/Shared/_Layout.cshtml?range=37)]
+[!code-cshtml[](validation/sample/Views/Shared/_Layout.cshtml?name=snippet_ScriptTag)]
 
 [!code-cshtml[](validation/sample/Views/Shared/_ValidationScriptsPartial.cshtml)]
 
 [jQuery 非介入式验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一个基于热门 [jQuery Validate](https://jqueryvalidation.org/) 插件的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中（jQuery Validate 的 [`validate()`](https://jqueryvalidation.org/validate/) 方法示例展示了这种情况可能的复杂程度）。 MVC 的[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则能够使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素中的 HTML 5 [data- 特性](http://w3c.github.io/html/dom.html#embedding-custom-non-visible-data-with-the-data-attributes)。 MVC 为内置属性和自定义属性生成 `data-` 属性。 然后，jQuery 非介入式验证分析 `data-` 属性并将逻辑传递给 jQuery Validate，从而将服务器端验证逻辑有效地“复制”到客户端。 可以使用相关标记帮助程序在客户端上显示验证错误，如下所示：
 
-[!code-cshtml[](validation/sample/Views/Movies/Create.cshtml?highlight=4,5&range=19-25)]
+[!code-cshtml[](validation/sample/Views/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=4-5)]
 
 上面的标记帮助程序将呈现以下 HTML。 请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 下面的 `data-val-required` 属性包含在用户未填写发行日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
 
@@ -211,7 +242,7 @@ $.get({
 
 可为自定义属性创建客户端逻辑，创建 [jQuery 验证](http://jqueryvalidation.org/documentation/)的适配器的[非介入式验证](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html)将在验证过程中，在客户端上自动为你执行此逻辑。 第一步是通过实现 `IClientModelValidator` 接口来控制要添加哪些 data- 属性，如下所示：
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=30-42)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_AddValidation)]
 
 实现此接口的属性可以将 HTML 属性添加到生成的字段。 检查 `ReleaseDate` 元素的输出时，将显示与上一示例类似的 HTML，唯一不同的是，此示例包含一个已在 `IClientModelValidator` 的 `AddValidation` 方法中定义的 `data-val-classicmovie` 属性。
 
@@ -236,7 +267,7 @@ $.get({
 
 可以分两步实现远程验证。 首先，必须使用 `[Remote]` 属性为模型添加批注。 `[Remote]` 属性采用多个重载，可用于将客户端 JavaScript 定向到要调用的相应代码。 下面的示例指向 `Users` 控制器的 `VerifyEmail` 操作方法。
 
-[!code-csharp[](validation/sample/User.cs?range=7-8)]
+[!code-csharp[](validation/sample/User.cs?name=snippet_UserEmailProperty)]
 
 第二步是按照 `[Remote]` 属性中的定义，将验证代码放入相应的操作方法。 根据 jQuery Validate [remote](https://jqueryvalidation.org/remote-method/) 方法文档，服务器响应必须是符合以下条件的 JSON 字符串：
 
@@ -247,17 +278,17 @@ $.get({
 
 `VerifyEmail` 方法的定义遵循这些规则，如下所示。 如果电子邮件已被占用，它会返回验证错误消息；如果电子邮件可用，则返回 `true`，并将结果包装在 `JsonResult` 对象中。 然后，客户端可以使用返回的值，继续进行下一步操作或根据需要显示错误。
 
-[!code-csharp[](validation/sample/UsersController.cs?range=19-28)]
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyEmail)]
 
 现在，当用户输入电子邮件时，视图中的 JavaScript 会发出远程调用，以了解该电子邮件是否已被占用，如果是，则显示错误消息。 如果不是，用户就可以像往常一样提交表单。
 
 `[Remote]` 特性的 `AdditionalFields` 属性可用于根据服务器上的数据验证字段组合。 例如，如果上面的 `User` 模型具有两个附加属性，名为 `FirstName` 和 `LastName`，你可能想要验证该名称对尚未被现有用户占用。 按以下代码所示定义新属性：
 
-[!code-csharp[](validation/sample/User.cs?range=10-13)]
+[!code-csharp[](validation/sample/User.cs?name=snippet_UserNameProperties)]
 
 `AdditionalFields` 可能已显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 这样的操作符可简化稍后的重构过程。 然后，用于执行验证的操作方法必须采用两个参数，一个用于 `FirstName` 的值，一个用于 `LastName` 的值。
 
-[!code-csharp[](validation/sample/UsersController.cs?range=30-39)]
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyName)]
 
 现在，当用户输入名和姓时，JavaScript 会:
 
@@ -272,4 +303,4 @@ $.get({
 public string MiddleName { get; set; }
 ```
 
-`AdditionalFields` 与所有属性参数一样，必须是常量表达式。 因此，不能使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)或调用 [`string.Join()`](https://msdn.microsoft.com/library/system.string.join(v=vs.110).aspx) 来初始化 `AdditionalFields`。 对于添加到 `[Remote]` 特性的每个附加字段，都必须向相应的控制器操作方法另外添加一个参数。
+`AdditionalFields` 与所有属性参数一样，必须是常量表达式。 因此，不能使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)或调用 <xref:System.String.Join*> 来初始化 `AdditionalFields`。 对于添加到 `[Remote]` 特性的每个附加字段，都必须向相应的控制器操作方法另外添加一个参数。

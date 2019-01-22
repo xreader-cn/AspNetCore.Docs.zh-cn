@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 12/8/2017
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 630b4b0549a8549d9570d701fb1691310ec442c3
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 062a248ffdf8e30ed01a72e0a555c1c9a1ab1b6d
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381850"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341597"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -171,6 +171,10 @@ Update-Database
 
 ---  
 <!-- End of VS tabs -->
+
+前面的命令生成以下警告：“未对实体类型‘Movie’上的十进制列‘Price’指定任何类型。 当值不符合默认精确度和小数位数时，会在无提示的情况下截断该值。 使用‘HasColumnType()’显式指定可以容纳所有值的 SQL Server 列类型。”
+
+你可以忽略该警告，它将后面的教程中得到修复。
 
 此架构以（Models/MvcMovieContext.cs 文件中的）`DbContext` 中指定的模型为基础。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
 

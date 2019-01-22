@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/11/2018
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: ee0bebb8b5c688f8471d6420d1641b87ac271f6c
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: 4bc5ead8e24c4bb7fe6cd2f52fd2aa622187180c
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284560"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341389"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core 目录结构
 
@@ -37,7 +37,7 @@ publish 目录代表部署的内容根路径，也称为应用程序基路径。
 
 wwwroot 目录（如果存在）仅包含静态资产。
 
-可以使用以下两种方法之一为部署创建 stdout Logs 目录：
+可以使用以下两种方法之一为部署创建 Logs 目录：
 
 * 向项目添加以下 `<Target>` 元素：
 
@@ -57,6 +57,8 @@ wwwroot 目录（如果存在）仅包含静态资产。
 * 在部署中的服务器上物理创建 Logs 目录。
 
 部署目录需要读取/执行权限。 Logs 目录需要读/写权限。 将文件写入其他目录需要读/写权限。
+
+[ASP.NET Core 模块 stdout 日志记录](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection)在部署中不需要 Logs 文件夹。 创建日志文件时，该模块能够在 `stdoutLogFile` 路径中创建任何文件夹。 创建 Logs 文件夹对于 [ASP.NET 核心模块增强的调试日志记录](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)来说非常有用。 提供给 `<handlerSetting>` 值的路径中的文件夹不是由模块自动创建的，并且应该预先存在于部署中以允许模块编写调试日志。
 
 ## <a name="additional-resources"></a>其他资源
 

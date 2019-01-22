@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 应用中控制多个环境的应用�
 ms.author: riande
 ms.date: 07/03/2018
 uid: fundamentals/environments
-ms.openlocfilehash: 865257d127084671036147dd1f28c9c4843feef6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 642af9e8f9e322e3624dad46bb1463f6525f5c9e
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206843"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341662"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -111,9 +111,9 @@ ASP.NET Core 在应用启动时读取环境变量 `ASPNETCORE_ENVIRONMENT`，并
 
 使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时，使用具有 `"commandName": "Project"` 的第一个配置文件。 `commandName` 的值指定要启动的 Web 服务器。 `commandName` 可为以下任一项：
 
-* IIS Express
-* IIS
-* Project（启动 Kestrel 的项目）
+* `IISExpress`
+* `IIS`
+* `Project`（启动 Kestrel 的项目）
 
 使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时：
 
@@ -183,7 +183,7 @@ Production 环境应配置为最大限度地提高安全性、性能和应用可
 1. 在“设置”组中，选择“应用程序设置”边栏选项卡。
 1. 在“应用程序设置”区域中，选择“添加新设置”。
 1. 在“输入名称”中提供 `ASPNETCORE_ENVIRONMENT`。 在“输入值”中提供环境（例如 `Staging`）。
-1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框。 有关详细信息，请参阅 [Azure 文档：交换了哪些设置？](/azure/app-service/web-sites-staged-publishing)。
+1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框。 有关详细信息，请参阅 [Azure 文档：交换哪些设置？](/azure/app-service/web-sites-staged-publishing)。
 1. 选择边栏选项卡顶部的“保存”。
 
 在 Azure 门户中添加、更改或删除应用设置（环境变量）后，Azure 应用服务自动重启应用。

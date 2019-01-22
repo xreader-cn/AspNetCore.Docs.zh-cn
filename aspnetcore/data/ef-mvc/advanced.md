@@ -3,14 +3,15 @@ title: 使用 EF Core 创建 ASP.NET Core MVC - 高级 - 第 10 个教程（共 
 author: rick-anderson
 description: 本教程不止会介绍使用 Entity Framework Core 开发 ASP.NET Core Web 应用的基础知识，还会介绍其他有用主题。
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.custom: mvc
+ms.date: 10/24/2018
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 5cdba79c0b8edd9b865bda8328c86356cbe6a0a2
-ms.sourcegitcommit: b2723654af4969a24545f09ebe32004cb5e84a96
+ms.openlocfilehash: ba3834b29e78972bf914a5cba1a2cae3cc19a315
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46010918"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "50090774"
 ---
 # <a name="aspnet-core-mvc-with-ef-core---advanced---10-of-10"></a>使用 EF Core 创建 ASP.NET Core MVC - 高级 - 第 10 个教程（共 10 个）
 
@@ -100,7 +101,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 请注意生产代码将确保更新最终得到有效的数据。 此处所示的简化代码会使得相乘后可修读人数大于 5。 (`Credits`属性具有`[Range(0, 5)]`特性。)更新查询将起作用，但无效的数据会导致意外的结果，例如在系统的其他部分中加入可修读人数为 5 或更少可能会导致意外的结果。
 
-有关原生 SQL 查询的详细信息，请参阅[原生 SQL 查询](https://docs.microsoft.com/ef/core/querying/raw-sql)。
+有关原生 SQL 查询的详细信息，请参阅[原生 SQL 查询](/ef/core/querying/raw-sql)。
 
 ## <a name="examine-sql-sent-to-the-database"></a>检查发送到数据库的 SQL
 
@@ -176,7 +177,7 @@ Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](
 
 ## <a name="reverse-engineer-from-existing-database"></a>现有数据库逆向工程
 
-若想要通过对现有数据库中的实体类反向工程得出数据模型，可以使用[scaffold-dbcontext](https://docs.microsoft.com/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext)。 可以参阅[入门教程](https://docs.microsoft.com/ef/core/get-started/aspnetcore/existing-db)。
+若想要通过对现有数据库中的实体类反向工程得出数据模型，可以使用[scaffold-dbcontext](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext)。 可以参阅[入门教程](/ef/core/get-started/aspnetcore/existing-db)。
 
 <a id="dynamic-linq"></a>
 ## <a name="use-dynamic-linq-to-simplify-sort-selection-code"></a>使用动态 LINQ 来简化对所选内容排序的代码
@@ -189,11 +190,11 @@ Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](
 
 这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。
 
-有关 EF Core 的详细信息，请参阅[ Entity Framework 的Core文档](https://docs.microsoft.com/ef/core)。 另外也可参阅 [Entity Framework Core in Action](https://www.manning.com/books/entity-framework-core-in-action)（实际运用 Entity Framework Core）一书。
+有关 EF Core 的详细信息，请参阅[ Entity Framework 的Core文档](/ef/core)。 还提供：[Entity Framework Core 实战](https://www.manning.com/books/entity-framework-core-in-action)一书。
 
-有关如何部署 web 应用程序的信息，请参阅[托管和部署](xref:host-and-deploy/index)。
+有关如何部署 Web 应用的信息，请参阅 <xref:host-and-deploy/index>。
 
-有关 ASP.NET Core MVC 相关的其他主题 ( 如身份验证与授权 ) 的信息，请参阅[ASP.NET Core文档](xref:index)。
+有关与 ASP.NET Core MVC 相关的其他主题（如身份验证与授权）的信息，请参阅 <xref:index>。
 
 ## <a name="acknowledgments"></a>鸣谢
 
@@ -239,7 +240,7 @@ dotnet ef database drop
 
 错误消息：
 
-> 建立到 SQL Server 的连接时出现与网络相关或特定于实例的错误。 未找到或无法访问服务器。 请验证实例名称是否正确，SQL Server 是否已配置为允许远程连接。 （提供程序：SQL 网络接口，错误：26 - 定位指定的服务器/实例时出错）
+> 建立到 SQL Server 的连接时出现与网络相关或特定于实例的错误。 未找到或无法访问服务器。 请验证实例名称是否正确，SQL Server 是否已配置为允许远程连接。 （提供程序：SQL 网络接口，错误：26 - 定位指定服务器/实例出错）
 
 解决方案：
 

@@ -1,17 +1,17 @@
 ---
-title: 对 Azure 应用服务上的 ASP.NET Core 启动错误进行故障排除
+title: 对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 author: guardrex
 description: 了解如何诊断 ASP.NET Core Azure 应用服务部署问题。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/11/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: b36c321c6ba6801a32b5187651063337b4533fd1
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 65a5e355bc15db6de9060331395c441160c8b62d
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637646"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341636"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 
@@ -51,15 +51,15 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 若要访问应用程序事件日志，请在 Azure 门户中使用“诊断并解决问题”边栏选项卡：
 
-1. 在 Azure 门户中，打开“应用服务”边栏选项卡中的应用边栏选项卡。
-1. 选择“诊断并解决问题”边栏选项卡。
-1. 在“选择问题类别”下，选择“Web 应用关闭”按钮。
-1. 在“建议的解决方案”下，打开“打开应用程序事件日志”对应的窗格。 选择“打开应用程序事件日志”按钮。
-1. 检查“源”列中由 IIS AspNetCoreModule 提供的最新错误。
+1. 在 Azure 门户中打开“应用服务”中的应用。
+1. 选择“诊断并解决问题”。
+1. 选择“诊断工具”标题。
+1. 在“支持工具”下，选择“应用程序事件”按钮。
+1. 检查“源”列中由 IIS AspNetCoreModule 或 IIS AspNetCoreModule V2 条目提供的最新错误。
 
 使用“诊断并解决问题”边栏选项卡的替代方法是直接使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 检查应用程序事件日志文件：
 
-1. 选择“开发工具”区域中的“高级工具”边栏选项卡。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
+1. 打开“开发工具”区域中的“高级工具”。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
 1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
 1. 打开 LogFiles 文件夹。
 1. 选择 eventlog.xml 文件旁边的铅笔图标。
@@ -69,7 +69,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 许多启动错误未在应用程序事件日志中生成有用信息。 可以在 [Kudu](https://github.com/projectkudu/kudu/wiki) 远程执行控制台中运行应用以发现错误：
 
-1. 选择“开发工具”区域中的“高级工具”边栏选项卡。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
+1. 打开“开发工具”区域中的“高级工具”。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
 1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
 1. 打开路径“site > wwwroot”下的文件夹。
 1. 在控制台中，通过执行应用的程序集来运行该应用。
@@ -95,7 +95,7 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 1. 检查“已修改”列并选择铅笔图标以编辑具有最新修改日期的 stdout 日志。
 1. 打开日志文件后，将显示错误。
 
-**重要提示！** 故障排除完成后，禁用 stdout 日志记录。
+故障排除完成后，禁用 stdout 日志记录：
 
 1. 在 Kudu 诊断控制台中，返回到路径“site > wwwroot”以显示 web.config 文件。 通过选择铅笔图标再次打开 web.config 文件。
 1. 将“stdoutLogEnabled”设置为 `false`。
@@ -106,7 +106,37 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 >
 > 对于在 ASP.NET Core 应用启动后生成的常规日志记录，使用限制日志文件大小和旋转日志的日志记录库。 有关详细信息，请参阅[第三方日志记录提供程序](xref:fundamentals/logging/index#third-party-logging-providers)。
 
-## <a name="common-startup-errors"></a>常见启动错误 
+::: moniker range=">= aspnetcore-2.2"
+
+### <a name="aspnet-core-module-debug-log"></a>ASP.NET Core 模块调试日志
+
+ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详细的日志记录。 若要启用和查看 stdout 日志，请执行以下操作：
+
+1. 要启用增强的诊断日志，请执行以下任一操作：
+   * 按照[增强的诊断日志](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)中的说明配置应用以获取增强的诊断日志记录。 重新部署应用。
+   * 使用 Kudu 控制台将[增强的诊断日志](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)中显示的 `<handlerSettings>` 添加到动态应用的 web.config 文件中：
+     1. 打开“开发工具”区域中的“高级工具”。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
+     1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
+     1. 打开路径“site > wwwroot”下的文件夹。 通过选择铅笔按钮编辑 web.config 文件。 添加 `<handlerSettings>` 部分（如[增强的诊断日志](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)中所示）。 选择“保存”按钮。
+1. 打开“开发工具”区域中的“高级工具”。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
+1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
+1. 打开路径“site > wwwroot”下的文件夹。 如果没有为 aspnetcore-debug.log 文件提供路径，则该文件将显示在列表中。 如果提供了路径，请导航到日志文件的位置。
+1. 使用文件名旁边的铅笔按钮打开日志文件。
+
+故障排除完成后，禁用调试日志记录：
+
+1. 要禁用增强的调试日志，请执行以下任一操作：
+   * 从本地删除 web.config 文件中的 `<handlerSettings>` 并重新部署该应用。
+   * 使用 Kudu 控制台编辑 web.config 文件并删除 `<handlerSettings>` 部分。 保存该文件。
+
+> [!WARNING]
+> 无法禁用调试日志可能会导致应用或服务器出现故障。 日志文件大小没有任何限制。 仅使用调试日志记录来解决应用启动问题。
+>
+> 对于在 ASP.NET Core 应用启动后生成的常规日志记录，使用限制日志文件大小和旋转日志的日志记录库。 有关详细信息，请参阅[第三方日志记录提供程序](xref:fundamentals/logging/index#third-party-logging-providers)。
+
+::: moniker-end
+
+## <a name="common-startup-errors"></a>常见启动错误
 
 请参阅 <xref:host-and-deploy/azure-iis-errors-reference>。 参考主题介绍了阻止应用启动的大部分常见问题。
 
@@ -157,7 +187,7 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 1. 向应用发出请求。
 1. 在日志流数据中，指示了错误的原因。
 
-**重要提示！** 故障排除完成后，请务必禁用 stdout 日志记录。 请参阅 [ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)部分中的说明。
+故障排除完成后，请务必禁用 stdout 日志记录。 请参阅 [ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)部分中的说明。
 
 若要查看失败请求跟踪日志（FREB 日志），请执行以下操作：
 
