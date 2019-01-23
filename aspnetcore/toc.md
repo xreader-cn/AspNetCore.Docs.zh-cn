@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: a3ac1ac389892681e8c122d569e6325353ed6e88
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341675"
----
 # [ASP.NET Core 文档](/aspnet/#pivot=core)
 
 # 概述
@@ -25,6 +17,8 @@ ms.locfileid: "54341675"
 ## Web API 应用
 ### [创建 Web API](xref:tutorials/first-web-api)
 ### [使用 MongoDB 创建 Web API](xref:tutorials/first-mongo-app)
+### [适用于移动设备的后端](xref:mobile/native-mobile-backend)
+
 ## Web 应用
 ### [Razor 页面](xref:tutorials/razor-pages/index)
 ### [MVC](xref:tutorials/first-mvc-app/index)
@@ -32,7 +26,6 @@ ms.locfileid: "54341675"
 ## 实时 web 应用
 ### [JavaScript 和 SignalR](xref:tutorials/signalr)
 ### [TypeScript 和 SignalR](xref:tutorials/signalr-typescript-webpack)
-## [为本机移动应用创建后端服务](xref:mobile/native-mobile-backend)
 
 ## 数据访问
 ### [EF Core 和 Razor Pages](xref:data/ef-rp/index)
@@ -50,16 +43,13 @@ ms.locfileid: "54341675"
 ## [选项](xref:fundamentals/configuration/options)
 ## [日志记录](xref:fundamentals/logging/index)
 ## [处理错误](xref:fundamentals/error-handling)
-## 中间件
-### [概述](xref:fundamentals/middleware/index)
-### [基于工厂的中间件](xref:fundamentals/middleware/extensibility)
-### [Factory-based middleware with third-party container（第三方容器中基于工厂的中间件）](xref:fundamentals/middleware/extensibility-third-party-container)
+## [中间件](xref:fundamentals/middleware/index)
 ## Host
 ### [概述](xref:fundamentals/host/index)
 ### [Web 主机](xref:fundamentals/host/web-host)
 ### [通用主机](xref:fundamentals/host/generic-host)
 ## [服务器](xref:fundamentals/servers/index)
-## [启动 HTTP 请求](xref:fundamentals/http-requests)
+## [发出 HTTP 请求](xref:fundamentals/http-requests)
 
 # Web 应用
 ## Razor 页面
@@ -286,6 +276,7 @@ ms.locfileid: "54341675"
 ### [生成 Docker 映像](/dotnet/articles/core/docker/building-net-docker-images)
 ### [Visual Studio Tools](xref:host-and-deploy/docker/visual-studio-tools-for-docker)
 ### [发布到 Docker 映像](/azure/vs-azure-tools-docker-hosting-web-apps-in-docker)
+### [示例 Docker 映像](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)
 ## [代理和负载均衡器配置](xref:host-and-deploy/proxy-load-balancer)
 ## [在 Web 场中托管](xref:host-and-deploy/web-farm)
 ## [Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles)
@@ -373,7 +364,7 @@ ms.locfileid: "54341675"
 #### [短数据保护提供程序](xref:security/data-protection/implementation/key-storage-ephemeral)
 ### 兼容性
 #### [概述](xref:security/data-protection/compatibility/index)
-#### [在 ASP.NET 中替换 <machineKey>](xref:security/data-protection/compatibility/replacing-machinekey)
+#### [在 ASP.NET 中替换 machineKey](xref:security/data-protection/compatibility/replacing-machinekey)
 ## [在开发过程中保护机密](xref:security/app-secrets)
 ## [Enforce HTTPS](xref:security/enforcing-ssl)
 ## [欧盟一般数据保护条例 (GDPR) 支持](xref:security/gdpr)
@@ -396,12 +387,14 @@ ms.locfileid: "54341675"
 ## [诊断工具](xref:performance/diagnostic-tools)
 ## [负载测试和压力测试](xref:test/loadtests)
 
-# 其他主题
-## [全球化和本地化](xref:fundamentals/localization)
-## [使用 Orchard Core 的可移植对象本地化](xref:fundamentals/portable-object-localization)
+# 全球化和本地化
+## [概述](xref:fundamentals/localization)
+## [可移植对象本地化](xref:fundamentals/portable-object-localization)
+
+# 高级
 ## [URL 重写](xref:fundamentals/url-rewriting)
 ## [文件提供程序](xref:fundamentals/file-providers)
-## [请求功能](xref:fundamentals/request-features)
+## [请求功能接口](xref:fundamentals/request-features)
 ## [访问 HttpContext](xref:fundamentals/httpcontext)
 ## [更改令牌](xref:fundamentals/change-tokens)
 ## [.NET 的开放 Web 接口 (OWIN)](xref:fundamentals/owin)
@@ -411,6 +404,8 @@ ms.locfileid: "54341675"
 ## [Microsoft.AspNetCore.All metapackage](xref:fundamentals/metapackage)
 ## [日志记录与 LoggerMessage](xref:fundamentals/logging/loggermessage)
 ## [使用文件观察程序](xref:tutorials/dotnet-watch)
+### [基于工厂的中间件](xref:fundamentals/middleware/extensibility)
+### [Factory-based middleware with third-party container（第三方容器中基于工厂的中间件）](xref:fundamentals/middleware/extensibility-third-party-container)
 
 # 迁移
 ## [2.2 至 3.0](xref:migration/22-to-30)
