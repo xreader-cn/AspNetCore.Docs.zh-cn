@@ -26,9 +26,9 @@ ms.locfileid: "53284406"
 
 ### <a name="cookie-authentication"></a>Cookie 身份验证
 
-在基于浏览器的应用中，cookie 身份验证允许你现有的用户凭据以自动传递到 SignalR 连接。 如果使用浏览器客户端，则需要无额外配置。 如果用户登录到你的应用，SignalR 连接会自动继承此身份验证。
+在基于浏览器的应用中，凭借 cookie 身份验证，现有用户凭据可以自动传递到 SignalR 连接 。使用浏览器客户端时，无需额外配置。如果用户登录到你的应用，SignalR 连接便会自动继承此身份验证。
 
-Cookie 是特定于浏览器的方法，将发送访问令牌，但非浏览器客户端可以向他们发送。 使用时[.NET 客户端](xref:signalr/dotnet-client)，则`Cookies`属性可以配置在`.WithUrl`调用，以提供一个 cookie。 但是，使用 cookie 身份验证从.NET 客户端要求提供要交换的 cookie 身份验证数据的 API 应用。
+Cookie 是一种特定于浏览器的发送访问令牌的方式，但非浏览器客户端也可以发送这些令牌。使用 [.NET 客户端](xref:signalr/dotnet-client) 时，可以在 `.WithUrl` 调用中配置 `Cookies` 属性来提供 cookie。但是，使用 .NET 客户端的 cookie 身份验证时，应用需要提供 API 来交换 cookie 的身份验证数据。
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
