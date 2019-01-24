@@ -4,17 +4,17 @@ title: 教程：创建 ASP.NET MVC 应用的更复杂数据模型
 author: tdykstra
 description: 在本教程将添加更多实体和关系并将通过指定格式设置、 验证和数据库映射规则来自定义数据模型。
 ms.author: riande
-ms.date: 01/16/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: 46f7f3c9-274f-4649-811d-92222a9b27e2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 50cbc184983b3e37c34332dad52bc0d70ade18c2
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 5d05d456315c019c545a91b527bb05510126c06b
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396293"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836618"
 ---
 # <a name="tutorial-create-a-more-complex-data-model-for-an-aspnet-mvc-app"></a>教程：创建 ASP.NET MVC 应用的更复杂数据模型
 
@@ -397,6 +397,10 @@ Course 实体具有外键属性`DepartmentID`它指向相关`Department`实体�
 右键单击`CourseInstructor`表，然后选择**显示表数据**以确认它在其中为具有数据`Instructor`添加到实体`Course.Instructors`导航属性。
 
 ![Table_data_in_CourseInstructor_table](creating-a-more-complex-data-model-for-an-asp-net-mvc-application/_static/image17.png)
+
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -1,29 +1,29 @@
 ---
 uid: signalr/overview/older-versions/index
 title: SignalR 较早版本 |Microsoft Docs
-author: rick-anderson
+author: bradygaster
 description: 与 SignalR 的早期版本的文档。
-ms.author: riande
+ms.author: bradyg
 ms.date: 09/19/2014
 ms.assetid: 607f4617-380f-41fa-bf46-147e82bb8124
 msc.legacyurl: /signalr/overview/older-versions
 msc.type: chapter
-ms.openlocfilehash: b0cb625166f9d9c669891be1efc2b119ff1f92b9
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 160c3b2f0d255314bdf9fef3eda22cb578de476e
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "48252965"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837048"
 ---
 <a name="signalr-older-versions"></a>SignalR 较早版本
 ====================
 > 与 SignalR 的早期版本的文档。
 
 
-- [教程：SignalR 1.x 入门](tutorial-getting-started-with-signalr.md)
-- [教程：SignalR 1.x 和 MVC 4 入门](tutorial-getting-started-with-signalr-and-mvc-4.md)
+- [教程：开始使用 SignalR 1.x](tutorial-getting-started-with-signalr.md)
+- [教程：开始使用 SignalR 1.x 和 MVC 4](tutorial-getting-started-with-signalr-and-mvc-4.md)
 - [使用 SignalR 1.x 实现高频率实时功能](tutorial-high-frequency-realtime-with-signalr.md)
-- [教程：使用 ASP.NET SignalR 1.x 实现服务器广播](tutorial-server-broadcast-with-aspnet-signalr.md)
+- [教程：服务器广播使用 ASP.NET SignalR 1.x](tutorial-server-broadcast-with-aspnet-signalr.md)
 - [中心 API 指南 - 服务器](signalr-1x-hubs-api-guide-server.md)
 - [SignalR 1.x 中心 API 指南 - JavaScript 客户端](signalr-1x-hubs-api-guide-javascript-client.md)
 - [中心 API 指南 - .NET 客户端](signalr-1x-hubs-api-guide-net-client.md)

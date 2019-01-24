@@ -1,26 +1,26 @@
 ---
 uid: signalr/overview/getting-started/tutorial-getting-started-with-signalr
 title: 教程：与 SignalR 2 实时聊天 |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本教程介绍如何使用 SignalR 创建实时聊天应用程序。 将 SignalR 添加到空的 ASP.NET web 应用程序。
-ms.author: riande
-ms.date: 01/02/2019
+ms.author: bradyg
+ms.date: 01/22/2019
 ms.assetid: a8b3b778-f009-4369-85c7-e90f9878d8b4
 msc.legacyurl: /signalr/overview/getting-started/tutorial-getting-started-with-signalr
 msc.type: authoredcontent
 ms.topic: tutorial
-ms.openlocfilehash: aa015abc47bb2450e04e167c0404aaa1d119ba2c
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 90f2c03fbda522e3a46200bc0132cc74100ce70f
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098619"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836787"
 ---
 # <a name="tutorial-real-time-chat-with-signalr-2"></a>教程：与 SignalR 2 实时聊天
 
 本教程演示如何使用 SignalR 创建实时聊天应用程序。 将 SignalR 添加到空的 ASP.NET web 应用程序和创建 HTML 页以发送和显示的消息。
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 设置项目
@@ -161,6 +161,10 @@ SignalRChat 应用程序演示了两个基本的 SignalR 开发任务。 它显�
 > 此方法可确保代码建立的连接，事件处理程序在执行之前。
 
 代码启动连接，然后将其传递函数来处理单击事件上**发送**HTML 页中的按钮。
+
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/SignalR-Getting-Started-b9d18aa9)
 
 ## <a name="additional-resources"></a>其他资源
 

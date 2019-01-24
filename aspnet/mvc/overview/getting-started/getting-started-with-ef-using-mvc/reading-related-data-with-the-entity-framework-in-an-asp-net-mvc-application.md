@@ -4,17 +4,17 @@ title: 教程：读取使用 EF 在 ASP.NET MVC 应用中的相关的数据
 description: 在本教程将读取并显示相关的数据-即 Entity Framework 加载到导航属性的数据。
 author: tdykstra
 ms.author: riande
-ms.date: 01/17/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: 18cdd896-8ed9-4547-b143-114711e3eafb
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 8660a75655b801364cce7c4b59847c5c00562a27
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 5f45820cd7abd60e69c19368cee50e91e31a75a0
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396202"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836826"
 ---
 # <a name="tutorial-read-related-data-with-ef-in-an-aspnet-mvc-app"></a>教程：读取使用 EF 在 ASP.NET MVC 应用中的相关的数据
 
@@ -243,6 +243,10 @@ ms.locfileid: "54396202"
 请注意，使用`Collection`方法以加载集合属性，但对于一个属性，保存只是一个实体，你使用`Reference`方法。
 
 立即运行讲师索引页，尽管已经更改数据的检索方式，您将看到的页上，显示的内容没有区别。
+
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>其他资源
 

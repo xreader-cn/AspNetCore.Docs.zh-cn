@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/mapping-users-to-connections
 title: SignalR 用户映射到连接中 SignalR 1.x |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本主题演示如何保留用户以及它们的连接有关的信息。
-ms.author: riande
+ms.author: bradyg
 ms.date: 10/17/2013
 ms.assetid: ebbc93a8-e6c4-4122-8e0d-3aa42293c747
 msc.legacyurl: /signalr/overview/older-versions/mapping-users-to-connections
 msc.type: authoredcontent
-ms.openlocfilehash: ba7bbea25cd35f8ba23901c5f8db08404c91bd52
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 1e65a11e08a5b060cf8b096b5fe5b90eb8dc5b51
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287476"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836709"
 ---
 <a name="mapping-signalr-users-to-connections-in-signalr-1x"></a>SignalR 用户映射到连接中 SignalR 1.x
 ====================

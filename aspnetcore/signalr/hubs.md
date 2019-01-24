@@ -1,18 +1,18 @@
 ---
 title: 在 ASP.NET Core SignalR 使用中心
-author: tdykstra
+author: bradygaster
 description: 了解如何在 ASP.NET Core SignalR 中使用中心。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/20/2018
 uid: signalr/hubs
-ms.openlocfilehash: 91f92e9d6b776457cd319965d548ee401ddc5e0e
-ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
+ms.openlocfilehash: 9bc74079235338c75c47e06bde2b78dc1c466bd6
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/21/2018
-ms.locfileid: "52282131"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836683"
 ---
 # <a name="use-hubs-in-signalr-for-aspnet-core"></a>ASP.NET Core 使用 SignalR 中的中心
 

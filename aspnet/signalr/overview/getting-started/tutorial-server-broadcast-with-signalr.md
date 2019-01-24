@@ -3,18 +3,18 @@ uid: signalr/overview/getting-started/tutorial-server-broadcast-with-signalr
 title: 教程：服务器广播 SignalR 2 |Microsoft Docs
 author: tdykstra
 description: 本教程演示如何创建使用 ASP.NET SignalR 2 来提供服务器广播的功能的 web 应用程序。
-ms.author: riande
+ms.author: bradyg
 ms.date: 01/02/2019
 ms.topic: tutorial
 ms.assetid: 1568247f-60b5-4eca-96e0-e661fbb2b273
 msc.legacyurl: /signalr/overview/getting-started/tutorial-server-broadcast-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: a6014e604613492db91b2dc6f846c3c73d938d99
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: a243c78c7d552f1c82a88c6083871fcd16538618
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099294"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837424"
 ---
 # <a name="tutorial-server-broadcast-with-signalr-2"></a>教程：使用 SignalR 2 广播的服务器
 
@@ -26,7 +26,7 @@ ms.locfileid: "54099294"
 
 ![创建 web](tutorial-server-broadcast-with-signalr/_static/image1.png)
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建项目
@@ -81,7 +81,7 @@ SignalR 中心 API 将用于处理服务器到客户端交互。 一个`StockTic
 
 您只想的一个实例`StockTicker`类来运行的服务器上，因此将需要设置从每个引用`StockTickerHub`到单一实例`StockTicker`实例。 `StockTicker`类具有广播到客户端，因为它具有股票数据，并触发更新，但`StockTicker`不是`Hub`类。 `StockTicker`类必须获取对 SignalR Hub 连接上下文对象的引用。 然后，它可以使用 SignalR 连接上下文对象广播到客户端。
 
-#### <a name="create-stocktickerhubcs"></a>创建 StockTickerHub.cs
+#### <a name="create-stocktickerhubcs"></a>Create StockTickerHub.cs
 
 1. 在中**解决方案资源管理器**，右键单击该项目并选择**添加** > **新项**。
 
@@ -321,7 +321,7 @@ SignalR 有一个可以在客户端启用帮助解决疑难问题的内置日志
 
     [!code-javascript[Main](tutorial-server-broadcast-with-signalr/samples/sample19.js?highlight=2)]
 
-1. 按**F5**以运行该项目。
+1. 按 F5 运行项目。
 
 1. 打开浏览器的开发人员工具窗口，并选择控制台以查看的日志。 您可能需要刷新页面以查看 SignalR 协商新连接的传输方法的日志。
 
@@ -487,7 +487,7 @@ SignalR 有一个可以在客户端启用帮助解决疑难问题的内置日志
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建项目

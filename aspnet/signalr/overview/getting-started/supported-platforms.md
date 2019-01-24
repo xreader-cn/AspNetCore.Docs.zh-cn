@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/getting-started/supported-platforms
 title: 支持的平台 |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本文介绍通过 SignalR 支持哪些客户端和服务器。
-ms.author: riande
+ms.author: bradyg
 ms.date: 04/18/2018
 ms.assetid: eac31beb-0f46-4afa-9def-e80904dea4f0
 msc.legacyurl: /signalr/overview/getting-started/supported-platforms
 msc.type: authoredcontent
-ms.openlocfilehash: e270f9a328f36854fdfb3e23b78e0b40cdda6411
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 60fa74b54797efbe14ba525160b2f750a4f5a451
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287350"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836046"
 ---
 <a name="supported-platforms"></a>支持的平台
 ====================
@@ -113,8 +113,8 @@ SignalR 可在各种 web 浏览器，但通常情况下，支持的最新两个�
 | --- | --- | --- |
 | Web 套接字 | Windows 8 + 和.NET 4.5 + | 不可用 |
 | 永久帧 | 不可用 | 不可用 |
-| 服务器发送事件 | .NET 4 + | 5+ |
-| 长轮询 | .NET 4 + | 5+ |
+| 服务器发送事件 | .NET 4+ | 5+ |
+| 长轮询 | .NET 4+ | 5+ |
 
 <a id="android"></a>
 
@@ -124,12 +124,12 @@ SignalR 可在各种 web 浏览器，但通常情况下，支持的最新两个�
 
 **Windows 应用商店和 Windows Phone 传输要求**
 
-| 传输 | Windows 应用商店 /.NET | Windows 应用商店 / JavaScript | Windows Phone / IE | Windows Phone /.NET |
+| 传输 | Windows 应用商店 /.NET | Windows 应用商店 / JavaScript | Windows Phone/ IE | Windows Phone/ .NET |
 | --- | --- | --- | --- | --- |
-| WebSockets | 不可用 | Win8 + | 8+ | 不可用 |
-| 永久帧 | 不可用 | Win8 + | 7.5+ | 不可用 |
-| 服务器发送事件 | Win8 + | 不可用 | 不可用 | 8+ |
-| 长轮询 | Win8 + | Win8 + | 7.5+ | 8+ |
+| WebSockets | 不可用 | Win8+ | 8+ | 不可用 |
+| 永久帧 | 不可用 | Win8+ | 7.5+ | 不可用 |
+| 服务器发送事件 | Win8+ | 不可用 | 不可用 | 8+ |
+| 长轮询 | Win8+ | Win8+ | 7.5+ | 8+ |
 
 <a id="updates"></a>
 

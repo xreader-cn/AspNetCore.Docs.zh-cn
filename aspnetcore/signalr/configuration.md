@@ -1,24 +1,24 @@
 ---
 title: ASP.NET Core SignalR 配置
-author: tdykstra
+author: bradygaster
 description: 了解如何配置 ASP.NET Core SignalR 应用。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 09/06/2018
 uid: signalr/configuration
-ms.openlocfilehash: 855446003ae9d994854d4d8bb7d0f542a22734e4
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: bb18ba242584afa7181dcc19a5295f86996aeaa3
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391097"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837515"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
 ## <a name="jsonmessagepack-serialization-options"></a>JSON/MessagePack 序列化选项
 
-ASP.NET Core SignalR 支持两个协议为消息编码： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议具有序列化配置选项。
+ASP.NET Core SignalR 支持使用两个协议进行消息编码：[JSON](https://www.json.org/)并[MessagePack](https://msgpack.org/index.html)。 每个协议具有序列化配置选项。
 
 JSON 序列化可以配置服务器使用[AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol)扩展方法，可以添加后[AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr)在你`Startup.ConfigureServices`方法。 `AddJsonProtocol`方法采用一个委托，接收`options`对象。 [PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings)对该对象的属性是 JSON.NET`JsonSerializerSettings`可用于配置序列化的参数和返回值的对象。 请参阅[JSON.NET 文档](https://www.newtonsoft.com/json/help/html/Introduction.htm)的更多详细信息。
 

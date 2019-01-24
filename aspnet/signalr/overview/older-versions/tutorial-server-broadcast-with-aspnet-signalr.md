@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/tutorial-server-broadcast-with-aspnet-signalr
 title: 教程：服务器广播使用 ASP.NET SignalR 1.x |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本教程演示如何创建使用 ASP.NET SignalR 来提供服务器广播的功能的 web 应用程序。 服务器广播方法，communic...
-ms.author: riande
+ms.author: bradyg
 ms.date: 04/10/2013
 ms.assetid: ab7b2554-956a-4f6d-b2a0-4ae0c62e8580
 msc.legacyurl: /signalr/overview/older-versions/tutorial-server-broadcast-with-aspnet-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: d5c09f6493c4dedb4fc2ecbf9055dd014ede71f2
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 258a55bf72c4b3425d001f478620fa9651952b3f
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53288042"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837463"
 ---
 <a name="tutorial-server-broadcast-with-aspnet-signalr-1x"></a>教程：服务器广播使用 ASP.NET SignalR 1.x
 ====================
@@ -117,8 +117,8 @@ SignalR 中心 API 将用于处理服务器到客户端交互。 从 SignalR Hub
 2. 如果你有 Visual Studio 2012 [ASP.NET 和 Web Tools 2012.2 更新](https://go.microsoft.com/fwlink/?LinkId=279941)，单击**Web**下**Visual C#** ，然后选择**SignalR Hub 类**项模板。 否则，请选择**类**模板。
 3. 将新类命名*StockTickerHub.cs*，然后单击**添加**。
 
-    ![添加 StockTickerHub.cs](tutorial-server-broadcast-with-aspnet-signalr/_static/image5.png)
-4. 模板代码替换为以下代码：
+    ![Add StockTickerHub.cs](tutorial-server-broadcast-with-aspnet-signalr/_static/image5.png)
+4. 将模板代码替换为以下代码：
 
     [!code-csharp[Main](tutorial-server-broadcast-with-aspnet-signalr/samples/sample3.cs)]
 
@@ -208,7 +208,7 @@ SignalR 中心 API 将用于处理服务器到客户端交互。 从 SignalR Hub
 ## <a name="set-up-the-client-code"></a>设置客户端代码
 
 1. 在项目文件夹中，创建一个新的 HTML 文件并将其命名*StockTicker.html*。
-2. 模板代码替换为以下代码：
+2. 将模板代码替换为以下代码：
 
     [!code-html[Main](tutorial-server-broadcast-with-aspnet-signalr/samples/sample13.html)]
 
@@ -219,7 +219,7 @@ SignalR 中心 API 将用于处理服务器到客户端交互。 从 SignalR Hub
    > 请确保在 JavaScript 文件中引用*StockTicker.html*正确无误。 也就是说，确保你的脚本标记 (1.8.2 在示例中) 中的 jQuery 版本是在项目中的 jQuery 版本相同*脚本*文件夹，并确保你的脚本标记中的 SignalR 版本是 SignalR 相同在项目的版本*脚本*文件夹。 如有必要，请更改脚本标记中的文件名称。
 4. 在中**解决方案资源管理器**，右键单击*StockTicker.html*，然后单击**设为起始页**。
 5. 在项目文件夹中创建的新 JavaScript 文件并将其命名*StockTicker.js*...
-6. 模板代码替换为以下代码：
+6. 将模板代码替换为以下代码：
 
     [!code-javascript[Main](tutorial-server-broadcast-with-aspnet-signalr/samples/sample14.js)]
 
@@ -297,7 +297,7 @@ SignalR 有一个可以在客户端启用帮助解决疑难问题的内置日志
 
     如果在 Windows 7 (IIS 7.5) 上运行 Internet Explorer 10，传输方法是 iframe。
 
-    ![IE 10 控制台中，IIS 7.5](tutorial-server-broadcast-with-aspnet-signalr/_static/image11.png)
+    ![IE 10 Console, IIS 7.5](tutorial-server-broadcast-with-aspnet-signalr/_static/image11.png)
 
     在 Firefox 中安装的 Firebug 外接程序以获取控制台窗口。 如果在 Windows 8 (IIS 8) 上运行 Firefox 19，传输方法是 Websocket。
 

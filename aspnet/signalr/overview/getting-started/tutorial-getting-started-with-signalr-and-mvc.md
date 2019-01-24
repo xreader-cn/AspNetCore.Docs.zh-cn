@@ -1,26 +1,26 @@
 ---
 uid: signalr/overview/getting-started/tutorial-getting-started-with-signalr-and-mvc
 title: 教程：使用 SignalR 2 和 MVC 5 的实时聊天 |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本教程演示如何使用 ASP.NET SignalR 2 来创建实时聊天应用程序。 将 SignalR 添加到 MVC 5 应用程序。
-ms.author: riande
-ms.date: 01/02/2019
+ms.author: bradyg
+ms.date: 01/22/2019
 ms.assetid: 80bfe5fb-bdfc-41fe-ac43-2132e5d69fac
 msc.legacyurl: /signalr/overview/getting-started/tutorial-getting-started-with-signalr-and-mvc
 msc.type: authoredcontent
 ms.topic: tutorial
-ms.openlocfilehash: eb4b7e1403f4070d65702b756bf98c5294c7fb17
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 1b02aecc68a93dbd6373ca5304530e76c9d0b6b5
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098599"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836995"
 ---
 # <a name="tutorial-real-time-chat-with-signalr-2-and-mvc-5"></a>教程：使用 SignalR 2 和 MVC 5 的实时聊天
 
 本教程演示如何使用 ASP.NET SignalR 2 来创建实时聊天应用程序。 将 SignalR 添加到 MVC 5 应用程序并创建聊天视图以发送和显示的消息。
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 设置项目
@@ -176,6 +176,10 @@ SignalR 聊天应用程序演示了两个基本的 SignalR 开发任务。 它�
 
 代码启动连接，然后将其传递函数来处理单击事件上**发送**聊天页中的按钮。
 
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/Getting-Started-with-c366b2f3)
+
 ## <a name="additional-resources"></a>其他资源
 
 有关 SignalR 的详细信息，请参阅以下资源：
@@ -188,7 +192,7 @@ SignalR 聊天应用程序演示了两个基本的 SignalR 开发任务。 它�
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 设置项目

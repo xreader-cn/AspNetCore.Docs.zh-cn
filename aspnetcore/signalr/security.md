@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core SignalR 中的安全注意事项
-author: tdykstra
+author: bradygaster
 description: 了解如何在 ASP.NET Core SignalR 中使用身份验证和授权。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
 ms.date: 11/06/2018
 uid: signalr/security
-ms.openlocfilehash: f646d319cf3030fd4d769e882514da14b230bbdd
-ms.sourcegitcommit: c3fa5aded0bf76a7414047d50b8a2311d27ee1ef
+ms.openlocfilehash: 52cfac6be8e61572acdf0b19dab574b607314d97
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51276140"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836059"
 ---
 # <a name="security-considerations-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的安全注意事项
 
@@ -42,29 +42,29 @@ ms.locfileid: "51276140"
 > [!NOTE]
 > SignalR 是不与 Azure 应用服务中内置的 CORS 功能兼容。
 
-## <a name="websocket-origin-restriction"></a>WebSocket 源限制
+## <a name="websocket-origin-restriction"></a>WebSocket Origin Restriction
 
 ::: moniker range=">= aspnetcore-2.2"
 
-CORS 提供的保护功能不会应用到 Websocket。 有关源限制对 Websocket，请阅读[Websocket 原点限制](xref:fundamentals/websockets#websocket-origin-restriction)。
+CORS 提供的保护不适用于 WebSocket。 有关源限制对 Websocket，请阅读[Websocket 原点限制](xref:fundamentals/websockets#websocket-origin-restriction)。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-CORS 提供的保护功能不会应用到 Websocket。 浏览器执行操作**不**:
+CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 * 执行 CORS 预检请求。
-* 遵循中指定的限制`Access-Control`标头时发出 WebSocket 请求。
+* 在发出 WebSocket 请求时，遵守 `Access-Control` 标头中指定的限制。
 
-但是，浏览器是否将发送`Origin`标头时发出 WebSocket 请求。 应用程序应配置为验证这些标头，以确保允许仅来自预期的来源的 Websocket。
+但是，浏览器在发出 WebSocket 请求时会发送 `Origin` 标头。 应将应用程序配置为验证这些标头，以确保只允许来自预期来源的 WebSocket。
 
 ASP.NET Core 2.1 及更高版本，可以使用放置自定义中间件实现标头验证**之前`UseSignalR`，和身份验证中间件**中`Configure`:
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet2)]
 
 > [!NOTE]
-> `Origin`标头控制客户端和其他如`Referer`标头，可能伪造的。 这些标头应**不**用作身份验证机制。
+> 与 `Referer` 标头一样，`Origin` 标头由客户端控制，并可以伪造。 这些标头应**不**用作身份验证机制。
 
 ::: moniker-end
 
@@ -79,7 +79,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
 
 如果您有关于此数据与服务器日志的日志记录的相关问题，可以通过配置来完全禁用此日志记录`Microsoft.AspNetCore.Hosting`记录器`Warning`级别或更高版本 (这些消息将写入在`Info`级别)。 在查看文档[日志筛选](xref:fundamentals/logging/index#log-filtering)有关详细信息。 如果你仍想要记录特定请求的信息，可以[编写中间件](xref:fundamentals/middleware/index#write-middleware)来记录的数据需要并筛选出`access_token`查询字符串值 （如果存在）。
 
-## <a name="exceptions"></a>异常
+## <a name="exceptions"></a>Exceptions
 
 异常消息通常被视为不应泄露给客户端的敏感数据。 默认情况下，SignalR 不会发送到客户端集线器方法引发的异常的详细信息。 相反，客户端收到一条指示发生了错误的常规消息。 异常消息传递到客户端可以重写 （例如在开发或测试） 使用[ `EnableDetailedErrors` ](xref:signalr/configuration#configure-server-options)。 不应在生产应用中的客户端公开异常消息。
 

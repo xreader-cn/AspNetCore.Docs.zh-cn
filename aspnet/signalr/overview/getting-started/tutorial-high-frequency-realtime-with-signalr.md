@@ -1,20 +1,20 @@
 ---
 uid: signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
 title: 教程：使用 SignalR 2 创建高频率实时应用程序 |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本教程演示如何创建使用 ASP.NET SignalR 来提供高频率消息传送功能的 web 应用程序。
-ms.author: riande
-ms.date: 01/02/2019
+ms.author: bradyg
+ms.date: 01/22/2019
 ms.assetid: 9f969dda-78ea-4329-b1e3-e51c02210a2b
 msc.legacyurl: /signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
 msc.type: authoredcontent
 ms.topic: tutorial
-ms.openlocfilehash: 85503db0b41be6f87136627667d6dd71f0d4f609
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 44aaa2b0c059de310e963f642fa56c2f00a7e443
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098585"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836722"
 ---
 # <a name="tutorial-create-high-frequency-real-time-app-with-signalr-2"></a>教程：使用 SignalR 2 创建高频率实时应用
 
@@ -24,7 +24,7 @@ ms.locfileid: "54098585"
 
 本教程中介绍的概念有实时游戏中的应用程序和其他模拟应用程序。
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 设置项目
@@ -224,6 +224,10 @@ OWIN 启动类调用`MapSignalR`当应用程序执行`Configuration`方法。 �
 
 此代码将从旧位置形状移到新。 服务器可以提供动画时间间隔内的形状的位置。 在这种情况下，这是 100 毫秒。 应用程序清除新动画开始之前，该形状上运行任何前一个动画。
 
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/SignalR-20-MoveShape-Demo-6285b83a)
+
 ## <a name="additional-resources"></a>其他资源
 
 你刚刚了解了有关的通信模式可用于开发联机游戏和其他模拟，如[ShootR 游戏使用 SignalR 创建](https://shootr.azurewebsites.net/)。
@@ -238,7 +242,7 @@ OWIN 启动类调用`MapSignalR`当应用程序执行`Configuration`方法。 �
 
 ## <a name="next-steps"></a>后续步骤
 
-在本教程中，您：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 设置项目

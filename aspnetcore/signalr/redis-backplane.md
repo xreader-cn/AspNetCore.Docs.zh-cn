@@ -1,18 +1,18 @@
 ---
 title: Redis 的 ASP.NET Core SignalR 横向扩展的底板
-author: tdykstra
+author: bradygaster
 description: 了解如何设置 Redis 底板以启用 ASP.NET Core SignalR 应用程序的横向扩展。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
-ms.openlocfilehash: fde7f08ae2310b0b9bf9b7fe25a1dfc4a568adb6
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: c02d8cd5fb3b6edbb21be4889da2e880099b731b
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099350"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837437"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>设置 ASP.NET Core SignalR 横向扩展 Redis 底板
 
