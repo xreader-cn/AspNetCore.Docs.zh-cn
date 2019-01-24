@@ -1,24 +1,24 @@
 ---
 uid: signalr/overview/deployment/index
 title: SignalR 部署和托管 |Microsoft Docs
-author: rick-anderson
+author: bradygaster
 description: 如何部署和托管 SignalR 应用程序。
-ms.author: riande
+ms.author: bradyg
 ms.date: 09/19/2014
 ms.assetid: 62482bdd-e2a4-46e5-b909-6d0c6bc07114
 msc.legacyurl: /signalr/overview/deployment
 msc.type: chapter
-ms.openlocfilehash: df56c36ba757192169fa6aac0fa48a120dfc717c
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 20c30f6f5bd79d9cdaecfcf294b529f32dbfdf37
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "48253211"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837372"
 ---
-<a name="signalr-deployment-and-hosting"></a><span data-ttu-id="fa1f0-103">SignalR 部署和托管</span><span class="sxs-lookup"><span data-stu-id="fa1f0-103">SignalR Deployment and Hosting</span></span>
+<a name="signalr-deployment-and-hosting"></a><span data-ttu-id="c6c96-103">SignalR 部署和托管</span><span class="sxs-lookup"><span data-stu-id="c6c96-103">SignalR Deployment and Hosting</span></span>
 ====================
-> <span data-ttu-id="fa1f0-104">如何部署和托管 SignalR 应用程序。</span><span class="sxs-lookup"><span data-stu-id="fa1f0-104">How to deploy and host SignalR applications.</span></span>
+> <span data-ttu-id="c6c96-104">如何部署和托管 SignalR 应用程序。</span><span class="sxs-lookup"><span data-stu-id="c6c96-104">How to deploy and host SignalR applications.</span></span>
 
 
-- [<span data-ttu-id="fa1f0-105">教程：自承载 SignalR</span><span class="sxs-lookup"><span data-stu-id="fa1f0-105">Tutorial: SignalR Self-Host</span></span>](tutorial-signalr-self-host.md)
-- [<span data-ttu-id="fa1f0-106">在 Azure 应用服务中通过 Web 应用使用 SignalR</span><span class="sxs-lookup"><span data-stu-id="fa1f0-106">Using SignalR with Web Apps in Azure App Service</span></span>](using-signalr-with-azure-web-sites.md)
+- [<span data-ttu-id="c6c96-105">教程：自承载 SignalR</span><span class="sxs-lookup"><span data-stu-id="c6c96-105">Tutorial: SignalR Self-Host</span></span>](tutorial-signalr-self-host.md)
+- [<span data-ttu-id="c6c96-106">在 Azure 应用服务中通过 Web 应用使用 SignalR</span><span class="sxs-lookup"><span data-stu-id="c6c96-106">Using SignalR with Web Apps in Azure App Service</span></span>](using-signalr-with-azure-web-sites.md)
