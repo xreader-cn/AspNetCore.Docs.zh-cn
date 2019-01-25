@@ -32,9 +32,9 @@ Cookie 是一种特定于浏览器的发送访问令牌的方式，但非浏览�
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
-客户端可以提供访问令牌而不是使用 cookie。 服务器验证该令牌，并使用它来标识用户。 仅在建立连接时，才执行此验证。 连接的生命周期，服务器不会自动重新验证令牌吊销检查。
+客户端可以提供访问令牌而不是使用 cookie。 服务器验证该令牌，并使用它来标识用户。 仅在建立连接时，才执行此验证。 连接开启后，服务器不会通过自动重新验证来检查令牌是否撤销。
 
-在服务器上，使用配置持有者令牌身份验证[JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)。
+在服务器上，持有者令牌身份验证使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)进行配置。
 
 在 JavaScript 客户端，该令牌可以使用提供[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项。
 
