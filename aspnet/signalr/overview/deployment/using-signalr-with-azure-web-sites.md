@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/deployment/using-signalr-with-azure-web-sites
 title: 在 Azure 应用服务中的 Web 应用中使用 SignalR |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本文档介绍如何配置运行在 Microsoft Azure 的 SignalR 应用程序。 在教程的 Visual Studio 2013 或 Vis.中使用的软件版本...
-ms.author: riande
+ms.author: bradyg
 ms.date: 07/01/2015
 ms.assetid: 2a7517a0-b88c-4162-ade3-9bf6ca7062fd
 msc.legacyurl: /signalr/overview/deployment/using-signalr-with-azure-web-sites
 msc.type: authoredcontent
-ms.openlocfilehash: da69e1aba1b56d69ad8e710cddd2b492168f1255
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 13eb5d29a2c40f52aed4b569ec8695f014a05f03
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287749"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837697"
 ---
 <a name="using-signalr-with-web-apps-in-azure-app-service"></a>在 Azure 应用服务中的 Web 应用中使用 SignalR
 ====================
@@ -58,7 +58,7 @@ SignalR 不会添加到 Azure 的应用程序部署与部署到的本地服务�
 
 **系统必备**
 
-- Visual Studio 2013。 如果未安装 Visual Studio，Visual Studio 2013 Express for Web 是在安装中包括的 Azure sdk。
+- Visual Studio 2013. 如果未安装 Visual Studio，Visual Studio 2013 Express for Web 是在安装中包括的 Azure sdk。
 - [用于 Visual Studio 2013 的 azure SDK 2.3](https://go.microsoft.com/fwlink/?linkid=324322&clcid=0x409)或[适用于 Visual Studio 2012 的 Azure SDK 2.3](https://go.microsoft.com/fwlink/p/?linkid=323511)。
 - 若要完成本教程中，将需要 Azure 订阅。 你可以[激活 MSDN 订户权益](https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/)，或[注册试用版订阅](https://azure.microsoft.com/pricing/free-trial/)。
 
