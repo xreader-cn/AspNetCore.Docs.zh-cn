@@ -4,17 +4,17 @@ title: 在 Azure Web 角色中使用 SignalR 性能计数器 |Microsoft Docs
 author: guardrex
 description: 了解如何安装并在 Azure Web 角色中使用 SignalR 性能计数器。
 keywords: ASP.NET,signalr,performance 计数器，azure web 角色
-ms.author: riande
+ms.author: bradyg
 ms.date: 10/03/2018
 ms.assetid: 2a127d3b-21ed-4cc9-bec0-cdab4e742a25
 msc.legacyurl: /signalr/overview/performance/using-signalr-performance-counters-in-an-azure-web-role
 msc.type: authoredcontent
-ms.openlocfilehash: bdd875201895c6eaf155b54582d0898c2570d93c
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 8e17e945bc144731dd149bd7ddfc9e29160eaf0b
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287691"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836476"
 ---
 # <a name="using-signalr-performance-counters-in-an-azure-web-role"></a>在 Azure Web 角色中使用 SignalR 性能计数器
 
@@ -45,7 +45,7 @@ SignalR 性能计数器用于监视 Azure Web 角色中的应用程序的性能�
    >
    > ![在 Visual Studio 安装程序中的 azure 开发工作负载](using-signalr-performance-counters-in-an-azure-web-role/_static/azure-development-workload.png)
 
-4. 在中**新的 Microsoft Azure 云服务**对话框中，选择**ASP.NET Web 角色**和选择 > 按钮以将角色添加到项目。 选择“确定”。
+4. 在中**新的 Microsoft Azure 云服务**对话框中，选择**ASP.NET Web 角色**和选择 > 按钮以将角色添加到项目。 选择 **确定**。
 
    ![添加 ASP.NET Web 角色](using-signalr-performance-counters-in-an-azure-web-role/_static/image2.png)
 

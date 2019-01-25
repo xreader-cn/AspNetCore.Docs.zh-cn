@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/signalr-1x-hubs-api-guide-server
 title: ASP.NET SignalR 中心 API 指南-服务器 (SignalR 1.x) |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本文档介绍了 ASP.NET SignalR 中心 API 的服务器端编程 SignalR 版本 1.1 中，使用代码示例 demonstratin...
-ms.author: riande
+ms.author: bradyg
 ms.date: 04/17/2013
 ms.assetid: 03e4b9f5-0fea-4d94-959f-014b2762a301
 msc.legacyurl: /signalr/overview/older-versions/signalr-1x-hubs-api-guide-server
 msc.type: authoredcontent
-ms.openlocfilehash: a51a2077e0b6cde80bc679e3a310c0c804d19d68
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 8d544e81f87998581afb2a1228233b4d374ad70a
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53288016"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837385"
 ---
 <a name="aspnet-signalr-hubs-api-guide---server-signalr-1x"></a>ASP.NET SignalR 中心 API 指南-服务器 (SignalR 1.x)
 ====================
@@ -247,7 +247,7 @@ Hub 类的实例是暂时的因为不能使用它们来保持到下一个方法�
 
 [!code-csharp[Main](signalr-1x-hubs-api-guide-server/samples/sample19.cs)]
 
-**异步的 ASP.NET 4.5**
+**Asynchronous - ASP.NET 4.5**
 
 [!code-csharp[Main](signalr-1x-hubs-api-guide-server/samples/sample20.cs?highlight=1,7-8)]
 

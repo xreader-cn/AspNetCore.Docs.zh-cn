@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/handling-connection-lifetime-events
 title: 了解和处理 SignalR 中的连接生存期事件 1.x |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: 本文介绍如何使用事件中心 API 公开的。
-ms.author: riande
+ms.author: bradyg
 ms.date: 06/05/2013
 ms.assetid: e608e263-264d-448b-b0eb-6eeb77713b22
 msc.legacyurl: /signalr/overview/older-versions/handling-connection-lifetime-events
 msc.type: authoredcontent
-ms.openlocfilehash: f965c38e18c442268f9bb1d7ffb5e98a135efade
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: bf10cf3e3e1881a976e8a123b48007f7bd8821f7
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287671"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837658"
 ---
 <a name="understanding-and-handling-connection-lifetime-events-in-signalr-1x"></a>了解和处理 SignalR 中的连接生存期事件 1.x
 ====================
@@ -44,7 +44,7 @@ ms.locfileid: "53287671"
 
     - [ConnectionTimeout](#connectiontimeout)
     - [DisconnectTimeout](#disconnecttimeout)
-    - [保持连接](#keepalive)
+    - [KeepAlive](#keepalive)
     - [如何更改超时设置和 keepalive 设置](#changetimeout)
 - [如何通知用户有关的断开连接](#notifydisconnect)
 - [如何持续重新连接](#continuousreconnect)
@@ -180,7 +180,7 @@ API 参考主题的链接将指向.NET 4.5 版本的 API。 如果使用的.NET 
 
 <a id="keepalive"></a>
 
-### <a name="keepalive"></a>保持连接
+### <a name="keepalive"></a>KeepAlive
 
 此设置表示要在通过空闲连接发送保持连接数据包之前等待时间的量。 默认值为 10 秒。 此值不能超过 1/3 的`DisconnectTimeout`值。
 

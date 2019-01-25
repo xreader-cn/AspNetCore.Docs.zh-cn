@@ -4,17 +4,17 @@ title: 教程：与 EF 在 ASP.NET MVC 应用中使用连接复原和命令拦�
 author: tdykstra
 description: 在本教程介绍如何使用连接复原和命令拦截。 它们是两个重要的 Entity Framework 6 的功能。
 ms.author: riande
-ms.date: 01/14/2018
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: c89d809f-6c65-4425-a3fa-c9f6e8ac89f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: fae5c7e1ad1000ed90630c3620b853de3a735d60
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
+ms.openlocfilehash: 4ef13e676340f1bfac1a25219e6455c89b69df5e
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341719"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837619"
 ---
 # <a name="tutorial-use-connection-resiliency-and-command-interception-with-entity-framework-in-an-aspnet-mvc-app"></a>教程：与实体框架在 ASP.NET MVC 应用中使用连接复原和命令拦截
 
@@ -172,6 +172,10 @@ ms.locfileid: "54341719"
 
     ![虚拟异常](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
 5. 取消注释*SetExecutionStrategy*行中*SchoolConfiguration.cs*。
+
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>其他资源
 

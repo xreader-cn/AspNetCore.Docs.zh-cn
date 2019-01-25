@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/performance/scaleout-in-signalr
 title: SignalR 的横向扩展简介 |Microsoft Docs
-author: MikeWasson
+author: bradygaster
 description: Visual Studio 2013.NET 4.5 SignalR 本主题中使用软件版本信息有关早期版本的版本 2 的本主题的早期版本...
-ms.author: riande
+ms.author: bradyg
 ms.date: 06/10/2014
 ms.assetid: 7e781fc1-1c1f-45a8-bc1d-338e96dbe9c9
 msc.legacyurl: /signalr/overview/performance/scaleout-in-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 50f9e5bc2713af7fe41473339e360099a92d4c5d
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 60ae0353745284796eb7e0ddb6397ecb48eceaf0
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53286982"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836192"
 ---
 <a name="introduction-to-scaleout-in-signalr"></a>SignalR 的横向扩展简介
 ====================

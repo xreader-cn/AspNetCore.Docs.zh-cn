@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/performance/signalr-performance
 title: SignalR 性能 |Microsoft Docs
-author: pfletcher
+author: bradygaster
 description: SignalR 性能
-ms.author: riande
+ms.author: bradyg
 ms.date: 06/10/2014
 ms.assetid: 3751f5e7-59db-4be0-a290-50abc24e5c84
 msc.legacyurl: /signalr/overview/performance/signalr-performance
 msc.type: authoredcontent
-ms.openlocfilehash: 9346f0ff9720361f07afe196f59305f0f38ffe8a
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 3326c2e600854fc7a4435d96c45b04a6188d3937
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287762"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836507"
 ---
 <a name="signalr-performance"></a>SignalR 性能
 ====================
@@ -200,11 +200,11 @@ SignalR 性能和缩放上的最新演示文稿，请参阅[缩放使用 ASP.NET
 以下指标测量生成的 SignalR 消息通信错误。 **集线器解析**中心或中心方法无法解析时出现错误。 **集线器调用**错误是调用集线器方法时引发的异常。 **传输**错误是在 HTTP 请求或响应过程中引发的连接错误。
 
 - **错误：所有总数**
-- **错误：所有/秒**
+- **错误：All/Sec**
 - **错误：中心解决方法总数**
 - **错误：每秒集线器解析**
 - **错误：集线器调用总数**
-- **错误：每秒集线器调用**
+- **错误：Hub Invocation/Sec**
 - **错误：传输总数**
 - **错误：传输/秒**
 
@@ -266,7 +266,7 @@ SignalR 性能和缩放上的最新演示文稿，请参阅[缩放使用 ASP.NET
 **Web 服务**
 
 - Web 服务 \ 当前连接
-- Web Service\Maximum 连接
+- Web Service\Maximum Connections
 
 **线程处理**
 

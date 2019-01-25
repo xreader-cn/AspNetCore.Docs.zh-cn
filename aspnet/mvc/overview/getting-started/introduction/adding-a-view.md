@@ -3,14 +3,14 @@ title: 将视图添加到 MVC 应用
 author: Rick-Anderson
 description: 将视图添加到 MVC 应用
 ms.author: riande
-ms.date: 09/1721/2017
+ms.date: 01/23/2019
 uid: mvc/overview/getting-started/introduction/adding-a-view
-ms.openlocfilehash: 47447c82506cc0eb4dafabe272b3204f76a2edd7
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: afa7584529566ebe82a0eb3849de89bd0df064bd
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098657"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837749"
 ---
 <a name="adding-a-view"></a>添加视图
 ====================
@@ -60,7 +60,7 @@ ms.locfileid: "54098657"
 
 ![](adding-a-view/_static/image6.png)
 
-看起来相当棒。 但是，请注意，浏览器的标题栏显示&quot;索引-我的 ASP.NET 应用"，并在页面顶部的大链接显示"Application name"。 具体取决于如何小进行浏览器窗口中，您可能需要单击三个条，若要查看的右上角向**主页**，**有关**，**联系人**， **注册**并**登录**链接。
+看起来相当棒。 但是，请注意，浏览器的标题栏显示"索引-My ASP.NET Application，"，并在页面顶部的大链接显示"Application name"。 具体取决于如何小进行浏览器窗口中，您可能需要单击三个条，若要查看的右上角向**主页**，**有关**，**联系人**， **注册**并**登录**链接。
 
 ## <a name="changing-views-and-layout-pages"></a>更改视图和布局页面
 
@@ -112,7 +112,7 @@ ms.locfileid: "54098657"
 
 我们转到数据库，并讨论模型之前，不过，我们首先讨论一下将信息从控制器传递给视图。 控制器类调用以响应传入的 URL 请求。 控制器类是响应的编写处理传入浏览器的代码的请求、 从数据库检索数据，并最终决定将哪些类型发送回浏览器的位置。 查看模板然后可从控制器来生成并格式化对浏览器的 HTML 响应。
 
-控制器负责提供使视图模板能够呈现到浏览器的响应所需的任何数据或对象。 一种最佳做法：**视图模板应永远不会执行业务逻辑或直接与数据库交互**。 相反，视图模板应使用仅由控制器提供给它的数据。 维护这&quot;关注点分离&quot;有助于保持代码干净、 可测试且更易于维护。
+控制器负责提供使视图模板能够呈现到浏览器的响应所需的任何数据或对象。 最佳做法：**视图模板应永远不会执行业务逻辑或直接与数据库交互**。 相反，视图模板应使用仅由控制器提供给它的数据。 维护这&quot;关注点分离&quot;有助于保持代码干净、 可测试且更易于维护。
 
 目前，`Welcome`操作方法中的`HelloWorldController`类采用`name`和一个`numTimes`参数，然后输出直接向浏览器的值。 而不是使控制器将作为一个字符串，此响应呈现，让我们更改控制器以改为使用视图模板。 视图模板将生成动态响应，这意味着你需要将适当的数据位从控制器传递给视图以生成响应。 可以为此，需要查看模板的动态数据 （参数） 放置在控制器`ViewBag`视图模板稍后可以访问的对象。
 

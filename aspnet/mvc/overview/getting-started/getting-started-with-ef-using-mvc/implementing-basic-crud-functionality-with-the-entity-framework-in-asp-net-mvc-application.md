@@ -4,17 +4,17 @@ title: 教程：在 ASP.NET MVC 中实现与实体框架 CRUD 功能 |Microsoft 
 description: 查看和自定义创建、 读取、 更新、 删除 (CRUD) 代码，可在控制器和视图中自动创建的 MVC 基架。
 author: tdykstra
 ms.author: riande
-ms.date: 01/11/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: a2f70ba4-83d1-4002-9255-24732726c4f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 9c6f8f3a2ffc0a9c5e15111ae47c331dab24ff43
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
+ms.openlocfilehash: 42971b4e15c4aaf85d0ea50bf63934ba4a78ed91
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341714"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836229"
 ---
 # <a name="tutorial-implement-crud-functionality-with-the-entity-framework-in-aspnet-mvc"></a>教程：在 ASP.NET MVC 中实现与实体框架 CRUD 功能
 
@@ -245,6 +245,10 @@ ms.locfileid: "54341714"
 ## <a name="handle-transactions"></a>处理事务
 
 默认情况下，Entity Framework 隐式实现事务。 在方案中，对多个行或表进行更改，然后调用`SaveChanges`，Entity Framework 自动确保所做的更改的所有成功或全部失败。 如果完成某些更改后发生错误，这些更改会自动回退。 在需要更多控制&mdash;例如，如果你想要包括外部实体框架在事务中完成的操作&mdash;请参阅[使用事务](/ef/ef6/saving/transactions)。
+
+## <a name="get-the-code"></a>获取代码
+
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>其他资源
 

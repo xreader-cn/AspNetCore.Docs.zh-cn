@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core SignalR JavaScript 客户端
-author: tdykstra
+author: bradygaster
 description: ASP.NET Core SignalR JavaScript 客户端的概述。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/javascript-client
-ms.openlocfilehash: acdb4d1a59d980010fe89fe381190425cbb12901
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: dd40a64d3c8405e92337ac640ad5cbe913cd849f
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341445"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835565"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
