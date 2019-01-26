@@ -1,0 +1,814 @@
+items:
+- name: ASP.NET Core 文档
+  href: /aspnet/#pivot=core
+- name: 概述
+  items:
+  - uid: index
+    name: 关于 ASP.NET Core
+  - uid: fundamentals/choose-between-aspnet-and-aspnetcore
+    name: 比较 ASP.NET Core 和 ASP.NET
+  - name: 比较 .NET Core 和 .NET Framework
+    href: /dotnet/standard/choosing-core-framework-server
+- uid: getting-started
+  name: 入门
+- name: 新增功能
+  items:
+  - uid: aspnetcore-2.2
+    name: 2.2 中的新变化
+  - uid: aspnetcore-2.1
+    name: 2.1 中的新变化
+  - uid: aspnetcore-2.0
+    name: 2.0 中的新变化
+  - uid: aspnetcore-1.1
+    name: 1.1 中的新变化
+- name: 教程
+  items:
+  - name: Web API 应用
+    items:
+    - uid: tutorials/first-web-api
+      name: 创建 Web API
+    - uid: tutorials/first-mongo-app
+      name: 使用 MongoDB 的 Web API
+    - uid: mobile/native-mobile-backend
+      name: 适用于移动设备的后端
+  - name: Web 应用
+    items:
+    - uid: tutorials/razor-pages/index
+      name: Razor 页面
+    - uid: tutorials/first-mvc-app/index
+      name: MVC
+  - name: 实时 web 应用
+    items:
+    - uid: tutorials/signalr
+      name: 使用 JavaScript 的 SignalR
+    - uid: tutorials/signalr-typescript-webpack
+      name: 使用 TypeScript 的 SignalR
+  - name: 数据访问
+    items:
+    - uid: data/ef-rp/index
+      name: EF Core 和 Razor Pages
+    - name: 使用 MVC 的 EF Core - 现有 DB
+      href: /ef/core/get-started/aspnetcore/existing-db
+    - name: 使用 MVC 的 EF Core - 新 DB
+      href: /ef/core/get-started/aspnetcore/new-db
+    - uid: data/ef-mvc/index
+      name: EF Core 和 MVC - 长篇教程
+- name: 基础知识
+  items:
+  - uid: fundamentals/index
+    name: 概述
+  - uid: fundamentals/startup
+    name: 应用启动
+  - uid: fundamentals/dependency-injection
+    name: 依赖关系注入（服务）
+  - uid: fundamentals/routing
+    name: 路由
+  - uid: fundamentals/environments
+    name: 环境（开发、分阶段、生产）
+  - uid: fundamentals/configuration/index
+    name: 配置
+  - uid: fundamentals/configuration/options
+    name: 选项
+  - uid: fundamentals/logging/index
+    name: 日志记录
+  - uid: fundamentals/error-handling
+    name: 处理错误
+  - uid: fundamentals/middleware/index
+    name: 中间件
+  - name: Host
+    items:
+    - uid: fundamentals/host/index
+      name: 概述
+    - uid: fundamentals/host/web-host
+      name: Web 主机
+    - uid: fundamentals/host/generic-host
+      name: 泛型主机
+  - uid: fundamentals/servers/index
+    name: 服务器
+  - uid: fundamentals/http-requests
+    name: 发出 HTTP 请求
+- name: Web 应用
+  items:
+  - name: Razor 页面
+    items:
+    - uid: razor-pages/index
+      name: 概述
+    - uid: tutorials/razor-pages/index
+      name: 教程
+      items:
+      - uid: tutorials/razor-pages/razor-pages-start
+        name: 入门
+      - uid: tutorials/razor-pages/model
+        name: 添加模型
+      - uid: tutorials/razor-pages/page
+        name: 基架
+      - uid: tutorials/razor-pages/sql
+        name: 使用 DB
+      - uid: tutorials/razor-pages/da1
+        name: 更新页面
+      - uid: tutorials/razor-pages/search
+        name: 添加搜索
+      - uid: tutorials/razor-pages/new-field
+        name: 添加新字段
+      - uid: tutorials/razor-pages/validation
+        name: 添加验证
+    - uid: razor-pages/filter
+      name: 筛选器
+    - uid: razor-pages/ui-class
+      name: Razor 类库
+    - uid: razor-pages/razor-pages-conventions
+      name: 路由和应用约定
+    - uid: razor-pages/upload-files
+      name: 上传文件
+    - uid: razor-pages/sdk
+      name: Razor SDK
+  - name: MVC
+    items:
+    - uid: mvc/overview
+      name: 概述
+    - uid: tutorials/first-mvc-app/index
+      name: 教程
+      items:
+      - uid: tutorials/first-mvc-app/start-mvc
+        name: 入门
+      - uid: tutorials/first-mvc-app/adding-controller
+        name: 添加控制器
+      - uid: tutorials/first-mvc-app/adding-view
+        name: 添加视图
+      - uid: tutorials/first-mvc-app/adding-model
+        name: 添加模型
+      - uid: tutorials/first-mvc-app/working-with-sql
+        name: 使用 DB
+      - uid: tutorials/first-mvc-app/controller-methods-views
+        name: 控制器操作和视图
+      - uid: tutorials/first-mvc-app/search
+        name: 添加搜索
+      - uid: tutorials/first-mvc-app/new-field
+        name: 添加新字段
+      - uid: tutorials/first-mvc-app/validation
+        name: 添加验证
+      - uid: tutorials/first-mvc-app/details
+        name: 检查 Details 和 Delete 方法
+    - uid: mvc/views/overview
+      name: 视图
+    - uid: mvc/views/partial
+      name: 部分视图
+    - uid: mvc/controllers/actions
+      name: Controllers
+    - uid: mvc/controllers/routing
+      name: 路由
+    - uid: mvc/models/file-uploads
+      name: 文件上传
+    - uid: mvc/controllers/dependency-injection
+      name: 依赖关系注入 - 控制器
+    - uid: mvc/views/dependency-injection
+      name: 依赖关系注入 - 视图
+    - uid: mvc/controllers/testing
+      name: 单元测试
+  - uid: fundamentals/app-state
+    name: 会话和应用状态
+  - name: 标记帮助程序
+    items:
+    - uid: mvc/views/tag-helpers/intro
+      name: 概述
+    - uid: mvc/views/tag-helpers/authoring
+      name: 创建标记帮助程序
+    - uid: mvc/views/working-with-forms
+      name: 在窗体中使用标记帮助程序
+    - uid: mvc/views/tag-helpers/th-components
+      name: 标记帮助程序组件
+    - name: 内置标记帮助程序
+      items:
+      - uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
+        name: 定位点
+      - uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
+        name: 缓存
+      - uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
+        name: 分布式缓存
+      - uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
+        name: 环境
+      - name: 窗体
+        href: mvc/views/working-with-forms.md#the-form-tag-helper
+      - uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
+        name: 图像
+      - name: 输入
+        href: mvc/views/working-with-forms.md#the-input-tag-helper
+      - name: Label
+        href: mvc/views/working-with-forms.md#the-label-tag-helper
+      - uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
+        name: 部分
+      - name: 选择
+        href: mvc/views/working-with-forms.md#the-select-tag-helper
+      - name: Textarea
+        href: mvc/views/working-with-forms.md#the-textarea-tag-helper
+      - name: 验证消息
+        href: mvc/views/working-with-forms.md#the-validation-message-tag-helper
+      - name: 验证摘要
+        href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
+  - uid: mvc/views/layout
+    name: 布局
+  - uid: fundamentals/static-files
+    name: 静态文件
+  - uid: mvc/models/model-binding
+    name: 模型绑定
+  - uid: mvc/models/validation
+    name: 模型验证
+  - uid: mvc/views/razor
+    name: Razor 语法
+  - name: 高级
+    items:
+    - uid: mvc/views/view-components
+      name: 视图组件
+    - uid: mvc/views/view-compilation
+      name: 视图编译
+    - uid: mvc/controllers/application-model
+      name: 应用模型
+    - uid: mvc/controllers/filters
+      name: 筛选器
+    - uid: mvc/controllers/areas
+      name: 区域
+    - uid: mvc/extensibility/app-parts
+      name: 应用部件
+    - uid: mvc/advanced/custom-model-binding
+      name: 自定义模型绑定
+    - uid: mvc/compatibility-version
+      name: 兼容性版本
+- name: Web API 应用
+  items:
+  - uid: web-api/index
+    name: 概述
+  - name: 教程
+    items:
+    - uid: tutorials/first-web-api
+      name: 创建 Web API
+    - uid: tutorials/first-mongo-app
+      name: 使用 MongoDB 的 Web API
+  - name: Swagger/OpenAPI
+    items:
+    - uid: tutorials/web-api-help-pages-using-swagger
+      name: 概述
+    - uid: tutorials/get-started-with-swashbuckle
+      name: Swashbuckle 入门
+    - uid: tutorials/get-started-with-nswag
+      name: NSwag 入门
+  - uid: web-api/action-return-types
+    name: 操作返回类型
+  - uid: web-api/advanced/formatting
+    name: 格式化响应数据
+  - uid: web-api/advanced/custom-formatters
+    name: 自定义格式化程序
+  - uid: web-api/advanced/analyzers
+    name: 分析器
+  - uid: web-api/advanced/conventions
+    name: 约定
+- name: 实时应用
+  items:
+  - uid: signalr/introduction
+    name: SignalR 概述
+  - uid: signalr/supported-platforms
+    name: 受支持的平台
+  - name: 教程
+    items:
+    - uid: tutorials/signalr
+      name: 使用 JavaScript 的 SignalR
+    - uid: tutorials/signalr-typescript-webpack
+      name: 使用 TypeScript 的 SignalR
+  - name: 示例
+    href: https://github.com/aspnet/SignalR-samples
+  - name: 服务器概念
+    items:
+    - uid: signalr/hubs
+      name: 中心
+    - uid: signalr/hubcontext
+      name: 从中心外部发送
+    - uid: signalr/groups
+      name: 用户和组
+    - uid: signalr/publish-to-azure-web-app
+      name: 发布到 Azure
+    - uid: signalr/api-design
+      name: API 设计注意事项
+  - name: 客户端
+    items:
+    - uid: signalr/dotnet-client
+      name: .NET 客户端
+    - name: .NET API 参考
+      href: /dotnet/api/microsoft.aspnetcore.signalr.client
+    - uid: signalr/java-client
+      name: Java 客户端
+    - name: Java API 参考
+      href: /java/api/com.microsoft.signalr?view=aspnet-signalr-java
+    - uid: signalr/javascript-client
+      name: JavaScript 客户端
+    - name: JavaScript API 参考
+      href: /javascript/api/?view=signalr-js-latest
+  - name: 托管和缩放
+    items:
+    - uid: signalr/scale
+      name: 概述
+    - name: Azure SignalR 服务
+      href: /azure/azure-signalr/signalr-overview
+    - uid: signalr/redis-backplane
+      name: Redis 底板
+  - uid: signalr/configuration
+    name: 配置
+  - uid: signalr/authn-and-authz
+    name: 身份验证和授权
+  - uid: signalr/security
+    name: 安全注意事项
+  - uid: signalr/messagepackhubprotocol
+    name: MessagePack 中心协议
+  - uid: signalr/streaming
+    name: 流式处理
+  - uid: signalr/version-differences
+    name: 比较 SignalR 和 SignalR Core
+  - uid: fundamentals/websockets
+    name: 不使用 SignalR 的 WebSocket
+- name: 测试、调试和疑难解答
+  items:
+  - name: 单元测试
+    href: /dotnet/core/testing/unit-testing-with-dotnet-test
+  - uid: test/razor-pages-tests
+    name: Razor Pages 单元测试
+  - uid: mvc/controllers/testing
+    name: 测试控制器
+  - name: 远程调试
+    href: /visualstudio/debugger/remote-debugging-azure
+  - name: 快照调试
+    href: /azure/application-insights/app-insights-snapshot-debugger
+  - name: Visual Studio 中的快照调试
+    href: /visualstudio/debugger/debug-live-azure-applications
+  - uid: test/integration-tests
+    name: 集成测试
+  - uid: test/loadtests
+    name: 负载测试和压力测试
+  - uid: test/troubleshoot
+    name: 疑难解答
+  - uid: fundamentals/logging/index
+    name: 日志记录
+- name: 数据访问
+  items:
+  - name: 教程
+    items:
+    - name: EF Core 和 Razor Pages
+      items:
+      - uid: data/ef-rp/index
+        name: 概述
+      - uid: data/ef-rp/intro
+        name: 入门
+      - uid: data/ef-rp/crud
+        name: 创建、读取、更新和删除
+      - uid: data/ef-rp/sort-filter-page
+        name: 排序、筛选器、页面和组
+      - uid: data/ef-rp/migrations
+        name: 迁移
+      - uid: data/ef-rp/complex-data-model
+        name: 创建复杂数据模型
+      - uid: data/ef-rp/read-related-data
+        name: 读取相关数据
+      - uid: data/ef-rp/update-related-data
+        name: 更新相关数据
+      - uid: data/ef-rp/concurrency
+        name: 处理并发冲突
+    - name: 使用 MVC 的 EF Core - 新 DB
+      href: /ef/core/get-started/aspnetcore/new-db
+    - name: 使用 MVC 的 EF Core - 现有 DB
+      href: /ef/core/get-started/aspnetcore/existing-db
+    - name: EF Core 和 MVC - 长篇教程
+      items:
+      - uid: data/ef-mvc/index
+        name: 概述
+      - uid: data/ef-mvc/intro
+        name: 入门
+      - uid: data/ef-mvc/crud
+        name: 创建、读取、更新和删除
+      - uid: data/ef-mvc/sort-filter-page
+        name: 排序、筛选器、页面和组
+      - uid: data/ef-mvc/migrations
+        name: 迁移
+      - uid: data/ef-mvc/complex-data-model
+        name: 创建复杂数据模型
+      - uid: data/ef-mvc/read-related-data
+        name: 读取相关数据
+      - uid: data/ef-mvc/update-related-data
+        name: 更新相关数据
+      - uid: data/ef-mvc/concurrency
+        name: 处理并发冲突
+      - uid: data/ef-mvc/inheritance
+        name: 继承
+      - uid: data/ef-mvc/advanced
+        name: 高级主题
+  - uid: data/entity-framework-6
+    name: 使用 ASP.NET Core 的 EF 6
+  - name: 使用 Visual Studio 的 Azure 存储
+    items:
+    - name: 连接的服务
+      href: /azure/vs-azure-tools-connected-services-storage
+    - name: Blob 存储
+      href: /azure/vs-storage-aspnet5-getting-started-blobs/
+    - name: 队列存储
+      href: /azure/vs-storage-aspnet5-getting-started-queues/
+    - name: 表存储
+      href: /azure/vs-storage-aspnet5-getting-started-tables/
+- name: 客户端开发
+  items:
+  - uid: client-side/index
+    name: 概述
+  - uid: client-side/using-gulp
+    name: Gulp
+  - uid: client-side/using-grunt
+    name: Grunt
+  - name: LibMan
+    items:
+    - uid: client-side/libman/index
+      name: 概述
+    - uid: client-side/libman/libman-cli
+      name: CLI
+    - uid: client-side/libman/libman-vs
+      name: Visual Studio
+  - uid: client-side/bower
+    name: Bower
+  - uid: client-side/less-sass-fa
+    name: LESS、Sass 和 Font Awesome
+  - uid: client-side/bundling-and-minification
+    name: 捆绑和缩小
+  - uid: client-side/using-browserlink
+    name: 浏览器链接
+  - name: 单页应用
+    items:
+    - uid: spa/index
+      name: 概述
+    - uid: spa/angular
+      name: Angular
+    - uid: spa/react
+      name: React
+    - uid: spa/react-with-redux
+      name: 使用 Redux 的 React
+    - uid: client-side/spa-services
+      name: JavaScriptServices
+- name: 托管和部署
+  items:
+  - uid: host-and-deploy/index
+    name: 概述
+  - name: 在 Azure 应用服务上托管
+    items:
+    - uid: host-and-deploy/azure-apps/index
+      name: 概述
+    - uid: tutorials/publish-to-azure-webapp-using-vs
+      name: 使用 Visual Studio 发布
+    - name: 使用 CLI 工具发布
+      href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
+    - uid: host-and-deploy/azure-apps/azure-continuous-deployment
+      name: 使用 Visual Studio 和 Git 发布
+    - name: 使用 Azure Pipelines 连续部署
+      href: /azure/devops/pipelines/get-started-yaml
+    - uid: host-and-deploy/aspnet-core-module
+      name: ASP.NET Core 模块
+    - uid: host-and-deploy/azure-apps/troubleshoot
+      name: 疑难解答
+    - uid: host-and-deploy/azure-iis-errors-reference
+      name: 错误参考
+  - name: DevOps
+    items:
+    - uid: azure/devops/index
+      name: 概述
+    - uid: azure/devops/tools-and-downloads
+      name: 工具和下载
+    - uid: azure/devops/deploy-to-app-service
+      name: 部署到应用服务
+    - uid: azure/devops/cicd
+      name: 持续集成和持续部署
+    - uid: azure/devops/monitor
+      name: 监视和排除故障
+    - uid: azure/devops/next-steps
+      name: 后续步骤
+  - name: 使用 IIS 在 Windows 上进行托管
+    items:
+    - uid: host-and-deploy/iis/index
+      name: 概述
+    - uid: host-and-deploy/aspnet-core-module
+      name: ASP.NET Core 模块
+    - uid: host-and-deploy/iis/development-time-iis-support
+      name: Visual Studio 中的 IIS 支持
+    - uid: host-and-deploy/iis/modules
+      name: IIS 模块
+    - uid: host-and-deploy/iis/troubleshoot
+      name: 疑难解答
+    - uid: host-and-deploy/azure-iis-errors-reference
+      name: 错误参考
+  - uid: fundamentals/servers/kestrel
+    name: Kestrel
+  - uid: fundamentals/servers/httpsys
+    name: HTTP.sys
+  - uid: host-and-deploy/windows-service
+    name: 在 Windows 服务中托管
+  - uid: host-and-deploy/linux-nginx
+    name: 使用 Nginx 在 Linux 中托管
+  - uid: host-and-deploy/linux-apache
+    name: 使用 Apache 在 Linux 中托管
+  - name: 在 Docker 中托管
+    items:
+    - uid: host-and-deploy/docker/index
+      name: 概述
+    - name: 生成 Docker 映像
+      href: /dotnet/core/docker/building-net-docker-images
+    - uid: host-and-deploy/docker/visual-studio-tools-for-docker
+      name: Visual Studio Tools
+    - name: 发布到 Docker 映像
+      href: /azure/vs-azure-tools-docker-hosting-web-apps-in-docker
+    - name: 示例 Docker 映像
+      href: https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md
+  - uid: host-and-deploy/proxy-load-balancer
+    name: 代理和负载均衡器配置
+  - uid: host-and-deploy/web-farm
+    name: 在 Web 场中托管
+  - uid: host-and-deploy/visual-studio-publish-profiles
+    name: Visual Studio 发布配置文件
+  - uid: host-and-deploy/directory-structure
+    name: 目录结构
+  - uid: host-and-deploy/health-checks
+    name: 运行状况检查
+- name: 安全和标识
+  items:
+  - uid: security/index
+    name: 概述
+  - name: 身份验证
+    items:
+    - uid: security/authentication/identity
+      name: 标识简介
+    - uid: security/authentication/scaffold-identity
+      name: 基架标识
+    - uid: security/authentication/add-user-data
+      name: 将自定义用户数据添加到标识
+    - uid: security/authentication/customize_identity_model
+      name: 自定义标识
+    - uid: security/authentication/community
+      name: 社区 OSS 身份验证选项
+    - uid: security/authentication/identity-configuration
+      name: 配置标识
+    - uid: security/authentication/windowsauth
+      name: 配置 Windows 身份验证
+    - uid: security/authentication/identity-custom-storage-providers
+      name: 标识的自定义存储提供程序
+    - name: Google、Facebook...
+      items:
+      - uid: security/authentication/social/index
+        name: 概述
+      - uid: security/authentication/google-logins
+        name: Google 身份验证
+      - uid: security/authentication/facebook-logins
+        name: Facebook 身份验证
+      - uid: security/authentication/microsoft-logins
+        name: Microsoft 身份验证
+      - uid: security/authentication/twitter-logins
+        name: Twitter 身份验证
+      - uid: security/authentication/otherlogins
+        name: 其他提供程序
+      - uid: security/authentication/social/additional-claims
+        name: 其他声明
+    - uid: security/authentication/ws-federation
+      name: WS 联合身份验证
+    - uid: security/authentication/accconfirm
+      name: 帐户确认和密码恢复
+    - uid: security/authentication/identity-enable-qrcodes
+      name: 启用在标识中生成 QR 码
+    - uid: security/authentication/2fa
+      name: 使用短信的双因素身份验证
+    - uid: security/authentication/cookie
+      name: 在没有标识的情况下使用 Cookie 身份验证
+    - name: Azure Active Directory
+      items:
+      - uid: security/authentication/azure-active-directory/index
+        name: 概述
+      - name: 将 Azure AD 集成到 Web 应用中
+        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/
+      - uid: security/authentication/azure-ad-b2c
+        name: 将 Azure AD B2C 集成到 Web 应用中
+      - uid: security/authentication/azure-ad-b2c-webapi
+        name: 将 Azure AD B2C 集成到 Web API 中
+      - name: 从 WPF 调用 Web API
+        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/
+      - name: 使用 Azure AD 在 Web 应用中调用 Web API
+        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/
+    - name: 使用 IdentityServer4 保护 ASP.NET Core 应用
+      href: https://identityserver4.readthedocs.io/
+    - name: 使用 Azure App Service 身份验证保护 ASP.NET Core 应用（简易身份验证）
+      href: /azure/app-service/app-service-authentication-overview
+    - uid: security/authentication/individual
+      name: 各个用户帐户
+  - name: 授权
+    items:
+    - uid: security/authorization/introduction
+      name: 概述
+    - uid: security/authorization/secure-data
+      name: 通过授权创建 Web 应用
+    - uid: security/authorization/razor-pages-authorization
+      name: Razor Pages 授权约定
+    - uid: security/authorization/simple
+      name: 简单授权
+    - uid: security/authorization/roles
+      name: 基于角色的授权
+    - uid: security/authorization/claims
+      name: 基于声明的授权
+    - uid: security/authorization/policies
+      name: 基于策略的授权
+    - uid: security/authorization/iauthorizationpolicyprovider
+      name: 授权策略提供程序
+    - uid: security/authorization/dependencyinjection
+      name: 要求处理程序中的依赖关系注入
+    - uid: security/authorization/resourcebased
+      name: 基于资源的授权
+    - uid: security/authorization/views
+      name: 基于视图的授权
+    - uid: security/authorization/limitingidentitybyscheme
+      name: 按方案限制标识
+  - name: 数据保护
+    items:
+    - uid: security/data-protection/introduction
+      name: 概述
+    - uid: security/data-protection/using-data-protection
+      name: 数据保护 API
+    - name: 使用者 API
+      items:
+      - uid: security/data-protection/consumer-apis/overview
+        name: 概述
+      - uid: security/data-protection/consumer-apis/purpose-strings
+        name: 目的字符串
+      - uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
+        name: 目的层次结构和多租户
+      - uid: security/data-protection/consumer-apis/password-hashing
+        name: 哈希密码
+      - uid: security/data-protection/consumer-apis/limited-lifetime-payloads
+        name: 限制受保护负载的生存期
+      - uid: security/data-protection/consumer-apis/dangerous-unprotect
+        name: 取消保护已撤消密钥的有效负载
+    - name: 配置
+      items:
+      - uid: security/data-protection/configuration/index
+        name: 概述
+      - uid: security/data-protection/configuration/overview
+        name: 配置数据保护
+      - uid: security/data-protection/configuration/default-settings
+        name: 默认设置
+      - uid: security/data-protection/configuration/machine-wide-policy
+        name: 计算机范围内策略
+      - uid: security/data-protection/configuration/non-di-scenarios
+        name: 非 DI 感知方案
+    - name: 扩展性 API
+      items:
+      - uid: security/data-protection/extensibility/index
+        name: 概述
+      - uid: security/data-protection/extensibility/core-crypto
+        name: 核心加密扩展性
+      - uid: security/data-protection/extensibility/key-management
+        name: 密钥管理扩展性
+      - uid: security/data-protection/extensibility/misc-apis
+        name: 各种 API
+    - name: 实现
+      items:
+      - uid: security/data-protection/implementation/index
+        name: 概述
+      - uid: security/data-protection/implementation/authenticated-encryption-details
+        name: 已验证加密详细信息
+      - uid: security/data-protection/implementation/subkeyderivation
+        name: 子项派生和已验证加密
+      - uid: security/data-protection/implementation/context-headers
+        name: 上下文标头
+      - uid: security/data-protection/implementation/key-management
+        name: 密钥管理
+      - uid: security/data-protection/implementation/key-storage-providers
+        name: 密钥存储提供程序
+      - uid: security/data-protection/implementation/key-encryption-at-rest
+        name: 静态密钥加密
+      - uid: security/data-protection/implementation/key-immutability
+        name: 密钥永久性和设置
+      - uid: security/data-protection/implementation/key-storage-format
+        name: 密钥存储格式
+      - uid: security/data-protection/implementation/key-storage-ephemeral
+        name: 短暂数据保护提供程序
+    - name: 兼容性
+      items:
+      - uid: security/data-protection/compatibility/index
+        name: 概述
+      - uid: security/data-protection/compatibility/replacing-machinekey
+        name: 在 ASP.NET 中替换 machineKey
+  - uid: security/app-secrets
+    name: 在开发过程中保护机密
+  - uid: security/enforcing-ssl
+    name: 强制执行 HTTPS
+  - uid: security/gdpr
+    name: 欧盟一般数据保护条例 (GDPR) 支持
+  - uid: security/key-vault-configuration
+    name: Azure Key Vault 配置提供程序
+  - uid: security/anti-request-forgery
+    name: 反请求伪造
+  - uid: security/preventing-open-redirects
+    name: 阻止开放重定向攻击
+  - uid: security/cross-site-scripting
+    name: 阻止跨站点脚本编写
+  - uid: security/cors
+    name: 启用跨域请求 (CORS)
+  - uid: security/cookie-sharing
+    name: 在应用之间共享 Cookie
+  - uid: security/ip-safelist
+    name: IP 安全列表
+- name: 性能
+  items:
+  - uid: performance/performance-best-practices
+    name: 概述
+  - name: 响应缓存
+    items:
+    - uid: performance/caching/response
+      name: 概述
+    - uid: performance/caching/memory
+      name: 内存中缓存
+    - uid: performance/caching/distributed
+      name: 分布式缓存
+    - uid: performance/caching/middleware
+      name: 响应缓存中间件
+  - uid: performance/response-compression
+    name: 响应压缩
+  - uid: performance/diagnostic-tools
+    name: 诊断工具
+  - uid: test/loadtests
+    name: 负载测试和压力测试
+- name: 全球化和本地化
+  items:
+  - uid: fundamentals/localization
+    name: 概述
+  - uid: fundamentals/portable-object-localization
+    name: 可移植对象本地化
+- name: 高级
+  items:
+  - uid: fundamentals/url-rewriting
+    name: URL 重写
+  - uid: fundamentals/file-providers
+    name: 文件提供程序
+  - uid: fundamentals/request-features
+    name: 请求功能接口
+  - uid: fundamentals/httpcontext
+    name: 访问 HttpContext
+  - uid: fundamentals/change-tokens
+    name: 更改令牌
+  - uid: fundamentals/owin
+    name: .NET 的开放 Web 接口 (OWIN)
+  - uid: fundamentals/host/hosted-services
+    name: 使用托管服务的后台任务
+  - uid: fundamentals/configuration/platform-specific-configuration
+    name: 托管启动程序集
+  - uid: fundamentals/metapackage-app
+    name: Microsoft.AspNetCore.App 元包
+  - uid: fundamentals/metapackage
+    name: Microsoft.AspNetCore.All 元包
+  - uid: fundamentals/logging/loggermessage
+    name: 使用 LoggerMessage 的日志记录
+  - uid: tutorials/dotnet-watch
+    name: 使用文件观察程序
+    items:
+    - uid: fundamentals/middleware/extensibility
+      name: 基于工厂的中间件
+    - uid: fundamentals/middleware/extensibility-third-party-container
+      name: 使用第三方容器的基于工厂的中间件
+- name: 迁移
+  items:
+  - uid: migration/22-to-30
+    name: 2.2 到 3.0
+  - uid: migration/21-to-22
+    name: 2.1 到 2.2
+  - uid: migration/20_21
+    name: 2.0 到 2.1
+  - name: 1.x 至 2.0
+    items:
+    - uid: migration/1x-to-2x/index
+      name: 概述
+    - uid: migration/1x-to-2x/identity-2x
+      name: 身份验证和标识
+  - name: ASP.NET 到 ASP.NET Core
+    items:
+    - uid: migration/proper-to-2x/index
+      name: 概述
+    - uid: migration/mvc
+      name: MVC
+    - uid: migration/webapi
+      name: Web API
+    - uid: migration/configuration
+      name: 配置
+    - uid: migration/identity
+      name: 身份验证和标识
+    - uid: migration/claimsprincipal-current
+      name: ClaimsPrincipal.Current
+    - uid: migration/proper-to-2x/membership-to-core-identity
+      name: 成员身份到标识
+    - uid: migration/http-modules
+      name: HTTP 模块到中间件
+  - uid: migration/logging-nonaspnetcore
+    name: 日志记录（不是 ASP.NET Core）
+- name: API 参考
+  href: /dotnet/api/?view=aspnetcore-2.1
+- name: 参与
+  href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
+ms.openlocfilehash: 4f8ccb592b7f95794cad01edd1e0f514bd9943c1
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54892990"
