@@ -4,14 +4,14 @@ author: guardrex
 description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/07/2018
+ms.date: 01/25/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 6f0378ffc4f9a1efa95c8f70d70e7799abef130b
-ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
+ms.openlocfilehash: 2465570e469020ae2855508bd1bfc8528e188ebb
+ms.sourcegitcommit: ca5f03210bedc61c6639a734ae5674bfe095dee8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/11/2018
-ms.locfileid: "53216893"
+ms.lasthandoff: 01/26/2019
+ms.locfileid: "55073161"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -56,12 +56,6 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 
 [查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-本主题中提供的示例依赖于以下内容：
-
-* 使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置应用的基本路径。 通过引用 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包，可以向应用提供 `SetBasePath`。
-* 使用 <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 解析配置文件的各个部分。 通过引用 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包向应用提供 `GetSection`。
-* 使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 和 [Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 将配置绑定到 .NET 类。 通过引用 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包向应用提供 `Bind` 和 `Get<T>`。 ASP.NET Core 1.1 或更高版本中提供了 `Get<T>`。
-
 ::: moniker range=">= aspnetcore-2.1"
 
 这三个包均包括在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
@@ -77,6 +71,22 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 ## <a name="host-vs-app-configuration"></a>主机与应用配置
 
 在配置并启动应用之前，配置并启动主机。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 主机配置键值对成为应用的全局配置的一部分。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/host/index>。
+
+## <a name="default-configuration"></a>默认配置
+
+基于 ASP.NET Core [dotnet 新](/dotnet/core/tools/dotnet-new)模板的 Web 应用在生成主机时会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>。 `CreateDefaultBuilder` 为应用提供默认配置。
+
+* 主机配置通过以下方式提供：
+  * 使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。
+  * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
+* 应用配置通过以下方式提供（按以下顺序）：
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。
+  * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
+  * 使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。
+  * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
+
+本主题后面将介绍配置提供程序。 有关主机和 `CreateDefaultBuilder` 的更多信息，请参阅 <xref:fundamentals/host/web-host#set-up-a-host>。
 
 ## <a name="security"></a>安全性
 
@@ -116,7 +126,7 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 * section1:key0
 * section1:key1
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。 稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。
+<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。 稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。 `GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 ## <a name="conventions"></a>约定
 
@@ -238,7 +248,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-在前面的示例中，<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供了环境名称 (`env.EnvironmentName`) 和应用程序集名称 (`env.ApplicationName`)。 有关更多信息，请参见<xref:fundamentals/environments>。
+在前面的示例中，<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供了环境名称 (`env.EnvironmentName`) 和应用程序集名称 (`env.ApplicationName`)。 有关更多信息，请参见<xref:fundamentals/environments>。 基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+.
 
 ::: moniker-end
 
@@ -246,7 +257,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="configureappconfiguration"></a>ConfigureAppConfiguration
 
-构建 Web 主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置提供程序以及 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 自动添加的配置提供程序：
+构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置提供程序以及 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 自动添加的配置提供程序：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
 
@@ -763,6 +774,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -793,6 +806,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -814,6 +829,8 @@ var host = new WebHostBuilder()
     .UseKestrel()
     .UseStartup<Startup>();
 ```
+
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 INI 配置文件的通用示例：
 
@@ -894,6 +911,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -926,6 +945,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -947,6 +968,8 @@ var host = new WebHostBuilder()
     .UseKestrel()
     .UseStartup<Startup>();
 ```
+
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 **示例**
 
@@ -1009,6 +1032,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -1039,6 +1064,8 @@ public class Program
 }
 ```
 
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
 ::: moniker-end
@@ -1060,6 +1087,8 @@ var host = new WebHostBuilder()
     .UseKestrel()
     .UseStartup<Startup>();
 ```
+
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 XML 配置文件可以为重复节使用不同的元素名称：
 
@@ -1160,6 +1189,8 @@ public class Program
             .UseStartup<Startup>();
 }
 ```
+
+基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。 `SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：
 
@@ -1326,13 +1357,15 @@ var intValue = config.GetValue<int>("NumberKey", 99);
 
 ### <a name="getsection"></a>GetSection
 
-[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。
+[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。 `GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 若要返回仅包含 `section1` 中键值对的 <xref:Microsoft.Extensions.Configuration.IConfigurationSection>，请调用 `GetSection` 并提供节名称：
 
 ```csharp
 var configSection = _config.GetSection("section1");
 ```
+
+`configSection` 不具有值，只有密钥和路径。
 
 同样，若要获取 `section2:subsection0` 中键的值，请调用 `GetSection` 并提供节路径：
 
@@ -1341,6 +1374,8 @@ var configSection = _config.GetSection("section2:subsection0");
 ```
 
 `GetSection` 永远不会返回 `null`。 如果找不到匹配的节，则返回空 `IConfigurationSection`。
+
+当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。 存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。
 
 ### <a name="getchildren"></a>GetChildren
 
@@ -1373,7 +1408,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 可以使用选项模式将配置绑定到表示相关设置组的类。 有关更多信息，请参见<xref:fundamentals/configuration/options>。
 
-配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。
+配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。 `Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 示例应用包含 `Starship` 模型 (Models/Starship.cs)：
 
@@ -1428,9 +1463,11 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ::: moniker-end
 
+`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 ## <a name="bind-to-an-object-graph"></a>绑定至对象图
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。 `Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs)：
 
@@ -1500,11 +1537,13 @@ viewModel.TvShow = tvShow;
 
 ::: moniker-end
 
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。 ASP.NET Core 1.1 或更高版本中提供了 `Get<T>`。 `GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
+
 ## <a name="bind-an-array-to-a-class"></a>将数组绑定至类
 
 示例应用演示了本部分中介绍的概念。
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。 公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。 公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。 `Bind`` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 > [!NOTE]
 > 绑定是按约定提供的。 不需要自定义配置提供程序实现数组绑定。
@@ -1557,6 +1596,8 @@ viewModel.TvShow = tvShow;
 var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
+
+`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
 ::: moniker range=">= aspnetcore-1.1"
 
