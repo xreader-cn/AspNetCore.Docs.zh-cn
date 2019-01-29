@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 16f3a435af267a5a17a24ee9fbda2b1c7c8818fd
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: c21decd39b7855cf2eefb2bb482e5e91b9487863
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121617"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54889933"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -96,7 +96,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailTo.cs?range=6-22)]
 
-* 标记帮助程序采用 Pascal 大小写格式的类和属性名将转换为各自相应的[小写短横线格式](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101)。 因此，要使用 `MailTo` 属性，请使用 `<email mail-to="value"/>` 等效项。
+* 标记帮助程序采用 Pascal 大小写格式的类和属性名将转换为各自相应的[短横线格式](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101)。 因此，要使用 `MailTo` 属性，请使用 `<email mail-to="value"/>` 等效项。
 
 * 最后一行为最小功能标记帮助程序设置已完成的内容。
 
@@ -189,7 +189,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * 如前所述，标记帮助程序会将标记帮助程序采用 Pascal 大小写格式的 C# 类名和属性转换为[小写短横线格式](http://wiki.c2.com/?KebabCase)。 因此，要在 Razor 中使用 `WebsiteInformationTagHelper`，请编写 `<website-information />`。
+   * 如前所述，标记帮助程序会将标记帮助程序采用 Pascal 大小写格式的 C# 类名和属性转换为[短横线格式](http://wiki.c2.com/?KebabCase)。 因此，要在 Razor 中使用 `WebsiteInformationTagHelper`，请编写 `<website-information />`。
 
    * 未显式标识具有 `[HtmlTargetElement]` 属性的目标元素，因此 `website-information` 的默认值将成为目标元素。 如果应用了以下属性（请注意，它虽不是短横线格式，但却与类名相匹配）：
 
@@ -197,7 +197,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    [HtmlTargetElement("WebsiteInformation")]
    ```
 
-   小写短横线格式标记 `<website-information />` 不匹配。 若要使用 `[HtmlTargetElement]` 属性，请使用短横线格式，如下所示：
+   短横线格式标记 `<website-information />` 不匹配。 若要使用 `[HtmlTargetElement]` 属性，请使用短横线格式，如下所示：
 
    ```csharp
    [HtmlTargetElement("Website-Information")]

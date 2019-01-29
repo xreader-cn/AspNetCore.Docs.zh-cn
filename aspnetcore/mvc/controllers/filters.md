@@ -4,23 +4,20 @@ author: ardalis
 description: 了解筛选器的工作原理以及如何在 ASP.NET Core MVC 中使用它们。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2018
+ms.date: 1/15/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: d4fe49a9225b9980a956ef9c773ad631beb557ae
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: fe3082481b51c968fd361dbcc9553c4e35a36f2a
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207455"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444345"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra/) 和 [Steve Smith](https://ardalis.com/)
 
 通过使用 ASP.NET Core MVC 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。
-
-> [!IMPORTANT]
-> 本主题不适用于 Razor 页面。 ASP.NET Core 2.1 及更高版本支持适用于 Razor 页面的 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0)。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
 
  内置筛选器处理任务，例如：
 
@@ -32,7 +29,7 @@ ms.locfileid: "54207455"
 
 [查看或下载 GitHub 中的示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
 
-## <a name="how-do-filters-work"></a>筛选器的工作原理
+## <a name="how-filters-work"></a>筛选器的工作原理
 
 筛选器在 *MVC 操作调用管道*（有时称为*筛选器管道*）内运行。  筛选器管道在 MVC 选择了要执行的操作之后运行。
 
@@ -46,7 +43,7 @@ ms.locfileid: "54207455"
 
 * [资源筛选器](#resource-filters)是授权后最先处理请求的筛选器。  它们可以在筛选器管道的其余阶段运行之前以及管道的其余阶段完成之后运行代码。 出于性能方面的考虑，可以使用它们来实现缓存或以其他方式让筛选器管道短路。 它们在模型绑定之前运行，所以可以影响模型绑定。
 
-* [操作筛选器](#action-filters)可以在调用单个操作方法之前和之后立即运行代码。 它们可用于处理传入某个操作的参数以及从该操作返回的结果。
+* [操作筛选器](#action-filters)可以在调用单个操作方法之前和之后立即运行代码。 它们可用于处理传入某个操作的参数以及从该操作返回的结果。 不可在 Razor Pages 中使用操作筛选器。
 
 * [异常筛选器](#exception-filters)用于在向响应正文写入任何内容之前，对未经处理的异常应用全局策略。
 
@@ -68,14 +65,13 @@ ms.locfileid: "54207455"
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Filters/SampleAsyncActionFilter.cs?highlight=6,8-10,13)]
 
-可以在单个类中为多个筛选器阶段实现接口。 例如，[ActionFilterAttribute](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionfilterattribute?view=aspnetcore-2.0) 类实现 `IActionFilter` 和 `IResultFilter`，以及它们的异步等效接口。
+可以在单个类中为多个筛选器阶段实现接口。 例如，<xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> 类实现 `IActionFilter`、`IResultFilter` 及其异步等效接口。
 
 > [!NOTE]
-> 筛选器接口的同步和异步版本**任意**实现一个，而不是同时实现。 该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现了这两种接口，则仅调用异步方法。 使用抽象类时，比如 [ActionFilterAttribute](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionfilterattribute?view=aspnetcore-2.0)，将为每种筛选器类型仅重写同步方法或仅重写异步方法。
+> 筛选器接口的同步和异步版本**任意**实现一个，而不是同时实现。 该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现了这两种接口，则仅调用异步方法。 使用抽象类时（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>），将为每种筛选器类型仅重写同步方法或仅重写异步方法。
 
 ### <a name="ifilterfactory"></a>IFilterFactory
-
-[IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) 实现 [IFilterMetadata](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifiltermetadata)。 因此，`IFilterFactory` 实例可在筛选器管道中的任意位置用作 `IFilterMetadata` 实例。 当该框架准备调用筛选器时，它会尝试将其转换为 `IFilterFactory`。 如果强制转换成功，则调用 [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) 方法来创建将调用的 `IFilterMetadata` 实例。 这提供了一种很灵活的设计，因为无需在应用启动时显式设置精确的筛选器管道。
+[IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>。 因此，`IFilterFactory` 实例可在筛选器管道中的任意位置用作 `IFilterMetadata` 实例。 当该框架准备调用筛选器时，它会尝试将其转换为 `IFilterFactory`。 如果强制转换成功，则调用 [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) 方法来创建将调用的 `IFilterMetadata` 实例。 这提供了一种很灵活的设计，因为无需在应用启动时显式设置精确的筛选器管道。
 
 用户可以在自己的属性实现上实现 `IFilterFactory` 作为另一种创建筛选器的方法：
 
@@ -280,6 +276,9 @@ System.InvalidOperationException: No service for type
 
 ## <a name="action-filters"></a>操作筛选器
 
+> [!IMPORTANT]
+> 操作筛选器不应用于 Razor Pages。 Razor Pages 支持 <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter>。 有关详细信息，请参阅 [Razor 页面的筛选方法](xref:razor-pages/filter)。
+
 操作筛选器：
 
 * 实现 `IActionFilter` 或 `IAsyncActionFilter` 接口。
@@ -289,13 +288,13 @@ System.InvalidOperationException: No service for type
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Filters/SampleActionFilter.cs?name=snippet_ActionFilter)]
 
-[ActionExecutingContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionexecutingcontext) 提供以下属性：
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext> 提供以下属性：
 
 * `ActionArguments`：用于处理对操作的输入。
 * `Controller`：用于处理控制器实例。 
 * `Result`：设置此属性会使操作方法和后续操作筛选器的执行短路。 引发异常也会阻止操作方法和后续筛选器的执行，但会被视为失败，而不是一个成功的结果。
 
-[ActionExecutedContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionexecutedcontext) 提供 `Controller` 和 `Result` 以及下列属性：
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext> 提供 `Controller` 和 `Result` 以及以下属性：
 
 * `Canceled`：如果操作执行已被另一个筛选器设置短路，则为 true。
 * `Exception`：如果操作或后续操作筛选器引发了异常，则为非 NULL 值。 将此属性设置为 NULL 可有效地“处理”异常，并且将执行 `Result`，就像它是从操作方法正常返回的一样。
@@ -391,4 +390,5 @@ System.InvalidOperationException: No service for type
 
 ## <a name="next-actions"></a>后续操作
 
-若要尝试使用筛选器，请[下载、测试并修改该示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
+* 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)
+* 若要尝试使用筛选器，请[下载、测试并修改 Github 示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。

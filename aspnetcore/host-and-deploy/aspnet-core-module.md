@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 01/22/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 192e4bf8e970083cc05babcd7fb3cf52985e35bf
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 4eea360d08c79b889db00132109cf49492f84de6
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396319"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837775"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -286,7 +286,20 @@ ASP.NET Core 模块还可以：
 
 ### <a name="setting-environment-variables"></a>设置环境变量
 
-可以为 `processPath` 属性中的进程指定环境变量。 使用 `environmentVariables` 集合元素的 `environmentVariable` 子元素指定环境变量。 本部分中设置的环境变量优先于系统环境变量。
+::: moniker range=">= aspnetcore-3.0"
+
+可以为 `processPath` 属性中的进程指定环境变量。 使用 `<environmentVariables>` 集合元素的 `<environmentVariable>` 子元素指定环境变量。 本部分中设置的环境变量优先于系统环境变量。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+可以为 `processPath` 属性中的进程指定环境变量。 使用 `<environmentVariables>` 集合元素的 `<environmentVariable>` 子元素指定环境变量。
+
+> [!WARNING]
+> 本部分中设置的环境变量与使用同一名称设置的系统环境变量冲突。 如果在 web.config 文件以及 Windows 中的系统级别中同时设置了环境变量，则 web.config 文件中的值将被追加到系统环境变量值（例如，`ASPNETCORE_ENVIRONMENT: Development;Development`），这将阻止应用启动。
+
+::: moniker-end
 
 以下示例设置了两个环境变量。 `ASPNETCORE_ENVIRONMENT` 将应用的环境配置为 `Development`。 开发人员可能会暂时在 web.config 文件中设置此值，以便在调试应用异常时强制加载[开发人员异常页面](xref:fundamentals/error-handling)。 `CONFIG_DIR` 是用户定义的环境变量的一个示例，其中开发人员已写入可在启动时读取值的代码以便形成用于加载应用配置文件的路径。
 
@@ -320,6 +333,19 @@ ASP.NET Core 模块还可以：
   </environmentVariables>
 </aspNetCore>
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
+> [!NOTE]
+> 直接在 web.config 中设置环境的替代方法是将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml）或项目文件中。 此方法在发布项目时设置 web.config 中的环境：
+>
+> ```xml
+> <PropertyGroup>
+>   <EnvironmentName>Development</EnvironmentName>
+> </PropertyGroup>
+> ```
 
 ::: moniker-end
 
@@ -409,7 +435,7 @@ ASP.NET Core 模块还可以：
 
 ## <a name="enhanced-diagnostic-logs"></a>增强的诊断日志
 
-可以配置 ASP.NET Core 模块提供内容以提供增强的诊断日志。 向 web.config 中的 `<aspNetCore>` 元素添加 `<handlerSettings>` 元素。将 `debugLevel` 设置为 `TRACE` 将提供更准确的诊断信息：
+可以配置 ASP.NET Core 模块，以提供增强的诊断日志。 向 web.config 中的 `<aspNetCore>` 元素添加 `<handlerSettings>` 元素。将 `debugLevel` 设置为 `TRACE` 将提供更准确的诊断信息：
 
 ```xml
 <aspNetCore processPath="dotnet"

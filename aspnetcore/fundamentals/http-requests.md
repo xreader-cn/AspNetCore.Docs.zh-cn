@@ -5,20 +5,20 @@ description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 08/07/2018
+ms.date: 01/25/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 693e9d64f47704400cbfa9e46b866f39278d82f6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 4fc4e602b809563ea78b6a3af5e5eb5c0ebeddea
+ms.sourcegitcommit: c6db8b14521814f1f7e528d7aa06e474e4c04a1f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207636"
+ms.lasthandoff: 01/25/2019
+ms.locfileid: "55065030"
 ---
 # <a name="initiate-http-requests"></a>启动 HTTP 请求
 
 作者：[Glenn Condron](https://github.com/glennc)[Ryan Nowak](https://github.com/rynowak) 和 [Steve Gordon](https://github.com/stevejgordon)
 
-可以注册 [IHttpClientFactory](/dotnet/api/system.net.http.ihttpclientfactory) 并将其用于配置和创建应用中的 [HttpClient](/dotnet/api/system.net.http.httpclient) 实例。 这能带来以下好处：
+可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 这能带来以下好处：
 
 * 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可以注册 github 客户端，并将它配置为访问 GitHub。 可以注册一个默认客户端用于其他用途。
 * 通过委托 `HttpClient` 中的处理程序整理出站中间件的概念，并提供适用于基于 Polly 的中间件的扩展来利用概念。
@@ -48,11 +48,11 @@ ms.locfileid: "50207636"
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-注册后，在可以使用[依赖关系注入](xref:fundamentals/dependency-injection) (DI) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可以用于创建 `HttpClient` 实例：
+注册后，在可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可以用于创建 `HttpClient` 实例：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
-以这种方式使用 `IHttpClientFactory` 非常适合重构现有应用。 这不会影响 `HttpClient` 的使用方式。 在当前创建 `HttpClient` 实例的位置上，通过调用 [CreateClient](/dotnet/api/system.net.http.ihttpclientfactory.createclient) 替换出现的这些实例。
+以这种方式使用 `IHttpClientFactory` 适合重构现有应用。 这不会影响 `HttpClient` 的使用方式。 在当前创建 `HttpClient` 实例的位置，使用对 <xref:System.Net.Http.IHttpClientFactory.CreateClient*> 的调用替换这些匹配项。
 
 ### <a name="named-clients"></a>命名客户端
 
@@ -80,7 +80,7 @@ ms.locfileid: "50207636"
 
 在上述代码中，配置转移到了类型化客户端中。 `HttpClient` 对象公开为公共属性。 可以定义公开 `HttpClient` 功能的特定于 API 的方法。 `GetAspNetDocsIssues` 方法从 GitHub 存储库封装查询和分析最新待解决问题所需的代码。
 
-要注册类型化客户端，可在 `Startup.ConfigureServices` 中使用通用的 `AddHttpClient` 扩展方法，指定类型化客户端类：
+要注册类型化客户端，可在 `Startup.ConfigureServices` 中使用通用的 <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> 扩展方法，指定类型化客户端类：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
@@ -157,21 +157,41 @@ public class ValuesController : ControllerBase
 
 `HttpClient` 已经具有委托处理程序的概念，这些委托处理程序可以链接在一起，处理出站 HTTP 请求。 `IHttpClientFactory` 可以轻松定义处理程序并应用于每个命名客户端。 它支持注册和链接多个处理程序，以生成出站请求中间件管道。 每个处理程序都可以在出站请求前后执行工作。 此模式类似于 ASP.NET Core 中的入站中间件管道。 此模式提供了一种用于管理围绕 HTTP 请求的横切关注点的机制，包括缓存、错误处理、序列化以及日志记录。
 
-要创建处理程序，请定义一个派生自 `DelegatingHandler` 的类。 重写 `SendAsync` 方法，在将请求传递至管道中的下一个处理程序之前执行代码：
+要创建处理程序，请定义一个派生自 <xref:System.Net.Http.DelegatingHandler> 的类。 重写 `SendAsync` 方法，在将请求传递至管道中的下一个处理程序之前执行代码：
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
 
 上述代码定义了基本处理程序。 它检查请求中是否包含 `X-API-KEY` 头。 如果标头缺失，它可以避免 HTTP 调用，并返回合适的响应。
 
-在注册期间可将一个或多个标头添加到 `HttpClient` 的配置。 此任务通过 [IHttpClientBuilder](/dotnet/api/microsoft.extensions.dependencyinjection.ihttpclientbuilder) 的扩展方法完成。
+在注册期间可将一个或多个标头添加到 `HttpClient` 的配置。 此任务通过 <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> 上的扩展方法完成。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
-在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 处理程序必须在 DI 中注册为临时处理程序。 注册后，即可调用 [AddHttpMessageHandler](/dotnet/api/microsoft.extensions.dependencyinjection.httpclientbuilderextensions.addhttpmessagehandler)，同时传入头类型。
+::: moniker range=">= aspnetcore-2.2"
+
+在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 `IHttpClientFactory` 为每个处理程序创建单独的 DI 作用域。 处理程序可依赖于任何作用域的服务。 处理程序依赖的服务会在处置处理程序时得到处置。
+
+注册后可以调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>，传入标头的类型。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 处理程序必须在 DI 中注册为暂时性服务且从不设置作用域。 如果处理程序注册为作用域服务且处理程序依赖的任何服务都是可处置的，则处理程序的服务可在处理程序超出作用域前得到处置，而这将导致处理程序失败。
+
+注册后，可以调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>，传入处理程序类型。
+
+::: moniker-end
 
 可以按处理程序应该执行的顺序注册多个处理程序。 每个处理程序都会覆盖下一个处理程序，直到最终 `HttpClientHandler` 执行请求：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet6)]
+
+使用以下方法之一将每个请求状态与消息处理程序共享：
+
+* 使用 `HttpRequestMessage.Properties` 将数据传递到处理程序。
+* 使用 `IHttpContextAccessor` 访问当前请求。
+* 创建自定义 `AsyncLocal` 存储对象以传递数据。
 
 ## <a name="use-polly-based-handlers"></a>使用基于 Polly 的处理程序
 
@@ -221,15 +241,17 @@ public class ValuesController : ControllerBase
 
 ## <a name="httpclient-and-lifetime-management"></a>HttpClient 和生存期管理
 
-每次对 `IHttpClientFactory` 调用 `CreateClient` 都会返回一个新 `HttpClient` 实例。 每个命名客户端都有一个 [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler)。 `IHttpClientFactory` 将工厂创建的 `HttpMessageHandler` 实例汇集到池中，以减少资源消耗。 新建 `HttpClient` 实例时，可能会重用池中的 `HttpMessageHandler` 实例（如果生存期尚未到期的话）。
+每次对 `IHttpClientFactory` 调用 `CreateClient` 都会返回一个新 `HttpClient` 实例。 每个命名的客户端都具有一个 <xref:System.Net.Http.HttpMessageHandler>。 工厂管理 `HttpMessageHandler` 实例的生存期。
+
+`IHttpClientFactory` 将工厂创建的 `HttpMessageHandler` 实例汇集到池中，以减少资源消耗。 新建 `HttpClient` 实例时，可能会重用池中的 `HttpMessageHandler` 实例（如果生存期尚未到期的话）。
 
 由于每个处理程序通常管理自己的基础 HTTP 连接，因此需要池化处理程序。 创建超出必要数量的处理程序可能会导致连接延迟。 部分处理程序还保持连接无期限地打开，这样可以防止处理程序对 DNS 更改作出反应。
 
-处理程序的默认生存期为两分钟。 可在每个命名客户端上重写默认值。 若要替代值，请对创建客户端时返回的 `IHttpClientBuilder` 调用 [SetHandlerLifetime](/dotnet/api/microsoft.extensions.dependencyinjection.httpclientbuilderextensions.sethandlerlifetime)：
+处理程序的默认生存期为两分钟。 可在每个命名客户端上重写默认值。 要重写该值，请在创建客户端时在返回的 `IHttpClientBuilder` 上调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*>：
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-无需处置客户端。 处置既取消传出请求，又保证在调用 [Dispose](/dotnet/api/system.idisposable.dispose#System_IDisposable_Dispose) 后无法使用给定的 `HttpClient` 实例。 `IHttpClientFactory` 跟踪和处置 `HttpClient` 实例使用的资源。 `HttpClient` 实例通常可视为无需处置的 .NET 对象。
+无需处置客户端。 处置既取消传出请求，又保证在调用 <xref:System.IDisposable.Dispose*> 后无法使用给定的 `HttpClient` 实例。 `IHttpClientFactory` 跟踪和处置 `HttpClient` 实例使用的资源。 `HttpClient` 实例通常可视为无需处置的 .NET 对象。
 
 保持各个 `HttpClient` 实例长时间处于活动状态是在 `IHttpClientFactory` 推出前使用的常见模式。 迁移到 `IHttpClientFactory` 后，就无需再使用此模式。
 
@@ -249,6 +271,6 @@ public class ValuesController : ControllerBase
 
 控制客户端使用的内部 `HttpMessageHandler` 的配置是有必要的。
 
-在添加命名客户端或类型化客户端时，会返回 `IHttpClientBuilder`。 [ConfigurePrimaryHttpMessageHandler](/dotnet/api/microsoft.extensions.dependencyinjection.httpclientbuilderextensions.configureprimaryhttpmessagehandler) 扩展方法可用于定义委托。 委托用于创建和配置客户端使用的主要 `HttpMessageHandler`：
+在添加命名客户端或类型化客户端时，会返回 `IHttpClientBuilder`。 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 扩展方法可以用于定义委托。 委托用于创建和配置客户端使用的主要 `HttpMessageHandler`：
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]

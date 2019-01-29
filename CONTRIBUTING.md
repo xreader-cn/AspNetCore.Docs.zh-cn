@@ -67,7 +67,7 @@ Markdown 文件名称和图像文件名称使用小写。
 
 ## <a name="code-snippets"></a>代码片段
 
-文章经常包含代码片段来说明要点。 DFM 允许将代码复制到 Markdown 文件或引用单独的代码文件。 请尽可能使用单独的代码文件，以最大限度地减少代码中出错的可能性。 代码文件存储在使用前面示例项目所述的文件夹结构的存储库中。 
+文章经常使用代码片段来说明要点。 DFM 允许将代码复制到 Markdown 文件或引用单独的代码文件。 请尽可能使用单独的代码文件，以最大限度地减少代码中出错的可能性。 代码文件存储在使用前面示例项目所述的文件夹结构的存储库中。 
 
 以下示例说明了用于 configuration/index.md 文件的 [DFM 代码片段语法](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)。
 
@@ -112,7 +112,7 @@ DocFX 要求：
 
 ### <a name="windows-instructions"></a>Windows 说明
 
-* 从 [DocFX 版本](https://github.com/dotnet/docfx/releases)下载并解压缩 docfx.zip。
+* 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”。
 * 将 DocFX 添加到路径。
 * 在命令行窗口中，导航到包含 docfx.json 文件的适当文件夹（ASP.NET 内容为 spnet 或 ASP.NET Core 为 aspnetcore）并运行以下命令：
 
@@ -124,22 +124,20 @@ DocFX 要求：
 
 ### <a name="mono-instructions"></a>Mono 说明
 
-* 使用 Homebrew 安装 Mono：`brew install mono`。
-* 立即下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
-* 提取到 `\bin\docfx`。
-* 为 docfx 创建一个别名：
+* 使用 Homebrew 安装 Mono：
 
   ```
-  function docfx {
-    mono $HOME/bin/docfx/docfx.exe
-  }
-    
-  function docfx-serve {
-    mono $HOME/bin/docfx/docfx.exe serve _site
-  }
+  brew install mono
   ```
+* 下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
+* 将存档提取到 $HOME/bin/docfx。
+* 在 Bash Shell 中为 docfx 创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
 
-* 在 Docs\aspnet 或 Docs\aspnetcore 目录中运行 `docfx`以构建站点。 运行 `docfx-serve` 以查看 `http://localhost:8080` 中的站点。
+  ```
+  alias docfx='mono $HOME/bin/docfx/docfx.exe'
+  alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
+  ```
+* 在存储库的根中执行 `docfx` 以生成网站。 执行 `docfx-serve` 以查看 `http://localhost:8080` 中的网站。
 
 ## <a name="voice-and-tone"></a>语气和语调
 

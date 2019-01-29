@@ -3,20 +3,20 @@ title: 在 ASP.NET Core 中路由到控制器操作
 author: rick-anderson
 description: 了解 ASP.NET Core MVC 如何使用路由中间件来匹配传入请求的 URL 并将它们映射到操作。
 ms.author: riande
-ms.date: 09/17/2018
+ms.date: 01/24/2019
 uid: mvc/controllers/routing
-ms.openlocfilehash: 2f6328a5efaa96fd8e4f0cafdbde77dd63a1548f
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: f5104bc53581a41fa8c25d8c67e08e038c275391
+ms.sourcegitcommit: c6db8b14521814f1f7e528d7aa06e474e4c04a1f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477639"
+ms.lasthandoff: 01/25/2019
+ms.locfileid: "55065004"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
 作者：[Ryan Nowak](https://github.com/rynowak) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core MVC 使用路由[中间件](xref:fundamentals/middleware/index)来匹配传入请求的 URL 并将它们映射到操作。 路由在启动代码或属性中定义。 路由描述应如何将 URL 路径与操作相匹配。 它还用于在响应中生成送出的 URL（用于链接）。 
+ASP.NET Core MVC 使用路由[中间件](xref:fundamentals/middleware/index)来匹配传入请求的 URL 并将它们映射到操作。 路由在启动代码或属性中定义。 路由描述应如何将 URL 路径与操作相匹配。 它还用于在响应中生成送出的 URL（用于链接）。
 
 操作既支持传统路由，也支持属性路由。 通过在控制器或操作上放置路由可实现属性路由。 有关详细信息，请参阅[混合路由](#routing-mixed-ref-label)。
 
@@ -191,7 +191,6 @@ public class ProductsController : Controller
 
 以下示例中的字符串 `"blog"` 和 `"default"` 都是路由名称：
 
-
 ```csharp
 app.UseMvc(routes =>
 {
@@ -339,7 +338,7 @@ public class ProductsApiController : Controller
 
 在此示例中，URL 路径 `/products` 可以匹配 `ProductsApi.ListProducts`，URL 路径 `/products/5` 可以匹配 `ProductsApi.GetProduct(int)`。 这两项操作仅匹配 HTTP `GET`，因为它们用 `HttpGetAttribute` 修饰。
 
-应用于操作的以 `/` 开头的路由模板不与应用于控制器的路由模板合并。 此示例匹配一组与*默认路由*类似的 URL 路径。
+应用于操作的以 `/` 或 `~/` 开头的路由模板不与应用于控制器的路由模板合并。 此示例匹配一组与*默认路由*类似的 URL 路径。
 
 ```csharp
 [Route("Home")]
@@ -377,7 +376,7 @@ public class HomeController : Controller
 > [!TIP]
 > 避免依赖 `Order`。 如果 URL 空间需要有显式顺序值才能正确进行路由，则同样可能使客户端混淆不清。 属性路由通常选择与 URL 匹配的正确路由。 如果用于 URL 生成的默认顺序不起作用，使用路由名称作为替代项通常比应用 `Order` 属性更简单。
 
-Razor Pages 路由和 MVC 控制器路由共享一个实现。 可在 [ 路由和应用约定：路由顺序](xref:razor-pages/razor-pages-conventions#route-order)中找到有关 Razor Pages 主题中路由顺序的信息。
+Razor Pages 路由和 MVC 控制器路由共享一个实现。 可在 [Razor Pages 路由和应用约定：路由顺序](xref:razor-pages/razor-pages-conventions#route-order)中找到有关 Razor Pages 主题中路由顺序的信息。
 
 <a name="routing-token-replacement-templates-ref-label"></a>
 

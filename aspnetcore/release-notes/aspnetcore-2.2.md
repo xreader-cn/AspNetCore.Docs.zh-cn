@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: 13d7dec834a5661b445b4fc0c0be8be9b7b41b9e
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: b8279588e674e3ada486f61bac2c216f1359e86d
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637724"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444384"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 

@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中使用多个环境
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 应用中控制多个环境的应用行为。
 ms.author: riande
-ms.date: 07/03/2018
+ms.date: 01/22/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 642af9e8f9e322e3624dad46bb1463f6525f5c9e
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 39e1b48481832a6d76de605b37410fe2e16dcd88
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341662"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836735"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -237,6 +237,20 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 **web.config**
 
 若要使用 web.config 设置 `ASPNETCORE_ENVIRONMENT` 环境变量，请参阅 <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>的“设置环境变量”部分。 使用 web.config 设置 `ASPNETCORE_ENVIRONMENT` 环境变量后，它的值会替代系统级设置。
+
+::: moniker range=">= aspnetcore-2.2"
+
+**项目文件或发布配置文件**
+
+**对于 Windows IIS 部署：** 将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml）或项目文件中。 此方法在发布项目时设置 web.config 中的环境：
+
+```xml
+<PropertyGroup>
+  <EnvironmentName>Development</EnvironmentName>
+</PropertyGroup>
+```
+
+::: moniker-end
 
 **每个 IIS 应用程序池**
 

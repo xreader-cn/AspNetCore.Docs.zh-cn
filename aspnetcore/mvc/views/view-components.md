@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何�
 ms.author: riande
 ms.date: 12/03/2018
 uid: mvc/views/view-components
-ms.openlocfilehash: 5812abad80cd906d6b9a7175bd7cdefd03a99eb3
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 156db610d99eaf8a8042a4c7c85267d521a20fd4
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861324"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836696"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -20,7 +20,7 @@ ms.locfileid: "52861324"
 
 ## <a name="view-components"></a>视图组件
 
-视图组件与分部视图类似，但它们的功能更加强大。 视图组件不使用模型绑定，并且仅依赖调用时提供的数据。 本文通过使用 ASP.NET Core MVC 撰写，但视图组件也适用于 Razor 页面。
+视图组件与分部视图类似，但它们的功能更加强大。 视图组件不使用模型绑定，并且仅依赖调用时提供的数据。 本文是使用控制器和视图编写的，但视图组件也适用于 Razor Pages。
 
 视图组件：
 

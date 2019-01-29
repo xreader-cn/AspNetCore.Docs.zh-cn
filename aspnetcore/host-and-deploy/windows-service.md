@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 01/22/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: bdb29c318c66ac884b9225ba8c2a0dfc1f364255
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: eedaf64710506f2a2aac65c178a9888d2ab33d38
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637698"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837476"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -44,7 +44,9 @@ ms.locfileid: "53637698"
 
 #### <a name="framework-dependent-deployment-fdd"></a>依赖框架的部署 (FDD)
 
-将 Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) 添加到包含目标框架的 `<PropertyGroup>` 中。 将 `<SelfContained>` 属性集添加到 `false`。 通过将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true` 来禁止创建 web.config文件。
+将 Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) 添加到包含目标框架的 `<PropertyGroup>` 中。 在以下示例中，将 RID 设置为 `win7-x64`。 将 `<SelfContained>` 属性集添加到 `false`。 这些属性指示 SDK 为 Windows 生成可执行 (.exe) 文件。
+
+web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -60,6 +62,8 @@ ms.locfileid: "53637698"
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
+
+将 `<UseAppHost>` 属性集添加到 `true`。 此属性为服务提供 FDD 的激活路径（一个可执行文件，格式为 .exe）。
 
 ```xml
 <PropertyGroup>

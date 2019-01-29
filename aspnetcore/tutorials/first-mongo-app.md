@@ -4,14 +4,14 @@ author: prkhandelwal
 description: 本教程演示如何使用 MongoDB NoSQL 数据库构建 ASP.NET Core Web API。
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 11/29/2018
+ms.date: 01/23/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: bd9a36c5eb06542c820e71e937b8da10f735a0f8
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 6375ae618816671bd9c64f038603747c64cdce56
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577833"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835591"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -54,11 +54,11 @@ ms.locfileid: "53577833"
 
 ## <a name="configure-mongodb"></a>配置 MongoDB
 
-如果使用的是 Windows，MongoDB 将默认安装在 C:\Program Files\MongoDB 中。 将 C:\Program Files\MongoDB\Server\<version_number>\bin 添加到 `Path` 环境变量。 通过此更改可以从开发计算机上的任意位置访问 MongoDB。
+如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB 中。 将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin 添加到 `Path` 环境变量中。 通过此更改可以从开发计算机上的任意位置访问 MongoDB。
 
 使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。 有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。
 
-1. 选择开发计算机上用于存储数据的目录。 例如，在 Windows 上为 *C:\BooksData*。 创建目录（如果不存在）。 mongo Shell 不会创建新目录。
+1. 选择开发计算机上用于存储数据的目录。 例如，Windows 上的 C:\\BooksData。 创建目录（如果不存在）。 mongo Shell 不会创建新目录。
 1. 打开命令行界面。 运行以下命令以连接到默认端口 27017 上的 MongoDB。 请记得将 `<data_directory_path>` 替换为上一步中选择的目录。
 
     ```console
@@ -188,7 +188,13 @@ ms.locfileid: "53577833"
 
     [!code-csharp[](first-mongo-app/sample/BooksApi/Models/Book.cs)]
 
-在前面的类中，将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时需要 `Id` 属性。 类中的其他属性使用 `[BsonElement]` 属性进行修饰。 该属性的值表示 MongoDB 集合中的属性名称。
+在前面的类中，`Id`属性：
+
+* 需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。
+* 使用 `[BsonId]` 进行批注，以将此属性指定为文档的主键。
+* 使用 `[BsonRepresentation(BsonType.ObjectId)]` 进行批注，以允许将参数作为类型 `string` 而非 `ObjectId` 传递。 Mongo 处理从 `string` 到 `ObjectId` 的转换。
+
+类中的其他属性使用 `[BsonElement]` 属性进行批注。 该属性的值表示 MongoDB 集合中的属性名称。
 
 ## <a name="add-a-crud-operations-class"></a>添加 CRUD 操作类
 

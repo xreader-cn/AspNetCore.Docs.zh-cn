@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中开始使用 WebSocket。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 01/17/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 6c32269181ea3311c4aea99c08a1c043e7833b05
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 76acb9c96ed5e8bbbaf39eeb6cb23307bb44fb8d
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341443"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836853"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -144,6 +144,12 @@ WebSocket 请求可以来自任何 URL，但此示例代码只接受 `/ws` 的�
 如果在开始循环之前接受 WebSocket 连接，中间件管道会结束。 关闭套接字后，管道展开。 即接受 WebSocket 时，请求停止在管道中推进。 循环结束且套接字关闭时，请求继续回到管道。
 
 ::: moniker range=">= aspnetcore-2.2"
+
+### <a name="handle-client-disconnects"></a>处理客户端连接断开
+
+当客户端由于失去连接而断开连接时不会自动向服务器发送通知。 服务器只有在客户端发送通知时才会收到断开连接消息，而此操作无法在失去 Internet 连接的情况下进行。 如果想要在发生此情况时采取某个操作，在特定时间范围内未收到来自客户端的任何消息后设置超时。
+
+如果客户端并非总是发送消息且不希望仅由于连接进入空闲状态就设置超时，则让客户端使用一个计时器并每隔 X 秒发送一条 ping 消息。 在服务器上，如果某条消息在上一条消息发出后的 2\*X 秒内尚未到达，则终止连接并报告客户端已断开连接。 等待两次预测的时间间隔，以便为可能延迟 ping 消息的网络延迟提供额外的时间。
 
 ### <a name="websocket-origin-restriction"></a>WebSocket 源限制
 

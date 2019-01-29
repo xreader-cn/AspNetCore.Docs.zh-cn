@@ -5,12 +5,12 @@ description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 321ffd6b0168d4befc950a58035d19561e879491
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: f241a19c8821019f327fb160f01fe01eca53c5d0
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249446"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836894"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -104,7 +104,7 @@ ms.locfileid: "54249446"
 
 **说明**：`Movies` 控制器尚未实现。 此时，`Movie App` 链接不起作用。
 
-保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私 - 电影应用”，而不是“隐私 - Mvc 电影”：
+保存更改并选择“隐私”链接。 请注意浏览器选项卡上的标题现在显示的是“隐私策略 - 电影应用”，而不是“隐私策略 - Mvc 电影”：
 
 ![“隐私”选项卡](~/tutorials/first-mvc-app/adding-view/_static/about2.png)
 

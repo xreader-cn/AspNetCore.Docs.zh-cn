@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 96d098115f2f9b150f796e08cf14e60611f59e17
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: c5303ad418660fa31fe9094f0e61ee31f5d988f7
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341753"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54890011"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -666,6 +666,26 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 若要将参数限制为一组已知的可能值，可使用正则表达式。 例如，`{action:regex(^(list|get|create)$)}` 仅将 `action` 路由值匹配到 `list`、`get` 或 `create`。 如果传递到约束字典中，字符串 `^(list|get|create)$` 将等效。 已传递到约束字典（不与模板内联）且不匹配任何已知约束的约束还将被视为正则表达式。
 
+## <a name="custom-route-constraints"></a>自定义路由约束
+
+除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 `IRouteConstraint` 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
+
+若要使用自定义 `IRouteConstraint`，必须在应用的服务容器中使用应用的 `RouteOptions.ConstraintMap` 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 `IRouteConstraint` 实现的目录。 应用的 `RouteOptions.ConstraintMap` 可作为 `services.AddRouting` 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 `RouteOptions` 进行更新。 例如:
+
+```csharp
+services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("customName", typeof(MyCustomConstraint));
+});
+```
+
+然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如:
+
+```csharp
+[HttpGet("{id:customName}")]
+public ActionResult<string> Get(string id)
+```
+
 ::: moniker range=">= aspnetcore-2.2"
 
 ## <a name="parameter-transformer-reference"></a>参数转换器参考
@@ -737,3 +757,9 @@ routes.MapRoute("blog_route", "blog/{*slug}",
 ```
 
 当提供 `controller` 和 `action` 的匹配值时，链接生成仅为此路由生成链接。
+
+## <a name="complex-segments"></a>复杂段
+
+复杂段（例如，`[Route("/x{token}y")]`）通过非贪婪的方式从右到左匹配文字进行处理。 请参阅[此代码](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)以了解有关如何匹配复杂段的详细说明。 ASP.NET Core 无法使用[代码示例](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)，但它提供了对复杂段的合理说明。
+<!-- While that code is no longer used by ASP.NET Core for complex segment matching, it provides a good match to the current algorithm. The [current code](https://github.com/aspnet/AspNetCore/blob/91514c9af7e0f4c44029b51f05a01c6fe4c96e4c/src/Http/Routing/src/Matching/DfaMatcherBuilder.cs#L227-L244) is too abstracted from matching to be useful for understanding complex segment matching.
+-->
