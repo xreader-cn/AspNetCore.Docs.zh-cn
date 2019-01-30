@@ -8,12 +8,12 @@ ms.date: 08/15/2012
 ms.assetid: c7e4e1ab-4932-4614-9f53-aaf7c706d498
 msc.legacyurl: /mvc/overview/views/using-page-inspector-in-aspnet-mvc
 msc.type: authoredcontent
-ms.openlocfilehash: c465b0bac9af90a892d6e62a327ba36977d08d4a
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 0dea8b077878139a3f513cb51447b86a93fe55b8
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41830896"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236531"
 ---
 <a name="using-page-inspector-in-aspnet-mvc"></a>在 ASP.NET MVC 中使用 Page Inspector
 ====================
@@ -27,7 +27,7 @@ ms.locfileid: "41830896"
 > 
 > 本教程包含以下部分：
 > 
-> - [先决条件](#_1_prerequisites)
+> - [系统必备](#_1_prerequisites)
 > - [创建 Web 应用程序](#_2_creating_a)
 > - [使用 Page Inspector 浏览到视图](#_3_using_page)
 > - [启用检查模式](#_4_inspection_mode)
@@ -81,7 +81,7 @@ Page Inspector 与 Microsoft Web 开发人员工具捆绑在一起。 最新版�
 
 ![在 Page Inspector 中的视图 Index.cshtml](using-page-inspector-in-aspnet-mvc/_static/image8.png)
 
-默认情况下，Page Inspector 停靠为窗口在左侧和右侧的 Visual Studio 环境。 如果您愿意，可以将它停靠在其他位置，也可以取消停靠该窗口。 请参阅[如何： 排列和停靠 Windows](https://msdn.microsoft.com/library/z4y0hsax.aspx)。
+默认情况下，Page Inspector 停靠为窗口在左侧和右侧的 Visual Studio 环境。 如果您愿意，可以将它停靠在其他位置，也可以取消停靠该窗口。 请参阅[如何：排列和停靠窗口](https://msdn.microsoft.com/library/z4y0hsax.aspx)。
 
 页面检查器窗口的顶部窗格会显示在浏览器窗口中当前页。 在底部窗格显示在 HTML 标记，以及允许您检查页的不同方面某些选项卡中的页。 在底部窗格是类似于[F12 开发人员工具](https://msdn.microsoft.com/ie/aa740478)Internet 资源管理器中。
 

@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/creating-the-web-application
 title: 教程：创建的 Web 应用程序和 ef 数据模型数据库优先使用 ASP.NET MVC
-description: 本文重点介绍创建 web 应用程序，并生成基于数据库表的数据模型。
+description: 本教程重点介绍创建 web 应用程序，并生成基于数据库表的数据模型。
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: bc8f2bd5-ff57-4dcd-8418-a5bd517d8953
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/creating-the-web-application
 msc.type: authoredcontent
-ms.openlocfilehash: 095d355866c9ab8fba3759f3e05e2a521992f3d6
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: dced55386c3f810e406c5c2b3f0071b45e3b2dbd
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889764"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236362"
 ---
 # <a name="tutorial-create-the-the-web-application-and-data-models-for-ef-database-first-with-aspnet-mvc"></a>教程：创建的 Web 应用程序和 ef 数据模型数据库优先使用 ASP.NET MVC
 
  使用 MVC、 Entity Framework 和 ASP.NET 基架，可以创建提供接口的现有数据库的 web 应用程序。 本系列教程演示了如何自动生成代码，使用户能够显示、 编辑、 创建和删除驻留在数据库表中的数据。 生成的代码对应于数据库表中的列。
 
-本文重点介绍创建 web 应用程序，并生成基于数据库表的数据模型。
+本教程重点介绍创建 web 应用程序，并生成基于数据库表的数据模型。
 
 在本教程中，你将了解：
 
@@ -102,6 +102,6 @@ ms.locfileid: "54889764"
 > * 创建 ASP.NET web 应用
 > * 生成模型
 
-转到下一文章，了解如何创建生成基于数据模型的代码。
+转到下一步的教程，了解如何创建生成基于数据模型的代码。
 > [!div class="nextstepaction"]
 > [生成视图](generating-views.md)

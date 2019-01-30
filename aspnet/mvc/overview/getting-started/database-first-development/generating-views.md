@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/generating-views
 title: 教程：使用 ASP.NET MVC 应用程序的 EF Database First 生成的视图
-description: 本文重点介绍使用 ASP.NET 基架生成控制器和视图。
+description: 本教程重点介绍使用 ASP.NET 基架生成控制器和视图。
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: 669367cf-8e30-4eb6-821d-10a7d9bb906c
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/generating-views
 msc.type: authoredcontent
-ms.openlocfilehash: e1f6646cdf10d293268b92f44b018709e70c0f86
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 7a56c0f9197a99427bcde6103ebc69d245e8ce63
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889777"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236414"
 ---
 # <a name="tutorial-generate-views-for-ef-database-first-with-aspnet-mvc-app"></a>教程：使用 ASP.NET MVC 应用程序的 EF Database First 生成的视图
 
 使用 MVC、 Entity Framework 和 ASP.NET 基架，可以创建提供接口的现有数据库的 web 应用程序。 本系列教程演示了如何自动生成代码，使用户能够显示、 编辑、 创建和删除驻留在数据库表中的数据。 生成的代码对应于数据库表中的列。
 
-本文重点介绍使用 ASP.NET 基架生成控制器和视图。
+本教程重点介绍使用 ASP.NET 基架生成控制器和视图。
 
 在本教程中，你将了解：
 
@@ -101,6 +101,6 @@ ms.locfileid: "54889777"
 > * 显示的学生视图
 > * 显示的注册视图
 
-转到下一步的文章，了解如何更改数据库。
+转到下一步的教程，了解如何更改数据库。
 > [!div class="nextstepaction"]
 > [更改数据库](changing-the-database.md)

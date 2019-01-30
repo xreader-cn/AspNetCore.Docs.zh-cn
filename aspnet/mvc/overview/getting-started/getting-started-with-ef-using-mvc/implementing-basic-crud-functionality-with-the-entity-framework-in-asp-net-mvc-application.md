@@ -9,12 +9,12 @@ ms.topic: tutorial
 ms.assetid: a2f70ba4-83d1-4002-9255-24732726c4f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: da94329cc2e6dbe01cf6af8b5851b4c30a508975
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 9ed388543dd54d209ff2a0b92df4f7659962582c
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889882"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236466"
 ---
 # <a name="tutorial-implement-crud-functionality-with-the-entity-framework-in-aspnet-mvc"></a>教程：在 ASP.NET MVC 中实现与实体框架 CRUD 功能
 
@@ -135,7 +135,7 @@ ms.locfileid: "54889882"
 
     [!code-cshtml[Main](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/samples/sample9.cshtml)]
 
-    *Create.chstml*还包括`@Html.AntiForgeryToken()`，适用于`ValidateAntiForgeryToken`属性中的控制器，以帮助防止[跨站点请求伪造](../../security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages.md)攻击。
+    *Create.cshtml*还包括`@Html.AntiForgeryToken()`，适用于`ValidateAntiForgeryToken`属性中的控制器，以帮助防止[跨站点请求伪造](../../security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages.md)攻击。
 
     需要在不更改*Create.cshtml*。
 

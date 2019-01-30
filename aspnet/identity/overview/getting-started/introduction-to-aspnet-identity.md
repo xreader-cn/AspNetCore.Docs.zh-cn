@@ -4,27 +4,24 @@ title: ASP.NET 标识简介 |Microsoft Docs
 author: jongalloway
 description: ASP.NET 成员资格系统引入了 ASP.NET 2.0 后在 2005 中，并且发生了很多更改的方式的 web 应用程序内，然后...
 ms.author: riande
-ms.date: 10/17/2013
+ms.date: 01/22/2019
 ms.assetid: 38717fc1-5989-43cf-952d-4007cc1dd923
 msc.legacyurl: /identity/overview/getting-started/introduction-to-aspnet-identity
 msc.type: authoredcontent
-ms.openlocfilehash: 1938de2b57c8fafa7ea8a656c0a42d2d3f1a6c81
-ms.sourcegitcommit: 7b4e3936feacb1a8fcea7802aab3e2ea9c8af5b4
+ms.openlocfilehash: 4a545e52d2d9ea04a10c37c116fd326c60de9f8f
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48577868"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236440"
 ---
 <a name="introduction-to-aspnet-identity"></a>ASP.NET 标识简介
 ====================
-通过[Jon Galloway](https://github.com/jongalloway)， [Pranav rastogi 撰写](https://github.com/rustd)， [Rick Anderson]((https://twitter.com/RickAndMSFT))， [Tom Dykstra](https://github.com/tdykstra)
 
 > ASP.NET 成员资格系统引入了 ASP.NET 2.0 后并且在 2005 年，则发生了很多更改 web 应用程序通常处理身份验证和授权的方式。 ASP.NET 标识是在生成适用于 web、 手机或平板电脑的现代应用程序时，成员资格系统应为新的外观。
-> 
-> Pranav rastogi 撰写本文时 ([@rustd](https://twitter.com/rustd))，Jon Galloway ([@jongalloway](https://twitter.com/jongalloway))，Tom Dykstra 和 Rick Anderson ([ @RickAndMSFT ](https://twitter.com/#!/RickAndMSFT) )。
 
 
-## <a name="background-membership-in-aspnet"></a>在 ASP.NET 中的背景信息： 成员身份
+## <a name="background-membership-in-aspnet"></a>背景：在 ASP.NET 中的成员身份
 
 ### <a name="aspnet-membership"></a>ASP.NET 成员资格
 
@@ -48,13 +45,13 @@ ms.locfileid: "48577868"
 
 [ASP.NET Universal Providers](http://www.hanselman.com/blog/IntroducingSystemWebProvidersASPNETUniversalProvidersForSessionMembershipRolesAndUserProfileOnSQLCompactAndSQLAzure.aspx)不断问世以使其能够进行保持 Azure SQL 数据库，并且它们也可使用 SQL Server Compact 中 Microsoft 的成员身份信息。 Entity Framework Code First，这意味着可以使用通用提供程序来保持 EF 支持任何存储区中的数据生成通用提供程序。 使用通用提供程序，很多也清除数据库架构。
 
-通用提供程序是基于 ASP.NET 成员资格的基础结构，因此它们仍然执行相同的限制为 SqlMembership 提供程序。 也就是说，它们旨在用于关系数据库和很难自定义配置文件和用户信息。 这些提供程序也仍为登录和注销功能使用窗体身份验证。
+通用提供程序是基于 ASP.NET 成员资格的基础结构，因此它们仍然执行相同的限制为 SqlMembership 提供程序。 也就是说，它们旨在用于关系数据库和很难自定义配置文件和用户信息。 这些提供程序也仍使用窗体身份验证的登录和注销功能。
 
 ## <a name="aspnet-identity"></a>ASP.NET 标识
 
 作为成员资格情景在 ASP.NET 中的发展多年来，ASP.NET 团队已积累了许多经验客户的反馈。
 
-假设用户将通过输入用户名和密码，它们具有自己的应用程序中注册记录，将不再有效。 Web 变得更多社交。 用户通过 Facebook、 Twitter 和其他社交网站等社交渠道实时与彼此交互。 开发人员希望用户能够使用其社交标识登录，以便他们可以在自己网站上有丰富的体验。 现代的成员身份系统必须启用到身份验证提供程序，如 Facebook、 Twitter 和其他基于重定向的日志项。
+通过输入用户名和密码，它们具有自己的应用程序中注册登录用户，将假设将不再有效。 Web 变得更多社交。 用户通过 Facebook、 Twitter 和其他社交网站等社交渠道实时与彼此交互。 开发人员希望用户能够使用其社交标识登录，以便他们可以在自己网站上有丰富的体验。 现代的成员身份系统必须启用到身份验证提供程序，如 Facebook、 Twitter 和其他基于重定向的日志项。
 
 随着 web 开发的发展，因此做了 web 开发的模式。 单元测试的应用程序代码成为核心需考虑的应用程序开发人员。 在 2008 年 ASP.NET 添加一个新的框架基于模型-视图-控制器 (MVC) 模式，部分可帮助开发人员构建可测试的 ASP.NET 应用程序的单元。 开发人员希望单元测试其应用程序逻辑，还希望能够使用成员资格系统执行该操作。
 
@@ -85,21 +82,19 @@ ms.locfileid: "48577868"
 - **社交登录提供程序**
 
     - 可以轻松地添加到应用程序，如 Microsoft 帐户、 Facebook、 Twitter、 Google 和其他社交登录并在你的应用程序中存储特定于用户的数据。
-- **Azure Active Directory**
 
-    - 此外可以添加日志功能使用 Azure Active Directory，并将特定于用户的数据存储在你的应用程序。 有关详细信息，请参阅[组织帐户](../../../visual-studio/overview/2013/creating-web-projects-in-visual-studio.md#orgauth)在 Visual Studio 2013 中创建 ASP.NET Web 项目
 - **OWIN 集成**
 
     - ASP.NET 身份验证现在基于可在任何基于 OWIN 的主机使用的 OWIN 中间件。 ASP.NET 标识 System.Web 没有任何依赖项。 它是一个完全符合 OWIN 框架，并可在任何托管的 OWIN 应用程序。
     - ASP.NET 标识的日志-在/注销的 web 站点中的用户使用 OWIN 身份验证。 这意味着，而不是使用 FormsAuthentication 生成 cookie，应用程序使用 OWIN CookieAuthentication 来执行该操作。
 - **NuGet 包**
 
-    - ASP.NET 标识是以随 Visual Studio 2013 的 ASP.NET MVC、 Web 窗体和 Web API 模板中安装 NuGet 包的形式重新分发。 可以从 NuGet 库下载此 NuGet 包。
+    - ASP.NET 标识是以 ASP.NET MVC、 Web 窗体和 Web API 模板随附于 Visual Studio 2017 中安装 NuGet 包的形式重新分发。 可以从 NuGet 库下载此 NuGet 包。
     - 发布 ASP.NET 标识为 NuGet 程序包使得 ASP.NET 团队来循环访问新功能和 bug 修复和敏捷的方式提供给开发人员更轻松。
 
-## <a name="getting-started-with-aspnet-identity"></a>ASP.NET 标识入门
+## <a name="get-started-with-aspnet-identity"></a>开始使用 ASP.NET 标识
 
-在 Visual Studio 2013 项目模板中使用 ASP.NET 标识为 ASP.NET MVC、 Web 窗体、 Web API 和 SPA。 在此演练中，我们将说明了项目模板如何使用 ASP.NET 标识中添加功能以注册、 登录和注销用户。
+在 Visual Studio 2017 项目模板中使用 ASP.NET 标识为 ASP.NET MVC、 Web 窗体、 Web API 和 SPA。 在此演练中，我们将演示项目模板如何使用 ASP.NET 标识来添加注册、 登录和注销用户的功能。
 
 ASP.NET 标识是使用以下过程来实现的。 本文的目的是为您提供的 ASP.NET 标识; 高级别概述可以按照其步骤或只需读取的详细信息。 有关更详细的说明创建应用程序使用 ASP.NET 标识，包括使用新的 API 来添加用户、 角色和配置文件信息，请参阅本文末尾的后续步骤部分。
 
@@ -113,29 +108,25 @@ ASP.NET 标识是使用以下过程来实现的。 本文的目的是为您提�
     - [`Microsoft.AspNet.Identity.Core`](http://www.nuget.org/packages/Microsoft.AspNet.Identity.Core/)  
    此包具有 ASP.NET Identity 的核心接口。 此包可用于编写，目标不同的持久性存储如 Azure 表存储，NoSQL 数据库等 ASP.NET Identity 的实现。
     - [`Microsoft.AspNet.Identity.OWIN`](http://www.nuget.org/packages/Microsoft.AspNet.Identity.Owin/)  
-   此包包含用于在 ASP.NET 应用程序中使用 ASP.NET 标识插入 OWIN 身份验证中的功能。 这使用日志功能添加到你的应用程序和调入 OWIN Cookie 身份验证中间件来生成 cookie 时。
+   此包包含用于在 ASP.NET 应用程序中使用 ASP.NET 标识插入 OWIN 身份验证中的功能。 这用于登录的功能添加到你的应用程序和调入 OWIN Cookie 身份验证中间件来生成 cookie 时。
 3. 创建用户。  
-   启动应用程序，然后单击**注册**链接创建的用户。 下图显示了注册页收集用户名和密码。  
+   启动应用程序，然后单击**注册**链接创建的用户。 下图显示了注册页，以收集用户名和密码。  
   
     ![](introduction-to-aspnet-identity/_static/image2.png)  
   
-   当用户单击**注册**按钮，`Register`在 Account 控制器的操作通过调用 ASP.NET 标识 API，为以下突出显示部分创建用户：
+   当用户选择**注册**按钮，`Register`在 Account 控制器的操作通过调用 ASP.NET 标识 API，为以下突出显示部分创建用户：
 
     [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample1.cs?highlight=8-9)]
 4. 登录。  
-   如果已成功创建用户，她将通过记录中`SignInAsync`方法。  
+   如果已成功创建用户，她由签名`SignInAsync`方法。  
 
-    [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample2.cs?highlight=12)]
+    [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample6.cs?highlight=12)]
 
-    [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample3.cs?highlight=5-6)]
 
-   在上面的突出显示的代码`SignInAsync`方法将生成[ClaimsIdentity](https://msdn.microsoft.com/library/system.security.claims.claimsidentity.aspx)。 由于 ASP.NET 标识和 OWIN Cookie 身份验证是基于声明的系统，该框架要求应用以生成用户的 ClaimsIdentity。 ClaimsIdentity 具有的用户，如用户所属的角色的所有声明的信息。 在此阶段，还可以添加更多的用户声明。  
-  
-   以下代码中的突出显示`SignInAsync`的方法会在用户通过使用从 OWIN 和调用 AuthenticationManager`SignIn`并传入 ClaimsIdentity。  
-
-    [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample4.cs?highlight=8-11)]
+   `SignInManager.SignInAsync`方法将生成[ClaimsIdentity](https://msdn.microsoft.com/library/system.security.claims.claimsidentity.aspx)。 由于 ASP.NET 标识和 OWIN Cookie 身份验证是基于声明的系统，该框架要求应用以生成用户的 ClaimsIdentity。 ClaimsIdentity 具有的用户，如用户所属的角色的所有声明的信息。   
+ 
 5. 注销。  
-   单击**注销**链接帐户控制器中调用注销操作。 
+   选择**注销**链接以在 account 控制器中调用注销操作。 
 
     [!code-csharp[Main](introduction-to-aspnet-identity/samples/sample5.cs?highlight=6)]
 
@@ -143,7 +134,7 @@ ASP.NET 标识是使用以下过程来实现的。 本文的目的是为您提�
 
 ## <a name="components-of-aspnet-identity"></a>ASP.NET 标识的组件
 
-下图显示了 ASP.NET 标识系统的组件 (单击[这](introduction-to-aspnet-identity/_static/image3.png)或关系图进行放大)。 以绿色包构成了 ASP.NET 标识系统。 所有其他包都需要 ASP.NET 应用程序中使用 ASP.NET 标识系统的依赖项。
+下图显示了 ASP.NET 标识系统的组件 (上选择[这](introduction-to-aspnet-identity/_static/image3.png)或关系图进行放大)。 以绿色包构成了 ASP.NET 标识系统。 所有其他包都需要 ASP.NET 应用程序中使用 ASP.NET 标识系统的依赖项。
 
 [![](introduction-to-aspnet-identity/_static/image5.png)](introduction-to-aspnet-identity/_static/image4.png)
 
@@ -164,9 +155,5 @@ ASP.NET 标识是使用以下过程来实现的。 本文的目的是为您提�
  本教程使用 ASP.NET 标识 API 添加到用户数据库的配置文件信息以及如何使用 Google 和 Facebook 进行身份验证。
 - [使用身份验证和 SQL 数据库创建 ASP.NET MVC 应用并将其部署到 Azure 应用服务](https://docs.microsoft.com/aspnet/core/security/authorization/secure-data)  
  本教程演示如何使用标识 API 来添加用户和角色。
-- [单个用户帐户](../../../visual-studio/overview/2013/creating-web-projects-in-visual-studio.md#indauth)ASP.NET Web 项目在 Visual Studio 2013 中创建
-- [组织帐户](../../../visual-studio/overview/2013/creating-web-projects-in-visual-studio.md#orgauth)ASP.NET Web 项目在 Visual Studio 2013 中创建
-- [在 ASP.NET 标识中 VS 2013 模板中的自定义配置文件信息](https://blogs.msdn.com/b/webdev/archive/2013/10/16/customizing-profile-information-in-asp-net-identity-in-vs-2013-templates.aspx)
-- [在 VS 2013 项目模板中使用的社交提供程序获取的详细信息](https://blogs.msdn.com/b/webdev/archive/2013/10/16/get-more-information-from-social-providers-used-in-the-vs-2013-project-templates.aspx)
 - [https://github.com/rustd/AspnetIdentitySample](https://github.com/rustd/AspnetIdentitySample)  
  示例演示如何添加基本的角色和用户支持以及如何执行角色和用户管理的应用程序。

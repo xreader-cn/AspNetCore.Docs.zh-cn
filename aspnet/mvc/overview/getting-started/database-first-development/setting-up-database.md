@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/setting-up-database
 title: 教程：开始使用 EF Database First 通过 MVC 5
-description: 本文介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。
+description: 本教程介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: 8b094b7c334eaad510c46b55a99ec727b9c381c2
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: a503e3db63c873249178fd4783d322f4067c3208
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889920"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236375"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>教程：开始使用 EF Database First 通过 MVC 5
 
 使用 MVC、 Entity Framework 和 ASP.NET 基架，可以创建提供接口的现有数据库的 web 应用程序。 本系列教程演示了如何自动生成代码，使用户能够显示、 编辑、 创建和删除驻留在数据库表中的数据。 生成的代码对应于数据库表中的列。 在本系列的最后部分，会将站点和数据库部署到 Azure。
 
-本文介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。 它使用 Entity Framework 6 和 MVC 5 构建 web 应用程序。 ASP.NET 基架功能可以自动生成用于显示、 更新、 创建和删除数据的代码。 使用 Visual Studio 中的发布工具，你可以轻松部署站点和数据库到 Azure。
+本教程介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。 它使用 Entity Framework 6 和 MVC 5 构建 web 应用程序。 ASP.NET 基架功能可以自动生成用于显示、 更新、 创建和删除数据的代码。 使用 Visual Studio 中的发布工具，你可以轻松部署站点和数据库到 Azure。
 
 本系列的此部分主要介绍在创建数据库和使用数据填充。
 
@@ -37,7 +37,7 @@ ms.locfileid: "54889920"
 
 ## <a name="introduction"></a>介绍
 
-此篇文章，其中有一个数据库并且想要为 web 应用程序根据该数据库的字段生成代码的情况。 这种方法称为数据库优先开发。 如果你还没有现有数据库，则可以改用方法称作 Code First 开发这涉及到定义数据类和类属性从生成数据库。
+本教程探讨这种情况，如果有数据库并且想要为 web 应用程序根据该数据库的字段生成代码。 这种方法称为数据库优先开发。 如果你还没有现有数据库，则可以改用方法称作 Code First 开发这涉及到定义数据类和类属性从生成数据库。
 
 ## <a name="set-up-the-database"></a>将数据库设置
 
@@ -102,6 +102,6 @@ Code First 开发的介绍性示例，请参阅[Getting Started with ASP.NET MVC
 > [!div class="checklist"]
 > * 将数据库设置
 
-转到下一步的文章，了解如何创建 web 应用程序和数据模型。
+转到下一步的教程，了解如何创建 web 应用程序和数据模型。
 > [!div class="nextstepaction"]
 > [创建 web 应用程序和数据模型](creating-the-web-application.md)

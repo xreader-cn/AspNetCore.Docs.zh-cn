@@ -4,31 +4,30 @@ title: 通过 Entity Framework 6 使用 Web API 2 |Microsoft Docs
 author: MikeWasson
 description: 本教程将讲述使用 ASP.NET Web API 创建 web 应用程序的基础知识后端。 本教程使用 Entity Framework 6 的数据布局...
 ms.author: riande
-ms.date: 05/28/2015
+ms.date: 01/17/2019
 ms.assetid: e879487e-dbcd-4b33-b092-d67c37ae768c
 msc.legacyurl: /web-api/overview/data/using-web-api-with-entity-framework/part-1
 msc.type: authoredcontent
-ms.openlocfilehash: d65c0ea35ec766ef9d9093c6502230f9de72a3f3
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: 266c808e3525787181038d2de473194989039e02
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795204"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236518"
 ---
 <a name="using-web-api-2-with-entity-framework-6"></a>通过 Entity Framework 6 使用 Web API 2
 ====================
-通过[Mike Wasson](https://github.com/MikeWasson)
 
 [下载已完成的项目](https://github.com/MikeWasson/BookService)
 
-> 本教程将讲述使用 ASP.NET Web API 创建 web 应用程序的基础知识后端。 本教程使用 Entity Framework 6 进行的数据层和 Knockout.js 进行客户端的 JavaScript 应用程序。 本教程还演示如何将应用部署到 Azure 应用服务 Web 应用。
+> 本教程介绍使用 ASP.NET Web API 创建 web 应用程序的基础知识后端。 本教程使用 Entity Framework 6 进行的数据层和 Knockout.js 进行客户端的 JavaScript 应用程序。 本教程还演示如何将应用部署到 Azure 应用服务 Web 应用。
 >
 > ## <a name="software-versions-used-in-the-tutorial"></a>在本教程中使用的软件版本
 >
 > - Web API 2.1
-> - Visual Studio 2013 (下载 Visual Studio 2017[此处](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
+> - Visual Studio 2017 (下载 Visual Studio 2017[此处](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
 > - Entity Framework 6
-> - .NET 4.5
+> - .NET 4.7
 > - [Knockout.js](http://knockoutjs.com/) 3.1
 
 本教程中使用 Entity Framework 6 与 ASP.NET Web API 2 创建操作后端数据库的 web 应用程序。 下面是您将创建的应用程序的屏幕截图。
@@ -48,7 +47,7 @@ AJAX 并不新鲜，但如今有更加轻松地构建和维护大型复杂的 SP
 
 ## <a name="see-this-app-running-on-azure"></a>请参阅在 Azure 上运行此应用程序
 
-若要查看已完成的站点作为实时 web 应用运行吗？ 只需单击下面的按钮，可以将完整版本的应用部署到 Azure 帐户。
+若要查看已完成的站点作为实时 web 应用运行吗？ 通过选择下面的按钮，可以将完整版本的应用部署到 Azure 帐户。
 
 [![](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?WT.mc_id=deploy_azure_aspnet&repository=https://github.com/tfitzmac/BookService)
 
@@ -59,29 +58,47 @@ AJAX 并不新鲜，但如今有更加轻松地构建和维护大型复杂的 SP
 
 ## <a name="create-the-project"></a>创建项目
 
-打开 Visual Studio。 从**文件**菜单中，选择**新建**，然后选择**项目**。 (或单击**新的项目**起始页上。)
+打开 Visual Studio。 从**文件**菜单中，选择**新建**，然后选择**项目**。 (或选择**新的项目**起始页上。)
 
-在**新的项目**对话框中，单击**Web**左窗格中并**ASP.NET Web 应用程序**在中间窗格中。 项目 BookService 命名，然后单击**确定**。
+在**新的项目**对话框中，选择**Web**左窗格中并**ASP.NET Web 应用程序 (.NET Framework)** 在中间窗格中。 将项目命名**BookService** ，然后选择**确定**。
 
-[![](part-1/_static/image4.png)](part-1/_static/image3.png)
+[![](part-1/_static/image11.png)](part-1/_static/image11.png)
 
 在中**新建 ASP.NET 项目**对话框中，选择**Web API**模板。
 
-[![](part-1/_static/image6.png)](part-1/_static/image5.png)
+[![](part-1/_static/image12.png)](part-1/_static/image12.png)
 
-如果你想要承载 Azure 应用服务中的项目，请将**在云中托管**选中框。
 
-单击“确定”，创建项目。
+选择“确定”创建项目。
 
 ## <a name="configure-azure-settings-optional"></a>配置 Azure 设置 （可选）
 
-如果你离开**在云中托管**选中选项，Visual Studio 会提示你登录到 Microsoft Azure
+创建项目后，你可以选择在任何时候将部署到 Azure 应用服务 Web 应用。 
 
-[![](part-1/_static/image8.png)](part-1/_static/image7.png)
+1. 在解决方案资源管理器中右键单击项目，然后选择**发布**。
 
-登录到 Azure 后，Visual Studio 会提示您配置 web 应用。 输入站点的名称，选择你的 Azure 订阅，然后选择地理区域。 下**数据库服务器**，选择**创建新的服务器**。 输入管理员用户名和密码。
+2. 在出现的窗口，选择**启动**。 **选取发布目标**对话框随即出现。
 
-[![](part-1/_static/image10.png)](part-1/_static/image9.png)
+   [![](part-1/_static/image14.png)](part-1/_static/image14.png)
+
+3. 选择“创建配置文件”。 “创建应用服务”对话框随即显示。
+
+   [![](part-1/_static/image15.png)](part-1/_static/image15.png)
+
+   接受默认值，或输入应用程序名称、 资源组，托管计划、 Azure 订阅和地理区域的不同值。 
+
+4. 选择**创建 SQL 数据库**。 **配置 SQL Server**对话框随即出现。 
+
+   [![](part-1/_static/image16.png)](part-1/_static/image16.png)
+
+   接受默认值或输入不同的值。 输入**管理员用户名**并**管理员密码**为新的数据库。 选择**确定**完成后。 **创建应用服务**页上再次出现。
+
+5. 选择**创建**创建你的配置文件。 指示部署正在进行的右下角出现一条消息。 之后不久，**发布**窗口重新出现。
+
+    [![](part-1/_static/image17.png)](part-1/_static/image17.png)
+   
+    创建要部署的应用的配置文件现已推出。 
+
 
 > [!div class="step-by-step"]
-> [下一篇](part-2.md)
+> [下一页](part-2.md)
