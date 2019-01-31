@@ -4,16 +4,16 @@ title: 启用 ASP.NET Web API 2 中的跨域请求 |Microsoft Docs
 author: MikeWasson
 description: 演示如何在 ASP.NET Web API 中支持跨域资源共享 (CORS)。
 ms.author: riande
-ms.date: 10/10/2018
+ms.date: 01/29/2019
 ms.assetid: 9b265a5a-6a70-4a82-adce-2d7c56ae8bdd
 msc.legacyurl: /web-api/overview/security/enabling-cross-origin-requests-in-web-api
 msc.type: authoredcontent
-ms.openlocfilehash: 118b779c89edb874f7f928315d1094738be5f097
-ms.sourcegitcommit: 6e6002de467cd135a69e5518d4ba9422d693132a
+ms.openlocfilehash: 97a0027194b019b09e220493dcb593e682027fe3
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2018
-ms.locfileid: "49348515"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428442"
 ---
 <a name="enable-cross-origin-requests-in-aspnet-web-api-2"></a>启用 ASP.NET Web API 2 中的跨域请求
 ====================
@@ -67,7 +67,7 @@ ms.locfileid: "49348515"
 
    [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample1.cs)]
 
-4. 可以在本地运行应用程序或部署到 Azure。 （对于本教程中的屏幕截图，该应用将部署到 Azure 应用服务 Web 应用。）若要验证的 web API 是否正常工作，请导航到`http://hostname/api/test/`，其中*主机名*是在其中部署应用程序的域。 你应看到响应文本中，&quot;获取： 测试消息&quot;。
+4. 可以在本地运行应用程序或部署到 Azure。 （对于本教程中的屏幕截图，该应用将部署到 Azure 应用服务 Web 应用。）若要验证的 web API 是否正常工作，请导航到`http://hostname/api/test/`，其中*主机名*是在其中部署应用程序的域。 应看到响应文本：&quot;获取：测试消息&quot;。
 
    ![Web 浏览器显示测试消息](enabling-cross-origin-requests-in-web-api/_static/image4.png)
 
@@ -90,7 +90,7 @@ ms.locfileid: "49348515"
 ![在浏览器中的 try 错误](enabling-cross-origin-requests-in-web-api/_static/image7.png)
 
 > [!NOTE]
-> 如果监视工具中的 HTTP 流量喜欢[Fiddler](http://www.telerik.com/fiddler)，可以看到，在浏览器 does 发送 GET 请求，并请求成功，但 AJAX 调用将返回错误。 务必了解同域策略不会阻止浏览器中的从*发送*请求。 相反，它会阻止应用程序不能看到*响应*。
+> 如果监视工具中的 HTTP 流量喜欢[Fiddler](https://www.telerik.com/fiddler)，可以看到，在浏览器 does 发送 GET 请求，并请求成功，但 AJAX 调用将返回错误。 务必了解同域策略不会阻止浏览器中的从*发送*请求。 相反，它会阻止应用程序不能看到*响应*。
 
 ![显示 web 请求的 fiddler web 调试器](enabling-cross-origin-requests-in-web-api/_static/image8.png)
 
@@ -145,7 +145,7 @@ CORS 规范引入了几个新的 HTTP 标头启用跨域请求。 如果浏览�
 - 内容类型标头 (如果设置) 是以下之一：
 
     - application/x-www-form-urlencoded
-    - 多部分/窗体数据
+    - multipart/form-data
     - 文本/无格式
 
 有关请求标头规则适用于通过调用来设置应用程序的标头**setRequestHeader**上**XMLHttpRequest**对象。 （CORS 规范调用这些"作者请求标头"。）此规则不适用于标头*浏览器*可以设置，例如用户代理、 主机或内容长度。
@@ -156,14 +156,30 @@ CORS 规范引入了几个新的 HTTP 标头启用跨域请求。 如果浏览�
 
 预检请求使用 HTTP OPTIONS 方法。 它包括两个特殊的标头：
 
-- 访问控制的请求的方法： 将用作实际请求 HTTP 方法。
-- 访问的控件的请求的标头： 请求标头的列表，*应用程序*实际请求上设置。 （同样，这不包括在浏览器设置的标头。）
+- 访问控制的请求的方法：将用于实际请求的 HTTP 方法。
+- 访问的控件的请求的标头：请求标头的列表，*应用程序*实际请求上设置。 （同样，这不包括在浏览器设置的标头。）
 
 下面是示例响应中，假定服务器允许请求：
 
 [!code-console[Main](enabling-cross-origin-requests-in-web-api/samples/sample9.cmd?highlight=6-7)]
 
 响应包括访问的控制的允许的方法标头，其中列出了允许的方法，和 （可选） 访问的控制的允许的标头标头，其中列出了允许的标头。 如果预检请求成功，则浏览器发送实际请求，如前面所述。
+
+常用于测试具有预检 OPTIONS 请求的终结点的工具 (例如， [Fiddler](https://www.telerik.com/fiddler)并[Postman](https://www.getpostman.com/)) 默认情况下不发送所需的选项标头。 确认`Access-Control-Request-Method`和`Access-Control-Request-Headers`与请求一起发送标头和选项标头打开通过 IIS 应用程序。
+
+若要配置 IIS 以允许接收和处理选项请求的 ASP.NET 应用程序，请将以下配置添加到应用程序的*web.config*文件中`<system.webServer><handlers>`部分：
+
+```xml
+<system.webServer>
+  <handlers>
+    <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+    <remove name="OPTIONSVerbHandler" />
+    <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+  </handlers>
+</system.webServer>
+```
+
+删除`OPTIONSVerbHandler`可以防止 IIS 处理选项的请求。 替换为`ExtensionlessUrlHandler-Integrated-4.0`允许选项的请求来访问应用程序，因为默认模块注册仅允许 GET、 HEAD、 POST 和调试无扩展名 Url 请求。
 
 ## <a name="scope-rules-for-enablecors"></a>[EnableCors] 的范围规则
 
@@ -229,7 +245,7 @@ CORS 规范引入了几个新的 HTTP 标头启用跨域请求。 如果浏览�
 - 内容语言
 - Content-Type
 - 过期
-- 上次修改
+- Last-Modified
 - 杂注
 
 CORS 规范调用这些[简单响应标头](https://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html#simple-response-header)。 若要使其他标头可用于应用程序，设置*exposedHeaders*的参数 **[EnableCors]**。

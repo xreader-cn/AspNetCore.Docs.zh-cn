@@ -1,2 +1,2 @@
-* 已安装“ASP.NET 和 Web 开发”工作负载的 [Visual Studio 2017 版本 15.9 或更高版本](* [Visual Studio 2017 version 15.9 or later](https://www.visualstudio.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017) with the **ASP.NET and web development** workload)
-* [.NET core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+* [Visual Studio 2019 预览版](https://visualstudio.microsoft.com/vs/preview/)与**ASP.NET 和 web 开发**工作负荷
+* [.NET core SDK 3.0 预览](https://dotnet.microsoft.com/download/dotnet-core/3.0)
