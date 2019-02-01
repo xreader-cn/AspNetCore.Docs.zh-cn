@@ -349,7 +349,7 @@ Web 应用程序时，您通常可以之间*纵向*并*向外扩展*选项。 *�
     ![查询服务代理状态](real-time-web-applications-with-signalr/_static/image25.png "查询服务代理状态")
 
     *查询服务代理状态*
-8. 如果的值**是\_broker\_启用**您的数据库中的列&quot;0&quot;，使用以下命令来启用它。 替换**&lt;YOUR DATABASE&gt;** 具有创建数据库时设置的名称 (例如：SignalR)。
+8. 如果的值**是\_broker\_启用**您的数据库中的列&quot;0&quot;，使用以下命令来启用它。 替换 **&lt;YOUR DATABASE&gt;** 具有创建数据库时设置的名称 (例如：SignalR)。
 
     [!code-sql[Main](real-time-web-applications-with-signalr/samples/sample12.sql)]
 
@@ -369,7 +369,7 @@ Web 应用程序时，您通常可以之间*纵向*并*向外扩展*选项。 *�
 
     [!code-powershell[Main](real-time-web-applications-with-signalr/samples/sample13.ps1)]
 2. 对项目重复上一步，但这一次**GeekQuiz2**。
-3. 若要配置 SQL Server 基架，请打开**Startup.cs**的文件**GeekQuiz**项目，然后将以下代码添加到**配置**方法。 替换**&lt;YOUR DATABASE&gt;** 与你创建 SQL Server 底板时所用的数据库名称。 重复此步骤对于**GeekQuiz2**项目。
+3. 若要配置 SQL Server 基架，请打开**Startup.cs**的文件**GeekQuiz**项目，然后将以下代码添加到**配置**方法。 替换 **&lt;YOUR DATABASE&gt;** 与你创建 SQL Server 底板时所用的数据库名称。 重复此步骤对于**GeekQuiz2**项目。
 
     (代码段- *RealTimeSignalR-Ex2-StartupConfiguration*)
 

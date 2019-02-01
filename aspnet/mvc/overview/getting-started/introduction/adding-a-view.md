@@ -56,7 +56,7 @@ ms.locfileid: "54837749"
 
 您还可以右键单击*Index.cshtml*文件，然后选择**在 Page Inspector 中的视图。** 请参阅[Page Inspector 教程](../../views/using-page-inspector-in-aspnet-mvc.md)有关详细信息。
 
-或者，运行该应用程序并浏览到`HelloWorld`控制器 (`http://localhost:xxxx/HelloWorld`)。 `Index`控制器中的方法未做大量的工作; 它只需运行该语句`return View()`，其指定该方法应使用视图模板文件来呈现到浏览器的响应。 由于未显式指定要使用的视图模板文件的名称，ASP.NET MVC 的默认设置为使用*Index.cshtml*视图中的文件*\Views\HelloWorld*文件夹。 下图显示了字符串&quot;Hello from our View Template ！&quot;硬编码的视图中。
+或者，运行该应用程序并浏览到`HelloWorld`控制器 (`http://localhost:xxxx/HelloWorld`)。 `Index`控制器中的方法未做大量的工作; 它只需运行该语句`return View()`，其指定该方法应使用视图模板文件来呈现到浏览器的响应。 由于未显式指定要使用的视图模板文件的名称，ASP.NET MVC 的默认设置为使用 *Index.cshtml* 视图中的文件 *\Views\HelloWorld* 文件夹。 下图显示了字符串&quot;Hello from our View Template ！&quot;硬编码的视图中。
 
 ![](adding-a-view/_static/image6.png)
 
