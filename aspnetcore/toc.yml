@@ -455,6 +455,8 @@ items:
       name: 概述
     - uid: tutorials/publish-to-azure-webapp-using-vs
       name: 使用 Visual Studio 发布
+    - name: 使用 Visual Studio for Mac 发布
+      href: /visualstudio/mac/publish-app-svc
     - name: 使用 CLI 工具发布
       href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
     - uid: host-and-deploy/azure-apps/azure-continuous-deployment
@@ -523,6 +525,8 @@ items:
     name: 在 Web 场中托管
   - uid: host-and-deploy/visual-studio-publish-profiles
     name: Visual Studio 发布配置文件
+  - name: Visual Studio for Mac 发布到文件夹
+    href: /visualstudio/mac/publish-folder
   - uid: host-and-deploy/directory-structure
     name: 目录结构
   - uid: host-and-deploy/health-checks
@@ -539,6 +543,8 @@ items:
       name: 基架标识
     - uid: security/authentication/add-user-data
       name: 将自定义用户数据添加到标识
+    - uid: security/authentication/samples
+      name: 身份验证示例
     - uid: security/authentication/customize_identity_model
       name: 自定义标识
     - uid: security/authentication/community
@@ -806,9 +812,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.1
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 4f8ccb592b7f95794cad01edd1e0f514bd9943c1
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: a6169489db7d7365e254c8f1213de348a4429c49
+ms.sourcegitcommit: e7276930515216338a33c4a03c0d7a87fc718ffe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54892990"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55293513"
