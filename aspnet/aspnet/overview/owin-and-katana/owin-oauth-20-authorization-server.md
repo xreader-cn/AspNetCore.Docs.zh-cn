@@ -4,20 +4,18 @@ title: OWIN OAuth 2.0 授权服务器 |Microsoft Docs
 author: hongyes
 description: 本教程将指导您如何实现 OAuth 2.0 授权服务器使用 OWIN OAuth 中间件。 这是一个高级的教程，该唯一 outlin...
 ms.author: riande
-ms.date: 03/20/2014
+ms.date: 01/28/2019
 ms.assetid: 20acee16-c70c-41e9-b38f-92bfcf9a4c1c
 msc.legacyurl: /aspnet/overview/owin-and-katana/owin-oauth-20-authorization-server
 msc.type: authoredcontent
-ms.openlocfilehash: 095dad49a8e9f963d941a84398afe9da0f46ce0b
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: b8451d2d9e346bd5e2f51ba45e48030a5221b549
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912262"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667643"
 ---
-<a name="owin-oauth-20-authorization-server"></a>OWIN OAuth 2.0 授权服务器
-====================
-通过[Hongye Sun](https://github.com/hongyes)， [Praburaj Thiagarajan](https://github.com/Praburaj)， [Rick Anderson]((https://twitter.com/RickAndMSFT))
+# <a name="owin-oauth-20-authorization-server"></a>OWIN OAuth 2.0 授权服务器
 
 > 本教程将指导您如何实现 OAuth 2.0 授权服务器使用 OWIN OAuth 中间件。 这是一种高级的教程，仅简要介绍创建 OWIN OAuth 2.0 授权服务器的步骤。 这不是分步教程。 [下载示例代码](https://code.msdn.microsoft.com/OWIN-OAuth-20-Authorization-ba2b8783/file/114932/1/AuthorizationServer.zip)。
 >
@@ -29,9 +27,9 @@ ms.locfileid: "48912262"
 >
 > | **本教程中所示** | **也可用于** |
 > | --- | --- |
-> | Windows 8.1 | Windows 8，Windows 7 |
-> | [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013) | [Visual Studio 2013 Express for Desktop](https://my.visualstudio.com/Downloads?q=visual%20studio%202013#d-2013-express)。 应运行具有最新更新的 visual Studio 2012，但本教程尚未经过测试，并且某些菜单选项和对话框不同。 |
-> | .NET 4.5 |  |
+> | Windows 8.1 | Windows 10，Windows 8，Windows 7 |
+> | [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
+> | .NET 4.7.2 |  |
 >
 > ## <a name="questions-and-comments"></a>问题和提出的意见
 >
@@ -53,7 +51,7 @@ ms.locfileid: "48912262"
 <a id="prerequisites"></a>
 ## <a name="prerequisites"></a>系统必备
 
-- [Visual Studio 2013](https://www.microsoft.com/visualstudio/eng/downloads#d-2013-editions)或免费[Visual Studio Express 2013](https://www.microsoft.com/visualstudio/eng/downloads#d-2013-express)，如下所示**软件版本**页的顶部。
+- [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)中所示**软件版本**页的顶部。
 - 带 OWIN 的熟悉程度。 请参阅[Katana 项目入门](https://msdn.microsoft.com/magazine/dn451439.aspx)并[新增 OWIN 和 Katana](index.md)。
 - 熟悉[OAuth](http://tools.ietf.org/html/rfc6749)术语中，其中包括[角色](http://tools.ietf.org/html/rfc6749#section-1.1)，[协议流](http://tools.ietf.org/html/rfc6749#section-1.2)，以及[授权授予](http://tools.ietf.org/html/rfc6749#section-1.3)。 [OAuth 2.0 简介](http://tools.ietf.org/html/rfc6749#section-1)提供了详细介绍。
 
@@ -79,19 +77,19 @@ ms.locfileid: "48912262"
 
 `UseOAuthAuthorizationServer`扩展方法是设置授权服务器。 安装程序选项包括：
 
-- `AuthorizeEndpointPath`: 请求路径，其中客户端应用程序会将重定向用户代理以获取用户同意使用颁发的令牌或代码。 它必须以具有前导斜杠，例如，"`/Authorize`"。
-- `TokenEndpointPath`: 请求路径客户端应用程序直接进行通信以获取访问令牌。 它必须以具有前导斜杠，如"/token"。 如果客户端颁发[客户端\_机密](http://tools.ietf.org/html/rfc6749#appendix-A.2)，它必须提供给此终结点。
-- `ApplicationCanDisplayErrors`： 设置为`true`如果 web 应用程序想要在生成的客户端验证错误的自定义错误页`/Authorize`终结点。 这才必需的情况下，在浏览器不会重定向回客户端应用程序，例如，当`client_id`或`redirect_uri`不正确。 `/Authorize`终结点应该会看到"oauth。错误"、"oauth。ErrorDescription"和"oauth。ErrorUri"属性添加到 OWIN 环境。
+- `AuthorizeEndpointPath`：请求路径，其中客户端应用程序会将重定向用户代理以获取用户同意使用颁发的令牌或代码。 它必须以具有前导斜杠，例如，"`/Authorize`"。
+- `TokenEndpointPath`：请求路径客户端应用程序直接进行通信以获取访问令牌。 它必须以具有前导斜杠，如"/token"。 如果客户端颁发[客户端\_机密](http://tools.ietf.org/html/rfc6749#appendix-A.2)，它必须提供给此终结点。
+- `ApplicationCanDisplayErrors`：设置为`true`如果 web 应用程序想要在生成的客户端验证错误的自定义错误页`/Authorize`终结点。 这才必需的情况下，在浏览器不会重定向回客户端应用程序，例如，当`client_id`或`redirect_uri`不正确。 `/Authorize`终结点应该会看到"oauth。错误"、"oauth。ErrorDescription"和"oauth。ErrorUri"属性添加到 OWIN 环境。
 
     > [!NOTE]
     > 如果不为 true，则授权服务器将返回默认错误页的错误详细信息。
-- `AllowInsecureHttp`: True 以允许授权和令牌请求到达 HTTP URI 地址，并允许传入`redirect_uri`授权请求参数，具有 HTTP URI 地址。
+- `AllowInsecureHttp`：为 true，则允许授权和令牌请求到达 HTTP URI 地址，并允许传入`redirect_uri`授权请求参数，具有 HTTP URI 地址。
 
     > [!WARNING]
     > 安全性-这是只能在开发。
-- `Provider`： 处理由授权服务器中间件引发事件应用程序提供的对象。 应用程序可能完全实现接口，或它可能会造成的实例`OAuthAuthorizationServerProvider`并分配此服务器支持的 OAuth 流所需的委托。
-- `AuthorizationCodeProvider`： 生成一次性授权代码返回到客户端应用程序。 为 OAuth 服务器要保护的应用程序**必须**提供的一个实例`AuthorizationCodeProvider`由生成的令牌`OnCreate/OnCreateAsync`事件被视为有效只有一个调用`OnReceive/OnReceiveAsync`。
-- `RefreshTokenProvider`： 生成可用于生成新的访问令牌时所需的刷新令牌。 如果未提供授权服务器不会返回的刷新令牌`/Token`终结点。
+- `Provider`：通过处理由授权服务器中间件引发事件的应用程序提供的对象。 应用程序可能完全实现接口，或它可能会造成的实例`OAuthAuthorizationServerProvider`并分配此服务器支持的 OAuth 流所需的委托。
+- `AuthorizationCodeProvider`：生成一次性授权代码返回到客户端应用程序。 为 OAuth 服务器要保护的应用程序**必须**提供的一个实例`AuthorizationCodeProvider`由生成的令牌`OnCreate/OnCreateAsync`事件被视为有效只有一个调用`OnReceive/OnReceiveAsync`。
+- `RefreshTokenProvider`：生成可用于生成新的访问令牌时所需的刷新令牌。 如果未提供授权服务器不会返回的刷新令牌`/Token`终结点。
 
 ## <a name="account-management"></a>帐户管理
 
@@ -116,7 +114,7 @@ OAuth 并不关心其中或如何管理用户帐户信息。 它具有[ASP.NET �
 |  |  |
 | （A） 客户端将定向到授权终结点资源所有者的用户代理，从而启动流。 客户端包括客户端标识符、 请求的作用域、 本地状态和重定向 URI 的授权服务器将用户代理返回以后，即可发送授予 （或拒绝） 访问。 | Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint |
 |  |  |
-| （B） 授权服务器进行身份验证资源所有者 （通过用户代理），并确定资源所有者是允许还是拒绝客户端的访问请求。 | **&lt;如果用户授予访问权限&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
+| （B） 授权服务器进行身份验证资源所有者 （通过用户代理），并确定资源所有者是允许还是拒绝客户端的访问请求。 | **&lt;If user grants access&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
 |  |  |
 | （C） 假定资源所有者授予访问权限，授权服务器将用户代理重定向回客户端使用的重定向 URI 提供早期 （在请求中或客户端注册过程）。 ... |  |
 |  |  |
@@ -147,7 +145,7 @@ OAuth 并不关心其中或如何管理用户帐户信息。 它具有[ASP.NET �
 |  |  |
 | （A） 客户端将定向到授权终结点资源所有者的用户代理，从而启动流。 客户端包括客户端标识符、 请求的作用域、 本地状态和重定向 URI 的授权服务器将用户代理返回以后，即可发送授予 （或拒绝） 访问。 | Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint |
 |  |  |
-| （B） 授权服务器进行身份验证资源所有者 （通过用户代理），并确定资源所有者是允许还是拒绝客户端的访问请求。 | **&lt;如果用户授予访问权限&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
+| （B） 授权服务器进行身份验证资源所有者 （通过用户代理），并确定资源所有者是允许还是拒绝客户端的访问请求。 | **&lt;If user grants access&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
 |  |  |
 | （C） 假定资源所有者授予访问权限，授权服务器将用户代理重定向回客户端使用的重定向 URI 提供早期 （在请求中或客户端注册过程）。 ... |  |
 |  |  |

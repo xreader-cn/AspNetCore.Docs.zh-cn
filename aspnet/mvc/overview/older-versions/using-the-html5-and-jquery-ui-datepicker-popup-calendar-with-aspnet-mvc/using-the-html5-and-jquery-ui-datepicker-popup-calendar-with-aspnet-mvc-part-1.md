@@ -8,12 +8,12 @@ ms.date: 08/29/2011
 ms.assetid: c23d27f7-b0cf-44f2-8445-fb69e045c674
 msc.legacyurl: /mvc/overview/older-versions/using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc/using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-1
 msc.type: authoredcontent
-ms.openlocfilehash: a4cd6e9adfcd85503b9843232903a243bc07c959
-ms.sourcegitcommit: 392a36ed269b88899d6bb652aa7f4dfb72e43e7f
+ms.openlocfilehash: 3e700d2db4f86fe6734e2f08b01c9f8a8a69b6c3
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50220656"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667786"
 ---
 <a name="using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc---part-1"></a>使用 HTML5 和 jQuery UI Datepicker 快捷日历与 ASP.NET MVC-第 1 部分
 ====================
@@ -24,19 +24,19 @@ ms.locfileid: "50220656"
 
 本教程将讲述如何使用编辑器模板、 显示模板和 jQuery 的基础知识[UI datepicker 快捷日历](http://plugins.jquery.com/project/datepicker)ASP.NET MVC Web 应用程序中。 对于本教程中，可以使用 Microsoft Visual Web Developer 2010 Express Service Pack 1 (&quot;Visual Web Developer&quot;)，这是免费版本的 Microsoft Visual Studio 中，或如果已有的则可以使用 Visual Studio 2010 SP1。
 
-在开始之前，请确保已安装以下列出的先决条件。 可以通过单击以下链接安装所有这些： [Web 平台安装程序](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack)。 或者，您可以单独安装所需的软件，使用以下链接：
+在开始之前，请确保已安装以下列出的先决条件。 可以通过单击以下链接安装所有这些：[Web 平台安装程序](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack)。 或者，您可以单独安装所需的软件，使用以下链接：
 
 - [Visual Studio Web Developer Express SP1 必备组件](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack)
 - [ASP.NET MVC 3 工具更新](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=MVC3)
 - [SQL Server Compact 4.0](https://www.microsoft.com/web/gallery/install.aspx?appid=SQLCE;SQLCEVSTools_4_0)（运行时和工具支持）
 
-如果你使用 Visual Studio 2010 而不 Visual Web Developer 中，通过单击以下链接安装必备组件： [Visual Studio 2010 必备软件](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=VS2010SP1Pack)。
+如果你使用 Visual Studio 2010 而不 Visual Web Developer 中，通过单击以下链接安装必备组件：[Visual Studio 2010 必备组件](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=VS2010SP1Pack)。
 
 本教程假定你已完成[MVC 3 入门](../getting-started-with-aspnet-mvc3/cs/intro-to-aspnet-mvc-3.md)教程或您熟悉 ASP.NET MVC 开发。 本教程开头的已完成项目[MVC 3 入门](../getting-started-with-aspnet-mvc3/cs/intro-to-aspnet-mvc-3.md)教程。
 
 本教程介绍了 C# 中的代码。 但是，[初学者项目](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800)和已完成的项目也是 Visual Basic 中可用。
 
-使用 C# 和 Visual Basic 源代码的 Visual Studio 项目是可随附于本主题：[下载](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800)。
+使用 Visual Studio 项目C#和 Visual Basic 源代码是可随附于本主题：[下载](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800)。
 
 ### <a name="what-youll-build"></a>你将生成
 
@@ -54,7 +54,11 @@ ms.locfileid: "50220656"
 
 ### <a name="getting-started"></a>入门
 
-如果还没有初学者项目提供的影片列表应用程序，其使用以下链接下载：[下载](https://code.msdn.microsoft.com/Introduction-to-MVC-3-10d1b098)。 然后在 Windows 资源管理器中，右键单击*MvcMovie.zip*文件，然后选择**属性**。 在中**MvcMovie.zip 属性**对话框中，选择**解除阻止**。 (取消阻止您尝试使用的安全警告 *.zip*已从 web 下载的文件。)
+如果还没有初学者项目提供的影片列表应用程序，下载它： 
+
+* [下载](https://code.msdn.microsoft.com/Introduction-to-MVC-3-10d1b098)。
+* 在 Windows 资源管理器中右键单击*MvcMovie.zip*文件，然后选择**属性**。 
+* 在中**MvcMovie.zip 属性**对话框中，选择**解除阻止**。 (取消阻止您尝试使用的安全警告 *.zip*已从 web 下载的文件。)
 
 ![](using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-1/_static/image2.png)
 
@@ -85,4 +89,4 @@ ms.locfileid: "50220656"
 下一节中您将了解如何进行自定义模板来显示日期字段。
 
 > [!div class="step-by-step"]
-> [下一篇](using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-2.md)
+> [下一页](using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-2.md)

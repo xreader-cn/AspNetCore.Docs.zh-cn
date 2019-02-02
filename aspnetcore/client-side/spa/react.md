@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/21/2018
 uid: spa/react
-ms.openlocfilehash: c83b119e81d7d0abfd727cb8c72abb09763d9448
-ms.sourcegitcommit: b2723654af4969a24545f09ebe32004cb5e84a96
+ms.openlocfilehash: d83bff8abcd5b59d8bc4a51a101510755394f0c4
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46011413"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667682"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 
@@ -97,14 +97,22 @@ npm install --save <package_name>
 
 这种默认设置有一个缺点。 每次修改 C# 代码并且需要重启 ASP.NET Core 应用时，CRA 服务器都会重启。 大约需要几秒才能开始备份。 如果你经常进行 C# 代码编辑并且不希望等待 CRA 服务器重启，请在外部运行独立于 ASP.NET Core 进程的 CRA 服务器。 为此，请执行以下操作：
 
-1. 在命令提示符中，切换到 ClientApp 子目录，并启动 CRA 开发服务器：
+1. 添加 *.env*的文件*ClientApp*子目录使用以下设置：
+
+    ```
+    BROWSER=none
+    ```
+    
+    启动外部 CRA 服务器时这将阻止打开 web 浏览器。
+
+2. 在命令提示符中，切换到 ClientApp 子目录，并启动 CRA 开发服务器：
 
     ```console
     cd ClientApp
     npm start
     ```
 
-2. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup 类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
+3. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup 类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");

@@ -9,16 +9,16 @@ ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: a503e3db63c873249178fd4783d322f4067c3208
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: dfc6c7a7083524a1e7049fdc879fe679f951084d
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236375"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667734"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>教程：开始使用 EF Database First 通过 MVC 5
 
-使用 MVC、 Entity Framework 和 ASP.NET 基架，可以创建提供接口的现有数据库的 web 应用程序。 本系列教程演示了如何自动生成代码，使用户能够显示、 编辑、 创建和删除驻留在数据库表中的数据。 生成的代码对应于数据库表中的列。 在本系列的最后部分，会将站点和数据库部署到 Azure。
+使用 MVC、 Entity Framework 和 ASP.NET 基架，可以创建提供接口的现有数据库的 web 应用程序。 本系列教程演示了如何自动生成代码，使用户能够显示、 编辑、 创建和删除驻留在数据库表中的数据。 生成的代码对应于数据库表中的列。 在本系列的最后一个部分，介绍如何将数据批注添加到数据模型以指定验证要求和显示格式。 完成后，你可以转到 Azure 的文章，了解如何将.NET 应用程序和 SQL 数据库部署到 Azure 应用服务。
 
 本教程介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。 它使用 Entity Framework 6 和 MVC 5 构建 web 应用程序。 ASP.NET 基架功能可以自动生成用于显示、 更新、 创建和删除数据的代码。 使用 Visual Studio 中的发布工具，你可以轻松部署站点和数据库到 Azure。
 
@@ -51,7 +51,7 @@ ms.locfileid: "55236375"
 
 ![创建数据库项目](setting-up-database/_static/image1.png)
 
-您现在有一个空数据库项目。 您将此数据库在部署到 Azure 以后本教程中，因此将需要将 Azure SQL Database 设置为项目的目标平台。 设置目标平台不实际部署该数据库。它只意味着数据库项目将验证数据库设计为与目标平台兼容。 若要设置目标平台，打开**属性**项目并选择**Microsoft Azure SQL 数据库**为目标平台。
+您现在有一个空数据库项目。 若要确保可以将此数据库部署到 Azure，您将为该项目的目标平台设置 Azure SQL 数据库。 设置目标平台不实际部署该数据库。它只意味着数据库项目将验证数据库设计为与目标平台兼容。 若要设置目标平台，打开**属性**项目并选择**Microsoft Azure SQL 数据库**为目标平台。
 
 可以创建本教程中添加的定义的表的 SQL 脚本所需的表。 右键单击项目并添加新项。 选择**表和视图** > **表**并将其命名*学生*。
 

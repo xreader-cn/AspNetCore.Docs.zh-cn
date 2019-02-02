@@ -4,20 +4,18 @@ title: 配置 Web 服务器的 Web 部署发布 （Web 部署处理程序） |Mi
 author: jrjlee
 description: 本主题介绍如何配置 Internet 信息服务 (IIS) web 服务器以支持 web 发布和使用 IIS Web 部署 Han 部署...
 ms.author: riande
-ms.date: 05/04/2012
+ms.date: 01/29/2017
 ms.assetid: 90ebf911-1c46-4470-b876-1335bd0f590f
 msc.legacyurl: /web-forms/overview/deployment/configuring-server-environments-for-web-deployment/configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler
 msc.type: authoredcontent
-ms.openlocfilehash: 13e4fdf77daf26abe837a90db9c11ecbe1957823
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: cf18a8860d34daa23f61e3dde13c2c79c6c0d4a5
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41824216"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667318"
 ---
-<a name="configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler"></a>配置 Web 服务器的 Web 部署发布 （Web 部署处理程序）
-====================
-通过[Jason Lee](https://github.com/jrjlee)
+# <a name="configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler"></a>配置用于 Web 部署发布的 Web 服务器（Web 部署处理程序）
 
 [下载 PDF](https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/00/63/56/8130.DeployingWebAppsInEnterpriseScenarios.pdf)
 
@@ -57,9 +55,9 @@ ms.locfileid: "41824216"
 - 安装.NET Framework 4.0。
 - 安装 ASP.NET MVC 3。
 
-本主题将演示如何执行每个这些过程。 任务和本主题中的演练假定您正在使用运行 Windows Server 2008 R2 的全新服务器内部版本。 在继续之前，请确保：
+本主题将演示如何执行每个这些过程。 任务和本主题中的演练假定您正在使用运行 Windows Server 2016 的全新服务器内部版本。 在继续之前，请确保：
 
-- 安装 Windows Server 2008 R2 Service Pack 1 和所有可用的更新。
+- Windows 2016 Server
 - 服务器已加入域。
 - 在服务器具有静态 IP 地址。
 
@@ -74,14 +72,14 @@ ms.locfileid: "41824216"
 在这种情况下，你需要安装以下事项：
 
 - **IIS 7 推荐配置**。 这使得**Web 服务器 (IIS)** 角色在 web 服务器上的和安装的 IIS 模块和托管的 ASP.NET 应用程序所需的组件组。
-- **IIS： 管理服务**。 将在 IIS 中安装 Web 管理服务 (WMSvc)。 此服务使您能够远程管理 IIS 网站，并公开给客户端的 Web 部署处理程序终结点。
-- **IIS： 基本身份验证**。 这会安装 IIS 基本身份验证模块。 此允许 Web 管理服务 (WMSvc) 进行身份验证所提供的凭据。
+- **IIS:管理服务**。 将在 IIS 中安装 Web 管理服务 (WMSvc)。 此服务使您能够远程管理 IIS 网站，并公开给客户端的 Web 部署处理程序终结点。
+- **IIS:基本身份验证**。 这会安装 IIS 基本身份验证模块。 此允许 Web 管理服务 (WMSvc) 进行身份验证所提供的凭据。
 - **Web 部署工具 2.1 或更高版本**。 这在你的服务器上安装 Web 部署 （和其基础可执行文件，MSDeploy.exe）。 作为此过程的一部分，它将安装 Web 部署处理程序和与 Web 管理服务。
 - **.NET framework 4.0**。 这是运行此版本的.NET Framework 生成的应用程序所需要的。
 - **ASP.NET MVC 3**。 这会安装您需要运行 MVC 3 应用程序的程序集。
 
 > [!NOTE]
-> 本演练介绍如何使用 Web 平台安装程序来安装和配置各种组件。 尽管不一定要使用 Web 平台安装程序，它通过简化了安装过程会自动检测的依赖关系以及确保始终获得最新的产品版本。 有关详细信息，请参阅[Microsoft Web 平台安装程序 3.0](https://go.microsoft.com/?linkid=9805118)。
+> 本演练介绍如何使用 Web 平台安装程序来安装和配置各种组件。 尽管不一定要使用 Web 平台安装程序，它通过简化了安装过程会自动检测的依赖关系以及确保始终获得最新的产品版本。 有关详细信息，请参阅[Microsoft Web 平台安装程序](https://go.microsoft.com/?linkid=9805118)。
 
 
 **若要安装必需的产品和组件**
@@ -91,7 +89,7 @@ ms.locfileid: "41824216"
 
     > [!NOTE]
     > 现在可以在任何时候从启动 Web 平台安装程序**启动**菜单。 为此，请在**启动**菜单上，单击**所有程序**，然后单击**Microsoft Web 平台安装程序**。
-3. 在顶部**Web 平台安装程序 3.0**窗口中，单击**产品**。
+3. 在顶部**Web 平台安装程序**窗口中，单击**产品**。
 4. 在左侧和右侧的窗口中，在导航窗格中，单击**框架**。
 5. 在中**Microsoft.NET Framework 4**行，如果尚未安装.NET Framework，单击**添加**。
 
@@ -103,13 +101,13 @@ ms.locfileid: "41824216"
 7. 在导航窗格中，单击**Server**。
 8. 在 **IIS 7 建议配置** 行中，单击 **添加** 。
 9. 在中**Web 部署工具 2.1**行中，单击**添加**。
-10. 在中**IIS： 基本身份验证**行中，单击**添加**。
-11. 在中**IIS： 管理服务**行中，单击**添加**。
+10. 在**IIS:基本身份验证**行中，单击**添加**。
+11. 在**IIS:管理服务**行中，单击**添加**。
 12. 单击“安装” 。 Web 平台安装程序将显示产品列表&#x2014;以及任何关联的依赖关系&#x2014;安装，并将提示你接受许可条款。
 
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image2.png)
 13. 查看许可条款，如果同意条款，单击**我接受**。
-14. 安装完成后，单击**完成**，然后关闭**Web 平台安装程序 3.0**窗口。
+14. 安装完成后，单击**完成**，然后关闭**Web 平台安装程序**窗口。
 
 如果在安装 IIS 之前安装.NET Framework 4.0，您将需要运行[ASP.NET IIS 注册工具](https://msdn.microsoft.com/library/k6h9cz8h(v=VS.100).aspx)(aspnet\_regiis.exe) 若要向 IIS 注册 ASP.NET 的最新版本。 如果不这样做，您会发现 IIS 将 （如 HTML 文件） 中提供静态内容没有任何问题，但它将返回**HTTP 错误 404.0-未找到**尝试浏览到 ASP.NET 内容时。 下一步过程可用于确保在注册 ASP.NET 4.0。
 
@@ -145,7 +143,7 @@ ms.locfileid: "41824216"
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image3.png)
 3. 在中心窗格中下, **IIS**，双击**身份验证**。
 
-    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image4.png)
+    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image20.png)
 4. 右键单击**基本身份验证**，然后单击**启用**。
 
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image5.png)
@@ -207,7 +205,7 @@ ms.locfileid: "41824216"
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image11.png)
 
     > [!NOTE]
-    > 在生产环境中，你将很可能想要托管你的网站在端口 80 上并配置主机标头，以及匹配的 DNS 记录。 在 IIS 7 中配置主机标头的详细信息，请参阅[为网站 (IIS 7) 配置主机标头](https://technet.microsoft.com/library/cc753195(WS.10).aspx)。 Windows Server 2008 R2 中的 DNS 服务器角色的详细信息，请参阅[DNS 服务器概述](https://technet.microsoft.com/en-gb/library/cc770392.aspx)并[DNS 服务器](https://technet.microsoft.com/windowsserver/dd448607)。
+    > 在生产环境中，你将很可能想要托管你的网站在端口 80 上并配置主机标头，以及匹配的 DNS 记录。 在 IIS 7 中配置主机标头的详细信息，请参阅[为网站 (IIS 7) 配置主机标头](https://technet.microsoft.com/library/cc753195(WS.10).aspx)。 Windows Server 中的 DNS 服务器角色的详细信息，请参阅[DNS 服务器概述](https://technet.microsoft.com/en-gb/library/cc770392.aspx)并[DNS 服务器](https://technet.microsoft.com/windowsserver/dd448607)。
 9. 在中**操作**窗格下**编辑站点**，单击**绑定**。
 10. 在中**站点绑定**对话框中，单击**添加**。
 
@@ -222,9 +220,9 @@ ms.locfileid: "41824216"
 13. 在中**站点绑定**对话框中，单击**关闭**。
 14. 在中**连接**窗格中，单击**应用程序池**。
 15. 在中**应用程序池**窗格中，右键单击你的应用程序池的名称，然后单击**基本设置**。 默认情况下，应用程序池的名称将与你的网站的名称匹配 (例如， **DemoSite**)。
-16. 在 **.NET Framework 版本** 列表中，选择 **.NET Framework v4.0.30319** ，然后单击 **确定** 。
+16. 在中 **.NET CLR 版本**列表中，选择 **.NET CLR v4.0.30319**，然后单击**确定**。
 
-    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image14.png)
+    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image21.png)
 
     > [!NOTE]
     > 示例解决方案需要.NET Framework 4.0。 这不是必需的 Web 部署一般情况下。

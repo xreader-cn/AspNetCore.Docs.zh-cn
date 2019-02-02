@@ -1,36 +1,34 @@
 ---
 uid: web-api/overview/testing-and-debugging/troubleshooting-http-405-errors-after-publishing-web-api-applications
-title: 故障排除 HTTP 405 错误后发布 Web API 2 应用程序 |Microsoft Docs
+title: 故障排除 HTTP 405 错误后发布的 Web API 应用程序 |Microsoft Docs
 author: rmcmurray
 description: 本教程介绍如何在发布到生产 web 服务器的 Web API 应用程序后排除 HTTP 405 错误。
 ms.author: riande
-ms.date: 05/01/2014
+ms.date: 01/23/2019
 ms.assetid: 07ec7d37-023f-43ea-b471-60b08ce338f7
 msc.legacyurl: /web-api/overview/testing-and-debugging/troubleshooting-http-405-errors-after-publishing-web-api-applications
 msc.type: authoredcontent
-ms.openlocfilehash: 735b8ceeafa63e0546529ef17f103070dc760794
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: ce5b617cc1032d190cc2450aa554b462ea6f6156
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41830649"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667409"
 ---
-<a name="troubleshooting-http-405-errors-after-publishing-web-api-2-applications"></a>故障排除 HTTP 405 错误后发布 Web API 2 应用程序
-====================
-通过[Robert McMurray](https://github.com/rmcmurray)
+# <a name="troubleshooting-http-405-errors-after-publishing-web-api-applications"></a>在发布 Web API 应用程序后排除 HTTP 405 错误
 
 > 本教程介绍如何在发布到生产 web 服务器的 Web API 应用程序后排除 HTTP 405 错误。
 > 
-> ## <a name="software-versions-used-in-the-tutorial"></a>在本教程中使用的软件版本
+> ## <a name="software-used-in-this-tutorial"></a>本教程中使用的软件
 > 
 > 
 > - [Internet 信息服务 (IIS)](https://www.iis.net/) （7 或更高版本）
-> - [Web API](../../index.md) （版本 1 或 2）
+> - [Web API](../../index.md) 
 
 
-Web API 应用程序通常使用多个常见的 HTTP 谓词： GET、 POST、 PUT、 DELETE，有时修补程序。 话虽如此，开发人员可能会遇到这些动词由另一个在其生产服务器上，这将导致在 Visual Studio 或开发服务器上正常工作的 Web API 控制器将返回其中的情况下的 IIS 模块的情况下HTTP 405 错误时部署到生产服务器。 幸运的是此问题得到轻松解决，但解决方法需要发生问题的原因的说明。
+Web API 应用程序通常使用多个常见的 HTTP 谓词：GET、 POST、 PUT、 DELETE，有时修补程序。 话虽如此，开发人员可能会遇到这些动词由另一个在其生产服务器上，这将导致在 Visual Studio 或开发服务器上正常工作的 Web API 控制器将返回其中的情况下的 IIS 模块的情况下HTTP 405 错误时部署到生产服务器。 幸运的是此问题得到轻松解决，但解决方法需要发生问题的原因的说明。
 
-## <a name="what-causes-http-405-errors"></a>哪些原因 HTTP 405 错误
+## <a name="what-causes-http-405-errors"></a>哪些因素会导致 HTTP 405 错误
 
 了解如何故障 HTTP 405 错误的第一步是了解 HTTP 405 错误的实际含义。 HTTP 是主要用于管理文档[RFC 2616](http://www.ietf.org/rfc/rfc2616.txt)，用于定义 HTTP 405 状态代码作为***不允许的方法***，并进一步介绍了此状态代码以这种情况其中&quot;方法指定在请求 URI 标识的资源不允许请求行。&quot;换而言之，HTTP 客户端已请求的特定 URL 不是允许的 HTTP 谓词。
 
@@ -38,17 +36,17 @@ Web API 应用程序通常使用多个常见的 HTTP 谓词： GET、 POST、 PU
 
 | HTTP 方法 | 描述 |
 | --- | --- |
-| **获取** | 此方法用于从和检索数据 URI，它可能最常用的 HTTP 方法。 |
+| **GET** | 此方法用于从和检索数据 URI，它可能最常用的 HTTP 方法。 |
 | **HEAD** | 此方法很像 GET 方法，不同之处在于它不会实际检索请求 URI 中的数据-它只需检索 HTTP 状态。 |
-| **发布** | 此方法通常用于将新数据发送到 URI;通常使用 POST 提交表单数据。 |
+| **POST** | 此方法通常用于将新数据发送到 URI;通常使用 POST 提交表单数据。 |
 | **PUT** | 此方法通常用于将原始数据发送到的 URI;PUT 通常用于提交到 Web API 应用程序的 JSON 或 XML 数据。 |
-| **删除** | 此方法用于从 URI 中删除数据。 |
+| **DELETE** | 此方法用于从 URI 中删除数据。 |
 | **选项** | 此方法通常用于检索的 uri，支持的 HTTP 方法的列表。 |
 | **复制移动** | 这两种方法用于 WebDAV，并且它们的用途是很容易理解。 |
 | **MKCOL** | 使用 WebDAV，使用此方法，它用于在指定 URI 处创建集合 （例如目录）。 |
 | **PROPFIND PROPPATCH** | 这两种方法用于 WebDAV，并且它们用于查询或设置一个 URI 的属性。 |
 | **锁定解除锁定** | 使用 WebDAV，使用这两种方法，它们用于锁定/解锁创作时，请求 URI 标识的资源。 |
-| **修补程序** | 此方法用于修改现有的 HTTP 资源。 |
+| **PATCH** | 此方法用于修改现有的 HTTP 资源。 |
 
 当这些 HTTP 方法之一配置为在服务器上使用时，服务器将使用的 HTTP 状态和其他适用于请求的数据响应。 (例如，GET 方法可能会收到 HTTP 200***确定***响应和 PUT 方法可能会收到 HTTP 201***创建***响应。)
 
@@ -75,7 +73,7 @@ HTTP 响应：
 
 在此示例中，HTTP 客户端将有效的 JSON 请求发送到 web 服务器上的 Web API 应用程序的 URL，但服务器返回 HTTP 405 错误消息指示该 PUT 方法不允许的 url。 与此相反，如果在请求 URI 与 Web API 应用程序的路由不匹配，服务器将返回 HTTP 404***找不到***错误。
 
-## <a name="resolving-http-405-errors"></a>解决 HTTP 405 错误
+## <a name="resolve-http-405-errors"></a>解决 HTTP 405 错误
 
 有多个原因为什么可能不允许特定的 HTTP 谓词，但没有前导导致此错误在 IIS 中的一个主要方案： 为相同的谓词/方法，定义多个处理程序和一个处理程序正在阻止从预期的处理程序处理请求。 通过说明，IIS 将处理从第一个上次根据 applicationHost.config 和 web.config 文件，将使用的路径、 谓词、 资源、 等，第一个匹配的组合来处理该请求中的顺序处理程序条目的处理程序。
 
@@ -93,7 +91,7 @@ HTTP 响应：
 
 [!code-xml[Main](troubleshooting-http-405-errors-after-publishing-web-api-applications/samples/sample5.xml)]
 
-应用程序从开发环境发布到生产环境中，并出现这种情况是因为处理程序/模块的列表是开发和生产环境之间的差异后，经常会遇到这种情况。 例如，如果你使用 Visual Studio 2012 或 2013年开发的 Web API 应用程序，IIS Express 8 是用于测试的默认 web 服务器。 此开发 web 服务器是按比例缩小版本的服务器产品中随附的完整 IIS 功能，此开发 web 服务器包含已添加对开发方案的一些更改。 例如，WebDAV 模块通常安装在运行完整版本的 IIS，在生产 web 服务器上但也可能不是在实际应用中。 IIS (IIS Express)，开发版本安装 WebDAV 模块，但 WebDAV 模块的条目故意注释掉，因此 WebDAV 模块在 IIS Express 上永远不会进行加载，除非您专门更改 IIS Express 配置若要添加到 IIS Express 安装 WebDAV 功能的设置。 因此，web 应用程序可能会在开发计算机上正常工作，但当您发布到生产 web 服务器的 Web API 应用时可能会遇到 HTTP 405 错误。
+应用程序从开发环境发布到生产环境中，并出现这种情况是因为处理程序/模块的列表是开发和生产环境之间的差异后，经常会遇到这种情况。 例如，如果你正在使用 Visual Studio 2012 或更高版本开发的 Web API 应用程序，IIS Express 是用于测试的默认 web 服务器。 此开发 web 服务器是按比例缩小版本的服务器产品中随附的完整 IIS 功能，此开发 web 服务器包含已添加对开发方案的一些更改。 例如，WebDAV 模块通常安装在运行完整版本的 IIS，在生产 web 服务器上但也可能不是在实际应用中。 IIS (IIS Express)，开发版本安装 WebDAV 模块，但 WebDAV 模块的条目故意注释掉，因此 WebDAV 模块在 IIS Express 上永远不会进行加载，除非您专门更改 IIS Express 配置若要添加到 IIS Express 安装 WebDAV 功能的设置。 因此，web 应用程序可能会在开发计算机上正常工作，但当您发布到生产 web 服务器的 Web API 应用时可能会遇到 HTTP 405 错误。
 
 ## <a name="summary"></a>总结
 

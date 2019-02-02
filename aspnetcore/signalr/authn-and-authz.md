@@ -3,16 +3,16 @@ title: 身份验证和授权在 ASP.NET Core SignalR
 author: bradygaster
 description: 了解如何在 ASP.NET Core SignalR 中使用身份验证和授权。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: anurse
+ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/29/2018
+ms.date: 01/31/2019
 uid: signalr/authn-and-authz
-ms.openlocfilehash: c807b65e0047fe6cedff08aef9f758653fab6a0d
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 5d4574775606b4354ec099b6b32e05294d9f0e45
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54835812"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667305"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>身份验证和授权在 ASP.NET Core SignalR
 
@@ -68,22 +68,14 @@ var connection = new HubConnectionBuilder()
 
 添加新的类实现`IUserIdProvider`和检索的声明之一中要用作标识符的用户。 例如，若要使用"Name"声明 (即窗体中的 Windows 用户名`[Domain]\[Username]`)，创建以下类：
 
-```csharp
-public class NameUserIdProvider : IUserIdProvider
-{
-    public string GetUserId(HubConnectionContext connection)
-    {
-        return connection.User?.FindFirst(ClaimTypes.Name)?.Value;
-    }
-}
-```
+[!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
 而非`ClaimTypes.Name`，可以使用的任何值`User`（例如 Windows SID 标识符等）。
 
 > [!NOTE]
 > 您选择的值必须是在系统中所有用户之间唯一的。 否则，适用于一个用户的消息可能最终转到不同的用户。
 
-注册此组件中的您`Startup.ConfigureServices`方法**后**对的调用 `.AddSignalR`
+注册此组件在您`Startup.ConfigureServices`方法。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -107,6 +99,27 @@ var connection = new HubConnectionBuilder()
 ```
 
 使用 Microsoft Internet Explorer 或 Microsoft Edge 时，浏览器客户端仅支持 Windows 身份验证。
+
+### <a name="use-claims-to-customize-identity-handling"></a>使用声明自定义标识处理
+
+对用户进行身份验证的应用可以从用户声明派生 SignalR 用户 Id。 若要指定 SignalR 创建用户 Id 的方式，实现`IUserIdProvider`并注册该实现。
+
+示例代码演示如何将使用声明来选择用户的电子邮件地址作为标识属性。 
+
+> [!NOTE]
+> 您选择的值必须是在系统中所有用户之间唯一的。 否则，适用于一个用户的消息可能最终转到不同的用户。
+
+[!code-csharp[Email provider](authn-and-authz/sample/EmailBasedUserIdProvider.cs?name=EmailBasedUserIdProvider)]
+
+帐户注册添加一个声明具有类型`ClaimsTypes.Email`到 ASP.NET 标识数据库。
+
+[!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
+
+注册此组件在您`Startup.ConfigureServices`。
+
+```csharp
+services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+```
 
 ## <a name="authorize-users-to-access-hubs-and-hub-methods"></a>授权用户访问集线器和集线器方法
 

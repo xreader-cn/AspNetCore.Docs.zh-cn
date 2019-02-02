@@ -9,12 +9,12 @@ ms.topic: tutorial
 ms.assetid: 0ed5e67a-34c0-4b57-84a6-802b0fb3cd00
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/enhancing-data-validation
 msc.type: authoredcontent
-ms.openlocfilehash: 85299d70c6cba52c1d40a42edfd429c96318134a
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 897cd7c6a40445e2a4abede50d81e101372d3233
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236479"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667617"
 ---
 # <a name="tutorial-enhance-data-validation-for-ef-database-first-with-aspnet-mvc-app"></a>教程：增强 EF Database First 使用 ASP.NET MVC 应用程序的数据的验证
 
@@ -84,6 +84,14 @@ ms.locfileid: "55236479"
 
 打开*Student.cs*文件或*Enrollment.cs*文件，并请注意，您先前应用的数据验证属性将不再在文件中。 但是，运行该应用程序，并请注意，当输入数据时仍应用验证规则。
 
+## <a name="conclusion"></a>结束语
+
+本系列提供一个简单的示例说明如何从现有数据库，使用户能够编辑、 更新、 创建和删除数据生成代码。 它使用 ASP.NET MVC 5，实体框架和 ASP.NET 基架创建项目。 
+
+Code First 开发的介绍性示例，请参阅[Getting Started with ASP.NET MVC 5](../introduction/getting-started.md)。 
+
+有关更高级的示例，请参阅[为 ASP.NET MVC 4 应用程序创建实体框架数据模型](../getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。 请注意，使用第一个数据库中的数据使用 DbContext API 是用于在第一个代码中使用数据的 API 相同。 即使你想要使用第一个数据库，您可以了解如何处理更复杂的方案，如读取和更新相关的数据，处理并发冲突，请从代码第一个教程，等等。 如何创建数据库、 上下文类和实体类中是唯一的区别。
+
 ## <a name="additional-resources"></a>其他资源
 
 可以将应用于属性和类的数据验证注释的完整列表，请参阅[System.ComponentModel.DataAnnotations](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.aspx)。
@@ -96,6 +104,6 @@ ms.locfileid: "55236479"
 > * 添加的数据批注
 > * 添加元数据类
 
-转到下一步的教程，了解如何将 web 应用和数据库发布到 Azure。
+若要了解如何将 web 应用和 SQL 数据库部署到 Azure 应用服务，请参阅以下教程：
 > [!div class="nextstepaction"]
-> [发布到 Azure](publish-to-azure.md)
+> [.NET 应用部署到 Azure 应用服务](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase/)

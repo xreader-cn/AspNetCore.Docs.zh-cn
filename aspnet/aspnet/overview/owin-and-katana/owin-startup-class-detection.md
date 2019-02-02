@@ -4,34 +4,33 @@ title: OWIN 启动类检测 |Microsoft Docs
 author: Praburaj
 description: 本教程演示如何配置加载的 OWIN 启动类。 OWIN 的详细信息，请参阅项目 Katana 概述。 本教程是...
 ms.author: riande
-ms.date: 10/17/2013
+ms.date: 01/28/2019
 ms.assetid: 08257f55-36f4-4e39-9c88-2a5602838c79
 msc.legacyurl: /aspnet/overview/owin-and-katana/owin-startup-class-detection
 msc.type: authoredcontent
-ms.openlocfilehash: 4e753187f1caae646402712c2abc28856ae71a79
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 0b34cca8b48383dbb028106651758dff889ed614
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910702"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667292"
 ---
 <a name="owin-startup-class-detection"></a>OWIN 启动类检测
 ====================
-通过[Praburaj Thiagarajan](https://github.com/Praburaj)， [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 > 本教程演示如何配置加载的 OWIN 启动类。 OWIN 的详细信息，请参阅[项目 Katana 概述](an-overview-of-project-katana.md)。 本教程由 Rick Anderson 编写 ( [ @RickAndMSFT ](https://twitter.com/#!/RickAndMSFT) )，Praburaj Thiagarajan 和 Howard Dierking ( [ @howard \_dierking](https://twitter.com/howard_dierking) )。
 >
 > ## <a name="prerequisites"></a>系统必备
 >
-> [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 
 
 ## <a name="owin-startup-class-detection"></a>OWIN 启动类检测
 
  每个 OWIN 应用程序有一个 startup 类在其中指定的应用程序管道组件。 通过不同的方式可以与运行时连接 startup 类，具体取决于宿主模型选择 （OwinHost、 IIS 和 IIS Express）。 在本教程中所示的启动类可在每个托管应用程序。 使用托管运行时使用其中一种方法连接 startup 类：
 
-1. **命名约定**： 查找名为的类的 Katana`Startup`匹配的程序集名称或全局命名空间的命名空间中。
-2. **OwinStartup 属性**： 这是大多数开发人员将采用指定 startup 类的方法。 以下属性将设置为 startup 类`TestStartup`类中`StartupDemo`命名空间。
+1. **命名约定**:Katana 寻找一个名为类`Startup`匹配的程序集名称或全局命名空间的命名空间中。
+2. **OwinStartup 属性**:这是大多数开发人员将采用指定 startup 类的方法。 以下属性将设置为 startup 类`TestStartup`类中`StartupDemo`命名空间。
 
     [!code-csharp[Main](owin-startup-class-detection/samples/sample1.cs)]
 
@@ -60,7 +59,7 @@ ms.locfileid: "48910702"
 1. 创建空的 Asp.Net web 应用程序并将其命名**StartupDemo**。 -安装`Microsoft.Owin.Host.SystemWeb`使用 NuGet 包管理器。 从**工具**菜单中，选择**NuGet 包管理器**，然后**程序包管理器控制台**。 输入以下命令：
 
     [!code-powershell[Main](owin-startup-class-detection/samples/sample7.ps1)]
-2. 添加 OWIN 启动类。 Visual Studio 2013 中右键单击项目，然后选择**添加类**。-在**添加新项**对话框框中，输入*OWIN*中搜索字段中，并将名称更改为 Startup.cs，然后单击**添加**。
+2. 添加 OWIN 启动类。 在 Visual Studio 2017 中，右键单击项目，然后选择**添加类**。-在**添加新项**对话框框中，输入*OWIN*中搜索字段中，并将名称更改为 Startup.cs，然后选择**添加**。
 
      ![](owin-startup-class-detection/_static/image1.png)
 
@@ -68,7 +67,7 @@ ms.locfileid: "48910702"
 
      ![](owin-startup-class-detection/_static/image2.png)
 
-   或者，可以右键单击项目，然后选择**外**，然后选择**新项**，然后选择**Owin 启动类**。
+   或者，可以右键单击该项目并选择**外**，然后选择**新项**，然后选择**Owin 启动类**。
 
      ![](owin-startup-class-detection/_static/image3.png)
 
@@ -80,7 +79,7 @@ ms.locfileid: "48910702"
      > [!NOTE]
      > 在上面的代码中我们注释掉`OwinStartup`属性，我们要依赖于正在运行的名为的类的约定`Startup`。-按***F5***运行该应用程序。 命中刷新几次。
 
-    ![](owin-startup-class-detection/_static/image4.png) 注意： 本教程中显示图像中的数字将不匹配看到的数字。 毫秒字符串用于刷新页面时显示新的响应。
+    ![](owin-startup-class-detection/_static/image4.png) 注意：在本教程中显示图像中的数字将看到的数字不匹配。 毫秒字符串用于刷新页面时显示新的响应。
   可以看到中的跟踪信息**输出**窗口。
 
     ![](owin-startup-class-detection/_static/image5.png)
@@ -158,6 +157,7 @@ ms.locfileid: "48910702"
 
    加载生产 startup 类。
     ![](owin-startup-class-detection/_static/image9.png)
+
    我们的应用程序具有多个启动类，并在此示例中我们具有延迟到运行时加载的 startup 类。
 8. 测试以下运行时启动选项：
 

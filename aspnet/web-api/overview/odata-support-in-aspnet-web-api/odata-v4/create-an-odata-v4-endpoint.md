@@ -4,20 +4,18 @@ title: 创建 OData v4 终结点使用 ASP.NET Web API 2.2 |Microsoft Docs
 author: MikeWasson
 description: 开放数据协议 (OData) 是一种用于 web 的数据访问协议。 OData 提供统一的方式来查询和操作通过 CRUD 操作的数据集...
 ms.author: riande
-ms.date: 06/24/2014
+ms.date: 01/23/2019
 ms.assetid: 1e1927c0-ded1-4752-80fd-a146628d2f09
 msc.legacyurl: /web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint
 msc.type: authoredcontent
-ms.openlocfilehash: 48c1a78c96cb0ebfa0b053dfef84e76433112650
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: c6a4aa4eb563fd77d5afd9248175d5f5b7984d19
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795413"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667565"
 ---
-<a name="create-an-odata-v4-endpoint-using-aspnet-web-api-22"></a>创建 OData v4 终结点使用 ASP.NET Web API 2.2
-====================
-通过[Mike Wasson](https://github.com/MikeWasson)
+# <a name="create-an-odata-v4-endpoint-using-aspnet-web-api"></a>创建 OData v4 终结点使用 ASP.NET Web API 
 
 > 开放数据协议 (OData) 是一种用于 web 的数据访问协议。 OData 提供统一的方式来查询和操作数据集通过 CRUD 操作 （创建、 读取、 更新和删除）。
 >
@@ -27,11 +25,11 @@ ms.locfileid: "48795413"
 >
 > ## <a name="software-versions-used-in-the-tutorial"></a>在本教程中使用的软件版本
 >
-> - Web API 2.2
+> - Web API 5.2
 > - OData v4
-> - Visual Studio 2013 (下载 Visual Studio 2017[此处](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
+> - Visual Studio 2017 (下载 Visual Studio 2017[此处](https://visualstudio.microsoft.com/downloads/))
 > - Entity Framework 6
-> - .NET 4.5
+> - .NET 4.7.2
 >
 > ## <a name="tutorial-versions"></a>教程版本
 >
@@ -41,13 +39,17 @@ ms.locfileid: "48795413"
 
 在 Visual Studio 中，从**文件**菜单中，选择**新建** &gt; **项目**。
 
-展开**已安装** &gt; **模板** &gt; **Visual C#** &gt; **Web**，然后选择**ASP.NET Web 应用程序**模板。 将项目命名&quot;ProductService&quot;。
+展开**已安装** &gt; **Visual C#**  &gt; **Web**，然后选择**ASP.NET Web 应用程序 (.NET Framework)** 模板。 将项目命名&quot;ProductService&quot;。
 
-[![](create-an-odata-v4-endpoint/_static/image2.png)](create-an-odata-v4-endpoint/_static/image1.png)
+[![](create-an-odata-v4-endpoint/_static/image7.png)](create-an-odata-v4-endpoint/_static/image7.png)
 
-在中**新的项目**对话框中，选择**空**模板。 下&quot;添加文件夹和核心引用...&quot;，单击**Web API**。 单击 **“确定”**。
+选择 **确定**。
 
-[![](create-an-odata-v4-endpoint/_static/image4.png)](create-an-odata-v4-endpoint/_static/image3.png)
+
+
+[![](create-an-odata-v4-endpoint/_static/image8.png)](create-an-odata-v4-endpoint/_static/image8.png)
+
+选择**空**模板。 下**添加文件夹和核心引用：**，选择**Web API**。 选择 **确定**。
 
 ## <a name="install-the-odata-packages"></a>OData 包安装
 
@@ -138,7 +140,7 @@ ProductsController.cs 中的样板代码替换为以下。
 
 这是在控制器的起始点。 接下来，我们将添加所有 CRUD 操作的方法。
 
-## <a name="querying-the-entity-set"></a>查询实体集
+## <a name="query-the-entity-set"></a>查询实体集
 
 添加以下方法向`ProductsController`。
 
@@ -148,13 +150,13 @@ ProductsController.cs 中的样板代码替换为以下。
 
 **[EnableQuery]** 属性使客户端能够通过使用查询选项，例如 $filter、 $sort 和 $page 修改查询。 有关详细信息，请参阅[支持 OData 查询选项](../supporting-odata-query-options.md)。
 
-## <a name="adding-an-entity-to-the-entity-set"></a>将实体添加到实体集
+## <a name="add-an-entity-to-the-entity-set"></a>将实体添加到实体集
 
 若要允许客户端向数据库添加一个新的产品，添加以下方法`ProductsController`。
 
 [!code-csharp[Main](create-an-odata-v4-endpoint/samples/sample10.cs)]
 
-## <a name="updating-an-entity"></a>更新实体
+## <a name="update-an-entity"></a>更新实体
 
 OData 支持用于更新实体，PATCH 和 PUT 的两个不同的语义。
 
@@ -169,7 +171,7 @@ PUT 的缺点是客户端必须在实体中，其中包括未更改的值发送�
 
 控制器使用修补程序，对于**增量&lt;T&gt;** 类型以跟踪所做的更改。
 
-## <a name="deleting-an-entity"></a>删除实体
+## <a name="delete-an-entity"></a>删除实体
 
 若要使客户端能够从数据库中删除某个产品，添加以下方法`ProductsController`。
 

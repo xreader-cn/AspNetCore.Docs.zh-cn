@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/04/2018
 uid: signalr/groups
-ms.openlocfilehash: 0a4836cfa3cf79136b56da1ff05ce8533b4df16c
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 45f2bb44e03a586b7fc186525fdd3a2645c820d5
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837879"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667747"
 ---
 # <a name="manage-users-and-groups-in-signalr"></a>SignalR 中管理用户和组
 
@@ -31,21 +31,7 @@ SignalR，可将消息发送到与特定用户关联的所有连接。 默认情
 > [!NOTE]
 > 用户标识符是区分大小写。
 
-```csharp
-public Task SendPrivateMessage(string user, string message)
-{
-    return Clients.User(user).SendAsync("ReceiveMessage", message);
-}
-```
-
-可以通过创建自定义用户标识符`IUserIdProvider`，并在注册`ConfigureServices`。
-
-[!code-csharp[UserIdProvider](groups/sample/customuseridprovider.cs?range=4-10)]
-
-[!code-csharp[Configure service](groups/sample/startup.cs?range=21-22,39-42)]
-
-> [!NOTE]
-> 注册自定义 SignalR 服务之前，必须调用 AddSignalR。
+[!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
 ## <a name="groups-in-signalr"></a>SignalR 中的组
 
