@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/25/2018
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: bcaeb3ba286feb55c0755c5baee4b7608710e647
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: d56df549d845b1f83ec4a5ec97ce6b44438f725a
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207779"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428429"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
@@ -53,7 +53,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 ## <a name="for"></a>for
 
-`for` 属性分配要根据当前模型评估的 [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression)。 `ModelExpression` 推断 `@Model.` 语法。 例如，可使用 `for="Product"` 而非 `for="@Model.Product"`。 通过使用 `@` 符号定义内联表达式来替代此默认推理行为。 `for` 属性不能与 [model](#model) 属性一起使用。
+`for` 属性分配要根据当前模型评估的 [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression)。 `ModelExpression` 推断 `@Model.` 语法。 例如，可使用 `for="Product"` 而非 `for="@Model.Product"`。 通过使用 `@` 符号定义内联表达式来替代此默认推理行为。
 
 以下标记加载 _ProductPartial.cshtml：
 

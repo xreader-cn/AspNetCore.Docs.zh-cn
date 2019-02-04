@@ -5,18 +5,22 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 929bc72b16e302a5018038bc449704b7078dd33a
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: bec5838c2efaffb933828260eaf1a840ff202140
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425076"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667760"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：在 ASP.NET Core 中开始使用 Razor Pages
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-这是系列中的第一个教程。 [本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor Pages Web 应用的基础知识。 系列结束时，你将有一个应用来管理电影数据库。  
+这是系列中的第一个教程。 [本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor Pages Web 应用的基础知识。
+
+[!INCLUDE[](~/includes/advancedRP.md)]
+
+系列结束时，你将有一个应用来管理电影数据库。  
 
 [!INCLUDE[View or download sample code](~/includes/rp/download.md)]
 
@@ -29,7 +33,7 @@ ms.locfileid: "53425076"
 
 本教程结束时，你将有一个工作 Razor Pages Web 应用，可于后续教程在其基础上进行构建。
 
-[主页或索引页](razor-pages-start/_static/home2.2.png)
+![主页或索引页](razor-pages-start/_static/home2.2.png)
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 

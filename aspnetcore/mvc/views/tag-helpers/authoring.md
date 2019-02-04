@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: c21decd39b7855cf2eefb2bb482e5e91b9487863
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: dbfb63bb7406ee8e20ae25b366162702ac87942c
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889933"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236453"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -213,12 +213,12 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 1. 将以下标记添加到 About.cshtml 视图。 突出显示的标记显示 Web 站点信息。
 
-   [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,12-999)]
+   [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
    > [!NOTE]
    > 在 Razor 中，标记如下所示：
    >
-   > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?range=13-17)]
+   > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?range=18-18)]
    >
    > Razor 知道 `info` 属性是一个类，而不是字符串，并且你想要编写 C# 代码。 编写任何非字符串标记帮助程序属性时，都不应使用 `@` 字符。
 
