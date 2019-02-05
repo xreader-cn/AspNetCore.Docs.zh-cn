@@ -8,12 +8,12 @@ ms.date: 05/22/2015
 ms.assetid: df001954-18bf-4550-b03d-43911a0ea186
 msc.legacyurl: /mvc/overview/getting-started/introduction/adding-search
 msc.type: authoredcontent
-ms.openlocfilehash: 2cf2274a5592e1f073e62c9b8a789fbb61e23a51
-ms.sourcegitcommit: 7b4e3936feacb1a8fcea7802aab3e2ea9c8af5b4
+ms.openlocfilehash: 31fd35ac63f3eb31d824e1710833ad83a0852ac9
+ms.sourcegitcommit: a91e8dd2f4b788114c8bc834507277f4b5e8d6c5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48576366"
+ms.lasthandoff: 02/04/2019
+ms.locfileid: "55712258"
 ---
 <a name="search"></a>搜索
 ====================
@@ -126,7 +126,7 @@ Visual Studio 2013 具有较好的改进时显示和编辑视图文件。 当你
 
 [!code-csharp[Main](adding-search/samples/sample13.cs)]
 
-如前面所述，运行查询时不在数据基础上直到电影列表循环访问 (这在视图中，会发生后`Index`操作方法返回)。
+如前面所述，运行查询时不在数据库上直到电影列表循环访问 (这在视图中，会发生后`Index`操作方法返回)。
 
 ## <a name="adding-markup-to-the-index-view-to-support-search-by-genre"></a>将标记添加到索引视图，以支持按流派搜索
 
