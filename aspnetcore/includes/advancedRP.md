@@ -1,0 +1,1 @@
+<span data-ttu-id="2abb6-101">如需面向经验丰富的开发人员的更高级的介绍，请参阅 [Razor Pages 介绍](xref:razor-pages/index)。</span><span class="sxs-lookup"><span data-stu-id="2abb6-101">For a more advanced introduction aimed at experienced developers, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
