@@ -6,16 +6,20 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/08/2017
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: 981460e63be611f8b9b5ceda73c2d6b8f2e4962e
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: db0dab630f986b6f60e24b7a39e20c7a4607f931
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425063"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667370"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
 
-此系列教程介绍了生成 Razor Pages Web 应用的基础知识。 本系列包括以下教程：
+此系列教程介绍了生成 Razor Pages Web 应用的基础知识。 
+
+[!INCLUDE[](~/includes/advancedRP.md)]
+
+本系列包括以下教程：
 
 1. [创建 Razor 页面 Web 应用](xref:tutorials/razor-pages/razor-pages-start)
 1. [向 Razor 页面应用添加模型](xref:tutorials/razor-pages/model)

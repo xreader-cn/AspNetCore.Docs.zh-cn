@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 0908cc6eeaaba4006a0029ef86d3e47dcf3f9a28
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 81620f0c844f3dbb1a2da0e9f1c319f87d9790b6
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341740"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667695"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core 中的日志记录
 
@@ -863,7 +863,7 @@ Application Insights SDK 可收集和报告 ASP.NET Core 日志记录基础结�
 
 * [Application Insights 概述](/azure/application-insights/app-insights-overview)
 * [用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)
-* [Microsoft/ApplicationInsights-aspnetcore Wiki：日志记录](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Logging)。
+* [Application Insights 日志记录适配器](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
 
 ::: moniker-end
 
