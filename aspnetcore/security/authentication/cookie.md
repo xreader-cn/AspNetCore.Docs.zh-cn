@@ -5,12 +5,12 @@ description: 使用 cookie 而无需 ASP.NET Core 标识的身份验证的说明
 ms.author: riande
 ms.date: 10/11/2017
 uid: security/authentication/cookie
-ms.openlocfilehash: f55b36cf3fc3b60e9d592348625f58ebaba90da7
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: f05e5b83359ec1739115293e092eaed0c811c046
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570108"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854375"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
@@ -44,7 +44,7 @@ ms.locfileid: "51570108"
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet2)]
 
-**AddCookie 选项**
+**AddCookie Options**
 
 [CookieAuthenticationOptions](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions?view=aspnetcore-2.0)类用于配置身份验证提供程序选项。
 
@@ -53,7 +53,6 @@ ms.locfileid: "51570108"
 | [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath?view=aspnetcore-2.0) | 提供的路径以提供 302 已找到 （URL 重定向） 时触发的`HttpContext.ForbidAsync`。 默认值为 `/Account/AccessDenied`。 |
 | [ClaimsIssuer](/dotnet/api/microsoft.aspnetcore.authentication.authenticationschemeoptions.claimsissuer?view=aspnetcore-2.0) | 要用于的颁发者[颁发者](/dotnet/api/system.security.claims.claim.issuer)上创建由 cookie 身份验证服务的任何声明的属性。 |
 | [Cookie.Domain](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.domain?view=aspnetcore-2.0) | Cookie 提供服务位置的域名。 默认情况下，这是请求的主机名。 在浏览器仅将 cookie 在请求中发送到匹配的主机名。 您可能希望调整此项是在你的域中有 cookie 提供给任何主机。 例如，将 cookie 域设置为`.contoso.com`使其可供`contoso.com`， `www.contoso.com`，和`staging.www.contoso.com`。 |
-| [Cookie.Expiration](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.expiration?view=aspnetcore-2.0) | 获取或设置 cookie 的生命期。 目前，此选项没有 ops，并且将会过时中 ASP.NET Core 2.1 +。 使用`ExpireTimeSpan`选项可以设置 cookie 到期时间。 有关详细信息，请参阅[阐明行为 CookieAuthenticationOptions.Cookie.Expiration](https://github.com/aspnet/Security/issues/1293)。 |
 | [Cookie.HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly?view=aspnetcore-2.0) | 指示是否 cookie 应只允许到服务器可访问的标志。 此值更改为`false`允许客户端脚本访问 cookie，并可能会打开 cookie 被盗应用应您的应用程序具有[跨站点脚本 (XSS)](xref:security/cross-site-scripting)漏洞。 默认值为 `true`。 |
 | [Cookie.Name](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name?view=aspnetcore-2.0) | 设置的 cookie 的名称。 |
 | [Cookie.Path](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path?view=aspnetcore-2.0) | 用于隔离同一主机名上运行的应用。 如果必须在运行的应用`/app1`并且想要将 cookie 限制为该应用，设置`CookiePath`属性设置为`/app1`。 通过此操作，cookie 是仅可在请求上`/app1`和其下的任何应用。 |
@@ -67,7 +66,7 @@ ms.locfileid: "51570108"
 | [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath?view=aspnetcore-2.0) | 如果`LogoutPath`提供给处理程序，则将重定向到该路径的请求值的基础`ReturnUrlParameter`。 默认值为 `/Account/Logout`。 |
 | [ReturnUrlParameter](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.returnurlparameter?view=aspnetcore-2.0) | 确定由 302 已找到 （URL 重定向） 响应的处理程序追加查询字符串参数的名称。 `ReturnUrlParameter` 请求到达时，将使用`LoginPath`或`LogoutPath`来执行登录或注销操作后返回到原始 URL 的浏览器。 默认值为 `ReturnUrl`。 |
 | [SessionStore](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.sessionstore?view=aspnetcore-2.0) | 一个可选容器，用于标识存储在请求之间。 使用时，只将会话标识符发送到客户端。 `SessionStore` 可以用于缓解大型标识的潜在问题。 |
-| [slidingExpiration](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-2.0) | 指示是否应动态颁发包含更新的到期时间的新 cookie 的标志。 这可以在任何请求，其中当前 cookie 过期时间已超过 50%过期。 向前移动新的到期日期为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
+| [SlidingExpiration](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-2.0) | 指示是否应动态颁发包含更新的到期时间的新 cookie 的标志。 这可以在任何请求，其中当前 cookie 过期时间已超过 50%过期。 向前移动新的到期日期为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
 | [TicketDataFormat](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.ticketdataformat?view=aspnetcore-2.0) | `TicketDataFormat`用于保护和取消保护标识和存储在 cookie 值中的其他属性。 如果未提供，`TicketDataFormat`使用创建[DataProtectionProvider](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.dataprotectionprovider?view=aspnetcore-2.0)。 |
 | [验证](/dotnet/api/microsoft.aspnetcore.authentication.authenticationschemeoptions.validate?view=aspnetcore-2.0) | 检查的选项是有效的方法。 |
 
@@ -118,7 +117,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions()
 | [CookieSecure](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.cookiesecure?view=aspnetcore-1.1) | 一个标志，指示是否创建的 cookie 应限制为 HTTPS (`CookieSecurePolicy.Always`)，HTTP 或 HTTPS (`CookieSecurePolicy.None`)，或与请求相同的协议 (`CookieSecurePolicy.SameAsRequest`)。 默认值为 `CookieSecurePolicy.SameAsRequest`。 |
 | [说明](/dotnet/api/microsoft.aspnetcore.builder.authenticationoptions.description?view=aspnetcore-1.1) | 有关提供给应用程序的身份验证类型的其他信息。 |
 | [ExpireTimeSpan](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.expiretimespan?view=aspnetcore-1.1) | `TimeSpan`后将身份验证票证到期。 它被添加到当前时间来创建票证的到期时间。 若要使用`ExpireTimeSpan`，则必须设置`IsPersistent`到`true`中`AuthenticationProperties`传递给`SignInAsync`。 默认值为 14 天。 |
-| [slidingExpiration](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-1.1) | 一个标志，指示 cookie 的到期日期重置多个的下半部分`ExpireTimeSpan`经过一段时间。 新的 exipiration 时间向前移动，为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
+| [SlidingExpiration](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-1.1) | 一个标志，指示 cookie 的到期日期重置多个的下半部分`ExpireTimeSpan`经过一段时间。 新的 exipiration 时间向前移动，为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
 
 设置`CookieAuthenticationOptions`Cookie 身份验证中间件中`Configure`方法：
 
@@ -147,7 +146,7 @@ app.UseCookiePolicy(cookiePolicyOptions);
 | [MinimumSameSitePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.minimumsamesitepolicy) | 影响的 cookie 的同一站点属性 （见下文）。 默认值为 `SameSiteMode.Lax`。 此选项仅供 ASP.NET Core 2.0 +。 |
 | [OnAppendCookie](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.onappendcookie) | 当会追加一个 cookie 时调用。 |
 | [OnDeleteCookie](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.ondeletecookie) | 当删除 cookie 时调用。 |
-| [安全](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.secure) | 会影响是否 cookie 必须是安全。 默认值为 `CookieSecurePolicy.None`。 |
+| [Secure](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.secure) | 会影响是否 cookie 必须是安全。 默认值为 `CookieSecurePolicy.None`。 |
 
 **MinimumSameSitePolicy** (ASP.NET Core 2.0 + 仅)
 

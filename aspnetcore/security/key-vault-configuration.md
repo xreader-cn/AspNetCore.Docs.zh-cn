@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/28/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 8e40c8308a692731e71fb8ebebfc64e606874290
-ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
+ms.openlocfilehash: d255321f6083747ce9b452e1efd4da5bc015bf64
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55737650"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854427"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -31,7 +31,7 @@ ms.locfileid: "55737650"
 
 若要使用 Azure 密钥保管库配置提供程序，添加到包引用[Microsoft.Extensions.Configuration.AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
-若要采用 Azure 托管服务标识方案，将添加到包引用[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)包。
+若要采用[托管于 Azure 资源的标识](/azure/active-directory/managed-identities-azure-resources/overview)方案中，添加到包引用[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)包。
 
 > [!NOTE]
 > 在撰写本文时，最新稳定版本的`Microsoft.Azure.Services.AppAuthentication`，版本`1.0.3`，提供对支持[系统分配给托管标识](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka)。 为支持*用户分配托管标识*现已推出`1.0.2-preview`包。 本主题演示如何使用系统管理的标识，并提供的示例应用使用版本`1.0.3`的`Microsoft.Azure.Services.AppAuthentication`包。
@@ -40,8 +40,8 @@ ms.locfileid: "55737650"
 
 由两种模式之一运行示例应用`#define`顶部的语句*Program.cs*文件：
 
-* `Basic` &ndash; 演示如何使用访问密钥保管库中存储的机密的 Azure 密钥保管库应用程序 ID 和密码 （客户端机密）。 部署`Basic`版本到任何主机能够为 ASP.NET Core 应用提供服务的示例。
-* `Managed` &ndash; 演示如何使用 Azure 的[托管服务标识 (MSI)](/azure/active-directory/managed-identities-azure-resources/overview)应用进行身份验证对 Azure Key Vault 与 Azure AD 身份验证而无需在应用程序的代码或配置中存储的凭据。 当使用 MSI 进行身份验证时，不需要的 Azure AD 应用程序 ID 和密码 （客户端机密）。 `Managed`示例的版本必须部署到 Azure。
+* `Basic` &ndash; 演示如何使用访问密钥保管库中存储的机密的 Azure 密钥保管库应用程序 ID 和密码 （客户端机密）。 部署`Basic`版本到任何主机能够为 ASP.NET Core 应用提供服务的示例。 遵循中的指导[使用应用程序 ID 和 Azure 托管的应用程序的客户端机密](#use-application-id-and-client-secret-for-non-azure-hosted-apps)部分。
+* `Managed` &ndash; 演示如何使用[托管于 Azure 资源的标识](/azure/active-directory/managed-identities-azure-resources/overview)应用进行身份验证对 Azure Key Vault 与 Azure AD 身份验证而无需在应用程序的代码或配置中存储的凭据。 当使用管理的标识进行身份验证，不需要的 Azure AD 应用程序 ID 和密码 （客户端机密）。 `Managed`示例的版本必须部署到 Azure。 遵循中的指导[使用 Azure 资源的托管标识](#use-managed-identities-for-azure-resources)部分。
 
 有关如何配置使用预处理器指令的示例应用程序的详细信息 (`#define`)，请参阅<xref:index#preprocessor-directives-in-sample-code>。
 
@@ -111,12 +111,12 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
 
-## <a name="use-application-id-and-client-secret"></a>使用应用程序 ID 和客户端机密
+## <a name="use-application-id-and-client-secret-for-non-azure-hosted-apps"></a>使用 Azure 托管的应用程序的应用程序 ID 和客户端机密
 
-配置 Azure AD、 Azure 密钥保管库，并应用使用的应用程序 ID 和密码 （客户端机密） 时进行身份验证密钥保管库在 Azure 外部托管应用程序。
+配置 Azure AD、 Azure 密钥保管库，并应用使用的应用程序 ID 和密码 （客户端机密） 到密钥保管库进行身份验证**当应用程序承载在 Azure 外部**。
 
 > [!NOTE]
-> 尽管对于在 Azure 中托管的应用支持使用应用程序 ID 和密码 （客户端机密），我们建议使用[托管服务标识 (MSI) 提供程序](#use-the-managed-service-identity-msi-provider)托管在 Azure 中的应用时。 MSI 不要求将凭据存储在应用程序或其配置，因此它被视为通常更安全的方法。
+> 尽管对于在 Azure 中托管的应用支持使用应用程序 ID 和密码 （客户端机密），我们建议使用[托管于 Azure 资源的标识](#use-managed-identities-for-azure-resources)托管在 Azure 中的应用时。 管理的标识要求将凭据存储在应用程序或其配置，因此它被视为通常更安全的方法。
 
 示例应用时使用的应用程序 ID 和密码 （客户端机密）`#define`顶部的语句*Program.cs*文件设置为`Basic`。
 
@@ -155,11 +155,11 @@ appsettings.json：
 
 在运行应用时，网页显示加载的机密值。 在开发环境中，密钥值将加载与`_dev`后缀。 在生产环境中，值将加载与`_prod`后缀。
 
-## <a name="use-the-managed-service-identity-msi-provider"></a>使用托管的服务标识 (MSI) 提供程序
+## <a name="use-managed-identities-for-azure-resources"></a>使用 Azure 资源的托管标识
 
-部署到 Azure 的应用可以充分利用的托管服务标识 (MSI)，它允许应用使用 Azure 密钥保管库进行身份验证使用 Azure AD 身份验证，而无需在应用中存储的凭据 （应用程序 ID 和客户端密码/密码）。
+**应用程序部署到 Azure**可以充分利用[管理 Azure 资源的标识](/azure/active-directory/managed-identities-azure-resources/overview)，它允许应用程序以使用 Azure 密钥保管库进行身份验证使用 Azure AD 身份验证，而无需凭据 (应用程序 ID 和Password/Client 机密) 存储在应用程序中。
 
-示例应用使用 MSI 时`#define`顶部的语句*Program.cs*文件设置为`Managed`。
+示例应用程序使用托管标识的 Azure 资源时`#define`顶部的语句*Program.cs*文件设置为`Managed`。
 
 输入到应用中的保管库名称*appsettings.json*文件。 示例应用程序不需要的应用程序 ID 和密码 （客户端机密） 设置为时`Managed`版本，因此可以忽略这些配置条目。 将应用部署到 Azure 和 Azure 进行身份验证应用程序访问 Azure 密钥保管库仅使用保管库名称存储在*appsettings.json*文件。
 
@@ -177,7 +177,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 应用程序示例：
 
-* 创建的实例`AzureServiceTokenProvider`类，而连接字符串。 当未提供连接字符串时，该提供程序将尝试从 MSI 获取访问令牌。
+* 创建的实例`AzureServiceTokenProvider`类，而连接字符串。 时未提供连接字符串，该提供程序将尝试从 Azure 资源的托管标识获取访问令牌。
 * 一个新`KeyVaultClient`使用创建`AzureServiceTokenProvider`实例令牌回调。
 * `KeyVaultClient`实例使用的默认实现`IKeyVaultSecretManager`的加载所有机密值，并替换双短划线 (`--`) 用冒号 (`:`) 密钥名称。
 
@@ -312,7 +312,7 @@ Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介�
 
 在上面的 JSON 文件中所示的配置存储在 Azure 密钥保管库中使用双短划线 (`--`) 表示法和数字段：
 
-| 键 | “值” |
+| 键 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
