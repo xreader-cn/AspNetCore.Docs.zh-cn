@@ -446,7 +446,7 @@ items:
       name: FAQ
     - uid: razor-components/get-started
       name: 入门
-    - uid: tutorials/first-blazor-app
+    - uid: tutorials/first-razor-components-app
       name: 生成首个应用
     - uid: razor-components/components
       name: 组件数
@@ -812,11 +812,10 @@ items:
     name: 使用 LoggerMessage 的日志记录
   - uid: tutorials/dotnet-watch
     name: 使用文件观察程序
-    items:
-    - uid: fundamentals/middleware/extensibility
-      name: 基于工厂的中间件
-    - uid: fundamentals/middleware/extensibility-third-party-container
-      name: 使用第三方容器的基于工厂的中间件
+  - uid: fundamentals/middleware/extensibility
+    name: 基于工厂的中间件
+  - uid: fundamentals/middleware/extensibility-third-party-container
+    name: 使用第三方容器的基于工厂的中间件
 - name: 迁移
   items:
   - uid: migration/22-to-30
@@ -855,9 +854,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.1
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 4cd0cebdaa4e9821ce0e176be61d304f3a876d7e
-ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
+ms.openlocfilehash: ebe88d54a391dfe44e6fda02028f9103fceb2ef8
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55737663"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854362"
