@@ -312,6 +312,8 @@ items:
       href: /azure/azure-signalr/signalr-overview
     - uid: signalr/redis-backplane
       name: Redis 底板
+    - uid: signalr/background-services
+      name: 使用后台服务的 SignalR
   - uid: signalr/configuration
     name: 配置
   - uid: signalr/authn-and-authz
@@ -853,9 +855,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.1
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 75c0220d1dac2fa2a51efd075e05cfd1e5070c8c
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 4cd0cebdaa4e9821ce0e176be61d304f3a876d7e
+ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667799"
+ms.lasthandoff: 02/05/2019
+ms.locfileid: "55737663"
