@@ -3,14 +3,14 @@ title: ASP.NET Core 中的视图组件
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何将其添加到应用中。
 ms.author: riande
-ms.date: 12/03/2018
+ms.date: 1/30/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 156db610d99eaf8a8042a4c7c85267d521a20fd4
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: d0e528fcf9e20afee98e74fbc09c67b81e123e95
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836696"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428390"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -75,9 +75,11 @@ ms.locfileid: "54836696"
 
 运行时在以下路径中搜索视图：
 
-* /Pages/Components/{View Component Name}/{View Name}
 * /Views/{Controller Name}/Components/{View Component Name}/{View Name}
 * /Views/Shared/Components/{View Component Name}/{View Name}
+* /Pages/Shared/Components/{View Component Name}/{View Name}
+
+搜索路径适用于使用控制器 + 视图和 Razor Pages 的项目。
 
 视图组件的默认视图名称为“默认”，这意味着视图文件通常命名为“Default.cshtml”。 可以在创建视图组件结果或调用 `View` 方法时指定不同的视图名称。
 
@@ -91,9 +93,9 @@ ms.locfileid: "54836696"
 @await Component.InvokeAsync("Name of view component", {Anonymous Type Containing Parameters})
 ```
 
-参数将传递给 `InvokeAsync` 方法。 本文中开发的 `PriorityList` 视图组件是从 Views/Todo/Index.cshtml 视图文件中调用的。 在下例中，使用两个参数调用 `InvokeAsync` 方法：
+参数将传递给 `InvokeAsync` 方法。 本文中开发的 `PriorityList` 视图组件调用自 Views/ToDo/Index.cshtml 视图文件。 在下例中，使用两个参数调用 `InvokeAsync` 方法：
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 ::: moniker range=">= aspnetcore-1.1"
 
@@ -101,9 +103,9 @@ ms.locfileid: "54836696"
 
 对于 ASP.NET Core 1.1 及更高版本，可以调用视图组件作为[标记帮助程序](xref:mvc/views/tag-helpers/intro)：
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexTagHelper.cshtml?range=37-38)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-标记帮助程序采用 Pascal 大小写格式的类和方法参数将转换为各自相应的[小写短横线格式](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101)。 要调用视图组件的标记帮助程序使用 `<vc></vc>` 元素。 按如下方式指定视图组件：
+标记帮助程序采用 Pascal 大小写格式的类和方法参数将转换为各自相应的[短横线格式](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101)。 要调用视图组件的标记帮助程序使用 `<vc></vc>` 元素。 按如下方式指定视图组件：
 
 ```cshtml
 <vc:[view-component-name]
@@ -122,13 +124,13 @@ ms.locfileid: "54836696"
 
 本教程中使用的 `InvokeAsync` 方法：
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 在标记帮助程序标记中：
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexTagHelper.cshtml?range=37-38)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-在以上示例中，`PriorityList` 视图组件变为 `priority-list`。 视图组件的参数作为小写短横线格式的属性进行传递。
+在以上示例中，`PriorityList` 视图组件变为 `priority-list`。 视图组件的参数作为短横线格式的属性进行传递。
 
 ::: moniker-end
 
@@ -142,7 +144,7 @@ ms.locfileid: "54836696"
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>演练：创建简单的视图组件
 
-[下载](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `Todo` 控制器的简单项目，该控制器显示 Todo 项的列表。
+[下载](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `ToDo` 控制器的简单项目，该控制器显示 ToDo 项的列表。
 
 ![ToDo 列表](view-components/_static/2dos.png)
 
@@ -175,14 +177,14 @@ ms.locfileid: "54836696"
 * 创建 Views/Shared/Components/PriorityList 文件夹。 此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配。 如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。
 
 * 创建 Views/Shared/Components/PriorityList/Default.cshtml Razor 视图：[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
-    
-   Razor 视图获取并显示 `TodoItem` 列表。 如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称。 在本教程后面部分，我将演示如何传递视图名称。 要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/Todo/Components/PriorityList/Default.cshtml）。
-    
-    如果视图组件是控制器特定的，则可将其添加到控制器特定的文件夹 (Views/Todo/Components/PriorityList/Default.cshtml)。
 
-* 将包含优先级列表组件调用的 `div` 添加到 Views/Todo/index.cshtml 文件底部：
+   Razor 视图获取并显示 `TodoItem` 列表。 如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称。 在本教程后面部分，我将演示如何传递视图名称。 要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml）。
 
-    [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFirst.cshtml?range=34-38)]
+    如果视图组件是控制器特定的，则可将其添加到控制器特定的文件夹 (Views/ToDo/Components/PriorityList/Default.cshtml)。
+
+* 将包含优先级列表组件调用的 `div` 添加到 Views/ToDo/index.cshtml 文件底部：
+
+    [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
 标记 `@await Component.InvokeAsync` 显示调用视图组件的语法。 第一个参数是要调用的组件的名称。 后续参数将传递给该组件。 `InvokeAsync` 可以采用任意数量的参数。
 
@@ -206,11 +208,11 @@ ms.locfileid: "54836696"
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-更新 Views/TodoList/Index.cshtml：
+更新 Views/ToDo/Index.cshtml：
 
-<!-- Views/TodoList/Index.cshtml is never imported, so change to test tutorial -->
+<!-- Views/ToDo/Index.cshtml is never imported, so change to test tutorial -->
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 运行应用并验证 PVC 视图。
 
@@ -221,7 +223,7 @@ ms.locfileid: "54836696"
 ### <a name="examine-the-view-path"></a>检查视图路径
 
 * 将优先级参数更改为 3 或更低，从而不返回优先级视图。
-* 将 Views/Todo/Components/PriorityList/Default.cshtml 暂时重命名为 1Default.cshtml。
+* 将 Views/ToDo/Components/PriorityList/Default.cshtml 暂时重命名为 1Default.cshtml。
 * 测试应用，你将收到以下错误：
 
    ```
@@ -232,8 +234,8 @@ ms.locfileid: "54836696"
    EnsureSuccessful
    ```
 
-* 将 Views/Todo/Components/PriorityList/1Default.cshtml 复制到 Views/Shared/Components/PriorityList/Default.cshtml。
-* 将一些标记添加到共享 Todo 视图组件视图以指示视图来自“Shared”文件夹。
+* 将 Views/ToDo/Components/PriorityList/1Default.cshtml 复制到 Views/Shared/Components/PriorityList/Default.cshtml。
+* 将一些标记添加到共享 ToDo 视图组件视图，以指示视图来自“Shared”文件夹。
 * 测试“共享”组件视图。
 
 ![有共享组件视图的 ToDo 输出](view-components/_static/shared.png)
@@ -246,7 +248,7 @@ ms.locfileid: "54836696"
 
 将 `using` 语句添加到 Razor 视图文件，并使用 `nameof` 运算符：
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexNameof.cshtml?range=1-6,35-)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexNameof.cshtml?range=1-6,35-)]
 
 ## <a name="perform-synchronous-work"></a>执行同步工作
 

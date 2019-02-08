@@ -114,30 +114,34 @@ DocFX 要求：
 
 * 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”。
 * 将 DocFX 添加到路径。
-* 在命令行窗口中，导航到包含 docfx.json 文件的适当文件夹（ASP.NET 内容为 spnet 或 ASP.NET Core 为 aspnetcore）并运行以下命令：
+* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令：
 
-  ```
+  ```console
   docfx --serve
   ```
-    
-* 在浏览器中导航到 `http://localhost:8080`。
+* 在浏览器中导航到 `http://localhost:8080/group1-dest/`。
 
 ### <a name="mono-instructions"></a>Mono 说明
 
 * 使用 Homebrew 安装 Mono：
 
-  ```
+  ```console
   brew install mono
   ```
 * 下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
 * 将存档提取到 $HOME/bin/docfx。
 * 在 Bash Shell 中为 docfx 创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
 
-  ```
+  ```console
   alias docfx='mono $HOME/bin/docfx/docfx.exe'
   alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
-* 在存储库的根中执行 `docfx` 以生成网站。 执行 `docfx-serve` 以查看 `http://localhost:8080` 中的网站。
+* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令通过其别名构建和提供文档：
+
+  ```console
+  docfx-serve
+  ```
+* 在浏览器中导航到 `http://localhost:8080/group1-dest/`。
 
 ## <a name="voice-and-tone"></a>语气和语调
 

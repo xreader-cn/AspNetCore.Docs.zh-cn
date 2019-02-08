@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 87171beb7c214b1370d4d4144a79cb6d2c56098f
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 99b1073fe025ee8693d9fe833402d245f78a603d
+ms.sourcegitcommit: e7276930515216338a33c4a03c0d7a87fc718ffe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862364"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55293502"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -140,9 +140,9 @@ public DateTime ReleaseDate { get; set; }
 
 ### <a name="publish-to-azure"></a>发布到 Azure
 
-有关部署到 Azure 的信息，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET 应用](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase)。 此说明适用于 ASP.NET 应用，而不适用于 ASP.NET Core 应用，但步骤均相同。
+若要了解如何部署到 Azure，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET 应用](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase)。 此说明适用于 ASP.NET 应用，而不适用于 ASP.NET Core 应用，但步骤均相同。
 
-感谢读完这篇 Razor 页面简介。 我们非常感谢你的反馈。 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。
+感谢读完这篇 Razor 页面简介。 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。
 
 ## <a name="additional-resources"></a>其他资源
 

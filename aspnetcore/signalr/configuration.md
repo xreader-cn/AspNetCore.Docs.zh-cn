@@ -5,14 +5,14 @@ description: 了解如何配置 ASP.NET Core SignalR 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/07/2019
 uid: signalr/configuration
-ms.openlocfilehash: ce970199984cdb8333ed1fd51f744dcda2df9c61
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: f5449a15743c1f38c550fe30945bdc19f069e3f5
+ms.sourcegitcommit: b72bbc9ae91e4bd37c9ea9b2d09ebf47afb25dd7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667604"
+ms.lasthandoff: 02/08/2019
+ms.locfileid: "55958110"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -91,7 +91,28 @@ services.AddSignalR().AddHubOptions<MyHub>(options =>
 });
 ```
 
-使用`HttpConnectionDispatcherOptions`配置与传输和内存缓冲区管理相关的高级的设置。 通过将传递委托，配置这些选项[MapHub\<T >](/dotnet/api/microsoft.aspnetcore.signalr.hubroutebuilder.maphub)。
+### <a name="advanced-http-configuration-options"></a>高级的 HTTP 配置选项
+
+使用`HttpConnectionDispatcherOptions`配置与传输和内存缓冲区管理相关的高级的设置。 通过将传递委托，配置这些选项[MapHub\<T >](/dotnet/api/microsoft.aspnetcore.signalr.hubroutebuilder.maphub)中`Startup.Configure`。
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseSignalR((configure) => 
+    {
+        var desiredTransports = 
+            HttpTransportType.WebSockets |
+            HttpTransportType.LongPolling;
+
+        configure.MapHub<MyHub>("/myhub", (options) => 
+        {
+            options.Transports = desiredTransports;
+        });
+    });
+}
+```
+
+下表描述了用于配置 ASP.NET Core SignalR 高级的 HTTP 选项的选项：
 
 | 选项 | 默认值 | 描述 |
 | ------ | ------------- | ----------- |
