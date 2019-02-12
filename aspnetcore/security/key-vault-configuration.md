@@ -5,14 +5,14 @@ description: 了解如何使用 Azure 密钥保管库配置提供程序来配置
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2019
+ms.date: 02/08/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: d255321f6083747ce9b452e1efd4da5bc015bf64
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: f70389c86420d81e284ecc863ac8386f726ed2cf
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854427"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103106"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -271,8 +271,8 @@ var cert = store.Certificates
         config["CertificateThumbprint"], false);
 
 config.AddAzureKeyVault(
-    builtConfig["Vault"],
-    builtConfig["ClientId"],
+    builtConfig["KeyVaultName"],
+    builtConfig["AzureADApplicationId"],
     cert.OfType<X509Certificate2>().Single(),
     new EnvironmentSecretManager(context.HostingEnvironment.ApplicationName));
 
@@ -342,8 +342,8 @@ Configuration.Reload();
 * 应用程序无权访问密钥保管库。
 * 访问策略不包括`Get`和`List`权限。
 * 在密钥保管库，配置数据 （名称 / 值对） 是错误命名为，缺少，禁用，或已过期。
-* 应用了错误的密钥保管库名称 (`Vault`)，Azure AD 应用程序 Id (`ClientId`)，或 Azure AD 密钥 (`ClientSecret`)。
-* Azure AD 密钥 (`ClientSecret`) 已过期。
+* 应用了错误的密钥保管库名称 (`KeyVaultName`)，Azure AD 应用程序 Id (`AzureADApplicationId`)，或 Azure AD 密码 （客户端机密） (`AzureADPassword`)。
+* Azure AD 密码 （客户端机密） (`AzureADPassword`) 已过期。
 * 配置密钥 （名称） 不正确的应用中的想要加载的值。
 
 ## <a name="additional-resources"></a>其他资源
