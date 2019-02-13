@@ -3,14 +3,14 @@ title: 帐户确认和 ASP.NET Core 中的密码恢复
 author: rick-anderson
 description: 了解如何生成使用电子邮件确认及密码重置功能的 ASP.NET Core 应用程序。
 ms.author: riande
-ms.date: 7/11/2018
+ms.date: 2/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 0dc9907f9f54c8a0daf2e05a3769897e5145935f
-ms.sourcegitcommit: e418cb9cddeb3de06fa0cb4fdb5529da03ff6d63
+ms.openlocfilehash: 77d7b209d57f9ee44f158798ff780ce85c87aaf2
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "54444137"
+ms.lasthandoff: 02/13/2019
+ms.locfileid: "56159403"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>帐户确认和 ASP.NET Core 中的密码恢复
 
@@ -41,7 +41,7 @@ ms.locfileid: "54444137"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 * 在 Visual Studio 中，创建一个新**Web 应用程序**名为项目**WebPWrecover**。
-* 选择**ASP.NET Core 2.1**。
+* 选择“ASP.NET Core 2.1”。
 * 保留默认值**身份验证**设置为**无身份验证**。 下一步中添加身份验证。
 
 在下一步：
@@ -76,7 +76,7 @@ dotnet build
 
 ## <a name="test-new-user-registration"></a>测试新的用户注册
 
-运行该应用程序中，选择**注册**链接，并注册用户。 在此情况下，电子邮件的唯一验证是使用[[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute)属性。 提交后注册，登录到应用程序。 更高版本在本教程中，以便验证其电子邮件之前，新用户无法登录。 更新代码。
+运行该应用程序中，选择**注册**链接，并注册用户。 在此情况下，电子邮件的唯一验证是使用[[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute)属性。 提交后注册，登录到应用程序。 更高版本在本教程中，以便新用户不能登录，直到其电子邮件验证更新代码。
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
@@ -166,7 +166,7 @@ dotnet add package SendGrid
 
 将以下代码添加到`ConfigureServices`中的方法*Startup.cs*文件：
 
-* 添加`EmailSender`作为单一实例服务。
+* 添加`EmailSender`作为暂时性服务。
 * 注册`AuthMessageSenderOptions`配置实例。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover21/Startup.cs?name=snippet2&highlight=12-99)]
@@ -195,7 +195,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 * 检查你的帐户确认链接的电子邮件。 请参阅[调试电子邮件](#debug)如果没有收到电子邮件。
 * 单击链接以确认你的电子邮件。
-* 电子邮件和密码登录。
+* 使用你的电子邮件和密码登录。
 * 注销。
 
 ### <a name="view-the-manage-page"></a>查看管理页
@@ -213,7 +213,7 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 * 如果在登录，请选择**注销**。
 * 选择**登录**链接，然后选择**忘记了密码？** 链接。
 * 输入用于注册该帐户的电子邮件。
-* 发送一封电子邮件包含用于重置密码的链接。 检查你的电子邮件，并单击链接以重置密码。 已成功重置密码后，可以登录你的电子邮件和新密码。
+* 发送一封电子邮件包含用于重置密码的链接。 检查你的电子邮件，并单击链接以重置密码。 已成功重置密码后，你可以使用你的电子邮件和新密码登录。
 
 <a name="debug"></a>
 
