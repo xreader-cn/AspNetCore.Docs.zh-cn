@@ -227,7 +227,7 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
-在上述示例中，添加两个处理程序。 第一个使用 `AddTransientHttpErrorPolicy` 扩展添加重试策略。 若请求失败，最多可重试三次。 第一个调用 `AddTransientHttpErrorPolicy` 添加断路器策略。 如果尝试连续失败了五次，则会阻止后续外部请求 30 秒。 断路器策略处于监控状态。 通过此客户端进行的所有调用都共享同样的线路状态。
+在上述示例中，添加两个处理程序。 第一个使用 `AddTransientHttpErrorPolicy` 扩展添加重试策略。 若请求失败，最多可重试三次。 第二个调用 `AddTransientHttpErrorPolicy` 添加断路器策略。 如果尝试连续失败了五次，则会阻止后续外部请求 30 秒。 断路器策略处于监控状态。 通过此客户端进行的所有调用都共享同样的线路状态。
 
 ### <a name="add-policies-from-the-polly-registry"></a>从 Polly 注册表添加策略
 
