@@ -5,12 +5,12 @@ description: 了解有关数据保护密钥管理和 ASP.NET Core 中的生存�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: beff17dd81143db02a0cbc79fa7cb3a6a4deeda6
-ms.sourcegitcommit: 3ca527f27c88cfc9d04688db5499e372fbc2c775
+ms.openlocfilehash: 2f022a4c7519485fe629ce47c27d214c8c27d5bc
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/17/2018
-ms.locfileid: "39095094"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159206"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>数据保护密钥管理和 ASP.NET Core 中的生存期
 
@@ -26,6 +26,13 @@ ms.locfileid: "39095094"
    * 各部署槽位（例如过渡槽和生成槽）不共享密钥环。 在交换之间部署槽，如交换到生产环境的过渡环境或使用 A / B 测试，使用数据保护的任何应用将无法解密使用之前槽位中的密钥环存储的数据。 这会导致用户正在注销的应用程序使用标准的 ASP.NET Core cookie 身份验证，因为它使用数据保护来保护其 cookie。 如果你需要独立于槽位的密钥环，则使用外部密钥环提供程序，例如 Azure Blob 存储、 Azure 密钥保管库，SQL 存储区中，或 Redis 缓存。
 
 1. 如果用户配置文件不可用，将密钥保存到 *%LOCALAPPDATA%\ASP.NET\DataProtection-Keys*文件夹。 如果操作系统是 Windows，静态使用 DPAPI 加密密钥。
+
+   应用程序池[setProfileEnvironment 属性](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)还必须启用。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下 (例如，Windows OS)`setProfileEnvironment`设置为`false`。 如果密钥不存储用户配置文件的目录中应当：
+
+   1. 导航到 *%windir%/system32/inetsrv/config*文件夹。
+   1. 打开*applicationHost.config*文件。
+   1. 查找 `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>` 元素。
+   1. 确认`setProfileEnvironment`属性不存在，则默认值为`true`，或显式将该特性的值设置为`true`。
 
 1. 如果应用托管在 IIS 中，密钥保留到 HKLM 注册表中特殊的注册表项的列仅对工作进程帐户。 使用 DPAPI 对密钥静态加密。
 

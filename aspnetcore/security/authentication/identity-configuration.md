@@ -3,14 +3,14 @@ title: 配置 ASP.NET Core 标识
 author: AdrienTorris
 description: 了解 ASP.NET Core 标识默认值，并了解如何配置要使用自定义值的标识属性。
 ms.author: riande
-ms.date: 08/14/2018
+ms.date: 02/11/2019
 uid: security/authentication/identity-configuration
-ms.openlocfilehash: 02441cd28c2a99eda7b50ed54f4437d4b52ca5d9
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 3213f669cbfccdcda7cc7c0142b8101e696678e6
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911927"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159508"
 ---
 # <a name="configure-aspnet-core-identity"></a>配置 ASP.NET Core 标识
 
@@ -141,7 +141,7 @@ ASP.NET Core 标识设置，例如密码策略、 锁定和 cookie 配置使用�
 |     [PasswordResetTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.passwordresettokenprovider)     | 获取或设置[IUserTwoFactorTokenProvider<TUser> ](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactortokenprovider-1)用于生成在密码重置电子邮件中使用的令牌。 |
 |                    [ProviderMap](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.providermap)                    |                用于构造[用户令牌提供程序](/dotnet/api/microsoft.aspnetcore.identity.tokenproviderdescriptor)与键用作提供程序的名称。                 |
 
-### <a name="user"></a>“用户”
+### <a name="user"></a>用户
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_user)]
 
@@ -175,3 +175,23 @@ ASP.NET Core 标识设置，例如密码策略、 锁定和 cookie 配置使用�
 ::: moniker-end
 
 有关详细信息，请参阅[CookieAuthenticationOptions](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions)。
+
+## <a name="password-hasher-options"></a>密码哈希计算器选项
+
+<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions> 获取和设置进行密码哈希处理的选项。
+
+| 选项 | 描述 |
+| ------ | ----------- |
+| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> | 新密码哈希处理时使用的兼容性模式。 默认为 <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>。 经过哈希处理密码，调用的第一个字节*格式标记*，指定用于对密码进行加密的哈希算法的版本。 验证密码与哈希时<xref:Microsoft.AspNetCore.Identity.PasswordHasher`1.VerifyHashedPassword*>方法选择正确的算法根据第一个字节。 客户端是能够进行身份验证而不考虑的这一版算法用于对密码进行加密。 设置兼容性模式将影响的哈希*新密码*。 |
+| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> | 使用哈希密码使用 PBKDF2 时的迭代次数。 此值是时，才使用<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode>设置为<xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>。 值必须是一个正整数，默认值为`10000`。 |
+
+在以下示例中，<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount>设置为`12000`中`Startup.ConfigureServices`:
+
+```csharp
+// using Microsoft.AspNetCore.Identity;
+
+services.Configure<PasswordHasherOptions>(option =>
+{
+    option.IterationCount = 12000;
+});
+```
