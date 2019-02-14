@@ -2,26 +2,19 @@
 title: 通过 ASP.NET Core 使用带 Redux 的 React 项目模板
 author: SteveSandersonMS
 description: 了解如何开始使用适用于带 Redux 的 React 和 create-react-app 的 ASP.NET Core 单页应用程序 (SPA) 项目模板。
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/21/2018
+ms.date: 02/13/2019
 uid: spa/react-with-redux
-ms.openlocfilehash: c1aedcf1e14a9e7b339b60dd02c4267cd5945a49
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: ed2e9aea449ddb09fef049a391f40f57452786a8
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341603"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248077"
 ---
 # <a name="use-the-react-with-redux-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用带 Redux 的 React 项目模板
-
-::: moniker range="= aspnetcore-2.0"
-
-> [!NOTE]
-> 本文档不适用于 ASP.NET Core 2.0 中包含的 React 与 Redux 项目模板。 它与较新的 React 与 Redux 模板，则可以手动更新。 该模板是适用于 ASP.NET Core 2.1 或更高版本。
-
-::: moniker-end
 
 更新的带 Redux 的 React 项目模板为使用 React、Redux 和 [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) 约定实现丰富的客户端用户界面 (UI) 的 ASP.NET Core 应用程序提供了便捷起点。
 

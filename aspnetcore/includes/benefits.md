@@ -5,7 +5,7 @@ ASP.NET Core 具有如下优点：
 * [Razor Pages](xref:razor-pages/index) 可以使基于页面的编码方式更简单高效。
 * 能够在 Windows、macOS 和 Linux 上进行开发和运行。
 * 开放源代码和[以社区为中心](https://live.asp.net/)。
-* 集成[新式客户端框架](xref:client-side/index)和开发工作流。
+* 集成[新式客户端框架](xref:razor-components/index)和开发工作流。
 * 基于环境的云就绪[配置系统](xref:fundamentals/configuration/index)。
 * 内置[依赖项注入](xref:fundamentals/dependency-injection)。
 * 轻型的[高性能](https://github.com/aspnet/benchmarks)模块化 HTTP 请求管道。

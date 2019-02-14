@@ -4,17 +4,17 @@ title: 教程：开始使用 EF Database First 通过 MVC 5
 description: 本教程介绍如何开始使用现有数据库并快速创建 web 应用程序，使用户能够与数据交互。
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/28/2019
+ms.date: 01/15/2019
 ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: dfc6c7a7083524a1e7049fdc879fe679f951084d
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: d99fdb5382037038d4428ff1946f39aee380fb75
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667734"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248220"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>教程：开始使用 EF Database First 通过 MVC 5
 
@@ -33,17 +33,16 @@ ms.locfileid: "55667734"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
+[Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 
-## <a name="introduction"></a>介绍
-
-本教程探讨这种情况，如果有数据库并且想要为 web 应用程序根据该数据库的字段生成代码。 这种方法称为数据库优先开发。 如果你还没有现有数据库，则可以改用方法称作 Code First 开发这涉及到定义数据类和类属性从生成数据库。
 
 ## <a name="set-up-the-database"></a>将数据库设置
 
 以模拟拥有现有的数据库的环境，你将首先使用一些预填充的数据，创建一个数据库，然后创建 web 应用程序连接到数据库。
 
-本教程是使用 LocalDB 开发的。 您可以使用现有的数据库服务器，而不是 LocalDB，但具体取决于版本的 Visual Studio 和您的数据库的类型，所有 Visual Studio 中的数据工具可能不受支持。 如果这些工具不可用于你的数据库，您可能需要执行某些管理套件中的特定于数据库的步骤为你的数据库。
+
+本教程是使用 Visual Studio 2017 使用 LocalDB 开发的。 您可以使用现有的数据库服务器，而不是 LocalDB，但具体取决于版本的 Visual Studio 和您的数据库的类型，所有 Visual Studio 中的数据工具可能不受支持。 如果这些工具不可用于你的数据库，您可能需要执行某些管理套件中的特定于数据库的步骤为你的数据库。
+
 
 如果你的 Visual Studio 版本中有数据库工具的问题，请确保已安装的数据库工具的最新版本。 有关更新或安装数据库工具的信息，请参阅[Microsoft SQL Server Data Tools](https://msdn.microsoft.com/data/hh297027)。
 

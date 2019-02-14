@@ -5,12 +5,12 @@ description: 本文介绍如何使用多个身份验证方法时限制到特定�
 ms.author: riande
 ms.date: 10/22/2018
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: fbe9f32e01a214f41b5a6e9f43e8fdee5fc612df
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089391"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248194"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
 
@@ -201,6 +201,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如重写默认授权策略，则可以使用简单的`[Authorize]`控制器中的属性。 然后，该控制器使用由第一个或第二个颁发者颁发的 JWT 接受请求。
+重写默认授权策略，因为它是可以使用`[Authorize]`控制器中的属性。 然后，该控制器使用由第一个或第二个颁发者颁发的 JWT 接受请求。
 
 ::: moniker-end

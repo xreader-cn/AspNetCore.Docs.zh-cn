@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: 4e8a9ac6c0594f9bab67214aaa8cab9199cca29d
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 937c73c26cd3935c5069d4735e754d1a567f41f4
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207390"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248103"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -32,6 +32,8 @@ ms.locfileid: "54207390"
 授权要求是一个可供策略用来评估当前用户主体的数据参数的集合。 在我们的“AtLeast21”策略中，此要求是单个参数&mdash;最低年龄。 要求可以实现 [IAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationrequirement)，这是一个空标记接口。 参数化的最低年龄要求可以按如下方式实现：
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Requirements/MinimumAgeRequirement.cs?name=snippet_MinimumAgeRequirementClass)]
+
+如果授权策略包含多个授权要求，所有要求必须都通过策略评估成功的顺序。 换而言之，在处理多个添加到单个授权策略的授权要求**AND**基础。
 
 > [!NOTE]
 > 一项要求并不需要具有数据或属性。

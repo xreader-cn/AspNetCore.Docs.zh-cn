@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何使用 ASP.NET Core 分布式缓存来提高应用性能和可伸缩性，尤其是在云或服务器场环境中。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/19/2018
+ms.date: 02/13/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: d80cde372535aa04604ce0cd5a731a1448515093
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: a157eb075874d2118e3e34b51410b539a1ec37df
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253003"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248583"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>分布式缓存在 ASP.NET Core 中
 
@@ -76,7 +76,7 @@ ms.locfileid: "50253003"
 
 ### <a name="distributed-memory-cache"></a>分布式的内存缓存
 
-分布式内存缓存 (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) 是框架提供的实现`IDistributedCache`，在内存中存储项。 分布式内存缓存不是实际的分布式的缓存。 缓存的项存储在运行该应用程序的服务器上的应用程序实例。
+分布式内存缓存 (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) 是框架提供的实现<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>，在内存中存储项。 分布式内存缓存不是实际的分布式的缓存。 缓存的项存储在运行该应用程序的服务器上的应用程序实例。
 
 分布式内存缓存是一个有用的实现：
 
@@ -149,13 +149,13 @@ services.AddDistributedRedisCache(options =>
 
 ## <a name="use-the-distributed-cache"></a>使用分布式的缓存
 
-若要使用<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>接口，请求的实例`IDistributedCache`从任何应用程序中的构造函数。 实例由提供[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)。
+若要使用<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>接口，请求的实例<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>从任何应用程序中的构造函数。 实例由提供[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)。
 
-当应用启动时`IDistributedCache`注入到`Startup.Configure`。 使用缓存的当前时间<xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime>(有关详细信息，请参阅[Web 主机： IApplicationLifetime 接口](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
+当应用启动时<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>注入到`Startup.Configure`。 使用缓存的当前时间<xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime>(有关详细信息，请参阅[Web 主机：IApplicationLifetime 接口](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
-示例应用程序注入`IDistributedCache`到`IndexModel`以供索引页。
+示例应用程序注入<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>到`IndexModel`以供索引页。
 
 每次加载索引页时，缓存时间检查缓存`OnGetAsync`。 如果尚未过期的缓存的时间，将显示时间。 如果自上一次访问缓存的时间 （已加载此页的最后一个时间） 已过去 20 秒，该页将显示*缓存时间已过*。
 
@@ -164,13 +164,13 @@ services.AddDistributedRedisCache(options =>
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
-> 无需为`IDistributedCache`实例使用 Singleton 或 Scoped 生命周期（至少对内置实现来说是这样的）。
+> 无需为<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>实例使用 Singleton 或 Scoped 生命周期（至少对内置实现来说是这样的）。
 >
-> 此外可以创建`IDistributedCache`实例可能需要某一个而不是使用 DI，但在代码中创建实例会使代码难以测试和违反[显式依赖关系原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
+> 此外可以创建<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>实例可能需要某一个而不是使用 DI，但在代码中创建实例会使代码难以测试和违反[显式依赖关系原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
 
 ## <a name="recommendations"></a>建议
 
-确定哪一种实现的时`IDistributedCache`最适合于您的应用程序，请考虑以下：
+确定哪一种实现的时<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>最适合于您的应用程序，请考虑以下：
 
 * 现有的基础结构
 * 性能要求

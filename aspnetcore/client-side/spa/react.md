@@ -2,26 +2,19 @@
 title: 通过 ASP.NET Core 使用 React 项目模板
 author: SteveSandersonMS
 description: 了解如何开始使用适用于 React 和 create-react-app 的 ASP.NET Core 单页应用程序 (SPA) 项目模板。
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/21/2018
+ms.date: 02/13/2019
 uid: spa/react
-ms.openlocfilehash: d83bff8abcd5b59d8bc4a51a101510755394f0c4
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: aa08a9d8d06d8b52be564fabf904d4923684d4e4
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667682"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248025"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
-
-::: moniker range="= aspnetcore-2.0"
-
-> [!NOTE]
-> 本文档不涉及 ASP.NET Core 2.0 中包含的 React 项目模板。 本文介绍你可以手动更新的新版 React 模板。 该模板默认包含在 ASP.NET Core 2.1 中。
-
-::: moniker-end
 
 更新的 React 项目模板为使用 React 和 [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) 约定实现丰富的客户端用户界面 (UI) 的 ASP.NET Core 应用程序提供了便捷起点。
 
@@ -29,17 +22,7 @@ ms.locfileid: "55667682"
 
 ## <a name="create-a-new-app"></a>创建新应用
 
-::: moniker range="= aspnetcore-2.0"
-
-如果使用 ASP.NET Core 2.0，请确保[安装了更新的 React 项目模板](xref:spa/index#installation)。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 如果您有安装 ASP.NET Core 2.1，则无需安装响应项目模板。
-
-::: moniker-end
 
 在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app 目录中创建应用并切换到该目录：
 

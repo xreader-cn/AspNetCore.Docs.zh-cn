@@ -9,13 +9,17 @@ ms.topic: tutorial
 ms.assetid: 18cdd896-8ed9-4547-b143-114711e3eafb
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: e4f23dbdb604dd513e42b7b8ff7b727245b9b637
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 61bd7cd9be2fbf83f72382c8e94505222295bdbb
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889959"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248285"
 ---
+[下载已完成的项目](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+
+> Contoso 大学示例 web 应用程序演示如何创建使用 Entity Framework 6 Code First 和 Visual Studio 的 ASP.NET MVC 5 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)。
+
 # <a name="tutorial-read-related-data-with-ef-in-an-aspnet-mvc-app"></a>教程：读取使用 EF 在 ASP.NET MVC 应用中的相关的数据
 
 在上一教程中，您将完成学校数据模型。 在本教程将读取并显示相关的数据-即 Entity Framework 加载到导航属性的数据。
@@ -84,7 +88,7 @@ ms.locfileid: "54889959"
 
 创建名为的控制器`CourseController`(不 CoursesController) 用于`Course`实体类型，使用相同的选项**包含的 MVC 5 控制器视图，使用实体框架**用于之前所做的基架`Student`控制器：
 
-| 设置 | 值 |
+| 设置 | “值” |
 | ------- | ----- |
 | Model 类 | 选择**课程 (ContosoUniversity.Models)**。 |
 | 数据上下文类 | 选择**SchoolContext (ContosoUniversity.DAL)**。 |
@@ -134,7 +138,7 @@ ms.locfileid: "54889959"
 
 创建`InstructorController`(不 InstructorsController) 使用 EF 读/写操作的控制器：
 
-| 设置 | 值 |
+| 设置 | “值” |
 | ------- | ----- |
 | Model 类 | 选择**讲师 (ContosoUniversity.Models)**。 |
 | 数据上下文类 | 选择**SchoolContext (ContosoUniversity.DAL)**。 |

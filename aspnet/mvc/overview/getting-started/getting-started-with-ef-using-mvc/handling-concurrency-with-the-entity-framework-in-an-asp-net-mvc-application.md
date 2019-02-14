@@ -4,18 +4,21 @@ title: 教程：在 ASP.NET MVC 5 应用中处理并发和 EF
 description: 本教程演示如何使用乐观并发，多个用户在同一时间更新同一实体时处理冲突。
 author: tdykstra
 ms.author: riande
-ms.date: 01/21/2019
 ms.topic: tutorial
+ms.date: 01/15/2019
 ms.assetid: be0c098a-1fb2-457e-b815-ddca601afc65
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 2b41b51de5fd6d87b9905ba2bb3ddf7cedb47e69
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: b513d7d86d382068bc1a8f1bcc61289ee946d38b
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889829"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248298"
 ---
+<a name="handling-concurrency-with-the-entity-framework-6-in-an-aspnet-mvc-5-application-10-of-12"></a>处理并发使用 Entity Framework 6 中的 ASP.NET MVC 5 应用程序 (10 / 12)
+====================
+
 # <a name="tutorial-handle-concurrency-with-ef-in-an-aspnet-mvc-5-app"></a>教程：在 ASP.NET MVC 5 应用中处理并发和 EF
 
 之前的教程介绍了如何更新数据。 本教程演示如何使用乐观并发，多个用户在同一时间更新同一实体时处理冲突。 更改使用的网页`Department`实体以使它们处理并发错误。 下图显示了“编辑”和“删除”页面，包括发生并发冲突时显示的一些消息。
@@ -26,12 +29,14 @@ ms.locfileid: "54889829"
 
 在本教程中，你将了解：
 
+
 > [!div class="checklist"]
 > * 了解并发冲突
 > * 添加乐观并发
 > * 修改部门控制器
 > * 测试并发处理
 > * 更新“删除”页
+
 
 ## <a name="prerequisites"></a>系统必备
 

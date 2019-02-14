@@ -4,18 +4,22 @@ title: 教程：在 ASP.NET MVC 应用中使用 EF 更新相关的数据
 description: 在本教程中将更新相关的数据。 对于大多数关系，这可以通过更新外键字段或导航属性。
 author: tdykstra
 ms.author: riande
-ms.date: 01/17/2019
+ms.date: 01/19/2019
 ms.topic: tutorial
 ms.assetid: 7ba88418-5d0a-437d-b6dc-7c3816d4ec07
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: daefbcea39dc341c6fc72eb344b05eb2dbf0c3ba
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 1ef4242ff3bd1dd86f4d58bd04ba08e8b90fdaa4
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889842"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248272"
 ---
+<a name="updating-related-data-with-the-entity-framework-in-an-aspnet-mvc-application"></a>使用实体框架在 ASP.NET MVC 应用程序中更新相关的数据
+====================
+
+
 # <a name="tutorial-update-related-data-with-ef-in-an-aspnet-mvc-app"></a>教程：在 ASP.NET MVC 应用中使用 EF 更新相关的数据
 
 上一教程中显示相关的数据。 在本教程中将更新相关的数据。 对于大多数关系，这可以通过更新外键字段或导航属性。 对于多对多关系，实体框架不会联接表直接公开，因此添加和删除实体与相应的导航属性。
@@ -89,7 +93,7 @@ ms.locfileid: "54889842"
 
 运行**创建**页面 (显示课程索引页，然后单击**创建新**) 并输入新课程的数据：
 
-| “值” | 设置 |
+| 值 | 设置 |
 | ----- | ------- |
 | 数字 | 输入*1000年*。 |
 | 标题 | 输入*代数*。 |
@@ -124,9 +128,12 @@ ms.locfileid: "54889842"
 
 [!code-csharp[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample11.cs)]
 
-对引用`RetryLimitExceededException`需要`using`语句。 若要将其添加，悬停在`RetryLimitExceededException`。 将出现此问题的说明。 选择**显示潜在修复**，然后单击**使用 System.Data.Entity.Infrastructure;**。
+对引用`RetryLimitExceededException`需要`using`语句; 若要将其添加-将鼠标悬停`RetryLimitExceededException`。 将显示以下消息：![ 重试异常消息](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image13.png)
 
-![解析为重试异常](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
+
+选择**显示 potentital 修复**，然后**使用 System.Data.Entity.Infrastructure**
+
+![解析为重试异常](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image14.png)
 
 该代码执行以下操作：
 

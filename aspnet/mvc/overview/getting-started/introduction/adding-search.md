@@ -4,26 +4,36 @@ title: 搜索 |Microsoft Docs
 author: Rick-Anderson
 description: ''
 ms.author: riande
-ms.date: 05/22/2015
+ms.date: 01/17/2019
 ms.assetid: df001954-18bf-4550-b03d-43911a0ea186
 msc.legacyurl: /mvc/overview/getting-started/introduction/adding-search
 msc.type: authoredcontent
-ms.openlocfilehash: 31fd35ac63f3eb31d824e1710833ad83a0852ac9
-ms.sourcegitcommit: a91e8dd2f4b788114c8bc834507277f4b5e8d6c5
+ms.openlocfilehash: ada125c917656f3a83524ff39e53b4cfc041a497
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/04/2019
-ms.locfileid: "55712258"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248376"
 ---
 <a name="search"></a>搜索
 ====================
-通过[Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 [!INCLUDE [Tutorial Note](sample/code-location.md)]
 
 ## <a name="adding-a-search-method-and-search-view"></a>添加搜索方法和搜索视图
 
 在本部分中，你将添加到搜索功能`Index`操作方法，您可以搜索电影的流派或名称。
+
+## <a name="prerequisites"></a>系统必备
+
+若要匹配此部分的屏幕截图，需要运行应用程序 (F5)，并将以下电影添加到数据库。
+
+| 标题 | 发布日期 | 流派 | 价格 |
+| ----- | ------------ | ----- | ----- |
+| Ghostbusters | 6/8/1984 | 喜剧 | 6.99 |
+| Ghostbusters II | 6/16/1989 | 喜剧 | 6.99 |
+| 颗行星的大猩猩 | 3/27/1986 | 操作 | 5.99 |
+
 
 ## <a name="updating-the-index-form"></a>更新索引窗体
 
@@ -68,7 +78,7 @@ ms.locfileid: "55712258"
 
 ![](adding-search/_static/image2.png)
 
-但是，不能指望用户在每次要搜索电影时都修改 URL。 因此，现在您需要添加 UI 来帮助他们筛选电影。 如果已更改的签名`Index`方法来测试如何传递绑定路由的 ID 参数，将其更改回来，以使您`Index`方法采用字符串参数名为`searchString`:
+但是，不能指望用户在每次要搜索电影时都修改 URL。 因此需要添加 UI 来帮助他们筛选电影。 如果已更改的签名`Index`方法来测试如何传递绑定路由的 ID 参数，将其更改回来，以使您`Index`方法采用字符串参数名为`searchString`:
 
 [!code-csharp[Main](adding-search/samples/sample7.cs)]
 
@@ -120,7 +130,7 @@ Visual Studio 2013 具有较好的改进时显示和编辑视图文件。 当你
 
 [!code-csharp[Main](adding-search/samples/sample12.cs)]
 
-该代码使用`AddRange`方法的泛型`List`集合以添加到列表中的所有不同的流派。 (而无需`Distinct`修饰符，则添加重复的流派 — 例如，将在我们的示例中两次添加喜剧)。 然后代码将存储在流派列表的`ViewBag.MovieGenre`对象。 存储类别数据 （此类电影流派的） 作为[SelectList](https://msdn.microsoft.cus/library/system.web.mvc.selectlist(v=vs.108).aspx)对象中`ViewBag`，则访问下拉列表框中的类别数据是典型的 MVC 应用程序的方法。
+该代码使用`AddRange`方法的泛型`List`集合以添加到列表中的所有不同的流派。 (而无需`Distinct`修饰符，则添加重复的流派 — 例如，将在我们的示例中两次添加喜剧)。 然后代码将存储在流派列表的`ViewBag.MovieGenre`对象。 将类别数据 （此类电影流派） 作为[SelectList](https://msdn.microsoft.cus/library/system.web.mvc.selectlist(v=vs.108).aspx)对象中`ViewBag`，则访问下拉列表框中的类别数据是典型的 MVC 应用程序的方法。
 
 下面的代码演示了如何检查`movieGenre`参数。 如果不为空，则代码进一步约束电影查询，以限制到指定类型的所选的电影。
 

@@ -5,12 +5,12 @@ description: 了解如何通过将角色传递给 Authorize 属性限制 ASP.NET
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
-ms.openlocfilehash: 59753b90d3196b0bc16d4963f45b995f5108bc8b
-ms.sourcegitcommit: d99a8554c91f626cf5e466911cf504dcbff0e02e
+ms.openlocfilehash: 0467ea82831bffe6882e584930c2fa1212a244c7
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2018
-ms.locfileid: "39356670"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248090"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于角色的授权
 
@@ -108,7 +108,8 @@ public void ConfigureServices(IServiceCollection services)
 
     services.AddAuthorization(options =>
     {
-        options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("Administrator"));
+        options.AddPolicy("RequireAdministratorRole",
+             policy => policy.RequireRole("Administrator"));
     });
 }
 ```
@@ -131,3 +132,9 @@ options.AddPolicy("ElevatedRights", policy =>
 ```
 
 此示例中授权用户属于`Administrator`，`PowerUser`或`BackupAdministrator`角色。
+
+### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+
+追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)添加角色服务：
+
+[!code-csharp[](roles/samples/Startup.cs?name=snippet&highlight=7)]

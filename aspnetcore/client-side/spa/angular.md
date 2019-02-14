@@ -2,26 +2,19 @@
 title: 通过 ASP.NET Core 使用 Angular 项目模板
 author: SteveSandersonMS
 description: 了解如何开始使用适用于 Angular 和 Angular CLI 的 ASP.NET Core 单页应用程序 (SPA) 项目模板。
-monikerRange: '>= aspnetcore-2.0'
-ms.author: scaddie
+monikerRange: '>= aspnetcore-2.1'
+ms.author: stevesa
 ms.custom: mvc
-ms.date: 02/21/2018
+ms.date: 02/13/2019
 uid: spa/angular
-ms.openlocfilehash: 8283fe9e96acb57942040dd4c90fabd204a19663
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 35a839e31369e8dbf00f5dbfb3751a2985335755
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49326038"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248116"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
-
-::: moniker range="= aspnetcore-2.0"
-
-> [!NOTE]
-> 本文档不涉及 ASP.NET Core 2.0 中包含的 Angular 项目模板。 本文介绍的是你可以手动更新的新版 Angular 模板。 该模板默认包含在 ASP.NET Core 2.1 中。
-
-::: moniker-end
 
 更新的 Angular 项目模板为使用 Angular 和 Angular CLI 实现丰富的客户端用户界面 (UI) 的 ASP.NET Core 应用提供了便捷起点。
 
@@ -29,17 +22,7 @@ ms.locfileid: "49326038"
 
 ## <a name="create-a-new-app"></a>创建新应用
 
-::: moniker range="= aspnetcore-2.0"
-
-如果使用 ASP.NET Core 2.0，请确保[安装了更新的 Angular 项目模板](xref:spa/index#installation)。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 如果您有安装 ASP.NET Core 2.1，则无需安装角度项目模板。
-
-::: moniker-end
 
 在空目录中使用命令 `dotnet new angular` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app 目录中创建应用并切换到该目录：
 
@@ -70,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 在浏览器中导航到此 URL。
 
-该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息：*NG Live 开发服务器正在 localhost:&lt;otherport&gt; 上进行侦听，在 http://localhost:&lt;otherport&gt;/* 上打开浏览器。 忽略此消息&mdash;这**不是**组合 ASP.NET Core 和 Angular CLI 应用的 URL。
+该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息：*NG Live 开发服务器正在侦听 localhost:&lt;otherport&gt;，打开浏览器上 http://localhost:&lt; otherport&gt;/*。 忽略此消息&mdash;这**不是**组合 ASP.NET Core 和 Angular CLI 应用的 URL。
 
 ---
 

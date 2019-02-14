@@ -3,14 +3,14 @@ title: 将从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 author: ardalis
 description: 了解如何开始迁移到 ASP.NET Core MVC ASP.NET MVC 项目。
 ms.author: riande
-ms.date: 03/07/2017
+ms.date: 02/13/2019
 uid: migration/mvc
-ms.openlocfilehash: 7c9d927bbd06f96f130d53e946a2963b5804960b
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 2ca51a145243444722ad8081fd8cdbb65d72b53a
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505734"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248038"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>将从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
@@ -27,7 +27,7 @@ ms.locfileid: "51505734"
 
 ![Visual Studio 新项目对话框](mvc/_static/new-project.png)
 
-![新建 Web 应用程序对话框： 在 ASP.NET 模板面板中选择 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
+![新建 Web 应用程序对话框：ASP.NET 模板窗格中选择 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
 
 *可选：* 更改从解决方案的名称*WebApp1*到*Mvc5*。 Visual Studio 将显示新的解决方案名称 (*Mvc5*)，从而更轻松地判断此项目从下一个项目。
 
@@ -37,9 +37,9 @@ ms.locfileid: "51505734"
 
 ![“新建项目”对话框](mvc/_static/new_core.png)
 
-![新建 ASP.NET Web 应用程序对话框： 在 ASP.NET Core 模板面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
+![新建 ASP.NET Web 应用程序对话框：在 ASP.NET Core 模板面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
 
-* *可选：* 创建新的 ASP.NET Core 应用使用*Web 应用程序*项目模板。 将项目命名*WebApp1*，再选择身份验证选项的**单个用户帐户**。 重命名此应用*FullAspNetCore*。 在转换过程中创建此项目为您节省时间。 您可以看一下若要查看最终结果，或将代码复制到转换项目模板生成代码。 如果您遇到与模板生成项目进行比较的转换步骤，该技术还有助于。
+* *可选：* 创建新的 ASP.NET Core 应用程序使用*Web 应用程序*项目模板。 将项目命名*WebApp1*，再选择身份验证选项的**单个用户帐户**。 重命名此应用*FullAspNetCore*。 在转换过程中创建此项目为您节省时间。 您可以看一下若要查看最终结果，或将代码复制到转换项目模板生成代码。 如果您遇到与模板生成项目进行比较的转换步骤，该技术还有助于。
 
 ## <a name="configure-the-site-to-use-mvc"></a>将站点配置为使用 MVC
 
@@ -149,7 +149,7 @@ ms.locfileid: "51505734"
 
 * 创建*Views/Shared*文件夹。
 
-* *可选：* 复制 *_ViewImports.cshtml*从*FullAspNetCore* MVC 项目*视图*文件夹导入到 ASP.NET Core 项目*视图*文件夹。 中的任何命名空间声明中删除 *_ViewImports.cshtml*文件。 *_ViewImports.cshtml*文件的所有视图文件提供了命名空间和带来[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 新的布局文件中使用标记帮助程序。 *_ViewImports.cshtml*文件是用于 ASP.NET Core 新功能。
+* *可选：* 复制 *_ViewImports.cshtml*从*FullAspNetCore* MVC 项目*视图*到 ASP.NET Core 项目的文件夹*视图*文件夹。 中的任何命名空间声明中删除 *_ViewImports.cshtml*文件。 *_ViewImports.cshtml*文件的所有视图文件提供了命名空间和带来[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 新的布局文件中使用标记帮助程序。 *_ViewImports.cshtml*文件是用于 ASP.NET Core 新功能。
 
 * 复制 *_Layout.cshtml*文件从旧的 ASP.NET MVC 项目*视图/共享*文件夹导入到 ASP.NET Core 项目*视图/共享*文件夹。
 
@@ -188,7 +188,7 @@ JQuery 和 Bootstrap JavaScript 包含的替换标记：
 
 在浏览器中查看该站点。 它应现在正确加载，以就地预期样式。
 
-* *可选：* 可能想要尝试使用新的布局文件。 对于此项目中，你可以复制中的布局文件*FullAspNetCore*项目。 新的布局文件使用[标记帮助程序](xref:mvc/views/tag-helpers/intro)并且具有其他改进。
+* *可选：* 您可能想要尝试使用新的布局文件。 对于此项目中，你可以复制中的布局文件*FullAspNetCore*项目。 新的布局文件使用[标记帮助程序](xref:mvc/views/tag-helpers/intro)并且具有其他改进。
 
 ## <a name="configure-bundling-and-minification"></a>配置捆绑和缩减
 
@@ -204,5 +204,5 @@ ASP.NET Core 将在 web 应用程序中未经处理的异常转换为 HTTP 500 �
 
 ## <a name="additional-resources"></a>其他资源
 
-* [客户端开发](xref:client-side/index)
-* [标记帮助程序](xref:mvc/views/tag-helpers/intro)
+* <xref:razor-components/index>
+* <xref:mvc/views/tag-helpers/intro>
