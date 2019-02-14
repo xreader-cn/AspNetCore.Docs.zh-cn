@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 9392da14e589736b24790676c1c07c9964882737
-ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
+ms.openlocfilehash: 9f7fc5571f8d1a6e5e2d84779082abb02d2fb292
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/31/2019
-ms.locfileid: "55428455"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159390"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -313,7 +313,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 1. 在托管系统上，创建一个文件夹以包含应用已发布的文件夹和文件。 [目录结构](xref:host-and-deploy/directory-structure)主题中介绍了应用的部署布局。
 
-1. 在“IIS 管理器”中，打开“连接”面板中的服务器节点。 右键单击“站点”文件夹。 选择上下文菜单中的“添加网站”。
+1. 在 IIS 管理器中，打开“连接”面板中的服务器节点。 右键单击“站点”文件夹。 选择上下文菜单中的“添加网站”。
 
 1. 提供网站名称，并将物理路径设置为应用的部署文件夹。 提供“绑定”配置，并通过选择“确定”创建网站：
 
@@ -334,7 +334,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
-   在 IIS 管理员的“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
+   在 IIS 管理器 >“应用程序池”的“操作”侧栏中，选择“设置应用程序池默认设置”或“高级设置”。 找到“启用 32 位应用程序”并将值设置为 `False`。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
 1. 确认进程模型标识拥有适当的权限。
 
@@ -410,7 +410,14 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 * **配置 IIS 应用程序池以加载用户配置文件**
 
-  此设置位于应用池“高级设置”下的“进程模型”部分。 将“加载用户配置文件”设置为 `True`。 这会将密钥存储在用户配置文件目录下，并使用 DPAPI 和特定于用户帐户（用于应用池）的密钥进行保护。
+  此设置位于应用池“高级设置”下的“进程模型”部分。 将“加载用户配置文件”设置为 `True`。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys 文件夹中。
+
+  同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
+
+  1. 导航到 %windir%/system32/inetsrv/config 文件夹。
+  1. 打开 applicationHost.config 文件。
+  1. 查找 `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>` 元素。
+  1. 确认 `setProfileEnvironment` 属性不存在，这会将值默认设置为 `true`，或者将属性的值显式设置为 `true`。
 
 * **将文件系统用作密钥环存储**
 
