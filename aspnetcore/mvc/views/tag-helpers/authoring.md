@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: dbfb63bb7406ee8e20ae25b366162702ac87942c
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 3e266bc435ff7e4a15655276c581ac171f0de47c
+ms.sourcegitcommit: a91e8dd2f4b788114c8bc834507277f4b5e8d6c5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236453"
+ms.lasthandoff: 02/04/2019
+ms.locfileid: "55712271"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -51,7 +51,8 @@ ms.locfileid: "55236453"
 
    * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）。 在此示例中，EmailTagHelper 的根名称是 email，因此 `<email>` 标记将作为目标名称。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
 
-   * `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
+   * 
+  `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
 
    * 重写的 `Process` 方法控制标记帮助程序在执行时的操作。 `TagHelper` 类还提供具有相同参数的异步版本 (`ProcessAsync`)。
 
@@ -227,7 +228,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    > [!NOTE]
    > 可使用带有结束标记的以下标记，并在标记帮助程序中删除带有 `TagMode.StartTagAndEndTag` 的行：
    >
-   > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutNotSelfClosing.cshtml?range=13-18)]
+   > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutNotSelfClosing.cshtml?range=20-21)]
 
 ## <a name="condition-tag-helper"></a>条件标记帮助程序
 

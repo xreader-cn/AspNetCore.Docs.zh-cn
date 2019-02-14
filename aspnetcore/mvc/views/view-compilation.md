@@ -5,14 +5,14 @@ description: 了解预编译 Razor 文件的好处以及如何在 ASP.NET Core �
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2019
+ms.date: 02/13/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 2720708f8e58fdc55b82bfb56665005170e79934
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: c4e8f722fdf3d3f64807cc35ff9f349af7f32abd
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889751"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248181"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -98,7 +98,7 @@ dotnet publish -c Release
 
 ## <a name="recompile-razor-files-on-change"></a>在更改时重新编译 Razor 文件
 
-<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> `AllowRecompilingViewsOnFileChange` 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。
+<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。
 
 当设置为 `true` 时，[IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) 监视对配置的 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 实例中的 Razor 文件所做的更改。
 
@@ -107,11 +107,11 @@ dotnet publish -c Release
 * ASP.NET Core 2.1 或更早版本的应用。
 * 开发环境中的 ASP.NET Core 2.2 或更高版本的应用。
 
-`AllowRecompilingViewsOnFileChange` 与兼容性开关相关联，并可根据为应用配置的兼容性版本来提供不同的行为。 通过设置 `AllowRecompilingViewsOnFileChange` 配置应用优先于由应用的兼容性版本表示的值。
+<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 与兼容性开关相关联，并可根据为应用配置的兼容性版本来提供不同的行为。 通过设置 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 配置应用优先于由应用的兼容性版本表示的值。
 
-如果将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本，则将 `AllowRecompilingViewsOnFileChange` 设置为 `true`，除非对其进行显式配置。
+如果将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本，则将 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 设置为 `true`，除非对其进行显式配置。
 
-如果将应用的兼容性版本设置为 `CompatibilityVersion.Version_2_2` 或更高版本，则将 `AllowRecompilingViewsOnFileChange` 设置为 `false`，除非环境是开发环境或显式配置该值。
+如果将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> 或更高版本，则将 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 设置为 `false`，除非环境是开发环境或显式配置该值。
 
 有关设置应用的兼容性版本的指导和示例，请参阅 <xref:mvc/compatibility-version>。
 

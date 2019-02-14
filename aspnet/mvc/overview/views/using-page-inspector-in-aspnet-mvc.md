@@ -199,7 +199,7 @@ CSS 自动同步功能，可直接编辑 CSS 文件并查看立即在 Page Inspe
 
 在 Visual Studio 2012 CSS 编辑器具有颜色选取器，轻松地选择和插入颜色。 颜色选取器包括一个标准颜色的调色板，支持标准颜色名称、 哈希代码、 RGB、 RGBA、 HSL 和 HSLA 颜色和维护已在文档中最近使用的颜色的列表。
 
-在上一节中您已更改的值`background-color`属性。 若要调用的颜色选取器，将插入点放在属性名称和类型之后**#** 或**rgb (**。
+在上一节中您已更改的值`background-color`属性。 若要调用的颜色选取器，将插入点放在属性名称和类型之后 **#** 或**rgb (**。
 
 ![CSS 颜色选取器栏](using-page-inspector-in-aspnet-mvc/_static/image36.png)
 
