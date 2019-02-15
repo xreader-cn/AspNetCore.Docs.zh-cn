@@ -66,7 +66,7 @@ items:
   - uid: fundamentals/environments
     name: 环境（开发、分阶段、生产）
   - uid: fundamentals/configuration/index
-    name: 配置
+    name: Configuration
   - uid: fundamentals/configuration/options
     name: 选项
   - uid: fundamentals/logging/index
@@ -315,7 +315,7 @@ items:
     - uid: signalr/background-services
       name: 使用后台服务的 SignalR
   - uid: signalr/configuration
-    name: 配置
+    name: Configuration
   - uid: signalr/authn-and-authz
     name: 身份验证和授权
   - uid: signalr/security
@@ -558,6 +558,8 @@ items:
       name: 疑难解答
     - uid: host-and-deploy/azure-iis-errors-reference
       name: 错误参考
+    - uid: host-and-deploy/iis/transform-webconfig
+      name: 转换 web.config
   - uid: fundamentals/servers/kestrel
     name: Kestrel
   - uid: fundamentals/servers/httpsys
@@ -714,7 +716,7 @@ items:
         name: 限制受保护负载的生存期
       - uid: security/data-protection/consumer-apis/dangerous-unprotect
         name: 取消保护已撤消密钥的有效负载
-    - name: 配置
+    - name: Configuration
       items:
       - uid: security/data-protection/configuration/index
         name: 概述
@@ -863,7 +865,7 @@ items:
     - uid: migration/webapi
       name: Web API
     - uid: migration/configuration
-      name: 配置
+      name: Configuration
     - uid: migration/identity
       name: 身份验证和标识
     - uid: migration/claimsprincipal-current
@@ -878,9 +880,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 7c9baf2a9e3a800ff9abfcb757ffde039d49a9a4
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: d2015955147460621d64ea6035f5f8118a02469b
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159537"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248389"
