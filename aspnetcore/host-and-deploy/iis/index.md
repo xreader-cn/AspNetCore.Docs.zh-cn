@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何在 Windows Server Internet Information Services (IIS) 上托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/13/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 9f7fc5571f8d1a6e5e2d84779082abb02d2fb292
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 5d6ba8b7ee6f09a7d00aa0285802cf0aad267a1d
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159390"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248415"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -94,7 +94,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 `CreateDefaultBuilder` 将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器配置为 Web 服务器，并通过配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)的基础路径和端口来启用 IIS 集成。
 
-ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultBuilder` 调用 [UseIISIntegration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderiisextensions.useiisintegration) 方法。 `UseIISIntegration` 配置在 localhost IP 地址 (`127.0.0.1`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `127.0.0.1:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
+ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultBuilder` 调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 方法。 `UseIISIntegration` 配置在 localhost IP 地址 (`127.0.0.1`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `127.0.0.1:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
 
 * `UseUrls`
 * [Kestrel 的侦听 API](xref:fundamentals/servers/kestrel#endpoint-configuration)
@@ -108,7 +108,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 `CreateDefaultBuilder` 将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器配置为 Web 服务器，并通过配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)的基础路径和端口来启用 IIS 集成。
 
-ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultBuilder` 调用 [UseIISIntegration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderiisextensions.useiisintegration) 方法。 `UseIISIntegration` 配置在 localhost IP 地址 (`localhost`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `localhost:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
+ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultBuilder` 调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 方法。 `UseIISIntegration` 配置在 localhost IP 地址 (`localhost`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `localhost:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
 
 * `UseUrls`
 * [Kestrel 的侦听 API](xref:fundamentals/servers/kestrel#endpoint-configuration)
@@ -120,7 +120,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 ::: moniker range="< aspnetcore-2.0"
 
-在应用依赖项中加入对 [Microsoft.AspNetCore.Server.IISIntegration ](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)包的依赖项。 通过向 [WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) 添加 [UseIISIntegration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderiisextensions.useiisintegration) 扩展方法来使用 IIS 集成中间件：
+在应用依赖项中加入对 [Microsoft.AspNetCore.Server.IISIntegration ](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)包的依赖项。 通过向 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 添加 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 扩展方法来使用 IIS 集成中间件：
 
 ```csharp
 var host = new WebHostBuilder()
@@ -129,7 +129,7 @@ var host = new WebHostBuilder()
     ...
 ```
 
-同时需要 [UseKestrel](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderkestrelextensions.usekestrel) 和 [UseIISIntegration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderiisextensions.useiisintegration)。 调用 `UseIISIntegration` 的代码不会影响代码可移植性。 如果应用不在 IIS 后面运行（例如，应用直接在 Kestrel 上运行），则 `UseIISIntegration` 不会运行。
+<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> 和 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 均为必需。 调用 `UseIISIntegration` 的代码不会影响代码可移植性。 如果应用不在 IIS 后面运行（例如，应用直接在 Kestrel 上运行），则 `UseIISIntegration` 不会运行。
 
 ASP.NET Core 模块生成分配给后端进程的动态端口。 `UseIISIntegration` 配置在 localhost IP 地址 (`localhost`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `localhost:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
 
@@ -150,7 +150,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `UseIISIntegrat
 
 **进程内承载模型**
 
-若要配置 IIS 服务器选项，请在 [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices) 中加入适用于 [IISServerOptions](/dotnet/api/microsoft.aspnetcore.builder.iisserveroptions) 的服务配置。 下面的示例禁用 AutomaticAuthentication：
+要配置 IIS 服务器选项，请在 <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*> 中包括 <xref:Microsoft.AspNetCore.Builder.IISServerOptions> 的服务配置。 下面的示例禁用 AutomaticAuthentication：
 
 ```csharp
 services.Configure<IISServerOptions>(options => 
@@ -168,7 +168,7 @@ services.Configure<IISServerOptions>(options =>
 
 ::: moniker-end
 
-若要配置 IIS 选项，请在 [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices) 中加入适用于 [IISOptions](/dotnet/api/microsoft.aspnetcore.builder.iisoptions) 的服务配置。 下面的示例阻止应用填充 `HttpContext.Connection.ClientCertificate`：
+要配置 IIS 选项，请在 <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*> 中包括 <xref:Microsoft.AspNetCore.Builder.IISOptions> 的服务配置。 下面的示例阻止应用填充 `HttpContext.Connection.ClientCertificate`：
 
 ```csharp
 services.Configure<IISOptions>(options => 
@@ -218,6 +218,10 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json、\<assembly>.xml（XML 文档注释）和 \<assembly>.deps.json。 当存在 web.config 文件且站点正常启动的情况下，若要请求获取这些敏感文件，IIS 不会提供。 如果缺少 web.config 文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 
 部署中必须始终存在 web.config 文件且正确命名，并可以配置站点以正常启动。**请勿从生产部署中删除 web.config 文件。**
+
+### <a name="transform-webconfig"></a>转换 web.config
+
+如果需要在发布时转换 web.config（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>。
 
 ## <a name="iis-configuration"></a>IIS 配置
 
@@ -641,3 +645,4 @@ ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 * [Microsoft IIS 官方网站](https://www.iis.net/)
 * [Windows Server 技术内容库](/windows-server/windows-server)
 * [IIS 上的 HTTP/2](/iis/get-started/whats-new-in-iis-10/http2-on-iis)
+* <xref:host-and-deploy/iis/transform-webconfig>
