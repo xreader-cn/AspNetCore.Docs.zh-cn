@@ -16,7 +16,7 @@ ms.locfileid: "55667760"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-这是系列中的第一个教程。 [本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor Pages 网络应用程序的基础知识。
+这是系列中的第一个教程。 [本系列](xref:tutorials/razor-pages/index)介绍构建 ASP.NET Core Razor Pages Web 应用的基础知识。
 
 [!INCLUDE[](~/includes/advancedRP.md)]
 
@@ -24,11 +24,11 @@ ms.locfileid: "55667760"
 
 [!INCLUDE[View or download sample code](~/includes/rp/download.md)]
 
-在本教程中，您将了解：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建一个 Razor Pages 网络应用程序。
-> * 运行应用程序。
+> * 运行应用。
 > * 检查项目文件。
 
 在本教程结束时，您将拥有一个工作的 Razor Pages 网络应用程序，后续教程在其基础上进行构建。
@@ -47,7 +47,7 @@ ms.locfileid: "55667760"
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
-* 在下拉列表中选择“ASP.NET Core 2.2”，然后选择“网络应用程序”。
+* 在下拉列表中选择“ASP.NET Core 2.2”，然后选择“Web 应用程序”。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2_2.2.png)
 
@@ -96,7 +96,7 @@ cd RazorPagesMovie
 
 ---
 
-## <a name="run-the-web-app"></a>运行网络应用程序
+## <a name="run-the-web-app"></a>运行 Web 应用程序
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -124,13 +124,13 @@ cd RazorPagesMovie
 
   ![主页或索引页](razor-pages-start/_static/homeGDPR2.2.png)
 
-  下图展示了您同意跟踪后的应用：
+  下图展示了同意跟踪后的应用：
 
   ![主页或索引页](razor-pages-start/_static/home2.2.png)
 
 ## <a name="examine-the-project-files"></a>检查项目文件
 
-以下是您将在以后的教程中使用的主项目文件夹和文件的概述。
+下面是主项目文件夹和文件的概述，将在后续教程中使用。
 
 ### <a name="pages-folder"></a> Pages 文件夹
 
@@ -163,7 +163,7 @@ cd RazorPagesMovie
 在本教程中，你将了解：
 
 > [!div class="checklist"]
-> * 创建 Razor Pages 网络应用。
+> * 创建 Razor Pages Web 应用。
 > * 运行应用。
 > * 检查项目文件。
 
