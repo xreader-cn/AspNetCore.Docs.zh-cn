@@ -7,16 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2019
 uid: spa/blazor/get-started
-ms.openlocfilehash: 8c984bab8a13b4fc2d87fd1a7e0b285dfa25ba09
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 26336f73f6c8976ed5de819cebc3c5c50274ab03
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159574"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410003"
 ---
 # <a name="get-started-with-blazor"></a>开始使用 Blazor
 
-通过[Daniel Roth](https://github.com/danroth27)和[Luke Latham](https://github.com/guardrex)
+作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
@@ -32,7 +32,7 @@ ms.locfileid: "56159574"
 1. 请 Blazor 模板可用于使用.NET Core CLI 与通过在命令行界面中运行以下命令：
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::0.8.0-preview-19104-04
    ```
 
 1. 选择**文件** > **新建项目** > **Web** > **ASP.NET Core Web 应用程序**。
@@ -97,7 +97,7 @@ Congratulations! You just ran your first Blazor app!
 1. 通过在命令行界面中运行以下命令添加 Blazor 模板：
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::0.8.0-preview-19104-04
    ```
 
 1. 在命令行界面中创建第一个 Blazor 项目：
@@ -122,9 +122,9 @@ Congratulations! You just ran your first Blazor app!
 * 计数器
 * 提取数据
 
-在计数器页上，选择**Click me**按钮以递增的计数器，而无需刷新页面。 使计数器递增一网页中通常需要编写 JavaScript，但 Blazor 提供更好的方法使用C#。
+在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 使计数器递增一网页中通常需要编写 JavaScript，但 Blazor 提供更好的方法使用C#。
 
-*Pages/Counter.cshtml*:
+*Pages/Counter.cshtml*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.cshtml)]
 
@@ -150,13 +150,13 @@ Congratulations! You just ran your first Blazor app!
 若要将参数添加到计数器组件，更新组件的`@functions`块：
 
 * 添加的属性`IncrementAmount`修饰的`[Parameter]`属性。
-* 更改`IncrementCount`方法以使用`IncrementAmount`增加的值时`currentCount`。
+* 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
-*Pages/Counter.cshtml*:
+*Pages/Counter.cshtml*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.cshtml?highlight=4,8)]
 
-指定`IncrementAmount`主页组件中的参数`<Counter>`元素使用的属性。
+使用属性在 Home 组件的 `<Counter>` 元素中指定 `IncrementAmount` 参数。
 
 Pages/Index.cshtml：
 
