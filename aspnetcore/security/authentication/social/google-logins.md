@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 1/11/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 98857a84238124e75d695242c8d421b9a29f02e7
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 5b6bfaafba68eaf15a60b7c512a9e7406e3112ee
+ms.sourcegitcommit: 6d8c362a3cb4c634e64cbb3d28069c36bc973581
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396104"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56418661"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>在 ASP.NET Core Google 外部登录安装程序
 
@@ -56,7 +56,7 @@ dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-请参阅[GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) Google 身份验证支持的配置选项的详细信息的 API 参考。 这可以用于请求有关用户的不同信息。
+请参阅[GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) Google 身份验证支持的配置选项的详细信息的 API 参考。 这可以用于请求有关用户的不同信息。
 
 ## <a name="change-the-default-callback-uri"></a>更改默认的回调 URI
 
