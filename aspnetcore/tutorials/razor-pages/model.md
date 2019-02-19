@@ -4,21 +4,22 @@ author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
-ms.date: 12/3/2018
+ms.date: 02/12/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 5693fb833d19375ef53e0f367bc6064e239b01d3
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: ab2bf372b305672a95d34879ad2c13a620d93c7a
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444099"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159283"
 ---
-# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
+# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor 页面应用添加模型
+
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-在本节中，添加了用于管理数据库中的电影的类。 这些类与 [Entity Framework Core](/ef/core)（EF Core）一起使用来处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问代码。
+在此部分中，添加了用于管理数据库中的电影的类。 可以结合 [Entity Framework Core](/ef/core) (EF Core) 使用这些类来处理数据库。 EF Core 是对象关系映射 (ORM) 框架，可以简化数据访问代码。
 
 模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系。 它们定义数据库中存储的数据属性。
 
@@ -40,7 +41,7 @@ ms.locfileid: "54444099"
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“Models”的文件夹。
+* 添加名为“模型”的文件夹。
 * 将类添加到名为“Movie.cs”的“Models”文件夹。
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
@@ -147,7 +148,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 ---
 
-前面的命令生成以下警告：“No type was specified for the decimal column 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.”
+前面的命令生成以下警告：“未对实体类型‘Movie’上的十进制列‘Price’指定任何类型。 当值不符合默认精确度和小数位数时，会在无提示的情况下截断该值。 使用‘HasColumnType()’显式指定可以容纳所有值的 SQL Server 列类型。”
 
 你可以忽略该警告，它将后面的教程中得到修复。
 
@@ -162,7 +163,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 * *Startup.cs*
 
-创建和更新的文件将在下一节中说明。
+下一部分中说明了创建和更新的文件。
 
 <a name="pmc"></a>
 
@@ -242,7 +243,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 ---
 
-`Add-Migration` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `RazorPagesMovieContext` 中指定的模型（在 Data/RazorPagesMovieContext.cs 文件中）。 `Initial` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关详细信息，请参阅[迁移简介](xref:data/ef-mvc/migrations#introduction-to-migrations)。
+`Add-Migration` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `RazorPagesMovieContext` 中指定的模型（在 Data/RazorPagesMovieContext.cs 文件中）。 `Initial` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关更多信息，请参见<xref:data/ef-mvc/migrations>。
 
 `Update-Database` 命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法。
 

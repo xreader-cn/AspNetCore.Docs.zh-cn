@@ -1,38 +1,44 @@
 ---
-title: ASP.NET Core MVC 和 Entity Framework Core - 第 1 个教程，共 10 个教程
+title: 教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
+description: 这是一系列教程中的第一个，这一系列教程主要展示了如何从零开始构建 Contoso 大学示例应用程序。
 author: rick-anderson
-description: ''
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/06/2019
+ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 1191632555dc9331f815c1bfb1f313459824754a
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: f7b557c8e560393ae886c46fad95c48ccbcc65b4
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577898"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56102963"
 ---
-# <a name="aspnet-core-mvc-with-entity-framework-core---tutorial-1-of-10"></a>ASP.NET Core MVC 和 Entity Framework Core - 第 1 个教程，共 10 个教程
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
+# <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework (EF) Core 2.0 和 Visual Studio 2017 创建 ASP.NET Core 2.0 MVC web 应用程序。
+Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (EF) Core 2.0 和 Visual Studio 2017 创建 ASP.NET Core 2.2 MVC Web 应用程序。
 
 示例应用程序供一个虚构的 Contoso 大学网站使用。 它包括诸如学生入学、 课程创建和导师分配等功能。 这是一系列教程中的第一个，这一系列教程主要展示了如何从零开始构建 Contoso 大学示例应用程序。
-
-[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 。 有关如何在 EF 6.x 和 EF Core 之间选择，请参阅 [ EF Core vs.EF6.x](/ef/efcore-and-ef6/)。 如果你选择使用 EF 6.x，请参阅[ 本系列教程的上一个版本](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application)。
 
 > [!NOTE]
 > 本教程的 ASP.NET Core 1.1 版本，请参阅 [本教程中 VS 2017 Update 2 版本的 PDF 文档](https://webpifeed.blob.core.windows.net/webpifeed/Partners/efmvc1.1.pdf)。
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 创建 ASP.NET Core MVC Web 应用
+> * 设置网站样式
+> * 了解 EF Core NuGet 包
+> * 创建数据模型
+> * 创建数据库上下文
+> * 注册 SchoolContext
+> * 使用测试数据初始化数据库
+> * 创建控制器和视图
+> * 查看数据库
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -45,7 +51,7 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 > [!TIP]
 > 这是一系列一共有十个教程，其中每个都是在前面教程已完成的基础上继续。 请考虑在完成每一个教程后保存项目的副本。 之后如果遇到问题，你可以从保存的副本中开始寻找问题，而不是从头开始。
 
-## <a name="the-contoso-university-web-application"></a>Contoso University Web 应用程序
+## <a name="contoso-university-web-app"></a>Contoso University Web 应用
 
 你将在这些教程中学习构建一个简单的大学网站的应用程序。
 
@@ -57,7 +63,7 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 本教程主要关注于如何使用 Entity Framework , 所以此站点的UI样式都是直接套用内置的模板。
 
-## <a name="create-an-aspnet-core-mvc-web-application"></a>创建 ASP.NET Core MVC web 应用程序
+## <a name="create-aspnet-core-mvc-web-app"></a>创建 ASP.NET Core MVC Web 应用
 
 打开 Visual Studio 并创建一个新 ASP.NET Core C# web 项目名为"ContosoUniversity"。
 
@@ -69,19 +75,19 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 * 输入“ContosoUniversity”作为名称，然后单击“确定”。
 
-  ![“新建项目”对话框](intro/_static/new-project.png)
+  ![“新建项目”对话框](intro/_static/new-project2.png)
 
 * 等待 **新 ASP.NET Core Web 应用程序 (.NET Core)** 显示对话框
 
-* 选择 **ASP.NET Core 2.0** 和 **Web 应用程序 （模型-视图-控制器）** 模板。
+  ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet2.png)
 
-  **注意：** 本教程需要安装 ASP.NET Core 2.0 和 EF Core 2.0 或更高版本 - 请确保未选中 ASP.NET Core 1.1。
+* 选择“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板。
+
+  **注意：** 本教程需要安装 ASP.NET Core 2.2 和 EF Core 2.0 或更高版本。
 
 * 请确保 **身份验证** 设置为  **不进行身份验证**。
 
 * 单击“确定” 
-
-  ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet.png)
 
 ## <a name="set-up-the-site-style"></a>设置网站样式
 
@@ -91,11 +97,11 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 * 将文件中的"ContosoUniversity"更改为"Contoso University"。 需要更改三个地方。
 
-* 添加菜单项 **Students**，**Courses**，**Instructors**，和 **Department**，并删除 **Contact**菜单项。
+* 添加“关于”、“学生”、“课程”“讲师”和“院系”的菜单项，并删除“隐私”菜单项。
 
 突出显示所作更改。
 
-[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,30,36-39,48)]
+[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,32-36,51)]
 
 在 *Views/Home/Index.cshtml*，将文件的内容替换为以下代码以将有关 ASP.NET 和 MVC 的内容替换为有关此应用程序的内容：
 
@@ -105,7 +111,7 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 ![Contoso University 主页](intro/_static/home-page.png)
 
-## <a name="entity-framework-core-nuget-packages"></a>Entity Framework Core NuGet 包
+## <a name="about-ef-core-nuget-packages"></a>关于 EF Core NuGet 包
 
 若要为项目添加 EF Core 支持，需要安装相应的数据库驱动包。 本教程使用 SQL Server，相关驱动包[Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)。 此包包含在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中，因此，如果应用具有对 `Microsoft.AspNetCore.App` 包的包引用，则无需引用该包。
 
@@ -185,7 +191,7 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_TableNames&highlight=16-21)]
 
-## <a name="register-the-context-with-dependency-injection"></a>使用依赖注入注册上下文
+## <a name="register-the-schoolcontext"></a>注册 SchoolContext
 
 ASP.NET Core 默认实现 [依赖注入](../../fundamentals/dependency-injection.md)。 在应用程序启动过程通过依赖注入注册相关服务 （例如 EF 数据库上下文）。 需要这些服务的组件 （如 MVC 控制器） 可以通过向构造函数添加相关参数来获得对应服务。 在本教程后面你将看到控制器构造函数的代码，就是通过上述方式获得上下文实例。
 
@@ -207,7 +213,7 @@ ASP.NET Core 默认实现 [依赖注入](../../fundamentals/dependency-injection
 
 数据库连接字符串指定使用 SQL Server LocalDB 数据库。 LocalDB 是 SQL Server Express 数据库引擎的轻量级版本，用于应用程序开发，不在生产环境中使用。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下， LocalDB 在 `C:/Users/<user>` 目录下创建 *.mdf* 数据库文件。
 
-## <a name="add-code-to-initialize-the-database-with-test-data"></a>添加代码以使用测试数据初始化数据库
+## <a name="initialize-db-with-test-data"></a>使用测试数据初始化数据库
 
 Entity Framework 已经为你创建了一个空数据库。 在本部分中，你将编写一个方法用于向数据库填充测试数据，该方法会在数据库创建完成之后执行。
 
@@ -235,7 +241,7 @@ Entity Framework 已经为你创建了一个空数据库。 在本部分中，�
 
 现在首次运行该应用程序，创建数据库并使用测试数据作为种子数据。 每当你更改数据模型时，可以删除数据库、 更新你的 Initialize 方法，然后使用上述方式更新新数据库。 在之后的教程中，你将了解如何在数据模型更改时，只需修改数据库而无需删除重建数据库。
 
-## <a name="create-a-controller-and-views"></a>创建控制器和视图
+## <a name="create-controller-and-views"></a>创建控制器和视图
 
 接下来，将使用 Visual Studio 中的基架引擎添加一个 MVC 控制器，以及使用 EF 来查询和保存数据的视图。
 
@@ -252,9 +258,9 @@ CRUD 操作方法和视图的自动创建被称为基架。 基架与代码生�
 
   * 选择 **视图使用 Entity Framework 的 MVC 控制器**。
 
-  * 单击 **添加**。
+  * 单击 **添加**。 随即将显示“使用 Entity Framework 添加包含视图的 MVC 控制器”对话框。
 
-* 在“添加控制器”对话框中：
+    ![构架 Student](intro/_static/scaffold-student2.png)
 
   * 在 **模型类** 选择 **Student**。
 
@@ -263,8 +269,6 @@ CRUD 操作方法和视图的自动创建被称为基架。 基架与代码生�
   * 使用 **StudentsController** 作为默认名称。
 
   * 单击 **添加**。
-
-  ![构架 Student](intro/_static/scaffold-student.png)
 
   当你单击 **添加** 后，Visual Studio 基架引擎创建 *StudentsController.cs* 文件和一组对应于控制器的视图 (*.cshtml* 文件) 。
 
@@ -360,11 +364,27 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 有关在 .NET 异步编程的详细信息，请参阅 [异步概述](/dotnet/articles/standard/async)。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-你现在已创建了一个使用 Entity Framework Core 和 SQL Server Express LocalDB 来存储和显示数据的简单应用程序。 在下一个教程中，你将学习如何执行基本的 CRUD （创建、 读取、 更新、 删除） 操作。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>后续步骤
 
-> [!div class="step-by-step"]
-> [下一页](crud.md)
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已创建 ASP.NET Core MVC Web 应用
+> * 设置网站样式
+> * 已了解 EF Core NuGet 包
+> * 已创建数据模型
+> * 已创建数据库上下文
+> * 已注册 SchoolContext
+> * 已使用测试数据初始化数据库
+> * 已创建控制器和视图
+> * 已查看数据库
+
+在下一个教程中，你将学习如何执行基本的 CRUD （创建、 读取、 更新、 删除） 操作。
+
+请继续阅读下一篇文章，了解如何执行基本的 CRUD（创建、读取、更新、删除）操作。
+> [!div class="nextstepaction"]
+> [实现基本的 CRUD 功能](crud.md)

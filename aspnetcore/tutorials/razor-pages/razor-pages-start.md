@@ -31,7 +31,7 @@ ms.locfileid: "55667760"
 > * 运行应用。
 > * 检查项目文件。
 
-本教程结束时，你将有一个工作 Razor Pages Web 应用，可于后续教程在其基础上进行构建。
+在本教程结束时，你将有一个工作的 Razor Pages Web 应用。在后续教程中，你可以在其基础上进行构建。
 
 ![主页或索引页](razor-pages-start/_static/home2.2.png)
 
@@ -43,7 +43,7 @@ ms.locfileid: "55667760"
 
 * 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
 
-* 创建新的 ASP.NET Core Web 应用程序。 将项目命名为“RazorPagesMovie”。 将项目命名为“RazorPagesMovie”，以便命名空间在复制和粘贴代码时相互匹配。
+* 创建新的 ASP.NET Core Web 应用呈现。 将项目命名为“RazorPagesMovie”。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
@@ -136,8 +136,8 @@ cd RazorPagesMovie
 
 包含 Razor 页面和支持文件。 每个 Razor 页面都是一对文件：
 
-* 一个 .cshtml 文件，其中使用 Razor 语法包含 HTML 标记与 C# 代码。
-* 一个 .cshtml.cs 文件，其中包含处理页事件的 C# 代码。
+* 一个 .cshtml 文件，其中包含使用 Razor 语法的 C＃ 代码的 HTML 标记。
+* 一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。
 
 支持文件的名称以下划线开头。 例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。 此文件设置页面顶部的导航菜单和页面底部的版权声明。 有关更多信息，请参见<xref:mvc/views/layout>。
 

@@ -3,14 +3,14 @@ title: 将模型添加到 ASP.NET Core MVC 应用
 author: rick-anderson
 description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
-ms.date: 12/8/2017
+ms.date: 02/12/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 062a248ffdf8e30ed01a72e0a555c1c9a1ab1b6d
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: da30c1c97cbf40a89d163b2116c8d5f9ad422b25
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341597"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159235"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -141,56 +141,57 @@ System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity id
 
 ## <a name="initial-migration"></a>初始迁移
 
-<!-- VS -------------------------->
-
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-在此部分中，程序包管理器控制台 (PMC) 用于：
+在本节中，将完成以下任务：
 
 * 添加初始迁移。
 * 使用初始迁移来更新数据库。
 
-从“工具”菜单中，选择“NuGet 包管理器” > “包管理器控制台”。
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-  ![PMC 菜单](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
+1. 从“工具”菜单中，选择“NuGet 包管理器” > “包管理器控制台”(PMC)。
 
-在 PMC 中，输入以下命令：
+   ![PMC 菜单](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
-```PMC
-Add-Migration Initial
-Update-Database
-```
+1. 在 PMC 中，输入以下命令：
 
-`Add-Migration` 命令生成用于创建初始数据库架构的代码。
-<!-- Code -------------------------->
+   ```console
+   Add-Migration Initial
+   Update-Database
+   ```
+
+   `Add-Migration` 命令生成用于创建初始数据库架构的代码。
+
+   数据库架构基于在 `MvcMovieContext` 类中（位于 Data/MvcMovieContext.cs 文件中）中指定的模型。 `Initial` 参数是迁移名称。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关更多信息，请参见<xref:data/ef-mvc/migrations>。
+
+   `Update-Database` 命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
+
 `ef migrations add InitialCreate` 命令生成用于创建初始数据库架构的代码。
 
+数据库架构基于在 `MvcMovieContext` 类中（位于 Data/MvcMovieContext.cs 文件中）中指定的模型。 `InitialCreate` 参数是迁移名称。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
+
 ---  
-<!-- End of VS tabs -->
 
-前面的命令生成以下警告：“未对实体类型‘Movie’上的十进制列‘Price’指定任何类型。 当值不符合默认精确度和小数位数时，会在无提示的情况下截断该值。 使用‘HasColumnType()’显式指定可以容纳所有值的 SQL Server 列类型。”
+前面的命令生成以下警告：
 
-你可以忽略该警告，它将后面的教程中得到修复。
+```text
+No type was specified for the decimal column 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+```
 
-此架构以（Models/MvcMovieContext.cs 文件中的）`DbContext` 中指定的模型为基础。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
-
-`ef database update` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法。 `Up` 方法会创建数据库。
-
-<!-- VS -------------------------->
-
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+可以忽略该警告。 后续教程中将修复此警告。
 
 ## <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
 
-ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。 服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。 需要这些服务（如 Razor 页面）的组件通过构造函数提供相应服务。 本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。
+ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 生成。 服务（例如 EF Core 数据库上下文）在应用程序启动期间通过 DI 注册。 需要这些服务（如 Razor 页面）的组件通过构造函数提供相应服务。 本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。
 
-基架工具自动创建 DB 上下文并将其注册到依赖关系注入容器。
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-检查 `Startup.ConfigureServices` 方法。 基架添加了突出显示的行：
+基架工具自动创建数据库上下文并将其注册到 DI 容器。
+
+我们来研究以下 `Startup.ConfigureServices` 方法。 基架添加了突出显示的行：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
@@ -198,22 +199,15 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
 
-前面的代码为实体集创建 [`DbSet<Movie>`](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。 在实体框架术语中，实体集通常与数据表相对应。 实体对应表中的行。
+前面的代码为实体集创建 [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) 属性。 在实体框架术语中，实体集通常与数据表相对应。 实体对应表中的行。
 
 通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
-<!-- Code -------------------------->
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。 服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。 需要这些服务（如 Razor 页面）的组件通过构造函数提供相应服务。 本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。
-
-创建 DB 上下文并将其注册到依赖项注入容器。
+创建了数据库上下文并将其注册到了 DI 容器。
 
 ---
-
-此架构基于在 Data/MvcMovieContext.cs 文件中的 `MvcMovieContext` 中指定的模型。 `Initial` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关详细信息，请参阅[迁移简介](xref:data/ef-mvc/migrations#introduction-to-migrations)。
-
-`Update-Database` 命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法。
 
 <a name="test"></a>
 

@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 并发 - 第 8 个教程（共 10 个）
-author: rick-anderson
+title: 教程：处理并发 - ASP.NET MVC 和 EF Core
 description: 本教程介绍如何处理多个用户同时更新同一实体时出现的冲突。
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 0ae566a76a2ef656843452ed537b8fdfbddaed22
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 7b18927d5d528ec2951087502e26b2b30214f389
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090896"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103015"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---concurrency---8-of-10"></a>ASP.NET Core MVC 和 EF Core - 并发 - 第 8 个教程（共 10 个）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
 在之前的教程中，你学习了如何更新数据。 本教程介绍如何处理多个用户同时更新同一实体时出现的冲突。
 
@@ -30,6 +23,23 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 ![“院系编辑”页](concurrency/_static/edit-error.png)
 
 ![“院系删除”页](concurrency/_static/delete-error.png)
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 了解并发冲突
+> * 添加跟踪属性
+> * 创建 Departments 控制器和视图
+> * 更新“索引”视图
+> * 更新编辑方法
+> * 更新“编辑”视图
+> * 测试并发冲突
+> * 更新“删除”页
+> * 更新“详细信息”和“创建”视图
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 更新相关数据](update-related-data.md)
 
 ## <a name="concurrency-conflicts"></a>并发冲突
 
@@ -87,7 +97,7 @@ Jane 先单击“保存”，并在浏览器返回索引页时看到她的更改
 
 在本教程的其余部分，将向 Department 实体添加 `rowversion` 跟踪属性，创建控制器和视图，并进行测试以验证是否一切正常工作。
 
-## <a name="add-a-tracking-property-to-the-department-entity"></a>向 Department 实体添加跟踪属性
+## <a name="add-a-tracking-property"></a>添加跟踪属性
 
 在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性：
 
@@ -114,7 +124,7 @@ dotnet ef migrations add RowVersion
 dotnet ef database update
 ```
 
-## <a name="create-a-departments-controller-and-views"></a>创建“院系”控制器和视图
+## <a name="create-departments-controller-and-views"></a>创建 Departments 控制器和视图
 
 像之前在学生、课程和讲师教程中操作的那样，为“院系”控制器和视图创建基架。
 
@@ -124,7 +134,7 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_Dropdown)]
 
-## <a name="update-the-departments-index-view"></a>更新“院系索引”视图
+## <a name="update-index-view"></a>更新“索引”视图
 
 基架引擎在索引视图中创建 RowVersion 列，但不应显示该字段。
 
@@ -134,7 +144,7 @@ dotnet ef database update
 
 这会将标题更改为“院系”，删除 RowVersion 列，并显示全名（而非管理员的名字）。
 
-## <a name="update-the-edit-methods-in-the-departments-controller"></a>更新“院系”控制器中的编辑方法
+## <a name="update-edit-methods"></a>更新编辑方法
 
 在 HttpGet `Edit` 方法和 `Details` 方法中，添加 `AsNoTracking`。 在 HttpGet `Edit` 方法中，为管理员添加预先加载。
 
@@ -172,7 +182,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 `ModelState` 具有旧的 `RowVersion` 值，因此需使用 `ModelState.Remove` 语句。 在此视图中，当两者都存在时，字段的 `ModelState` 值优于模型属性值。
 
-## <a name="update-the-department-edit-view"></a>更新“院系编辑”视图
+## <a name="update-edit-view"></a>更新“编辑”视图
 
 在 Views/Departments/Edit.cshtml 中，进行以下更改：
 
@@ -182,7 +192,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 [!code-html[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
 
-## <a name="test-concurrency-conflicts-in-the-edit-page"></a>测试“编辑”页中的并发冲突
+## <a name="test-concurrency-conflicts"></a>测试并发冲突
 
 运行应用并转到“院系索引”页。 右键单击英语系的“编辑”超链接，并选择“在新选项卡中打开”，然后单击英语系的“编辑”超链接。 现在，两个浏览器选项卡显示相同的信息。
 
@@ -276,12 +286,29 @@ public async Task<IActionResult> Delete(Department department)
 
 [!code-html[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-处理并发冲突已介绍完毕。 要深入了解如何处理 EF Core 中的并发，请参阅[并发冲突](/ef/core/saving/concurrency)。 下一个教程将介绍如何为 Instructor 和 Students 实体实现“每个层次结构一个表”继承。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="additional-resources"></a>其他资源
 
-> [!div class="step-by-step"]
-> [上一页](update-related-data.md)
-> [下一页](inheritance.md)
+ 要深入了解如何处理 EF Core 中的并发，请参阅[并发冲突](/ef/core/saving/concurrency)。
+
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已了解并发冲突
+> * 已添加跟踪属性
+> * 已创建 Departments 控制器和视图
+> * 已更新“索引”视图
+> * 已更新编辑方法
+> * 已更新“编辑”视图
+> * 已测试并发冲突
+> * 已更新“删除”页
+> * 已更新“详细信息”和“创建”视图
+
+请继续阅读下一篇文章，了解如何为 Instructor 和 Students 实体实现“每个层次结构一个表”继承。
+> [!div class="nextstepaction"]
+> [实现“每个层次结构一个表”继承](inheritance.md)

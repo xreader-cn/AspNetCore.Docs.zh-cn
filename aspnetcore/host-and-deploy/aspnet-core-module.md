@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2019
+ms.date: 02/08/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 4eea360d08c79b889db00132109cf49492f84de6
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 9270d7b462bbac1ae0ad896c0937ea6dd909b2cd
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837775"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159550"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -51,7 +51,11 @@ ASP.NET Core 模块是插入 IIS 管道的本机 IIS 模块，用于：
 
 在进程内托管时，将应用以下特征：
 
-* 使用 IIS HTTP 服务器 (`IISHttpServer`) 而不是 [Kestrel](xref:fundamentals/servers/kestrel) 服务器。
+* 使用 IIS HTTP 服务器 (`IISHttpServer`) 而不是 [Kestrel](xref:fundamentals/servers/kestrel) 服务器。 在进程内，[CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) 调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> 以执行以下操作：
+
+  * 注册 `IISHttpServer`。
+  * 在 ASP.NET Core 模块后运行时，配置服务器应侦听的端口和基本路径。
+  * 配置主机以捕获启动错误。
 
 * [requestTimeout 属性](#attributes-of-the-aspnetcore-element)不适用于进程内托管。
 
@@ -83,6 +87,11 @@ ASP.NET Core 模块是插入 IIS 管道的本机 IIS 模块，用于：
 ```
 
 使用 [Kestrel](xref:fundamentals/servers/kestrel) 服务器，而不是 IIS HTTP 服务器 (`IISHttpServer`)。
+
+在进程外，[CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) 调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 以执行以下操作：
+
+* 在 ASP.NET Core 模块后运行时，配置服务器应侦听的端口和基本路径。
+* 配置主机以捕获启动错误。
 
 ### <a name="hosting-model-changes"></a>托管模型更改
 
@@ -231,7 +240,7 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range=">= aspnetcore-2.2"
 
-| 特性 | 说明 | 默认 |
+| 特性 | 说明​​ | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
@@ -250,7 +259,7 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range="= aspnetcore-2.1"
 
-| 特性 | 说明 | 默认 |
+| 特性 | 说明​​ | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
@@ -268,7 +277,7 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range="<= aspnetcore-2.0"
 
-| 特性 | 说明 | 默认 |
+| 特性 | 说明​​ | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
@@ -498,6 +507,32 @@ ASP.NET Core 模块安装程序使用系统帐户的权限运行。 由于本地
 1. 将已更新的 applicationHost.config 文件导出到共享。
 1. 重新启用 IIS 共享配置。
 
+::: moniker range=">= aspnetcore-2.2"
+
+## <a name="application-initialization"></a>应用程序初始化
+
+[IIS 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)是一种 IIS 功能，可在应用池启动或回收时向应用发送 HTTP 请求。 该请求会触发应用启动。 应用程序初始化可由[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)和[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)与 ASP.NET Core 模块版本 2 一起使用。
+
+启用应用程序初始化：
+
+1. 确认已启用 IIS 应用程序初始化角色功能：
+   * 在 Windows 7 或更高版本上：导航到“控制面板” > “程序” > “程序和功能” > “打开或关闭 Windows 功能”（位于屏幕左侧）。 打开“Internet Information Services” > “万维网服务” > “应用程序开发功能”。 选中“应用程序初始化”的复选框。
+   * 在 Windows Server 2008 R2 或更高版本上，打开“添加角色和功能向导”。 访问“选择角色服务”面板时，打开“应用程序开发”节点并选中“应用程序初始化”复选框。
+1. 在 IIS 管理器的“连接”面板中选择“应用程序池”。
+1. 在列表中选择应用的应用池。
+1. 在“操作”面板中的“编辑应用程序池”下选择“高级设置”。
+1. 将“启动模式”设置为“AlwaysRunning”。
+1. 打开“连接”面板中的“网站”节点。
+1. 选择该应用。
+1. 在“操作”面板中的“管理网站”下选择“高级设置”。
+1. 将“预加载已启用”设置为“True”。
+
+若要了解详细信息，请参阅 [IIS 8.0 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)。
+
+使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)的应用必须使用外部服务定期 ping 应用，以使其保持运行状态。
+
+::: moniker-end
+
 ## <a name="module-version-and-hosting-bundle-installer-logs"></a>模块版本和托管捆绑安装程序日志
 
 若要确定已安装 ASP.NET Core 模块的版本，请执行以下操作：
@@ -562,7 +597,7 @@ ASP.NET Core 模块安装程序使用系统帐户的权限运行。 由于本地
 
 ::: moniker-end
 
-### <a name="configuration"></a>配置
+### <a name="configuration"></a>Configuration
 
 **IIS**
 

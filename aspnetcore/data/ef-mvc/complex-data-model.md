@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 数据模型 - 第 5 个教程（共 10 个）
-author: rick-anderson
+title: 教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 description: 本教程将添加更多实体和关系，并通过指定格式设置、验证和映射规则来自定义数据模型。
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 87212edbfe34af6de938cf95314501e56e64a8be
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: c08fd6ff7c19c63161135b4c87609f6edd3edb80
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50091036"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103119"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---data-model---5-of-10"></a>ASP.NET Core MVC 和 EF Core - 数据模型 - 第 5 个教程（共 10 个）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
 之前的教程介绍了由三个实体组成的简单数据模型。 本教程将添加更多实体和关系，并通过指定格式化、验证和数据库映射规则来自定义数据模型。
 
@@ -29,7 +22,27 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![实体关系图](complex-data-model/_static/diagram.png)
 
-## <a name="customize-the-data-model-by-using-attributes"></a>使用特性自定义数据模型
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义数据模型
+> * 更改 Student 实体
+> * 创建 Instructor 实体
+> * 创建 OfficeAssignment 实体
+> * 修改 Course 实体
+> * 创建 Department 实体
+> * 修改 Enrollment 实体
+> * 更新数据库上下文
+> * 使用测试数据设定数据库种子
+> * 添加迁移
+> * 更改连接字符串
+> * 更新数据库
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 MVC Web 应用中使用适用于 ASP.NET Core 的 EF Core 迁移功能](migrations.md)
+
+## <a name="customize-the-data-model"></a>自定义数据模型
 
 本节介绍如何使用指定格式化、验证和数据库映射规则的特性来自定义数据模型。 随后在接下来的几节中创建完整的学校数据模型，创建方法：向已创建的类添加特性，并为模型中剩余的实体类型创建新类。
 
@@ -97,9 +110,7 @@ dotnet ef database update
 
 Entity Framework 使用迁移文件名的前缀时间戳发出迁移命令。 可在运行 update-database 命令前创建多个迁移，然后按照创建顺序应用所有迁移。
 
-运行该应用，选择“学生”选项卡，单击“新建”，然后输入名称（超过 50 个字符）。 单击“创建”时，客户端验证会显示一条错误消息。
-
-![显示字符串长度错误的“学生索引”页](complex-data-model/_static/string-length-errors.png)
+运行该应用，选择“学生”选项卡，单击“新建”，然后尝试输入名称（超过 50 个字符）。 应用程序应该会阻止你执行此操作。 
 
 ### <a name="the-column-attribute"></a>Column 特性
 
@@ -132,7 +143,7 @@ dotnet ef database update
 > [!Note]
 > 如果尚未按以下各节所述创建所有实体类就尝试进行编译，则可能会出现编译器错误。
 
-## <a name="final-changes-to-the-student-entity"></a>Student 实体的最终更改
+## <a name="changes-to-student-entity"></a>Student 实体的更改
 
 ![Student 实体](complex-data-model/_static/student-entity.png)
 
@@ -160,7 +171,7 @@ public string LastName { get; set; }
 
 `FullName` 是计算属性，可返回通过串联两个其他属性创建的值。 因此它只有一个 get 访问器，且数据库中不会生成 `FullName` 列。
 
-## <a name="create-the-instructor-entity"></a>创建 Instructor 实体
+## <a name="create-instructor-entity"></a>创建 Instructor 实体
 
 ![Instructor 实体](complex-data-model/_static/instructor-entity.png)
 
@@ -196,7 +207,7 @@ Contoso University 业务规则规定，讲师最多只能有一个办公室，�
 public OfficeAssignment OfficeAssignment { get; set; }
 ```
 
-## <a name="create-the-officeassignment-entity"></a>创建 OfficeAssignment 实体
+## <a name="create-officeassignment-entity"></a>创建 OfficeAssignment 实体
 
 ![OfficeAssignment 实体](complex-data-model/_static/officeassignment-entity.png)
 
@@ -223,7 +234,7 @@ Instructor 实体具有可为 null `OfficeAssignment` 导航属性（因为可�
 
 可向 Instructor 导航属性添加 `[Required]` 特性，指定必须有相关讲师，但这不是必须的，因为 `InstructorID` 外键（也是此表的键）不可为 null。
 
-## <a name="modify-the-course-entity"></a>修改 Course 实体
+## <a name="modify-course-entity"></a>修改 Course 实体
 
 ![Course 实体](complex-data-model/_static/course-entity.png)
 
@@ -272,7 +283,7 @@ public ICollection<Enrollment> Enrollments { get; set; }
 public ICollection<CourseAssignment> CourseAssignments { get; set; }
 ```
 
-## <a name="create-the-department-entity"></a>创建 Department 实体
+## <a name="create-department-entity"></a>创建 Department 实体
 
 ![Department 实体](complex-data-model/_static/department-entity.png)
 
@@ -318,7 +329,7 @@ public ICollection<Course> Courses { get; set; }
 >    .OnDelete(DeleteBehavior.Restrict)
 > ```
 
-## <a name="modify-the-enrollment-entity"></a>修改 Enrollment 实体
+## <a name="modify-enrollment-entity"></a>修改 Enrollment 实体
 
 ![Enrollment 实体](complex-data-model/_static/enrollment-entity.png)
 
@@ -384,7 +395,7 @@ Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据�
 
 此代码添加新实体并配置 CourseAssignment 实体的组合主键。
 
-## <a name="fluent-api-alternative-to-attributes"></a>用 Fluent API 替代特性
+## <a name="about-a-fluent-api-alternative"></a>Fluent API 替代方案
 
 `DbContext` 类的 `OnModelCreating` 方法中的代码使用 Fluent API 来配置 EF 行为。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用，如 [EF Core 文档](/ef/core/modeling/#methods-of-configuration) 中的此示例所示：
 
@@ -411,7 +422,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 除一对多关系线（1到 \*）外，此处还显示了 Instructor 和 OfficeAssignment 实体间的一对零或一关系线（1 到 0..1），以及 Instructor 和 Department 实体间的零对多或一对多关系线（0..1 到 *）。
 
-## <a name="seed-the-database-with-test-data"></a>使用测试数据设定数据库种子
+## <a name="seed-database-with-test-data"></a>使用测试数据设定数据库种子
 
 使用以下代码替换 Data/DbInitializer.cs 文件中的代码，从而为创建的新实体提供种子数据。
 
@@ -456,7 +467,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 保存更改并生成项目。
 
-## <a name="change-the-connection-string-and-update-the-database"></a>更改连接字符串并更新数据库
+## <a name="change-the-connection-string"></a>更改连接字符串
 
 现在 `DbInitializer` 类中就有了新代码，可将新实体的种子数据添加到空数据库。 若要让 EF 创建新的空数据库，请将 appsettings.json 中连接字符串内的数据库名称更改为 ContosoUniversity3 或正在使用的计算机上未使用过的其他名称。
 
@@ -474,6 +485,8 @@ Done. To undo this action, use 'ef migrations remove'
 > ```console
 > dotnet ef database drop
 > ```
+
+## <a name="update-the-database"></a>更新数据库
 
 更改数据库名称或删除数据库后，在命令窗口运行 `database update` 命令，执行迁移。
 
@@ -493,12 +506,28 @@ dotnet ef database update
 
 ![SSOX 中的 CourseAssignment 数据](complex-data-model/_static/ssox-ci-data.png)
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-现在你就得到了更复杂的数据模型和相应的数据库。 后面教程将更多详细的介绍如何访问相关数据。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>后续步骤
 
-> [!div class="step-by-step"]
-> [上一页](migrations.md)
-> [下一页](read-related-data.md)
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已自定义数据模型
+> * 已更改 Student 实体
+> * 已创建 Instructor 实体
+> * 已创建 OfficeAssignment 实体
+> * 已修改 Course 实体
+> * 已创建 Department 实体
+> * 已修改 Enrollment 实体
+> * 已更新数据库上下文
+> * 已使用测试数据设定数据库种子
+> * 已添加迁移
+> * 已更改连接字符串
+> * 已更新数据库
+
+请继续阅读下一篇文章，详细了解如何访问相关数据。
+> [!div class="nextstepaction"]
+> [访问相关数据](read-related-data.md)

@@ -4,14 +4,14 @@ author: guardrex
 description: 获取在 Azure 应用服务和 IIS 上托管 ASP.NET Core 应用的常见错误的故障排除建议。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2018
+ms.date: 02/05/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 887482d61ffa74bc8ffb39d0af8507fd10199eb8
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 976f7e3fbeab9e81ba99e2dd7d09a892b854651b
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341493"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854456"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -193,7 +193,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 检查 web.config 中 `<aspNetCore>` 元素的 processPath 属性，对于依赖框架的部署 (FDD)，确保它为 `dotnet`，对于[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，确保它为 `.\{ASSEMBLY}.exe`。
 
-* 对于 FDD，可能无法通过路径设置访问 dotnet.exe。 确认系统路径设置中存在 *C:\Program Files\dotnet\*。
+* 对于 FDD，可能无法通过路径设置访问 dotnet.exe。 确认“系统路径”设置中存在“C:\Program Files\dotnet”\\。
 
 * 对于 FDD，应用池的用户标识可能无法访问 dotnet.exe。 确认应用池用户标识具有访问 C:\Program Files\dotnet 目录的权限。 确认没有为应用池用户标识配置针对 C:\Program Files\dotnet 和应用目录的拒绝规则。
 
@@ -323,7 +323,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 ::: moniker range="< aspnetcore-2.2"
 
-* **应用程序日志：** 警告:无法创建 stdoutLogFile \\?\{PATH}\path_doesnt_exist\stdout_{PROCESS ID}_{TIMESTAMP}.log，ErrorCode = -2147024893。
+* **应用程序日志：** 警告：无法创建 stdoutLogFile \\?\{PATH}\path_doesnt_exist\stdout_{PROCESS ID}_{TIMESTAMP}.log，ErrorCode = -2147024893。
 
 * **ASP.NET Core 模块 stdout 日志：** 未创建日志文件。
 

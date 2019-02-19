@@ -5,14 +5,14 @@ description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/12/2018
+ms.date: 02/13/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: cf2aea91221887dad5646604214f810493d4b175
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: e186a3cb484035199a8f355540c3e985db87ad98
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329141"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248570"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -52,9 +52,9 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
 
 对于许多应用，报告应用在处理请求方面的可用性（运行情况）的基本运行状况探测配置足以发现应用的状态。
 
-基本配置会注册运行状况检查服务，并调用运行状况检查中间件以使用运行状况响应在 URL 终结点处进行响应。 默认情况下，不会注册任何特定运行状况检查来测试任何特定依赖项或子系统。 如果能够在运行状况终结点 URL 处进行响应，则应用被视为正常。 默认响应编写器会以纯文本响应形式将状态 (`HealthStatus`) 写回到客户端，以便指示 `HealthStatus.Healthy`、`HealthStatus.Degraded` 或 `HealthStatus.Unhealthy` 状态。
+基本配置会注册运行状况检查服务，并调用运行状况检查中间件以使用运行状况响应在 URL 终结点处进行响应。 默认情况下，不会注册任何特定运行状况检查来测试任何特定依赖项或子系统。 如果能够在运行状况终结点 URL 处进行响应，则应用被视为正常。 默认响应编写器会以纯文本响应形式将状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>) 写回到客户端，以便指示 [HealthStatus.Healthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)、[HealthStatus.Degraded](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) 或 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) 状态。
 
-在 `Startup.ConfigureServices` 中使用 `AddHealthChecks` 注册运行状况检查服务。 在 `Startup.Configure` 的请求处理管道中使用 `UseHealthChecks` 注册运行状况检查中间件。
+在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 在 `Startup.Configure` 的请求处理管道中使用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 注册运行状况检查中间件。
 
 在示例应用中，在 `/health` 处创建运行状况检查终结点 (BasicStartup.cs)：
 
@@ -76,7 +76,7 @@ HEALTHCHECK CMD curl --fail http://localhost:5000/health || exit
 
 ## <a name="create-health-checks"></a>创建运行状况检查
 
-运行状况检查通过实现 `IHealthCheck` 接口进行创建。 `IHealthCheck.CheckHealthAsync` 方法会返回 `Task<HealthCheckResult>`，它以 `Healthy`、`Degraded` 或 `Unhealthy` 的形式指示运行状况。 结果会使用可配置状态代码（配置在[运行状况检查选项](#health-check-options)部分中进行介绍）编写为纯文本响应。 `HealthCheckResult` 还可以返回可选的键值对。
+运行状况检查通过实现 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> 接口进行创建。 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*> 方法会返回 `Task<` <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> `>`，它以 `Healthy`、`Degraded` 或 `Unhealthy` 的形式指示运行状况。 结果会使用可配置状态代码（配置在[运行状况检查选项](#health-check-options)部分中进行介绍）编写为纯文本响应。 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> 还可以返回可选的键值对。
 
 ### <a name="example-health-check"></a>示例运行状况检查
 
@@ -113,7 +113,7 @@ public class ExampleHealthCheck : IHealthCheck
 
 ### <a name="register-health-check-services"></a>注册运行状况检查服务
 
-`ExampleHealthCheck` 类型使用 `AddCheck` 添加到运行状况检查服务：
+`ExampleHealthCheck` 类型使用 <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> 添加到运行状况检查服务：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -123,7 +123,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-以下示例中显示的 `AddCheck` 重载会设置要在运行状况检查报告失败时报告的失败状态 (`HealthStatus`)。 如果失败状态设置为 `null`（默认值），则会报告 `HealthStatus.Unhealthy`。 此重载对于库创建者是一种十分有用的方案，在这种情况下，如果运行状况检查实现遵循该设置，则在发生运行状况检查失败时，应用会强制实施库所指示的失败状态。
+以下示例中显示的 <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> 重载会设置要在运行状况检查报告失败时报告的失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 如果失败状态设置为 `null`（默认值），则会报告 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。 此重载对于库创建者是一种十分有用的方案，在这种情况下，如果运行状况检查实现遵循该设置，则在发生运行状况检查失败时，应用会强制实施库所指示的失败状态。
 
 标记用于筛选运行状况检查（在[筛选运行状况检查](#filter-health-checks)部分中进行了进一步介绍）。
 
@@ -135,7 +135,7 @@ services.AddHealthChecks()
         tags: new[] { "example" });
 ```
 
-`AddCheck` 还可以执行 lambda 函数。 在以下示例中，运行状况检查名称指定为 `Example`，并且检查始终返回正常状态：
+<xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> 还可以执行 lambda 函数。 在以下示例中，运行状况检查名称指定为 `Example`，并且检查始终返回正常状态：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -148,7 +148,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="use-health-checks-middleware"></a>使用运行状况检查中间件
 
-在 `Startup.Configure` 内，在处理管道中使用终结点 URL 或相对路径调用 `UseHealthChecks`：
+在 `Startup.Configure` 内，在处理管道中使用终结点 URL 或相对路径调用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*>：
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -157,7 +157,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-如果运行状况检查应侦听特定端口，则使用 `UseHealthChecks` 的重载设置端口（在[按端口筛选](#filter-by-port)部分中进行了进一步介绍）：
+如果运行状况检查应侦听特定端口，则使用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 的重载设置端口（在[按端口筛选](#filter-by-port)部分中进行了进一步介绍）：
 
 ```csharp
 app.UseHealthChecks("/health", port: 8000);
@@ -167,7 +167,7 @@ app.UseHealthChecks("/health", port: 8000);
 
 ## <a name="health-check-options"></a>运行状况检查选项
 
-`HealthCheckOptions` 使你可以自定义运行状况检查行为：
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions> 使你可以自定义运行状况检查行为：
 
 * [筛选运行状况检查](#filter-health-checks)
 * [自定义 HTTP 状态代码](#customize-the-http-status-code)
@@ -176,7 +176,7 @@ app.UseHealthChecks("/health", port: 8000);
 
 ### <a name="filter-health-checks"></a>筛选运行状况检查
 
-默认情况下，运行状况检查中间件会运行所有已注册的运行状况检查。 若要运行运行状况检查的子集，请提供向 `Predicate` 选项返回布尔值的函数。 在以下示例中，`Bar` 运行状况检查在函数条件语句 中由于其标记 (`bar_tag`) 而被筛选掉，在条件语句中，仅当运行状况检查的 `Tag` 属性与 `foo_tag` 或 `baz_tag` 匹配时才返回 `true`：
+默认情况下，运行状况检查中间件会运行所有已注册的运行状况检查。 若要运行运行状况检查的子集，请提供向 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> 选项返回布尔值的函数。 在以下示例中，`Bar` 运行状况检查在函数条件语句 中由于其标记 (`bar_tag`) 而被筛选掉，在条件语句中，仅当运行状况检查的 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> 属性与 `foo_tag` 或 `baz_tag` 匹配时才返回 `true`：
 
 ```csharp
 using System.Threading.Tasks;
@@ -207,7 +207,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="customize-the-http-status-code"></a>自定义 HTTP 状态代码
 
-使用 `ResultStatusCodes` 可自定义运行状况状态到 HTTP 状态代码的映射。 以下 `StatusCode` 分配是中间件所使用的默认值。 更改状态代码值以满足要求。
+使用 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes> 可自定义运行状况状态到 HTTP 状态代码的映射。 以下 <xref:Microsoft.AspNetCore.Http.StatusCodes> 分配是中间件所使用的默认值。 更改状态代码值以满足要求。
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -231,7 +231,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="suppress-cache-headers"></a>取消缓存标头
 
-`AllowCachingResponses` 控制运行状况检查中间件是否将 HTTP 标头添加到探测响应以防止响应缓存。 如果值为 `false`（默认值），则中间件会设置或替代 `Cache-Control`、`Expires` 和 `Pragma` 标头以防止响应缓存。 如果值为 `true`，则中间件不会修改响应的缓存标头。
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> 控制运行状况检查中间件是否将 HTTP 标头添加到探测响应以防止响应缓存。 如果值为 `false`（默认值），则中间件会设置或替代 `Cache-Control`、`Expires` 和 `Pragma` 标头以防止响应缓存。 如果值为 `true`，则中间件不会修改响应的缓存标头。
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -249,7 +249,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="customize-output"></a>自定义输出
 
-`ResponseWriter` 选项可获取或设置用于编写响应的委托。 默认委托会使用 `HealthReport.Status` 字符串值编写最小的纯文本响应。
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> 选项可获取或设置用于编写响应的委托。 默认委托会使用 [HealthReport.Status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status) 字符串值编写最小的纯文本响应。
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -297,7 +297,7 @@ private static Task WriteResponse(HttpContext httpContext,
 
 [!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
-在 `Startup.ConfigureServices` 中使用 `AddHealthChecks` 注册运行状况检查服务。 示例应用使用数据库连接字符串 (DbHealthStartup.cs) 调用 BeatPulse 的 `AddSqlServer` 方法：
+在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 示例应用使用数据库连接字符串 (DbHealthStartup.cs) 调用 BeatPulse 的 `AddSqlServer` 方法：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbHealthStartup.cs?name=snippet_ConfigureServices)]
 
@@ -399,11 +399,11 @@ Unhealthy
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/Services/StartupHostedService.cs?name=snippet1&highlight=18-20)]
 
-运行状况检查在 `Startup.ConfigureServices` 中使用 `AddCheck` 与托管服务一起注册。 因为托管服务必须对运行状况检查设置该属性，所以运行状况检查也会在服务容器 (LivenessProbeStartup.cs) 中进行注册：
+运行状况检查在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> 与托管服务一起注册。 因为托管服务必须对运行状况检查设置该属性，所以运行状况检查也会在服务容器 (LivenessProbeStartup.cs) 中进行注册：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_ConfigureServices)]
 
-在 `Startup.Configure` 内，在应用处理管道中调用运行状况检查中间件。 在示例应用中，在 `/health/ready` 处为就绪情况检查，并且在 `/health/live` 处为运行情况检查创建运行状况检查终结点。 就绪情况检查会将运行状况检查筛选到具有 `ready` 标记的运行状况检查。 运行情况检查通过在 `HealthCheckOptions.Predicate` 中返回 `false` 来筛选出 `StartupHostedServiceHealthCheck`（有关详细信息，请参阅[筛选运行状况检查](#filter-health-checks)）：
+在 `Startup.Configure` 内，在应用处理管道中调用运行状况检查中间件。 在示例应用中，在 `/health/ready` 处为就绪情况检查，并且在 `/health/live` 处为运行情况检查创建运行状况检查终结点。 就绪情况检查会将运行状况检查筛选到具有 `ready` 标记的运行状况检查。 运行情况检查通过在 [HealthCheckOptions.Predicate](xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate) 中返回 `false` 来筛选出 `StartupHostedServiceHealthCheck`（有关详细信息，请参阅[筛选运行状况检查](#filter-health-checks)）：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_Configure)]
 
@@ -413,7 +413,9 @@ Unhealthy
 dotnet run --scenario liveness
 ```
 
-在浏览器中，访问 `/health/ready` 几次，直到过了 15 秒。 运行状况检查会在前 15 秒内报告 `Unhealthy`。 15 秒之后，终结点会报告 `Healthy`，这反映托管服务完成了长时间运行的任务。
+在浏览器中，访问 `/health/ready` 几次，直到过了 15 秒。 运行状况检查会在前 15 秒内报告“运行不正常”。 15 秒之后，终结点会报告“运行正常”，这反映托管服务完成了长时间运行的任务。
+
+此示例还创建了一个运行第一个就绪检查的运行状况检查发布服务器（<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实现），延迟时间为两秒。 有关详细信息，请参阅[运行状况检查发布服务器](#health-check-publisher)部分。
 
 ### <a name="kubernetes-example"></a>Kubernetes 示例
 
@@ -442,11 +444,11 @@ spec:
 
 示例应用演示具有自定义响应编写器的内存运行状况检查。
 
-如果应用使用的内存多于给定内存阈值（在示例应用中为 1 GB），则 `MemoryHealthCheck` 报告降级状态。 `HealthCheckResult` 包括应用的垃圾回收器 (GC) 信息 (MemoryHealthCheck.cs)：
+如果应用使用的内存多于给定内存阈值（在示例应用中为 1 GB），则 `MemoryHealthCheck` 报告降级状态。 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> 包括应用的垃圾回收器 (GC) 信息 (MemoryHealthCheck.cs)：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/MemoryHealthCheck.cs?name=snippet1)]
 
-在 `Startup.ConfigureServices` 中使用 `AddHealthChecks` 注册运行状况检查服务。 `MemoryHealthCheck` 注册为服务，而不是通过将运行状况检查传递到 `AddCheck` 来启用它。 所有 `IHealthCheck` 注册服务都可供运行状况检查服务和中间件使用。 建议将运行状况检查服务注册为单一实例服务。
+在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 `MemoryHealthCheck` 注册为服务，而不是通过将运行状况检查传递到 <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> 来启用它。 所有 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> 注册服务都可供运行状况检查服务和中间件使用。 建议将运行状况检查服务注册为单一实例服务。
 
 CustomWriterStartup.cs：
 
@@ -473,7 +475,7 @@ dotnet run --scenario writer
 
 ## <a name="filter-by-port"></a>按端口筛选
 
-使用端口调用 `UseHealthChecks` 会将运行状况检查请求限制到指定端口。 这通常用于在容器环境中公开用于监视服务的端口。
+使用端口调用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 会将运行状况检查请求限制到指定端口。 这通常用于在容器环境中公开用于监视服务的端口。
 
 示例应用使用[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)配置端口。 端口在 launchSettings.json 文件设置，并通过环境变量传递到配置提供程序。 还必须配置服务器以在管理端口上侦听请求。
 
@@ -501,12 +503,12 @@ Properties/launchSettings.json：
 }
 ```
 
-在 `Startup.ConfigureServices` 中使用 `AddHealthChecks` 注册运行状况检查服务。 `UseHealthChecks` 调用指定管理端口 (ManagementPortStartup.cs)：
+在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 调用指定管理端口 (ManagementPortStartup.cs)：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ManagementPortStartup.cs?name=snippet1&highlight=12,18)]
 
 > [!NOTE]
-> 可以通过在代码中显式设置 URL 和管理端口，来避免在示例应用中创建 launchSettings.json 文件。 在创建 `WebHostBuilder` 的 Program.cs 中，添加 `UseUrls` 调用并提供应用的正常响应终结点和管理端口终结点。 在调用 `UseHealthChecks` 的 ManagementPortStartup.cs 中，显式指定管理端口。
+> 可以通过在代码中显式设置 URL 和管理端口，来避免在示例应用中创建 launchSettings.json 文件。 在创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 的 Program.cs 中，添加 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> 调用并提供应用的正常响应终结点和管理端口终结点。 在调用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 的 ManagementPortStartup.cs 中，显式指定管理端口。
 >
 > Program.cs:
 >
@@ -541,7 +543,7 @@ dotnet run --scenario port
 
 将运行状况检查作为库进行分发：
 
-1. 编写将 `IHealthCheck` 接口作为独立类来实现的运行状况检查。 该类可以依赖于[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)类型激活和[命名选项](xref:fundamentals/configuration/options)来访问配置数据。
+1. 编写将 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> 接口作为独立类来实现的运行状况检查。 该类可以依赖于[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)类型激活和[命名选项](xref:fundamentals/configuration/options)来访问配置数据。
 
    ```csharp
    using System;
@@ -601,7 +603,7 @@ dotnet run --scenario port
    * 运行状况检查名称 (`name`)。 如果为 `null`，则使用 `example_health_check`。
    * 运行状况检查的字符串数据点 (`data1`)。
    * 运行状况检查的整数数据点 (`data2`)。 如果为 `null`，则使用 `1`。
-   * 失败状态 (`HealthStatus`)。 默认值为 `null`。 如果为 `null`，则对失败状态报告 `HealthStatus.Unhealthy`。
+   * 失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 默认值为 `null`。 如果为 `null`，则报告失败状态 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。
    * 标记 (`IEnumerable<string>`)。
 
    ```csharp
@@ -631,13 +633,52 @@ dotnet run --scenario port
 
 ## <a name="health-check-publisher"></a>运行状况检查发布服务器
 
-当 `IHealthCheckPublisher` 添加到服务容器时，运行状况检查系统，会定期执行运行状况检查并使用结果调用 `PublishAsync`。 在期望每个进程定期调用监视系统以便确定运行状况的基于推送的运行状况监视系统方案中，这十分有用。
+当 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 添加到服务容器时，运行状况检查系统，会定期执行运行状况检查并使用结果调用 `PublishAsync`。 在期望每个进程定期调用监视系统以便确定运行状况的基于推送的运行状况监视系统方案中，这十分有用。
 
-`IHealthCheckPublisher` 接口具有单个方法：
+<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 接口具有单个方法：
 
 ```csharp
 Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ```
+
+使用 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions> 可设置：
+
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay> &ndash; 在应用程序启动后且在应用程序执行 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实例之前所应用的初始延迟。 延迟在启动时应用一次，不适用于后续迭代。 默认值为 5 秒。
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period> &ndash; <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 执行的时间。 默认值为 30 秒。
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate> &ndash; 如果 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate> 为 `null`（默认值），则运行状况检查发布服务器服务运行所有已注册的运行状况检查。 若要运行运行状况检查的子集，请提供用于筛选检查集的函数。 每个时间段都会评估谓词。
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Timeout> &ndash; 执行所有 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实例的运行状况检查的超时时间。 在不超时的情况下，使用 <xref:System.Threading.Timeout.InfiniteTimeSpan> 执行。 默认值为 30 秒。
+
+::: moniker range="= aspnetcore-2.2"
+
+> [!WARNING]
+> 在 ASP.NET Core 2.2 版本中，<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实现不支持设置 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period>，它设置 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay> 的值。 此问题将在 ASP.NET Core 3.0 中得以修复。 有关详细信息，请参阅 [HealthCheckPublisherOptions.Period 设置 .Delay 值](https://github.com/aspnet/Extensions/issues/1041)。
+
+::: moniker-end
+
+在示例应用中，`ReadinessPublisher` 是 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实现。 运行状况检查状态在 `Entries` 中记录并针对每次检查记录：
+
+[!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ReadinessPublisher.cs?name=snippet_ReadinessPublisher&highlight=20,22-23)]
+
+在示例应用的 `LivenessProbeStartup` 示例中，`StartupHostedService` 就绪状态检查有两秒的启动延迟，并且每 30 秒运行一次检查。 为激活 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实现，示例将 `ReadinessPublisher` 注册为[依存关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中的单一实例服务：
+
+[!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_ConfigureServices&highlight=12-17,28)]
+
+::: moniker range="= aspnetcore-2.2"
+
+> [!NOTE]
+> 以下解决方法允许在已将一个或多个其他托管服务添加到应用时，向服务容器添加 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实例。 ASP.NET Core 3.0 发布后，不再需要此解决方法。 有关详细信息，请参见： https://github.com/aspnet/Extensions/issues/639。
+>
+> ```csharp
+> private const string HealthCheckServiceAssembly = 
+>     "Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherHostedService";
+>
+> services.TryAddEnumerable(
+>     ServiceDescriptor.Singleton(typeof(IHostedService), 
+>         typeof(HealthCheckPublisherOptions).Assembly
+>             .GetType(HealthCheckServiceAssembly)));
+> ```
+
+::: moniker-end
 
 > [!NOTE]
 > [BeatPulse](https://github.com/Xabaril/BeatPulse) 包括多个系统的发布服务器（包括 [Application Insights](/azure/application-insights/app-insights-overview)）。

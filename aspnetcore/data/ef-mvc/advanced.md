@@ -1,31 +1,41 @@
 ---
-title: 使用 EF Core 创建 ASP.NET Core MVC - 高级 - 第 10 个教程（共 10 个）
-author: rick-anderson
+title: 教程：了解高级方案 - ASP.NET MVC 和 EF Core
 description: 本教程不止会介绍使用 Entity Framework Core 开发 ASP.NET Core Web 应用的基础知识，还会介绍其他有用主题。
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: ba3834b29e78972bf914a5cba1a2cae3cc19a315
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: f02aa1d6d8e431e7e2613835b3216786aed4ecd4
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "50090774"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103093"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---advanced---10-of-10"></a>使用 EF Core 创建 ASP.NET Core MVC - 高级 - 第 10 个教程（共 10 个）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解系列教程，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
 之前的教程中，已经以每个类一张表的方式实现了继承。 本教程将会介绍在掌握开发基础 ASP.NET Core web 应用程序之后使用 Entity Framework Core 开发时需要注意的几个问题。
 
-## <a name="raw-sql-queries"></a>原生 SQL 查询
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 执行原始 SQL 查询
+> * 调用查询以返回实体
+> * 调用查询以返回其他类型
+> * 调用更新查询
+> * 检查 SQL 查询
+> * 创建抽象层
+> * 了解自动更改检测
+> * 了解 EF Core 源代码与开发计划
+> * 了解如何使用动态 LINQ 简化代码
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 实现继承](inheritance.md)
+
+## <a name="perform-raw-sql-queries"></a>执行原始 SQL 查询
 
 使用 Entity Framework 的优点之一是它可避免你编写跟数据库过于耦合的代码 它会自动生成 SQL 查询和命令，使得你无需自行编写。 但有一些特殊情况，你需要执行手动创建的特定 SQL 查询。 对于这些情况下， Entity Framework Code First API 包括直接传递 SQL 命令将到数据库的方法。 在 EF Core 1.0 中具有以下选项：
 
@@ -37,7 +47,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 在 Web 应用程序中执行 SQL 命令时，请务必采取预防措施来保护站点免受 SQL 注入攻击。 一种方法是使用参数化查询，确保不会将网页提交的字符串视为 SQL 命令。 在本教程中，将用户输入集成到查询中时会使用参数化查询。
 
-## <a name="call-a-query-that-returns-entities"></a>调用返回实体的查询
+## <a name="call-a-query-to-return-entities"></a>调用查询以返回实体
 
 `DbSet<TEntity>` 类提供了可用于执行查询并返回`TEntity`类型实体的方法。 若要查看实现细节，你需要更改部门控制器中`Details`方法的代码。
 
@@ -49,7 +59,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![院系详细信息](advanced/_static/department-details.png)
 
-## <a name="call-a-query-that-returns-other-types"></a>调用返回其他类型的查询
+## <a name="call-a-query-to-return-other-types"></a>调用查询以返回其他类型
 
 之前你在“关于”页面创建了一个学生统计信息网格，显示每个注册日期的学生数量。 可以从学生实体集中获取数据 (`_context.Students`) ，使用 LINQ 将结果投影到`EnrollmentDateGroup`视图模型对象的列表。 假设你想要 SQL 本身编写，而不使用 LINQ。 需要运行 SQL 查询中返回实体对象之外的内容。 在 EF Core 1.0 中，执行该操作的另一种方法是编写 ADO.NET 代码，并从 EF 获取数据库连接。
 
@@ -83,7 +93,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”。
 
-在**添加新项**对话框中，在**已安装**下单击**ASP.NET**，在左窗格中，单击**MVC 视图页**，并将新视图命名为*UpdateCourseCredits.cshtml*。
+在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”。
 
 在*Views/Courses/UpdateCourseCredits.cshtml*中，将模板代码替换为以下代码：
 
@@ -103,7 +113,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 有关原生 SQL 查询的详细信息，请参阅[原生 SQL 查询](/ef/core/querying/raw-sql)。
 
-## <a name="examine-sql-sent-to-the-database"></a>检查发送到数据库的 SQL
+## <a name="examine-sql-queries"></a>检查 SQL 查询
 
 有时能够以查看发送到数据库的实际 SQL 查询对于开发者来说是很有用的。 EF Core 自动使用 ASP.NET Core 的内置日志记录功能来编写包含 SQL 查询和更新的日志。 在本部分中，你将看到记录 SQL 日志的一些示例。
 
@@ -139,7 +149,7 @@ ORDER BY [t].[ID]
 
 请注意，你不必使用调试模式，并在断点处停止，然后在**输出**窗口获取日志记录。 这种方法非常便捷，只需在想查看输出时停止日志记录即可。 如果不进行此操作，程序将继续进行日志记录，要查看感兴趣的部分则必须向后滚动。
 
-## <a name="repository-and-unit-of-work-patterns"></a>存储库和工作单元模式
+## <a name="create-an-abstraction-layer"></a>创建抽象层
 
 许多开发人员编写代码实现存储库和工作模式单元以作为使用 Entity Framework 代码的包装器。 这些模式用于在应用程序的数据访问层和业务逻辑层之间创建抽象层。 实现这些模式可让你的应用程序对数据存储介质的更改不敏感，而且很容易进行自动化单元测试和进行测试驱动开发 (TDD)。 但是，编写附加代码以实现这些模式对于使用 EF 的应用程序并不总是最好的选择，原因有以下几个：
 
@@ -169,7 +179,7 @@ Entity Framework 通过比较的实体的当前值与原始值来判断更改实
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
 ```
 
-## <a name="entity-framework-core-source-code-and-development-plans"></a>Entity Framework Core 源代码与开发计划
+## <a name="ef-core-source-code-and-development-plans"></a>EF Core 源代码与开发计划
 
 Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](https://github.com/aspnet/EntityFrameworkCore)。 仓库中除了有源代码，还可包括每夜生成、 问题跟踪、 功能规范、 设计会议备忘录和[将来的开发路线图](https://github.com/aspnet/EntityFrameworkCore/wiki/Roadmap)。 你可以归档或查找 bug 并进行更改。
 
@@ -180,27 +190,19 @@ Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](
 若想要通过对现有数据库中的实体类反向工程得出数据模型，可以使用[scaffold-dbcontext](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext)。 可以参阅[入门教程](/ef/core/get-started/aspnetcore/existing-db)。
 
 <a id="dynamic-linq"></a>
-## <a name="use-dynamic-linq-to-simplify-sort-selection-code"></a>使用动态 LINQ 来简化对所选内容排序的代码
+
+## <a name="use-dynamic-linq-to-simplify-code"></a>使用动态 LINQ 简化代码
 
 [本系列的第三个教程](sort-filter-page.md)演示如何通过在`switch`语句中对列名称进行硬编码来编写 LINQ 。 如果只有两列可供选择，这种方法可行，但是如果拥有许多列，代码可能会变得冗长。 要解决该问题，可使用 `EF.Property` 方法将属性名称指定为一个字符串。 要尝试此方法，请将 `StudentsController` 中的 `Index` 方法替换为以下代码。
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DynamicLinq)]
 
-## <a name="next-steps"></a>后续步骤
-
-这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。
-
-有关 EF Core 的详细信息，请参阅[ Entity Framework 的Core文档](/ef/core)。 还提供：[Entity Framework Core 实战](https://www.manning.com/books/entity-framework-core-in-action)一书。
-
-有关如何部署 Web 应用的信息，请参阅 <xref:host-and-deploy/index>。
-
-有关与 ASP.NET Core MVC 相关的其他主题（如身份验证与授权）的信息，请参阅 <xref:index>。
-
 ## <a name="acknowledgments"></a>鸣谢
 
-Tom Dykstra 和 Rick Anderson (twitter @RickAndMSFT) 共同编写了本教程。 Rowan Miller、 Diego Vega 和 Entity Framework 团队的其他成员协助代码评审和帮助解决编写教程代码时出现的调试问题。
+Tom Dykstra 和 Rick Anderson (twitter @RickAndMSFT) 共同编写了本教程。 Rowan Miller、 Diego Vega 和 Entity Framework 团队的其他成员协助代码评审和帮助解决编写教程代码时出现的调试问题。 John Parente 和 Paul Goldman 致力于更新 ASP.NET Core 2.2 的教程。
 
-## <a name="common-errors"></a>常见错误
+<a id="common-errors"></a>
+## <a name="troubleshoot-common-errors"></a>常见错误疑难解答
 
 ### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll 被另一个进程使用
 
@@ -246,7 +248,33 @@ dotnet ef database drop
 
 请检查连接字符串。 如果你已手动删除数据库文件，更改数据库的构造字符串中数据库的名称，然后从头开始使用新的数据库。
 
-::: moniker-end
+## <a name="get-the-code"></a>获取代码
 
-> [!div class="step-by-step"]
-> [上一篇](inheritance.md)
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+
+## <a name="additional-resources"></a>其他资源
+
+有关 EF Core 的详细信息，请参阅[ Entity Framework 的Core文档](/ef/core)。 还提供：[Entity Framework Core 实战](https://www.manning.com/books/entity-framework-core-in-action)一书。
+
+有关如何部署 Web 应用的信息，请参阅 <xref:host-and-deploy/index>。
+
+有关与 ASP.NET Core MVC 相关的其他主题（如身份验证与授权）的信息，请参阅 <xref:index>。
+
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已执行原始 SQL 查询
+> * 已调用查询以返回实体
+> * 已调用查询以返回其他类型
+> * 已调用更新查询
+> * 已检查 SQL 查询
+> * 已创建抽象层
+> * 已了解自动更改检测
+> * 已了解 EF Core 源代码与开发计划
+> * 已了解如何使用动态 LINQ 简化代码
+
+这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。 若要了解如何将 EF 6 与 ASP.NET Core 结合使用，请参阅下一篇文章。
+> [!div class="nextstepaction"]
+> [EF 6 和 ASP.NET Core](../entity-framework-6.md)

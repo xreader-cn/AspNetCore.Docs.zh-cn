@@ -1,33 +1,40 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 继承 - 第 9 个教程（共 10 个）
-author: rick-anderson
+title: 教程：实现集成 - ASP.NET MVC 和 EF Core
 description: 本教程将演示如何使用 ASP.NET Core 应用程序中的 Entity Framework Core 在数据模型中实现继承。
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 60417040dd296311e1aecff8f224aadf8da82779
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 0a5eb1aba43bc2adf746202772c7f98eff49b4ff
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090753"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103002"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---inheritance---9-of-10"></a>ASP.NET Core MVC 和 EF Core - 继承 - 第 9 个教程（共 10 个）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现集成 - ASP.NET MVC 和 EF Core
 
 在上一个教程中，已经处理了并发异常。 本教程将演示如何在数据模型中实现继承。
 
 在面向对象的编程中，可以使用继承以便于重用代码。 在本教程中，将更改 `Instructor` 和 `Student` 类，以便从 `Person` 基类中派生，该基类包含教师和学生所共有的属性（如 `LastName`）。 不会添加或更改任何网页，但会更改部分代码，并将在数据库中自动反映这些更改。
 
-## <a name="options-for-mapping-inheritance-to-database-tables"></a>将继承映射到数据库表的选项
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 会将继承映射到数据库
+> * 创建 Person 类
+> * 更新 Instructor 和 Student
+> * 向模型添加 Person
+> * 创建和更新迁移
+> * 测试实现
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 处理并发](concurrency.md)
+
+## <a name="map-inheritance-to-database"></a>会将继承映射到数据库
 
 学校数据模型中的 `Instructor` 和 `Student` 类具有多个相同的属性：
 
@@ -64,7 +71,7 @@ TPC 和 TPH 继承模式的性能通常比 TPT 继承模式好，因为 TPT 模�
 
 [!code-csharp[](intro/samples/cu/Models/Person.cs)]
 
-## <a name="make-student-and-instructor-classes-inherit-from-person"></a>使 Student 和 Instructor 类从 Person 继承
+## <a name="update-instructor-and-student"></a>更新 Instructor 和 Student
 
 在 Instructor.cs 中，从 Person 类派生 Instructor 类并删除键和姓名字段。 代码将如下所示：
 
@@ -74,7 +81,7 @@ TPC 和 TPH 继承模式的性能通常比 TPT 继承模式好，因为 TPT 模�
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_AfterInheritance&highlight=8)]
 
-## <a name="add-the-person-entity-type-to-the-data-model"></a>将 Person 实体类型添加到数据模型
+## <a name="add-person-to-the-model"></a>向模型添加 Person
 
 将 Person 实体类型添加到 SchoolContext.cs。 新的行突出显示。
 
@@ -82,7 +89,7 @@ TPC 和 TPH 继承模式的性能通常比 TPT 继承模式好，因为 TPT 模�
 
 以上是 Entity Framework 配置每个层次结构一张表继承所需的全部操作。 正如将看到的，更新数据库时，将有一个 Person 表来代替 Student 和 Instructor 表。
 
-## <a name="create-and-customize-migration-code"></a>创建和自定义迁移代码
+## <a name="create-and-update-migrations"></a>创建和更新迁移
 
 保存更改并生成项目。 随后在项目文件夹中打开命令窗口并输入以下命令：
 
@@ -129,7 +136,7 @@ dotnet ef database update
 > [!NOTE]
 > 在包含现有数据的数据库中更改架构时，可能会发生其他错误。 如果出现无法解决的迁移错误，可以在连接字符串中更改数据库名或者删除数据库。 若是新数据库，则没有要迁移的数据，因此在完成更新数据库命令时很可能不会出错。 若要删除数据库，请使用 SSOX 或运行 `database drop` CLI 命令。
 
-## <a name="test-with-inheritance-implemented"></a>使用已实现的继承进行测试
+## <a name="test-the-implementation"></a>测试实现
 
 运行应用并尝试各种页面。 一切都和以前一样。
 
@@ -141,12 +148,26 @@ dotnet ef database update
 
 ![SSOX 中的 Person 表 - 表数据](inheritance/_static/ssox-person-data.png)
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-你已经为 `Person`、`Student` 和 `Instructor` 类实现了每个层次结构一张表继承。 若要详细了解 Entity Framework Core 中的继承，请参阅[继承](/ef/core/modeling/inheritance)。 下一个教程将介绍如何处理各种相对高级的 Entity Framework 方案。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="additional-resources"></a>其他资源
 
-> [!div class="step-by-step"]
-> [上一页](concurrency.md)
-> [下一页](advanced.md)
+若要详细了解 Entity Framework Core 中的继承，请参阅[继承](/ef/core/modeling/inheritance)。
+
+## <a name="next-steps"></a>后续步骤
+
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已将继承映射到数据库
+> * 已创建 Person 类
+> * 已更新 Instructor 和 Student
+> * 已向模型添加 Person
+> * 已创建和更新迁移
+> * 已测试实现
+
+请继续阅读下一篇文章，了解如何处理各种相对高级的 Entity Framework 方案。
+> [!div class="nextstepaction"]
+> [高级主题](advanced.md)

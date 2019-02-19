@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/22/2019
+ms.date: 02/13/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: eedaf64710506f2a2aac65c178a9888d2ab33d38
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 081a631c9c3e74c01e15f4b0b272d650c162bd20
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837476"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248246"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -112,7 +112,7 @@ web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows
 
   如果条件为 false（应用作为服务运行）：
 
-  * 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 `GetCurrentDirectory` 时，Windows 服务应用将返回 C:\\WINDOWS\\system32 文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。
+  * 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 <xref:System.IO.Directory.GetCurrentDirectory*> 时，Windows 服务应用将返回 C:\\WINDOWS\\system32 文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。
   * 调用 <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> 以将应用作为服务运行。
 
   由于[命令行配置提供程序](xref:fundamentals/configuration/index#command-line-configuration-provider)需要命令行参数的名称/值对，因此将先从参数中删除 `--console` 开关，然后 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 会接收这些参数。
@@ -147,11 +147,13 @@ dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
 
 ### <a name="create-a-user-account"></a>创建用户帐户
 
-运行 `net user` 命令，创建服务用户帐户：
+在管理命令 shell 中使用 `net user` 命令为服务创建用户帐户：
 
 ```console
 net user {USER ACCOUNT} {PASSWORD} /add
 ```
+
+默认密码有效期为 6 个星期。
 
 对于示例应用，使用用户名 `ServiceUser` 和密码创建用户帐户。 在下面的命令中，将 `{PASSWORD}` 替换为[强密码](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements)。
 
@@ -167,9 +169,13 @@ net localgroup {GROUP} {USER ACCOUNT} /add
 
 有关详细信息，请参阅[服务用户帐户](/windows/desktop/services/service-user-accounts)。
 
+使用 Active Directory 时管理用户的另一种方法是使用托管服务帐户。 有关详细信息，请参阅[组托管服务帐户概述](/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview)。
+
 ### <a name="set-permissions"></a>设置权限
 
-运行 [icacls](/windows-server/administration/windows-commands/icacls) 命令，授予对应用文件夹的写入/读取/执行权限：
+#### <a name="access-to-the-app-folder"></a>应用文件夹的访问权限
+
+在管理命令 shell 中使用 [icacls](/windows-server/administration/windows-commands/icacls) 命令，授予对应用文件夹的写入/读取/执行权限：
 
 ```console
 icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
@@ -195,11 +201,23 @@ icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
 
 有关详细信息，请参阅 [icacls](/windows-server/administration/windows-commands/icacls)。
 
+#### <a name="log-on-as-a-service"></a>作为服务登录
+
+要向用户帐户授予[作为服务登录](/windows/security/threat-protection/security-policy-settings/log-on-as-a-service)权限，请执行以下操作：
+
+1. 在“本地安全策略”控制台或“本地组策略编辑器”控制台中找到“用户权限分配”策略。 有关说明，请参阅：[配置安全策略设置](/windows/security/threat-protection/security-policy-settings/how-to-configure-security-policy-settings)。
+1. 找到“`Log on as a service`”策略。 双击策略以将其打开。
+1. 选择“添加用户或组”。
+1. 选择“高级”，然后选择“立即查找”。
+1. 选择之前在[创建用户帐户](#create-a-user-account)部分中创建的用户帐户。 选择“确定”以接受所选内容。
+1. 确定对象名称正确无误后，选择“确定”。
+1. 选择“应用”。 选择“确定”关闭策略窗口。
+
 ## <a name="manage-the-service"></a>管理服务
 
 ### <a name="create-the-service"></a>创建服务
 
-使用 [sc.exe](https://technet.microsoft.com/library/bb490995) 命令行工具创建服务。 `binPath` 值是应用的可执行文件的路径，其中包括可执行文件的文件名。 每个参数和值的等于号和引号字符之间必须有空格。
+使用 [sc.exe](https://technet.microsoft.com/library/bb490995) 命令行工具从管理命令 shell 创建服务。 `binPath` 值是应用的可执行文件的路径，其中包括可执行文件的文件名。 每个参数和值的等于号和引号字符之间必须有空格。
 
 ```console
 sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" password= "{PASSWORD}"
@@ -207,7 +225,7 @@ sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" passwo
 
 * `{SERVICE NAME}` &ndash; 要在[服务控制管理器](/windows/desktop/services/service-control-manager)中分配给服务的名称。
 * `{PATH}` &ndash; 可执行服务的路径。
-* `{DOMAIN}` &ndash; 已加入域的计算机的域。 如果计算机未加入域，则为本地计算机名称。
+* `{DOMAIN}` &ndash; 已加入域的计算机的域。 如果计算机未加入域，则使用本地计算机名称。
 * `{USER ACCOUNT}` &ndash; 运行服务所使用的用户帐户。
 * `{PASSWORD}` &ndash; 用户帐户密码。
 

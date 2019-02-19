@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 7c8255097dfc72480794930ebe4d6cb568edbd7c
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: ca7ee54b8e6b6ae5091b0cb133e448ad9c04da8f
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396189"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248514"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的模型验证
 
@@ -151,9 +151,9 @@ MVC 将继续验证字段，直至达到错误数上限（默认为 200 个）�
 
 当用户修改 `Genre` 字段并提交表单时，`ClassicMovieAttribute` 的 `IsValid` 方法将验证该电影是否为经典电影。 将 `ClassicMovieAttribute` 像所有内置特性一样应用于属性（如 `ReleaseDate`）以确保执行验证，如前面的代码示例所示。 由于此示例仅适用于 `Movie` 类型，因此建议使用 `IValidatableObject`，如下一段中所示。
 
-也可以通过实现 `IValidatableObject` 接口上的 `Validate` 方法，将这段代码直接放入模型中。 如果自定义验证特性可用于验证各个属性，则可使用 `IValidatableObject` 来实现类级别的验证，如下所示。
+也可以通过实现 `IValidatableObject` 接口上的 `Validate` 方法，将这段代码直接放入模型中。 如果自定义验证特性可用于验证各个属性，则可使用 `IValidatableObject` 来实现类级别的验证：
 
-[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet_Validate)]
+[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet&highlight=1,26-34)]
 
 ## <a name="client-side-validation"></a>客户端验证
 

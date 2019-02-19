@@ -4,14 +4,14 @@ author: zuckerthoben
 description: 了解如何将 Swashbuckle 添加到 ASP.NET Core web API 项目中以集成 Swagger UI。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 02/06/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: a8c3d999cfddb4d3d888455d7cc0b899a71e427e
-ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
+ms.openlocfilehash: 9239a46889691135dce5c99f8fc9b8c7b38ab457
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53595329"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854414"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -204,7 +204,7 @@ Swagger UI 显示版本的信息：
 warning CS1591: Missing XML comment for publicly visible type or member 'TodoController.GetAll()'
 ```
 
-要在项目范围内取消警告，请定义要在项目文件中忽略的以分号分隔的警告代码列表。 将警告代码追加到 `$(NoWarn);` 也会应用 C# 默认值。
+要在项目范围内取消警告，请定义要在项目文件中忽略的以分号分隔的警告代码列表。 将警告代码追加到 `$(NoWarn);` 也会应用 [C# 默认值](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16)。
 
 ::: moniker range=">= aspnetcore-2.0"
 

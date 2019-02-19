@@ -4,14 +4,14 @@ author: ardalis
 description: 了解筛选器的工作原理以及如何在 ASP.NET Core MVC 中使用它们。
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/15/2019
+ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: fe3082481b51c968fd361dbcc9553c4e35a36f2a
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 3cd576b389a2a4384c0ba90b5740ac42140533cc
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444345"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159309"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -71,6 +71,7 @@ ms.locfileid: "54444345"
 > 筛选器接口的同步和异步版本**任意**实现一个，而不是同时实现。 该框架会先查看筛选器是否实现了异步接口，如果是，则调用该接口。 如果不是，则调用同步接口的方法。 如果在一个类中同时实现了这两种接口，则仅调用异步方法。 使用抽象类时（如 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>），将为每种筛选器类型仅重写同步方法或仅重写异步方法。
 
 ### <a name="ifilterfactory"></a>IFilterFactory
+
 [IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) 实现 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>。 因此，`IFilterFactory` 实例可在筛选器管道中的任意位置用作 `IFilterMetadata` 实例。 当该框架准备调用筛选器时，它会尝试将其转换为 `IFilterFactory`。 如果强制转换成功，则调用 [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) 方法来创建将调用的 `IFilterMetadata` 实例。 这提供了一种很灵活的设计，因为无需在应用启动时显式设置精确的筛选器管道。
 
 用户可以在自己的属性实现上实现 `IFilterFactory` 作为另一种创建筛选器的方法：
@@ -348,8 +349,12 @@ System.InvalidOperationException: No service for type
 
 ## <a name="result-filters"></a>结果筛选器
 
-* 实现 `IResultFilter` 或 `IAsyncResultFilter` 接口。
+* 实现接口：
+  * `IResultFilter` 或 `IAsyncResultFilter`。
+  * `IAlwaysRunResultFilter` 或 `IAsyncAlwaysRunResultFilter`
 * 它们的执行围绕着操作结果的执行。 
+
+### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter 和 IAsyncResultFilter
 
 下面是一个添加 HTTP 标头的结果筛选器示例。
 
@@ -371,6 +376,35 @@ System.InvalidOperationException: No service for type
 对于 `IAsyncResultFilter`，通过调用 `ResultExecutionDelegate` 上的 `await next` 可执行所有后续结果筛选器和操作结果。 若要设置短路，可将 `ResultExecutingContext.Cancel` 设置为 true，并且不调用 `ResultExectionDelegate`。
 
 该框架提供一个可子类化的抽象 `ResultFilterAttribute`。 前面所示的 [AddHeaderAttribute](#add-header-attribute) 类是一种结果筛选器属性。
+
+### <a name="ialwaysrunresultfilter-and-iasyncalwaysrunresultfilter"></a>IAlwaysRunResultFilter 和 IAsyncAlwaysRunResultFilter
+
+<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> 接口声明了一个针对操作结果运行的 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> 实现。 除非应用 <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter> 并使响应短路，否则会将筛选器应用于操作结果。
+
+换句话说，这些“始终运行”的筛选器始终运行，除非异常或授权筛选器使它们短路。 除 `IExceptionFilter` 和 `IAuthorizationFilter` 之外的筛选器不会使它们短路。
+
+例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
+
+```csharp
+public class UnprocessableResultFilter : Attribute, IAlwaysRunResultFilter
+{
+    public void OnResultExecuting(ResultExecutingContext context)
+    {
+        if (context.Result is StatusCodeResult statusCodeResult &&
+            statusCodeResult.StatusCode == 415)
+        {
+            context.Result = new ObjectResult("Can't process this!")
+            {
+                StatusCode = 422,
+            };
+        }
+    }
+
+    public void OnResultExecuted(ResultExecutedContext context)
+    {
+    }
+}
+```
 
 ## <a name="using-middleware-in-the-filter-pipeline"></a>在筛选器管道中使用中间件
 

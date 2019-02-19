@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 路由如何负责将请求 URI 映射到终结点选择器并向终结点调度传入的请求。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/14/2019
+ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: c5303ad418660fa31fe9094f0e61ee31f5d988f7
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 3dbb2d358ec9e3dcdd96c3771576911d906d796f
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54890011"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248428"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -38,7 +38,7 @@ services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-`EnableEndpointRouting` 选项确定路由是应在内部使用 ASP.NET Core 2.1 或更早版本的基于终结点的逻辑还是使用其基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的逻辑。 兼容性版本设置为 2.2 或更高版本时，默认值为 `true`。 将值设置为 `false` 以使用先前的路由逻辑：
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions.EnableEndpointRouting> 选项确定路由是应在内部使用 ASP.NET Core 2.1 或更早版本的基于终结点的逻辑还是使用其基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的逻辑。 兼容性版本设置为 2.2 或更高版本时，默认值为 `true`。 将值设置为 `false` 以使用先前的路由逻辑：
 
 ```csharp
 // Use the routing logic of ASP.NET Core 2.1 or earlier:
@@ -97,7 +97,7 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 
 * 路由模板语法用于通过标记化路由参数来定义路由。
 * 可以使用常规样式和属性样式终结点配置。
-* `IRouteConstraint` 用于确定 URL 参数是否包含给定的终结点约束的有效值。
+* <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 用于确定 URL 参数是否包含给定的终结点约束的有效值。
 * 应用模型（如 MVC/Razor Pages）注册其所有终结点，这些终结点具有可预测的路由方案实现。
 * 路由实现会在中间件管道中任何所需位置制定路由决策。
 * 路由中间件之后出现的中间件可以检查路由中间件针对给定请求 URI 的终结点决策结果。
@@ -105,8 +105,8 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 * 应用可根据终结点信息使用路由生成 URL（例如，用于重定向或链接），从而避免硬编码 URL，这有助于可维护性。
 * URL 生成是基于支持任意可扩展性的地址：
 
-  * 可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在任意位置解析链接生成器 API (`LinkGenerator`) 以生成 URL。
-  * 如果无法通过 DI 获得链接生成器 API，则 `IUrlHelper` 会提供生成 URL 的方法。
+  * 可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在任意位置解析链接生成器 API (<xref:Microsoft.AspNetCore.Routing.LinkGenerator>) 以生成 URL。
+  * 如果无法通过 DI 获得链接生成器 API，则 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 会提供生成 URL 的方法。
 
 > [!NOTE]
 > 在 ASP.NET Core 2.2 中发布终结点路由后，终结点链接的适用范围限制为 MVC/Razor Pages 操作和页面。 将计划在未来发布的版本中扩展终结点链接的功能。
@@ -126,10 +126,10 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 
 * 路由模板语法用于通过标记化路由参数来定义路由。
 * 可以使用常规样式和属性样式终结点配置。
-* `IRouteConstraint` 用于确定 URL 参数是否包含给定的终结点约束的有效值。
+* <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 用于确定 URL 参数是否包含给定的终结点约束的有效值。
 * 应用模型（如 MVC/Razor Pages）注册了其所有具有可预测的路由方案实现的路由。
 * 响应可根据路由信息使用路由生成 URL（例如，用于重定向或链接），从而避免硬编码 URL，这有助于可维护性。
-* URL 生成基于支持任意可扩展性的路由。 `IUrlHelper` 提供生成 URL 的方法。
+* URL 生成基于支持任意可扩展性的路由。 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 提供生成 URL 的方法。
 
 ::: moniker-end
 
@@ -143,7 +143,7 @@ URL 匹配是路由向终结点调度传入请求的过程。 此过程基于 UR
 
 终结点路由中的路由系统负责所有的调度决策。 由于中间件是基于所选终结点来应用策略，因此任何可能影响调度或安全策略应用的决策都应在路由系统内部制定，这一点很重要。
 
-执行终结点委托时，将根据迄今执行的请求处理将 `RouteContext.RouteData` 的属性设置为适当的值。
+执行终结点委托时，将根据迄今执行的请求处理将 [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) 的属性设为适当的值。
 
 ::: moniker-end
 
@@ -151,19 +151,19 @@ URL 匹配是路由向终结点调度传入请求的过程。 此过程基于 UR
 
 URL 匹配是一个过程，通过该过程，路由可向处理程序调度传入请求。 此过程基于 URL 路径中的数据，但可以进行扩展以考虑请求中的任何数据。 向单独的处理程序调度请求的功能是缩放应用的大小和复杂性的关键。
 
-传入请求将进入 `RouterMiddleware`，后者将对序列中的每个路由调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 方法。 <xref:Microsoft.AspNetCore.Routing.IRouter> 实例将选择是否通过将 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) 设置为非 NULL <xref:Microsoft.AspNetCore.Http.RequestDelegate> 来处理请求。 如果路由为请求设置处理程序，将停止路由处理，并调用处理程序来处理该请求。 如果未找到用于处理请求的路由处理程序，中间件会将请求传递给请求管道中的下一个中间件。
+传入请求将进入 <xref:Microsoft.AspNetCore.Builder.RouterMiddleware>，后者将对序列中的每个路由调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 方法。 <xref:Microsoft.AspNetCore.Routing.IRouter> 实例将选择是否通过将 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) 设置为非 NULL <xref:Microsoft.AspNetCore.Http.RequestDelegate> 来处理请求。 如果路由为请求设置处理程序，将停止路由处理，并调用处理程序来处理该请求。 如果未找到用于处理请求的路由处理程序，中间件会将请求传递给请求管道中的下一个中间件。
 
-`RouteAsync` 的主要输入是与当前请求关联的 [RouteContext.HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*)。 `RouteContext.Handler` 和 [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) 是路由匹配后设置的输出。
+<xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 的主要输入是与当前请求关联的 [RouteContext.HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*)。 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler) 和 [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) 是路由匹配后设置的输出。
 
-调用 `RouteAsync` 的匹配还可根据迄今执行的请求处理将 `RouteContext.RouteData` 的属性设为适当的值。
+调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 的匹配还可根据迄今执行的请求处理将 [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) 的属性设为适当的值。
 
 ::: moniker-end
 
 [RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values*) 是从路由中生成的路由值的字典。 这些值通常通过标记 URL 来确定，可用来接受用户输入，或者在应用内作出进一步的调度决策。
 
-[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 是一个与匹配的路由相关的其他数据的属性包。 提供 `DataTokens` 以支持将状态数据与每个路由相关联，以便应用可根据所匹配的路由作出决策。 这些值是开发者定义的，不会影响通过任何方式路由的行为。 此外，存储于 `RouteData.DataTokens` 中的值可以属于任何类型，与 `RouteData.Values` 相反，后者必须能够转换为字符串，或从字符串进行转换。
+[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 是一个与匹配的路由相关的其他数据的属性包。 提供 <xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*> 以支持将状态数据与每个路由相关联，以便应用可根据所匹配的路由作出决策。 这些值是开发者定义的，不会影响通过任何方式路由的行为。 此外，存储于 [RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 中的值可以属于任何类型，与 [RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values) 相反，后者必须能够转换为字符串，或从字符串进行转换。
 
-[RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers*) 是参与成功匹配请求的路由的列表。 路由可以相互嵌套。 `Routers` 属性可以通过导致匹配的逻辑路由树反映该路径。 通常情况下，`Routers` 中的第一项是路由集合，应该用于生成 URL。 `Routers` 中的最后一项是匹配的路由处理程序。
+[RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) 是参与成功匹配请求的路由的列表。 路由可以相互嵌套。 <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 属性可以通过导致匹配的逻辑路由树反映该路径。 通常情况下，<xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 中的第一项是路由集合，应该用于生成 URL。 <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 中的最后一项是匹配的路由处理程序。
 
 ### <a name="url-generation"></a>URL 生成
 
@@ -171,45 +171,45 @@ URL 匹配是一个过程，通过该过程，路由可向处理程序调度传�
 
 URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这需要考虑终结点与访问它们的 URL 之间的逻辑分隔。
 
-终结点路由包含链接生成器 API (`LinkGenerator`)。 `LinkGenerator` 是可从 DI 检索的单一实例服务。 该 API 可在执行请求的上下文之外使用。 MVC 的 `IUrlHelper` 和依赖 `IUrlHelper` 的方案（如 [Tag Helpers](xref:mvc/views/tag-helpers/intro)、HTML Helpers 和 [Action Results](xref:mvc/controllers/actions)）使用链接生成器提供链接生成功能。
+终结点路由包含链接生成器 API (<xref:Microsoft.AspNetCore.Routing.LinkGenerator>)。 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 是可从 DI 检索的单一实例服务。 该 API 可在执行请求的上下文之外使用。 MVC 的 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 和依赖 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 的方案（如 [Tag Helpers](xref:mvc/views/tag-helpers/intro)、HTML Helpers 和 [Action Results](xref:mvc/controllers/actions)）使用链接生成器提供链接生成功能。
 
 链接生成器基于“地址”和“地址方案”概念。 地址方案是确定哪些终结点用于链接生成的方式。 例如，许多用户熟悉的来自 MVC/Razor Pages 的路由名称和路由值方案都是作为地址方案实现的。
 
 链接生成器可以通过以下扩展方法链接到 MVC/Razor Pages 操作和页面：
 
-* `GetPathByAction`
-* `GetUriByAction`
-* `GetPathByPage`
-* `GetUriByPage`
+* <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetPathByAction*>
+* <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetUriByAction*>
+* <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetPathByPage*>
+* <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetUriByPage*>
 
 这些方法的重载接受包含 `HttpContext` 的参数。 这些方法在功能上等同于 `Url.Action` 和 `Url.Page`，但提供了更大的灵活性和更多的选项。
 
 `GetPath*` 方法与 `Url.Action` 和 `Url.Page` 最相似，因为它们生成包含绝对路径的 URI。 `GetUri*` 方法始终生成包含方案和主机的绝对 URI。 接受 `HttpContext` 的方法在执行请求的上下文中生成 URI。 除非重写，否则将使用来自执行请求的环境路由值、URL 基本路径、方案和主机。
 
-使用地址调用 `LinkGenerator`。 生成 URI 的过程分两步进行：
+使用地址调用 <xref:Microsoft.AspNetCore.Routing.LinkGenerator>。 生成 URI 的过程分两步进行：
 
 1. 将地址绑定到与地址匹配的终结点列表。
 1. 计算每个终结点的 `RoutePattern`，直到找到与提供的值匹配的路由模式。 输出结果会与提供给链接生成器的其他 URI 部分进行组合并返回。
 
-对任何类型的地址，`LinkGenerator` 提供的方法均支持标准链接生成功能。 使用链接生成器的最简便方法是通过扩展方法对特定地址类型执行操作。
+对任何类型的地址，<xref:Microsoft.AspNetCore.Routing.LinkGenerator> 提供的方法均支持标准链接生成功能。 使用链接生成器的最简便方法是通过扩展方法对特定地址类型执行操作。
 
-| 扩展方法   | 说明                                                         |
+| 扩展方法   | 说明​​                                                         |
 | ------------------ | ------------------------------------------------------------------- |
-| `GetPathByAddress` | 根据提供的值生成具有绝对路径的 URI。 |
-| `GetUriByAddress`  | 根据提供的值生成绝对 URI。             |
+| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | 根据提供的值生成具有绝对路径的 URI。 |
+| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | 根据提供的值生成绝对 URI。             |
 
 > [!WARNING]
-> 请注意有关调用 `LinkGenerator` 方法的下列含义：
+> 请注意有关调用 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 方法的下列含义：
 >
 > * 对于不验证传入请求的 `Host` 标头的应用配置，请谨慎使用 `GetUri*` 扩展方法。 如果未验证传入请求的 `Host`标头，则可能以视图/页面中 URI 的形式将不受信任的请求输入发送回客户端。 建议所有生产应用都将其服务器配置为针对已知有效值验证 `Host` 标头。
 >
-> * 在中间件中将 `LinkGenerator` 与 `Map` 或 `MapWhen` 结合使用时，请小心谨慎。 `Map*` 会更改执行请求的基路径，这会影响链接生成的输出。 所有 `LinkGenerator` API 都允许指定基路径。 始终指定一个空的基路径来撤消 `Map*` 对链接生成的影响。
+> * 在中间件中将 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 与 `Map` 或 `MapWhen` 结合使用时，请小心谨慎。 `Map*` 会更改执行请求的基路径，这会影响链接生成的输出。 所有 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API 都允许指定基路径。 始终指定一个空的基路径来撤消 `Map*` 对链接生成的影响。
 
 ## <a name="differences-from-earlier-versions-of-routing"></a>与早期版本路由的差异
 
 ASP.NET Core 2.2 或更高版本中的终结点路由与 ASP.NET Core 中早期版本的路由之间存在一些差异：
 
-* 终结点路由系统不支持基于 `IRouter` 的可扩展性，包括从 `Route` 继承。
+* 终结点路由系统不支持基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的可扩展性，包括从 <xref:Microsoft.AspNetCore.Routing.Route> 继承。
 
 * 终结点路由不支持 [WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim)。 使用 2.1 [兼容性版本](xref:mvc/compatibility-version) (`.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)`) 以继续使用兼容性填充码。
 
@@ -230,7 +230,7 @@ ASP.NET Core 2.2 或更高版本中的终结点路由与 ASP.NET Core 中早期�
   var link = Url.Action("ReadPost", "blog", new { id = 17, });
   ```
 
-  如果使用基于 `IRouter` 的路由，此代码生成 URI `/blog/ReadPost/17`，该 URI 遵循所提供路由值的大小写。 ASP.NET Core 2.2 或更高版本中的终结点路由生成 `/Blog/ReadPost/17`（“Blog”大写）。 终结点路由提供 `IOutboundParameterTransformer` 接口，可用于在全局范围自定义此行为或应用不同的约定来映射 URL。
+  如果使用基于 <xref:Microsoft.AspNetCore.Routing.IRouter> 的路由，此代码生成 URI `/blog/ReadPost/17`，该 URI 遵循所提供路由值的大小写。 ASP.NET Core 2.2 或更高版本中的终结点路由生成 `/Blog/ReadPost/17`（“Blog”大写）。 终结点路由提供 `IOutboundParameterTransformer` 接口，可用于在全局范围自定义此行为或应用不同的约定来映射 URL。
 
   有关详细信息，请参阅[参数转换器参考](#parameter-transformer-reference)部分。
 
@@ -289,7 +289,7 @@ ASP.NET Core 2.2 或更高版本中的终结点路由与 ASP.NET Core 中早期�
 
 ### <a name="middleware-example"></a>中间件示例
 
-在以下示例中，中间件使用 `LinkGenerator` API 创建列出存储产品的操作方法的链接。 应用中的任何类都可通过将链接生成器注入类并调用 `GenerateLink` 来使用链接生成器。
+在以下示例中，中间件使用 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API 创建列出存储产品的操作方法的链接。 应用中的任何类都可通过将链接生成器注入类并调用 `GenerateLink` 来使用链接生成器。
 
 ```csharp
 using Microsoft.AspNetCore.Routing;
@@ -320,20 +320,20 @@ public class ProductsLinkMiddleware
 
 URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这需要考虑处理程序与访问它们的 URL 之间的逻辑分隔。
 
-URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到路由集合的 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法中。 每个路由按顺序调用其 `GetVirtualPath` 方法，直到返回非 NULL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>。
+URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到路由集合的 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法中。 每个路由按顺序调用其 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法，直到返回非 NULL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>。
 
-`GetVirtualPath` 的主输入有：
+<xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 的主输入有：
 
-* [VirtualPathContext.HttpContext](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext*)
-* [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*)
-* [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*)
+* [VirtualPathContext.HttpContext](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext)
+* [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values)
+* [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues)
 
-路由主要使用 `Values` 和 `AmbientValues` 提供的路由值来确定是否可能生成 URL 以及要包括哪些值。 `AmbientValues` 是通过匹配当前请求而生成的路由值集。 与此相反，`Values` 是指定如何为当前操作生成所需 URL 的路由值。 如果路由应获取与当前上下文关联的服务或其他数据时，则提供 `HttpContext`。
+路由主要使用 <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> 和 <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> 提供的路由值来确定是否可能生成 URL 以及要包括哪些值。 <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> 是通过匹配当前请求而生成的路由值集。 与此相反，<xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> 是指定如何为当前操作生成所需 URL 的路由值。 如果路由应获取与当前上下文关联的服务或其他数据时，则提供 <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext>。
 
 > [!TIP]
 > 将 [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*) 视为 [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*) 的一组替代。 URL 生成尝试重复使用当前请求中的路由值，以便使用相同路由或路由值生成链接的 URL。
 
-`GetVirtualPath` 的输出是 `VirtualPathData`。 `VirtualPathData` 是 `RouteData` 的并行值。 `VirtualPathData` 包含输出 URL 的 `VirtualPath` 以及路由应该设置的某些其他属性。
+<xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 的输出是 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>。 <xref:Microsoft.AspNetCore.Routing.VirtualPathData> 是 <xref:Microsoft.AspNetCore.Routing.RouteData> 的并行值。 <xref:Microsoft.AspNetCore.Routing.VirtualPathData> 包含输出 URL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> 以及路由应该设置的某些其他属性。
 
 [VirtualPathData.VirtualPath](xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath*) 属性包含路由生成的虚拟路径。 你可能需要进一步处理路径，具体取决于你的需求。 如果要在 HTML 中呈现生成的 URL，请预置应用的基路径。
 
@@ -347,25 +347,25 @@ URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到�
 
 ::: moniker range="< aspnetcore-2.2"
 
-路由提供 <xref:Microsoft.AspNetCore.Routing.Route> 类，作为 <xref:Microsoft.AspNetCore.Routing.IRouter> 的标准实现。 `Route` 使用 route template 语法来定义模式，以便在调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 时匹配 URL 路径。 调用 `GetVirtualPath` 时，`Route` 使用同一路由模板生成 URL。
+路由提供 <xref:Microsoft.AspNetCore.Routing.Route> 类，作为 <xref:Microsoft.AspNetCore.Routing.IRouter> 的标准实现。 <xref:Microsoft.AspNetCore.Routing.Route> 使用 route template 语法来定义模式，以便在调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 时匹配 URL 路径。 调用 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 时，<xref:Microsoft.AspNetCore.Routing.Route> 使用同一路由模板生成 URL。
 
 ::: moniker-end
 
-大多数应用通过调用 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 或 <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> 上定义的一种类似的扩展方法来创建路由。 任何 `IRouteBuilder` 扩展方法都会创建 <xref:Microsoft.AspNetCore.Routing.Route> 的实例并将其添加到路由集合中。
+大多数应用通过调用 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 或 <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> 上定义的一种类似的扩展方法来创建路由。 任何 <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> 扩展方法都会创建 <xref:Microsoft.AspNetCore.Routing.Route> 的实例并将其添加到路由集合中。
 
 ::: moniker range=">= aspnetcore-2.2"
 
-`MapRoute` 不接受路由处理程序参数。 `MapRoute` 仅添加由 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> 处理的路由。 要了解 MVC 中的路由的详细信息，请参阅 <xref:mvc/controllers/routing>。
+<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 不接受路由处理程序参数。 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 仅添加由 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> 处理的路由。 要了解 MVC 中的路由的详细信息，请参阅 <xref:mvc/controllers/routing>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-`MapRoute` 不接受路由处理程序参数。 `MapRoute` 仅添加由 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> 处理的路由。 默认处理程序是 `IRouter`，该处理程序可能无法处理该请求。 例如，ASP.NET Core MVC 通常被配置为默认处理程序，仅处理与可用控制器和操作匹配的请求。 要了解 MVC 中的路由的详细信息，请参阅 <xref:mvc/controllers/routing>。
+<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 不接受路由处理程序参数。 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 仅添加由 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> 处理的路由。 默认处理程序是 `IRouter`，该处理程序可能无法处理该请求。 例如，ASP.NET Core MVC 通常被配置为默认处理程序，仅处理与可用控制器和操作匹配的请求。 要了解 MVC 中的路由的详细信息，请参阅 <xref:mvc/controllers/routing>。
 
 ::: moniker-end
 
-以下代码示例是典型 ASP.NET Core MVC 路由定义使用的一个 `MapRoute` 调用示例：
+以下代码示例是典型 ASP.NET Core MVC 路由定义使用的一个 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 调用示例：
 
 ```csharp
 routes.MapRoute(
@@ -391,9 +391,9 @@ routes.MapRoute(
 
 此模板与类似于 `/Products/Details/17` 而不是 `/Products/Details/Apples` 的 URL 路径相匹配。 路由约束实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 并检查路由值，以验证它们。 在此示例中，路由值 `id` 必须可转换为整数。 有关框架提供的路由约束的说明，请参阅[路由约束参考](#route-constraint-reference)。
 
-其他 `MapRoute` 重载接受 `constraints`、`dataTokens` 和 `defaults` 的值。 这些参数的典型用法是传递匿名类型化对象，其中匿名类型的属性名匹配路由参数名称。
+其他 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 重载接受 `constraints`、`dataTokens` 和 `defaults` 的值。 这些参数的典型用法是传递匿名类型化对象，其中匿名类型的属性名匹配路由参数名称。
 
-以下 `MapRoute` 示例可创建等效路由：
+以下 <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> 示例可创建等效路由：
 
 ```csharp
 routes.MapRoute(
@@ -454,10 +454,10 @@ routes.MapRoute(
 
 ### <a name="route-class-url-generation"></a>路由类 URL 生成
 
-`Route` 类还可通过将一组路由值与其路由模板组合来生成 URL。 从逻辑上来说，这是匹配 URL 路径的反向过程。
+<xref:Microsoft.AspNetCore.Routing.Route> 类还可通过将一组路由值与其路由模板组合来生成 URL。 从逻辑上来说，这是匹配 URL 路径的反向过程。
 
 > [!TIP]
-> 为更好了解 URL 生成，请想象你要生成的 URL，然后考虑路由模板将如何匹配该 URL。 将生成什么值？ 这大致相当于 URL 在 `Route` 类中的生成方式。
+> 为更好了解 URL 生成，请想象你要生成的 URL，然后考虑路由模板将如何匹配该 URL。 将生成什么值？ 这大致相当于 URL 在 <xref:Microsoft.AspNetCore.Routing.Route> 类中的生成方式。
 
 以下示例使用常规 ASP.NET Core MVC 默认路由：
 
@@ -514,22 +514,22 @@ routes.MapRoute(
 
 框架可提供一组用于创建路由 (<xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions>) 的扩展方法：
 
-* `MapDelete`
-* `MapGet`
-* `MapMiddlewareDelete`
-* `MapMiddlewareGet`
-* `MapMiddlewarePost`
-* `MapMiddlewarePut`
-* `MapMiddlewareRoute`
-* `MapMiddlewareVerb`
-* `MapPost`
-* `MapPut`
-* `MapRoute`
-* `MapVerb`
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapDelete*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewareDelete*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewareGet*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewarePost*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewarePut*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewareRoute*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapMiddlewareVerb*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapPost*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapPut*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>
 
 ::: moniker range="< aspnetcore-2.2"
 
-一些列出的方法（如 `MapGet`）需要 `RequestDelegate`。 路由匹配时，`RequestDelegate` 会用作路由处理程序。 此系列中的其他方法允许配置中间件管道，将其用作路由处理程序。 如果 `Map*` 方法不接受处理程序（例如 `MapRoute`），则它将使用 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>。
+一些列出的方法（如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>）需要 <xref:Microsoft.AspNetCore.Http.RequestDelegate>。 路由匹配时，<xref:Microsoft.AspNetCore.Http.RequestDelegate> 会用作路由处理程序。 此系列中的其他方法允许配置中间件管道，将其用作路由处理程序。 如果 `Map*` 方法不接受处理程序（例如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>），则它将使用 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>。
 
 ::: moniker-end
 
@@ -588,7 +588,7 @@ routes.MapRoute(
 使用模板通常是进行路由最简单的方法。 还可在路由模板外指定约束和默认值。
 
 > [!TIP]
-> 启用[日志记录](xref:fundamentals/logging/index)以查看内置路由实现（如 `Route`）如何匹配请求。
+> 启用[日志记录](xref:fundamentals/logging/index)以查看内置路由实现（如 <xref:Microsoft.AspNetCore.Routing.Route>）如何匹配请求。
 
 ## <a name="reserved-routing-names"></a>保留的路由名称
 
@@ -668,9 +668,9 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 ## <a name="custom-route-constraints"></a>自定义路由约束
 
-除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 `IRouteConstraint` 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
+除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
 
-若要使用自定义 `IRouteConstraint`，必须在应用的服务容器中使用应用的 `RouteOptions.ConstraintMap` 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 `IRouteConstraint` 实现的目录。 应用的 `RouteOptions.ConstraintMap` 可作为 `services.AddRouting` 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 `RouteOptions` 进行更新。 例如:
+若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如:
 
 ```csharp
 services.AddRouting(options =>
@@ -692,7 +692,7 @@ public ActionResult<string> Get(string id)
 
 参数转换器：
 
-* 在为 `Route` 生成链接时执行。
+* 在为 <xref:Microsoft.AspNetCore.Routing.Route> 生成链接时执行。
 * 实现 `Microsoft.AspNetCore.Routing.IOutboundParameterTransformer`。
 * 使用 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 进行配置。
 * 获取参数的路由值并将其转换为新的字符串值。
@@ -734,9 +734,9 @@ routes.MapRoute(
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-上述示例末尾生成的 `VirtualPath` 为 `/package/create/123`。 字典提供“跟踪包路由”模板 `package/{operation}/{id}` 的 `operation` 和 `id` 路由值。 有关详细信息，请参阅[使用路由中间件](#use-routing-middleware)部分或[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples)中的示例代码。
+上述示例末尾生成的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> 为 `/package/create/123`。 字典提供“跟踪包路由”模板 `package/{operation}/{id}` 的 `operation` 和 `id` 路由值。 有关详细信息，请参阅[使用路由中间件](#use-routing-middleware)部分或[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples)中的示例代码。
 
-`VirtualPathContext` 构造函数的第二个参数是环境值的集合。 由于环境值限制了开发人员在请求上下文中必须指定的值数，因此环境值使用起来很方便。 当前请求的当前路由值被视为链接生成的环境值。 在 ASP.NET Core MVC 应用 `HomeController` 的 `About` 操作中，无需指定控制器路由值即可链接到使用 `Home` 环境值的 `Index` 操作&mdash;。
+<xref:Microsoft.AspNetCore.Routing.VirtualPathContext> 构造函数的第二个参数是环境值的集合。 由于环境值限制了开发人员在请求上下文中必须指定的值数，因此环境值使用起来很方便。 当前请求的当前路由值被视为链接生成的环境值。 在 ASP.NET Core MVC 应用 `HomeController` 的 `About` 操作中，无需指定控制器路由值即可链接到使用 `Home` 环境值的 `Index` 操作&mdash;。
 
 忽略与参数不匹配的环境值。 在显式提供的值会覆盖环境值的情况下，也会忽略环境值。 在 URL 中将从左到右进行匹配。
 

@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 更新相关数据 - 第 7 个教程（共 10 个）
-author: rick-anderson
+title: 教程：更新相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将通过更新外键字段和导航属性来更新相关数据。
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 37985c945f2e4b15cfcefb0c126c3209e0bdeac4
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: ac94f2e2876c2d8d571a451e4641787ffe37b3d2
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090727"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103028"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---update-related-data---7-of-10"></a>ASP.NET Core MVC 和 EF Core - 更新相关数据 - 第 7 个教程（共 10 个）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
 上一个教程显示出了相关数据，本教程将通过更新外键字段和导航属性来更新相关数据。
 
@@ -31,7 +24,20 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![“讲师编辑”页面](update-related-data/_static/instructor-edit-courses.png)
 
-## <a name="customize-the-create-and-edit-pages-for-courses"></a>自定义课程的创建和编辑页面
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 自定义“课程”页
+> * 添加“讲师编辑”页
+> * 向“编辑”页添加课程
+> * 更新“删除”页
+> * 向“创建”页添加办公室位置和课程
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 读取相关数据](read-related-data.md)
+
+## <a name="customize-courses-pages"></a>自定义“课程”页
 
 创建新的课程实体时，新实体必须与现有院系有关系。 为此，基架代码需包括控制器方法、创建视图和编辑视图，且视图中应包括用于选择院系的下拉列表。 下拉列表设置了 `Course.DepartmentID` 外键属性，而这正是 Entity Framework 使用适当的 Department 实体加载 `Department` 导航属性所需要的。 将用到基架代码，但需对其稍作更改，以便添加错误处理和对下拉列表进行排序。
 
@@ -103,7 +109,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 更改页面上的数据，然后单击“保存”。 含有更新后的课程数据的“课程索引”页面随即显示。
 
-## <a name="add-an-edit-page-for-instructors"></a>添加讲师的编辑页面
+## <a name="add-instructors-edit-page"></a>添加“讲师编辑”页
 
 编辑讲师记录时，有时希望能更新讲师的办公室分配。 Instructor 实体和 OfficeAssignment 实体之间存在一对零或一的关系，这意味着代码必须处理一下情况：
 
@@ -163,7 +169,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 ![“讲师编辑”页面](update-related-data/_static/instructor-edit-office.png)
 
-## <a name="add-course-assignments-to-the-instructor-edit-page"></a>向“讲师编辑”页添加课程分配
+## <a name="add-courses-to-edit-page"></a>向“编辑”页添加课程
 
 讲师可能教授任意数量的课程。 现在可以通过使用一组复选框来更改课程分配，从而增强讲师编辑页面的性能，如以下屏幕截图所示：
 
@@ -236,7 +242,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 > [!NOTE]
 > 此处所使用的编辑讲师课程数据的方法适用于数量有限的课程。 若是远大于此的集合，则需要使用不同的 UI 和不同的更新方法。
 
-## <a name="update-the-delete-page"></a>更新“删除”页
+## <a name="update-delete-page"></a>更新“删除”页
 
 在 InstructorsController.cs 中，删除 `DeleteConfirmed` 方法，并在其位置插入以下代码。
 
@@ -248,7 +254,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 * 如果要删除的讲师被指派为任何系的管理员，则需从这些系中删除该讲师分配。
 
-## <a name="add-office-location-and-courses-to-the-create-page"></a>向创建页添加办公室位置和课程
+## <a name="add-office-location-and-courses-to-create-page"></a>向“创建”页添加办公室位置和课程
 
 在 InstructorsController.cs 中，删除 HttpGet 和 HttpPost `Create` 方法，然后在其位置添加以下代码：
 
@@ -293,12 +299,21 @@ public ICollection<CourseAssignment> CourseAssignments
 
 如 [CRUD 教程](crud.md)中所述，Entity Framework 隐式实现事务。 如果需要更多控制操作（例如，如果想要在事务中包含在 Entity Framework 外部完成的操作），请参阅[事务](/ef/core/saving/transactions)。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-处理相关数据的介绍至此已告一段落。 下一个教程将介绍如何处理并发冲突。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>后续步骤
 
-> [!div class="step-by-step"]
-> [上一页](read-related-data.md)
-> [下一页](concurrency.md)
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已自定义“课程”页
+> * 已添加“讲师编辑”页
+> * 已向“编辑”页添加课程
+> * 已更新“删除”页
+> * 已向“创建”页添加办公室位置和课程
+
+请继续阅读下一篇文章，了解如何处理并发冲突。
+> [!div class="nextstepaction"]
+> [处理并发冲突](concurrency.md)

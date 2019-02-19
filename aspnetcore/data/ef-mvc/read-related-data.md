@@ -1,26 +1,19 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 读取相关数据 - 第 6 个课程（共 10 个课程）
-author: rick-anderson
+title: 教程：读取相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
+author: rick-anderson
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: a310c9e4b9cec6e2ab2477461f395c9bbd3fa364
-ms.sourcegitcommit: e12f45ddcbe99102a74d4077df27d6c0ebba49c1
+ms.openlocfilehash: 73e225c2cd6d9f88079c54115cccad48f43d7d0c
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2018
-ms.locfileid: "39063281"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103041"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---read-related-data---6-of-10"></a>ASP.NET Core MVC 和 EF Core - 读取相关数据 - 第 6 个课程（共 10 个课程）
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
 前面教程创建了学校数据模型。 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
 
@@ -30,7 +23,19 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![“讲师索引”页](read-related-data/_static/instructors-index.png)
 
-## <a name="eager-explicit-and-lazy-loading-of-related-data"></a>相关数据的预先加载、显式加载和延迟加载
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 了解如何加载相关数据
+> * 创建“课程”页
+> * 创建“讲师”页
+> * 了解显式加载
+
+## <a name="prerequisites"></a>系统必备
+
+* [使用 EF Core 为 ASP.NET Core MVC Web 应用创建更复杂的数据模型](complex-data-model.md)
+
+## <a name="learn-how-to-load-related-data"></a>了解如何加载相关数据
 
 对象关系映射 (ORM) 软件（如 Entity Framework）可通过多种方式将相关数据加载到实体的导航属性中：
 
@@ -54,7 +59,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 另一方面，在某些情况下，单独查询会更加高效。 在一个查询中预先加载所有相关数据时，可能会生成一个非常复杂的联接，SQL Server 无法有效处理该联接。 或者，如果你正在处理一组实体且只需访问其子集的导航属性，那么采用单独查询可获得更佳性能，因为预先加载所有数据后，会检索不需要的数据。 如果看重性能，那么最好测试两种方式的性能，以便做出最佳选择。
 
-## <a name="create-a-courses-page-that-displays-department-name"></a>创建显示院系名称的“课程”页
+## <a name="create-a-courses-page"></a>创建“课程”页
 
 Course 实体包括导航属性，其中包含分配有课程的系的 Department 实体。 若要在课程列表中显示接受分配的系的名称，需从位于 `Course.Department` 导航属性中的 Department 实体获取 Name 属性。
 
@@ -88,7 +93,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
-## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a>创建显示“课程”和“注册”的“讲师”页
+## <a name="create-an-instructors-page"></a>创建“讲师”页
 
 本节将为 Instructor 实体创建一个控制器和视图，从而显示“讲师”页：
 
@@ -226,7 +231,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ![已选择“讲师索引”页中的讲师和课程](read-related-data/_static/instructors-index.png)
 
-## <a name="explicit-loading"></a>显式加载
+## <a name="about-explicit-loading"></a>关于显式加载
 
 在 InstructorsController.cs 中检索讲师列表时，指定了预先加载 `CourseAssignments` 导航属性。
 
@@ -238,12 +243,20 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 运行应用，立即转到“讲师”索引页，尽管已经更改了数据的检索方式，但该页上显示的内容没有任何不同。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-现在你已经使用了预先加载和一个查询及多个查询来读取导航属性中的相关数据。 下一个教程将介绍如何更新相关数据。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>后续步骤
 
->[!div class="step-by-step"]
->[上一页](complex-data-model.md)
->[下一页](update-related-data.md)
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已了解如何加载相关数据
+> * 已创建“课程”页
+> * 已创建“讲师”页
+> * 已了解显式加载
+
+请继续阅读下一篇文章，了解如何更新相关数据。
+> [!div class="nextstepaction"]
+> [更新相关数据](update-related-data.md)

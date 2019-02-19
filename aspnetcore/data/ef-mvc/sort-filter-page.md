@@ -1,26 +1,19 @@
 ---
-title: ASP.NET Core MVC 和 EF Core - 排序、筛选、分页 - 第 3 个教程，共 10 个教程
+title: 教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
+description: 在本教程中，将向学生索引页添加排序、筛选和分页功能。 同时，还将创建一个执行简单分组的页面。
 author: rick-anderson
-description: 本教程将使用 ASP.NET Core 和 Entity Framework Core 向页面添加排序、筛选和分页功能。
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.date: 02/04/2019
+ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 1f80faf0e36332c28e8337ddc331cc8b4c4970d7
-ms.sourcegitcommit: b8a2f14bf8dd346d7592977642b610bbcb0b0757
+ms.openlocfilehash: 51b6b08d2410652f93427371aec299eb4c8789f1
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38193944"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103054"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---sort-filter-paging---3-of-10"></a>ASP.NET Core MVC 和 EF Core - 排序、筛选、分页 - 第 3 个教程，共 10 个教程
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
 在上一个教程中，已为 Student 实体实现了一组网页用于执行基本的 CRUD 操作。 在本教程中，将向学生索引页添加排序、筛选和分页功能。 同时，还将创建一个执行简单分组的页面。
 
@@ -28,7 +21,21 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![“学生索引”页](sort-filter-page/_static/paging.png)
 
-## <a name="add-column-sort-links-to-the-students-index-page"></a>向学生索引页添加列排序链接
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 添加列排序链接
+> * 添加“搜索”框
+> * 向学生索引添加分页
+> * 向 Index 方法添加分页
+> * 添加分页链接
+> * 创建“关于”页
+
+## <a name="prerequisites"></a>系统必备
+
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 实现 CRUD 功能](crud.md)
+
+## <a name="add-column-sort-links"></a>添加列排序链接
 
 要向学生索引页添加排序功能，需更改学生控制器的 `Index` 方法并将代码添加到学生索引视图。
 
@@ -71,7 +78,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 
 ![按姓名顺序的学生索引页](sort-filter-page/_static/name-order.png)
 
-## <a name="add-a-search-box-to-the-students-index-page"></a>向“学生索引”页添加搜索框
+## <a name="add-a-search-box"></a>添加“搜索”框
 
 要向学生索引页添加筛选功能，需将文本框和提交按钮添加到视图，并在 `Index` 方法中做出相应的更改。 在文本框中输入一个字符串以在名字和姓氏字段中进行搜索。
 
@@ -86,7 +93,7 @@ Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core �
 > [!NOTE]
 > 此处正在调用 `IQueryable` 对象上的 `Where` 方法，并且将在服务器上处理该筛选器。 在某些情况下，可能会将 `Where` 方法作为内存中集合上的扩展方法进行调用。 （例如，假设将引用更改为 `_context.Students`，这样它引用的不再是 EF `DbSet`，而是一个返回 `IEnumerable` 集合的存储库方法。）结果通常是相同的，但在某些情况下可能不同。
 >
->例如，`Contains` 方法的 .NET Framework 实现在默认情况下执行区分大小写比较，但在 SQL Server 中，这由 SQL Server 实例的排序规则设置决定。 该设置默认为不区分大小写。 可调用 `ToUpper` 方法使测试显式不区分大小写：Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())。 如果稍后更改代码以使用返回 `IEnumerable` 集合而不是 `IQueryable` 对象的存储库，则可确保结果保持不变。 （在 `IEnumerable` 集合上调用 `Contains` 方法时，将获得 .NET Framework 实现；当在 `IQueryable` 对象上调用它时，将获得数据库提供程序实现。）但是，此解决方案会降低性能。 `ToUpper` 代码将在 TSQL SELECT 语句的 WHERE 子句中放置一个函数。 这将阻止优化器使用索引。 鉴于 SQL 主要安装为不区分大小写，在迁移到区分大小写的数据存储之前，最好避免使用 `ToUpper` 代码。
+>例如，`Contains` 方法的 .NET Framework 实现在默认情况下执行区分大小写比较，但在 SQL Server 中，这由 SQL Server 实例的排序规则设置决定。 该设置默认为不区分大小写。 可调用 `ToUpper` 方法进行不区分大小写的显式测试：*Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())*。 如果稍后更改代码以使用返回 `IEnumerable` 集合而不是 `IQueryable` 对象的存储库，则可确保结果保持不变。 （在 `IEnumerable` 集合上调用 `Contains` 方法时，将获得 .NET Framework 实现；当在 `IQueryable` 对象上调用它时，将获得数据库提供程序实现。）但是，此解决方案会降低性能。 `ToUpper` 代码将在 TSQL SELECT 语句的 WHERE 子句中放置一个函数。 这将阻止优化器使用索引。 鉴于 SQL 主要安装为不区分大小写，在迁移到区分大小写的数据存储之前，最好避免使用 `ToUpper` 代码。
 
 ### <a name="add-a-search-box-to-the-student-index-view"></a>向“学生索引”视图添加搜索框
 
@@ -110,7 +117,7 @@ http://localhost:5813/Students?SearchString=an
 
 在此阶段，如果单击列标题排序链接，则会丢失已在“搜索”框中输入的筛选器值。 此问题将在下一部分得以解决。
 
-## <a name="add-paging-functionality-to-the-students-index-page"></a>向“学生索引”页添加分页功能
+## <a name="add-paging-to-students-index"></a>向学生索引添加分页
 
 要向学生索引页添加分页功能，需创建一个使用 `Skip` 和 `Take` 语句的 `PaginatedList` 类来筛选服务器上的数据，而不总是对表中的所有行进行检索。 然后在 `Index` 方法中进行其他更改，并将分页按钮添加到 `Index` 视图。 下图显示了分页按钮。
 
@@ -124,7 +131,7 @@ http://localhost:5813/Students?SearchString=an
 
 由于构造函数不能运行异步代码，因此使用 `CreateAsync` 方法来创建 `PaginatedList<T>` 对象，而非构造函数。
 
-## <a name="add-paging-functionality-to-the-index-method"></a>向 Index 方法添加分页功能
+## <a name="add-paging-to-index-method"></a>向 Index 方法添加分页
 
 在 StudentsController.cs 中，将 `Index` 方法替换为以下代码。
 
@@ -167,7 +174,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 `PaginatedList.CreateAsync` 方法需要一个页码。 两个问号表示 NULL 合并运算符。 NULL 合并运算符为可为 NULL 的类型定义默认值；表达式 `(page ?? 1)` 表示如果 `page` 有值，则返回该值，如果 `page` 为 NULL，则返回 1。
 
-## <a name="add-paging-links-to-the-student-index-view"></a>向学生索引视图添加分页链接
+## <a name="add-paging-links"></a>添加分页链接
 
 在 Views/Students/Index.cshtml 中，将现有代码替换为以下代码。 突出显示所作更改。
 
@@ -199,7 +206,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 单击不同排序顺序的分页链接，以确保分页正常工作。 然后输入一个搜索字符串并再次尝试分页，以验证分页也可以正确地进行排序和筛选。
 
-## <a name="create-an-about-page-that-shows-student-statistics"></a>创建显示学生统计信息的“关于”页
+## <a name="create-an-about-page"></a>创建“关于”页
 
 对于 Contoso 大学网站的“关于”页，将显示每个注册日期注册了多少名学生。 这需要对组进行分组和简单计算。 若要完成此操作，需要执行以下操作：
 
@@ -243,14 +250,22 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 运行应用并转到“关于”页。 表格中会显示每个注册日期的学生计数。
 
-![“关于”页面](sort-filter-page/_static/about.png)
+## <a name="get-the-code"></a>获取代码
 
-## <a name="summary"></a>总结
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-在本教程中，你已了解了如何执行排序、筛选、分页和分组。 在下一个教程中，你将了解如何使用迁移来处理数据模型更改。
+## <a name="next-steps"></a>后续步骤
 
-::: moniker-end
+在本教程中，你将了解：
 
-> [!div class="step-by-step"]
-> [上一页](crud.md)
-> [下一页](migrations.md)
+> [!div class="checklist"]
+> * 已添加列排序链接
+> * 已添加“搜索”框
+> * 已向学生索引添加分页
+> * 已向 Index 方法添加分页
+> * 已添加分页链接
+> * 已创建“关于”页
+
+请继续阅读下一篇文章，了解如何使用迁移来处理数据模型更改。
+> [!div class="nextstepaction"]
+> [处理数据模型更改](migrations.md)

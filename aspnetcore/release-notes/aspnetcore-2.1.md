@@ -4,14 +4,14 @@ author: isaac2004
 description: 了解 ASP.NET Core 2.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/30/2018
+ms.date: 02/13/2019
 uid: aspnetcore-2.1
-ms.openlocfilehash: e16bb874f317b922f3900b540596f6ff38debb2f
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 8299af819f86d3d2371650ce3d87deb817f0feb8
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206830"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248168"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -71,7 +71,7 @@ Web 应用通常需要侦听 HTTP 和 HTTPS，但随后会将所有 HTTP 流量�
 在生产环境中，必须显式配置 HTTPS。 在 2.1 中，添加了针对 Kestrel 配置 HTTPS 的默认配置架构。 可以将应用配置为使用：
 
 * 多个终结点（包括 URL）。 有关详细信息，请参阅 [Kestrel Web 服务器实现：终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
-* 用于 HTTPS 的证书可能来自于磁盘上的文件或证书存储。
+* 来自于磁盘上的文件或证书存储中的用于 HTTPS 的证书。
 
 ## <a name="gdpr"></a>GDPR
 
@@ -144,7 +144,12 @@ ASP.NET Core 2.1 引入了新的 `IHttpClientFactory` 服务，方便在应用�
 更新了适用于 Angular、React 和 React 结合 Redux 的单页应用程序模板，以使用标准项目结构和为每个框架构建系统。
 
 Angular 模板基于 Angular CLI，而 React 模板基于 create-react-app。
-有关详细信息，请参阅[通过 ASP.NET Core 使用单页应用程序模板](xref:spa/index)。
+
+有关详细信息，请参见:
+
+* <xref:spa/angular>
+* <xref:spa/react>
+* <xref:spa/react-with-redux>
 
 ## <a name="razor-pages-search-for-razor-assets"></a>Razor Pages 搜索 Razor 资产
 

@@ -1,42 +1,38 @@
 ---
-title: ASP.NET Core MVC 和 EF Core 教程 - 创建、读取、更新和删除 (2/10)
+title: 教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
+description: 在本教程中，将评审和自定义 MVC 基架在控制器和视图中自动创建的 CRUD （创建、读取、更新、删除）代码。
 author: rick-anderson
-description: ''
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/04/2019
+ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 34927415beadaa3f5c9035a9101e3c99f7cbc395
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 368b1774ba977ec8020a02d48705200fd54c3bbd
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090818"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56102976"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---crud---2-of-10"></a>ASP.NET Core MVC 和 EF Core 教程 - 创建、读取、更新和删除 (2/10)
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso 大学示例 web 应用程序演示如何使用 Entity Framework Core 和 Visual Studio 创建 ASP.NET Core MVC web 应用程序。 若要了解教程系列，请参阅[本系列中的第一个教程](intro.md)。
+# <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
 在上一个教程中，创建了一个使用 Entity Framework 和 SQL Server LocalDB 来存储和显示数据的 MVC 应用程序。 在本教程中，将评审和自定义 MVC 基架在控制器和视图中自动创建的 CRUD （创建、读取、更新、删除）代码。
 
 > [!NOTE]
 > 为了在控制器和数据访问层之间创建一个抽象层，常见的做法是实现存储库模式。 为了保持这些教程内容简单并重点介绍如何使用 Entity Framework 本身，它们不使用存储库。 有关存储库和 EF 的信息，请参阅[本系列中的最后一个教程](advanced.md)。
 
-在本教程中，将使用以下网页：
+在本教程中，你将了解：
 
-![学生详细信息页](crud/_static/student-details.png)
+> [!div class="checklist"]
+> * 自定义“详细信息”页
+> * 更新“创建”页
+> * 更新“编辑”页
+> * 更新“删除”页
+> * 关闭数据库连接
 
-![学生创建页](crud/_static/student-create.png)
+## <a name="prerequisites"></a>系统必备
 
-![学生编辑页](crud/_static/student-edit.png)
-
-![学生删除页](crud/_static/student-delete.png)
+* [在 ASP.NET Core MVC Web 应用中使用 EF Core 入门](intro.md)
 
 ## <a name="customize-the-details-page"></a>自定义“详细信息”页
 
@@ -186,7 +182,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 这些更改会导致 HttpPost `Edit` 方法与 HttpGet `Edit` 方法的方法签名相同，因此已重命名 `EditPost` 方法。
 
-### <a name="alternative-httppost-edit-code-create-and-attach"></a>可选 HttpPost 编辑代码：创建和附加
+### <a name="alternative-httppost-edit-code-create-and-attach"></a>可选 HttpPost 编辑代码：创建并附加
 
 建议的 HttpPost 编辑代码确保只更新已更改的列，并保留不希望包含在模型绑定内的属性中的数据。 但是，读取优先的方法需要额外的数据库读取，并可能产生处理并发冲突的更复杂代码。 另一种方法是将模型绑定器创建的实体附加到 EF 上下文，并将其标记为已修改。 （请勿使用此代码更新项目，它只是显示一种可选的方法。）
 
@@ -270,13 +266,13 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 单击“删除”。 将显示不含已删除学生的索引页。 （将看到并发教程中错误处理代码的效果示例。）
 
-## <a name="closing-database-connections"></a>关闭数据库连接
+## <a name="close-database-connections"></a>关闭数据库连接
 
 若要释放数据库连接包含的资源，完成此操作时必须尽快处理上下文实例。 ASP.NET Core 内置[依赖关系注入](../../fundamentals/dependency-injection.md)会完成此任务。
 
 在 Startup.cs 中，调用 [AddDbContext 扩展方法](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs)来预配 ASP.NET Core DI 容器中的 `DbContext` 类。 默认情况下，该方法将服务生存期设置为 `Scoped`。 `Scoped` 表示上下文对象生存期与 Web 请求生存期一致，并在 Web 请求结束时将自动调用 `Dispose` 方法。
 
-## <a name="handling-transactions"></a>处理事务
+## <a name="handle-transactions"></a>处理事务
 
 默认情况下，Entity Framework 隐式实现事务。 在对多个行或表进行更改并调用 `SaveChanges` 的情况下，Entity Framework 自动确保所有更改都成功或全部失败。 如果完成某些更改后发生错误，这些更改会自动回退。 如果需要更多控制操作（例如，如果想要在事务中包含在 Entity Framework 外部完成的操作），请参阅[事务](/ef/core/saving/transactions)。
 
@@ -294,12 +290,21 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 有关详细信息，请参阅[跟踪与非跟踪](/ef/core/querying/tracking)。
 
-## <a name="summary"></a>总结
+## <a name="get-the-code"></a>获取代码
 
-现在拥有一组完整的页面，可对 Student 实体执行简单的 CRUD 操作。 在下一个教程中，将通过添加排序、筛选和分页来扩展“索引”页。
+[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>后续步骤
 
-> [!div class="step-by-step"]
-> [上一页](intro.md)
-> [下一页](sort-filter-page.md)
+在本教程中，你将了解：
+
+> [!div class="checklist"]
+> * 已自定义“详细信息”页
+> * 已更新“创建”页
+> * 已更新“编辑”页
+> * 已更新“删除”页
+> * 已关闭数据库连接
+
+请继续阅读下一篇文章，了解如何通过添加排序、筛选和分页来扩展“索引”页的功能。
+> [!div class="nextstepaction"]
+> [排序、筛选和分页](sort-filter-page.md)
