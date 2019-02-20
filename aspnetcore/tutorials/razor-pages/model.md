@@ -41,7 +41,7 @@ ms.locfileid: "56159283"
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“模型”的文件夹。
+* 添加名为“Models”的文件夹。
 * 将类添加到名为“Movie.cs”的“Models”文件夹。
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
@@ -148,7 +148,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 ---
 
-前面的命令生成以下警告：“未对实体类型‘Movie’上的十进制列‘Price’指定任何类型。 当值不符合默认精确度和小数位数时，会在无提示的情况下截断该值。 使用‘HasColumnType()’显式指定可以容纳所有值的 SQL Server 列类型。”
+前面的命令生成以下警告：“No type was specified for the decimal column 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.”
 
 你可以忽略该警告，它将后面的教程中得到修复。
 
