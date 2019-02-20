@@ -7,12 +7,6 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 uid: spa/blazor/index
-ms.openlocfilehash: 0d22365701a4fc1857582c13459280e50d59c858
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159570"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
