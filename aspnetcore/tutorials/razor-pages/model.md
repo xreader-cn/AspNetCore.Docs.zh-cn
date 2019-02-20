@@ -1,5 +1,5 @@
 ---
-title: 在 ASP.NET Core 中向 Razor 页面应用添加模型
+title: 在 ASP.NET Core 中向 Razor Pages 应用添加模型
 author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
@@ -13,13 +13,13 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 02/12/2019
 ms.locfileid: "56159283"
 ---
-# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor 页面应用添加模型
+# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-在此部分中，添加了用于管理数据库中的电影的类。 可以结合 [Entity Framework Core](/ef/core) (EF Core) 使用这些类来处理数据库。 EF Core 是对象关系映射 (ORM) 框架，可以简化数据访问代码。
+在本节中，添加了用于管理数据库中的电影的类。 这些类与 [Entity Framework Core](/ef/core)（EF Core）一起使用来处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问代码。
 
 模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系。 它们定义数据库中存储的数据属性。
 
@@ -163,7 +163,7 @@ appsettings.json 文件通过用于连接到本地数据的连接字符串进行
 
 * *Startup.cs*
 
-下一部分中说明了创建和更新的文件。
+创建和更新的文件将在下一节中说明。
 
 <a name="pmc"></a>
 
