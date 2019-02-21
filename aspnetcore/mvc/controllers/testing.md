@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: 7e27f30e35c2c6e9062c8321b8b8544a38a69605
-ms.sourcegitcommit: 85f2939af7a167b9694e1d2093277ffc9a741b23
+ms.openlocfilehash: c8a374f3e3ecfdef1a02e685aecc4e2fcbfcbf48
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "50758136"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410355"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
 
@@ -184,4 +184,3 @@ ms.locfileid: "50758136"
 
 * <xref:test/integration-tests>
 * [使用 Visual Studio 创建和运行单位测试](/visualstudio/test/unit-test-your-code)。
-* [Explicit Dependencies Principle](https://deviq.com/explicit-dependencies-principle/)（显式依赖关系原则）

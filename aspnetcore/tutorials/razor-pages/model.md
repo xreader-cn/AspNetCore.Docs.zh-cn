@@ -3,15 +3,14 @@ title: 在 ASP.NET Core 中向 Razor Pages 应用添加模型
 author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
-monikerRange: '>= aspnetcore-2.2'
 ms.date: 02/12/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: ab2bf372b305672a95d34879ad2c13a620d93c7a
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: c7341430e8e2ace7eb04faa308020095139d5b94
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159283"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410227"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -214,7 +213,7 @@ Update-Database
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-## <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
+### <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
 
 ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)进行生成。 服务（例如 EF Core 数据库上下文）在应用程序启动期间通过依赖关系注入进行注册。 需要这些服务（如 Razor 页面）的组件通过构造函数提供相应服务。 本教程的后续部分介绍了用于获取 DB 上下文实例的构造函数代码。
 

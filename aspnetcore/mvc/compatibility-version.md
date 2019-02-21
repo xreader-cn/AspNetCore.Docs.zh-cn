@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 中的 Startup 类如何配置服务和应用�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/10/2018
+ms.date: 02/15/2019
 uid: mvc/compatibility-version
-ms.openlocfilehash: 63243d99c7cb74a7e594cd309a808455c6611fc0
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 7c4189db435088e0803b35add82fa0eb9372e664
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577846"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410140"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>ASP.NET Core MVC 的兼容性版本
 
@@ -35,8 +35,8 @@ ms.locfileid: "53577846"
 
 以下代码将兼容模式设置为 ASP.NET Core 2.2（以下行为除外）：
 
-* [AllowCombiningAuthorizeFilters](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/src/Microsoft.AspNetCore.Mvc.Core/MvcOptions.cs)
-* [InputFormatterExceptionPolicy](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/src/Microsoft.AspNetCore.Mvc.Core/MvcOptions.cs)
+* <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowCombiningAuthorizeFilters>
+* <xref:Microsoft.AspNetCore.Mvc.MvcOptions.InputFormatterExceptionPolicy>
 
 [!code-csharp[Main](compatibility-version/samples/2.x/CompatibilityVersionSample/Startup2.cs?name=snippet1)]
 
@@ -45,6 +45,6 @@ ms.locfileid: "53577846"
 * 允许使用最新版本并选择退出特定的中断行为变更。
 * 请用些时间更新应用，以便其适用于最新更改。
 
-[MvcOptions](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/src/Microsoft.AspNetCore.Mvc.Core/MvcOptions.cs) 类源注释充分地阐述了更改的内容以及为什么更改对大多数用户来说是一种改进。
+[MvcOptions](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Mvc/Mvc.Core/src/MvcOptions.cs) 类源注释充分地阐述了更改的内容以及为什么更改对大多数用户来说是一种改进。
 
 将来会推出 [ASP.NET Core 3.0 版本](https://github.com/aspnet/Home/wiki/Roadmap)。 在 3.0 版本中，将删除兼容性开关支持的旧行为。 我们认为这些积极的变化几乎使所有用户受益。 现在通过引入这些更改，大多数应用可以立即受益，其他人员将有时间更新其应用。

@@ -2,17 +2,16 @@
 title: 将新字段添加到 ASP.NET Core 中的 Razor 页面
 author: rick-anderson
 description: 演示如何使用 Entity Framework Core 将新字段添加到 Razor 页面
-monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 9b3ad5f6c4b1c9b5f016f5591127c8d1b213948d
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: 98de39c63c992dce7d60563df316d848339b811a
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329128"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410370"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
