@@ -5,12 +5,12 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 02/14/2017
 uid: mvc/controllers/areas
-ms.openlocfilehash: b78bb5146f1ab9039fa9ff015471654510718ed6
-ms.sourcegitcommit: ecf2cd4e0613569025b28e12de3baa21d86d4258
+ms.openlocfilehash: 19e818fa198936ea1bee0da8039e88a3c0abbf6b
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/30/2018
-ms.locfileid: "43312213"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410607"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -41,37 +41,21 @@ ms.locfileid: "43312213"
 我们来看看演示如何创建和使用区域的示例。 假设你有一个商店应用，它有两组不同的控制器和视图：产品和服务。 使用 MVC 区域的典型文件夹结构如下所示：
 
 * 项目名称
-
   * 区域
-
     * 产品
-
       * Controllers
-
         * HomeController.cs
-
         * ManageController.cs
-
       * 视图
-
         * 主页
-
           * Index.cshtml
-
         * 管理
-
           * Index.cshtml
-
     * 服务
-
       * Controllers
-
         * HomeController.cs
-
       * 视图
-
         * 主页
-
           * Index.cshtml
 
 当 MVC 尝试呈现 Area 中的视图时，它将默认尝试检查以下位置：

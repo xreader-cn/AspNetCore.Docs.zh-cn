@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: bec5838c2efaffb933828260eaf1a840ff202140
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: acebe52719e1876dc6808441fcff6fe849e36983
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667760"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410409"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 

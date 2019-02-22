@@ -5,12 +5,12 @@ description: ''
 ms.author: riande
 ms.date: 07/03/2017
 uid: mvc/controllers/actions
-ms.openlocfilehash: 3f3f565021d484b69401a3e03a2a966c92764a49
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: 8289424b3cd3678bea18a25c7850e409795d1577
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36275653"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410426"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>在 ASP.NET Core MVC 中使用控制器处理请求
 
@@ -33,7 +33,7 @@ ms.locfileid: "36275653"
 
 控制器类不可含有关联的 `[NonController]` 属性。
 
-控制器应遵循 [Explicit Dependencies Principle](http://deviq.com/explicit-dependencies-principle/)（显式依赖关系原则）。 以下几种方法可以实现此原则。 如果多个控制器操作需要相同的服务，请考虑使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)来请求这些依赖关系。 如果该服务仅需要一个操作方法，请考虑使用[操作注入](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)来请求依赖关系。
+控制器应遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。 以下几种方法可以实现此原则。 如果多个控制器操作需要相同的服务，请考虑使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)来请求这些依赖关系。 如果该服务仅需要一个操作方法，请考虑使用[操作注入](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)来请求依赖关系。
 
 在“模型-视图-控制器”模式中，控制器负责请求的初始处理和模型的实例化操作。 通常情况下，应在模型中执行业务决策。
 
@@ -57,7 +57,7 @@ ms.locfileid: "36275653"
 
 没有包含 `Content-Type` HTTP 响应标头，因为响应正文缺少要描述的内容。
 
-该类别中有两种结果类型：重定向和 HTTP 状态代码。
+此类别中有两种结果类型：重定向和 HTTP 状态代码。
 
 * **HTTP 状态代码**
 
@@ -83,7 +83,7 @@ ms.locfileid: "36275653"
 
     此类型返回 JSON 或类似的数据交换格式，从而以特定方式表示某个对象。 例如，`return Json(customer);` 将提供的对象串行化为 JSON 格式。
     
-    此类型的其他常见方法包括 `File`、`PhysicalFile` 和 `VirtualFile`。 例如，`return PhysicalFile(customerFilePath, "text/xml");` 返回由 `Content-Type` 响应标头值“text/xml”所描述的 XML 文件。
+    此类型的其他常见方法包括 `File` 和 `PhysicalFile`。 例如，`return PhysicalFile(customerFilePath, "text/xml");` 返回 [PhysicalFileResult](/dotnet/api/microsoft.aspnetcore.mvc.physicalfileresult)。
 
 #### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3.导致在与客户端协商的内容类型中格式化为非空响应正文的方法
 
@@ -93,7 +93,7 @@ ms.locfileid: "36275653"
 
 ### <a name="cross-cutting-concerns"></a>横切关注点
 
-应用程序通常会共享其部分工作流程。 示例包括需要身份验证才能访问购物车的应用，或者在某些页面上缓存数据的应用。 要在某个操作方法之前或之后执行逻辑，请使用筛选器。 在横切关注点上使用[筛选器](xref:mvc/controllers/filters)可以减少重复，使它们遵循[不要自我重复 (DRY) 原则](http://deviq.com/don-t-repeat-yourself/)。
+应用程序通常会共享其部分工作流程。 示例包括需要身份验证才能访问购物车的应用，或者在某些页面上缓存数据的应用。 要在某个操作方法之前或之后执行逻辑，请使用筛选器。 对横切关注点使用[筛选器](xref:mvc/controllers/filters)可以减少重复。
 
 可在控制器或操作级别上应用大多数筛选器属性（例如 `[Authorize]`），具体取决于所需的粒度级别。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 3626ce834b904db64c1976aefc77dc60a7bfdf1c
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 5e5b9746da9bbc13a147b807aabfd3d9ab90a0ca
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253164"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410503"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -342,14 +342,14 @@ public void ConfigureServices(IServiceCollection services)
 控制器操作：
 
 暂时性：d233e165-f417-469b-a866-1cf1935d2518  
-有作用域：5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
+作用域：5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
 单一实例：01271bc1-9e31-48e7-8f7c-7261b040ded9  
 实例：00000000-0000-0000-0000-000000000000
 
 `OperationService` 操作：
 
 暂时性：c6b049eb-1318-4e31-90f1-eb2dd849ff64  
-有作用域：5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
+作用域：5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
 单一实例：01271bc1-9e31-48e7-8f7c-7261b040ded9  
 实例：00000000-0000-0000-0000-000000000000
 
@@ -437,10 +437,9 @@ public static void Main(string[] args)
 最佳做法是：
 
 * 设计服务以使用依赖关系注入来获取其依赖关系。
-* 避免有状态的静态方法调用（称为[静态粘附](https://deviq.com/static-cling/)的实践）。
+* 避免进行有状态的静态方法调用。
 * 避免在服务中直接实例化依赖类。 直接实例化将代码耦合到特定实现。
-
-遵循[面向对象设计的 SOLID 原则](https://deviq.com/solid/)，往往会获得构造良好且易于测试的小型类。
+* 不在应用类中包含过多内容，确保设计规范，并易于测试。
 
 如果一个类似乎有过多的注入依赖关系，这通常表明该类拥有过多的责任并且违反了[单一责任原则 (SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility)。 尝试通过将某些职责移动到一个新类来重构类。 请记住，Razor Pages 页模型类和 MVC 控制器类应关注用户界面问题。 业务规则和数据访问实现细节应保留在适用于这些[分离的关注点](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)的类中。
 
@@ -488,7 +487,7 @@ public void ConfigureServices(IServiceCollection services)
 * 自定义生存期管理
 * 对迟缓初始化的 `Func<T>` 支持
 
-有关支持适配器的部分容器列表，请参阅[依赖关系注入 readme.md 文件](https://github.com/aspnet/DependencyInjection#using-other-containers-with-microsoftextensionsdependencyinjection)。
+有关支持适配器的部分容器列表，请参阅[依赖关系注入 readme.md 文件](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection)。
 
 以下示例将内置容器替换为 [Autofac](https://autofac.org/)：
 
@@ -560,8 +559,7 @@ DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
 * [在 ASP.NET Core 中使用依赖关系注入编写干净代码 (MSDN) ](https://msdn.microsoft.com/magazine/mt703433.aspx)
-* [Container-Managed Application Design, Prelude: Where does the Container Belong?](https://blogs.msdn.microsoft.com/nblumhardt/2008/12/26/container-managed-application-design-prelude-where-does-the-container-belong/)（容器托管的应用程序设计，序言：容器属于何处？）
+* [容器托管的应用程序设计，序言：容器属于哪里？](https://blogs.msdn.microsoft.com/nblumhardt/2008/12/26/container-managed-application-design-prelude-where-does-the-container-belong/)
 * [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）
 * [控制反转容器和依赖关系注入模式 (Martin Fowler)](https://www.martinfowler.com/articles/injection.html)
-* [New 具有粘附性（将代码“粘附”到特定的实现）](https://ardalis.com/new-is-glue)
 * [如何在 ASP.NET Core DI 中注册具有多个接口的服务](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)

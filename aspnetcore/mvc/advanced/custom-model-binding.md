@@ -5,12 +5,12 @@ description: 了解如何通过模型绑定，使控制器操作能够直接使�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 1da42829270e8ff4a626a45aec4d4e825062bd4f
-ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
+ms.openlocfilehash: 33551c9fc22561b992b4a09a4c7187ade136c09c
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/14/2018
-ms.locfileid: "51635285"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410240"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -104,7 +104,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Controllers/BoundAuthorsController.cs?name=demo1&highlight=2)]
 
-在此示例中，由于参数的名称不是默认的 `authorId`，因此，使用 `ModelBinder` 属性在参数上指定该名称。 请注意，比起在操作方法中查找实体，控制器和操作方法都得到了简化。 使用 Entity Framework Core 获取创建者的逻辑会移动到模型绑定器。 如果有多种方法绑定到 `Author` 模型，就能得到很大程度的简化，并且有助于遵循 [DRY 原则](http://deviq.com/don-t-repeat-yourself/)。
+在此示例中，由于参数的名称不是默认的 `authorId`，因此，使用 `ModelBinder` 属性在参数上指定该名称。 请注意，比起在操作方法中查找实体，控制器和操作方法都得到了简化。 使用 Entity Framework Core 获取创建者的逻辑会移动到模型绑定器。 如果有多种方法绑定到 `Author` 模型，就能得到很大程度的简化。
 
 可以将 `ModelBinder` 属性应用到各个模型属性（例如视图模型上）或操作方法参数，以便为该类型或操作指定某一模型绑定器或模型名称。
 
@@ -114,7 +114,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinderProvider.cs?highlight=17-20)]
 
-> 注意：上述代码返回 `BinderTypeModelBinder`。 `BinderTypeModelBinder` 充当模型绑定器中心，并提供依赖关系注入 (DI)。 `AuthorEntityBinder` 需要 DI 来访问 EF Core。 如果模型绑定器需要 DI 中的服务，请使用 `BinderTypeModelBinder`。
+> 注意:上述代码返回 `BinderTypeModelBinder`。 `BinderTypeModelBinder` 充当模型绑定器中心，并提供依赖关系注入 (DI)。 `AuthorEntityBinder` 需要 DI 来访问 EF Core。 如果模型绑定器需要 DI 中的服务，请使用 `BinderTypeModelBinder`。
 
 若要使用自定义模型绑定器提供程序，请将其添加到 `ConfigureServices` 中：
 

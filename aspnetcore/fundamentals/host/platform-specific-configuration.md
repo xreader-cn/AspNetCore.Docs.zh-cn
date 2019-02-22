@@ -5,14 +5,14 @@ description: 了解如何使用 IHostingStartup 从外部程序集增强 ASP.NET
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 11/22/2018
+ms.date: 02/14/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: cf7114698635ab2d61fa19eb15b6a8c61a751e5b
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: cffad201c84414ee4788877d80d3619a9013ae99
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284716"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410490"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
@@ -82,7 +82,7 @@ ms.locfileid: "53284716"
 * 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](/dotnet/api/microsoft.extensions.configuration.memoryconfigurationbuilderextensions.addinmemorycollection)) 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。
 
-`ServiceKeyInjection` 类的 [Configure](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup.configure) 方法使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 将增强功能添加到应用。 用户代码中 `Startup.Configure` 之前的运行时调用托管启动程序集中的 `IHostingStartup.Configure`，允许用户代码覆盖托管启动程序集提供的任何配置。
+`ServiceKeyInjection` 类的 [Configure](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup.configure) 方法使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 将增强功能添加到应用。
 
 HostingStartupLibrary/ServiceKeyInjection.cs：
 
@@ -146,6 +146,46 @@ HostingStartupApp/Pages/Index.cshtml.cs：
 [!code-json[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement1.deps.json?range=2-13&highlight=8)]
 
 仅显示部分文件。 示例中程序集的名称是 `StartupEnhancement`。
+
+## <a name="configuration-provided-by-the-hosting-startup"></a>托管启动提供的配置
+
+处理配置有两种方法，具体取决于是希望托管启动的配置优先还是应用的配置优先：
+
+1. 使用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> 为应用提供配置，在应用的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> 委托执行后加载配置。 使用此方法，托管启动配置优先于应用的配置。
+1. 使用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> 为应用提供配置，在应用的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> 委托执行之前加载配置。 使用此方法，应用的配置值优先于托管启动程序提供的值。
+
+```csharp
+public class ConfigurationInjection : IHostingStartup
+{
+    public void Configure(IWebHostBuilder builder)
+    {
+        Dictionary<string, string> dict;
+
+        builder.ConfigureAppConfiguration(config =>
+        {
+            dict = new Dictionary<string, string>
+            {
+                {"ConfigurationKey1", 
+                    "From IHostingStartup: Higher priority than the app's configuration."},
+            };
+
+            config.AddInMemoryCollection(dict);
+        });
+
+        dict = new Dictionary<string, string>
+        {
+            {"ConfigurationKey2", 
+                "From IHostingStartup: Lower priority than the app's configuration."},
+        };
+
+        var builtConfig = new ConfigurationBuilder()
+            .AddInMemoryCollection(dict)
+            .Build();
+
+        builder.UseConfiguration(builtConfig);
+    }
+}
+```
 
 ## <a name="specify-the-hosting-startup-assembly"></a>指定承载启动程序集
 

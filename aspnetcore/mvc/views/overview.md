@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 中的视图如何处理应用的数据表�
 ms.author: riande
 ms.date: 12/12/2017
 uid: mvc/views/overview
-ms.openlocfilehash: 276540a5d77b1d65119d1b2104508d77f45d5588
-ms.sourcegitcommit: 8f8924ce4eb9effeaf489f177fb01b66867da16f
+ms.openlocfilehash: 6c5b4d7b89ac07a85b5aad626e37855de98064eb
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2018
-ms.locfileid: "39219363"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410427"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
@@ -34,7 +34,7 @@ ms.locfileid: "39219363"
 
 ## <a name="benefits-of-using-views"></a>使用视图的好处
 
-视图可帮助在 MVC 应用内建立[关注点分离 (SoC) 设计](http://deviq.com/separation-of-concerns/)，方法是分隔用户界面标记与应用的其他部分。 采用 SoC 设计可使应用模块化，从而提供以下几个好处：
+视图可帮助在 MVC 应用内建立[关注点分离](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)，方法是分隔用户界面标记与应用的其他部分。 采用 SoC 设计可使应用模块化，从而提供以下几个好处：
 
 * 应用组织地更好，因此更易于维护。 视图一般按应用功能进行分组。 这使得在处理功能时更容易找到相关的视图。
 * 应用的若干部分是松散耦合的。 可以生成和更新独立于业务逻辑和数据访问组件的应用视图。 可以修改应用的视图，而不必更新应用的其他部分。

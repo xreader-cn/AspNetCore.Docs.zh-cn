@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: b8279588e674e3ada486f61bac2c216f1359e86d
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 6dcdf71ec5271690718dd1fe750a9a74d498a0f8
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444384"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410331"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -29,7 +29,7 @@ ms.locfileid: "54444384"
 
 ## <a name="problem-details-support"></a>问题详细信息支持
 
-ASP.NET Core 2.1 引入了 `ProblemDetails`（基于用于通过 HTTP 响应传送错误详细信息的 RFC 7807 规范）。 在 2.2 中，`ProblemDetails` 是针对具有 `ApiControllerAttribute` 特性的控制器中客户端错误代码的标准响应。 返回客户端错误状态代码 (4xx) 的 `IActionResult` 现在返回 `ProblemDetails` 正文。 结果还包括可以用于将使用请求日志的错误相关联的关联 ID。 对于客户端错误，`ProducesResponseType` 默认为使用 `ProblemDetails` 作为响应类型。 这会记录在使用 NSwag 或 Swashbuckle.AspNetCore 生成的开放 API/Swagger 输出中。
+ASP.NET Core 2.1 引入了 `ProblemDetails`（基于用于通过 HTTP 响应传送错误详细信息的 [RFC 7807](https://tools.ietf.org/html/rfc7807) 规范）。 在 2.2 中，`ProblemDetails` 是针对具有 `ApiControllerAttribute` 特性的控制器中客户端错误代码的标准响应。 返回客户端错误状态代码 (4xx) 的 `IActionResult` 现在返回 `ProblemDetails` 正文。 结果还包括可以用于将使用请求日志的错误相关联的关联 ID。 对于客户端错误，`ProducesResponseType` 默认为使用 `ProblemDetails` 作为响应类型。 这会记录在使用 NSwag 或 Swashbuckle.AspNetCore 生成的开放 API/Swagger 输出中。
 
 ## <a name="endpoint-routing"></a>终结点路由
 

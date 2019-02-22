@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 930a6f2b860c71b6f499cff53e0d909a130f7948
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 1dc9f1278e502cd5040e82c18d99e2da6f139568
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637893"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410581"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
 
@@ -654,7 +654,9 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CommentOut&highlight=9-13)]
 
-添加以下突出显示的代码。 新代码在 `.CreateTable( name: "Department"` 块后：[!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
+添加以下突出显示的代码。 新代码在 `.CreateTable( name: "Department"` 块后：
+
+ [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
 
 经过上面的更改，`Course` 行将在 `ComplexDataModel` `Up` 方法运行后与“临时”系建立联系。
 

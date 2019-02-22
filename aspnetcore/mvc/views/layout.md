@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 10/18/2018
 uid: mvc/views/layout
-ms.openlocfilehash: b23fd4e0b1d91a4dd5aae548aa2b2081aa37a561
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: 1bd225c804b333efea834a46b7d9ba46b1bb69d8
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391292"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410568"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -22,7 +22,7 @@ ms.locfileid: "49391292"
 * 共享指令。
 * 在呈现页面或视图之前运行通用代码。
 
-本文档讨论了 ASP.NET Core MVC 的两种不同方法的布局：Razor Pages 和带有视图的控制器。 在本主题中，差异很小：
+本文档讨论了 ASP.NET Core MVC 的两种不同方法的布局：Razor Pages 和具有视图的控制器。 在本主题中，差异很小：
 
 * Razor Pages 位于“页面”文件夹。
 * 具有视图的控制器使用视图的“视图”文件夹。
@@ -33,7 +33,7 @@ ms.locfileid: "49391292"
 
 ![页面布局示例](layout/_static/page-layout.png)
 
-应用中的许多页面也经常使用脚本和样式表等常用的 HTML 结构。 所有这些共享元素均可在布局文件中进行定义，应用内使用的任何视图随后均可引用此文件。 布局可减少视图中的重复代码，帮助它们遵循[不要自我重复 (DRY) 原则](http://deviq.com/don-t-repeat-yourself/)。
+应用中的许多页面也经常使用脚本和样式表等常用的 HTML 结构。 所有这些共享元素均可在布局文件中进行定义，应用内使用的任何视图随后均可引用此文件。 布局可减少视图中的重复代码。
 
 按照约定，ASP.NET Core 应用的默认布局名为 _Layout.cshtml。 使用模板创建的新 ASP.NET Core 项目的布局文件：
 
@@ -41,7 +41,7 @@ ms.locfileid: "49391292"
 
   ![解决方案资源管理器中的页面文件夹](layout/_static/rp-web-project-views.png)
 
-* 包含视图的控制器：Views/Shared/_Layout.cshtml
+* 具有视图的控制器：Views/Shared/_Layout.cshtml
 
  ![解决方案资源管理器中的视图文件夹](layout/_static/mvc-web-project-views.png)
 

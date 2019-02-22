@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 控制器如何使用 ASP.NET Core 中的�
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 12247dbbbb6de3f8feb7bc37caec4ecf4bd21719
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 9d9d0a68927da62fad8df72c868eaf4b8ada440d
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206336"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410266"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>在 ASP.NET Core 中将依赖项注入到控制器
 
@@ -24,7 +24,7 @@ ASP.NET Core MVC 控制器应该通过构造函数显式请求其依赖关系。
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
-依赖关系注入是遵循 [Dependency Inversion Principle](http://deviq.com/dependency-inversion-principle/)（依赖关系反向原则）的方法，允许应用程序由松散耦合的模块组成。 ASP.NET Core 具有对[依赖关系注入](../../fundamentals/dependency-injection.md)的内置支持，能更易于测试和维护应用程序。
+ASP.NET Core 具有对[依赖关系注入](../../fundamentals/dependency-injection.md)的内置支持，能更易于测试和维护应用程序。
 
 ## <a name="constructor-injection"></a>构造函数注入
 
@@ -63,7 +63,7 @@ Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceP
 ![服务器问候语](dependency-injection/_static/server-greeting.png)
 
 >[!TIP]
-> 请参阅[测试控制器逻辑](testing.md)，了解如何显式请求控制器中的依赖项 [http://deviq.com/explicit-dependencies-principle/](http://deviq.com/explicit-dependencies-principle/) 可以更轻松地测试代码。
+> 请参阅[测试控制器逻辑](testing.md)，了解如何显式请求控制器中的依赖项以更轻松地测试代码。
 
 ASP.NET Core 的内置依赖关系注入支持请求服务的类只拥有一个构造函数。 如果有多个构造函数，可能会收到如下异常消息：
 
@@ -101,4 +101,4 @@ Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstr
 
 [!code-csharp[](./dependency-injection/sample/src/ControllerDI/Controllers/SettingsController.cs?highlight=3,5,7&range=7-22)]
 
-遵循选项模式，可将设置和配置相互分离，并确保控制器遵循 [separation of concerns](http://deviq.com/separation-of-concerns/)（问题分离），因为它不需要知道如何或在哪里找到设置信息。 由于控制器类中没有 [static cling](http://deviq.com/static-cling/)（静态粘附）或设置类的直接实例化，因此控制器更易于对[测试控制器逻辑](testing.md)进行单元测试。
+遵循选项模式，可将设置和配置相互分离，并确保控制器遵循 [separation of concerns](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)（问题分离），因为它不需要知道如何或在哪里找到设置信息。 由于控制器类中没有设置类的直接实例化，因此控制器更易于进行[单元测试](testing.md)。

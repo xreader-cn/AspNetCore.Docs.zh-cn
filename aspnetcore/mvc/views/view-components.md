@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何�
 ms.author: riande
 ms.date: 1/30/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: d0e528fcf9e20afee98e74fbc09c67b81e123e95
-ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
+ms.openlocfilehash: d979c9480f7bffff993f0ea526bdc231b940baa2
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/31/2019
-ms.locfileid: "55428390"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410477"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -240,7 +240,7 @@ ms.locfileid: "55428390"
 
 ![有共享组件视图的 ToDo 输出](view-components/_static/shared.png)
 
-### <a name="avoiding-magic-strings"></a>避免魔幻字符串
+### <a name="avoiding-hard-coded-strings"></a>避免使用硬编码字符串
 
 若要确保编译时的安全性，可以用类名替换硬编码的视图组件名称。 创建没有“ViewComponent”后缀的视图组件：
 
