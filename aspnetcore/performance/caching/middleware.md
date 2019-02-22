@@ -5,14 +5,14 @@ description: 了解如何配置和 ASP.NET Core 中使用缓存响应的中间�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/16/2019
+ms.date: 02/20/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: bb265d04022ec2f8fdb3f2f3bc42f6b3f0b2b338
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: c7c3dbd0c9cf029fa6921d77450e780768c8aa6e
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410318"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647910"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>响应缓存在 ASP.NET Core 中的中间件
 
@@ -138,7 +138,7 @@ if (responseCachingFeature != null)
 
 * 请求必须导致服务器响应 200 （正常） 状态代码。
 * 请求方法必须是 GET 或 HEAD。
-* 终端中间件必须处理前响应缓存中间件的响应。
+* 在`Startup.Configure`，必须在需要压缩的中间件前面放置响应缓存中间件。 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
 * `Authorization`标头不能存在。
 * `Cache-Control` 标头参数必须是有效的并且必须标记为响应`public`且未标记为`private`。
 * `Pragma: no-cache`标头不能存在如果`Cache-Control`标头不存在，作为`Cache-Control`标头重写`Pragma`标头时存在。
