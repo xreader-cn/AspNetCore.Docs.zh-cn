@@ -4,16 +4,16 @@ title: 使用 Web API 中的 SSL |Microsoft Docs
 author: MikeWasson
 description: 演示如何使用 SSL 和 ASP.NET Web API，包括使用 SSL 客户端证书。
 ms.author: riande
-ms.date: 12/12/2012
+ms.date: 02/22/2019
 ms.assetid: 97f6164f-59cf-45c0-b820-e4aa29b45396
 msc.legacyurl: /web-api/overview/security/working-with-ssl-in-web-api
 msc.type: authoredcontent
-ms.openlocfilehash: b11b35f58a1f033423f5e6ea5f5373df0d1fcb5f
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 69c0d217f605096d968435c062ee9931f8dff75f
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41825233"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744100"
 ---
 <a name="working-with-ssl-in-web-api"></a>使用 Web API 中的 SSL
 ====================
@@ -58,8 +58,8 @@ SSL 通过使用公钥基础结构证书提供身份验证。 服务器必须提
 2. 双击**SSL 设置**在中间窗格中的功能。
 3. 下**客户端证书**，选择以下选项之一： 
 
-    - **接受**: IIS 将接受来自客户端的证书，但不要求。
-    - **需要**： 需要客户端证书。 （若要启用此选项，您还必须选择"要求 SSL"）
+    - **接受**:IIS 将接受来自客户端的证书，但不要求。
+    - **需要**:需要客户端证书。 （若要启用此选项，您还必须选择"要求 SSL"）
 
 此外可以在 ApplicationHost.config 文件中设置这些选项：
 
@@ -69,7 +69,7 @@ SSL 通过使用公钥基础结构证书提供身份验证。 服务器必须提
 
 ### <a name="creating-a-client-certificate-for-testing"></a>创建客户端证书以便进行测试
 
-出于测试目的，可以使用[MakeCert.exe](https://msdn.microsoft.com/library/bfsktky3.aspx)创建客户端证书。 首先，创建测试根证书颁发机构：
+出于测试目的，可以使用[MakeCert.exe](/windows/desktop/SecCrypto/makecert)创建客户端证书。 首先，创建测试根证书颁发机构：
 
 [!code-console[Main](working-with-ssl-in-web-api/samples/sample4.cmd)]
 

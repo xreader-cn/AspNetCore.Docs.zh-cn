@@ -5,12 +5,12 @@ description: ''
 ms.author: tdykstra
 ms.date: 12/07/2016
 uid: migration/http-modules
-ms.openlocfilehash: 9dd28b86966912cce87166feb37e65adf3dd6dcb
-ms.sourcegitcommit: 5a2456cbf429069dc48aaa2823cde14100e4c438
+ms.openlocfilehash: 601b93fb12ab5b37b7d8ad8fd9825accc6e314cd
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2018
-ms.locfileid: "41902666"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743850"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
@@ -46,7 +46,7 @@ ms.locfileid: "41902666"
 
 **在其中模块处理传入的请求的顺序取决于：**
 
-   1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，这是由 ASP.NET 激发的系列事件： [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)， [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)，等等。每个模块可以创建一个或多个事件的处理程序。
+   1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，这是由 ASP.NET 激发的系列事件：[BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)， [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)，等等。每个模块可以创建一个或多个事件的处理程序。
 
    2. 对于同一个事件，在其中配置中的顺序*Web.config*。
 
@@ -96,7 +96,7 @@ ms.locfileid: "41902666"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddleware.cs?highlight=9,13,20,24,28,30,32)]
 
-上一部分中执行前面的中间件模板[编写中间件](xref:fundamentals/middleware/index#write-middleware)。
+上一部分中执行前面的中间件模板[编写中间件](xref:fundamentals/middleware/write)。
 
 *MyMiddlewareExtensions*帮助器类，可以更轻松地配置中间件中的你`Startup`类。 `UseMyMiddleware`方法将中间件类添加到请求管道。 在中间件的构造函数中注入获取所需的中间件服务。
 

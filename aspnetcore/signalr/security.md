@@ -7,12 +7,12 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 11/06/2018
 uid: signalr/security
-ms.openlocfilehash: 52cfac6be8e61572acdf0b19dab574b607314d97
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 6e9f849ed856cf1cbf989b8b16cab5209c465471
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836059"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743782"
 ---
 # <a name="security-considerations-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的安全注意事项
 
@@ -77,7 +77,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
 ```
 
-如果您有关于此数据与服务器日志的日志记录的相关问题，可以通过配置来完全禁用此日志记录`Microsoft.AspNetCore.Hosting`记录器`Warning`级别或更高版本 (这些消息将写入在`Info`级别)。 在查看文档[日志筛选](xref:fundamentals/logging/index#log-filtering)有关详细信息。 如果你仍想要记录特定请求的信息，可以[编写中间件](xref:fundamentals/middleware/index#write-middleware)来记录的数据需要并筛选出`access_token`查询字符串值 （如果存在）。
+如果您有关于此数据与服务器日志的日志记录的相关问题，可以通过配置来完全禁用此日志记录`Microsoft.AspNetCore.Hosting`记录器`Warning`级别或更高版本 (这些消息将写入在`Info`级别)。 在查看文档[日志筛选](xref:fundamentals/logging/index#log-filtering)有关详细信息。 如果你仍想要记录特定请求的信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录的数据需要并筛选出`access_token`查询字符串值 （如果存在）。
 
 ## <a name="exceptions"></a>Exceptions
 

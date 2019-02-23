@@ -5,14 +5,14 @@ description: 了解如何使用 Azure 密钥保管库配置提供程序来配置
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/08/2019
+ms.date: 02/22/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: f70389c86420d81e284ecc863ac8386f726ed2cf
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 2188929d6f380327465e8ce0fd8ad659188416d3
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103106"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743980"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -116,7 +116,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 配置 Azure AD、 Azure 密钥保管库，并应用使用的应用程序 ID 和密码 （客户端机密） 到密钥保管库进行身份验证**当应用程序承载在 Azure 外部**。
 
 > [!NOTE]
-> 尽管对于在 Azure 中托管的应用支持使用应用程序 ID 和密码 （客户端机密），我们建议使用[托管于 Azure 资源的标识](#use-managed-identities-for-azure-resources)托管在 Azure 中的应用时。 管理的标识要求将凭据存储在应用程序或其配置，因此它被视为通常更安全的方法。
+> 尽管对于在 Azure 中托管的应用支持使用应用程序 ID 和密码 （客户端机密），我们建议使用[托管于 Azure 资源的标识](#use-managed-identities-for-azure-resources)托管在 Azure 中的应用时。 管理的标识不需要将凭据存储在应用程序或其配置，因此它被视为通常更安全的方法。
 
 示例应用时使用的应用程序 ID 和密码 （客户端机密）`#define`顶部的语句*Program.cs*文件设置为`Basic`。
 
@@ -312,7 +312,7 @@ Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介�
 
 在上面的 JSON 文件中所示的配置存储在 Azure 密钥保管库中使用双短划线 (`--`) 表示法和数字段：
 
-| 键 | 值 |
+| 键 | “值” |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
