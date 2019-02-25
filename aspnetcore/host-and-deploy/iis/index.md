@@ -4,14 +4,8 @@ author: guardrex
 description: 了解如何在 Windows Server Internet Information Services (IIS) 上托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 5d6ba8b7ee6f09a7d00aa0285802cf0aad267a1d
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248415"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -296,13 +290,14 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
 ### <a name="install-the-hosting-bundle"></a>安装托管捆绑包
 
-1. 在服务器上运行安装程序。 从管理员命令提示符运行安装程序时，以下开关将可用：
+1. 在服务器上运行安装程序。 通过管理员命令行界面运行安装程序时，以下参数可用：
 
    * `OPT_NO_ANCM=1` &ndash; 跳过安装 ASP.NET Core 模块。
    * `OPT_NO_RUNTIME=1` &ndash; 跳过安装 .NET Core 运行时。
    * `OPT_NO_SHAREDFX=1` &ndash; 跳过安装 ASP.NET 共享框架（ASP.NET 运行时）。
-   * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此开关。 如果有同时托管 32 位和 64 位应用的可能，请不要使用此开关并安装两个运行时。
-1. 重启系统，或从命令提示符处依次执行 net stop was /y 和 net start w3svc。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
+   * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此参数。 如果有可能会同时托管 32 位和 64 位应用，请勿使用此参数，并安装两个运行时。
+   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config) 与 IIS 安装位于同一台计算机上时，禁用检查使用的是否是 IIS 共享配置。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。 有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
+1. 重启系统，或通过命令行界面依次执行 net stop was /y 和 net start w3svc。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
 
 如果 Windows 托管捆绑包安装程序检测到 IIS 需要重置才能完成安装，则安装程序会重置 IIS。 如果安装程序触发 IIS 重置，则会重新启动所有 IIS 应用池和网站。
 
