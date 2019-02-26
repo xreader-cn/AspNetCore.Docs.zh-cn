@@ -136,7 +136,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `UseIISIntegrat
 
 ::: moniker-end
 
-有关托管的详细信息，请参阅[在 ASP.NET Core 中托管](xref:fundamentals/host/index)。
+有关托管的详细信息，请参阅[在 ASP.NET Core 中托管](xref:fundamentals/index#host)。
 
 ### <a name="iis-options"></a>IIS 选项
 
@@ -478,7 +478,7 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 子应用内的静态资产链接应使用波形符-斜杠 (`~/`) 符号。 波形符-斜杠符号触发[标记帮助器](xref:mvc/views/tag-helpers/intro)，来将子应用的基路径追加到呈现的相关链接前面。 对于 `/subapp_path` 处的子应用，使用 `src="~/image.png"` 链接的图像将呈现为 `src="/subapp_path/image.png"`。 根应用的静态文件中间件不处理静态文件请求。 此请求由子应用的静态文件中间件处理。
 
-若将静态资产的 `src` 属性设置为绝对路径（如 `src="/image.png"`），则呈现的链接不包含子应用的基路径。 根应用的静态文件中间件试图从根应用的 [webroot](xref:fundamentals/index#web-root-webroot) 提供资产，这会导致“404 - 找不到”响应，除非可从根应用获得此静态资产。
+若将静态资产的 `src` 属性设置为绝对路径（如 `src="/image.png"`），则呈现的链接不包含子应用的基路径。 根应用的静态文件中间件试图从根应用的 [web 根目录](xref:fundamentals/index#web-root)提供资产，这会导致“404 - 找不到”响应生成，除非可以从根应用获得静态资产。
 
 若要将 ASP.NET Core 应用作为子应用托管在其他 ASP.NET Core 应用下：
 
