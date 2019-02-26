@@ -4,14 +4,8 @@ author: rick-anderson
 description: 获取 ASP.NET Core 的简介，它是一个跨平台的高性能开源框架，用于生成基于云且连接 Internet 的新式应用程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/14/2019
 uid: index
-ms.openlocfilehash: c3f07814bfab19a0f070e0b48b0d2ef6cfc1594e
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248155"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -68,6 +62,34 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 * 开源
 
 我们正努力缩小 .NET Framework 与 .NET Core 的 API 差距。 [Windows 兼容性包](/dotnet/core/porting/windows-compat-pack)使数千个仅可在Windows运行的API 可在 .NET Core 中使用。 这些 API 在 .NET Core 1.x 中不可用。
+
+## <a name="recommended-learning-path"></a>推荐的学习路径
+
+建议使用以下一系列教程和文章来介绍如何开发 ASP.NET Core 应用程序：
+
+1. 请按照适用于要开发或维护的应用类型的教程操作：
+
+   |应用类型  |方案  |教程  |
+   |----------|----------|----------|
+   |Web 应用       | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
+   |Web 应用       | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
+   |Web API       |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
+   |实时应用 |                            |[SignalR 入门](xref:tutorials/signalr) |
+
+1. 请按照介绍如何进行基本数据访问的教程操作：
+
+   |方案  |教程  |
+   |----------|----------|
+   | 用于新的开发        |[结合使用 Razor Pages 和 Entity Framework Core](xref:data/ef-rp/intro) |
+   | 用于维护 MVC 应用 |[结合使用 MVC 和 Entity Framework Core](xref:data/ef-mvc/intro)
+
+1. 参阅适用于所有应用类型的 ASP.NET Core 功能的概述：
+
+   * [基础知识](xref:fundamentals/index)
+
+1. 浏览目录以了解其他感兴趣的主题。
+
+\* 新增了[在浏览器中完全遵循的 Web API 教程](https://docs.microsoft.com/learn/modules/build-web-api-net-core)，无需安装本地 IDE。  代码在 [Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) 中运行，并且 [curl](https://curl.haxx.se/) 用于测试。
 
 ## <a name="how-to-download-a-sample"></a>如何下载示例
 
@@ -126,7 +148,7 @@ WebHost.CreateDefaultBuilder(args)
 
 有关更多信息，请参见以下资源：
 
-* [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)
+* <xref:getting-started>
 * <xref:tutorials/publish-to-azure-webapp-using-vs>
 * [ASP.NET Core 基础知识](xref:fundamentals/index)
 * [每周 ASP.NET Community Standup](https://live.asp.net/) 介绍了团队的工作进度和计划。 它以新博客和第三方软件为重点。

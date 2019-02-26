@@ -6,12 +6,6 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/25/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 2465570e469020ae2855508bd1bfc8528e188ebb
-ms.sourcegitcommit: ca5f03210bedc61c6639a734ae5674bfe095dee8
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 01/26/2019
-ms.locfileid: "55073161"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -70,7 +64,7 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 
 ## <a name="host-vs-app-configuration"></a>主机与应用配置
 
-在配置并启动应用之前，配置并启动主机。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 主机配置键值对成为应用的全局配置的一部分。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/host/index>。
+在配置并启动应用之前，配置并启动主机。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 主机配置键值对成为应用的全局配置的一部分。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅[主机](xref:fundamentals/index#host)。
 
 ## <a name="default-configuration"></a>默认配置
 
@@ -1694,7 +1688,7 @@ config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false)
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | 值  |
+| 键                     | “值”  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |

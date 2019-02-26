@@ -4,134 +4,140 @@ author: rick-anderson
 description: 了解生成 ASP.NET Core 应用的基础概念。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/06/2019
+ms.date: 02/14/2019
 uid: fundamentals/index
-ms.openlocfilehash: a56beebd796448705c7b84f47699e9739f451419
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099229"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
-ASP.NET Core 应用是一个控制台应用，它在其 `Program.Main` 方法中创建 Web 服务器。 `Main` 方法是应用的托管入口点：
+本文概述了了解如何开发 ASP.NET Core 应用的关键主题。
+
+## <a name="the-startup-class"></a>Startup 类
+
+`Startup` 类位于：
+
+* 已配置应用所需的任何服务。
+* 已定义请求处理管道。
+
+* 将配置（或注册）服务的代码添加到 `Startup.ConfigureServices` 方法中。 服务是应用使用的组件。 例如，Entity Framework Core 上下文对象是一项服务。
+* 将配置请求处理管道的代码添加到 `Startup.Configure` 方法中。 管道由一系列中间件组件组成。 例如，中间件可能处理对静态文件的请求或将 HTTP 请求重定向到 HTTPS。 每个中间件在 `HttpContext` 上执行异步操作，然后调用管道中的下一个中间件或终止请求。
 
 ::: moniker range=">= aspnetcore-2.0"
 
-[!code-csharp[](index/snapshots/2.x/Program.cs)]
+下面是 `Startup` 类示例：
 
-.NET Core 主机：
-
-* 加载 [.NET Core 运行时](https://github.com/dotnet/coreclr)。
-* 使用第一个命令行参数作为包含入口点 (`Main`) 的托管二进制文件的路径，并开始执行代码。
-
-`Main` 方法调用 [WebHost.CreateDefaultBuilder](xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*)，后者按照[生成器模式](https://wikipedia.org/wiki/Builder_pattern)来创建 Web 主机。 生成器包含定义 Web 服务器（例如，<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>）和启动类 (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*>) 的方法。 在前面的例子中，自动分配了 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器。 ASP.NET Core 的 Web 主机尝试在 [Internet Information Services (IIS)](https://www.iis.net/)（若有）上运行。 对于其他 Web 服务器（如 [HTTP.sys](xref:fundamentals/servers/httpsys)），可通过调用相应的扩展方法来使用。 [启动](#startup)部分进一步介绍了 `UseStartup`。
-
-<xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> 是 `WebHost.CreateDefaultBuilder` 调用的返回类型，它提供了许多可选方法。 其中的一些方法包括用于在 HTTP.sys 中托管应用的 `UseHttpSys`，以及用于指定根内容目录的 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseContentRoot*>。 <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder.Build*> 和 <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> 方法生成 <xref:Microsoft.AspNetCore.Hosting.IWebHost> 对象，该对象托管应用并开始侦听 HTTP 请求。
+[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/snapshots/1.x/Program.cs)]
-
-.NET Core 主机：
-
-* 加载 [.NET Core 运行时](https://github.com/dotnet/coreclr)。
-* 使用第一个命令行参数作为包含入口点 (`Main`) 的托管二进制文件的路径，并开始执行代码。
-
-`Main` 方法使用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>，后者按照[生成器模式](https://wikipedia.org/wiki/Builder_pattern)来创建 Web 主机。 生成器提供定义 Web 服务器（例如，<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>）和启动类 (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*>) 的方法。 在前面的示例中，使用了 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器。 对于其他 Web 服务器（如 [HTTP.sys](xref:fundamentals/servers/httpsys)），可通过调用相应的扩展方法来使用。 [启动](#startup)部分进一步介绍了 `UseStartup`。
-
-`WebHostBuilder` 提供了许多可选方法，其中包括用于在 IIS 和 IIS Express 中进行托管的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*>，以及用于指定根内容目录的 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseContentRoot*>。 <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder.Build*> 和 <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> 方法生成 <xref:Microsoft.AspNetCore.Hosting.IWebHost> 对象，该对象托管应用并开始侦听 HTTP 请求。
-
-::: moniker-end
-
-## <a name="startup"></a>启动
-
-`WebHostBuilder` 上的 `UseStartup` 方法为你的应用指定 `Startup` 类：
-
-::: moniker range=">= aspnetcore-2.0"
-
-[!code-csharp[](index/snapshots/2.x/Program.cs?highlight=10)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/snapshots/1.x/Program.cs?highlight=7)]
-
-::: moniker-end
-
-`Startup` 类用于在其中配置应用所需的任何服务和定义请求处理管道。 `Startup` 类必须是公共类，通常包含以下方法。 `Startup.ConfigureServices` 是可选的。
-
-::: moniker range=">= aspnetcore-2.0"
-
-[!code-csharp[](index/snapshots/2.x/Startup.cs)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/snapshots/1.x/Startup.cs)]
-
-::: moniker-end
-
-<xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*> 定义应用所使用的[服务](#dependency-injection-services)（如 ASP.NET Core MVC、Entity Framework Core 和标识）。 <xref:Microsoft.AspNetCore.Hosting.IStartup.Configure*> 定义在请求管道中调用的[中间件](xref:fundamentals/middleware/index)。
-
-有关更多信息，请参见<xref:fundamentals/startup>。
-
-## <a name="content-root"></a>内容根
-
-内容根是应用所使用的任何内容的基路径，如 [Razor Pages](xref:razor-pages/index)、MVC 视图和静态资产。 默认情况下，内容根位置与用于托管应用的可执行文件的应用基路径相同。
-
-## <a name="web-root-webroot"></a>Web 根 (webroot)
-
-应用的 webroot 是项目中的目录，其中包含公共资源、CSS 等静态资源、JavaScript 和图形文件。 wwwroot 默认为 webroot。
-
-对于 Razor (.cshtml) 文件，波浪号斜杠 `~/` 指向 webroot。 以 `~/` 开头的路径称为虚拟路径。
+有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
 
 ## <a name="dependency-injection-services"></a>依赖关系注入（服务）
 
-服务是应用中常用的组件。 可以通过[依存关系注入 (DI)](xref:fundamentals/dependency-injection) 来获取服务。 ASP.NET Core 包括默认支持[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)的本机控制反转 (IoC) 容器。 可根据需要替换默认容器。 DI 除了具备[松散耦合优势](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation)以外，还可以使服务（例如[日志记录](xref:fundamentals/logging/index)）在整个应用中可用。
+ASP.NET Core 有内置的依赖关系注入 (DI) 框架，可使配置的服务适用于应用的类。 在类中获取服务实例的一种方法是使用所需类型的参数创建构造函数。 参数可以是服务类型或接口。 DI 系统在运行时提供服务。
 
-有关更多信息，请参见<xref:fundamentals/dependency-injection>。
+::: moniker range=">= aspnetcore-2.0"
 
-## <a name="middleware"></a>中间件
+下面是使用 DI 获取 Entity Framework Core 上下文对象的类。 突出显示的行是构造函数注入的示例：
 
-在 ASP.NET Core 中，使用[中间件](xref:fundamentals/middleware/index)来撰写请求管道。 ASP.NET Core 中间件在 `HttpContext` 上执行异步操作，然后调用管道中的下一个中间件或终止请求。
-
-按照惯例，通过在 `Configure` 方法中调用 `UseXYZ` 扩展方法，向管道添加名为“XYZ”的中间件组件。
-
-ASP.NET Core 包含一组丰富的内置中间件，你也可以编写自己的自定义中间件。 ASP.NET Core 应用中支持 [.NET 的开放 Web 接口 (OWIN)](xref:fundamentals/owin)，它将 Web 应用与 Web 服务器分离。
-
-有关详细信息，请参阅 <xref:fundamentals/middleware/index> 和 <xref:fundamentals/owin>。
-
-::: moniker range=">= aspnetcore-2.1"
-
-## <a name="initiate-http-requests"></a>启动 HTTP 请求
-
-<xref:System.Net.Http.IHttpClientFactory> 可访问 <xref:System.Net.Http.HttpClient> 实例以发出 HTTP 请求。
-
-有关更多信息，请参见<xref:fundamentals/http-requests>。
+[!code-csharp[](index/snapshots/2.x/Index.cshtml.cs?highlight=5)]
 
 ::: moniker-end
 
-## <a name="environments"></a>环境
+虽然 DI 是内置的，但旨在允许插入第三方控制反转 (IoC) 容器（根据需要）。
 
-环境（如“开发”环境和“生产”环境）是 ASP.NET Core 的高级概念，可使用环境变量、设置文件和命令行参数进行设置。
+有关详细信息，请参阅[依存关系注入](xref:fundamentals/dependency-injection)。
 
-有关更多信息，请参见<xref:fundamentals/environments>。
+## <a name="middleware"></a>中间件
 
-## <a name="hosting"></a>宿主
+请求处理管道由一系列中间件组件组成。 每个组件在 `HttpContext` 上执行异步操作，然后调用管道中的下一个中间件或终止请求。
 
-ASP.NET Core 应用可配置和启动一个*主机*，负责应用启动和生存期管理。
+按照惯例，通过在 `Startup.Configure` 方法中调用其 `Use...` 扩展方法，向管道添加中间件组件。 例如，要启用静态文件的呈现，请调用 `UseStaticFiles`。
 
-有关更多信息，请参见<xref:fundamentals/host/index>。
+::: moniker range=">= aspnetcore-2.0"
+
+以下示例中突出显示的代码配置请求处理管道：
+
+[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=14-16)]
+
+::: moniker-end
+
+ASP.NET Core 包含一组丰富的内置中间件，并且你也可以编写自定义中间件。
+
+有关详细信息，请参阅[中间件](xref:fundamentals/middleware/index)。
+
+<a id="host"/>
+
+## <a name="the-host"></a>主机
+
+ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源的对象，例如：
+
+* HTTP 服务器实现
+* 中间件组件
+* 日志记录
+* DI
+* Configuration
+
+一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。
+
+创建主机的代码位于 `Program.Main` 中，并遵循[生成器模式](https://wikipedia.org/wiki/Builder_pattern)。 调用方法来配置属于主机的每个资源。 调用生成器方法以拉取其所有内容并实例化该主机对象。
+
+::: moniker range="<= aspnetcore-2.2"
+
+ASP.NET Core 2.x 使用适用于 Web 应用的 Web 主机（`WebHost` 类）。 该框架提供了 `CreateDefaultBuilder` 扩展方法，用于设置具有常用选项的主机，例如：
+
+* 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
+* 从 appsettings.json、环境变量、命令行参数和其他源加载配置。
+* 将日志记录输出发送到控制台并调试提供程序。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
+
+以下是构建主机的示例代码：
+
+[!code-csharp[](index/snapshots/2.x/Program1.cs?highlight=9)]
+
+有关详细信息，请参阅 [Web 主机](xref:fundamentals/host/web-host)。
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+在 ASP.NET Core 3.0 中，可在 Web 应用中使用 Web 主机（`WebHost` 类）或泛型主机（`Host` 类）。 建议使用泛型主机，并且 Web 主机可提供后向兼容性。
+
+该框架提供了 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 扩展方法，用于设置具有常用选项的主机，例如：
+
+* 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
+* 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数中加载配置。
+* 将日志记录输出发送到控制台并调试提供程序。
+
+以下是构建主机的示例代码。 将突出显示使用常用选项设置主机的扩展方法。
+
+[!code-csharp[](index/snapshots/3.x/Program1.cs?highlight=9-10)]
+
+有关详细信息，请参阅[泛型主机](xref:fundamentals/host/generic-host)和 [Web 主机](xref:fundamentals/host/web-host)
+
+::: moniker-end
+
+### <a name="advanced-host-scenarios"></a>高级主机方案
+
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Web 主机旨在包含 HTTP 服务器实现，这是其他类型的 .NET 应用所不需要的。 自 2.1 起，泛型主机（`Host` 类）可供任何 .NET Core 应用使用，而不仅仅是 ASP.NET Core 应用。 使用泛型主机，可以在其他类型的应用中使用各种功能（例如，日志记录、DI、配置和应用生命周期管理）。 有关详细信息，请参阅[泛型主机](xref:fundamentals/host/generic-host)。
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+泛型主机可供任何 .NET Core 应用使用，而不仅仅是 ASP.NET Core 应用。 使用泛型主机，可以在其他类型的应用中使用各种功能（例如，日志记录、DI、配置和应用生命周期管理）。 有关详细信息，请参阅[泛型主机](xref:fundamentals/host/generic-host)。
+
+::: moniker-end
+
+还可以使用主机运行后台任务。 有关详细信息，请参阅[后台任务](xref:fundamentals/host/hosted-services)。
 
 ## <a name="servers"></a>服务器
 
-ASP.NET Core 托管模型不直接侦听请求。 托管模型依赖 HTTP 服务器实现将请求转发到应用。
+ASP.NET Core 应用使用 HTTP 服务器实现侦听 HTTP 请求。 服务器对应用的请求在表面上呈现为一组由 `HttpContext` 组成的[请求功能](xref:fundamentals/request-features)。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -139,17 +145,17 @@ ASP.NET Core 托管模型不直接侦听请求。 托管模型依赖 HTTP 服务
 
 ASP.NET Core 提供以下服务器实现：
 
-* [Kestrel](xref:fundamentals/servers/kestrel) 服务器是跨平台托管 Web 服务器。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
-* IIS HTTP 服务器 (`IISHttpServer`) 是 IIS 的[进程内服务器](xref:fundamentals/servers/index#in-process-hosting-model)。
-* [HTTP.sys](xref:fundamentals/servers/httpsys) 服务器是 Windows 上适用于 ASP.NET Core 的 Web 服务器。
+* Kestrel 是跨平台 Web 服务器。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+* IIS HTTP 服务器是适用于使用 IIS 的 Windows 的服务器。 借助此服务器，ASP.NET Core 应用和 IIS 在同一进程中运行。
+* HTTP.sys是适用于不与 IIS 一起使用的 Windows 的服务器。
 
 # <a name="macostabmacos"></a>[macOS](#tab/macos)
 
-ASP.NET Core 使用 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器实现。 Kestrel 是跨平台托管 Web 服务器。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+ASP.NET Core 提供 Kestrel 跨平台服务器实现。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
-ASP.NET Core 使用 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器实现。 Kestrel 是跨平台托管 Web 服务器。 Kestrel 通常使用 [Nginx](http://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+ASP.NET Core 提供 Kestrel 跨平台服务器实现。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
 ---
 
@@ -161,55 +167,143 @@ ASP.NET Core 使用 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器�
 
 ASP.NET Core 提供以下服务器实现：
 
-* [Kestrel](xref:fundamentals/servers/kestrel) 服务器是跨平台托管 Web 服务器。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
-* [HTTP.sys](xref:fundamentals/servers/httpsys) 服务器是 Windows 上适用于 ASP.NET Core 的 Web 服务器。
+* Kestrel 是跨平台 Web 服务器。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+* HTTP.sys是适用于不与 IIS 一起使用的 Windows 的服务器。
 
 # <a name="macostabmacos"></a>[macOS](#tab/macos)
 
-ASP.NET Core 使用 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器实现。 Kestrel 是跨平台托管 Web 服务器。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+ASP.NET Core 提供 Kestrel 跨平台服务器实现。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
-ASP.NET Core 使用 [Kestrel](xref:fundamentals/servers/kestrel) Web 服务器实现。 Kestrel 是跨平台托管 Web 服务器。 Kestrel 通常使用 [Nginx](http://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 也可作为面向公众的边缘服务器运行，直接向 Internet 公开。
+ASP.NET Core 提供 Kestrel 跨平台服务器实现。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](http://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
 ---
 
 ::: moniker-end
 
-有关更多信息，请参见<xref:fundamentals/servers/index>。
+有关详细信息，请参阅[服务器](xref:fundamentals/servers/index)。
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
-ASP.NET Core 基于名称/值对使用配置模型。 配置模型不基于 <xref:System.Configuration> 或 *web.config*。配置从一组有序的配置提供程序获取设置。 内置配置提供程序支持各种文件格式（XML、 JSON、INI）、环境变量和命令行参数。 也可以编写你自己的自定义配置提供程序。
+ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。 有适用于各种源的内置配置提供程序，例如 .json 文件、.xml 文件、环境变量和命令行参数。 此外可以编写自定义配置提供程序。
 
-有关更多信息，请参见<xref:fundamentals/configuration/index>。
+例如，可以指定配置来自 appsettings.json 和环境变量。 然后，当请求 ConnectionString 的值时，框架首先在 appsettings.json 文件中查找。 如果也在环境变量中找到了值，那么来自环境变量的值将优先使用。
+
+为了管理密码等机密配置数据，ASP.NET Core 提供了[机密管理器工具](xref:security/app-secrets)。 对于生产机密，建议使用 [Azure 密钥保管库](/aspnet/core/security/key-vault-configuration)。
+
+有关详细信息，请参阅[配置](xref:fundamentals/configuration/index)。
+
+## <a name="options"></a>选项
+
+在可能的情况下，ASP.NET Core 按照选项模式来存储和检索配置值。 选项模式使用类来表示相关设置的组。
+
+例如，以下代码可以设置 WebSocket 选项：
+
+```csharp
+var options = new WebSocketOptions  
+{  
+   KeepAliveInterval = TimeSpan.FromSeconds(120),  
+   ReceiveBufferSize = 4096
+};  
+app.UseWebSockets(options);
+```
+
+有关详细信息，请参阅[选项](xref:fundamentals/configuration/options)。
+
+## <a name="environments"></a>环境
+
+执行环境（例如“开发”、“暂存”和“生产”）是 ASP.NET Core 中的高级概念。 可以通过设置 `ASPNETCORE_ENVIRONMENT` 环境变量来指定运行应用的环境。 ASP.NET Core 在应用启动时读取该环境变量，并将该值存储在 `IHostingEnvironment` 实现中。 可通过 DI 在应用的任何位置使用环境对象。
+
+::: moniker range=">= aspnetcore-2.0"
+
+以下来自 `Startup` 类的示例代码将应用配置为仅在开发过程中运行时提供详细的错误信息：
+
+[!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
+
+::: moniker-end
+
+有关详细信息，请参阅[环境](xref:fundamentals/environments)。
 
 ## <a name="logging"></a>日志记录
 
-ASP.NET Core 支持适用于各种日志记录提供程序的日志记录 API。 内置提供程序支持向一个或多个目标发送日志。 可使用第三方记录框架。
+ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的日志记录 API。 可用的提供程序包括：
 
-有关更多信息，请参见<xref:fundamentals/logging/index>。
+* 控制台
+* 调试
+* Windows 事件跟踪
+* Windows 事件日志
+* TraceSource
+* Azure 应用服务
+* Azure Application Insights
 
-## <a name="error-handling"></a>错误处理
+通过从 DI 获取 `ILogger` 对象并调用日志方法，从应用代码中的任何位置写入日志。
 
-ASP.NET Core 的内置方案可处理应用中的错误，包括开发人员异常页、自定义错误页、静态状态代码页和启动异常处理。
+::: moniker range=">= aspnetcore-2.0"
 
-有关更多信息，请参见<xref:fundamentals/error-handling>。
+下面是使用 `ILogger` 对象的示例代码，其中突出显示了构造函数注入和日志记录方法调用。
+
+[!code-csharp[](index/snapshots/2.x/TodoController.cs?highlight=5,13,17)]
+
+::: moniker-end
+
+通过 `ILogger` 接口，可将任意数量的字段传递给日志提供程序。 字段通常用于构造消息字符串，但提供程序还可将其作为单独的字段发送到数据存储。 此功能使日志提供程序可以实现[语义日志记录，也称为结构化日志记录](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。
+
+有关详细信息，请参阅[日志记录](xref:fundamentals/logging/index)。
 
 ## <a name="routing"></a>路由
 
-ASP.NET Core 提供将应用请求路由到路由处理程序的方案。
+路由是映射到处理程序的 URL 模式。 处理程序通常是 Razor 页面、MVC 控制器中的操作方法或中间件。 借助 ASP.NET Core 路由，可以控制应用使用的 URL。
 
-有关更多信息，请参见<xref:fundamentals/routing>。
+有关详细信息，请参阅[路由](xref:fundamentals/routing)。
 
-## <a name="background-tasks"></a>后台任务
+## <a name="error-handling"></a>错误处理
 
-后台任务作为*托管服务*实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。
+ASP.NET Core 具有用于处理错误的内置功能，例如：
 
-有关更多信息，请参见<xref:fundamentals/host/hosted-services>。
+* 开发人员异常页
+* 自定义错误页
+* 静态状态代码页
+* 启动异常处理
 
-## <a name="access-httpcontext"></a>访问 HttpContext
+有关详细信息，请参阅[错误处理](xref:fundamentals/error-handling)。
 
-用 Razor Pages 和 MVC 处理请求时，`HttpContext` 自动可用。 当 `HttpContext` 不可立即使用时，可通过 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 接口及其默认实现 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> 访问 `HttpContext`。
+::: moniker range=">= aspnetcore-2.1"
 
-有关更多信息，请参见<xref:fundamentals/httpcontext>。
+## <a name="make-http-requests"></a>发出 HTTP 请求
+
+`IHttpClientFactory` 的实现可用于创建 `HttpClient` 实例。 工厂可以：
+
+* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可以注册 github 客户端，并将它配置为访问 GitHub。 可以注册一个默认客户端用于其他用途。
+* 支持多个委托处理程序的注册和链接，以生成出站请求中间件管道。 此模式类似于 ASP.NET Core 中的入站中间件管道。 此模式提供了一种用于管理围绕 HTTP 请求的横切关注点的机制，包括缓存、错误处理、序列化以及日志记录。
+* 与 Polly 集成，这是用于瞬时故障处理的常用第三方库。
+* 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
+* （通过 ILogger）添加可配置的日志记录体验，以处理通过工厂创建的客户端发送的所有请求。
+
+有关详细信息，请参阅[发出 HTTP 请求](xref:fundamentals/http-requests)。
+
+::: moniker-end
+
+## <a name="content-root"></a>内容根
+
+内容根是应用所使用的任何专用内容的基路径，例如 Razor 文件。 默认情况下，内容根是托管应用的可执行文件的基路径。 在[构建主机](#host)时，可以指定备用位置。
+
+::: moniker range="<= aspnetcore-2.2"
+
+有关详细信息，请参阅[内容根](xref:fundamentals/host/web-host#content-root)。
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+有关详细信息，请参阅[内容根](xref:fundamentals/host/generic-host#content-root)。
+
+::: moniker-end
+
+## <a name="web-root"></a>Web 根
+
+Web 根（也称为 webroot）是公共、静态资源（例如 CSS、JavaScript 和图像文件）的基路径。 默认情况下，静态文件中间件仅提供来自 Web 根目录（及子目录）的文件。 Web 根路径默认为 \<content root>/wwwroot，但[构建主机](#host)时可以指定其他位置。
+
+在 Razor (.cshtml) 文件中，波浪号斜杠 `~/` 指向 Web 根。 以 `~/` 开头的路径称为虚拟路径。
+
+有关详细信息，请参阅[静态文件](xref:fundamentals/static-files)。

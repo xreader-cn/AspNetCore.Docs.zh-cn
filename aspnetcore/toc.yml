@@ -58,35 +58,35 @@ items:
   - uid: fundamentals/index
     name: 概述
   - uid: fundamentals/startup
-    name: 应用启动
+    name: Startup 类
   - uid: fundamentals/dependency-injection
     name: 依赖关系注入（服务）
-  - uid: fundamentals/routing
-    name: 路由
-  - uid: fundamentals/environments
-    name: 环境（开发、分阶段、生产）
-  - uid: fundamentals/configuration/index
-    name: Configuration
-  - uid: fundamentals/configuration/options
-    name: 选项
-  - uid: fundamentals/logging/index
-    name: 日志记录
-  - uid: fundamentals/error-handling
-    name: 处理错误
   - uid: fundamentals/middleware/index
     name: 中间件
-  - name: Host
+  - name: 主机
     items:
-    - uid: fundamentals/host/index
-      name: 概述
     - uid: fundamentals/host/web-host
       name: Web 主机
     - uid: fundamentals/host/generic-host
       name: 泛型主机
   - uid: fundamentals/servers/index
     name: 服务器
+  - uid: fundamentals/configuration/index
+    name: Configuration
+  - uid: fundamentals/configuration/options
+    name: 选项
+  - uid: fundamentals/environments
+    name: 环境（开发、分阶段、生产）
+  - uid: fundamentals/logging/index
+    name: 日志记录
+  - uid: fundamentals/routing
+    name: 路由
+  - uid: fundamentals/error-handling
+    name: 处理错误
   - uid: fundamentals/http-requests
     name: 发出 HTTP 请求
+  - uid: fundamentals/static-files
+    name: 静态文件
 - name: Web 应用
   items:
   - name: Razor 页面
@@ -210,8 +210,6 @@ items:
         href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
   - uid: mvc/views/layout
     name: 布局
-  - uid: fundamentals/static-files
-    name: 静态文件
   - uid: mvc/models/model-binding
     name: 模型绑定
   - uid: mvc/models/validation
@@ -814,6 +812,8 @@ items:
     name: 可移植对象本地化
 - name: 高级
   items:
+  - uid: fundamentals/middleware/write
+    name: 编写中间件
   - uid: fundamentals/url-rewriting
     name: URL 重写
   - uid: fundamentals/file-providers
@@ -880,9 +880,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: d2015955147460621d64ea6035f5f8118a02469b
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: e55cfa30103c2a89007f2bc5e9d133dea7f8c6d5
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248389"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743993"
