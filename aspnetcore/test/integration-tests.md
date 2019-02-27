@@ -5,14 +5,14 @@ description: 了解集成测试如何在基础结构级别（包括数据库、�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 02/25/2019
 uid: test/integration-tests
-ms.openlocfilehash: 0f919d7715a26f1efdb37d35b047a7050e46a272
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 053713e148df70b0be6bb567b55b2381a78d6c3e
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249511"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833574"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>在 ASP.NET Core 中的集成测试
 
@@ -109,6 +109,10 @@ ms.locfileid: "54249511"
 * [xunit](https://www.nuget.org/packages/xunit/)
 * [xunit.runner.visualstudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
 * [AngleSharp](https://www.nuget.org/packages/AngleSharp/)
+
+## <a name="sut-environment"></a>SUT 环境
+
+如果 SUT[环境](xref:fundamentals/environments)未设置开发环境的默认值。
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>默认值 WebApplicationFactory 基本测试
 

@@ -3,14 +3,14 @@ title: 使用 cookie 而无需 ASP.NET Core 标识的身份验证
 author: rick-anderson
 description: 使用 cookie 而无需 ASP.NET Core 标识的身份验证的说明
 ms.author: riande
-ms.date: 10/11/2017
+ms.date: 02/25/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: f05e5b83359ec1739115293e092eaed0c811c046
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
-ms.translationtype: MT
+ms.openlocfilehash: 7e975da3a276ffb6a3de7ee02f7cc5be67cbbebe
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854375"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833613"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
@@ -39,6 +39,8 @@ ms.locfileid: "55854375"
 `AuthenticationScheme` 传递给`AddAuthentication`设置应用程序的默认身份验证方案。 `AuthenticationScheme` 有多个实例的 cookie 身份验证并要时很有用[与特定方案授权](xref:security/authorization/limitingidentitybyscheme)。 设置`AuthenticationScheme`到`CookieAuthenticationDefaults.AuthenticationScheme`方案提供的值为"Cookie"。 你可以提供任何字符串值，用于区分方案。
 
 应用程序的身份验证方案是不同的应用程序的 cookie 身份验证方案。 当 cookie 身份验证方案不提供给<xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>，它使用[CookieAuthenticationDefaults.AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) ("Cookie")。
+
+身份验证 cookie<xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential>属性设置为`true`默认情况下。 网站访问者尚未同意数据收集时允许使用身份验证 cookie。 有关详细信息，请参阅 <xref:security/gdpr#essential-cookies>。
 
 在 `Configure` 方法中，使用 `UseAuthentication` 方法调用用于设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc` 之前调用 `UseAuthentication` 方法：
 

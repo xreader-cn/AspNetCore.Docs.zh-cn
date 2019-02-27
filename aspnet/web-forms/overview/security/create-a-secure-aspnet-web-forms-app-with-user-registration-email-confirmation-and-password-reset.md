@@ -8,14 +8,14 @@ ms.date: 10/02/2014
 ms.assetid: 0a8d6044-5fab-4213-82d6-5618d5601358
 msc.legacyurl: /web-forms/overview/security/create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset
 msc.type: authoredcontent
-ms.openlocfilehash: b964257165f8a50bef5cb5d8cee4fb30a5e91cf0
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: acc13776840408756901e20589b9efacc83ff2a9
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41825828"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833678"
 ---
-<a name="create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset-c"></a>创建安全的 ASP.NET Web 窗体应用程序具有用户注册、 电子邮件确认及密码重置 (C#)
+<a name="create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset-c"></a>创建具有用户注册、电子邮件确认和密码重置功能的安全 ASP.NET Web 窗体应用 (C#)
 ====================
 通过[Erik Reitan](https://github.com/Erikre)
 
@@ -42,7 +42,7 @@ ms.locfileid: "41825828"
 首先，安装并运行[Visual Studio Express 2013 for Web](https://go.microsoft.com/fwlink/?LinkId=299058)或[Visual Studio 2013](https://go.microsoft.com/fwlink/?LinkId=306566)。 安装[Visual Studio 2013 Update 3](https://go.microsoft.com/fwlink/?LinkId=390465)或更高版本以及。
 
 > [!NOTE]
-> 警告： 您必须安装[Visual Studio 2013 Update 3](https://go.microsoft.com/fwlink/?LinkId=390465)或更高版本，若要完成本教程。
+> 警告：必须安装[Visual Studio 2013 Update 3](https://go.microsoft.com/fwlink/?LinkId=390465)或更高版本，若要完成本教程。
 
 
 1. 创建新的项目 (**文件** - &gt; **新项目**)，然后选择**ASP.NET Web 应用程序**模板和最新的.NET Framework从版本**新的项目**对话框。
@@ -70,6 +70,8 @@ ms.locfileid: "41825828"
 
 <a id="SG"></a>
 ## <a name="hook-up-sendgrid"></a>将挂接到 SendGrid
+
+本教程后，SendGrid 已更改它的 API。 有关当前 SendGrid 的说明，请参阅[SendGrid](http://sendgrid.com/)或[启用帐户确认和密码恢复](xref:security/authentication/accconfirm#enable-account-confirmation-and-password-recovery)。
 
 虽然本教程仅演示了如何添加通过电子邮件通知[SendGrid](http://sendgrid.com/)，可以发送电子邮件使用 SMTP 和其他机制 (请参阅[的其他资源](#addRes))。
 
