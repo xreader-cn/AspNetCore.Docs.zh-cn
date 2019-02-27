@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/angular
-ms.openlocfilehash: 35a839e31369e8dbf00f5dbfb3751a2985335755
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: f33f4b96faf71440c3e8878c0480f2908ace70d1
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248116"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899250"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -117,51 +117,6 @@ npm install --save <package_name>
     ```
 
 当启动 ASP.NET Core 应用时，它不会启动 Angular CLI 服务器， 而是使用你手动启动的实例。 这使它能够更快地启动和重新启动。 不再需要每次等待 Angular CLI 重新生成客户端应用。
-
-## <a name="server-side-rendering"></a>服务器端呈现
-
-作为一项性能特性，你可以选择在服务器上预呈现 Angular 应用并在客户端运行它。 这意味着浏览器会收到表示应用初始 UI 的 HTML 标记，所以即使在下载并执行 JavaScript 捆绑包之前，浏览器也会显示它。 该操作的大部分实现过程由名为 [Angular Universal](https://universal.angular.io/) 的 Angular 功能完成。
-
-> [!TIP]
-> 启用服务器端呈现 (SSR) 会在开发和部署期间引入一些额外的复杂问题。 阅读 [SSR 缺点](#drawbacks-of-ssr)，以确定 SSR 是否符合你的要求。
-
-要启用 SSR，你需要将大量内容添加到项目。
-
-在 Startup 类中，在配置 `spa.Options.SourcePath` 的行之后并且在调用 `UseAngularCliServer` 或 `UseProxyToSpaDevelopmentServer` 之前，添加以下内容：
-
-[!code-csharp[](sample/AngularServerSideRendering/Startup.cs?name=snippet_Call_UseSpa&highlight=5-12)]
-
-在开发模式下，此代码尝试通过运行在 ClientApp\package.json 中定义的脚本 `build:ssr` 来构建 SSR 捆绑包。 这将生成一个名为 `ssr` 的 Angular 应用，该应用尚未定义。
-
-在 ClientApp/.angular-cli.json 中 `apps` 数组的末尾，定义一个名为 `ssr` 的额外应用。 使用以下选项：
-
-[!code-json[](sample/AngularServerSideRendering/ClientApp/.angular-cli.json?range=24-41)]
-
-启用了 SSR 的新应用配置需要另外两个文件：tsconfig.server.json 和 main.server.ts。 tsconfig.server.json 文件指定 TypeScript 编译选项。 main.server.ts 文件在 SSR 期间用作代码入口点。
-
-在 ClientApp/src （与现有 tsconfig.app.json 同时存在）中添加名为 tsconfig.server.json 的新文件，其中包含以下内容：
-
-[!code-json[](sample/AngularServerSideRendering/ClientApp/src/tsconfig.server.json)]
-
-该文件将 Angular 的 AoT 编译器配置为查找名为 `app.server.module` 的模块。 通过在 ClientApp/src/app/app.server.module.ts （与现有 app.module.ts 同时存在）处创建新文件来添加该模块，其中包含以下内容：
-
-[!code-typescript[](sample/AngularServerSideRendering/ClientApp/src/app/app.server.module.ts)]
-
-该模块继承自客户端 `app.module` 并定义在 SSR 期间哪些额外的 Angular 模块可用。
-
-回想一下，.angular-cli.json 中的新 `ssr` 条目引用了名为 main.server.ts 的入口点文件。 如果你尚未添加该文件，那么现在是时候添加了。 在 ClientApp/src/main.server.ts 处创建一个新文件（与现有 main.ts 同时存在），其中包含以下内容：
-
-[!code-typescript[](sample/AngularServerSideRendering/ClientApp/src/main.server.ts)]
-
-此文件的代码是 ASP.NET Core 在运行添加到 Startup 类的 `UseSpaPrerendering` 中间件时为每个请求执行的内容。 它处理从 .NET 代码（例如所请求的 URL）收到的 `params`，并调用 Angular SSR API 以获取生成的 HTML。
-
-严格来说，这足以在开发模式下启用 SSR。 重要的是做出最后的更改，以便应用在发布时能够正常工作。 在应用的主 .csproj 文件中，将 `BuildServerSideRenderer` 属性值设置为 `true`：
-
-[!code-xml[](sample/AngularServerSideRendering/AngularServerSideRendering.csproj?name=snippet_EnableBuildServerSideRenderer)]
-
-这会将生成过程配置为在发布期间运行 `build:ssr`，并将 SSR 文件部署到服务器。 如果未启用此功能，则 SSR 将在生产中失败。
-
-当应用在开发模式或生产模式下运行时，Angular 代码会在服务器上预呈现为 HTML。 客户端代码执行正常。
 
 ### <a name="pass-data-from-net-code-into-typescript-code"></a>将 .NET 代码中的数据传递到 TypeScript 代码中
 

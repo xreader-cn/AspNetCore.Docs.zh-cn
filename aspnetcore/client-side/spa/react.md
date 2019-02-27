@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/react
-ms.openlocfilehash: aa08a9d8d06d8b52be564fabf904d4923684d4e4
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 3b2b2e67b5d577872bafefef5624a13ca1a22449
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248025"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899172"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 
@@ -102,3 +102,6 @@ npm install --save <package_name>
     ```
 
 当启动 ASP.NET Core 应用时，它不会启动 CRA 服务器， 而是使用你手动启动的实例。 这使它能够更快地启动和重新启动。 不再需要每次等待 React 应用重新生成。
+
+> [!IMPORTANT]
+> "服务器端呈现"不是此模板的受支持的功能。 我们使用此模板的目标是以满足与"创建-react-应用程序"的奇偶校验。 在这种情况下，方案和功能不包括"创建-react-应用程序"项目 （如 SSR) 中不受支持，留给大家练练手的用户。

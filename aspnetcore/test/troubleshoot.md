@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: 理解 ASP.NET Core 项目的警告和错误，并对其进行故障排除。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 02/26/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 7a3361970bde2b8761c76884fc1905957d075c5c
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: c8b34f51fd329eb9a7c34f7be93bd7f2aa054283
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450770"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899278"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>解决 ASP.NET Core 项目
 
@@ -22,8 +22,8 @@ ms.locfileid: "52450770"
 * <xref:host-and-deploy/azure-apps/troubleshoot>
 * <xref:host-and-deploy/iis/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
-* [ASP.NET Core 应用程序中 （ndc） 会议 （伦敦，2018年）： 诊断问题](https://www.youtube.com/watch?v=RYI0DHoIVaA)
-* [ASP.NET 博客： 解决 ASP.NET Core 性能问题](https://blogs.msdn.microsoft.com/webdev/2018/05/23/asp-net-core-performance-improvements/)
+* [NDC 会议 （伦敦，2018年）：诊断 ASP.NET Core 应用程序中的问题](https://www.youtube.com/watch?v=RYI0DHoIVaA)
+* [ASP.NET 博客：ASP.NET Core 性能问题故障排除](https://blogs.msdn.microsoft.com/webdev/2018/05/23/asp-net-core-performance-improvements/)
 
 ## <a name="net-core-sdk-warnings"></a>.NET Core SDK 警告
 
@@ -63,12 +63,12 @@ ms.locfileid: "52450770"
 
 ![显示的警告消息的 OneASP.NET 对话框屏幕截图](troubleshoot/_static/NoNetCore.png)
 
-时，此警告会出现的环境变量`PATH`没有指向计算机上任何.NET Core Sdk。 若要解决此问题：
+何时会出现此警告的环境变量`PATH`没有指向计算机上任何.NET Core Sdk (例如，`C:\Program Files\dotnet\`和`C:\Program Files (x86)\dotnet\`)。 若要解决此问题：
 
-* 安装或验证.NET Core SDK 的安装。
-* 验证`PATH`环境变量指向在其中安装了 SDK 的位置。 安装程序通常设置`PATH`。
+* 安装或验证.NET Core SDK 的安装。 获取从最新的安装程序[.NET 下载](https://dotnet.microsoft.com/download)。 
+* 验证`PATH`环境变量指向 SDK 安装的位置。 安装程序通常设置`PATH`。
 
-## <a name="obtain-data-from-an-app"></a>从应用程序获取数据
+## <a name="obtain-data-from-an-app"></a>从应用中获取数据
 
 如果应用程序能够对请求作出响应，你可以从应用使用中间件获取以下数据：
 

@@ -5,12 +5,12 @@ description: 使用 cookie 而无需 ASP.NET Core 标识的身份验证的说明
 ms.author: riande
 ms.date: 02/25/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: 7e975da3a276ffb6a3de7ee02f7cc5be67cbbebe
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
-ms.translationtype: HT
+ms.openlocfilehash: 29370a3ff25469b34edc2a71e00601cf6ecc00ca
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833613"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899277"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
@@ -404,7 +404,7 @@ await HttpContext.Authentication.SignInAsync(
 
 ## <a name="absolute-cookie-expiration"></a>绝对 cookie 到期时间
 
-可以设置使用绝对到期时间`ExpiresUtc`。 您还必须设置`IsPersistent`; 否则为`ExpiresUtc`将被忽略，并创建一个单会话 cookie。 当`ExpiresUtc`上设置`SignInAsync`，它将重写的值`ExpireTimeSpan`的选项`CookieAuthenticationOptions`，如果设置。
+可以设置使用绝对到期时间`ExpiresUtc`。 若要创建持久 cookie，则还必须设置`IsPersistent`; 否则为 cookie 使用基于会话的生存期内创建，并且可能会到期之前或身份验证票证后它将保持。 当`ExpiresUtc`上设置`SignInAsync`，它将重写的值`ExpireTimeSpan`的选项`CookieAuthenticationOptions`，如果设置。
 
 下面的代码段创建的标识和相应的 cookie 的持续时间为 20 分钟。 这会忽略以前配置的任何滑动过期设置。
 
