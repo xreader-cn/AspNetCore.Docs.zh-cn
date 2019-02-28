@@ -4,14 +4,14 @@ author: guardrex
 description: 获取在 Azure 应用服务和 IIS 上托管 ASP.NET Core 应用的常见错误的故障排除建议。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 02/21/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 976f7e3fbeab9e81ba99e2dd7d09a892b854651b
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: d1cdac4d27ee1bc3ebb4329c1bbd3bdacb34a58c
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854456"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743942"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -163,13 +163,21 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 请确保将“应用程序池” > “进程模型” > “标识”设置为 ApplicationPoolIdentity，或确保自定义标识具有访问应用部署文件夹的相应权限。
 
+* 如果卸载了 ASP.NET Core 托管捆绑包并已安装了一个早期版本的托管捆绑包，则 applicationHost.config 文件将不包含 ASP.NET Core 模块分区。 可打开 %windir%/System32/inetsrv/config 处的 applicationHost.config 文件并找到 `<configuration><configSections><sectionGroup name="system.webServer">` 分区组。 如果分区组中缺少 ASP.NET Core 模块分区，请添加以下分区元素：
+
+  ```xml
+  <section name="aspNetCore" overrideModeDefault="Allow" />
+  ```
+  
+  或者，安装最新版本的 ASP.NET Core 托管捆绑包。 最新版本与受支持的 ASP.NET Core 应用向后兼容。
+
 ## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>processPath 不正确、缺少 PATH 变量、未安装托管捆绑包、未重启系统/IIS、未安装 VC++ Redistributable 或 dotnet.exe 访问冲突
 
 ::: moniker range=">= aspnetcore-2.2"
 
 * **浏览器：** HTTP 错误 500.0 - ANCM 进程内处理程序加载失败
 
-* **应用程序日志：** 物理根路径为 'C:\{PATH}\' 的应用程序 'MACHINE/WEBROOT/APPHOST/{ASSEMBLY}' 未能通过 '"{...}" ' 命令行启动进程 ，ErrorCode = '0x80070002 :0. 应用程序 '{PATH}' 无法启动。 '{PATH}' 中未找到可执行文件。 未能启动应用程序 '/LM/W3SVC/2/ROOT'，ErrorCode '0x8007023e'。
+* **应用程序日志：** 物理根路径为 'C:\{PATH}\' 的应用程序 'MACHINE/WEBROOT/APPHOST/{ASSEMBLY}' 未能通过 '"{...}" ' 命令行启动进程 ，ErrorCode = '0x80070002 :0。 应用程序 '{PATH}' 无法启动。 '{PATH}' 中未找到可执行文件。 未能启动应用程序 '/LM/W3SVC/2/ROOT'，ErrorCode '0x8007023e'。
 
 * **ASP.NET Core 模块 stdout 日志：** 未创建日志文件。
 
@@ -181,7 +189,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * **浏览器：** HTTP 错误 502.5 - 进程失败
 
-* **应用程序日志：** 物理根路径为 'C:\{PATH}\' 的应用程序 'MACHINE/WEBROOT/APPHOST/{ASSEMBLY}' 未能通过 '"{...}" ' 命令行启动进程 ，ErrorCode = '0x80070002 :0.
+* **应用程序日志：** 物理根路径为 'C:\{PATH}\' 的应用程序 'MACHINE/WEBROOT/APPHOST/{ASSEMBLY}' 未能通过 '"{...}" ' 命令行启动进程 ，ErrorCode = '0x80070002 :0。
 
 * **ASP.NET Core 模块 stdout 日志：** 日志文件已创建，但为空。
 
