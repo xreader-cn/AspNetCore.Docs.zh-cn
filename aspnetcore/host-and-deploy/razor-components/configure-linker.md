@@ -5,14 +5,14 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/20/2019
 uid: host-and-deploy/razor-components/configure-linker
-ms.openlocfilehash: c3c38ec2509344cc02f3895d5d0c2d35059d1d8e
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 7c53e7912ec3b0ae471ea38777f874f55a32487d
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667987"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647936"
 ---
 # <a name="configure-the-linker-for-blazor"></a>配置 Blazor 链接器
 
@@ -73,7 +73,7 @@ Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/sta
 </linker>
 ```
 
-若要详细了解配置文件的文件格式，请参阅 [IL 链接器：xml 描述符语法](https://github.com/mono/linker/blob/master/linker/README.md#syntax-of-xml-descriptor)。
+若要详细了解配置文件的文件格式，请参阅 [IL 链接器：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。
 
 使用 `BlazorLinkerDescriptor` 项在项目文件中指定配置文件：
 

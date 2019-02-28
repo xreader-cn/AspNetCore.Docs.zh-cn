@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/static-files
-ms.openlocfilehash: 4c08d65cc1f658ef08a9b4b362ac7f8a3a243557
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: e6bda5dd60c62c7bdbfa81f34c14cfcd07e8d700
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637769"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744048"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -23,7 +23,7 @@ ms.locfileid: "53637769"
 
 ## <a name="serve-static-files"></a>提供静态文件
 
-静态文件存储在项目的 Web 根目录中。 默认目录是 \<content_root>/wwwroot，但可通过 [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) 方法更改目录。 有关详细信息，请参阅[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root-webroot)。
+静态文件存储在项目的 Web 根目录中。 默认目录是 \<content_root>/wwwroot，但可通过 [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) 方法更改目录。 有关详细信息，请参阅[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)。
 
 应用的 Web 主机必须识别内容根目录。
 
@@ -82,7 +82,7 @@ ms.locfileid: "53637769"
 
 [!code-cshtml[](static-files/samples/1x/Views/Home/Index.cshtml?name=snippet_static_file_wwwroot)]
 
-在上面的代码中，波形符 `~/` 指向 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/index#web-root-webroot)。
+在上面的代码中，波形符 `~/` 指向 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/index#web-root)。
 
 ### <a name="serve-files-outside-of-web-root"></a>提供 Web 根目录外的文件
 
