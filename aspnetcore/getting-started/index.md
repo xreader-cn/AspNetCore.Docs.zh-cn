@@ -47,7 +47,7 @@ dotnet dev-certs https --trust
 
 以上命令会显示以下对话：
 
-![安全警告对话](_static/cert.png)
+![安全警告对话](~/getting-started/_static/cert.png)
 
 如果你同意信任开发证书，请选择“是”。
 
@@ -59,18 +59,17 @@ dotnet dev-certs https --trust
 
 以上命令会显示以下消息：
 
-*请求信任 HTTPS 开发证书。如果证书尚不受信任，我们将运行以下命令：* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`。  
-*此命令可能会提示你输入密码以在系统密钥链上安装证书。
-
-密码：*
-
-如果你同意信任开发证书，请输入密码。
+*请求信任 HTTPS 开发证书。如果证书尚不受信任，我们将运行以下命令：* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`。
+ 
+此命令可能会提示你输入密码，以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
 查看你的 Linux 分发对应的文档，了解如何信任 HTTPS 开发证书。
 
 ---
+
+有关详细信息，请参阅[信任 ASP.NET Core HTTPS 开发证书](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)
 
 ## <a name="run-the-app"></a>运行应用
 
