@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何使用选项模式来表示 ASP.NET Core 应用中的相关设置组。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/29/2018
+ms.date: 02/26/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 20365a078327d76693a40fa79a4a594e29e0901c
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 9566ed75375bdfaa9d6d8bf898b9fb2054356017
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099242"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899315"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core 中的选项模式
 
@@ -274,18 +274,22 @@ services.AddOptions<MyOptions>("optionalName")
     .Configure(o => o.Property = "named");
 ```
 
-## <a name="configurelttoptions-tdep1--tdep4gt-method"></a>配置 &lt;TOptions、TDep1、...TDep4&gt; 方法
+## <a name="use-di-services-to-configure-options"></a>使用 DI 服务配置选项
 
-使用 DI 中的服务，通过以样本方式实现 `IConfigure[Named]Options` 来配置选项的方法非常详细。 `OptionsBuilder<TOptions>` 上 `ConfigureOptions` 的重载允许使用最多五个服务来配置选项：
+在配置选项时，可以通过以下两种方式通过依赖关系注入访问其他服务：
 
-```csharp
-services.AddOptions<MyOptions>("optionalName")
-    .Configure<Service1, Service2, Service3, Service4, Service5>(
-        (o, s, s2, s3, s4, s5) => 
-            o.Property = DoSomethingWith(s, s2, s3, s4, s5));
-```
+* 将配置委托传递给 [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) 上的 [ Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)。 [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) 提供 [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) 的重载，该重载允许使用最多五个服务来配置选项：
 
-重载会注册临时通用 <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1>，它具有接受指定的通用服务类型的构造函数。 
+  ```csharp
+  services.AddOptions<MyOptions>("optionalName")
+      .Configure<Service1, Service2, Service3, Service4, Service5>(
+          (o, s, s2, s3, s4, s5) => 
+              o.Property = DoSomethingWith(s, s2, s3, s4, s5));
+  ```
+
+* 创建实现 <xref:Microsoft.Extensions.Options.IConfigureOptions`1> 或 <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1> 的你自己的类型，并将该类型注册为服务。
+
+建议将配置委托传递给 [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)，因为创建服务较复杂。 在使用[ Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)时，创建你自己的类型等效于框架为你执行的操作。 调用[ Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) 会注册临时泛型 <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1>，它具有接受指定的泛型服务类型的构造函数。 
 
 ::: moniker range=">= aspnetcore-2.2"
 

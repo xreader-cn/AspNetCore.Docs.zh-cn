@@ -1,18 +1,18 @@
 ---
-title: ASP.NET Core 中的 Razor 文件编译和预编译
+title: ASP.NET Core 中的 Razor 文件编译
 author: rick-anderson
-description: 了解预编译 Razor 文件的好处以及如何在 ASP.NET Core 应用中完成 Razor 文件预编译。
+description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: c4e8f722fdf3d3f64807cc35ff9f349af7f32abd
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 0b6173a7860f5f1d9d11219fbf3f57f76d703031
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248181"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899263"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -30,28 +30,31 @@ ms.locfileid: "56248181"
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
 调用相关的 Razor 页和 MVC 视图时，Razor 文件在运行时进行编译。 在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。
 
 ::: moniker-end
 
-## <a name="precompilation-considerations"></a>预编译注意事项
+::: moniker range=">= aspnetcore-3.0"
 
-以下是预编译 Razor 文件的意外后果：
+在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。 通过配置应用程序，可以选择启用运行时编译
 
-* 发布捆绑包更小
-* 启动速度更快
-* 无法编辑 Razor 文件&mdash;关联内容不会出现在发布捆绑包中。
+::: moniker-end
 
-## <a name="deploy-precompiled-files"></a>部署预编译文件
+## <a name="razor-compilation"></a>Razor 编译
 
-::: moniker range=">= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-3.0"
+Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 启用后，运行时编译将补充生成时编译，允许更新 Razor 文件（如果对其进行编辑）。
 
-Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文件更新后，支持在生成时编辑这些文件。 默认情况下，仅通过应用部署编译的 Views.dll 而不部署 cshtml 文件。
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文件更新后，支持在生成时编辑这些文件。 默认情况下，只有编译 Razor 文件所需的编译的 Views.dll（而非 .cshtml）文件或引用程序集随应用一起部署。
 
 > [!IMPORTANT]
-> ASP.NET Core 3.0 中将删除预编译工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
+> 已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
 >
 > 仅当项目文件中未设置特定于预编译的属性时，Razor SDK 才有效。 例如，通过将 .csproj 文件的 `MvcRazorCompileOnPublish` 属性设置为 `true` 来禁用 Razor SDK。
 
@@ -68,7 +71,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文�
 默认情况下，ASP.NET Core 2.x 项目模板将 `MvcRazorCompileOnPublish` 属性隐式设置为 `true`。 因此，可以从 .csproj 文件中安全地删除此元素。
 
 > [!IMPORTANT]
-> ASP.NET Core 3.0 中将删除预编译工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
+> 已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
 >
 > 在 ASP.NET Core 2.0 中执行[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时，无法使用 Razor 文件预编译。
 
@@ -96,24 +99,44 @@ dotnet publish -c Release
 
 ::: moniker-end
 
-## <a name="recompile-razor-files-on-change"></a>在更改时重新编译 Razor 文件
+## <a name="runtime-compilation"></a>运行时编译
 
-<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。
+::: moniker range="= aspnetcore-2.1"
 
-当设置为 `true` 时，[IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) 监视对配置的 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 实例中的 Razor 文件所做的更改。
+通过 Razor 文件的运行时编译补充生成时编译。 当 .cshtml 文件的内容发生更改时，ASP.NET Core MVC 将重新编译 Razor 文件。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
+
+通过 Razor 文件的运行时编译补充生成时编译。 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。
 
 对于以下项，默认值为 `true`：
 
-* ASP.NET Core 2.1 或更早版本的应用。
-* 开发环境中的 ASP.NET Core 2.2 或更高版本的应用。
-
-<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 与兼容性开关相关联，并可根据为应用配置的兼容性版本来提供不同的行为。 通过设置 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 配置应用优先于由应用的兼容性版本表示的值。
-
-如果将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本，则将 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 设置为 `true`，除非对其进行显式配置。
-
-如果将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> 或更高版本，则将 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 设置为 `false`，除非环境是开发环境或显式配置该值。
+* 将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本
+* 将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> 或更高版本，并且应用已在开发环境 <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*> 中。 换句话说，除非明确设置 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange>，否则 Razor 文件不会在非开发环境中重新编译。
 
 有关设置应用的兼容性版本的指导和示例，请参阅 <xref:mvc/compatibility-version>。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。 要启用运行时编译，应用必须
+
+* 安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。
+* 更新应用程序的 `ConfigureServices` 以包含对 `AddMvcRazorRuntimeCompilation` 的调用：
+
+```csharp
+services
+    .AddMvc()
+    .AddMvcRazorRuntimeCompilation()
+```
+
+要使运行时编译在部署时起作用，应用必须另外修改其项目文件以将 `PreserveCompilationReferences` 设置为 `true`。
+[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

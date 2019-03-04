@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: babc637cdec8590ac14f7924c17e862e5b2f6a81
-ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
+ms.openlocfilehash: 446882297524af3cbaed3ba7f941935debf5e7f4
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/31/2019
-ms.locfileid: "55428481"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899192"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 
@@ -131,3 +131,36 @@ public class UserRepository : IUserRepository
     }
 }
 ```
+
+## <a name="httpcontext-access-from-a-background-thread"></a>从后台线程访问 HttpContext
+
+`HttpContext` 不是线程安全。 在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 `NullReferenceException`。
+
+> [!NOTE]
+> 在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。 如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。 查找将控制器方法定义为 `async void` 的错误。
+
+要使用 `HttpContext` 数据安全地执行后台工作，请执行以下操作：
+
+* 在请求处理过程中复制所需的数据。
+* 将复制的数据传递给后台任务。
+
+要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法，而是传递所需要的数据。
+
+```csharp
+public class EmailController
+{
+    public ActionResult SendEmail(string email)
+    {
+        var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
+
+        // Starts sending an email, but doesn't wait for it to complete
+        _ = SendEmailCore(correlationId);
+        return View();
+    }
+
+    private async Task SendEmailCore(string correlationId)
+    {
+        // send the email
+    }
+}
+

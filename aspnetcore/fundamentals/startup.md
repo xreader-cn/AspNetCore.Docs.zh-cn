@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 685b496943642b349321a36a7200d6d51ecf4d6e
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: cfd0a57d5d0b60862b017a170b6d5cbddf56f15a
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396220"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744178"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -31,7 +31,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 
-在构建应用的[主机](xref:fundamentals/host/index)时，系统为应用指定 `Startup` 类。 在 `Program` 类的主机生成器上调用 `Build` 时，将生成应用的主机。 通常通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
+在构建应用的[主机](xref:fundamentals/index#host)时，系统为应用指定 `Startup` 类。 在 `Program` 类的主机生成器上调用 `Build` 时，将生成应用的主机。 通常通过在主机生成器上调用 [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) 方法来指定 `Startup` 类：
 
 [!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
 
@@ -47,7 +47,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 注入 `IHostingEnvironment` 的替代方法是使用基于约定的方法。 应用为不同的环境（例如，`StartupDevelopment`）单独定义 `Startup` 类时，相应的 `Startup` 类会在运行时被选中。 优先考虑名称后缀与当前环境相匹配的类。 如果应用在开发环境中运行并包含 `Startup` 类和 `StartupDevelopment` 类，则使用 `StartupDevelopment` 类。 有关详细信息，请参阅[使用多个环境](xref:fundamentals/environments#environment-based-startup-class-and-methods)。
 
-要了解有关主机的详细信息，请参阅 <xref:fundamentals/host/index>。 有关在启动过程中处理错误的信息，请参阅[启动异常处理](xref:fundamentals/error-handling#startup-exception-handling)。
+要详细了解有关主机的详细信息，请参阅[主机](xref:fundamentals/index#host)。 有关在启动过程中处理错误的信息，请参阅[启动异常处理](xref:fundamentals/error-handling#startup-exception-handling)。
 
 ## <a name="the-configureservices-method"></a>ConfigureServices 方法
 
@@ -59,7 +59,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。 有关示例，请参阅[配置标识服务](xref:security/authentication/identity#pw)。
 
-主机可能会在调用 `Startup` 方法之前配置某些服务。 有关更多信息，请参见<xref:fundamentals/host/index>。
+主机可能会在调用 `Startup` 方法之前配置某些服务。 有关详细信息，请参阅[主机](xref:fundamentals/index#host)。
 
 对于需要大量设置的功能，<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上有 `Add{Service}` 扩展方法。 典型 ASP.NET Core 应用将为实体框架、标识和 MVC 注册服务：
 
@@ -134,7 +134,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:fundamentals/host/index>
+* [主机](xref:fundamentals/index#host)
 * <xref:fundamentals/environments>
 * <xref:fundamentals/middleware/index>
 * <xref:fundamentals/logging/index>

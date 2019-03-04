@@ -3,42 +3,40 @@ title: ASP.NET Core 中的区域
 author: rick-anderson
 description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。
 ms.author: riande
-ms.date: 02/14/2017
+ms.date: 02/14/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 19e818fa198936ea1bee0da8039e88a3c0abbf6b
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: c21eed04ea68512515da262b6b6895dc1a821039
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410607"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833522"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
 作者：[Dhananjay Kumar](https://twitter.com/debug_mode) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-区域是 ASP.NET MVC 功能，用于将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。 使用区域，将通过为 `controller` 和 `action` 添加另一个路由参数 `area`，创建用于路由目的的层次结构。
+区域是 ASP.NET 功能，用于将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。 使用区域通过为 `controller` 和 `action` 或 Razor Page `page` 添加其他路由参数 `area`，创建用于路由目的的层次结构。
 
-区域提供了将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域实际上是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。每个单位都有自己的逻辑组件视图、控制器和模型。 在此方案中，可使用区域对同一项目中的业务组件进行物理分区。
+区域提供了一种将 ASP.NET Core Web 应用划分为更小的功能组的方法，每个功能组都有自己的一组 Razor Pages、控制器、视图和模型。 区域实际上是应用内的结构。 在 ASP.NET Core Web 项目中，Pages、模型、控制器和视图等逻辑组件保存在不同的文件夹中。 ASP.NET Core 运行时使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。 每个单位都有自己的区域，以包含视图、控制器、Razor Pages 和模型。
 
-区域可以说是 ASP.NET Core MVC 项目中的较小功能单位，它具有自己的一组控制器、视图和模型。
+如果发生以下情况，请考虑在项目中使用区域：
 
-以下情况，请考虑在 MVC 项目中使用区域：
+* 应用由可以进行逻辑分隔的多个高级功能组件组成。
+* 想对应用进行分区，以便可以独立处理每个功能区域。
 
-* 应用程序由应进行逻辑区分的多个高级功能组件组成
+[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 下载示例提供了用于测试区域的基本应用。
 
-* 想对 MVC 项目进行分区，使每个功能区域可以独立工作
+## <a name="areas-for-controllers-with-views"></a>带视图的控制器区域
 
-区域特性：
+使用区域、控制器和视图的典型 ASP.NET Core Web 应用包含以下内容：
 
-* 一个 ASP.NET Core MVC 应用可以有任意数量的区域。
+* [区域文件夹结构](#area-folder-structure)。
+* 使用[&lbrack;区域&rbrack;](#attribute)属性（该属性将控制器与区域关联）进行修饰的控制器：[!code-csharp[](areas/samples/MVCareas/Areas/Products/Controllers/ManageController.cs?name=snippet2)]
+* [添加到启动的区域路由](#add-area-route)：[!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet2&highlight=3-6)]
 
-* 每个区域都有自己的控制器、模型和视图。
-
-* 区域可用于将大型 MVC 项目组织为可以独立工作的多个高级组件。
-
-* 区域支持具有相同名称的多个控制器 - 只要它们具有不同的区域。
-
-我们来看看演示如何创建和使用区域的示例。 假设你有一个商店应用，它有两组不同的控制器和视图：产品和服务。 使用 MVC 区域的典型文件夹结构如下所示：
+## <a name="area-folder-structure"></a>区域文件夹结构
+请考虑具有两个逻辑组（产品和服务）的应用。 使用区域，文件夹结构类似于以下内容：
 
 * 项目名称
   * 区域
@@ -51,6 +49,7 @@ ms.locfileid: "56410607"
           * Index.cshtml
         * 管理
           * Index.cshtml
+          * About.cshtml
     * 服务
       * Controllers
         * HomeController.cs
@@ -58,112 +57,80 @@ ms.locfileid: "56410607"
         * 主页
           * Index.cshtml
 
-当 MVC 尝试呈现 Area 中的视图时，它将默认尝试检查以下位置：
+虽然前面的布局是使用区域时的典型布局，但只需要视图文件即可使用此文件夹结构。 视图发现按以下顺序搜索匹配的区域视图文件：
 
 ```text
 /Areas/<Area-Name>/Views/<Controller-Name>/<Action-Name>.cshtml
-   /Areas/<Area-Name>/Views/Shared/<Action-Name>.cshtml
-   /Views/Shared/<Action-Name>.cshtml
+/Areas/<Area-Name>/Views/Shared/<Action-Name>.cshtml
+/Views/Shared/<Action-Name>.cshtml
+/Pages/Shared/<Action-Name>.cshtml
    ```
 
-以上是默认位置，可以通过 `Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions` 上的 `AreaViewLocationFormats` 进行更改。
+控制器和模型等非视图文件夹的位置无关紧要。 例如，控制器和模型文件夹不是必需的。 控制器和模型的内容是编译成 .dll 文件的代码。 在对该视图发出请求之前，不会编译视图的内容。
 
-例如，在下面的代码中，文件夹名称不是“Area”，而是改为了“Categories”。
+<!-- TODO review:
+The content of the *Views* isn't compiled until a request to that view has been made.
 
-```csharp
-services.Configure<RazorViewEngineOptions>(options =>
-   {
-       options.AreaViewLocationFormats.Clear();
-       options.AreaViewLocationFormats.Add("/Categories/{2}/Views/{1}/{0}.cshtml");
-       options.AreaViewLocationFormats.Add("/Categories/{2}/Views/Shared/{0}.cshtml");
-       options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
-   });
-   ```
+What about precompiled views? 
+ -->
+<a name="attribute"></a>
 
-值得注意的一点是，这里唯独看重的是 Views 文件夹的结构，而 Controllers 和 Models 等其他文件夹则无关紧要。 例如，完全可以不设 Controllers 和 Models 文件夹。 这是可行的，因为 Controllers 和 Models 的内容只是请求相应视图时才会编译到 .dll 中的代码，而 Views 的内容则不是。
+### <a name="associate-the-controller-with-an-area"></a>将控制器与区域关联
 
-定义文件夹层次结构后，需告知 MVC 每个控制器与一个区域相关联。 可使用 `[Area]` 属性修饰控制器名称，来完成此操作。
+使用[&lbrack;区域&rbrack;](xref:Microsoft.AspNetCore.Mvc.AreaAttribute)属性指定区域控制器：
 
-```csharp
-...
-   namespace MyStore.Areas.Products.Controllers
-   {
-       [Area("Products")]
-       public class HomeController : Controller
-       {
-           // GET: /Products/Home/Index
-           public IActionResult Index()
-           {
-               return View();
-           }
+[!code-csharp[](areas/samples/MVCareas/Areas/Products/Controllers/ManageController.cs?highlight=5&name=snippet)]
 
-           // GET: /Products/Home/Create
-           public IActionResult Create()
-           {
-               return View();
-           }
-       }
-   }
-   ```
+### <a name="add-area-route"></a>添加区域路由
 
-设置适用于新创建区域的路由定义。 [路由到控制器操作](routing.md)文章详细介绍了如何创建路由定义，包括使用常规路由和属性路由。 在此示例中，我们将使用常规路由。 为此，请打开 Startup.cs 文件，并通过添加以下名为 `areaRoute` 的路由定义修改文件。
+区域路由通常使用传统路由，而不使用属性路由。 传统路由依赖于顺序。 一般情况下，具有区域的路由应放在路由表中靠前的位置，因为它们比没有区域的路由更特定。
 
-```csharp
-...
-   app.UseMvc(routes =>
-   {
-     routes.MapRoute(
-         name: "areaRoute",
-         template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+如果所有区域的 url 空间一致，则 `{area:...}` 可用作路由模板中的令牌：
 
-     routes.MapRoute(
-         name: "default",
-         template: "{controller=Home}/{action=Index}/{id?}");
-   });
-   ```
+[!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet&highlight=18-21)]
 
-浏览到 `http://<yourApp>/products`，将调用 `Products` 区域中 `HomeController` 的 `Index` 操作方法。
+在前面的代码中，`exists` 应用了路由必须与区域匹配的约束。 使用 `{area:...}` 是将路由添加到区域的最简单的机制。
 
-## <a name="link-generation"></a>链接生成
+以下代码使用 <xref:Microsoft.AspNetCore.Builder.MvcAreaRouteBuilderExtensions.MapAreaRoute*> 创建两个命名区域路由：
 
-* 生成从基于区域的控制器内的动作到同一控制器内另一个动作的链接。
+[!code-csharp[](areas/samples/MVCareas/StartupMapAreaRoute.cs?name=snippet&highlight=18-27)]
 
-  假设当前的请求路径类似于 `/Products/Home/Create`
+将 `MapAreaRoute` 与 ASP.NET Core 2.2 配合使用时，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/7772)。
 
-  HtmlHelper 语法：`@Html.ActionLink("Go to Product's Home Page", "Index")`
+有关详细信息，请参阅[区域路由](xref:mvc/controllers/routing#areas)。
 
-  TagHelper 语法：`<a asp-action="Index">Go to Product's Home Page</a>`
+### <a name="link-generation-with-areas"></a>区域的链接生成
 
-  请注意，我们不需要提供“area”和“controller”值，因为它们在当前请求的上下文中已经可用。 此类值称为 `ambient` 值。
+[示例下载](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)中的以下代码显示指定区域的链接生成：
 
-* 生成从基于区域的控制器内的动作到不同控制器上另一个动作的链接
+[!code-cshtml[](areas/samples/MVCareas/Views/Shared/_testLinksPartial.cshtml?name=snippet)]
 
-  假设当前的请求路径类似于 `/Products/Home/Create`
+使用上述代码生成的链接在应用的任何位置都有效。
 
-  HtmlHelper 语法：`@Html.ActionLink("Go to Manage Products Home Page", "Index", "Manage")`
+示例下载包含[部分视图](xref:mvc/views/partial)，该视图包含以前的链接和相同的链接（未指定区域）。 在[布局文件]()中引用部分视图，因此应用中的每个页面都显示生成的链接。 在未指定区域的情况下生成的链接仅在从同一区域和控制器中的页面引用时才有效。
 
-  TagHelper 语法：`<a asp-controller="Manage" asp-action="Index">Go to Manage Products Home Page</a>`
+如果未指定区域或控制器，路由取决于环境值。 当前请求的当前路由值被视为链接生成的环境值。 在许多情况下，对于示例应用，使用环境值会生成错误的链接。
 
-  请注意，此处使用“area”的环境值，但上面显式指定了“controller”值。
+有关详细信息，请参阅[路由到控制器操作](xref:mvc/controllers/routing)。
 
-* 生成从基于区域的控制器内的动作到不同区域中不同控制器上另一个动作的链接。
+### <a name="shared-layout-for-areas-using-the-viewstartcshtml-file"></a>使用 _ViewStart.cshtml 文件的共享区域布局
 
-  假设当前的请求路径类似于 `/Products/Home/Create`
+要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹。
 
-  HtmlHelper 语法：`@Html.ActionLink("Go to Services Home Page", "Index", "Home", new { area = "Services" })`
+<!-- This section will be completed after https://github.com/aspnet/Docs/pull/10978 is merged.
+<a name="arp"></a>
 
-  TagHelper 语法：`<a asp-area="Services" asp-controller="Home" asp-action="Index">Go to Services Home Page</a>`
+## Areas for Razor Pages
+-->
+<a name="rename"></a>
 
-  请注意，此处不使用环境值。
+### <a name="change-default-area-folder-where-views-are-stored"></a>更改存储视图的默认区域文件夹
 
-* 生成从基于区域的控制器内的动作到不在区域中的不同控制器上另一个动作的链接。
+以下代码将默认的区域文件夹从 `"Areas"` 改为`"MyAreas"`：
 
-  HtmlHelper 语法：`@Html.ActionLink("Go to Manage Products  Home Page", "Index", "Home", new { area = "" })`
+[!code-csharp[](areas/samples/MVCareas/Startup2.cs?name=snippet)]
 
-  TagHelper 语法：`<a asp-area="" asp-controller="Manage" asp-action="Index">Go to Manage Products Home Page</a>`
-
-  由于我们要生成到基于非区域的控制器操作的链接，因此在此清空“area”的环境值。
-
-## <a name="publishing-areas"></a>发布区域
+<!-- TODO review - can we delete this. Areas doesn't change publishing - right? -->
+### <a name="publishing-areas"></a>发布区域
 
 当 .csproj 文件中包含 `<Project Sdk="Microsoft.NET.Sdk.Web">` 时，所有 `*.cshtml` 和 `wwwroot/**` 文件将发布到输出。

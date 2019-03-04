@@ -1,28 +1,51 @@
 ---
 title: .NET 通用主机
 author: guardrex
-description: 了解有关 .NET 中负责应用启动和生存期管理的通用主机。
+description: 了解有关 ASP.NET Core 泛型主机，该主机负责应用启动和生存期管理。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 4d435984d8169b558ab026ef8541c90f7a2a96b9
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: a128b7c19d544d1dd28ab16f7a208ceef680ce81
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618150"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743837"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-.NET Core 应用配置和启动“主机”。 主机负责应用程序启动和生存期管理。 本主题介绍 ASP.NET Core 通用主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)，该主机对于托管不处理 HTTP 请求的应用非常有用。 有关 Web 主机 (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>) 的介绍，请参阅 <xref:fundamentals/host/web-host>。
+::: moniker range="<= aspnetcore-2.2"
 
-通用主机的目标是将 HTTP 管道从 Web 主机 API 中分离出来，从而启用更多的主机方案。 基于通用主机的消息、后台任务和其他非 HTTP 工作负载可从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
+ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
 
-通用主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。 对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。 通用主机正处于开发阶段，用于在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
+本文介绍 ASP.NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)，该主机用于无法处理 HTTP 请求的应用。
+
+泛型主机的用途是将 HTTP 管道从 Web 主机 API 中分离出来，从而启用更多的主机方案。 基于泛型主机的消息、后台任务和其他非 HTTP 工作负载可从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
+
+泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。 对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。 泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
+
+本文介绍 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。
+
+泛型主机与 Web 主机的不同之处在于它将 HTTP 管道与 Web 主机 API 分离，以启用更广泛的主机方案。 消息、后台任务和其他非 HTTP 工作负载可以使用泛型主机并从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
+
+自 ASP.NET Core 3.0 起，建议为 HTTP 和非 HTTP 工作负载使用泛型主机。 HTTP 服务器实现（如果包括）作为 <xref:Microsoft.Extensions.Hosting.IHostedService> 的实现运行。 `IHostedService` 是可用于其他工作负载的接口。
+
+对于 Web 应用，不再建议使用 Web 主机，但该主机仍可用于后向兼容性。
+
+> [!NOTE]
+> 本文的其余部分尚未针对 3.0 进行更新。
+
+::: moniker-end
 
 [查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -95,7 +118,7 @@ var host = new HostBuilder()
 
 **密钥**：applicationName  
 **类型**：string  
-**默认**：包含应用入口点的程序集的名称。  
+**默认值**：包含应用入口点的程序集的名称。  
 **设置使用**：`HostBuilderContext.HostingEnvironment.ApplicationName`  
 **环境变量**：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
 

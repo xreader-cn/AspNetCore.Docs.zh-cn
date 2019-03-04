@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/08/2019
+ms.date: 02/26/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 9270d7b462bbac1ae0ad896c0937ea6dd909b2cd
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 302cfb00127c223aeb5e51e4d0a9ef3cb69b10eb
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159550"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899367"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -69,9 +69,24 @@ ASP.NET Core 模块是插入 IIS 管道的本机 IIS 模块，用于：
 
 * 检测到客户端连接断开。 客户端连接断开时，[HttpContext.RequestAborted](xref:Microsoft.AspNetCore.Http.HttpContext.RequestAborted*) 取消标记将会取消。
 
-* <xref:System.IO.Directory.GetCurrentDirectory*> 会返回 IIS 启动的进程的工作目录而非应用目录（例如，对于 w3wp.exe，是 C:\Windows\System32\inetsrv）。
+* 在 ASP.NET Core 2.2.1 或早期版本中，<xref:System.IO.Directory.GetCurrentDirectory*> 会返回 IIS 启动的进程的工作目录而非应用目录（例如，对于 w3wp.exe，是 C:\Windows\System32\inetsrv）。
 
   对于设置应用的当前目录的示例代码，请参阅 [CurrentDirectoryHelpers 类](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/aspnet-core-module/samples_snapshot/2.x/CurrentDirectoryHelpers.cs)。 调用 `SetCurrentDirectory` 方法。 后续 <xref:System.IO.Directory.GetCurrentDirectory*> 调用提供应用的目录。
+  
+* 在进程内托管时，不会在内部调用 <xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*> 来初始化用户。 因此，默认情况下不激活每次身份验证后用于转换声明的 <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 实现。 使用 <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 实现转换声明时，请调用 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> 以添加身份验证服务：
+
+  ```csharp
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddTransient<IClaimsTransformation, ClaimsTransformer>();
+      services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
+  }
+  
+  public void Configure(IApplicationBuilder app)
+  {
+      app.UseAuthentication();
+  }
+  ```
 
 ### <a name="out-of-process-hosting-model"></a>进程外托管模型
 
@@ -240,13 +255,13 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range=">= aspnetcore-2.2"
 
-| 特性 | 说明​​ | 默认 |
+| 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
 | `forwardWindowsAuthToken` | <p>可选布尔属性。</p><p>如果为 true，会将令牌作为每个请求的标头“MS-ASPNETCORE-WINAUTHTOKEN”，转发到在 %ASPNETCORE_PORT% 上侦听的子进程。 该进程负责在每个请求的此令牌上调用 CloseHandle。</p> | `true` |
 | `hostingModel` | <p>可选的字符串属性。</p><p>将托管模型指定为进程内 (`InProcess`) 或进程外 (`OutOfProcess`)。</p> | `OutOfProcess` |
-| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p><p>&dagger;对于进程内托管，值限制为 `1`。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100`&dagger; |
+| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p><p>&dagger;对于进程内托管，值限制为 `1`。</p><p>不建议设置 `processesPerApplication`。 将来的版本将删除此属性。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100`&dagger; |
 | `processPath` | <p>必需的字符串属性。</p><p>为 HTTP 请求启动进程侦听的可执行文件的路径。 支持相对路径。 如果路径以 `.` 开头，则该路径被视为与站点根目录相对。</p> | |
 | `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p><p>不支持进程内托管。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.1 或更高版本附带的 ASP.NET Core 模块版本中，使用小时数、分钟数和秒数指定 `requestTimeout`。</p><p>不适用于进程内托管。 对于进程内托管，该模块等待应用处理该请求。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
@@ -259,12 +274,12 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range="= aspnetcore-2.1"
 
-| 特性 | 说明​​ | 默认 |
+| 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
 | `forwardWindowsAuthToken` | <p>可选布尔属性。</p><p>如果为 true，会将令牌作为每个请求的标头“MS-ASPNETCORE-WINAUTHTOKEN”，转发到在 %ASPNETCORE_PORT% 上侦听的子进程。 该进程负责在每个请求的此令牌上调用 CloseHandle。</p> | `true` |
-| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100` |
+| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p><p>不建议设置 `processesPerApplication`。 将来的版本将删除此属性。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100` |
 | `processPath` | <p>必需的字符串属性。</p><p>为 HTTP 请求启动进程侦听的可执行文件的路径。 支持相对路径。 如果路径以 `.` 开头，则该路径被视为与站点根目录相对。</p> | |
 | `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.1 或更高版本附带的 ASP.NET Core 模块版本中，使用小时数、分钟数和秒数指定 `requestTimeout`。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
@@ -277,12 +292,12 @@ ASP.NET Core 模块还可以：
 
 ::: moniker range="<= aspnetcore-2.0"
 
-| 特性 | 说明​​ | 默认 |
+| 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
 | `forwardWindowsAuthToken` | <p>可选布尔属性。</p><p>如果为 true，会将令牌作为每个请求的标头“MS-ASPNETCORE-WINAUTHTOKEN”，转发到在 %ASPNETCORE_PORT% 上侦听的子进程。 该进程负责在每个请求的此令牌上调用 CloseHandle。</p> | `true` |
-| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100` |
+| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p><p>不建议设置 `processesPerApplication`。 将来的版本将删除此属性。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100` |
 | `processPath` | <p>必需的字符串属性。</p><p>为 HTTP 请求启动进程侦听的可执行文件的路径。 支持相对路径。 如果路径以 `.` 开头，则该路径被视为与站点根目录相对。</p> | |
 | `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.0 或更早版本附带的 ASP.NET Core 模块版本中，必须仅使用整分钟数指定 `requestTimeout`，否则默认为 2 分钟。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
@@ -500,12 +515,35 @@ ASP.NET Core 模块还可以：
 
 ## <a name="aspnet-core-module-with-an-iis-shared-configuration"></a>具有 IIS 共享配置的 ASP.NET Core 模块
 
-ASP.NET Core 模块安装程序使用系统帐户的权限运行。 由于本地系统帐户没有对 IIS 共享配置所用的共享路径的修改权限，因此在尝试配置共享上的 applicationHost.config 中的模块设置时，安装程序将遇到拒绝访问错误。 使用 IIS 共享配置时，请执行以下步骤：
+ASP.NET Core 模块安装程序使用 TrustedInstaller 帐户的权限运行。 由于本地系统帐户没有 IIS 共享配置所用的共享路径的修改权限，因此在尝试配置共享上的 applicationHost.config 文件中的模块设置时，安装程序将引发拒绝访问错误。
+
+::: moniker range=">= aspnetcore-2.2"
+
+在与 IIS 安装相同的计算机上使用 IIS 共享配置时，请运行 ASP.NET Core Hosting Bundle 安装程序，并将 `OPT_NO_SHARED_CONFIG_CHECK` 参数设置为 `1`：
+
+```console
+dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
+```
+
+如果共享配置的路径与 IIS 安装的路径不在同一台计算机上，请按照下列步骤操作：
 
 1. 禁用 IIS 共享配置。
 1. 运行安装程序。
 1. 将已更新的 applicationHost.config 文件导出到共享。
 1. 重新启用 IIS 共享配置。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+使用 IIS 共享配置时，请执行以下步骤：
+
+1. 禁用 IIS 共享配置。
+1. 运行安装程序。
+1. 将已更新的 applicationHost.config 文件导出到共享。
+1. 重新启用 IIS 共享配置。
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 

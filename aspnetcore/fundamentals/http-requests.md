@@ -1,5 +1,5 @@
 ---
-title: 启动 HTTP 请求
+title: 在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 author: stevejgordon
 description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 中的逻辑 HttpClient 实例。
 monikerRange: '>= aspnetcore-2.1'
@@ -7,14 +7,14 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/25/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 4fc4e602b809563ea78b6a3af5e5eb5c0ebeddea
-ms.sourcegitcommit: c6db8b14521814f1f7e528d7aa06e474e4c04a1f
+ms.openlocfilehash: a4026addaa55d463c41aadd0a7a39606c88fcb84
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/25/2019
-ms.locfileid: "55065030"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744204"
 ---
-# <a name="initiate-http-requests"></a>启动 HTTP 请求
+# <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
 作者：[Glenn Condron](https://github.com/glennc)[Ryan Nowak](https://github.com/rynowak) 和 [Steve Gordon](https://github.com/stevejgordon)
 
@@ -274,3 +274,9 @@ public class ValuesController : ControllerBase
 在添加命名客户端或类型化客户端时，会返回 `IHttpClientBuilder`。 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 扩展方法可以用于定义委托。 委托用于创建和配置客户端使用的主要 `HttpMessageHandler`：
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]
+
+## <a name="additional-resources"></a>其他资源
+
+* [使用 HttpClientFactory 来实现复原 HTTP 请求](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
+* [通过 HttpClientFactory 和 Polly 策略实现使用指数退避算法的 HTTP 调用重试](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
+* [实现断路器模式](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)

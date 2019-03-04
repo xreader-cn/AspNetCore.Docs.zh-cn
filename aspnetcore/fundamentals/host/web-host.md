@@ -6,16 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 7215027a083c0ed0bc3b15196e390a31c5dcfc14
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 878fbaa1a61946dadf23ba8fefbf22021e547cc2
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637841"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744087"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web 主机
 
 作者：[Luke Latham](https://github.com/guardrex)
+
+ASP.NET Core 应用配置和启动“主机”。 主机负责应用程序启动和生存期管理。 至少，主机配置服务器和请求处理管道。 主机还可以设置日志记录、依赖关系注入和配置。
 
 ::: moniker range="<= aspnetcore-1.1"
 
@@ -23,7 +25,17 @@ ms.locfileid: "53637841"
 
 ::: moniker-end
 
-ASP.NET Core 应用配置和启动“主机”。 主机负责应用程序启动和生存期管理。 至少，主机配置服务器和请求处理管道。 本主题介绍 ASP.NET Core Web 主机 ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder))，它可用于托管 Web 应用。 有关 .NET 通用主机 ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)) 的介绍，请参阅 <xref:fundamentals/host/generic-host>。
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+本文介绍了 ASP.NET Core Web 主机 (<xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder>)，该主机用于托管 Web 应用。 有关 .NET 泛型主机 ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)) 的信息，请参阅 <xref:fundamentals/host/generic-host>。
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+本文介绍了 ASP.NET Core Web 主机 ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder))。 在 ASP.NET Core 3.0 中，泛型主机替代了 Web 主机。 有关详细信息，请参阅[主机](xref:fundamentals/index#host)。
+
+::: moniker-end
 
 ## <a name="set-up-a-host"></a>设置主机
 
@@ -374,7 +386,7 @@ WebHost.CreateDefaultBuilder(args)
 
 ## <a name="override-configuration"></a>重写配置
 
-[配置](xref:fundamentals/configuration/index)可用于配置 Web 主机。 在下面的示例中，主机配置是根据需要在 hostsettings.json 文件中指定。 命令行参数可能会重写从 hostsettings.json 文件加载的任何配置。 生成的配置（在 `config` 中）用于通过 [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 配置主机。 `IWebHostBuilder` 配置会添加到应用配置中，但反之不亦然&mdash;`ConfigureAppConfiguration` 不影响 `IWebHostBuilder` 配置。
+使用[配置](xref:fundamentals/configuration/index)可以配置 Web 主机。 在下面的示例中，主机配置是根据需要在 hostsettings.json 文件中指定。 命令行参数可能会重写从 hostsettings.json 文件加载的任何配置。 生成的配置（在 `config` 中）用于通过 [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 配置主机。 `IWebHostBuilder` 配置会添加到应用配置中，但反之不亦然&mdash;`ConfigureAppConfiguration` 不影响 `IWebHostBuilder` 配置。
 
 先用 hostsettings.json config 重写 `UseUrls` 提供的配置，再用命令行参数 config：
 
@@ -669,7 +681,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-创建自定义[中间件](xref:fundamentals/middleware/index#write-middleware)时可以将 `IHostingEnvironment` 注入 `Invoke` 方法：
+创建自定义[中间件](xref:fundamentals/middleware/write)时可以将 `IHostingEnvironment` 注入 `Invoke` 方法：
 
 ```csharp
 public async Task Invoke(HttpContext context, IHostingEnvironment env)

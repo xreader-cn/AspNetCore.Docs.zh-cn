@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 02/25/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: de419357d4d96a6e348a77055e67c0fcd190ae42
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: d10a335429752c1a52c1b3619adecc41725a819a
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618137"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899302"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -21,7 +21,7 @@ ms.locfileid: "52618137"
 在 ASP.NET Core 中，后台任务作为托管服务实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
 
 * 在计时器上运行的后台任务。
-* 激活有作用域的服务的托管服务。 有作用域的服务可使用依赖项注入。
+* 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用依赖项注入。
 * 按顺序运行的已排队后台任务。
 
 [查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -29,7 +29,7 @@ ms.locfileid: "52618137"
 此示例应用分为两个版本：
 
 * Web 主机 &ndash; Web 主机可用于托管 Web 应用。 本主题中所示的示例代码来自示例的 Web 主机版本。 有关详细信息，请参阅 [Web 主机](xref:fundamentals/host/web-host)主题。
-* 通用主机 &ndash; 通用主机是 ASP.NET Core 2.1 中的新增功能。 有关详细信息，请参阅[通用主机](xref:fundamentals/host/generic-host)主题。
+* 泛型主机 &ndash; 泛型主机是 ASP.NET Core 2.1 中的新增功能。 有关详细信息，请参阅[通用主机](xref:fundamentals/host/generic-host)主题。
 
 ## <a name="package"></a>Package
 
@@ -54,7 +54,7 @@ ms.locfileid: "52618137"
 
   若要延长默认值为 5 秒的关闭超时值，请设置：
 
-  * 使用泛型主机时为 <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>。 有关更多信息，请参见<xref:fundamentals/host/generic-host#shutdown-timeout>。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 何时使用泛型主机。 有关更多信息，请参见<xref:fundamentals/host/generic-host#shutdown-timeout>。
   * 使用 Web 主机时为关闭超时值主机配置设置。 有关更多信息，请参见<xref:fundamentals/host/web-host#shutdown-timeout>。
 
 托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
@@ -71,7 +71,7 @@ ms.locfileid: "52618137"
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>在后台任务中使用有作用域的服务
 
-要在 `IHostedService` 中使用有作用域的服务，请创建一个作用域。 默认情况下，不会为托管服务创建作用域。
+要在 `IHostedService` 中使用[有作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)，请创建一个作用域。 默认情况下，不会为托管服务创建作用域。
 
 作用域后台任务服务包含后台任务的逻辑。 在以下示例中，将 <xref:Microsoft.Extensions.Logging.ILogger> 注入到服务中：
 
@@ -99,7 +99,10 @@ ms.locfileid: "52618137"
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Startup.cs?name=snippet3)]
 
-在索引页模型类中，将 `IBackgroundTaskQueue` 注入构造函数并分配给 `Queue`：
+在索引页模型类中：
+
+* 将 `IBackgroundTaskQueue` 注入构造函数并分配给 `Queue`。
+* 注入 <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> 并将其分配给 `_serviceScopeFactory`。 工厂用于创建 <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> 的实例，用于在范围内创建服务。 创建范围是为了使用应用的`AppDbContext`（[设置了范围的服务](xref:fundamentals/dependency-injection#service-lifetimes)），以在 `IBackgroundTaskQueue`（单一实例服务）中写入数据库记录。
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Pages/Index.cshtml.cs?name=snippet1)]
 
@@ -110,4 +113,4 @@ ms.locfileid: "52618137"
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 IHostedService 和 BackgroundService 类在微服务中实现后台任务](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
-* [System.Threading.Timer](xref:System.Threading.Timer)
+* <xref:System.Threading.Timer>

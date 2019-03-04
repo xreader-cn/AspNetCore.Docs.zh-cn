@@ -3,14 +3,14 @@ title: ASP.NET Core 中的布局
 author: ardalis
 description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用通用布局、共享指令和运行常见代码。
 ms.author: riande
-ms.date: 10/18/2018
+ms.date: 02/26/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 1bd225c804b333efea834a46b7d9ba46b1bb69d8
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 7a60ee15e688d6f0e531302457604fa759213758
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410568"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899237"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -49,15 +49,15 @@ ms.locfileid: "56410568"
 
 下面的代码演示了使用控制器和视图创建的项目模板的布局文件：
 
-[!code-html[](~/common/samples/WebApplication1/Views/Shared/_Layout.cshtml?highlight=44,72)]
+[!code-cshtml[](~/common/samples/WebApplication1/Views/Shared/_Layout.cshtml?highlight=44,72)]
 
 ## <a name="specifying-a-layout"></a>指定布局
 
 Razor 视图具有 `Layout` 属性。 单个视图通过设置此属性来指定布局：
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。 如果提供部分名称，Razor 视图引擎将使用其标准发现过程来搜索布局文件。 首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。 此发现过程与用于发现[分部视图](partial.md)的过程相同。
+指定的布局可以使用完整路径（例如 /Pages/Shared/_Layout.cshtml 或 /Views/Shared/_Layout.cshtml）或部分名称（示例：`_Layout`）。 如果提供部分名称，则 Razor 视图引擎使用其标准发现过程来搜索布局文件。 首先搜索处理程序方法（或控制器）所在的文件夹，然后搜索 Shared 文件夹。 此发现过程与用于发现[分部视图](xref:mvc/views/partial#partial-view-discovery)的过程相同。
 
 默认情况下，每个布局必须调用 `RenderBody`。 无论在何处调用 `RenderBody`，都会呈现视图的内容。
 
@@ -123,7 +123,7 @@ Razor Pages 视图中的示例 `@section` 定义：
 
 示例 `_ViewImports.cshtml` 文件：
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewImports.cshtml)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewImports.cshtml)]
 
 ASP.NET Core MVC 应用的 _ViewImports.cshtml 文件通常放在“页面”（或“视图”）文件夹中。 _ViewImports.cshtml 文件可以放在任何文件夹中，在这种情况下，它只会应用于该文件夹及其子文件夹中的页面或视图。 从根级别开始处理 `_ViewImports` 文件，然后处理在页面或视图本身的位置之前的每个文件夹。 可以在文件夹级别覆盖根级别指定的 `_ViewImports` 设置。
 
@@ -151,7 +151,7 @@ ASP.NET Core MVC 应用的 _ViewImports.cshtml 文件通常放在“页面”（
 
 一个示例 _ViewStart.cshtml 文件：
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml)]
 
 上述文件指定所有视图都将使用 _Layout.cshtml 布局。
 

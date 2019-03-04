@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/15/2019
 uid: mvc/compatibility-version
-ms.openlocfilehash: 7c4189db435088e0803b35add82fa0eb9372e664
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: b360da105799a1dccb1902e167e50e78864b76a9
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410140"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647923"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>ASP.NET Core MVC 的兼容性版本
 
@@ -45,6 +45,6 @@ ms.locfileid: "56410140"
 * 允许使用最新版本并选择退出特定的中断行为变更。
 * 请用些时间更新应用，以便其适用于最新更改。
 
-[MvcOptions](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Mvc/Mvc.Core/src/MvcOptions.cs) 类源注释充分地阐述了更改的内容以及为什么更改对大多数用户来说是一种改进。
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions> 文件很好地解释了更改的内容以及为什么更改对大多数用户来说是一种改进。
 
 将来会推出 [ASP.NET Core 3.0 版本](https://github.com/aspnet/Home/wiki/Roadmap)。 在 3.0 版本中，将删除兼容性开关支持的旧行为。 我们认为这些积极的变化几乎使所有用户受益。 现在通过引入这些更改，大多数应用可以立即受益，其他人员将有时间更新其应用。

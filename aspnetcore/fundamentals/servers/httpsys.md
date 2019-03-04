@@ -5,14 +5,14 @@ description: 了解 Windows 上适用于 ASP.NET Core 的 Web 服务器 HTTP.sys
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/21/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 859e3daeba125ab1a9392c1bdbf2733de2f79a34
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: abb426b1a41226e52d9b9b5c00c41ff816890d36
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248337"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744126"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -94,7 +94,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
    **HTTP.sys 选项**
 
-   | Property | 说明​​ | 默认 |
+   | 属性 | 说明 | 默认 |
    | -------- | ----------- | :-----: |
    | [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | 控制是否允许 `HttpContext.Request.Body` 和 `HttpContext.Response.Body` 的同步输入/输出。 | `true` |
    | [Authentication.AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | 允许匿名请求。 | `true` |
@@ -135,7 +135,9 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
 ### <a name="configure-windows-server"></a>配置 Windows Server
 
-1. 确定要为应用打开的端口，并使用 Windows 防火墙或 [PowerShell cmdlet](https://technet.microsoft.com/library/jj554906) 打开防火墙端口，以允许流量到达 HTTP.sys。 在部署到 Azure VM 时，在[网络安全组](/azure/virtual-network/security-overview)中打开端口。 在以下命令和应用配置中，使用的是端口 443。
+1. 确定要为应用打开的端口，并使用 [Windows 防火墙](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule)或 [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) PowerShell cmdlet 打开防火墙端口，以允许流量到达 HTTP.sys。 在以下命令和应用配置中，使用的是端口 443。
+
+1. 在部署到 Azure VM 时，在[网络安全组](/azure/virtual-machines/windows/nsg-quickstart-portal)中打开端口。 在以下命令和应用配置中，使用的是端口 443。
 
 1. 如果需要，获取并安装 X.509 证书。
 
@@ -272,5 +274,5 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 * [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
 * [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
-* <xref:fundamentals/host/index>
+* [主机](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 5d72cb214a3d5565452b3b95f364818a71be44b7
-ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
+ms.openlocfilehash: 686397cd25248ce7b37e505c7129a3b56d4ada1b
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55737637"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833756"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>教程：使用 ASP.NET Core MVC 创建 Web API
 
@@ -39,13 +39,13 @@ ms.locfileid: "55737637"
 
 本教程将创建以下 API：
 
-|API | 说明​​ | 请求正文 | 响应正文 |
+|API | 说明 | 请求正文 | 响应正文 |
 |--- | ---- | ---- | ---- |
-|GET /api/todo | 获取所有待办事项 | 无 | 待办事项的数组|
-|GET /api/todo/{id} | 按 ID 获取项 | 无 | 待办事项|
+|GET /api/todo | 获取所有待办事项 | None | 待办事项的数组|
+|GET /api/todo/{id} | 按 ID 获取项 | None | 待办事项|
 |POST /api/todo | 添加新项 | 待办事项 | 待办事项 |
-|PUT /api/todo/{id} | 更新现有项 &nbsp; | 待办事项 | 无 |
-|DELETE /api/todo/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | 无 | 无|
+|PUT /api/todo/{id} | 更新现有项 &nbsp; | 待办事项 | None |
+|DELETE /api/todo/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | None | None|
 
 下图显示了应用的设计。
 
@@ -136,7 +136,7 @@ ms.locfileid: "55737637"
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“模型”的文件夹。
+* 添加名为“Models”的文件夹。
 
 * 使用以下代码将 `TodoItem` 类添加到 Models 文件夹：
 
@@ -349,6 +349,8 @@ ms.locfileid: "55737637"
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Update)]
 
 `PutTodoItem` 与 `PostTodoItem` 类似，但是使用的是 HTTP PUT。 响应是 [204（无内容）](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)。 根据 HTTP 规范，PUT 请求需要客户端发送整个更新的实体，而不仅仅是更改。 若要支持部分更新，请使用 [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute)。
+
+如果在调用 `PutTodoItem` 时出错，请调用 `GET` 以确保数据库中有项目。
 
 ### <a name="test-the-puttodoitem-method"></a>测试 PutTodoItem 方法
 

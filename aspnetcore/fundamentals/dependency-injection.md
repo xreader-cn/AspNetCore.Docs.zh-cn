@@ -4,14 +4,14 @@ author: guardrex
 description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/25/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 5e5b9746da9bbc13a147b807aabfd3d9ab90a0ca
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 5e1522e0819d989a7029c2928c1c33624c1774c7
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410503"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899354"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -179,7 +179,7 @@ public class MyDependency : IMyDependency
 
 ## <a name="framework-provided-services"></a>框架提供的服务
 
-`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 定义了以下服务（具体取决于[配置主机的方式](xref:fundamentals/host/index)）：
+`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 定义了以下服务（具体取决于[配置主机的方式](xref:fundamentals/index#host)）：
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
@@ -253,7 +253,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 
-应使用有作用域的生存期将实体框架上下文添加到服务容器中。 在注册数据库上下文时，通过调用 [AddDbContext](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) 方法自动处理。 使用数据库上下文的服务也应使用有作用域的生存期。
+通常使用[设置了范围的生存期](#service-lifetimes)将实体框架上下文添加到服务容器中，因为 Web 应用数据库操作通常将范围设置为请求。 如果在注册数据库上下文时，<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> 重载未指定生存期，则设置默认生存期范围。 给定生存期的服务不应使用生存期比服务短的数据库上下文。
 
 ## <a name="lifetime-and-registration-options"></a>生存期和注册选项
 

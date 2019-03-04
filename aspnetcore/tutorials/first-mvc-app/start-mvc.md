@@ -5,20 +5,18 @@ description: 了解如何开始使用 ASP.NET Core MVC。
 ms.author: riande
 ms.date: 12/12/2018
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: f0c2351de017de7f4c62021b8f9478603055e9bc
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: c09c06f55c4179e9e2174f0063ab7387b7e4c31b
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410542"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899224"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
-
-https://docs.microsoft.com/en-us/visualstudio/ide/visual-studio-ide?view=vs-2017
 
 本教程介绍构建 ASP.NET Core MVC Web 应用的基础知识。
 
@@ -33,9 +31,6 @@ https://docs.microsoft.com/en-us/visualstudio/ide/visual-studio-ide?view=vs-2017
 在结束时，你会获得可以管理和显示电影数据的应用。
 
 [!INCLUDE[](~/includes/mvc-intro/download.md)]
-
-> [!NOTE]
-> 我们要测试所建议的新的 ASP.NET Core 目录结构是否可用。  如果你有几分钟时间进行练习，来了解当前目录或所建议目录中的 7 个不同主题，请[单击此处来参与调查](https://dpk4xbh5.optimalworkshop.com/treejack/aa11wn82)。
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
@@ -67,18 +62,6 @@ https://docs.microsoft.com/en-us/visualstudio/ide/visual-studio-ide?view=vs-2017
 
 Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名称并选择几个选项后，就拥有了一个可正常运行的应用。 这是一个基本的初学者项目，适合入门使用。
 
-选择 Ctrl+F5 以在非调试模式下运行应用。
-
-* Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。 请注意，地址栏显示 `localhost:port#`，而不显示 `example.com` 之类的内容。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。 在上图中，端口号为 5000。 浏览器中的 URL 显示 `localhost:5000`。 运行应用时，将看到不同的端口号。
-* 使用“Ctrl+F5”启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。
-* 可以从“调试”菜单项中以调试或非调试模式启动应用：
-
-![调试菜单](start-mvc/_static/debug_menu.png)
-
-* 可以通过选择“IIS Express”按钮来调试应用
-
-![IIS Express](start-mvc/_static/iis_express.png)
-
 <!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -98,14 +81,6 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
   * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目。
   * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件。
 
-### <a name="launch-the-app"></a>启动应用
-
-* 按 **Ctrl-F5** 以在不使用调试程序的情况下运行。
-
-  Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `http://localhost:5001`。 地址栏显示 `localhost:port:5001`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Localhost 仅为来自本地计算机的 Web 请求提供服务。
-
-  使用“Ctrl+F5”启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式刷新页面并查看更改。
-
 <!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -121,15 +96,47 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 * 将项目命名为“MvcMovie”，然后选择“创建”。
 
-### <a name="launch-the-app"></a>启动应用
+---  
+<!-- End of VS tabs -->
+
+### <a name="run-the-app"></a>运行应用
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+
+选择 Ctrl+F5 以在非调试模式下运行应用。
+
+[!INCLUDE[](~/includes/trustCertVS.md)]
+
+* Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。 请注意，地址栏显示 `localhost:port#`，而不显示 `example.com` 之类的内容。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。
+* 使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。
+* 可以从“调试”菜单项中以调试或非调试模式启动应用：
+
+  ![调试菜单](start-mvc/_static/debug_menu.png)
+
+* 可以通过选择“IIS Express”按钮来调试应用
+
+  ![IIS Express](start-mvc/_static/iis_express.png)
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
+
+按 Ctrl+F5 以在不使用调试程序的情况下运行。
+
+[!INCLUDE[](~/includes/trustCertVSC.md)]
+
+  Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `https://localhost:5001`。 地址栏显示 `localhost:port:5001`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Localhost 仅为来自本地计算机的 Web 请求提供服务。
+
+  使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式刷新页面并查看更改。
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 选择“运行” > “开始执行(不调试)”以启动应用。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号。
+
+[!INCLUDE[](~/includes/trustCertMac.md)]
 
 * 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。 运行应用时，将看到不同的端口号。
 * 可以从“运行”菜单中以调试或非调试模式启动应用。
 
----  
-<!-- End of VS tabs -->
+------
 
 * 选择“接受”以同意跟踪。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
 
