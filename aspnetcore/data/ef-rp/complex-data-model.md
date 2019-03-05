@@ -423,7 +423,7 @@ public int CourseID { get; set; }
 public Course Course { get; set; }
 ```
 
-一份注册记录面向一门课程，因此存在 `StudentID` FK 属性和 `Student` 导航属性：
+一份注册记录面向一名学生，因此存在 `StudentID` FK 属性和 `Student` 导航属性：
 
 ```csharp
 public int StudentID { get; set; }
