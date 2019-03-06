@@ -2,20 +2,21 @@
 title: 分布式缓存在 ASP.NET Core 中
 author: guardrex
 description: 了解如何使用 ASP.NET Core 分布式缓存来提高应用性能和可伸缩性，尤其是在云或服务器场环境中。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 03/02/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: 7337ee3b823064c942832d8a44e4d4289bc4fd0e
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: a7850e317dfa3b54f1980902b3dcd6b096effa15
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899419"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346114"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>分布式缓存在 ASP.NET Core 中
 
-作者：[Steve Smith](https://ardalis.com/) 和 [Luke Latham](https://github.com/guardrex)
+通过[Luke Latham](https://github.com/guardrex)和[Steve Smith](https://ardalis.com/)
 
 分布式的缓存是由多个应用程序服务器，通常作为对其进行访问的应用程序服务器的外部服务维护共享缓存。 分布式的缓存可以提高性能和可伸缩性的 ASP.NET Core 应用，尤其是当应用程序托管的云服务或服务器场。
 
@@ -41,27 +42,11 @@ ms.locfileid: "56899419"
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
+::: moniker range="< aspnetcore-2.2"
 
 若要使用的 SQL Server 分布式缓存，引用[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)或添加到的包引用[Microsoft.Extensions.Caching.SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)包。
 
 若要使用 Redis 分布式缓存，引用[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)并添加到的包引用[Microsoft.Extensions.Caching.Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis)包。 Redis 包不包括在`Microsoft.AspNetCore.App`包，因此您必须在项目文件中分别引用 Redis 包。
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-若要使用的 SQL Server 分布式缓存，引用[Microsoft.AspNetCore.All 元包](xref:fundamentals/metapackage)或添加到的包引用[Microsoft.Extensions.Caching.SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)包。
-
-若要使用 Redis 分布式缓存，引用[Microsoft.AspNetCore.All 元包](xref:fundamentals/metapackage)或添加到的包引用[Microsoft.Extensions.Caching.Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis)包。 Redis 包包含在`Microsoft.AspNetCore.All`包，因此无需引用在项目文件中单独的 Redis 包。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-若要使用的 SQL Server 分布式缓存中，添加到包引用[Microsoft.Extensions.Caching.SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)包。
-
-若要使用 Redis 分布式缓存中，添加到包引用[Microsoft.Extensions.Caching.Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis)包。
 
 ::: moniker-end
 
@@ -91,26 +76,13 @@ ms.locfileid: "56899419"
 * 在开发和测试方案。
 * 生产和内存消耗情况中使用一台服务器时不会产生问题。 实现分布式内存缓存摘要缓存数据存储。 它允许实现真正的分布式缓存解决方案在将来如果多个节点或容错能力变得非常必要。
 
-示例应用将在开发环境中运行应用时使用的分布式内存缓存：
+示例应用将在开发环境中运行应用时使用的分布式内存缓存`Startup.ConfigureServices`:
 
-[!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_ConfigureServices&highlight=5)]
+[!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedMemoryCache)]
 
 ### <a name="distributed-sql-server-cache"></a>分布式的 SQL 服务器缓存
 
 SQL Server 的分布式缓存实现 (<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>) 允许使用 SQL Server 数据库作为其后备存储分布式的缓存。 若要在 SQL Server 实例中创建的 SQL Server 缓存的项表中，可以使用`sql-cache`工具。 该工具使用名称和指定的架构创建一个表。
-
-::: moniker range="< aspnetcore-2.1"
-
-添加`SqlConfig.Tools`到`<ItemGroup>`元素的项目文件并运行`dotnet restore`。
-
-```xml
-<ItemGroup>
-  <DotNetCliToolReference Include="Microsoft.Extensions.Caching.SqlConfig.Tools"
-                          Version="2.0.2" />
-</ItemGroup>
-```
-
-::: moniker-end
 
 通过运行 SQL Server 中创建一个表`sql-cache create`命令。 提供 SQL Server 实例 (`Data Source`)，数据库 (`Initial Catalog`)，架构 (例如， `dbo`)，以及表名 (例如， `TestCache`):
 
@@ -131,16 +103,28 @@ Table and index were created successfully.
 > [!NOTE]
 > 应用应操作使用的实例的缓存值<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>，而不<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>。
 
-本示例应用实现<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>非开发环境中：
+本示例应用程序实现<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>中的非开发环境中`Startup.ConfigureServices`:
 
-[!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_ConfigureServices&highlight=9-15)]
+[!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedSqlServerCache)]
 
 > [!NOTE]
-> 一个<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*>(和 （可选）<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*>并<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) 通常存储在源代码管理之外 (例如，通过存储[机密管理器](xref:security/app-secrets)中或在*appsettings.json* /*appsettings。{Environment}.json*文件)。 连接字符串可能包含应从源代码管理系统的凭据。
+> 一个<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*>(和 （可选）<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*>并<xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) 通常存储在源代码管理之外 (例如，通过存储[机密管理器](xref:security/app-secrets)中或在*appsettings.json* /*appsettings。{ENVIRONMENT}.json*文件)。 连接字符串可能包含应从源代码管理系统的凭据。
 
 ### <a name="distributed-redis-cache"></a>分布式的 Redis 缓存
 
-[Redis](https://redis.io/)是一种开源的内存中数据存储，通常用作分布式缓存。 您可以使用 Redis 本地，并且您可以配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)Azure 托管 ASP.NET Core 应用。 应用配置缓存实现使用<xref:Microsoft.Extensions.Caching.Redis.RedisCache>实例 (<xref:Microsoft.Extensions.DependencyInjection.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache*>):
+[Redis](https://redis.io/)是一种开源的内存中数据存储，通常用作分布式缓存。 您可以使用 Redis 本地，并且您可以配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)Azure 托管 ASP.NET Core 应用。
+
+::: moniker range=">= aspnetcore-2.2"
+
+应用配置缓存实现使用`RedisCache`实例 (`AddStackExchangeRedisCache`) 中的非开发环境中`Startup.ConfigureServices`:
+
+[!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+应用配置缓存实现使用<xref:Microsoft.Extensions.Caching.Redis.RedisCache>实例 (<xref:Microsoft.Extensions.DependencyInjection.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache*>):
 
 ```csharp
 services.AddDistributedRedisCache(options =>
@@ -149,6 +133,8 @@ services.AddDistributedRedisCache(options =>
     options.InstanceName = "SampleInstance";
 });
 ```
+
+::: moniker-end
 
 若要在本地计算机上安装 Redis:
 
@@ -193,8 +179,8 @@ services.AddDistributedRedisCache(options =>
 
 ## <a name="additional-resources"></a>其他资源
 
-* [Redis 缓存在 Azure 上](https://azure.microsoft.com/documentation/services/redis-cache/)
-* [在 Azure 上的 SQL 数据库](https://azure.microsoft.com/documentation/services/sql-database/)
+* [Redis 缓存在 Azure 上](/azure/azure-cache-for-redis/)
+* [在 Azure 上的 SQL 数据库](/azure/sql-database/)
 * [ASP.NET Core IDistributedCache 提供程序的 Web 场中的 NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([在 GitHub 上的 NCache](https://github.com/Alachisoft/NCache))
 * <xref:performance/caching/memory>
 * <xref:fundamentals/change-tokens>

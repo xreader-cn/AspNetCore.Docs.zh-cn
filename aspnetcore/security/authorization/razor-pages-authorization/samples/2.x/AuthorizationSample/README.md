@@ -2,9 +2,9 @@
 
 此示例演示使用 Razor 页面授权约定。 此示例演示中所述的功能[Razor 页面授权约定](https://docs.microsoft.com/aspnet/core/security/authorization/razor-pages-authorization)主题。
 
-在此示例中的用户授权使用 cookie 身份验证功能中所述[使用 cookie 身份验证，而无需 ASP.NET Core标识](https://docs.microsoft.com/aspnet/core/security/authentication/cookie)主题。 有关使用 ASP.NET Core 标识的信息，请参阅<xref:security/authentication/identity>。
+在此示例中的用户授权使用 cookie 身份验证功能中所述[使用 cookie 身份验证，而无需 ASP.NET Core标识](https://docs.microsoft.com/aspnet/core/security/authentication/cookie)主题。 概念和本主题中所示的示例同样适用于使用 ASP.NET Core 标识的应用。 有关使用 ASP.NET Core 标识的信息，请参阅[在 ASP.NET Core 上的标识简介](https://docs.microsoft.com/aspnet/core/security/authentication/identity)。
 
-运行示例时，使用电子邮件地址**maria.rodriguez@contoso.com**用户进行身份验证。
+使用电子邮件地址**maria.rodriguez@contoso.com**任何密码与用户进行身份验证。 用户进行身份验证中`AuthenticateUser`中的方法*Pages/Account/Login.cshtml.cs*文件。 在实际示例中，用户会根据数据库身份验证。
 
 ## <a name="examples-in-this-sample"></a>此示例中的示例
 

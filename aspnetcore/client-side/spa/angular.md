@@ -5,14 +5,14 @@ description: 了解如何开始使用适用于 Angular 和 Angular CLI 的 ASP.N
 monikerRange: '>= aspnetcore-2.1'
 ms.author: stevesa
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/27/2019
 uid: spa/angular
-ms.openlocfilehash: f33f4b96faf71440c3e8878c0480f2908ace70d1
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 41990be4910ad35cdc2826f268fcbb659be9de75
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899250"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345715"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -90,7 +90,7 @@ npm install --save <package_name>
 
 在开发过程中，应用在为开发人员之便而优化的模式下运行。 例如，JavaScript 捆绑包包含源映射（这样在调试时可以查看原始 TypeScript 代码）。 该应用监视磁盘上的 TypeScript、HTML 和 CSS 文件更改，并在看到这些文件更改时自动重新编译和重新加载。
 
-在生产中，提供针对性能进行了优化的应用版本。 该操作被配置为自动发生。 发布时，生成配置会发出预先 (AoT) 编译的压缩客户端代码版本。 与开发版本不同，生产版本不需要在服务器上安装 Node.js（除非已启用[服务器端预呈现](#server-side-rendering)）。
+在生产中，提供针对性能进行了优化的应用版本。 该操作被配置为自动发生。 发布时，生成配置会发出预先 (AoT) 编译的压缩客户端代码版本。 开发内部版本，与生产版本并不要求 Node.js 安装在服务器上 （除非已启用服务器端呈现 (SSR)）。
 
 你可以使用标准 [ASP.NET Core 托管和部署方法](xref:host-and-deploy/index)。
 

@@ -2,15 +2,15 @@
 title: Azure Active Directory B2C ASP.NET Core 中使用云身份验证
 author: camsoper
 description: 了解如何设置与 ASP.NET Core的 Azure Active Directory B2C 身份验证。
-ms.date: 01/25/2018
+ms.date: 02/27/2019
 ms.custom: mvc
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 2c544475ccd3eb76f2737fec1cf269ac86add372
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 86be999e02cfe34193bd594dcf89e8872590cca5
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098982"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346497"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Azure Active Directory B2C ASP.NET Core 中使用云身份验证
 
@@ -68,7 +68,7 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
 
 在 Visual Studio 中：
 
-1. 创建新的 ASP.NET Core Web 应用程序。 
+1. 创建新的 ASP.NET Core Web 应用呈现。 
 2. 选择**Web 应用程序**从模板列表。
 3. 选择**更改身份验证**按钮。
     
@@ -104,6 +104,30 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
 
 > [!WARNING]
 > 确保策略名称完全按照说明在文档中，并与这些策略中使用**更改身份验证**Visual Studio 中的对话框。 可以在中验证的策略名称*appsettings.json*。
+
+## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>配置基础 OpenIdConnectOptions/JwtBearer/Cookie 选项
+
+若要直接配置的基础的选项，请使用中的相应方案常量`Startup.ConfigureServices`:
+
+```csharp
+services.Configure<OpenIdConnectOptions>(
+    AzureAD[B2C]Defaults.OpenIdScheme, options => 
+    {
+        // Omitted for brevity
+    });
+
+services.Configure<CookieAuthenticationOptions>(
+    AzureAD[B2C]Defaults.CookieScheme, options => 
+    {
+        // Omitted for brevity
+    });
+
+services.Configure<JwtBearerOptions>(
+    AzureAD[B2C]Defaults.JwtBearerAuthenticationScheme, options => 
+    {
+        // Omitted for brevity
+    });
+```
 
 ## <a name="run-the-app"></a>运行应用
 

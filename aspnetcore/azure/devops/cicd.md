@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: seodec18
 uid: azure/devops/cicd
-ms.openlocfilehash: e5bddde41291c9573f58d749bbf830de9ea9319d
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 906aae3fd4b4abd0becc8847b0f54c372bda300a
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121582"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346302"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和部署
 
@@ -60,9 +60,9 @@ ms.locfileid: "53121582"
 
     ![过渡 Web 应用搜索词](media/cicd/portal-search-box.png)
 
-1. 单击**部署选项**。 将显示新面板。 单击**断开连接**来删除已添加在上一章中的本地 Git 源控件配置。 通过单击确认删除操作**是**按钮。
+1. 单击**部署中心**。 将显示新面板。 单击**断开连接**来删除已添加在上一章中的本地 Git 源控件配置。 通过单击确认删除操作**是**按钮。
 1. 导航到*mywebapp < unique_number >* 应用服务。 请注意，可以使用门户的搜索框中快速找到应用服务。
-1. 单击**部署选项**。 将显示新面板。 单击**断开连接**来删除已添加在上一章中的本地 Git 源控件配置。 通过单击确认删除操作**是**按钮。
+1. 单击**部署中心**。 将显示新面板。 单击**断开连接**来删除已添加在上一章中的本地 Git 源控件配置。 通过单击确认删除操作**是**按钮。
 
 ## <a name="create-an-azure-devops-organization"></a>创建 Azure DevOps 组织
 
@@ -262,7 +262,7 @@ ms.locfileid: "53121582"
 
 ![屏幕截图显示发布管道任务](media/cicd/release-definition-tasks.png)
 
-发布管道的两个任务组成：*将 Azure 应用服务部署槽*并*管理 Azure 应用服务-槽交换*。 单击第一个任务将显示下面的任务配置：
+发布管道包括两个任务：*将 Azure 应用服务部署到槽*并*管理 Azure 应用服务-槽交换*。 单击第一个任务将显示下面的任务配置：
 
 ![屏幕截图显示发布管道部署任务](media/cicd/release-definition-task1.png)
 

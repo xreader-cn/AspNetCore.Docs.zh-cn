@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何作为一种标准允许或拒绝在 ASP.NET Core 应用中的跨域请求的 CORS。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/08/2019
+ms.date: 02/27/2019
 uid: security/cors
-ms.openlocfilehash: bc3a0883043a4d6fa33c1ff76fcb7be457b6b840
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: eb8dd3b1c96d9060b0164dcd4d0fbe004ed4af84
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899341"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346367"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -56,7 +56,7 @@ CORS 中间件处理跨域请求。 下面的代码指定原点整个应用启�
 
 前面的代码：
 
-* 设置为"_myAllowSpecificOrigins"的策略名称。 策略名称是任意的。
+* 策略名称设置为"\_myAllowSpecificOrigins"。 策略名称是任意的。
 * 调用<xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*>扩展方法，使内核。
 * 调用<xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*>与[lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)。 Lambda 采用<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder>对象。 [配置选项](#cors-policy-options)，如`WithOrigins`，本文稍后介绍。
 
@@ -70,9 +70,26 @@ CORS 中间件处理跨域请求。 下面的代码指定原点整个应用启�
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup2.cs?name=snippet2)]
 
-以下突出显示的代码适用于所有应用程序终结点通过 CORS 策略[CORS 中间件](#enable-cors-with-cors-middleware):
+以下突出显示的代码适用于所有应用程序终结点通过 CORS 中间件的 CORS 策略：
 
-[!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet3&highlight=12)]
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseHsts();
+    }
+
+    app.UseCors(); 
+
+    app.UseHttpsRedirection();
+    app.UseMvc();
+}
+```
 
 请参阅[Razor 页面、 控制器和操作方法中启用 CORS](#ecors)要应用页/控制器/操作级的 CORS 策略。
 
