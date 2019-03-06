@@ -1,0 +1,3 @@
+# <a name="aspnet-core-response-cache-sample"></a><span data-ttu-id="27165-101">ASP.NET Core 响应缓存示例</span><span class="sxs-lookup"><span data-stu-id="27165-101">ASP.NET Core Response Cache Sample</span></span>
+
+<span data-ttu-id="27165-102">本示例演示如何在 ASP.NET Core 中随附的响应缓存的使用情况[在 ASP.NET Core 响应缓存](https://docs.microsoft.com/aspnet/core/performance/caching/response)。</span><span class="sxs-lookup"><span data-stu-id="27165-102">This sample illustrates the usage of response caching in ASP.NET Core to accompany [Response caching in ASP.NET Core](https://docs.microsoft.com/aspnet/core/performance/caching/response).</span></span>
