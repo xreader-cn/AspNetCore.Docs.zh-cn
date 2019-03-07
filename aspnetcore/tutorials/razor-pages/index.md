@@ -5,12 +5,6 @@ description: 使用 Visual Studio、ASP.NET Core 和 EF Core 创建 Razor 页面
 ms.author: riande
 ms.date: 09/08/2017
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: c543e86b58b37a120df22331043944757beeca3a
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410055"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
 
@@ -32,3 +26,7 @@ ms.locfileid: "56410055"
 结束时，你将有一个应用来显示和管理电影数据库。
 
 ![示例应用的示例页面](index/_static/sample-page.png)
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)

@@ -6,18 +6,13 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/Index
-ms.openlocfilehash: 58840d6ecd09bd2ae7f96c046a0cb93c018f9645
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325479"
 ---
+
 # <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core 内置标记帮助程序
 
 作者：[Peter Kellner](http://peterkellner.net)
 
-有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 > [!NOTE]
 > 内置的标记帮助程序未在文档中描述。 [Razor](xref:mvc/views/razor) 视图引擎在内部使用这些标记帮助程序。 这包括针对扩展到网站根路径的 `~`（波浪号）字符所适用的标记帮助程序。
@@ -35,6 +30,8 @@ ms.locfileid: "49325479"
 [comment]: **[FormActionTagHelper](xref:mvc/views/tag-helpers/builtin-th/form-action-tag-helper)**
 
 **[表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)**
+
+**[窗体操作标记帮助程序](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
 
 **[图像标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)**
 

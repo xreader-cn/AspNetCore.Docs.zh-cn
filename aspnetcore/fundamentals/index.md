@@ -4,7 +4,7 @@ author: rick-anderson
 description: 了解生成 ASP.NET Core 应用的基础概念。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/14/2019
+ms.date: 03/02/2019
 uid: fundamentals/index
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
@@ -83,7 +83,7 @@ ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源
 
 ::: moniker range="<= aspnetcore-2.2"
 
-ASP.NET Core 2.x 使用适用于 Web 应用的 Web 主机（`WebHost` 类）。 该框架提供了 `CreateDefaultBuilder` 扩展方法，用于设置具有常用选项的主机，例如：
+ASP.NET Core 2.x 使用适用于 Web 应用的 Web 主机（`WebHost` 类）。 该框架提供了 `CreateDefaultBuilder`，用于设置具有常用选项的主机，例如：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
 * 从 appsettings.json、环境变量、命令行参数和其他源加载配置。
@@ -105,13 +105,13 @@ ASP.NET Core 2.x 使用适用于 Web 应用的 Web 主机（`WebHost` 类）。 
 
 在 ASP.NET Core 3.0 中，可在 Web 应用中使用 Web 主机（`WebHost` 类）或泛型主机（`Host` 类）。 建议使用泛型主机，并且 Web 主机可提供后向兼容性。
 
-该框架提供了 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 扩展方法，用于设置具有常用选项的主机，例如：
+该框架提供了 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法，用于设置具有常用选项的主机，例如：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
 * 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数中加载配置。
 * 将日志记录输出发送到控制台并调试提供程序。
 
-以下是构建主机的示例代码。 将突出显示使用常用选项设置主机的扩展方法。
+以下是构建主机的示例代码。 使用常用选项设置主机的这些方法已突出显示。
 
 [!code-csharp[](index/snapshots/3.x/Program1.cs?highlight=9-10)]
 

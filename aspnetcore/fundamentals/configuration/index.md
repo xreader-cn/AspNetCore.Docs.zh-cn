@@ -4,7 +4,7 @@ author: guardrex
 description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/25/2019
+ms.date: 03/04/2019
 uid: fundamentals/configuration/index
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
@@ -128,7 +128,26 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 
 应用启动后，在更改基础设置文件时，文件配置提供程序可以重载配置。 本主题后面将介绍文件配置提供程序。
 
-应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。
+应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 <xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 以获取以下类的配置：
+
+```csharp
+// using Microsoft.Extensions.Configuration;
+
+public class IndexModel : PageModel
+{
+    private readonly IConfiguration _config;
+
+    public IndexModel(IConfiguration config)
+    {
+        _config = config;
+    }
+        
+    // The _config local variable is used to obtain configuration 
+    // throughout the class.
+}
+```
+
+配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。
 
 配置键采用以下约定：
 
@@ -256,6 +275,8 @@ public void ConfigureServices(IServiceCollection services)
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
 
 ::: moniker-end
+
+在应用启动期间，可以使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中提供给应用的配置，包括 `Startup.ConfigureServices`。 有关详细信息，请参阅[在启动期间访问配置](#access-configuration-during-startup)部分。
 
 ## <a name="command-line-configuration-provider"></a>命令行配置提供程序
 
@@ -513,7 +534,7 @@ public static void Main(string[] args)
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 键       | 值             |
+| 键       | “值”             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -1305,10 +1326,29 @@ var host = new WebHostBuilder()
 
 [ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从具有指定键的配置中提取一个值，并将其转换为指定类型。 如果未找到该键，则过载允许你提供默认值。
 
-以下示例使用键 `NumberKey` 从配置中提取字符串值，键入该值作为 `int`，并将值存储在变量 `intValue` 中。 如果在配置键中找不到 `NumberKey`，则 `intValue` 会接收 `99` 的默认值：
+如下示例中：
+
+* 使用键 `NumberKey` 从配置中提取字符串值。 如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。
+* 键入值作为 `int`。
+* 存储 `NumberConfig` 属性中的值，以供页面使用。
 
 ```csharp
-var intValue = config.GetValue<int>("NumberKey", 99);
+// using Microsoft.Extensions.Configuration;
+
+public class IndexModel : PageModel
+{
+    public IndexModel(IConfiguration config)
+    {
+        _config = config;
+    }
+    
+    public int NumberConfig { get; private set; }
+        
+    public void OnGet()
+    {
+        NumberConfig = _config.GetValue<int>("NumberKey", 99);
+    }
+}
 ```
 
 ## <a name="getsection-getchildren-and-exists"></a>GetSection、GetChildren 和 Exists
