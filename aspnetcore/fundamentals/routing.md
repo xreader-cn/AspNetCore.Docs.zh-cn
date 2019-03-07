@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 3dbb2d358ec9e3dcdd96c3771576911d906d796f
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 622f28f3b4348820c8781e0ba14ae5137136e797
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248428"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346562"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -193,7 +193,7 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
 
 对任何类型的地址，<xref:Microsoft.AspNetCore.Routing.LinkGenerator> 提供的方法均支持标准链接生成功能。 使用链接生成器的最简便方法是通过扩展方法对特定地址类型执行操作。
 
-| 扩展方法   | 说明​​                                                         |
+| 扩展方法   | 说明                                                         |
 | ------------------ | ------------------------------------------------------------------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | 根据提供的值生成具有绝对路径的 URI。 |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | 根据提供的值生成绝对 URI。             |
@@ -583,7 +583,7 @@ routes.MapRoute(
 | `{Page=Home}`                            | `/Contact`              | 匹配并将 `Page` 设置为 `Contact`。                                      |
 | `{controller}/{action}/{id?}`            | `/Products/List`        | 映射到 `Products` 控制器和 `List` 操作。                       |
 | `{controller}/{action}/{id?}`            | `/Products/Details/123` | 映射到 `Products` 控制器和 `Details` 操作（`id` 设置为 123）。 |
-| `{controller=Home}/{action=Index}/{id?`} | `/`                     | 映射到 `Home` 控制器和 `Index` 方法（忽略 `id`）。        |
+| `{controller=Home}/{action=Index}/{id?}` | `/`                     | 映射到 `Home` 控制器和 `Index` 方法（忽略 `id`）。        |
 
 使用模板通常是进行路由最简单的方法。 还可在路由模板外指定约束和默认值。
 
