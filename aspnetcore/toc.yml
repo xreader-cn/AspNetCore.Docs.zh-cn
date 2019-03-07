@@ -326,6 +326,8 @@ items:
     name: 比较 SignalR 和 SignalR Core
   - uid: fundamentals/websockets
     name: 不使用 SignalR 的 WebSocket
+  - uid: signalr/diagnostics
+    name: 日志记录和诊断
 - name: 测试、调试和疑难解答
   items:
   - name: 单元测试
@@ -606,6 +608,8 @@ items:
     items:
     - uid: security/authentication/identity
       name: 标识简介
+    - uid: security/authentication/identity/spa
+      name: 使用 SPA 标识
     - uid: security/authentication/scaffold-identity
       name: 基架标识
     - uid: security/authentication/add-user-data
@@ -638,6 +642,8 @@ items:
         name: 其他提供程序
       - uid: security/authentication/social/additional-claims
         name: 其他声明
+    - uid: security/authentication/policyschemes
+      name: 策略方案
     - uid: security/authentication/ws-federation
       name: WS 联合身份验证
     - uid: security/authentication/accconfirm
@@ -814,6 +820,8 @@ items:
   items:
   - uid: fundamentals/middleware/write
     name: 编写中间件
+  - uid: fundamentals/middleware/request-response
+    name: 请求和响应 Cookie
   - uid: fundamentals/url-rewriting
     name: URL 重写
   - uid: fundamentals/file-providers
@@ -880,9 +888,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: e55cfa30103c2a89007f2bc5e9d133dea7f8c6d5
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 51fa497e0de917536dc37684cdebc60dec4c19a5
+ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743993"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57400692"
