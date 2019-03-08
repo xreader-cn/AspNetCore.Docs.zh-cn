@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/04/2018
 uid: client-side/using-gulp
-ms.openlocfilehash: e280eabecbd427f3e1418b3d7a60e0ea3df46a5a
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 43277dc5910971374187f49031e74769c9e29e1f
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450601"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665621"
 ---
 # <a name="use-gulp-in-aspnet-core"></a>在 ASP.NET Core 中使用 Gulp
 
@@ -25,7 +25,7 @@ ms.locfileid: "52450601"
 * 将 CoffeeScript 或 TypeScript 文件编译成 JavaScript。
 
 
-任务运行程序是一种自动执行这些常规开发任务和其他任务的工具。 Visual Studio 为下述两种常用的基于 JavaScript 的任务运行程序提供内置支持：[Gulp](https://gulpjs.com/) 和 [Grunt](using-grunt.md)。
+任务运行程序是一种自动执行这些常规开发任务和其他任务的工具。 Visual Studio 为两个常用的基于 JavaScript 的任务运行程序提供的内置支持：[Gulp](https://gulpjs.com/)并[Grunt](using-grunt.md)。
 
 ## <a name="gulp"></a>Gulp
 
@@ -59,11 +59,11 @@ paths.concatCssDest = paths.webroot + "css/site.min.css";
 
 | 模块名 | 描述 |
 | ----------- | ----------- |
-| Gulp        | Gulp 流式处理生成系统。 有关详细信息，请参阅[gulp](https://www.npmjs.com/package/gulp)。 |
+| gulp        | Gulp 流式处理生成系统。 有关详细信息，请参阅[gulp](https://www.npmjs.com/package/gulp)。 |
 | rimraf      | 节点删除模块。 有关详细信息，请参阅[rimraf](https://www.npmjs.com/package/rimraf)。 |
-| gulp concat | 连接基于操作系统的换行字符的文件的模块。 有关详细信息，请参阅[gulp concat](https://www.npmjs.com/package/gulp-concat)。 |
+| gulp-concat | 连接基于操作系统的换行字符的文件的模块。 有关详细信息，请参阅[gulp concat](https://www.npmjs.com/package/gulp-concat)。 |
 | gulp-cssmin | 缩减 CSS 文件的模块。 有关详细信息，请参阅[gulp cssmin](https://www.npmjs.com/package/gulp-cssmin)。 |
-| gulp 丑化 | 一个模块，缩减 *.js*文件。 有关详细信息，请参阅[gulp 丑化](https://www.npmjs.com/package/gulp-uglify)。 |
+| gulp-uglify | 一个模块，缩减 *.js*文件。 有关详细信息，请参阅[gulp 丑化](https://www.npmjs.com/package/gulp-uglify)。 |
 
 一旦导入必要模块，可以指定任务。 此处有六个任务注册，通过以下代码表示：
 
@@ -338,7 +338,7 @@ Gulp 任务已注册到函数名称。 如果当前任务之前必须运行其�
 |src   |`gulp.src(globs[, options]) { }`|`src`函数提供了与 glob 值匹配的文件。 `glob`参数是`string`或`array`，它确定哪些文件读取。 `options`参数提供了附加文件选项。|
 |dest  |`gulp.dest(path[, options]) { }`|`dest`函数用于定义要向其写入文件的位置。 `path`参数是字符串或函数，用于确定目标文件夹。 `options`参数是一个对象，指定输出文件夹选项。|
 
-有关其他 Gulp API 参考信息，请参阅[Gulp Docs API](https://github.com/gulpjs/gulp/blob/master/docs/API.md)。
+有关其他 Gulp API 参考信息，请参阅[Gulp Docs API](https://gulpjs.org/API.html)。
 
 ## <a name="gulp-recipes"></a>Gulp 脚本
 

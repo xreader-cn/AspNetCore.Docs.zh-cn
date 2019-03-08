@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: be4812487c92a16c44e3983b234bc9e31be65190
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: c2bc626b2dd341dda878a151def6b405884357d7
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410384"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665397"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -72,7 +72,7 @@ ms.locfileid: "56410384"
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=40-41,50-55,63-65,72)]
 
-每个处理程序均通过调用 `services.AddSingleton<IAuthorizationHandler, YourHandlerClass>();` 添加到服务集合。
+前面的代码中注册`MinimumAgeHandler`作为单一实例通过调用`services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`。 可以使用任何内置注册处理程序[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)。
 
 ## <a name="what-should-a-handler-return"></a>处理程序应返回什么？
 

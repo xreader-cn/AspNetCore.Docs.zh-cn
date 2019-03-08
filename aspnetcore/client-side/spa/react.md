@@ -5,14 +5,14 @@ description: 了解如何开始使用适用于 React 和 create-react-app 的 AS
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 3b2b2e67b5d577872bafefef5624a13ca1a22449
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 7b07f696ae071531c88c9f8cf528fc6f0bf97b46
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899172"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665554"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 
@@ -105,3 +105,7 @@ npm install --save <package_name>
 
 > [!IMPORTANT]
 > "服务器端呈现"不是此模板的受支持的功能。 我们使用此模板的目标是以满足与"创建-react-应用程序"的奇偶校验。 在这种情况下，方案和功能不包括"创建-react-应用程序"项目 （如 SSR) 中不受支持，留给大家练练手的用户。
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:security/authentication/identity/spa>

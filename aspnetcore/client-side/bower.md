@@ -6,19 +6,19 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
-ms.openlocfilehash: 06edf7ee791aac0984ff71c2f243f61093f0d503
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570017"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665608"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>管理 ASP.NET Core 中的 Bower 的客户端包
 
-通过[Rick Anderson](https://twitter.com/RickAndMSFT)， [Noel 大米](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/)，和[Scott Addie](https://scottaddie.com)
+通过[Rick Anderson](https://twitter.com/RickAndMSFT)， [Noel 大米](https://twitter.com/noelrice1)，和[Scott Addie](https://scottaddie.com)
 
 > [!IMPORTANT]
-> 而维护 Bower，其维护人员建议使用另一种解决方案。 [库管理器](https://blogs.msdn.microsoft.com/webdev/2018/04/18/what-happened-to-bower/)(简称 LibMan) 是 Visual Studio 的新客户端库获取工具 (Visual Studio 15.8 或更高版本)。 有关详细信息，请参阅 <xref:client-side/libman/index> 。 Bower 在 Visual Studio 中受支持版本 15.5 通过。
+> 而维护 Bower，其维护人员建议使用另一种解决方案。 [库管理器](https://blogs.msdn.microsoft.com/webdev/2018/04/18/what-happened-to-bower/)(简称 LibMan) 是 Visual Studio 的新客户端库获取工具 (Visual Studio 15.8 或更高版本)。 有关详细信息，请参阅 <xref:client-side/libman/index>。 Bower 在 Visual Studio 中受支持版本 15.5 通过。
 >
 > Yarn Webpack 使用是的其中一个受欢迎的替代方法[迁移说明](https://bower.io/blog/2017/how-to-migrate-away-from-bower/)可用。
 
@@ -91,7 +91,7 @@ ms.locfileid: "51570017"
 
 * 创建新的 ASP.NET Core Web 应用程序与**ASP.NET Core Web 应用程序 (.NET Core)** 模板。 选择**空**项目模板，然后单击**确定**。
 
-* 在解决方案资源管理器中右键单击该项目 >**添加新项**，然后选择**Bower 配置文件**。 注意： 一个 *.bowerrc*文件也添加。
+* 在解决方案资源管理器中右键单击该项目 >**添加新项**，然后选择**Bower 配置文件**。 注意:一个 *.bowerrc*文件也添加。
 
 * 打开*bower.json*，并添加 jquery 和启动到`dependencies`部分。 得到*bower.json*文件看起来如下例所示。 版本会随时间变化，可能与下面的图像不匹配。
 
@@ -114,7 +114,7 @@ ms.locfileid: "51570017"
 
 在本部分中，将创建一个 HTML 页，以验证它可以访问已部署的包。
 
-* 添加一个名为的新 HTML 页*Index.html*到*wwwroot*文件夹。 注意： 您必须将添加到 HTML 文件*wwwroot*文件夹。 默认情况下，静态内容不能提供外部*wwwroot*。 请参阅[静态文件](xref:fundamentals/static-files)有关详细信息。
+* 添加一个名为的新 HTML 页*Index.html*到*wwwroot*文件夹。 注意:必须将添加到 HTML 文件*wwwroot*文件夹。 默认情况下，静态内容不能提供外部*wwwroot*。 请参阅[静态文件](xref:fundamentals/static-files)有关详细信息。
 
   内容替换为*Index.html*使用以下标记：
 
