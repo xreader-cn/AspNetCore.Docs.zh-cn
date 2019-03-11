@@ -286,7 +286,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 1. 使用“运行时和托管捆绑包”链接下载安装程序。
 
 > [!WARNING]
-> 某些安装程序包含已到达其生命周期结束 (EOL) 且不再受 Microsoft 支持的发行版本。 有关详细信息，请参阅[支持策略](https://www.microsoft.com/net/download/dotnet-core/2.0)。
+> 某些安装程序包含已到达其生命周期结束 (EOL) 且不再受 Microsoft 支持的发行版本。 有关详细信息，请参阅[支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。
 
 ### <a name="install-the-hosting-bundle"></a>安装托管捆绑包
 

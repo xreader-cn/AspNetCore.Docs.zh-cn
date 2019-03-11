@@ -120,7 +120,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ### <a name="install-the-preview-site-extension"></a>安装预览站点扩展
 
-如果使用预览站点扩展时遇到问题，请在 [GitHub](https://github.com/aspnet/azureintegration/issues/new) 上打开相应的问题。
+如果无法使用预览版站点扩展，请提出 [aspnet/AspNetCore 问题](https://github.com/aspnet/AspNetCore/issues)。
 
 1. 从 Azure 门户导航到“应用服务”。
 1. 选择 Web 应用。

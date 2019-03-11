@@ -6,12 +6,6 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
-ms.openlocfilehash: cc881ff42d57ab1654f492a70006a995939e4844
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 12/20/2018
-ms.locfileid: "53709543"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -173,7 +167,7 @@ Index.cshtml 文件包含以下标记来创建每个联系人项的编辑链接�
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `http://localhost:5000/Edit/1`。
+[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `http://localhost:5000/Edit/1`。 使用 `asp-area` 属性指定区域。 有关更多信息，请参见<xref:mvc/controllers/areas>。
 
 Pages/Edit.cshtml 文件：
 
@@ -388,7 +382,7 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 
 页面的 URL 生成支持相对名称。 下表显示了 Pages/Customers/Create.cshtml 中不同的 `RedirectToPage` 参数选择的索引页：
 
-| RedirectToPage(x)| 页 |
+| RedirectToPage(x)| 页面 |
 | ----------------- | ------------ |
 | RedirectToPage("/Index") | *Pages/Index* |
 | RedirectToPage("./Index"); | *Pages/Customers/Index* |
@@ -400,6 +394,14 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 构建结构复杂的站点时，相对名称链接很有用。 如果使用相对名称链接文件夹中的页面，则可以重命名该文件夹。 所有链接仍然有效（因为这些链接未包含此文件夹名称）。
 
 ::: moniker range=">= aspnetcore-2.1"
+
+若要重定向到不同[区域](xref:mvc/controllers/areas)中的页面，请指定区域：
+
+```csharp
+RedirectToPage("/Index", new { area = "Services" });
+```
+
+有关更多信息，请参见<xref:mvc/controllers/areas>。
 
 ## <a name="viewdata-attribute"></a>ViewData 特性
 
@@ -547,6 +549,7 @@ services.AddMvc()
 
 * <xref:index>
 * <xref:mvc/views/razor>
+* <xref:mvc/controllers/areas>
 * <xref:tutorials/razor-pages/razor-pages-start>
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:razor-pages/razor-pages-conventions>
