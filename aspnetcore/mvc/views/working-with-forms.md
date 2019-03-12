@@ -4,18 +4,18 @@ author: rick-anderson
 description: 介绍与表单配合使用的内置标记帮助程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/11/2019
+ms.date: 02/27/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: cd15c641fbf702071bd57510a1d51737f6ab8e19
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: a0fbeac51bd1bfbc50c4d369a479ce5f3091358b
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099008"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346250"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Dave Paquette](https://twitter.com/Dave_Paquette) 和 [Jerrie Pelser](https://github.com/jerriep)
+作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[N. Taylor Mullen](https://github.com/NTaylorMullen)、[Dave Paquette](https://twitter.com/Dave_Paquette) 和 [Jerrie Pelser](https://github.com/jerriep)
 
 本文档演示如何使用表单和表单中常用的 HTML 元素。 HTML [Form](https://www.w3.org/TR/html401/interact/forms.html) 元素提供 Web 应用用于向服务器回发数据的主要机制。 本文档的大部分内容介绍[标记帮助程序](tag-helpers/intro.md)及其如何帮助高效创建可靠的 HTML 表单。 建议在阅读本文档前先阅读[标记帮助程序简介](tag-helpers/intro.md)。
 
@@ -66,6 +66,98 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 
 >[!NOTE]
 >使用内置模板时，`returnUrl` 仅会在用户尝试访问授权资源，但未验证身份或未获得授权的情况下自动填充。 如果尝试执行未经授权的访问，安全中间件会使用 `returnUrl` 集将用户重定向至登录页。
+
+## <a name="the-form-action-tag-helper"></a>窗体操作标记帮助程序
+
+窗体操作标记帮助程序在生成的 `<button ...>` 或 `<input type="image" ...>` 标记上生成 `formaction` 属性。 `formaction` 属性控制窗体在何处提交数据。 它绑定到 `image` 类型的 [\<input>](https://www.w3.org/wiki/HTML/Elements/input) 元素以及 [\<button>](https://www.w3.org/wiki/HTML/Elements/button) 元素。 窗体操作标记帮助程序允许使用多个 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)`asp-` 属性来控制为相应元素生成的 `formaction` 链接。
+
+用于控制 `formaction` 值的受支持的 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性：
+
+|特性|说明|
+|---|---|
+|[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|控制器的名称。|
+|[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|操作方法的名称。|
+|[asp-area](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|区域名称。|
+|[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Razor Page 的名称。|
+|[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Razor Page 处理程序的名称。|
+|[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|路由的名称。|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如 `asp-route-id="1234"`。|
+|[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|所有路由值。|
+|[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|URL 片段。|
+
+### <a name="submit-to-controller-example"></a>提交到控制器示例
+
+选中输入或按钮时，下面的标记将窗体提交到 `HomeController` 的 `Index` 操作：
+
+```cshtml
+<form method="post">
+    <button asp-controller="Home" asp-action="Index">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-controller="Home" 
+                                asp-action="Index" />
+</form>
+```
+
+以前的标记将生成以下 HTML：
+
+```html
+<form method="post">
+    <button formaction="/Home">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home" />
+</form>
+```
+
+### <a name="submit-to-page-example"></a>提交到页示例
+
+以下标记将窗体提交到 `About` Razor Page：
+
+```cshtml
+<form method="post">
+    <button asp-page="About">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-page="About" />
+</form>
+```
+
+以前的标记将生成以下 HTML：
+
+```html
+<form method="post">
+    <button formaction="/About">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/About" />
+</form>
+```
+
+### <a name="submit-to-route-example"></a>提交到路由示例
+
+请考虑使用 `/Home/Test` 终结点：
+
+```csharp
+public class HomeController : Controller
+{
+    [Route("/Home/Test", Name = "Custom")]
+    public string Test()
+    {
+        return "This is the test page";
+    }
+}
+```
+
+以下标记将窗体提交到 `/Home/Test` 终结点。
+
+```cshtml
+<form method="post">
+    <button asp-route="Custom">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-route="Custom" />
+</form>
+```
+
+以前的标记将生成以下 HTML：
+
+```html
+<form method="post">
+    <button formaction="/Home/Test">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home/Test" />
+</form>
+```
 
 ## <a name="the-input-tag-helper"></a>输入标记帮助程序
 
@@ -364,7 +456,7 @@ public IActionResult Edit(int id, int colorIndex)
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
 |ValidationSummary.ModelOnly|模型|
-|ValidationSummary.None|无|
+|ValidationSummary.None|None|
 
 ### <a name="sample"></a>示例
 

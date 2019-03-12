@@ -4,14 +4,14 @@ author: rick-anderson
 description: 发现保留请求间会话和应用状态的方法。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2018
+ms.date: 03/04/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: a510e4f49e158203dd7c5e1e0bd28472541f7925
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 2e3591ac1d6b1670b27b1ed9e42f59ba2b956b37
+ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836332"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57400705"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core 中的会话和应用状态
 
@@ -64,7 +64,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 会话状态适用于存储特定于特定会话的用户数据，但该数据无需永久的会话存储。
 * 调用 [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) 实现或者会话过期时，会删除会话数据。
 * 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
-ASP.NET Core MVC 和 Razor 页面模板包括对[一般数据保护条例 (GDPR)](xref:security/gdpr) 的支持。 [会话状态 cookie 不是必需的](xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential)，如果禁用跟踪，则会话状态不起作用。
+ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 的支持。 默认情况下，会话状态 cookie 不标记为“基本”，因此，除非站点访问者允许跟踪，否则会话状态不起作用。 有关更多信息，请参见<xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential>。
 
 > [!WARNING]
 > 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器并清除会话 Cookie。 某些浏览器会保留所有浏览器窗口中的有效会话 Cookie。 会话可能不限于单个用户 - 下一个用户可能继续使用同一会话 Cookie 浏览应用。

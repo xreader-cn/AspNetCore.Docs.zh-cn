@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: cf8733e1e806c4be0c4b217fc45c7a338a03a3ce
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 140f482e136acf4daba1248fecc87e06db6866f3
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207551"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345882"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
 
@@ -42,11 +42,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   * 一个查询用于主查询 
   * 一个查询用于加载树中每个集合“边缘”。
 
-* 使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core会“修复”导航属性。 “修复”是指 EF Core 自动填充导航属性。 与预先加载相比，使用 `Load` 的单独查询更像是显式加载。
+* 使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core 会“修复”导航属性。 “修复”是指 EF Core 自动填充导航属性。 与预先加载相比，使用 `Load` 的单独查询更像是显式加载。
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  请注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
+  注意:EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
 * [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如:
 
@@ -330,6 +330,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 测试应用。 对用户而言，该应用的行为与上一版本相同。
 
 下一个教程将介绍如何更新相关数据。
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本（第 1 部分）](https://www.youtube.com/watch?v=PzKimUDmrvE)
+* [本教程的 YouTube 版本（第 2 部分）](https://www.youtube.com/watch?v=xvDDrIHv5ko)
 
 >[!div class="step-by-step"]
 >[上一页](xref:data/ef-rp/complex-data-model)

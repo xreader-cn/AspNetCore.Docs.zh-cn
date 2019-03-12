@@ -4,14 +4,14 @@ author: guardrex
 description: 获取在 Azure 应用服务和 IIS 上托管 ASP.NET Core 应用的常见错误的故障排除建议。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/21/2019
+ms.date: 02/28/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: d1cdac4d27ee1bc3ebb4329c1bbd3bdacb34a58c
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 1c8cb31b306b38ec17596af0a84f22ca0e3d911c
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743942"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346221"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -56,6 +56,39 @@ ms.locfileid: "56743942"
 疑难解答：
 
 OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文件。 如果在 OS 升级前已安装 ASP.NET Core 模块，且随后在 OS 升级后在 32 位模式下运行任何应用池，则会遇到此问题。 在 OS 升级后修复 ASP.NET Core 模块。 请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。 运行安装程序时，选择“修复”。
+
+## <a name="missing-site-extension-32-bit-x86-and-64-bit-x64-site-extensions-installed-or-wrong-process-bitness-set"></a>缺少站点扩展、安装了 32 位 (x86) 和 64 位 (x64) 站点扩展，或设置了错误的进程位数
+
+适用于 Azure 应用服务托管的应用。
+
+* **浏览器：** HTTP 错误 500.0 - ANCM 进程内处理程序加载失败 
+
+* **应用程序日志：** 调用 hostfxr 以查找进程内请求处理程序失败，未找到任何本机依赖项。 找不到进程内请求处理程序。 调用 hostfxr 捕获的输出：无法找到任何兼容的框架版本。 找不到指定的框架“Microsoft.AspNetCore.App”、版本“{VERSION}-preview-\*”。 未能启动应用程序“/LM/W3SVC/1416782824/ROOT”，ErrorCode“0x8000ffff”。
+
+* **ASP.NET Core 模块 stdout 日志：** 无法找到任何兼容的框架版本。 找不到指定的框架“Microsoft.AspNetCore.App”、版本“{VERSION}-preview-\*”。
+
+::: moniker range=">= aspnetcore-2.2"
+
+* **ASP.NET Core 模块调试日志：** 调用 hostfxr 以查找进程内请求处理程序失败，未找到任何本机依赖项。 这很可能意味着应用配置错误，请检查 Microsoft.NetCore.App 和 Microsoft.AspNetCore.App 版本是否针对该应用程序并安装在计算机上。 返回失败的 HRESULT：0x8000ffff。 找不到进程内请求处理程序。 无法找到任何兼容的框架版本。 找不到指定的框架“Microsoft.AspNetCore.App”、版本“{VERSION}-preview-\*”。
+
+::: moniker-end
+
+疑难解答：
+
+* 如果在预览运行时运行该应用，请安装 32 位 (x86) 或  64位 (x64) 站点扩展，以匹配应用的位数和应用的运行时版本。 请勿同时安装扩展或扩展的多个运行时版本。
+
+  * ASP.NET Core {RUNTIME VERSION} (x86) 运行时
+  * ASP.NET Core {RUNTIME VERSION} (x64) 运行时
+
+  重新启动应用。 等待几秒钟，以便应用重新启动。 
+
+* 如果在预览运行时运行应用，且同时安装了 32 位 (x86) 和 64 位 (x64) [站点扩展](xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension)，请卸载与应用的位数不匹配的站点扩展。 删除站点扩展之后，重新启动应用。 等待几秒钟，以便应用重新启动。
+
+* 如果在预览运行时运行该应用，并且站点扩展的位数匹配应用的位数，请确认预览站点扩展的运行时版本匹配应用的运行时版本。
+
+* 确认“应用程序设置”中的应用“平台”与应用的位数匹配。
+
+有关更多信息，请参见<xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension>。
 
 ## <a name="an-x86-app-is-deployed-but-the-app-pool-isnt-enabled-for-32-bit-apps"></a>已部署 x86 应用，但 32 位应用未启用应用池
 

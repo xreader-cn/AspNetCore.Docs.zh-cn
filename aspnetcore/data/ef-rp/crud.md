@@ -5,12 +5,12 @@ description: 演示如何使用 EF Core 进行创建、读取、更新和删除
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: 4af16bdf3928609214c1255cdd411312c8b7d3f3
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: adb281277599456356251c6ee30772a25f14ac58
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477431"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346045"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
 
@@ -189,7 +189,7 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 
 * `Added`：DB 中尚不存在实体。 `SaveChanges` 方法发出 INSERT 语句。
 
-* `Unchanged`：无需保存对该实体所作的任何更改。 从 DB 中读取实体时，该实体将具有此状态。
+* `Unchanged`：无需保存对该实体所做的任何更改。 从 DB 中读取实体时，该实体将具有此状态。
 
 * `Modified`：已修改实体的部分或全部属性值。 `SaveChanges` 方法发出 UPDATE 语句。
 
@@ -247,6 +247,10 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 每个 Razor 页面均必须包含 `@page` 指令。
 
 ::: moniker-end
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=F0SP7Ry4flQ&list=PLnVvOWNfuhGV45HnNgd0vuIIkoQ1UaVBf)
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/intro)

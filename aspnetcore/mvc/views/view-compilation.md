@@ -5,14 +5,14 @@ description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/02/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 0b6173a7860f5f1d9d11219fbf3f57f76d703031
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 0b3aea584de63cb8032e4ca112d2441349bdfbb3
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899263"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345478"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -38,7 +38,7 @@ ms.locfileid: "56899263"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。 通过配置应用程序，可以选择启用运行时编译
+在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。 通过配置应用程序，可以选择启用运行时编译。
 
 ::: moniker-end
 
@@ -93,7 +93,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文�
 dotnet publish -c Release
 ```
 
-预编译成功后，将生成包含已编译 Razor 文件的 <project_name>.PrecompiledViews.dll 文件。 例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容：
+预编译成功后，将生成包含已编译 Razor 文件的 \<project_name>.PrecompiledViews.dll 文件。 例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容：
 
 ![DLL 中的 Razor 视图](view-compilation/_static/razor-views-in-dll.png)
 
@@ -122,18 +122,19 @@ dotnet publish -c Release
 
 ::: moniker range=">= aspnetcore-3.0"
 
-使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。 要启用运行时编译，应用必须
+使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。 要启用运行时编译，应用必须：
 
 * 安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。
 * 更新应用程序的 `ConfigureServices` 以包含对 `AddMvcRazorRuntimeCompilation` 的调用：
 
-```csharp
-services
-    .AddMvc()
-    .AddMvcRazorRuntimeCompilation()
-```
+  ```csharp
+  services
+      .AddMvc()
+      .AddMvcRazorRuntimeCompilation()
+  ```
 
 要使运行时编译在部署时起作用，应用必须另外修改其项目文件以将 `PreserveCompilationReferences` 设置为 `true`。
+
 [!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
 
 ::: moniker-end

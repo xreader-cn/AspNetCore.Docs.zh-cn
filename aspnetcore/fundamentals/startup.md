@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: cfd0a57d5d0b60862b017a170b6d5cbddf56f15a
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: d629c2f02f9021454d8f8539018f3e2ca4703a00
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56744178"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346393"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -40,7 +40,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 在 `Startup` 类中[注入依赖关系](xref:fundamentals/dependency-injection)的常见用途为注入：
 
 * <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> 按环境配置服务。
-* <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 读取配置。
+* <xref:Microsoft.Extensions.Configuration.IConfiguration> 读取配置。
 * <xref:Microsoft.Extensions.Logging.ILoggerFactory> 在记录器中创建 `Startup.ConfigureServices`。
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
@@ -73,7 +73,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 [ASP.NET Core 模板](/dotnet/core/tools/dotnet-new)配置的管道支持：
 
-* [开发人员异常页](xref:fundamentals/error-handling#the-developer-exception-page)
+* [开发人员异常页](xref:fundamentals/error-handling#developer-exception-page)
 * [异常处理程序](xref:fundamentals/error-handling#configure-a-custom-exception-handling-page)
 * [HTTP 严格传输安全性 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [HTTPS 重定向](xref:security/enforcing-ssl)

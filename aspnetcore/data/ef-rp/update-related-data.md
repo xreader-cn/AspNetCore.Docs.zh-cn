@@ -5,12 +5,12 @@ description: 本教程将通过更新外键字段和导航属性来更新相关�
 ms.author: riande
 ms.date: 11/15/2017
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 4306118240c052585a5c2eeb2053ce03534b547c
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: c3dbfe57a832ba63c5da2f89c0d29e443a1277a7
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207538"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345757"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
 
@@ -197,7 +197,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 运行应用并测试更新的讲师“编辑”页。 更改某些课程分配。 这些更改将反映在“索引”页上。
 
-注意：此处所使用的编辑讲师课程数据的方法适用于数量有限的课程。 对于规模远大于此的集合，则使用不同的 UI 和不同的更新方法会更实用和更高效。
+注意:此处所使用的编辑讲师课程数据的方法适用于数量有限的课程。 对于规模远大于此的集合，则使用不同的 UI 和不同的更新方法会更实用和更高效。
 
 ### <a name="update-the-instructors-create-page"></a>更新讲师“创建”页
 
@@ -224,6 +224,11 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 * 对 `CourseAssignments` 导航属性使用预先加载。 必须包含 `CourseAssignments`，否则删除讲师时将不会删除课程。 为避免阅读它们，可以在数据库中配置级联删除。
 
 * 如果要删除的讲师被指派为任何系的管理员，则需从这些系中删除该讲师分配。
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本（第 1 部分）](https://www.youtube.com/watch?v=Csh6gkmwc9E)
+* [本教程的 YouTube 版本（第 2 部分）](https://www.youtube.com/watch?v=mOAankB_Zgc)
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/read-related-data)

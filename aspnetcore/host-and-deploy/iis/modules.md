@@ -4,14 +4,14 @@ author: guardrex
 description: 了解适用于 ASP.NET Core 应用的活动和非活动 IIS 模块以及如何管理 IIS 模块。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/17/2019
+ms.date: 02/28/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: 8c32a668b3945f0da0194162e19e965b4aed3934
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: e5bb1a86453bb945789cc1f4b56616551e316615
+ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396267"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57400679"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
@@ -36,11 +36,12 @@ ms.locfileid: "54396267"
 | **摘要式身份验证**<br>`DigestAuthenticationModule`                                        | 是 | |
 | **目录浏览**<br>`DirectoryListingModule`                                               | No  | [目录浏览中间件](xref:fundamentals/static-files#enable-directory-browsing) |
 | **动态压缩**<br>`DynamicCompressionModule`                                            | 是 | [响应压缩中间件](xref:performance/response-compression) |
-| **跟踪**<br>`FailedRequestsTracingModule`                                                     | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index#tracesource-provider) |
+| **请求跟踪失败**<br>`FailedRequestsTracingModule`                                     | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index#tracesource-provider) |
 | **文件缓存**<br>`FileCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
 | **HTTP 缓存**<br>`HttpCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
 | **HTTP 日志记录**<br>`HttpLoggingModule`                                                          | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index) |
 | **HTTP 重定向**<br>`HttpRedirectionModule`                                                  | 是 | [URL 重写中间件](xref:fundamentals/url-rewriting) |
+| **HTTP 跟踪**<br>`TracingModule`                                                              | 是 | |
 | **IIS 客户端证书映射身份验证**<br>`IISCertificateMappingAuthenticationModule` | 是 | |
 | **IP 和域限制**<br>`IpRestrictionModule`                                          | 是 | |
 | **ISAPI 筛选器**<br>`IsapiFilterModule`                                                         | 是 | [中间件](xref:fundamentals/middleware/index) |

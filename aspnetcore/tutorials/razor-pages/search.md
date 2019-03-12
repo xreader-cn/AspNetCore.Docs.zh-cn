@@ -5,12 +5,12 @@ description: 演示如何将搜索添加到 ASP.NET Core Razor 页面
 ms.author: riande
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 3900b33f31fef79327d01b0579208355b0bce90c
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 8a8e51632a75efd6411bae46b9a7f9e4f16b480f
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410214"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346195"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>将搜索添加到 ASP.NET Core Razor 页面
 
@@ -105,6 +105,11 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
 
 通过按流派或/和电影标题搜索来测试应用。
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本](https://youtu.be/4B6pHtdyo08)
+
 
 > [!div class="step-by-step"]
 > [上一篇：更新页面](xref:tutorials/razor-pages/da1)

@@ -866,6 +866,7 @@ Application Insights SDK 可收集和报告 ASP.NET Core 日志记录基础结�
 * [Application Insights 概述](/azure/application-insights/app-insights-overview)
 * [用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)
 * [Application Insights 日志记录适配器](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
+* [Application Insights ILogger 实现示例](/azure/azure-monitor/app/ilogger)
 
 ::: moniker-end
 

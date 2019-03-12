@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/07/2018
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 71d68a7ee249c31efa78d98247017e85c009ed8b
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: a6c264e460855c9f1d6f5a363eb7ee2cf69619ee
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997313"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346289"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -306,6 +306,9 @@ dotnet ef database update
 
 * [EF Core 中的并发令牌](/ef/core/modeling/concurrency)
 * [EF Core 中的并发处理](/ef/core/saving/concurrency)
+* [本教程的 YouTube 版本（处理并发冲突）](https://youtu.be/EosxHTFgYps)
+* [本教程的 YouTube 版本（第 2 部分）](https://www.youtube.com/watch?v=kcxERLnaGO0)
+* [本教程的 YouTube 版本（第 3 部分）](https://www.youtube.com/watch?v=d4RbpfvELRs)
 
 > [!div class="step-by-step"]
 > [上一篇](xref:data/ef-rp/update-related-data)
