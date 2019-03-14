@@ -3,14 +3,14 @@ title: 帐户确认和 ASP.NET Core 中的密码恢复
 author: rick-anderson
 description: 了解如何生成使用电子邮件确认及密码重置功能的 ASP.NET Core 应用程序。
 ms.author: riande
-ms.date: 2/11/2019
+ms.date: 3/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 77d7b209d57f9ee44f158798ff780ce85c87aaf2
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 05efb75d26558702c88e87d191a780371034282c
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/13/2019
-ms.locfileid: "56159403"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841470"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>帐户确认和 ASP.NET Core 中的密码恢复
 
@@ -22,7 +22,7 @@ ms.locfileid: "56159403"
 
 ::: moniker range=">= aspnetcore-2.1"
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
+通过[Rick Anderson](https://twitter.com/RickAndMSFT)， [Ponant](https://github.com/Ponant)，和[Joe Audette](https://twitter.com/joeaudette)
 
 本教程演示如何生成 ASP.NET Core 应用使用电子邮件确认及密码重置。 本教程是**不**开头主题。 您应熟悉：
 
@@ -34,45 +34,23 @@ ms.locfileid: "56159403"
 
 ## <a name="prerequisites"></a>系统必备
 
-[!INCLUDE [](~/includes/2.1-SDK.md)]
+[.NET core 2.2 SDK 或更高版本](https://www.microsoft.com/net/download/all)
 
 ## <a name="create-a-web--app-and-scaffold-identity"></a>创建 web 应用并创建标识的基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
-
-* 在 Visual Studio 中，创建一个新**Web 应用程序**名为项目**WebPWrecover**。
-* 选择“ASP.NET Core 2.1”。
-* 保留默认值**身份验证**设置为**无身份验证**。 下一步中添加身份验证。
-
-在下一步：
-
-* 设置布局页为 *~/Pages/Shared/_Layout.cshtml*
-* 选择*帐户/注册*
-* 创建一个新**数据上下文类**
-
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+运行以下命令以创建具有身份验证的 web 应用。
 
 ```console
-dotnet new webapp -o WebPWrecover
+dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
-dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
-dotnet aspnet-codegenerator identity -fi Account.Register -dc WebPWrecover.Models.WebPWrecoverContext
-dotnet ef migrations add CreateIdentitySchema
+dotnet aspnet-codegenerator identity -dc WebPWrecover.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.ConfirmEmail
 dotnet ef database drop -f
 dotnet ef database update
-dotnet build
+dotnet run
+
 ```
-
-运行`dotnet aspnet-codegenerator identity --help`以获取有关基架工具的帮助。
-
-------
-
-按照中的说明[启用身份验证](xref:security/authentication/scaffold-identity#useauthentication):
-
-* 添加`app.UseAuthentication();`到 `Startup.Configure`
-* 添加`<partial name="_LoginPartial" />`布局文件。
 
 ## <a name="test-new-user-registration"></a>测试新的用户注册
 
@@ -91,9 +69,9 @@ dotnet build
 
 你通常想要发布到网站的任何数据，有已确认的电子邮件之前阻止新用户。
 
-更新*Areas/Identity/IdentityHostingStartup.cs*需要确认电子邮件：
+更新`Startup.ConfigureServices`需要确认电子邮件：
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Areas/Identity/IdentityHostingStartup.cs?name=snippet1&highlight=10-13)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
 `config.SignIn.RequireConfirmedEmail = true;` 可防止已注册的用户登录之前确认其电子邮件。
 
@@ -103,13 +81,9 @@ dotnet build
 
 创建一个类来提取的安全电子邮件键。 对于此示例中，创建*Services/AuthMessageSenderOptions.cs*:
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Services/AuthMessageSenderOptions.cs?name=snippet1)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
 #### <a name="configure-sendgrid-user-secrets"></a>配置 SendGrid 用户机密
-
-添加一个唯一`<UserSecretsId>`值设为`<PropertyGroup>`项目文件的元素：
-
-[!code-xml[](accconfirm/sample/WebPWrecover21/WebPWrecover.csproj?highlight=5)]
 
 设置`SendGridUser`并`SendGridKey`与[机密管理器工具](xref:security/app-secrets)。 例如：
 
@@ -120,7 +94,7 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 
 在 Windows 中，机密管理器存储中的键/值对*secrets.json*文件中`%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`目录。
 
-内容*secrets.json*未加密文件。 *Secrets.json*文件如下所示 (`SendGridKey`删除值。)
+内容*secrets.json*未加密文件。 下面的标记演示*secrets.json*文件。 `SendGridKey`删除值。
 
  ```json
   {
@@ -137,7 +111,7 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 
 安装`SendGrid`NuGet 包：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 从包管理器控制台中，输入以下命令：
 
@@ -160,7 +134,7 @@ dotnet add package SendGrid
 
 为实现`IEmailSender`，创建*Services/EmailSender.cs* ，类似于以下代码：
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Services/EmailSender.cs)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>将启动以支持电子邮件配置
 
@@ -169,13 +143,13 @@ dotnet add package SendGrid
 * 添加`EmailSender`作为暂时性服务。
 * 注册`AuthMessageSenderOptions`配置实例。
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Startup.cs?name=snippet2&highlight=12-99)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=15-99)]
 
 ## <a name="enable-account-confirmation-and-password-recovery"></a>启用帐户确认和密码恢复
 
 该模板具有帐户确认和密码恢复的代码。 查找`OnPostAsync`中的方法*Areas/Identity/Pages/Account/Register.cshtml.cs*。
 
-禁止新注册的用户将自动记录通过注释掉以下行：
+阻止新注册的用户自动登录通过注释掉以下行：
 
 ```csharp
 await _signInManager.SignInAsync(user, isPersistent: false);
@@ -183,16 +157,13 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 完整的方法与更改突出显示的行所示：
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
 
 ## <a name="register-confirm-email-and-reset-password"></a>注册、 确认电子邮件，和重置密码
 
 运行 web 应用和测试的帐户确认和密码恢复流。
 
 * 运行应用并注册一个新用户
-
-  ![Web 应用程序帐户注册视图](accconfirm/_static/loginaccconfirm1.png)
-
 * 检查你的帐户确认链接的电子邮件。 请参阅[调试电子邮件](#debug)如果没有收到电子邮件。
 * 单击链接以确认你的电子邮件。
 * 使用你的电子邮件和密码登录。
@@ -202,21 +173,46 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 在浏览器中选择你的用户名：![用户名的浏览器窗口](accconfirm/_static/un.png)
 
-您可能需要展开导航栏以查看用户名称。
-
-![navbar](accconfirm/_static/x.png)
-
 管理页显示与**配置文件**选定的选项卡。 **电子邮件**显示已确认一个复选框，表明该电子邮件。
 
 ### <a name="test-password-reset"></a>测试密码重置
 
-* 如果在登录，请选择**注销**。
+* 如果你要登录，请选择**注销**。
 * 选择**登录**链接，然后选择**忘记了密码？** 链接。
 * 输入用于注册该帐户的电子邮件。
 * 发送一封电子邮件包含用于重置密码的链接。 检查你的电子邮件，并单击链接以重置密码。 已成功重置密码后，你可以使用你的电子邮件和新密码登录。
 
-<a name="debug"></a>
+## <a name="change-email-and-activity-timeout"></a>更改电子邮件和活动的超时值
 
+默认处于非活动状态超时值为 14 天。 下面的代码设置为 5 天的非活动超时：
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAppCookie.cs?name=snippet1)]
+
+### <a name="change-all-data-protection-token-lifespans"></a>更改所有数据保护令牌期限
+
+下面的代码更改为 3 个小时的所有数据保护令牌超时期限：
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
+
+内置中标识的用户令牌 (请参阅[AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) 有[一天超时](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+
+### <a name="change-the-email-token-lifespan"></a>更改电子邮件令牌有效期
+
+默认令牌有效期[标识的用户令牌](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)是[有一天](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。 本部分演示如何更改电子邮件令牌有效期。
+
+添加自定义[DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)和<xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
+
+将自定义提供程序添加到服务容器：
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupEmail.cs?name=snippet1&highlight=10-13)]
+
+### <a name="resend-email-confirmation"></a>重新发送电子邮件确认
+
+请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5410)。
+
+<a name="debug"></a>
 ### <a name="debug-email"></a>调试电子邮件
 
 如果无法获取电子邮件工作：

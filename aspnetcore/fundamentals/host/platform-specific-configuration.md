@@ -2,23 +2,23 @@
 title: 在 ASP.NET Core 中使用承载启动程序集
 author: guardrex
 description: 了解如何使用 IHostingStartup 从外部程序集增强 ASP.NET Core 应用。
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 02/14/2019
+ms.date: 03/10/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: cffad201c84414ee4788877d80d3619a9013ae99
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 6111ae77369608e828eebf6229b5702630bc63f8
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410490"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841457"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Pavel Krymets](https://github.com/pakrym)
 
-通过 [IHostingStartup](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup)（承载启动）实现，在启动时从外部程序集向应用添加增强功能。 例如，外部库可使用承载启动实现为应用提供其他配置提供程序或服务。 ASP.NET Core 2.0 或更高版本中提供了 `IHostingStartup`。
+通过 [IHostingStartup](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup)（承载启动）实现，在启动时从外部程序集向应用添加增强功能。 例如，外部库可使用承载启动实现为应用提供其他配置提供程序或服务。
 
 [查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -40,8 +40,6 @@ ms.locfileid: "56410490"
 
 ## <a name="disable-automatic-loading-of-hosting-startup-assemblies"></a>禁用承载启动程序集的自动加载
 
-::: moniker range=">= aspnetcore-2.1"
-
 要禁用承载启动程序集的自动加载，请使用以下方法之一：
 
 * 要阻止加载所有承载启动程序集，请将以下内容之一设置为 `true` 或 `1`：
@@ -50,17 +48,6 @@ ms.locfileid: "56410490"
 * 要阻止加载特定的承载启动程序集，请将以下之一设置为以分号分隔的承载启动程序集字符串，以便在启动时排除：
   * [承载启动排除程序集](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies)承载配置设置。
   * `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES` 环境变量。
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-要禁用承载启动程序集的自动加载，请将以下之一设置为 `true` 或 `1`：
-
-* [阻止承载启动](xref:fundamentals/host/web-host#prevent-hosting-startup)主机配置设置。
-* `ASPNETCORE_PREVENTHOSTINGSTARTUP` 环境变量。
-
-::: moniker-end
 
 如果同时设置了主机配置设置和环境变量，则主机设置将控制行为。
 
