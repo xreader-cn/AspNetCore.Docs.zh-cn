@@ -5,12 +5,12 @@ description: 如何将验证添加到 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 431715e7c584d3ee381cbafb42171a7c01dddb3a
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 49db8d7c1d3e54f416c66685c19b3a2e3b14251c
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53382051"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665439"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>将验证添加到 ASP.NET Core MVC 应用
 
@@ -59,7 +59,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 明显的好处在于不需要在 `MoviesController` 类或 Create.cshtml 视图中更改单个代码行来启用此验证 UI。 在本教程前面创建的控制器和视图会自动选取验证规则，这些规则是通过在 `Movie` 模型类的属性上使用验证特性所指定的。 使用 `Edit` 操作方法测试验证后，即已应用相同的验证。
 
-存在客户端验证错误时，不会将表单数据发送到服务器。 可通过使用 [Fiddler 工具](http://www.telerik.com/fiddler)或 [F12 开发人员工具](https://developer.microsoft.com/microsoft-edge/platform/documentation/f12-devtools-guide/)在 `HTTP Post` 方法中设置断点来对此进行验证。
+存在客户端验证错误时，不会将表单数据发送到服务器。 可通过使用 [Fiddler 工具](http://www.telerik.com/fiddler)或 [F12 开发人员工具](/microsoft-edge/devtools-guide)在 `HTTP Post` 方法中设置断点来对此进行验证。
 
 ## <a name="how-validation-works"></a>验证工作原理
 
