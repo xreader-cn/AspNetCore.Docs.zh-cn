@@ -4,14 +4,14 @@ author: guardrex
 description: 了解跨平台 ASP.NET Core Web 服务器 Kestrel。
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/04/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: dcf027c2c495cbecd8464e43749b9154a4360e36
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 5fc6c78f3eb76fcf3dd663c8d878250f0051f153
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248402"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665634"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -417,7 +417,18 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 * `http://localhost:5000`
 * `https://localhost:5001`（存在本地开发证书时）
 
-开发证书会创建于以下情况：
+使用以下内容指定 URL：
+
+* `ASPNETCORE_URLS` 环境变量。
+* `--urls` 命令行参数。
+* `urls` 主机配置键。
+* `UseUrls` 扩展方法。
+
+采用这些方法提供的值可以是一个或多个 HTTP 和 HTTPS 终结点（如果默认证书可用，则为 HTTPS）。 将值配置为以分号分隔的列表（例如 `"Urls": "http://localhost:8000;http://localhost:8001"`）。
+
+有关这些方法的详细信息，请参阅[服务器 URL](xref:fundamentals/host/web-host#server-urls) 和[重写配置](xref:fundamentals/host/web-host#override-configuration)。
+
+关于开发证书的创建：
 
 * 安装了 [.NET Core SDK](/dotnet/core/sdk) 时。
 * [dev-certs tool](xref:aspnetcore-2.1#https) 用于创建证书。
@@ -430,7 +441,7 @@ ASP.NET Core 2.1 及更高版本的项目模板将应用配置为默认情况下
 
 `UseUrls`、`--urls` 命令行参数、`urls` 主机配置键以及 `ASPNETCORE_URLS` 环境变量也有用，但具有本节后面注明的限制（必须要有可用于 HTTPS 终结点配置的默认证书）。
 
-ASP.NET Core 2.1 `KestrelServerOptions` 配置：
+ASP.NET Core 2.1 或更高版本 `KestrelServerOptions` 配置：
 
 ### <a name="configureendpointdefaultsactionltlistenoptionsgt"></a>ConfigureEndpointDefaults(Action&lt;ListenOptions&gt;)
 
@@ -484,17 +495,6 @@ ASP.NET Core 2.1 `KestrelServerOptions` 配置：
 *无配置*
 
 Kestrel 在 `http://localhost:5000` 和 `https://localhost:5001` 上进行侦听（如果默认证书可用）。
-
-使用以下内容指定 URL：
-
-* `ASPNETCORE_URLS` 环境变量。
-* `--urls` 命令行参数。
-* `urls` 主机配置键。
-* `UseUrls` 扩展方法。
-
-有关详细信息，请参阅[服务器 URL](xref:fundamentals/host/web-host#server-urls) 和[重写配置](xref:fundamentals/host/web-host#override-configuration)。
-
-采用这些方法提供的值可以是一个或多个 HTTP 和 HTTPS 终结点（如果默认证书可用，则为 HTTPS）。 将值配置为以分号分隔的列表（例如 `"Urls": "http://localhost:8000; http://localhost:8001"`）。
 
 *从配置中替换默认证书*
 
