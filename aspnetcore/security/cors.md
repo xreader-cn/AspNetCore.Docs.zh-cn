@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: security/cors
-ms.openlocfilehash: eb8dd3b1c96d9060b0164dcd4d0fbe004ed4af84
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 6be8b4da1642a9eff021371c229a17071d6e9bfb
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346367"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978466"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -446,11 +446,11 @@ Test message
 
   * 使用 Microsoft Edge:
 
-    **SEC7120: CORS 原点 'https://localhost:44375未找到 https://localhost:44375中在跨域资源的访问控制的允许的源响应标头 https://webapi.azurewebsites.net/api/values/1。**
+    **SEC7120: CORS 原点`https://localhost:44375`找不到`https://localhost:44375`处的跨域资源的访问控制的允许的源响应标头中 `https://webapi.azurewebsites.net/api/values/1`**
 
   * 使用 Chrome:
 
-    **XMLHttpRequest 在访问 https://webapi.azurewebsites.net/api/values/1来源 https://localhost:44375已阻止的 CORS 策略：请求的资源上存在没有访问控制的允许的域标头。**
+    **访问在 XMLHttpRequest`https://webapi.azurewebsites.net/api/values/1`来源`https://localhost:44375`CORS 策略阻止：请求的资源上存在没有访问控制的允许的域标头。**
 
 ## <a name="additional-resources"></a>其他资源
 

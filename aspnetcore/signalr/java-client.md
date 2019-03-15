@@ -5,14 +5,14 @@ description: 了解如何使用 ASP.NET Core SignalR Java 客户端。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
-ms.date: 11/07/2018
+ms.date: 03/14/2019
 uid: signalr/java-client
-ms.openlocfilehash: d0eff38c1f622b896ed1dc3002238aec7b6bfd38
-ms.sourcegitcommit: 8a65f6c2cbe290fb2418eed58f60fb74c95392c8
+ms.openlocfilehash: 09e5ce23ddcc250d212a8cdf1176f39531a9c0ba
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52892089"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978485"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>ASP.NET Core SignalR Java 客户端
 
@@ -49,6 +49,9 @@ implementation 'com.microsoft.signalr:signalr:1.0.0'
 调用`send`调用集线器方法。 将中心方法名称和到中心方法中定义的任何参数传递`send`。
 
 [!code-java[send method](java-client/sample/src/main/java/Chat.java?range=28)]
+
+> [!NOTE]
+> 如果使用 Azure SignalR 服务的*无服务器模式*，不能从客户端调用集线器方法。 有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
 
 ## <a name="call-client-methods-from-hub"></a>从集线器调用客户端方法
 
@@ -105,3 +108,4 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 * <xref:signalr/hubs>
 * <xref:signalr/javascript-client>
 * <xref:signalr/publish-to-azure-web-app>
+* [Azure SignalR 服务无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)
