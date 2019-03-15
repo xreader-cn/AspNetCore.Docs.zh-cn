@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何诊断 ASP.NET Core Azure 应用服务部署问题。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 03/05/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 65a5e355bc15db6de9060331395c441160c8b62d
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: c3732bfab362ec034248eb3912d4b1337c94216e
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341636"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665423"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 
@@ -71,11 +71,56 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 1. 打开“开发工具”区域中的“高级工具”。 选择“转到&rarr;”按钮。 此时将在新的浏览器选项卡或窗口中打开 Kudu 控制台。
 1. 使用页面顶部的导航栏，打开“调试控制台”并选择“CMD”。
-1. 打开路径“site > wwwroot”下的文件夹。
-1. 在控制台中，通过执行应用的程序集来运行该应用。
-   * 如果应用是[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则使用 dotnet.exe 运行应用的程序集。 在以下命令中，替换 `<assembly_name>` 的应用程序集的名称：`dotnet .\<assembly_name>.dll`
-   * 如果应用是[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，则运行应用的可执行文件。 在以下命令中，替换 `<assembly_name>` 的应用程序集的名称：`<assembly_name>.exe`
-1. 来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+
+#### <a name="test-a-32-bit-x86-app"></a>测试 32 位 (x86) 应用
+
+##### <a name="current-release"></a>当前版本
+
+1. `cd d:\home\site\wwwroot`
+1. 运行应用：
+   * 如果应用是[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
+
+     ```console
+     dotnet .\{ASSEMBLY NAME}.dll
+     ```
+   * 如果应用是[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)：
+
+     ```console
+     {ASSEMBLY NAME}.exe
+     ```
+   
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+   
+##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
+
+必须安装 ASP.NET Core {VERSION} (x86) 运行时站点扩展。
+
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`（`{X.Y}` 是运行时版本）
+1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+
+#### <a name="test-a-64-bit-x64-app"></a>测试 64 位 (x64) 应用
+
+##### <a name="current-release"></a>当前版本
+
+* 如果应用是 64 位 (x64) [依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
+  1. `cd D:\Program Files\dotnet`
+  1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+* 如果应用是[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)：
+  1. `cd D:\home\site\wwwroot`
+  1. 运行应用：`{ASSEMBLY NAME}.exe`
+
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
+
+##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
+
+必须安装 ASP.NET Core {VERSION} (x64) 运行时站点扩展。
+
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64`（`{X.Y}` 是运行时版本）
+1. 运行应用：`dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+
+来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
 ### <a name="aspnet-core-module-stdout-log"></a>ASP.NET Core 模块 stdout 日志
 

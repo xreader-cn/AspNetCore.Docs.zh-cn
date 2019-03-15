@@ -5,16 +5,16 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: af11906f86fe4ea91ed520584daedc094ab2dc0b
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 70de86f2e8c4a5577b8a4b50c53d66eb3b205c09
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505825"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665531"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Damien Bowden](https://twitter.com/damien_bod)、[Bart Calixto](https://twitter.com/bartmax)、[Nadeem Afana](https://twitter.com/NadeemAfana) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
+作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Damien Bowden](https://twitter.com/damien_bod)、[Bart Calixto](https://twitter.com/bartmax)、[Nadeem Afana](https://afana.me/) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
 
 使用 ASP.NET Core 创建多语言网站，可让网站拥有更多受众。 ASP.NET Core 提供的服务和中间件可将网站本地化为不同的语言和文化。
 
@@ -44,7 +44,7 @@ ASP.NET Core 中引入并架构了 `IStringLocalizer` 和 `IStringLocalizer<T>`�
 
 [!code-csharp[](../fundamentals/localization/sample/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
-注意：你通常只想要本地化文本，而不是 HTML。
+**注意：** 通常只想要本地化文本，而不是 HTML。
 
 最低程度，你可以从[依赖关系注入](dependency-injection.md)获取 `IStringLocalizerFactory`：
 
@@ -80,7 +80,7 @@ ASP.NET Core 中引入并架构了 `IStringLocalizer` 和 `IStringLocalizer<T>`�
 
 呈现的视图可能包含资源文件中的 HTML 标记。
 
-注意：你通常只想要本地化文本，而不是 HTML。
+**注意：** 通常只想要本地化文本，而不是 HTML。
 
 若要在视图中使用共享资源文件，请注入 `IHtmlLocalizer<T>`：
 
@@ -127,7 +127,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 
 1. 在“解决方案资源管理器”中，右键单击将包含资源文件的文件夹 >“添加” > “新项”。
 
-    ![嵌套的上下文菜单：在解决方案资源管理器中，“资源”可打开上下文菜单。 “添加”可打开第二个上下文菜单，突出显示“新项”命令。](localization/_static/newi.png)
+    ![嵌套的上下文菜单：在“解决方案资源管理器”中，“资源”可打开上下文菜单。 “添加”可打开第二个上下文菜单，突出显示“新项”命令。](localization/_static/newi.png)
 
 2. 在“搜索已安装的模板”框中，输入“资源”并命名该文件。
 
@@ -331,8 +331,8 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 术语：
 
 * 全球化 (G11N)：使应用支持不同语言和区域的过程。
-* 本地化 (L10N)：针对给定语言和区域，自定义应用的过程。
-* 国际化 (I18N)：同时描绘全球化和本地化。
+* 本地化 (L10N)：针对给定语言和区域自定义应用的过程。
+* 国际化 (I18N)：介绍了全球化和本地化。
 * 区域性：它是一种语言和区域（可选）。
 * 非特定区域性：具有指定语言但不具有区域的区域性。 （例如，“en”，“es”）
 * 特定区域性：具有指定语言和区域的区域性。 （例如，“en-US”，“en-GB”，“es-CL”）

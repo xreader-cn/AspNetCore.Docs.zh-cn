@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/01/2019
+ms.date: 03/05/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: a2ae2cb25c8cc5048b189b4035abbfc32a29aaff
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: d809c70b3fae6b2d21d5ec0871298d905b873d5d
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345483"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665358"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -24,9 +24,9 @@ ms.locfileid: "57345483"
 
 ## <a name="developer-exception-page"></a>开发人员异常页
 
-要将应用配置为显示有关异常的详细信息的页面，请使用开发人员异常页。 该页面通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 向 `Startup.Configure` 方法添加代码行：
+要将应用配置为显示有关请求异常的详细信息的页面，请使用“开发人员异常页”。 该页面通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 当应用在开发[环境](xref:fundamentals/environments)中运行时，在 `Startup.Configure` 方法中添加一行：
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=5)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseDeveloperExceptionPage)]
 
 将对 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> 的调用放在要对其捕获异常的任何中间件前面。
 
@@ -50,7 +50,7 @@ ms.locfileid: "57345483"
 
 在示例应用的以下示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 在非开发环境中添加了异常处理中间件。 在捕获并记录异常后，扩展方法指定 `/Error` 终结点处重新执行了请求的错误页或控制器：
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=9)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler1)]
 
 Razor Pages 应用模板在“Pages”文件夹中提供了一个错误页 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)。
 
@@ -66,6 +66,36 @@ public IActionResult Error()
 ```
 
 不要使用 HTTP 方法属性（如 `HttpGet`）修饰错误处理程序操作方法。 显式谓词可阻止某些请求访问方法。 允许匿名访问方法，以便未经身份验证的用户能够接收错误视图。
+
+## <a name="access-the-exception"></a>访问异常
+
+使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问控制器或页中的异常或原始请求路径：
+
+* 路径可以从 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature.Path> 属性中获得。
+* 从继承的 [IExceptionHandlerFeature.Error](xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature.Error) 属性读取 <xref:System.Exception?displayProperty=fullName>。
+
+```csharp
+// using Microsoft.AspNetCore.Diagnostics;
+
+var exceptionHandlerPathFeature = 
+    HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+var path = exceptionHandlerPathFeature?.Path;
+var error = exceptionHandlerPathFeature?.Error;
+```
+
+> [!WARNING]
+> 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
+
+## <a name="configure-custom-exception-handling-code"></a>配置自定义异常处理代码
+
+使用[自定义异常处理页](#configure-a-custom-exception-handling-page)为错误提供终结点的另一种方法是为 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 提供 lambda。 使用带 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 的 lambda 允许在返回响应之前访问错误。
+
+示例应用演示了 `Startup.Configure` 中的自定义异常处理代码。 使用“索引”页上的“引发异常”链接触发异常。 运行如下 lambda：
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler2)]
+
+> [!WARNING]
+> 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
 
 ## <a name="configure-status-code-pages"></a>配置状态代码页
 
@@ -265,7 +295,7 @@ public class ErrorModel : PageModel
 
 ## <a name="server-exception-handling"></a>服务器异常处理
 
-除应用中的异常处理逻辑外，[服务器实现](xref:fundamentals/servers/index)也可以处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 发生的任何异常都将由服务器进行处理。 任何配置的自定义错误页面或异常处理中间件或筛选器都不会影响此行为。
+除应用中的异常处理逻辑外，[服务器实现](xref:fundamentals/servers/index)也可以处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。 应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。
 
 ## <a name="startup-exception-handling"></a>启动异常处理
 
@@ -285,10 +315,10 @@ public class ErrorModel : PageModel
 
 ### <a name="exception-filters"></a>异常筛选器
 
-在 MVC 应用中，异常筛选器可以进行全局配置，也可以为每个控制器或每个操作单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 不会以其他方式调用这些筛选器。 若要了解详细信息，请参阅 <xref:mvc/controllers/filters>。
+在 MVC 应用中，异常筛选器可以进行全局配置，也可以为每个控制器或每个操作单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 不会以其他方式调用这些筛选器。 有关更多信息，请参见<xref:mvc/controllers/filters#exception-filters>。
 
 > [!TIP]
-> 异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如错误处理中间件灵活。 建议使用中间件。 仅在需要根据所选 MVC 操作以不同方式执行错误处理时，才使用筛选器。
+> 异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。 建议使用中间件。 仅在需要根据所选 MVC 操作以不同方式执行错误处理时，才使用筛选器。
 
 ### <a name="handle-model-state-errors"></a>处理模型状态错误
 

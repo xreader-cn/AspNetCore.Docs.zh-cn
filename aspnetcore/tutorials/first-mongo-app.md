@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 01/31/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 5e146261fdc8354fc9f4295a8af317e5cc36332f
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 91d8be6cd9160eefe56731d23d5dc7ba18eb6a8f
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667331"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665452"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -144,7 +144,7 @@ ms.locfileid: "55667331"
 
 1. 转到“文件” > “新建” > “项目”。
 1. 选择“ASP.NET Core Web 应用程序”，将项目命名为“BooksApi”，然后单击“确定”。
-1. 选择“.NET Core”目标框架和“ASP.NET Core 2.1”。 选择“API”项目模板，然后单击“确定”：
+1. 选择“.NET Core”目标框架和“ASP.NET Core 2.2”。 选择“API”项目模板，然后单击“确定”：
 1. 访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。 在“包管理器控制台”窗口中，导航到项目根。 运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：
 
     ```powershell
