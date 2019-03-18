@@ -5,14 +5,8 @@ description: 了解 ASP.NET Core Razor 组件，用户可以借助它在 ASP.NET
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2019
+ms.date: 03/13/2019
 uid: razor-components/index
-ms.openlocfilehash: 04a73d33cee0deedaf3dc97395836a936b580fbd
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159521"
 ---
 # <a name="introduction-to-razor-components"></a>Razor 组件简介
 
@@ -54,11 +48,11 @@ Blazor 是 Razor 组件的实验性客户端托管模型。 Blazor 在使用开�
 
 Razor 组件是 UI（例如，页面、对话框或数据输入窗体）的一部分。 组件处理用户事件，并定义灵活的 UI 呈现逻辑。 组件可以嵌套和重用。
 
-组件是内置于 .NET 程序集的 .NET 类，可以作为 NuGet 包进行共享和分发。 可以将类编写为 Razor 标记页 (.cshtml) 的形式，也可以编写为 C# 类 (.cs)。
+组件是内置于 .NET 程序集的 .NET 类，可以作为 NuGet 包进行共享和分发。 类通常以 Razor 标记页（文件扩展名为 .razor）的形式编写。
 
 [Razor](xref:mvc/views/razor) 是用于将 HTML 标记与 C# 代码结合在一起的语法。 Razor 为提高开发人员工作效率而设计，允许开发人员通过 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在相同文件中的标记和 C# 之间切换。 Razor Pages 和 MVC 视图也使用 Razor。 与围绕请求/响应模型生成的 Razor Pages 和 MVC 视图不同，组件专门用于处理 UI 构成。 Razor 组件可专门用于客户端 UI 逻辑和构成。
 
-以下标记是 Razor 文件 (DialogComponent.cshtml) 中的自定义对话框组件的示例：
+下面的标记示例展示了 Razor 文件 (DialogComponent.razor) 中的自定义对话框组件：
 
 ```cshtml
 <div>
