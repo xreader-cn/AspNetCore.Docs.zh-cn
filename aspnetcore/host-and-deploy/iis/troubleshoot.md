@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何诊断 ASP.NET Core 应用的 Internet Information Services (IIS) 部署的问题。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 03/06/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 68fcd578c051ae9ba6234cad0465a7ef42f1ed14
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 2f36ae2bda8537e91a3bc925505986bdd6a22a47
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637685"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841548"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -236,13 +236,51 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 如果应用能够响应请求，则使用终端内联中间件从应用中获取请求、连接和其他数据。 有关详细信息和示例代码，请参阅<xref:test/troubleshoot#obtain-data-from-an-app>。
 
-## <a name="slow-or-hanging-app"></a>应用缓慢或挂起
+## <a name="create-a-dump"></a>创建转储
 
-当应用响应缓慢或挂起请求时，获取并分析[转储文件](/visualstudio/debugger/using-dump-files)。 可以使用以下任何工具获取转储文件：
+转储是系统内存的一个快照，可帮助确定应用崩溃、启动故障或应用速度缓慢等状况的原因。
 
-* [ProcDump](/sysinternals/downloads/procdump)
-* [DebugDiag](https://www.microsoft.com/download/details.aspx?id=49924)
-* WinDbg：[下载 Windows 调试工具](https://developer.microsoft.com/windows/hardware/download-windbg)，[使用 WinDbg 进行调试](/windows-hardware/drivers/debugger/debugging-using-windbg)
+### <a name="app-crashes-or-encounters-an-exception"></a>应用崩溃或引发异常
+
+从 [Windows 错误报告 (WER)](/windows/desktop/wer/windows-error-reporting) 中获取转储并进行分析：
+
+1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。 应用池必须对该文件夹具有写权限。
+1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/EnableDumps.ps1)：
+   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
+
+     ```console
+     .\EnableDumps w3wp.exe c:\dumps
+     ```
+   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
+
+     ```console
+     .\EnableDumps dotnet.exe c:\dumps
+     ```
+1. 在造成崩溃的条件下运行应用。
+1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/DisableDumps.ps1)：
+   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
+
+     ```console
+     .\DisableDumps w3wp.exe
+     ```
+   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
+
+     ```console
+     .\DisableDumps dotnet.exe
+     ```
+
+在应用崩溃并完成转储收集后，即可正常终止应用。 PowerShell 脚本会 WER 来按应用收集转储（最多收集 5 个）。
+
+> [!WARNING]
+> 崩溃转储可能会占用大量磁盘空间（每个最多占用数 GB）。
+
+### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>应用挂起、在启动期间失败或正常运行
+
+如果应用挂起（停止响应但不崩溃）、在启动期间失败或者正常运行*hangs*，请参阅[用户模式转储文件：选择最佳工具](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)，以选择适合用于生成转储的工具。
+
+### <a name="analyze-the-dump"></a>分析转储
+
+可采用几种方法来分析转储。 有关详细信息，请参阅[分析用户模式转储文件](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file)。
 
 ## <a name="remote-debugging"></a>远程调试
 

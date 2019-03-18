@@ -2,16 +2,17 @@
 title: ASP.NET Core 中的会话和应用状态
 author: rick-anderson
 description: 发现保留请求间会话和应用状态的方法。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/04/2019
+ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 2e3591ac1d6b1670b27b1ed9e42f59ba2b956b37
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.openlocfilehash: 7de57d4923beaf32c0cb9aec49ea3e570fec6170
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400705"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841574"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core 中的会话和应用状态
 
@@ -64,7 +65,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 * 应用在上次请求后保留会话的时间有限。 应用设置会话超时，或者使用 20 分钟的默认值。 会话状态适用于存储特定于特定会话的用户数据，但该数据无需永久的会话存储。
 * 调用 [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) 实现或者会话过期时，会删除会话数据。
 * 没有默认机制告知客户端浏览器已关闭或者客户端上的会话 Cookie 被删除或过期的应用代码。
-ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 的支持。 默认情况下，会话状态 cookie 不标记为“基本”，因此，除非站点访问者允许跟踪，否则会话状态不起作用。 有关更多信息，请参见<xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential>。
+* ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 的支持。 默认情况下，会话状态 cookie 不标记为“基本”，因此，除非站点访问者允许跟踪，否则会话状态不起作用。 有关更多信息，请参见<xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential>。
 
 > [!WARNING]
 > 请勿将敏感数据存储在会话状态中。 用户可能不会关闭浏览器并清除会话 Cookie。 某些浏览器会保留所有浏览器窗口中的有效会话 Cookie。 会话可能不限于单个用户 - 下一个用户可能继续使用同一会话 Cookie 浏览应用。
@@ -76,17 +77,7 @@ ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 
 
 ### <a name="configure-session-state"></a>配置会话状态
 
-::: moniker range=">= aspnetcore-2.0"
-
 [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) 中包含的 [Microsoft.AspNetCore.Session](https://www.nuget.org/packages/Microsoft.AspNetCore.Session/) 包提供中间件来管理会话状态。 若要启用会话中间件，`Startup` 必须包含：
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[Microsoft.AspNetCore.Session](https://www.nuget.org/packages/Microsoft.AspNetCore.Session/) 包提供中间件来管理会话状态。 若要启用会话中间件，`Startup` 必须包含：
-
-::: moniker-end
 
 * 任一 [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) 内存缓存。 `IDistributedCache` 实现用作会话后备存储。 有关更多信息，请参见<xref:performance/caching/distributed>。
 * 对 `ConfigureServices` 中 [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) 的调用。
@@ -94,17 +85,7 @@ ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 
 
 以下代码演示如何使用 `IDistributedCache` 的默认内存中实现设置内存中会话提供程序：
 
-::: moniker range=">= aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/2.x/SessionSample/Startup.cs?name=snippet1&highlight=11,13-18,39)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Startup.cs?name=snippet1&highlight=5,7-12,19)]
-
-::: moniker-end
+[!code-csharp[](app-state/samples/2.x/SessionSample/Startup.cs?name=snippet1&highlight=5-14,34)]
 
 中间件的顺序很重要。 在前面的示例中，在 `UseMvc` 之后调用 `UseSession` 时会发生 `InvalidOperationException` 异常。 有关详细信息，请参阅[中间件排序](xref:fundamentals/middleware/index#order)。
 
@@ -124,8 +105,6 @@ ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 
 
 若要替代会话默认值，请使用 [SessionOptions](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions)。
 
-::: moniker range=">= aspnetcore-2.0"
-
 | 选项 | 说明 |
 | ------ | ----------- |
 | [Cookie](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookie) | 确定用于创建 Cookie 的设置。 [名称](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name)默认为 [SessionDefaults.CookieName](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) (`.AspNetCore.Session`)。 [路径](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path)默认为 [SessionDefaults.CookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) (`/`)。 [SameSite](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.samesite) 默认为 [SameSiteMode.Lax](/dotnet/api/microsoft.aspnetcore.http.samesitemode) (`1`)。 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`。 [IsEssential](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.isessential) 默认为 `false`。 |
@@ -134,36 +113,9 @@ ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 
 
 会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNetCore.Session` ，并使用路径 `/`。 由于 Cookie 默认值不指定域，因此它不提供页上的客户端脚本（因为 [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) 默认为 `true`）。
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-| 选项 | 说明 |
-| ------ | ----------- |
-| [CookieDomain](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookiedomain) | 确定用于创建 Cookie 的域。 默认情况下不设置 `CookieDomain`。 |
-| [CookieHttpOnly](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookiehttponly) | 确定浏览器是否应该允许客户端 JavaScript 访问 Cookie。 默认为 `true`，这意味着 Cookie 仅传递到 HTTP 请求，且不适用于页面上的脚本。 |
-| [CookieName](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookiename) | 确定用来保留会话 ID 的 Cookie 名称。 默认为 [SessionDefaults.CookieName](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) (`.AspNetCore.Session`)。 |
-| [CookiePath](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookiepath) | 确定用于创建 Cookie 的路径。 默认为 [SessionDefaults.CookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) (`/`)。 |
-| [CookieSecure](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookiesecure) | 确定 Cookie 是否应仅在 HTTPS 请求上传输。 默认为 [CookieSecurePolicy.None](/dotnet/api/microsoft.aspnetcore.http.cookiesecurepolicy) (`2`)。 |
-| [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) | `IdleTimeout` 显示放弃其内容前，内容可以空闲多长时间。 每个会话访问都会重置超时。 请注意，这仅适用于会话内容，不适用于 Cookie。 默认为 20 分钟。 |
-
-会话使用 Cookie 跟踪和标识来自单个浏览器的请求。 默认情况下，此 Cookie 名为 `.AspNet.Session` ，并使用路径 `/`。
-
-::: moniker-end
-
 若要替换 Cookie 会话默认值，请使用 `SessionOptions`：
 
-::: moniker range=">= aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples_snapshot/2.x/SessionSample/Startup.cs?name=snippet1&highlight=13-18)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples_snapshot/1.x/SessionSample/Startup.cs?name=snippet1&highlight=5-9)]
-
-::: moniker-end
+[!code-csharp[](app-state/samples_snapshot/2.x/SessionSample/Startup.cs?name=snippet1&highlight=14-19)]
 
 应用使用 [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) 属性确定放弃服务器缓存中的内容前，内容可以空闲多长时间。 此属性独立于 Cookie 到期时间。 通过[会话中间件](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware)传递的每个请求都会重置超时。
 
@@ -173,17 +125,7 @@ ASP.NET Core MVC 和 Razor Pages 模板包括对一般数据保护条例 (GDPR) 
 
 使用 [HttpContext.Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session) 从 Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 类或 MVC [控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)类访问会话状态。 此属性是 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 实现。
 
-::: moniker range=">= aspnetcore-2.0"
-
 `ISession` 实现提供用于设置和检索整数和字符串值的若干扩展方法。 项目引用 [Microsoft.AspNetCore.Http.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) 包时，扩展方法位于 [Microsoft.AspNetCore.Http](/dotnet/api/microsoft.aspnetcore.http) 命名空间中（添加 `using Microsoft.AspNetCore.Http;` 语句获取对扩展方法的访问权限）。 这两个包均包括在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-`ISession` 实现提供设置和检索整数和字符串值的若干扩展方法。 项目引用 [Microsoft.AspNetCore.Http.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) 包时，扩展方法位于 [Microsoft.AspNetCore.Http](/dotnet/api/microsoft.aspnetcore.http) 命名空间中（添加 `using Microsoft.AspNetCore.Http;` 语句获取对扩展方法的访问权限）。
-
-::: moniker-end
 
 `ISession` 扩展方法：
 
@@ -207,47 +149,17 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 以下示例显示如何设置和获取整数和字符串：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](app-state/samples/2.x/SessionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=18-19,22-23)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Controllers/HomeController.cs?name=snippet1&highlight=10-11,18-19)]
-
-::: moniker-end
 
 必须对所有会话数据进行序列化以启用分布式缓存方案，即使是在使用内存中缓存的时候。 提供最小的字符串和数字序列化程序（请参阅 [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) 的方法和扩展方法）。 用户必须使用另一种机制（例如 JSON）序列化复杂类型。
 
 添加以下扩展方法以设置和获取可序列化的对象：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](app-state/samples/2.x/SessionSample/Extensions/SessionExtensions.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Extensions/SessionExtensions.cs?name=snippet1)]
-
-::: moniker-end
 
 以下示例演示如何使用扩展方法设置和获取可序列化的对象：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](app-state/samples/2.x/SessionSample/Pages/Index.cshtml.cs?name=snippet2)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Controllers/HomeController.cs?name=snippet2&highlight=4,12)]
-
-::: moniker-end
 
 ## <a name="tempdata"></a>TempData
 
@@ -255,19 +167,9 @@ ASP.NET Core 公开 [Razor Pages 页模型的 TempData 属性](/dotnet/api/micro
 
 ### <a name="tempdata-providers"></a>TempData 提供程序
 
-::: moniker range=">= aspnetcore-2.0"
-
-ASP.NET Core 2.0 或更高版本中，默认使用基于 Cookie 的 TempData 提供程序，以将 TempData 存储在 Cookie 中。
+基于 cookie 的 TempData 提供程序默认用于存储 cookie 中的 TempData。
 
 使用由 [Base64UrlTextEncoder](/dotnet/api/microsoft.aspnetcore.webutilities.base64urltextencoder) 编码的 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 对 Cookie 数据进行加密，然后进行分块。 因为 Cookie 进行了分块，所以 ASP.NET Core 1.x 中的单个 Cookie 大小限制不适用。 未压缩 Cookie 数据，因为压缩加密的数据会导致安全问题，如 [CRIME](https://wikipedia.org/wiki/CRIME_(security_exploit)) 和 [BREACH](https://wikipedia.org/wiki/BREACH_(security_exploit)) 攻击。 有关基于 Cookie 的 TempData 提供程序的详细信息，请参阅 [CookieTempDataProvider](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.cookietempdataprovider)。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-在 ASP.NET Core 1.0 和 1.1 中，会话状态 TempData 提供程序是默认提供程序。
-
-::: moniker-end
 
 ### <a name="choose-a-tempdata-provider"></a>选择 TempData 提供程序
 
@@ -282,23 +184,11 @@ ASP.NET Core 2.0 或更高版本中，默认使用基于 Cookie 的 TempData 提
 
 ### <a name="configure-the-tempdata-provider"></a>配置 TempData 提供程序
 
-::: moniker range=">= aspnetcore-2.0"
-
 默认情况下启用基于 Cookie 的 TempData 提供程序。
 
 若要启用基于会话的 TempData 提供程序，请使用 [AddSessionStateTempDataProvider](/dotnet/api/microsoft.extensions.dependencyinjection.mvcviewfeaturesmvcbuilderextensions.addsessionstatetempdataprovider) 扩展方法：
 
 [!code-csharp[](app-state/samples_snapshot_2/2.x/SessionSample/Startup.cs?name=snippet1&highlight=11,13,32)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-以下 `Startup` 类代码配置基于会话的 TempData 提供程序：
-
-[!code-csharp[](app-state/samples_snapshot_2/1.x/SessionSample/Startup.cs?name=snippet1&highlight=4,9)]
-
-::: moniker-end
 
 中间件的顺序很重要。 在前面的示例中，在 `UseMvc` 之后调用 `UseSession` 时会发生 `InvalidOperationException` 异常。 有关详细信息，请参阅[中间件排序](xref:fundamentals/middleware/index#order)。
 
@@ -341,31 +231,11 @@ app.Run(async (context) =>
 
 对于只供单个应用使用的中间件，`string` 键是可以接受的。 应用实例间共享的中间件应使用唯一的对象键以避免键冲突。 以下示例演示如何使用中间件类中定义的唯一对象键：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](app-state/samples/2.x/SessionSample/Middleware/HttpContextItemsMiddleware.cs?name=snippet1&highlight=4,13)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Middleware/HttpContextItemsMiddleware.cs?name=snippet1&highlight=5,14)]
-
-::: moniker-end
 
 其他代码可以使用通过中间件类公开的键访问存储在 `HttpContext.Items` 中的值：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](app-state/samples/2.x/SessionSample/Pages/Index.cshtml.cs?name=snippet3)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](app-state/samples/1.x/SessionSample/Controllers/HomeController.cs?name=snippet3)]
-
-::: moniker-end
 
 此方法还有避免在代码中使用关键字符串的优势。
 
@@ -401,8 +271,6 @@ app.Run(async (context) =>
 
 3. 使用数据服务类：
 
-    ::: moniker range=">= aspnetcore-2.0"
-
     ```csharp
     public class IndexModel : PageModel
     {
@@ -413,23 +281,6 @@ app.Run(async (context) =>
         }
     }
     ```
-
-    ::: moniker-end
-
-    ::: moniker range="< aspnetcore-2.0"
-
-    ```csharp
-    public class HomeController : Controller
-    {
-        public HomeController(MyAppData myService)
-        {
-            // Do something with the service
-            //    Examples: Read data, store in a field or property
-        }
-    }
-    ```
-
-    ::: moniker-end
 
 ## <a name="common-errors"></a>常见错误
 

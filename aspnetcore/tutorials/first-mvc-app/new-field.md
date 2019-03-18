@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 7993b36bf9115225e082d2929bb253aba5b18310
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: f352a9c3573119028d1bc42fd622919ce0560e7c
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207364"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841496"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
 
@@ -98,23 +98,22 @@ Update-Database
 
 `Add-Migration` 命令会通知迁移框架使用当前 `Movie` DB 架构检查当前 `Movie` 模型，并创建必要的代码，将 DB 迁移到新模型。
 
+名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
+
+如果删除 DB 中的所有记录，初始化方法会设定 DB 种子，并将包括 `Rating` 字段。
+
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-运行下面的命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令： 
 
-```cli
-dotnet ef migrations add Rating
+```console
 dotnet ef database update
 ```
 
 ---  
 <!-- End of VS tabs -->
-
-名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
-
-如果删除 DB 中的所有记录，初始化方法会设定 DB 种子，并将包括 `Rating` 字段。
 
 运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。 应向 `Edit`、`Details` 和 `Delete` 视图模板添加 `Rating` 字段。
 

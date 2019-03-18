@@ -5,12 +5,12 @@ description: 说明如何使用数据库和 ASP.NET Core。
 ms.author: riande
 ms.date: 12/07/2017
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 9f01f5c9fcf9c423ccc2af8ae6ca55c2f427c9c1
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: e2e9be0aa25166e216d34419859cd907d0423f70
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346023"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841561"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>使用数据库和 ASP.NET Core
 
@@ -89,16 +89,18 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 * 右键单击 `Movie` 表，然后选择“查看数据”：
 
-  ![显示表数据的打开的 Movie 表](sql/_static/vd22.png)
+  ![打开显示表数据的电影表](sql/_static/vd22.png)
 <!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
+[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
 <!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
+[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
 ---  
 <!-- End of VS tabs -->
