@@ -1,1 +1,0 @@
-对于新 web 应用程序开发，我们建议 Razor 页面。 有关详细信息，请参阅[Razor 页面入门](/aspnet/core/tutorials/razor-pages/razor-pages-start)。
