@@ -308,7 +308,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 运行上述命令后，配置包含下表中显示的值。
 
-| 键               | “值”    |
+| 键               | 值    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -530,8 +530,6 @@ key=value
 * 文件是否可选。
 * 如果文件更改，是否重载配置。
 * <xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。
-
-
 
 使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，会自动调用 `AddJsonFile` 两次。 调用该方法来从以下文件加载配置：
 
@@ -1065,7 +1063,7 @@ config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false)
 
 将表中所示的键值对加载到配置中。
 
-| 键             | “值”  |
+| 键             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1088,7 +1086,7 @@ config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false)
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | “值”  |
+| 键                     | 值  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |

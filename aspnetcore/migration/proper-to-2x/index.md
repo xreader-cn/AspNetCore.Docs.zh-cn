@@ -5,12 +5,6 @@ description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Cor
 ms.author: scaddie
 ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: a9eef832a68afa1a73e3c7c545378da190602ce2
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284391"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -66,10 +60,10 @@ ASP.NET Core 使用相似的方法，但是不依赖 OWIN 处理条目。 相反
 
 `Startup` 必须包含 `Configure` 方法。 在 `Configure` 中，向管道添加必要的中间件。 在下面的示例（来自默认网站模板）中，扩展方法为管道配置以下支持：
 
-* 错误页
-* HTTP 严格传输安全
-* 从 HTTP 重定向到 HTTPS
-* ASP.NET Core MVC
+- 错误页
+- HTTP 严格传输安全
+- 从 HTTP 重定向到 HTTPS
+- ASP.NET Core MVC
 
 [!code-csharp[](samples/startup.cs)]
 
@@ -118,15 +112,15 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 实现打包 `UnityContainer` 的 `IDependencyResolver` 是使用 Unity 设置依存关系注入的一个示例：
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample8.cs)]
+[!code-csharp[](samples/sample8.cs)]
 
 创建 `UnityContainer` 的实例，注册服务，然后将 `HttpConfiguration` 的依赖关系解析程序设置为容器的 `UnityResolver` 新实例：
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample9.cs)]
+[!code-csharp[](samples/sample9.cs)]
 
 在必要时注入 `IProductRepository`：
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample5.cs)]
+[!code-csharp[](samples/sample5.cs)]
 
 由于依存关系注入是 ASP.NET Core 的组成部分，因此可以在 Startup.cs 的 `ConfigureServices` 方法中添加你的服务：
 

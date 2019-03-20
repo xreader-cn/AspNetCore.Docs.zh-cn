@@ -193,7 +193,6 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 在 Visual Studio 中运行示例应用时，“调试”窗口中将显示如下日志：
 
-
 ```console
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:53104/api/todo/0  
 Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executing action method TodoApi.Controllers.TodoController.GetById (TodoApi) with arguments (0) - ModelState is Valid
@@ -214,7 +213,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ## <a name="log-category"></a>日志类别
 
-创建 `ILogger` 对象后，将为其指定“类别”。 该类别包含在由此 `Ilogger` 实例创建的每条日志消息中。 类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。
+创建 `ILogger` 对象后，将为其指定“类别”。 该类别包含在由此 `ILogger` 实例创建的每条日志消息中。 类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。
 
 使用 `ILogger<T>` 获取一个 `ILogger` 实例，该实例使用 `T` 的完全限定类型名称作为类别：
 
