@@ -61,7 +61,7 @@ dotnet dev-certs https --trust
 
 *请求信任 HTTPS 开发证书。如果证书尚不受信任，我们将运行以下命令：* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
 
-此命令可能会提示你输入密码，以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
+此命令可能会提示你输入密码以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 

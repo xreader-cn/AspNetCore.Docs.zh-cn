@@ -6,22 +6,18 @@ ms.author: riande
 ms.date: 10/4/2017
 ms.custom: seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: d165ac7be607d07ca3c519709d4db08f54f7801c
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121345"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory 与 ASP.NET Core
 
 ## <a name="azure-ad-v1-samples"></a>Azure AD V1 示例
+
 下面的示例演示如何集成 Azure AD V1，使用户能够使用工作和学校帐户登录：
 * [Integrating Azure AD Into an ASP.NET Core Web App](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/)（将 Azure AD 集成到 ASP.NET Core Web 应用中）
 * [Calling a ASP.NET Core Web API From a WPF Application Using Azure AD](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/)（从使用 Azure AD 的 WPF 应用程序调用 ASP.NET Core Web API）
 * [Calling a Web API in an ASP.NET Core Web Application Using Azure AD](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/)（在使用 Azure AD 的 ASP.NET Core Web 应用程序中调用 Web API）
 
 ## <a name="azure-ad-v2-samples"></a>Azure AD V2 示例
+
 下面的示例演示如何集成 Azure AD V2，使用户能够使用工作和学校帐户或者 Microsoft 个人帐户（以前称为 Live 帐户）登录：
 * [Integrating Azure AD V2 into an ASP.NET Core 2.0 web app](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)（将 Azure AD V2 集成到 ASP.NET Core 2.0 Web 应用中）： 
   * 请观看[这段相关视频](https://channel9.msdn.com/Events/Build/2018/THR5001) 
@@ -30,6 +26,6 @@ ms.locfileid: "53121345"
   * 请观看[这段相关视频](https://channel9.msdn.com/Events/Build/2018/THR5000)
 
 ## <a name="azure-ad-b2c-sample"></a>Azure AD B2C 示例
+
 此示例演示如何集成 Azure AD B2C，使用户能够使用社交网站身份（如 Facebook、Google...）登录
 * [带有 Azure AD B2C 的 ASP.NET Core Web API](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)
-

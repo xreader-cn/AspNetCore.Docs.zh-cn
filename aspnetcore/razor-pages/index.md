@@ -140,12 +140,12 @@ Pages/Create.cshtml.cs 页面模型：
 
 检查验证错误。
 
-*  如果没有错误，则保存数据并重定向。
-*  如果有错误，则再次显示页面并附带验证消息。 客户端验证与传统的 ASP.NET Core MVC 应用程序相同。 很多情况下，都会在客户端上检测到验证错误，并且从不将它们提交到服务器。
+* 如果没有错误，则保存数据并重定向。
+* 如果有错误，则再次显示页面并附带验证消息。 客户端验证与传统的 ASP.NET Core MVC 应用程序相同。 很多情况下，都会在客户端上检测到验证错误，并且从不将它们提交到服务器。
 
 成功输入数据后，`OnPostAsync` 处理程序方法调用 `RedirectToPage` 帮助程序方法来返回 `RedirectToPageResult` 的实例。 `RedirectToPage` 是新的操作结果，类似于 `RedirectToAction` 或 `RedirectToRoute`，但是已针对页面进行自定义。 在前面的示例中，它将重定向到根索引页 (`/Index`)。 [页面 URL 生成](#url_gen)部分中详细介绍了 `RedirectToPage`。
 
-提交的窗体存在（已传递到服务器的）验证错误时，`OnPostAsync` 处理程序方法调用 `Page` 帮助程序方法。 `Page` 返回 `PageResult` 的实例。 返回 `Page` 的过程与控制器中的操作返回 `View` 的过程相似。 `PageResult` 是处理程序方法的默认 <!-- Review  --> 返回类型。 返回 `void` 的处理程序方法将显示页面。
+提交的窗体存在（已传递到服务器的）验证错误时，`OnPostAsync` 处理程序方法调用 `Page` 帮助程序方法。 `Page` 返回 `PageResult` 的实例。 返回 `Page` 的过程与控制器中的操作返回 `View` 的过程相似。 `PageResult` 是处理程序方法的 <!-- Review  --> 默认返回类型。 返回 `void` 的处理程序方法将显示页面。
 
 `Customer` 属性使用 `[BindProperty]` 特性来选择加入模型绑定。
 
