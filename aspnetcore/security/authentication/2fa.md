@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 48bfc50378fc0ec212f5b9d4e7ce05bb4fc97b9d
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 116249a7cd4faebd0c899e383d86f5c5c3c7146a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098881"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265241"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>在 ASP.NET Core SMS 的双因素身份验证
 
@@ -35,9 +35,13 @@ ms.locfileid: "54098881"
 
 #### <a name="figuring-out-sms-provider-credentials"></a>找出 SMS 提供程序凭据
 
-**Twilio:** 从你的 Twilio 帐户的仪表板选项卡上，复制**帐户 SID**并**身份验证令牌**。
+**Twilio:**
 
-**ASPSMS:** 在帐户设置中，导航到**Userkey**并将其连同复制你**密码**。
+从你的 Twilio 帐户的仪表板选项卡上，复制**帐户 SID**并**身份验证令牌**。
+
+**ASPSMS:**
+
+在帐户设置中，导航到**Userkey**并将其连同复制你**密码**。
 
 我们将更高版本存储中密钥的机密管理器工具使用这些值`SMSAccountIdentification`和`SMSAccountPassword`。
 
@@ -49,12 +53,11 @@ ms.locfileid: "54098881"
 
 我们稍后将存储此值与中密钥的机密管理器工具`SMSAccountFrom`。
 
-
 ### <a name="provide-credentials-for-the-sms-service"></a>SMS 服务提供的凭据
 
 我们将使用[选项模式](xref:fundamentals/configuration/options)访问的用户帐户和密钥设置。
 
-   * 创建一个类来提取安全 SMS 项。 此示例中，对于`SMSoptions`中创建类*Services/SMSoptions.cs*文件。
+* 创建一个类来提取安全 SMS 项。 此示例中，对于`SMSoptions`中创建类*Services/SMSoptions.cs*文件。
 
 [!code-csharp[](2fa/sample/Web2FA/Services/SMSoptions.cs)]
 
@@ -64,17 +67,18 @@ ms.locfileid: "54098881"
 C:/Web2FA/src/WebApp1>dotnet user-secrets set SMSAccountIdentification 12345
 info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 ```
+
 * SMS 提供程序添加 NuGet 包。 从包管理器控制台 (PMC) 运行：
 
 **Twilio:**
+
 `Install-Package Twilio`
 
 **ASPSMS:**
+
 `Install-Package ASPSMS`
 
-
 * 将代码中的添加*Services/MessageServices.cs*文件以启用短信。 使用 Twilio 或 ASPSMS 部分：
-
 
 **Twilio:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
 
@@ -88,7 +92,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 ### <a name="enable-two-factor-authentication"></a>启用双因素身份验证
 
-打开*Views/Manage/Index.cshtml* Razor 视图文件并删除注释字符 （因此没有标记为 commnted out）。
+打开*Views/Manage/Index.cshtml* Razor 视图文件并删除注释字符 （因此，没有标记已被注释掉）。
 
 ## <a name="log-in-with-two-factor-authentication"></a>使用双因素身份验证登录
 

@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 9fe17c9e210d4dda9b74818104fc52a60d4f0077
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: e09d03f1d30f128b1db1588aa92b28ec3e4ae626
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284534"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264387"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 
@@ -193,6 +193,7 @@ Visual Studio 生成，并将该应用部署到 Azure。 浏览到 web 应用 UR
     ```console
     git commit -a -m "upgraded to V3"
     ```
+
 5. 使用本地计算机的命令行界面，作为 Git 远程添加过渡的部署 URL，并推送已提交的更改：
 
     a. 将过渡环境的远程 URL 添加到本地 Git 存储库。

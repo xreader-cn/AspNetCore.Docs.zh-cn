@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/07/2019
 uid: signalr/configuration
-ms.openlocfilehash: 070d6fed26b6d14c4b8a35d0f7d94abafb08993b
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 2c1bb8d5e317813d1fdb8d474b7d7d892e6f67ec
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665410"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264571"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -27,7 +27,7 @@ JSON 序列化可以配置服务器使用[AddJsonProtocol](/dotnet/api/microsoft
 ```csharp
 services.AddSignalR()
     .AddJsonProtocol(options => {
-        options.PayloadSerializerSettings.ContractResolver = 
+        options.PayloadSerializerSettings.ContractResolver =
         new DefaultContractResolver();
     });
 ```
@@ -41,7 +41,7 @@ using Microsoft.Extensions.DependencyInjection;
 // When constructing your connection:
 var connection = new HubConnectionBuilder()
     .AddJsonProtocol(options => {
-        options.PayloadSerializerSettings.ContractResolver = 
+        options.PayloadSerializerSettings.ContractResolver =
             new DefaultContractResolver();
     })
     .Build();
@@ -98,13 +98,13 @@ services.AddSignalR().AddHubOptions<MyHub>(options =>
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
-    app.UseSignalR((configure) => 
+    app.UseSignalR((configure) =>
     {
-        var desiredTransports = 
+        var desiredTransports =
             HttpTransportType.WebSockets |
             HttpTransportType.LongPolling;
 
-        configure.MapHub<MyHub>("/myhub", (options) => 
+        configure.MapHub<MyHub>("/myhub", (options) =>
         {
             options.Transports = desiredTransports;
         });
@@ -224,6 +224,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
     .withTransport(TransportEnum.WEBSOCKETS)
     .build();
 ```
+
 > [!NOTE]
 > SignalR Java 客户端尚不支持传输回退。
 
@@ -259,8 +260,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-
-在 SignalR Java 客户端，您可以配置要用于身份验证通过提供到一个访问令牌工厂的持有者令牌[HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [单一<String>](http://reactivex.io/documentation/single.html)。 通过调用[Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，可以编写逻辑来为您的客户端生成访问令牌。
+在 SignalR Java 客户端，您可以配置要用于身份验证通过提供到一个访问令牌工厂的持有者令牌[HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)提供[RxJava](https://github.com/ReactiveX/RxJava) [单一\<字符串 >](http://reactivex.io/documentation/single.html)。 通过调用[Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)，可以编写逻辑来为您的客户端生成访问令牌。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")
@@ -319,12 +319,14 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 | `WebSocketConfiguration` | `null` | 一个委托，可用于配置更多的 WebSocket 选项。 接收的实例[ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions)可用于配置选项。 |
 
 # <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+
 | JavaScript 选项 | 默认值 | 描述 |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | 返回一个字符串，作为持有者身份验证令牌的 HTTP 请求中提供的函数。 |
 | `skipNegotiation` | `false` | 将此设置为`true`跳过协商步骤。 **WebSockets 传输是唯一的已启用的传输时，才支持**。 使用 Azure SignalR 服务时，不能启用此设置。 |
 
 # <a name="javatabjava"></a>[Java](#tab/java)
+
 | Java 选项 | 默认值 | 描述 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 返回一个字符串，作为持有者身份验证令牌的 HTTP 请求中提供的函数。 |
@@ -357,7 +359,6 @@ let connection = new signalR.HubConnectionBuilder()
 ```
 
 在 Java 客户端，这些选项可以配置的方法上`HttpHubConnectionBuilder`从返回 `HubConnectionBuilder.create("HUB URL")`
-
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")

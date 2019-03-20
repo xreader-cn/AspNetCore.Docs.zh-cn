@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: 0b7001a311eeaaa78e3d52e2ec66d33ad057c381
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 3b708da13ff9f2887eee87ea17844312a4fe1b8d
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207403"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264724"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>ASP.NET 成员资格身份验证从迁移到 ASP.NET Core 2.0 标识
 
@@ -54,6 +54,7 @@ ASP.NET Core 2.0 标识查看架构的最快方法是创建新的 ASP.NET Core 2
       }
     }
     ```
+
 1. 选择**视图** > **SQL Server 对象资源管理器**。 展开中指定的数据库名称与对应的节点`ConnectionStrings:DefaultConnection`的属性*appsettings.json*。
 
     `Update-Database`命令创建与架构指定的数据库和任何所需的应用程序初始化的数据。 下图描绘了使用上述步骤创建的表结构。
@@ -66,15 +67,15 @@ ASP.NET Core 2.0 标识查看架构的最快方法是创建新的 ASP.NET Core 2
 
 ### <a name="users"></a>用户
 
-|*标识<br>(dbo。AspNetUsers)*        ||*成员资格<br>(dbo.aspnet_Users / dbo.aspnet_Membership)*||
+|*Identity<br>(dbo.AspNetUsers)*        ||*Membership<br>(dbo.aspnet_Users / dbo.aspnet_Membership)*||
 |----------------------------------------|-----------------------------------------------------------|
 |**字段名称**                 |**Type**|**字段名称**                                    |**Type**|
-|`Id`                           |字符串  |`aspnet_Users.UserId`                             |字符串  |
-|`UserName`                     |字符串  |`aspnet_Users.UserName`                           |字符串  |
-|`Email`                        |字符串  |`aspnet_Membership.Email`                         |字符串  |
-|`NormalizedUserName`           |字符串  |`aspnet_Users.LoweredUserName`                    |字符串  |
-|`NormalizedEmail`              |字符串  |`aspnet_Membership.LoweredEmail`                  |字符串  |
-|`PhoneNumber`                  |字符串  |`aspnet_Users.MobileAlias`                        |字符串  |
+|`Id`                           |string  |`aspnet_Users.UserId`                             |string  |
+|`UserName`                     |string  |`aspnet_Users.UserName`                           |string  |
+|`Email`                        |string  |`aspnet_Membership.Email`                         |string  |
+|`NormalizedUserName`           |string  |`aspnet_Users.LoweredUserName`                    |string  |
+|`NormalizedEmail`              |string  |`aspnet_Membership.LoweredEmail`                  |string  |
+|`PhoneNumber`                  |string  |`aspnet_Users.MobileAlias`                        |string  |
 |`LockoutEnabled`               |位     |`aspnet_Membership.IsLockedOut`                   |位     |
 
 > [!NOTE]
@@ -82,20 +83,20 @@ ASP.NET Core 2.0 标识查看架构的最快方法是创建新的 ASP.NET Core 2
 
 ### <a name="roles"></a>角色
 
-|*标识<br>(dbo。AspNetRoles)*        ||*成员资格<br>(dbo.aspnet_Roles)*||
+|*Identity<br>(dbo.AspNetRoles)*        ||*Membership<br>(dbo.aspnet_Roles)*||
 |----------------------------------------|-----------------------------------|
 |**字段名称**                 |**Type**|**字段名称**   |**Type**         |
-|`Id`                           |字符串  |`RoleId`         | 字符串          |
-|`Name`                         |字符串  |`RoleName`       | 字符串          |
-|`NormalizedName`               |字符串  |`LoweredRoleName`| 字符串          |
+|`Id`                           |string  |`RoleId`         | string          |
+|`Name`                         |string  |`RoleName`       | string          |
+|`NormalizedName`               |string  |`LoweredRoleName`| string          |
 
 ### <a name="user-roles"></a>用户角色
 
-|*标识<br>(dbo。AspNetUserRoles)*||*成员资格<br>(dbo.aspnet_UsersInRoles)*||
+|*Identity<br>(dbo.AspNetUserRoles)*||*Membership<br>(dbo.aspnet_UsersInRoles)*||
 |------------------------------------|------------------------------------------|
 |**字段名称**           |**Type**  |**字段名称**|**Type**                   |
-|`RoleId`                 |字符串    |`RoleId`      |字符串                     |
-|`UserId`                 |字符串    |`UserId`      |字符串                     |
+|`RoleId`                 |string    |`RoleId`      |string                     |
+|`UserId`                 |string    |`UserId`      |string                     |
 
 创建的迁移脚本时，引用前面的映射表*用户*并*角色*。 下面的示例假定数据库服务器上有两个数据库。 一个数据库包含的现有 ASP.NET 成员身份架构和数据。 另*CoreIdentitySample*使用前面所述的步骤创建数据库。 注释是以内联形式包含有关更多详细信息。
 
@@ -127,7 +128,7 @@ SELECT aspnet_Users.UserId,
        -- Creates an empty password since passwords don't map between the 2 schemas
        '',
        /*
-        The SecurityStamp token is used to verify the state of an account and 
+        The SecurityStamp token is used to verify the state of an account and
         is subject to change at any time. It should be initialized as a new ID.
        */
        NewID(),

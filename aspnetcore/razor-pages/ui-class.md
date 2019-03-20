@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/07/2018
 ms.custom: seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: e5f329dcc423a7b7d6c247d0d359d35d95283de4
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: dc7db9483f2d75fe79ed9a9806f944e4f2a05a9b
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121487"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265350"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>创建使用 ASP.NET Core 中 Razor 类库项目的可重用 UI
 
@@ -48,7 +48,8 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
 
-------
+---
+
 将 Razor 文件添加到 RCL。
 
 ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL 页面布局](#afs)若要创建中的内容公开 RCL`~/Pages`而非`~/Areas/Pages`。
@@ -60,7 +61,7 @@ ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL 页
 * NuGet 包。 请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。
 * {ProjectName}.csproj。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
 
-## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>演练：创建 Razor 类库项目并从 Razor 页面项目使用它
+## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>演练：创建一个 Razor 类库项目并使用从 Razor 页面项目
 
 可以下载并测试[完整项目](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。 示例下载包含附加代码和链接，以方便测试项目。 可以在[此 GitHub 问题](https://github.com/aspnet/Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。
 
@@ -86,7 +87,7 @@ dotnet build
 dotnet run
 ```
 
-------
+---
 
 按[“测试 Test WebApp1”](#test)中的说明进行操作
 
@@ -123,7 +124,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 *_ViewStart.cshtml*时需要使用 （其中添加下一节中） 的 Razor 页面项目的布局文件。
 
-------
+---
 
 ### <a name="add-razor-files-and-folders-to-the-project"></a>将 Razor 文件和文件夹添加到项目
 
@@ -218,7 +219,7 @@ dotnet run
 * *RazorUIClassLib/页/Shared*
 
 假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。 `<partial>`标记无法添加到 *_Layout.cshtml*文件：
-  
+
 ```cshtml
 <body>
   <partial name="_Header">

@@ -5,12 +5,12 @@ description: 发现基于 ASP.NET Core 项目使用单个用户帐户创建的�
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: c73365eafaf2c38ef02c3c83ccf5ced4264f7dc0
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: f9c1be16386da935382275815bb5fd5c72894b1c
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743769"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265435"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于 ASP.NET Core 项目使用单个用户帐户创建项目
 
@@ -39,6 +39,7 @@ dotnet new razor -au Individual
 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5833)web API 身份验证。
 
 <a name="no"></a>
+
 ## <a name="no-authentication"></a>无身份验证
 
 在.NET Core CLI 与指定身份验证`-au`选项。 在 Visual Studio 中，**更改身份验证**对话框是适用于新 web 应用程序。 默认值为 Visual Studio 中的新 web 应用**无身份验证**。
@@ -49,6 +50,7 @@ dotnet new razor -au Individual
 * 不包含身份验证代码。
 
 <a name="win"></a>
+
 ## <a name="windows-authentication"></a>Windows 身份验证
 
 Windows 身份验证指定为新 web 应用程序中使用.NET Core CLI`-au Windows`选项。 在 Visual Studio 中，**更改身份验证**对话框提供了**Windows 身份验证**选项。

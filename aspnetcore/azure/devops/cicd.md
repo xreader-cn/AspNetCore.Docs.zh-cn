@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: seodec18
 uid: azure/devops/cicd
-ms.openlocfilehash: 906aae3fd4b4abd0becc8847b0f54c372bda300a
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 676620b5dd151c9cd009d7cb278ed2c2b122c83f
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346302"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264887"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和部署
 
@@ -39,17 +39,23 @@ ms.locfileid: "57346302"
 1. 单击**创建存储库**按钮。
 1. 打开本地计算机的命令行界面。 导航到在其中的目录*简单源阅读器*存储 Git 存储库。
 1. 重命名现有*原点*到远程*上游*。 请执行以下命令：
+
     ```console
     git remote rename origin upstream
     ```
+
 1. 添加一个新*原点*远程指向您的 GitHub 上的存储库副本。 请执行以下命令：
+
     ```console
     git remote add origin https://github.com/<GitHub_username>/simple-feed-reader/
     ```
+
 1. 将本地 Git 存储库发布到新创建的 GitHub 存储库。 请执行以下命令：
+
     ```console
     git push -u origin master
     ```
+
 1. 打开浏览器窗口，并导航到`https://github.com/<GitHub_username>/simple-feed-reader/`。 验证你的代码会在 GitHub 存储库中。
 
 ## <a name="disconnect-local-git-deployment"></a>断开连接本地 Git 部署
@@ -192,6 +198,7 @@ ms.locfileid: "57346302"
     ```console
     git commit -a -m "upgraded to V4"
     ```
+
 1. 将更改推入*主*到分支*原点*远程的 GitHub 存储库：
 
     ```console
