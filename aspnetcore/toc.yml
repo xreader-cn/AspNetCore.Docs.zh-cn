@@ -90,6 +90,10 @@ items:
     - uid: tutorials/signalr-typescript-webpack
       name: 使用 TypeScript 的 SignalR
       displayName: tutorial
+  - name: 远程过程调用应用
+    items:
+    - uid: tutorials/grpc/grpc-start
+      name: 开始使用 ASP.NET Core 中的 gRPC 服务
   - name: 数据访问
     items:
     - name: EF Core 和 Razor Pages
@@ -447,6 +451,20 @@ items:
   - uid: signalr/diagnostics
     name: 日志记录和诊断
     displayName: signalr
+- name: 远程过程调用应用
+  items:
+  - uid: grpc/index
+    name: gRPC 服务简介
+  - uid: grpc/basics
+    name: 使用 C# 的 gRPC 服务
+  - uid: grpc/aspnetcore
+    name: 使用 ASP.NET Core 的 gRPC 服务
+  - uid: grpc/migration
+    name: 将 gRPC 服务从 C Core 迁移到 ASP.NET Core
+  - name: 教程
+    items:
+    - uid: tutorials/grpc/grpc-start
+      name: 开始使用 ASP.NET Core 中的 gRPC 服务
 - name: 测试、调试和疑难解答
   items:
   - name: 单元测试
@@ -619,8 +637,6 @@ items:
     name: Grunt
   - uid: client-side/bower
     name: Bower
-  - uid: client-side/less-sass-fa
-    name: LESS、Sass 和 Font Awesome
   - uid: client-side/bundling-and-minification
     name: 捆绑和缩小
   - uid: client-side/using-browserlink
@@ -1060,9 +1076,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 1430ab85bd40bb3090b5e6a2e313a690bc280f1e
-ms.sourcegitcommit: 32bc00435767189fa3ae5fb8a91a307bf889de9d
+ms.openlocfilehash: f3aa8dab0cbb667b99835dada53151b5a64d88e9
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2019
-ms.locfileid: "57733519"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209500"
