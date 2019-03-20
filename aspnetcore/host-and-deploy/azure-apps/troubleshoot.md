@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何诊断 ASP.NET Core Azure 应用服务部署问题。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/05/2019
+ms.date: 03/06/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: c3732bfab362ec034248eb3912d4b1337c94216e
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 326f66070d51c04298abbf6292d2d350414311de
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665423"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841393"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 
@@ -187,7 +187,10 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ## <a name="slow-or-hanging-app"></a>应用缓慢或挂起
 
-当应用响应缓慢或挂起请求时，请参阅[解决 Azure 应用服务中 Web 应用性能缓慢的问题](/azure/app-service/app-service-web-troubleshoot-performance-degradation)以获取调试指导。
+如果应用程序响应缓慢或在有请求时挂起，请参阅以下文章：
+
+* [解决 Azure 应用服务中 Web 应用性能缓慢的问题](/azure/app-service/app-service-web-troubleshoot-performance-degradation)
+* [使用故障诊断程序站点扩展来捕获 Azure Web 应用程序上间歇性异常问题或性能问题的转储](https://blogs.msdn.microsoft.com/asiatech/2015/12/28/use-crash-diagnoser-site-extension-to-capture-dump-for-intermittent-exception-issues-or-performance-issues-on-azure-web-app/)
 
 ## <a name="remote-debugging"></a>远程调试
 
