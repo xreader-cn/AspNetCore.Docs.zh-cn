@@ -1,28 +1,14 @@
 {
   "build_entry_point": "docs",
-  "need_generate_pdf": false,
-  "need_generate_intellisense": false,
   "docsets_to_publish": [
-    {
-      "docset_name": "aspnet-conceptual",
-      "build_source_folder": "aspnet",
-      "build_output_subfolder": "aspnet",
-      "locale": "zh-cn",
-      "open_to_public_contributors": true,
-      "type_mapping": {
-        "Conceptual": "Content",
-        "ManagedReference": "Content",
-        "RestApi": "Content"
-      },
-      "build_entry_point": "docs",
-      "template_folder": "_themes",
-      "version": 0
-    },
     {
       "docset_name": "aspnet-core-conceptual",
       "build_source_folder": "aspnetcore",
       "build_output_subfolder": "aspnetcore",
       "locale": "zh-cn",
+      "moniker_ranges": [
+        ">= aspnetcore-1.0"
+      ],
       "open_to_public_contributors": true,
       "type_mapping": {
         "Conceptual": "Content",
@@ -30,16 +16,18 @@
         "RestApi": "Content"
       },
       "template_folder": "_themes",
-      "version": 0,
-      "moniker_ranges": [">= aspnetcore-1.0"]
+      "version": 0
     }
   ],
-  "notification_subscribers": [],
+  "notification_subscribers": [
+    "CnE_Content_Brno@moravia.com",
+    "CnE_UE_Bugfixing_ENG@moravia.com"
+  ],
   "branches_to_filter": [
     "live",
     "master"
   ],
-  "git_repository_url_open_to_public_contributors": "https://github.com/aspnet/docs.zh-cn",
+  "git_repository_url_open_to_public_contributors": "https://github.com/aspnet/Docs.zh-cn",
   "git_repository_branch_open_to_public_contributors": "live",
   "continue_with_document_error": true,
   "skip_source_output_uploading": false,
@@ -48,12 +36,14 @@
     {
       "path_to_root": "_themes",
       "url": "https://github.com/Microsoft/templates.docs.msft.zh-cn",
-      "branch": "master"
+      "branch": "master",
+      "branch_mapping": {}
     },
     {
       "path_to_root": "_themes.pdf",
       "url": "https://github.com/Microsoft/templates.docs.msft.pdf",
-      "branch": "master"
+      "branch": "master",
+      "branch_mapping": {}
     },
     {
       "path_to_root": "_repo.en-us",
@@ -65,7 +55,6 @@
       }
     }
   ],
-  "need_generate_pdf_url_template": true,
 "branch_target_mapping": {
      "live-sxs": [
            "Publish",
@@ -76,6 +65,9 @@
            "Pdf"
     ]
 },
+  "need_generate_pdf_url_template": true,
+  "need_generate_pdf": false,
+  "need_generate_intellisense": false,
   "Targets": {
     "Pdf": {
       "template_folder": "_themes.pdf"
