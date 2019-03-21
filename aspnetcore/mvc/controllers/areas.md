@@ -5,12 +5,12 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 02/14/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 8904d217a18fff65113ae3469efe60258d20d5f0
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.openlocfilehash: 79bc023a7bd00a9d4de375e3cddaafd148251469
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400640"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264771"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -38,6 +38,7 @@ ms.locfileid: "57400640"
 * [添加到启动的区域路由](#add-area-route)：[!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet2&highlight=3-6)]
 
 ### <a name="area-folder-structure"></a>区域文件夹结构
+
 请考虑具有两个逻辑组（产品和服务）的应用。 使用区域，文件夹结构类似于以下内容：
 
 * 项目名称
@@ -172,7 +173,7 @@ ms.locfileid: "57400640"
 在前面的标记中：
 
 * 必须使用完全限定的域名来指定模型 (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`)。
-* [标记帮助程序]()由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
+* [标记帮助程序](xref:mvc/views/tag-helpers/intro)由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
 
 在示例下载中，Products 区域包含以下 _ViewImports 文件：
 

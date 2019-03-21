@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 5ae96b213a19464045e1d0b1a76f8eb81089dc5b
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 64be4984779724eb60af3b70d4f52b22eae32213
+ms.sourcegitcommit: 10e14b85490f064395e9b2f423d21e3c2d39ed8b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236336"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58142309"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
@@ -25,7 +25,7 @@ ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文
 * 定义通过特定操作类型返回的、最常见的返回类型和状态代码。
 * 识别偏离所定义的标准的操作。
 
-ASP.NET Core MVC 2.2 及更高版本在 `Microsoft.AspNetCore.Mvc.DefaultApiConventions` 中包含一组默认的约定。 约定基于 ASP.NET Core API 项目模板中提供的控件 (ValuesController.cs)。 若操作遵循模板中的模式，则应成功使用默认约定。 如果默认约定不能满足需要，请参阅[创建 Web API 约定](#create-web-api-conventions)。
+ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> 中包含一组默认的约定。 约定基于 ASP.NET Core API 项目模板中提供的控件 (ValuesController.cs)。 若操作遵循模板中的模式，则应成功使用默认约定。 如果默认约定不能满足需要，请参阅[创建 Web API 约定](#create-web-api-conventions)。
 
 在运行时，<xref:Microsoft.AspNetCore.Mvc.ApiExplorer> 会了解约定。 `ApiExplorer` 是 MVC 与 [OpenAPI](https://www.openapis.org/)（也称为 Swagger）文档生成器进行通信的抽象内容。 已应用的约定中的属性与某个操作相关联，并包含在操作的 OpenAPI 文档中。 [API 分析器](xref:web-api/advanced/analyzers)也会了解约定。 若操作为非常规操作（例如，它返回已应用的约定未记录的状态代码），则会生成警告，建议记录该状态代码。
 

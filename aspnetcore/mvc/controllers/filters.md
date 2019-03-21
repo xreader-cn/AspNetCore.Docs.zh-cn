@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: a9081a9938d56b7612bba13937eba384ff02455b
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 4fe04cde2a234302845b2cbded106f1e809842bc
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833730"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209289"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -19,11 +19,11 @@ ms.locfileid: "56833730"
 
 通过使用 ASP.NET Core MVC 中的筛选器，可在请求处理管道中的特定阶段之前或之后运行代码。
 
- 内置筛选器处理任务，例如：
+内置筛选器处理任务，例如：
 
- * 授权（防止用户访问未获授权的资源）。
- * 确保所有请求都使用 HTTPS。
- * 响应缓存（对请求管道进行短路出路，以便返回缓存的响应）。 
+* 授权（防止用户访问未获授权的资源）。
+* 确保所有请求都使用 HTTPS。
+* 响应缓存（对请求管道进行短路出路，以便返回缓存的响应）。 
 
 可以创建自定义筛选器，用于处理横切关注点。 筛选器可以避免跨操作复制代码。 例如，错误处理异常筛选器可以合并错误处理。
 
@@ -373,7 +373,7 @@ System.InvalidOperationException: No service for type
 
 如果操作结果或后续结果筛选器引发了异常，则 `ResultExecutedContext.Exception` 设置为非 NULL 值。 将 `Exception` 设置为 NULL 可有效地“处理”异常，并防止 MVC 在管道的后续阶段重新引发该异常。 在处理结果筛选器中的异常时，可能无法向响应写入任何数据。 如果操作结果在其执行过程中引发异常，并且标头已刷新到客户端，则没有任何可靠的机制可用于发送失败代码。
 
-对于 `IAsyncResultFilter`，通过调用 `ResultExecutionDelegate` 上的 `await next` 可执行所有后续结果筛选器和操作结果。 若要设置短路，可将 `ResultExecutingContext.Cancel` 设置为 true，并且不调用 `ResultExectionDelegate`。
+对于 `IAsyncResultFilter`，通过调用 `ResultExecutionDelegate` 上的 `await next` 可执行所有后续结果筛选器和操作结果。 若要设置短路，可将 `ResultExecutingContext.Cancel` 设置为 true，并且不调用 `ResultExecutionDelegate`。
 
 该框架提供一个可子类化的抽象 `ResultFilterAttribute`。 前面所示的 [AddHeaderAttribute](#add-header-attribute) 类是一种结果筛选器属性。
 

@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 29d9369cfa6a4c76f015b5a819a27dfa280d4075
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 88449a0064dad42d8d2bf9fbdd67078e4c2ba8de
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346406"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58210049"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -146,7 +146,6 @@ cd RazorPagesMovie
 * 一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。
 
 支持文件的名称以下划线开头。 例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。 此文件设置页面顶部的导航菜单和页面底部的版权声明。 有关更多信息，请参见<xref:mvc/views/layout>。
-
 
 ### <a name="wwwroot-folder"></a>wwwroot 文件夹
 

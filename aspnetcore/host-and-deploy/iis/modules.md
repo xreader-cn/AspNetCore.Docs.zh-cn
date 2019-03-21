@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/28/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: e5bb1a86453bb945789cc1f4b56616551e316615
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.openlocfilehash: de740775e124298f7c3d3be0c6f5a7311174116d
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400679"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265483"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
@@ -123,7 +123,7 @@ ms.locfileid: "57400679"
     </system.webServer>
    </configuration>
    ```
-   
+
 要使用 web.config 为 IIS Express 添加或删除模块，请修改 applicationHost.config 以解锁 `<modules>` 部分：
 
 1. 打开 {APPLICATION ROOT}\\.vs\config\applicationhost.config。
@@ -131,17 +131,17 @@ ms.locfileid: "57400679"
 1. 找到 IIS 模块的 `<section>` 元素，并将 `overrideModeDefault` 从 `Deny` 更改为 `Allow`：
 
    ```xml
-   <section name="modules" 
-            allowDefinition="MachineToApplication" 
+   <section name="modules"
+            allowDefinition="MachineToApplication"
             overrideModeDefault="Allow" />
    ```
-   
+
 1. 找到 `<location path="" overrideMode="Allow"><system.webServer><modules>` 部分。 对于任何要删除的模块，请将 `lockItem` 从 `true` 设置为 `false`。 在以下示例中，已解锁 CGI 模块：
 
    ```xml
    <add name="CgiModule" lockItem="false" />
    ```
-   
+
 1. 解锁 `<modules>` 部分和单个模块后，可使用应用的 web.config 文件添加或删除 IIS 模块，以便在 IIS Express 上运行应用。
 
 IIS 模块还可以使用 Appcmd.exe 删除。 该命令中提供 `MODULE_NAME` 和 `APPLICATION_NAME`：

@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 02/25/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: ccdb7b920517c94b9154fe73b4ef1633f4ad0157
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: ed83ab92c70ea87f3c805787303e24c9ecfc4e12
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833548"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265543"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -26,14 +26,12 @@ ms.locfileid: "56833548"
 
 ## <a name="add-a-data-model-class"></a>添加数据模型类
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 右键单击 Models 文件夹，然后单击“添加” > “类”。 将类命名“Movie”。
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
-<!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 将类添加到名为“Movie.cs”的“Models”文件夹。
@@ -41,14 +39,12 @@ ms.locfileid: "56833548"
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 [!INCLUDE [model 2](~/includes/mvc-intro/model2.md)]
 
----  
-<!-- End of VS tabs -->
+---
 
 ## <a name="scaffold-the-movie-model"></a>搭建“电影”模型的基架
 
 在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在解决方案资源管理器中，右键单击“Controllers”文件夹 >“添加”>“新搭建基架的项目”。
@@ -76,11 +72,10 @@ Visual Studio 将创建：
 
 * Entity Framework Core [数据库上下文类](xref:data/ef-mvc/intro#create-the-database-context) (Data/MvcMovieContext.cs)
 * 电影控制器 (Controllers/MoviesController.cs)
-* “创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 Razor 视图文件 (Views/Movies/&ast;.cshtml)
+* “创建”、“删除”、“详细信息”、“编辑”和“索引”页面的 Razor 视图文件 (Views/Movies/\*.cshtml)
 
 自动创建数据库上下文和 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete)（创建、读取、更新和删除）操作方法和视图的过程称为“搭建基架”。
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
@@ -313,4 +308,4 @@ return View(movie);
 
 > [!div class="step-by-step"]
 > [上一篇：添加视图](adding-view.md)
-> [下一篇：使用 SQL](working-with-sql.md)  
+> [下一篇：使用 SQL](working-with-sql.md)

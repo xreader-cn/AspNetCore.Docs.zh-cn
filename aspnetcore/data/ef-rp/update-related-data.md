@@ -5,12 +5,12 @@ description: 本教程将通过更新外键字段和导航属性来更新相关�
 ms.author: riande
 ms.date: 11/15/2017
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: c3dbfe57a832ba63c5da2f89c0d29e443a1277a7
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: e1407048157fccdbfdd854071a6fbf9785356026
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345757"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208604"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
 
@@ -136,9 +136,9 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 前面的代码：
 
-- 使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
-- 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
-- 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
+* 使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
+* 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
+* 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
 
 ### <a name="update-the-instructor-edit-page"></a>更新讲师“编辑”页
 

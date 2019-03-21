@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: f352a9c3573119028d1bc42fd622919ce0560e7c
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 44487b91c8bbd353157a5f5f1b834187e47e2f3e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841496"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264652"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
 
@@ -49,18 +49,17 @@ ms.locfileid: "57841496"
 
 使用 `Rating` 字段更新 /Views/Movies/Create.cshtml。
 
-<!-- VS -------------------------->
 # <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
 可以复制/粘贴之前的“窗体组”，并让 intelliSense 帮助更新字段。 IntelliSense 适用于[标记帮助程序](xref:mvc/views/tag-helpers/intro)。
 
 ![开发人员已在视图的第二个标签元素中键入字母 R 用作 asp-for 的特性值。 出现了 Intellisense 上下文菜单，其中显示了可用字段，包括在列表中自动突出显示的“Rating”。 开发人员单击此字段或在键盘上按 Enter 键时，此值将设置为“Rating”。](new-field/_static/cr.png)
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
 <!-- This tab intentionally left blank. -->
----  
-<!-- End of VS tabs -->
+
+---
 
 更新 `SeedData` 类，使它提供新列的值。 示例更改如下所示，但可能需要对每个 `new Movie` 做出此更改。
 
@@ -82,7 +81,6 @@ ms.locfileid: "57841496"
 
 对于本教程，请使用 Code First 迁移。
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。
@@ -106,17 +104,17 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令： 
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
 
 ```console
 dotnet ef database update
 ```
 
----  
+---
 <!-- End of VS tabs -->
 
 运行应用，并验证是否可以创建/编辑/显示具有 `Rating` 字段的电影。 应向 `Edit`、`Details` 和 `Delete` 视图模板添加 `Rating` 字段。
 
 > [!div class="step-by-step"]
 > [上一页](search.md)
-> [下一页](validation.md)  
+> [下一页](validation.md)

@@ -5,12 +5,12 @@ description: 演示如何将搜索添加到 ASP.NET Core Razor 页面
 ms.author: riande
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 8a8e51632a75efd6411bae46b9a7f9e4f16b480f
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: d0ce13e87c3f5e66008f308f6258403ea37b8847
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346195"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208221"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>将搜索添加到 ASP.NET Core Razor 页面
 
@@ -109,7 +109,6 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 ## <a name="additional-resources"></a>其他资源
 
 * [本教程的 YouTube 版本](https://youtu.be/4B6pHtdyo08)
-
 
 > [!div class="step-by-step"]
 > [上一篇：更新页面](xref:tutorials/razor-pages/da1)

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/10/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 6111ae77369608e828eebf6229b5702630bc63f8
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 25564ecebf48f65a209ac48e77856ef36d897959
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841457"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264979"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
@@ -351,6 +351,7 @@ additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.jso
      <RestoreSources>$(RestoreSources);https://api.nuget.org/v3/index.json;../HostingStartupPackage/bin/Debug</RestoreSources>
    </PropertyGroup>
    ```
+
 1. 观察到索引页呈现的服务配置键值与包的 `ServiceKeyInjection.Configure` 方法设置的值匹配。
 
 如果更改并重新编译 HostingStartupPackage 项目，请清除本地 NuGet 包缓存，确保 HostingStartupApp 从本地缓存中收到更新后的包而不是旧包。 要清除本地 NuGet 缓存，请执行以下 [dotnet nuget locals](/dotnet/core/tools/dotnet-nuget-locals) 命令：
@@ -374,6 +375,7 @@ dotnet nuget locals all --clear
      </Reference>
    </ItemGroup>
    ```
+
 1. 观察到索引页呈现的服务配置键值与类库的 `ServiceKeyInjection.Configure` 方法设置的值匹配。
 
 **从运行时存储部署的程序集激活**
@@ -387,6 +389,7 @@ dotnet nuget locals all --clear
    ```console
    dotnet store --manifest StartupDiagnostics.csproj --runtime <RID>
    ```
+
    对于 Windows，该命令使用 `win7-x64` [运行时标识符 (RID)](/dotnet/core/rid-catalog)。 为其他运行时提供承载启动时，请替换为正确的 RID。
 1. 设置环境变量：
    * 将程序集名称 StartupDiagnostics 的添加到 `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` 环境变量中。

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 140f482e136acf4daba1248fecc87e06db6866f3
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: a264cdaf0f577be6ea2043935b485f4fd16e0229
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345882"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264944"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
 
@@ -65,9 +65,10 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 * 从 `Department` 实体中获取 `Name` 属性。
 * `Department` 实体来自于 `Course.Department` 导航属性。
 
-![ourse.Department](read-related-data/_static/dep-crs.png)
+![Course.Department](read-related-data/_static/dep-crs.png)
 
 <a name="scaffold"></a>
+
 ### <a name="scaffold-the-course-model"></a>为课程模型创建基架
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
@@ -115,6 +116,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
 <a name="select"></a>
+
 ### <a name="loading-related-data-with-select"></a>使用 Select 加载相关数据
 
 `OnGetAsync` 方法使用 `Include` 方法加载相关数据：
@@ -187,7 +189,6 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 * `OfficeAssignment`：在[讲师视图](#IP)中显示。
 * `CourseAssignments`：课程的教学内容。
 
-
 ### <a name="update-the-instructors-index-page"></a>更新“讲师索引”页
 
 使用以下标记更新 Pages/Instructors/Index.cshtml：
@@ -198,11 +199,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 * 将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。 `"{id:int?}"` 是一个路由模板。 路由模板将 URL 中的整数查询字符串更改为路由数据。 例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL：
 
-    `http://localhost:1234/Instructors?id=2`
+  `http://localhost:1234/Instructors?id=2`
 
-    当页面指令是 `@page "{id:int?}"` 时，之前的 URL 为：
+  当页面指令是 `@page "{id:int?}"` 时，之前的 URL 为：
 
-    `http://localhost:1234/Instructors/2`
+  `http://localhost:1234/Instructors/2`
 
 * 页标题为“讲师”。
 * 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列。 由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。

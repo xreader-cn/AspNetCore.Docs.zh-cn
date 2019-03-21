@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 2.0 的新增功能。
 ms.author: riande
 ms.date: 07/10/2017
 uid: aspnetcore-2.0
-ms.openlocfilehash: a6d3179c84bfef0b15c2772e696466b88d228de5
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 60e44e64bd1cfada0143e374f6f51dec0e4e84f8
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207116"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209880"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -81,9 +81,9 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 Kestrel Web 服务器包含一项新功能，使其更适合作为面向 Internet 的服务器。 在 `KestrelServerOptions` 类的新 `Limits` 属性中添加大量服务器约束配置选项。 为以下内容添加限制：
 
-- 客户端最大连接数
-- 请求正文最大大小
-- 请求正文最小数据速率
+* 客户端最大连接数
+* 请求正文最大大小
+* 请求正文最小数据速率
 
 有关详细信息，请参阅 [ASP.NET Core 中的 Kestrel Web 服务器实现](xref:fundamentals/servers/kestrel)。
 

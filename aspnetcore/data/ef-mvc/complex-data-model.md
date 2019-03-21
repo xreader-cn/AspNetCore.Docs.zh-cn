@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: c08fd6ff7c19c63161135b4c87609f6edd3edb80
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 5ab893dd77ff2cc9a735702eb3a547ed8bcb2197
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103119"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264863"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
@@ -287,7 +287,6 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 ![Department 实体](complex-data-model/_static/department-entity.png)
 
-
 用以下代码创建 Models/Department.cs：
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Begin)]
@@ -322,6 +321,7 @@ public ICollection<Course> Courses { get; set; }
 
 > [!NOTE]
 > 按照约定，Entity Framework 能针对不可为 null 的外键和多对多关系启用级联删除。 这可能导致循环级联删除规则，尝试添加迁移时该规则会造成异常。 例如，如果未将 Department.InstructorID 属性定义为可为 null，那么在删除系时，EF 会配置级联删除规则来删除讲师，这是预期外的情况。 如果业务规则要求 `InstructorID` 属性不可为 null，则必须使用以下 Fluent API 语句禁用关系中的级联删除：
+>
 > ```csharp
 > modelBuilder.Entity<Department>()
 >    .HasOne(d => d.Administrator)
@@ -482,6 +482,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 > [!NOTE]
 > 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
+>
 > ```console
 > dotnet ef database drop
 > ```

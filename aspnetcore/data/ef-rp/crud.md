@@ -5,12 +5,12 @@ description: 演示如何使用 EF Core 进行创建、读取、更新和删除
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: adb281277599456356251c6ee30772a25f14ac58
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: c104498a4411ac36672ffbb9660948d4e96bf1ee
+ms.sourcegitcommit: 10e14b85490f064395e9b2f423d21e3c2d39ed8b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346045"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58142383"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
 
@@ -250,7 +250,7 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 
 ## <a name="additional-resources"></a>其他资源
 
-* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=F0SP7Ry4flQ&list=PLnVvOWNfuhGV45HnNgd0vuIIkoQ1UaVBf)
+* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=K4X1MT2jt6o)
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/intro)

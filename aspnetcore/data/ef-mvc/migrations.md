@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: ac924e7d6bee2f02ab11281a5c27f2c94a7183b3
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 6d4ed0e95499c30417e1cfd07f57de824a8a62ed
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102989"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265520"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -28,7 +28,6 @@ ms.locfileid: "56102989"
 > * 检查 Up 和 Down 方法
 > * 了解数据模型快照
 > * 应用迁移
-
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -60,6 +59,7 @@ ms.locfileid: "56102989"
 
 > [!NOTE]
 > 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
+>
 > ```console
 > dotnet ef database drop
 > ```
@@ -96,7 +96,7 @@ Done. To undo this action, use 'ef migrations remove'
 > [!NOTE]
 > 如果出现错误消息“找不到任何匹配 "dotnet-ef" 命令的可执行文件”，请参阅[此博客文章](http://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/)获取故障排除帮助。
 
-如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”。
+如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”*。
 
 ## <a name="examine-up-and-down-methods"></a>检查 Up 和 Down 方法
 

@@ -5,12 +5,12 @@ description: 了解 Razor 标记语法，该语法用于将基于服务器的代
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: 8e9ec3c5040e5a24cd5f773b1232897338741c0c
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 254c85ee9e74dc72170b19d27fbc5f1ae7ccd3dc
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396254"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264747"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -69,9 +69,9 @@ Razor 支持 C#，并使用 `@` 符号从 HTML 转换为 C#。 Razor 计算 C# �
 
 上述代码生成与以下错误之一类似的编译器错误：
 
- * "int" 元素未结束。 所有元素都必须自结束或具有匹配的结束标记。
- *  无法将方法组 "GenericMethod" 转换为非委托类型 "object"。 是否希望调用此方法?` 
- 
+* "int" 元素未结束。 所有元素都必须自结束或具有匹配的结束标记。
+* 无法将方法组 "GenericMethod" 转换为非委托类型 "object"。 是否希望调用此方法?`
+
 泛型方法调用必须包装在[显式 Razor 表达式](#explicit-razor-expressions)或 [Razor 代码块](#razor-code-blocks)中。
 
 ## <a name="explicit-razor-expressions"></a>显式 Razor 表达式
@@ -199,7 +199,7 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 
 **\<text>** 标记可用于在呈现内容时控制空格：
 
-* 仅呈现 **\<text>** 标记之间的内容。 
+* 仅呈现 **\<text>** 标记之间的内容。
 * **\<text>** 标记之前或之后的空格不会显示在 HTML 输出中。
 
 ### <a name="explicit-line-transition-with-"></a>使用 @ 的显式行转换：
@@ -216,7 +216,7 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 
 如果代码中没有 `@:`，会生成 Razor 运行时错误。
 
-警告:Razor 文件中多余的 `@` 字符可能会导致代码块中后面的语句发生编译器错误。 这些编译器错误可能难以理解，因为实际错误发生在报告的错误之前。 将多个隐式/显式表达式合并到单个代码块以后，经常会发生此错误。
+警告：Razor 文件中多余的 `@` 字符可能会导致代码块中后面的语句发生编译器错误。 这些编译器错误可能难以理解，因为实际错误发生在报告的错误之前。 将多个隐式/显式表达式合并到单个代码块以后，经常会发生此错误。
 
 ## <a name="control-structures"></a>控制结构
 
@@ -337,7 +337,6 @@ else
 
 在 C# 中，`using` 语句用于确保释放对象。 在 Razor 中，可使用相同的机制来创建包含附加内容的 HTML 帮助程序。 在下面的代码中，HTML 帮助程序使用 `@using` 语句呈现表单标记：
 
-
 ```cshtml
 @using (Html.BeginForm())
 {
@@ -425,6 +424,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 本文后面的[检查为视图生成的 Razor C# 类](#inspect-the-razor-c-class-generated-for-a-view)部分说明了如何查看此生成的类。
 
 <a name="using"></a>
+
 ### <a name="using"></a>@using
 
 `@using` 指令用于向生成的视图添加 C# `using` 指令：
@@ -579,7 +579,7 @@ public class Pet
 @using Microsoft.AspNetCore.Html
 
 @functions {
-    public static IHtmlContent Repeat(IEnumerable<dynamic> items, int times, 
+    public static IHtmlContent Repeat(IEnumerable<dynamic> items, int times,
         Func<dynamic, IHtmlContent> template)
     {
         var html = new HtmlContentBuilder();

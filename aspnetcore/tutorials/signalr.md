@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 53ec924c2d7b4fac227be0c0bf24d93476528167
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: ba36f75dfa40012df3140cdcbf8a7732fb0709fe
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836553"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264541"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -79,7 +79,7 @@ ms.locfileid: "54836553"
 
 * 在“解决方案资源管理器”中，右键单击项目，然后选择“添加” > “客户端库”。
 
-* 在“添加客户端库”对话框中，对于“提供程序”，选择“unpkg”。 
+* 在“添加客户端库”对话框中，对于“提供程序”，选择“unpkg”。
 
 * 对于“库”，输入 `@aspnet/signalr@1`，然后选择不是预览版的最新版本。
 
@@ -210,7 +210,7 @@ ms.locfileid: "54836553"
   ```console
   dotnet run -p SignalRChat.csproj
   ```
-  
+
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 从菜单中选择“运行”>“开始执行(不调试)”。

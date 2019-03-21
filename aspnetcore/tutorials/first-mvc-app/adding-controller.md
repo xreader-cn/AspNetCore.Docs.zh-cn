@@ -5,12 +5,12 @@ description: 了解如何将控制器添加到简单的 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: bbb7b06e2c9c63f44cb7f7a8ee63bffa1e316b3e
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381863"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265014"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
@@ -30,7 +30,6 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 ## <a name="add-a-controller"></a>添加控制器
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
@@ -42,14 +41,12 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 * 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”。
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs。
 
   ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。
@@ -62,7 +59,6 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
 
 ---
-<!-- End of VS tabs -->
 
 将“Controllers/HelloWorldController.cs”的内容替换为以下内容：
 
@@ -130,7 +126,6 @@ Remove link for simplified tutorial.
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 
 上述示例中，控制器始终执行 MVC 的“VC”部分，即视图和控制器工作。 控制器将直接返回 HTML。 通常不希望控制器直接返回 HTML，因为编码和维护非常繁琐。 通常，需使用单独的 Razor 视图模板文件来帮助生成 HTML 响应。 可在下一教程中执行该操作。
-
 
 > [!div class="step-by-step"]
 > [上一页](start-mvc.md)

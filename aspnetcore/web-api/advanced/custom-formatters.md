@@ -5,12 +5,12 @@ description: 了解如何为 ASP.NET Core 中的 Web API 创建和使用自定�
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 2861a15a80725dcc237d33313a24822cf8aa9c7e
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 611840defd1da3b57b365c99deaf1c67f1568227
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997287"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264632"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 
@@ -85,6 +85,7 @@ ASP.NET Core MVC 使用 JSON 或 XML，为 Web API 中的数据交换提供内�
 例如，假设操作方法签名返回 `Person` 类型，但它可能返回从 `Person` 派生的 `Student` 或 `Instructor` 类型。 如果希望格式化程序仅处理 `Student` 对象，请检查提供给 `CanWriteResult` 方法的上下文对象中的[对象](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)类型。 请注意，当操作方法返回 `IActionResult` 时，不必使用 `CanWriteResult`；在这种情况下，`CanWriteType` 方法可接收运行时类型。
 
 <a id="read-write"></a>
+
 ### <a name="override-readrequestbodyasyncwriteresponsebodyasync"></a>重写 ReadRequestBodyAsync/WriteResponseBodyAsync
 
 实际的反序列化或序列化工作在 `ReadRequestBodyAsync` 或 `WriteResponseBodyAsync` 中执行。 以下示例中突出显示的行展示了如何从依赖关系注入容器中获取服务（不能从构造函数参数中获取它们）。

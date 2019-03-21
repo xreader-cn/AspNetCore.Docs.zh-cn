@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/07/2018
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: a6c264e460855c9f1d6f5a363eb7ee2cf69619ee
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 3fb8ebe415d0619d33302a08e97da78db0ad1d1e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346289"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265514"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -95,9 +95,9 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
 
 数据库生成 `rowversion` 序号，该数字随着每次行的更新递增。 在 `Update` 或 `Delete` 命令中，`Where` 子句包括 `rowversion` 的提取值。 如果要更新的行已更改：
 
- * `rowversion` 不匹配提取值。
- * `Update` 或 `Delete` 命令不能找到行，因为 `Where` 子句包含提取的 `rowversion`。
- * 引发一个 `DbUpdateConcurrencyException`。
+* `rowversion` 不匹配提取值。
+* `Update` 或 `Delete` 命令不能找到行，因为 `Where` 子句包含提取的 `rowversion`。
+* 引发一个 `DbUpdateConcurrencyException`。
 
 在 EF Core 中，如果未通过 `Update` 或 `Delete` 命令更新行，则引发并发异常。
 
@@ -152,6 +152,7 @@ dotnet ef database update
 * 运行迁移以更新数据库。
 
 <a name="scaffold"></a>
+
 ## <a name="scaffold-the-departments-model"></a>构架院系模型
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
@@ -272,7 +273,6 @@ dotnet ef database update
 使用以下代码更新 Pages/Departments/Delete.cshtml：
 
 [!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
-
 
 上述标记进行以下更改：
 

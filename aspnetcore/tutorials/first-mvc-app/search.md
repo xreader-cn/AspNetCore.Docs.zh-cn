@@ -5,12 +5,12 @@ description: 演示如何将搜索添加到基本 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: e5dce35b60080ef752f8e6c6004158219015cbf5
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 41d7494b77edaddbf719cab087142f0132dd3ed6
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410633"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208377"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>将搜索添加到 ASP.NET Core MVC 应用
 
@@ -37,7 +37,7 @@ var movies = from m in _context.Movie
 
 上面的 `s => s.Title.Contains()` 代码是 [Lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)。 Lambda 在基于方法的 [LINQ](/dotnet/standard/using-linq) 查询中用作标准查询运算符方法的参数，如 [Where](/dotnet/api/system.linq.enumerable.where) 方法或 `Contains`（上述的代码中所使用的）。 在对 LINQ 查询进行定义或通过调用方法（如 `Where`、`Contains` 或 `OrderBy`）进行修改后，此查询不会被执行。 相反，会延迟执行查询。  这意味着表达式的计算会延迟，直到真正循环访问其实现的值或者调用 `ToListAsync` 方法为止。 有关延迟执行查询的详细信息，请参阅[Query Execution](/dotnet/framework/data/adonet/ef/language-reference/query-execution)（查询执行）。
 
-注意:[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 方法在数据库上运行，而不是在上面显示的 C# 代码中运行。 查询是否区分大小写取决于数据库和排序规则。 在 SQL Server 上，[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 映射到 [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql)，这是不区分大小写的。 在 SQLlite 中，由于使用了默认排序规则，因此需要区分大小写。
+注意:[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 方法在数据库上运行，而不是在上面显示的 C# 代码中运行。 查询是否区分大小写取决于数据库和排序规则。 在 SQL Server 上，[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 映射到 [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql)，这是不区分大小写的。 在 SQLite 中，由于使用了默认排序规则，因此需要区分大小写。
 
 导航到 `/Movies/Index`。 将查询字符串（如 `?searchString=Ghost`）追加到 URL。 筛选的电影将显示出来。
 
@@ -113,10 +113,10 @@ var movies = from m in _context.Movie
 
 “电影流派”视图模型将包含：
 
-   * 电影列表。
-   * 包含流派列表的 `SelectList`。 这使用户能够从列表中选择一种流派。
-   * 包含所选流派的 `MovieGenre`。
-   * `SearchString`包含用户在搜索文本框中输入的文本。
+* 电影列表。
+* 包含流派列表的 `SelectList`。 这使用户能够从列表中选择一种流派。
+* 包含所选流派的 `MovieGenre`。
+* `SearchString`包含用户在搜索文本框中输入的文本。
 
 将 `MoviesController.cs` 中的 `Index` 方法替换为以下代码：
 
@@ -148,4 +148,4 @@ var movies = from m in _context.Movie
 
 > [!div class="step-by-step"]
 > [上一页](controller-methods-views.md)
-> [下一页](new-field.md)  
+> [下一页](new-field.md)

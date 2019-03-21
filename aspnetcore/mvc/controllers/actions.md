@@ -5,12 +5,12 @@ description: ''
 ms.author: riande
 ms.date: 07/03/2017
 uid: mvc/controllers/actions
-ms.openlocfilehash: 8289424b3cd3678bea18a25c7850e409795d1577
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 952e4dbb2c4343ca87ace1535e4a5968faf088cf
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410426"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209010"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>在 ASP.NET Core MVC 中使用控制器处理请求
 
@@ -98,7 +98,7 @@ ms.locfileid: "56410426"
 可在控制器或操作级别上应用大多数筛选器属性（例如 `[Authorize]`），具体取决于所需的粒度级别。
 
 错误处理和响应缓存通常是横切关注点：
-   * [处理错误](xref:mvc/controllers/filters#exception-filters)
-   * [响应缓存](xref:performance/caching/response)
+* [处理错误](xref:mvc/controllers/filters#exception-filters)
+* [响应缓存](xref:performance/caching/response)
 
 使用筛选器或自定义[中间件](xref:fundamentals/middleware/index)可处理许多横切关注点。

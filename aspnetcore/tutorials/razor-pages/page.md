@@ -5,12 +5,12 @@ description: 介绍通过搭建基架生成的 Razor 页面。
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 07ad142b369fab92589f63479533a769136a087b
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: c4d0e5c7b7365edc0df5428c250037db7ef3da2a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346445"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265265"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -51,6 +51,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 `DisplayNameFor` HTML 帮助程序检查 Lambda 表达式中引用的 `Title` 属性来确定显示名称。 检查 Lambda 表达式（而非求值）。 这意味着当 `model`、`model.Movie` 或 `model.Movie[0]` 为 `null` 或为空时，不会存在任何访问冲突。 对 Lambda 表达式求值时（例如，使用 `@Html.DisplayFor(modelItem => item.Title)`），将求得该模型的属性值。
 
 <a name="md"></a>
+
 ### <a name="the-model-directive"></a>
   @model 指令
 
@@ -65,6 +66,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 [布局](xref:mvc/views/layout)模板使你能够在一个位置指定网站的 HTML 容器布局，然后将它应用到网站中的多个页面。 查找 `@RenderBody()` 行。 `RenderBody` 是显示所创建的全部页面专用视图的占位符，已包装在布局页中。 例如，如果选择“隐私”链接，Pages/Privacy.cshtml 视图在 `RenderBody` 方法中呈现。
 
 <a name="vd"></a>
+
 ### <a name="viewdata-and-layout"></a>ViewData 和布局
 
 考虑来自 Pages/Movies/Index.cshtml 文件中的以下代码：
@@ -73,12 +75,12 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 前面突出显示的代码是 Razor 转换为 C# 的一个示例。 `{` 和 `}` 字符括住 C# 代码块。
 
-`PageModel` 基类具有 `ViewData` 字典属性，可用于添加要传递到某个视图的数据。 可以使用键/值模式将对象添加到 `ViewData` 字典。 在前面的示例中，“Title”属性被添加到 `ViewData` 字典。 
+`PageModel` 基类具有 `ViewData` 字典属性，可用于添加要传递到某个视图的数据。 可以使用键/值模式将对象添加到 `ViewData` 字典。 在前面的示例中，“Title”属性被添加到 `ViewData` 字典。
 
 “Title”属性用于 Pages/Shared/_Layout.cshtml 文件。 以下标记显示 _Layout.cshtml 文件的前几行。
 
 <!-- we need a snapshot copy of layout because we are
-changing in in the next step. 
+changing in in the next step.
 -->
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6-99)]
 
@@ -89,7 +91,6 @@ changing in in the next step.
 更改 Pages/Shared/_Layout.cshtml 文件中的 `<title>` 元素以显示 Movie 而不是 RazorPagesMovie。
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
-
 
 在 Pages/Shared/_Layout.cshtml 文件中，查找以下定位点元素。
 
@@ -142,24 +143,21 @@ changing in in the next step.
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml)]
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio 以用于标记帮助程序的特殊加粗字体显示 `<form method="post">` 标记：
 
 ![Create.cshtml 页的 VS17 视图](page/_static/th.png)
-<!-- Code -------------------------->
+
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 有关标记帮助程序（如 `<form method="post">`）的详细信息，请参阅 [ASP.NET Core 中的标记帮助程序](xref:mvc/views/tag-helpers/intro)。
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Visual Studio for Mac 以用于标记帮助程序的特殊加粗字体显示 `<form method="post">` 标记。
 
----  
-<!-- End of VS tabs -->
+---
 
 `<form method="post">` 元素是一个[表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)。 表单标记帮助程序会自动包含[防伪令牌](xref:security/anti-request-forgery)。
 
@@ -176,7 +174,6 @@ Visual Studio for Mac 以用于标记帮助程序的特殊加粗字体显示 `<f
 ## <a name="additional-resources"></a>其他资源
 
 * [本教程的 YouTube 版本](https://youtu.be/zxgKjPYnOMM)
-
 
 > [!div class="step-by-step"]
 > [上一篇：添加模型](xref:tutorials/razor-pages/model)

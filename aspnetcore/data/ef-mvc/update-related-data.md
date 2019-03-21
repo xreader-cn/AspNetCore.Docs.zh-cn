@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: ac94f2e2876c2d8d571a451e4641787ffe37b3d2
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 1606b872df2df839266ef17efee1948065c4efae
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103028"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209409"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -131,11 +131,11 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 该代码执行以下操作：
 
--  将方法名称更改为 `EditPost`，因为现在的签名与 HttpGet `Edit` 方法相同（`ActionName` 特性指定仍然使用 `/Edit/` URL）。
+* 将方法名称更改为 `EditPost`，因为现在的签名与 HttpGet `Edit` 方法相同（`ActionName` 特性指定仍然使用 `/Edit/` URL）。
 
--  使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 Instructor 实体。 此操作与在 HttpGet `Edit` 方法中进行的操作相同。
+* 使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 Instructor 实体。 此操作与在 HttpGet `Edit` 方法中进行的操作相同。
 
--  将检索出的 Instructor 实体更新为模型绑定器中的值。 通过 `TryUpdateModel` 重载可以将想包括的属性列入到允许列表。 这样可以防止[第二个教程](crud.md)中所述的过度发布。
+* 将检索出的 Instructor 实体更新为模型绑定器中的值。 通过 `TryUpdateModel` 重载可以将想包括的属性列入到允许列表。 这样可以防止[第二个教程](crud.md)中所述的过度发布。
 
     <!-- Snippets don't play well with <ul> [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?range=241-244)] -->
 
@@ -146,7 +146,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
         i => i.FirstMidName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
     ```
 
--   如果办公室位置为空，请将 Instructor.OfficeAssignment 属性设置为 NULL，以便删除 OfficeAssignment 表中的相关行。
+* 如果办公室位置为空，请将 Instructor.OfficeAssignment 属性设置为 NULL，以便删除 OfficeAssignment 表中的相关行。
 
     <!-- Snippets don't play well with <ul>  "intro/samples/cu/Controllers/InstructorsController.cs"} -->
 
@@ -157,7 +157,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
     }
     ```
 
-- 将更改保存到数据库。
+* 将更改保存到数据库。
 
 ### <a name="update-the-instructor-edit-view"></a>更新讲师编辑视图
 
@@ -225,7 +225,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 <a id="notepad"></a>
 > [!NOTE]
-> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。  按 Ctrl+Z 一次可撤消自动格式设置。  这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 可在[此处](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)查看此问题的状态。
+> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。 按 Ctrl+Z 一次可撤消自动格式设置。 这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 可在[此处](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)查看此问题的状态。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
@@ -250,7 +250,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 此代码会更改以下内容：
 
-* 对 `CourseAssignments` 导航属性执行预先加载。  必须包括此内容，否则 EF 不知道相关的 `CourseAssignment` 实体，也不会删除它们。  为避免在此处阅读它们，可以在数据库中配置级联删除。
+* 对 `CourseAssignments` 导航属性执行预先加载。 必须包括此内容，否则 EF 不知道相关的 `CourseAssignment` 实体，也不会删除它们。 为避免在此处阅读它们，可以在数据库中配置级联删除。
 
 * 如果要删除的讲师被指派为任何系的管理员，则需从这些系中删除该讲师分配。
 

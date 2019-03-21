@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 56c2d783e8c75aad7487aa03309bb962f4354567
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: fbe43e019ddab6f9acc2ea46799f0a39aa7c2e7c
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346523"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208985"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
 
@@ -223,8 +223,8 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 导航属性类型包括：
 
 * `ICollection<T>`
-*  `List<T>`
-*  `HashSet<T>`
+* `List<T>`
+* `HashSet<T>`
 
 如果指定了 `ICollection<T>`，EF Core 会默认创建 `HashSet<T>` 集合。
 
@@ -267,7 +267,6 @@ public int InstructorID { get; set; }
 
 * 引用类型（例如，类可以为 NULL）。
 * 一名讲师可能没有办公室分配。
-
 
 `OfficeAssignment` 实体具有不可为 NULL 的 `Instructor` 导航属性，因为：
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: e71cb8badbbc852685c845e6bbb0bbb12ab5499f
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: b2b5a155d0dff28e471af449731da787f19d1faf
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577807"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208351"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
@@ -68,7 +68,7 @@ Visual Studio 随即创建解决方案。
 
 * 选择“注册”并注册新用户。 可使用虚构电子邮件地址。 提交时，页面上会显示以下错误：
 
-    “内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。”
+    “内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。”*
 * 选择“应用迁移”，并在页面更新后刷新页面。
 
 ![内部服务器错误:处理请求时，数据库操作失败。 SQL 异常:无法打开数据库。 可能可通过向应用程序数据库上下文应用现有迁移解决此问题。](publish-to-azure-webapp-using-vs/_static/mig.png)
@@ -127,7 +127,7 @@ Visual Studio 将返回到“创建应用服务”对话框。
 
 ![“配置 SQL 数据库”对话框](publish-to-azure-webapp-using-vs/_static/conf_final.png)
 
-Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需要几分钟。 有关创建的资源的信息，请参阅[其他资源](#additonal-resources)。
+Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需要几分钟。 有关创建的资源的信息，请参阅[其他资源](#additional-resources)。
 
 部署完成时，选择“设置”：
 
@@ -135,8 +135,8 @@ Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需
 
 在“发布”对话框的“设置”页面上：
 
-  * 展开“数据库”并选中“在运行时使用此连接字符串”。
-  * 展开“Entity Framework 迁移”并选中“在发布时应用此迁移”。
+* 展开“数据库”并选中“在运行时使用此连接字符串”。
+* 展开“Entity Framework 迁移”并选中“在发布时应用此迁移”。
 
 * 选择“保存”。 Visual Studio 将返回到“发布”对话框。 
 
@@ -184,7 +184,7 @@ Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additonal-resources"></a>其他资源
+## <a name="additional-resources"></a>其他资源
 
 * [Azure 应用服务](/azure/app-service/app-service-web-overview)
 * [Azure 资源组](/azure/azure-resource-manager/resource-group-overview#resource-groups)
