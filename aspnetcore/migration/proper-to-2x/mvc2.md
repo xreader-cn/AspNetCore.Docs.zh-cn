@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/mvc2
-ms.openlocfilehash: 9960932bd288ea12e346272f1838026778f1d355
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: 7f048f2f95f1a51a0b6ce3d36665420ff28ec26f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148858"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208468"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>从 ASP.NET 迁移到 ASP.NET Core 2.0
 
@@ -21,7 +21,7 @@ ms.locfileid: "50148858"
 
 ## <a name="prerequisites"></a>系统必备
 
-安装**一个**以下对象的[.NET 下载： Windows](https://www.microsoft.com/net/download/windows):
+安装**一个**以下对象的[.NET 下载：Windows](https://www.microsoft.com/net/download/windows):
 
 * .NET Core SDK
 * Visual Studio for Windows
@@ -123,15 +123,15 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 设置使用 Unity 的依赖关系注入的示例实现`IDependencyResolver`包装`UnityContainer`:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample8.cs)]
+[!code-csharp[](samples/sample8.cs)]
 
 创建 `UnityContainer` 的实例，注册服务，然后将 `HttpConfiguration` 的依赖关系解析程序设置为容器的 `UnityResolver` 新实例：
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample9.cs)]
+[!code-csharp[](samples/sample9.cs)]
 
 在必要时注入 `IProductRepository`：
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample5.cs)]
+[!code-csharp[](samples/sample5.cs)]
 
 由于依赖关系注入是 ASP.NET Core 的一部分，您可以添加你的服务`Startup.ConfigureServices`:
 
@@ -151,7 +151,7 @@ Web 开发的一个重要环节是提供客户端静态资产的功能。 HTML�
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
-注意：如果面向 .NET Framework，则安装 NuGet 包 `Microsoft.AspNetCore.StaticFiles`。
+**注意：** 如果面向 .NET Framework，请安装 NuGet 包 `Microsoft.AspNetCore.StaticFiles`。
 
 例如，可以通过浏览器从类似 `http://<app>/images/<imageFileName>` 的位置访问 wwwroot/images 文件夹中的图像资产。
 
