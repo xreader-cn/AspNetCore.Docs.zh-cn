@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: ff395f0471bdb71b21a105a249af7366b8952578
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 3fd4585f499fa4e377c10da3b3594d4dac09ab79
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/13/2019
-ms.locfileid: "51021802"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320256"
 ---
 ### <a name="view-the-identity-database"></a>查看标识数据库
 
@@ -19,4 +19,4 @@ ms.locfileid: "51021802"
 
 您可以下载许多第三方工具来管理和查看 SQLite 数据库，例如[DB Browser for SQLite](http://sqlitebrowser.org/)。
 
-------
+---
