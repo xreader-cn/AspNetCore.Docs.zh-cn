@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: 7b048c8543f51a158530b8c7952b5aec7b753b42
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 7723f7ca6c5f9a21b2628933c6e7dabde20c3af6
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264703"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320194"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -37,7 +37,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
-------
+---
 
 熟悉 [Razor 页面](xref:razor-pages/index)。 新程序员在开始学习本系列之前，应先完成 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)。
 
@@ -76,7 +76,7 @@ cd ContosoUniversity
 dotnet run
 ```
 
-------
+---
 
 ## <a name="set-up-the-site-style"></a>设置网站样式
 
@@ -181,7 +181,7 @@ dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries
 ```
 
-------
+---
 
 搭建基架的过程会创建并更改以下文件：
 

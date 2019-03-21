@@ -5,12 +5,12 @@ description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: ef79aca700068aadf9b5b2b689213b6e78a5d729
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 5848e5e1e45708c3ab5c2a79614111662701aa77
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346432"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320155"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（共 8 个）
 
@@ -61,7 +61,7 @@ Drop-Database
  dotnet ef database drop
  ```
 
-------
+---
 
 ## <a name="create-an-initial-migration-and-update-the-db"></a>创建初始迁移并更新 DB
 
@@ -81,7 +81,7 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-------
+---
 
 ### <a name="examine-the-up-and-down-methods"></a>了解 Up 和 Down 方法
 
@@ -120,7 +120,7 @@ dotnet ef migrations remove
 
 有关详细信息，请参阅 [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove)。
 
-------
+---
 
 删除迁移命令会删除迁移并确保正确重置快照。
 
