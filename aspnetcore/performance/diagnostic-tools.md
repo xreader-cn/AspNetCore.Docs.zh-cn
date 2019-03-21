@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 12/07/2018
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 0b1de069e7892fff451617f2c6570fa789808c4f
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 0fb9944d1082090f4f58f641a26ee96286920456
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099047"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209997"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 
@@ -43,9 +43,9 @@ Azure Application Insights 提供了多种方式对受监视的应用程序提�
 
 可以在各种环境中使用 application Insights:
 
-* 优化，可在 Azure 中。
-* 生产、 开发和过渡环境中的工作原理。
-* 可从在本地工作[Visual Studio](/azure/application-insights/app-insights-visual-studio)或其他托管环境中。
+- 优化，可在 Azure 中。
+- 生产、 开发和过渡环境中的工作原理。
+- 可从在本地工作[Visual Studio](/azure/application-insights/app-insights-visual-studio)或其他托管环境中。
 
 有关详细信息，请参阅[用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)。
 

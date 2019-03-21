@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: security/anti-request-forgery
-ms.openlocfilehash: 6e140717834b901e12ef7863fd07b983b0c55107
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 88a2d127407378b9e83df7f48b1938ed081f9bb2
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667656"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208523"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
 
@@ -102,12 +102,12 @@ CSRF 攻击是可能使用 cookie 进行身份验证，因为 web 应用：
 </form>
 ```
 
-类似地， [IHtmlHelper.BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform)默认情况下生成防伪令牌，如果窗体的方法不是 GET。
+同样， [IHtmlHelper.BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform)默认情况下生成防伪令牌，如果窗体的方法不是 GET。
 
 HTML 窗体元素自动生成的防伪令牌发生时`<form>`标记包含`method="post"`属性和以下任一条件成立：
 
-  * 操作属性为空 (`action=""`)。
-  * 操作属性不提供 (`<form method="post">`)。
+* 操作属性为空 (`action=""`)。
+* 操作属性不提供 (`<form method="post">`)。
 
 可以禁用自动生成的防伪标记 HTML 窗体元素：
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: security/cors
-ms.openlocfilehash: 6be8b4da1642a9eff021371c229a17071d6e9bfb
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 2cad26d0f61519f63888a2bc399bb7e8a0f1ee04
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978466"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58210127"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -84,7 +84,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         app.UseHsts();
     }
 
-    app.UseCors(); 
+    app.UseCors();
 
     app.UseHttpsRedirection();
     app.UseMvc();
@@ -141,25 +141,25 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 * [跨域请求中的凭据](#credentials-in-cross-origin-requests)
 * [将预检过期时间设置](#set-the-preflight-expiration-time)
 
- <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> 在中称为`Startup.ConfigureServices`。 有关一些选项，可能会有帮助读取[如何 CORS 工作](#how-cors)部分第一次。
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> 在中称为`Startup.ConfigureServices`。 有关一些选项，可能会有帮助读取[如何 CORS 工作](#how-cors)部分第一次。
 
 ## <a name="set-the-allowed-origins"></a>设置允许的来源
 
 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; 允许来自任何方案使用所有来源的 CORS 请求 (`http`或`https`)。 `AllowAnyOrigin` 不安全，因为*的任何网站*可以对应用进行跨域请求。
 
-  ::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-2.2"
 
-  > [!NOTE]
-  > 指定`AllowAnyOrigin`和`AllowCredentials`是不安全的配置，可能会导致跨站点请求伪造。 使用这两种方法配置应用程序时，CORS 服务返回了无效的 CORS 响应。
+> [!NOTE]
+> 指定`AllowAnyOrigin`和`AllowCredentials`是不安全的配置，可能会导致跨站点请求伪造。 使用这两种方法配置应用程序时，CORS 服务返回了无效的 CORS 响应。
 
-  ::: moniker-end
+::: moniker-end
 
-  ::: moniker range="< aspnetcore-2.2"
+::: moniker range="< aspnetcore-2.2"
 
-  > [!NOTE]
-  > 指定`AllowAnyOrigin`和`AllowCredentials`是不安全的配置，可能会导致跨站点请求伪造。 有关安全的应用程序，如果客户端必须先授权本身访问服务器资源指定确切的来源列表。
+> [!NOTE]
+> 指定`AllowAnyOrigin`和`AllowCredentials`是不安全的配置，可能会导致跨站点请求伪造。 有关安全的应用程序，如果客户端必须先授权本身访问服务器资源指定确切的来源列表。
 
-  ::: moniker-end
+::: moniker-end
 
 <!-- REVIEW required
 I changed from
@@ -167,16 +167,16 @@ Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration.
 to
 **`AllowAnyOrigin`** affects preflight requests and the
 
-to remove the ambiguous **This**. 
+to remove the ambiguous **This**.
 -->
 
-  `AllowAnyOrigin` 影响预检请求和`Access-Control-Allow-Origin`标头。 有关详细信息，请参阅[预检请求](#preflight-requests)部分。
+`AllowAnyOrigin` 影响预检请求和`Access-Control-Allow-Origin`标头。 有关详细信息，请参阅[预检请求](#preflight-requests)部分。
 
 ::: moniker range=">= aspnetcore-2.0"
 
 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; 集<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*>策略允许来源以匹配配置的通配符域，如果允许原点在评估时的函数的属性。
 
-  [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
 
 ::: moniker-end
 
@@ -381,14 +381,14 @@ Date: Wed, 20 May 2015 06:33:22 GMT
   * 例如，可以使用恶意行动者[防止跨站点脚本 (XSS)](xref:security/cross-site-scripting)针对你的站点并执行对其启用 CORS 的站点的跨站点请求窃取信息。
 * 你的 API 不是更安全，从而 CORS。
   * 它由客户端 （浏览器） 强制实施 CORS。 服务器执行该请求，并返回响应，而是返回错误和块的响应的客户端。 例如，以下任何工具将显示服务器响应：
-     * [Fiddler](https://www.telerik.com/fiddler)
-     * [Postman](https://www.getpostman.com/)
-     * [.NET HttpClient](/dotnet/csharp/tutorials/console-webapiclient)
-     * 通过在地址栏中输入 URL web 浏览器。
+    * [Fiddler](https://www.telerik.com/fiddler)
+    * [Postman](https://www.getpostman.com/)
+    * [.NET HttpClient](/dotnet/csharp/tutorials/console-webapiclient)
+    * 通过在地址栏中输入 URL web 浏览器。
 * 它是服务器以允许浏览器执行跨域的方法[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)或[提取 API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)否则会被禁止的请求。
   * （不 CORS) 的浏览器不能执行跨域请求。 CORS 前, [JSONP](https://www.w3schools.com/js/js_json_jsonp.asp)用于绕过此限制。 JSONP 不会使用 XHR，它使用`<script>`标记接收的响应。 允许脚本要加载的跨域。
 
-[CORS 规范]()引入了几个新的 HTTP 标头启用跨域请求。 如果浏览器支持 CORS，则将设置自动跨域请求这些标头。 自定义 JavaScript 代码不需要启用 CORS。
+[CORS 规范](https://www.w3.org/TR/cors/)引入了几个新的 HTTP 标头启用跨域请求。 如果浏览器支持 CORS，则将设置自动跨域请求这些标头。 自定义 JavaScript 代码不需要启用 CORS。
 
 下面是跨域请求的示例。 `Origin`标头提供发出请求的站点的域：
 
@@ -429,7 +429,7 @@ Test message
 1. 启用 CORS 的方法之一使用本文档中。 例如：
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
-  
+
   > [!WARNING]
   > `WithOrigins("https://localhost:<port>");` 应仅用于测试示例应用类似于[下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/cors/sample/Cors)。
 
@@ -444,13 +444,13 @@ Test message
 1. 删除从 localhost 原点`WithOrigins`并将其部署应用程序。 此外，运行客户端应用程序，使用不同的端口。 例如，从 Visual Studio 中运行。
 1. 使用客户端应用进行测试。 CORS 故障返回错误，但错误消息不可用到 JavaScript。 在 F12 工具中使用控制台选项卡查看该错误。 具体取决于浏览器中，你收到的错误 （中的 F12 工具控制台） 类似于下面：
 
-  * 使用 Microsoft Edge:
+   * 使用 Microsoft Edge:
 
-    **SEC7120: CORS 原点`https://localhost:44375`找不到`https://localhost:44375`处的跨域资源的访问控制的允许的源响应标头中 `https://webapi.azurewebsites.net/api/values/1`**
+     **SEC7120: CORS 原点`https://localhost:44375`找不到`https://localhost:44375`处的跨域资源的访问控制的允许的源响应标头中 `https://webapi.azurewebsites.net/api/values/1`**
 
-  * 使用 Chrome:
+   * 使用 Chrome:
 
-    **访问在 XMLHttpRequest`https://webapi.azurewebsites.net/api/values/1`来源`https://localhost:44375`CORS 策略阻止：请求的资源上存在没有访问控制的允许的域标头。**
+     **访问在 XMLHttpRequest`https://webapi.azurewebsites.net/api/values/1`来源`https://localhost:44375`CORS 策略阻止：请求的资源上存在没有访问控制的允许的域标头。**
 
 ## <a name="additional-resources"></a>其他资源
 

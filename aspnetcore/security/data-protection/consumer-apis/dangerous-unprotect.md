@@ -6,15 +6,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/data-protection/consumer-apis/dangerous-unprotect
-ms.openlocfilehash: b93ab0fa650041afdfaf1ed5572cc7e081bba244
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 26061d048dcd9c1e3d8909e9388d8b565376fa2f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089345"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208026"
 ---
 # <a name="unprotect-payloads-whose-keys-have-been-revoked-in-aspnet-core"></a>取消保护已吊销在 ASP.NET Core 中键的有效负载
-
 
 <a name="data-protection-consumer-apis-dangerous-unprotect"></a>
 

@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/streaming
-ms.openlocfilehash: fb7183f7189d62c181f69ffdb170e3da25612919
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 7c176e3f21ffca7b97d9d3c2e8861032f22587b8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345582"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264308"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>使用 ASP.NET Core SignalR 中流式处理
 
@@ -139,12 +139,14 @@ JavaScript 客户端调用集线器上流式处理方法使用`connection.stream
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="java-client"></a>Java 客户端
+
 SignalR Java 客户端使用`stream`方法调用流式处理方法。 它接受三个或多个参数：
 
-* 流项的预期的类型 
+* 流项的预期的类型
 * 集线器方法的名称。
-* 在集线器方法中定义的参数。 
+* 在集线器方法中定义的参数。
 
 ```java
 hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
@@ -153,6 +155,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         (error) -> {/* Define your onError handler here. */},
         () -> {/* Define your onCompleted handler here. */});
 ```
+
 `stream`方法`HubConnection`返回流项类型的可观察量。 可观察的类型`subscribe`方法是在其中定义你`onNext`，`onError`和`onCompleted`处理程序。
 
 ::: moniker-end

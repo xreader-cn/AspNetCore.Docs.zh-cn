@@ -5,12 +5,12 @@ description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实�
 ms.author: avickers
 ms.date: 09/24/2018
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 90c867eeac0e64bfe77cc7a829d61e831a2fb8e1
-ms.sourcegitcommit: 9bdba90b2c97a4016188434657194b2d7027d6e3
+ms.openlocfilehash: 55346c571f180fa17a1108a622d991d15f365bae
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47402246"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209457"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 
@@ -302,7 +302,6 @@ public abstract class IdentityUserContext<
 
 [自定义用户数据](xref:security/authentication/add-user-data)支持通过继承`IdentityUser`。 此类型命名惯例做法`ApplicationUser`:
 
-
 ```csharp
 public class ApplicationUser : IdentityUser
 {
@@ -334,7 +333,7 @@ services.AddDefaultIdentity<ApplicationUser>()
         .AddDefaultUI();
 ```
 
-在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅<xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。 有关详细信息，请参见:
+在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。 有关详细信息，请参见:
 
 * [基架标识](xref:security/authentication/scaffold-identity)
 * [添加、 下载和删除到标识的自定义用户数据](xref:security/authentication/add-user-data)
@@ -466,7 +465,7 @@ services.AddIdentity<ApplicationUser, IdentityRole>()
 
     主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
 
-    在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅<xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
+    在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
 
     ::: moniker-end
 
@@ -510,7 +509,7 @@ services.AddIdentity<ApplicationUser, IdentityRole>()
 
     主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
 
-    在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅<xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
+    在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
 
     ::: moniker-end
 

@@ -5,12 +5,12 @@ description: 了解实现的 ASP.NET Core 数据保护密钥的存储格式的�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-storage-format
-ms.openlocfilehash: bca19ad001dd20b5d02ae5470f7d928082496037
-ms.sourcegitcommit: 8f8924ce4eb9effeaf489f177fb01b66867da16f
+ms.openlocfilehash: 81df124f3dd0cadf8fd895ab55f66eec6415705f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2018
-ms.locfileid: "39219272"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208013"
 ---
 # <a name="key-storage-format-in-aspnet-core"></a>在 ASP.NET Core 中的密钥存储格式
 
@@ -65,7 +65,7 @@ ms.locfileid: "39219272"
 
 **&lt;EncryptedSecret&gt;** 元素，其中包含的密钥材料的加密的形式可能会显示如果[启用加密的机密的静态](xref:security/data-protection/implementation/key-encryption-at-rest)。 该属性`decryptorType`实现的类型的程序集限定名称[IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor)。 此类型负责读取内部 **&lt;encryptedKey&gt;** 元素，并对其恢复原始的纯文本进行解密。
 
-如同\<描述符 >，特定的格式<encryptedSecret>元素取决于正在使用的静态加密机制。 在上述示例中，每个注释使用 Windows DPAPI 对主密钥进行加密。
+如同`<descriptor>`，特定的格式`<encryptedSecret>`元素取决于正在使用的静态加密机制。 在上述示例中，每个注释使用 Windows DPAPI 对主密钥进行加密。
 
 ## <a name="the-revocation-element"></a>\<吊销 > 元素
 

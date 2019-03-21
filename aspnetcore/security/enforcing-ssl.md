@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: 0c3add9c8860a47932cda3a8b07c83dc774bf1f1
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 16cfa672fe4a81d9e8f09fc3dd1e6c036edd4c4e
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098969"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208971"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -69,7 +69,7 @@ ms.locfileid: "54098969"
 
   **密钥**: `https_port`  
   **类型**：string  
-  **默认**:未设置默认值。  
+  **默认**：未设置默认值。  
   **设置使用**：`UseSetting`  
   **环境变量**:`<PREFIX_>HTTPS_PORT` (该前缀`ASPNETCORE_`使用时[Web 主机](xref:fundamentals/host/web-host)。)
 
@@ -212,7 +212,7 @@ ASP.NET Core 2.1 或更高版本实现与 HSTS`UseHsts`扩展方法。 下面的
 
 ![新 ASP.NET Core Web 应用程序对话框中显示为 HTTPS 复选框未选定的配置。](enforcing-ssl/_static/out.png)
 
-#   <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
 
 使用 `--no-https` 选项。 例如
 

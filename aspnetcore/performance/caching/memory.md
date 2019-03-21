@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 9a7727ad41a05f39d74877af3c8f2e3f7a620c7d
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: c115e43b9dd4f838ab9600c2e105d86732d857ad
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103067"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208261"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>缓存在内存中 ASP.NET Core
 
@@ -111,10 +111,10 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 下面的示例执行以下操作：
 
-- 设置绝对到期时间。 这是条目可以被缓存的最长时间，防止可调过期持续更新时该条目过时太多。
-- 设置可调过期时间。 访问此缓存项的请求将重置可调过期时钟。
-- 缓存优先级设置为`CacheItemPriority.NeverRemove`。
-- 设置一个[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)它将在条目从缓存中清除后调用。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
+* 设置绝对到期时间。 这是条目可以被缓存的最长时间，防止可调过期持续更新时该条目过时太多。
+* 设置可调过期时间。 访问此缓存项的请求将重置可调过期时钟。
+* 缓存优先级设置为`CacheItemPriority.NeverRemove`。
+* 设置一个[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)它将在条目从缓存中清除后调用。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
@@ -161,14 +161,14 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 ## <a name="additional-notes"></a>附加说明
 
-- 使用回调重新填充缓存项时：
+* 使用回调重新填充缓存项时：
 
-  - 多个请求可能会发现缓存的键值为空，因为回调尚未完成。
-  - 这可能导致重新填充缓存的项的多个线程。
+  * 多个请求可能会发现缓存的键值为空，因为回调尚未完成。
+  * 这可能导致重新填充缓存的项的多个线程。
 
-- 使用一个缓存条目创建另一个缓存条目时，子条目会复制父条目的过期令牌以及基于时间的过期设置。 子级不是通过手动删除过期的或更新的父项。
+* 使用一个缓存条目创建另一个缓存条目时，子条目会复制父条目的过期令牌以及基于时间的过期设置。 子级不是通过手动删除过期的或更新的父项。
 
-- 使用[PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks)设置从缓存中逐出缓存项后，将触发的回调。
+* 使用[PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks)设置从缓存中逐出缓存项后，将触发的回调。
 
 ## <a name="additional-resources"></a>其他资源
 

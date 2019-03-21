@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: c2bc626b2dd341dda878a151def6b405884357d7
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: e72f15c28fb7b62c671dd6475cc323cacce42de6
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665397"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208316"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -19,13 +19,25 @@ ms.locfileid: "57665397"
 
 授权策略包含一个或多个要求。 授权策略包含一个或多个要求，并在 `Startup.ConfigureServices` 方法中作为授权服务配置的一部分注册：
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=40-41,50-55,63,72)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,66)]
 
 在前面的示例中，创建了一个“AtLeast21”策略。 它只有一个要求&mdash;，即最低年龄，以参数的形式传递给要求。
 
-将 `[Authorize]` 属性和策略名称配合使用即可应用策略。 例如：
+## <a name="applying-policies-to-mvc-controllers"></a>将策略应用到 MVC 控制器
+
+如果使用的 Razor 页面，请参阅[将策略应用于 Razor 页面](#applying-policies-to-razor-pages)本文档中。
+
+策略应用于控制器使用`[Authorize]`策略名称的属性。 例如：
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
+
+## <a name="applying-policies-to-razor-pages"></a>将策略应用于 Razor 页面
+
+通过将策略应用于 Razor 页面使用`[Authorize]`策略名称的属性。 例如：
+
+[!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
+
+策略还会应用于 Razor 页面通过使用[授权约定](xref:security/authorization/razor-pages-authorization)。
 
 ## <a name="requirements"></a>要求
 
@@ -70,7 +82,7 @@ ms.locfileid: "57665397"
 
 处理程序是在配置期间在服务集合中注册的。 例如：
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=40-41,50-55,63-65,72)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
 前面的代码中注册`MinimumAgeHandler`作为单一实例通过调用`services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`。 可以使用任何内置注册处理程序[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)。
 
@@ -113,7 +125,7 @@ ms.locfileid: "57665397"
 
 例如，上一个 `BadgeEntryHandler` 可以重写，如下所示：
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=52-53,57-63)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=50-51,55-61)]
 
 ## <a name="accessing-mvc-request-context-in-handlers"></a>访问处理程序中的 MVC 请求上下文
 

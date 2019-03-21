@@ -5,12 +5,12 @@ description: ''
 ms.author: tdykstra
 ms.date: 12/07/2016
 uid: migration/http-modules
-ms.openlocfilehash: 601b93fb12ab5b37b7d8ad8fd9825accc6e314cd
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 516230a66ee3edba986c91d79684256aa8e4c994
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743850"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209841"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
@@ -26,29 +26,29 @@ ms.locfileid: "56743850"
 
 **处理程序是：**
 
-   * 类实现[IHttpHandler](/dotnet/api/system.web.ihttphandler)
+* 类实现[IHttpHandler](/dotnet/api/system.web.ihttphandler)
 
-   * 用于处理请求的给定的文件名或扩展名，如 *。 报表*
+* 用于处理请求的给定的文件名或扩展名，如 *。 报表*
 
-   * [配置](/iis/configuration/system.webserver/handlers/)在*Web.config*
+* [配置](/iis/configuration/system.webserver/handlers/)在*Web.config*
 
 **模块包括：**
 
-   * 类实现[IHttpModule](/dotnet/api/system.web.ihttpmodule)
+* 类实现[IHttpModule](/dotnet/api/system.web.ihttpmodule)
 
-   * 为每个请求调用
+* 为每个请求调用
 
-   * 能够短路 （停止进一步处理的请求）
+* 能够短路 （停止进一步处理的请求）
 
-   * 无法添加到 HTTP 响应，或创建其自己
+* 无法添加到 HTTP 响应，或创建其自己
 
-   * [配置](/iis/configuration/system.webserver/modules/)在*Web.config*
+* [配置](/iis/configuration/system.webserver/modules/)在*Web.config*
 
 **在其中模块处理传入的请求的顺序取决于：**
 
-   1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，这是由 ASP.NET 激发的系列事件：[BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)， [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)，等等。每个模块可以创建一个或多个事件的处理程序。
+1. [应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)，这是由 ASP.NET 激发的系列事件：[BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)， [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)，等等。每个模块可以创建一个或多个事件的处理程序。
 
-   2. 对于同一个事件，在其中配置中的顺序*Web.config*。
+2. 对于同一个事件，在其中配置中的顺序*Web.config*。
 
 除了模块，可以添加到生命周期事件的处理程序您*Global.asax.cs*文件。 已配置的模块中的处理程序后运行这些处理程序。
 
@@ -56,29 +56,29 @@ ms.locfileid: "56743850"
 
 **中间件是 HTTP 模块和处理程序比简单得多：**
 
-   * 模块、 处理程序、 *Global.asax.cs*， *Web.config* （除 IIS 配置） 和应用程序生命周期都消失了
+* 模块、 处理程序、 *Global.asax.cs*， *Web.config* （除 IIS 配置） 和应用程序生命周期都消失了
 
-   * 模块和处理程序的角色具有接管中间件
+* 模块和处理程序的角色具有接管中间件
 
-   * 中间件配置为使用代码而不在*Web.config*
+* 中间件配置为使用代码而不在*Web.config*
 
-   * [管道分支](xref:fundamentals/middleware/index#use-run-and-map)允许将请求发送到特定的中间件，根据不仅 URL 还在请求标头、 查询字符串，等等。
+* [管道分支](xref:fundamentals/middleware/index#use-run-and-map)允许将请求发送到特定的中间件，根据不仅 URL 还在请求标头、 查询字符串，等等。
 
 **中间件是非常类似于模块：**
 
-   * 在为每个请求的主体中调用
+* 在为每个请求的主体中调用
 
-   * 能够通过短路请求[不将请求传递给下一个中间件](#http-modules-shortcircuiting-middleware)
+* 能够通过短路请求[不将请求传递给下一个中间件](#http-modules-shortcircuiting-middleware)
 
-   * 能够创建他们自己的 HTTP 响应
+* 能够创建他们自己的 HTTP 响应
 
 **中间件和模块按不同顺序处理：**
 
-   * 中间件的顺序基于在其中插入到请求管道，而模块的顺序主要基于的顺序[应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)事件
+* 中间件的顺序基于在其中插入到请求管道，而模块的顺序主要基于的顺序[应用程序生命周期](https://msdn.microsoft.com/library/ms227673.aspx)事件
 
-   * 中间件的响应的顺序是反向从，对于请求，而模块的顺序是相同的请求和响应
+* 中间件的响应的顺序是反向从，对于请求，而模块的顺序是相同的请求和响应
 
-   * 请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
+* 请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
 
 ![中间件](http-modules/_static/middleware.png)
 

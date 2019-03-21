@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/26/2019
 uid: test/troubleshoot
-ms.openlocfilehash: c8b34f51fd329eb9a7c34f7be93bd7f2aa054283
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 1f53375a6aa504c989920a0bff83b400b7bd83ec
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899278"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208838"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>解决 ASP.NET Core 项目
 
@@ -53,7 +53,7 @@ ms.locfileid: "56899278"
 
 外部的一个目录中有至少一个安装的.NET Core SDK 时，将显示此消息*c:\\Program Files\\dotnet\\sdk\\*。 这通常发生在使用复制/粘贴，而不 MSI 安装程序的计算机上部署了.NET Core SDK 时。
 
-卸载 32 位.NET Core SDK，以防止出现此警告。 从卸载**Control Panel** > **程序和功能** > **卸载或更改程序**。 如果您了解为何会出现的警告和其影响，则可以忽略该警告。
+卸载所有 32 位.NET Core Sdk 和运行时以防止出现此警告。 从卸载**Control Panel** > **程序和功能** > **卸载或更改程序**。 如果您了解为何会出现的警告和其影响，则可以忽略该警告。
 
 ### <a name="no-net-core-sdks-were-detected"></a>检测到没有.NET Core Sdk
 

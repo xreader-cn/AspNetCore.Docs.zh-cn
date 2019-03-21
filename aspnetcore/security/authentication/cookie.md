@@ -5,12 +5,12 @@ description: 使用 cookie 而无需 ASP.NET Core 标识的身份验证的说明
 ms.author: riande
 ms.date: 02/25/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: 29370a3ff25469b34edc2a71e00601cf6ecc00ca
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: c6cba588abb003ee677d8f1753b73a1ced1414b0
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899277"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209370"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
@@ -119,7 +119,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions()
 | [CookieSecure](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.cookiesecure?view=aspnetcore-1.1) | 一个标志，指示是否创建的 cookie 应限制为 HTTPS (`CookieSecurePolicy.Always`)，HTTP 或 HTTPS (`CookieSecurePolicy.None`)，或与请求相同的协议 (`CookieSecurePolicy.SameAsRequest`)。 默认值为 `CookieSecurePolicy.SameAsRequest`。 |
 | [说明](/dotnet/api/microsoft.aspnetcore.builder.authenticationoptions.description?view=aspnetcore-1.1) | 有关提供给应用程序的身份验证类型的其他信息。 |
 | [ExpireTimeSpan](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.expiretimespan?view=aspnetcore-1.1) | `TimeSpan`后将身份验证票证到期。 它被添加到当前时间来创建票证的到期时间。 若要使用`ExpireTimeSpan`，则必须设置`IsPersistent`到`true`中`AuthenticationProperties`传递给`SignInAsync`。 默认值为 14 天。 |
-| [SlidingExpiration](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-1.1) | 一个标志，指示 cookie 的到期日期重置多个的下半部分`ExpireTimeSpan`经过一段时间。 新的 exipiration 时间向前移动，为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
+| [SlidingExpiration](/dotnet/api/microsoft.aspnetcore.builder.cookieauthenticationoptions.slidingexpiration?view=aspnetcore-1.1) | 一个标志，指示 cookie 的到期日期重置多个的下半部分`ExpireTimeSpan`经过一段时间。 向前移动新的过期时间为当前日期加上`ExpireTimespan`。 [绝对 cookie 到期时间](xref:security/authentication/cookie#absolute-cookie-expiration)可以通过使用设置`AuthenticationProperties`类调用时`SignInAsync`。 绝对过期时间可以通过限制身份验证 cookie 是有效的时间量来提高您的应用程序的安全性。 默认值为 `true`。 |
 
 设置`CookieAuthenticationOptions`Cookie 身份验证中间件中`Configure`方法：
 

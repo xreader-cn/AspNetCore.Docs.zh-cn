@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/25/2019
 uid: test/integration-tests
-ms.openlocfilehash: 053713e148df70b0be6bb567b55b2381a78d6c3e
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 50cb6b26be187c7f36f189e77fd29b4559221f2c
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833574"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209234"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>在 ASP.NET Core 中的集成测试
 
@@ -91,7 +91,7 @@ ms.locfileid: "56833574"
 [单元测试](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)文档介绍了如何设置测试项目和测试运行程序以及如何运行测试和的建议的名称测试和测试类的详细说明。
 
 > [!NOTE]
-> 在创建应用程序的测试项目时，分离到不同的项目集成测试中的单元测试。 这有助于确保基础结构的测试组件不意外包含在单元测试。 单元测试和集成测试的分离还允许控制对哪些组的测试运行。
+> 在创建应用程序的测试项目时，分离到不同的项目集成测试中的单元测试。 这样可以帮助确保测试基础结构组件不会意外地包括在单元测试。 单元测试和集成测试的分离还允许控制对哪些组的测试运行。
 
 几乎的 Razor 页面应用程序测试的配置和 MVC 应用程序之间没有差异。 唯一区别是在测试的命名方式。 在 Razor 页面应用中，测试页终结点的名称通常以在页面模型类后 (例如，`IndexPageTests`测试索引页的组件集成)。 在 MVC 应用中，测试是通常按控制器类和命名这些测试的控制器 (例如，`HomeControllerTests`测试 Home 控制器的组件集成)。
 
