@@ -264,6 +264,7 @@ services.AddMvc()
 无需为[防伪验证](xref:security/anti-request-forgery)编写任何代码。 Razor 页面自动将防伪标记生成过程和验证过程包含在内。
 
 <a name="layout"></a>
+
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor 页面
 
 页面可使用 Razor 视图引擎的所有功能。 布局、分区、模板、标记帮助程序、_ViewStart.cshtml 和 _ViewImports.cshtml 的工作方式与它们在传统的 Razor 视图中的工作方式相同。
@@ -465,6 +466,7 @@ public string Message { get; set; }
 有关详细信息，请参阅 [TempData](xref:fundamentals/app-state#tempdata)。
 
 <a name="mhpp"></a>
+
 ## <a name="multiple-handlers-per-page"></a>针对一个页面的多个处理程序
 
 以下页面使用 `asp-page-handler` 标记帮助程序为两个页面处理程序生成标记：

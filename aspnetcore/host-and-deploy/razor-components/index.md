@@ -109,7 +109,7 @@ dotnet publish -c Release
 * 应用将在浏览器线程中直接执行。 支持以下策略之一：
   * Blazor 应用由 ASP.NET Core 应用提供服务。 请参阅[使用 ASP.NET Core 的客户端 Blazor 托管部署](#client-side-blazor-hosted-deployment-with-aspnet-core)部分。
   * Blazor 应用位于静态托管 Web 服务器或服务中，其中未使用 .NET 对 Blazor 应用提供服务。 请参阅[客户端 Blazor 独立部署](#client-side-blazor-standalone-deployment)部分。
-  
+
 ### <a name="configure-the-linker"></a>配置链接器
 
 Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 可以控制生成的程序集链接。 有关更多信息，请参见<xref:host-and-deploy/razor-components/configure-linker>。
@@ -191,7 +191,8 @@ Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两�
 
 有关如何部署到 Azure 应用服务的信息，请参阅以下主题：
 
-<xref:tutorials/publish-to-azure-webapp-using-vs>  
+<xref:tutorials/publish-to-azure-webapp-using-vs>
+
 了解如何使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure 应用服务。
 
 ### <a name="client-side-blazor-standalone-deployment"></a>客户端 Blazor 独立部署
@@ -299,5 +300,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 有关如何部署到 Azure 应用服务的信息，请参阅以下主题：
 
-<xref:tutorials/publish-to-azure-webapp-using-vs>  
+<xref:tutorials/publish-to-azure-webapp-using-vs>
+
 了解如何使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure 应用服务。

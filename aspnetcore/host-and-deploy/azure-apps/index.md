@@ -141,6 +141,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    ```powershell
    Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.{PLATFORM}\
    ```
+
    如果安装 x64 预览版运行时，该命令将返回`True`。
 
 > [!NOTE]
@@ -194,11 +195,13 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
      <RuntimeIdentifier>win-x86</RuntimeIdentifier>
    </PropertyGroup>
    ```
+
 1. 在命令 shell 中，使用 [dotnet publish ](/dotnet/core/tools/dotnet-publish) 命令在主机运行时的发布配置中发布应用。 在以下示例中，为 `win-x86` RID 发布应用。 提供给 `--runtime` 选项的 RID 必须在项目文件的 `<RuntimeIdentifier>`（或 `<RuntimeIdentifiers>`）属性中提供。
 
    ```console
    dotnet publish --configuration Release --runtime win-x86
    ```
+
 1. 将 bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish 目录的内容移动到应用服务中的站点。
 
 ### <a name="use-docker-with-web-apps-for-containers"></a>对用于容器的 Web 应用使用 Docker
