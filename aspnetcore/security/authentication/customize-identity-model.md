@@ -5,12 +5,12 @@ description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实�
 ms.author: avickers
 ms.date: 09/24/2018
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 55346c571f180fa17a1108a622d991d15f365bae
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 0aa7448ac37a97a4d09a04caf365f641f22f5997
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209457"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327296"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 
@@ -253,7 +253,7 @@ public abstract class IdentityDbContext<
          where TUserToken : IdentityUserToken<TKey>
 ```
 
-还有可能在这种情况下使用而无需角色 （仅声明），标识<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1>应使用类：
+还有可能在这种情况下使用而无需角色 （仅声明），标识<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601>应使用类：
 
 ```csharp
 // Uses the built-in non-role Identity types except with a custom User type
@@ -368,7 +368,7 @@ services.AddIdentity<ApplicationUser, IdentityRole>()
 
 1. 如果数据库已创建的 PK 更改之前，运行`Drop-Database`(PMC) 或`dotnet ef database drop`(.NET Core CLI) 将其删除。
 2. 在确认删除数据库，删除以进行初始迁移`Remove-Migration`(PMC) 或`dotnet ef migrations remove`(.NET Core CLI)。
-3. 更新`ApplicationDbContext`类进行派生<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`3>。 指定的新类型`TKey`。 例如，若要使用`Guid`密钥类型：
+3. 更新`ApplicationDbContext`类进行派生<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603>。 指定的新类型`TKey`。 例如，若要使用`Guid`密钥类型：
 
     ```csharp
     public class ApplicationDbContext
@@ -383,13 +383,13 @@ services.AddIdentity<ApplicationUser, IdentityRole>()
 
     ::: moniker range=">= aspnetcore-2.0"
 
-    在前面的代码中，泛型类<xref:Microsoft.AspNetCore.Identity.IdentityUser`1>和<xref:Microsoft.AspNetCore.Identity.IdentityRole`1>必须指定要使用新的密钥类型。
+    在前面的代码中，泛型类<xref:Microsoft.AspNetCore.Identity.IdentityUser%601>和<xref:Microsoft.AspNetCore.Identity.IdentityRole%601>必须指定要使用新的密钥类型。
 
     ::: moniker-end
 
     ::: moniker range="<= aspnetcore-1.1"
 
-    在前面的代码中，泛型类<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser`1>和<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole`1>必须指定要使用新的密钥类型。
+    在前面的代码中，泛型类<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601>和<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601>必须指定要使用新的密钥类型。
 
     ::: moniker-end
 

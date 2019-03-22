@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 9a24ac138950ef2bedac48f506655d06520137cf
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 49c323fab64bd4ea52dd1d8cf2e43a79d4d0d0dc
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708356"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327347"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>保留其他声明和 ASP.NET Core 中的外部提供程序颁发令牌
 
@@ -24,7 +24,7 @@ ASP.NET Core 应用可以建立其他声明和来自外部身份验证提供程�
 
 ## <a name="prerequisites"></a>系统必备
 
-决定哪些外部身份验证提供程序支持应用程序中。 对于每个提供程序，注册应用程序和获取客户端 ID 和客户端机密。 有关详细信息，请参阅 <xref:security/authentication/social/index> 。 [示例应用](#sample-app-instructions)使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+决定哪些外部身份验证提供程序支持应用程序中。 对于每个提供程序，注册应用程序和获取客户端 ID 和客户端机密。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 [示例应用](#sample-app-instructions)使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端机密
 
@@ -64,7 +64,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端机密的应用与�
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=8)]
 
-在中<xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*>、 一个<xref:Microsoft.AspNetCore.Identity.IdentityUser>(`ApplicationUser`) 登录到应用程序与<xref:Microsoft.AspNetCore.Identity.SignInManager`1.SignInAsync*>。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager`1>可以存储`ApplicationUser`声明的用户数据可从<xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>。
+在中<xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*>、 一个<xref:Microsoft.AspNetCore.Identity.IdentityUser>(`ApplicationUser`) 登录到应用程序与<xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601>可以存储`ApplicationUser`声明的用户数据可从<xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>。
 
 在示例应用`OnPostConfirmationAsync`(*Account/ExternalLogin.cshtml.cs*) 建立<xref:System.Security.Claims.ClaimTypes.Gender>声明的签名中`ApplicationUser`:
 
@@ -106,7 +106,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端机密的应用与�
 
 若要使用示例应用程序：
 
-1. 注册应用程序和获取有效的客户端 ID 和 Google 身份验证的客户端机密。 有关详细信息，请参阅 <xref:security/authentication/google-logins> 。
+1. 注册应用程序和获取有效的客户端 ID 和 Google 身份验证的客户端机密。 有关详细信息，请参阅 <xref:security/authentication/google-logins>。
 1. 提供的客户端 ID 和客户端密钥对中的应用程序<xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>的`Startup.ConfigureServices`。
 1. 运行应用并请求我声明页。 如果用户未登录，该应用将重定向到 Google。 使用 Google 登录。 Google 将用户重定向回应用程序 (`/Home/MyClaims`)。 用户进行身份验证，并加载我的声明页。 不存在下性别声明**用户声明**使用从 Google 获取的值。 访问令牌显示在**身份验证属性**。
 
