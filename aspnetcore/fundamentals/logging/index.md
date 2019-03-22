@@ -56,7 +56,7 @@ ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection) (DI) �
 
 ## <a name="create-logs"></a>创建日志
 
-从 DI 中获取 <xref:Microsoft.Extensions.Logging.ILogger`1> 对象。
+从 DI 中获取 <xref:Microsoft.Extensions.Logging.ILogger%601> 对象。
 
 ::: moniker range=">= aspnetcore-2.0"
 
