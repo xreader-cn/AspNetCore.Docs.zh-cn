@@ -162,16 +162,16 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-显示登录窗体时：
+当发生下列情况时，展示登录页面：
 
 * **登录**选择链接。
-* 用户尝试访问受限的页面，他们不向被授权访问**或**时在还没有已完成身份验证系统。
+* 用户尝试访问他们无权访问的受限页面或未经系统验证的受限页面。
 
-登录页上的表单提交时，`OnPostAsync`调用操作。 `PasswordSignInAsync` 对调用`_signInManager`对象 （由依赖关系注入提供）。
+提交登录页上的表单时，将激活`OnPostAsync`方法。 `PasswordSignInAsync` 将接收由依赖注入系统提供的`_signInManager`对象。
 
    [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-   基`Controller`类公开`User`，可以从控制器方法访问的属性。 例如，可以枚举`User.Claims`和做出授权决定。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
+   `Controller`类提供了了`User`属性，可以从控制器内的方法中访问该属性。 例如，可以遍历`User.Claims`来确定是否可以获得该用户的授权信息。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
 
 ::: moniker-end
 
