@@ -19,7 +19,7 @@ ms.locfileid: "54098956"
 
 ## <a name="aspnet-core-security-features"></a>ASP.NET Core 安全性功能
 
-ASP.NET Core 提供许多用于保护应用安全的工具和库（包括内置标识提供程序），但也可使用第三方标志服务（如 Facebook、Twitter 或 LinkedIn）。 利用 ASP.NET Core 可以轻松管理应用机密，无需将机密信息暴露在代码中就可存储和使用它们。
+ASP.NET Core 提供许多用于保护应用安全的工具和库（包括内置标识提供程序），但也可使用第三方标志服务（如 Facebook、Twitter 或 LinkedIn）。 在 ASP.NET Core 中，你可以轻松管理应用机密，且无需将机密信息暴露在代码中就可存储和使用它们。
 
 ## <a name="authentication-vs-authorization"></a>身份验证 vs授权
 
