@@ -195,7 +195,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在 cookie 中的用户的声明。 在调用后不重定向`SignOutAsync`或者在用户会**不**已注销。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在 cookie 中的用户的声明。 仅在调用`SignOutAsync`并被重定向后，用户登录凭证才会注销。
 
 中指定 post *Pages/Shared/_LoginPartial.cshtml*:
 
