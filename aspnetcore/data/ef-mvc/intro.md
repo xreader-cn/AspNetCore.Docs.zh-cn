@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: f7b557c8e560393ae886c46fad95c48ccbcc65b4
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 31fca1b32942f9246e099c01669f77824edf521e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102963"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264851"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
@@ -316,7 +316,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 ![SSOX 中的 Student 表](intro/_static/ssox-student-table.png)
 
-<em>.mdf</em> 和 <em>.ldf</em> 数据库文件位于 <em>C:\Users\\<yourusername></em> 文件夹中。
+.mdf 和 .ldf 数据库文件位于 C:\Users\\\<yourusername> 文件夹中。
 
 因为调用 `EnsureCreated` 的初始化方法在启动应用程序时才运行，所以在这之前你可以更改 `Student` 类、 删除数据库、 再运行一次应用程序，这时候数据库将自动重新创建，以匹配所做的更改。 例如，如果向 `Student` 类添加 `EmailAddress` 属性，重新的创建表中会有 `EmailAddress` 列。
 
@@ -330,7 +330,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 * 以 ID 或 classnameID 命名的实体属性被视为主键属性。
 
-* 如果属性名为 *<navigation property name><primary key property name>* 将被解释为外键属性 (例如，`StudentID` 对应 `Student` 导航属性，`Student` 实体的主键是`ID`，所以`StudentID`被解释为外键属性)。 此外也可以将外键属性命名为 *<primary key property name>* (例如，`EnrollmentID`，由于 `Enrollment` 实体的主键是 `EnrollmentID`，因此被解释为外键)。
+* 如果属性名为 \<导航属性名>\<主键属性名>（例如，`StudentID` 对应 `Student` 导航属性，因为 `Student` 实体的主键是 `ID`），其将被解释为外键属性。 此外还可以将外键属性仅命名为 \<主键属性名>（例如 `EnrollmentID`，因为 `Enrollment` 实体的主键为 `EnrollmentID`）。
 
 约定行为可以重写。 例如，本教程前半部分显式指定表名称。 本系列 [后面教程](complex-data-model.md) 则设置列名称并将任何属性设置为主键或外键。
 

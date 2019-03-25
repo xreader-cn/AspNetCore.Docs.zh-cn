@@ -5,14 +5,14 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/20/2019
+ms.date: 03/11/2019
 uid: host-and-deploy/razor-components/configure-linker
-ms.openlocfilehash: 7c53e7912ec3b0ae471ea38777f874f55a32487d
-ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
+ms.openlocfilehash: c73c972e22a51842c5d8dd209b7e1ed987f9090d
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56647936"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58207926"
 ---
 # <a name="configure-the-linker-for-blazor"></a>配置 Blazor 链接器
 
@@ -20,14 +20,14 @@ ms.locfileid: "56647936"
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
-Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从输出程序集中删除不必要的 IL。
+Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中删除不必要的 IL。
 
-你可以使用以下任何一种方法控制程序集链接：
+使用以下任何一种方法控制程序集链接：
 
-* 使用 MSBuild 属性全局禁用链接。
-* 使用配置文件在每个程序集基础上控制链接。
+* 使用 [MSBuild 属性](#disable-linking-with-a-msbuild-property)全局禁用链接。
+* 使用[配置文件](#control-linking-with-a-configuration-file)按程序集控制链接。
 
-## <a name="disable-linking-with-an-msbuild-property"></a>使用 MSBuild 属性禁用链接
+## <a name="disable-linking-with-a-msbuild-property"></a>使用 MSBuild 属性禁用链接
 
 在构建应用程序（包括发布）时，默认在发布模式下启用链接。 若要禁用所有程序集链接，请在项目文件中将 `<BlazorLinkOnBuild>` MSBuild 属性设置为 `false`：
 
@@ -39,9 +39,15 @@ Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/sta
 
 ## <a name="control-linking-with-a-configuration-file"></a>使用配置文件控制链接
 
-通过提供 XML 配置文件并在项目文件中将该文件指定为 MSBuild 项，可以在每个程序集的基础上控制链接。
+通过提供 XML 配置文件并在项目文件中将该文件指定为 MSBuild 项，按程序集控制链接：
 
-以下是使用配置文件示例 (Linker.xml)：
+```xml
+<ItemGroup>
+  <BlazorLinkerDescriptor Include="Linker.xml" />
+</ItemGroup>
+```
+
+Linker.xml：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -73,12 +79,4 @@ Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/sta
 </linker>
 ```
 
-若要详细了解配置文件的文件格式，请参阅 [IL 链接器：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。
-
-使用 `BlazorLinkerDescriptor` 项在项目文件中指定配置文件：
-
-```xml
-<ItemGroup>
-  <BlazorLinkerDescriptor Include="Linker.xml" />
-</ItemGroup>
-```
+有关详细信息，请参阅 [IL Linker：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。

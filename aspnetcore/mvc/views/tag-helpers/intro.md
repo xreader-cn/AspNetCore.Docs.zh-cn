@@ -4,20 +4,20 @@ author: rick-anderson
 description: 了解标记帮助程序及其在 ASP.NET Core 中的用法。
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 2/14/2018
+ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 4b9bceb3ce0153af2d9a30c402febe09707145b7
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: 7768dd45bdbe40c16176d57a76823cbb9dd0b91b
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477301"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264618"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-## <a name="what-are-tag-helpers"></a>什么是标记帮助程序？
+## <a name="what-are-tag-helpers"></a>什么是标记帮助程序
 
 标记帮助程序使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 例如，内置 `ImageTagHelper` 可以将版本号追加到映像名称。 每当映像发生变化时，服务器都会为映像生成一个新的唯一版本，因此客户端总能获得当前映像（而不是过时的缓存映像）。 有多种常见任务（例如创建窗体、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，应用 `LabelTagHelper` 属性时，内置 `LabelTagHelper` 可以 HTML `<label>` 元素为目标。 如果熟悉 [ HTML 帮助程序](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers)，则标记帮助程序将减少 Razor 视图中 HTML 和 C# 之间的显式转换。 在很多情况下，HTML 帮助程序为特定标记帮助程序提供了一种替代方法，但标记帮助程序不会替代 HTML 帮助程序，且并非每个 HTML 帮助程序都有对应的标记帮助程序，认识到这点也很重要。 [标记帮助程序与 HTML 帮助程序的比较](#tag-helpers-compared-to-html-helpers)更详细地介绍了两者之间的差异。
 
@@ -122,6 +122,7 @@ public class Movie
 ```cshtml
 @tagHelperPrefix th:
 ```
+
 在以下代码图像中，标记帮助程序前缀设置为 `th:`，所以只有使用前缀 `th:` 的元素才支持标记帮助程序（可使用标记帮助程序的元素以独特字体显示）。 `<label>` 和 `<input>` 元素具有标记帮助程序前缀，可使用标记帮助程序，而 `<span>` 元素则相反。
 
 ![图像](intro/_static/thp.png)
@@ -186,37 +187,21 @@ IntelliSense 会列出页面上模型可用的属性和方法。 丰富 IntelliS
 new {@class="caption"}
 ```
 
-是用于表示属性的匿名对象。 由于 class 是 C# 中的保留关键字，因此要使用 `@` 符号强制 C# 将“@class=”解释为符号（属性名称）。 对于前端设计师（熟悉 HTML/CSS/JavaScript 及其他客户端技术，但不熟悉 C# 和 Razor 的人），这行代码中大部分内容是陌生是。 必须在没有 IntelliSense 帮助的情况下编写整行代码。
+是用于表示属性的匿名对象。 由于 `class` 是 C# 中的保留关键字，因此要使用 `@` 符号强制 C# 将 `@class=` 解释为符号（属性名称）。 对于前端设计师（熟悉 HTML/CSS/JavaScript 及其他客户端技术，但不熟悉 C# 和 Razor 的人），这行代码中大部分内容是陌生是。 必须在没有 IntelliSense 帮助的情况下编写整行代码。
 
 使用 `LabelTagHelper`，相同标记可以编写为：
 
-![图像](intro/_static/label2.png)
+```cshtml
+<label class="caption" asp-for="FirstName"></label>
+```
 
 使用标记帮助程序版本，只要在 Visual Studio 编辑器中输入 `<l`，IntelliSense 就会显示匹配的元素：
 
 ![图像](intro/_static/label.png)
 
-IntelliSense 可帮助编写整行。 `LabelTagHelper` 也默认将 `asp-for` 属性值（“FirstName”）的内容设置为“First Name”：即在属性值中每个大写字母前添加一个空格，将驼峰式大小写的属性转换为由属性名称组成的语句。 在下列标记中：
+IntelliSense 可帮助编写整行。
 
-![图像](intro/_static/label2.png)
-
-生成：
-
-```cshtml
-<label class="caption" for="FirstName">First Name</label>
-```
-
-如果将内容添加到 `<label>`，则不会使用由驼峰式大小写转换为语句式书写的内容。 例如:
-
-![图像](intro/_static/1stName.png)
-
-生成：
-
-```cshtml
-<label class="caption" for="FirstName">Name First</label>
-```
-
-以下代码图像显示了由 Visual Studio 2015 包含的旧版 ASP.NET 4.5.x MVC 模板生成的 Views/Account/Register.cshtml Razor 视图的 Form 部分。
+以下代码图像显示了由 Visual Studio 包含的 ASP.NET 4.5.x MVC 模板生成的 Views/Account/Register.cshtml Razor 视图的 Form 部分。
 
 ![图像](intro/_static/regCS.png)
 
@@ -267,5 +252,5 @@ Visual Studio 编辑器可帮助编写注册窗体的标记帮助程序方法中
 ## <a name="additional-resources"></a>其他资源
 
 * [创作标记帮助程序](xref:mvc/views/tag-helpers/authoring)
-* [使用窗体](xref:mvc/views/working-with-forms)
+* [使用表单](xref:mvc/views/working-with-forms)
 * [GitHub 上的 TagHelperSamples](https://github.com/dpaquette/TagHelperSamples) 包含用于处理 [Bootstrap](http://getbootstrap.com/) 的标记帮助程序示例。

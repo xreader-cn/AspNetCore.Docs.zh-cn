@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 应用中控制多个环境的应用�
 ms.author: riande
 ms.date: 01/22/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 4120453c36d1fc2a2303c2175df30ef9777bc54f
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 5982f3e51a68dfa29af482067156c42006f50c0c
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345945"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208444"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -31,9 +31,9 @@ ASP.NET Core 在应用启动时读取环境变量 `ASPNETCORE_ENVIRONMENT`，并
 * 当 `ASPNETCORE_ENVIRONMENT` 设置为 `Development` 时，调用 [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage)。
 * 当 `ASPNETCORE_ENVIRONMENT` 的值设置为下列之一时，调用 [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler)：
 
-    * `Staging`
-    * `Production`
-    * `Staging_2`
+  * `Staging`
+  * `Production`
+  * `Staging_2`
 
 [环境标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)使用 `IHostingEnvironment.EnvironmentName` 的值来包含或排除元素中的标记：
 
@@ -290,7 +290,7 @@ export ASPNETCORE_ENVIRONMENT=Development
 
 若要按环境加载配置，我们建议：
 
-* appsettings 文件 (*appsettings.&lt;<Environment>&gt;.json)。 请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)。
+* appsettings 文件 (appsettings.\<Environment>.json)。 请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)。
 * 环境变量（在托管应用的每个系统上进行设置）。 请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)和[开发环境中应用密码的安全存储：环境变量](xref:security/app-secrets#environment-variables)。
 * 密码管理器（仅限开发环境中）。 请参阅 <xref:security/app-secrets>。
 

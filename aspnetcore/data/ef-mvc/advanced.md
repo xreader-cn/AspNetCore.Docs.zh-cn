@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: f02aa1d6d8e431e7e2613835b3216786aed4ecd4
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: c4804bd6614c7d5a2a30c8f59a645f603929ad52
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103093"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264589"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -81,7 +81,7 @@ ms.locfileid: "56103093"
 
 ![“更新课程学分”页面](advanced/_static/update-credits.png)
 
-在 CoursesContoller.cs 中，为 HttpGet 和 HttpPost 添加 UpdateCourseCredits 方法：
+在 CoursesController.cs 中，为 HttpGet 和 HttpPost 添加 UpdateCourseCredits 方法：
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdateGet)]
 
@@ -202,6 +202,7 @@ Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](
 Tom Dykstra 和 Rick Anderson (twitter @RickAndMSFT) 共同编写了本教程。 Rowan Miller、 Diego Vega 和 Entity Framework 团队的其他成员协助代码评审和帮助解决编写教程代码时出现的调试问题。 John Parente 和 Paul Goldman 致力于更新 ASP.NET Core 2.2 的教程。
 
 <a id="common-errors"></a>
+
 ## <a name="troubleshoot-common-errors"></a>常见错误疑难解答
 
 ### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll 被另一个进程使用

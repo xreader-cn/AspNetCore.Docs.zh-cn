@@ -5,12 +5,12 @@ description: 本文介绍可移植对象文件，并概述通过 Orchard Core �
 ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: c9f892f5a886d7167b4705595ed2277279495201
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 466759b30e756a7cac8abab7352025df0462bb6f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207623"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58210088"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>在 ASP.NET Core 中配置可移植对象本地化
 
@@ -18,7 +18,7 @@ ms.locfileid: "50207623"
 
 本文演示通过 [Orchard Core](https://github.com/OrchardCMS/OrchardCore) 框架在 ASP.NET Core 应用程序中使用可移植对象 (PO) 文件的步骤。
 
-**请注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
+**注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
 
 [查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -49,7 +49,7 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 此示例使用下列语法：
 
-- `#:`：注释，用于指示要转换的字符串的上下文。 根据使用的位置，可对相同字符串进行不同转换。
+- `#:`：用于指示要转换的字符串的上下文的注释。 根据使用的位置，可对相同字符串进行不同转换。
 - `msgid`：未转换的字符串。
 - `msgstr`：已转换的字符串。
 
@@ -91,7 +91,7 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 ### <a name="creating-a-po-file"></a>创建 PO 文件
 
-在应用程序根文件夹中创建名为 <culture code>.po 的文件。 在此示例中，文件名为 fr.po，因为使用了法语：
+在应用程序根文件夹中创建名为 \<culture code>.po 的文件。 在此示例中，文件名为 fr.po，因为使用了法语：
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
@@ -153,7 +153,7 @@ var supportedCultures = new List<CultureInfo>
 <p>@Localizer.Plural(5, "There is one item.", "There are {0} items.")</p>
 ```
 
-**注意：** 在实际方案中，变量将用于表示计数。 此处，我们通过三个不同的值重复相同代码，以公开非常特定的事例。
+**注意：** 在实际方案中，将使用变量表示计数。 此处，我们通过三个不同的值重复相同代码，以公开非常特定的事例。
 
 切换区域性时，将显示如下内容：
 

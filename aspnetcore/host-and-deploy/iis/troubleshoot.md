@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何诊断 ASP.NET Core 应用的 Internet Information Services (IIS) 部署的问题。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/06/2019
+ms.date: 03/14/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 2f36ae2bda8537e91a3bc925505986bdd6a22a47
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 1fa90737aadebe3f714c702fbce649629d79dcd4
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841548"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264556"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -33,17 +33,13 @@ ms.locfileid: "57841548"
 
 其他故障排除主题：
 
-<xref:host-and-deploy/azure-apps/troubleshoot>  
-虽然应用服务使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)和 IIS 托管应用，但若要获取特定于应用服务的说明，请参阅专用主题。
+<xref:host-and-deploy/azure-apps/troubleshoot> 虽然应用服务使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)和 IIS 托管应用，但若要获取特定于应用服务的说明，请参阅专用主题。
 
-<xref:fundamentals/error-handling>  
-了解如何在本地系统上处理 ASP.NET Core 应用在开发期间的错误。
+<xref:fundamentals/error-handling> 了解如何在本地系统上处理 ASP.NET Core 应用在开发期间的错误。
 
-[了解如何使用 Visual Studio 进行调试](/visualstudio/debugger/getting-started-with-the-debugger)  
-本主题介绍了 Visual Studio 调试器的功能。
+[了解如何使用 Visual Studio 进行调试](/visualstudio/debugger/getting-started-with-the-debugger)本主题介绍了 Visual Studio 调试器的功能。
 
-[使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/editor/debugging)  
-了解 Visual Studio Code 中内置的调试支持。
+[使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/editor/debugging)了解 Visual Studio Code 中内置的调试支持。
 
 ## <a name="app-startup-errors"></a>应用启动错误
 
@@ -51,7 +47,7 @@ ms.locfileid: "57841548"
 
 工作进程失败。 应用不启动。
 
-ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。 
+ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
 
 常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
 
@@ -65,7 +61,7 @@ ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常�
 
 工作进程失败。 应用不启动。
 
-ASP.NET Core 模块尝试进程内启动 .NET Core CLR，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。 
+ASP.NET Core 模块尝试进程内启动 .NET Core CLR，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
 
 常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
 
@@ -82,7 +78,7 @@ ASP.NET Core 模块无法找到 .NET Core CLR 和进程内请求处理程序 (as
 
 工作进程失败。 应用不启动。
 
-ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 aspnetcorev2.dll 旁边的子文件夹中存在 aspnetcorev2_outofprocess.dll。 
+ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 aspnetcorev2.dll 旁边的子文件夹中存在 aspnetcorev2_outofprocess.dll。
 
 ::: moniker-end
 
@@ -172,7 +168,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 1. 在托管系统上导航到站点的部署文件夹。
 1. 如果 logs 文件夹不存在，请创建该文件夹。 有关如何启用 MSBuild 以在部署中自动创建 logs 文件夹的说明，请参阅[目录结构](xref:host-and-deploy/directory-structure)主题。
-1. 编辑 web.config 文件。 将“stdoutLogEnabled”设置为 `true` 并更改“stdoutLogFile”路径以指向 logs 文件夹（例如，`.\logs\stdout`）。 路径中的 `stdout` 是日志文件名的前缀。 创建日志时，将自动添加时间戳、进程 ID 和文件扩展名。 如果将 `stdout` 用作文件名的前缀，典型的日志文件将命名为“stdout_20180205184032_5412.log”。 
+1. 编辑 web.config 文件。 将“stdoutLogEnabled”设置为 `true` 并更改“stdoutLogFile”路径以指向 logs 文件夹（例如，`.\logs\stdout`）。 路径中的 `stdout` 是日志文件名的前缀。 创建日志时，将自动添加时间戳、进程 ID 和文件扩展名。 如果将 `stdout` 用作文件名的前缀，典型的日志文件将命名为“stdout_20180205184032_5412.log”。
 1. 请确保应用程序池的标识具有对日志文件夹的写入权限。
 1. 保存已更新的 web.config 文件。
 1. 向应用发出请求。
@@ -245,24 +241,27 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 从 [Windows 错误报告 (WER)](/windows/desktop/wer/windows-error-reporting) 中获取转储并进行分析：
 
 1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。 应用池必须对该文件夹具有写权限。
-1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/EnableDumps.ps1)：
+1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1)：
    * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
 
      ```console
      .\EnableDumps w3wp.exe c:\dumps
      ```
+
    * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
 
      ```console
      .\EnableDumps dotnet.exe c:\dumps
      ```
+
 1. 在造成崩溃的条件下运行应用。
-1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/DisableDumps.ps1)：
+1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1)：
    * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
 
      ```console
      .\DisableDumps w3wp.exe
      ```
+
    * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
 
      ```console
