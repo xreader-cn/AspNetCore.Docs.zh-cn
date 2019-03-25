@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2018
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: a03250d6cafe7279c3fcf3957d33214a9b4ed514
-ms.sourcegitcommit: c12ebdab65853f27fbb418204646baf6ce69515e
+ms.openlocfilehash: 3ac67f0cb0c7b472e7192f684b1a8fc9685794ce
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/21/2018
-ms.locfileid: "46523046"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264897"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -28,7 +28,7 @@ ms.locfileid: "46523046"
 
 按照约定，代理转接 HTTP 标头中的信息。
 
-| Header | 描述 |
+| Header | 说明 |
 | ------ | ----------- |
 | X-Forwarded-For | 保存代理链中关于发起请求的客户端和后续代理的信息。 该参数可能包含 IP 地址（以及可选端口号）。 在代理服务器链中，第一个参数表示最初发出请求的客户端。 后续代理标识符以此类推。 链中的最后一个代理不在参数列表中。 最后一个代理的 IP 地址以及可选的端口号可用作传输层的远程 IP 地址。 |
 | X-Forwarded-Proto | 原方案的值 (HTTP/HTTPS)。 如果请求已遍历多个代理，则该值也可以是方案列表。 |
@@ -97,7 +97,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ## <a name="nginx-configuration"></a>Nginx 配置
 
-要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转接头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
+要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转发标头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
 
 ## <a name="apache-configuration"></a>Apache 配置
 
@@ -122,11 +122,11 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | AllowedHosts | 通过 `X-Forwarded-Host` 标头将主机限制为提供的值。<ul><li>使用 ordinal-ignore-case 比较值。</li><li>必须排除端口号。</li><li>如果列表为空，则允许使用所有主机。</li><li>顶级通配符 `*` 允许所有非空主机。</li><li>子域通配符允许使用，但不匹配根域。 例如，`*.contoso.com` 匹配子域 `foo.contoso.com`，但不匹配根域 `contoso.com`。</li><li>允许使用 Unicode 主机名，但应转换为 [Punycode](https://tools.ietf.org/html/rfc3492) 进行匹配。</li><li>[IPv6 地址](https://tools.ietf.org/html/rfc4291)必须包括边界方括号，而且必须位于[常规窗体](https://tools.ietf.org/html/rfc4291#section-2.2)（例如，`[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`）中。 IPv6 地址并非专门用于检查不同格式之间的逻辑相等性，也不执行标准化。</li><li>未能限制允许的主机可能会允许攻击者访问该服务生成的欺骗链接。</li></ul>默认值为一个空 [IList\<string>](/dotnet/api/system.collections.generic.ilist-1)。 |
 | [ForwardedForHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedforheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedForHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedforheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-For` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-For`。 |
-| [ForwardedHeaders](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedheaders) | 标识应处理的转发器。 对于应用的字段的列表，请参阅 [ForwardedHeaders 枚举](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 分配给此属性的典型值为 <code>ForwardedHeaders.XForwardedFor &#124; ForwardedHeaders.XForwardedProto</code>。<br><br>默认值是 [ForwardedHeaders.None](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 |
+| [ForwardedHeaders](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedheaders) | 标识应处理的转发器。 对于应用的字段的列表，请参阅 [ForwardedHeaders 枚举](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 分配给此属性的典型值为 `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`。<br><br>默认值是 [ForwardedHeaders.None](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 |
 | [ForwardedHostHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedhostheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedHostHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedhostheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Host` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Host`。 |
 | [ForwardedProtoHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedprotoheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedProtoHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedprotoheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Proto` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Proto`。 |
 | [ForwardLimit](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardlimit) | 限制所处理的标头中的条目数。 设置为 `null` 以禁用此限制，但仅应在已配置 `KnownProxies` 或 `KnownNetworks` 的情况下执行此操作。<br><br>默认值为 1。 |
@@ -141,10 +141,10 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | [ForwardedForHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedforheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedForHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedforheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-For` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-For`。 |
-| [ForwardedHeaders](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedheaders) | 标识应处理的转发器。 对于应用的字段的列表，请参阅 [ForwardedHeaders 枚举](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 分配给此属性的典型值为 <code>ForwardedHeaders.XForwardedFor &#124; ForwardedHeaders.XForwardedProto</code>。<br><br>默认值是 [ForwardedHeaders.None](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 |
+| [ForwardedHeaders](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedheaders) | 标识应处理的转发器。 对于应用的字段的列表，请参阅 [ForwardedHeaders 枚举](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 分配给此属性的典型值为 `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`。<br><br>默认值是 [ForwardedHeaders.None](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheaders)。 |
 | [ForwardedHostHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedhostheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedHostHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedhostheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Host` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Host`。 |
 | [ForwardedProtoHeaderName](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardedprotoheadername) | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedProtoHeaderName](/dotnet/api/microsoft.aspnetcore.httpoverrides.forwardedheadersdefaults.xforwardedprotoheadername) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Proto` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Proto`。 |
 | [ForwardLimit](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions.forwardlimit) | 限制所处理的标头中的条目数。 设置为 `null` 以禁用此限制，但仅应在已配置 `KnownProxies` 或 `KnownNetworks` 的情况下执行此操作。<br><br>默认值为 1。 |

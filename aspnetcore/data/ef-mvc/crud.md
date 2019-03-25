@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 368b1774ba977ec8020a02d48705200fd54c3bbd
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 83f5d4bdc3d5872109649818b61a6dbb656fd8be
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102976"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264839"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -123,6 +123,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 `ValidateAntiForgeryToken` 特性帮助抵御跨网站请求伪造 (CSRF) 攻击。 令牌通过 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 自动注入到视图中，并在用户提交表单时包含该令牌。 令牌由 `ValidateAntiForgeryToken` 特性验证。 有关 CSRF 的详细信息，请参阅[反请求伪造](../../security/anti-request-forgery.md)。
 
 <a id="overpost"></a>
+
 ### <a name="security-note-about-overposting"></a>有关过多发布的安全说明
 
 基架代码包含在 `Create` 方法中的 `Bind` 特性是防止在创建方案中过多发布的一种方法。 例如，假设 Student 实体包含不希望此网页设置的 `Secret` 属性。

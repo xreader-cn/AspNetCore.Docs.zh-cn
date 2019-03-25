@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: e186a3cb484035199a8f355540c3e985db87ad98
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 9157c94c6e8f433869c8163ebf7772a7271b11ba
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248570"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265323"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -92,7 +92,7 @@ public class ExampleHealthCheck : IHealthCheck
     }
 
     public Task<HealthCheckResult> CheckHealthAsync(
-        HealthCheckContext context, 
+        HealthCheckContext context,
         CancellationToken cancellationToken = default(CancellationToken))
     {
         // Execute health check logic here. This example sets a dummy
@@ -130,8 +130,8 @@ public void ConfigureServices(IServiceCollection services)
 ```csharp
 services.AddHealthChecks()
     .AddCheck<ExampleHealthCheck>(
-        "example_health_check", 
-        failureStatus: HealthStatus.Degraded, 
+        "example_health_check",
+        failureStatus: HealthStatus.Degraded,
         tags: new[] { "example" });
 ```
 
@@ -141,7 +141,7 @@ services.AddHealthChecks()
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddHealthChecks()
-        .AddCheck("Example", () => 
+        .AddCheck("Example", () =>
             HealthCheckResult.Healthy("Example is OK!"), tags: new[] { "example" })
 }
 ```
@@ -186,11 +186,11 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddHealthChecks()
-        .AddCheck("Foo", () => 
+        .AddCheck("Foo", () =>
             HealthCheckResult.Healthy("Foo is OK!"), tags: new[] { "foo_tag" })
-        .AddCheck("Bar", () => 
+        .AddCheck("Bar", () =>
             HealthCheckResult.Unhealthy("Bar is unhealthy!"), tags: new[] { "bar_tag" })
-        .AddCheck("Baz", () => 
+        .AddCheck("Baz", () =>
             HealthCheckResult.Healthy("Baz is OK!"), tags: new[] { "baz_tag" });
 }
 
@@ -199,7 +199,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     app.UseHealthChecks("/health", new HealthCheckOptions()
     {
         // Filter out the 'Bar' health check. Only Foo and Baz execute.
-        Predicate = (check) => check.Tags.Contains("foo_tag") || 
+        Predicate = (check) => check.Tags.Contains("foo_tag") ||
             check.Tags.Contains("baz_tag")
     });
 }
@@ -264,7 +264,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     });
 }
 
-private static Task WriteResponse(HttpContext httpContext, 
+private static Task WriteResponse(HttpContext httpContext,
     HealthReport result)
 {
     httpContext.Response.ContentType = "application/json";
@@ -615,11 +615,11 @@ dotnet run --scenario port
        const string NAME = "example_health_check";
 
        public static IHealthChecksBuilder AddExampleHealthCheck(
-           this IHealthChecksBuilder builder, 
-           string name = default, 
-           string data1, 
-           int data2 = 1, 
-           HealthStatus? failureStatus = default, 
+           this IHealthChecksBuilder builder,
+           string name = default,
+           string data1,
+           int data2 = 1,
+           HealthStatus? failureStatus = default,
            IEnumerable<string> tags = default)
        {
            return builder.Add(new HealthCheckRegistration(
@@ -666,14 +666,14 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ::: moniker range="= aspnetcore-2.2"
 
 > [!NOTE]
-> 以下解决方法允许在已将一个或多个其他托管服务添加到应用时，向服务容器添加 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实例。 ASP.NET Core 3.0 发布后，不再需要此解决方法。 有关详细信息，请参见： https://github.com/aspnet/Extensions/issues/639。
+> 以下解决方法允许在已将一个或多个其他托管服务添加到应用时，向服务容器添加 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> 实例。 ASP.NET Core 3.0 发布后，不再需要此解决方法。 有关详细信息，请参阅： https://github.com/aspnet/Extensions/issues/639。
 >
 > ```csharp
-> private const string HealthCheckServiceAssembly = 
+> private const string HealthCheckServiceAssembly =
 >     "Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherHostedService";
 >
 > services.TryAddEnumerable(
->     ServiceDescriptor.Singleton(typeof(IHostedService), 
+>     ServiceDescriptor.Singleton(typeof(IHostedService),
 >         typeof(HealthCheckPublisherOptions).Assembly
 >             .GetType(HealthCheckServiceAssembly)));
 > ```

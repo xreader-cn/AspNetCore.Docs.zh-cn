@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/14/2016
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 819bf1b49b56e953a9a4398e82866ba0b01ab4db
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: b0fce0632fd2d885cb8e9a056923ec365d2f327d
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207103"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209981"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -180,10 +180,8 @@ public class ProductsController
 
 此路由将允许所所请求格式指定为可选文件扩展名。 `[FormatFilter]` 属性检查 `RouteData` 中格式值是否存在，并在响应创建时将响应格式映射到相应格式化程序。
 
-
 |           路由            |             格式化程序              |
 |----------------------------|------------------------------------|
 |   `/products/GetById/5`    |    默认输出格式化程序    |
 | `/products/GetById/5.json` | JSON 格式化程序（如配置） |
 | `/products/GetById/5.xml`  | XML 格式化程序（如配置）  |
-

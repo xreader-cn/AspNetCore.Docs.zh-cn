@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: a0fbeac51bd1bfbc50c4d369a479ce5f3091358b
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 2d5168ed4b1e14e507262361de9fa959924b82f6
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346250"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209552"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -205,9 +205,7 @@ Type expected
 |Int|type="number"|
 |Single、Double|type="number"|
 
-
 下表显示输入标记帮助程序会映射到特定输入类型的一些常见[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性（并未列出每个验证属性）：
-
 
 |特性|输入类型|
 |---|---|
@@ -215,10 +213,9 @@ Type expected
 |[Url]|type="url"|
 |[HiddenInput]|type="hidden"|
 |[Phone]|type="tel"|
-|[DataType(DataType.Password)]| type="password"|
-|[DataType(DataType.Date)]| type="date"|
-|[DataType(DataType.Time)]| type="time"|
-
+|[DataType(DataType.Password)]|type="password"|
+|[DataType(DataType.Date)]|type="date"|
+|[DataType(DataType.Time)]|type="time"|
 
 示例:
 
@@ -378,7 +375,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ## <a name="the-label-tag-helper"></a>标签标记帮助程序
 
-* 在 [<label>](https://www.w3.org/wiki/HTML/Elements/label) 元素中为表达式名称生成标签描述和 `for` 属性
+* 在 [\<label>](https://www.w3.org/wiki/HTML/Elements/label) 元素中为表达式名称生成标签描述和 `for` 属性
 
 * HTML 帮助程序替代项：`Html.LabelFor`。
 

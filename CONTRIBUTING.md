@@ -1,4 +1,12 @@
-# <a name="contribute-to-the-aspnet-documentation"></a>参与 ASP.NET 文档
+---
+ms.openlocfilehash: 98a03118954baa85b093a0514e1ac6f0fb6353e8
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320103"
+---
+# <a name="contribute-to-the-aspnet-core-documentation"></a>参与 ASP.NET Core 文档
 
 本文档介绍了参与到 [ASP.NET 文档站点](https://docs.microsoft.com/aspnet/)上托管的文章和代码示例中的过程。 欢迎更正拼写错误以及撰写新文章。
 
@@ -18,7 +26,7 @@
 
 有关此过程引导发布新文章的示例，请参阅 .NET Docs 存储库中的[问题&num; 67 ](https://github.com/dotnet/docs/issues/67)和[拉取请求&num; 798](https://github.com/dotnet/docs/pull/798)。 新文章为[编写代码](https://docs.microsoft.com/dotnet/articles/csharp/codedoc)。
 
-## <a name="docs-authoring-pack-extension-in-visual-studio-code"></a>Visual Studio Code 中的 Docs 创作包扩展 
+## <a name="docs-authoring-pack-extension-in-visual-studio-code"></a>Visual Studio Code 中的 Docs 创作包扩展
 
 如果使用 Visual Studio Code 参与到 ASP.NET 文档中，可以通过安装 [Docs 创作包](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack)扩展来提高工作效率。 该扩展提供各种有助于 Markdown 语法检查、代码拼写检查和项目模板的工具。
 
@@ -30,7 +38,7 @@
 
 对于每个Markdown 文件，可能存在图像文件夹和示例代码文件夹。 如果文章是 [fundamentals/configuration/index.md](https://github.com/aspnet/Docs/blob/master/aspnetcore/fundamentals/configuration/index.md)，则图像位于 [fundamentals/configuration/index/\_](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) 中，示例应用项目文件位于 [fundamentals/configuration/index/sample](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) 中。 fundamentals/configuration/index.md 文件中的图像由以下 Markdown 呈现：
 
-```
+```md
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
 ```
 
@@ -42,13 +50,13 @@ Markdown 文件名称和图像文件名称使用小写。
 
 内部链接应使用目标文件的 `uid` 和外部参照链接（链接文本设置为链接内容的标题）：
 
-```
+```md
 <xref:uid_of_the_topic>
 ```
 
 如果文章标题不适合用于链接文本（例如，句子中的单词或短语是链接文本），请使用以下内容指定外部参照链接和链接文本：
 
-```
+```md
 [link text](xref:uid_of_the_topic)
 ```
 
@@ -73,13 +81,13 @@ Markdown 文件名称和图像文件名称使用小写。
 
 将整个代码文件呈现为代码段：
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs)]
 ```
 
 使用行号将文件的一部分呈现为代码片段：
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?range=1-10,20,30,40-50]
 [!code-html[](configuration/index/sample/Views/Home/Index.cshtml?range=1-10,20,30,40-50]
 ```
@@ -88,13 +96,13 @@ Markdown 文件名称和图像文件名称使用小写。
 
 呈现名为“snippet_Example”的 C# 区域：
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?name=snippet_Example)]
 ```
 
 突出显示呈现的代码段中选定的行（通常呈现为黄色背景）：
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?name=snippet_Example&highlight=1-3,10,20-25)]
 [!code-csharp[](configuration/index/sample/Program.cs?range=10-20&highlight=1-3]
 [!code-html[](configuration/index/sample/Views/Home/Index.cshtml?range=10-20&highlight=1-3]
@@ -119,6 +127,7 @@ DocFX 要求：
   ```console
   docfx --serve
   ```
+
 * 在浏览器中导航到 `http://localhost:8080/group1-dest/`。
 
 ### <a name="mono-instructions"></a>Mono 说明
@@ -128,6 +137,7 @@ DocFX 要求：
   ```console
   brew install mono
   ```
+
 * 下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
 * 将存档提取到 $HOME/bin/docfx。
 * 在 Bash Shell 中为 docfx 创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
@@ -136,11 +146,13 @@ DocFX 要求：
   alias docfx='mono $HOME/bin/docfx/docfx.exe'
   alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
+
 * 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令通过其别名构建和提供文档：
 
   ```console
   docfx-serve
   ```
+
 * 在浏览器中导航到 `http://localhost:8080/group1-dest/`。
 
 ## <a name="voice-and-tone"></a>语气和语调

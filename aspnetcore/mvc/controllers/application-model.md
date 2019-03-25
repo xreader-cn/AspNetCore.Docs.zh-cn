@@ -5,12 +5,12 @@ description: 了解如何读取和控制应用程序模型，从而修改 MVC �
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/application-model
-ms.openlocfilehash: f3e0aafa3e6a352c632e4abbf3943be61f11ea81
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: 6b0591a877c0d82e0ee6ab002eb6a6650753677b
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225494"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208591"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -25,9 +25,9 @@ ASP.NET Core MVC 应用程序模型包括用于描述 MVC 应用程序的抽象�
 ASP.NET Core MVC 应用程序模型具有以下结构：
 
 * ApplicationModel
-    * 控制器 (ControllerModel)
-        * 操作 (ActionModel)
-            * 参数 (ParameterModel)
+  * 控制器 (ControllerModel)
+    * 操作 (ActionModel)
+      * 参数 (ParameterModel)
 
 该模型的每个级别都有权访问公用 `Properties` 集合，层次结构中的较低级别可以访问和覆盖由较高级别设置的属性值。 创建操作时，属性保存到 `ActionDescriptor.Properties` 中。 之后，当处理请求时，可通过 `ActionContext.ActionDescriptor.Properties` 访问某个约定添加或修改的任何属性。 若要基于每项操作对筛选器、模型绑定器等进行配置，使用属性不失为一个好办法。
 
@@ -82,7 +82,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 可通过以下方式应用约定：将它们添加到 MVC 选项，或实现 `Attribute` 并将它们应用于控制器、操作或操作参数（类似于 [`Filters`](xref:mvc/controllers/filters)）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
 
-### <a name="sample-modifying-the-applicationmodel"></a>示例：修改 ApplicationModel
+### <a name="sample-modifying-the-applicationmodel"></a>示例:修改 ApplicationModel
 
 以下约定用于向应用程序模型添加属性。 
 
@@ -96,7 +96,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/AppModelController.cs?name=AppModelController)]
 
-### <a name="sample-modifying-the-controllermodel-description"></a>示例：修改 ControllerModel 说明
+### <a name="sample-modifying-the-controllermodel-description"></a>示例:修改 ControllerModel 说明
 
 与上一个示例一样，也可以修改控制器模型，以包含自定义属性。 这些属性将覆盖应用程序模型中指定的具有相同名称的现有属性。 以下约定属性可在控制器级别添加说明：
 
@@ -108,7 +108,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 访问“description”属性的方式与前面示例中一样。
 
-### <a name="sample-modifying-the-actionmodel-description"></a>示例：修改 ActionModel 说明
+### <a name="sample-modifying-the-actionmodel-description"></a>示例:修改 ActionModel 说明
 
 可向各项操作应用不同的属性约定，并覆盖已在应用程序或控制器级别应用的行为。
 
@@ -118,7 +118,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/DescriptionAttributesController.cs?name=DescriptionAttributesController&highlight=9)]
 
-### <a name="sample-modifying-the-parametermodel"></a>示例：修改 ParameterModel
+### <a name="sample-modifying-the-parametermodel"></a>示例:修改 ParameterModel
 
 可将以下约定应用于操作参数，以修改其 `BindingInfo`。 以下约定要求参数为路由参数；忽略其他可能的绑定源（比如查询字符串值）。
 
@@ -128,7 +128,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/ParameterModelController.cs?name=ParameterModelController&highlight=5)]
 
-### <a name="sample-modifying-the-actionmodel-name"></a>示例：修改 ActionModel 名称
+### <a name="sample-modifying-the-actionmodel-name"></a>示例:修改 ActionModel 名称
 
 以下约定可修改 `ActionModel`，以更新其应用到的操作的*名称*。 新名称以参数形式提供给该属性。 此新名称供路由使用，因此它将影响用于访问此操作方法的路由。
 
@@ -143,7 +143,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 > [!NOTE]
 > 此示例本质上与使用内置 [ActionName](/dotnet/api/microsoft.aspnetcore.mvc.actionnameattribute) 属性相同。
 
-### <a name="sample-custom-routing-convention"></a>示例：自定义路由约定
+### <a name="sample-custom-routing-convention"></a>示例:自定义路由约定
 
 可以使用 `IApplicationModelConvention` 来自定义路由的工作方式。 例如，以下约定会将控制器的命名空间合并到其路由中，并将命名空间中的 `.` 替换为路由中的 `/`：
 

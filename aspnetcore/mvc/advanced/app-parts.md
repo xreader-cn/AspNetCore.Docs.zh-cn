@@ -5,12 +5,12 @@ description: 了解如何使用应用程序部件（应用资源的抽象）来�
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: c0d3ad6bcdf2e56df915b176b28759c59e76faf6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 67bd40adef4cdb0bd781f70114d3954cd9a8ed09
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206558"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320090"
 ---
 # <a name="application-parts-in-aspnet-core"></a>ASP.NET Core 中的应用程序部件
 
@@ -68,7 +68,7 @@ services.AddMvc()
 
 功能提供程序从 `IApplicationFeatureProvider<T>` 继承，其中 `T` 是功能的类型。 你可以为上面列出的任意 MVC 功能类型实现自己的功能提供程序。 `ApplicationPartManager.FeatureProviders` 集合中功能提供程序的顺序可能很重要，因为靠后的提供程序可以对前面的提供程序所执行的操作作出反应。
 
-### <a name="sample-generic-controller-feature"></a>示例：泛型控制器功能
+### <a name="sample-generic-controller-feature"></a>示例:通用控制器功能
 
 默认情况下，ASP.NET Core MVC 会忽略泛型控制器（例如，`SomeController<T>`）。 此示例使用的控制器功能提供程序在默认提供程序后面运行并为指定的类型列表（在 `EntityTypes.Types` 中定义）添加泛型控制器实例：
 
@@ -96,9 +96,9 @@ services.AddMvc()
 
 当请求匹配的路由时，结果如下：
 
-![示例应用的示例输出为“Hello from a generic Sproket controller”。](app-parts/_static/generic-controller.png)
+![示例应用的示例输出为“Hello from a generic Sprocket controller.”](app-parts/_static/generic-controller.png)
 
-### <a name="sample-display-available-features"></a>示例：显示可用功能
+### <a name="sample-display-available-features"></a>示例:显示可用功能
 
 可循环访问可用于应用的已填充功能，方法为通过[依赖关系注入](../../fundamentals/dependency-injection.md)请求 `ApplicationPartManager`，并用它来填充相应功能的实例：
 

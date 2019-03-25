@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 70de86f2e8c4a5577b8a4b50c53d66eb3b205c09
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 4e87423a02a275eae7e2f6054e7a3b6c22cd7cee
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665531"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320209"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -76,7 +76,7 @@ ASP.NET Core 中引入并架构了 `IStringLocalizer` 和 `IStringLocalizer<T>`�
 
 | 键 | “值” |
 | ----- | ------ |
-| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b> ` |
+| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 呈现的视图可能包含资源文件中的 HTML 标记。
 
@@ -98,6 +98,7 @@ DataAnnotations 错误消息已使用 `IStringLocalizer<T>` 本地化。 使用�
 在 ASP.NET Core MVC 1.1.0 和更高版本中，非验证属性已经进行了本地化。 ASP.NET Core MVC 1.0 不会为非验证属性查找本地化字符串。
 
 <a name="one-resource-string-multiple-classes"></a>
+
 ### <a name="using-one-resource-string-for-multiple-classes"></a>对多个类使用一个资源字符串
 
 下面的代码演示如何针对具有多个类的验证属性使用一个资源字符串：
@@ -172,7 +173,7 @@ Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模
 
 如果 `RootNamespace` 不同于 `AssemblyName`，请在 AssemblyInfo.cs 中包括以下内容（参数值替换为实际值）：
 
-```Csharp
+```csharp
 using System.Reflection;
 using Microsoft.Extensions.Localization;
 
@@ -304,7 +305,6 @@ services.Configure<RequestLocalizationOptions>(options =>
 ### <a name="set-the-culture-programmatically"></a>以编程方式设置区域性
 
 [GitHub](https://github.com/aspnet/entropy) 上的示例项目 Localization.StarterWeb 包含设置 `Culture` 的 UI。 Views/Shared/_SelectLanguagePartial.cshtml 文件允许你从支持的区域性列表中选择区域性：
-
 
 [!code-cshtml[](localization/sample/Localization/Views/Shared/_SelectLanguagePartial.cshtml)]
 

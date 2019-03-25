@@ -18,7 +18,7 @@ ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/ho
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
 
-## <a name="why-use-aspnet-core"></a>为何使用 ASP.NET Core？
+## <a name="why-to-use-aspnet-core"></a>为何使用 ASP.NET Core
 
 数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是重新设计的 ASP.NET 4.x，更改了体系结构，形成了更精简的模块化框架。
 
@@ -136,7 +136,7 @@ WebHost.CreateDefaultBuilder(args)
 
 主题的 markdown 文件在以下行中应用了前面的 C# 代码段：
 
-```
+```md
 [!code-csharp[](sample/SampleApp/Program.cs?name=snippet_FilterInCode)]
 ```
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/06/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 326f66070d51c04298abbf6292d2d350414311de
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 36c2bdfa585a0fd54ca93bf4c0edb4cf6f7d934a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841393"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265449"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 
@@ -23,8 +23,7 @@ ms.locfileid: "57841393"
 
 ## <a name="app-startup-errors"></a>应用启动错误
 
-**502.5 进程故障**  
-工作进程失败。 应用不启动。
+**502.5 进程故障**工作进程失败。 应用不启动。
 
 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试启动工作进程，但启动失败。 检查应用程序事件日志通常可帮助解决此类型的问题。 [应用程序事件日志](#application-event-log)部分中介绍了访问日志。
 
@@ -32,7 +31,8 @@ ms.locfileid: "57841393"
 
 ![显示“502.5 进程故障”页面的浏览器窗口](troubleshoot/_static/process-failure-page.png)
 
-**500 内部服务器错误**  
+**500 内部服务器错误**
+
 应用启动，但某个错误阻止了服务器完成请求。
 
 在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 [在 Kudu 控制台中运行应用](#run-the-app-in-the-kudu-console)或[启用 ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)以解决该问题。
@@ -83,15 +83,16 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
      ```console
      dotnet .\{ASSEMBLY NAME}.dll
      ```
+
    * 如果应用是[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)：
 
      ```console
      {ASSEMBLY NAME}.exe
      ```
-   
+
 来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
-   
-##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
+
+##### <a name="framework-dependent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
 
 必须安装 ASP.NET Core {VERSION} (x86) 运行时站点扩展。
 
@@ -113,7 +114,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
-##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
+##### <a name="framework-dependent-deployment-running-on-a-preview-release"></a>在预览版上运行的依赖框架的部署
 
 必须安装 ASP.NET Core {VERSION} (x64) 运行时站点扩展。
 
@@ -230,7 +231,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 1. 在 Azure 门户中，选择“诊断日志”边栏选项卡。
 1. 选择“应用程序日志记录(文件系统)”和“详细错误消息”的“开”开关。 选择边栏选项卡顶部的“保存”按钮。
-1. 若要包含失败请求跟踪（也称为失败请求事件缓冲 (FREB) 日志记录），请选择“失败请求跟踪”的“开”开关。 
+1. 若要包含失败请求跟踪（也称为失败请求事件缓冲 (FREB) 日志记录），请选择“失败请求跟踪”的“开”开关。
 1. 选择“日志流”边栏选项卡，将在门户中的“诊断日志”边栏选项卡下立即列出。
 1. 向应用发出请求。
 1. 在日志流数据中，指示了错误的原因。

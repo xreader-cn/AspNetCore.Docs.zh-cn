@@ -5,12 +5,12 @@ description: 了解如何开始使用 ASP.NET Core MVC。
 ms.author: riande
 ms.date: 12/12/2018
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: c09c06f55c4179e9e2174f0063ab7387b7e4c31b
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: dbc07558d7d7672e60e8834dc3e4e9d8aab437e3
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899224"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265291"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
@@ -36,7 +36,6 @@ ms.locfileid: "56899224"
 
 ## <a name="create-a-web-app"></a>创建 Web 应用
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 Visual Studio 中，选择“文件”>“新建”>“项目”。
@@ -50,7 +49,7 @@ ms.locfileid: "56899224"
 * 将项目命名为“MvcMovie”（请务必将项目命名为“MvcMovie”，以便在复制代码时可以与命名空间匹配。）
 * 选择“确定”
 
-![新项目对话框, 左侧窗格中的 .NET Core, ASP.NET Core Web ](start-mvc/_static/new_project2-21.png)
+![“新建项目”对话框，左窗格中的“.NET Core”，ASP.NET Core Web ](start-mvc/_static/new_project2-21.png)
 
 完成“新建 ASP.NET Core Web 应用程序(.NET Core) - MvcMovie”对话框：
 
@@ -58,11 +57,10 @@ ms.locfileid: "56899224"
 * 选择“Web 应用(模型-视图-控制器)”
 * 选择“确定”。
 
-![新项目对话框, 左侧窗格中的 .NET Core, ASP.NET Core Web ](start-mvc/_static/new_project22-21.png)
+![“新建项目”对话框，左窗格中的“.NET Core”，ASP.NET Core Web ](start-mvc/_static/new_project22-21.png)
 
 Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名称并选择几个选项后，就拥有了一个可正常运行的应用。 这是一个基本的初学者项目，适合入门使用。
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 本教程假定用户熟悉 VS Code。 有关详细信息，请参阅 [VS Code 入门](https://code.visualstudio.com/docs) 和 [Visual Studio Code 帮助](#visual-studio-code-help)。
@@ -81,7 +79,6 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
   * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目。
   * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件。
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件” > “新建解决方案”。
@@ -96,12 +93,11 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 * 将项目命名为“MvcMovie”，然后选择“创建”。
 
----  
-<!-- End of VS tabs -->
+---
 
 ### <a name="run-the-app"></a>运行应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 选择 Ctrl+F5 以在非调试模式下运行应用。
 
@@ -117,7 +113,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按 Ctrl+F5 以在不使用调试程序的情况下运行。
 
@@ -136,7 +132,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 * 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。 运行应用时，将看到不同的端口号。
 * 可以从“运行”菜单中以调试或非调试模式启动应用。
 
-------
+---
 
 * 选择“接受”以同意跟踪。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
 
@@ -151,4 +147,4 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 在本教程的下一部分中，你将了解 MVC 并开始撰写一些代码。
 
 > [!div class="step-by-step"]
-> [下一页](adding-controller.md)  
+> [下一页](adding-controller.md)

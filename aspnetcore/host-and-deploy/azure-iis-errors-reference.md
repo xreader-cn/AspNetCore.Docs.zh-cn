@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/28/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 1c8cb31b306b38ec17596af0a84f22ca0e3d911c
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 053dcce7f8c59b7afe7e52d2f704c992afce0b67
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346221"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265175"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -61,7 +61,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 适用于 Azure 应用服务托管的应用。
 
-* **浏览器：** HTTP 错误 500.0 - ANCM 进程内处理程序加载失败 
+* **浏览器：** HTTP 错误 500.0 - ANCM 进程内处理程序加载失败
 
 * **应用程序日志：** 调用 hostfxr 以查找进程内请求处理程序失败，未找到任何本机依赖项。 找不到进程内请求处理程序。 调用 hostfxr 捕获的输出：无法找到任何兼容的框架版本。 找不到指定的框架“Microsoft.AspNetCore.App”、版本“{VERSION}-preview-\*”。 未能启动应用程序“/LM/W3SVC/1416782824/ROOT”，ErrorCode“0x8000ffff”。
 
@@ -80,7 +80,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
   * ASP.NET Core {RUNTIME VERSION} (x86) 运行时
   * ASP.NET Core {RUNTIME VERSION} (x64) 运行时
 
-  重新启动应用。 等待几秒钟，以便应用重新启动。 
+  重新启动应用。 等待几秒钟，以便应用重新启动。
 
 * 如果在预览运行时运行应用，且同时安装了 32 位 (x86) 和 64 位 (x64) [站点扩展](xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension)，请卸载与应用的位数不匹配的站点扩展。 删除站点扩展之后，重新启动应用。 等待几秒钟，以便应用重新启动。
 
@@ -201,7 +201,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
   ```
-  
+
   或者，安装最新版本的 ASP.NET Core 托管捆绑包。 最新版本与受支持的 ASP.NET Core 应用向后兼容。
 
 ## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>processPath 不正确、缺少 PATH 变量、未安装托管捆绑包、未重启系统/IIS、未安装 VC++ Redistributable 或 dotnet.exe 访问冲突

@@ -4,7 +4,7 @@ author: guardrex
 description: 了解如何在 Windows Server Internet Information Services (IIS) 上托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2019
+ms.date: 03/21/2019
 uid: host-and-deploy/iis/index
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
@@ -297,9 +297,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
    * `OPT_NO_SHAREDFX=1` &ndash; 跳过安装 ASP.NET 共享框架（ASP.NET 运行时）。
    * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此参数。 如果有可能会同时托管 32 位和 64 位应用，请勿使用此参数，并安装两个运行时。
    * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config) 与 IIS 安装位于同一台计算机上时，禁用检查使用的是否是 IIS 共享配置。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。 有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
-1. 重启系统，或通过命令行界面依次执行 net stop was /y 和 net start w3svc。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
-
-如果 Windows 托管捆绑包安装程序检测到 IIS 需要重置才能完成安装，则安装程序会重置 IIS。 如果安装程序触发 IIS 重置，则会重新启动所有 IIS 应用池和网站。
+1. 重启系统或在命令行界面中执行 net stop was /y，后跟 net start w3svc。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
 
 > [!NOTE]
 > 有关 IIS 共享配置的信息，请参阅[使用 IIS 共享配置的 ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration)。

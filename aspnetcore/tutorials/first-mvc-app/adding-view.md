@@ -5,12 +5,12 @@ description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 32eddb233a8a6b9b8f480926673d15d568ce6ede
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 6ff706012dabbf9500a805708c1f058b59ebc610
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236427"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265549"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -28,7 +28,6 @@ ms.locfileid: "55236427"
 
 ## <a name="add-a-view"></a>添加视图
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。
@@ -47,7 +46,6 @@ ms.locfileid: "55236427"
 
 ![“添加新项”对话框](adding-view/_static/add_view.png)
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 为 `HelloWorldController` 添加 `Index` 视图。
@@ -55,7 +53,6 @@ ms.locfileid: "55236427"
 * 添加一个名为“Views/HelloWorld”的新文件夹。
 * 向 Views/HelloWorld 文件夹添加名为“Index.cshtml”的新文件。
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。
@@ -69,8 +66,7 @@ ms.locfileid: "55236427"
 
 ![“添加新项”对话框](adding-view/_static/add_view.png)
 
----  
-<!-- End of VS tabs -->
+---
 
 使用以下内容替换 Razor 视图文件 Views/HelloWorld/Index.cshtml 的内容：
 
@@ -152,7 +148,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_5)]
 
-`ViewData` 字典对象包含将传递给视图的数据。 
+`ViewData` 字典对象包含将传递给视图的数据。
 
 创建一个名为 Views/HelloWorld/Welcome.cshtml 的 Welcome 视图模板。
 
