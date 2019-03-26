@@ -4,14 +4,14 @@ author: mjrousos
 description: 了解如何摆脱 ClaimsPrincipal.Current 检索当前经过身份验证的用户的标识和 ASP.NET Core 中的声明。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/04/2018
+ms.date: 03/26/2019
 uid: migration/claimsprincipal-current
-ms.openlocfilehash: 35c3389798041e141c45bf0a76fa9d7285212768
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.openlocfilehash: 526cc3cf3a58a656e2a1b162cfaccacc7694dc51
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41831243"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488637"
 ---
 # <a name="migrate-from-claimsprincipalcurrent"></a>迁移 ClaimsPrincipal.Current
 
@@ -56,4 +56,4 @@ Console.WriteLine($"Current user: {Thread.CurrentPrincipal?.Identity.Name}");
   * 获取的实例`IHttpContextAccessor`在启动过程并将其存储在静态变量中。 实例将提供对以前已从静态属性检索当前用户的代码。
   * 检索当前用户的`ClaimsPrincipal`使用`HttpContextAccessor.HttpContext?.User`。 如果此代码使用的 HTTP 请求上下文之外`HttpContext`为 null。
 
-最后一个选项，请使用`IHttpContextAccessor`，行为是违背 ASP.NET Core 原则 （首选静态依赖项的插入依赖关系）。 计划将最终删除依赖于静态`IHttpContextAccessor`帮助器。 不过，可以迁移之前使用的大型现有 ASP.NET 应用时它是一个有用的桥， `ClaimsPrincipal.Current`。
+最后一个选项，请使用`IHttpContextAccessor`实例存储在静态变量中，是 ASP.NET Core 原则 （静态依赖项首选注入依赖项） 相反。 计划最终检索`IHttpContextAccessor`改为实例从依赖关系注入。 静态帮助程序时可能会有用桥，不过，将之前使用的大型现有 ASP.NET 应用迁移`ClaimsPrincipal.Current`。
