@@ -52,8 +52,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 <a name="md"></a>
 
-### <a name="the-model-directive"></a>
-  @model 指令
+### <a name="the-model-directive"></a>@model 指令
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 

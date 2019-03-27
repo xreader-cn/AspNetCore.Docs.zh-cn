@@ -5,7 +5,7 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 03/23/2019
 uid: host-and-deploy/azure-apps/index
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
@@ -38,7 +38,7 @@ ASP.NET Core 文档中提供以下文章：
 
 ## <a name="application-configuration"></a>应用程序配置
 
-### <a name="platform"></a>平台
+### <a name="platform"></a>Platform
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -78,7 +78,17 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="monitoring-and-logging"></a>监视和日志记录
 
-部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”。 此扩展启用 Azure 日志记录。
+::: moniker range=">= aspnetcore-3.0"
+
+部署到应用服务的 ASP.NET Core 应用会自动接收“ASP.NET Core 记录集成”这一应用服务扩展。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+
+::: moniker-end
 
 有关监视、日志记录和故障排除的信息，请参阅以下文章：
 
