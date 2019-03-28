@@ -215,7 +215,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在 cookie 中的用户的声明。 不要在调用`SignOutAsync`后进行重定向，否则用户将被注销。
 
-中指定 post *Pages/Shared/_LoginPartial.cshtml*:
+在 *Pages/Shared/_LoginPartial.cshtml* 中指定 post：
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
