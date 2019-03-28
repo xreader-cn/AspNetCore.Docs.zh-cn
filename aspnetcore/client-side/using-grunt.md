@@ -206,7 +206,7 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
 
 10. 添加`uglify`任务使用下面的代码。
 
-    任务缩减*combined.js*文件的临时目录中找到并创建 wwwroot/lib 以下标准命名约定中的结果文件*\<文件名\>。 min.js*.
+    任务缩减*combined.js*文件的临时目录中找到并创建 wwwroot/lib 以下标准命名约定中的结果文件 *\<文件名\>。 min.js* .
 
     ```javascript
     uglify: {

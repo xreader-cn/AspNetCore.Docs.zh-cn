@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: c8a374f3e3ecfdef1a02e685aecc4e2fcbfcbf48
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 429af1fb6d0388a5c57894851832969e1ef629e2
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410355"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327428"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
 
@@ -126,7 +126,7 @@ ms.locfileid: "56410355"
 
 ## <a name="test-actionresultlttgt"></a>测试 ActionResult&lt;T&gt;
 
-在 ASP.NET Core 2.1 或更高版本中，[ActionResult&lt;T&gt;](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult`1>) 支持返回从`ActionResult` 派生的类型或返回特定类型。
+在 ASP.NET Core 2.1 或更高版本中，[ActionResult&lt;T&gt;](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) 支持返回从`ActionResult` 派生的类型或返回特定类型。
 
 示例应用包含将返回给定会话 `id` 的 `List<IdeaDTO>` 的方法。 如果会话 `id` 不存在，控制器将返回 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>：
 
@@ -144,7 +144,7 @@ ms.locfileid: "56410355"
 对于有效会话 `id`，第二个测试可确认该方法将返回：
 
 * 类型为 `List<IdeaDTO>` 的 `ActionResult`。
-* [ActionResult&lt;T&gt;.Value](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Value*) 的类型为 `List<IdeaDTO>`。
+* [ActionResult&lt;T&gt;.Value](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) 的类型为 `List<IdeaDTO>`。
 * 列表中的第一项是与 mock 会话中存储的想法匹配的有效想法（通过调用 `GetTestSession` 获取）。
 
 [!code-csharp[](testing/sample/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ForSessionActionResult_ReturnsIdeasForSession&highlight=7-8,15-18)]
@@ -170,8 +170,8 @@ ms.locfileid: "56410355"
 对于有效会话 `id`，最后一个测试可确认：
 
 * 该方法将返回类型为 `BrainstormSession` 的 `ActionResult`。
-* [ActionResult&lt;T&gt;.Result](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Result*) 为 <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>。 `CreatedAtActionResult` 类似于包含 `Location` 标头的 *201 Created* 响应。
-* [ActionResult&lt;T&gt;.Value](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Value*) 的类型为 `BrainstormSession`。
+* [ActionResult&lt;T&gt;.Result](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) 为 <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>。 `CreatedAtActionResult` 类似于包含 `Location` 标头的 *201 Created* 响应。
+* [ActionResult&lt;T&gt;.Value](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) 的类型为 `BrainstormSession`。
 * 调用了用于更新会话 `UpdateAsync(testSession)` 的 mock 调用。 通过执行断言中的 `mockRepo.Verify()` 来检查 `Verifiable` 方法调用。
 * 将返回该会话的两个 `Idea` 对象。
 * 最后一项（通过对 `UpdateAsync` 的 mock 调用而添加的 `Idea`）与添加到测试中的会话的 `newIdea` 匹配。

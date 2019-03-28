@@ -5,12 +5,12 @@ description: 了解 Razor 标记语法，该语法用于将基于服务器的代
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: 254c85ee9e74dc72170b19d27fbc5f1ae7ccd3dc
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 53d4dc608fbfd45bcc015a3af83f5d87f86c7f15
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264747"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327360"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -534,7 +534,7 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 @<tag>...</tag>
 ```
 
-下面的示例演示如何指定模板化 Razor 委托作为 <xref:System.Func`2>。 为委托封装的方法的参数指定[动态类型](/dotnet/csharp/programming-guide/types/using-type-dynamic)。 将[对象类型](/dotnet/csharp/language-reference/keywords/object)指定为委托的返回值。 该模板与 `Pet`（具有 `Name` 属性）的 <xref:System.Collections.Generic.List`1> 一起使用。
+下面的示例演示如何指定模板化 Razor 委托作为 <xref:System.Func%602>。 为委托封装的方法的参数指定[动态类型](/dotnet/csharp/programming-guide/types/using-type-dynamic)。 将[对象类型](/dotnet/csharp/language-reference/keywords/object)指定为委托的返回值。 该模板与 `Pet`（具有 `Name` 属性）的 <xref:System.Collections.Generic.List%601> 一起使用。
 
 ```csharp
 public class Pet
@@ -599,7 +599,7 @@ public class Pet
 
 使用前面示例中的 pets 列表，调用 `Repeat` 方法以及：
 
-* `Pet` 的 <xref:System.Collections.Generic.List`1>。
+* `Pet` 的 <xref:System.Collections.Generic.List%601>。
 * 每只宠物的重复次数。
 * 用于无序列表的列表项的内联模板。
 

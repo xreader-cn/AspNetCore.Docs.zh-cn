@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 4e87423a02a275eae7e2f6054e7a3b6c22cd7cee
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 3192ad150b914c00b315f38bd9fe077ebf402b37
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320209"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488697"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -74,7 +74,7 @@ ASP.NET Core 中引入并架构了 `IStringLocalizer` 和 `IStringLocalizer<T>`�
 
 法语资源文件可以包含以下信息：
 
-| 键 | “值” |
+| 键 | 值 |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -343,6 +343,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 ## <a name="additional-resources"></a>其他资源
 
+* <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * 本文所用的 [Localization.StarterWeb 项目](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb)。
 * [对 .NET 应用程序进行全球化和本地化](/dotnet/standard/globalization-localization/index)
 * [.resx 文件中的资源](/dotnet/framework/resources/working-with-resx-files-programmatically)
