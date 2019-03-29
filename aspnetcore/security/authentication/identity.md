@@ -183,13 +183,13 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 发生下列情况时，会显示登录窗体：
 
 * **登录**选择链接。
-* 用户在无权访问的情况下或未经系统进行身份验证的情况下尝试访问受限页面。
+* 用户尝试访问受限的页面，他们不向被授权访问**或**时在还没有已完成身份验证系统。
 
-提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
+提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。 会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
 
    [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-   基 `Controller` 类公开了一个 `User` 属性，方便你通过控制器方法对其进行访问。例如，可以枚举 `User.Claims` 并进行授权决策。有关详细信息，请参阅 <xref:security/authorization/introduction>。
+   基 `Controller` 类公开了一个 `User` 属性，方便你通过控制器方法对其进行访问。 例如，可以枚举 `User.Claims` 并进行授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
 
 ::: moniker-end
 
@@ -213,7 +213,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在 cookie 中的用户的声明。 不要在调用`SignOutAsync`后进行重定向，否则用户将被注销。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除存储在 cookie 中的用户的声明。 在调用后不重定向`SignOutAsync`或者在用户会**不**已注销。
 
 在 *Pages/Shared/_LoginPartial.cshtml* 中指定 post：
 
