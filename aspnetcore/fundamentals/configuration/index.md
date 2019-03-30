@@ -319,7 +319,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 要激活环境变量配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 扩展方法。
 
-在环境变量中使用分层键时，冒号分隔符 (`:`) 可能无法适用于所有平台。 所有平台均支持采用双下划线 (`__`)，并可以用冒号替换。
+[!INCLUDE[](~/includes/environmentVarableColon.md)]
 
 借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，用户可以在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。 有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。
 

@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Razor 组件，用户可以借助它在 ASP.NET
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 03/27/2019
 uid: razor-components/index
 ---
 # <a name="introduction-to-razor-components"></a>Razor 组件简介
@@ -42,7 +42,7 @@ Razor 组件用于与浏览器通信的连接还用于处理 JavaScript 互操�
 
 有关更多信息，请参见<xref:razor-components/hosting-models#server-side-hosting-model>。
 
-Blazor 是 Razor 组件的实验性客户端托管模型。 Blazor 在使用开放 Web 标准的浏览器中的 .NET 上运行，没有插件，也没有代码转译。 有关更多信息，请参见<xref:razor-components/hosting-models#client-side-hosting-model>。
+Blazor 是 Razor 组件的实验性客户端托管模型。 Blazor 在使用开放 Web 标准的浏览器中的 .NET 上运行，没有插件，也没有代码转译。 有关详细信息，请参阅 <xref:spa/blazor/index> 和 <xref:razor-components/hosting-models#client-side-hosting-model>。
 
 ## <a name="components"></a>组件数
 

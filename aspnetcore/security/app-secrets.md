@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/13/2019
 uid: security/app-secrets
-ms.openlocfilehash: 1a10c4d035510c689e3eccadc5986df0cc06b71e
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 18313f8284e81d196cbe786f494a607ee97a299f
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841509"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750975"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>安全存储中 ASP.NET Core 中开发的应用程序机密
 
@@ -37,6 +37,8 @@ ms.locfileid: "57841509"
 
 > [!WARNING]
 > 环境变量通常存储在普通的未加密的文本。 如果计算机或进程受到攻击，可以由不受信任方访问环境变量。 可能需要更多措施，防止用户机密泄露。
+
+[!INCLUDE[](~/includes/environmentVarableColon.md)]
 
 ## <a name="secret-manager"></a>机密管理器
 

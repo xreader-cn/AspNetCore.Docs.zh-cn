@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Blazor，它是一种使用 .NET 生成在支�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 03/27/2019
 uid: spa/blazor/index
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
@@ -50,7 +50,7 @@ Blazor 支持大多数应用所需的核心内容，包括：
 
 以在[中间语言 (IL) 链接器](xref:host-and-deploy/razor-components/configure-linker)发布应用时，从应用中删除未使用的代码以减小已下载应用的大小。
 
-Blazor 是 Razor 组件的客户端托管模型。 由于 Razor 组件可将组件的呈现逻辑从 UI 更新应用方式中分离出来，因此可灵活选择托管 Razor 组件的方式。 使用 ASP.NET Core Razor 组件在 ASP.NET Core 应用中的服务器上托管 Razor 组件，在该应用中可通过 SignalR 连接处理 UI 更新。 有关更多信息，请参见<xref:razor-components/hosting-models#server-side-hosting-model>。 
+Blazor 是 Razor 组件的客户端托管模型。 由于 Razor 组件可将组件的呈现逻辑从 UI 更新应用方式中分离出来，因此可灵活选择托管 Razor 组件的方式。 使用 ASP.NET Core Razor 组件在 ASP.NET Core 应用中的服务器上托管 Razor 组件，在该应用中可通过 SignalR 连接处理 UI 更新。 有关详细信息，请参阅 <xref:razor-components/index> 和 <xref:razor-components/hosting-models#server-side-hosting-model>。 
 
 ## <a name="components"></a>组件数
 

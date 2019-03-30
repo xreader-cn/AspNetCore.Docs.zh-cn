@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 12/18/2018
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 66f895c7c8dcc00d991c0ea57535f2ed56431a77
-ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
+ms.openlocfilehash: 5fd40e7b42b17d4a3b858de15c8ed03fb64ce690
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/21/2018
-ms.locfileid: "53735773"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751097"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>在 ASP.NET Core Facebook 外部登录安装程序
 
@@ -59,6 +59,8 @@ ms.locfileid: "53735773"
 ## <a name="store-facebook-app-id-and-app-secret"></a>应用商店 Facebook 应用程序 ID 和应用程序密码
 
 链接敏感设置，例如 Facebook`App ID`并`App Secret`到应用程序的配置使用[机密管理器](xref:security/app-secrets)。 对于本教程的目的，命名为令牌`Authentication:Facebook:AppId`和`Authentication:Facebook:AppSecret`。
+
+[!INCLUDE[](~/includes/environmentVarableColon.md)]
 
 执行以下命令来安全地存储`App ID`和`App Secret`使用机密管理器：
 
