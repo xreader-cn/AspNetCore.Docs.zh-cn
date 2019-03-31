@@ -5,14 +5,14 @@ description: 了解如何使用 ASP.NET Core 分布式缓存来提高应用性�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/02/2019
+ms.date: 03/30/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: a7850e317dfa3b54f1980902b3dcd6b096effa15
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: c3774c26116a4cb70386d0060f2244d224fec8e1
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346114"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750992"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>分布式缓存在 ASP.NET Core 中
 
@@ -116,7 +116,7 @@ Table and index were created successfully.
 
 ::: moniker range=">= aspnetcore-2.2"
 
-应用配置缓存实现使用`RedisCache`实例 (`AddStackExchangeRedisCache`) 中的非开发环境中`Startup.ConfigureServices`:
+应用配置缓存实现使用<xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache>实例 (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) 中的非开发环境中`Startup.ConfigureServices`:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
 
