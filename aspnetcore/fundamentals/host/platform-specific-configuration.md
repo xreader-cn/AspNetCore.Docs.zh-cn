@@ -5,14 +5,14 @@ description: 了解如何使用 IHostingStartup 从外部程序集增强 ASP.NET
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 03/10/2019
+ms.date: 03/23/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 25564ecebf48f65a209ac48e77856ef36d897959
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c174d658c84ada88eef17528c663735a91347ba7
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264979"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419441"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
@@ -381,18 +381,7 @@ dotnet nuget locals all --clear
 **从运行时存储部署的程序集激活**
 
 1. StartupDiagnostics 项目使用 [PowerShell](/powershell/scripting/powershell-scripting) 修改其 StartupDiagnostics.deps.json 文件。 默认情况下，Windows 7 SP1 和 Windows Server 2008 R2 SP1 及以后版本的 Windows 上安装有 PowerShell。 若要在其他平台上获取 PowerShell，请参阅[安装 Windows PowerShell](/powershell/scripting/setup/installing-powershell#powershell-core)。
-1. 构建 StartupDiagnostics 项目。 构建项目后，会自动生成项目文件中的构建目标：
-   * 触发 PowerShell 脚本以修改 StartupDiagnostics.deps.json 文件。
-   * 将 StartupDiagnostics.deps.json 文件移动到用户配置文件的 additionalDeps 文件夹。
-1. 在承载启动目录的命令提示符处执行 `dotnet store` 命令，将程序集及其依赖项存储在用户配置文件的运行时存储中：
-
-   ```console
-   dotnet store --manifest StartupDiagnostics.csproj --runtime <RID>
-   ```
-
-   对于 Windows，该命令使用 `win7-x64` [运行时标识符 (RID)](/dotnet/core/rid-catalog)。 为其他运行时提供承载启动时，请替换为正确的 RID。
-1. 设置环境变量：
-   * 将程序集名称 StartupDiagnostics 的添加到 `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` 环境变量中。
-   * 在 Windows 上，将 `DOTNET_ADDITIONAL_DEPS` 环境变量设置为 `%UserProfile%\.dotnet\x64\additionalDeps\StartupDiagnostics\`。 在 macOS/Linux 上，将 `DOTNET_ADDITIONAL_DEPS` 环境变量设置为 `/Users/<USER>/.dotnet/x64/additionalDeps/StartupDiagnostics/`，其中 `<USER>` 是包含承载启动的用户配置文件。
+1. 执行 RuntimeStore文件夹中的 build.ps1 脚本。 该脚本中的 `dotnet store` 命令使用 `win7-x64` [运行时标识符 (RID)](/dotnet/core/rid-catalog) 将托管启动部署到 Windows。 为其他运行时提供承载启动时，请替换为正确的 RID。
+1. 运行 deployment 文件夹中的 deploy.ps1 脚本。
 1. 运行示例应用。
 1. 请求 `/services` 终结点以查看应用的注册服务。 请求 `/diag` 终结点以查看诊断信息。

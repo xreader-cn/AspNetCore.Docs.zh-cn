@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/11/2018
 uid: mvc/views/partial
-ms.openlocfilehash: ff4b99580990edbd768128d77214e664a1e29e56
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: b7c1545007086053e879bce6781802959da77901
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207220"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327373"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core 中的分部视图
 
@@ -136,7 +136,7 @@ ms.locfileid: "50207220"
 
 ### <a name="asynchronous-html-helper"></a>异步 HTML 帮助程序
 
-使用 HTML 帮助程序时，最佳做法是使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>。 `PartialAsync` 返回包含在 <xref:System.Threading.Tasks.Task`1> 中的 <xref:Microsoft.AspNetCore.Html.IHtmlContent> 类型。 通过在等待的调用前添加 `@` 字符前缀来引用该方法：
+使用 HTML 帮助程序时，最佳做法是使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>。 `PartialAsync` 返回包含在 <xref:System.Threading.Tasks.Task%601> 中的 <xref:Microsoft.AspNetCore.Html.IHtmlContent> 类型。 通过在等待的调用前添加 `@` 字符前缀来引用该方法：
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")

@@ -5,12 +5,12 @@ description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 5848e5e1e45708c3ab5c2a79614111662701aa77
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 1803c6d3956121e4e7091f4f951917425e87c335
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320155"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419467"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（共 8 个）
 
@@ -133,7 +133,7 @@ dotnet ef migrations remove
 * 不能与迁移一起使用。
 * 专门用于在频繁删除并重新创建 DB 的情况下进行测试或快速制作原型。
 
-删除 `DbInitializer` 中的以下行：
+删除 `EnsureCreated`：
 
 ```csharp
 context.Database.EnsureCreated();

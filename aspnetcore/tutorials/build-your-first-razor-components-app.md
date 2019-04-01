@@ -5,14 +5,14 @@ description: 逐步生成 Razor 组件应用并了解 Razor 组件基本概念�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 03/24/2019
 uid: tutorials/first-razor-components-app
-ms.openlocfilehash: c0f7b27fdfc770f8001625ecb3bf8d50af517b99
-ms.sourcegitcommit: 10e14b85490f064395e9b2f423d21e3c2d39ed8b
+ms.openlocfilehash: 2a987b3f2e687cd9d4dffa2c573c938e68ea3cc8
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "57978418"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419360"
 ---
 # <a name="build-your-first-razor-components-app"></a>生成第一个 Razor 组件应用
 
@@ -75,7 +75,7 @@ ms.locfileid: "57978418"
 
    [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Index.razor?highlight=7)]
 
-1. 重新生成并运行应用。 主页本身具有自己的计数器。
+1. 重新生成并运行应用。 主页有其自己的计数器。
 
 ## <a name="component-parameters"></a>组件参数
 
@@ -101,7 +101,7 @@ ms.locfileid: "57978418"
 
    [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/Components/Pages/Index.razor?highlight=7)]
 
-1. 重载页面。 每次选择“单击我”按钮时，主页计数器值将增加 10。 “计数器”页上的计数器值将递增 1。
+1. 重新加载主页。 每次选择“单击我”按钮时，计数器值递增 10。 “计数器”页上的计数器值递增 1。
 
 ## <a name="route-to-components"></a>路由到组件
 
@@ -111,29 +111,38 @@ Counter.razor 文件顶部的 `@page` 指令指定此组件是路由终结点。
 
 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)，组件可以使用注册了应用服务容器的服务。 使用 `@inject` 指令将服务注入到组件中。
 
-检查 FetchData 组件的指令。 `@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到组件中：
+检查示例应用中 FetchData 组件的指令。
 
-Components/Pages/FetchData.razor（Blazor 中的 Pages/FetchData.cshtml）：
+在 Razor 组件示例应用中，`WeatherForecastService` 服务注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)，因此整个应用中有一个服务实例。 `@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到组件中。
+
+*Components/Pages/FetchData.razor*：
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
-
-`WeatherForecastService` 服务注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)，因此整个应用中有一个服务实例。
 
 FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `WeatherForecast` 对象的数组：
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-[@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
+在 Blazor 版示例应用中，注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据：
+
+*Pages/FetchData.cshtml*：
+
+[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.cshtml?highlight=7)]
+
+两个示例应用中都使用了 [@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来将每个预测实例呈现为“天气”数据表中的一行：
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
 ## <a name="build-a-todo-list"></a>生成待办项列表
 
-向应用程序添加一个实现简单待办项列表的新页面。
+向应用添加一个实现简单待办事项列表的新组件。
 
-1. 将名为 Todo.razor 的空文件添加到 Components/Pages 文件夹（Blazor 中的 Pages 文件夹）。
+1. 向示例应用添加实体文件：
 
-1. 为页面提供初始标记：
+   * 对于 Razor 组件体验，向 Components/Pages 文件夹添加 Todo.razor 文件。
+   * 对于 Blazor 体验，向 Pages 文件夹添加 Todo.cshtml 文件。
+
+1. 为组件提供初始标记：
 
    ```cshtml
    @page "/todo"
@@ -141,11 +150,11 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
    <h1>Todo</h1>
    ```
 
-1. 将“待办项”页面添加到导航栏。
+1. 将“待办事项”组件添加到导航栏。
 
    应用布局中使用 NavMenu 组件（Blazor 中的 Components/Shared/NavMenu.razor 或 Shared/NavMenu.cshtml）。 布局是可以避免应用中出现重复内容的组件。 有关更多信息，请参见<xref:razor-components/layouts>。
 
-   通过在 Components/Shared/NavMenu.razor（Blazor 中的 Shared/NavMenu.cshtml）文件中的现有列表项下添加以下列表项标记，为“待办项”页面添加一个 `<NavLink>`：
+   通过在 Components/Shared/NavMenu.razor（Blazor 中为 Shared/NavMenu.cshtml）文件中的现有列表项下添加以下列表项标记，为“待办事项”组件添加一个 `<NavLink>`：
 
    ```cshtml
    <li class="nav-item px-3">
@@ -155,7 +164,7 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
    </li>
    ```
 
-1. 重新生成并运行应用。 访问新的“待办项”页面，确认指向“待办项”页面的链接有效。
+1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向“待办事项”组件的链接有效。
 
 1. 向项目的根目录添加“TodoItem.cs”文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 

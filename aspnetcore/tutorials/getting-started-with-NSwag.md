@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/30/2018
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 43f0f04ae63f4e74d8de6001a4a7518e4eb23d77
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: af07ad771c582cfad80f297748c3c1049ff4a7d6
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209134"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419402"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag 和 ASP.NET Core 入门
 
@@ -47,7 +47,7 @@ NSwag 提供了下列功能：
 
 若要安装 NSwag NuGet 包，请使用以下方法之一：
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从“程序包管理器控制台”窗口：
   * 转到“视图” > “其他窗口” > “程序包管理器控制台”
@@ -64,14 +64,14 @@ NSwag 提供了下列功能：
   * 在搜索框中输入“NSwag.AspNetCore”
   * 从“浏览”选项卡中选择“NSwag.AspNetCore”包，然后单击“安装”
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“Solution Pad” > “添加包...”中的“包”文件夹
 * 将“添加包”窗口的“源”下拉列表设置为“nuget.org”
 * 在搜索框中输入“NSwag.AspNetCore”
 * 从结果窗格中选择“NSwag.AspNetCore”包，然后单击“添加包”
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 从“集成终端”中运行以下命令：
 
@@ -79,7 +79,7 @@ NSwag 提供了下列功能：
 dotnet add TodoApi.csproj package NSwag.AspNetCore
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 运行下面的命令：
 
@@ -202,9 +202,9 @@ Swagger UI 显示版本的信息：
 
 ### <a name="xml-comments"></a>XML 注释
 
- 若要启用 XML 注释，请执行以下步骤：
+若要启用 XML 注释，请执行以下步骤：
 
-# <a name="visual-studiotabvisual-studio-xml"></a>[Visual Studio](#tab/visual-studio-xml/)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -222,7 +222,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-# <a name="visual-studio-for-mactabvisual-studio-mac-xml"></a>[Visual Studio for Mac](#tab/visual-studio-mac-xml/)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -240,7 +240,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-# <a name="visual-studio-codetabvisual-studio-code-xml"></a>[Visual Studio Code](#tab/visual-studio-code-xml/)
+# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
 手动将突出显示的行添加到 .csproj 文件：
 
@@ -276,7 +276,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range=">= aspnetcore-2.1"
 
-由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。
+ 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。 
 
 请看下面的示例：
 
