@@ -5,7 +5,7 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2019
+ms.date: 03/30/2019
 uid: host-and-deploy/azure-apps/index
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
@@ -14,7 +14,7 @@ uid: host-and-deploy/azure-apps/index
 
 ## <a name="useful-resources"></a>有用资源
 
-Azure 应用文档、教程、示例、操作指南和其他资源由 Azure [Web 应用文档](/azure/app-service/)提供。 两个有关托管 ASP.NET Core 应用的重要教程为：
+Azure 应用文档、教程、示例、操作指南和其他资源由[应用服务文档](/azure/app-service/)提供。 两个有关托管 ASP.NET Core 应用的重要教程为：
 
 [在 Azure 中创建 ASP.NET Core Web 应用](/azure/app-service/app-service-web-get-started-dotnet)  
 使用 Visual Studio 创建 ASP.NET Core Web 应用，并将其部署到 Windows 上的 Azure 应用服务。
@@ -30,7 +30,7 @@ ASP.NET Core 文档中提供以下文章：
 <xref:host-and-deploy/azure-apps/azure-continuous-deployment>  
 了解如何使用 Visual Studio 创建 ASP.NET Core Web 应用并使用 Git 将它部署到 Azure 应用服务以实现持续部署。
 
-[使用 Azure Pipelines 创建你的第一个管道](/azure/devops/pipelines/get-started-yaml)  
+[创建第一个管道](/azure/devops/pipelines/get-started-yaml)  
 为 ASP.NET Core 应用设置 CI 生成，然后创建针对 Azure 应用服务的持续部署发布。
 
 [Azure Web 应用沙盒](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)  
@@ -92,7 +92,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 有关监视、日志记录和故障排除的信息，请参阅以下文章：
 
-[如何：在 Azure 应用服务中监视应用](/azure/app-service/web-sites-monitor)  
+[监视 Azure 应用服务中的应用](/azure/app-service/web-sites-monitor)  
 了解如何查看应用和应用服务计划的配额和指标。
 
 [在 Azure 应用服务中为应用启用诊断日志记录](/azure/app-service/web-sites-enable-diagnostic-log)  
@@ -220,7 +220,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="protocol-settings-https"></a>协议设置 (HTTPS)
 
-借助安全的协议绑定，可在通过 HTTPS 响应请求时指定要使用的证书。 若要绑定，需要一个为特定主机名颁发的有效专用证书 (*.pfx*)。 有关详细信息，请参阅[教程：将现有自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)。
+借助安全的协议绑定，可在通过 HTTPS 响应请求时指定要使用的证书。 若要绑定，需要一个为特定主机名颁发的有效专用证书 (*.pfx*)。 有关详细信息，请参阅[教程：将现有自定义 SSL 证书绑定到 Azure 应用服务](/azure/app-service/app-service-web-tutorial-custom-ssl)。
 
 ## <a name="transform-webconfig"></a>转换 web.config
 
@@ -228,7 +228,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="additional-resources"></a>其他资源
 
-* [Web 应用概述（5 分钟概述视频）](/azure/app-service/app-service-web-overview)
+* [应用服务概述](/azure/app-service/app-service-web-overview)
 * [Azure 应用服务：托管 .NET 应用的最佳位置（55 分钟概览视频）](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure Friday：Azure 应用服务诊断和疑难解答体验（12 分钟视频）](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Azure 应用服务诊断概述](/azure/app-service/app-service-diagnostics)
@@ -239,4 +239,4 @@ Windows Server 上的 Azure 应用服务使用 [Internet Information Services (I
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
-* [Microsoft TechNet 库：Windows Server](/windows-server/windows-server-versions)
+* [Windows Server - 当前和以前版本的 IT 管理员内容](/windows-server/windows-server-versions)
