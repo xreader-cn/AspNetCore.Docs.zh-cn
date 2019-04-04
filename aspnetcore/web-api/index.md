@@ -6,6 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: web-api/index
+ms.openlocfilehash: bc8be67957a56a818a88e0496d45db1e7b7aed0e
+ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58142356"
 ---
 # <a name="build-web-apis-with-aspnet-core"></a><span data-ttu-id="a870d-103">使用 ASP.NET Core 构建 Web API</span><span class="sxs-lookup"><span data-stu-id="a870d-103">Build web APIs with ASP.NET Core</span></span>
 
