@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 01/31/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 91d8be6cd9160eefe56731d23d5dc7ba18eb6a8f
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 5b8a0c963940d65545579b7120edac3571e4ad2a
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665452"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750692"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -242,6 +242,7 @@ ms.locfileid: "57665452"
 
     * 使用 `BookService` 类执行 CRUD 操作。
     * 包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。
+    * <xref:System.Web.Http.ApiController.CreatedAtRoute*> 方法返回 201 响应，这是在服务器上创建新资源的 HTTP POST 方法的标准响应。 `CreatedAtRoute` 还会向响应添加位置标头。 位置标头指定新建的待办事项的 URI。 请参阅 [10.2.2 201 已创建](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
 1. 生成并运行应用。
 1. 在浏览器中导航到 `http://localhost:<port>/api/books`。 将显示下面的 JSON 响应：
 
