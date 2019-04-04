@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
-ms.openlocfilehash: c02d8cd5fb3b6edbb21be4889da2e880099b731b
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 9d2a942dba6abe669126efee7f2b3cdd6560658e
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837437"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012638"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>设置 ASP.NET Core SignalR 横向扩展 Redis 底板
 
@@ -31,7 +31,7 @@ ms.locfileid: "54837437"
 
   * <xref:signalr/scale>
   * [Redis 文档](https://redis.io/)
-  * [Azure Redis 缓存文档](https://docs.microsoft.com/en-us/azure/redis-cache/)
+  * [Azure Redis 缓存文档](https://docs.microsoft.com/azure/redis-cache/)
 
 ::: moniker range="= aspnetcore-2.1"
 
@@ -195,4 +195,4 @@ services.AddSignalR()
 * <xref:signalr/scale>
 * [Redis 文档](https://redis.io/documentation)
 * [StackExchange Redis 文档](https://stackexchange.github.io/StackExchange.Redis/)
-* [Azure Redis 缓存文档](https://docs.microsoft.com/en-us/azure/redis-cache/)
+* [Azure Redis 缓存文档](https://docs.microsoft.com/azure/redis-cache/)

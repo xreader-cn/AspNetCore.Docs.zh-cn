@@ -6,6 +6,12 @@ ms.author: riande
 ms.date: 10/4/2017
 ms.custom: seodec18
 uid: security/authentication/azure-active-directory/index
+ms.openlocfilehash: 9a5b77201f228567bea0850ae236eb6c977e915a
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208039"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory 与 ASP.NET Core
 
