@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core SignalR 支持的平台。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2018
+ms.date: 04/06/2019
 uid: signalr/supported-platforms
-ms.openlocfilehash: e4e84baf0120036b473eac256107b46a4accfe37
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: fefaaf97de3f1fabf8f3154bf5b4ccb37195ccff
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837710"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068217"
 ---
 # <a name="aspnet-core-signalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
 
@@ -36,7 +36,7 @@ ASP.NET Core SignalR 适用于 ASP.NET Core 支持的任何服务器平台。
 
 [.NET 客户端](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)可以在 ASP.NET Core 支持的任何平台上运行。 例如， [Xamarin 开发人员可以使用 SignalR](https://github.com/aspnet/Announcements/issues/305)用于构建 Android 应用程序使用 Xamarin.Android 8.4.0.1 或更高版本和 iOS 应用程序使用 Xamarin.iOS 11.14.0.4 或更高版本。
 
-如果服务器运行 IIS，Websocket 传输要求安装 IIS 8.0 或更高版本 Windows Server 2012 或更高版本。 其他传输在所有平台上都受支持。
+如果服务器运行 IIS，Websocket 传输要求安装 IIS 8.0 或更高版本在 Windows Server 2012 或更高版本。 其他传输在所有平台上都受支持。
 
 ## <a name="java-client"></a>Java 客户端
 

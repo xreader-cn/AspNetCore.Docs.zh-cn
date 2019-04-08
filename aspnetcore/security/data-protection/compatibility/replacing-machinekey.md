@@ -1,38 +1,38 @@
 ---
-title: 将在 ASP.NET Core ASP.NET machineKey
+title: 替换为在 ASP.NET Core 中的 ASP.NET machineKey
 author: rick-anderson
-description: 发现如何替换 machineKey ASP.NET 以允许使用新且更安全的数据保护系统中。
+description: 了解如何将 machineKey 在 ASP.NET 中允许使用一个新的和更安全的数据保护系统。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 04/06/2019
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 5f9e5cec02b66e1315548c4e7c18fe168ad161eb
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: ff36382d22a218a228b42a31ae4f8ad2eb2d5b5f
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36278819"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068279"
 ---
-# <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>将在 ASP.NET Core ASP.NET machineKey
+# <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>替换为在 ASP.NET Core 中的 ASP.NET machineKey
 
 <a name="compatibility-replacing-machinekey"></a>
 
-实现`<machineKey>`在 ASP.NET 中的元素[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)。 这允许对 ASP.NET 加密例程的大多数调用，以通过替换数据保护机制，包括新的数据保护系统路由。
+实现`<machineKey>`在 ASP.NET 中的元素[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)。 这允许对 ASP.NET 加密例程大多数调用，以通过替换数据保护机制，包括新的数据保护系统路由。
 
 ## <a name="package-installation"></a>包安装
 
 > [!NOTE]
-> 新的数据保护系统只能安装到现有的 ASP.NET 应用程序面向.NET 4.5.1 或更高版本。 安装将失败，如果应用程序面向.NET 4.5 或降低。
+> 新的数据保护系统只能安装到现有 ASP.NET 应用程序面向.NET 4.5.1 或更高版本。 安装将失败，如果应用程序面向.NET 4.5 或减少。
 
-若要安装新的数据保护系统到现有的 ASP.NET 4.5.1+ 项目之后，安装包 Microsoft.AspNetCore.DataProtection.SystemWeb。 这将实例化数据保护系统使用[默认配置](xref:security/data-protection/configuration/default-settings)设置。
+若要在现有的 ASP.NET 4.5.1+ 项目中安装新的数据保护系统，安装包 Microsoft.AspNetCore.DataProtection.SystemWeb。 这将使用数据保护系统实例化[默认配置](xref:security/data-protection/configuration/default-settings)设置。
 
-当你安装此程序包时，它将插入行到*Web.config*这是告诉 ASP.NET，以将其用于[最加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括窗体身份验证、 视图状态和调用MachineKey.Protect。 插入的行，如下所示读取。
+安装包时，它将插入到一行*Web.config*这是告诉 ASP.NET，要将其用于[大多数加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括窗体身份验证、 视图状态和对的调用MachineKey.Protect。 插入的行中读取，如下所示。
 
 ```xml
 <machineKey compatibilityMode="Framework45" dataProtectorType="..." />
 ```
 
 >[!TIP]
-> 你可以判断是否处于活动状态通过检查类似的字段访问新的数据保护系统`__VIEWSTATE`，这应该以开头"CfDJ8"以下示例所示。 "CfDJ8"是标识受数据保护系统的负载的幻"09 F0 C9 F0"标头的 base64 表示。
+> 您可以告知是否处于活动状态通过检查字段，例如访问新的数据保护系统`__VIEWSTATE`，这应开始使用"CfDJ8"如下面的示例中所示。 "CfDJ8"是标识受数据保护系统的有效负载的魔力"09 F0 第 9 频道 F0"标头的 base64 表示形式。
 
 ```html
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk..." />
@@ -40,9 +40,9 @@ ms.locfileid: "36278819"
 
 ## <a name="package-configuration"></a>包配置
 
-数据保护系统是具有默认零安装程序配置实例化。 但是，由于默认情况下会将密钥保存到本地文件系统，这不起作用的应用程序的场中部署的状态。 若要解决此问题，你可以通过创建一种类型的子类 DataProtectionStartup 提供配置，并重写其 ConfigureServices 方法。
+使用默认值零安装程序配置实例化的数据保护系统。 但是，由于默认情况下密钥保存到本地文件系统，这不适用于场中部署的应用程序。 若要解决此问题，您可以通过创建一种类型的子类 DataProtectionStartup 提供配置和重写其 ConfigureServices 方法。
 
-下面是一个示例配置将在其中保留密钥，又如何要加密对静止的自定义的数据保护启动类型。 它还通过提供其自己的应用程序名称来重写默认应用程序隔离策略。
+下面是配置保留密钥的位置和方式静态加密的自定义数据保护启动类型的示例。 它还重写默认应用隔离策略通过提供其自己的应用程序名称。
 
 ```csharp
 using System;
@@ -67,9 +67,9 @@ namespace DataProtectionDemo
 ```
 
 >[!TIP]
-> 你还可以使用`<machineKey applicationName="my-app" ... />`代替 SetApplicationName 显式调用。 这是不会强制执行开发人员可以创建 DataProtectionStartup 派生类型，如果他们想要配置所有已设置应用程序名称的方便机制。
+> 此外可以使用`<machineKey applicationName="my-app" ... />`代替 SetApplicationName 显式调用。 这是为了避免强制开发人员创建 DataProtectionStartup 派生类型，如果他们想要配置所有已设置的应用程序名称的便捷机制。
 
-若要启用此自定义配置，请返回到 Web.config，并查找`<appSettings>`包安装到的配置文件添加的元素。 它将类似以下的标记：
+若要启用此自定义配置，请返回到 Web.config，并查找`<appSettings>`包安装到的配置文件添加的元素。 它将类似以下标记：
 
 ```xml
 <appSettings>
@@ -82,11 +82,11 @@ namespace DataProtectionDemo
 </appSettings>
 ```
 
-填写的空白值与你刚刚创建的 DataProtectionStartup 派生的类型的程序集限定名称。 如果应用程序的名称是 DataProtectionDemo，这将如下所示下面。
+填充的空白值与刚创建的 DataProtectionStartup 派生的类型的程序集限定名称。 如果应用程序的名称为 DataProtectionDemo，这将如下所示如下。
 
 ```xml
 <add key="aspnet:dataProtectionStartupType"
      value="DataProtectionDemo.MyDataProtectionStartup, DataProtectionDemo" />
 ```
 
-最新配置数据保护系统现已在应用程序中使用。
+新配置数据保护系统现在已准备在应用程序内部使用。

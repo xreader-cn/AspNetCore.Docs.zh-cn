@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何创建和使用授权策略处理程序，以强制实施在 ASP.NET Core 应用中的授权要求。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2017
+ms.date: 04/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: e72f15c28fb7b62c671dd6475cc323cacce42de6
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: ea9d687d3810c104d5b3fa39033849c21569709b
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208316"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068165"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -96,7 +96,10 @@ ms.locfileid: "58208316"
 
 * 若要保证失败，即使其他要求处理程序会成功，请调用`context.Fail`。
 
-设置为 `false` 时，[InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 （在 ASP.NET Core 1.1 及更高版本中提供）会在已调用 `context.Fail` 的情况下不执行处理程序。 `InvokeHandlersAfterFailure` 默认为 `true`，这种情况下会调用所有处理程序。 这样要求以产生副作用，例如日志记录，这些始终发生即使`context.Fail`已在另一个处理程序调用。
+如果处理程序会调用`context.Succeed`或`context.Fail`，仍调用所有其他处理程序。 这使产生副作用，例如日志记录，即使另一个处理程序已成功验证或失败要求会发生的要求。 设置为 `false` 时，[InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 （在 ASP.NET Core 1.1 及更高版本中提供）会在已调用 `context.Fail` 的情况下不执行处理程序。 `InvokeHandlersAfterFailure` 默认为`true`，在这种情况下调用所有处理程序。
+
+> [!NOTE]
+> 即使身份验证失败时调用授权处理程序。
 
 <a name="security-authorization-policies-based-multiple-handlers"></a>
 

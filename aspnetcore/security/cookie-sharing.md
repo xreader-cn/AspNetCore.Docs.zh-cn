@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何共享身份验证 cookie 之间 ASP.NET 4.x 和 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/19/2017
+ms.date: 04/06/2019
 uid: security/cookie-sharing
-ms.openlocfilehash: 504d3369c908aabddeaa2fc3d1ef16a42b5cb771
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 7a049ed8787808e228859afc051b8697a6261c21
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208510"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068305"
 ---
 # <a name="share-cookies-among-apps-with-aspnet-and-aspnet-core"></a>与 ASP.NET 和 ASP.NET Core 共享在应用之间的 cookie
 

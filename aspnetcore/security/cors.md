@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何作为一种标准允许或拒绝在 ASP.NET Core 应用中的跨域请求的 CORS。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/27/2019
+ms.date: 04/07/2019
 uid: security/cors
-ms.openlocfilehash: 2cad26d0f61519f63888a2bc399bb7e8a0f1ee04
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: fe5b750c44e5fad9ba80efb2cc8116d0a64b1a17
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210127"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068292"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -57,7 +57,7 @@ CORS 中间件处理跨域请求。 下面的代码指定原点整个应用启�
 前面的代码：
 
 * 策略名称设置为"\_myAllowSpecificOrigins"。 策略名称是任意的。
-* 调用<xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*>扩展方法，使内核。
+* 调用<xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*>扩展方法，它启用 CORS。
 * 调用<xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*>与[lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)。 Lambda 采用<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder>对象。 [配置选项](#cors-policy-options)，如`WithOrigins`，本文稍后介绍。
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*>方法调用将 CORS 服务添加到应用程序的服务容器：
@@ -95,7 +95,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 注意:
 
-* `UseCors` 必须在`UseMvc` 之前调用。
+* `UseCors` 前必须调用`UseMvc`。
 * URL 必须**不**包含尾部反斜杠 (`/`)。 如果 URL 以终止`/`，则比较操作返回`false`并返回无标头。
 
 请参阅[测试 CORS](#test)有关测试前面的代码中的说明。
@@ -182,7 +182,7 @@ to remove the ambiguous **This**.
 
 ### <a name="set-the-allowed-http-methods"></a>设置允许的 HTTP 方法
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>：
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:
 
 * 允许任何 HTTP 方法：
 * 影响预检请求和`Access-Control-Allow-Methods`标头。 有关详细信息，请参阅[预检请求](#preflight-requests)部分。
@@ -333,8 +333,8 @@ Content-Length: 0
 
 预检请求使用 HTTP OPTIONS 方法。 它包括两个特殊的标头：
 
-* `Access-Control-Request-Method`：将用于实际请求的 HTTP 方法。
-* `Access-Control-Request-Headers`：应用程序设置实际请求的请求标头的列表。 如前面所述，这不包括标头的浏览器设置，如`User-Agent`。
+* `Access-Control-Request-Method`:将用于实际请求的 HTTP 方法。
+* `Access-Control-Request-Headers`:应用程序设置实际请求的请求标头的列表。 如前面所述，这不包括标头的浏览器设置，如`User-Agent`。
 
 CORS 预检请求可能包括`Access-Control-Request-Headers`标头，指示服务器与实际请求一起发送的标头。
 
