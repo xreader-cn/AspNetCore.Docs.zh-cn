@@ -5,14 +5,14 @@ description: 了解如何通过创建和修改 Blazor 项目来开始使用 Blaz
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2019
+ms.date: 04/07/2019
 uid: spa/blazor/get-started
-ms.openlocfilehash: f46bd9af0f0762e794349d4e98de5c086a690d72
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: b3928c2812be6f34cdf2f17295a1251106f651e5
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327224"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068230"
 ---
 # <a name="get-started-with-blazor"></a>开始使用 Blazor
 
@@ -20,7 +20,7 @@ ms.locfileid: "58327224"
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 先决条件：
 
@@ -28,16 +28,22 @@ ms.locfileid: "58327224"
 
 在 Visual Studio 中创建第一个 Blazor 项目：
 
+1. 安装最新[.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)发布。
+1. 启用 Visual Studio 以使用预览版 Sdk:
+   1. 打开**工具** > **选项**菜单栏中。
+   1. 打开**项目和解决方案**节点。 打开 **.NET Core**选项卡。
+   1. 选中的复选框**使用的.NET Core SDK 预览**。 选择 **确定**。
 1. 安装最新[Blazor 扩展](https://go.microsoft.com/fwlink/?linkid=870389)从 Visual Studio Marketplace。 此步骤中使 Blazor 模板可供 Visual Studio。
 1. 请 Blazor 模板可用于使用.NET Core CLI 与通过在命令行界面中运行以下命令：
 
    ```console
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::0.9.0-preview3-19154-02
    ```
-
-1. 选择**文件** > **新建项目** > **Web** > **ASP.NET Core Web 应用程序**。
+1. 创建新项目。
+1. 选择“ASP.NET Core Web 应用程序”。 选择“下一步”。
+1. 中提供名称**项目名称**字段。 确认**位置**条目是否正确，或提供项目的位置。 选择“创建”。
 1. 请确保 **.NET Core**并**ASP.NET Core 3.0**顶部选择。
-1. 选择“Blazor”模板，然后选择“确定”。
+1. 选择**Blazor**模板，然后选择**创建**。
 1. 按 F5  运行应用。
 
 祝贺你！ 只需运行第一个 Blazor 应用 ！
@@ -88,7 +94,7 @@ To create your first project Blazor project in Visual Studio for Mac:
 Congratulations! You just ran your first Blazor app!
 -->
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli/)
 
 先决条件：
 

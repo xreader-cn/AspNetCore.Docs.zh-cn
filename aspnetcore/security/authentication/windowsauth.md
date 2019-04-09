@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core，使用 IIS Express、 IIS 和 HTTP.s
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 02/25/2019
+ms.date: 04/03/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 15fc41efba77f88fc8129f875b85836ac1b5f886
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 9b53f523cf579aeb0e7dd37ccf5f161269a54913
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833691"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068256"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置 Windows 身份验证
 
@@ -26,15 +26,19 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 
 **Web 应用程序**模板可通过 Visual Studio 或.NET Core CLI 可以配置为支持 Windows 身份验证。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 ### <a name="use-the-windows-authentication-app-template-for-a-new-project"></a>新的项目中使用 Windows 身份验证应用程序模板
 
 在 Visual Studio 中：
 
-1. 创建一个新**ASP.NET Core Web 应用程序**。
-1. 选择**Web 应用程序**从模板列表。
-1. 选择**更改身份验证**按钮，然后选择**Windows 身份验证**。
+1. 创建新项目。
+1. 选择“ASP.NET Core Web 应用程序”。 选择“下一步”。
+1. 中提供名称**项目名称**字段。 确认**位置**条目是否正确，或提供项目的位置。 选择“创建”。
+1. 选择**更改**下**身份验证**。
+1. 在中**更改身份验证**窗口中，选择**Windows 身份验证**。 选择 **确定**。
+1. 选择“Web 应用程序”。
+1. 选择“创建”。
 
 运行应用。 用户名将显示在呈现的应用程序用户界面。
 
@@ -51,7 +55,7 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 
 [!code-json[](windowsauth/sample_snapshot/launchSettings.json?highlight=2-3)]
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 使用**Windows 身份验证**应用模板。
 
@@ -129,7 +133,7 @@ IIS 管理器时执行这些操作，会应用的修改*web.config*文件。 一
 
 有关使用 IIS 承载的详细信息，发布和部署，请参阅以下主题：
 
-* [dotnet publish](/dotnet/core/tools/dotnet-publish)
+* [dotnet 发布](/dotnet/core/tools/dotnet-publish)
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/visual-studio-publish-profiles>
@@ -195,4 +199,4 @@ ASP.NET Core 未实现模拟。 应用程序运行具有的所有请求，使用
 
 ### <a name="claims-transformations"></a>声明转换
 
-承载与 IIS 进程内模式时<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>不在内部调用以初始化用户。 因此，<xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation>实现，用于将声明转换后每次身份验证不默认情况下激活。 有关详细信息和托管进程中时将激活声明转换的代码示例，请参阅<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>。
+承载与 IIS 进程内模式时<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>不在内部调用以初始化用户。 因此，默认情况下不激活每次身份验证后用于转换声明的 <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 实现。 有关详细信息和托管进程中时将激活声明转换的代码示例，请参阅<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>。
