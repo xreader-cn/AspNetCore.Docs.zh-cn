@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中的内存中缓存数据。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 04/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: c115e43b9dd4f838ab9600c2e105d86732d857ad
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6433df36023b79bc679186bee8b0a92371661dbe
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208261"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425044"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>缓存在内存中 ASP.NET Core
 
@@ -21,9 +21,9 @@ ms.locfileid: "58208261"
 
 ## <a name="caching-basics"></a>缓存的基础知识
 
-通过减少生成内容所需的工作，缓存可以显著提高应用的性能和可伸缩性。 缓存对不经常更改的数据效果最佳。 缓存生成的数据副本的返回速度可以比从原始源返回更快。 在编写并测试应用时，应避免依赖缓存的数据。
+通过减少生成内容所需的工作，缓存可以显著提高应用的性能和可伸缩性。 缓存对不经常更改的数据效果最佳。 缓存生成的数据副本的返回速度可以比从原始源返回更快。 应用程序应进行编写和测试到**永远不会**依赖于缓存的数据。
 
-ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于 [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，它表示存储在 Web 服务器内存中的缓存。 在包含多个服务器的服务器场上运行的应用应确保在使用内存中缓存时，会话是粘性的。 粘性会话可确保来自客户端的后续请求都转到同一台服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)(ARR) 将所有的后续请求路由到同一台服务器。
+ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于 [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，它表示存储在 Web 服务器内存中的缓存。 在服务器场的多个服务器运行的应用程序应确保使用内存中缓存时，都粘滞会话。 粘性会话可确保来自客户端的后续请求都转到同一台服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)(ARR) 将所有的后续请求路由到同一台服务器。
 
 Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓存一致性问题。 对于某些应用，分布式的缓存可以支持更高版本向外缩放比内存中缓存。 使用分布式缓存可将缓存内存卸载到外部进程。
 
@@ -43,7 +43,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 * 任何[.NET 实现](/dotnet/standard/net-standard#net-implementation-support)面向.NET Standard 2.0 或更高版本。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET framework 4.5 或更高版本。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` （本主题中所述） 建议`System.Runtime.Caching` / `MemoryCache`由于它更好地集成到 ASP.NET Core。 例如，`IMemoryCache`适用于 ASP.NET Core 的本机[依赖关系注入](xref:fundamentals/dependency-injection)。
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` （在本文中所述） 建议`System.Runtime.Caching` / `MemoryCache`由于它更好地集成到 ASP.NET Core。 例如，`IMemoryCache`适用于 ASP.NET Core 的本机[依赖关系注入](xref:fundamentals/dependency-injection)。
 
 使用`System.Runtime.Caching` / `MemoryCache`起到桥梁兼容性时将从 ASP.NET 代码移植到 ASP.NET Core 4.x。
 
@@ -53,7 +53,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 * 缓存使用稀缺资源，内存。 限制缓存增长：
   * 不要**不**外部输入用作缓存密钥。
   * 使用过期时间来限制缓存增长。
-  * [使用 SetSize、 大小和大小限制来限制缓存大小](#use-setsize-size-and-sizelimit-to-limit-cache-size)
+  * [使用 SetSize、 大小和大小限制来限制缓存大小](#use-setsize-size-and-sizelimit-to-limit-cache-size)。 ASP.NET Core 运行时不限制基于内存不足的缓存大小。 它是为开发人员将缓存大小限制。
 
 ## <a name="using-imemorycache"></a>使用 IMemoryCache
 
@@ -93,7 +93,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 [!code-cshtml[](memory/sample/WebCache/Views/Home/Cache.cshtml)]
 
-缓存`DateTime`值保留在缓存中时的超时期限 （和由于内存压力而没有逐出） 内的请求。 下图显示当前时间以及从缓存中检索的较早时间：
+缓存`DateTime`值保留在缓存中时的超时期限内没有请求。 下图显示当前时间以及从缓存中检索的较早时间：
 
 ![显示了两个不同时间的索引视图](memory/_static/time.png)
 
@@ -122,7 +122,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>使用 SetSize、 大小和大小限制来限制缓存大小
 
-一个`MemoryCache`实例可能会根据需要指定和强制实施大小限制。 因为缓存中不有任何机制来度量值的条目的大小，没有一个定义的度量单位的内存大小限制。 如果设置的缓存内存大小限制，则所有条目必须都指定大小。 指定的大小为开发人员选择的单位。
+一个`MemoryCache`实例可能会根据需要指定和强制实施大小限制。 因为缓存中不有任何机制来度量值的条目的大小，没有一个定义的度量单位的内存大小限制。 如果设置的缓存内存大小限制，则所有条目必须都指定大小。 ASP.NET Core 运行时不限制基于内存不足的缓存大小。 它是为开发人员将缓存大小限制。 指定的大小为开发人员选择的单位。
 
 例如：
 
