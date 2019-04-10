@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core Blazor，它是一种使用 .NET 生成在支�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/28/2019
+ms.date: 04/08/2019
 uid: spa/blazor/index
-ms.openlocfilehash: 87e294a975e4168add046166a95e02e485db131d
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: be8fdb7bcbf9ce8c80bc6e21be455dfbfcaf404b
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068243"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468606"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -72,7 +72,7 @@ Razor 组件是 UI（例如，页面、对话框或数据输入窗体）的一�
 <div>
     <h2>@Title</h2>
     @BodyContent
-    <button onclick=@OnOK>OK</button>
+    <button onclick="@OnOK">OK</button>
 </div>
 
 @functions {
