@@ -4,14 +4,14 @@ author: rick-anderson
 description: 获取 ASP.NET Core 的简介，它是一个跨平台的高性能开源框架，用于生成基于云且连接 Internet 的新式应用程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/14/2019
+ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: baf8557b29c30f6dbeb6a4ff5d50c83d07160a51
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 944c8a93aff53b8d72fda03f5df9c5ba45990cbc
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320233"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068269"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -50,9 +50,9 @@ ASP.NET Core 与常用客户端框架和库（包括 [Razor Components](xref:raz
 
 ## <a name="aspnet-core-targeting-net-framework"></a>面向 .NET Framework 的 ASP.NET Core
 
-ASP.NET Core 2.x 可以面向 .NET Core 或 .NET Framework。 面向 .NET Framework 的 ASP.NET Core 应用无法跨平台，它们仅在 Windows 上运行。 通常，ASP.NET Core 2.x 由 [.NET Standard](/dotnet/standard/net-standard) 库组成。 使用 .NET Standard 2.0 编写的应用可在 NET Standard 2.0 支持的任何位置运行。
+ASP.NET Core 2.x 可以面向 .NET Core 或 .NET Framework。 面向 .NET Framework 的 ASP.NET Core 应用无法跨平台，它们仅在 Windows 上运行。 通常，ASP.NET Core 2.x 由 [.NET Standard](/dotnet/standard/net-standard) 库组成。 使用 .NET Standard 2.0 编写的库在[实现 .NET Standard 2.0 的任何 .NET 平台](/dotnet/standard/net-standard#net-implementation-support)上运行。
 
-与 .NET Standard 2.0 兼容的 .NET Framework 版本支持 ASP.NET Core 2.x：
+ASP.NET Core 2.x 在实现 .NET Standard 2.0 的 .NET Framework 版本上受支持：
 
 * 强烈建议使用 .NET Framework 4.7.1 及更高版本。
 * .NET Framework 4.6.1 及更高版本。
@@ -86,8 +86,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
    |方案  |教程  |
    |----------|----------|
-   | 用于新的开发        |[结合使用 Razor Pages 和 Entity Framework Core](xref:data/ef-rp/intro) |
-   | 用于维护 MVC 应用 |[结合使用 MVC 和 Entity Framework Core](xref:data/ef-mvc/intro)
+   | 用于新的开发        |[带 Entity Framework Core 的 Razor 页面](xref:data/ef-rp/intro) |
+   | 用于维护 MVC 应用 |[带 Entity Framework Core 的 MVC](xref:data/ef-mvc/intro)
 
 1. 参阅适用于所有应用类型的 ASP.NET Core 功能的概述：
 

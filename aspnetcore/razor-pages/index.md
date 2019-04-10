@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
-ms.openlocfilehash: afdaa11c55b66366badf8facde62e3f215b6deb2
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 50db8cd9b0523239acb1d439b472ea5d3cb6cb7c
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264808"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068373"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -31,11 +31,11 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 ## <a name="create-a-razor-pages-project"></a>创建 Razor Pages 项目
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 请参阅 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)，获取关于如何创建 Razor Pages 项目的详细说明。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -51,7 +51,7 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 在 Visual Studio for Mac 中打开生成的 .csproj 文件。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -77,7 +77,7 @@ Startup.cs 中已启用 Razor 页面：
 
 [!code-cshtml[](index/sample/RazorPagesIntro/Pages/Index.cshtml)]
 
-上述代码看上去类似于一个 Razor 视图文件。 不同之处在于 `@page` 指令。 `@page` 使文件转换为一个 MVC 操作 ，这意味着它将直接处理请求，而无需通过控制器处理。 `@page` 必须是页面上的第一个 Razor 指令。 `@page` 将影响其他 Razor 构造的行为。
+前面的代码与具有控制器和视图的 ASP.NET Core 应用中使用的 [Razor 视图文件](xref:tutorials/first-mvc-app/adding-view)非常相似。 不同之处在于 `@page` 指令。 `@page` 将文件转换为 MVC 操作 - 这意味着它可以直接处理请求，而无需经过控制器。 `@page` 必须是页面上的第一个 Razor 指令。 `@page` 会影响其他 Razor 构造的行为。
 
 将在以下两个文件中显示使用 `PageModel` 类的类似页面。 Pages/Index2.cshtml 文件：
 
@@ -93,15 +93,15 @@ Pages/Index2.cshtml.cs 页面模型：
 
 | 文件名和路径               | 匹配的 URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` 或 `/Index` |
+| */Pages/Index.cshtml* | `/` or `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` 或 `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` or `/Store/Index` |
 
 注意：
 
 * 默认情况下，运行时在“Pages”文件夹中查找 Razor 页面文件。
-* URL 未包含页面时，`Index` 为默认页面。
+* `Index` 是 URL 不包含页面时的默认页面。
 
 ## <a name="write-a-basic-form"></a>编写基本窗体
 
@@ -133,8 +133,8 @@ Pages/Create.cshtml.cs 页面模型：
 
 页面包含 `OnPostAsync` 处理程序方法，它在 `POST` 请求上运行（当用户发布窗体时）。 可以为任何 HTTP 谓词添加处理程序方法。 最常见的处理程序是：
 
-* `OnGet`，用于初始化页面所需的状态。 [OnGet](#OnGet) 示例。
-* `OnPost`，用于处理窗体提交。
+* `OnGet` 用于初始化页面所需的状态。 [OnGet](#OnGet) 示例。
+* `OnPost` 用于处理窗体提交。
 
 `Async` 命名后缀为可选，但是按照惯例通常会将它用于异步函数。 前面示例中的 `OnPostAsync` 代码看上去与通常在控制器中编写的内容相似。 前面的代码通常用于 Razor 页面。 多数 MVC 基元（例如[模型绑定](xref:mvc/models/model-binding)、[验证](xref:mvc/models/validation)和操作结果）都是共享的。  <!-- Review: Ryan, can we get a list of what is shared and what isn't? -->
 
@@ -149,7 +149,7 @@ Pages/Create.cshtml.cs 页面模型：
 * 如果没有错误，则保存数据并重定向。
 * 如果有错误，则再次显示页面并附带验证消息。 客户端验证与传统的 ASP.NET Core MVC 应用程序相同。 很多情况下，都会在客户端上检测到验证错误，并且从不将它们提交到服务器。
 
-成功输入数据后，`OnPostAsync` 处理程序方法调用 `RedirectToPage` 帮助程序方法来返回 `RedirectToPageResult` 的实例。 `RedirectToPage` 是新的操作结果，类似于 `RedirectToAction` 或 `RedirectToRoute`，但是已针对页面进行自定义。 在前面的示例中，它将重定向到根索引页 (`/Index`)。 [页面 URL 生成](#url_gen)部分中详细介绍了 `RedirectToPage`。
+成功输入数据后，`OnPostAsync` 处理程序方法调用 `RedirectToPage` 帮助程序方法来返回 `RedirectToPageResult` 的实例。 `RedirectToPage` 是一种新操作结果，与 `RedirectToAction` 或 `RedirectToRoute` 类似，但已针对页面进行自定义。 在前面的示例中，它将重定向到根索引页 (`/Index`)。 `RedirectToPage` 在[页面的 URL 生成](#url_gen)部分中详细说明。
 
 提交的窗体存在（已传递到服务器的）验证错误时，`OnPostAsync` 处理程序方法调用 `Page` 帮助程序方法。 `Page` 返回 `PageResult` 的实例。 返回 `Page` 的过程与控制器中的操作返回 `View` 的过程相似。 `PageResult` 是处理程序方法的 <!-- Review  --> 默认返回类型。 返回 `void` 的处理程序方法将显示页面。
 
@@ -324,7 +324,7 @@ Razor 页面中的视图搜索包含“页面”文件夹。 用于 MVC 控制�
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/_ViewImports.cshtml)]
 
-本教程的后续部分中将介绍 `@namespace`。 `@addTagHelper` 指令将[内置标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/Index)引入“页面”文件夹中的所有页面。
+`@namespace` 稍后在教程中介绍。 `@addTagHelper` 指令将[内置标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/Index)引入“页面”文件夹中的所有页面。
 
 <a name="namespace"></a>
 
@@ -346,7 +346,7 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 
 为 Pages/Customers/Edit.cshtml Razor 页面生成的命名空间与 `PageModel` 类相同。
 
-`@namespace` 也可用于传统的 Razor 视图。
+`@namespace` *也适用于传统的 Razor 视图。*
 
 原始的 Pages/Create.cshtml 视图文件：
 
@@ -370,14 +370,14 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 
 应用具有以下文件/文件夹结构：
 
-* /Pages
+* */Pages*
 
-  * Index.cshtml
-  * /Customers
+  * *Index.cshtml*
+  * */Customers*
 
-    * Create.cshtml
-    * Edit.cshtml
-    * Index.cshtml
+    * *Create.cshtml*
+    * *Edit.cshtml*
+    * *Index.cshtml*
 
 成功后，Pages/Customers/Create.cshtml 和 Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Index.cshtml。 字符串 `/Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `/Index` 生成 Pages/Index.cshtml 页面的 URI。 例如:
 
@@ -448,7 +448,7 @@ public class AboutModel : PageModel
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET 在[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)上公开了 [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_Controller_TempData) 属性。 此属性存储未读取的数据。 `Keep` 和 `Peek` 方法可用于检查数据，而不执行删除。 多个请求需要数据时，`TempData` 有助于进行重定向。
+ASP.NET 在[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)上公开了 [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_Controller_TempData) 属性。 此属性存储未读取的数据。 `Keep` 和 `Peek` 方法可用于检查数据，而不执行删除。 `TempData` 在多个请求需要数据的情况下对重定向很有用。
 
 `[TempData]` 是 ASP.NET Core 2.0 中的新属性，在控制器和页面上受支持。
 
@@ -481,7 +481,7 @@ public string Message { get; set; }
 
 <!-- Review: the FormActionTagHelper applies to all <form /> elements on a Razor page, even when there's no `asp-` attribute   -->
 
-前面示例中的窗体包含两个提交按钮，每个提交按钮均使用 `FormActionTagHelper` 提交到不同的 URL。 `asp-page-handler` 是 `asp-page` 的配套属性。 `asp-page-handler` 生成提交到页面定义的各个处理程序方法的 URL。 未指定 `asp-page`，因为示例已链接到当前页面。
+前面示例中的窗体包含两个提交按钮，每个提交按钮均使用 `FormActionTagHelper` 提交到不同的 URL。 `asp-page-handler` 是 `asp-page` 的配套属性。 `asp-page-handler` 可生成提交到页面定义的每个处理程序方法的 URL。 `asp-page` 未指定，因为示例链接到当前页面。
 
 页面模型：
 

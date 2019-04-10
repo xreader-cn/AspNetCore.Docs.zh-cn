@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core Blazor，它是一种使用 .NET 生成在支�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/27/2019
+ms.date: 03/28/2019
 uid: spa/blazor/index
-ms.openlocfilehash: c42363b0ce70a1a8edc19b1c428ee802a6eff3dd
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 87e294a975e4168add046166a95e02e485db131d
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750491"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068243"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -54,7 +54,7 @@ Blazor 支持大多数应用所需的核心内容，包括：
 * 模板化
 * 级联值
 
-以在[中间语言 (IL) 链接器](xref:host-and-deploy/razor-components/configure-linker)发布应用时，从应用中删除未使用的代码以减小已下载应用的大小。
+为减小已下载应用的大小，在[中间语言 (IL) 链接器](xref:host-and-deploy/razor-components-blazor/configure-linker)发布应用时已从中删除未使用的代码。
 
 Blazor 是 Razor 组件的客户端托管模型。 由于 Razor 组件可将组件的呈现逻辑从 UI 更新应用方式中分离出来，因此可灵活选择托管 Razor 组件的方式。 使用 ASP.NET Core Razor 组件在 ASP.NET Core 应用中的服务器上托管 Razor 组件，在该应用中可通过 SignalR 连接处理 UI 更新。 有关详细信息，请参阅 <xref:razor-components/index> 和 <xref:razor-components/hosting-models#server-side-hosting-model>。 
 
@@ -92,7 +92,7 @@ Razor 组件是 UI（例如，页面、对话框或数据输入窗体）的一�
 
 ## <a name="code-sharing-and-net-standard"></a>代码共享和 .NET Standard
 
-应用可引用并使用现有的 [.NET Standard](/dotnet/standard/net-standard) 库。 .NET Standard 是正式的 .NET API 规范，常见于 .NET 实现中。 支持 .NET standard 2.0 或更高版本。 不适用于 Web 浏览器内部的 API（例如，访问文件系统、打开套接字、线程处理和其他功能）将引发 <xref:System.PlatformNotSupportedException>。 .NET Standard 类库可在服务器代码和基于浏览器的应用中共享。
+应用可引用并使用现有的 [.NET Standard](/dotnet/standard/net-standard) 库。 .NET Standard 是正式的 .NET API 规范，常见于 .NET 实现中。 Blazor 实现 .NET Standard 2.0。 不适用于 Web 浏览器内部的 API（例如，访问文件系统、打开套接字、线程处理和其他功能）将引发 <xref:System.PlatformNotSupportedException>。 .NET Standard 类库可以在不同 .NET 平台之间共享，例如 Blazor、.NET Framework、.NET Core、Xamarin、Mono 和 Unity。
 
 ## <a name="optimization"></a>优化
 

@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: c6543ec1f2295c21c6a693ac8bd16ee07ec11381
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 065b2016d3a2dcc2243ec6869e027c5fabe4dad8
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327402"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068399"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core 中的日志记录
 
@@ -110,7 +110,7 @@ ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection) (DI) �
 
 ### <a name="no-asynchronous-logger-methods"></a>没有异步记录器方法
 
-日志记录应该会很快，不值得牺牲性能来使用异步代码。 如果你的日志数据存储很慢，请不要直接写入它。 首先考虑将日志消息写入快速存储，售后再将其变为慢速存储。 例如，记录到由另一进程读取和暂留以减缓存储的消息队列。
+日志记录应该会很快，不值得牺牲性能来使用异步代码。 如果你的日志数据存储很慢，请不要直接写入它。 首先考虑将日志消息写入快速存储，售后再将其变为慢速存储。 例如，如果你要记录到 SQL Server，你可能不想直接在 `Log` 方法中记录，因为 `Log` 方法是同步的。 相反，你会将日志消息同步添加到内存中的队列，并让后台辅助线程从队列中拉出消息，以完成将数据推送到 SQL Server 的异步工作。
 
 ## <a name="configuration"></a>Configuration
 
@@ -148,7 +148,7 @@ ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection) (DI) �
 
 `Logging` 下的 `LogLevel` 属性指定了用于记录所选类别的最低[级别](#log-level)。 在本例中，`System` 和 `Microsoft` 类别在 `Information` 级别记录，其他均在 `Debug` 级别记录。
 
-`Logging` 下的其他属性均指定了日志记录提供程序。 本示例针对控制台提供程序。 如果提供程序支持[日志作用域](#log-scopes)，则 `IncludeScopes` 将指示是否启用这些域。 提供程序属性（例如本例的 `Console`）也可指定 `LogLevel` 属性。 提供程序下的 `LogLevel` 指定了该提供程序记录的级别。
+`Logging` 下的其他属性均指定了日志记录提供程序。 本示例针对控制台提供程序。 如果提供程序支持[日志作用域](#log-scopes)，则 `IncludeScopes` 将指示是否启用这些域。 提供程序属性（例如本例的 `Console`）也可指定 `LogLevel` 属性。 `LogLevel` 在提供程序下指定要为该提供程序记录的级别。
 
 如果在 `Logging.{providername}.LogLevel` 中指定了级别，则这些级别将重写 `Logging.LogLevel` 中设置的所有内容。
 
@@ -168,7 +168,7 @@ ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection) (DI) �
 }
 ```
 
-`LogLevel` 项表示日志名称。 `Default` 项适用于未显式列出的日志。 其值表示应用于给定日志的[日志级别](#log-level)。
+`LogLevel` 密钥代表日志名称。 `Default` 项适用于未显式列出的日志。 其值表示应用于给定日志的[日志级别](#log-level)。
 
 ::: moniker-end
 
@@ -249,7 +249,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ::: moniker-end
 
-`ILogger<T>` 相当于使用 `T` 的完全限定类型名称来调用 `CreateLogger`。
+`ILogger<T>` 相当于调用完全限定类型名称为 `T` 的 `CreateLogger`。
 
 ## <a name="log-level"></a>日志级别
 
@@ -277,7 +277,7 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 * 跟踪 = 0
 
-  有关通常仅用于调试的信息。 这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。 默认情况下禁用。
+  有关通常仅用于调试的信息。 这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。 *默认情况下已禁用。*
 
 * 调试 = 1
 
@@ -285,15 +285,15 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 * 信息 = 2
 
-  用于跟踪应用的常规流。 这些日志通常有长期价值。 示例：`Request received for path /api/todo`
+  用于跟踪应用的常规流。 这些日志通常有长期价值。 示例: `Request received for path /api/todo`
 
 * 警告 = 3
 
-  表示应用流中的异常或意外事件。 可能包括不会中断应用运行但仍需调查的错误或其他条件。 `Warning` 日志级别常用于已处理的异常。 示例：`FileNotFoundException for file quotes.txt.`
+  表示应用流中的异常或意外事件。 可能包括不会中断应用运行但仍需调查的错误或其他条件。 `Warning` 日志级别常用于已处理的异常。 示例: `FileNotFoundException for file quotes.txt.`
 
 * 错误 = 4
 
-  表示无法处理的错误和异常。 这些消息指示的是当前活动或操作（例如当前 HTTP 请求）中的失败，而不是整个应用中的失败。 日志消息示例：`Cannot insert record due to duplicate key violation.`
+  表示无法处理的错误和异常。 这些消息指示的是当前活动或操作（例如当前 HTTP 请求）中的失败，而不是整个应用中的失败。 日志消息示例： `Cannot insert record due to duplicate key violation.`
 
 * 严重 = 5
 
@@ -869,7 +869,7 @@ loggerFactory.AddAzureWebAppDiagnostics();
 Application Insights SDK 可收集和报告 ASP.NET Core 日志记录基础结构生成的日志。 有关更多信息，请参见以下资源：
 
 * [Application Insights 概述](/azure/application-insights/app-insights-overview)
-* [用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)
+* [适用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)
 * [Application Insights 日志记录适配器](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
 * [Application Insights ILogger 实现示例](/azure/azure-monitor/app/ilogger)
 
