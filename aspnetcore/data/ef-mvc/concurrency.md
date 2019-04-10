@@ -4,15 +4,15 @@ description: 本教程介绍如何处理多个用户同时更新同一实体时�
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 7b18927d5d528ec2951087502e26b2b30214f389
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 668cdafc078091b65035ecad854d2ecc62555721
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103015"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750854"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
@@ -39,7 +39,7 @@ ms.locfileid: "56103015"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 更新相关数据](update-related-data.md)
+* [更新相关数据](update-related-data.md)
 
 ## <a name="concurrency-conflicts"></a>并发冲突
 
@@ -148,7 +148,7 @@ dotnet ef database update
 
 在 HttpGet `Edit` 方法和 `Details` 方法中，添加 `AsNoTracking`。 在 HttpGet `Edit` 方法中，为管理员添加预先加载。
 
-[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EagerLoading&highlight=2,3)]
+[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EagerLoading)]
 
 将 HttpPost `Edit` 方法的现有代码替换为以下代码：
 
@@ -309,6 +309,7 @@ public async Task<IActionResult> Delete(Department department)
 > * 已更新“删除”页
 > * 已更新“详细信息”和“创建”视图
 
-请继续阅读下一篇文章，了解如何为 Instructor 和 Students 实体实现“每个层次结构一个表”继承。
+请继续阅读下一篇教程，了解如何为 Instructor 和 Students 实体实现“每个层次结构一个表”继承。
+
 > [!div class="nextstepaction"]
-> [实现“每个层次结构一个表”继承](inheritance.md)
+> [下一篇：实现“每个层次结构一个表”继承](inheritance.md)

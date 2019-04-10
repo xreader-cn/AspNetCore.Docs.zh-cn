@@ -5,20 +5,37 @@ description: 了解有关 ASP.NET Core 泛型主机，该主机负责应用启�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 03/31/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 817b7b3b420520992f18f1f207b412bc4555bdfa
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: bb6afe59fcad685d18cdc9c8d90cfcc7b3a6541d
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327386"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809187"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
+
+本文介绍 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。
+
+泛型主机与 Web 主机的不同之处在于它将 HTTP 管道与 Web 主机 API 分离，以启用更广泛的主机方案。 消息、后台任务和其他非 HTTP 工作负载可以使用泛型主机并从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
+
+自 ASP.NET Core 3.0 起，建议为 HTTP 和非 HTTP 工作负载使用泛型主机。 HTTP 服务器实现（如果包括）作为 <xref:Microsoft.Extensions.Hosting.IHostedService> 的实现运行。 <xref:Microsoft.Extensions.Hosting.IHostedService> 是可用于其他工作负载的接口。
+
+对于 Web 应用，不再建议使用 Web 主机，但该主机仍可用于后向兼容性。
+
+> [!NOTE]
+> 本文的其余部分尚未针对 3.0 进行更新。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
 
@@ -27,23 +44,6 @@ ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生
 泛型主机的用途是将 HTTP 管道从 Web 主机 API 中分离出来，从而启用更多的主机方案。 基于泛型主机的消息、后台任务和其他非 HTTP 工作负载可从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
 
 泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。 对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。 泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
-
-::: moniker-end
-
-::: moniker range="> aspnetcore-2.2"
-
-ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
-
-本文介绍 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。
-
-泛型主机与 Web 主机的不同之处在于它将 HTTP 管道与 Web 主机 API 分离，以启用更广泛的主机方案。 消息、后台任务和其他非 HTTP 工作负载可以使用泛型主机并从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
-
-自 ASP.NET Core 3.0 起，建议为 HTTP 和非 HTTP 工作负载使用泛型主机。 HTTP 服务器实现（如果包括）作为 <xref:Microsoft.Extensions.Hosting.IHostedService> 的实现运行。 `IHostedService` 是可用于其他工作负载的接口。
-
-对于 Web 应用，不再建议使用 Web 主机，但该主机仍可用于后向兼容性。
-
-> [!NOTE]
-> 本文的其余部分尚未针对 3.0 进行更新。
 
 ::: moniker-end
 
@@ -60,7 +60,7 @@ ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生
 
 通用主机库位于 <xref:Microsoft.Extensions.Hosting> 命名空间中，由 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) 包提供。 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)（ASP.NET Core 2.1 或更高版本）中包括 `Microsoft.Extensions.Hosting` 包。
 
-<xref:Microsoft.Extensions.Hosting.IHostedService> 是执行代码的入口点。 每个 `IHostedService` 实现都按照 [ConfigureServices 中服务注册](#configureservices)的顺序执行。 主机启动时，每个 `IHostedService` 上都会调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*>，主机正常关闭时，以反向注册顺序调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*>。
+<xref:Microsoft.Extensions.Hosting.IHostedService> 是执行代码的入口点。 每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现都按照 [ConfigureServices 中服务注册](#configureservices)的顺序执行。 主机启动时，每个 <xref:Microsoft.Extensions.Hosting.IHostedService> 上都会调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*>，主机正常关闭时，以反向注册顺序调用 <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*>。
 
 ## <a name="set-up-a-host"></a>设置主机
 
@@ -152,13 +152,13 @@ var host = new HostBuilder()
 
 ### <a name="configurehostconfiguration"></a>ConfigureHostConfiguration
 
-`ConfigureHostConfiguration` 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为主机创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 主机配置用于初始化 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>，以供在应用的构建过程中使用。
+<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为主机创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 主机配置用于初始化 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>，以供在应用的构建过程中使用。
 
-可多次调用 `ConfigureHostConfiguration`，并得到累计结果。 主机使用上一次在一个给定键上设置值的选项。
+可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>，并得到累计结果。 主机使用上一次在一个给定键上设置值的选项。
 
 主机配置自动流向应用配置（[ConfigureAppConfiguration](#configureappconfiguration) 和应用的其余部分）。
 
-默认情况下不包括提供程序。 必须在 `ConfigureHostConfiguration` 中显式指定应用所需的任何配置提供程序，包括：
+默认情况下不包括提供程序。 必须在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中显式指定应用所需的任何配置提供程序，包括：
 
 * 文件配置（例如，来自 hostsettings.json 文件）。
 * 环境变量配置。
@@ -179,17 +179,17 @@ hostsettings.json：
 
 可以通过 [applicationName](#application-key-name) 和 [contentRoot](#content-root) 键提供其他配置。
 
-示例 `HostBuilder` 配置使用 `ConfigureHostConfiguration`：
+示例 `HostBuilder` 配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureHostConfiguration)]
 
 ## <a name="configureappconfiguration"></a>ConfigureAppConfiguration
 
-通过在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现上调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。 `ConfigureAppConfiguration` 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为应用创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 可多次调用 `ConfigureAppConfiguration`，并得到累计结果。 应用使用上一次在一个给定键上设置值的选项。 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 中提供 `ConfigureAppConfiguration` 创建的配置，以供进行后续操作和在 <xref:Microsoft.Extensions.Hosting.IHost.Services*> 中使用。
+通过在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现上调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 来为应用创建 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>，并得到累计结果。 应用使用上一次在一个给定键上设置值的选项。 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 中提供 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建的配置，以供进行后续操作和在 <xref:Microsoft.Extensions.Hosting.IHost.Services*> 中使用。
 
 应用配置会自动接收 [ConfigureHostConfiguration](#configurehostconfiguration) 提供的主机配置。
 
-示例应用配置使用 `ConfigureAppConfiguration`：
+示例应用配置使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
@@ -209,13 +209,14 @@ appsettings.Production.json：
 
 ```xml
 <ItemGroup>
-  <Content Include="**\*.json" Exclude="bin\**\*;obj\**\*" CopyToOutputDirectory="PreserveNewest" />
+  <Content Include="**\*.json" Exclude="bin\**\*;obj\**\*" 
+      CopyToOutputDirectory="PreserveNewest" />
 </ItemGroup>
 ```
 
 ## <a name="configureservices"></a>ConfigureServices
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。 可多次调用 `ConfigureServices`，并得到累计结果。
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。 可多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*>，并得到累计结果。
 
 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 有关更多信息，请参见<xref:fundamentals/host/hosted-services>。
 
@@ -225,13 +226,13 @@ appsettings.Production.json：
 
 ## <a name="configurelogging"></a>ConfigureLogging
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> 添加了一个委托来配置提供的 <xref:Microsoft.Extensions.Logging.ILoggingBuilder>。 可以利用相加结果多次调用 `ConfigureLogging`。
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> 添加了一个委托来配置提供的 <xref:Microsoft.Extensions.Logging.ILoggingBuilder>。 可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*>。
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureLogging)]
 
 ### <a name="useconsolelifetime"></a>UseConsoleLifetime
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 侦听 `Ctrl+C`/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 来启动关闭进程。 `UseConsoleLifetime` 解除阻止 [ RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。 <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> 预注册为默认生存期实现。 使用注册的最后一个生存期。
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 侦听 Ctrl+C/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 来启动关闭进程。 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> 解除阻止 [ RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。 <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> 预注册为默认生存期实现。 使用注册的最后一个生存期。
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseConsoleLifetime)]
 
@@ -239,7 +240,7 @@ appsettings.Production.json：
 
 为支持插入其他容器中，主机可以接受 <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>。 提供工厂不属于 DI 容器注册，而是用于创建具体 DI 容器的主机内部函数。 [UseServiceProviderFactory(IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) 重写用于创建应用的服务提供程序的默认工厂。
 
-<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 方法托管自定义容器配置。 `ConfigureContainer` 提供在基础主机 API 的基础之上配置容器的强类型体验。 可以利用相加结果多次调用 `ConfigureContainer`。
+<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 方法托管自定义容器配置。 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> 提供在基础主机 API 的基础之上配置容器的强类型体验。 可以利用相加结果多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*>。
 
 为应用创建服务容器：
 
@@ -255,7 +256,7 @@ appsettings.Production.json：
 
 ## <a name="extensibility"></a>扩展性
 
-在 `IHostBuilder` 上使用扩展方法实现主机扩展性。 以下示例介绍扩展方法如何使用 <xref:fundamentals/host/hosted-services> 中所示的 [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) 示例来扩展 `IHostBuilder` 实现。
+在 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 上使用扩展方法实现主机扩展性。 以下示例介绍扩展方法如何使用 <xref:fundamentals/host/hosted-services> 中所示的 [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) 示例来扩展 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 实现。
 
 ```csharp
 var host = new HostBuilder()
@@ -285,7 +286,7 @@ public static class Extensions
 
 ## <a name="manage-the-host"></a>管理主机
 
-<xref:Microsoft.Extensions.Hosting.IHost> 实现负责启动和停止服务容器中注册的 `IHostedService` 实现。
+<xref:Microsoft.Extensions.Hosting.IHost> 实现负责启动和停止服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。
 
 ### <a name="run"></a>运行
 
@@ -306,7 +307,7 @@ public class Program
 
 ### <a name="runasync"></a>RunAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 `Task`：
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>：
 
 ```csharp
 public class Program
@@ -323,7 +324,7 @@ public class Program
 
 ### <a name="runconsoleasync"></a>RunConsoleAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 `Ctrl+C`/SIGINT 或 SIGTERM 关闭。
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 Ctrl+C/SIGINT 或 SIGTERM 关闭。
 
 ```csharp
 public class Program
@@ -387,7 +388,7 @@ public class Program
 
 ### <a name="waitforshutdown"></a>WaitForShutdown
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 通过 <xref:Microsoft.Extensions.Hosting.IHostLifetime> 触发，例如 <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime>（侦听 `Ctrl+C`/SIGINT 或 SIGTERM）。 `WaitForShutdown` 调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>。
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 通过 <xref:Microsoft.Extensions.Hosting.IHostLifetime> 触发，例如 <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime>（侦听 Ctrl+C/SIGINT 或 SIGTERM）。 <xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>。
 
 ```csharp
 public class Program
@@ -409,7 +410,7 @@ public class Program
 
 ### <a name="waitforshutdownasync"></a>WaitForShutdownAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 `Task`。
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。
 
 ```csharp
 public class Program
@@ -464,7 +465,7 @@ public class Program
 
 ## <a name="ihostingenvironment-interface"></a>IHostingEnvironment 接口
 
-<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供有关应用托管环境的信息。 使用[构造函数注入](xref:fundamentals/dependency-injection)获取 `IHostingEnvironment` 以使用其属性和扩展方法：
+<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 提供有关应用托管环境的信息。 使用[构造函数注入](xref:fundamentals/dependency-injection)获取 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 以使用其属性和扩展方法：
 
 ```csharp
 public class MyClass
@@ -487,7 +488,7 @@ public class MyClass
 
 ## <a name="iapplicationlifetime-interface"></a>IApplicationLifetime 接口
 
-<xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 允许启动后和关闭活动，包括正常关闭请求。 接口上的三个属性是用于注册 `Action` 方法（用于定义启动和关闭事件）的取消标记。
+<xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 允许启动后和关闭活动，包括正常关闭请求。 接口上的三个属性是用于注册 <xref:System.Action> 方法（用于定义启动和关闭事件）的取消标记。
 
 | 取消标记 | 触发条件 |
 | ------------------ | --------------------- |
@@ -495,13 +496,13 @@ public class MyClass
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | 主机正在完成正常关闭。 应处理所有请求。 关闭受到阻止，直到完成此事件。 |
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | 主机正在执行正常关闭。 仍在处理请求。 关闭受到阻止，直到完成此事件。 |
 
-构造函数将 `IApplicationLifetime` 服务注入到任何类中。 [示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 `IHostedService` 实现）中，用于注册事件。
+构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
 
 LifetimeEventsHostedService.cs：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/LifetimeEventsHostedService.cs?name=snippet1)]
 
-<xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 请求终止应用。 以下类在调用类的 `Shutdown` 方法时使用 `StopApplication` 正常关闭应用：
+<xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 请求终止应用。 以下类在调用类的 `Shutdown` 方法时使用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 正常关闭应用：
 
 ```csharp
 public class MyClass
@@ -523,4 +524,3 @@ public class MyClass
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:fundamentals/host/hosted-services>
-* [GitHub 上托管的存储库示例](https://github.com/aspnet/Hosting/tree/release/2.1/samples)

@@ -6,20 +6,20 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: 6dcdf71ec5271690718dd1fe750a9a74d498a0f8
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: cdc761b645b91777bdf6084c3ad4659fcea55039
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410331"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750939"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
 本文重点介绍 ASP.NET Core 2.2 中最重要的更改，并提供相关文档的链接。
 
-## <a name="open-api-analyzers--conventions"></a>开放 API 分析器和约定
+## <a name="openapi-analyzers--conventions"></a>开放 API 分析器和约定
 
-开放 API（也称为 Swagger）是一个与语言无关的规范，用于描述 REST API。 开放 API 生态系统具有一些工具，可用于发现、测试和生成使用该规范的客户端代码。 对在 ASP.NET Core MVC 中生成和可视化开放 API 文档的支持通过社区驱动型项目（如 [NSwag](https://github.com/RSuter/NSwag) 和 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)）来提供。 对于创建开放 API 文档，ASP.NET Core 2.2 提供了改进的工具和运行时体验。
+开放 API（以前称为 Swagger）是一个与语言无关的规范，用于描述 REST API。 开放 API 生态系统具有一些工具，可用于发现、测试和生成使用该规范的客户端代码。 对在 ASP.NET Core MVC 中生成和可视化开放 API 文档的支持通过社区驱动型项目（如 [NSwag](https://github.com/RSuter/NSwag) 和 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)）来提供。 对于创建开放 API 文档，ASP.NET Core 2.2 提供了改进的工具和运行时体验。
 
 有关更多信息，请参见以下资源：
 

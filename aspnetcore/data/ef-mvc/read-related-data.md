@@ -3,15 +3,15 @@ title: 教程：读取相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
 author: rick-anderson
 ms.author: tdykstra
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 73e225c2cd6d9f88079c54115cccad48f43d7d0c
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: a2ae878fd861b68a17de19af1b33b6ffbf5a268c
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103041"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751083"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -33,7 +33,7 @@ ms.locfileid: "56103041"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [使用 EF Core 为 ASP.NET Core MVC Web 应用创建更复杂的数据模型](complex-data-model.md)
+* [创建复杂数据模型](complex-data-model.md)
 
 ## <a name="learn-how-to-load-related-data"></a>了解如何加载相关数据
 
@@ -257,6 +257,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 > * 已创建“讲师”页
 > * 已了解显式加载
 
-请继续阅读下一篇文章，了解如何更新相关数据。
+请继续阅读下一篇教程，了解如何更新相关数据。
+
 > [!div class="nextstepaction"]
 > [更新相关数据](update-related-data.md)

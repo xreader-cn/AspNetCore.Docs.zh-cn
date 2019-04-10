@@ -7,25 +7,20 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 31fca1b32942f9246e099c01669f77824edf521e
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 282af56eb911aea53a6ce945e7c1177c158fc342
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264851"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750584"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
-Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (EF) Core 2.0 和 Visual Studio 2017 创建 ASP.NET Core 2.2 MVC Web 应用程序。
+Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (EF) Core 2.2 和 Visual Studio 2017 或 2019 创建 ASP.NET Core 2.2 MVC Web 应用程序。
 
 示例应用程序供一个虚构的 Contoso 大学网站使用。 它包括诸如学生入学、 课程创建和导师分配等功能。 这是一系列教程中的第一个，这一系列教程主要展示了如何从零开始构建 Contoso 大学示例应用程序。
-
-EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 。 有关如何在 EF 6.x 和 EF Core 之间选择，请参阅 [ EF Core vs.EF6.x](/ef/efcore-and-ef6/)。 如果你选择使用 EF 6.x，请参阅[ 本系列教程的上一个版本](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application)。
-
-> [!NOTE]
-> 本教程的 ASP.NET Core 1.1 版本，请参阅 [本教程中 VS 2017 Update 2 版本的 PDF 文档](https://webpifeed.blob.core.windows.net/webpifeed/Partners/efmvc1.1.pdf)。
 
 在本教程中，你将了解：
 
@@ -35,14 +30,17 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 > * 了解 EF Core NuGet 包
 > * 创建数据模型
 > * 创建数据库上下文
-> * 注册 SchoolContext
+> * 为依赖关系注入注册上下文
 > * 使用测试数据初始化数据库
 > * 创建控制器和视图
 > * 查看数据库
 
 ## <a name="prerequisites"></a>系统必备
 
-[!INCLUDE [](~/includes/net-core-prereqs.md)]
+* [.NET Core SDK 2.2](https://www.microsoft.com/net/download)
+* 具有以下工作负载的 [Visual Studio 2017 或 2019](https://visualstudio.microsoft.com/downloads/)：
+    * ASP.NET 和 Web 开发工作负荷
+    * .NET Core 跨平台开发工作负荷
 
 ## <a name="troubleshooting"></a>疑难解答
 
@@ -61,11 +59,9 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 ![学生编辑页](intro/_static/student-edit.png)
 
-本教程主要关注于如何使用 Entity Framework , 所以此站点的UI样式都是直接套用内置的模板。
+## <a name="create-web-app"></a>创建 Web 应用
 
-## <a name="create-aspnet-core-mvc-web-app"></a>创建 ASP.NET Core MVC Web 应用
-
-打开 Visual Studio 并创建一个新 ASP.NET Core C# web 项目名为"ContosoUniversity"。
+* 打开 Visual Studio。
 
 * 从“文件”菜单中选择“新建”>“项目”。
 
@@ -77,17 +73,15 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
   ![“新建项目”对话框](intro/_static/new-project2.png)
 
-* 等待 **新 ASP.NET Core Web 应用程序 (.NET Core)** 显示对话框
+* 等待“新建 ASP.NET Core Web 应用程序”对话框显示出来。
 
-  ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet2.png)
-
-* 选择“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板。
-
-  **注意：** 本教程需要安装 ASP.NET Core 2.2 和 EF Core 2.0 或更高版本。
+* 选择“.NET Core”、“ASP.NET Core 2.2”和“Web 应用程序(模型-视图-控制器)”模板。
 
 * 请确保 **身份验证** 设置为  **不进行身份验证**。
 
-* 单击“确定” 
+* 选择“确定”
+
+  ![新的 ASP.NET Core 项目对话框](intro/_static/new-aspnet2.png)
 
 ## <a name="set-up-the-site-style"></a>设置网站样式
 
@@ -101,7 +95,7 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 突出显示所作更改。
 
-[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,32-36,51)]
+[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,37-48,63)]
 
 在 *Views/Home/Index.cshtml*，将文件的内容替换为以下代码以将有关 ASP.NET 和 MVC 的内容替换为有关此应用程序的内容：
 
@@ -113,9 +107,9 @@ EF Core 2.0 是 EF 的最新版本，但还没有包括 EF 6.x 的所有功能 �
 
 ## <a name="about-ef-core-nuget-packages"></a>关于 EF Core NuGet 包
 
-若要为项目添加 EF Core 支持，需要安装相应的数据库驱动包。 本教程使用 SQL Server，相关驱动包[Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)。 此包包含在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中，因此，如果应用具有对 `Microsoft.AspNetCore.App` 包的包引用，则无需引用该包。
+若要为项目添加 EF Core 支持，需要安装相应的数据库驱动包。 本教程使用 SQL Server，相关驱动包[Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)。 此包包含在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中，因此无需引用该包。
 
-此包和其依赖项 (`Microsoft.EntityFrameworkCore` 和 `Microsoft.EntityFrameworkCore.Relational`) 一起提供 EF 的运行时支持。 你将在之后的 [迁移](migrations.md) 教程中学习添加工具包。
+EF SQL Server 包和其依赖项（`Microsoft.EntityFrameworkCore` 和 `Microsoft.EntityFrameworkCore.Relational`）一起提供 EF 的运行时支持。 你将在之后的 [迁移](migrations.md) 教程中学习添加工具包。
 
 有关其他可用于 EF Core 的数据库驱动的信息，请参阅 [数据库驱动](/ef/core/providers/)。
 
@@ -197,7 +191,7 @@ ASP.NET Core 默认实现 [依赖注入](../../fundamentals/dependency-injection
 
 若要将 `SchoolContext` 注册为一种服务，打开 *Startup.cs* ，并将高亮代码添加到 `ConfigureServices` 方法中。
 
-[!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_SchoolContext&highlight=3-4)]
+[!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_SchoolContext&highlight=9-10)]
 
 通过调用 `DbContextOptionsBuilder` 中的一个方法将数据库连接字符串在配置文件中的名称传递给上下文对象。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
 
@@ -249,11 +243,6 @@ CRUD 操作方法和视图的自动创建被称为基架。 基架与代码生�
 
 * 右键单击 **解决方案资源管理器** 中的 **Controllers** 文件夹选择 **添加 > 新搭建基架的项目**。
 
-如果出现“添加 MVC 依赖项”对话框：
-
-* [将 Visual Studio 更新到最新版本](https://www.visualstudio.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)。 15.5 之前的 Visual Studio 版本显示此对话框。
-* 如果无法更新，请选择“添加”，然后再次按照添加控制器步骤操作。
-
 * 在“添加基架”对话框中：
 
   * 选择 **视图使用 Entity Framework 的 MVC 控制器**。
@@ -292,7 +281,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 按 CTRL + F5 来运行该项目，或从菜单选择 **调试 > 开始执行(不调试)**。
 
-单击学生选项卡以查看 `DbInitializer.Initialize` 插入的测试的数据。 你将看到 `Student` 选项卡链接在页的顶部或在单击右上角后的导航图标中，具体显示在哪里取决于浏览器窗口宽度。
+单击学生选项卡以查看 `DbInitializer.Initialize` 插入的测试的数据。 你将看到 `Students` 选项卡链接在页的顶部或在单击右上角后的导航图标中，具体显示在哪里取决于浏览器窗口宽度。
 
 ![Contoso University 主页宽窄](intro/_static/home-page-narrow.png)
 
@@ -385,6 +374,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 在下一个教程中，你将学习如何执行基本的 CRUD （创建、 读取、 更新、 删除） 操作。
 
-请继续阅读下一篇文章，了解如何执行基本的 CRUD（创建、读取、更新、删除）操作。
+请继续阅读下一篇教程，了解如何执行基本的 CRUD（创建、读取、更新、删除）操作。
+
 > [!div class="nextstepaction"]
 > [实现基本的 CRUD 功能](crud.md)

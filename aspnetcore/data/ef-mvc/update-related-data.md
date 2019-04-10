@@ -4,15 +4,15 @@ description: 本教程将通过更新外键字段和导航属性来更新相关�
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 1606b872df2df839266ef17efee1948065c4efae
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6add725430380f0855fe660a70b90a4546ef0637
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209409"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750914"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -35,7 +35,7 @@ ms.locfileid: "58209409"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 读取相关数据](read-related-data.md)
+* [读取相关数据](read-related-data.md)
 
 ## <a name="customize-courses-pages"></a>自定义“课程”页
 
@@ -123,7 +123,7 @@ HttpGet `Edit` 方法根据正在编辑的课程已分配到的院系 ID 设置�
 
 在 InstructorsController.cs 中，更改 HttpGet `Edit` 方法中的代码，使其加载 Instructor 实体的 `OfficeAssignment` 导航属性并调用 `AsNoTracking`：
 
-[!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=9,10&name=snippet_EditGetOA)]
+[!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=8-11&name=snippet_EditGetOA)]
 
 将 HttpPost `Edit` 方法更新为以下代码，以便处理办公室分配更新：
 
@@ -225,7 +225,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 <a id="notepad"></a>
 > [!NOTE]
-> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。 按 Ctrl+Z 一次可撤消自动格式设置。 这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 可在[此处](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)查看此问题的状态。
+> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。 如果粘贴后代码看起来不同，按 Ctrl+Z 一次可撤消自动格式设置。 这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 Visual Studio 2019 修复了此问题。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
@@ -314,6 +314,7 @@ public ICollection<CourseAssignment> CourseAssignments
 > * 已更新“删除”页
 > * 已向“创建”页添加办公室位置和课程
 
-请继续阅读下一篇文章，了解如何处理并发冲突。
+请继续阅读下一篇教程，了解如何处理并发冲突。
+
 > [!div class="nextstepaction"]
 > [处理并发冲突](concurrency.md)

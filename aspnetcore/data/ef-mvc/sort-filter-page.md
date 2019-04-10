@@ -3,15 +3,15 @@ title: 教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 description: 在本教程中，将向学生索引页添加排序、筛选和分页功能。 同时，还将创建一个执行简单分组的页面。
 author: rick-anderson
 ms.author: tdykstra
-ms.date: 02/04/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 51b6b08d2410652f93427371aec299eb4c8789f1
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: dff5a5b1ba3c8ed07ccc8d134f8cfeb25b9f6689
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103054"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751039"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
@@ -33,7 +33,7 @@ ms.locfileid: "56103054"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 实现 CRUD 功能](crud.md)
+* [实现 CRUD 功能](crud.md)
 
 ## <a name="add-column-sort-links"></a>添加列排序链接
 
@@ -144,7 +144,7 @@ public async Task<IActionResult> Index(
     string sortOrder,
     string currentFilter,
     string searchString,
-    int? page)
+    int? pageNumber)
 ```
 
 第一次显示页面时，或者如果用户没有单击分页或排序链接，所有参数都将为 NULL。  如果单击了分页链接，页面变量将包含要显示的页码。
@@ -158,7 +158,7 @@ public async Task<IActionResult> Index(
 ```csharp
 if (searchString != null)
 {
-    page = 1;
+    pageNumber = 1;
 }
 else
 {
@@ -169,10 +169,10 @@ else
 在 `Index` 方法最后，`PaginatedList.CreateAsync` 方法会将学生查询转换为支持分页的集合类型中的学生的单个页面。 然后将学生的单个页面传递给视图。
 
 ```csharp
-return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), page ?? 1, pageSize));
+return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize));
 ```
 
-`PaginatedList.CreateAsync` 方法需要一个页码。 两个问号表示 NULL 合并运算符。 NULL 合并运算符为可为 NULL 的类型定义默认值；表达式 `(page ?? 1)` 表示如果 `page` 有值，则返回该值，如果 `page` 为 NULL，则返回 1。
+`PaginatedList.CreateAsync` 方法需要一个页码。 两个问号表示 NULL 合并运算符。 NULL 合并运算符为可为 NULL 的类型定义默认值；表达式 `(pageNumber ?? 1)` 表示如果 `pageNumber` 有值，则返回该值，如果 `pageNumber` 为 NULL，则返回 1。
 
 ## <a name="add-paging-links"></a>添加分页链接
 
@@ -193,7 +193,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 ```html
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="btn btn-default @prevDisabled">
    Previous
@@ -234,7 +234,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_AddContext&highlight=3,5,7)]
 
-将 `About` 方法替换为以下代码：
+使用以下代码添加 `About` 方法：
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseDbSet)]
 
@@ -244,11 +244,11 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ### <a name="modify-the-about-view"></a>修改“关于”视图
 
-将 Views/Home/About.cshtml 文件中的代码替换为以下代码：
+使用以下代码添加 Views/Home/About.cshtml 文件：
 
 [!code-html[](intro/samples/cu/Views/Home/About.cshtml)]
 
-运行应用并转到“关于”页。 表格中会显示每个注册日期的学生计数。
+运行应用并转到“关于”页面。 表格中会显示每个注册日期的学生计数。
 
 ## <a name="get-the-code"></a>获取代码
 
@@ -266,6 +266,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 > * 已添加分页链接
 > * 已创建“关于”页
 
-请继续阅读下一篇文章，了解如何使用迁移来处理数据模型更改。
+请继续阅读下一篇教程，了解如何使用迁移来处理数据模型更改。
+
 > [!div class="nextstepaction"]
-> [处理数据模型更改](migrations.md)
+> [下一篇：处理数据模型更改](migrations.md)

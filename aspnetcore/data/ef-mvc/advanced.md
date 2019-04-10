@@ -4,15 +4,15 @@ description: 本教程不止会介绍使用 Entity Framework Core 开发 ASP.NET
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: c4804bd6614c7d5a2a30c8f59a645f603929ad52
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c6255e2b4fc67c6174bab4458ec82035b1886002
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264589"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750617"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -33,7 +33,7 @@ ms.locfileid: "58264589"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 实现继承](inheritance.md)
+* [实现继承](inheritance.md)
 
 ## <a name="perform-raw-sql-queries"></a>执行原始 SQL 查询
 
@@ -53,7 +53,7 @@ ms.locfileid: "58264589"
 
 在*DepartmentsController.cs*中的`Details`方法，通过代码调用`FromSql`方法检索一个部门，如以下高亮代码所示：
 
-[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10,13)]
+[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
 为了验证新代码是否工作正常，请选择**Department**选项卡，然后点击某个部门的**Detail**。
 
@@ -276,6 +276,7 @@ dotnet ef database drop
 > * 已了解 EF Core 源代码与开发计划
 > * 已了解如何使用动态 LINQ 简化代码
 
-这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。 若要了解如何将 EF 6 与 ASP.NET Core 结合使用，请参阅下一篇文章。
+这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。 本系列使用的是新建数据库；另一种方式是从现有数据库进行模型的反向工程。
+
 > [!div class="nextstepaction"]
-> [EF 6 和 ASP.NET Core](../entity-framework-6.md)
+> [教程：EF Core 与 MVC，现有数据库](/ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)

@@ -4,15 +4,15 @@ description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用�
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/04/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 6d4ed0e95499c30417e1cfd07f57de824a8a62ed
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 8a14ada241330ca33811b7cce70daf26ff8fc13a
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265520"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750635"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -22,7 +22,6 @@ ms.locfileid: "58265520"
 
 > [!div class="checklist"]
 > * 了解迁移相关信息
-> * 了解 NuGet 迁移包
 > * 更改连接字符串
 > * 创建初始迁移
 > * 检查 Up 和 Down 方法
@@ -31,7 +30,7 @@ ms.locfileid: "58265520"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC 应用中使用 EF Core 添加排序、筛选和分页](sort-filter-page.md)
+* [排序、筛选和分页](sort-filter-page.md)
 
 ## <a name="about-migrations"></a>关于迁移
 
@@ -39,15 +38,7 @@ ms.locfileid: "58265520"
 
 这种使数据库与数据模型保持同步的方法适用于多种情况，但将应用程序部署到生产环境的情况除外。 当应用程序在生产环境中运行时，它通常会存储要保留的数据，以便不会在每次更改（如添加新列）时丢失所有数据。 EF Core 迁移功能可通过使 EF 更新数据库 架构而不是创建新数据库来解决此问题。
 
-## <a name="about-nuget-migration-packages"></a>关于 NuGet 迁移包
-
 要使用迁移，可使用“包管理器控制台”(PMC) 或命令行接口 (CLI)。  以下教程演示如何使用 CLI 命令。 有关 PMC 的信息，请转到[本教程末尾](#pmc)。
-
-[Microsoft.EntityFrameworkCore.Tools.DotNet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools.DotNet) 中提供了适用于命令行接口 (CLI) 的 EF 工具。 若要安装此程序包，请将它添加到 .csproj 文件中的 `DotNetCliToolReference` 集合，如下所示。 **注意：** 必须通过编辑 .csproj 文件来安装此包；不能使用 `install-package` 命令或包管理器 GUI。 若要编辑 .csproj 文件，可右键单击解决方案资源管理器中的项目名称，然后选择“编辑 ContosoUniversity.csproj”。
-
-[!code-xml[](intro/samples/cu/ContosoUniversity.csproj?range=12-15&highlight=2)]
-
-（编写本教程时，本示例中的版本号是最新的。）
 
 ## <a name="change-the-connection-string"></a>更改连接字符串
 
@@ -86,17 +77,15 @@ dotnet ef migrations add InitialCreate
 命令窗口中出现如下输出：
 
 ```console
-info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
-      User profile is available. Using 'C:\Users\username\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-info: Microsoft.EntityFrameworkCore.Infrastructure[100403]
-      Entity Framework Core 2.0.0-rtm-26452 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.2.0-rtm-35687 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
 Done. To undo this action, use 'ef migrations remove'
 ```
 
 > [!NOTE]
 > 如果出现错误消息“找不到任何匹配 "dotnet-ef" 命令的可执行文件”，请参阅[此博客文章](http://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/)获取故障排除帮助。
 
-如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”*。
+如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”。
 
 ## <a name="examine-up-and-down-methods"></a>检查 Up 和 Down 方法
 
@@ -129,15 +118,19 @@ dotnet ef database update
 该命令的输出与 `migrations add` 命令的输出相似，但其中还包含设置该数据库的 SQL 命令的日志。 下面的示例输出中省略了大部分日志。 如果希望日志消息中不使用此详细级别，则可更改 appsettings.Development.json 文件中的日志级别。 有关更多信息，请参见<xref:fundamentals/logging/index>。
 
 ```text
-info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
-      User profile is available. Using 'C:\Users\username\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-info: Microsoft.EntityFrameworkCore.Infrastructure[100403]
-      Entity Framework Core 2.0.0-rtm-26452 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
-info: Microsoft.EntityFrameworkCore.Database.Command[200101]
-      Executed DbCommand (467ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.2.0-rtm-35687 initialized 'SchoolContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (274ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
       CREATE DATABASE [ContosoUniversity2];
-info: Microsoft.EntityFrameworkCore.Database.Command[200101]
-      Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (60ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+      IF SERVERPROPERTY('EngineEdition') <> 5
+      BEGIN
+          ALTER DATABASE [ContosoUniversity2] SET READ_COMMITTED_SNAPSHOT ON;
+      END;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
       CREATE TABLE [__EFMigrationsHistory] (
           [MigrationId] nvarchar(150) NOT NULL,
           [ProductVersion] nvarchar(32) NOT NULL,
@@ -146,10 +139,10 @@ info: Microsoft.EntityFrameworkCore.Database.Command[200101]
 
 <logs omitted for brevity>
 
-info: Microsoft.EntityFrameworkCore.Database.Command[200101]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
       INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-      VALUES (N'20170816151242_InitialCreate', N'2.0.0-rtm-26452');
+      VALUES (N'20190327172701_InitialCreate', N'2.2.0-rtm-35687');
 Done.
 ```
 
@@ -190,6 +183,7 @@ Done.
 > * 已了解数据模型快照
 > * 已应用迁移
 
-请继续阅读下一篇文章，开始了解有关展开数据模型的更高级主题。 同时还将介绍创建并应用其他迁移的方法。
+请继续阅读下一篇教程，开始了解有关展开数据模型的更高级主题。 同时还将介绍创建并应用其他迁移的方法。
+
 > [!div class="nextstepaction"]
 > [创建并应用其他迁移](complex-data-model.md)

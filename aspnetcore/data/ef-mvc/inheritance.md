@@ -4,15 +4,15 @@ description: 本教程将演示如何使用 ASP.NET Core 应用程序中的 Enti
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 0a5eb1aba43bc2adf746202772c7f98eff49b4ff
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: ba688b259206f21045376b6a38a266ad7528aec1
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103002"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750767"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现集成 - ASP.NET MVC 和 EF Core
 
@@ -32,7 +32,7 @@ ms.locfileid: "56103002"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 处理并发](concurrency.md)
+* [处理并发](concurrency.md)
 
 ## <a name="map-inheritance-to-database"></a>会将继承映射到数据库
 
@@ -168,6 +168,7 @@ dotnet ef database update
 > * 已创建和更新迁移
 > * 已测试实现
 
-请继续阅读下一篇文章，了解如何处理各种相对高级的 Entity Framework 方案。
+请继续阅读下一篇教程，了解如何处理各种相对高级的 Entity Framework 方案。
+
 > [!div class="nextstepaction"]
-> [高级主题](advanced.md)
+> [下一篇：高级主题](advanced.md)

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 83f5d4bdc3d5872109649818b61a6dbb656fd8be
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: cee521eec3172c04b4d9d93c12076c42c9adff18
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264839"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750628"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -32,7 +32,7 @@ ms.locfileid: "58264839"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 ASP.NET Core MVC Web 应用中使用 EF Core 入门](intro.md)
+* [EF Core 和 ASP.NET Core MVC 入门](intro.md)
 
 ## <a name="customize-the-details-page"></a>自定义“详细信息”页
 
@@ -243,7 +243,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 使用以下执行实际删除操作并捕获任何数据库更新错误的代码替换 HttpPost `Delete` 操作方法（名为 `DeleteConfirmed`）。
 
-[!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DeleteWithReadFirst&highlight=6,8-11,13-14,18-23)]
+[!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DeleteWithReadFirst&highlight=6-9,11-12,16-21)]
 
 此代码检索所选的实体，然后调用 `Remove` 方法以将实体的状态设置为 `Deleted`。 调用 `SaveChanges` 时生成 SQL DELETE 命令。
 
@@ -306,6 +306,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 > * 已更新“删除”页
 > * 已关闭数据库连接
 
-请继续阅读下一篇文章，了解如何通过添加排序、筛选和分页来扩展“索引”页的功能。
+请继续阅读下一篇教程，了解如何通过添加排序、筛选和分页来扩展“索引”页的功能。
+
 > [!div class="nextstepaction"]
-> [排序、筛选和分页](sort-filter-page.md)
+> [下一篇：排序、筛选和分页](sort-filter-page.md)

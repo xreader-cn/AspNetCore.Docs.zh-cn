@@ -2,16 +2,17 @@
 title: ASP.NET Core 中的文件提供程序
 author: guardrex
 description: 了解 ASP.NET Core 如何通过文件提供程序来抽象化文件系统访问。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/01/2018
+ms.date: 03/30/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 5d0d46ba82cd84e48e5a9b23d6d330d8888beb41
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 2ce40ea0d576d08a6b42c3eb6693754f2a0bddce
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570095"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809216"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -50,25 +51,11 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 
 `IFileProvider` 有三种实现。
 
-::: moniker range=">= aspnetcore-2.0"
-
-| 实现 | 描述 |
+| 实现 | 说明 |
 | -------------- | ----------- |
 | [PhysicalFileProvider](#physicalfileprovider) | 物理提供程序用于访问系统的物理文件。 |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 清单嵌入式提供程序用于访问程序集中嵌入的文件。 |
 | [CompositeFileProvider](#compositefileprovider) | 复合式提供程序提供对一个或多个其他提供程序中的文件和目录的合并访问。 |
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-| 实现 | 描述 |
-| -------------- | ----------- |
-| [PhysicalFileProvider](#physicalfileprovider) | 物理提供程序用于访问系统的物理文件。 |
-| [EmbeddedFileProvider](#embeddedfileprovider) | 嵌入式提供程序用于访问嵌入在程序集中的文件。 |
-| [CompositeFileProvider](#compositefileprovider) | 复合式提供程序提供对一个或多个其他提供程序中的文件和目录的合并访问。 |
-
-::: moniker-end
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
@@ -102,8 +89,6 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 将提供程序注入任何类构造函数，并将其分配给本地字段。 在整个类的方法中使用该字段来访问文件。
 
-::: moniker range=">= aspnetcore-2.0"
-
 在示例应用中，`IndexModel` 类接收 `IFileProvider` 实例，获取应用的基路径的目录内容。
 
 Pages/Index.cshtml.cs：
@@ -116,32 +101,9 @@ Pages/Index.cshtml：
 
 [!code-cshtml[](file-providers/samples/2.x/FileProviderSample/Pages/Index.cshtml?name=snippet1)]
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-在示例应用中，`HomeController` 类接收 `IFileProvider` 实例，获取应用的基路径的目录内容。
-
-Controllers/HomeController.cs：
-
-[!code-csharp[](file-providers/samples/1.x/FileProviderSample/Controllers/HomeController.cs?name=snippet1)]
-
-在视图中循环访问 `IDirectoryContents`。
-
-Views/Home/Index.cshtml：
-
-[!code-cshtml[](file-providers/samples/1.x/FileProviderSample/Views/Home/Index.cshtml?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
-
 ### <a name="manifestembeddedfileprovider"></a>ManifestEmbeddedFileProvider
 
 [ManifestEmbeddedFileProvider](/dotnet/api/microsoft.extensions.fileproviders.manifestembeddedfileprovider) 用于访问程序集内嵌入的文件。 `ManifestEmbeddedFileProvider` 使用编译到程序集中的某个清单来重建嵌入的文件的原始路径。
-
-> [!NOTE]
-> ASP.NET Core 2.1 或更高版本中提供了 `ManifestEmbeddedFileProvider`。 若要访问在 ASP.NET Core 2.0 或更早版本 的程序集中嵌入的文件，请参阅[本主题的 ASP.NET Core 1.x 版本](/aspnet/core/fundamentals/file-providers?view=aspnetcore-1.1)。
 
 若要生成嵌入的文件清单，请将 `<GenerateEmbeddedFilesManifest>` 属性设置为 `true`。 指定要使用 [&lt;EmbeddedResource&gt;](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects) 嵌入的文件：
 
@@ -164,61 +126,19 @@ var manifestEmbeddedProvider =
 * 将文件范围限制到上次修改日期。
 * 为包含嵌入文件清单的嵌入资源命名。
 
-| 重载 | 描述 |
+| 重载 | 说明 |
 | -------- | ----------- |
 | [ManifestEmbeddedFileProvider(Assembly, String)](/dotnet/api/microsoft.extensions.fileproviders.manifestembeddedfileprovider.-ctor#Microsoft_Extensions_FileProviders_ManifestEmbeddedFileProvider__ctor_System_Reflection_Assembly_System_String_) | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 [GetDirectoryContents](/dotnet/api/microsoft.extensions.fileproviders.ifileprovider.getdirectorycontents) 的调用范围限制为提供的路径下的那些资源。 |
 | [ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)](/dotnet/api/microsoft.extensions.fileproviders.manifestembeddedfileprovider.-ctor#Microsoft_Extensions_FileProviders_ManifestEmbeddedFileProvider__ctor_System_Reflection_Assembly_System_String_System_DateTimeOffset_) | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 ([DateTimeOffset](/dotnet/api/system.datetimeoffset)) 参数。 `lastModified` 日期限制 [IFileProvider](/dotnet/api/microsoft.extensions.fileproviders.ifileprovider) 返回的 [IFileInfo](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo) 实例的上次修改日期范围。 |
 | [ManifestEmbeddedFileProvider(Assembly, String, String, DateTimeOffset)](/dotnet/api/microsoft.extensions.fileproviders.manifestembeddedfileprovider.-ctor#Microsoft_Extensions_FileProviders_ManifestEmbeddedFileProvider__ctor_System_Reflection_Assembly_System_String_System_String_System_DateTimeOffset_) | 接受一个可选的 `root` 相对路径、`lastModified` 日期和 `manifestName` 参数。 `manifestName` 表示包含清单的嵌入资源的名称。 |
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-### <a name="embeddedfileprovider"></a>EmbeddedFileProvider
-
-[EmbeddedFileProvider](/dotnet/api/microsoft.extensions.fileproviders.embeddedfileprovider)用于访问程序集内嵌入的文件。 指定要使用项目文件中的 [&lt;EmbeddedResource&gt;](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects) 属性嵌入的文件：
-
-```xml
-<ItemGroup>
-  <EmbeddedResource Include="Resource.txt" />
-</ItemGroup>
-```
-
-使用 [glob 模式](#glob-patterns)指定要嵌入到程序集中的一个或多个文件。
-
-示例应用创建 `EmbeddedFileProvider` 并将当前正在执行的程序集传递给其构造函数。
-
-*Startup.cs*：
-
-```csharp
-var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
-```
-
-嵌入的资源不会公开目录。 而是使用 `.` 分隔符将指向资源的路径（通过其命名空间）嵌入其文件名中。 在示例应用中，`baseNamespace` 是 `FileProviderSample.`。
-
-[EmbeddedFileProvider(Assembly, String)](/dotnet/api/microsoft.extensions.fileproviders.embeddedfileprovider.-ctor#Microsoft_Extensions_FileProviders_EmbeddedFileProvider__ctor_System_Reflection_Assembly_) 构造函数接受一个可选的 `baseNamespace` 参数。 指定基命名空间，将对 [GetDirectoryContents](/dotnet/api/microsoft.extensions.fileproviders.ifileprovider.getdirectorycontents) 的调用范围限制为提供的命名空间下的那些资源。
-
-::: moniker-end
-
 ### <a name="compositefileprovider"></a>CompositeFileProvider
 
 [CompositeFileProvider](/dotnet/api/microsoft.extensions.fileproviders.compositefileprovider) 结合了 `IFileProvider` 实例，以便公开一个接口来处理来自多个提供程序的文件。 创建 `CompositeFileProvider` 时，将一个或多个 `IFileProvider` 实例传递给其构造函数。
 
-::: moniker range=">= aspnetcore-2.0"
-
 在示例应用中，`PhysicalFileProvider` 和 `ManifestEmbeddedFileProvider` 向在应用的服务容器中注册的 `CompositeFileProvider` 提供文件：
 
 [!code-csharp[](file-providers/samples/2.x/FileProviderSample/Startup.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-在示例应用中，`PhysicalFileProvider` 和 `EmbeddedFileProvider` 向在应用的服务容器中注册的 `CompositeFileProvider` 提供文件：
-
-[!code-csharp[](file-providers/samples/1.x/FileProviderSample/Startup.cs?name=snippet1)]
-
-::: moniker-end
 
 ## <a name="watch-for-changes"></a>监视更改
 
@@ -229,17 +149,7 @@ var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
 
 在示例应用中，WatchConsole 控制台应用配置为每次修改了文本文件时显示一条消息：
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](file-providers/samples/2.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](file-providers/samples/1.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
-
-::: moniker-end
 
 某些文件系统（例如 Docker 容器和网络共享）可能无法可靠地发送更改通知。 将 `DOTNET_USE_POLLING_FILE_WATCHER` 环境变量设置为 `1` 或 `true` 以每隔四秒轮询一次文件系统，确认是否发生更改（不可配置）。
 
