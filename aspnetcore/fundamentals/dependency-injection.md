@@ -2,16 +2,17 @@
 title: 在 ASP.NET Core 依赖注入
 author: guardrex
 description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 03/28/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: cc020d7397b03f8ecd6cebf98a14b4aaebb47940
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 8312f3375296a8530ac2db3db46d062b7b9e76b9
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488684"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750605"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -44,8 +45,6 @@ public class MyDependency
 }
 ```
 
-::: moniker range=">= aspnetcore-2.1"
-
 可以创建 `MyDependency` 类的实例以使 `WriteMessage` 方法可用于类。 `MyDependency` 类是 `IndexModel` 类的依赖项：
 
 ```csharp
@@ -61,29 +60,6 @@ public class IndexModel : PageModel
 }
 ```
 
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-可以创建 `MyDependency` 类的实例以使 `WriteMessage` 方法可用于类。 `MyDependency` 类是 `HomeController` 类的依赖项：
-
-```csharp
-public class HomeController : Controller
-{
-    MyDependency _dependency = new MyDependency();
-
-    public async Task<IActionResult> Index()
-    {
-        await _dependency.WriteMessage(
-            "HomeController.Index created this message.");
-
-        return View();
-    }
-}
-```
-
-::: moniker-end
-
 该类创建并直接依赖于 `MyDependency` 实例。 代码依赖关系（如前面的示例）存在问题，应该避免使用，原因如下：
 
 * 要用不同的实现替换 `MyDependency`，必须修改类。
@@ -98,31 +74,11 @@ public class HomeController : Controller
 
 在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
-
-::: moniker-end
 
 此接口由具体类型 `MyDependency` 实现：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
-
-::: moniker-end
 
 `MyDependency` 在其构造函数中请求 [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1)。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”、“依赖关系图”或“对象图”。
 
@@ -136,17 +92,7 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 
 在示例应用中，使用具体类型 `MyDependency` 注册 `IMyDependency` 服务。 注册将服务生存期的范围限定为单个请求的生存期。 本主题后面将介绍[服务生存期](#service-lifetimes)。
 
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=11)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
-
-::: moniker-end
+[!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
 
 > [!NOTE]
 > 每个 `services.Add{SERVICE_NAME}` 扩展方法添加（并可能配置）服务。 例如，`services.AddMvc()` 添加 Razor Pages 和 MVC 需要的服务。 我们建议应用遵循此约定。 将扩展方法置于 [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 命名空间中以封装服务注册的组。
@@ -171,17 +117,7 @@ public class MyDependency : IMyDependency
 
 在示例应用中，请求 `IMyDependency` 实例并用于调用服务的 `WriteMessage` 方法：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Controllers/MyDependencyController.cs?name=snippet1&highlight=3,5-8,13-14)]
-
-::: moniker-end
 
 ## <a name="framework-provided-services"></a>框架提供的服务
 
@@ -228,11 +164,11 @@ public void ConfigureServices(IServiceCollection services)
 
 **暂时**
 
-暂时生存期服务是每次请求时创建的。 这种生存期适合轻量级、 无状态的服务。
+暂时生存期服务是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
 **作用域（Scoped）**
 
-作用域生存期服务以每个请求一次的方式创建。
+作用域生存期服务以每个客户端请求（连接）一次的方式创建。
 
 > [!WARNING]
 > 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关更多信息，请参见<xref:fundamentals/middleware/index>。
@@ -259,87 +195,35 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 
-通常使用[设置了范围的生存期](#service-lifetimes)将实体框架上下文添加到服务容器中，因为 Web 应用数据库操作通常将范围设置为请求。 如果在注册数据库上下文时，<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> 重载未指定生存期，则设置默认生存期范围。 给定生存期的服务不应使用生存期比服务短的数据库上下文。
+通常使用[设置了范围的生存期](#service-lifetimes)将实体框架上下文添加到服务容器中，因为 Web 应用数据库操作通常将范围设置为客户端请求。 如果在注册数据库上下文时，<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> 重载未指定生存期，则设置默认生存期范围。 给定生存期的服务不应使用生存期比服务短的数据库上下文。
 
 ## <a name="lifetime-and-registration-options"></a>生存期和注册选项
 
 为了演示生存期和注册选项之间的差异，请考虑以下接口，将任务表示为具有唯一标识符 `OperationId` 的操作。 根据为以下接口配置操作服务的生存期的方式，容器在类请求时提供相同或不同的服务实例：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
-
-::: moniker-end
 
 接口在 `Operation` 类中实现。 `Operation` 构造函数将生成一个 GUID（如果未提供）：
 
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
-
-::: moniker-end
 
 注册 `OperationService` 取决于，每个其他 `Operation` 类型。 当通过依赖关系注入请求 `OperationService` 时，它将接收每个服务的新实例或基于从属服务的生存期的现有实例。
 
-* 如果在请求时创建了临时服务，则 `IOperationTransient` 服务的 `OperationId` 与 `OperationService` 的 `OperationId` 不同。 `OperationService` 将接收 `IOperationTransient` 类的新实例。 新实例将生成一个不同的 `OperationId`。
-* 如果按请求创建有作用域的服务，则 `IOperationScoped` 服务的 `OperationId` 与请求中 `OperationService` 的该 ID 相同。 在请求中，两个服务共享不同的 `OperationId` 值。
-* 如果单一数据库和单一实例服务只创建一次并在所有请求和所有服务中使用，则 `OperationId` 在所有服务请求中保持不变。
-
-::: moniker range=">= aspnetcore-2.1"
+* 如果从容器请求时创建了临时服务，则 `IOperationTransient` 服务的 `OperationId` 与 `OperationService` 的 `OperationId` 不同。 `OperationService` 将接收 `IOperationTransient` 类的新实例。 新实例将生成一个不同的 `OperationId`。
+* 如果按客户端请求创建有作用域的服务，则 `IOperationScoped` 服务的 `OperationId` 与客户端请求中 `OperationService` 的该 ID 相同。 在客户端请求中，两个服务共享不同的 `OperationId` 值。
+* 如果单一数据库和单一实例服务只创建一次并在所有客户端请求和所有服务中使用，则 `OperationId` 在所有服务请求中保持不变。
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
 
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
-
-::: moniker-end
-
 在 `Startup.ConfigureServices` 中，根据其指定的生存期，将每个类型添加到容器中：
 
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=12-15,18)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
-
-::: moniker-end
+[!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
 
 `IOperationSingletonInstance` 服务正在使用已知 ID 为 `Guid.Empty` 的特定实例。 此类型在使用时很明显（其 GUID 全部为零）。
-
-::: moniker range=">= aspnetcore-2.1"
 
 示例应用演示了各个请求中和之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-示例应用演示了各个请求中和之间的对象生存期。 示例应用包含一个 `OperationsController`，它会请求各种 `IOperation` 类型和 `OperationService`。 `Index` 操作将服务设置为 `ViewBag` 以显示服务的 `OperationId` 值：
-
-[!code-csharp[](dependency-injection/samples/1.x/DependencyInjectionSample/Controllers/OperationsController.cs?name=snippet1)]
-
-::: moniker-end
 
 以下两个输出显示了两个请求的结果：
 
@@ -377,8 +261,8 @@ public void ConfigureServices(IServiceCollection services)
 
 观察哪个 `OperationId` 值会在一个请求之内和不同请求之间变化：
 
-* 暂时性对象始终不同。 请注意，第一个和第二个请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在请求内都是不同的。 为每个服务和请求提供了一个新实例。
-* 有作用域的对象在一个请求内是相同的，但在请求之间是不同的。
+* 暂时性对象始终不同。 第一个和第二个客户端请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在客户端请求内都是不同的。 为每个服务请求和客户端请求提供了一个新实例。
+* 作用域对象在一个客户端请求中是相同的，但在多个客户端请求中是不同的。
 * 单一实例对象对每个对象和每个请求都是相同的（不管 `ConfigureServices` 中是否提供 `Operation` 实例）。
 
 ## <a name="call-services-from-main"></a>从 main 调用服务
@@ -412,14 +296,10 @@ public static void Main(string[] args)
 
 ## <a name="scope-validation"></a>作用域验证
 
-::: moniker range=">= aspnetcore-2.0"
-
 如果在开发环境中运行应用，默认的服务提供程序会执行检查，从而确认以下内容：
 
 * 没有从根服务提供程序直接或间接解析到有作用域的服务。
 * 未将有作用域的服务直接或间接注入到单一实例。
-
-::: moniker-end
 
 调用 [BuildServiceProvider](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectioncontainerbuilderextensions.buildserviceprovider) 时，会创建根服务提供程序。 在启动提供程序和应用时，根服务提供程序的生存期对应于应用/服务的生存期，并在关闭应用时释放。
 
@@ -476,13 +356,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-::: moniker range="= aspnetcore-1.0"
-
-> [!NOTE]
-> 在 ASP.NET Core 1.0 中，容器将对所有 `IDisposable` 对象调用 dispose，包括那些并非由它创建的对象。
-
-::: moniker-end
-
 ## <a name="default-service-container-replacement"></a>默认服务容器替换
 
 内置的服务容器旨在满足框架和大多数消费者应用的需求。 我们建议使用内置容器，除非你需要的特定功能不受它支持。 内置容器中找不到第三方容器支持的某些功能：
@@ -537,7 +410,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="thread-safety"></a>线程安全
 
-单例服务需要是线程安全的。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要是线程安全的，具体取决于单例使用它的方式。
+创建线程安全的单一实例服务。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要线程安全，具体取决于单例使用它的方式。
 
 单个服务的工厂方法，例如 [AddSingleton&lt;TService&gt;(IServiceCollection, Func&lt;IServiceProvider,TService&gt;)](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions.addsingleton#Microsoft_Extensions_DependencyInjection_ServiceCollectionServiceExtensions_AddSingleton__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func_System_IServiceProvider___0__) 的第二个参数，不需要是线程安全的。 像类型 (`static`) 构造函数一样，它保证由单个线程调用一次。
 

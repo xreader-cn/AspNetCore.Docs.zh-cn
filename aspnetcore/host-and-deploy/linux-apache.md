@@ -1,17 +1,18 @@
 ---
 title: 使用 Apache 在 Linux 上托管 ASP.NET Core
+author: guardrex
 description: 了解如何在 CentOS 上将 Apache 设置为反向代理服务器，以将 HTTP 流量重定向到在 Kestrel 上运行的 ASP.NET Core Web 应用。
-author: spboyer
+monikerRange: '>= aspnetcore-2.1'
 ms.author: spboyer
 ms.custom: mvc
-ms.date: 02/27/2019
+ms.date: 03/31/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 69026997b2c269a4fb56ed2a79fa42ae218368e1
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 34da0653ff29acf3044e69e032307d1a3da7044a
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345932"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809271"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -31,6 +32,11 @@ ms.locfileid: "57345932"
 ## <a name="publish-and-copy-over-the-app"></a>通过应用发布和复制
 
 配置应用以进行[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)。
+
+如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：
+
+* 配置应用，以处理安全的本地连接。 有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。
+* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。
 
 在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）：
 
@@ -55,8 +61,6 @@ dotnet publish --configuration Release
 
 调用转接头中间件后，必须放置依赖于该架构的组件，例如身份验证、链接生成、重定向和地理位置。 作为一般规则，转接头中间件应在诊断和错误处理中间件以外的其他中间件之前运行。 此顺序可确保依赖于转接头信息的中间件可以使用标头值进行处理。
 
-::: moniker range=">= aspnetcore-2.0"
-
 在调用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 或类似的身份验证方案中间件之前，调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
 
 ```csharp
@@ -67,28 +71,6 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseAuthentication();
 ```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-在调用 <xref:Microsoft.AspNetCore.Builder.BuilderExtensions.UseIdentity*>、<xref:Microsoft.AspNetCore.Builder.FacebookAppBuilderExtensions.UseFacebookAuthentication*> 或类似的身份验证方案中间件之前，调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
-
-```csharp
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
-
-app.UseIdentity();
-app.UseFacebookAuthentication(new FacebookOptions()
-{
-    AppId = Configuration["Authentication:Facebook:AppId"],
-    AppSecret = Configuration["Authentication:Facebook:AppSecret"]
-});
-```
-
-::: moniker-end
 
 如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，则要转接的默认标头为 `None`。
 
@@ -228,6 +210,12 @@ TimeoutStopSec=90
 systemd-escape "<value-to-escape>"
 ```
 
+环境变量名不支持冒号 (`:`) 分隔符。 使用双下划线 (`__`) 代替冒号。 环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)将双下划线转换为冒号。 以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：
+
+```
+Environment=ConnectionStrings__DefaultConnection={Connection String}
+```
+
 保存该文件并启用该服务：
 
 ```bash
@@ -325,6 +313,17 @@ rich rules:
 ```
 
 ### <a name="https-configuration"></a>HTTPS 配置
+
+配置应用，以进行安全的 (HTTPS) 本地连接
+
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。
+
+使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
+
+* [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）
+* [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
+
+配置反向代理，以便进行安全 (HTTPS) 客户端连接
 
 若要为 Apache 配置 HTTPS，请使用 mod_ssl 模块。 安装了 httpd 模块时，也会安装了 mod_ssl 模块。 如果未安装，请使用 `yum` 将其添加到配置。
 
