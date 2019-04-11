@@ -5,12 +5,12 @@ description: 了解基本 ASP.NET Core MVC 应用中的详细信息控制器方�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: f674ca1761f85ce127121603286c97d5936f6716
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 056017ea4f4073fa0b1cd747d06775b2a33616cf
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236323"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012664"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>检查 ASP.NET Core 应用的 Details 和 Delete 方法
 
@@ -46,6 +46,7 @@ EF 可以使用 `FirstOrDefaultAsync` 方法轻松搜索数据。 该方法中�
 
 ```csharp
 // POST: Movies/Delete/6
+[HttpPost]
 [ValidateAntiForgeryToken]
 public async Task<IActionResult> Delete(int id, bool notUsed)
 ```
@@ -55,4 +56,4 @@ public async Task<IActionResult> Delete(int id, bool notUsed)
 若要了解如何部署到 Azure，请参阅[教程：在 Azure 应用服务中生成 .NET Core 和 SQL 数据库 Web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
 
 > [!div class="step-by-step"]
-> [上一篇](validation.md)
+> [上一个](validation.md)
