@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中配置数据保护。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/08/2019
+ms.date: 04/11/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 36a06246513215ec29891df02688d113db11f914
-ms.sourcegitcommit: 32bc00435767189fa3ae5fb8a91a307bf889de9d
+ms.openlocfilehash: ee43427fa1e82a365d49df50567b4ca7afb5a5d3
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2019
-ms.locfileid: "57733492"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516243"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
 
@@ -44,7 +44,7 @@ public void ConfigureServices(IServiceCollection services)
 
 设置密钥环存储位置 (例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage))。 必须设置位置，因为在调用`ProtectKeysWithAzureKeyVault`实现[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)禁用自动数据保护设置，包括密钥环存储位置。 前面的示例中使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序：Azure 和 Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis)。 您还可以保留使用本地密钥环[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)。
 
-`keyIdentifier`是用于密钥加密的密钥保管库密钥标识符 (例如， `https://contosokeyvault.vault.azure.net/keys/dataprotection/`)。
+`keyIdentifier`是用于密钥加密的密钥保管库密钥标识符。 例如，名为 key vault 中创建的密钥`dataprotection`中`contosokeyvault`具有密钥标识符`https://contosokeyvault.vault.azure.net/keys/dataprotection/`。 提供应用程序与**Unwrap Key**并**Wrap Key**对密钥保管库的权限。
 
 `ProtectKeysWithAzureKeyVault` 重载：
 
@@ -154,7 +154,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="disableautomatickeygeneration"></a>DisableAutomaticKeyGeneration
 
-您可能不希望应用程序以自动滚动更新的密钥 （创建新的密钥），因为它们接近过期的方案。 这一个示例可能是应用设置中的主/辅助关系，其中只有主应用程序负责密钥管理问题，然后辅助应用程序只需将密钥环的只读视图。 可以将辅助应用程序配置为将视为只读密钥环，通过配置系统[DisableAutomaticKeyGeneration](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.disableautomatickeygeneration):
+您可能不希望应用程序以自动滚动更新的密钥 （创建新的密钥），因为它们接近过期的方案。 这一个示例可能是应用设置中的主/辅助关系，其中只有主应用程序负责密钥管理问题，然后辅助应用程序只需将密钥环的只读视图。 可以将辅助应用程序配置为将视为只读密钥环，通过配置具有系统<xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*>:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -166,13 +166,12 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="per-application-isolation"></a>每个应用程序隔离
 
-数据保护系统提供了 ASP.NET Core 主机，但它自动隔离了从另一个，应用程序，即使这些应用在相同的工作进程帐户下运行，并且使用相同的主密钥材料。 这是某种程度上类似于 IsolateApps 修饰符将来自 System.Web 的 **\<machineKey >** 元素。
+数据保护系统提供了 ASP.NET Core 主机，但它自动隔离了从另一个，应用程序，即使这些应用在相同的工作进程帐户下运行，并且使用相同的主密钥材料。 这是某种程度上类似于 IsolateApps 修饰符将来自 System.Web 的`<machineKey>`元素。
 
-隔离机制的工作原理的考虑在本地计算机上的每个应用使用作为唯一的租户，因此[IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector)取得 root 权限的任何给定的应用会自动包括用作鉴别器的应用程序 ID。 应用程序的唯一 ID 来自两个位置之一：
+隔离机制的工作方式考虑在本地计算机上的每个应用使用作为唯一的租户，因此是<xref:Microsoft.AspNetCore.DataProtection.IDataProtector>取得 root 权限的任何给定的应用会自动包括用作鉴别器的应用程序 ID。 应用程序的唯一 ID 是应用的物理路径：
 
-1. 如果应用托管在 IIS 中，唯一的标识符是应用程序的配置路径。 如果在 web 场环境中部署应用，此值应为稳定，假定 web 场中的所有计算机上的 IIS 环境配置方式都类似。
-
-2. 如果应用程序不承载于 IIS 中，唯一的标识符是应用程序的物理路径。
+* 为应用程序中托管[IIS](xref:fundamentals/servers/index#iis-http-server)，唯一的 ID 是应用程序的 IIS 物理路径。 如果在 web 场环境中部署应用，则此值是稳定，假定 web 场中的所有计算机上的 IIS 环境配置方式都类似。
+* 对于自承载的应用上运行[Kestrel 服务器](xref:fundamentals/servers/index#kestrel)，唯一的 ID 是磁盘上的应用程序的物理路径。
 
 唯一标识符设计可以经受住重置&mdash;的单个应用程序和计算机本身。
 

@@ -4,14 +4,14 @@ author: mjrousos
 description: 诊断 ASP.NET Core 应用中的性能问题的有用工具。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
-ms.date: 12/07/2018
+ms.date: 04/11/2019
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 0fb9944d1082090f4f58f641a26ee96286920456
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209997"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516217"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 
@@ -32,7 +32,7 @@ ms.locfileid: "58209997"
 Azure Application Insights 提供了多种方式对受监视的应用程序提供见解：
 
 - [应用程序映射](/azure/application-insights/app-insights-app-map)– 有助于跨分布式应用程序的所有组件的发现的性能瓶颈或失败的热点。
-- [在 Application Insights 门户中的指标边栏选项卡](/azure/application-insights/app-insights-metrics-explorer?toc=/azure/azure-monitor/toc.json)显示度量值和事件计数。
+- [Azure 指标资源管理器](/azure/azure-monitor/platform/metrics-getting-started)是允许绘制图表，直观地关联趋势，在 Microsoft Azure 门户的组件和调查的峰值和低谷指标值。
 - [在 Application Insights 门户中的性能边栏选项卡](/azure/application-insights/app-insights-tutorial-performance):
 
   - 受监视的应用程序中显示不同的操作的性能详细信息。
