@@ -4,14 +4,14 @@ author: rick-anderson
 description: 本教程演示如何使用外部身份验证提供程序通过 OAuth 2.0 生成 ASP.NET Core 2.x 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/19/2019
+ms.date: 4/19/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 48dd8b772234ff18158423a36ed1716102bc2f31
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 61482481358256dc9ddd1a0a894541040a8a452f
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396137"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516321"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -23,14 +23,60 @@ ms.locfileid: "54396137"
 
 ![Facebook、Twitter、Google plus 和 Windows 的社交媒体图标](index/_static/social.png)
 
-使用户能够使用其当前凭据登录对用户来说十分便利，并且这样做可以将管理登录进程许多复杂操作转移给第三方。 有关社交登录如何驱动流量和客户转换的示例，请参阅 [Facebook](https://www.facebook.com/unsupportedbrowser) 和 [Twitter](https://dev.twitter.com/resources/case-studies) 的案例分析。
+让用户使用其现有凭据登录的好处：
+* 方便用户操作。
+* 将管理登录流程的许多复杂性转移到了第三方。 
+
+有关社交登录如何驱动流量和客户转换的示例，请参阅 [Facebook](https://www.facebook.com/unsupportedbrowser) 和 [Twitter](https://dev.twitter.com/resources/case-studies) 的案例分析。
 
 ## <a name="create-a-new-aspnet-core-project"></a>创建新的 ASP.NET Core 项目
 
-* 在 Visual Studio 2017 中，从“开始”页创建新项目，或通过“文件”>“新建”>“项目”进行创建 >  > 。
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择“Visual C#” > “.NET Core”分类中提供的“ASP.NET Core Web 应用程序”模板：
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
+* 创建新的 ASP.NET Core Web 应用呈现。
+* 在下拉列表中选择“ASP.NET Core 2.2”，然后选择“Web 应用程序”。
 * 选择“更改身份验证”并设置针对“单个用户帐户”的身份验证。
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+* 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
+
+* 将目录更改为 (`cd`) 包含项目的文件夹。
+
+* 运行以下命令：
+
+  ```console
+  dotnet new webapp -o WebApp1
+  code -r WebApp1
+  ```
+
+  * `dotnet new` 命令可在“WebApp1”文件夹中创建新的 Razor Pages 项目。
+  * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹。
+
+  一个对话框随即出现，其中包含：“‘WebApp1’中缺少进行生成和调试所需的资产。是否添加它们?”
+
+* 选择“是”
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+从终端运行以下命令：
+
+<!-- TODO: update these instruction once mac support 2.2 projects -->
+
+```console
+dotnet new webapp -o WebApp1
+```
+
+上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 Razor Pages 项目。
+
+## <a name="open-the-project"></a>打开项目
+
+在 Visual Studio 中，选择“文件”>“打开”，然后选择“WebApp1.csproj”文件。
+
+<!-- End of VS tabs -->
+
+---
 
 ## <a name="apply-migrations"></a>应用迁移
 
