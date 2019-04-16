@@ -1,5 +1,5 @@
 ---
-title: 教程：实现集成 - ASP.NET MVC 和 EF Core
+title: 教程：实现继承 - ASP.NET MVC 和 EF Core
 description: 本教程将演示如何使用 ASP.NET Core 应用程序中的 Entity Framework Core 在数据模型中实现继承。
 author: rick-anderson
 ms.author: tdykstra
