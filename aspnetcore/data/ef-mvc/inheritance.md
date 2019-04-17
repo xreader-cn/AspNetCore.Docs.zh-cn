@@ -14,7 +14,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 03/30/2019
 ms.locfileid: "58750767"
 ---
-# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现集成 - ASP.NET MVC 和 EF Core
+# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现继承 - ASP.NET MVC 和 EF Core
 
 在上一个教程中，已经处理了并发异常。 本教程将演示如何在数据模型中实现继承。
 

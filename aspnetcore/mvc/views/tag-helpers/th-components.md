@@ -4,14 +4,14 @@ author: scottaddie
 description: 了解标记帮助程序组件的定义及其在 ASP.NET Core 中的用法。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
-ms.date: 09/18/2018
+ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 3d21e12650d844f05bdfdf5b3451ab6219e3c3b7
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: fdad4ae367245cd3beabaf90587c1fe5e9162afe
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206869"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468590"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -27,8 +27,8 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 标记帮助程序组件的两个常见用例包括：
 
-1. [将 `<link>` 注入到 `<head>` 中。](#inject-into-html-head-element)
-1. [将 `<script>` 注入到 `<body>` 中。](#inject-into-html-body-element)
+1. [将 `<link>` 注入 `<head>` 中。](#inject-into-html-head-element)
+1. [将 `<script>` 注入 `<body>` 中。](#inject-into-html-body-element)
 
 以下各节介绍了这些用例。
 
@@ -40,11 +40,11 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 在上述代码中：
 
-* `AddressStyleTagHelperComponent` 可实现 <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>。 抽象：
+* `AddressStyleTagHelperComponent` 实现 <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>。 抽象：
   * 允许初始化带有 <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext> 的类。
   * 启用标记帮助程序组件以添加或修改 HTML 元素。
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> 属性可定义呈现组件的顺序。 应用中的标记帮助程序组件有多种用法时，`Order` 是必需的。
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*> 会将执行上下文的 <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> 属性值与 `head` 进行比较。 如果比较的计算结果为 true，则 `_style` 字段的内容将注入到 HTML `<head>` 元素中。
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> 属性可定义呈现组件的顺序。 `Order` 是必需的，前提是应用中有多种标记帮助程序组件的用法。
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*> 将执行上下文的 <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> 属性值与 `head` 进行比较。 如果比较的计算结果为 true，则 `_style` 字段的内容将注入到 HTML `<head>` 元素中。
 
 ### <a name="inject-into-html-body-element"></a>注入到 HTML body 元素中
 
@@ -76,7 +76,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 如果未向 DI 注册标记帮助程序组件，则可以从 Razor Pages 页或 MVC 视图注册。 此项技术用于控制注入的标记和 Razor 文件中的组件执行顺序。
 
-`ITagHelperComponentManager` 用于添加标记帮助程序组件或从应用中删除这些组件。 以下代码演示了使用 `AddressTagHelperComponent` 的此项技术：
+`ITagHelperComponentManager` 用于添加标记帮助程序组件，或从应用中删除它们。 以下代码演示了使用 `AddressTagHelperComponent` 的此项技术：
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_ITagHelperComponentManager)]
 
@@ -85,7 +85,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 * `@inject` 指令提供了 `ITagHelperComponentManager` 的实例。 该实例将分配到名为 `manager` 的变量以访问 Razor 文件中的下游。
 * `AddressTagHelperComponent` 的实例将添加到应用的标记帮助程序组件集合。
 
-修改 `AddressTagHelperComponent` 以适应接受 `markup` 和 `order` 参数的构造函数：
+`AddressTagHelperComponent` 修改为适应接受 `markup` 和 `order` 参数的构造函数：
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressTagHelperComponent.cs?name=snippet_Constructor)]
 
@@ -112,7 +112,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 * 创建派生自 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper> 的公共类。
 * 将 [[HtmlTargetElement]](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 属性应用于该类。 指定目标 HTML 元素的名称。
-* *可选*：将 [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) 属性应用于该类，以禁止在 IntelliSense 中显示类型。
+* *可选*：将 [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) 属性应用于类，以取消在 IntelliSense 中显示类型。
 
 以下代码可创建面向 `<address>` HTML 元素的自定义标记帮助程序组件：
 

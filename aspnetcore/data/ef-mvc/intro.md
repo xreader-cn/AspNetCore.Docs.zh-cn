@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 282af56eb911aea53a6ce945e7c1177c158fc342
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 5a2ec9a8d85925e55840962cc90b3092953e7920
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750584"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012846"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
@@ -39,8 +39,8 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download)
 * 具有以下工作负载的 [Visual Studio 2017 或 2019](https://visualstudio.microsoft.com/downloads/)：
-    * ASP.NET 和 Web 开发工作负荷
-    * .NET Core 跨平台开发工作负荷
+  * ASP.NET 和 Web 开发工作负荷
+  * .NET Core 跨平台开发工作负荷
 
 ## <a name="troubleshooting"></a>疑难解答
 
@@ -341,7 +341,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 * `await` 关键字会使得编译器将方法拆分为两个部分。 第一部分是以异步方式结束已启动的操作。 第二部分是当操作完成时注入调用回调方法的地方。
 
-* `ToListAsync` 是 `ToList` 方法的的异步扩展版本。
+* `ToListAsync` 是 `ToList` 扩展方法的异步版本。
 
 使用 Entity Framework 编写异步代码时的一些注意事项：
 
@@ -355,7 +355,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 
@@ -377,4 +377,4 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 请继续阅读下一篇教程，了解如何执行基本的 CRUD（创建、读取、更新、删除）操作。
 
 > [!div class="nextstepaction"]
-> [实现基本的 CRUD 功能](crud.md)
+> [实现基本 CRUD 功能](crud.md)

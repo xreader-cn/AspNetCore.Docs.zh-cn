@@ -4,14 +4,14 @@ author: ardalis
 description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上传文件。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 04/06/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 5e6e2cd5fac25e2abe27915c2f4caa64b13e90bd
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 831f0c84f0ff062e9e24ccbf4ca81b7143c66e66
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56409978"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468548"
 ---
 # <a name="file-uploads-in-aspnet-core"></a>ASP.NET Core 中的文件上传
 
@@ -30,12 +30,12 @@ ASP.NET MVC 操作支持使用简单的模型绑定（针对较小文件）或�
     <div class="form-group">
         <div class="col-md-10">
             <p>Upload one or more files using this form:</p>
-            <input type="file" name="files" multiple />
+            <input type="file" name="files" multiple>
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-10">
-            <input type="submit" value="Upload" />
+            <input type="submit" value="Upload">
         </div>
     </div>
 </form>
@@ -45,7 +45,7 @@ ASP.NET MVC 操作支持使用简单的模型绑定（针对较小文件）或�
 
 ![文件上传窗体](file-uploads/_static/upload-form.png)
 
-上传到服务器的单个文件可使用 [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。 `IFormFile` 具有以下结构：
+上传到服务器的单个文件可使用 [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。 `IFormFile` 有以下结构：
 
 ```csharp
 public interface IFormFile
@@ -94,7 +94,7 @@ public class RegisterViewModel
 ```
 
 > [!NOTE]
-> `IFormFile` 可直接用作操作方法参数或 viewmodel 属性，如上所示。
+> `IFormFile` 可以直接用作操作方法参数或视图模型属性，如上所示。
 
 将 `IFormFile` 复制到流并将其保存到字节数组中：
 

@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/08/2019
+ms.date: 04/04/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: ecc7f3a8cd813c2803d03294e38d726905eeb1b8
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 544eefa87898e82ec2bf8f9f61ce4e26dd554bb7
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841418"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068331"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -20,11 +20,19 @@ ms.locfileid: "57841418"
 
 不使用 IIS 时，可以在 Windows 上将 ASP.NET Core 应用作为 [Windows 服务](/dotnet/framework/windows-services/introduction-to-windows-service-applications)进行托管。 作为 Windows 服务进行托管时，应用将在重新启动后自动启动。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 
-* [PowerShell 6](https://github.com/PowerShell/PowerShell)
+* [PowerShell 6.2 或更高版本](https://github.com/PowerShell/PowerShell)
+
+> [!NOTE]
+> 对于版本低于 Windows 10 2018 年 10 月更新（版本 1809/生成号 10.0.17763）的 Windows OS，[Microsoft.PowerShell.LocalAccounts](/powershell/module/microsoft.powershell.localaccounts) 模块必须与 [WindowsCompatibility 模块](https://github.com/PowerShell/WindowsCompatibility)一起导入，才能有权访问[创建用户帐户](#create-a-user-account)部分中使用的 [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) cmdlet：
+>
+> ```powershell
+> Install-Module WindowsCompatibility -Scope CurrentUser
+> Import-WinModule Microsoft.PowerShell.LocalAccounts
+> ```
 
 ## <a name="deployment-type"></a>部署类型
 
@@ -129,7 +137,7 @@ web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows
 
 使用 [dotnet publish](/dotnet/articles/core/tools/dotnet-publish)、[Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles) 或 Visual Studio Code 发布应用。 使用 Visual Studio 时，先选择“FolderProfile”并配置“目标位置”，再选择“发布”按钮。
 
-若要使用命令行接口 (CLI) 工具发布示例应用，请在项目文件夹的命令提示符处运行 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令，并将发布配置传递到 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项。 使用带有路径的 [-o|--output](/dotnet/core/tools/dotnet-publish#options) 选项发布到应用之外的文件夹。
+若要使用命令行接口 (CLI) 工具发布示例应用，请在项目文件夹的 Windows 命令行界面中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令，并将发布配置传递到 [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) 选项。 使用带有路径的 [-o|--output](/dotnet/core/tools/dotnet-publish#options) 选项发布到应用之外的文件夹。
 
 ### <a name="publish-a-framework-dependent-deployment-fdd"></a>发布依赖框架的部署 (FDD)
 
@@ -151,36 +159,32 @@ dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
 
 ## <a name="create-a-user-account"></a>创建用户帐户
 
-使用管理 PowerShell 6 命令 shell 中的 `net user` 命令为服务创建用户帐户：
+在管理 PowerShell 6 命令行界面中运行 [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) cmdlet，为服务创建用户帐户：
 
 ```powershell
-net user {USER ACCOUNT} {PASSWORD} /add
+New-LocalUser -Name {NAME}
 ```
 
-默认密码有效期为 6 个星期。
+在系统提示时，提供[强密码](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements)。
 
-对于示例应用，使用用户名 `ServiceUser` 和密码创建用户帐户。 在下面的命令中，将 `{PASSWORD}` 替换为[强密码](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements)。
+对于示例应用，创建名为 `ServiceUser` 的用户帐户。
 
 ```powershell
-net user ServiceUser {PASSWORD} /add
+New-LocalUser -Name ServiceUser
 ```
 
-如果需要将用户添加到组中，请运行 `net localgroup` 命令（其中 `{GROUP}` 是组名称）：
+除非将 `-AccountExpires` 参数提供给到期时间为 <xref:System.DateTime> 的 [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) cmdlet，否则用户帐户不会到期。
 
-```powershell
-net localgroup {GROUP} {USER ACCOUNT} /add
-```
-
-有关详细信息，请参阅[服务用户帐户](/windows/desktop/services/service-user-accounts)。
+有关详细信息，请参阅 [Microsoft.PowerShell.LocalAccounts](/powershell/module/microsoft.powershell.localaccounts/) 和[服务用户帐户](/windows/desktop/services/service-user-accounts)。
 
 使用 Active Directory 时管理用户的另一种方法是使用托管服务帐户。 有关详细信息，请参阅[组托管服务帐户概述](/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview)。
 
 ## <a name="set-permission-log-on-as-a-service"></a>设置权限：以服务身份登录
 
-运行 [icacls](/windows-server/administration/windows-commands/icacls) 命令，授予对应用文件夹的写入/读取/执行权限：
+在管理 PowerShell 6 命令行界面中运行 [icacls](/windows-server/administration/windows-commands/icacls) 命令，授予对应用文件夹的写入/读取/执行权限。
 
 ```powershell
-icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
+icacls "{PATH}" /grant "{USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS}" /t
 ```
 
 * `{PATH}` &ndash; 应用文件夹路径。
@@ -195,25 +199,24 @@ icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
   * 修改 (`M`)
 * `/t` &ndash; 以递归方式应用于现有从属文件夹和文件。
 
-对于发布到 c:\\sv 文件夹的示例应用，以及拥有写入/读取/执行权限的 `ServiceUser` 帐户，请运行以下命令：
+对于发布到 c:\\sv 文件夹的示例应用，以及拥有写入/读取/执行权限的 `ServiceUser` 帐户，请在管理 PowerShell 6 命令行界面中运行以下命令。
 
 ```powershell
-icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
+icacls "c:\svc" /grant "ServiceUser:(OI)(CI)WRX" /t
 ```
 
 有关详细信息，请参阅 [icacls](/windows-server/administration/windows-commands/icacls)。
 
 ## <a name="create-the-service"></a>创建服务
 
-使用 [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) PowerShell 脚本来注册服务。 从 PowerShell 6 命令提示符处，执行以下命令：
+使用 [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) PowerShell 脚本来注册服务。 在管理 PowerShell 6 命令行界面中，使用以下命令执行脚本：
 
 ```powershell
 .\RegisterService.ps1 
     -Name {NAME} 
     -DisplayName "{DISPLAY NAME}" 
     -Description "{DESCRIPTION}" 
-    -Path "{PATH}" 
-    -Exe {ASSEMBLY}.exe 
+    -Exe "{PATH TO EXE}\{ASSEMBLY NAME}.exe" 
     -User {DOMAIN\USER}
 ```
 
@@ -221,15 +224,14 @@ icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
 
 * 服务名为 MyService。
 * 已发布的服务驻留在 c:\\svc 文件夹中。 应用可执行文件名为 SampleApp.exe。
-* 服务是使用 `ServiceUser` 帐户运行。 在下例中，本地计算机名称为 `Desktop-PC`。
+* 服务是使用 `ServiceUser` 帐户运行。 在下面的示例命令中，本地计算机名为 `Desktop-PC`。 将 `Desktop-PC` 替换为系统的计算机名或域。
 
 ```powershell
 .\RegisterService.ps1 
     -Name MyService 
     -DisplayName "My Cool Service" 
     -Description "This is the Sample App service." 
-    -Path "c:\svc" 
-    -Exe SampleApp.exe 
+    -Exe "c:\svc\SampleApp.exe" 
     -User Desktop-PC\ServiceUser
 ```
 

@@ -4,14 +4,14 @@ author: zuckerthoben
 description: 了解如何将 Swashbuckle 添加到 ASP.NET Core web API 项目中以集成 Swagger UI。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/06/2019
+ms.date: 04/04/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 9239a46889691135dce5c99f8fc9b8c7b38ab457
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: 31d45eaa684118ab78d1b3ecac594e95712f631f
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854414"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068344"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -31,7 +31,7 @@ Swashbuckle 有三个主要组成部分：
 
 可以使用以下方法来添加 Swashbuckle：
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * 从“程序包管理器控制台”窗口：
   * 转到“视图” > “其他窗口” > “程序包管理器控制台”
@@ -48,14 +48,14 @@ Swashbuckle 有三个主要组成部分：
   * 在搜索框中输入“Swashbuckle.AspNetCore”
   * 从“浏览”选项卡中选择“Swashbuckle.AspNetCore”包，然后单击“安装”
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“Solution Pad” > “添加包...”中的“包”文件夹
 * 将“添加包”窗口的“源”下拉列表设置为“nuget.org”
 * 在搜索框中输入“Swashbuckle.AspNetCore”
 * 从结果窗格中选择“Swashbuckle.AspNetCore”包，然后单击“添加包”
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 从“集成终端”中运行以下命令：
 
@@ -63,7 +63,7 @@ Swashbuckle 有三个主要组成部分：
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 运行下面的命令：
 
@@ -128,7 +128,7 @@ Swagger UI 显示版本的信息：
 
 可使用以下方法启用 XML 注释：
 
-#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+#### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -146,7 +146,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+#### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -164,7 +164,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+#### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 手动将突出显示的行添加到 .csproj 文件：
 
@@ -180,7 +180,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+#### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 手动将突出显示的行添加到 .csproj 文件：
 
@@ -238,7 +238,7 @@ namespace TodoApi
 }
 ```
 
-配置 Swagger 以使用生成的 XML 文件。 对于 Linux 或非 Windows 操作系统，文件名和路径区分大小写。 例如，“TodoApi.XML”文件在 Windows 上有效，但在 CentOS 上无效。
+将 Swagger 配置为使用按照上述说明生成的 XML 文件。 对于 Linux 或非 Windows 操作系统，文件名和路径区分大小写。 例如，“TodoApi.XML”文件在 Windows 上有效，但在 CentOS 上无效。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -258,7 +258,7 @@ namespace TodoApi
 
 ::: moniker-end
 
-在上述代码中，[反射](/dotnet/csharp/programming-guide/concepts/reflection)用于生成与 Web API 项目相匹配的 XML 文件名。 [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*)属性用于构造 XML 文件的路径。
+在上述代码中，[反射](/dotnet/csharp/programming-guide/concepts/reflection)用于生成与 Web API 项目相匹配的 XML 文件名。 [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*)属性用于构造 XML 文件的路径。 一些 Swagger 功能（例如，输入参数的架构，或各自属性中的 HTTP 方法和响应代码）无需使用 XML 文档文件即可起作用。 对于大多数功能（即方法摘要以及参数说明和响应代码说明），必须使用 XML 文件。
 
 通过向节标题添加说明，将三斜杠注释添加到操作增强了 Swagger UI。 执行 `Delete` 操作前添加 [\<summary>](/dotnet/csharp/programming-guide/xmldoc/summary) 元素：
 

@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core Web 应用中提供和保护静态文件，以及如何配置静态文件托管中间件行为。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 04/08/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 114fee0795977043f3a74a81a15923a8bf5faf6b
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 12c7b39bee462ff83188a5a0f10b133ca273863b
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208630"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425057"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -94,7 +94,7 @@ ms.locfileid: "58208630"
   * **js**
 * **MyStaticFiles**
   * **images**
-    * banner1.svg
+    * *banner1.svg*
 
 按如下方式配置静态文件中间件后，请求可访问 banner1.svg 文件：
 
@@ -154,14 +154,14 @@ ms.locfileid: "58208630"
 [!code-csharp[](static-files/samples/1x/StartupEmpty.cs?name=snippet_ConfigureMethod&highlight=3)]
 
 > [!IMPORTANT]
-> 要提供默认文件，必须在 `UseStaticFiles` 前调用 `UseDefaultFiles`。 `UseDefaultFiles` 实际上用于重写 URL，不提供文件。 通过 `UseStaticFiles` 启用静态文件中间件来提供文件。
+> `UseDefaultFiles` 必须先于 `UseStaticFiles` 调用，才能提供默认文件。 `UseDefaultFiles` 是实际不提供文件的 URL 重写工具。 通过 `UseStaticFiles` 启用静态文件中间件来提供文件。
 
 使用 `UseDefaultFiles` 请求文件夹搜索：
 
-* default.htm
-* default.html
-* index.htm
-* index.html
+* *default.htm*
+* *default.html*
+* *index.htm*
+* *index.html*
 
 将请求视为完全限定 URI，提供在列表中找到的第一个文件。 浏览器 URL 继续反映请求的 URI。
 
@@ -193,14 +193,14 @@ app.UseFileServer(enableDirectoryBrowsing: true);
   * **js**
 * **MyStaticFiles**
   * **images**
-    * banner1.svg
-  * default.html
+    * *banner1.svg*
+  * *default.html*
 
 以下代码启用静态文件、默认文件和及 `MyStaticFiles` 的目录浏览：
 
 [!code-csharp[](static-files/samples/1x/StartupUseFileServer.cs?name=snippet_ConfigureMethod&highlight=5-11)]
 
-`EnableDirectoryBrowsing` 属性值为 `true` 时必须调用 `AddDirectoryBrowser`：
+`AddDirectoryBrowser` 必须在 `EnableDirectoryBrowsing` 属性值为 `true` 时调用：
 
 [!code-csharp[](static-files/samples/1x/StartupUseFileServer.cs?name=snippet_ConfigureServicesMethod)]
 
@@ -208,15 +208,15 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 
 | URI            |                             响应  |
 | ------- | ------|
-| http://\<server_address>/StaticFiles/images/banner1.svg    |      MyStaticFiles/images/banner1.svg |
-| http://\<server_address>/StaticFiles             |     MyStaticFiles/default.html |
+| *http://\<server_address>/StaticFiles/images/banner1.svg*    |      MyStaticFiles/images/banner1.svg |
+| *http://\<server_address>/StaticFiles*             |     MyStaticFiles/default.html |
 
 如果 MyStaticFiles 目录中不存在默认命名文件，则 http://\<server_address>/StaticFiles 返回包含可单击链接的目录列表：
 
 ![静态文件列表](static-files/_static/db2.png)
 
 > [!NOTE]
-> `UseDefaultFiles` 和 `UseDirectoryBrowser` 使用不带尾部反斜杠的 URL http://\<server_address>/StaticFiles 触发客户端并重定向到 http://\<server_address>/StaticFiles/。 注意添加尾部反斜杠。 无尾部反斜杠，文档中的相对 URL 被视为无效。
+> <xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*> 和 <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> 执行从 `http://{SERVER ADDRESS}/StaticFiles`（不带尾部斜杠）到 `http://{SERVER ADDRESS}/StaticFiles/`（带尾部斜杠）的客户端重定向。 如果没有尾部斜杠，StaticFiles 目录中的相对 URL 无效。
 
 ## <a name="fileextensioncontenttypeprovider"></a>FileExtensionContentTypeProvider
 
@@ -242,7 +242,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 ### <a name="considerations"></a>注意事项
 
 > [!WARNING]
-> `UseDirectoryBrowser` 和 `UseStaticFiles` 可能会泄漏机密。 强烈建议在生产中禁用目录浏览。 请仔细查看 `UseStaticFiles` 或 `UseDirectoryBrowser` 启用了哪些目录。 整个目录及其子目录均可公开访问。 将适合公开的文件存储在专用目录中，如 \<content_root>/wwwroot。 将这些文件与 MVC 视图、Razor 页面（仅限 2.x）和配置文件等分开
+> `UseDirectoryBrowser` 和 `UseStaticFiles` 可能会泄露机密。 强烈建议在生产中禁用目录浏览。 请仔细查看 `UseStaticFiles` 或 `UseDirectoryBrowser` 启用了哪些目录。 整个目录及其子目录均可公开访问。 将适合公开的文件存储在专用目录中，如 \<content_root>/wwwroot。 将这些文件与 MVC 视图、Razor 页面（仅限 2.x）和配置文件等分开
 
 * 使用 `UseDirectoryBrowser` 和 `UseStaticFiles` 公开的内容的 URL 受大小写和基础文件系统字符限制的影响。 例如，Windows 不区分大小写 &mdash; macOS 和 Linux 却要区分。
 

@@ -4,14 +4,14 @@ author: ardalis
 description: 了解如何使用分部视图来分解大型标记文件，并减少 ASP.NET Core 应用程序中跨网页的常见标记重复情况。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/11/2018
+ms.date: 04/06/2019
 uid: mvc/views/partial
-ms.openlocfilehash: b7c1545007086053e879bce6781802959da77901
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 65da78d6df3f179df9bdfa3a32af8736b71bbac5
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327373"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468703"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core 中的分部视图
 
@@ -74,7 +74,7 @@ ms.locfileid: "58327373"
 
 在标记文件中，有多种方法可引用分部视图。 我们建议应用程序使用以下异步呈现方法之一：
 
-* [部分标记帮助程序](#partial-tag-helper)
+* [分部标记帮助程序](#partial-tag-helper)
 * [异步 HTML 帮助程序](#asynchronous-html-helper)
 
 ::: moniker-end
@@ -136,7 +136,7 @@ ms.locfileid: "58327373"
 
 ### <a name="asynchronous-html-helper"></a>异步 HTML 帮助程序
 
-使用 HTML 帮助程序时，最佳做法是使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>。 `PartialAsync` 返回包含在 <xref:System.Threading.Tasks.Task%601> 中的 <xref:Microsoft.AspNetCore.Html.IHtmlContent> 类型。 通过在等待的调用前添加 `@` 字符前缀来引用该方法：
+使用 HTML 帮助程序时，最佳做法是使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>。 `PartialAsync` 返回包装在 <xref:System.Threading.Tasks.Task%601> 中的 <xref:Microsoft.AspNetCore.Html.IHtmlContent> 类型。 通过在等待的调用前添加 `@` 字符前缀来引用该方法：
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
@@ -243,7 +243,7 @@ ms.locfileid: "58327373"
 
 ## <a name="access-data-from-partial-views"></a>通过分部视图访问数据
 
-实例化分部视图时，它会获得父视图的 `ViewData` 字典的副本。 在分部视图内对数据所做的更新不会保存到父视图中。 在分部视图中的 `ViewData` 更改会在分部视图返回时丢失。
+实例化分部视图时，它会获得父视图的 `ViewData` 字典的副本。 在分部视图内对数据所做的更新不会保存到父视图中。 `ViewData` 在分部视图中的更改会在分部视图返回时丢失。
 
 以下示例演示如何将 [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)的实例传递给分部视图：
 

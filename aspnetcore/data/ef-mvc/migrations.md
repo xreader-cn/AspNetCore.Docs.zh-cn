@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 8a14ada241330ca33811b7cce70daf26ff8fc13a
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 3d2ae12bf8eda4f7997008758d4d29434a8371a7
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750635"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012599"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -54,6 +54,7 @@ ms.locfileid: "58750635"
 > ```console
 > dotnet ef database drop
 > ```
+>
 > 下面的部分说明如何运行 CLI 命令。
 
 ## <a name="create-an-initial-migration"></a>创建初始迁移
@@ -168,7 +169,7 @@ Done.
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-step"></a>下一步
 

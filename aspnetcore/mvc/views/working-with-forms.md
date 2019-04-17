@@ -4,14 +4,14 @@ author: rick-anderson
 description: 介绍与表单配合使用的内置标记帮助程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/27/2019
+ms.date: 04/06/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 2d5168ed4b1e14e507262361de9fa959924b82f6
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6eff3bf03e650e154b5c767c9bcdd915e7db8b47
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209552"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468797"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -44,7 +44,7 @@ ms.locfileid: "58209552"
 ```HTML
 <form method="post" action="/Demo/Register">
     <!-- Input and Submit elements -->
-    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
 </form>
 ```
 
@@ -93,7 +93,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 <form method="post">
     <button asp-controller="Home" asp-action="Index">Click Me</button>
     <input type="image" src="..." alt="Or Click Me" asp-controller="Home" 
-                                asp-action="Index" />
+                                asp-action="Index">
 </form>
 ```
 
@@ -102,7 +102,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 ```html
 <form method="post">
     <button formaction="/Home">Click Me</button>
-    <input type="image" src="..." alt="Or Click Me" formaction="/Home" />
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home">
 </form>
 ```
 
@@ -113,7 +113,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 ```cshtml
 <form method="post">
     <button asp-page="About">Click Me</button>
-    <input type="image" src="..." alt="Or Click Me" asp-page="About" />
+    <input type="image" src="..." alt="Or Click Me" asp-page="About">
 </form>
 ```
 
@@ -122,7 +122,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 ```html
 <form method="post">
     <button formaction="/About">Click Me</button>
-    <input type="image" src="..." alt="Or Click Me" formaction="/About" />
+    <input type="image" src="..." alt="Or Click Me" formaction="/About">
 </form>
 ```
 
@@ -146,7 +146,7 @@ public class HomeController : Controller
 ```cshtml
 <form method="post">
     <button asp-route="Custom">Click Me</button>
-    <input type="image" src="..." alt="Or Click Me" asp-route="Custom" />
+    <input type="image" src="..." alt="Or Click Me" asp-route="Custom">
 </form>
 ```
 
@@ -155,7 +155,7 @@ public class HomeController : Controller
 ```html
 <form method="post">
     <button formaction="/Home/Test">Click Me</button>
-    <input type="image" src="..." alt="Or Click Me" formaction="/Home/Test" />
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home/Test">
 </form>
 ```
 
@@ -166,12 +166,12 @@ public class HomeController : Controller
 语法：
 
 ```HTML
-<input asp-for="<Expression Name>" />
+<input asp-for="<Expression Name>">
 ```
 
 输入标记帮助程序：
 
-* 为 `asp-for` 属性中指定的表达式名称生成 `id` 和 `name` HTML 属性。 `asp-for="Property1.Property2"` 与 `m => m.Property1.Property2` 相等。 表达式的名称用于 `asp-for` 属性值。 有关其他信息，请参阅[表达式名称](#expression-names)部分。
+* 为 `asp-for` 属性中指定的表达式名称生成 `id` 和 `name` HTML 属性。 `asp-for="Property1.Property2"` 相当于 `m => m.Property1.Property2`。 表达式的名称用于 `asp-for` 属性值。 有关其他信息，请参阅[表达式名称](#expression-names)部分。
 
 * 根据模型类型和应用于模型属性的[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)特性设置 HTML `type` 特性值
 
@@ -227,17 +227,17 @@ Type expected
 
 ```HTML
   <form method="post" action="/Demo/RegisterInput">
-       Email:
-       <input type="email" data-val="true"
-              data-val-email="The Email Address field is not a valid email address."
-              data-val-required="The Email Address field is required."
-              id="Email" name="Email" value="" /> <br>
-       Password:
-       <input type="password" data-val="true"
-              data-val-required="The Password field is required."
-              id="Password" name="Password" /><br>
-       <button type="submit">Register</button>
-     <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+      Email:
+      <input type="email" data-val="true"
+             data-val-email="The Email Address field is not a valid email address."
+             data-val-required="The Email Address field is required."
+             id="Email" name="Email" value=""><br>
+      Password:
+      <input type="password" data-val="true"
+             data-val-required="The Password field is required."
+             id="Password" name="Password"><br>
+      <button type="submit">Register</button>
+      <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
    </form>
 ```
 
@@ -245,11 +245,11 @@ Type expected
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>输入标记帮助程序的 HTML 帮助程序替代项
 
-`Html.TextBox`、`Html.TextBoxFor`、`Html.Editor` 和 `Html.EditorFor` 与输入标记帮助程序的功能存在重叠。 输入标记帮助程序会自动设置 `type` 属性；而 `Html.TextBox` 和 `Html.TextBoxFor` 不会。 `Html.Editor` 和 `Html.EditorFor` 处理集合、复杂对象和模板；而输入标记帮助程序不会。 输入标记帮助程序、`Html.EditorFor` 和 `Html.TextBoxFor` 是强类型（使用 lambda 表达式）；而 `Html.TextBox` 和 `Html.Editor` 不是（使用表达式名称）。
+`Html.TextBox`、`Html.TextBoxFor`、`Html.Editor` 和 `Html.EditorFor` 与输入标记帮助程序的功能存在重叠。 输入标记帮助程序会自动设置 `type` 属性；而 `Html.TextBox` 和 `Html.TextBoxFor` 不会。 `Html.Editor` 和 `Html.EditorFor` 处理集合、复杂对象和模板；而输入标记帮助程序则不会。 输入标记帮助程序、`Html.EditorFor` 和 `Html.TextBoxFor` 是强类型（使用 lambda 表达式）；而 `Html.TextBox` 和 `Html.Editor` 不是（使用表达式名称）。
 
 ### <a name="htmlattributes"></a>HtmlAttributes
 
-`@Html.Editor()` 和 `@Html.EditorFor()` 在执行其默认模板时使用名为 `htmlAttributes` 的特殊 `ViewDataDictionary` 条目。 此行为可选择使用 `additionalViewData` 参数增强。 键“htmlAttributes”区分大小写。 键“htmlAttributes”的处理方式与传递到输入帮助程序的 `htmlAttributes` 对象（例如 `@Html.TextBox()`）的处理方式类似。
+`@Html.Editor()` 和 `@Html.EditorFor()` 在执行默认模板时使用名为 `htmlAttributes` 的特殊 `ViewDataDictionary` 条目。 此行为可选择使用 `additionalViewData` 参数增强。 键“htmlAttributes”区分大小写。 键“htmlAttributes”的处理方式与传递到输入帮助程序的 `htmlAttributes` 对象（例如 `@Html.TextBox()`）的处理方式类似。
 
 ```HTML
 @Html.EditorFor(model => model.YourProperty, 
@@ -264,20 +264,20 @@ Type expected
 @{
        var joe = "Joe";
    }
-   <input asp-for="@joe" />
+   <input asp-for="@joe">
 ```
 
 生成以下 HTML：
 
 ```HTML
-<input type="text" id="joe" name="joe" value="Joe" />
+<input type="text" id="joe" name="joe" value="Joe">
 ```
 
 使用集合属性时，`asp-for="CollectionProperty[23].Member"` 在 `i` 具有值 `23` 时生成与 `asp-for="CollectionProperty[i].Member"` 相同的名称。
 
-在 ASP.NET Core MVC 计算 `ModelExpression` 的值时，它会检查多个源，包括 `ModelState`。 以 `<input type="text" asp-for="@Name" />` 为例。 计算出的 `value` 属性是第一个非 null 值，属于：
+在 ASP.NET Core MVC 计算 `ModelExpression` 的值时，它会检查多个源，包括 `ModelState`。 以 `<input type="text" asp-for="@Name">` 为例。 计算出的 `value` 属性是第一个非 null 值，属于：
 
-* 带有“Name”键的 `ModelState` 条目。
+* `ModelState` 条目（带“Name”键）。
 * `Model.Name` 表达式的结果。
 
 ### <a name="navigating-child-properties"></a>导航子属性
@@ -295,7 +295,7 @@ Type expected
 为 `Address.AddressLine1` 生成以下 HTML：
 
 ```HTML
-<input type="text" id="Address_AddressLine1" name="Address.AddressLine1" value="" />
+<input type="text" id="Address_AddressLine1" name="Address.AddressLine1" value="">
 ```
 
 ### <a name="expression-names-and-collections"></a>表达式名称和集合
@@ -334,7 +334,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
-应尽量在 `asp-for` 或 `Html.DisplayFor` 等效上下文中使用值 `foreach`。 一般情况下，`for` 优于 `foreach`（如果情况允许使用的话），因为它不需要分配枚举器，但在 LINQ 表达式中评估索引器的成本高昂，应最大限度地减少使用它。
+`foreach` 应尽量使用，前提是将在 `asp-for` 或 `Html.DisplayFor` 等效上下文中使用值。 一般情况下，`for` 优于 `foreach`（如果情况允许使用的话），因为它不需要分配枚举器，但在 LINQ 表达式中评估索引器的成本高昂，应最大限度地减少使用它。
 
 &nbsp;
 
@@ -349,7 +349,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 * 提供强类型化。
 
-* HTML 帮助程序替代项：`Html.TextAreaFor`
+* HTML 帮助程序替代项： `Html.TextAreaFor`
 
 示例:
 
@@ -369,7 +369,7 @@ public IActionResult Edit(int id, int colorIndex)
    id="Description" name="Description">
   </textarea>
   <button type="submit">Test</button>
-  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
 </form>
 ```
 
@@ -411,7 +411,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 * 还会在服务器上执行验证。 客户端可能已禁用 JavaScript，一些验证仅可在服务器端执行。
 
-* HTML 帮助程序替代项：`Html.ValidationMessageFor`
+* HTML 帮助程序替代项： `Html.ValidationMessageFor`
 
 `Validation Message Tag Helper` 与 HTML [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 元素中的 `asp-validation-for` 属性配合使用。
 
@@ -445,7 +445,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 * 针对具有 `asp-validation-summary` 属性的 `<div>` 元素
 
-* HTML 帮助程序替代项：`@Html.ValidationSummary`
+* HTML 帮助程序替代项： `@Html.ValidationSummary`
 
 `Validation Summary Tag Helper` 用于显示验证消息的摘要。 `asp-validation-summary` 属性值可以是以下任意值：
 
@@ -472,7 +472,7 @@ public IActionResult Edit(int id, int colorIndex)
   Email:  <input name="Email" id="Email" type="email" value=""
    data-val-required="The Email field is required."
    data-val-email="The Email field is not a valid email address."
-   data-val="true"> <br>
+   data-val="true"><br>
   <span class="field-validation-valid" data-valmsg-replace="true"
    data-valmsg-for="Email"></span><br>
   Password: <input name="Password" id="Password" type="password"
@@ -480,7 +480,7 @@ public IActionResult Edit(int id, int colorIndex)
   <span class="field-validation-valid" data-valmsg-replace="true"
    data-valmsg-for="Password"></span><br>
   <button type="submit">Register</button>
-  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
 </form>
 ```
 
@@ -520,7 +520,7 @@ HTTP POST `Index` 方法显示选定内容：
        <option value="US">USA</option>
      </select>
        <br /><button type="submit">Register</button>
-     <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+     <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
    </form>
 ```
 
@@ -563,7 +563,7 @@ HTTP POST `Index` 方法显示选定内容：
              <option selected="selected" value="5">Spain</option>
          </select>
          <br /><button type="submit">Register</button>
-         <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+         <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
     </form>
 ```
 
@@ -596,7 +596,7 @@ HTTP POST `Index` 方法显示选定内容：
           </optgroup>
       </select>
       <br /><button type="submit">Register</button>
-      <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+      <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
  </form>
 ```
 
@@ -624,7 +624,7 @@ HTTP POST `Index` 方法显示选定内容：
 <option value="DE">Germany</option>
 </select>
     <br /><button type="submit">Register</button>
-  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+  <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
 </form>
 ```
 
@@ -655,14 +655,14 @@ HTTP POST `Index` 方法显示选定内容：
           <option value="US">USA</option>
       </select>
       <br /><button type="submit">Register</button>
-   <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>" />
+   <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
  </form>
  ```
 
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:mvc/views/tag-helpers/intro>
-* [HTML Form 元素](https://www.w3.org/TR/html401/interact/forms.html)
+* [HTML 窗体元素](https://www.w3.org/TR/html401/interact/forms.html)
 * [请求验证令牌](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)
 * <xref:mvc/models/model-binding>
 * <xref:mvc/models/validation>

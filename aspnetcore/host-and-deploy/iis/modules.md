@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/28/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: de740775e124298f7c3d3be0c6f5a7311174116d
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 9770801b527829b131257da7c6e670bd33c23634
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265483"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468868"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
@@ -30,13 +30,13 @@ ms.locfileid: "58265483"
 | **客户端证书映射身份验证**<br>`CertificateMappingAuthenticationModule`      | 是 | |
 | **CGI**<br>`CgiModule`                                                                           | No  | |
 | **配置验证**<br>`ConfigurationValidationModule`                                  | 是 | |
-| **HTTP 错误**<br>`CustomErrorModule`                                                           | No  | [状态代码页中间件](xref:fundamentals/error-handling#configure-status-code-pages) |
+| **HTTP 错误**<br>`CustomErrorModule`                                                           | No  | [状态代码页中间件](xref:fundamentals/error-handling#usestatuscodepages) |
 | **自定义日志记录**<br>`CustomLoggingModule`                                                      | 是 | |
 | **默认文档**<br>`DefaultDocumentModule`                                                  | No  | [默认文件中间件](xref:fundamentals/static-files#serve-a-default-document) |
 | **摘要式身份验证**<br>`DigestAuthenticationModule`                                        | 是 | |
 | **目录浏览**<br>`DirectoryListingModule`                                               | No  | [目录浏览中间件](xref:fundamentals/static-files#enable-directory-browsing) |
 | **动态压缩**<br>`DynamicCompressionModule`                                            | 是 | [响应压缩中间件](xref:performance/response-compression) |
-| **请求跟踪失败**<br>`FailedRequestsTracingModule`                                     | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index#tracesource-provider) |
+| **失败请求跟踪**<br>`FailedRequestsTracingModule`                                     | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index#tracesource-provider) |
 | **文件缓存**<br>`FileCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
 | **HTTP 缓存**<br>`HttpCacheModule`                                                            | No  | [响应缓存中间件](xref:performance/caching/middleware) |
 | **HTTP 日志记录**<br>`HttpLoggingModule`                                                          | 是 | [ASP.NET Core 日志记录](xref:fundamentals/logging/index) |
@@ -47,10 +47,10 @@ ms.locfileid: "58265483"
 | **ISAPI 筛选器**<br>`IsapiFilterModule`                                                         | 是 | [中间件](xref:fundamentals/middleware/index) |
 | **ISAPI**<br>`IsapiModule`                                                                       | 是 | [中间件](xref:fundamentals/middleware/index) |
 | **协议支持**<br>`ProtocolSupportModule`                                                  | 是 | |
-| **请求筛选**<br>`RequestFilteringModule`                                                | 是 | [URL 重写中间件`IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
+| **请求筛选**<br>`RequestFilteringModule`                                                | 是 | [URL 重写中间件 `IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
 | **请求监视器**<br>`RequestMonitorModule`                                                    | 是 | |
 | **URL 重写**&#8224；<br>`RewriteModule`                                                      | 是 | [URL 重写中间件](xref:fundamentals/url-rewriting) |
-| **服务器端包括**<br>`ServerSideIncludeModule`                                            | No  | |
+| **服务器端包含**<br>`ServerSideIncludeModule`                                            | No  | |
 | **静态压缩**<br>`StaticCompressionModule`                                              | No  | [响应压缩中间件](xref:performance/response-compression) |
 | **静态内容**<br>`StaticFileModule`                                                         | No  | [静态文件中间件](xref:fundamentals/static-files) |
 | **令牌缓存**<br>`TokenCacheModule`                                                          | 是 | |
@@ -160,9 +160,9 @@ Appcmd.exe delete module MODULE_NAME /app.name:APPLICATION_NAME
 
 要求运行 ASP.NET Core 应用的模块只有匿名身份验证模块和 ASP.NET Core 模块。
 
-URI 缓存模块 (`UriCacheModule`) 允许 IIS 在 URL 级别缓存网站配置。 不使用此模块的话，即使重复请求相同的 URL，IIS 也必须读取并分析每个请求的配置。 分析每个请求的配置会导致严重的性能损失。 虽然托管的 ASP.NET Core 应用并非严格要求运行 URI 缓存模块，但我们建议为所有 ASP.NET Core 部署启用 URI 缓存模块。
+URI 缓存模块 (`UriCacheModule`) 允许 IIS 在 URL 级别缓存网站配置。 不使用此模块的话，即使重复请求相同的 URL，IIS 也必须读取并分析每个请求的配置。 分析每个请求的配置会导致严重的性能损失。 *虽然托管的 ASP.NET Core 应用并非严格需要 URI 缓存模块才能运行，但建议为所有 ASP.NET Core 部署都启用 URI 缓存模块。*
 
-HTTP 缓存模块 (`HttpCacheModule`) 实现 IIS 输出缓存以及用于在 HTTP.sys 缓存中缓存项目的逻辑。 如果不使用此模块，内容不再以内核模式缓存，并且缓存配置文件将被忽略。 删除 HTTP 缓存模块通常会对性能和资源使用情况产生不利影响。 虽然托管的 ASP.NET Core 应用程序并非严格要求运行 HTTP 缓存模块，但我们建议为所有 ASP.NET Core 部署启用 HTTP 缓存模块。
+HTTP 缓存模块 (`HttpCacheModule`) 实现 IIS 输出缓存以及用于在 HTTP.sys 缓存中缓存项目的逻辑。 如果不使用此模块，内容不再以内核模式缓存，并且缓存配置文件将被忽略。 删除 HTTP 缓存模块通常会对性能和资源使用情况产生不利影响。 *虽然托管的 ASP.NET Core 应用并非严格需要 HTTP 缓存模块才能运行，但建议为所有 ASP.NET Core 部署都启用 HTTP 缓存模块。*
 
 ## <a name="additional-resources"></a>其他资源
 

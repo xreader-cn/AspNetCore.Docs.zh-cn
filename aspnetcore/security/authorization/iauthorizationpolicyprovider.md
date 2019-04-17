@@ -4,14 +4,14 @@ author: mjrousos
 description: 了解如何在 ASP.NET Core 应用程序中使用自定义 IAuthorizationPolicyProvider 动态生成的授权策略。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/21/2019
+ms.date: 04/15/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: ca57a9fd8e3c11f15fe14bbe4538bc748c4c84b6
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: e17372bb0ec9091c385a70b1e907eaa3cff24003
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444150"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614404"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>在 ASP.NET Core 中使用 IAuthorizationPolicyProvider 的自定义授权策略提供程序 
 
@@ -119,12 +119,32 @@ internal class MinimumAgePolicyProvider : IAuthorizationPolicyProvider
 
 ## <a name="multiple-authorization-policy-providers"></a>多个授权策略提供程序
 
-使用自定义时`IAuthorizationPolicyProvider`实现中，请记住，ASP.NET Core 仅使用的一个实例`IAuthorizationPolicyProvider`。 如果自定义提供程序不能提供的所有策略名称的授权策略，它应回退到备份的提供程序。 策略名称可能包含来自的默认策略`[Authorize]`没有名称的属性。
+使用自定义时`IAuthorizationPolicyProvider`实现中，请记住，ASP.NET Core 仅使用的一个实例`IAuthorizationPolicyProvider`。 如果自定义提供程序不能提供的所有策略名称，将使用授权策略，它应回退到备份的提供程序。 
 
-例如，考虑应用程序需要自定义保留时间策略和更传统的基于角色的策略检索。 此类应用可以使用自定义授权策略提供程序的：
+例如，请考虑需要自定义保留时间策略和更传统的基于角色的策略检索的应用程序。 此类应用可以使用自定义授权策略提供程序的：
 
 * 尝试分析策略名称。 
 * 调入不同的策略提供程序 (如`DefaultAuthorizationPolicyProvider`) 如果策略名称不包含年龄。
+
+该示例`IAuthorizationPolicyProvider`如上所示的实现可以更新为使用`DefaultAuthorizationPolicyProvider`通过在其构造函数 （若要在策略名称与 MinimumAge + 年龄的其预期的模式不匹配的情况下使用） 中创建一个回退策略提供程序。
+
+```csharp
+private DefaultAuthorizationPolicyProvider FallbackPolicyProvider { get; }
+
+public MinimumAgePolicyProvider(IOptions<AuthorizationOptions> options)
+{
+    // ASP.NET Core only uses one authorization policy provider, so if the custom implementation
+    // doesn't handle all policies it should fall back to an alternate provider.
+    FallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options);
+}
+```
+
+然后，将`GetPolicyAsync`方法可以更新为使用`FallbackPolicyProvider`而不是返回 null:
+
+```csharp
+...
+return FallbackPolicyProvider.GetPolicyAsync(policyName);
+```
 
 ## <a name="default-policy"></a>默认策略
 
@@ -137,10 +157,18 @@ public Task<AuthorizationPolicy> GetDefaultPolicyAsync() =>
     Task.FromResult(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
 ```
 
-自定义的所有方面与`IAuthorizationPolicyProvider`，你可以自定义此操作，请根据需要。 在某些情况下：
+自定义的所有方面与`IAuthorizationPolicyProvider`，你可以自定义此操作，请根据需要。 在某些情况下，它可能需要从回退检索默认策略`IAuthorizationPolicyProvider`。
 
-* 可能无法使用默认的授权策略。
-* 检索默认策略可以委派给回退`IAuthorizationPolicyProvider`。
+## <a name="required-policy"></a>所需的策略
+
+自定义`IAuthorizationPolicyProvider`需要实现`GetRequiredPolicyAsync`以，（可选） 提供始终是必需的策略。 如果`GetRequiredPolicyAsync`返回非 null 策略，该策略将结合任何其他 （名为或默认值） 请求的策略。
+
+如果需要不必要的策略，则提供程序可以只是返回 null 或推迟到回退提供程序：
+
+```csharp
+public Task<AuthorizationPolicy> GetRequiredPolicyAsync() => 
+    Task.FromResult<AuthorizationPolicy>(null);
+```
 
 ## <a name="use-a-custom-iauthorizationpolicyprovider"></a>使用自定义 IAuthorizationPolicyProvider
 

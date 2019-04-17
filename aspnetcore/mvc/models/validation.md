@@ -4,14 +4,15 @@ author: tdykstra
 description: 了解 ASP.NET Core MVC 和 Razor Pages 中的模型验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/01/2019
+ms.date: 04/06/2019
+monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: b766d47f296745ba4be6ea8cb6335db9c3e2d975
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: 1ae3c20478b02d6f654e65fdf34c88e1ffb837f8
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58809310"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468732"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -23,23 +24,11 @@ ms.locfileid: "58809310"
 
 模型状态表示两个子系统的错误：模型绑定和模型验证。 [模型绑定](model-binding.md)的错误通常是数据转换错误（例如，在要求为整数的字段中输入“x”）。 模型验证在模型绑定之后进行，并在数据不符合业务规则时报告错误（例如，在要求评级为 1 至 5 之间的字段中输入 0）。
 
-::: moniker range=">= aspnetcore-2.1"
-
-模型绑定和验证都在执行控制器操作或 Razor Pages 处理程序方法之前进行。 该应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
-
-[!code-csharp[](validation/sample_snapshot/Create.cshtml.cs?name=snippet&highlight=3-6)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 模型绑定和验证都在执行控制器操作或 Razor Pages 处理程序方法之前进行。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
 
 [!code-csharp[](validation/sample_snapshot/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
 如果 Web API 控制器具有 `[ApiController]` 特性，则它们不必检查 `ModelState.IsValid`。 在此情况下，如果模型状态无效，将返回包含问题详细信息的自动 HTTP 400 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
-
-::: moniker-end
 
 ## <a name="rerun-validation"></a>重新运行验证
 
@@ -57,16 +46,16 @@ ms.locfileid: "58809310"
 
 以下是一些内置验证特性：
 
-* `[CreditCard]`：验证属性是否有信用卡格式。
-* `[Compare]`：验证模型中的两个属性是否匹配。
-* `[EmailAddress]`：验证属性是否有电子邮件格式。
-* `[Phone]`：验证属性是否有电话号码格式。
-* `[Range]`：验证属性值是否在指定范围内。
-* `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否非 NULL。 请参阅 [[必需] 特性](#required-attribute)，获取关于该特性的行为的详细信息。
-* `[StringLength]`：验证字符串属性值是否未超过指定长度限制。
-* `[Url]`：验证属性是否有 URL 格式。
-* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [[远程] 特性](#remote-attribute)获取关于该特性的行为的详细信息。
+* `[CreditCard]`:验证属性是否有信用卡格式。
+* `[Compare]`:验证模型中的两个属性是否匹配。
+* `[EmailAddress]`:验证属性是否有电子邮件格式。
+* `[Phone]`:验证属性是否有电话号码格式。
+* `[Range]`:验证属性值是否在指定范围内。
+* `[RegularExpression]`:验证属性值是否与指定的正则表达式匹配。
+* `[Required]`:验证字段是否非 NULL。 请参阅 [[必需] 特性](#required-attribute)，获取关于该特性的行为的详细信息。
+* `[StringLength]`:验证字符串属性值是否未超过指定长度限制。
+* `[Url]`:验证属性是否有 URL 格式。
+* `[Remote]`:通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [[远程] 特性](#remote-attribute)获取关于该特性的行为的详细信息。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
@@ -140,7 +129,7 @@ ms.locfileid: "58809310"
 
 [!code-csharp[](validation/sample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields` 可能已显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 操作符可简化稍后的重构过程。 此验证的操作方法必须接受 first name 和 last name 参数：
+`AdditionalFields` 可以显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 操作符可简化稍后的重构过程。 此验证的操作方法必须接受 first name 和 last name 参数：
 
 [!code-csharp[](validation/sample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -153,7 +142,7 @@ ms.locfileid: "58809310"
 public string MiddleName { get; set; }
 ```
 
-`AdditionalFields` 与所有属性参数一样，必须是常量表达式。 因此，请勿使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)或调用 <xref:System.String.Join*> 来初始化 `AdditionalFields`。
+`AdditionalFields`（与所有属性参数一样）必须是常量表达式。 因此，请勿使用[内插字符串](/dotnet/csharp/language-reference/keywords/interpolated-strings)或调用 <xref:System.String.Join*> 来初始化 `AdditionalFields`。
 
 ## <a name="alternatives-to-built-in-attributes"></a>内置特性的替代特性
 
@@ -161,7 +150,6 @@ public string MiddleName { get; set; }
 
 * [创建自定义特性](#custom-attributes)。
 * [实现 IValidatableObject](#ivalidatableobject)。
-
 
 ## <a name="custom-attributes"></a>自定义特性
 
@@ -180,8 +168,6 @@ public string MiddleName { get; set; }
 上述示例只适用于 `Movie` 类型。 类级别验证的另一方式是在模型类中实现 `IValidatableObject`，如下例所示：
 
 [!code-csharp[](validation/sample/Models/MovieIValidatable.cs?name=snippet&highlight=1,26-34)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="top-level-node-validation"></a>顶级节点验证
 
@@ -210,15 +196,11 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/sample_snapshot/Startup.cs?name=snippet_AddMvc&highlight=4)]
 
-::: moniker-end
-
 ## <a name="maximum-errors"></a>最大错误数
 
 达到最大错误数（默认为 200）时，验证停止。 可以使用 `Startup.ConfigureServices` 中的以下代码配置该数字：
 
 [!code-csharp[](validation/sample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=3)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="maximum-recursion"></a>最大递归次数
 
@@ -227,8 +209,6 @@ public string MiddleName { get; set; }
 ## <a name="automatic-short-circuit"></a>自动短路
 
 如果模型图不需要验证，验证将自动短路（跳过）。 运行时为其跳过验证的对象包括基元集合（如 `byte[]`、`string[]`、`Dictionary<string, string>`）和不具有任何验证器的复杂对象图。
-
-::: moniker-end
 
 ## <a name="disable-validation"></a>禁用验证
 
@@ -270,7 +250,7 @@ public string MiddleName { get; set; }
             <div class="col-md-10">
                 <input class="form-control" type="datetime"
                 data-val="true" data-val-required="The ReleaseDate field is required."
-                id="ReleaseDate" name="ReleaseDate" value="" />
+                id="ReleaseDate" name="ReleaseDate" value="">
                 <span class="text-danger field-validation-valid"
                 data-valmsg-for="ReleaseDate" data-valmsg-replace="true"></span>
             </div>
@@ -281,7 +261,7 @@ public string MiddleName { get; set; }
 
 请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
 
-如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
+如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 `[DataType]` 属性和 `[EmailAddress]` 等子类可便于指定错误消息。
 
 ### <a name="add-validation-to-dynamic-forms"></a>向动态表单添加验证
 
@@ -308,7 +288,7 @@ $.get({
 
 ### <a name="add-validation-to-dynamic-controls"></a>向动态控件添加验证
 
-`$.validator.unobtrusive.parse()` 方法适用于整个表单，而不是 `<input/>` 和 `<select/>` 等单个动态生成的控件。 若要重新分析表单，删除之前分析表单时添加的验证数据，如下例所示：
+`$.validator.unobtrusive.parse()` 方法适用于整个表单，而不是 `<input>` 和 `<select/>` 等单个动态生成的控件。 若要重新分析表单，删除之前分析表单时添加的验证数据，如下例所示：
 
 ```js
 $.get({
@@ -349,7 +329,7 @@ $.get({
     data-val-classicmovie1="Classic movies must have a release year earlier than 1960."
     data-val-classicmovie1-year="1960"
     data-val-required="The ReleaseDate field is required."
-    id="ReleaseDate" name="ReleaseDate" value="" />
+    id="ReleaseDate" name="ReleaseDate" value="">
 ```
 
 如前所述，[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)使用验证特性的信息呈现 `data-` 特性。 编写用于创建自定义 `data-` HTML 特性的代码有以下两种方式：

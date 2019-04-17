@@ -5,12 +5,12 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: f1e0d91b27df4af7cbfb6f2547c94c0370c65d0d
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 40ecca1c6f9d519b24649d0c28946d95b820c07c
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207497"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068191"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
@@ -27,6 +27,9 @@ ms.locfileid: "54207497"
 ```console
 dotnet run
 ```
+
+> [!NOTE]
+> 可使用 `dotnet run --project <PROJECT>` 来指定要运行的项目。 例如，从示例应用的根路径运行 `dotnet run --project WebApp` 还会运行 WebApp 项目。
 
 控制台输出会显示如下类似的消息（表示应用正在运行且正在等待请求）：
 
@@ -77,6 +80,9 @@ Application started. Press Ctrl+C to shut down.
 
 运行“WebApp”文件夹中的 `dotnet watch run`。 控制台输出指示 `watch` 已启动。
 
+> [!NOTE]
+> 可使用 `dotnet watch --project <PROJECT>` 来指定要监视的项目。 例如，从示例应用的根路径运行 `dotnet watch --project WebApp run` 还会运行并监视 WebApp 项目。
+
 ## <a name="make-changes-with-dotnet-watch"></a>使用 `dotnet watch` 执行更改
 
 确保 `dotnet watch` 正在运行。
@@ -86,7 +92,7 @@ Application started. Press Ctrl+C to shut down.
 ```csharp
 public static int Product(int a, int b)
 {
-  return a * b;
+    return a * b;
 }
 ```
 
@@ -108,7 +114,7 @@ public static int Product(int a, int b)
 
 1. 修复 `Product` 方法代码，使其返回产品。 保存该文件。
 
-`dotnet watch` 检测到文件更改并重新运行测试。 控制台输出指示测试通过。
+`dotnet watch` 检测文件更改并重新运行测试。 控制台输出指示测试通过。
 
 ## <a name="customize-files-list-to-watch"></a>自定义要监视的文件列表
 
@@ -129,7 +135,7 @@ public static int Product(int a, int b)
 
 ## <a name="opt-out-of-files-to-be-watched"></a>选择退出要监视的文件
 
-`dotnet-watch` 可配置为忽略其默认设置。 要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：
+`dotnet-watch` 可配置为忽略它的默认设置。 要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：
 
 ```xml
 <ItemGroup>

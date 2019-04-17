@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/05/2019
+ms.date: 04/07/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: d809c70b3fae6b2d21d5ec0871298d905b873d5d
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: cbb9462a3c6010e074dc391aa128ac2cbb901456
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665358"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468745"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -20,41 +20,40 @@ ms.locfileid: "57665358"
 
 本文介绍了处理 ASP.NET Core 应用中常见错误的一些方法。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。 （[下载方法](xref:index#how-to-download-a-sample)。）本文介绍了如何在示例应用中设置预处理器指令（`#if`、`#endif`、`#define`）来启用不同方案。
 
 ## <a name="developer-exception-page"></a>开发人员异常页
 
-要将应用配置为显示有关请求异常的详细信息的页面，请使用“开发人员异常页”。 该页面通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 当应用在开发[环境](xref:fundamentals/environments)中运行时，在 `Startup.Configure` 方法中添加一行：
+开发人员异常页显示请求异常的详细信息。 此页是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。 向 `Startup.Configure` 方法添加代码，以当应用在开发[环境](xref:fundamentals/environments)中运行时启用此页：
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseDeveloperExceptionPage)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=1-4)]
 
-将对 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> 的调用放在要对其捕获异常的任何中间件前面。
+将 <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> 调用置于要捕获其异常的任何中间件前面。
 
 > [!WARNING]
 > 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
-要查看开发人员异常页，请将环境设置为 `Development`，运行示例应用，并向应用的基 URL 添加 `?throw=true`。 该页包括关于异常和请求的以下信息：
+该页包括关于异常和请求的以下信息：
 
 * 堆栈跟踪
 * 查询字符串参数（如果有）
 * Cookie（如果有）
 * 标头
 
-## <a name="configure-a-custom-exception-handling-page"></a>配置自定义异常处理页
+若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”。
 
-如果应用未在开发环境中运行，则调用 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 扩展方法，添加异常处理中间件。 中间件：
+## <a name="exception-handler-page"></a>异常处理程序页
 
-* 捕获异常。
-* 记录异常。
+若要为生产环境配置自定义错误处理页，请使用异常处理中间件。 中间件：
+
+* 捕获并记录异常。
 * 在备用管道中为指定的页或控制器重新执行请求。 如果响应已启动，则不会重新执行请求。
 
-在示例应用的以下示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 在非开发环境中添加了异常处理中间件。 在捕获并记录异常后，扩展方法指定 `/Error` 终结点处重新执行了请求的错误页或控制器：
+在下面的示例中，<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 在非开发环境中添加异常处理中间件：
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler1)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-Razor Pages 应用模板在“Pages”文件夹中提供了一个错误页 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)。
-
-在 MVC 应用中，以下错误处理程序方法包含在 MVC 应用模板中并在主控制器中显示：
+Razor Pages 应用模板提供“页面”文件夹中的 Error 页 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)。 对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。 操作方法如下：
 
 ```csharp
 [AllowAnonymous]
@@ -67,103 +66,107 @@ public IActionResult Error()
 
 不要使用 HTTP 方法属性（如 `HttpGet`）修饰错误处理程序操作方法。 显式谓词可阻止某些请求访问方法。 允许匿名访问方法，以便未经身份验证的用户能够接收错误视图。
 
-## <a name="access-the-exception"></a>访问异常
+### <a name="access-the-exception"></a>访问异常
 
-使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问控制器或页中的异常或原始请求路径：
+使用 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 访问错误处理程序控制器或页中的异常和原始请求路径：
 
-* 路径可以从 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature.Path> 属性中获得。
-* 从继承的 [IExceptionHandlerFeature.Error](xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature.Error) 属性读取 <xref:System.Exception?displayProperty=fullName>。
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
 
-```csharp
-// using Microsoft.AspNetCore.Diagnostics;
+> [!WARNING]
+> 请勿向客户端提供敏感错误信息。 提供服务的错误是一种安全风险。
 
-var exceptionHandlerPathFeature = 
-    HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-var path = exceptionHandlerPathFeature?.Path;
-var error = exceptionHandlerPathFeature?.Error;
-```
+若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”。
+
+## <a name="exception-handler-lambda"></a>异常处理程序 lambda
+
+[自定义异常处理程序页](#exception-handler-page)的替代方法是向 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 提供 lambda。 使用 lambda，可以在返回响应前访问错误。
+
+下面的示例展示了如何使用 lambda 进行异常处理：
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_HandlerPageLambda)]
 
 > [!WARNING]
 > 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
 
-## <a name="configure-custom-exception-handling-code"></a>配置自定义异常处理代码
+若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。
 
-使用[自定义异常处理页](#configure-a-custom-exception-handling-page)为错误提供终结点的另一种方法是为 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 提供 lambda。 使用带 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 的 lambda 允许在返回响应之前访问错误。
+## <a name="usestatuscodepages"></a>UseStatusCodePages
 
-示例应用演示了 `Startup.Configure` 中的自定义异常处理代码。 使用“索引”页上的“引发异常”链接触发异常。 运行如下 lambda：
+默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”）提供状态代码页。 应用返回状态代码和空响应正文。 若要提供状态代码页，请使用状态代码页中间件。
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler2)]
+此中间件是通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。
 
-> [!WARNING]
-> 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
+若要启用常见错误状态代码的默认纯文本处理程序，请在 `Startup.Configure` 方法中调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*>：
 
-## <a name="configure-status-code-pages"></a>配置状态代码页
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
 
-默认情况下，ASP.NET Core 应用不会为 HTTP 状态代码（如“404 - 未找到”）提供状态代码页。 应用返回状态代码和空响应正文。 要提供状态代码页，请使用状态代码页中间件。
+在请求处理中间件（例如，静态文件中间件和 MVC 中间件）前面调用 `UseStatusCodePages`。
 
-该中间件通过 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中的 [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) 包提供。
-
-向 `Startup.Configure` 方法添加代码行：
-
-```csharp
-app.UseStatusCodePages();
-```
-
-在请求处理中间件（例如，静态文件中间件和 MVC 中间件）之前调用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 方法。
-
-默认情况下，状态代码页中间件为常见状态代码（如“404 - 未找到”）添加纯文本处理程序：
+下面的示例展示了默认处理程序显示的文本：
 
 ```
 Status Code: 404; Not Found
 ```
 
-中间件支持几种可用于自定义其行为的扩展方法。
+若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”。
 
-重载 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 采用 lambda 表达式，可用于处理自定义错误处理逻辑和手动编写响应：
+## <a name="usestatuscodepages-with-format-string"></a>包含格式字符串的 UseStatusCodePages
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
+若要自定义响应内容类型和文本，请利用需要使用内容类型和格式字符串的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 重载：
 
-重载 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 采用内容类型和格式字符串，可用于自定义内容类型和响应文本：
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesFormatString)]
 
-```csharp
-app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
-```
+## <a name="usestatuscodepages-with-lambda"></a>包含 lambda 的 UseStatusCodePages
 
-### <a name="redirect-and-re-execute-extension-methods"></a>重定向和重新执行扩展方法
+若要指定自定义错误处理和响应写入代码，请利用需要使用 lambda 表达式的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 重载：
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*>：
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesLambda)]
+
+## <a name="usestatuscodepageswithredirect"></a>UseStatusCodePagesWithRedirect
+
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> 扩展方法：
 
 * 向客户端发送“302 - 已找到”状态代码。
 * 将客户端重定向到 URL 模板中的位置。
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-通常，应用在以下情况下使用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*>：
+URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。 如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。 如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml)。
+
+使用此方法通常是当应用：
 
 * 应将客户端重定向到不同的终结点（通常在不同的应用处理错误的情况下）。 对于 Web 应用，客户端的浏览器地址栏反映重定向终结点。
 * 不应保留原始状态代码并通过初始重定向响应返回该代码。
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*>：
+## <a name="usestatuscodepageswithreexecute"></a>UseStatusCodePagesWithReExecute
+
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*> 扩展方法：
 
 * 向客户端返回原始状态代码。
 * 通过使用备用路径重新执行请求管道，从而生成响应正文。
 
-```csharp
-app.UseStatusCodePagesWithReExecute("/Error/{0}");
-```
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-应用在以下情况下通常使用 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*>：
+如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml)。
+
+使用此方法通常是当应用应：
 
 * 处理请求，但不重定向到不同终结点。 对于 Web 应用，客户端的浏览器地址栏反映最初请求的终结点。
 * 保留原始状态代码并通过响应返回该代码。
 
-模板可能包括状态代码的占位符 (`{0}`)。 模板必须以正斜杠 (`/`) 开头。 使用占位符时，请确认终结点（页或控制器）可以处理路径段。 例如，错误的 Razor Page 应通过 `@page` 指令接受可选路径段值：
+URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)。 URL 模板必须以斜杠 (`/`) 开头。 若要在路径中使用占位符，请确认终结点（页或控制器）能否处理路径段。 例如，错误的 Razor Page 应通过 `@page` 指令接受可选路径段值：
 
 ```cshtml
 @page "{code?}"
 ```
 
-可禁用 Razor 页处理程序方法或 MVC 控制器中的特定请求的状态代码页。 要禁用状态代码页，请尝试从请求的 [HttpContext.Features](xref:Microsoft.AspNetCore.Http.HttpContext.Features) 集合中检索 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>，并在功能可用时禁用该功能：
+错误处理终结点可以获取生成错误的原始 URL，如下面的示例所示：
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/StatusCode.cshtml.cs?name=snippet_StatusCodeReExecute)]
+
+## <a name="disable-status-code-pages"></a>禁用状态代码页
+
+可禁用 Razor 页处理程序方法或 MVC 控制器中的特定请求的状态代码页。 若要禁用状态代码页，请使用 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>：
 
 ```csharp
 var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
@@ -174,157 +177,54 @@ if (statusCodePagesFeature != null)
 }
 ```
 
-若要在应用中使用指向终结点的 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> 重载，请为终结点创建 MVC 视图或 Razor Page。 例如，Razor Pages 应用模板将生成以下页和页模型类：
-
-Error.cshtml：
-
-::: moniker range=">= aspnetcore-2.2"
-
-```cshtml
-@page
-@model ErrorModel
-@{
-    ViewData["Title"] = "Error";
-}
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to the <strong>Development</strong> environment displays 
-    detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed 
-    applications.</strong> It can result in displaying sensitive information 
-    from exceptions to end users. For local debugging, enable the 
-    <strong>Development</strong> environment by setting the 
-    <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to 
-    <strong>Development</strong> and restarting the app.
-</p>
-```
-
-Error.cshtml.cs：
-
-```csharp
-[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public class ErrorModel : PageModel
-{
-    public string RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    public void OnGet()
-    {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    }
-}
-```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.2"
-
-```cshtml
-@page
-@model ErrorModel
-@{
-    ViewData["Title"] = "Error";
-}
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed 
-    information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications
-    </strong>, as it can result in sensitive information from exceptions being 
-    displayed to end users. For local debugging, development environment can be 
-    enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment 
-    variable to <strong>Development</strong>, and restarting the application.
-</p>
-```
-
-Error.cshtml.cs：
-
-```csharp
-public class ErrorModel : PageModel
-{
-    public string RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, 
-        NoStore = true)]
-    public void OnGet()
-    {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    }
-}
-```
-
-::: moniker-end
-
 ## <a name="exception-handling-code"></a>异常处理代码
 
 异常处理页中的代码可能会引发异常。 建议在生产错误页面中包含纯静态内容。
 
-此外，请注意，发送响应标头后：
+### <a name="response-headers"></a>响应头
+
+在响应头发送后：
 
 * 应用无法更改响应的状态代码。
 * 任何异常页或处理程序都无法运行。 必须完成响应或中止连接。
 
 ## <a name="server-exception-handling"></a>服务器异常处理
 
-除应用中的异常处理逻辑外，[服务器实现](xref:fundamentals/servers/index)也可以处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。 应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。
+除了应用中的异常处理逻辑外，[HTTP 服务器实现](xref:fundamentals/servers/index)还能处理一些异常。 如果服务器在发送响应标头之前捕获到异常，服务器将发送不包含响应正文的“500 - 内部服务器错误”响应。 如果服务器在发送响应标头后捕获到异常，服务器会关闭连接。 应用程序无法处理的请求将由服务器进行处理。 当服务器处理请求时，发生的任何异常都将由服务器的异常处理进行处理。 应用的自定义错误页面、异常处理中间件和筛选器都不会影响此行为。
 
 ## <a name="startup-exception-handling"></a>启动异常处理
 
-应用程序启动期间发生的异常仅可在承载层进行处理。 借助 [Web 主机](xref:fundamentals/host/web-host)，可以使用 `captureStartupErrors` 和 `detailedErrors` 键[配置主机在响应启动期间出现错误时的行为方式](xref:fundamentals/host/web-host#detailed-errors)。
+应用程序启动期间发生的异常仅可在承载层进行处理。 可以将主机配置为，[捕获启动错误](xref:fundamentals/host/web-host#capture-startup-errors)和[捕获详细错误](xref:fundamentals/host/web-host#detailed-errors)。
 
-仅当捕获的启动错误发生在主机地址/端口绑定之后，承载层才会为该错误显示错误页。 如果出于任何原因导致任何绑定失败：
+仅当错误在主机地址/端口绑定后出现时，托管层才能显示捕获的启动错误的错误页。 如果绑定失败：
 
 * 托管层将记录关键异常。
 * dotnet 进程崩溃。
-* 当应用在 [Kestrel](xref:fundamentals/servers/kestrel) 服务器上运行时，不会显示错误页。
+* 不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。
 
 在 [IIS](/iis) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”。 有关更多信息，请参见<xref:host-and-deploy/iis/troubleshoot>。 要了解如何排查 Azure 应用服务的启动问题，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。
 
-## <a name="aspnet-core-mvc-error-handling"></a>ASP.NET Core MVC 错误处理
+## <a name="database-error-page"></a>数据库错误页
 
-[MVC](xref:mvc/overview) 应用还有一些其他的错误处理选项，例如配置异常筛选器和执行模型验证。
+[数据库错误页](<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>)中间件捕获与数据库相关的异常，可使用实体框架迁移来解析这些异常。 当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。 应仅在开发环境中启用此页。 通过向 `Startup.Configure` 添加代码来启用此页：
 
-### <a name="exception-filters"></a>异常筛选器
+```csharp
+if (env.IsDevelopment())
+{
+    app.UseDatabaseErrorPage();
+}
+```
 
-在 MVC 应用中，异常筛选器可以进行全局配置，也可以为每个控制器或每个操作单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 不会以其他方式调用这些筛选器。 有关更多信息，请参见<xref:mvc/controllers/filters#exception-filters>。
+## <a name="exception-filters"></a>异常筛选器
+
+在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。 在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 有关更多信息，请参见<xref:mvc/controllers/filters#exception-filters>。
 
 > [!TIP]
-> 异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。 建议使用中间件。 仅在需要根据所选 MVC 操作以不同方式执行错误处理时，才使用筛选器。
+> 异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。 建议使用中间件。 仅在需要根据选定 MVC 操作以不同方式执行错误处理时，才使用筛选器。
 
-### <a name="handle-model-state-errors"></a>处理模型状态错误
+## <a name="model-state-errors"></a>模型状态错误
 
-[模型验证](xref:mvc/models/validation)在每个控制器操作被调用之前发生，操作方法负责检查 [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) 并相应地作出反应。
-
-某些应用使用标准约定处理[模型验证](xref:mvc/models/validation)错误，在这种情况下，使用[筛选器](xref:mvc/controllers/filters)可以更好地实施这种策略。 你需要使用无效模型状态测试操作的行为。 有关更多信息，请参见<xref:mvc/controllers/testing>。
+若要了解如何处理模型状态错误，请参阅[模型绑定](xref:mvc/models/model-binding)和[模型验证](xref:mvc/models/validation)。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -3,14 +3,14 @@ title: ASP.NET Core MVC 中的视图
 author: ardalis
 description: 了解 ASP.NET Core MVC 中的视图如何处理应用的数据表示和用户交互。
 ms.author: riande
-ms.date: 12/12/2017
+ms.date: 04/03/2019
 uid: mvc/views/overview
-ms.openlocfilehash: 0ee1fef9e9da15d91427a2eb5b5f530a0b77ce33
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 766996645bc6ef2b6be42d729baf5d57f55b6ddd
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265395"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012794"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
@@ -55,7 +55,7 @@ Razor 标记以 `@` 符号开头。 通过将 C# 代码放置在用大括号 (`{
 
 视图通常以 [ ViewResult](/dotnet/api/microsoft.aspnetcore.mvc.viewresult) 的形式从操作返回，这是一种 [ ActionResult ](/dotnet/api/microsoft.aspnetcore.mvc.actionresult)。 操作方法可以直接创建并返回 `ViewResult`，但通常不会这样做。 由于大多数控制器均继承自[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)，因此只需使用 `View` 帮助程序方法即可返回 `ViewResult`：
 
-HomeController.cs
+*HomeController.cs*
 
 [!code-csharp[](../../common/samples/WebApplication1/Controllers/HomeController.cs?highlight=5&range=16-21)]
 
@@ -91,8 +91,8 @@ HomeController.cs
 
 用 `return View();` 隐式返回 `ViewResult` 还是用 `return View("<ViewName>");` 将视图名称显式传递给 `View` 方法并不重要。 在这两种情况下，视图发现都会按以下顺序搜索匹配的视图文件：
 
-   1. Views/\[ControllerName]/\[ViewName].cshtml
-   1. Views/Shared/\[ViewName].cshtml
+   1. *Views/\[ControllerName]/\[ViewName].cshtml*
+   1. *Views/Shared/\[ViewName].cshtml*
 
 可以提供视图文件路径而不提供视图名称。 如果使用从应用根目录开始的绝对路径（可选择以“/”或“~/”开头），则须指定 .cshtml 扩展名：
 
@@ -192,7 +192,7 @@ namespace WebApplication1.ViewModels
 
 ### <a name="weakly-typed-data-viewdata-viewdata-attribute-and-viewbag"></a>弱类型数据（ViewData、ViewData 属性和 ViewBag）
 
-`ViewBag` 在 Razor 页中不可用。
+`ViewBag` *不适用于 Razor Pages。*
 
 除了强类型视图，视图还可以访问弱类型（也称为松散类型）的数据集合。 与强类型不同，弱类型（或松散类型）意味着不显式声明要使用的数据类型。 可以使用弱类型数据集合将少量数据传入及传出控制器和视图。
 
@@ -202,7 +202,7 @@ namespace WebApplication1.ViewModels
 | 视图和[布局视图](xref:mvc/views/layout)   | 从视图文件设置布局视图中的 \< title>元素内容。  |
 | [分部视图](xref:mvc/views/partial)和视图 | 基于用户请求的网页显示数据的小组件。      |
 
-可以通过控制器和视图上的 `ViewData` 或 `ViewBag` 属性来引用此集合。 `ViewData` 属性是弱类型对象的字典。 `ViewBag` 属性是 `ViewData` 的包装器，为基础 `ViewData` 集合提供动态属性。
+可以通过控制器和视图上的 `ViewData` 或 `ViewBag` 属性来引用此集合。 `ViewData` 属性是弱类型对象的字典。 `ViewBag` 属性是 `ViewData` 的包装器，为基础 `ViewData` 集合提供动态属性。 注意:对于 `ViewData` 和 `ViewBag`，键查找都不区分大小写。
 
 `ViewData` 和 `ViewBag` 在运行时进行动态解析。 由于它们不提供编译时类型检查，因此使用这两者通常比使用 viewmodel 更容易出错。 出于上述原因，一些开发者希望尽量减少或根本不使用 `ViewData` 和 `ViewBag`。
 
@@ -292,9 +292,9 @@ public class HomeController : Controller
 
 **ViewBag**
 
-`ViewBag` 在 Razor 页中不可用。
+`ViewBag` *不适用于 Razor Pages。*
 
-`ViewBag` 是 [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata) 对象，可提供对存储在 `ViewData` 中的对象的动态访问。 `ViewBag` 不需要强制转换，因此使用起来更加方便。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
+`ViewBag` 是 [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata) 对象，可提供对存储在 `ViewData` 中对象的动态访问权限。 `ViewBag` 使用起来更方便，因为无需强制转换。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
 
 ```csharp
 public IActionResult SomeAction()
@@ -325,7 +325,7 @@ public IActionResult SomeAction()
 
 **同时使用 ViewData 和 ViewBag**
 
-`ViewBag` 在 Razor 页中不可用。
+`ViewBag` *不适用于 Razor Pages。*
 
 由于 `ViewData` 和 `ViewBag` 引用相同的基础 `ViewData` 集合，因此在读取和写入值时，可以同时使用 `ViewData` 和 `ViewBag`，并在两者之间进行混合和匹配。
 
@@ -363,17 +363,17 @@ public IActionResult SomeAction()
     ...
 ```
 
-**ViewData 和 ViewBag 之间差异的摘要**
+**ViewData 和 ViewBag 区别汇总**
 
- `ViewBag` 在 Razor 页中不可用。
+ `ViewBag` 不适用于 Razor Pages。
 
 * `ViewData`
   * 派生自 [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)，因此它有可用的字典属性，如 `ContainsKey`、`Add`、`Remove` 和 `Clear`。
-  * 字典中的键是字符串，因此允许有空格。 示例：`ViewData["Some Key With Whitespace"]`
+  * 字典中的键是字符串，因此允许有空格。 示例: `ViewData["Some Key With Whitespace"]`
   * 任何非 `string` 类型均须在视图中进行强制转换才能使用 `ViewData`。
 * `ViewBag`
   * 派生自 [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata)，因此它可使用点表示法 (`@ViewBag.SomeKey = <value or object>`) 创建动态属性，且无需强制转换。 `ViewBag` 的语法使添加到控制器和视图的速度更快。
-  * 更易于检查 NULL 值。 示例：`@ViewBag.Person?.Name`
+  * 更易于检查 NULL 值。 示例: `@ViewBag.Person?.Name`
 
 **何时使用 ViewData 或 ViewBag**
 
