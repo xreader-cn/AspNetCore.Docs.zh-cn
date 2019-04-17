@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: ce2682848dc6a81293545c27f0be779e12a3a600
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: 7c5ecf21124414b21f5c36b76e90bde67ac1f958
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "59515367"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672666"
 ---
 # <a name="grpc-services-with-c"></a>gRPC 服务与 C\#
 
@@ -32,13 +32,13 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 * `Greeter`服务定义`SayHello`调用。
 * `SayHello` 将发送`HelloRequest`消息，并接收`HelloResponse`消息：
 
-[!code-proto[](~/tutorials/grpc/grpc-start/samples/GrpcStart/Protos/greet.proto)]
+[!code-proto[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Protos/greet.proto)]
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>将.proto 文件添加到 C\#应用
 
 *.Proto*情况下将其添加到项目中包含文件`<Protobuf>`项组：
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=2&range=7-10)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#.Proto 文件的工具支持
 
@@ -50,7 +50,7 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 此包是所需的服务器和客户端项目。 `Grpc.Tools` 可以通过使用 Visual Studio 中的包管理器或添加添加`<PackageReference>`的项目文件：
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=1&range=16)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=17)]
 
 工具包不需要在运行时，因此将依赖关系将标有`PrivateAssets="All"`。
 
@@ -60,15 +60,15 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 对于服务器端的资产会生成抽象服务基类型。 基类型包含所有 gRPC 调用中包含的定义 *.proto*文件。 创建此基类型派生并实现 gRPC 调用逻辑的具体的服务实现。 有关`greet.proto`，该示例前面所述，一个抽象`GreeterBase`类型，它包含一个虚拟`SayHello`生成方法。 具体实现`GreeterService`重写方法，并实现处理 gRPC 调用逻辑。
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/Services/GreeterService.cs?name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
 
 对于客户端的资产会生成具体的客户端类型。 调用 gRPC *.proto*文件转换为具体类型，可以调用的方法。 有关`greet.proto`，该示例前面所述，为具体`GreeterClient`生成的类型。 调用`GreeterClient.SayHello`启动到服务器的 gRPC 调用。
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Client/Program.cs?highlight=9-11&name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcGreeterClient/Program.cs?highlight=5-8&name=snippet)]
 
 默认情况下，为每个生成服务器和客户端资产 *.proto*文件中包含`<Protobuf>`项组。 若要确保只有服务器资产在服务器项目中生成`GrpcServices`属性设置为`Server`。
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=2&range=7-10)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
 
 同样，该属性设置为`Client`在客户端项目中。
 

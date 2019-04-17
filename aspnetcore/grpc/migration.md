@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/migration
-ms.openlocfilehash: ffe5ccbd99c6920e093eddc00fc60a9f66aab527
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: 4d489b5aecf2e15fbbe3ac472b991a4365cd47c1
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "59515366"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672614"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC 服务迁移从 C core 到 ASP.NET Core
 
@@ -27,7 +27,7 @@ ms.locfileid: "59515366"
 
 * 服务实现的新实例会为每个请求构造。
 * 它不能通过上实现类型的实例成员发出的请求之间共享状态。
-* 预期结果是要存储在 DI 容器中的单一实例服务中共享的状态。 GRPC 服务实现的构造函数中解析存储共享的状态。 
+* 预期结果是要存储在 DI 容器中的单一实例服务中共享的状态。 GRPC 服务实现的构造函数中解析存储共享的状态。
 
 服务生存期的详细信息，请参阅<xref:fundamentals/dependency-injection#service-lifetimes>。
 
