@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 4/19/2019
 uid: security/authentication/social/index
 ms.openlocfilehash: 61482481358256dc9ddd1a0a894541040a8a452f
-ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/12/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59516321"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证

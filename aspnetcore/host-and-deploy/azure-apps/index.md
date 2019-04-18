@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 03/30/2019
 uid: host-and-deploy/azure-apps/index
 ms.openlocfilehash: 009ee97d954a21f5fca1713b2b45218cac235e33
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012833"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
