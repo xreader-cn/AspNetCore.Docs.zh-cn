@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/17/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: e58015221497a9f962edf9f9fdba7ea3025d7694
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: f1f072e63928502fa1bad62e808ff035e57f2fd3
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705599"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59983008"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -66,6 +66,13 @@ JavaScript 客户端上中心通过调用公共方法[调用](/javascript/api/%4
 
 > [!NOTE]
 > 如果使用 Azure SignalR 服务的*无服务器模式*，不能从客户端调用集线器方法。 有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
+
+`invoke`方法返回一个 JavaScript[承诺](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 `Promise`解析的返回值 （如果有） 在服务器上的方法返回时。 如果在服务器上的方法将引发错误，`Promise`拒绝并显示错误消息。 使用`then`并`catch`上的方法`Promise`本身来处理这些情况下 (或`await`语法)。
+
+`send`方法返回 JavaScript `Promise`。 `Promise`得到解决时，将消息发送到服务器。 如果错误消息，发送`Promise`拒绝并显示错误消息。 使用`then`并`catch`上的方法`Promise`本身来处理这些情况下 (或`await`语法)。
+
+> [!NOTE]
+> 使用`send`不等待，直到服务器收到该消息。 因此，不能从服务器返回的数据或错误。
 
 ## <a name="call-client-methods-from-hub"></a>从集线器调用客户端方法
 

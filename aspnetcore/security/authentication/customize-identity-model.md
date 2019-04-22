@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中的标识模型自定义
 author: ajcvickers
 description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实体框架核心数据模型。
 ms.author: avickers
-ms.date: 09/24/2018
+ms.date: 04/24/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 0aa7448ac37a97a4d09a04caf365f641f22f5997
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: ae5f4567a8921ce277cd6153f37a5558bcf4e261
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327296"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982780"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 
@@ -34,7 +34,7 @@ ASP.NET Core 标识提供了一个框架，用于管理和存储在 ASP.NET Core
 * 使用命令行在.NET Core CLI。 有关详细信息，请参阅[EF Core.NET 命令行工具](/ef/core/miscellaneous/cli/dotnet)。
 * 单击**应用迁移**时运行该应用程序错误页上的按钮。
 
-ASP.NET Core 具有开发时间错误页处理程序。 当应用运行时，该处理程序可以将应用迁移。 对于生产应用程序，它通常会更适合从迁移生成 SQL 脚本并将其作为受控的应用和数据库部署的一部分部署数据库更改。
+ASP.NET Core 具有开发时间错误页处理程序。 当应用运行时，该处理程序可以将应用迁移。 生产应用程序通常从迁移生成 SQL 脚本和部署数据库更改受控制的应用程序和数据库部署的一部分。
 
 创建新的应用使用标识时，已经完成上述步骤 1 和 2。 也就是说，初始数据模型已存在，并已向项目添加初始迁移。 初始迁移仍需要将应用到数据库。 可以通过以下方法之一应用初始迁移：
 
@@ -300,6 +300,16 @@ public abstract class IdentityUserContext<
 
 ### <a name="custom-user-data"></a>自定义用户数据
 
+<!--
+set projNam=WebApp1
+dotnet new webapp -o %projNam%
+cd %projNam%
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design 
+dotnet aspnet-codegenerator identity  -dc ApplicationDbContext --useDefaultUI 
+dotnet ef migrations add CreateIdentitySchema
+dotnet ef database update
+ -->
+
 [自定义用户数据](xref:security/authentication/add-user-data)支持通过继承`IdentityUser`。 此类型命名惯例做法`ApplicationUser`:
 
 ```csharp
@@ -318,14 +328,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+    }
 }
 ```
 
 无需重写`OnModelCreating`在`ApplicationDbContext`类。 EF Core 映射`CustomTag`按照约定的属性。 但是，需要更新，以创建新数据库`CustomTag`列。 若要创建列，请添加迁移时，并如中所述，然后更新数据库[标识和 EF Core 迁移](#identity-and-ef-core-migrations)。
 
-更新`Startup.ConfigureServices`以使用新`ApplicationUser`类：
+更新*Pages/Shared/_LoginPartial.cshtml*和替换`IdentityUser`与`ApplicationUser`:
 
-::: moniker range=">= aspnetcore-2.1"
+```
+@using Microsoft.AspNetCore.Identity
+@using WebApp1.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+```
+
+更新*Areas/Identity/IdentityHostingStartup.cs*或`Startup.ConfigureServices`和替换`IdentityUser`与`ApplicationUser`。
 
 ```csharp
 services.AddDefaultIdentity<ApplicationUser>()
@@ -337,28 +359,6 @@ services.AddDefaultIdentity<ApplicationUser>()
 
 * [基架标识](xref:security/authentication/scaffold-identity)
 * [添加、 下载和删除到标识的自定义用户数据](xref:security/authentication/add-user-data)
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-```csharp
-services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
-```
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-```csharp
-services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
-        .AddDefaultTokenProviders();
-```
-
-::: moniker-end
 
 ### <a name="change-the-primary-key-type"></a>更改主键类型
 

@@ -5,14 +5,14 @@ description: 有关 ASP.NET Core SignalR.NET 客户端信息
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 04/17/2019
 uid: signalr/dotnet-client
-ms.openlocfilehash: a03abef53aa44f0a1016b8f72d8e3a7af2f9bed1
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 640d75157e42ffa6d78235c5be03e4846e8dcde9
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978299"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982941"
 ---
 # <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR.NET 客户端
 
@@ -63,6 +63,10 @@ connection.Closed += (error) => {
 `InvokeAsync` 在该中心将调用方法。 将中心方法名称和到中心方法中定义的任何参数传递`InvokeAsync`。 SignalR 是异步的因此请使用`async`和`await`时进行调用。
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
+
+`InvokeAsync`方法将返回`Task`服务器方法返回时完成。 返回值，如果有的话，提供的结果作为`Task`。 在服务器上的方法引发的任何异常生成出错`Task`。 使用`await`要等待的时间才能完成的服务器方法的语法和`try...catch`语法来处理错误。
+
+`SendAsync`方法将返回`Task`并完成时该消息已发送到服务器。 由于这未提供任何返回值`Task`不等待，直到服务器方法完成。 在发送消息时在客户端上引发的任何异常生成出错`Task`。 使用`await`和`try...catch`语法来处理发送错误。
 
 > [!NOTE]
 > 如果使用 Azure SignalR 服务的*无服务器模式*，不能从客户端调用集线器方法。 有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。

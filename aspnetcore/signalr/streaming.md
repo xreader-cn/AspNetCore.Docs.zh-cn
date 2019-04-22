@@ -1,74 +1,109 @@
 ---
 title: 使用 ASP.NET Core SignalR 中流式处理
 author: bradygaster
-description: 了解如何从服务器集线器方法返回的值的流和使用使用.NET 和 JavaScript 客户端的流。
+description: 了解如何进行流式处理客户端和服务器之间的数据。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/14/2018
+ms.date: 04/12/2019
 uid: signalr/streaming
-ms.openlocfilehash: 7c176e3f21ffca7b97d9d3c2e8861032f22587b8
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 83bbb231482d9c1606be3c5bbbeb1cc3b8efcf7d
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264308"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982651"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>使用 ASP.NET Core SignalR 中流式处理
 
 通过[brennan，第 Conroy](https://github.com/BrennanConroy)
 
-ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适用于其中的数据片段会随时间的方案。 当返回值流式传输到客户端时，每个片段是发送到客户端变得可用，而非等待所有的数据变得可用。
-
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/streaming/sample)（[如何下载](xref:index#how-to-download-a-sample)）
-
-## <a name="set-up-the-hub"></a>设置中心
-
 ::: moniker range=">= aspnetcore-3.0"
 
-集线器方法自动成为流式处理的集线器方法时它将返回`ChannelReader<T>`， `IAsyncEnumerable<T>`， `Task<ChannelReader<T>>`，或`Task<IAsyncEnumerable<T>>`。
+ASP.NET Core SignalR 支持流式处理从客户端到服务器和服务器到客户端。 这是适用于方案的数据片段随着时间的推移到达的位置。 当流式处理，每个片段是发送到客户端或服务器变得可用，而不是等待所有的数据变得可用。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-集线器方法自动成为流式处理的集线器方法时它将返回`ChannelReader<T>`或`Task<ChannelReader<T>>`。
+ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适用于方案的数据片段随着时间的推移到达的位置。 当返回值流式传输到客户端时，每个片段是发送到客户端变得可用，而非等待所有的数据变得可用。
 
 ::: moniker-end
+
+[查看或下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+
+## <a name="set-up-a-hub-for-streaming"></a>设置为流式处理中心
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET Core 3.0 或更高版本，流式处理集线器方法可以返回`IAsyncEnumerable<T>`除了`ChannelReader<T>`。 若要返回的最简单方法`IAsyncEnumerable<T>`是使集线器方法的异步迭代器方法，如以下示例所示。 中心异步迭代器方法可接受`CancellationToken`从流的客户端取消订阅时，将触发的参数。 异步迭代器方法轻松地避免出现频道常见的问题，如不返回`ChannelReader`足够早或未完成的情况下退出方法`ChannelWriter`。
-
-[!INCLUDE[](~/includes/csharp-8-required.md)]
-
-[!code-csharp[Streaming hub async iterator method](streaming/sample/Hubs/AsyncEnumerableHub.cs?name=snippet_AsyncIterator)]
+集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader`1>， `IAsyncEnumerable<T>`， `Task<ChannelReader<T>>`，或`Task<IAsyncEnumerable<T>>`。
 
 ::: moniker-end
 
-下面的示例显示了数据流式传输到客户端使用通道的基础知识。 每当将对象写入到`ChannelWriter`该对象将立即发送给客户端。 在结束时，`ChannelWriter`完成告诉客户端流已关闭。
+::: moniker range="< aspnetcore-3.0"
+
+集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader`1>或`Task<ChannelReader<T>>`。
+
+::: moniker-end
+
+### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
+
+::: moniker range=">= aspnetcore-3.0"
+
+流式处理集线器方法可以返回`IAsyncEnumerable<T>`除了`ChannelReader<T>`。 若要返回的最简单方法`IAsyncEnumerable<T>`是使集线器方法的异步迭代器方法，如以下示例所示。 中心异步迭代器方法可接受`CancellationToken`从流的客户端取消订阅时，会触发的参数。 异步迭代器方法避免通道，常见的问题，如不返回`ChannelReader`足够早或未完成的情况下退出方法<xref:System.Threading.Channels.ChannelWriter`1>。
+
+[!INCLUDE[](~/includes/csharp-8-required.md)]
+
+[!code-csharp[Streaming hub async iterator method](streaming/samples/3.0/Hubs/AsyncEnumerableHub.cs?name=snippet_AsyncIterator)]
+
+::: moniker-end
+
+下面的示例显示了数据流式传输到客户端使用通道的基础知识。 每当将对象写入到<xref:System.Threading.Channels.ChannelWriter`1>，该对象将立即发送给客户端。 在结束时，`ChannelWriter`完成告诉客户端流已关闭。
 
 > [!NOTE]
-> * 写入`ChannelWriter`在后台线程并返回`ChannelReader`越早越好。 将阻止其他集线器调用，直到`ChannelReader`返回。
-> * 包装中的逻辑`try ... catch`并完成`Channel`catch 和外部的关键点，以确保在中心正确完成方法调用。
+> 写入`ChannelWriter<T>`在后台线程并返回`ChannelReader`越早越好。 其他集线器调用被阻止，直到`ChannelReader`返回。
+>
+> 包装中的逻辑`try ... catch`。 完成`Channel`中`catch`和外部`catch`以确保集线器方法调用是否正确完成。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[Streaming hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
+
+[!code-csharp[Streaming hub method](streaming/samples/2.2/Hubs/StreamHub.cs?name=snippet1)]
+
+::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
 
-[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.aspnetcore21.cs?name=snippet1)]
+[!code-csharp[Streaming hub method](streaming/samples/2.1/Hubs/StreamHub.cs?name=snippet1)]
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
-[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.cs?name=snippet1)]
+服务器到客户端流式处理的集线器方法可以接受`CancellationToken`从流的客户端取消订阅时，会触发的参数。 使用此令牌来停止服务器操作和释放任何资源，如果客户端断开连接之前流的末尾。
 
-在 ASP.NET Core 2.2 或更高版本，流式处理集线器方法可以接受`CancellationToken`从流的客户端取消订阅时，将触发的参数。 使用此令牌来停止服务器操作和释放任何资源，如果客户端断开连接之前流的末尾。
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="client-to-server-streaming"></a>客户端到服务器流式处理
+
+当它接受一个或多个中心方法将自动成为客户端-服务器流式处理集线器方法<xref:System.Threading.Channels.ChannelReader`1>s。 下面的示例演示读取从客户端发送的流式处理数据的基础知识。 每当客户端写入<xref:System.Threading.Channels.ChannelWriter`1>，将数据写入到`ChannelReader`集线器方法读取从服务器上。
+
+[!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
 
 ::: moniker-end
 
 ## <a name="net-client"></a>.NET 客户端
 
-`StreamAsChannelAsync`方法`HubConnection`用于调用流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsChannelAsync`。 上的泛型参数`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 一个`ChannelReader<T>`返回从流调用，并且表示在客户端上的流。 若要读取数据，常见模式是循环访问`WaitToReadAsync`，并调用`TryRead`数据时可用。 循环将结束时该流已关闭服务器，或取消标记传递给`StreamAsChannelAsync`被取消。
+### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
+
+`StreamAsChannelAsync`方法`HubConnection`用于调用服务器到客户端的流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsChannelAsync`。 上的泛型参数`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 一个`ChannelReader<T>`流调用中返回，并且表示在客户端上的流。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -115,36 +150,72 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker-end
 
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="client-to-server-streaming"></a>客户端到服务器流式处理
+
+若要调用客户端-服务器流式处理集线器方法从.NET 客户端，创建`Channel`并传递`ChannelReader`的参数作为`SendAsync`， `InvokeAsync`，或`StreamAsChannelAsync`，取决于集线器方法调用。
+
+每当将数据写入到`ChannelWriter`，在服务器上的集线器方法从客户端接收的数据的新项。
+
+若要结束该流，请完成与通道`channel.Writer.Complete()`。
+
+```csharp
+var channel = Channel.CreateBounded<string>(10);
+await connection.SendAsync("UploadStream", channel.Reader);
+await channel.Writer.WriteAsync("some data");
+await channel.Writer.WriteAsync("some more data");
+channel.Writer.Complete();
+```
+
+::: moniker-end
+
 ## <a name="javascript-client"></a>JavaScript 客户端
 
-JavaScript 客户端调用集线器上流式处理方法使用`connection.stream`。 `stream`方法接受两个参数：
+### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
+
+JavaScript 客户端上使用的集线器调用服务器到客户端流式处理方法`connection.stream`。 `stream`方法接受两个参数：
 
 * 集线器方法的名称。 在以下示例中，中心方法名称是`Counter`。
-* 在集线器方法中定义的参数。 在以下示例中，参数是： 若要接收的流项和流项之间的延迟的数量的计数。
+* 在集线器方法中定义的参数。 在下面的示例中的参数是要接收的流项和流项之间的延迟的数量的计数。
 
-`connection.stream` 返回`IStreamResult`其中包含`subscribe`方法。 传递`IStreamSubscriber`到`subscribe`并设置`next`， `error`，并`complete`回调以获取来自通知`stream`调用。
+`connection.stream` 返回`IStreamResult`，其中包含`subscribe`方法。 传递`IStreamSubscriber`到`subscribe`并设置`next`， `error`，并`complete`回调以接收来自通知`stream`调用。
 
-[!code-javascript[Streaming javascript](streaming/sample/wwwroot/js/stream.js?range=19-36)]
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-javascript[Streaming javascript](streaming/samples/2.2/wwwroot/js/stream.js?range=19-36)]
+
+若要结束从客户端的流，请调用`dispose`方法`ISubscription`从返回`subscribe`方法。 调用此方法可导致取消`CancellationToken`集线器方法，如果您提供了一个参数。
+
+::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
+
+[!code-javascript[Streaming javascript](streaming/samples/2.1/wwwroot/js/stream.js?range=19-36)]
 
 若要结束从客户端的流，请调用`dispose`方法`ISubscription`从返回`subscribe`方法。
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.2"
-
-若要结束从客户端的流，请调用`dispose`方法`ISubscription`从返回`subscribe`方法。 调用此方法将导致`CancellationToken`（如果提供） 的集线器方法的参数以取消。
-
-::: moniker-end
-
 ::: moniker range=">= aspnetcore-3.0"
+
+### <a name="client-to-server-streaming"></a>客户端到服务器流式处理
+
+通过传入对中心 JavaScript 客户端调用客户端-服务器流式处理方法`Subject`作为参数`send`， `invoke`，或`stream`，取决于集线器方法调用。 `Subject`是一个类，如下所示`Subject`。 例如在 RxJS 中，您可以使用[使用者](https://rxjs-dev.firebaseapp.com/api/index/class/Subject)该库中的类。
+
+[!code-javascript[Upload javascript](streaming/samples/3.0/wwwroot/js/stream.js?range=41-51)]
+
+调用`subject.next(item)`与某项的项写入流，和集线器方法接收服务器上的项。
+
+若要结束该流，请调用`subject.complete()`。
 
 ## <a name="java-client"></a>Java 客户端
 
-SignalR Java 客户端使用`stream`方法调用流式处理方法。 它接受三个或多个参数：
+### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
 
-* 流项的预期的类型
+SignalR Java 客户端使用`stream`方法调用流式处理方法。 `stream` 接受三个或多个参数：
+
+* 流项的预期的类型。
 * 集线器方法的名称。
 * 在集线器方法中定义的参数。
 
@@ -156,11 +227,11 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         () -> {/* Define your onCompleted handler here. */});
 ```
 
-`stream`方法`HubConnection`返回流项类型的可观察量。 可观察的类型`subscribe`方法是在其中定义你`onNext`，`onError`和`onCompleted`处理程序。
+`stream`方法`HubConnection`返回流项类型的可观察量。 可观察的类型`subscribe`方法是，在哪里`onNext`，`onError`和`onCompleted`定义处理程序。
 
 ::: moniker-end
 
-## <a name="related-resources"></a>相关资源
+## <a name="additional-resources"></a>其他资源
 
 * [中心](xref:signalr/hubs)
 * [.NET 客户端](xref:signalr/dotnet-client)
