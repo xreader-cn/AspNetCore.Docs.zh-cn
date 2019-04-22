@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/25/2019
 uid: security/key-vault-configuration
 ms.openlocfilehash: 8fd1cca1803d3f1d44d80ec63c5cfc259cbdaf55
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012690"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
@@ -304,7 +304,7 @@ WebHost.CreateDefaultBuilder(args)
 
 提供程序支持的配置值读入数组绑定到 POCO 数组。
 
-从允许包含冒号的键的配置源读取数据时 (`:`) 使用分隔符，数字键段来区分对数组组成的密钥 (`:0:`， `:1:`，... `:{n}:`) 访问它存储的值。 有关详细信息，请参阅[配置：将数组绑定到一个类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
+从允许包含冒号的键的配置源读取数据时 (`:`) 使用分隔符，数字键段来区分对数组组成的密钥 (`:0:`， `:1:`，... `:{n}:`）格式模式中出现的位置生成。 有关详细信息，请参阅[配置：将数组绑定到一个类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
 
 Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介绍的方法使用双短划线 (`--`) 作为 （部分） 的层次结构值的分隔符。 使用双短划线和数值的关键段数组密钥存储在 Azure 密钥保管库 (`--0--`， `--1--`， &hellip; `--{n}--`)。
 
@@ -333,7 +333,7 @@ Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介�
 
 在上面的 JSON 文件中所示的配置存储在 Azure 密钥保管库中使用双短划线 (`--`) 表示法和数字段：
 
-| 键 | 值 |
+| 键 | “值” |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -370,8 +370,8 @@ Configuration.Reload();
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:fundamentals/configuration/index>
-* [Microsoft Azure：Key Vault](https://azure.microsoft.com/services/key-vault/)
-* [Microsoft Azure：密钥保管库文档](/azure/key-vault/)
+* [Microsoft Azure:密钥保管库](https://azure.microsoft.com/services/key-vault/)
+* [Microsoft Azure:密钥保管库文档](/azure/key-vault/)
 * [如何生成和传输受 HSM 保护密钥的 Azure 密钥保管库](/azure/key-vault/key-vault-hsm-protected-keys)
 * [KeyVaultClient 类](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
 * [快速入门：设置和使用.NET web 应用从 Azure 密钥保管库检索机密](/azure/key-vault/quick-create-net)

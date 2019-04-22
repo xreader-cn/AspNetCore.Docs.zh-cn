@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 04/06/2019
 uid: signalr/supported-platforms
 ms.openlocfilehash: fefaaf97de3f1fabf8f3154bf5b4ccb37195ccff
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068217"
 ---
 # <a name="aspnet-core-signalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
@@ -46,6 +46,6 @@ ASP.NET Core SignalR 适用于 ASP.NET Core 支持的任何服务器平台。
 
 以下客户端可用，但是是实验性的或非官方。 它们目前不支持，可能永远不会。
 
-* [C + + 客户端](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+* [C++客户端](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
 
 * [Swift 的客户端](https://github.com/moozzyk/SignalR-Client-Swift)

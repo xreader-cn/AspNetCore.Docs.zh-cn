@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
 ms.openlocfilehash: 1d264ca4a605d8291e273a8f054c92e7eefa5548
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59468842"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
@@ -39,7 +39,7 @@ ms.locfileid: "59468842"
 
 ## <a name="create-a-razor-pages-web-app"></a>创建 Razor Pages Web 应用
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
 
@@ -55,7 +55,7 @@ ms.locfileid: "59468842"
 
   ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
@@ -75,9 +75,9 @@ ms.locfileid: "59468842"
 
 * 选择“是”
 
-# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-在终端中运行以下命令：
+从终端运行以下命令：
 
 <!-- TODO: update these instruction once mac support 2.2 projects -->
 
@@ -97,7 +97,7 @@ dotnet new webapp -o RazorPagesMovie
 
 ## <a name="run-the-app"></a>运行应用
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 按 Ctrl+F5 以在不使用调试程序的情况下运行。
 
@@ -115,7 +115,7 @@ dotnet new webapp -o RazorPagesMovie
 
   ![主页或索引页](razor-pages-start/_static/home2.2.png)
   
-# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
   [!INCLUDE[](~/includes/trustCertVSC.md)]
 
@@ -133,7 +133,7 @@ dotnet new webapp -o RazorPagesMovie
 
   ![主页或索引页](razor-pages-start/_static/home2.2.png)
   
-# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 

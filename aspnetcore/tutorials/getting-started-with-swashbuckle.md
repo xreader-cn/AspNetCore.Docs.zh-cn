@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 04/04/2019
 uid: tutorials/get-started-with-swashbuckle
 ms.openlocfilehash: 31d45eaa684118ab78d1b3ecac594e95712f631f
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068344"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
@@ -31,7 +31,7 @@ Swashbuckle 有三个主要组成部分：
 
 可以使用以下方法来添加 Swashbuckle：
 
-### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从“程序包管理器控制台”窗口：
   * 转到“视图” > “其他窗口” > “程序包管理器控制台”
@@ -48,14 +48,14 @@ Swashbuckle 有三个主要组成部分：
   * 在搜索框中输入“Swashbuckle.AspNetCore”
   * 从“浏览”选项卡中选择“Swashbuckle.AspNetCore”包，然后单击“安装”
 
-### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“Solution Pad” > “添加包...”中的“包”文件夹
 * 将“添加包”窗口的“源”下拉列表设置为“nuget.org”
 * 在搜索框中输入“Swashbuckle.AspNetCore”
 * 从结果窗格中选择“Swashbuckle.AspNetCore”包，然后单击“添加包”
 
-### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 从“集成终端”中运行以下命令：
 
@@ -63,7 +63,7 @@ Swashbuckle 有三个主要组成部分：
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 ```
 
-### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 运行下面的命令：
 
@@ -128,7 +128,7 @@ Swagger UI 显示版本的信息：
 
 可使用以下方法启用 XML 注释：
 
-#### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -146,7 +146,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -164,7 +164,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 手动将突出显示的行添加到 .csproj 文件：
 
@@ -180,7 +180,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker-end
 
-#### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+#### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 手动将突出显示的行添加到 .csproj 文件：
 

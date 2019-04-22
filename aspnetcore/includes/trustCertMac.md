@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: 2ec079606cb48670dbc3852482fd8d401e7db44b
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2019
-ms.locfileid: "59472331"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59736893"
 ---
 * 通过运行以下命令来信任 HTTPS 开发证书：
 

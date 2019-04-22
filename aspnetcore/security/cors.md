@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 04/07/2019
 uid: security/cors
 ms.openlocfilehash: fe5b750c44e5fad9ba80efb2cc8116d0a64b1a17
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068292"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
@@ -95,7 +95,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 注意:
 
-* `UseCors` 前必须调用`UseMvc`。
+* `UseCors` 必须在`UseMvc` 之前调用。
 * URL 必须**不**包含尾部反斜杠 (`/`)。 如果 URL 以终止`/`，则比较操作返回`false`并返回无标头。
 
 请参阅[测试 CORS](#test)有关测试前面的代码中的说明。
@@ -182,7 +182,7 @@ to remove the ambiguous **This**.
 
 ### <a name="set-the-allowed-http-methods"></a>设置允许的 HTTP 方法
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>：
 
 * 允许任何 HTTP 方法：
 * 影响预检请求和`Access-Control-Allow-Methods`标头。 有关详细信息，请参阅[预检请求](#preflight-requests)部分。
@@ -333,8 +333,8 @@ Content-Length: 0
 
 预检请求使用 HTTP OPTIONS 方法。 它包括两个特殊的标头：
 
-* `Access-Control-Request-Method`:将用于实际请求的 HTTP 方法。
-* `Access-Control-Request-Headers`:应用程序设置实际请求的请求标头的列表。 如前面所述，这不包括标头的浏览器设置，如`User-Agent`。
+* `Access-Control-Request-Method`：将用于实际请求的 HTTP 方法。
+* `Access-Control-Request-Headers`：应用程序设置实际请求的请求标头的列表。 如前面所述，这不包括标头的浏览器设置，如`User-Agent`。
 
 CORS 预检请求可能包括`Access-Control-Request-Headers`标头，指示服务器与实际请求一起发送的标头。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: 944c8a93aff53b8d72fda03f5df9c5ba45990cbc
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: 9cb598c4068586e4e960ec40743c4f54f09995ad
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068269"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614368"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -44,7 +44,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [Razor Components](xref:razor-components/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 [Razor Components](xref:razor-components/index) 和“客户端开发”下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -86,8 +86,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
    |方案  |教程  |
    |----------|----------|
-   | 用于新的开发        |[带 Entity Framework Core 的 Razor 页面](xref:data/ef-rp/intro) |
-   | 用于维护 MVC 应用 |[带 Entity Framework Core 的 MVC](xref:data/ef-mvc/intro)
+   | 用于新的开发        |[结合使用 Razor Pages 和 Entity Framework Core](xref:data/ef-rp/intro) |
+   | 用于维护 MVC 应用 |[结合使用 MVC 和 Entity Framework Core](xref:data/ef-mvc/intro)
 
 1. 参阅适用于所有应用类型的 ASP.NET Core 功能的概述：
 

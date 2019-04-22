@@ -8,10 +8,10 @@ ms.custom: mvc, seodec18
 ms.date: 04/03/2019
 uid: security/authentication/windowsauth
 ms.openlocfilehash: bd4ffa79c4d1e0070c820fa9c06b0a84c3aaae74
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59468648"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置 Windows 身份验证
@@ -26,7 +26,7 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 
 **Web 应用程序**模板可通过 Visual Studio 或.NET Core CLI 可以配置为支持 Windows 身份验证。
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="use-the-windows-authentication-app-template-for-a-new-project"></a>新的项目中使用 Windows 身份验证应用程序模板
 
@@ -55,7 +55,7 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 
 [!code-json[](windowsauth/sample_snapshot/launchSettings.json?highlight=2-3)]
 
-# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 使用**Windows 身份验证**应用模板。
 
@@ -133,7 +133,7 @@ IIS 管理器时执行这些操作，会应用的修改*web.config*文件。 一
 
 有关使用 IIS 承载的详细信息，发布和部署，请参阅以下主题：
 
-* [dotnet 发布](/dotnet/core/tools/dotnet-publish)
+* [dotnet publish](/dotnet/core/tools/dotnet-publish)
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/visual-studio-publish-profiles>

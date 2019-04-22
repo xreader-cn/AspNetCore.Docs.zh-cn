@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视
 ms.author: riande
 ms.date: 01/08/2018
 uid: mvc/overview
-ms.openlocfilehash: 205948cb45709b4eb6014aaf4960bf193a20dc30
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: eb636616ab952f506993ae5f4692e5e966bb20f4
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410305"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59516295"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -166,8 +166,7 @@ ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-in
 
 ```csharp
 [Authorize]
-   public class AccountController : Controller
-   {
+public class AccountController : Controller
 ```
 
 ### <a name="areas"></a>区域

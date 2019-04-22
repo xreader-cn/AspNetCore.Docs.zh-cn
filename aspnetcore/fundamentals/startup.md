@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
 ms.openlocfilehash: 362186be6feeeefeca3c56688ee6420de5fb9659
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59468619"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
@@ -27,7 +27,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 * 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中配置配置（也称为“注册”）并通过[依存关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用。
 * 包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法以创建应用的请求处理管道。
 
-`ConfigureServices` 和 `Configure` 在应用启动时由运行时调用：
+当应用启动时，运行时调用 `ConfigureServices` 和 `Configure`：
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 
@@ -39,9 +39,9 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 在 `Startup` 类中[注入依赖关系](xref:fundamentals/dependency-injection)的常见用途为注入：
 
-* <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> ：用于按环境配置服务。
-* <xref:Microsoft.Extensions.Configuration.IConfiguration> ：用于读取配置。
-* <xref:Microsoft.Extensions.Logging.ILoggerFactory> ：用于在 `Startup.ConfigureServices` 中创建记录器。
+* <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> 按环境配置服务。
+* <xref:Microsoft.Extensions.Configuration.IConfiguration> 读取配置。
+* <xref:Microsoft.Extensions.Logging.ILoggerFactory> 在记录器中创建 `Startup.ConfigureServices`。
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
 
@@ -71,7 +71,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 ## <a name="the-configure-method"></a>Configure 方法
 
-<xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法用于指定应用响应 HTTP 请求的方式。 可通过将[中间件](xref:fundamentals/middleware/index)组件添加到 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 实例来配置请求管道。 `IApplicationBuilder` 可用于 `Configure` 方法，但未在服务容器中注册。 托管创建 `IApplicationBuilder` 并将其直接传递到 `Configure`。
+<xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法用于指定应用响应 HTTP 请求的方式。 可通过将[中间件](xref:fundamentals/middleware/index)组件添加到 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 实例来配置请求管道。 `Configure` 方法可使用 `IApplicationBuilder`，但未在服务容器中注册。 托管创建 `IApplicationBuilder` 并将其直接传递到 `Configure`。
 
 [ASP.NET Core 模板](/dotnet/core/tools/dotnet-new)配置的管道支持：
 
@@ -101,9 +101,9 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 ## <a name="extend-startup-with-startup-filters"></a>使用 Startup 筛选器扩展 Startup
 
-在应用的 [Configure](#the-configure-method) 中间件管道的开头或末尾使用 <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> 来配置中间件。 `IStartupFilter` 有助于确保当库在应用请求处理管道的开端或末尾添加中间件的前后运行中间件。
+在应用的 [Configure](#the-configure-method) 中间件管道的开头或末尾使用 <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> 来配置中间件。 `IStartupFilter` 有助于确保中间件在应用请求处理管道的开始或结束时由库添加的中间件之前或之后运行。
 
-`IStartupFilter` 实现一个方法，即接收并返回 `Action<IApplicationBuilder>` 的 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>。 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 定义用于配置应用请求管道的类。 有关详细信息，请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)。
+`IStartupFilter` 实现单个方法（即 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>），该方法接收并返回 `Action<IApplicationBuilder>`。 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 定义用于配置应用请求管道的类。 有关详细信息，请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)。
 
 在请求管道中，每个 `IStartupFilter` 实现一个或多个中间件。 筛选器按照添加到服务容器的顺序调用。 筛选器可在将控件传递给下一个筛选器之前或之后添加中间件，从而附加到应用管道的开头或末尾。
 

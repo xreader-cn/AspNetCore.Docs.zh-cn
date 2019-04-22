@@ -1,9 +1,9 @@
 ---
 ms.openlocfilehash: 209b5c41e17897693962954b1e795bdbb41f9384
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012729"
 ---
 # <a name="key-vault-configuration-provider-sample-app"></a>密钥保管库配置提供程序示例应用程序

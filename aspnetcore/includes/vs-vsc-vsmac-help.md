@@ -1,19 +1,19 @@
 ---
 ms.openlocfilehash: 9a53dddd52f529ce24927249aa1fcb3e0020962d
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59041597"
 ---
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ## <a name="visual-studio-help"></a>Visual Studio 帮助
 
 * [了解如何使用 Visual Studio 调试 C# 代码](https://docs.microsoft.com/visualstudio/debugger/getting-started-with-the-debugger?view=vs-2017)
 * [Visual Studio IDE 简介](https://docs.microsoft.com/visualstudio/ide/visual-studio-ide?view=vs-2017)
 
-# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ## <a name="visual-studio-code-help"></a>Visual Studio Code 帮助
 
@@ -22,11 +22,11 @@ ms.locfileid: "59041597"
 * [集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)
 * [键盘快捷键](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
 
-  * [macOS 键盘快捷键](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
+  * [macOS 键盘快捷方式](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
   * [Linux 键盘快捷键](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf)
   * [Windows 键盘快捷键](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
-# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 ## <a name="visual-studio-for-mac-help"></a>Visual Studio for Mac 帮助
 

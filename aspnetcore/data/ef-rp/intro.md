@@ -7,10 +7,10 @@ ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
 ms.openlocfilehash: aff62d760cf0899983cf841f6715f2658b113f82
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012677"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
@@ -29,11 +29,11 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 ## <a name="prerequisites"></a>系统必备
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE [](~/includes/net-core-prereqs-windows.md)]
 
-# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
@@ -59,7 +59,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 ## <a name="create-the-contosouniversity-razor-pages-web-app"></a>创建 ContosoUniversity Razor Pages Web 应用
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”菜单中，选择“新建”>“项目”。
 * 创建新的 ASP.NET Core Web 应用程序。 将该项目命名为 ContosoUniversity 。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配。
@@ -68,7 +68,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 有关上述步骤的图像，请参阅[创建 Razor Web 应用](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app)。
 运行应用。
 
-# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```CLI
 dotnet new webapp -o ContosoUniversity
@@ -116,7 +116,7 @@ dotnet run
 
 `Enrollments` 属性是[导航属性](/ef/core/modeling/relationships)。 导航属性链接到与此实体相关的其他实体。 在这种情况下，`Student entity` 的 `Enrollments` 属性包含与该 `Student` 相关的所有 `Enrollment` 实体。 例如，如果数据库中的 Student 行有两个相关的 Enrollment 行，则 `Enrollments` 导航属性包含这两个 `Enrollment` 实体。 相关的 `Enrollment` 行是 `StudentID` 列中包含该学生的主键值的行。 例如，假设 ID=1 的学生在 `Enrollment` 表中有两行。 `Enrollment` 表中有两行的 `StudentID` = 1。 `StudentID` 是 `Enrollment` 表中的外键，用于指定 `Student` 表中的学生。
 
-如果导航属性包含多个实体，则导航属性必须是列表类型，例如 `ICollection<T>`。 `ICollection<T>` 可以指定 ICollection<T>，也可以指定 `List<T>` 或 `HashSet<T>` 等类型。 使用 `ICollection<T>` 时，EF Core 会默认创建 `HashSet<T>` 集合。 包含多个实体的导航属性来自于多对多和一对多关系。
+如果导航属性包含多个实体，则导航属性必须是列表类型，例如 `ICollection<T>`。 可以指定 `ICollection<T>` 或诸如 `List<T>` 或 `HashSet<T>` 的类型。 使用 `ICollection<T>` 时，EF Core 会默认创建 `HashSet<T>` 集合。 包含多个实体的导航属性来自于多对多和一对多关系。
 
 ### <a name="the-enrollment-entity"></a>Enrollment 实体
 
@@ -155,7 +155,7 @@ dotnet run
 * 生成项目。
 * 创建 Pages/Students 文件夹。
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹>“添加”>“新搭建基架的项目”。
 * 在“添加基架”对话框中，选择“使用实体框架生成 Razor Pages (CRUD)”>“添加”。
@@ -171,7 +171,7 @@ dotnet run
 
 如果对前面的步骤有疑问，请参阅[搭建“电影”模型的基架](xref:tutorials/razor-pages/model#scaffold-the-movie-model)。
 
-# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 运行以下命令，搭建“学生”模型的基架。
 
@@ -188,7 +188,7 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 ### <a name="files-created"></a>创建的文件
 
 * Pages/Students：“创建”、“删除”、“详细信息”、“编辑”、“索引”。
-* *Data/SchoolContext.cs*
+* Data/SchoolContext.cs
 
 ### <a name="file-updates"></a>文件更新
 
@@ -219,7 +219,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet)]
 
-`EnsureCreated` 确保存在上下文数据库。 如果存在，则不需要任何操作。 如果不存在，则会创建数据库及其所有架构。 `EnsureCreated` 不使用迁移来创建数据库。 使用 `EnsureCreated` 创建的数据库稍后无法使用迁移更新。
+`EnsureCreated` 确保存在上下文数据库。 如果存在，则不需要任何操作。 如果不存在，则会创建数据库及其所有架构。 `EnsureCreated` 不使用迁移创建数据库。 使用 `EnsureCreated` 创建的数据库稍后无法使用迁移更新。
 
 启动应用时会调用 `EnsureCreated`，以进行以下工作流：
 
@@ -228,7 +228,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 * 运行应用。
 * `EnsureCreated` 创建一个带有 `EmailAddress` 列的数据库。
 
-`EnsureCreated` 当架构快速演变时，在开发初期使用 EnsureCreated 很方便。 本教程后面将删除 DB 并使用迁移。
+架构快速演变时，在开发初期使用 `EnsureCreated` 很方便。 本教程后面将删除 DB 并使用迁移。
 
 ### <a name="test-the-app"></a>测试应用
 
@@ -250,7 +250,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 * 实体集通常对应一个数据库表。
 * 实体对应表中的行。
 
-`DbSet<Enrollment>` 和 `DbSet<Course>` 可以省略。 EF Core 隐式包含了它们，因为 `Student` 实体引用 `Enrollment` 实体，而 `Enrollment` 实体引用 `Course` 实体。 在本教程中，将 `DbSet<Enrollment>` 和 `DbSet<Course>` 保留在 `SchoolContext` 中。
+可以省略 `DbSet<Enrollment>` 和 `DbSet<Course>`。 EF Core 隐式包含了它们，因为 `Student` 实体引用 `Enrollment` 实体，而 `Enrollment` 实体引用 `Course` 实体。 在本教程中，将 `DbSet<Enrollment>` 和 `DbSet<Course>` 保留在 `SchoolContext` 中。
 
 ### <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
@@ -323,4 +323,4 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 * [本教程的 YouTube 版本](https://www.youtube.com/watch?v=P7iTtQnkrNs)
 
 > [!div class="step-by-step"]
-> [下一步](xref:data/ef-rp/crud)
+> [下一页](xref:data/ef-rp/crud)
