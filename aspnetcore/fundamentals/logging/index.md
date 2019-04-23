@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: f0e4dbb6fda4f676ad8e769c71cc9548a4d61d66
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 8a2e310b47e32e9015b0c127ed79d8f6bdf2e44d
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614430"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982848"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core 中的日志记录
 
@@ -803,8 +803,6 @@ loggerFactory.AddTraceSource(sourceSwitchName);
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
-
-* 不要显式调用 <xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*>。 将应用部署到 Azure 应用服务时，会自动使提供程序对应用可用。
 
 如果面向 .NET Framework 或引用 `Microsoft.AspNetCore.App` 元包，请向项目添加提供程序包。 调用 `AddAzureWebAppDiagnostics`：
 
