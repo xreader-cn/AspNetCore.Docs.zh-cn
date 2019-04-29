@@ -184,9 +184,9 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
   * **区域**
     * **会话**
       * **页**
-        * ViewStart.cshtml*\_*
-        * Index.cshtml
-        * Index.cshtml.cs
+        * *\_ViewStart.cshtml*
+        * *Index.cshtml*
+        * *Index.cshtml.cs*
   * **页**
 
 用于引用“会话”区域“索引”Razor 页的标记是：
@@ -216,12 +216,12 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
   * **区域**
     * **博客**
       * **控制器**
-        * HomeController.cs
+        * *HomeController.cs*
       * **视图**
         * **主文件夹**
           * *AboutBlog.cshtml*
-          * Index.cshtml
-        * ViewStart.cshtml*\_*
+          * *Index.cshtml*
+        * *\_ViewStart.cshtml*
   * **控制器**
 
 如果将 `asp-area` 设置为 “Blogs”，则会为此定位点标记的关联控制器和视图的路由添加目录 Areas/Blogs 作为前缀。 用于引用 AboutBlog 视图的标记是：

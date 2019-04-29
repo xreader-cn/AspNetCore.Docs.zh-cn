@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 04/08/2019
 uid: host-and-deploy/iis/development-time-iis-support
 ms.openlocfilehash: 6f555858239b4432d252f8b3ac7add5c3e8bfe62
-ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/09/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59425096"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Visual Studio 中针对 ASP.NET Core 的开发时 IIS 支持
@@ -22,7 +22,7 @@ ms.locfileid: "59425096"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [适用于 Windows 的 Visual Studio](https://visualstudio.microsoft.com/downloads/)
+* [Visual Studio（适用于 Windows）](https://visualstudio.microsoft.com/downloads/)
 * ASP.NET 和 Web 开发工作负荷
 * .NET Core 跨平台开发工作负荷
 * X.509 安全证书（用于 HTTPS 支持）
@@ -42,7 +42,7 @@ IIS 必须具有具备以下配置的网站：
 * **网站绑定**
   * 对于要求使用 HTTPS 的应用，请使用证书创建对端口 443 的绑定。 通常使用的是“IIS Express 开发证书”，但任何有效证书也都可行。
   * 对于使用 HTTP 的应用，请确认是否存在对端口 80 的绑定，或为新网站创建对端口 80 的绑定。
-  * 对 HTTP 或 HTTPS 使用单一绑定。 **不支持同时绑定到 HTTP 和 HTTPS 端口。**
+  * 对 HTTP 或 HTTPS 使用单一绑定。 不支持同时绑定到 HTTP 和 HTTPS 端口。
 
 ## <a name="enable-development-time-iis-support-in-visual-studio"></a>在 Visual Studio 中启用开发时 IIS 支持
 
@@ -151,8 +151,8 @@ IIS 必须具有具备以下配置的网站：
 
 ## <a name="additional-resources"></a>其他资源
 
-* [开始使用 IIS 中的 IIS 管理器](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [IIS 中 IIS 管理器入门](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [使用 IIS 在 Windows 上托管 ASP.NET Core](xref:host-and-deploy/iis/index)
 * [ASP.NET Core 模块简介](xref:host-and-deploy/aspnet-core-module)
 * [ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module)
-* [强制执行 HTTPS](xref:security/enforcing-ssl)
+* [Enforce HTTPS](xref:security/enforcing-ssl)

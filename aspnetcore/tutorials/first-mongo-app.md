@@ -7,10 +7,10 @@ ms.custom: mvc, seodec18
 ms.date: 01/31/2019
 uid: tutorials/first-mongo-app
 ms.openlocfilehash: 95a5f8bdb4b302d6bdae7b5809b54f1b263e6ee4
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012859"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
@@ -31,20 +31,20 @@ ms.locfileid: "59012859"
 
 ## <a name="prerequisites"></a>系统必备
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
 * 已安装“ASP.NET 和 Web 开发”工作负载的 [Visual Studio 2017 版本 15.9 或更高版本](https://www.visualstudio.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
 * [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [用于 Visual Studio Code 的 C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
-# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
 * [Visual Studio for Mac 版本 7.7 或更高版本](https://www.visualstudio.com/downloads/)
@@ -140,7 +140,7 @@ ms.locfileid: "59012859"
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>创建 ASP.NET Core Web API 项目
 
-# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 转到“文件” > “新建” > “项目”。
 1. 选择“ASP.NET Core Web 应用程序”，将项目命名为“BooksApi”，然后单击“确定”。
@@ -151,7 +151,7 @@ ms.locfileid: "59012859"
     Install-Package MongoDB.Driver -Version {VERSION}
     ```
 
-# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. 在命令行界面中运行以下命令：
 
@@ -169,7 +169,7 @@ ms.locfileid: "59012859"
     dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
     ```
 
-# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. 转到“文件” > “新建解决方案” > “.NET Core” > “应用”。
 1. 选择“ASP.NET Core Web API”C# 项目模板，然后单击“下一步”。
@@ -217,15 +217,15 @@ ms.locfileid: "59012859"
 
 `BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：
 
-* `MongoClient` &ndash; 读取服务器实例，以执行数据库操作。 此类的构造函数提供了 MongoDB 连接字符串：
+* `MongoClient` &ndash; 读取执行数据库操作的服务器实例。 此类的构造函数提供了 MongoDB 连接字符串：
 
     [!code-csharp[](first-mongo-app/sample/BooksApi/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* `IMongoDatabase` &ndash; 表示 Mongo 数据库，以执行操作。 本教程在界面上使用泛型 `GetCollection<T>(collection)` 方法来获取对特定集合中的数据的访问。 调用此方法后，可以对集合执行 CRUD 操作。 在 `GetCollection<T>(collection)` 方法调用中：
+* `IMongoDatabase` &ndash; 表示用于执行操作的 Mongo 数据库。 本教程在界面上使用泛型 `GetCollection<T>(collection)` 方法来获取对特定集合中的数据的访问。 调用此方法后，可以对集合执行 CRUD 操作。 在 `GetCollection<T>(collection)` 方法调用中：
   * `collection` 表示集合名称。
   * `T` 表示存储在集合中的 CLR 对象类型。
 
-`GetCollection<T>(collection)` 返回表示集合的 `MongoCollection` 对象。 在本教程中，对集合调用以下方法：
+`GetCollection<T>(collection)` 返回 `MongoCollection` 对象，该对象表示集合。 在本教程中，对集合调用以下方法：
 
 * `Find<T>` &ndash; 返回集合中与提供的搜索条件匹配的所有文档。
 * `InsertOne` &ndash; 插入提供的对象作为集合中的新文档。
@@ -242,7 +242,7 @@ ms.locfileid: "59012859"
 
     * 使用 `BookService` 类执行 CRUD 操作。
     * 包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。
-    * <xref:System.Web.Http.ApiController.CreatedAtRoute*> 方法返回 201 响应，这是在服务器上创建新资源的 HTTP POST 方法的标准响应。 `CreatedAtRoute` 还向响应添加 Location 头。 位置标头指定新建的待办事项的 URI。 请参阅 [10.2.2 201 已创建](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
+    * <xref:System.Web.Http.ApiController.CreatedAtRoute*> 方法返回 201 响应，这是在服务器上创建新资源的 HTTP POST 方法的标准响应。 `CreatedAtRoute` 还会向响应添加位置标头。 位置标头指定新建的待办事项的 URI。 请参阅 [10.2.2 201 已创建](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
 1. 生成并运行应用。
 1. 在浏览器中导航到 `http://localhost:<port>/api/books`。 将显示下面的 JSON 响应：
 

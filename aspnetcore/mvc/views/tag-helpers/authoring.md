@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中创作标记帮助程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 04/12/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: ddfd7cb8c67e28709b8ce75d5a4d0a8c0c0cc43c
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 19b7df1abc8765cb9a77487e39c4365fdacf2b65
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210075"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614417"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -51,8 +51,7 @@ ms.locfileid: "58210075"
 
    * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）。 在此示例中，EmailTagHelper 的根名称是 email，因此 `<email>` 标记将作为目标名称。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
 
-   * 
-  `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
+   * `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
 
    * 重写的 `Process` 方法控制标记帮助程序在执行时的操作。 `TagHelper` 类还提供具有相同参数的异步版本 (`ProcessAsync`)。
 
@@ -66,7 +65,9 @@ ms.locfileid: "58210075"
    public class Email : TagHelper
    ```
 
-1. 要使 `EmailTagHelper` 类可用于所有 Razor 视图，请将 `addTagHelper` 指令添加到 Views/_ViewImports.cshtml 文件：[!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
+1. 要使 `EmailTagHelper` 类可用于所有 Razor 视图，请将 `addTagHelper` 指令添加到 Views/_ViewImports.cshtml 文件：
+
+   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
    上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行使用通配符语法引入了 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）要使标记帮助程序可用于 Razor 视图，请使用 `@addTagHelper` 指令。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
 

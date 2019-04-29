@@ -4,14 +4,14 @@ author: rick-anderson
 description: 发现与在 ASP.NET Core 中使用 Azure Active Directory 进行身份验证相关的主题。
 ms.author: riande
 ms.date: 10/4/2017
-ms.custom: seodec18
+ms.custom: mvc, seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: 9a5b77201f228567bea0850ae236eb6c977e915a
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 5361f0202ddfde0dedd9d26decec0d20e74f7b52
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208039"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165248"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory 与 ASP.NET Core
 

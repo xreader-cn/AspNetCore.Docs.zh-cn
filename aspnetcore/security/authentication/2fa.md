@@ -5,14 +5,14 @@ description: 了解如何设置双因素身份验证 (2FA) 与 ASP.NET Core 应�
 monikerRange: < aspnetcore-2.0
 ms.author: riande
 ms.date: 09/22/2018
-ms.custom: seodec18
+ms.custom: mvc, seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 116249a7cd4faebd0c899e383d86f5c5c3c7146a
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
+ms.openlocfilehash: 9398cd3bb81eab7b427b19bbd5497630f4dc0838
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265241"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165191"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>在 ASP.NET Core SMS 的双因素身份验证
 

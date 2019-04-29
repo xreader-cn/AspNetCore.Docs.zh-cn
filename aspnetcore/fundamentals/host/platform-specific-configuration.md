@@ -8,10 +8,10 @@ ms.custom: mvc, seodec18
 ms.date: 04/06/2019
 uid: fundamentals/configuration/platform-specific-configuration
 ms.openlocfilehash: c2a2e1fbd288ff292c6759d03fae51876cdb5704
-ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/09/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59425070"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
@@ -66,7 +66,7 @@ ms.locfileid: "59425070"
 
 [示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary。 类库：
 
-* 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](/dotnet/api/microsoft.extensions.configuration.memoryconfigurationbuilderextensions.addinmemorycollection))，将服务字符串对添加到应用的配置中。
+* 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](/dotnet/api/microsoft.extensions.configuration.memoryconfigurationbuilderextensions.addinmemorycollection)) 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。
 
 `ServiceKeyInjection` 类的 [Configure](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup.configure) 方法使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 将增强功能添加到应用。
@@ -83,7 +83,7 @@ HostingStartupApp/Pages/Index.cshtml.cs：
 
 [示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)还包括一个 NuGet 包项目，该项目提供单独的承载启动 HostingStartupPackage。 该包具有与前述类库相同的特征。 包：
 
-* 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 将服务字符串对添加到应用的配置中。
+* 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性。
 
 HostingStartupPackage/ServiceKeyInjection.cs：
@@ -98,7 +98,7 @@ HostingStartupApp/Pages/Index.cshtml.cs：
 
 ### <a name="console-app-without-an-entry-point"></a>无入口点的控制台应用
 
-*此方法仅适用于 .NET Core 应用，不适用于 .NET Framework。*
+此方法仅适用于 .NET Core 应用，不适用于 .NET Framework。
 
 可在包含 `HostingStartup` 属性的无入口点的控制台应用中提供动态承载启动增强功能，该功能无需编译时引用进行激活。 发布控制台应用会生成可从运行时存储中使用的承载启动程序集。
 
@@ -124,7 +124,7 @@ HostingStartupApp/Pages/Index.cshtml.cs：
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet1)]
 
-类实现 `IHostingStartup`。 类的 [Configure](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup.configure) 方法使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 将增强功能添加到应用。 `IHostingStartup.Configure` 托管启动程序集中的 IHostingStartup.Configure 是由运行时调用，先于用户代码中 `Startup.Configure`，这样可便于用户代码覆盖托管启动程序集提供的任何配置。
+类实现 `IHostingStartup`。 类的 [Configure](/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup.configure) 方法使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 将增强功能添加到应用。 用户代码中 `Startup.Configure` 之前的运行时调用托管启动程序集中的 `IHostingStartup.Configure`，允许用户代码覆盖托管启动程序集提供的任何配置。
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet2&highlight=3,5)]
 
@@ -194,7 +194,7 @@ HostingStartupLibrary;HostingStartupPackage;StartupDiagnostics
 
 * [运行时存储](#runtime-store) &ndash; 激活无需用于激活的编译时引用。 示例应用将承载启动程序集和依赖项文件放入文件夹“deployment”，以便在多计算机环境中部署承载启动。 “deployment”文件夹还包括 PowerShell 脚本，该脚本可在部署系统上创建或修改环境变量以启用承载启动。
 * 激活所需的编译时引用
-  * [NuGet 程序包](#nuget-package)
+  * [NuGet 包](#nuget-package)
   * [项目 bin 文件夹](#project-bin-folder)
 
 ### <a name="runtime-store"></a>运行时存储
@@ -215,9 +215,9 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 
 对于发现运行时存储的运行时，运行时存储的位置将添加到 `DOTNET_SHARED_STORE` 环境变量中。
 
-**修改并放置托管启动程序集的依赖项文件**
+**修改并放置承载启动的依赖项文件**
 
-要在未包引用增强功能的情况下激活增强功能，请使用 `additionalDeps` 为运行时指定附加依赖项。 `additionalDeps` 可便于：
+要在未包引用增强功能的情况下激活增强功能，请使用 `additionalDeps` 为运行时指定附加依赖项。 使用 `additionalDeps`，你可以：
 
 * 通过提供一组附加的 *\*.deps.json* 文件来扩展应用的库图，以便在启动时与应用自身的 *\*.deps.json* 文件合并。
 * 使承载启动程序集可被发现并可加载。
@@ -279,10 +279,10 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
 ```
 
-* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量的位置。
-* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所必需的共享框架。
-* `{SHARED FRAMEWORK VERSION}` &ndash; 最低共享框架版本。
-* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强程序集名称。
+* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量中的位置。
+* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所需的共享框架。
+* `{SHARED FRAMEWORK VERSION}` &ndash; 最小共享框架版本。
+* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强功能的程序集名称。
 
 在示例应用（*RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
 
@@ -315,7 +315,7 @@ additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.jso
 
 * [如何使用跨平台工具创建 NuGet 包](/dotnet/core/deploying/creating-nuget-packages)
 * [发布包](/nuget/create-packages/publish-a-package)
-* [运行时包存储区](/dotnet/core/deploying/runtime-store)
+* [运行时包存储](/dotnet/core/deploying/runtime-store)
 
 ### <a name="project-bin-folder"></a>项目 bin 文件夹
 
@@ -378,7 +378,7 @@ dotnet nuget locals all --clear
 
 1. 观察到索引页呈现的服务配置键值与类库的 `ServiceKeyInjection.Configure` 方法设置的值匹配。
 
-**从运行时存储部署程序集激活**
+**从运行时存储部署的程序集激活**
 
 1. StartupDiagnostics 项目使用 [PowerShell](/powershell/scripting/powershell-scripting) 修改其 StartupDiagnostics.deps.json 文件。 默认情况下，Windows 7 SP1 和 Windows Server 2008 R2 SP1 及以后版本的 Windows 上安装有 PowerShell。 若要在其他平台上获取 PowerShell，请参阅[安装 Windows PowerShell](/powershell/scripting/setup/installing-powershell#powershell-core)。
 1. 执行 RuntimeStore文件夹中的 build.ps1 脚本。 脚本：

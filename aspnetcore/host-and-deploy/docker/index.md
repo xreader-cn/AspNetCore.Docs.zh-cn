@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/08/2018
 uid: host-and-deploy/docker/index
-ms.openlocfilehash: e56f90ec7272ce0411651ee6f8e7c754ae44b78d
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 9189e1fbb21abcc8c8bdea947e672ee53b59bc4f
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516256"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982622"
 ---
 # <a name="host-aspnet-core-in-docker-containers"></a>在 Docker 容器中托管 ASP.NET Core
 
@@ -28,6 +28,8 @@ ms.locfileid: "59516256"
 
 [Docker 容器、映像和注册表](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-containers-images-registries)  
 了解如何将 Docker 容器映像存储在映像注册表中，以实现跨环境的一致部署。
+
+<xref:host-and-deploy/docker/building-net-docker-images> 了解如何生成和 Docker 化 ASP.NET Core 应用。 了解由 Microsoft 维护的 Docker 映像并检查用例。
 
 [Visual Studio Tools for Docker](xref:host-and-deploy/docker/visual-studio-tools-for-docker)  
 Visual Studio 2017 支持在用于 Windows 的 Docker 上生成、调试和运行面向 .NET Framework 或 .NET Core 的 ASP.NET Core 应用。了解相关内容。 Windows 和 Linux 容器均受支持。

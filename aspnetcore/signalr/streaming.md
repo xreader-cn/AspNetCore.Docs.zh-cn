@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/12/2019
 uid: signalr/streaming
-ms.openlocfilehash: 83bbb231482d9c1606be3c5bbbeb1cc3b8efcf7d
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
-ms.translationtype: MT
+ms.openlocfilehash: d185056d3bdda089eaa46ae9b8e13ab7a4354f93
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982651"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165071"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>使用 ASP.NET Core SignalR 中流式处理
 
@@ -36,13 +36,13 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader`1>， `IAsyncEnumerable<T>`， `Task<ChannelReader<T>>`，或`Task<IAsyncEnumerable<T>>`。
+集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader%601>， `IAsyncEnumerable<T>`， `Task<ChannelReader<T>>`，或`Task<IAsyncEnumerable<T>>`。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader`1>或`Task<ChannelReader<T>>`。
+集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader%601>或`Task<ChannelReader<T>>`。
 
 ::: moniker-end
 
@@ -58,7 +58,7 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ::: moniker-end
 
-下面的示例显示了数据流式传输到客户端使用通道的基础知识。 每当将对象写入到<xref:System.Threading.Channels.ChannelWriter`1>，该对象将立即发送给客户端。 在结束时，`ChannelWriter`完成告诉客户端流已关闭。
+下面的示例显示了数据流式传输到客户端使用通道的基础知识。 每当将对象写入到<xref:System.Threading.Channels.ChannelWriter%601>，该对象将立即发送给客户端。 在结束时，`ChannelWriter`完成告诉客户端流已关闭。
 
 > [!NOTE]
 > 写入`ChannelWriter<T>`在后台线程并返回`ChannelReader`越早越好。 其他集线器调用被阻止，直到`ChannelReader`返回。

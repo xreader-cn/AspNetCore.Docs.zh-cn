@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 04/07/2019
 uid: fundamentals/dependency-injection
 ms.openlocfilehash: da6ddf1f0efd164a58f017ff55ce216bbefa7cc6
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068318"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
@@ -80,9 +80,9 @@ public class IndexModel : PageModel
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
 
-`MyDependency` 在构造函数中请求获取 [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1)。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”、“依赖关系图”或“对象图”。
+`MyDependency` 在其构造函数中请求 [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1)。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”、“依赖关系图”或“对象图”。
 
-`IMyDependency` 和 `ILogger<TCategoryName>` 必须在服务容器中进行注册。 `IMyDependency` 已在 `Startup.ConfigureServices` 中注册。 `ILogger<TCategoryName>` 由日志记录抽象基础结构注册，因此它是框架默认注册的[框架提供的服务](#framework-provided-services)。
+必须在服务容器中注册 `IMyDependency` 和 `ILogger<TCategoryName>`。 `IMyDependency` 已在 `Startup.ConfigureServices` 中注册。 `ILogger<TCategoryName>` 由日志记录抽象基础结构注册，因此它是框架默认注册的[框架提供的服务](#framework-provided-services)。
 
 容器通过利用[（泛型）开放类型](/dotnet/csharp/language-reference/language-specification/types#open-and-closed-types)解析 `ILogger<TCategoryName>`，而无需注册每个[（泛型）构造类型](/dotnet/csharp/language-reference/language-specification/types#constructed-types)：
 
@@ -134,10 +134,10 @@ public class MyDependency : IMyDependency
 | [Microsoft.AspNetCore.Http.IHttpContextFactory](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextfactory) | 暂时 |
 | [Microsoft.Extensions.Logging.ILogger&lt;T&gt;](/dotnet/api/microsoft.extensions.logging.ilogger) | 单例 |
 | [Microsoft.Extensions.Logging.ILoggerFactory](/dotnet/api/microsoft.extensions.logging.iloggerfactory) | 单例 |
-| [Microsoft.Extensions.ObjectPool.ObjectPoolProvider](/dotnet/api/microsoft.extensions.objectpool.objectpoolprovider) | 单例 |
+| [Microsoft.Extensions.ObjectPool.ObjectPoolProvider](/dotnet/api/microsoft.extensions.objectpool.objectpoolprovider) | 单一实例 |
 | [Microsoft.Extensions.Options.IConfigureOptions&lt;T&gt;](/dotnet/api/microsoft.extensions.options.iconfigureoptions-1) | 暂时 |
-| [Microsoft.Extensions.Options.IOptions&lt;T&gt;](/dotnet/api/microsoft.extensions.options.ioptions-1) | 单例 |
-| [System.Diagnostics.DiagnosticSource](/dotnet/core/api/system.diagnostics.diagnosticsource) | 单例 |
+| [Microsoft.Extensions.Options.IOptions&lt;T&gt;](/dotnet/api/microsoft.extensions.options.ioptions-1) | 单一实例 |
+| [System.Diagnostics.DiagnosticSource](/dotnet/core/api/system.diagnostics.diagnosticsource) | 单一实例 |
 | [System.Diagnostics.DiagnosticListener](/dotnet/core/api/system.diagnostics.diagnosticlistener) | 单例 |
 
 当服务集合扩展方法可用于注册服务（及其依赖服务，如果需要）时，约定使用单个 `Add{SERVICE_NAME}` 扩展方法来注册该服务所需的所有服务。 以下代码是如何使用扩展方法 [AddDbContext](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)、[AddIdentity](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.addidentity) 和 [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc) 向容器添加其他服务的示例：
@@ -166,7 +166,7 @@ public void ConfigureServices(IServiceCollection services)
 
 暂时生存期服务是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
-**范围内**
+**作用域（Scoped）**
 
 作用域生存期服务以每个客户端请求（连接）一次的方式创建。
 
@@ -185,7 +185,7 @@ public void ConfigureServices(IServiceCollection services)
 服务可以通过两种机制来解析：
 
 * `IServiceProvider`
-* [ActivatorUtilities](/dotnet/api/microsoft.extensions.dependencyinjection.activatorutilities) &ndash; 允许在依赖关系注入容器中创建没有服务注册的对象。 `ActivatorUtilities` 用于面向用户的抽象，如标记帮助程序、MVC 控制器和模型绑定器。
+* [ActivatorUtilities](/dotnet/api/microsoft.extensions.dependencyinjection.activatorutilities) &ndash; 允许在依赖关系注入容器中创建没有服务注册的对象。 `ActivatorUtilities` 用于面向用户的抽象，例如标记帮助器、MVC 控制器和模型绑定器。
 
 构造函数可以接受依赖关系注入不提供的参数，但参数必须分配默认值。
 
@@ -209,7 +209,7 @@ public void ConfigureServices(IServiceCollection services)
 
 注册 `OperationService` 取决于，每个其他 `Operation` 类型。 当通过依赖关系注入请求 `OperationService` 时，它将接收每个服务的新实例或基于从属服务的生存期的现有实例。
 
-* 如果从容器请求时创建了临时服务，则 `IOperationTransient` 服务的 `OperationId` 与 `OperationService` 的 `OperationId` 不同。 `OperationService` 接收 `IOperationTransient` 类的新实例。 新实例将生成一个不同的 `OperationId`。
+* 如果从容器请求时创建了临时服务，则 `IOperationTransient` 服务的 `OperationId` 与 `OperationService` 的 `OperationId` 不同。 `OperationService` 将接收 `IOperationTransient` 类的新实例。 新实例将生成一个不同的 `OperationId`。
 * 如果按客户端请求创建有作用域的服务，则 `IOperationScoped` 服务的 `OperationId` 与客户端请求中 `OperationService` 的该 ID 相同。 在客户端请求中，两个服务共享不同的 `OperationId` 值。
 * 如果单一数据库和单一实例服务只创建一次并在所有客户端请求和所有服务中使用，则 `OperationId` 在所有服务请求中保持不变。
 
@@ -364,7 +364,7 @@ public void ConfigureServices(IServiceCollection services)
 * 基于名称的注入
 * 子容器
 * 自定义生存期管理
-* `Func<T>` 支持迟缓初始化
+* 对迟缓初始化的 `Func<T>` 支持
 
 有关支持适配器的部分容器列表，请参阅[依赖关系注入 readme.md 文件](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection)。
 
@@ -416,7 +416,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="recommendations"></a>建议
 
-* `async/await` 不支持基于 async/await 和 `Task` 的服务解析。 C# 不支持异步构造函数；因此建议模式是在同步解析服务后使用异步方法。
+* 不支持基于 `async/await` 和 `Task` 的服务解析。 C# 不支持异步构造函数；因此建议模式是在同步解析服务后使用异步方法。
 
 * 避免在服务容器中直接存储数据和配置。 例如，用户的购物车通常不应添加到服务容器中。 配置应使用 [选项模型](xref:fundamentals/configuration/options)。 同样，避免"数据持有者"对象，也就是仅仅为实现对某些其他对象的访问而存在的对象。 最好通过 DI 请求实际项目。
 
@@ -470,7 +470,7 @@ DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对
 * <xref:security/authorization/dependencyinjection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
-* [使用依赖关系注入在 ASP.NET Core 中编写干净代码 (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
-* [显式依赖关系原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
+* [在 ASP.NET Core 中使用依赖关系注入编写干净代码 (MSDN) ](https://msdn.microsoft.com/magazine/mt703433.aspx)
+* [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）
 * [控制反转容器和依赖关系注入模式 (Martin Fowler)](https://www.martinfowler.com/articles/injection.html)
 * [如何在 ASP.NET Core DI 中注册具有多个接口的服务](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)
