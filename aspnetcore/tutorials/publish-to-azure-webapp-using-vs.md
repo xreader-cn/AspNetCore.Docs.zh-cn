@@ -6,188 +6,189 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: b2b5a155d0dff28e471af449731da787f19d1faf
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 98dea9cfbafb53de8ba82ef06f4885d9fbf50123
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208351"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59705611"
 ---
-# <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a><span data-ttu-id="c73ca-103">使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="c73ca-103">Publish an ASP.NET Core app to Azure with Visual Studio</span></span>
+# <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a><span data-ttu-id="dfcda-103">使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="dfcda-103">Publish an ASP.NET Core app to Azure with Visual Studio</span></span>
 
-<span data-ttu-id="c73ca-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Cesar Blum Silveira](https://github.com/cesarbs)</span><span class="sxs-lookup"><span data-stu-id="c73ca-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Cesar Blum Silveira](https://github.com/cesarbs)</span></span>
+<span data-ttu-id="dfcda-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Cesar Blum Silveira](https://github.com/cesarbs)</span><span class="sxs-lookup"><span data-stu-id="dfcda-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Cesar Blum Silveira](https://github.com/cesarbs)</span></span>
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
 
-<span data-ttu-id="c73ca-105">如果你在 macOS 上工作，请参阅[从 Visual Studio for Mac 发布到 Azure](https://blog.xamarin.com/publish-azure-visual-studio-mac/)。</span><span class="sxs-lookup"><span data-stu-id="c73ca-105">See [Publish to Azure from Visual Studio for Mac](https://blog.xamarin.com/publish-azure-visual-studio-mac/) if you are working on macOS.</span></span>
+<span data-ttu-id="dfcda-105">如果你在 macOS 上工作，请参阅[从 Visual Studio for Mac 发布到 Azure](https://blog.xamarin.com/publish-azure-visual-studio-mac/)。</span><span class="sxs-lookup"><span data-stu-id="dfcda-105">See [Publish to Azure from Visual Studio for Mac](https://blog.xamarin.com/publish-azure-visual-studio-mac/) if you are working on macOS.</span></span>
 
-<span data-ttu-id="c73ca-106">若要对应用服务部署问题进行故障排除，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。</span><span class="sxs-lookup"><span data-stu-id="c73ca-106">To troubleshoot an App Service deployment issue, see <xref:host-and-deploy/azure-apps/troubleshoot>.</span></span>
+<span data-ttu-id="dfcda-106">若要对应用服务部署问题进行故障排除，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。</span><span class="sxs-lookup"><span data-stu-id="dfcda-106">To troubleshoot an App Service deployment issue, see <xref:host-and-deploy/azure-apps/troubleshoot>.</span></span>
 
-## <a name="set-up"></a><span data-ttu-id="c73ca-107">设置</span><span class="sxs-lookup"><span data-stu-id="c73ca-107">Set up</span></span>
+## <a name="set-up"></a><span data-ttu-id="dfcda-107">设置</span><span class="sxs-lookup"><span data-stu-id="dfcda-107">Set up</span></span>
 
-* <span data-ttu-id="c73ca-108">如果没有[免费 Azure 帐户](https://azure.microsoft.com/free/dotnet/)，请开设一个。</span><span class="sxs-lookup"><span data-stu-id="c73ca-108">Open a [free Azure account](https://azure.microsoft.com/free/dotnet/) if you don't have one.</span></span> 
+* <span data-ttu-id="dfcda-108">如果没有[免费 Azure 帐户](https://azure.microsoft.com/free/dotnet/)，请开设一个。</span><span class="sxs-lookup"><span data-stu-id="dfcda-108">Open a [free Azure account](https://azure.microsoft.com/free/dotnet/) if you don't have one.</span></span> 
 
-## <a name="create-a-web-app"></a><span data-ttu-id="c73ca-109">创建 Web 应用</span><span class="sxs-lookup"><span data-stu-id="c73ca-109">Create a web app</span></span>
+## <a name="create-a-web-app"></a><span data-ttu-id="dfcda-109">创建 Web 应用</span><span class="sxs-lookup"><span data-stu-id="dfcda-109">Create a web app</span></span>
 
-<span data-ttu-id="c73ca-110">在 Visual Studio 起始页中，选择“文件”>“新建”>“项目...”</span><span class="sxs-lookup"><span data-stu-id="c73ca-110">In the Visual Studio Start Page, select **File > New > Project...**</span></span>
+<span data-ttu-id="dfcda-110">在 Visual Studio 起始页中，选择“文件”>“新建”>“项目...”</span><span class="sxs-lookup"><span data-stu-id="dfcda-110">In the Visual Studio Start Page, select **File > New > Project...**</span></span>
 
 ![“文件”菜单](publish-to-azure-webapp-using-vs/_static/file_new_project.png)
 
-<span data-ttu-id="c73ca-112">填写“新建项目”对话框：</span><span class="sxs-lookup"><span data-stu-id="c73ca-112">Complete the **New Project** dialog:</span></span>
+<span data-ttu-id="dfcda-112">填写“新建项目”对话框：</span><span class="sxs-lookup"><span data-stu-id="dfcda-112">Complete the **New Project** dialog:</span></span>
 
-* <span data-ttu-id="c73ca-113">在左侧窗格中，选择“.NET Core”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-113">In the left pane, select **.NET Core**.</span></span>
-* <span data-ttu-id="c73ca-114">在中间窗格中，选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-114">In the center pane, select **ASP.NET Core Web Application**.</span></span>
-* <span data-ttu-id="c73ca-115">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-115">Select **OK**.</span></span>
+* <span data-ttu-id="dfcda-113">在左侧窗格中，选择“.NET Core”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-113">In the left pane, select **.NET Core**.</span></span>
+* <span data-ttu-id="dfcda-114">在中间窗格中，选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-114">In the center pane, select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="dfcda-115">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-115">Select **OK**.</span></span>
 
 ![“新建项目”对话框](publish-to-azure-webapp-using-vs/_static/new_prj.png)
 
-<span data-ttu-id="c73ca-117">在“新建 ASP.NET Core Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="c73ca-117">In the **New ASP.NET Core Web Application** dialog:</span></span>
+<span data-ttu-id="dfcda-117">在“新建 ASP.NET Core Web 应用程序”对话框中：</span><span class="sxs-lookup"><span data-stu-id="dfcda-117">In the **New ASP.NET Core Web Application** dialog:</span></span>
 
-* <span data-ttu-id="c73ca-118">选择“Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-118">Select **Web Application**.</span></span>
-* <span data-ttu-id="c73ca-119">选择“更改身份验证”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-119">Select **Change Authentication**.</span></span>
+* <span data-ttu-id="dfcda-118">选择“Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-118">Select **Web Application**.</span></span>
+* <span data-ttu-id="dfcda-119">选择“更改身份验证”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-119">Select **Change Authentication**.</span></span>
 
 ![“新建项目”对话框](publish-to-azure-webapp-using-vs/_static/new_prj_2.png)
 
-<span data-ttu-id="c73ca-121">“更改身份验证”对话框随即出现。</span><span class="sxs-lookup"><span data-stu-id="c73ca-121">The **Change Authentication** dialog appears.</span></span> 
+<span data-ttu-id="dfcda-121">“更改身份验证”对话框随即出现。</span><span class="sxs-lookup"><span data-stu-id="dfcda-121">The **Change Authentication** dialog appears.</span></span> 
 
-* <span data-ttu-id="c73ca-122">选择“个人用户帐户”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-122">Select **Individual User Accounts**.</span></span>
-* <span data-ttu-id="c73ca-123">选择“确定”返回到“新建 ASP.NET Core Web 应用程序”，然后再次选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-123">Select **OK** to return to the **New ASP.NET Core Web Application**, then select **OK** again.</span></span>
+* <span data-ttu-id="dfcda-122">选择“个人用户帐户”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-122">Select **Individual User Accounts**.</span></span>
+* <span data-ttu-id="dfcda-123">选择“确定”返回到“新建 ASP.NET Core Web 应用程序”，然后再次选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-123">Select **OK** to return to the **New ASP.NET Core Web Application**, then select **OK** again.</span></span>
 
 ![“新建 ASP.NET Core Web 身份验证”对话框](publish-to-azure-webapp-using-vs/_static/new_prj_auth.png) 
 
-<span data-ttu-id="c73ca-125">Visual Studio 随即创建解决方案。</span><span class="sxs-lookup"><span data-stu-id="c73ca-125">Visual Studio creates the solution.</span></span>
+<span data-ttu-id="dfcda-125">Visual Studio 随即创建解决方案。</span><span class="sxs-lookup"><span data-stu-id="dfcda-125">Visual Studio creates the solution.</span></span>
 
-## <a name="run-the-app"></a><span data-ttu-id="c73ca-126">运行应用</span><span class="sxs-lookup"><span data-stu-id="c73ca-126">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="dfcda-126">运行应用</span><span class="sxs-lookup"><span data-stu-id="dfcda-126">Run the app</span></span>
 
-* <span data-ttu-id="c73ca-127">按 Ctrl+F5 运行项目。</span><span class="sxs-lookup"><span data-stu-id="c73ca-127">Press CTRL+F5 to run the project.</span></span>
-* <span data-ttu-id="c73ca-128">测试“关于”和“联系”链接。</span><span class="sxs-lookup"><span data-stu-id="c73ca-128">Test the **About** and **Contact** links.</span></span>
+* <span data-ttu-id="dfcda-127">按 Ctrl+F5 运行项目。</span><span class="sxs-lookup"><span data-stu-id="dfcda-127">Press CTRL+F5 to run the project.</span></span>
+* <span data-ttu-id="dfcda-128">测试“关于”和“联系”链接。</span><span class="sxs-lookup"><span data-stu-id="dfcda-128">Test the **About** and **Contact** links.</span></span>
 
 ![localhost 上的 Microsoft Edge 中打开的 Web 应用程序](publish-to-azure-webapp-using-vs/_static/show.png)
 
-### <a name="register-a-user"></a><span data-ttu-id="c73ca-130">注册用户</span><span class="sxs-lookup"><span data-stu-id="c73ca-130">Register a user</span></span>
+### <a name="register-a-user"></a><span data-ttu-id="dfcda-130">注册用户</span><span class="sxs-lookup"><span data-stu-id="dfcda-130">Register a user</span></span>
 
-* <span data-ttu-id="c73ca-131">选择“注册”并注册新用户。</span><span class="sxs-lookup"><span data-stu-id="c73ca-131">Select **Register** and register a new user.</span></span> <span data-ttu-id="c73ca-132">可使用虚构电子邮件地址。</span><span class="sxs-lookup"><span data-stu-id="c73ca-132">You can use a fictitious email address.</span></span> <span data-ttu-id="c73ca-133">提交时，页面上会显示以下错误：</span><span class="sxs-lookup"><span data-stu-id="c73ca-133">When you submit, the page displays the following error:</span></span>
+* <span data-ttu-id="dfcda-131">选择“注册”并注册新用户。</span><span class="sxs-lookup"><span data-stu-id="dfcda-131">Select **Register** and register a new user.</span></span> <span data-ttu-id="dfcda-132">可使用虚构电子邮件地址。</span><span class="sxs-lookup"><span data-stu-id="dfcda-132">You can use a fictitious email address.</span></span> <span data-ttu-id="dfcda-133">提交时，页面上会显示以下错误：</span><span class="sxs-lookup"><span data-stu-id="dfcda-133">When you submit, the page displays the following error:</span></span>
 
-    <span data-ttu-id="c73ca-134">“内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。” </span><span class="sxs-lookup"><span data-stu-id="c73ca-134">*"Internal Server Error: A database operation failed while processing the request. SQL exception: Cannot open the database. Applying existing migrations for Application DB context may resolve this issue."*</span></span>
-* <span data-ttu-id="c73ca-135">选择“应用迁移”，并在页面更新后刷新页面。</span><span class="sxs-lookup"><span data-stu-id="c73ca-135">Select **Apply Migrations** and, once the page updates, refresh the page.</span></span>
+    <span data-ttu-id="dfcda-134">“内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。” </span><span class="sxs-lookup"><span data-stu-id="dfcda-134">*"Internal Server Error: A database operation failed while processing the request. SQL exception: Cannot open the database. Applying existing migrations for Application DB context may resolve this issue."*</span></span>
+* <span data-ttu-id="dfcda-135">选择“应用迁移”，并在页面更新后刷新页面。</span><span class="sxs-lookup"><span data-stu-id="dfcda-135">Select **Apply Migrations** and, once the page updates, refresh the page.</span></span>
 
 ![内部服务器错误:处理请求时，数据库操作失败。](publish-to-azure-webapp-using-vs/_static/mig.png)
 
-<span data-ttu-id="c73ca-139">应用将显示用于注册新用户的电子邮件和一个“注销”链接。</span><span class="sxs-lookup"><span data-stu-id="c73ca-139">The app displays the email used to register the new user and a **Log out** link.</span></span>
+<span data-ttu-id="dfcda-139">应用将显示用于注册新用户的电子邮件和一个“注销”链接。</span><span class="sxs-lookup"><span data-stu-id="dfcda-139">The app displays the email used to register the new user and a **Log out** link.</span></span>
 
 ![Microsoft Edge 中打开的 Web 应用程序。](publish-to-azure-webapp-using-vs/_static/hello.png)
 
-## <a name="deploy-the-app-to-azure"></a><span data-ttu-id="c73ca-142">将应用部署到 Azure</span><span class="sxs-lookup"><span data-stu-id="c73ca-142">Deploy the app to Azure</span></span>
+## <a name="deploy-the-app-to-azure"></a><span data-ttu-id="dfcda-142">将应用部署到 Azure</span><span class="sxs-lookup"><span data-stu-id="dfcda-142">Deploy the app to Azure</span></span>
 
-<span data-ttu-id="c73ca-143">在解决方案资源管理器中右键单击该项目，然后选择“发布...”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-143">Right-click on the project in Solution Explorer and select **Publish...**.</span></span>
+<span data-ttu-id="dfcda-143">在解决方案资源管理器中右键单击该项目，然后选择“发布...”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-143">Right-click on the project in Solution Explorer and select **Publish...**.</span></span>
 
 ![打开且突出显示“发布”链接的上下文菜单](publish-to-azure-webapp-using-vs/_static/pub.png)
 
-<span data-ttu-id="c73ca-145">在“发布”对话框中：</span><span class="sxs-lookup"><span data-stu-id="c73ca-145">In the **Publish** dialog:</span></span>
+<span data-ttu-id="dfcda-145">在“发布”对话框中：</span><span class="sxs-lookup"><span data-stu-id="dfcda-145">In the **Publish** dialog:</span></span>
 
-* <span data-ttu-id="c73ca-146">选择“Microsoft Azure 应用服务”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-146">Select **Microsoft Azure App Service**.</span></span>
-* <span data-ttu-id="c73ca-147">选择齿轮图标，然后选择“创建配置文件”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-147">Select the gear icon and then select **Create Profile**.</span></span>
-* <span data-ttu-id="c73ca-148">选择“创建配置文件”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-148">Select **Create Profile**.</span></span>
+* <span data-ttu-id="dfcda-146">选择“Microsoft Azure 应用服务”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-146">Select **Microsoft Azure App Service**.</span></span>
+* <span data-ttu-id="dfcda-147">选择齿轮图标，然后选择“创建配置文件”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-147">Select the gear icon and then select **Create Profile**.</span></span>
+* <span data-ttu-id="dfcda-148">选择“创建配置文件”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-148">Select **Create Profile**.</span></span>
 
 ![“发布”对话框](publish-to-azure-webapp-using-vs/_static/maas1.png)
 
-### <a name="create-azure-resources"></a><span data-ttu-id="c73ca-150">创建 Azure 资源</span><span class="sxs-lookup"><span data-stu-id="c73ca-150">Create Azure resources</span></span>
+### <a name="create-azure-resources"></a><span data-ttu-id="dfcda-150">创建 Azure 资源</span><span class="sxs-lookup"><span data-stu-id="dfcda-150">Create Azure resources</span></span>
 
-<span data-ttu-id="c73ca-151">“创建应用服务”对话框随即显示：</span><span class="sxs-lookup"><span data-stu-id="c73ca-151">The **Create App Service** dialog appears:</span></span>
+<span data-ttu-id="dfcda-151">“创建应用服务”对话框随即显示：</span><span class="sxs-lookup"><span data-stu-id="dfcda-151">The **Create App Service** dialog appears:</span></span>
 
-* <span data-ttu-id="c73ca-152">输入订阅。</span><span class="sxs-lookup"><span data-stu-id="c73ca-152">Enter your subscription.</span></span>
-* <span data-ttu-id="c73ca-153">“应用名称”、“资源组”和“应用服务计划”输入字段已填充。</span><span class="sxs-lookup"><span data-stu-id="c73ca-153">The **App Name**, **Resource Group**, and **App Service Plan** entry fields are populated.</span></span> <span data-ttu-id="c73ca-154">可以保留这些名称，也可以进行更改。</span><span class="sxs-lookup"><span data-stu-id="c73ca-154">You can keep these names or change them.</span></span>
+* <span data-ttu-id="dfcda-152">输入订阅。</span><span class="sxs-lookup"><span data-stu-id="dfcda-152">Enter your subscription.</span></span>
+* <span data-ttu-id="dfcda-153">“应用名称”、“资源组”和“应用服务计划”输入字段已填充。</span><span class="sxs-lookup"><span data-stu-id="dfcda-153">The **App Name**, **Resource Group**, and **App Service Plan** entry fields are populated.</span></span> <span data-ttu-id="dfcda-154">可以保留这些名称，也可以进行更改。</span><span class="sxs-lookup"><span data-stu-id="dfcda-154">You can keep these names or change them.</span></span>
 
 ![“应用服务”对话框](publish-to-azure-webapp-using-vs/_static/newrg1.png)
 
-* <span data-ttu-id="c73ca-156">选择“服务”选项卡以创建新的数据库。</span><span class="sxs-lookup"><span data-stu-id="c73ca-156">Select the **Services** tab to create a new database.</span></span>
+* <span data-ttu-id="dfcda-156">选择“服务”选项卡以创建新的数据库。</span><span class="sxs-lookup"><span data-stu-id="dfcda-156">Select the **Services** tab to create a new database.</span></span>
 
-* <span data-ttu-id="c73ca-157">选择绿色的 + 图标以创建新的 SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="c73ca-157">Select the green **+** icon to create a new SQL Database</span></span>
+* <span data-ttu-id="dfcda-157">选择绿色的 + 图标以创建新的 SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="dfcda-157">Select the green **+** icon to create a new SQL Database</span></span>
 
 ![新建 SQL 数据库](publish-to-azure-webapp-using-vs/_static/sql.png)
 
-* <span data-ttu-id="c73ca-159">在“配置 SQL 数据库”对话框中选择“新建...”以创建新的数据库。</span><span class="sxs-lookup"><span data-stu-id="c73ca-159">Select **New...** on the **Configure SQL Database** dialog to create a new database.</span></span>
+* <span data-ttu-id="dfcda-159">在“配置 SQL 数据库”对话框中选择“新建...”以创建新的数据库。</span><span class="sxs-lookup"><span data-stu-id="dfcda-159">Select **New...** on the **Configure SQL Database** dialog to create a new database.</span></span>
 
 ![新建 SQL 数据库和服务器](publish-to-azure-webapp-using-vs/_static/conf.png)
 
-<span data-ttu-id="c73ca-161">“配置 SQL Server”对话框随即出现。</span><span class="sxs-lookup"><span data-stu-id="c73ca-161">The **Configure SQL Server** dialog appears.</span></span>
+<span data-ttu-id="dfcda-161">“配置 SQL Server”对话框随即出现。</span><span class="sxs-lookup"><span data-stu-id="dfcda-161">The **Configure SQL Server** dialog appears.</span></span>
 
-* <span data-ttu-id="c73ca-162">输入管理员用户名和密码，然后选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-162">Enter an administrator user name and password, and then select **OK**.</span></span> <span data-ttu-id="c73ca-163">可保留默认的“服务器名称”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-163">You can keep the default **Server Name**.</span></span> 
+* <span data-ttu-id="dfcda-162">输入管理员用户名和密码，然后选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-162">Enter an administrator user name and password, and then select **OK**.</span></span> <span data-ttu-id="dfcda-163">可保留默认的“服务器名称”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-163">You can keep the default **Server Name**.</span></span> 
 
 > [!NOTE]
-> <span data-ttu-id="c73ca-164">不可使用“admin”作为管理员用户名。</span><span class="sxs-lookup"><span data-stu-id="c73ca-164">"admin" isn't allowed as the administrator user name.</span></span>
+> <span data-ttu-id="dfcda-164">不可使用“admin”作为管理员用户名。</span><span class="sxs-lookup"><span data-stu-id="dfcda-164">"admin" isn't allowed as the administrator user name.</span></span>
 
 ![“配置 SQL Server”对话框](publish-to-azure-webapp-using-vs/_static/conf_servername.png)
 
-* <span data-ttu-id="c73ca-166">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-166">Select **OK**.</span></span>
+* <span data-ttu-id="dfcda-166">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-166">Select **OK**.</span></span>
 
-<span data-ttu-id="c73ca-167">Visual Studio 将返回到“创建应用服务”对话框。</span><span class="sxs-lookup"><span data-stu-id="c73ca-167">Visual Studio returns to the **Create App Service** dialog.</span></span>
+<span data-ttu-id="dfcda-167">Visual Studio 将返回到“创建应用服务”对话框。</span><span class="sxs-lookup"><span data-stu-id="dfcda-167">Visual Studio returns to the **Create App Service** dialog.</span></span>
 
-* <span data-ttu-id="c73ca-168">选择“创建应用服务”对话框上的“创建”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-168">Select **Create** on the **Create App Service** dialog.</span></span>
+* <span data-ttu-id="dfcda-168">选择“创建应用服务”对话框上的“创建”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-168">Select **Create** on the **Create App Service** dialog.</span></span>
 
 ![“配置 SQL 数据库”对话框](publish-to-azure-webapp-using-vs/_static/conf_final.png)
 
-<span data-ttu-id="c73ca-170">Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。</span><span class="sxs-lookup"><span data-stu-id="c73ca-170">Visual Studio creates the Web app and SQL Server on Azure.</span></span> <span data-ttu-id="c73ca-171">此步骤可能需要几分钟。</span><span class="sxs-lookup"><span data-stu-id="c73ca-171">This step can take a few minutes.</span></span> <span data-ttu-id="c73ca-172">有关创建的资源的信息，请参阅[其他资源](#additional-resources)。</span><span class="sxs-lookup"><span data-stu-id="c73ca-172">For information on the resources created, see [Additional resources](#additional-resources).</span></span>
+<span data-ttu-id="dfcda-170">Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。</span><span class="sxs-lookup"><span data-stu-id="dfcda-170">Visual Studio creates the Web app and SQL Server on Azure.</span></span> <span data-ttu-id="dfcda-171">此步骤可能需要几分钟。</span><span class="sxs-lookup"><span data-stu-id="dfcda-171">This step can take a few minutes.</span></span> <span data-ttu-id="dfcda-172">有关创建的资源的信息，请参阅[其他资源](#additional-resources)。</span><span class="sxs-lookup"><span data-stu-id="dfcda-172">For information on the resources created, see [Additional resources](#additional-resources).</span></span>
 
-<span data-ttu-id="c73ca-173">部署完成时，选择“设置”：</span><span class="sxs-lookup"><span data-stu-id="c73ca-173">When deployment completes, select **Settings**:</span></span>
+<span data-ttu-id="dfcda-173">部署完成时，选择“设置”：</span><span class="sxs-lookup"><span data-stu-id="dfcda-173">When deployment completes, select **Settings**:</span></span>
 
 ![“配置 SQL Server”对话框](publish-to-azure-webapp-using-vs/_static/set.png)
 
-<span data-ttu-id="c73ca-175">在“发布”对话框的“设置”页面上：</span><span class="sxs-lookup"><span data-stu-id="c73ca-175">On the **Settings** page of the **Publish** dialog:</span></span>
+<span data-ttu-id="dfcda-175">在“发布”对话框的“设置”页面上：</span><span class="sxs-lookup"><span data-stu-id="dfcda-175">On the **Settings** page of the **Publish** dialog:</span></span>
 
-* <span data-ttu-id="c73ca-176">展开“数据库”并选中“在运行时使用此连接字符串”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-176">Expand **Databases** and check **Use this connection string at runtime**.</span></span>
-* <span data-ttu-id="c73ca-177">展开“Entity Framework 迁移”并选中“在发布时应用此迁移”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-177">Expand **Entity Framework Migrations** and check **Apply this migration on publish**.</span></span>
+* <span data-ttu-id="dfcda-176">展开“数据库”并选中“在运行时使用此连接字符串”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-176">Expand **Databases** and check **Use this connection string at runtime**.</span></span>
+* <span data-ttu-id="dfcda-177">展开“Entity Framework 迁移”并选中“在发布时应用此迁移”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-177">Expand **Entity Framework Migrations** and check **Apply this migration on publish**.</span></span>
 
-* <span data-ttu-id="c73ca-178">选择“保存”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-178">Select **Save**.</span></span> <span data-ttu-id="c73ca-179">Visual Studio 将返回到“发布”对话框。</span><span class="sxs-lookup"><span data-stu-id="c73ca-179">Visual Studio returns to the **Publish** dialog.</span></span> 
+* <span data-ttu-id="dfcda-178">选择“保存”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-178">Select **Save**.</span></span> <span data-ttu-id="dfcda-179">Visual Studio 将返回到“发布”对话框。</span><span class="sxs-lookup"><span data-stu-id="dfcda-179">Visual Studio returns to the **Publish** dialog.</span></span> 
 
 ![“发布”对话框：设置面板](publish-to-azure-webapp-using-vs/_static/pubs.png)
 
-<span data-ttu-id="c73ca-181">单击“发布” 。</span><span class="sxs-lookup"><span data-stu-id="c73ca-181">Click **Publish**.</span></span> <span data-ttu-id="c73ca-182">Visual Studio 将应用发布到 Azure。</span><span class="sxs-lookup"><span data-stu-id="c73ca-182">Visual Studio publishes your app to Azure.</span></span> <span data-ttu-id="c73ca-183">部署完成时，应用在浏览器中打开。</span><span class="sxs-lookup"><span data-stu-id="c73ca-183">When the deployment completes, the app is opened in a browser.</span></span>
+<span data-ttu-id="dfcda-181">单击“发布” 。</span><span class="sxs-lookup"><span data-stu-id="dfcda-181">Click **Publish**.</span></span> <span data-ttu-id="dfcda-182">Visual Studio 将应用发布到 Azure。</span><span class="sxs-lookup"><span data-stu-id="dfcda-182">Visual Studio publishes your app to Azure.</span></span> <span data-ttu-id="dfcda-183">部署完成时，应用在浏览器中打开。</span><span class="sxs-lookup"><span data-stu-id="dfcda-183">When the deployment completes, the app is opened in a browser.</span></span>
 
-### <a name="test-your-app-in-azure"></a><span data-ttu-id="c73ca-184">在 Azure 中测试应用</span><span class="sxs-lookup"><span data-stu-id="c73ca-184">Test your app in Azure</span></span>
+### <a name="test-your-app-in-azure"></a><span data-ttu-id="dfcda-184">在 Azure 中测试应用</span><span class="sxs-lookup"><span data-stu-id="dfcda-184">Test your app in Azure</span></span>
 
-* <span data-ttu-id="c73ca-185">测试“关于”和“联系”链接</span><span class="sxs-lookup"><span data-stu-id="c73ca-185">Test the **About** and **Contact** links</span></span>
+* <span data-ttu-id="dfcda-185">测试“关于”和“联系”链接</span><span class="sxs-lookup"><span data-stu-id="dfcda-185">Test the **About** and **Contact** links</span></span>
 
-* <span data-ttu-id="c73ca-186">注册新用户</span><span class="sxs-lookup"><span data-stu-id="c73ca-186">Register a new user</span></span>
+* <span data-ttu-id="dfcda-186">注册新用户</span><span class="sxs-lookup"><span data-stu-id="dfcda-186">Register a new user</span></span>
 
 ![Microsoft Edge 中 Azure App Service 上打开的 Web 应用程序](publish-to-azure-webapp-using-vs/_static/register.png)
 
-### <a name="update-the-app"></a><span data-ttu-id="c73ca-188">更新应用</span><span class="sxs-lookup"><span data-stu-id="c73ca-188">Update the app</span></span>
+### <a name="update-the-app"></a><span data-ttu-id="dfcda-188">更新应用</span><span class="sxs-lookup"><span data-stu-id="dfcda-188">Update the app</span></span>
 
-* <span data-ttu-id="c73ca-189">编辑“Pages/About.cshtml”Razor 页面并更改其内容。</span><span class="sxs-lookup"><span data-stu-id="c73ca-189">Edit the *Pages/About.cshtml* Razor page and change its contents.</span></span> <span data-ttu-id="c73ca-190">例如，可以将段落修改为显示“Hello ASP.NET Core!”：</span><span class="sxs-lookup"><span data-stu-id="c73ca-190">For example, you can modify the paragraph to say "Hello ASP.NET Core!":</span></span>
+* <span data-ttu-id="dfcda-189">编辑“Pages/About.cshtml”Razor 页面并更改其内容。</span><span class="sxs-lookup"><span data-stu-id="dfcda-189">Edit the *Pages/About.cshtml* Razor page and change its contents.</span></span> <span data-ttu-id="dfcda-190">例如，可以将段落修改为显示“Hello ASP.NET Core!”：</span><span class="sxs-lookup"><span data-stu-id="dfcda-190">For example, you can modify the paragraph to say "Hello ASP.NET Core!":</span></span>
 
     [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
 
-* <span data-ttu-id="c73ca-191">右键单击项目，然后再次选择“发布...”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-191">Right-click on the project and select **Publish...** again.</span></span>
+* <span data-ttu-id="dfcda-191">右键单击项目，然后再次选择“发布...”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-191">Right-click on the project and select **Publish...** again.</span></span>
 
 ![打开且突出显示“发布”链接的上下文菜单](publish-to-azure-webapp-using-vs/_static/pub.png)
 
-* <span data-ttu-id="c73ca-193">应用发布后，验证所做的更改在 Azure 上是否可用。</span><span class="sxs-lookup"><span data-stu-id="c73ca-193">After the app is published, verify the changes you made are available on Azure.</span></span>
+* <span data-ttu-id="dfcda-193">应用发布后，验证所做的更改在 Azure 上是否可用。</span><span class="sxs-lookup"><span data-stu-id="dfcda-193">After the app is published, verify the changes you made are available on Azure.</span></span>
 
 ![验证任务已完成](publish-to-azure-webapp-using-vs/_static/final.png)
 
-### <a name="clean-up"></a><span data-ttu-id="c73ca-195">清理</span><span class="sxs-lookup"><span data-stu-id="c73ca-195">Clean up</span></span>
+### <a name="clean-up"></a><span data-ttu-id="dfcda-195">清理</span><span class="sxs-lookup"><span data-stu-id="dfcda-195">Clean up</span></span>
 
-<span data-ttu-id="c73ca-196">完成应用测试后，转到 [Azure 门户](https://portal.azure.com/)并删除该应用。</span><span class="sxs-lookup"><span data-stu-id="c73ca-196">When you have finished testing the app, go to the [Azure portal](https://portal.azure.com/) and delete the app.</span></span>
+<span data-ttu-id="dfcda-196">完成应用测试后，转到 [Azure 门户](https://portal.azure.com/)并删除该应用。</span><span class="sxs-lookup"><span data-stu-id="dfcda-196">When you have finished testing the app, go to the [Azure portal](https://portal.azure.com/) and delete the app.</span></span>
 
-* <span data-ttu-id="c73ca-197">选择“资源组”，然后选择所创建的资源组。</span><span class="sxs-lookup"><span data-stu-id="c73ca-197">Select **Resource groups**, then select the resource group you created.</span></span>
+* <span data-ttu-id="dfcda-197">选择“资源组”，然后选择所创建的资源组。</span><span class="sxs-lookup"><span data-stu-id="dfcda-197">Select **Resource groups**, then select the resource group you created.</span></span>
 
 ![Azure 门户：侧边栏菜单中的资源组](publish-to-azure-webapp-using-vs/_static/portalrg.png)
 
-* <span data-ttu-id="c73ca-199">在“资源组”页面中，选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-199">In the **Resource groups** page, select **Delete**.</span></span>
+* <span data-ttu-id="dfcda-199">在“资源组”页面中，选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-199">In the **Resource groups** page, select **Delete**.</span></span>
 
 ![Azure 门户：“资源组”页](publish-to-azure-webapp-using-vs/_static/rgd.png)
 
-* <span data-ttu-id="c73ca-201">输入资源组的名称并选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="c73ca-201">Enter the name of the resource group and select **Delete**.</span></span> <span data-ttu-id="c73ca-202">现已从 Azure 中删除了本教程中创建的应用和其他所有资源。</span><span class="sxs-lookup"><span data-stu-id="c73ca-202">Your app and all other resources created in this tutorial are now deleted from Azure.</span></span>
+* <span data-ttu-id="dfcda-201">输入资源组的名称并选择“删除”。</span><span class="sxs-lookup"><span data-stu-id="dfcda-201">Enter the name of the resource group and select **Delete**.</span></span> <span data-ttu-id="dfcda-202">现已从 Azure 中删除了本教程中创建的应用和其他所有资源。</span><span class="sxs-lookup"><span data-stu-id="dfcda-202">Your app and all other resources created in this tutorial are now deleted from Azure.</span></span>
 
-### <a name="next-steps"></a><span data-ttu-id="c73ca-203">后续步骤</span><span class="sxs-lookup"><span data-stu-id="c73ca-203">Next steps</span></span>
+### <a name="next-steps"></a><span data-ttu-id="dfcda-203">后续步骤</span><span class="sxs-lookup"><span data-stu-id="dfcda-203">Next steps</span></span>
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additional-resources"></a><span data-ttu-id="c73ca-204">其他资源</span><span class="sxs-lookup"><span data-stu-id="c73ca-204">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="dfcda-204">其他资源</span><span class="sxs-lookup"><span data-stu-id="dfcda-204">Additional resources</span></span>
 
-* [<span data-ttu-id="c73ca-205">Azure 应用服务</span><span class="sxs-lookup"><span data-stu-id="c73ca-205">Azure App Service</span></span>](/azure/app-service/app-service-web-overview)
-* [<span data-ttu-id="c73ca-206">Azure 资源组</span><span class="sxs-lookup"><span data-stu-id="c73ca-206">Azure resource groups</span></span>](/azure/azure-resource-manager/resource-group-overview#resource-groups)
-* [<span data-ttu-id="c73ca-207">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="c73ca-207">Azure SQL Database</span></span>](/azure/sql-database/)
+* <span data-ttu-id="dfcda-205">对于 Visual Studio Code，请参阅[发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles)。</span><span class="sxs-lookup"><span data-stu-id="dfcda-205">For Visual Studio Code, see [Publish profiles](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles).</span></span>
+* [<span data-ttu-id="dfcda-206">Azure 应用服务</span><span class="sxs-lookup"><span data-stu-id="dfcda-206">Azure App Service</span></span>](/azure/app-service/app-service-web-overview)
+* [<span data-ttu-id="dfcda-207">Azure 资源组</span><span class="sxs-lookup"><span data-stu-id="dfcda-207">Azure resource groups</span></span>](/azure/azure-resource-manager/resource-group-overview#resource-groups)
+* [<span data-ttu-id="dfcda-208">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="dfcda-208">Azure SQL Database</span></span>](/azure/sql-database/)
 * <xref:host-and-deploy/visual-studio-publish-profiles>
 * <xref:host-and-deploy/azure-apps/troubleshoot>
