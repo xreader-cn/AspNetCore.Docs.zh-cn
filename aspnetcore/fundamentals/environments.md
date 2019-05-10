@@ -7,49 +7,49 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/10/2019
 uid: fundamentals/environments
-ms.openlocfilehash: f14c29030d96b530ea4af054cfa195d44db43679
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: a0e6d62f352a886a9bc051813a21d94c1605a1ce
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516347"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087036"
 ---
-# <a name="use-multiple-environments-in-aspnet-core"></a><span data-ttu-id="7a59e-103">在 ASP.NET Core 中使用多个环境</span><span class="sxs-lookup"><span data-stu-id="7a59e-103">Use multiple environments in ASP.NET Core</span></span>
+# <a name="use-multiple-environments-in-aspnet-core"></a><span data-ttu-id="9b350-103">在 ASP.NET Core 中使用多个环境</span><span class="sxs-lookup"><span data-stu-id="9b350-103">Use multiple environments in ASP.NET Core</span></span>
 
-<span data-ttu-id="7a59e-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="7a59e-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="9b350-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="9b350-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="7a59e-105">ASP.NET Core 基于使用环境变量的运行时环境配置应用行为。</span><span class="sxs-lookup"><span data-stu-id="7a59e-105">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
+<span data-ttu-id="9b350-105">ASP.NET Core 基于使用环境变量的运行时环境配置应用行为。</span><span class="sxs-lookup"><span data-stu-id="9b350-105">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
 
-<span data-ttu-id="7a59e-106">[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7a59e-106">[View or download sample code](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="9b350-106">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="9b350-106">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="environments"></a><span data-ttu-id="7a59e-107">环境</span><span class="sxs-lookup"><span data-stu-id="7a59e-107">Environments</span></span>
+## <a name="environments"></a><span data-ttu-id="9b350-107">环境</span><span class="sxs-lookup"><span data-stu-id="9b350-107">Environments</span></span>
 
-<span data-ttu-id="7a59e-108">ASP.NET Core 在应用启动时读取环境变量 `ASPNETCORE_ENVIRONMENT`，并将该值存储在 [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname) 中。</span><span class="sxs-lookup"><span data-stu-id="7a59e-108">ASP.NET Core reads the environment variable `ASPNETCORE_ENVIRONMENT` at app startup and stores the value in [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname).</span></span> <span data-ttu-id="7a59e-109">`ASPNETCORE_ENVIRONMENT` 可设置为任意值，但框架支持[三个值](/dotnet/api/microsoft.aspnetcore.hosting.environmentname)：[Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development)、[Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging) 和 [Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-109">You can set `ASPNETCORE_ENVIRONMENT` to any value, but [three values](/dotnet/api/microsoft.aspnetcore.hosting.environmentname) are supported by the framework: [Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development), [Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging), and [Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production).</span></span> <span data-ttu-id="7a59e-110">如果未设置 `ASPNETCORE_ENVIRONMENT`，则默认为 `Production`。</span><span class="sxs-lookup"><span data-stu-id="7a59e-110">If `ASPNETCORE_ENVIRONMENT` isn't set, it defaults to `Production`.</span></span>
+<span data-ttu-id="9b350-108">ASP.NET Core 在应用启动时读取环境变量 `ASPNETCORE_ENVIRONMENT`，并将该值存储在 [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname) 中。</span><span class="sxs-lookup"><span data-stu-id="9b350-108">ASP.NET Core reads the environment variable `ASPNETCORE_ENVIRONMENT` at app startup and stores the value in [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname).</span></span> <span data-ttu-id="9b350-109">`ASPNETCORE_ENVIRONMENT` 可设置为任意值，但框架支持[三个值](/dotnet/api/microsoft.aspnetcore.hosting.environmentname)：[Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development)、[Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging) 和 [Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production)。</span><span class="sxs-lookup"><span data-stu-id="9b350-109">You can set `ASPNETCORE_ENVIRONMENT` to any value, but [three values](/dotnet/api/microsoft.aspnetcore.hosting.environmentname) are supported by the framework: [Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development), [Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging), and [Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production).</span></span> <span data-ttu-id="9b350-110">如果未设置 `ASPNETCORE_ENVIRONMENT`，则默认为 `Production`。</span><span class="sxs-lookup"><span data-stu-id="9b350-110">If `ASPNETCORE_ENVIRONMENT` isn't set, it defaults to `Production`.</span></span>
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="7a59e-111">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="7a59e-111">The preceding code:</span></span>
+<span data-ttu-id="9b350-111">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="9b350-111">The preceding code:</span></span>
 
-* <span data-ttu-id="7a59e-112">当 `ASPNETCORE_ENVIRONMENT` 设置为 `Development` 时，调用 [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-112">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
-* <span data-ttu-id="7a59e-113">当 `ASPNETCORE_ENVIRONMENT` 的值设置为下列之一时，调用 [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler)：</span><span class="sxs-lookup"><span data-stu-id="7a59e-113">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set one of the following:</span></span>
+* <span data-ttu-id="9b350-112">当 `ASPNETCORE_ENVIRONMENT` 设置为 `Development` 时，调用 [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage)。</span><span class="sxs-lookup"><span data-stu-id="9b350-112">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
+* <span data-ttu-id="9b350-113">当 `ASPNETCORE_ENVIRONMENT` 的值设置为下列之一时，调用 [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler)：</span><span class="sxs-lookup"><span data-stu-id="9b350-113">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set one of the following:</span></span>
 
   * `Staging`
   * `Production`
   * `Staging_2`
 
-<span data-ttu-id="7a59e-114">[环境标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)使用 `IHostingEnvironment.EnvironmentName` 的值来包含或排除元素中的标记：</span><span class="sxs-lookup"><span data-stu-id="7a59e-114">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of `IHostingEnvironment.EnvironmentName` to include or exclude markup in the element:</span></span>
+<span data-ttu-id="9b350-114">[环境标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)使用 `IHostingEnvironment.EnvironmentName` 的值来包含或排除元素中的标记：</span><span class="sxs-lookup"><span data-stu-id="9b350-114">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of `IHostingEnvironment.EnvironmentName` to include or exclude markup in the element:</span></span>
 
 [!code-cshtml[](environments/sample-snapshot/EnvironmentsSample/Pages/About.cshtml)]
 
-<span data-ttu-id="7a59e-115">在 Windows 和 macOS 上，环境变量和值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="7a59e-115">On Windows and macOS, environment variables and values aren't case sensitive.</span></span> <span data-ttu-id="7a59e-116">默认情况下，Linux 环境变量和值要区分大小写。</span><span class="sxs-lookup"><span data-stu-id="7a59e-116">Linux environment variables and values are **case sensitive** by default.</span></span>
+<span data-ttu-id="9b350-115">在 Windows 和 macOS 上，环境变量和值不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="9b350-115">On Windows and macOS, environment variables and values aren't case sensitive.</span></span> <span data-ttu-id="9b350-116">默认情况下，Linux 环境变量和值要区分大小写。</span><span class="sxs-lookup"><span data-stu-id="9b350-116">Linux environment variables and values are **case sensitive** by default.</span></span>
 
-### <a name="development"></a><span data-ttu-id="7a59e-117">开发</span><span class="sxs-lookup"><span data-stu-id="7a59e-117">Development</span></span>
+### <a name="development"></a><span data-ttu-id="9b350-117">开发</span><span class="sxs-lookup"><span data-stu-id="9b350-117">Development</span></span>
 
-<span data-ttu-id="7a59e-118">开发环境可以启用不应该在生产中公开的功能。</span><span class="sxs-lookup"><span data-stu-id="7a59e-118">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="7a59e-119">例如，ASP.NET Core 模板在开发环境中启用了[开发人员异常页](xref:fundamentals/error-handling#developer-exception-page)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-119">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
+<span data-ttu-id="9b350-118">开发环境可以启用不应该在生产中公开的功能。</span><span class="sxs-lookup"><span data-stu-id="9b350-118">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="9b350-119">例如，ASP.NET Core 模板在开发环境中启用了[开发人员异常页](xref:fundamentals/error-handling#developer-exception-page)。</span><span class="sxs-lookup"><span data-stu-id="9b350-119">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
 
-<span data-ttu-id="7a59e-120">本地计算机开发环境可以在项目的 Properties\launchSettings.json 文件中设置。</span><span class="sxs-lookup"><span data-stu-id="7a59e-120">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="7a59e-121">在 launchSettings.json 中设置的环境值替代在系统环境中设置的值。</span><span class="sxs-lookup"><span data-stu-id="7a59e-121">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
+<span data-ttu-id="9b350-120">本地计算机开发环境可以在项目的 Properties\launchSettings.json 文件中设置。</span><span class="sxs-lookup"><span data-stu-id="9b350-120">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="9b350-121">在 launchSettings.json 中设置的环境值替代在系统环境中设置的值。</span><span class="sxs-lookup"><span data-stu-id="9b350-121">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
 
-<span data-ttu-id="7a59e-122">以下 JSON 显示 launchSettings.json 文件中的三个配置文件：</span><span class="sxs-lookup"><span data-stu-id="7a59e-122">The following JSON shows three profiles from a *launchSettings.json* file:</span></span>
+<span data-ttu-id="9b350-122">以下 JSON 显示 launchSettings.json 文件中的三个配置文件：</span><span class="sxs-lookup"><span data-stu-id="9b350-122">The following JSON shows three profiles from a *launchSettings.json* file:</span></span>
 
 ```json
 {
@@ -94,7 +94,7 @@ ms.locfileid: "59516347"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="7a59e-123">launchSettings.json 中的 `applicationUrl` 属性可指定服务器 URL 的列表。</span><span class="sxs-lookup"><span data-stu-id="7a59e-123">The `applicationUrl` property in *launchSettings.json* can specify a list of server URLs.</span></span> <span data-ttu-id="7a59e-124">在列表中的 URL 之间使用分号：</span><span class="sxs-lookup"><span data-stu-id="7a59e-124">Use a semicolon between the URLs in the list:</span></span>
+> <span data-ttu-id="9b350-123">launchSettings.json 中的 `applicationUrl` 属性可指定服务器 URL 的列表。</span><span class="sxs-lookup"><span data-stu-id="9b350-123">The `applicationUrl` property in *launchSettings.json* can specify a list of server URLs.</span></span> <span data-ttu-id="9b350-124">在列表中的 URL 之间使用分号：</span><span class="sxs-lookup"><span data-stu-id="9b350-124">Use a semicolon between the URLs in the list:</span></span>
 >
 > ```json
 > "EnvironmentsSample": {
@@ -107,18 +107,18 @@ ms.locfileid: "59516347"
 > }
 > ```
 
-<span data-ttu-id="7a59e-125">使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时，使用具有 `"commandName": "Project"` 的第一个配置文件。</span><span class="sxs-lookup"><span data-stu-id="7a59e-125">When the app is launched with [dotnet run](/dotnet/core/tools/dotnet-run), the first profile with `"commandName": "Project"` is used.</span></span> <span data-ttu-id="7a59e-126">`commandName` 的值指定要启动的 Web 服务器。</span><span class="sxs-lookup"><span data-stu-id="7a59e-126">The value of `commandName` specifies the web server to launch.</span></span> <span data-ttu-id="7a59e-127">`commandName` 可为以下任一项：</span><span class="sxs-lookup"><span data-stu-id="7a59e-127">`commandName` can be any one of the following:</span></span>
+<span data-ttu-id="9b350-125">使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时，使用具有 `"commandName": "Project"` 的第一个配置文件。</span><span class="sxs-lookup"><span data-stu-id="9b350-125">When the app is launched with [dotnet run](/dotnet/core/tools/dotnet-run), the first profile with `"commandName": "Project"` is used.</span></span> <span data-ttu-id="9b350-126">`commandName` 的值指定要启动的 Web 服务器。</span><span class="sxs-lookup"><span data-stu-id="9b350-126">The value of `commandName` specifies the web server to launch.</span></span> <span data-ttu-id="9b350-127">`commandName` 可为以下任一项：</span><span class="sxs-lookup"><span data-stu-id="9b350-127">`commandName` can be any one of the following:</span></span>
 
 * `IISExpress`
 * `IIS`
-* <span data-ttu-id="7a59e-128">`Project`（启动 Kestrel 的项目）</span><span class="sxs-lookup"><span data-stu-id="7a59e-128">`Project` (which launches Kestrel)</span></span>
+* <span data-ttu-id="9b350-128">`Project`（启动 Kestrel 的项目）</span><span class="sxs-lookup"><span data-stu-id="9b350-128">`Project` (which launches Kestrel)</span></span>
 
-<span data-ttu-id="7a59e-129">使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时：</span><span class="sxs-lookup"><span data-stu-id="7a59e-129">When an app is launched with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
+<span data-ttu-id="9b350-129">使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动应用时：</span><span class="sxs-lookup"><span data-stu-id="9b350-129">When an app is launched with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
 
-* <span data-ttu-id="7a59e-130">如果可用，读取 launchSettings.json。</span><span class="sxs-lookup"><span data-stu-id="7a59e-130">*launchSettings.json* is read if available.</span></span> <span data-ttu-id="7a59e-131">launchSettings.json 中的 `environmentVariables` 设置会替代环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-131">`environmentVariables` settings in *launchSettings.json* override environment variables.</span></span>
-* <span data-ttu-id="7a59e-132">此时显示承载环境。</span><span class="sxs-lookup"><span data-stu-id="7a59e-132">The hosting environment is displayed.</span></span>
+* <span data-ttu-id="9b350-130">如果可用，读取 launchSettings.json。</span><span class="sxs-lookup"><span data-stu-id="9b350-130">*launchSettings.json* is read if available.</span></span> <span data-ttu-id="9b350-131">launchSettings.json 中的 `environmentVariables` 设置会替代环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-131">`environmentVariables` settings in *launchSettings.json* override environment variables.</span></span>
+* <span data-ttu-id="9b350-132">此时显示承载环境。</span><span class="sxs-lookup"><span data-stu-id="9b350-132">The hosting environment is displayed.</span></span>
 
-<span data-ttu-id="7a59e-133">以下输出显示了使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动的应用：</span><span class="sxs-lookup"><span data-stu-id="7a59e-133">The following output shows an app started with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
+<span data-ttu-id="9b350-133">以下输出显示了使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动的应用：</span><span class="sxs-lookup"><span data-stu-id="9b350-133">The following output shows an app started with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
 
 ```bash
 PS C:\Websites\EnvironmentsSample> dotnet run
@@ -129,16 +129,16 @@ Now listening on: http://localhost:54340
 Application started. Press Ctrl+C to shut down.
 ```
 
-<span data-ttu-id="7a59e-134">Visual Studio 项目属性“调试”选项卡提供 GUI 来编辑 launchSettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="7a59e-134">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file:</span></span>
+<span data-ttu-id="9b350-134">Visual Studio 项目属性“调试”选项卡提供 GUI 来编辑 launchSettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="9b350-134">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file:</span></span>
 
 ![项目属性设置环境变量](environments/_static/project-properties-debug.png)
 
-<span data-ttu-id="7a59e-136">在 Web 服务器重新启动之前，对项目配置文件所做的更改可能不会生效。</span><span class="sxs-lookup"><span data-stu-id="7a59e-136">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="7a59e-137">必须重新启动 Kestrel 才能检测到对其环境所做的更改。</span><span class="sxs-lookup"><span data-stu-id="7a59e-137">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
+<span data-ttu-id="9b350-136">在 Web 服务器重新启动之前，对项目配置文件所做的更改可能不会生效。</span><span class="sxs-lookup"><span data-stu-id="9b350-136">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="9b350-137">必须重新启动 Kestrel 才能检测到对其环境所做的更改。</span><span class="sxs-lookup"><span data-stu-id="9b350-137">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="7a59e-138">launchSettings.json 不应存储机密。</span><span class="sxs-lookup"><span data-stu-id="7a59e-138">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="7a59e-139">[机密管理器工具](xref:security/app-secrets)可用于存储本地开发的机密。</span><span class="sxs-lookup"><span data-stu-id="7a59e-139">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
+> <span data-ttu-id="9b350-138">launchSettings.json 不应存储机密。</span><span class="sxs-lookup"><span data-stu-id="9b350-138">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="9b350-139">[机密管理器工具](xref:security/app-secrets)可用于存储本地开发的机密。</span><span class="sxs-lookup"><span data-stu-id="9b350-139">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
 
-<span data-ttu-id="7a59e-140">使用 [Visual Studio Code](https://code.visualstudio.com/) 时，可以在 .vscode/launch.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-140">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="7a59e-141">以下示例将环境设置为 `Development`：</span><span class="sxs-lookup"><span data-stu-id="7a59e-141">The following example sets the environment to `Development`:</span></span>
+<span data-ttu-id="9b350-140">使用 [Visual Studio Code](https://code.visualstudio.com/) 时，可以在 .vscode/launch.json 文件中设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-140">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="9b350-141">以下示例将环境设置为 `Development`：</span><span class="sxs-lookup"><span data-stu-id="9b350-141">The following example sets the environment to `Development`:</span></span>
 
 ```json
 {
@@ -157,90 +157,90 @@ Application started. Press Ctrl+C to shut down.
 }
 ```
 
-<span data-ttu-id="7a59e-142">使用与 Properties/launchSettings.json 相同的方法通过 `dotnet run` 启动应用时，不读取项目中的 .vscode/launch.json 文件。</span><span class="sxs-lookup"><span data-stu-id="7a59e-142">A *.vscode/launch.json* file in the project isn't read when starting the app with `dotnet run` in the same way as *Properties/launchSettings.json*.</span></span> <span data-ttu-id="7a59e-143">在没有 launchSettings.json 文件的 Development 环境中启动应用时，需要使用环境变量设置环境或者将命令行参数设为 `dotnet run` 命令。</span><span class="sxs-lookup"><span data-stu-id="7a59e-143">When launching an app in development that doesn't have a *launchSettings.json* file, either set the environment with an environment variable or a command-line argument to the `dotnet run` command.</span></span>
+<span data-ttu-id="9b350-142">使用与 Properties/launchSettings.json 相同的方法通过 `dotnet run` 启动应用时，不读取项目中的 .vscode/launch.json 文件。</span><span class="sxs-lookup"><span data-stu-id="9b350-142">A *.vscode/launch.json* file in the project isn't read when starting the app with `dotnet run` in the same way as *Properties/launchSettings.json*.</span></span> <span data-ttu-id="9b350-143">在没有 launchSettings.json 文件的 Development 环境中启动应用时，需要使用环境变量设置环境或者将命令行参数设为 `dotnet run` 命令。</span><span class="sxs-lookup"><span data-stu-id="9b350-143">When launching an app in development that doesn't have a *launchSettings.json* file, either set the environment with an environment variable or a command-line argument to the `dotnet run` command.</span></span>
 
-### <a name="production"></a><span data-ttu-id="7a59e-144">生产</span><span class="sxs-lookup"><span data-stu-id="7a59e-144">Production</span></span>
+### <a name="production"></a><span data-ttu-id="9b350-144">生产</span><span class="sxs-lookup"><span data-stu-id="9b350-144">Production</span></span>
 
-<span data-ttu-id="7a59e-145">Production 环境应配置为最大限度地提高安全性、性能和应用可靠性。</span><span class="sxs-lookup"><span data-stu-id="7a59e-145">The production environment should be configured to maximize security, performance, and app robustness.</span></span> <span data-ttu-id="7a59e-146">不同于开发的一些通用设置包括：</span><span class="sxs-lookup"><span data-stu-id="7a59e-146">Some common settings that differ from development include:</span></span>
+<span data-ttu-id="9b350-145">Production 环境应配置为最大限度地提高安全性、性能和应用可靠性。</span><span class="sxs-lookup"><span data-stu-id="9b350-145">The production environment should be configured to maximize security, performance, and app robustness.</span></span> <span data-ttu-id="9b350-146">不同于开发的一些通用设置包括：</span><span class="sxs-lookup"><span data-stu-id="9b350-146">Some common settings that differ from development include:</span></span>
 
-* <span data-ttu-id="7a59e-147">缓存。</span><span class="sxs-lookup"><span data-stu-id="7a59e-147">Caching.</span></span>
-* <span data-ttu-id="7a59e-148">客户端资源被捆绑和缩小，并可能从 CDN 提供。</span><span class="sxs-lookup"><span data-stu-id="7a59e-148">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
-* <span data-ttu-id="7a59e-149">已禁用诊断错误页。</span><span class="sxs-lookup"><span data-stu-id="7a59e-149">Diagnostic error pages disabled.</span></span>
-* <span data-ttu-id="7a59e-150">已启用友好错误页。</span><span class="sxs-lookup"><span data-stu-id="7a59e-150">Friendly error pages enabled.</span></span>
-* <span data-ttu-id="7a59e-151">已启用生产记录和监视。</span><span class="sxs-lookup"><span data-stu-id="7a59e-151">Production logging and monitoring enabled.</span></span> <span data-ttu-id="7a59e-152">例如，[Application Insights](/azure/application-insights/app-insights-asp-net-core)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-152">For example, [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
+* <span data-ttu-id="9b350-147">缓存。</span><span class="sxs-lookup"><span data-stu-id="9b350-147">Caching.</span></span>
+* <span data-ttu-id="9b350-148">客户端资源被捆绑和缩小，并可能从 CDN 提供。</span><span class="sxs-lookup"><span data-stu-id="9b350-148">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
+* <span data-ttu-id="9b350-149">已禁用诊断错误页。</span><span class="sxs-lookup"><span data-stu-id="9b350-149">Diagnostic error pages disabled.</span></span>
+* <span data-ttu-id="9b350-150">已启用友好错误页。</span><span class="sxs-lookup"><span data-stu-id="9b350-150">Friendly error pages enabled.</span></span>
+* <span data-ttu-id="9b350-151">已启用生产记录和监视。</span><span class="sxs-lookup"><span data-stu-id="9b350-151">Production logging and monitoring enabled.</span></span> <span data-ttu-id="9b350-152">例如，[Application Insights](/azure/application-insights/app-insights-asp-net-core)。</span><span class="sxs-lookup"><span data-stu-id="9b350-152">For example, [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
 
-## <a name="set-the-environment"></a><span data-ttu-id="7a59e-153">设置环境</span><span class="sxs-lookup"><span data-stu-id="7a59e-153">Set the environment</span></span>
+## <a name="set-the-environment"></a><span data-ttu-id="9b350-153">设置环境</span><span class="sxs-lookup"><span data-stu-id="9b350-153">Set the environment</span></span>
 
-<span data-ttu-id="7a59e-154">为测试设置特定环境通常很有用。</span><span class="sxs-lookup"><span data-stu-id="7a59e-154">It's often useful to set a specific environment for testing.</span></span> <span data-ttu-id="7a59e-155">如果未设置环境，默认值为 `Production`，这会禁用大多数调试功能。</span><span class="sxs-lookup"><span data-stu-id="7a59e-155">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="7a59e-156">设置环境的方法取决于操作系统。</span><span class="sxs-lookup"><span data-stu-id="7a59e-156">The method for setting the environment depends on the operating system.</span></span>
+<span data-ttu-id="9b350-154">为测试设置特定环境通常很有用。</span><span class="sxs-lookup"><span data-stu-id="9b350-154">It's often useful to set a specific environment for testing.</span></span> <span data-ttu-id="9b350-155">如果未设置环境，默认值为 `Production`，这会禁用大多数调试功能。</span><span class="sxs-lookup"><span data-stu-id="9b350-155">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="9b350-156">设置环境的方法取决于操作系统。</span><span class="sxs-lookup"><span data-stu-id="9b350-156">The method for setting the environment depends on the operating system.</span></span>
 
-### <a name="azure-app-service"></a><span data-ttu-id="7a59e-157">Azure 应用服务</span><span class="sxs-lookup"><span data-stu-id="7a59e-157">Azure App Service</span></span>
+### <a name="azure-app-service"></a><span data-ttu-id="9b350-157">Azure 应用服务</span><span class="sxs-lookup"><span data-stu-id="9b350-157">Azure App Service</span></span>
 
-<span data-ttu-id="7a59e-158">若要在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)中设置环境，请执行以下步骤：</span><span class="sxs-lookup"><span data-stu-id="7a59e-158">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
+<span data-ttu-id="9b350-158">若要在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)中设置环境，请执行以下步骤：</span><span class="sxs-lookup"><span data-stu-id="9b350-158">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
 
-1. <span data-ttu-id="7a59e-159">从“应用服务”边栏选项卡中选择应用。</span><span class="sxs-lookup"><span data-stu-id="7a59e-159">Select the app from the **App Services** blade.</span></span>
-1. <span data-ttu-id="7a59e-160">在“设置”组中，选择“应用程序设置”边栏选项卡。</span><span class="sxs-lookup"><span data-stu-id="7a59e-160">In the **SETTINGS** group, select the **Application settings** blade.</span></span>
-1. <span data-ttu-id="7a59e-161">在“应用程序设置”区域中，选择“添加新设置”。</span><span class="sxs-lookup"><span data-stu-id="7a59e-161">In the **Application settings** area, select **Add new setting**.</span></span>
-1. <span data-ttu-id="7a59e-162">在“输入名称”中提供 `ASPNETCORE_ENVIRONMENT`。</span><span class="sxs-lookup"><span data-stu-id="7a59e-162">For **Enter a name**, provide `ASPNETCORE_ENVIRONMENT`.</span></span> <span data-ttu-id="7a59e-163">在“输入值”中提供环境（例如 `Staging`）。</span><span class="sxs-lookup"><span data-stu-id="7a59e-163">For **Enter a value**, provide the environment (for example, `Staging`).</span></span>
-1. <span data-ttu-id="7a59e-164">交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框。</span><span class="sxs-lookup"><span data-stu-id="7a59e-164">Select the **Slot Setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="7a59e-165">有关详细信息，请参阅 [Azure 文档：交换哪些设置？](/azure/app-service/web-sites-staged-publishing)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-165">For more information, see [Azure Documentation: Which settings are swapped?](/azure/app-service/web-sites-staged-publishing).</span></span>
-1. <span data-ttu-id="7a59e-166">选择边栏选项卡顶部的“保存”。</span><span class="sxs-lookup"><span data-stu-id="7a59e-166">Select **Save** at the top of the blade.</span></span>
+1. <span data-ttu-id="9b350-159">从“应用服务”边栏选项卡中选择应用。</span><span class="sxs-lookup"><span data-stu-id="9b350-159">Select the app from the **App Services** blade.</span></span>
+1. <span data-ttu-id="9b350-160">在“设置”组中，选择“应用程序设置”边栏选项卡。</span><span class="sxs-lookup"><span data-stu-id="9b350-160">In the **SETTINGS** group, select the **Application settings** blade.</span></span>
+1. <span data-ttu-id="9b350-161">在“应用程序设置”区域中，选择“添加新设置”。</span><span class="sxs-lookup"><span data-stu-id="9b350-161">In the **Application settings** area, select **Add new setting**.</span></span>
+1. <span data-ttu-id="9b350-162">在“输入名称”中提供 `ASPNETCORE_ENVIRONMENT`。</span><span class="sxs-lookup"><span data-stu-id="9b350-162">For **Enter a name**, provide `ASPNETCORE_ENVIRONMENT`.</span></span> <span data-ttu-id="9b350-163">在“输入值”中提供环境（例如 `Staging`）。</span><span class="sxs-lookup"><span data-stu-id="9b350-163">For **Enter a value**, provide the environment (for example, `Staging`).</span></span>
+1. <span data-ttu-id="9b350-164">交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框。</span><span class="sxs-lookup"><span data-stu-id="9b350-164">Select the **Slot Setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="9b350-165">有关详细信息，请参阅 [Azure 文档：交换哪些设置？](/azure/app-service/web-sites-staged-publishing)。</span><span class="sxs-lookup"><span data-stu-id="9b350-165">For more information, see [Azure Documentation: Which settings are swapped?](/azure/app-service/web-sites-staged-publishing).</span></span>
+1. <span data-ttu-id="9b350-166">选择边栏选项卡顶部的“保存”。</span><span class="sxs-lookup"><span data-stu-id="9b350-166">Select **Save** at the top of the blade.</span></span>
 
-<span data-ttu-id="7a59e-167">在 Azure 门户中添加、更改或删除应用设置（环境变量）后，Azure 应用服务自动重启应用。</span><span class="sxs-lookup"><span data-stu-id="7a59e-167">Azure App Service automatically restarts the app after an app setting (environment variable) is added, changed, or deleted in the Azure portal.</span></span>
+<span data-ttu-id="9b350-167">在 Azure 门户中添加、更改或删除应用设置（环境变量）后，Azure 应用服务自动重启应用。</span><span class="sxs-lookup"><span data-stu-id="9b350-167">Azure App Service automatically restarts the app after an app setting (environment variable) is added, changed, or deleted in the Azure portal.</span></span>
 
-### <a name="windows"></a><span data-ttu-id="7a59e-168">Windows</span><span class="sxs-lookup"><span data-stu-id="7a59e-168">Windows</span></span>
+### <a name="windows"></a><span data-ttu-id="9b350-168">Windows</span><span class="sxs-lookup"><span data-stu-id="9b350-168">Windows</span></span>
 
-<span data-ttu-id="7a59e-169">若要在使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动该应用时为当前会话设置 `ASPNETCORE_ENVIRONMENT`，则使用以下命令：</span><span class="sxs-lookup"><span data-stu-id="7a59e-169">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
+<span data-ttu-id="9b350-169">若要在使用 [dotnet run](/dotnet/core/tools/dotnet-run) 启动该应用时为当前会话设置 `ASPNETCORE_ENVIRONMENT`，则使用以下命令：</span><span class="sxs-lookup"><span data-stu-id="9b350-169">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
 
-<span data-ttu-id="7a59e-170">**命令提示符**</span><span class="sxs-lookup"><span data-stu-id="7a59e-170">**Command prompt**</span></span>
+<span data-ttu-id="9b350-170">**命令提示符**</span><span class="sxs-lookup"><span data-stu-id="9b350-170">**Command prompt**</span></span>
 
 ```console
 set ASPNETCORE_ENVIRONMENT=Development
 ```
 
-<span data-ttu-id="7a59e-171">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="7a59e-171">**PowerShell**</span></span>
+<span data-ttu-id="9b350-171">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="9b350-171">**PowerShell**</span></span>
 
 ```powershell
 $Env:ASPNETCORE_ENVIRONMENT = "Development"
 ```
 
-<span data-ttu-id="7a59e-172">这些命令仅对当前窗口有效。</span><span class="sxs-lookup"><span data-stu-id="7a59e-172">These commands only take effect for the current window.</span></span> <span data-ttu-id="7a59e-173">窗口关闭时，`ASPNETCORE_ENVIRONMENT` 设置将恢复为默认设置或计算机值。</span><span class="sxs-lookup"><span data-stu-id="7a59e-173">When the window is closed, the `ASPNETCORE_ENVIRONMENT` setting reverts to the default setting or machine value.</span></span>
+<span data-ttu-id="9b350-172">这些命令仅对当前窗口有效。</span><span class="sxs-lookup"><span data-stu-id="9b350-172">These commands only take effect for the current window.</span></span> <span data-ttu-id="9b350-173">窗口关闭时，`ASPNETCORE_ENVIRONMENT` 设置将恢复为默认设置或计算机值。</span><span class="sxs-lookup"><span data-stu-id="9b350-173">When the window is closed, the `ASPNETCORE_ENVIRONMENT` setting reverts to the default setting or machine value.</span></span>
 
-<span data-ttu-id="7a59e-174">若要在 Windows 中全局设置值，请采用下列两种方法之一：</span><span class="sxs-lookup"><span data-stu-id="7a59e-174">To set the value globally in Windows, use either of the following approaches:</span></span>
+<span data-ttu-id="9b350-174">若要在 Windows 中全局设置值，请采用下列两种方法之一：</span><span class="sxs-lookup"><span data-stu-id="9b350-174">To set the value globally in Windows, use either of the following approaches:</span></span>
 
-* <span data-ttu-id="7a59e-175">依次打开“控制面板” > “系统” > “高级系统设置”，再添加或编辑“`ASPNETCORE_ENVIRONMENT`”值：</span><span class="sxs-lookup"><span data-stu-id="7a59e-175">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
+* <span data-ttu-id="9b350-175">依次打开“控制面板” > “系统” > “高级系统设置”，再添加或编辑“`ASPNETCORE_ENVIRONMENT`”值：</span><span class="sxs-lookup"><span data-stu-id="9b350-175">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
 
   ![系统高级属性](environments/_static/systemsetting_environment.png)
 
   ![ASPNET Core 环境变量](environments/_static/windows_aspnetcore_environment.png)
 
-* <span data-ttu-id="7a59e-178">打开管理命令提示符并运行 `setx` 命令，或打开管理 PowerShell 命令提示符并运行 `[Environment]::SetEnvironmentVariable`：</span><span class="sxs-lookup"><span data-stu-id="7a59e-178">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
+* <span data-ttu-id="9b350-178">打开管理命令提示符并运行 `setx` 命令，或打开管理 PowerShell 命令提示符并运行 `[Environment]::SetEnvironmentVariable`：</span><span class="sxs-lookup"><span data-stu-id="9b350-178">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
 
-  <span data-ttu-id="7a59e-179">**命令提示符**</span><span class="sxs-lookup"><span data-stu-id="7a59e-179">**Command prompt**</span></span>
+  <span data-ttu-id="9b350-179">**命令提示符**</span><span class="sxs-lookup"><span data-stu-id="9b350-179">**Command prompt**</span></span>
 
   ```console
   setx ASPNETCORE_ENVIRONMENT Development /M
   ```
 
-  <span data-ttu-id="7a59e-180">`/M` 开关指明，在系统一级设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-180">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="7a59e-181">如果未使用 `/M` 开关，就会为用户帐户设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-181">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="9b350-180">`/M` 开关指明，在系统一级设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-180">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="9b350-181">如果未使用 `/M` 开关，就会为用户帐户设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-181">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
 
-  <span data-ttu-id="7a59e-182">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="7a59e-182">**PowerShell**</span></span>
+  <span data-ttu-id="9b350-182">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="9b350-182">**PowerShell**</span></span>
 
   ```powershell
   [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
   ```
 
-  <span data-ttu-id="7a59e-183">`Machine` 选项值指明，在系统一级设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-183">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="7a59e-184">如果将选项值更改为 `User`，就会为用户帐户设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-184">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="9b350-183">`Machine` 选项值指明，在系统一级设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-183">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="9b350-184">如果将选项值更改为 `User`，就会为用户帐户设置环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-184">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
 
-<span data-ttu-id="7a59e-185">如果全局设置 `ASPNETCORE_ENVIRONMENT` 环境变量，它就会对在值设置后打开的任何命令窗口中对 `dotnet run` 起作用。</span><span class="sxs-lookup"><span data-stu-id="7a59e-185">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span>
+<span data-ttu-id="9b350-185">如果全局设置 `ASPNETCORE_ENVIRONMENT` 环境变量，它就会对在值设置后打开的任何命令窗口中对 `dotnet run` 起作用。</span><span class="sxs-lookup"><span data-stu-id="9b350-185">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span>
 
-<span data-ttu-id="7a59e-186">**web.config**</span><span class="sxs-lookup"><span data-stu-id="7a59e-186">**web.config**</span></span>
+<span data-ttu-id="9b350-186">**web.config**</span><span class="sxs-lookup"><span data-stu-id="9b350-186">**web.config**</span></span>
 
-<span data-ttu-id="7a59e-187">若要使用 web.config 设置 `ASPNETCORE_ENVIRONMENT` 环境变量，请参阅 <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>的“设置环境变量”部分。</span><span class="sxs-lookup"><span data-stu-id="7a59e-187">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
+<span data-ttu-id="9b350-187">若要使用 web.config 设置 `ASPNETCORE_ENVIRONMENT` 环境变量，请参阅 <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>的“设置环境变量”部分。</span><span class="sxs-lookup"><span data-stu-id="9b350-187">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="7a59e-188">**项目文件或发布配置文件**</span><span class="sxs-lookup"><span data-stu-id="7a59e-188">**Project file or publish profile**</span></span>
+<span data-ttu-id="9b350-188">**项目文件或发布配置文件**</span><span class="sxs-lookup"><span data-stu-id="9b350-188">**Project file or publish profile**</span></span>
 
-<span data-ttu-id="7a59e-189">**对于 Windows IIS 部署：** 将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml）或项目文件中。</span><span class="sxs-lookup"><span data-stu-id="7a59e-189">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the publish profile (*.pubxml*) or project file.</span></span> <span data-ttu-id="7a59e-190">此方法在发布项目时设置 web.config 中的环境：</span><span class="sxs-lookup"><span data-stu-id="7a59e-190">This approach sets the environment in *web.config* when the project is published:</span></span>
+<span data-ttu-id="9b350-189">**对于 Windows IIS 部署：** 将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml）或项目文件中。</span><span class="sxs-lookup"><span data-stu-id="9b350-189">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the publish profile (*.pubxml*) or project file.</span></span> <span data-ttu-id="9b350-190">此方法在发布项目时设置 web.config 中的环境：</span><span class="sxs-lookup"><span data-stu-id="9b350-190">This approach sets the environment in *web.config* when the project is published:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -250,55 +250,55 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 
 ::: moniker-end
 
-<span data-ttu-id="7a59e-191">**每个 IIS 应用程序池**</span><span class="sxs-lookup"><span data-stu-id="7a59e-191">**Per IIS Application Pool**</span></span>
+<span data-ttu-id="9b350-191">**每个 IIS 应用程序池**</span><span class="sxs-lookup"><span data-stu-id="9b350-191">**Per IIS Application Pool**</span></span>
 
-<span data-ttu-id="7a59e-192">若要为在独立应用池中运行的应用设置 `ASPNETCORE_ENVIRONMENT` 环境变量（IIS 10.0 或更高版本支持此操作），请参阅[环境变量 &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) 主题中的“AppCmd.exe 命令”部分。</span><span class="sxs-lookup"><span data-stu-id="7a59e-192">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="7a59e-193">为应用池设置 `ASPNETCORE_ENVIRONMENT` 环境变量后，它的值会替代系统级设置。</span><span class="sxs-lookup"><span data-stu-id="7a59e-193">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
+<span data-ttu-id="9b350-192">若要为在独立应用池中运行的应用设置 `ASPNETCORE_ENVIRONMENT` 环境变量（IIS 10.0 或更高版本支持此操作），请参阅[环境变量 &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) 主题中的“AppCmd.exe 命令”部分。</span><span class="sxs-lookup"><span data-stu-id="9b350-192">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="9b350-193">为应用池设置 `ASPNETCORE_ENVIRONMENT` 环境变量后，它的值会替代系统级设置。</span><span class="sxs-lookup"><span data-stu-id="9b350-193">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="7a59e-194">在 IIS 中托管应用并添加或更改 `ASPNETCORE_ENVIRONMENT` 环境变量时，请采用下列方法之一，让新值可供应用拾取：</span><span class="sxs-lookup"><span data-stu-id="7a59e-194">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
+> <span data-ttu-id="9b350-194">在 IIS 中托管应用并添加或更改 `ASPNETCORE_ENVIRONMENT` 环境变量时，请采用下列方法之一，让新值可供应用拾取：</span><span class="sxs-lookup"><span data-stu-id="9b350-194">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
 >
-> * <span data-ttu-id="7a59e-195">在命令提示符处依次执行 `net stop was /y` 和 `net start w3svc`。</span><span class="sxs-lookup"><span data-stu-id="7a59e-195">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
-> * <span data-ttu-id="7a59e-196">重启服务器。</span><span class="sxs-lookup"><span data-stu-id="7a59e-196">Restart the server.</span></span>
+> * <span data-ttu-id="9b350-195">在命令提示符处依次执行 `net stop was /y` 和 `net start w3svc`。</span><span class="sxs-lookup"><span data-stu-id="9b350-195">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
+> * <span data-ttu-id="9b350-196">重启服务器。</span><span class="sxs-lookup"><span data-stu-id="9b350-196">Restart the server.</span></span>
 
-### <a name="macos"></a><span data-ttu-id="7a59e-197">macOS</span><span class="sxs-lookup"><span data-stu-id="7a59e-197">macOS</span></span>
+### <a name="macos"></a><span data-ttu-id="9b350-197">macOS</span><span class="sxs-lookup"><span data-stu-id="9b350-197">macOS</span></span>
 
-<span data-ttu-id="7a59e-198">设置 macOS 的当前环境可在运行应用时完成：</span><span class="sxs-lookup"><span data-stu-id="7a59e-198">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
+<span data-ttu-id="9b350-198">设置 macOS 的当前环境可在运行应用时完成：</span><span class="sxs-lookup"><span data-stu-id="9b350-198">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
 
 ```bash
 ASPNETCORE_ENVIRONMENT=Development dotnet run
 ```
 
-<span data-ttu-id="7a59e-199">或者，在运行应用前使用 `export` 设置环境：</span><span class="sxs-lookup"><span data-stu-id="7a59e-199">Alternatively, set the environment with `export` prior to running the app:</span></span>
+<span data-ttu-id="9b350-199">或者，在运行应用前使用 `export` 设置环境：</span><span class="sxs-lookup"><span data-stu-id="9b350-199">Alternatively, set the environment with `export` prior to running the app:</span></span>
 
 ```bash
 export ASPNETCORE_ENVIRONMENT=Development
 ```
 
-<span data-ttu-id="7a59e-200">在 .bashrc 或 .bash_profile 文件中设置计算机级环境变量。</span><span class="sxs-lookup"><span data-stu-id="7a59e-200">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="7a59e-201">使用任意文本编辑器编辑文件。</span><span class="sxs-lookup"><span data-stu-id="7a59e-201">Edit the file using any text editor.</span></span> <span data-ttu-id="7a59e-202">添加以下语句：</span><span class="sxs-lookup"><span data-stu-id="7a59e-202">Add the following statement:</span></span>
+<span data-ttu-id="9b350-200">在 .bashrc 或 .bash_profile 文件中设置计算机级环境变量。</span><span class="sxs-lookup"><span data-stu-id="9b350-200">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="9b350-201">使用任意文本编辑器编辑文件。</span><span class="sxs-lookup"><span data-stu-id="9b350-201">Edit the file using any text editor.</span></span> <span data-ttu-id="9b350-202">添加以下语句：</span><span class="sxs-lookup"><span data-stu-id="9b350-202">Add the following statement:</span></span>
 
 ```bash
 export ASPNETCORE_ENVIRONMENT=Development
 ```
 
-### <a name="linux"></a><span data-ttu-id="7a59e-203">Linux</span><span class="sxs-lookup"><span data-stu-id="7a59e-203">Linux</span></span>
+### <a name="linux"></a><span data-ttu-id="9b350-203">Linux</span><span class="sxs-lookup"><span data-stu-id="9b350-203">Linux</span></span>
 
-<span data-ttu-id="7a59e-204">对于 Linux 发行版，请在命令提示符中使用 `export` 命令进行基于会话的变量设置，并使用 bash_profile 文件进行计算机级环境设置。</span><span class="sxs-lookup"><span data-stu-id="7a59e-204">For Linux distros, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
+<span data-ttu-id="9b350-204">对于 Linux 发行版，请在命令提示符中使用 `export` 命令进行基于会话的变量设置，并使用 bash_profile 文件进行计算机级环境设置。</span><span class="sxs-lookup"><span data-stu-id="9b350-204">For Linux distros, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
 
-### <a name="configuration-by-environment"></a><span data-ttu-id="7a59e-205">按环境配置</span><span class="sxs-lookup"><span data-stu-id="7a59e-205">Configuration by environment</span></span>
+### <a name="configuration-by-environment"></a><span data-ttu-id="9b350-205">按环境配置</span><span class="sxs-lookup"><span data-stu-id="9b350-205">Configuration by environment</span></span>
 
-<span data-ttu-id="7a59e-206">若要按环境加载配置，我们建议：</span><span class="sxs-lookup"><span data-stu-id="7a59e-206">To load configuration by environment, we recommend:</span></span>
+<span data-ttu-id="9b350-206">若要按环境加载配置，我们建议：</span><span class="sxs-lookup"><span data-stu-id="9b350-206">To load configuration by environment, we recommend:</span></span>
 
-* <span data-ttu-id="7a59e-207">appsettings 文件 (appsettings.\<Environment>.json)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-207">*appsettings* files (*appsettings.\<Environment>.json*).</span></span> <span data-ttu-id="7a59e-208">请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-208">See [Configuration: File configuration provider](xref:fundamentals/configuration/index#file-configuration-provider).</span></span>
-* <span data-ttu-id="7a59e-209">环境变量（在托管应用的每个系统上进行设置）。</span><span class="sxs-lookup"><span data-stu-id="7a59e-209">environment variables (set on each system where the app is hosted).</span></span> <span data-ttu-id="7a59e-210">请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)和[开发环境中应用密码的安全存储：环境变量](xref:security/app-secrets#environment-variables)。</span><span class="sxs-lookup"><span data-stu-id="7a59e-210">See [Configuration: File configuration provider](xref:fundamentals/configuration/index#file-configuration-provider) and [Safe storage of app secrets in development: Environment variables](xref:security/app-secrets#environment-variables).</span></span>
-* <span data-ttu-id="7a59e-211">密码管理器（仅限开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="7a59e-211">Secret Manager (in the Development environment only).</span></span> <span data-ttu-id="7a59e-212">请参阅 <xref:security/app-secrets>。</span><span class="sxs-lookup"><span data-stu-id="7a59e-212">See <xref:security/app-secrets>.</span></span>
+* <span data-ttu-id="9b350-207">appsettings 文件 (appsettings.\<Environment>.json)。</span><span class="sxs-lookup"><span data-stu-id="9b350-207">*appsettings* files (*appsettings.\<Environment>.json*).</span></span> <span data-ttu-id="9b350-208">请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)。</span><span class="sxs-lookup"><span data-stu-id="9b350-208">See [Configuration: File configuration provider](xref:fundamentals/configuration/index#file-configuration-provider).</span></span>
+* <span data-ttu-id="9b350-209">环境变量（在托管应用的每个系统上进行设置）。</span><span class="sxs-lookup"><span data-stu-id="9b350-209">environment variables (set on each system where the app is hosted).</span></span> <span data-ttu-id="9b350-210">请参阅[配置：文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)和[开发环境中应用密码的安全存储：环境变量](xref:security/app-secrets#environment-variables)。</span><span class="sxs-lookup"><span data-stu-id="9b350-210">See [Configuration: File configuration provider](xref:fundamentals/configuration/index#file-configuration-provider) and [Safe storage of app secrets in development: Environment variables](xref:security/app-secrets#environment-variables).</span></span>
+* <span data-ttu-id="9b350-211">密码管理器（仅限开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="9b350-211">Secret Manager (in the Development environment only).</span></span> <span data-ttu-id="9b350-212">请参阅 <xref:security/app-secrets>。</span><span class="sxs-lookup"><span data-stu-id="9b350-212">See <xref:security/app-secrets>.</span></span>
 
-## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="7a59e-213">基于环境的 Startup 类和方法</span><span class="sxs-lookup"><span data-stu-id="7a59e-213">Environment-based Startup class and methods</span></span>
+## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="9b350-213">基于环境的 Startup 类和方法</span><span class="sxs-lookup"><span data-stu-id="9b350-213">Environment-based Startup class and methods</span></span>
 
-### <a name="startup-class-conventions"></a><span data-ttu-id="7a59e-214">Startup 类约定</span><span class="sxs-lookup"><span data-stu-id="7a59e-214">Startup class conventions</span></span>
+### <a name="startup-class-conventions"></a><span data-ttu-id="9b350-214">Startup 类约定</span><span class="sxs-lookup"><span data-stu-id="9b350-214">Startup class conventions</span></span>
 
-<span data-ttu-id="7a59e-215">当 ASP.NET Core 应用启动时，[Startup 类](xref:fundamentals/startup)启动应用。</span><span class="sxs-lookup"><span data-stu-id="7a59e-215">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="7a59e-216">应用可以为不同的环境单独定义 `Startup` 类（例如，`StartupDevelopment`），相应 `Startup` 类会在运行时得到选择。</span><span class="sxs-lookup"><span data-stu-id="7a59e-216">The app can define separate `Startup` classes for different environments (for example, `StartupDevelopment`), and the appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="7a59e-217">优先考虑名称后缀与当前环境相匹配的类。</span><span class="sxs-lookup"><span data-stu-id="7a59e-217">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="7a59e-218">如果找不到匹配的 `Startup{EnvironmentName}`，就会使用 `Startup` 类。</span><span class="sxs-lookup"><span data-stu-id="7a59e-218">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span>
+<span data-ttu-id="9b350-215">当 ASP.NET Core 应用启动时，[Startup 类](xref:fundamentals/startup)启动应用。</span><span class="sxs-lookup"><span data-stu-id="9b350-215">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="9b350-216">应用可以为不同的环境单独定义 `Startup` 类（例如，`StartupDevelopment`），相应 `Startup` 类会在运行时得到选择。</span><span class="sxs-lookup"><span data-stu-id="9b350-216">The app can define separate `Startup` classes for different environments (for example, `StartupDevelopment`), and the appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="9b350-217">优先考虑名称后缀与当前环境相匹配的类。</span><span class="sxs-lookup"><span data-stu-id="9b350-217">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="9b350-218">如果找不到匹配的 `Startup{EnvironmentName}`，就会使用 `Startup` 类。</span><span class="sxs-lookup"><span data-stu-id="9b350-218">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span>
 
-<span data-ttu-id="7a59e-219">若要实现基于环境的 `Startup` 类，请为使用中的每个环境创建 `Startup{EnvironmentName}` 类，并创建回退 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="7a59e-219">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` class for each environment in use and a fallback `Startup` class:</span></span>
+<span data-ttu-id="9b350-219">若要实现基于环境的 `Startup` 类，请为使用中的每个环境创建 `Startup{EnvironmentName}` 类，并创建回退 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="9b350-219">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` class for each environment in use and a fallback `Startup` class:</span></span>
 
 ```csharp
 // Startup class to use in the Development environment
@@ -345,7 +345,7 @@ public class Startup
 }
 ```
 
-<span data-ttu-id="7a59e-220">使用接受程序集名称的 [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) 重载：</span><span class="sxs-lookup"><span data-stu-id="7a59e-220">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
+<span data-ttu-id="9b350-220">使用接受程序集名称的 [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) 重载：</span><span class="sxs-lookup"><span data-stu-id="9b350-220">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
 
 ```csharp
 public static void Main(string[] args)
@@ -362,14 +362,14 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 }
 ```
 
-### <a name="startup-method-conventions"></a><span data-ttu-id="7a59e-221">Startup 方法约定</span><span class="sxs-lookup"><span data-stu-id="7a59e-221">Startup method conventions</span></span>
+### <a name="startup-method-conventions"></a><span data-ttu-id="9b350-221">Startup 方法约定</span><span class="sxs-lookup"><span data-stu-id="9b350-221">Startup method conventions</span></span>
 
-<span data-ttu-id="7a59e-222">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) 和 [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) 支持窗体 `Configure<EnvironmentName>` 和 `Configure<EnvironmentName>Services` 的环境特定版本：</span><span class="sxs-lookup"><span data-stu-id="7a59e-222">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`:</span></span>
+<span data-ttu-id="9b350-222">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) 和 [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) 支持窗体 `Configure<EnvironmentName>` 和 `Configure<EnvironmentName>Services` 的环境特定版本：</span><span class="sxs-lookup"><span data-stu-id="9b350-222">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`:</span></span>
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
 
-## <a name="additional-resources"></a><span data-ttu-id="7a59e-223">其他资源</span><span class="sxs-lookup"><span data-stu-id="7a59e-223">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="9b350-223">其他资源</span><span class="sxs-lookup"><span data-stu-id="9b350-223">Additional resources</span></span>
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>
-* [<span data-ttu-id="7a59e-224">IHostingEnvironment.EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="7a59e-224">IHostingEnvironment.EnvironmentName</span></span>](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname)
+* [<span data-ttu-id="9b350-224">IHostingEnvironment.EnvironmentName</span><span class="sxs-lookup"><span data-stu-id="9b350-224">IHostingEnvironment.EnvironmentName</span></span>](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname)
