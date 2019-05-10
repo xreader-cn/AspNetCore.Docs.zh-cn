@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
 ms.openlocfilehash: 91a71498574d6d96c2c06e896283fed801e8adb3
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265230"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893694"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 

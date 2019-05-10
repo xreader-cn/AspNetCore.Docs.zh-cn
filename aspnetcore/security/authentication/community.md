@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 02/15/2019
 uid: security/authentication/community
 ms.openlocfilehash: e25df794bdff8f904382e7a299755ae4c23b892e
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410279"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891744"
 ---
 # <a name="community-oss-authentication-options-for-aspnet-core"></a>用于 ASP.NET Core 社区 OSS 身份验证选项
 
@@ -20,7 +20,7 @@ ms.locfileid: "56410279"
 
 下面的列表是按字母顺序排序。
 
-| name | 描述 |
+| 名称 | 描述 |
 | ---- | ----------- |
 | [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS 是一个低级别，协议首先 OpenID Connect 服务器框架为 ASP.NET Core 和 OWIN/Katana。 |
 | [Cierge](https://github.com/pwdless/Cierge) | Cierge 是处理用户注册、 登录、 配置文件、 管理和社交登录名的 OpenID Connect 的服务器。 |

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2018
 uid: fundamentals/middleware/extensibility-third-party-container
-ms.openlocfilehash: 6af775c66a1de7f1a4f06a4a639ade20c6493b2a
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 9e4d4c6c0232ebc51ad08923e10164262b652280
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206804"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64888072"
 ---
 # <a name="middleware-activation-with-a-third-party-container-in-aspnet-core"></a>使用 ASP.NET Core 中的第三方容器激活中间件
 
@@ -19,7 +19,7 @@ ms.locfileid: "50206804"
 
 本文演示如何使用 [IMiddlewareFactory](/dotnet/api/microsoft.aspnetcore.http.imiddlewarefactory) 和 [IMiddleware](/dotnet/api/microsoft.aspnetcore.http.imiddleware) 作为使用第三方容器激活[中间件](xref:fundamentals/middleware/index)的可扩展点。 有关 `IMiddlewareFactory` 和 `IMiddleware` 的介绍性信息，请参阅[基于工厂的中间件激活](xref:fundamentals/middleware/extensibility)主题。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例应用演示了使用 `IMiddlewareFactory`、`SimpleInjectorMiddlewareFactory` 实现激活的中间件。 此示例使用 [Simple Injector](https://simpleinjector.org) 依赖项注入 (DI) 容器。
 

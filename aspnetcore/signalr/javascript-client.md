@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/17/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: f1f072e63928502fa1bad62e808ff035e57f2fd3
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 8ac6528b203831f426feabf4cdd3e0ed293b75c5
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59983008"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64896524"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
 
@@ -20,7 +20,7 @@ ms.locfileid: "59983008"
 
 ASP.NET Core SignalR JavaScript 客户端库，开发人员可以调用服务器端中心代码。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/javascript-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/javascript-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="install-the-signalr-client-package"></a>安装 SignalR 客户端包
 

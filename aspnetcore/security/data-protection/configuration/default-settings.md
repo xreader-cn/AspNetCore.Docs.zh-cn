@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/configuration/default-settings
 ms.openlocfilehash: 2f022a4c7519485fe629ce47c27d214c8c27d5bc
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159206"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897274"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>数据保护密钥管理和 ASP.NET Core 中的生存期
 
@@ -27,12 +27,12 @@ ms.locfileid: "56159206"
 
 1. 如果用户配置文件不可用，将密钥保存到 *%LOCALAPPDATA%\ASP.NET\DataProtection-Keys*文件夹。 如果操作系统是 Windows，静态使用 DPAPI 加密密钥。
 
-   应用程序池[setProfileEnvironment 属性](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)还必须启用。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下 (例如，Windows OS)`setProfileEnvironment`设置为`false`。 如果密钥不存储用户配置文件的目录中应当：
+   同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
 
-   1. 导航到 *%windir%/system32/inetsrv/config*文件夹。
-   1. 打开*applicationHost.config*文件。
+   1. 导航到 %windir%/system32/inetsrv/config 文件夹。
+   1. 打开 applicationHost.config 文件。
    1. 查找 `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>` 元素。
-   1. 确认`setProfileEnvironment`属性不存在，则默认值为`true`，或显式将该特性的值设置为`true`。
+   1. 确认 `setProfileEnvironment` 属性不存在，这会将值默认设置为 `true`，或者将属性的值显式设置为 `true`。
 
 1. 如果应用托管在 IIS 中，密钥保留到 HKLM 注册表中特殊的注册表项的列仅对工作进程帐户。 使用 DPAPI 对密钥静态加密。
 

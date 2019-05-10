@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/06/2018
 uid: signalr/security
 ms.openlocfilehash: 6e9f849ed856cf1cbf989b8b16cab5209c465471
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743782"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64892044"
 ---
 # <a name="security-considerations-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的安全注意事项
 

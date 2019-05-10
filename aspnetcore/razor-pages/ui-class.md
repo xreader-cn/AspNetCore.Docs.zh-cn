@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/07/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 383b7e49b5dbd0c0f13218aff20abe6421d785b8
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 7ec36cc8f4832fb1e1a50831dfcb88f3cafb5ca9
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165152"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64895284"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>创建使用 ASP.NET Core 中 Razor 类库项目的可重用 UI
 
@@ -22,7 +22,7 @@ Razor 视图、页面、控制器、页面模型、[视图组件](xref:mvc/views
 
 此功能要求 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="create-a-class-library-containing-razor-ui"></a>创建一个包含 Razor UI 的类库
 
@@ -63,7 +63,7 @@ ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL 页
 
 ## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>演练：创建一个 Razor 类库项目并使用从 Razor 页面项目
 
-可以下载并测试[完整项目](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。 示例下载包含附加代码和链接，以方便测试项目。 可以在[此 GitHub 问题](https://github.com/aspnet/Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。
+可以下载并测试[完整项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。 示例下载包含附加代码和链接，以方便测试项目。 可以在[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。
 
 ### <a name="test-the-download-app"></a>测试下载应用
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 9b01aca0cb2b33f5561193ffdce4aa4950485fce
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 7013a88aac26426d1f84d1f52e35e319b3764cdb
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165233"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894444"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用受授权的用户数据创建 ASP.NET Core 应用
 
@@ -19,7 +19,7 @@ ms.locfileid: "60165233"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-请参阅[此 PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) ASP.NET Core MVC 版本。 本教程的 ASP.NET Core 1.1 版本是[这](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/secure-data)文件夹。 ASP.NET Core 示例是在 1.1[示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)。
+请参阅[此 PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) ASP.NET Core MVC 版本。 本教程的 ASP.NET Core 1.1 版本是[这](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)文件夹。 ASP.NET Core 示例是在 1.1[示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)。
 
 ::: moniker-end
 
@@ -89,11 +89,11 @@ ms.locfileid: "60165233"
 
 ## <a name="the-starter-and-completed-app"></a>Starter 和已完成应用程序
 
-[下载](xref:index#how-to-download-a-sample)[完成](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)应用。 [测试](#test-the-completed-app)已完成的应用，使你熟悉其安全功能。
+[下载](xref:index#how-to-download-a-sample)[完成](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)应用。 [测试](#test-the-completed-app)已完成的应用，使你熟悉其安全功能。
 
 ### <a name="the-starter-app"></a>入门级应用
 
-[下载](xref:index#how-to-download-a-sample)[初学者](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2)应用。
+[下载](xref:index#how-to-download-a-sample)[初学者](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2)应用。
 
 运行应用，点击**ContactManager**链接，并验证是否可以创建、 编辑和删除联系人。
 
@@ -275,7 +275,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ## <a name="add-or-remove-a-user-to-a-role"></a>添加或删除角色对用户的
 
-请参阅[本期](https://github.com/aspnet/Docs/issues/8502)有关的信息：
+请参阅[本期](https://github.com/aspnet/AspNetCore.Docs/issues/8502)有关的信息：
 
 * 从用户删除的特权。 例如静音聊天应用程序中的用户。
 * 将权限添加到用户。
@@ -346,7 +346,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 ### <a name="seed-the-database"></a>设定数据库种子
 
-添加[SeedData](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)类来*数据*文件夹。
+添加[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)类来*数据*文件夹。
 
 调用`SeedData.Initialize`从`Main`:
 

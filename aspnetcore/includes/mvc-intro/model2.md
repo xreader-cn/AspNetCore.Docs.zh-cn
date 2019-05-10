@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 82c0f3076e846045ca85697e150ff0ab9be75dba
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58214053"
----
 <a name="dc"></a>
 
 将以下 `MvcMovieContext` 类添加到“模型”文件夹：  

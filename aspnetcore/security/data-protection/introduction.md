@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/data-protection/introduction
 ms.openlocfilehash: 37f170a3e8a46ef2215b0999358d46dd402636df
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089543"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897984"
 ---
 # <a name="aspnet-core-data-protection"></a>ASP.NET Core 数据保护
 
@@ -21,7 +21,7 @@ ASP.NET Core 数据保护堆栈旨在用作的长期替代&lt;machineKey&gt;在 
 
 ## <a name="problem-statement"></a>问题陈述
 
-总体问题语句可以简洁地表示中的单个句子： 我需要保留以供将来检索受信任的信息，但我不信任持久性机制。 在 web 术语中，这可能会根据写入"我需要为往返通过不受信任的客户端的受信任状态。"
+总体问题语句可以用于简单地在单个句子中所述：我需要保留以供将来检索受信任的信息，但我不信任持久性机制。 在 web 术语中，这可能会根据写入"我需要为往返通过不受信任的客户端的受信任状态。"
 
 此规范的示例是身份验证 cookie 或持有者令牌。 服务器会生成"我是 Groot，具有 xyz 的权限"令牌并将它传递到客户端。 在将来某天的客户端将显示该令牌发送回服务器，但该服务器需要某种类型的客户端尚未伪造令牌的保障。 因此第一个要求： 真实性 （也称为 完整性、 防篡改攻击）。
 
@@ -73,9 +73,9 @@ ASP.NET Core 数据保护 Api 主要不用于机密负载的无限期持久性�
 
 * [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)包含其他一些 Api，开发人员可能会发现很有用，但这不属于核心包中。 例如，此包包含工厂方法来实例化数据保护系统，而无需依赖关系注入在文件系统上存储在一个位置的密钥 (请参阅<xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider>)。 它还包含用于限制受保护负载的生存期的扩展方法 (请参阅<xref:Microsoft.AspNetCore.DataProtection.ITimeLimitedDataProtector>)。
 
-* [Microsoft.AspNetCore.DataProtection.SystemWeb](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.SystemWeb/)可以安装到现有 ASP.NET 4.x 应用重定向其`<machineKey>`操作，使用新的 ASP.NET Core 数据保护堆栈。 有关详细信息，请参阅 <xref:security/data-protection/compatibility/replacing-machinekey> 。
+* [Microsoft.AspNetCore.DataProtection.SystemWeb](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.SystemWeb/)可以安装到现有 ASP.NET 4.x 应用重定向其`<machineKey>`操作，使用新的 ASP.NET Core 数据保护堆栈。 有关详细信息，请参阅 <xref:security/data-protection/compatibility/replacing-machinekey>。
 
-* [Microsoft.AspNetCore.Cryptography.KeyDerivation](https://www.nuget.org/packages/Microsoft.AspNetCore.Cryptography.KeyDerivation/)提供 PBKDF2 密码哈希例程的实现，并可以由必须安全地处理用户密码的系统。 有关详细信息，请参阅 <xref:security/data-protection/consumer-apis/password-hashing> 。
+* [Microsoft.AspNetCore.Cryptography.KeyDerivation](https://www.nuget.org/packages/Microsoft.AspNetCore.Cryptography.KeyDerivation/)提供 PBKDF2 密码哈希例程的实现，并可以由必须安全地处理用户密码的系统。 有关详细信息，请参阅 <xref:security/data-protection/consumer-apis/password-hashing>。
 
 ## <a name="additional-resources"></a>其他资源
 

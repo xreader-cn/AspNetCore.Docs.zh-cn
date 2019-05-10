@@ -7,11 +7,11 @@ ms.custom: H1Hack27Feb2017
 ms.date: 09/22/2017
 uid: client-side/using-browserlink
 ms.openlocfilehash: 452ba5149563c186750466f471c7b950f0017614
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41830223"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894704"
 ---
 # <a name="browser-link-in-aspnet-core"></a>在 ASP.NET Core 中的浏览器链接
 
@@ -83,7 +83,7 @@ if (env.IsDevelopment())
 
 * 刷新 web 应用程序在多个浏览器中的，一次。
 * 打开**浏览器链接仪表板**。
-* 启用或禁用**浏览器链接**。 注意： 默认情况下，Visual Studio 2017 (15.3) 中禁用浏览器链接。
+* 启用或禁用**浏览器链接**。 注意:默认情况下，Visual Studio 2017 (15.3) 中，浏览器链接处于禁用状态。
 * 启用或禁用[CSS 自动同步](#enable-or-disable-css-auto-sync)。
 
 > [!NOTE]
@@ -117,7 +117,7 @@ if (env.IsDevelopment())
 
 从浏览器链接下拉列表菜单来管理与打开的浏览器的连接打开浏览器链接仪表板：
 
-![打开-browserslink-仪表板](using-browserlink/_static/open-browserlink-dashboard.png)
+![open-browserslink-dashboard](using-browserlink/_static/open-browserlink-dashboard.png)
 
 如果浏览器不连接，您可以通过选择启动非调试会话*在浏览器中的查看*链接：
 

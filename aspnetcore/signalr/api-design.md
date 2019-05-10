@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/06/2018
 uid: signalr/api-design
 ms.openlocfilehash: 3f17bf055b793e8fc91fbcc15f668928ca261f77
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51571547"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897804"
 ---
 # <a name="signalr-api-design-considerations"></a>SignalR API 设计时的注意事项
 

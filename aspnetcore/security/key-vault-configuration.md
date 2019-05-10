@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/25/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 8fd1cca1803d3f1d44d80ec63c5cfc259cbdaf55
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 45eca05b5eb41815924ca48f60c3b00046c6bdaf
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012690"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894984"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -25,7 +25,7 @@ ms.locfileid: "59012690"
 
 这种情况下是可用于应用程序面向 ASP.NET Core 2.1 或更高版本。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/key-vault-configuration/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="packages"></a>包
 
@@ -333,7 +333,7 @@ Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介�
 
 在上面的 JSON 文件中所示的配置存储在 Azure 密钥保管库中使用双短划线 (`--`) 表示法和数字段：
 
-| 键 | “值” |
+| 键 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |

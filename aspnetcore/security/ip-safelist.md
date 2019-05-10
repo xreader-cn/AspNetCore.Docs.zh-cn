@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: security/ip-safelist
-ms.openlocfilehash: 286f199c0d9164fa70d511aba523210c85c2fdfd
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: cfbb50ea33ae3af577f13b00bccc75fe0be57f79
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207727"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898144"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>适用于 ASP.NET Core 的客户端 IP 安全列表
 
@@ -25,7 +25,7 @@ ms.locfileid: "50207727"
 
 示例应用程序说明了这两种方法。 在每种情况下，包含已批准的客户端 IP 地址的字符串存储在一个应用程序设置。 中间件或筛选器将字符串分析为列表，并检查远程 IP 是否在列表中。 如果没有，则返回 HTTP 403 禁止访问状态代码。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="the-safelist"></a>安全列表
 

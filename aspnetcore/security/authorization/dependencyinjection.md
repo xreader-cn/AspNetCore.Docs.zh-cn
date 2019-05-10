@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/dependencyinjection
 ms.openlocfilehash: 71d563e11d308a95c08e6d012d3a071f4697d2de
-ms.sourcegitcommit: 927e510d68f269d8335b5a7c8592621219a90965
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/30/2018
-ms.locfileid: "39342109"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64896364"
 ---
 # <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>在 ASP.NET Core要求处理程序中的依赖关系注入
 

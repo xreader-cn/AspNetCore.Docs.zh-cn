@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 228722ecdc0fb19e024b7154393390fe6d34c5ff
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 06de728096b91b128c6bc3eb7791609d2161cd9b
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887302"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517001"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页 - 第 3 个教程（共 8 个）
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Jon P Smith](https://twitter.com/thereformedprog)
 
@@ -286,7 +282,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 在下一教程中，应用将利用迁移更新数据模型。
 
-::: moniker-end
+
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/crud)

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/27/2017
 uid: test/razor-pages-tests
-ms.openlocfilehash: 5116ec3c3d6c27f9b0e098f82c82dd7b7337b8f6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: f1526b8803f43ec8cbe77c1d2c100d9daf6cd316
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207493"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893714"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>在 ASP.NET Core razor 页单元测试
 
@@ -30,16 +30,16 @@ ASP.NET Core 支持 Razor 页应用的单元测试。 测试数据的访问层 (
 * [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)
 * [单元测试 C# 中使用 dotnet 测试和 xUnit 的.NET Core](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/razor-pages-tests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/razor-pages-tests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例项目包含两个应用：
 
 | 应用         | 项目文件夹                        | 描述 |
 | ----------- | ------------------------------------- | ----------- |
 | 消息应用程序 | *src/RazorPagesTestSample*            | 允许用户添加、 删除其中一个，删除所有，并分析消息。 |
-| 测试应用    | *tests/RazorPagesTestSample.Tests*    | 用于对消息应用进行单元测试： 数据访问层 (DAL) 和索引页面模型。 |
+| 测试应用    | *tests/RazorPagesTestSample.Tests*    | 用于对消息应用进行单元测试：数据访问层 (DAL) 和索引页面模型。 |
 
-可以使用内置测试功能的 IDE，如运行测试[Visual Studio](https://www.visualstudio.com/vs/)。 如果使用[Visual Studio Code](https://code.visualstudio.com/)或命令行中，执行以下命令在命令提示符处*tests/RazorPagesTestSample.Tests*文件夹：
+可以使用内置测试功能的 IDE，如运行测试[Visual Studio](https://visualstudio.microsoft.com)。 如果使用[Visual Studio Code](https://code.visualstudio.com/)或命令行中，执行以下命令在命令提示符处*tests/RazorPagesTestSample.Tests*文件夹：
 
 ```console
 dotnet test
@@ -108,9 +108,9 @@ using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
 
 在每个测试方法`DataAccessLayerTest`类 (*UnitTests/DataAccessLayerTest.cs*) 遵循类似的排列 Act 断言模式：
 
-1. 排列： 为测试配置了数据库和/或定义预期的结果。
-1. Act： 执行测试。
-1. 断言： 断言进行以确定测试结果是否成功完成。
+1. 排列：为测试配置数据库和/或定义预期的结果。
+1. Act:执行测试。
+1. 断言：做出声明来确定测试结果是否成功完成。
 
 例如，`DeleteMessageAsync`方法负责删除一条消息由标识其`Id`(*src/RazorPagesTestSample/Data/AppDbContext.cs*):
 
@@ -124,7 +124,7 @@ using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
-该方法的作用：`DeleteMessageAsync`执行方法并传入`recId`的`1`:
+方法的行为：`DeleteMessageAsync`执行方法并传入`recId`的`1`:
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
 
@@ -167,7 +167,7 @@ using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
 
 当`OnGetAsync`Act 步骤中执行方法时，它调用的页面模型`GetMessagesAsync`方法。
 
-单元测试执行步骤 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*):
+Unit test Act step (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*):
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 

@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 03/26/2019
 uid: security/authentication/identity
-ms.openlocfilehash: efe8119c2d18db50dce3df57fa0e300d0d0df2cd
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: d813fa364bb733185baa7b2cd2d95f8b4ff570e2
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488668"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894324"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -20,7 +20,7 @@ ASP.NET Core 标识是一个成员身份系统，将登录功能添加到 ASP.NE
 
 可以使用 SQL Server 数据库来存储用户名、 密码和配置文件数据配置标识。 或者，另一个的持久存储区可用，例如，Azure 表存储。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)([如何下载)](xref:index#how-to-download-a-sample))。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)([如何下载)](xref:index#how-to-download-a-sample))。
 
 在本主题中，将了解如何使用标识来注册、 登录和注销用户。 有关创建使用标识的应用程序的更多详细说明，请参阅本文末尾的后续步骤部分。
 
@@ -183,7 +183,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义�
 发生下列情况时，会显示登录窗体：
 
 * **登录**选择链接。
-* 用户尝试访问受限的页面，他们不向被授权访问**或**时在还没有已完成身份验证系统。
+* 用户在无权访问的情况下或未经系统进行身份验证的情况下尝试访问受限页面。
 
 提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。 会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
 

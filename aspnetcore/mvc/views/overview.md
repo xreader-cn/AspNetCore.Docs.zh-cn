@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 中的视图如何处理应用的数据表�
 ms.author: riande
 ms.date: 04/03/2019
 uid: mvc/views/overview
-ms.openlocfilehash: 766996645bc6ef2b6be42d729baf5d57f55b6ddd
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 5e56c6bb18cb5d2389c11eb3e4aa9869228da47d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012794"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891342"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
@@ -135,7 +135,7 @@ return View("./About");
 
 使用 viewmodel 将数据传递给视图可让视图充分利用强类型检查。 强类型化（或强类型）意味着每个变量和常量都有明确定义的类型（例如 `string`、`int` 或 `DateTime`）。 在编译时检查视图中使用的类型是否有效。
 
-[Visual Studio](https://www.visualstudio.com/vs/) 和 [Visual Studio Code](https://code.visualstudio.com/) 列出了使用 [IntelliSense](/visualstudio/ide/using-intellisense) 功能的强类型类成员。 如果要查看 viewmodel 的属性，请键入 viewmodel 的变量名称，后跟句点 (`.`)。 这有助于提高编写代码的速度并降低错误率。
+[Visual Studio](https://visualstudio.microsoft.com) 和 [Visual Studio Code](https://code.visualstudio.com/) 列出了使用 [IntelliSense](/visualstudio/ide/using-intellisense) 功能的强类型类成员。 如果要查看 viewmodel 的属性，请键入 viewmodel 的变量名称，后跟句点 (`.`)。 这有助于提高编写代码的速度并降低错误率。
 
 使用 `@model` 指令指定模型。 使用带有 `@Model` 的模型：
 

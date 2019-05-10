@@ -7,11 +7,11 @@ ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
 ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665608"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64892994"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>管理 ASP.NET Core 中的 Bower 的客户端包
 

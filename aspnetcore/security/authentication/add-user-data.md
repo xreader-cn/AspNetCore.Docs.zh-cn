@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 6/16/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 1b7cac9206776e9290326511247b6db33f13cb32
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: d704041f73a7d4773c3da9a23f120b07a03d64ac
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165084"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086495"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>添加、 下载和删除标识到 ASP.NET Core 项目中的自定义用户数据
 
@@ -24,7 +24,7 @@ ms.locfileid: "60165084"
 
 项目示例将创建从 Razor 页 web 应用，但了 ASP.NET Core MVC web 应用的类似的说明。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -34,7 +34,7 @@ ms.locfileid: "60165084"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample)代码。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample)代码。
 * 选择**ASP.NET Core Web 应用程序** > **确定**
 * 选择**ASP.NET Core 2.2**下拉列表中
 * 选择**Web 应用程序**  > **确定**

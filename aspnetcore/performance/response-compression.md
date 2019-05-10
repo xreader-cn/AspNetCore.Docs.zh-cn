@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: performance/response-compression
-ms.openlocfilehash: e87480ebb81791ed233f3e2308e35e21e081824f
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: e312d43fb62106f6ecb98367c29daa377bb227c9
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248363"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893344"
 ---
 # <a name="response-compression-in-aspnet-core"></a>在 ASP.NET Core 中的响应压缩
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/response-compression/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 网络带宽是一种有限的资源。 通常减少响应的大小通常显著增加的应用的响应能力。 若要减少有效负载大小的一种方法是压缩应用程序的响应。
 
@@ -89,7 +89,7 @@ ms.locfileid: "56248363"
 | `Content-Type`     | 指定内容的 MIME 的类型。 每个响应应指定其`Content-Type`。 中间件将检查此值以确定是否应压缩响应。 中间件指定一组[默认 MIME 类型](#mime-types)，可以对进行编码，但您可以替换或添加 MIME 类型。 |
 | `Vary`             | 时，值为服务器发送`Accept-Encoding`到客户端和代理服务器，`Vary`标头指示与客户端或应缓存的代理 （有所不同） 响应值的基础`Accept-Encoding`的请求标头。 返回的内容的结果`Vary: Accept-Encoding`标头是同时压缩和未压缩的响应将单独进行缓存。 |
 
-探索的功能与响应压缩中间件[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/response-compression/samples)。 此示例演示了：
+探索的功能与响应压缩中间件[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)。 此示例演示了：
 
 * 使用 Gzip 和自定义压缩提供程序的应用程序响应的压缩。
 * 如何将 MIME 类型添加到压缩的 MIME 类型的默认列表。
@@ -350,7 +350,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="middleware-issue-when-behind-an-nginx-reverse-proxy"></a>当位于 Nginx 反向代理中间件问题
 
-如果请求的是代理的 Nginx`Accept-Encoding`删除标头。 删除`Accept-Encoding`标头可防止中间件压缩响应。 有关详细信息，请参阅[NGINX:压缩和解压缩](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)。 此问题由跟踪[找出传递压缩 Nginx (aspnet/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123)。
+如果请求的是代理的 Nginx`Accept-Encoding`删除标头。 删除`Accept-Encoding`标头可防止中间件压缩响应。 有关详细信息，请参阅 [NGINX：压缩和解压缩](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)。 此问题由跟踪[找出传递压缩 Nginx (aspnet/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123)。
 
 ## <a name="working-with-iis-dynamic-compression"></a>使用 IIS 动态压缩
 

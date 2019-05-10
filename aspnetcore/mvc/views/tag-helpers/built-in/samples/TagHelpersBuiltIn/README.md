@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 3113220696eb3e3cb8c126cd1287e60203d96378
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208329"
----
 # <a name="aspnet-core-built-in-tag-helpers-sample"></a>ASP.NET Core 内置标记帮助程序示例
 
 此示例演示了 MVC 和 Razor 页面中内置标记帮助程序的变体：

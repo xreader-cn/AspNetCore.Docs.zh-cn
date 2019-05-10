@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/20/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: c7c3dbd0c9cf029fa6921d77450e780768c8aa6e
-ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
+ms.openlocfilehash: ddbd547ec0fdd09da1f3e3ce30f8fa35a34870c2
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56647910"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897364"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>响应缓存在 ASP.NET Core 中的中间件
 
 通过[Luke Latham](https://github.com/guardrex)和[John 卢奥语](https://github.com/JunTaoLuo)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/caching/middleware/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 此文章介绍了如何在 ASP.NET Core 应用程序中配置缓存响应的中间件。 中间件确定何时可缓存的响应、 存储响应和从缓存提供服务响应。 有关 HTTP 缓存的介绍和`ResponseCache`属性，请参阅[响应缓存](xref:performance/caching/response)。
 

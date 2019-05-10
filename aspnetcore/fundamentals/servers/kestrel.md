@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/28/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 8967f87da58e7386bc1dd84e7b3e0f5daaecf9cb
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b5b05dbd553124cecac2ec7ddb55c939cb91c8ad
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884712"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450996"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -1132,5 +1132,5 @@ appsettings.json：
 * <xref:test/troubleshoot>
 * <xref:security/enforcing-ssl>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Kestrel 源代码](https://github.com/aspnet/KestrelHttpServer)
+* [Kestrel 源代码](https://github.com/aspnet/AspNetCore/tree/master/src/Servers/Kestrel)
 * [RFC 7230：消息语法和路由（5.4 节：主机）](https://tools.ietf.org/html/rfc7230#section-5.4)

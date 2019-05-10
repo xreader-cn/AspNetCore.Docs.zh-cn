@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/28/2019
 uid: performance/caching/response
-ms.openlocfilehash: efcf443b1487827fe6cf4d43b6dda69adf4d61fb
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 2e247dcff2cbaa3711a9206d7237a061ae351e1d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345741"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64892464"
 ---
 # <a name="response-caching-in-aspnet-core"></a>响应缓存在 ASP.NET Core
 
 通过[John 卢奥语](https://github.com/JunTaoLuo)， [Rick Anderson](https://twitter.com/RickAndMSFT)， [Steve Smith](https://ardalis.com/)，和[Luke Latham](https://github.com/guardrex)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/caching/response/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 响应缓存可减少客户端或代理到 web 服务器发出的请求数。 响应缓存还减少了工作的 web 服务器执行以生成响应。 响应缓存控制标头，指定要如何客户端、 代理和响应缓存中间件。
 

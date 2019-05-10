@@ -5,12 +5,12 @@ description: 了解如何启用 TOTP 使用 ASP.NET Core 双因素身份验证�
 ms.author: riande
 ms.date: 08/14/2018
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 5581f2001036746974a858d8a664db16df50edb2
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: a7fdc86b3fe94e714e5147c89a32fce13757d1c1
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209221"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64896724"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>启用在 ASP.NET Core TOTP 身份验证器应用的 QR 代码生成
 
@@ -85,7 +85,7 @@ ASP.NET Core web 应用程序模板支持身份验证器，但不提供对 QRCod
 
 ::: moniker range=">= aspnetcore-2.1"
 
-QR 代码中的站点名称是来自在最初创建你的项目时选择的项目名称。 您可以通过查找对其进行更改`GenerateQrCodeUri(string email, string unformattedKey)`中的方法 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*。
+QR 代码中的站点名称是来自在最初创建你的项目时选择的项目名称。 您可以通过查找对其进行更改`GenerateQrCodeUri(string email, string unformattedKey)`中的方法 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*。
 
 ::: moniker-end
 

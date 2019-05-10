@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: 16cfa672fe4a81d9e8f09fc3dd1e6c036edd4c4e
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: ab407436afb16687fa285a836b608ad2e6a4802f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208971"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894554"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -239,13 +239,13 @@ For establishing trust on other platforms refer to the platform specific documen
 For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
 ```
 
-安装.NET Core SDK 将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储区。 已安装证书，但它具有不受信任。 若要信任该证书执行一次性步骤，运行 dotnet`dev-certs`工具：
+安装 .NET Core SDK 会将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储。 已安装证书，但它具有不受信任。 若要信任该证书执行一次性步骤，运行 dotnet`dev-certs`工具：
 
 ```console
 dotnet dev-certs https --trust
 ```
 
-下面的命令上提供帮助`dev-certs`工具：
+下面的命令提供有关 `dev-certs` 工具的帮助：
 
 ```console
 dotnet dev-certs https --help
@@ -253,7 +253,7 @@ dotnet dev-certs https --help
 
 ## <a name="how-to-set-up-a-developer-certificate-for-docker"></a>如何设置适用于 Docker 的开发人员证书
 
-请参阅[此 GitHub 问题](https://github.com/aspnet/Docs/issues/6199)。
+请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/6199)。
 
 ::: moniker-end
 

@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 0c64e723f1b912323103f201a66c1edaeccdcc2d
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: ae4827f735274405021e5ee539d1029b7ddb9553
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284340"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891984"
 ---
 # <a name="tools-and-downloads"></a>工具和下载
 
@@ -38,7 +38,7 @@ Azure 具有多个用于配置和管理资源的界面，例如 [Azure 门户](h
 
 ## <a name="recommended-tools-windows-only"></a>建议的工具 (仅 Windows)
 
-* [Visual Studio](https://www.visualstudio.com/) 可靠的 Azure 工具为本指南中描述的大多数功能提供了GUI。 任何版本的 Visual Studio 都可以使用，包括免费的 Visual Studio Community Edition。 编写本教程是为了演示在使用和不使用 Visual Studio 的情况下进行开发，部署和 DevOps。
+* [Visual Studio](https://visualstudio.microsoft.com) 可靠的 Azure 工具为本指南中描述的大多数功能提供了GUI。 任何版本的 Visual Studio 都可以使用，包括免费的 Visual Studio Community Edition。 编写本教程是为了演示在使用和不使用 Visual Studio 的情况下进行开发，部署和 DevOps。
 
   确认 Visual Studio 具有以下[工作负荷](/visualstudio/install/modify-visual-studio)安装：
 

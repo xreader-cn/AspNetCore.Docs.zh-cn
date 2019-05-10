@@ -5,12 +5,12 @@ description: 了解如何通过模型绑定，使控制器操作能够直接使�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 33551c9fc22561b992b4a09a4c7187ade136c09c
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 3623a29976a2e2a7b1bdb22d35716b8a3b448958
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410240"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891222"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -18,7 +18,7 @@ ms.locfileid: "56410240"
 
 通过模型绑定，控制器操作可直接使用模型类型（作为方法参数传入）而不是 HTTP 请求。 由模型绑定器处理传入的请求数据和应用程序模型之间的映射。 开发人员可以通过实现自定义模型绑定器来扩展内置的模型绑定功能（尽管通常不需要编写自己的提供程序）。
 
-[查看或下载 GitHub 中的示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/)
+[查看或下载 GitHub 中的示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/)
 
 ## <a name="default-model-binder-limitations"></a>默认模型绑定器限制
 
@@ -40,7 +40,7 @@ Base64 编码的字符串可用来表示二进制数据。 例如，下图可编
 
 ![编码的 dotnet 机器人](custom-model-binding/images/encoded-bot.png "编码的 dotnet 机器人")
 
-按照[示例的自述文件](https://github.com/aspnet/Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/sample/CustomModelBindingSample/README.md)中的说明将 base64 编码的字符串转换为文件。
+按照[示例的自述文件](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/sample/CustomModelBindingSample/README.md)中的说明将 base64 编码的字符串转换为文件。
 
 ASP.NET Core MVC 可以采用 base64 编码的字符串，并使用 `ByteArrayModelBinder` 将其转换为字节数组。 实现 [IModelBinderProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.imodelbinderprovider) 的 [ByteArrayModelBinderProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.binders.bytearraymodelbinderprovider) 将 `byte[]` 参数映射到 `ByteArrayModelBinder`：
 

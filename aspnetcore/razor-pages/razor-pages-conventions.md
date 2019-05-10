@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: c160d93e22fc5b3511ba4e5539cce8576346898b
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 4e07b5803adbce94982584212fa65afbfd427b64
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665533"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893504"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中 Razor 页面的路由和应用约定
 
@@ -26,7 +26,7 @@ ms.locfileid: "57665533"
 
 有不能用作路由段或参数名称的保留的字。 有关详细信息，请参阅[路由：保留路由名称](xref:fundamentals/routing#reserved-routing-names)。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 | 方案 | 示例演示... |
 | -------- | --------------------------- |
@@ -94,7 +94,7 @@ Razor Pages 路由和 MVC 控制器路由共享一个实现。 路由顺序 MVC 
 
 如有可能，未设置`Order`，这会导致`Order = 0`。 依赖于路由，以选择正确的路由。
 
-Razor 页面选项，例如，添加<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>，将添加到服务集合中添加 MVC 时`Startup.ConfigureServices`。 有关示例，请参阅[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)。
+Razor 页面选项，例如，添加<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>，将添加到服务集合中添加 MVC 时`Startup.ConfigureServices`。 有关示例，请参阅[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 

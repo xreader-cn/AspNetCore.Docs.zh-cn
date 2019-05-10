@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 04/06/2019
 uid: signalr/supported-platforms
 ms.openlocfilehash: fefaaf97de3f1fabf8f3154bf5b4ccb37195ccff
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068217"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64892014"
 ---
 # <a name="aspnet-core-signalr-supported-platforms"></a>ASP.NET Core SignalR 支持的平台
 

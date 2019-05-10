@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 03/06/2019
 uid: host-and-deploy/azure-apps/troubleshoot
 ms.openlocfilehash: 36c2bdfa585a0fd54ca93bf4c0edb4cf6f7d934a
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265449"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64886902"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>对 Azure 应用服务上的 ASP.NET Core 进行故障排除
 

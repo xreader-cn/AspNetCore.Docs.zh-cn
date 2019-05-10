@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 04/06/2019
 uid: migration/mvc
 ms.openlocfilehash: a9e2b41b933ed04a23515564892ed1694a4ac4f8
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614391"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893494"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>将从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
