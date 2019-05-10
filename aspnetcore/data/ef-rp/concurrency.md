@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/07/2018
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 213794398e1188e38b0bf3522c73207988615f9b
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 17ce0c111daabe2c7bbf4795b658856568c85158
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320168"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64886172"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -19,7 +19,7 @@ ms.locfileid: "58320168"
 
 [!INCLUDE [about the series](../../includes/RP-EF/intro.md)]
 
-本教程介绍如何处理多个用户并发更新同一实体（同时）时出现的冲突。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
+本教程介绍如何处理多个用户并发更新同一实体（同时）时出现的冲突。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
 
 ## <a name="concurrency-conflicts"></a>并发冲突
 

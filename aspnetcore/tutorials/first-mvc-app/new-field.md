@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
 ms.openlocfilehash: cf8bb67703b564a711105123117498c94ab44e68
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750511"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64889712"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/11/2019
 uid: web-api/index
-ms.openlocfilehash: 334e5732269921a62356e7854824deccc051c291
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.openlocfilehash: d804a7f1b4f0e89f433a3674116c97804705f7cc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165165"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64882952"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -20,7 +20,7 @@ ms.locfileid: "60165165"
 
 ASP.NET Core 支持使用 C# 创建 RESTful 服务，也称为 Web API。 若要处理请求，Web API 使用控制器。 Web API 中的*控制器*是派生自 `ControllerBase` 的类。 本文介绍了如何使用控制器处理 API 请求。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/index/samples)。 （[下载方法](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples)。 （[下载方法](xref:index#how-to-download-a-sample)）。
 
 ## <a name="controllerbase-class"></a>ControllerBase 类
 

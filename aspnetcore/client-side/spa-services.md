@@ -7,11 +7,11 @@ ms.custom: H1Hack27Feb2017
 ms.date: 08/02/2017
 uid: client-side/spa-services
 ms.openlocfilehash: ee772e67ef14608bcc6e3498ade00424ff6090e5
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121371"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64893944"
 ---
 # <a name="use-javascriptservices-to-create-single-page-applications-in-aspnet-core"></a>使用 JavaScriptServices 在 ASP.NET Core 中创建单页应用程序
 
@@ -67,7 +67,7 @@ SpaServices 提供有用的基础结构，例如：
     node -v && npm -v
     ```
 
-注意： 如果要部署到 Azure 网站，您不需要此处执行任何操作&mdash;Node.js 已安装并且可用的服务器环境中。
+注意:如果要部署到 Azure 网站，您不需要此处执行任何操作&mdash;Node.js 已安装并且可用的服务器环境中。
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -123,7 +123,7 @@ ASP.NET Core[标记帮助程序](xref:mvc/views/tag-helpers/intro)由 SpaService
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-21,38-52,79-)]
 
-注意： 在标记帮助程序中传递的属性名称表示与**pascal 命名法**表示法。 为 JavaScript，其中，相同的属性名称表示与对比**驼峰式大小写**。 默认 JSON 序列化配置负责这种差异。
+注意:标记帮助程序中传递的属性名称表示与**pascal 命名法**表示法。 为 JavaScript，其中，相同的属性名称表示与对比**驼峰式大小写**。 默认 JSON 序列化配置负责这种差异。
 
 若要展开在前面的代码示例时，数据可从服务器到视图通过传递 hydrating`globals`属性提供给`resolve`函数：
 
@@ -225,7 +225,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_MvcRoutingTable&highlight=7-9)]
 
-提示： 路由配置它们的顺序计算。 因此，`default`进行模式匹配第一次使用在前面的代码示例中的路由。
+提示:路由配置它们的顺序计算。 因此，`default`进行模式匹配第一次使用在前面的代码示例中的路由。
 
 <a name="new-project-creation"></a>
 

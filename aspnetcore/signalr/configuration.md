@@ -5,14 +5,14 @@ description: 了解如何配置 ASP.NET Core SignalR 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 02/07/2019
+ms.date: 04/15/2019
 uid: signalr/configuration
-ms.openlocfilehash: 2c1bb8d5e317813d1fdb8d474b7d7d892e6f67ec
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 703357fd52805e01515e5bac3b1a364ce7fe00f0
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264571"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087656"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -167,6 +167,31 @@ let connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .build();
 ```
+
+::: moniker range=">= aspnetcore-3.0"
+
+而不是`LogLevel`值，还可以提供`string`值，该值表示日志级别名称。 配置环境中的日志记录的 SignalR 你无权访问时，这是有用`LogLevel`常量。
+
+```javascript
+let connection = new signalR.HubConnectionBuilder()
+    .withUrl("/myhub")
+    .configureLogging("warn")
+    .build();
+```
+
+下表列出了可用的日志级别。 向提供的值`configureLogging`设置**最小**日志将记录的级别。 在此级别，记录的消息**后列出表中的级别或**，将记录。
+
+| string | LogLevel |
+| - | - |
+| `"trace"` | `LogLevel.Trace` |
+| `"debug"` | `LogLevel.Debug` |
+| `"info"` **或** `"information"` | `LogLevel.Information` |
+| `"warn"` **或** `"warning"` | `LogLevel.Warning` |
+| `"error"` | `LogLevel.Error` |
+| `"critical"` | `LogLevel.Critical` |
+| `"none"` | `LogLevel.None` |
+
+::: moniker-end
 
 > [!NOTE]
 > 若要禁用完全日志记录，请指定`signalR.LogLevel.None`在`configureLogging`方法。

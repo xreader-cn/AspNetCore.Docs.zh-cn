@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 04/16/2019
 uid: host-and-deploy/iis/index
 ms.openlocfilehash: 65721a734cb35a2b20fd283ad54237eb896083a9
-ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59672640"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64882612"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 

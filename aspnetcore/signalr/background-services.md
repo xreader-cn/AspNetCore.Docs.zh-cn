@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/04/2019
 uid: signalr/background-services
-ms.openlocfilehash: b359bd7f6b0667aeb8d9c8f5eb450637b1347b19
-ms.sourcegitcommit: e418cb9cddeb3de06fa0cb4fdb5529da03ff6d63
+ms.openlocfilehash: dcd62f0c7056a3f987291b6c8bb8b87f94160865
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55739665"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087758"
 ---
 # <a name="host-aspnet-core-signalr-in-background-services"></a>在后台服务主机 ASP.NET Core SignalR
 
@@ -23,7 +23,7 @@ ms.locfileid: "55739665"
 * 托管 SignalR 集线器使用宿主使用 ASP.NET Core 的后台工作进程。
 * 将消息发送到连接从.NET Core 中的客户端[BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService)。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/signalr/background-service/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
 ## <a name="wire-up-signalr-during-startup"></a>在启动期间将 SignalR
 

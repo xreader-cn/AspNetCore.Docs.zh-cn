@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: c3774c26116a4cb70386d0060f2244d224fec8e1
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 871e27c068de3a465cedb517418a35a87f992300
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750992"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085828"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>分布式缓存在 ASP.NET Core 中
 
@@ -30,7 +30,7 @@ ms.locfileid: "58750992"
 
 分布式的缓存配置是特定于实现的。 本文介绍如何配置 SQL Server 和 Redis 分布式的缓存。 第三方实现也是可用，如[NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([GitHub 上的 NCache](https://github.com/Alachisoft/NCache))。 无论选择哪一种实现，该应用程序与使用缓存进行交互<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>接口。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 

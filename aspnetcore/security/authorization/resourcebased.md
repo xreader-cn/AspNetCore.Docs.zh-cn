@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: security/authorization/resourcebased
-ms.openlocfilehash: 6a163caa26b277fbee6b9d61f8f1d16a60c75b03
-ms.sourcegitcommit: d3392f688cfebc1f25616da7489664d69c6ee330
+ms.openlocfilehash: afc152ea677cab42d57bd642b4821159f125117e
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2018
-ms.locfileid: "51818364"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891734"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于资源的授权
 
@@ -19,7 +19,7 @@ ms.locfileid: "51818364"
 
 数据绑定之前和之后，页面处理程序或加载文档的操作的执行进行属性评估。 出于这些原因，使用声明性授权`[Authorize]`属性不足以满足需求。 相反，可以调用自定义授权方法&mdash;称为样式*命令性授权*。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 [使用受授权的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含的示例应用程序使用的基于资源的授权。
 

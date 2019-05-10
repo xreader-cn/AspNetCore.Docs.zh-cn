@@ -2,14 +2,15 @@
 title: 对 ASP.NET Core 本地化进行故障排除
 author: hishamco
 description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
+ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 73405f539c89d79096e7b536407cd9730679d478
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: c76732c1a0389818f8f9efae8fe384ca0f9ca308
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488988"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087393"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除
 

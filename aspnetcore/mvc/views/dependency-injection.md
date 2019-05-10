@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何支持将依赖项注入到 MVC 视图。
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: dfadafe9ebb5799b45ef68653f20c5fc1a2506b5
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 940e237fd73a864d9fd59f5447fe486f93648f62
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410555"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087471"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>在 ASP.NET Core 中将依赖项注入到视图
 
@@ -18,7 +18,7 @@ ms.locfileid: "56410555"
 
 ASP.NET Core 支持将[依赖关系注入](xref:fundamentals/dependency-injection)到视图。 这对于视图特定服务很有用，例如仅为填充视图元素所需的本地化或数据。 应尽量在控制器和视图之间保持[问题分离](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)。 视图显示的大部分数据应该从控制器传入。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="a-simple-example"></a>简单示例
 

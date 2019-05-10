@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/20/2018
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
-ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/21/2018
-ms.locfileid: "52282130"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894294"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>捆绑和缩小在 ASP.NET Core 中的静态资产
 
@@ -53,7 +53,7 @@ ms.locfileid: "52282130"
 
 下表概述了单独加载资产与使用绑定和缩减之间的差异：
 
-操作 | B/m | 而无需 B/M | 更改
+操作 | B/m | Without B/M | 更改
 --- | :---: | :---: | :---:
 文件请求  | 7   | 18     | 157%
 传输的 KB | 156 | 264.68 | 70%
@@ -85,16 +85,16 @@ MVC 和 Razor 页面项目模板提供了在 ASP.NET Core 2.0 或更早*bundleco
 
 配置选项包括：
 
-* `outputFileName`： 要输出的捆绑包文件的名称。 可以包含中的相对路径*bundleconfig.json*文件。 **必填**
-* `inputFiles`： 要捆绑在一起的文件的数组。 这些是配置文件的相对路径。 **可选**，* 空值会导致空的输出文件。 [通配](http://www.tldp.org/LDP/abs/html/globbingref.html)支持模式。
-* `minify`： 输出类型缩减选项。 **可选**，*默认值- `minify: { enabled: true }`*
+* `outputFileName`：要输出的捆绑包文件的名称。 可以包含中的相对路径*bundleconfig.json*文件。 **required**
+* `inputFiles`：要捆绑在一起的文件的数组。 这些是配置文件的相对路径。 **可选**，* 空值会导致空的输出文件。 [通配](http://www.tldp.org/LDP/abs/html/globbingref.html)支持模式。
+* `minify`：输出类型缩小选项。 **可选**，*默认值- `minify: { enabled: true }`*
   * 每个输出文件类型提供了配置选项。
     * [CSS 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScript 缩减程序](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki)
-* `includeInProject`： 指示是否将生成的文件添加到项目文件的标记。 **可选**，*默认值-false*
-* `sourceMap`： 指示是否生成将捆绑的文件的源映射的标记。 **可选**，*默认值-false*
-* `sourceMapRootPath`： 用于存储生成的源映射文件的根路径。
+* `includeInProject`：指示是否将生成的文件添加到项目文件的标记。 **可选**，*默认值-false*
+* `sourceMap`：指示是否生成将捆绑的文件的源映射的标记。 **可选**，*默认值-false*
+* `sourceMapRootPath`：用于存储生成的源映射文件的根路径。
 
 ## <a name="build-time-execution-of-bundling-and-minification"></a>生成时执行的捆绑和缩小
 

@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 41021e30ae85dd0ae42cbe6f1606727e21bd7707
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705518"
----
 # <a name="aspnet-core-middleware-extensibility-sample"></a>ASP.NET Core 中间件扩展性示例
 
 此示例演示了 [ASP.NET Core 中基于工厂的中间件激活](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/middleware-extensibility)中所述的方案。

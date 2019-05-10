@@ -4,14 +4,14 @@ author: ssougnez
 description: 本教程将配置 Webpack，以捆绑和生成 ASP.NET Core SignalR Web 应用，该应用的客户端是使用 TypeScript 编写的。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 04/23/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: aaf9aa59928ed6b17bc0586d97dbdefc9e30362c
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 8bebdd9102f93d2b2a8bf142db1053def9d001a0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102947"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64884602"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
@@ -28,9 +28,24 @@ ms.locfileid: "56102947"
 > * 配置 SignalR 服务器
 > * 启用客户端和服务器之间的通信
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-[!INCLUDE [Prerequisites](~/includes/net-core-prereqs-vs-vsc-2.2.md)]
+## <a name="prerequisites"></a>系统必备
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* 已安装“ASP.NET 和 Web 开发”工作负载的 [Visual Studio 2017 版本 15.9 或更高版本](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
+* [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
+* 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+* [Visual Studio Code](https://code.visualstudio.com/download)
+* [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
+* [适用于 Visual Studio Code 的 C# 版本 1.17.1 或更高版本](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
+
+---
 
 ## <a name="create-the-aspnet-core-web-app"></a>创建 ASP.NET Core Web 应用
 

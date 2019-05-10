@@ -7,24 +7,24 @@ ms.author: riande
 ms.date: 11/10/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: a12653e5dc99ad731de63e151af6dbdbe38ffefc
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 07457d57b7d3b444c8cea818149569407f1dd8e8
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165217"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085721"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>将文件上传到 ASP.NET Core 中的 Razor 页面
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-本主题是基于[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample)中<xref:tutorials/razor-pages/razor-pages-start>。
+本主题是基于[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample)中<xref:tutorials/razor-pages/razor-pages-start>。
 
 本主题演示如何使用简单的模型绑定来上传文件，这非常适合上传小文件。 有关流式传输大文件的信息，请参阅[通过流式传输上传大文件](xref:mvc/models/file-uploads#uploading-large-files-with-streaming)。
 
 在下列步骤中，向示例应用添加电影计划文件上传功能。 每个电影计划由一个 `Schedule` 类表示。 该类包括两个版本的计划。 其中一个版本 (`PublicSchedule`) 提供给客户。 另一个版本 (`PrivateSchedule`) 用于公司员工。 每个版本作为单独的文件进行上传。 本教程演示如何通过单个 POST 将两个文件上传至服务器。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/upload-files/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/upload-files/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="security-considerations"></a>安全注意事项
 

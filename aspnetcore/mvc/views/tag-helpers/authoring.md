@@ -4,20 +4,20 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中创作标记帮助程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/12/2019
+ms.date: 04/29/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 19b7df1abc8765cb9a77487e39c4365fdacf2b65
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 37e39ac93e7b67184dfc238d58e12c2be8d84f91
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614417"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087358"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="get-started-with-tag-helpers"></a>标记帮助程序入门
 
@@ -108,7 +108,9 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 只要属性集合中当前不存在“href”属性，该方法就适用于此属性。 也可使用 `output.Attributes.Add` 方法将标记帮助程序属性添加到标记属性集合的末尾。
 
-1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：[!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
+1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：
+
+   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
 1. 运行应用并验证它是否生成正确的链接。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 4fe04cde2a234302845b2cbded106f1e809842bc
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: f357df0bbc51e881132e36ccb20f4ffdc3035032
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209289"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64883462"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -27,7 +27,7 @@ ms.locfileid: "58209289"
 
 可以创建自定义筛选器，用于处理横切关注点。 筛选器可以避免跨操作复制代码。 例如，错误处理异常筛选器可以合并错误处理。
 
-[查看或下载 GitHub 中的示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
+[查看或下载 GitHub 中的示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
 
 ## <a name="how-filters-work"></a>筛选器的工作原理
 
@@ -425,4 +425,4 @@ public class UnprocessableResultFilter : Attribute, IAlwaysRunResultFilter
 ## <a name="next-actions"></a>后续操作
 
 * 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)
-* 若要尝试使用筛选器，请[下载、测试并修改 Github 示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
+* 若要尝试使用筛选器，请[下载、测试并修改 Github 示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。

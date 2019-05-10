@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: ccd56d0c15639e1ad29094e947f8055702ee2264
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 5a0797fcfe93d49b941b61688ae8f58a1b5d7614
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833665"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086349"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>ASP.NET Core标识的自定义的存储提供程序
 
@@ -19,7 +19,7 @@ ms.locfileid: "56833665"
 
 ASP.NET Core标识是一种可扩展系统，可用于创建自定义存储提供程序并将其连接到你的应用。 本主题介绍如何创建 ASP.NET Core标识的自定义的存储提供程序。 它介绍如何创建自己的存储提供程序的重要概念，但不是分步演练。
 
-[查看或下载 GitHub 中的示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/identity/sample)。
+[查看或下载 GitHub 中的示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)。
 
 ## <a name="introduction"></a>介绍
 
@@ -139,7 +139,7 @@ ASP.NET Core标识包含类称为管理器和存储区。 *管理器*是高级�
 * [IUserTwoFactorStore](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
 * [IUserLockoutStore](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1)
 
-可选接口继承自`IUserStore<TUser>`。 可以看到存储中的部分实现的示例用户[示例应用](https://github.com/aspnet/Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)。
+可选接口继承自`IUserStore<TUser>`。 可以看到存储中的部分实现的示例用户[示例应用](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)。
 
 在`UserStore`类，您使用您创建的用于执行操作的数据访问类。 这些通过依赖关系注入进行传递。 例如，在使用 Dapper 实现，SQL Server`UserStore`类具有`CreateAsync`使用的实例方法`DapperUsersTable`来插入新记录：
 

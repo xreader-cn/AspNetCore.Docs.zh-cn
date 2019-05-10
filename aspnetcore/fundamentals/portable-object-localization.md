@@ -5,12 +5,12 @@ description: 本文介绍可移植对象文件，并概述通过 Orchard Core �
 ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: 466759b30e756a7cac8abab7352025df0462bb6f
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6ec7afc59d6dfd2629a3d6d83ae619575397a9df
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210088"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64884372"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>在 ASP.NET Core 中配置可移植对象本地化
 
@@ -20,7 +20,7 @@ ms.locfileid: "58210088"
 
 **注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="what-is-a-po-file"></a>什么是 PO 文件？
 

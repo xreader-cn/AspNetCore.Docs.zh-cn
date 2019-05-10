@@ -4,14 +4,14 @@ author: isaac2004
 description: 了解 ASP.NET Core 2.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 04/30/2019
 uid: aspnetcore-2.1
-ms.openlocfilehash: 8299af819f86d3d2371650ce3d87deb817f0feb8
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 359f961db768b9048427c8ab296ee3e035879408
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248168"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086396"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -28,7 +28,7 @@ ms.locfileid: "56248168"
 * 新的流式处理响应模型。
 * 支持基于裸机 WebSocket 的客户端。
 
-有关详细信息，请参阅 [ASP.NET Core SignalR](xref:signalr/index)。
+有关详细信息，请参阅 [ASP.NET Core SignalR](xref:signalr/introduction)。
 
 ## <a name="razor-class-libraries"></a>Razor 类库
 
@@ -75,7 +75,7 @@ Web 应用通常需要侦听 HTTP 和 HTTPS，但随后会将所有 HTTP 流量�
 
 ## <a name="gdpr"></a>GDPR
 
-ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 (GDPR)](https://www.eugdpr.org/) 的部分要求。 有关详细信息，请参阅 [ASP.NET Core 中的 GDPR 支持](xref:security/gdpr)。 [示例应用](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/gdpr/sample)演示如何使用并允许测试已添加到 ASP.NET Core 2.1 模板中的大多数 GDPR 扩展点和 API。
+ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 (GDPR)](https://www.eugdpr.org/) 的部分要求。 有关详细信息，请参阅 [ASP.NET Core 中的 GDPR 支持](xref:security/gdpr)。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)演示如何使用并允许测试已添加到 ASP.NET Core 2.1 模板中的大多数 GDPR 扩展点和 API。
 
 ## <a name="integration-tests"></a>集成测试
 

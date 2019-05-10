@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 162586059e3115bc15efaa63a9a0652e09872f1b
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 228722ecdc0fb19e024b7154393390fe6d34c5ff
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209960"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64887302"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页 - 第 3 个教程（共 8 个）
 
@@ -29,7 +29,7 @@ ms.locfileid: "58209960"
 
 ![“学生索引”页](sort-filter-page/_static/paging.png)
 
-如果遇到无法解决的问题，请下载[已完成应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
+如果遇到无法解决的问题，请下载[已完成应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
 
 ## <a name="add-sorting-to-the-index-page"></a>向索引页添加排序
 
@@ -275,13 +275,13 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 运行应用并导航到“关于”页面。 表格中会显示每个注册日期的学生计数。
 
-如果遇到无法解决的问题，请下载[本阶段的已完成应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting)。
+如果遇到无法解决的问题，请下载[本阶段的已完成应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting)。
 
 ![“关于”页面](sort-filter-page/_static/about.png)
 
 ## <a name="additional-resources"></a>其他资源
 
-* [调试 ASP.NET Core 2.x 源](https://github.com/aspnet/Docs/issues/4155)
+* [调试 ASP.NET Core 2.x 源](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
 * [本教程的 YouTube 版本](https://www.youtube.com/watch?v=MDs7PFpoMqI)
 
 在下一教程中，应用将利用迁移更新数据模型。

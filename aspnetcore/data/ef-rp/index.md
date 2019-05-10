@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 03/15/2017
 uid: data/ef-rp/index
 ms.openlocfilehash: 1e8d38ba3db014c68717f90b7216dc84a9c496a8
-ms.sourcegitcommit: 661d30492d5ef7bbca4f7e709f40d8f3309d2dac
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37938360"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64882152"
 ---
 # <a name="aspnet-core-razor-pages-with-ef-core---tutorial-series"></a>ASP.NET Core Razor 页面和 EF Core - 教程系列
 

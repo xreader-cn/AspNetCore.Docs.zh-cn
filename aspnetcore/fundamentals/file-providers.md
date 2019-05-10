@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 2ce40ea0d576d08a6b42c3eb6693754f2a0bddce
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 93eb48d81a853061a874641e84b4875849690a93
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809216"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64886612"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -25,7 +25,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 * [Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。
 * .NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="file-provider-interfaces"></a>文件提供程序接口
 
