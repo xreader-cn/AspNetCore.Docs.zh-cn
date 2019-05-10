@@ -1,1 +1,1 @@
-<span data-ttu-id="7d348-101">此文件夹中的代码是 Razor 页面系列中各时间的快照。</span><span class="sxs-lookup"><span data-stu-id="7d348-101">The code in this folder is snapshots in time from the Razor Pages series.</span></span>
+<span data-ttu-id="e8647-101">此文件夹中的代码是 Razor 页面系列中各时间的快照。</span><span class="sxs-lookup"><span data-stu-id="e8647-101">The code in this folder is snapshots in time from the Razor Pages series.</span></span>
