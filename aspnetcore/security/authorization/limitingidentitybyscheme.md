@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/22/2018
 uid: security/authorization/limitingidentitybyscheme
 ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248194"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897334"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
 

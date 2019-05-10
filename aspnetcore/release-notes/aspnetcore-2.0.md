@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 2.0 的新增功能。
 ms.author: riande
 ms.date: 07/10/2017
 uid: aspnetcore-2.0
-ms.openlocfilehash: 60e44e64bd1cfada0143e374f6f51dec0e4e84f8
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 07e490fd844f0f9044afce37651ef680ed0c894d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209880"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64883092"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -47,7 +47,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 在 ASP.NET Core 2.0 中，已默认将 `IConfiguration` 实例添加到服务容器。 服务容器中的 `IConfiguration` 可以使应用程序更轻松地从容器中检索配置值。
 
-有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/Docs/issues/3387)。
+有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/3387)。
 
 ## <a name="logging-update"></a>日志记录更新
 
@@ -61,7 +61,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 使用 [Azure AD B2C] (https://azure.microsoft.com/services/active-directory-b2c/)) 为 Web 应用和 Web API 配置身份验证时可使用新模板。
 
-有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/Docs/issues/3054)。
+有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/3054)。
 
 ## <a name="identity-update"></a>标识更新
 
@@ -113,7 +113,7 @@ return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNo
 
 在 ASP.NET Core 2.0 中，如果在 Visual Studio 中调试并且（选择加入后）在 Azure App Services 中运行，将使用此功能自动启用 Application Insights 诊断。 因此，默认情况下，项目模板不再添加 Application Insights 包和代码。
 
-有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/Docs/issues/3389)。
+有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/3389)。
 
 ## <a name="automatic-use-of-anti-forgery-tokens"></a>自动使用防伪标记
 

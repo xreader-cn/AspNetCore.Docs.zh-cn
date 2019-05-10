@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/scale
 ms.openlocfilehash: 4ac4509acc89d0091a3757c7cfbc9981614f29ad
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836917"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64895074"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 承载和扩展
 

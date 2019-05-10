@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: 429af1fb6d0388a5c57894851832969e1ef629e2
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 2e58be2c9818a6fb39d4cbcf0e77a51623ca3aef
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327428"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891032"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
 
@@ -19,7 +19,7 @@ ms.locfileid: "58327428"
 
 [控制器](xref:mvc/controllers/actions)在任何 ASP.NET Core MVC 应用中起着核心作用。 因此，应该对控制器表现达到预期怀有信心。 在将应用部署到生产环境之前，自动测试可以检测到错误。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/testing/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="unit-tests-of-controller-logic"></a>控制器逻辑的单元测试
 
@@ -75,7 +75,7 @@ ms.locfileid: "58327428"
 > [!NOTE]
 > 通过此示例中使用的 Moq 库，可以混合可验证（或称“严格”）mock 和非可验证 mock（也称为“宽松”mock 或存根）。 详细了解[使用 Moq 自定义 Mock 行为](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior)。
 
-示例应用中的 [SessionController](https://github.com/aspnet/Docs/blob/master/aspnetcore/mvc/controllers/testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) 显示与特定集体讨论会话相关的信息。 该控制器包含用于处理无效 `id` 值的逻辑（以下示例中有两个 `return` 方案可用来应对这些情况）。 最后的 `return` 语句向视图 (Controllers/SessionController.cs) 返回一个新的 `StormSessionViewModel`：
+示例应用中的 [SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) 显示与特定集体讨论会话相关的信息。 该控制器包含用于处理无效 `id` 值的逻辑（以下示例中有两个 `return` 方案可用来应对这些情况）。 最后的 `return` 语句向视图 (Controllers/SessionController.cs) 返回一个新的 `StormSessionViewModel`：
 
 [!code-csharp[](testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs?name=snippet_SessionController&highlight=12-16,18-22,31)]
 

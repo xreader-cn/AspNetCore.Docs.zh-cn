@@ -7,11 +7,11 @@ ms.author: riande
 ms.date: 04/11/2019
 uid: performance/diagnostic-tools
 ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516217"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894184"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 

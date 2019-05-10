@@ -7,25 +7,25 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/20/2018
 uid: signalr/publish-to-azure-web-app
-ms.openlocfilehash: 66fa855590c49c4284e4b42cae57f3d4d81dd0fc
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 1c472711a86edae8dc6e207734aa54e48c02d47d
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837671"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087686"
 ---
 # <a name="publish-an-aspnet-core-signalr-app-to-an-azure-web-app"></a>发布 ASP.NET Core SignalR 应用程序到 Azure Web 应用程序
 
 [Azure Web 应用程序](/azure/app-service/app-service-web-overview)是[Microsoft 云计算](https://azure.microsoft.com/)用于承载 web 应用，包括 ASP.NET Core 平台服务。
 
 > [!NOTE]
-> 本文是指从 Visual Studio 发布 ASP.NET Core SignalR 应用程序。 请访问[Azure SignalR 服务](https://azure.microsoft.com/en-gb/services/signalr-service?)有关如何在 Azure 上使用 SignalR 的详细信息。
+> 本文是指从 Visual Studio 发布 ASP.NET Core SignalR 应用程序。 请访问[Azure SignalR 服务](https://azure.microsoft.com/services/signalr-service)有关如何在 Azure 上使用 SignalR 的详细信息。
 
 ## <a name="publish-the-app"></a>发布应用
 
 Visual Studio 提供的内置工具发布到 Azure Web 应用。 可以使用 visual Studio Code 用户[Azure CLI](/cli/azure)命令以将应用发布到 Azure。 本文介绍如何发布使用 Visual Studio 中的工具。 若要发布应用程序使用 Azure CLI，请参阅[将 ASP.NET Core 应用发布到 Azure 中，使用命令行工具](/azure/app-service/app-service-web-get-started-dotnet)。
 
-右键单击该项目中**解决方案资源管理器**，然后选择**发布**。 确认**新建**签入**选取发布目标**对话框中，然后选择**发布**。
+在“解决方案资源管理器”中右键单击该项目，然后选择“发布”。 确认**新建**签入**选取发布目标**对话框中，然后选择**发布**。
 
 ![选取发布目标](publish-to-azure-web-app/_static/pick-publish-target-dialog.png)
 

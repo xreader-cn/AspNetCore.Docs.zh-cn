@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: de8548fe2396102fe44a8e6a000b44d4eea63285
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 9d6ce79c15fe768c260c6361ac3babecab5f3f9b
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209918"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087303"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>ASP.NET Core 中 .NET 的开放 Web 接口 (OWIN)
 
@@ -29,7 +29,7 @@ OWIN 提供了一个分离层，可一起使用具有不同对象模型的两个
 > [!NOTE]
 > 使用这些适配器会带来性能成本。 仅使用 ASP.NET Core 组件的应用不应使用 `Microsoft.AspNetCore.Owin` 包或适配器。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/owin/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="running-owin-middleware-in-the-aspnet-core-pipeline"></a>在 ASP.NET Core 管道中运行 OWIN 中间件
 
@@ -214,7 +214,7 @@ public class Startup
 }
 ```
 
-使用与前一个相同的 `NowinServer` 来配置此[示例](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/owin/sample) - 唯一的区别是如何在其 `Configure` 方法中配置应用程序。 使用[简单的 websocket 客户端](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)的测试演示应用程序：
+使用与前一个相同的 `NowinServer` 来配置此[示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) - 唯一的区别是如何在其 `Configure` 方法中配置应用程序。 使用[简单的 websocket 客户端](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)的测试演示应用程序：
 
 ![Web 套接字测试客户端](owin/_static/websocket-test.png)
 

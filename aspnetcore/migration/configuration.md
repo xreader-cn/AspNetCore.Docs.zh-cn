@@ -5,12 +5,12 @@ description: 了解如何将配置从 ASP.NET MVC 项目迁移到 ASP.NET Core M
 ms.author: riande
 ms.date: 10/14/2016
 uid: migration/configuration
-ms.openlocfilehash: 5a1c4d0cbbdf74a00073c654e78a05f44948caae
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: c379f1f64dc5ab8aeb48055124e86e4e60d93785
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50205907"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64894924"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>将配置迁移到 ASP.NET Core
 
@@ -18,7 +18,7 @@ ms.locfileid: "50205907"
 
 在以前的文章中，我们就已着手[将 ASP.NET MVC 项目迁移到 ASP.NET Core MVC](xref:migration/mvc)。 在本文中，我们将迁移配置。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/migration/configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="setup-configuration"></a>安装程序配置
 

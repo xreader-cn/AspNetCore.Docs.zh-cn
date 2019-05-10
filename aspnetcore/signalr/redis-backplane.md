@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
 ms.openlocfilehash: 9d2a942dba6abe669126efee7f2b3cdd6560658e
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012638"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087667"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>设置 ASP.NET Core SignalR 横向扩展 Redis 底板
 

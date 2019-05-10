@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/12/2019
 uid: signalr/streaming
-ms.openlocfilehash: d185056d3bdda089eaa46ae9b8e13ab7a4354f93
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 8f39fdfa45766b5bbec572970f009abefefdc419
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165071"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897194"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>使用 ASP.NET Core SignalR 中流式处理
 
@@ -30,7 +30,7 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ::: moniker-end
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="set-up-a-hub-for-streaming"></a>设置为流式处理中心
 

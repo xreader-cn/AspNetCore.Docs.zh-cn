@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/otherlogins
 ms.openlocfilehash: b69c366ec1bf12ccf434991fc8a79eaf8c09da3d
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708460"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897504"
 ---
 # <a name="external-oauth-authentication-providers"></a>外部 OAuth 身份验证提供程序
 

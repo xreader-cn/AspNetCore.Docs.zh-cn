@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 209b5c41e17897693962954b1e795bdbb41f9384
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012729"
----
 # <a name="key-vault-configuration-provider-sample-app"></a>密钥保管库配置提供程序示例应用程序
 
 此示例演示如何使用 Azure 密钥保管库配置提供程序。

@@ -6,11 +6,11 @@ ms.author: avickers
 ms.date: 04/24/2019
 uid: security/authentication/customize_identity_model
 ms.openlocfilehash: ae5f4567a8921ce277cd6153f37a5558bcf4e261
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982780"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64897854"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2019
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 040d33eba7eaf7a3aece2eedcdef7343e52972af
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: ff061f96f30cd893b903403de760a172c924cf06
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345492"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64895414"
 ---
 # <a name="razor-pages-authorization-conventions-in-aspnet-core"></a>在 ASP.NET Core razor 页授权约定
 
@@ -20,7 +20,7 @@ ms.locfileid: "57345492"
 
 Razor 页面应用中控制访问权限的一种方法是在启动时使用授权约定。 这些约定，可为用户授权，并允许匿名用户访问各个页面的文件夹。 自动在本主题中所述的约定适用[授权筛选器](xref:mvc/controllers/filters#authorization-filters)来控制访问。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例应用使用[cookie 身份验证，而无需 ASP.NET Core 标识](xref:security/authentication/cookie)。 概念和本主题中所示的示例同样适用于使用 ASP.NET Core 标识的应用。 若要使用 ASP.NET Core 标识，请按照中的指导<xref:security/authentication/identity>。
 

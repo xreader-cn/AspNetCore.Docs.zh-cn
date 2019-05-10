@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
 ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265014"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64887282"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 

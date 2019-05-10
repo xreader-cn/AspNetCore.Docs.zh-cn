@@ -5,16 +5,16 @@ description: 了解如何使用应用程序部件（应用资源的抽象）来�
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 67bd40adef4cdb0bd781f70114d3954cd9a8ed09
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 5d5e79d3afe0eee6d0b126d4642ccd5f61bff409
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320090"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64888132"
 ---
 # <a name="application-parts-in-aspnet-core"></a>ASP.NET Core 中的应用程序部件
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 *应用程序部件*是应用程序资源的一种抽象，可通过它发现控制器、视图组件或标记帮助程序等 MVC 功能。 AssemblyPart 就是一种应用程序部件，用于封装程序集引用以及公开类型和编译引用。 *功能提供程序*使用应用程序部件填充 ASP.NET Core MVC 应用的功能。 应用程序部件的主要用例是允许将应用配置为从程序集中发现（或避免加载）MVC 功能。
 

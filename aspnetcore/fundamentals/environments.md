@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/10/2019
 uid: fundamentals/environments
-ms.openlocfilehash: f14c29030d96b530ea4af054cfa195d44db43679
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: a0e6d62f352a886a9bc051813a21d94c1605a1ce
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516347"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087036"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -20,7 +20,7 @@ ms.locfileid: "59516347"
 
 ASP.NET Core 基于使用环境变量的运行时环境配置应用行为。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="environments"></a>环境
 
