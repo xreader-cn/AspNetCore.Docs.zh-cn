@@ -4,14 +4,14 @@ author: mjrousos
 description: 用于提高 ASP.NET Core 应用中的性能和避免常见的性能问题的提示。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 04/13/2019
+ms.date: 05/10/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: 28dc7fb40c1b60f643108dcb44593a08942a1650
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 7651dff18f98c60057660c8946c3daa66d272f6a
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087498"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65536074"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 的性能最佳实践
 
@@ -130,7 +130,7 @@ ASP.NET Core 应用中的常见性能问题正在阻止可能是异步调用。 
 建议：
 
 * **不要**使用 ASP.NET Core[内置支持](xref:client-side/bundling-and-minification)进行捆绑和缩小客户端资产。
-* **不要**考虑其他第三方工具，例如[Gulp](xref:client-side/using-gulp)或[Webpack](https://webpack.js.org/)复杂的客户端管理资产。
+* **不要**考虑其他第三方工具，例如[Webpack](https://webpack.js.org/)，复杂的客户端管理资产。
 
 ## <a name="compress-responses"></a>压缩响应
 

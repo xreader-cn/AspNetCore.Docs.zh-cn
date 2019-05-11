@@ -3,20 +3,20 @@ title: 在 ASP.NET Core中使用 Grunt
 author: rick-anderson
 description: ''
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 05/10/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: fc912974fb6ed3c65bb46a7d616d9e531587d946
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 73b7704726db9d93588dddd3f3b05a23fb3425b3
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894634"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535943"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core中使用 Grunt
 
 通过[Noel 大米](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/)
 
-Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 编译、 代码质量"lint"工具，CSS 预处理器和几乎任何需要采取措施来支持客户端开发的重复性的任务。 尽管 ASP.NET 项目模板使用 Gulp，默认情况下 Visual Studio 中，完全支持 grunt (请参阅[使用 Gulp](using-gulp.md))。
+Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 编译、 代码质量"lint"工具，CSS 预处理器和几乎任何需要采取措施来支持客户端开发的重复性的任务。 在 Visual Studio 中完全支持 grunt。
 
 此示例使用一个空的 ASP.NET Core 项目作为起始点，以显示如何从零开始的客户端生成过程中自动运行。
 
@@ -286,7 +286,3 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 ## <a name="summary"></a>总结
 
 Grunt 是可用于自动执行大多数客户端生成任务的功能强大的任务运行程序。 Grunt 利用 NPM 来提供其包和工具与 Visual Studio 集成的功能。 Visual Studio 的任务运行程序资源管理器检测到配置文件的更改，并提供了一个方便的界面，用于运行任务，查看正在运行的任务，并将任务绑定到 Visual Studio 事件。
-
-## <a name="additional-resources"></a>其他资源
-
-* [使用 Gulp](using-gulp.md)

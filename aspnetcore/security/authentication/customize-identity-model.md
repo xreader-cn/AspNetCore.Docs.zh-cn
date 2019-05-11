@@ -5,12 +5,12 @@ description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实�
 ms.author: avickers
 ms.date: 04/24/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: ae5f4567a8921ce277cd6153f37a5558bcf4e261
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 53ce77e20722f3ba3282ff4455a0b70d30e635b0
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897854"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65536025"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 
@@ -340,7 +340,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
 更新*Pages/Shared/_LoginPartial.cshtml*和替换`IdentityUser`与`ApplicationUser`:
 
-```
+```cshtml
 @using Microsoft.AspNetCore.Identity
 @using WebApp1.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager

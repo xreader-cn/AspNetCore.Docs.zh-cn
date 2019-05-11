@@ -4,14 +4,14 @@ author: scottaddie
 description: 了解如何通过应用捆绑和缩减技术优化 ASP.NET Core web 应用程序中的静态资源。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/20/2018
+ms.date: 05/10/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ba01d365a25dfbd13fed89263d7489b2ce2a8771
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894294"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535931"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>捆绑和缩小在 ASP.NET Core 中的静态资产
 
@@ -63,7 +63,7 @@ ms.locfileid: "64894294"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>选择捆绑和缩减策略
 
-MVC 和 Razor 页面项目模板提供开箱解决方案捆绑和缩小包含 JSON 配置文件。 第三方工具，如[Gulp](xref:client-side/using-gulp)并[Grunt](xref:client-side/using-grunt)任务运行程序中，完成相同的任务具有更多的复杂性。 第三方工具是理想的选择时开发工作流需要处理超出捆绑和缩小&mdash;linting 和映像优化等。 通过使用设计时绑定和缩减，在应用程序的部署前创建缩小化的文件。 捆绑和缩小在部署前提供减少的服务器负载的优点。 但是，务必要识别该设计时捆绑和缩小会增大复杂性，生成和仅适用于静态文件。
+MVC 和 Razor 页面项目模板提供开箱解决方案捆绑和缩小包含 JSON 配置文件。 第三方工具，如[Grunt](xref:client-side/using-grunt)任务运行程序中，完成相同的任务具有更多的复杂性。 第三方工具是理想的选择时开发工作流需要处理超出捆绑和缩小&mdash;linting 和映像优化等。 通过使用设计时绑定和缩减，在应用程序的部署前创建缩小化的文件。 捆绑和缩小在部署前提供减少的服务器负载的优点。 但是，务必要识别该设计时捆绑和缩小会增大复杂性，生成和仅适用于静态文件。
 
 ## <a name="configure-bundling-and-minification"></a>配置捆绑和缩减
 
@@ -325,11 +325,9 @@ npm i -g gulp-cli
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-或者，可能会使用 Visual Studio 的任务运行程序资源管理器来将 Gulp 任务绑定到特定的 Visual Studio 事件。 请参阅[正在运行的默认任务](xref:client-side/using-gulp#running-default-tasks)有关执行此操作的说明。
 
 ## <a name="additional-resources"></a>其他资源
 
-* [使用 Gulp](xref:client-side/using-gulp)
 * [使用 Grunt](xref:client-side/using-grunt)
 * [使用多个环境](xref:fundamentals/environments)
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)
