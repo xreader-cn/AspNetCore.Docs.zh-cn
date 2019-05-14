@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: 41a5a41c8921b04290784d26441ecb46aea753e7
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d0494b96447ad2b256acbde7748209ff430ae7c1
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894964"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610184"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>在 Visual Studio 中的 ASP.NET Core 中使用 LibMan
 
@@ -28,7 +28,7 @@ Visual Studio 在 ASP.NET Core 项目中内置了对 [LibMan](xref:client-side/l
 
 ## <a name="prerequisites"></a>系统必备
 
-* Visual Studio 2017 版本 15.8 或更高版本，且具有**ASP.NET 和 Web 开发**工作负载
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019)与**ASP.NET 和 web 开发**工作负荷
 
 ## <a name="add-library-files"></a>添加库文件
 

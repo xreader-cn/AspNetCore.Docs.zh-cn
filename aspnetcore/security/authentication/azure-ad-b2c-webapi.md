@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 00e7c9a438260ef8e12e567e521fc44b2ffa9cca
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 0eb8b533f44a1f72cfc3c4ec5ec060adb37eed6c
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086330"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610365"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>中的 web Api 使用 Azure Active Directory B2C 在 ASP.NET Core 中的身份验证
 
@@ -37,7 +37,7 @@ Azure Active Directory (Azure AD) 和 Azure AD B2C 是单独的产品产品/服�
 本演练需要以下项：
 
 * [Microsoft Azure 订阅](https://azure.microsoft.com/free/?ref=microsoft.com&utm_source=microsoft.com&utm_medium=docs&utm_campaign=visualstudio)
-* [Visual Studio 2017](https://aka.ms/vsdownload?utm_source=mscom&utm_campaign=msdocs) （任何版本）
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019)
 * [Postman](https://www.getpostman.com/postman)
 
 ## <a name="create-the-azure-active-directory-b2c-tenant"></a>创建 Azure Active Directory B2C 租户
@@ -65,7 +65,7 @@ Azure Active Directory (Azure AD) 和 Azure AD B2C 是单独的产品产品/服�
 
 注册 API 后，将显示在租户中的应用和 Api 的列表。 选择以前注册的 API。 选择**副本**右侧的图标**应用程序 ID**字段以将其复制到剪贴板。 选择**发布的作用域**，并验证默认*user_impersonation*作用域是存在。
 
-## <a name="create-an-aspnet-core-app-in-visual-studio-2017"></a>在 Visual Studio 2017 年 1 中创建 ASP.NET Core 应用
+## <a name="create-an-aspnet-core-app-in-visual-studio"></a>在 Visual Studio 中创建 ASP.NET Core 应用
 
 Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进行身份验证。
 

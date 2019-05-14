@@ -168,7 +168,7 @@ tcpdump -i [interface] -w trace.pcap
 
 ### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge 和 Internet 资源管理器
 
-（说明是相同的 Edge 和 Internet Explorer）
+（说明是相同的 Microsoft Edge 和 Internet Explorer）
 
 1. 按 F12 打开开发人员工具
 2. 单击网络选项卡

@@ -5,14 +5,14 @@ description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/30/2019
+ms.date: 05/10/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 84cdbca20e7c7aaa1941c78483cc36a9f0b24505
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 540f14ad2b290d276436033a94d4c815888e5a95
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888942"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65536006"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -27,9 +27,13 @@ ms.locfileid: "64888942"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
+::: moniker range="<= aspnetcore-2.2"
+
 ## <a name="prerequisites"></a>系统必备
 
 面向.NET Framework 的项目要求安装 [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet 包。 面向 .NET Core 且引用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)的项目已经包括 `Microsoft.Extensions.Http` 包。
+
+::: moniker-end
 
 ## <a name="consumption-patterns"></a>消耗模式
 
@@ -197,11 +201,10 @@ public class ValuesController : ControllerBase
 
 `IHttpClientFactory` 与一个名为 [Polly](https://github.com/App-vNext/Polly) 的热门第三方库集成。 Polly 是适用于 .NET 的全面恢复和临时故障处理库。 开发人员通过它可以表达策略，例如以流畅且线程安全的方式处理重试、断路器、超时、Bulkhead 隔离和回退。
 
-提供了扩展方法，以实现将 Polly 策略用于配置的 `HttpClient` 实例。 [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) NuGet 包中提供 Polly 扩展。 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中不包括此包。 若要使用扩展，项目中应该包括显式 `<PackageReference />`。
+提供了扩展方法，以实现将 Polly 策略用于配置的 `HttpClient` 实例。 Polly 扩展：
 
-[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/HttpClientFactorySample.csproj?highlight=10)]
-
-还原此包后，可以使用扩展方法来支持将基于 Polly 的处理程序添加至客户端。
+* 支持将基于 Polly 的处理程序添加到客户端。
+* 安装了 [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) NuGet 包后可使用该扩展。 ASP.NET Core 共享框架中不包括该包。
 
 ### <a name="handle-transient-faults"></a>处理临时故障
 
@@ -219,11 +222,11 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-在上述代码中，如果出站请求为 GET，则应用 10 秒超时。 其他所有 HTTP 方法应用 30 秒超时。
+在上述代码中，如果出站请求为 HTTP GET，则应用 10 秒超时。 其他所有 HTTP 方法应用 30 秒超时。
 
 ### <a name="add-multiple-polly-handlers"></a>添加多个 Polly 处理程序
 
-嵌套 Polly 策略以增强功能是很常见的：
+通过嵌套 Polly 策略来增强功能是很常见的：
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
