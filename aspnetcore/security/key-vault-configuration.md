@@ -5,14 +5,14 @@ description: 了解如何使用 Azure 密钥保管库配置提供程序来配置
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 05/13/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 45eca05b5eb41815924ca48f60c3b00046c6bdaf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 78c63cf135ca92f0b5f6c6828b2ae34a44a7b36c
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894984"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621019"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -111,7 +111,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
 
-## <a name="use-application-id-and-client-secret-for-non-azure-hosted-apps"></a>使用 Azure 托管的应用程序的应用程序 ID 和客户端机密
+## <a name="use-application-id-and-x509-certificate-for-non-azure-hosted-apps"></a>对 Azure 托管的应用程序使用应用程序 ID 和 X.509 证书
 
 配置 Azure AD，Azure 密钥保管库，应用程序要使用 Azure Active Directory 应用程序 ID 和 X.509 证书对密钥保管库进行身份验证**当应用程序承载在 Azure 外部**。 有关详细信息，请参阅[关于密钥、 机密和证书](/azure/key-vault/about-keys-secrets-and-certificates)。
 
@@ -120,12 +120,15 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 示例应用使用应用程序 ID 和 X.509 证书何时`#define`顶部的语句*Program.cs*文件设置为`Certificate`。
 
+1. 创建 PKCS #12 存档 (*.pfx*) 证书。 用于创建证书的选项包括[在 Windows 上的 MakeCert](/windows/desktop/seccrypto/makecert)并[OpenSSL](https://www.openssl.org/)。
+1. 将证书安装到当前用户的个人证书存储区。 将该键标记为可导出是可选的。 请注意此过程中更高版本使用的证书的指纹。
+1. 导出 PKCS #12 存档 (*.pfx*) 与 (DER） 编码的证书的证书 (*.cer*)。
 1. 与 Azure AD 中注册应用程序 (**应用注册**)。
-1. 上传的公钥：
+1. 上传的 DER 编码的证书 (*.cer*) 到 Azure AD:
    1. 在 Azure AD 中选择的应用。
-   1. 导航到**设置** > **密钥**。
-   1. 选择**上传公钥**来上传包含公钥的证书。 除了使用之外 *.cer*， *.pem*，或 *.crt*证书，请 *.pfx*可以上传证书。
-1. 在应用中存储的密钥保管库名称和应用程序 ID *appsettings.json*文件。 将证书放在应用程序或应用程序的证书存储区中的根&dagger;。
+   1. 导航到**证书和机密**。
+   1. 选择**上传证书**来上传包含公钥的证书。 一个 *.cer*， *.pem*，或 *.crt*证书是可接受。
+1. 在应用的存储密钥保管库名称、 应用程序 ID 和证书指纹*appsettings.json*文件。
 1. 导航到**密钥保管库**在 Azure 门户中。
 1. 选择你在中创建的密钥保管库[使用 Azure 密钥保管库在生产环境中的机密存储](#secret-storage-in-the-production-environment-with-azure-key-vault)部分。
 1. 选择**访问策略**。
@@ -136,8 +139,6 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 选择“保存”。
 1. 将应用部署。
 
-&dagger;在示例应用中，证书将由直接从物理证书文件的应用程序根目录中创建一个新`X509Certificate2`调用时`AddAzureKeyVault`。 另一种方法是可允许 OS 在要管理的证书。 有关详细信息，请参阅[允许 OS 在要管理的 X.509 证书](#allow-the-os-to-manage-the-x509-certificate)部分。
-
 `Certificate`示例应用程序获取从其配置值`IConfigurationRoot`具有作为机密名称相同的名称：
 
 * 非层次结构的值：值`SecretName`一起被获取`config["SecretName"]`。
@@ -145,14 +146,15 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-应用程序调用`AddAzureKeyVault`提供的值与*appsettings.json*文件：
+X.509 证书是由操作系统管理。 应用程序调用`AddAzureKeyVault`提供的值与*appsettings.json*文件：
 
-[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet1&highlight=12-15)]
+[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet1&highlight=20-23)]
 
 示例值：
 
 * 密钥保管库名称： `contosovault`
 * 应用程序 ID: `627e911e-43cc-61d4-992e-12db9c81b413`
+* 证书指纹： `fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
 appsettings.json：
 
@@ -203,17 +205,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 `AddAzureKeyVault` 使用自定义调用`IKeyVaultSecretManager`:
 
-[!code-csharp[](key-vault-configuration/sample_snapshot/Program.cs?name=snippet1&highlight=22)]
-
-通过提供密钥保管库名称、 应用程序 ID 和密码 （客户端机密） 的值*appsettings.json*文件：
-
-[!code-json[](key-vault-configuration/sample/appsettings.json)]
-
-示例值：
-
-* 密钥保管库名称： `contosovault`
-* 应用程序 ID: `627e911e-43cc-61d4-992e-12db9c81b413`
-* 密码： `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
+[!code-csharp[](key-vault-configuration/sample_snapshot/Program.cs?highlight=30-34)]
 
 `IKeyVaultSecretManager`实现应对要加载到配置的正确密钥的机密的版本前缀：
 
@@ -261,44 +253,6 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 > [!NOTE]
 > 您还可以提供您自己`KeyVaultClient`实现`AddAzureKeyVault`。 自定义客户端允许在应用之间共享客户端的单个实例。
-
-## <a name="allow-the-os-to-manage-the-x509-certificate"></a>允许 OS 在要管理的 X.509 证书
-
-X.509 证书可以由操作系统管理。 下面的示例使用`AddAzureKeyVault`接受重载`X509Certificate2`从计算机的当前用户证书存储区和证书指纹提供的配置：
-
-```csharp
-// using System.Linq;
-// using System.Security.Cryptography.X509Certificates;
-// using Microsoft.Extensions.Configuration;
-
-WebHost.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((context, config) =>
-    {
-        if (context.HostingEnvironment.IsProduction())
-        {
-            var builtConfig = config.Build();
-
-            using (var store = new X509Store(StoreName.My, 
-                StoreLocation.CurrentUser))
-            {
-                store.Open(OpenFlags.ReadOnly);
-                var certs = store.Certificates
-                    .Find(X509FindType.FindByThumbprint, 
-                        builtConfig["CertificateThumbprint"], false);
-
-                config.AddAzureKeyVault(
-                    builtConfig["KeyVaultName"], 
-                    builtConfig["AzureADApplicationId"], 
-                    certs.OfType<X509Certificate2>().Single());
-
-                store.Close();
-            }
-        }
-    })
-    .UseStartup<Startup>();
-```
-
-有关详细信息，请参阅[使用证书而不是客户端密码进行身份验证](/azure/key-vault/key-vault-use-from-web-application#authenticate-with-a-certificate-instead-of-a-client-secret)。
 
 ## <a name="bind-an-array-to-a-class"></a>将数组绑定至类
 
@@ -358,13 +312,12 @@ Configuration.Reload();
 
 如果应用程序无法加载使用提供程序的配置，一条错误消息写入到[ASP.NET Core 日志记录基础结构](xref:fundamentals/logging/index)。 以下条件下将不加载配置：
 
-* 应用未正确配置 Azure Active Directory 中。
+* 在应用程序或证书未在 Azure Active Directory 中正确配置。
 * 密钥保管库不存在于 Azure 密钥保管库。
 * 应用程序无权访问密钥保管库。
 * 访问策略不包括`Get`和`List`权限。
 * 在密钥保管库，配置数据 （名称 / 值对） 是错误命名为，缺少，禁用，或已过期。
-* 应用了错误的密钥保管库名称 (`KeyVaultName`)，Azure AD 应用程序 Id (`AzureADApplicationId`)，或 Azure AD 密码 （客户端机密） (`AzureADPassword`)。
-* Azure AD 密码 （客户端机密） (`AzureADPassword`) 已过期。
+* 应用了错误的密钥保管库名称 (`KeyVaultName`)，Azure AD 应用程序 Id (`AzureADApplicationId`)，或 Azure AD 证书指纹 (`AzureADCertThumbprint`)。
 * 配置密钥 （名称） 不正确的应用中的想要加载的值。
 
 ## <a name="additional-resources"></a>其他资源

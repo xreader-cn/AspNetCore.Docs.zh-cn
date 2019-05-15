@@ -3,14 +3,14 @@ title: 在 ASP.NET Core中使用 Grunt
 author: rick-anderson
 description: 在 ASP.NET Core中使用 Grunt
 ms.author: riande
-ms.date: 05/10/2019
+ms.date: 05/14/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 718a1358c0474711b05bb2c90dc86ec9edacbf1e
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 4d9b6cf6f9a0007e9722bc054f0d9a7608f1473b
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610217"
+ms.locfileid: "65620996"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core中使用 Grunt
 
@@ -113,12 +113,12 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
 
 4. 保存*package.json*文件。
 
-将下载的每一 devDependencies 项包，以及每个包所需的任何文件。 您可以找到包文件中的`node_modules`目录，从而**显示所有文件**在解决方案资源管理器中的按钮。
+每个包`devDependencies`将下载项，以及每个包所需的任何文件。 您可以找到包文件中的*node_modules*目录，从而**显示所有文件**按钮**解决方案资源管理器**。
 
 ![grunt node_modules](using-grunt/_static/node-modules.png)
 
 > [!NOTE]
-> 如果需要可以通过右键单击手动还原解决方案资源管理器中的依赖关系`Dependencies\NPM`，然后选择**还原包**菜单选项。
+> 如果需要可以手动还原中的依赖关系**解决方案资源管理器**通过右键单击`Dependencies\NPM`，然后选择**还原包**菜单选项。
 
 ![还原包](using-grunt/_static/restore-packages.png)
 
@@ -126,9 +126,9 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
 
 使用名为的清单配置 grunt *Gruntfile.js*的定义、 加载和注册任务，可以手动运行或配置为自动基于运行 Visual Studio 中的事件。
 
-1. 右键单击项目并选择**添加 > 新建项**。 选择**Grunt 配置文件**选项，请保留默认名称*Gruntfile.js*，然后单击**添加**按钮。
+1. 右键单击项目并选择**外** > **新项**。 选择**JavaScript 文件**项模板，请将名称更改为*Gruntfile.js*，然后单击**添加**按钮。
 
-   初始代码包含模块定义和`grunt.initConfig()`方法。 `initConfig()`用于为每个包，设置选项和模块的剩余部分将加载和注册任务。
+1. 将以下代码添加到*Gruntfile.js*。 `initConfig`函数设置为每个包的选项和模块的剩余部分加载和注册任务。
 
    ```javascript
    module.exports = function (grunt) {
@@ -137,7 +137,7 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
    };
    ```
 
-2. 内部`initConfig()`方法中，添加用于`clean`任务中的示例所示*Gruntfile.js*下面。 清理任务接受目录字符串的数组。 此任务从 wwwroot/lib 删除文件，并删除整个/临时目录。
+1. 内部`initConfig`函数中，添加用于`clean`任务，在示例中所示*Gruntfile.js*下面。 `clean`任务接受目录字符串的数组。 此任务将删除从文件*wwwroot/lib* ，并删除整个 */临时*目录。
 
     ```javascript
     module.exports = function (grunt) {
@@ -147,32 +147,32 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     };
     ```
 
-3. 下面 initConfig() 方法中，添加对的调用`grunt.loadNpmTasks()`。 这将从 Visual Studio 来使该任务可运行。
+1. 下面`initConfig`函数中，添加对的调用`grunt.loadNpmTasks`。 这将从 Visual Studio 来使该任务可运行。
 
     ```javascript
     grunt.loadNpmTasks("grunt-contrib-clean");
     ```
 
-4. 保存*Gruntfile.js*。 该文件应类似于下面的屏幕截图。
+1. 保存*Gruntfile.js*。 该文件应类似于下面的屏幕截图。
 
     ![初始 gruntfile](using-grunt/_static/gruntfile-js-initial.png)
 
-5. 右键单击*Gruntfile.js* ，然后选择**Task Runner Explorer**从上下文菜单。 任务运行程序资源管理器窗口将打开。
+1. 右键单击*Gruntfile.js* ，然后选择**Task Runner Explorer**从上下文菜单。 **Task Runner Explorer**窗口将打开。
 
     ![任务运行程序资源管理器菜单](using-grunt/_static/task-runner-explorer-menu.png)
 
-6. 确认`clean`显示在下面**任务**在任务运行程序资源管理器。
+1. 确认`clean`显示在下面**任务**中**Task Runner Explorer**。
 
     ![任务运行程序资源管理器任务列表](using-grunt/_static/task-runner-explorer-tasks.png)
 
-7. 右键单击 clean 任务，然后选择**运行**从上下文菜单。 命令窗口中显示任务的进度。
+1. 右键单击 clean 任务，然后选择**运行**从上下文菜单。 命令窗口中显示任务的进度。
 
     ![任务运行程序资源管理器中运行清理任务](using-grunt/_static/task-runner-explorer-run-clean.png)
 
     > [!NOTE]
     > 不有任何文件或目录尚未清理。 如果你愿意，您可以在解决方案资源管理器中手动创建，并为测试运行 clean 任务。
 
-8. 在 initConfig() 方法中，添加一个条目`concat`使用下面的代码。
+1. 在中`initConfig`函数中，添加一个条目`concat`使用下面的代码。
 
     `src`属性数组列出要结合起来，应组合它们的顺序文件。 `dest`属性分配到合并生成的文件的路径。
 
@@ -186,11 +186,11 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     ```
 
     > [!NOTE]
-    > `all`上面的代码中的属性为目标的名称。 在某些 Grunt 任务中使用目标以允许多个生成环境。 可以查看使用 Intellisense 的内置目标或分配你自己。
+    > `all`上面的代码中的属性为目标的名称。 在某些 Grunt 任务中使用目标以允许多个生成环境。 可以查看使用 IntelliSense 的内置目标或分配你自己。
 
-9. 添加`jshint`任务使用下面的代码。
+1. 添加`jshint`任务使用下面的代码。
 
-    针对临时目录中找到的每个 JavaScript 文件运行 jshint 代码质量实用程序。
+    Jshint`code-quality`对每个 JavaScript 文件中找到运行实用工具*temp*目录。
 
     ```javascript
     jshint: {
@@ -204,7 +204,7 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     > [!NOTE]
     > 选项"-W069"错误 jshint 时生成的 JavaScript 使用方括号语法，即分配属性而不是点表示法`Tastes["Sweet"]`而不是`Tastes.Sweet`。 选项将关闭该警告，以允许进程继续的其余部分。
 
-10. 添加`uglify`任务使用下面的代码。
+1. 添加`uglify`任务使用下面的代码。
 
     任务缩减*combined.js*文件的临时目录中找到并创建 wwwroot/lib 以下标准命名约定中的结果文件 *\<文件名\>。 min.js* .
 
@@ -217,7 +217,7 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     },
     ```
 
-11. 在加载 grunt contrib 清理调用 grunt.loadNpmTasks()，包括相同的调用，用于 jshint，concat 和丑化使用下面的代码。
+1. 在调用`grunt.loadNpmTasks`加载`grunt-contrib-clean`、 包括相同的调用，用于 jshint，concat、 和丑化使用下面的代码。
 
     ```javascript
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -225,15 +225,15 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     ```
 
-12. 保存*Gruntfile.js*。 该文件应类似于下面的示例。
+1. 保存*Gruntfile.js*。 该文件应类似于下面的示例。
 
     ![完整 grunt 文件示例](using-grunt/_static/gruntfile-js-complete.png)
 
-13. 请注意，任务运行程序资源管理器任务列表包含`clean`， `concat`，`jshint`和`uglify`任务。 按顺序运行每个任务并观察在解决方案资源管理器中的结果。 每个任务应该正常运行。
+1. 请注意， **Task Runner Explorer**任务列表包括`clean`， `concat`，`jshint`和`uglify`任务。 按顺序运行每个任务，并观察中的结果**解决方案资源管理器**。 每个任务应该正常运行。
 
     ![任务运行程序资源管理器运行每个任务](using-grunt/_static/task-runner-explorer-run-each-task.png)
 
-    Concat 任务创建一个新*combined.js*文件并将其放置到临时目录。 只需运行 jshint 任务并不会生成输出。 Uglify 任务创建一个新*combined.min.js*文件，并将其放到 wwwroot/lib。 完成后，解决方案应类似于下面的屏幕截图：
+    Concat 任务创建一个新*combined.js*文件并将其放置到临时目录。 `jshint`任务只需在运行，并不会生成输出。 `uglify`任务创建一个新*combined.min.js*文件，并将其放入*wwwroot/lib*。 完成后，解决方案应类似于下面的屏幕截图：
 
     ![毕竟，解决方案资源管理器任务](using-grunt/_static/solution-explorer-after-all-tasks.png)
 
