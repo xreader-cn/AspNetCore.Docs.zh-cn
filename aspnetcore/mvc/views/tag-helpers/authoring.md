@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/29/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 37e39ac93e7b67184dfc238d58e12c2be8d84f91
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: d7a5656131189ffafb60a7b1db0b8d93a3787ae2
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087358"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621046"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -313,3 +313,12 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]
 
 * 对 `GetChildContentAsync` 的多次调用返回相同的值，且不重新执行 `TagHelper` 主体，除非传入一个指示不使用缓存结果的 false 参数。
+
+## <a name="load-minified-partial-view-taghelper"></a>加载缩小的分部视图 TagHelper
+
+在生产环境中，可以通过加载缩小的分部视图来提升性能。 若要在生产环境中利用缩小的分部视图，请执行以下操作：
+
+* 创建/设置缩小分部视图的预生成过程。
+* 使用以下代码在非开发环境中加载缩小的分部视图。
+
+[!code-csharp[](authoring/sample/AuthoringTagHelpers/src/MinifiedVersionTagHelper.cs?name=snippet)]

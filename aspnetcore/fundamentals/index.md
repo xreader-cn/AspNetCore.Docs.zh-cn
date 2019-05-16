@@ -5,14 +5,14 @@ description: 了解生成 ASP.NET Core 应用的基础概念。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 05/11/2019
 uid: fundamentals/index
-ms.openlocfilehash: a1fed574db0baab391ebb9cfc44664ceddbfa69b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9c7bc25d813ad17825ef03f5176882993cc2dd63
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882622"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610327"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -78,6 +78,8 @@ ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源
 
 ::: moniker range=">= aspnetcore-3.0"
 
+`CreateHostBuilder` 是向外部组件（如[实体框架](/ef/core/)）标识生成器方法的特殊名称。
+
 在 ASP.NET Core 3.0 或更高版本中，可在 Web 应用中使用泛型主机（`Host` 类）或 Web 主机（`WebHost` 类）。 建议使用泛型主机，并且 Web 主机可提供后向兼容性。
 
 该框架提供了 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法，用于设置具有常用选项的主机，例如：
@@ -95,6 +97,8 @@ ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
+
+`CreateWebHostBuilder` 是向外部组件（如[实体框架](/ef/core/)）标识生成器方法的特殊名称。
 
 ASP.NET Core 2.x 对 Web 应用使用 Web 主机（`WebHost` 类）。 该框架提供了 `CreateDefaultBuilder`，用于设置具有常用选项的主机，例如：
 

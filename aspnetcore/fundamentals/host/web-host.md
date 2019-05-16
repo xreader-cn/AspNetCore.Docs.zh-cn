@@ -4,14 +4,14 @@ author: guardrex
 description: 了解有关 ASP.NET Core 中负责应用启动和生存期管理的 Web 主机。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 05/11/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: b391b5e514e750f64f30d33cf4eb91e489242eba
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 48f3b664d901bdfb27cdf9e798fa60c0587d1def
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888972"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610291"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web 主机
 
@@ -39,7 +39,9 @@ ASP.NET Core 应用配置和启动“主机”。 主机负责应用程序启动
 
 ## <a name="set-up-a-host"></a>设置主机
 
-创建使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 实例的主机。 通常在应用的入口点来执行 `Main` 方法。 在项目模板中，`Main` 位于 Program.cs。 典型的 Program.cs 调用 [CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) 以开始设置主机：
+创建使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 实例的主机。 通常在应用的入口点来执行 `Main` 方法。 生成器方法名称 `CreateWebHostBuilder` 是向外部组件（如[实体框架](/ef/core/)）标识生成器方法的特殊名称。
+
+在项目模板中，`Main` 位于 Program.cs。 典型应用调用 [CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) 来开始创建主机：
 
 ```csharp
 public class Program

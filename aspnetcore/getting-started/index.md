@@ -4,24 +4,24 @@ author: rick-anderson
 description: 介绍如何使用 ASP.NET Core 创建并运行简单的 Hello World 应用的快速教程。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2019
+ms.date: 5/15/2019
 uid: getting-started
-ms.openlocfilehash: 76728c484368a8b63130c259a9663473970846d3
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 9227dcfbc84376d9d73bc6fc0dd76085779acae1
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209471"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610309"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
-本教程演示如何使用 .NET Core 命令行接口创建 ASP.NET Core Web 应用。
+本教程展示了如何使用 .NET Core 命令行接口来创建并运行 ASP.NET Core Web 应用。
 
 你将了解如何：
 
 > [!div class="checklist"]
 > * 创建 Web 应用项目。
-> * 启用本地 HTTPS。
+> * 信任开发证书。
 > * 运行应用。
 > * 编辑 Razor 页面。
 
@@ -41,7 +41,7 @@ ms.locfileid: "58209471"
 dotnet new webapp -o aspnetcoreapp
 ```
 
-## <a name="enable-local-https"></a>启用本地 HTTPS
+### <a name="trust-the-development-certificate"></a>信任开发证书
 
 信任 HTTPS 开发证书：
 
@@ -70,6 +70,8 @@ dotnet dev-certs https --trust
 此命令可能会提示你输入密码以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+对于适用于 Linux 的 Windows 子系统，请参阅[在适用于 Linux 的 Windows 子系统中信任 HTTPS 证书](xref:security/enforcing-ssl#wsl)。
 
 查看你的 Linux 分发对应的文档，了解如何信任 HTTPS 开发证书。
 
@@ -102,7 +104,7 @@ dotnet run
 
 > [!div class="checklist"]
 > * 创建 Web 应用项目。
-> * 启用本地 HTTPS。
+> * 信任开发证书。
 > * 运行该项目。
 > * 进行更改。
 
