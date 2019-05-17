@@ -92,7 +92,11 @@
     - name: 远程过程调用应用
       items:
         - name: 开始使用 ASP.NET Core 中的 gRPC 服务
+          uid: tutorials/grpc/index
+        - name: 创建 ASP.NET Core gRPC Greeter 服务
           uid: tutorials/grpc/grpc-start
+        - name: 创建 .NET Core gRPC 客户端
+          uid: tutorials/grpc/grpc-client
     - name: 数据访问
       items:
         - name: EF Core 和 Razor Pages
@@ -230,8 +234,9 @@
         - name: 概述
           uid: mvc/overview
         - name: 教程
-          uid: tutorials/first-mvc-app/index
           items:
+            - name: 概述
+              uid: tutorials/first-mvc-app/index
             - name: 入门
               uid: tutorials/first-mvc-app/start-mvc
             - name: 添加控制器
@@ -324,8 +329,6 @@
               uid: client-side/libman/libman-cli
             - name: Visual Studio
               uid: client-side/libman/libman-vs
-        - name: Gulp
-          uid: client-side/using-gulp
         - name: Grunt
           uid: client-side/using-grunt
         - name: Bower
@@ -338,13 +341,10 @@
       uid: fundamentals/app-state
     - name: 布局
       uid: mvc/views/layout
-    - name: 模型绑定
-      uid: mvc/models/model-binding
-    - name: 模型验证
-      uid: mvc/models/validation
     - name: Razor 语法
       uid: mvc/views/razor
     - name: 标记帮助程序
+      uid: mvc/views/tag-helpers/builtin-th/Index
       items:
         - name: 概述
           uid: mvc/views/tag-helpers/intro
@@ -396,10 +396,6 @@
           uid: mvc/controllers/areas
         - name: 应用部件
           uid: mvc/extensibility/app-parts
-        - name: 自定义模型绑定
-          uid: mvc/advanced/custom-model-binding
-        - name: 兼容性版本
-          uid: mvc/compatibility-version
 - name: Web API 应用
   items:
     - name: 概述
@@ -1000,6 +996,14 @@
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: 高级
   items:
+    - name: 模型绑定
+      uid: mvc/models/model-binding
+    - name: 自定义模型绑定
+      uid: mvc/advanced/custom-model-binding
+    - name: 模型验证
+      uid: mvc/models/validation
+    - name: 兼容性版本
+      uid: mvc/compatibility-version
     - name: 编写中间件
       uid: fundamentals/middleware/write
     - name: 请求和响应 Cookie
@@ -1076,4 +1080,4 @@
 - name: API 参考
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
-  href: 'https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
