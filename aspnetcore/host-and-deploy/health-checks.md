@@ -5,14 +5,14 @@ description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/11/2019
+ms.date: 04/23/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 0bb80a5fccc8240c6f1fb8e59b379766bfd90d9e
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 5119267a8da5c950989b14b7c2e818aa22806506
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488710"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64887922"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -26,7 +26,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
 * 可以监视内存、磁盘和其他物理服务器资源的使用情况来了解是否处于正常状态。
 * 运行状况检查可以测试应用的依赖项（如数据库和外部服务终结点）以确认是否可用和正常工作。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例应用包含本主题中所述的方案示例。 若要运行给定方案的示例应用，请在命令行界面中从项目文件夹中使用 [dotnet run](/dotnet/core/tools/dotnet-run) 命令。 请参阅示例应用的 README.md 文件和本主题中的方案说明，以了解有关如何使用示例应用的详细信息。
 
@@ -36,7 +36,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
 
 引用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)或将包引用添加到 [Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) 包。
 
-示例应用提供了启动代码来演示几个方案的运行状况检查。 [数据库探测](#database-probe)方案使用 [BeatPulse](https://github.com/Xabaril/BeatPulse) 检查数据库连接的运行状况。 [DbContext 探测](#entity-framework-core-dbcontext-probe)方案使用 EF Core `DbContext` 检查数据库。 若要探索数据库方案，示例应用将：
+示例应用提供了启动代码来演示几个方案的运行状况检查。 [数据库探测](#database-probe)方案使用 [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 检查数据库连接的运行状况。 [DbContext 探测](#entity-framework-core-dbcontext-probe)方案使用 EF Core `DbContext` 检查数据库。 若要探索数据库方案，示例应用将：
 
 * 创建一个数据库，并在 appsettings.json 文件中提供其连接字符串。
 * 其项目文件中具有以下包引用：
@@ -44,7 +44,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 不由 Microsoft 进行支持或维护。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
 
 另一个运行状况检查方案演示如何将运行状况检查筛选到某个管理端口。 示例应用要求创建包含管理 URL 和管理端口的 Properties/launchSettings.json 文件。 有关详细信息，请参阅[按端口筛选](#filter-by-port)部分。
 
@@ -286,18 +286,18 @@ private static Task WriteResponse(HttpContext httpContext,
 
 运行状况检查可以指定数据库查询作为布尔测试来运行，以指示数据库是否在正常响应。
 
-示例应用使用 [BeatPulse](https://github.com/Xabaril/BeatPulse)（适用于 ASP.NET Core 应用的运行状况检查库）对 SQL Server 数据库执行运行状况检查。 BeatPulse 会对数据库执行 `SELECT 1` 查询以确认数据库连接是否处于正常状态。
+示例应用使用 [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks)（ASP.NET Core 应用的运行状况检查库）对 SQL Server 数据库执行运行状况检查。 `AspNetCore.Diagnostics.HealthChecks` 对数据库执行 `SELECT 1` 查询以确认与数据库的连接是否正常。
 
 > [!WARNING]
 > 使用查询检查数据库连接时，请选择快速返回的查询。 查询方法会面临使数据库过载和降低其性能的风险。 在大多数情况下，无需运行测试查询。 只需建立成功的数据库连接便足矣。 如果发现需要运行查询，请选择简单的 SELECT 查询，如 `SELECT 1`。
 
-若要使用 BeatPulse 库，请包含对 [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/) 的包引用。
+包括对 [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/) 的包引用。
 
 在应用的 appsettings.json 文件中提供有效数据库连接字符串。 应用使用名为 `HealthCheckSample` 的 SQL Server 数据库：
 
 [!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
-在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 示例应用使用数据库连接字符串 (DbHealthStartup.cs) 调用 BeatPulse 的 `AddSqlServer` 方法：
+在 `Startup.ConfigureServices` 中使用 <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> 注册运行状况检查服务。 示例应用使用数据库的连接字符串 (DbHealthStartup.cs) 调用 `AddSqlServer` 方法：
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbHealthStartup.cs?name=snippet_ConfigureServices)]
 
@@ -312,7 +312,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 不由 Microsoft 进行支持或维护。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext 探测
 
@@ -469,9 +469,9 @@ dotnet run --scenario writer
 ```
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 包括基于指标的运行状况检查方案（包括磁盘存储和最大值运行情况检查）。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括基于指标的运行状况检查方案（包括磁盘存储和最大值运行情况检查）。
 >
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 不由 Microsoft 进行支持或维护。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
 
 ## <a name="filter-by-port"></a>按端口筛选
 
@@ -681,6 +681,6 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ::: moniker-end
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 包括多个系统的发布服务器（包括 [Application Insights](/azure/application-insights/app-insights-overview)）。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括多个系统的发布服务器（包括 [Application Insights](/azure/application-insights/app-insights-overview)）。
 >
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) 不由 Microsoft 进行支持或维护。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。

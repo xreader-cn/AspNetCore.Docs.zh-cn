@@ -7,11 +7,11 @@ ms.author: tdykstra
 ms.date: 11/13/2018
 uid: mvc/models/model-binding
 ms.openlocfilehash: 1dc9b41328ed78440622acc1865b6f088d394403
-ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/13/2018
-ms.locfileid: "51597779"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64883142"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -33,7 +33,7 @@ ASP.NET Core MVC 中的模型绑定将 HTTP 请求中的数据映射到操作方
 public IActionResult Edit(int? id)
    ```
 
-注意：URL 路由中的字符串不区分大小写。
+注意:URL 路由中的字符串不区分大小写。
 
 MVC 将尝试按名称将请求数据绑定到操作参数。 MVC 将使用参数名称和其公共可设置属性的名称查找每个参数的值。 在以上示例中，唯一的操作参数名为 `id`，MVC 会将此参数绑定到路由值中具有相同名称的值。 除路由值外，MVC 还会绑定来自请求各个部分的数据，并按一定顺序执行此操作。 下面是一个数据源列表（按模型绑定查看的顺序排列）：
 
@@ -49,7 +49,7 @@ The link works but generates an error when building with DocFX
 [Routing](xref:fundamentals/routing)
 -->
 
-注意：窗体值、路由数据和查询字符串均存储为名称/值对。
+注意:窗体值、路由数据和查询字符串均存储为名称/值对。
 
 由于模型绑定请求名为 `id` 的键，而窗体值中没有任何名为 `id` 的键，因此，它将转到路由值以查找该键。 在本示例中，该键是一个匹配项。 发生绑定，并且值被转换为整数 2。 使用 Edit(string id) 的同一请求将转换为字符串“2”。
 
@@ -61,7 +61,7 @@ The link works but generates an error when building with DocFX
 
 * `T[]`：除 `byte[]` 类型的数组外，绑定将 `T[]` 类型的参数设置为 `Array.Empty<T>()`。 `byte[]` 类型的数组设置为 `null`。
 
-* 引用类型：绑定通过默认构造函数创建类的实例而不设置属性。 但是，模型绑定将 `string` 参数设置为 `null`。
+* 引用类型：绑定通过默认构造函数创建类的实例，而不设置属性。 但是，模型绑定将 `string` 参数设置为 `null`。
 
 * 可以为 null 的类型：可以为 null 的类型设置为 `null`。 在上面的示例中，模型绑定将 `id` 设置为 `null`，因为其类型为 `int?`。
 
@@ -69,7 +69,7 @@ The link works but generates an error when building with DocFX
 
 如果绑定失败，MVC 不会引发错误。 接受用户输入的每个操作均应检查 `ModelState.IsValid` 属性。
 
-注意：控制器的 `ModelState` 属性中的每个输入均为包含 `Errors` 属性的 `ModelStateEntry`。 很少需要自行查询此集合。 请改用 `ModelState.IsValid`。
+注意:控制器的 `ModelState` 属性中的每个条目均为包含 `Errors` 属性的 `ModelStateEntry`。 很少需要自行查询此集合。 请改用 `ModelState.IsValid`。
 
 此外，MVC 在执行模型绑定时必须考虑一些特殊数据类型：
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: 9cb598c4068586e4e960ec40743c4f54f09995ad
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 6dd722b3b78d2af81497bde9e0519feb9af84748
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614368"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086142"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -24,7 +24,7 @@ ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/ho
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
 
-## <a name="why-to-use-aspnet-core"></a>为何使用 ASP.NET Core
+## <a name="why-choose-aspnet-core"></a>为何选择 ASP.NET Core？
 
 数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是重新设计的 ASP.NET 4.x，更改了体系结构，形成了更精简的模块化框架。
 
@@ -101,7 +101,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 很多文章和教程中都包含有示例代码链接。
 
-1. [下载 ASP.NET 存储库 zip 文件](https://codeload.github.com/aspnet/Docs/zip/master)。
+1. [下载 ASP.NET 存储库 zip 文件](https://codeload.github.com/aspnet/AspNetCore.Docs/zip/master)。
 1. 解压缩 Docs-master.zip 文件。
 1. 使用示例链接中的 URL 帮助你导航到示例目录。
 
@@ -148,7 +148,7 @@ WebHost.CreateDefaultBuilder(args)
 
 你可放心忽略（或删除）代码两侧的 `#region` 和 `#endregion` 语句。 如果计划运行主题中所述的示例方案，请不要更改这些语句中的代码。 试用其他方案时，可随时更改代码。
 
-有关详细信息，请参阅[参与 ASP.NET 文档：代码片段](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md#code-snippets)。
+有关详细信息，请参阅[参与 ASP.NET 文档：代码片段](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)。
 
 ## <a name="next-steps"></a>后续步骤
 

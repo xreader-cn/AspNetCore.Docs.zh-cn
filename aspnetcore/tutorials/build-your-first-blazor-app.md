@@ -5,44 +5,32 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/18/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 310eb211f68076d6f52d6427940e07736d833e5b
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: d235fec4e128ad8622a06d301eeac15c4862c159
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614631"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087731"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
+本教程演示如何生成和修改 Blazor 应用。
 
-本教程将演示如何使用服务器端 Razor 组件或客户端 Blazor 生成应用。
-
-若要体验服务器端 ASP.NET Core Razor 组件，可以执行以下操作（建议）：
-
-* 按照 <xref:blazor/get-started#server-side-razor-components-experience> 中的《Razor 组件体验》指南创建基于 Razor 组件的项目。
-* 将项目命名为 `RazorComponents`。
-
-若要体验使用 Blazor，可以执行以下操作：
-
-* 按照 <xref:blazor/get-started#client-side-blazor-experience> 中的《Blazor 体验》指南创建基于 Blazor 的项目。
-* 将项目命名为 `Blazor`。
-
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/build-your-first-blazor-app/samples/)（[如何下载](xref:index#how-to-download-a-sample)）。 有关先决条件，请参阅以下主题：
+按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。
 
 ## <a name="build-components"></a>生成组件
 
-1. 在 Components/Pages 文件夹中浏览应用的三个页面（Blazor 中的 Pages）：主页、计数器和提取数据。 这些页面由 Razor 组件文件实现：Index.razor、Counter.razor 和FetchData.razor。 （Blazor 将继续使用 .cshtml 文件扩展名：Index.cshtml、Counter.cshtml 和 FetchData.cshtml。）
+1. 在 Pages 文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor、Counter.razor 和 FetchData.razor）实现。
 
 1. 在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 增加网页中的计数器值通常需要编写 JavaScript，但 Blazor 使用 C# 提供了更好的方法。
 
 1. 检查 Counter.razor 文件中 Counter 组件的实现。
 
-   Components/Pages/Counter.razor（Blazor 中的 Pages/Counter.cshtml）：
+   *Pages/Counter.razor*：
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
 
@@ -61,21 +49,21 @@ ms.locfileid: "59614631"
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
-1. 重新生成并运行应用以查看更改。 选择“单击我”按钮，计数器的值将增加 2。
+1. 重新生成并运行应用以查看更改。 选择“单击我”按钮。 计数器的值将增加 2。
 
 ## <a name="use-components"></a>使用组件
 
-使用类似 HTML 的语法将组件加入到另一个组件中。
+使用 HTML 语法将组件加入到另一个组件中。
 
-1. 通过向 Index 组件添加 `<Counter />` 元素，将 Counter 组件添加到应用的 Index（主页）组件。
+1. 通过向 Index 组件 (Index.razor) 添加 `<Counter />` 元素，将 Counter 组件添加到应用的 Index 组件。
 
-   如果在此体验中使用的是 Blazor，则 Survey Prompt 组件（`<SurveyPrompt>` 元素）位于 Index 组件中。 将 `<SurveyPrompt>` 元素替换为 `<Counter>` 元素。
+   如果在此体验中使用的是 Blazor 客户端，则 Survey Prompt 组件（`<SurveyPrompt>` 元素）位于 Index 组件中。 将 `<SurveyPrompt>` 元素替换为 `<Counter>` 元素。 如果在此体验中使用的是 Blazor 服务器端，则向 Index 组件添加 `<Counter>` 元素：
 
-   Components/Pages/Index.razor（Blazor 中的 Pages/Index.cshtml）：
+   *Pages/Index.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index.razor?highlight=7)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-1. 重新生成并运行应用。 主页有其自己的计数器。
+1. 重新生成并运行应用。 Index 组件有其自己的计数器。
 
 ## <a name="component-parameters"></a>组件参数
 
@@ -86,36 +74,36 @@ ms.locfileid: "59614631"
    * 添加使用 `[Parameter]` 属性修饰的 `IncrementAmount` 属性。
    * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
-   Components/Pages/Counter.razor（Blazor 中的 Pages/Counter.cshtml）：
+   *Pages/Counter.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples/3.x/RazorComponents/Components/Pages/Counter.razor?highlight=12,16)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
 <!-- Add back when supported.
    > [!NOTE]
    > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
 -->
 
-1. 使用属性在 Home 组件的 `<Counter>` 元素中指定 `IncrementAmount` 参数。 将计数器递增值设置为 10。
+1. 使用属性在 Index 组件的 `<Counter>` 元素中指定 `IncrementAmount` 参数。 将计数器递增值设置为 10。
 
-   Components/Pages/Index.razor（Blazor 中的 Pages/Index.cshtml）：
+   *Pages/Index.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples/3.x/RazorComponents/Components/Pages/Index.razor?highlight=7)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-1. 重新加载主页。 每次选择“单击我”按钮时，计数器值递增 10。 “计数器”页上的计数器值递增 1。
+1. 重新加载 Index 组件。 每次选择“单击我”按钮时，计数器值递增 10。 Counter 组件中的计数器继续递增 1。
 
 ## <a name="route-to-components"></a>路由到组件
 
-Counter.razor 文件顶部的 `@page` 指令指定此组件是路由终结点。 Counter 组件处理发送到 `/Counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但仍可以被其他组件使用。
+Counter.razor 文件顶部的 `@page` 指令指定 Counter 组件是路由终结点。 Counter 组件处理发送到 `/counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但该组件仍可以被其他组件使用。
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)，组件可以使用注册了应用服务容器的服务。 使用 `@inject` 指令将服务注入到组件中。
 
-检查示例应用中 FetchData 组件的指令。
+检查 FetchData 组件的指令。
 
-在 Razor 组件示例应用中，`WeatherForecastService` 服务注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)，因此整个应用中有一个服务实例。 `@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到组件中。
+如果使用的是 Blazor 服务器端应用，则 `WeatherForecastService` 服务注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)，因此整个应用中有一个服务实例。 `@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到组件中。
 
-*Components/Pages/FetchData.razor*：
+*Pages/FetchData.razor*：
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
@@ -123,24 +111,22 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-在 Blazor 版示例应用中，注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据：
+如果使用的是 Blazor 客户端应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据：
 
-*Pages/FetchData.cshtml*：
+*Pages/FetchData.razor*：
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.cshtml?highlight=7)]
+[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
-两个示例应用中都使用了 [@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环来将每个预测实例呈现为“天气”数据表中的一行：
+[\@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
+
 
 ## <a name="build-a-todo-list"></a>生成待办项列表
 
 向应用添加一个实现简单待办事项列表的新组件。
 
-1. 向示例应用添加实体文件：
-
-   * 对于 Razor 组件体验，向 Components/Pages 文件夹添加 Todo.razor 文件。
-   * 对于 Blazor 体验，向 Pages 文件夹添加 Todo.cshtml 文件。
+1. 向 Pages 文件夹中的应用添加一个名为 Todo.razor 的空文件：
 
 1. 为组件提供初始标记：
 
@@ -152,9 +138,9 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
 
 1. 将“待办事项”组件添加到导航栏。
 
-   应用布局中使用 NavMenu 组件（Blazor 中的 Components/Shared/NavMenu.razor 或 Shared/NavMenu.cshtml）。 布局是可以避免应用中出现重复内容的组件。 有关更多信息，请参见<xref:blazor/layouts>。
+   NavMenu 组件 (Shared/NavMenu.razor) 用于应用的布局。 布局是可以避免应用中出现重复内容的组件。 有关更多信息，请参见<xref:blazor/layouts>。
 
-   通过在 Components/Shared/NavMenu.razor（Blazor 中为 Shared/NavMenu.cshtml）文件中的现有列表项下添加以下列表项标记，为“待办事项”组件添加一个 `<NavLink>`：
+   通过在“Shared/NavMenu.razor”文件中的现有列表项下添加以下列表项标记，为 Todo 组件添加一个 `<NavLink>`：
 
    ```cshtml
    <li class="nav-item px-3">
@@ -168,11 +154,11 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
 
 1. 向项目的根目录添加“TodoItem.cs”文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples/3.x/RazorComponents/TodoItem.cs)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
-1. 返回到 Todo 组件（Blazor 中的 Components/Pages/Todo.razor 或 Pages/Todo.cshtml）：
+1. 返回到 Todo 组件 (Pages/Todo.razor)：
 
-   * 在 `@functions` 块中为待办项添加字段。 Todo 组件使用此字段来维护待办项列表的状态。
+   * 在 `@functions` 块中为待办项添加一个字段。 Todo 组件使用此字段来维护待办项列表的状态。
    * 添加无序列表标记和 `foreach` 循环，以将每个待办项呈现为列表项。
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
@@ -213,9 +199,9 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
    <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
    ```
 
-1. 完成的 Todo 组件（Blazor 中的 Components/Pages/Todo.razor 或 Pages/Todo.cshtml）：
+1. 完成的 Todo 组件 (Pages/Todo.razor)：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples/3.x/RazorComponents/Components/Pages/Todo.razor)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
 1. 重新生成并运行应用。 添加待办项以测试新代码。
 

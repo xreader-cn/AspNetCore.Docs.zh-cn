@@ -7,18 +7,18 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 1ae3c20478b02d6f654e65fdf34c88e1ffb837f8
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: acb0ae989f6e82a5bc80935a8acfc96e51073d2f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468732"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64883172"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
 本文介绍如何在 ASP.NET Core MVC 或 Razor Pages 应用中验证用户输入。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/models/validation/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 ## <a name="model-state"></a>模型状态
 
@@ -38,7 +38,7 @@ ms.locfileid: "59468732"
 
 ## <a name="validation-attributes"></a>验证特性
 
-通过验证特性可以为模型属性指定验证规则。 [示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/models/validation/sample)的以下示例显示使用验证特性进行注释的模型类。 `[ClassicMovie]` 特性为自定义的验证特性，其他特性为内置的验证特性。 （`[ClassicMovie2]` 未显示，它表示实现自定义特性的另一种方法。）
+通过验证特性可以为模型属性指定验证规则。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)的以下示例显示使用验证特性进行注释的模型类。 `[ClassicMovie]` 特性为自定义的验证特性，其他特性为内置的验证特性。 （`[ClassicMovie2]` 未显示，它表示实现自定义特性的另一种方法。）
 
 [!code-csharp[](validation/sample/Models/Movie.cs?name=snippet_ModelClass)]
 
@@ -367,7 +367,11 @@ $.get({
 
 [!code-csharp[](validation/sample_snapshot/Startup2.cs?name=snippet_DisableClientValidation)]
 
-这仅适用于 MVC 视图，不适用于 Razor Pages。 禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释。
+在 Razor Pages 中：
+
+[!code-csharp[](validation/sample_snapshot/Startup3.cs?name=snippet_DisableClientValidation)]
+
+禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释。
 
 ## <a name="additional-resources"></a>其他资源
 

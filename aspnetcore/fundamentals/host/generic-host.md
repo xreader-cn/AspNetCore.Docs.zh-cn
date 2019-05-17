@@ -5,14 +5,14 @@ description: 了解有关 ASP.NET Core 泛型主机，该主机负责应用启�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 04/25/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: bb6afe59fcad685d18cdc9c8d90cfcc7b3a6541d
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: d823e2189d21e0566656b7eb8c9164d02e43d0ea
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809187"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64889112"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
@@ -47,7 +47,7 @@ ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生
 
 ::: moniker-end
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端。 请勿在 `internalConsole` 中运行示例。
 
@@ -169,7 +169,7 @@ var host = new HostBuilder()
 
 要添加主机的[环境变量配置](xref:fundamentals/configuration/index#environment-variables-configuration-provider)，请在主机生成器上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>。 `AddEnvironmentVariables` 接受用户定义的前缀（可选）。 示例应用使用前缀 `PREFIX_`。 当系统读取环境变量时，便会删除前缀。 配置示例应用的主机后，`PREFIX_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。
 
-在开发过程中，如果使用 [Visual Studio](https://www.visualstudio.com/) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json 文件中设置环境变量。 若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json 文件中设置环境变量。 有关更多信息，请参见<xref:fundamentals/environments>。
+在开发过程中，如果使用 [Visual Studio](https://visualstudio.microsoft.com) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json 文件中设置环境变量。 若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json 文件中设置环境变量。 有关更多信息，请参见<xref:fundamentals/environments>。
 
 通过调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 可添加[命令行配置](xref:fundamentals/configuration/index#command-line-configuration-provider)。 最后添加命令行配置以允许命令行参数替代之前配置提供程序提供的配置。
 
@@ -214,13 +214,16 @@ appsettings.Production.json：
 </ItemGroup>
 ```
 
+> [!NOTE]
+> 配置扩展方法（如 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 和 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>）需要其他 NuGet 包（如 [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) 和 [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)）。 除非应用使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)，否则除了核心 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) 包之外，还必须将这些包添加到项目。 有关更多信息，请参见<xref:fundamentals/configuration/index>。
+
 ## <a name="configureservices"></a>ConfigureServices
 
 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。 可多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*>，并得到累计结果。
 
 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 有关更多信息，请参见<xref:fundamentals/host/hosted-services>。
 
-[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：
+[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureServices)]
 
@@ -496,7 +499,7 @@ public class MyClass
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | 主机正在完成正常关闭。 应处理所有请求。 关闭受到阻止，直到完成此事件。 |
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | 主机正在执行正常关闭。 仍在处理请求。 关闭受到阻止，直到完成此事件。 |
 
-构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
+构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
 
 LifetimeEventsHostedService.cs：
 

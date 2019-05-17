@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: dff5a5b1ba3c8ed07ccc8d134f8cfeb25b9f6689
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 921e27bf56587813f835357c9090c91a155c087b
+ms.sourcegitcommit: b508b115107e0f8d7f62b25cfcc8ad45e1373459
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58751039"
+ms.lasthandoff: 05/07/2019
+ms.locfileid: "65212547"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
@@ -211,10 +211,8 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 对于 Contoso 大学网站的“关于”页，将显示每个注册日期注册了多少名学生。 这需要对组进行分组和简单计算。 若要完成此操作，需要执行以下操作：
 
 * 为需要传递给视图的数据创建一个视图模型类。
-
-* 修改主控制器中的“关于”方法。
-
-* 修改“关于”视图。
+* 创建主控制器中的“关于”方法。
+* 创建“关于”视图。
 
 ### <a name="create-the-view-model"></a>创建视图模型
 
@@ -239,10 +237,8 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseDbSet)]
 
 LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的数量，并将结果存储在 `EnrollmentDateGroup` 视图模型对象的集合中。
-> [!NOTE]
-> 在 1.0 版 Entity Framework Core 中，整个结果集被返回给客户端，并在客户端上完成分组。 在某些情况下，这可能会造成性能问题。 请务必使用生产数据量测试性能，必要时请使用原始 SQL 在服务器上进行分组。 有关如何使用原始 SQL 的信息，请参阅[本系列中的最后一个教程](advanced.md)。
 
-### <a name="modify-the-about-view"></a>修改“关于”视图
+### <a name="create-the-about-view"></a>创建“关于”视图
 
 使用以下代码添加 Views/Home/About.cshtml 文件：
 
@@ -252,7 +248,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 

@@ -4,14 +4,14 @@ author: pkellner
 description: 了解 ASP.NET Core 定位点标记帮助程序属性以及每个属性在扩展 HTML 定位点标记的行为中所起的作用。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 4/18/2019
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 60fa0c00e40878a8227ca2bc8bdb0bc2bf9f8336
-ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
+ms.openlocfilehash: de45c99194d4825c1e404aa193b0f076ba659748
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53595336"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64883422"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的定位点标记帮助程序
 
@@ -21,15 +21,15 @@ ms.locfileid: "53595336"
 
 有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 本文档中的示例均使用 SpeakerController：
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/SpeakerController.cs?name=snippet_SpeakerController)]
 
-`asp-` 属性的清单如下所示。
+## <a name="anchor-tag-helper-attributes"></a>定位点标记帮助程序属性
 
-## <a name="asp-controller"></a>asp-controller
+### <a name="asp-controller"></a>asp-controller
 
 [asp-controller](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Controller*) 属性可分配用于生成 URL 的控制器。 下面的标记列出了所有发言人：
 
@@ -63,7 +63,7 @@ ms.locfileid: "53595336"
 
 如果 `asp-action` 属性值为 `Index`，则不向 URL 追加任何操作，从而导致调用默认的 `Index` 操作。 `asp-controller` 引用的控制器中必须存在指定的（或默认的）操作。
 
-## <a name="asp-route-value"></a>asp-route-{value}
+### <a name="asp-route-value"></a>asp-route-{value}
 
 [asp-route-{value}](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.RouteValues*) 属性可实现通配符路由前缀。 占用 `{value}` 占位符的所有值都解释为潜在的路由参数。 如果找不到默认路由，则将此路由前缀作为请求参数和值追加到生成的 `href` 属性。 否则，将在路由模板中替换它。
 
@@ -117,7 +117,7 @@ MVC 视图使用操作提供的模型，如下所示：
 
 如果 `asp-controller` 或 `asp-action` 均未指定，则会执行与 `asp-route` 属性中相同的默认处理。
 
-## <a name="asp-route"></a>asp-route
+### <a name="asp-route"></a>asp-route
 
 [asp-route](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Route*) 属性用于创建直接链接到命名路由的 URL。 使用[路由属性](xref:mvc/controllers/routing#attribute-routing)，路由可以按 `SpeakerController` 中所示进行命名并用于其 `Evaluations` 操作：
 
@@ -155,7 +155,7 @@ MVC 视图使用操作提供的模型，如下所示：
 
 如果字典中的任何键匹配路由参数，则将根据需要在路由中替换这些值。 其他不匹配的值作为请求参数生成。
 
-## <a name="asp-fragment"></a>asp-fragment
+### <a name="asp-fragment"></a>asp-fragment
 
 [asp-fragment](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Fragment*) 属性可定义要追加到 URL 的 URL 片段。 定位点标记帮助程序添加哈希字符 (#)。 请考虑以下标记：
 
@@ -169,7 +169,7 @@ MVC 视图使用操作提供的模型，如下所示：
 
 生成客户端应用时，哈希标记很有用。 它们可用于在 JavaScript 中轻松地执行标记和搜索等操作。
 
-## <a name="asp-area"></a>asp-area
+### <a name="asp-area"></a>asp-area
 
 [asp-area](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) 属性可设置用来设置相应路由的区域名称。 以下示例展示了 `asp-area` 属性如何导致重新映射路由。
 
@@ -239,7 +239,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 >
 > [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=5)]
 
-## <a name="asp-protocol"></a>asp-protocol
+### <a name="asp-protocol"></a>asp-protocol
 
 [asp-protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) 属性用于在 URL 中指定协议（比如 `https`）。 例如:
 
@@ -253,7 +253,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 
 示例中的主机名为 localhost。 生成 URL 时，定位点标记帮助程序会使用网站的公共域。
 
-## <a name="asp-host"></a>asp-host
+### <a name="asp-host"></a>asp-host
 
 [asp-host](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) 属性用于在 URL 中指定主机名。 例如:
 
@@ -265,7 +265,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 <a href="https://microsoft.com/Home/About">About</a>
 ```
 
-## <a name="asp-page"></a>asp-page
+### <a name="asp-page"></a>asp-page
 
 [asp-page](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*) 属性适用于 Razor 页面。 使用它向特定页设置定位点标记的 `href` 属性值。 通过在页面名称前面使用正斜杠 (“/”) 作为前缀，可创建 URL。
 
@@ -289,7 +289,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 <a href="/Attendee?attendeeid=10">View Attendee</a>
 ```
 
-## <a name="asp-page-handler"></a>asp-page-handler
+### <a name="asp-page-handler"></a>asp-page-handler
 
 [asp-page-handler](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.PageHandler*) 属性适用于 Razor 页面。 它用于链接到特定的页处理程序。
 

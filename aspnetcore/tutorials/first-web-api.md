@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 24c87f2ad0446aef51f9d648fd20c181cbeaed2e
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346459"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087527"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>教程：使用 ASP.NET Core MVC 创建 Web API
 
@@ -216,7 +216,7 @@ ms.locfileid: "57346459"
 前面的代码：
 
 * 定义了没有方法的 API 控制器类。
-* 使用 [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性修饰类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅[使用 ApiController 属性进行注释](xref:web-api/index#annotation-with-apicontroller-attribute)。
+* 使用 [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性修饰类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
 * 使用 DI 将数据库上下文 (`TodoContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
 * 如果数据库为空，则将名为 `Item1` 的项添加到数据库。 此代码位于构造函数中，因此在每次出现新 HTTP 请求时运行。 如果删除所有项，则构造函数会在下次调用 API 方法时再次创建 `Item1`。 因此删除可能看上去不起作用，不过实际上确实有效。
 
@@ -443,7 +443,7 @@ jQuery [ajax](https://api.jquery.com/jquery.ajax/) 函数将 `GET` 请求发送�
 
 ## <a name="additional-resources"></a>其他资源
 
-[查看或下载本教程的示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
+[查看或下载本教程的示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
 
 有关更多信息，请参见以下资源：
 

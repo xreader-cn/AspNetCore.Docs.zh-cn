@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: b16d1b67b3b501811ab34330851e6cacc76f2ed0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: dea178d169cb8f2ae807caa2ef495d4243b1f59f
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886402"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65516891"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -61,8 +57,8 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”。
-* 创建新的 ASP.NET Core Web 应用程序。 将该项目命名为 ContosoUniversity 。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
+* 创建新的 ASP.NET Core Web 应用呈现。 将该项目命名为 ContosoUniversity 。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配。
 * 在下拉列表中选择“ASP.NET Core 2.1”，然后选择“Web 应用程序”。
 
 有关上述步骤的图像，请参阅[创建 Razor Web 应用](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app)。
@@ -157,8 +153,8 @@ dotnet run
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹>“添加”>“新搭建基架的项目”。
-* 在“添加基架”对话框中，选择“使用实体框架生成 Razor Pages (CRUD)”>“添加”。
+* 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹 > “添加” > “新建基架项”。
+* 在“添加基架”对话框中，依次选择“使用实体框架的 Razor Pages (CRUD)” > “添加”。
 
 完成“使用实体框架(CRUD)添加 Razor Pages”对话框：
 
@@ -316,7 +312,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 下一个教程将介绍基本的 CRUD（创建、读取、更新、删除）操作。
 
-::: moniker-end
+
 
 ## <a name="additional-resources"></a>其他资源
 

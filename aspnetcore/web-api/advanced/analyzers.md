@@ -7,12 +7,12 @@ ms.author: pranavkm
 ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 7558552586d3056c43d8bfd9ef74cbcb3396726f
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: bcc89f856e0aeef80c46a44f76f86b4c09ac6746
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425089"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64890822"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
@@ -74,8 +74,10 @@ OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.
 
 上述操作记录了 HTTP 200 成功返回类型，但未记录 HTTP 404 失败状态代码。 分析器将 HTTP 404 状态代码的缺失文档报告为警告。 提供了修复此问题的选项。
 
+![报告警告的分析器](conventions/_static/Analyzer.gif)
+
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:web-api/advanced/conventions>
 * <xref:tutorials/web-api-help-pages-using-swagger>
-* [使用 ApiController 属性进行注释](xref:web-api/index#annotation-with-apicontroller-attribute)
+* <xref:web-api/index>

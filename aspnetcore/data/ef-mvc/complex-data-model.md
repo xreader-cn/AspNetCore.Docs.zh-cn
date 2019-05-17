@@ -4,15 +4,15 @@ description: 本教程将添加更多实体和关系，并通过指定格式设�
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 5ab893dd77ff2cc9a735702eb3a547ed8bcb2197
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 2776e3357941d0e7932882c39af121f85d037d62
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264863"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64887242"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
@@ -40,7 +40,7 @@ ms.locfileid: "58264863"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [在 MVC Web 应用中使用适用于 ASP.NET Core 的 EF Core 迁移功能](migrations.md)
+* [使用 EF Core 迁移](migrations.md)
 
 ## <a name="customize-the-data-model"></a>自定义数据模型
 
@@ -320,7 +320,7 @@ public ICollection<Course> Courses { get; set; }
 ```
 
 > [!NOTE]
-> 按照约定，Entity Framework 能针对不可为 null 的外键和多对多关系启用级联删除。 这可能导致循环级联删除规则，尝试添加迁移时该规则会造成异常。 例如，如果未将 Department.InstructorID 属性定义为可为 null，那么在删除系时，EF 会配置级联删除规则来删除讲师，这是预期外的情况。 如果业务规则要求 `InstructorID` 属性不可为 null，则必须使用以下 Fluent API 语句禁用关系中的级联删除：
+> 按照约定，Entity Framework 能针对不可为 null 的外键和多对多关系启用级联删除。 这可能导致循环级联删除规则，尝试添加迁移时该规则会造成异常。 例如，如果未将 Department.InstructorID 属性定义为可为 null，那么在删除讲师时，EF 会配置级联删除规则来删除系，这是并不希望发生的情况。 如果业务规则要求 `InstructorID` 属性不可为 null，则必须使用以下 Fluent API 语句禁用关系中的级联删除：
 >
 > ```csharp
 > modelBuilder.Entity<Department>()
@@ -509,7 +509,7 @@ dotnet ef database update
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 
@@ -529,6 +529,7 @@ dotnet ef database update
 > * 已更改连接字符串
 > * 已更新数据库
 
-请继续阅读下一篇文章，详细了解如何访问相关数据。
+请继续阅读下一篇教程，详细了解如何访问相关数据。
+
 > [!div class="nextstepaction"]
-> [访问相关数据](read-related-data.md)
+> [下一篇：访问相关数据](read-related-data.md)

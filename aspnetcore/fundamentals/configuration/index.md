@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: ad430f50b3d2616437b716b8be275937ef282bea
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 63a876c09f952537d790f2a5df4b8672df49d015
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882522"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517023"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -98,7 +98,7 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 
 在应用启动时，将按照指定的配置提供程序的顺序读取配置源。
 
-应用启动后，在更改基础设置文件时，文件配置提供程序可以重载配置。 本主题后面将介绍文件配置提供程序。
+实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。 例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。
 
 应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 <xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 以获取以下类的配置：
 

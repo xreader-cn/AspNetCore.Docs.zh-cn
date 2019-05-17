@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/26/2018
 uid: host-and-deploy/web-farm
 ms.openlocfilehash: 4873665e6174a6acf885e1ebb41fb005d646bd1f
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450666"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64884152"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 

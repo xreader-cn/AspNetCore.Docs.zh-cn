@@ -4,14 +4,14 @@ author: guardrex
 description: 了解如何在 Windows Server Internet Information Services (IIS) 上托管 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2019
+ms.date: 05/07/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 65721a734cb35a2b20fd283ad54237eb896083a9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: c8e742047230339434b910de9a8a2492bc4da1ff
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882612"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450983"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -158,6 +158,23 @@ services.Configure<IISServerOptions>(options =>
     options.AutomaticAuthentication = false;
 });
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+| 选项                         | 默认 | 设置 |
+| ------------------------------ | :-----: | ------- |
+| `AutomaticAuthentication`      | `true`  | 若为 `true`，IIS 服务器将设置经过 [Windows 身份验证](xref:security/authentication/windowsauth)进行身份验证的 `HttpContext.User`。 若为 `false`，服务器仅提供 `HttpContext.User` 的标识并在 `AuthenticationScheme` 显式请求时响应质询。 必须在 IIS 中启用 Windows 身份验证使 `AutomaticAuthentication` 得以运行。 有关详细信息，请参阅 [Windows 身份验证](xref:security/authentication/windowsauth)。 |
+| `AuthenticationDisplayName`    | `null`  | 设置在登录页上向用户显示的显示名。 |
+| `AllowSynchronousIO`           | `false` | `HttpContext.Request` 和 `HttpContext.Response` 是否允许同步 IO。 |
+| `MaxRequestBodySize`           | `30000000`  | 获取或设置 `HttpRequest` 的最大请求正文大小。 请注意，IIS 本身有限制 `maxAllowedContentLength`，这一限制将在 `IISServerOptions` 中设置 `MaxRequestBodySize` 之前进行处理。 更改 `MaxRequestBodySize` 不会影响 `maxAllowedContentLength`。 若要增加 `maxAllowedContentLength`，请在 web.config 中添加一个条目，将 `maxAllowedContentLength` 设置为更高值。 有关更多详细信息，请参阅[配置](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration)。 |
+
+**进程外承载模型**
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 | 选项                         | 默认 | 设置 |
 | ------------------------------ | :-----: | ------- |

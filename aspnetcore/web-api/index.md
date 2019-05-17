@@ -5,14 +5,14 @@ description: 了解在 ASP.NET Core 中创建 Web API 的基础知识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/11/2019
+ms.date: 05/07/2019
 uid: web-api/index
-ms.openlocfilehash: d804a7f1b4f0e89f433a3674116c97804705f7cc
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 593fd33babc81cddfc4db2150a37e5ec3bc1a0be
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882952"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450833"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -137,6 +137,10 @@ if (!ModelState.IsValid)
 若要自定义验证错误引发的响应，请使用 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory>。 将以下突出显示的代码添加到 `services.AddMvc().SetCompatibilityVersion` 后面：
 
 [!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=3-20)]
+
+### <a name="log-automatic-400-responses"></a>记录自动 400 响应
+
+请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157)。
 
 ### <a name="disable-automatic-400"></a>禁用自动 400
 

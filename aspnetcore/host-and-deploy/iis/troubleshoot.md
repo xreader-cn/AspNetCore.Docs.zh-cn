@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/14/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 1fa90737aadebe3f714c702fbce649629d79dcd4
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: f89eac3ae6fc704bc8bf38a9707fc3c6c3568e91
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264556"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64884342"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -49,7 +49,7 @@ ms.locfileid: "58264556"
 
 ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
 
-常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
+常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。 共享框架是安装在计算机上并由 `Microsoft.AspNetCore.App` 等元包引用的一组程序集（.dll 文件）。 元包引用可以指定所需的最低版本。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
 
 托管或应用配置错误导致工作进程失败时，将返回“502.5 进程失败”错误页面：
 
@@ -241,7 +241,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 从 [Windows 错误报告 (WER)](/windows/desktop/wer/windows-error-reporting) 中获取转储并进行分析：
 
 1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。 应用池必须对该文件夹具有写权限。
-1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1)：
+1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1)：
    * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
 
      ```console
@@ -255,7 +255,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
      ```
 
 1. 在造成崩溃的条件下运行应用。
-1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1)：
+1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1)：
    * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
 
      ```console

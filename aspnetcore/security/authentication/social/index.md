@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/19/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 61482481358256dc9ddd1a0a894541040a8a452f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: e2d68ac93bdcfa2fc015e8447ea38626787cdb02
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882002"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65451044"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -47,11 +47,13 @@ ms.locfileid: "64882002"
 * 运行以下命令：
 
   ```console
-  dotnet new webapp -o WebApp1
+  dotnet new webapp -o WebApp1 -au Individual -uld
   code -r WebApp1
   ```
 
   * `dotnet new` 命令可在“WebApp1”文件夹中创建新的 Razor Pages 项目。
+  * `-uld` 使用 LocalDB，而不是 SQLite。 省略 `-uld` 以使用 SQLite。
+  * `-au Individual` 创建用于个人身份验证的代码。
   * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹。
 
   一个对话框随即出现，其中包含：“‘WebApp1’中缺少进行生成和调试所需的资产。是否添加它们?”
@@ -65,7 +67,7 @@ ms.locfileid: "64882002"
 <!-- TODO: update these instruction once mac support 2.2 projects -->
 
 ```console
-dotnet new webapp -o WebApp1
+dotnet new webapp -o WebApp1 -au Individual
 ```
 
 上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 Razor Pages 项目。

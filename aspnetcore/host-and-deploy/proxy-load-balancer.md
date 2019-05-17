@@ -4,14 +4,14 @@ author: guardrex
 description: 了解在代理服务器和负载均衡器后方托管的应用程序的配置，这通常会隐藏重要的请求信息。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2018
+ms.date: 05/08/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 3ac67f0cb0c7b472e7192f684b1a8fc9685794ce
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: a5bd33ed787dec83bc1b19fa2ae13991b06ef0c2
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264897"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450969"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -249,9 +249,9 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ## <a name="troubleshoot"></a>疑难解答
 
-如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 后，立即放置以下任意代码示例。
+如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 
 
-若要将标头写入应用程序的响应，请使用以下终端内联中间件：
+要将标头写入应用的响应，请在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 后立即放置以下终端内联中间件：
 
 ```csharp
 app.Run(async (context) =>
@@ -283,26 +283,29 @@ app.Run(async (context) =>
 });
 ```
 
-还可以通过使用以下内联中间件写入日志而不是响应正文。 这样可以使站点在调试时正常运行。
+可以写入日志，而不是响应正文。 借助写入日志，站点可在调试时正常运行。
+
+要写入日志而不是响应正文，请执行以下操作：
+
+* 将 `ILogger<Startup>` 注入到 `Startup` 类中，如[在启动时创建日志](xref:fundamentals/logging/index#create-logs-in-startup)中所述。
+* 在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 之后，立即放置以下内联中间件。
 
 ```csharp
-var logger = _loggerFactory.CreateLogger<Startup>();
-
 app.Use(async (context, next) =>
 {
     // Request method, scheme, and path
-    logger.LogDebug("Request Method: {METHOD}", context.Request.Method);
-    logger.LogDebug("Request Scheme: {SCHEME}", context.Request.Scheme);
-    logger.LogDebug("Request Path: {PATH}", context.Request.Path);
+    _logger.LogDebug("Request Method: {METHOD}", context.Request.Method);
+    _logger.LogDebug("Request Scheme: {SCHEME}", context.Request.Scheme);
+    _logger.LogDebug("Request Path: {PATH}", context.Request.Path);
 
     // Headers
     foreach (var header in context.Request.Headers)
     {
-        logger.LogDebug("Header: {KEY}: {VALUE}", header.Key, header.Value);
+        _logger.LogDebug("Header: {KEY}: {VALUE}", header.Key, header.Value);
     }
 
     // Connection: RemoteIp
-    logger.LogDebug("Request RemoteIp: {REMOTE_IP_ADDRESS}", 
+    _logger.LogDebug("Request RemoteIp: {REMOTE_IP_ADDRESS}", 
         context.Connection.RemoteIpAddress);
 
     await next();

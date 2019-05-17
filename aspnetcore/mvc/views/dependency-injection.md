@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何支持将依赖项注入到 MVC 视图。
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: 940e237fd73a864d9fd59f5447fe486f93648f62
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: b411b164bfea81f82c5c9fc1052e0ecfe65f0bc2
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087471"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517052"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>在 ASP.NET Core 中将依赖项注入到视图
 
@@ -20,13 +20,38 @@ ASP.NET Core 支持将[依赖关系注入](xref:fundamentals/dependency-injectio
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="a-simple-example"></a>简单示例
+## <a name="configuration-injection"></a>配置注入
 
-可使用 `@inject` 指令将服务注入到视图中。 可将 `@inject` 看作向视图添加属性，并用 DI 填充该属性。
+appsettings.json 值可以直接注入到视图。
+
+appsettings.json 文件示例：
+
+```json
+{
+   "root": {
+      "parent": {
+         "child": "myvalue"
+      }
+   }
+}
+```
 
 `@inject` 的语法：`@inject <type> <name>`
 
-操作中的 `@inject` 示例：
+使用 `@inject` 的示例：
+
+```csharp
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+   string myValue = Configuration["root:parent:child"];
+   ...
+}
+```
+
+## <a name="service-injection"></a>服务注入
+
+可以使用 `@inject` 指令将服务注入到视图。 可以将 `@inject` 视为向视图添加属性，然后使用 DI 填充属性。
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 

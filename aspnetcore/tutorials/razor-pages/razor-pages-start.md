@@ -3,14 +3,14 @@ title: 教程：开始使用ASP.NET Core中的Razor Pages
 author: rick-anderson
 description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Pages。 了解如何创建模型、为 Razor Pages 生成代码、将 Entity Framework Core 和 SQL Server 用于数据访问、添加搜索功能、添加输入验证及使用迁移更新模型。
 ms.author: riande
-ms.date: 12/5/2018
+ms.date: 05/09/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1d264ca4a605d8291e273a8f054c92e7eefa5548
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9307291756baf1bef714d6dae2f8d25d3aa6f922
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891152"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517113"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -59,7 +59,7 @@ ms.locfileid: "64891152"
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
-* 将目录更改为 (`cd`) 包含项目的文件夹。
+* 更改为将包含项目的目录 (`cd`)。
 
 * 运行以下命令：
 
@@ -69,7 +69,7 @@ ms.locfileid: "64891152"
   ```
 
   * `dotnet new` 命令可在 RazorPagesMovie 文件夹中创建新的 Razor Pages 项目。
-  * `code` 命令将在 Visual Studio Code 的新实例中打开 RazorPagesMovie 文件夹。
+  * `code` 命令在 Visual Studio Code 的当前实例中打开 RazorPagesMovie 文件夹。
 
   一个对话框随即出现，其中包含“"RazorPagesMovie" 中缺少进行生成和调试所需的资产。是否添加它们?”
 

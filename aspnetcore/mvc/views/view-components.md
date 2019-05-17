@@ -5,18 +5,18 @@ description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何�
 ms.author: riande
 ms.date: 1/30/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: b18473c6a76c4dc9030f0a032db1aff733f5acb7
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 2bcf6411933b884c2f96d926827079dfbc25ca74
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264782"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64891272"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="view-components"></a>视图组件
 
@@ -144,7 +144,7 @@ ms.locfileid: "58264782"
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>演练：创建简单的视图组件
 
-[下载](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `ToDo` 控制器的简单项目，该控制器显示 ToDo 项的列表。
+[下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `ToDo` 控制器的简单项目，该控制器显示 ToDo 项的列表。
 
 ![ToDo 列表](view-components/_static/2dos.png)
 
@@ -176,7 +176,10 @@ ms.locfileid: "58264782"
 
 * 创建 Views/Shared/Components/PriorityList 文件夹。 此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配。 如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。
 
-* 创建 Views/Shared/Components/PriorityList/Default.cshtml Razor 视图：[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
+* 创建 Views/Shared/Components/PriorityList/Default.cshtml Razor 视图：
+
+
+  [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
 
    Razor 视图获取并显示 `TodoItem` 列表。 如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称。 在本教程后面部分，我将演示如何传递视图名称。 要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml）。
 

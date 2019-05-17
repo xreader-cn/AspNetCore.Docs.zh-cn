@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: d95bafd412969bb8db38499bd2ff01af510d872c
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: 5d49213e6d694f121d8301c94ba71782b2dc45cf
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148845"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086934"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 的 Microsoft.AspNetCore.All 元包
 
@@ -21,7 +21,9 @@ ms.locfileid: "50148845"
 
 此功能需要面向 .NET Core 2.x 的 ASP.NET Core 2.x。
 
-ASP.NET Core 的 [Microsoft.AspNetCore.All](https://www.nuget.org/packages/Microsoft.AspNetCore.All) 元包包括：
+[Microsoft.AspNetCore.All](https://www.nuget.org/packages/Microsoft.AspNetCore.All) 是引用共享框架的元包。 共享框架是不在应用的文件夹中的一组程序集（.dll 文件）。 必须将共享框架安装在计算机上才能运行应用。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
+
+`Microsoft.AspNetCore.All` 引用的共享框架包括：
 
 * ASP.NET Core 团队支持的所有包。
 * Entity Framework Core 支持的所有包。
@@ -29,11 +31,7 @@ ASP.NET Core 的 [Microsoft.AspNetCore.All](https://www.nuget.org/packages/Micro
 
 `Microsoft.AspNetCore.All` 包中包含了 ASP.NET Core 2.x 和 Entity Framework Core 2.x 的所有功能。 定目标到 ASP.NET Core 2.0 的默认项目模板使用此包。
 
-`Microsoft.AspNetCore.All` 元包的版本号表示 ASP.NET Core 版本和 Entity Framework Core 版本。
-
-使用 `Microsoft.AspNetCore.All` 元包的应用程序会自动使用 [.NET Core 运行时存储](/dotnet/core/deploying/runtime-store)。 此运行时存储包含运行 ASP.NET Core 2.x 应用程序所需的所有运行时资产。 使用 `Microsoft.AspNetCore.All` 元包时，应用程序不会部署引用的 ASP.NET Core NuGet 包中的任何资产&mdash;.NET Core 运行时存储包含这些资产。 运行时存储中的资产已经过预编译，以便缩短应用程序启动时间。
-
-可使用包修整过程来删除不使用的包。 已发布的应用程序输出中排除了修整的包。
+`Microsoft.AspNetCore.All` 元包的版本号表示最低 ASP.NET Core 版本和 Entity Framework Core 版本。
 
 以下 .csproj 文件引用了 ASP.NET Core 的 `Microsoft.AspNetCore.All` 元包：
 
@@ -43,7 +41,7 @@ ASP.NET Core 的 [Microsoft.AspNetCore.All](https://www.nuget.org/packages/Micro
 
 ## <a name="implicit-versioning"></a>隐式版本控制
 
-在 ASP.NET Core 2.1 或更高版本中，可以指定 `Microsoft.AspNetCore.All` 包引用但不指定版本。 如果未指定版本，SDK 会指定隐式版本 (`Microsoft.NET.Sdk.Web`)。 建议使用 SDK 指定的隐式版本，而不是在包引用上显式设置版本号。 如果对这种方法有任何疑问，可以在 [Microsoft.AspNetCore.App 隐式版本讨论](https://github.com/aspnet/Docs/issues/6430)上发表 GitHub 评论。
+在 ASP.NET Core 2.1 或更高版本中，可以指定 `Microsoft.AspNetCore.All` 包引用但不指定版本。 如果未指定版本，SDK 会指定隐式版本 (`Microsoft.NET.Sdk.Web`)。 建议使用 SDK 指定的隐式版本，而不是在包引用上显式设置版本号。 如果对这种方法有任何疑问，可以在 [Microsoft.AspNetCore.App 隐式版本讨论](https://github.com/aspnet/AspNetCore.Docs/issues/6430)上发表 GitHub 评论。
 
 对于便携式应用，隐式版本设置为 `major.minor.0`。 共享框架前滚机制在安装的共享框架的最新兼容版本上运行应用。 为确保在开发、测试和生产中使用相同的版本，请确保在所有环境中都安装相同版本的共享框架。 对于独立应用，将隐式版本号设置为在已安装的 SDK 中捆绑的共享框架的 `major.minor.patch`。
 

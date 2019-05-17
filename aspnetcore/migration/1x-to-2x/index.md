@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: f5bd2bc9862a7487658125e14837798886efad11
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: fb6157205ab5280eb982a61e834eea5074864830
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882792"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450953"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>从 ASP.NET Core 1.x 迁移到 2.0
 
@@ -41,6 +41,8 @@ ms.locfileid: "64882792"
 
 > [!NOTE]
 > 相比于 .NET Core 1.x，.NET Core 2.0 提供更多的外围应用。 如果仅因为 .NET Core 1.x 中缺少 API 而要面向 .NET Framework，则定向于 .NET Core 2.0 可能有用。
+
+如果项目文件包含 `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/3221#issuecomment-413094268)。
 
 <a name="global-json"></a>
 

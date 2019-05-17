@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 11195f00e922f6817a0fa0988fad9d8082dea30a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: eba9de26e1af8c4df06b846748d8aa9380fc1862
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883692"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450881"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -133,9 +133,9 @@ dotnet publish -c Release
       .AddRazorRuntimeCompilation()
   ```
 
-要使运行时编译在部署时起作用，应用必须另外修改其项目文件以将 `PreserveCompilationReferences` 设置为 `true`。
+为了在部署时使运行时编译正常工作，应用必须修改其项目文件，以将 `PreserveCompilationReferences` 设置为 `true`：
 
-[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
+[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=4)]
 
 ::: moniker-end
 

@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 311f72699b6291996a43d56247bd3d2bfab596e6
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: a65543f805b197031bd46ef1974d4d4a5018b2d1
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320243"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65516907"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -33,7 +29,7 @@ ms.locfileid: "58320243"
 ![实体关系图](complex-data-model/_static/diagram.png)
 
 如果遇到无法解决的问题，请下载[已完成应用](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
 
 ## <a name="customize-the-data-model-with-attributes"></a>使用特性自定义数据模型
 
@@ -385,19 +381,18 @@ public ICollection<Course> Courses { get; set; }
 
 注意:按照约定，EF Core 能针对不可为 NULL 的 FK 和多对多关系启用级联删除。 级联删除可能导致形成循环级联删除规则。 循环级联删除规则会在添加迁移时引发异常。
 
-例如，如果未将 `Department.InstructorID` 属性定义为可以为 NULL：
+例如，如果 `Department.InstructorID` 属性定义为不可为 NULL：
 
-* EF Core 会配置将在删除系时删除讲师的级联删除规则。
-* 在删除系时删除讲师并不是预期行为。
+* EF Core 会配置级联删除规则，以在删除讲师时删除院系。
+* 在删除讲师时删除院系并不是预期行为。
+* 以下 fluent API 将设置限制规则而不是级联规则。
 
-如果业务规则要求 `InstructorID` 属性不可为 NULL，请使用以下 Fluent API 语句：
-
- ```csharp
- modelBuilder.Entity<Department>()
-    .HasOne(d => d.Administrator)
-    .WithMany()
-    .OnDelete(DeleteBehavior.Restrict)
- ```
+   ```csharp
+   modelBuilder.Entity<Department>()
+      .HasOne(d => d.Administrator)
+      .WithMany()
+      .OnDelete(DeleteBehavior.Restrict)
+  ```
 
 上面的代码会针对“系-讲师”关系禁用级联删除。
 
@@ -671,7 +666,7 @@ dotnet ef database update
 * [本教程的 YouTube 版本（第 1 部分）](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [本教程的 YouTube 版本（第 2 部分）](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
 
-::: moniker-end
+
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/migrations)

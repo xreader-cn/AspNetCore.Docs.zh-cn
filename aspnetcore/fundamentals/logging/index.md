@@ -4,14 +4,14 @@ author: tdykstra
 description: 了解 ASP.NET Core 中的记录框架。 发现内置日志记录提供程序，并详细了解常见第三方提供程序。
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/02/2019
+ms.date: 05/01/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 8a2e310b47e32e9015b0c127ed79d8f6bdf2e44d
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: ee7d4b2ae04b5f6c262acc5da0f86f90ab50585f
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982848"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085671"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core 中的日志记录
 
@@ -19,7 +19,7 @@ ms.locfileid: "59982848"
 
 ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的日志记录 API。 本文介绍了如何将日志记录 API 与内置提供程序一起使用。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="add-providers"></a>添加提供程序
 
@@ -54,7 +54,7 @@ ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的�
 ASP.NET Core [依赖关系注入](xref:fundamentals/dependency-injection) (DI) 将提供 `ILoggerFactory` 实例。 在 [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) 和 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) 包中定义了 `AddConsole` 和 `AddDebug` 扩展方法。 每个扩展方法都调用 `ILoggerFactory.AddProvider` 方法，传入提供程序的一个实例。
 
 > [!NOTE]
-> [示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x)在 `Startup.Configure` 方法中添加了日志提供程序。 要从先前执行的代码获取日志输出，请在 `Startup` 类构造函数中添加日志提供程序。
+> [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x)在 `Startup.Configure` 方法中添加了日志提供程序。 要从先前执行的代码获取日志输出，请在 `Startup` 类构造函数中添加日志提供程序。
 
 ::: moniker-end
 
@@ -496,11 +496,12 @@ System.Exception: Item not found exception.
 
 * 控制台
 * 调试
+* EventSource
 * EventLog
+* TraceSource
 * AzureAppServicesFile
 * AzureAppServicesBlob
-* TraceSource
-* EventSource
+* ApplicationInsights
 
 ### <a name="default-minimum-level"></a>默认最低级别
 
@@ -616,8 +617,9 @@ ASP.NET Core 提供以下提供程序：
 * [EventSource](#eventsource-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
-
-本文稍后将介绍 [Azure 的日志记录](#logging-in-azure)选项。
+* [AzureAppServicesFile](#azure-app-service-provider)
+* [AzureAppServicesBlob](#azure-app-service-provider)
+* [ApplicationInsights](#azure-application-insights-trace-logging)
 
 有关 stdout 日志记录的信息，请参阅 <xref:host-and-deploy/iis/troubleshoot#aspnet-core-module-stdout-log> 和 <xref:host-and-deploy/azure-apps/troubleshoot#aspnet-core-module-stdout-log>。
 
@@ -767,19 +769,6 @@ loggerFactory.AddTraceSource(sourceSwitchName);
 
 ::: moniker-end
 
-## <a name="logging-in-azure"></a>Azure 中的日志记录
-
-要了解 Azure 中的日志记录，请参阅下列部分：
-
-* [Azure 应用服务提供程序](#azure-app-service-provider)
-* [Azure 日志流式处理](#azure-log-streaming)
-
-::: moniker range=">= aspnetcore-1.1"
-
-* [Azure Application Insights 跟踪日志记录](#azure-application-insights-trace-logging)
-
-::: moniker-end
-
 ### <a name="azure-app-service-provider"></a>Azure 应用服务提供程序
 
 [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) 提供程序包将日志写入 Azure App Service 应用的文件系统，以及 Azure 存储帐户中的 [blob 存储](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage)。 面向 .NET Core 1.1 或更高版本的应用可使用该提供程序包。
@@ -842,7 +831,7 @@ loggerFactory.AddAzureWebAppDiagnostics();
 
 该提供程序仅当项目在 Azure 环境中运行时有效。 项目在本地运行时，该提供程序无效 &mdash; 它不会写入本地文件或 blob 的本地开发存储。
 
-### <a name="azure-log-streaming"></a>Azure 日志流式处理
+#### <a name="azure-log-streaming"></a>Azure 日志流式处理
 
 通过 Azure 日志流式处理，可从以下位置实时查看日志活动：
 
@@ -865,14 +854,23 @@ loggerFactory.AddAzureWebAppDiagnostics();
 
 ### <a name="azure-application-insights-trace-logging"></a>Azure Application Insights 跟踪日志记录
 
-Application Insights SDK 可收集和报告 ASP.NET Core 日志记录基础结构生成的日志。 有关更多信息，请参见以下资源：
+[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) 提供程序包将日志写入 Azure Application Insights。 Application Insights 是一项服务，可监视 Web 应用并提供用于查询和分析遥测数据的工具。 如果使用此提供程序，则可以使用 Application Insights 工具来查询和分析日志。
+
+日志记录提供程序作为 [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore)（这是提供 ASP.NET Core 的所有可用遥测的包）的依赖项包括在内。 如果使用此包，则无需安装提供程序包。
+
+请勿使用用于 ASP.NET 4.x 的 [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) 包&mdash;。
+
+有关更多信息，请参见以下资源：
 
 * [Application Insights 概述](/azure/application-insights/app-insights-overview)
-* [用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)
+* [用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core-no-visualstudio) - 如果想要实现各种 Application Insights 遥测以及日志记录，请从这里开始。
+* [.NET Core ILogger 日志的 ApplicationInsightsLoggerProvider](/azure/azure-monitor/app/ilogger) - 如果想要在没有其他 Application Insights 遥测的情况下实现日志记录提供程序，请从这里开始。
 * [Application Insights 日志记录适配器](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
-* [Application Insights ILogger 实现示例](/azure/azure-monitor/app/ilogger)
-
+* [安装、配置和初始化 Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn 网站上的交互式教程。
 ::: moniker-end
+
+> [!NOTE]
+> 截至 2019 年 5 月 1 日，标题为[用于 ASP.NET Core 的 Application Insights](/azure/azure-monitor/app/asp-net-core) 的文章已过期，教程步骤不起作用。 请改为参阅[用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core-no-visualstudio)。 我们已经注意到此问题，正努力更正该问题。
 
 ## <a name="third-party-logging-providers"></a>第三方日志记录提供程序
 
@@ -885,7 +883,7 @@ Application Insights SDK 可收集和报告 ASP.NET Core 日志记录基础结�
 * [Loggr](http://loggr.net/)（[GitHub 存储库](https://github.com/imobile3/Loggr.Extensions.Logging)）
 * [NLog](http://nlog-project.org/)（[GitHub 存储库](https://github.com/NLog/NLog.Extensions.Logging)）
 * [Sentry](https://sentry.io/welcome/)（[GitHub 存储库](https://github.com/getsentry/sentry-dotnet)）
-* [Serilog](https://serilog.net/)（[GitHub 存储库](https://github.com/serilog/serilog-extensions-logging)）
+* [Serilog](https://serilog.net/)（[GitHub 存储库](https://github.com/serilog/serilog-aspnetcore)）
 * [Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging)（[Github 存储库](https://github.com/googleapis/google-cloud-dotnet)）
 
 某些第三方框架可以执行[语义日志记录（又称结构化日志记录）](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。

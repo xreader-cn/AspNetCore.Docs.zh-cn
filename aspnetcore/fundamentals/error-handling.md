@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 05/03/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: cbb9462a3c6010e074dc391aa128ac2cbb901456
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 36cd9fdac0b9159900e82327705a73d561e7ce6b
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705573"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086970"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -20,7 +20,7 @@ ms.locfileid: "59705573"
 
 本文介绍了处理 ASP.NET Core 应用中常见错误的一些方法。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。 （[下载方法](xref:index#how-to-download-a-sample)。）本文介绍了如何在示例应用中设置预处理器指令（`#if`、`#endif`、`#define`）来启用不同方案。
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)。 （[下载方法](xref:index#how-to-download-a-sample)。）本文介绍了如何在示例应用中设置预处理器指令（`#if`、`#endif`、`#define`）来启用不同方案。
 
 ## <a name="developer-exception-page"></a>开发人员异常页
 
@@ -40,7 +40,7 @@ ms.locfileid: "59705573"
 * Cookie（如果有）
 * 标头
 
-若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”。
+若要在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看开发人员异常页，请使用 `DevEnvironment` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="exception-handler-page"></a>异常处理程序页
 
@@ -75,7 +75,7 @@ public IActionResult Error()
 > [!WARNING]
 > 请勿向客户端提供敏感错误信息。 提供服务的错误是一种安全风险。
 
-若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”。
+若要在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理页，请使用 `ProdEnvironment` 和 `ErrorHandlerPage` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="exception-handler-lambda"></a>异常处理程序 lambda
 
@@ -88,7 +88,7 @@ public IActionResult Error()
 > [!WARNING]
 > 不要向客户端提供来自 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> 或 <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> 的敏感错误信息。 提供服务的错误是一种安全风险。
 
-若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。
+若要在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看异常处理 lambda 的结果，请使用 `ProdEnvironment` 和 `ErrorHandlerLambda` 预处理器指令，并选择主页上的“触发异常”。
 
 ## <a name="usestatuscodepages"></a>UseStatusCodePages
 
@@ -108,7 +108,7 @@ public IActionResult Error()
 Status Code: 404; Not Found
 ```
 
-若要在[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”。
+若要在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中查看各种状态代码页格式之一，请使用以 `StatusCodePages` 开头的预处理器指令之一，并选择主页上的“触发 404”。
 
 ## <a name="usestatuscodepages-with-format-string"></a>包含格式字符串的 UseStatusCodePages
 
@@ -131,7 +131,7 @@ Status Code: 404; Not Found
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。 如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。 如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml)。
+URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所示。 如果 URL 模板以波形符 (~) 开头，波形符会替换为应用的 `PathBase`。 如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。
 
 使用此方法通常是当应用：
 
@@ -147,7 +147,7 @@ URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml)。
+如果在应用中指向终结点，请为终结点创建 MVC 视图或 Razor 页面。 有关 Razor Pages 示例，请参阅[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)中的 Pages/StatusCode.cshtml。
 
 使用此方法通常是当应用应：
 

@@ -5,22 +5,20 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/24/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 01e18498a16e86392755b02b92ffda929669cb7d
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 00676d4311f8955c3c1ef38d31219d62ea9f4a25
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614625"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64887772"
 ---
 # <a name="configure-the-linker-for-blazor"></a>配置 Blazor 链接器
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
-
-Blazor 将在每个版本模式生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中删除不必要的 IL。
+Blazor 在版本生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。
 
 使用以下任何一种方法控制程序集链接：
 

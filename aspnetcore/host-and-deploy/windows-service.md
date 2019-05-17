@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/04/2019
+ms.date: 05/04/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 544eefa87898e82ec2bf8f9f61ce4e26dd554bb7
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: ec3a37fd859df7592fa0d6d9cc0109942a570e7a
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068331"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086986"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "59068331"
 
 不使用 IIS 时，可以在 Windows 上将 ASP.NET Core 应用作为 [Windows 服务](/dotnet/framework/windows-services/introduction-to-windows-service-applications)进行托管。 作为 Windows 服务进行托管时，应用将在重新启动后自动启动。
 
-[查看或下载示例代码](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -209,7 +209,7 @@ icacls "c:\svc" /grant "ServiceUser:(OI)(CI)WRX" /t
 
 ## <a name="create-the-service"></a>创建服务
 
-使用 [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) PowerShell 脚本来注册服务。 在管理 PowerShell 6 命令行界面中，使用以下命令执行脚本：
+使用 [RegisterService.ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) PowerShell 脚本来注册服务。 在管理 PowerShell 6 命令行界面中，使用以下命令执行脚本：
 
 ```powershell
 .\RegisterService.ps1 
@@ -284,7 +284,7 @@ Stop-Service -Name MyService
 
 在停止服务一小段时间后，使用 `Remove-Service -Name {NAME}` Powershell 6 命令删除服务。
 
-检查示例应用服务的状态：
+以下命令可删除示例应用服务：
 
 ```powershell
 Remove-Service -Name MyService
