@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: e9214139c0e6e958445feb13b6350bad376a0152
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38e1fff9c7a212af992951dbf57e124cae69d36f
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884162"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874988"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -28,22 +28,7 @@ ms.locfileid: "64884162"
 
 Razor 页面和 Entity Framework 提供的验证支持是 DRY 原则的极佳示例。 验证规则在模型类中的某处以声明方式指定，且在应用的所有位置强制执行。
 
-### <a name="adding-validation-rules-to-the-movie-model"></a>将验证规则添加到电影模型
-
-打开 Models/Movie.cs 文件。 [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) 提供一组内置验证特性，可通过声明方式应用于类或属性。 DataAnnotations 还包含 `DataType` 等格式特性，有助于格式设置但不提供验证。
-
-更新 `Movie` 类以使用 `Required`、`StringLength`、`RegularExpression` 和 `Range` 验证特性。
-
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRatingDA.cs?name=snippet1)]
-
-验证特性用于指定模型属性上强制执行的行为：
-
-* `Required` 和 `MinimumLength` 特性指示属性必须具有一个值。 但是，用户可以随时输入空格以对可以为 null 的类型进行验证约束。 从本质上来说，需要不可以为 null 的[值类型](/dotnet/csharp/language-reference/keywords/value-types)（如 `decimal`、`int`、`float` 和 `DateTime`），但不需要 `Required` 特性。
-* `RegularExpression` 特性限制用户可以输入的字符。 在前面的代码中，`Genre` 必须以一个或多个大写字母开始，并且后接零个或多个字母、单引号或双引号、空白字符或短划线。 `Rating` 必须以一个或多个大写字母开始，并且后接零个或多个字母、数字、单引号或双引号、空白字符或短划线。
-* `Range` 特性将值限制在指定范围内。
-* `StringLength` 特性设置字符串的最大长度，且可视情况设置最小长度。 
-
-让 ASP.NET Core 强制自动执行验证规则有助于提升应用的可靠性。 自动验证模型有助于保护应用，因为添加新代码时无需手动应用它们。
+[!INCLUDE[](~/includes/RP-MVC/validation.md)]
 
 ### <a name="validation-error-ui-in-razor-pages"></a>Razor 页面中的“验证错误”UI
 

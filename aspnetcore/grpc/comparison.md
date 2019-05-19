@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 03/31/2019
 uid: grpc/comparison
-ms.openlocfilehash: 8f4cefe1dedcf4cfd9650e73e6a1ba30dbbfeffa
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 655c921788deb30f3c0f3b47f4440dc8701c0f59
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087402"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874935"
 ---
 # <a name="comparing-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -76,7 +76,7 @@ gRPC 允许客户端指定时间长度的等待 RPC 完成。 [截止时间](htt
 
 gRPC 非常适合以下方案：
 
-* **微服务** &ndash; gRPC 是设计的低延迟和高吞吐量的通信。 gRPC 非常轻型的微服务的效率至关重要。
+* **微服务** &ndash; gRPC 专为低延迟和高吞吐量的通信。 gRPC 非常轻型的微服务的效率至关重要。
 * **点到点实时通信** &ndash; gRPC 提供有力的支持的双向流式处理。 gRPC 服务可以将推送消息实时而无需轮询。
 * **Polygot 环境** &ndash; gRPC 工具支持所有常用的开发语言，使 gRPC 多语言环境的不错选择。
 * **网络受限制的环境** &ndash; gRPC 消息用 Protobuf，轻型消息格式进行序列化。 GRPC 消息始终是小于等效的 JSON 消息。
