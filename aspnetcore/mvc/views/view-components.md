@@ -3,14 +3,15 @@ title: ASP.NET Core 中的视图组件
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何将其添加到应用中。
 ms.author: riande
-ms.date: 1/30/2019
+ms.custom: mvc
+ms.date: 5/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 2bcf6411933b884c2f96d926827079dfbc25ca74
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 17fd7aa977868d522df9f27e0c23d07b016bfb7c
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891272"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621072"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -40,6 +41,8 @@ ms.locfileid: "64891272"
 * 一个登录面板，呈现在每页上并显示注销或登录链接，具体取决于用户的登录状态
 
 视图组件由两部分组成：类（通常派生自 [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)）及其返回的结果（通常为视图）。 与控制器一样，视图组件也可以是 POCO，但大多数开发人员都希望利用派生自 `ViewComponent` 的可用方法和属性。
+
+在考虑视图组件是否符合应用的规范时，请考虑改用 Razor 组件。 Razor 组件还将标记与 C# 代码组合来生成可重用的 UI 单元。 Razor 组件专用于让开发人员在提供客户端 UI 逻辑和组合时保持高效。 有关更多信息，请参见<xref:blazor/components>。
 
 ## <a name="creating-a-view-component"></a>创建视图组件
 

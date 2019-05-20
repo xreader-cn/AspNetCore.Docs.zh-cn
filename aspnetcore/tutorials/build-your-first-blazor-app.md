@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 05/14/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: d235fec4e128ad8622a06d301eeac15c4862c159
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: c1b142ebdbd85eb10ddf8c8b70edd9782732a4f1
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087731"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621100"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -151,6 +151,14 @@ FetchData 组件使用注入的服务（作为 `ForecastService`）来检索 `We
    ```
 
 1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向“待办事项”组件的链接有效。
+
+1. 如果在构建 Blazor 服务器端应用，请将应用的命名空间添加到 \_Imports.razor 文件。 以下 `@using` 语句假定应用的命名空间是 `WebApplication`：
+
+   ```cshtml
+   @using WebApplication
+   ```
+   
+   Blazor 客户端应用将应用的命名空间默认包含在 \_Imports.razor 文件中。
 
 1. 向项目的根目录添加“TodoItem.cs”文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 

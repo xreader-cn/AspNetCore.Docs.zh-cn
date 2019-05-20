@@ -4,14 +4,14 @@ author: rick-anderson
 description: 本教程演示如何使用外部身份验证提供程序通过 OAuth 2.0 生成 ASP.NET Core 2.x 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 4/19/2019
+ms.date: 05/10/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: e2d68ac93bdcfa2fc015e8447ea38626787cdb02
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 8dac8a8a2276388414b6bb1211e970617b001637
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65451044"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874813"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -33,10 +33,12 @@ ms.locfileid: "65451044"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
-* 创建新的 ASP.NET Core Web 应用呈现。
-* 在下拉列表中选择“ASP.NET Core 2.2”，然后选择“Web 应用程序”。
-* 选择“更改身份验证”并设置针对“单个用户帐户”的身份验证。
+* 创建新项目。
+* 依次选择“ASP.NET Core Web 应用程序”和“下一步”。
+* 提供项目名称，再确认或更改位置。 选择“创建”。
+* 在下拉列表中选择 ASP.NET Core 2.2。 在模板列表中选择“Web 应用程序”。
+* 在“身份验证”下，选择“更改”再设置针对单个用户帐户的身份验证。 选择“确定”。
+* 在“创建新的 ASP.NET Core Web 应用程序”窗口中，选择“创建”。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -56,27 +58,14 @@ ms.locfileid: "65451044"
   * `-au Individual` 创建用于个人身份验证的代码。
   * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹。
 
-  一个对话框随即出现，其中包含：“‘WebApp1’中缺少进行生成和调试所需的资产。是否添加它们?”
-
-* 选择“是”
+* 一个对话框随即出现，其中包含：“‘WebApp1’中缺少进行生成和调试所需的资产。是否添加它们?” 选择 **“是”**。
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-从终端运行以下命令：
-
-<!-- TODO: update these instruction once mac support 2.2 projects -->
-
-```console
-dotnet new webapp -o WebApp1 -au Individual
-```
-
-上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 Razor Pages 项目。
-
-## <a name="open-the-project"></a>打开项目
-
-在 Visual Studio 中，选择“文件”>“打开”，然后选择“WebApp1.csproj”文件。
-
-<!-- End of VS tabs -->
+* 选择“文件” > “新建解决方案”。
+* 在边栏中选择 .NET Core  > “应用”。 选择“Web 应用程序”模板。 选择“下一步”。
+* 将“目标框架”下拉项设置为 .NET Core 2.2。 选择“下一步”。
+* 提供项目名称。 确认或更改位置。 选择“创建”。
 
 ---
 

@@ -3,14 +3,14 @@ title: ASP.NET Core 中的区域
 author: rick-anderson
 description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。
 ms.author: riande
-ms.date: 05/06/2019
+ms.date: 05/10/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 35c7682861f7392b0bcda7326e4d7f5ccc356bda
-ms.sourcegitcommit: b508b115107e0f8d7f62b25cfcc8ad45e1373459
+ms.openlocfilehash: f3a75bc307a206e43241b421f448b09011868d08
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/07/2019
-ms.locfileid: "65212590"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535974"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -169,9 +169,9 @@ ms.locfileid: "65212590"
 
 ### <a name="import-namespace-and-tag-helpers-with-viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
 
-可以将 _ViewImports 文件添加到每个区域的“Pages”文件夹，以便将命名空间和标记帮助程序导入文件夹中的每个 Razor Page。
+可向每个区域“页面”文件夹添加一个 _ViewImports.cshtml 文件，以将命名空间和标记帮助器导入到该文件夹的每个 Razor 页面中。
 
-请考虑示例代码中的 Services 区域，它不包含 _ViewImports 文件。 以下标记显示 /Services/Manage/About Razor Page：
+请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件。 以下标记显示 /Services/Manage/About Razor Page：
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Services/Pages/Manage/About.cshtml)]
 
@@ -180,7 +180,7 @@ ms.locfileid: "65212590"
 * 必须使用完全限定的域名来指定模型 (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`)。
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
 
-在示例下载中，Products 区域包含以下 _ViewImports 文件：
+在示例下载中，“产品”区域包含下列 _ViewImports.cshtml 文件：
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/_ViewImports.cshtml)]
 
@@ -198,4 +198,4 @@ ms.locfileid: "65212590"
 
 ### <a name="publishing-areas"></a>发布区域
 
-当 .csproj* 文件中包含 `<Project Sdk="Microsoft.NET.Sdk.Web">` 时，所有 `*.cshtml` 和 `wwwroot/**` 文件将发布到输出。
+当 *.csproj 文件中包含 `<Project Sdk="Microsoft.NET.Sdk.Web">` 时，所有 *.cshtml 文件以及 wwwroot 目录中的文件都将发布到输出中。
