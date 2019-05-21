@@ -5,12 +5,12 @@ description: 如何将验证添加到 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 49db8d7c1d3e54f416c66685c19b3a2e3b14251c
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 6c59d0188f67872c7dd5599967551d7d390bfdcf
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665439"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65875050"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>将验证添加到 ASP.NET Core MVC 应用
 
@@ -27,25 +27,9 @@ MVC 的设计原则之一是 [DRY](https://wikipedia.org/wiki/Don%27t_repeat_you
 
 MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在实际操作中的极佳示例。 可以在一个位置（模型类中）以声明方式指定验证规则，并且在应用中的所有位置强制执行。
 
-## <a name="adding-validation-rules-to-the-movie-model"></a>将验证规则添加到电影模型
+[!INCLUDE[](~/includes/RP-MVC/validation.md)]
 
-打开 Movie.cs 文件。 DataAnnotations 提供一组内置验证特性，可通过声明方式应用于任何类或属性。 （它还包含 `DataType` 等格式特性，这些特性可帮助进行格式设置，但不提供任何验证。）
-
-更新 `Movie` 类以使用内置的 `Required`、`StringLength`、`RegularExpression` 和 `Range` 验证特性。
-
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie22/Models/MovieDateRatingDA.cs?name=snippet1)]
-
-验证特性指定要对应用这些特性的模型属性强制执行的行为：
-
-* `Required` 和 `MinimumLength` 特性表示属性必须有值；但用户可输入空格来满足此验证。 
-* `RegularExpression` 特性用于限制可输入的字符。 在上述代码中，`Genre` 和 `Rating` 必须使用纯字母（禁用首字母大写、空格、数字和特殊字符）。
-* `Range` 特性将值限制在指定范围内。 
-* `StringLength` 特性使你能够设置字符串属性的最大长度，以及可选的最小长度。 
-* 从本质上来说，需要值类型（如 `decimal`、`int`、`float`、`DateTime`），但不需要 `[Required]` 特性。
-
-让 ASP.NET Core 强制自动执行验证规则有助于提升你的应用的可靠性。 同时它能确保你无法忘记验证某些内容，并防止你无意中将错误数据导入数据库。
-
-## <a name="validation-error-ui-in-mvc"></a>MVC 中的验证错误 UI
+## <a name="validation-error-ui"></a>验证错误 UI
 
 运行应用并导航到电影控制器。
 

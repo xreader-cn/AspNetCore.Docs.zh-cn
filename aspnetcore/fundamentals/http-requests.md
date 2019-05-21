@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/10/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 540f14ad2b290d276436033a94d4c815888e5a95
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: 8b95f63c0e06a2b7d1d66064def192f91b8ffbb4
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65536006"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874965"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -20,7 +20,7 @@ ms.locfileid: "65536006"
 
 可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 这能带来以下好处：
 
-* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可以注册 github 客户端，并将它配置为访问 GitHub。 可以注册一个默认客户端用于其他用途。
+* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置 github 客户端，使其访问 [GitHub](https://github.com/)。 可以注册一个默认客户端用于其他用途。
 * 通过委托 `HttpClient` 中的处理程序整理出站中间件的概念，并提供适用于基于 Polly 的中间件的扩展来利用概念。
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。

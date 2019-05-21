@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 362186be6feeeefeca3c56688ee6420de5fb9659
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 7e1741d2bed15f36a967713a2f9bd0d93801c8d0
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884502"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874943"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -27,7 +27,7 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 * 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中配置配置（也称为“注册”）并通过[依存关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用。
 * 包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法以创建应用的请求处理管道。
 
-当应用启动时，运行时调用 `ConfigureServices` 和 `Configure`：
+在应用启动时，ASP.NET Core 运行时会调用 `ConfigureServices` 和 `Configure`：
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 

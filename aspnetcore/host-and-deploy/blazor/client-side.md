@@ -5,24 +5,22 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 05/13/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: 01a612029f415f583908c3bf2adc2e6d35167acb
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: ea8ece266809913e32ac212bc55cb3c2499c234f
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614633"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874976"
 ---
 # <a name="host-and-deploy-blazor-client-side"></a>托管和部署 Blazor 客户端
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com) 和 [Daniel Roth](https://github.com/danroth27)
 
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
-
 ## <a name="host-configuration-values"></a>主机配置值
 
-使用[客户端托管模型](xref:blazor/hosting-models#client-side-hosting-model)的 Blazor 应用可以接受以下主机配置值，作为开发环境中运行时的命令行参数。
+使用[客户端托管模型](xref:blazor/hosting-models#client-side)的 Blazor 应用可以接受以下主机配置值，作为开发环境中运行时的命令行参数。
 
 ### <a name="content-root"></a>内容根
 
@@ -95,7 +93,7 @@ ms.locfileid: "59614633"
 
 ## <a name="deployment"></a>部署
 
-使用[客户端托管模型](xref:blazor/hosting-models#client-side-hosting-model)：
+使用[客户端托管模型](xref:blazor/hosting-models#client-side)：
 
 * 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。
 * 应用将在浏览器线程中直接执行。 支持以下策略之一：
@@ -110,15 +108,15 @@ Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中�
 
 客户端应用中对页组件的路由请求不如服务器端对托管应用的路由请求简单。 请考虑具有两个页面的客户端应用：
 
-* Main.cshtml &ndash; 在应用的根目录下加载，且包含“关于”页链接 (`href="About"`)。
-* About.cshtml &ndash;“关于”页。
+* **_Main.razor** &ndash; 在应用的根目录处加载并包含指向“关于”页面的链接 (`href="About"`)。
+* **_About.razor** &ndash; “关于”页面。
 
 使用浏览器的地址栏（例如，`https://www.contoso.com/`）请求应用的默认文档：
 
 1. 浏览器发出请求。
 1. 返回默认页，通常为 index.html。
 1. index.html 启动应用。
-1. 此时，Blazor 的路由器加载，并显示 Razor Main 页 (Main.cshtml)。
+1. 会加载 Blazor 的路由器，且显示 Razor 主页面 (Main.razor)。
 
 在主页上，选择“关于”页面的链接可加载“关于”页面。 选择“关于”页面的链接适用于客户端，因为 Blazor 路由器阻止浏览器对 Internet 发出请求，针对 `About` 转到 `www.contoso.com`，并为“关于”页本身提供服务。 针对客户端应用中的内部页的所有请求，工作原理都相同：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
 
@@ -128,13 +126,19 @@ Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中�
 
 ## <a name="app-base-path"></a>应用基路径
 
-应用基路径是服务器上的虚拟应用根路径。 例如，位于 `/CoolApp/` 虚拟文件夹中 Contoso 服务器上的应用可通过 `https://www.contoso.com/CoolApp` 进行访问，并且该应用的虚拟基路径为 `/CoolApp/`。 通过将应用基路径设置为 `CoolApp/`，应用就会知道其在服务器上实际所在的位置。 应用可使用应用基路径通过不在根目录中的组件构造应用根目录的相对 URL。 通过这种方式，位于目录结构不同级别的组件可生成指向整个应用其他位置的资源链接。 应用基路径也用于截获超链接单击，其中链接的 `href` 目标位于应用基路径 URI 空间中 &mdash; Blazor 路由器可处理内部导航。
+应用基路径是服务器上的虚拟应用根路径。 例如，位于 `/CoolApp/` 虚拟文件夹中 Contoso 服务器上的应用可通过 `https://www.contoso.com/CoolApp` 进行访问，并且该应用的虚拟基路径为 `/CoolApp/`。 通过将应用基本路径设置为虚拟路径 (`<base href="/CoolApp/">`)，可让应用知道其几乎驻留在服务器上的哪个位置。 应用可使用应用基路径通过不在根目录中的组件构造应用根目录的相对 URL。 通过这种方式，位于目录结构不同级别的组件可生成指向整个应用其他位置的资源链接。 应用基路径也用于截获超链接单击，其中链接的 `href` 目标位于应用基路径 URI 空间中 &mdash; Blazor 路由器可处理内部导航。
 
-在许多托管方案中，应用的服务器虚拟路径为应用的根目录。 在这些情况下，应用基路径为正斜杠 (`<base href="/" />`)，它是应用的默认配置。 在其他托管方案中，例如 GitHub 页和 IIS 虚拟目录或子应用程序，应用基路径必须设置为应用的服务器虚拟路径。 要设置应用的基路径，请在 `<head>` 标记元素中找到的 index.html 中添加或更新 `<base>` 标记。 将 `href` 属性值设置为 `virtual-path/`（需要尾部反斜杠），其中 `virtual-path/` 是应用的服务器上的完整虚拟应用根路径。 在上述示例中，虚拟路径设置为 `CoolApp/`：`<base href="CoolApp/">`。
+在许多托管方案中，应用的服务器虚拟路径为应用的根目录。 在这些情况下，应用基路径为正斜杠 (`<base href="/" />`)，它是应用的默认配置。 在其他托管方案中，例如 GitHub 页和 IIS 虚拟目录或子应用程序，应用基路径必须设置为应用的服务器虚拟路径。 要设置应用的基本路径，请更新 wwwroot/index.html 文件的 `<head>` 标记元素中的 `<base>` 标记。 将 `href` 属性值设置为 `/virtual-path/`（需要尾部反斜杠），其中 `/virtual-path/` 是应用的服务器上的完整虚拟应用根路径。 在上述示例中，虚拟路径设置为 `/CoolApp/`：`<base href="/CoolApp/">`。
 
-对于配置了非根虚拟路径的应用（例如，`<base href="CoolApp/">`），当在本地运行应用时，将无法查找其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。
+对于配置了非根虚拟路径的应用（例如，`<base href="/CoolApp/">`），当在本地运行应用时，将无法查找其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。
 
-要在本地运行应用时传递带根路径 (`/`) 的 path base 参数，请在应用的目录中执行以下命令：
+在本地运行应用时，若要随附根路径传递路径基础参数 (`/`)，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
+
+```console
+dotnet run --pathbase=/{Virtual Path (no trailing slash)}
+```
+
+对于具有虚拟基本路径 `/CoolApp/` (`<base href="/CoolApp/">`) 的应用，命令如下：
 
 ```console
 dotnet run --pathbase=/CoolApp
@@ -144,7 +148,7 @@ dotnet run --pathbase=/CoolApp
 
 有关详细信息，请参阅[基路径主机配置值](#path-base)部分。
 
-如果应用使用[客户端托管模型](xref:blazor/hosting-models#client-side-hosting-model)（基于 Blazor 项目模板），并且作为 ASP.NET Core 应用中的 IIS 子应用程序进行托管，则有必要禁用已继承的 ASP.NET Core 模块处理程序或确保根应用的 web.config 文件中的 `<handlers>` 部分未由子应用继承。
+如果应用会使用[客户端托管模型](xref:blazor/hosting-models#client-side)（根据 Blazor 项目模型；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用程序托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分。
 
 通过向文件添加 `<handlers>` 部分，删除应用已发布 web.config 文件中的处理程序：
 
