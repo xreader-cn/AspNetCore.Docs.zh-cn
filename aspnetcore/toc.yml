@@ -277,6 +277,8 @@
       items:
         - name: 概述
           uid: blazor/index
+        - name: 受支持的平台
+          uid: blazor/supported-platforms
         - name: 入门
           uid: blazor/get-started
         - name: 托管模型
