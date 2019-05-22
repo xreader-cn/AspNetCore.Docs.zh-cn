@@ -2,16 +2,17 @@
 title: Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 author: guardrex
 description: 获取在 Azure 应用服务和 IIS 上托管 ASP.NET Core 应用的常见错误的故障排除建议。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/28/2019
+ms.date: 05/12/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 053dcce7f8c59b7afe7e52d2f704c992afce0b67
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0191460f8c3dab98e6f977a29eacf0396b6789d8
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888032"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970076"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 

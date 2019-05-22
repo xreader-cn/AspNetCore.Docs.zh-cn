@@ -2,16 +2,17 @@
 title: ASP.NET Core 模块
 author: guardrex
 description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 05/12/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: a33606bce6c78a19e3d380f7440e5892778806c3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ff0b4c01f5ac661236b739e89559142d89b3b5dc
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889392"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970078"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -272,7 +273,7 @@ ASP.NET Core 模块还可以：
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
+::: moniker range="< aspnetcore-2.2"
 
 | 特性 | 说明 | 默认 |
 | --------- | ----------- | :-----: |
@@ -285,24 +286,6 @@ ASP.NET Core 模块还可以：
 | `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.1 或更高版本附带的 ASP.NET Core 模块版本中，使用小时数、分钟数和秒数指定 `requestTimeout`。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
 | `shutdownTimeLimit` | <p>可选的整数属性。</p><p>检测到 app_offline.htm 文件时，模块等待可执行文件正常关闭的持续时间（以秒为单位）。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`600` |
 | `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。 模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p><p>值 0（零）不被视为无限超时。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
-| `stdoutLogEnabled` | <p>可选布尔属性。</p><p>如果为 true，processPath 中指定的 进程的 stdout 和 stderr 将重定向到 stdoutLogFile 中指定的文件。</p> | `false` |
-| `stdoutLogFile` | <p>可选的字符串属性。</p><p>指定在其中记录 processPath 中指定进程的 stdout 和 stderr 的相对路径或绝对路径。 相对路径与站点根目录相对。 以 `.` 开头的任何路径均与站点根目录相对，所有其他路径被视为绝对路径。 路径中提供的任何文件夹都必须存在，以便模块创建日志文件。 使用下划线分隔符，将时间戳、进程 ID 和文件扩展名 (.log) 添加到 stdoutLogFile 路径的最后一段。 如果 `.\logs\stdout` 作为值提供，则在示例 stdout 日志使用进程 ID 1934 于 2018 年 2 月 5 日 19:41:32 保存时，将在 logs 文件夹中保存为 stdout_20180205194132_1934.log。</p> | `aspnetcore-stdout` |
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-| 特性 | 说明 | 默认 |
-| --------- | ----------- | :-----: |
-| `arguments` | <p>可选的字符串属性。</p><p>processPath 中指定的可执行文件的参数。</p>| |
-| `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”页面，而会优先显示 web.config 中配置的 502 状态代码页面。</p> | `false` |
-| `forwardWindowsAuthToken` | <p>可选布尔属性。</p><p>如果为 true，会将令牌作为每个请求的标头“MS-ASPNETCORE-WINAUTHTOKEN”，转发到在 %ASPNETCORE_PORT% 上侦听的子进程。 该进程负责在每个请求的此令牌上调用 CloseHandle。</p> | `true` |
-| `processesPerApplication` | <p>可选的整数属性。</p><p>指定每个应用均可启动的 **processPath** 设置中指定的进程的实例数。</p><p>不建议设置 `processesPerApplication`。 将来的版本将删除此属性。</p> | 默认值：`1`<br>最小值：`1`<br>最大值：`100` |
-| `processPath` | <p>必需的字符串属性。</p><p>为 HTTP 请求启动进程侦听的可执行文件的路径。 支持相对路径。 如果路径以 `.` 开头，则该路径被视为与站点根目录相对。</p> | |
-| `rapidFailsPerMinute` | <p>可选的整数属性。</p><p>指定允许 processPath 中指定的进程每分钟崩溃的次数。 如果超出了此限制，模块将在剩余分钟数内停止启动该进程。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`100` |
-| `requestTimeout` | <p>可选的 timespan 属性。</p><p>指定 ASP.NET Core 模块等待来自 %ASPNETCORE_PORT% 上侦听的进程的响应的持续时间。</p><p>在 ASP.NET Core 2.0 或更早版本附带的 ASP.NET Core 模块版本中，必须仅使用整分钟数指定 `requestTimeout`，否则默认为 2 分钟。</p> | 默认值：`00:02:00`<br>最小值：`00:00:00`<br>最大值：`360:00:00` |
-| `shutdownTimeLimit` | <p>可选的整数属性。</p><p>检测到 app_offline.htm 文件时，模块等待可执行文件正常关闭的持续时间（以秒为单位）。</p> | 默认值：`10`<br>最小值：`0`<br>最大值：`600` |
-| `startupTimeLimit` | <p>可选的整数属性。</p><p>模块等待可执行文件启动端口上侦听的进程的持续时间（以秒为单位）。 如果超出了此时间限制，模块将终止该进程。 模块在收到新请求时尝试重新启动该进程，并在收到后续传入请求时继续尝试重新启动该进程，除非应用在上一回滚分钟内无法启动 rapidFailsPerMinute 次。</p> | 默认值：`120`<br>最小值：`0`<br>最大值：`3600` |
 | `stdoutLogEnabled` | <p>可选布尔属性。</p><p>如果为 true，processPath 中指定的 进程的 stdout 和 stderr 将重定向到 stdoutLogFile 中指定的文件。</p> | `false` |
 | `stdoutLogFile` | <p>可选的字符串属性。</p><p>指定在其中记录 processPath 中指定进程的 stdout 和 stderr 的相对路径或绝对路径。 相对路径与站点根目录相对。 以 `.` 开头的任何路径均与站点根目录相对，所有其他路径被视为绝对路径。 路径中提供的任何文件夹都必须存在，以便模块创建日志文件。 使用下划线分隔符，将时间戳、进程 ID 和文件扩展名 (.log) 添加到 stdoutLogFile 路径的最后一段。 如果 `.\logs\stdout` 作为值提供，则在示例 stdout 日志使用进程 ID 1934 于 2018 年 2 月 5 日 19:41:32 保存时，将在 logs 文件夹中保存为 stdout_20180205194132_1934.log。</p> | `aspnetcore-stdout` |
 
@@ -542,32 +525,6 @@ dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
 1. 运行安装程序。
 1. 将已更新的 applicationHost.config 文件导出到共享。
 1. 重新启用 IIS 共享配置。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.2"
-
-## <a name="application-initialization"></a>应用程序初始化
-
-[IIS 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)是一种 IIS 功能，可在应用池启动或回收时向应用发送 HTTP 请求。 该请求会触发应用启动。 应用程序初始化可由[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)和[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)与 ASP.NET Core 模块版本 2 一起使用。
-
-启用应用程序初始化：
-
-1. 确认已启用 IIS 应用程序初始化角色功能：
-   * 在 Windows 7 或更高版本上：导航到“控制面板” > “程序” > “程序和功能” > “打开或关闭 Windows 功能”（位于屏幕左侧）。 打开“Internet Information Services” > “万维网服务” > “应用程序开发功能”。 选中“应用程序初始化”的复选框。
-   * 在 Windows Server 2008 R2 或更高版本上，打开“添加角色和功能向导”。 访问“选择角色服务”面板时，打开“应用程序开发”节点并选中“应用程序初始化”复选框。
-1. 在 IIS 管理器的“连接”面板中选择“应用程序池”。
-1. 在列表中选择应用的应用池。
-1. 在“操作”面板中的“编辑应用程序池”下选择“高级设置”。
-1. 将“启动模式”设置为“AlwaysRunning”。
-1. 打开“连接”面板中的“网站”节点。
-1. 选择该应用。
-1. 在“操作”面板中的“管理网站”下选择“高级设置”。
-1. 将“预加载已启用”设置为“True”。
-
-若要了解详细信息，请参阅 [IIS 8.0 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)。
-
-使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)的应用必须使用外部服务定期 ping 应用，以使其保持运行状态。
 
 ::: moniker-end
 

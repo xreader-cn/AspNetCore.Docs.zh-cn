@@ -2,16 +2,17 @@
 title: IIS 模块与 ASP.NET Core
 author: guardrex
 description: 了解适用于 ASP.NET Core 应用的活动和非活动 IIS 模块以及如何管理 IIS 模块。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/28/2019
+ms.date: 05/12/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: 9770801b527829b131257da7c6e670bd33c23634
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: eb6cedfc572b4ffea969b3583ea6ec44cae1f575
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884142"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970061"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>IIS 模块与 ASP.NET Core
 
