@@ -18,7 +18,7 @@ ms.locfileid: "64889872"
 
 `dotnet watch` 是一种在源文件更改时运行 [.NET Core CLI](/dotnet/core/tools) 命令的工具。 例如，文件更改可能触发编译、测试执行或部署。
 
-本教程使用现有 Web API，它具有两个终结点：分别返回总和和产品。 该产品方法有一个 bug，本教程已修复。
+本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。 乘积的方法有一个 bug，本教程将会对其进行修复。
 
 下载[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp (ASP.NET Core Web API) 和 WebAppTests（用于 Web API 的单元测试）。
 
@@ -73,7 +73,7 @@ Application started. Press Ctrl+C to shut down.
 
 | 命令 | 带 watch 的命令 |
 | ---- | ----- |
-| dotnet 运行 | dotnet watch run |
+| dotnet run | dotnet watch run |
 | dotnet run -f netcoreapp2.0 | dotnet watch run -f netcoreapp2.0 |
 | dotnet run -f netcoreapp2.0 -- --arg1 | dotnet watch run -f netcoreapp2.0 -- --arg1 |
 | dotnet test | dotnet watch test |
@@ -87,7 +87,7 @@ Application started. Press Ctrl+C to shut down.
 
 确保 `dotnet watch` 正在运行。
 
-修复 MathController 的 `Product` 方法中的 bug，使其返回产品而非总和。
+修复 MathController 的 `Product` 方法中的 bug，使其返回乘积而非总和。
 
 ```csharp
 public static int Product(int a, int b)
@@ -112,7 +112,7 @@ public static int Product(int a, int b)
      Test Run Failed.
      ```
 
-1. 修复 `Product` 方法代码，使其返回产品。 保存该文件。
+1. 修复 `Product` 方法代码，使其返回乘积。 保存该文件。
 
 `dotnet watch` 检测到文件更改并重新运行测试。 控制台输出指示测试通过。
 
@@ -133,7 +133,7 @@ public static int Product(int a, int b)
 </ItemGroup>
 ```
 
-## <a name="opt-out-of-files-to-be-watched"></a>选择退出要监视的文件
+## <a name="opt-out-of-files-to-be-watched"></a>从要监视的文件中排除
 
 `dotnet-watch` 可配置为忽略其默认设置。 要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：
 
