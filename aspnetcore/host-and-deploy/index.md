@@ -2,16 +2,17 @@
 title: 托管和部署 ASP.NET Core
 author: guardrex
 description: 了解如何设置托管环境和部署 ASP.NET Core 应用。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/06/2018
+ms.date: 05/12/2019
 uid: host-and-deploy/index
-ms.openlocfilehash: f443a8ee28a859b5075a8bb03016407af9a3ddb1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 068c5f357b8010d78493a78a10c353e3317f3867
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882102"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969886"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>托管和部署 ASP.NET Core
 
@@ -46,19 +47,9 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="set-up-a-reverse-proxy"></a>设置反向代理
 
-::: moniker range=">= aspnetcore-2.0"
-
 如果应用使用 [Kestrel](xref:fundamentals/servers/kestrel) 服务器，[Nginx](xref:host-and-deploy/linux-nginx)、[Apache](xref:host-and-deploy/linux-apache) 或 [IIS](xref:host-and-deploy/iis/index) 可用作反向代理服务器。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
 
-无论配置是否使用反向代理服务器&mdash;&mdash;，都是 ASP.NET Core 2.0 或更高版本应用的支持托管配置。 有关详细信息，请参阅[何时结合使用 Kestrel 和反向代理](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy)。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-如果应用使用 [Kestrel](xref:fundamentals/servers/kestrel) 服务器，并被公开到 Internet，[Nginx](xref:host-and-deploy/linux-nginx)、[Apache](xref:host-and-deploy/linux-apache) 或 [IIS](xref:host-and-deploy/iis/index) 可用作反向代理服务器。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。 使用反向代理的主要原因是出于安全考虑。 有关详细信息，请参阅[何时结合使用 Kestrel 和反向代理](xref:fundamentals/servers/kestrel?tabs=aspnetcore1x#when-to-use-kestrel-with-a-reverse-proxy)。
-
-::: moniker-end
+无论配置是否使用反向代理服务器，都是受支持的托管配置。 有关详细信息，请参阅[何时结合使用 Kestrel 和反向代理](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy)。
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 

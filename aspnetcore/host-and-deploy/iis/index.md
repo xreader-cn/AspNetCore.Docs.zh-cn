@@ -2,16 +2,17 @@
 title: 使用 IIS 在 Windows 上托管 ASP.NET Core
 author: guardrex
 description: 了解如何在 Windows Server Internet Information Services (IIS) 上托管 ASP.NET Core 应用。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/07/2019
+ms.date: 05/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: c8e742047230339434b910de9a8a2492bc4da1ff
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: aff4b857394c554e94dd8929dca809eb1a4387f2
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450983"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970043"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -42,8 +43,6 @@ ms.locfileid: "65450983"
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-::: moniker range=">= aspnetcore-2.1"
-
 典型的 Program.cs 调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 以开始设置主机：
 
 ```csharp
@@ -51,20 +50,6 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         ...
 ```
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-典型的 Program.cs 调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 以开始设置主机：
-
-```csharp
-public static IWebHost BuildWebHost(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-        ...
-```
-
-::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -90,7 +75,7 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
+::: moniker range="< aspnetcore-2.2"
 
 `CreateDefaultBuilder` 将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器配置为 Web 服务器，并通过配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)的基础路径和端口来启用 IIS 集成。
 
@@ -101,44 +86,6 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 * [配置](xref:fundamentals/configuration/index)（或 [命令行 -- URL 选项](xref:fundamentals/host/web-host#override-configuration)）
 
 使用模块时，不需要调用 `UseUrls` 或 Kestrel 的 `Listen` API。 如果调用 `UseUrls` 或 `Listen`，则 Kestrel 仅会侦听在没有 IIS 的情况下运行应用时指定的端口。
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-`CreateDefaultBuilder` 将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器配置为 Web 服务器，并通过配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)的基础路径和端口来启用 IIS 集成。
-
-ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultBuilder` 调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 方法。 `UseIISIntegration` 配置在 localhost IP 地址 (`localhost`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `localhost:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
-
-* `UseUrls`
-* [Kestrel 的侦听 API](xref:fundamentals/servers/kestrel#endpoint-configuration)
-* [配置](xref:fundamentals/configuration/index)（或 [命令行 -- URL 选项](xref:fundamentals/host/web-host#override-configuration)）
-
-使用模块时，不需要调用 `UseUrls` 或 Kestrel 的 `Listen` API。 如果调用 `UseUrls` 或 `Listen`，则 Kestrel 仅会侦听在没有 IIS 的情况下运行应用时指定的端口。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-在应用依赖项中加入对 [Microsoft.AspNetCore.Server.IISIntegration ](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)包的依赖项。 通过向 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 添加 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 扩展方法来使用 IIS 集成中间件：
-
-```csharp
-var host = new WebHostBuilder()
-    .UseKestrel()
-    .UseIISIntegration()
-    ...
-```
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> 和 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 均为必需。 调用 `UseIISIntegration` 的代码不会影响代码可移植性。 如果应用不在 IIS 后面运行（例如，应用直接在 Kestrel 上运行），则 `UseIISIntegration` 不会运行。
-
-ASP.NET Core 模块生成分配给后端进程的动态端口。 `UseIISIntegration` 配置在 localhost IP 地址 (`localhost`) 中的动态端口上侦听的 Kestrel。 如果动态端口为 1234，则 Kestrel 在 `localhost:1234` 中侦听。 此配置将替换以下 API 提供的其他 URL 配置：
-
-* `UseUrls`
-* [配置](xref:fundamentals/configuration/index)（或 [命令行 -- URL 选项](xref:fundamentals/host/web-host#override-configuration)）
-
-使用模块时无需调用 `UseUrls`。 如果调用 `UseUrls`，则 Kestrel 仅会侦听在没有 IIS 的情况下运行应用时指定的端口。
-
-如果在 ASP.NET Core 1.0 应用中调用 `UseUrls`，请在调用 `UseIISIntegration` 前调用它，使模块配置的端口不会被覆盖。 ASP.NET Core 1.1 不需要此调用顺序，因为模块设置会重写 `UseUrls`。
 
 ::: moniker-end
 
@@ -174,12 +121,16 @@ services.Configure<IISServerOptions>(options =>
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 | 选项                         | 默认 | 设置 |
 | ------------------------------ | :-----: | ------- |
 | `AutomaticAuthentication`      | `true`  | 若为 `true`，IIS 服务器将设置经过 [Windows 身份验证](xref:security/authentication/windowsauth)进行身份验证的 `HttpContext.User`。 若为 `false`，服务器仅提供 `HttpContext.User` 的标识并在 `AuthenticationScheme` 显式请求时响应质询。 必须在 IIS 中启用 Windows 身份验证使 `AutomaticAuthentication` 得以运行。 有关详细信息，请参阅 [Windows 身份验证](xref:security/authentication/windowsauth)。 |
 | `AuthenticationDisplayName`    | `null`  | 设置在登录页上向用户显示的显示名。 |
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 **进程外承载模型**
 
@@ -352,7 +303,7 @@ web.config 文件可能会提供其他 IIS 配置设置，以控制活动的 IIS
 
    ![将“.NET CLR 版本”设置为“无托管代码”。](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖加载桌面 CLR。 将“.NET CLR 版本”设置为“无托管代码”为可选步骤。
+    ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”设置为“无托管代码”是可选步骤，但建议采用此设置。
 
 1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
@@ -505,7 +456,7 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 若要将 ASP.NET Core 应用作为子应用托管在其他 ASP.NET Core 应用下：
 
-1. 为此子应用创建应用池。 将“.NET CLR 版本”设置为“无托管代码”。
+1. 为此子应用创建应用池。 将“.NET CLR 版本”设置为“无托管代码”，因为将启动 .NET Core 的核心公共语言运行时 (CoreCLR) ，将应用托管在工作进程中，而非桌面 CLR (.NET CLR) 中。
 
 1. 在 IIS 管理器中添加根网站，并且此子应用在根网站的某个文件夹中。
 
@@ -629,6 +580,83 @@ ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 本部分仅适用于面向 .NET Framework 的 ASP.NET Core 应用程序。
 
 对于面向 .NET Framework 的 ASP.NET Core 应用程序，默认情况下，IIS 不会将 OPTIONS 请求传递给应用程序。 若要了解如何在 web.config 中配置应用程序的 IIS 处理程序以传递 OPTIONS 请求，请参阅[在 ASP.NET Web API 2 中启用跨域请求：CORS 的工作原理](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works)。
+
+::: moniker range=">= aspnetcore-2.2"
+
+## <a name="application-initialization-module-and-idle-timeout"></a>应用程序初始化模块和空闲超时
+
+通过 ASP.NET Core 模板版本 2 托管在 IIS 中时：
+
+* [应用程序初始化模块](#application-initialization-module) &ndash; 可以将托管在[进程内](xref:fundamentals/servers/index#in-process-hosting-model)或[进程外](xref:fundamentals/servers/index#out-of-process-hosting-model)的应用程序配置为在工作进程重启或服务器重启后自动启动。
+* [空闲超时](#idle-timeout) &ndash; 可以将托管在[进程内](xref:fundamentals/servers/index#in-process-hosting-model)的应用配置为在非活动时段期间不超时。
+
+### <a name="application-initialization-module"></a>应用程序初始化模块
+
+适用于托管在进程内和进程外的应用。
+
+[IIS 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)是一种 IIS 功能，可在应用池启动或回收时向应用发送 HTTP 请求。 该请求会触发应用启动。 默认情况下，IIS 向应用的根 URL (`/`) 发出请求以初始化应用（有关配置的详细信息，请参阅[更多资源](#application-initialization-module-and-idle-timeout-additional-resources)）。
+
+确认已启用 IIS 应用程序初始化角色功能：
+
+Windows 7 或更高版本桌面系统，在本地使用 IIS 时：
+
+1. 导航到“控制面板”>“程序”>“程序和功能”>“启用或禁用 Windows 功能”（位于屏幕左侧）。
+1. 打开“Internet Information Services”>“万维网服务”>“应用程序开发功能”。
+1. 选中“应用程序初始化”的复选框。
+
+Windows Server 2008 R2 或更高版本：
+
+1. 打开“添加角色和功能向导”。
+1. 在“选择角色服务”面板中，打开“应用程序开发”节点。
+1. 选中“应用程序初始化”的复选框。
+
+使用下面的任一方法为站点启用“应用程序初始化模块”：
+
+* 使用 IIS 管理器：
+
+  1. 在“连接”面板中选择“应用程序池”。
+  1. 在列表中右键单击应用的应用池，并选择“高级设置”。
+  1. 默认的“启动模式”为“按需”。 将“启动模式”设置为“始终运行”。 选择“确定”。
+  1. 打开“连接”面板中的“网站”节点。
+  1. 右键单击应用，并选择“管理网站”>“高级设置”。
+  1. 默认的“预加载已启用”设置为“False”。 将“预加载已启用”设置为“True”。 选择“确定”。
+
+* 使用 web.config 将 `doAppInitAfterRestart` 已设置为 `true` 的 `<applicationInitialization>` 元素添加到应用的 web.config 文件中的 `<system.webServer>` 元素中：
+
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <configuration>
+    <location path="." inheritInChildApplications="false">
+      <system.webServer>
+        <applicationInitialization doAppInitAfterRestart="true" />
+      </system.webServer>
+    </location>
+  </configuration>
+  ```
+
+### <a name="idle-timeout"></a>空闲超时
+
+仅适用于托管在进程内的应用。
+
+若要防止应用进入空闲状态，请使用 IIS 管理器设置应用池的空闲超时：
+
+1. 在“连接”面板中选择“应用程序池”。
+1. 在列表中右键单击应用的应用池，并选择“高级设置”。
+1. 默认的“空闲超时(分钟)”为“20”分钟。 将“空闲超时(分钟)”设置为“0”（零）。 选择“确定”。
+1. 回收工作进程。
+
+若要防止托管在[进程外](xref:fundamentals/servers/index#out-of-process-hosting-model)的应用超时，请使用下列任一方法：
+
+* 从外部服务 ping 应用，使其保持运行状态。
+* 如果应用仅托管后台服务，请避免使用 IIS 托管，而是[使用 Windows 服务托管 ASP.NET Core 应用](xref:host-and-deploy/windows-service)。
+
+### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>关于应用程序初始化模块和空闲超时的更多资源
+
+* [IIS 8.0 应用程序初始化](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
+* [应用程序初始化 \<applicationInitialization>](/iis/configuration/system.webserver/applicationinitialization/)。
+* [应用程序池的进程模型设置 \<processModel>](/iis/configuration/system.applicationhost/applicationpools/add/processmodel)。
+
+::: moniker-end
 
 ## <a name="deployment-resources-for-iis-administrators"></a>面向 IIS 管理员的部署资源
 

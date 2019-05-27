@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 04/09/2019
 uid: grpc/configuration
-ms.openlocfilehash: 66dfb9ec136616f10c1b7aaad766e18813b87de4
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 851c9ca1f7d62f6f368df66bb38eb4bbaf64bf32
+ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087354"
+ms.lasthandoff: 05/23/2019
+ms.locfileid: "66041884"
 ---
 # <a name="grpc-for-aspnet-core-configuration"></a>ASP.NET Core 配置的 gRPC
 
@@ -48,36 +48,6 @@ services.AddGrpc().AddServiceOptions<MyService>(options =>
 {
     options.ReceiveMaxMessageSize = 10 * 1024 * 1024; // 10 megabytes
 });
-```
-
-## <a name="configure-kestrel-options"></a>配置 Kestrel 选项
-
-Kestrel 服务器有影响 for ASP.NET gRPC 的行为的配置选项。
-
-### <a name="request-body-data-rate-limit"></a>请求正文数据速率限制
-
-默认情况下，Kestrel 服务器施加[最小请求正文数据速率](
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>)。 有关流式处理客户端和双工流式处理的调用，可能不满足此速率和连接可能超时。最小值请求的正文 gRPC 服务包含流式处理客户端和双工流式处理调用时，必须禁用数据速率限制：
-
-```csharp
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-         Host.CreateDefaultBuilder(args)
-    .ConfigureWebHostDefaults(webBuilder =>
-    {
-        webBuilder.UseStartup<Startup>();
-        webBuilder.ConfigureKestrel((context, options) =>
-        {
-            options.Limits.MinRequestBodyDataRate = null;
-        });
-    });
-}
 ```
 
 ## <a name="additional-resources"></a>其他资源
