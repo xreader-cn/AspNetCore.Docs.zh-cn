@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: aff4b857394c554e94dd8929dca809eb1a4387f2
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 6ba4da913ef712ef897a4c8418263e3060ea85ac
+ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970043"
+ms.lasthandoff: 05/22/2019
+ms.locfileid: "66004969"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -33,11 +33,13 @@ ms.locfileid: "65970043"
 
 ## <a name="supported-platforms"></a>受支持的平台
 
-支持针对 32 位 (x86) 和 64 位 (x64) 部署发布应用。 除非应用符合以下条件，否则部署 32 位应用：
+支持针对 32 位 (x86) 或 64 位 (x64) 部署发布的应用。 使用 32 位 (x86) .NET Core SDK 部署 32 位应用，除非应用符合以下情况：
 
 * 需要适用于 64 位应用的更大虚拟内存地址空间。
 * 需要更大 IIS 堆栈大小。
 * 具有 64 位本机依赖项。
+
+使用 64 位 (x64) .NET Core SDK 发布 64 位应用。 主机系统必须具有 64 位运行时。
 
 ## <a name="application-configuration"></a>应用程序配置
 
@@ -522,7 +524,7 @@ IIS 管理进程使用 Windows 安全系统中应用池的名称创建安全标�
 
 1. 选择“位置”按钮，并确保该系统处于选中状态。
 
-1. 在“输入要选择的对象名称”区域中输入**IIS AppPool\\<app_pool_name>**。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
+1. 在“输入要选择的对象名称”区域中输入**IIS AppPool\\<app_pool_name>** 。 选择“检查名称”按钮。 有关 DefaultAppPool，请检查使用 IIS AppPool\DefaultAppPool 的名称。 当选择“检查名称”按钮时，对象名称区域中会显示 DefaultAppPool 的值。 无法直接在对象名称区域中输入应用池名称。 检查对象名称时，请使用 **IIS AppPool\\<app_pool_name>** 格式。
 
    ![应用文件夹的“选择用户或组”对话框：在选择“检查名称”前，将“DefaultAppPool”的应用池名称追加到对象名称区域中的“IIS AppPool”。](index/_static/select-users-or-groups-1.png)
 
