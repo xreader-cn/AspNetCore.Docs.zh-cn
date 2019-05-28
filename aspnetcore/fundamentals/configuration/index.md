@@ -5,72 +5,76 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/11/2019
+ms.date: 05/24/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 63a876c09f952537d790f2a5df4b8672df49d015
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: 3f7588f9ba18e300f5947e8bb0daf2e72d580a94
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65517023"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223168"
 ---
-# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="b3044-103">ASP.NET Core 中的配置</span><span class="sxs-lookup"><span data-stu-id="b3044-103">Configuration in ASP.NET Core</span></span>
+# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="c9653-103">ASP.NET Core 中的配置</span><span class="sxs-lookup"><span data-stu-id="c9653-103">Configuration in ASP.NET Core</span></span>
 
-<span data-ttu-id="b3044-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="b3044-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="c9653-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="c9653-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="b3044-105">ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。</span><span class="sxs-lookup"><span data-stu-id="b3044-105">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="b3044-106">配置提供程序将配置数据从各种配置源读取到键值对：</span><span class="sxs-lookup"><span data-stu-id="b3044-106">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
+<span data-ttu-id="c9653-105">ASP.NET Core 中的应用配置基于配置提供程序  建立的键值对。</span><span class="sxs-lookup"><span data-stu-id="c9653-105">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="c9653-106">配置提供程序将配置数据从各种配置源读取到键值对：</span><span class="sxs-lookup"><span data-stu-id="c9653-106">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="b3044-107">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="b3044-107">Azure Key Vault</span></span>
-* <span data-ttu-id="b3044-108">命令行参数</span><span class="sxs-lookup"><span data-stu-id="b3044-108">Command-line arguments</span></span>
-* <span data-ttu-id="b3044-109">（已安装或已创建的）自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-109">Custom providers (installed or created)</span></span>
-* <span data-ttu-id="b3044-110">目录文件</span><span class="sxs-lookup"><span data-stu-id="b3044-110">Directory files</span></span>
-* <span data-ttu-id="b3044-111">环境变量</span><span class="sxs-lookup"><span data-stu-id="b3044-111">Environment variables</span></span>
-* <span data-ttu-id="b3044-112">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="b3044-112">In-memory .NET objects</span></span>
-* <span data-ttu-id="b3044-113">设置文件</span><span class="sxs-lookup"><span data-stu-id="b3044-113">Settings files</span></span>
+* <span data-ttu-id="c9653-107">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c9653-107">Azure Key Vault</span></span>
+* <span data-ttu-id="c9653-108">命令行参数</span><span class="sxs-lookup"><span data-stu-id="c9653-108">Command-line arguments</span></span>
+* <span data-ttu-id="c9653-109">（已安装或已创建的）自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-109">Custom providers (installed or created)</span></span>
+* <span data-ttu-id="c9653-110">目录文件</span><span class="sxs-lookup"><span data-stu-id="c9653-110">Directory files</span></span>
+* <span data-ttu-id="c9653-111">环境变量</span><span class="sxs-lookup"><span data-stu-id="c9653-111">Environment variables</span></span>
+* <span data-ttu-id="c9653-112">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="c9653-112">In-memory .NET objects</span></span>
+* <span data-ttu-id="c9653-113">设置文件</span><span class="sxs-lookup"><span data-stu-id="c9653-113">Settings files</span></span>
 
-<span data-ttu-id="b3044-114">选项模式是本主题中描述的配置概念的扩展。</span><span class="sxs-lookup"><span data-stu-id="b3044-114">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="b3044-115">选项使用类来表示相关设置的组。</span><span class="sxs-lookup"><span data-stu-id="b3044-115">Options uses classes to represent groups of related settings.</span></span> <span data-ttu-id="b3044-116">有关使用选项模式的详细信息，请参阅 <xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="b3044-116">For more information on using the options pattern, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="c9653-114">[Microsoft.AspNetCore.App 元包中](xref:fundamentals/metapackage-app)有常见配置提供程序方案的配置包。</span><span class="sxs-lookup"><span data-stu-id="c9653-114">Configuration packages for common configuration provider scenarios are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="c9653-115">后面的代码示例和示例应用中的代码示例使用 <xref:Microsoft.Extensions.Configuration> 命名空间：</span><span class="sxs-lookup"><span data-stu-id="c9653-115">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
 
-<span data-ttu-id="b3044-117">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="b3044-117">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+```csharp
+using Microsoft.Extensions.Configuration;
+```
 
-<span data-ttu-id="b3044-118">这三个包均包括在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-118">These three packages are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-116">选项模式  是本主题中描述的配置概念的扩展。</span><span class="sxs-lookup"><span data-stu-id="c9653-116">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="c9653-117">选项使用类来表示相关设置的组。</span><span class="sxs-lookup"><span data-stu-id="c9653-117">Options uses classes to represent groups of related settings.</span></span> <span data-ttu-id="c9653-118">有关使用选项模式的详细信息，请参阅 <xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="c9653-118">For more information on using the options pattern, see <xref:fundamentals/configuration/options>.</span></span>
 
-## <a name="host-vs-app-configuration"></a><span data-ttu-id="b3044-119">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="b3044-119">Host vs. app configuration</span></span>
+<span data-ttu-id="c9653-119">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="c9653-119">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="b3044-120">在配置并启动应用之前，配置并启动主机。</span><span class="sxs-lookup"><span data-stu-id="b3044-120">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="b3044-121">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="b3044-121">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="b3044-122">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-122">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="b3044-123">主机配置键值对成为应用的全局配置的一部分。</span><span class="sxs-lookup"><span data-stu-id="b3044-123">Host configuration key-value pairs become part of the app's global configuration.</span></span> <span data-ttu-id="b3044-124">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅[主机](xref:fundamentals/index#host)。</span><span class="sxs-lookup"><span data-stu-id="b3044-124">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see [The host](xref:fundamentals/index#host).</span></span>
+## <a name="host-vs-app-configuration"></a><span data-ttu-id="c9653-120">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="c9653-120">Host vs. app configuration</span></span>
 
-## <a name="default-configuration"></a><span data-ttu-id="b3044-125">默认配置</span><span class="sxs-lookup"><span data-stu-id="b3044-125">Default configuration</span></span>
+<span data-ttu-id="c9653-121">在配置并启动应用之前，配置并启动主机  。</span><span class="sxs-lookup"><span data-stu-id="c9653-121">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="c9653-122">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="c9653-122">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="c9653-123">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-123">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="c9653-124">主机配置键值对成为应用的全局配置的一部分。</span><span class="sxs-lookup"><span data-stu-id="c9653-124">Host configuration key-value pairs become part of the app's global configuration.</span></span> <span data-ttu-id="c9653-125">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅[主机](xref:fundamentals/index#host)。</span><span class="sxs-lookup"><span data-stu-id="c9653-125">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see [The host](xref:fundamentals/index#host).</span></span>
 
-<span data-ttu-id="b3044-126">基于 ASP.NET Core [dotnet 新](/dotnet/core/tools/dotnet-new)模板的 Web 应用在生成主机时会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>。</span><span class="sxs-lookup"><span data-stu-id="b3044-126">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="b3044-127"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-127"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
+## <a name="default-configuration"></a><span data-ttu-id="c9653-126">默认配置</span><span class="sxs-lookup"><span data-stu-id="c9653-126">Default configuration</span></span>
 
-* <span data-ttu-id="b3044-128">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="b3044-128">Host configuration is provided from:</span></span>
-  * <span data-ttu-id="b3044-129">使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-129">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="b3044-130">在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="b3044-130">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="b3044-131">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-131">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
-* <span data-ttu-id="b3044-132">应用配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="b3044-132">App configuration is provided from:</span></span>
-  * <span data-ttu-id="b3044-133">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-133">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="b3044-134">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-134">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="b3044-135">应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="b3044-135">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
-  * <span data-ttu-id="b3044-136">使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-136">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="b3044-137">如果使用的是自定义前缀（例如，带有 `.AddEnvironmentVariables(prefix: "PREFIX_")` 的 `PREFIX_`），前缀在配置键值对加载后遭去除。</span><span class="sxs-lookup"><span data-stu-id="b3044-137">If a custom prefix is used (for example, `PREFIX_` with `.AddEnvironmentVariables(prefix: "PREFIX_")`), the prefix is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="b3044-138">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="b3044-138">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+<span data-ttu-id="c9653-127">基于 ASP.NET Core [dotnet 新](/dotnet/core/tools/dotnet-new)模板的 Web 应用在生成主机时会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>。</span><span class="sxs-lookup"><span data-stu-id="c9653-127">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="c9653-128"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-128"><xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
 
-<span data-ttu-id="b3044-139">本主题后面将介绍配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-139">The configuration providers are explained later in this topic.</span></span> <span data-ttu-id="b3044-140">有关主机和 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 的更多信息，请参阅 <xref:fundamentals/host/web-host#set-up-a-host>。</span><span class="sxs-lookup"><span data-stu-id="b3044-140">For more information on the host and <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, see <xref:fundamentals/host/web-host#set-up-a-host>.</span></span>
+* <span data-ttu-id="c9653-129">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="c9653-129">Host configuration is provided from:</span></span>
+  * <span data-ttu-id="c9653-130">使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-130">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="c9653-131">在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="c9653-131">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="c9653-132">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-132">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="c9653-133">应用配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="c9653-133">App configuration is provided from:</span></span>
+  * <span data-ttu-id="c9653-134">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json  提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-134">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="c9653-135">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json  提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-135">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="c9653-136">应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="c9653-136">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
+  * <span data-ttu-id="c9653-137">使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-137">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="c9653-138">如果使用的是自定义前缀（例如，带有 `.AddEnvironmentVariables(prefix: "PREFIX_")` 的 `PREFIX_`），前缀在配置键值对加载后遭去除。</span><span class="sxs-lookup"><span data-stu-id="c9653-138">If a custom prefix is used (for example, `PREFIX_` with `.AddEnvironmentVariables(prefix: "PREFIX_")`), the prefix is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="c9653-139">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="c9653-139">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
 
-## <a name="security"></a><span data-ttu-id="b3044-141">安全性</span><span class="sxs-lookup"><span data-stu-id="b3044-141">Security</span></span>
+<span data-ttu-id="c9653-140">本主题后面将介绍配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-140">The configuration providers are explained later in this topic.</span></span> <span data-ttu-id="c9653-141">有关主机和 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 的更多信息，请参阅 <xref:fundamentals/host/web-host#set-up-a-host>。</span><span class="sxs-lookup"><span data-stu-id="c9653-141">For more information on the host and <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, see <xref:fundamentals/host/web-host#set-up-a-host>.</span></span>
 
-<span data-ttu-id="b3044-142">采用以下最佳实践：</span><span class="sxs-lookup"><span data-stu-id="b3044-142">Adopt the following best practices:</span></span>
+## <a name="security"></a><span data-ttu-id="c9653-142">安全性</span><span class="sxs-lookup"><span data-stu-id="c9653-142">Security</span></span>
 
-* <span data-ttu-id="b3044-143">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="b3044-143">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
-* <span data-ttu-id="b3044-144">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="b3044-144">Don't use production secrets in development or test environments.</span></span>
-* <span data-ttu-id="b3044-145">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="b3044-145">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
+<span data-ttu-id="c9653-143">采用以下最佳实践：</span><span class="sxs-lookup"><span data-stu-id="c9653-143">Adopt the following best practices:</span></span>
 
-<span data-ttu-id="b3044-146">详细了解[如何使用多个环境](xref:fundamentals/environments)和管理[使用 Secret Manager 的开发中的应用机密的安全存储](xref:security/app-secrets)（包括使用环境变量存储敏感数据的建议）。</span><span class="sxs-lookup"><span data-stu-id="b3044-146">Learn more about [how to use multiple environments](xref:fundamentals/environments) and managing the [safe storage of app secrets in development with the Secret Manager](xref:security/app-secrets) (includes advice on using environment variables to store sensitive data).</span></span> <span data-ttu-id="b3044-147">Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="b3044-147">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="b3044-148">本主题后面将介绍文件配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-148">The File Configuration Provider is described later in this topic.</span></span>
+* <span data-ttu-id="c9653-144">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="c9653-144">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
+* <span data-ttu-id="c9653-145">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="c9653-145">Don't use production secrets in development or test environments.</span></span>
+* <span data-ttu-id="c9653-146">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="c9653-146">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="b3044-149">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 是安全存储应用机密的一种选择。</span><span class="sxs-lookup"><span data-stu-id="b3044-149">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) is one option for the safe storage of app secrets.</span></span> <span data-ttu-id="b3044-150">有关更多信息，请参见<xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="b3044-150">For more information, see <xref:security/key-vault-configuration>.</span></span>
+<span data-ttu-id="c9653-147">详细了解[如何使用多个环境](xref:fundamentals/environments)和管理[使用 Secret Manager 的开发中的应用机密的安全存储](xref:security/app-secrets)（包括使用环境变量存储敏感数据的建议）。</span><span class="sxs-lookup"><span data-stu-id="c9653-147">Learn more about [how to use multiple environments](xref:fundamentals/environments) and managing the [safe storage of app secrets in development with the Secret Manager](xref:security/app-secrets) (includes advice on using environment variables to store sensitive data).</span></span> <span data-ttu-id="c9653-148">Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="c9653-148">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="c9653-149">本主题后面将介绍文件配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-149">The File Configuration Provider is described later in this topic.</span></span>
 
-## <a name="hierarchical-configuration-data"></a><span data-ttu-id="b3044-151">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="b3044-151">Hierarchical configuration data</span></span>
+<span data-ttu-id="c9653-150">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 是安全存储应用机密的一种选择。</span><span class="sxs-lookup"><span data-stu-id="c9653-150">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) is one option for the safe storage of app secrets.</span></span> <span data-ttu-id="c9653-151">有关更多信息，请参见<xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="c9653-151">For more information, see <xref:security/key-vault-configuration>.</span></span>
 
-<span data-ttu-id="b3044-152">配置 API 能够通过在配置键中使用分隔符来展平分层数据以保持分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="b3044-152">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+## <a name="hierarchical-configuration-data"></a><span data-ttu-id="c9653-152">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="c9653-152">Hierarchical configuration data</span></span>
 
-<span data-ttu-id="b3044-153">在以下 JSON 文件中，两个节的结构化层次结构中存在四个键：</span><span class="sxs-lookup"><span data-stu-id="b3044-153">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
+<span data-ttu-id="c9653-153">配置 API 能够通过在配置键中使用分隔符来展平分层数据以保持分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="c9653-153">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+
+<span data-ttu-id="c9653-154">在以下 JSON 文件中，两个节的结构化层次结构中存在四个键：</span><span class="sxs-lookup"><span data-stu-id="c9653-154">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
 
 ```json
 {
@@ -85,26 +89,24 @@ ms.locfileid: "65517023"
 }
 ```
 
-<span data-ttu-id="b3044-154">将文件读入配置时，将创建唯一键以保持配置源的原始分层数据结构。</span><span class="sxs-lookup"><span data-stu-id="b3044-154">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="b3044-155">使用冒号 (`:`) 展平节和键以保持原始结构：</span><span class="sxs-lookup"><span data-stu-id="b3044-155">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
+<span data-ttu-id="c9653-155">将文件读入配置时，将创建唯一键以保持配置源的原始分层数据结构。</span><span class="sxs-lookup"><span data-stu-id="c9653-155">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="c9653-156">使用冒号 (`:`) 展平节和键以保持原始结构：</span><span class="sxs-lookup"><span data-stu-id="c9653-156">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
 
-* <span data-ttu-id="b3044-156">section0:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-156">section0:key0</span></span>
-* <span data-ttu-id="b3044-157">section0:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-157">section0:key1</span></span>
-* <span data-ttu-id="b3044-158">section1:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-158">section1:key0</span></span>
-* <span data-ttu-id="b3044-159">section1:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-159">section1:key1</span></span>
+* <span data-ttu-id="c9653-157">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-157">section0:key0</span></span>
+* <span data-ttu-id="c9653-158">section0:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-158">section0:key1</span></span>
+* <span data-ttu-id="c9653-159">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-159">section1:key0</span></span>
+* <span data-ttu-id="c9653-160">section1:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-160">section1:key1</span></span>
 
-<span data-ttu-id="b3044-160"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="b3044-160"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="b3044-161">稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-161">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span> <span data-ttu-id="b3044-162">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-162">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-161"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="c9653-161"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="c9653-162">稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-162">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span> <span data-ttu-id="c9653-163">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-163">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="b3044-163">约定</span><span class="sxs-lookup"><span data-stu-id="b3044-163">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="c9653-164">约定</span><span class="sxs-lookup"><span data-stu-id="c9653-164">Conventions</span></span>
 
-<span data-ttu-id="b3044-164">在应用启动时，将按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="b3044-164">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
+<span data-ttu-id="c9653-165">在应用启动时，将按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="c9653-165">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
 
-<span data-ttu-id="b3044-165">实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-165">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="b3044-166">例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。</span><span class="sxs-lookup"><span data-stu-id="b3044-166">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
+<span data-ttu-id="c9653-166">实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-166">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="c9653-167">例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。</span><span class="sxs-lookup"><span data-stu-id="c9653-167">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
 
-<span data-ttu-id="b3044-167">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="b3044-167"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="b3044-168"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 以获取以下类的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-168"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> to obtain configuration for the class:</span></span>
+<span data-ttu-id="c9653-168">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="c9653-168"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="c9653-169"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 以获取以下类的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-169"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> to obtain configuration for the class:</span></span>
 
 ```csharp
-// using Microsoft.Extensions.Configuration;
-
 public class IndexModel : PageModel
 {
     private readonly IConfiguration _config;
@@ -119,81 +121,81 @@ public class IndexModel : PageModel
 }
 ```
 
-<span data-ttu-id="b3044-169">配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。</span><span class="sxs-lookup"><span data-stu-id="b3044-169">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
+<span data-ttu-id="c9653-170">配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。</span><span class="sxs-lookup"><span data-stu-id="c9653-170">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
 
-<span data-ttu-id="b3044-170">配置键采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="b3044-170">Configuration keys adopt the following conventions:</span></span>
+<span data-ttu-id="c9653-171">配置键采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="c9653-171">Configuration keys adopt the following conventions:</span></span>
 
-* <span data-ttu-id="b3044-171">键不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="b3044-171">Keys are case-insensitive.</span></span> <span data-ttu-id="b3044-172">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="b3044-172">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
-* <span data-ttu-id="b3044-173">如果由相同或不同的配置提供程序设置相同键的值，则键上设置的最后一个值就是所使用的值。</span><span class="sxs-lookup"><span data-stu-id="b3044-173">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
-* <span data-ttu-id="b3044-174">分层键</span><span class="sxs-lookup"><span data-stu-id="b3044-174">Hierarchical keys</span></span>
-  * <span data-ttu-id="b3044-175">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="b3044-175">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
-  * <span data-ttu-id="b3044-176">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="b3044-176">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="b3044-177">而所有平台均支持采用双下划线 (`__`)，并可以将其转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="b3044-177">A double underscore (`__`) is supported by all platforms and is converted to a colon.</span></span>
-  * <span data-ttu-id="b3044-178">在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="b3044-178">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="b3044-179">将机密加载到应用的配置中时，必须提供代码以用冒号替换破折号。</span><span class="sxs-lookup"><span data-stu-id="b3044-179">You must provide code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
-* <span data-ttu-id="b3044-180"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="b3044-180">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="b3044-181">数组绑定将在[将数组绑定到类](#bind-an-array-to-a-class)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="b3044-181">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
+* <span data-ttu-id="c9653-172">键不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="c9653-172">Keys are case-insensitive.</span></span> <span data-ttu-id="c9653-173">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="c9653-173">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
+* <span data-ttu-id="c9653-174">如果由相同或不同的配置提供程序设置相同键的值，则键上设置的最后一个值就是所使用的值。</span><span class="sxs-lookup"><span data-stu-id="c9653-174">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
+* <span data-ttu-id="c9653-175">分层键</span><span class="sxs-lookup"><span data-stu-id="c9653-175">Hierarchical keys</span></span>
+  * <span data-ttu-id="c9653-176">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="c9653-176">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
+  * <span data-ttu-id="c9653-177">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="c9653-177">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="c9653-178">而所有平台均支持采用双下划线 (`__`)，并可以将其转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="c9653-178">A double underscore (`__`) is supported by all platforms and is converted to a colon.</span></span>
+  * <span data-ttu-id="c9653-179">在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="c9653-179">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="c9653-180">将机密加载到应用的配置中时，必须提供代码以用冒号替换破折号。</span><span class="sxs-lookup"><span data-stu-id="c9653-180">You must provide code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
+* <span data-ttu-id="c9653-181"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="c9653-181">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c9653-182">数组绑定将在[将数组绑定到类](#bind-an-array-to-a-class)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="c9653-182">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
 
-<span data-ttu-id="b3044-182">配置值采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="b3044-182">Configuration values adopt the following conventions:</span></span>
+<span data-ttu-id="c9653-183">配置值采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="c9653-183">Configuration values adopt the following conventions:</span></span>
 
-* <span data-ttu-id="b3044-183">值是字符串。</span><span class="sxs-lookup"><span data-stu-id="b3044-183">Values are strings.</span></span>
-* <span data-ttu-id="b3044-184">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="b3044-184">Null values can't be stored in configuration or bound to objects.</span></span>
+* <span data-ttu-id="c9653-184">值是字符串。</span><span class="sxs-lookup"><span data-stu-id="c9653-184">Values are strings.</span></span>
+* <span data-ttu-id="c9653-185">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="c9653-185">Null values can't be stored in configuration or bound to objects.</span></span>
 
-## <a name="providers"></a><span data-ttu-id="b3044-185">提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-185">Providers</span></span>
+## <a name="providers"></a><span data-ttu-id="c9653-186">提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-186">Providers</span></span>
 
-<span data-ttu-id="b3044-186">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-186">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+<span data-ttu-id="c9653-187">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-187">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
 
-| <span data-ttu-id="b3044-187">提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-187">Provider</span></span> | <span data-ttu-id="b3044-188">通过以下对象提供配置&hellip;</span><span class="sxs-lookup"><span data-stu-id="b3044-188">Provides configuration from&hellip;</span></span> |
+| <span data-ttu-id="c9653-188">提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-188">Provider</span></span> | <span data-ttu-id="c9653-189">通过以下对象提供配置&hellip;</span><span class="sxs-lookup"><span data-stu-id="c9653-189">Provides configuration from&hellip;</span></span> |
 | -------- | ----------------------------------- |
-| <span data-ttu-id="b3044-189">[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全主题）</span><span class="sxs-lookup"><span data-stu-id="b3044-189">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="b3044-190">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="b3044-190">Azure Key Vault</span></span> |
-| [<span data-ttu-id="b3044-191">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-191">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="b3044-192">命令行参数</span><span class="sxs-lookup"><span data-stu-id="b3044-192">Command-line parameters</span></span> |
-| [<span data-ttu-id="b3044-193">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-193">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="b3044-194">自定义源</span><span class="sxs-lookup"><span data-stu-id="b3044-194">Custom source</span></span> |
-| [<span data-ttu-id="b3044-195">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-195">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="b3044-196">环境变量</span><span class="sxs-lookup"><span data-stu-id="b3044-196">Environment variables</span></span> |
-| [<span data-ttu-id="b3044-197">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-197">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="b3044-198">文件（INI、JSON、XML）</span><span class="sxs-lookup"><span data-stu-id="b3044-198">Files (INI, JSON, XML)</span></span> |
-| [<span data-ttu-id="b3044-199">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-199">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="b3044-200">目录文件</span><span class="sxs-lookup"><span data-stu-id="b3044-200">Directory files</span></span> |
-| [<span data-ttu-id="b3044-201">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-201">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="b3044-202">内存中集合</span><span class="sxs-lookup"><span data-stu-id="b3044-202">In-memory collections</span></span> |
-| <span data-ttu-id="b3044-203">[用户机密 (Secret Manager)](xref:security/app-secrets)（安全主题）</span><span class="sxs-lookup"><span data-stu-id="b3044-203">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="b3044-204">用户配置文件目录中的文件</span><span class="sxs-lookup"><span data-stu-id="b3044-204">File in the user profile directory</span></span> |
+| <span data-ttu-id="c9653-190">[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全  主题）</span><span class="sxs-lookup"><span data-stu-id="c9653-190">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="c9653-191">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c9653-191">Azure Key Vault</span></span> |
+| [<span data-ttu-id="c9653-192">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-192">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="c9653-193">命令行参数</span><span class="sxs-lookup"><span data-stu-id="c9653-193">Command-line parameters</span></span> |
+| [<span data-ttu-id="c9653-194">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-194">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="c9653-195">自定义源</span><span class="sxs-lookup"><span data-stu-id="c9653-195">Custom source</span></span> |
+| [<span data-ttu-id="c9653-196">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-196">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="c9653-197">环境变量</span><span class="sxs-lookup"><span data-stu-id="c9653-197">Environment variables</span></span> |
+| [<span data-ttu-id="c9653-198">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-198">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="c9653-199">文件（INI、JSON、XML）</span><span class="sxs-lookup"><span data-stu-id="c9653-199">Files (INI, JSON, XML)</span></span> |
+| [<span data-ttu-id="c9653-200">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-200">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="c9653-201">目录文件</span><span class="sxs-lookup"><span data-stu-id="c9653-201">Directory files</span></span> |
+| [<span data-ttu-id="c9653-202">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-202">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="c9653-203">内存中集合</span><span class="sxs-lookup"><span data-stu-id="c9653-203">In-memory collections</span></span> |
+| <span data-ttu-id="c9653-204">[用户机密 (Secret Manager)](xref:security/app-secrets)（安全  主题）</span><span class="sxs-lookup"><span data-stu-id="c9653-204">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="c9653-205">用户配置文件目录中的文件</span><span class="sxs-lookup"><span data-stu-id="c9653-205">File in the user profile directory</span></span> |
 
-<span data-ttu-id="b3044-205">按照启动时指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="b3044-205">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="b3044-206">本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。</span><span class="sxs-lookup"><span data-stu-id="b3044-206">The configuration providers described in this topic are described in alphabetical order, not in the order that your code may arrange them.</span></span> <span data-ttu-id="b3044-207">代码中的配置提供程序应以特定顺序排列以符合基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="b3044-207">Order configuration providers in your code to suit your priorities for the underlying configuration sources.</span></span>
+<span data-ttu-id="c9653-206">按照启动时指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="c9653-206">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="c9653-207">本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。</span><span class="sxs-lookup"><span data-stu-id="c9653-207">The configuration providers described in this topic are described in alphabetical order, not in the order that your code may arrange them.</span></span> <span data-ttu-id="c9653-208">代码中的配置提供程序应以特定顺序排列以符合基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="c9653-208">Order configuration providers in your code to suit your priorities for the underlying configuration sources.</span></span>
 
-<span data-ttu-id="b3044-208">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="b3044-208">A typical sequence of configuration providers is:</span></span>
+<span data-ttu-id="c9653-209">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="c9653-209">A typical sequence of configuration providers is:</span></span>
 
-1. <span data-ttu-id="b3044-209">文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）</span><span class="sxs-lookup"><span data-stu-id="b3044-209">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
-1. [<span data-ttu-id="b3044-210">Azure 密钥保管库</span><span class="sxs-lookup"><span data-stu-id="b3044-210">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
-1. <span data-ttu-id="b3044-211">[用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）</span><span class="sxs-lookup"><span data-stu-id="b3044-211">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment only)</span></span>
-1. <span data-ttu-id="b3044-212">环境变量</span><span class="sxs-lookup"><span data-stu-id="b3044-212">Environment variables</span></span>
-1. <span data-ttu-id="b3044-213">命令行参数</span><span class="sxs-lookup"><span data-stu-id="b3044-213">Command-line arguments</span></span>
+1. <span data-ttu-id="c9653-210">文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）  </span><span class="sxs-lookup"><span data-stu-id="c9653-210">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
+1. [<span data-ttu-id="c9653-211">Azure 密钥保管库</span><span class="sxs-lookup"><span data-stu-id="c9653-211">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
+1. <span data-ttu-id="c9653-212">[用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）</span><span class="sxs-lookup"><span data-stu-id="c9653-212">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment only)</span></span>
+1. <span data-ttu-id="c9653-213">环境变量</span><span class="sxs-lookup"><span data-stu-id="c9653-213">Environment variables</span></span>
+1. <span data-ttu-id="c9653-214">命令行参数</span><span class="sxs-lookup"><span data-stu-id="c9653-214">Command-line arguments</span></span>
 
-<span data-ttu-id="b3044-214">通常的做法是将命令行配置提供程序置于一系列提供程序的末尾，以允许命令行参数替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-214">It's a common practice to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+<span data-ttu-id="c9653-215">通常的做法是将命令行配置提供程序置于一系列提供程序的末尾，以允许命令行参数替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-215">It's a common practice to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
 
-<span data-ttu-id="b3044-215">在使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，将使用此提供程序序列。</span><span class="sxs-lookup"><span data-stu-id="b3044-215">This sequence of providers is put into place when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="b3044-216">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="b3044-216">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
+<span data-ttu-id="c9653-216">在使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，将使用此提供程序序列。</span><span class="sxs-lookup"><span data-stu-id="c9653-216">This sequence of providers is put into place when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="c9653-217">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="c9653-217">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
 
-## <a name="configureappconfiguration"></a><span data-ttu-id="b3044-217">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="b3044-217">ConfigureAppConfiguration</span></span>
+## <a name="configureappconfiguration"></a><span data-ttu-id="c9653-218">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="c9653-218">ConfigureAppConfiguration</span></span>
 
-<span data-ttu-id="b3044-218">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置提供程序以及 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 自动添加的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="b3044-218">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration providers in addition to those added automatically by <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>:</span></span>
+<span data-ttu-id="c9653-219">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置提供程序以及 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 自动添加的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="c9653-219">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration providers in addition to those added automatically by <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>:</span></span>
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
 
-<span data-ttu-id="b3044-219">在应用启动期间，可以使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中提供给应用的配置，包括 `Startup.ConfigureServices`。</span><span class="sxs-lookup"><span data-stu-id="b3044-219">Configuration supplied to the app in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="b3044-220">有关详细信息，请参阅[在启动期间访问配置](#access-configuration-during-startup)部分。</span><span class="sxs-lookup"><span data-stu-id="b3044-220">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
+<span data-ttu-id="c9653-220">在应用启动期间，可以使用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中提供给应用的配置，包括 `Startup.ConfigureServices`。</span><span class="sxs-lookup"><span data-stu-id="c9653-220">Configuration supplied to the app in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="c9653-221">有关详细信息，请参阅[在启动期间访问配置](#access-configuration-during-startup)部分。</span><span class="sxs-lookup"><span data-stu-id="c9653-221">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
 
-## <a name="command-line-configuration-provider"></a><span data-ttu-id="b3044-221">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-221">Command-line Configuration Provider</span></span>
+## <a name="command-line-configuration-provider"></a><span data-ttu-id="c9653-222">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-222">Command-line Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-222"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 在运行时从命令行参数键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-222">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
+<span data-ttu-id="c9653-223"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 在运行时从命令行参数键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-223">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="b3044-223">要激活命令行配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-223">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-224">要激活命令行配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-224">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="b3044-224">使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时会自动调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="b3044-224">`AddCommandLine` is automatically called when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="b3044-225">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="b3044-225">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
+<span data-ttu-id="c9653-225">使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时会自动调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="c9653-225">`AddCommandLine` is automatically called when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="c9653-226">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="c9653-226">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
 
-<span data-ttu-id="b3044-226">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="b3044-226">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c9653-227">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="c9653-227">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="b3044-227">appsettings.json 和 appsettings.{Environment}.json 的可选配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-227">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
-* <span data-ttu-id="b3044-228">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="b3044-228">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
-* <span data-ttu-id="b3044-229">环境变量。</span><span class="sxs-lookup"><span data-stu-id="b3044-229">Environment variables.</span></span>
+* <span data-ttu-id="c9653-228">appsettings.json 和 appsettings.{Environment}.json 的可选配置   。</span><span class="sxs-lookup"><span data-stu-id="c9653-228">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
+* <span data-ttu-id="c9653-229">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="c9653-229">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
+* <span data-ttu-id="c9653-230">环境变量。</span><span class="sxs-lookup"><span data-stu-id="c9653-230">Environment variables.</span></span>
 
-<span data-ttu-id="b3044-230">`CreateDefaultBuilder` 最后添加命令行配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-230">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="b3044-231">在运行时传递的命令行参数会替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-231">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
+<span data-ttu-id="c9653-231">`CreateDefaultBuilder` 最后添加命令行配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-231">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="c9653-232">在运行时传递的命令行参数会替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-232">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
 
-<span data-ttu-id="b3044-232">`CreateDefaultBuilder` 在构造主机时起作用。</span><span class="sxs-lookup"><span data-stu-id="b3044-232">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="b3044-233">因此，`CreateDefaultBuilder` 激活的命令行配置可能会影响主机的配置方式。</span><span class="sxs-lookup"><span data-stu-id="b3044-233">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
+<span data-ttu-id="c9653-233">`CreateDefaultBuilder` 在构造主机时起作用。</span><span class="sxs-lookup"><span data-stu-id="c9653-233">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="c9653-234">因此，`CreateDefaultBuilder` 激活的命令行配置可能会影响主机的配置方式。</span><span class="sxs-lookup"><span data-stu-id="c9653-234">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
 
-<span data-ttu-id="b3044-234">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-234">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration.</span></span>
+<span data-ttu-id="c9653-235">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-235">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration.</span></span>
 
-<span data-ttu-id="b3044-235">`CreateDefaultBuilder` 已经调用了 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="b3044-235">`AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="b3044-236">如果需要提供应用配置并仍然能够使用命令行参数覆盖该配置，请在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中调用应用的其他提供程序并最后调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="b3044-236">If you need to provide app configuration and still be able to override that configuration with command-line arguments, call the app's additional providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> and call `AddCommandLine` last.</span></span>
+<span data-ttu-id="c9653-236">`CreateDefaultBuilder` 已经调用了 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="c9653-236">`AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c9653-237">如果需要提供应用配置并仍然能够使用命令行参数覆盖该配置，请在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中调用应用的其他提供程序并最后调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="c9653-237">If you need to provide app configuration and still be able to override that configuration with command-line arguments, call the app's additional providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> and call `AddCommandLine` last.</span></span>
 
 ```csharp
 public class Program
@@ -214,7 +216,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="b3044-237">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-237">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-238">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-238">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -229,28 +231,28 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-<span data-ttu-id="b3044-238">**示例**</span><span class="sxs-lookup"><span data-stu-id="b3044-238">**Example**</span></span>
+<span data-ttu-id="c9653-239">**示例**</span><span class="sxs-lookup"><span data-stu-id="c9653-239">**Example**</span></span>
 
-<span data-ttu-id="b3044-239">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 的调用。</span><span class="sxs-lookup"><span data-stu-id="b3044-239">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
+<span data-ttu-id="c9653-240">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 的调用。</span><span class="sxs-lookup"><span data-stu-id="c9653-240">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
 
-1. <span data-ttu-id="b3044-240">在项目的目录中打开命令提示符。</span><span class="sxs-lookup"><span data-stu-id="b3044-240">Open a command prompt in the project's directory.</span></span>
-1. <span data-ttu-id="b3044-241">为 `dotnet run` 命令提供命令行参数 `dotnet run CommandLineKey=CommandLineValue`。</span><span class="sxs-lookup"><span data-stu-id="b3044-241">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
-1. <span data-ttu-id="b3044-242">应用运行后，在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="b3044-242">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="b3044-243">观察输出是否包含提供给 `dotnet run` 的配置命令行参数的键值对。</span><span class="sxs-lookup"><span data-stu-id="b3044-243">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
+1. <span data-ttu-id="c9653-241">在项目的目录中打开命令提示符。</span><span class="sxs-lookup"><span data-stu-id="c9653-241">Open a command prompt in the project's directory.</span></span>
+1. <span data-ttu-id="c9653-242">为 `dotnet run` 命令提供命令行参数 `dotnet run CommandLineKey=CommandLineValue`。</span><span class="sxs-lookup"><span data-stu-id="c9653-242">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
+1. <span data-ttu-id="c9653-243">应用运行后，在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="c9653-243">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c9653-244">观察输出是否包含提供给 `dotnet run` 的配置命令行参数的键值对。</span><span class="sxs-lookup"><span data-stu-id="c9653-244">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
 
-### <a name="arguments"></a><span data-ttu-id="b3044-244">自变量</span><span class="sxs-lookup"><span data-stu-id="b3044-244">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="c9653-245">自变量</span><span class="sxs-lookup"><span data-stu-id="c9653-245">Arguments</span></span>
 
-<span data-ttu-id="b3044-245">该值必须后跟一个等号 (`=`)，否则当值后跟一个空格时，键必须具有前缀（`--` 或 `/`）。</span><span class="sxs-lookup"><span data-stu-id="b3044-245">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="b3044-246">如果使用等号（例如，`CommandLineKey=`），则该值可以为 null。</span><span class="sxs-lookup"><span data-stu-id="b3044-246">The value can be null if an equals sign is used (for example, `CommandLineKey=`).</span></span>
+<span data-ttu-id="c9653-246">该值必须后跟一个等号 (`=`)，否则当值后跟一个空格时，键必须具有前缀（`--` 或 `/`）。</span><span class="sxs-lookup"><span data-stu-id="c9653-246">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="c9653-247">如果使用等号（例如，`CommandLineKey=`），则该值可以为 null。</span><span class="sxs-lookup"><span data-stu-id="c9653-247">The value can be null if an equals sign is used (for example, `CommandLineKey=`).</span></span>
 
-| <span data-ttu-id="b3044-247">键前缀</span><span class="sxs-lookup"><span data-stu-id="b3044-247">Key prefix</span></span>               | <span data-ttu-id="b3044-248">示例</span><span class="sxs-lookup"><span data-stu-id="b3044-248">Example</span></span>                                                |
+| <span data-ttu-id="c9653-248">键前缀</span><span class="sxs-lookup"><span data-stu-id="c9653-248">Key prefix</span></span>               | <span data-ttu-id="c9653-249">示例</span><span class="sxs-lookup"><span data-stu-id="c9653-249">Example</span></span>                                                |
 | ------------------------ | ------------------------------------------------------ |
-| <span data-ttu-id="b3044-249">无前缀</span><span class="sxs-lookup"><span data-stu-id="b3044-249">No prefix</span></span>                | `CommandLineKey1=value1`                               |
-| <span data-ttu-id="b3044-250">双划线 (`--`)</span><span class="sxs-lookup"><span data-stu-id="b3044-250">Two dashes (`--`)</span></span>        | <span data-ttu-id="b3044-251">`--CommandLineKey2=value2`， `--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="b3044-251">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
-| <span data-ttu-id="b3044-252">正斜杠 (`/`)</span><span class="sxs-lookup"><span data-stu-id="b3044-252">Forward slash (`/`)</span></span>      | <span data-ttu-id="b3044-253">`/CommandLineKey3=value3`， `/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="b3044-253">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
+| <span data-ttu-id="c9653-250">无前缀</span><span class="sxs-lookup"><span data-stu-id="c9653-250">No prefix</span></span>                | `CommandLineKey1=value1`                               |
+| <span data-ttu-id="c9653-251">双划线 (`--`)</span><span class="sxs-lookup"><span data-stu-id="c9653-251">Two dashes (`--`)</span></span>        | <span data-ttu-id="c9653-252">`--CommandLineKey2=value2`， `--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="c9653-252">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
+| <span data-ttu-id="c9653-253">正斜杠 (`/`)</span><span class="sxs-lookup"><span data-stu-id="c9653-253">Forward slash (`/`)</span></span>      | <span data-ttu-id="c9653-254">`/CommandLineKey3=value3`， `/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="c9653-254">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
 
-<span data-ttu-id="b3044-254">在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="b3044-254">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
+<span data-ttu-id="c9653-255">在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="c9653-255">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
 
-<span data-ttu-id="b3044-255">示例命令：</span><span class="sxs-lookup"><span data-stu-id="b3044-255">Example commands:</span></span>
+<span data-ttu-id="c9653-256">示例命令：</span><span class="sxs-lookup"><span data-stu-id="c9653-256">Example commands:</span></span>
 
 ```console
 dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
@@ -258,18 +260,18 @@ dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
 dotnet run CommandLineKey1= CommandLineKey2=value2
 ```
 
-### <a name="switch-mappings"></a><span data-ttu-id="b3044-256">交换映射</span><span class="sxs-lookup"><span data-stu-id="b3044-256">Switch mappings</span></span>
+### <a name="switch-mappings"></a><span data-ttu-id="c9653-257">交换映射</span><span class="sxs-lookup"><span data-stu-id="c9653-257">Switch mappings</span></span>
 
-<span data-ttu-id="b3044-257">交换映射支持键名替换逻辑。</span><span class="sxs-lookup"><span data-stu-id="b3044-257">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="b3044-258">使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，可以为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="b3044-258">When you manually build configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, you can provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
+<span data-ttu-id="c9653-258">交换映射支持键名替换逻辑。</span><span class="sxs-lookup"><span data-stu-id="c9653-258">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="c9653-259">使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，可以为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="c9653-259">When you manually build configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, you can provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
 
-<span data-ttu-id="b3044-259">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="b3044-259">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="b3044-260">如果在字典中找到命令行键，则传回字典值（键替换）以将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-260">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="b3044-261">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="b3044-261">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
+<span data-ttu-id="c9653-260">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="c9653-260">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="c9653-261">如果在字典中找到命令行键，则传回字典值（键替换）以将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-261">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="c9653-262">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="c9653-262">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
 
-<span data-ttu-id="b3044-262">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="b3044-262">Switch mappings dictionary key rules:</span></span>
+<span data-ttu-id="c9653-263">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="c9653-263">Switch mappings dictionary key rules:</span></span>
 
-* <span data-ttu-id="b3044-263">交换必须以单划线 (`-`) 或双划线 (`--`) 开头。</span><span class="sxs-lookup"><span data-stu-id="b3044-263">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
-* <span data-ttu-id="b3044-264">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="b3044-264">The switch mappings dictionary must not contain duplicate keys.</span></span>
+* <span data-ttu-id="c9653-264">交换必须以单划线 (`-`) 或双划线 (`--`) 开头。</span><span class="sxs-lookup"><span data-stu-id="c9653-264">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
+* <span data-ttu-id="c9653-265">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="c9653-265">The switch mappings dictionary must not contain duplicate keys.</span></span>
 
-<span data-ttu-id="b3044-265">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-265">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c9653-266">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-266">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 public class Program
@@ -297,52 +299,52 @@ public class Program
 }
 ```
 
-<span data-ttu-id="b3044-266">如前面的示例所示，当使用交换映射时，对 `CreateDefaultBuilder` 的调用不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="b3044-266">As shown in the preceding example, the call to `CreateDefaultBuilder` shouldn't pass arguments when switch mappings are used.</span></span> <span data-ttu-id="b3044-267">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="b3044-267">`CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="b3044-268">如果参数包含映射的交换并传递给 `CreateDefaultBuilder`，则其 `AddCommandLine` 提供程序无法使用 <xref:System.FormatException> 进行初始化。</span><span class="sxs-lookup"><span data-stu-id="b3044-268">If the arguments include a mapped switch and are passed to `CreateDefaultBuilder`, its `AddCommandLine` provider fails to initialize with a <xref:System.FormatException>.</span></span> <span data-ttu-id="b3044-269">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="b3044-269">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
+<span data-ttu-id="c9653-267">如前面的示例所示，当使用交换映射时，对 `CreateDefaultBuilder` 的调用不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="c9653-267">As shown in the preceding example, the call to `CreateDefaultBuilder` shouldn't pass arguments when switch mappings are used.</span></span> <span data-ttu-id="c9653-268">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="c9653-268">`CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c9653-269">如果参数包含映射的交换并传递给 `CreateDefaultBuilder`，则其 `AddCommandLine` 提供程序无法使用 <xref:System.FormatException> 进行初始化。</span><span class="sxs-lookup"><span data-stu-id="c9653-269">If the arguments include a mapped switch and are passed to `CreateDefaultBuilder`, its `AddCommandLine` provider fails to initialize with a <xref:System.FormatException>.</span></span> <span data-ttu-id="c9653-270">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="c9653-270">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
 
-<span data-ttu-id="b3044-270">创建交换映射字典后，它将包含下表所示的数据。</span><span class="sxs-lookup"><span data-stu-id="b3044-270">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
+<span data-ttu-id="c9653-271">创建交换映射字典后，它将包含下表所示的数据。</span><span class="sxs-lookup"><span data-stu-id="c9653-271">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
 
-| <span data-ttu-id="b3044-271">键</span><span class="sxs-lookup"><span data-stu-id="b3044-271">Key</span></span>       | <span data-ttu-id="b3044-272">值</span><span class="sxs-lookup"><span data-stu-id="b3044-272">Value</span></span>             |
+| <span data-ttu-id="c9653-272">键</span><span class="sxs-lookup"><span data-stu-id="c9653-272">Key</span></span>       | <span data-ttu-id="c9653-273">值</span><span class="sxs-lookup"><span data-stu-id="c9653-273">Value</span></span>             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
 
-<span data-ttu-id="b3044-273">如果在启动应用时使用了交换映射的键，则配置将接收字典提供的密钥上的配置值：</span><span class="sxs-lookup"><span data-stu-id="b3044-273">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
+<span data-ttu-id="c9653-274">如果在启动应用时使用了交换映射的键，则配置将接收字典提供的密钥上的配置值：</span><span class="sxs-lookup"><span data-stu-id="c9653-274">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
 
 ```console
 dotnet run -CLKey1=value1 -CLKey2=value2
 ```
 
-<span data-ttu-id="b3044-274">运行上述命令后，配置包含下表中显示的值。</span><span class="sxs-lookup"><span data-stu-id="b3044-274">After running the preceding command, configuration contains the values shown in the following table.</span></span>
+<span data-ttu-id="c9653-275">运行上述命令后，配置包含下表中显示的值。</span><span class="sxs-lookup"><span data-stu-id="c9653-275">After running the preceding command, configuration contains the values shown in the following table.</span></span>
 
-| <span data-ttu-id="b3044-275">键</span><span class="sxs-lookup"><span data-stu-id="b3044-275">Key</span></span>               | <span data-ttu-id="b3044-276">值</span><span class="sxs-lookup"><span data-stu-id="b3044-276">Value</span></span>    |
+| <span data-ttu-id="c9653-276">键</span><span class="sxs-lookup"><span data-stu-id="c9653-276">Key</span></span>               | <span data-ttu-id="c9653-277">值</span><span class="sxs-lookup"><span data-stu-id="c9653-277">Value</span></span>    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
 
-## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="b3044-277">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-277">Environment Variables Configuration Provider</span></span>
+## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="c9653-278">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-278">Environment Variables Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-278"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 在运行时从环境变量键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-278">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
+<span data-ttu-id="c9653-279"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 在运行时从环境变量键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-279">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="b3044-279">要激活环境变量配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-279">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-280">要激活环境变量配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-280">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-<span data-ttu-id="b3044-280">借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，用户可以在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。</span><span class="sxs-lookup"><span data-stu-id="b3044-280">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits you to set environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="b3044-281">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="b3044-281">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
+<span data-ttu-id="c9653-281">借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，用户可以在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。</span><span class="sxs-lookup"><span data-stu-id="c9653-281">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits you to set environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="c9653-282">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="c9653-282">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
 
-<span data-ttu-id="b3044-282">初始化一个新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，对于前缀为 `ASPNETCORE_` 的环境变量，会自动调用 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="b3044-282">`AddEnvironmentVariables` is automatically called for environment variables prefixed with `ASPNETCORE_` when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>.</span></span> <span data-ttu-id="b3044-283">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="b3044-283">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
+<span data-ttu-id="c9653-283">初始化一个新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，对于前缀为 `ASPNETCORE_` 的环境变量，会自动调用 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="c9653-283">`AddEnvironmentVariables` is automatically called for environment variables prefixed with `ASPNETCORE_` when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>.</span></span> <span data-ttu-id="c9653-284">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="c9653-284">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
 
-<span data-ttu-id="b3044-284">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="b3044-284">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c9653-285">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="c9653-285">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="b3044-285">来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="b3044-285">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
-* <span data-ttu-id="b3044-286">appsettings.json 和 appsettings.{Environment}.json 的可选配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-286">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
-* <span data-ttu-id="b3044-287">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="b3044-287">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
-* <span data-ttu-id="b3044-288">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="b3044-288">Command-line arguments.</span></span>
+* <span data-ttu-id="c9653-286">来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="c9653-286">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
+* <span data-ttu-id="c9653-287">appsettings.json 和 appsettings.{Environment}.json 的可选配置   。</span><span class="sxs-lookup"><span data-stu-id="c9653-287">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
+* <span data-ttu-id="c9653-288">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="c9653-288">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
+* <span data-ttu-id="c9653-289">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="c9653-289">Command-line arguments.</span></span>
 
-<span data-ttu-id="b3044-289">环境变量配置提供程序是在配置已根据用户机密和 appsettings 文件建立后调用。</span><span class="sxs-lookup"><span data-stu-id="b3044-289">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="b3044-290">在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings 文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-290">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
+<span data-ttu-id="c9653-290">环境变量配置提供程序是在配置已根据用户机密和 appsettings  文件建立后调用。</span><span class="sxs-lookup"><span data-stu-id="c9653-290">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="c9653-291">在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings  文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-291">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
 
-<span data-ttu-id="b3044-291">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-291">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration.</span></span>
+<span data-ttu-id="c9653-292">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-292">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration.</span></span>
 
-<span data-ttu-id="b3044-292">如果需要从其他环境变量提供应用配置，请在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="b3044-292">If you need to provide app configuration from additional environment variables, call the app's additional providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> and call `AddEnvironmentVariables` with the prefix.</span></span>
+<span data-ttu-id="c9653-293">如果需要从其他环境变量提供应用配置，请在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="c9653-293">If you need to provide app configuration from additional environment variables, call the app's additional providers in <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> and call `AddEnvironmentVariables` with the prefix.</span></span>
 
 ```csharp
 public class Program
@@ -357,15 +359,16 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 // Call additional providers here as needed.
-                // Call AddEnvironmentVariables last if you need to allow environment
-                // variables to override values from other providers.
+                // Call AddEnvironmentVariables last if you need to allow
+                // environment variables to override values from other 
+                // providers.
                 config.AddEnvironmentVariables(prefix: "PREFIX_");
             })
             .UseStartup<Startup>();
 }
 ```
 
-<span data-ttu-id="b3044-293">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-293">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-294">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-294">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -378,33 +381,33 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-<span data-ttu-id="b3044-294">**示例**</span><span class="sxs-lookup"><span data-stu-id="b3044-294">**Example**</span></span>
+<span data-ttu-id="c9653-295">**示例**</span><span class="sxs-lookup"><span data-stu-id="c9653-295">**Example**</span></span>
 
-<span data-ttu-id="b3044-295">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 `AddEnvironmentVariables` 的调用。</span><span class="sxs-lookup"><span data-stu-id="b3044-295">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c9653-296">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 `AddEnvironmentVariables` 的调用。</span><span class="sxs-lookup"><span data-stu-id="c9653-296">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
 
-1. <span data-ttu-id="b3044-296">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="b3044-296">Run the sample app.</span></span> <span data-ttu-id="b3044-297">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="b3044-297">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="b3044-298">观察输出是否包含环境变量 `ENVIRONMENT` 的键值对。</span><span class="sxs-lookup"><span data-stu-id="b3044-298">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="b3044-299">该值反映了应用运行的环境，在本地运行时通常为 `Development`。</span><span class="sxs-lookup"><span data-stu-id="b3044-299">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
+1. <span data-ttu-id="c9653-297">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="c9653-297">Run the sample app.</span></span> <span data-ttu-id="c9653-298">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="c9653-298">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c9653-299">观察输出是否包含环境变量 `ENVIRONMENT` 的键值对。</span><span class="sxs-lookup"><span data-stu-id="c9653-299">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="c9653-300">该值反映了应用运行的环境，在本地运行时通常为 `Development`。</span><span class="sxs-lookup"><span data-stu-id="c9653-300">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
 
-<span data-ttu-id="b3044-300">为了使应用呈现的环境变量列表简短，应用将环境变量筛选为以下列内容开头的变量：</span><span class="sxs-lookup"><span data-stu-id="b3044-300">To keep the list of environment variables rendered by the app short, the app filters environment variables to those that start with the following:</span></span>
+<span data-ttu-id="c9653-301">为了使应用呈现的环境变量列表简短，应用将环境变量筛选为以下列内容开头的变量：</span><span class="sxs-lookup"><span data-stu-id="c9653-301">To keep the list of environment variables rendered by the app short, the app filters environment variables to those that start with the following:</span></span>
 
-* <span data-ttu-id="b3044-301">ASPNETCORE_</span><span class="sxs-lookup"><span data-stu-id="b3044-301">ASPNETCORE_</span></span>
-* <span data-ttu-id="b3044-302">urls</span><span class="sxs-lookup"><span data-stu-id="b3044-302">urls</span></span>
-* <span data-ttu-id="b3044-303">日志记录</span><span class="sxs-lookup"><span data-stu-id="b3044-303">Logging</span></span>
-* <span data-ttu-id="b3044-304">ENVIRONMENT</span><span class="sxs-lookup"><span data-stu-id="b3044-304">ENVIRONMENT</span></span>
-* <span data-ttu-id="b3044-305">contentRoot</span><span class="sxs-lookup"><span data-stu-id="b3044-305">contentRoot</span></span>
-* <span data-ttu-id="b3044-306">AllowedHosts</span><span class="sxs-lookup"><span data-stu-id="b3044-306">AllowedHosts</span></span>
-* <span data-ttu-id="b3044-307">applicationName</span><span class="sxs-lookup"><span data-stu-id="b3044-307">applicationName</span></span>
-* <span data-ttu-id="b3044-308">CommandLine</span><span class="sxs-lookup"><span data-stu-id="b3044-308">CommandLine</span></span>
+* <span data-ttu-id="c9653-302">ASPNETCORE_</span><span class="sxs-lookup"><span data-stu-id="c9653-302">ASPNETCORE_</span></span>
+* <span data-ttu-id="c9653-303">urls</span><span class="sxs-lookup"><span data-stu-id="c9653-303">urls</span></span>
+* <span data-ttu-id="c9653-304">日志记录</span><span class="sxs-lookup"><span data-stu-id="c9653-304">Logging</span></span>
+* <span data-ttu-id="c9653-305">ENVIRONMENT</span><span class="sxs-lookup"><span data-stu-id="c9653-305">ENVIRONMENT</span></span>
+* <span data-ttu-id="c9653-306">contentRoot</span><span class="sxs-lookup"><span data-stu-id="c9653-306">contentRoot</span></span>
+* <span data-ttu-id="c9653-307">AllowedHosts</span><span class="sxs-lookup"><span data-stu-id="c9653-307">AllowedHosts</span></span>
+* <span data-ttu-id="c9653-308">applicationName</span><span class="sxs-lookup"><span data-stu-id="c9653-308">applicationName</span></span>
+* <span data-ttu-id="c9653-309">CommandLine</span><span class="sxs-lookup"><span data-stu-id="c9653-309">CommandLine</span></span>
 
-<span data-ttu-id="b3044-309">如果希望公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs 中的 `FilteredConfiguration` 更改为以下内容：</span><span class="sxs-lookup"><span data-stu-id="b3044-309">If you wish to expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
+<span data-ttu-id="c9653-310">如果希望公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs  中的 `FilteredConfiguration` 更改为以下内容：</span><span class="sxs-lookup"><span data-stu-id="c9653-310">If you wish to expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
 
 ```csharp
 FilteredConfiguration = _config.AsEnumerable();
 ```
 
-### <a name="prefixes"></a><span data-ttu-id="b3044-310">前缀</span><span class="sxs-lookup"><span data-stu-id="b3044-310">Prefixes</span></span>
+### <a name="prefixes"></a><span data-ttu-id="c9653-311">前缀</span><span class="sxs-lookup"><span data-stu-id="c9653-311">Prefixes</span></span>
 
-<span data-ttu-id="b3044-311">为 `AddEnvironmentVariables` 方法提供前缀时，将筛选加载到应用的配置中的环境变量。</span><span class="sxs-lookup"><span data-stu-id="b3044-311">Environment variables loaded into the app's configuration are filtered when you supply a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="b3044-312">例如，要筛选前缀 `CUSTOM_` 上的环境变量，请将前缀提供给配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="b3044-312">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
+<span data-ttu-id="c9653-312">为 `AddEnvironmentVariables` 方法提供前缀时，将筛选加载到应用的配置中的环境变量。</span><span class="sxs-lookup"><span data-stu-id="c9653-312">Environment variables loaded into the app's configuration are filtered when you supply a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="c9653-313">例如，要筛选前缀 `CUSTOM_` 上的环境变量，请将前缀提供给配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="c9653-313">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -412,56 +415,56 @@ var config = new ConfigurationBuilder()
     .Build();
 ```
 
-<span data-ttu-id="b3044-313">创建配置键值对时，将去除前缀。</span><span class="sxs-lookup"><span data-stu-id="b3044-313">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
+<span data-ttu-id="c9653-314">创建配置键值对时，将去除前缀。</span><span class="sxs-lookup"><span data-stu-id="c9653-314">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
 
-<span data-ttu-id="b3044-314">静态便捷方法 `CreateDefaultBuilder` 创建一个 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 以建立应用的主机。</span><span class="sxs-lookup"><span data-stu-id="b3044-314">The static convenience method `CreateDefaultBuilder` creates a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> to establish the app's host.</span></span> <span data-ttu-id="b3044-315">创建 `WebHostBuilder` 时，它会在前缀为 `ASPNETCORE_` 的环境变量中找到其主机配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-315">When `WebHostBuilder` is created, it finds its host configuration in environment variables prefixed with `ASPNETCORE_`.</span></span>
+<span data-ttu-id="c9653-315">静态便捷方法 `CreateDefaultBuilder` 创建一个 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 以建立应用的主机。</span><span class="sxs-lookup"><span data-stu-id="c9653-315">The static convenience method `CreateDefaultBuilder` creates a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> to establish the app's host.</span></span> <span data-ttu-id="c9653-316">创建 `WebHostBuilder` 时，它会在前缀为 `ASPNETCORE_` 的环境变量中找到其主机配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-316">When `WebHostBuilder` is created, it finds its host configuration in environment variables prefixed with `ASPNETCORE_`.</span></span>
 
-<span data-ttu-id="b3044-316">**连接字符串前缀**</span><span class="sxs-lookup"><span data-stu-id="b3044-316">**Connection string prefixes**</span></span>
+<span data-ttu-id="c9653-317">**连接字符串前缀**</span><span class="sxs-lookup"><span data-stu-id="c9653-317">**Connection string prefixes**</span></span>
 
-<span data-ttu-id="b3044-317">针对为应用环境配置 Azure 连接字符串所涉及的四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="b3044-317">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="b3044-318">如果没有向 `AddEnvironmentVariables` 提供前缀，则具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="b3044-318">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c9653-318">针对为应用环境配置 Azure 连接字符串所涉及的四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="c9653-318">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="c9653-319">如果没有向 `AddEnvironmentVariables` 提供前缀，则具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="c9653-319">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
 
-| <span data-ttu-id="b3044-319">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="b3044-319">Connection string prefix</span></span> | <span data-ttu-id="b3044-320">提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-320">Provider</span></span> |
+| <span data-ttu-id="c9653-320">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="c9653-320">Connection string prefix</span></span> | <span data-ttu-id="c9653-321">提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-321">Provider</span></span> |
 | ------------------------ | -------- |
-| `CUSTOMCONNSTR_` | <span data-ttu-id="b3044-321">自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-321">Custom provider</span></span> |
-| `MYSQLCONNSTR_` | [<span data-ttu-id="b3044-322">MySQL</span><span class="sxs-lookup"><span data-stu-id="b3044-322">MySQL</span></span>](https://www.mysql.com/) |
-| `SQLAZURECONNSTR_` | [<span data-ttu-id="b3044-323">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="b3044-323">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
-| `SQLCONNSTR_` | [<span data-ttu-id="b3044-324">SQL Server</span><span class="sxs-lookup"><span data-stu-id="b3044-324">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
+| `CUSTOMCONNSTR_` | <span data-ttu-id="c9653-322">自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-322">Custom provider</span></span> |
+| `MYSQLCONNSTR_` | [<span data-ttu-id="c9653-323">MySQL</span><span class="sxs-lookup"><span data-stu-id="c9653-323">MySQL</span></span>](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [<span data-ttu-id="c9653-324">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="c9653-324">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [<span data-ttu-id="c9653-325">SQL Server</span><span class="sxs-lookup"><span data-stu-id="c9653-325">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
 
-<span data-ttu-id="b3044-325">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="b3044-325">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+<span data-ttu-id="c9653-326">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="c9653-326">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
 
-* <span data-ttu-id="b3044-326">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="b3044-326">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
-* <span data-ttu-id="b3044-327">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="b3044-327">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+* <span data-ttu-id="c9653-327">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="c9653-327">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
+* <span data-ttu-id="c9653-328">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="c9653-328">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
 
-| <span data-ttu-id="b3044-328">环境变量键</span><span class="sxs-lookup"><span data-stu-id="b3044-328">Environment variable key</span></span> | <span data-ttu-id="b3044-329">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="b3044-329">Converted configuration key</span></span> | <span data-ttu-id="b3044-330">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="b3044-330">Provider configuration entry</span></span>                                                    |
+| <span data-ttu-id="c9653-329">环境变量键</span><span class="sxs-lookup"><span data-stu-id="c9653-329">Environment variable key</span></span> | <span data-ttu-id="c9653-330">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="c9653-330">Converted configuration key</span></span> | <span data-ttu-id="c9653-331">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="c9653-331">Provider configuration entry</span></span>                                                    |
 | ------------------------ | --------------------------- | ------------------------------------------------------------------------------- |
-| `CUSTOMCONNSTR_<KEY>`    | `ConnectionStrings:<KEY>`   | <span data-ttu-id="b3044-331">配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="b3044-331">Configuration entry not created.</span></span>                                                |
-| `MYSQLCONNSTR_<KEY>`     | `ConnectionStrings:<KEY>`   | <span data-ttu-id="b3044-332">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="b3044-332">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="b3044-333">值：`MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="b3044-333">Value: `MySql.Data.MySqlClient`</span></span> |
-| `SQLAZURECONNSTR_<KEY>`  | `ConnectionStrings:<KEY>`   | <span data-ttu-id="b3044-334">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="b3044-334">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="b3044-335">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="b3044-335">Value: `System.Data.SqlClient`</span></span>  |
-| `SQLCONNSTR_<KEY>`       | `ConnectionStrings:<KEY>`   | <span data-ttu-id="b3044-336">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="b3044-336">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="b3044-337">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="b3044-337">Value: `System.Data.SqlClient`</span></span>  |
+| `CUSTOMCONNSTR_<KEY>`    | `ConnectionStrings:<KEY>`   | <span data-ttu-id="c9653-332">配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="c9653-332">Configuration entry not created.</span></span>                                                |
+| `MYSQLCONNSTR_<KEY>`     | `ConnectionStrings:<KEY>`   | <span data-ttu-id="c9653-333">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="c9653-333">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="c9653-334">值：`MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="c9653-334">Value: `MySql.Data.MySqlClient`</span></span> |
+| `SQLAZURECONNSTR_<KEY>`  | `ConnectionStrings:<KEY>`   | <span data-ttu-id="c9653-335">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="c9653-335">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="c9653-336">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c9653-336">Value: `System.Data.SqlClient`</span></span>  |
+| `SQLCONNSTR_<KEY>`       | `ConnectionStrings:<KEY>`   | <span data-ttu-id="c9653-337">键：`ConnectionStrings:<KEY>_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="c9653-337">Key: `ConnectionStrings:<KEY>_ProviderName`:</span></span><br><span data-ttu-id="c9653-338">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c9653-338">Value: `System.Data.SqlClient`</span></span>  |
 
-## <a name="file-configuration-provider"></a><span data-ttu-id="b3044-338">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-338">File Configuration Provider</span></span>
+## <a name="file-configuration-provider"></a><span data-ttu-id="c9653-339">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-339">File Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-339"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="b3044-339"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="b3044-340">以下配置提供程序专用于特定文件类型：</span><span class="sxs-lookup"><span data-stu-id="b3044-340">The following configuration providers are dedicated to specific file types:</span></span>
+<span data-ttu-id="c9653-340"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="c9653-340"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="c9653-341">以下配置提供程序专用于特定文件类型：</span><span class="sxs-lookup"><span data-stu-id="c9653-341">The following configuration providers are dedicated to specific file types:</span></span>
 
-* [<span data-ttu-id="b3044-341">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-341">INI Configuration Provider</span></span>](#ini-configuration-provider)
-* [<span data-ttu-id="b3044-342">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-342">JSON Configuration Provider</span></span>](#json-configuration-provider)
-* [<span data-ttu-id="b3044-343">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-343">XML Configuration Provider</span></span>](#xml-configuration-provider)
+* [<span data-ttu-id="c9653-342">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-342">INI Configuration Provider</span></span>](#ini-configuration-provider)
+* [<span data-ttu-id="c9653-343">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-343">JSON Configuration Provider</span></span>](#json-configuration-provider)
+* [<span data-ttu-id="c9653-344">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-344">XML Configuration Provider</span></span>](#xml-configuration-provider)
 
-### <a name="ini-configuration-provider"></a><span data-ttu-id="b3044-344">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-344">INI Configuration Provider</span></span>
+### <a name="ini-configuration-provider"></a><span data-ttu-id="c9653-345">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-345">INI Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-345"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-345">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c9653-346"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-346">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="b3044-346">若要激活 INI 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-346">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-347">若要激活 INI 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-347">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="b3044-347">冒号可用作 INI 文件配置中的节分隔符。</span><span class="sxs-lookup"><span data-stu-id="b3044-347">The colon can be used to as a section delimiter in INI file configuration.</span></span>
+<span data-ttu-id="c9653-348">冒号可用作 INI 文件配置中的节分隔符。</span><span class="sxs-lookup"><span data-stu-id="c9653-348">The colon can be used to as a section delimiter in INI file configuration.</span></span>
 
-<span data-ttu-id="b3044-348">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="b3044-348">Overloads permit specifying:</span></span>
+<span data-ttu-id="c9653-349">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="c9653-349">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="b3044-349">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="b3044-349">Whether the file is optional.</span></span>
-* <span data-ttu-id="b3044-350">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-350">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="b3044-351"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="b3044-351">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c9653-350">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="c9653-350">Whether the file is optional.</span></span>
+* <span data-ttu-id="c9653-351">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-351">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c9653-352"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="c9653-352">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="b3044-352">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-352">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c9653-353">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-353">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 public class Program
@@ -476,15 +479,16 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddIniFile("config.ini", optional: true, reloadOnChange: true);
+                config.AddIniFile(
+                    "config.ini", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
 ```
 
-<span data-ttu-id="b3044-353">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-353">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-354">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-354">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-354">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-354">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-355">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-355">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-355">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-355">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-356">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-356">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -498,9 +502,9 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-<span data-ttu-id="b3044-356">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-356">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-357">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-357">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-357">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-357">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-358">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-358">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-358">INI 配置文件的通用示例：</span><span class="sxs-lookup"><span data-stu-id="b3044-358">A generic example of an INI configuration file:</span></span>
+<span data-ttu-id="c9653-359">INI 配置文件的通用示例：</span><span class="sxs-lookup"><span data-stu-id="c9653-359">A generic example of an INI configuration file:</span></span>
 
 ```ini
 [section0]
@@ -517,42 +521,42 @@ key=value
 key=value
 ```
 
-<span data-ttu-id="b3044-359">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="b3044-359">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c9653-360">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="c9653-360">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="b3044-360">section0:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-360">section0:key0</span></span>
-* <span data-ttu-id="b3044-361">section0:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-361">section0:key1</span></span>
-* <span data-ttu-id="b3044-362">section1:subsection:key</span><span class="sxs-lookup"><span data-stu-id="b3044-362">section1:subsection:key</span></span>
-* <span data-ttu-id="b3044-363">section2:subsection0:key</span><span class="sxs-lookup"><span data-stu-id="b3044-363">section2:subsection0:key</span></span>
-* <span data-ttu-id="b3044-364">section2:subsection1:key</span><span class="sxs-lookup"><span data-stu-id="b3044-364">section2:subsection1:key</span></span>
+* <span data-ttu-id="c9653-361">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-361">section0:key0</span></span>
+* <span data-ttu-id="c9653-362">section0:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-362">section0:key1</span></span>
+* <span data-ttu-id="c9653-363">section1:subsection:key</span><span class="sxs-lookup"><span data-stu-id="c9653-363">section1:subsection:key</span></span>
+* <span data-ttu-id="c9653-364">section2:subsection0:key</span><span class="sxs-lookup"><span data-stu-id="c9653-364">section2:subsection0:key</span></span>
+* <span data-ttu-id="c9653-365">section2:subsection1:key</span><span class="sxs-lookup"><span data-stu-id="c9653-365">section2:subsection1:key</span></span>
 
-### <a name="json-configuration-provider"></a><span data-ttu-id="b3044-365">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-365">JSON Configuration Provider</span></span>
+### <a name="json-configuration-provider"></a><span data-ttu-id="c9653-366">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-366">JSON Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-366"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 在运行时期间从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-366">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
+<span data-ttu-id="c9653-367"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 在运行时期间从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-367">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
 
-<span data-ttu-id="b3044-367">若要激活 JSON 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-367">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-368">若要激活 JSON 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-368">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="b3044-368">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="b3044-368">Overloads permit specifying:</span></span>
+<span data-ttu-id="c9653-369">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="c9653-369">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="b3044-369">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="b3044-369">Whether the file is optional.</span></span>
-* <span data-ttu-id="b3044-370">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-370">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="b3044-371"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="b3044-371">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c9653-370">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="c9653-370">Whether the file is optional.</span></span>
+* <span data-ttu-id="c9653-371">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-371">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c9653-372"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="c9653-372">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="b3044-372">使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，会自动调用 `AddJsonFile` 两次。</span><span class="sxs-lookup"><span data-stu-id="b3044-372">`AddJsonFile` is automatically called twice when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="b3044-373">调用该方法来从以下文件加载配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-373">The method is called to load configuration from:</span></span>
+<span data-ttu-id="c9653-373">使用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，会自动调用 `AddJsonFile` 两次。</span><span class="sxs-lookup"><span data-stu-id="c9653-373">`AddJsonFile` is automatically called twice when you initialize a new <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> with <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>.</span></span> <span data-ttu-id="c9653-374">调用该方法来从以下文件加载配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-374">The method is called to load configuration from:</span></span>
 
-* <span data-ttu-id="b3044-374">appsettings.json &ndash; 首先读取此文件。</span><span class="sxs-lookup"><span data-stu-id="b3044-374">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="b3044-375">该文件的环境版本可以替代 appsettings.json 文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="b3044-375">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
-* <span data-ttu-id="b3044-376">*appsettings.{Environment}.json*&ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本。</span><span class="sxs-lookup"><span data-stu-id="b3044-376">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
+* <span data-ttu-id="c9653-375">appsettings.json  &ndash; 首先读取此文件。</span><span class="sxs-lookup"><span data-stu-id="c9653-375">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="c9653-376">该文件的环境版本可以替代 appsettings.json  文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="c9653-376">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
+* <span data-ttu-id="c9653-377">*appsettings.{Environment}.json*&ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本。</span><span class="sxs-lookup"><span data-stu-id="c9653-377">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
 
-<span data-ttu-id="b3044-377">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="b3044-377">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
+<span data-ttu-id="c9653-378">有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。</span><span class="sxs-lookup"><span data-stu-id="c9653-378">For more information, see [Web Host: Set up a host](xref:fundamentals/host/web-host#set-up-a-host).</span></span>
 
-<span data-ttu-id="b3044-378">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="b3044-378">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c9653-379">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="c9653-379">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="b3044-379">环境变量。</span><span class="sxs-lookup"><span data-stu-id="b3044-379">Environment variables.</span></span>
-* <span data-ttu-id="b3044-380">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="b3044-380">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
-* <span data-ttu-id="b3044-381">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="b3044-381">Command-line arguments.</span></span>
+* <span data-ttu-id="c9653-380">环境变量。</span><span class="sxs-lookup"><span data-stu-id="c9653-380">Environment variables.</span></span>
+* <span data-ttu-id="c9653-381">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="c9653-381">[User secrets (Secret Manager)](xref:security/app-secrets) (in the Development environment).</span></span>
+* <span data-ttu-id="c9653-382">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="c9653-382">Command-line arguments.</span></span>
 
-<span data-ttu-id="b3044-382">首先建立 JSON 配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-382">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="b3044-383">因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-383">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
+<span data-ttu-id="c9653-383">首先建立 JSON 配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-383">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="c9653-384">因此，用户机密、环境变量和命令行参数会替代由 appsettings  文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-384">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
 
-<span data-ttu-id="b3044-384">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-384">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
+<span data-ttu-id="c9653-385">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：  </span><span class="sxs-lookup"><span data-stu-id="c9653-385">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
 
 ```csharp
 public class Program
@@ -567,15 +571,16 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddJsonFile("config.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile(
+                    "config.json", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
 ```
 
-<span data-ttu-id="b3044-385">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-385">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-386">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-386">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-386">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-386">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-387">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-387">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-387">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-387">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-388">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-388">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -589,37 +594,37 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-<span data-ttu-id="b3044-388">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-388">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-389">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-389">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-389">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-389">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-390">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-390">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-390">**示例**</span><span class="sxs-lookup"><span data-stu-id="b3044-390">**Example**</span></span>
+<span data-ttu-id="c9653-391">**示例**</span><span class="sxs-lookup"><span data-stu-id="c9653-391">**Example**</span></span>
 
-<span data-ttu-id="b3044-391">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用。</span><span class="sxs-lookup"><span data-stu-id="b3044-391">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`.</span></span> <span data-ttu-id="b3044-392">配置从 appsettings.json 和 appsettings.{Environment}.json 进行加载。</span><span class="sxs-lookup"><span data-stu-id="b3044-392">Configuration is loaded from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
+<span data-ttu-id="c9653-392">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用。</span><span class="sxs-lookup"><span data-stu-id="c9653-392">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`.</span></span> <span data-ttu-id="c9653-393">配置从 appsettings.json 和 appsettings.{Environment}.json 进行加载   。</span><span class="sxs-lookup"><span data-stu-id="c9653-393">Configuration is loaded from *appsettings.json* and *appsettings.{Environment}.json*.</span></span>
 
-1. <span data-ttu-id="b3044-393">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="b3044-393">Run the sample app.</span></span> <span data-ttu-id="b3044-394">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="b3044-394">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="b3044-395">观察输出是否包含表中所示的配置的键值对，具体取决于环境。</span><span class="sxs-lookup"><span data-stu-id="b3044-395">Observe that the output contains key-value pairs for the configuration shown in the table depending on the environment.</span></span> <span data-ttu-id="b3044-396">记录配置键使用冒号 (`:`) 作为分层分隔符。</span><span class="sxs-lookup"><span data-stu-id="b3044-396">Logging configuration keys use the colon (`:`) as a hierarchical separator.</span></span>
+1. <span data-ttu-id="c9653-394">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="c9653-394">Run the sample app.</span></span> <span data-ttu-id="c9653-395">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="c9653-395">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c9653-396">观察输出是否包含表中所示的配置的键值对，具体取决于环境。</span><span class="sxs-lookup"><span data-stu-id="c9653-396">Observe that the output contains key-value pairs for the configuration shown in the table depending on the environment.</span></span> <span data-ttu-id="c9653-397">记录配置键使用冒号 (`:`) 作为分层分隔符。</span><span class="sxs-lookup"><span data-stu-id="c9653-397">Logging configuration keys use the colon (`:`) as a hierarchical separator.</span></span>
 
-| <span data-ttu-id="b3044-397">键</span><span class="sxs-lookup"><span data-stu-id="b3044-397">Key</span></span>                        | <span data-ttu-id="b3044-398">开发值</span><span class="sxs-lookup"><span data-stu-id="b3044-398">Development Value</span></span> | <span data-ttu-id="b3044-399">生产值</span><span class="sxs-lookup"><span data-stu-id="b3044-399">Production Value</span></span> |
+| <span data-ttu-id="c9653-398">键</span><span class="sxs-lookup"><span data-stu-id="c9653-398">Key</span></span>                        | <span data-ttu-id="c9653-399">开发值</span><span class="sxs-lookup"><span data-stu-id="c9653-399">Development Value</span></span> | <span data-ttu-id="c9653-400">生产值</span><span class="sxs-lookup"><span data-stu-id="c9653-400">Production Value</span></span> |
 | -------------------------- | :---------------: | :--------------: |
-| <span data-ttu-id="b3044-400">Logging:LogLevel:System</span><span class="sxs-lookup"><span data-stu-id="b3044-400">Logging:LogLevel:System</span></span>    | <span data-ttu-id="b3044-401">信息</span><span class="sxs-lookup"><span data-stu-id="b3044-401">Information</span></span>       | <span data-ttu-id="b3044-402">信息</span><span class="sxs-lookup"><span data-stu-id="b3044-402">Information</span></span>      |
-| <span data-ttu-id="b3044-403">Logging:LogLevel:Microsoft</span><span class="sxs-lookup"><span data-stu-id="b3044-403">Logging:LogLevel:Microsoft</span></span> | <span data-ttu-id="b3044-404">信息</span><span class="sxs-lookup"><span data-stu-id="b3044-404">Information</span></span>       | <span data-ttu-id="b3044-405">信息</span><span class="sxs-lookup"><span data-stu-id="b3044-405">Information</span></span>      |
-| <span data-ttu-id="b3044-406">Logging:LogLevel:Default</span><span class="sxs-lookup"><span data-stu-id="b3044-406">Logging:LogLevel:Default</span></span>   | <span data-ttu-id="b3044-407">调试</span><span class="sxs-lookup"><span data-stu-id="b3044-407">Debug</span></span>             | <span data-ttu-id="b3044-408">Error</span><span class="sxs-lookup"><span data-stu-id="b3044-408">Error</span></span>            |
-| <span data-ttu-id="b3044-409">AllowedHosts</span><span class="sxs-lookup"><span data-stu-id="b3044-409">AllowedHosts</span></span>               | *                 | *                |
+| <span data-ttu-id="c9653-401">Logging:LogLevel:System</span><span class="sxs-lookup"><span data-stu-id="c9653-401">Logging:LogLevel:System</span></span>    | <span data-ttu-id="c9653-402">信息</span><span class="sxs-lookup"><span data-stu-id="c9653-402">Information</span></span>       | <span data-ttu-id="c9653-403">信息</span><span class="sxs-lookup"><span data-stu-id="c9653-403">Information</span></span>      |
+| <span data-ttu-id="c9653-404">Logging:LogLevel:Microsoft</span><span class="sxs-lookup"><span data-stu-id="c9653-404">Logging:LogLevel:Microsoft</span></span> | <span data-ttu-id="c9653-405">信息</span><span class="sxs-lookup"><span data-stu-id="c9653-405">Information</span></span>       | <span data-ttu-id="c9653-406">信息</span><span class="sxs-lookup"><span data-stu-id="c9653-406">Information</span></span>      |
+| <span data-ttu-id="c9653-407">Logging:LogLevel:Default</span><span class="sxs-lookup"><span data-stu-id="c9653-407">Logging:LogLevel:Default</span></span>   | <span data-ttu-id="c9653-408">调试</span><span class="sxs-lookup"><span data-stu-id="c9653-408">Debug</span></span>             | <span data-ttu-id="c9653-409">Error</span><span class="sxs-lookup"><span data-stu-id="c9653-409">Error</span></span>            |
+| <span data-ttu-id="c9653-410">AllowedHosts</span><span class="sxs-lookup"><span data-stu-id="c9653-410">AllowedHosts</span></span>               | *                 | *                |
 
-### <a name="xml-configuration-provider"></a><span data-ttu-id="b3044-410">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-410">XML Configuration Provider</span></span>
+### <a name="xml-configuration-provider"></a><span data-ttu-id="c9653-411">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-411">XML Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-411"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-411">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c9653-412"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-412">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="b3044-412">若要激活 XML 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-412">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-413">若要激活 XML 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-413">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="b3044-413">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="b3044-413">Overloads permit specifying:</span></span>
+<span data-ttu-id="c9653-414">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="c9653-414">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="b3044-414">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="b3044-414">Whether the file is optional.</span></span>
-* <span data-ttu-id="b3044-415">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-415">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="b3044-416"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="b3044-416">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c9653-415">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="c9653-415">Whether the file is optional.</span></span>
+* <span data-ttu-id="c9653-416">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-416">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c9653-417"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="c9653-417">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="b3044-417">创建配置键值对时，将忽略配置文件的根节点。</span><span class="sxs-lookup"><span data-stu-id="b3044-417">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="b3044-418">不要在文件中指定文档类型定义 (DTD) 或命名空间。</span><span class="sxs-lookup"><span data-stu-id="b3044-418">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
+<span data-ttu-id="c9653-418">创建配置键值对时，将忽略配置文件的根节点。</span><span class="sxs-lookup"><span data-stu-id="c9653-418">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="c9653-419">不要在文件中指定文档类型定义 (DTD) 或命名空间。</span><span class="sxs-lookup"><span data-stu-id="c9653-419">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
 
-<span data-ttu-id="b3044-419">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-419">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c9653-420">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-420">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 public class Program
@@ -634,15 +639,16 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddXmlFile("config.xml", optional: true, reloadOnChange: true);
+                config.AddXmlFile(
+                    "config.xml", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
 ```
 
-<span data-ttu-id="b3044-420">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-420">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-421">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-421">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-421">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-421">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-422">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-422">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-422">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-422">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-423">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-423">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -656,9 +662,9 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-<span data-ttu-id="b3044-423">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-423">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-424">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-424">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-424">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-424">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-425">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-425">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-425">XML 配置文件可以为重复节使用不同的元素名称：</span><span class="sxs-lookup"><span data-stu-id="b3044-425">XML configuration files can use distinct element names for repeating sections:</span></span>
+<span data-ttu-id="c9653-426">XML 配置文件可以为重复节使用不同的元素名称：</span><span class="sxs-lookup"><span data-stu-id="c9653-426">XML configuration files can use distinct element names for repeating sections:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -674,14 +680,14 @@ var host = new WebHostBuilder()
 </configuration>
 ```
 
-<span data-ttu-id="b3044-426">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="b3044-426">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c9653-427">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="c9653-427">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="b3044-427">section0:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-427">section0:key0</span></span>
-* <span data-ttu-id="b3044-428">section0:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-428">section0:key1</span></span>
-* <span data-ttu-id="b3044-429">section1:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-429">section1:key0</span></span>
-* <span data-ttu-id="b3044-430">section1:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-430">section1:key1</span></span>
+* <span data-ttu-id="c9653-428">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-428">section0:key0</span></span>
+* <span data-ttu-id="c9653-429">section0:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-429">section0:key1</span></span>
+* <span data-ttu-id="c9653-430">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-430">section1:key0</span></span>
+* <span data-ttu-id="c9653-431">section1:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-431">section1:key1</span></span>
 
-<span data-ttu-id="b3044-431">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="b3044-431">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
+<span data-ttu-id="c9653-432">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="c9653-432">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -697,14 +703,14 @@ var host = new WebHostBuilder()
 </configuration>
 ```
 
-<span data-ttu-id="b3044-432">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="b3044-432">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c9653-433">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="c9653-433">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="b3044-433">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-433">section:section0:key:key0</span></span>
-* <span data-ttu-id="b3044-434">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-434">section:section0:key:key1</span></span>
-* <span data-ttu-id="b3044-435">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-435">section:section1:key:key0</span></span>
-* <span data-ttu-id="b3044-436">section:section1:key:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-436">section:section1:key:key1</span></span>
+* <span data-ttu-id="c9653-434">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-434">section:section0:key:key0</span></span>
+* <span data-ttu-id="c9653-435">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-435">section:section0:key:key1</span></span>
+* <span data-ttu-id="c9653-436">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-436">section:section1:key:key0</span></span>
+* <span data-ttu-id="c9653-437">section:section1:key:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-437">section:section1:key:key1</span></span>
 
-<span data-ttu-id="b3044-437">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="b3044-437">Attributes can be used to supply values:</span></span>
+<span data-ttu-id="c9653-438">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="c9653-438">Attributes can be used to supply values:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -716,25 +722,25 @@ var host = new WebHostBuilder()
 </configuration>
 ```
 
-<span data-ttu-id="b3044-438">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="b3044-438">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c9653-439">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="c9653-439">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="b3044-439">key:attribute</span><span class="sxs-lookup"><span data-stu-id="b3044-439">key:attribute</span></span>
-* <span data-ttu-id="b3044-440">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="b3044-440">section:key:attribute</span></span>
+* <span data-ttu-id="c9653-440">key:attribute</span><span class="sxs-lookup"><span data-stu-id="c9653-440">key:attribute</span></span>
+* <span data-ttu-id="c9653-441">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="c9653-441">section:key:attribute</span></span>
 
-## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="b3044-441">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-441">Key-per-file Configuration Provider</span></span>
+## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="c9653-442">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-442">Key-per-file Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-442"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="b3044-442">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="b3044-443">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="b3044-443">The key is the file name.</span></span> <span data-ttu-id="b3044-444">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="b3044-444">The value contains the file's contents.</span></span> <span data-ttu-id="b3044-445">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="b3044-445">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
+<span data-ttu-id="c9653-443"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="c9653-443">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="c9653-444">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="c9653-444">The key is the file name.</span></span> <span data-ttu-id="c9653-445">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="c9653-445">The value contains the file's contents.</span></span> <span data-ttu-id="c9653-446">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="c9653-446">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
 
-<span data-ttu-id="b3044-446">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-446">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="b3044-447">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="b3044-447">The `directoryPath` to the files must be an absolute path.</span></span>
+<span data-ttu-id="c9653-447">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-447">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="c9653-448">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="c9653-448">The `directoryPath` to the files must be an absolute path.</span></span>
 
-<span data-ttu-id="b3044-448">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="b3044-448">Overloads permit specifying:</span></span>
+<span data-ttu-id="c9653-449">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="c9653-449">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="b3044-449">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="b3044-449">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
-* <span data-ttu-id="b3044-450">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="b3044-450">Whether the directory is optional and the path to the directory.</span></span>
+* <span data-ttu-id="c9653-450">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="c9653-450">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
+* <span data-ttu-id="c9653-451">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="c9653-451">Whether the directory is optional and the path to the directory.</span></span>
 
-<span data-ttu-id="b3044-451">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="b3044-451">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="b3044-452">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="b3044-452">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
+<span data-ttu-id="c9653-452">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="c9653-452">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="c9653-453">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="c9653-453">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
 
-<span data-ttu-id="b3044-453">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-453">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c9653-454">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-454">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 public class Program
@@ -749,16 +755,17 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "path/to/files");
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "path/to/files");
                 config.AddKeyPerFile(directoryPath: path, optional: true);
             })
             .UseStartup<Startup>();
 }
 ```
 
-<span data-ttu-id="b3044-454">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="b3044-454">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="b3044-455">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-455">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-455">基路径使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 设置。</span><span class="sxs-lookup"><span data-stu-id="c9653-455">The base path is set with <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.</span></span> <span data-ttu-id="c9653-456">`SetBasePath` 在 [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-456">`SetBasePath` is in the [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-456">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-456">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-457">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-457">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var path = Path.Combine(Directory.GetCurrentDirectory(), "path/to/files");
@@ -772,15 +779,15 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-## <a name="memory-configuration-provider"></a><span data-ttu-id="b3044-457">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-457">Memory Configuration Provider</span></span>
+## <a name="memory-configuration-provider"></a><span data-ttu-id="c9653-458">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-458">Memory Configuration Provider</span></span>
 
-<span data-ttu-id="b3044-458"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="b3044-458">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
+<span data-ttu-id="c9653-459"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="c9653-459">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
 
-<span data-ttu-id="b3044-459">若要激活内存中集合配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-459">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c9653-460">若要激活内存中集合配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-460">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="b3044-460">可以使用 `IEnumerable<KeyValuePair<String,String>>` 初始化配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-460">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
+<span data-ttu-id="c9653-461">可以使用 `IEnumerable<KeyValuePair<String,String>>` 初始化配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-461">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
 
-<span data-ttu-id="b3044-461">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-461">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c9653-462">构建主机时调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-462">Call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 public class Program
@@ -807,7 +814,7 @@ public class Program
 }
 ```
 
-<span data-ttu-id="b3044-462">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="b3044-462">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
+<span data-ttu-id="c9653-463">直接创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，请使用以下配置调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>：</span><span class="sxs-lookup"><span data-stu-id="c9653-463">When creating a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> directly, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> with the configuration:</span></span>
 
 ```csharp
 var dict = new Dictionary<string, string>
@@ -826,19 +833,17 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
-## <a name="getvalue"></a><span data-ttu-id="b3044-463">GetValue</span><span class="sxs-lookup"><span data-stu-id="b3044-463">GetValue</span></span>
+## <a name="getvalue"></a><span data-ttu-id="c9653-464">GetValue</span><span class="sxs-lookup"><span data-stu-id="c9653-464">GetValue</span></span>
 
-<span data-ttu-id="b3044-464">[ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从具有指定键的配置中提取一个值，并将其转换为指定类型。</span><span class="sxs-lookup"><span data-stu-id="b3044-464">[ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a value from configuration with a specified key and converts it to the specified type.</span></span> <span data-ttu-id="b3044-465">如果未找到该键，则过载允许你提供默认值。</span><span class="sxs-lookup"><span data-stu-id="b3044-465">An overload permits you to provide a default value if the key isn't found.</span></span>
+<span data-ttu-id="c9653-465">[ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从具有指定键的配置中提取一个值，并将其转换为指定类型。</span><span class="sxs-lookup"><span data-stu-id="c9653-465">[ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a value from configuration with a specified key and converts it to the specified type.</span></span> <span data-ttu-id="c9653-466">如果未找到该键，则过载允许你提供默认值。</span><span class="sxs-lookup"><span data-stu-id="c9653-466">An overload permits you to provide a default value if the key isn't found.</span></span>
 
-<span data-ttu-id="b3044-466">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="b3044-466">The following example:</span></span>
+<span data-ttu-id="c9653-467">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="c9653-467">The following example:</span></span>
 
-* <span data-ttu-id="b3044-467">使用键 `NumberKey` 从配置中提取字符串值。</span><span class="sxs-lookup"><span data-stu-id="b3044-467">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="b3044-468">如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="b3044-468">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
-* <span data-ttu-id="b3044-469">键入值作为 `int`。</span><span class="sxs-lookup"><span data-stu-id="b3044-469">Types the value as an `int`.</span></span>
-* <span data-ttu-id="b3044-470">存储 `NumberConfig` 属性中的值，以供页面使用。</span><span class="sxs-lookup"><span data-stu-id="b3044-470">Stores the value in the `NumberConfig` property for use by the page.</span></span>
+* <span data-ttu-id="c9653-468">使用键 `NumberKey` 从配置中提取字符串值。</span><span class="sxs-lookup"><span data-stu-id="c9653-468">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="c9653-469">如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="c9653-469">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
+* <span data-ttu-id="c9653-470">键入值作为 `int`。</span><span class="sxs-lookup"><span data-stu-id="c9653-470">Types the value as an `int`.</span></span>
+* <span data-ttu-id="c9653-471">存储 `NumberConfig` 属性中的值，以供页面使用。</span><span class="sxs-lookup"><span data-stu-id="c9653-471">Stores the value in the `NumberConfig` property for use by the page.</span></span>
 
 ```csharp
-// using Microsoft.Extensions.Configuration;
-
 public class IndexModel : PageModel
 {
     public IndexModel(IConfiguration config)
@@ -855,9 +860,9 @@ public class IndexModel : PageModel
 }
 ```
 
-## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="b3044-471">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="b3044-471">GetSection, GetChildren, and Exists</span></span>
+## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="c9653-472">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="c9653-472">GetSection, GetChildren, and Exists</span></span>
 
-<span data-ttu-id="b3044-472">对于下面的示例，请考虑以下 JSON 文件。</span><span class="sxs-lookup"><span data-stu-id="b3044-472">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="b3044-473">在两个节中找到四个键，其中一个包含一对子节：</span><span class="sxs-lookup"><span data-stu-id="b3044-473">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
+<span data-ttu-id="c9653-473">对于下面的示例，请考虑以下 JSON 文件。</span><span class="sxs-lookup"><span data-stu-id="c9653-473">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="c9653-474">在两个节中找到四个键，其中一个包含一对子节：</span><span class="sxs-lookup"><span data-stu-id="c9653-474">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
 
 ```json
 {
@@ -882,42 +887,42 @@ public class IndexModel : PageModel
 }
 ```
 
-<span data-ttu-id="b3044-474">将文件读入配置时，会创建以下唯一的分层键来保存配置值：</span><span class="sxs-lookup"><span data-stu-id="b3044-474">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
+<span data-ttu-id="c9653-475">将文件读入配置时，会创建以下唯一的分层键来保存配置值：</span><span class="sxs-lookup"><span data-stu-id="c9653-475">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
 
-* <span data-ttu-id="b3044-475">section0:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-475">section0:key0</span></span>
-* <span data-ttu-id="b3044-476">section0:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-476">section0:key1</span></span>
-* <span data-ttu-id="b3044-477">section1:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-477">section1:key0</span></span>
-* <span data-ttu-id="b3044-478">section1:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-478">section1:key1</span></span>
-* <span data-ttu-id="b3044-479">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-479">section2:subsection0:key0</span></span>
-* <span data-ttu-id="b3044-480">section2:subsection0:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-480">section2:subsection0:key1</span></span>
-* <span data-ttu-id="b3044-481">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="b3044-481">section2:subsection1:key0</span></span>
-* <span data-ttu-id="b3044-482">section2:subsection1:key1</span><span class="sxs-lookup"><span data-stu-id="b3044-482">section2:subsection1:key1</span></span>
+* <span data-ttu-id="c9653-476">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-476">section0:key0</span></span>
+* <span data-ttu-id="c9653-477">section0:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-477">section0:key1</span></span>
+* <span data-ttu-id="c9653-478">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-478">section1:key0</span></span>
+* <span data-ttu-id="c9653-479">section1:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-479">section1:key1</span></span>
+* <span data-ttu-id="c9653-480">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-480">section2:subsection0:key0</span></span>
+* <span data-ttu-id="c9653-481">section2:subsection0:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-481">section2:subsection0:key1</span></span>
+* <span data-ttu-id="c9653-482">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="c9653-482">section2:subsection1:key0</span></span>
+* <span data-ttu-id="c9653-483">section2:subsection1:key1</span><span class="sxs-lookup"><span data-stu-id="c9653-483">section2:subsection1:key1</span></span>
 
-### <a name="getsection"></a><span data-ttu-id="b3044-483">GetSection</span><span class="sxs-lookup"><span data-stu-id="b3044-483">GetSection</span></span>
+### <a name="getsection"></a><span data-ttu-id="c9653-484">GetSection</span><span class="sxs-lookup"><span data-stu-id="c9653-484">GetSection</span></span>
 
-<span data-ttu-id="b3044-484">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。</span><span class="sxs-lookup"><span data-stu-id="b3044-484">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span> <span data-ttu-id="b3044-485">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-485">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-485">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。</span><span class="sxs-lookup"><span data-stu-id="c9653-485">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span> <span data-ttu-id="c9653-486">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-486">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-486">若要返回仅包含 `section1` 中键值对的 <xref:Microsoft.Extensions.Configuration.IConfigurationSection>，请调用 `GetSection` 并提供节名称：</span><span class="sxs-lookup"><span data-stu-id="b3044-486">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
+<span data-ttu-id="c9653-487">若要返回仅包含 `section1` 中键值对的 <xref:Microsoft.Extensions.Configuration.IConfigurationSection>，请调用 `GetSection` 并提供节名称：</span><span class="sxs-lookup"><span data-stu-id="c9653-487">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section1");
 ```
 
-<span data-ttu-id="b3044-487">`configSection` 不具有值，只有密钥和路径。</span><span class="sxs-lookup"><span data-stu-id="b3044-487">The `configSection` doesn't have a value, only a key and a path.</span></span>
+<span data-ttu-id="c9653-488">`configSection` 不具有值，只有密钥和路径。</span><span class="sxs-lookup"><span data-stu-id="c9653-488">The `configSection` doesn't have a value, only a key and a path.</span></span>
 
-<span data-ttu-id="b3044-488">同样，若要获取 `section2:subsection0` 中键的值，请调用 `GetSection` 并提供节路径：</span><span class="sxs-lookup"><span data-stu-id="b3044-488">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
+<span data-ttu-id="c9653-489">同样，若要获取 `section2:subsection0` 中键的值，请调用 `GetSection` 并提供节路径：</span><span class="sxs-lookup"><span data-stu-id="c9653-489">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section2:subsection0");
 ```
 
-<span data-ttu-id="b3044-489">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="b3044-489">`GetSection` never returns `null`.</span></span> <span data-ttu-id="b3044-490">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="b3044-490">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
+<span data-ttu-id="c9653-490">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="c9653-490">`GetSection` never returns `null`.</span></span> <span data-ttu-id="c9653-491">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="c9653-491">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
 
-<span data-ttu-id="b3044-491">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="b3044-491">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="b3044-492">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="b3044-492">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
+<span data-ttu-id="c9653-492">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="c9653-492">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="c9653-493">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="c9653-493">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
 
-### <a name="getchildren"></a><span data-ttu-id="b3044-493">GetChildren</span><span class="sxs-lookup"><span data-stu-id="b3044-493">GetChildren</span></span>
+### <a name="getchildren"></a><span data-ttu-id="c9653-494">GetChildren</span><span class="sxs-lookup"><span data-stu-id="c9653-494">GetChildren</span></span>
 
-<span data-ttu-id="b3044-494">在 `section2` 上调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 会获得 `IEnumerable<IConfigurationSection>`，其中包括：</span><span class="sxs-lookup"><span data-stu-id="b3044-494">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
+<span data-ttu-id="c9653-495">在 `section2` 上调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 会获得 `IEnumerable<IConfigurationSection>`，其中包括：</span><span class="sxs-lookup"><span data-stu-id="c9653-495">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
 
 * `subsection0`
 * `subsection1`
@@ -928,60 +933,60 @@ var configSection = _config.GetSection("section2");
 var children = configSection.GetChildren();
 ```
 
-### <a name="exists"></a><span data-ttu-id="b3044-495">存在</span><span class="sxs-lookup"><span data-stu-id="b3044-495">Exists</span></span>
+### <a name="exists"></a><span data-ttu-id="c9653-496">存在</span><span class="sxs-lookup"><span data-stu-id="c9653-496">Exists</span></span>
 
-<span data-ttu-id="b3044-496">使用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 确定配置节是否存在：</span><span class="sxs-lookup"><span data-stu-id="b3044-496">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
+<span data-ttu-id="c9653-497">使用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 确定配置节是否存在：</span><span class="sxs-lookup"><span data-stu-id="c9653-497">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
 
 ```csharp
 var sectionExists = _config.GetSection("section2:subsection2").Exists();
 ```
 
-<span data-ttu-id="b3044-497">给定示例数据，`sectionExists` 为 `false`，因为配置数据中没有 `section2:subsection2` 节。</span><span class="sxs-lookup"><span data-stu-id="b3044-497">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
+<span data-ttu-id="c9653-498">给定示例数据，`sectionExists` 为 `false`，因为配置数据中没有 `section2:subsection2` 节。</span><span class="sxs-lookup"><span data-stu-id="c9653-498">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
 
-## <a name="bind-to-a-class"></a><span data-ttu-id="b3044-498">绑定至类</span><span class="sxs-lookup"><span data-stu-id="b3044-498">Bind to a class</span></span>
+## <a name="bind-to-a-class"></a><span data-ttu-id="c9653-499">绑定至类</span><span class="sxs-lookup"><span data-stu-id="c9653-499">Bind to a class</span></span>
 
-<span data-ttu-id="b3044-499">可以使用选项模式将配置绑定到表示相关设置组的类。</span><span class="sxs-lookup"><span data-stu-id="b3044-499">Configuration can be bound to classes that represent groups of related settings using the *options pattern*.</span></span> <span data-ttu-id="b3044-500">有关更多信息，请参见<xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="b3044-500">For more information, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="c9653-500">可以使用选项模式  将配置绑定到表示相关设置组的类。</span><span class="sxs-lookup"><span data-stu-id="c9653-500">Configuration can be bound to classes that represent groups of related settings using the *options pattern*.</span></span> <span data-ttu-id="c9653-501">有关更多信息，请参见<xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="c9653-501">For more information, see <xref:fundamentals/configuration/options>.</span></span>
 
-<span data-ttu-id="b3044-501">配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。</span><span class="sxs-lookup"><span data-stu-id="b3044-501">Configuration values are returned as strings, but calling <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> enables the construction of [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objects.</span></span> <span data-ttu-id="b3044-502">`Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-502">`Bind` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-502">配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。</span><span class="sxs-lookup"><span data-stu-id="c9653-502">Configuration values are returned as strings, but calling <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> enables the construction of [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objects.</span></span> <span data-ttu-id="c9653-503">`Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-503">`Bind` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-503">示例应用包含 `Starship` 模型 (Models/Starship.cs)：</span><span class="sxs-lookup"><span data-stu-id="b3044-503">The sample app contains a `Starship` model (*Models/Starship.cs*):</span></span>
+<span data-ttu-id="c9653-504">示例应用包含 `Starship` 模型 (Models/Starship.cs  )：</span><span class="sxs-lookup"><span data-stu-id="c9653-504">The sample app contains a `Starship` model (*Models/Starship.cs*):</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/Starship.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-504">当示例应用使用 JSON 配置提供程序加载配置时，starship.json 文件的 `starship` 节会创建配置：</span><span class="sxs-lookup"><span data-stu-id="b3044-504">The `starship` section of the *starship.json* file creates the configuration when the sample app uses the JSON Configuration Provider to load the configuration:</span></span>
+<span data-ttu-id="c9653-505">当示例应用使用 JSON 配置提供程序加载配置时，starship.json  文件的 `starship` 节会创建配置：</span><span class="sxs-lookup"><span data-stu-id="c9653-505">The `starship` section of the *starship.json* file creates the configuration when the sample app uses the JSON Configuration Provider to load the configuration:</span></span>
 
 [!code-json[](index/samples/2.x/ConfigurationSample/starship.json)]
 
-<span data-ttu-id="b3044-505">创建以下配置键值对：</span><span class="sxs-lookup"><span data-stu-id="b3044-505">The following configuration key-value pairs are created:</span></span>
+<span data-ttu-id="c9653-506">创建以下配置键值对：</span><span class="sxs-lookup"><span data-stu-id="c9653-506">The following configuration key-value pairs are created:</span></span>
 
-| <span data-ttu-id="b3044-506">键</span><span class="sxs-lookup"><span data-stu-id="b3044-506">Key</span></span>                   | <span data-ttu-id="b3044-507">值</span><span class="sxs-lookup"><span data-stu-id="b3044-507">Value</span></span>                                             |
+| <span data-ttu-id="c9653-507">键</span><span class="sxs-lookup"><span data-stu-id="c9653-507">Key</span></span>                   | <span data-ttu-id="c9653-508">值</span><span class="sxs-lookup"><span data-stu-id="c9653-508">Value</span></span>                                             |
 | --------------------- | ------------------------------------------------- |
-| <span data-ttu-id="b3044-508">starship:name</span><span class="sxs-lookup"><span data-stu-id="b3044-508">starship:name</span></span>         | <span data-ttu-id="b3044-509">USS Enterprise</span><span class="sxs-lookup"><span data-stu-id="b3044-509">USS Enterprise</span></span>                                    |
-| <span data-ttu-id="b3044-510">starship:registry</span><span class="sxs-lookup"><span data-stu-id="b3044-510">starship:registry</span></span>     | <span data-ttu-id="b3044-511">NCC-1701</span><span class="sxs-lookup"><span data-stu-id="b3044-511">NCC-1701</span></span>                                          |
-| <span data-ttu-id="b3044-512">starship:class</span><span class="sxs-lookup"><span data-stu-id="b3044-512">starship:class</span></span>        | <span data-ttu-id="b3044-513">Constitution</span><span class="sxs-lookup"><span data-stu-id="b3044-513">Constitution</span></span>                                      |
-| <span data-ttu-id="b3044-514">starship:length</span><span class="sxs-lookup"><span data-stu-id="b3044-514">starship:length</span></span>       | <span data-ttu-id="b3044-515">304.8</span><span class="sxs-lookup"><span data-stu-id="b3044-515">304.8</span></span>                                             |
-| <span data-ttu-id="b3044-516">starship:commissioned</span><span class="sxs-lookup"><span data-stu-id="b3044-516">starship:commissioned</span></span> | <span data-ttu-id="b3044-517">False</span><span class="sxs-lookup"><span data-stu-id="b3044-517">False</span></span>                                             |
-| <span data-ttu-id="b3044-518">trademark</span><span class="sxs-lookup"><span data-stu-id="b3044-518">trademark</span></span>             | <span data-ttu-id="b3044-519">Paramount Pictures Corp. http://www.paramount.com</span><span class="sxs-lookup"><span data-stu-id="b3044-519">Paramount Pictures Corp. http://www.paramount.com</span></span> |
+| <span data-ttu-id="c9653-509">starship:name</span><span class="sxs-lookup"><span data-stu-id="c9653-509">starship:name</span></span>         | <span data-ttu-id="c9653-510">USS Enterprise</span><span class="sxs-lookup"><span data-stu-id="c9653-510">USS Enterprise</span></span>                                    |
+| <span data-ttu-id="c9653-511">starship:registry</span><span class="sxs-lookup"><span data-stu-id="c9653-511">starship:registry</span></span>     | <span data-ttu-id="c9653-512">NCC-1701</span><span class="sxs-lookup"><span data-stu-id="c9653-512">NCC-1701</span></span>                                          |
+| <span data-ttu-id="c9653-513">starship:class</span><span class="sxs-lookup"><span data-stu-id="c9653-513">starship:class</span></span>        | <span data-ttu-id="c9653-514">Constitution</span><span class="sxs-lookup"><span data-stu-id="c9653-514">Constitution</span></span>                                      |
+| <span data-ttu-id="c9653-515">starship:length</span><span class="sxs-lookup"><span data-stu-id="c9653-515">starship:length</span></span>       | <span data-ttu-id="c9653-516">304.8</span><span class="sxs-lookup"><span data-stu-id="c9653-516">304.8</span></span>                                             |
+| <span data-ttu-id="c9653-517">starship:commissioned</span><span class="sxs-lookup"><span data-stu-id="c9653-517">starship:commissioned</span></span> | <span data-ttu-id="c9653-518">False</span><span class="sxs-lookup"><span data-stu-id="c9653-518">False</span></span>                                             |
+| <span data-ttu-id="c9653-519">trademark</span><span class="sxs-lookup"><span data-stu-id="c9653-519">trademark</span></span>             | <span data-ttu-id="c9653-520">Paramount Pictures Corp. http://www.paramount.com</span><span class="sxs-lookup"><span data-stu-id="c9653-520">Paramount Pictures Corp. http://www.paramount.com</span></span> |
 
-<span data-ttu-id="b3044-520">示例应用使用 `starship` 键调用 `GetSection`。</span><span class="sxs-lookup"><span data-stu-id="b3044-520">The sample app calls `GetSection` with the `starship` key.</span></span> <span data-ttu-id="b3044-521">`starship` 键值对是独立的。</span><span class="sxs-lookup"><span data-stu-id="b3044-521">The `starship` key-value pairs are isolated.</span></span> <span data-ttu-id="b3044-522">在子节传入 `Starship` 类的实例时调用 `Bind` 方法。</span><span class="sxs-lookup"><span data-stu-id="b3044-522">The `Bind` method is called on the subsection passing in an instance of the `Starship` class.</span></span> <span data-ttu-id="b3044-523">绑定实例值后，将实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="b3044-523">After binding the instance values, the instance is assigned to a property for rendering:</span></span>
+<span data-ttu-id="c9653-521">示例应用使用 `starship` 键调用 `GetSection`。</span><span class="sxs-lookup"><span data-stu-id="c9653-521">The sample app calls `GetSection` with the `starship` key.</span></span> <span data-ttu-id="c9653-522">`starship` 键值对是独立的。</span><span class="sxs-lookup"><span data-stu-id="c9653-522">The `starship` key-value pairs are isolated.</span></span> <span data-ttu-id="c9653-523">在子节传入 `Starship` 类的实例时调用 `Bind` 方法。</span><span class="sxs-lookup"><span data-stu-id="c9653-523">The `Bind` method is called on the subsection passing in an instance of the `Starship` class.</span></span> <span data-ttu-id="c9653-524">绑定实例值后，将实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="c9653-524">After binding the instance values, the instance is assigned to a property for rendering:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_starship)]
 
-<span data-ttu-id="b3044-524">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-524">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-525">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-525">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-## <a name="bind-to-an-object-graph"></a><span data-ttu-id="b3044-525">绑定至对象图</span><span class="sxs-lookup"><span data-stu-id="b3044-525">Bind to an object graph</span></span>
+## <a name="bind-to-an-object-graph"></a><span data-ttu-id="c9653-526">绑定至对象图</span><span class="sxs-lookup"><span data-stu-id="c9653-526">Bind to an object graph</span></span>
 
-<span data-ttu-id="b3044-526"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。</span><span class="sxs-lookup"><span data-stu-id="b3044-526"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="b3044-527">`Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-527">`Bind` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-527"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。</span><span class="sxs-lookup"><span data-stu-id="c9653-527"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="c9653-528">`Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-528">`Bind` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-528">该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs)：</span><span class="sxs-lookup"><span data-stu-id="b3044-528">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
+<span data-ttu-id="c9653-529">该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs  )：</span><span class="sxs-lookup"><span data-stu-id="c9653-529">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-529">示例应用有一个包含配置数据的 tvshow.xml 文件：</span><span class="sxs-lookup"><span data-stu-id="b3044-529">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
+<span data-ttu-id="c9653-530">示例应用有一个包含配置数据的 tvshow.xml  文件：</span><span class="sxs-lookup"><span data-stu-id="c9653-530">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
 
 [!code-xml[](index/samples/2.x/ConfigurationSample/tvshow.xml)]
 
-<span data-ttu-id="b3044-530">使用 `Bind` 方法将配置绑定到整个 `TvShow` 对象图。</span><span class="sxs-lookup"><span data-stu-id="b3044-530">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="b3044-531">将绑定实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="b3044-531">The bound instance is assigned to a property for rendering:</span></span>
+<span data-ttu-id="c9653-531">使用 `Bind` 方法将配置绑定到整个 `TvShow` 对象图。</span><span class="sxs-lookup"><span data-stu-id="c9653-531">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="c9653-532">将绑定实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="c9653-532">The bound instance is assigned to a property for rendering:</span></span>
 
 ```csharp
 var tvShow = new TvShow();
@@ -989,71 +994,71 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-<span data-ttu-id="b3044-532">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 绑定并返回指定类型。</span><span class="sxs-lookup"><span data-stu-id="b3044-532">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="b3044-533">`Get<T>` 比使用 `Bind` 更方便。</span><span class="sxs-lookup"><span data-stu-id="b3044-533">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="b3044-534">以下代码显示如何将 `Get<T>` 与前面的示例一起使用，该示例允许将绑定实例直接分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="b3044-534">The following code shows how to use `Get<T>` with the preceding example, which allows the bound instance to be directly assigned to the property used for rendering:</span></span>
+<span data-ttu-id="c9653-533">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 绑定并返回指定类型。</span><span class="sxs-lookup"><span data-stu-id="c9653-533">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="c9653-534">`Get<T>` 比使用 `Bind` 更方便。</span><span class="sxs-lookup"><span data-stu-id="c9653-534">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="c9653-535">以下代码显示如何将 `Get<T>` 与前面的示例一起使用，该示例允许将绑定实例直接分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="c9653-535">The following code shows how to use `Get<T>` with the preceding example, which allows the bound instance to be directly assigned to the property used for rendering:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
 
-<span data-ttu-id="b3044-535"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-535"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="b3044-536">ASP.NET Core 1.1 或更高版本中提供了 `Get<T>`。</span><span class="sxs-lookup"><span data-stu-id="b3044-536">`Get<T>` is available in ASP.NET Core 1.1 or later.</span></span> <span data-ttu-id="b3044-537">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-537">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-536"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-536"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="c9653-537">ASP.NET Core 1.1 或更高版本中提供了 `Get<T>`。</span><span class="sxs-lookup"><span data-stu-id="c9653-537">`Get<T>` is available in ASP.NET Core 1.1 or later.</span></span> <span data-ttu-id="c9653-538">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-538">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="b3044-538">将数组绑定至类</span><span class="sxs-lookup"><span data-stu-id="b3044-538">Bind an array to a class</span></span>
+## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="c9653-539">将数组绑定至类</span><span class="sxs-lookup"><span data-stu-id="c9653-539">Bind an array to a class</span></span>
 
-<span data-ttu-id="b3044-539">示例应用演示了本部分中介绍的概念。</span><span class="sxs-lookup"><span data-stu-id="b3044-539">*The sample app demonstrates the concepts explained in this section.*</span></span>
+<span data-ttu-id="c9653-540">示例应用演示了本部分中介绍的概念。 </span><span class="sxs-lookup"><span data-stu-id="c9653-540">*The sample app demonstrates the concepts explained in this section.*</span></span>
 
-<span data-ttu-id="b3044-540"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="b3044-540">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="b3044-541">公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="b3044-541">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span> <span data-ttu-id="b3044-542">\`Bind\`\` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-542">\`Bind\`\` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-541"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="c9653-541">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c9653-542">公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="c9653-542">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span> <span data-ttu-id="c9653-543">\`Bind\`\` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-543">\`Bind\`\` is in the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="b3044-543">绑定是按约定提供的。</span><span class="sxs-lookup"><span data-stu-id="b3044-543">Binding is provided by convention.</span></span> <span data-ttu-id="b3044-544">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="b3044-544">Custom configuration providers aren't required to implement array binding.</span></span>
+> <span data-ttu-id="c9653-544">绑定是按约定提供的。</span><span class="sxs-lookup"><span data-stu-id="c9653-544">Binding is provided by convention.</span></span> <span data-ttu-id="c9653-545">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="c9653-545">Custom configuration providers aren't required to implement array binding.</span></span>
 
-<span data-ttu-id="b3044-545">**内存中数组处理**</span><span class="sxs-lookup"><span data-stu-id="b3044-545">**In-memory array processing**</span></span>
+<span data-ttu-id="c9653-546">**内存中数组处理**</span><span class="sxs-lookup"><span data-stu-id="c9653-546">**In-memory array processing**</span></span>
 
-<span data-ttu-id="b3044-546">请考虑下表中所示的配置键和值。</span><span class="sxs-lookup"><span data-stu-id="b3044-546">Consider the configuration keys and values shown in the following table.</span></span>
+<span data-ttu-id="c9653-547">请考虑下表中所示的配置键和值。</span><span class="sxs-lookup"><span data-stu-id="c9653-547">Consider the configuration keys and values shown in the following table.</span></span>
 
-| <span data-ttu-id="b3044-547">键</span><span class="sxs-lookup"><span data-stu-id="b3044-547">Key</span></span>             | <span data-ttu-id="b3044-548">值</span><span class="sxs-lookup"><span data-stu-id="b3044-548">Value</span></span>  |
+| <span data-ttu-id="c9653-548">键</span><span class="sxs-lookup"><span data-stu-id="c9653-548">Key</span></span>             | <span data-ttu-id="c9653-549">值</span><span class="sxs-lookup"><span data-stu-id="c9653-549">Value</span></span>  |
 | :-------------: | :----: |
-| <span data-ttu-id="b3044-549">array:entries:0</span><span class="sxs-lookup"><span data-stu-id="b3044-549">array:entries:0</span></span> | <span data-ttu-id="b3044-550">value0</span><span class="sxs-lookup"><span data-stu-id="b3044-550">value0</span></span> |
-| <span data-ttu-id="b3044-551">array:entries:1</span><span class="sxs-lookup"><span data-stu-id="b3044-551">array:entries:1</span></span> | <span data-ttu-id="b3044-552">value1</span><span class="sxs-lookup"><span data-stu-id="b3044-552">value1</span></span> |
-| <span data-ttu-id="b3044-553">array:entries:2</span><span class="sxs-lookup"><span data-stu-id="b3044-553">array:entries:2</span></span> | <span data-ttu-id="b3044-554">value2</span><span class="sxs-lookup"><span data-stu-id="b3044-554">value2</span></span> |
-| <span data-ttu-id="b3044-555">array:entries:4</span><span class="sxs-lookup"><span data-stu-id="b3044-555">array:entries:4</span></span> | <span data-ttu-id="b3044-556">value4</span><span class="sxs-lookup"><span data-stu-id="b3044-556">value4</span></span> |
-| <span data-ttu-id="b3044-557">array:entries:5</span><span class="sxs-lookup"><span data-stu-id="b3044-557">array:entries:5</span></span> | <span data-ttu-id="b3044-558">value5</span><span class="sxs-lookup"><span data-stu-id="b3044-558">value5</span></span> |
+| <span data-ttu-id="c9653-550">array:entries:0</span><span class="sxs-lookup"><span data-stu-id="c9653-550">array:entries:0</span></span> | <span data-ttu-id="c9653-551">value0</span><span class="sxs-lookup"><span data-stu-id="c9653-551">value0</span></span> |
+| <span data-ttu-id="c9653-552">array:entries:1</span><span class="sxs-lookup"><span data-stu-id="c9653-552">array:entries:1</span></span> | <span data-ttu-id="c9653-553">value1</span><span class="sxs-lookup"><span data-stu-id="c9653-553">value1</span></span> |
+| <span data-ttu-id="c9653-554">array:entries:2</span><span class="sxs-lookup"><span data-stu-id="c9653-554">array:entries:2</span></span> | <span data-ttu-id="c9653-555">value2</span><span class="sxs-lookup"><span data-stu-id="c9653-555">value2</span></span> |
+| <span data-ttu-id="c9653-556">array:entries:4</span><span class="sxs-lookup"><span data-stu-id="c9653-556">array:entries:4</span></span> | <span data-ttu-id="c9653-557">value4</span><span class="sxs-lookup"><span data-stu-id="c9653-557">value4</span></span> |
+| <span data-ttu-id="c9653-558">array:entries:5</span><span class="sxs-lookup"><span data-stu-id="c9653-558">array:entries:5</span></span> | <span data-ttu-id="c9653-559">value5</span><span class="sxs-lookup"><span data-stu-id="c9653-559">value5</span></span> |
 
-<span data-ttu-id="b3044-559">使用内存配置提供程序在示例应用中加载这些键和值：</span><span class="sxs-lookup"><span data-stu-id="b3044-559">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
+<span data-ttu-id="c9653-560">使用内存配置提供程序在示例应用中加载这些键和值：</span><span class="sxs-lookup"><span data-stu-id="c9653-560">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=3-10,22)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
 
-<span data-ttu-id="b3044-560">该数组跳过索引 &num;3 的值。</span><span class="sxs-lookup"><span data-stu-id="b3044-560">The array skips a value for index &num;3.</span></span> <span data-ttu-id="b3044-561">配置绑定程序无法绑定 null 值，也无法在绑定对象中创建 null 条目，这在演示将此数组绑定到对象的结果时变得清晰。</span><span class="sxs-lookup"><span data-stu-id="b3044-561">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
+<span data-ttu-id="c9653-561">该数组跳过索引 &num;3 的值。</span><span class="sxs-lookup"><span data-stu-id="c9653-561">The array skips a value for index &num;3.</span></span> <span data-ttu-id="c9653-562">配置绑定程序无法绑定 null 值，也无法在绑定对象中创建 null 条目，这在演示将此数组绑定到对象的结果时变得清晰。</span><span class="sxs-lookup"><span data-stu-id="c9653-562">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
 
-<span data-ttu-id="b3044-562">在示例应用中，POCO 类可用于保存绑定的配置数据：</span><span class="sxs-lookup"><span data-stu-id="b3044-562">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
+<span data-ttu-id="c9653-563">在示例应用中，POCO 类可用于保存绑定的配置数据：</span><span class="sxs-lookup"><span data-stu-id="c9653-563">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-563">将配置数据绑定至对象：</span><span class="sxs-lookup"><span data-stu-id="b3044-563">The configuration data is bound to the object:</span></span>
+<span data-ttu-id="c9653-564">将配置数据绑定至对象：</span><span class="sxs-lookup"><span data-stu-id="c9653-564">The configuration data is bound to the object:</span></span>
 
 ```csharp
 var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-<span data-ttu-id="b3044-564">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="b3044-564">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c9653-565">`GetSection` 在 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。</span><span class="sxs-lookup"><span data-stu-id="c9653-565">`GetSection` is in the [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="b3044-565">还可以使用 [ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 语法，从而产生更精简的代码：</span><span class="sxs-lookup"><span data-stu-id="b3044-565">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
+<span data-ttu-id="c9653-566">还可以使用 [ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 语法，从而产生更精简的代码：</span><span class="sxs-lookup"><span data-stu-id="c9653-566">[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
 
-<span data-ttu-id="b3044-566">绑定对象（`ArrayExample` 的实例）从配置接收数组数据。</span><span class="sxs-lookup"><span data-stu-id="b3044-566">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
+<span data-ttu-id="c9653-567">绑定对象（`ArrayExample` 的实例）从配置接收数组数据。</span><span class="sxs-lookup"><span data-stu-id="c9653-567">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
 
-| <span data-ttu-id="b3044-567">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="b3044-567">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="b3044-568">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="b3044-568">`ArrayExample.Entries` Value</span></span> |
+| <span data-ttu-id="c9653-568">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="c9653-568">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="c9653-569">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="c9653-569">`ArrayExample.Entries` Value</span></span> |
 | :--------------------------: | :--------------------------: |
-| <span data-ttu-id="b3044-569">0</span><span class="sxs-lookup"><span data-stu-id="b3044-569">0</span></span>                            | <span data-ttu-id="b3044-570">value0</span><span class="sxs-lookup"><span data-stu-id="b3044-570">value0</span></span>                       |
-| <span data-ttu-id="b3044-571">1</span><span class="sxs-lookup"><span data-stu-id="b3044-571">1</span></span>                            | <span data-ttu-id="b3044-572">value1</span><span class="sxs-lookup"><span data-stu-id="b3044-572">value1</span></span>                       |
-| <span data-ttu-id="b3044-573">2</span><span class="sxs-lookup"><span data-stu-id="b3044-573">2</span></span>                            | <span data-ttu-id="b3044-574">value2</span><span class="sxs-lookup"><span data-stu-id="b3044-574">value2</span></span>                       |
-| <span data-ttu-id="b3044-575">3</span><span class="sxs-lookup"><span data-stu-id="b3044-575">3</span></span>                            | <span data-ttu-id="b3044-576">value4</span><span class="sxs-lookup"><span data-stu-id="b3044-576">value4</span></span>                       |
-| <span data-ttu-id="b3044-577">4</span><span class="sxs-lookup"><span data-stu-id="b3044-577">4</span></span>                            | <span data-ttu-id="b3044-578">value5</span><span class="sxs-lookup"><span data-stu-id="b3044-578">value5</span></span>                       |
+| <span data-ttu-id="c9653-570">0</span><span class="sxs-lookup"><span data-stu-id="c9653-570">0</span></span>                            | <span data-ttu-id="c9653-571">value0</span><span class="sxs-lookup"><span data-stu-id="c9653-571">value0</span></span>                       |
+| <span data-ttu-id="c9653-572">1</span><span class="sxs-lookup"><span data-stu-id="c9653-572">1</span></span>                            | <span data-ttu-id="c9653-573">value1</span><span class="sxs-lookup"><span data-stu-id="c9653-573">value1</span></span>                       |
+| <span data-ttu-id="c9653-574">2</span><span class="sxs-lookup"><span data-stu-id="c9653-574">2</span></span>                            | <span data-ttu-id="c9653-575">value2</span><span class="sxs-lookup"><span data-stu-id="c9653-575">value2</span></span>                       |
+| <span data-ttu-id="c9653-576">3</span><span class="sxs-lookup"><span data-stu-id="c9653-576">3</span></span>                            | <span data-ttu-id="c9653-577">value4</span><span class="sxs-lookup"><span data-stu-id="c9653-577">value4</span></span>                       |
+| <span data-ttu-id="c9653-578">4</span><span class="sxs-lookup"><span data-stu-id="c9653-578">4</span></span>                            | <span data-ttu-id="c9653-579">value5</span><span class="sxs-lookup"><span data-stu-id="c9653-579">value5</span></span>                       |
 
-<span data-ttu-id="b3044-579">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="b3044-579">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="b3044-580">当绑定包含数组的配置数据时，配置键中的数组索引仅用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="b3044-580">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="b3044-581">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="b3044-581">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
+<span data-ttu-id="c9653-580">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="c9653-580">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="c9653-581">当绑定包含数组的配置数据时，配置键中的数组索引仅用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="c9653-581">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="c9653-582">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="c9653-582">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
 
-<span data-ttu-id="b3044-582">可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="b3044-582">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="b3044-583">如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：</span><span class="sxs-lookup"><span data-stu-id="b3044-583">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
+<span data-ttu-id="c9653-583">可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="c9653-583">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="c9653-584">如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：</span><span class="sxs-lookup"><span data-stu-id="c9653-584">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
 
-<span data-ttu-id="b3044-584">*missing_value.json*:</span><span class="sxs-lookup"><span data-stu-id="b3044-584">*missing_value.json*:</span></span>
+<span data-ttu-id="c9653-585">*missing_value.json*:</span><span class="sxs-lookup"><span data-stu-id="c9653-585">*missing_value.json*:</span></span>
 
 ```json
 {
@@ -1061,103 +1066,103 @@ _config.GetSection("array").Bind(arrayExample);
 }
 ```
 
-<span data-ttu-id="b3044-585">在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>中：</span><span class="sxs-lookup"><span data-stu-id="b3044-585">In <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>:</span></span>
+<span data-ttu-id="c9653-586">在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>中：</span><span class="sxs-lookup"><span data-stu-id="c9653-586">In <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>:</span></span>
 
 ```csharp
 config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false);
 ```
 
-<span data-ttu-id="b3044-586">将表中所示的键值对加载到配置中。</span><span class="sxs-lookup"><span data-stu-id="b3044-586">The key-value pair shown in the table is loaded into configuration.</span></span>
+<span data-ttu-id="c9653-587">将表中所示的键值对加载到配置中。</span><span class="sxs-lookup"><span data-stu-id="c9653-587">The key-value pair shown in the table is loaded into configuration.</span></span>
 
-| <span data-ttu-id="b3044-587">键</span><span class="sxs-lookup"><span data-stu-id="b3044-587">Key</span></span>             | <span data-ttu-id="b3044-588">值</span><span class="sxs-lookup"><span data-stu-id="b3044-588">Value</span></span>  |
+| <span data-ttu-id="c9653-588">键</span><span class="sxs-lookup"><span data-stu-id="c9653-588">Key</span></span>             | <span data-ttu-id="c9653-589">值</span><span class="sxs-lookup"><span data-stu-id="c9653-589">Value</span></span>  |
 | :-------------: | :----: |
-| <span data-ttu-id="b3044-589">array:entries:3</span><span class="sxs-lookup"><span data-stu-id="b3044-589">array:entries:3</span></span> | <span data-ttu-id="b3044-590">value3</span><span class="sxs-lookup"><span data-stu-id="b3044-590">value3</span></span> |
+| <span data-ttu-id="c9653-590">array:entries:3</span><span class="sxs-lookup"><span data-stu-id="c9653-590">array:entries:3</span></span> | <span data-ttu-id="c9653-591">value3</span><span class="sxs-lookup"><span data-stu-id="c9653-591">value3</span></span> |
 
-<span data-ttu-id="b3044-591">如果在 JSON 配置提供程序包含索引 &num;3 的条目之后绑定 `ArrayExample` 类实例，则 `ArrayExample.Entries` 数组包含该值。</span><span class="sxs-lookup"><span data-stu-id="b3044-591">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
+<span data-ttu-id="c9653-592">如果在 JSON 配置提供程序包含索引 &num;3 的条目之后绑定 `ArrayExample` 类实例，则 `ArrayExample.Entries` 数组包含该值。</span><span class="sxs-lookup"><span data-stu-id="c9653-592">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
 
-| <span data-ttu-id="b3044-592">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="b3044-592">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="b3044-593">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="b3044-593">`ArrayExample.Entries` Value</span></span> |
+| <span data-ttu-id="c9653-593">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="c9653-593">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="c9653-594">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="c9653-594">`ArrayExample.Entries` Value</span></span> |
 | :--------------------------: | :--------------------------: |
-| <span data-ttu-id="b3044-594">0</span><span class="sxs-lookup"><span data-stu-id="b3044-594">0</span></span>                            | <span data-ttu-id="b3044-595">value0</span><span class="sxs-lookup"><span data-stu-id="b3044-595">value0</span></span>                       |
-| <span data-ttu-id="b3044-596">1</span><span class="sxs-lookup"><span data-stu-id="b3044-596">1</span></span>                            | <span data-ttu-id="b3044-597">value1</span><span class="sxs-lookup"><span data-stu-id="b3044-597">value1</span></span>                       |
-| <span data-ttu-id="b3044-598">2</span><span class="sxs-lookup"><span data-stu-id="b3044-598">2</span></span>                            | <span data-ttu-id="b3044-599">value2</span><span class="sxs-lookup"><span data-stu-id="b3044-599">value2</span></span>                       |
-| <span data-ttu-id="b3044-600">3</span><span class="sxs-lookup"><span data-stu-id="b3044-600">3</span></span>                            | <span data-ttu-id="b3044-601">value3</span><span class="sxs-lookup"><span data-stu-id="b3044-601">value3</span></span>                       |
-| <span data-ttu-id="b3044-602">4</span><span class="sxs-lookup"><span data-stu-id="b3044-602">4</span></span>                            | <span data-ttu-id="b3044-603">value4</span><span class="sxs-lookup"><span data-stu-id="b3044-603">value4</span></span>                       |
-| <span data-ttu-id="b3044-604">5</span><span class="sxs-lookup"><span data-stu-id="b3044-604">5</span></span>                            | <span data-ttu-id="b3044-605">value5</span><span class="sxs-lookup"><span data-stu-id="b3044-605">value5</span></span>                       |
+| <span data-ttu-id="c9653-595">0</span><span class="sxs-lookup"><span data-stu-id="c9653-595">0</span></span>                            | <span data-ttu-id="c9653-596">value0</span><span class="sxs-lookup"><span data-stu-id="c9653-596">value0</span></span>                       |
+| <span data-ttu-id="c9653-597">1</span><span class="sxs-lookup"><span data-stu-id="c9653-597">1</span></span>                            | <span data-ttu-id="c9653-598">value1</span><span class="sxs-lookup"><span data-stu-id="c9653-598">value1</span></span>                       |
+| <span data-ttu-id="c9653-599">2</span><span class="sxs-lookup"><span data-stu-id="c9653-599">2</span></span>                            | <span data-ttu-id="c9653-600">value2</span><span class="sxs-lookup"><span data-stu-id="c9653-600">value2</span></span>                       |
+| <span data-ttu-id="c9653-601">3</span><span class="sxs-lookup"><span data-stu-id="c9653-601">3</span></span>                            | <span data-ttu-id="c9653-602">value3</span><span class="sxs-lookup"><span data-stu-id="c9653-602">value3</span></span>                       |
+| <span data-ttu-id="c9653-603">4</span><span class="sxs-lookup"><span data-stu-id="c9653-603">4</span></span>                            | <span data-ttu-id="c9653-604">value4</span><span class="sxs-lookup"><span data-stu-id="c9653-604">value4</span></span>                       |
+| <span data-ttu-id="c9653-605">5</span><span class="sxs-lookup"><span data-stu-id="c9653-605">5</span></span>                            | <span data-ttu-id="c9653-606">value5</span><span class="sxs-lookup"><span data-stu-id="c9653-606">value5</span></span>                       |
 
-<span data-ttu-id="b3044-606">**JSON 数组处理**</span><span class="sxs-lookup"><span data-stu-id="b3044-606">**JSON array processing**</span></span>
+<span data-ttu-id="c9653-607">**JSON 数组处理**</span><span class="sxs-lookup"><span data-stu-id="c9653-607">**JSON array processing**</span></span>
 
-<span data-ttu-id="b3044-607">如果 JSON 文件包含数组，则会为具有从零开始的节索引的数组元素创建配置键。</span><span class="sxs-lookup"><span data-stu-id="b3044-607">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="b3044-608">在以下配置文件中，`subsection` 是一个数组：</span><span class="sxs-lookup"><span data-stu-id="b3044-608">In the following configuration file, `subsection` is an array:</span></span>
+<span data-ttu-id="c9653-608">如果 JSON 文件包含数组，则会为具有从零开始的节索引的数组元素创建配置键。</span><span class="sxs-lookup"><span data-stu-id="c9653-608">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="c9653-609">在以下配置文件中，`subsection` 是一个数组：</span><span class="sxs-lookup"><span data-stu-id="c9653-609">In the following configuration file, `subsection` is an array:</span></span>
 
 [!code-json[](index/samples/2.x/ConfigurationSample/json_array.json)]
 
-<span data-ttu-id="b3044-609">JSON 配置提供程序将配置数据读入以下键值对：</span><span class="sxs-lookup"><span data-stu-id="b3044-609">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
+<span data-ttu-id="c9653-610">JSON 配置提供程序将配置数据读入以下键值对：</span><span class="sxs-lookup"><span data-stu-id="c9653-610">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
 
-| <span data-ttu-id="b3044-610">键</span><span class="sxs-lookup"><span data-stu-id="b3044-610">Key</span></span>                     | <span data-ttu-id="b3044-611">值</span><span class="sxs-lookup"><span data-stu-id="b3044-611">Value</span></span>  |
+| <span data-ttu-id="c9653-611">键</span><span class="sxs-lookup"><span data-stu-id="c9653-611">Key</span></span>                     | <span data-ttu-id="c9653-612">值</span><span class="sxs-lookup"><span data-stu-id="c9653-612">Value</span></span>  |
 | ----------------------- | :----: |
-| <span data-ttu-id="b3044-612">json_array:key</span><span class="sxs-lookup"><span data-stu-id="b3044-612">json_array:key</span></span>          | <span data-ttu-id="b3044-613">valueA</span><span class="sxs-lookup"><span data-stu-id="b3044-613">valueA</span></span> |
-| <span data-ttu-id="b3044-614">json_array:subsection:0</span><span class="sxs-lookup"><span data-stu-id="b3044-614">json_array:subsection:0</span></span> | <span data-ttu-id="b3044-615">valueB</span><span class="sxs-lookup"><span data-stu-id="b3044-615">valueB</span></span> |
-| <span data-ttu-id="b3044-616">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="b3044-616">json_array:subsection:1</span></span> | <span data-ttu-id="b3044-617">valueC</span><span class="sxs-lookup"><span data-stu-id="b3044-617">valueC</span></span> |
-| <span data-ttu-id="b3044-618">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="b3044-618">json_array:subsection:2</span></span> | <span data-ttu-id="b3044-619">valueD</span><span class="sxs-lookup"><span data-stu-id="b3044-619">valueD</span></span> |
+| <span data-ttu-id="c9653-613">json_array:key</span><span class="sxs-lookup"><span data-stu-id="c9653-613">json_array:key</span></span>          | <span data-ttu-id="c9653-614">valueA</span><span class="sxs-lookup"><span data-stu-id="c9653-614">valueA</span></span> |
+| <span data-ttu-id="c9653-615">json_array:subsection:0</span><span class="sxs-lookup"><span data-stu-id="c9653-615">json_array:subsection:0</span></span> | <span data-ttu-id="c9653-616">valueB</span><span class="sxs-lookup"><span data-stu-id="c9653-616">valueB</span></span> |
+| <span data-ttu-id="c9653-617">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="c9653-617">json_array:subsection:1</span></span> | <span data-ttu-id="c9653-618">valueC</span><span class="sxs-lookup"><span data-stu-id="c9653-618">valueC</span></span> |
+| <span data-ttu-id="c9653-619">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="c9653-619">json_array:subsection:2</span></span> | <span data-ttu-id="c9653-620">valueD</span><span class="sxs-lookup"><span data-stu-id="c9653-620">valueD</span></span> |
 
-<span data-ttu-id="b3044-620">在示例应用中，以下 POCO 类可用于绑定配置键值对：</span><span class="sxs-lookup"><span data-stu-id="b3044-620">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
+<span data-ttu-id="c9653-621">在示例应用中，以下 POCO 类可用于绑定配置键值对：</span><span class="sxs-lookup"><span data-stu-id="c9653-621">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-621">绑定后，`JsonArrayExample.Key` 保存值 `valueA`。</span><span class="sxs-lookup"><span data-stu-id="b3044-621">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="b3044-622">子节值存储在 POCO 数组属性 `Subsection` 中。</span><span class="sxs-lookup"><span data-stu-id="b3044-622">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
+<span data-ttu-id="c9653-622">绑定后，`JsonArrayExample.Key` 保存值 `valueA`。</span><span class="sxs-lookup"><span data-stu-id="c9653-622">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="c9653-623">子节值存储在 POCO 数组属性 `Subsection` 中。</span><span class="sxs-lookup"><span data-stu-id="c9653-623">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
 
-| <span data-ttu-id="b3044-623">`JsonArrayExample.Subsection` 索引</span><span class="sxs-lookup"><span data-stu-id="b3044-623">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="b3044-624">`JsonArrayExample.Subsection` 值</span><span class="sxs-lookup"><span data-stu-id="b3044-624">`JsonArrayExample.Subsection` Value</span></span> |
+| <span data-ttu-id="c9653-624">`JsonArrayExample.Subsection` 索引</span><span class="sxs-lookup"><span data-stu-id="c9653-624">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="c9653-625">`JsonArrayExample.Subsection` 值</span><span class="sxs-lookup"><span data-stu-id="c9653-625">`JsonArrayExample.Subsection` Value</span></span> |
 | :---------------------------------: | :---------------------------------: |
-| <span data-ttu-id="b3044-625">0</span><span class="sxs-lookup"><span data-stu-id="b3044-625">0</span></span>                                   | <span data-ttu-id="b3044-626">valueB</span><span class="sxs-lookup"><span data-stu-id="b3044-626">valueB</span></span>                              |
-| <span data-ttu-id="b3044-627">1</span><span class="sxs-lookup"><span data-stu-id="b3044-627">1</span></span>                                   | <span data-ttu-id="b3044-628">valueC</span><span class="sxs-lookup"><span data-stu-id="b3044-628">valueC</span></span>                              |
-| <span data-ttu-id="b3044-629">2</span><span class="sxs-lookup"><span data-stu-id="b3044-629">2</span></span>                                   | <span data-ttu-id="b3044-630">valueD</span><span class="sxs-lookup"><span data-stu-id="b3044-630">valueD</span></span>                              |
+| <span data-ttu-id="c9653-626">0</span><span class="sxs-lookup"><span data-stu-id="c9653-626">0</span></span>                                   | <span data-ttu-id="c9653-627">valueB</span><span class="sxs-lookup"><span data-stu-id="c9653-627">valueB</span></span>                              |
+| <span data-ttu-id="c9653-628">1</span><span class="sxs-lookup"><span data-stu-id="c9653-628">1</span></span>                                   | <span data-ttu-id="c9653-629">valueC</span><span class="sxs-lookup"><span data-stu-id="c9653-629">valueC</span></span>                              |
+| <span data-ttu-id="c9653-630">2</span><span class="sxs-lookup"><span data-stu-id="c9653-630">2</span></span>                                   | <span data-ttu-id="c9653-631">valueD</span><span class="sxs-lookup"><span data-stu-id="c9653-631">valueD</span></span>                              |
 
-## <a name="custom-configuration-provider"></a><span data-ttu-id="b3044-631">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="b3044-631">Custom configuration provider</span></span>
+## <a name="custom-configuration-provider"></a><span data-ttu-id="c9653-632">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="c9653-632">Custom configuration provider</span></span>
 
-<span data-ttu-id="b3044-632">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-632">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
+<span data-ttu-id="c9653-633">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-633">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
 
-<span data-ttu-id="b3044-633">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="b3044-633">The provider has the following characteristics:</span></span>
+<span data-ttu-id="c9653-634">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="c9653-634">The provider has the following characteristics:</span></span>
 
-* <span data-ttu-id="b3044-634">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="b3044-634">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="b3044-635">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="b3044-635">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
-* <span data-ttu-id="b3044-636">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="b3044-636">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="b3044-637">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="b3044-637">The provider doesn't query the database on a per-key basis.</span></span>
-* <span data-ttu-id="b3044-638">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="b3044-638">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
+* <span data-ttu-id="c9653-635">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="c9653-635">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="c9653-636">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="c9653-636">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
+* <span data-ttu-id="c9653-637">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="c9653-637">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="c9653-638">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="c9653-638">The provider doesn't query the database on a per-key basis.</span></span>
+* <span data-ttu-id="c9653-639">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="c9653-639">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
 
-<span data-ttu-id="b3044-639">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="b3044-639">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
+<span data-ttu-id="c9653-640">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="c9653-640">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
 
-<span data-ttu-id="b3044-640">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="b3044-640">*Models/EFConfigurationValue.cs*:</span></span>
+<span data-ttu-id="c9653-641">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="c9653-641">*Models/EFConfigurationValue.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-641">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="b3044-641">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
+<span data-ttu-id="c9653-642">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="c9653-642">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
 
-<span data-ttu-id="b3044-642">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="b3044-642">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
+<span data-ttu-id="c9653-643">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="c9653-643">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-643">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="b3044-643">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
+<span data-ttu-id="c9653-644">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="c9653-644">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
 
-<span data-ttu-id="b3044-644">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="b3044-644">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
+<span data-ttu-id="c9653-645">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="c9653-645">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-645">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="b3044-645">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="b3044-646">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="b3044-646">The configuration provider initializes the database when it's empty.</span></span>
+<span data-ttu-id="c9653-646">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="c9653-646">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="c9653-647">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="c9653-647">The configuration provider initializes the database when it's empty.</span></span>
 
-<span data-ttu-id="b3044-647">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="b3044-647">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
+<span data-ttu-id="c9653-648">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="c9653-648">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-648">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="b3044-648">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
+<span data-ttu-id="c9653-649">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="c9653-649">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
 
-<span data-ttu-id="b3044-649">Extensions/EntityFrameworkExtensions.cs：</span><span class="sxs-lookup"><span data-stu-id="b3044-649">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
+<span data-ttu-id="c9653-650">Extensions/EntityFrameworkExtensions.cs  ：</span><span class="sxs-lookup"><span data-stu-id="c9653-650">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-<span data-ttu-id="b3044-650">下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="b3044-650">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
+<span data-ttu-id="c9653-651">下面的代码演示如何在 Program.cs  中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="c9653-651">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=26)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
 
-## <a name="access-configuration-during-startup"></a><span data-ttu-id="b3044-651">在启动期间访问配置</span><span class="sxs-lookup"><span data-stu-id="b3044-651">Access configuration during startup</span></span>
+## <a name="access-configuration-during-startup"></a><span data-ttu-id="c9653-652">在启动期间访问配置</span><span class="sxs-lookup"><span data-stu-id="c9653-652">Access configuration during startup</span></span>
 
-<span data-ttu-id="b3044-652">将 `IConfiguration` 注入 `Startup` 构造函数以访问 `Startup.ConfigureServices` 中的配置值。</span><span class="sxs-lookup"><span data-stu-id="b3044-652">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="b3044-653">若要访问 `Startup.Configure` 中的配置，请将 `IConfiguration` 直接注入方法或使用构造函数中的实例：</span><span class="sxs-lookup"><span data-stu-id="b3044-653">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
+<span data-ttu-id="c9653-653">将 `IConfiguration` 注入 `Startup` 构造函数以访问 `Startup.ConfigureServices` 中的配置值。</span><span class="sxs-lookup"><span data-stu-id="c9653-653">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="c9653-654">若要访问 `Startup.Configure` 中的配置，请将 `IConfiguration` 直接注入方法或使用构造函数中的实例：</span><span class="sxs-lookup"><span data-stu-id="c9653-654">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
 
 ```csharp
 public class Startup
@@ -1181,13 +1186,13 @@ public class Startup
 }
 ```
 
-<span data-ttu-id="b3044-654">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="b3044-654">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
+<span data-ttu-id="c9653-655">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="c9653-655">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="b3044-655">在 Razor Pages 页或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="b3044-655">Access configuration in a Razor Pages page or MVC view</span></span>
+## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="c9653-656">在 Razor Pages 页或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="c9653-656">Access configuration in a Razor Pages page or MVC view</span></span>
 
-<span data-ttu-id="b3044-656">若要访问 Razor Pages 页或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration 命名空间](xref:Microsoft.Extensions.Configuration)添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入页面或视图。</span><span class="sxs-lookup"><span data-stu-id="b3044-656">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
+<span data-ttu-id="c9653-657">若要访问 Razor Pages 页或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration 命名空间](xref:Microsoft.Extensions.Configuration)添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入页面或视图。</span><span class="sxs-lookup"><span data-stu-id="c9653-657">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
 
-<span data-ttu-id="b3044-657">在 Razor 页面页中：</span><span class="sxs-lookup"><span data-stu-id="b3044-657">In a Razor Pages page:</span></span>
+<span data-ttu-id="c9653-658">在 Razor 页面页中：</span><span class="sxs-lookup"><span data-stu-id="c9653-658">In a Razor Pages page:</span></span>
 
 ```cshtml
 @page
@@ -1207,7 +1212,7 @@ public class Startup
 </html>
 ```
 
-<span data-ttu-id="b3044-658">在 MVC 视图中：</span><span class="sxs-lookup"><span data-stu-id="b3044-658">In an MVC view:</span></span>
+<span data-ttu-id="c9653-659">在 MVC 视图中：</span><span class="sxs-lookup"><span data-stu-id="c9653-659">In an MVC view:</span></span>
 
 ```cshtml
 @using Microsoft.Extensions.Configuration
@@ -1225,11 +1230,11 @@ public class Startup
 </html>
 ```
 
-## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="b3044-659">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="b3044-659">Add configuration from an external assembly</span></span>
+## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="c9653-660">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="c9653-660">Add configuration from an external assembly</span></span>
 
-<span data-ttu-id="b3044-660">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="b3044-660">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="b3044-661">有关更多信息，请参见<xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="b3044-661">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="c9653-661">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="c9653-661">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="c9653-662">有关更多信息，请参见<xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="c9653-662">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="b3044-662">其他资源</span><span class="sxs-lookup"><span data-stu-id="b3044-662">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c9653-663">其他资源</span><span class="sxs-lookup"><span data-stu-id="c9653-663">Additional resources</span></span>
 
 * <xref:fundamentals/configuration/options>
-* [<span data-ttu-id="b3044-663">深入了解 Microsoft 配置</span><span class="sxs-lookup"><span data-stu-id="b3044-663">Deep Dive into Microsoft Configuration</span></span>](https://www.paraesthesia.com/archive/2018/06/20/microsoft-extensions-configuration-deep-dive/)
+* [<span data-ttu-id="c9653-664">深入了解 Microsoft 配置</span><span class="sxs-lookup"><span data-stu-id="c9653-664">Deep Dive into Microsoft Configuration</span></span>](https://www.paraesthesia.com/archive/2018/06/20/microsoft-extensions-configuration-deep-dive/)
