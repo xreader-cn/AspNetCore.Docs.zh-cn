@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 04/03/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: bd4ffa79c4d1e0070c820fa9c06b0a84c3aaae74
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 46c9e054b6e9228a709f93c6b73772708f6c6eb0
+ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896984"
+ms.lasthandoff: 05/28/2019
+ms.locfileid: "66251229"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置 Windows 身份验证
 
@@ -33,12 +33,12 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 在 Visual Studio 中：
 
 1. 创建新项目。
-1. 选择“ASP.NET Core Web 应用程序”。 选择“下一步”。
-1. 中提供名称**项目名称**字段。 确认**位置**条目是否正确，或提供项目的位置。 选择“创建”。
+1. 选择“ASP.NET Core Web 应用程序”  。 选择“下一步”  。
+1. 中提供名称**项目名称**字段。 确认**位置**条目是否正确，或提供项目的位置。 选择“创建”  。
 1. 选择**更改**下**身份验证**。
 1. 在中**更改身份验证**窗口中，选择**Windows 身份验证**。 选择 **确定**。
-1. 选择“Web 应用程序”。
-1. 选择“创建”。
+1. 选择“Web 应用程序”  。
+1. 选择“创建”  。
 
 运行应用。 用户名将显示在呈现的应用程序用户界面。
 
@@ -47,7 +47,7 @@ Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行�
 项目的属性，您可以启用 Windows 身份验证并禁用匿名身份验证：
 
 1. 右键单击 Visual Studio 中的项目**解决方案资源管理器**，然后选择**属性**。
-1. 选择“调试”选项卡。
+1. 选择“调试”选项卡  。
 1. 清除的复选框**启用匿名身份验证**。
 1. 选中的复选框**启用 Windows 身份验证**。
 
@@ -82,7 +82,7 @@ IIS 使用[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)到承�
 
 启用 Windows 身份验证的 IIS 角色服务。 有关详细信息，请参阅[IIS 角色服务 （请参阅步骤 2） 中启用 Windows 身份验证](xref:host-and-deploy/iis/index#iis-configuration)。
 
-默认情况下，IIS 集成中间件配置为自动进行身份验证请求。 有关详细信息，请参阅[与 IIS 的 Windows 上托管 ASP.NET Core:IIS 选项 (AutomaticAuthentication)](xref:host-and-deploy/iis/index#iis-options)。
+[IIS 集成中间件](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)默认配置为自动进行身份验证请求。 有关详细信息，请参阅[与 IIS 的 Windows 上托管 ASP.NET Core:IIS 选项 (AutomaticAuthentication)](xref:host-and-deploy/iis/index#iis-options)。
 
 默认情况下，ASP.NET Core 模块配置为转发到应用的 Windows 身份验证令牌。 有关详细信息，请参阅[ASP.NET Core 模块配置参考：AspNetCore 元素的特性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)。
 
