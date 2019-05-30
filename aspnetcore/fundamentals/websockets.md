@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中开始使用 WebSocket。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/17/2019
+ms.date: 05/10/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 1b62dc91453437518e4b8f6f8dd0915977130766
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bba9cf051deaf57efdd82ca2fb1318fce79bd6cc
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888242"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223223"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -122,6 +122,15 @@ ms.locfileid: "64888242"
 ::: moniker-end
 
 WebSocket 请求可以来自任何 URL，但此示例代码只接受 `/ws` 的请求。
+
+使用 WebSocket 时，“必须”在连接期间保持中间件管道运行。 如果在中间件管道结束后尝试发送或接收 WebSocket 消息，可能会遇到以下异常情况：
+
+```
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake. ---> System.ObjectDisposedException: Cannot write to the response body, the response has completed.
+Object name: 'HttpResponseStream'.
+```
+
+如果使用后台服务将数据写入 WebSocket，请确保保持中间件管道运行。 通过使用 <xref:System.Threading.Tasks.TaskCompletionSource%601> 执行此操作。 传递 `TaskCompletionSource` 到背景服务，并在通过 WebSocket 完成时让其调用 <xref:System.Threading.Tasks.TaskCompletionSource%601.TrySetResult%2A>。 然后在请求期间 `await` <xref:System.Threading.Tasks.TaskCompletionSource%601.Task> 属性。
 
 ### <a name="send-and-receive-messages"></a>发送和接收消息
 

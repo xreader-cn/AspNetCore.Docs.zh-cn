@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/08/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 1f019fac23982a95fa37d43099522f4b3e9d107a
-ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
+ms.openlocfilehash: 190004de8b70a463f9f58a25164d5a86ecc266d6
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/23/2019
-ms.locfileid: "66039286"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376358"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -21,7 +21,7 @@ ms.locfileid: "66039286"
 
 ## <a name="get-started-with-grpc-service-in-aspnet-core"></a>开始使用 ASP.NET Core 中的 gRPC 服务
 
-[!INCLUDE[View or download sample code](~/includes/grpc/download.md)]
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -45,11 +45,11 @@ gRPC 需要以下程序包：
 
 使用启用 gRPC`AddGrpc`方法：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Startup.cs?name=snippet&highlight=5)]
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=5)]
 
 每个 gRPC 服务添加到路由通过管道`MapGrpcService`方法：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Startup.cs?name=snippet&highlight=21)]
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=21)]
 
 ASP.NET Core 中间件和功能共享路由管道，因此配置应用以提供额外的请求处理程序。 与配置的 gRPC 服务同时工作的其他请求处理程序，如 MVC 控制器。
 
@@ -72,11 +72,11 @@ public class GreeterService : Greeter.GreeterBase
 
 GRPC API 提供了访问某些 HTTP/2 消息数据，如方法、 主机、 标头和尾部。 访问是通过`ServerCallContext`自变量传递给每个 gRPC 方法：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?highlight=3-4&name=snippet)]
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?highlight=3-4&name=snippet)]
 
 `ServerCallContext` 不提供完全访问权限`HttpContext`所有 ASP.NET Api 中。 `GetHttpContext`扩展方法提供了全面的`HttpContext`表示 ASP.NET Api 中的基础 HTTP/2 消息：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?name=snippet1)]
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?name=snippet1)]
 
 ## <a name="additional-resources"></a>其他资源
 
