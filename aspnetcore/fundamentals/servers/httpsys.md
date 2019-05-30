@@ -5,14 +5,14 @@ description: 了解 Windows 上适用于 ASP.NET Core 的 Web 服务器 HTTP.sys
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/21/2019
+ms.date: 05/27/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 7ba27b404cd10752ff9e304cd0a272eff7fa627a
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: d91a0f7b83fb073147978319edfbed0bda9a1c44
+ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087056"
+ms.lasthandoff: 05/30/2019
+ms.locfileid: "66395952"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -143,11 +143,11 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
    在 Windows 上，可使用 [New-SelfSignedCertificate PowerShell cmdlet](/powershell/module/pkiclient/new-selfsignedcertificate) 创建自签名证书。 有关不支持的示例，请参阅 [UpdateIISExpressSSLForChrome.ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1)。
 
-   在服务器的“本地计算机” > “个人”存储中，安装自签名证书或 CA 签名证书。
+   在服务器的“本地计算机”   > “个人”  存储中，安装自签名证书或 CA 签名证书。
 
 1. 如果应用为[框架相关部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)，则安装 .NET Core、.NET Framework 或两者（如果应用是面向 .NET Framework 的 .NET Core 应用）。
 
-   * **.NET Core** &ndash; 如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时安装程序。 请勿在服务器上安装完整 SDK。
+   * **.NET Core** &ndash; 如果应用需要 .NET Core，请从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取并运行 .NET Core 运行时  安装程序。 请勿在服务器上安装完整 SDK。
    * **.NET Framework** &ndash; 如果应用需要 .NET Framework，请参阅 [.NET Framework 安装指南](/dotnet/framework/install/)。 安装所需的 .NET Framework。 可以从 [.NET Core 下载](https://dotnet.microsoft.com/download)页获取最新 .NET Framework 的安装程序。
 
    如果应用是[独立式部署](/dotnet/core/deploying/#framework-dependent-deployments-scd)，应用在部署中包含运行时。 无需在服务器上安装任何框架。
@@ -172,19 +172,19 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
    HTTP.sys 使用 [HTTP 服务器 API UrlPrefix 字符串格式](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)。
 
    > [!WARNING]
-   > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
+   > 不应使用顶级通配符绑定（`http://*:80/` 和 `http://+:80`）  。 顶级通配符绑定会带来应用安全漏洞。 此行为同时适用于强通配符和弱通配符。 请使用显式主机名或 IP 地址，而不是通配符。 如果可控制整个父域（相对于易受攻击的 `*.com`），子域通配符绑定（例如，`*.mysub.com`）不会构成安全风险。 有关详细信息，请参阅 [RFC 7230：第 5.4 节：主机](https://tools.ietf.org/html/rfc7230#section-5.4)。
 
 1. 在服务器上预注册 URL 前缀。
 
    用于配置 HTTP.sys 的内置工具为 *netsh.exe*。 *netsh.exe* 用于保留 URL 前缀并分配 X.509 证书。 此工具需要管理员特权。
 
-   使用 netsh.exe 工具为应用注册 URL：
+   使用 netsh.exe  工具为应用注册 URL：
 
    ```console
    netsh http add urlacl url=<URL> user=<USER>
    ```
 
-   * `<URL>` &ndash; 完全限定的统一资源定位器 (URL)。 不要使用通配符绑定。 请使用有效主机名或本地 IP 地址。 URL 必须包含尾部反斜杠。
+   * `<URL>` &ndash; 完全限定的统一资源定位器 (URL)。 不要使用通配符绑定。 请使用有效主机名或本地 IP 地址。 URL 必须包含尾部反斜杠。 
    * `<USER>` &ndash; 指定用户名或用户组名称。
 
    在以下示例中，服务器的本地 IP 地址是 `10.0.0.4`：
@@ -203,7 +203,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
 1. 在服务器上注册 X.509 证书。
 
-   使用 netsh.exe 工具为应用注册证书：
+   使用 netsh.exe  工具为应用注册证书：
 
    ```console
    netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
@@ -217,9 +217,9 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
    为了便于参考，将 GUID 作为包标记存储在应用中：
 
    * 在 Visual Studio 中：
-     * 在“解决方案资源管理器”中，右键单击应用，并选择“属性”，以打开应用的项目属性。
-     * 选择“包”选项卡。
-     * 在“标记”字段中输入已创建的 GUID。
+     * 在“解决方案资源管理器”  中，右键单击应用，并选择“属性”  ，以打开应用的项目属性。
+     * 选择“包”  选项卡。
+     * 在“标记”  字段中输入已创建的 GUID。
    * 如果使用的不是 Visual Studio：
      * 打开应用的项目文件。
      * 使用已创建的 GUID，将 `<PackageTags>` 属性添加到新的或现有的 `<PropertyGroup>`：
@@ -271,7 +271,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 
 ## <a name="additional-resources"></a>其他资源
 
-* [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
+* [使用 HTTP.sys 启用 Windows 身份验证](xref:security/authentication/windowsauth#httpsys)
 * [HTTP 服务器 API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [aspnet/HttpSysServer GitHub 存储库（源代码）](https://github.com/aspnet/HttpSysServer/)
 * [主机](xref:fundamentals/index#host)
