@@ -92,11 +92,7 @@
     - name: 远程过程调用应用
       items:
         - name: 开始使用 ASP.NET Core 中的 gRPC 服务
-          uid: tutorials/grpc/index
-        - name: 创建 ASP.NET Core gRPC Greeter 服务
           uid: tutorials/grpc/grpc-start
-        - name: 创建 .NET Core gRPC 客户端
-          uid: tutorials/grpc/grpc-client
     - name: 数据访问
       items:
         - name: EF Core 和 Razor Pages
@@ -321,7 +317,7 @@
               uid: spa/react
             - name: 使用 Redux 的 React
               uid: spa/react-with-redux
-            - name: JavaScriptServices
+            - name: JavaScript 服务
               uid: client-side/spa-services
         - name: LibMan
           items:
@@ -534,14 +530,6 @@
       uid: grpc/migration
     - name: 比较 gRPC 服务和 HTTP API
       uid: grpc/comparison
-    - name: 教程
-      items:
-        - name: 开始使用 ASP.NET Core 中的 gRPC 服务
-          uid: tutorials/grpc/index
-        - name: 创建 ASP.NET Core gRPC Greeter 服务
-          uid: tutorials/grpc/grpc-start
-        - name: 创建 .NET Core gRPC 客户端
-          uid: tutorials/grpc/grpc-client
 - name: 测试、调试和疑难解答
   items:
     - name: 单元测试
