@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: security/anti-request-forgery
-ms.openlocfilehash: 4498bd88e7188ea6c0063aeec054bc20e13ed5f1
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: a32e0e2dbd7fab95562a562cb88767d4c1e8049d
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086440"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458494"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
 
 通过[Steve Smith](https://ardalis.com/)， [Fiyaz Hasan](https://twitter.com/FiyazBinHasan)，和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-跨站点请求伪造 (也称为 XSRF 或 CSRF，读作 *，请参阅冲浪*) 是针对恶意网站凭此可以影响客户端浏览器和信任的 web 应用之间的交互的 web 托管的应用程序的攻击浏览器。 这些攻击是可能的因为 web 浏览器将自动随每个请求某些类型的身份验证令牌发送到网站。 这种形式的攻击是也称为*一键式攻击*或*会话行进*因为此攻击利用用户的身份验证会话。
+跨站点请求伪造 （也称为 XSRF 或 CSRF） 是针对恶意网站凭此可以影响客户端浏览器和信任该浏览器的 web 应用之间的交互的 web 托管的应用程序的攻击。 这些攻击是可能的因为 web 浏览器将自动随每个请求某些类型的身份验证令牌发送到网站。 这种形式的攻击是也称为*一键式攻击*或*会话行进*因为此攻击利用用户的身份验证会话。
 
 CSRF 攻击的示例：
 
