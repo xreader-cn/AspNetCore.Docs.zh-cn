@@ -3,14 +3,15 @@ title: ASP.NET Core 2.0 中的新增功能
 author: rick-anderson
 description: 了解 ASP.NET Core 2.0 的新增功能。
 ms.author: riande
-ms.date: 07/10/2017
+ms.custom: mvc
+ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 07e490fd844f0f9044afce37651ef680ed0c894d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5cf7b9aa7ccf86f1a89e6145cfc185c5ef803e66
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883092"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376410"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -51,7 +52,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 ## <a name="logging-update"></a>日志记录更新
 
-在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs 文件（而非 Startup.cs 文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
+在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs  文件（而非 Startup.cs  文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
 
 有关详细信息，请参阅[日志记录介绍](xref:fundamentals/logging/index)。
 
@@ -75,7 +76,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 ## <a name="spa-templates"></a>SPA 模板
 
-已提供适用于 Angular、Aurelia、Knockout.js、React.js 及 React.js 和 Redux 的单页应用程序 (SPA) 项目模板。 Angular 模板已更新至 Angular 4。 默认情况下，Angular 和 React 模板已可用；有关如何获取其他模板的信息，请参阅[新建 SPA 项目](xref:client-side/spa-services#creating-a-new-project)。 有关如何在 ASP.NET Core 中生成 SPA 的信息，请参阅[使用 JavaScriptServices 创建单页应用程序](xref:client-side/spa-services)。
+已提供适用于 Angular、Aurelia、Knockout.js、React.js 及 React.js 和 Redux 的单页应用程序 (SPA) 项目模板。 Angular 模板已更新至 Angular 4。 默认情况下，Angular 和 React 模板已可用；有关如何获取其他模板的信息，请参阅[新建 SPA 项目](xref:client-side/spa-services#create-a-new-project)。 要了解如何在 ASP.NET Core中构建 SPA，请参阅 <xref:client-side/spa-services>。
 
 ## <a name="kestrel-improvements"></a>Kestrel 改进
 

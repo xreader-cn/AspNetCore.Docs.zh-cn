@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/21/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: b572067e688d7e7f7c654a7a25703009c1a7e855
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: b50516b4dce28a6b105b2ab8b9386060d5392983
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223190"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376395"
 ---
 # <a name="host-and-deploy-blazor-client-side"></a>托管和部署 Blazor 客户端
 
@@ -32,13 +32,13 @@ ms.locfileid: "66223190"
   dotnet run --contentroot=/content-root-path
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目   。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--contentroot=/content-root-path"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数    。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件  。
 
   ```console
   --contentroot=/content-root-path
@@ -57,13 +57,13 @@ ms.locfileid: "66223190"
   dotnet run --pathbase=/virtual-path
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目   。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--pathbase=/virtual-path"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数    。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件  。
 
   ```console
   --pathbase=/virtual-path
@@ -79,13 +79,13 @@ ms.locfileid: "66223190"
   dotnet run --urls=http://127.0.0.1:0
   ```
 
-* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
+* 在 IIS Express 配置文件中，向应用的 launchSettings.json 文件添加条目   。 如果使用 Visual Studio 调试器并在命令提示符中运行 `dotnet run` 来运行应用，使用的是此设置。
 
   ```json
   "commandLineArgs": "--urls=http://127.0.0.1:0"
   ```
 
-* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件。
+* 在 Visual Studio 中，在“属性” > “调试” > “应用程序参数”中指定参数    。 在 Visual Studio 属性页中设置参数可将参数添加到 launchSettings.json 文件  。
 
   ```console
   --urls=http://127.0.0.1:0
@@ -114,23 +114,23 @@ Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中�
 使用浏览器的地址栏（例如，`https://www.contoso.com/`）请求应用的默认文档：
 
 1. 浏览器发出请求。
-1. 返回默认页，通常为 index.html。
-1. index.html 启动应用。
-1. 会加载 Blazor 的路由器，且显示 Razor 主页面 (Main.razor)。
+1. 返回默认页，通常为 index.html  。
+1. index.html 启动应用  。
+1. 会加载 Blazor 的路由器，且显示 Razor 主页面 (Main.razor)  。
 
-在主页上，选择“关于”页面的链接可加载“关于”页面。 选择“关于”页面的链接适用于客户端，因为 Blazor 路由器阻止浏览器对 Internet 发出请求，针对 `About` 转到 `www.contoso.com`，并为“关于”页本身提供服务。 针对客户端应用中的内部页的所有请求，工作原理都相同：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
+在主页上，选择“关于”页面的链接可加载“关于”页面。 选择“关于”页面的链接适用于客户端，因为 Blazor 路由器阻止浏览器对 Internet 发出请求，针对 `About` 转到 `www.contoso.com`，并为“关于”页本身提供服务。 针对客户端应用中的内部页的所有请求，工作原理都相同  ：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
 
-如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”响应。
+如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”  响应。
 
-由于浏览器针对客户端页面请求基于 Internet 的主机，因此 Web 服务器和托管服务必须将对服务器上非物理方式资源的所有请求重写为 index.html 页。 如果返回 index.html，应用的客户端路由器将接管工作并使用正确的资源响应。
+由于浏览器针对客户端页面请求基于 Internet 的主机，因此 Web 服务器和托管服务必须将对服务器上非物理方式资源的所有请求重写为 index.html 页  。 如果返回 index.html，应用的客户端路由器将接管工作并使用正确的资源响应  。
 
 ## <a name="app-base-path"></a>应用基路径
 
-应用基路径是服务器上的虚拟应用根路径。 例如，位于 `/CoolApp/` 虚拟文件夹中 Contoso 服务器上的应用可通过 `https://www.contoso.com/CoolApp` 进行访问，并且该应用的虚拟基路径为 `/CoolApp/`。 通过将应用基本路径设置为虚拟路径 (`<base href="/CoolApp/">`)，可让应用知道其几乎驻留在服务器上的哪个位置。 应用可使用应用基路径通过不在根目录中的组件构造应用根目录的相对 URL。 通过这种方式，位于目录结构不同级别的组件可生成指向整个应用其他位置的资源链接。 应用基路径也用于截获超链接单击，其中链接的 `href` 目标位于应用基路径 URI 空间中 &mdash; Blazor 路由器可处理内部导航。
+应用基路径  是服务器上的虚拟应用根路径。 例如，位于 `/CoolApp/` 虚拟文件夹中 Contoso 服务器上的应用可通过 `https://www.contoso.com/CoolApp` 进行访问，并且该应用的虚拟基路径为 `/CoolApp/`。 通过将应用基本路径设置为虚拟路径 (`<base href="/CoolApp/">`)，可让应用知道其几乎驻留在服务器上的哪个位置。 应用可使用应用基路径通过不在根目录中的组件构造应用根目录的相对 URL。 通过这种方式，位于目录结构不同级别的组件可生成指向整个应用其他位置的资源链接。 应用基路径也用于截获超链接单击，其中链接的 `href` 目标位于应用基路径 URI 空间中 &mdash; Blazor 路由器可处理内部导航。
 
-在许多托管方案中，应用的服务器虚拟路径为应用的根目录。 在这些情况下，应用基路径为正斜杠 (`<base href="/" />`)，它是应用的默认配置。 在其他托管方案中，例如 GitHub 页和 IIS 虚拟目录或子应用程序，应用基路径必须设置为应用的服务器虚拟路径。 要设置应用的基本路径，请更新 wwwroot/index.html 文件的 `<head>` 标记元素中的 `<base>` 标记。 将 `href` 属性值设置为 `/virtual-path/`（需要尾部反斜杠），其中 `/virtual-path/` 是应用的服务器上的完整虚拟应用根路径。 在上述示例中，虚拟路径设置为 `/CoolApp/`：`<base href="/CoolApp/">`。
+在许多托管方案中，应用的服务器虚拟路径为应用的根目录。 在这些情况下，应用基路径为正斜杠 (`<base href="/" />`)，它是应用的默认配置。 在其他托管方案中，例如 GitHub 页和 IIS 虚拟目录或子应用程序，应用基路径必须设置为应用的服务器虚拟路径。 要设置应用的基本路径，请更新 wwwroot/index.html 文件的 `<head>` 标记元素中的 `<base>` 标记  。 将 `href` 属性值设置为 `/virtual-path/`（需要尾部反斜杠），其中 `/virtual-path/` 是应用的服务器上的完整虚拟应用根路径。 在上述示例中，虚拟路径设置为 `/CoolApp/`：`<base href="/CoolApp/">`。
 
-对于配置了非根虚拟路径的应用（例如，`<base href="/CoolApp/">`），当在本地运行应用时，将无法查找其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。
+对于配置了非根虚拟路径的应用（例如，`<base href="/CoolApp/">`），当在本地运行应用时，将无法查找其资源  。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值  。
 
 在本地运行应用时，若要随附根路径传递路径基础参数 (`/`)，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
 
@@ -148,9 +148,9 @@ dotnet run --pathbase=/CoolApp
 
 有关详细信息，请参阅[基路径主机配置值](#path-base)部分。
 
-如果应用会使用[客户端托管模型](xref:blazor/hosting-models#client-side)（根据 Blazor 项目模型；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用程序托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分。
+如果应用会使用[客户端托管模型](xref:blazor/hosting-models#client-side)（根据 Blazor 项目模型；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用程序托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分   。
 
-通过向文件添加 `<handlers>` 部分，删除应用已发布 web.config 文件中的处理程序：
+通过向文件添加 `<handlers>` 部分，删除应用已发布 web.config 文件中的处理程序  ：
 
 ```xml
 <handlers>
@@ -174,13 +174,13 @@ dotnet run --pathbase=/CoolApp
 </configuration>
 ```
 
-如本部分中所述，除配置应用的基路径外，还需删除处理程序或禁用继承。 在 IIS 中配置子应用时，在应用的 index.html 文件中将应用基路径设置为 IIS 别名。
+如本部分中所述，除配置应用的基路径外，还需删除处理程序或禁用继承。 在 IIS 中配置子应用时，在应用的 index.html 文件中将应用基路径设置为 IIS 别名  。
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>使用 ASP.NET Core 进行托管部署
 
-托管部署通过在服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供客户端 Blazor 应用。
+托管部署通过在服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供客户端 Blazor 应用  。
 
-Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用将一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 包括 Blazor（托管 ASP.NET Core）项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorhosted` 模板）。
+Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用将一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 包括 Blazor（托管 ASP.NET Core）项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorhosted` 模板）  。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
@@ -188,48 +188,50 @@ Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两�
 
 ## <a name="standalone-deployment"></a>独立部署
 
-独立部署将客户端 Blazor 应用作为客户端直接请求的一组静态文件。 Web 服务器不用于对 Blazor 提供服务。
+独立部署将客户端 Blazor 应用作为客户端直接请求的一组静态文件  。 任何静态文件服务器均可提供 Blazor 应用。
+
+独立部署资产发布到 bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist 文件夹中  。
 
 ### <a name="iis"></a>IIS
 
 IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS 以托管 Blazor，请参阅[在 IIS 上生成静态网站](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis)。
 
-已发布的资产是在 /bin/Release/{TARGET FRAMEWORK}/publish 文件夹中创建。 在 Web 服务器或托管服务上托管“publish”文件夹内容。
+已发布的资产是在 /bin/Release/{TARGET FRAMEWORK}/publish  文件夹中创建。 在 Web 服务器或托管服务上托管“publish”文件夹内容  。
 
 #### <a name="webconfig"></a>web.config
 
-发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config 文件：
+发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config 文件  ：
 
 * 对以下文件扩展名设置 MIME 类型：
-  * .dll &ndash; `application/octet-stream`
-  * .json &ndash; `application/json`
-  * .wasm &ndash; `application/wasm`
-  * .woff &ndash; `application/font-woff`
-  * .woff2 &ndash; `application/font-woff`
+  * .dll &ndash; `application/octet-stream` 
+  * .json &ndash; `application/json` 
+  * .wasm &ndash; `application/wasm` 
+  * .woff &ndash; `application/font-woff` 
+  * .woff2 &ndash; `application/font-woff` 
 * 对以下 MIME 类型启用 HTTP 压缩：
   * `application/octet-stream`
   * `application/wasm`
 * 建立 URL 重写模块规则：
-  * 提供应用的静态资产驻留所在的子目录 ({ASSEMBLY NAME}/dist/{PATH REQUESTED})。
-  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 ({ASSEMBLY NAME}/dist/index.html)。
+  * 提供应用的静态资产驻留所在的子目录 ({ASSEMBLY NAME}/dist/{PATH REQUESTED}  )。
+  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 ({ASSEMBLY NAME}/dist/index.html  )。
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 
 重写 URL 必须使用 [URL 重写模块](https://www.iis.net/downloads/microsoft/url-rewrite)。 此模块默认不安装，且不适用于安装为 Web 服务器 (IIS) 角色服务功能。 必须从 IIS 网站下载该模块。 使用 Web 平台安装程序安装模块：
 
-1. 以本地方式导航到 [URL 重写模块下载页](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads)。 对于英语版本，请选择“WebPI”以下载 WebPI 安装程序。 对于其他语言，请选择适当的服务器体系结构 (x86/x64) 下载安装程序。
-1. 将安装程序复制到服务器。 运行安装程序。 选择“安装”按钮，并接受许可条款。 安装完成后无需重启服务器。
+1. 以本地方式导航到 [URL 重写模块下载页](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads)。 对于英语版本，请选择“WebPI”以下载 WebPI 安装程序  。 对于其他语言，请选择适当的服务器体系结构 (x86/x64) 下载安装程序。
+1. 将安装程序复制到服务器。 运行安装程序。 选择“安装”按钮，并接受许可条款  。 安装完成后无需重启服务器。
 
 #### <a name="configure-the-website"></a>配置网站
 
-将网站的物理路径设置为应用的文件夹。 该文件夹包含：
+将网站的物理路径设置为应用的文件夹  。 该文件夹包含：
 
-* web.config 文件，IIS 使用该文件配置网站，包括所需的重定向规则和文件内容类型。
+* web.config 文件，IIS 使用该文件配置网站，包括所需的重定向规则和文件内容类型  。
 * 应用的静态资产文件夹。
 
 #### <a name="troubleshooting"></a>疑难解答
 
-如果你看到“500 - 内部服务器错误”，且 IIS 管理器在尝试访问网站配置时抛出错误，请确认是否已安装 URL 重写模块。 如果未安装该模块，则 IIS 无法分析 web.config 文件。 这可以防止 IIS 管理器加载网站配置，并防止网站对 Blazor 的静态文件提供服务。
+如果你看到“500 - 内部服务器错误”  ，且 IIS 管理器在尝试访问网站配置时抛出错误，请确认是否已安装 URL 重写模块。 如果未安装该模块，则 IIS 无法分析 web.config 文件  。 这可以防止 IIS 管理器加载网站配置，并防止网站对 Blazor 的静态文件提供服务。
 
 有关排查部署到 IIS 的问题的详细信息，请参阅 <xref:host-and-deploy/iis/troubleshoot>。
 
@@ -239,14 +241,14 @@ Azure 存储静态文件承载允许无服务器的 Blazor 应用承载。 支�
 
 为存储帐户上的静态网站承载启用 blob 服务时：
 
-* 设置“索引文档名称”到 `index.html`。
-* 设置“错误文档路径”到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”错误会将此请求路由到“错误文档路径”。 Index.html blob 返回，Blazor 路由器加载并处理此路径。
+* 设置“索引文档名称”  到 `index.html`。
+* 设置“错误文档路径”  到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”  错误会将此请求路由到“错误文档路径”  。 Index.html  blob 返回，Blazor 路由器加载并处理此路径。
 
 有关更多信息，请参阅 [Azure 存储中的静态网站承载](/azure/storage/blobs/storage-blob-static-website)。
 
 ### <a name="nginx"></a>Nginx
 
-以下 nginx.conf 文件已简化，以展示如何将 Nginx 配置为，每当在磁盘上找不到相应文件时，发送 index.html 文件。
+以下 nginx.conf  文件已简化，以展示如何将 Nginx 配置为，每当在磁盘上找不到相应文件时，发送 index.html  文件。
 
 ```
 events { }
@@ -266,7 +268,7 @@ http {
 
 ### <a name="nginx-in-docker"></a>Docker 中的 Nginx
 
-要使用 Nginx 在 Docker 中托管 Blazor，请设置 Dockerfile，以使用基于 Alpine 的 Nginx 映像。 更新 Dockerfile，以将 nginx.config 文件复制到容器。
+要使用 Nginx 在 Docker 中托管 Blazor，请设置 Dockerfile，以使用基于 Alpine 的 Nginx 映像。 更新 Dockerfile，以将 nginx.config 文件复制到容器  。
 
 向 Dockerfile 添加一行，如下面的示例中所示：
 
@@ -278,6 +280,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="github-pages"></a>GitHub 页
 
-要处理 URL 重写，请使用脚本添加 404.html 文件，该脚本可处理到 index.html 页的重定向请求。 关于社区提供的示例实现，请参阅[用于 GitHub 页的单页应用](http://spa-github-pages.rafrex.com/)（[GitHub 上的 rafrex/spa-github-pages](https://github.com/rafrex/spa-github-pages#readme)）。 可在 [GitHub 上的 blazor-demo/blazor-demo.github.io](https://github.com/blazor-demo/blazor-demo.github.io)（[实时站点](https://blazor-demo.github.io/)）查看使用社区方法的示例。
+要处理 URL 重写，请使用脚本添加 404.html 文件，该脚本可处理到 index.html 页的重定向请求   。 关于社区提供的示例实现，请参阅[用于 GitHub 页的单页应用](http://spa-github-pages.rafrex.com/)（[GitHub 上的 rafrex/spa-github-pages](https://github.com/rafrex/spa-github-pages#readme)）。 可在 [GitHub 上的 blazor-demo/blazor-demo.github.io](https://github.com/blazor-demo/blazor-demo.github.io)（[实时站点](https://blazor-demo.github.io/)）查看使用社区方法的示例。
 
-如果使用项目站点而非组织站点，请在 index.html 中添加或更新 `<base>` 标记。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`my-repository/`）。
+如果使用项目站点而非组织站点，请在 index.html 中添加或更新 `<base>` 标记  。 将 `href` 属性值设置为，包含尾部斜杠的 GitHub 存储库名称（例如，`my-repository/`）。
