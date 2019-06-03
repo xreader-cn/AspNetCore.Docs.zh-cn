@@ -91,7 +91,7 @@
           uid: tutorials/signalr-typescript-webpack
     - name: 远程过程调用应用
       items:
-        - name: 开始使用 ASP.NET Core 中的 gRPC 服务
+        - name: 开始使用 gRPC 服务
           uid: tutorials/grpc/grpc-start
     - name: 数据访问
       items:

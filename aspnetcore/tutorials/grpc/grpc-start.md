@@ -1,105 +1,106 @@
 ---
-title: 教程：开始使用 ASP.NET Core 中的 gRPC
+title: 在 ASP.NET Core 中创建 .NET Core gRPC 客户端和服务器
 author: juntaoluo
-description: 此系列教程演示了如何在 ASP.NET Core 中创建gRPC 服务。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
+description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 2/26/2019
+ms.date: 5/30/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: a67050331cc8563b1baf5312b92910c1bbdfbd69
-ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
+ms.openlocfilehash: 2b4325d2413e335a3061a7695def88a1b23ee52b
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59672562"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376374"
 ---
-# <a name="tutorial-get-started-with-grpc-service-in-aspnet-core"></a><span data-ttu-id="65173-104">教程：开始使用 ASP.NET Core 中的 gRPC 服务</span><span class="sxs-lookup"><span data-stu-id="65173-104">Tutorial: Get started with gRPC service in ASP.NET Core</span></span>
+# <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a><span data-ttu-id="29026-104">教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器</span><span class="sxs-lookup"><span data-stu-id="29026-104">Tutorial: Create a gRPC client and server in ASP.NET Core</span></span>
 
-<span data-ttu-id="65173-105">作者：[John Luo](https://github.com/juntaoluo)</span><span class="sxs-lookup"><span data-stu-id="65173-105">By [John Luo](https://github.com/juntaoluo)</span></span>
+<span data-ttu-id="29026-105">作者：[John Luo](https://github.com/juntaoluo)</span><span class="sxs-lookup"><span data-stu-id="29026-105">By [John Luo](https://github.com/juntaoluo)</span></span>
 
-<span data-ttu-id="65173-106">本教程介绍在 ASP.NET Core 上构建 gRPC 服务的基础知识。</span><span class="sxs-lookup"><span data-stu-id="65173-106">This tutorial teaches the basics of building a gRPC service on ASP.NET Core.</span></span>
+<span data-ttu-id="29026-106">本教程演示了如何创建 .NET Core [gRPC](https://grpc.io/docs/guides/) 客户端和 ASP.NET Core gRPC 服务器。</span><span class="sxs-lookup"><span data-stu-id="29026-106">This tutorial shows how to create a .NET Core [gRPC](https://grpc.io/docs/guides/) client and an ASP.NET Core gRPC Server.</span></span>
 
-<span data-ttu-id="65173-107">在结束时，您将拥有回显问候语的 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-107">At the end, you'll have a gRPC service that echoes greetings.</span></span>
+<span data-ttu-id="29026-107">最后会生成与 gRPC Greeter 服务进行通信的 gRPC 客户端。</span><span class="sxs-lookup"><span data-stu-id="29026-107">At the end, you'll have a gRPC client that communicates with the gRPC Greeter service.</span></span>
 
-[!INCLUDE[View or download sample code](~/includes/grpc/download.md)]
+<span data-ttu-id="29026-108">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="29026-108">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="65173-108">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="65173-108">In this tutorial, you:</span></span>
+<span data-ttu-id="29026-109">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="29026-109">In this tutorial, you:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="65173-109">创建 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-109">Create a gRPC service.</span></span>
-> * <span data-ttu-id="65173-110">运行 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-110">Run the gRPC service.</span></span>
-> * <span data-ttu-id="65173-111">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="65173-111">Examine the project files.</span></span>
+> * <span data-ttu-id="29026-110">创建 gRPC 服务器。</span><span class="sxs-lookup"><span data-stu-id="29026-110">Create a gRPC Server.</span></span>
+> * <span data-ttu-id="29026-111">创建 gRPC 客户端。</span><span class="sxs-lookup"><span data-stu-id="29026-111">Create a gRPC client.</span></span>
+> * <span data-ttu-id="29026-112">使用 gRPC Greeter 服务测试 gRPC 客户端服务。</span><span class="sxs-lookup"><span data-stu-id="29026-112">Test the gRPC client service with the gRPC Greeter service.</span></span>
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-3.0.md)]
 
-## <a name="create-a-grpc-service"></a><span data-ttu-id="65173-112">创建 gRPC 服务</span><span class="sxs-lookup"><span data-stu-id="65173-112">Create a gRPC service</span></span>
+## <a name="create-a-grpc-service"></a><span data-ttu-id="29026-113">创建 gRPC 服务</span><span class="sxs-lookup"><span data-stu-id="29026-113">Create a gRPC service</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="65173-113">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="65173-113">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-114">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="65173-114">从 Visual Studio“文件”菜单中选择“新建” > “项目”。</span><span class="sxs-lookup"><span data-stu-id="65173-114">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="65173-115">创建新的 ASP.NET Core Web 应用呈现。</span><span class="sxs-lookup"><span data-stu-id="65173-115">Create a new ASP.NET Core Web Application.</span></span>
-  <span data-ttu-id="65173-116">![新建 ASP.NET Core Web 应用程序](grpc-start/_static/np_3_0.1.png)</span><span class="sxs-lookup"><span data-stu-id="65173-116">![new ASP.NET Core Web Application](grpc-start/_static/np_3_0.1.png)</span></span>
-* <span data-ttu-id="65173-117">将项目命名为 GrpcGreeter。</span><span class="sxs-lookup"><span data-stu-id="65173-117">Name the project **GrpcGreeter**.</span></span> <span data-ttu-id="65173-118">将项目命名为“GrpcGreeter”非常重要，这样在复制和粘贴代码时命名空间就会匹配。</span><span class="sxs-lookup"><span data-stu-id="65173-118">It's important to name the project *GrpcGreeter* so the namespaces will match when you copy and paste code.</span></span>
-  <span data-ttu-id="65173-119">![新建 ASP.NET Core Web 应用程序](grpc-start/_static/np_3_0.2.png)</span><span class="sxs-lookup"><span data-stu-id="65173-119">![new ASP.NET Core Web Application](grpc-start/_static/np_3_0.2.png)</span></span>
-* <span data-ttu-id="65173-120">在下拉列表中选择“.NET Core”和“ASP.NET Core 3.0”。</span><span class="sxs-lookup"><span data-stu-id="65173-120">Select **.NET Core** and **ASP.NET Core 3.0** in the dropdown.</span></span> <span data-ttu-id="65173-121">选择“gRPC 服务”模板。</span><span class="sxs-lookup"><span data-stu-id="65173-121">Choose the **gRPC Service** template.</span></span>
+* <span data-ttu-id="29026-115">从 Visual Studio“文件”菜单中选择“新建” > “项目”    。</span><span class="sxs-lookup"><span data-stu-id="29026-115">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="29026-116">在“新建项目”对话框中，选择“ASP.NET Core Web 应用程序”   。</span><span class="sxs-lookup"><span data-stu-id="29026-116">In the **Create a new project** dialog, select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="29026-117">选择“下一步” </span><span class="sxs-lookup"><span data-stu-id="29026-117">Select **Next**</span></span>
+* <span data-ttu-id="29026-118">将项目命名为 GrpcGreeter  。</span><span class="sxs-lookup"><span data-stu-id="29026-118">Name the project **GrpcGreeter**.</span></span> <span data-ttu-id="29026-119">将项目命名为“GrpcGreeter”非常重要，这样在复制和粘贴代码时命名空间就会匹配  。</span><span class="sxs-lookup"><span data-stu-id="29026-119">It's important to name the project *GrpcGreeter* so the namespaces will match when you copy and paste code.</span></span>
+* <span data-ttu-id="29026-120">选择“创建” </span><span class="sxs-lookup"><span data-stu-id="29026-120">Select **Create**</span></span>
+* <span data-ttu-id="29026-121">在“创建新的 ASP.NET Core Web 应用程序”对话框中  ：</span><span class="sxs-lookup"><span data-stu-id="29026-121">In the **Create a new ASP.NET Core Web Application** dialog:</span></span>
+  * <span data-ttu-id="29026-122">在下拉菜单中选择 .NET Core 和 ASP.NET Core 3.0   。</span><span class="sxs-lookup"><span data-stu-id="29026-122">Select **.NET Core** and **ASP.NET Core 3.0** in the dropdown menus.</span></span> 
+  * <span data-ttu-id="29026-123">选择“gRPC 服务”模板  。</span><span class="sxs-lookup"><span data-stu-id="29026-123">Select the **gRPC Service** template.</span></span>
+  * <span data-ttu-id="29026-124">选择“创建” </span><span class="sxs-lookup"><span data-stu-id="29026-124">Select **Create**</span></span>
 
-  <span data-ttu-id="65173-122">创建以下初学者项目：</span><span class="sxs-lookup"><span data-stu-id="65173-122">The following starter project is created:</span></span>
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="29026-125">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="29026-125">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-  ![“解决方案资源管理器”](grpc-start/_static/se3.0.png)
-
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="65173-124">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="65173-124">Visual Studio Code</span></span>](#tab/visual-studio-code)
-
-* <span data-ttu-id="65173-125">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="65173-125">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
-* <span data-ttu-id="65173-126">将目录更改为 (`cd`) 包含项目的文件夹。</span><span class="sxs-lookup"><span data-stu-id="65173-126">Change directories (`cd`) to a folder which will contain the project.</span></span>
-* <span data-ttu-id="65173-127">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="65173-127">Run the following commands:</span></span>
+* <span data-ttu-id="29026-126">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="29026-126">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="29026-127">将目录更改为 (`cd`) 包含项目的文件夹。</span><span class="sxs-lookup"><span data-stu-id="29026-127">Change directories (`cd`) to a folder which will contain the project.</span></span>
+* <span data-ttu-id="29026-128">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="29026-128">Run the following commands:</span></span>
 
   ```console
   dotnet new grpc -o GrpcGreeter
   code -r GrpcGreeter
   ```
 
-  * <span data-ttu-id="65173-128">`dotnet new` 命令将在 GrpcGreeter 文件夹中创建一个新 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-128">The `dotnet new` command creates a new gRPC service in the *GrpcGreeter* folder.</span></span>
-  * <span data-ttu-id="65173-129">`code` 命令将在新 Visual Studio Code 实例中打开 GrpcGreeter 文件夹。</span><span class="sxs-lookup"><span data-stu-id="65173-129">The `code` command opens the *GrpcGreeter* folder in a new instance of Visual Studio Code.</span></span>
+  * <span data-ttu-id="29026-129">`dotnet new` 命令将在 GrpcGreeter  文件夹中创建一个新 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="29026-129">The `dotnet new` command creates a new gRPC service in the *GrpcGreeter* folder.</span></span>
+  * <span data-ttu-id="29026-130">`code` 命令将在新 Visual Studio Code 实例中打开 GrpcGreeter 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="29026-130">The `code` command opens the *GrpcGreeter* folder in a new instance of Visual Studio Code.</span></span>
 
-  <span data-ttu-id="65173-130">一个对话框随即出现，其中包含：“‘GrpcGreeter’中缺少进行生成和调试所需的资产”。是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="65173-130">A dialog box appears with **Required assets to build and debug are missing from 'GrpcGreeter'. Add them?**</span></span>
-* <span data-ttu-id="65173-131">选择“是”</span><span class="sxs-lookup"><span data-stu-id="65173-131">Select **Yes**</span></span>
+  <span data-ttu-id="29026-131">一个对话框随即出现，其中包含：“‘GrpcGreeter’中缺少进行生成和调试所需的资产”。  是否添加它们?”</span><span class="sxs-lookup"><span data-stu-id="29026-131">A dialog box appears with **Required assets to build and debug are missing from 'GrpcGreeter'. Add them?**</span></span>
+* <span data-ttu-id="29026-132">选择“是” </span><span class="sxs-lookup"><span data-stu-id="29026-132">Select **Yes**</span></span>
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="65173-132">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="65173-132">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="29026-133">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-133">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="65173-133">从终端运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="65173-133">From a terminal, run the following commands:</span></span>
+<span data-ttu-id="29026-134">从终端运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="29026-134">From a terminal, run the following commands:</span></span>
 
 ```console
   dotnet new grpc -o GrpcGreeter
   cd GrpcGreeter
 ```
 
-<span data-ttu-id="65173-134">上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-134">The preceding commands use the [.NET Core CLI](/dotnet/core/tools/dotnet) to create a gRPC service.</span></span>
+<span data-ttu-id="29026-135">上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="29026-135">The preceding commands use the [.NET Core CLI](/dotnet/core/tools/dotnet) to create a gRPC service.</span></span>
 
-### <a name="open-the-project"></a><span data-ttu-id="65173-135">打开项目</span><span class="sxs-lookup"><span data-stu-id="65173-135">Open the project</span></span>
+### <a name="open-the-project"></a><span data-ttu-id="29026-136">打开项目</span><span class="sxs-lookup"><span data-stu-id="29026-136">Open the project</span></span>
 
-<span data-ttu-id="65173-136">在 Visual Studio 中，选择“文件”>“打开”，然后选择“GrpcGreeter.sln”文件。</span><span class="sxs-lookup"><span data-stu-id="65173-136">From Visual Studio, select **File > Open**, and then select the *GrpcGreeter.sln* file.</span></span>
+<span data-ttu-id="29026-137">在 Visual Studio 中，选择“文件”>“打开”  ，然后选择“GrpcGreeter.sln”  文件。</span><span class="sxs-lookup"><span data-stu-id="29026-137">From Visual Studio, select **File > Open**, and then select the *GrpcGreeter.sln* file.</span></span>
 
 <!-- End of VS tabs -->
 
 ---
 
-### <a name="run-the-service"></a><span data-ttu-id="65173-137">运行服务</span><span class="sxs-lookup"><span data-stu-id="65173-137">Run the service</span></span>
+### <a name="run-the-service"></a><span data-ttu-id="29026-138">运行服务</span><span class="sxs-lookup"><span data-stu-id="29026-138">Run the service</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="65173-138">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="65173-138">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-139">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-139">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="65173-139">按 Ctrl+F5 以在不使用调试程序的情况下运行 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-139">Press Ctrl+F5 to run the gRPC service without the debugger.</span></span>
+* <span data-ttu-id="29026-140">按 Ctrl+F5 以在不使用调试程序的情况下运行 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="29026-140">Press Ctrl+F5 to run the gRPC service without the debugger.</span></span>
 
-  <span data-ttu-id="65173-140">Visual Studio 在命令提示符中运行该服务。</span><span class="sxs-lookup"><span data-stu-id="65173-140">Visual Studio runs the service in a command prompt.</span></span> <span data-ttu-id="65173-141">日志显示该服务已开始侦听 `http://localhost:50051`。</span><span class="sxs-lookup"><span data-stu-id="65173-141">The logs show that the service started listening on `http://localhost:50051`.</span></span>
+  <span data-ttu-id="29026-141">Visual Studio 在命令提示符中运行该服务。</span><span class="sxs-lookup"><span data-stu-id="29026-141">Visual Studio runs the service in a command prompt.</span></span>
 
-  ![新建 ASP.NET Core Web 应用程序](grpc-start/_static/server_start.png)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="29026-142">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-142">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="65173-143">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="65173-143">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+* <span data-ttu-id="29026-143">使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter。</span><span class="sxs-lookup"><span data-stu-id="29026-143">Run the gRPC Greeter project GrpcGreeter from the command line using `dotnet run`.</span></span>
 
-* <span data-ttu-id="65173-144">使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter。</span><span class="sxs-lookup"><span data-stu-id="65173-144">Run the gRPC Greeter project GrpcGreeter from the command line using `dotnet run`.</span></span> <span data-ttu-id="65173-145">日志显示该服务已开始侦听 `http://localhost:50051`。</span><span class="sxs-lookup"><span data-stu-id="65173-145">The logs show that the service started listening on `http://localhost:50051`.</span></span>
+<!-- End of combined VS/Mac tabs -->
+
+---
+
+<span data-ttu-id="29026-144">日志显示该服务正在侦听 `http://localhost:50051`。</span><span class="sxs-lookup"><span data-stu-id="29026-144">The logs show the service listening on `http://localhost:50051`.</span></span>
 
 ```console
-dbug: Grpc.AspNetCore.Server.Internal.GrpcServiceBinder[1]
-      Added gRPC method 'SayHello' to service 'Greet.Greeter'. Method type: 'Unary', route pattern: '/Greet.Greeter/SayHello'.
 info: Microsoft.Hosting.Lifetime[0]
       Now listening on: http://localhost:50051
 info: Microsoft.Hosting.Lifetime[0]
@@ -107,35 +108,197 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
-      Content root path: C:\gh\Docs\aspnetcore\tutorials\grpc\grpc-start\samples\GrpcGreeter
 ```
+
+### <a name="examine-the-project-files"></a><span data-ttu-id="29026-145">检查项目文件</span><span class="sxs-lookup"><span data-stu-id="29026-145">Examine the project files</span></span>
+
+<span data-ttu-id="29026-146">GrpcGreeter 文件：</span><span class="sxs-lookup"><span data-stu-id="29026-146">GrpcGreeter files:</span></span>
+
+* <span data-ttu-id="29026-147">*greet.proto*：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。</span><span class="sxs-lookup"><span data-stu-id="29026-147">*greet.proto*: The *Protos/greet.proto* file defines the `Greeter` gRPC and is used to generate the gRPC server assets.</span></span> <span data-ttu-id="29026-148">有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。</span><span class="sxs-lookup"><span data-stu-id="29026-148">For more information, see [Introduction to gRPC](xref:grpc/index).</span></span>
+* <span data-ttu-id="29026-149">Services  文件夹：包含 `Greeter` 服务的实现。</span><span class="sxs-lookup"><span data-stu-id="29026-149">*Services* folder: Contains the implementation of the `Greeter` service.</span></span>
+* <span data-ttu-id="29026-150">*appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。</span><span class="sxs-lookup"><span data-stu-id="29026-150">*appSettings.json*: Contains configuration data, such as protocol used by Kestrel.</span></span> <span data-ttu-id="29026-151">有关更多信息，请参见<xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="29026-151">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+* <span data-ttu-id="29026-152">Program.cs  :包含 gRPC 服务的入口点。</span><span class="sxs-lookup"><span data-stu-id="29026-152">*Program.cs*: Contains the entry point for the gRPC service.</span></span> <span data-ttu-id="29026-153">有关更多信息，请参见<xref:fundamentals/host/web-host>。</span><span class="sxs-lookup"><span data-stu-id="29026-153">For more information, see <xref:fundamentals/host/web-host>.</span></span>
+* <span data-ttu-id="29026-154">*Startup.cs*：包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="29026-154">*Startup.cs*: Contains code that configures app behavior.</span></span> <span data-ttu-id="29026-155">有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。</span><span class="sxs-lookup"><span data-stu-id="29026-155">For more information, see [App startup](xref:fundamentals/startup).</span></span>
+
+## <a name="create-the-grpc-client-in-a-net-console-app"></a><span data-ttu-id="29026-156">在 .NET 控制台应用中创建 gRPC 客户端</span><span class="sxs-lookup"><span data-stu-id="29026-156">Create the gRPC client in a .NET console app</span></span>
+
+## <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-157">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-157">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="29026-158">从菜单栏中选择“文件”   > “新建”   > “项目”  。</span><span class="sxs-lookup"><span data-stu-id="29026-158">Select **File** > **New** > **Project** from the menu bar.</span></span>
+* <span data-ttu-id="29026-159">在“新建项目”对话框中，选择“控制台应用(.NET Core)”   。</span><span class="sxs-lookup"><span data-stu-id="29026-159">In the **Create a new project** dialog, select **Console App (.NET Core)**.</span></span>
+* <span data-ttu-id="29026-160">选择“下一步” </span><span class="sxs-lookup"><span data-stu-id="29026-160">Select **Next**</span></span>
+* <span data-ttu-id="29026-161">在“名称”文本框中，输入“GrpcGreeterClient”  。</span><span class="sxs-lookup"><span data-stu-id="29026-161">In the **Name** text box, enter "GrpcGreeterClient".</span></span>
+* <span data-ttu-id="29026-162">选择“创建”  。</span><span class="sxs-lookup"><span data-stu-id="29026-162">Select **Create**.</span></span>
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="29026-163">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="29026-163">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+* <span data-ttu-id="29026-164">打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="29026-164">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="29026-165">将目录更改为 (`cd`) 包含项目的文件夹。</span><span class="sxs-lookup"><span data-stu-id="29026-165">Change directories (`cd`) to a folder which will contain the project.</span></span>
+* <span data-ttu-id="29026-166">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="29026-166">Run the following commands:</span></span>
+
+```console
+dotnet new console -o GrpcGreeterClient
+code -r GrpcGreeterClient
+```
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="29026-167">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-167">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+
+<span data-ttu-id="29026-168">按照[此处](/dotnet/core/tutorials/using-on-mac-vs-full-solution)的说明创建名为 GrpcGreeterClient 的控制台应用  。</span><span class="sxs-lookup"><span data-stu-id="29026-168">Follow the instructions [here](/dotnet/core/tutorials/using-on-mac-vs-full-solution) to create a console app with the name *GrpcGreeterClient*.</span></span>
+
+<!-- End of VS tabs -->
+
+---
+
+### <a name="add-required-packages"></a><span data-ttu-id="29026-169">添加所需的包</span><span class="sxs-lookup"><span data-stu-id="29026-169">Add required packages</span></span>
+
+<span data-ttu-id="29026-170">将以下包添加到 gRPC 客户端项目：</span><span class="sxs-lookup"><span data-stu-id="29026-170">Add the following packages to the gRPC client project:</span></span>
+
+* <span data-ttu-id="29026-171">[Grpc.Core](https://www.nuget.org/packages/Grpc.Core) 包含适用于 C 核心客户端的 C# API。</span><span class="sxs-lookup"><span data-stu-id="29026-171">[Grpc.Core](https://www.nuget.org/packages/Grpc.Core), which contains the C# API for the C-core client.</span></span>
+* <span data-ttu-id="29026-172">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) 包含适用于 C# 的 Protobuf 消息。</span><span class="sxs-lookup"><span data-stu-id="29026-172">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/), which contains protobuf message APIs for C#.</span></span>
+* <span data-ttu-id="29026-173">[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包含适用于 Protobuf 文件的 C# 工具支持。</span><span class="sxs-lookup"><span data-stu-id="29026-173">[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/), which contains C# tooling support for protobuf files.</span></span> <span data-ttu-id="29026-174">运行时不需要工具包，因此依赖项标记为 `PrivateAssets="All"`。</span><span class="sxs-lookup"><span data-stu-id="29026-174">The tooling package isn't required at runtime, so the dependency is marked with `PrivateAssets="All"`.</span></span>
+
+### <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-175">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-175">Visual Studio</span></span>](#tab/visual-studio)
+
+<span data-ttu-id="29026-176">通过包管理器控制台 (PMC) 或管理 NuGet 包来安装包</span><span class="sxs-lookup"><span data-stu-id="29026-176">Install the packages using either the Package Manager Console (PMC) or Manage NuGet Package</span></span>
+
+####  <a name="pmc-option-to-install-packages"></a><span data-ttu-id="29026-177">用于安装包的 PMC 选项</span><span class="sxs-lookup"><span data-stu-id="29026-177">PMC option to install packages</span></span>
+
+* <span data-ttu-id="29026-178">从 Visual Studio 中，依次选择“工具” > “NuGet 包管理器” > “包管理器控制台”   </span><span class="sxs-lookup"><span data-stu-id="29026-178">From Visual Studio, select **Tools** > **NuGet Package Manager** > **Package Manager Console**</span></span>
+* <span data-ttu-id="29026-179">从“包管理器控制台”窗口中，导航到有 GrpcGreeterClient.csproj 文件所在的目录   。</span><span class="sxs-lookup"><span data-stu-id="29026-179">From the **Package Manager Console** window, navigate to the directory in which the *GrpcGreeterClient.csproj* file exists.</span></span>
+* <span data-ttu-id="29026-180">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="29026-180">Run the following commands:</span></span>
+
+ ```powershell
+Install-Package Grpc.Core
+Install-Package Grpc.Protobuf
+Install-Package Grpc.Tools
+```
+
+#### <a name="manage-nuget-packages-option-to-install-packages"></a><span data-ttu-id="29026-181">管理 NuGet 包选项以安装包</span><span class="sxs-lookup"><span data-stu-id="29026-181">Manage NuGet Packages option to install packages</span></span>
+
+* <span data-ttu-id="29026-182">右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  </span><span class="sxs-lookup"><span data-stu-id="29026-182">Right-click the project in **Solution Explorer** > **Manage NuGet Packages**</span></span>
+* <span data-ttu-id="29026-183">选择“浏览”选项卡  。</span><span class="sxs-lookup"><span data-stu-id="29026-183">Select the **Browse** tab.</span></span>
+* <span data-ttu-id="29026-184">在搜索框中输入 Grpc.Core  。</span><span class="sxs-lookup"><span data-stu-id="29026-184">Enter **Grpc.Core** in the search box.</span></span>
+* <span data-ttu-id="29026-185">从“浏览”选项卡中选择 Grpc.Core 包，然后选择“安装”    。</span><span class="sxs-lookup"><span data-stu-id="29026-185">Select the **Grpc.Core** package from the **Browse** tab and select **Install**.</span></span>
+* <span data-ttu-id="29026-186">为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。</span><span class="sxs-lookup"><span data-stu-id="29026-186">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
+
+### <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="29026-187">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="29026-187">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+<span data-ttu-id="29026-188">从“集成终端”运行以下命令  ：</span><span class="sxs-lookup"><span data-stu-id="29026-188">Run the following commands from the **Integrated Terminal**:</span></span>
+
+```console
+dotnet add GrpcGreeterClient.csproj package Grpc.Core
+dotnet add GrpcGreeterClient.csproj package Google.Protobuf
+dotnet add GrpcGreeterClient.csproj package Grpc.Tools
+```
+
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="29026-189">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-189">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+
+* <span data-ttu-id="29026-190">右键单击“Solution Pad” > “添加包...”中的“包”文件夹   </span><span class="sxs-lookup"><span data-stu-id="29026-190">Right-click the **Packages** folder in **Solution Pad** > **Add Packages**</span></span>
+* <span data-ttu-id="29026-191">在搜索框中输入 Grpc.Core  。</span><span class="sxs-lookup"><span data-stu-id="29026-191">Enter **Grpc.Core** in the search box.</span></span>
+* <span data-ttu-id="29026-192">从结果窗格中选择 Grpc.Core 包，然后单击“添加包”  </span><span class="sxs-lookup"><span data-stu-id="29026-192">Select the **Grpc.Core** package from the results pane and select **Add Package**</span></span>
+* <span data-ttu-id="29026-193">为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。</span><span class="sxs-lookup"><span data-stu-id="29026-193">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
+
+---
+
+### <a name="add-greetproto"></a><span data-ttu-id="29026-194">添加 greet.proto</span><span class="sxs-lookup"><span data-stu-id="29026-194">Add greet.proto</span></span>
+
+* <span data-ttu-id="29026-195">在 gRPC 客户端项目中创建 Protos 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="29026-195">Create a **Protos** folder in the gRPC client project.</span></span>
+* <span data-ttu-id="29026-196">从 gRPC Greeter 服务将 Protos\greet.proto 文件复制到 gRPC 客户端项目  。</span><span class="sxs-lookup"><span data-stu-id="29026-196">Copy the **Protos\greet.proto** file from the gRPC Greeter service to the gRPC client project.</span></span>
+* <span data-ttu-id="29026-197">编辑 GrpcGreeterClient.csproj 项目文件  ：</span><span class="sxs-lookup"><span data-stu-id="29026-197">Edit the *GrpcGreeterClient.csproj* project file:</span></span>
+
+  # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-198">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-198">Visual Studio</span></span>](#tab/visual-studio) 
+
+  <span data-ttu-id="29026-199">右键单击项目并选择“编辑 GrpcGreeterClient.csproj”  。</span><span class="sxs-lookup"><span data-stu-id="29026-199">Right-click the project and select the **Edit GrpcGreeterClient.csproj**.</span></span>
+
+  # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="29026-200">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="29026-200">Visual Studio Code</span></span>](#tab/visual-studio-code) 
+
+  <span data-ttu-id="29026-201">选择 GrpcGreeterClient.csproj 文件  。</span><span class="sxs-lookup"><span data-stu-id="29026-201">Select the *GrpcGreeterClient.csproj* file.</span></span>
+
+  # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="29026-202">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-202">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+
+  <span data-ttu-id="29026-203">右键单击项目，然后选择“工具”>“编辑文件”  。</span><span class="sxs-lookup"><span data-stu-id="29026-203">Right click the project and select **Tools > Edit File**.</span></span>
+
+  ------
+
+* <span data-ttu-id="29026-204">将 greet.proto 文件添加到 GrpcGreeterClient 项目文件的 `<Protobuf>` 物料组  ：</span><span class="sxs-lookup"><span data-stu-id="29026-204">Add the **greet.proto** file to the `<Protobuf>` item group of the GrpcGreeterClient project file:</span></span>
+
+  ```XML
+  <ItemGroup>
+    <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
+  </ItemGroup>
+  ```
+
+<span data-ttu-id="29026-205">生成客户端项目以触发 C# 客户端资产的生成。</span><span class="sxs-lookup"><span data-stu-id="29026-205">Build the client project to trigger the generation of the C# client assets.</span></span>
+
+### <a name="create-the-greater-client"></a><span data-ttu-id="29026-206">创建更高版本的客户端</span><span class="sxs-lookup"><span data-stu-id="29026-206">Create the greater client</span></span>
+
+<span data-ttu-id="29026-207">构建项目，在 Greeter 命名空间中创建类型  。</span><span class="sxs-lookup"><span data-stu-id="29026-207">Build the project to create the types in the **Greeter** namespace.</span></span> <span data-ttu-id="29026-208">`Greeter` 类型是由生成进程自动生成的。</span><span class="sxs-lookup"><span data-stu-id="29026-208">The `Greeter` types are generated automatically by the build process.</span></span>
+
+<span data-ttu-id="29026-209">使用以下代码更新 gRPC 客户端的 Program.cs 文件  ：</span><span class="sxs-lookup"><span data-stu-id="29026-209">Update the gRPC client *Program.cs* file with the following code:</span></span>
+
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet2)]
+
+<span data-ttu-id="29026-210">Program.cs  包含 gRPC 客户端的入口点和逻辑。</span><span class="sxs-lookup"><span data-stu-id="29026-210">*Program.cs* contains the entry point and logic for the gRPC client.</span></span>
+
+<span data-ttu-id="29026-211">通过以下方式创建更高版本的客户端：</span><span class="sxs-lookup"><span data-stu-id="29026-211">The greater client is created by:</span></span>
+
+* <span data-ttu-id="29026-212">实例化 `Channel`，使其包含用于创建到 gRPC 服务的连接的信息。</span><span class="sxs-lookup"><span data-stu-id="29026-212">Instantiating a `Channel` containing the information for creating the connection to the gRPC service.</span></span>
+* <span data-ttu-id="29026-213">使用 `Channel` 构造更高版本的客户端：</span><span class="sxs-lookup"><span data-stu-id="29026-213">Using the `Channel` to construct the greater client:</span></span>
+
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=4-6)]
+
+<span data-ttu-id="29026-214">更高版本的客户端会调用异步 `SayHello` 方法。</span><span class="sxs-lookup"><span data-stu-id="29026-214">The greater client calls the asynchronous `SayHello` method.</span></span> <span data-ttu-id="29026-215">随即显示 `SayHello` 调用的结果：</span><span class="sxs-lookup"><span data-stu-id="29026-215">The result of the `SayHello` call is displayed:</span></span>
+
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
+
+<span data-ttu-id="29026-216">当操作完成并发布所有资源时，请关闭客户端使用的 `Channel`。</span><span class="sxs-lookup"><span data-stu-id="29026-216">Shut down the `Channel` used by the client when operations have finished to release all resources.</span></span>
+
+## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a><span data-ttu-id="29026-217">使用 gRPC Greeter 服务测试 gRPC 客户端</span><span class="sxs-lookup"><span data-stu-id="29026-217">Test the gRPC client with the gRPC Greeter service</span></span>
+
+### <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="29026-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="29026-218">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="29026-219">在 Greeter 服务中，按 Ctrl+F5 在不使用调试器的情况下启动服务器。</span><span class="sxs-lookup"><span data-stu-id="29026-219">In the Greeter service, press Ctrl+F5 to start the server without the debugger.</span></span>
+* <span data-ttu-id="29026-220">在 GrpcGreeterClient 项目中，按 Ctrl+F5 在不使用调试器的情况下启动服务器。</span><span class="sxs-lookup"><span data-stu-id="29026-220">In the GrpcGreeterClient project, press Ctrl+F5 to start the server without the debugger.</span></span>
+
+### <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="29026-221">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="29026-221">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+
+* <span data-ttu-id="29026-222">启动 Greeter 服务。</span><span class="sxs-lookup"><span data-stu-id="29026-222">Start the Greeter service.</span></span>
+* <span data-ttu-id="29026-223">启动客户端。</span><span class="sxs-lookup"><span data-stu-id="29026-223">Start the client.</span></span>
 
 <!-- End of combined VS/Mac tabs -->
 
 ---
 
-<span data-ttu-id="65173-146">下一个教程将演示如何生成 gRPC 客户端，这是测试 Greeter 服务所必须执行的步骤。</span><span class="sxs-lookup"><span data-stu-id="65173-146">The next tutorial will demonstrate how to build a gRPC client, which is required to test the Greeter service.</span></span>
+<span data-ttu-id="29026-224">客户端向该服务发送一条包含具有其名称“GreeterClient”的消息的问候信息。</span><span class="sxs-lookup"><span data-stu-id="29026-224">The client sends a greeting to the service with a message containing its name "GreeterClient".</span></span> <span data-ttu-id="29026-225">该服务会发送“Hello GreeterClient”消息作为答复。</span><span class="sxs-lookup"><span data-stu-id="29026-225">The service sends the message "Hello GreeterClient" as a response.</span></span> <span data-ttu-id="29026-226">“Hello GreeterClient”答复将在命令提示符中显示：</span><span class="sxs-lookup"><span data-stu-id="29026-226">The "Hello GreeterClient" response is displayed in the command prompt:</span></span>
 
-### <a name="examine-the-project-files-of-the-grpc-project"></a><span data-ttu-id="65173-147">检查 gRPC 项目的项目文件</span><span class="sxs-lookup"><span data-stu-id="65173-147">Examine the project files of the gRPC project</span></span>
+```console
+Greeting: Hello GreeterClient
+Press any key to exit...
+```
 
-<span data-ttu-id="65173-148">GrpcGreeter 文件：</span><span class="sxs-lookup"><span data-stu-id="65173-148">GrpcGreeter files:</span></span>
+<span data-ttu-id="29026-227">gRPC 服务在写入命令提示符的日志中记录成功调用的详细信息。</span><span class="sxs-lookup"><span data-stu-id="29026-227">The gRPC service records the details of the successful call in the logs written to the command prompt.</span></span>
 
-* <span data-ttu-id="65173-149">greet.proto：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。</span><span class="sxs-lookup"><span data-stu-id="65173-149">greet.proto: The *Protos/greet.proto* file defines the `Greeter` gRPC and is used to generate the gRPC server assets.</span></span> <span data-ttu-id="65173-150">有关更多信息，请参见<xref:grpc/index>。</span><span class="sxs-lookup"><span data-stu-id="65173-150">For more information, see <xref:grpc/index>.</span></span>
-* <span data-ttu-id="65173-151">Services 文件夹：包含 `Greeter` 服务的实现。</span><span class="sxs-lookup"><span data-stu-id="65173-151">*Services* folder: Contains the implementation of the `Greeter` service.</span></span>
-* <span data-ttu-id="65173-152">appSettings.json：包含配置数据，如 Kestrel 使用的协议。</span><span class="sxs-lookup"><span data-stu-id="65173-152">*appSettings.json*:Contains configuration data, such as protocol used by Kestrel.</span></span> <span data-ttu-id="65173-153">有关更多信息，请参见<xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="65173-153">For more information, see <xref:fundamentals/configuration/index>.</span></span>
-* <span data-ttu-id="65173-154">Program.cs:包含 gRPC 服务的入口点。</span><span class="sxs-lookup"><span data-stu-id="65173-154">*Program.cs*: Contains the entry point for the gRPC service.</span></span> <span data-ttu-id="65173-155">有关更多信息，请参见<xref:fundamentals/host/web-host>。</span><span class="sxs-lookup"><span data-stu-id="65173-155">For more information, see <xref:fundamentals/host/web-host>.</span></span>
-* <span data-ttu-id="65173-156">Startup.cs：包含配置应用行为的代码。</span><span class="sxs-lookup"><span data-stu-id="65173-156">Startup.cs: Contains code that configures app behavior.</span></span> <span data-ttu-id="65173-157">有关更多信息，请参见<xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="65173-157">For more information, see <xref:fundamentals/startup>.</span></span>
+```console
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://localhost:50051
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\GH\aspnet\docs\4\Docs\aspnetcore\tutorials\grpc\grpc-start\sample\GrpcGreeter
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://localhost:50051/Greet.Greeter/SayHello application/grpc
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /Greet.Greeter/SayHello'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /Greet.Greeter/SayHello'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 78.32260000000001ms 200 application/grpc
+```
 
-### <a name="test-the-service"></a><span data-ttu-id="65173-158">测试服务</span><span class="sxs-lookup"><span data-stu-id="65173-158">Test the service</span></span>
+### <a name="next-steps"></a><span data-ttu-id="29026-228">后续步骤</span><span class="sxs-lookup"><span data-stu-id="29026-228">Next steps</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="65173-159">其他资源</span><span class="sxs-lookup"><span data-stu-id="65173-159">Additional resources</span></span>
-
-<span data-ttu-id="65173-160">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="65173-160">In this tutorial, you:</span></span>
-
-> [!div class="checklist"]
-> * <span data-ttu-id="65173-161">创建 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-161">Created a gRPC service.</span></span>
-> * <span data-ttu-id="65173-162">运行 gRPC 服务。</span><span class="sxs-lookup"><span data-stu-id="65173-162">Ran the gRPC service.</span></span>
-> * <span data-ttu-id="65173-163">检查项目文件。</span><span class="sxs-lookup"><span data-stu-id="65173-163">Examined the project files.</span></span>
-
-> [!div class="step-by-step"]
-> [<span data-ttu-id="65173-164">下一篇：创建 .NET Core gRPC 客户端</span><span class="sxs-lookup"><span data-stu-id="65173-164">Next: Create a .NET Core gRPC client</span></span>](xref:tutorials/grpc/grpc-client)
+* <xref:grpc/index>
+* <xref:grpc/basics>
+* <xref:grpc/migration>
