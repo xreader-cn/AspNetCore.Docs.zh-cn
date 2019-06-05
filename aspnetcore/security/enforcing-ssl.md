@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: e27e0c31b128cbd7d71bf7b83a2d33cc89ea3ab1
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 8d48877153d6d75348e29299c669125904236de8
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610424"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692589"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -68,7 +68,7 @@ ms.locfileid: "65610424"
 * 设置`ASPNETCORE_HTTPS_PORT`环境变量或[https_port Web 主机配置设置](xref:fundamentals/host/web-host#https-port):
 
   **密钥**: `https_port`  
-  **类型**：string  
+  **类型**：string   
   **默认**：未设置默认值。  
   **设置使用**：`UseSetting`  
   **环境变量**:`<PREFIX_>HTTPS_PORT` (该前缀`ASPNETCORE_`使用时[Web 主机](xref:fundamentals/host/web-host)。)
@@ -225,6 +225,8 @@ dotnet new webapp --no-https
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
+
+<a name="trust"></a>
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>信任在 Windows 和 macOS 上的 ASP.NET Core HTTPS 开发证书
 

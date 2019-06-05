@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 7df57153efc58b6a19ce663eb31d173da11b1005
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 93796fa1edfa316790794d3775342147ea28ae2e
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64881992"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692537"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -22,8 +22,6 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 若要查找使用模型视图控制器方法的教程，请参阅 [ASP.NET Core MVC 入门](xref:tutorials/first-mvc-app/start-mvc)。
 
 本文档介绍 Razor 页面。 它并不是分步教程。 如果认为某些部分过于复杂，请参阅 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)。 有关 ASP.NET Core 的概述，请参阅 [ASP.NET Core 简介](xref:index)。
-
-## <a name="prerequisites"></a>系统必备
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
@@ -49,7 +47,7 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 ::: moniker-end
 
-在 Visual Studio for Mac 中打开生成的 .csproj 文件。
+在 Visual Studio for Mac 中打开生成的 .csproj  文件。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -69,7 +67,7 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 ## <a name="razor-pages"></a>Razor 页面
 
-Startup.cs 中已启用 Razor 页面：
+Startup.cs 中已启用 Razor 页面  ：
 
 [!code-cs[](index/sample/RazorPagesIntro/Startup.cs?name=snippet_Startup)]
 
@@ -79,15 +77,15 @@ Startup.cs 中已启用 Razor 页面：
 
 前面的代码与具有控制器和视图的 ASP.NET Core 应用中使用的 [Razor 视图文件](xref:tutorials/first-mvc-app/adding-view)非常相似。 不同之处在于 `@page` 指令。 `@page` 使文件转换为一个 MVC 操作 ，这意味着它将直接处理请求，而无需通过控制器处理。 `@page` 必须是页面上的第一个 Razor 指令。 `@page` 将影响其他 Razor 构造的行为。
 
-将在以下两个文件中显示使用 `PageModel` 类的类似页面。 Pages/Index2.cshtml 文件：
+将在以下两个文件中显示使用 `PageModel` 类的类似页面。 Pages/Index2.cshtml  文件：
 
 [!code-cshtml[](index/sample/RazorPagesIntro/Pages/Index2.cshtml)]
 
-Pages/Index2.cshtml.cs 页面模型：
+Pages/Index2.cshtml.cs 页面模型  ：
 
 [!code-cs[](index/sample/RazorPagesIntro/Pages/Index2.cshtml.cs)]
 
-按照惯例，`PageModel` 类文件的名称与追加 .cs 的 Razor 页面文件名称相同。 例如，前面的 Razor 页面的名称为 Pages/Index2.cshtml。 包含 `PageModel` 类的文件的名称为 Pages/Index2.cshtml.cs。
+按照惯例，`PageModel` 类文件的名称与追加 .cs  的 Razor 页面文件名称相同。 例如，前面的 Razor 页面的名称为 Pages/Index2.cshtml  。 包含 `PageModel` 类的文件的名称为 Pages/Index2.cshtml.cs  。
 
 页面的 URL 路径的关联由页面在文件系统中的位置决定。 下表显示了 Razor 页面路径及匹配的 URL：
 
@@ -100,12 +98,12 @@ Pages/Index2.cshtml.cs 页面模型：
 
 注意：
 
-* 默认情况下，运行时在“Pages”文件夹中查找 Razor 页面文件。
+* 默认情况下，运行时在“Pages”文件夹中查找 Razor 页面文件。 
 * URL 未包含页面时，`Index` 为默认页面。
 
 ## <a name="write-a-basic-form"></a>编写基本窗体
 
-由于 Razor 页面的设计，在构建应用时可轻松实施用于 Web 浏览器的常用模式。 [模型绑定](xref:mvc/models/model-binding)、[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 HTML 帮助程序均只可用于 Razor 页面类中定义的属性。 请参考为 `Contact` 模型实现基本的“联系我们”窗体的页面：
+由于 Razor 页面的设计，在构建应用时可轻松实施用于 Web 浏览器的常用模式。 [模型绑定](xref:mvc/models/model-binding)、[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 HTML 帮助程序均只可用于 Razor 页面类中定义的属性。  请参考为 `Contact` 模型实现基本的“联系我们”窗体的页面：
 
 在本文档中的示例中，`DbContext` 在 [Startup.cs](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/sample/RazorPagesContacts/Startup.cs#L15-L16) 文件中进行初始化。
 
@@ -119,11 +117,11 @@ Pages/Index2.cshtml.cs 页面模型：
 
 [!code-cs[](index/sample/RazorPagesContacts/Data/AppDbContext.cs)]
 
-Pages/Create.cshtml 视图文件：
+Pages/Create.cshtml  视图文件：
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Create.cshtml)]
 
-Pages/Create.cshtml.cs 页面模型：
+Pages/Create.cshtml.cs 页面模型  ：
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Create.cshtml.cs?name=snippet_ALL)]
 
@@ -131,7 +129,7 @@ Pages/Create.cshtml.cs 页面模型：
 
 使用 `PageModel` 类，可以将页面的逻辑与其展示分离开来。 它定义了页面处理程序，用于处理发送到页面的请求和用于呈现页面的数据。 借助这种分离，可以通过[依赖关系注入](xref:fundamentals/dependency-injection)管理页面依赖关系，并对页面执行[单元测试](xref:test/razor-pages-tests)。
 
-页面包含 `OnPostAsync` 处理程序方法，它在 `POST` 请求上运行（当用户发布窗体时）。 可以为任何 HTTP 谓词添加处理程序方法。 最常见的处理程序是：
+页面包含 `OnPostAsync` 处理程序方法  ，它在 `POST` 请求上运行（当用户发布窗体时）。 可以为任何 HTTP 谓词添加处理程序方法。 最常见的处理程序是：
 
 * `OnGet`，用于初始化页面所需的状态。 [OnGet](#OnGet) 示例。
 * `OnPost`，用于处理窗体提交。
@@ -161,21 +159,21 @@ Pages/Create.cshtml.cs 页面模型：
 
 [!INCLUDE[](~/includes/bind-get.md)]
 
-主页 (Index.cshtml)：
+主页 (Index.cshtml  )：
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml)]
 
-关联的 `PageModel` 类 (Index.cshtml.cs)：
+关联的 `PageModel` 类 (Index.cshtml.cs)  ：
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Index.cshtml.cs)]
 
-Index.cshtml 文件包含以下标记来创建每个联系人项的编辑链接：
+Index.cshtml  文件包含以下标记来创建每个联系人项的编辑链接：
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
 [定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `http://localhost:5000/Edit/1`。 使用 `asp-area` 属性指定区域。 有关更多信息，请参见<xref:mvc/controllers/areas>。
 
-Pages/Edit.cshtml 文件：
+Pages/Edit.cshtml  文件：
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Edit.cshtml?highlight=1)]
 
@@ -185,11 +183,11 @@ Pages/Edit.cshtml 文件：
 @page "{id:int?}"
 ```
 
-Pages/Edit.cshtml.cs 文件：
+Pages/Edit.cshtml.cs  文件：
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Edit.cshtml.cs)]
 
-Index.cshtml 文件还包含用于为每个客户联系人创建删除按钮的标记：
+Index.cshtml 文件还包含用于为每个客户联系人创建删除按钮的标记： 
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=22-23)]
 
@@ -273,19 +271,19 @@ services.AddMvc()
 
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>将布局、分区、模板和标记帮助程序用于 Razor 页面
 
-页面可使用 Razor 视图引擎的所有功能。 布局、分区、模板、标记帮助程序、_ViewStart.cshtml 和 _ViewImports.cshtml 的工作方式与它们在传统的 Razor 视图中的工作方式相同。
+页面可使用 Razor 视图引擎的所有功能。 布局、分区、模板、标记帮助程序、_ViewStart.cshtml  和 _ViewImports.cshtml  的工作方式与它们在传统的 Razor 视图中的工作方式相同。
 
 让我们使用其中的一些功能来整理此页面。
 
 ::: moniker range=">= aspnetcore-2.1"
 
-向 Pages/Shared/_Layout.cshtml 添加[布局页面](xref:mvc/views/layout)：
+向 Pages/Shared/_Layout.cshtml  添加[布局页面](xref:mvc/views/layout)：
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-向 Pages/_Layout.cshtml 添加[布局页面](xref:mvc/views/layout)：
+向 Pages/_Layout.cshtml  添加[布局页面](xref:mvc/views/layout)：
 
 ::: moniker-end
 
@@ -298,33 +296,33 @@ services.AddMvc()
 
 请参阅[布局页面](xref:mvc/views/layout)了解详细信息。
 
-在 Pages/_ViewStart.cshtml 中设置 [Layout](xref:mvc/views/layout#specifying-a-layout) 属性：
+在 Pages/_ViewStart.cshtml  中设置 [Layout](xref:mvc/views/layout#specifying-a-layout) 属性：
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/_ViewStart.cshtml)]
 
 ::: moniker range=">= aspnetcore-2.1"
 
-布局位于“页面/共享”文件夹中。 页面按层次结构从当前页面的文件夹开始查找其他视图（布局、模板、分区）。 可以从“页面/共享”文件夹下的任意 Razor 页面使用“页面”文件夹中的布局。
+ 布局位于“页面/共享”文件夹中。 页面按层次结构从当前页面的文件夹开始查找其他视图（布局、模板、分区）。 可以从“页面/共享”  文件夹下的任意 Razor 页面使用“页面”  文件夹中的布局。
 
-布局文件应位于 Pages/Shared 文件夹中。
+布局文件应位于 Pages/Shared  文件夹中。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-布局位于“页面”文件夹中。 页面按层次结构从当前页面的文件夹开始查找其他视图（布局、模板、分区）。 可以从“页面”文件夹下的任意 Razor 页面使用“页面”文件夹中的布局。
+ 布局位于“页面”文件夹中。 页面按层次结构从当前页面的文件夹开始查找其他视图（布局、模板、分区）。 可以从“页面”  文件夹下的任意 Razor 页面使用“页面”  文件夹中的布局。
 
 ::: moniker-end
 
-建议不要将布局文件放在“视图/共享”文件夹中。 视图/共享 是一种 MVC 视图模式。 Razor 页面旨在依赖文件夹层次结构，而非路径约定。
+建议不要  将布局文件放在“视图/共享”  文件夹中。 视图/共享  是一种 MVC 视图模式。 Razor 页面旨在依赖文件夹层次结构，而非路径约定。
 
-Razor 页面中的视图搜索包含“页面”文件夹。 用于 MVC 控制器和传统 Razor 视图的布局、模板和分区可直接工作。
+Razor 页面中的视图搜索包含“页面”  文件夹。 用于 MVC 控制器和传统 Razor 视图的布局、模板和分区可直接工作  。
 
-添加 Pages/_ViewImports.cshtml 文件：
+添加 Pages/_ViewImports.cshtml  文件：
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/_ViewImports.cshtml)]
 
-本教程的后续部分中将介绍 `@namespace`。 `@addTagHelper` 指令将[内置标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/Index)引入“页面”文件夹中的所有页面。
+本教程的后续部分中将介绍 `@namespace`。 `@addTagHelper` 指令将[内置标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/Index)引入“页面”  文件夹中的所有页面。
 
 <a name="namespace"></a>
 
@@ -334,29 +332,29 @@ Razor 页面中的视图搜索包含“页面”文件夹。 用于 MVC 控制�
 
 此指令将为页面设置命名空间。 `@model` 指令无需包含命名空间。
 
-_ViewImports.cshtml 中包含 `@namespace` 指令后，指定的命名空间将为在导入 `@namespace` 指令的页面中生成的命名空间提供前缀。 生成的命名空间的剩余部分（后缀部分）是包含 _ViewImports.cshtml 的文件夹与包含页面的文件夹之间以点分隔的相对路径。
+_ViewImports.cshtml  中包含 `@namespace` 指令后，指定的命名空间将为在导入 `@namespace` 指令的页面中生成的命名空间提供前缀。 生成的命名空间的剩余部分（后缀部分）是包含 _ViewImports.cshtml  的文件夹与包含页面的文件夹之间以点分隔的相对路径。
 
-例如，`PageModel` 类 Pages/Customers/Edit.cshtml.cs 显式设置命名空间：
+例如，`PageModel` 类 Pages/Customers/Edit.cshtml.cs  显式设置命名空间：
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/Edit.cshtml.cs?name=snippet_namespace)]
 
-Pages/_ViewImports.cshtml 文件设置以下命名空间：
+Pages/_ViewImports.cshtml  文件设置以下命名空间：
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/_ViewImports.cshtml?highlight=1)]
 
-为 Pages/Customers/Edit.cshtml Razor 页面生成的命名空间与 `PageModel` 类相同。
+为 Pages/Customers/Edit.cshtml  Razor 页面生成的命名空间与 `PageModel` 类相同。
 
-`@namespace` 也可用于传统的 Razor 视图。
+`@namespace`  也可用于传统的 Razor 视图。
 
-原始的 Pages/Create.cshtml 视图文件：
+原始的 Pages/Create.cshtml  视图文件：
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Create.cshtml?highlight=2)]
 
-更新后的 Pages/Create.cshtml 视图文件：
+更新后的 Pages/Create.cshtml  视图文件：
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/Create.cshtml?highlight=2)]
 
-[Razor 页面初学者项目](#rpvs17)包含 Pages/_ValidationScriptsPartial.cshtml，它与客户端验证联合。
+[Razor 页面初学者项目](#rpvs17)包含 Pages/_ValidationScriptsPartial.cshtml  ，它与客户端验证联合。
 
 有关分部视图的详细信息，请参阅 <xref:mvc/views/partial>。
 
@@ -370,24 +368,24 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 
 应用具有以下文件/文件夹结构：
 
-* /Pages
+* /Pages 
 
   * *Index.cshtml*
-  * /Customers
+  * /Customers 
 
-    * Create.cshtml
-    * Edit.cshtml
+    * Create.cshtml 
+    * Edit.cshtml 
     * *Index.cshtml*
 
-成功后，Pages/Customers/Create.cshtml 和 Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Index.cshtml。 字符串 `/Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `/Index` 生成 Pages/Index.cshtml 页面的 URI。 例如:
+成功后，Pages/Customers/Create.cshtml  和 Pages/Customers/Edit.cshtml  页面将重定向到 Pages/Index.cshtml  。 字符串 `/Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `/Index` 生成 Pages/Index.cshtml  页面的 URI。 例如:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
 * `RedirectToPage("/Index")`
 
-页面名称是从根“/Pages”文件夹到页面的路径（包含前导 `/`，例如 `/Index`）。 与硬编码 URL 相比，前面的 URL 生成示例提供了改进的选项和功能。 URL 生成使用[路由](xref:mvc/controllers/routing)，并且可以根据目标路径定义路由的方式生成参数并对参数编码。
+页面名称是从根“/Pages”  文件夹到页面的路径（包含前导 `/`，例如 `/Index`）。 与硬编码 URL 相比，前面的 URL 生成示例提供了改进的选项和功能。 URL 生成使用[路由](xref:mvc/controllers/routing)，并且可以根据目标路径定义路由的方式生成参数并对参数编码。
 
-页面的 URL 生成支持相对名称。 下表显示了 Pages/Customers/Create.cshtml 中不同的 `RedirectToPage` 参数选择的索引页：
+页面的 URL 生成支持相对名称。 下表显示了 Pages/Customers/Create.cshtml  中不同的 `RedirectToPage` 参数选择的索引页：
 
 | RedirectToPage(x)| 页面 |
 | ----------------- | ------------ |
@@ -396,7 +394,7 @@ Pages/_ViewImports.cshtml 文件设置以下命名空间：
 | RedirectToPage("../Index") | *Pages/Index* |
 | RedirectToPage("Index")  | *Pages/Customers/Index* |
 
-`RedirectToPage("Index")`、`RedirectToPage("./Index")` 和 `RedirectToPage("../Index")` 是相对名称。 结合 `RedirectToPage` 参数与当前页的路径来计算目标页面的名称。  <!-- Review: Original had The provided string is combined with the page name of the current page to compute the name of the destination page.  page name, not page path -->
+`RedirectToPage("Index")`、`RedirectToPage("./Index")` 和 `RedirectToPage("../Index")` 是相对名称  。 结合  `RedirectToPage` 参数与当前页的路径来计算目标页面的名称。  <!-- Review: Original had The provided string is combined with the page name of the current page to compute the name of the destination page.  page name, not page path -->
 
 构建结构复杂的站点时，相对名称链接很有用。 如果使用相对名称链接文件夹中的页面，则可以重命名该文件夹。 所有链接仍然有效（因为这些链接未包含此文件夹名称）。
 
@@ -456,13 +454,13 @@ ASP.NET 在[控制器](/dotnet/api/microsoft.aspnetcore.mvc.controller)上公开
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateDot.cshtml.cs?highlight=10-11,25&name=snippet_Temp)]
 
-Pages/Customers/Index.cshtml 文件中的以下标记使用 `TempData` 显示 `Message` 的值。
+Pages/Customers/Index.cshtml  文件中的以下标记使用 `TempData` 显示 `Message` 的值。
 
 ```cshtml
 <h3>Msg: @Model.Message</h3>
 ```
 
-Pages/Customers/Index.cshtml.cs 页面模型将 `[TempData]` 属性应用到 `Message` 属性。
+Pages/Customers/Index.cshtml.cs 页面模型将 `[TempData]` 属性应用到 `Message` 属性  。
 
 ```cs
 [TempData]
@@ -487,7 +485,7 @@ public string Message { get; set; }
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml.cs?highlight=20,32)]
 
-前面的代码使用已命名处理程序方法。 已命名处理程序方法通过采用名称中 `On<HTTP Verb>` 之后及 `Async` 之前的文本（如果有）创建。 在前面的示例中，页面方法是 OnPost**JoinList**Async 和 OnPost**JoinListUC**Async。 删除 OnPost 和 Async 后，处理程序名称为 `JoinList` 和 `JoinListUC`。
+前面的代码使用已命名处理程序方法  。 已命名处理程序方法通过采用名称中 `On<HTTP Verb>` 之后及 `Async` 之前的文本（如果有）创建。 在前面的示例中，页面方法是 OnPost**JoinList**Async 和 OnPost**JoinListUC**Async。 删除 OnPost  和 Async  后，处理程序名称为 `JoinList` 和 `JoinListUC`。
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml?range=12-13)]
 
@@ -529,7 +527,7 @@ public string Message { get; set; }
 
 ### <a name="specify-that-razor-pages-are-at-the-content-root"></a>指定 Razor 页面位于内容根目录中
 
-默认情况下，Razor 页面位于 /Pages 目录的根位置。 向 [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) 添加 [WithRazorPagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot)，以指定 Razor 页面位于应用的内容根目录 ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath)) 中：
+默认情况下，Razor 页面位于 /Pages 目录的根位置  。 向 [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) 添加 [WithRazorPagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot)，以指定 Razor 页面位于应用的内容根目录 ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath)) 中：
 
 ```csharp
 services.AddMvc()
