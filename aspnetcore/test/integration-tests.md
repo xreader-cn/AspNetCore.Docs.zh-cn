@@ -5,14 +5,14 @@ description: 了解集成测试如何在基础结构级别（包括数据库、�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 06/05/2019
 uid: test/integration-tests
-ms.openlocfilehash: 46c3b227ca0b3def5ab7d527a2f6ef2497d55f83
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 3af2a1f7c6a65d7ff42597972ee151a50fc95fb6
+ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892064"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66716378"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>在 ASP.NET Core 中的集成测试
 
@@ -84,7 +84,7 @@ ms.locfileid: "64892064"
 
 `Microsoft.AspNetCore.Mvc.Testing`程序包处理以下任务：
 
-* 将复制依赖项文件 (*\*.deps*) 到测试项目的 sut *bin*文件夹。
+* 将复制依赖项文件 ( *\*.deps*) 到测试项目的 sut *bin*目录。
 * 内容根设置为 SUT 的项目根，使静态文件和网页/视图时执行的测试发现。
 * 提供了[WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)类，以简化启动与 SUT `TestServer`。
 
@@ -127,6 +127,8 @@ ms.locfileid: "64892064"
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)创建的实例`HttpClient`的自动遵循重定向，并处理 cookie。
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
+
+默认情况下，将不会保留非必需 cookie 的请求时[GDPR 许可策略](xref:security/gdpr)已启用。 若要保留非必需 cookie，如使用 TempData 提供程序，将其标记为在你的测试中必不可少。 有关将标记为重要的 cookie 的说明，请参阅[Essential cookie](xref:security/gdpr#essential-cookies)。
 
 ### <a name="test-a-secure-endpoint"></a>测试安全终结点
 
@@ -236,7 +238,7 @@ _client = _factory.CreateClient(clientOptions);
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet2)]
 
-Pages/Index.cshtml.cs：
+ Pages/Index.cshtml.cs：
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Pages/Index.cshtml.cs?name=snippet1&highlight=4,9,20,26)]
 
@@ -270,7 +272,7 @@ Pages/Index.cshtml.cs：
 
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>测试基础结构如何推断应用内容根路径
 
-`WebApplicationFactory`构造函数通过搜索来推断应用内容根路径[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)包含其键等于集成测试的程序集上`TEntryPoint`的程序集`System.Reflection.Assembly.FullName`. 如果找不到具有正确的密钥的属性，`WebApplicationFactory`回退到搜索解决方案文件 (*\*.sln*)，并追加`TEntryPoint`到解决方案目录的程序集名称。 应用程序根目录下 （内容根路径） 用于发现视图和内容文件。
+`WebApplicationFactory`构造函数通过搜索来推断应用内容根路径[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)包含其键等于集成测试的程序集上`TEntryPoint`的程序集`System.Reflection.Assembly.FullName`. 如果找不到具有正确的密钥的属性，`WebApplicationFactory`回退到搜索解决方案文件 ( *\*.sln*)，并追加`TEntryPoint`到解决方案目录的程序集名称。 应用程序根目录下 （内容根路径） 用于发现视图和内容文件。
 
 在大多数情况下，无需显式设置应用程序内容根，在搜索逻辑通常在运行时找到正确的内容根。 内容根位置找不到的特殊方案中使用内置的搜索算法，内容可以指定根目录，显式或使用自定义逻辑应用。 若要将应用内容根目录设置在这些情况下，调用`UseSolutionRelativeContentRoot`扩展方法来源[Microsoft.AspNetCore.TestHost](https://www.nuget.org/packages/Microsoft.AspNetCore.TestHost)包。 提供解决方案的相对路径和可选的解决方案文件的名称或 glob 模式 (默认值 = `*.sln`)。
 
@@ -311,7 +313,7 @@ Pages/Index.cshtml.cs：
 
 ## <a name="disable-shadow-copying"></a>禁用卷影复制
 
-卷影复制会导致要在不同的文件夹的输出文件夹中执行的测试。 对于测试才能正常工作，卷影复制必须禁用。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)使用 xUnit 和禁用卷影复制对于 xUnit 通过包括*xunit.runner.json*文件，并正确的配置设置。 有关详细信息，请参阅[使用 JSON 配置 xUnit](https://xunit.github.io/docs/configuring-with-json.html)。
+卷影复制会导致要在不同的目录比输出目录中执行的测试。 对于测试才能正常工作，卷影复制必须禁用。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)使用 xUnit 和禁用卷影复制对于 xUnit 通过包括*xunit.runner.json*文件，并正确的配置设置。 有关详细信息，请参阅[使用 JSON 配置 xUnit](https://xunit.github.io/docs/configuring-with-json.html)。
 
 添加*xunit.runner.json*到测试项目包含以下内容的根目录的文件：
 
@@ -329,12 +331,12 @@ Pages/Index.cshtml.cs：
 
 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)由两个应用的组成：
 
-| 应用 | 项目文件夹 | 描述 |
-| --- | -------------- | ----------- |
+| 应用 | 项目目录 | 描述 |
+| --- | ----------------- | ----------- |
 | 消息应用程序 (SUT) | *src/RazorPagesProject* | 允许用户添加、 删除其中一个，删除所有，并分析消息。 |
 | 测试应用 | *tests/RazorPagesProject.Tests* | 用于集成测试 SUT。 |
 
-可以使用内置测试功能的 IDE，如运行测试[Visual Studio](https://visualstudio.microsoft.com)。 如果使用[Visual Studio Code](https://code.visualstudio.com/)或命令行中，执行以下命令在命令提示符处*tests/RazorPagesProject.Tests*文件夹：
+可以使用内置测试功能的 IDE，如运行测试[Visual Studio](https://visualstudio.microsoft.com)。 如果使用[Visual Studio Code](https://code.visualstudio.com/)或命令行中，执行以下命令在命令提示符处*tests/RazorPagesProject.Tests*目录：
 
 ```console
 dotnet test
@@ -357,10 +359,10 @@ SUT 是 Razor 页面消息系统具有以下特征：
 
 ### <a name="test-app-organization"></a>测试应用程序的组织
 
-测试应用程序是一个控制台应用程序内的*tests/RazorPagesProject.Tests*文件夹。
+测试应用程序是一个控制台应用程序内的*tests/RazorPagesProject.Tests*目录。
 
-| 测试应用程序文件夹 | 描述 |
-| --------------- | ----------- |
+| 测试应用程序目录 | 描述 |
+| ------------------ | ----------- |
 | *BasicTests* | *BasicTests.cs*包含测试方法的路由、 访问的安全页由未经身份验证的用户，并获取 GitHub 用户配置文件和检查配置文件的用户登录名。 |
 | *IntegrationTests* | *IndexPageTests.cs*包含使用自定义的索引页的集成测试`WebApplicationFactory`类。 |
 | *帮助程序/实用程序* | <ul><li>*Utilities.cs*包含`InitializeDbForTests`方法用于设置测试数据与数据库的种子。</li><li>*HtmlHelpers.cs*提供了一个方法来返回 AngleSharp`IHtmlDocument`以供测试方法。</li><li>*HttpClientExtensions.cs*提供的重载`SendAsync`以将请求提交到 SUT。</li></ul> |
