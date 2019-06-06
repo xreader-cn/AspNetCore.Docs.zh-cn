@@ -5,14 +5,14 @@ description: 了解如何访问 ASP.NET Core web 应用中的 GDPR 扩展点。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/29/2018
+ms.date: 06/05/2019
 uid: security/gdpr
-ms.openlocfilehash: c5c13dbd1006d10aba0f54b0b9d72b527ee98945
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 967f3246836c93a1af56f7109edb056220606b58
+ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894104"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66716352"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>在 ASP.NET Core 欧洲常规数据保护法规 (GDPR) 支持
 
@@ -30,13 +30,13 @@ ASP.NET Core 提供 Api 和模板，以帮助满足一些[欧洲常规数据保�
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>模板中的 ASP.NET Core GDPR 支持生成的代码
+## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>支持模板生成的代码中的 ASP.NET Core GDPR
 
 Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持：
 
-* [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)并[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)中设置`Startup`。
-* *_CookieConsentPartial.cshtml* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。
-* *Pages/Privacy.cshtml*页或*Views/Home/Privacy.cshtml*视图提供了详细介绍站点的隐私策略的页。 *_CookieConsentPartial.cshtml*文件可生成隐私页的链接。
+* [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)并[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)中设置`Startup`类。
+* *\_CookieConsentPartial.cshtml* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 **接受**按钮包含在此文件。 当用户单击**接受**按钮，同意将 cookie 提供。
+* *Pages/Privacy.cshtml*页或*Views/Home/Privacy.cshtml*视图提供了详细介绍站点的隐私策略的页。 *\_CookieConsentPartial.cshtml*文件可生成隐私页的链接。
 * 对于使用单个用户帐户创建的应用程序，管理页提供链接以下载和删除[个人用户数据](#pd)。
 
 ### <a name="cookiepolicyoptions-and-usecookiepolicy"></a>CookiePolicyOptions 和 UseCookiePolicy
@@ -49,29 +49,29 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 
 [!code-csharp[](gdpr/sample/Startup.cs?name=snippet1&highlight=51)]
 
-### <a name="cookieconsentpartialcshtml-partial-view"></a>_CookieConsentPartial.cshtml partial view
+### <a name="cookieconsentpartialcshtml-partial-view"></a>\_CookieConsentPartial.cshtml partial view
 
-*_CookieConsentPartial.cshtml*分部视图：
+*\_CookieConsentPartial.cshtml*分部视图：
 
 [!code-html[](gdpr/sample/RP/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 此部分中：
 
-* 获取用户跟踪的状态。 如果应用程序配置为需要同意的情况下，用户必须同意使用之前可以跟踪 cookie。 如果需要同意的情况下，cookie 同意面板固定的创建的导航栏的顶部 *_Layout.cshtml*文件。
+* 获取用户跟踪的状态。 如果应用程序配置为需要同意的情况下，用户必须同意使用之前可以跟踪 cookie。 如果需要同意的情况下，cookie 同意面板固定的创建的导航栏的顶部 *\_Layout.cshtml*文件。
 * 提供了一个 HTML`<p>`元素以汇总您的隐私和 cookie 使用策略。
 * 提供指向隐私页面或视图，其中详细介绍站点的隐私策略。
 
 ## <a name="essential-cookies"></a>基本 cookie
 
-如果尚未赋予同意的情况下，只有标记为重要的 cookie 发送到浏览器。 下面的代码使 cookie 重要：
+如果同意来存储 cookie 未对其提供，仅标记为重要的 cookie 会被发送到浏览器。 下面的代码使 cookie 重要：
 
 [!code-csharp[Main](gdpr/sample/RP/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
 
 <a name="tempdata"></a>
 
-## <a name="tempdata-provider-and-session-state-cookies-are-not-essential"></a>Tempdata 提供程序和会话状态的 cookie 不重要
+### <a name="tempdata-provider-and-session-state-cookies-arent-essential"></a>TempData 提供程序和会话状态的 cookie 不重要
 
-[Tempdata 提供程序](xref:fundamentals/app-state#tempdata)cookie 不是必需的。 如果禁用跟踪，Tempdata 提供程序不起作用。 若要启用 Tempdata 提供程序跟踪处于禁用状态时，将 TempData cookie 标记为重要中`Startup.ConfigureServices`:
+[TempData 提供程序](xref:fundamentals/app-state#tempdata)cookie 不是必需的。 如果禁用跟踪，TempData 提供程序不起作用。 若要启用 TempData 提供程序跟踪处于禁用状态时，将 TempData cookie 标记为重要中`Startup.ConfigureServices`:
 
 [!code-csharp[Main](gdpr/sample/RP/Startup.cs?name=snippet1)]
 
@@ -114,7 +114,7 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 对于未提供静态的内置加密的数据库，您可能能够使用磁盘加密来提供相同的保护。 例如：
 
 * [BitLocker for Windows Server](/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
-* Linux:
+* Linux：
   * [eCryptfs](https://launchpad.net/ecryptfs)
   * [EncFS](https://github.com/vgough/encfs)。
 
