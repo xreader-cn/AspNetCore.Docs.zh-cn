@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 10/25/2018
+ms.date: 06/05/2019
 uid: razor-pages/sdk
-ms.openlocfilehash: de51c9443e639cd64c234b6975cf7252bb7a2b9a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 8c4e882af93b043afaa0bcf86fd1583405f84be9
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895294"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750181"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -71,8 +71,8 @@ ms.locfileid: "64895294"
 
 | 项 | 描述 |
 | ----- | ----------- |
-| `RazorGenerate` | 输入到代码生成目标的项元素（.cshtml 文件）。 |
-| `RazorCompile` | 项元素 (*.cs*文件)，是 Razor 编译目标的输入。 使用此 ItemGroup 指定要编译到 Razor 程序集中的其他文件。 |
+| `RazorGenerate` | 输入到代码生成目标的项元素（.cshtml 文件）  。 |
+| `RazorCompile` | 项元素 ( *.cs*文件)，是 Razor 编译目标的输入。 使用此 ItemGroup 指定要编译到 Razor 程序集中的其他文件。 |
 | `RazorTargetAssemblyAttribute` | 用于编码生成 Razor 程序集属性的项元素。 例如：  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | 作为嵌入资源添加到生成的 Razor 程序集的项元素。 |
 
@@ -82,13 +82,13 @@ ms.locfileid: "64895294"
 | `RazorOutputPath` | Razor 输出目录。 |
 | `RazorCompileToolset` | 用于确定用于生成 Razor 程序集的工具集。 有效值为 `Implicit`、`RazorSDK` 和 `PrecompilationTool`。 |
 | [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | 默认值为 `true`。 当`true`，包括*web.config*， *.json*，和 *.cshtml*文件作为项目中的内容。 当通过引用`Microsoft.NET.Sdk.Web`，文件下*wwwroot*和，还提供了配置文件。 |
-| `EnableDefaultRazorGenerateItems` | 为 `true` 时，包括 `RazorGenerate` 项中 `Content` 项的 .cshtml 文件。 |
+| `EnableDefaultRazorGenerateItems` | 为 `true` 时，包括 `RazorGenerate` 项中 `Content` 项的 .cshtml 文件  。 |
 | `GenerateRazorTargetAssemblyInfo` | 当`true`，生成 *.cs*包含指定的属性文件`RazorAssemblyAttribute`和编译输出中包括的文件。 |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | 为 `true` 时，将一组默认的程序集属性添加到 `RazorAssemblyAttribute`。 |
-| `CopyRazorGenerateFilesToPublishDirectory` | 当`true`，复制`RazorGenerate`项 (*.cshtml*) 文件复制到发布目录。 通常情况下，Razor 文件不需要的已发布的应用，如果他们参与在生成时或发布时编译。 默认为 `false`。 |
+| `CopyRazorGenerateFilesToPublishDirectory` | 当`true`，复制`RazorGenerate`项 ( *.cshtml*) 文件复制到发布目录。 通常情况下，Razor 文件不需要的已发布的应用，如果他们参与在生成时或发布时编译。 默认为 `false`。 |
 | `CopyRefAssembliesToPublishDirectory` | 为 `true` 时，将引用程序集项复制到发布目录。 通常情况下，引用程序集不需要的已发布的应用，如果 Razor 编译发生在生成时或发布时间。 设置为`true`如果你已发布的应用需要运行时编译。 例如，将值设置为`true`如果应用程序修改 *.cshtml*文件在运行时或使用嵌入的视图。 默认为 `false`。 |
-| `IncludeRazorContentInPack` | 当`true`，所有 Razor 内容项 (*.cshtml*文件) 标记为要包含在生成的 NuGet 包中。 默认为 `false`。 |
-| `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中。 默认为 `false`。 |
+| `IncludeRazorContentInPack` | 当`true`，所有 Razor 内容项 ( *.cshtml*文件) 标记为要包含在生成的 NuGet 包中。 默认为 `false`。 |
+| `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中  。 默认为 `false`。 |
 | `UseRazorBuildServer` | 为 `true` 时，使用永久生成服务器进程来卸载代码生成工作。 默认值为 `UseSharedCompilation`。 |
 
 有关属性的详细信息，请参阅 [MSBuild 属性](/visualstudio/msbuild/msbuild-properties)。
@@ -105,3 +105,13 @@ Razor SDK 定义两个主要目标：
 * 默认情况下，Razor SDK 不发布执行运行时编译所需的引用程序集。 当应用程序模型依赖于运行时编译时，这会导致编译失败&mdash;例如，应用在发布后使用嵌入视图或更改视图。 将 `CopyRefAssembliesToPublishDirectory` 设置为 `true`，以继续发布引用程序集。
 
 * 对于 web 应用，请确保您的应用程序所面向`Microsoft.NET.Sdk.Web`SDK。
+
+## <a name="razor-language-version"></a>Razor 语言版本
+
+面向时`Microsoft.NET.Sdk.Web`SDK，Razor 语言版本来推断应用程序的目标框架版本。 对于项目面向`Microsoft.NET.Sdk.Razor`SDK 或在极少数的情况下应用需要推断值的 Razor 语言版本不同，可以通过设置配置版本`<RazorLangVersion>`应用的项目文件中的属性：
+
+```xml
+<PropertyGroup>
+  <RazorLangVersion>{VERSION}</RazorLangVersion>
+</PropertyGroup>
+```

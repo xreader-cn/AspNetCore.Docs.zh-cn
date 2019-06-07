@@ -5,14 +5,14 @@ description: 了解如何进行流式处理客户端和服务器之间的数据�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/12/2019
+ms.date: 06/05/2019
 uid: signalr/streaming
-ms.openlocfilehash: 8f39fdfa45766b5bbec572970f009abefefdc419
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a75156f398e113393ddb891d16eec3f09de80c09
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897194"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750184"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>使用 ASP.NET Core SignalR 中流式处理
 
@@ -36,7 +36,7 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Threading.Channels.ChannelReader%601>， `IAsyncEnumerable<T>`， `Task<ChannelReader<T>>`，或`Task<IAsyncEnumerable<T>>`。
+集线器方法自动成为流式处理的集线器方法时它将返回<xref:System.Collections.Generic.IAsyncEnumerable`1>， <xref:System.Threading.Channels.ChannelReader%601>， `Task<IAsyncEnumerable<T>>`，或`Task<ChannelReader<T>>`。
 
 ::: moniker-end
 
@@ -93,9 +93,23 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ### <a name="client-to-server-streaming"></a>客户端到服务器流式处理
 
-当它接受一个或多个中心方法将自动成为客户端-服务器流式处理集线器方法<xref:System.Threading.Channels.ChannelReader`1>s。 下面的示例演示读取从客户端发送的流式处理数据的基础知识。 每当客户端写入<xref:System.Threading.Channels.ChannelWriter`1>，将数据写入到`ChannelReader`集线器方法读取从服务器上。
+它接受一个或多个类型的对象时集线器方法将自动成为客户端-服务器流式处理集线器方法<xref:System.Threading.Channels.ChannelReader%601>或<xref:System.Collections.Generic.IAsyncEnumerable%601>。 下面的示例演示读取从客户端发送的流式处理数据的基础知识。 每当客户端写入<xref:System.Threading.Channels.ChannelWriter%601>，将数据写入到`ChannelReader`从中读取的集线器方法在服务器上。
 
 [!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
+
+<xref:System.Collections.Generic.IAsyncEnumerable%601>遵循版本的方法。
+
+[!INCLUDE[](~/includes/csharp-8-required.md)]
+
+```csharp
+public async Task UploadStream(IAsyncEnumerable<Stream> stream) 
+{
+    await foreach (var item in stream)
+    {
+        Console.WriteLine(item);
+    }
+}
+```
 
 ::: moniker-end
 
@@ -103,9 +117,55 @@ ASP.NET Core SignalR 支持流式处理服务器方法的返回值。 这是适�
 
 ### <a name="server-to-client-streaming"></a>服务器到客户端流式处理
 
-`StreamAsChannelAsync`方法`HubConnection`用于调用服务器到客户端的流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsChannelAsync`。 上的泛型参数`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 一个`ChannelReader<T>`流调用中返回，并且表示在客户端上的流。
+
+::: moniker range=">= aspnetcore-3.0"
+
+`StreamAsync`并`StreamAsChannelAsync`上的方法`HubConnection`用于调用服务器到客户端流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsync`或`StreamAsChannelAsync`。 上的泛型参数`StreamAsync<T>`和`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 类型的对象`IAsyncEnumerable<T>`或`ChannelReader<T>`流调用中返回，并且表示在客户端上的流。
+
+一个`StreamAsync`返回的示例`IAsyncEnumerable<int>`:
+
+```csharp
+// Call "Cancel" on this CancellationTokenSource to send a cancellation message to
+// the server, which will trigger the corresponding token in the hub method.
+var cancellationTokenSource = new CancellationTokenSource();
+var stream = await hubConnection.StreamAsync<int>(
+    "Counter", 10, 500, cancellationTokenSource.Token);
+
+await foreach (var count in stream)
+{
+    Console.WriteLine($"{count}");
+}
+
+Console.WriteLine("Streaming completed");
+```
+
+相应`StreamAsChannelAsync`返回的示例`ChannelReader<int>`:
+
+```csharp
+// Call "Cancel" on this CancellationTokenSource to send a cancellation message to
+// the server, which will trigger the corresponding token in the hub method.
+var cancellationTokenSource = new CancellationTokenSource();
+var channel = await hubConnection.StreamAsChannelAsync<int>(
+    "Counter", 10, 500, cancellationTokenSource.Token);
+
+// Wait asynchronously for data to become available
+while (await channel.WaitToReadAsync())
+{
+    // Read all currently available data synchronously, before waiting for more data
+    while (channel.TryRead(out var count))
+    {
+        Console.WriteLine($"{count}");
+    }
+}
+
+Console.WriteLine("Streaming completed");
+```
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
+
+`StreamAsChannelAsync`方法`HubConnection`用于调用服务器到客户端的流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsChannelAsync`。 上的泛型参数`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 一个`ChannelReader<T>`流调用中返回，并且表示在客户端上的流。
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -131,6 +191,8 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range="= aspnetcore-2.1"
 
+`StreamAsChannelAsync`方法`HubConnection`用于调用服务器到客户端的流式处理方法。 将中心方法名称和到中心方法中定义的自变量传递`StreamAsChannelAsync`。 上的泛型参数`StreamAsChannelAsync<T>`指定流式处理方法返回的对象的类型。 一个`ChannelReader<T>`流调用中返回，并且表示在客户端上的流。
+
 ```csharp
 var channel = await hubConnection
     .StreamAsChannelAsync<int>("Counter", 10, 500, CancellationToken.None);
@@ -154,11 +216,29 @@ Console.WriteLine("Streaming completed");
 
 ### <a name="client-to-server-streaming"></a>客户端到服务器流式处理
 
-若要调用客户端-服务器流式处理集线器方法从.NET 客户端，创建`Channel`并传递`ChannelReader`的参数作为`SendAsync`， `InvokeAsync`，或`StreamAsChannelAsync`，取决于集线器方法调用。
+有两种方法来调用客户端-服务器流式处理集线器方法从.NET 客户端。 你可以在 pass`IAsyncEnumerable<T>`或`ChannelReader`的参数作为`SendAsync`， `InvokeAsync`，或`StreamAsChannelAsync`，取决于集线器方法调用。
 
-每当将数据写入到`ChannelWriter`，在服务器上的集线器方法从客户端接收的数据的新项。
+每当将数据写入到`IAsyncEnumerable`或`ChannelWriter`对象，在服务器上的集线器方法从客户端接收的数据的新项。
 
-若要结束该流，请完成与通道`channel.Writer.Complete()`。
+如果使用`IAsyncEnumerable`对象，在流结束后返回流项退出该方法。
+
+[!INCLUDE[](~/includes/csharp-8-required.md)]
+
+```csharp
+async IAsyncEnumerable<string> clientStreamData()
+{
+    for (var i = 0; i < 5; i++)
+    {
+        var data = await FetchSomeData();
+        yield return data;
+    }
+    //After the for loop has completed and the local function exits the stream completion will be sent.
+}
+
+await connection.SendAsync("UploadStream", clientStreamData());
+```
+
+或如果您使用的`ChannelWriter`，完成与通道`channel.Writer.Complete()`:
 
 ```csharp
 var channel = Channel.CreateBounded<string>(10);

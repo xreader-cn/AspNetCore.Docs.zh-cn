@@ -5,14 +5,14 @@ description: 了解如何为 IIS 和 HTTP.sys 在 ASP.NET Core 中配置 Windows
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 05/29/2019
+ms.date: 06/05/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 9dfff5dcba409ddca7e05c771b864ab121e0ea85
-ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
+ms.openlocfilehash: 900bbf5f14b1876ad537b2b77e4ba07d7aa168f2
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66395928"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750162"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置 Windows 身份验证
 
@@ -22,9 +22,17 @@ ms.locfileid: "66395928"
 
 Windows 身份验证依赖于操作系统的 ASP.NET Core 应用的用户进行身份验证。 使用 Active Directory 域标识或 Windows 帐户标识的用户在公司网络上运行你的服务器时，可以使用 Windows 身份验证。 Windows 身份验证是最适合于用户、 客户端应用程序和 web 服务器属于同一个 Windows 域的 intranet 环境。
 
-## <a name="launch-settings-debugger"></a>启动设置 （调试器）
+## <a name="iisiis-express"></a>IIS/IIS Express
 
-用于配置启动设置，只会影响*Properties/launchSettings.json*文件，并不将 IIS 或 HTTP.sys 服务器配置为 Windows 身份验证。 服务器的配置，详见[启用身份验证服务的 IIS 或 HTTP.sys](#authentication-services-for-iis-or-httpsys)部分。
+添加身份验证服务通过调用<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>(<xref:Microsoft.AspNetCore.Server.IISIntegration?displayProperty=fullName>命名空间) 中`Startup.ConfigureServices`:
+
+```csharp
+services.AddAuthentication(IISDefaults.AuthenticationScheme);
+```
+
+### <a name="launch-settings-debugger"></a>启动设置 （调试器）
+
+用于配置启动设置，只会影响*Properties/launchSettings.json* IIS express 文件，并不会配置 IIS 的 Windows 身份验证。 服务器配置中所述[IIS](#iis)部分。
 
 **Web 应用程序**可通过 Visual Studio 或.NET Core CLI 的模板可以配置为支持 Windows 身份验证，这会更新*Properties/launchSettings.json*文件是自动的。
 
@@ -76,17 +84,7 @@ dotnet new webapp --auth Windows
 
 在修改现有项目，确认项目文件包含的包引用[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)**或** [Microsoft.AspNetCore.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication/) NuGet 包。
 
-## <a name="authentication-services-for-iis-or-httpsys"></a>身份验证服务的 IIS 或 HTTP.sys
-
-具体取决于托管方案中，请按照中的指导**任一** [IIS](#iis)部分**或** [HTTP.sys](#httpsys)部分。
-
 ### <a name="iis"></a>IIS
-
-添加身份验证服务通过调用<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>(<xref:Microsoft.AspNetCore.Server.IISIntegration?displayProperty=fullName>命名空间) 中`Startup.ConfigureServices`:
-
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
 
 IIS 使用[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)到承载 ASP.NET Core 应用程序。 Windows 身份验证配置为通过 IIS *web.config*文件。 以下部分介绍如何：
 
@@ -127,9 +125,9 @@ IIS 使用[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)到承�
   * 使用 IIS 管理器中的设置重置*web.config*文件后部署上覆盖该文件。
   * 添加*web.config 文件*向本地使用的设置应用程序。
 
-### <a name="httpsys"></a>HTTP.sys
+## <a name="httpsys"></a>HTTP.sys
 
-尽管[Kestrel](xref:fundamentals/servers/kestrel)不支持 Windows 身份验证，可以使用[HTTP.sys](xref:fundamentals/servers/httpsys)以在 Windows 上支持自承载的方案。
+在自承载方案中， [Kestrel](xref:fundamentals/servers/kestrel)不支持 Windows 身份验证，但你可以使用[HTTP.sys](xref:fundamentals/servers/httpsys)。
 
 添加身份验证服务通过调用<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>(<xref:Microsoft.AspNetCore.Server.HttpSys?displayProperty=fullName>命名空间) 中`Startup.ConfigureServices`:
 

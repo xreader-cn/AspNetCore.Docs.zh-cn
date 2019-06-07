@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 05/28/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 2ac7a6c7a5499d0525a61c6401f5996f8543fdba
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: c7cd35865c5bddf0e5efaa9e616832b6755d9227
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376210"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750122"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>使用 JavaScript 服务来创建 ASP.NET Core 中的单页面应用程序
 
@@ -24,7 +24,7 @@ ms.locfileid: "66376210"
 
 JavaScript Services 是适用于 ASP.NET Core 的客户端技术的集合。 其目标是将 ASP.NET Core 定位为开发人员用于构建 SPA 的首选服务器端平台。
 
-JavaScript 服务包含三个不同的 NuGet 包：
+JavaScript 服务包含两个不同的 NuGet 包：
 
 * [Microsoft.AspNetCore.NodeServices](https://www.nuget.org/packages/Microsoft.AspNetCore.NodeServices/) (NodeServices)
 * [Microsoft.AspNetCore.SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices/) (SpaServices)
@@ -225,7 +225,6 @@ dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 | 含 React.js 和 Redux 的 MVC ASP.NET Core  | reactredux | [C#]     | Web/MVC/SPA |
 
 若要使用 SPA 模板之一创建新项目，请在 [dotnet new](/dotnet/core/tools/dotnet-new) 命令中包括模板的**短名称**。 以下命令创建 Angular 应用程序，并为服务器端配置 ASP.NET Core MVC：
-
 
 ```console
 dotnet new angular
