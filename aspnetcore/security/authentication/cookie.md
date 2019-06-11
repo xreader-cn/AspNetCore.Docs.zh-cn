@@ -5,12 +5,12 @@ description: 使用 cookie 而无需 ASP.NET Core 标识的身份验证的说明
 ms.author: riande
 ms.date: 02/25/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: 2bc3e16b1b32816b14ad5bb4ca905ae5ed51ab87
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f3e02b357a83cf5fc4b9fcdc79b2fbe80da98507
+ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897744"
+ms.lasthandoff: 06/10/2019
+ms.locfileid: "66824750"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
@@ -195,7 +195,7 @@ await HttpContext.Authentication.SignInAsync(
 
 `SignInAsync` 创建一个加密的 cookie，并将其添加到当前响应。 如果未指定`AuthenticationScheme`，则使用默认方案。
 
-事实上，使用的加密是 ASP.NET Core[数据保护](xref:security/data-protection/using-data-protection#security-data-protection-getting-started)系统。 如果托管应用在多台计算机、 负载平衡跨应用程序，或使用 web 场，则必须[配置数据保护](xref:security/data-protection/configuration/overview)使用相同密钥环和应用程序标识符。
+事实上，使用的加密是 ASP.NET Core[数据保护](xref:security/data-protection/using-data-protection)系统。 如果托管应用在多台计算机、 负载平衡跨应用程序，或使用 web 场，则必须[配置数据保护](xref:security/data-protection/configuration/overview)使用相同密钥环和应用程序标识符。
 
 ## <a name="sign-out"></a>注销
 
