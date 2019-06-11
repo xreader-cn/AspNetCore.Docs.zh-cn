@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: ab36bc1b2827c80bb1e7b9e8cee558b346a991f8
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 4cfca4b38543ff073bb98dc09b483d96096928ae
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251421"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692566"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -27,6 +27,35 @@ ms.locfileid: "66251421"
 * [ASP.NET .NET Core SDK 2.1 或更高版本](https://dotnet.microsoft.com/download)
 * [PowerShell 6.2 或更高版本](https://github.com/PowerShell/PowerShell)
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="worker-service-template"></a>辅助角色服务模板
+
+ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点。 要使用该模板作为编写 Windows 服务应用的基础：
+
+1. 从 .NET Core 模板创建辅助角色服务应用。
+1. 按照[应用配置](#app-configuration)部分中的指导来更新辅助角色服务应用，以便它可以作为 Windows 服务运行。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. 创建新项目。
+1. 选择“ASP.NET Core Web 应用程序”  。 选择“下一步”  。
+1. 在“项目名称”字段提供项目名称，或接受默认项目名称  。 选择“创建”  。
+1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”    。
+1. 选择“辅助角色服务”模板  。 选择“创建”  。
+
+# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
+
+将辅助角色服务 (`worker`) 模板用于命令行界面中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。 下面的示例中创建了名为 `ContosoWorkerService` 的辅助角色服务应用。 执行命令时会自动为 `ContosoWorkerService` 应用创建文件夹。
+
+```console
+dotnet new worker -o ContosoWorkerService
+```
+
+---
+
+::: moniker-end
+
 ## <a name="app-configuration"></a>应用配置
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -36,8 +65,8 @@ ms.locfileid: "66251421"
 * 将主机生存期设置为 `WindowsServiceLifetime`。
 * 设置内容根路径。
 * 启用事件日志记录，并将应用程序名称作为默认源名称。
-  * 可以使用 appsettings.Production.json 文件中的 `Logging:LogLevel:Default` 键配置日志级别。
-  * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。
+  * 可以使用 appsettings.Production.json  文件中的 `Logging:LogLevel:Default` 键配置日志级别。
+  * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。 
 
 [!code-csharp[](windows-service/samples/3.x/AspNetCoreService/Program.cs?name=snippet_Program)]
 
@@ -49,12 +78,12 @@ ms.locfileid: "66251421"
 
 在服务之外运行时，若要进行测试和调试，请添加代码以确定应用是否作为服务或控制台应用运行。 检查是否已连接调试器或是否存在 `--console` 开关。 如果其中一个条件为 true（应用不作为服务运行），请调用 <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*>。 如果条件为 false（应用作为服务运行）：
 
-* 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 <xref:System.IO.Directory.GetCurrentDirectory*> 时，Windows 服务应用将返回 C:\\WINDOWS\\system32 文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。 请先执行此步骤，然后再在 `CreateWebHostBuilder` 中配置应用。
+* 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 <xref:System.IO.Directory.GetCurrentDirectory*> 时，Windows 服务应用将返回 C:\\WINDOWS\\system32  文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。 请先执行此步骤，然后再在 `CreateWebHostBuilder` 中配置应用。
 * 调用 <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> 以将应用作为服务运行。
 
 由于[命令行配置提供程序](xref:fundamentals/configuration/index#command-line-configuration-provider)需要命令行参数的名称/值对，因此将先从参数中删除 `--console` 开关，然后 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 会接收这些参数。
 
-若要写入 Windows 事件日志，请将事件日志提供程序添加到 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>。 使用 appsettings.Production.json文件中的 `Logging:LogLevel:Default` 键设置日志记录级别。
+若要写入 Windows 事件日志，请将事件日志提供程序添加到 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>。 使用 appsettings.Production.json  文件中的 `Logging:LogLevel:Default` 键设置日志记录级别。
 
 示例应用中的以下示例调用了 `RunAsCustomService`，来代替 <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*>，以处理应用内的生存期事件。 有关详细信息，请参阅[处理启动和停止事件](#handle-starting-and-stopping-events)部分。
 
@@ -68,7 +97,7 @@ ms.locfileid: "66251421"
 
 ### <a name="framework-dependent-deployment-fdd"></a>依赖框架的部署 (FDD)
 
-依赖框架的部署 (FDD) 依赖目标系统上存在共享系统级版本的 .NET Core。 按照本文中的指南采用 FDD 方案时，SDK 会生成一个称为“依赖框架的可执行文件”的可执行文件 (.exe)。
+依赖框架的部署 (FDD) 依赖目标系统上存在共享系统级版本的 .NET Core。 按照本文中的指南采用 FDD 方案时，SDK 会生成一个称为“依赖框架的可执行文件”的可执行文件 (.exe)。  
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -77,7 +106,7 @@ ms.locfileid: "66251421"
 * `<OutputType>` &ndash; 应用的输出类型（`Exe` 表示可执行文件）。
 * `<LangVersion>` &ndash; C# 语言版本（`latest` 或 `preview`）。
 
-web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -92,9 +121,9 @@ web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows
 
 ::: moniker range="= aspnetcore-2.2"
 
-Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe) 以及一个依赖共享 NET Core 框架的应用。
+Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe  ) 以及一个依赖共享 NET Core 框架的应用。
 
-web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -109,11 +138,11 @@ web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows
 
 ::: moniker range="= aspnetcore-2.1"
 
-Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe) 以及一个依赖共享 NET Core 框架的应用。
+Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe  ) 以及一个依赖共享 NET Core 框架的应用。
 
-`<UseAppHost>` 属性设置为 `true`。 此属性为服务提供 FDD 的激活路径（一个可执行文件，格式为 .exe）。
+`<UseAppHost>` 属性设置为 `true`。 此属性为服务提供 FDD 的激活路径（一个可执行文件，格式为 .exe  ）。
 
-web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -180,16 +209,16 @@ powershell -Command "New-LocalUser -Name {NAME}"
 
 ## <a name="log-on-as-a-service-rights"></a>以服务身份登录权限
 
-为服务用户帐户创建“以服务身份登录”权限：
+为服务用户帐户创建“以服务身份登录”权限： 
 
-1. 运行 secpool.msc，打开本地安全策略编辑器。
-1. 展开“本地策略”节点，选择“用户权限分配”。
-1. 打开“以服务身份登录”策略。
-1. 选择“添加用户或组”。
+1. 运行 secpool.msc，打开本地安全策略编辑器。 
+1. 展开“本地策略”节点，选择“用户权限分配”。  
+1. 打开“以服务身份登录”策略。 
+1. 选择“添加用户或组”  。
 1. 使用下列方法之一提供对象名称（用户帐户）：
-   1. 在对象名称字段键入用户帐户 (`{DOMAIN OR COMPUTER NAME\USER}`)，然后选择“确定”，以将此用户添加到策略。
-   1. 选择“高级”。 选择“开始查找”。 从列表中选择该用户帐户。 选择“确定”。 再次选择“确定”，以将该用户添加到策略。
-1. 选择“确定”或“应用”，以接受更改。
+   1. 在对象名称字段键入用户帐户 (`{DOMAIN OR COMPUTER NAME\USER}`)，然后选择“确定”，以将此用户添加到策略。 
+   1. 选择“高级”  。 选择“开始查找”。  从列表中选择该用户帐户。 选择“确定”  。 再次选择“确定”，以将该用户添加到策略。 
+1. 选择“确定”或“应用”，以接受更改。  
 
 ## <a name="create-and-manage-the-windows-service"></a>创建和管理 Windows 服务
 
@@ -295,7 +324,7 @@ Remove-Service -Name {NAME}
 
 ## <a name="current-directory-and-content-root"></a>当前目录和内容根
 
-通过为 Windows 服务调用 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的当前工作目录是 C:\\WINDOWS\\system32 文件夹。 system32 文件夹不是存储服务文件（如设置文件）的合适位置。 使用以下方法之一来维护和访问服务的资产和设置文件。
+通过为 Windows 服务调用 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的当前工作目录是 C:\\WINDOWS\\system32  文件夹。 system32 文件夹不是存储服务文件（如设置文件）的合适位置  。 使用以下方法之一来维护和访问服务的资产和设置文件。
 
 ::: moniker range=">= aspnetcore-3.0"
 

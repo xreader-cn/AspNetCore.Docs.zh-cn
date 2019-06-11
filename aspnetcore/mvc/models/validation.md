@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: acb0ae989f6e82a5bc80935a8acfc96e51073d2f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9737e45729b4e5abd9a33824c4d6610ca21681c0
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883172"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458472"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -122,7 +122,9 @@ ms.locfileid: "64883172"
 1. 在模型类中，使用指向验证操作方法的 `[Remote]` 特性注释属性，如下例所示：
 
    [!code-csharp[](validation/sample/Models/User.cs?name=snippet_UserEmailProperty)]
-
+ 
+   `[Remote]` 特性位于 `Microsoft.AspNetCore.Mvc` 命名空间中。 如果未使用 `Microsoft.AspNetCore.App` 或 `Microsoft.AspNetCore.All` 元包，则请安装 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) NuGet 包。
+   
 ### <a name="additional-fields"></a>其他字段
 
 通过 `[Remote]` 特性的 `AdditionalFields` 属性可以根据服务器上的数据验证字段组合。 例如，如果 `User` 模型具有 `FirstName` 和 `LastName` 属性，可能需要验证该名称对尚未被现有用户占用。 下面的示例演示如何使用 `AdditionalFields`：
@@ -155,9 +157,9 @@ public string MiddleName { get; set; }
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
-`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
+`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入  。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
 
-以下示例验证“经典”流派电影的发行日期是否不晚于指定年份。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
+以下示例验证“经典”流派电影的发行日期是否不晚于指定年份  。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查  。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
 
 [!code-csharp[](validation/sample/Attributes/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
@@ -186,7 +188,7 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/sample/Controllers/UsersController.cs?name=snippet_CheckAge)]
 
-在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单  。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
 
 当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
 
@@ -228,7 +230,7 @@ public string MiddleName { get; set; }
 
 客户端验证将阻止提交，直到表单变为有效为止。 “提交”按钮运行 JavaScript：要么提交表单要么显示错误消息。
 
-表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证：
+表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证   ：
 
 [!code-cshtml[](validation/sample/Views/Shared/_Layout.cshtml?name=snippet_ScriptTag)]
 
@@ -371,7 +373,7 @@ $.get({
 
 [!code-csharp[](validation/sample_snapshot/Startup3.cs?name=snippet_DisableClientValidation)]
 
-禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释。
+禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释  。
 
 ## <a name="additional-resources"></a>其他资源
 

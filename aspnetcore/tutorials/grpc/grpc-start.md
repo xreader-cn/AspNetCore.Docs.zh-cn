@@ -4,14 +4,14 @@ author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 5/30/2019
+ms.date: 06/05/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 2b4325d2413e335a3061a7695def88a1b23ee52b
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 71e3321819eb7169f0896abe3e07849f59ea6fc7
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376374"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692528"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -161,7 +161,7 @@ code -r GrpcGreeterClient
 
 通过包管理器控制台 (PMC) 或管理 NuGet 包来安装包
 
-####  <a name="pmc-option-to-install-packages"></a>用于安装包的 PMC 选项
+#### <a name="pmc-option-to-install-packages"></a>用于安装包的 PMC 选项
 
 * 从 Visual Studio 中，依次选择“工具” > “NuGet 包管理器” > “包管理器控制台”   
 * 从“包管理器控制台”窗口中，导航到有 GrpcGreeterClient.csproj 文件所在的目录   。
@@ -169,7 +169,7 @@ code -r GrpcGreeterClient
 
  ```powershell
 Install-Package Grpc.Core
-Install-Package Grpc.Protobuf
+Install-Package Google.Protobuf
 Install-Package Grpc.Tools
 ```
 
@@ -218,7 +218,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   右键单击项目，然后选择“工具”>“编辑文件”  。
 
-  ------
+  ---
 
 * 将 greet.proto 文件添加到 GrpcGreeterClient 项目文件的 `<Protobuf>` 物料组  ：
 
@@ -230,7 +230,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 生成客户端项目以触发 C# 客户端资产的生成。
 
-### <a name="create-the-greater-client"></a>创建更高版本的客户端
+### <a name="create-the-greeter-client"></a>创建 Greeter 客户端
 
 构建项目，在 Greeter 命名空间中创建类型  。 `Greeter` 类型是由生成进程自动生成的。
 
@@ -240,14 +240,14 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 Program.cs  包含 gRPC 客户端的入口点和逻辑。
 
-通过以下方式创建更高版本的客户端：
+通过以下方式创建 Greeter 客户端：
 
 * 实例化 `Channel`，使其包含用于创建到 gRPC 服务的连接的信息。
-* 使用 `Channel` 构造更高版本的客户端：
+* 使用 `Channel` 构造 Greeter 客户端：
 
 [!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=4-6)]
 
-更高版本的客户端会调用异步 `SayHello` 方法。 随即显示 `SayHello` 调用的结果：
+Greeter 客户端会调用异步 `SayHello` 方法。 随即显示 `SayHello` 调用的结果：
 
 [!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
 

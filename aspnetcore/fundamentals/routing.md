@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 0c2df3ec63f393b961754f496830cccb26f1cb76
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 2a7a942f43de94326e84977f09dc9a2e24dd00f0
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884562"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692577"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -83,13 +83,13 @@ services.AddMvc()
 
 Web API 应使用属性路由，将应用功能建模为一组资源，其中操作是由 HTTP 谓词表示。 也就是说，对同一逻辑资源执行的许多操作（例如，GET、POST）都将使用相同 URL。 属性路由提供了精心设计 API 的公共终结点布局所需的控制级别。
 
-Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹中提供命名资源。 还可以使用其他约定来自定义 Razor Pages 路由行为。 有关详细信息，请参阅 <xref:razor-pages/index> 和 <xref:razor-pages/razor-pages-conventions>。
+Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹中提供命名资源  。 还可以使用其他约定来自定义 Razor Pages 路由行为。 有关详细信息，请参阅 <xref:razor-pages/index> 和 <xref:razor-pages/razor-pages-conventions>。
 
 借助 URL 生成支持，无需通过硬编码 URL 将应用关联到一起，即可开发应用。 此支持允许从基本路由配置入手，并在确定应用的资源布局后修改路由。
 
 ::: moniker range=">= aspnetcore-2.2"
 
-路由使用“终结点”(`Endpoint`) 来表示应用中的逻辑终结点。
+路由使用“终结点”(`Endpoint`) 来表示应用中的逻辑终结点  。
 
 终结点定义用于处理请求的委托和任意元数据的集合。 元数据用于实现横切关注点，该实现基于附加到每个终结点的策略和配置。
 
@@ -115,9 +115,9 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 
 ::: moniker range="< aspnetcore-2.2"
 
-路由使用路由（<xref:Microsoft.AspNetCore.Routing.IRouter> 的实现）：
+路由使用路由（<xref:Microsoft.AspNetCore.Routing.IRouter> 的实现）  ：
 
-* 将传入请求映射到路由处理程序。
+* 将传入请求映射到路由处理程序  。
 * 生成响应中使用的 URL。
 
 默认情况下，应用只有一个路由集合。 当请求到达时，将按照路由在集合中的存在顺序来处理路由。 框架试图通过在集合中的每个路由上调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 方法，将传入请求的 URL 与集合中的路由进行匹配。 响应可根据路由信息使用路由生成 URL（例如，用于重定向或链接），从而避免硬编码 URL，这有助于可维护性。
@@ -139,7 +139,7 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-URL 匹配是路由向终结点调度传入请求的过程。 此过程基于 URL 路径中的数据，但可以进行扩展以考虑请求中的任何数据。 向单独的处理程序调度请求的功能是缩放应用的大小和复杂性的关键。
+URL 匹配是路由向终结点调度传入请求的过程  。 此过程基于 URL 路径中的数据，但可以进行扩展以考虑请求中的任何数据。 向单独的处理程序调度请求的功能是缩放应用的大小和复杂性的关键。
 
 终结点路由中的路由系统负责所有的调度决策。 由于中间件是基于所选终结点来应用策略，因此任何可能影响调度或安全策略应用的决策都应在路由系统内部制定，这一点很重要。
 
@@ -149,9 +149,9 @@ URL 匹配是路由向终结点调度传入请求的过程。 此过程基于 UR
 
 ::: moniker range="< aspnetcore-2.2"
 
-URL 匹配是一个过程，通过该过程，路由可向处理程序调度传入请求。 此过程基于 URL 路径中的数据，但可以进行扩展以考虑请求中的任何数据。 向单独的处理程序调度请求的功能是缩放应用的大小和复杂性的关键。
+URL 匹配是一个过程，通过该过程，路由可向处理程序调度传入请求  。 此过程基于 URL 路径中的数据，但可以进行扩展以考虑请求中的任何数据。 向单独的处理程序调度请求的功能是缩放应用的大小和复杂性的关键。
 
-传入请求将进入 <xref:Microsoft.AspNetCore.Builder.RouterMiddleware>，后者将对序列中的每个路由调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 方法。 <xref:Microsoft.AspNetCore.Routing.IRouter> 实例将选择是否通过将 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) 设置为非 NULL <xref:Microsoft.AspNetCore.Http.RequestDelegate> 来处理请求。 如果路由为请求设置处理程序，将停止路由处理，并调用处理程序来处理该请求。 如果未找到用于处理请求的路由处理程序，中间件会将请求传递给请求管道中的下一个中间件。
+传入请求将进入 <xref:Microsoft.AspNetCore.Builder.RouterMiddleware>，后者将对序列中的每个路由调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 方法。 <xref:Microsoft.AspNetCore.Routing.IRouter> 实例将选择是否通过将 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) 设置为非 NULL <xref:Microsoft.AspNetCore.Http.RequestDelegate> 来处理请求  。 如果路由为请求设置处理程序，将停止路由处理，并调用处理程序来处理该请求。 如果未找到用于处理请求的路由处理程序，中间件会将请求传递给请求管道中的下一个中间件。
 
 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 的主要输入是与当前请求关联的 [RouteContext.HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*)。 [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler) 和 [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) 是路由匹配后设置的输出。
 
@@ -159,13 +159,15 @@ URL 匹配是一个过程，通过该过程，路由可向处理程序调度传�
 
 ::: moniker-end
 
-[RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values*) 是从路由中生成的路由值的字典。 这些值通常通过标记 URL 来确定，可用来接受用户输入，或者在应用内作出进一步的调度决策。
+[RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values*) 是从路由中生成的路由值的字典  。 这些值通常通过标记 URL 来确定，可用来接受用户输入，或者在应用内作出进一步的调度决策。
 
-[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 是一个与匹配的路由相关的其他数据的属性包。 提供 <xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*> 以支持将状态数据与每个路由相关联，以便应用可根据所匹配的路由作出决策。 这些值是开发者定义的，不会影响通过任何方式路由的行为。 此外，存储于 [RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 中的值可以属于任何类型，与 [RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values) 相反，后者必须能够转换为字符串，或从字符串进行转换。
+[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 是一个与匹配的路由相关的其他数据的属性包。 提供 <xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*> 以支持将状态数据与每个路由相关联，以便应用可根据所匹配的路由作出决策。 这些值是开发者定义的，不会影响通过任何方式路由的行为  。 此外，存储于 [RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) 中的值可以属于任何类型，与 [RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values) 相反，后者必须能够转换为字符串，或从字符串进行转换。
 
 [RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) 是参与成功匹配请求的路由的列表。 路由可以相互嵌套。 <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 属性可以通过导致匹配的逻辑路由树反映该路径。 通常情况下，<xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 中的第一项是路由集合，应该用于生成 URL。 <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> 中的最后一项是匹配的路由处理程序。
 
-### <a name="url-generation"></a>URL 生成
+<a name="lg"></a>
+
+### <a name="url-generation-with-linkgenerator"></a>使用 LinkGenerator 的 URL 生成
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -173,7 +175,7 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
 
 终结点路由包含链接生成器 API (<xref:Microsoft.AspNetCore.Routing.LinkGenerator>)。 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 是可从 DI 检索的单一实例服务。 该 API 可在执行请求的上下文之外使用。 MVC 的 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 和依赖 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 的方案（如 [Tag Helpers](xref:mvc/views/tag-helpers/intro)、HTML Helpers 和 [Action Results](xref:mvc/controllers/actions)）使用链接生成器提供链接生成功能。
 
-链接生成器基于“地址”和“地址方案”概念。 地址方案是确定哪些终结点用于链接生成的方式。 例如，许多用户熟悉的来自 MVC/Razor Pages 的路由名称和路由值方案都是作为地址方案实现的。
+链接生成器基于“地址”和“地址方案”概念   。 地址方案是确定哪些终结点用于链接生成的方式。 例如，许多用户熟悉的来自 MVC/Razor Pages 的路由名称和路由值方案都是作为地址方案实现的。
 
 链接生成器可以通过以下扩展方法链接到 MVC/Razor Pages 操作和页面：
 
@@ -251,22 +253,22 @@ ASP.NET Core 2.2 或更高版本中的终结点路由与 ASP.NET Core 中早期�
   var link = Url.Action("ReadPost", "Blog", new { id = 17, });
   ```
 
-  如果使用基于 `IRouter` 的路由，即使 `BlogController` 不存在或没有 `ReadPost` 操作方法，结果也始终为 `/Blog/ReadPost/17`。 正如所料，如果操作方法存在，ASP.NET Core 2.2 或更高版本中的终结点路由会生成 `/Blog/ReadPost/17`。 但是，如果操作不存在，终结点路由会生成空字符串。 从概念上讲，如果操作不存在，终结点路由不会假定终结点存在。
+  如果使用基于 `IRouter` 的路由，即使 `BlogController` 不存在或没有 `ReadPost` 操作方法，结果也始终为 `/Blog/ReadPost/17`。 正如所料，如果操作方法存在，ASP.NET Core 2.2 或更高版本中的终结点路由会生成 `/Blog/ReadPost/17`。 但是，如果操作不存在，终结点路由会生成空字符串。  从概念上讲，如果操作不存在，终结点路由不会假定终结点存在。
 
-* 与终结点路由一起使用时，链接生成环境值失效算法的行为会有所不同。
+* 与终结点路由一起使用时，链接生成环境值失效算法的行为会有所不同  。
 
   *环境值失效*是一种算法，用于决定当前正在执行的请求（环境值）中的哪些路由值可用于链接生成操作。 链接到不同操作时，传统路由会使额外的路由值失效。 ASP.NET Core 2.2 之前的版本中，属性路由不具有此行为。 在 ASP.NET Core 的早期版本中，如果有另一个操作使用同一路由参数名称，则该操作的链接会导致发生链接生成错误。 在 ASP.NET Core 2.2 或更高版本中，链接到另一个操作时，这两种路由形式都会使值失效。
 
   请考虑 ASP.NET Core2.1 或更高版本中的以下示例。 链接到另一个操作（或另一页面）时，路由值可能会按非预期的方式被重用。
 
-  在 /Pages/Store/Product.cshtml 中：
+  在 /Pages/Store/Product.cshtml 中  ：
 
   ```cshtml
   @page "{id}"
   @Url.Page("/Login")
   ```
 
-  在 /Pages/Login.cshtml 中：
+  在 /Pages/Login.cshtml 中  ：
 
   ```cshtml
   @page "{id?}"
@@ -320,7 +322,7 @@ public class ProductsLinkMiddleware
 
 URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这需要考虑处理程序与访问它们的 URL 之间的逻辑分隔。
 
-URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到路由集合的 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法中。 每个路由按顺序调用其 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法，直到返回非 NULL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>。
+URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到路由集合的 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法中。 每个路由按顺序调用其 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 方法，直到返回非 NULL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>  。
 
 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 的主输入有：
 
@@ -335,7 +337,7 @@ URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到�
 
 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 的输出是 <xref:Microsoft.AspNetCore.Routing.VirtualPathData>。 <xref:Microsoft.AspNetCore.Routing.VirtualPathData> 是 <xref:Microsoft.AspNetCore.Routing.RouteData> 的并行值。 <xref:Microsoft.AspNetCore.Routing.VirtualPathData> 包含输出 URL 的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> 以及路由应该设置的某些其他属性。
 
-[VirtualPathData.VirtualPath](xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath*) 属性包含路由生成的虚拟路径。 你可能需要进一步处理路径，具体取决于你的需求。 如果要在 HTML 中呈现生成的 URL，请预置应用的基路径。
+[VirtualPathData.VirtualPath](xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath*) 属性包含路由生成的虚拟路径  。 你可能需要进一步处理路径，具体取决于你的需求。 如果要在 HTML 中呈现生成的 URL，请预置应用的基路径。
 
 [VirtualPathData.Router](xref:Microsoft.AspNetCore.Routing.VirtualPathData.Router*) 是对已成功生成 URL 的路由的引用。
 
@@ -347,7 +349,7 @@ URL 遵循类似的迭代过程，但开头是将用户或框架代码调用到�
 
 ::: moniker range="< aspnetcore-2.2"
 
-路由提供 <xref:Microsoft.AspNetCore.Routing.Route> 类，作为 <xref:Microsoft.AspNetCore.Routing.IRouter> 的标准实现。 <xref:Microsoft.AspNetCore.Routing.Route> 使用 route template 语法来定义模式，以便在调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 时匹配 URL 路径。 调用 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 时，<xref:Microsoft.AspNetCore.Routing.Route> 使用同一路由模板生成 URL。
+路由提供 <xref:Microsoft.AspNetCore.Routing.Route> 类，作为 <xref:Microsoft.AspNetCore.Routing.IRouter> 的标准实现。 <xref:Microsoft.AspNetCore.Routing.Route> 使用 route template 语法来定义模式，以便在调用 <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> 时匹配 URL 路径  。 调用 <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> 时，<xref:Microsoft.AspNetCore.Routing.Route> 使用同一路由模板生成 URL。
 
 ::: moniker-end
 
@@ -375,11 +377,11 @@ routes.MapRoute(
 
 此模板与 URL 路径相匹配，并且提取路由值。 例如，路径 `/Products/Details/17` 生成以下路由值：`{ controller = Products, action = Details, id = 17 }`。
 
-路由值是通过将 URL 路径拆分成段，并且将每段与路由模板中的路由参数名称相匹配来确定的。 路由参数已命名。 参数通过将参数名称括在大括号 `{ ... }` 中来定义。
+路由值是通过将 URL 路径拆分成段，并且将每段与路由模板中的路由参数名称相匹配来确定的  。 路由参数已命名。 参数通过将参数名称括在大括号 `{ ... }` 中来定义。
 
 上述模板还可匹配 URL 路径 `/`，并且生成值 `{ controller = Home, action = Index }`。 这是因为 `{controller}` 和 `{action}` 路由参数具有默认值，且 `id` 路由参数是可选的。 路由参数名称为参数定义默认值后，等号 (`=`) 后将有一个值。 路由参数名称后面的问号 (`?`) 定义了可选参数。
 
-路由匹配时，具有默认值的路由参数始终会生成路由值。 如果没有相应的 URL 路径段，则可选参数不会生成路由值。 有关路由模板方案和语法的详细说明，请参阅[路由模板参考](#route-template-reference)部分。
+路由匹配时，具有默认值的路由参数始终会生成路由值  。 如果没有相应的 URL 路径段，则可选参数不会生成路由值。 有关路由模板方案和语法的详细说明，请参阅[路由模板参考](#route-template-reference)部分。
 
 在以下示例中，路由参数定义 `{id:int}` 为 `id` 路由参数定义[路由约束](#route-constraint-reference)：
 
@@ -420,7 +422,7 @@ routes.MapRoute(
     defaults: new { controller = "Blog", action = "ReadArticle" });
 ```
 
-上述模板与 `/Blog/All-About-Routing/Introduction` 等的 URL 路径相匹配，并提取值 `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`。 `controller` 和 `action` 的默认路由值由路由生成，即便模板中没有对应的路由参数。 可在路由模板中指定默认值。 根据路由参数名称前的双星号 (`**`) 外观，`article` 路由参数被定义为 catch-all。 全方位路由参数可捕获 URL 路径的其余部分，也能匹配空白字符串。
+上述模板与 `/Blog/All-About-Routing/Introduction` 等的 URL 路径相匹配，并提取值 `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`。 `controller` 和 `action` 的默认路由值由路由生成，即便模板中没有对应的路由参数。 可在路由模板中指定默认值。 根据路由参数名称前的双星号 (`**`) 外观，`article` 路由参数被定义为 catch-all  。 全方位路由参数可捕获 URL 路径的其余部分，也能匹配空白字符串。
 
 ::: moniker-end
 
@@ -433,7 +435,7 @@ routes.MapRoute(
     defaults: new { controller = "Blog", action = "ReadArticle" });
 ```
 
-上述模板与 `/Blog/All-About-Routing/Introduction` 等的 URL 路径相匹配，并提取值 `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`。 `controller` 和 `action` 的默认路由值由路由生成，即便模板中没有对应的路由参数。 可在路由模板中指定默认值。 根据路由参数名称前的星号 (`*`) 外观，`article` 路由参数被定义为 catch-all。 全方位路由参数可捕获 URL 路径的其余部分，也能匹配空白字符串。
+上述模板与 `/Blog/All-About-Routing/Introduction` 等的 URL 路径相匹配，并提取值 `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`。 `controller` 和 `action` 的默认路由值由路由生成，即便模板中没有对应的路由参数。 可在路由模板中指定默认值。 根据路由参数名称前的星号 (`*`) 外观，`article` 路由参数被定义为 catch-all  。 全方位路由参数可捕获 URL 路径的其余部分，也能匹配空白字符串。
 
 ::: moniker-end
 
@@ -529,7 +531,7 @@ routes.MapRoute(
 
 ::: moniker range="< aspnetcore-2.2"
 
-一些列出的方法（如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>）需要 <xref:Microsoft.AspNetCore.Http.RequestDelegate>。 路由匹配时，<xref:Microsoft.AspNetCore.Http.RequestDelegate> 会用作路由处理程序。 此系列中的其他方法允许配置中间件管道，将其用作路由处理程序。 如果 `Map*` 方法不接受处理程序（例如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>），则它将使用 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>。
+一些列出的方法（如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>）需要 <xref:Microsoft.AspNetCore.Http.RequestDelegate>。 路由匹配时，<xref:Microsoft.AspNetCore.Http.RequestDelegate> 会用作路由处理程序  。 此系列中的其他方法允许配置中间件管道，将其用作路由处理程序。 如果 `Map*` 方法不接受处理程序（例如 <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>），则它将使用 <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>。
 
 ::: moniker-end
 
@@ -537,7 +539,7 @@ routes.MapRoute(
 
 ## <a name="route-template-reference"></a>路由模板参考
 
-如果路由找到匹配项，大括号 (`{ ... }`) 内的令牌定义绑定的路由参数。 可在路由段中定义多个路由参数，但必须由文本值隔开。 例如，`{controller=Home}{action=Index}` 不是有效的路由，因为 `{controller}` 和 `{action}` 之间没有文本值。 这些路由参数必须具有名称，且可能指定了其他属性。
+如果路由找到匹配项，大括号 (`{ ... }`) 内的令牌定义绑定的路由参数  。 可在路由段中定义多个路由参数，但必须由文本值隔开。 例如，`{controller=Home}{action=Index}` 不是有效的路由，因为 `{controller}` 和 `{action}` 之间没有文本值。 这些路由参数必须具有名称，且可能指定了其他属性。
 
 路由参数以外的文本（例如 `{id}`）和路径分隔符 `/` 必须匹配 URL 中的文本。 文本匹配区分大小写，并且基于 URL 路径已解码的表示形式。 要匹配文字路由参数分隔符（`{` 或 `}`），请通过重复该字符（`{{` 或 `}}`）来转义分隔符。
 
@@ -548,7 +550,7 @@ routes.MapRoute(
 
 ::: moniker range=">= aspnetcore-2.2"
 
-可以使用星号 (`*`) 或双星号 (`**`) 作为路由参数的前缀，以绑定到 URI 的其余部分。 这些称为 catch-all 参数。 例如，`blog/{**slug}` 将匹配以 `/blog` 开头且其后带有任何值（将分配给 `slug` 路由值）的 URI。 全方位参数还可以匹配空字符串。
+可以使用星号 (`*`) 或双星号 (`**`) 作为路由参数的前缀，以绑定到 URI 的其余部分。 这些称为 catch-all 参数  。 例如，`blog/{**slug}` 将匹配以 `/blog` 开头且其后带有任何值（将分配给 `slug` 路由值）的 URI。 全方位参数还可以匹配空字符串。
 
 使用路由生成 URL（包括路径分隔符 (`/`)）时，catch-all 参数会转义相应的字符。 例如，路由值为 `{ path = "my/path" }` 的路由 `foo/{*path}` 生成 `foo/my%2Fpath`。 请注意转义的正斜杠。 要往返路径分隔符，请使用 `**` 路由参数前缀。 `{ path = "my/path" }` 的路由 `foo/{**path}` 生成 `foo/my/path`。
 
@@ -556,15 +558,15 @@ routes.MapRoute(
 
 ::: moniker range="< aspnetcore-2.2"
 
-可以使用星号 (`*`) 作为路由参数的前缀，以绑定到 URI 的其余部分。 这称为 catch-all 参数。 例如，`blog/{*slug}` 将匹配以 `/blog` 开头且其后带有任何值（将分配给 `slug` 路由值）的 URI。 全方位参数还可以匹配空字符串。
+可以使用星号 (`*`) 作为路由参数的前缀，以绑定到 URI 的其余部分。 这称为 catch-all 参数  。 例如，`blog/{*slug}` 将匹配以 `/blog` 开头且其后带有任何值（将分配给 `slug` 路由值）的 URI。 全方位参数还可以匹配空字符串。
 
 使用路由生成 URL（包括路径分隔符 (`/`)）时，catch-all 参数会转义相应的字符。 例如，路由值为 `{ path = "my/path" }` 的路由 `foo/{*path}` 生成 `foo/my%2Fpath`。 请注意转义的正斜杠。
 
 ::: moniker-end
 
-路由参数可能具有指定的默认值，方法是在参数名称后使用等号 (`=`) 隔开以指定默认值。 例如，`{controller=Home}` 将 `Home` 定义为 `controller` 的默认值。 如果参数的 URL 中不存在任何值，则使用默认值。 通过在参数名称的末尾附加问号 (`?`) 可使路由参数成为可选项，如 `id?` 中所示。 可选值和默认路径参数的区别在于具有默认值的路由参数始终会生成值 &mdash;，而可选参数仅当请求 URL 提供值时才会具有值。
+路由参数可能具有指定的默认值，方法是在参数名称后使用等号 (`=`) 隔开以指定默认值  。 例如，`{controller=Home}` 将 `Home` 定义为 `controller` 的默认值。 如果参数的 URL 中不存在任何值，则使用默认值。 通过在参数名称的末尾附加问号 (`?`) 可使路由参数成为可选项，如 `id?` 中所示。 可选值和默认路径参数的区别在于具有默认值的路由参数始终会生成值 &mdash;，而可选参数仅当请求 URL 提供值时才会具有值。
 
-路由参数可能具有必须与从 URL 中绑定的路由值匹配的约束。 在路由参数后面添加一个冒号 (`:`) 和约束名称可指定路由参数上的内联约束。 如果约束需要参数，将以在约束名称后括在括号 (`(...)`) 中的形式提供。 通过追加另一个冒号 (`:`) 和约束名称，可指定多个内联约束。
+路由参数可能具有必须与从 URL 中绑定的路由值匹配的约束。 在路由参数后面添加一个冒号 (`:`) 和约束名称可指定路由参数上的内联约束  。 如果约束需要参数，将以在约束名称后括在括号 (`(...)`) 中的形式提供。 通过追加另一个冒号 (`:`) 和约束名称，可指定多个内联约束。
 
 约束名称和参数将传递给 <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> 服务，以创建 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 的实例，用于处理 URL。 例如，路由模板 `blog/{article:minlength(10)}` 使用参数 `10` 指定 `minlength` 约束。 有关路由约束详情以及框架提供的约束列表，请参阅[路由约束引用](#route-constraint-reference)部分。
 
@@ -605,7 +607,7 @@ routes.MapRoute(
 路由约束在传入 URL 发生匹配时执行，URL 路径标记为路由值。 路径约束通常检查通过路径模板关联的路径值，并对该值是否可接受做出是/否决定。 某些路由约束使用路由值以外的数据来考虑是否可以路由请求。 例如，<xref:Microsoft.AspNetCore.Routing.Constraints.HttpMethodRouteConstraint> 可以根据其 HTTP 谓词接受或拒绝请求。 约束用于路由请求和链接生成。
 
 > [!WARNING]
-> 请勿将约束用于“输入验证”。 如果将约束用于“输入约束”，那么无效输入将导致“404 - 未找到”响应，而不是含相应错误消息的“400 - 错误请求”。 路由约束用于消除类似路由的歧义，而不是验证特定路由的输入。
+> 请勿将约束用于“输入验证”  。 如果将约束用于“输入约束”，那么无效输入将导致“404 - 未找到”响应，而不是含相应错误消息的“400 - 错误请求”    。 路由约束用于消除类似路由的歧义，而不是验证特定路由的输入  。
 
 下表演示示例路由约束及其预期行为。
 
@@ -736,7 +738,7 @@ routes.MapRoute(
 
 上述示例末尾生成的 <xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> 为 `/package/create/123`。 字典提供“跟踪包路由”模板 `package/{operation}/{id}` 的 `operation` 和 `id` 路由值。 有关详细信息，请参阅[使用路由中间件](#use-routing-middleware)部分或[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples)中的示例代码。
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathContext> 构造函数的第二个参数是环境值的集合。 由于环境值限制了开发人员在请求上下文中必须指定的值数，因此环境值使用起来很方便。 当前请求的当前路由值被视为链接生成的环境值。 在 ASP.NET Core MVC 应用 `HomeController` 的 `About` 操作中，无需指定控制器路由值即可链接到使用 `Home` 环境值的 `Index` 操作&mdash;。
+<xref:Microsoft.AspNetCore.Routing.VirtualPathContext> 构造函数的第二个参数是环境值的集合  。 由于环境值限制了开发人员在请求上下文中必须指定的值数，因此环境值使用起来很方便。 当前请求的当前路由值被视为链接生成的环境值。 在 ASP.NET Core MVC 应用 `HomeController` 的 `About` 操作中，无需指定控制器路由值即可链接到使用 `Home` 环境值的 `Index` 操作&mdash;。
 
 忽略与参数不匹配的环境值。 在显式提供的值会覆盖环境值的情况下，也会忽略环境值。 在 URL 中将从左到右进行匹配。
 

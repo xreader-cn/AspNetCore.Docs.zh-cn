@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/12/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 80994cb84e9e0658ee90198b6bf992e5b374bf3c
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: e4c93459f2030c7c0a55ea90e0cc8c8d30b76c51
+ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970036"
+ms.lasthandoff: 06/03/2019
+ms.locfileid: "66470458"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -22,13 +22,13 @@ ms.locfileid: "65970036"
 
 ::: moniker range=">= aspnetcore-2.2"
 
-在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 本地调试时出现的“502.5 - 进程失败”或“500.30 - 启动失败”可以使用本主题中的建议进行故障排除。
+在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 本地调试时出现的“502.5 - 进程失败”或“500.30 - 启动失败”可以使用本主题中的建议进行故障排除   。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 可以使用本主题中的建议对本地调试进行故障排除时，出现“502.5 进程失败”。
+在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 可以使用本主题中的建议对本地调试进行故障排除时，出现“502.5 进程失败”  。
 
 ::: moniker-end
 
@@ -50,13 +50,13 @@ ms.locfileid: "65970036"
 
 ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
 
-常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。 共享框架是安装在计算机上并由 `Microsoft.AspNetCore.App` 等元包引用的一组程序集（.dll 文件）。 元包引用可以指定所需的最低版本。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
+常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。  共享框架是安装在计算机上并由 `Microsoft.AspNetCore.App` 等元包引用的一组程序集（.dll  文件）。 元包引用可以指定所需的最低版本。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
 
-托管或应用配置错误导致工作进程失败时，将返回“502.5 进程失败”错误页面：
+托管或应用配置错误导致工作进程失败时，将返回“502.5 进程失败”  错误页面：
 
 ![显示“502.5 进程故障”页面的浏览器窗口](troubleshoot/_static/process-failure-page.png)
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
 ### <a name="50030-in-process-startup-failure"></a>500.30 进程内启动失败
 
@@ -70,7 +70,7 @@ ASP.NET Core 模块尝试进程内启动 .NET Core CLR，但启动失败。 通�
 
 工作进程失败。 应用不启动。
 
-ASP.NET Core 模块无法找到 .NET Core CLR 和进程内请求处理程序 (aspnetcorev2_inprocess.dll)。 检查：
+ASP.NET Core 模块无法找到 .NET Core CLR 和进程内请求处理程序 (aspnetcorev2_inprocess.dll)  。 检查：
 
 * 该应用针对 [Microsoft.AspNetCore.Server.IIS NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) 包或 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)。
 * 目标计算机上安装了该应用所针对的 ASP.NET Core 共享框架版本。
@@ -79,7 +79,94 @@ ASP.NET Core 模块无法找到 .NET Core CLR 和进程内请求处理程序 (as
 
 工作进程失败。 应用不启动。
 
-ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 aspnetcorev2.dll 旁边的子文件夹中存在 aspnetcorev2_outofprocess.dll。
+ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 aspnetcorev2.dll 旁边的子文件夹中存在 aspnetcorev2_outofprocess.dll   。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 ANCM 找不到本机依赖项
+
+工作进程失败。 应用不启动。
+
+ASP.NET Core 模块尝试进程内启动 .NET Core 运行时，但启动失败。 此类启动失败的最常见原因是未安装 `Microsoft.NETCore.App` 或 `Microsoft.AspNetCore.App`运行时。 如果将应用部署为面向 ASP.NET Core 3.0，并且计算机上不存在该版本，则会发生此错误。 示例错误消息如下所示：
+
+```
+The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
+  - The following frameworks were found:
+      2.2.1 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
+      3.0.0-preview5-27626-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
+      3.0.0-preview6-27713-13 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
+      3.0.0-preview6-27714-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
+      3.0.0-preview6-27723-08 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
+```
+
+错误消息列出了所有已安装的 .NET Core 版本以及应用请求的版本。 请通过以下一种方法修复此错误：
+
+* 在计算机上安装适当版本的 .NET Core。
+* 更改应用，使其面向计算机上已存在的 .NET Core 版本。
+* 将应用作为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)进行发布。
+
+在开发过程（`ASPNETCORE_ENVIRONMENT` 环境变量设置为 `Development`）中运行时，HTTP 响应中会写入特定的错误。 还可以在[应用程序事件日志](#application-event-log)中找到进程启动失败的原因。
+
+### <a name="50032-ancm-failed-to-load-dll"></a>500.32 ANCM 无法加载 dll
+
+工作进程失败。 应用不启动。
+
+此错误的最常见原因是针对不兼容的处理器体系结构发布了应用。 如果工作进程作为 32 位应用运行，而将应用发布为面向 64 位，则会发生此错误。
+
+请通过以下一种方法修复此错误：
+
+* 针对同一处理器体系结构将应用作为工作进程进行重新发布。
+* 将应用作为[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-executables-fde)进行发布。
+
+### <a name="50033-ancm-request-handler-load-failure"></a>500.33 ANCM 请求处理程序加载失败
+
+工作进程失败。 应用不启动。
+
+应用未引用 `Microsoft.AspNetCore.App` 框架。 ASP.NET Core 模块只能托管面向 `Microsoft.AspNetCore.App` 框架的应用。
+
+要修复此错误，请确保应用面向 `Microsoft.AspNetCore.App` 框架。 检查 `.runtimeconfig.json` 以验证该应用所面向的框架。
+
+### <a name="50034-ancm-mixed-hosting-models-not-supported"></a>500.34 ANCM 混合托管模型不受支持
+
+工作进程不能在同一进程中同时运行进程内应用和进程外应用。
+
+要修复此错误，请在单独的 IIS 应用程序池中运行应用。
+
+### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM 同一进程内有多个进程内应用程序
+
+工作进程不能在同一进程中同时运行进程内应用和进程外应用。
+
+要修复此错误，请在单独的 IIS 应用程序池中运行应用。
+
+### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500.36 ANCM 进程外处理程序加载失败
+
+进程外请求处理程序 aspnetcorev2_outofprocess.dll 未与 aspnetcorev2.dll 文件相邻   。 这表示 ASP.NET Core 模块的安装已损坏。
+
+要修复此错误，请修复 [.NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)（对于 IIS）或 Visual Studio（对于 IIS Express）的安装。
+
+### <a name="50037-ancm-failed-to-start-within-startup-time-limit"></a>500.37 ANCM 无法在启动时间限制内启动
+
+ANCM 无法在提供的启动时间限制内启动。 默认情况下，超时时间为 120 秒。
+
+在同一台计算机上启动大量应用时，则可能发生此错误。 在启动期间检查服务器上的 CPU/内存使用峰值。 可能需要交错执行多个应用程序的启动进程。
+
+### <a name="50030-in-process-startup-failure"></a>500.30 进程内启动失败
+
+工作进程失败。 应用不启动。
+
+ASP.NET Core 模块尝试进程内启动 .NET Core 运行时，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
+
+### <a name="5000-in-process-handler-load-failure"></a>500.0 进程内处理程序加载失败
+
+工作进程失败。 应用不启动。
+
+加载 ASP.NET Core 模块组件时出现未知错误。 请执行以下一项操作：
+
+* 联系 [Microsoft 支持部门](https://support.microsoft.com/oas/default.aspx?prid=15832)（依次选择“开发人员工具”和“ASP.NET Core”）   。
+* 在 Stack Overflow 上提出问题。
+* 在 [GitHub 存储库](https://github.com/aspnet/AspNetCore)中提出问题。
 
 ::: moniker-end
 
@@ -87,7 +174,7 @@ ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 as
 
 应用启动，但某个错误阻止了服务器完成请求。
 
-在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 在服务器上[在命令提示符处运行应用](#run-the-app-at-a-command-prompt)或[启用 ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)以解决该问题。
+在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”  。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 在服务器上[在命令提示符处运行应用](#run-the-app-at-a-command-prompt)或[启用 ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)以解决该问题。
 
 ### <a name="failed-to-start-application-errorcode-0x800700c1"></a>未能启动应用程序（错误代码“0x800700c1”）
 
@@ -97,31 +184,31 @@ Source: IIS AspNetCore Module V2
 Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 ```
 
-应用未能启动，因为应用的程序集 (.dll) 无法加载。
+应用未能启动，因为应用的程序集 (.dll  ) 无法加载。
 
 当已发布的应用与 w3wp/iisexpress 进程之间的位数不匹配时，会出现此错误。
 
 确认应用池的 32 位设置正确：
 
-1. 在 IIS 管理器的“应用程序池”中选择应用池。
-1. 在“操作”面板中的“编辑应用程序池”下选择“高级设置”。
-1. 设置“启用 32 位应用程序”：
+1. 在 IIS 管理器的“应用程序池”  中选择应用池。
+1. 在“操作”  面板中的“编辑应用程序池”  下选择“高级设置”  。
+1. 设置“启用 32 位应用程序”  ：
    * 如果部署 32 位 (x86) 应用，则将值设置为 `True`。
    * 如果部署 64 位 (x64) 应用，则将值设置为 `False`。
 
 ### <a name="connection-reset"></a>连接重置
 
-如果在发送标头后出现错误，则服务器在出现错误时发送“500 内部服务器错误”已经太晚了。 通常在序列化响应的复杂对象期间出现错误时发生这种情况。 此类型的错误在客户端上显示为“连接重置”错误。 [应用程序日志记录](xref:fundamentals/logging/index)可以帮助解决这些类型的错误。
+如果在发送标头后出现错误，则服务器在出现错误时发送“500 内部服务器错误”  已经太晚了。 通常在序列化响应的复杂对象期间出现错误时发生这种情况。 此类型的错误在客户端上显示为“连接重置”  错误。 [应用程序日志记录](xref:fundamentals/logging/index)可以帮助解决这些类型的错误。
 
 ## <a name="default-startup-limits"></a>默认启动限制
 
-ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默认值时，在模块记录进程故障之前，可能最多需要两分钟来启动应用。 有关配置模块的信息，请参阅 [aspNetCore 元素的属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)。
+ASP.NET Core 模块的默认“startupTimeLimit”  配置为 120 秒。 保留默认值时，在模块记录进程故障之前，可能最多需要两分钟来启动应用。 有关配置模块的信息，请参阅 [aspNetCore 元素的属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)。
 
 ## <a name="troubleshoot-app-startup-errors"></a>解决应用启动错误
 
 ### <a name="enable-the-aspnet-core-module-debug-log"></a>启用 ASP.NET Core 模块调试日志
 
-将以下处理程序设置添加到应用的 web.config 文件以启用 ASP.NET Core 模块调试日志：
+将以下处理程序设置添加到应用的 web.config  文件以启用 ASP.NET Core 模块调试日志：
 
 ```xml
 <aspNetCore ...>
@@ -138,10 +225,10 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 访问应用程序事件日志：
 
-1. 打开“开始”菜单，搜索“事件查看器”，然后选择“事件查看器”应用。
-1. 在“事件查看器”中，打开“Windows 日志”节点。
-1. 选择“应用程序”以打开应用程序事件日志。
-1. 搜索与失败应用相关联的错误。 错误具有“源”列中“IIS AspNetCore 模块”或“IIS Express AspNetCore 模块”的值。
+1. 打开“开始”菜单，搜索“事件查看器”  ，然后选择“事件查看器”  应用。
+1. 在“事件查看器”  中，打开“Windows 日志”  节点。
+1. 选择“应用程序”  以打开应用程序事件日志。
+1. 搜索与失败应用相关联的错误。 错误具有“源”  列中“IIS AspNetCore 模块”  或“IIS Express AspNetCore 模块”  的值。
 
 ### <a name="run-the-app-at-a-command-prompt"></a>在命令提示符处运行应用
 
@@ -151,7 +238,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 如果应用是[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
 
-1. 在命令提示符处，导航到部署文件夹并通过使用 dotnet.exe 执行应用的程序集来运行应用。 在以下命令中，替换 \<assembly_name> 的应用程序集的名称：`dotnet .\<assembly_name>.dll`。
+1. 在命令提示符处，导航到部署文件夹并通过使用 dotnet.exe  执行应用的程序集来运行应用。 在以下命令中，替换 \<assembly_name> 的应用程序集的名称：`dotnet .\<assembly_name>.dll`。
 1. 来自应用且显示任何错误的控制台输出将写入控制台窗口。
 1. 如果向应用发出请求时出现错误，请向 Kestrel 侦听所在的主机和端口发出请求。 如果使用默认主机和端口，请向 `http://localhost:5000/` 发出请求。 如果应用在 Kestrel 终结点地址处正常响应，则问题更可能与承载配置相关，而不太可能在于应用。
 
@@ -168,19 +255,19 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 若要启用和查看 stdout 日志，请执行以下操作：
 
 1. 在托管系统上导航到站点的部署文件夹。
-1. 如果 logs 文件夹不存在，请创建该文件夹。 有关如何启用 MSBuild 以在部署中自动创建 logs 文件夹的说明，请参阅[目录结构](xref:host-and-deploy/directory-structure)主题。
-1. 编辑 web.config 文件。 将“stdoutLogEnabled”设置为 `true` 并更改“stdoutLogFile”路径以指向 logs 文件夹（例如，`.\logs\stdout`）。 路径中的 `stdout` 是日志文件名的前缀。 创建日志时，将自动添加时间戳、进程 ID 和文件扩展名。 如果将 `stdout` 用作文件名的前缀，典型的日志文件将命名为“stdout_20180205184032_5412.log”。
-1. 请确保应用程序池的标识具有对日志文件夹的写入权限。
-1. 保存已更新的 web.config 文件。
+1. 如果 logs  文件夹不存在，请创建该文件夹。 有关如何启用 MSBuild 以在部署中自动创建 logs  文件夹的说明，请参阅[目录结构](xref:host-and-deploy/directory-structure)主题。
+1. 编辑 web.config  文件。 将“stdoutLogEnabled”  设置为 `true` 并更改“stdoutLogFile”  路径以指向 logs  文件夹（例如，`.\logs\stdout`）。 路径中的 `stdout` 是日志文件名的前缀。 创建日志时，将自动添加时间戳、进程 ID 和文件扩展名。 如果将 `stdout` 用作文件名的前缀，典型的日志文件将命名为“stdout_20180205184032_5412.log”  。
+1. 请确保应用程序池的标识具有对日志文件夹的写入权限  。
+1. 保存已更新的 web.config  文件。
 1. 向应用发出请求。
-1. 导航到 logs 文件夹。 查找并打开最新的 stdout 日志。
+1. 导航到 logs  文件夹。 查找并打开最新的 stdout 日志。
 1. 研究日志以查找错误。
 
 > [!IMPORTANT]
 > 故障排除完成后，禁用 stdout 日志记录。
 
-1. 编辑 web.config 文件。
-1. 将“stdoutLogEnabled”设置为 `false`。
+1. 编辑 web.config  文件。
+1. 将“stdoutLogEnabled”  设置为 `false`。
 1. 保存该文件。
 
 > [!WARNING]
@@ -223,7 +310,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 ::: moniker-end
 
-仅建议在未向 Internet 公开的暂存服务器和测试服务器上设置 `ASPNETCORE_ENVIRONMENT` 的环境变量。 在故障排除后从 web.config 文件中删除环境变量。 有关设置 web.config 中的环境变量的信息，请参阅 [aspNetCore 的 environmentVariables 子元素](xref:host-and-deploy/aspnet-core-module#setting-environment-variables)。
+仅建议在未向 Internet 公开的暂存服务器和测试服务器上设置 `ASPNETCORE_ENVIRONMENT` 的环境变量。 在故障排除后从 web.config  文件中删除环境变量。 有关设置 web.config  中的环境变量的信息，请参阅 [aspNetCore 的 environmentVariables 子元素](xref:host-and-deploy/aspnet-core-module#setting-environment-variables)。
 
 ## <a name="common-startup-errors"></a>常见启动错误
 
@@ -235,7 +322,7 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 ## <a name="create-a-dump"></a>创建转储
 
-转储是系统内存的一个快照，可帮助确定应用崩溃、启动故障或应用速度缓慢等状况的原因。
+转储是系统内存的一个快照，可帮助确定应用崩溃、启动故障或应用速度缓慢等状况的原因  。
 
 ### <a name="app-crashes-or-encounters-an-exception"></a>应用崩溃或引发异常
 
@@ -243,13 +330,13 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。 应用池必须对该文件夹具有写权限。
 1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1)：
-   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
+   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
 
      ```console
      .\EnableDumps w3wp.exe c:\dumps
      ```
 
-   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
+   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
 
      ```console
      .\EnableDumps dotnet.exe c:\dumps
@@ -257,13 +344,13 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 1. 在造成崩溃的条件下运行应用。
 1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1)：
-   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本：
+   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
 
      ```console
      .\DisableDumps w3wp.exe
      ```
 
-   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本：
+   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
 
      ```console
      .\DisableDumps dotnet.exe
@@ -294,8 +381,8 @@ ASP.NET Core 模块的默认“startupTimeLimit”配置为 120 秒。 保留默
 
 有时，正常运行的应用在开发计算机上升级 .NET Core SDK 或在应用内升级包版本后立即出现故障。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
 
-1. 删除 bin 和 obj 文件夹。
-1. 清除 %UserProfile%\\.nuget\\packages 和 %LocalAppData%\\Nuget\\v3-cache 中的包缓存。
+1. 删除 bin  和 obj  文件夹。
+1. 清除 %UserProfile%\\.nuget\\packages  和 %LocalAppData%\\Nuget\\v3-cache  中的包缓存。
 1. 还原并重新生成项目。
 1. 确认在重新部署应用之前已完全删除服务器上的先前部署。
 

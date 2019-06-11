@@ -3,14 +3,14 @@ title: 教程：开始使用ASP.NET Core中的Razor Pages
 author: rick-anderson
 description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Pages。 了解如何创建模型、为 Razor Pages 生成代码、将 Entity Framework Core 和 SQL Server 用于数据访问、添加搜索功能、添加输入验证及使用迁移更新模型。
 ms.author: riande
-ms.date: 05/30/2019
+ms.date: 6/3/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: e9f11f68aa138ab74a0ffbbd0e32067bc984606d
-ms.sourcegitcommit: 9ae1fd11f39b0a72b2ae42f0b450345e6e306bc0
+ms.openlocfilehash: d843e47ccb5180fab34b4c4c4a4b5cbda21289bf
+ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66415660"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66491218"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -41,15 +41,19 @@ ms.locfileid: "66415660"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”    。
 
-* 创建新的 ASP.NET Core Web 应用呈现。 将项目命名为“RazorPagesMovie”。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配。
+* 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”  。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
-* 在下拉列表中选择“ASP.NET Core 2.2”，然后选择“Web 应用程序”。
+* 将项目命名为“RazorPagesMovie”  。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时，命名空间才会匹配  。
 
-  ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2_2.2.png)
+  ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
+
+* 在下拉列表中选择“ASP.NET Core 2.2”，然后依次选择“Web 应用程序”和“创建”    。
+
+![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2_2.2.png)
 
   创建以下初学者项目：
 
@@ -68,12 +72,12 @@ ms.locfileid: "66415660"
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new` 命令可在 RazorPagesMovie 文件夹中创建新的 Razor Pages 项目。
-  * `code` 命令在 Visual Studio Code 的当前实例中打开 RazorPagesMovie 文件夹。
+  * `dotnet new` 命令可在 RazorPagesMovie 文件夹中创建新的 Razor Pages 项目  。
+  * `code` 命令在 Visual Studio Code 的当前实例中打开 RazorPagesMovie  文件夹。
 
-* 状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'RazorPagesMovie' 缺少生成和调试所需的资产。是否添加它们?” 选择 **“是”**。
+* 状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'RazorPagesMovie' 缺少生成和调试所需的资产。  是否添加它们?” 选择 **“是”** 。
 
-  将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。
+  将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。   
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -89,7 +93,7 @@ dotnet new webapp -o RazorPagesMovie
 
 ## <a name="open-the-project"></a>打开项目
 
-在 Visual Studio 中，选择“文件”>“打开”，然后选择“RazorPagesMovie.csproj”文件。
+在 Visual Studio 中，选择“文件”>“打开”  ，然后选择“RazorPagesMovie.csproj”  文件。
 
 <!-- End of VS tabs -->
 
@@ -105,7 +109,7 @@ dotnet new webapp -o RazorPagesMovie
 
   Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Localhost 仅为来自本地计算机的 Web 请求提供服务。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。
 
-* 在应用的主页上，选择“接受”以同意跟踪。
+* 在应用的主页上，选择“接受”以同意跟踪  。
 
   此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。
 
@@ -123,7 +127,7 @@ dotnet new webapp -o RazorPagesMovie
 
   Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `http://localhost:5001`。 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Localhost 仅为来自本地计算机的 Web 请求提供服务。
 
-* 在应用的主页上，选择“接受”以同意跟踪。
+* 在应用的主页上，选择“接受”以同意跟踪  。
 
   此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。
 
@@ -137,11 +141,11 @@ dotnet new webapp -o RazorPagesMovie
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* 按 Cmd-Opt-F5，以在不使用调试器的情况下运行。
+* 按 Cmd-Opt-F5  ，以在不使用调试器的情况下运行。
 
   Visual Studio 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `http://localhost:5001`。
 
-* 在应用的主页上，选择“接受”以同意跟踪。
+* 在应用的主页上，选择“接受”以同意跟踪  。
 
   此应用不会跟踪个人信息，但项目模板包括许可功能，以防需要它来符合欧盟的[一般数据保护条例 (GDPR)](xref:security/gdpr)。
 
@@ -163,10 +167,10 @@ dotnet new webapp -o RazorPagesMovie
 
 包含 Razor 页面和支持文件。 每个 Razor 页面都是一对文件：
 
-* 一个 .cshtml 文件，其中包含使用 Razor 语法的 C＃ 代码的 HTML 标记。
-* 一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码。
+* 一个 .cshtml 文件，其中包含使用 Razor 语法的 C＃ 代码的 HTML 标记  。
+* 一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码  。
 
-支持文件的名称以下划线开头。 例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素。 此文件设置页面顶部的导航菜单和页面底部的版权声明。 有关更多信息，请参见<xref:mvc/views/layout>。
+支持文件的名称以下划线开头。 例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素  。 此文件设置页面顶部的导航菜单和页面底部的版权声明。 有关更多信息，请参见<xref:mvc/views/layout>。
 
 ### <a name="wwwroot-folder"></a>wwwroot 文件夹
 
