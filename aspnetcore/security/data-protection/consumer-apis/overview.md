@@ -3,14 +3,14 @@ title: 有关 ASP.NET Core 的使用者 Api 概述
 author: rick-anderson
 description: 接收各种使用者 Api ASP.NET Core 数据保护库中可用的简要概述。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 06/11/2019
 uid: security/data-protection/consumer-apis/overview
-ms.openlocfilehash: b0d11d097ee2d448b6781f6fa84445f6400fbc76
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: ff9badb55813cae0aa72d3a95dc53792332f109b
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087540"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837382"
 ---
 # <a name="consumer-apis-overview-for-aspnet-core"></a>有关 ASP.NET Core 的使用者 Api 概述
 
@@ -32,7 +32,7 @@ ms.locfileid: "65087540"
 
 ## <a name="consuming-these-interfaces"></a>使用这些接口
 
-有关组件的 DI 感知，预期使用情况是，该组件需要`IDataProtectionProvider`其构造函数中的参数和实例化组件时，DI 系统可以自动提供此服务。
+有关组件的 DI 感知，预期使用情况是该组件将`IDataProtectionProvider`其构造函数中的参数和实例化组件时，DI 系统可以自动提供此服务。
 
 > [!NOTE]
 > 某些应用程序 （例如控制台应用程序或 ASP.NET 4.x 应用程序） 可能不是 DI 感知因此不能使用此处描述的机制。 有关这些方案，请参阅[非 DI 感知方案](xref:security/data-protection/configuration/non-di-scenarios)获取的实例的详细信息的文档`IDataProtection`而无需通过 DI 提供程序。

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: ea9d687d3810c104d5b3fa39033849c21569709b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 67337c847ba71df3fe61250996ec944632ad5d57
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891824"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837354"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -22,6 +22,87 @@ ms.locfileid: "64891824"
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,66)]
 
 在前面的示例中，创建了一个“AtLeast21”策略。 它只有一个要求&mdash;，即最低年龄，以参数的形式传递给要求。
+
+## <a name="iauthorizationservice"></a>IAuthorizationService 
+
+确定是否授权是成功的主要服务是<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>:
+
+[!code-csharp[](policies/samples/stubs/copy_of_IAuthorizationService.cs?highlight=24-25,48-49&name=snippet)]
+
+前面的代码中突出显示的两种方法[IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)。
+
+<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> 是标记服务，其中包含任何方法和用于跟踪是否成功授权机制。
+
+每个<xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler>负责检查是否满足的要求：
+<!--The following code is a copy/paste from 
+https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
+
+```csharp
+/// <summary>
+/// Classes implementing this interface are able to make a decision if authorization
+/// is allowed.
+/// </summary>
+public interface IAuthorizationHandler
+{
+    /// <summary>
+    /// Makes a decision if authorization is allowed.
+    /// </summary>
+    /// <param name="context">The authorization information.</param>
+    Task HandleAsync(AuthorizationHandlerContext context);
+}
+```
+
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext>类是在处理程序用来标记是否满足了要求：
+
+```csharp
+ context.Succeed(requirement)
+```
+
+下面的代码演示的简化 （和批注与批注） 默认授权服务的实现：
+
+```csharp
+public async Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, 
+             object resource, IEnumerable<IAuthorizationRequirement> requirements)
+{
+    // Create a tracking context from the authorization inputs.
+    var authContext = _contextFactory.CreateContext(requirements, user, resource);
+
+    // By default this returns an IEnumerable<IAuthorizationHandlers> from DI.
+    var handlers = await _handlers.GetHandlersAsync(authContext);
+
+    // Invoke all handlers.
+    foreach (var handler in handlers)
+    {
+        await handler.HandleAsync(authContext);
+    }
+
+    // Check the context, by default success is when all requirements have been met.
+    return _evaluator.Evaluate(authContext);
+}
+```
+
+下面的代码演示一个典型`ConfigureServices`:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Add all of your handlers to DI.
+    services.AddSingleton<IAuthorizationHandler, MyHandler1>();
+    // MyHandler2, ...
+
+    services.AddSingleton<IAuthorizationHandler, MyHandlerN>();
+
+    // Configure your policies
+    services.AddAuthorization(options =>
+          options.AddPolicy("Something",
+          policy => policy.RequireClaim("Permission", "CanViewPage", "CanViewAnything")));
+
+
+    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+}
+```
+
+使用<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>或`[Authorize(Policy = "Something"]`进行授权。
 
 ## <a name="applying-policies-to-mvc-controllers"></a>将策略应用到 MVC 控制器
 
@@ -124,7 +205,6 @@ ms.locfileid: "64891824"
 ## <a name="using-a-func-to-fulfill-a-policy"></a>使用 func 满足策略
 
 有些情况下，策略很容易用代码实现。 可以在通过 `Func<AuthorizationHandlerContext, bool>` 策略生成器配置策略时提供 `RequireAssertion`。
-
 
 例如，上一个 `BadgeEntryHandler` 可以重写，如下所示：
 
