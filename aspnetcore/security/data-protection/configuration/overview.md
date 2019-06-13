@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/11/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: ee43427fa1e82a365d49df50567b4ca7afb5a5d3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 65a927b6288ca6cc41ee1bedd1080e52ffe0d3e1
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897294"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034922"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
 
@@ -23,7 +23,7 @@ ms.locfileid: "64897294"
 对于这些情况下，数据保护系统提供了丰富的配置 API。
 
 > [!WARNING]
-> 类似于配置文件，数据保护密钥环应受到保护使用适当的权限。 可以选择加密密钥的静态，但这不会阻止攻击者创建新的密钥。 因此，应用程序的安全将受到影响。 使用数据保护配置的存储位置应具有其访问仅限于应用本身会保护配置文件的方式类似。 例如，如果您选择将密钥环存储在磁盘上，使用文件系统权限。 请确保仅下的标识该 web 应用将在运行具有读取、 写入和创建权限访问此目录。 如果使用 Azure 表存储，只有 web 应用程序应能够读取、 写入或创建新的条目中的表存储，等等。
+> 类似于配置文件，数据保护密钥环应受到保护使用适当的权限。 可以选择加密密钥的静态，但这不会阻止攻击者创建新的密钥。 因此，应用程序的安全将受到影响。 使用数据保护配置的存储位置应具有其访问仅限于应用本身会保护配置文件的方式类似。 例如，如果您选择将密钥环存储在磁盘上，使用文件系统权限。 请确保仅下的标识该 web 应用将在运行具有读取、 写入和创建权限访问此目录。 如果使用 Azure Blob 存储，只有 web 应用程序应能够读取、 写入或创建新的条目中的 blob 存储区，等等。
 >
 > 扩展方法[AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection)返回[IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder)。 `IDataProtectionBuilder` 显示扩展方法，您可以链接在一起以配置数据保护选项。
 
@@ -42,7 +42,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-设置密钥环存储位置 (例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage))。 必须设置位置，因为在调用`ProtectKeysWithAzureKeyVault`实现[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)禁用自动数据保护设置，包括密钥环存储位置。 前面的示例中使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序：Azure 和 Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis)。 您还可以保留使用本地密钥环[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)。
+设置密钥环存储位置 (例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage))。 必须设置位置，因为在调用`ProtectKeysWithAzureKeyVault`实现[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor)禁用自动数据保护设置，包括密钥环存储位置。 前面的示例中使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序：Azure 存储](xref:security/data-protection/implementation/key-storage-providers#azure-storage)。 您还可以保留使用本地密钥环[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)。
 
 `keyIdentifier`是用于密钥加密的密钥保管库密钥标识符。 例如，名为 key vault 中创建的密钥`dataprotection`中`contosokeyvault`具有密钥标识符`https://contosokeyvault.vault.azure.net/keys/dataprotection/`。 提供应用程序与**Unwrap Key**并**Wrap Key**对密钥保管库的权限。
 
@@ -170,7 +170,7 @@ public void ConfigureServices(IServiceCollection services)
 
 隔离机制的工作方式考虑在本地计算机上的每个应用使用作为唯一的租户，因此是<xref:Microsoft.AspNetCore.DataProtection.IDataProtector>取得 root 权限的任何给定的应用会自动包括用作鉴别器的应用程序 ID。 应用程序的唯一 ID 是应用的物理路径：
 
-* 为应用程序中托管[IIS](xref:fundamentals/servers/index#iis-http-server)，唯一的 ID 是应用程序的 IIS 物理路径。 如果在 web 场环境中部署应用，则此值是稳定，假定 web 场中的所有计算机上的 IIS 环境配置方式都类似。
+* 对于在 IIS 中承载的应用程序，唯一的 ID 是应用程序的 IIS 物理路径。 如果在 web 场环境中部署应用，则此值是稳定，假定 web 场中的所有计算机上的 IIS 环境配置方式都类似。
 * 对于自承载的应用上运行[Kestrel 服务器](xref:fundamentals/servers/index#kestrel)，唯一的 ID 是磁盘上的应用程序的物理路径。
 
 唯一标识符设计可以经受住重置&mdash;的单个应用程序和计算机本身。
