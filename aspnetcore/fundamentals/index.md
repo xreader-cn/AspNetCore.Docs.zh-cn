@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/11/2019
 uid: fundamentals/index
-ms.openlocfilehash: 9c7bc25d813ad17825ef03f5176882993cc2dd63
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 3cf311f8e6be4ed12c79ceecc15ccc1babfb0117
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610327"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034855"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -22,11 +22,12 @@ ms.locfileid: "65610327"
 
 `Startup` 类位于：
 
-* 已配置应用所需的任何服务。
+* 已配置应用所需的服务。
 * 已定义请求处理管道。
 
-* 将配置（或注册）服务的代码添加到 `Startup.ConfigureServices` 方法中。 服务是应用使用的组件。 例如，Entity Framework Core 上下文对象是一项服务。
-* 将配置请求处理管道的代码添加到 `Startup.Configure` 方法中。 管道由一系列中间件组件组成。 例如，中间件可能处理对静态文件的请求或将 HTTP 请求重定向到 HTTPS。 每个中间件在 `HttpContext` 上执行异步操作，然后调用管道中的下一个中间件或终止请求。
+服务是应用使用的组件。 例如，日志记录组件就是一项服务。 将配置（或注册）服务的代码添加到 `Startup.ConfigureServices` 方法中。
+
+请求处理管道由一系列中间件组件组成。 例如，中间件可能处理对静态文件的请求或将 HTTP 请求重定向到 HTTPS。 每个中间件在 `HttpContext` 上执行异步操作，然后调用管道中的下一个中间件或终止请求。 将配置请求处理管道的代码添加到 `Startup.Configure` 方法中。
 
 下面是 `Startup` 类示例：
 
@@ -60,9 +61,7 @@ ASP.NET Core 包含一组丰富的内置中间件，并且你也可以编写自�
 
 有关更多信息，请参见<xref:fundamentals/middleware/index>。
 
-<a id="host"/>
-
-## <a name="the-host"></a>主机
+## <a name="host"></a>Host
 
 ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源的对象，例如：
 
@@ -74,61 +73,45 @@ ASP.NET Core 应用在启动时构建主机。 主机是封装所有应用资源
 
 一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。
 
-创建主机的代码位于 `Program.Main` 中，并遵循[生成器模式](https://wikipedia.org/wiki/Builder_pattern)。 调用方法来配置属于主机的每个资源。 调用生成器方法以拉取其所有内容并实例化该主机对象。
-
 ::: moniker range=">= aspnetcore-3.0"
 
-`CreateHostBuilder` 是向外部组件（如[实体框架](/ef/core/)）标识生成器方法的特殊名称。
+提供两个主机：通用主机和 Web 主机。 通用主机是推荐的机型，而 Web 主机仅很适用于向后兼容。
 
-在 ASP.NET Core 3.0 或更高版本中，可在 Web 应用中使用泛型主机（`Host` 类）或 Web 主机（`WebHost` 类）。 建议使用泛型主机，并且 Web 主机可提供后向兼容性。
+要创建主机的代码位于 `Program.Main` 中：
 
-该框架提供了 `CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法，用于设置具有常用选项的主机，例如：
+[!code-csharp[](index/snapshots/3.x/Program1.cs)]
+
+`CreateDefaultBuilder` 和 `ConfigureWebHostDefaults` 方法配置具有常用选项的主机，如下所示：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
 * 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数和其他配置源中加载配置。
 * 将日志记录输出发送到控制台并调试提供程序。
 
-以下是构建主机的示例代码。 使用常用选项设置主机的方法已突出显示：
-
-[!code-csharp[](index/snapshots/3.x/Program1.cs?highlight=9-10)]
-
-有关详细信息，请参阅 <xref:fundamentals/host/generic-host> 和 <xref:fundamentals/host/web-host>。
+有关更多信息，请参见<xref:fundamentals/host/generic-host>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-`CreateWebHostBuilder` 是向外部组件（如[实体框架](/ef/core/)）标识生成器方法的特殊名称。
+提供两个主机：Web 主机和通用主机。 在 ASP.NET Core 2.x 上，通用主机仅用于非 Web 方案。
 
-ASP.NET Core 2.x 对 Web 应用使用 Web 主机（`WebHost` 类）。 该框架提供了 `CreateDefaultBuilder`，用于设置具有常用选项的主机，例如：
+要创建主机的代码位于 `Program.Main` 中：
+
+[!code-csharp[](index/snapshots/2.x/Program1.cs)]
+
+`CreateDefaultBuilder` 方法配置具有常用选项的主机，如下所示：
 
 * 将 [Kestrel](#servers) 用作 Web 服务器并启用 IIS 集成。
 * 从 appsettings.json、appsettings.[EnvironmentName].json、环境变量、命令行参数和其他配置源中加载配置。
 * 将日志记录输出发送到控制台并调试提供程序。
-
-以下是构建主机的示例代码：
-
-[!code-csharp[](index/snapshots/2.x/Program1.cs?highlight=9)]
 
 有关更多信息，请参见<xref:fundamentals/host/web-host>。
 
 ::: moniker-end
 
-### <a name="advanced-host-scenarios"></a>高级主机方案
+### <a name="non-web-scenarios"></a>非 Web 方案
 
-::: moniker range=">= aspnetcore-3.0"
-
-泛型主机可供任何 .NET Core 应用使用，而不仅仅是 ASP.NET Core 应用。 使用泛型主机（`Host` 类），其他类型的应用可以使用各种框架扩展（例如，日志记录、DI、配置和应用生命周期管理）。 有关更多信息，请参见<xref:fundamentals/host/generic-host>。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-Web 主机旨在包含 HTTP 服务器实现，这是其他类型的 .NET 应用所不需要的。 自 ASP.NET Core 2.1 起，泛型主机（`Host` 类）可供任何 .NET Core 应用使用，而不仅仅是 ASP.NET Core 应用。 使用泛型主机，其他类型的应用可以使用各种框架扩展（例如，日志记录、DI、配置和应用生命周期管理）。 有关更多信息，请参见<xref:fundamentals/host/generic-host>。
-
-::: moniker-end
-
-还可以使用主机运行后台任务。 有关更多信息，请参见<xref:fundamentals/host/hosted-services>。
+其他类型的应用可通过通用主机使用横切框架扩展，例如日志记录、依赖项注入 (DI)、配置和应用生命周期管理。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host> 和 <xref:fundamentals/host/hosted-services>。
 
 ## <a name="servers"></a>服务器
 
