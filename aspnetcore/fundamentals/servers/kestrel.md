@@ -5,14 +5,14 @@ description: 了解跨平台 ASP.NET Core Web 服务器 Kestrel。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/17/2019
+ms.date: 05/28/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 37274873f2bd4127f8743399d95d3cf7fef435c5
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 0ba207bf6c78476a8c778b95710fd89be50d397a
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251336"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034837"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -285,7 +285,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 如果在应用开始读取请求后尝试配置请求限制，则会引发异常。 `IsReadOnly` 属性指示 `MaxRequestBodySize` 属性处于只读状态，意味已经无法再配置限制。
 
-当应用在 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)后于[进程外](xref:fundamentals/servers/index#out-of-process-hosting-model)运行时，由于 IIS 已设置限制，因此禁用了 Kestrel 的请求正文大小限制。
+当应用在 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)后于[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)运行时，由于 IIS 已设置限制，因此禁用了 Kestrel 的请求正文大小限制。
 
 ### <a name="minimum-request-body-data-rate"></a>请求正文最小数据速率
 

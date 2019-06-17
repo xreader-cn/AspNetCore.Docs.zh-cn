@@ -5,12 +5,12 @@ description: 演示如何使用 EF Core 进行创建、读取、更新和删除
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: 43d133c61c0387ebcb4bcb2d22c800588d8534c3
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: ec22c82b3b70399017b5b9aa61896440db647062
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516922"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750019"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
 
@@ -22,7 +22,7 @@ ms.locfileid: "65516922"
 
 为最大程度降低复杂性并让这些教程集中介绍 EF Core，将在页面模型中使用 EF Core 代码。 某些开发人员使用服务层或存储库模式在 UI（Razor 页面）和数据访问层之间创建抽象层。
 
-本教程将检查“学生”文件夹中的“创建”、“编辑”、“删除”和“详细信息”Razor Pages。
+本教程将检查“学生”文件夹中的“创建”、“编辑”、“删除”和“详细信息”Razor Pages  。
 
 基架代码将以下模式用于“创建”、“编辑”和“删除”页面：
 
@@ -60,15 +60,15 @@ ms.locfileid: "65516922"
 
 ## <a name="customize-the-details-page"></a>自定义“详细信息”页
 
-浏览到 `Pages/Students` 页面。 “编辑”、“详细信息”和“删除”链接是在 Pages/Students/Index.cshtml 文件中由[定位点标记帮助器](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的。
+浏览到 `Pages/Students` 页面。 “编辑”、“详细信息”和“删除”链接是在 Pages/Students/Index.cshtml 文件中由[定位点标记帮助器](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的     。
 
 [!code-cshtml[](intro/samples/cu21/Pages/Students/Index1.cshtml?name=snippet)]
 
-运行应用并选择“详细信息”链接。 URL 的格式为 `http://localhost:5000/Students/Details?id=2`。 “学生 ID”通过查询字符串 (`?id=2`) 进行传递。
+运行应用并选择“详细信息”链接  。 URL 的格式为 `http://localhost:5000/Students/Details?id=2`。 “学生 ID”通过查询字符串 (`?id=2`) 进行传递。
 
 更新“编辑”、“详细信息”和“删除”Razor 页面以使用 `"{id:int}"` 路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。
 
-如果对具有不包含整数路由值的“{id:int}”路由模板的页面发起请求，则该请求将返回 HTTP 404（找不到）错误。 例如，`http://localhost:5000/Students/Details` 返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
+如果对具有不包含整数路由值的“{id:int}”路由模板的页面发起请求，则该请求将返回 HTTP 404（找不到）错误  。 例如，`http://localhost:5000/Students/Details` 返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
 
  ```cshtml
 @page "{id:int?}"
@@ -84,7 +84,7 @@ ms.locfileid: "65516922"
 
 “学生索引”页的基架代码不包括 `Enrollments` 属性。 在本部分，`Enrollments` 集合的内容显示在“详细信息”页中。
 
-Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAsync` 方法检索单个 `Student` 实体。 添加以下突出显示的代码：
+Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAsync` 方法检索单个 `Student` 实体  。 添加以下突出显示的代码：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Details.cshtml.cs?name=snippet_Details&highlight=8-12)]
 
@@ -94,7 +94,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 ### <a name="display-related-enrollments-on-the-details-page"></a>在“详细信息”页中显示相关注册
 
-打开 Pages/Students/Details.cshtml。 添加以下突出显示的代码以显示注册列表：
+打开 Pages/Students/Details.cshtml  。 添加以下突出显示的代码以显示注册列表：
 
 [!code-cshtml[](intro/samples/cu21/Pages/Students/Details.cshtml?highlight=32-53)]
 
@@ -102,11 +102,11 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 上面的代码循环通过 `Enrollments` 导航属性中的实体。 它将针对每个注册显示课程标题和成绩。 课程标题从 Course 实体中检索，该实体存储在 Enrollments 实体的 `Course` 导航属性中。
 
-运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接。 随即显示出所选学生的课程和成绩列表。
+运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接   。 随即显示出所选学生的课程和成绩列表。
 
 ## <a name="update-the-create-page"></a>更新“创建”页
 
-将 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法更新为以下代码：
+将 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法更新为以下代码  ：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Create.cshtml.cs?name=snippet_OnPostAsync)]
 
@@ -123,7 +123,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 在上述示例中：
 
 * 第二个自变量 (`"student", // Prefix`) 是用于查找值的前缀。 该自变量不区分大小写。
-* 已发布的表单值通过[模型绑定](xref:mvc/models/model-binding#how-model-binding-works)转换为 `Student` 模型中的类型。
+* 已发布的表单值通过[模型绑定](xref:mvc/models/model-binding)转换为 `Student` 模型中的类型。
 
 <a id="overpost"></a>
 
@@ -234,7 +234,7 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 
 “学生/索引”或其他链接不起作用：
 
-验证确认 Razor 页面包含正确的 `@page` 指令。 例如，“学生/索引”Razor Pages 不得包含路由模板：
+验证确认 Razor 页面包含正确的 `@page` 指令。 例如，“学生/索引”Razor Pages 不得  包含路由模板：
 
 ```cshtml
 @page "{id:int}"

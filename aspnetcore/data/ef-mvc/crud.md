@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 61669dca24b552012ee057b89de28b7de1702c2b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 442570cdc79fe7c496392ffbcbc527cf841aefa9
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886162"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750086"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 
@@ -36,9 +36,9 @@ ms.locfileid: "64886162"
 
 ## <a name="customize-the-details-page"></a>自定义“详细信息”页
 
-学生索引页的基架代码省略了 `Enrollments` 属性，因为该属性包含一个集合。 在“详细信息”页上，将以 HTML 表形式显示集合的内容。
+学生索引页的基架代码省略了 `Enrollments` 属性，因为该属性包含一个集合。 在“详细信息”  页上，将以 HTML 表形式显示集合的内容。
 
-在 Controllers/StudentsController.cs 中，“详细信息”视图的操作方法使用 `SingleOrDefaultAsync` 方法检索单个 `Student` 实体。 添加调用 `Include` 的代码。 `ThenInclude` 和 `AsNoTracking` 方法，如以下突出显示的代码所示。
+在 Controllers/StudentsController.cs  中，“详细信息”视图的操作方法使用 `SingleOrDefaultAsync` 方法检索单个 `Student` 实体。 添加调用 `Include` 的代码。 `ThenInclude` 和 `AsNoTracking` 方法，如以下突出显示的代码所示。
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_Details&highlight=8-12)]
 
@@ -48,7 +48,7 @@ ms.locfileid: "64886162"
 
 ### <a name="route-data"></a>路由数据
 
-传递到 `Details` 方法的键值来自路由数据。 路由数据是模型绑定器在 URL 的段中找到的数据。 例如，默认路由指定控制器、操作和 ID 段：
+传递到 `Details` 方法的键值来自路由数据  。 路由数据是模型绑定器在 URL 的段中找到的数据。 例如，默认路由指定控制器、操作和 ID 段：
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_Route&highlight=5)]
 
@@ -104,7 +104,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 
 此代码循环通过 `Enrollments` 导航属性中的实体。 它将针对每个注册显示课程标题和成绩。 课程标题从 Course 实体中检索，该实体存储在 Enrollments 实体的 `Course` 导航属性中。
 
-运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接。 将看到所选学生的课程和年级列表：
+运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接   。 将看到所选学生的课程和年级列表：
 
 ![学生详细信息页](crud/_static/student-details.png)
 
@@ -118,7 +118,7 @@ http://localhost:1230/Instructor/Index?id=1&CourseID=2021
 
 已从 `Bind` 特性删除 `ID`，因为 ID 是插入行时 SQL Server 将自动设置的主键值。 来自用户的输入不会设置 ID 值。
 
-除了 `Bind` 特性，try-catch 块是对基架代码所做的唯一更改。 如果保存更改时捕获到来自 `DbUpdateException` 的异常，则会显示一般错误消息。 有时 `DbUpdateException` 异常是由应用程序外部的某些内容而非编程错误引起的，因此建议用户再次尝试。 尽管在本示例中未实现，但生产质量应用程序会记录异常。 有关详细信息，请参阅[监视和遥测（使用 Azure 构建真实世界云应用）](/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/monitoring-and-telemetry)中的“见解记录”部分。
+除了 `Bind` 特性，try-catch 块是对基架代码所做的唯一更改。 如果保存更改时捕获到来自 `DbUpdateException` 的异常，则会显示一般错误消息。 有时 `DbUpdateException` 异常是由应用程序外部的某些内容而非编程错误引起的，因此建议用户再次尝试。 尽管在本示例中未实现，但生产质量应用程序会记录异常。 有关详细信息，请参阅[监视和遥测（使用 Azure 构建真实世界云应用）](/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/monitoring-and-telemetry)中的“见解记录”  部分。
 
 `ValidateAntiForgeryToken` 特性帮助抵御跨网站请求伪造 (CSRF) 攻击。 令牌通过 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 自动注入到视图中，并在用户提交表单时包含该令牌。 令牌由 `ValidateAntiForgeryToken` 特性验证。 有关 CSRF 的详细信息，请参阅[反请求伪造](../../security/anti-request-forgery.md)。
 
@@ -151,11 +151,11 @@ public class Student
 
 ### <a name="test-the-create-page"></a>测试创建页
 
-Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input` 和 `span`（适用于验证消息）标记帮助器。
+Views/Students/Create.cshtml  中的代码对每个字段使用 `label`、`input` 和 `span`（适用于验证消息）标记帮助器。
 
-运行应用，选择“学生”选项卡，并单击“新建”。
+运行应用，选择“学生”  选项卡，并单击“新建”  。
 
-输入姓名和日期。 如果浏览器允许输入无效日期，请尝试输入。 （某些浏览器强制要求使用日期选取器。）然后单击“创建”，查看错误消息。
+输入姓名和日期。 如果浏览器允许输入无效日期，请尝试输入。 （某些浏览器强制要求使用日期选取器。）然后单击“创建”  ，查看错误消息。
 
 ![日期验证错误](crud/_static/date-error.png)
 
@@ -163,11 +163,11 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_Create&highlight=8)]
 
-将日期更改为有效值，并单击“创建”，查看“索引”页中显示的新学生。
+将日期更改为有效值，并单击“创建”  ，查看“索引”  页中显示的新学生。
 
 ## <a name="update-the-edit-page"></a>更新“编辑”页
 
-在 StudentController.cs 中，HttpGet `Edit` 方法（不具有 `HttpPost` 特性）使用 `SingleOrDefaultAsync` 方法检索所选的 Student 实体，如 `Details` 方法中所示。 不需要更改此方法。
+在 StudentController.cs  中，HttpGet `Edit` 方法（不具有 `HttpPost` 特性）使用 `SingleOrDefaultAsync` 方法检索所选的 Student 实体，如 `Details` 方法中所示。 不需要更改此方法。
 
 ### <a name="recommended-httppost-edit-code-read-and-update"></a>建议的 HttpPost 编辑代码：读取和更新
 
@@ -177,9 +177,9 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 这些更改实现安全最佳做法，防止过多发布。 基架生成了 `Bind` 特性，并将模型绑定器创建的实体添加到具有 `Modified` 标记的实体集。 不建议将该代码用于多个方案，因为 `Bind` 特性将清除未在 `Include` 参数中列出的字段中的任何以前存在的数据。
 
-新代码读取现有实体并调用 `TryUpdateModel`，以[基于已发布表单数据中的用户输入](xref:mvc/models/model-binding#how-model-binding-works)更新已检索实体中的字段。 Entity Framework 的自动更改跟踪在由表单输入更改的字段上设置 `Modified` 标记。 调用 `SaveChanges` 方法时，Entity Framework 会创建 SQL 语句，以更新数据库行。 忽略并发冲突，并且仅在数据库中更新由用户更新的表列。 （下一个教程将介绍如何处理并发冲突。）
+新代码读取现有实体并调用 `TryUpdateModel`，以[基于已发布表单数据中的用户输入](xref:mvc/models/model-binding)更新已检索实体中的字段。 Entity Framework 的自动更改跟踪在由表单输入更改的字段上设置 `Modified` 标记。 调用 `SaveChanges` 方法时，Entity Framework 会创建 SQL 语句，以更新数据库行。 忽略并发冲突，并且仅在数据库中更新由用户更新的表列。 （下一个教程将介绍如何处理并发冲突。）
 
-作为防止过多发布的最佳做法，请将希望通过“编辑”页更新的字段列入 `TryUpdateModel` 参数。 （参数列表中字段列表之前的空字符串用于与表单字段名称一起使用的前缀。）目前没有要保护的额外字段，但是列出希望模型绑定器绑定的字段可确保以后将字段添加到数据模型时，它们将自动受到保护，直到明确将其添加到此处为止。
+作为防止过多发布的最佳做法，请将希望通过“编辑”  页更新的字段列入 `TryUpdateModel` 参数。 （参数列表中字段列表之前的空字符串用于与表单字段名称一起使用的前缀。）目前没有要保护的额外字段，但是列出希望模型绑定器绑定的字段可确保以后将字段添加到数据模型时，它们将自动受到保护，直到明确将其添加到此处为止。
 
 这些更改会导致 HttpPost `Edit` 方法与 HttpGet `Edit` 方法的方法签名相同，因此已重命名 `EditPost` 方法。
 
@@ -219,15 +219,15 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 ### <a name="test-the-edit-page"></a>测试编辑页
 
-运行应用，选择“学生”选项卡，然后单击“编辑”超链接。
+运行应用，选择“学生”  选项卡，然后单击“编辑”  超链接。
 
 ![学生编辑页](crud/_static/student-edit.png)
 
-更改某些数据并单击“保存”。 将打开“索引”页，将看到已更改的数据。
+更改某些数据并单击“保存”  。 将打开“索引”  页，将看到已更改的数据。
 
 ## <a name="update-the-delete-page"></a>更新“删除”页
 
-在 StudentController.cs 中，HttpGet `Delete` 方法的模板代码使用 `SingleOrDefaultAsync` 方法来检索所选的 Student 实体，如 Details 和 Edit 方法中所示。 但是，若要在调用 `SaveChanges` 失败时实现自定义错误消息，请将部分功能添加到此方法及其相应的视图中。
+在 StudentController.cs  中，HttpGet `Delete` 方法的模板代码使用 `SingleOrDefaultAsync` 方法来检索所选的 Student 实体，如 Details 和 Edit 方法中所示。 但是，若要在调用 `SaveChanges` 失败时实现自定义错误消息，请将部分功能添加到此方法及其相应的视图中。
 
 正如所看到的更新和创建操作，删除操作需要两个操作方法。 为响应 GET 请求而调用的方法将显示一个视图，使用户有机会批准或取消操作。 如果用户批准，则创建 POST 请求。 发生此情况时，将调用 HttpPost `Delete` 方法，然后该方法实际执行删除操作。
 
@@ -257,21 +257,21 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 
 ### <a name="update-the-delete-view"></a>更新“删除”视图
 
-在 Views/Student/Delete.cshtml 中，在 H2 标题和 H3 标题之间添加错误消息，如以下示例所示：
+在 Views/Student/Delete.cshtml  中，在 H2 标题和 H3 标题之间添加错误消息，如以下示例所示：
 
 [!code-html[](intro/samples/cu/Views/Students/Delete.cshtml?range=7-9&highlight=2)]
 
-运行应用，选择“学生”选项卡，并单击“删除”超链接：
+运行应用，选择“学生”  选项卡，并单击“删除”  超链接：
 
 ![删除确认页](crud/_static/student-delete.png)
 
-单击“删除”。 将显示不含已删除学生的索引页。 （将看到并发教程中错误处理代码的效果示例。）
+单击“删除”  。 将显示不含已删除学生的索引页。 （将看到并发教程中错误处理代码的效果示例。）
 
 ## <a name="close-database-connections"></a>关闭数据库连接
 
 若要释放数据库连接包含的资源，完成此操作时必须尽快处理上下文实例。 ASP.NET Core 内置[依赖关系注入](../../fundamentals/dependency-injection.md)会完成此任务。
 
-在 Startup.cs 中，调用 [AddDbContext 扩展方法](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs)来预配 ASP.NET Core DI 容器中的 `DbContext` 类。 默认情况下，该方法将服务生存期设置为 `Scoped`。 `Scoped` 表示上下文对象生存期与 Web 请求生存期一致，并在 Web 请求结束时将自动调用 `Dispose` 方法。
+在 Startup.cs 中，调用 [AddDbContext 扩展方法](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs)来预配 ASP.NET Core DI 容器中的 `DbContext` 类  。 默认情况下，该方法将服务生存期设置为 `Scoped`。 `Scoped` 表示上下文对象生存期与 Web 请求生存期一致，并在 Web 请求结束时将自动调用 `Dispose` 方法。
 
 ## <a name="handle-transactions"></a>处理事务
 
@@ -306,7 +306,7 @@ Views/Students/Create.cshtml 中的代码对每个字段使用 `label`、`input`
 > * 已更新“删除”页
 > * 已关闭数据库连接
 
-请继续阅读下一篇教程，了解如何通过添加排序、筛选和分页来扩展“索引”页的功能。
+请继续阅读下一篇教程，了解如何通过添加排序、筛选和分页来扩展“索引”页的功能  。
 
 > [!div class="nextstepaction"]
 > [下一篇：排序、筛选和分页](sort-filter-page.md)

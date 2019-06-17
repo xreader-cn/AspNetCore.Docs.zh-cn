@@ -5,14 +5,14 @@ description: 了解如何诊断 ASP.NET Core 应用的 Internet Information Serv
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 05/28/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: e4c93459f2030c7c0a55ea90e0cc8c8d30b76c51
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: cb42a262c89c27fa350e936184f8ddb3a02788f0
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470458"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034738"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -330,13 +330,13 @@ ASP.NET Core 模块的默认“startupTimeLimit”  配置为 120 秒。 保留�
 
 1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。 应用池必须对该文件夹具有写权限。
 1. 运行 [EnableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1)：
-   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
+   * 如果应用使用[进程内托管模型](xref:host-and-deploy/iis/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
 
      ```console
      .\EnableDumps w3wp.exe c:\dumps
      ```
 
-   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
+   * 如果应用使用[进程外托管模型](xref:host-and-deploy/iis/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
 
      ```console
      .\EnableDumps dotnet.exe c:\dumps
@@ -344,13 +344,13 @@ ASP.NET Core 模块的默认“startupTimeLimit”  配置为 120 秒。 保留�
 
 1. 在造成崩溃的条件下运行应用。
 1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1)：
-   * 如果应用使用[进程内托管模型](xref:fundamentals/servers/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
+   * 如果应用使用[进程内托管模型](xref:host-and-deploy/iis/index#in-process-hosting-model)，则请为 w3wp.exe 运行脚本  ：
 
      ```console
      .\DisableDumps w3wp.exe
      ```
 
-   * 如果应用使用[进程外托管模型](xref:fundamentals/servers/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
+   * 如果应用使用[进程外托管模型](xref:host-and-deploy/iis/index#out-of-process-hosting-model)，则请为 dotnet.exe 运行脚本  ：
 
      ```console
      .\DisableDumps dotnet.exe

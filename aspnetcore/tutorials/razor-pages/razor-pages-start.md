@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 6/3/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: d843e47ccb5180fab34b4c4c4a4b5cbda21289bf
-ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
+ms.openlocfilehash: e7d0312bd4b54586f4a3d403f464ded1aa49bcac
+ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/04/2019
-ms.locfileid: "66491218"
+ms.lasthandoff: 06/10/2019
+ms.locfileid: "66824702"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -47,7 +47,7 @@ ms.locfileid: "66491218"
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 
-* 将项目命名为“RazorPagesMovie”  。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时，命名空间才会匹配  。
+* 将项目命名为“RazorPagesMovie”  。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配  。
 
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 

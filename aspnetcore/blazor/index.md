@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 05/01/2019
 uid: blazor/index
-ms.openlocfilehash: bd7d2d3e6702844627f19dfbbbad5c52389a52e5
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: d58115b17536cad0b3927e6d32b7dbe8db8e4b0f
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085784"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034421"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -37,13 +37,13 @@ Blazor 是一个用于使用 .NET 生成交互式客户端 Web UI 的框架：
 
 ## <a name="components"></a>组件数
 
-Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如，页面、对话框或数据输入窗体。 组件处理用户事件，并定义灵活的 UI 呈现逻辑。 组件可以嵌套和重用。
+Blazor 应用基于组件  。 Blazor 中的组件是指 UI 元素，例如，页面、对话框或数据输入窗体。 组件处理用户事件，并定义灵活的 UI 呈现逻辑。 组件可以嵌套和重用。
 
-组件是内置于 .NET 程序集的 .NET 类，可以作为 [NuGet 包](/nuget/what-is-nuget)进行共享和分发。 组件类通常以 Razor 标记页（文件扩展名为 .razor）的形式编写。
+组件是内置于 .NET 程序集的 .NET 类，可以作为 [NuGet 包](/nuget/what-is-nuget)进行共享和分发。 组件类通常以 Razor 标记页（文件扩展名为 .razor  ）的形式编写。
 
-Blazor 中的组件有时被称为 Razor 组件。 [Razor](xref:mvc/views/razor) 是用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起的语法。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与围绕请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
+Blazor 中的组件有时被称为 Razor 组件  。 [Razor](xref:mvc/views/razor) 是用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起的语法。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与围绕请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
 
-以下 Razor 标记演示组件 (Dialog.razor)，该组件可以嵌套在另一个组件中：
+以下 Razor 标记演示组件 (Dialog.razor  )，该组件可以嵌套在另一个组件中：
 
 ```cshtml
 <div>
@@ -51,10 +51,10 @@ Blazor 中的组件有时被称为 Razor 组件。 [Razor](xref:mvc/views/razor)
 
     @ChildContent
 
-    <button onclick="@OnYes">Yes!</button>
+    <button @onclick="@OnYes">Yes!</button>
 </div>
 
-@functions {
+@code {
     [Parameter]
     private string Title { get; set; }
 
@@ -70,7 +70,7 @@ Blazor 中的组件有时被称为 Razor 组件。 [Razor](xref:mvc/views/razor)
 
 对话框的正文内容 (`ChildContent`) 和标题 (`Title`) 由在其 UI 中使用此组件的组件提供。 `OnYes` 是由按钮的 `onclick` 事件触发的 C# 方法。
 
-Blazor 使用 UI 构成的自然 HTML 标记。 HTML 元素指定组件，并且标记的特性将值传递给组件的属性。 `ChildContent` 和 `Title` 由使用对话框组件 (Index.razor) 的组件设置：
+Blazor 使用 UI 构成的自然 HTML 标记。 HTML 元素指定组件，并且标记的特性将值传递给组件的属性。 `ChildContent` 和 `Title` 由使用对话框组件 (Index.razor  ) 的组件设置：
 
 ```cshtml
 @page "/"
@@ -84,21 +84,21 @@ Welcome to your new app.
 </Dialog>
 ```
 
-在浏览器中访问父级 (Index.razor) 时，将呈现该对话框：
+在浏览器中访问父级 (Index.razor  ) 时，将呈现该对话框：
 
 ![浏览器中呈现的对话框组件](index/_static/dialog.png)
 
 如果在应用中使用此组件，[Visual Studio](/visualstudio/ide/using-intellisense) 和 [Visual Studio Code](https://code.visualstudio.com/docs/editor/intellisense) 中的 IntelliSense 可加快使用语法和参数补全的开发。
 
-组件呈现为浏览器 DOM 的内存中表现形式，称为“呈现树”，然后可以使用它以灵活高效的方式更新 UI。
+组件呈现为浏览器 DOM 的内存中表现形式，称为“呈现树”  ，然后可以使用它以灵活高效的方式更新 UI。
 
 ## <a name="blazor-client-side"></a>Blazor 客户端
 
 Blazor 客户端是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor 客户端使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
 
-通过 [WebAssembly](http://webassembly.org)（缩写为 wasm），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。
+通过 [WebAssembly](http://webassembly.org)（缩写为 wasm  ），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。
 
-WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性或 JavaScript 互操作）访问浏览器的完整功能。 在浏览器中通过 WebAssembly 执行的 .NET 代码在与 JavaScript 相同的受信任沙盒中运行，这几乎可以阻止应用在客户端计算机上执行恶意操作。
+WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性  或 JavaScript 互操作  ）访问浏览器的完整功能。 在浏览器中通过 WebAssembly 执行的 .NET 代码在与 JavaScript 相同的受信任沙盒中运行，这几乎可以阻止应用在客户端计算机上执行恶意操作。
 
 ![Blazor 客户端使用 WebAssembly 在浏览器中运行 .NET 代码。](index/_static/blazor-client-side.png)
 
@@ -108,7 +108,7 @@ WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性或 JavaS
 * 该程序集和 .NET 运行时将被下载到浏览器。
 * Blazor 客户端启动 .NET 运行时并配置运行时，为应用加载程序集。 Blazor 客户端运行时使用 JavaScript 互操作处理文档对象模型 (DOM) 操作和浏览器 API 调用。
 
-已发布应用的大小（其有效负载大小）是应用可用性的关键性能因素。 大型应用需要相对较长的时间才能下载到浏览器，这会损害用户体验。 Blazor 客户端优化有效负载大小，以缩短下载时间：
+已发布应用的大小（其有效负载大小  ）是应用可用性的关键性能因素。 大型应用需要相对较长的时间才能下载到浏览器，这会损害用户体验。 Blazor 客户端优化有效负载大小，以缩短下载时间：
 
 * 在[中间语言 (IL) 链接器](xref:host-and-deploy/blazor/configure-linker)发布应用时，会从应用删除未使用的代码。
 * 压缩 HTTP 响应。
