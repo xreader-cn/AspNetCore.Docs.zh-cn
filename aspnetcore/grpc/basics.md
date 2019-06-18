@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: 5a88bd0e9f789058b3606691c5ebd9a74325ac9b
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 00772144cb484b78a256f178642463577d316be2
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376348"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196351"
 ---
 # <a name="grpc-services-with-c"></a>gRPC 服务与 C\#
 
@@ -38,7 +38,7 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 *.Proto*情况下将其添加到项目中包含文件`<Protobuf>`项组：
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#.Proto 文件的工具支持
 
@@ -50,7 +50,7 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 此包是所需的服务器和客户端项目。 `Grpc.Tools` 可以通过使用 Visual Studio 中的包管理器或添加添加`<PackageReference>`的项目文件：
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=17)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=15)]
 
 运行时不需要工具包，因此依赖项标记为 `PrivateAssets="All"`。
 
@@ -68,7 +68,7 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 默认情况下，为每个生成服务器和客户端资产 *.proto*文件中包含`<Protobuf>`项组。 若要确保只有服务器资产在服务器项目中生成`GrpcServices`属性设置为`Server`。
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
+[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
 同样，该属性设置为`Client`在客户端项目中。
 

@@ -5,62 +5,62 @@ description: 了解如何将控制器添加到简单的 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9dbfb52109260dbfe0c6c094a7ac4edae47d24e7
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887282"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837338"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-模型-视图-控制器 (MVC) 体系结构模式将应用分成 3 个主要组件：模型 (M)、视图 (V) 和控制器 (C)。 MVC 模式有助于创建比传统单片应用更易于测试和更新的应用。 基于 MVC 的应用包含：
+模型-视图-控制器 (MVC) 体系结构模式将应用分成 3 个主要组件：模型 (M)、视图 (V) 和控制器 (C)    。 MVC 模式有助于创建比传统单片应用更易于测试和更新的应用。 基于 MVC 的应用包含：
 
-* 模型 (M)：表示应用数据的类。 模型类使用验证逻辑来对该数据强制实施业务规则。 通常，模型对象检索模型状态并将其存储在数据库中。 本教程中，`Movie` 模型将从数据库中检索电影数据，并将其提供给视图或对其进行更新。 更新后的数据将写入到数据库。
+* 模型 (M)  ：表示应用数据的类。 模型类使用验证逻辑来对该数据强制实施业务规则。 通常，模型对象检索模型状态并将其存储在数据库中。 本教程中，`Movie` 模型将从数据库中检索电影数据，并将其提供给视图或对其进行更新。 更新后的数据将写入到数据库。
 
-* 视图 (V)：视图是显示应用用户界面 (UI) 的组件。 此 UI 通常会显示模型数据。
+* 视图 (V)  ：视图是显示应用用户界面 (UI) 的组件。 此 UI 通常会显示模型数据。
 
-* 控制器 (C)：处理浏览器请求的类。 它们检索模型数据并调用返回响应的视图模板。 在 MVC 应用中，视图仅显示信息；控制器处理并响应用户输入和交互。 例如，控制器处理路由数据和查询字符串值，并将这些值传递给模型。 该模型可使用这些值查询数据库。 例如，`https://localhost:1234/Home/About` 具有 `Home`（控制器）的路由数据和 `About`（在 Home 控制器上调用的操作方法）。 `https://localhost:1234/Movies/Edit/5` 是一个请求，用于通过电影控制器编辑 ID 为 5 的电影。 本教程的后续部分中将介绍路由数据。
+* 控制器 (C)  ：处理浏览器请求的类。 它们检索模型数据并调用返回响应的视图模板。 在 MVC 应用中，视图仅显示信息；控制器处理并响应用户输入和交互。 例如，控制器处理路由数据和查询字符串值，并将这些值传递给模型。 该模型可使用这些值查询数据库。 例如，`https://localhost:1234/Home/About` 具有 `Home`（控制器）的路由数据和 `About`（在 Home 控制器上调用的操作方法）。 `https://localhost:1234/Movies/Edit/5` 是一个请求，用于通过电影控制器编辑 ID 为 5 的电影。 本教程的后续部分中将介绍路由数据。
 
 MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑和 UI 逻辑）的应用，同时让这些元素之间实现松散耦合。 该模式可指定应用中每种逻辑的位置。 UI 逻辑位于视图中。 输入逻辑位于控制器中。 业务逻辑位于模型中。 这种隔离有助于控制构建应用时的复杂程度，因为它可用于一次处理一个实现特性，而不影响其他特性的代码。 例如，处理视图代码时不必依赖业务逻辑代码。
 
-本教程系列中介绍了这些概念，并展示了如何使用它们构建电影应用。 MVC 项目包含“控制器”和“视图”文件夹。
+本教程系列中介绍了这些概念，并展示了如何使用它们构建电影应用。 MVC 项目包含“控制器”和“视图”文件夹   。
 
 ## <a name="add-a-controller"></a>添加控制器
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
-  ![上下文菜单](adding-controller/_static/add_controller.png)
+  ![上下文菜单](adding-controller/_static/add_controller.png)  
 
-* 在“添加基架”对话框中，选择“MVC 控制器 - 空”
+* 在“添加基架”对话框中，选择“MVC 控制器 - 空”  
 
   ![添加 MVC 控制器并为其命名](adding-controller/_static/ac.png)
 
-* 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”。
+* 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”    。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs。
+选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs    。
 
   ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。
+在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。  
 ![上下文菜单](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
 
-选择“ASP.NET Core”和“MVC 控制器类”。
+选择“ASP.NET Core”和“MVC 控制器类”。  
 
-将控制器命名为“HelloWorldController”。
+将控制器命名为“HelloWorldController”。 
 
 ![添加 MVC 控制器并为其命名](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
 
 ---
 
-将“Controllers/HelloWorldController.cs”的内容替换为以下内容：
+将“Controllers/HelloWorldController.cs”的内容替换为以下内容  ：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_1)]
 
@@ -78,7 +78,7 @@ MVC 根据入站 URL 调用控制器类（及其中的操作方法）。 MVC 所
 
 `/[Controller]/[ActionName]/[Parameters]`
 
-在 Startup.cs 文件的 `Configure` 方法中设置路由格式。
+在 Startup.cs 文件的 `Configure` 方法中设置路由格式  。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 

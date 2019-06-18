@@ -5,14 +5,14 @@ description: 了解在代理服务器和负载均衡器后方托管的应用程�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/24/2019
+ms.date: 06/11/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 2423b5bed760ad879d1c47c5e64b0f815b50397e
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: ab48d80c9cb1c09b5164ed732e76a59687683e97
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251386"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034728"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -45,7 +45,7 @@ ms.locfileid: "66251386"
 
 可以配置转接头中间件[默认设置](#forwarded-headers-middleware-options)。 默认设置为：
 
-* 应用和请求源之间只有一个代理。
+* 应用和请求源之间只有一个代理  。
 * 仅将环回地址配置为已知代理和已知网络。
 * 转接头被命名为 `X-Forwarded-For` 和 `X-Forwarded-Proto`。
 
@@ -53,11 +53,11 @@ ms.locfileid: "66251386"
 
 ## <a name="iisiis-express-and-aspnet-core-module"></a>IIS/IIS Express 和 ASP.NET Core 模块
 
-当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:fundamentals/servers/index#out-of-process-hosting-model)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
+当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
 
 ## <a name="other-proxy-server-and-load-balancer-scenarios"></a>其他代理服务器和负载均衡器方案
 
-除在[进程外](xref:fundamentals/servers/index#out-of-process-hosting-model)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
+除在[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
 
 为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `Startup.ConfigureServices` 中的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头。 调用其他中间件之前，先调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法：
 
@@ -226,6 +226,38 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>转发 Linux 和非 IIS 反向代理的方案
+
+.NET Core 模板调用 <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> 和 <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>。 如果将站点部署到 Azure Linux 应用服务、Azure Linux 虚拟机 (VM)，或者部署到除 IIS 之外的任何其他反向代理之后，这些方法都会使站点进入无限循环。 反向代理终止 TLS，并且 Kestrel 未发现正确的请求方案。 由于 OAuth 和 OIDC 生成了错误的重定向，因此它们在此配置中也会出现故障。 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 在 IIS 之后运行时会添加和配置转接头中间件，但 Linux（Apache 或 Nginx 集成）没有匹配的自动配置。
+
+要从非 IIS 方案中的代理中转发方案，请添加并配置转接头中间件。 在 `Startup.ConfigureServices` 中，使用以下代码：
+
+```csharp
+// using Microsoft.AspNetCore.HttpOverrides;
+
+if (string.Equals(
+    Environment.GetEnvironmentVariable("ASPNETCORE_FORWARDEDHEADERS_ENABLED"), 
+    "true", StringComparison.OrdinalIgnoreCase))
+{
+    services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+            ForwardedHeaders.XForwardedProto;
+        // Only loopback proxies are allowed by default.
+        // Clear that restriction because forwarders are enabled by explicit 
+        // configuration.
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+    });
+}
+```
+
+在 Azure 中提供新的容器映像之前，必须为设置为 `true` 的 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 创建一项应用设置（环境变量）。 有关详细信息，请参阅[由于缺少方案转发器，模板无法在 Antares Linux 中正常工作 (aspnet/AspNetCore #4135)](https://github.com/aspnet/AspNetCore/issues/4135)。
+
+::: moniker-end
+
 ## <a name="troubleshoot"></a>疑难解答
 
 如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 
@@ -310,6 +342,53 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 > [!IMPORTANT]
 > 仅允许受信任的代理和网络转接头。 否则，可能会受到 [IP 欺骗](https://www.iplocation.net/ip-spoofing)攻击。
+
+## <a name="certificate-forwarding"></a>转发证书 
+
+### <a name="on-azure"></a>在 Azure 上
+
+请参阅 [Azure 文档](/azure/app-service/app-service-web-configure-tls-mutual-auth)以配置 Azure Web 应用。 在应用的 `Startup.Configure` 方法中，在调用 `app.UseAuthentication();` 前添加以下代码：
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+此外，还需要配置证书转发中间件，以指定 Azure 使用的标头名称。 在应用的 `Startup.ConfigureServices` 方法中，添加以下代码来配置中间件从中生成证书的标头：
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "X-ARR-ClientCert");
+```
+
+### <a name="with-other-web-proxies"></a>使用其他 Web 代理
+
+如果使用的代理不是 IIS 或 Azure 的 Web 应用应用程序请求路由，请配置代理，以便转发其在 HTTP 标头中收到的证书。 在应用的 `Startup.Configure` 方法中，在调用 `app.UseAuthentication();` 前添加以下代码：
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+此外，还需要配置证书转发中间件，以指定标头名称。 在应用的 `Startup.ConfigureServices` 方法中，添加以下代码来配置中间件从中生成证书的标头：
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
+```
+
+最后，如果代理正在执行除对证书进行 base64 编码之外的操作（与 Nginx 的情况一样），请设置 `HeaderConverter` 选项。 请看下面 `Startup.ConfigureServices` 中的示例：
+
+```csharp
+services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
+    options.HeaderConverter = (headerValue) => 
+    {
+        var clientCertificate = 
+           /* some conversion logic to create an X509Certificate2 */
+        return clientCertificate;
+    }
+});
+```
 
 ## <a name="additional-resources"></a>其他资源
 

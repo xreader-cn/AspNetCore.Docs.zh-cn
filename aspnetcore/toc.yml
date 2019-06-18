@@ -70,6 +70,9 @@
               uid: tutorials/first-mvc-app/validation
             - name: 检查 Details 和 Delete 方法
               uid: tutorials/first-mvc-app/details
+        - name: Blazor
+          displayName: tutorial
+          uid: tutorials/first-blazor-app
     - name: Web API 应用
       items:
         - name: 创建 Web API

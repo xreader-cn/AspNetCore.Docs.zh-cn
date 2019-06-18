@@ -5,29 +5,43 @@ description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/05/2019
+ms.date: 06/18/2019
 uid: razor-pages/sdk
-ms.openlocfilehash: 8c4e882af93b043afaa0bcf86fd1583405f84be9
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: fa69e4840377e0c1c8291c7ba9305a27bd3e6b82
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750181"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196365"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
+
+## <a name="overview"></a>概述
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]包括`Microsoft.NET.Sdk.Razor`MSBuild SDK (Razor SDK)。 Razor SDK：
 
 * 针对基于 ASP.NET Core MVC 的项目，围绕包含 [Razor](xref:mvc/views/razor) 文件的项目的生成、打包和发布设定了体验标准。
 * 包含一组预定义的目标、属性和项目，它们允许自定义 Razor 文件的编译。
 
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Razor SDK 包括`<Content>`具有元素`Include`属性设置为`**\*.cshtml`通配模式。 匹配的文件将发布。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+Razor SDK 包括`<Content>`具有的元素`Include`属性设置为`**\*.cshtml`和`**\*.razor`通配模式。 匹配的文件将发布。
+
+::: moniker-end
+
 ## <a name="prerequisites"></a>系统必备
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-## <a name="using-the-razor-sdk"></a>使用 Razor SDK
+## <a name="use-the-razor-sdk"></a>使用 Razor SDK
 
 大多数 web 应用程序无需显式引用 Razor SDK。
 
@@ -37,7 +51,7 @@ ms.locfileid: "66750181"
 
   ```xml
   <Project SDK="Microsoft.NET.Sdk.Razor">
-    ...
+    <!-- omitted for brevity -->
   </Project>
   ```
 
@@ -72,7 +86,7 @@ ms.locfileid: "66750181"
 | 项 | 描述 |
 | ----- | ----------- |
 | `RazorGenerate` | 输入到代码生成目标的项元素（.cshtml 文件）  。 |
-| `RazorCompile` | 项元素 ( *.cs*文件)，是 Razor 编译目标的输入。 使用此 ItemGroup 指定要编译到 Razor 程序集中的其他文件。 |
+| `RazorCompile` | 项元素 ( *.cs*文件)，是 Razor 编译目标的输入。 使用此`ItemGroup`来指定要编译到 Razor 程序集的其他文件。 |
 | `RazorTargetAssemblyAttribute` | 用于编码生成 Razor 程序集属性的项元素。 例如：  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | 作为嵌入资源添加到生成的 Razor 程序集的项元素。 |
 
@@ -115,3 +129,8 @@ Razor SDK 定义两个主要目标：
   <RazorLangVersion>{VERSION}</RazorLangVersion>
 </PropertyGroup>
 ```
+
+## <a name="additional-resources"></a>其他资源
+
+* [.NET Core 的 csproj 格式的新增内容](/dotnet/core/tools/csproj)
+* [常用的 MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)

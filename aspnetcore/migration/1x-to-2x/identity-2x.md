@@ -3,20 +3,26 @@ title: 将身份验证和标识迁移到 ASP.NET Core 2.0
 author: scottaddie
 description: 本文概述了迁移 ASP.NET Core 1.x 身份验证和标识为 ASP.NET Core 2.0 的最常见步骤。
 ms.author: scaddie
-ms.date: 12/18/2018
+ms.date: 06/13/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 086deac51af186012315d5b6a1236c92c8980037
-ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
+ms.openlocfilehash: 3e8bc75b87a85159c9668b52eea32bb7d700be6c
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/23/2019
-ms.locfileid: "66039245"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196372"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>将身份验证和标识迁移到 ASP.NET Core 2.0
 
 通过[Scott Addie](https://github.com/scottaddie)和[Hao 永远](https://github.com/HaoK)
 
-ASP.NET Core 2.0 具有用于身份验证的新模型和[标识](xref:security/authentication/identity)这简化了使用服务的配置。 ASP.NET Core 1.x 应用程序使用身份验证或标识可以更新以使用新的模型，如下所述。
+ASP.NET Core 2.0 具有新的模型进行身份验证和[标识](xref:security/authentication/identity)，通过使用服务可简化配置。 ASP.NET Core 1.x 应用程序使用身份验证或标识可以更新以使用新的模型，如下所述。
+
+## <a name="update-namespaces"></a>更新命名空间
+
+在 1.x 中，类等`IdentityRole`并`IdentityUser`中找到了`Microsoft.AspNetCore.Identity.EntityFrameworkCore`命名空间。
+
+在 2.0 中，<xref:Microsoft.AspNetCore.Identity>命名空间成为多个这样的类的新的家。 使用默认标识代码中，受影响的类包括`ApplicationUser`和`Startup`。 调整您`using`语句解析受影响的引用。
 
 <a name="auth-middleware"></a>
 
@@ -68,7 +74,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 }
 ```
 
-`UseAuthentication`方法将添加一个单一的身份验证中间件组件，它负责进行自动身份验证和远程身份验证请求的处理。 它会替换所有单独的中间件组件共有的中间件组件。
+`UseAuthentication`方法将添加一个单一的身份验证中间件组件，负责进行自动身份验证和远程身份验证请求的处理。 它会替换所有单独的中间件组件共有的中间件组件。
 
 下面是有关每个主要身份验证方案的 2.0 迁移说明。
 
@@ -303,21 +309,21 @@ services.AddAuthentication(options =>
 
 上面所述的第一种变化形式是不受 2.0 更改的影响。
 
-2.0 更改的情况下，会影响上面所述的第二个变体。 例如，你可能会将以允许匿名用户到你的应用在 IIS 或[HTTP.sys](xref:fundamentals/servers/httpsys)层在控制器级别但授权用户。 在此方案中，将默认方案设置为`IISDefaults.AuthenticationScheme`在`Startup.ConfigureServices`方法：
+2\.0 更改的情况下，会影响上面所述的第二个变体。 例如，您可能会允许匿名用户到你的应用在 IIS 或[HTTP.sys](xref:fundamentals/servers/httpsys)层在控制器级别但授权用户。 在此方案中，将默认方案设置为`IISDefaults.AuthenticationScheme`在`Startup.ConfigureServices`方法：
 
 ```csharp
 services.AddAuthentication(IISDefaults.AuthenticationScheme);
 ```
 
-相应地设置默认方案失败会阻止在授权请求，以来自工作的挑战。
+若要设置的默认方案的失败会阻止来自工作的挑战的授权请求。
 
 <a name="identity-cookie-options"></a>
 
 ## <a name="identitycookieoptions-instances"></a>IdentityCookieOptions 实例
 
-2.0 更改一个副作用是切换到使用名为选项而不是 cookie 选项实例。 删除自定义标识 cookie 方案名称的功能。
+2\.0 更改一个副作用是切换到使用名为选项而不是 cookie 选项实例。 删除自定义标识 cookie 方案名称的功能。
 
-例如，1.x 项目使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)传递`IdentityCookieOptions`到参数*AccountController.cs*。 从提供的实例访问的外部 cookie 身份验证方案：
+例如，1.x 项目使用[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)传递`IdentityCookieOptions`到参数*AccountController.cs*并*ManageController.cs*。 从提供的实例访问的外部 cookie 身份验证方案：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
@@ -325,9 +331,17 @@ services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor)]
 
-`IdentityConstants.ExternalScheme`可以直接使用常量：
+1.x 项目中使用`_externalCookieScheme`字段，如下所示：
+
+[!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
+
+在 2.0 项目中，将替换以下为前面的代码。 `IdentityConstants.ExternalScheme`常量可以直接使用。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
+
+解决新添加`SignOutAsync`调用通过导入以下命名空间：
+
+[!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationImport)]
 
 <a name="navigation-properties"></a>
 
@@ -389,21 +403,21 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 ## <a name="replace-getexternalauthenticationschemes"></a>替换为 GetExternalAuthenticationSchemes
 
-同步方法`GetExternalAuthenticationSchemes`的异步版本，于是取消了。 在 1.x 项目具有以下代码*ManageController.cs*:
+同步方法`GetExternalAuthenticationSchemes`的异步版本，于是取消了。 在 1.x 项目具有以下代码*Controllers/ManageController.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
 
-此方法将出现在*Login.cshtml*过：
+此方法将出现在*Views/Account/Login.cshtml*过：
 
-[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?range=62,75-84)]
+[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemes&highlight=2)]
 
-在 2.0 项目中，使用`GetExternalAuthenticationSchemesAsync`方法：
+在 2.0 项目中，使用<xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*>方法。 中的更改*ManageController.cs*类似于以下代码：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemesAsync)]
 
 在中*Login.cshtml*，则`AuthenticationScheme`中访问属性`foreach`循环更改为`Name`:
 
-[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?range=62,75-84)]
+[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemesAsync&highlight=2,19)]
 
 <a name="property-change"></a>
 
@@ -421,4 +435,4 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 ## <a name="additional-resources"></a>其他资源
 
-有关更多详细信息和讨论，请参阅[讨论身份验证 2.0](https://github.com/aspnet/Security/issues/1338) GitHub 上的问题。
+有关详细信息，请参阅[讨论身份验证 2.0](https://github.com/aspnet/Security/issues/1338) GitHub 上的问题。

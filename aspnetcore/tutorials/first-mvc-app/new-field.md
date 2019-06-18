@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: cf8bb67703b564a711105123117498c94ab44e68
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 45506d071c90c91a61e6912ff51350b43e8ae136
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889712"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034795"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
 
@@ -29,13 +29,13 @@ ms.locfileid: "64889712"
 
 ## <a name="add-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-将 `Rating` 属性添加到 Models/Movie.cs：
+将 `Rating` 属性添加到 Models/Movie.cs  ：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 生成应用 (Ctrl+Shift+B)。
 
-因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性：
+因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性： 
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -43,11 +43,11 @@ ms.locfileid: "64889712"
 
 更新视图模板以在浏览器视图中显示、创建和编辑新的 `Rating` 属性。
 
-编辑 /Views/Movies/Index.cshtml 文件并添加 `Rating` 字段：
+编辑 /Views/Movies/Index.cshtml 文件并添加 `Rating` 字段  ：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
 
-使用 `Rating` 字段更新 /Views/Movies/Create.cshtml。
+使用 `Rating` 字段更新 /Views/Movies/Create.cshtml  。
 
 # <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
@@ -83,7 +83,7 @@ ms.locfileid: "64889712"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
 
   ![PMC 菜单](adding-model/_static/pmc.png)
 
@@ -104,7 +104,7 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)  。 然后运行 `ef database update` 命令：
 
 ```console
 dotnet ef database update

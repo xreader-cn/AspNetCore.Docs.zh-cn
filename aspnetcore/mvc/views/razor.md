@@ -3,14 +3,14 @@ title: ASP.NET Core 的 Razor 语法参考
 author: rick-anderson
 description: 了解 Razor 标记语法，该语法用于将基于服务器的代码嵌入网页中。
 ms.author: riande
-ms.date: 10/26/2018
+ms.date: 06/12/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 7f97be651c067e94f29eef4956c10d87ec031bed
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 87c5b97a653c139b8b79f4270e0d9d0081815433
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887902"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034935"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -574,9 +574,39 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 ::: moniker-end
 
+### <a name="attribute"></a>@attribute
+
+`@attribute` 指令将给定的属性添加到生成的页或视图的类中。 以下示例添加 `[Authorize]` 属性：
+
+```cshtml
+@attribute [Authorize]
+```
+
+> [!WARNING]
+> ASP.NET Core 3.0 Preview 6 发行版中存在一个已知问题，其中 `@attribute` 指令在 \_Imports.razor 和 \_ViewImports.cshtml 文件中无法正常工作   。 此问题将在 Preview 7 发行版中得到解决。
+
+### <a name="namespace"></a>@namespace
+
+`@namespace` 指令设置生成的页或视图的类的命名空间：
+
+```cshtml
+@namespace Your.Namespace.Here
+```
+
+如果页或视图使用 `@namespace` 指令导入 API，则原始文件的命名空间设置为相对于该命名空间。 
+
+如果 MyApp/Pages/\_ViewImports.cshtml 包含 `@namespace Hello.World`，则导入 `Hello.World` 命名空间的页或视图的命名空间设置如下表所示  。
+
+| 页（或视图）                     | 命名空间               |
+| ---------------------------------- | ----------------------- |
+| MyApp/Pages/Index.cshtml          | `Hello.World`           |
+| MyApp/Pages/MorePages/Bar.cshtml  | `Hello.World.MorePages` |
+
+如果多个导入文件都具有 `@namespace` 指令，则使用目录链中最接近页或视图的文件。
+
 ### <a name="section"></a>@section
 
-`@section` 指令与[布局](xref:mvc/views/layout)结合使用，允许视图将内容呈现在 HTML 页面的不同部分。 有关详细信息，请参阅[部分](xref:mvc/views/layout#layout-sections-label)。
+`@section` 指令与[布局](xref:mvc/views/layout)结合使用，允许页或视图将内容呈现在 HTML 页的不同部分。 有关详细信息，请参阅[部分](xref:mvc/views/layout#layout-sections-label)。
 
 ## <a name="templated-razor-delegates"></a>模板化 Razor 委托
 
@@ -728,41 +758,41 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录。 Razor 目录中的目录结构反映项目的目录结构。
+在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录  。 Razor 目录中的目录结构反映项目的目录结构  。
 
 在面向 .NET Core 2.1 的 ASP.NET Core 2.1 Razor Pages 项目中，请考虑以下目录结构：
 
-* Areas/
-  * Admin/
-    * Pages/
-      * Index.cshtml
-      * Index.cshtml.cs
-* Pages/
-  * Shared/
-    * _Layout.cshtml
-  * _ViewImports.cshtml
+* Areas/ 
+  * Admin/ 
+    * Pages/ 
+      * Index.cshtml 
+      * Index.cshtml.cs 
+* Pages/ 
+  * Shared/ 
+    * _Layout.cshtml 
+  * _ViewImports.cshtml 
   * *_ViewStart.cshtml*
-  * Index.cshtml
-  * Index.cshtml.cs
+  * Index.cshtml 
+  * Index.cshtml.cs 
 
-在 Debug 配置下生成项目将生成以下 obj 目录：
+在 Debug 配置下生成项目将生成以下 obj 目录   ：
 
-* obj/
-  * Debug/
-    * netcoreapp2.1/
-      * Razor/
-        * Areas/
-          * Admin/
-            * Pages/
-              * Index.g.cshtml.cs
-        * Pages/
-          * Shared/
-            * _Layout.g.cshtml.cs
-          * _ViewImports.g.cshtml.cs
-          * _ViewStart.g.cshtml.cs
-          * Index.g.cshtml.cs
+* obj/ 
+  * Debug/ 
+    * netcoreapp2.1/ 
+      * Razor/ 
+        * Areas/ 
+          * Admin/ 
+            * Pages/ 
+              * Index.g.cshtml.cs 
+        * Pages/ 
+          * Shared/ 
+            * _Layout.g.cshtml.cs 
+          * _ViewImports.g.cshtml.cs 
+          * _ViewStart.g.cshtml.cs 
+          * Index.g.cshtml.cs 
 
-若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs。
+若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs   。
 
 ::: moniker-end
 
@@ -787,7 +817,7 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 Razor 视图引擎为视图执行区分大小写的查找。 但是，实际查找取决于基础文件系统：
 
 * 基于文件的源：
-  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、*/Views/home/test.cshtml* 以及任何其他大小写变体。
+  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml* 以及任何其他大小写变体。
   * 在区分大小写的文件系统（例如，Linux、OSX 以及使用 `EmbeddedFileProvider` 构建的文件系统）上，查找区分大小写。 例如，`return View("Test")` 专门匹配 */Views/Home/Test.cshtml*。
 * 预编译视图：在 ASP.NET Core 2.0 及更高版本中，预编译视图查找在所有操作系统上均不区分大小写。 该行为与 Windows 上物理文件提供程序的行为相同。 如果两个预编译视图仅大小写不同，则查找的结果具有不确定性。
 
