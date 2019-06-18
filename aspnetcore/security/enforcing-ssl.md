@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: 8d48877153d6d75348e29299c669125904236de8
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 08ce50775d1b5348cb0528a1724cec2e5c72dae2
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692589"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152896"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -24,11 +24,32 @@ ms.locfileid: "66692589"
 
 没有 API 可以防止客户端上的第一个请求发送敏感数据。
 
+::: moniker range="< aspnetcore-3.0"
+
 > [!WARNING]
+> ## <a name="api-projects"></a>API 项目
+>
 > 不要**不**使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute)接收敏感信息的 Web api。 `RequireHttpsAttribute` 使用 HTTP 状态代码将从 HTTP 到 HTTPS 的浏览器重定向。 API 客户端可能无法理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可能会通过 HTTP 发送的信息。 Web Api 应具有下列任一：
 >
 > * 不侦听 HTTP。
 > * 关闭与状态代码 400 （错误请求） 的连接并不为请求提供服务。
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+> [!WARNING]
+> ## <a name="api-projects"></a>API 项目
+>
+> 不要**不**使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute)接收敏感信息的 Web api。 `RequireHttpsAttribute` 使用 HTTP 状态代码将从 HTTP 到 HTTPS 的浏览器重定向。 API 客户端可能无法理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可能会通过 HTTP 发送的信息。 Web Api 应具有下列任一：
+>
+> * 不侦听 HTTP。
+> * 关闭与状态代码 400 （错误请求） 的连接并不为请求提供服务。
+>
+> ## <a name="hsts-and-api-projects"></a>HSTS 和 API 项目
+>
+> 默认 API 项目不包含[HSTS](#hsts)因为 HSTS 通常是浏览器中唯一的说明。 其他调用方，例如电话或桌面应用程序，请执行**不**遵循指令。 即使在浏览器中，对通过 HTTP API 的单个经过身份验证的调用不安全网络上有风险。 安全的方法是 API 项目配置为只侦听并响应通过 HTTPS。
+
+::: moniker-end
 
 ## <a name="require-https"></a>要求使用 HTTPS
 
@@ -159,6 +180,8 @@ public void ConfigureServices(IServiceCollection services)
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
+
+<a name="hsts"></a>
 
 ## <a name="http-strict-transport-security-protocol-hsts"></a>HTTP 严格传输安全协议 (HSTS)
 

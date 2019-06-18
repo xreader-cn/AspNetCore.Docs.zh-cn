@@ -4,14 +4,14 @@ author: scottaddie
 description: 了解如何通过应用捆绑和缩减技术优化 ASP.NET Core web 应用程序中的静态资源。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: ba01d365a25dfbd13fed89263d7489b2ce2a8771
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: c3ec67d9f5c2b8eb44b5ced911ccfd0fa40a52a7
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65535931"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152775"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>捆绑和缩小在 ASP.NET Core 中的静态资产
 
@@ -265,7 +265,7 @@ Visual Studio[捆绑程序和缩小器](https://marketplace.visualstudio.com/ite
 > [!NOTE]
 > 捆绑程序和缩小器扩展属于 Microsoft 为其提供任何支持的 GitHub 上的社区驱动项目。 问题应将归档[此处](https://github.com/madskristensen/BundlerMinifier/issues)。
 
-右键单击*bundleconfig.json*文件在解决方案资源管理器中，然后选择**捆绑程序和缩小器** > **转换 Gulp...**:
+右键单击*bundleconfig.json*文件在解决方案资源管理器中，然后选择**捆绑程序和缩小器** > **转换 Gulp...** :
 
 ![将转换到 Gulp 上下文菜单项](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
 
@@ -286,6 +286,9 @@ npm i -g gulp-cli
 如果 Visual Studio 和/或捆绑程序和缩小器扩展插件不可用，手动转换。
 
 添加*package.json*文件中的，使用以下`devDependencies`，到项目根目录：
+
+> [!WARNING]
+> `gulp-uglify`模块不支持 ECMAScript (ES) 2015年 / ES6 及更高版本。 安装[gulp 更简练](https://www.npmjs.com/package/gulp-terser)而不是`gulp-uglify`使用 ES2015 / ES6 或更高版本。
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
