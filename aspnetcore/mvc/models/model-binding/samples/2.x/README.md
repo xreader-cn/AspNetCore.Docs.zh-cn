@@ -1,0 +1,1 @@
+<span data-ttu-id="9fd9b-101">这是一个用于 [ASP.NET Core 中的模型绑定](https://docs.microsoft.com/aspnet/core/mvc/models/model-binding)的示例项目。</span><span class="sxs-lookup"><span data-stu-id="9fd9b-101">This is a sample project that goes with [Model binding in ASP.NET Core](https://docs.microsoft.com/aspnet/core/mvc/models/model-binding).</span></span>

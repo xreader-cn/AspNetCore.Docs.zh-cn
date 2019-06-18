@@ -1,151 +1,428 @@
 ---
 title: ASP.NET Core 中的模型绑定
 author: tdykstra
-description: 了解 ASP.NET Core MVC 中的模型绑定如何将 HTTP 请求中的数据映射到操作方法参数。
+description: 了解 ASP.NET Core 中模型绑定的工作原理以及如何自定义模型绑定的行为。
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: tdykstra
-ms.date: 11/13/2018
+ms.date: 05/31/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: 1dc9b41328ed78440622acc1865b6f088d394403
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 7d62ccecdacbd34a38a1fd8c58979a9b09cf86e8
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883142"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750202"
 ---
-# <a name="model-binding-in-aspnet-core"></a><span data-ttu-id="55310-103">ASP.NET Core 中的模型绑定</span><span class="sxs-lookup"><span data-stu-id="55310-103">Model Binding in ASP.NET Core</span></span>
+# <a name="model-binding-in-aspnet-core"></a><span data-ttu-id="e635c-103">ASP.NET Core 中的模型绑定</span><span class="sxs-lookup"><span data-stu-id="e635c-103">Model Binding in ASP.NET Core</span></span>
 
-<span data-ttu-id="55310-104">作者：[Rachel Appel](https://github.com/rachelappel)</span><span class="sxs-lookup"><span data-stu-id="55310-104">By [Rachel Appel](https://github.com/rachelappel)</span></span>
+<span data-ttu-id="e635c-104">本文解释了模型绑定的定义、模型绑定的工作原理，以及如何自定义模型绑定的行为。</span><span class="sxs-lookup"><span data-stu-id="e635c-104">This article explains what model binding is, how it works, and how to customize its behavior.</span></span>
 
-## <a name="introduction-to-model-binding"></a><span data-ttu-id="55310-105">模型绑定简介</span><span class="sxs-lookup"><span data-stu-id="55310-105">Introduction to model binding</span></span>
+<span data-ttu-id="e635c-105">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples)（[如何下载](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="e635c-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="55310-106">ASP.NET Core MVC 中的模型绑定将 HTTP 请求中的数据映射到操作方法参数。</span><span class="sxs-lookup"><span data-stu-id="55310-106">Model binding in ASP.NET Core MVC maps data from HTTP requests to action method parameters.</span></span> <span data-ttu-id="55310-107">这些参数可能是简单类型的参数，如字符串、整数或浮点数，也可能是复杂类型的参数。</span><span class="sxs-lookup"><span data-stu-id="55310-107">The parameters may be simple types such as strings, integers, or floats, or they may be complex types.</span></span> <span data-ttu-id="55310-108">这是 MVC 的一项强大功能，因为不管数据的大小和复杂性，将传入数据映射到对应位置都是经常重复的方案。</span><span class="sxs-lookup"><span data-stu-id="55310-108">This is a great feature of MVC because mapping incoming data to a counterpart is an often repeated scenario, regardless of size or complexity of the data.</span></span> <span data-ttu-id="55310-109">MVC 通过将绑定抽象出来解决了这一问题，使开发者不必在每个应用中重写同一代码的稍微不同版本。</span><span class="sxs-lookup"><span data-stu-id="55310-109">MVC solves this problem by abstracting binding away so developers don't have to keep rewriting a slightly different version of that same code in every app.</span></span> <span data-ttu-id="55310-110">向类型转换器代码写入自己的文本不仅繁琐乏味，而且容易出错。</span><span class="sxs-lookup"><span data-stu-id="55310-110">Writing your own text to type converter code is tedious, and error prone.</span></span>
+## <a name="what-is-model-binding"></a><span data-ttu-id="e635c-106">什么是模型绑定</span><span class="sxs-lookup"><span data-stu-id="e635c-106">What is Model binding</span></span>
 
-## <a name="how-model-binding-works"></a><span data-ttu-id="55310-111">模型绑定的工作原理</span><span class="sxs-lookup"><span data-stu-id="55310-111">How model binding works</span></span>
+<span data-ttu-id="e635c-107">控制器和 Razor Pages 处理来自 HTTP 请求的数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-107">Controllers and Razor pages work with data that comes from HTTP requests.</span></span> <span data-ttu-id="e635c-108">例如，路由数据可以提供一个记录键，而发布的表单域可以为模型的属性提供一个值。</span><span class="sxs-lookup"><span data-stu-id="e635c-108">For example, route data may provide a record key, and posted form fields may provide values for the properties of the model.</span></span> <span data-ttu-id="e635c-109">编写代码以检索这些值，并将其从字符串转换为 .NET 类型不仅繁琐，而且还容易出错。</span><span class="sxs-lookup"><span data-stu-id="e635c-109">Writing code to retrieve each of these values and convert them from strings to .NET types would be tedious and error-prone.</span></span> <span data-ttu-id="e635c-110">模型绑定会自动化该过程。</span><span class="sxs-lookup"><span data-stu-id="e635c-110">Model binding automates this process.</span></span> <span data-ttu-id="e635c-111">模型绑定系统：</span><span class="sxs-lookup"><span data-stu-id="e635c-111">The model binding system:</span></span>
 
-<span data-ttu-id="55310-112">当 MVC 收到 HTTP 请求时，它会将此请求路由到控制器的特定操作方法。</span><span class="sxs-lookup"><span data-stu-id="55310-112">When MVC receives an HTTP request, it routes it to a specific action method of a controller.</span></span> <span data-ttu-id="55310-113">它基于路由数据中的内容决定要运行的操作方法，然后将 HTTP 请求中的值绑定到该操作方法的参数。</span><span class="sxs-lookup"><span data-stu-id="55310-113">It determines which action method to run based on what is in the route data, then it binds values from the HTTP request to that action method's parameters.</span></span> <span data-ttu-id="55310-114">以下列 URL 为例：</span><span class="sxs-lookup"><span data-stu-id="55310-114">For example, consider the following URL:</span></span>
+* <span data-ttu-id="e635c-112">从各种源（如路由数据、表单域和查询字符串）中检索数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-112">Retrieves data from various sources such as route data, form fields, and query strings.</span></span>
+* <span data-ttu-id="e635c-113">将数据提供给方法参数和公共属性中的控制器和 Razor Pages。</span><span class="sxs-lookup"><span data-stu-id="e635c-113">Provides the data to controllers and Razor pages in method parameters and public properties.</span></span>
+* <span data-ttu-id="e635c-114">将字符串数据转换为 .NET 类型。</span><span class="sxs-lookup"><span data-stu-id="e635c-114">Converts string data to .NET types.</span></span>
+* <span data-ttu-id="e635c-115">更新复杂类型的属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-115">Updates properties of complex types.</span></span>
 
-`http://contoso.com/movies/edit/2`
+## <a name="example"></a><span data-ttu-id="e635c-116">示例</span><span class="sxs-lookup"><span data-stu-id="e635c-116">Example</span></span>
 
-<span data-ttu-id="55310-115">由于路由模板为 `{controller=Home}/{action=Index}/{id?}`，因此，`movies/edit/2` 将路由到 `Movies` 控制器及其 `Edit` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="55310-115">Since the route template looks like this, `{controller=Home}/{action=Index}/{id?}`, `movies/edit/2` routes to the `Movies` controller, and its `Edit` action method.</span></span> <span data-ttu-id="55310-116">此外，它还接受名为 `id` 的可选参数。</span><span class="sxs-lookup"><span data-stu-id="55310-116">It also accepts an optional parameter called `id`.</span></span> <span data-ttu-id="55310-117">操作方法的代码应如下所示：</span><span class="sxs-lookup"><span data-stu-id="55310-117">The code for the action method should look something like this:</span></span>
+<span data-ttu-id="e635c-117">假设有以下操作方法：</span><span class="sxs-lookup"><span data-stu-id="e635c-117">Suppose you have the following action method:</span></span>
 
-```csharp
-public IActionResult Edit(int? id)
-   ```
+[!code-csharp[](model-binding/samples/2.x/Controllers/PetsController.cs?name=snippet_DogsOnly)]
 
-<span data-ttu-id="55310-118">注意:URL 路由中的字符串不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="55310-118">Note: The strings in the URL route are not case sensitive.</span></span>
+<span data-ttu-id="e635c-118">并且应用收到一个带有以下 URL 的请求：</span><span class="sxs-lookup"><span data-stu-id="e635c-118">And the app receives a request with this URL:</span></span>
 
-<span data-ttu-id="55310-119">MVC 将尝试按名称将请求数据绑定到操作参数。</span><span class="sxs-lookup"><span data-stu-id="55310-119">MVC will try to bind request data to the action parameters by name.</span></span> <span data-ttu-id="55310-120">MVC 将使用参数名称和其公共可设置属性的名称查找每个参数的值。</span><span class="sxs-lookup"><span data-stu-id="55310-120">MVC will look for values for each parameter using the parameter name and the names of its public settable properties.</span></span> <span data-ttu-id="55310-121">在以上示例中，唯一的操作参数名为 `id`，MVC 会将此参数绑定到路由值中具有相同名称的值。</span><span class="sxs-lookup"><span data-stu-id="55310-121">In the above example, the only action parameter is named `id`, which MVC binds to the value with the same name in the route values.</span></span> <span data-ttu-id="55310-122">除路由值外，MVC 还会绑定来自请求各个部分的数据，并按一定顺序执行此操作。</span><span class="sxs-lookup"><span data-stu-id="55310-122">In addition to route values MVC will bind data from various parts of the request and it does so in a set order.</span></span> <span data-ttu-id="55310-123">下面是一个数据源列表（按模型绑定查看的顺序排列）：</span><span class="sxs-lookup"><span data-stu-id="55310-123">Below is a list of the data sources in the order that model binding looks through them:</span></span>
-
-1. <span data-ttu-id="55310-124">`Form values`：这些是使用 POST 方法进入 HTTP 请求的窗体值。</span><span class="sxs-lookup"><span data-stu-id="55310-124">`Form values`: These are form values that go in the HTTP request using the POST method.</span></span> <span data-ttu-id="55310-125">（包括 jQuery POST 请求）。</span><span class="sxs-lookup"><span data-stu-id="55310-125">(including jQuery POST requests).</span></span>
-
-2. <span data-ttu-id="55310-126">`Route values`：[路由](xref:fundamentals/routing)提供的路由值集</span><span class="sxs-lookup"><span data-stu-id="55310-126">`Route values`: The set of route values provided by [Routing](xref:fundamentals/routing)</span></span>
-
-3. <span data-ttu-id="55310-127">`Query strings`：URI 的查询字符串部分。</span><span class="sxs-lookup"><span data-stu-id="55310-127">`Query strings`: The query string part of the URI.</span></span>
-
-<!-- DocFX BUG
-The link works but generates an error when building with DocFX
-@fundamentals/routing
-[Routing](xref:fundamentals/routing)
--->
-
-<span data-ttu-id="55310-128">注意:窗体值、路由数据和查询字符串均存储为名称/值对。</span><span class="sxs-lookup"><span data-stu-id="55310-128">Note: Form values, route data, and query strings are all stored as name-value pairs.</span></span>
-
-<span data-ttu-id="55310-129">由于模型绑定请求名为 `id` 的键，而窗体值中没有任何名为 `id` 的键，因此，它将转到路由值以查找该键。</span><span class="sxs-lookup"><span data-stu-id="55310-129">Since model binding asked for a key named `id` and there's nothing named `id` in the form values, it moved on to the route values looking for that key.</span></span> <span data-ttu-id="55310-130">在本示例中，该键是一个匹配项。</span><span class="sxs-lookup"><span data-stu-id="55310-130">In our example, it's a match.</span></span> <span data-ttu-id="55310-131">发生绑定，并且值被转换为整数 2。</span><span class="sxs-lookup"><span data-stu-id="55310-131">Binding happens, and the value is converted to the integer 2.</span></span> <span data-ttu-id="55310-132">使用 Edit(string id) 的同一请求将转换为字符串“2”。</span><span class="sxs-lookup"><span data-stu-id="55310-132">The same request using Edit(string id) would convert to the string "2".</span></span>
-
-<span data-ttu-id="55310-133">到目前为止，示例使用的都是简单类型。</span><span class="sxs-lookup"><span data-stu-id="55310-133">So far the example uses simple types.</span></span> <span data-ttu-id="55310-134">在 MVC 中，简单类型是任何 .NET 基元类型或包含字符串类型转换器的类型。</span><span class="sxs-lookup"><span data-stu-id="55310-134">In MVC simple types are any .NET primitive type or type with a string type converter.</span></span> <span data-ttu-id="55310-135">如果操作方法的参数是一个属性为简单类型和复杂类型的类，如 `Movie` 类型，则 MVC 的模型绑定仍可对其进行妥善处理。</span><span class="sxs-lookup"><span data-stu-id="55310-135">If the action method's parameter were a class such as the `Movie` type, which contains both simple and complex types as properties, MVC's model binding will still handle it nicely.</span></span> <span data-ttu-id="55310-136">它使用反射和递归来遍历查找匹配项的复杂类型的属性。</span><span class="sxs-lookup"><span data-stu-id="55310-136">It uses reflection and recursion to traverse the properties of complex types looking for matches.</span></span> <span data-ttu-id="55310-137">模型绑定查找模式 parameter_name.property_name 以将值绑定到属性 。</span><span class="sxs-lookup"><span data-stu-id="55310-137">Model binding looks for the pattern *parameter_name.property_name* to bind values to properties.</span></span> <span data-ttu-id="55310-138">如果未找到此窗体的匹配值，它将尝试仅使用属性名称进行绑定。</span><span class="sxs-lookup"><span data-stu-id="55310-138">If it doesn't find matching values of this form, it will attempt to bind using just the property name.</span></span> <span data-ttu-id="55310-139">对于诸如 `Collection` 类型的类型，模型绑定将查找 parameter_name[index] 或仅 [index] 的匹配项。</span><span class="sxs-lookup"><span data-stu-id="55310-139">For those types such as `Collection` types, model binding looks for matches to *parameter_name[index]* or just *[index]*.</span></span> <span data-ttu-id="55310-140">对于 `Dictionary` 类型，模型绑定的处理方法与之类似，即请求 parameter_name[key] 或仅 [key]（只要键是简单类型）。</span><span class="sxs-lookup"><span data-stu-id="55310-140">Model binding treats  `Dictionary` types similarly, asking for *parameter_name[key]* or just *[key]*, as long as the keys are simple types.</span></span> <span data-ttu-id="55310-141">受支持的键匹配字段名称 HTML 和针对相同模型类型生成的标记帮助程序。</span><span class="sxs-lookup"><span data-stu-id="55310-141">Keys that are supported match the field names HTML and tag helpers generated for the same model type.</span></span> <span data-ttu-id="55310-142">这样就可以启用往返值，以便用户仍能方便地输入内容来填充窗体字段，例如当创建或编辑的绑定数据未通过验证时。</span><span class="sxs-lookup"><span data-stu-id="55310-142">This enables round-tripping values so that the form fields remain filled with the user's input for their convenience, for example, when bound data from a create or edit didn't pass validation.</span></span>
-
-<span data-ttu-id="55310-143">若要实现模型绑定，该类必须具有要绑定的公共默认构造函数和公共可写属性。</span><span class="sxs-lookup"><span data-stu-id="55310-143">To make model binding possible, the class must have a public default constructor and public writable properties to bind.</span></span> <span data-ttu-id="55310-144">发生模型绑定时，在使用公共默认构造函数对类进行实例化后才可设置属性。</span><span class="sxs-lookup"><span data-stu-id="55310-144">When model binding occurs, the class is instantiated using the public default constructor, then the properties can be set.</span></span>
-
-<span data-ttu-id="55310-145">绑定参数时，模型绑定将停止查找具有该名称的值并向前移动以绑定下一个参数。</span><span class="sxs-lookup"><span data-stu-id="55310-145">When a parameter is bound, model binding stops looking for values with that name and it moves on to bind the next parameter.</span></span> <span data-ttu-id="55310-146">否则，默认模型绑定行为将根据参数的类型将参数设置为其默认值：</span><span class="sxs-lookup"><span data-stu-id="55310-146">Otherwise, the default model binding behavior sets parameters to their default values depending on their type:</span></span>
-
-* <span data-ttu-id="55310-147">`T[]`：除 `byte[]` 类型的数组外，绑定将 `T[]` 类型的参数设置为 `Array.Empty<T>()`。</span><span class="sxs-lookup"><span data-stu-id="55310-147">`T[]`: With the exception of arrays of type `byte[]`, binding sets parameters of type `T[]` to `Array.Empty<T>()`.</span></span> <span data-ttu-id="55310-148">`byte[]` 类型的数组设置为 `null`。</span><span class="sxs-lookup"><span data-stu-id="55310-148">Arrays of type `byte[]` are set to `null`.</span></span>
-
-* <span data-ttu-id="55310-149">引用类型：绑定通过默认构造函数创建类的实例，而不设置属性。</span><span class="sxs-lookup"><span data-stu-id="55310-149">Reference Types: Binding creates an instance of a class with the default constructor without setting properties.</span></span> <span data-ttu-id="55310-150">但是，模型绑定将 `string` 参数设置为 `null`。</span><span class="sxs-lookup"><span data-stu-id="55310-150">However, model binding sets `string` parameters to `null`.</span></span>
-
-* <span data-ttu-id="55310-151">可以为 null 的类型：可以为 null 的类型设置为 `null`。</span><span class="sxs-lookup"><span data-stu-id="55310-151">Nullable Types: Nullable types are set to `null`.</span></span> <span data-ttu-id="55310-152">在上面的示例中，模型绑定将 `id` 设置为 `null`，因为其类型为 `int?`。</span><span class="sxs-lookup"><span data-stu-id="55310-152">In the above example, model binding sets `id` to `null` since it's of type `int?`.</span></span>
-
-* <span data-ttu-id="55310-153">值类型：`T` 类型的不可以为 null 的值类型设置为 `default(T)`。</span><span class="sxs-lookup"><span data-stu-id="55310-153">Value Types: Non-nullable value types of type `T` are set to `default(T)`.</span></span> <span data-ttu-id="55310-154">例如，模型绑定将参数 `int id` 设置为 0。</span><span class="sxs-lookup"><span data-stu-id="55310-154">For example, model binding will set a parameter `int id` to 0.</span></span> <span data-ttu-id="55310-155">请考虑使用模型验证或可以为 null 的类型，而不是依赖于默认值。</span><span class="sxs-lookup"><span data-stu-id="55310-155">Consider using model validation or nullable types rather than relying on default values.</span></span>
-
-<span data-ttu-id="55310-156">如果绑定失败，MVC 不会引发错误。</span><span class="sxs-lookup"><span data-stu-id="55310-156">If binding fails, MVC doesn't throw an error.</span></span> <span data-ttu-id="55310-157">接受用户输入的每个操作均应检查 `ModelState.IsValid` 属性。</span><span class="sxs-lookup"><span data-stu-id="55310-157">Every action which accepts user input should check the `ModelState.IsValid` property.</span></span>
-
-<span data-ttu-id="55310-158">注意:控制器的 `ModelState` 属性中的每个条目均为包含 `Errors` 属性的 `ModelStateEntry`。</span><span class="sxs-lookup"><span data-stu-id="55310-158">Note: Each entry in the controller's `ModelState` property is a `ModelStateEntry` containing an `Errors` property.</span></span> <span data-ttu-id="55310-159">很少需要自行查询此集合。</span><span class="sxs-lookup"><span data-stu-id="55310-159">It's rarely necessary to query this collection yourself.</span></span> <span data-ttu-id="55310-160">请改用 `ModelState.IsValid`。</span><span class="sxs-lookup"><span data-stu-id="55310-160">Use `ModelState.IsValid` instead.</span></span>
-
-<span data-ttu-id="55310-161">此外，MVC 在执行模型绑定时必须考虑一些特殊数据类型：</span><span class="sxs-lookup"><span data-stu-id="55310-161">Additionally, there are some special data types that MVC must consider when performing model binding:</span></span>
-
-* <span data-ttu-id="55310-162">`IFormFile`、`IEnumerable<IFormFile>`：作为 HTTP 请求一部分的一个或多个已上传文件。</span><span class="sxs-lookup"><span data-stu-id="55310-162">`IFormFile`, `IEnumerable<IFormFile>`: One or more uploaded files that are part of the HTTP request.</span></span>
-
-* <span data-ttu-id="55310-163">`CancellationToken`：用于取消异步控制器中的活动。</span><span class="sxs-lookup"><span data-stu-id="55310-163">`CancellationToken`: Used to cancel activity in asynchronous controllers.</span></span>
-
-<span data-ttu-id="55310-164">这些类型可绑定到操作参数或类类型的属性。</span><span class="sxs-lookup"><span data-stu-id="55310-164">These types can be bound to action parameters or to properties on a class type.</span></span>
-
-<span data-ttu-id="55310-165">模型绑定完成后，将发生[验证](validation.md)。</span><span class="sxs-lookup"><span data-stu-id="55310-165">Once model binding is complete, [Validation](validation.md) occurs.</span></span> <span data-ttu-id="55310-166">对于绝大多数开发方案，默认模型绑定效果极佳。</span><span class="sxs-lookup"><span data-stu-id="55310-166">Default model binding works great for the vast majority of development scenarios.</span></span> <span data-ttu-id="55310-167">它还可以扩展，因此如果你有特殊需求，则可自定义内置行为。</span><span class="sxs-lookup"><span data-stu-id="55310-167">It's also extensible so if you have unique needs you can customize the built-in behavior.</span></span>
-
-## <a name="customize-model-binding-behavior-with-attributes"></a><span data-ttu-id="55310-168">通过特性自定义模型绑定行为</span><span class="sxs-lookup"><span data-stu-id="55310-168">Customize model binding behavior with attributes</span></span>
-
-<span data-ttu-id="55310-169">MVC 包含多种特性，可用于将其默认模型绑定行为定向到不同的源。</span><span class="sxs-lookup"><span data-stu-id="55310-169">MVC contains several attributes that you can use to direct its default model binding behavior to a different source.</span></span> <span data-ttu-id="55310-170">例如，可以使用 `[BindRequired]` 或 `[BindNever]` 特性指定属性是否需要绑定，或绑定是否根本不应发生。</span><span class="sxs-lookup"><span data-stu-id="55310-170">For example, you can specify whether binding is required for a property, or if it should never happen at all by using the `[BindRequired]` or `[BindNever]` attributes.</span></span> <span data-ttu-id="55310-171">或者，可以替代默认数据源，并指定模型绑定器的数据源。</span><span class="sxs-lookup"><span data-stu-id="55310-171">Alternatively, you can override the default data source, and specify the model binder's data source.</span></span> <span data-ttu-id="55310-172">下面是模型绑定特性的列表：</span><span class="sxs-lookup"><span data-stu-id="55310-172">Below is a list of model binding attributes:</span></span>
-
-* <span data-ttu-id="55310-173">`[BindRequired]`：如果无法发生绑定，此特性将添加模型状态错误。</span><span class="sxs-lookup"><span data-stu-id="55310-173">`[BindRequired]`: This attribute adds a model state error if binding cannot occur.</span></span>
-
-* <span data-ttu-id="55310-174">`[BindNever]`：指示模型绑定器从不绑定到此参数。</span><span class="sxs-lookup"><span data-stu-id="55310-174">`[BindNever]`: Tells the model binder to never bind to this parameter.</span></span>
-
-* <span data-ttu-id="55310-175">`[FromHeader]`、`[FromQuery]`、`[FromRoute]`、`[FromForm]`：使用这些特性指定要应用的确切绑定源。</span><span class="sxs-lookup"><span data-stu-id="55310-175">`[FromHeader]`, `[FromQuery]`, `[FromRoute]`, `[FromForm]`: Use these to specify the exact binding source you want to apply.</span></span>
-
-* <span data-ttu-id="55310-176">`[FromServices]`：此特性使用[依赖关系注入](../../fundamentals/dependency-injection.md)绑定服务中的参数。</span><span class="sxs-lookup"><span data-stu-id="55310-176">`[FromServices]`: This attribute uses [dependency injection](../../fundamentals/dependency-injection.md) to bind parameters from services.</span></span>
-
-* <span data-ttu-id="55310-177">`[FromBody]`：使用配置的格式化程序绑定请求正文中的数据。</span><span class="sxs-lookup"><span data-stu-id="55310-177">`[FromBody]`: Use the configured formatters to bind data from the request body.</span></span> <span data-ttu-id="55310-178">基于请求的内容类型，选择格式化程序。</span><span class="sxs-lookup"><span data-stu-id="55310-178">The formatter is selected based on content type of the request.</span></span>
-
-* <span data-ttu-id="55310-179">`[ModelBinder]`：用于替代默认模型绑定器、绑定源和名称。</span><span class="sxs-lookup"><span data-stu-id="55310-179">`[ModelBinder]`: Used to override the default model binder, binding source and name.</span></span>
-
-<span data-ttu-id="55310-180">需要替代模型绑定的默认行为时，特性是非常有用的工具。</span><span class="sxs-lookup"><span data-stu-id="55310-180">Attributes are very helpful tools when you need to override the default behavior of model binding.</span></span>
-
-## <a name="customize-model-binding-and-validation-globally"></a><span data-ttu-id="55310-181">全局自定义模型绑定和验证</span><span class="sxs-lookup"><span data-stu-id="55310-181">Customize model binding and validation globally</span></span>
-
-<span data-ttu-id="55310-182">由 [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata) 驱动模型绑定和验证系统的行为，该行为描述：</span><span class="sxs-lookup"><span data-stu-id="55310-182">The model binding and validation system's behavior is driven by [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata) that describes:</span></span>
-
-* <span data-ttu-id="55310-183">如何绑定模型。</span><span class="sxs-lookup"><span data-stu-id="55310-183">How a model is to be bound.</span></span>
-* <span data-ttu-id="55310-184">如何验证类型及其属性。</span><span class="sxs-lookup"><span data-stu-id="55310-184">How validation occurs on the type and its properties.</span></span>
-
-<span data-ttu-id="55310-185">通过向 [MvcOptions.ModelMetadataDetailsProviders](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions.modelmetadatadetailsproviders#Microsoft_AspNetCore_Mvc_MvcOptions_ModelMetadataDetailsProviders) 添加详细信息提供程序，可以全局配置系统行为的各个方面。</span><span class="sxs-lookup"><span data-stu-id="55310-185">Aspects of the system's behavior can be configured globally by adding a details provider to [MvcOptions.ModelMetadataDetailsProviders](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions.modelmetadatadetailsproviders#Microsoft_AspNetCore_Mvc_MvcOptions_ModelMetadataDetailsProviders).</span></span> <span data-ttu-id="55310-186">MVC 有一些内置的详细信息提供程序，可通过它们配置禁用模型绑定或验证某些类型等行为。</span><span class="sxs-lookup"><span data-stu-id="55310-186">MVC has a few built-in details providers that allow configuring behavior such as disabling model binding or validation for certain types.</span></span>
-
-<span data-ttu-id="55310-187">若要禁用对特定类型的所有模型的模型绑定，请在 `Startup.ConfigureServices` 中添加 [ExcludeBindingMetadataProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.excludebindingmetadataprovider)。</span><span class="sxs-lookup"><span data-stu-id="55310-187">To disable model binding on all models of a certain type, add an [ExcludeBindingMetadataProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.excludebindingmetadataprovider) in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="55310-188">例如，禁用对 `System.Version` 类型的所有模型的模型绑定：</span><span class="sxs-lookup"><span data-stu-id="55310-188">For example, to disable model binding on all models of type `System.Version`:</span></span>
-
-```csharp
-services.AddMvc().AddMvcOptions(options =>
-    options.ModelMetadataDetailsProviders.Add(
-        new ExcludeBindingMetadataProvider(typeof(System.Version))));
+```
+http://contoso.com/api/pets/2?DogsOnly=true
 ```
 
-<span data-ttu-id="55310-189">要禁用对特定类型的属性的验证，请在 `Startup.ConfigureServices` 中添加 [SuppressChildValidationMetadataProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.suppresschildvalidationmetadataprovider)。</span><span class="sxs-lookup"><span data-stu-id="55310-189">To disable validation on properties of a certain type, add a [SuppressChildValidationMetadataProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.suppresschildvalidationmetadataprovider) in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="55310-190">例如，禁用对 `System.Guid` 类型的属性的验证：</span><span class="sxs-lookup"><span data-stu-id="55310-190">For example, to disable validation on properties of type `System.Guid`:</span></span>
+<span data-ttu-id="e635c-119">在路由系统选择该操作方法之后，模型绑定执行以下步骤：</span><span class="sxs-lookup"><span data-stu-id="e635c-119">Model binding goes though the following steps after the routing system selects the action method:</span></span>
+
+* <span data-ttu-id="e635c-120">查找 `GetByID` 的第一个参数，该参数是一个名为 `id` 的整数。</span><span class="sxs-lookup"><span data-stu-id="e635c-120">Finds the first parameter of `GetByID`, an integer named `id`.</span></span>
+* <span data-ttu-id="e635c-121">查找 HTTP 请求中的可用源，并在路由数据中查找 `id` =“2”。</span><span class="sxs-lookup"><span data-stu-id="e635c-121">Looks through the available sources in the HTTP request and finds `id` = "2" in route data.</span></span>
+* <span data-ttu-id="e635c-122">将字符串“2”转换为整数 2。</span><span class="sxs-lookup"><span data-stu-id="e635c-122">Converts the string "2" into integer 2.</span></span>
+* <span data-ttu-id="e635c-123">查找 `GetByID` 的下一个参数，该参数是一个名为 `dogsOnly` 的布尔值。</span><span class="sxs-lookup"><span data-stu-id="e635c-123">Finds the next parameter of `GetByID`, a boolean named `dogsOnly`.</span></span>
+* <span data-ttu-id="e635c-124">查找源，并在查询字符串中查找“DogsOnly=true”。</span><span class="sxs-lookup"><span data-stu-id="e635c-124">Looks through the sources and finds "DogsOnly=true" in the query string.</span></span> <span data-ttu-id="e635c-125">名称匹配不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="e635c-125">Name matching is not case-sensitive.</span></span>
+* <span data-ttu-id="e635c-126">将字符串“true”转换为布尔值 `true`。</span><span class="sxs-lookup"><span data-stu-id="e635c-126">Converts the string "true" into boolean `true`.</span></span>
+
+<span data-ttu-id="e635c-127">然后，该框架会调用 `GetById` 方法，为 `id` 参数传入 2，并为 `dogsOnly` 参数传入 `true`。</span><span class="sxs-lookup"><span data-stu-id="e635c-127">The framework then calls the `GetById` method, passing in 2 for the `id` parameter, and `true` for the `dogsOnly` parameter.</span></span>
+
+<span data-ttu-id="e635c-128">在前面的示例中，模型绑定目标是简单类型的方法参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-128">In the preceding example, the model binding targets are method parameters that are simple types.</span></span> <span data-ttu-id="e635c-129">目标也可以是复杂类型的属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-129">Targets may also be the properties of a complex type.</span></span> <span data-ttu-id="e635c-130">成功绑定每个属性后，将对属性进行[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="e635c-130">After each property is successfully bound, [model validation](xref:mvc/models/validation) occurs for that property.</span></span> <span data-ttu-id="e635c-131">有关绑定到模型的数据以及任意绑定或验证错误的记录都存储在 [ControllerBase.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) 或 [PageModel.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) 中。</span><span class="sxs-lookup"><span data-stu-id="e635c-131">The record of what data is bound to the model, and any binding or validation errors, is stored in [ControllerBase.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) or [PageModel.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState).</span></span> <span data-ttu-id="e635c-132">为查明该过程是否已成功，应用会检查 [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) 标志。</span><span class="sxs-lookup"><span data-stu-id="e635c-132">To find out if this process was successful, the app checks the [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) flag.</span></span>
+
+## <a name="targets"></a><span data-ttu-id="e635c-133">目标</span><span class="sxs-lookup"><span data-stu-id="e635c-133">Targets</span></span>
+
+<span data-ttu-id="e635c-134">模型绑定尝试查找以下类型目标的值：</span><span class="sxs-lookup"><span data-stu-id="e635c-134">Model binding tries to find values for the following kinds of targets:</span></span>
+
+* <span data-ttu-id="e635c-135">将请求路由到的控制器操作方法的参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-135">Parameters of the controller action method that a request is routed to.</span></span>
+* <span data-ttu-id="e635c-136">将请求路由到的 Razor Pages 处理程序方法的参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-136">Parameters of the Razor Pages handler method that a request is routed to.</span></span> 
+* <span data-ttu-id="e635c-137">控制器或 `PageModel` 类的公共属性（若由特性指定）。</span><span class="sxs-lookup"><span data-stu-id="e635c-137">Public properties of a controller or `PageModel` class, if specified by attributes.</span></span>
+
+### <a name="bindproperty-attribute"></a><span data-ttu-id="e635c-138">[BindProperty] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-138">[BindProperty] attribute</span></span>
+
+<span data-ttu-id="e635c-139">可应用于控制器或 `PageModel` 类的公共属性，从而使模型绑定以该属性为目标：</span><span class="sxs-lookup"><span data-stu-id="e635c-139">Can be applied to a public property of a controller or `PageModel` class to cause model binding to target that property:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Edit.cshtml.cs?name=snippet_BindProperty&highlight=7-8)]
+
+### <a name="bindpropertiesattribute"></a><span data-ttu-id="e635c-140">[BindProperties] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-140">[BindProperties] attribute</span></span>
+
+<span data-ttu-id="e635c-141">可在 ASP.NET Core 2.1 及更高版本中获得。</span><span class="sxs-lookup"><span data-stu-id="e635c-141">Available in ASP.NET Core 2.1 and later.</span></span>  <span data-ttu-id="e635c-142">可应用于控制器或 `PageModel` 类，以使模型绑定以该类的所有公共属性为目标：</span><span class="sxs-lookup"><span data-stu-id="e635c-142">Can be applied to a controller or `PageModel` class to tell model binding to target all public properties of the class:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Create.cshtml.cs?name=snippet_BindProperties&highlight=1-2)]
+
+### <a name="model-binding-for-http-get-requests"></a><span data-ttu-id="e635c-143">HTTP GET 请求的模型绑定</span><span class="sxs-lookup"><span data-stu-id="e635c-143">Model binding for HTTP GET requests</span></span>
+
+<span data-ttu-id="e635c-144">默认情况下，不绑定 HTTP GET 请求的属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-144">By default, properties are not bound for HTTP GET requests.</span></span> <span data-ttu-id="e635c-145">通常，GET 请求只需一个记录 ID 参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-145">Typically, all you need for a GET request is a record ID parameter.</span></span> <span data-ttu-id="e635c-146">记录 ID 用于查找数据库中的项。</span><span class="sxs-lookup"><span data-stu-id="e635c-146">The record ID is used to look up the item in the database.</span></span> <span data-ttu-id="e635c-147">因此，无需绑定包含模型实例的属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-147">Therefore, there is no need to bind a property that holds an instance of the model.</span></span> <span data-ttu-id="e635c-148">在需要将属性绑定到 GET 请求中的数据的情况下，请将 `SupportsGet` 属性设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="e635c-148">In scenarios where you do want properties bound to data from GET requests, set the `SupportsGet` property to `true`:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Index.cshtml.cs?name=snippet_SupportsGet)]
+
+## <a name="sources"></a><span data-ttu-id="e635c-149">源</span><span class="sxs-lookup"><span data-stu-id="e635c-149">Sources</span></span>
+
+<span data-ttu-id="e635c-150">默认情况下，模型绑定以键值对的形式从 HTTP 请求中的以下源中获取数据：</span><span class="sxs-lookup"><span data-stu-id="e635c-150">By default, model binding gets data in the form of key-value pairs from the following sources in an HTTP request:</span></span>
+
+1. <span data-ttu-id="e635c-151">表单域</span><span class="sxs-lookup"><span data-stu-id="e635c-151">Form fields</span></span> 
+1. <span data-ttu-id="e635c-152">请求正文（对于[具有 [ApiController] 属性的控制器](xref:web-api/index#binding-source-parameter-inference)。）</span><span class="sxs-lookup"><span data-stu-id="e635c-152">The request body (For [controllers that have the [ApiController] attribute](xref:web-api/index#binding-source-parameter-inference).)</span></span>
+1. <span data-ttu-id="e635c-153">路由数据</span><span class="sxs-lookup"><span data-stu-id="e635c-153">Route data</span></span>
+1. <span data-ttu-id="e635c-154">查询字符串参数</span><span class="sxs-lookup"><span data-stu-id="e635c-154">Query string parameters</span></span>
+1. <span data-ttu-id="e635c-155">上传的文件</span><span class="sxs-lookup"><span data-stu-id="e635c-155">Uploaded files</span></span> 
+
+<span data-ttu-id="e635c-156">对于每个目标参数或属性，将按此列表中指示的顺序扫描源。</span><span class="sxs-lookup"><span data-stu-id="e635c-156">For each target parameter or property, the sources are scanned in the order indicated in this list.</span></span> <span data-ttu-id="e635c-157">有几个例外情况：</span><span class="sxs-lookup"><span data-stu-id="e635c-157">There are a few exceptions:</span></span>
+
+* <span data-ttu-id="e635c-158">路由数据和查询字符串值仅用于简单类型。</span><span class="sxs-lookup"><span data-stu-id="e635c-158">Route data and query string values are used only for simple types.</span></span>
+* <span data-ttu-id="e635c-159">上传的文件仅绑定到实现 `IFormFile` 或 `IEnumerable<IFormFile>` 的目标类型。</span><span class="sxs-lookup"><span data-stu-id="e635c-159">Uploaded files are bound only to target types that implement `IFormFile` or `IEnumerable<IFormFile>`.</span></span>
+
+<span data-ttu-id="e635c-160">如果默认行为没有给出正确结果，则可以使用以下某种属性来指定用于任意给定目标的源。</span><span class="sxs-lookup"><span data-stu-id="e635c-160">If the default behavior doesn't give the right results, you can use one of the following attributes to specify the source to use for any given target.</span></span> 
+
+* <span data-ttu-id="e635c-161">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) - 从查询字符串中获取值。</span><span class="sxs-lookup"><span data-stu-id="e635c-161">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) - Gets values from the query string.</span></span> 
+* <span data-ttu-id="e635c-162">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) - 从路由数据中获取值。</span><span class="sxs-lookup"><span data-stu-id="e635c-162">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) - Gets values from route data.</span></span>
+* <span data-ttu-id="e635c-163">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) - 从发布的表单域中获取值。</span><span class="sxs-lookup"><span data-stu-id="e635c-163">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) - Gets values from posted form fields.</span></span>
+* <span data-ttu-id="e635c-164">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) - 从请求正文中获取值。</span><span class="sxs-lookup"><span data-stu-id="e635c-164">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) - Gets values from the request body.</span></span>
+* <span data-ttu-id="e635c-165">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) - 从 HTTP 标头中获取值。</span><span class="sxs-lookup"><span data-stu-id="e635c-165">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) - Gets values from HTTP headers.</span></span>
+
+<span data-ttu-id="e635c-166">这些属性：</span><span class="sxs-lookup"><span data-stu-id="e635c-166">These attributes:</span></span>
+
+* <span data-ttu-id="e635c-167">分别添加到模型属性（而不是模型类），如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="e635c-167">Are added to model properties individually (not to the model class), as in the following example:</span></span>
+
+  [!code-csharp[](model-binding/samples/2.x/Models/Instructor.cs?name=snippet_FromQuery&highlight=5-6)]
+
+* <span data-ttu-id="e635c-168">选择性地在构造函数中接受模型名称值。</span><span class="sxs-lookup"><span data-stu-id="e635c-168">Optionally accept a model name value in the constructor.</span></span> <span data-ttu-id="e635c-169">提供此选项的目的是应对属性名称与请求中的值不匹配的情况。</span><span class="sxs-lookup"><span data-stu-id="e635c-169">This option is provided in case the property name doesn't match the value in the request.</span></span> <span data-ttu-id="e635c-170">例如，请求中的值可能是名称中带有连字符的标头，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="e635c-170">For instance, the value in the request might be a header with a hyphen in its name, as in the following example:</span></span>
+
+  [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Index.cshtml.cs?name=snippet_FromHeader)]
+
+### <a name="frombody-attribute"></a><span data-ttu-id="e635c-171">[FromBody] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-171">[FromBody] attribute</span></span>
+
+<span data-ttu-id="e635c-172">使用特定于请求内容类型的输入格式化程序来分析请求正文数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-172">The request body data is parsed by using input formatters specific to the content type of the request.</span></span> <span data-ttu-id="e635c-173">输入格式化程序的解释位于[本文后面部分](#input-formatters)。</span><span class="sxs-lookup"><span data-stu-id="e635c-173">Input formatters are explained [later in this article](#input-formatters).</span></span>
+
+<span data-ttu-id="e635c-174">不要将 `[FromBody]` 应用于每个操作方法的多个参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-174">Don't apply `[FromBody]` to more than one parameter per action method.</span></span> <span data-ttu-id="e635c-175">ASP.NET Core 运行时将读取请求流的责任委托给输入格式化程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-175">The ASP.NET Core runtime delegates the responsibility of reading the request stream to the input formatter.</span></span> <span data-ttu-id="e635c-176">读取请求流后，无法再次读取该请求来绑定其他 `[FromBody]` 参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-176">Once the request stream is read, it's no longer available to be read again for binding other `[FromBody]` parameters.</span></span>
+
+### <a name="additional-sources"></a><span data-ttu-id="e635c-177">其他源</span><span class="sxs-lookup"><span data-stu-id="e635c-177">Additional sources</span></span>
+
+<span data-ttu-id="e635c-178">源数据由“值提供程序”提供给模型绑定系统  。</span><span class="sxs-lookup"><span data-stu-id="e635c-178">Source data is provided to the model binding system by *value providers*.</span></span> <span data-ttu-id="e635c-179">你可以编写并注册自定义值提供程序，这些提供程序从其他源中获取用于模型绑定的数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-179">You can write and register custom value providers that get data for model binding from other sources.</span></span> <span data-ttu-id="e635c-180">例如，你可能需要来自 Cookie 或会话状态的数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-180">For example, you might want data from cookies or session state.</span></span> <span data-ttu-id="e635c-181">要从新的源中获取数据，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="e635c-181">To get data from a new source:</span></span>
+
+* <span data-ttu-id="e635c-182">创建用于实现 `IValueProvider` 的类。</span><span class="sxs-lookup"><span data-stu-id="e635c-182">Create a class that implements `IValueProvider`.</span></span>
+* <span data-ttu-id="e635c-183">创建用于实现 `IValueProviderFactory` 的类。</span><span class="sxs-lookup"><span data-stu-id="e635c-183">Create a class that implements `IValueProviderFactory`.</span></span>
+* <span data-ttu-id="e635c-184">在 `Startup.ConfigureServices` 中注册工厂类。</span><span class="sxs-lookup"><span data-stu-id="e635c-184">Register the factory class in `Startup.ConfigureServices`.</span></span>
+
+<span data-ttu-id="e635c-185">示例应用包括从 Cookie 中获取值的 [值提供程序](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProvider.cs)和[工厂](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProviderFactory.cs)示例。</span><span class="sxs-lookup"><span data-stu-id="e635c-185">The sample app includes a [value provider](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProvider.cs) and [factory](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProviderFactory.cs) example that gets values from cookies.</span></span> <span data-ttu-id="e635c-186">以下是 `Startup.ConfigureServices` 中的注册代码：</span><span class="sxs-lookup"><span data-stu-id="e635c-186">Here's the registration code in `Startup.ConfigureServices`:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=3)]
+
+<span data-ttu-id="e635c-187">所示代码将自定义值提供程序置于所有内置值提供程序之后。</span><span class="sxs-lookup"><span data-stu-id="e635c-187">The code shown puts the custom value provider after all the built-in value providers.</span></span>  <span data-ttu-id="e635c-188">要将其置于列表中的首位，请调用 `Insert(0, new CookieValueProviderFactory())` 而不是 `Add`。</span><span class="sxs-lookup"><span data-stu-id="e635c-188">To make it the first in the list, call `Insert(0, new CookieValueProviderFactory())` instead of `Add`.</span></span>
+
+## <a name="no-source-for-a-model-property"></a><span data-ttu-id="e635c-189">不存在模型属性的源</span><span class="sxs-lookup"><span data-stu-id="e635c-189">No source for a model property</span></span>
+
+<span data-ttu-id="e635c-190">默认情况下，如果找不到模型属性的值，则不会创建模型状态错误。</span><span class="sxs-lookup"><span data-stu-id="e635c-190">By default, a model state error isn't created if no value is found for a model property.</span></span> <span data-ttu-id="e635c-191">该属性设置为 NULL 或默认值：</span><span class="sxs-lookup"><span data-stu-id="e635c-191">The property is set to null or a default value:</span></span>
+
+* <span data-ttu-id="e635c-192">可以为 Null 的简单类型设置为 `null`。</span><span class="sxs-lookup"><span data-stu-id="e635c-192">Nullable simple types are set to `null`.</span></span>
+* <span data-ttu-id="e635c-193">不可以为 Null 的值类型设置为 `default(T)`。</span><span class="sxs-lookup"><span data-stu-id="e635c-193">Non-nullable value types are set to `default(T)`.</span></span> <span data-ttu-id="e635c-194">例如，参数 `int id` 设置为 0。</span><span class="sxs-lookup"><span data-stu-id="e635c-194">For example, a parameter `int id` is set to 0.</span></span>
+* <span data-ttu-id="e635c-195">对于复杂类型，模型绑定使用默认构造函数来创建实例，而不设置属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-195">For complex Types, model binding creates an instance by using the default constructor, without setting properties.</span></span>
+* <span data-ttu-id="e635c-196">数组设置为 `Array.Empty<T>()`，但 `byte[]` 数组设置为 `null`。</span><span class="sxs-lookup"><span data-stu-id="e635c-196">Arrays are set to `Array.Empty<T>()`, except that `byte[]` arrays are set to `null`.</span></span>
+
+<span data-ttu-id="e635c-197">如果在模型属性的表单域中找不到任何内容时，模型状态应无效，请使用 [[BindRequired] 属性](#bindrequired-attribute)。</span><span class="sxs-lookup"><span data-stu-id="e635c-197">If model state should be invalidated when nothing is found in form fields for a model property, use the [[BindRequired] attribute](#bindrequired-attribute).</span></span>
+
+<span data-ttu-id="e635c-198">请注意，此 `[BindRequired]` 行为适用于发布的表单数据中的模型绑定，而不适用于请求正文中的 JSON 或 XML 数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-198">Note that this `[BindRequired]` behavior applies to model binding from posted form data, not to JSON or XML data in a request body.</span></span> <span data-ttu-id="e635c-199">请求正文数据由[输入格式化程序](#input-formatters)进行处理。</span><span class="sxs-lookup"><span data-stu-id="e635c-199">Request body data is handled by [input formatters](#input-formatters).</span></span>
+
+## <a name="type-conversion-errors"></a><span data-ttu-id="e635c-200">类型转换错误</span><span class="sxs-lookup"><span data-stu-id="e635c-200">Type conversion errors</span></span>
+
+<span data-ttu-id="e635c-201">如果找到源，但无法将其转换为目标类型，则模型状态将被标记为无效。</span><span class="sxs-lookup"><span data-stu-id="e635c-201">If a source is found but can't be converted into the target type, model state is flagged as invalid.</span></span> <span data-ttu-id="e635c-202">目标参数或属性设置为 NULL 或默认值，如上一部分所述。</span><span class="sxs-lookup"><span data-stu-id="e635c-202">The target parameter or property is set to null or a default value, as noted in the previous section.</span></span>
+
+<span data-ttu-id="e635c-203">在具有 `[ApiController]` 属性的 API 控制器中，无效的模型状态会导致自动 HTTP 400 响应。</span><span class="sxs-lookup"><span data-stu-id="e635c-203">In an API controller that has the `[ApiController]` attribute, invalid model state results in an automatic HTTP 400 response.</span></span>
+
+<span data-ttu-id="e635c-204">在 Razor Pages 中，重新显示带有错误消息的页面：</span><span class="sxs-lookup"><span data-stu-id="e635c-204">In a Razor page, redisplay the page with an error message:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
+
+<span data-ttu-id="e635c-205">客户端验证会捕获原本会提交到 Razor Pages 表单中的大多数错误数据。</span><span class="sxs-lookup"><span data-stu-id="e635c-205">Client-side validation catches most bad data that would otherwise be submitted to a Razor Pages form.</span></span> <span data-ttu-id="e635c-206">此验证使得先前突出显示的代码难以被触发。</span><span class="sxs-lookup"><span data-stu-id="e635c-206">This validation makes it hard to trigger the preceding highlighted code.</span></span> <span data-ttu-id="e635c-207">示例应用包含一个“提交无效日期”按钮，该按钮将错误数据置于“雇用日期”字段中并提交表单   。</span><span class="sxs-lookup"><span data-stu-id="e635c-207">The sample app includes a **Submit with Invalid Date** button that puts bad data in the **Hire Date** field and submits the form.</span></span> <span data-ttu-id="e635c-208">此按钮显示在发生数据转换错误时用于重新显示页的代码将如何工作。</span><span class="sxs-lookup"><span data-stu-id="e635c-208">This button shows how the code for redisplaying the page works when data conversion errors occur.</span></span>
+
+<span data-ttu-id="e635c-209">在使用先前的代码重新显示页时，表单域中不会显示无效的输入。</span><span class="sxs-lookup"><span data-stu-id="e635c-209">When the page is redisplayed by the preceding code, the invalid input is not shown in the form field.</span></span> <span data-ttu-id="e635c-210">这是因为模型属性已设置为 NULL 或默认值。</span><span class="sxs-lookup"><span data-stu-id="e635c-210">This is because the model property has been set to null or a default value.</span></span> <span data-ttu-id="e635c-211">无效输入会出现在错误消息中。</span><span class="sxs-lookup"><span data-stu-id="e635c-211">The invalid input does appear in an error message.</span></span> <span data-ttu-id="e635c-212">但是，如果要在表单域中重新显示错误数据，可以考虑将模型属性设置为字符串并手动执行数据转换。</span><span class="sxs-lookup"><span data-stu-id="e635c-212">But if you want to redisplay the bad data in the form field, consider making the model property a string and doing the data conversion manually.</span></span>
+
+<span data-ttu-id="e635c-213">如果不希望发生类型转换错误导致模型状态错误的情况，建议使用相同的策略。</span><span class="sxs-lookup"><span data-stu-id="e635c-213">The same strategy is recommended if you don't want type conversion errors to result in model state errors.</span></span> <span data-ttu-id="e635c-214">在这种情况下，将模型属性设置为字符串。</span><span class="sxs-lookup"><span data-stu-id="e635c-214">In that case, make the model property a string.</span></span>
+
+## <a name="simple-types"></a><span data-ttu-id="e635c-215">简单类型</span><span class="sxs-lookup"><span data-stu-id="e635c-215">Simple types</span></span>
+
+<span data-ttu-id="e635c-216">模型绑定器可以将源字符串转换为以下简单类型：</span><span class="sxs-lookup"><span data-stu-id="e635c-216">The simple types that the model binder can convert source strings into include the following:</span></span>
+
+* [<span data-ttu-id="e635c-217">布尔值</span><span class="sxs-lookup"><span data-stu-id="e635c-217">Boolean</span></span>](xref:System.ComponentModel.BooleanConverter)
+* <span data-ttu-id="e635c-218">[字节](xref:System.ComponentModel.ByteConverter)、[SByte](xref:System.ComponentModel.SByteConverter)</span><span class="sxs-lookup"><span data-stu-id="e635c-218">[Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)</span></span>
+* [<span data-ttu-id="e635c-219">Char</span><span class="sxs-lookup"><span data-stu-id="e635c-219">Char</span></span>](xref:System.ComponentModel.CharConverter)
+* [<span data-ttu-id="e635c-220">DateTime</span><span class="sxs-lookup"><span data-stu-id="e635c-220">DateTime</span></span>](xref:System.ComponentModel.DateTimeConverter)
+* [<span data-ttu-id="e635c-221">DateTimeOffset</span><span class="sxs-lookup"><span data-stu-id="e635c-221">DateTimeOffset</span></span>](xref:System.ComponentModel.DateTimeOffsetConverter)
+* [<span data-ttu-id="e635c-222">小数</span><span class="sxs-lookup"><span data-stu-id="e635c-222">Decimal</span></span>](xref:System.ComponentModel.DecimalConverter)
+* [<span data-ttu-id="e635c-223">双精度</span><span class="sxs-lookup"><span data-stu-id="e635c-223">Double</span></span>](xref:System.ComponentModel.DoubleConverter)
+* [<span data-ttu-id="e635c-224">Enum</span><span class="sxs-lookup"><span data-stu-id="e635c-224">Enum</span></span>](xref:System.ComponentModel.EnumConverter)
+* [<span data-ttu-id="e635c-225">Guid</span><span class="sxs-lookup"><span data-stu-id="e635c-225">Guid</span></span>](xref:System.ComponentModel.GuidConverter)
+* <span data-ttu-id="e635c-226">[Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)</span><span class="sxs-lookup"><span data-stu-id="e635c-226">[Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)</span></span>
+* [<span data-ttu-id="e635c-227">单精度</span><span class="sxs-lookup"><span data-stu-id="e635c-227">Single</span></span>](xref:System.ComponentModel.SingleConverter)
+* [<span data-ttu-id="e635c-228">TimeSpan</span><span class="sxs-lookup"><span data-stu-id="e635c-228">TimeSpan</span></span>](xref:System.ComponentModel.TimeSpanConverter)
+* <span data-ttu-id="e635c-229">[UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)</span><span class="sxs-lookup"><span data-stu-id="e635c-229">[UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)</span></span>
+* [<span data-ttu-id="e635c-230">URI</span><span class="sxs-lookup"><span data-stu-id="e635c-230">Uri</span></span>](xref:System.UriTypeConverter)
+* [<span data-ttu-id="e635c-231">Version</span><span class="sxs-lookup"><span data-stu-id="e635c-231">Version</span></span>](xref:System.ComponentModel.VersionConverter)
+
+## <a name="complex-types"></a><span data-ttu-id="e635c-232">复杂类型</span><span class="sxs-lookup"><span data-stu-id="e635c-232">Complex types</span></span>
+
+<span data-ttu-id="e635c-233">复杂类型必须具有要绑定的公共默认构造函数和公共可写属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-233">A complex type must have a public default constructor and public writable properties to bind.</span></span> <span data-ttu-id="e635c-234">进行模型绑定时，将使用公共默认构造函数来实例化类。</span><span class="sxs-lookup"><span data-stu-id="e635c-234">When model binding occurs, the class is instantiated using the public default constructor.</span></span> 
+
+<span data-ttu-id="e635c-235">对于复杂类型的每个属性，模型绑定会查找名称模式 prefix.property_name 的源  。</span><span class="sxs-lookup"><span data-stu-id="e635c-235">For each property of the complex type, model binding looks through the sources for the name pattern *prefix.property_name*.</span></span> <span data-ttu-id="e635c-236">如果未找到，它将仅查找不含前缀的 properties_name  。</span><span class="sxs-lookup"><span data-stu-id="e635c-236">If nothing is found, it looks for just *property_name* without the prefix.</span></span>
+
+<span data-ttu-id="e635c-237">对于绑定到参数，前缀是参数名称。</span><span class="sxs-lookup"><span data-stu-id="e635c-237">For binding to a parameter, the prefix is the parameter name.</span></span> <span data-ttu-id="e635c-238">对于绑定到 `PageModel` 公共属性，前缀是公共属性名称。</span><span class="sxs-lookup"><span data-stu-id="e635c-238">For binding to a `PageModel` public property, the prefix is the public property name.</span></span> <span data-ttu-id="e635c-239">某些属性具有 `Prefix` 属性，让你可以替代参数或属性名称的默认用法。</span><span class="sxs-lookup"><span data-stu-id="e635c-239">Some attributes have a `Prefix` property that lets you override the default usage of parameter or property name.</span></span>
+
+<span data-ttu-id="e635c-240">例如，假设复杂类型是以下 `Instructor` 类：</span><span class="sxs-lookup"><span data-stu-id="e635c-240">For example, suppose the complex type is the following `Instructor` class:</span></span>
+
+  ```csharp
+  public class Instructor
+  {
+      public int ID { get; set; }
+      public string LastName { get; set; }
+      public string FirstName { get; set; }
+  }
+  ```
+
+### <a name="prefix--parameter-name"></a><span data-ttu-id="e635c-241">前缀 = 参数名称</span><span class="sxs-lookup"><span data-stu-id="e635c-241">Prefix = parameter name</span></span>
+
+<span data-ttu-id="e635c-242">如果要绑定的模型是一个名为 `instructorToUpdate` 的参数：</span><span class="sxs-lookup"><span data-stu-id="e635c-242">If the model to be bound is a parameter named `instructorToUpdate`:</span></span>
 
 ```csharp
-services.AddMvc().AddMvcOptions(options =>
-    options.ModelMetadataDetailsProviders.Add(
-        new SuppressChildValidationMetadataProvider(typeof(System.Guid))));
+public IActionResult OnPost(int? id, Instructor instructorToUpdate)
 ```
 
-## <a name="bind-formatted-data-from-the-request-body"></a><span data-ttu-id="55310-191">绑定请求正文中的带格式数据</span><span class="sxs-lookup"><span data-stu-id="55310-191">Bind formatted data from the request body</span></span>
+<span data-ttu-id="e635c-243">模型绑定从查找键 `instructorToUpdate.ID` 的源开始操作。</span><span class="sxs-lookup"><span data-stu-id="e635c-243">Model binding starts by looking through the sources for the key `instructorToUpdate.ID`.</span></span> <span data-ttu-id="e635c-244">如果未找到，它将查找不含前缀的 `ID`。</span><span class="sxs-lookup"><span data-stu-id="e635c-244">If that isn't found, it looks for `ID` without a prefix.</span></span>
 
-<span data-ttu-id="55310-192">请求数据可以有各种格式，包括 JSON、XML 和许多其他格式。</span><span class="sxs-lookup"><span data-stu-id="55310-192">Request data can come in a variety of formats including JSON, XML and many others.</span></span> <span data-ttu-id="55310-193">使用 [FromBody] 特性指示要将参数绑定到请求正文中的数据时，MVC 会使用一组已配置的格式化程序基于请求数据的内容类型对请求数据进行处理。</span><span class="sxs-lookup"><span data-stu-id="55310-193">When you use the [FromBody] attribute to indicate that you want to bind a parameter to data in the request body, MVC uses a configured set of formatters to handle the request data based on its content type.</span></span> <span data-ttu-id="55310-194">默认情况下，MVC 包括用于处理 JSON 数据的 `JsonInputFormatter` 类，但你可以添加用于处理 XML 和其他自定义格式的其他格式化程序。</span><span class="sxs-lookup"><span data-stu-id="55310-194">By default MVC includes a `JsonInputFormatter` class for handling JSON data, but you can add additional formatters for handling XML and other custom formats.</span></span>
+### <a name="prefix--property-name"></a><span data-ttu-id="e635c-245">前缀 = 属性名称</span><span class="sxs-lookup"><span data-stu-id="e635c-245">Prefix = property name</span></span>
+
+<span data-ttu-id="e635c-246">如果要绑定的模型是控制器或 `PageModel` 类的一个名为 `Instructor` 的属性：</span><span class="sxs-lookup"><span data-stu-id="e635c-246">If the model to be bound is a property named `Instructor` of the controller or `PageModel` class:</span></span>
+
+```csharp
+[BindProperty]
+public Instructor Instructor { get; set; }
+```
+
+<span data-ttu-id="e635c-247">模型绑定从查找键 `Instructor.ID` 的源开始操作。</span><span class="sxs-lookup"><span data-stu-id="e635c-247">Model binding starts by looking through the sources for the key `Instructor.ID`.</span></span> <span data-ttu-id="e635c-248">如果未找到，它将查找不含前缀的 `ID`。</span><span class="sxs-lookup"><span data-stu-id="e635c-248">If that isn't found, it looks for `ID` without a prefix.</span></span>
+
+### <a name="custom-prefix"></a><span data-ttu-id="e635c-249">自定义前缀</span><span class="sxs-lookup"><span data-stu-id="e635c-249">Custom prefix</span></span>
+
+<span data-ttu-id="e635c-250">如果要绑定的模型是名为 `instructorToUpdate` 的参数，并且 `Bind` 属性指定 `Instructor` 作为前缀：</span><span class="sxs-lookup"><span data-stu-id="e635c-250">If the model to be bound is a parameter named `instructorToUpdate` and a `Bind` attribute specifies `Instructor` as the prefix:</span></span>
+
+```csharp
+public IActionResult OnPost(
+    int? id, [Bind(Prefix = "Instructor")] Instructor instructorToUpdate)
+```
+
+<span data-ttu-id="e635c-251">模型绑定从查找键 `Instructor.ID` 的源开始操作。</span><span class="sxs-lookup"><span data-stu-id="e635c-251">Model binding starts by looking through the sources for the key `Instructor.ID`.</span></span> <span data-ttu-id="e635c-252">如果未找到，它将查找不含前缀的 `ID`。</span><span class="sxs-lookup"><span data-stu-id="e635c-252">If that isn't found, it looks for `ID` without a prefix.</span></span>
+
+### <a name="attributes-for-complex-type-targets"></a><span data-ttu-id="e635c-253">复杂类型目标的属性</span><span class="sxs-lookup"><span data-stu-id="e635c-253">Attributes for complex type targets</span></span>
+
+<span data-ttu-id="e635c-254">多个内置属性可用于控制复杂类型的模型绑定：</span><span class="sxs-lookup"><span data-stu-id="e635c-254">Several built-in attributes are available for controlling model binding of complex types:</span></span>
+
+* `[BindRequired]`
+* `[BindNever]`
+* `[Bind]`
 
 > [!NOTE]
-> <span data-ttu-id="55310-195">对于用 `[FromBody]` 修饰的每个操作，最多可以有一个参数。</span><span class="sxs-lookup"><span data-stu-id="55310-195">There can be at most one parameter per action decorated with `[FromBody]`.</span></span> <span data-ttu-id="55310-196">ASP.NET Core MVC 运行时向格式化程序委托读取请求流的责任。</span><span class="sxs-lookup"><span data-stu-id="55310-196">The ASP.NET Core MVC run-time delegates the responsibility of reading the request stream to the formatter.</span></span> <span data-ttu-id="55310-197">读取参数的请求流后，通常不能为绑定其他 `[FromBody]` 参数而再次读取请求流。</span><span class="sxs-lookup"><span data-stu-id="55310-197">Once the request stream is read for a parameter, it's generally not possible to read the request stream again for binding other `[FromBody]` parameters.</span></span>
+> <span data-ttu-id="e635c-255">如果发布的表单数据是值的源，则这些属性会影响模型绑定。</span><span class="sxs-lookup"><span data-stu-id="e635c-255">These attributes affect model binding when posted form data is the source of values.</span></span> <span data-ttu-id="e635c-256">它们不会影响处理发布的 JSON 和 XML 请求正文的输入格式化程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-256">They do not affect input formatters, which process posted JSON and XML request bodies.</span></span> <span data-ttu-id="e635c-257">输入格式化程序的解释位于[本文后面部分](#input-formatters)。</span><span class="sxs-lookup"><span data-stu-id="e635c-257">Input formatters are explained [later in this article](#input-formatters).</span></span>
+>
+> <span data-ttu-id="e635c-258">另请参阅[模型验证](xref:mvc/models/validation#required-attribute)中针对 `[Required]` 属性的讨论。</span><span class="sxs-lookup"><span data-stu-id="e635c-258">See also the discussion of the `[Required]` attribute in [Model validation](xref:mvc/models/validation#required-attribute).</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="55310-198">`JsonInputFormatter` 为默认格式化程序且基于 [Json.NET](https://www.newtonsoft.com/json)。</span><span class="sxs-lookup"><span data-stu-id="55310-198">The `JsonInputFormatter` is the default formatter and is based on [Json.NET](https://www.newtonsoft.com/json).</span></span>
+### <a name="bindrequired-attribute"></a><span data-ttu-id="e635c-259">[BindRequired] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-259">[BindRequired] attribute</span></span>
 
-<span data-ttu-id="55310-199">除非有特性应用于 ASP.NET Core，否则它将基于 [Content-Type](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html) 标头和参数类型来选择输入格式化程序。</span><span class="sxs-lookup"><span data-stu-id="55310-199">ASP.NET Core selects input formatters based on the [Content-Type](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html) header and the type of the parameter, unless there's an attribute applied to it specifying otherwise.</span></span> <span data-ttu-id="55310-200">如果想要使用 XML 或其他格式，则必须在 Startup.cs 文件中配置该格式，但可能必须先使用 NuGet 获取对 `Microsoft.AspNetCore.Mvc.Formatters.Xml` 的引用。</span><span class="sxs-lookup"><span data-stu-id="55310-200">If you'd like to use XML or another format you must configure it in the *Startup.cs* file, but you may first have to obtain a reference to `Microsoft.AspNetCore.Mvc.Formatters.Xml` using NuGet.</span></span> <span data-ttu-id="55310-201">启动代码应如下所示：</span><span class="sxs-lookup"><span data-stu-id="55310-201">Your startup code should look something like this:</span></span>
+<span data-ttu-id="e635c-260">只能应用于模型属性，不能应用于方法参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-260">Can only be applied to model properties, not to method parameters.</span></span> <span data-ttu-id="e635c-261">如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。</span><span class="sxs-lookup"><span data-stu-id="e635c-261">Causes model binding to add a model state error if binding cannot occur for a model's property.</span></span> <span data-ttu-id="e635c-262">以下是一个示例：</span><span class="sxs-lookup"><span data-stu-id="e635c-262">Here's an example:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
+
+### <a name="bindnever-attribute"></a><span data-ttu-id="e635c-263">[BindNever] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-263">[BindNever] attribute</span></span>
+
+<span data-ttu-id="e635c-264">只能应用于模型属性，不能应用于方法参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-264">Can only be applied to model properties, not to method parameters.</span></span> <span data-ttu-id="e635c-265">防止模型绑定设置模型的属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-265">Prevents model binding from setting a model's property.</span></span> <span data-ttu-id="e635c-266">以下是一个示例：</span><span class="sxs-lookup"><span data-stu-id="e635c-266">Here's an example:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
+
+### <a name="bind-attribute"></a><span data-ttu-id="e635c-267">[Bind] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-267">[Bind] attribute</span></span>
+
+<span data-ttu-id="e635c-268">可应用于类或方法参数。</span><span class="sxs-lookup"><span data-stu-id="e635c-268">Can be applied to a class or a method parameter.</span></span> <span data-ttu-id="e635c-269">指定模型绑定中应包含的模型属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-269">Specifies which properties of a model should be included in model binding.</span></span>
+
+<span data-ttu-id="e635c-270">在下面的示例中，当调用任意处理程序或操作方法时，只绑定 `Instructor` 模型的指定属性：</span><span class="sxs-lookup"><span data-stu-id="e635c-270">In the following example, only the specified properties of the `Instructor` model are bound when any handler or action method is called:</span></span>
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddMvc()
-        .AddXmlSerializerFormatters();
-   }
+[Bind("LastName,FirstMidName,HireDate")]
+public class Instructor
 ```
 
-<span data-ttu-id="55310-202">Startup.cs 文件中的代码包含具有 `services` 参数的 `ConfigureServices` 方法，此方法可用于为 ASP.NET Core 应用生成服务。</span><span class="sxs-lookup"><span data-stu-id="55310-202">Code in the *Startup.cs* file contains a `ConfigureServices` method with a `services` argument you can use to build up services for your ASP.NET Core app.</span></span> <span data-ttu-id="55310-203">在此示例中，我们将添加 XML 格式化程序作为 MVC 将为此应用提供的服务。</span><span class="sxs-lookup"><span data-stu-id="55310-203">In the sample, we are adding an XML formatter as a service that MVC will provide for this app.</span></span> <span data-ttu-id="55310-204">通过传递给 `AddMvc` 方法的 `options` 参数，可在应用启动后添加和管理筛选器、格式化程序和其他 MVC 系统选项。</span><span class="sxs-lookup"><span data-stu-id="55310-204">The `options` argument passed into the `AddMvc` method allows you to add and manage filters, formatters, and other system options from MVC upon app startup.</span></span> <span data-ttu-id="55310-205">然后，将 `Consumes` 特性应用于控制器类或操作方法，以使用所需格式。</span><span class="sxs-lookup"><span data-stu-id="55310-205">Then apply the `Consumes` attribute to controller classes or action methods to work with the format you want.</span></span>
+<span data-ttu-id="e635c-271">在下面的示例中，当调用 `OnPost` 方法时，只绑定 `Instructor` 模型的指定属性：</span><span class="sxs-lookup"><span data-stu-id="e635c-271">In the following example, only the specified properties of the `Instructor` model are bound when the `OnPost` method is called:</span></span>
 
-### <a name="custom-model-binding"></a><span data-ttu-id="55310-206">自定义模型绑定</span><span class="sxs-lookup"><span data-stu-id="55310-206">Custom Model Binding</span></span>
+```csharp
+[HttpPost]
+public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor instructor)
+```
 
-<span data-ttu-id="55310-207">可通过编写自己的自定义模型绑定器来扩展模型绑定。</span><span class="sxs-lookup"><span data-stu-id="55310-207">You can extend model binding by writing your own custom model binders.</span></span> <span data-ttu-id="55310-208">详细了解[自定义模型绑定](../advanced/custom-model-binding.md)。</span><span class="sxs-lookup"><span data-stu-id="55310-208">Learn more about [custom model binding](../advanced/custom-model-binding.md).</span></span>
+<span data-ttu-id="e635c-272">`[Bind]` 属性可用于防止“创建”方案中的过多发布情况  。</span><span class="sxs-lookup"><span data-stu-id="e635c-272">The `[Bind]` attribute can be used to protect against overposting in *create* scenarios.</span></span> <span data-ttu-id="e635c-273">由于排除的属性设置为 NULL 或默认值，而不是保持不变，因此它在编辑方案中无法很好地工作。</span><span class="sxs-lookup"><span data-stu-id="e635c-273">It doesn't work well in edit scenarios because excluded properties are set to null or a default value instead of being left unchanged.</span></span> <span data-ttu-id="e635c-274">为防止过多发布，建议使用视图模型，而不是使用 `[Bind]` 属性。</span><span class="sxs-lookup"><span data-stu-id="e635c-274">For defense against overposting, view models are recommended rather than the `[Bind]` attribute.</span></span> <span data-ttu-id="e635c-275">有关详细信息，请参阅[有关过多发布的安全性说明](xref:data/ef-mvc/crud#security-note-about-overposting)。</span><span class="sxs-lookup"><span data-stu-id="e635c-275">For more information, see [Security note about overposting](xref:data/ef-mvc/crud#security-note-about-overposting).</span></span>
+
+## <a name="collections"></a><span data-ttu-id="e635c-276">集合</span><span class="sxs-lookup"><span data-stu-id="e635c-276">Collections</span></span>
+
+<span data-ttu-id="e635c-277">对于是简单类型集合的目标，模型绑定将查找 parameter_name 或 property_name 的匹配项   。</span><span class="sxs-lookup"><span data-stu-id="e635c-277">For targets that are collections of simple types, model binding looks for matches to *parameter_name* or *property_name*.</span></span> <span data-ttu-id="e635c-278">如果找不到匹配项，它将查找某种不含前缀的受支持的格式。</span><span class="sxs-lookup"><span data-stu-id="e635c-278">If no match is found, it looks for one of the supported formats without the prefix.</span></span> <span data-ttu-id="e635c-279">例如:</span><span class="sxs-lookup"><span data-stu-id="e635c-279">For example:</span></span>
+
+* <span data-ttu-id="e635c-280">假设要绑定的参数是名为 `selectedCourses` 的数组：</span><span class="sxs-lookup"><span data-stu-id="e635c-280">Suppose the parameter to be bound is an array named `selectedCourses`:</span></span>
+
+  ```csharp
+  public IActionResult OnPost(int? id, int[] selectedCourses)
+  ```
+
+* <span data-ttu-id="e635c-281">表单或查询字符串数据可以采用以下某种格式：</span><span class="sxs-lookup"><span data-stu-id="e635c-281">Form or query string data can be in one of the following formats:</span></span>
+   
+  ```
+  selectedCourses=1050&selectedCourses=2000 
+  ```
+
+  ```
+  selectedCourses[0]=1050&selectedCourses[1]=2000
+  ```
+
+  ```
+  [0]=1050&[1]=2000
+  ```
+
+  ```
+  selectedCourses[a]=1050&selectedCourses[b]=2000&selectedCourses.index=a&selectedCourses.index=b
+  ```
+
+  ```
+  [a]=1050&[b]=2000&index=a&index=b
+  ```
+
+* <span data-ttu-id="e635c-282">只有表单数据支持以下格式：</span><span class="sxs-lookup"><span data-stu-id="e635c-282">The following format is supported only in form data:</span></span>
+
+  ```
+  selectedCourses[]=1050&selectedCourses[]=2000
+  ```
+
+* <span data-ttu-id="e635c-283">对于前面所有的示例格式，模型绑定将两个项的数组传递给 `selectedCourses` 参数：</span><span class="sxs-lookup"><span data-stu-id="e635c-283">For all of the preceding example formats, model binding passes an array of two items to the `selectedCourses` parameter:</span></span>
+
+  * <span data-ttu-id="e635c-284">selectedCourses[0]=1050</span><span class="sxs-lookup"><span data-stu-id="e635c-284">selectedCourses[0]=1050</span></span>
+  * <span data-ttu-id="e635c-285">selectedCourses[1]=2000</span><span class="sxs-lookup"><span data-stu-id="e635c-285">selectedCourses[1]=2000</span></span>
+
+  <span data-ttu-id="e635c-286">使用下标数字的数据格式 (... [0] ... [1] ...) 必须确保从零开始按顺序进行编号。</span><span class="sxs-lookup"><span data-stu-id="e635c-286">Data formats that use subscript numbers (... [0] ... [1] ...) must ensure that they are numbered sequentially starting at zero.</span></span> <span data-ttu-id="e635c-287">如果下标编号中存在任何间隔，则间隔后的所有项都将被忽略。</span><span class="sxs-lookup"><span data-stu-id="e635c-287">If there are any gaps in subscript numbering, all items after the gap are ignored.</span></span> <span data-ttu-id="e635c-288">例如，如果下标是 0 和 2，而不是 0 和 1，则第二个项会被忽略。</span><span class="sxs-lookup"><span data-stu-id="e635c-288">For example, if the subscripts are 0 and 2 instead of 0 and 1, the second item is ignored.</span></span>
+
+## <a name="dictionaries"></a><span data-ttu-id="e635c-289">字典</span><span class="sxs-lookup"><span data-stu-id="e635c-289">Dictionaries</span></span>
+
+<span data-ttu-id="e635c-290">对于 `Dictionary` 目标，模型绑定会查找 parameter_name 或 property_name 的匹配项   。</span><span class="sxs-lookup"><span data-stu-id="e635c-290">For `Dictionary` targets, model binding looks for matches to *parameter_name* or *property_name*.</span></span> <span data-ttu-id="e635c-291">如果找不到匹配项，它将查找某种不含前缀的受支持的格式。</span><span class="sxs-lookup"><span data-stu-id="e635c-291">If no match is found, it looks for one of the supported formats without the prefix.</span></span> <span data-ttu-id="e635c-292">例如:</span><span class="sxs-lookup"><span data-stu-id="e635c-292">For example:</span></span>
+
+* <span data-ttu-id="e635c-293">假设目标参数是名为 `selectedCourses` 的 `Dictionary<string, string>`：</span><span class="sxs-lookup"><span data-stu-id="e635c-293">Suppose the target parameter is a `Dictionary<string, string>` named `selectedCourses`:</span></span>
+
+  ```csharp
+  public IActionResult OnPost(int? id, Dictionary<int, string> selectedCourses)
+  ```
+
+* <span data-ttu-id="e635c-294">发布的表单或查询字符串数据可以类似于以下某一示例：</span><span class="sxs-lookup"><span data-stu-id="e635c-294">The posted form or query string data can look like one of the following examples:</span></span>
+
+  ```
+  selectedCourses[1050]=Chemistry&selectedCourses[2000]=Economics
+  ```
+
+  ```
+  [1050]=Chemistry&selectedCourses[2000]=Economics
+  ```
+
+  ```
+  selectedCourses[0].Key=1050&selectedCourses[0].Value=Chemistry&
+  selectedCourses[1].Key=2000&selectedCourses[1].Value=Economics
+  ```
+
+  ```
+  [0].Key=1050&[0].Value=Chemistry&[1].Key=2000&[1].Value=Economics
+  ```
+
+* <span data-ttu-id="e635c-295">对于前面所有的示例格式，模型绑定将两个项的字典传递给 `selectedCourses` 参数：</span><span class="sxs-lookup"><span data-stu-id="e635c-295">For all of the preceding example formats, model binding passes a dictionary of two items to the `selectedCourses` parameter:</span></span>
+
+  * <span data-ttu-id="e635c-296">selectedCourses["1050"]="Chemistry"</span><span class="sxs-lookup"><span data-stu-id="e635c-296">selectedCourses["1050"]="Chemistry"</span></span>
+  * <span data-ttu-id="e635c-297">selectedCourses["2000"]="Economics"</span><span class="sxs-lookup"><span data-stu-id="e635c-297">selectedCourses["2000"]="Economics"</span></span>
+
+## <a name="special-data-types"></a><span data-ttu-id="e635c-298">特殊数据类型</span><span class="sxs-lookup"><span data-stu-id="e635c-298">Special data types</span></span>
+
+<span data-ttu-id="e635c-299">模型绑定可以处理某些特殊的数据类型。</span><span class="sxs-lookup"><span data-stu-id="e635c-299">There are some special data types that model binding can handle.</span></span>
+
+### <a name="iformfile-and-iformfilecollection"></a><span data-ttu-id="e635c-300">IFormFile 和 IFormFileCollection</span><span class="sxs-lookup"><span data-stu-id="e635c-300">IFormFile and IFormFileCollection</span></span>
+
+<span data-ttu-id="e635c-301">HTTP 请求中包含的上传文件。</span><span class="sxs-lookup"><span data-stu-id="e635c-301">An uploaded file included in the HTTP request.</span></span>  <span data-ttu-id="e635c-302">还支持多个文件的 `IEnumerable<IFormFile>`。</span><span class="sxs-lookup"><span data-stu-id="e635c-302">Also supported is `IEnumerable<IFormFile>` for multiple files.</span></span>
+
+### <a name="cancellationtoken"></a><span data-ttu-id="e635c-303">CancellationToken</span><span class="sxs-lookup"><span data-stu-id="e635c-303">CancellationToken</span></span>
+
+<span data-ttu-id="e635c-304">用于取消异步控制器中的活动。</span><span class="sxs-lookup"><span data-stu-id="e635c-304">Used to cancel activity in asynchronous controllers.</span></span>
+
+### <a name="formcollection"></a><span data-ttu-id="e635c-305">FormCollection</span><span class="sxs-lookup"><span data-stu-id="e635c-305">FormCollection</span></span>
+
+<span data-ttu-id="e635c-306">用于从发布的表单数据中检索所有的值。</span><span class="sxs-lookup"><span data-stu-id="e635c-306">Used to retrieve all the values from posted form data.</span></span>
+
+## <a name="input-formatters"></a><span data-ttu-id="e635c-307">输入格式化程序</span><span class="sxs-lookup"><span data-stu-id="e635c-307">Input formatters</span></span>
+
+<span data-ttu-id="e635c-308">请求正文中的数据可以是 JSON、XML 或其他某种格式。</span><span class="sxs-lookup"><span data-stu-id="e635c-308">Data in the request body can be in JSON, XML, or some other format.</span></span> <span data-ttu-id="e635c-309">要分析此数据，模型绑定会使用配置为处理特定内容类型的输入格式化程序  。</span><span class="sxs-lookup"><span data-stu-id="e635c-309">To parse this data, model binding uses an *input formatter* that is configured to handle a particular content type.</span></span> <span data-ttu-id="e635c-310">默认情况下，ASP.NET Core 包括用于处理 JSON 数据的基于 JSON 的输入格式化程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-310">By default, ASP.NET Core includes JSON based input formatters for handling JSON data.</span></span> <span data-ttu-id="e635c-311">可以为其他内容类型添加其他格式化程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-311">You can add other formatters for other content types.</span></span>
+
+<span data-ttu-id="e635c-312">ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 属性来选择输入格式化程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-312">ASP.NET Core selects input formatters based on the [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) attribute.</span></span> <span data-ttu-id="e635c-313">如果没有属性，它将使用 [Content-Type 标头](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html)。</span><span class="sxs-lookup"><span data-stu-id="e635c-313">If no attribute is present, it uses the [Content-Type header](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html).</span></span>
+
+<span data-ttu-id="e635c-314">要使用内置 XML 输入格式化程序，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="e635c-314">To use the built-in XML input formatters:</span></span>
+
+* <span data-ttu-id="e635c-315">安装 `Microsoft.AspNetCore.Mvc.Formatters.Xml` NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="e635c-315">Install the `Microsoft.AspNetCore.Mvc.Formatters.Xml` NuGet package.</span></span>
+
+* <span data-ttu-id="e635c-316">在 `Startup.ConfigureServices` 中，调用 <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlSerializerFormatters*> 或 <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlDataContractSerializerFormatters*>。</span><span class="sxs-lookup"><span data-stu-id="e635c-316">In `Startup.ConfigureServices`, call <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlSerializerFormatters*> or <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlDataContractSerializerFormatters*>.</span></span>
+
+  [!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=9)]
+
+* <span data-ttu-id="e635c-317">将 `Consumes` 属性应用于应在请求正文中使用 XML 的控制器类或操作方法。</span><span class="sxs-lookup"><span data-stu-id="e635c-317">Apply the `Consumes` attribute to controller classes or action methods that should expect XML in the request body.</span></span>
+
+  ```csharp
+  [HttpPost]
+  [Consumes("application/xml")]
+  public ActionResult<Pet> Create(Pet pet)
+  ```
+
+  <span data-ttu-id="e635c-318">有关更多信息，请参阅 [XML 序列化简介](https://docs.microsoft.com/en-us/dotnet/standard/serialization/introducing-xml-serialization)。</span><span class="sxs-lookup"><span data-stu-id="e635c-318">For more information, see [Introducing XML Serialization](https://docs.microsoft.com/en-us/dotnet/standard/serialization/introducing-xml-serialization).</span></span>
+
+## <a name="exclude-specified-types-from-model-binding"></a><span data-ttu-id="e635c-319">从模型绑定中排除指定类型</span><span class="sxs-lookup"><span data-stu-id="e635c-319">Exclude specified types from model binding</span></span>
+
+<span data-ttu-id="e635c-320">模型绑定和验证系统的行为由 [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata) 驱动。</span><span class="sxs-lookup"><span data-stu-id="e635c-320">The model binding and validation systems' behavior is driven by [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata).</span></span> <span data-ttu-id="e635c-321">可通过向 [MvcOptions.ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders) 添加详细信息提供程序来自定义 `ModelMetadata`。</span><span class="sxs-lookup"><span data-stu-id="e635c-321">You can customize `ModelMetadata` by adding a details provider to [MvcOptions.ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders).</span></span> <span data-ttu-id="e635c-322">内置详细信息提供程序可用于禁用指定类型的模型绑定或验证。</span><span class="sxs-lookup"><span data-stu-id="e635c-322">Built-in details providers are available for disabling model binding or validation for specified types.</span></span>
+
+<span data-ttu-id="e635c-323">要禁用指定类型的所有模型的模型绑定，请在 `Startup.ConfigureServices` 中添加 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider>。</span><span class="sxs-lookup"><span data-stu-id="e635c-323">To disable model binding on all models of a specified type, add an <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="e635c-324">例如，禁用对 `System.Version` 类型的所有模型的模型绑定：</span><span class="sxs-lookup"><span data-stu-id="e635c-324">For example, to disable model binding on all models of type `System.Version`:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=4-5)]
+
+<span data-ttu-id="e635c-325">要禁用指定类型的属性的验证，请在 `Startup.ConfigureServices` 中添加 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider>。</span><span class="sxs-lookup"><span data-stu-id="e635c-325">To disable validation on properties of a specified type, add a <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="e635c-326">例如，禁用对 `System.Guid` 类型的属性的验证：</span><span class="sxs-lookup"><span data-stu-id="e635c-326">For example, to disable validation on properties of type `System.Guid`:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=6-7)]
+
+## <a name="custom-model-binders"></a><span data-ttu-id="e635c-327">自定义模型绑定器</span><span class="sxs-lookup"><span data-stu-id="e635c-327">Custom model binders</span></span>
+
+<span data-ttu-id="e635c-328">通过编写自定义模型绑定器，并使用 `[ModelBinder]` 属性为给定目标选择该模型绑定器，可扩展模型绑定。</span><span class="sxs-lookup"><span data-stu-id="e635c-328">You can extend model binding by writing a custom model binder and using the `[ModelBinder]` attribute to select it for a given target.</span></span> <span data-ttu-id="e635c-329">详细了解[自定义模型绑定](xref:mvc/advanced/custom-model-binding)。</span><span class="sxs-lookup"><span data-stu-id="e635c-329">Learn more about [custom model binding](xref:mvc/advanced/custom-model-binding).</span></span>
+
+## <a name="manual-model-binding"></a><span data-ttu-id="e635c-330">手动模型绑定</span><span class="sxs-lookup"><span data-stu-id="e635c-330">Manual model binding</span></span>
+
+<span data-ttu-id="e635c-331">可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。</span><span class="sxs-lookup"><span data-stu-id="e635c-331">Model binding can be invoked manually by using the <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> method.</span></span> <span data-ttu-id="e635c-332">`ControllerBase` 和 `PageModel` 类上均定义了此方法。</span><span class="sxs-lookup"><span data-stu-id="e635c-332">The method is defined on both `ControllerBase` and `PageModel` classes.</span></span> <span data-ttu-id="e635c-333">方法重载允许指定要使用的前缀和值提供程序。</span><span class="sxs-lookup"><span data-stu-id="e635c-333">Method overloads let you specify the prefix and value provider to use.</span></span> <span data-ttu-id="e635c-334">如果模型绑定失败，该方法返回 `false`。</span><span class="sxs-lookup"><span data-stu-id="e635c-334">The method returns `false` if model binding fails.</span></span> <span data-ttu-id="e635c-335">以下是一个示例：</span><span class="sxs-lookup"><span data-stu-id="e635c-335">Here's an example:</span></span>
+
+[!code-csharp[](model-binding/samples/2.x/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
+
+## <a name="fromservices-attribute"></a><span data-ttu-id="e635c-336">[FromServices] 属性</span><span class="sxs-lookup"><span data-stu-id="e635c-336">[FromServices] attribute</span></span>
+
+<span data-ttu-id="e635c-337">此属性的名称遵循指定数据源的模型绑定属性的模式。</span><span class="sxs-lookup"><span data-stu-id="e635c-337">This attribute's name follows the pattern of model binding attributes that specify a data source.</span></span> <span data-ttu-id="e635c-338">但这与绑定来自值提供程序的数据无关。</span><span class="sxs-lookup"><span data-stu-id="e635c-338">But it's not about binding data from a value provider.</span></span> <span data-ttu-id="e635c-339">它从[依赖关系注入](xref:fundamentals/dependency-injection)容器中获取类型的实例。</span><span class="sxs-lookup"><span data-stu-id="e635c-339">It gets an instance of a type from the [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="e635c-340">其目的在于，在仅当调用特定方法时需要服务的情况下，提供构造函数注入的替代方法。</span><span class="sxs-lookup"><span data-stu-id="e635c-340">Its purpose is to provide an alternative to constructor injection for when you need a service only if a particular method is called.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="e635c-341">其他资源</span><span class="sxs-lookup"><span data-stu-id="e635c-341">Additional resources</span></span>
+
+* <xref:mvc/models/validation>
+* <xref:mvc/advanced/custom-model-binding>
