@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: security/gdpr
-ms.openlocfilehash: 967f3246836c93a1af56f7109edb056220606b58
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: 1580187afef56e8e2f5be7a4bae32912e6305c5a
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716352"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152864"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>在 ASP.NET Core 欧洲常规数据保护法规 (GDPR) 支持
 
@@ -32,7 +32,17 @@ ASP.NET Core 提供 Api 和模板，以帮助满足一些[欧洲常规数据保�
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>支持模板生成的代码中的 ASP.NET Core GDPR
 
+::: moniker range="< aspnetcore-2.2"
+
+Razor 页面和 MVC 项目的项目模板创建具有 GDPR 或 cookie 同意的情况下不支持。 若要添加 GDPR，请将复制在 ASP.NET Core 2.2 模板中生成的代码。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
 Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持：
+
+::: moniker-end
 
 * [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)并[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)中设置`Startup`类。
 * *\_CookieConsentPartial.cshtml* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 **接受**按钮包含在此文件。 当用户单击**接受**按钮，同意将 cookie 提供。
