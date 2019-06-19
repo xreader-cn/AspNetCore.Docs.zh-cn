@@ -3,18 +3,16 @@ title: 在 ASP.NET Core中使用 Grunt
 author: rick-anderson
 description: 在 ASP.NET Core中使用 Grunt
 ms.author: riande
-ms.date: 05/14/2019
+ms.date: 06/18/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 4d9b6cf6f9a0007e9722bc054f0d9a7608f1473b
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: 851ce3b50e88fee597518aef23276800f4b50f06
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65620996"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207755"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core中使用 Grunt
-
-通过[Noel 大米](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/)
 
 Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 编译、 代码质量"lint"工具，CSS 预处理器和几乎任何需要采取措施来支持客户端开发的重复性的任务。 在 Visual Studio 中完全支持 grunt。
 

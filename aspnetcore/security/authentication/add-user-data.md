@@ -3,15 +3,15 @@ title: 添加、 下载和删除标识到 ASP.NET Core 项目中的用户数据
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 项目中添加到标识的自定义用户数据。 删除每个 GDPR 的数据。
 ms.author: riande
-ms.date: 6/16/2018
+ms.date: 06/18/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: d704041f73a7d4773c3da9a23f120b07a03d64ac
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: c219500b7595fd8d200e4e5e742b1e1fda836ba3
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086495"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207737"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>添加、 下载和删除标识到 ASP.NET Core 项目中的自定义用户数据
 
@@ -20,11 +20,11 @@ ms.locfileid: "65086495"
 本文介绍如何：
 
 * 将自定义用户数据添加到 ASP.NET Core web 应用程序。
-* 修饰具有的自定义用户数据模型[PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute?view=aspnetcore-2.1)属性是自动可供下载和删除。 使能够下载和删除数据可帮助满足[GDPR](xref:security/gdpr)要求。
+* 修饰自定义用户数据模型的<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>属性是自动可供下载和删除。 使能够下载和删除数据可帮助满足[GDPR](xref:security/gdpr)要求。
 
 项目示例将创建从 Razor 页 web 应用，但了 ASP.NET Core MVC web 应用的类似的说明。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -34,7 +34,7 @@ ms.locfileid: "65086495"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample)代码。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”    。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码。
 * 选择**ASP.NET Core Web 应用程序** > **确定**
 * 选择**ASP.NET Core 2.2**下拉列表中
 * 选择**Web 应用程序**  > **确定**
