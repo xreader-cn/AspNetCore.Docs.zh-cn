@@ -5,14 +5,14 @@ description: 了解已发布的 ASP.NET Core 应用的目录结构。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/11/2018
+ms.date: 06/17/2019
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: 4bc5ead8e24c4bb7fe6cd2f52fd2aa622187180c
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: f1df047decc7a0a6b7dcee57a690c55eea428b05
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085495"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67166969"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core 目录结构
 
@@ -23,19 +23,23 @@ ms.locfileid: "65085495"
 * 应用程序文件
 * 配置文件
 * 静态资产
-* 包
+* package
 * 运行时（仅限[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)）
 
 | 应用类型 | 目录结构 |
 | -------- | ------------------- |
-| [依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd) | <ul><li>publish&dagger;<ul><li>Logs&dagger;（除非需要接收 stdout 日志，否则为可选）</li><li>Views&dagger;（MVC 应用；如果未预编译视图）</li><li>Pages&dagger;（MVC 或 Razor 页应用；如果未预编译页）</li><li>wwwroot&dagger;</li><li>*\.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
-| [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Logs&dagger;（除非需要接收 stdout 日志，否则为可选）</li><li>Views&dagger;（MVC 应用；如果未预编译视图）</li><li>Pages&dagger;（MVC 或 Razor 页应用；如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
+| [依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd) | <ul><li>publish&dagger;<ul><li>Views&dagger;（MVC 应用；如果未预编译视图）</li><li>Pages&dagger;（MVC 或 Razor 页应用；如果未预编译页）</li><li>wwwroot&dagger;</li><li>*\.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
+| [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger;（MVC 应用；如果未预编译视图）</li><li>Pages&dagger;（MVC 或 Razor 页应用；如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
 
 &dagger;指示目录
 
 publish 目录代表部署的内容根路径，也称为应用程序基路径。 无论对服务器上已部署应用的 publish 目录如何命名，其位置都可作为托管应用的服务器物理路径。
 
 wwwroot 目录（如果存在）仅包含静态资产。
+
+::: moniker range="< aspnetcore-3.0"
+
+创建 Logs 文件夹对于 [ASP.NET 核心模块增强的调试日志记录](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)来说非常有用。 提供给 `<handlerSetting>` 值的路径中的文件夹不是由模块自动创建的，并且应该预先存在于部署中以允许模块编写调试日志。
 
 可以使用以下两种方法之一为部署创建 Logs 目录：
 
@@ -58,7 +62,7 @@ wwwroot 目录（如果存在）仅包含静态资产。
 
 部署目录需要读取/执行权限。 Logs 目录需要读/写权限。 将文件写入其他目录需要读/写权限。
 
-[ASP.NET Core 模块 stdout 日志记录](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection)在部署中不需要 Logs 文件夹。 创建日志文件时，该模块能够在 `stdoutLogFile` 路径中创建任何文件夹。 创建 Logs 文件夹对于 [ASP.NET 核心模块增强的调试日志记录](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)来说非常有用。 提供给 `<handlerSetting>` 值的路径中的文件夹不是由模块自动创建的，并且应该预先存在于部署中以允许模块编写调试日志。
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 

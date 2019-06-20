@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: d3954800f4f1358565a627768e34465215dc4f6e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bfe417a6153f74cf0ca2d9bcde4db1bba8453b3b
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886652"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152885"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
@@ -154,7 +154,7 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EditPost)]
 
-代码先尝试读取要更新的院系。 如果 `SingleOrDefaultAsync` 方法返回 NULL，则该院系已被另一用户删除。 此情况下，代码将使用已发布的表单值创建院系实体，以便“编辑”页重新显示错误消息。 或者，如果仅显示错误消息而未重新显示院系字段，则不必重新创建 Department 实体。
+代码先尝试读取要更新的院系。 如果 `FirstOrDefaultAsync` 方法返回 NULL，则该院系已被另一用户删除。 此情况下，代码将使用已发布的表单值创建院系实体，以便“编辑”页重新显示错误消息。 或者，如果仅显示错误消息而未重新显示院系字段，则不必重新创建 Department 实体。
 
 该视图将原始 `RowVersion` 值存储在隐藏字段中，且此方法在 `rowVersion` 参数中接收该值。 在调用 `SaveChanges` 之前，必须将该原始 `RowVersion` 属性值置于实体的 `OriginalValues` 集合中。
 
