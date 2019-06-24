@@ -3,14 +3,14 @@ title: 将身份验证和标识迁移到 ASP.NET Core 2.0
 author: scottaddie
 description: 本文概述了迁移 ASP.NET Core 1.x 身份验证和标识为 ASP.NET Core 2.0 的最常见步骤。
 ms.author: scaddie
-ms.date: 06/13/2019
+ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 3e8bc75b87a85159c9668b52eea32bb7d700be6c
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196372"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313749"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>将身份验证和标识迁移到 ASP.NET Core 2.0
 
@@ -304,18 +304,31 @@ services.AddAuthentication(options =>
 ## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 身份验证 (HTTP.sys / IISIntegration)
 
 有两种变体的 Windows 身份验证：
-1. 主机只允许经过身份验证的用户
-2. 主机允许同时匿名和身份验证的用户
 
-上面所述的第一种变化形式是不受 2.0 更改的影响。
+* 主机仅允许经过身份验证的用户。 2\.0 的更改不影响此变体。
+* 主机允许同时匿名和身份验证的用户。 2\.0 更改的情况下，会影响此变体。 例如，应用应允许匿名用户都[IIS](xref:host-and-deploy/iis/index)或[HTTP.sys](xref:fundamentals/servers/httpsys)层，但在控制器级别的用户授权。 在此方案中，在设置的默认方案`Startup.ConfigureServices`方法。
 
-2\.0 更改的情况下，会影响上面所述的第二个变体。 例如，您可能会允许匿名用户到你的应用在 IIS 或[HTTP.sys](xref:fundamentals/servers/httpsys)层在控制器级别但授权用户。 在此方案中，将默认方案设置为`IISDefaults.AuthenticationScheme`在`Startup.ConfigureServices`方法：
+  有关[Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)，设置为默认方案`IISDefaults.AuthenticationScheme`:
 
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
+  ```csharp
+  using Microsoft.AspNetCore.Server.IISIntegration;
 
-若要设置的默认方案的失败会阻止来自工作的挑战的授权请求。
+  services.AddAuthentication(IISDefaults.AuthenticationScheme);
+  ```
+
+  有关[Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)，设置为默认方案`HttpSysDefaults.AuthenticationScheme`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Server.HttpSys;
+
+  services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+  ```
+
+  未能设置的默认方案可以防止授权 （质询） 请求使用了以下异常：
+
+  > `System.InvalidOperationException`：指定没有 authenticationScheme，并且不没有找到任何 DefaultChallengeScheme。
+
+有关详细信息，请参阅 <xref:security/authentication/windowsauth>。
 
 <a name="identity-cookie-options"></a>
 

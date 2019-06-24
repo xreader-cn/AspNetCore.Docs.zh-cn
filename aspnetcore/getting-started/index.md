@@ -55,7 +55,7 @@ dotnet dev-certs https --trust
 
 ![安全警告对话](~/getting-started/_static/cert.png)
 
-如果你同意信任开发证书，请选择“是”。
+如果你同意信任开发证书，请选择“是”。 
 
 # <a name="macostabmacos"></a>[macOS](#tab/macos)
 
@@ -88,11 +88,11 @@ cd aspnetcoreapp
 dotnet run
 ```
 
-在命令行界面指明应用已启动后，转到 [https://localhost:5001](https://localhost:5001)。 单击“接受”，接受隐私和 cookie 政策。 此应用不保留个人信息。
+在命令行界面指明应用已启动后，转到 [https://localhost:5001](https://localhost:5001)。 单击“接受”，接受隐私和 cookie 政策  。 此应用不保留个人信息。
 
 ## <a name="edit-a-razor-page"></a>编辑 Razor 页面
 
-打开 Pages/About.cshtml，并使用以下突出显示标记修改页面：
+打开 Pages/Index.cshtml  ，并使用以下突出显示标记修改页面：
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 

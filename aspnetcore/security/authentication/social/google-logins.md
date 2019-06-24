@@ -4,14 +4,14 @@ author: rick-anderson
 description: 本教程演示的集成到现有的 ASP.NET Core 应用程序的 Google 帐户用户身份验证。
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 1/11/2019
+ms.date: 06/19/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 44c79b3279db7946b6d89a726bd3f5acfb5f51af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b0edac411e73cd2eec7c4e212b99971577f59cfb
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895534"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316451"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>在 ASP.NET Core Google 外部登录安装程序
 
@@ -44,7 +44,9 @@ dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
 
 ## <a name="configure-google-authentication"></a>配置 Google 身份验证
 
-添加 Google 服务的目标`Startup.ConfigureServices`。
+添加 Google 服务的目标`Startup.ConfigureServices`:
+
+[!code-csharp[](~/security/authentication/social/social-code/StartupGoogle.cs?name=snippet_ConfigureServices&highlight=10-18)]
 
 [!INCLUDE [default settings configuration](includes/default-settings2-2.md)]
 
@@ -58,7 +60,7 @@ dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-请参阅[GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) Google 身份验证支持的配置选项的详细信息的 API 参考。 这可以用于请求有关用户的不同信息。
+请参阅<xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>Google 身份验证支持的配置选项的详细信息的 API 参考。 这可以用于请求有关用户的不同信息。
 
 ## <a name="change-the-default-callback-uri"></a>更改默认的回调 URI
 
@@ -68,7 +70,7 @@ URI 段`/signin-google`设置为默认的 Google 身份验证提供程序的回�
 
 * 如果登录不起作用，并且如果没有收到任何错误，切换到开发模式，以使问题更易于调试。
 * 如果不通过调用配置标识`services.AddIdentity`中`ConfigureServices`，尝试进行身份验证中的结果*ArgumentException:必须提供 SignInScheme 选项*。 在本教程中使用的项目模板可确保，此操作。
-* 如果尚未通过应用初始迁移创建站点数据库，则获取*处理请求时，数据库操作失败*错误。 点击**应用迁移**创建数据库，并刷新以忽略错误继续。
+* 如果尚未通过应用初始迁移创建站点数据库，则获取*处理请求时，数据库操作失败*错误。 选择**应用迁移**若要创建数据库，并刷新页面以忽略错误继续。
 
 ## <a name="next-steps"></a>后续步骤
 
