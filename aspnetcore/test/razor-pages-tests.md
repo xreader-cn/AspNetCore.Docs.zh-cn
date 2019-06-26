@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/27/2017
 uid: test/razor-pages-tests
-ms.openlocfilehash: f1526b8803f43ec8cbe77c1d2c100d9daf6cd316
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f0e47f975579dc114eaeda375028ec62696f58ed
+ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893714"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394741"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>在 ASP.NET Core razor 页单元测试
 
@@ -66,7 +66,7 @@ dotnet test
 | 测试应用程序文件夹 | 描述 |
 | --------------- | ----------- |
 | *UnitTests*     | <ul><li>*DataAccessLayerTest.cs* DAL 包含单元测试。</li><li>*IndexPageTests.cs*包含针对索引页面模型的单元测试。</li></ul> |
-| *实用程序*     | 包含`TestingDbContextOptions`用来创建新的数据库上下文选项为每个 DAL 单元测试，以便将数据库重置为其基线条件的每个测试方法。 |
+| *实用程序*     | 包含`TestDbContextOptions`用来创建新的数据库上下文选项为每个 DAL 单元测试，以便将数据库重置为其基线条件的每个测试方法。 |
 
 测试框架这[xUnit](https://xunit.github.io/)。 模拟框架的对象是[Moq](https://github.com/moq/moq4)。
 
@@ -93,14 +93,14 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-此方法的问题是每个测试中的任何状态前次测试保留它接收的数据库。 在尝试写入不会相互干扰的原子单元测试时，则可能存在问题。 若要强制`AppDbContext`若要为每个测试中使用新的数据库上下文，提供`DbContextOptions`基于新的服务提供程序的实例。 测试应用演示了如何执行此操作使用其`Utilities`类方法`TestingDbContextOptions`(*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*):
+此方法的问题是每个测试中的任何状态前次测试保留它接收的数据库。 在尝试写入不会相互干扰的原子单元测试时，则可能存在问题。 若要强制`AppDbContext`若要为每个测试中使用新的数据库上下文，提供`DbContextOptions`基于新的服务提供程序的实例。 测试应用演示了如何执行此操作使用其`Utilities`类方法`TestDbContextOptions`(*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*):
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
 使用`DbContextOptions`接 DAL 单元测试，以使用新数据库实例以原子方式运行每个测试：
 
 ```csharp
-using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
+using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 {
     // Use the db here in the unit test.
 }
