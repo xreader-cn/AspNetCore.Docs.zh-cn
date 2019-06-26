@@ -220,8 +220,6 @@
               uid: tutorials/razor-pages/validation
         - name: 筛选器
           uid: razor-pages/filter
-        - name: Razor 类库
-          uid: razor-pages/ui-class
         - name: 路由和应用约定
           uid: razor-pages/razor-pages-conventions
         - name: 上传文件
@@ -344,6 +342,8 @@
       uid: mvc/views/layout
     - name: Razor 语法
       uid: mvc/views/razor
+    - name: Razor 类库
+      uid: razor-pages/ui-class
     - name: 标记帮助程序
       uid: mvc/views/tag-helpers/builtin-th/Index
       items:
