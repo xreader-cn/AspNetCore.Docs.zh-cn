@@ -298,6 +298,8 @@
           uid: blazor/javascript-interop
         - name: 调试
           uid: blazor/debug
+        - name: 调用 Web API
+          uid: blazor/call-web-api
         - name: 托管和部署
           items:
             - name: 概述
