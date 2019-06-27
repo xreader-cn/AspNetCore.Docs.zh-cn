@@ -296,6 +296,8 @@
           uid: blazor/routing
         - name: JavaScript 互操作
           uid: blazor/javascript-interop
+        - name: 安全和标识
+          uid: security/blazor/index
         - name: 调试
           uid: blazor/debug
         - name: 调用 Web API
@@ -456,9 +458,6 @@
         - name: 用户和组
           uid: signalr/groups
           displayName: signalr
-        - name: 发布到 Azure
-          uid: signalr/publish-to-azure-web-app
-          displayName: signalr
         - name: API 设计注意事项
           uid: signalr/api-design
           displayName: signalr
@@ -489,9 +488,9 @@
         - name: 概述
           displayName: signalr
           uid: signalr/scale
-        - name: Azure SignalR 服务
+        - name: Azure 应用服务
+          uid: signalr/publish-to-azure-web-app
           displayName: signalr
-          href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Redis 底板
           displayName: signalr
           uid: signalr/redis-backplane
@@ -962,6 +961,8 @@
       uid: security/ip-safelist
     - name: 应用程序安全性 - OWASP
       href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
+    - name: Blazor
+      uid: security/blazor/index
 - name: 性能
   items:
     - name: 概述
