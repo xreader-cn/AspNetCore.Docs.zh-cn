@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 06/24/2019
+ms.date: 06/28/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 96ef8fc055a6b92cd0808d02031d917b8446f305
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: d59f643a23b48ccbddf498ef534ee8432b010f40
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394748"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463258"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>创建使用 ASP.NET Core 中 Razor 类库项目的可重用 UI
 
@@ -228,6 +228,8 @@ dotnet run
 </body>
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="create-an-rcl-with-static-assets"></a>创建具有静态资产 RCL
 
 RCL 可能需要的 RCL 正在使用的应用，可以引用的配套静态资产。 ASP.NET Core，可以创建包含适用于正在使用的应用的静态资产的 RCLs。
@@ -254,3 +256,5 @@ RCL 生成时，会生成一个清单描述静态 web 资产位置。 正在使�
 ### <a name="publish"></a>发布
 
 发布应用程序时，将从所有的被引用项目和包的配套资产复制到*wwwroot*文件夹下的已发布应用`_content/{LIBRARY NAME}/`。
+
+::: moniker-end
