@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 4cfca4b38543ff073bb98dc09b483d96096928ae
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3a254af4d56cb4abc7004a67b0d0b42de2b878b1
+ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692566"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67399104"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -211,7 +211,7 @@ powershell -Command "New-LocalUser -Name {NAME}"
 
 为服务用户帐户创建“以服务身份登录”权限： 
 
-1. 运行 secpool.msc，打开本地安全策略编辑器。 
+1. 通过运行 secpool.msc  ，打开本地安全策略编辑器。
 1. 展开“本地策略”节点，选择“用户权限分配”。  
 1. 打开“以服务身份登录”策略。 
 1. 选择“添加用户或组”  。
@@ -310,7 +310,7 @@ Remove-Service -Name {NAME}
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 
-与来自 Internet 或公司网络的请求进行交互且在代理或负载均衡器后方的服务可能需要其他配置。 有关更多信息，请参见<xref:host-and-deploy/proxy-load-balancer>。
+与来自 Internet 或公司网络的请求进行交互且在代理或负载均衡器后方的服务可能需要其他配置。 有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。
 
 ## <a name="configure-https"></a>配置 HTTPS
 

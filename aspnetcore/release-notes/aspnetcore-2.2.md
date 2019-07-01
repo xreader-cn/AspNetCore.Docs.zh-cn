@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: cdc761b645b91777bdf6084c3ad4659fcea55039
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ad7b5ecc4f03d845375b1612150da183df9ec0d9
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883202"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316583"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -19,7 +19,7 @@ ms.locfileid: "64883202"
 
 ## <a name="openapi-analyzers--conventions"></a>开放 API 分析器和约定
 
-开放 API（以前称为 Swagger）是一个与语言无关的规范，用于描述 REST API。 开放 API 生态系统具有一些工具，可用于发现、测试和生成使用该规范的客户端代码。 对在 ASP.NET Core MVC 中生成和可视化开放 API 文档的支持通过社区驱动型项目（如 [NSwag](https://github.com/RSuter/NSwag) 和 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)）来提供。 对于创建开放 API 文档，ASP.NET Core 2.2 提供了改进的工具和运行时体验。
+开放 API（以前称为 Swagger）是一个与语言无关的规范，用于描述 REST API。 开放 API 生态系统具有一些工具，可用于发现、测试和生成使用该规范的客户端代码。 对在 ASP.NET Core MVC 中生成和直观呈现 OpenAPI 文档的支持是通过社区驱动项目（如 [NSwag](https://github.com/RicoSuter/NSwag) 和 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)）提供。 对于创建开放 API 文档，ASP.NET Core 2.2 提供了改进的工具和运行时体验。
 
 有关更多信息，请参见以下资源：
 
@@ -33,12 +33,12 @@ ASP.NET Core 2.1 引入了 `ProblemDetails`（基于用于通过 HTTP 响应传�
 
 ## <a name="endpoint-routing"></a>终结点路由
 
-ASP.NET Core 2.2 使用新的终结点路由系统来改进请求的调度。 更改包括新链接生成 API 成员和路由参数转换器。
+ASP.NET Core 2.2 使用新的终结点路由  系统来改进请求的调度。 更改包括新链接生成 API 成员和路由参数转换器。
 
 有关更多信息，请参见以下资源：
 
 * [2.2 中的终结点路由](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
-* [路由参数转换器](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx)（请参阅“路由”部分）
+* [路由参数转换器](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx)（请参阅“路由”  部分）
 * [基于 IRouter 与基于终结点的路由之间的差异](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing)
 
 ## <a name="health-checks"></a>运行状况检查
@@ -53,7 +53,7 @@ ASP.NET Core 2.2 使用新的终结点路由系统来改进请求的调度。 �
 
 ## <a name="http2-in-kestrel"></a>Kestrel 中的 HTTP/2
 
-ASP.NET Core 2.2 添加了对 HTTP/2 的支持。 
+ASP.NET Core 2.2 添加了对 HTTP/2 的支持。
 
 HTTP/2 是 HTTP 协议的主要修订版本。 HTTP/2 的一些值得注意的功能包括支持标头压缩，以及单个连接上的完整多路复用流。 尽管 HTTP/2 保留了 HTTP 的语义（HTTP 标头、方法等），不过与 HTTP/1.x 相比，在线路上对此数据进行组帧和发送的方式发生了重大更改。
 
@@ -70,7 +70,7 @@ HTTP/2 是 HTTP 协议的主要修订版本。 HTTP/2 的一些值得注意的�
 
 ## <a name="iis-in-process-hosting"></a>IIS 进程内承载
 
-在早期版本的 ASP.NET Core 中，IIS 用作反向代理。 在 2.2 中，ASP.NET Core 模块可以启动 CoreCLR 并在 IIS 工作进程 (w3wp.exe) 内承载应用。 在使用 IIS 运行时，进程内承载可提供性能和诊断提升。
+在早期版本的 ASP.NET Core 中，IIS 用作反向代理。 在 2.2 中，ASP.NET Core 模块可以启动 CoreCLR 并在 IIS 工作进程 (w3wp.exe  ) 内承载应用。 在使用 IIS 运行时，进程内承载可提供性能和诊断提升。
 
 有关详细信息，请参阅 [IIS 进程内承载](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model)。
 

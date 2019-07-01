@@ -5,14 +5,14 @@ description: 了解如何诊断 ASP.NET Core 应用的 Internet Information Serv
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 06/19/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: cb42a262c89c27fa350e936184f8ddb3a02788f0
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 4df370dd9b1a5a651bcf767b8b9ace4220bdc345
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034738"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313655"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>对 IIS 上的 ASP.NET Core 进行故障排除
 
@@ -20,189 +20,14 @@ ms.locfileid: "67034738"
 
 本文说明了如何在使用 [Internet Information Services (IIS)](/iis) 托管时诊断 ASP.NET Core 应用启动问题。 本文提供的信息适用于在 Windows Server 和 Windows 桌面上的 IIS 中托管。
 
-::: moniker range=">= aspnetcore-2.2"
-
-在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 本地调试时出现的“502.5 - 进程失败”或“500.30 - 启动失败”可以使用本主题中的建议进行故障排除   。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.2"
-
-在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 可以使用本主题中的建议对本地调试进行故障排除时，出现“502.5 进程失败”  。
-
-::: moniker-end
-
 其他故障排除主题：
 
-<xref:host-and-deploy/azure-apps/troubleshoot> 虽然应用服务使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)和 IIS 托管应用，但若要获取特定于应用服务的说明，请参阅专用主题。
-
-<xref:fundamentals/error-handling> 了解如何在本地系统上处理 ASP.NET Core 应用在开发期间的错误。
-
-[了解如何使用 Visual Studio 进行调试](/visualstudio/debugger/getting-started-with-the-debugger)本主题介绍了 Visual Studio 调试器的功能。
-
-[使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/editor/debugging)了解 Visual Studio Code 中内置的调试支持。
-
-## <a name="app-startup-errors"></a>应用启动错误
-
-### <a name="5025-process-failure"></a>502.5 进程失败
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块尝试启动后端 dotnet 进程，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
-
-常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。  共享框架是安装在计算机上并由 `Microsoft.AspNetCore.App` 等元包引用的一组程序集（.dll  文件）。 元包引用可以指定所需的最低版本。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
-
-托管或应用配置错误导致工作进程失败时，将返回“502.5 进程失败”  错误页面：
-
-![显示“502.5 进程故障”页面的浏览器窗口](troubleshoot/_static/process-failure-page.png)
-
-::: moniker range="= aspnetcore-2.2"
-
-### <a name="50030-in-process-startup-failure"></a>500.30 进程内启动失败
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块尝试进程内启动 .NET Core CLR，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
-
-常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
-
-### <a name="5000-in-process-handler-load-failure"></a>500.0 进程内处理程序加载失败
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块无法找到 .NET Core CLR 和进程内请求处理程序 (aspnetcorev2_inprocess.dll)  。 检查：
-
-* 该应用针对 [Microsoft.AspNetCore.Server.IIS NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) 包或 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)。
-* 目标计算机上安装了该应用所针对的 ASP.NET Core 共享框架版本。
-
-### <a name="5000-out-of-process-handler-load-failure"></a>500.0 进程外处理程序加载失败
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块无法找到进程外托管请求处理程序。 请确保 aspnetcorev2.dll 旁边的子文件夹中存在 aspnetcorev2_outofprocess.dll   。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 ANCM 找不到本机依赖项
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块尝试进程内启动 .NET Core 运行时，但启动失败。 此类启动失败的最常见原因是未安装 `Microsoft.NETCore.App` 或 `Microsoft.AspNetCore.App`运行时。 如果将应用部署为面向 ASP.NET Core 3.0，并且计算机上不存在该版本，则会发生此错误。 示例错误消息如下所示：
-
-```
-The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
-  - The following frameworks were found:
-      2.2.1 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview5-27626-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27713-13 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27714-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27723-08 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-```
-
-错误消息列出了所有已安装的 .NET Core 版本以及应用请求的版本。 请通过以下一种方法修复此错误：
-
-* 在计算机上安装适当版本的 .NET Core。
-* 更改应用，使其面向计算机上已存在的 .NET Core 版本。
-* 将应用作为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)进行发布。
-
-在开发过程（`ASPNETCORE_ENVIRONMENT` 环境变量设置为 `Development`）中运行时，HTTP 响应中会写入特定的错误。 还可以在[应用程序事件日志](#application-event-log)中找到进程启动失败的原因。
-
-### <a name="50032-ancm-failed-to-load-dll"></a>500.32 ANCM 无法加载 dll
-
-工作进程失败。 应用不启动。
-
-此错误的最常见原因是针对不兼容的处理器体系结构发布了应用。 如果工作进程作为 32 位应用运行，而将应用发布为面向 64 位，则会发生此错误。
-
-请通过以下一种方法修复此错误：
-
-* 针对同一处理器体系结构将应用作为工作进程进行重新发布。
-* 将应用作为[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-executables-fde)进行发布。
-
-### <a name="50033-ancm-request-handler-load-failure"></a>500.33 ANCM 请求处理程序加载失败
-
-工作进程失败。 应用不启动。
-
-应用未引用 `Microsoft.AspNetCore.App` 框架。 ASP.NET Core 模块只能托管面向 `Microsoft.AspNetCore.App` 框架的应用。
-
-要修复此错误，请确保应用面向 `Microsoft.AspNetCore.App` 框架。 检查 `.runtimeconfig.json` 以验证该应用所面向的框架。
-
-### <a name="50034-ancm-mixed-hosting-models-not-supported"></a>500.34 ANCM 混合托管模型不受支持
-
-工作进程不能在同一进程中同时运行进程内应用和进程外应用。
-
-要修复此错误，请在单独的 IIS 应用程序池中运行应用。
-
-### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM 同一进程内有多个进程内应用程序
-
-工作进程不能在同一进程中同时运行进程内应用和进程外应用。
-
-要修复此错误，请在单独的 IIS 应用程序池中运行应用。
-
-### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500.36 ANCM 进程外处理程序加载失败
-
-进程外请求处理程序 aspnetcorev2_outofprocess.dll 未与 aspnetcorev2.dll 文件相邻   。 这表示 ASP.NET Core 模块的安装已损坏。
-
-要修复此错误，请修复 [.NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)（对于 IIS）或 Visual Studio（对于 IIS Express）的安装。
-
-### <a name="50037-ancm-failed-to-start-within-startup-time-limit"></a>500.37 ANCM 无法在启动时间限制内启动
-
-ANCM 无法在提供的启动时间限制内启动。 默认情况下，超时时间为 120 秒。
-
-在同一台计算机上启动大量应用时，则可能发生此错误。 在启动期间检查服务器上的 CPU/内存使用峰值。 可能需要交错执行多个应用程序的启动进程。
-
-### <a name="50030-in-process-startup-failure"></a>500.30 进程内启动失败
-
-工作进程失败。 应用不启动。
-
-ASP.NET Core 模块尝试进程内启动 .NET Core 运行时，但启动失败。 通常可以从“[应用程序事件日志](#application-event-log)”和“[ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)”的条目中确定进程启动失败的原因。
-
-### <a name="5000-in-process-handler-load-failure"></a>500.0 进程内处理程序加载失败
-
-工作进程失败。 应用不启动。
-
-加载 ASP.NET Core 模块组件时出现未知错误。 请执行以下一项操作：
-
-* 联系 [Microsoft 支持部门](https://support.microsoft.com/oas/default.aspx?prid=15832)（依次选择“开发人员工具”和“ASP.NET Core”）   。
-* 在 Stack Overflow 上提出问题。
-* 在 [GitHub 存储库](https://github.com/aspnet/AspNetCore)中提出问题。
-
-::: moniker-end
-
-### <a name="500-internal-server-error"></a>500 内部服务器错误
-
-应用启动，但某个错误阻止了服务器完成请求。
-
-在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”  。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 在服务器上[在命令提示符处运行应用](#run-the-app-at-a-command-prompt)或[启用 ASP.NET Core 模块 stdout 日志](#aspnet-core-module-stdout-log)以解决该问题。
-
-### <a name="failed-to-start-application-errorcode-0x800700c1"></a>未能启动应用程序（错误代码“0x800700c1”）
-
-```
-EventID: 1010
-Source: IIS AspNetCore Module V2
-Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
-```
-
-应用未能启动，因为应用的程序集 (.dll  ) 无法加载。
-
-当已发布的应用与 w3wp/iisexpress 进程之间的位数不匹配时，会出现此错误。
-
-确认应用池的 32 位设置正确：
-
-1. 在 IIS 管理器的“应用程序池”  中选择应用池。
-1. 在“操作”  面板中的“编辑应用程序池”  下选择“高级设置”  。
-1. 设置“启用 32 位应用程序”  ：
-   * 如果部署 32 位 (x86) 应用，则将值设置为 `True`。
-   * 如果部署 64 位 (x64) 应用，则将值设置为 `False`。
-
-### <a name="connection-reset"></a>连接重置
-
-如果在发送标头后出现错误，则服务器在出现错误时发送“500 内部服务器错误”  已经太晚了。 通常在序列化响应的复杂对象期间出现错误时发生这种情况。 此类型的错误在客户端上显示为“连接重置”  错误。 [应用程序日志记录](xref:fundamentals/logging/index)可以帮助解决这些类型的错误。
-
-## <a name="default-startup-limits"></a>默认启动限制
-
-ASP.NET Core 模块的默认“startupTimeLimit”  配置为 120 秒。 保留默认值时，在模块记录进程故障之前，可能最多需要两分钟来启动应用。 有关配置模块的信息，请参阅 [aspNetCore 元素的属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)。
+* Azure 应用服务还使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)和 IIS 来托管应用。 有关专门针对 Azure 应用服务提出的疑难解答建议，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。
+* <xref:fundamentals/error-handling> 介绍了如何在本地系统上进行开发期间处理 ASP.NET Core 应用中的错误。
+* [了解如何使用 Visual Studio 进行调试](/visualstudio/debugger/getting-started-with-the-debugger)介绍了 Visual Studio 调试器的功能。
+* [使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/editor/debugging)介绍了 Visual Studio Code 中内置的调试支持。
+
+[!INCLUDE[](~/includes/azure-iis-startup-errors.md)]
 
 ## <a name="troubleshoot-app-startup-errors"></a>解决应用启动错误
 

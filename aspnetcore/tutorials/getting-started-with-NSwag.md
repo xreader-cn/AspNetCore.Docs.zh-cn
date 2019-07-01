@@ -4,14 +4,14 @@ author: zuckerthoben
 description: 了解如何使用 NSwag 为 ASP.NET Core Web API 生成文档和帮助页面。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/30/2018
+ms.date: 06/21/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 787f51629b044e638d2790b3dda8723c2644c2d8
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: c5b2dc47328d6d3c271a87579fa8c300109bd734
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470427"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316560"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag 和 ASP.NET Core 入门
 
@@ -43,7 +43,7 @@ NSwag 提供了下列功能：
 * 生成已实现的 Web API 的 Swagger 规范。
 * 为 Swagger UI 提供服务以浏览和测试 Web API。
 
-若要使用 [NSwag](https://github.com/RSuter/NSwag) ASP.NET Core 中间件，请安装 [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet 包。 此包内的中间件可用于生成并提供Swagger 规范、Swagger UI（v2 和 v3）和 [ReDoc UI](https://github.com/Rebilly/ReDoc)。
+若要使用 [NSwag](https://github.com/RicoSuter/NSwag) ASP.NET Core 中间件，请安装 [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet 包。 此包内的中间件可用于生成并提供Swagger 规范、Swagger UI（v2 和 v3）和 [ReDoc UI](https://github.com/Rebilly/ReDoc)。
 
 若要安装 NSwag NuGet 包，请使用以下方法之一：
 
@@ -91,17 +91,13 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 ## <a name="add-and-configure-swagger-middleware"></a>添加并配置 Swagger 中间件
 
- 通过在 `Startup` 类中执行以下步骤，在 ASP.NET Core 应用中添加和配置 Swagger：
+通过执行以下步骤，在 ASP.NET Core 应用中添加和配置 Swagger：
 
-* 导入下列命名空间：
-
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_StartupConfigureImports)]
-
-* 在 `ConfigureServices` 方法中，注册所需的 Swagger 服务：
+* 在 `Startup.ConfigureServices` 方法中，注册所需的 Swagger 服务：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_ConfigureServices&highlight=8)]
 
-* 在 `Configure` 方法中，启用中间件为生成的 Swagger 规范和 Swagger UI 提供服务：
+* 在 `Startup.Configure` 方法中，启用中间件为生成的 Swagger 规范和 Swagger UI 提供服务：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
@@ -113,15 +109,15 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 若要利用 NSwag 的代码生成功能，可选择以下选项之一：
 
-* [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) &ndash; 一款 Windows 桌面应用，用于以 C# 或 TypeScript 生成 API 客户端代码。
+* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio) &ndash; 一款 Windows 桌面应用，用于以 C# 或 TypeScript 生成 API 客户端代码。
 * [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) 或 [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) NuGet 包 - 用于在项目中生成代码。
-* 通过[命令行](https://github.com/NSwag/NSwag/wiki/CommandLine)使用 NSwag。
-* [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) NuGet 包。
+* 通过[命令行](https://github.com/RicoSuter/NSwag/wiki/CommandLine)使用 NSwag。
+* [NSwag.MSBuild](https://github.com/RicoSuter/NSwag/wiki/MSBuild) NuGet 包。
 * [Unchase OpenAPI (Swagger) 连接服务](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice) &ndash; 一种 Visual Studio 连接服务，用于使用 C# 或 TypeScript 生成 API 客户端代码。 还可以使用 NSwag 为 OpenAPI 服务生成 C# 控制器。
 
 ### <a name="generate-code-with-nswagstudio"></a>使用 NSwagStudio 生成代码
 
-* 按照 [NSwagStudio GitHub 存储库](https://github.com/RSuter/NSwag/wiki/NSwagStudio)中的说明操作，以安装 NSwagStudio。
+* 按照 [NSwagStudio GitHub 存储库](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio)中的说明操作，以安装 NSwagStudio。
 * 启动 NSwagStudio，并在“Swagger 规范 URL”  文本框中输入 swagger.json  文件 URL。 例如， *http://localhost:44354/swagger/v1/swagger.json* 。
 * 单击“创建本地副本”  按钮，以生成 Swagger 规范的 JSON 表示形式。
 
@@ -277,7 +273,7 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range=">= aspnetcore-2.1"
 
- 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。 
+ 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。
 
 请看下面的示例：
 
@@ -287,7 +283,7 @@ Swagger UI 显示版本的信息：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-在 ASP.NET Core 2.2 或更高版本中，可使用约定，而不是使用 `[ProducesResponseType]` 显式修饰各操作。 有关更多信息，请参见<xref:web-api/advanced/conventions>。
+在 ASP.NET Core 2.2 或更高版本中，可使用约定，而不是使用 `[ProducesResponseType]` 显式修饰各操作。 有关详细信息，请参阅 <xref:web-api/advanced/conventions>。
 
 ::: moniker-end
 

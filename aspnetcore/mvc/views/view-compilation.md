@@ -5,14 +5,14 @@ description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/30/2019
+ms.date: 06/20/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: b78831dd95a721e35d4bf5b44cdd8823472f6aa2
-ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
+ms.openlocfilehash: ff66148fc9aad2871f9f55ce76b5a0dacb0ad10c
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66395895"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313785"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -51,12 +51,12 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 启用后�
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文件更新后，支持在生成时编辑这些文件。 默认情况下，只有编译 Razor 文件所需的编译的 Views.dll（而非 .cshtml）文件或引用程序集随应用一起部署。
+Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文件更新后，支持在生成时编辑这些文件。 默认情况下，只有编译 Razor 文件所需的编译的 Views.dll（而非 .cshtml）文件或引用程序集随应用一起部署   。
 
 > [!IMPORTANT]
 > 已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
 >
-> 仅当项目文件中未设置特定于预编译的属性时，Razor SDK 才有效。 例如，通过将 .csproj 文件的 `MvcRazorCompileOnPublish` 属性设置为 `true` 来禁用 Razor SDK。
+> 仅当项目文件中未设置特定于预编译的属性时，Razor SDK 才有效。 例如，通过将 .csproj 文件的 `MvcRazorCompileOnPublish` 属性设置为 `true` 来禁用 Razor SDK  。
 
 ::: moniker-end
 
@@ -68,7 +68,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文�
 
 如果项目面向 .NET Core，则无需进行任何更改。
 
-默认情况下，ASP.NET Core 2.x 项目模板将 `MvcRazorCompileOnPublish` 属性隐式设置为 `true`。 因此，可以从 .csproj 文件中安全地删除此元素。
+默认情况下，ASP.NET Core 2.x 项目模板将 `MvcRazorCompileOnPublish` 属性隐式设置为 `true`。 因此，可以从 .csproj 文件中安全地删除此元素  。
 
 > [!IMPORTANT]
 > 已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。 建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。
@@ -79,7 +79,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文�
 
 ::: moniker range="= aspnetcore-1.1"
 
-将 `MvcRazorCompileOnPublish` 属性设置为 `true`，然后安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包。 以下 .csproj 示例突出显示了这些设置：
+将 `MvcRazorCompileOnPublish` 属性设置为 `true`，然后安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包。 以下 .csproj 示例突出显示了这些设置  ：
 
 [!code-xml[](view-compilation/sample/MvcRazorCompileOnPublish.csproj?highlight=4,10)]
 
@@ -93,7 +93,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 Razor 文�
 dotnet publish -c Release
 ```
 
-预编译成功后，将生成包含已编译 Razor 文件的 \<project_name>.PrecompiledViews.dll 文件。 例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容：
+预编译成功后，将生成包含已编译 Razor 文件的 \<project_name>.PrecompiledViews.dll  文件。 例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容   ：
 
 ![DLL 中的 Razor 视图](view-compilation/_static/razor-views-in-dll.png)
 
@@ -103,7 +103,7 @@ dotnet publish -c Release
 
 ::: moniker range="= aspnetcore-2.1"
 
-通过 Razor 文件的运行时编译补充生成时编译。 当 .cshtml 文件的内容发生更改时，ASP.NET Core MVC 将重新编译 Razor 文件。
+通过 Razor 文件的运行时编译补充生成时编译。 当 .cshtml 文件的内容发生更改时，ASP.NET Core MVC 将重新编译 Razor 文件  。
 
 ::: moniker-end
 
@@ -125,17 +125,13 @@ dotnet publish -c Release
 使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。 要启用运行时编译，应用必须：
 
 * 安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。
-* 更新应用程序的 `ConfigureServices` 以包含对 `AddMvcRazorRuntimeCompilation` 的调用：
+* 将项目的 `Startup.ConfigureServices` 方法更新为包含对 `AddRazorRuntimeCompilation` 的调用：
 
   ```csharp
   services
-      .AddMvc()
-      .AddRazorRuntimeCompilation()
+      .AddControllersWithViews()
+      .AddRazorRuntimeCompilation();
   ```
-
-为了在部署时使运行时编译正常工作，应用必须修改其项目文件，以将 `PreserveCompilationReferences` 设置为 `true`：
-
-[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=4)]
 
 ::: moniker-end
 
