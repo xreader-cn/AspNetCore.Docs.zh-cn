@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: signalr/configuration
-ms.openlocfilehash: 6c7bd602e621917c491bfb1e26ff0fcfc3a565b0
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: 662565e537fa0eb13ed80e558949740739a63558
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470368"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500376"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -74,11 +74,22 @@ var connection = new HubConnectionBuilder()
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
 | 选项 | 默认值 | 描述 |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 秒 | 服务器将会考虑客户端断开连接，如果它未在此时间间隔内收到一条消息 （包括保持活动状态）。 可能需要超过客户端实际上要标记为已断开连接，由于这如何实现此超时间隔。 建议的值是双精度`KeepAliveInterval`值。|
+| `HandshakeTimeout` | 15 秒 | 如果客户端不会在此时间间隔内发送初始握手消息，该连接已关闭。 这是一种高级的设置，如果由于出现严重的网络延迟发生握手超时错误应仅修改。 握手过程的更多详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `KeepAliveInterval` | 15 秒 | 如果服务器尚未在此时间间隔内发送一条消息，是自动发送一条 ping 消息使连接保持打开状态。 更改时`KeepAliveInterval`，更改`ServerTimeout` / `serverTimeoutInMilliseconds`设置在客户端上。 推荐`ServerTimeout` / `serverTimeoutInMilliseconds`值是双精度`KeepAliveInterval`值。  |
+| `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下，允许在服务器上注册的所有协议，但可以从禁用特定协议的单个中心此列表中删除协议。 |
+| `EnableDetailedErrors` | `false` | 如果`true`、 详细异常消息返回到客户端集线器方法中引发异常。 默认值是`false`，因为这些异常消息可能包含敏感信息。 |
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+| 选项 | 默认值 | 描述 |
+| ------ | ------------- | ----------- |
 | `HandshakeTimeout` | 15 秒 | 如果客户端不会在此时间间隔内发送初始握手消息，该连接已关闭。 这是一种高级的设置，如果由于出现严重的网络延迟发生握手超时错误应仅修改。 握手过程的更多详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 如果服务器尚未在此时间间隔内发送一条消息，是自动发送一条 ping 消息使连接保持打开状态。 更改时`KeepAliveInterval`，更改`ServerTimeout` / `serverTimeoutInMilliseconds`设置在客户端上。 推荐`ServerTimeout` / `serverTimeoutInMilliseconds`值是双精度`KeepAliveInterval`值。  |
 | `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下，允许在服务器上注册的所有协议，但可以从禁用特定协议的单个中心此列表中删除协议。 |

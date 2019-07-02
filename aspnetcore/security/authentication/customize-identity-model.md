@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中的标识模型自定义
 author: ajcvickers
 description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实体框架核心数据模型。
 ms.author: avickers
-ms.date: 04/24/2019
+ms.date: 07/01/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 53ce77e20722f3ba3282ff4455a0b70d30e635b0
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: f549fdff4a416b5fadcb2b1078b051bbab8e402e
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65536025"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500477"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>在 ASP.NET Core 中的标识模型自定义
 
@@ -72,7 +72,7 @@ ASP.NET Core 具有开发时间错误页处理程序。 当应用运行时，该
 
 ### <a name="default-model-configuration"></a>默认模型配置
 
-标识定义许多*上下文类*继承自<xref:Microsoft.EntityFrameworkCore.DbContext>若要配置和使用模型。 进行此配置使用[EF Core Code First Fluent API](/ef/core/modeling/)中<xref:Microsoft.EntityFrameworkCore.DbContext.OnModelCreating*>上下文类的方法。 默认配置是：
+标识定义许多*上下文类*继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)若要配置和使用模型。 进行此配置使用[EF Core 代码 First Fluent API](/ef/core/modeling/)中[OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating)上下文类的方法。 默认配置是：
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -463,7 +463,7 @@ services.AddDefaultIdentity<ApplicationUser>()
             .AddDefaultTokenProviders();
     ```
 
-    主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
+    通过分析来推断主键的数据类型[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象。
 
     在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
 
@@ -477,7 +477,7 @@ services.AddDefaultIdentity<ApplicationUser>()
             .AddDefaultTokenProviders();
     ```
 
-    主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
+    通过分析来推断主键的数据类型[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象。
 
     ::: moniker-end
 
@@ -507,7 +507,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=13-16)]
 
-    主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
+    通过分析来推断主键的数据类型[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象。
 
     在 ASP.NET Core 2.1 或更高版本，作为一个 Razor 类库提供标识。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果标识基架用于标识文件添加到项目，删除对调用`AddDefaultUI`。
 
@@ -521,7 +521,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
-    主键的数据类型推断通过分析<xref:Microsoft.EntityFrameworkCore.DbContext>对象。
+    通过分析来推断主键的数据类型[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象。
 
     ::: moniker-end
 
@@ -962,7 +962,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 实体类型可适用于采用多种方式的延迟加载中所述[EF Core 文档](/ef/core/querying/related-data#lazy-loading)。 为简单起见，使用该软件需要延迟加载代理：
 
 * 安装[-Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)包。
-* 调用<xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*>内<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>。
+* 调用<xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*>内[AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)。
 * 公共实体类型与`public virtual`导航属性。
 
 下面的示例演示如何调用`UseLazyLoadingProxies`在`Startup.ConfigureServices`:

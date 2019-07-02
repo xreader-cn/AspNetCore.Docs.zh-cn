@@ -5,14 +5,14 @@ description: 了解如何为 IIS 和 HTTP.sys 在 ASP.NET Core 中配置 Windows
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/12/2019
+ms.date: 07/01/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 93f833adff95f25d570947cd1a9035d652f522c2
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 30f1f554a29412ed6b84115d457d2da1aba91c17
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034949"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500505"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置 Windows 身份验证
 
@@ -145,7 +145,10 @@ IIS 使用[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)到承�
  [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) NuGet 包可用于[Kestrel](xref:fundamentals/servers/kestrel)以支持 Windows、 Linux 和 macOS 上使用 Negotiate、 Kerberos 和 NTLM 的 Windows 身份验证。
 
 > [!WARNING]
-> 凭据可以在连接上的请求之间得以保持。 *协商身份验证不得使用代理中使用，除非代理维护与 Kestrel 1 对 1 连接关联 （持续性连接）。* 这意味着，协商身份验证必须不能与使用 Kestrel 在 IIS 后方[ASP.NET Core 模块 (ANCM) 进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)。
+> 凭据可以在连接上的请求之间得以保持。 *协商身份验证不得使用代理中使用，除非代理维护与 Kestrel 1 对 1 连接关联 （持续性连接）。*
+
+> [!NOTE]
+> Negotiate 处理程序会检测基础服务器以本机方式支持 Windows 身份验证，并启用它。 如果服务器支持 Windows 身份验证，但它处于禁用状态，要求你启用服务器实现引发错误。 当服务器中启用 Windows 身份验证时，Negotiate 处理程序以透明方式将转发给它。
 
  添加身份验证服务通过调用<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>(`Microsoft.AspNetCore.Authentication.Negotiate`命名空间) 和`AddNegotitate`(`Microsoft.AspNetCore.Authentication.Negotiate`命名空间) 中`Startup.ConfigureServices`:
 
@@ -255,7 +258,17 @@ ASP.NET Core 未实现模拟。 应用程序运行具有的所有请求，使用
 
 ## <a name="claims-transformations"></a>声明转换
 
+::: moniker range=">= aspnetcore-3.0"
+
+使用 IIS，承载时<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>不在内部调用以初始化用户。 因此，默认情况下不激活每次身份验证后用于转换声明的 <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 实现。 有关详细信息和激活声明转换的代码示例，请参阅<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 承载与 IIS 进程内模式时<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>不在内部调用以初始化用户。 因此，默认情况下不激活每次身份验证后用于转换声明的 <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 实现。 有关详细信息和托管进程中时将激活声明转换的代码示例，请参阅<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>。
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
