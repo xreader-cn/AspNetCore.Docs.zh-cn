@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: 6dd722b3b78d2af81497bde9e0519feb9af84748
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: ec2b5b72eeff21d183397284b0d538681282d45b
+ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086142"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67399162"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -44,7 +44,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -54,7 +54,7 @@ ASP.NET Core 2.x 可以面向 .NET Core 或 .NET Framework。 面向 .NET Framew
 
 ASP.NET Core 2.x 在实现 .NET Standard 2.0 的 .NET Framework 版本上受支持：
 
-* 强烈建议使用 .NET Framework 4.7.1 及更高版本。
+* 强烈建议使用最新版本的 .NET Framework。
 * .NET Framework 4.6.1 及更高版本。
 
 ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更改的详细信息，请参阅 [A first look at changes coming in ASP.NET Core 3.0](https://blogs.msdn.microsoft.com/webdev/2018/10/29/a-first-look-at-changes-coming-in-asp-net-core-3-0/)（抢先了解 ASP.NET Core 3.0 即将推出的更改）。
@@ -102,7 +102,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 很多文章和教程中都包含有示例代码链接。
 
 1. [下载 ASP.NET 存储库 zip 文件](https://codeload.github.com/aspnet/AspNetCore.Docs/zip/master)。
-1. 解压缩 Docs-master.zip 文件。
+1. 解压缩 Docs-master.zip  文件。
 1. 使用示例链接中的 URL 帮助你导航到示例目录。
 
 ### <a name="preprocessor-directives-in-sample-code"></a>示例代码中的预处理器指令
