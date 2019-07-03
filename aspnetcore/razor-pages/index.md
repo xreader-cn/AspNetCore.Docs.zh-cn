@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 93796fa1edfa316790794d3775342147ea28ae2e
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 419355d670536fef1a38fbcb8ce1fd880c0e9b0d
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692537"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555740"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -23,7 +23,21 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 本文档介绍 Razor 页面。 它并不是分步教程。 如果认为某些部分过于复杂，请参阅 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)。 有关 ASP.NET Core 的概述，请参阅 [ASP.NET Core 简介](xref:index)。
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>系统必备
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 <a name="rpvs17"></a>
 
@@ -171,7 +185,7 @@ Index.cshtml  文件包含以下标记来创建每个联系人项的编辑链接
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `http://localhost:5000/Edit/1`。 使用 `asp-area` 属性指定区域。 有关更多信息，请参见<xref:mvc/controllers/areas>。
+[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `http://localhost:5000/Edit/1`。 使用 `asp-area` 属性指定区域。 有关详细信息，请参阅 <xref:mvc/controllers/areas>。
 
 Pages/Edit.cshtml  文件：
 
@@ -406,7 +420,7 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
 RedirectToPage("/Index", new { area = "Services" });
 ```
 
-有关更多信息，请参见<xref:mvc/controllers/areas>。
+有关详细信息，请参阅 <xref:mvc/controllers/areas>。
 
 ## <a name="viewdata-attribute"></a>ViewData 特性
 
