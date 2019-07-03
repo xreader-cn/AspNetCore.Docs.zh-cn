@@ -5,14 +5,14 @@ description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 06/17/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: f287a9bad623c5ff5c41868c7c4408b572b39000
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: d5392ff6b15eeb3a4502df578665538b936aae6f
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716365"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167060"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -451,11 +451,27 @@ ASP.NET Core 模块还可以：
     stdoutLogFile="\\?\%home%\LogFiles\stdout"
     hostingModel="InProcess">
   <handlerSettings>
-    <handlerSetting name="debugFile" value="aspnetcore-debug.log" />
+    <handlerSetting name="debugFile" value=".\logs\aspnetcore-debug.log" />
     <handlerSetting name="debugLevel" value="FILE,TRACE" />
   </handlerSettings>
 </aspNetCore>
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+创建日志文件时，路径中的任何文件夹（上述示例中为 logs  ）由模块创建。 应用池必须对写入日志的位置具有写入权限（使用 `IIS AppPool\<app_pool_name>` 提供写入权限）。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+提供给 `<handlerSetting>` 值（上述示例中为 logs  ）的路径中的文件夹不是由模块自动创建的，并且应该预先存在于部署中。 应用池必须对写入日志的位置具有写入权限（使用 `IIS AppPool\<app_pool_name>` 提供写入权限）。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 调试级别 (`debugLevel`) 值可以同时包含级别和位置。
 

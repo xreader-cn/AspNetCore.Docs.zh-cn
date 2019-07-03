@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 919db3f31310342657c89100a6e25e8293648a9f
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 6aef56ecd61ad71e166c03c12b28b25b931cdd88
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034805"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152925"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -116,14 +116,15 @@ GrpcGreeter 项目文件  ：
 
 * *greet.proto*：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。 有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。
 * Services  文件夹：包含 `Greeter` 服务的实现。
-* *appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。 有关更多信息，请参见<xref:fundamentals/configuration/index>。
-* Program.cs  :包含 gRPC 服务的入口点。 有关更多信息，请参见<xref:fundamentals/host/web-host>。
+* *appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
+* Program.cs  :包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
 * *Startup.cs*：包含配置应用行为的代码。 有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>在 .NET 控制台应用中创建 gRPC 客户端
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
+* 打开 Visual Studio 的第二个实例。
 * 从菜单栏中选择“文件”   > “新建”   > “项目”  。
 * 在“新建项目”对话框中，选择“控制台应用(.NET Core)”   。
 * 选择“下一步” 
@@ -151,7 +152,7 @@ code -r GrpcGreeterClient
 
 ### <a name="add-required-packages"></a>添加所需的包
 
-将以下包添加到 gRPC 客户端项目：
+gRPC 客户端项目需要以下包：
 
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client)，其中包含 .NET Core 客户端。
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) 包含适用于 C# 的 Protobuf 消息。
@@ -208,7 +209,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-  右键单击项目并选择“编辑 GrpcGreeterClient.csproj”  。
+  右键单击项目，并选择“编辑项目文件”  。
 
   # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
 
@@ -220,7 +221,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   ---
 
-* 将 greet.proto 文件添加到 GrpcGreeterClient 项目文件的 `<Protobuf>` 物料组  ：
+* 添加具有引用 greet.proto  文件的 `<Protobuf>` 元素的项组：
 
   ```XML
   <ItemGroup>
@@ -228,11 +229,9 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
   </ItemGroup>
   ```
 
-生成客户端项目以触发 C# 客户端资产的生成。
-
 ### <a name="create-the-greeter-client"></a>创建 Greeter 客户端
 
-构建项目，在 Greeter 命名空间中创建类型  。 `Greeter` 类型是由生成进程自动生成的。
+构建项目，以在 `GrpcGreeter` 命名空间中创建类型。 `GrpcGreeter` 类型是由生成进程自动生成的。
 
 使用以下代码更新 gRPC 客户端的 Program.cs 文件  ：
 

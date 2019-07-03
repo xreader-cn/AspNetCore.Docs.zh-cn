@@ -1,19 +1,19 @@
 ---
-title: 教程：使用 ASP.NET Core MVC 创建 Web API
+title: 教程：使用 ASP.NET Core 创建 Web API
 author: rick-anderson
-description: 使用 ASP.NET Core MVC 构建 Web API
+description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/4/2019
+ms.date: 06/18/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 17e8ee08fca775b8fccc3f2e6cd6067caca9c79f
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087527"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207783"
 ---
-# <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>教程：使用 ASP.NET Core MVC 创建 Web API
+# <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Mike Wasson](https://github.com/mikewasson)
 
@@ -41,11 +41,11 @@ ms.locfileid: "65087527"
 
 |API | 说明 | 请求正文 | 响应正文 |
 |--- | ---- | ---- | ---- |
-|GET /api/todo | 获取所有待办事项 | None | 待办事项的数组|
-|GET /api/todo/{id} | 按 ID 获取项 | None | 待办事项|
+|GET /api/todo | 获取所有待办事项 | 无 | 待办事项的数组|
+|GET /api/todo/{id} | 按 ID 获取项 | 无 | 待办事项|
 |POST /api/todo | 添加新项 | 待办事项 | 待办事项 |
-|PUT /api/todo/{id} | 更新现有项 &nbsp; | 待办事项 | None |
-|DELETE /api/todo/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | None | None|
+|PUT /api/todo/{id} | 更新现有项 &nbsp; | 待办事项 | 无 |
+|DELETE /api/todo/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | 无 | 无|
 
 下图显示了应用的设计。
 
@@ -57,9 +57,9 @@ ms.locfileid: "65087527"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从“文件”菜单中选择“新建” > “项目”。
-* 选择“ASP.NET Core Web 应用程序”模板。 将项目命名为 TodoApi，然后单击“确定”。
-* 在“新建 ASP.NET Core Web 应用程序 - TodoApi”对话框中，选择 ASP.NET Core 版本。 选择“API”模板，然后单击“确定”。 请不要选择“启用 Docker 支持”。
+* 从“文件”菜单中选择“新建” > “项目”。   
+* 选择“ASP.NET Core Web 应用程序”模板  。 将项目命名为 TodoApi，然后单击“确定”   。
+* 在“新建 ASP.NET Core Web 应用程序 - TodoApi”对话框中，选择 ASP.NET Core 版本  。 选择“API”模板，然后单击“确定”   。 请不要  选择“启用 Docker 支持”  。
 
 ![VS“新建项目”对话框](first-web-api/_static/vs.png)
 
@@ -76,21 +76,21 @@ ms.locfileid: "65087527"
 
   这些命令会创建新 Web API 项目并在新项目文件夹中打开 Visual Studio Code 的新实例。
 
-* 当对话框询问是否要将所需资产添加到项目时，选择“是”。
+* 当对话框询问是否要将所需资产添加到项目时，选择“是”  。
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件” > “新建解决方案”。
+* 选择“文件”   > “新建解决方案”  。
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 选择“.NET Core App” > “ASP.NET Core Web API” > “下一步”。
+* 选择“.NET Core App” > “ASP.NET Core Web API” > “下一步”    。
 
   ![macOS“新建项目”对话框](first-web-api-mac/_static/1.png)
   
-* 在“配置新的 ASP.NET Core Web API”对话框中，接受默认的 *.NET Core 2.2“目标框架”。
+* 在“配置新的 ASP.NET Core Web API”  对话框中，接受默认的 *.NET Core 2.2  “目标框架”  。
 
-* 输入“TodoApi”作为“项目名称”，然后选择“创建”。
+* 输入“TodoApi”  作为“项目名称”  ，然后选择“创建”  。
 
   ![配置对话框](first-web-api-mac/_static/2.png)
 
@@ -104,7 +104,7 @@ ms.locfileid: "65087527"
 
 按 Ctrl+F5 运行应用。 Visual Studio 启动浏览器并导航到 `https://localhost:<port>/api/values`，其中 `<port>` 是随机选择的端口号。
 
-如果出现询问是否应信任 IIS Express 证书的对话框，则选择“是”。 在接下来出现的“安全警告”对话框中，选择“是”。
+如果出现询问是否应信任 IIS Express 证书的对话框，则选择“是”  。 在接下来出现的“安全警告”  对话框中，选择“是”  。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -112,7 +112,7 @@ ms.locfileid: "65087527"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-选择“运行” > “开始执行(调试)”以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/api/values` 追加到 URL（将 URL 更改为 `https://localhost:<port>/api/values`）。
+选择“运行”   > “开始执行(调试)”  以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/api/values` 追加到 URL（将 URL 更改为 `https://localhost:<port>/api/values`）。
 
 ---
 
@@ -124,31 +124,31 @@ ms.locfileid: "65087527"
 
 ## <a name="add-a-model-class"></a>添加模型类
 
-模型是一组表示应用管理的数据的类。 此应用的模型是单个 `TodoItem` 类。
+模型  是一组表示应用管理的数据的类。 此应用的模型是单个 `TodoItem` 类。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 在“解决方案资源管理器”  中，右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoItem，然后选择“添加”。
+* 右键单击“Models”  文件夹，然后选择“添加”   > “类”  。 将类命名为 TodoItem，然后选择“添加”   。
 
 * 将模板代码替换为以下代码：
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 添加名为“Models”的文件夹。
+* 添加名为“Models”的文件夹  。
 
-* 使用以下代码将 `TodoItem` 类添加到 Models 文件夹：
+* 使用以下代码将 `TodoItem` 类添加到 Models  文件夹：
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击项目。 选择“添加” > “新建文件夹”。 将文件夹命名为“Models”。
+* 右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
   ![新建文件夹](first-web-api-mac/_static/folder.png)
 
-* 右键单击“Models”文件夹，然后选择“添加” > “新建文件” > “常规” > “空类”。
+* 右键单击“Models”文件夹，然后选择“添加” > “新建文件” > “常规” > “空类”      。
 
-* 将类命名为“TodoItem”，然后单击“新建”。
+* 将类命名为“TodoItem”，然后单击“新建”   。
 
 * 将模板代码替换为以下代码：
 
@@ -158,19 +158,19 @@ ms.locfileid: "65087527"
 
 `Id` 属性用作关系数据库中的唯一键。
 
-模型类可位于项目的任意位置，但按照惯例会使用 Models 文件夹。
+模型类可位于项目的任意位置，但按照惯例会使用 Models  文件夹。
 
 ## <a name="add-a-database-context"></a>添加数据库上下文
 
-数据库上下文是为数据模型协调 Entity Framework 功能的主类。 此类由 `Microsoft.EntityFrameworkCore.DbContext` 类派生而来。
+数据库上下文是为数据模型协调 Entity Framework 功能的主类  。 此类由 `Microsoft.EntityFrameworkCore.DbContext` 类派生而来。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 右键单击“Models”文件夹，然后选择“添加” > “类”。 将类命名为 TodoContext，然后单击“添加”。
+* 右键单击“Models”  文件夹，然后选择“添加”   > “类”  。 将类命名为 TodoContext，然后单击“添加”   。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* 将 `TodoContext` 类添加到“Models”文件夹。
+* 将 `TodoContext` 类添加到“Models”  文件夹。
 
 ---
 
@@ -182,7 +182,7 @@ ms.locfileid: "65087527"
 
 在 ASP.NET Core 中，服务（如数据库上下文）必须向[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器进行注册。 该容器向控制器提供服务。
 
-使用以下突出显示的代码更新 Startup.cs：
+使用以下突出显示的代码更新 Startup.cs  ：
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup1.cs?highlight=5,8,25-26&name=snippet_all)]
 
@@ -196,16 +196,16 @@ ms.locfileid: "65087527"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 右键单击 Controllers 文件夹。
+* 右键单击 Controllers  文件夹。
 * 选择 **添加** > **新建项**。
-* 在“添加新项”对话框中，选择“API 控制器类”模板。
-* 将类命名为 TodoController，然后选择“添加”。
+* 在“添加新项”对话框中，选择“API 控制器类”模板   。
+* 将类命名为 TodoController，然后选择“添加”   。
 
   ![“添加新项”对话框，“控制器”显示在搜索框中，并且“Web API 控制器”已选中](first-web-api/_static/new_controller.png)
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* 在“控制器”文件夹中，创建名为 `TodoController` 的类。
+* 在“控制器”文件夹中，创建名为 `TodoController` 的类  。
 
 ---
 
@@ -256,7 +256,7 @@ ms.locfileid: "65087527"
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=TodoController&highlight=3)]
 
-* 将 `[controller]` 替换为控制器的名称，按照惯例，在控制器类名称中去掉“Controller”后缀。 对于此示例，控制器类名称为“Todo”控制器，因此控制器名称为“todo”。 ASP.NET Core [路由](xref:mvc/controllers/routing)不区分大小写。
+* 将 `[controller]` 替换为控制器的名称，按照惯例，在控制器类名称中去掉“Controller”后缀。 对于此示例，控制器类名称为“Todo”控制器，因此控制器名称为“todo”  。 ASP.NET Core [路由](xref:mvc/controllers/routing)不区分大小写。
 * 如果 `[HttpGet]` 属性具有路由模板（例如 `[HttpGet("products")]`），则将它追加到路径。 此示例不使用模板。 有关详细信息，请参阅[使用 Http [Verb] 特性的特性路由](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)。
 
 在下面的 `GetTodoItem` 方法中，`"{id}"` 是待办事项的唯一标识符的占位符变量。 调用 `GetTodoItem` 时，URL 中 `"{id}"` 的值会在 `id` 参数中提供给方法。
@@ -276,20 +276,20 @@ ms.locfileid: "65087527"
 
 本教程使用 Postman 测试 Web API。
 
-* 安装 [Postman](https://www.getpostman.com/apps)
+* 安装 [Postman](https://www.getpostman.com/downloads/)
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
   
-  * 在“文件”>“设置”（“常规”*选项卡）中，禁用“SSL 证书验证”。
+  * 在“文件”>“设置”  （“常规”*  选项卡）中，禁用“SSL 证书验证”  。
     > [!WARNING]
     > 在测试控制器之后重新启用 SSL 证书验证。
 
 * 创建新请求。
-  * 将 HTTP 方法设置为“GET”。
+  * 将 HTTP 方法设置为“GET”  。
   * 将请求 URL 设置为 `https://localhost:<port>/api/todo`。 例如 `https://localhost:5001/api/todo`。
-* 在 Postman 中设置“两窗格视图”。
-* 选择“发送”。
+* 在 Postman 中设置“两窗格视图”  。
+* 选择“发送”  。
 
 ![使用 Get 请求的 Postman](first-web-api/_static/2pv.png)
 
@@ -313,9 +313,9 @@ ms.locfileid: "65087527"
 
 * 生成项目。
 * 在 Postman 中，将 HTTP 方法设置为 `POST`。
-* 选择“正文”选项卡。
-* 选择“原始”单选按钮。
-* 将类型设置为 JSON (application/json)
+* 选择“正文”选项卡  。
+* 选择“原始”单选按钮  。
+* 将类型设置为 JSON (application/json) 
 * 在请求正文中，输入待办事项的 JSON：
 
     ```json
@@ -325,7 +325,7 @@ ms.locfileid: "65087527"
     }
     ```
 
-* 选择“发送”。
+* 选择“发送”  。
 
   ![使用创建请求的 Postman](first-web-api/_static/create.png)
 
@@ -333,14 +333,14 @@ ms.locfileid: "65087527"
 
 ### <a name="test-the-location-header-uri"></a>测试位置标头 URI
 
-* 在“响应”窗格中选择“标头”选项卡。
-* 复制“位置”标头值：
+* 在“响应”  窗格中选择“标头”  选项卡。
+* 复制“位置”  标头值：
 
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/pmc2.png)
 
 * 将方法设置为“GET”。
 * 粘贴 URI（例如，`https://localhost:5001/api/Todo/2`）
-* 选择“发送”。
+* 选择“发送”  。
 
 ## <a name="add-a-puttodoitem-method"></a>添加 PutTodoItem 方法
 
@@ -384,7 +384,7 @@ ms.locfileid: "65087527"
 
 * 将方法设置为 `DELETE`。
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/todo/1`
-* 选择“Send”
+* 选择“Send” 
 
 示例应用允许删除所有项，但是在删除最后一项后，模型类构造函数会在下次调用 API 时创建一个新项。
 
@@ -397,21 +397,21 @@ ms.locfileid: "65087527"
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
 ::: moniker range=">= aspnetcore-2.2"
-在项目目录中创建 wwwroot 文件夹。
+在项目目录中创建 wwwroot  文件夹。
 ::: moniker-end
 
-将一个名为 index.html 的 HTML 文件添加到 wwwroot 目录。 用以下标记替代其内容：
+将一个名为 index.html 的 HTML 文件添加到 wwwroot 目录   。 用以下标记替代其内容：
 
 [!code-html[](first-web-api/samples/2.2/TodoApi/wwwroot/index.html)]
 
-将名为 site.js 的 JavaScript 文件添加到 wwwroot 目录。 用以下代码替代其内容：
+将名为 site.js 的 JavaScript 文件添加到 wwwroot 目录   。 用以下代码替代其内容：
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_SiteJs)]
 
 可能需要更改 ASP.NET Core 项目的启动设置，以便对 HTML 页面进行本地测试：
 
-* 打开 Properties\launchSettings.json。
-* 删除 `launchUrl` 以便在项目的默认文件 index.html 强制打开应用。
+* 打开 Properties\launchSettings.json  。
+* 删除 `launchUrl` 以便在项目的默认文件 index.html 强制打开应用  。
 
 有多种方式可以获取 jQuery。 在前面的代码片段中，库是从 CDN 中加载的。
 

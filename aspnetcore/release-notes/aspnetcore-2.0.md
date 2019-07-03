@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 5cf7b9aa7ccf86f1a89e6145cfc185c5ef803e66
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376410"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048106"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -60,7 +60,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 新的身份验证模型简化了使用 DI 为应用程序配置身份验证的过程。
 
-使用 [Azure AD B2C] (https://azure.microsoft.com/services/active-directory-b2c/)) 为 Web 应用和 Web API 配置身份验证时可使用新模板。
+使用 [Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/) 为 Web 应用和 Web API 配置身份验证时可使用新模板。
 
 有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/3054)。
 
@@ -138,7 +138,7 @@ Razor 视图引擎已更新为可使用新的 Roslyn 编译器。 其中包含�
 
 有关 C# 7.1 功能的状态的信息，请参阅 [Roslyn GitHub 存储库](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
 
-## <a name="other-documentation-updates-for-20"></a>2.0 的其他文档更新
+## <a name="other-documentation-updates-for-20"></a>2\.0 的其他文档更新
 
 * [用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles)
 * [密钥管理](xref:security/data-protection/implementation/key-management)

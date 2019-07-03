@@ -1,20 +1,20 @@
 ---
-title: 托管和部署 Blazor 客户端
+title: 托管和部署 ASP.NET Core Blazor 客户端
 author: guardrex
 description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件服务器和 GitHub 页来托管和部署 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 06/14/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: b50516b4dce28a6b105b2ab8b9386060d5392983
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 7567473ae8acd9e1072954907f0fe9c7beea29ad
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376395"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153189"
 ---
-# <a name="host-and-deploy-blazor-client-side"></a>托管和部署 Blazor 客户端
+# <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>托管和部署 ASP.NET Core Blazor 客户端
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -102,7 +102,7 @@ ms.locfileid: "66376395"
 
 ## <a name="configure-the-linker"></a>配置链接器
 
-Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 可以在生成时控制程序集链接。 有关更多信息，请参见<xref:host-and-deploy/blazor/configure-linker>。
+Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 可以在生成时控制程序集链接。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/configure-linker>。
 
 ## <a name="rewrite-urls-for-correct-routing"></a>重写 URL，以实现正确路由
 
