@@ -3,15 +3,15 @@ title: 在 ASP.NET Core 中配置证书身份验证
 author: blowdart
 description: 了解如何为 IIS 和 HTTP.sys 在 ASP.NET Core 中配置证书身份验证。
 monikerRange: '>= aspnetcore-3.0'
-ms.author: barry.dorrans
+ms.author: bdorrans
 ms.date: 06/11/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 37567128531187bfe7dd6c9f5aa990226e70f35f
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: 8609c58265340da1d618135795915d6c49e750a3
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837534"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538723"
 ---
 # <a name="overview"></a>概述
 
@@ -89,7 +89,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 * `OnAuthenticationFailed` &ndash; 如果异常发生在身份验证过程并使你可以响应，调用。
 * `OnCertificateValidated` &ndash; 证书通过验证后，已通过验证并已创建一个默认主体之后调用。 此事件，可以执行自己的验证和增强或替换该主体。 有关示例包括：
   * 确定是否证书被认为您的服务。
-  * 构造自己的主体。 在下面的示例，请考虑`Startup.ConfigureServices`:
+  * 构造自己的主体。 请看下面 `Startup.ConfigureServices` 中的示例：
 
 ```csharp
 services.AddAuthentication(
@@ -125,7 +125,7 @@ services.AddAuthentication(
 
 如果您发现的入站的证书不满足额外的验证，调用`context.Fail("failure reason")`含失败原因。
 
-为实际功能，您可能需要调用服务在连接到数据库或其他类型的用户存储的依赖关系注入中注册。 通过使用传递到委托的上下文中访问你的服务。 在下面的示例，请考虑`Startup.ConfigureServices`:
+为实际功能，您可能需要调用服务在连接到数据库或其他类型的用户存储的依赖关系注入中注册。 通过使用传递到委托的上下文中访问你的服务。 请看下面 `Startup.ConfigureServices` 中的示例：
 
 ```csharp
 services.AddAuthentication(
