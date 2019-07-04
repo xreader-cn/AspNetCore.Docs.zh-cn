@@ -5,12 +5,12 @@ description: 使用 Facebook、 Google、 Twitter，而无需 ASP.NET Core 标�
 ms.author: riande
 ms.date: 07/04/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: e67da513fef1ce453110c465b08e9c7965e71df5
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 1e7124e8b07c0faf2d005ec3ef55c0414a697d64
+ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67557646"
+ms.lasthandoff: 07/04/2019
+ms.locfileid: "67561572"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>使用社交登录提供程序而无需 ASP.NET Core 标识的身份验证
 
@@ -47,7 +47,7 @@ ms.locfileid: "67557646"
 
 若要了解有关身份验证方案和 cookie 身份验证的详细信息，请参阅<xref:security/authentication/cookie>。
 
-## <a name="applying-basic-authorization"></a>应用基本授权
+## <a name="applying-authorization"></a>应用授权
 
 通过应用中测试应用程序的身份验证配置`AuthorizeAttribute`控制器、 操作或页的属性。 下面的代码访问权限限制为*隐私*已经过身份验证的用户页：
 

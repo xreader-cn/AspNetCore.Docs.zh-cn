@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 671e39ded50e50bbfe6d12879895bee74367f754
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ae409158defe15ffaa7454039b302cf3c6437e54
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890772"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463283"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
@@ -25,7 +25,7 @@ ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文
 * 定义通过特定操作类型返回的、最常见的返回类型和状态代码。
 * 识别偏离所定义的标准的操作。
 
-ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> 中包含一组默认的约定。 约定基于 ASP.NET Core API 项目模板中提供的控件 (ValuesController.cs)。 若操作遵循模板中的模式，则应成功使用默认约定。 如果默认约定不能满足需要，请参阅[创建 Web API 约定](#create-web-api-conventions)。
+ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> 中包含一组默认的约定。 约定基于 ASP.NET Core API 项目模板中提供的控件 (ValuesController.cs)   。 若操作遵循模板中的模式，则应成功使用默认约定。 如果默认约定不能满足需要，请参阅[创建 Web API 约定](#create-web-api-conventions)。
 
 在运行时，<xref:Microsoft.AspNetCore.Mvc.ApiExplorer> 会了解约定。 `ApiExplorer` 是 MVC 与 [OpenAPI](https://www.openapis.org/)（也称为 Swagger）文档生成器进行通信的抽象内容。 已应用的约定中的属性与某个操作相关联，并包含在操作的 OpenAPI 文档中。 [API 分析器](xref:web-api/advanced/analyzers)也会了解约定。 若操作为非常规操作（例如，它返回已应用的约定未记录的状态代码），则会生成警告，建议记录该状态代码。
 
@@ -50,15 +50,15 @@ ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultAp
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     ```
 
-若要详细了解 `[ProducesDefaultResponseType]`，请参阅[默认响应](https://swagger.io/docs/specification/describing-responses/#default)。
+    若要详细了解 `[ProducesDefaultResponseType]`，请参阅[默认响应](https://swagger.io/docs/specification/describing-responses/#default)。
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于控制器 &mdash; 将指定约定类型应用于控制器上的所有操作。 约定方法都带有提示，可确定要向其应用约定方法的操作。 有关提示的详细信息，请参阅[创建 Web API 约定](#create-web-api-conventions)）。
 
-    在以下示例中，默认的约定集将应用于 ContactsConventionController 中的所有操作：
+    在以下示例中，默认的约定集将应用于 ContactsConventionController 中的所有操作  ：
 
     [!code-csharp[](conventions/sample/Controllers/ContactsConventionController.cs?name=snippet_ApiConventionTypeAttribute&highlight=2)]
 
-1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于程序集 &mdash; 将指定约定类型应用于当前程序集中的所有控制器。 建议将程序集级别的属性应用于 Startup.cs 文件。
+1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于程序集 &mdash; 将指定约定类型应用于当前程序集中的所有控制器。 建议将程序集级别的属性应用于 Startup.cs  文件。
 
     在以下示例中，默认的约定集将应用于程序集中的所有操作：
 

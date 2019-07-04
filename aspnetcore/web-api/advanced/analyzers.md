@@ -3,16 +3,16 @@ title: 使用 Web API 分析器
 author: pranavkm
 description: 了解 Microsoft.AspNetCore.Mvc.Api.Analyzers 中的 Web API 分析器。
 monikerRange: '>= aspnetcore-2.2'
-ms.author: pranavkm
+ms.author: prkrishn
 ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: bcc89f856e0aeef80c46a44f76f86b4c09ac6746
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 2aaef738ab2a64f85cb85708f63d2375c04cacb5
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890822"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538569"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
@@ -24,31 +24,31 @@ ASP.NET Core 2.2 和更高版本包含 [Microsoft.AspNetCore.Mvc.Api.Analyzers](
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从“程序包管理器控制台”窗口：
-  * 转到“视图” > “其他窗口” > “包管理器控制台”。
-  * 导航到 ApiConventions.csproj 文件所在的目录。
+* 从“程序包管理器控制台”  窗口：
+  * 转到“视图” > “其他窗口” > “包管理器控制台”    。
+  * 导航到 ApiConventions.csproj 文件所在的目录  。
   * 请执行以下命令：
 
     ```powershell
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
     ```
 
-* 从“管理 NuGet 程序包”对话框中：
-  * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目。
-  * 将“包源”设置为“nuget.org”。
+* 从“管理 NuGet 程序包”  对话框中：
+  * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目   。
+  * 将“包源”设置为“nuget.org”  。
   * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
-  * 从“浏览”选项卡中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“安装”。
+  * 从“浏览”选项卡中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“安装”   。
 
 ### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击“Solution Pad” > “添加包...”中的“包”文件夹。
-* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”。
+* 右键单击“Solution Pad” > “添加包...”中的“包”文件夹    。
+* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”   。
 * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
-* 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”。
+* 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”  。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-从“集成终端”中运行以下命令：
+从“集成终端”  中运行以下命令：
 
 ```console
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers

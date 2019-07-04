@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 07/01/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: f4be1559c3b4c17cd09f1360d954c837d84d5058
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 815838e72bc51c70ca1d3d3c1fc6c196bd08ee70
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085615"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500456"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -26,7 +26,7 @@ ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在�
 
 ## <a name="overview-of-dependency-injection"></a>依赖关系注入概述
 
-依赖项是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
+依赖项  是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
 
 ```csharp
 public class MyDependency
@@ -70,7 +70,7 @@ public class IndexModel : PageModel
 
 * 使用接口抽象化依赖关系实现。
 * 注册服务容器中的依赖关系。 ASP.NET Core 提供了一个内置的服务容器 [IServiceProvider](/dotnet/api/system.iserviceprovider)。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
-* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
+* 将服务注入  到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
 
 在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
@@ -80,7 +80,7 @@ public class IndexModel : PageModel
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
 
-`MyDependency` 在其构造函数中请求 [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1)。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”、“依赖关系图”或“对象图”。
+`MyDependency` 在其构造函数中请求 [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1)。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”  、“依赖关系图”  或“对象图”  。
 
 必须在服务容器中注册 `IMyDependency` 和 `ILogger<TCategoryName>`。 `IMyDependency` 已在 `Startup.ConfigureServices` 中注册。 `ILogger<TCategoryName>` 由日志记录抽象基础结构注册，因此它是框架默认注册的[框架提供的服务](#framework-provided-services)。
 
@@ -171,7 +171,7 @@ public void ConfigureServices(IServiceCollection services)
 作用域生存期服务以每个客户端请求（连接）一次的方式创建。
 
 > [!WARNING]
-> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关更多信息，请参见<xref:fundamentals/middleware/index>。
+> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
 
 **单例**
 
@@ -261,9 +261,9 @@ public void ConfigureServices(IServiceCollection services)
 
 观察哪个 `OperationId` 值会在一个请求之内和不同请求之间变化：
 
-* 暂时性对象始终不同。 第一个和第二个客户端请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在客户端请求内都是不同的。 为每个服务请求和客户端请求提供了一个新实例。
-* 作用域对象在一个客户端请求中是相同的，但在多个客户端请求中是不同的。
-* 单一实例对象对每个对象和每个请求都是相同的（不管 `ConfigureServices` 中是否提供 `Operation` 实例）。
+* 暂时性  对象始终不同。 第一个和第二个客户端请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在客户端请求内都是不同的。 为每个服务请求和客户端请求提供了一个新实例。
+* 作用域  对象在一个客户端请求中是相同的，但在多个客户端请求中是不同的。
+* 单一实例  对象对每个对象和每个请求都是相同的（不管 `ConfigureServices` 中是否提供 `Operation` 实例）。
 
 ## <a name="call-services-from-main"></a>从 main 调用服务
 
@@ -305,7 +305,7 @@ public static void Main(string[] args)
 
 有作用域的服务由创建它们的容器释放。 如果作用域创建于根容器，则该服务的生存会有效地提升至单一实例，因为根容器只会在应用/服务关闭时将其释放。 验证服务作用域，将在调用 `BuildServiceProvider` 时收集这类情况。
 
-有关更多信息，请参见<xref:fundamentals/host/web-host#scope-validation>。
+有关详细信息，请参阅 <xref:fundamentals/host/web-host#scope-validation>。
 
 ## <a name="request-services"></a>请求服务
 
@@ -422,7 +422,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 避免静态访问服务（例如，静态键入 [IApplicationBuilder.ApplicationServices](/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder.applicationservices) 以便在其他地方使用）。
 
-* 避免使用服务定位器模式。 例如，可以改用 DI 时，不要调用 <xref:System.IServiceProvider.GetService*> 来获取服务实例：
+* 避免使用服务定位器模式  。 例如，可以改用 DI 时，不要调用 <xref:System.IServiceProvider.GetService*> 来获取服务实例：
 
   **不正确：**
 
@@ -461,13 +461,14 @@ public void ConfigureServices(IServiceCollection services)
 
 像任何一组建议一样，你可能会遇到需要忽略某建议的情况。 例外情况很少见 &mdash; 主要是框架本身内部的特殊情况。
 
-DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
+DI 是静态/全局对象访问模式的替代方法  。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
 
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:mvc/views/dependency-injection>
 * <xref:mvc/controllers/dependency-injection>
 * <xref:security/authorization/dependencyinjection>
+* <xref:blazor/dependency-injection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
 * [在 ASP.NET Core 中使用依赖关系注入编写干净代码 (MSDN) ](https://msdn.microsoft.com/magazine/mt703433.aspx)

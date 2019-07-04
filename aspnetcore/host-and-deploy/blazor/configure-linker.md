@@ -5,14 +5,14 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: bdddae16885f45df2c10e4d98b1c33eb11dfdf24
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 03be18e7ee6ca8103e1a666da9e693ff67267d83
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153215"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538633"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
@@ -27,7 +27,7 @@ Blazor 在版本生成期间执行[中间语言 (IL)](/dotnet/standard/managed-c
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>使用 MSBuild 属性禁用链接
 
-在构建应用程序（包括发布）时，默认在发布模式下启用链接。 若要禁用所有程序集链接，请在项目文件中将 `<BlazorLinkOnBuild>` MSBuild 属性设置为 `false`：
+在构建应用程序（包括发布）时，默认在发布模式下启用链接。 若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：
 
 ```xml
 <PropertyGroup>
