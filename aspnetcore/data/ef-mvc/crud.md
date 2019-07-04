@@ -58,7 +58,7 @@ ms.locfileid: "66750086"
 http://localhost:1230/Instructor/Index/1?courseID=2021
 ```
 
-URL 的最后部分 ("?courseID=2021") 是一个查询字符串。 如果将 `id` 作为查询字符串值传递，模型绑定器也会将 ID 值作为参数传递给 `Details` 方法：
+URL 的最后部分 ("?courseID=2021") 是一个查询字符串。 如果将 `id` 作为查询字符串值传递，模型绑定器也会将 ID 值作为参数传递给 `Index` 方法：
 
 ```
 http://localhost:1230/Instructor/Index?id=1&CourseID=2021
