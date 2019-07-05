@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 06/23/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 17e8ee08fca775b8fccc3f2e6cd6067caca9c79f
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: a53f7019c1079296f073e743ddbf9d90fc5abad3
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207783"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555881"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -49,24 +49,39 @@ ms.locfileid: "67207783"
 
 下图显示了应用的设计。
 
-![客户端提交请求并从应用程序接收响应，客户端由左侧的框表示，应用程序则由右侧的框表示。 在应用程序框内，三个框分别代表控制器、模型和数据访问层。 请求进入应用程序的控制器，读/写操作是在控制器和数据访问层之间进行的。 模型被序列化并在响应中被返回给客户端。](first-web-api/_static/architecture.png)
+![右侧的框表示客户端。 它提交请求并从应用程序接收响应，如右侧的框所示。 在应用程序框内，三个框分别代表控制器、模型和数据访问层。 请求进入应用程序的控制器，读/写操作是在控制器和数据访问层之间进行的。 模型被序列化并在响应中被返回给客户端。](first-web-api/_static/architecture.png)
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>系统必备
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 ## <a name="create-a-web-project"></a>创建 Web 项目
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从“文件”菜单中选择“新建” > “项目”。   
-* 选择“ASP.NET Core Web 应用程序”模板  。 将项目命名为 TodoApi，然后单击“确定”   。
-* 在“新建 ASP.NET Core Web 应用程序 - TodoApi”对话框中，选择 ASP.NET Core 版本  。 选择“API”模板，然后单击“确定”   。 请不要  选择“启用 Docker 支持”  。
+* 选择“ASP.NET Core Web 应用程序”模板，再单击“下一步”   。
+* 将项目命名为 TodoApi，然后单击“创建”   。
+* 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 2.2”    。 选择“API”模板，然后单击“创建”   。 请不要选择“启用 Docker 支持”   。
 
 ![VS“新建项目”对话框](first-web-api/_static/vs.png)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
-* 将目录更改为 (`cd`) 包含项目文件夹的文件夹。
+* 将目录 (`cd`) 更改为包含项目文件夹的文件夹。
 * 运行以下命令：
 
    ```console
@@ -354,7 +369,7 @@ ms.locfileid: "67207783"
 
 ### <a name="test-the-puttodoitem-method"></a>测试 PutTodoItem 方法
 
-本示例使用内存数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET 以确保在进行 PUT 调用之前数据库中有一个项。
+本示例使用内存数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET，以确保在调用 PUT 之前数据库中存在项目。
 
 更新 id = 1 的待办事项并将其名称设置为“feed fish”：
 
@@ -386,13 +401,13 @@ ms.locfileid: "67207783"
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/todo/1`
 * 选择“Send” 
 
-示例应用允许删除所有项，但是在删除最后一项后，模型类构造函数会在下次调用 API 时创建一个新项。
+可通过示例应用删除所有项。 但如果删除最后一项，则在下次调用 API 时，模型类构造函数会创建一个新项。
 
 ## <a name="call-the-api-with-jquery"></a>使用 jQuery 调用 API
 
 在本部分中，添加了使用 jQuery 调用 Web API 的 HTML 页面。 jQuery 启动请求，并用 API 响应中的详细信息更新页面。
 
-配置应用[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[启用默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)：
+通过下面突出显示的代码更新 Startup.cs，配置应用来[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[实现默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)  ：
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
