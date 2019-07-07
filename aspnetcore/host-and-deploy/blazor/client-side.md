@@ -5,14 +5,14 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: 7567473ae8acd9e1072954907f0fe9c7beea29ad
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 46c99364098557557bff0c38cab5a91ee2d3979b
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153189"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538637"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>托管和部署 ASP.NET Core Blazor 客户端
 
@@ -106,19 +106,19 @@ Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中�
 
 ## <a name="rewrite-urls-for-correct-routing"></a>重写 URL，以实现正确路由
 
-客户端应用中对页组件的路由请求不如服务器端对托管应用的路由请求简单。 请考虑具有两个页面的客户端应用：
+客户端应用中对页组件的路由请求不如服务器端对托管应用的路由请求简单。 请考虑具有两个组件的客户端应用：
 
-* **_Main.razor** &ndash; 在应用的根目录处加载并包含指向“关于”页面的链接 (`href="About"`)。
-* **_About.razor** &ndash; “关于”页面。
+* Main.razor  &ndash; 在应用的根目录处加载并包含指向 `About` 组件 (`href="About"`) 的链接。
+* About.razor  &ndash; `About` 组件。
 
 使用浏览器的地址栏（例如，`https://www.contoso.com/`）请求应用的默认文档：
 
 1. 浏览器发出请求。
 1. 返回默认页，通常为 index.html  。
 1. index.html 启动应用  。
-1. 会加载 Blazor 的路由器，且显示 Razor 主页面 (Main.razor)  。
+1. Blazor 的路由器进行加载，然后呈现 Razor `Main` 组件。
 
-在主页上，选择“关于”页面的链接可加载“关于”页面。 选择“关于”页面的链接适用于客户端，因为 Blazor 路由器阻止浏览器对 Internet 发出请求，针对 `About` 转到 `www.contoso.com`，并为“关于”页本身提供服务。 针对客户端应用中的内部页的所有请求，工作原理都相同  ：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
+在 Main 页中，选择指向 `About` 组件的链接适用于客户端，因为 Blazor 路由器阻止浏览器在 Internet 上发出请求，针对 `www.contoso.com` 转到 `About`，并为呈现的 `About` 组件本身提供服务。 针对客户端应用中的内部终结点的所有请求，工作原理都相同  ：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
 
 如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”  响应。
 
@@ -148,7 +148,7 @@ dotnet run --pathbase=/CoolApp
 
 有关详细信息，请参阅[基路径主机配置值](#path-base)部分。
 
-如果应用会使用[客户端托管模型](xref:blazor/hosting-models#client-side)（根据 Blazor 项目模型；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用程序托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分   。
+如果应用使用[客户端托管模型](xref:blazor/hosting-models#client-side)（基于 Blazor（客户端）项目模板；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分   。
 
 通过向文件添加 `<handlers>` 部分，删除应用已发布 web.config 文件中的处理程序  ：
 
@@ -178,7 +178,7 @@ dotnet run --pathbase=/CoolApp
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>使用 ASP.NET Core 进行托管部署
 
-托管部署通过在服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供客户端 Blazor 应用  。
+托管部署通过在 Web 服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供 Blazor 客户端应用  。
 
 Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用将一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 包括 Blazor（托管 ASP.NET Core）项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorhosted` 模板）  。
 
@@ -188,7 +188,7 @@ Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两�
 
 ## <a name="standalone-deployment"></a>独立部署
 
-独立部署将客户端 Blazor 应用作为客户端直接请求的一组静态文件  。 任何静态文件服务器均可提供 Blazor 应用。
+独立部署将 Blazor 客户端应用作为客户端直接请求的一组静态文件  。 任何静态文件服务器均可提供 Blazor 应用。
 
 独立部署资产发布到 bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist 文件夹中  。
 
