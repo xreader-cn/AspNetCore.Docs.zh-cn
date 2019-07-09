@@ -5,14 +5,14 @@ description: 了解在 ASP.NET Core 中创建 Web API 的基础知识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/07/2019
+ms.date: 07/08/2019
 uid: web-api/index
-ms.openlocfilehash: 593fd33babc81cddfc4db2150a37e5ec3bc1a0be
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 4f9c334f74dd2a8b7c31c7a42703fa361ccf9139
+ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450833"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67622799"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -28,7 +28,7 @@ Web API 有一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.ControllerBas
 
 [!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_Signature&highlight=3)]
 
-不要通过从 <xref:Microsoft.AspNetCore.Mvc.Controller> 基类派生来创建 Web API 控制器。 `Controller` 派生自 `ControllerBase`，并添加对视图的支持，因此它用于处理 Web 页面，而不是 Web API 请求。  此规则有一个例外：如果打算为视图和 API 使用相同的控制器，则从 `Controller` 派生控制器。
+不要通过从 <xref:Microsoft.AspNetCore.Mvc.Controller> 类派生来创建 Web API 控制器。 `Controller` 派生自 `ControllerBase`，并添加对视图的支持，因此它用于处理 Web 页面，而不是 Web API 请求。  此规则有一个例外：如果打算为视图和 API 使用相同的控制器，则从 `Controller` 派生控制器。
 
 `ControllerBase` 类提供了很多用于处理 HTTP 请求的属性和方法。 例如，`ControllerBase.CreatedAtAction` 返回 201 状态代码：
 
