@@ -5,12 +5,12 @@ description: 身份验证策略方案，更便于具有单一逻辑身份验证�
 ms.author: riande
 ms.date: 2/28/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: c310b61e14df2b7846e32a602bb75914a5850aff
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1a2d92e6fa54189b8154fc501b31c8a99d1f9081
+ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895194"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67649178"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>在 ASP.NET Core 中的策略方案
 
@@ -32,7 +32,7 @@ ms.locfileid: "64895194"
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 
-下面的示例可动态选择基于每个请求的方案。 它是如何混合使用 cookie 和 API 身份验证。
+下面的示例可动态选择基于每个请求的方案。 它是如何混合使用 cookie 和 API 身份验证：
 
  <!-- REVIEW, missing If set in public Func<HttpContext, string> ForwardDefaultSelector -->
 
