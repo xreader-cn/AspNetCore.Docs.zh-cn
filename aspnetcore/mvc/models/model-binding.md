@@ -6,12 +6,12 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: tdykstra
 ms.date: 05/31/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: 7d62ccecdacbd34a38a1fd8c58979a9b09cf86e8
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 10a9f8327bf16d11ec1e04ac3888d701f1ab1778
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750202"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724524"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -326,7 +326,7 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 对于 `Dictionary` 目标，模型绑定会查找 parameter_name 或 property_name 的匹配项   。 如果找不到匹配项，它将查找某种不含前缀的受支持的格式。 例如:
 
-* 假设目标参数是名为 `selectedCourses` 的 `Dictionary<string, string>`：
+* 假设目标参数是名为 `selectedCourses` 的 `Dictionary<int, string>`：
 
   ```csharp
   public IActionResult OnPost(int? id, Dictionary<int, string> selectedCourses)
