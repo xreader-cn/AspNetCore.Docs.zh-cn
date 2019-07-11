@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中的策略方案
 author: rick-anderson
 description: 身份验证策略方案，更便于具有单一逻辑身份验证方案
 ms.author: riande
-ms.date: 2/28/2019
+ms.date: 02/28/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: 1a2d92e6fa54189b8154fc501b31c8a99d1f9081
-ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
+ms.openlocfilehash: be03f349455c673b0739935ad20e596325c8cb74
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67649178"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815286"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>在 ASP.NET Core 中的策略方案
 

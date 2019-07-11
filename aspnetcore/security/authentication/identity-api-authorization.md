@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 4afc9ac0a3c54b452c6a1b23e4de31d7e2fc5284
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894144"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815220"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>身份验证和授权 Spa
 
@@ -251,7 +251,7 @@ async populateWeatherData() {
 
 若要部署到 Azure 网站，部署应用程序中的步骤[将应用部署到 Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)创建所需的 Azure 资源和将应用部署到生产环境。
 
-后按照前面的说明，该应用程序部署到 Azure，但尚不起作用。 应用程序使用的证书仍需要进行设置。 查找要使用的证书的指纹，然后按照步骤中所述[加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-your-certificates)。
+后按照前面的说明，该应用程序部署到 Azure，但尚不起作用。 应用程序使用的证书仍需要进行设置。 查找要使用的证书的指纹，然后按照步骤中所述[加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)。
 
 虽然这些步骤提到 SSL，则**私用证书**用于上传要与该应用程序使用的预配的证书门户上的部分。
 

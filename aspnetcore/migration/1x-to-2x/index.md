@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: fb6157205ab5280eb982a61e834eea5074864830
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 056930f3c586153d13555bbb6036f46587e2352d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450953"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815091"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>从 ASP.NET Core 1.x 迁移到 2.0
 
@@ -31,11 +31,11 @@ ms.locfileid: "65450953"
 
 ## <a name="update-target-framework-moniker-tfm"></a>更新目标框架名字对象 (TFM)
 
-面向 .NET Core 的项目需使用大于或等于 .NET Core 2.0 版本的 [TFM](/dotnet/standard/frameworks#referring-to-frameworks)。 在“.csproj”文件中搜索 `<TargetFramework>` 节点，并将其内部文本替换为 `netcoreapp2.0`：
+面向 .NET Core 的项目需使用大于或等于 .NET Core 2.0 版本的 [TFM](/dotnet/standard/frameworks)。 在“.csproj”文件中搜索 `<TargetFramework>` 节点，并将其内部文本替换为 `netcoreapp2.0`  ：
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 
-面向 .NET Framework 的项目需使用大于或等于 .NET Framework 4.6.1 版本的 TFM。 在“.csproj”文件中搜索 `<TargetFramework>` 节点，并将其内部文本替换为 `net461`：
+面向 .NET Framework 的项目需使用大于或等于 .NET Framework 4.6.1 版本的 TFM。 在“.csproj”文件中搜索 `<TargetFramework>` 节点，并将其内部文本替换为 `net461`  ：
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=4)]
 
@@ -48,7 +48,7 @@ ms.locfileid: "65450953"
 
 ## <a name="update-net-core-sdk-version-in-globaljson"></a>在 global.json 中更新 .NET Core SDK 版本
 
-如果解决方案依靠 [global.json](/dotnet/core/tools/global-json) 文件来定向于特定 .NET Core SDK 版本，请更新其 `version` 属性以使用计算机上安装的 2.0 版本：
+如果解决方案依靠 [global.json](/dotnet/core/tools/global-json) 文件来定向于特定 .NET Core SDK 版本，请更新其 `version` 属性以使用计算机上安装的 2.0 版本  ：
 
 [!code-json[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/global.json?highlight=3)]
 
@@ -56,9 +56,9 @@ ms.locfileid: "65450953"
 
 ## <a name="update-package-references"></a>更新包引用
 
-1.x 项目中的“.csproj”文件列出了该项目使用的每个 NuGet 包。
+1\.x 项目中的“.csproj”文件列出了该项目使用的每个 NuGet 包  。
 
-在面向 .NET Core 2.0 的 ASP.NET Core 2.0 项目中，“.csproj”文件中的单个 [metapackage](xref:fundamentals/metapackage) 引用将替换包的集合：
+在面向 .NET Core 2.0 的 ASP.NET Core 2.0 项目中，“.csproj”文件中的单个 [metapackage](xref:fundamentals/metapackage) 引用将替换包的集合  ：
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=8-10)]
 
@@ -74,7 +74,7 @@ ms.locfileid: "65450953"
 
 ## <a name="update-net-core-cli-tools"></a>更新 .NET Core CLI 工具
 
-在“.csproj”文件中，将每个 `<DotNetCliToolReference />` 节点的 `Version` 特性更新至 2.0.0。
+在“.csproj”文件中，将每个 `<DotNetCliToolReference />` 节点的 `Version` 特性更新至 2.0.0  。
 
 例如，下述列表列出了面向 .NET Core 2.0 的典型 ASP.NET Core 2.0 项目中使用的 CLI 工具：
 
@@ -84,7 +84,7 @@ ms.locfileid: "65450953"
 
 ## <a name="rename-package-target-fallback-property"></a>重命名“包目标回退”属性
 
-1.x 项目的“.csproj”文件使用了 `PackageTargetFallback` 节点和变量：
+1\.x 项目的“.csproj”文件使用了 `PackageTargetFallback` 节点和变量  ：
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=5)]
 
@@ -96,11 +96,11 @@ ms.locfileid: "65450953"
 
 ## <a name="update-main-method-in-programcs"></a>更新 Program.cs 中的 Main 方法
 
-在 1.x 项目中，“Program.cs”的 `Main` 方法如下所示：
+在 1.x 项目中，“Program.cs”的 `Main` 方法如下所示  ：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCs&highlight=8-19)]
 
-在 2.0 项目中，简化了“Program.cs”的 `Main` 方法：
+在 2.0 项目中，简化了“Program.cs”的 `Main` 方法  ：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program.cs?highlight=8-11)]
 
@@ -118,13 +118,13 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_1xStartup)]
 
-上例使用 psettings.json 以及任何与 `IHostingEnvironment.EnvironmentName` 属性匹配的 appsettings.\<EnvironmentName\>.json 文件中的配置设置加载 `Configuration` 成员。 这些文件所在位置与 Startup.cs 的路径相同。
+上例使用 psettings.json 以及任何与 `IHostingEnvironment.EnvironmentName` 属性匹配的 appsettings.\<EnvironmentName\>.json 文件中的配置设置加载 `Configuration` 成员   。 这些文件所在位置与 Startup.cs  的路径相同。
 
-在 2.0 项目中，样板配置代码会继承在幕后运行的 1.x 代码。 例如，启动时就加载环境变量和应用设置。 等效的 Startup.cs 代码减少到 `IConfiguration` 初始化设置并包括插入的实例：
+在 2.0 项目中，样板配置代码会继承在幕后运行的 1.x 代码。 例如，启动时就加载环境变量和应用设置。 等效的 Startup.cs  代码减少到 `IConfiguration` 初始化设置并包括插入的实例：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Startup.cs?name=snippet_2xStartup)]
 
-若要删除由 `WebHostBuilder.CreateDefaultBuilder` 添加的默认提供程序，请对 `ConfigureAppConfiguration` 内的 `IConfigurationBuilder.Sources`属性调用 `Clear` 方法。 若要添加回提供程序，请使用 Program.cs 中的 `ConfigureAppConfiguration` 方法：
+若要删除由 `WebHostBuilder.CreateDefaultBuilder` 添加的默认提供程序，请对 `ConfigureAppConfiguration` 内的 `IConfigurationBuilder.Sources`属性调用 `Clear` 方法。 若要添加回提供程序，请使用 Program.cs 中的 `ConfigureAppConfiguration` 方法  ：
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Program.cs?name=snippet_ProgramMainConfigProviders&highlight=9-14)]
 
@@ -152,7 +152,7 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-从 2.0 开始，`BuildWebHost` 只应用于生成和配置 Web 主机。 有关运行应用程序的任何内容都应在 `BuildWebHost` &mdash; 外部处理，通常是在 Program.cs 的 `Main` 方法中。
+从 2.0 开始，`BuildWebHost` 只应用于生成和配置 Web 主机。 有关运行应用程序的任何内容都应在 `BuildWebHost` &mdash; 外部处理，通常是在 Program.cs  的 `Main` 方法中。
 
 <a name="view-compilation"></a>
 
@@ -160,9 +160,9 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 加快应用程序启动速度和缩小已发布的捆绑包至关重要。 为此，ASP.NET Core 2.0 中默认启用 [Razor 视图编译](xref:mvc/views/view-compilation)。
 
-无需再将 `MvcRazorCompileOnPublish` 属性设置为 true。 若不禁用视图编译，可能会从“.csproj”文件中删除此属性。
+无需再将 `MvcRazorCompileOnPublish` 属性设置为 true。 若不禁用视图编译，可能会从“.csproj”文件中删除此属性  。
 
-以 .NET Framework 为目标时，仍需显式引用“.csproj”文件中的 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) NuGet 包：
+以 .NET Framework 为目标时，仍需显式引用“.csproj”文件中的 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) NuGet 包  ：
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=15)]
 
@@ -172,21 +172,21 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 能够轻松设置应用程序性能检测非常重要。 现可依靠 Visual Studio 2017 工具中推出的新的 [Application Insights](/azure/application-insights/app-insights-overview)“启动”功能。
 
-Visual Studio 2017 中创建的 ASP.NET Core 1.1 项目默认添加 Application Insights。 若不直接使用 Application Insights SDK，则除了执行“Program.cs”和“Startup.cs”，还请执行以下步骤：
+Visual Studio 2017 中创建的 ASP.NET Core 1.1 项目默认添加 Application Insights。 若不直接使用 Application Insights SDK，则除了执行“Program.cs”和“Startup.cs”，还请执行以下步骤   ：
 
-1. 如果定目标到 .NET Core，请从 .csproj 文件中删除以下 `<PackageReference />` 节点：
+1. 如果定目标到 .NET Core，请从 .csproj  文件中删除以下 `<PackageReference />` 节点：
 
     [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=10)]
 
-2. 如果定目标到 .NET Core，请从 Program.cs 中删除 `UseApplicationInsights` 扩展方法调用：
+2. 如果定目标到 .NET Core，请从 Program.cs  中删除 `UseApplicationInsights` 扩展方法调用：
 
     [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCsMain&highlight=8)]
 
-3. 从“_Layout.cshtml”中删除 Application Insights 客户端 API 调用。 它会比较以下两行代码：
+3. 从“_Layout.cshtml”中删除 Application Insights 客户端 API 调用  。 它会比较以下两行代码：
 
     [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Shared/_Layout.cshtml?range=1,19&dedent=4)]
 
-若要直接使用 Application Insights SDK，请继续此操作。 2.0 [元包](xref:fundamentals/metapackage)中具备最新版本的 Application Insights，因此如果引用较旧版本，将出现包降级错误。
+若要直接使用 Application Insights SDK，请继续此操作。 2\.0 [元包](xref:fundamentals/metapackage)中具备最新版本的 Application Insights，因此如果引用较旧版本，将出现包降级错误。
 
 <a name="auth-and-identity"></a>
 

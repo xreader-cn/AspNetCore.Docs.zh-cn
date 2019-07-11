@@ -4,14 +4,14 @@ author: rick-anderson
 description: 此示例演示如何集成到现有的 ASP.NET Core 应用的 Microsoft 帐户用户身份验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/11/2019
+ms.date: 05/11/2019
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 16ec2d5f2bccc59958b884869ef42af9cfa13df0
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 2c690e5bd8465806d42091616917cfdd747ef8f0
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316588"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815572"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>使用 ASP.NET Core 的 Microsoft 帐户外部登录设置
 
@@ -28,7 +28,7 @@ ms.locfileid: "67316588"
 * 选择**新注册**
 * 输入**名称**。
 * 选择一个选项来**支持的帐户类型**。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* 下**重定向 URI**，输入与你开发的 URL`/signin-microsoft`追加。 例如 `https://localhost:44389/signin-microsoft`。 配置更高版本在此示例中的 Microsoft 身份验证方案将自动处理在请求`/signin-microsoft`路由实现 OAuth 流。
+* 下**重定向 URI**，输入与你开发的 URL`/signin-microsoft`追加。 例如， `https://localhost:44389/signin-microsoft` 。 配置更高版本在此示例中的 Microsoft 身份验证方案将自动处理在请求`/signin-microsoft`路由实现 OAuth 流。
 * 选择**注册**
 
 ### <a name="create-client-secret"></a>创建客户端机密

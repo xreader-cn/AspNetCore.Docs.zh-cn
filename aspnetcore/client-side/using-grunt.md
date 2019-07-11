@@ -5,12 +5,12 @@ description: 在 ASP.NET Core中使用 Grunt
 ms.author: riande
 ms.date: 06/18/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 851ce3b50e88fee597518aef23276800f4b50f06
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f3832bd1fe5721fbda114103ac11a8d55312bcb2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207755"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813549"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>在 ASP.NET Core中使用 Grunt
 
@@ -94,7 +94,7 @@ Grunt 是 JavaScript 任务运行程序，可以自动脚本缩小，TypeScript 
     ![grunt Intellisense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > 使用 NPM[语义化版本控制](http://semver.org/)来组织依赖项。 语义版本控制，也称为 SemVer，标识包具有单独的编号方案\<主要 >。\<次要 >。\<修补程序 >。 Intellisense 显示仅几个常用的选项，从而简化了语义化版本控制。 智能感知列表 (在上面的示例 0.4.5) 中的顶级项被视为包的最新稳定版本。 插入符号 (^) 符号匹配的最新的主版本和颚化符 （~） 与最新次要版本匹配。 请参阅[NPM semver 版本分析器引用](https://www.npmjs.com/package/semver)作为 SemVer 提供的完整表现力的指南。
+    > 使用 NPM[语义化版本控制](https://semver.org/)来组织依赖项。 语义版本控制，也称为 SemVer，标识包具有单独的编号方案\<主要 >。\<次要 >。\<修补程序 >。 Intellisense 显示仅几个常用的选项，从而简化了语义化版本控制。 智能感知列表 (在上面的示例 0.4.5) 中的顶级项被视为包的最新稳定版本。 插入符号 (^) 符号匹配的最新的主版本和颚化符 （~） 与最新次要版本匹配。 请参阅[NPM semver 版本分析器引用](https://www.npmjs.com/package/semver)作为 SemVer 提供的完整表现力的指南。
 
 3. 添加多个依赖项加载 grunt 的 contrib-\*打包以*干净*， *jshint*， *concat*，*丑化*，以及*监视*如下面的示例中所示。 版本不需要与示例匹配。
 

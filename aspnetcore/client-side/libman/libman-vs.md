@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: d0494b96447ad2b256acbde7748209ff430ae7c1
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: ebfb405516d968bf5d5b8cff956a9892457027f2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610184"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813462"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>在 Visual Studio 中的 ASP.NET Core 中使用 LibMan
 
@@ -28,7 +28,7 @@ Visual Studio 在 ASP.NET Core 项目中内置了对 [LibMan](xref:client-side/l
 
 ## <a name="prerequisites"></a>系统必备
 
-* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019)与**ASP.NET 和 web 开发**工作负荷
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发  工作负载
 
 ## <a name="add-library-files"></a>添加库文件
 
@@ -94,13 +94,13 @@ Visual Studio 在 ASP.NET Core 项目中内置了对 [LibMan](xref:client-side/l
 
 **&#8224;** 如果*libman.json*文件尚不存在项目根目录中，它将使用默认项目模板内容的创建。
 
-Visual Studio 提供了丰富 JSON 编辑支持，例如颜色设置、 格式设置、 IntelliSense 和架构验证。 在找到 LibMan 清单的 JSON 架构[ http://json.schemastore.org/libman ](http://json.schemastore.org/libman)。
+Visual Studio 提供了丰富 JSON 编辑支持，例如颜色设置、 格式设置、 IntelliSense 和架构验证。 在找到 LibMan 清单的 JSON 架构[ https://json.schemastore.org/libman ](https://json.schemastore.org/libman)。
 
 使用以下清单文件，LibMan 检索每中定义的配置文件`libraries`属性。 中定义的对象文字说明`libraries`后面：
 
 * 一个子集[jQuery](https://jquery.com/)版本 3.3.1 检索从 CDNJS 提供程序。 在中定义的子集`files`属性&mdash;*jquery.min.js*，*只需要 jquery.js*，以及*jquery.min.map*。 将文件放置在项目的*wwwroot/lib/jquery*文件夹。
 * 整个[Bootstrap](https://getbootstrap.com/)检索并放入版本 4.1.3 *wwwroot/lib/bootstrap*文件夹。 对象文字`provider`属性重写`defaultProvider`属性值。 LibMan 从 unpkg 提供程序中检索启动文件。
-* 一个子集[lodash 等](https://lodash.com/)监管主体在组织内已批准。 *Lodash.js*并*lodash.min.js*从本地文件系统中检索文件*c:\\temp\\lodash 等\\*。 将文件复制到项目的*lodash 等wwwroot/lib/* 文件夹。
+* 一个子集[lodash 等](https://lodash.com/)监管主体在组织内已批准。 *Lodash.js*并*lodash.min.js*从本地文件系统中检索文件*c:\\temp\\lodash 等\\* 。 将文件复制到项目的*lodash 等wwwroot/lib/* 文件夹。
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -201,7 +201,7 @@ Clean libraries operation completed
 
 * 打开*libman.json*。
 * 定位插入符号置于相应`libraries`对象文字。
-* 单击左边距中显示的灯泡图标，然后选择**卸载\<library_name > @\<library_version >**:
+* 单击左边距中显示的灯泡图标，然后选择**卸载\<library_name > @\<library_version >** :
 
   ![卸载库上下文菜单选项](_static/uninstall-menu-option.png)
 

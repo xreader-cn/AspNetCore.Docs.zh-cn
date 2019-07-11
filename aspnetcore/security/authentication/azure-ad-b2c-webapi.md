@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 0eb8b533f44a1f72cfc3c4ec5ec060adb37eed6c
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: c917a5130857165716bd801ac19dad0f53a7d214
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610365"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815380"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>中的 web Api 使用 Azure Active Directory B2C 在 ASP.NET Core 中的身份验证
 
@@ -46,11 +46,11 @@ Azure Active Directory (Azure AD) 和 Azure AD B2C 是单独的产品产品/服�
 
 ## <a name="configure-a-sign-up-or-sign-in-policy"></a>配置注册或登录策略
 
-使用到的 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#create-a-sign-up-or-sign-in-policy)。 将策略命名**SiUpIn**。  使用提供的文档中的示例值**标识提供者**，**注册属性**，并**应用程序声明**。 使用**立即运行**是可选的按钮以测试策略，如文档中所述。
+使用到的 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)。 将策略命名**SiUpIn**。  使用提供的文档中的示例值**标识提供者**，**注册属性**，并**应用程序声明**。 使用**立即运行**是可选的按钮以测试策略，如文档中所述。
 
 ## <a name="register-the-api-in-azure-ad-b2c"></a>在 Azure AD B2C 中注册 API
 
-在新创建的 Azure AD B2C 租户中注册 API 通过[文档中的步骤](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api)下**注册 web API**部分。
+在新创建的 Azure AD B2C 租户中注册 API 通过[文档中的步骤](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)下**注册 web API**部分。
 
 使用以下值：
 
@@ -106,7 +106,7 @@ Visual Studio 创建 web API 的具有控制器名为*ValuesController.cs*返回
 
 ### <a name="register-postman-as-a-web-app"></a>注册为 web 应用的 Postman
 
-Postman 模拟 web 应用从 Azure AD B2C 租户中获取令牌，因为它必须注册在租户中为 web 应用。 注册使用 Postman[文档中的步骤](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-app)下**注册 web 应用**部分。 在停止**创建 web 应用客户端机密**部分。 本教程不需要客户端机密。 
+Postman 模拟 web 应用从 Azure AD B2C 租户中获取令牌，因为它必须注册在租户中为 web 应用。 注册使用 Postman[文档中的步骤](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)下**注册 web 应用**部分。 在停止**创建 web 应用客户端机密**部分。 本教程不需要客户端机密。 
 
 使用以下值：
 

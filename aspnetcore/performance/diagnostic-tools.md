@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d273897b9ad26d57eb94b196b58f14019a96d07d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894184"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815619"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 
@@ -53,7 +53,7 @@ Azure Application Insights 提供了多种方式对受监视的应用程序提�
 
 [PerfView](https://github.com/Microsoft/perfview)是性能分析工具创建的.NET 团队专门为诊断.NET 性能问题。 PerfView 允许分析 CPU 使用情况、 内存和 GC 行为、 性能事件和时钟时间。
 
-您可以了解有关 PerfView 以及如何入门的详细信息[PerfView 视频教程](http://channel9.msdn.com/Series/PerfView-Tutorial)或通过读取用户的指南，可以在工具或[GitHub 上](https://github.com/Microsoft/perfview)。
+您可以了解有关 PerfView 以及如何入门的详细信息[PerfView 视频教程](https://channel9.msdn.com/Series/PerfView-Tutorial)或通过读取用户的指南，可以在工具或[GitHub 上](https://github.com/Microsoft/perfview)。
 
 ## <a name="windows-performance-toolkit"></a>Windows 性能工具包
 

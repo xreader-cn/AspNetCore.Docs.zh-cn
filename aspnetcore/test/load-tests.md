@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: test/loadtests
-ms.openlocfilehash: 3c21da6c799bc3080a1a16cb62ae4535b8890a1b
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 4b07dd1af7e0c1d3ce9baa167b69fd8f80df204a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724488"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815175"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core 负载/压力测试
 
@@ -23,7 +23,7 @@ ms.locfileid: "67724488"
 
 压力测试确定是否在高负荷下的应用可以从故障中恢复并适当地返回到预期的行为。 在负载下，应用程序不会在正常情况下运行。
 
-Visual Studio 2019 是最后一个版本的 Visual Studio 中使用负载测试功能。 对于需要负载测试工具在将来的客户，我们建议备用工具，如 Apache JMeter、 Akamai CloudTest 和 BlazeMeter。 有关详细信息，请参阅[Visual Studio 2019 发行说明](/visualstudio/releases/2019/release-notes#test-tools)。
+Visual Studio 2019 是最后一个版本的 Visual Studio 中使用负载测试功能。 对于需要负载测试工具在将来的客户，我们建议备用工具，如 Apache JMeter、 Akamai CloudTest 和 BlazeMeter。 有关详细信息，请参阅[Visual Studio 2019 发行说明](/visualstudio/releases/2019/release-notes-v16.0#test-tools)。
 
 在 2020年中结束的负载测试中 Azure DevOps 服务。 有关详细信息，请参阅[基于云的负载测试服务生命周期结束](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/)。
 
@@ -72,7 +72,7 @@ Visual Studio 允许用户创建、 开发和调试 web 性能和负载测试。
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
 * [Gatling](https://gatling.io/)
 * [Locust](https://locust.io/)
-* [West Wind WebSurge](http://websurge.west-wind.com/)
+* [West Wind WebSurge](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 * [Vegeta](https://github.com/tsenart/vegeta)
 

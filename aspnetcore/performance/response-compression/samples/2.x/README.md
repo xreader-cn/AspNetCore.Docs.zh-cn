@@ -22,6 +22,6 @@
 
 ## <a name="use-the-sample"></a>使用示例
 
-1. 使请求使用[Fiddler](http://www.telerik.com/fiddler)， [Firebug](http://getfirebug.com/)，或[Postman](https://www.getpostman.com/)到应用程序而不`Accept-Encoding`标头并记下响应有效负载，响应大小和响应标头。
+1. 使请求使用[Fiddler](https://www.telerik.com/fiddler)， [Firebug](https://getfirebug.com/)，或[Postman](https://www.getpostman.com/)到应用程序而不`Accept-Encoding`标头并记下响应有效负载，响应大小和响应标头。
 1. 添加`Accept-Encoding: br`或`Accept-Encoding: gzip`标头并记下压缩的响应大小和响应标头。 响应大小降至，和`Content-Encoding`响应标头包含由中间件，该值指示该使用任一 Gzip 压缩或 Brotli 发生。 要查看在响应正文的乱数假文或**testfile1kb.txt**响应，你将看到文本是压缩且不可读。
 1. 添加`Accept-Encoding: mycustomcompression`标头并记下响应标头。 `CustomCompressionProvider`是一个空实现，实际上不会压缩响应，但您可以创建自定义压缩流包装器`CreateStream()`方法。

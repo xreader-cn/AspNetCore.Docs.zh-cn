@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: performance/response-compression
-ms.openlocfilehash: e312d43fb62106f6ecb98367c29daa377bb227c9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d5d2da3dc0a8a452de97d98161d429389d2f7638
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893344"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815607"
 ---
 # <a name="response-compression-in-aspnet-core"></a>在 ASP.NET Core 中的响应压缩
 
@@ -30,7 +30,7 @@ ms.locfileid: "64893344"
 
 * 无法使用以下基于服务器的压缩技术：
   * [IIS 动态压缩模块](https://www.iis.net/overview/reliability/dynamiccachingandcompression)
-  * [Apache mod_deflate 模块](http://httpd.apache.org/docs/current/mod/mod_deflate.html)
+  * [Apache mod_deflate 模块](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx 压缩和解压缩](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * 直接在上托管：
   * [HTTP.sys 服务器](xref:fundamentals/servers/httpsys)（以前称为 WebListener）
@@ -47,11 +47,11 @@ ms.locfileid: "64893344"
 | `Accept-Encoding` 标头值 | 支持的中间件 | 描述 |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | 是 （默认值）        | [Brotli 压缩的数据格式](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | 否                   | [DEFLATE 压缩的数据格式](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | 否                   | [W3C 有效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `deflate`                       | No                   | [DEFLATE 压缩的数据格式](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | No                   | [W3C 有效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | 是                  | [Gzip 文件格式](https://tools.ietf.org/html/rfc1952) |
 | `identity`                      | 是                  | "没有 encoding"的标识符：响应必须不进行编码。 |
-| `pack200-gzip`                  | 否                   | [Java 存档文件的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `pack200-gzip`                  | No                   | [Java 存档文件的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | 是                  | 编码不显式请求任何可用内容 |
 
 ::: moniker-end
@@ -60,17 +60,17 @@ ms.locfileid: "64893344"
 
 | `Accept-Encoding` 标头值 | 支持的中间件 | 描述 |
 | ------------------------------- | :------------------: | ----------- |
-| `br`                            | 否                   | [Brotli 压缩的数据格式](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | 否                   | [DEFLATE 压缩的数据格式](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | 否                   | [W3C 有效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `br`                            | No                   | [Brotli 压缩的数据格式](https://tools.ietf.org/html/rfc7932) |
+| `deflate`                       | No                   | [DEFLATE 压缩的数据格式](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | No                   | [W3C 有效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | 是 （默认值）        | [Gzip 文件格式](https://tools.ietf.org/html/rfc1952) |
 | `identity`                      | 是                  | "没有 encoding"的标识符：响应必须不进行编码。 |
-| `pack200-gzip`                  | 否                   | [Java 存档文件的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `pack200-gzip`                  | No                   | [Java 存档文件的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | 是                  | 编码不显式请求任何可用内容 |
 
 ::: moniker-end
 
-有关详细信息，请参阅[IANA 官方内容编码列表](http://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry)。
+有关详细信息，请参阅[IANA 官方内容编码列表](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry)。
 
 中间件可以添加额外的压缩的自定义的提供程序`Accept-Encoding`标头值。 有关详细信息，请参阅[自定义提供程序](#custom-providers)下面。
 
@@ -146,7 +146,7 @@ public class Startup
 注意：
 
 * `app.UseResponseCompression` 必须在`app.UseMvc` 之前调用。
-* 使用一种工具，如[Fiddler](http://www.telerik.com/fiddler)， [Firebug](http://getfirebug.com/)，或[Postman](https://www.getpostman.com/)设置`Accept-Encoding`请求标头并研究响应标头、 大小和正文。
+* 使用一种工具，如[Fiddler](https://www.telerik.com/fiddler)， [Firebug](https://getfirebug.com/)，或[Postman](https://www.getpostman.com/)设置`Accept-Encoding`请求标头并研究响应标头、 大小和正文。
 
 向示例应用程序而无需提交一个申请`Accept-Encoding`标头，并观察的响应是未压缩。 `Content-Encoding`和`Vary`标头不存在的响应。
 
@@ -385,4 +385,4 @@ public void ConfigureServices(IServiceCollection services)
 * [Mozilla 开发人员网络：Accept-Encoding](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
 * [RFC 7231 节 3.1.2.1:内容 Codings](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
 * [RFC 7230 4.2.3 节：Gzip 编码](https://tools.ietf.org/html/rfc7230#section-4.2.3)
-* [GZIP 文件格式规范版本 4.3](http://www.ietf.org/rfc/rfc1952.txt)
+* [GZIP 文件格式规范版本 4.3](https://www.ietf.org/rfc/rfc1952.txt)

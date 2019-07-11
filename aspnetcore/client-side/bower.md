@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
-ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1292b75bdfe1cea56d9c8bc282b0dd90fc945a33
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892994"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813534"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>管理 ASP.NET Core 中的 Bower 的客户端包
 
@@ -22,9 +22,9 @@ ms.locfileid: "64892994"
 >
 > Yarn Webpack 使用是的其中一个受欢迎的替代方法[迁移说明](https://bower.io/blog/2017/how-to-migrate-away-from-bower/)可用。
 
-[Bower](https://bower.io/)调用其自身"web 包管理器"。 在.NET 生态系统，它填补留下的 NuGet 的无法传送静态内容的文件。 对于 ASP.NET Core 项目，这些静态文件，则所固有的客户端库，如[jQuery](http://jquery.com/)和[Bootstrap](http://getbootstrap.com/)。 对于.NET 库，您仍使用[NuGet](https://www.nuget.org/)包管理器。
+[Bower](https://bower.io/)调用其自身"web 包管理器"。 在.NET 生态系统，它填补留下的 NuGet 的无法传送静态内容的文件。 对于 ASP.NET Core 项目，这些静态文件，则所固有的客户端库，如[jQuery](https://jquery.com/)和[Bootstrap](https://getbootstrap.com/)。 对于.NET 库，您仍使用[NuGet](https://www.nuget.org/)包管理器。
 
-设置客户端的 ASP.NET Core 项目模板创建的新项目生成过程。 [jQuery](http://jquery.com/)并[Bootstrap](http://getbootstrap.com/)安装，并支持 Bower。
+设置客户端的 ASP.NET Core 项目模板创建的新项目生成过程。 [jQuery](https://jquery.com/)并[Bootstrap](https://getbootstrap.com/)安装，并支持 Bower。
 
 客户端的包中列出*bower.json*文件。 ASP.NET Core 项目模板配置*bower.json* jQuery、 jQuery 验证与 Bootstrap。
 
@@ -50,7 +50,7 @@ ms.locfileid: "64892994"
 
 ![bower 版本 IntelliSense](bower/_static/version-intelliSense.png)
 
-使用 bower[语义化版本控制](http://semver.org/)来组织依赖项。 语义版本控制，也称为 SemVer，标识包具有单独的编号方案\<主要 >。\<次要 >。\<修补程序 >。 IntelliSense 显示仅几个常用的选项，从而简化了语义化版本控制。 智能感知列表 (在上面的示例 4.6.3) 中的顶级项被视为包的最新稳定版本。 插入符号 (^) 符号匹配的最新的主版本和颚化符 （~） 与最新次要版本匹配。
+使用 bower[语义化版本控制](https://semver.org/)来组织依赖项。 语义版本控制，也称为 SemVer，标识包具有单独的编号方案\<主要 >。\<次要 >。\<修补程序 >。 IntelliSense 显示仅几个常用的选项，从而简化了语义化版本控制。 智能感知列表 (在上面的示例 4.6.3) 中的顶级项被视为包的最新稳定版本。 插入符号 (^) 符号匹配的最新的主版本和颚化符 （~） 与最新次要版本匹配。
 
 保存*bower.json*文件。 Visual Studio 会监视*bower.json*文件的更改。 保存后， *bower 安装*执行命令。 请参见输出窗口**Bower/npm**视图执行的确切命令。
 

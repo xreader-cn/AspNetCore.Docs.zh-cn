@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/13/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 78c63cf135ca92f0b5f6c6828b2ae34a44a7b36c
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: be176ed612be0773c4a5b52607c023da3856ac14
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65621019"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815327"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>在 ASP.NET Core 中的 azure 密钥保管库配置提供程序
 
@@ -27,14 +27,14 @@ ms.locfileid: "65621019"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="packages"></a>包
+## <a name="packages"></a>package
 
 若要使用 Azure 密钥保管库配置提供程序，添加到包引用[Microsoft.Extensions.Configuration.AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
 若要采用[托管于 Azure 资源的标识](/azure/active-directory/managed-identities-azure-resources/overview)方案中，添加到包引用[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)包。
 
 > [!NOTE]
-> 在撰写本文时，最新稳定版本的`Microsoft.Azure.Services.AppAuthentication`，版本`1.0.3`，提供对支持[系统分配给托管标识](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka)。 为支持*用户分配托管标识*现已推出`1.2.0-preview2`包。 本主题演示如何使用系统管理的标识，并提供的示例应用使用版本`1.0.3`的`Microsoft.Azure.Services.AppAuthentication`包。
+> 在撰写本文时，最新稳定版本的`Microsoft.Azure.Services.AppAuthentication`，版本`1.0.3`，提供对支持[系统分配给托管标识](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)。 为支持*用户分配托管标识*现已推出`1.2.0-preview2`包。 本主题演示如何使用系统管理的标识，并提供的示例应用使用版本`1.0.3`的`Microsoft.Azure.Services.AppAuthentication`包。
 
 ## <a name="sample-app"></a>示例应用
 
@@ -120,11 +120,11 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 示例应用使用应用程序 ID 和 X.509 证书何时`#define`顶部的语句*Program.cs*文件设置为`Certificate`。
 
-1. 创建 PKCS #12 存档 (*.pfx*) 证书。 用于创建证书的选项包括[在 Windows 上的 MakeCert](/windows/desktop/seccrypto/makecert)并[OpenSSL](https://www.openssl.org/)。
+1. 创建 PKCS #12 存档 ( *.pfx*) 证书。 用于创建证书的选项包括[在 Windows 上的 MakeCert](/windows/desktop/seccrypto/makecert)并[OpenSSL](https://www.openssl.org/)。
 1. 将证书安装到当前用户的个人证书存储区。 将该键标记为可导出是可选的。 请注意此过程中更高版本使用的证书的指纹。
-1. 导出 PKCS #12 存档 (*.pfx*) 与 (DER） 编码的证书的证书 (*.cer*)。
+1. 导出 PKCS #12 存档 ( *.pfx*) 与 (DER） 编码的证书的证书 ( *.cer*)。
 1. 与 Azure AD 中注册应用程序 (**应用注册**)。
-1. 上传的 DER 编码的证书 (*.cer*) 到 Azure AD:
+1. 上传的 DER 编码的证书 ( *.cer*) 到 Azure AD:
    1. 在 Azure AD 中选择的应用。
    1. 导航到**证书和机密**。
    1. 选择**上传证书**来上传包含公钥的证书。 一个 *.cer*， *.pem*，或 *.crt*证书是可接受。
@@ -135,8 +135,8 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 选择**添加新**。
 1. 选择**选择主体**并按名称选择已注册的应用。 选择**选择**按钮。
 1. 打开**机密权限**，并提供应用程序与**获取**并**列表**权限。
-1. 选择 **确定**。
-1. 选择“保存”。
+1. 选择“确定”  。
+1. 选择**保存**。
 1. 将应用部署。
 
 `Certificate`示例应用程序获取从其配置值`IConfigurationRoot`具有作为机密名称相同的名称：
@@ -156,7 +156,7 @@ X.509 证书是由操作系统管理。 应用程序调用`AddAzureKeyVault`提�
 * 应用程序 ID: `627e911e-43cc-61d4-992e-12db9c81b413`
 * 证书指纹： `fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-appsettings.json：
+appsettings.json  ：
 
 [!code-json[](key-vault-configuration/sample/appsettings.json)]
 
@@ -287,7 +287,7 @@ Azure 密钥保管库密钥不能使用冒号作为分隔符。 本主题中介�
 
 在上面的 JSON 文件中所示的配置存储在 Azure 密钥保管库中使用双短划线 (`--`) 表示法和数字段：
 
-| 键 | 值 |
+| Key | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |

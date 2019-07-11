@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 11/10/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: 07457d57b7d3b444c8cea818149569407f1dd8e8
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 14d10424951e8ec3c7909d001c6f86e5fcb45d26
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085721"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815046"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>将文件上传到 ASP.NET Core 中的 Razor 页面
 
@@ -46,7 +46,7 @@ ms.locfileid: "65085721"
 
 ## <a name="add-a-fileupload-class"></a>添加 FileUpload 类
 
-创建 Razor 页以处理一对文件上传。 添加 `FileUpload` 类（此类与页面绑定以获取计划数据）。 右键单击“Models”文件夹。 选择“添加” > “类”。 将类命名为“FileUpload”，并添加以下属性：
+创建 Razor 页以处理一对文件上传。 添加 `FileUpload` 类（此类与页面绑定以获取计划数据）。 右键单击“Models”文件夹  。 选择“添加” > “类”   。 将类命名为“FileUpload”，并添加以下属性： 
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -64,7 +64,7 @@ ms.locfileid: "65085721"
 
 ## <a name="add-a-helper-method-to-upload-files"></a>添加用于上传文件的 helper 方法
 
-为避免处理未上传计划文件时出现代码重复，请首先上传一个静态 helper 方法。 在此应用中创建一个“Utilities”文件夹，然后在“FileHelpers.cs”文件中添加以下内容。 helper 方法 `ProcessFormFile` 接受 [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) 和 [ModelStateDictionary](/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary)，并返回包含文件大小和内容的字符串。 检查内容类型和长度。 如果文件未通过验证检查，将向 `ModelState` 添加一个错误。
+为避免处理未上传计划文件时出现代码重复，请首先上传一个静态 helper 方法。 在此应用中创建一个“Utilities”文件夹，然后在“FileHelpers.cs”文件中添加以下内容   。 helper 方法 `ProcessFormFile` 接受 [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) 和 [ModelStateDictionary](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary)，并返回包含文件大小和内容的字符串。 检查内容类型和长度。 如果文件未通过验证检查，将向 `ModelState` 添加一个错误。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -105,7 +105,7 @@ public async Task<IActionResult> OnPostAsync()
 工作进程必须对 `filePath` 指定的位置具有写入权限。
 
 > [!NOTE]
-> `filePath` 必须包含文件名。 如果未提供文件名，则会在运行时引发 [UnauthorizedAccessException](/dotnet/api/system.unauthorizedaccessexception)。
+> `filePath` 必须包含文件名  。 如果未提供文件名，则会在运行时引发 [UnauthorizedAccessException](/dotnet/api/system.unauthorizedaccessexception)。
 
 > [!WARNING]
 > 切勿将上传的文件保存在与应用相同的目录树中。
@@ -117,11 +117,11 @@ public async Task<IActionResult> OnPostAsync()
 
 ### <a name="save-the-file-to-azure-blob-storage"></a>将文件保存到 Azure Blob 存储
 
-若要将文件内容上传到 Azure Blob 存储，请参阅[使用 .NET 的 Azure Blob 存储入门](/azure/storage/blobs/storage-dotnet-how-to-use-blobs)。 本主题演示如何使用 [UploadFromStream](/dotnet/api/microsoft.windowsazure.storage.file.cloudfile.uploadfromstreamasync) 将[文件流](/dotnet/api/system.io.filestream)保存到 blob 存储。
+若要将文件内容上传到 Azure Blob 存储，请参阅[使用 .NET 的 Azure Blob 存储入门](/azure/storage/blobs/storage-dotnet-how-to-use-blobs)。 本主题演示如何使用 [UploadFromStream](/dotnet/api/microsoft.azure.storage.file.cloudfile.uploadfromstreamasync) 将[文件流](/dotnet/api/system.io.filestream)保存到 blob 存储。
 
 ## <a name="add-the-schedule-class"></a>添加 Schedule 类
 
-右键单击“Models”文件夹。 选择“添加” > “类”。 将类命名为“Schedule”，并添加以下属性：
+右键单击“Models”文件夹  。 选择“添加” > “类”   。 将类命名为“Schedule”，并添加以下属性  ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -141,7 +141,7 @@ public async Task<IActionResult> OnPostAsync()
 
 ## <a name="update-the-razorpagesmoviecontext"></a>更新 RazorPagesMovieContext
 
-在 `RazorPagesMovieContext` (Data/RazorPagesMovieContext.cs) 中为计划指定 `DbSet`：
+在 `RazorPagesMovieContext` (Data/RazorPagesMovieContext.cs) 中为计划指定 `DbSet`  ：
 
 [!code-csharp[](upload-files/samples/2.x/RazorPagesMovie/Data/RazorPagesMovieContext.cs?highlight=17)]
 
@@ -172,7 +172,7 @@ Update-Database
 
 ## <a name="add-a-file-upload-razor-page"></a>添加文件上传 Razor 页面
 
-在“Pages”文件夹中创建“Schedules”文件夹。 在“Schedules”文件夹中，创建名为“Index.cshtml”的页面，用于上传具有如下内容的计划：
+在“Pages”文件夹中创建“Schedules”文件夹   。 在“Schedules”文件夹中，创建名为“Index.cshtml”的页面，用于上传具有如下内容的计划   ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -186,13 +186,13 @@ Update-Database
 
 ::: moniker-end
 
-每个窗体组包含一个 \<label>，它显示每个类属性的名称。 `FileUpload` 模型中的 `Display` 特性提供这些标签的显示值。 例如，`UploadPublicSchedule` 特性的显示名称通过 `[Display(Name="Public Schedule")]` 进行设置，因此呈现窗体时会在此标签中显示“Public Schedule”。
+每个窗体组包含一个 \<label>  ，它显示每个类属性的名称。 `FileUpload` 模型中的 `Display` 特性提供这些标签的显示值。 例如，`UploadPublicSchedule` 特性的显示名称通过 `[Display(Name="Public Schedule")]` 进行设置，因此呈现窗体时会在此标签中显示“Public Schedule”。
 
-每个窗体组包含一个验证 \<span>。 如果用户输入未能满足 `FileUpload` 类中设置的属性特性，或者任何 `ProcessFormFile` 方法文件检查失败，则模型验证会失败。 模型验证失败时，会向用户呈现有用的验证消息。 例如，`Title` 属性带有 `[Required]` 和 `[StringLength(60, MinimumLength = 3)]` 注释。 用户若未提供标题，会接收到一条指示需要提供值的消息。 如果用户输入的值少于 3 个字符或多于 60 个字符，则会接收到一条指示值长度不正确的消息。 如果提供不含内容的文件，则会显示一条指示文件为空的消息。
+每个窗体组包含一个验证 \<span>  。 如果用户输入未能满足 `FileUpload` 类中设置的属性特性，或者任何 `ProcessFormFile` 方法文件检查失败，则模型验证会失败。 模型验证失败时，会向用户呈现有用的验证消息。 例如，`Title` 属性带有 `[Required]` 和 `[StringLength(60, MinimumLength = 3)]` 注释。 用户若未提供标题，会接收到一条指示需要提供值的消息。 如果用户输入的值少于 3 个字符或多于 60 个字符，则会接收到一条指示值长度不正确的消息。 如果提供不含内容的文件，则会显示一条指示文件为空的消息。
 
 ## <a name="add-the-page-model"></a>添加页面模型
 
-将页面模型 (Index.cshtml.cs) 添加到“Schedules”文件夹中：
+将页面模型 (Index.cshtml.cs) 添加到“Schedules”文件夹中   ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -206,7 +206,7 @@ Update-Database
 
 ::: moniker-end
 
-页面模型（Index.cshtml.cs 中的 `IndexModel`）绑定 `FileUpload` 类：
+页面模型（Index.cshtml.cs 中的 `IndexModel`）绑定 `FileUpload` 类  ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -248,7 +248,7 @@ Update-Database
 
 ::: moniker-end
 
-将窗体发布到服务器时，会检查 `ModelState`。 如果无效，会重新生成 `Schedule`，且页面会呈现一个或多个验证消息，陈述页面验证失败的原因。 如果有效，`FileUpload` 属性将用于“OnPostAsync”中，以完成两个计划版本的文件上传，并创建一个用于存储数据的新 `Schedule` 对象。 然后会将此计划保存到数据库：
+将窗体发布到服务器时，会检查 `ModelState`。 如果无效，会重新生成 `Schedule`，且页面会呈现一个或多个验证消息，陈述页面验证失败的原因。 如果有效，`FileUpload` 属性将用于“OnPostAsync”中，以完成两个计划版本的文件上传，并创建一个用于存储数据的新 `Schedule` 对象  。 然后会将此计划保存到数据库：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -264,7 +264,7 @@ Update-Database
 
 ## <a name="link-the-file-upload-razor-page"></a>链接文件上传 Razor 页面
 
-打开“Pages/Shared/_Layout.cshtml”，然后向导航栏添加一个链接以访问“计划”页面：
+打开“Pages/Shared/_Layout.cshtml”，然后向导航栏添加一个链接以访问“计划”页面  ：
 
 ```cshtml
 <div class="navbar-collapse collapse">
@@ -279,7 +279,7 @@ Update-Database
 
 ## <a name="add-a-page-to-confirm-schedule-deletion"></a>添加计划删除确认页面
 
-用户单击删除计划时，为其提供取消此操作的机会。 向“Schedules”文件夹添加删除确认页面 (Delete.cshtml)：
+用户单击删除计划时，为其提供取消此操作的机会。 向“Schedules”文件夹添加删除确认页面 (Delete.cshtml)   ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -293,7 +293,7 @@ Update-Database
 
 ::: moniker-end
 
-页面模型 (Delete.cshtml.cs) 在请求的路由数据中加载由 `id` 标识的单个计划。 将“Delete.cshtml.cs”文件添加到“Schedules”文件夹：
+页面模型 (Delete.cshtml.cs) 在请求的路由数据中加载由 `id` 标识的单个计划  。 将“Delete.cshtml.cs”文件添加到“Schedules”文件夹   ：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -321,7 +321,7 @@ Update-Database
 
 ::: moniker-end
 
-成功删除计划后，`RedirectToPage` 将返回到计划的“Index.cshtml”页面。
+成功删除计划后，`RedirectToPage` 将返回到计划的“Index.cshtml”页面  。
 
 ## <a name="the-working-schedules-razor-page"></a>有效的 Schedules Razor 页面
 
@@ -329,19 +329,19 @@ Update-Database
 
 ![按初始加载所示计划 Razor 页面，其中不含验证错误和空字段](upload-files/_static/browser1.png)
 
-在不填充任何字段的情况下选择“上传”按钮会违反此模型上的 `[Required]` 特性。 `ModelState` 无效。 会向用户显示验证错误消息：
+在不填充任何字段的情况下选择“上传”按钮会违反此模型上的 `[Required]` 特性  。 `ModelState` 无效。 会向用户显示验证错误消息：
 
 ![验证错误消息显示在每个输入控件旁边](upload-files/_static/browser2.png)
 
-在“标题”字段中键入两个字母。 验证消息改为指示标题长度必须介于 3-60 个字符之间：
+在“标题”字段中键入两个字母  。 验证消息改为指示标题长度必须介于 3-60 个字符之间：
 
 ![标题验证消息已更改](upload-files/_static/browser3.png)
 
-上传一个或多个计划时，“已加载计划”部分会显示已加载计划：
+上传一个或多个计划时，“已加载计划”部分会显示已加载计划  ：
 
 ![已加载计划表，显示每个计划的标题、UTC 格式的上传日期、公用版本文件大小和专用版本文件大小](upload-files/_static/browser4.png)
 
-用户可单击该表中的“删除”链接以访问删除确认视图，并在其中选择确认或取消删除操作。
+用户可单击该表中的“删除”链接以访问删除确认视图，并在其中选择确认或取消删除操作  。
 
 ## <a name="troubleshooting"></a>疑难解答
 

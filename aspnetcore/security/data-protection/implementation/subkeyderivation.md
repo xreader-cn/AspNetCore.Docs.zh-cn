@@ -5,12 +5,12 @@ description: 了解实现详细信息的 ASP.NET Core 数据保护子项派生�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: 37e7b01700e8a6b755b5ed16a9d7d75a9eeb970e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bbfde378755b09cd5b1217b8cf66249b9fa1d6ad
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891834"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814376"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>子项派生和 ASP.NET Core 中的经过身份验证的加密
 
@@ -37,7 +37,7 @@ ms.locfileid: "64891834"
 
 ( K_E, K_H ) = SP800_108_CTR_HMACSHA512(K_M, AAD, contextHeader || keyModifier)
 
-在这里，我们正在呼叫 NIST SP800 108 KDF 计数器模式中 (请参阅[NIST SP800 108](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，秒 5.1) 使用以下参数：
+在这里，我们正在呼叫 NIST SP800 108 KDF 计数器模式中 (请参阅[NIST SP800 108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，秒 5.1) 使用以下参数：
 
 * 密钥派生密钥 (KDK) = K_M
 

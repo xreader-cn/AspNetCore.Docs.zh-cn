@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 3cb878aff7bf0c6c8efe7f3f0c0f06c74acef477
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: 54117bf0dd45305d060eef5fecfb98ed45f8ecdb
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538733"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815306"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Azure Active Directory B2C ASP.NET Core 中使用云身份验证
 
@@ -43,7 +43,7 @@ ms.locfileid: "67538733"
 
 ## <a name="register-the-app-in-azure-ad-b2c"></a>在 Azure AD B2C 中注册应用
 
-在新创建的 Azure AD B2C 租户中注册应用程序使用[文档中的步骤](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-app)下**注册 web 应用**部分。 在停止**创建 web 应用客户端机密**部分。 本教程不需要客户端机密。 
+在新创建的 Azure AD B2C 租户中注册应用程序使用[文档中的步骤](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)下**注册 web 应用**部分。 在停止**创建 web 应用客户端机密**部分。 本教程不需要客户端机密。 
 
 使用以下值：
 
@@ -54,10 +54,10 @@ ms.locfileid: "67538733"
 | **允许隐式流**       | 是                       |                                                                                                                                                                                                    |
 | **回复 URL**                 | `https://localhost:44300/signin-oidc` | 回复 Url 属于终结点，Azure AD B2C 在其中返回应用请求的任何令牌。 Visual Studio 提供了要使用的回复 URL。 现在，输入`https://localhost:44300/signin-oidc`填写表单。 |
 | **应用程序 ID URI**                | 将保留为空               | 对于本教程不被必需。                                                                                                                                                                    |
-| **包含本机客户端**     | 否                        |                                                                                                                                                                                                    |
+| **包含本机客户端**     | No                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
-> 如果设置了非 localhost 答复 URL，请注意[回复 URL 列表中允许的内容的约束](/azure/active-directory-b2c/active-directory-b2c-app-registration#choosing-a-web-app-or-api-reply-url)。 
+> 如果设置了非 localhost 答复 URL，请注意[回复 URL 列表中允许的内容的约束](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)。 
 
 注册应用后，将显示租户中的应用列表。 选择刚注册的应用。 选择**副本**右侧的图标**应用程序 ID**字段以将其复制到剪贴板。
 
@@ -101,7 +101,7 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
 
 ## <a name="configure-policies"></a>配置策略
 
-使用到的 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#create-a-sign-up-or-sign-in-policy)，然后[创建密码重置策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#create-a-password-reset-policy)。 使用提供的文档中的示例值**标识提供者**，**注册属性**，并**应用程序声明**。 使用**立即运行**是可选的按钮以测试这些策略，如文档中所述。
+使用到的 Azure AD B2C 文档中的步骤[创建注册或登录策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)，然后[创建密码重置策略](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)。 使用提供的文档中的示例值**标识提供者**，**注册属性**，并**应用程序声明**。 使用**立即运行**是可选的按钮以测试这些策略，如文档中所述。
 
 > [!WARNING]
 > 确保策略名称完全按照说明在文档中，并与这些策略中使用**更改身份验证**Visual Studio 中的对话框。 可以在中验证的策略名称*appsettings.json*。
@@ -142,7 +142,7 @@ services.Configure<JwtBearerOptions>(
 
 已成功登录后，浏览器将重定向到 web 应用。
 
-![成功](./azure-ad-b2c/_static/success.png)
+![Success](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>后续步骤
 

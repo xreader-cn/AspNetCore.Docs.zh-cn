@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: c3ec67d9f5c2b8eb44b5ced911ccfd0fa40a52a7
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 6254a74fd0a11669706a2a89b156a3223e300d1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152775"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813500"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>捆绑和缩小在 ASP.NET Core 中的静态资产
 
@@ -86,7 +86,7 @@ MVC 和 Razor 页面项目模板提供了在 ASP.NET Core 2.0 或更早*bundleco
 配置选项包括：
 
 * `outputFileName`：要输出的捆绑包文件的名称。 可以包含中的相对路径*bundleconfig.json*文件。 **required**
-* `inputFiles`：要捆绑在一起的文件的数组。 这些是配置文件的相对路径。 **可选**，* 空值会导致空的输出文件。 [通配](http://www.tldp.org/LDP/abs/html/globbingref.html)支持模式。
+* `inputFiles`：要捆绑在一起的文件的数组。 这些是配置文件的相对路径。 **可选**，* 空值会导致空的输出文件。 [通配](https://www.tldp.org/LDP/abs/html/globbingref.html)支持模式。
 * `minify`：输出类型缩小选项。 **可选**，*默认值- `minify: { enabled: true }`*
   * 每个输出文件类型提供了配置选项。
     * [CSS 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
@@ -197,7 +197,7 @@ dotnet bundle
 ```
 
 > [!IMPORTANT]
-> NuGet 包管理器将依赖项添加到 *.csproj 文件作为`<PackageReference />`节点。 `dotnet bundle`命令注册.NET Core CLI 时，才`<DotNetCliToolReference />`使用节点。 相应地修改 *.csproj 文件。
+> NuGet 包管理器将依赖项添加到 *.csproj 文件作为`<PackageReference />`节点。           `dotnet bundle`命令注册.NET Core CLI 时，才`<DotNetCliToolReference />`使用节点。 相应地修改 *.csproj 文件。
 
 ## <a name="add-files-to-workflow"></a>将文件添加到工作流
 

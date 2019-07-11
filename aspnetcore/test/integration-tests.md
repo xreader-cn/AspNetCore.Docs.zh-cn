@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: test/integration-tests
-ms.openlocfilehash: 3af2a1f7c6a65d7ff42597972ee151a50fc95fb6
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: a4e22e53b4658a7c6da3c9e15671a355b212f559
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716378"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815371"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>在 ASP.NET Core 中的集成测试
 
@@ -184,7 +184,7 @@ Web 主机配置可以通过继承创建独立的测试类于`WebApplicationFact
   * 提交按钮 (`IHtmlElement`) 和窗体值 (`IEnumerable<KeyValuePair<string, string>>`)
 
 > [!NOTE]
-> [AngleSharp](https://anglesharp.github.io/)第三方分析用于演示目的，在本主题和示例应用程序中的库。 AngleSharp 不受支持或所需的集成测试的 ASP.NET Core 应用。 其他分析器可以使用，如[Html 灵活性包 (HAP)](http://html-agility-pack.net/)。 另一种方法是编写代码来直接处理防伪系统的请求验证令牌和防伪 cookie。
+> [AngleSharp](https://anglesharp.github.io/)第三方分析用于演示目的，在本主题和示例应用程序中的库。 AngleSharp 不受支持或所需的集成测试的 ASP.NET Core 应用。 其他分析器可以使用，如[Html 灵活性包 (HAP)](https://html-agility-pack.net/)。 另一种方法是编写代码来直接处理防伪系统的请求验证令牌和防伪 cookie。
 
 ## <a name="customize-the-client-with-withwebhostbuilder"></a>自定义客户端与 WithWebHostBuilder
 

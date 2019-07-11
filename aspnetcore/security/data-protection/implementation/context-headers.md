@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 数据保护上下文标头的实现详细信�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 2b8fd594672bf623d38bfae90d05a984f92ce6a3
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 518423f5df93924d3df144994e4beb1755cd0bfc
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087555"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814012"
 ---
 # <a name="context-headers-in-aspnet-core"></a>在 ASP.NET Core 的上下文标头
 
@@ -48,7 +48,7 @@ ms.locfileid: "65087555"
 
 理想情况下，我们可以 K_E 和 K_H 传递所有归零向量。 但是，我们想要避免这种情况其中基础算法检查存在的共享密钥的安全性之前执行任何操作 （值得注意的是 DES 和 3DES），它可以阻止使用简单或可重复的模式类似于所有归零矢量。
 
-相反，我们使用 NIST SP800 108 KDF 计数器模式中 (请参阅[NIST SP800 108](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，秒 5.1) 具有长度为零的键、 标签和上下文和作为基础 PRF HMACSHA512。 我们派生 |K_E |+ |K_H |个字节的输出，然后将分解结果为 K_E 和 K_H 本身。 从数学上，这表示，如下所示。
+相反，我们使用 NIST SP800 108 KDF 计数器模式中 (请参阅[NIST SP800 108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，秒 5.1) 具有长度为零的键、 标签和上下文和作为基础 PRF HMACSHA512。 我们派生 |K_E |+ |K_H |个字节的输出，然后将分解结果为 K_E 和 K_H 本身。 从数学上，这表示，如下所示。
 
 ( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")
 
