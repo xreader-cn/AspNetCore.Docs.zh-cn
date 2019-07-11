@@ -2,23 +2,47 @@
 title: 在 ASP.NET Core中的常规数据保护法规 (GDPR) 支持
 author: rick-anderson
 description: 了解如何访问 ASP.NET Core web 应用中的 GDPR 扩展点。
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 07/11/2019
 uid: security/gdpr
-ms.openlocfilehash: 1580187afef56e8e2f5be7a4bae32912e6305c5a
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 01d2f8943c0995c1400122b89c4ca7c459a85279
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152864"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724564"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>在 ASP.NET Core 欧洲常规数据保护法规 (GDPR) 支持
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core 提供 Api 和模板，以帮助满足一些[欧洲常规数据保护法规 (GDPR)](https://www.eugdpr.org/)要求：
+
+::: moniker range=">= aspnetcore-3.0"
+
+* 项目模板包含扩展点以及您可以替换为您的隐私和 cookie 的使用策略的存根的标记。
+* *Pages/Privacy.cshtml*页或*Views/Home/Privacy.cshtml*视图提供了详细介绍站点的隐私策略的页。
+
+若要启用默认 cookie 同意的情况下功能类似的位于 ASP.NET Core 3.0 模板生成应用程序中的 ASP.NET Core 2.2 模板：
+
+* 添加[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)太`Startup.ConfigureServices`并[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)到`Startup.Configure`:
+
+  [!code-csharp[Main](gdpr/sample/RP3.0/Startup.cs?name=snippet1&highlight=12-19,38)]
+
+* 添加到 cookie 同意分部 *_Layout.cshtml*文件：
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_Layout.cshtml?name=snippet&highlight=4)]
+
+* 添加 *\_CookieConsentPartial.cshtml*文件到项目：
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_CookieConsentPartial.cshtml)]
+
+* 选择本文，了解 cookie 同意的情况下功能的 ASP.NET Core 2.2 版本。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 * 项目模板包含扩展点以及您可以替换为您的隐私和 cookie 的使用策略的存根的标记。
 * 用于存储的个人信息中，cookie 许可功能，可要求 （和跟踪） 同意的情况下从你的用户。 如果某个用户尚未同意数据收集，并且应用了[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)设置为`true`，非必需 cookie 不会发送到浏览器。
@@ -32,17 +56,7 @@ ASP.NET Core 提供 Api 和模板，以帮助满足一些[欧洲常规数据保�
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>支持模板生成的代码中的 ASP.NET Core GDPR
 
-::: moniker range="< aspnetcore-2.2"
-
-Razor 页面和 MVC 项目的项目模板创建具有 GDPR 或 cookie 同意的情况下不支持。 若要添加 GDPR，请将复制在 ASP.NET Core 2.2 模板中生成的代码。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.2"
-
 Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持：
-
-::: moniker-end
 
 * [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)并[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)中设置`Startup`类。
 * *\_CookieConsentPartial.cshtml* [分部视图](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 **接受**按钮包含在此文件。 当用户单击**接受**按钮，同意将 cookie 提供。
@@ -63,7 +77,7 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 
 *\_CookieConsentPartial.cshtml*分部视图：
 
-[!code-html[](gdpr/sample/RP/Pages/Shared/_CookieConsentPartial.cshtml)]
+[!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 此部分中：
 
@@ -75,7 +89,7 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 
 如果同意来存储 cookie 未对其提供，仅标记为重要的 cookie 会被发送到浏览器。 下面的代码使 cookie 重要：
 
-[!code-csharp[Main](gdpr/sample/RP/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
 
 <a name="tempdata"></a>
 
@@ -83,11 +97,11 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 
 [TempData 提供程序](xref:fundamentals/app-state#tempdata)cookie 不是必需的。 如果禁用跟踪，TempData 提供程序不起作用。 若要启用 TempData 提供程序跟踪处于禁用状态时，将 TempData cookie 标记为重要中`Startup.ConfigureServices`:
 
-[!code-csharp[Main](gdpr/sample/RP/Startup.cs?name=snippet1)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Startup.cs?name=snippet1)]
 
 [会话状态](xref:fundamentals/app-state)cookie 不重要。 跟踪处于禁用状态时，会话状态不起作用。 下面的代码使基本会话 cookie:
 
-[!code-csharp[](gdpr/sample/RP/Startup.cs?name=snippet2)]
+[!code-csharp[](gdpr/sample/RP2.2/Startup.cs?name=snippet2)]
 
 <a name="pd"></a>
 
@@ -105,6 +119,8 @@ Razor 页面和 MVC 使用的项目模板创建的项目包括以下 GDPR 支持
 * **删除**并**下载**链接只作用于的默认标识数据。 创建自定义用户数据的应用，必须进行扩展，以删除/下载自定义用户数据。 有关详细信息，请参阅[添加、 下载和删除自定义用户数据到标识](xref:security/authentication/add-user-data)。
 * 保存用户的标识数据库表中存储的令牌`AspNetUserTokens`时通过级联删除方式，由于删除了用户会被删除[外键](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152)。
 * [外部提供程序身份验证](xref:security/authentication/social/index)，如 Facebook 和 Google，不可用之前接受 cookie 策略。
+
+::: moniker-end
 
 ## <a name="encryption-at-rest"></a>静态加密
 
