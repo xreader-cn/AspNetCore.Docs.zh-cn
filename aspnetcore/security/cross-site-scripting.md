@@ -5,12 +5,12 @@ description: 了解有关跨站点脚本 (XSS) 和一些解决这一漏洞在 AS
 ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
-ms.openlocfilehash: 50f0211a2c64708d9b788dd10ce9064e66014d55
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1e9e988be68313cfd493832519c1be89335d6e48
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895344"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815206"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>防止跨站点脚本 (XSS) 在 ASP.NET Core
 
@@ -34,7 +34,7 @@ ms.locfileid: "64895344"
 
 ## <a name="html-encoding-using-razor"></a>使用 Razor 的 HTML 编码
 
-Razor 引擎会自动在 MVC 中使用编码所有输出源自变量，除非您真正努力工作以防止其执行此操作。 它使用 HTML 特性编码规则，每当你使用*@* 指令。 为 HTML 特性编码是 HTML 编码，这意味着无需关注是否应该使用 HTML 编码或 HTML 特性编码的超集。 您必须确保您仅使用在 HTML 上下文中，不是在尝试将直接插入 JavaScript 不受信任的输入时。 标记帮助程序还将对标记参数中使用的输入进行编码。
+Razor 引擎会自动在 MVC 中使用编码所有输出源自变量，除非您真正努力工作以防止其执行此操作。 它使用 HTML 特性编码规则，每当你使用 *@* 指令。 为 HTML 特性编码是 HTML 编码，这意味着无需关注是否应该使用 HTML 编码或 HTML 特性编码的超集。 您必须确保您仅使用在 HTML 上下文中，不是在尝试将直接插入 JavaScript 不受信任的输入时。 标记帮助程序还将对标记参数中使用的输入进行编码。
 
 执行以下 Razor 视图：
 
@@ -57,7 +57,7 @@ Razor 引擎会自动在 MVC 中使用编码所有输出源自变量，除非您
 
 ## <a name="javascript-encoding-using-razor"></a>使用 Razor 的 JavaScript 编码
 
-可能的有时你想要将值插入到 JavaScript 来处理在视图中。 有两种方法可以实现此目的。 插入值的最安全方法是将值放在标记的数据的属性中，并在 JavaScript 中检索它。 例如：
+可能的有时你想要将值插入到 JavaScript 来处理在视图中。 有两种方法可以实现此目的。 插入值的最安全方法是将值放在标记的数据的属性中，并在 JavaScript 中检索它。 例如:
 
 ```cshtml
 @{
@@ -214,7 +214,7 @@ services.AddSingleton<HtmlEncoder>(
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
-安全列表范围被指定为 Unicode 编码图表，不语言。 [Unicode 标准](http://unicode.org/)具有一系列[代码图表](http://www.unicode.org/charts/index.html)可用于查找包含你字符的图表。 每个编码器，Html、 JavaScript 和 Url，必须单独配置。
+安全列表范围被指定为 Unicode 编码图表，不语言。 [Unicode 标准](https://unicode.org/)具有一系列[代码图表](https://www.unicode.org/charts/index.html)可用于查找包含你字符的图表。 每个编码器，Html、 JavaScript 和 Url，必须单独配置。
 
 > [!NOTE]
 > 自定义的安全列表只会影响源自通过 DI 的编码器。 如果你直接访问通过编码器`System.Text.Encodings.Web.*Encoder.Default`然后默认情况下，基本拉丁语将使用仅安全列表。
