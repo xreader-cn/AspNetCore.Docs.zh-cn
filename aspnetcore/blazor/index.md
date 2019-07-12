@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 07/01/2019
 uid: blazor/index
-ms.openlocfilehash: d91ba4fd5ada714a539375715745241f05e9fc70
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e0af0f27d79973f10493251c3f6c6daebe1b99a8
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813367"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855773"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -105,7 +105,7 @@ Welcome to your new app.
 
 Blazor 客户端是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor 客户端使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
 
-通过 [WebAssembly](http://webassembly.org)（缩写为 wasm  ），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
+通过 [WebAssembly](https://webassembly.org)（缩写为 wasm  ），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
 
 WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性  或 JavaScript 互操作  ）访问浏览器的完整功能。 通过浏览器中的 WebAssembly 执行的 .NET 代码在浏览器的 JavaScript 沙盒中运行，沙盒提供的保护可防御客户端计算机上的恶意操作。
 
