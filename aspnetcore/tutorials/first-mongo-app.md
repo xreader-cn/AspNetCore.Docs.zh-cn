@@ -4,14 +4,14 @@ author: prkhandelwal
 description: 本教程演示如何使用 MongoDB NoSQL 数据库创建 ASP.NET Core Web API。
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 06/10/2019
+ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 426b4c0dee290153b9b1bf83deec14fa728183cb
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
+ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048080"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67649197"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -109,6 +109,9 @@ ms.locfileid: "67048080"
       ]
     }
     ```
+  
+  > [!NOTE]
+  > 本文所示的 ID 与运行此示例时的 ID 不匹配。
 
 1. 使用以下命令查看数据库中的文档：
 
@@ -318,11 +321,11 @@ ms.locfileid: "67048080"
     ]
     ```
 
-1. 导航到 `http://localhost:<port>/api/books/5bfd996f7b8e48dc15ff215e`，测试控制器的重载 `Get` 操作方法。 将显示下面的 JSON 响应：
+1. 导航到 `http://localhost:<port>/api/books/{id here}`，测试控制器的重载 `Get` 操作方法。 将显示下面的 JSON 响应：
 
     ```json
     {
-      "id":"5bfd996f7b8e48dc15ff215e",
+      "id":"{ID}",
       "bookName":"Clean Code",
       "price":43.15,
       "category":"Computers",

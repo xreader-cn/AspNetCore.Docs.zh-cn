@@ -4,14 +4,14 @@ author: bradygaster
 description: 在本教程中，创建使用 ASP.NET Core SignalR 的聊天应用。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/30/2018
+ms.date: 07/08/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 9a4296550a17ac2c348f2406e9f5b39877b02b59
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: fd3324dfa0731ae16747178d83bd93ed95dd15ce
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555932"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724478"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -28,39 +28,37 @@ ms.locfileid: "67555932"
 
 ![SignalR 示例应用](signalr/_static/signalr-get-started-finished.png)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
-
 ## <a name="prerequisites"></a>系统必备
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs2017-2.2.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
 ---
 
-## <a name="create-a-web-project"></a>创建 Web 项目
+## <a name="create-a-web-app-project"></a>创建 Web 应用项目
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
 * 从菜单中选择“文件”>“新建项目”  。
 
-* 在“新建项目”对话框中，选择“已安装”>“Visual C#”>“Web”>“ASP.NET Core Web 应用”   。 将项目命名为“SignalRChat”  。
+* 在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”    。
+
+* 在“配置新项目”对话框中，为项目 SignalRChat 命名，然后选择“创建”    。
+
+* 在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择“.NET Core”和“ASP.NET Core 3.0”    。 
+
+* 选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建”   。
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/signalr-new-project-dialog.png)
-
-* 选择“Web 应用”，以创建使用 Razor Pages 的项目  。
-
-* 选择“.NET Core”目标框架，选择“ASP.NET Core 2.2”，然后单击“确定”    。
-
-  ![Visual Studio 中的“新建项目”对话框](signalr/_static/signalr-new-project-choose-type.png)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
@@ -77,9 +75,9 @@ ms.locfileid: "67555932"
 
 * 从菜单中选择“文件”>“新建解决方案”  。
 
-* 选择“.NET Core”>“应用”>“ASP.NET Core Web 应用”（请勿选择 ASP.NET Core Web 应用 (MVC)）   。
+* 选择“.NET Core”>“应用”>“Web 应用程序”（不要选择“Web 应用程序(Model-View-Controller)”），然后选择“下一步”    。
 
-* 选择“下一步”  。
+* 确保“目标框架”设置为“.NET Core 3.0”，然后选择“下一步”    。
 
 * 将项目命名为“SignalRChat”，然后选择“创建”   。
 
@@ -87,7 +85,7 @@ ms.locfileid: "67555932"
 
 ## <a name="add-the-signalr-client-library"></a>添加 SignalR 客户端库
 
-`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。
+SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -95,15 +93,14 @@ ms.locfileid: "67555932"
 
 * 在“添加客户端库”  对话框中，对于“提供程序”  ，选择“unpkg”  。
 
-* 对于“库”  ，输入 `@aspnet/signalr@1`，然后选择不是预览版的最新版本。
-
-  ![“添加客户端库”对话框 - 选择库](signalr/_static/libman1.png)
+* 对于“库”  ，输入 `@aspnet/signalr@next`。
+<!-- when 3.0 is released, change @next to @latest -->
 
 * 选择“选择特定文件”  ，展开“dist/browser”  文件夹，然后选择“signalr.js”  和“signalr.min.js”  。
 
 * 将“目标位置”  设置为 wwwroot/lib/signalr/  ，然后选择“安装”  。
 
-  ![“添加客户端库”对话框 - 选择文件和目标](signalr/_static/libman2.png)
+  ![“添加客户端库”对话框 - 选择库](signalr/_static/libman1.png)
 
   LibMan 创建 wwwroot/lib/signalr  文件夹并将所选文件复制到该文件夹。
 
@@ -118,7 +115,7 @@ ms.locfileid: "67555932"
 * 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。 可能需要等待几秒钟的时间才能看到输出。
 
   ```console
-  libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
+  libman install @aspnet/signalr@next -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
   参数指定以下选项：
@@ -131,7 +128,7 @@ ms.locfileid: "67555932"
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
   wwwroot/lib/signalr/dist/browser/signalr.min.js written to disk
-  Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"
+  Installed library "@aspnet/signalr@next" to "wwwroot/lib/signalr"
   ```
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
@@ -147,7 +144,7 @@ ms.locfileid: "67555932"
 * 使用 LibMan 运行以下命令，以获取 SignalR 客户端库。
 
   ```console
-  libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
+  libman install @aspnet/signalr@next -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
   参数指定以下选项：
@@ -160,7 +157,7 @@ ms.locfileid: "67555932"
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
   wwwroot/lib/signalr/dist/browser/signalr.min.js written to disk
-  Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"
+  Installed library "@aspnet/signalr@next" to "wwwroot/lib/signalr"
   ```
 
 ---
@@ -173,7 +170,7 @@ ms.locfileid: "67555932"
 
 * 在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件   ：
 
-  [!code-csharp[Startup](signalr/sample/Hubs/ChatHub.cs)]
+  [!code-csharp[Startup](signalr/sample-snapshot/ChatHub.cs)]
 
   `ChatHub` 类继承自 SignalR `Hub` 类。 `Hub` 类管理连接、组和消息。
 
@@ -185,15 +182,15 @@ ms.locfileid: "67555932"
 
 * 将以下突出显示的代码添加到 Startup.cs 文件  。
 
-  [!code-csharp[Startup](signalr/sample/Startup.cs?highlight=7,33,52-55)]
+  [!code-csharp[Startup](signalr/sample-snapshot/Startup.cs?highlight=6,30,58)]
 
-  这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入系统和中间件管道。
+  这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入和路由系统。
 
 ## <a name="add-signalr-client-code"></a>添加 SignalR 客户端代码
 
 * 使用以下代码替换 Pages\Index.cshtml 中的内容  ：
 
-  [!code-cshtml[Index](signalr/sample/Pages/Index.cshtml)]
+  [!code-cshtml[Index](signalr/sample-snapshot/Index.cshtml)]
 
   前面的代码：
 
@@ -203,7 +200,7 @@ ms.locfileid: "67555932"
 
 * 在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件   ：
 
-  [!code-javascript[Index](signalr/sample/wwwroot/js/chat.js)]
+  [!code-javascript[Index](signalr/sample-snapshot/chat.js)]
 
   前面的代码：
 
@@ -240,19 +237,15 @@ ms.locfileid: "67555932"
   ![SignalR 示例应用](signalr/_static/signalr-get-started-finished.png)
 
 > [!TIP]
-> 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。
-> ![未找到 signalr.js 错误](signalr/_static/f12-console.png)
+> * 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。
+>   ![未找到 signalr.js 错误](signalr/_static/f12-console.png)
+> * 如果 Chrome 中出现 ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY 错误或 Firefox 中出现 NS_ERROR_NET_INADEQUATE_SECURITY 错误，请运行这些命令以更新开发证书：
+>   ```
+>   dotnet dev-certs https --clean
+>   dotnet dev-certs https --trust
+>   ```
 
 ## <a name="next-steps"></a>后续步骤
-
-在本教程中，你将了解：
-
-> [!div class="checklist"]
-> * 创建 Web 应用项目。
-> * 添加 SignalR 客户端库。
-> * 创建 SignalR 中心。
-> * 配置项目以使用 SignalR。
-> * 添加代码，以便使用此中心将消息从任何客户端发送到所有连接的客户端。
 
 若要详细了解 SignalR，请参阅简介：
 

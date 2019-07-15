@@ -1,16 +1,17 @@
 ---
 title: dotnet aspnet-codegenerator 命令
 author: rick-anderson
+description: dotnet aspnet-codegenerator 命令可用于搭建 ASP.NET Core 项目的基架。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-description: dotnet aspnet-codegenerator 命令可用于搭建 ASP.NET Core 项目的基架
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: 55b592d9d203970777c84438e210519957abb35d
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: c96362f320efd84c35dc07294a2968a2c687ee94
+ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561680"
+ms.lasthandoff: 07/05/2019
+ms.locfileid: "67596142"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -18,20 +19,20 @@ ms.locfileid: "67561680"
 
 `dotnet aspnet-codegenerator` - 运行 ASP.NET Core 基架引擎。 使用 `dotnet aspnet-codegenerator` 只需要从命令行搭建基架，不必使用 Visual Studio 搭建基架。
 
-本文适用于：[.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.2) 及更高版本。
+本文适用于：[.NET Core 2.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1) 及更高版本。
 
 ## <a name="installing-aspnet-codegenerator"></a>安装 aspnet-codegenerator
 
-`aspnet-codegenerator` 是必须安装的一个[全局工具](/dotnet/core/tools/global-tools)。 以下命令安装 `aspnet-codegenerator` 工具的最新稳定版本：
+`dotnet-aspnet-codegenerator` 是必须安装的一个[全局工具](/dotnet/core/tools/global-tools)。 以下命令安装 `dotnet-aspnet-codegenerator` 工具的最新稳定版本：
 
 ```console
-dotnet tool install -g aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-以下命令将 `aspnet-codegenerator` 更新到已安装的.NET Core SDK 提供的最新稳定版本：
+以下命令将 `dotnet-aspnet-codegenerator` 更新到已安装的.NET Core SDK 提供的最新稳定版本：
 
 ```console
-dotnet tool update -g aspnet-codegenerator
+dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
 ## <a name="synopsis"></a>摘要
@@ -43,7 +44,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ## <a name="description"></a>说明
 
-`dotnet aspnet-codegenerator ` 全局命令运行 ASP.NET Core 代码生成器和基架引擎。
+`dotnet aspnet-codegenerator` 全局命令运行 ASP.NET Core 代码生成器和基架引擎。
 
 ## <a name="arguments"></a>自变量
 

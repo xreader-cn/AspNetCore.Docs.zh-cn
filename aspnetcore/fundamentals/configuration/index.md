@@ -5,14 +5,14 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/24/2019
+ms.date: 07/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 81820e8161965fcca2f97d00708df5a29df668de
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: 3351ab743ce38b78b1c5857e52020fdeda12cbe7
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824830"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855817"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -21,6 +21,7 @@ ms.locfileid: "66824830"
 ASP.NET Core 中的应用配置基于配置提供程序  建立的键值对。 配置提供程序将配置数据从各种配置源读取到键值对：
 
 * Azure Key Vault
+* Azure 应用配置
 * 命令行参数
 * （已安装或已创建的）自定义提供程序
 * 目录文件
@@ -38,7 +39,7 @@ using Microsoft.Extensions.Configuration;
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="host-vs-app-configuration"></a>主机与应用配置
+## <a name="host-versus-app-configuration"></a>主机与应用配置
 
 在配置并启动应用之前，配置并启动主机  。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 主机配置键值对成为应用的全局配置的一部分。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅[主机](xref:fundamentals/index#host)。
 
@@ -68,7 +69,7 @@ using Microsoft.Extensions.Configuration;
 
 详细了解[如何使用多个环境](xref:fundamentals/environments)和管理[使用 Secret Manager 的开发中的应用机密的安全存储](xref:security/app-secrets)（包括使用环境变量存储敏感数据的建议）。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 是安全存储应用机密的一种选择。 有关更多信息，请参见<xref:security/key-vault-configuration>。
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 是安全存储应用机密的一种选择。 有关详细信息，请参阅 <xref:security/key-vault-configuration>。
 
 ## <a name="hierarchical-configuration-data"></a>分层配置数据
 
@@ -145,6 +146,7 @@ public class IndexModel : PageModel
 | 提供程序 | 通过以下对象提供配置&hellip; |
 | -------- | ----------------------------------- |
 | [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全  主题） | Azure Key Vault |
+| [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档） | Azure 应用配置 |
 | [命令行配置提供程序](#command-line-configuration-provider) | 命令行参数 |
 | [自定义配置提供程序](#custom-configuration-provider) | 自定义源 |
 | [环境变量配置提供程序](#environment-variables-configuration-provider) | 环境变量 |
@@ -331,7 +333,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，用户可以在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。 有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。
 
-对于 [主机配置](#host-vs-app-configuration)，初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，使用 `AddEnvironmentVariables` 加载以 `ASPNETCORE_` 为前缀的环境变量。 有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。
+对于 [主机配置](#host-versus-app-configuration)，初始化新的 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 时，使用 `AddEnvironmentVariables` 加载以 `ASPNETCORE_` 为前缀的环境变量。 有关详细信息，请参阅 [Web 主机：设置主机](xref:fundamentals/host/web-host#set-up-a-host)。
 
 此外，`CreateDefaultBuilder` 也会加载：
 
@@ -945,7 +947,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ## <a name="bind-to-a-class"></a>绑定至类
 
-可以使用选项模式  将配置绑定到表示相关设置组的类。 有关更多信息，请参见<xref:fundamentals/configuration/options>。
+可以使用选项模式  将配置绑定到表示相关设置组的类。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
 配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。 `Bind` 在 [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) 包中，后者在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中。
 
@@ -966,7 +968,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 | starship:class        | Constitution                                      |
 | starship:length       | 304.8                                             |
 | starship:commissioned | False                                             |
-| trademark             | Paramount Pictures Corp. http://www.paramount.com |
+| trademark             | Paramount Pictures Corp. https://www.paramount.com |
 
 示例应用使用 `starship` 键调用 `GetSection`。 `starship` 键值对是独立的。 在子节传入 `Starship` 类的实例时调用 `Bind` 方法。 绑定实例值后，将实例分配给用于呈现的属性：
 
@@ -1232,7 +1234,7 @@ public class Startup
 
 ## <a name="add-configuration-from-an-external-assembly"></a>从外部程序集添加配置
 
-通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。 有关更多信息，请参见<xref:fundamentals/configuration/platform-specific-configuration>。
+通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。 有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。
 
 ## <a name="additional-resources"></a>其他资源
 

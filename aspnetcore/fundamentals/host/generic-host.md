@@ -1,37 +1,474 @@
 ---
 title: .NET 通用主机
-author: guardrex
-description: 了解有关 ASP.NET Core 泛型主机，该主机负责应用启动和生存期管理。
+author: tdykstra
+description: 了解 .NET Core 泛型主机，该主机负责应用启动和生存期管理。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
+ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/25/2019
+ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: d823e2189d21e0566656b7eb8c9164d02e43d0ea
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d787559eaecd6d4d6cfe01e37baf28774a90c5c3
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889112"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724425"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
-作者：[Luke Latham](https://github.com/guardrex)
-
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生存期管理。
+本文介绍了 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>) 并提供有关使用方法的指南。
 
-本文介绍 .NET Core 泛型主机 (<xref:Microsoft.Extensions.Hosting.HostBuilder>)。
+## <a name="whats-a-host"></a>什么是主机？
 
-泛型主机与 Web 主机的不同之处在于它将 HTTP 管道与 Web 主机 API 分离，以启用更广泛的主机方案。 消息、后台任务和其他非 HTTP 工作负载可以使用泛型主机并从横切功能（如配置、依赖关系注入 [DI] 和日志记录）中受益。
+主机是封装应用资源的对象，例如  ：
 
-自 ASP.NET Core 3.0 起，建议为 HTTP 和非 HTTP 工作负载使用泛型主机。 HTTP 服务器实现（如果包括）作为 <xref:Microsoft.Extensions.Hosting.IHostedService> 的实现运行。 <xref:Microsoft.Extensions.Hosting.IHostedService> 是可用于其他工作负载的接口。
+* 依赖关系注入 (DI)
+* 日志记录
+* Configuration
+* `IHostedService` 实现
 
-对于 Web 应用，不再建议使用 Web 主机，但该主机仍可用于后向兼容性。
+启动主机时，它对它在 DI 容器中找到的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 `IHostedService.StartAsync`。 在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。
 
-> [!NOTE]
-> 本文的其余部分尚未针对 3.0 进行更新。
+一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。
+
+在低于 3.0 的 ASP.NET Core 版本中，[Web 主机](xref:fundamentals/host/web-host)用于 HTTP 工作负载。 不再建议将 Web 主机用于 Web 应用，但该主机仍可仅用于后向兼容性。
+
+## <a name="set-up-a-host"></a>设置主机
+
+主机通常由 `Program` 类中的代码配置、生成和运行。 `Main` 方法：
+
+* 调用 `CreateHostBuilder` 方法以创建和配置生成器对象。
+* 对生成器对象调用 `Build` 和 `Run` 方法。
+
+以下是用于非 HTTP 工作负载的 Program.cs  代码，其中单个 `IHostedService` 实现添加到 DI 容器。 
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+            {
+               services.AddHostedService<Worker>();
+            });
+}
+```
+
+对于 HTTP 工作负荷，`Main` 方法相同，但 `CreateHostBuilder` 调用 `ConfigureWebHostDefaults`：
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+如果应用使用 Entity Framework Core，不要更改 `CreateHostBuilder` 方法的名称或签名。 [Entity Framework Core 工具](/ef/core/miscellaneous/cli/)应查找一个无需运行应用即可配置主机的 `CreateHostBuilder` 方法。 有关详细信息，请参阅[设计时 DbContext 创建](/ef/core/miscellaneous/cli/dbcontext-creation)。
+
+## <a name="default-builder-settings"></a>默认生成器设置 
+
+<xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 方法：
+
+* 将内容根路径设置为由 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的路径。
+* 通过以下项加载主机配置：
+  * 前缀为“DOTNET_”的环境变量。
+  * 命令行参数。
+* 通过以下对象加载应用配置：
+  * appsettings.json  。
+  * appsettings.{Environment}.json  。
+  * [密钥管理器](xref:security/app-secrets) 当应用在 `Development` 环境中运行时。
+  * 环境变量。
+  * 命令行参数。
+* 添加以下[日志记录](xref:fundamentals/logging/index)提供程序：
+  * 控制台
+  * 调试
+  * EventSource
+  * EventLog（仅当在 Windows 上运行时）
+* 当环境为“开发”时，启用[范围验证](xref:fundamentals/dependency-injection#scope-validation)和[依赖关系验证](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild)。
+
+`ConfigureWebHostDefaults` 方法：
+
+* 从前缀为“ASPNETCORE_”的环境变量加载主机配置。
+* 使用应用的托管配置提供程序将 [Kestrel](xref:fundamentals/servers/kestrel) 服务器设置为 web 服务器并对其进行配置。 有关 Kestrel 服务器默认选项，请参阅 <xref:fundamentals/servers/kestrel#kestrel-options>。
+* 添加[主机筛选中间件](xref:fundamentals/servers/kestrel#host-filtering)。
+* 如果 ASPNETCORE_FORWARDEDHEADERS_ENABLED=true，请添加[转发标头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers)。
+* 支持 IIS 集成。 有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。
+
+本文中后面的[所有应用类型的设置](#settings-for-all-app-types)和[ web 应用的设置](#settings-for-web-apps)部分介绍如何替代默认生成器设置。
+
+## <a name="framework-provided-services"></a>框架提供的服务
+
+自动注册的服务包括：
+
+* [IHostApplicationLifetime](#ihostapplicationlifetime)
+* [IHostLifetime](#ihostlifetime)
+* [IHostEnvironment / IWebHostEnvironment](#ihostenvironment)
+
+有关框架提供的所有服务列表，请参阅 <xref:fundamentals/dependency-injection#framework-provided-services>。
+
+## <a name="ihostapplicationlifetime"></a>IHostApplicationLifetime
+
+将 <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime>（以前称为 `IApplicationLifetime`）服务注入任何类以处理启动后和正常关闭任务。 接口上的三个属性是用于注册应用启动和应用停止事件处理程序方法的取消令牌。 该接口还包括 `StopApplication` 方法。
+
+以下示例是注册 `IApplicationLifetime` 事件的 `IHostedService` 实现：
+
+[!code-csharp[](generic-host/samples-snapshot/3.x/LifetimeEventsHostedService.cs?name=snippet_LifetimeEvents)]
+
+## <a name="ihostlifetime"></a>IHostLifetime
+
+<xref:Microsoft.Extensions.Hosting.IHostLifetime> 实现控制主机何时启动和何时停止。 使用了已注册的最后一个实现。
+
+<xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> 是默认的 `IHostLifetime` 实现。 `ConsoleLifetime`：
+
+* 侦听 Ctrl+C/SIGINT 或 SIGTERM 并调用 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> 来启动关闭进程。
+* 解除阻止 [RunAsync](#runasync) 和 [WaitForShutdownAsync](#waitforshutdownasync) 等扩展。
+
+## <a name="ihostenvironment"></a>IHostEnvironment
+
+将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 服务注册到一个类，获取关于以下项的信息：
+
+* [ApplicationName](#applicationname)
+* [EnvironmentName](#environmentname)
+* [ContentRootPath](#contentrootpath)
+
+Web 应用实现 `IWebHostEnvironment` 接口，该接口继承 `IHostEnvironment` 并添加：
+
+* [WebRootPath](#webroot)
+
+## <a name="host-configuration"></a>主机配置
+
+主机配置用于 <xref:Microsoft.Extensions.Hosting.IHostEnvironment> 实现的属性。
+
+主机配置可以从 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 内的 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration) 获取。 在 `ConfigureAppConfiguration` 后，`HostBuilderContext.Configuration` 被替换为应用配置。
+
+若要添加主机配置，请对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>。 可多次调用 `ConfigureHostConfiguration`，并得到累计结果。 主机使用上一次在一个给定键上设置值的选项。
+
+CreateDefaultBuilder 包含前缀为 `DOTNET_` 的环境变量提供程序和命令行参数。 对于 web 应用程序，添加前缀为 `ASPNETCORE_` 的环境变量提供程序。 当系统读取环境变量时，便会删除前缀。 例如，`ASPNETCORE_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。
+
+以下示例创建主机配置：
+
+[!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostConfig)]
+
+## <a name="app-configuration"></a>应用配置
+
+通过对 `IHostBuilder` 调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 创建应用配置。 可多次调用 `ConfigureAppConfiguration`，并得到累计结果。 应用使用上一次在一个给定键上设置值的选项。 
+
+由 `ConfigureAppConfiguration` 创建的配置可以通过 [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) 获取以用于后续操作，也可以通过 DI 作为服务获取。 主机配置也会添加到应用配置。
+
+有关详细信息，请参阅 [ ASP.NET Core 中的配置](xref:fundamentals/configuration/index#configureappconfiguration)。
+
+## <a name="settings-for-all-app-types"></a>适用于所有应用类型的设置
+
+本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。 默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。
+
+### <a name="applicationname"></a>ApplicationName
+
+[IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。
+
+**密钥**：applicationName  
+**类型**：string   
+**默认**：包含应用入口点的程序集的名称。
+**环境变量**：`<PREFIX_>APPLICATIONNAME`
+
+要设置此值，请使用环境变量。 
+
+### <a name="contentrootpath"></a>ContentRootPath
+
+[IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath*) 属性决定主机从什么位置开始搜索内容文件。 如果路径不存在，主机将无法启动。
+
+**键**：contentRoot  
+**类型**：string   
+**默认**：应用程序集所在的文件夹。  
+**环境变量**：`<PREFIX_>CONTENTROOT`
+
+若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseContentRoot`：
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .UseContentRoot("c:\\content-root")
+    //...
+```
+
+### <a name="environmentname"></a>EnvironmentName
+
+[IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName*) 属性可以设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。
+
+**键**：环境  
+**类型**：string   
+**默认值**：生产  
+**环境变量**：`<PREFIX_>ENVIRONMENT`
+
+若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .UseEnvironment("Development")
+    //...
+```
+
+### <a name="shutdowntimeout"></a>ShutdownTimeout
+
+[HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) 设置 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 的超时。 默认值为 5 秒。  在超时时间段中，主机：
+
+* 触发 [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping)。
+* 尝试停止托管服务，对服务停止失败的错误进行日志记录。
+
+如果在所有托管服务停止之前就达到了超时时间，则会在应用关闭时会终止剩余的所有活动的服务。 即使没有完成处理工作，服务也会停止。 如果停止服务需要额外的时间，请增加超时时间。
+
+**键**：shutdownTimeoutSeconds  
+**类型**：int   
+**默认**：5 秒 **环境变量**：`<PREFIX_>SHUTDOWNTIMEOUTSECONDS`
+
+若要设置此值，请使用环境变量或配置 `HostOptions`。 以下示例将超时设置为 20 秒：
+
+[!code-csharp[](generic-host/samples-snapshot/3.x/Program.cs?name=snippet_HostOptions)]
+
+## <a name="settings-for-web-apps"></a>适用于 Web 应用的设置
+
+一些主机设置仅适用于 HTTP 工作负荷。 默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。
+
+`IWebHostBuilder` 上的扩展方法适用于这些设置。 显示如何调用扩展方法的示例代码假定 `webBuilder` 是 `IWebHostBuilder` 的实例，如以下示例所示：
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.CaptureStartupErrors(true);
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+### <a name="capturestartuperrors"></a>CaptureStartupErrors
+
+当 `false` 时，启动期间出错导致主机退出。 当 `true` 时，主机在启动期间捕获异常并尝试启动服务器。
+
+**键**：captureStartupErrors  
+**类型**：布尔型（`true` 或 `1`）   
+**默认值**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`
+
+若要设置此值，使用配置或调用 `CaptureStartupErrors`：
+
+```csharp
+webBuilder.CaptureStartupErrors(true);
+```
+
+### <a name="detailederrors"></a>DetailedErrors
+
+如果启用，或环境为 `Development`，应用会捕获详细错误。
+
+**键**：detailedErrors  
+**类型**：布尔型（`true` 或 `1`）   
+**默认值**：false  
+**环境变量**：`<PREFIX_>_DETAILEDERRORS`
+
+要设置此值，使用配置或调用 `UseSetting`：
+
+```csharp
+webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+```
+
+### <a name="hostingstartupassemblies"></a>HostingStartupAssemblies
+
+承载启动程序集的以分号分隔的字符串在启动时加载。 虽然配置值默认为空字符串，但是承载启动程序集会始终包含应用的程序集。 提供承载启动程序集时，当应用在启动过程中生成其公用服务时将它们添加到应用的程序集加载。
+
+**键**：hostingStartupAssemblies  
+**类型**：string   
+**默认值**：空字符串  
+**环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
+
+要设置此值，使用配置或调用 `UseSetting`：
+
+```csharp
+webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;assembly2");
+```
+
+### <a name="hostingstartupexcludeassemblies"></a>HostingStartupExcludeAssemblies
+
+承载启动程序集的以分号分隔的字符串在启动时排除。
+
+键  ：hostingStartupExcludeAssemblies  
+**类型**：string   
+**默认值**：空字符串  
+**环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
+
+要设置此值，使用配置或调用 `UseSetting`：
+
+```csharp
+webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assembly1;assembly2");
+```
+
+### <a name="httpsport"></a>HTTPS_Port
+
+HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)。
+
+键：https_port；类型：字符串；
+默认值     ：未设置默认值。
+**环境变量**：`<PREFIX_>HTTPS_PORT`
+
+要设置此值，使用配置或调用 `UseSetting`：
+
+```csharp
+webBuilder.UseSetting("https_port", "8080");
+```
+
+### <a name="preferhostingurls"></a>PreferHostingUrls
+
+指示主机是否应该侦听使用 `IWebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。
+
+**键**：preferHostingUrls  
+**类型**：布尔型（`true` 或 `1`）   
+**默认值**：true  
+**环境变量**：`<PREFIX_>_PREFERHOSTINGURLS`
+
+若要设置此值，请使用环境变量或调用 `PreferHostingUrls`：
+
+```csharp
+webBuilder.PreferHostingUrls(false);
+```
+
+### <a name="preventhostingstartup"></a>PreventHostingStartup
+
+阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。 有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。
+
+**键**：preventHostingStartup  
+**类型**：布尔型（`true` 或 `1`）   
+**默认值**：false  
+**环境变量**：`<PREFIX_>_PREVENTHOSTINGSTARTUP`
+
+若要设置此值，请使用环境变量或调用 `UseSetting`：
+
+```csharp
+webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
+```
+
+### <a name="startupassembly"></a>StartupAssembly
+
+要搜索 `Startup` 类的程序集。
+
+**键**：startupAssembly **类型**：字符串   
+**默认**：应用的程序集  
+**环境变量**：`<PREFIX_>STARTUPASSEMBLY`
+
+若要设置此值，请使用环境变量或调用 `UseStartup`。 `UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
+
+```csharp
+webBuilder.UseStartup("StartupAssemblyName");
+```
+
+```csharp
+webBuilder.UseStartup<Startup>();
+```
+
+### <a name="urls"></a>URL
+
+IP 地址或主机地址的分号分隔列表，其中包含服务器应针对请求侦听的端口和协议。 例如 `http://localhost:123`。 使用“\*”指示服务器应针对请求侦听的使用特定端口和协议（例如 `http://*:5000`）的 IP 地址或主机名。 协议（`http://` 或 `https://`）必须包含每个 URL。 不同的服务器支持的格式有所不同。
+
+**键**：urls  
+**类型**：string   
+**默认值**：`http://localhost:5000` 和 `https://localhost:5001`
+**环境变量**：`<PREFIX_>URLS`
+
+若要设置此值，请使用环境变量或调用 `UseUrls`：
+
+```csharp
+webBuilder.UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002");
+```
+
+Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xref:fundamentals/servers/kestrel#endpoint-configuration>。
+
+### <a name="webroot"></a>WebRoot
+
+应用的静态资产的相对路径。
+
+**键**：webroot  
+**类型**：string   
+**默认**：(内容根路径)/wwwroot，如果路径存在  。 如果该路径不存在，则使用无操作文件提供程序。  
+**环境变量**：`<PREFIX_>WEBROOT`
+
+若要设置此值，请使用环境变量或调用 `UseWebRoot`：
+
+```csharp
+webBuilder.UseWebRoot("public");
+```
+
+## <a name="manage-the-host-lifetime"></a>管理主机生存期
+
+对生成的 <xref:Microsoft.Extensions.Hosting.IHost> 实现调用方法，以启动和停止应用。 这些方法会影响所有在服务容器中注册的 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现。
+
+### <a name="run"></a>运行
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run*> 运行应用并阻止调用线程，直到关闭主机。
+
+### <a name="runasync"></a>RunAsync
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> 运行应用并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。
+
+### <a name="runconsoleasync"></a>RunConsoleAsync
+
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> 启用控制台支持、生成和启动主机，以及等待 Ctrl+C/SIGINT 或 SIGTERM 关闭。
+
+### <a name="start"></a>Start
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Start*> 同步启动主机。
+
+### <a name="startasync"></a>StartAsync
+
+<xref:Microsoft.Extensions.Hosting.IHost.StartAsync*> 启动主机并返回在触发取消令牌或关闭时完成的 <xref:System.Threading.Tasks.Task>。 
+
+在 `StartAsync` 开始时调用 <xref:Microsoft.Extensions.Hosting.IHostLifetime.WaitForStartAsync*>，在继续之前，会一直等待该操作完成。 它可用于延迟启动，直到外部事件发出信号。
+
+### <a name="stopasync"></a>StopAsync
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.StopAsync*> 尝试在提供的超时时间内停止主机。
+
+### <a name="waitforshutdown"></a>WaitForShutdown
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> 阻止调用线程，直到 IHostLifetime 触发关闭，例如通过 Ctrl+C/SIGINT 或 SIGTERM。
+
+### <a name="waitforshutdownasync"></a>WaitForShutdownAsync
+
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> 返回在通过给定的令牌和调用 <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> 来触发关闭时完成的 <xref:System.Threading.Tasks.Task>。
+
+### <a name="external-control"></a>外部控件
+
+使用可从外部调用的方法，能够实现对主机生存期的直接控制：
+
+```csharp
+public class Program
+{
+    private IHost _host;
+
+    public Program()
+    {
+        _host = new HostBuilder()
+            .Build();
+    }
+
+    public async Task StartAsync()
+    {
+        _host.StartAsync();
+    }
+
+    public async Task StopAsync()
+    {
+        using (_host)
+        {
+            await _host.StopAsync(TimeSpan.FromSeconds(5));
+        }
+    }
+}
+```
 
 ::: moniker-end
 
@@ -45,16 +482,14 @@ ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生
 
 泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。 对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。 泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
 
-::: moniker-end
-
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端。 请勿在 `internalConsole` 中运行示例。
+在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端  。 请勿在 `internalConsole` 中运行示例。
 
 在 Visual Studio Code 中设置控制台：
 
-1. 打开 .vscode/launch.json 文件。
-1. 在 .NET Core 启动（控制台）配置中，找到控制台条目。 将值设置为 `externalTerminal` 或 `integratedTerminal`。
+1. 打开 .vscode/launch.json 文件  。
+1. 在 .NET Core 启动（控制台）配置中，找到控制台条目   。 将值设置为 `externalTerminal` 或 `integratedTerminal`。
 
 ## <a name="introduction"></a>介绍
 
@@ -117,7 +552,7 @@ var host = new HostBuilder()
 [IHostingEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。 要显式设置值，请使用 [HostDefaults.ApplicationKey](xref:Microsoft.Extensions.Hosting.HostDefaults.ApplicationKey)：
 
 **密钥**：applicationName  
-**类型**：string  
+**类型**：string   
 **默认值**：包含应用入口点的程序集的名称。  
 **设置使用**：`HostBuilderContext.HostingEnvironment.ApplicationName`  
 **环境变量**：`<PREFIX_>APPLICATIONNAME`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
@@ -127,7 +562,7 @@ var host = new HostBuilder()
 此设置确定主机从哪里开始搜索内容文件。
 
 **键**：contentRoot  
-**类型**：string  
+**类型**：string   
 **默认值**：默认为应用程序集所在的文件夹。  
 **设置使用**：`UseContentRoot`  
 **环境变量**：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
@@ -141,7 +576,7 @@ var host = new HostBuilder()
 设置应用的[环境](xref:fundamentals/environments)。
 
 **键**：环境  
-**类型**：string  
+**类型**：string   
 **默认值**：生产  
 **设置使用**：`UseEnvironment`  
 **环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
@@ -156,24 +591,22 @@ var host = new HostBuilder()
 
 可多次调用 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>，并得到累计结果。 主机使用上一次在一个给定键上设置值的选项。
 
-主机配置自动流向应用配置（[ConfigureAppConfiguration](#configureappconfiguration) 和应用的其余部分）。
-
 默认情况下不包括提供程序。 必须在 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> 中显式指定应用所需的任何配置提供程序，包括：
 
-* 文件配置（例如，来自 hostsettings.json 文件）。
+* 文件配置（例如，来自 hostsettings.json 文件）  。
 * 环境变量配置。
 * 命令行参数配置。
 * 任何其他所需的配置提供程序。
 
-通过使用 `SetBasePath` 指定应用的基本路径，然后调用其中一个[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)，可以启用主机的文件配置。 示例应用使用 JSON 文件 hostsettings.json，并调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 来使用文件的主机配置设置。
+通过使用 `SetBasePath` 指定应用的基本路径，然后调用其中一个[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)，可以启用主机的文件配置。 示例应用使用 JSON 文件 hostsettings.json，并调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 来使用文件的主机配置设置  。
 
 要添加主机的[环境变量配置](xref:fundamentals/configuration/index#environment-variables-configuration-provider)，请在主机生成器上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>。 `AddEnvironmentVariables` 接受用户定义的前缀（可选）。 示例应用使用前缀 `PREFIX_`。 当系统读取环境变量时，便会删除前缀。 配置示例应用的主机后，`PREFIX_ENVIRONMENT` 的环境变量值就变成 `environment` 密钥的主机配置值。
 
-在开发过程中，如果使用 [Visual Studio](https://visualstudio.microsoft.com) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json 文件中设置环境变量。 若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json 文件中设置环境变量。 有关更多信息，请参见<xref:fundamentals/environments>。
+在开发过程中，如果使用 [Visual Studio](https://visualstudio.microsoft.com) 或通过 `dotnet run` 运行应用，可能会在 Properties/launchSettings.json  文件中设置环境变量。 若在开发过程中使用 [Visual Studio Code](https://code.visualstudio.com/)，可能会在 .vscode/launch.json  文件中设置环境变量。 有关详细信息，请参阅 <xref:fundamentals/environments>。
 
 通过调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 可添加[命令行配置](xref:fundamentals/configuration/index#command-line-configuration-provider)。 最后添加命令行配置以允许命令行参数替代之前配置提供程序提供的配置。
 
-hostsettings.json：
+hostsettings.json  ：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
 
@@ -193,19 +626,19 @@ hostsettings.json：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
-appsettings.json：
+appsettings.json  ：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 
-appsettings.Development.json：
+appsettings.Development.json  ：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
 
-appsettings.Production.json：
+appsettings.Production.json  ：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
 
-要将设置文件移动到输出目录，请在项目文件中将设置文件指定为 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)。 示例应用移动具有以下 `<Content>` 项的 JSON 应用设置文件和 hostsettings.json：
+要将设置文件移动到输出目录，请在项目文件中将设置文件指定为 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)。 示例应用移动具有以下 `<Content>` 项的 JSON 应用设置文件和 hostsettings.json  ：
 
 ```xml
 <ItemGroup>
@@ -215,13 +648,13 @@ appsettings.Production.json：
 ```
 
 > [!NOTE]
-> 配置扩展方法（如 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 和 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>）需要其他 NuGet 包（如 [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) 和 [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)）。 除非应用使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)，否则除了核心 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) 包之外，还必须将这些包添加到项目。 有关更多信息，请参见<xref:fundamentals/configuration/index>。
+> 配置扩展方法（如 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 和 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>）需要其他 NuGet 包（如 [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json) 和 [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)）。 除非应用使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)，否则除了核心 [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration) 包之外，还必须将这些包添加到项目。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
 
 ## <a name="configureservices"></a>ConfigureServices
 
 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> 将服务添加到应用的[依赖关系](xref:fundamentals/dependency-injection)注入容器。 可多次调用 <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*>，并得到累计结果。
 
-托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 有关更多信息，请参见<xref:fundamentals/host/hosted-services>。
+托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 有关详细信息，请参阅 <xref:fundamentals/host/hosted-services>。
 
 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：
 
@@ -487,7 +920,7 @@ public class MyClass
 }
 ```
 
-有关更多信息，请参见<xref:fundamentals/environments>。
+有关详细信息，请参阅 <xref:fundamentals/environments>。
 
 ## <a name="iapplicationlifetime-interface"></a>IApplicationLifetime 接口
 
@@ -501,7 +934,7 @@ public class MyClass
 
 构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
 
-LifetimeEventsHostedService.cs：
+LifetimeEventsHostedService.cs  ：
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/LifetimeEventsHostedService.cs?name=snippet1)]
 
@@ -523,6 +956,8 @@ public class MyClass
     }
 }
 ```
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
