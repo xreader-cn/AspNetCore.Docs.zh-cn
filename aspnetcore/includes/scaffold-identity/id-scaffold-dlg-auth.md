@@ -44,7 +44,7 @@ dotnet aspnet-codegenerator identity -h
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
-PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义分号分隔的文件列表中，或将文件列表放在双引号内。 例如：
+PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，转义分号分隔的文件列表中，或将文件列表放在双引号内。 例如:
 
 ```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"

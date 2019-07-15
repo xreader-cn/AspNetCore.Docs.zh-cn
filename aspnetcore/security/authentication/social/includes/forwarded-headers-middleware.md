@@ -6,4 +6,4 @@
 
 使用转发标头中间件以使应用可以使用原始请求信息来进行请求处理。
 
-有关更多信息，请参见<xref:host-and-deploy/proxy-load-balancer>。
+有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。
