@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: security/ip-safelist
-ms.openlocfilehash: cfbb50ea33ae3af577f13b00bccc75fe0be57f79
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ca05989efabea3a71c6912e98055a6746e0f5966
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898144"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223934"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>适用于 ASP.NET Core 的客户端 IP 安全列表
 
@@ -23,7 +23,7 @@ ms.locfileid: "64898144"
 * 若要检查为特定控制器或操作方法的请求的远程 IP 地址的操作筛选器。
 * Razor 页面筛选器，以检查 Razor 页的请求的远程 IP 地址。
 
-示例应用程序说明了这两种方法。 在每种情况下，包含已批准的客户端 IP 地址的字符串存储在一个应用程序设置。 中间件或筛选器将字符串分析为列表，并检查远程 IP 是否在列表中。 如果没有，则返回 HTTP 403 禁止访问状态代码。
+在每种情况下，包含已批准的客户端 IP 地址的字符串存储在一个应用程序设置。 中间件或筛选器将字符串分析为列表，并检查远程 IP 是否在列表中。 如果没有，则返回 HTTP 403 禁止访问状态代码。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -37,7 +37,7 @@ ms.locfileid: "64898144"
 
 `Configure`方法添加中间件，并向其构造函数参数中传递的安全列表的字符串。
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_Configure&highlight=7)]
+[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_Configure&highlight=10)]
 
 中间件将字符串分析为一个数组，并查找数组中的远程 IP 地址。 如果找不到的远程 IP 地址，中间件返回 HTTP 401 禁止访问。 对于 HTTP Get 请求跳过此验证过程。
 

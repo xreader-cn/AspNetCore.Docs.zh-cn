@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: 00772144cb484b78a256f178642463577d316be2
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: 78d744d641396c449a142375c69730333f8183cd
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196351"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223874"
 ---
 # <a name="grpc-services-with-c"></a>gRPC 服务与 C\#
 
@@ -30,9 +30,9 @@ gRPC 使用 API 开发的约定优先方法。 默认情况下作为接口设计
 
 * 定义`Greeter`服务。
 * `Greeter`服务定义`SayHello`调用。
-* `SayHello` 将发送`HelloRequest`消息，并接收`HelloResponse`消息：
+* `SayHello` 将发送`HelloRequest`消息，并接收`HelloReply`消息：
 
-[!code-proto[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
+[!code-protobuf[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>将.proto 文件添加到 C\#应用
 
