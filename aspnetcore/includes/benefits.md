@@ -3,6 +3,7 @@ ASP.NET Core 具有如下优点：
 * 生成 Web UI 和 Web API 的统一场景。
 * 针对可测试性进行构建。
 * [Razor Pages](xref:razor-pages/index) 可以使基于页面的编码方式更简单高效。
+* [Blazor](xref:blazor/index) 允许你在浏览器中使用 C# 和 JavaScript。 共享全部使用 .NET 编写的服务器端和客户端应用逻辑。
 * 能够在 Windows、macOS 和 Linux 上进行开发和运行。
 * 开放源代码和[以社区为中心](https://live.asp.net/)。
 * 集成[新式客户端框架](xref:blazor/index)和开发工作流。

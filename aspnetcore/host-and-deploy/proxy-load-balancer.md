@@ -5,14 +5,14 @@ description: 了解在代理服务器和负载均衡器后方托管的应用程�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/11/2019
+ms.date: 07/12/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: ab48d80c9cb1c09b5164ed732e76a59687683e97
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 4f04e6cae120ee88734855252542e2bfc2f194a0
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034728"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67856173"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -123,12 +123,12 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 | 选项 | 说明 |
 | ------ | ----------- |
-| AllowedHosts | 通过 `X-Forwarded-Host` 标头将主机限制为提供的值。<ul><li>使用 ordinal-ignore-case 比较值。</li><li>必须排除端口号。</li><li>如果列表为空，则允许使用所有主机。</li><li>顶级通配符 `*` 允许所有非空主机。</li><li>子域通配符允许使用，但不匹配根域。 例如，`*.contoso.com` 匹配子域 `foo.contoso.com`，但不匹配根域 `contoso.com`。</li><li>允许使用 Unicode 主机名，但应转换为 [Punycode](https://tools.ietf.org/html/rfc3492) 进行匹配。</li><li>[IPv6 地址](https://tools.ietf.org/html/rfc4291)必须包括边界方括号，而且必须位于[常规窗体](https://tools.ietf.org/html/rfc4291#section-2.2)（例如，`[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`）中。 IPv6 地址并非专门用于检查不同格式之间的逻辑相等性，也不执行标准化。</li><li>未能限制允许的主机可能会允许攻击者访问该服务生成的欺骗链接。</li></ul>默认值为空的 `IList<string>`。 |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> | 通过 `X-Forwarded-Host` 标头将主机限制为提供的值。<ul><li>使用 ordinal-ignore-case 比较值。</li><li>必须排除端口号。</li><li>如果列表为空，则允许使用所有主机。</li><li>顶级通配符 `*` 允许所有非空主机。</li><li>子域通配符允许使用，但不匹配根域。 例如，`*.contoso.com` 匹配子域 `foo.contoso.com`，但不匹配根域 `contoso.com`。</li><li>允许使用 Unicode 主机名，但应转换为 [Punycode](https://tools.ietf.org/html/rfc3492) 进行匹配。</li><li>[IPv6 地址](https://tools.ietf.org/html/rfc4291)必须包括边界方括号，而且必须位于[常规窗体](https://tools.ietf.org/html/rfc4291#section-2.2)（例如，`[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`）中。 IPv6 地址并非专门用于检查不同格式之间的逻辑相等性，也不执行标准化。</li><li>未能限制允许的主机可能会允许攻击者访问该服务生成的欺骗链接。</li></ul>默认值为空的 `IList<string>`。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-For` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-For`。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> | 标识应处理的转发器。 对于应用的字段的列表，请参阅 [ForwardedHeaders 枚举](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 分配给此属性的典型值为：“ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto”。<br><br>默认值是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName> | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Host` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Host`。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XForwardedProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName) 指定的标头。 如果代理/转发器不使用 `X-Forwarded-Proto` 标头，但使用一些其他标头来转发信息，则使用此选项。<br><br>默认值为 `X-Forwarded-Proto`。 |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | 限制所处理的标头中的条目数。 设置为 `null` 以禁用此限制，但仅应在已配置 `KnownProxies` 或 `KnownNetworks` 的情况下执行此操作。<br><br>默认值为 1。 |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | 限制所处理的标头中的条目数。 设置为 `null` 以禁用此限制，但仅应在已配置 `KnownProxies` 或 `KnownNetworks` 的情况下执行此操作。 设置非 `null` 值是一种预防措施（但不是保证），防止错误配置的代理和恶意请求从网络的侧通道到达。<br><br>转接头中间件按照从右向左的相反顺序处理标头。 如果使用默认值 (`1`)，则只会处理标头最右侧的值，除非增加 `ForwardLimit` 的值。<br><br>默认值为 `1`。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks> | 从中接受转接头的已知网络的地址范围。 使用无类别域际路由选择 (CIDR) 表示法提供 IP 范围。<br><br>如果服务器使用双模式套接字，则采用 IPv6 格式提供 IPv4 地址（例如，IPv4 格式的 `10.0.0.1` 以 IPv6 格式表示为 `::ffff:10.0.0.1`）。 请参阅 [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*)。 通过查看 [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*) 来确定是否需要采用此格式。 有关详细信息，请参阅[对表示为 IPv6 地址的 IPv4 地址进行配置](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)部分。<br><br>默认值是 `IList`\<<xref:Microsoft.AspNetCore.HttpOverrides.IPNetwork>>，其中包含 `IPAddress.Loopback` 的单个条目。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies> | 从中接受转接头的已知代理的地址。 使用 `KnownProxies` 指定精确的 IP 地址匹配。<br><br>如果服务器使用双模式套接字，则采用 IPv6 格式提供 IPv4 地址（例如，IPv4 格式的 `10.0.0.1` 以 IPv6 格式表示为 `::ffff:10.0.0.1`）。 请参阅 [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*)。 通过查看 [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*) 来确定是否需要采用此格式。 有关详细信息，请参阅[对表示为 IPv6 地址的 IPv4 地址进行配置](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)部分。<br><br>默认值是 `IList`\<<xref:System.Net.IPAddress>>，其中包含 `IPAddress.IPv6Loopback` 的单个条目。 |
 | <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName> | 使用由此属性指定的标头，而不是由 [ForwardedHeadersDefaults.XOriginalForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName) 指定的标头。<br><br>默认值为 `X-Original-For`。 |
@@ -226,11 +226,9 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
-
 ## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>转发 Linux 和非 IIS 反向代理的方案
 
-.NET Core 模板调用 <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> 和 <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>。 如果将站点部署到 Azure Linux 应用服务、Azure Linux 虚拟机 (VM)，或者部署到除 IIS 之外的任何其他反向代理之后，这些方法都会使站点进入无限循环。 反向代理终止 TLS，并且 Kestrel 未发现正确的请求方案。 由于 OAuth 和 OIDC 生成了错误的重定向，因此它们在此配置中也会出现故障。 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 在 IIS 之后运行时会添加和配置转接头中间件，但 Linux（Apache 或 Nginx 集成）没有匹配的自动配置。
+如果将站点部署到 Azure Linux 应用服务、Azure Linux 虚拟机 (VM)，或者部署到除 IIS 之外的任何其他反向代理之后，调用 <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> 和 <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> 的应用都会使站点进入无限循环。 反向代理终止 TLS，并且 Kestrel 未发现正确的请求方案。 由于 OAuth 和 OIDC 生成了错误的重定向，因此它们在此配置中也会出现故障。 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 在 IIS 之后运行时会添加和配置转接头中间件，但 Linux（Apache 或 Nginx 集成）没有匹配的自动配置。
 
 要从非 IIS 方案中的代理中转发方案，请添加并配置转接头中间件。 在 `Startup.ConfigureServices` 中，使用以下代码：
 
@@ -253,10 +251,6 @@ if (string.Equals(
     });
 }
 ```
-
-在 Azure 中提供新的容器映像之前，必须为设置为 `true` 的 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 创建一项应用设置（环境变量）。 有关详细信息，请参阅[由于缺少方案转发器，模板无法在 Antares Linux 中正常工作 (aspnet/AspNetCore #4135)](https://github.com/aspnet/AspNetCore/issues/4135)。
-
-::: moniker-end
 
 ## <a name="troubleshoot"></a>疑难解答
 
@@ -323,7 +317,7 @@ app.Use(async (context, next) =>
 });
 ```
 
-处理时，`X-Forwarded-{For|Proto|Host}` 值将移至 `X-Original-{For|Proto|Host}`。 如果给定标头中有多个值，请注意转接头中间件按照从右向左的相反顺序处理标头。 默认 `ForwardLimit` 为 1（一），因此只会处理标头最右侧的值，除非增加 `ForwardLimit` 的值。
+处理时，`X-Forwarded-{For|Proto|Host}` 值将移至 `X-Original-{For|Proto|Host}`。 如果给定标头中有多个值，则转接头中间件按照从右向左的相反顺序处理标头。 默认 `ForwardLimit` 为 `1`（一），因此只会处理标头最右侧的值，除非增加 `ForwardLimit` 的值。
 
 在处理转接头之前，请求的原始远程 IP 必须与 `KnownProxies` 或 `KnownNetworks` 列表中的条目匹配。 这通过不接受来自不受信任的代理的转发器来限制标头欺骗。 检测到未知代理时，日志记录会指出代理的地址：
 
