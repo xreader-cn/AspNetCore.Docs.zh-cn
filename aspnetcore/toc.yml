@@ -431,6 +431,8 @@
       uid: web-api/advanced/analyzers
     - name: 约定
       uid: web-api/advanced/conventions
+    - name: 使用 HTTP REPL 测试 API
+      uid: web-api/http-repl
 - name: 实时应用
   displayName: signalr
   items:
