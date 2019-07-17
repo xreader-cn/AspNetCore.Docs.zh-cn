@@ -5,14 +5,14 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 07/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 2dab8b4839d6778d5dc6a3daf96c1719eecfe0fb
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: 644d84f9adba650b3ef10ba69cc75c22845be211
+ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394628"
+ms.lasthandoff: 07/16/2019
+ms.locfileid: "68239249"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -338,7 +338,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ## <a name="create-the-iis-site"></a>创建 IIS 站点
 
-1. 在托管系统上，创建一个文件夹以包含应用已发布的文件夹和文件。 [目录结构](xref:host-and-deploy/directory-structure)主题中介绍了应用的部署布局。
+1. 在托管系统上，创建一个文件夹以包含应用已发布的文件夹和文件。 在接下来的步骤中，文件夹路径作为应用程序的物理路径提供给 IIS。 有关应用程序部署文件夹和文件布局的详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
 
 1. 在 IIS 管理器中，打开“连接”  面板中的服务器节点。 右键单击“站点”  文件夹。 选择上下文菜单中的“添加网站”  。
 
@@ -372,11 +372,11 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ## <a name="deploy-the-app"></a>部署应用
 
-将应用部署到在托管系统上创建的文件夹。 建议使用的部署机制是 [Web 部署](/iis/publish/using-web-deploy/introduction-to-web-deploy)。
+将应用程序部署到 IIS 物理路径  文件夹中，该文件夹是在[创建 IIS 站点](#create-the-iis-site)部分中创建的。 [Web 部署](/iis/publish/using-web-deploy/introduction-to-web-deploy)是建议使用的部署机制，但有几个选项可以将应用程序从项目的发布  文件夹移动到托管系统的部署文件夹。
 
 ### <a name="web-deploy-with-visual-studio"></a>在 Visual Studio 内使用 Web 部署
 
-要了解如何创建用于 Web 部署的发布配置文件，请参阅[用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles)。 如果托管提供程序提供了发布配置文件或支持创建发布配置文件，请下载配置文件并使用 Visual Studio 的“发布”  对话框将其导入。
+要了解如何创建用于 Web 部署的发布配置文件，请参阅[用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles)。 如果托管提供程序提供了发布配置文件或支持创建发布配置文件，请下载配置文件并使用 Visual Studio 的“发布”  对话框将其导入：
 
 ![“发布”对话框页](index/_static/pub-dialog.png)
 
@@ -386,11 +386,15 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ### <a name="alternatives-to-web-deploy"></a>Web 部署的替代方法
 
-有多种方法可将应用移动到托管系统，例如手动复制、Xcopy、Robocopy 或 PowerShell，可使用其中任何一种方法。
+有多种方法可将应用移动到托管系统，例如手动复制、[Xcopy](/windows-server/administration/windows-commands/xcopy)、[Robocopy](/windows-server/administration/windows-commands/robocopy) 或 [PowerShell](/powershell/)，可使用其中任何一种方法。
 
 有关将 ASP.NET Core 部署到 IIS 的详细信息，请参阅[面向 IIS 管理员的部署资源](#deployment-resources-for-iis-administrators)部分。
 
 ## <a name="browse-the-website"></a>浏览网站
+
+将应用部署到托管系统后，向应用的一个公共终结点发出请求。
+
+在以下示例中，站点被绑定到端口  `80` 上 `www.mysite.com` 的 IIS 主机名  中。 向 `http://www.mysite.com` 发出请求：
 
 ![Microsoft Edge 浏览器已加载 IIS 启动页。](index/_static/browsewebsite.png)
 
