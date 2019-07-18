@@ -5,12 +5,12 @@ description: 了解如何使用应用程序部件（应用资源的抽象）来�
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 5d5e79d3afe0eee6d0b126d4642ccd5f61bff409
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9d0b4b5fadcc287172f23fa36c421f04ca2ade4a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888132"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815483"
 ---
 # <a name="application-parts-in-aspnet-core"></a>ASP.NET Core 中的应用程序部件
 
@@ -20,7 +20,7 @@ ms.locfileid: "64888132"
 
 ## <a name="introducing-application-parts"></a>应用程序部件简介
 
-MVC 应用从[应用程序部件](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart)中加载其功能。 具体而言，[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 类表示受程序集支持的应用程序部件。 可以使用这些类发现和加载 MVC 功能，比如控制器、视图组件、标记帮助程序和 Razor 编译源。 [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) 负责跟踪可用于 MVC 应用的应用程序部件和功能提供程序。 配置 MVC 时，可以与 `Startup` 中的 `ApplicationPartManager` 交互：
+MVC 应用从[应用程序部件](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart)中加载其功能。 具体而言，[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart) 类表示受程序集支持的应用程序部件。 可以使用这些类发现和加载 MVC 功能，比如控制器、视图组件、标记帮助程序和 Razor 编译源。 [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) 负责跟踪可用于 MVC 应用的应用程序部件和功能提供程序。 配置 MVC 时，可以与 `Startup` 中的 `ApplicationPartManager` 交互：
 
 ```csharp
 // create an assembly part from a class's assembly
@@ -86,7 +86,7 @@ services.AddMvc()
         apm.FeatureProviders.Add(new GenericControllerFeatureProvider()));
 ```
 
-默认情况下，用于路由的泛型控制器名称的格式为 *GenericController`1[Widget]*，而不是 *Widget*。 以下属性用于修改该名称，以便与控制器使用的泛型类型对应：
+默认情况下，用于路由的泛型控制器名称的格式为 *GenericController`1[Widget]* ，而不是 *Widget*。 以下属性用于修改该名称，以便与控制器使用的泛型类型对应：
 
 [!code-csharp[](./app-parts/sample/AppPartsSample/GenericControllerNameConvention.cs)]
 

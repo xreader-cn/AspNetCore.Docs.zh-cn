@@ -4,14 +4,14 @@ author: ricardoserradas
 description: 了解如何使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure 应用服务
 ms.author: riserrad
 ms.custom: mvc
-ms.date: 04/16/2019
+ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 2eaae62af97927fbe22e7f5d4fadfc2265c5a5cd
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: 97e8fcb1e5470245c80fad0875abb5fdace7853c
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538749"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308320"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure
 
@@ -19,7 +19,7 @@ ms.locfileid: "67538749"
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
 
-若要对应用服务部署问题进行故障排除，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。
+若要对应用服务部署问题进行故障排除，请参阅 <xref:test/troubleshoot-azure-iis>。
 
 ## <a name="intro"></a>简介
 

@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视
 ms.author: riande
 ms.date: 01/08/2018
 uid: mvc/overview
-ms.openlocfilehash: eb636616ab952f506993ae5f4692e5e966bb20f4
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 819bc93a7580626bf586b984b0ce169306df56d9
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087310"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815353"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -55,7 +55,7 @@ ASP.NET Core MVC 框架是轻量级、开源、高度可测试的演示框架，
 
 ASP.NET Core MVC 提供一种基于模式的方式，用于生成可彻底分开管理事务的动态网站。 它提供对标记的完全控制，支持 TDD 友好开发并使用最新的 Web 标准。
 
-## <a name="features"></a>功能
+## <a name="features"></a>特征
 
 ASP.NET Core MVC 包括以下功能：
 
@@ -76,13 +76,13 @@ ASP.NET Core MVC 包括以下功能：
 
 ASP.NET Core MVC 建立在 [ASP.NET Core 的路由](../fundamentals/routing.md)之上，是一个功能强大的 URL 映射组件，可用于生成具有易于理解和可搜索 URL 的应用程序。 它可让你定义适用于搜索引擎优化 (SEO) 和链接生成的应用程序 URL 命名模式，而不考虑如何组织 Web 服务器上的文件。 可以使用支持路由值约束、默认值和可选值的方便路由模板语法来定义路由。
 
-通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
+通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式  。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
 
 ```csharp
 routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息。 这意味着路由定义位于与之相关联的控制器和操作旁。
+借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息  。 这意味着路由定义位于与之相关联的控制器和操作旁。
 
 ```csharp
 [Route("api/[controller]")]
@@ -179,7 +179,7 @@ public class AccountController : Controller
 
 该框架包括对 HTTP 内容协商的支持，后者有允许[设置数据格式](xref:web-api/advanced/formatting)为 JSON 或 XML 的内置支持。 编写[自定义格式化程序](xref:web-api/advanced/custom-formatters)以添加对自己格式的支持。
 
-使用链接生成启用对超媒体的支持。 轻松启用对[跨域资源共享 (CORS)](http://www.w3.org/TR/cors/) 的支持，以便 Web API 可以跨多个 Web 应用程序共享。
+使用链接生成启用对超媒体的支持。 轻松启用对[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/) 的支持，以便 Web API 可以跨多个 Web 应用程序共享。
 
 ### <a name="testability"></a>可测试性
 
@@ -252,4 +252,4 @@ public class AccountController : Controller
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许应用选择加入或退出 ASP.NET Core MVC 2.1 或更高版本中引入的潜在中断行为变更。
 
-有关更多信息，请参见<xref:mvc/compatibility-version>。
+有关详细信息，请参阅 <xref:mvc/compatibility-version>。

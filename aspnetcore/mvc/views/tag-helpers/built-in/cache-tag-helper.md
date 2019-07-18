@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: fb69584f6e9d4756e175bbd6f3deb1f413b80fc5
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0273a9805dd5db5450f57dcf3fd4d952308df074
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890462"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856210"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的缓存标记帮助程序
 
-作者：[Peter Kellner](http://peterkellner.net) 和 [Luke Latham](https://github.com/guardrex) 
+作者：[Peter Kellner](https://peterkellner.net) 和 [Luke Latham](https://github.com/guardrex) 
 
 缓存标记帮助程序通过将其内容缓存到内部 ASP.NET Core 缓存提供程序中，极大地提高了 ASP.NET Core 应用的性能。
 
@@ -37,7 +37,7 @@ ms.locfileid: "64890462"
 | --------------- | --------------- | ------- |
 | Boolean         | `true`， `false` | `true`  |
 
-`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认值为 `true`。 如果设置为 `false`，则不会缓存呈现的输出。
+`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认值为 `true`。 如果设置为 `false`，则不会缓存呈现的输出  。
 
 示例:
 
@@ -147,7 +147,7 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{Make?}/{Model?}");
 ```
 
-Index.cshtml：
+Index.cshtml  ：
 
 ```cshtml
 <cache vary-by-route="Make,Model">
@@ -187,7 +187,7 @@ Index.cshtml：
 </cache>
 ```
 
-通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存无效是因为用户进行身份验证时生成了一个新的唯一 cookie 值。 如果 cookie 不存在或已过期，则会维持缓存以呈现匿名状态。 如果用户未经过身份验证，则会维持缓存。
+通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存无效是因为用户进行身份验证时生成了一个新的唯一 cookie 值。 如果 cookie 不存在或已过期，则会维持缓存以呈现匿名状态。 如果用户未经过  身份验证，则会维持缓存。
 
 ### <a name="vary-by"></a>vary-by
 
@@ -212,7 +212,7 @@ public IActionResult Index(string myParam1, string myParam2, string myParam3)
 }
 ```
 
-Index.cshtml：
+Index.cshtml  ：
 
 ```cshtml
 <cache vary-by="@Model">

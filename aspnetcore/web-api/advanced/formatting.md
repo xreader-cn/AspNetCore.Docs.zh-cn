@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 7628565d8646c0a057e28aa54dc9ce9198750c15
-ms.sourcegitcommit: 9ae1fd11f39b0a72b2ae42f0b450345e6e306bc0
+ms.openlocfilehash: b050011aa38743353fb2a7d133abcdca0b8c6d33
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66415675"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814818"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -57,13 +57,13 @@ ASP.NET Core MVC 包含对通过固定格式或根据客户端规范来设置响
 
 ## <a name="content-negotiation"></a>内容协商
 
-当客户端指定 [Accept 标头](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)时，会发生内容协商（简称 conneg）。 ASP.NET Core MVC 使用的默认格式是 JSON。 内容协商由 `ObjectResult` 实现。 它还内置于从帮助程序方法（全部基于 `ObjectResult`）返回的特定于状态代码的操作结果中。 还可以返回一个模型类型（已定义为数据传输类型的类），框架将自动将其打包在 `ObjectResult` 中。
+当客户端指定 [Accept 标头](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)时，会发生内容协商（简称 conneg）  。 ASP.NET Core MVC 使用的默认格式是 JSON。 内容协商由 `ObjectResult` 实现。 它还内置于从帮助程序方法（全部基于 `ObjectResult`）返回的特定于状态代码的操作结果中。 还可以返回一个模型类型（已定义为数据传输类型的类），框架将自动将其打包在 `ObjectResult` 中。
 
 以下操作方法使用 `Ok` 和 `NotFound` 帮助程序方法：
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=8,10&range=28-38)]
 
-将返回 JSON 格式的响应，除非请求了另一个格式且服务器可以返回所请求格式。 可以使用 [Fiddler](http://www.telerik.com/fiddler) 等工具创建包括 Accept 标头的请求并指定另一种格式。 在此情况下，如果服务器有可以生成所请求格式的响应的格式化程序，则结果会以服务器首选的格式返回。
+将返回 JSON 格式的响应，除非请求了另一个格式且服务器可以返回所请求格式。 可以使用 [Fiddler](https://www.telerik.com/fiddler) 等工具创建包括 Accept 标头的请求并指定另一种格式。 在此情况下，如果服务器有可以生成所请求格式的响应的格式化程序，则结果会以服务器首选的格式返回  。
 
 ![Fiddler 控制台显示 Accept 标头为 application/xml 的手动创建的 GET 请求](formatting/_static/fiddler-composer.png)
 
@@ -79,7 +79,7 @@ ASP.NET Core MVC 包含对通过固定格式或根据客户端规范来设置响
 
 ### <a name="content-negotiation-process"></a>内容协商过程
 
-内容协商仅在 `Accept` 标头出现在请求中时发生。 请求包含 accept 标头时，框架会以最佳顺序枚举 accept 标头中的媒体类型，并且尝试查找可以生成一种由 accept 标头指定格式的响应的格式化程序。 如果未找到可以满足客户端请求的格式化程序，框架将尝试找到第一个可以生成响应的格式化程序（除非开发人员配置 `MvcOptions` 上的选项以返回“406 不可接受”）。 如果请求指定 XML，但是未配置 XML 格式化程序，那么将使用 JSON 格式化程序。 一般来说，如果没有配置可以提供所请求格式的格式化程序，那么使用第一个可以设置对象格式的格式化程序。 如果不提供任何标头，则将使用第一个可以处理要返回的对象的格式化程序来序列化响应。 在此情况下，没有任何协商发生 - 服务器确定将使用的格式。
+内容协商仅在 `Accept` 标头出现在请求中时发生  。 请求包含 accept 标头时，框架会以最佳顺序枚举 accept 标头中的媒体类型，并且尝试查找可以生成一种由 accept 标头指定格式的响应的格式化程序。 如果未找到可以满足客户端请求的格式化程序，框架将尝试找到第一个可以生成响应的格式化程序（除非开发人员配置 `MvcOptions` 上的选项以返回“406 不可接受”）。 如果请求指定 XML，但是未配置 XML 格式化程序，那么将使用 JSON 格式化程序。 一般来说，如果没有配置可以提供所请求格式的格式化程序，那么使用第一个可以设置对象格式的格式化程序。 如果不提供任何标头，则将使用第一个可以处理要返回的对象的格式化程序来序列化响应。 在此情况下，没有任何协商发生 - 服务器确定将使用的格式。
 
 > [!NOTE]
 > 如果 Accept 标头包含 `*/*`，则将忽略该标头，除非 `RespectBrowserAcceptHeader` 在 `MvcOptions` 上设置为 true。
@@ -88,7 +88,7 @@ ASP.NET Core MVC 包含对通过固定格式或根据客户端规范来设置响
 
 不同于传统 API 客户端，Web 浏览器倾向于提供包括各种格式（含通配符）的 `Accept` 标头。 默认情况下，当框架检测到请求来自浏览器时，它将忽略 `Accept` 标头转而以应用程序的配置默认格式（JSON，除非有其他配置）返回内容。 这在使用不同浏览器使用 API 时提供更一致的体验。
 
-如果首选应用程序服从浏览器 accept 标头，则可以将此配置为 MVC 配置的一部分，方法是在 Startup.cs 中以 `ConfigureServices` 方法将 `RespectBrowserAcceptHeader` 设置为 `true`。
+如果首选应用程序服从浏览器 accept 标头，则可以将此配置为 MVC 配置的一部分，方法是在 Startup.cs 中以 `ConfigureServices` 方法将 `RespectBrowserAcceptHeader` 设置为 `true`  。
 
 ```csharp
 services.AddMvc(options =>
@@ -175,7 +175,7 @@ public class AuthorsController
 
 ### <a name="special-case-formatters"></a>特例格式化程序
 
-一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）。 可以通过删除 `TextOutputFormatter` 删除此行为。 在 Startup.cs 中通过 `Configure` 方法删除格式化程序（如下所示）。 有模型对象返回类型的操作将在返回 `null` 时返回“204 无内容”响应。 可以通过删除 `HttpNoContentOutputFormatter` 删除此行为。 以下代码删除 `TextOutputFormatter` 和 `HttpNoContentOutputFormatter`。
+一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）   。 可以通过删除 `TextOutputFormatter` 删除此行为。 在 Startup.cs 中通过 `Configure` 方法删除格式化程序（如下所示）  。 有模型对象返回类型的操作将在返回 `null` 时返回“204 无内容”响应。 可以通过删除 `HttpNoContentOutputFormatter` 删除此行为。 以下代码删除 `TextOutputFormatter` 和 `HttpNoContentOutputFormatter`。
 
 ```csharp
 services.AddMvc(options =>

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 380d47d33706b3197dba3b9f7e3e1f186e27115f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a07bb4f539c8bd38b08402c598924e14c748921d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890812"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815239"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -453,7 +453,7 @@ public IActionResult Edit(int id, int colorIndex)
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
 |ValidationSummary.ModelOnly|模型|
-|ValidationSummary.None|None|
+|ValidationSummary.None|无|
 
 ### <a name="sample"></a>示例
 
@@ -602,7 +602,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 ### <a name="multiple-select"></a>多重选择
 
-如果 `asp-for` 属性中指定的属性为 `IEnumerable`，选择标记帮助程序会自动生成 [multiple = "multiple"](http://w3c.github.io/html-reference/select.html) 属性。 例如，如果给定以下模型：
+如果 `asp-for` 属性中指定的属性为 `IEnumerable`，选择标记帮助程序会自动生成 [multiple = "multiple"](https://w3c.github.io/html-reference/select.html) 属性。 例如，如果给定以下模型：
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 

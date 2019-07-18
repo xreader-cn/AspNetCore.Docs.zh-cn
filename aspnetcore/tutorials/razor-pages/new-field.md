@@ -4,14 +4,14 @@ author: rick-anderson
 description: 演示如何使用 Entity Framework Core 将新字段添加到 Razor 页面
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/5/2018
+ms.date: 12/05/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: f73af673afebe0531f228dc0041dc708ba794047
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 904207ed775cc689c36953c29d202788580d8f60
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887612"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815309"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -33,13 +33,13 @@ ms.locfileid: "64887612"
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-打开 Models/Movie.cs 文件，并添加 `Rating` 属性：
+打开 Models/Movie.cs 文件，并添加 `Rating` 属性： 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 构建应用程序。
 
-编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：
+编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml.?highlight=40-42,61-63)]
 
@@ -79,7 +79,7 @@ ms.locfileid: "64887612"
 
 ### <a name="add-a-migration-for-the-rating-field"></a>添加用于评级字段的迁移
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
 在 PMC 中，输入以下命令：
 
 ```powershell
@@ -103,9 +103,9 @@ Update-Database
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 * 在 SSOX 中选择数据库。
-* 右键单击数据库，并选择“删除”。
-* 检查“关闭现有连接”。
-* 选择“确定”。
+* 右键单击数据库，并选择“删除”。 
+* 检查“关闭现有连接”  。
+* 选择“确定”  。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -118,7 +118,7 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)  。 然后运行 `ef database update` 命令：
 
 ```console
 dotnet ef database update

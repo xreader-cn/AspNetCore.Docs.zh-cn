@@ -4,14 +4,14 @@ author: CamSoper
 description: 监视和使用 ASP.NET Core 和 Azure DevOps 解决方案的一部分进行调试你的代码
 ms.author: casoper
 ms.custom: mvc, seodec18
-ms.date: 10/24/2018
+ms.date: 07/10/2019
 uid: azure/devops/monitor
-ms.openlocfilehash: 00489bd92dfff8fd80bd24c2e60193d32031d7c4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1d8ed99f4387dbc99929164c558cc2ce14bd9ea0
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893064"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68307962"
 ---
 # <a name="monitor-and-debug"></a>监视和调试
 
@@ -37,10 +37,10 @@ ms.locfileid: "64893064"
 
     ![屏幕截图显示概述面板](./media/monitoring/overview.png)
 
-    * **Http 5xx**:服务器端错误，通常在 ASP.NET Core 代码中的异常的计数。
-    * **中的数据**:数据入口进入你的 web 应用。
-    * **输出数据量**:数据流出量从 web 应用程序向客户端。
-    * **请求**:计数的 HTTP 请求。
+    * **Http 5xx**:服务器端错误计数, 通常在 ASP.NET Core 代码中出现异常。
+    * **数据在**:进入你的 web 应用的数据入口。
+    * **输出数据**:从 web 应用到客户端的数据传出。
+    * **请求**:HTTP 请求计数。
     * **平均响应时间**:Web 应用响应 HTTP 请求的平均时间。
 
     此外在此页上找到多个自助服务工具进行故障排除和优化。
@@ -69,7 +69,7 @@ ms.locfileid: "64893064"
     ![Application Insights 安装](./media/monitoring/new-app-insights.png)
 
 1. 有关**运行时/框架**，选择**ASP.NET Core**。 接受默认设置。
-1. 选择“确定”。 如果系统提示你确认，请选择**继续**。
+1. 选择“确定”  。 如果系统提示你确认，请选择**继续**。
 1. 创建资源后，单击要直接导航到 Application Insights 页的 Application Insights 资源的名称。
 
     ![新的 Application Insights 资源是准备就绪](./media/monitoring/new-app-insights-done.png)
@@ -89,10 +89,10 @@ Application Insights 提供有用的服务器端的信息，而无需其他配�
 
     ![诊断日志链接](./media/monitoring/logging.png)
 
-1. 开启**应用程序日志记录 （文件系统）**。 如果系统提示，请单击此框来安装扩展，使应用程序中 web 应用的日志记录。
+1. 开启**应用程序日志记录 （文件系统）** 。 如果系统提示，请单击此框来安装扩展，使应用程序中 web 应用的日志记录。
 1. 设置**Web 服务器日志记录**到**文件系统**。
 1. 输入**保留期**以天为单位。 例如，30。
-1. 单击“保存” 。
+1. 单击“保存”  。
 
 为 web 应用生成 ASP.NET Core 和 web 服务器 （应用服务） 日志。 可以使用显示的 FTP/FTPS 信息下载它们。 密码是之前在本指南中创建的部署凭据相同。 日志可能很[流式传输到使用 PowerShell 或 Azure CLI 在本地计算机直接](/azure/app-service/web-sites-enable-diagnostic-log#download)。 也可以是日志[Application Insights 中查看](/azure/app-service/web-sites-enable-diagnostic-log#how-to-view-logs-in-application-insights)。
 
@@ -111,7 +111,7 @@ Application Insights 提供有用的服务器端的信息，而无需其他配�
 
 Azure 监视器还提供[实时警报](/azure/monitoring-and-diagnostics/insights-alerts-portal)基于度量值、 管理事件和其他条件。
 
-> *注意：当前在 web 应用度量值均可收到警报仅在警报 （经典） 服务中。*
+> *注意：当前 web 应用指标警报仅在 "警报 (经典)" 服务中提供。*
 
 [警报 （经典） 服务](/azure/monitoring-and-diagnostics/monitor-quick-resource-metric-alert-portal)在 Azure Monitor 或下可以找到**监视**部分中的应用服务设置。
 
@@ -135,7 +135,7 @@ Azure 应用服务可以是[使用 Visual Studio 远程调试](/azure/app-servic
 
 ## <a name="additional-reading"></a>其他阅读材料
 
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * [监视使用 Application Insights 的 Azure web 应用性能](/azure/application-insights/app-insights-azure-web-apps)
 * [在 Azure 应用服务中为应用启用诊断日志记录](/azure/app-service/web-sites-enable-diagnostic-log)

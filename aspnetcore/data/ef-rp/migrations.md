@@ -3,14 +3,14 @@ title: ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（
 author: rick-anderson
 description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用中的数据模型更改。
 ms.author: riande
-ms.date: 6/31/2017
+ms.date: 06/30/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 406b94d74a99dcec3b2ce01a5eb3313c48819148
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: 54225a8126e04eb4ff3a6a0cde9d305249299887
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65517004"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223865"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（共 8 个）
 
@@ -35,11 +35,11 @@ https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 
 ## <a name="drop-the-database"></a>删除数据库
 
-使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` 命令：
+使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` 命令  ：
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在“包管理器控制台”(PMC) 中运行以下命令：
+在“包管理器控制台”(PMC) 中运行以下命令  ：
 
 ```PMC
 Drop-Database
@@ -49,7 +49,7 @@ Drop-Database
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-打开命令窗口并导航到项目文件夹。 项目文件夹包含 Startup.cs 文件。
+打开命令窗口并导航到项目文件夹。 项目文件夹包含 Startup.cs 文件  。
 
 在命令窗口中输入以下内容：
 
@@ -81,7 +81,7 @@ dotnet ef database update
 
 ### <a name="examine-the-up-and-down-methods"></a>了解 Up 和 Down 方法
 
-EF Core `migrations add` 命令已生成用于创建 DB 的代码。 此迁移代码位于 Migrations\<timestamp>_InitialCreate.cs 文件中。 `InitialCreate` 类的 `Up` 的方法创建与数据模型实体集相对应的 DB 表。 `Down` 方法删除这些表，如下例所示：
+EF Core `migrations add` 命令已生成用于创建 DB 的代码。 此迁移代码位于 Migrations\<timestamp>_InitialCreate.cs 文件中  。 `InitialCreate` 类的 `Up` 的方法创建与数据模型实体集相对应的 DB 表。 `Down` 方法删除这些表，如下例所示：
 
 [!code-csharp[](intro/samples/cu21/Migrations/20180626224812_InitialCreate.cs?range=7-24,77-88)]
 
@@ -100,7 +100,7 @@ EF Core `migrations add` 命令已生成用于创建 DB 的代码。 此迁移�
 
 ### <a name="the-data-model-snapshot"></a>数据模型快照
 
-迁移在 Migrations/SchoolContextModelSnapshot.cs 中创建当前数据库架构的快照。 添加迁移时，EF 会通过将数据模型与快照文件进行对比来确定已更改的内容。
+迁移在 Migrations/SchoolContextModelSnapshot.cs 中创建当前数据库架构的快照   。 添加迁移时，EF 会通过将数据模型与快照文件进行对比来确定已更改的内容。
 
 若要删除迁移，请使用以下命令：
 
@@ -126,7 +126,7 @@ dotnet ef migrations remove
 
 * 绕过迁移并创建 DB 和架构。
 * 不会创建迁移表。
-* 不能与迁移一起使用。
+* 不能与迁移一起使用  。
 * 专门用于在频繁删除并重新创建 DB 的情况下进行测试或快速制作原型。
 
 删除 `EnsureCreated`：
@@ -139,13 +139,13 @@ context.Database.EnsureCreated();
 
 ### <a name="inspect-the-database"></a>检查数据库
 
-使用 SQL Server 对象资源管理器检查 DB。 请注意，增加了 `__EFMigrationsHistory` 表。 `__EFMigrationsHistory` 表跟踪已应用到 DB 的迁移。 查看 `__EFMigrationsHistory` 表中的数据，其中显示对应初始迁移的一行数据。 上面的 CLI 输出示例中最后部分的日志显示了创建此行的 INSERT 语句。
+使用 SQL Server 对象资源管理器检查 DB  。 请注意，增加了 `__EFMigrationsHistory` 表。 `__EFMigrationsHistory` 表跟踪已应用到 DB 的迁移。 查看 `__EFMigrationsHistory` 表中的数据，其中显示对应初始迁移的一行数据。 上面的 CLI 输出示例中最后部分的日志显示了创建此行的 INSERT 语句。
 
 运行应用并验证一切正常运行。
 
 ## <a name="applying-migrations-in-production"></a>在生产环境中应用迁移
 
-不建议生产应用在应用程序启动时调用 [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_)。 不应从服务器场中的应用调用 `Migrate`。 例如，已将应用在云中部署为横向扩展（运行应用的多个示例）的情况。
+不建议生产应用在应用程序启动时调用 [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_)  。 不应从服务器场中的应用调用 `Migrate`。 例如，已将应用在云中部署为横向扩展（运行应用的多个示例）的情况。
 
 应在部署过程中以受控的方式执行数据库迁移。 生产数据库迁移方法包括：
 

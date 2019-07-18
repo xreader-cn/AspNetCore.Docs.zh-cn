@@ -5,18 +5,18 @@ description: 演示如何将搜索添加到基本 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: ca3b0baeddd31e10243689091d435767079bb979
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: fbec03d71e247c58fb5968290c4baf6b28120e1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450858"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815071"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>将搜索添加到 ASP.NET Core MVC 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影。
+在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影   。
 
 使用以下代码更新 `Index` 方法：
 
@@ -29,7 +29,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-此时仅对查询进行了定义，它还不会针对数据库运行。
+此时仅对查询进行了定义，它还不会针对数据库运行   。
 
 如果 `searchString` 参数包含一个字符串，电影查询则会被修改为根据搜索字符串的值进行筛选：
 
@@ -43,7 +43,7 @@ var movies = from m in _context.Movie
 
 ![索引视图](~/tutorials/first-mvc-app/search/_static/ghost.png)
 
-如果将 `Index` 方法的签名更改为具有名称为 `id` 的参数，则 `id` 参数将匹配 Startup.cs 中设置的默认路由的可选 `{id}` 占位符。
+如果将 `Index` 方法的签名更改为具有名称为 `id` 的参数，则 `id` 参数将匹配 Startup.cs 中设置的默认路由的可选 `{id}` 占位符  。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
@@ -65,7 +65,7 @@ var movies = from m in _context.Movie
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
-打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记：
+打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记  ：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
 
@@ -85,7 +85,7 @@ var movies = from m in _context.Movie
 
 ![显示“来自 HttpPost 索引: 筛选 ghost”应用程序响应的浏览器窗口](~/tutorials/first-mvc-app/search/_static/fo.png)
 
-但是，即使添加 `Index` 方法的 `[HttpPost]` 版本，其实现方式也受到限制。 假设你想要将特定搜索加入书签，或向朋友发送一个链接，让他们单击链接即可查看筛选出的相同电影列表。 请注意，HTTP POST 请求的 URL 与 GET 请求的 URL 相同 (localhost:xxxxx/Movies/Index)，其中不包含搜索信息。 搜索字符串信息作为[表单域值](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)发送给服务器。 可使用浏览器开发人员工具或出色的 [Fiddler 工具](http://www.telerik.com/fiddler)对其进行验证。 下图展示了 Chrome 浏览器开发人员工具：
+但是，即使添加 `Index` 方法的 `[HttpPost]` 版本，其实现方式也受到限制。 假设你想要将特定搜索加入书签，或向朋友发送一个链接，让他们单击链接即可查看筛选出的相同电影列表。 请注意，HTTP POST 请求的 URL 与 GET 请求的 URL 相同 (localhost:xxxxx/Movies/Index)，其中不包含搜索信息。 搜索字符串信息作为[表单域值](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)发送给服务器。 可使用浏览器开发人员工具或出色的 [Fiddler 工具](https://www.telerik.com/fiddler)对其进行验证。 下图展示了 Chrome 浏览器开发人员工具：
 
 ![Microsoft Edge 中开发人员工具的“网络”选项卡，显示了 ghost 的 searchString 值的请求正文](~/tutorials/first-mvc-app/search/_static/f12_rb.png)
 
@@ -107,7 +107,7 @@ var movies = from m in _context.Movie
 
 ## <a name="add-search-by-genre"></a>添加按流派搜索
 
-将以下 `MovieGenreViewModel` 类添加到“模型”文件夹：
+将以下 `MovieGenreViewModel` 类添加到“模型”文件夹  ：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Models/MovieGenreViewModel.cs)]
 

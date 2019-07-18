@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 72d5b2e902a95442ccffb7a149b917c50373775b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5be53baf4b9eb8774501fbf7f781370f7f687d0c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889922"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814952"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core 中的 URL 重写中间件
 
@@ -42,25 +42,25 @@ URL 重写是根据一个或多个预定义规则修改请求 URL 的行为。 U
 
 ## <a name="url-redirect-and-url-rewrite"></a>URL 重定向和 URL 重写
 
-URL 重定向和 URL 重写之间的用词差异很细微，但这对于向客户端提供资源具有重要意义。 ASP.NET Core 的 URL 重写中间件能够满足两者的需求。
+URL 重定向和 URL 重写之间的用词差异很细微，但这对于向客户端提供资源具有重要意义   。 ASP.NET Core 的 URL 重写中间件能够满足两者的需求。
 
-URL 重定向涉及客户端操作，指示客户端访问与客户端最初请求地址不同的资源。 这需要往返服务器。 客户端对资源发出新请求时，返回客户端的重定向 URL 会出现在浏览器地址栏。
+URL 重定向涉及客户端操作，指示客户端访问与客户端最初请求地址不同的资源  。 这需要往返服务器。 客户端对资源发出新请求时，返回客户端的重定向 URL 会出现在浏览器地址栏。
 
-如果 `/resource` 被重定向到 `/different-resource`，则服务器作出响应，指示客户端应在 `/different-resource` 获取资源，所提供的状态代码指示重定向是临时的还是永久的。
+如果 `/resource` 被重定向到 `/different-resource`，则服务器作出响应，指示客户端应在 `/different-resource` 获取资源，所提供的状态代码指示重定向是临时的还是永久的  。
 
 ![WebAPI 服务终结点已暂时从服务器上的版本 1 (v1) 更改为版本 2 (v2)。 客户端向版本 1 路径 /v1/api 上的服务发出请求。 服务器发回“302 (已找到)”响应，其中包括版本 2 /v2/api 上服务的新临时路径。 客户端向重定向 URL 上的服务发出第二个请求。 服务器以“200 (正常)”状态代码作出响应。](url-rewriting/_static/url_redirect.png)
 
 将请求重定向到不同 URL 时，通过使用响应指定状态代码来指示重定向是永久还是临时：
 
-* 如果资源有一个新的永久性 URL，并且你希望指示客户端所有将来的资源请求都使用新 URL，则使用“301 (永久移动)”状态代码。 收到 301 状态代码时，客户端可能会缓存响应并重用这段代码。
+* 如果资源有一个新的永久性 URL，并且你希望指示客户端所有将来的资源请求都使用新 URL，则使用“301 (永久移动)”状态代码  。 收到 301 状态代码时，客户端可能会缓存响应并重用这段代码  。
 
-* “302 (找到)”状态代码用于后列情况：重定向操作是临时的或通常会发生变化。 302 状态代码向客户端指示不存储 URL 并在将来使用。
+* “302 (找到)”状态代码用于后列情况：重定向操作是临时的或通常会发生变化  。 302 状态代码向客户端指示不存储 URL 并在将来使用。
 
 有关状态代码的详细信息，请参阅 [RFC 2616：状态代码定义](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
 
-URL 重写是服务器端操作，它从与客户端请求的资源地址不同的资源地址提供资源。 重写 URL 不需要往返服务器。 重写的 URL 不会返回客户端，也不会出现在浏览器地址栏。
+URL 重写是服务器端操作，它从与客户端请求的资源地址不同的资源地址提供资源  。 重写 URL 不需要往返服务器。 重写的 URL 不会返回客户端，也不会出现在浏览器地址栏。
 
-如果 `/resource` 重写到 `/different-resource`，服务器会在内部提取并返回 `/different-resource` 处的资源。
+如果 `/resource` 重写到 `/different-resource`，服务器会在内部提取并返回 `/different-resource` 处的资源   。
 
 尽管客户端可能能够检索已重写 URL 处的资源，但是，客户端发出请求并收到响应时，并不知道已重写 URL 处存在的资源。
 
@@ -111,36 +111,36 @@ URL 重写是服务器端操作，它从与客户端请求的资源地址不同�
 
 ### <a name="url-redirect"></a>URL 重定向
 
-使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect*> 将请求重定向。 第一个参数包含用于匹配传入 URL 路径的正则表达式。 第二个参数是替换字符串。 第三个参数（如有）指定状态代码。 如不指定状态代码，则状态代码默认为“302 (已找到)”，指示资源暂时移动或替换。
+使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect*> 将请求重定向。 第一个参数包含用于匹配传入 URL 路径的正则表达式。 第二个参数是替换字符串。 第三个参数（如有）指定状态代码。 如不指定状态代码，则状态代码默认为“302 (已找到)”，指示资源暂时移动或替换  。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
 
-在启用了开发人员工具的浏览器中，向路径为 `/redirect-rule/1234/5678` 的示例应用发出请求。 正则表达式匹配 `redirect-rule/(.*)` 上的请求路径，且该路径会被 `/redirected/1234/5678` 替代。 重定向 URL 以“302 (已找到)”状态代码发回客户端。 浏览器会在浏览器地址栏中出现的重定向 URL 上发出新请求。 由于示例应用中的规则都不匹配重定向 URL：
+在启用了开发人员工具的浏览器中，向路径为 `/redirect-rule/1234/5678` 的示例应用发出请求。 正则表达式匹配 `redirect-rule/(.*)` 上的请求路径，且该路径会被 `/redirected/1234/5678` 替代。 重定向 URL 以“302 (已找到)”状态代码发回客户端  。 浏览器会在浏览器地址栏中出现的重定向 URL 上发出新请求。 由于示例应用中的规则都不匹配重定向 URL：
 
-* 第二个请求从应用程序收到“200 (正常)”响应。
+* 第二个请求从应用程序收到“200 (正常)”响应  。
 * 响应正文显示了重定向 URL。
 
-重定向 URL 时，系统将向服务器进行一次往返。
+重定向 URL 时，系统将向服务器进行一次往返  。
 
 > [!WARNING]
-> 建立重定向规则时务必小心。 系统会根据应用的每个请求（包括重定向后的请求）对重定向规则进行评估。 很容易便会意外创建无限重定向循环。
+> 建立重定向规则时务必小心。 系统会根据应用的每个请求（包括重定向后的请求）对重定向规则进行评估。 很容易便会意外创建无限重定向循环  。
 
 原始请求：`/redirect-rule/1234/5678`
 
 ![开发人员工具正跟踪请求和响应的浏览器窗口](url-rewriting/_static/add_redirect.png)
 
-括号内的表达式部分称为“捕获组”。 表达式的点 (`.`) 表示匹配任何字符。 星号 (`*`) 表示零次或多次匹配前面的字符。 因此，URL 的最后两个路径段 `1234/5678` 由捕获组 `(.*)` 捕获。 在请求 URL 中提供的位于 `redirect-rule/` 之后的任何值均由此单个捕获组捕获。
+括号内的表达式部分称为“捕获组”  。 表达式的点 (`.`) 表示匹配任何字符  。 星号 (`*`) 表示零次或多次匹配前面的字符  。 因此，URL 的最后两个路径段 `1234/5678` 由捕获组 `(.*)` 捕获。 在请求 URL 中提供的位于 `redirect-rule/` 之后的任何值均由此单个捕获组捕获。
 
 在替换字符串中，将捕获组注入带有美元符号 (`$`)、后跟捕获序列号的字符串中。 获取的第一个捕获组值为 `$1`，第二个为 `$2`，并且正则表达式中的其他捕获组值将依次继续排列。 示例应用的重定向规则正则表达式中只有一个捕获组，因此替换字符串中只有一个注入组，即 `$1`。 如果应用此规则，URL 将变为 `/redirected/1234/5678`。
 
 ### <a name="url-redirect-to-a-secure-endpoint"></a>URL 重定向到安全的终结点
 
-使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> 将 HTTP 请求重定向到采用 HTTPS 协议的相同主机和路径。 如不提供状态代码，则中间件默认为“302(已找到)”。 如果不提供端口：
+使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> 将 HTTP 请求重定向到采用 HTTPS 协议的相同主机和路径。 如不提供状态代码，则中间件默认为“302(已找到)”  。 如果不提供端口：
 
 * 中间件默认为 `null`。
 * 方案更改为 `https`（HTTPS 协议），客户端访问端口 443 上的资源。
 
-下面的示例演示如何将状态代码设置为“301(永久移动)”并将端口更改为 5001。
+下面的示例演示如何将状态代码设置为“301(永久移动)”并将端口更改为 5001  。
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -152,7 +152,7 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttpsPermanent*> 将不安全的请求重定向到端口 443 上的采用安全 HTTPS 协议的相同主机和路径。 中间件将状态代码设置为“301 (永久移动)”。
+使用 <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttpsPermanent*> 将不安全的请求重定向到端口 443 上的采用安全 HTTPS 协议的相同主机和路径。 中间件将状态代码设置为“301 (永久移动)”  。
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -202,12 +202,12 @@ public void Configure(IApplicationBuilder app)
 | 路径                              | 匹配 |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | 是   |
-| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/my-cool-rewrite-rule/1234/5678` | 否    |
 | `/anotherrewrite-rule/1234/5678`  | No    |
 
-在表达式的 `^rewrite-rule/` 部分之后，有两个捕获组 `(\d+)/(\d+)`。 `\d` 表示与数字匹配。 加号 (`+`) 表示与前面的一个或多个字符匹配。 因此，URL 必须包含数字加正斜杠加另一个数字的形式。 这些捕获组以 `$1` 和 `$2` 的形式注入重写 URL 中。 重写规则替换字符串将捕获组放入查询字符串中。 重写 `/rewrite-rule/1234/5678` 的请求路径，获取 `/rewritten?var1=1234&var2=5678` 处的资源。 如果原始请求中存在查询字符串，则重写 URL 时会保留此字符串。
+在表达式的 `^rewrite-rule/` 部分之后，有两个捕获组 `(\d+)/(\d+)`。 `\d` 表示与数字匹配  。 加号 (`+`) 表示与前面的一个或多个字符匹配  。 因此，URL 必须包含数字加正斜杠加另一个数字的形式。 这些捕获组以 `$1` 和 `$2` 的形式注入重写 URL 中。 重写规则替换字符串将捕获组放入查询字符串中。 重写 `/rewrite-rule/1234/5678` 的请求路径，获取 `/rewritten?var1=1234&var2=5678` 处的资源。 如果原始请求中存在查询字符串，则重写 URL 时会保留此字符串。
 
-无需往返服务器来获取资源。 如果资源存在，系统会提取资源并以“200（正常）”状态代码返回给客户端。 因为客户端不会被重定向，所以浏览器地址栏中的 URL 不会发生更改。 客户端无法检测到服务器上发生的 URL 重写操作。
+无需往返服务器来获取资源。 如果资源存在，系统会提取资源并以“200（正常）”状态代码返回给客户端  。 因为客户端不会被重定向，所以浏览器地址栏中的 URL 不会发生更改。 客户端无法检测到服务器上发生的 URL 重写操作。
 
 > [!NOTE]
 > 尽可能使用 `skipRemainingRules: true`，因为匹配规则在计算上很昂贵并且增加了应用响应时间。 对于最快的应用响应：
@@ -219,11 +219,11 @@ public void Configure(IApplicationBuilder app)
 
 使用 <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> 应用 Apache mod_rewrite 规则。 请确保将规则文件与应用一起部署。 有关 mod_rewrite 规则的详细信息和示例，请参阅 [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)。
 
-<xref:System.IO.StreamReader> 用于读取 ApacheModRewrite.txt 规则文件中的规则：
+<xref:System.IO.StreamReader> 用于读取 ApacheModRewrite.txt 规则文件中的规则  ：
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
-示例应用将请求从 `/apache-mod-rules-redirect/(.\*)` 重定向到 `/redirected?id=$1`。 响应状态代码为“302 (已找到)”。
+示例应用将请求从 `/apache-mod-rules-redirect/(.\*)` 重定向到 `/redirected?id=$1`。 响应状态代码为“302 (已找到)”  。
 
 [!code[](url-rewriting/samples/2.x/SampleApp/ApacheModRewrite.txt)]
 
@@ -265,13 +265,13 @@ public void Configure(IApplicationBuilder app)
 
 ### <a name="iis-url-rewrite-module-rules"></a>IIS URL 重写模块规则
 
-若要使用适用于 IIS URL 重写模块的同一规则集，使用 <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>。 请确保将规则文件与应用一起部署。 当在 Windows Server IIS 上运行时，请勿指示中间件使用应用的 web.config 文件。 使用 IIS 时，应将这些规则存储在应用的 web.config 文件之外，以避免与 IIS 重写模块发生冲突。 有关 IIS URL 重写模块规则的详细信息和示例，请参阅 [Using Url Rewrite Module 2.0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)（使用 URL 重写模块 2.0）和 [URL Rewrite Module Configuration Reference](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)（URL 重写模块配置引用）。
+若要使用适用于 IIS URL 重写模块的同一规则集，使用 <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>。 请确保将规则文件与应用一起部署。 当在 Windows Server IIS 上运行时，请勿指示中间件使用应用的 web.config 文件  。 使用 IIS 时，应将这些规则存储在应用的 web.config 文件之外，以避免与 IIS 重写模块发生冲突  。 有关 IIS URL 重写模块规则的详细信息和示例，请参阅 [Using Url Rewrite Module 2.0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)（使用 URL 重写模块 2.0）和 [URL Rewrite Module Configuration Reference](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)（URL 重写模块配置引用）。
 
-<xref:System.IO.StreamReader> 用于读取 IISUrlRewrite.xml 规则文件中的规则：
+<xref:System.IO.StreamReader> 用于读取 IISUrlRewrite.xml 规则文件中的规则  ：
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
-示例应用将请求从 `/iis-rules-rewrite/(.*)` 重写为 `/rewritten?id=$1`。 以“200 (正常)”状态代码作为响应发送到客户端。
+示例应用将请求从 `/iis-rules-rewrite/(.*)` 重写为 `/rewritten?id=$1`。 以“200 (正常)”状态代码作为响应发送到客户端  。
 
 [!code-xml[](url-rewriting/samples/2.x/SampleApp/IISUrlRewrite.xml)]
 
@@ -330,13 +330,13 @@ public void Configure(IApplicationBuilder app)
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-示例应用演示了如何对以 .xml 结尾的路径的请求进行重定向。 如果发出针对 `/file.xml` 的请求，请求将重定向到 `/xmlfiles/file.xml`。 状态代码设置为“301 (永久移动)”。 当浏览器发出针对 /xmlfiles/file.xml 的新请求后，静态文件中间件会将文件从 wwwroot / xmlfiles 文件夹提供给客户端。 对于重定向，请显式设置响应的状态代码。 否则，将会返回“200 (正常)”状态代码，且客户端上不会发生重写。
+示例应用演示了如何对以 .xml 结尾的路径的请求进行重定向  。 如果发出针对 `/file.xml` 的请求，请求将重定向到 `/xmlfiles/file.xml`。 状态代码设置为“301 (永久移动)”  。 当浏览器发出针对 /xmlfiles/file.xml 的新请求后，静态文件中间件会将文件从 wwwroot / xmlfiles 文件夹提供给客户端   。 对于重定向，请显式设置响应的状态代码。 否则，将会返回“200 (正常)”状态代码，且客户端上不会发生重写  。
 
 *RewriteRules.cs*:
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=14-18)]
 
-此方法还可以重写请求。 示例应用演示了如何重写任何文本文件请求的路径以从 wwwroot 文件夹中提供 file.txt 文本文件。 静态文件中间件基于更新的请求路径来提供文件：
+此方法还可以重写请求。 示例应用演示了如何重写任何文本文件请求的路径以从 wwwroot 文件夹中提供 file.txt 文本文件   。 静态文件中间件基于更新的请求路径来提供文件：
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=15,22)]
 
@@ -350,7 +350,7 @@ public void Configure(IApplicationBuilder app)
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到 `/png-images/image.png`。 如果发出针对 image.png 的请求，请求将重定向到 `/jpg-images/image.jpg`。 状态代码设置为“301 (永久移动)”，`context.Result` 设置为停止处理规则并发送响应。
+检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif    。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到 `/png-images/image.png`  。 如果发出针对 image.png 的请求，请求将重定向到 `/jpg-images/image.jpg`  。 状态代码设置为“301 (永久移动)”，`context.Result` 设置为停止处理规则并发送响应  。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
@@ -384,5 +384,5 @@ public void Configure(IApplicationBuilder app)
 * [URL Rewrite Module Configuration Reference](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)（URL 重写模块配置引用）
 * [IIS URL 重写模块论坛](https://forums.iis.net/1152.aspx)
 * [Keep a simple URL structure](https://support.google.com/webmasters/answer/76329?hl=en)（保持简单的 URL 结构）
-* [10 URL Rewriting Tips and Tricks](http://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)（10 个 URL 重写提示和技巧）
+* [10 URL Rewriting Tips and Tricks](https://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)（10 个 URL 重写提示和技巧）
 * [To slash or not to slash](https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html)（用斜杠或不用斜杠）

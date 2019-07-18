@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/24/2019
 uid: web-api/jsonpatch
-ms.openlocfilehash: 14710e6431a2a7ce60fa7f190bef184da85281a0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 97264903d85dbb397e85fdbf7b070e2aaae74bc8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888412"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815541"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的 JSON 修补程序
 
@@ -25,7 +25,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="json-patch"></a>JSON 修补程序
 
-[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个操作数组。 每个操作标识特定类型的更改，例如添加数组元素或替换属性值。
+[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个  操作数组。 每个操作标识特定类型的更改，例如添加数组元素或替换属性值。
 
 例如，以下 JSON 文档表示资源、资源的 JSON 修补程序文档和应用修补程序操作的结果。
 
@@ -71,7 +71,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="path-syntax"></a>路径语法
 
-操作对象的[路径](http://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如 `"/address/zipCode"`。
+操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如 `"/address/zipCode"`。
 
 使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要将 `add` 置于数组末尾，请使用连字符 (-)，而不是索引号：`/addresses/-`。
 
@@ -215,12 +215,12 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * URL：`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP 方法：`PATCH`
 * 标头：`Content-Type: application/json-patch+json`
-* 正文：从 JSON 项目文件夹中复制并粘贴其中一个 JSON 修补程序文档示例。
+* 正文：从 JSON  项目文件夹中复制并粘贴其中一个 JSON 修补程序文档示例。
 
 ## <a name="additional-resources"></a>其他资源
 
 * [IETF RFC 5789 PATCH 方法规范](https://tools.ietf.org/html/rfc5789)
 * [IETF RFC 6902 JSON 修补程序规范](https://tools.ietf.org/html/rfc6902)
-* [IETF RFC 6901 JSON 修补程序路径格式规范](http://tools.ietf.org/html/rfc6901)
-* [JSON 路径文档](http://jsonpatch.com/)。 包括指向用于创建 JSON 修补程序文档的资源的链接。
+* [IETF RFC 6901 JSON 修补程序路径格式规范](https://tools.ietf.org/html/rfc6901)
+* [JSON 路径文档](https://jsonpatch.com/)。 包括指向用于创建 JSON 修补程序文档的资源的链接。
 * [ASP.NET Core JSON 修补程序源代码](https://github.com/aspnet/AspNetCore/tree/master/src/Features/JsonPatch/src)

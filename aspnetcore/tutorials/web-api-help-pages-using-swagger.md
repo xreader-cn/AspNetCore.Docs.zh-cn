@@ -6,16 +6,16 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/20/2018
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: fb65b84b781b5c19040b559f0d7635ceb00cf4a0
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 06a942ca213c7c0a58932494be0ed23cb6896d48
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316568"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856092"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
 
-作者：[Christoph Nienaber](https://twitter.com/zuckerthoben) 和 [Rico Suter](http://rsuter.com)
+作者：[Christoph Nienaber](https://twitter.com/zuckerthoben) 和 [Rico Suter](https://blog.rsuter.com/)
 
 使用 Web API 时，了解其各种方法对开发人员来说可能是一项挑战。 [Swagger](https://swagger.io/) 也称为[OpenAPI](https://www.openapis.org/)，解决了为 Web API 生成有用文档和帮助页的问题。 它具有诸如交互式文档、客户端 SDK 生成和 API 可发现性等优点。
 
@@ -113,7 +113,7 @@ Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json �
 ![示例 Swagger GET 测试](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 
 > [!NOTE]
-> 用于屏幕截图的 Swagger UI 版本是版本 2。 有关版本 3 的示例，请参阅 [Petstore 示例](http://petstore.swagger.io/)。
+> 用于屏幕截图的 Swagger UI 版本是版本 2。 有关版本 3 的示例，请参阅 [Petstore 示例](https://petstore.swagger.io/)。
 
 ## <a name="next-steps"></a>后续步骤
 

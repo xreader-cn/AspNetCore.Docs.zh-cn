@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
-ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
+ms.openlocfilehash: 99b28407a249a5c0bc6a0cf3a285c04f1d6187a7
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67649197"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815653"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -294,7 +294,7 @@ ms.locfileid: "67649197"
 
 * 使用 `BookService` 类执行 CRUD 操作。
 * 包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。
-* 在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。 状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。 `CreatedAtRoute` 还会将 `Location` 标头添加到响应中。 `Location` 标头指定新建书籍的 URI。
+* 在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。 状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。 `CreatedAtRoute` 还会将 `Location` 标头添加到响应中。 `Location` 标头指定新建书籍的 URI。
 
 ## <a name="test-the-web-api"></a>测试 Web API
 

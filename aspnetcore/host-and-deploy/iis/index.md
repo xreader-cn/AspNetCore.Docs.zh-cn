@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 644d84f9adba650b3ef10ba69cc75c22845be211
-ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
+ms.openlocfilehash: a3d8c87fdb1cbc3b8b11b15f797190d626edad59
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/16/2019
-ms.locfileid: "68239249"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308064"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -734,10 +734,10 @@ Windows Server 2008 R2 或更高版本：
 [目录结构](xref:host-and-deploy/directory-structure)
 
 了解适用于 ASP.NET Core 应用的活动和非活动 IIS 模块以及如何管理 IIS 模块。  
-[IIS 模块](xref:host-and-deploy/iis/troubleshoot)
+[IIS 模块](xref:host-and-deploy/iis/modules)
 
 了解如何诊断 ASP.NET Core 应用的 IIS 部署的问题。  
-[疑难解答](xref:host-and-deploy/iis/troubleshoot)
+[疑难解答](xref:test/troubleshoot-azure-iis)
 
 了解在 IIS 上托管 ASP.NET Core 应用的常见错误。  
 [Azure 应用服务和 IIS 的常见错误参考](xref:host-and-deploy/azure-iis-errors-reference)

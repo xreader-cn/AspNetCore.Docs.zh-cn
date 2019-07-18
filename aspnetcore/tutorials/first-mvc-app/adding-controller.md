@@ -5,12 +5,12 @@ description: 了解如何将控制器添加到简单的 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 9dbfb52109260dbfe0c6c094a7ac4edae47d24e7
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: f28dc96b66fce736242d26a2584fea0a23375e23
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837338"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815197"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
@@ -68,7 +68,7 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 HTTP 终结点是 Web 应用程序中可定向的 URL（例如 `https://localhost:5001/HelloWorld`），其中结合了所用的协议 `HTTPS`、TCP 端口等 Web 服务器的网络位置 `localhost:5001`，以及目标 URI `HelloWorld`。
 
-第一条注释指出这是一个 [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) 方法，它通过向基 URL 追加 `/HelloWorld/` 进行调用。 第二条注释指定一个 [HTTP GET](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) 方法，它通过向 URL 追加 `/HelloWorld/Welcome/` 进行调用。 本教程稍后将使用基架引擎生成 `HTTP POST` 方法，用于更新数据。
+第一条注释指出这是一个 [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) 方法，它通过向基 URL 追加 `/HelloWorld/` 进行调用。 第二条注释指定一个 [HTTP GET](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) 方法，它通过向 URL 追加 `/HelloWorld/Welcome/` 进行调用。 本教程稍后将使用基架引擎生成 `HTTP POST` 方法，用于更新数据。
 
 在非调试模式下运行应用，并将“HelloWorld”追加到地址栏中的路径。 `Index` 方法返回一个字符串。
 

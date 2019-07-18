@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
-ms.openlocfilehash: 916a68c187cbf516a59d3c5d7578cdb6ada01b86
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 964072ad276f7e3e411ee41cb03a2efb9d05c585
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887662"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856117"
 ---
 # <a name="image-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的图像标记帮助程序
 
-作者：[Peter Kellner](http://peterkellner.net)
+作者：[Peter Kellner](https://peterkellner.net)
 
 图像标记帮助程序增强了 `<img>` 标记，为静态图像文件提供缓存破坏行为。
 
@@ -46,13 +46,13 @@ ms.locfileid: "64887662"
 <img src="~/images/asplogo.png" asp-append-version="true">
 ```
 
-如果目录 /wwwroot/images/ 中存在静态文件，则生成的 html 与下面类似（哈希有所不同）：
+如果目录 /wwwroot/images/  中存在静态文件，则生成的 html 与下面类似（哈希有所不同）：
 
 ```html
 <img src="/images/asplogo.png?v=Kl_dqr9NVtnMdsM2MUg4qthUnWZm5T1fCEimBPWDNgM">
 ```
 
-分配给参数 `v` 的值是磁盘上的 asplogo.png 文件的哈希值。 如果 Web 服务器无法获取对静态文件的读取访问权限，则不会向呈现在标记中的 `src` 属性添加 `v` 参数。
+分配给参数 `v` 的值是磁盘上的 asplogo.png 文件的哈希值。  如果 Web 服务器无法获取对静态文件的读取访问权限，则不会向呈现在标记中的 `src` 属性添加 `v` 参数。
 
 ## <a name="hash-caching-behavior"></a>哈希缓存行为
 
