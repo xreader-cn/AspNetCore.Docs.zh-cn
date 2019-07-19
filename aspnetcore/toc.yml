@@ -534,6 +534,10 @@
       uid: grpc/aspnetcore
     - name: Configuration
       uid: grpc/configuration
+    - name: 身份验证和授权
+      uid: grpc/authn-and-authz
+    - name: 安全注意事项
+      uid: grpc/security
     - name: 将 gRPC 服务从 C Core 迁移到 ASP.NET Core
       uid: grpc/migration
     - name: 比较 gRPC 服务和 HTTP API
@@ -560,6 +564,10 @@
       uid: test/troubleshoot
     - name: 日志记录
       uid: fundamentals/logging/index
+    - name: Azure 和 IIS 疑难解答
+      uid: test/troubleshoot-azure-iis
+    - name: Azure 和 IIS 错误参考
+      uid: host-and-deploy/azure-iis-errors-reference
 - name: 数据访问
   items:
     - name: 教程
@@ -656,7 +664,7 @@
           uid: host-and-deploy/aspnet-core-module
         - name: 疑难解答
           displayName: 'azure, deploy, publish'
-          uid: host-and-deploy/azure-apps/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: 错误参考
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
@@ -697,7 +705,7 @@
           uid: host-and-deploy/iis/modules
         - name: 疑难解答
           displayName: 'deploy, publish'
-          uid: host-and-deploy/iis/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: 错误参考
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference

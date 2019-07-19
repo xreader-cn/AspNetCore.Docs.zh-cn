@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 419355d670536fef1a38fbcb8ce1fd880c0e9b0d
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 406e89c96ea63493091d0287077e244faee5f730
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555740"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308007"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -169,7 +169,7 @@ Pages/Create.cshtml.cs 页面模型  ：
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Create.cshtml.cs?name=snippet_PageModel&highlight=10-11)]
 
-默认情况下，Razor 页面只绑定带有非 GET 谓词的属性。 绑定属性可以减少需要编写的代码量。 绑定通过使用相同的属性显示窗体字段 (`<input asp-for="Customer.Name">`) 来减少代码，并接受输入。
+默认情况下，Razor 页面只绑定带有非 `GET` 谓词的属性。 绑定属性可以减少需要编写的代码量。 绑定通过使用相同的属性显示窗体字段 (`<input asp-for="Customer.Name">`) 来减少代码，并接受输入。
 
 [!INCLUDE[](~/includes/bind-get.md)]
 
@@ -218,7 +218,7 @@ Index.cshtml 文件还包含用于为每个客户联系人创建删除按钮的�
 
 选中按钮时，向服务器发送窗体 `POST` 请求。 按照惯例，根据方案 `OnPost[handler]Async` 基于 `handler` 参数的值来选择处理程序方法的名称。
 
-因为本示例中 `handler` 是 `delete`，因此 `OnPostDeleteAsync` 处理程序方法用于处理 `POST` 请求。 如果 `asp-page-handler` 设置为不同值（如 `remove`），则选择名称为 `OnPostRemoveAsync` 的页面处理程序方法。
+因为本示例中 `handler` 是 `delete`，因此 `OnPostDeleteAsync` 处理程序方法用于处理 `POST` 请求。 如果 `asp-page-handler` 设置为其他值（如 `remove`），则选择名称为 `OnPostRemoveAsync` 的处理程序方法。
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Index.cshtml.cs?range=26-37)]
 
@@ -239,11 +239,11 @@ Index.cshtml 文件还包含用于为每个客户联系人创建删除按钮的�
 
 有关详细信息，请参阅[模型验证](xref:mvc/models/validation)。
 
-## <a name="manage-head-requests-with-the-onget-handler"></a>使用 OnGet 处理程序管理 HEAD 请求
+## <a name="handle-head-requests-with-an-onget-handler-fallback"></a>使用 OnGet 处理程序回退来处理 HEAD 请求
 
-HEAD 请求可以检索特定资源的标头。 与 GET 请求不同，HEAD 请求不返回响应正文。
+`HEAD` 请求可检索特定资源的标头。 与 `GET` 请求不同，`HEAD` 请求不返回响应正文。
 
-通常，针对 HEAD 请求创建和调用 HEAD 处理程序： 
+通常，针对 `HEAD` 请求创建和调用 `OnHead` 处理程序： 
 
 ```csharp
 public void OnHead()
@@ -252,18 +252,16 @@ public void OnHead()
 }
 ```
 
-如果未定义 HEAD 处理程序 (`OnHead`)，Razor 页面会回退以调用 ASP.NET Core 2.1 或更高版本中的 GET 页处理程序 (`OnGet`)。 在 ASP.NET Core 2.1 和 2.2 中，`Startup.Configure` 中的 [SetCompatibilityVersion](xref:mvc/compatibility-version) 会发生此行为：
+在 ASP.NET Core 2.1 或更高版本中，如果未定义 `OnHead` 处理程序，则 Razor Pages 会回退到调用 `OnGet` 处理程序。 此行为是通过在 `Startup.ConfigureServices` 中调用 [SetCompatibilityVersion](xref:mvc/compatibility-version) 而启用的：
 
 ```csharp
 services.AddMvc()
-    .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 ```
 
-默认模板在 ASP.NET Core 2.1 和 2.2 中生成 `SetCompatibilityVersion` 调用。
+默认模板在 ASP.NET Core 2.1 和 2.2 中生成 `SetCompatibilityVersion` 调用。 `SetCompatibilityVersion` 有效地将 Razor 页面选项 `AllowMappingHeadRequestsToGetHandler` 设置为 `true`。
 
-`SetCompatibilityVersion` 有效地将 Razor 页面选项 `AllowMappingHeadRequestsToGetHandler` 设置为 `true`。
-
-可以显式地选择使用特定行为，而不是通过 `SetCompatibilityVersion` 选择使用所有 2.1 行为。 以下代码选择使用将 HEAD 映射到 GET 处理程序这一行为。
+可显式选择使用特定行为，而不是通过 `SetCompatibilityVersion` 选择使用所有行为  。 通过下列代码，可选择允许将 `HEAD` 请求映射到 `OnGet` 处理程序：
 
 ```csharp
 services.AddMvc()
@@ -487,7 +485,7 @@ public string Message { get; set; }
 
 ## <a name="multiple-handlers-per-page"></a>针对一个页面的多个处理程序
 
-以下页面使用 `asp-page-handler` 标记帮助程序为两个页面处理程序生成标记：
+以下页面使用 `asp-page-handler` 标记帮助程序为两个处理程序生成标记：
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml?highlight=12-13)]
 

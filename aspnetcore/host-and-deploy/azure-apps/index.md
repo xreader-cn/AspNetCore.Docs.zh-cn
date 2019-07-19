@@ -5,14 +5,14 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 07/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 5daefde13310ebeb232ef4c8886b12ad78182e50
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: bbdb3e92b6b8afb44d9c0c95c240002c7b7c17db
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048242"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308147"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -48,7 +48,7 @@ ASP.NET Core 文档中提供以下文章：
 
 ::: moniker range=">= aspnetcore-2.2"
 
-64 位 (x64) 和 32 位 (x86) 应用的运行时存在于 Azure 应用服务上。 应用服务上提供的 [.NET Core SDK](/dotnet/core/sdk) 为 32 位，但可以使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 控制台或通过[使用 Visual Studio 发布配置文件或 CLI 命令的 MSDeploy](xref:host-and-deploy/visual-studio-publish-profiles) 来部署 64 位应用。
+64 位 (x64) 和 32 位 (x86) 应用的运行时存在于 Azure 应用服务上。 应用服务上提供的 [.NET Core SDK](/dotnet/core/sdk) 为 32 位，但可使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 控制台或通过 Visual Studio 中的发布流程来部署本地构建的 64 位应用。 有关详细信息，请参阅[发布和部署应用](#publish-and-deploy-the-app)部分。
 
 ::: moniker-end
 
@@ -57,6 +57,8 @@ ASP.NET Core 文档中提供以下文章：
 对于具有本机依赖项的应用，32 位 (x86) 应用的运行时存在于 Azure 应用服务上。 应用服务上提供的 [.NET Core SDK](/dotnet/core/sdk) 为 32 位。
 
 ::: moniker-end
+
+要详细了解 .NET Core 框架组件和分发方法（例如有关 .NET Core 运行时和 .NET Core SDK 的信息），请参阅[关于 .NET Core：撰写](/dotnet/core/about#composition)。
 
 ### <a name="packages"></a>package
 
@@ -80,7 +82,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 当应用使用 [WebHost.CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) 生成主机时，配置主机的环境变量会使用 `ASPNETCORE_`。 有关详细信息，请参阅 <xref:fundamentals/host/web-host> 和[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)。
 
@@ -115,7 +117,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 <xref:fundamentals/error-handling>  
 了解在 ASP.NET Core 应用中处理错误的常见方法。
 
-<xref:host-and-deploy/azure-apps/troubleshoot>  
+<xref:test/troubleshoot-azure-iis>  
 了解如何使用 ASP.NET Core 应用诊断 Azure 应用服务部署问题。
 
 <xref:host-and-deploy/azure-iis-errors-reference>  
@@ -132,14 +134,14 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 * SQL 存储
 * Redis 缓存
 
-有关更多信息，请参见<xref:security/data-protection/implementation/key-storage-providers>。
+有关详细信息，请参阅 <xref:security/data-protection/implementation/key-storage-providers>。
 
 ## <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>将 ASP.NET Core 预览版部署到 Azure 应用服务
 
-请使用以下方法之一：
+如果应用依赖于 .NET Core 的预览发布版，请使用下述方法之一：
 
 * [安装预览站点扩展](#install-the-preview-site-extension)。
-* [部署自包含应用](#deploy-the-app-self-contained)。
+* [部署独立式预览版应用](#deploy-a-self-contained-preview-app)。
 * [对用于容器的 Web 应用使用 Docker](#use-docker-with-web-apps-for-containers)。
 
 ### <a name="install-the-preview-site-extension"></a>安装预览站点扩展
@@ -188,7 +190,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 [!code-json[](index/sample/arm.json?highlight=2)]
 
-### <a name="deploy-the-app-self-contained"></a>部署自包含应用
+### <a name="deploy-a-self-contained-preview-app"></a>部署独立式预览版应用
 
 针对预览运行时的[自包含部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)在部署中承载预览运行时。
 
@@ -197,9 +199,59 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 * Azure 应用服务中的站点不需要[预览站点扩展名](#install-the-preview-site-extension)。
 * 必须使用不同于发布[依赖框架部署 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) 的方法发布应用。
 
-#### <a name="publish-from-visual-studio"></a>使用 Visual Studio 发布
+按照[部署独立式应用](#deploy-the-app-self-contained)部分中的指南操作。
 
-1. 从 Visual Studio 工具栏中选择“构建” > “发布{应用程序名称}”   。
+### <a name="use-docker-with-web-apps-for-containers"></a>对用于容器的 Web 应用使用 Docker
+
+[Docker 中心](https://hub.docker.com/r/microsoft/aspnetcore/)包含最新的预览 Docker 映像。 这些映像可以用作基础映像。 按常规方法使用映像并部署到用于容器的 Web 应用。
+
+## <a name="publish-and-deploy-the-app"></a>发布和部署应用
+
+### <a name="deploy-the-app-framework-dependent"></a>部署依赖框架的应用
+
+::: moniker range=">= aspnetcore-2.2"
+
+对于 64 位[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
+
+* 使用 64 位 .NET Core SDK 部署 64 位的应用。
+* 在应用服务的“配置” > “常规”l“设置”中将“平台”设置为“64 位”     。 应用必须使用基本服务计划或更高级别的服务计划才能选择平台位数。
+
+::: moniker-end
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
+1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
+1. 选择“高级”  。 随即会打开“发布”对话框  。
+1. 在“发布”对话框中  ：
+   * 确认已选中“发布”配置  。
+   * 打开“部署模式”下拉列表，然后选择“依赖框架”   。
+   * 选择“可移植”作为目标运行时   。
+   * 如果需要在部署时删除其他文件，请打开“文件发布选项”，然后选中复选框以删除目标位置的其他文件  。
+   * 选择“保存”  。
+1. 按照发布向导的其余提示创建新站点或更新现有站点。
+
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+
+1. 在项目文件中，不要指定[运行时标识符 (RID)](/dotnet/core/rid-catalog)。
+
+1. 在命令 shell 中，使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令在发布配置中发布应用。 在下例中，应用发布为依赖框架的应用：
+
+   ```console
+   dotnet publish --configuration Release
+   ```
+
+1. 将 bin/Release/{TARGET FRAMEWORK}/publish 目录的内容移动到应用服务中的站点  。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 [Kudu](https://github.com/projectkudu/kudu/wiki) 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹  。
+
+---
+
+### <a name="deploy-the-app-self-contained"></a>部署自包含应用
+
+对[独立式部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)使用 Visual Studio 或命令行界面 (CLI) 工具。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
 1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
 1. 选择“高级”  。 随即会打开“发布”对话框  。
 1. 在“发布”对话框中  ：
@@ -210,13 +262,13 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    * 选择“保存”  。
 1. 按照发布向导的其余提示创建新站点或更新现有站点。
 
-#### <a name="publish-using-command-line-interface-cli-tools"></a>使用命令行接口 (CLI) 工具发布
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. 在项目文件中，指定一个或多个[运行时标识符 (RID)](/dotnet/core/rid-catalog)。 对单个 RID 使用 `<RuntimeIdentifier>`（单数），或使用 `<RuntimeIdentifiers>`（复数）提供以分号分隔的 RID 列表。 在以下示例中，指定 `win-x86` RID：
 
    ```xml
    <PropertyGroup>
-     <TargetFramework>netcoreapp2.1</TargetFramework>
+     <TargetFramework>{TARGET FRAMEWORK}</TargetFramework>
      <RuntimeIdentifier>win-x86</RuntimeIdentifier>
    </PropertyGroup>
    ```
@@ -227,11 +279,9 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    dotnet publish --configuration Release --runtime win-x86
    ```
 
-1. 将 bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish 目录的内容移动到应用服务中的站点  。
+1. 将 bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish 目录的内容移动到应用服务中的站点  。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 Kudu 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹  。
 
-### <a name="use-docker-with-web-apps-for-containers"></a>对用于容器的 Web 应用使用 Docker
-
-[Docker 中心](https://hub.docker.com/r/microsoft/aspnetcore/)包含最新的预览 Docker 映像。 这些映像可以用作基础映像。 按常规方法使用映像并部署到用于容器的 Web 应用。
+---
 
 ## <a name="protocol-settings-https"></a>协议设置 (HTTPS)
 
