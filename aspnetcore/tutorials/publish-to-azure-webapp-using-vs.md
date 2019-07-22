@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure 应用服务。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/06/2018
+ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: c0251032d83349d4d3925d1ec594c9230ed6ad2d
-ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.openlocfilehash: dbb8229a52c8c93da94406ad64d03eff9631afb4
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2019
-ms.locfileid: "67207646"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308337"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
@@ -21,7 +21,7 @@ ms.locfileid: "67207646"
 
 如果你在 macOS 上工作，请参阅[从 Visual Studio for Mac 发布到 Azure](https://blog.xamarin.com/publish-azure-visual-studio-mac/)。
 
-若要对应用服务部署问题进行故障排除，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。
+若要对应用服务部署问题进行故障排除，请参阅 <xref:test/troubleshoot-azure-iis>。
 
 ## <a name="set-up"></a>设置
 
@@ -191,4 +191,4 @@ Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需
 * [Azure 资源组](/azure/azure-resource-manager/resource-group-overview#resource-groups)
 * [Azure SQL 数据库](/azure/sql-database/)
 * <xref:host-and-deploy/visual-studio-publish-profiles>
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>
