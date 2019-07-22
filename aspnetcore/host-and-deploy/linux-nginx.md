@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 29b80b59f474f6a775d1eba315597e55e1e37781
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d9db2a251820d0dab26f8a6bd2eb755090154165
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884192"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813342"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -23,7 +23,7 @@ ms.locfileid: "64884192"
 有关 ASP.NET Core 支持的其他 Linux 分配的信息，请参阅 [Linux 上 .NET Core 的先决条件](/dotnet/core/linux-prerequisites)。
 
 > [!NOTE]
-> 对于 Ubuntu 14.04，建议进行监控，以此作为监视 Kestrel 进程的解决方案。 在 Ubuntu 14.04 上不提供 systemd。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/aspnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
+>  对于 Ubuntu 14.04，建议进行监控，以此作为监视 Kestrel 进程的解决方案。 在 Ubuntu 14.04 上不提供 systemd  。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/aspnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
 
 本指南：
 
@@ -37,7 +37,7 @@ ms.locfileid: "64884192"
 1. 使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。
 1. 在服务器上安装 .NET Core 运行时。
    1. 访问 [.NET Core“所有下载”页](https://www.microsoft.com/net/download/all)。
-   1. 从“运行时”下的列表中选择最新的非预览运行时。
+   1. 从“运行时”下的列表中选择最新的非预览运行时  。
    1. 选择并执行适用于 Ubuntu 且匹配服务器的 Ubuntu 版本的说明。
 1. 一个现有 ASP.NET Core 应用。
 
@@ -48,9 +48,9 @@ ms.locfileid: "64884192"
 如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：
 
 * 配置应用，以处理安全的本地连接。 有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。
-* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。
+* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）  。
 
-在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）：
+在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）  ：
 
 ```console
 dotnet publish --configuration Release
@@ -58,7 +58,7 @@ dotnet publish --configuration Release
 
 如果不希望维护服务器上的 .NET Core 运行时，还可将应用发布为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)。
 
-使用集成到组织工作流的工具（例如 SCP、SFTP）将 ASP.NET Core 应用复制到服务器。 通常可在 var 目录（例如 var/www/helloapp）下找到 Web 应用。
+使用集成到组织工作流的工具（例如 SCP、SFTP）将 ASP.NET Core 应用复制到服务器。 通常可在 var 目录（例如 var/www/helloapp）下找到 Web 应用   。
 
 > [!NOTE]
 > 在生产部署方案中，持续集成工作流会执行发布应用并将资产复制到服务器的工作。
@@ -104,11 +104,11 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-有关更多信息，请参见<xref:host-and-deploy/proxy-load-balancer>。
+有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。
 
 ### <a name="install-nginx"></a>安装 Nginx
 
-使用 `apt-get` 安装 Nginx。 安装程序将创建一个 systemd init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序。 按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。
+使用 `apt-get` 安装 Nginx。 安装程序将创建一个 systemd init 脚本，该脚本运行 Nginx，作为系统启动时的守护程序  。 按照以下网站上的 Ubuntu 安装说明操作：[Nginx：官方 Debian/Ubuntu 包](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)。
 
 > [!NOTE]
 > 如果需要可选 Nginx 模块，则可能需要从源代码生成 Nginx。
@@ -123,7 +123,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>配置 Nginx
 
-若要将 Nginx 配置为反向代理以将请求转接到 ASP.NET Core 应用，请修改 /etc/nginx/sites-available/default。 在文本编辑器中打开它，并将内容替换为以下内容：
+若要将 Nginx 配置为反向代理以将请求转接到 ASP.NET Core 应用，请修改 /etc/nginx/sites-available/default  。 在文本编辑器中打开它，并将内容替换为以下内容：
 
 ```nginx
 server {
@@ -170,7 +170,7 @@ server {
 
 ## <a name="monitor-the-app"></a>监视应用
 
-服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 systemd 可用于创建服务文件以启动和监视基础 Web 应用。 systemd 是一个 init 系统，可以提供用于启动、停止和管理进程的许多强大的功能。 
+服务器设置为将对 `http://<serveraddress>:80` 发起的请求转接到在 `http://127.0.0.1:5000` 中的 Kestrel 上运行的 ASP.NET Core 应用。 但是，未将 Nginx 设置为管理 Kestrel 进程。 systemd  可用于创建服务文件以启动和监视基础 Web 应用。 systemd  是一个 init 系统，可以提供用于启动、停止和管理进程的许多强大的功能。 
 
 ### <a name="create-the-service-file"></a>创建服务文件
 
@@ -202,7 +202,7 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
-如果配置未使用用户 www-data，则必须先创建此处定义的用户，并为该用户提供适当的文件所有权。
+ 如果配置未使用用户 www-data，则必须先创建此处定义的用户，并为该用户提供适当的文件所有权。
 
 使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
 
@@ -211,7 +211,7 @@ WantedBy=multi-user.target
 TimeoutStopSec=90
 ```
 
-Linux 具有区分大小写的文件系统。 将 ASPNETCORE_ENVIRONMENT 设置为“生产”会导致搜索配置文件 appsettings.Production.json，而不是 appsettings.production.json。
+Linux 具有区分大小写的文件系统。 将 ASPNETCORE_ENVIRONMENT 设置为“生产”会导致搜索配置文件 appsettings.Production.json  ，而不是 appsettings.production.json  。
 
 必须转义某些值（例如，SQL 连接字符串）以供配置提供程序读取环境变量。 使用以下命令生成适当的转义值以供在配置文件中使用：
 
@@ -308,7 +308,7 @@ Linux 安全模块 (LSM) 是一个框架，它是自 Linux 2.6 后的 Linux kern
 关闭所有未使用的外部端口。 通过为配置防火墙提供命令行接口，不复杂的防火墙 (ufw) 为 `iptables` 提供了前端。
 
 > [!WARNING]
-> 如果未正确配置，防火墙将阻止对整个系统的访问。 在使用 SSH 进行连接时，未能指定正确的 SSH 端口最终会将你关在系统之外。 默认端口为 22。 有关详细信息，请参阅 [ufw 简介](https://help.ubuntu.com/community/UFW)和[手册](http://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)。
+> 如果未正确配置，防火墙将阻止对整个系统的访问。 在使用 SSH 进行连接时，未能指定正确的 SSH 端口最终会将你关在系统之外。 默认端口为 22。 有关详细信息，请参阅 [ufw 简介](https://help.ubuntu.com/community/UFW)和[手册](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)。
 
 安装 `ufw`，并将其配置为允许所需任何端口上的流量。
 
@@ -326,7 +326,7 @@ sudo ufw enable
 
 #### <a name="change-the-nginx-response-name"></a>更改 Nginx 响应名称
 
-编辑 src/http/ngx_http_header_filter_module.c：
+编辑 src/http/ngx_http_header_filter_module.c  ：
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
@@ -339,30 +339,30 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 #### <a name="https-configuration"></a>HTTPS 配置
 
-配置应用，以进行安全的 (HTTPS) 本地连接
+配置应用，以进行安全的 (HTTPS) 本地连接 
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001; http://localhost:5000`）提供的 URL。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL  。
 
 使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
 
-* [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）
+* [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐） 
 * [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
-配置反向代理，以便进行安全 (HTTPS) 客户端连接
+配置反向代理，以便进行安全 (HTTPS) 客户端连接 
 
 * 通过指定由受信任的证书颁发机构 (CA) 颁发的有效证书来配置服务器，以侦听端口 `443` 上的 HTTPS 流量。
 
-* 通过采用以下“/etc/nginx/nginx.conf”文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
+* 通过采用以下“/etc/nginx/nginx.conf”  文件中所示的某些做法来增强安全保护。 示例包括选择更强的密码并将通过 HTTP 的所有流量重定向到 HTTPS。
 
 * 添加 `HTTP Strict-Transport-Security` (HSTS) 标头可确保由客户端发起的所有后续请求都通过 HTTPS。
 
 * 如果以后会禁用 HTTPS，请勿添加 HSTS 头或选择相应的 `max-age`。
 
-添加 /etc/nginx/proxy.conf 配置文件：
+添加 /etc/nginx/proxy.conf  配置文件：
 
 [!code-nginx[](linux-nginx/proxy.conf)]
 
-编辑 /etc/nginx/nginx.conf 配置文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
+编辑 /etc/nginx/nginx.conf  配置文件。 示例包含一个配置文件中的 `http` 和 `server` 部分。
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
@@ -372,7 +372,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 缓解点击劫持攻击：
 
-1. 编辑 nginx.conf 文件：
+1. 编辑 nginx.conf  文件：
 
    ```bash
    sudo nano /etc/nginx/nginx.conf
@@ -386,7 +386,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 此标头可阻止大部分浏览器通过 MIME 方式探查来自已声明内容类型的响应，因为标头会指示浏览器不要替代响应内容类型。 使用 `nosniff` 选项后，如果服务器认为内容是“文本/html”，则浏览器将其显示为“文本/html”。
 
-编辑 nginx.conf 文件：
+编辑 nginx.conf  文件：
 
 ```bash
 sudo nano /etc/nginx/nginx.conf
