@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 1455aa9ce4ea24eaeb396134f91b6d089b346c17
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 9293de38dcca1c0672f9cc3defa8d3c1b0b13d5a
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724440"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855900"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -95,7 +95,7 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
 
 > [!NOTE]
-> 每个 `services.Add{SERVICE_NAME}` 扩展方法添加（并可能配置）服务。 例如，`services.AddMvc()` 添加 Razor Pages 和 MVC 需要的服务。 我们建议应用遵循此约定。 将扩展方法置于 <xref:Microsoft.Extensions.DependencyInjection?displayProperty=fullName> 命名空间中以封装服务注册的组。
+> 每个 `services.Add{SERVICE_NAME}` 扩展方法添加（并可能配置）服务。 例如，`services.AddMvc()` 添加 Razor Pages 和 MVC 需要的服务。 我们建议应用遵循此约定。 将扩展方法置于 [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 命名空间中以封装服务注册的组。
 
 如果服务的构造函数需要[内置类型](/dotnet/csharp/language-reference/keywords/built-in-types-table)（如 `string`），则可以使用[配置](xref:fundamentals/configuration/index)或[选项模式](xref:fundamentals/configuration/options)注入该类型：
 
@@ -140,7 +140,7 @@ public class MyDependency : IMyDependency
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
 
-当服务集合扩展方法可用于注册服务（及其依赖服务，如果需要）时，约定使用单个 `Add{SERVICE_NAME}` 扩展方法来注册该服务所需的所有服务。 以下代码是如何使用扩展方法 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*> 和 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> 向容器添加其他服务的示例：
+当服务集合扩展方法可用于注册服务（及其依赖服务，如果需要）时，约定使用单个 `Add{SERVICE_NAME}` 扩展方法来注册该服务所需的所有服务。 以下代码是如何使用扩展方法 [AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*> 和 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> 向容器添加其他服务的示例：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -156,7 +156,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-有关详细信息，请参阅 API 文档中的 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollection> clss。
+有关详细信息，请参阅 API 文档中的 <xref:Microsoft.Extensions.DependencyInjection.ServiceCollection> 类。
 
 ## <a name="service-lifetimes"></a>服务生存期
 
@@ -242,7 +242,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 
-通常使用[设置了范围的生存期](#service-lifetimes)将实体框架上下文添加到服务容器中，因为 Web 应用数据库操作通常将范围设置为客户端请求。 如果在注册数据库上下文时，<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> 重载未指定生存期，则设置默认生存期范围。 给定生存期的服务不应使用生存期比服务短的数据库上下文。
+通常使用[设置了范围的生存期](#service-lifetimes)将实体框架上下文添加到服务容器中，因为 Web 应用数据库操作通常将范围设置为客户端请求。 如果在注册数据库上下文时，[AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) 重载未指定生存期，则设置默认生存期范围。 给定生存期的服务不应使用生存期比服务短的数据库上下文。
 
 ## <a name="lifetime-and-registration-options"></a>生存期和注册选项
 

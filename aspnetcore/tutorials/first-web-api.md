@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/23/2019
+ms.date: 07/11/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: a53f7019c1079296f073e743ddbf9d90fc5abad3
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 95410cef9753fbb0eda6136320b59682e0553ea7
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555881"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893199"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -99,7 +99,7 @@ ms.locfileid: "67555881"
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 选择“.NET Core App” > “ASP.NET Core Web API” > “下一步”    。
+* 选择“.NET Core” > “应用” > “API” > “下一步”     。
 
   ![macOS“新建项目”对话框](first-web-api-mac/_static/1.png)
   
@@ -127,7 +127,7 @@ ms.locfileid: "67555881"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-选择“运行”   > “开始执行(调试)”  以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/api/values` 追加到 URL（将 URL 更改为 `https://localhost:<port>/api/values`）。
+选择“运行”   > “开始调试”  以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/api/values` 追加到 URL（将 URL 更改为 `https://localhost:<port>/api/values`）。
 
 ---
 
@@ -245,6 +245,8 @@ ms.locfileid: "67555881"
 
 * `GET /api/todo`
 * `GET /api/todo/{id}`
+
+如果应用仍在运行，请停止它。 然后再次运行它以包括最新更改。
 
 通过从浏览器调用两个终结点来测试应用。 例如:
 

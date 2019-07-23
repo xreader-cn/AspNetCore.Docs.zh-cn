@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>添加数据库上下文类
 
-将以下 `RazorPagesMovieContext` 类添加到“模型”文件夹：
+将以下 `RazorPagesMovieContext` 类添加到“数据”文件夹  ：
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -12,7 +12,7 @@
 
 ### <a name="add-a-database-connection-string"></a>添加数据库连接字符串
 
-将连接字符串添加到 appsettings.json 文件：
+向 appsettings.json 文件添加一个连接字符串，如以下突出显示的代码所示： 
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -33,7 +33,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 ### <a name="register-the-database-context"></a>注册数据库上下文
 
-将以下 `using` 语句添加到 Startup.cs 顶部：
+将以下 `using` 语句添加到 Startup.cs 顶部  ：
 
 ```csharp
 using RazorPagesMovie.Models;

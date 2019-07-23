@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/03/2019
+ms.date: 07/10/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 6b92cb6b68b1c70d67f42284d548729e598f9a8b
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: f9f91455b273b99608ca6f1524df6cb748a26669
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458433"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308198"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -204,7 +204,7 @@ if (statusCodePagesFeature != null)
 * dotnet 进程崩溃。
 * 不会在 HTTP 服务器为 [Kestrel](xref:fundamentals/servers/kestrel) 时显示任何错误页。
 
-在 [IIS](/iis) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”  。 有关更多信息，请参见<xref:host-and-deploy/iis/troubleshoot>。 要了解如何排查 Azure 应用服务的启动问题，请参阅 <xref:host-and-deploy/azure-apps/troubleshoot>。
+在 [IIS](/iis)（或 Azure 应用服务）或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上运行应用时，如果无法启动进程，[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)将返回“502.5 - 进程失败”  。 有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
 
 ## <a name="database-error-page"></a>数据库错误页
 
@@ -219,7 +219,7 @@ if (env.IsDevelopment())
 
 ## <a name="exception-filters"></a>异常筛选器
 
-在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。 在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 有关更多信息，请参见<xref:mvc/controllers/filters#exception-filters>。
+在 MVC 应用中，可以全局配置异常筛选器，也可以为每个控制器或每个操作单独配置。 在 Razor Pages 应用中，可以全局配置异常筛选器，也可以为每个页面模型单独配置。 这些筛选器处理在执行控制器操作或其他筛选器时出现的任何未处理的异常。 有关详细信息，请参阅 <xref:mvc/controllers/filters#exception-filters>。
 
 > [!TIP]
 > 异常筛选器适合捕获 MVC 操作内发生的异常，但它们不如异常处理中间件灵活。 建议使用中间件。 仅在需要根据选定 MVC 操作以不同方式执行错误处理时，才使用筛选器。
@@ -230,6 +230,5 @@ if (env.IsDevelopment())
 
 ## <a name="additional-resources"></a>其他资源
 
+* <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
-* <xref:host-and-deploy/iis/troubleshoot>
-* <xref:host-and-deploy/azure-apps/troubleshoot>

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/11/2019
 uid: host-and-deploy/blazor/server-side
-ms.openlocfilehash: 8b332c2fb439e9832d604ed26f972b266eed2507
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: 56a03ff583bf85497e2b3bacc70123845a046e3d
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406123"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892700"
 ---
 # <a name="host-and-deploy-blazor-server-side"></a>托管和部署 Blazor 服务器端
 
@@ -26,7 +26,7 @@ ms.locfileid: "67406123"
 
 使用[服务器端托管模型](xref:blazor/hosting-models#server-side)，可在 ASP.NET Core 应用中的服务器上执行 Blazor。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
 
-能够托管 ASP.NET Core 应用的 Web 服务器是必需的。 Visual Studio 包括 Blazor（服务器端）  项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorserverside` 模板）。
+能够托管 ASP.NET Core 应用的 Web 服务器是必需的。 Visual Studio 包括“Blazor 服务器应用”  项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorserverside` 模板）。
 
 ## <a name="connection-scale-out"></a>连接横向扩展
 
