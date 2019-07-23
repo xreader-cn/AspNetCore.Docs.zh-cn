@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: cdb5cad2302cc8ec02107021005b8590efce7533
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 4fe677e69478284db2ccab655c35b5744b6f63f9
+ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308217"
+ms.lasthandoff: 07/23/2019
+ms.locfileid: "68410913"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core 中的日志记录
 
@@ -865,14 +865,11 @@ loggerFactory.AddAzureWebAppDiagnostics();
 有关更多信息，请参见以下资源：
 
 * [Application Insights 概述](/azure/application-insights/app-insights-overview)
-* [用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core-no-visualstudio) - 如果想要实现各种 Application Insights 遥测以及日志记录，请从这里开始。
+* [用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core) - 如果想要实现各种 Application Insights 遥测以及日志记录，请从这里开始。
 * [.NET Core ILogger 日志的 ApplicationInsightsLoggerProvider](/azure/azure-monitor/app/ilogger) - 如果想要在没有其他 Application Insights 遥测的情况下实现日志记录提供程序，请从这里开始。
-* [Application Insights 日志记录适配器](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
+* [Application Insights 日志记录适配器](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。
 * [安装、配置和初始化 Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn 网站上的交互式教程。
 ::: moniker-end
-
-> [!NOTE]
-> 截至 2019 年 5 月 1 日，标题为[用于 ASP.NET Core 的 Application Insights](/azure/azure-monitor/app/asp-net-core) 的文章已过期，教程步骤不起作用。 请改为参阅[用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core-no-visualstudio)。 我们已经注意到此问题，正努力更正该问题。
 
 ## <a name="third-party-logging-providers"></a>第三方日志记录提供程序
 
