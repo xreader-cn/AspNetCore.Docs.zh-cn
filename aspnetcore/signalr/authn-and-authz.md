@@ -1,30 +1,30 @@
 ---
-title: 身份验证和授权在 ASP.NET Core SignalR
+title: ASP.NET Core SignalR 中的身份验证和授权
 author: bradygaster
 description: 了解如何在 ASP.NET Core SignalR 中使用身份验证和授权。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 05/09/2019
+ms.date: 07/15/2019
 uid: signalr/authn-and-authz
-ms.openlocfilehash: e8f9dc48be780fb91bdec6ea4d579f5e4f16197b
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: e7e7a9fd537ba89b64c15594652a290357a00038
+ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516941"
+ms.lasthandoff: 07/23/2019
+ms.locfileid: "68412542"
 ---
-# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>身份验证和授权在 ASP.NET Core SignalR
+# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的身份验证和授权
 
-通过[Andrew Stanton-nurse](https://twitter.com/anurse)
+作者: [Andrew Stanton](https://twitter.com/anurse)
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>连接到的 SignalR hub 的用户进行身份验证
+## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>对连接到 SignalR 中心的用户进行身份验证
 
-可将 SignalR 与 [ASP.NET Core 身份验证](xref:security/authentication/identity) 结合使用，将用户与每个连接相关联。 在中心，可以从 [ `HubConnectionContext.User` ](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性访问身份验证数据。 中心可借助身份验证在所有与用户关联的连接上调用方法（请参阅[在 SignalR 中管理用户和组](xref:signalr/groups)，了解相关详细信息）。 单个用户可能与多个链接相关联。
+可将 SignalR 与 [ASP.NET Core 身份验证](xref:security/authentication/identity) 结合使用，将用户与每个连接相关联。 在中心，可以从 [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性访问身份验证数据。 中心可借助身份验证在所有与用户关联的连接上调用方法（请参阅[在 SignalR 中管理用户和组](xref:signalr/groups)，了解相关详细信息）。 单个用户可能与多个链接相关联。
 
-以下是一种`Startup.Configure`使用 SignalR 和 ASP.NET Core 身份验证：
+下面是一个示例`Startup.Configure` , 它使用 SignalR 和 ASP.NET Core authentication:
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -48,7 +48,7 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> 在其中注册 SignalR 和 ASP.NET Core 身份验证中间件的顺序非常重要。 始终调用`UseAuthentication`之前`UseSignalR`以便 SignalR 具有用户`HttpContext`。
+> 注册 SignalR 和 ASP.NET Core 身份验证中间件的顺序。 始终调用`UseAuthentication` `HttpContext`, `UseSignalR`以便 SignalR 在上有用户。
 
 ### <a name="cookie-authentication"></a>Cookie 身份验证
 
@@ -58,15 +58,15 @@ Cookie 是一种特定于浏览器的发送访问令牌的方式，但非浏览�
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
-客户端可以提供访问令牌而不是使用 cookie。 服务器验证该令牌，并使用它来标识用户。 仅在建立连接时，才执行此验证。 连接开启后，服务器不会通过自动重新验证来检查令牌是否撤销。
+客户端可以提供访问令牌, 而不是使用 cookie。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 连接开启后，服务器不会通过自动重新验证来检查令牌是否撤销。
 
 在服务器上，持有者令牌身份验证使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)进行配置。
 
-在 JavaScript 客户端，该令牌可以使用提供[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项。
+在 JavaScript 客户端中, 可使用[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项提供令牌。
 
 [!code-typescript[Configure Access Token](authn-and-authz/sample/wwwroot/js/chat.ts?range=63-65)]
 
-在.NET 客户端，没有类似[AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication)属性，可用于配置的令牌：
+在 .NET 客户端中, 有一个类似的[AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication)属性可用于配置令牌:
 
 ```csharp
 var connection = new HubConnectionBuilder()
@@ -78,30 +78,30 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> 你提供的访问令牌函数之前调用**每个**所做的 SignalR 的 HTTP 请求。 如果需要续订令牌才能保持连接处于活动状态 （因为它在连接期间可能会过期），此函数中执行此操作从并返回更新的令牌。
+> 提供的访问令牌函数在 SignalR 发出的**每个**HTTP 请求之前调用。 如果你需要续订标记以便使连接保持活动状态 (因为它可能会在连接期间过期), 请在此函数中执行此操作, 并返回已更新的令牌。
 
-在标准 web Api，持有者令牌将发送 HTTP 标头中。 但是，SignalR 是无法使用某些传输通道时在浏览器中设置这些标头。 使用 Websocket 和服务器发送事件时，会将令牌传输作为查询字符串参数。 若要在服务器上支持此功能，则需要其他配置：
+在标准 web Api 中, 持有者令牌是在 HTTP 标头中发送的。 但是, 在使用某些传输时, SignalR 无法在浏览器中设置这些标头。 使用 Websocket 和服务器发送事件时, 会将令牌作为查询字符串参数进行传输。 为了在服务器上支持此操作, 需要进行其他配置:
 
 [!code-csharp[Configure Server to accept access token from Query String](authn-and-authz/sample/Startup.cs?name=snippet)]
 
-### <a name="cookies-vs-bearer-tokens"></a>与持有者令牌的 cookie 
+### <a name="cookies-vs-bearer-tokens"></a>Cookie 和持有者令牌 
 
-因为 cookie 是特定于浏览器，将它们发送从其他类型的客户端会增加复杂性相比发送持有者令牌。 出于此原因，不被建议的 cookie 身份验证，除非应用只需要从浏览器客户端的用户进行身份验证。 使用非浏览器客户端的客户端时，持有者令牌身份验证是建议的方法。
+由于 cookie 是特定于浏览器的, 因此从其他类型的客户端发送这些 cookie 增加了与发送持有者令牌相比的复杂性。 出于此原因, 不建议使用 cookie 身份验证, 除非应用程序只需从浏览器客户端对用户进行身份验证。 当使用浏览器客户端之外的客户端时, 建议使用持有者令牌身份验证。
 
 ### <a name="windows-authentication"></a>Windows 身份验证
 
-如果[Windows 身份验证](xref:security/authentication/windowsauth)配置为在应用中，SignalR 可以使用该标识安全中心。 但是，若要将消息发送给单个用户，您需要添加自定义的用户 ID 提供程序。 这是因为 Windows 身份验证系统不提供 SignalR 使用来确定用户名称的"名称标识符"声明。
+如果在你的应用中配置了[Windows 身份验证](xref:security/authentication/windowsauth), 则 SignalR 可以使用该标识来保护中心。 但是, 若要将消息发送给单个用户, 则需要添加自定义用户 ID 提供程序。 这是因为 Windows 身份验证系统不提供 SignalR 用来确定用户名的 "名称标识符" 声明。
 
-添加新的类实现`IUserIdProvider`和检索的声明之一中要用作标识符的用户。 例如，若要使用"Name"声明 (即窗体中的 Windows 用户名`[Domain]\[Username]`)，创建以下类：
+添加一个新类, 该类`IUserIdProvider`实现并检索用户要用作标识符的声明之一。 例如, 若要使用 "名称" 声明 (这是窗体`[Domain]\[Username]`中的 Windows 用户名), 请创建以下类:
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-而非`ClaimTypes.Name`，可以使用的任何值`User`（例如 Windows SID 标识符等）。
+您可以使用 (例如 Windows SID 标识符等) `User`中的任何值,而不是。`ClaimTypes.Name`
 
 > [!NOTE]
-> 您选择的值必须是在系统中所有用户之间唯一的。 否则，适用于一个用户的消息可能最终转到不同的用户。
+> 您选择的值在系统中的所有用户中必须是唯一的。 否则, 用于一个用户的消息可能最终会转到其他用户。
 
-注册此组件在您`Startup.ConfigureServices`方法。
+在`Startup.ConfigureServices`方法中注册此组件。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -113,7 +113,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-在.NET 客户端，必须通过设置启用 Windows 身份验证[UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials)属性：
+在 .NET 客户端中, 必须通过设置[UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials)属性来启用 Windows 身份验证:
 
 ```csharp
 var connection = new HubConnectionBuilder()
@@ -124,24 +124,24 @@ var connection = new HubConnectionBuilder()
     .Build();
 ```
 
-使用 Microsoft Internet Explorer 或 Microsoft Edge 时，浏览器客户端仅支持 Windows 身份验证。
+使用 Microsoft Internet Explorer 或 Microsoft Edge 时, 浏览器客户端仅支持 Windows 身份验证。
 
 ### <a name="use-claims-to-customize-identity-handling"></a>使用声明自定义标识处理
 
-对用户进行身份验证的应用可以从用户声明派生 SignalR 用户 Id。 若要指定 SignalR 创建用户 Id 的方式，实现`IUserIdProvider`并注册该实现。
+对用户进行身份验证的应用可以从用户声明派生 SignalR 用户 Id。 若要指定 SignalR 创建用户 id 的方式`IUserIdProvider` , 请实现并注册实现。
 
-示例代码演示如何将使用声明来选择用户的电子邮件地址作为标识属性。 
+示例代码演示了如何使用声明选择用户的电子邮件地址作为识别属性。 
 
 > [!NOTE]
-> 您选择的值必须是在系统中所有用户之间唯一的。 否则，适用于一个用户的消息可能最终转到不同的用户。
+> 您选择的值在系统中的所有用户中必须是唯一的。 否则, 用于一个用户的消息可能最终会转到其他用户。
 
 [!code-csharp[Email provider](authn-and-authz/sample/EmailBasedUserIdProvider.cs?name=EmailBasedUserIdProvider)]
 
-帐户注册添加一个声明具有类型`ClaimsTypes.Email`到 ASP.NET 标识数据库。
+帐户注册会将类型`ClaimsTypes.Email`为的声明添加到 ASP.NET 标识数据库。
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
-注册此组件在您`Startup.ConfigureServices`。
+在中`Startup.ConfigureServices`注册此组件。
 
 ```csharp
 services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
@@ -149,24 +149,24 @@ services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
 
 ## <a name="authorize-users-to-access-hubs-and-hub-methods"></a>授权用户访问集线器和集线器方法
 
-默认情况下，可以通过未经身份验证的用户调用一个中心中的所有方法。 为了要求身份验证，应用[Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)属性为中心：
+默认情况下, 集线器中的所有方法都可由未经身份验证的用户调用。 为了要求身份验证, 请将[授权](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)属性应用于中心:
 
 [!code-csharp[Restrict a hub to only authorized users](authn-and-authz/sample/Hubs/ChatHub.cs?range=8-10,32)]
 
-可以使用的构造函数参数和属性`[Authorize]`属性以限制只有匹配特定的用户访问[授权策略](xref:security/authorization/policies)。 例如，如果具有名为的自定义授权策略`MyAuthorizationPolicy`可以确保只有匹配该策略的用户可以访问的中心使用以下代码：
+您可以使用该`[Authorize]`属性的构造函数参数和属性, 将访问权限限制为仅匹配特定[授权策略](xref:security/authorization/policies)的用户。 例如, 如果你有一个名`MyAuthorizationPolicy`为的自定义授权策略, 则可以确保只有符合该策略的用户才能使用以下代码访问该中心:
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
-public class ChatHub: Hub
+public class ChatHub : Hub
 {
 }
 ```
 
-单个集线器方法可以具有`[Authorize]`也应用属性。 如果当前用户不匹配的策略应用于方法，是向调用方返回错误：
+单个集线器方法也可以应用`[Authorize]`该属性。 如果当前用户与应用于方法的策略不匹配, 则会向调用方返回错误:
 
 ```csharp
 [Authorize]
-public class ChatHub: Hub
+public class ChatHub : Hub
 {
     public async Task Send(string message)
     {
@@ -181,6 +181,81 @@ public class ChatHub: Hub
 }
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a>使用授权处理程序自定义集线器方法授权
+
+当集线器方法要求授权时, SignalR 向授权处理程序提供自定义资源。 资源是的`HubInvocationContext`实例。 `HubInvocationContext` 包括、正在调用的集线器方法的名称,以及`HubCallerContext`中心方法的参数。
+
+请考虑允许通过 Azure Active Directory 多个组织登录的聊天室的示例。 拥有 Microsoft 帐户的任何人都可以登录到聊天, 但只有拥有组织的成员才能阻止用户或查看用户的聊天历史记录。 而且, 我们可能希望限制某些用户的某些功能。 使用 ASP.NET Core 3.0 中的更新功能, 这是完全可能的。 请注意如何`DomainRestrictedRequirement`充当自定义。 `IAuthorizationRequirement` 既然正在传入资源参数, 内部逻辑就可以检查正在调用中心的上下文, 并决定是否允许用户执行单个集线器方法。 `HubInvocationContext`
+
+```csharp
+[Authorize]
+public class ChatHub : Hub
+{
+    public void SendMessage(string message)
+    {
+    }
+
+    [Authorize("DomainRestricted")]
+    public void BanUser(string username)
+    {
+    }
+
+    [Authorize("DomainRestricted")]
+    public void ViewUserHistory(string username)
+    {
+    }
+}
+
+public class DomainRestrictedRequirement : 
+    AuthorizationHandler<DomainRestrictedRequirement, HubInvocationContext>, 
+    IAuthorizationRequirement
+{
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
+        DomainRestrictedRequirement requirement, 
+        HubInvocationContext resource)
+    {
+        if (IsUserAllowedToDoThis(resource.HubMethodName, context.User.Identity.Name) && 
+            context.User.Identity.Name.EndsWith("@microsoft.com"))
+        {
+            context.Succeed(requirement);
+        }
+        return Task.CompletedTask;
+    }
+
+    private bool IsUserAllowedToDoThis(string hubMethodName,
+        string currentUsername)
+    {
+        return !(currentUsername.Equals("asdf42@microsoft.com") && 
+            hubMethodName.Equals("banUser", StringComparison.OrdinalIgnoreCase));
+    }
+}
+```
+
+在`Startup.ConfigureServices`中, 添加新策略, 并将自`DomainRestrictedRequirement`定义要求用作创建`DomainRestricted`策略的参数。
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ... other services ...
+
+    services
+        .AddAuthorization(options =>
+        {
+            options.AddPolicy("DomainRestricted", policy =>
+            {
+                policy.Requirements.Add(new DomainRestrictedRequirement());
+            });
+        });
+}
+```
+
+在前面的示例中, `DomainRestrictedRequirement`类`IAuthorizationRequirement`既是又`AuthorizationHandler`是该要求的。 可以将这两个组件拆分为单独的类, 以分隔问题。 该示例方法的优点是, 无需在启动`AuthorizationHandler`过程中注入, 因为要求和处理程序是相同的。
+
+::: moniker-end
+
 ## <a name="additional-resources"></a>其他资源
 
-* [在 ASP.NET Core 中的持有者令牌身份验证](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+* [ASP.NET Core 中的持有者令牌身份验证](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+* [基于资源的授权](xref:security/authorization/resourcebased)
