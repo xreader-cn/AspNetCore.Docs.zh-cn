@@ -826,7 +826,7 @@
           uid: security/authentication/identity-enable-qrcodes
         - name: 使用短信的双因素身份验证
           uid: security/authentication/2fa
-        - name: 在没有标识的情况下使用 Cookie 身份验证
+        - name: 在没有标识的情况下使用 cookie 身份验证
           uid: security/authentication/cookie
         - name: 在没有标识的情况下使用社交身份验证
           uid: security/authentication/social/social-without-identity
