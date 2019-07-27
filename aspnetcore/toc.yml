@@ -167,7 +167,7 @@
       uid: fundamentals/dependency-injection
     - name: 中间件
       uid: fundamentals/middleware/index
-    - name: Host
+    - name: 主机
       items:
         - name: 泛型主机
           uid: fundamentals/host/generic-host
@@ -175,7 +175,7 @@
           uid: fundamentals/host/web-host
     - name: 服务器
       uid: fundamentals/servers/index
-    - name: Configuration
+    - name: 配置
       uid: fundamentals/configuration/index
     - name: 选项
       uid: fundamentals/configuration/options
