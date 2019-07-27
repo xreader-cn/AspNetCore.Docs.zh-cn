@@ -61,7 +61,7 @@ ASP.NET Core 包含一组丰富的内置中间件，并且你也可以编写自�
 
 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
 
-## <a name="host"></a>Host
+## <a name="host"></a>主机
 
 ASP.NET Core 应用在启动时构建主机  。 主机是封装所有应用资源的对象，例如：
 
@@ -162,7 +162,7 @@ ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 �
 
 有关详细信息，请参阅 <xref:fundamentals/servers/index>。
 
-## <a name="configuration"></a>Configuration
+## <a name="configuration"></a>配置
 
 ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。 有适用于各种源的内置配置提供程序，例如 .json 文件、.xml 文件、环境变量和命令行参数   。 此外可以编写自定义配置提供程序。
 
