@@ -4,14 +4,14 @@ author: jamesnk
 description: 了解如何在 gRPC 中使用身份验证和授权 ASP.NET Core。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 06/07/2019
+ms.date: 07/26/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 49024295e4db7976924397bb24567d92d6298562
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308770"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602423"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC 中的身份验证和授权 ASP.NET Core
 
@@ -106,12 +106,25 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ### <a name="other-authentication-mechanisms"></a>其他身份验证机制
 
-除持有者令牌和客户端证书身份验证外, 所有 ASP.NET Core 支持的身份验证机制 (如 OAuth、OpenID 和 Negotiate) 都应与 gRPC 配合使用。 若要详细了解如何在服务器端配置身份验证, 请访问[ASP.NET Core 身份验证](xref:security/authentication/identity)。
+许多支持 ASP.NET Core 的身份验证机制都适用于 gRPC:
 
-客户端配置将取决于您所使用的身份验证机制。 以前的持有者令牌和客户端证书身份验证示例显示了几种方法, gRPC 客户端可以配置为通过 gRPC 调用发送身份验证元数据:
+* Azure Active Directory
+* 客户端证书
+* IdentityServer
+* JWT 令牌
+* OAuth 2。0
+* OpenID Connect
+* WS-Federation
+
+有关在服务器上配置身份验证的详细信息, 请参阅[ASP.NET Core authentication](xref:security/authentication/identity)。
+
+将 gRPC 客户端配置为使用身份验证将取决于所使用的身份验证机制。 以前的持有者令牌和客户端证书示例显示了几种方法, gRPC 客户端可以配置为通过 gRPC 调用发送身份验证元数据:
 
 * 强类型化 gRPC 客户`HttpClient`端内部使用。 可在上[`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)配置身份验证, 或者通过将[`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler)自定义实例`HttpClient`添加到来配置身份验证。
 * 每个 gRPC 调用都有`CallOptions`一个可选参数。 可以使用选项的标头集合来发送自定义标头。
+
+> [!NOTE]
+> Windows 身份验证 (NTLM/Kerberos/协商) 不能与 gRPC 一起使用。 gRPC 要求 HTTP/2, 并且 HTTP/2 不支持 Windows 身份验证。
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>授权用户访问服务和服务方法
 
