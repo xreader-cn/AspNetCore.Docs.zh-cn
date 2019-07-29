@@ -394,7 +394,7 @@ var host = new WebHostBuilder()
 
 * ASPNETCORE_
 * urls
-* 日志记录
+* Logging
 * ENVIRONMENT
 * contentRoot
 * AllowedHosts
