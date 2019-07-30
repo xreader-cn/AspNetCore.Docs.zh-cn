@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 033f2dda9942f91f23158cf2d986062157a3b69e
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 0ffd437bbb48ef1c7a9159fbf3ac41441613f434
+ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316609"
+ms.lasthandoff: 07/22/2019
+ms.locfileid: "68372058"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -45,15 +45,17 @@ Swashbuckle 有三个主要组成部分：
 * 从“管理 NuGet 程序包”  对话框中：
   * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
   * 将“包源”  设置为“nuget.org”
+  * 确保启用“包括预发行版”选项
   * 在搜索框中输入“Swashbuckle.AspNetCore”
-  * 从“浏览”  选项卡中选择“Swashbuckle.AspNetCore”包，然后单击“安装” 
+  * 从“浏览”  选项卡中选择最新的“Swashbuckle.AspNetCore”包，然后单击“安装” 
 
 ### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“Solution Pad”   > “添加包...”  中的“包”  文件夹
 * 将“添加包”  窗口的“源”  下拉列表设置为“nuget.org”
+* 确保启用“显示预发行包”选项
 * 在搜索框中输入“Swashbuckle.AspNetCore”
-* 从结果窗格中选择“Swashbuckle.AspNetCore”包，然后单击“添加包” 
+* 从结果窗格中选择最新的“Swashbuckle.AspNetCore”包，然后单击“添加包” 
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

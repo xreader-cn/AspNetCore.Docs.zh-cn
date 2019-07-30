@@ -4,13 +4,14 @@
 >
 >要绕开 SQLite 限制，可手动写入迁移代码，在表内容更改时重新生成表。 表重新生成涉及：
 >
->* 重命名现有表。
 >* 创建新表。
 >* 将旧表中的数据复制到新表中。
 >* 放弃旧表。
+>* 为新表重命名。
 >
 >有关更多信息，请参见以下资源：
 >
 > * [SQLite EF Core 数据库提供程序限制](/ef/core/providers/sqlite/limitations)
 > * [自定义迁移代码](/ef/core/managing-schemas/migrations/#customize-migration-code)
 > * [数据种子设定](/ef/core/modeling/data-seeding)
+  * [SQLite ALTER TABLE 语句](https://sqlite.org/lang_altertable.html)

@@ -14,7 +14,43 @@
 
 向 appsettings.json 文件添加一个连接字符串，如以下突出显示的代码所示： 
 
-[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/appsettings_SQLite.json?highlight=10-12)]
+
+### <a name="add-required-nuget-packages"></a>添加所需的 NuGet 包
+
+运行以下 .NET Core CLI 命令，将 SQLite、Entity Framework Core 和 CodeGeneration.Design 添加到项目中：
+
+```console
+dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
+```
+
+`Microsoft.VisualStudio.Web.CodeGeneration.Design` 包对基架是必需的。
+
+<a name="reg"></a>
+
+### <a name="register-the-database-context"></a>注册数据库上下文
+
+将以下 `using` 语句添加到 Startup.cs 顶部  ：
+
+```csharp
+using RazorPagesMovie.Models;
+using Microsoft.EntityFrameworkCore;
+```
+
+使用 `Startup.ConfigureServices` 中的[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文。
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-9)]
 
 ### <a name="add-required-nuget-packages"></a>添加所需的 NuGet 包
 
@@ -45,3 +81,4 @@ using Microsoft.EntityFrameworkCore;
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 生成项目以检查错误。
+::: moniker-end

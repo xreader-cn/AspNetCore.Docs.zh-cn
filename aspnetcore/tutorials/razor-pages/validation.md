@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何将验证添加到 ASP.NET Core 中的 Razor 页面。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2018
+ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 8495849c89ca3d6fd2b2006b61ce2ec75ff504a5
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: d6d45dc7154bf415c3b098299d066b6fb37cf64d
+ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815657"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68483273"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -56,9 +56,9 @@ Razor 页面和 Entity Framework 提供的验证支持是 DRY 原则的极佳示
 
 （可选）测试服务器端验证：
 
-* 在浏览器中禁用 JavaScript。 可以使用浏览器的开发人员工具执行此操作。 如果无法在浏览器中禁用 JavaScript，请尝试其他浏览器。
+* 在浏览器中禁用 JavaScript。 可以使用浏览器的开发人员工具禁用 JavaScript。 如果无法在浏览器中禁用 JavaScript，请尝试其他浏览器。
 * 在“创建”或“编辑”页面的 `OnPostAsync` 方法中设置断点。
-* 提交带有验证错误的表单。
+* 提交包含无效数据的表单。
 * 验证模型状态是否无效：
 
   ```csharp
@@ -117,13 +117,72 @@ public DateTime ReleaseDate { get; set; }
 
 以下代码显示组合在一行上的特性：
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRatingDAmult.cs?name=snippet1)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)显示了 Razor Pages 的高级 EF Core 操作。
 
+### <a name="apply-migrations"></a>应用迁移
+
+应用于类的 DataAnnotations 会更改架构。 例如，应用于 `Title` 字段的 DataAnnotations 会：
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet11)]
+
+* 将字符数限制为 60。
+* 不允许使用 `null` 值。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+`Movie` 表当前具有以下架构：
+
+``` sql
+CREATE TABLE [dbo].[Movie] (
+    [ID]          INT             IDENTITY (1, 1) NOT NULL,
+    [Title]       NVARCHAR (MAX)  NULL,
+    [ReleaseDate] DATETIME2 (7)   NOT NULL,
+    [Genre]       NVARCHAR (MAX)  NULL,
+    [Price]       DECIMAL (18, 2) NOT NULL,
+    [Rating]      NVARCHAR (MAX)  NULL,
+    CONSTRAINT [PK_Movie] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+```
+
+前面的架构更改不会导致 EF 引发异常。 不过，请创建迁移，使架构与模型保持一致。
+
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
+在 PMC 中，输入以下命令：
+
+```powershell
+Add-Migration New_DataAnnotations
+Update-Database
+```
+
+`Update-Database` 运行 `New_DataAnnotations` 类的 `Up` 方法。 检查 `Up` 方法：
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
+
+更新的 `Movie` 表具有以下架构：
+
+``` sql
+CREATE TABLE [dbo].[Movie] (
+    [ID]          INT             IDENTITY (1, 1) NOT NULL,
+    [Title]       NVARCHAR (60)   NOT NULL,
+    [ReleaseDate] DATETIME2 (7)   NOT NULL,
+    [Genre]       NVARCHAR (30)   NOT NULL,
+    [Price]       DECIMAL (18, 2) NOT NULL,
+    [Rating]      NVARCHAR (5)    NOT NULL,
+    CONSTRAINT [PK_Movie] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+```
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+SQLite 不需要迁移。
+
+---
+
 ### <a name="publish-to-azure"></a>发布到 Azure
 
-若要了解如何部署到 Azure，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET 应用](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase)。 此说明适用于 ASP.NET 应用，而不适用于 ASP.NET Core 应用，但步骤均相同。
+若要了解如何部署到 Azure，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET Core 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
 
 感谢读完这篇 Razor 页面简介。 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。
 

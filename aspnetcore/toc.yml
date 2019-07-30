@@ -81,6 +81,9 @@
         - name: 使用 MongoDB 的 Web API
           displayName: tutorial
           uid: tutorials/first-mongo-app
+        - name: 使用 jQuery 的 Web API
+          displayName: tutorial
+          uid: tutorials/web-api-jquery
         - name: 适用于移动设备的后端
           displayName: tutorial
           uid: mobile/native-mobile-backend
@@ -167,7 +170,7 @@
       uid: fundamentals/dependency-injection
     - name: 中间件
       uid: fundamentals/middleware/index
-    - name: 主机
+    - name: Host
       items:
         - name: 泛型主机
           uid: fundamentals/host/generic-host
@@ -175,7 +178,7 @@
           uid: fundamentals/host/web-host
     - name: 服务器
       uid: fundamentals/servers/index
-    - name: 配置
+    - name: Configuration
       uid: fundamentals/configuration/index
     - name: 选项
       uid: fundamentals/configuration/options
