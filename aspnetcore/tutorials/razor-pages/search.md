@@ -198,7 +198,7 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_LINQ)]
 
-流派的 `SelectList` 是通过投影截然不同的流派创建的。
+流派的 `SelectList` 是通过投影不包含重复值的流派创建的。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]
 
