@@ -217,7 +217,7 @@ WebHost.CreateDefaultBuilder(args)
 **设置使用**：`UseEnvironment`  
 **环境变量**：`ASPNETCORE_ENVIRONMENT`
 
-环境可以设置为任何值。 框架定义的值包括 `Development`、`Staging` 和 `Production`。 值不区分大小写。 默认情况下，从 `ASPNETCORE_ENVIRONMENT` 环境变量读取环境  。 使用 [Visual Studio](https://visualstudio.microsoft.com) 时，可能会在 launchSettings.json 文件中设置环境变量  。 有关详细信息，请参阅 <xref:fundamentals/environments>。
+可将环境设置为任何值。框架定义的值包括 `Development`、`Staging` 和 `Production`。值不区分大小写。默认情况下，从 `ASPNETCORE_ENVIRONMENT` 环境变量读取环境。使用 [Visual Studio](https://visualstudio.microsoft.com) 时，可在 launchSettings.json 文件中设置环境变量。有关详细信息，请参阅<xref:fundamentals/environments>。
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
