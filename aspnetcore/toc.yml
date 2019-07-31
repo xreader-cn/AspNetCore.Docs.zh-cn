@@ -259,7 +259,7 @@
               uid: tutorials/first-mvc-app/details
         - name: 视图
           uid: mvc/views/overview
-        - name: 部分视图
+        - name: 分部视图
           uid: mvc/views/partial
         - name: Controllers
           uid: mvc/controllers/actions
