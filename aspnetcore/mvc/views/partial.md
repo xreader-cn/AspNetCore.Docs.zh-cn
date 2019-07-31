@@ -101,7 +101,7 @@ public IActionResult OnGetPartial() =>
 
 在标记文件中，有多种方法可引用分部视图。 我们建议应用程序使用以下异步呈现方法之一：
 
-* [部分标记帮助程序](#partial-tag-helper)
+* [分部标记帮助程序](#partial-tag-helper)
 * [异步 HTML 帮助程序](#asynchronous-html-helper)
 
 ::: moniker-end
