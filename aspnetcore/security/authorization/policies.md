@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core中基于策略的授权
 author: rick-anderson
-description: 了解如何创建和使用授权策略处理程序，以强制实施在 ASP.NET Core 应用中的授权要求。
+description: 了解如何创建和使用授权策略处理程序, 以在 ASP.NET Core 的应用程序中强制实施授权要求。
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: 67337c847ba71df3fe61250996ec944632ad5d57
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: 60625944d4ba31da6b98bdf947991088dc75ed87
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837354"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68669973"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core中基于策略的授权
 
@@ -25,15 +25,15 @@ ms.locfileid: "66837354"
 
 ## <a name="iauthorizationservice"></a>IAuthorizationService 
 
-确定是否授权是成功的主要服务是<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>:
+确定授权是否成功的主要服务是<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>:
 
 [!code-csharp[](policies/samples/stubs/copy_of_IAuthorizationService.cs?highlight=24-25,48-49&name=snippet)]
 
-前面的代码中突出显示的两种方法[IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)。
+前面的代码突出显示了[IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)的两种方法。
 
-<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> 是标记服务，其中包含任何方法和用于跟踪是否成功授权机制。
+<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement>是无方法的标记服务, 以及用于跟踪授权是否成功的机制。
 
-每个<xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler>负责检查是否满足的要求：
+每<xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler>个负责检查是否满足要求:
 <!--The following code is a copy/paste from 
 https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
 
@@ -52,13 +52,13 @@ public interface IAuthorizationHandler
 }
 ```
 
-<xref:Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext>类是在处理程序用来标记是否满足了要求：
+此<xref:Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext>类是处理程序用来标记是否已满足要求的类:
 
 ```csharp
  context.Succeed(requirement)
 ```
 
-下面的代码演示的简化 （和批注与批注） 默认授权服务的实现：
+下面的代码显示授权服务的默认实现 (和批注批注) 的默认实现:
 
 ```csharp
 public async Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, 
@@ -81,7 +81,7 @@ public async Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
 }
 ```
 
-下面的代码演示一个典型`ConfigureServices`:
+下面的代码演示了一个`ConfigureServices`典型的:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -102,23 +102,23 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-使用<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>或`[Authorize(Policy = "Something"]`进行授权。
+使用<xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> 或`[Authorize(Policy = "Something")]`进行授权。
 
 ## <a name="applying-policies-to-mvc-controllers"></a>将策略应用到 MVC 控制器
 
-如果使用的 Razor 页面，请参阅[将策略应用于 Razor 页面](#applying-policies-to-razor-pages)本文档中。
+如果使用 Razor Pages, 请参阅本文档中的[将策略应用于 Razor Pages](#applying-policies-to-razor-pages) 。
 
-策略应用于控制器使用`[Authorize]`策略名称的属性。 例如：
+策略通过使用`[Authorize]`具有策略名称的属性应用到控制器。 例如：
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="applying-policies-to-razor-pages"></a>将策略应用于 Razor 页面
+## <a name="applying-policies-to-razor-pages"></a>将策略应用到 Razor Pages
 
-通过将策略应用于 Razor 页面使用`[Authorize]`策略名称的属性。 例如：
+通过将`[Authorize]`属性与策略名称一起使用, 将策略应用到 Razor Pages。 例如：
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-策略还会应用于 Razor 页面通过使用[授权约定](xref:security/authorization/razor-pages-authorization)。
+还可以通过使用[授权约定](xref:security/authorization/razor-pages-authorization), 将策略应用到 Razor Pages。
 
 ## <a name="requirements"></a>要求
 
@@ -126,10 +126,10 @@ public void ConfigureServices(IServiceCollection services)
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Requirements/MinimumAgeRequirement.cs?name=snippet_MinimumAgeRequirementClass)]
 
-如果授权策略包含多个授权要求，所有要求必须都通过策略评估成功的顺序。 换而言之，在处理多个添加到单个授权策略的授权要求**AND**基础。
+如果授权策略包含多个授权要求, 则所有要求必须通过, 才能成功进行策略评估。 换句话说, 添加到单个授权策略中的多个授权要求将分别处理。
 
 > [!NOTE]
-> 一项要求并不需要具有数据或属性。
+> 要求不需要具有数据或属性。
 
 <a name="security-authorization-policies-based-authorization-handler"></a>
 
@@ -139,7 +139,7 @@ public void ConfigureServices(IServiceCollection services)
 
 一项要求可以有[多个处理程序](#security-authorization-policies-based-multiple-handlers)。 处理程序可以继承 [AuthorizationHandler\<<TRequirement >](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandler-1)，其中的 `TRequirement` 是需处理的要求。 另外，一个处理程序也可以通过实现 [IAuthorizationHandler](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationhandler) 来处理多个类型的要求。
 
-### <a name="use-a-handler-for-one-requirement"></a>一个要求使用一个处理程序
+### <a name="use-a-handler-for-one-requirement"></a>为一个要求使用处理程序
 
 <a name="security-authorization-handler-example"></a>
 
@@ -149,23 +149,23 @@ public void ConfigureServices(IServiceCollection services)
 
 前面的代码确定当前的用户主体是否有一个由已知的受信任颁发者颁发的出生日期声明。 缺少声明时，无法进行授权，这种情况下会返回已完成的任务。 存在声明时，会计算用户的年龄。 如果用户满足此要求所定义的最低年龄，则可以认为授权成功。 授权成功后，会调用 `context.Succeed`，使用满足的要求作为其唯一参数。
 
-### <a name="use-a-handler-for-multiple-requirements"></a>有关多个要求使用一个处理程序
+### <a name="use-a-handler-for-multiple-requirements"></a>为多个要求使用处理程序
 
-以下是一个对多关系的权限的处理程序可以在其中处理三种不同类型的要求的示例：
+下面是一个一对多关系的示例, 其中权限处理程序可以处理三种不同类型的要求:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Handlers/PermissionHandler.cs?name=snippet_PermissionHandlerClass)]
 
-前面的代码会遍历[PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;不包含要求的属性标记为成功。 有关`ReadPermission`要求，用户必须是所有者或主办方来访问所请求的资源。 情况下`EditPermission`或`DeletePermission`要求、 他或她必须是所有者才能访问请求的资源。
+前面的代码遍历[PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;属性, 该属性包含未标记为成功的要求。 `ReadPermission`对于要求, 用户必须是所有者或主办方才能访问请求的资源。 对于`EditPermission` 或`DeletePermission`要求, 该用户必须是访问所请求资源的所有者。
 
 <a name="security-authorization-policies-based-handler-registration"></a>
 
 ### <a name="handler-registration"></a>处理程序注册
 
-处理程序是在配置期间在服务集合中注册的。 例如：
+处理程序是在配置期间在服务集合中注册的。 例如:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
-前面的代码中注册`MinimumAgeHandler`作为单一实例通过调用`services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`。 可以使用任何内置注册处理程序[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)。
+前面的代码通过`MinimumAgeHandler`调用`services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`注册为单一实例。 可以使用任何内置[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)来注册处理程序。
 
 ## <a name="what-should-a-handler-return"></a>处理程序应返回什么？
 
@@ -175,12 +175,12 @@ public void ConfigureServices(IServiceCollection services)
 
 * 处理程序通常不需要处理失败，因为同一要求的其他处理程序可能会成功。
 
-* 若要保证失败，即使其他要求处理程序会成功，请调用`context.Fail`。
+* 若要保证故障, 即使其他要求处理程序成功, `context.Fail`请调用。
 
-如果处理程序会调用`context.Succeed`或`context.Fail`，仍调用所有其他处理程序。 这使产生副作用，例如日志记录，即使另一个处理程序已成功验证或失败要求会发生的要求。 设置为 `false` 时，[InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 （在 ASP.NET Core 1.1 及更高版本中提供）会在已调用 `context.Fail` 的情况下不执行处理程序。 `InvokeHandlersAfterFailure` 默认为 `true`，这种情况下会调用所有处理程序。
+如果处理程序调用`context.Succeed`或`context.Fail`, 则仍将调用所有其他处理程序。 这允许要求产生副作用, 如日志记录, 即使另一个处理程序已成功验证或失败, 也会发生这种情况。 设置为 `false` 时，[InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) 属性 （在 ASP.NET Core 1.1 及更高版本中提供）会在已调用 `context.Fail` 的情况下不执行处理程序。 `InvokeHandlersAfterFailure` 默认为 `true`，这种情况下会调用所有处理程序。
 
 > [!NOTE]
-> 即使身份验证失败时调用授权处理程序。
+> 即使身份验证失败, 也会调用授权处理程序。
 
 <a name="security-authorization-policies-based-multiple-handlers"></a>
 
@@ -202,7 +202,7 @@ public void ConfigureServices(IServiceCollection services)
 
 请确保这两个处理程序[已注册](xref:security/authorization/policies#security-authorization-policies-based-handler-registration)。 当策略评估 `BuildingEntryRequirement` 时，如果有一个处理程序成功，则策略评估成功。
 
-## <a name="using-a-func-to-fulfill-a-policy"></a>使用 func 满足策略
+## <a name="using-a-func-to-fulfill-a-policy"></a>使用 func 来实现策略
 
 有些情况下，策略很容易用代码实现。 可以在通过 `Func<AuthorizationHandlerContext, bool>` 策略生成器配置策略时提供 `RequireAssertion`。
 
@@ -216,7 +216,7 @@ public void ConfigureServices(IServiceCollection services)
 
 例如，MVC 在 [ 属性中传递 ](/dotnet/api/?term=AuthorizationFilterContext)AuthorizationFilterContext`Resource` 实例。 可以通过此属性访问 `HttpContext`、`RouteData` 以及 MVC 和 Razor 页面提供的所有其他内容。
 
-对 `Resource` 属性的使用取决于框架。 使用 `Resource` 属性中的信息时，授权策略就会局限于特定的框架。 应强制转换`Resource`属性使用`is`关键字，然后确认已成功转换，以确保你的代码不会崩溃与`InvalidCastException`其他框架上运行时：
+对 `Resource` 属性的使用取决于框架。 使用 `Resource` 属性中的信息时，授权策略就会局限于特定的框架。 应`Resource` `InvalidCastException`使用关键字强制转换属性, 然后确认强制转换已成功, 以确保在其他框架上运行时代码不会崩溃: `is`
 
 ```csharp
 // Requires the following import:
