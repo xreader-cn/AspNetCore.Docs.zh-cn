@@ -728,7 +728,7 @@ services.AddRouting(options =>
 });
 ```
 
-框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area``controller``action` 和 `page` 的路由值。
+框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area` `controller` `action` 和 `page` 的路由值。
 
 ```csharp
 routes.MapRoute(
