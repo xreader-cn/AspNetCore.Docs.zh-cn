@@ -61,11 +61,11 @@ ms.locfileid: "64890252"
 
 * **HTTP 状态代码**
 
-    此类型返回 HTTP 状态代码。 此类型的几种帮助程序方法是 `BadRequest`、`NotFound` 和 `Ok`。 例如，`return BadRequest();` 执行时生成 400 状态代码。 重载 `BadRequest``NotFound` 和 `Ok` 等方法时，它们不再符合 HTTP 状态代码响应方的资格，因为正在进行内容协商。
+    此类型返回 HTTP 状态代码。 此类型的几种帮助程序方法是 `BadRequest`、`NotFound` 和 `Ok`。 例如，`return BadRequest();` 执行时生成 400 状态代码。 重载 `BadRequest` `NotFound` 和 `Ok` 等方法时，它们不再符合 HTTP 状态代码响应方的资格，因为正在进行内容协商。
 
 * **重定向**
 
-    此类型（使用 `Redirect``LocalRedirect``RedirectToAction` 或 `RedirectToRoute`）返回一个到操作或目标的重定向。 例如，`return RedirectToAction("Complete", new {id = 123});` 重定向到 `Complete`，传递一个匿名对象。
+    此类型（使用 `Redirect` `LocalRedirect` `RedirectToAction` 或 `RedirectToRoute`）返回一个到操作或目标的重定向。 例如，`return RedirectToAction("Complete", new {id = 123});` 重定向到 `Complete`，传递一个匿名对象。
 
     重定向结果类型与 HTTP 状态代码类型的不同之处主要在于 `Location` HTTP 响应标头的添加。
 
