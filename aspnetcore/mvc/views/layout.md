@@ -136,7 +136,7 @@ ASP.NET Core MVC 应用的 _ViewImports.cshtml 文件通常放在“页面”（
 
 如果在文件层次结构中找到多个 _ViewImports.cshtml 文件，指令的合并行为是：
 
-* `@addTagHelper``@removeTagHelper`：按顺序全部运行
+* `@addTagHelper` `@removeTagHelper`：按顺序全部运行
 * `@tagHelperPrefix`：最接近视图的文件会替代任何其他文件
 * `@model`：最接近视图的文件会替代任何其他文件
 * `@inherits`：最接近视图的文件会替代任何其他文件
