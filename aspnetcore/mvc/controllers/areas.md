@@ -47,22 +47,22 @@ ms.locfileid: "65535974"
 请考虑具有两个逻辑组（产品和服务）的应用。 使用区域，文件夹结构类似于以下内容：
 
 * 项目名称
-  * 区域
-    * 产品
+  * Areas
+    * Products
       * Controllers
         * HomeController.cs
         * ManageController.cs
-      * 视图
-        * 主页
+      * Views
+        * Home
           * Index.cshtml
-        * 管理
+        * Manage
           * Index.cshtml
           * About.cshtml
-    * 服务
+    * Services
       * Controllers
         * HomeController.cs
-      * 视图
-        * 主页
+      * Views
+        * Home
           * Index.cshtml
 
 虽然前面的布局是使用区域时的典型布局，但只需要视图文件即可使用此文件夹结构。 视图发现按以下顺序搜索匹配的区域视图文件：
@@ -135,17 +135,17 @@ ms.locfileid: "65535974"
 使用 Razor Pages 的区域需要在应用根目录中有一个“Areas/&lt;area name&gt;/Pages”文件夹。 [示例下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)中使用以下文件夹结构
 
 * 项目名称
-  * 区域
-    * 产品
+  * Areas
+    * Products
       * Pages
         * _ViewImports
-        * 关于
-        * 索引
-    * 服务
+        * About
+        * Index
+    * Services
       * Pages
-        * 管理
-          * 关于
-          * 索引
+        * Manage
+          * About
+          * Index
 
 ### <a name="link-generation-with-razor-pages-and-areas"></a>Razor Pages 和区域的链接生成
 
