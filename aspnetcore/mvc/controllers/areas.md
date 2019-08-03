@@ -44,7 +44,7 @@ ms.locfileid: "65535974"
 
 ### <a name="area-folder-structure"></a>区域文件夹结构
 
-请考虑具有两个逻辑组（产品和服务）的应用。 使用区域，文件夹结构类似于以下内容：
+请考虑具有两个逻辑组（产品和服务）的应用   。 使用区域，文件夹结构类似于以下内容：
 
 * 项目名称
   * Areas
@@ -74,7 +74,7 @@ ms.locfileid: "65535974"
 /Pages/Shared/<Action-Name>.cshtml
    ```
 
-控制器和模型等非视图文件夹的位置无关紧要。 例如，控制器和模型文件夹不是必需的。 控制器和模型的内容是编译成 .dll 文件的代码。 在对该视图发出请求之前，不会编译视图的内容。
+控制器和模型等非视图文件夹的位置无关紧要    。 例如，控制器和模型文件夹不是必需的   。 控制器和模型的内容是编译成 .dll 文件的代码   。 在对该视图发出请求之前，不会编译视图的内容  。
 
 <a name="attribute"></a>
 
@@ -112,13 +112,13 @@ ms.locfileid: "65535974"
 
 示例下载包含[部分视图](xref:mvc/views/partial)，该视图包含以前的链接和相同的链接（未指定区域）。 在[布局文件](xref:mvc/views/layout)中引用部分视图，因此应用中的每个页面都显示生成的链接。 在未指定区域的情况下生成的链接仅在从同一区域和控制器中的页面引用时才有效。
 
-如果未指定区域或控制器，路由取决于环境值。 当前请求的当前路由值被视为链接生成的环境值。 在许多情况下，对于示例应用，使用环境值会生成错误的链接。
+如果未指定区域或控制器，路由取决于环境值  。 当前请求的当前路由值被视为链接生成的环境值。 在许多情况下，对于示例应用，使用环境值会生成错误的链接。
 
 有关详细信息，请参阅[路由到控制器操作](xref:mvc/controllers/routing)。
 
 ### <a name="shared-layout-for-areas-using-the-viewstartcshtml-file"></a>使用 _ViewStart.cshtml 文件的共享区域布局
 
-要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹。
+要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹  。
 
 <a name="rename"></a>
 
@@ -132,7 +132,7 @@ ms.locfileid: "65535974"
 
 ## <a name="areas-with-razor-pages"></a>使用 Razor Pages 的区域
 
-使用 Razor Pages 的区域需要在应用根目录中有一个“Areas/&lt;area name&gt;/Pages”文件夹。 [示例下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)中使用以下文件夹结构
+使用 Razor Pages 的区域需要在应用根目录中有一个“Areas/&lt;area name&gt;/Pages  ”文件夹。 [示例下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)中使用以下文件夹结构
 
 * 项目名称
   * Areas
@@ -157,7 +157,7 @@ ms.locfileid: "65535974"
 
 示例下载包含[部分视图](xref:mvc/views/partial)，该视图包含以前的链接和相同的链接（未指定区域）。 在[布局文件](xref:mvc/views/layout)中引用部分视图，因此应用中的每个页面都显示生成的链接。 在未指定区域的情况下生成的链接仅在从同一区域中的页引用时才有效。
 
-如果未指定区域，路由取决于环境值。 当前请求的当前路由值被视为链接生成的环境值。 在许多情况下，对于示例应用，使用环境值会生成错误的链接。 例如，考虑从下面的代码生成的链接：
+如果未指定区域，路由取决于环境  值。 当前请求的当前路由值被视为链接生成的环境值。 在许多情况下，对于示例应用，使用环境值会生成错误的链接。 例如，考虑从下面的代码生成的链接：
 
 [!code-cshtml[](areas/samples/RPareas/Pages/Shared/_testLinksPartial.cshtml?name=snippet2)]
 
@@ -169,9 +169,9 @@ ms.locfileid: "65535974"
 
 ### <a name="import-namespace-and-tag-helpers-with-viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
 
-可向每个区域“页面”文件夹添加一个 _ViewImports.cshtml 文件，以将命名空间和标记帮助器导入到该文件夹的每个 Razor 页面中。
+可向每个区域“页面”文件夹添加一个 _ViewImports.cshtml 文件，以将命名空间和标记帮助器导入到该文件夹的每个 Razor 页面中   。
 
-请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件。 以下标记显示 /Services/Manage/About Razor Page：
+请考虑使用示例代码的“服务”区域，它不包含 _ViewImports.cshtml 文件   。 以下标记显示 /Services/Manage/About  Razor Page：
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Services/Pages/Manage/About.cshtml)]
 
@@ -180,22 +180,22 @@ ms.locfileid: "65535974"
 * 必须使用完全限定的域名来指定模型 (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`)。
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
 
-在示例下载中，“产品”区域包含下列 _ViewImports.cshtml 文件：
+在示例下载中，“产品”区域包含下列 _ViewImports.cshtml 文件  ：
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/_ViewImports.cshtml)]
 
-以下标记显示 /Products/About Razor Page：
+以下标记显示 /Products/About  Razor Page：
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
-在前面的文件中，命名空间和 `@addTagHelper` 指令通过 Areas/Products/Pages/_ViewImports.cshtml 文件导入到文件中。
+在前面的文件中，命名空间和 `@addTagHelper` 指令通过 Areas/Products/Pages/_ViewImports.cshtml  文件导入到文件中。
 
 有关详细信息，请参阅[管理标记帮助程序范围](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope)和[导入共享指令](xref:mvc/views/layout#importing-shared-directives)。
 
 ### <a name="shared-layout-for-razor-pages-areas"></a>Razor Pages 区域的共享布局
 
-要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹。
+要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹  。
 
 ### <a name="publishing-areas"></a>发布区域
 
-当 *.csproj 文件中包含 `<Project Sdk="Microsoft.NET.Sdk.Web">` 时，所有 *.cshtml 文件以及 wwwroot 目录中的文件都将发布到输出中。
+当 *.csproj 文件中包含 `<Project Sdk="Microsoft.NET.Sdk.Web">` 时，所有 *.cshtml 文件以及 wwwroot 目录中的文件都将发布到输出中  。
