@@ -54,8 +54,8 @@ dotnet aspnet-codegenerator [-h|--help]
 
 | Generator | 操作 |
 | ----------------- | ------------ | 
-| 面积      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
-  控制器| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
+| area      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
+  controller| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
   identity  | [搭建标识的基架](/aspnet/core/security/authentication/scaffold-identity) |
   razorpage | [搭建 Razor Pages 的基架](/aspnet/core/tutorials/razor-pages/model) |
   view      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
