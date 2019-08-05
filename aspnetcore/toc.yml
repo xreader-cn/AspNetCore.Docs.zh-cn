@@ -170,7 +170,7 @@
       uid: fundamentals/dependency-injection
     - name: 中间件
       uid: fundamentals/middleware/index
-    - name: Host
+    - name: 主机
       items:
         - name: 泛型主机
           uid: fundamentals/host/generic-host
@@ -178,13 +178,13 @@
           uid: fundamentals/host/web-host
     - name: 服务器
       uid: fundamentals/servers/index
-    - name: Configuration
+    - name: 配置
       uid: fundamentals/configuration/index
     - name: 选项
       uid: fundamentals/configuration/options
     - name: 环境（开发、分阶段、生产）
       uid: fundamentals/environments
-    - name: 日志记录
+    - name: Logging
       uid: fundamentals/logging/index
     - name: 路由
       uid: fundamentals/routing
@@ -257,9 +257,9 @@
               uid: tutorials/first-mvc-app/validation
             - name: 检查 Details 和 Delete 方法
               uid: tutorials/first-mvc-app/details
-        - name: 视图
+        - name: Views
           uid: mvc/views/overview
-        - name: 分部视图
+        - name: 部分视图
           uid: mvc/views/partial
         - name: Controllers
           uid: mvc/controllers/actions
@@ -400,7 +400,7 @@
           uid: mvc/controllers/application-model
         - name: 筛选器
           uid: mvc/controllers/filters
-        - name: 区域
+        - name: Areas
           uid: mvc/controllers/areas
         - name: 应用部件
           uid: mvc/extensibility/app-parts
@@ -503,7 +503,7 @@
           uid: signalr/redis-backplane
         - name: 使用后台服务的 SignalR
           uid: signalr/background-services
-    - name: Configuration
+    - name: 配置
       uid: signalr/configuration
       displayName: signalr
     - name: 身份验证和授权
@@ -535,7 +535,7 @@
       uid: grpc/basics
     - name: 使用 ASP.NET Core 的 gRPC 服务
       uid: grpc/aspnetcore
-    - name: Configuration
+    - name: 配置
       uid: grpc/configuration
     - name: 身份验证和授权
       uid: grpc/authn-and-authz
@@ -565,7 +565,7 @@
       uid: test/loadtests
     - name: 疑难解答
       uid: test/troubleshoot
-    - name: 日志记录
+    - name: Logging
       uid: fundamentals/logging/index
     - name: Azure 和 IIS 疑难解答
       uid: test/troubleshoot-azure-iis
@@ -902,7 +902,7 @@
               uid: security/data-protection/consumer-apis/limited-lifetime-payloads
             - name: 取消保护已撤消密钥的有效负载
               uid: security/data-protection/consumer-apis/dangerous-unprotect
-        - name: Configuration
+        - name: 配置
           items:
             - name: 概述
               uid: security/data-protection/configuration/index
@@ -1009,6 +1009,8 @@
       uid: fundamentals/localization
     - name: 可移植对象本地化
       uid: fundamentals/portable-object-localization
+    - name: 扩展性
+      uid: fundamentals/localization-extensibility
     - name: 疑难解答
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: 高级
@@ -1081,7 +1083,7 @@
           uid: migration/mvc
         - name: Web API
           uid: migration/webapi
-        - name: Configuration
+        - name: 配置
           uid: migration/configuration
         - name: 身份验证和标识
           uid: migration/identity

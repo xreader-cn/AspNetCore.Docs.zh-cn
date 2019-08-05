@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 222ae1d6212b838e5c70f831960fa23a9924a0ae
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 4b94cc53777308deb26521a079d8a1c2742744db
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856144"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776747"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用受授权的用户数据创建 ASP.NET Core 应用
 
@@ -37,13 +37,13 @@ ms.locfileid: "67856144"
 * **管理器**可以批准或拒绝的联系人数据。 仅已批准的联系人是对用户可见。
 * **管理员**可以批准/拒绝和编辑/删除的任何数据。
 
-本文档中的映像完全不符合最新模板。
+此文档中的图像与最新模板完全不匹配。
 
 在下图中，用户 Rick (`rick@example.com`) 登录。 Rick 只能查看允许的联系人和**编辑**/**删除**/**新建**其联系人的链接。 只有最后一个记录，创建由 Rick，显示**编辑**并**删除**链接。 其他用户不会看到的最后一个记录，直到经理或管理员的状态更改为"已批准"。
 
 ![屏幕截图显示 Rick 登录](secure-data/_static/rick.png)
 
-在下图中，`manager@contoso.com`在和中的管理器的角色进行签名：
+在下图中, `manager@contoso.com`已登录, 并在管理器的角色中:
 
 ![屏幕截图显示manager@contoso.com登录](secure-data/_static/manager1.png)
 
@@ -53,7 +53,7 @@ ms.locfileid: "67856144"
 
 **批准**并**拒绝**按钮仅显示经理和管理员。
 
-在下图中，`admin@contoso.com`进行签名和管理员的角色中：
+在下图中, `admin@contoso.com`以管理员的角色登录和:
 
 ![屏幕截图显示admin@contoso.com登录](secure-data/_static/admin.png)
 
@@ -65,9 +65,9 @@ ms.locfileid: "67856144"
 
 此示例包含以下授权处理程序：
 
-* `ContactIsOwnerAuthorizationHandler`：可确保用户只能编辑其数据。
-* `ContactManagerAuthorizationHandler`：允许管理人员批准或拒绝的联系人。
-* `ContactAdministratorsAuthorizationHandler`：允许管理员可以批准或拒绝联系人并将编辑/删除联系人。
+* `ContactIsOwnerAuthorizationHandler`：确保用户只能编辑其数据。
+* `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
+* `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -122,7 +122,7 @@ dotnet ef database update
 
  可以选择在 Razor 页面、 控制器或操作方法级别使用的身份验证禁用`[AllowAnonymous]`属性。 设置默认身份验证策略以要求用户进行身份验证来保护新添加的 Razor 页面和控制器。 默认情况下所需的身份验证是比依赖于新的控制器和 Razor 页，以包含更安全`[Authorize]`属性。
 
-添加[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)到索引和隐私页以便注册，匿名用户可以获取有关站点的信息。
+将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引" 和 "隐私" 页, 以便匿名用户在注册之前可以获取有关站点的信息。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
@@ -159,7 +159,7 @@ dotnet user-secrets set SeedUserPW <PW>
 `ContactIsOwnerAuthorizationHandler`调用[上下文。成功](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)当前经过身份验证的用户是否联系所有者。 授权处理程序通常：
 
 * 返回`context.Succeed`满足的要求。
-* 返回`Task.CompletedTask`时不符合要求。 `Task.CompletedTask` 不是成功还是失败&mdash;它允许运行其他授权处理程序。
+* 返回`Task.CompletedTask`时不符合要求。 `Task.CompletedTask`不是成功或失败&mdash;, 它允许其他授权处理程序运行。
 
 如果你需要将显式失败，返回[上下文。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
@@ -242,7 +242,7 @@ dotnet user-secrets set SeedUserPW <PW>
 
 目前，此 UI 显示编辑和删除的用户无法修改的联系人的链接。
 
-注入中的授权服务*pages/_viewimports.cshtml*文件，以便它可供所有视图：
+将授权服务注入*Pages/_ViewImports*文件中, 使其可供所有视图使用:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
@@ -269,14 +269,14 @@ dotnet user-secrets set SeedUserPW <PW>
 
 请参阅[本期](https://github.com/aspnet/AspNetCore.Docs/issues/8502)有关的信息：
 
-* 从用户删除的特权。 例如，静音聊天应用程序中的用户。
+* 从用户删除的特权。 例如, 在聊天应用中对用户进行静音。
 * 将权限添加到用户。
 
 ## <a name="test-the-completed-app"></a>测试已完成的应用程序
 
 如果你尚未设置设定为种子的用户帐户的密码，使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
 
-* 选择一个强密码：使用八个或更多的字符和至少一个大写字符，其编号，和符号。 例如，`Passw0rd!`符合强密码要求。
+* 选择强密码:使用八个或更多字符, 并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!`符合强密码要求。
 * 执行以下命令从项目的文件夹，其中`<PW>`的密码：
 
   ```console
@@ -314,7 +314,7 @@ dotnet user-secrets set SeedUserPW <PW>
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加*Models/Contact.cs*:
+* 添加*模型/联系方式*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -330,9 +330,9 @@ dotnet ef migrations add initial
 dotnet ef database update
   ```
 
-如果您遇到的 bug`dotnet aspnet-codegenerator razorpage`命令，请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
+如果使用`dotnet aspnet-codegenerator razorpage`命令遇到 bug, 请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
 
-* 更新**ContactManager**中的定位点*Pages/Shared/_Layout.cshtml*文件：
+* 更新*Pages/Shared/_Layout*文件中的**ContactManager**定位点:
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
@@ -342,7 +342,7 @@ dotnet ef database update
 
 ### <a name="seed-the-database"></a>设定数据库种子
 
-添加[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)类来*数据*文件夹：
+将[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)类添加到*Data*文件夹:
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
@@ -366,7 +366,7 @@ dotnet ef database update
 
 ![屏幕截图显示 Rick 登录](secure-data/_static/rick.png)
 
-在下图中，`manager@contoso.com`在和中的管理器的角色进行签名：
+在下图中, `manager@contoso.com`已登录, 并在管理器的角色中:
 
 ![屏幕截图显示manager@contoso.com登录](secure-data/_static/manager1.png)
 
@@ -376,7 +376,7 @@ dotnet ef database update
 
 **批准**并**拒绝**按钮仅显示经理和管理员。
 
-在下图中，`admin@contoso.com`进行签名和管理员的角色中：
+在下图中, `admin@contoso.com`以管理员的角色登录和:
 
 ![屏幕截图显示admin@contoso.com登录](secure-data/_static/admin.png)
 
@@ -388,9 +388,9 @@ dotnet ef database update
 
 此示例包含以下授权处理程序：
 
-* `ContactIsOwnerAuthorizationHandler`：可确保用户只能编辑其数据。
-* `ContactManagerAuthorizationHandler`：允许管理人员批准或拒绝的联系人。
-* `ContactAdministratorsAuthorizationHandler`：允许管理员可以批准或拒绝联系人并将编辑/删除联系人。
+* `ContactIsOwnerAuthorizationHandler`：确保用户只能编辑其数据。
+* `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
+* `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -482,7 +482,7 @@ dotnet user-secrets set SeedUserPW <PW>
 `ContactIsOwnerAuthorizationHandler`调用[上下文。成功](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)当前经过身份验证的用户是否联系所有者。 授权处理程序通常：
 
 * 返回`context.Succeed`满足的要求。
-* 返回`Task.CompletedTask`时不符合要求。 `Task.CompletedTask` 不是成功还是失败&mdash;它允许运行其他授权处理程序。
+* 返回`Task.CompletedTask`时不符合要求。 `Task.CompletedTask`不是成功或失败&mdash;, 它允许其他授权处理程序运行。
 
 如果你需要将显式失败，返回[上下文。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
@@ -592,25 +592,26 @@ dotnet user-secrets set SeedUserPW <PW>
 
 请参阅[本期](https://github.com/aspnet/AspNetCore.Docs/issues/8502)有关的信息：
 
-* 从用户删除的特权。 例如，静音聊天应用程序中的用户。
+* 从用户删除的特权。 例如, 在聊天应用中对用户进行静音。
 * 将权限添加到用户。
 
 ## <a name="test-the-completed-app"></a>测试已完成的应用程序
 
 如果你尚未设置设定为种子的用户帐户的密码，使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
 
-* 选择一个强密码：使用八个或更多的字符和至少一个大写字符，其编号，和符号。 例如，`Passw0rd!`符合强密码要求。
+* 选择强密码:使用八个或更多字符, 并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!`符合强密码要求。
 * 执行以下命令从项目的文件夹，其中`<PW>`的密码：
 
   ```console
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* 删除并更新数据库
+* 删除和更新数据库
+
     ```console
      dotnet ef database drop -f
      dotnet ef database update  
-```
+     ```
 
 * 重新启动应用以设定数据库种子。
 
@@ -640,7 +641,7 @@ dotnet user-secrets set SeedUserPW <PW>
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加*Models/Contact.cs*:
+* 添加*模型/联系方式*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
