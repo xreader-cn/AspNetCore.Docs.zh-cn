@@ -5,12 +5,12 @@ description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 38efd234d919cd0427928df73388e65ce13527d1
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: b6a3b1e673b8b67530b82c7d850e810a6c11e555
+ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68681888"
+ms.lasthandoff: 08/01/2019
+ms.locfileid: "68707871"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -223,7 +223,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
   * 在“名称”框中键入“Index.cshtml”   。
   * 选择“新建”  。
 
-![“添加新项”对话框](adding-view/_static/add_view.png)
+![“添加新项”对话框](adding-view/_static/add_view_mac.png)
 
 ---
 
