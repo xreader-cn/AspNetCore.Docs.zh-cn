@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: ff84abf9e0c682d22196a0a0f5f377990c80a6ae
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e6990368519857a27b291d7d565c09072f23f1b0
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815280"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68670087"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -326,6 +326,14 @@ public class PriorityList : ViewComponent
 ::: moniker-end
 
 `PriorityList.Invoke` 的方法签名是同步的，但 Razor 在标记文件中使用 `Component.InvokeAsync` 找到并调用该方法。
+
+## <a name="all-view-component-parameters-are-required"></a>所有视图组件参数都是必需的
+
+视图组件中的每个参数都是必需的属性。 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5011)。 如果省略任何参数：
+
+* `InvokeAsync` 方法签名不匹配，因此该方法将不会执行。
+* ViewComponent 不会呈现任何标记。
+* 不会引发任何错误。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 07/25/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1605197188d97f27a884739a72400da2d5818b1a
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 57a10895c718c539ece280afcb27cb4033c7fb45
+ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371991"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68682797"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -133,7 +133,7 @@ dotnet new webapp -o RazorPagesMovie
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* 按 Cmd-Opt-F5  ，以在不使用调试器的情况下运行。
+* 按 Alt-Cmd-Enter 可在不使用调试器的情况下运行  。 或者，导航到菜单栏，转到“运行”>“在不调试的情况下启动”。
 
   Visual Studio 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `http://localhost:5001`。
 

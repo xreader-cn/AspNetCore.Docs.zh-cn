@@ -5,14 +5,14 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 07/25/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 1ceda6182c62bb1be06cd95f14e6a46a1809253e
-ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
+ms.openlocfilehash: e719d599545810d723840b0800cd6a2b4f96b123
+ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68410885"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68493574"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -21,7 +21,8 @@ ms.locfileid: "68410885"
 HTTP 读取–求值–打印循环 (REPL)：
 
 * 一种轻量级跨平台命令行工具，在所有支持的 .NET Core 的位置都可得到支持。
-* 用于发出 HTTP 请求以测试 ASP.NET Core Web API 并查看其结果。
+* 用于发出 HTTP 请求以测试 ASP.NET Core Web API（和非 ASP.NET Core web API）并查看其结果。
+* 可以在任何环境下测试托管的 web API，包括 localhost 和 Azure 应用服务。
 
 支持以下 [HTTP 谓词](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)：
 
@@ -44,7 +45,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 若要安装 HTTP REPL，运行以下命令：
 
 ```console
-dotnet tool install -g Microsoft.dotnet-httprepl --version 3.0.0-*
+dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 ```
 
 从 [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。

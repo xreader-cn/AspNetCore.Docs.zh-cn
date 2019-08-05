@@ -5,12 +5,12 @@ description: 演示如何将搜索添加到基本 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: fbec03d71e247c58fb5968290c4baf6b28120e1c
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: ed6c7a095143670b7d06e43db3a428dec9bf97ad
+ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815071"
+ms.lasthandoff: 08/01/2019
+ms.locfileid: "68707845"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>将搜索添加到 ASP.NET Core MVC 应用
 
@@ -18,7 +18,7 @@ ms.locfileid: "67815071"
 
 在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影   。
 
-使用以下代码更新 `Index` 方法：
+使用以下代码更新 Controllers/MoviesController.cs  中的 `Index` 方法：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_1stSearch)]
 
@@ -91,7 +91,7 @@ var movies = from m in _context.Movie
 
 在请求正文中，可看到搜索参数和 [XSRF](xref:security/anti-request-forgery) 标记。 请注意，正如之前教程所述，[表单标记帮助程序](xref:mvc/views/working-with-forms) 会生成一个 [XSRF](xref:security/anti-request-forgery) 防伪标记。 不会修改数据，因此无需验证控制器方法中的标记。
 
-搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 将通过指定请求为 `HTTP GET` 进行修复：
+搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml  文件中的 `HTTP GET`。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
@@ -132,7 +132,7 @@ var movies = from m in _context.Movie
 
 ## <a name="add-search-by-genre-to-the-index-view"></a>向“索引”视图添加“按流派搜索”
 
-按如下更新 `Index.cshtml`：
+按如下所示更新 Views/Movies/  中的 `Index.cshtml`：
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 
