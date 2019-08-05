@@ -110,12 +110,12 @@ dotnet aspnet-codegenerator [-h|--help]
 
 前面的命令生成以下文件夹：
 
-* *区域*
+* *Areas*
   * AreaNameToGenerate 
-    * *控制器*
+    * *Controllers*
     * *Data*
-    * 模型 
-    * *视图*
+    * Models 
+    * *Views*
 
 <a name="ctl"></a>
 
