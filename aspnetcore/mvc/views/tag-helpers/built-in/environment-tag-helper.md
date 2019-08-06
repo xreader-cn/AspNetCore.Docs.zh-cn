@@ -29,7 +29,7 @@ ms.locfileid: "67856133"
 
 将环境值与 [ IHostingEnvironment.EnvironmentName ](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*) 返回的当前值进行比较。 比较不区分大小写。
 
-下面的示例使用图像标记帮助程序。 如果宿主环境是暂存或生产，则呈现内容：
+下面的示例使用环境标记帮助程序。 如果宿主环境是暂存或生产，则呈现内容：
 
 ```cshtml
 <environment names="Staging,Production">
