@@ -192,8 +192,8 @@ Install-Package Grpc.Tools
 
 * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
 * 选择“浏览”选项卡  。
-* 在搜索框中输入 Grpc.Net.Client  。
-* 从“浏览”选项卡中选择 Grpc.Net.Client 包，然后选择“安装”    。
+* 在搜索框中输入 Grpc.Net.Client。
+* 从“浏览”选项卡中选择 Grpc.Net.Client 包，然后选择“安装”。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
