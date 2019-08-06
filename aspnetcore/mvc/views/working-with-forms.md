@@ -97,7 +97,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 </form>
 ```
 
-以前的标记将生成以下 HTML：
+上面的标记将生成以下 HTML：
 
 ```html
 <form method="post">
@@ -117,7 +117,7 @@ MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-acti
 </form>
 ```
 
-以前的标记将生成以下 HTML：
+之前的标记将生成以下 HTML：
 
 ```html
 <form method="post">
@@ -150,7 +150,7 @@ public class HomeController : Controller
 </form>
 ```
 
-以前的标记将生成以下 HTML：
+之前的标记将生成以下 HTML：
 
 ```html
 <form method="post">
