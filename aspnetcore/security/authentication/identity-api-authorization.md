@@ -1,53 +1,53 @@
 ---
-title: 在 ASP.NET Core 上的单一页面应用的身份验证简介
+title: ASP.NET Core 上的单页面应用的身份验证简介
 author: javiercn
-description: 使用与托管 ASP.NET Core 应用在单页面应用程序的标识。
+description: 将标识用于在 ASP.NET Core 应用内托管的单页面应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 08/05/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 6b8818cc89a87e66ecec445ff8071348aacde64a
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815220"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819930"
 ---
-# <a name="authentication-and-authorization-for-spas"></a>身份验证和授权 Spa
+# <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
-ASP.NET Core 3.0 或更高版本提供了单一页面应用 (Spa) 中的身份验证 API 授权使用的支持。 ASP.NET Core 标识进行身份验证和存储用户结合[IdentityServer](https://identityserver.io/)实现 Open ID Connect。
+ASP.NET Core 3.0 或更高版本通过支持 API 授权在单页面应用 (Spa) 中提供身份验证。 用于对用户进行身份验证和存储的 ASP.NET Core 标识与用于实现 Open ID Connect 的[IdentityServer](https://identityserver.io/)结合。
 
-身份验证参数已添加到**Angular**并**做出反应**项目模板类似于中的身份验证参数**Web 应用程序 （模型-视图-控制器）** (MVC) 和**Web 应用程序**（Razor 页面） 项目模板。 允许的参数值为**无**并**单个**。 **React.js 和 Redux**项目模板不支持这一次身份验证参数。
+已将身份验证参数添加到 "**角度**" 和 "**响应**" 项目模板, 该模板类似于 web 应用程序中的身份验证参数 **(模型-视图-控制器)** (MVC) 和**web 应用程序**(Razor Pages)项目模板。 允许的参数值为**None**和**个体**。 目前,**反应和 Redux**项目模板不支持 authentication 参数。
 
-## <a name="create-an-app-with-api-authorization-support"></a>API 身份验证支持使用创建应用
+## <a name="create-an-app-with-api-authorization-support"></a>使用 API 授权支持创建应用
 
-通过 Angular 和 React Spa，可以使用用户身份验证和授权。 打开命令外壳，并运行以下命令：
+用户身份验证和授权可用于角度和响应 Spa。 打开命令外壳，并运行以下命令：
 
-**Angular**:
+**角**:
 
 ```console
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**React**:
+**响应**:
 
 ```console
 dotnet new react -o <output_directory_name> -au Individual
 ```
 
-上述命令创建与 ASP.NET Core 应用*ClientApp*目录，其中包含 SPA。
+上述命令创建一个 ASP.NET Core 应用, 其中包含包含 SPA 的*ClientApp*目录。
 
-## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>应用程序的 ASP.NET Core 组件的一般说明
+## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>应用的 ASP.NET Core 组件的一般描述
 
-以下部分介绍向项目添加内容时，则包括身份验证支持：
+以下各节介绍了在包括身份验证支持的情况下对项目添加的内容:
 
-### <a name="startup-class"></a>启动类
+### <a name="startup-class"></a>Startup 类
 
-`Startup`类具有以下添加内容：
+`Startup`类添加了以下内容:
 
-* 内部`Startup.ConfigureServices`方法：
-  * 默认值 UI 标识：
+* 在`Startup.ConfigureServices`方法中:
+  * 具有默认 UI 的标识:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,28 +58,28 @@ dotnet new react -o <output_directory_name> -au Individual
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * IdentityServer 具有附加`AddApiAuthorization`帮助器方法，该设置一些默认 IdentityServer 之上的 ASP.NET Core 约定：
+  * 使用另外`AddApiAuthorization`一种帮助器方法 IdentityServer, 该方法在 IdentityServer 上设置一些默认 ASP.NET Core 约定:
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * 使用其他身份验证`AddIdentityServerJwt`IdentityServer 生成配置的应用可验证的 JWT 令牌的帮助器方法：
+  * 使用其他`AddIdentityServerJwt`帮助器方法进行身份验证, 该方法将应用程序配置为验证 IdentityServer 生成的 JWT 令牌:
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* 内部`Startup.Configure`方法：
-  * 负责验证请求凭据和在请求上下文上设置用户身份验证中间件：
+* 在`Startup.Configure`方法中:
+  * 负责验证请求凭据并在请求上下文上设置用户的身份验证中间件:
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * 公开的 Open ID Connect 终结点 IdentityServer 中间件：
+  * 公开开放 ID 连接终结点的 IdentityServer 中间件:
 
     ```csharp
     app.UseIdentityServer();
@@ -87,29 +87,29 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
-此帮助器方法配置 IdentityServer 便使用我们支持的配置。 IdentityServer 是一个功能强大且可扩展的框架，用于处理应用程序安全问题。 同时，该代理公开针对最常见的方案不必要的复杂性。 因此，一组约定和配置选项被提供给您被认为是很好的起点。 一旦你的身份验证需求的变化，IdentityServer 的完整功能是仍可用于自定义身份验证，以满足您的需要。
+此帮助器方法将 IdentityServer 配置为使用受支持的配置。 IdentityServer 是一个功能强大且可扩展的框架, 用于处理应用安全问题。 同时, 对于最常见的方案, 这会造成不必要的复杂性。 因此, 系统会为您提供一组约定和配置选项, 这是一个很好的起点。 身份验证需要更改后, IdentityServer 的全部功能仍可用于自定义身份验证以满足你的需求。
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-此帮助器方法将应用程序的策略方案配置为默认身份验证处理程序。 策略配置为让标识处理所有请求路由到的标识 URL 空间中任何子路径"/ 标识"。 `JwtBearerHandler`处理所有其他请求。 此外，此方法注册`<<ApplicationName>>API`IdentityServer 具有默认作用域的 API 资源`<<ApplicationName>>API`并配置 JWT 持有者令牌中间件 IdentityServer 由应用程序颁发的令牌进行验证。
+此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。 此策略配置为允许标识处理所有路由到标识 URL 空间 "/Identity" 中的子路径的请求。 `JwtBearerHandler`处理所有其他请求。 此外, 此方法还会`<<ApplicationName>>API`将 IdentityServer 的 API 资源注册到的默认`<<ApplicationName>>API`范围, 并将 JWT 持有者令牌中间件配置为验证 IdentityServer 为应用程序颁发的令牌。
 
 ### <a name="sampledatacontroller"></a>SampleDataController
 
-在中*Controllers\SampleDataController.cs*文件中，请注意`[Authorize]`属性应用于类，该值指示用户需要经过授权基于访问的资源的默认策略。 默认授权策略配置为使用默认的身份验证方案，通过设置恰好`AddIdentityServerJwt`上面，使已提到的策略方案`JwtBearerHandler`配置通过此类帮助器方法的默认处理程序向应用程序的请求。
+在*Controllers\SampleDataController.cs*文件中, 请注意`[Authorize]`应用于类的属性, 该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认身份验证方案, 该方案由`AddIdentityServerJwt`设置为上面提到的策略方案, `JwtBearerHandler`并使此类 helper 方法配置的默认处理程序对应用程序的请求。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-在*Data\ApplicationDbContext.cs*文件中，请注意，相同`DbContext`中标识用于它所扩展的异常`ApiAuthorizationDbContext`(更派生的类从`IdentityDbContext`) 包含用于 IdentityServer 的架构。
+在*Data\ApplicationDbContext.cs*文件中, 请注意, `DbContext`在标识中使用了相同的, 它扩展`ApiAuthorizationDbContext`了 (从`IdentityDbContext`派生的类更多) 以包括 IdentityServer 的架构。
 
-若要获取的数据库架构的完全控制权，从一个可用的标识继承`DbContext`类，并配置要通过调用包含标识架构的上下文`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)`上`OnModelCreating`方法。
+若要完全控制数据库架构, 请从可用的标识`DbContext`类中继承一个, 并将上下文配置为通过调用`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating`方法来包含标识架构。
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
-在中*Controllers\OidcConfigurationController.cs*文件中，请注意，预配为客户端需要使用的 OIDC 参数提供服务的终结点。
+在*Controllers\OidcConfigurationController.cs*文件中, 请注意为提供客户端需要使用的 OIDC 参数而设置的终结点。
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-在中*appsettings.json*文件的项目根目录中，新增了一个`IdentityServer`描述的列表的部分配置客户端。 在以下示例中，没有单个客户端。 客户端名称对应于应用程序名称和 oauth 的约定映射`ClientId`参数。 该配置文件指示要配置的应用程序类型。 它是简化配置过程的服务器的驱动器约定在内部使用。 有多个配置文件，如中所述[应用程序配置文件](#application-profiles)部分。
+在项目根的*appsettings*文件中, 有一个新`IdentityServer`部分描述了已配置的客户端的列表。 在下面的示例中, 有一个客户端。 客户端名称对应于应用名称, 并按约定映射到 OAuth `ClientId`参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定, 以简化服务器的配置过程。 有几个配置文件可用, 如 "[应用程序配置文件](#application-profiles)" 部分中所述。
 
 ```json
 "IdentityServer": {
@@ -123,7 +123,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
 
-在*appsettings。Development.json*文件的项目根目录中，没有`IdentityServer`部分描述用于令牌签名的密钥。 在部署到生产环境时，密钥需设置和应用程序，以及部署中所述[部署到生产](#deploy-to-production)部分。
+在*appsettings 中。* 项目根的开发 json 文件, 其中有一个`IdentityServer`描述用于对令牌进行签名的密钥的部分。 部署到生产环境时, 需要在应用中预配和部署密钥, 如 "[部署到生产](#deploy-to-production)" 一节中所述。
 
 ```json
 "IdentityServer": {
@@ -133,43 +133,43 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>在 Angular 应用的一般说明
+## <a name="general-description-of-the-angular-app"></a>角应用的一般说明
 
-身份验证和授权 API 支持在 Angular 模板在其自己 Angular 模块中驻留*ClientApp\src\api 授权*目录。 该模块组成的以下元素：
+角度模板中的身份验证和 API 授权支持位于其自身的*ClientApp\src\api-authorization*目录中。 模块由以下元素组成:
 
-* 3 个组件：
-  * *login.component.ts*:处理应用程序的登录流。
-  * *logout.component.ts*:处理应用程序的注销流。
-  * *登录名 menu.component.ts*:一个小组件，显示以下集的链接之一：
-    * 用户配置文件管理和注销时用户进行身份验证的链接。
-    * 注册和登录时用户未经身份验证的链接。
-* 路由防护`AuthorizeGuard`，可以添加到路由并要求用户进行身份验证，才能访问该路由。
-* HTTP 侦听器`AuthorizeInterceptor`，将访问令牌附加到传出 HTTP 请求时对用户身份验证以 API 为目标。
-* 一种服务`AuthorizeService`，处理身份验证过程的较低级别的详细信息，并公开有关身份验证的用户使用应用程序的其余部分的信息。
-* Angular 模块，它定义了路由，与应用程序的身份验证部分相关联。 它公开登录菜单组件、 侦听器、 防护和应用程序的其余部分使用的服务。
+* 3个组件:
+  * *login. ts*:处理应用程序的登录流。
+  * *注销. ts*:处理应用程序的注销流。
+  * *登录名-menu. ts*:显示以下链接集之一的小组件:
+    * 用户进行身份验证时, 用户配置文件管理和注销链接。
+    * 用户未通过身份验证时的注册和登录链接。
+* 可以添加到`AuthorizeGuard`路由中的路由防护, 要求先对用户进行身份验证, 然后才能访问路由。
+* 向用户进行`AuthorizeInterceptor`身份验证时, 将访问令牌附加到针对 API 的传出 HTTP 请求的 http 侦听器。
+* 一项`AuthorizeService`服务, 用于处理身份验证过程的较低级别详细信息, 并向应用程序的其余部分提供有关使用情况的已通过身份验证的用户的信息。
+* 用于定义与应用的身份验证部分关联的路由的角模块。 它公开登录菜单组件、侦听器、防护和服务, 以便从应用程序的其余部分使用。
 
-## <a name="general-description-of-the-react-app"></a>React 应用的常规说明
+## <a name="general-description-of-the-react-app"></a>响应应用的一般说明
 
-身份验证和 React 模板中的 API 授权支持驻留在*ClientApp\src\components\api 授权*目录。 它由以下元素组成：
+响应模板中的身份验证和 API 授权支持位于*ClientApp\src\components\api-authorization*目录中。 它由以下元素组成:
 
-* 4 个组件：
-  * *Login.js*:处理应用程序的登录流。
-  * *Logout.js*:处理应用程序的注销流。
-  * *LoginMenu.js*:一个小组件，显示以下集的链接之一：
-    * 用户配置文件管理和注销时用户进行身份验证的链接。
-    * 注册和登录时用户未经身份验证的链接。
-  * *AuthorizeRoute.js*:需要用户进行身份验证之前呈现组件的路由组件所示`Component`参数。
-* 导出`authService`类的实例`AuthorizeService`，处理身份验证过程的较低级别的详细信息，并公开有关身份验证的用户使用应用程序的其余部分的信息。
+* 4个组件:
+  * *Node.js*:处理应用程序的登录流。
+  * *Node.js*:处理应用程序的注销流。
+  * *LoginMenu*:显示以下链接集之一的小组件:
+    * 用户进行身份验证时, 用户配置文件管理和注销链接。
+    * 用户未通过身份验证时的注册和登录链接。
+  * *AuthorizeRoute*:在呈现`Component`参数中指示的组件之前, 需要对用户进行身份验证的路由组件。
+* `authService` 类`AuthorizeService`的导出实例, 用于处理身份验证过程的较低级别细节, 并向应用程序的其余部分提供有关使用情况的已通过身份验证的用户的信息。
 
-现在，已了解该解决方案的主要组件，您可以深入地了解应用程序的各个方案。
+现在, 你已了解解决方案的主要组件, 可以更深入地了解应用程序的各个方案。
 
-## <a name="require-authorization-on-a-new-api"></a>需要在上一个新的 API 进行授权
+## <a name="require-authorization-on-a-new-api"></a>要求对新 API 进行授权
 
-默认情况下，系统配置为轻松地要求新的 Api 的授权。 若要执行此操作，创建新的控制器，并添加`[Authorize]`属性到控制器类或控制器中的任何操作。
+默认情况下, 系统配置为轻松地要求对新 Api 进行授权。 为此, 请创建新的控制器, 将`[Authorize]`属性添加到控制器类或控制器中的任何操作。
 
-## <a name="protect-a-client-side-route-angular"></a>保护客户端的路由 (Angular)
+## <a name="protect-a-client-side-route-angular"></a>保护客户端路线 (角度)
 
-保护客户端的路由是通过向临界条件运行时配置的路由的列表中添加 authorize 防护。 例如，可以看到如何`fetch-data`主应用 Angular 模块内配置路由：
+通过将授权防护添加到在配置路由时要运行的防护列表, 来保护客户端路由。 例如, 可以在主应用角模块内`fetch-data`查看路由的配置方式:
 
 ```typescript
 RouterModule.forRoot([
@@ -178,36 +178,36 @@ RouterModule.forRoot([
 ])
 ```
 
-务必提到保护路由不保护实际的终结点 (这仍然需要`[Authorize]`特性应用于它)，但它仅会阻止用户未经身份验证时，导航到给定的客户端的路由。
+需要说明的是, 保护路由不会保护实际终结点 (仍需要`[Authorize]`应用属性), 但它仅阻止用户在未通过身份验证时导航到给定的客户端路由。
 
-## <a name="authenticate-api-requests-angular"></a>API 请求 (Angular) 进行身份验证
+## <a name="authenticate-api-requests-angular"></a>对 API 请求进行身份验证 (角度)
 
-通过由应用定义的 HTTP 客户端侦听器使用自动完成与应用一起托管的 Api 的请求进行身份验证。
+对与应用程序一起托管的 Api 的请求进行身份验证是通过使用应用定义的 HTTP 客户端侦听器来自动完成的。
 
-## <a name="protect-a-client-side-route-react"></a>保护客户端的路由 (React)
+## <a name="protect-a-client-side-route-react"></a>保护客户端路由 (响应)
 
-使用保护客户端的路由`AuthorizeRoute`组件而不是纯`Route`组件。 例如，请注意如何`fetch-data`中配置路由`App`组件：
+使用`AuthorizeRoute`组件而不是普通`Route`组件来保护客户端路由。 例如, 请注意该`fetch-data`路由在`App`组件中的配置方式:
 
 ```jsx
 <AuthorizeRoute path='/fetch-data' component={FetchData} />
 ```
 
-保护一个路由：
+保护路由:
 
-* 不会保护实际的终结点 (这仍然需要`[Authorize]`特性应用于它)。
-* 仅当未经身份验证时，导航到给定的客户端的路由阻止用户。
+* 不保护实际终结点 (仍需要`[Authorize]`应用属性)。
+* 仅阻止用户在未通过身份验证时导航到给定的客户端路由。
 
-## <a name="authenticate-api-requests-react"></a>API 请求 (React) 进行身份验证
+## <a name="authenticate-api-requests-react"></a>对 API 请求进行身份验证 (响应)
 
-通过 React 的请求进行身份验证通过首先导入`authService`实例与`AuthorizeService`。 从检索访问令牌`authService`并附加到请求，如下所示。 在 React 组件，这项工作通常是`componentDidMount`生命周期方法，或作为某些用户交互的结果。
+`authService` 通过`AuthorizeService`从中导入实例, 对具有反应的请求进行身份验证。 访问令牌从`authService`检索, 并附加到请求, 如下所示。 在做出反应的组件中, 这种工作通常`componentDidMount`是在生命周期方法中完成的, 或者是来自某些用户交互的结果。
 
-### <a name="import-the-authservice-into-your-component"></a>AuthService 导入你的组件
+### <a name="import-the-authservice-into-your-component"></a>将 authService 导入组件
 
 ```javascript
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>检索并将访问令牌附加到响应
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>检索访问令牌并将其附加到响应
 
 ```javascript
 async populateWeatherData() {
@@ -222,17 +222,17 @@ async populateWeatherData() {
 
 ## <a name="deploy-to-production"></a>部署到生产环境
 
-若要将应用部署到生产环境，需要将其预配的以下资源：
+若要将应用部署到生产环境, 需预配以下资源:
 
-* 使用数据库来存储标识用户帐户和 IdentityServer 授予。
-* 生产证书，用于为令牌签名。
-  * 此证书; 没有特定要求它可以是自签名的证书或证书的 CA 颁发机构通过预配。
-  * 它可以通过 PowerShell 或 OpenSSL 等标准工具生成。
-  * 可以安装到目标计算机上的证书存储或作为部署 *.pfx*使用强密码的文件。
+* 用于存储标识用户帐户和 IdentityServer 授予的数据库。
+* 用于对令牌进行签名的生产证书。
+  * 此证书没有特定要求;此证书可以是自签名证书, 也可以是通过 CA 颁发机构预配的证书。
+  * 它可通过 PowerShell 或 OpenSSL 等标准工具生成。
+  * 可以将其安装到目标计算机上的证书存储中, 或部署为带有强密码的 *.pfx*文件。
 
-### <a name="example-deploy-to-azure-websites"></a>示例:将部署到 Azure 网站
+### <a name="example-deploy-to-azure-websites"></a>示例:部署到 Azure 网站
 
-本部分介绍如何将应用部署到 Azure 网站使用的证书存储中存储的证书。 若要修改应用程序，若要从证书存储加载证书，需要上至少应为标准级别时在稍后的步骤中配置应用服务计划。 在应用中*appsettings.json*文件中，修改`IdentityServer`部分以包括关键详细信息：
+本部分介绍如何使用证书存储中存储的证书将应用部署到 Azure 网站。 若要修改应用以从证书存储区中加载证书, 请在稍后的步骤中配置应用服务计划。 在应用程序的*appsettings*文件中, 修改`IdentityServer`部分以包含重要详细信息:
 
 ```json
 "IdentityServer": {
@@ -245,46 +245,46 @@ async populateWeatherData() {
 }
 ```
 
-* 证书上的 name 属性对应于该证书的可分辨主题。
-* 存储位置表示加载的证书的位置 (`CurrentUser`或`LocalMachine`)。
-* 存储名称表示存储证书的证书存储区的名称。 在这种情况下，它指向个人用户存储。
+* 证书上的名称属性对应于证书的可分辨主题。
+* 存储位置表示从 (`CurrentUser`或`LocalMachine`) 加载证书的位置。
+* 存储名称表示存储证书的证书存储区的名称。 在这种情况下, 它指向个人用户存储区。
 
-若要部署到 Azure 网站，部署应用程序中的步骤[将应用部署到 Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)创建所需的 Azure 资源和将应用部署到生产环境。
+若要部署到 Azure 网站, 请遵循将[应用程序部署到 azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)中的步骤部署应用, 以创建所需的 Azure 资源, 并将该应用部署到生产环境。
 
-后按照前面的说明，该应用程序部署到 Azure，但尚不起作用。 应用程序使用的证书仍需要进行设置。 查找要使用的证书的指纹，然后按照步骤中所述[加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)。
+按照前面的说明操作后, 应用程序将部署到 Azure, 但尚不起作用。 仍需设置应用使用的证书。 找到要使用的证书的指纹, 并按照[加载证书](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)中所述的步骤进行操作。
 
-虽然这些步骤提到 SSL，则**私用证书**用于上传要与该应用程序使用的预配的证书门户上的部分。
+虽然这些步骤提及 SSL, 但在门户上有一个 "**私有证书**" 部分, 你可以在其中上传要与应用一起使用的预配证书。
 
-此步骤后，重新启动应用程序，它应能正常运行。
+完成此步骤后, 重新启动应用程序并确保它正常运行。
 
 ## <a name="other-configuration-options"></a>其他配置选项
 
-对 API 授权支持基于 IdentityServer 具有一系列约定、 默认值和增强功能，以简化 Spa 的体验。 不用说，IdentityServer 的完整功能后，在后台的 ASP.NET Core 集成不涵盖你的方案。 ASP.NET Core 支持侧重于"第一方"应用程序，其中创建和部署我们的组织的所有应用。 在这种情况下，不是等同意或联合身份验证提供支持。 对于这些方案中，使用 IdentityServer 并遵循其文档。
+支持 API 授权构建在 IdentityServer 的基础之上, 具有一组约定、默认值和增强功能, 可简化 Spa 的体验。 不用说, 如果 ASP.NET Core 集成不涵盖方案, 则 IdentityServer 的全部功能都可在幕后使用。 ASP.NET Core 支持重点介绍 "第一方" 应用, 其中的所有应用都是由我们的组织创建和部署的。 因此, 不支持许可或联合等。 对于这些方案, 请使用 IdentityServer 并按照其文档进行操作。
 
 ### <a name="application-profiles"></a>应用程序配置文件
 
-应用程序配置文件是预定义的应用，以进一步定义其参数的配置。 在此期间，支持以下配置文件：
+应用程序配置文件是用于进一步定义其参数的应用的预定义配置。 目前支持以下配置文件:
 
-* `IdentityServerSPA`：表示 SPA IdentityServer 作为一个单元一起托管。
-  * `redirect_uri`默认为`/authentication/login-callback`。
-  * `post_logout_redirect_uri`默认为`/authentication/logout-callback`。
-  * 作用域组包括`openid`， `profile`，并为应用程序中的 Api 定义每个作用域。
-  * 是允许的 OIDC 响应类型套`id_token token`或每个单独 (`id_token`， `token`)。
-  * 允许的响应模式是`fragment`。
-* `SPA`：表示不托管与 IdentityServer SPA。
-  * 作用域组包括`openid`， `profile`，并为应用程序中的 Api 定义每个作用域。
-  * 是允许的 OIDC 响应类型套`id_token token`或每个单独 (`id_token`， `token`)。
-  * 允许的响应模式是`fragment`。
+* `IdentityServerSPA`：表示作为一个单元与 IdentityServer 一起托管的 SPA。
+  * 默认值为`/authentication/login-callback`。 `redirect_uri`
+  * 默认值为`/authentication/logout-callback`。 `post_logout_redirect_uri`
+  * 作用域集包括`openid`为应用中的 api 定义的、 `profile`和每个作用域。
+  * 允许的 OIDC 响应类型集是`id_token token`每个或每个响应类型 ( `token``id_token`、)。
+  * 允许的响应模式为`fragment`。
+* `SPA`：表示未使用 IdentityServer 承载的 SPA。
+  * 作用域集包括`openid`为应用中的 api 定义的、 `profile`和每个作用域。
+  * 允许的 OIDC 响应类型集是`id_token token`每个或每个响应类型 ( `token``id_token`、)。
+  * 允许的响应模式为`fragment`。
 * `IdentityServerJwt`：表示与 IdentityServer 一起托管的 API。
-  * 应用程序配置为具有单个作用域，默认值为应用程序名称。
-* `API`：表示与 IdentityServer 不托管的 API。
-  * 应用程序配置为具有单个作用域，默认值为应用程序名称。
+  * 应用配置为具有一个默认为应用名称的作用域。
+* `API`：表示未使用 IdentityServer 承载的 API。
+  * 应用配置为具有一个默认为应用名称的作用域。
 
 ### <a name="configuration-through-appsettings"></a>通过 AppSettings 配置
 
-通过将它们添加到的列表可以配置应用，通过配置系统`Clients`或`Resources`。
+通过将应用添加到`Clients`或`Resources`列表, 通过配置系统配置应用。
 
-配置每个客户端`redirect_uri`和`post_logout_redirect_uri`属性，如下面的示例中所示：
+配置每个客户`redirect_uri`端`post_logout_redirect_uri`的和属性, 如以下示例中所示:
 
 ```json
 "IdentityServer": {
@@ -298,7 +298,7 @@ async populateWeatherData() {
 }
 ```
 
-在配置资源，可以配置资源的作用域，如下所示：
+配置资源时, 可以按如下所示配置资源的作用域:
 
 ```json
 "IdentityServer": {
@@ -311,9 +311,9 @@ async populateWeatherData() {
 }
 ```
 
-### <a name="configuration-through-code"></a>通过代码配置
+### <a name="configuration-through-code"></a>通过代码进行配置
 
-您还可以配置的客户端和资源使用的重载通过代码`AddApiAuthorization`的进行的操作以配置选项。
+你还可以通过代码使用`AddApiAuthorization`的重载来配置客户端和资源, 该重载采用操作来配置选项。
 
 ```csharp
 AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
@@ -333,3 +333,4 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 
 * <xref:spa/angular>
 * <xref:spa/react>
+* <xref:security/authentication/scaffold-identity>
