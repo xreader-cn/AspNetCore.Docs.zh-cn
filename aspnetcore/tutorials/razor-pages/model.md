@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: b7f77cfa51f8d86504939e31eade0dfda8a6b1c9
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 6132f7b907014b4f57bb9ae0300e00b6ecb23f1a
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371907"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68820064"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -99,7 +99,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 安装基架工具：
 
   ```console
-   dotnet tool install --global dotnet-aspnet-codegenerator
+   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * **对于 Windows**：运行下面的命令：
@@ -122,7 +122,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 安装基架工具：
 
   ```console
-   dotnet tool install --global dotnet-aspnet-codegenerator
+   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * 运行下面的命令：
@@ -166,7 +166,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 在 PMC 中，输入以下命令：
 
 ```PMC
-Add-Migration Initial
+Add-Migration InitialCreate
 Update-Database
 ```
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: a07bb4f539c8bd38b08402c598924e14c748921d
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 43a1c408ff1a03468989e5bb0839ca2cd245082b
+ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815239"
+ms.lasthandoff: 08/02/2019
+ms.locfileid: "68739498"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -640,11 +640,13 @@ HTTP POST `Index` 方法显示选定内容：
 
 添加 HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 元素并不局限于*无选定内容*用例。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
 
-[!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
+[!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
 根据当前的 `Country` 值选择正确的 `<option>` 元素（包含 `selected="selected"` 属性）。
+
+[!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 
 ```HTML
  <form method="post" action="/Home/IndexEmpty">

@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/24/2019
+ms.date: 08/06/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 100eab0bdee12a6e61ac26538c83aa997f8eaee3
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: 27ae8ac979c267c666d6d63f4d1dd862ff20edba
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483193"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819859"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -175,7 +175,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="singleton"></a>单例
 
-单一实例生存期服务 (<xref:Microsoft.AspNet.OData.Builder.ODataModelBuilder.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
+单一实例生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>) 是在第一次请求时（或者在运行 `Startup.ConfigureServices` 并且使用服务注册指定实例时）创建的。 每个后续请求都使用相同的实例。 如果应用需要单一实例行为，建议允许服务容器管理服务的生存期。 不要实现单一实例设计模式并提供用户代码来管理对象在类中的生存期。
 
 > [!WARNING]
 > 从单一实例解析有作用域的服务很危险。 当处理后续请求时，它可能会导致服务处于不正确的状态。

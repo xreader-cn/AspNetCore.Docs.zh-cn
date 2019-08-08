@@ -3,14 +3,14 @@ title: 将视图添加到 ASP.NET Core MVC 应用
 author: rick-anderson
 description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
-ms.date: 03/04/2017
+ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: b6a3b1e673b8b67530b82c7d850e810a6c11e555
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: 1c29b59f9306774316ff37eeb57cc441fe5c7370
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68707871"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68820078"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -66,7 +66,7 @@ ms.locfileid: "68707871"
   * 在“名称”框中键入“Index.cshtml”   。
   * 选择“新建”  。
 
-![“添加新项”对话框](adding-view/_static/add_view.png)
+![“添加新项”对话框](adding-view/_static/add_view_mac.png)
 
 ---
 
@@ -74,7 +74,7 @@ ms.locfileid: "68707871"
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-导航到 `https://localhost:xxxx/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml  中使用。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
+导航到 `https://localhost:{PORT}/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml  中使用。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
 
 ![浏览器窗口](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 
@@ -127,7 +127,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 <title>@ViewData["Title"] - Movie App</title>
    ```
 
-保存更改并导航到 `https://localhost:xxxx/HelloWorld`。 请注意，浏览器标题、主标题和辅助标题已更改。 （如果没有在浏览器中看到更改，则可能正在查看缓存的内容。 在浏览器中按 Ctrl + F5 强制加载来自服务器的响应。）浏览器标题是使用我们在 Index.cshtml 视图模板中设置的 `ViewData["Title"]` 以及在布局文件中添加的额外“ - Movie App”创建的  。
+保存更改并导航到 `https://localhost:{PORT}/HelloWorld`。 请注意，浏览器标题、主标题和辅助标题已更改。 （如果没有在浏览器中看到更改，则可能正在查看缓存的内容。 在浏览器中按 Ctrl + F5 强制加载来自服务器的响应。）浏览器标题是使用我们在 Index.cshtml 视图模板中设置的 `ViewData["Title"]` 以及在布局文件中添加的额外“ - Movie App”创建的  。
 
 Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模板合并   。 单个 HTML 响应将发送到浏览器。 凭借布局模板可以轻松地对应用中所有页面进行更改。 若要了解更多信息，请参阅[布局](xref:mvc/views/layout)。
 
@@ -157,7 +157,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 保存更改并浏览到以下 URL：
 
-`https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+`https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
 数据取自 URL，并传递给使用 [MVC 模型绑定器](xref:mvc/models/model-binding)的控制器。 控制器将数据打包到 `ViewData` 字典中，并将该对象传递给视图。 然后，视图将数据作为 HTML 呈现给浏览器。
 
@@ -231,7 +231,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-导航到 `https://localhost:xxxx/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml  中使用。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
+导航到 `https://localhost:{PORT}/HelloWorld`。 `HelloWorldController` 中的 `Index` 方法作用不大；它运行 `return View();` 语句，指定此方法应使用视图模板文件来呈现对浏览器的响应。 由于未指定视图模板文件名称，MVC 默认使用默认视图文件。 默认视图文件具有与方法 (`Index`) 相同的名称，因此在 /Views/HelloWorld/Index.cshtml  中使用。 下面图片显示了视图中硬编码的 字符串“Hello from our View Template!”
 
 ![浏览器窗口](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 
@@ -287,7 +287,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 <title>@ViewData["Title"] - Movie App</title>
    ```
 
-保存更改并导航到 `https://localhost:xxxx/HelloWorld`。 请注意，浏览器标题、主标题和辅助标题已更改。 （如果没有在浏览器中看到更改，则可能正在查看缓存的内容。 在浏览器中按 Ctrl + F5 强制加载来自服务器的响应。）浏览器标题是使用我们在 Index.cshtml 视图模板中设置的 `ViewData["Title"]` 以及在布局文件中添加的额外“ - Movie App”创建的  。
+保存更改并导航到 `https://localhost:{PORT}/HelloWorld`。 请注意，浏览器标题、主标题和辅助标题已更改。 （如果没有在浏览器中看到更改，则可能正在查看缓存的内容。 在浏览器中按 Ctrl + F5 强制加载来自服务器的响应。）浏览器标题是使用我们在 Index.cshtml 视图模板中设置的 `ViewData["Title"]` 以及在布局文件中添加的额外“ - Movie App”创建的  。
 
 还要注意，Index.cshtml 视图模板中的内容是如何与 Views/Shared/_Layout.cshtml 视图模板合并的，并且注意单个 HTML 响应被发送到了浏览器   。 凭借布局模板可以很容易地对应用程序中所有页面进行更改。 若要了解更多信息，请参阅[布局](xref:mvc/views/layout)。
 
@@ -317,7 +317,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 保存更改并浏览到以下 URL：
 
-`https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+`https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
 数据取自 URL，并传递给使用 [MVC 模型绑定器](xref:mvc/models/model-binding)的控制器。 控制器将数据打包到 `ViewData` 字典中，并将该对象传递给视图。 然后，视图将数据作为 HTML 呈现给浏览器。
 

@@ -5,14 +5,14 @@ description: 了解如何使用 Moq 和 xUnit 测试 ASP.NET Core 中的控制�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2019
+ms.date: 08/03/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 8dd2fc5d581dbcb11afbcdc0c154c0e2640f9259
-ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
+ms.openlocfilehash: 6238454b4fb809179d78d4e743e79abadb994e5c
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67622725"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776603"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
 
@@ -20,7 +20,7 @@ ms.locfileid: "67622725"
 
 [控制器](xref:mvc/controllers/actions)在任何 ASP.NET Core MVC 应用中起着核心作用。 因此，应该对控制器表现达到预期怀有信心。 在将应用部署到生产环境之前，自动测试可以检测到错误。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="unit-tests-of-controller-logic"></a>控制器逻辑的单元测试
 
