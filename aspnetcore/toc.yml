@@ -160,7 +160,7 @@
     - name: 数据访问
       displayName: 'tutorial, ef, entity framework'
       href: /learn/modules/persist-data-ef-core/
-- name: 基本
+- name: 基础知识
   items:
     - name: 概述
       uid: fundamentals/index
@@ -184,7 +184,7 @@
       uid: fundamentals/configuration/options
     - name: 环境（开发、分阶段、生产）
       uid: fundamentals/environments
-    - name: 日志记录
+    - name: Logging
       uid: fundamentals/logging/index
     - name: 路由
       uid: fundamentals/routing
@@ -257,11 +257,11 @@
               uid: tutorials/first-mvc-app/validation
             - name: 检查 Details 和 Delete 方法
               uid: tutorials/first-mvc-app/details
-        - name: 视图
+        - name: Views
           uid: mvc/views/overview
         - name: 部分视图
           uid: mvc/views/partial
-        - name: 控制器
+        - name: Controllers
           uid: mvc/controllers/actions
         - name: 路由
           uid: mvc/controllers/routing
@@ -277,7 +277,7 @@
       items:
         - name: 概述
           uid: blazor/index
-        - name: 支持的平台
+        - name: 受支持的平台
           uid: blazor/supported-platforms
         - name: 入门
           uid: blazor/get-started
@@ -285,7 +285,7 @@
           uid: blazor/hosting-models
         - name: 生成首个应用
           uid: tutorials/first-blazor-app
-        - name: 组件
+        - name: 组件数
           uid: blazor/components
         - name: 窗体和验证
           uid: blazor/forms-validation
@@ -293,7 +293,7 @@
           uid: blazor/class-libraries
         - name: 布局
           uid: blazor/layouts
-        - name: 依赖项注入
+        - name: 依赖关系注入
           uid: blazor/dependency-injection
         - name: 路由
           uid: blazor/routing
@@ -301,6 +301,8 @@
           uid: blazor/javascript-interop
         - name: 安全和标识
           uid: security/blazor/index
+        - name: 状态管理
+          uid: blazor/state-management
         - name: 处理错误
           uid: blazor/handle-errors
         - name: 调试
@@ -374,9 +376,9 @@
               uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
             - name: 环境
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-            - name: 表单
+            - name: 窗体
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
-            - name: 映像
+            - name: 图像
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 输入
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
@@ -384,7 +386,7 @@
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
             - name: 部分
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-            - name: Select
+            - name: 选择
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
             - name: Textarea
               href: 'mvc/views/working-with-forms.md#the-textarea-tag-helper'
@@ -443,7 +445,7 @@
   items:
     - name: SignalR 概述
       uid: signalr/introduction
-    - name: 支持的平台
+    - name: 受支持的平台
       uid: signalr/supported-platforms
       displayName: signalr
     - name: 教程
@@ -565,9 +567,9 @@
       uid: test/integration-tests
     - name: 负载测试和压力测试
       uid: test/loadtests
-    - name: 故障排除
+    - name: 疑难解答
       uid: test/troubleshoot
-    - name: 日志记录
+    - name: Logging
       uid: fundamentals/logging/index
     - name: Azure 和 IIS 疑难解答
       uid: test/troubleshoot-azure-iis
@@ -667,7 +669,7 @@
         - name: ASP.NET Core 模块
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/aspnet-core-module
-        - name: 故障排除
+        - name: 疑难解答
           displayName: 'azure, deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: 错误参考
@@ -708,7 +710,7 @@
         - name: IIS 模块
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/modules
-        - name: 故障排除
+        - name: 疑难解答
           displayName: 'deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: 错误参考
@@ -783,7 +785,7 @@
   items:
     - name: 概述
       uid: security/index
-    - name: Authentication
+    - name: 身份验证
       items:
         - name: 标识简介
           uid: security/authentication/identity
@@ -962,7 +964,7 @@
         - name: Azure Key Vault 配置提供程序
           displayName: 'password, connection string, API key, secrets'
           uid: security/key-vault-configuration
-    - name: 实施 HTTPS
+    - name: 强制执行 HTTPS
       uid: security/enforcing-ssl
     - name: 欧盟一般数据保护条例 (GDPR) 支持
       uid: security/gdpr
@@ -1011,9 +1013,9 @@
       uid: fundamentals/localization
     - name: 可移植对象本地化
       uid: fundamentals/portable-object-localization
-    - name: 可扩展性
+    - name: 扩展性
       uid: fundamentals/localization-extensibility
-    - name: 故障排除
+    - name: 疑难解答
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: 高级
   items:
