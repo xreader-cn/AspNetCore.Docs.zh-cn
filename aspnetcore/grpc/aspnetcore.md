@@ -4,14 +4,14 @@ author: juntaoluo
 description: 了解 ASP.NET Core 编写 gRPC services 时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 07/03/2019
+ms.date: 08/07/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 02e443dfecf2f7464a8ecabfc0cac67854d63232
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 26f0d7610151460967b97665ed61deab1ef56d68
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412487"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862930"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -87,6 +87,45 @@ GRPC API 提供对某些 HTTP/2 消息数据 (如方法、主机、标头和尾�
 `ServerCallContext`在所有 ASP.NET api 中都`HttpContext`不提供对的完全访问权限。 扩展方法提供对在 ASP.NET api 中`HttpContext`表示基础 HTTP/2 消息的完全访问权限: `GetHttpContext`
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
+
+## <a name="grpc-and-aspnet-core-on-macos"></a>macOS 上的 gRPC 和 ASP.NET Core
+
+Kestrel 不支持 macOS 上的[传输层安全性 (TLS)](https://tools.ietf.org/html/rfc5246)的 HTTP/2。 默认情况下, ASP.NET Core gRPC 模板和示例使用 TLS。 当您尝试启动 gRPC 服务器时, 您将看到以下错误消息:
+
+> 无法在 IPv4 环回 https://localhost:5001 接口上绑定到:由于缺少 ALPN 支持, macOS 上不支持 "HTTP/2 over TLS"。
+
+若要解决此问题, 请将 Kestrel 和 gRPC 客户端配置为在不使用 TLS 的**情况下**使用 HTTP/2。 只应在开发过程中执行此操作。 如果不使用 TLS, 将会在不加密的情况下发送 gRPC 消息。
+
+Kestrel 必须在中`Program.cs`配置不包含 TLS 的 HTTP/2 终结点:
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.ConfigureKestrel(options =>
+            {
+                // Setup a HTTP/2 endpoint without TLS.
+                options.ListenLocalhost(5000, o => o.Protocols = HttpProtocols.Http2);
+            });
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+GRPC 客户端必须将`System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport`开关设置为`true` , 并在服务器地址中使用: `http`
+
+```csharp
+// This switch must be set before creating the HttpClient.
+AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+var httpClient = new HttpClient();
+// The port number(5000) must match the port of the gRPC server.
+httpClient.BaseAddress = new Uri("http://localhost:5000");
+var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+```
+
+> [!WARNING]
+> 只应在应用程序开发过程中使用不带 TLS 的 HTTP/2。 生产应用程序应始终使用传输安全性。 有关详细信息, 请参阅[gRPC for ASP.NET Core 中的安全注意事项](xref:grpc/security#transport-security)。
 
 ## <a name="additional-resources"></a>其他资源
 

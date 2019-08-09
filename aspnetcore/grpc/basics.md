@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/03/2019
 uid: grpc/basics
-ms.openlocfilehash: 700fe9463317f9ee30dfe4ebf5201c7b9c0c5ad6
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: b236fe6914cf7b780a9d02398ec9c92660dc1063
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412471"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862856"
 ---
 # <a name="grpc-services-with-c"></a>gRPC 服务与 C\#
 
@@ -52,9 +52,9 @@ gRPC 使用协定优先方法进行 API 开发。 默认情况下, 协议缓冲�
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=12)]
 
-客户端项目应`Grpc.Tools`直接引用。 运行时不需要工具包, 因此, 该依赖项标记`PrivateAssets="All"`为:
+客户端项目应直接`Grpc.Tools`与使用 gRPC 客户端所需的其他程序包一起引用。 运行时不需要工具包, 因此, 该依赖项标记`PrivateAssets="All"`为:
 
-[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/GrpcGreeterClient.csproj?highlight=1&range=11)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/GrpcGreeterClient.csproj?highlight=3&range=9-11)]
 
 ## <a name="generated-c-assets"></a>生成C#的资产
 
@@ -64,7 +64,7 @@ gRPC 使用协定优先方法进行 API 开发。 默认情况下, 协议缓冲�
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
 
-对于客户端资产, 会生成具体的客户端类型。 *Proto*文件中的 gRPC 调用被转换为具体类型上的方法, 可以调用该类型。 对于, 上面所述的示例会生成具体`GreeterClient`类型。 `greet.proto` 调用`GreeterClient.SayHello`以启动对服务器的 gRPC 调用。
+对于客户端资产, 会生成具体的客户端类型。 *Proto*文件中的 gRPC 调用被转换为具体类型上的方法, 可以调用该类型。 对于, 上面所述的示例会生成具体`GreeterClient`类型。 `greet.proto` 调用`GreeterClient.SayHelloAsync`以启动对服务器的 gRPC 调用。
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?highlight=3-6&name=snippet)]
 
