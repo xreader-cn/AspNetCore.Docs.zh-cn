@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 8a5ac5c58e7ceab07e55da8b61ebb01f7ac984bc
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: d18abbf33c71dca5130bfc6b503b46c1d5bce537
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153197"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913928"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -28,7 +28,7 @@ ms.locfileid: "67153197"
 1. 选择“发布目标”  。 若要在本地发布，请选择“文件夹”  。
 1. 接受“选择文件夹”  字段中的默认位置，或指定其他位置。 选择“发布”  按钮。
 
-# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令发布具有发布配置的应用：
 
