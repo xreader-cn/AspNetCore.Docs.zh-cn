@@ -158,7 +158,7 @@ dotnet run
 
 完成“使用实体框架(CRUD)添加 Razor Pages”对话框：
 
-* 在“模型类”下拉列表中，选择“学生(ContosoUniversity.Models)”。
+* 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)”。
 * 在“数据上下文类”行中，选择加号 (+) 并将生成的名称更改为 ContosoUniversity.Models.SchoolContext。
 * 在“数据上下文类”下拉列表中，选择“ContosoUniversity.Models.SchoolContext”
 * 选择“添加”。
@@ -183,10 +183,10 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 
 ### <a name="files-created"></a>创建的文件
 
-* Pages/Students：“创建”、“删除”、“详细信息”、“编辑”、“索引”。
+* Pages/Students：Create, Delete, Details, Edit, Index
 * Data/SchoolContext.cs
 
-### <a name="file-updates"></a>文件更新
+### <a name="file-updates"></a>更新的文件
 
 * *Startup.cs*：下一部分详细介绍对此文件所作的更改。
 * *appsettings.json*：添加用于连接到本地数据库的连接字符串。
