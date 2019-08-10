@@ -37,7 +37,7 @@ ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的�
 
 * 控制台
 * 调试
-* EventSource（启动位置：ASP.NET Core 2.2）
+* EventSource（从ASP.NET Core 2.2开始）
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
@@ -473,7 +473,7 @@ System.Exception: Item not found exception.
 | 4      | 控制台       | Microsoft.AspNetCore.Mvc.Razor          | Error             |
 | 5      | 控制台       | 全部类别                          | 信息       |
 | 6      | 全部提供程序 | 全部类别                          | 调试             |
-| 7      | 全部提供程序 | 系统                                  | 调试             |
+| 7      | 全部提供程序 | System                                  | 调试             |
 | 8      | 调试         | Microsoft                               | 跟踪             |
 
 创建 `ILogger` 对象时，`ILoggerFactory` 对象将根据提供程序选择一条规则，将其应用于该记录器。 将按所选规则筛选 `ILogger` 实例写入的所有消息。 从可用规则中为每个提供程序和类别对选择最具体的规则。
