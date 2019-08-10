@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: signalr/configuration
-ms.openlocfilehash: 4706a1e2774fa9f6fb40085da944e8a82476ef05
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 475d9664c588c06bfcd816959be8a425ee01c023
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820043"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68915084"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
@@ -71,6 +71,7 @@ var connection = new HubConnectionBuilder()
 | `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下, 将允许在服务器上注册的所有协议, 但可以从此列表中删除协议, 以禁用各个集线器的特定协议。 |
 | `EnableDetailedErrors` | `false` | 如果`true`为, 则在集线器方法中引发异常时, 详细的异常消息将返回到客户端。 默认值为`false`, 因为这些异常消息可能包含敏感信息。 |
 | `StreamBufferCapacity` | `10` | 可为客户端上载流缓冲的最大项数。 如果达到此限制, 则会阻止处理调用, 直到服务器处理流项。|
+| `MaximumReceiveMessageSize` | 32 KB | 单个传入集线器消息的最大大小。 |
 
 ::: moniker-end
 
@@ -142,14 +143,31 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 下表描述了用于配置 ASP.NET Core SignalR 的高级 HTTP 选项的选项:
 
+::: moniker range=">= aspnetcore-3.0"
+
+| 选项 | 默认值 | 描述 |
+| ------ | ------------- | ----------- |
+| `ApplicationMaxBufferSize` | 32 KB | 在应用反压之前, 服务器从客户端接收的最大字节数。 增大此值后, 服务器可以更快地接收更大的消息, 而无需应用反压, 但会增加内存消耗。 |
+| `AuthorizationData` | 从应用于 Hub 类`Authorize`的属性中自动收集的数据。 | 用于确定客户端是否有权连接到集线器的[IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata)对象的列表。 |
+| `TransportMaxBufferSize` | 32 KB | 在观察反压之前, 服务器要发送的最大字节数。 增大此值后, 服务器可以更快地缓冲更大的消息, 而无需等待反压, 但会增加内存消耗。 |
+| `Transports` | 所有传输均已启用。 | `HttpTransportType`值的位标志枚举, 可限制客户端可用于连接的传输。 |
+| `LongPolling` | 请参阅下文。 | 特定于长轮询传输的其他选项。 |
+| `WebSockets` | 请参阅下文。 | 特定于 Websocket 传输的其他选项。 |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 | 选项 | 默认值 | 描述 |
 | ------ | ------------- | ----------- |
 | `ApplicationMaxBufferSize` | 32 KB | 服务器缓冲的客户端接收到的最大字节数。 增大此值可使服务器接收更大的消息, 但会对内存消耗产生负面影响。 |
 | `AuthorizationData` | 从应用于 Hub 类`Authorize`的属性中自动收集的数据。 | 用于确定客户端是否有权连接到集线器的[IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata)对象的列表。 |
 | `TransportMaxBufferSize` | 32 KB | 由服务器缓冲的应用发送的最大字节数。 增大此值后, 服务器将发送更大的消息, 但会对内存消耗产生负面影响。 |
-| `Transports` | 所有传输均已启用。 | `HttpTransportType`值的位掩码, 可限制客户端可用于连接的传输。 |
+| `Transports` | 所有传输均已启用。 | `HttpTransportType`值的位标志枚举, 可限制客户端可用于连接的传输。 |
 | `LongPolling` | 请参阅下文。 | 特定于长轮询传输的其他选项。 |
 | `WebSockets` | 请参阅下文。 | 特定于 Websocket 传输的其他选项。 |
+
+::: moniker-end
 
 长轮询传输具有可使用`LongPolling`属性配置的其他选项:
 
