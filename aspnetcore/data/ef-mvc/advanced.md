@@ -49,13 +49,13 @@ ms.locfileid: "64886002"
 
 ## <a name="call-a-query-to-return-entities"></a>调用查询以返回实体
 
-`DbSet<TEntity>` 类提供了可用于执行查询并返回`TEntity`类型实体的方法。 若要查看实现细节，你需要更改部门控制器中`Details`方法的代码。
+`DbSet<TEntity>` 类提供了可用于执行查询并返回`TEntity`类型实体的方法。 若要查看实现细节，你需要更改院系控制器中`Details`方法的代码。
 
-在*DepartmentsController.cs*中的`Details`方法，通过代码调用`FromSql`方法检索一个部门，如以下高亮代码所示：
+在*DepartmentsController.cs*中的`Details`方法，通过代码调用`FromSql`方法检索一个院系，如以下高亮代码所示：
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
-为了验证新代码是否工作正常，请选择**Department**选项卡，然后点击某个部门的**Detail**。
+为了验证新代码是否工作正常，请选择**Department**选项卡，然后点击某个院系的**Detail**。
 
 ![院系详细信息](advanced/_static/department-details.png)
 
