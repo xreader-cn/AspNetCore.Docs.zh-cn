@@ -279,4 +279,4 @@ dotnet ef database drop
 这将完成在 ASP.NET Core MVC 应用程序中使用 Entity Framework Core 这一系列教程。 本系列使用的是新建数据库；另一种方式是从现有数据库进行模型的反向工程。
 
 > [!div class="nextstepaction"]
-> [教程：EF Core 与 MVC，现有数据库](/ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)
+> [教程：EF Core 与 MVC，现有数据库](/ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)
