@@ -104,8 +104,6 @@
         - name: EF Core 和 Razor Pages
           displayName: tutorial
           items:
-            - name: 概述
-              uid: data/ef-rp/index
             - name: 入门
               uid: data/ef-rp/intro
             - name: 创建、读取、更新和删除
@@ -581,8 +579,6 @@
       items:
         - name: EF Core 和 Razor Pages
           items:
-            - name: 概述
-              uid: data/ef-rp/index
             - name: 入门
               uid: data/ef-rp/intro
             - name: 创建、读取、更新和删除
@@ -701,6 +697,8 @@
         - name: 概述
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/index
+        - name: 发布到 IIS 教程
+          uid: tutorials/publish-to-iis
         - name: ASP.NET Core 模块
           displayName: 'deploy, publish'
           uid: host-and-deploy/aspnet-core-module

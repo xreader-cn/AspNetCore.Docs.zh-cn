@@ -5,18 +5,20 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 07/31/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 7677173493e68f5a5656c18533e0ae13a7c5bece
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: df4d74a2800ef586091347289561a03b31e33f44
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602469"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913944"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
 作者：[Luke Latham](https://github.com/guardrex)
+
+若要学习将 ASP.NET Core 应用发布到 IIS 服务器的教程，请参阅<xref:tutorials/publish-to-iis>。
 
 [安装 .NET Core 托管捆绑包](#install-the-net-core-hosting-bundle)
 
