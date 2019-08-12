@@ -380,7 +380,7 @@ ASP.NET Core 模块还可以：
 ::: moniker-end
 
 > [!WARNING]
-> 在不可访问不受信任的网络（如 Internet）的暂存服务器和测试服务器上，仅将 `ASPNETCORE_ENVIRONMENT` 环境变量设置为 `Development`。
+> 仅在不受信任的网络（如 Internet）无法访问的暂存和测试服务器上，将 `ASPNETCORE_ENVIRONMENT` 环境变量设置为 `Development`。
 
 ## <a name="appofflinehtm"></a>app_offline.htm
 
