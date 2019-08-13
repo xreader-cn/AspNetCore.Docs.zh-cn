@@ -186,7 +186,7 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 * Pages/Students：“创建”、“删除”、“详细信息”、“编辑”、“索引”  。
 * Data/SchoolContext.cs 
 
-### <a name="file-updates"></a>文件更新
+### <a name="file-updates"></a>更新的文件
 
 * *Startup.cs*：下一部分详细介绍对此文件所作的更改。
 * *appsettings.json*：添加用于连接到本地数据库的连接字符串。

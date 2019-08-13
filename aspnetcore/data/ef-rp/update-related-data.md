@@ -29,7 +29,7 @@ ms.locfileid: "65087087"
 
 ## <a name="create-a-base-class-to-share-common-code"></a>创建基类以共享通用代码
 
-“课程/创建”和“课程/编辑”页分别需要一个系名称列表。 针对“创建”和“编辑”页创建 Pages/Courses/DepartmentNamePageModel.cshtml.cs 基类：
+“课程/创建”和“课程/编辑”页分别需要一个系名称列表。 针对“创建”和“编辑”页创建 Pages/Courses/DepartmentNamePageModel.cshtml.cs 基类  ：
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/DepartmentNamePageModel.cshtml.cs?highlight=9,11,20-21)]
 
@@ -57,13 +57,13 @@ ms.locfileid: "65087087"
 
 ### <a name="update-the-courses-create-page"></a>更新“课程创建”页
 
-使用以下标记更新 Pages/Courses/Create.cshtml：
+使用以下标记更新 Pages/Courses/Create.cshtml  ：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Create.cshtml?highlight=29-34)]
 
 上述标记进行以下更改：
 
-* 将标题从“DepartmentID”更改为“Department”。
+* 将标题从“DepartmentID”更改为“Department”   。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 * 添加“选择系”选项。 此更改将导致呈现“选择系”而不是第一个系。
 * 在未选择系时添加验证消息。
@@ -82,17 +82,17 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 这些更改与在“创建”页模型中所做的更改相似。 在上面的代码中，`PopulateDepartmentsDropDownList` 在系 ID 中传递并将选择下拉列表中指定的系。
 
-使用以下标记更新 Pages/Courses/Edit.cshtml：
+使用以下标记更新 Pages/Courses/Edit.cshtml  ：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Edit.cshtml?highlight=17-20,32-35)]
 
 上述标记进行以下更改：
 
 * 显示课程 ID。 通常不显示实体的主键 (PK)。 PK 对用户不具有任何意义。 在这种情况下，PK 就是课程编号。
-* 将标题从“DepartmentID”更改为“Department”。
+* 将标题从“DepartmentID”更改为“Department”   。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 
-该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`，以便在已发布的数据中包括课程编号。
+该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
 
 测试更新的代码。 创建、编辑和删除课程。
 
@@ -102,7 +102,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Delete.cshtml.cs?name=snippet&highlight=21,23,40,41)]
 
-在 Pages/Courses/Details.cshtml.cs 文件中更新 `OnGetAsync` 方法：
+在 Pages/Courses/Details.cshtml.cs 文件中更新 `OnGetAsync` 方法  ：
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Details.cshtml.cs?name=snippet)]
 
@@ -142,7 +142,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="update-the-instructor-edit-page"></a>更新讲师“编辑”页
 
-使用办公室位置更新 Pages/Instructors/Edit.cshtml：
+使用办公室位置更新 Pages/Instructors/Edit.cshtml  ：
 
 [!code-cshtml[](intro/samples/cu/Pages/Instructors/Edit1.cshtml?highlight=29-33)]
 
@@ -163,13 +163,13 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="add-classes-to-support-create-and-edit-instructor-pages"></a>添加类以支持“创建”和“编辑”讲师页
 
-使用以下代码创建 SchoolViewModels/AssignedCourseData.cs：
+使用以下代码创建 SchoolViewModels/AssignedCourseData.cs  ：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/AssignedCourseData.cs)]
 
 `AssignedCourseData` 类包含的数据可用于为讲师已分配的课程创建复选框。
 
-创建 Pages/Instructors/InstructorCoursesPageModel.cshtml.cs 基类：
+创建 Pages/Instructors/InstructorCoursesPageModel.cshtml.cs 基类  ：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/InstructorCoursesPageModel.cshtml.cs)]
 
@@ -189,7 +189,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 <a id="notepad"></a>
 > [!NOTE]
-> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，其更改方式会导致代码中断。按 Ctrl+Z 一次可撤消自动格式设置。按 Ctrl+Z 可以修复换行符，使其看起来如此处所示。缩进不一定要呈现完美形式，但 `@:</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示）。选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。[通过此链接](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)投票或查看此 bug 的状态。
+> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，其更改方式会导致代码中断。 按 Ctrl+Z 一次可撤消自动格式设置。 按 Ctrl+Z 可以修复换行符，使其看起来如此处所示。 缩进不一定要呈现完美形式，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示）。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 [通过此链接](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)投票或查看此 bug 的状态。
 
 上面的代码将创建一个具有三列的 HTML 表。 每列均具有一个复选框和包含课程编号及标题的标题。 所有复选框均具有相同的名称（“selectedCourses”）。 使用相同名称可指示模型绑定器将它们视为一个组。 每个复选框的值特性都设置为 `CourseID`。 发布页面时，模型绑定器会传递一个数组，该数组只包括所选复选框的 `CourseID` 值。
 
@@ -205,7 +205,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Create.cshtml.cs)]
 
-前面的代码与 Pages/Instructors/Edit.cshtml.cs 代码类似。
+前面的代码与 Pages/Instructors/Edit.cshtml.cs 代码类似  。
 
 使用以下标记更新讲师“创建”Razor 页面：
 
