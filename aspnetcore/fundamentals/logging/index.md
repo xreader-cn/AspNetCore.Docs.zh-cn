@@ -37,7 +37,7 @@ ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的�
 
 * 控制台
 * 调试
-* EventSource（从ASP.NET Core 2.2开始）
+* EventSource（从 ASP.NET Core 2.2 开始）
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
