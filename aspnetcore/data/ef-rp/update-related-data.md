@@ -189,7 +189,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 <a id="notepad"></a>
 > [!NOTE]
-> 将代码粘贴到 Visual Studio 中时，换行符会发生更改并导致代码中断。 按 Ctrl+Z 一次可撤消自动格式设置。 按 Ctrl+Z 可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@:</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示）。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 [通过此链接](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)投票或查看此 bug 的状态。
+> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，其更改方式会导致代码中断。按 Ctrl+Z 一次可撤消自动格式设置。按 Ctrl+Z 可以修复换行符，使其看起来如此处所示。缩进不一定要呈现完美形式，但 `@:</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示）。选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。[通过此链接](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html)投票或查看此 bug 的状态。
 
 上面的代码将创建一个具有三列的 HTML 表。 每列均具有一个复选框和包含课程编号及标题的标题。 所有复选框均具有相同的名称（“selectedCourses”）。 使用相同名称可指示模型绑定器将它们视为一个组。 每个复选框的值特性都设置为 `CourseID`。 发布页面时，模型绑定器会传递一个数组，该数组只包括所选复选框的 `CourseID` 值。
 
