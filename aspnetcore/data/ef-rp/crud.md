@@ -76,7 +76,7 @@ ms.locfileid: "68223844"
 
 运行应用，单击“详细信息”链接，并验证确认 URL 正在将 ID 作为路由数据 (`http://localhost:5000/Students/Details/2`) 进行传递。
 
-不要将 `@page` 全局更改为 `@page "{id:int}"`，这样做会破坏Home和Create页面的链接。
+不要将 `@page` 全局更改为 `@page "{id:int}"`，这样做会破坏指向“主页”和“创建”页面的链接。
 
 <!-- See https://github.com/aspnet/Scaffolding/issues/590 -->
 
