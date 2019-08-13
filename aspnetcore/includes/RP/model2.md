@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>添加数据库上下文类
 
-将以下 `RazorPagesMovieContext` 类添加到“数据”文件夹  ：
+在 RazorPagesMovie 项目中，创建名为“数据”的新文件夹  。 将以下 `RazorPagesMovieContext` 类添加到“数据”文件夹  ：
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -18,18 +18,19 @@
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/appsettings_SQLite.json?highlight=10-12)]
 
-### <a name="add-required-nuget-packages"></a>添加所需的 NuGet 包
+### <a name="add-nuget-packages-and-ef-tools"></a>添加 NuGet 包和 EF 工具
 
-运行以下 .NET Core CLI 命令，将 SQLite、Entity Framework Core 和 CodeGeneration.Design 添加到项目中：
+打开 RazorPagesMovie 项目的终端。  右键单击设计/布局栏中的项目名称，然后转到终端中的“工具”>“打开”  。 在终端中运行以下 .NET Core CLI 命令：
 
 ```console
+dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
 ```
 
-`Microsoft.VisualStudio.Web.CodeGeneration.Design` 包对基架是必需的。
+上述命令为 .NET CLI 添加了 Entity Framework Core 工具，并为项目添加了多个包。 `Microsoft.VisualStudio.Web.CodeGeneration.Design` 包对基架是必需的。
 
 <a name="reg"></a>
 

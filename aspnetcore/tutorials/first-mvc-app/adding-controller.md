@@ -3,14 +3,14 @@ title: 将控制器添加到 ASP.NET Core MVC 应用
 author: rick-anderson
 description: 了解如何将控制器添加到简单的 ASP.NET Core MVC 应用。
 ms.author: riande
-ms.date: 02/28/2017
+ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: ab97b875956ec262623ed9862ace6a930331d80d
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 1c54959130f3a9959d4d4fdb8dcaa0d37ee2f046
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682325"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68820062"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
@@ -86,9 +86,9 @@ MVC 根据入站 URL 调用控制器类（及其中的操作方法）。 MVC 所
 
 如果浏览到应用且不提供任何 URL 段，它将默认为上面突出显示的模板行中指定的“Home”控制器和“Index”方法。
 
-第一个 URL 段决定要运行的控制器类。 因此 `localhost:xxxx/HelloWorld` 映射到 HelloWorld 控制器类  。 该 URL 段的第二部分决定类上的操作方法。 因此 `localhost:xxxx/HelloWorld/Index` 将触发 `HelloWorldController` 类的 `Index` 运行。 请注意，只需浏览到 `localhost:xxxx/HelloWorld`，而 `Index` 方法默认调用。 原因是 `Index` 是默认方法，如果未显式指定方法名称，则将在控制器上调用它。 URL 段的第三部分 (`id`) 针对的是路由数据。 本教程的后续部分中将介绍路由数据。
+第一个 URL 段决定要运行的控制器类。 因此 `localhost:{PORT}/HelloWorld` 映射到 HelloWorld 控制器类  。 该 URL 段的第二部分决定类上的操作方法。 因此 `localhost:{PORT}/HelloWorld/Index` 将触发 `HelloWorldController` 类的 `Index` 运行。 请注意，只需浏览到 `localhost:{PORT}/HelloWorld`，而 `Index` 方法默认调用。 原因是 `Index` 是默认方法，如果未显式指定方法名称，则将在控制器上调用它。 URL 段的第三部分 (`id`) 针对的是路由数据。 本教程的后续部分中将介绍路由数据。
 
-浏览到 `https://localhost:xxxx/HelloWorld/Welcome`。 `Welcome` 方法将运行并返回字符串 `This is the Welcome action method...`。 对于此 URL，采用 `HelloWorld` 控制器和 `Welcome` 操作方法。 目前尚未使用 URL 的 `[Parameters]` 部分。
+浏览到 `https://localhost:{PORT}/HelloWorld/Welcome`。 `Welcome` 方法将运行并返回字符串 `This is the Welcome action method...`。 对于此 URL，采用 `HelloWorld` 控制器和 `Welcome` 操作方法。 目前尚未使用 URL 的 `[Parameters]` 部分。
 
 ![显示“这是 Welcome 操作方法”应用程序响应的浏览器窗口](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
@@ -104,9 +104,9 @@ MVC 根据入站 URL 调用控制器类（及其中的操作方法）。 MVC 所
 
 运行应用并浏览到：
 
-   `https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+   `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-（将 xxxx 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
+（将 `{PORT}` 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
 
 ![显示应用程序响应的浏览器窗口，响应为：你好 Rick，NumTimes 为4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
@@ -116,7 +116,7 @@ MVC 根据入站 URL 调用控制器类（及其中的操作方法）。 MVC 所
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-运行应用并输入以下 URL：`https://localhost:xxx/HelloWorld/Welcome/3?name=Rick`
+运行应用并输入以下 URL：`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 此时，第三个 URL 段与路由参数 `id` 相匹配。 `Welcome` 方法包含 `MapControllerRoute` 方法中匹配 URL 模板的参数 `id`。 后面的 `?`（`id?` 中）表示 `id` 参数可选。
 
@@ -205,9 +205,9 @@ Remove link for simplified tutorial.
 
 如果浏览到应用且不提供任何 URL 段，它将默认为上面突出显示的模板行中指定的“Home”控制器和“Index”方法。
 
-第一个 URL 段决定要运行的控制器类。 因此 `localhost:xxxx/HelloWorld` 映射到 `HelloWorldController` 类。 该 URL 段的第二部分决定类上的操作方法。 因此 `localhost:xxxx/HelloWorld/Index` 将触发 `HelloWorldController` 类的 `Index` 运行。 请注意，只需浏览到 `localhost:xxxx/HelloWorld`，而 `Index` 方法默认调用。 原因是 `Index` 是默认方法，如果未显式指定方法名称，则将在控制器上调用它。 URL 段的第三部分 (`id`) 针对的是路由数据。 本教程的后续部分中将介绍路由数据。
+第一个 URL 段决定要运行的控制器类。 因此 `localhost:{PORT}/HelloWorld` 映射到 `HelloWorldController` 类。 该 URL 段的第二部分决定类上的操作方法。 因此 `localhost:{PORT}/HelloWorld/Index` 将触发 `HelloWorldController` 类的 `Index` 运行。 请注意，只需浏览到 `localhost:{PORT}/HelloWorld`，而 `Index` 方法默认调用。 原因是 `Index` 是默认方法，如果未显式指定方法名称，则将在控制器上调用它。 URL 段的第三部分 (`id`) 针对的是路由数据。 本教程的后续部分中将介绍路由数据。
 
-浏览到 `https://localhost:xxxx/HelloWorld/Welcome`。 `Welcome` 方法将运行并返回字符串 `This is the Welcome action method...`。 对于此 URL，采用 `HelloWorld` 控制器和 `Welcome` 操作方法。 目前尚未使用 URL 的 `[Parameters]` 部分。
+浏览到 `https://localhost:{PORT}/HelloWorld/Welcome`。 `Welcome` 方法将运行并返回字符串 `This is the Welcome action method...`。 对于此 URL，采用 `HelloWorld` 控制器和 `Welcome` 操作方法。 目前尚未使用 URL 的 `[Parameters]` 部分。
 
 ![显示“这是 Welcome 操作方法”应用程序响应的浏览器窗口](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
@@ -223,9 +223,9 @@ Remove link for simplified tutorial.
 
 运行应用并浏览到：
 
-   `https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+   `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-（将 xxxx 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
+（将 `{PORT}` 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
 
 ![显示应用程序响应的浏览器窗口，响应为：你好 Rick，NumTimes 为4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
@@ -235,7 +235,7 @@ Remove link for simplified tutorial.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-运行应用并输入以下 URL：`https://localhost:xxx/HelloWorld/Welcome/3?name=Rick`
+运行应用并输入以下 URL：`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 此时，第三个 URL 段与路由参数 `id` 相匹配。 `Welcome` 方法包含 `MapRoute` 方法中匹配 URL 模板的参数 `id`。 后面的 `?`（`id?` 中）表示 `id` 参数可选。
 

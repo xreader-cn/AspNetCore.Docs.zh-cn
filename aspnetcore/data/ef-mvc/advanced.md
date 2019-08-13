@@ -49,13 +49,13 @@ ms.locfileid: "64886002"
 
 ## <a name="call-a-query-to-return-entities"></a>调用查询以返回实体
 
-`DbSet<TEntity>` 类提供了可用于执行查询并返回`TEntity`类型实体的方法。 若要查看实现细节，你需要更改部门控制器中`Details`方法的代码。
+`DbSet<TEntity>` 类提供了一种方法，可用于执行返回 `TEntity` 类型实体的查询。 若要查看实现细节，你需要更改院系控制器中 `Details` 方法的代码。
 
-在*DepartmentsController.cs*中的`Details`方法，通过代码调用`FromSql`方法检索一个部门，如以下高亮代码所示：
+在 DepartmentsController.cs  的 `Details` 方法中，使用 `FromSql` 方法调用替换检索院系的代码，如以下突出显示的代码所示：
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
-为了验证新代码是否工作正常，请选择**Department**选项卡，然后点击某个部门的**Detail**。
+为了验证新代码是否正常工作，请选择“院系”选项卡，然后选择其中某一院系的“详细信息”   。
 
 ![院系详细信息](advanced/_static/department-details.png)
 
@@ -107,9 +107,9 @@ ms.locfileid: "64886002"
 
 ![“更新课程学分”页面中受影响的行](advanced/_static/update-credits-rows-affected.png)
 
-单击**Back To List**可以看到课程列表，其中可修读人数已经替换成修改后的数字。
+单击“返回列表”可以查看课程列表，其中学分已替换为修改后的数字。 
 
-请注意生产代码将确保更新最终得到有效的数据。 此处所示的简化代码会使得相乘后可修读人数大于 5。 (`Credits`属性具有`[Range(0, 5)]`特性。)更新查询将起作用，但无效的数据会导致意外的结果，例如在系统的其他部分中加入可修读人数为 5 或更少可能会导致意外的结果。
+请注意，生产代码将确保更新最终生成有效的数据。 此处所示的简化代码可将学分的数字进行相乘，以便足以生成大于 5 的数字。 (`Credits` 属性具有 `[Range(0, 5)]` 特性。)更新查询会起作用，但无效数据可能在系统的其他部分中产生意外结果，这些部分假定学分为 5 或更少。
 
 有关原生 SQL 查询的详细信息，请参阅[原生 SQL 查询](/ef/core/querying/raw-sql)。
 

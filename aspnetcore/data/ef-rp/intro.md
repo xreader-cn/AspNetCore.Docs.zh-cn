@@ -57,9 +57,9 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。
-* 创建新的 ASP.NET Core Web 应用呈现。 将该项目命名为 ContosoUniversity 。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配。
-* 在下拉列表中选择“ASP.NET Core 2.1”，然后选择“Web 应用程序”。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”    。
+* 创建新的 ASP.NET Core Web 应用呈现。 将该项目命名为 ContosoUniversity  。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配  。
+* 在下拉列表中选择“ASP.NET Core 2.1”，然后选择“Web 应用程序”   。
 
 有关上述步骤的图像，请参阅[创建 Razor Web 应用](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app)。
 运行应用。
@@ -76,17 +76,17 @@ dotnet run
 
 ## <a name="set-up-the-site-style"></a>设置网站样式
 
-设置网站菜单、布局和主页时需作少量更改。 进行以下更改以更新 Pages/Shared/_Layout.cshtml：
+设置网站菜单、布局和主页时需作少量更改。 进行以下更改以更新 Pages/Shared/_Layout.cshtml  ：
 
 * 将文件中的"ContosoUniversity"更改为"Contoso University"。 需要更改三个地方。
 
 * 添加菜单项 **Students**，**Courses**，**Instructors**，和 **Department**，并删除 **Contact**菜单项。
 
-突出显示所作更改。（没有显示全部标记。）
+突出显示所作更改。 （没有显示全部标记  。）
 
 [!code-html[](intro/samples/cu21/Pages/Shared/_Layout.cshtml?highlight=6,29,35-38,50&name=snippet)]
 
-在 Pages/Index.cshtml 中，将文件内容替换为以下代码，以将有关 ASP.NET 和 MVC 的文本替换为有关本应用的文本：
+在 Pages/Index.cshtml 中，将文件内容替换为以下代码，以将有关 ASP.NET 和 MVC 的文本替换为有关本应用的文本  ：
 
 [!code-html[](intro/samples/cu21/Pages/Index.cshtml)]
 
@@ -104,7 +104,7 @@ dotnet run
 
 ![Student 实体关系图](intro/_static/student-entity.png)
 
-创建 Models 文件夹。 在 Models 文件夹中，使用以下代码创建一个名为 Student.cs 的类文件：
+创建 Models 文件夹  。 在 Models 文件夹中，使用以下代码创建一个名为 Student.cs 的类文件   ：
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_Intro)]
 
@@ -118,7 +118,7 @@ dotnet run
 
 ![Enrollment 实体关系图](intro/_static/enrollment-entity.png)
 
-在 Models 文件夹中，使用以下代码创建 Enrollment.cs：
+在 Models 文件夹中，使用以下代码创建 Enrollment.cs   ：
 
 [!code-csharp[](intro/samples/cu21/Models/Enrollment.cs?name=snippet_Intro)]
 
@@ -136,7 +136,7 @@ dotnet run
 
 ![Course 实体关系图](intro/_static/course-entity.png)
 
-在 Models 文件夹中，使用以下代码创建 Course.cs：
+在 Models 文件夹中，使用以下代码创建 Course.cs   ：
 
 [!code-csharp[](intro/samples/cu21/Models/Course.cs?name=snippet_Intro)]
 
@@ -149,19 +149,19 @@ dotnet run
 本部分将为“学生”模型搭建基架。 确切地说，基架工具将生成页面，用于对“学生”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
 * 生成项目。
-* 创建 Pages/Students 文件夹。
+* 创建 Pages/Students 文件夹  。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹 > “添加” > “新建基架项”。
-* 在“添加基架”对话框中，依次选择“使用实体框架的 Razor Pages (CRUD)” > “添加”。
+* 在“解决方案资源管理器”  中，右键单击“Pages/Students”  文件夹 > “添加”   > “新建基架项”  。
+* 在“添加基架”  对话框中，依次选择“使用实体框架的 Razor Pages (CRUD)”   > “添加”  。
 
-完成“使用实体框架(CRUD)添加 Razor Pages”对话框：
+完成“使用实体框架(CRUD)添加 Razor Pages”对话框  ：
 
-* 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)”。
-* 在“数据上下文类”行中，选择加号 (+) 并将生成的名称更改为 ContosoUniversity.Models.SchoolContext。
-* 在“数据上下文类”下拉列表中，选择“ContosoUniversity.Models.SchoolContext”
-* 选择“添加”。
+* 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)”   。
+* 在“数据上下文类”行中，选择加号 (+) 并将生成的名称更改为 ContosoUniversity.Models.SchoolContext    。
+* 在“数据上下文类”下拉列表中，选择“ContosoUniversity.Models.SchoolContext”  
+* 选择“添加”  。
 
 ![CRUD 对话框](intro/_static/s1.png)
 
@@ -183,10 +183,10 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 
 ### <a name="files-created"></a>创建的文件
 
-* Pages/Students “创建”、“删除”、“详细信息”、“编辑”、“索引”。
-* Data/SchoolContext.cs
+* Pages/Students：“创建”、“删除”、“详细信息”、“编辑”、“索引”  。
+* Data/SchoolContext.cs 
 
-### <a name="file-updates"></a>更新的文件
+### <a name="file-updates"></a>文件更新
 
 * *Startup.cs*：下一部分详细介绍对此文件所作的更改。
 * *appsettings.json*：添加用于连接到本地数据库的连接字符串。
@@ -197,7 +197,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 基架工具自动创建 DB 上下文并将其注册到依赖关系注入容器。
 
-在 Startup.cs 中检查 `ConfigureServices` 方法。 基架添加了突出显示的行：
+在 Startup.cs 中检查 `ConfigureServices` 方法  。 基架添加了突出显示的行：
 
 [!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=13-14)]
 
@@ -205,13 +205,13 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 ## <a name="update-main"></a>更新 main
 
-在 Program.cs 中，修改 `Main` 方法以执行以下操作：
+在 Program.cs 中，修改 `Main` 方法以执行以下操作  ：
 
 * 从依赖关系注入容器获取数据库上下文实例。
 * 调用 [EnsureCreated](/dotnet/api/microsoft.entityframeworkcore.infrastructure.databasefacade.ensurecreated#Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_EnsureCreated)。
 * `EnsureCreated` 方法完成时释放上下文。
 
-下面的代码显示更新后的 Program.cs 文件。
+下面的代码显示更新后的 Program.cs  文件。
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet)]
 
@@ -230,14 +230,14 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 运行应用并接受 cookie 策略。 此应用不保留个人信息。 有关 cookie 策略的信息，请参阅[欧盟一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
 
-* 依次选择“学生”链接、“新建”。
+* 依次选择“学生”链接、“新建”   。
 * 测试“编辑”、“详细信息”和“删除”链接。
 
 ## <a name="examine-the-schoolcontext-db-context"></a>检查 SchoolContext DB 上下文
 
 数据库上下文类是为给定数据模型协调 EF Core 功能的主类。 数据上下文派生自 [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)。 数据上下文指定数据模型中包含哪些实体。 在此项目中将数据库上下文类命名为 `SchoolContext`。
 
-使用以下代码更新 SchoolContext.cs：
+使用以下代码更新 SchoolContext.cs  ：
 
 [!code-csharp[](intro/samples/cu21/Data/SchoolContext.cs?name=snippet_Intro&highlight=12-14)]
 
@@ -250,13 +250,13 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 ### <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-连接字符串指定 [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb)。 LocalDB 是轻型版本 SQL Server Express 数据库引擎，专门针对应用开发，而非生产使用。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 会在 `C:/Users/<user>` 目录中创建 .mdf 数据库文件。
+连接字符串指定 [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb)。 LocalDB 是轻型版本 SQL Server Express 数据库引擎，专门针对应用开发，而非生产使用。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 会在 `C:/Users/<user>` 目录中创建 .mdf 数据库文件  。
 
 ## <a name="add-code-to-initialize-the-db-with-test-data"></a>添加代码，以使用测试数据初始化该数据库
 
 EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方法来使用测试数据填充该数据库。
 
-在 Data 文件夹中，新建一个名为 DbInitializer.cs 的类文件，并添加以下代码：
+在 Data 文件夹中，新建一个名为 DbInitializer.cs 的类文件，并添加以下代码   ：
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Intro)]
 
@@ -266,7 +266,7 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 
 `EnsureCreated` 方法自动为数据库上下文创建数据库。 如果数据库已存在，则返回 `EnsureCreated`，并且不修改数据库。
 
-在 Program.cs 中，将 `Main` 方法修改为调用 `Initialize`：
+在 Program.cs 中，将 `Main` 方法修改为调用 `Initialize`  ：
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet2&highlight=14-15)]
 
@@ -275,12 +275,12 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 ## <a name="view-the-db"></a>查看数据库
 
 数据库名称由之前提供的上下文名称以及短划线和 GUID 组成。 因此，数据库名称为“SchoolContext-{GUID}”。 GUID 因用户而异。
-从 Visual Studio 中的“视图”菜单打开 SQL Server 对象资源管理器 (SSOX)。
-在 SSOX 中，依次单击“(localdb)\MSSQLLocalDB”>“数据库”>“SchoolContext-{GUID}”。
+从 Visual Studio 中的“视图”菜单打开 SQL Server 对象资源管理器 (SSOX)   。
+在 SSOX 中，依次单击“(localdb)\MSSQLLocalDB”>“数据库”>“SchoolContext-{GUID}”  。
 
-展开“表”节点。
+展开“表”节点  。
 
-右键单击 Student 表，然后单击“查看数据”，以查看创建的列和插入到表中的行。
+右键单击 Student 表，然后单击“查看数据”，以查看创建的列和插入到表中的行   。
 
 ## <a name="asynchronous-code"></a>异步代码
 

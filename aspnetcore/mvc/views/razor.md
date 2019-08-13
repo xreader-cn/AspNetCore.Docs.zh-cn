@@ -3,20 +3,20 @@ title: ASP.NET Core 的 Razor 语法参考
 author: rick-anderson
 description: 了解 Razor 标记语法，该语法用于将基于服务器的代码嵌入网页中。
 ms.author: riande
-ms.date: 06/12/2019
+ms.date: 08/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 634623aa6df860a2ff728da4e65d277326db37e2
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 75bf0e792ff7975f03e0f7c2fa6a71ed74d813e1
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440359"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819793"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen) 和 [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。
+Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。 在 [Razor 组件](xref:blazor/components)文件 (.razor) 中也可以找到 Razor  。
 
 ## <a name="rendering-html"></a>呈现 HTML
 
@@ -210,7 +210,7 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 
 ### <a name="explicit-delimited-transition"></a>带分隔符的显式转换
 
-若要定义应呈现 HTML 的代码块子节，请使用 Razor **\<text>** 标记将要呈现的字符括起来：
+若要定义应呈现 HTML 的代码块子节，请使用 Razor `<text>` 标记将要呈现的字符括起来：
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -222,12 +222,12 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 
 使用此方法可呈现未被 HTML 标记括起来的 HTML。 如果没有 HTML 或 Razor 标记，会发生 Razor 运行时错误。
 
-**\<text>** 标记可用于在呈现内容时控制空格：
+`<text>` 标记可用于在呈现内容时控制空格：
 
-* 仅呈现 **\<text>** 标记之间的内容。
-* **\<text>** 标记之前或之后的空格不会显示在 HTML 输出中。
+* 仅呈现 `<text>` 标记之间的内容。
+* `<text>` 标记之前或之后的空格不会显示在 HTML 输出中。
 
-### <a name="explicit-line-transition-with-"></a>使用 @ 的显式行转换：
+### <a name="explicit-line-transition-with-colon"></a>使用 \@&colon; 的显式行转换
 
 若要在代码块内以 HTML 的形式呈现整个行的其余内容，请使用 `@:` 语法：
 
@@ -241,13 +241,13 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 
 如果代码中没有 `@:`，会生成 Razor 运行时错误。
 
-警告：Razor 文件中多余的 `@` 字符可能会导致代码块中后面的语句发生编译器错误。 这些编译器错误可能难以理解，因为实际错误发生在报告的错误之前。 将多个隐式/显式表达式合并到单个代码块以后，经常会发生此错误。
+Razor 文件中多余的 `@` 字符可能会导致代码块中后面的语句发生编译器错误。 这些编译器错误可能难以理解，因为实际错误发生在报告的错误之前。 将多个隐式/显式表达式合并到单个代码块以后，经常会发生此错误。
 
 ## <a name="control-structures"></a>控制结构
 
 控制结构是对代码块的扩展。 代码块的各个方面（转换为标记、内联 C#）同样适用于以下结构：
 
-### <a name="conditionals-if-else-if-else-and-switch"></a>条件语句 @if、else if、else 和 @switch
+### <a name="conditionals-if-else-if-else-and-switch"></a>条件语句 \@、else if、else 和 \@switch
 
 `@if` 控制何时运行代码：
 
@@ -292,7 +292,7 @@ else
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a>循环语句 @for、@foreach、@while 和 @do while
+### <a name="looping-for-foreach-while-and-do-while"></a>循环语句 \@for、\@foreach、\@while 和 \@dowhile
 
 可以使用循环控制语句呈现模板化 HTML。 若要呈现一组人员：
 
@@ -358,30 +358,27 @@ else
 } while (i < people.Length);
 ```
 
-### <a name="compound-using"></a>复合语句 @using
+### <a name="compound-using"></a>复合语句 \@using
 
-在 C# 中，`using` 语句用于确保释放对象。 在 Razor 中，可使用相同的机制来创建包含附加内容的 HTML 帮助程序。 在下面的代码中，HTML 帮助程序使用 `@using` 语句呈现表单标记：
+在 C# 中，`using` 语句用于确保释放对象。 在 Razor 中，可使用相同的机制来创建包含附加内容的 HTML 帮助程序。 在下面的代码中，HTML 帮助程序使用 `@using` 语句呈现 `<form>` 标记：
 
 ```cshtml
 @using (Html.BeginForm())
 {
     <div>
-        email:
-        <input type="email" id="Email" value="">
+        Email: <input type="email" id="Email" value="">
         <button>Register</button>
     </div>
 }
 ```
 
-可以使用[标记帮助程序](xref:mvc/views/tag-helpers/intro)执行作用域级别的操作。
-
-### <a name="try-catch-finally"></a>@try、catch、finally
+### <a name="try-catch-finally"></a>\@try、catch、finally
 
 异常处理与 C# 类似：
 
 [!code-cshtml[](razor/sample/Views/Home/Contact7.cshtml)]
 
-### <a name="lock"></a>@lock
+### <a name="lock"></a>\@lock
 
 Razor 可以使用 lock 语句来保护关键节：
 
@@ -448,90 +445,47 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 本文后面的[检查为视图生成的 Razor C# 类](#inspect-the-razor-c-class-generated-for-a-view)部分说明了如何查看此生成的类。
 
-<a name="using"></a>
+### <a name="attribute"></a>\@attribute
 
-### <a name="using"></a>@using
-
-`@using` 指令用于向生成的视图添加 C# `using` 指令：
-
-[!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
-
-### <a name="model"></a>@model
-
-`@model` 指令指定传递到视图的模型类型：
+`@attribute` 指令将给定的属性添加到生成的页或视图的类中。 以下示例添加 `[Authorize]` 属性：
 
 ```cshtml
-@model TypeNameOfModel
+@attribute [Authorize]
 ```
 
-在使用个人用户帐户创建的 ASP.NET Core MVC 应用中，*Views/Account/Login.cshtml* 视图包含以下模型声明：
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="code"></a>\@code
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+`@code` 块允许 [Razor 组件](xref:blazor/components)将 C# 成员（字段、属性和方法）添加到组件：
 
 ```cshtml
-@model LoginViewModel
+@code {
+    // C# members (fields, properties, and methods)
+}
 ```
 
-生成的类继承自 `RazorPage<dynamic>`：
+对于 Razor 组件，`@code` 是 [@functions](#functions) 的别名，并且优先于 `@functions` 使用。 允许多个 `@code` 块。
 
-```csharp
-public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
-```
+::: moniker-end
 
-Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
+### <a name="functions"></a>\@functions
+
+`@functions` 指令允许将 C# 成员（字段、属性和方法）添加到生成的类中：
 
 ```cshtml
-<div>The Login Email: @Model.Email</div>
+@functions {
+    // C# members (fields, properties, and methods)
+}
 ```
 
-`@model` 指令指定此属性的类型。 该指令将 `RazorPage<T>` 中的 `T` 指定为生成的类，视图便派生自该类。 如果未指定 `@model` 指令，则 `Model` 属性的类型为 `dynamic`。 模型的值会从控制器传递到视图。 有关详细信息，请参阅[强类型模型和&commat;模型关键字](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)。
+::: moniker range=">= aspnetcore-3.0"
 
-### <a name="inherits"></a>@inherits
+在 [Razor 组件](xref:blazor/components)中，请使用 `@code` 而不是 `@functions` 来添加 C# 成员。
 
-`@inherits` 指令对视图继承的类提供完全控制：
-
-```cshtml
-@inherits TypeNameOfClassToInheritFrom
-```
-
-下面的代码是一种自定义 Razor 页面类型：
-
-[!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
-
-`CustomText` 显示在视图中：
-
-[!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
-
-该代码呈现以下 HTML：
-
-```html
-<div>Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping a slop bucket on the street below.</div>
-```
-
- `@model` 和 `@inherits` 可在同一视图中使用。 `@inherits` 可位于视图导入的 *_ViewImports.cshtml* 文件中：
-
-[!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
-
-下面的代码是一种强类型视图：
-
-[!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
-
-如果在模型中传递“rick@contoso.com”，视图将生成以下 HTML 标记：
-
-```html
-<div>The Login Email: rick@contoso.com</div>
-<div>Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping a slop bucket on the street below.</div>
-```
-
-### <a name="inject"></a>@inject
-
-`@inject` 指令允许 Razor 页面将服务从[服务容器](xref:fundamentals/dependency-injection)注入到视图。 有关详细信息，请参阅[视图中的依赖关系注入](xref:mvc/views/dependency-injection)。
-
-### <a name="functions"></a>@functions
-
-`@functions` 指令允许 Razor 页面将 C# 代码块添加到视图中：
-
-```cshtml
-@functions { // C# Code }
-```
+::: moniker-end
 
 例如:
 
@@ -572,38 +526,220 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 <p>Name: <strong>Martin Luther King, Jr.</strong></p>
 ```
 
-::: moniker-end
+### <a name="implements"></a>\@implements
 
-### <a name="attribute"></a>@attribute
+`@implements` 指令为生成的类实现接口。
 
-`@attribute` 指令将给定的属性添加到生成的页或视图的类中。 以下示例添加 `[Authorize]` 属性：
+以下示例实现 <xref:System.IDisposable?displayProperty=fullName>，以便可以调用 <xref:System.IDisposable.Dispose*> 方法：
 
 ```cshtml
-@attribute [Authorize]
+@implements IDisposable
+
+<h1>Example</h1>
+
+@functions {
+    private bool _isDisposed;
+
+    ...
+
+    public void Dispose() => _isDisposed = true;
+}
 ```
 
-### <a name="namespace"></a>@namespace
+::: moniker-end
 
-`@namespace` 指令设置生成的页或视图的类的命名空间：
+### <a name="inherits"></a>\@inherits
+
+`@inherits` 指令对视图继承的类提供完全控制：
+
+```cshtml
+@inherits TypeNameOfClassToInheritFrom
+```
+
+下面的代码是一种自定义 Razor 页面类型：
+
+[!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
+
+`CustomText` 显示在视图中：
+
+[!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
+
+该代码呈现以下 HTML：
+
+```html
+<div>
+    Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping
+    a slop bucket on the street below.
+</div>
+```
+
+ `@model` 和 `@inherits` 可在同一视图中使用。 `@inherits` 可位于视图导入的 *_ViewImports.cshtml* 文件中：
+
+[!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
+
+下面的代码是一种强类型视图：
+
+[!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
+
+如果在模型中传递“rick@contoso.com”，视图将生成以下 HTML 标记：
+
+```html
+<div>The Login Email: rick@contoso.com</div>
+<div>
+    Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping
+    a slop bucket on the street below.
+</div>
+```
+
+### <a name="inject"></a>\@inject
+
+`@inject` 指令允许 Razor 页面将服务从[服务容器](xref:fundamentals/dependency-injection)注入到视图。 有关详细信息，请参阅[视图中的依赖关系注入](xref:mvc/views/dependency-injection)。
+
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="layout"></a>\@layout
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+`@layout` 指令指定 Razor 组件的布局。 布局组件用于避免代码重复和不一致。 有关详细信息，请参阅 <xref:blazor/layouts>。
+
+::: moniker-end
+
+### <a name="model"></a>\@model
+
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
+
+`@model` 指令指定传递到视图或页面的模型类型：
+
+```cshtml
+@model TypeNameOfModel
+```
+
+在使用个人用户帐户创建的 ASP.NET Core MVC 或 Razor Pages 应用中，Views/Account/Login.cshtml 包含以下模型声明： 
+
+```cshtml
+@model LoginViewModel
+```
+
+生成的类继承自 `RazorPage<dynamic>`：
+
+```csharp
+public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
+```
+
+Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
+
+```cshtml
+<div>The Login Email: @Model.Email</div>
+```
+
+`@model` 指令指定 `Model` 属性的类型。 该指令将 `RazorPage<T>` 中的 `T` 指定为生成的类，视图便派生自该类。 如果未指定 `@model` 指令，则 `Model` 属性的类型为 `dynamic`。 有关详细信息，请参阅[强类型模型和 @model 关键字](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)。
+
+### <a name="namespace"></a>\@namespace
+
+`@namespace` 指令：
+
+* 设置生成的 Razor 页面、MVC 视图或 Razor 组件的类的命名空间。
+* 从目录树中最近的导入文件、_ViewImports.cshtml（视图或页面）或 _Imports.razor (Razor) 中设置页面、视图或组件类的根派生命名空间   。
 
 ```cshtml
 @namespace Your.Namespace.Here
 ```
 
-如果页或视图使用 `@namespace` 指令导入 API，则原始文件的命名空间设置为相对于该命名空间。 
+对于下表中显示的 Razor Pages 示例：
 
-如果 MyApp/Pages/\_ViewImports.cshtml 包含 `@namespace Hello.World`，则导入 `Hello.World` 命名空间的页或视图的命名空间设置如下表所示  。
+* 每个页面都导入 Pages/_ViewImports.cshtml  。
+* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`  。
+* 每个页面都有 `Hello.World`，作为其命名空间的根。
 
-| 页（或视图）                     | 命名空间               |
-| ---------------------------------- | ----------------------- |
-| MyApp/Pages/Index.cshtml          | `Hello.World`           |
-| MyApp/Pages/MorePages/Bar.cshtml  | `Hello.World.MorePages` |
+| 页面                                        | 命名空间                             |
+| ------------------------------------------- | ------------------------------------- |
+| Pages/Index.cshtml                         | `Hello.World`                         |
+| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages`               |
+| Pages/MorePages/EvenMorePages/Page.cshtml  | `Hello.World.MorePages.EvenMorePages` |
 
-如果多个导入文件都具有 `@namespace` 指令，则使用目录链中最接近页或视图的文件。
+上述关系适用于与 MVC 视图和 Razor 组件一起使用的导入文件。
 
-### <a name="section"></a>@section
+当多个导入文件具有 `@namespace` 指令时，最靠近目录树中的页面、视图或组件的文件将用于设置根命名空间。
 
-`@section` 指令与[布局](xref:mvc/views/layout)结合使用，允许页或视图将内容呈现在 HTML 页的不同部分。 有关详细信息，请参阅[部分](xref:mvc/views/layout#layout-sections-label)。
+如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示   。
+
+| 页面                                        | 命名空间               |
+| ------------------------------------------- | ----------------------- |
+| Pages/Index.cshtml                         | `Hello.World`           |
+| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages` |
+| Pages/MorePages/EvenMorePages/Page.cshtml  | `Another.Planet`        |
+
+### <a name="page"></a>\@page
+
+::: moniker range=">= aspnetcore-3.0"
+
+`@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
+
+* 在 .cshtml 文件中表示该文件是 Razor Page  。 有关详细信息，请参阅 <xref:razor-pages/index>。
+* 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/routing>。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+.cshtml 文件第一行上的 `@page` 指令表示该文件是 Razor Page  。 有关详细信息，请参阅 <xref:razor-pages/index>。
+
+::: moniker-end
+
+### <a name="section"></a>\@section
+
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
+
+`@section` 指令与 [MVC 和 Razor Pages 布局](xref:mvc/views/layout)结合使用，允许视图或页面将内容呈现在 HTML 页面的不同部分。 有关详细信息，请参阅 <xref:mvc/views/layout>。
+
+### <a name="using"></a>\@using
+
+`@using` 指令用于向生成的视图添加 C# `using` 指令：
+
+[!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
+
+::: moniker range=">= aspnetcore-3.0"
+
+在 [Razor 组件](xref:blazor/components)中，`@using` 还可控制哪些组件在范围内。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="directive-attributes"></a>指令属性
+
+### <a name="attributes"></a>\@attributes
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+`@attributes` 允许组件呈现未声明的属性。 有关详细信息，请参阅 <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>。
+
+### <a name="bind"></a>\@bind
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/components#data-binding>。
+
+### <a name="onevent"></a>\@on{event}
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components#event-handling>。
+
+### <a name="key"></a>\@key
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+`@key` 指令属性使组件比较算法保证基于键的值保留元素或组件。 有关详细信息，请参阅 <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>。
+
+### <a name="ref"></a>\@ref
+
+此方案仅适用于 Razor 组件 (.razor)。 
+
+组件引用 (`@ref`) 提供了一种引用组件实例的方法，以便可以向该实例发出命令。 有关详细信息，请参阅 <xref:blazor/components#capture-references-to-components>。
+
+::: moniker-end
 
 ## <a name="templated-razor-delegates"></a>模板化 Razor 委托
 
@@ -706,19 +842,21 @@ public class Pet
 
 ## <a name="tag-helpers"></a>标记帮助程序
 
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
+
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)有三个相关指令。
 
 | 指令 | 函数 |
 | --------- | -------- |
-| [&commat;addTagHelper](xref:mvc/views/tag-helpers/intro#add-helper-label) | 向视图提供标记帮助程序。 |
-| [&commat;removeTagHelper](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | 从视图中删除以前添加的标记帮助程序。 |
-| [&commat;tagHelperPrefix](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | 指定标记前缀，以启用标记帮助程序支持并阐明标记帮助程序的用法。 |
+| [@addTagHelper](xref:mvc/views/tag-helpers/intro#add-helper-label) | 向视图提供标记帮助程序。 |
+| [@removeTagHelper](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | 从视图中删除以前添加的标记帮助程序。 |
+| [@tagHelperPrefix](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | 指定标记前缀，以启用标记帮助程序支持并阐明标记帮助程序的用法。 |
 
 ## <a name="razor-reserved-keywords"></a>Razor 保留关键字
 
 ### <a name="razor-keywords"></a>Razor 关键字
 
-* page（需要 ASP.NET Core 2.0 及更高版本）
+* page（需要 ASP.NET Core 2.1 或更高版本）
 * namespace
 * functions
 * inherits

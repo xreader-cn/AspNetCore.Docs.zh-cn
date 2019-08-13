@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 3e90e3b17186757fe157fb6641888786bb7a0df2
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 6a3a7446a488ef54d99d6c7605980c18890b9ad0
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412521"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776645"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -192,8 +192,8 @@ Install-Package Grpc.Tools
 
 * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
 * 选择“浏览”选项卡  。
-* 在搜索框中输入 Grpc.Core  。
-* 从“浏览”选项卡中选择 Grpc.Core 包，然后选择“安装”    。
+* 在搜索框中输入 Grpc.Net.Client  。
+* 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”    。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)

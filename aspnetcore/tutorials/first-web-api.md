@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/11/2019
+ms.date: 08/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 60235af56077127093ac1d77338bc228a6edf073
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 855d05fa2b9c1a7572212c40adbe61bb396f4bac
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602515"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819834"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -728,6 +728,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 错误代码。
 * 否则，此方法将返回具有 JSON 响应正文的 200。 返回 `item` 则产生 HTTP 200 响应。
 
+
 ## <a name="test-the-gettodoitems-method"></a>测试 GetTodoItems 方法
 
 本教程使用 Postman 测试 Web API。
@@ -736,10 +737,19 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证”     。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+* 在“Postman” > “首选项”（“常规”选项卡）中，禁用“SSL 证书验证”     。 或者，选择扳手图标并选择“设置”，然后禁用“SSL 证书验证”  。
+
+---
   
-  * 在“文件”>“设置”  （“常规”*  选项卡）中，禁用“SSL 证书验证”  。
-    > [!WARNING]
-    > 在测试控制器之后重新启用 SSL 证书验证。
+> [!WARNING]
+> 在测试控制器之后重新启用 SSL 证书验证。
 
 * 创建新请求。
   * 将 HTTP 方法设置为“GET”  。
@@ -751,7 +761,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="add-a-create-method"></a>添加创建方法
 
-添加以下 `PostTodoItem` 方法：
+在 Controllers / TodoController.cs 中添加以下 `PostTodoItem` 方法  ： 
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 
