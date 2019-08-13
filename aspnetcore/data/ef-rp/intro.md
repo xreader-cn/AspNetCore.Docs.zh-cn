@@ -82,7 +82,7 @@ dotnet run
 
 * 添加菜单项 **Students**，**Courses**，**Instructors**，和 **Department**，并删除 **Contact**菜单项。
 
-突出显示所作更改。 （没有显示全部标记。）
+突出显示所作更改。（没有显示全部标记。）
 
 [!code-html[](intro/samples/cu21/Pages/Shared/_Layout.cshtml?highlight=6,29,35-38,50&name=snippet)]
 
