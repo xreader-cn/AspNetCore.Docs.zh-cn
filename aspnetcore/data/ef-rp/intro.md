@@ -183,7 +183,7 @@ dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.Sc
 
 ### <a name="files-created"></a>创建的文件
 
-* Pages/Students：Create, Delete, Details, Edit, Index
+* Pages/Students “创建”、“删除”、“详细信息”、“编辑”、“索引”。
 * Data/SchoolContext.cs
 
 ### <a name="file-updates"></a>更新的文件
