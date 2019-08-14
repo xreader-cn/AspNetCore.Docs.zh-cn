@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 9dd96ff6e3539bf1c3e932b33776b16d0fbb2d34
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 64393e826cb17550085f468f5916fca55973908f
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68948287"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993393"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -28,10 +28,9 @@ Blazor 的主体托管模型在 WebAssembly 上的浏览器中运行客户端。
 
 ![Blazor 客户端:Blazor 应用程序在浏览器中的 UI 线程上运行。](hosting-models/_static/client-side.png)
 
-若要使用客户端托管模型创建 Blazor 应用, 请使用以下模板之一:
+若要使用客户端托管模型创建 Blazor 应用, 请使用**Blazor WebAssembly 应用**模板 ([dotnet new blazorwasm](/dotnet/core/tools/dotnet-new))。
 
-* **Blazor (客户端)** ([dotnet new blazor](/dotnet/core/tools/dotnet-new))&ndash;部署为一组静态文件。
-* **Blazor (寄宿 ASP.NET Core)** ([dotnet new blazorhosted](/dotnet/core/tools/dotnet-new))&ndash;由 ASP.NET Core 服务器承载。 ASP.NET Core 应用程序将 Blazor 应用程序提供给客户端。 Blazor 客户端应用可通过网络使用 web API 调用或[SignalR](xref:signalr/introduction)与服务器交互。
+选择**Blazor WebAssembly 应用程序**模板之后, 你可以选择将应用配置为使用 ASP.NET Core 后端, 方法是选择 " **ASP.NET Core 托管**" 复选框 ("[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)")。 ASP.NET Core 应用程序将 Blazor 应用程序提供给客户端。 Blazor 客户端应用可通过网络使用 web API 调用或[SignalR](xref:signalr/introduction)与服务器交互。
 
 这些模板包含处理以下内容的*blazor. webassembly*脚本:
 
@@ -58,7 +57,7 @@ Blazor 的主体托管模型在 WebAssembly 上的浏览器中运行客户端。
 
 ![浏览器通过 SignalR 连接与服务器上 ASP.NET Core 应用程序内托管的应用程序进行交互。](hosting-models/_static/server-side.png)
 
-若要使用服务器端承载模型创建 Blazor 应用, 请使用 ASP.NET Core **Blazor 服务器应用**模板 ([dotnet new blazorserverside](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用托管服务器端应用, 并创建客户端连接到的 SignalR 终结点。
+若要使用服务器端承载模型创建 Blazor 应用, 请使用 ASP.NET Core **Blazor 服务器应用**模板 ([dotnet new blazorserver](/dotnet/core/tools/dotnet-new))。 ASP.NET Core 应用托管服务器端应用, 并创建客户端连接到的 SignalR 终结点。
 
 ASP.NET Core 应用引用要添加的应用`Startup`的类:
 

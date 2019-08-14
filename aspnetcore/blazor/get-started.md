@@ -5,14 +5,14 @@ description: 使用所选工具构建 Blazor 应用, 开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 08/13/2019
 uid: blazor/get-started
-ms.openlocfilehash: b4609858be43acf9d1b2d8be5eff4879fd56f49f
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 1358a2e92af9d9104e565718692b1ca1940b9d9e
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68948327"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993406"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -25,7 +25,7 @@ Blazor 入门:
 1. 在命令 shell 中运行以下命令, 安装 Blazor 模板:
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview7.19365.7
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
    ```
 
 1. 按照所选工具的指导进行操作:
@@ -40,12 +40,12 @@ Blazor 入门:
 
    4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
-   5 \。 对于 Blazor 客户端体验, 请选择 " **Blazor (客户端)** " 模板。 对于 Blazor 服务器端体验, 请选择**Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。
+   5 \。 对于 Blazor 客户端体验, 请选择**Blazor WebAssembly 应用程序**模板。 对于 Blazor 服务器端体验, 请选择**Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。
 
    6 \。 按 F5 运行应用。
 
    > [!NOTE]
-   > 如果安装了 Blazor Visual Studio extension for the ASP.NET Core Blazor (预览版6或更早版本) 的先前预览版本, 则可以在预览版7中卸载该扩展。 现在, 在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
+   > 如果安装了 Blazor Visual Studio extension for the ASP.NET Core Blazor (预览版6或更早版本) 的先前预览版本, 则可以卸载该扩展。 现在, 在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -56,13 +56,13 @@ Blazor 入门:
    3。 对于 Blazor 客户端体验, 请在命令行界面中执行以下命令:
 
       ```console
-      dotnet new blazor -o WebApplication1
+      dotnet new blazorwasm -o WebApplication1
       ```
 
       对于 Blazor 服务器端体验, 请在命令行界面中执行以下命令:
 
       ```console
-      dotnet new blazorserverside -o WebApplication1
+      dotnet new blazorserver -o WebApplication1
       ```
 
       有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。
@@ -85,7 +85,7 @@ Blazor 入门:
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor Server App** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor server-side experience, select the **Blazor Server App** template. For a Blazor client-side experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
@@ -100,7 +100,7 @@ Blazor 入门:
    对于 Blazor 客户端体验, 请在命令行界面中执行以下命令:
 
    ```console
-   dotnet new blazor -o WebApplication1
+   dotnet new blazorwasm -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -108,7 +108,7 @@ Blazor 入门:
    对于 Blazor 服务器端体验, 请在命令行界面中执行以下命令:
 
    ```console
-   dotnet new blazorserverside -o WebApplication1
+   dotnet new blazorserver -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -152,7 +152,7 @@ Blazor 入门:
 
 使用特性或[子内容](xref:blazor/components#child-content)指定组件参数, 这些参数允许你设置子组件的属性。 若要向`Counter`组件添加参数, 请更新组件的`@code`块:
 
-* `IncrementAmount`使用属性添加的属性。`[Parameter]`
+* `IncrementAmount`使用特性添加的公共属性。`[Parameter]`
 * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
 *Pages/Counter.razor*：

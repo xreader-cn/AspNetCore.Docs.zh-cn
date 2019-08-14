@@ -4,14 +4,14 @@ author: jamesnk
 description: 了解如何在 gRPC 中使用身份验证和授权 ASP.NET Core。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 07/26/2019
+ms.date: 08/13/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 19018c4ffae1228055a4858b496f135d015625b4
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602423"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993288"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC 中的身份验证和授权 ASP.NET Core
 
@@ -42,6 +42,8 @@ public void Configure(IApplicationBuilder app)
 
 > [!NOTE]
 > 注册 ASP.NET Core 身份验证中间件的顺序。 始终调用`UseAuthentication`并`UseAuthorization`在`UseRouting`之后和`UseEndpoints`之前。
+
+需要配置应用在调用期间使用的身份验证机制。 身份验证配置是在`Startup.ConfigureServices`中添加的, 将根据你的应用使用的身份验证机制而有所不同。 有关如何保护 ASP.NET Core 应用的示例, 请参阅[身份验证示例](xref:security/authentication/samples)。
 
 设置身份验证后, 可以通过`ServerCallContext`在 gRPC 服务方法中访问该用户。
 
