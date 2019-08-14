@@ -3,14 +3,14 @@ title: 教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
 author: rick-anderson
 description: 使用 Visual Studio、ASP.NET Core 和 EF Core 创建 Razor 页面 Web 应用。
 ms.author: riande
-ms.date: 09/08/2017
+ms.date: 08/09/2019
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: c3dcc18844f2a12a2a116b11cb007cb833203dc3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 7c722a0992b9cf30731a11b31c839f183d40b9a0
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882252"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994306"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
 

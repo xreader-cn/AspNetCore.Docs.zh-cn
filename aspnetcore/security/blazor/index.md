@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/26/2019
 uid: security/blazor/index
-ms.openlocfilehash: 097a747f68729109922af5c68dfd918024ee6146
-ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "67893613"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994190"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -57,7 +57,7 @@ Blazor 服务器端应用程序通过使用 SignalR 创建的实时连接执行�
 按照 <xref:blazor/get-started>一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器端项目：
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
 下表中显示了可能的身份验证值 (`{AUTHENTICATION}`)。
@@ -91,7 +91,7 @@ dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
 Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
 Permissible authentication values (`{AUTHENTICATION}`) are shown in the following table.
