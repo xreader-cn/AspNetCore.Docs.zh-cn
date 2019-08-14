@@ -211,7 +211,7 @@ using Microsoft.Extensions.Localization;
 
 [!code-csharp[](localization/sample/Localization/Startup.cs?name=snippet1)]
 
-* `AddLocalization` 将本地化服务添加到服务容器。 上面的代码还可将资源路径设置为“资源”。
+* `AddLocalization` 将本地化服务添加到服务容器。 上面的代码还可将资源路径设置为“Resources”。
 
 * `AddViewLocalization` 添加对本地化视图文件的支持。 在此示例视图中，本地化基于视图文件后缀。 例如，Index.fr.cshtml 文件中的“fr”  。
 
