@@ -255,9 +255,9 @@
               uid: tutorials/first-mvc-app/validation
             - name: 检查 Details 和 Delete 方法
               uid: tutorials/first-mvc-app/details
-        - name: Views
+        - name: 视图
           uid: mvc/views/overview
-        - name: 部分视图
+        - name: 分部视图
           uid: mvc/views/partial
         - name: Controllers
           uid: mvc/controllers/actions
@@ -547,6 +547,8 @@
       uid: grpc/migration
     - name: 比较 gRPC 服务和 HTTP API
       uid: grpc/comparison
+    - name: 疑难解答
+      uid: grpc/troubleshoot
 - name: 测试、调试和疑难解答
   items:
     - name: 单元测试
