@@ -7,129 +7,130 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: ffd25fe0288159681f7fc052fc09e1f6fc425404
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 00ea14ca95c328b5f8779785a92aa0720a96eb05
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030303"
+ms.locfileid: "69487555"
 ---
-# <a name="aspnet-core-blazor-javascript-interop"></a><span data-ttu-id="06247-103">ASP.NET Core Blazor JavaScript 互操作</span><span class="sxs-lookup"><span data-stu-id="06247-103">ASP.NET Core Blazor JavaScript interop</span></span>
+# <a name="aspnet-core-blazor-javascript-interop"></a><span data-ttu-id="5edc1-103">ASP.NET Core Blazor JavaScript 互操作</span><span class="sxs-lookup"><span data-stu-id="5edc1-103">ASP.NET Core Blazor JavaScript interop</span></span>
 
-<span data-ttu-id="06247-104">作者: [Javier Calvarro 使用](https://github.com/javiercn)、 [Daniel Roth](https://github.com/danroth27)和[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="06247-104">By [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="5edc1-104">作者: [Javier Calvarro 使用](https://github.com/javiercn)、 [Daniel Roth](https://github.com/danroth27)和[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="5edc1-104">By [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="06247-105">Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-105">A Blazor app can invoke JavaScript functions from .NET and .NET methods from JavaScript code.</span></span>
+<span data-ttu-id="5edc1-105">Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-105">A Blazor app can invoke JavaScript functions from .NET and .NET methods from JavaScript code.</span></span>
 
-<span data-ttu-id="06247-106">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="06247-106">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="5edc1-106">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="5edc1-106">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="invoke-javascript-functions-from-net-methods"></a><span data-ttu-id="06247-107">从 .NET 方法调用 JavaScript 函数</span><span class="sxs-lookup"><span data-stu-id="06247-107">Invoke JavaScript functions from .NET methods</span></span>
+## <a name="invoke-javascript-functions-from-net-methods"></a><span data-ttu-id="5edc1-107">从 .NET 方法调用 JavaScript 函数</span><span class="sxs-lookup"><span data-stu-id="5edc1-107">Invoke JavaScript functions from .NET methods</span></span>
 
-<span data-ttu-id="06247-108">有时需要 .NET 代码才能调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-108">There are times when .NET code is required to call a JavaScript function.</span></span> <span data-ttu-id="06247-109">例如, JavaScript 调用可以向应用公开 JavaScript 库中的浏览器功能或功能。</span><span class="sxs-lookup"><span data-stu-id="06247-109">For example, a JavaScript call can expose browser capabilities or functionality from a JavaScript library to the app.</span></span>
+<span data-ttu-id="5edc1-108">有时需要 .NET 代码才能调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-108">There are times when .NET code is required to call a JavaScript function.</span></span> <span data-ttu-id="5edc1-109">例如, JavaScript 调用可以向应用公开 JavaScript 库中的浏览器功能或功能。</span><span class="sxs-lookup"><span data-stu-id="5edc1-109">For example, a JavaScript call can expose browser capabilities or functionality from a JavaScript library to the app.</span></span>
 
-<span data-ttu-id="06247-110">若要从 .net 调入 JavaScript, 请`IJSRuntime`使用抽象。</span><span class="sxs-lookup"><span data-stu-id="06247-110">To call into JavaScript from .NET, use the `IJSRuntime` abstraction.</span></span> <span data-ttu-id="06247-111">`InvokeAsync<T>`方法采用 JavaScript 函数的标识符, 该标识符可与任意数量的 JSON 可序列化参数一起调用。</span><span class="sxs-lookup"><span data-stu-id="06247-111">The `InvokeAsync<T>` method takes an identifier for the JavaScript function that you wish to invoke along with any number of JSON-serializable arguments.</span></span> <span data-ttu-id="06247-112">函数标识符是相对于全局范围 (`window`) 的。</span><span class="sxs-lookup"><span data-stu-id="06247-112">The function identifier is relative to the global scope (`window`).</span></span> <span data-ttu-id="06247-113">如果要调用`window.someScope.someFunction`, 则标识符为`someScope.someFunction`。</span><span class="sxs-lookup"><span data-stu-id="06247-113">If you wish to call `window.someScope.someFunction`, the identifier is `someScope.someFunction`.</span></span> <span data-ttu-id="06247-114">无需在调用函数之前注册它。</span><span class="sxs-lookup"><span data-stu-id="06247-114">There's no need to register the function before it's called.</span></span> <span data-ttu-id="06247-115">返回类型`T`也必须是 JSON 可序列化的。</span><span class="sxs-lookup"><span data-stu-id="06247-115">The return type `T` must also be JSON serializable.</span></span>
+<span data-ttu-id="5edc1-110">若要从 .net 调入 JavaScript, 请`IJSRuntime`使用抽象。</span><span class="sxs-lookup"><span data-stu-id="5edc1-110">To call into JavaScript from .NET, use the `IJSRuntime` abstraction.</span></span> <span data-ttu-id="5edc1-111">`InvokeAsync<T>`方法采用 JavaScript 函数的标识符, 该标识符可与任意数量的 JSON 可序列化参数一起调用。</span><span class="sxs-lookup"><span data-stu-id="5edc1-111">The `InvokeAsync<T>` method takes an identifier for the JavaScript function that you wish to invoke along with any number of JSON-serializable arguments.</span></span> <span data-ttu-id="5edc1-112">函数标识符是相对于全局范围 (`window`) 的。</span><span class="sxs-lookup"><span data-stu-id="5edc1-112">The function identifier is relative to the global scope (`window`).</span></span> <span data-ttu-id="5edc1-113">如果要调用`window.someScope.someFunction`, 则标识符为`someScope.someFunction`。</span><span class="sxs-lookup"><span data-stu-id="5edc1-113">If you wish to call `window.someScope.someFunction`, the identifier is `someScope.someFunction`.</span></span> <span data-ttu-id="5edc1-114">无需在调用函数之前注册它。</span><span class="sxs-lookup"><span data-stu-id="5edc1-114">There's no need to register the function before it's called.</span></span> <span data-ttu-id="5edc1-115">返回类型`T`也必须是 JSON 可序列化的。</span><span class="sxs-lookup"><span data-stu-id="5edc1-115">The return type `T` must also be JSON serializable.</span></span>
 
-<span data-ttu-id="06247-116">对于服务器端应用:</span><span class="sxs-lookup"><span data-stu-id="06247-116">For server-side apps:</span></span>
+<span data-ttu-id="5edc1-116">对于服务器端应用:</span><span class="sxs-lookup"><span data-stu-id="5edc1-116">For server-side apps:</span></span>
 
-* <span data-ttu-id="06247-117">服务器端应用处理多个用户请求。</span><span class="sxs-lookup"><span data-stu-id="06247-117">Multiple user requests are processed by the server-side app.</span></span> <span data-ttu-id="06247-118">不要在`JSRuntime.Current`组件中调用来调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-118">Don't call `JSRuntime.Current` in a component to invoke JavaScript functions.</span></span>
-* <span data-ttu-id="06247-119">`IJSRuntime`注入抽象并使用注入的对象发出 JavaScript 互操作调用。</span><span class="sxs-lookup"><span data-stu-id="06247-119">Inject the `IJSRuntime` abstraction and use the injected object to issue JavaScript interop calls.</span></span>
-* <span data-ttu-id="06247-120">预呈现 Blazor 的应用时, 无法调用 JavaScript, 因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="06247-120">While a Blazor app is prerendering, calling into JavaScript isn't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="06247-121">有关详细信息, 请参阅 "在预[呈现 Blazor 应用时检测](#detect-when-a-blazor-app-is-prerendering)" 部分。</span><span class="sxs-lookup"><span data-stu-id="06247-121">For more information, see the [Detect when a Blazor app is prerendering](#detect-when-a-blazor-app-is-prerendering) section.</span></span>
+* <span data-ttu-id="5edc1-117">服务器端应用处理多个用户请求。</span><span class="sxs-lookup"><span data-stu-id="5edc1-117">Multiple user requests are processed by the server-side app.</span></span> <span data-ttu-id="5edc1-118">不要在`JSRuntime.Current`组件中调用来调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-118">Don't call `JSRuntime.Current` in a component to invoke JavaScript functions.</span></span>
+* <span data-ttu-id="5edc1-119">`IJSRuntime`注入抽象并使用注入的对象发出 JavaScript 互操作调用。</span><span class="sxs-lookup"><span data-stu-id="5edc1-119">Inject the `IJSRuntime` abstraction and use the injected object to issue JavaScript interop calls.</span></span>
+* <span data-ttu-id="5edc1-120">预呈现 Blazor 的应用时, 无法调用 JavaScript, 因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="5edc1-120">While a Blazor app is prerendering, calling into JavaScript isn't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="5edc1-121">有关详细信息, 请参阅 "在预[呈现 Blazor 应用时检测](#detect-when-a-blazor-app-is-prerendering)" 部分。</span><span class="sxs-lookup"><span data-stu-id="5edc1-121">For more information, see the [Detect when a Blazor app is prerendering](#detect-when-a-blazor-app-is-prerendering) section.</span></span>
 
-<span data-ttu-id="06247-122">下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)(基于实验性 JavaScript 的解码器)。</span><span class="sxs-lookup"><span data-stu-id="06247-122">The following example is based on [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), an experimental JavaScript-based decoder.</span></span> <span data-ttu-id="06247-123">该示例演示如何从C#方法调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-123">The example demonstrates how to invoke a JavaScript function from a C# method.</span></span> <span data-ttu-id="06247-124">JavaScript 函数从C#方法接受字节数组, 对数组进行解码, 并将文本返回给组件以供显示。</span><span class="sxs-lookup"><span data-stu-id="06247-124">The JavaScript function accepts a byte array from a C# method, decodes the array, and returns the text to the component for display.</span></span>
+<span data-ttu-id="5edc1-122">下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)(基于实验性 JavaScript 的解码器)。</span><span class="sxs-lookup"><span data-stu-id="5edc1-122">The following example is based on [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), an experimental JavaScript-based decoder.</span></span> <span data-ttu-id="5edc1-123">该示例演示如何从C#方法调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-123">The example demonstrates how to invoke a JavaScript function from a C# method.</span></span> <span data-ttu-id="5edc1-124">JavaScript 函数从C#方法接受字节数组, 对数组进行解码, 并将文本返回给组件以供显示。</span><span class="sxs-lookup"><span data-stu-id="5edc1-124">The JavaScript function accepts a byte array from a C# method, decodes the array, and returns the text to the component for display.</span></span>
 
-<span data-ttu-id="06247-125">在 wwwroot/index.html `<head>` (Blazor客户端) 或*Pages/_Host* (Blazor 服务器端) 的元素中`TextDecoder` , 提供用于对传递的数组进行解码的函数:</span><span class="sxs-lookup"><span data-stu-id="06247-125">Inside the `<head>` element of *wwwroot/index.html* (Blazor client-side) or *Pages/_Host.cshtml* (Blazor server-side), provide a function that uses `TextDecoder` to decode a passed array:</span></span>
+<span data-ttu-id="5edc1-125">在 wwwroot/index.html `<head>` (Blazor客户端) 或*Pages/_Host* (Blazor 服务器端) 的元素中`TextDecoder` , 提供用于对传递的数组进行解码的函数:</span><span class="sxs-lookup"><span data-stu-id="5edc1-125">Inside the `<head>` element of *wwwroot/index.html* (Blazor client-side) or *Pages/_Host.cshtml* (Blazor server-side), provide a function that uses `TextDecoder` to decode a passed array:</span></span>
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
-<span data-ttu-id="06247-126">JavaScript 代码 (如前面的示例中所示的代码) 也可以从 JavaScript 文件 ( *.js*) 加载, 其中包含对脚本文件的引用:</span><span class="sxs-lookup"><span data-stu-id="06247-126">JavaScript code, such as the code shown in the preceding example, can also be loaded from a JavaScript file (*.js*) with a reference to the script file:</span></span>
+<span data-ttu-id="5edc1-126">JavaScript 代码 (如前面的示例中所示的代码) 也可以从 JavaScript 文件 ( *.js*) 加载, 其中包含对脚本文件的引用:</span><span class="sxs-lookup"><span data-stu-id="5edc1-126">JavaScript code, such as the code shown in the preceding example, can also be loaded from a JavaScript file (*.js*) with a reference to the script file:</span></span>
 
 ```html
 <script src="exampleJsInterop.js"></script>
 ```
 
-<span data-ttu-id="06247-127">以下组件:</span><span class="sxs-lookup"><span data-stu-id="06247-127">The following component:</span></span>
+<span data-ttu-id="5edc1-127">以下组件:</span><span class="sxs-lookup"><span data-stu-id="5edc1-127">The following component:</span></span>
 
-* <span data-ttu-id="06247-128">在选择组件按钮 ( `JsRuntime` **转换数组**) 时使用调用JavaScript函数。`ConvertArray`</span><span class="sxs-lookup"><span data-stu-id="06247-128">Invokes the `ConvertArray` JavaScript function using `JsRuntime` when a component button (**Convert Array**) is selected.</span></span>
-* <span data-ttu-id="06247-129">调用 JavaScript 函数后, 传递的数组将转换为字符串。</span><span class="sxs-lookup"><span data-stu-id="06247-129">After the JavaScript function is called, the passed array is converted into a string.</span></span> <span data-ttu-id="06247-130">将字符串返回到要显示的组件。</span><span class="sxs-lookup"><span data-stu-id="06247-130">The string is returned to the component for display.</span></span>
+* <span data-ttu-id="5edc1-128">在选择组件按钮 ( `JsRuntime` **转换数组**) 时使用调用JavaScript函数。`ConvertArray`</span><span class="sxs-lookup"><span data-stu-id="5edc1-128">Invokes the `ConvertArray` JavaScript function using `JsRuntime` when a component button (**Convert Array**) is selected.</span></span>
+* <span data-ttu-id="5edc1-129">调用 JavaScript 函数后, 传递的数组将转换为字符串。</span><span class="sxs-lookup"><span data-stu-id="5edc1-129">After the JavaScript function is called, the passed array is converted into a string.</span></span> <span data-ttu-id="5edc1-130">将字符串返回到要显示的组件。</span><span class="sxs-lookup"><span data-stu-id="5edc1-130">The string is returned to the component for display.</span></span>
 
 [!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
 
-<span data-ttu-id="06247-131">若要使用`IJSRuntime`抽象, 请采用以下任一方法:</span><span class="sxs-lookup"><span data-stu-id="06247-131">To use the `IJSRuntime` abstraction, adopt any of the following approaches:</span></span>
+<span data-ttu-id="5edc1-131">若要使用`IJSRuntime`抽象, 请采用以下任一方法:</span><span class="sxs-lookup"><span data-stu-id="5edc1-131">To use the `IJSRuntime` abstraction, adopt any of the following approaches:</span></span>
 
-* <span data-ttu-id="06247-132">将抽象注入 razor 组件 (razor): `IJSRuntime`</span><span class="sxs-lookup"><span data-stu-id="06247-132">Inject the `IJSRuntime` abstraction into the Razor component (*.razor*):</span></span>
+* <span data-ttu-id="5edc1-132">将抽象注入 razor 组件 (razor): `IJSRuntime`</span><span class="sxs-lookup"><span data-stu-id="5edc1-132">Inject the `IJSRuntime` abstraction into the Razor component (*.razor*):</span></span>
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-* <span data-ttu-id="06247-133">将抽象注入到类 (.cs): `IJSRuntime`</span><span class="sxs-lookup"><span data-stu-id="06247-133">Inject the `IJSRuntime` abstraction into a class (*.cs*):</span></span>
+* <span data-ttu-id="5edc1-133">将抽象注入到类 (.cs): `IJSRuntime`</span><span class="sxs-lookup"><span data-stu-id="5edc1-133">Inject the `IJSRuntime` abstraction into a class (*.cs*):</span></span>
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-* <span data-ttu-id="06247-134">对于使用[BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)的动态内容生成, 请`[Inject]`使用属性:</span><span class="sxs-lookup"><span data-stu-id="06247-134">For dynamic content generation with [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic), use the `[Inject]` attribute:</span></span>
+* <span data-ttu-id="5edc1-134">对于使用[BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)的动态内容生成, 请`[Inject]`使用属性:</span><span class="sxs-lookup"><span data-stu-id="5edc1-134">For dynamic content generation with [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic), use the `[Inject]` attribute:</span></span>
 
   ```csharp
   [Inject]
   IJSRuntime JSRuntime { get; set; }
   ```
 
-<span data-ttu-id="06247-135">本主题附带的客户端示例应用程序提供了两个 JavaScript 函数, 可用于与 DOM 交互以接收用户输入并显示欢迎消息的客户端应用程序:</span><span class="sxs-lookup"><span data-stu-id="06247-135">In the client-side sample app that accompanies this topic, two JavaScript functions are available to the client-side app that interact with the DOM to receive user input and display a welcome message:</span></span>
+<span data-ttu-id="5edc1-135">本主题附带的客户端示例应用程序提供了两个 JavaScript 函数, 可用于与 DOM 交互以接收用户输入并显示欢迎消息的客户端应用程序:</span><span class="sxs-lookup"><span data-stu-id="5edc1-135">In the client-side sample app that accompanies this topic, two JavaScript functions are available to the client-side app that interact with the DOM to receive user input and display a welcome message:</span></span>
 
-* <span data-ttu-id="06247-136">`showPrompt`&ndash;生成一个提示, 以接受用户输入 (用户名) 并将名称返回给调用方。</span><span class="sxs-lookup"><span data-stu-id="06247-136">`showPrompt` &ndash; Produces a prompt to accept user input (the user's name) and returns the name to the caller.</span></span>
-* <span data-ttu-id="06247-137">`displayWelcome`将来自调用方的欢迎消息分配给具有的`welcome`一个`id` DOM 对象。 &ndash;</span><span class="sxs-lookup"><span data-stu-id="06247-137">`displayWelcome` &ndash; Assigns a welcome message from the caller to a DOM object with an `id` of `welcome`.</span></span>
+* <span data-ttu-id="5edc1-136">`showPrompt`&ndash;生成一个提示, 以接受用户输入 (用户名) 并将名称返回给调用方。</span><span class="sxs-lookup"><span data-stu-id="5edc1-136">`showPrompt` &ndash; Produces a prompt to accept user input (the user's name) and returns the name to the caller.</span></span>
+* <span data-ttu-id="5edc1-137">`displayWelcome`将来自调用方的欢迎消息分配给具有的`welcome`一个`id` DOM 对象。 &ndash;</span><span class="sxs-lookup"><span data-stu-id="5edc1-137">`displayWelcome` &ndash; Assigns a welcome message from the caller to a DOM object with an `id` of `welcome`.</span></span>
 
-<span data-ttu-id="06247-138">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-138">*wwwroot/exampleJsInterop.js*:</span></span>
+<span data-ttu-id="5edc1-138">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-138">*wwwroot/exampleJsInterop.js*:</span></span>
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-<span data-ttu-id="06247-139">将引用 JavaScript 文件的 标记放在wwwroot/index.html文件(Blazor客户端)或Pages/_Host文件中(Blazor服务器端`<script>` )。</span><span class="sxs-lookup"><span data-stu-id="06247-139">Place the `<script>` tag that references the JavaScript file in the *wwwroot/index.html* file (Blazor client-side) or *Pages/_Host.cshtml* file (Blazor server-side).</span></span>
+<span data-ttu-id="5edc1-139">将引用 JavaScript 文件的 标记放在wwwroot/index.html文件(Blazor客户端)或Pages/_Host文件中(Blazor服务器端`<script>` )。</span><span class="sxs-lookup"><span data-stu-id="5edc1-139">Place the `<script>` tag that references the JavaScript file in the *wwwroot/index.html* file (Blazor client-side) or *Pages/_Host.cshtml* file (Blazor server-side).</span></span>
 
-<span data-ttu-id="06247-140">*wwwroot/index.html*(Blazor 客户端):</span><span class="sxs-lookup"><span data-stu-id="06247-140">*wwwroot/index.html* (Blazor client-side):</span></span>
+<span data-ttu-id="5edc1-140">*wwwroot/index.html*(Blazor 客户端):</span><span class="sxs-lookup"><span data-stu-id="5edc1-140">*wwwroot/index.html* (Blazor client-side):</span></span>
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-<span data-ttu-id="06247-141">*Pages/_Host*(Blazor 服务器端):</span><span class="sxs-lookup"><span data-stu-id="06247-141">*Pages/_Host.cshtml* (Blazor server-side):</span></span>
+<span data-ttu-id="5edc1-141">*Pages/_Host*(Blazor 服务器端):</span><span class="sxs-lookup"><span data-stu-id="5edc1-141">*Pages/_Host.cshtml* (Blazor server-side):</span></span>
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
-<span data-ttu-id="06247-142">请勿在组件`<script>`文件中放置标记, `<script>`因为标记无法动态更新。</span><span class="sxs-lookup"><span data-stu-id="06247-142">Don't place a `<script>` tag in a component file because the `<script>` tag can't be updated dynamically.</span></span>
+<span data-ttu-id="5edc1-142">请勿在组件`<script>`文件中放置标记, `<script>`因为标记无法动态更新。</span><span class="sxs-lookup"><span data-stu-id="5edc1-142">Don't place a `<script>` tag in a component file because the `<script>` tag can't be updated dynamically.</span></span>
 
-<span data-ttu-id="06247-143">.NET 方法通过调用`IJSRuntime.InvokeAsync<T>`来与*ExampleJsInterop*文件中的 JavaScript 函数互操作。</span><span class="sxs-lookup"><span data-stu-id="06247-143">.NET methods interop with the JavaScript functions in the *exampleJsInterop.js* file by calling `IJSRuntime.InvokeAsync<T>`.</span></span>
+<span data-ttu-id="5edc1-143">.NET 方法通过调用`IJSRuntime.InvokeAsync<T>`来与*ExampleJsInterop*文件中的 JavaScript 函数互操作。</span><span class="sxs-lookup"><span data-stu-id="5edc1-143">.NET methods interop with the JavaScript functions in the *exampleJsInterop.js* file by calling `IJSRuntime.InvokeAsync<T>`.</span></span>
 
-<span data-ttu-id="06247-144">`IJSRuntime`抽象是异步的, 以允许服务器端方案。</span><span class="sxs-lookup"><span data-stu-id="06247-144">The `IJSRuntime` abstraction is asynchronous to allow for server-side scenarios.</span></span> <span data-ttu-id="06247-145">如果应用程序运行客户端, 并且你希望同步调用 JavaScript 函数, 则转到`IJSInProcessRuntime`和调用。 `Invoke<T>`</span><span class="sxs-lookup"><span data-stu-id="06247-145">If the app runs client-side and you want to invoke a JavaScript function synchronously, downcast to `IJSInProcessRuntime` and call `Invoke<T>` instead.</span></span> <span data-ttu-id="06247-146">建议大多数 JavaScript 互操作库使用异步 Api, 以确保所有方案、客户端或服务器端的库可用。</span><span class="sxs-lookup"><span data-stu-id="06247-146">We recommend that most JavaScript interop libraries use the async APIs to ensure that the libraries are available in all scenarios, client-side or server-side.</span></span>
+<span data-ttu-id="5edc1-144">`IJSRuntime`抽象是异步的, 以允许服务器端方案。</span><span class="sxs-lookup"><span data-stu-id="5edc1-144">The `IJSRuntime` abstraction is asynchronous to allow for server-side scenarios.</span></span> <span data-ttu-id="5edc1-145">如果应用程序运行客户端, 并且你希望同步调用 JavaScript 函数, 则转到`IJSInProcessRuntime`和调用。 `Invoke<T>`</span><span class="sxs-lookup"><span data-stu-id="5edc1-145">If the app runs client-side and you want to invoke a JavaScript function synchronously, downcast to `IJSInProcessRuntime` and call `Invoke<T>` instead.</span></span> <span data-ttu-id="5edc1-146">建议大多数 JavaScript 互操作库使用异步 Api, 以确保所有方案、客户端或服务器端的库可用。</span><span class="sxs-lookup"><span data-stu-id="5edc1-146">We recommend that most JavaScript interop libraries use the async APIs to ensure that the libraries are available in all scenarios, client-side or server-side.</span></span>
 
-<span data-ttu-id="06247-147">该示例应用包含一个用于演示 JavaScript 互操作的组件。</span><span class="sxs-lookup"><span data-stu-id="06247-147">The sample app includes a component to demonstrate JavaScript interop.</span></span> <span data-ttu-id="06247-148">组件:</span><span class="sxs-lookup"><span data-stu-id="06247-148">The component:</span></span>
+<span data-ttu-id="5edc1-147">该示例应用包含一个用于演示 JavaScript 互操作的组件。</span><span class="sxs-lookup"><span data-stu-id="5edc1-147">The sample app includes a component to demonstrate JavaScript interop.</span></span> <span data-ttu-id="5edc1-148">组件:</span><span class="sxs-lookup"><span data-stu-id="5edc1-148">The component:</span></span>
 
-* <span data-ttu-id="06247-149">通过 JavaScript 提示接收用户输入。</span><span class="sxs-lookup"><span data-stu-id="06247-149">Receives user input via a JavaScript prompt.</span></span>
-* <span data-ttu-id="06247-150">将文本返回到组件进行处理。</span><span class="sxs-lookup"><span data-stu-id="06247-150">Returns the text to the component for processing.</span></span>
-* <span data-ttu-id="06247-151">调用第二个 JavaScript 函数, 该函数与 DOM 交互以显示欢迎消息。</span><span class="sxs-lookup"><span data-stu-id="06247-151">Calls a second JavaScript function that interacts with the DOM to display a welcome message.</span></span>
+* <span data-ttu-id="5edc1-149">通过 JavaScript 提示接收用户输入。</span><span class="sxs-lookup"><span data-stu-id="5edc1-149">Receives user input via a JavaScript prompt.</span></span>
+* <span data-ttu-id="5edc1-150">将文本返回到组件进行处理。</span><span class="sxs-lookup"><span data-stu-id="5edc1-150">Returns the text to the component for processing.</span></span>
+* <span data-ttu-id="5edc1-151">调用第二个 JavaScript 函数, 该函数与 DOM 交互以显示欢迎消息。</span><span class="sxs-lookup"><span data-stu-id="5edc1-151">Calls a second JavaScript function that interacts with the DOM to display a welcome message.</span></span>
 
-<span data-ttu-id="06247-152">*Pages/JSInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-152">*Pages/JSInterop.razor*:</span></span>
+<span data-ttu-id="5edc1-152">*Pages/JSInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-152">*Pages/JSInterop.razor*:</span></span>
 
 [!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
-1. <span data-ttu-id="06247-153">通过`TriggerJsPrompt`选择组件的 "**触发器 JavaScript" 提示**按钮执行时, 将调用`showPrompt` *wwwroot/exampleJsInterop*文件中提供的 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-153">When `TriggerJsPrompt` is executed by selecting the component's **Trigger JavaScript Prompt** button, the JavaScript `showPrompt` function provided in the *wwwroot/exampleJsInterop.js* file is called.</span></span>
-1. <span data-ttu-id="06247-154">`showPrompt`函数接受 HTML 编码并返回到组件的用户输入 (用户的名称)。</span><span class="sxs-lookup"><span data-stu-id="06247-154">The `showPrompt` function accepts user input (the user's name), which is HTML-encoded and returned to the component.</span></span> <span data-ttu-id="06247-155">组件将用户的名称存储在本地变量`name`中。</span><span class="sxs-lookup"><span data-stu-id="06247-155">The component stores the user's name in a local variable, `name`.</span></span>
-1. <span data-ttu-id="06247-156">存储在中`name`的字符串合并为一个欢迎消息, 该消息将传递给一个 JavaScript `displayWelcome`函数, 该函数将欢迎消息呈现为标题标记。</span><span class="sxs-lookup"><span data-stu-id="06247-156">The string stored in `name` is incorporated into a welcome message, which is passed to a JavaScript function, `displayWelcome`, which renders the welcome message into a heading tag.</span></span>
+1. <span data-ttu-id="5edc1-153">通过`TriggerJsPrompt`选择组件的 "**触发器 JavaScript" 提示**按钮执行时, 将调用`showPrompt` *wwwroot/exampleJsInterop*文件中提供的 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-153">When `TriggerJsPrompt` is executed by selecting the component's **Trigger JavaScript Prompt** button, the JavaScript `showPrompt` function provided in the *wwwroot/exampleJsInterop.js* file is called.</span></span>
+1. <span data-ttu-id="5edc1-154">`showPrompt`函数接受 HTML 编码并返回到组件的用户输入 (用户的名称)。</span><span class="sxs-lookup"><span data-stu-id="5edc1-154">The `showPrompt` function accepts user input (the user's name), which is HTML-encoded and returned to the component.</span></span> <span data-ttu-id="5edc1-155">组件将用户的名称存储在本地变量`name`中。</span><span class="sxs-lookup"><span data-stu-id="5edc1-155">The component stores the user's name in a local variable, `name`.</span></span>
+1. <span data-ttu-id="5edc1-156">存储在中`name`的字符串合并为一个欢迎消息, 该消息将传递给一个 JavaScript `displayWelcome`函数, 该函数将欢迎消息呈现为标题标记。</span><span class="sxs-lookup"><span data-stu-id="5edc1-156">The string stored in `name` is incorporated into a welcome message, which is passed to a JavaScript function, `displayWelcome`, which renders the welcome message into a heading tag.</span></span>
 
-## <a name="call-a-void-javascript-function"></a><span data-ttu-id="06247-157">调用 void JavaScript 函数</span><span class="sxs-lookup"><span data-stu-id="06247-157">Call a void JavaScript function</span></span>
+## <a name="call-a-void-javascript-function"></a><span data-ttu-id="5edc1-157">调用 void JavaScript 函数</span><span class="sxs-lookup"><span data-stu-id="5edc1-157">Call a void JavaScript function</span></span>
 
-<span data-ttu-id="06247-158">返回[void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)或[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)的 JavaScript 函数`IJSRuntime.InvokeAsync<object>`将在返回`null`的中调用。</span><span class="sxs-lookup"><span data-stu-id="06247-158">JavaScript functions that return [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) or [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) are called with `IJSRuntime.InvokeAsync<object>`, which returns `null`.</span></span>
+<span data-ttu-id="5edc1-158">返回[void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)或[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)的 JavaScript 函数`IJSRuntime.InvokeAsync<object>`将在返回`null`的中调用。</span><span class="sxs-lookup"><span data-stu-id="5edc1-158">JavaScript functions that return [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) or [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) are called with `IJSRuntime.InvokeAsync<object>`, which returns `null`.</span></span>
 
-## <a name="detect-when-a-blazor-app-is-prerendering"></a><span data-ttu-id="06247-159">检测何时预呈现 Blazor 应用</span><span class="sxs-lookup"><span data-stu-id="06247-159">Detect when a Blazor app is prerendering</span></span>
+## <a name="detect-when-a-blazor-app-is-prerendering"></a><span data-ttu-id="5edc1-159">检测何时预呈现 Blazor 应用</span><span class="sxs-lookup"><span data-stu-id="5edc1-159">Detect when a Blazor app is prerendering</span></span>
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
-## <a name="capture-references-to-elements"></a><span data-ttu-id="06247-160">捕获对元素的引用</span><span class="sxs-lookup"><span data-stu-id="06247-160">Capture references to elements</span></span>
+## <a name="capture-references-to-elements"></a><span data-ttu-id="5edc1-160">捕获对元素的引用</span><span class="sxs-lookup"><span data-stu-id="5edc1-160">Capture references to elements</span></span>
 
-<span data-ttu-id="06247-161">某些[JavaScript 互操作](xref:blazor/javascript-interop)方案需要引用 HTML 元素。</span><span class="sxs-lookup"><span data-stu-id="06247-161">Some [JavaScript interop](xref:blazor/javascript-interop) scenarios require references to HTML elements.</span></span> <span data-ttu-id="06247-162">例如, UI 库可能需要用于初始化的元素引用, 或者可能需要在元素上调用类似于命令的 api, 例如`focus`或。 `play`</span><span class="sxs-lookup"><span data-stu-id="06247-162">For example, a UI library may require an element reference for initialization, or you might need to call command-like APIs on an element, such as `focus` or `play`.</span></span>
+<span data-ttu-id="5edc1-161">某些[JavaScript 互操作](xref:blazor/javascript-interop)方案需要引用 HTML 元素。</span><span class="sxs-lookup"><span data-stu-id="5edc1-161">Some [JavaScript interop](xref:blazor/javascript-interop) scenarios require references to HTML elements.</span></span> <span data-ttu-id="5edc1-162">例如, UI 库可能需要用于初始化的元素引用, 或者可能需要在元素上调用类似于命令的 api, 例如`focus`或。 `play`</span><span class="sxs-lookup"><span data-stu-id="5edc1-162">For example, a UI library may require an element reference for initialization, or you might need to call command-like APIs on an element, such as `focus` or `play`.</span></span>
 
-<span data-ttu-id="06247-163">使用以下方法捕获对组件中 HTML 元素的引用:</span><span class="sxs-lookup"><span data-stu-id="06247-163">Capture references to HTML elements in a component using the following approach:</span></span>
+<span data-ttu-id="5edc1-163">使用以下方法捕获对组件中 HTML 元素的引用:</span><span class="sxs-lookup"><span data-stu-id="5edc1-163">Capture references to HTML elements in a component using the following approach:</span></span>
 
-* <span data-ttu-id="06247-164">`@ref`将属性添加到 HTML 元素。</span><span class="sxs-lookup"><span data-stu-id="06247-164">Add an `@ref` attribute to the HTML element.</span></span>
-* <span data-ttu-id="06247-165">定义其名称与`ElementReference` `@ref`属性的值相匹配的类型的字段。</span><span class="sxs-lookup"><span data-stu-id="06247-165">Define a field of type `ElementReference` whose name matches the value of the `@ref` attribute.</span></span>
+* <span data-ttu-id="5edc1-164">`@ref`将属性添加到 HTML 元素。</span><span class="sxs-lookup"><span data-stu-id="5edc1-164">Add an `@ref` attribute to the HTML element.</span></span>
+* <span data-ttu-id="5edc1-165">定义其名称与`ElementReference` `@ref`属性的值相匹配的类型的字段。</span><span class="sxs-lookup"><span data-stu-id="5edc1-165">Define a field of type `ElementReference` whose name matches the value of the `@ref` attribute.</span></span>
+* <span data-ttu-id="5edc1-166">`@ref:suppressField`提供参数, 该参数可取消支持字段的生成。</span><span class="sxs-lookup"><span data-stu-id="5edc1-166">Provide the `@ref:suppressField` parameter, which suppresses backing field generation.</span></span> <span data-ttu-id="5edc1-167">有关详细信息, 请参阅[3.0.0-preview9 中的@ref删除自动支持字段支持](https://github.com/aspnet/Announcements/issues/381)。</span><span class="sxs-lookup"><span data-stu-id="5edc1-167">For more information, see [Removing automatic backing field support for @ref in 3.0.0-preview9](https://github.com/aspnet/Announcements/issues/381).</span></span>
 
-<span data-ttu-id="06247-166">下面的示例演示捕获对`username` `<input>`元素的引用:</span><span class="sxs-lookup"><span data-stu-id="06247-166">The following example shows capturing a reference to the `username` `<input>` element:</span></span>
+<span data-ttu-id="5edc1-168">下面的示例演示捕获对`username` `<input>`元素的引用:</span><span class="sxs-lookup"><span data-stu-id="5edc1-168">The following example shows capturing a reference to the `username` `<input>` element:</span></span>
 
 ```cshtml
-<input @ref="username" ... />
+<input @ref="username" @ref:suppressField ... />
 
 @code {
     ElementReference username;
@@ -137,13 +138,13 @@ ms.locfileid: "69030303"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="06247-167">当 Blazor 与所引用的元素交互时, 不要使用捕获的元素引用作为填充或操作 DOM 的方式。</span><span class="sxs-lookup"><span data-stu-id="06247-167">Do **not** use captured element references as a way of populating or manipulating the DOM when Blazor interacts with the elements referenced.</span></span> <span data-ttu-id="06247-168">这样做可能会干扰声明性呈现模型。</span><span class="sxs-lookup"><span data-stu-id="06247-168">Doing so may interfere with the declarative rendering model.</span></span>
+> <span data-ttu-id="5edc1-169">当 Blazor 与所引用的元素交互时, 不要使用捕获的元素引用作为填充或操作 DOM 的方式。</span><span class="sxs-lookup"><span data-stu-id="5edc1-169">Do **not** use captured element references as a way of populating or manipulating the DOM when Blazor interacts with the elements referenced.</span></span> <span data-ttu-id="5edc1-170">这样做可能会干扰声明性呈现模型。</span><span class="sxs-lookup"><span data-stu-id="5edc1-170">Doing so may interfere with the declarative rendering model.</span></span>
 
-<span data-ttu-id="06247-169">就 .net 代码而言, `ElementReference`是不透明的句柄。</span><span class="sxs-lookup"><span data-stu-id="06247-169">As far as .NET code is concerned, an `ElementReference` is an opaque handle.</span></span> <span data-ttu-id="06247-170">*唯一*可以执行的操作`ElementReference`是通过 javascript 互操作将它传递给 javascript 代码。</span><span class="sxs-lookup"><span data-stu-id="06247-170">The *only* thing you can do with `ElementReference` is pass it through to JavaScript code via JavaScript interop.</span></span> <span data-ttu-id="06247-171">当你执行此操作时, JavaScript 端代码将收到`HTMLElement`一个实例, 该实例可与普通 DOM api 一起使用。</span><span class="sxs-lookup"><span data-stu-id="06247-171">When you do so, the JavaScript-side code receives an `HTMLElement` instance, which it can use with normal DOM APIs.</span></span>
+<span data-ttu-id="5edc1-171">就 .net 代码而言, `ElementReference`是不透明的句柄。</span><span class="sxs-lookup"><span data-stu-id="5edc1-171">As far as .NET code is concerned, an `ElementReference` is an opaque handle.</span></span> <span data-ttu-id="5edc1-172">*唯一*可以执行的操作`ElementReference`是通过 javascript 互操作将它传递给 javascript 代码。</span><span class="sxs-lookup"><span data-stu-id="5edc1-172">The *only* thing you can do with `ElementReference` is pass it through to JavaScript code via JavaScript interop.</span></span> <span data-ttu-id="5edc1-173">当你执行此操作时, JavaScript 端代码将收到`HTMLElement`一个实例, 该实例可与普通 DOM api 一起使用。</span><span class="sxs-lookup"><span data-stu-id="5edc1-173">When you do so, the JavaScript-side code receives an `HTMLElement` instance, which it can use with normal DOM APIs.</span></span>
 
-<span data-ttu-id="06247-172">例如, 下面的代码定义了一个 .NET 扩展方法, 该方法可在元素上设置焦点:</span><span class="sxs-lookup"><span data-stu-id="06247-172">For example, the following code defines a .NET extension method that enables setting the focus on an element:</span></span>
+<span data-ttu-id="5edc1-174">例如, 下面的代码定义了一个 .NET 扩展方法, 该方法可在元素上设置焦点:</span><span class="sxs-lookup"><span data-stu-id="5edc1-174">For example, the following code defines a .NET extension method that enables setting the focus on an element:</span></span>
 
-<span data-ttu-id="06247-173">*exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-173">*exampleJsInterop.js*:</span></span>
+<span data-ttu-id="5edc1-175">*exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-175">*exampleJsInterop.js*:</span></span>
 
 ```javascript
 window.exampleJsFunctions = {
@@ -153,12 +154,12 @@ window.exampleJsFunctions = {
 }
 ```
 
-<span data-ttu-id="06247-174">使用`IJSRuntime.InvokeAsync<T>`并调用`exampleJsFunctions.focusElement` 来集中元素:`ElementReference`</span><span class="sxs-lookup"><span data-stu-id="06247-174">Use `IJSRuntime.InvokeAsync<T>` and call `exampleJsFunctions.focusElement` with an `ElementReference` to focus an element:</span></span>
+<span data-ttu-id="5edc1-176">使用`IJSRuntime.InvokeAsync<T>`并调用`exampleJsFunctions.focusElement` 来集中元素:`ElementReference`</span><span class="sxs-lookup"><span data-stu-id="5edc1-176">Use `IJSRuntime.InvokeAsync<T>` and call `exampleJsFunctions.focusElement` with an `ElementReference` to focus an element:</span></span>
 
 ```cshtml
 @inject IJSRuntime JSRuntime
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -172,7 +173,7 @@ window.exampleJsFunctions = {
 }
 ```
 
-<span data-ttu-id="06247-175">若要使用扩展方法集中元素, 请创建一个接收`IJSRuntime`实例的静态扩展方法:</span><span class="sxs-lookup"><span data-stu-id="06247-175">To use an extension method to focus an element, create a static extension method that receives the `IJSRuntime` instance:</span></span>
+<span data-ttu-id="5edc1-177">若要使用扩展方法集中元素, 请创建一个接收`IJSRuntime`实例的静态扩展方法:</span><span class="sxs-lookup"><span data-stu-id="5edc1-177">To use an extension method to focus an element, create a static extension method that receives the `IJSRuntime` instance:</span></span>
 
 ```csharp
 public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
@@ -182,13 +183,13 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 }
 ```
 
-<span data-ttu-id="06247-176">在对象上直接调用方法。</span><span class="sxs-lookup"><span data-stu-id="06247-176">The method is called directly on the object.</span></span> <span data-ttu-id="06247-177">下面的示例假定静态`Focus`方法可`JsInteropClasses`从命名空间中获得:</span><span class="sxs-lookup"><span data-stu-id="06247-177">The following example assumes that the static `Focus` method is available from the `JsInteropClasses` namespace:</span></span>
+<span data-ttu-id="5edc1-178">在对象上直接调用方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-178">The method is called directly on the object.</span></span> <span data-ttu-id="5edc1-179">下面的示例假定静态`Focus`方法可`JsInteropClasses`从命名空间中获得:</span><span class="sxs-lookup"><span data-stu-id="5edc1-179">The following example assumes that the static `Focus` method is available from the `JsInteropClasses` namespace:</span></span>
 
 ```cshtml
 @inject IJSRuntime JSRuntime
 @using JsInteropClasses
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -202,7 +203,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 ```
 
 > [!IMPORTANT]
-> <span data-ttu-id="06247-178">仅在呈现组件后填充变量。`username`</span><span class="sxs-lookup"><span data-stu-id="06247-178">The `username` variable is only populated after the component is rendered.</span></span> <span data-ttu-id="06247-179">如果将未填充`ElementReference`传递给 javascript 代码, javascript 代码将接收`null`值。</span><span class="sxs-lookup"><span data-stu-id="06247-179">If an unpopulated `ElementReference` is passed to JavaScript code, the JavaScript code receives a value of `null`.</span></span> <span data-ttu-id="06247-180">若要在组件完成呈现后操作元素引用 (若要设置元素的初始焦点), 请使用`OnAfterRenderAsync`或`OnAfterRender` [组件生命周期方法](xref:blazor/components#lifecycle-methods)。</span><span class="sxs-lookup"><span data-stu-id="06247-180">To manipulate element references after the component has finished rendering (to set the initial focus on an element) use the `OnAfterRenderAsync` or `OnAfterRender` [component lifecycle methods](xref:blazor/components#lifecycle-methods).</span></span>
+> <span data-ttu-id="5edc1-180">仅在呈现组件后填充变量。`username`</span><span class="sxs-lookup"><span data-stu-id="5edc1-180">The `username` variable is only populated after the component is rendered.</span></span> <span data-ttu-id="5edc1-181">如果将未填充`ElementReference`传递给 javascript 代码, javascript 代码将接收`null`值。</span><span class="sxs-lookup"><span data-stu-id="5edc1-181">If an unpopulated `ElementReference` is passed to JavaScript code, the JavaScript code receives a value of `null`.</span></span> <span data-ttu-id="5edc1-182">若要在组件完成呈现后操作元素引用 (若要设置元素的初始焦点), 请使用`OnAfterRenderAsync`或`OnAfterRender` [组件生命周期方法](xref:blazor/components#lifecycle-methods)。</span><span class="sxs-lookup"><span data-stu-id="5edc1-182">To manipulate element references after the component has finished rendering (to set the initial focus on an element) use the `OnAfterRenderAsync` or `OnAfterRender` [component lifecycle methods](xref:blazor/components#lifecycle-methods).</span></span>
 
 <!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
 Capture a reference to an HTML element in a component by adding an `@ref` attribute to the HTML element. The following example shows capturing a reference to the `username` `<input>` element:
@@ -250,78 +251,78 @@ The method is called directly on the object. The following example assumes that 
 > The `username` variable is only populated after the component is rendered. If an unpopulated `ElementReference` is passed to JavaScript code, the JavaScript code receives a value of `null`. To manipulate element references after the component has finished rendering (to set the initial focus on an element) use the `OnAfterRenderAsync` or `OnAfterRender` [component lifecycle methods](xref:blazor/components#lifecycle-methods).
 -->
 
-## <a name="invoke-net-methods-from-javascript-functions"></a><span data-ttu-id="06247-181">从 JavaScript 函数调用 .NET 方法</span><span class="sxs-lookup"><span data-stu-id="06247-181">Invoke .NET methods from JavaScript functions</span></span>
+## <a name="invoke-net-methods-from-javascript-functions"></a><span data-ttu-id="5edc1-183">从 JavaScript 函数调用 .NET 方法</span><span class="sxs-lookup"><span data-stu-id="5edc1-183">Invoke .NET methods from JavaScript functions</span></span>
 
-### <a name="static-net-method-call"></a><span data-ttu-id="06247-182">静态 .NET 方法调用</span><span class="sxs-lookup"><span data-stu-id="06247-182">Static .NET method call</span></span>
+### <a name="static-net-method-call"></a><span data-ttu-id="5edc1-184">静态 .NET 方法调用</span><span class="sxs-lookup"><span data-stu-id="5edc1-184">Static .NET method call</span></span>
 
-<span data-ttu-id="06247-183">若要从 JavaScript 调用静态 .net 方法, 请使用`DotNet.invokeMethod`或`DotNet.invokeMethodAsync`函数。</span><span class="sxs-lookup"><span data-stu-id="06247-183">To invoke a static .NET method from JavaScript, use the `DotNet.invokeMethod` or `DotNet.invokeMethodAsync` functions.</span></span> <span data-ttu-id="06247-184">传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。</span><span class="sxs-lookup"><span data-stu-id="06247-184">Pass in the identifier of the static method you wish to call, the name of the assembly containing the function, and any arguments.</span></span> <span data-ttu-id="06247-185">异步版本是支持服务器端方案的首选。</span><span class="sxs-lookup"><span data-stu-id="06247-185">The asynchronous version is preferred to support server-side scenarios.</span></span> <span data-ttu-id="06247-186">若要从 JavaScript 调用 .net 方法, .net 方法必须是公共的, 静态的, 并具有`[JSInvokable]`属性。</span><span class="sxs-lookup"><span data-stu-id="06247-186">To invoke a .NET method from JavaScript, the .NET method must be public, static, and have the `[JSInvokable]` attribute.</span></span> <span data-ttu-id="06247-187">默认情况下, 方法标识符为方法名称, 但可以使用`JSInvokableAttribute`构造函数指定其他标识符。</span><span class="sxs-lookup"><span data-stu-id="06247-187">By default, the method identifier is the method name, but you can specify a different identifier using the `JSInvokableAttribute` constructor.</span></span> <span data-ttu-id="06247-188">当前不支持调用开放式泛型方法。</span><span class="sxs-lookup"><span data-stu-id="06247-188">Calling open generic methods isn't currently supported.</span></span>
+<span data-ttu-id="5edc1-185">若要从 JavaScript 调用静态 .net 方法, 请使用`DotNet.invokeMethod`或`DotNet.invokeMethodAsync`函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-185">To invoke a static .NET method from JavaScript, use the `DotNet.invokeMethod` or `DotNet.invokeMethodAsync` functions.</span></span> <span data-ttu-id="5edc1-186">传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。</span><span class="sxs-lookup"><span data-stu-id="5edc1-186">Pass in the identifier of the static method you wish to call, the name of the assembly containing the function, and any arguments.</span></span> <span data-ttu-id="5edc1-187">异步版本是支持服务器端方案的首选。</span><span class="sxs-lookup"><span data-stu-id="5edc1-187">The asynchronous version is preferred to support server-side scenarios.</span></span> <span data-ttu-id="5edc1-188">若要从 JavaScript 调用 .net 方法, .net 方法必须是公共的, 静态的, 并具有`[JSInvokable]`属性。</span><span class="sxs-lookup"><span data-stu-id="5edc1-188">To invoke a .NET method from JavaScript, the .NET method must be public, static, and have the `[JSInvokable]` attribute.</span></span> <span data-ttu-id="5edc1-189">默认情况下, 方法标识符为方法名称, 但可以使用`JSInvokableAttribute`构造函数指定其他标识符。</span><span class="sxs-lookup"><span data-stu-id="5edc1-189">By default, the method identifier is the method name, but you can specify a different identifier using the `JSInvokableAttribute` constructor.</span></span> <span data-ttu-id="5edc1-190">当前不支持调用开放式泛型方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-190">Calling open generic methods isn't currently supported.</span></span>
 
-<span data-ttu-id="06247-189">该示例应用包含一个C#返回数组的`int`方法。</span><span class="sxs-lookup"><span data-stu-id="06247-189">The sample app includes a C# method to return an array of `int`s.</span></span> <span data-ttu-id="06247-190">`JSInvokable`特性应用于方法。</span><span class="sxs-lookup"><span data-stu-id="06247-190">The `JSInvokable` attribute is applied to the method.</span></span>
+<span data-ttu-id="5edc1-191">该示例应用包含一个C#返回数组的`int`方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-191">The sample app includes a C# method to return an array of `int`s.</span></span> <span data-ttu-id="5edc1-192">`JSInvokable`特性应用于方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-192">The `JSInvokable` attribute is applied to the method.</span></span>
 
-<span data-ttu-id="06247-191">*Pages/JsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-191">*Pages/JsInterop.razor*:</span></span>
+<span data-ttu-id="5edc1-193">*Pages/JsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-193">*Pages/JsInterop.razor*:</span></span>
 
 [!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
 
-<span data-ttu-id="06247-192">为客户端提供的 JavaScript 调用C# .net 方法。</span><span class="sxs-lookup"><span data-stu-id="06247-192">JavaScript served to the client invokes the C# .NET method.</span></span>
+<span data-ttu-id="5edc1-194">为客户端提供的 JavaScript 调用C# .net 方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-194">JavaScript served to the client invokes the C# .NET method.</span></span>
 
-<span data-ttu-id="06247-193">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-193">*wwwroot/exampleJsInterop.js*:</span></span>
+<span data-ttu-id="5edc1-195">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-195">*wwwroot/exampleJsInterop.js*:</span></span>
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
-<span data-ttu-id="06247-194">如果选择了 "**触发器 .net 静态方法 ReturnArrayAsync** " 按钮, 请在浏览器的 web 开发人员工具中检查控制台输出。</span><span class="sxs-lookup"><span data-stu-id="06247-194">When the **Trigger .NET static method ReturnArrayAsync** button is selected, examine the console output in the browser's web developer tools.</span></span>
+<span data-ttu-id="5edc1-196">如果选择了 "**触发器 .net 静态方法 ReturnArrayAsync** " 按钮, 请在浏览器的 web 开发人员工具中检查控制台输出。</span><span class="sxs-lookup"><span data-stu-id="5edc1-196">When the **Trigger .NET static method ReturnArrayAsync** button is selected, examine the console output in the browser's web developer tools.</span></span>
 
-<span data-ttu-id="06247-195">控制台输出为:</span><span class="sxs-lookup"><span data-stu-id="06247-195">The console output is:</span></span>
+<span data-ttu-id="5edc1-197">控制台输出为:</span><span class="sxs-lookup"><span data-stu-id="5edc1-197">The console output is:</span></span>
 
 ```console
 Array(4) [ 1, 2, 3, 4 ]
 ```
 
-<span data-ttu-id="06247-196">第四个数组值推送到由`data.push(4);` `ReturnArrayAsync`返回的数组 ()。</span><span class="sxs-lookup"><span data-stu-id="06247-196">The fourth array value is pushed to the array (`data.push(4);`) returned by `ReturnArrayAsync`.</span></span>
+<span data-ttu-id="5edc1-198">第四个数组值推送到由`data.push(4);` `ReturnArrayAsync`返回的数组 ()。</span><span class="sxs-lookup"><span data-stu-id="5edc1-198">The fourth array value is pushed to the array (`data.push(4);`) returned by `ReturnArrayAsync`.</span></span>
 
-### <a name="instance-method-call"></a><span data-ttu-id="06247-197">实例方法调用</span><span class="sxs-lookup"><span data-stu-id="06247-197">Instance method call</span></span>
+### <a name="instance-method-call"></a><span data-ttu-id="5edc1-199">实例方法调用</span><span class="sxs-lookup"><span data-stu-id="5edc1-199">Instance method call</span></span>
 
-<span data-ttu-id="06247-198">还可以从 JavaScript 调用 .NET 实例方法。</span><span class="sxs-lookup"><span data-stu-id="06247-198">You can also call .NET instance methods from JavaScript.</span></span> <span data-ttu-id="06247-199">从 JavaScript 调用 .NET 实例方法:</span><span class="sxs-lookup"><span data-stu-id="06247-199">To invoke a .NET instance method from JavaScript:</span></span>
+<span data-ttu-id="5edc1-200">还可以从 JavaScript 调用 .NET 实例方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-200">You can also call .NET instance methods from JavaScript.</span></span> <span data-ttu-id="5edc1-201">从 JavaScript 调用 .NET 实例方法:</span><span class="sxs-lookup"><span data-stu-id="5edc1-201">To invoke a .NET instance method from JavaScript:</span></span>
 
-* <span data-ttu-id="06247-200">通过在`DotNetObjectRef`实例中包装 .net 实例, 将其传递给 JavaScript。</span><span class="sxs-lookup"><span data-stu-id="06247-200">Pass the .NET instance to JavaScript by wrapping it in a `DotNetObjectRef` instance.</span></span> <span data-ttu-id="06247-201">.NET 实例按对 JavaScript 的引用传递。</span><span class="sxs-lookup"><span data-stu-id="06247-201">The .NET instance is passed by reference to JavaScript.</span></span>
-* <span data-ttu-id="06247-202">使用`invokeMethod` 或`invokeMethodAsync`函数调用实例上的 .net 实例方法。</span><span class="sxs-lookup"><span data-stu-id="06247-202">Invoke .NET instance methods on the instance using the `invokeMethod` or `invokeMethodAsync` functions.</span></span> <span data-ttu-id="06247-203">在从 JavaScript 调用其他 .NET 方法时, 也可以将 .NET 实例作为参数传递。</span><span class="sxs-lookup"><span data-stu-id="06247-203">The .NET instance can also be passed as an argument when invoking other .NET methods from JavaScript.</span></span>
+* <span data-ttu-id="5edc1-202">通过在`DotNetObjectRef`实例中包装 .net 实例, 将其传递给 JavaScript。</span><span class="sxs-lookup"><span data-stu-id="5edc1-202">Pass the .NET instance to JavaScript by wrapping it in a `DotNetObjectRef` instance.</span></span> <span data-ttu-id="5edc1-203">.NET 实例按对 JavaScript 的引用传递。</span><span class="sxs-lookup"><span data-stu-id="5edc1-203">The .NET instance is passed by reference to JavaScript.</span></span>
+* <span data-ttu-id="5edc1-204">使用`invokeMethod` 或`invokeMethodAsync`函数调用实例上的 .net 实例方法。</span><span class="sxs-lookup"><span data-stu-id="5edc1-204">Invoke .NET instance methods on the instance using the `invokeMethod` or `invokeMethodAsync` functions.</span></span> <span data-ttu-id="5edc1-205">在从 JavaScript 调用其他 .NET 方法时, 也可以将 .NET 实例作为参数传递。</span><span class="sxs-lookup"><span data-stu-id="5edc1-205">The .NET instance can also be passed as an argument when invoking other .NET methods from JavaScript.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="06247-204">示例应用将消息记录到客户端控制台。</span><span class="sxs-lookup"><span data-stu-id="06247-204">The sample app logs messages to the client-side console.</span></span> <span data-ttu-id="06247-205">对于示例应用演示的以下示例, 请在浏览器的开发人员工具中查看浏览器的控制台输出。</span><span class="sxs-lookup"><span data-stu-id="06247-205">For the following examples demonstrated by the sample app, examine the browser's console output in the browser's developer tools.</span></span>
+> <span data-ttu-id="5edc1-206">示例应用将消息记录到客户端控制台。</span><span class="sxs-lookup"><span data-stu-id="5edc1-206">The sample app logs messages to the client-side console.</span></span> <span data-ttu-id="5edc1-207">对于示例应用演示的以下示例, 请在浏览器的开发人员工具中查看浏览器的控制台输出。</span><span class="sxs-lookup"><span data-stu-id="5edc1-207">For the following examples demonstrated by the sample app, examine the browser's console output in the browser's developer tools.</span></span>
 
-<span data-ttu-id="06247-206">如果选择了**触发器 .net 实例方法 HelloHelper SayHello**按钮, `ExampleJsInterop.CallHelloHelperSayHello`将调用并向方法`Blazor`传递一个名称。</span><span class="sxs-lookup"><span data-stu-id="06247-206">When the **Trigger .NET instance method HelloHelper.SayHello** button is selected, `ExampleJsInterop.CallHelloHelperSayHello` is called and passes a name, `Blazor`, to the method.</span></span>
+<span data-ttu-id="5edc1-208">如果选择了**触发器 .net 实例方法 HelloHelper SayHello**按钮, `ExampleJsInterop.CallHelloHelperSayHello`将调用并向方法`Blazor`传递一个名称。</span><span class="sxs-lookup"><span data-stu-id="5edc1-208">When the **Trigger .NET instance method HelloHelper.SayHello** button is selected, `ExampleJsInterop.CallHelloHelperSayHello` is called and passes a name, `Blazor`, to the method.</span></span>
 
-<span data-ttu-id="06247-207">*Pages/JsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-207">*Pages/JsInterop.razor*:</span></span>
+<span data-ttu-id="5edc1-209">*Pages/JsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-209">*Pages/JsInterop.razor*:</span></span>
 
 [!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
 
-<span data-ttu-id="06247-208">`CallHelloHelperSayHello`使用的新`HelloHelper`实例`sayHello`调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="06247-208">`CallHelloHelperSayHello` invokes the JavaScript function `sayHello` with a new instance of `HelloHelper`.</span></span>
+<span data-ttu-id="5edc1-210">`CallHelloHelperSayHello`使用的新`HelloHelper`实例`sayHello`调用 JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="5edc1-210">`CallHelloHelperSayHello` invokes the JavaScript function `sayHello` with a new instance of `HelloHelper`.</span></span>
 
-<span data-ttu-id="06247-209">*JsInteropClasses/ExampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-209">*JsInteropClasses/ExampleJsInterop.cs*:</span></span>
+<span data-ttu-id="5edc1-211">*JsInteropClasses/ExampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-211">*JsInteropClasses/ExampleJsInterop.cs*:</span></span>
 
 [!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
 
-<span data-ttu-id="06247-210">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="06247-210">*wwwroot/exampleJsInterop.js*:</span></span>
+<span data-ttu-id="5edc1-212">*wwwroot/exampleJsInterop*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-212">*wwwroot/exampleJsInterop.js*:</span></span>
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
-<span data-ttu-id="06247-211">该名称将传递给`HelloHelper`的构造函数, 该构造`HelloHelper.Name`函数设置属性。</span><span class="sxs-lookup"><span data-stu-id="06247-211">The name is passed to `HelloHelper`'s constructor, which sets the `HelloHelper.Name` property.</span></span> <span data-ttu-id="06247-212">执行 javascript 函数`sayHello`时, `HelloHelper.SayHello`将返回`Hello, {Name}!`消息, 该消息由 JavaScript 函数写入控制台。</span><span class="sxs-lookup"><span data-stu-id="06247-212">When the JavaScript function `sayHello` is executed, `HelloHelper.SayHello` returns the `Hello, {Name}!` message, which is written to the console by the JavaScript function.</span></span>
+<span data-ttu-id="5edc1-213">该名称将传递给`HelloHelper`的构造函数, 该构造`HelloHelper.Name`函数设置属性。</span><span class="sxs-lookup"><span data-stu-id="5edc1-213">The name is passed to `HelloHelper`'s constructor, which sets the `HelloHelper.Name` property.</span></span> <span data-ttu-id="5edc1-214">执行 javascript 函数`sayHello`时, `HelloHelper.SayHello`将返回`Hello, {Name}!`消息, 该消息由 JavaScript 函数写入控制台。</span><span class="sxs-lookup"><span data-stu-id="5edc1-214">When the JavaScript function `sayHello` is executed, `HelloHelper.SayHello` returns the `Hello, {Name}!` message, which is written to the console by the JavaScript function.</span></span>
 
-<span data-ttu-id="06247-213">*JsInteropClasses/HelloHelper*:</span><span class="sxs-lookup"><span data-stu-id="06247-213">*JsInteropClasses/HelloHelper.cs*:</span></span>
+<span data-ttu-id="5edc1-215">*JsInteropClasses/HelloHelper*:</span><span class="sxs-lookup"><span data-stu-id="5edc1-215">*JsInteropClasses/HelloHelper.cs*:</span></span>
 
 [!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
-<span data-ttu-id="06247-214">浏览器 web 开发人员工具中的控制台输出:</span><span class="sxs-lookup"><span data-stu-id="06247-214">Console output in the browser's web developer tools:</span></span>
+<span data-ttu-id="5edc1-216">浏览器 web 开发人员工具中的控制台输出:</span><span class="sxs-lookup"><span data-stu-id="5edc1-216">Console output in the browser's web developer tools:</span></span>
 
 ```console
 Hello, Blazor!
 ```
 
-## <a name="share-interop-code-in-a-class-library"></a><span data-ttu-id="06247-215">在类库中共享互操作代码</span><span class="sxs-lookup"><span data-stu-id="06247-215">Share interop code in a class library</span></span>
+## <a name="share-interop-code-in-a-class-library"></a><span data-ttu-id="5edc1-217">在类库中共享互操作代码</span><span class="sxs-lookup"><span data-stu-id="5edc1-217">Share interop code in a class library</span></span>
 
-<span data-ttu-id="06247-216">JavaScript 互操作代码可以包含在类库中, 这使你可以共享 NuGet 包中的代码。</span><span class="sxs-lookup"><span data-stu-id="06247-216">JavaScript interop code can be included in a class library, which allows you to share the code in a NuGet package.</span></span>
+<span data-ttu-id="5edc1-218">JavaScript 互操作代码可以包含在类库中, 这使你可以共享 NuGet 包中的代码。</span><span class="sxs-lookup"><span data-stu-id="5edc1-218">JavaScript interop code can be included in a class library, which allows you to share the code in a NuGet package.</span></span>
 
-<span data-ttu-id="06247-217">类库处理在生成的程序集中嵌入 JavaScript 资源。</span><span class="sxs-lookup"><span data-stu-id="06247-217">The class library handles embedding JavaScript resources in the built assembly.</span></span> <span data-ttu-id="06247-218">JavaScript 文件位于*wwwroot*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="06247-218">The JavaScript files are placed in the *wwwroot* folder.</span></span> <span data-ttu-id="06247-219">工具在生成库时将负责嵌入资源。</span><span class="sxs-lookup"><span data-stu-id="06247-219">The tooling takes care of embedding the resources when the library is built.</span></span>
+<span data-ttu-id="5edc1-219">类库处理在生成的程序集中嵌入 JavaScript 资源。</span><span class="sxs-lookup"><span data-stu-id="5edc1-219">The class library handles embedding JavaScript resources in the built assembly.</span></span> <span data-ttu-id="5edc1-220">JavaScript 文件位于*wwwroot*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="5edc1-220">The JavaScript files are placed in the *wwwroot* folder.</span></span> <span data-ttu-id="5edc1-221">工具在生成库时将负责嵌入资源。</span><span class="sxs-lookup"><span data-stu-id="5edc1-221">The tooling takes care of embedding the resources when the library is built.</span></span>
 
-<span data-ttu-id="06247-220">在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。</span><span class="sxs-lookup"><span data-stu-id="06247-220">The built NuGet package is referenced in the app's project file the same way that any NuGet package is referenced.</span></span> <span data-ttu-id="06247-221">包还原后, 应用程序代码可以调入 JavaScript, 就像它是C#一样。</span><span class="sxs-lookup"><span data-stu-id="06247-221">After the package is restored, app code can call into JavaScript as if it were C#.</span></span>
+<span data-ttu-id="5edc1-222">在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。</span><span class="sxs-lookup"><span data-stu-id="5edc1-222">The built NuGet package is referenced in the app's project file the same way that any NuGet package is referenced.</span></span> <span data-ttu-id="5edc1-223">包还原后, 应用程序代码可以调入 JavaScript, 就像它是C#一样。</span><span class="sxs-lookup"><span data-stu-id="5edc1-223">After the package is restored, app code can call into JavaScript as if it were C#.</span></span>
 
-<span data-ttu-id="06247-222">有关详细信息，请参阅 <xref:blazor/class-libraries>。</span><span class="sxs-lookup"><span data-stu-id="06247-222">For more information, see <xref:blazor/class-libraries>.</span></span>
+<span data-ttu-id="5edc1-224">有关详细信息，请参阅 <xref:blazor/class-libraries> 。</span><span class="sxs-lookup"><span data-stu-id="5edc1-224">For more information, see <xref:blazor/class-libraries>.</span></span>
