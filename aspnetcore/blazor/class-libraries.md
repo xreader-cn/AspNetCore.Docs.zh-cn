@@ -5,14 +5,14 @@ description: 了解如何在 Blazor 应用程序中将组件包含在外部组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 402b7b072554f63f85e7cf5e55336104d235a071
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 6e93d48bbc684845952c3db8935ccc8b190044b7
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68948437"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030345"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -33,10 +33,9 @@ ms.locfileid: "68948437"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 创建新项目。
-1. 选择“ASP.NET Core Web 应用程序”。 选择“下一步”。
+1. 选择 " **Razor 类库**"。 选择“下一步”。
+1. 在 "**创建新的 Razor 类库**" 对话框中, 选择 "**创建**"。
 1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称`MyComponentLib1`。 选择“创建”。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”。
-1. 选择**Razor 类库**模板。 选择“创建”。
 1. 将 RCL 添加到解决方案:
    1. 右键单击解决方案。 选择 "**添加** > **现有项目**"。
    1. 导航到 RCL 的项目文件。
@@ -122,7 +121,7 @@ dotnet nuget publish
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>使用静态资产创建 Razor 组件类库
 
-RCL 可以包括静态资产。 静态资产可用于使用库的任何应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
+RCL 可以包括静态资产。 静态资产可用于使用库的任何应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets> 。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: a95c186d30eaf342f10ecbe6f7add242d4679a0f
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993417"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030355"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -519,7 +519,10 @@ await callback.InvokeAsync(arg);
 
 ## <a name="capture-references-to-components"></a>捕获对组件的引用
 
-组件引用提供了一种方法来引用组件实例, 以便可以向该实例发出命令, 如`Show`或。 `Reset` 若要捕获组件引用, 请向[@ref](xref:mvc/views/razor#ref)子组件添加一个属性, 然后定义与子组件具有相同名称和相同类型的字段。
+组件引用提供了一种方法来引用组件实例, 以便可以向该实例发出命令, 如`Show`或。 `Reset` 捕获组件引用:
+
+* 向子组件添加[属性。@ref](xref:mvc/views/razor#ref)
+* 定义与子组件类型相同的字段。
 
 ```cshtml
 <MyLoginDialog @ref="loginDialog" ... />
@@ -538,6 +541,30 @@ await callback.InvokeAsync(arg);
 
 > [!IMPORTANT]
 > 仅在呈现组件后填充`MyLoginDialog` 变量,并且它的输出包含元素。`loginDialog` 在该点之前, 没有任何内容可供参考。 若要在组件完成呈现后操作组件引用, 请使用`OnAfterRenderAsync`或`OnAfterRender`方法。
+
+<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
+Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.
+
+The Razor compiler automatically generates a backing field for element and component references when using [@ref](xref:mvc/views/razor#ref). In the following example, there's no need to create a `myLoginDialog` field for the `LoginDialog` component:
+
+```cshtml
+<LoginDialog @ref="myLoginDialog" ... />
+
+@code {
+    private void OnSomething()
+    {
+        myLoginDialog.Show();
+    }
+}
+```
+
+When the component is rendered, the generated `myLoginDialog` field is populated with the `LoginDialog` component instance. You can then invoke .NET methods on the component instance.
+
+In some cases, a backing field is required. For example, declare a backing field when referencing generic components. To suppress backing field generation, specify the `@ref:suppressField` parameter.
+
+> [!IMPORTANT]
+> The generated `myLoginDialog` variable is only populated after the component is rendered and its output includes the `LoginDialog` element. Until that point, there's nothing to reference. To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.
+-->
 
 捕获组件引用时, 请使用类似的语法来[捕获元素引用](xref:blazor/javascript-interop#capture-references-to-elements), 而不是[JavaScript 互操作](xref:blazor/javascript-interop)功能。 不向 JavaScript 代码&mdash;传递组件引用, 它们仅用于 .net 代码。
 
@@ -620,19 +647,19 @@ await callback.InvokeAsync(arg);
 
 ## <a name="lifecycle-methods"></a>生命周期方法
 
-`OnInitAsync`并`OnInit`执行代码来初始化该组件。 若要执行异步操作, 请`OnInitAsync`在操作`await`中使用和关键字:
+`OnInitializedAsync`并`OnInitialized`执行代码来初始化该组件。 若要执行异步操作, 请`OnInitializedAsync`在操作`await`中使用和关键字:
 
 ```csharp
-protected override async Task OnInitAsync()
+protected override async Task OnInitializedAsync()
 {
     await ...
 }
 ```
 
-对于同步操作, 请使用`OnInit`:
+对于同步操作, 请使用`OnInitialized`:
 
 ```csharp
-protected override void OnInit()
+protected override void OnInitialized()
 {
     ...
 }
@@ -674,7 +701,7 @@ protected override void OnAfterRender()
 
 在呈现组件之前, 在生命周期事件中执行的异步操作可能尚未完成。 当执行生命`null`周期方法时, 对象可能会或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 在对象为`null`时呈现占位符 UI 元素 (例如, 加载消息)。
 
-在 Blazor 模板的`OnInitAsync` `forecasts`组件中, 将重写为 asychronously 接收预测数据 ()。 `FetchData` 如果`forecasts` 为`null`, 则向用户显示一条加载消息。 完成`OnInitAsync`返回后, 组件将重新呈现已更新状态。 `Task`
+在 Blazor 模板的`OnInitializedAsync` `forecasts`组件中, 将重写为 asychronously 接收预测数据 ()。 `FetchData` 如果`forecasts` 为`null`, 则向用户显示一条加载消息。 完成`OnInitializedAsync`返回后, 组件将重新呈现已更新状态。 `Task`
 
 *Pages/FetchData.razor*：
 
@@ -685,7 +712,7 @@ protected override void OnAfterRender()
 `SetParameters`可以重写, 以在设置参数之前执行代码:
 
 ```csharp
-public override void SetParameters(ParameterCollection parameters)
+public override void SetParameters(ParameterView parameters)
 {
     ...
 
@@ -1352,4 +1379,4 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案, 在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关详细信息，请参阅 <xref:fundamentals/localization>。
