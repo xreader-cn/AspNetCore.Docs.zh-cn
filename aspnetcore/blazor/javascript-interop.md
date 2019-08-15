@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: ffd25fe0288159681f7fc052fc09e1f6fc425404
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 00ea14ca95c328b5f8779785a92aa0720a96eb05
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030303"
+ms.locfileid: "69487555"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -125,11 +125,12 @@ JavaScript 代码 (如前面的示例中所示的代码) 也可以从 JavaScript
 
 * `@ref`将属性添加到 HTML 元素。
 * 定义其名称与`ElementReference` `@ref`属性的值相匹配的类型的字段。
+* `@ref:suppressField`提供参数, 该参数可取消支持字段的生成。 有关详细信息, 请参阅[3.0.0-preview9 中的@ref删除自动支持字段支持](https://github.com/aspnet/Announcements/issues/381)。
 
 下面的示例演示捕获对`username` `<input>`元素的引用:
 
 ```cshtml
-<input @ref="username" ... />
+<input @ref="username" @ref:suppressField ... />
 
 @code {
     ElementReference username;
@@ -158,7 +159,7 @@ window.exampleJsFunctions = {
 ```cshtml
 @inject IJSRuntime JSRuntime
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -188,7 +189,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 @inject IJSRuntime JSRuntime
 @using JsInteropClasses
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -324,4 +325,4 @@ JavaScript 互操作代码可以包含在类库中, 这使你可以共享 NuGet 
 
 在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。 包还原后, 应用程序代码可以调入 JavaScript, 就像它是C#一样。
 
-有关详细信息，请参阅 <xref:blazor/class-libraries>。
+有关详细信息，请参阅 <xref:blazor/class-libraries> 。

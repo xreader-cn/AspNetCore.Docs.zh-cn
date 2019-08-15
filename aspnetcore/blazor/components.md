@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 752f49f020acf26efcb304ed5e28e27c478dac83
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030355"
+ms.locfileid: "69487598"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -523,9 +523,10 @@ await callback.InvokeAsync(arg);
 
 * 向子组件添加[属性。@ref](xref:mvc/views/razor#ref)
 * 定义与子组件类型相同的字段。
+* `@ref:suppressField`提供参数, 该参数可取消支持字段的生成。 有关详细信息, 请参阅[3.0.0-preview9 中的@ref删除自动支持字段支持](https://github.com/aspnet/Announcements/issues/381)。
 
 ```cshtml
-<MyLoginDialog @ref="loginDialog" ... />
+<MyLoginDialog @ref="loginDialog" @ref:suppressField ... />
 
 @code {
     private MyLoginDialog loginDialog;
@@ -1201,14 +1202,14 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时, `someFlag` `true`生成器将接收:
 
-| 序列 | 类型      | 数据   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | 第一个  |
 | 1        | Text 节点 | 第二个 |
 
 假设它`someFlag`变为`false`, 并再次呈现标记。 这次, 生成器将接收:
 
-| 序列 | 类型       | 数据   |
+| 序列 | 类型       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Text 节点  | 第二个 |
 
@@ -1233,14 +1234,14 @@ builder.AddContent(seq++, "Second");
 
 现在, 第一个输出是:
 
-| 序列 | 类型      | 数据   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | 第一个  |
 | 1        | Text 节点 | 第二个 |
 
 此结果与以前的情况相同, 因此不存在负面问题。 `someFlag``false`在第二次呈现时, 输出为:
 
-| 序列 | 类型      | 数据   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | ------ |
 | 0        | Text 节点 | 第二个 |
 
@@ -1379,4 +1380,4 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案, 在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization>。
+有关详细信息，请参阅 <xref:fundamentals/localization> 。

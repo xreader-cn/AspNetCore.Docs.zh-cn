@@ -91,13 +91,13 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 在示例应用中，`IndexModel` 类接收 `IFileProvider` 实例，获取应用的基路径的目录内容。
 
-Pages/Index.cshtml.cs：
+ Pages/Index.cshtml.cs：
 
 [!code-csharp[](file-providers/samples/2.x/FileProviderSample/Pages/Index.cshtml.cs?name=snippet1)]
 
 在页中循环访问 `IDirectoryContents`。
 
-Pages/Index.cshtml：
+ Pages/Index.cshtml：
 
 [!code-cshtml[](file-providers/samples/2.x/FileProviderSample/Pages/Index.cshtml?name=snippet1)]
 
@@ -147,7 +147,7 @@ var manifestEmbeddedProvider =
 * [HasChanged](/dotnet/api/microsoft.extensions.primitives.ichangetoken.haschanged)：可检查此属性以确定是否已发生更改。
 * [RegisterChangeCallback](/dotnet/api/microsoft.extensions.primitives.ichangetoken.registerchangecallback)：检测到指定的路径字符串发生更改时调用此属性。 每个更改令牌仅调用其关联的回调来响应单个更改。 若要启用持续监视，请使用 [TaskCompletionSource](/dotnet/api/system.threading.tasks.taskcompletionsource-1)（如下所示）或重新创建 `IChangeToken` 实例以响应更改。
 
-在示例应用中，WatchConsole 控制台应用配置为每次修改了文本文件时显示一条消息：
+在示例应用中，WatchConsole  控制台应用配置为每次修改了文本文件时显示一条消息：
 
 [!code-csharp[](file-providers/samples/2.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
 
@@ -155,7 +155,7 @@ var manifestEmbeddedProvider =
 
 ## <a name="glob-patterns"></a>glob 模式
 
-文件系统路径使用名为 glob（或通配）模式的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
+文件系统路径使用名为 glob（或通配）模式  的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
 
 **`*`**  
 匹配当前文件夹级别的任何内容、任何文件名或任何文件扩展名。 匹配由文件路径中的 `/` 和 `.` 字符终止。
@@ -169,10 +169,10 @@ var manifestEmbeddedProvider =
 匹配特定目录中的特定文件。
 
 **`directory/*.txt`**  
-匹配特定目录中带 .txt 扩展名的所有文件。
+匹配特定目录中带 .txt  扩展名的所有文件。
 
 **`directory/*/appsettings.json`**  
-匹配正好位于“目录”文件夹中下一级目录中的所有 `appsettings.json` 文件。
+匹配正好位于“目录”  文件夹中下一级目录中的所有 `appsettings.json` 文件。
 
 **`directory/**/*.txt`**  
-匹配在“目录”文件夹下任何位置找到的带 .txt 扩展名的所有文件。
+匹配在“目录”  文件夹下任何位置找到的带 .txt  扩展名的所有文件。
