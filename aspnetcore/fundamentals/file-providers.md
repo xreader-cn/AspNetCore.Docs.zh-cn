@@ -39,7 +39,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 
 * [Exists](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.exists)
 * [IsDirectory](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.isdirectory)
-* [名称](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.name)
+* [Name](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.name)
 * [Length](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.length)（以字节为单位）
 * [LastModified](/dotnet/api/microsoft.extensions.fileproviders.ifileinfo.lastmodified) 日期
 
