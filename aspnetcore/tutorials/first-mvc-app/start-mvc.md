@@ -5,12 +5,12 @@ description: 了解如何开始使用 ASP.NET Core MVC。
 ms.author: riande
 ms.date: 08/05/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: f6a92423546ebd9d4c8e1a92fb81b6b72f847f61
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 36f4811f876a6e35440445103a1f86ae06b31b6a
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820097"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022522"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
@@ -126,7 +126,6 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-
   下图显示该应用：
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
@@ -140,12 +139,6 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
   Visual Studio Code 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `https://localhost:5001`。 地址栏显示 `localhost:port:5001`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Localhost 仅为来自本地计算机的 Web 请求提供服务。
 
   使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式刷新页面并查看更改。
-
-* 选择“接受”以同意跟踪  。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
-
-  ![主页或索引页](start-mvc/_static/privacy.png)
-
-  下图展示了接受跟踪后的应用：
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
 

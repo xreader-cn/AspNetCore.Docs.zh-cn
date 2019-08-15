@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 2dbb1a84a380ab06a4be7ecf628799a070afc9e3
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3d4279a291182da60c0cb2fbb93a3922ed673cde
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692511"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914021"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -45,7 +45,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”    。
 1. 选择“辅助角色服务”模板  。 选择“创建”  。
 
-# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 将辅助角色服务 (`worker`) 模板用于命令行界面中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。 下面的示例中创建了名为 `ContosoWorkerService` 的辅助角色服务应用。 执行命令时会自动为 `ContosoWorkerService` 应用创建文件夹。
 
@@ -80,8 +80,8 @@ dotnet new worker -o ContosoWorkerService
 
   若要延长默认值为 5 秒的关闭超时值，请设置：
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 何时使用泛型主机。 有关更多信息，请参见<xref:fundamentals/host/generic-host#shutdown-timeout>。
-  * 使用 Web 主机时为关闭超时值主机配置设置。 有关更多信息，请参见<xref:fundamentals/host/web-host#shutdown-timeout>。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 何时使用泛型主机。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#shutdown-timeout>。
+  * 使用 Web 主机时为关闭超时值主机配置设置。 有关详细信息，请参阅 <xref:fundamentals/host/web-host#shutdown-timeout>。
 
 托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
 
