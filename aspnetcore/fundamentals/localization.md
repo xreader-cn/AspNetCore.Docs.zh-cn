@@ -126,7 +126,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 
 资源文件是将可本地化的字符串与代码分离的有用机制。 非默认语言的转换字符串是独立的 .resx 资源文件  。 例如，你可能想要创建包含转换字符串、名为 Welcome.es.resx 的西班牙语资源文件  。 “es”是西班牙语的语言代码。 要在 Visual Studio 中创建此资源文件，请支持以下操作：
 
-1. 在“解决方案资源管理器”中，右键单击将包含资源文件的文件夹 >“添加” > “新建项”    。
+1. 在“解决方案资源管理器”中，右键单击将包含资源文件的文件夹 >“添加” > “新建项”。
 
     ![嵌套的上下文菜单：在“解决方案资源管理器”中，“资源”可打开上下文菜单。 “添加”可打开第二个上下文菜单，突出显示“新项”命令。](localization/_static/newi.png)
 
@@ -146,7 +146,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 
 资源名称是类的完整类型名称减去程序集名称。 例如，类 `LocalizationWebsite.Web.Startup` 的主要程序集为 `LocalizationWebsite.Web.dll` 的项目中的法语资源将命名为 Startup.fr.resx  。 类 `LocalizationWebsite.Web.Controllers.HomeController` 的资源将命名为 Controllers.HomeController.fr.resx  。 如果目标类的命名空间与将需要完整类型名称的程序集名称不同。 例如，在示例项目中，类型 `ExtraNamespace.Tools` 的资源将命名为 ExtraNamespace.Tools.fr.resx  。
 
-在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“Resources”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 Resources/Controllers/HomeController.fr.resx  。 如果不使用 `ResourcesPath` 选项，.resx 文件将转到项目的基目录中  。 `HomeController` 的资源文件将命名为 Controllers.HomeController.fr.resx  。 选择使用圆点或路径命名约定具体取决于你想如何组织资源文件。
+在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“Resources”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 Resources/Controllers/HomeController.fr.resx  。 如果不使用 `ResourcesPath` 选项，.resx 文件将转到项目的基目录中  。 `HomeController` 的资源文件将命名为 Controllers.HomeController.fr.resx  。 是选择使用圆点还是路径命名约定，具体取决于你想如何组织资源文件。
 
 | 资源名称 | 圆点或路径命名 |
 | ------------   | ------------- |
