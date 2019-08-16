@@ -215,7 +215,7 @@ public void Configure(IApplicationBuilder app)
 > * 按照从最频繁匹配的规则到最不频繁匹配的规则排列重写规则。
 > * 如果出现匹配项且无需处理任何其他规则，则跳过剩余规则的处理。
 
-### <a name="apache-modrewrite"></a>Apache mod_rewrite
+### <a name="apache-mod_rewrite"></a>Apache mod_rewrite
 
 使用 <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> 应用 Apache mod_rewrite 规则。 请确保将规则文件与应用一起部署。 有关 mod_rewrite 规则的详细信息和示例，请参阅 [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)。
 
