@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 6e93d48bbc684845952c3db8935ccc8b190044b7
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: b5857f2cf22bde801deeeaf227817fdf99862f4a
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030345"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545781"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -60,16 +60,6 @@ ms.locfileid: "69030345"
 
 ---
 
-## <a name="rcls-not-supported-for-client-side-apps"></a>客户端应用不支持 RCLs
-
-在当前 ASP.NET Core 3.0 Preview 中, Razor 类库与 Blazor 客户端应用不兼容。 对于 Blazor 客户端应用, 请在命令行界面中使用`blazorlib`模板创建的 Blazor 组件库:
-
-```console
-dotnet new blazorlib -o MyComponentLib1
-```
-
-使用模板的`blazorlib`组件库可以包含静态文件, 如图像、JavaScript 和样式表。 在生成时, 静态文件嵌入到生成的程序集文件 ( *.dll*) 中, 这样就可以使用这些组件, 而无需担心如何包含其资源。 `content`目录中包含的所有文件都将被标记为嵌入的资源。
-
 ## <a name="consume-a-library-component"></a>使用库组件
 
 若要使用另一个项目的库中定义的组件, 请使用以下方法之一:
@@ -116,8 +106,6 @@ dotnet pack
 ```console
 dotnet nuget publish
 ```
-
-使用`blazorlib`模板时, NuGet 包中将包含静态资源。 库使用者会自动接收脚本和样式表, 因此不需要使用者手动安装资源。
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>使用静态资产创建 Razor 组件类库
 
