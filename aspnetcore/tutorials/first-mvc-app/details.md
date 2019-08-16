@@ -5,12 +5,12 @@ description: 了解基本 ASP.NET Core MVC 应用中的详细信息控制器方�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: 056017ea4f4073fa0b1cd747d06775b2a33616cf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d19e8cdb63da2bb9c66db1943dfcec183d432401
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889572"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862972"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>检查 ASP.NET Core 应用的 Details 和 Delete 方法
 
@@ -20,11 +20,11 @@ ms.locfileid: "64889572"
 
 [!code-csharp[](start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_details)]
 
-创建此操作方法的 MVC 基架引擎添加显示调用方法的 HTTP 请求的注释。 在此情况下，它是包含三个 URL 段的 GET 请求，这三个段为 `Movies` 控制器、`Details` 方法和 `id` 值。 回顾这些在 Startup.cs 中定义的段。
+创建此操作方法的 MVC 基架引擎添加显示调用方法的 HTTP 请求的注释。 在此情况下，它是包含三个 URL 段的 GET 请求，这三个段为 `Movies` 控制器、`Details` 方法和 `id` 值。 回顾这些在 Startup.cs 中定义的段。 
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
-EF 可以使用 `FirstOrDefaultAsync` 方法轻松搜索数据。 该方法中内置的一个重要安全功能是，代码会先验证搜索方法已经找到电影，然后再执行操作。 例如，一个黑客可能通过将链接创建的 URL 从 `http://localhost:xxxx/Movies/Details/1` 更改为类似 `http://localhost:xxxx/Movies/Details/12345` 的值（或者不代表任何实际电影的其他值）将错误引入站点。 如果未检查是否有空电影，则应用可能引发异常。
+EF 可以使用 `FirstOrDefaultAsync` 方法轻松搜索数据。 该方法中内置的一个重要安全功能是，代码会先验证搜索方法已经找到电影，然后再执行操作。 例如，一个黑客可能通过将链接创建的 URL 从 `http://localhost:{PORT}/Movies/Details/1` 更改为类似 `http://localhost:{PORT}/Movies/Details/12345` 的值（或者不代表任何实际电影的其他值）将错误引入站点。 如果未检查是否有空电影，则应用可能引发异常。
 
 检查 `Delete` 和 `DeleteConfirmed` 方法。
 

@@ -203,7 +203,7 @@ public void Configure(IApplicationBuilder app)
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | 是   |
 | `/my-cool-rewrite-rule/1234/5678` | 否    |
-| `/anotherrewrite-rule/1234/5678`  | No    |
+| `/anotherrewrite-rule/1234/5678`  | 否    |
 
 在表达式的 `^rewrite-rule/` 部分之后，有两个捕获组 `(\d+)/(\d+)`。 `\d` 表示与数字匹配  。 加号 (`+`) 表示与前面的一个或多个字符匹配  。 因此，URL 必须包含数字加正斜杠加另一个数字的形式。 这些捕获组以 `$1` 和 `$2` 的形式注入重写 URL 中。 重写规则替换字符串将捕获组放入查询字符串中。 重写 `/rewrite-rule/1234/5678` 的请求路径，获取 `/rewritten?var1=1234&var2=5678` 处的资源。 如果原始请求中存在查询字符串，则重写 URL 时会保留此字符串。
 
@@ -215,7 +215,7 @@ public void Configure(IApplicationBuilder app)
 > * 按照从最频繁匹配的规则到最不频繁匹配的规则排列重写规则。
 > * 如果出现匹配项且无需处理任何其他规则，则跳过剩余规则的处理。
 
-### <a name="apache-modrewrite"></a>Apache mod_rewrite
+### <a name="apache-mod_rewrite"></a>Apache mod_rewrite
 
 使用 <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> 应用 Apache mod_rewrite 规则。 请确保将规则文件与应用一起部署。 有关 mod_rewrite 规则的详细信息和示例，请参阅 [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)。
 

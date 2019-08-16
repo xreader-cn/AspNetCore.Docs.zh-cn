@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/06/2019
+ms.date: 08/14/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 27ae8ac979c267c666d6d63f4d1dd862ff20edba
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: a984bb766e6876db4f8ed4c850a1984ba87d627d
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819859"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022279"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -171,7 +171,7 @@ public void ConfigureServices(IServiceCollection services)
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
 
 > [!WARNING]
-> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
+> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
 
 ### <a name="singleton"></a>单例
 
@@ -184,7 +184,7 @@ public void ConfigureServices(IServiceCollection services)
 
 每个服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>object<br>处置 | 多个<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象 (object)<br>处置 | 多个<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例:<br>`services.AddScoped<IMyDep, MyDep>();` | 是 | 是 | No |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped<IMyDep>(sp => new MyDep());`<br>`services.AddScoped<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |

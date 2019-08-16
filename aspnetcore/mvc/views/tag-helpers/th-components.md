@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: b5b3abea6492cfaa7d6acd0e54073a8db12eb2a5
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 23e244649350b41e4112d10df63139864e5b4381
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034761"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022217"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -62,16 +62,9 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 标记帮助程序组件必须添加到应用的标记帮助程序组件集合。 有以下三种方法可添加到集合：
 
-* [ASP.NET Core 中的标记帮助程序组件](#tag-helper-components-in-aspnet-core)
-  * [用例](#use-cases)
-    * [注入到 HTML head 元素中](#inject-into-html-head-element)
-    * [注入到 HTML body 元素中](#inject-into-html-body-element)
-  * [注册组件](#register-a-component)
-    * [通过服务容器注册](#registration-via-services-container)
-    * [通过 Razor 文件注册](#registration-via-razor-file)
-    * [通过页面模型或控制器注册](#registration-via-page-model-or-controller)
-  * [创建组件](#create-a-component)
-  * [其他资源](#additional-resources)
+* [通过服务容器注册](#registration-via-services-container)
+* [通过 Razor 文件注册](#registration-via-razor-file)
+* [通过页面模型或控制器注册](#registration-via-page-model-or-controller)
 
 ### <a name="registration-via-services-container"></a>通过服务容器注册
 
