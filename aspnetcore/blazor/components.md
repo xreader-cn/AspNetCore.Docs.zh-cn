@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 752f49f020acf26efcb304ed5e28e27c478dac83
-ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
+ms.openlocfilehash: 5361c506f112cbb74865c3819f0b3bd578a1705a
+ms.sourcegitcommit: 38cac2552029fc19428722bb204ff9e16eb94225
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69487598"
+ms.lasthandoff: 08/18/2019
+ms.locfileid: "69573085"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -165,7 +165,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面 (UI
         {
             { "maxlength", "10" },
             { "placeholder", "Input placeholder text" },
-            { "required", "true" },
+            { "required", "required" },
             { "size", "50" }
         };
 }
@@ -185,7 +185,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面 (UI
 <input id="useAttributesDict"
        maxlength="10"
        placeholder="Input placeholder text"
-       required="true"
+       required="required"
        size="50">
 ```
 
@@ -851,7 +851,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关详细信息，请参阅 <xref:mvc/views/razor> 。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -1335,7 +1335,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
+> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
 
 以下组件显示了一个示例, 说明如何在用户选择区域性时执行初始重定向:
 
@@ -1380,4 +1380,4 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案, 在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关详细信息，请参阅 <xref:fundamentals/localization>。
