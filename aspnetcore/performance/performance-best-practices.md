@@ -75,7 +75,7 @@ ASP.NET Core 应用中的常见性能问题正在阻止可能是异步调用。 
 * **不这样做**检索不必要的更多数据。 编写查询以返回不仅仅是当前 HTTP 请求所需的数据。
 * **执行**考虑缓存经常访问的数据检索从数据库或远程服务，如果略有过时的数据是可接受。 根据方案，使用[MemoryCache](xref:performance/caching/memory)或[DistributedCache](xref:performance/caching/distributed)。 有关详细信息，请参阅 <xref:performance/caching/response>。
 * **执行**最大程度减少网络往返。 目标是检索一次调用而不是多个调用中所需的数据。
-* **不要**使用[无跟踪查询](/ef/core/querying/tracking#no-tracking-queries)中 Entity Framework Core 用于只读目的访问数据时。 EF Core 可以更有效地返回非跟踪查询的结果。
+* 在 Entity Framework Core 中，当出于只读目的访问数据时，**使用** [no-tracking 查询](/ef/core/querying/tracking#no-tracking-queries) 。 EF Core 可以更有效地返回非跟踪查询的结果。
 * **不要**筛选器和聚合的 LINQ 查询 (使用`.Where`， `.Select`，或`.Sum`语句，例如)，以便筛选由数据库执行。
 * **执行**考虑 EF Core 解析客户端可能会导致效率低下的查询执行一些查询运算符。 有关详细信息，请参阅[客户端评估性能问题](/ef/core/querying/client-eval#client-evaluation-performance-issues)。
 * **不这样做**使用投影查询集合，这可能会导致在执行"N + 1"上的 SQL 查询。 有关详细信息，请参阅[的相关子查询的优化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)。
