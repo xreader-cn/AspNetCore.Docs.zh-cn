@@ -80,8 +80,8 @@ dotnet new worker -o ContosoWorkerService
 
   若要延长默认值为 5 秒的关闭超时值，请设置：
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> 何时使用通用主机。 有关更多信息，请参阅 <xref:fundamentals/host/generic-host#shutdown-timeout>。
-  * 使用 Web 主机时为关闭超时值主机配置设置。 有关更多信息，请参阅 <xref:fundamentals/host/web-host#shutdown-timeout>。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>（当使用通用主机时）。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#shutdown-timeout>。
+  * 使用 Web 主机时为关闭超时值主机配置设置。 有关详细信息，请参阅 <xref:fundamentals/host/web-host#shutdown-timeout>。
 
 托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
 
