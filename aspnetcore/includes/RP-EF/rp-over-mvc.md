@@ -1,7 +1,12 @@
-本教程介绍具有控制器和视图的 ASP.NET Core MVC 和 Entity Framework Core。 Razor 页面是 ASP.NET Core 2.0 中的一个新选择，它是基于页面的编程模型，可以实现更简单、更高效地生成 Web UI。 建议使用 MVC 版本的 [Razor 页面](xref:data/ef-rp/intro)教程。 Razor 页面教程：
+本教程介绍具有控制器和视图的 ASP.NET Core MVC 和 Entity Framework Core。 [Razor Pages](xref:razor-pages/index) 是 ASP.NET Core 2.0 中引入的替代编程模型。 对于新的开发，我们建议在具有控制器和视图的 MVC 上使用 Razor Pages。 提供了本教程的 [Razor Pages](xref:data/ef-rp/intro) 版本。 每个教程涵盖其他教程没有的一些资料：
 
-* 易于关注。
-* 提供更多 EF Core 最佳做法。
-* 使用更高效的查询。
-* 通过最新 API 更新到更高版本。
-* 涵盖更多功能。
+此 MVC 教程中包含但 Razor Pages 教程中没有的某些内容：
+
+* 在数据模型中实现继承
+* 执行原始 SQL 查询
+* 使用动态 LINQ 简化代码
+ 
+Razor Pages 教程中包含但此 MVC 教程中没有的某些内容：
+
+* 使用 Select 方法加载相关数据
+* 可用于 ASP.NET Core 3.0 的版本

@@ -966,6 +966,8 @@
           uid: security/key-vault-configuration
     - name: 强制执行 HTTPS
       uid: security/enforcing-ssl
+    - name: 使用 HTTPS 托管 Docker
+      uid: security/docker-https
     - name: 欧盟一般数据保护条例 (GDPR) 支持
       uid: security/gdpr
     - name: 反请求伪造
