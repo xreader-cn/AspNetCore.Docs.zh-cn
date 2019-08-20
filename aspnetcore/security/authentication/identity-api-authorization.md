@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 6b8818cc89a87e66ecec445ff8071348aacde64a
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: cb51df0267a5eabd4a2694727e9c896d0554265e
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819930"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583598"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
@@ -93,9 +93,9 @@ dotnet new react -o <output_directory_name> -au Individual
 
 此帮助器方法将应用程序的策略方案配置为默认的身份验证处理程序。 此策略配置为允许标识处理所有路由到标识 URL 空间 "/Identity" 中的子路径的请求。 `JwtBearerHandler`处理所有其他请求。 此外, 此方法还会`<<ApplicationName>>API`将 IdentityServer 的 API 资源注册到的默认`<<ApplicationName>>API`范围, 并将 JWT 持有者令牌中间件配置为验证 IdentityServer 为应用程序颁发的令牌。
 
-### <a name="sampledatacontroller"></a>SampleDataController
+### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-在*Controllers\SampleDataController.cs*文件中, 请注意`[Authorize]`应用于类的属性, 该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认身份验证方案, 该方案由`AddIdentityServerJwt`设置为上面提到的策略方案, `JwtBearerHandler`并使此类 helper 方法配置的默认处理程序对应用程序的请求。
+在*Controllers\WeatherForecastController.cs*文件中, 请注意`[Authorize]`应用于类的属性, 该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认身份验证方案, 该方案由`AddIdentityServerJwt`设置为上面提到的策略方案, `JwtBearerHandler`并使此类 helper 方法配置的默认处理程序对应用程序的请求。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
