@@ -5,13 +5,15 @@ description: 了解如何使用应用程序部件（应用资源的抽象）来�
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 9d0b4b5fadcc287172f23fa36c421f04ca2ade4a
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 4900ccf5589500db076f8cecd9da198c6a7ceea4
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815483"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886468"
 ---
+<!-- DO NOT MAKE CHANGES BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12376 Merges -->
+
 # <a name="application-parts-in-aspnet-core"></a>ASP.NET Core 中的应用程序部件
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -61,7 +63,7 @@ services.AddMvc()
 
 应用程序功能提供程序用于检查应用程序部件，并为这些部件提供功能。 以下 MVC 功能有内置功能提供程序：
 
-* [控制器](/dotnet/api/microsoft.aspnetcore.mvc.controllers.controllerfeatureprovider)
+* [Controllers](/dotnet/api/microsoft.aspnetcore.mvc.controllers.controllerfeatureprovider)
 * [元数据引用](/dotnet/api/microsoft.aspnetcore.mvc.razor.compilation.metadatareferencefeatureprovider)
 * [标记帮助程序](/dotnet/api/microsoft.aspnetcore.mvc.razor.taghelpers.taghelperfeatureprovider)
 * [视图组件](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponents.viewcomponentfeatureprovider)

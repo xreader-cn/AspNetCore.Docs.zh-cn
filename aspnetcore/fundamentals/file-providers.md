@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 93eb48d81a853061a874641e84b4875849690a93
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b93b2df7fad7c173f43ad69aec865f09de6c9c34
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886612"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69487579"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -107,7 +107,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 若要生成嵌入的文件清单，请将 `<GenerateEmbeddedFilesManifest>` 属性设置为 `true`。 指定要使用 [&lt;EmbeddedResource&gt;](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects) 嵌入的文件：
 
-[!code-csharp[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=5,13)]
+[!code-csharp[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=6,14)]
 
 使用 [glob 模式](#glob-patterns)指定要嵌入到程序集中的一个或多个文件。
 

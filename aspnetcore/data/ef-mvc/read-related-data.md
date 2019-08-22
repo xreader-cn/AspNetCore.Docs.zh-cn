@@ -1,17 +1,17 @@
 ---
 title: 教程：读取相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 20f801e23f3e75d7915bcb7c095060b68d9cb03f
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 43d05d0a5f938e60cdb54a0025d8bc277059c2e3
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819789"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583432"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 

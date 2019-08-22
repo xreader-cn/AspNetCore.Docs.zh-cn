@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
-author: rick-anderson
+author: tdykstra
 description: 本教程将通过更新外键字段和导航属性来更新相关数据。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 4f41ad5fa17cd6ee56f14cd87fb62a47f3a4a9df
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: bc237cf928d852b92c5c1984527129404f88018d
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993364"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583493"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
 

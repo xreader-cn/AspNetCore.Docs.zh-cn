@@ -1,18 +1,18 @@
 ---
 title: 教程：了解高级方案 - ASP.NET MVC 和 EF Core
 description: 本教程不止会介绍使用 Entity Framework Core 开发 ASP.NET Core Web 应用的基础知识，还会介绍其他有用主题。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 7b25ccad560d00801c1f6cb93d86163a8212bc12
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 0cb9b00cafde6e003311940ff4c70086e18bac10
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993445"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583259"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
