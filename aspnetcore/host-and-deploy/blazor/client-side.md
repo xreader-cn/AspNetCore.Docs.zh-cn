@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: be6b6c245440cb085a1a6b115f4f087306f7cc83
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: e9a42bd4e8511d426761746047fed2d4f7dfc6dd
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308090"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994080"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>托管和部署 ASP.NET Core Blazor 客户端
 
@@ -148,7 +148,7 @@ dotnet run --pathbase=/CoolApp
 
 有关详细信息，请参阅[基路径主机配置值](#path-base)部分。
 
-如果应用使用[客户端托管模型](xref:blazor/hosting-models#client-side)（基于 Blazor（客户端）项目模板；使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazor` 模板），并且作为 IIS 子应用托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分   。
+如果应用使用[客户端托管模型](xref:blazor/hosting-models#client-side)（基于 Blazor WebAssembly App 项目模板，使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时则为 `blazorwasm` 模板），并且作为 IIS 子应用托管在 ASP.NET Core 应用中，则有必要禁用所继承的 ASP.NET Core 模块处理程序或确保子应用不继承 web.config 文件中的根（父）应用的 `<handlers>` 部分   。
 
 通过向文件添加 `<handlers>` 部分，删除应用已发布 web.config 文件中的处理程序  ：
 
@@ -180,7 +180,7 @@ dotnet run --pathbase=/CoolApp
 
 托管部署通过在 Web 服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供 Blazor 客户端应用  。
 
-Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用将一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 包括 Blazor（托管 ASP.NET Core）项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorhosted` 模板）  。
+Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用将一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 将 Blazor WebAssembly App 项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorwasm` 模板）包括在“托管”选项中   。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 

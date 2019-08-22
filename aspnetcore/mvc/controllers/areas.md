@@ -3,14 +3,14 @@ title: ASP.NET Core 中的区域
 author: rick-anderson
 description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。
 ms.author: riande
-ms.date: 05/10/2019
+ms.date: 08/07/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: f3a75bc307a206e43241b421f448b09011868d08
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: e44c726c47caa3dd0c8c92e3a2502a590bee82d1
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65535974"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862794"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -116,9 +116,13 @@ ms.locfileid: "65535974"
 
 有关详细信息，请参阅[路由到控制器操作](xref:mvc/controllers/routing)。
 
-### <a name="shared-layout-for-areas-using-the-viewstartcshtml-file"></a>使用 _ViewStart.cshtml 文件的共享区域布局
+### <a name="shared-layout-for-areas-using-the-_viewstartcshtml-file"></a>使用 _ViewStart.cshtml 文件的共享区域布局
 
 要共享整个应用的常用布局，请将 _ViewStart.cshtml 移动到应用程序根文件夹  。
+
+### <a name="_viewimportscshtml"></a>_ViewImports.cshtml
+
+在其标准位置，/Views/_ViewImports.cshtml 不适用于区域  。 若要在区域中使用常用的[标记帮助程序](xref:mvc/views/tag-helpers/intro)、`@using` 或 `@inject`，确保将正确的 _ViewImports.cshtml 文件[应用于区域视图](xref:mvc/views/layout#importing-shared-directives)  。 如果希望所有视图都具有相同的行为，请将 /Views/_ViewImports.cshtml 迁移到应用程序根  。
 
 <a name="rename"></a>
 
@@ -167,7 +171,7 @@ ms.locfileid: "65535974"
 * 只有当最后一个请求是针对 `/Home` 中的页时，从 `<a asp-page="/About">` 生成的链接才是正确的。
 * 代码摘自[示例下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)。
 
-### <a name="import-namespace-and-tag-helpers-with-viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
+### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>使用 _ViewImports 文件导入命名空间和标记帮助程序
 
 可向每个区域“页面”文件夹添加一个 _ViewImports.cshtml 文件，以将命名空间和标记帮助器导入到该文件夹的每个 Razor 页面中   。
 

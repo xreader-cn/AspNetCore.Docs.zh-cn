@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 6132f7b907014b4f57bb9ae0300e00b6ecb23f1a
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 39e2a38e0b91b7dbecf05c084ca0be5e312dcb0d
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820064"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862873"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -135,18 +135,30 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 
 ---
 
-在搭建基架时，会创建并更新以下文件：
-
 ### <a name="files-created"></a>创建的文件
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+在搭建基架时，会创建并更新以下文件：
 
 * *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
 * Data/RazorPagesMovieContext.cs 
 
-### <a name="file-updated"></a>文件已更新
+### <a name="updated"></a>已更新
 
 * *Startup.cs*
 
 创建和更新的文件将在下一节中说明。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+在搭建基架时，会创建以下文件：
+
+* *Pages/Movies*：“创建”、“删除”、“详细信息”、“编辑”和“索引”。
+
+创建的文件将在下一节中说明。
+
+---
 
 <a name="pmc"></a>
 

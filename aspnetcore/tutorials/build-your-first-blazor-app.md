@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2019
+ms.date: 07/26/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: d592c5bac1eb9822843a1ad1513a15fdfd6b1032
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 88999350b9c7631e15ba9d0242da5880c8ae71ff
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500311"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994216"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -67,7 +67,7 @@ ms.locfileid: "67500311"
 
 ## <a name="component-parameters"></a>组件参数
 
-组件也可以有参数。 组件参数由使用 `[Parameter]` 修饰的组件类上的专用属性定义。 使用这些属性在标记中为组件指定参数。
+组件也可以有参数。 组件参数由使用 `[Parameter]` 修饰的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
 
 1. 更新组件的 `@code` C# 代码：
 

@@ -5,14 +5,14 @@ description: 排查在 .NET Core 上使用 gRPC 时遇到的错误。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 08/12/2019
+ms.date: 08/17/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: ad74bfa57d2dde316734d55d86075f463e78ee56
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 7621266dfe26b7126d1607e195dd5dcaab4efa55
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69029030"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886495"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>排查 .NET Core 上的 gRPC 问题
 
@@ -84,6 +84,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
             webBuilder.UseStartup<Startup>();
         });
 ```
+
+如果未使用 TLS 配置 HTTP/2 终结点, 则终结点的[ListenOptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)必须设置为`HttpProtocols.Http2`。 `HttpProtocols.Http1AndHttp2`无法使用, 因为需要使用 TLS 来协商 HTTP/2。 如果没有 TLS, 与端点的所有连接默认为 HTTP/1.1, 并且 gRPC 调用失败。
 
 GRPC 客户端还必须配置为不使用 TLS。 有关详细信息, 请参阅[Call 不安全的 gRPC services 与 .Net Core client](#call-insecure-grpc-services-with-net-core-client)。
 

@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 0ffd437bbb48ef1c7a9159fbf3ac41441613f434
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 606be317318eafa170d926aaace1f752d3a25510
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68372058"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994292"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -115,6 +115,8 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 ## <a name="customize-and-extend"></a>自定义和扩展
 
 Swagger 提供了为对象模型进行归档和自定义 UI 以匹配你的主题的选项。
+
+在 Startup 类中，添加以下命名空间：[!code-csharp[](~/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_PreReqNamespaces)]
 
 ### <a name="api-info-and-description"></a>API 信息和说明
 
@@ -423,11 +425,11 @@ Swagger UI 现在清楚地记录预期的 HTTP 响应代码：
 
 [!code-css[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/custom.css)]
 
-引用其他 CSS 文件后，引用 index.html 文件中的“custom.css”   ：
+引用其他 CSS 文件后，引用“ui”文件夹内 index.html 文件中的 custom.css   ：
 
 [!code-html[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/index.html?name=snippet_SwaggerUiCss&highlight=3)]
 
-浏览到 `http://localhost:<port>/swagger/ui/index.html` 中的 index.html  页。 在标题文本框中输入 `http://localhost:<port>/swagger/v1/swagger.json`，然后单击“浏览”  按钮。 生成的页面如下所示：
+浏览到 `http://localhost:<port>/swagger/ui/index.html` 中的 index.html  页。 在标题文本框中输入 `https://localhost:<port>/swagger/v1/swagger.json`，然后单击“浏览”  按钮。 生成的页面如下所示：
 
 ![使用自定义标题的 Swagger UI](web-api-help-pages-using-swagger/_static/custom-header.png)
 

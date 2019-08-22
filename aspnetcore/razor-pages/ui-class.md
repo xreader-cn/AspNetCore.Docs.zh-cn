@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 06/28/2019
+ms.date: 08/20/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 77c7d4a318610fcd424da0485abd41d11e3fad6a
-ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
+ms.openlocfilehash: 468d961c291810ca4dfbe615acd972cfd6e7572a
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68493566"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886395"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -236,13 +236,49 @@ RCL 可能需要随附静态资产, 这些资产可由 RCL 的使用应用程序
 
 若要将配套资产作为 RCL 的一部分包括在内, 请在类库中创建*wwwroot*文件夹, 并在该文件夹中包含所有必需的文件。
 
-打包 RCL 时, *wwwroot*文件夹中的所有伴随资产将自动包含在包中, 并可供引用包的应用使用。
+当对 RCL 进行打包时, *wwwroot*文件夹中的所有伴随资产将自动包含在包中。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 
 RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀`_content/{LIBRARY NAME}/`。 例如, 名为*Razor*的库会生成指向中的静态内容`_content/Razor.Class.Lib/`的路径。
 
-使用应用引用库`<script>`提供的静态资产, 以及、 `<style>`、 `<img>`和其他 HTML 标记。 使用的应用程序必须启用[静态文件支持](xref:fundamentals/static-files)。
+使用应用引用库`<script>`提供的静态资产, 以及、 `<style>`、 `<img>`和其他 HTML 标记。 使用的应用必须在中`Startup.Configure`启用[静态文件支持](xref:fundamentals/static-files):
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    ...
+
+    app.UseStaticFiles();
+
+    ...
+}
+```
+
+从生成输出 (`dotnet run`) 运行使用中的应用时, 默认情况下会在开发环境中启用静态 web 资产。 若要在从生成输出运行时支持其他环境中的`UseStaticWebAssets`资产, 请在*Program.cs*中的主机生成器上调用:
+
+```csharp
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStaticWebAssets();
+                webBuilder.UseStartup<Startup>();
+            });
+}
+```
+
+从`UseStaticWebAssets`已发布的输出 (`dotnet publish`) 运行应用时, 不需要调用。
 
 ### <a name="multi-project-development-flow"></a>多项目开发流程
 
