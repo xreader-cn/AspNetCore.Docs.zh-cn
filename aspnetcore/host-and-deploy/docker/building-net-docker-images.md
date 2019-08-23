@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/18/2019
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: ea96ae6d36c7e8320ea49e666a807ece72645865
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: 578f6f8cd54597fe0a6186d182cccc3955331e49
+ms.sourcegitcommit: 2fa0ffe82a47c7317efc9ea908365881cbcb8ed7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207798"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69572860"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 的 Docker 映像
 
@@ -66,7 +66,7 @@ ms.locfileid: "67207798"
 
 ## <a name="run-the-app-locally"></a>本地运行应用
 
-* 导航到 dotnet-docker/samples/aspnetapp/aspnetapp 下的项目文件夹。
+* 导航到 dotnet-docker/samples/aspnetapp/aspnetapp  下的项目文件夹。
 
 * 运行以下命令以本地生成并运行应用：
 
@@ -82,7 +82,7 @@ ms.locfileid: "67207798"
 
 * 在 Docker 客户端中，切换到 Linux 容器。
 
-* 导航到 dotnet-docker/samples/aspnetapp 下的 Dockerfile 文件夹。
+* 导航到 dotnet-docker/samples/aspnetapp  下的 Dockerfile 文件夹。
 
 * 运行以下命令以在 Docker 中生成并运行示例：
 
@@ -138,7 +138,7 @@ ms.locfileid: "67207798"
 
 在某些情况下，你可能希望通过将运行时所需的应用程序文件复制到容器来将应用部署到容器。 本部分演示如何手动进行部署。
 
-* 导航到 dotnet-docker/samples/aspnetapp/aspnetapp 下的项目文件夹。
+* 导航到 dotnet-docker/samples/aspnetapp/aspnetapp  下的项目文件夹。
 
 * 运行 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令：
 
@@ -148,7 +148,7 @@ ms.locfileid: "67207798"
 
   命令参数：
   * 在发布模式（默认为调试模式）下生成应用程序。
-  * 在“已发布”文件夹中创建文件。
+  * 在“已发布”文件夹中创建文件  。
 
 * 运行该应用程序。
 
@@ -165,6 +165,15 @@ ms.locfileid: "67207798"
     ```
 
 * 浏览到 `http://localhost:5000` 以查看主页。
+
+要在 Docker 容器中使用手动发布的应用程序，请创建新的 Dockerfile，并使用 `docker build .` 命令构建容器。
+
+```console
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+WORKDIR /app
+COPY published/aspnetapp.dll ./
+ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+```
 
 ### <a name="the-dockerfile"></a>Dockerfile
 

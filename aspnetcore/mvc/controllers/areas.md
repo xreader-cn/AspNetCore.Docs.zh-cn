@@ -3,14 +3,14 @@ title: ASP.NET Core 中的区域
 author: rick-anderson
 description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。
 ms.author: riande
-ms.date: 08/07/2019
+ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: e44c726c47caa3dd0c8c92e3a2502a590bee82d1
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862794"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545802"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -136,7 +136,7 @@ ms.locfileid: "68862794"
 
 ## <a name="areas-with-razor-pages"></a>使用 Razor Pages 的区域
 
-使用 Razor Pages 的区域需要在应用根目录中有一个“Areas/&lt;area name&gt;/Pages  ”文件夹。 [示例下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)中使用以下文件夹结构
+使用 Razor Pages 的区域需要在应用根目录中有一个 Areas/<area name>/Pages  文件夹。 以下文件夹结构用于[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)：
 
 * 项目名称
   * Areas
