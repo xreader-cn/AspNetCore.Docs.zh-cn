@@ -3,16 +3,16 @@ title: .NET Core 和 ASP.NET Core 中的日志记录
 author: tdykstra
 description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供的日志记录框架。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 4e2aa1e18c3e3119e22452d5ca9b838581efbfd8
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 21e7ee144bdf0355cac8bd8a7706f100c15342da
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994110"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975498"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -624,7 +624,7 @@ System.Exception: Item not found exception.
 | 1      | 调试         | 全部类别                          | 信息       |
 | 2      | 控制台       | Microsoft.AspNetCore.Mvc.Razor.Internal | 警告           |
 | 3      | 控制台       | Microsoft.AspNetCore.Mvc.Razor.Razor    | 调试             |
-| 4      | 控制台       | Microsoft.AspNetCore.Mvc.Razor          | Error             |
+| 4      | 控制台       | Microsoft.AspNetCore.Mvc.Razor          | 错误             |
 | 5      | 控制台       | 全部类别                          | 信息       |
 | 6      | 全部提供程序 | 全部类别                          | 调试             |
 | 7      | 全部提供程序 | System                                  | 调试             |
