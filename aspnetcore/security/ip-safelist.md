@@ -2,16 +2,16 @@
 title: ASP.NET Core 的客户端 IP 安全安全
 author: damienbod
 description: 了解如何编写中间件或操作筛选器, 以根据已批准的 IP 地址列表来验证远程 IP 地址。
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: security/ip-safelist
-ms.openlocfilehash: ca05989efabea3a71c6912e98055a6746e0f5966
-ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
+ms.openlocfilehash: 02e44135ab1742d44691cfda8c4167f21d6efa4e
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "68223934"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975651"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>ASP.NET Core 的客户端 IP 安全安全
 

@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 08/20/2019
+ms.date: 08/22/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 468d961c291810ca4dfbe615acd972cfd6e7572a
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 5b83cb44302a5900ec7b2ccc049790b4c1ca57e5
+ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886395"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985382"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -237,6 +237,39 @@ RCL 可能需要随附静态资产, 这些资产可由 RCL 的使用应用程序
 若要将配套资产作为 RCL 的一部分包括在内, 请在类库中创建*wwwroot*文件夹, 并在该文件夹中包含所有必需的文件。
 
 当对 RCL 进行打包时, *wwwroot*文件夹中的所有伴随资产将自动包含在包中。
+
+### <a name="exclude-static-assets"></a>排除静态资产
+
+若要排除静态资产, 请将所需的排除`$(DefaultItemExcludes)`路径添加到项目文件中的属性组。 用分号 (`;`) 分隔条目。
+
+在下面的示例中, *wwwroot*文件夹中的*lib*样式表不被视为静态资产, 而且不包含在已发布的 RCL 中:
+
+```xml
+<PropertyGroup>
+  <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\lib.css</DefaultItemExcludes>
+</PropertyGroup>
+```
+
+### <a name="typescript-integration"></a>Typescript 集成
+
+若要在 RCL 中包含 TypeScript 文件:
+
+1. 将 TypeScript 文件 (*ts*) 置于*wwwroot*文件夹之外。 例如, 将文件放在*客户端*文件夹中。
+
+1. 为*wwwroot*文件夹配置 TypeScript 生成输出。 在项目文件中设置的中的属性:`TypescriptOutDir` `PropertyGroup`
+
+   ```xml
+   <TypescriptOutDir>wwwroot</TypescriptOutDir>
+   ```
+
+1. 通过`PropertyGroup`在项目文件内的中添加以下`ResolveCurrentProjectStaticWebAssets`目标, 将 TypeScript 目标作为目标的依赖项:
+
+   ```xml
+   <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+     TypeScriptCompile;
+     $(ResolveCurrentProjectStaticWebAssetsInputs)
+   </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+   ```
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 

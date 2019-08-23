@@ -5,14 +5,14 @@ description: 了解如何调试 Blazor 应用程序。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/31/2019
+ms.date: 08/22/2019
 uid: blazor/debug
-ms.openlocfilehash: 37c6009727a4f62b61793adca0d83cdd53be4b9a
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: c3188a1fe1b699b787f7a95630f3918d295d0f68
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68948367"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69974901"
 ---
 # <a name="debug-aspnet-core-blazor"></a>调试 ASP.NET Core Blazor
 
@@ -51,6 +51,10 @@ ms.locfileid: "68948367"
 1. 在浏览器中访问应用程序。
 1. 将键盘焦点置于应用上, 而不是开发人员工具面板上。 启动调试时可关闭 "开发人员工具" 面板。
 1. 选择以下 Blazor 特定的键盘快捷方式:
+   * `Shift+Alt+D`在 Windows/Linux 上
+   * `Shift+Cmd+D`在 macOS 上
+1. 按照屏幕上列出的步骤, 在启用远程调试的情况重启浏览器。
+1. 再次选择以下 Blazor 特定的键盘快捷方式, 以启动调试会话:
    * `Shift+Alt+D`在 Windows/Linux 上
    * `Shift+Cmd+D`在 macOS 上
 
