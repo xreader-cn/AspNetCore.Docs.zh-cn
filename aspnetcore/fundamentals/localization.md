@@ -146,7 +146,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 
 资源名称是类的完整类型名称减去程序集名称。 例如，类 `LocalizationWebsite.Web.Startup` 的主要程序集为 `LocalizationWebsite.Web.dll` 的项目中的法语资源将命名为 Startup.fr.resx  。 类 `LocalizationWebsite.Web.Controllers.HomeController` 的资源将命名为 Controllers.HomeController.fr.resx  。 如果目标类的命名空间与将需要完整类型名称的程序集名称不同。 例如，在示例项目中，类型 `ExtraNamespace.Tools` 的资源将命名为 ExtraNamespace.Tools.fr.resx  。
 
-在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“资源”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 Resources/Controllers/HomeController.fr.resx  。 如果不使用 `ResourcesPath` 选项，.resx 文件将转到项目的基目录中  。 `HomeController` 的资源文件将命名为 Controllers.HomeController.fr.resx  。 选择使用圆点或路径命名约定具体取决于你想如何组织资源文件。
+在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“Resources”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 *Resources/Controllers/HomeController.fr.resx*。 如果不使用 `ResourcesPath` 选项， *.resx* 文件将转到项目的基目录中。 `HomeController` 的资源文件将命名为 *Controllers.HomeController.fr.resx*。 是选择使用圆点还是路径命名约定，具体取决于你想如何组织资源文件。
 
 | 资源名称 | 圆点或路径命名 |
 | ------------   | ------------- |
