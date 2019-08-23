@@ -158,6 +158,9 @@
     - name: 数据访问
       displayName: 'tutorial, ef, entity framework'
       href: /learn/modules/persist-data-ef-core/
+    - name: Web 应用安全
+      displayName: 'tutorial, identity'
+      href: /learn/modules/secure-aspnet-core-identity/
 - name: 基础知识
   items:
     - name: 概述
