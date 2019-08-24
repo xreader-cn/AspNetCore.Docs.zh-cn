@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/18/2019
+ms.date: 08/23/2019
 uid: razor-pages/sdk
-ms.openlocfilehash: 1dc001c7c5fe320629835e06fe6db7fadabff94d
-ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
+ms.openlocfilehash: 81025c14ba68971ca5d3cfc9387c2f50dd247654
+ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/23/2019
-ms.locfileid: "69985389"
+ms.lasthandoff: 08/24/2019
+ms.locfileid: "70017398"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -22,26 +22,21 @@ ms.locfileid: "69985389"
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]包括`Microsoft.NET.Sdk.Razor`MSBuild SDK (Razor SDK)。 Razor SDK：
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+* 对于基于 MVC 的 ASP.NET Core 或[Blazor](xref:blazor/index)项目, 需要生成、打包和发布包含[Razor](xref:mvc/views/razor)文件的项目。
+* 包括一组预定义的目标、属性和项, 它们允许自定义 Razor (*cshtml*或*Razor*) 文件的编译。
+
+Razor SDK 包括`Content`将`Include`属性设置为`**\*.cshtml`和`**\*.razor`组合模式的项。 发布匹配的文件。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * 针对基于 ASP.NET Core MVC 的项目，围绕包含 [Razor](xref:mvc/views/razor) 文件的项目的生成、打包和发布设定了体验标准。
 * 包含一组预定义的目标、属性和项目，它们允许自定义 Razor 文件的编译。
-::: moniker-end
 
-::: moniker range=">= aspnetcore-3.0"
-* 对于基于 ASP.NET Core MVC 的项目或[Blazor](xref:blazor/index)项目, 生成、打包和发布包含[Razor](xref:mvc/views/razor)文件的项目是必需的。
-* 包括一组预定义的目标、属性和项, 它们允许自定义 Razor (cshtml 或 Razor) 文件的编译。
-::: moniker-end
-
-
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
-
-Razor SDK 包括一个元素`<Content>` `Include` , 该元素的属性设置为`**\*.cshtml` "通配" 模式。 发布匹配的文件。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-Razor SDK 包含`<Content>`属性设置为`Include` `**\*.cshtml`和`**\*.razor`有组合模式的元素。 发布匹配的文件。
+Razor SDK 包含一个`Content`项`Include` , 其属性设置为 "任意`**\*.cshtml`组合" 模式。 发布匹配的文件。
 
 ::: moniker-end
 
@@ -53,7 +48,14 @@ Razor SDK 包含`<Content>`属性设置为`Include` `**\*.cshtml`和`**\*.razor`
 
 大多数 web 应用程序无需显式引用 Razor SDK。
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+若要使用 Razor SDK 生成包含 Razor 视图或 Razor Pages 的类库, 我们建议从 Razor 类库 (RCL) 项目模板开始。 用于生成 Blazor (*razor*) 文件的 RCL 最低要求对[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)包的引用。 用于生成 Razor 视图或页面 (*cshtml*文件) 的 RCL 至少需要面向`netcoreapp3.0`或`FrameworkReference`更高版本, 并在其项目文件中具有[AspNetCore 元包。](xref:fundamentals/metapackage-app)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 要使用 Razor SDK 来生成包含 Razor 视图或 Razor 页面的类库，请执行以下操作：
 
 * 使用 `Microsoft.NET.Sdk.Razor` 而非 `Microsoft.NET.Sdk`：
@@ -78,11 +80,6 @@ Razor SDK 包含`<Content>`属性设置为`Include` `**\*.cshtml`和`**\*.razor`
   
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-3.0"
-若要使用 Razor SDK 生成包含 Razor 视图的类库或 Razor Pages 建议从 Razor 类库项目模板开始。 用于生成 Blazor (razor) 文件的 Razor 类库至少需要对`Microsoft.AspNetCore.Components`包的引用。 用于生成 razor 视图或页面 (cshtml 文件) 的 Razor 类库将要求目标`netcoreapp3.0`或更新, 并`FrameworkReference`具有`Microsoft.AspNetCore.App`。
-
-::: moniker-end
-
 ::: moniker range="= aspnetcore-2.1"
 
 > [!WARNING]
@@ -100,15 +97,16 @@ Razor SDK 包含`<Content>`属性设置为`Include` `**\*.cshtml`和`**\*.razor`
 配置输入和输出到 Razor SDK 用于属性和下表中的项。
 
 ::: moniker range=">= aspnetcore-3.0"
-> [!WARNING]
-从 ASP.NET Core 3.0 开始, 如果`RazorCompileOnBuild`禁用或`RazorCompileOnPublish` , 则默认情况下将不会为 MVC 视图或 Razor Pages 提供服务。 当应用程序依赖于运行时`Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`编译来处理 cshtml 文件时, 应用程序必须将对包的显式引用添加到对运行时编译的支持。
-::: moniker-end
 
+> [!WARNING]
+> 从 ASP.NET Core 3.0 开始, 如果禁用项目文件中的`RazorCompileOnBuild`或`RazorCompileOnPublish` MSBuild 属性, 则默认情况下不会为 MVC 视图或 Razor Pages 提供服务。 如果应用程序依赖运行时编译来处理*cshtml*文件, 则应用程序必须添加对[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)包的显式引用。
+
+::: moniker-end
 
 | 项 | 描述 |
 | ----- | ----------- |
 | `RazorGenerate` | 作为代码生成的输入的项元素 (*cshtml*文件)。 |
-| `RazorComponent` | 作为组件代码生成的输入的项元素 (*razor*文件)。
+| `RazorComponent` | 作为 Razor 组件代码生成的输入的项元素 (*razor*文件)。 |
 | `RazorCompile` | 作为 Razor 编译目标的输入的项元素 ( *.cs*文件)。 `ItemGroup`用于指定要编译到 Razor 程序集中的其他文件。 |
 | `RazorTargetAssemblyAttribute` | 用于编码生成 Razor 程序集属性的项元素。 例如：  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | 作为嵌入资源添加到生成的 Razor 程序集的项元素。 |
@@ -135,9 +133,9 @@ Razor SDK 包含`<Content>`属性设置为`Include` `**\*.cshtml`和`**\*.razor`
 
 Razor SDK 定义两个主要目标：
 
-* `RazorGenerate` &ndash; 代码将生成 *.cs*文件从`RazorGenerate`项元素。 使用 `RazorGenerateDependsOn` 属性指定可在此目标之前或之后运行的其他目标。
-* `RazorCompile` &ndash; 生成的编译 *.cs*到 Razor 程序集文件中。 使用 `RazorCompileDependsOn` 指定可在此目标之前或之后运行的其他目标。
-* `RazorComponentGenerate`&ndash;代码为 项`RazorComponent`元素生成 .cs 文件。 使用 `RazorComponentGenerateDependsOn` 属性指定可在此目标之前或之后运行的其他目标。
+* `RazorGenerate` &ndash; 代码将生成 *.cs*文件从`RazorGenerate`项元素。 `RazorGenerateDependsOn`使用属性指定可在此目标之前或之后运行的其他目标。
+* `RazorCompile` &ndash; 生成的编译 *.cs*到 Razor 程序集文件中。 `RazorCompileDependsOn`使用可指定可在此目标之前或之后运行的其他目标。
+* `RazorComponentGenerate`&ndash;代码为 项`RazorComponent`元素生成 .cs 文件。 `RazorComponentGenerateDependsOn`使用属性指定可在此目标之前或之后运行的其他目标。
 
 ### <a name="runtime-compilation-of-razor-views"></a>Razor 视图的运行时编译
 
@@ -155,7 +153,7 @@ Razor SDK 定义两个主要目标：
 </PropertyGroup>
 ```
 
-Razor 的语言版本与生成它的运行时版本紧密集成。 不支持面向不是为运行时设计的语言版本, 并且可能会生成生成错误。
+Razor 的语言版本与生成它的运行时版本紧密集成。 针对不是为运行时设计的语言版本, 不受支持, 并且可能会产生生成错误。
 
 ## <a name="additional-resources"></a>其他资源
 
