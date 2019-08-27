@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 3005adec9ffe41859d05a3f61c7c45b8e7bfeefc
-ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
+ms.openlocfilehash: 1519abbca6430063f037372a4927f5818f160457
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69908378"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024788"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>缓存在内存中 ASP.NET Core
 
@@ -85,15 +85,15 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet99)]
 
-只有具有可调过期的缓存项集存在过时的风险, 因为未绑定到其过期时间。 使用具有可调过期的绝对过期时间, 以确保缓存项不会比绝对过期更陈旧。 当绝对过期与滑动结合使用时, 绝对过期会将上限设置为可缓存项的时间。 不同于绝对过期时间, 如果未在可调过期时间间隔内从缓存请求该项, 则从缓存中逐出该项。 指定 "绝对" 和 "可调过期" 时, 过期时间以逻辑方式运算。
+只有具有可调过期的缓存项集存在过时的风险。 如果访问的时间比滑动过期时间间隔更频繁, 则该项将永不过期。 将弹性过期与绝对过期组合在一起, 以保证项目在其绝对过期时间通过后过期。 绝对过期会将项的上限设置为可缓存项的时间, 同时仍允许项在可调整过期时间间隔内未请求时提前过期。 如果同时指定了绝对过期和可调过期时间, 则过期时间以逻辑方式运算。 如果滑动过期时间间隔*或*绝对过期时间通过, 则从缓存中逐出该项。
 
-下面的代码获取或创建具有可调和绝对过期的缓存项:
+下面的代码获取或创建具有可调*和*绝对过期的缓存项:
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet9)]
 
 前面的代码保证数据的缓存时间不超过绝对时间。
 
-<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*> <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions>和<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*>是扩展的功能<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>的类的一部分扩展方法。 有关其他缓存方法的说明, 请参阅[IMemoryCache 方法](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)和[CacheExtensions 方法](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)。
+<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>和<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*> 是类中<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions>的扩展方法。 这些方法扩展了的<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>功能。
 
 ## <a name="memorycacheentryoptions"></a>MemoryCacheEntryOptions
 
