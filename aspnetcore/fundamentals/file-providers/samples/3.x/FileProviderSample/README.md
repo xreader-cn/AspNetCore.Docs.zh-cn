@@ -1,0 +1,3 @@
+# <a name="aspnet-core-file-provider-sample"></a><span data-ttu-id="168c8-101">ASP.NET Core 文件提供程序示例</span><span class="sxs-lookup"><span data-stu-id="168c8-101">ASP.NET Core File Provider Sample</span></span>
+
+<span data-ttu-id="168c8-102">本示例演示如何使用文件提供程序。</span><span class="sxs-lookup"><span data-stu-id="168c8-102">This sample illustrates the use of File Provider.</span></span> <span data-ttu-id="168c8-103">本示例演示 [ASP.NET Core 中的文件提供程序](https://docs.microsoft.com/aspnet/core/fundamentals/file-providers)主题中所述的应用场景。</span><span class="sxs-lookup"><span data-stu-id="168c8-103">This sample demonstrates the scenario described in the [File Providers in ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/file-providers) topic.</span></span>
