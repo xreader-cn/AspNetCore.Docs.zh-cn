@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/26/2019
+ms.date: 08/23/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 88999350b9c7631e15ba9d0242da5880c8ae71ff
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 2f0410eb75a6ef3f3d361c75bce7e79ae6d42a61
+ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994216"
+ms.lasthandoff: 08/24/2019
+ms.locfileid: "70017504"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -178,7 +178,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
    ```cshtml
-   <input placeholder="Something todo" @bind="@newTodo" />
+   <input placeholder="Something todo" @bind="newTodo" />
    ```
 
 1. 更新 `AddTodo` 方法，将具有指定标题的 `TodoItem` 添加到列表。 通过将 `newTodo` 设置为空字符串来清除文本输入的值：

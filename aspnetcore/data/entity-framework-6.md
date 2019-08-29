@@ -2,16 +2,16 @@
 title: ASP.NET Core 和 Entity Framework 6 入门
 author: rick-anderson
 description: 本文演示如何在 ASP.NET Core 应用程序中使用 Entity Framework 6。
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
-ms.openlocfilehash: 50f51a72341cbad017872df581da214211b9920a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ace937e72efa2343e50b11d52ebc0a2530505758
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886932"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975598"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>ASP.NET Core 和 Entity Framework 6 入门
 
@@ -25,17 +25,17 @@ ms.locfileid: "64886932"
 
 在 ASP.NET Core 应用程序中使用 Entity Framework 6 的推荐方法是：将 EF6 上下文和模型类放入面向完整框架的类库项目中。 添加对 ASP.NET Core 项目中的类库的引用。 请参阅示例[针对 EF6 和 ASP.NET Core 项目的 Visual Studio 解决方案](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/)。
 
-不能将 EF6 上下文放入 ASP.NET Core 项目，因为 .NET Core 项目不支持 EF6 命令（如 Enable-Migrations）所需的的各项功能。
+不能将 EF6 上下文放入 ASP.NET Core 项目，因为 .NET Core 项目不支持 EF6 命令（如 Enable-Migrations）所需的的各项功能  。
 
 无论 EF6 上下文属于哪种项目类型，只有 EF6 命令行工具才能使用 EF6 上下文。 例如，`Scaffold-DbContext` 仅在 Entity Framework Core 中可用。 如果需要对数据库执行反向工程以使其成为 EF6 模型，请参阅[从 Code First 到现有数据库](https://msdn.microsoft.com/jj200620)。
 
 ## <a name="reference-full-framework-and-ef6-in-the-aspnet-core-project"></a>在 ASP.NET Core 项目中引用完整框架和 EF6
 
-ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 项目的 .csproj 文件将与以下示例类似（仅显示该文件的相关部分）。
+ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 项目的 .csproj 文件将与以下示例类似（仅显示该文件的相关部分）  。
 
 [!code-xml[](entity-framework-6/sample/MVCCore/MVCCore.csproj?range=3-9&highlight=2)]
 
-创建新项目时，请使用 ASP.NET Core Web 应用程序（.NET Framework）模板。
+创建新项目时，请使用 ASP.NET Core Web 应用程序（.NET Framework）模板  。
 
 ## <a name="handle-connection-strings"></a>处理连接字符串
 
@@ -51,7 +51,7 @@ ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 
 
 ## <a name="set-up-dependency-injection-in-the-aspnet-core-project"></a>在 ASP.NET Core 项目中设置依赖项注入
 
-在 Core 项目的 Startup.cs 文件中，为 `ConfigureServices` 中的依赖项注入 (DI) 设置 EF6 上下文。 应将 EF 上下文对象的范围设置为按请求生存期。
+在 Core 项目的 Startup.cs 文件中，为 `ConfigureServices` 中的依赖项注入 (DI) 设置 EF6 上下文  。 应将 EF 上下文对象的范围设置为按请求生存期。
 
 [!code-csharp[](entity-framework-6/sample/MVCCore/Startup.cs?name=snippet_ConfigureServices&highlight=5)]
 
@@ -67,12 +67,12 @@ ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 
 
 * 创建解决方案。
 
-* 添加 > 新建项目 > Web > ASP.NET Core Web 应用程序
+*  添加 >   新建项目 >   Web >   ASP.NET Core Web 应用程序
   * 在“项目模板选择”对话框的下拉列表中，选择 API 和 .NET Framework
 
-* 添加 > 新建项目 > Windows 桌面 > 类库(.NET Framework)
+*  添加 >   新建项目 >   Windows 桌面 >   类库(.NET Framework)
 
-* 在两个项目的“包管理器控制台”(PMC) 中运行 `Install-Package Entityframework` 命令。
+* 在两个项目的“包管理器控制台”(PMC) 中运行 `Install-Package Entityframework` 命令  。
 
 * 在类库项目中，创建数据模型类和上下文类，并创建 `IDbContextFactory` 的实现。
 
@@ -80,9 +80,9 @@ ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 
 
 * 在 Core 项目中，添加对类库项目的项目引用。
 
-* 在 Core 项目的 Startup.cs 中，为 DI 注册上下文。
+* 在 Core 项目的 Startup.cs 中，为 DI 注册上下文  。
 
-* 在 Core 项目的 appsettings.json 中，添加连接字符串。
+* 在 Core 项目的 appsettings.json 中，添加连接字符串  。
 
 * 在 Core 项目中，添加控制器和视图以验证可读取和写入数据。 （请注意，ASP.NET Core MVC 基架不会使用从类库引用的 EF6 上下文。）
 

@@ -2,15 +2,15 @@
 title: ASP.NET Core Web API 中的自定义格式化程序
 author: rick-anderson
 description: 了解如何为 ASP.NET Core 中的 Web API 创建和使用自定义格式化程序。
-ms.author: tdykstra
+ms.author: riande
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 03456f0a20cf1849bcd29101fda951f81edda31c
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 6fb7e192bf3e943eb9018b08fb87a833d3643208
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814824"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975670"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 

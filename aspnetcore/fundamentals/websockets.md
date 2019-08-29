@@ -3,16 +3,16 @@ title: ASP.NET Core 中的 WebSocket 支持
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中开始使用 WebSocket。
 monikerRange: '>= aspnetcore-1.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 05/10/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 4c49a5349c0718e5c59f30e6d51caf7a43fa0454
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: 5d4d9b02bd45e6650aa56448a3663cad06b3b45e
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458455"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975447"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -47,7 +47,7 @@ ms.locfileid: "66458455"
 
   * Windows 8 / Windows Server 2012 及更高版本
 
-* 有关支持的浏览器，请参阅 https://caniuse.com/#feat=websockets。
+* 有关支持的浏览器，请参阅 https://caniuse.com/#feat=websockets 。
 
 ::: moniker range="< aspnetcore-2.1"
 
@@ -145,7 +145,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 
 但是，浏览器在发出 WebSocket 请求时会发送 `Origin` 标头。 应将应用程序配置为验证这些标头，以确保只允许来自预期来源的 WebSocket。
 
-如果在“https://server.com”上托管服务器并在“https://client.com”上托管客户端，请将“https://client.com”添加到 `AllowedOrigins` 列表以验证 WebSocket。
+如果在“https://server.com ”上托管服务器并在“https://client.com”上托管客户端，请将“https://client.com”添加到 `AllowedOrigins` 列表以验证 WebSocket。
 
 [!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=UseWebSocketsOptionsAO&highlight=6-7)]
 
@@ -198,7 +198,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 
 ## <a name="sample-app"></a>示例应用
 
-本文附带的[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息重新发回到客户端。 从命令提示符运行该应用（它未设置为在安装了 IIS Express 的 Visual Studio 中运行）并导航到 http://localhost:5000。 该网页的左上方显示连接状态：
+本文附带的[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息重新发回到客户端。 从命令提示符运行该应用（它未设置为在安装了 IIS Express 的 Visual Studio 中运行）并导航到 http://localhost:5000 。 该网页的左上方显示连接状态：
 
 ![网页的初始状态](websockets/_static/start.png)
 

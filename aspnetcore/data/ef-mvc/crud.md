@@ -2,17 +2,17 @@
 title: 教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 description: 在本教程中，将评审和自定义 MVC 基架在控制器和视图中自动创建的 CRUD （创建、读取、更新、删除）代码。
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 975738200f9ea621c38b395be123b1d05c78298e
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 843ac3523f3ab4bd43f8970ff8e8e2f997fec4d2
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886309"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975074"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>教程：实现 CRUD 功能 - ASP.NET MVC 和 EF Core
 

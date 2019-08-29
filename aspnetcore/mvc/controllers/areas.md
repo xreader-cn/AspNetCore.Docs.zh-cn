@@ -5,12 +5,12 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
-ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
+ms.openlocfilehash: 9065aa23a537add5a9376472e4f4478e9d4149bd
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69545802"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024734"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -72,9 +72,7 @@ ms.locfileid: "69545802"
 /Areas/<Area-Name>/Views/Shared/<Action-Name>.cshtml
 /Views/Shared/<Action-Name>.cshtml
 /Pages/Shared/<Action-Name>.cshtml
-   ```
-
-控制器和模型等非视图文件夹的位置无关紧要    。 例如，控制器和模型文件夹不是必需的   。 控制器和模型的内容是编译成 .dll 文件的代码   。 在对该视图发出请求之前，不会编译视图的内容  。
+```
 
 <a name="attribute"></a>
 
