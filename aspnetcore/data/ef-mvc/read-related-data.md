@@ -2,16 +2,16 @@
 title: 教程：读取相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 43d05d0a5f938e60cdb54a0025d8bc277059c2e3
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 2bf556dae5d30819c54ecc3f0dadfbd3316db1cc
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583432"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059112"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -239,7 +239,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_ExplicitLoading&highlight=23-29)]
 
-新代码将从检索 Instructor 实体的代码中删除注册数据的 ThenInclude 方法调用  。 如果选择了讲师和课程，突出显示的代码会检索所选课程的 Enrollment 实体，及每个 Enrollment 的 Student 实体。
+新代码将从检索 Instructor 实体的代码中删除注册数据的 ThenInclude 方法调用  。 它还会删除 `AsNoTracking`。  如果选择了讲师和课程，突出显示的代码会检索所选课程的 Enrollment 实体，及每个 Enrollment 的 Student 实体。
 
 运行应用，立即转到“讲师”索引页，尽管已经更改了数据的检索方式，但该页上显示的内容没有任何不同。
 

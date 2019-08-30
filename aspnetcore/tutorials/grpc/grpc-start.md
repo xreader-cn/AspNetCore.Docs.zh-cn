@@ -4,14 +4,14 @@ author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/07/2019
+ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 496f659bd51e2404a936bea8aad77e674e1a285d
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: ffe0034f1d33fb9282b39c030421b9b307413cdb
+ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022497"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70113276"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -50,15 +50,16 @@ ms.locfileid: "69022497"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”    。
-* 在“新建项目”对话框中，选择“ASP.NET Core Web 应用程序”   。
-* 选择“下一步” 
+* 启动 Visual Studio 并选择“创建新项目”  。 或者，从 Visual Studio“文件”菜单中选择“新建” > “项目”    。
+* 在“创建新项目”对话框中，选择“gPRC 服务”，然后选择“下一步”    ：
+
+  ![**创建新项目** 对话框](~/tutorials/grpc/grpc-start/static/cnp.png)
+
 * 将项目命名为 GrpcGreeter  。 将项目命名为“GrpcGreeter”非常重要，这样在复制和粘贴代码时命名空间就会匹配  。
-* 选择“创建” 
-* 在“创建新的 ASP.NET Core Web 应用程序”对话框中  ：
-  * 在下拉菜单中选择 .NET Core 和 ASP.NET Core 3.0   。 
+* 选择“创建”  。
+* 在“创建新 gRPC 服务”  对话框中：
   * 选择“gRPC 服务”模板  。
-  * 选择“创建” 
+  * 选择“创建”  。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -75,7 +76,7 @@ ms.locfileid: "69022497"
   * `code` 命令将在新 Visual Studio Code 实例中打开 GrpcGreeter 文件夹  。
 
   一个对话框随即出现，其中包含：“‘GrpcGreeter’中缺少进行生成和调试所需的资产”。  是否添加它们?”
-* 选择“是” 
+* 选择 **“是”** 。
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -90,9 +91,7 @@ ms.locfileid: "69022497"
 
 ### <a name="open-the-project"></a>打开项目
 
-在 Visual Studio 中，选择“文件”>“打开”  ，然后选择“GrpcGreeter.sln”  文件。
-
-<!-- End of VS tabs -->
+在 Visual Studio 中，选择“文件” > “打开”，然后选择“GrpcGreeter.sln”文件    。
 
 ---
 
@@ -104,11 +103,13 @@ ms.locfileid: "69022497"
 
   Visual Studio 在命令提示符中运行该服务。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter  。
 
-<!-- End of combined VS/Mac tabs -->
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+* 使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter  。
 
 ---
 
@@ -132,22 +133,19 @@ info: Microsoft.Hosting.Lifetime[0]
 
 GrpcGreeter 项目文件  ：
 
-* *greet.proto*：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。 有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。
+* *greet.proto* &ndash; Protos/greet.proto 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产  。 有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。
 * Services  文件夹：包含 `Greeter` 服务的实现。
-* *appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
-* Program.cs  :包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
-* *Startup.cs*：包含配置应用行为的代码。 有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
+* *appSettings.json* &ndash; 包含配置数据，如 Kestrel 使用的协议。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
+* *Program.cs* &ndash; 包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
+* *Startup.cs* &ndash; 包含配置应用行为的代码。 有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>在 .NET 控制台应用中创建 gRPC 客户端
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 打开 Visual Studio 的第二个实例。
-* 从菜单栏中选择“文件”   > “新建”   > “项目”  。
-* 在“新建项目”对话框中，选择“控制台应用(.NET Core)”   。
-* 选择“下一步” 
-* 在“名称”文本框中，输入“GrpcGreeterClient”  。
-* 选择“创建”  。
+* 打开 Visual Studio 的第二个实例并选择“创建新项目”  。
+* 在“创建新项目”对话框中，选择“控制台应用(.NET Core)”，然后选择“下一步”    。
+* 在“名称”文本框中，输入“GrpcGreeterClient”，然后选择“创建”    。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -155,16 +153,14 @@ GrpcGreeter 项目文件  ：
 * 将目录更改为 (`cd`) 包含项目的文件夹。
 * 运行以下命令：
 
-```console
-dotnet new console -o GrpcGreeterClient
-code -r GrpcGreeterClient
-```
+  ```console
+  dotnet new console -o GrpcGreeterClient
+  code -r GrpcGreeterClient
+  ```
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-按照[此处](/dotnet/core/tutorials/using-on-mac-vs-full-solution)的说明创建名为 GrpcGreeterClient 的控制台应用  。
-
-<!-- End of VS tabs -->
+按照[使用 Visual Studio for Mac 在 macOS 上构建完整的 .NET Core 解决方案](/dotnet/core/tutorials/using-on-mac-vs-full-solution)中的说明创建名为 GrpcGreeterClient 的控制台应用  。
 
 ---
 
@@ -176,21 +172,21 @@ gRPC 客户端项目需要以下包：
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) 包含适用于 C# 的 Protobuf 消息。
 * [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包含适用于 Protobuf 文件的 C# 工具支持。 运行时不需要工具包，因此依赖项标记为 `PrivateAssets="All"`。
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 通过包管理器控制台 (PMC) 或管理 NuGet 包来安装包。
 
 #### <a name="pmc-option-to-install-packages"></a>用于安装包的 PMC 选项
 
 * 从 Visual Studio 中，依次选择“工具” > “NuGet 包管理器” > “包管理器控制台”   
-* 从“包管理器控制台”窗口中，导航到有 GrpcGreeterClient.csproj 文件所在的目录   。
+* 从“包管理器控制台”窗口中，运行 `cd GrpcGreeterClient` 以将目录更改为包含 GrpcGreeterClient.csproj 文件的文件夹   。
 * 运行以下命令：
 
- ```powershell
-Install-Package Grpc.Net.Client
-Install-Package Google.Protobuf
-Install-Package Grpc.Tools
-```
+  ```powershell
+  Install-Package Grpc.Net.Client -prerelease
+  Install-Package Google.Protobuf -prerelease
+  Install-Package Grpc.Tools -prerelease
+  ```
 
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包
 
@@ -200,7 +196,7 @@ Install-Package Grpc.Tools
 * 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”    。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 从“集成终端”运行以下命令  ：
 
@@ -210,7 +206,7 @@ dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 ```
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“Solution Pad” > “添加包...”中的“包”文件夹   
 * 在搜索框中输入 Grpc.Net.Client  。
@@ -225,23 +221,23 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 * 从 gRPC Greeter 服务将 Protos\greet.proto 文件复制到 gRPC 客户端项目  。
 * 编辑 GrpcGreeterClient.csproj 项目文件  ：
 
-  # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+  # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
   右键单击项目，并选择“编辑项目文件”  。
 
-  # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
+  # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
   选择 GrpcGreeterClient.csproj 文件  。
 
   # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-  右键单击项目，并选择“工具”>“编辑文件”  。
+  右键单击项目，并选择“工具” > “编辑文件”   。
 
   ---
 
 * 添加具有引用 greet.proto  文件的 `<Protobuf>` 元素的项组：
 
-  ```XML
+  ```xml
   <ItemGroup>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
   </ItemGroup>
@@ -253,7 +249,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 使用以下代码更新 gRPC 客户端的 Program.cs 文件  ：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet2)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet2)]
 
 Program.cs  包含 gRPC 客户端的入口点和逻辑。
 
@@ -262,36 +258,40 @@ Program.cs  包含 gRPC 客户端的入口点和逻辑。
 * 实例化 `HttpClient`，其包含用于创建与 gRPC 服务的连接的信息。
 * 使用 `HttpClient` 构造 Greeter 客户端：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-6)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-6)]
 
 Greeter 客户端会调用异步 `SayHello` 方法。 随即显示 `SayHello` 调用的结果：
 
-[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
 
 ## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a>使用 gRPC Greeter 服务测试 gRPC 客户端
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 Greeter 服务中，按 `Ctrl+F5` 在不使用调试程序的情况下启动服务器。
 * 在 `GrpcGreeterClient` 项目中，按 `Ctrl+F5` 在不使用调试程序的情况下启动客户端。
 
-### <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 启动 Greeter 服务。
 * 启动客户端。
 
-<!-- End of combined VS/Mac tabs -->
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+* 启动 Greeter 服务。
+* 启动客户端。
 
 ---
 
-客户端向该服务发送一条包含具有其名称“GreeterClient”的消息的问候信息。 该服务会发送“Hello GreeterClient”消息作为答复。 “Hello GreeterClient”答复将在命令提示符中显示：
+客户端向该服务发送一条包含具有其名称“GreeterClient”的消息的问候信息  。 该服务会发送“Hello GreeterClient”消息作为答复。 “Hello GreeterClient”答复将在命令提示符中显示：
 
 ```console
 Greeting: Hello GreeterClient
 Press any key to exit...
 ```
 
-gRPC 服务在写入命令提示符的日志中记录成功调用的详细信息。
+gRPC 服务在写入命令提示符的日志中记录成功调用的详细信息：
 
 ```console
 info: Microsoft.Hosting.Lifetime[0]
@@ -311,6 +311,9 @@ info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
 info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
       Request finished in 78.32260000000001ms 200 application/grpc
 ```
+
+> [!NOTE]
+> 本文中的代码需要 ASP.NET Core HTTPS 开发证书来保护 gRPC 服务。 如果客户端失败并显示消息 `The remote certificate is invalid according to the validation procedure.`，则开发证书不受信任。 有关解决此问题的说明，请参阅[在 Windows 和 macOS 上信任 ASP.NET Core HTTPS 开发证书](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)。
 
 ### <a name="next-steps"></a>后续步骤
 
