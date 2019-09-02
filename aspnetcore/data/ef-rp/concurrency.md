@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: df3cc9eb3d0c1748ca9cd194ee58e4614bba24d5
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: da57633c345ec087b1a4f24ddc7771e7a2d04720
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583404"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059077"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -234,7 +234,7 @@ modelBuilder.Entity<Department>()
 
 基架工具为“索引”页创建了 `RowVersion` 列，但生产应用中不会显示该字段。 本教程中显示 `RowVersion` 的最后一个字节，以帮助展示并发处理的工作原理。 无法保证最后一个字节本身是唯一的。
 
-更新索引页：
+更新 Pages\Departments\Index.cshtml  页：
 
 * 用院系替换索引。
 * 更改包含 `RowVersion` 的代码，以便只显示字节数组的最后一个字节。

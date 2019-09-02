@@ -81,9 +81,9 @@
         - name: 使用 MongoDB 的 Web API
           displayName: tutorial
           uid: tutorials/first-mongo-app
-        - name: 使用 jQuery 的 Web API
+        - name: 面向 JavaScript 的 Web API
           displayName: tutorial
-          uid: tutorials/web-api-jquery
+          uid: tutorials/web-api-javascript
         - name: 适用于移动设备的后端
           displayName: tutorial
           uid: mobile/native-mobile-backend

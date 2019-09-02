@@ -3,16 +3,16 @@ title: .NET 通用主机
 author: tdykstra
 description: 了解 .NET Core 泛型主机，该主机负责应用启动和生存期管理。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: d787559eaecd6d4d6cfe01e37baf28774a90c5c3
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 9f5ecc7840fc7ffd9432a3bb67d0418efb7e8fd6
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724425"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975619"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
@@ -25,8 +25,8 @@ ms.locfileid: "67724425"
 主机是封装应用资源的对象，例如  ：
 
 * 依赖关系注入 (DI)
-* 日志记录
-* Configuration
+* Logging
+* 配置
 * `IHostedService` 实现
 
 启动主机时，它对它在 DI 容器中找到的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 `IHostedService.StartAsync`。 在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。
@@ -308,7 +308,7 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;as
 webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assembly1;assembly2");
 ```
 
-### <a name="httpsport"></a>HTTPS_Port
+### <a name="https_port"></a>HTTPS_Port
 
 HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)。
 
@@ -581,7 +581,7 @@ var host = new HostBuilder()
 **设置使用**：`UseEnvironment`  
 **环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
 
-环境可以设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。
+可将环境设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseEnvironment)]
 

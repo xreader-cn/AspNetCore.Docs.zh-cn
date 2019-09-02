@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/25/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 0e80fcd76a4d3efcd35140c52e0f6f0ae0f27932
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: d2c5f774595e7a2223e84cc76eecdb9baa04adfe
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862964"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024807"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -82,6 +82,12 @@ Options:
 
 Once the REPL starts, these commands are valid:
 
+Setup Commands:
+Use these commands to configure the tool for your API server
+
+connect        Configures the directory structure and base address of the api server
+set header     Sets or clears a header for all requests. e.g. `set header content-type application/json`
+
 HTTP Commands:
 Use these commands to execute requests against your application.
 
@@ -93,13 +99,10 @@ PATCH          patch - Issues a PATCH request
 HEAD           head - Issues a HEAD request
 OPTIONS        options - Issues a OPTIONS request
 
-set header     Sets or clears a header for all requests. e.g. `set header content-type application/json`
-
 Navigation Commands:
 The REPL allows you to navigate your URL space and focus on specific APIs that you are working on.
 
 set base       Set the base URI. e.g. `set base http://locahost:5000`
-set swagger    Sets the swagger document to use for information about the current server
 ls             Show all endpoints for the current path
 cd             Append the given directory to the currently selected path, or move up a path when using `cd ..`
 
@@ -128,10 +131,10 @@ HTTP REPL 提供命令完成。 按 Tab <kbd></kbd>键可循环访问补全所�
 运行以下命令，连接到 Web API：
 
 ```console
-dotnet httprepl <BASE URI>
+dotnet httprepl <ROOT URI>
 ```
 
-`<BASE URI>` 是 Web API 的基 URI。 例如:
+`<ROOT URI>` 是 Web API 的基 URI。 例如:
 
 ```console
 dotnet httprepl https://localhost:5001
@@ -140,27 +143,27 @@ dotnet httprepl https://localhost:5001
 或者，在 HTTP REPL 运行期间的任何时刻运行以下命令：
 
 ```console
-set base <BASE URI>
+connect <ROOT URI>
 ```
 
 例如:
 
 ```console
-(Disconnected)~ set base https://localhost:5001
+(Disconnected)~ connect https://localhost:5001
 ```
 
-## <a name="point-to-the-swagger-document-for-the-web-api"></a>指向 Web API 的 Swagger 文档
+## <a name="manually-point-to-the-swagger-document-for-the-web-api"></a>手动指向 Web API 的 Swagger 文档
 
-若要正确检查 Web API，请将相对 URI 设置为 Web API 的 Swagger 文档。 运行下面的命令：
+上述 connect 命令将尝试自动查找 Swagger 文档。 如果由于某种原因而无法执行此操作，则可以使用 `--swagger` 选项指定 Web API 的 Swagger 文档的 URI：
 
 ```console
-set swagger <RELATIVE URI>
+connect <ROOT URI> --swagger <SWAGGER URI>
 ```
 
 例如:
 
 ```console
-https://localhost:5001/~ set swagger /swagger/v1/swagger.json
+(Disconnected)~ connect https://localhost:5001 --swagger /swagger/v1/swagger.json
 ```
 
 ## <a name="navigate-the-web-api"></a>浏览 Web API
@@ -402,6 +405,21 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"
+```
+
+### <a name="set-the-swagger-search-paths"></a>设置 Swagger 搜索路径
+
+默认情况下，HTTP REPL 具有一组相对路径，可用于在不使用 `--swagger` 选项执行 `connect` 命令时查找 Swagger 文档。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
+
+- *swagger.json*
+- *swagger/v1/swagger.json*
+- */swagger.json*
+- */swagger/v1/swagger.json*
+
+若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。 该值必须是以竖线分隔的相对路径列表。 例如:
+
+```console
+pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json
 ```
 
 ## <a name="test-http-get-requests"></a>测试 HTTP GET 请求

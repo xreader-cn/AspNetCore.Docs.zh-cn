@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: e1afae730d61463d31c8a1698fc31904a3fc8f0e
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 07e9153ccfdc78d1da57b815d33220f7fa597cc7
+ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583089"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70145727"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -436,7 +436,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 | 进度 | `UIProgressEventArgs` |
 | 触控 | `UITouchEventArgs`&ndash; 表示触摸敏感设备上`UITouchPoint`的单个联系点。 |
 
-有关上表中事件的属性和事件处理行为的信息, 请参阅[引用源中的 EventArgs 类](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview8/src/Components/Web/src)。
+有关上表中事件的属性和事件处理行为的信息, 请参阅[引用源中的 EventArgs 类 (aspnet/AspNetCore release/3.0-preview9 分支)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src)。
 
 ### <a name="lambda-expressions"></a>Lambda 表达式
 
@@ -851,7 +851,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor> 。
+有关详细信息，请参阅 <xref:mvc/views/razor>。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -1335,7 +1335,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
+> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
 
 以下组件显示了一个示例, 说明如何在用户选择区域性时执行初始重定向:
 
@@ -1380,4 +1380,4 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案, 在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关详细信息，请参阅 <xref:fundamentals/localization>。

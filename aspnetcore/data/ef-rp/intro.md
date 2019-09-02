@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 5e81b58ebec2d9a50784facd5425f0e7c3524e10
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: c5347049151aed90f453f0ead2fc06649d9cf949
+ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583439"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69908402"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -378,7 +378,11 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 运行应用，删除之前创建的所有学生记录，然后停止应用。
+如果应用正在运行，则停止应用，然后在包管理器控制台 (PMC) 中运行以下命令  ：
+
+```powershell
+Drop-Database
+```
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -700,7 +704,19 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet2&highlight=14-15)]
 
-删除任何学生记录并重启应用。 如果未初始化 DB，则在 `Initialize` 中设置断点以诊断问题。
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+如果应用正在运行，则停止应用，然后在包管理器控制台 (PMC) 中运行以下命令  ：
+
+```powershell
+Drop-Database
+```
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+* 如果应用正在运行，则停止应用，然后删除 CU.db 文件  。
+
+---
 
 ## <a name="view-the-db"></a>查看数据库
 

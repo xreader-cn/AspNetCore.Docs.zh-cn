@@ -4,14 +4,14 @@ author: juntaoluo
 description: 了解 ASP.NET Core 编写 gRPC services 时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/07/2019
+ms.date: 08/28/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 38111c152c581c50767f9cd4e5fa257bd3fd804e
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 128f5b36eac9112460c33693db5537134a077476
+ms.sourcegitcommit: 23f79bd71d49c4efddb56377c1f553cc993d781b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022314"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70130707"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -53,15 +53,76 @@ gRPC 需要[gRPC](https://www.nuget.org/packages/Grpc.AspNetCore)包。
 
 ### <a name="configure-grpc"></a>配置 gRPC
 
-gRPC 是通过`AddGrpc`方法启用的:
+在 Startup.cs 中：
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7)]
+* gRPC 是通过`AddGrpc`方法启用的。
+* 每个 gRPC 服务通过`MapGrpcService`方法添加到路由管道。
 
-每个 gRPC 服务通过`MapGrpcService`方法添加到路由管道:
-
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=24)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7,24)]
 
 ASP.NET Core 中间件和功能共享路由管道, 因此可以将应用配置为提供其他请求处理程序。 其他请求处理程序 (如 MVC 控制器) 与已配置的 gRPC 服务并行工作。
+
+### <a name="configure-kestrel"></a>配置 Kestrel
+
+Kestrel gRPC 终结点:
+
+* 需要 HTTP/2。
+* 应通过 HTTPS 进行保护。
+
+#### <a name="http2"></a>HTTP/2
+
+在大多数现代操作系统上, Kestrel[支持 HTTP/2](xref:fundamentals/servers/kestrel#http2-support) 。 默认情况下, Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
+
+> [!NOTE]
+> macOS 不支持[传输层安全 (TLS)](https://tools.ietf.org/html/rfc5246)ASP.NET Core gRPC。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
+
+#### <a name="https"></a>HTTPS
+
+用于 gRPC 的 Kestrel 终结点应使用 HTTPS 进行保护。 在开发中, `https://localhost:5001`当存在 ASP.NET Core 开发证书时, 将自动创建 HTTPS 终结点。 不需要配置。
+
+在生产环境中，必须显式配置 HTTPS。 在下面的*appsettings*示例中, 提供了一个使用 HTTPS 保护的 HTTP/2 终结点:
+
+```json
+{
+  "Kestrel": {
+    "Endpoints": {
+      "HttpsDefaultCert": {
+        "Url": "https://localhost:5001",
+        "Protocols": "Http2"
+      }
+    },
+    "Certificates": {
+      "Default": {
+        "Path": "<path to .pfx file>",
+        "Password": "<certificate password>"
+      }
+    }
+  }
+}
+```
+
+或者, 可以在*Program.cs*中配置 Kestrel endspoints:
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.ConfigureKestrel(options =>
+            {
+                // This endpoint will use HTTP/2 and HTTPS on port 5001.
+                options.Listen(IPAddress.Any, 5001, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                    listenOptions.UseHttps("<path to .pfx file>", 
+                        "<certificate password>");
+                });
+            });
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+有关启用 HTTP/2 和 HTTPS with Kestrel 的详细信息, 请参阅[Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
 
 ## <a name="integration-with-aspnet-core-apis"></a>与 ASP.NET Core Api 集成
 
@@ -93,4 +154,4 @@ GRPC API 提供对某些 HTTP/2 消息数据 (如方法、主机、标头和尾�
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>
 * <xref:grpc/basics>
-* <xref:grpc/migration>
+* <xref:fundamentals/servers/kestrel>

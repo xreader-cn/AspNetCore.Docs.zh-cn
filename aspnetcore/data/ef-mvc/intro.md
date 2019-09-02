@@ -2,19 +2,27 @@
 title: 教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 description: 这是一系列教程中的第一个，这一系列教程主要展示了如何从零开始构建 Contoso 大学示例应用程序。
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 1b68c20ba206a5afe36f307525879f91d03d95d1
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 3450ac5b46e2a03b5d58c8760b78a52065343992
+ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583341"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985374"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
+
+::: moniker range=">= aspnetcore-3.0"
+
+本教程没有升级至 ASP.NET Core 3.0  。 [Razor Pages 版本](xref:data/ef-rp/intro)已更新。 有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/13920)。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -378,3 +386,5 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 > [!div class="nextstepaction"]
 > [实现基本的 CRUD 功能](crud.md)
+
+::: moniker-end

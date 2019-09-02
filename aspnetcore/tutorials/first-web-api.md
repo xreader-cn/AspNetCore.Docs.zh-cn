@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 99985e9fb1134c2ba808434f8d24c4a768773268
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 25bfccb136d875b454034bd011828c9f3b6cd3d8
+ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022598"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70113289"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -462,9 +462,9 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`
 * 选择“Send” 
 
-## <a name="call-the-api-from-jquery"></a>从 jQuery 调用 API
+## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
-有关分步说明，请参阅[教程：使用 jQuery 调用 ASP.NET Core web API](xref:tutorials/web-api-jquery)。
+有关分步说明，请参阅[教程：使用 JavaScript 调用 ASP.NET Core Web API](xref:tutorials/web-api-javascript)。
 
 ::: moniker-end
 
@@ -480,9 +480,10 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 > * 配置路由和 URL 路径。
 > * 指定返回值。
 > * 使用 Postman 调用 Web API。
-> * 使用 jQuery 调用 Web API。
+> * 使用 JavaScript 调用 Web API。
 
 在结束时，你会获得可以管理存储在关系数据库中的“待办事项”的 Web API。
+
 ## <a name="overview"></a>概述
 
 本教程将创建以下 API：
@@ -737,7 +738,6 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 如果没有任何项与请求的 ID 匹配，则该方法将返回 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 错误代码。
 * 否则，此方法将返回具有 JSON 响应正文的 200。 返回 `item` 则产生 HTTP 200 响应。
 
-
 ## <a name="test-the-gettodoitems-method"></a>测试 GetTodoItems 方法
 
 本教程使用 Postman 测试 Web API。
@@ -863,9 +863,9 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 可通过示例应用删除所有项。 但如果删除最后一项，则在下次调用 API 时，模型类构造函数会创建一个新项。
 
-## <a name="call-the-api-with-jquery"></a>使用 jQuery 调用 API
+## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
-在本部分中，添加了使用 jQuery 调用 Web API 的 HTML 页面。 jQuery 启动请求，并用 API 响应中的详细信息更新页面。
+在本部分中，将添加一个 HTML 页面，该页面使用 JavaScript 调用 Web API。 Fetch API 可启动该请求。 JavaScript 会使用 Web API 响应的详细信息来更新页面。
 
 通过下面突出显示的代码更新 Startup.cs，配置应用来[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[实现默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)  ：
 
@@ -886,19 +886,17 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 打开 Properties\launchSettings.json  。
 * 删除 `launchUrl` 以便在项目的默认文件 index.html 强制打开应用  。
 
-有多种方式可以获取 jQuery。 在前面的代码片段中，库是从 CDN 中加载的。
-
-此示例调用 API 的所有 CRUD 方法。 以下是 API 调用的说明。
+此示例调用 Web API 的所有 CRUD 方法。 以下是 API 调用的说明。
 
 ### <a name="get-a-list-of-to-do-items"></a>获取待办事项的列表
 
-jQuery [ajax](https://api.jquery.com/jquery.ajax/) 函数将 `GET` 请求发送至 API，这将返回表示待办事项数组的 JSON。 如果请求成功，则调用 `success` 回调函数。 在该回调中使用待办事项信息更新 DOM。
+Fetch 将向 Web API 发送 HTTP GET 请求，该 API 返回表示待办事项的数组的 JSON。 如果请求成功，则调用 `success` 回调函数。 在该回调中使用待办事项信息更新 DOM。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
 ### <a name="add-a-to-do-item"></a>添加待办事项
 
-[Ajax](https://api.jquery.com/jquery.ajax/) 函数发送 `POST`，请求正文中包含待办事项。 将 `accepts` 和 `contentType` 选项设置为 `application/json`，以便指定接收和发送的媒体类型。 待办事项使用 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 转换为 JSON。 当 API 返回成功状态的代码时，将调用 `getData` 函数来更新 HTML 表。
+Fetch 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accepts` 和 `contentType` 选项设置为 `application/json`，以便指定接收和发送的媒体类型。 待办事项使用 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 转换为 JSON。 当 API 返回成功状态的代码时，将调用 `getData` 函数来更新 HTML 表。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 

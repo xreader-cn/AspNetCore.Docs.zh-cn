@@ -2,17 +2,17 @@
 title: 教程：更新相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将通过更新外键字段和导航属性来更新相关数据。
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 4bf444d3334f32ff80a6e21607b250c00e0dc7ca
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 85849cfbb6f453103c4013ce49be4afbf506d7b5
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583412"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975153"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 

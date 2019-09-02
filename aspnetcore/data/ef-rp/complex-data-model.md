@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 8a1c0759453b02f4ce1c45471a8f93da626f8261
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 34b977f70f3e7e58e4ab6fcf3d8f69800896a65d
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583283"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059118"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
 
@@ -134,13 +134,16 @@ public string FirstMidName { get; set; }
 
 `Required` 特性使名称属性成为必填字段。 值类型（`DateTime`、`int` 和 `double`）等不可为 null 的类型不需要 `Required` 特性。 系统会将不可为 NULL 的类型自动视为必填字段。
 
-不能用 `StringLength` 特性中的最短长度参数替换 `Required` 特性：
+`Required` 特性必须与 `MinimumLength` 结合使用才能强制执行 `MinimumLength`。
 
 ```csharp
 [Display(Name = "Last Name")]
-[StringLength(50, MinimumLength=1)]
+[Required]
+[StringLength(50, MinimumLength=2)]
 public string LastName { get; set; }
 ```
+
+`MinimumLength` 和 `Required` 允许通过空格来满足验证。 使用 `RegularExpression` 特性来完全控制字符串。
 
 ### <a name="the-display-attribute"></a>Display 特性
 
@@ -1353,7 +1356,7 @@ dotnet ef database update
 
 添加以下突出显示的代码。 新代码在 `.CreateTable( name: "Department"` 块后：
 
- [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
+[!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
 
 经过上面的更改，`Course` 行将在 `ComplexDataModel` `Up` 方法运行后与“临时”系建立联系。
 
@@ -1368,8 +1371,6 @@ dotnet ef database update
 
 * [本教程的 YouTube 版本（第 1 部分）](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [本教程的 YouTube 版本（第 2 部分）](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
-
-
 
 > [!div class="step-by-step"]
 > [上一页](xref:data/ef-rp/migrations)
