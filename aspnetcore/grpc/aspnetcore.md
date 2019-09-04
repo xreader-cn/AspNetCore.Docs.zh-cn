@@ -4,14 +4,14 @@ author: juntaoluo
 description: 了解 ASP.NET Core 编写 gRPC services 时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/28/2019
+ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 128f5b36eac9112460c33693db5537134a077476
-ms.sourcegitcommit: 23f79bd71d49c4efddb56377c1f553cc993d781b
+ms.openlocfilehash: 28e6b8589bbe0b6a3723b64736c723c883302571
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/29/2019
-ms.locfileid: "70130707"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238161"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
@@ -39,7 +39,7 @@ ms.locfileid: "70130707"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-有关如何创建 gRPC 项目的详细说明, 请参阅[gRPC services 入门](xref:tutorials/grpc/grpc-start)。
+有关如何创建 gRPC 项目的详细说明，请参阅[gRPC services 入门](xref:tutorials/grpc/grpc-start)。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -60,27 +60,26 @@ gRPC 需要[gRPC](https://www.nuget.org/packages/Grpc.AspNetCore)包。
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7,24)]
 
-ASP.NET Core 中间件和功能共享路由管道, 因此可以将应用配置为提供其他请求处理程序。 其他请求处理程序 (如 MVC 控制器) 与已配置的 gRPC 服务并行工作。
+ASP.NET Core 中间件和功能共享路由管道，因此可以将应用配置为提供其他请求处理程序。 其他请求处理程序（如 MVC 控制器）与已配置的 gRPC 服务并行工作。
 
 ### <a name="configure-kestrel"></a>配置 Kestrel
 
-Kestrel gRPC 终结点:
+Kestrel gRPC 终结点：
 
 * 需要 HTTP/2。
 * 应通过 HTTPS 进行保护。
 
 #### <a name="http2"></a>HTTP/2
 
-在大多数现代操作系统上, Kestrel[支持 HTTP/2](xref:fundamentals/servers/kestrel#http2-support) 。 默认情况下, Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
+gRPC 要求 HTTP/2。 gRPC for ASP.NET Core 验证[HttpRequest](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*)为`HTTP/2`。
 
-> [!NOTE]
-> macOS 不支持[传输层安全 (TLS)](https://tools.ietf.org/html/rfc5246)ASP.NET Core gRPC。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
+在大多数现代操作系统上，Kestrel[支持 HTTP/2](xref:fundamentals/servers/kestrel#http2-support) 。 默认情况下，Kestrel 终结点配置为支持 HTTP/1.1 和 HTTP/2 连接。
 
 #### <a name="https"></a>HTTPS
 
-用于 gRPC 的 Kestrel 终结点应使用 HTTPS 进行保护。 在开发中, `https://localhost:5001`当存在 ASP.NET Core 开发证书时, 将自动创建 HTTPS 终结点。 不需要配置。
+用于 gRPC 的 Kestrel 终结点应使用 HTTPS 进行保护。 在开发中， `https://localhost:5001`当存在 ASP.NET Core 开发证书时，将自动创建 HTTPS 终结点。 不需要配置。
 
-在生产环境中，必须显式配置 HTTPS。 在下面的*appsettings*示例中, 提供了一个使用 HTTPS 保护的 HTTP/2 终结点:
+在生产环境中，必须显式配置 HTTPS。 在下面的*appsettings*示例中，提供了一个使用 HTTPS 保护的 HTTP/2 终结点：
 
 ```json
 {
@@ -101,7 +100,7 @@ Kestrel gRPC 终结点:
 }
 ```
 
-或者, 可以在*Program.cs*中配置 Kestrel endspoints:
+或者，可以在*Program.cs*中配置 Kestrel 终结点：
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -122,11 +121,16 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-有关启用 HTTP/2 和 HTTPS with Kestrel 的详细信息, 请参阅[Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
+如果未使用 HTTPS 配置 HTTP/2 终结点，则终结点的[ListenOptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)必须设置为`HttpProtocols.Http2`。 `HttpProtocols.Http1AndHttp2`无法使用，因为需要使用 HTTPS 来协商 HTTP/2。 如果没有 HTTPS，则端点的所有连接默认为 HTTP/1.1，并且 gRPC 调用失败。
+
+有关启用 HTTP/2 和 HTTPS with Kestrel 的详细信息，请参阅[Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
+
+> [!NOTE]
+> macOS 不支持[传输层安全（TLS）](https://tools.ietf.org/html/rfc5246)ASP.NET Core gRPC。 在 macOS 上成功运行 gRPC 服务需要其他配置。 有关详细信息，请参阅[无法在 macOS 上启用 ASP.NET Core gRPC 应用](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)。
 
 ## <a name="integration-with-aspnet-core-apis"></a>与 ASP.NET Core Api 集成
 
-gRPC 服务对 ASP.NET Core 功能 (如[依赖关系注入](xref:fundamentals/dependency-injection)(DI) 和[日志记录](xref:fundamentals/logging/index)) 具有完全访问权限。 例如, 服务实现可以通过构造函数从 DI 容器解析记录器服务:
+gRPC 服务对 ASP.NET Core 功能（如[依赖关系注入](xref:fundamentals/dependency-injection)（DI）和[日志记录](xref:fundamentals/logging/index)）具有完全访问权限。 例如，服务实现可以通过构造函数从 DI 容器解析记录器服务：
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
@@ -137,15 +141,15 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-默认情况下, gRPC 服务实现可以解析具有任意生存期 (单独、作用域或暂时性) 的其他 DI 服务。
+默认情况下，gRPC 服务实现可以解析具有任意生存期（单独、作用域或暂时性）的其他 DI 服务。
 
 ### <a name="resolve-httpcontext-in-grpc-methods"></a>解析 gRPC 方法中的 HttpContext
 
-GRPC API 提供对某些 HTTP/2 消息数据 (如方法、主机、标头和尾部) 的访问权限。 通过传递给每`ServerCallContext`个 gRPC 方法的参数访问:
+GRPC API 提供对某些 HTTP/2 消息数据（如方法、主机、标头和尾部）的访问权限。 通过传递给每`ServerCallContext`个 gRPC 方法的参数访问：
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService.cs?highlight=3-4&name=snippet)]
 
-`ServerCallContext`在所有 ASP.NET api 中都`HttpContext`不提供对的完全访问权限。 扩展方法提供对在 ASP.NET api 中`HttpContext`表示基础 HTTP/2 消息的完全访问权限: `GetHttpContext`
+`ServerCallContext`在所有 ASP.NET api 中都`HttpContext`不提供对的完全访问权限。 扩展方法提供对在 ASP.NET api 中`HttpContext`表示基础 HTTP/2 消息的完全访问权限： `GetHttpContext`
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
 
