@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 07/01/2019
 uid: host-and-deploy/aspnet-core-module
 ms.openlocfilehash: 4a360023cc7fab2f066d490f7f368fc35815703a
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/02/2019
+ms.lasthandoff: 09/02/2019
 ms.locfileid: "67500447"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
@@ -652,7 +652,7 @@ dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
 
 ::: moniker-end
 
-### <a name="configuration"></a>Configuration
+### <a name="configuration"></a>配置
 
 **IIS**
 

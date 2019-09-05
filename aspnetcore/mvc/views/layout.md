@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 6bd9dfc65c026ee524277aaaa21333d299c8981e
-ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
+ms.openlocfilehash: 9a7b8003b24329f6e9cbd349ee47f6844b7c5f6d
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68670022"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238030"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -62,7 +62,7 @@ Razor 视图具有 `Layout` 属性。 单个视图通过设置此属性来指定
 默认情况下，每个布局必须调用 `RenderBody`。 无论在何处调用 `RenderBody`，都会呈现视图的内容。
 
 <a name="layout-sections-label"></a>
-
+<!-- https://stackoverflow.com/questions/23327578 -->
 ### <a name="sections"></a>部分
 
 布局可以通过调用 `RenderSection` 来选择引用一个或多个节  。 节提供一种方法来组织某些页面元素应当放置的位置。 每次调用 `RenderSection` 时都可指定该部分是必需还是可选：
@@ -136,7 +136,7 @@ ASP.NET Core MVC 应用的 _ViewImports.cshtml 文件通常放在“页面”（
 
 如果在文件层次结构中找到多个 _ViewImports.cshtml 文件，指令的合并行为是： 
 
-* `@addTagHelper``@removeTagHelper`：按顺序全部运行
+* `@addTagHelper` `@removeTagHelper`：按顺序全部运行
 * `@tagHelperPrefix`：最接近视图的文件会替代任何其他文件
 * `@model`：最接近视图的文件会替代任何其他文件
 * `@inherits`：最接近视图的文件会替代任何其他文件

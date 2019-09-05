@@ -5,14 +5,14 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/25/2019
+ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: d2c5f774595e7a2223e84cc76eecdb9baa04adfe
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: 7121670856da4b123b1c3e780a7952da0fb696a1
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024807"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238046"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -325,52 +325,6 @@ pref set formatting.json.indentSize 4
 ]
 ```
 
-### <a name="set-indentation-size"></a>设置缩进尺寸
-
-当前，仅 JSON 支持响应缩进尺寸自定义。 默认尺寸为两个空格。 例如:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Apple"
-  },
-  {
-    "id": 2,
-    "name": "Orange"
-  },
-  {
-    "id": 3,
-    "name": "Strawberry"
-  }
-]
-```
-
-若要更改默认尺寸，请设置 `formatting.json.indentSize` 键。 例如，始终使用四个空格：
-
-```console
-pref set formatting.json.indentSize 4
-```
-
-后续响应遵循四个空格的设置：
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Apple"
-    },
-    {
-        "id": 2,
-        "name": "Orange"
-    },
-    {
-        "id": 3,
-        "name": "Strawberry"
-    }
-]
-```
-
 ### <a name="set-the-default-text-editor"></a>设置默认文本编辑器
 
 默认情况下，HTTP REPL 未配置任何文本编辑器供使用。 若要测试需要 HTTP 请求正文的 Web API 方法，必须设置默认文本编辑器。 HTTP REPL 工具将启动已配置的文本编辑器，专门用于编写请求正文。 运行以下命令，将你青睐的文本编辑器设置为默认编辑器：
@@ -419,7 +373,7 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。 该值必须是以竖线分隔的相对路径列表。 例如:
 
 ```console
-pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json
+pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 ```
 
 ## <a name="test-http-get-requests"></a>测试 HTTP GET 请求
