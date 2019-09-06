@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 34b977f70f3e7e58e4ab6fcf3d8f69800896a65d
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: ab29cf687c80551d275cae69f28b7576016bfff6
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059118"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238120"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
 
@@ -390,7 +390,7 @@ public ICollection<Course> Courses { get; set; }
 
 按照约定，EF Core 能针对不可为 NULL 的 FK 和多对多关系启用级联删除。 此默认行为可能导致形成循环级联删除规则。 循环级联删除规则会在添加迁移时引发异常。
 
-例如，如果将 `Department.InstructorID` 属性定义为不可为 null，EF Core 将配置级联删除规则。 在这种情况下，指定为管理员的讲师被删除时，该学院将被删除。 在这种情况下，限制规则将更有意义。 以下 fluent API 将设置限制规则并禁用级联规则。
+例如，如果将 `Department.InstructorID` 属性定义为不可为 null，EF Core 将配置级联删除规则。 在这种情况下，指定为管理员的讲师被删除时，该学院将被删除。 在这种情况下，限制规则将更有意义。 以下 [fluent API](#fluent-api-alternative-to-attributes) 将设置限制规则并禁用级联规则。
 
   ```csharp
   modelBuilder.Entity<Department>()
@@ -1091,7 +1091,7 @@ public ICollection<Course> Courses { get; set; }
 
 * EF Core 会配置级联删除规则，以在删除讲师时删除院系。
 * 在删除讲师时删除院系并不是预期行为。
-* 以下 fluent API 将设置限制规则而不是级联规则。
+* 以下 [fluent API](#fluent-api-alternative-to-attributes) 将设置限制规则而不是级联规则。
 
    ```csharp
    modelBuilder.Entity<Department>()
