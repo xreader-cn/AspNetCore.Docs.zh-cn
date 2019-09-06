@@ -6,18 +6,22 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: dbb8229a52c8c93da94406ad64d03eff9631afb4
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 802d5c65423227e5fb7ccf39d692df2f0178ad34
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308337"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238185"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
+::: moniker range=">= aspnetcore-3.0"
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
+
+::: moniker-end
+
 
 如果你在 macOS 上工作，请参阅[从 Visual Studio for Mac 发布到 Azure](https://blog.xamarin.com/publish-azure-visual-studio-mac/)。
 
@@ -68,7 +72,7 @@ Visual Studio 随即创建解决方案。
 
 * 选择“注册”并注册新用户  。 可使用虚构电子邮件地址。 提交时，页面上会显示以下错误：
 
-    “内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。” 
+    “内部服务器错误:处理请求时，数据库操作失败。SQL 异常:无法打开数据库。可通过向应用程序数据库上下文应用现有迁移解决此问题。”*
 * 选择“应用迁移”，并在页面更新后刷新页面  。
 
 ![内部服务器错误:处理请求时，数据库操作失败。 SQL 异常:无法打开数据库。 可能可通过向应用程序数据库上下文应用现有迁移解决此问题。](publish-to-azure-webapp-using-vs/_static/mig.png)

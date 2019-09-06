@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core 配置的 gRPC
 author: jamesnk
-description: 了解如何配置适用于 ASP.NET Core 应用 gRPC。
+description: 了解如何为 ASP.NET Core 应用配置 gRPC。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 05/30/2019
+ms.date: 08/21/2019
 uid: grpc/configuration
-ms.openlocfilehash: e269d701f45c0b852a9006107f0162cc5af2c38a
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 34eb598211c87fbb2c68ae5e041da50d02f543f7
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814928"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310319"
 ---
 # <a name="grpc-for-aspnet-core-configuration"></a>ASP.NET Core 配置的 gRPC
 
@@ -20,32 +20,45 @@ ms.locfileid: "67814928"
 
 下表描述了用于配置 gRPC 服务的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | Default Value | 描述 |
 | ------ | ------------- | ----------- |
-| `SendMaxMessageSize` | `null` | 可以从服务器发送的字节数最大消息大小。 尝试发送一条消息，超出了配置的最大消息大小会引发异常。 |
-| `ReceiveMaxMessageSize` | 4 MB | 服务器可以接收的字节数最大消息大小。 如果服务器收到消息超出此限制时，它将引发异常。 增加此值允许服务器以接收更大的消息，但会降低内存占用情况。 |
-| `EnableDetailedErrors` | `false` | 如果`true`、 详细的异常消息返回到客户端，在服务方法中引发异常时。 默认值为 `false`。 设置`EnableDetailedErrors`到`true`可能会泄漏敏感信息。 |
-| `CompressionProviders` | gzip | 压缩来压缩和解压缩消息的提供程序的集合。 可以创建自定义压缩提供程序，并将其添加到集合。 配置提供程序支持的默认值**gzip**压缩。 |
-| `ResponseCompressionAlgorithm` | `null` | 使用可压缩从服务器发送的消息的压缩算法。 该算法必须与匹配中的压缩提供程序`CompressionProviders`。 对于要压缩响应的算法，客户端必须指示它通过发送支持该算法**grpc 接受编码**标头。 |
-| `ResponseCompressionLevel` | `null` | 使用可压缩从服务器发送的消息的压缩级别。 |
+| `MaxSendMessageSize` | `null` | 可从服务器发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息将导致异常。 |
+| `MaxReceiveMessageSize` | 4 MB | 服务器可接收的最大消息大小（以字节为单位）。 如果服务器收到的消息超过此限制，则会引发异常。 增大此值可使服务器接收更大的消息，但会对内存消耗产生负面影响。 |
+| `EnableDetailedErrors` | `false` | 如果`true`为，则在服务方法中引发异常时，详细的异常消息将返回到客户端。 默认值为 `false`。 设置`EnableDetailedErrors` 为`true`可以泄露敏感信息。 |
+| `CompressionProviders` | gzip、deflate | 用于压缩和解压缩消息的压缩提供程序的集合。 可以创建自定义压缩提供程序并将其添加到集合中。 默认配置的提供程序支持**gzip**和**deflate**压缩。 |
+| `ResponseCompressionAlgorithm` | `null` | 压缩算法用于压缩从服务器发送的消息。 该算法必须与中`CompressionProviders`的压缩提供程序匹配。 为了使算法压缩响应，客户端必须通过在**grpc-accept**标头中发送来指示它支持该算法。 |
+| `ResponseCompressionLevel` | `null` | 用于压缩从服务器发送的消息的压缩级别。 |
 
-可以通过提供一个选项委托到的所有服务配置选项`AddGrpc`调用中`Startup.ConfigureServices`:
+可以通过在中`AddGrpc` `Startup.ConfigureServices`提供调用的选项委托，为所有服务配置选项：
 
 [!code-csharp[](~/grpc/configuration/sample/GrcpService/Startup.cs?name=snippet)]
 
-单个服务的选项重写中提供的全局选项`AddGrpc`，可以使用配置`AddServiceOptions<TService>`:
+单个服务的选项可替代和中`AddGrpc`提供的全局选项，可以使用`AddServiceOptions<TService>`以下方法配置：
 
 [!code-csharp[](~/grpc/configuration/sample/GrcpService/Startup2.cs?name=snippet)]
 
 ## <a name="configure-client-options"></a>配置客户端选项
 
-下面的代码设置客户端最大发送和接收消息大小：
+下表描述了用于配置 gRPC 通道的选项：
 
-[!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-6)]
+| 选项 | Default Value | 描述 |
+| ------ | ------------- | ----------- |
+| `HttpClient` | 新实例 | 用于`HttpClient`进行 gRPC 调用的。 可以将客户端设置为配置自定义`HttpClientHandler`，也可以将其他处理程序添加到 HTTP 管道进行 gRPC 调用。 默认情况下， `HttpClient`会创建一个新实例。 |
+| `MaxSendMessageSize` | `null` | 可从客户端发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息将导致异常。 |
+| `MaxReceiveMessageSize` | 4 MB | 客户端可以接收的最大消息大小（以字节为单位）。 如果服务器收到的消息超过此限制，则会引发异常。 增大此值可使服务器接收更大的消息，但会对内存消耗产生负面影响。 |
+| `TransportOptions` | `null` | 传输选项配置信道如何调用 gRPC 服务。 目前，唯一的实现`HttpClientTransport`是选项，用于指定`HttpClient` gRPC 使用的。 |
+| `Credentials` | `null` | 一个 `ChannelCredentials` 实例。 凭据用于将身份验证元数据添加到 gRPC 调用。 |
+| `CompressionProviders` | gzip、deflate | 用于压缩和解压缩消息的压缩提供程序的集合。 可以创建自定义压缩提供程序并将其添加到集合中。 默认配置的提供程序支持**gzip**和**deflate**压缩。 |
+
+下面的代码：
+
+* 设置通道上的最大发送和接收消息大小。
+* 创建客户端。
+
+[!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-8)]
 
 ## <a name="additional-resources"></a>其他资源
 
+* <xref:grpc/aspnetcore>
+* <xref:grpc/client>
 * <xref:tutorials/grpc/grpc-start>
-* <xref:grpc/index>
-* <xref:grpc/basics>
-* <xref:grpc/migration>
