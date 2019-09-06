@@ -5,14 +5,14 @@ description: 了解 Blazor 身份验证和授权的方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/26/2019
+ms.date: 08/29/2019
 uid: security/blazor/index
-ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994190"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310528"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -219,17 +219,21 @@ public void ConfigureServices(IServiceCollection services)
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
-使用 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
+使用 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
 ## <a name="authorization"></a>授权
@@ -372,7 +376,7 @@ You can only see this if you're signed in.
 
 ## <a name="customize-unauthorized-content-with-the-router-component"></a>使用路由器组件自定义未授权的内容
 
-`Router` 组件允许应用程序在以下情况下指定自定义内容：
+`Router` 组件与 `AuthorizeRouteView` 组件搭配使用时，可允许应用程序在以下情况下指定自定义内容：
 
 * 找不到内容。
 * 用户不符合应用于组件的 `[Authorize]` 条件。 [[Authorize] 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
@@ -381,28 +385,34 @@ You can only see this if you're signed in.
 在默认的 Blazor 服务器端项目模板中，App.razor 文件演示了如何设置自定义内容  ：
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-        <NotAuthorizedContent>
-            <h1>Sorry</h1>
-            <p>You're not authorized to reach this page.</p>
-            <p>You may need to log in as a different user.</p>
-        </NotAuthorizedContent>
-        <AuthorizingContent>
-            <h1>Authentication in progress</h1>
-            <p>Only visible while authentication is in progress.</p>
-        </AuthorizingContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <h1>Sorry</h1>
+                <p>You're not authorized to reach this page.</p>
+                <p>You may need to log in as a different user.</p>
+            </NotAuthorized>
+            <Authorizing>
+                <h1>Authentication in progress</h1>
+                <p>Only visible while authentication is in progress.</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1>Sorry</h1>
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
-`<NotFoundContent>`、`<NotAuthorizedContent>` 和 `<AuthorizingContent>` 的内容可以包括任意项，如其他交互式组件。
+`<NotFound>`、`<NotAuthorized>` 和 `<Authorizing>` 的内容可以包括任意项，如其他交互式组件。
 
-如果未指定 `<NotAuthorizedContent>`，则路由器使用以下回退消息：
+如果未指定 `<NotAuthorized>`，`<AuthorizeRouteView>` 就会使用以下回退消息：
 
 ```html
 Not authorized.
@@ -478,4 +488,5 @@ Not authorized.
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:security/index>
+* <xref:security/blazor/server-side>
 * <xref:security/authentication/windowsauth>
