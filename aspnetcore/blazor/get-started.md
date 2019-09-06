@@ -1,79 +1,79 @@
 ---
 title: ASP.NET Core Blazor 入门
 author: guardrex
-description: 使用所选工具构建 Blazor 应用, 开始使用 Blazor。
+description: 使用所选工具构建 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/get-started
-ms.openlocfilehash: 1358a2e92af9d9104e565718692b1ca1940b9d9e
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 030c289e072efad43d4f6cdd63cba07cc623a090
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993406"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310435"
 ---
-# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="a4833-103">ASP.NET Core Blazor 入门</span><span class="sxs-lookup"><span data-stu-id="a4833-103">Get started with ASP.NET Core Blazor</span></span>
+# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="58475-103">ASP.NET Core Blazor 入门</span><span class="sxs-lookup"><span data-stu-id="58475-103">Get started with ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="a4833-104">作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="a4833-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="58475-104">作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="58475-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="a4833-105">Blazor 入门:</span><span class="sxs-lookup"><span data-stu-id="a4833-105">Get started with Blazor:</span></span>
+<span data-ttu-id="58475-105">Blazor 入门：</span><span class="sxs-lookup"><span data-stu-id="58475-105">Get started with Blazor:</span></span>
 
-1. <span data-ttu-id="a4833-106">安装最新的[.Net Core 3.0 预览版 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)版本。</span><span class="sxs-lookup"><span data-stu-id="a4833-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
+1. <span data-ttu-id="58475-106">安装最新的[.Net Core 3.0 预览版 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)版本。</span><span class="sxs-lookup"><span data-stu-id="58475-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
 
-1. <span data-ttu-id="a4833-107">在命令 shell 中运行以下命令, 安装 Blazor 模板:</span><span class="sxs-lookup"><span data-stu-id="a4833-107">Install the Blazor templates by running the following command in a command shell:</span></span>
+1. <span data-ttu-id="58475-107">在命令 shell 中运行以下命令，安装 Blazor 模板：</span><span class="sxs-lookup"><span data-stu-id="58475-107">Install the Blazor templates by running the following command in a command shell:</span></span>
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19424.4
    ```
 
-1. <span data-ttu-id="a4833-108">按照所选工具的指导进行操作:</span><span class="sxs-lookup"><span data-stu-id="a4833-108">Follow the guidance for your choice of tooling:</span></span>
+1. <span data-ttu-id="58475-108">按照所选工具的指导进行操作：</span><span class="sxs-lookup"><span data-stu-id="58475-108">Follow the guidance for your choice of tooling:</span></span>
 
-   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="a4833-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a4833-109">Visual Studio</span></span>](#tab/visual-studio)
+   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="58475-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="58475-109">Visual Studio</span></span>](#tab/visual-studio)
 
-   <span data-ttu-id="a4833-110">1 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-110">1\.</span></span> <span data-ttu-id="a4833-111">安装**ASP.NET 和 web 开发**工作负荷的最新[Visual Studio 预览版](https://visualstudio.com/vs/preview)。</span><span class="sxs-lookup"><span data-stu-id="a4833-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
+   <span data-ttu-id="58475-110">1 \。</span><span class="sxs-lookup"><span data-stu-id="58475-110">1\.</span></span> <span data-ttu-id="58475-111">安装**ASP.NET 和 web 开发**工作负荷的最新[Visual Studio 预览版](https://visualstudio.com/vs/preview)。</span><span class="sxs-lookup"><span data-stu-id="58475-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
 
-   <span data-ttu-id="a4833-112">2。</span><span class="sxs-lookup"><span data-stu-id="a4833-112">2\.</span></span> <span data-ttu-id="a4833-113">创建新项目。</span><span class="sxs-lookup"><span data-stu-id="a4833-113">Create a new project.</span></span>
+   <span data-ttu-id="58475-112">2。</span><span class="sxs-lookup"><span data-stu-id="58475-112">2\.</span></span> <span data-ttu-id="58475-113">创建新项目。</span><span class="sxs-lookup"><span data-stu-id="58475-113">Create a new project.</span></span>
 
-   <span data-ttu-id="a4833-114">3。</span><span class="sxs-lookup"><span data-stu-id="a4833-114">3\.</span></span> <span data-ttu-id="a4833-115">选择**Blazor 应用**。</span><span class="sxs-lookup"><span data-stu-id="a4833-115">Select **Blazor App**.</span></span> <span data-ttu-id="a4833-116">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="a4833-116">Select **Next**.</span></span>
+   <span data-ttu-id="58475-114">3。</span><span class="sxs-lookup"><span data-stu-id="58475-114">3\.</span></span> <span data-ttu-id="58475-115">选择**Blazor 应用**。</span><span class="sxs-lookup"><span data-stu-id="58475-115">Select **Blazor App**.</span></span> <span data-ttu-id="58475-116">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="58475-116">Select **Next**.</span></span>
 
-   <span data-ttu-id="a4833-117">4 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-117">4\.</span></span> <span data-ttu-id="a4833-118">在“项目名称”字段提供项目名称，或接受默认项目名称。</span><span class="sxs-lookup"><span data-stu-id="a4833-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="a4833-119">确认**位置**项正确或提供项目的位置。</span><span class="sxs-lookup"><span data-stu-id="a4833-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="a4833-120">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="a4833-120">Select **Create**.</span></span>
+   <span data-ttu-id="58475-117">4 \。</span><span class="sxs-lookup"><span data-stu-id="58475-117">4\.</span></span> <span data-ttu-id="58475-118">在“项目名称”字段提供项目名称，或接受默认项目名称。</span><span class="sxs-lookup"><span data-stu-id="58475-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="58475-119">确认**位置**项正确或提供项目的位置。</span><span class="sxs-lookup"><span data-stu-id="58475-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="58475-120">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="58475-120">Select **Create**.</span></span>
 
-   <span data-ttu-id="a4833-121">5 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-121">5\.</span></span> <span data-ttu-id="a4833-122">对于 Blazor 客户端体验, 请选择**Blazor WebAssembly 应用程序**模板。</span><span class="sxs-lookup"><span data-stu-id="a4833-122">For a Blazor client-side experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="a4833-123">对于 Blazor 服务器端体验, 请选择**Blazor 服务器应用程序**模板。</span><span class="sxs-lookup"><span data-stu-id="a4833-123">For a Blazor server-side experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="a4833-124">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="a4833-124">Select **Create**.</span></span> <span data-ttu-id="a4833-125">有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="a4833-125">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="58475-121">5 \。</span><span class="sxs-lookup"><span data-stu-id="58475-121">5\.</span></span> <span data-ttu-id="58475-122">对于 Blazor 客户端体验，请选择**Blazor WebAssembly 应用程序**模板。</span><span class="sxs-lookup"><span data-stu-id="58475-122">For a Blazor client-side experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="58475-123">对于 Blazor 服务器端体验，请选择**Blazor 服务器应用程序**模板。</span><span class="sxs-lookup"><span data-stu-id="58475-123">For a Blazor server-side experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="58475-124">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="58475-124">Select **Create**.</span></span> <span data-ttu-id="58475-125">有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="58475-125">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="a4833-126">6 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-126">6\.</span></span> <span data-ttu-id="a4833-127">按 F5 运行应用。</span><span class="sxs-lookup"><span data-stu-id="a4833-127">Press **F5** to run the app.</span></span>
+   <span data-ttu-id="58475-126">6 \。</span><span class="sxs-lookup"><span data-stu-id="58475-126">6\.</span></span> <span data-ttu-id="58475-127">按 F5 运行应用。</span><span class="sxs-lookup"><span data-stu-id="58475-127">Press **F5** to run the app.</span></span>
 
    > [!NOTE]
-   > <span data-ttu-id="a4833-128">如果安装了 Blazor Visual Studio extension for the ASP.NET Core Blazor (预览版6或更早版本) 的先前预览版本, 则可以卸载该扩展。</span><span class="sxs-lookup"><span data-stu-id="a4833-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="a4833-129">现在, 在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。</span><span class="sxs-lookup"><span data-stu-id="a4833-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
+   > <span data-ttu-id="58475-128">如果安装了 Blazor Visual Studio extension for the ASP.NET Core Blazor （预览版6或更早版本）的先前预览版本，则可以卸载该扩展。</span><span class="sxs-lookup"><span data-stu-id="58475-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="58475-129">现在，在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。</span><span class="sxs-lookup"><span data-stu-id="58475-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
 
-   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="a4833-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4833-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
+   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="58475-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="58475-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-   <span data-ttu-id="a4833-131">1 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-131">1\.</span></span> <span data-ttu-id="a4833-132">安装 [Visual Studio Code](https://code.visualstudio.com/)。</span><span class="sxs-lookup"><span data-stu-id="a4833-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
+   <span data-ttu-id="58475-131">1 \。</span><span class="sxs-lookup"><span data-stu-id="58475-131">1\.</span></span> <span data-ttu-id="58475-132">安装 [Visual Studio Code](https://code.visualstudio.com/)。</span><span class="sxs-lookup"><span data-stu-id="58475-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
 
-   <span data-ttu-id="a4833-133">2。</span><span class="sxs-lookup"><span data-stu-id="a4833-133">2\.</span></span> <span data-ttu-id="a4833-134">安装[ C# Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)的最新版本。</span><span class="sxs-lookup"><span data-stu-id="a4833-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
+   <span data-ttu-id="58475-133">2。</span><span class="sxs-lookup"><span data-stu-id="58475-133">2\.</span></span> <span data-ttu-id="58475-134">安装[ C# Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)的最新版本。</span><span class="sxs-lookup"><span data-stu-id="58475-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
 
-   <span data-ttu-id="a4833-135">3。</span><span class="sxs-lookup"><span data-stu-id="a4833-135">3\.</span></span> <span data-ttu-id="a4833-136">对于 Blazor 客户端体验, 请在命令行界面中执行以下命令:</span><span class="sxs-lookup"><span data-stu-id="a4833-136">For a Blazor client-side experience, execute the following command in a command shell:</span></span>
+   <span data-ttu-id="58475-135">3。</span><span class="sxs-lookup"><span data-stu-id="58475-135">3\.</span></span> <span data-ttu-id="58475-136">对于 Blazor 客户端体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="58475-136">For a Blazor client-side experience, execute the following command in a command shell:</span></span>
 
       ```console
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      <span data-ttu-id="a4833-137">对于 Blazor 服务器端体验, 请在命令行界面中执行以下命令:</span><span class="sxs-lookup"><span data-stu-id="a4833-137">For a Blazor server-side experience, execute the following command in a command shell:</span></span>
+      <span data-ttu-id="58475-137">对于 Blazor 服务器端体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="58475-137">For a Blazor server-side experience, execute the following command in a command shell:</span></span>
 
       ```console
       dotnet new blazorserver -o WebApplication1
       ```
 
-      <span data-ttu-id="a4833-138">有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="a4833-138">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
+      <span data-ttu-id="58475-138">有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="58475-138">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="a4833-139">4 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-139">4\.</span></span> <span data-ttu-id="a4833-140">在 Visual Studio Code 中打开 " *WebApplication1* " 文件夹。</span><span class="sxs-lookup"><span data-stu-id="a4833-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
+   <span data-ttu-id="58475-139">4 \。</span><span class="sxs-lookup"><span data-stu-id="58475-139">4\.</span></span> <span data-ttu-id="58475-140">在 Visual Studio Code 中打开 " *WebApplication1* " 文件夹。</span><span class="sxs-lookup"><span data-stu-id="58475-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
 
-   <span data-ttu-id="a4833-141">5 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-141">5\.</span></span> <span data-ttu-id="a4833-142">对于 Blazor 服务器端项目, IDE 请求你添加资产以生成和调试项目。</span><span class="sxs-lookup"><span data-stu-id="a4833-142">For a Blazor server-side project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="a4833-143">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="a4833-143">Select **Yes**.</span></span>
+   <span data-ttu-id="58475-141">5 \。</span><span class="sxs-lookup"><span data-stu-id="58475-141">5\.</span></span> <span data-ttu-id="58475-142">对于 Blazor 服务器端项目，IDE 请求你添加资产以生成和调试项目。</span><span class="sxs-lookup"><span data-stu-id="58475-142">For a Blazor server-side project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="58475-143">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="58475-143">Select **Yes**.</span></span>
 
-   <span data-ttu-id="a4833-144">6 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-144">6\.</span></span> <span data-ttu-id="a4833-145">如果使用的是 Blazor 服务器端应用, 请使用 Visual Studio Code 调试程序运行该应用程序。</span><span class="sxs-lookup"><span data-stu-id="a4833-145">If using a Blazor server-side app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="a4833-146">如果使用 Blazor 客户端应用, 则从应用`dotnet run`的项目文件夹执行。</span><span class="sxs-lookup"><span data-stu-id="a4833-146">If using a Blazor client-side app, execute `dotnet run` from the app's project folder.</span></span>
+   <span data-ttu-id="58475-144">6 \。</span><span class="sxs-lookup"><span data-stu-id="58475-144">6\.</span></span> <span data-ttu-id="58475-145">如果使用的是 Blazor 服务器端应用，请使用 Visual Studio Code 调试程序运行该应用程序。</span><span class="sxs-lookup"><span data-stu-id="58475-145">If using a Blazor server-side app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="58475-146">如果使用 Blazor 客户端应用，则从应用`dotnet run`的项目文件夹执行。</span><span class="sxs-lookup"><span data-stu-id="58475-146">If using a Blazor client-side app, execute `dotnet run` from the app's project folder.</span></span>
 
-   <span data-ttu-id="a4833-147">7 \。</span><span class="sxs-lookup"><span data-stu-id="a4833-147">7\.</span></span> <span data-ttu-id="a4833-148">在浏览器中导航到 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="a4833-148">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="58475-147">7 \。</span><span class="sxs-lookup"><span data-stu-id="58475-147">7\.</span></span> <span data-ttu-id="58475-148">在浏览器中导航到 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="58475-148">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    <!--
 
@@ -95,9 +95,9 @@ ms.locfileid: "68993406"
 
    -->
 
-   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="a4833-149">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="a4833-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
+   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="58475-149">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="58475-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-   <span data-ttu-id="a4833-150">对于 Blazor 客户端体验, 请在命令行界面中执行以下命令:</span><span class="sxs-lookup"><span data-stu-id="a4833-150">For a Blazor client-side experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="58475-150">对于 Blazor 客户端体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="58475-150">For a Blazor client-side experience, execute the following commands in a command shell:</span></span>
 
    ```console
    dotnet new blazorwasm -o WebApplication1
@@ -105,7 +105,7 @@ ms.locfileid: "68993406"
    dotnet run
    ```
 
-   <span data-ttu-id="a4833-151">对于 Blazor 服务器端体验, 请在命令行界面中执行以下命令:</span><span class="sxs-lookup"><span data-stu-id="a4833-151">For a Blazor server-side experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="58475-151">对于 Blazor 服务器端体验，请在命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="58475-151">For a Blazor server-side experience, execute the following commands in a command shell:</span></span>
 
    ```console
    dotnet new blazorserver -o WebApplication1
@@ -113,64 +113,64 @@ ms.locfileid: "68993406"
    dotnet run
    ```
 
-   <span data-ttu-id="a4833-152">有关这两个 Blazor 托管模型、服务器端和客户端的信息, 请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="a4833-152">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="58475-152">有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。</span><span class="sxs-lookup"><span data-stu-id="58475-152">For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="a4833-153">在浏览器中导航到 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="a4833-153">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="58475-153">在浏览器中导航到 `https://localhost:5001`。</span><span class="sxs-lookup"><span data-stu-id="58475-153">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    ---
 
-<span data-ttu-id="a4833-154">边栏中的选项卡上提供了多个页面:</span><span class="sxs-lookup"><span data-stu-id="a4833-154">Multiple pages are available from tabs in the sidebar:</span></span>
+<span data-ttu-id="58475-154">边栏中的选项卡上提供了多个页面：</span><span class="sxs-lookup"><span data-stu-id="58475-154">Multiple pages are available from tabs in the sidebar:</span></span>
 
-* <span data-ttu-id="a4833-155">Home</span><span class="sxs-lookup"><span data-stu-id="a4833-155">Home</span></span>
-* <span data-ttu-id="a4833-156">计数器</span><span class="sxs-lookup"><span data-stu-id="a4833-156">Counter</span></span>
-* <span data-ttu-id="a4833-157">提取数据</span><span class="sxs-lookup"><span data-stu-id="a4833-157">Fetch data</span></span>
+* <span data-ttu-id="58475-155">主页</span><span class="sxs-lookup"><span data-stu-id="58475-155">Home</span></span>
+* <span data-ttu-id="58475-156">计数器</span><span class="sxs-lookup"><span data-stu-id="58475-156">Counter</span></span>
+* <span data-ttu-id="58475-157">提取数据</span><span class="sxs-lookup"><span data-stu-id="58475-157">Fetch data</span></span>
 
-<span data-ttu-id="a4833-158">在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。</span><span class="sxs-lookup"><span data-stu-id="a4833-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="a4833-159">在网页中递增计数器通常需要编写 JavaScript, 但 Razor 组件使用C#可以提供更好的方法。</span><span class="sxs-lookup"><span data-stu-id="a4833-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
+<span data-ttu-id="58475-158">在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。</span><span class="sxs-lookup"><span data-stu-id="58475-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="58475-159">在网页中递增计数器通常需要编写 JavaScript，但 Razor 组件使用C#可以提供更好的方法。</span><span class="sxs-lookup"><span data-stu-id="58475-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
 
-<span data-ttu-id="a4833-160">*Pages/Counter.razor*：</span><span class="sxs-lookup"><span data-stu-id="a4833-160">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="58475-160">*Pages/Counter.razor*：</span><span class="sxs-lookup"><span data-stu-id="58475-160">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-<span data-ttu-id="a4833-161">浏览器`/counter`中`@page`由顶部指令指定的请求会使`Counter`组件呈现其内容。</span><span class="sxs-lookup"><span data-stu-id="a4833-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="a4833-162">组件呈现为呈现树的内存中表示形式, 然后可以使用它以一种灵活而高效的方式更新 UI。</span><span class="sxs-lookup"><span data-stu-id="a4833-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
+<span data-ttu-id="58475-161">浏览器`/counter`中`@page`由顶部指令指定的请求会使`Counter`组件呈现其内容。</span><span class="sxs-lookup"><span data-stu-id="58475-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="58475-162">组件呈现为呈现树的内存中表示形式，然后可以使用它以一种灵活而高效的方式更新 UI。</span><span class="sxs-lookup"><span data-stu-id="58475-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
 
-<span data-ttu-id="a4833-163">每次选择 "**单击我**" 按钮时:</span><span class="sxs-lookup"><span data-stu-id="a4833-163">Each time the **Click me** button is selected:</span></span>
+<span data-ttu-id="58475-163">每次选择 "**单击我**" 按钮时：</span><span class="sxs-lookup"><span data-stu-id="58475-163">Each time the **Click me** button is selected:</span></span>
 
-* <span data-ttu-id="a4833-164">触发`onclick`事件。</span><span class="sxs-lookup"><span data-stu-id="a4833-164">The `onclick` event is fired.</span></span>
-* <span data-ttu-id="a4833-165">调用 `IncrementCount` 方法。</span><span class="sxs-lookup"><span data-stu-id="a4833-165">The `IncrementCount` method is called.</span></span>
-* <span data-ttu-id="a4833-166">`currentCount`递增。</span><span class="sxs-lookup"><span data-stu-id="a4833-166">The `currentCount` is incremented.</span></span>
-* <span data-ttu-id="a4833-167">再次呈现该组件。</span><span class="sxs-lookup"><span data-stu-id="a4833-167">The component is rendered again.</span></span>
+* <span data-ttu-id="58475-164">触发`onclick`事件。</span><span class="sxs-lookup"><span data-stu-id="58475-164">The `onclick` event is fired.</span></span>
+* <span data-ttu-id="58475-165">调用 `IncrementCount` 方法。</span><span class="sxs-lookup"><span data-stu-id="58475-165">The `IncrementCount` method is called.</span></span>
+* <span data-ttu-id="58475-166">`currentCount`递增。</span><span class="sxs-lookup"><span data-stu-id="58475-166">The `currentCount` is incremented.</span></span>
+* <span data-ttu-id="58475-167">再次呈现该组件。</span><span class="sxs-lookup"><span data-stu-id="58475-167">The component is rendered again.</span></span>
 
-<span data-ttu-id="a4833-168">运行时将新内容与以前的内容进行比较, 并仅将更改的内容应用到文档对象模型 (DOM)。</span><span class="sxs-lookup"><span data-stu-id="a4833-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
+<span data-ttu-id="58475-168">运行时将新内容与以前的内容进行比较，并仅将更改的内容应用到文档对象模型（DOM）。</span><span class="sxs-lookup"><span data-stu-id="58475-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
 
-<span data-ttu-id="a4833-169">使用 HTML 语法将组件添加到其他组件。</span><span class="sxs-lookup"><span data-stu-id="a4833-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="a4833-170">例如, 通过`Counter` `<Counter />`向`Index`组件添加元素, 将该组件添加到应用的主页。</span><span class="sxs-lookup"><span data-stu-id="a4833-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
+<span data-ttu-id="58475-169">使用 HTML 语法将组件添加到其他组件。</span><span class="sxs-lookup"><span data-stu-id="58475-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="58475-170">例如，通过`Counter` `<Counter />`向`Index`组件添加元素，将该组件添加到应用的主页。</span><span class="sxs-lookup"><span data-stu-id="58475-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
 
-<span data-ttu-id="a4833-171">*Pages/Index.razor*：</span><span class="sxs-lookup"><span data-stu-id="a4833-171">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="58475-171">*Pages/Index.razor*：</span><span class="sxs-lookup"><span data-stu-id="58475-171">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-<span data-ttu-id="a4833-172">运行应用。</span><span class="sxs-lookup"><span data-stu-id="a4833-172">Run the app.</span></span> <span data-ttu-id="a4833-173">主页有由`Counter`组件提供的自己的计数器。</span><span class="sxs-lookup"><span data-stu-id="a4833-173">The homepage has its own counter provided by the `Counter` component.</span></span>
+<span data-ttu-id="58475-172">运行应用。</span><span class="sxs-lookup"><span data-stu-id="58475-172">Run the app.</span></span> <span data-ttu-id="58475-173">主页有由`Counter`组件提供的自己的计数器。</span><span class="sxs-lookup"><span data-stu-id="58475-173">The homepage has its own counter provided by the `Counter` component.</span></span>
 
-<span data-ttu-id="a4833-174">使用特性或[子内容](xref:blazor/components#child-content)指定组件参数, 这些参数允许你设置子组件的属性。</span><span class="sxs-lookup"><span data-stu-id="a4833-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="a4833-175">若要向`Counter`组件添加参数, 请更新组件的`@code`块:</span><span class="sxs-lookup"><span data-stu-id="a4833-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
+<span data-ttu-id="58475-174">使用特性或[子内容](xref:blazor/components#child-content)指定组件参数，这些参数允许你设置子组件的属性。</span><span class="sxs-lookup"><span data-stu-id="58475-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="58475-175">若要向`Counter`组件添加参数，请更新组件的`@code`块：</span><span class="sxs-lookup"><span data-stu-id="58475-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
 
-* <span data-ttu-id="a4833-176">`IncrementAmount`使用特性添加的公共属性。`[Parameter]`</span><span class="sxs-lookup"><span data-stu-id="a4833-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
-* <span data-ttu-id="a4833-177">增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。</span><span class="sxs-lookup"><span data-stu-id="a4833-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
+* <span data-ttu-id="58475-176">`IncrementAmount`使用特性添加的公共属性。`[Parameter]`</span><span class="sxs-lookup"><span data-stu-id="58475-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
+* <span data-ttu-id="58475-177">增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。</span><span class="sxs-lookup"><span data-stu-id="58475-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
 
-<span data-ttu-id="a4833-178">*Pages/Counter.razor*：</span><span class="sxs-lookup"><span data-stu-id="a4833-178">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="58475-178">*Pages/Counter.razor*：</span><span class="sxs-lookup"><span data-stu-id="58475-178">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-<span data-ttu-id="a4833-179">使用特性`IncrementAmount`指定`Index`组件的`<Counter>`元素中的。</span><span class="sxs-lookup"><span data-stu-id="a4833-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
+<span data-ttu-id="58475-179">使用特性`IncrementAmount`指定`Index`组件的`<Counter>`元素中的。</span><span class="sxs-lookup"><span data-stu-id="58475-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
 
-<span data-ttu-id="a4833-180">*Pages/Index.razor*：</span><span class="sxs-lookup"><span data-stu-id="a4833-180">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="58475-180">*Pages/Index.razor*：</span><span class="sxs-lookup"><span data-stu-id="58475-180">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-<span data-ttu-id="a4833-181">运行应用。</span><span class="sxs-lookup"><span data-stu-id="a4833-181">Run the app.</span></span> <span data-ttu-id="a4833-182">每次选择 "**单击我**" 按钮时,组件都有其自己的计数器,每次递增10。`Index`</span><span class="sxs-lookup"><span data-stu-id="a4833-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="a4833-183">中`Counter` 的`/counter`组件 (*Counter*) 继续递增1。</span><span class="sxs-lookup"><span data-stu-id="a4833-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
+<span data-ttu-id="58475-181">运行应用。</span><span class="sxs-lookup"><span data-stu-id="58475-181">Run the app.</span></span> <span data-ttu-id="58475-182">每次选择 "**单击我**" 按钮时，组件都有其自己的计数器，每次递增10。`Index`</span><span class="sxs-lookup"><span data-stu-id="58475-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="58475-183">中`Counter` 的`/counter`组件（*Counter*）继续递增1。</span><span class="sxs-lookup"><span data-stu-id="58475-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="a4833-184">后续步骤</span><span class="sxs-lookup"><span data-stu-id="a4833-184">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="58475-184">后续步骤</span><span class="sxs-lookup"><span data-stu-id="58475-184">Next steps</span></span>
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a><span data-ttu-id="a4833-185">其他资源</span><span class="sxs-lookup"><span data-stu-id="a4833-185">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="58475-185">其他资源</span><span class="sxs-lookup"><span data-stu-id="58475-185">Additional resources</span></span>
 
 * <xref:signalr/introduction>
