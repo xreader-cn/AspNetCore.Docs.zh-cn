@@ -5,14 +5,14 @@ description: 了解如何缓解 Blazor 服务器端应用的安全威胁。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/04/2019
+ms.date: 09/05/2019
 uid: security/blazor/server-side
-ms.openlocfilehash: eb8068354182f9e05411bf48232878911bae6af8
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 13bb4475b4beac78cf489d83fb59a3e0d6d8f2d9
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310630"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800491"
 ---
 # <a name="secure-aspnet-core-blazor-server-side-apps"></a>安全 ASP.NET Core Blazor 服务器端应用
 
@@ -39,7 +39,7 @@ Blazor 服务器端应用采用有*状态*数据处理模型，其中服务器�
 
 拒绝服务（DoS）攻击通常会设法排出应用或服务器的资源。 但是，资源耗尽并不一定是对系统的攻击。 例如，由于用户需求较高，因此有限资源可能会耗尽。 [拒绝服务（DoS）攻击](#denial-of-service-dos-attacks)部分进一步介绍了 DoS。
 
-Blazor 框架之外的资源（例如数据库和文件句柄（用于读取和写入文件））可能还会遇到资源耗尽。 有关详细信息，请参阅 <xref:performance/performance-best-practices> 。
+Blazor 框架之外的资源（例如数据库和文件句柄（用于读取和写入文件））可能还会遇到资源耗尽。 有关详细信息，请参阅 <xref:performance/performance-best-practices>。
 
 ### <a name="cpu"></a>CPU
 
@@ -277,7 +277,7 @@ Blazor 服务器端框架采用一些步骤来防范前面的一些威胁：
 
 作为防范 XSS 攻击的一部分，请考虑实施 XSS 缓解，如[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)。
 
-有关详细信息，请参阅 <xref:security/cross-site-scripting> 。
+有关详细信息，请参阅 <xref:security/cross-site-scripting>。
 
 ### <a name="cross-origin-protection"></a>跨源保护
 

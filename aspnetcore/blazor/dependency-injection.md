@@ -5,14 +5,14 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: a2bfa0cbe951e817ed6264f1a151d5a716cd795c
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 0b48cd0cbe14d2b07627f56ab78611bbd3209fa1
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310356"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800392"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -31,7 +31,7 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
+| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api> 。 |
 | `IJSRuntime` | 单例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关详细信息，请参阅 <xref:blazor/javascript-interop>。 |
 | `NavigationManager` | 单例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
@@ -61,7 +61,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor 客户端当前没有 DI 作用域的概念。 `Scoped`注册的服务的行为`Singleton`类似于服务。 但是，服务器端承载模型支持`Scoped`生存期。 在 Razor 组件中，作用域内服务注册的范围为连接。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly apps 目前没有 DI 作用域的概念。 `Scoped`注册的服务的行为`Singleton`类似于服务。 但是，服务器端承载模型支持`Scoped`生存期。 在 Blazor 服务器应用中，作用域内服务注册的范围为*连接*。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI 创建服务的*单个实例*。 所有需要服务的`Singleton`组件都接收相同服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | 每当组件从服务容器获取`Transient`服务的实例时，它都会接收服务的*新实例*。 |
 
@@ -74,7 +74,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 * 键入&ndash;要注入的服务的类型。
 * 属性&ndash;接收注入的应用服务的属性的名称。 属性不需要手动创建。 编译器将创建属性。
 
-有关详细信息，请参阅 <xref:mvc/views/dependency-injection>。
+有关详细信息，请参阅 <xref:mvc/views/dependency-injection> 。
 
 使用多`@inject`个语句注入不同的服务。
 
@@ -124,6 +124,29 @@ public class DataAccess : IDataAccess
 * 一个构造函数必须存在，其参数可以全部通过 DI 完成。 如果指定默认值，则不允许使用 DI 未涵盖的其他参数。
 * 适用的构造函数必须是*公共*的。
 * 必须存在一个适用的构造函数。 如果出现多义性，DI 会引发异常。
+
+## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>用于管理 DI 作用域的实用工具基组件类
+
+在 ASP.NET Core 应用中，作用域内服务通常作用于当前请求。 请求完成后，DI 系统将释放任何作用域内或暂时性的服务。 在 Blazor 服务器应用中，请求范围将在客户端连接期间持续，这可能会导致暂时性和作用域内服务的运行时间比预期要长得多。
+
+若要将服务的作用域限定为组件的生存期， `OwningComponentBase`可以`OwningComponentBase<TService>`使用和基类。 这些基类公开了`ScopedServices`类型`IServiceProvider`为的属性，该属性可解析范围限制在组件生存期内的服务。 若要创作从 Razor 中的基类继承的组件，请使用`@inherits`指令。
+
+```cshtml
+@page "/users"
+@attribute [Authorize]
+@inherits OwningComponentBase<Data.ApplicationDbContext>
+
+<h1>Users (@Service.Users.Count())</h1>
+<ul>
+    @foreach (var user in Service.Users)
+    {
+        <li>@user.UserName</li>
+    }
+</ul>
+```
+
+> [!NOTE]
+> 使用`@inject`或注入到组件中的`InjectAttribute`服务不会在组件的作用域中创建，并绑定到请求范围。
 
 ## <a name="additional-resources"></a>其他资源
 

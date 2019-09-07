@@ -5,14 +5,14 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/04/2019
+ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: ce9da14bbe19cbee960d215f6167a0e760bd607a
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: e877abfb568f71046c3603cac5e888e99ffc8d15
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310361"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800418"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -716,17 +716,30 @@ protected override void OnParametersSet()
 
 `OnAfterRenderAsync`和`OnAfterRender`在组件完成呈现后被调用。 此时将填充元素和组件引用。 使用此阶段，可以使用呈现的内容来执行其他初始化步骤，如激活在呈现的 DOM 元素上操作的第三方 JavaScript 库。
 
+`OnAfterRender`在*服务器上预呈现时不调用。*
+
+`firstRender` 和`OnAfterRender`的参数为： `OnAfterRenderAsync`
+
+* 第一`true`次调用组件实例时设置为。
+* 确保仅执行一次初始化工作。
+
 ```csharp
-protected override async Task OnAfterRenderAsync()
+protected override async Task OnAfterRenderAsync(bool firstRender)
 {
-    await ...
+    if (firstRender)
+    {
+        await ...
+    }
 }
 ```
 
 ```csharp
-protected override void OnAfterRender()
+protected override void OnAfterRender(bool firstRender)
 {
-    ...
+    if (firstRender)
+    {
+        ...
+    }
 }
 ```
 
@@ -883,7 +896,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor> 。
+有关详细信息，请参阅 <xref:mvc/views/razor>。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -1434,7 +1447,7 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关详细信息，请参阅 <xref:fundamentals/localization>。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

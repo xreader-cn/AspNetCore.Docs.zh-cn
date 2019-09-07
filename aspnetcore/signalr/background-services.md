@@ -1,68 +1,103 @@
 ---
-title: 在后台服务主机 ASP.NET Core SignalR
+title: 在后台服务中宿主 ASP.NET Core SignalR
 author: bradygaster
-description: 了解如何从.NET Core BackgroundService 类将消息发送到 SignalR 客户端。
+description: 了解如何通过 .NET Core BackgroundService 类将消息发送到 SignalR 客户端。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/04/2019
 uid: signalr/background-services
-ms.openlocfilehash: dcd62f0c7056a3f987291b6c8bb8b87f94160865
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 23a53f33a03ce3b76cf6846c3f214a6cad055209
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087758"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773941"
 ---
-# <a name="host-aspnet-core-signalr-in-background-services"></a>在后台服务主机 ASP.NET Core SignalR
+# <a name="host-aspnet-core-signalr-in-background-services"></a>在后台服务中宿主 ASP.NET Core SignalR
 
-通过[Brady Gaster](https://twitter.com/bradygaster)
+作者： [Brady Gaster](https://twitter.com/bradygaster)
 
-本文提供了指南：
+本文提供以下内容的指导：
 
-* 托管 SignalR 集线器使用宿主使用 ASP.NET Core 的后台工作进程。
-* 将消息发送到连接从.NET Core 中的客户端[BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService)。
+* 使用 ASP.NET Core 承载的后台工作进程承载 SignalR 中心。
+* 从 .NET Core [BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService)中将消息发送到已连接的客户端。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="wire-up-signalr-during-startup"></a>在启动期间将 SignalR
+## <a name="wire-up-signalr-during-startup"></a>启动时连接 SignalR
 
-在后台工作进程的上下文中承载 ASP.NET Core SignalR 集线器等同于承载的 ASP.NET Core web 应用中的中心。 在中`Startup.ConfigureServices`方法中，调用`services.AddSignalR`将所需的服务添加到 ASP.NET Core 依赖关系注入 (DI) 层以支持 SignalR。 在中`Startup.Configure`，则`UseSignalR`调用方法到 ASP.NET Core 请求管道中的中心终结点关联。
+::: moniker range=">= aspnetcore-3.0"
+
+在后台工作进程的上下文中托管 ASP.NET Core SignalR 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在方法中，调用`services.AddSignalR`会将所需服务添加到 ASP.NET Core 依赖关系注入（DI）层，以支持 SignalR。 `Startup.ConfigureServices` 在`Startup.Configure`中`MapHub` ，调用`UseEndpoints`方法以在 ASP.NET Core 请求管道中连接中心终结点。
+
+```csharp
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSignalR();
+        services.AddHostedService<Worker>();
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapHub<ClockHub>("/hubs/clock");
+        });
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+在后台工作进程的上下文中托管 ASP.NET Core SignalR 中心与在 ASP.NET Core 的 web 应用中托管集线器完全相同。 在方法中，调用`services.AddSignalR`会将所需服务添加到 ASP.NET Core 依赖关系注入（DI）层，以支持 SignalR。 `Startup.ConfigureServices` 在`Startup.Configure`中`UseSignalR` ，调用方法以连接 ASP.NET Core 请求管道中的中心终结点。
 
 [!code-csharp[Startup](background-service/sample/Server/Startup.cs?name=Startup)]
 
-在前面的示例中，`ClockHub`类实现`Hub<T>`类，以创建强类型化的中心。 `ClockHub`已在中配置`Startup`类，以响应在终结点请求`/hubs/clock`。
+::: moniker-end
 
-强类型化的中心的详细信息，请参阅[适用于 ASP.NET Core SignalR 中使用中心](xref:signalr/hubs#strongly-typed-hubs)。
+在前面的示例中， `ClockHub`类`Hub<T>`实现类以创建强类型中心。 已在类中配置，以响应终结点`/hubs/clock`上的请求。 `Startup` `ClockHub`
+
+有关强类型化集线器的详细信息，请参阅[在 SignalR 中使用集线器进行 ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs)。
 
 > [!NOTE]
-> 此功能并不局限于[集线器\<T >](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 任何类都继承自[集线器](xref:Microsoft.AspNetCore.SignalR.Hub)，如[DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)，也将起作用。
+> 此功能并不限于[\<中心 t >](xref:Microsoft.AspNetCore.SignalR.Hub`1)类。 从[中心](xref:Microsoft.AspNetCore.SignalR.Hub)继承的任何类（如[DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub)）也将起作用。
 
 [!code-csharp[Startup](background-service/sample/Server/ClockHub.cs?name=ClockHub)]
 
-使用强类型化的接口`ClockHub`是`IClock`接口。
+强类型化`ClockHub`所使用的接口`IClock`是接口。
 
 [!code-csharp[Startup](background-service/sample/HubServiceInterfaces/IClock.cs?name=IClock)]
 
-## <a name="call-a-signalr-hub-from-a-background-service"></a>从后台服务调用 SignalR Hub
+## <a name="call-a-signalr-hub-from-a-background-service"></a>从后台服务调用 SignalR 集线器
 
-启动过程中，`Worker`类， `BackgroundService`，使用有线`AddHostedService`。
+在启动过程中`Worker` ，类 a `BackgroundService`使用`AddHostedService`连接。
 
 ```csharp
 services.AddHostedService<Worker>();
 ```
 
-由于 SignalR 还有线期间`Startup`阶段时，在其中每个中心已附加到 ASP.NET Core 的 HTTP 请求管道中的单个终结点，由表示每个中心`IHubContext<T>`在服务器上。 使用 ASP.NET Core DI 功能，如由托管层实例化其他类`BackgroundService`类、 MVC 控制器类或 Razor 页面模型，可以通过接受的实例来获取对服务器端集线器的引用`IHubContext<ClockHub, IClock>`在构造期间。
+由于 SignalR 还`Startup`会在阶段中连接，其中每个集线器都附加到 ASP.NET Core 的 HTTP 请求管道中的单个终结点，因此，每个中心都`IHubContext<T>`由服务器上的表示。 使用 ASP.NET Core 的 DI 功能，由宿主层实例化的其他类（ `BackgroundService`如类、MVC 控制器类或 Razor 页面模型）可以通过`IHubContext<ClockHub, IClock>`在构造过程中接受实例来获取对服务器端集线器的引用。
 
 [!code-csharp[Startup](background-service/sample/Server/Worker.cs?name=Worker)]
 
-作为`ExecuteAsync`以迭代方式调用方法时在后台服务，服务器的当前日期和时间发送到连接的客户端使用`ClockHub`。
+由于在后台服务中以迭代`ClockHub`方式调用方法，服务器的当前日期和时间将使用发送到已连接的客户端。`ExecuteAsync`
 
-## <a name="react-to-signalr-events-with-background-services"></a>对使用后台服务 SignalR 事件做出响应
+## <a name="react-to-signalr-events-with-background-services"></a>通过后台服务响应 SignalR 事件
 
-像使用 JavaScript 客户端 SignalR 或.NET 桌面应用程序可以执行的单页面应用程序使用的 using <xref:signalr/dotnet-client>、 一个`BackgroundService`或`IHostedService`实现还可用来连接到 SignalR 集线器和响应事件。
+与使用适用于 SignalR 的 JavaScript 客户端的单页面应用程序或 .net 桌面应用程序<xref:signalr/dotnet-client>一样`BackgroundService` ，也可以使用、 `IHostedService`或实现来连接到 SignalR 集线器并对事件做出响应。
 
-`ClockHubClient`类可实现`IClock`界面和`IHostedService`接口。 它可以建立连接，在这种方式`Startup`连续运行并响应来自服务器的中心事件。 
+类实现`IClock`接口和`IHostedService`接口。 `ClockHubClient` 这样一来，就可以在运行`Startup`时将其连接起来，并响应服务器的集线器事件。
 
 ```csharp
 public partial class ClockHubClient : IClock, IHostedService
@@ -70,15 +105,15 @@ public partial class ClockHubClient : IClock, IHostedService
 }
 ```
 
-在初始化期间`ClockHubClient`创建的实例`HubConnection`和绑定`IClock.ShowTime`方法的处理程序为中心的`ShowTime`事件。
+在初始化期间， `ClockHubClient`会创建一个`HubConnection`实例，并将该`IClock.ShowTime`方法与中心的`ShowTime`事件的处理程序进行连线。
 
 [!code-csharp[The ClockHubClient constructor](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=ClockHubClientCtor)]
 
-在中`IHostedService.StartAsync`实现中，`HubConnection`以异步方式启动。
+在实现中`HubConnection` ，以异步方式启动。 `IHostedService.StartAsync`
 
 [!code-csharp[StartAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StartAsync)]
 
-期间`IHostedService.StopAsync`方法，`HubConnection`以异步方式释放。
+在方法中`HubConnection` ，将异步释放。 `IHostedService.StopAsync`
 
 [!code-csharp[StopAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StopAsync)]
 
@@ -87,4 +122,4 @@ public partial class ClockHubClient : IClock, IHostedService
 * [入门](xref:tutorials/signalr)
 * [中心](xref:signalr/hubs)
 * [发布到 Azure](xref:signalr/publish-to-azure-web-app)
-* [强类型化的中心](xref:signalr/hubs#strongly-typed-hubs)
+* [强类型中心](xref:signalr/hubs#strongly-typed-hubs)
