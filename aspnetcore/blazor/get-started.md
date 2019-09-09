@@ -5,14 +5,14 @@ description: 使用所选工具构建 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 030c289e072efad43d4f6cdd63cba07cc623a090
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 7bff1d38de77adfa1835ee37f4e5f8912ba629cc
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310435"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800310"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
