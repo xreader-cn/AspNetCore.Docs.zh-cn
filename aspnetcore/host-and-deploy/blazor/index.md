@@ -5,14 +5,14 @@ description: 了解如何托管和部署 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 09/05/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: d18abbf33c71dca5130bfc6b503b46c1d5bce537
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 5a56bbda5bb7727c7dbeaed7f2a91d0dcb6e7e71
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913928"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773591"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -44,15 +44,48 @@ Blazor 客户端应用发布到 /bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBL
 
 文件夹中的资产将部署到 Web 服务器。 部署可能是手动或自动化过程，具体取决于使用的开发工具。
 
+## <a name="app-base-path"></a>应用基路径
+
+应用基路径是应用的根 URL 路径。  请考虑以下主应用和 Blazor 应用：
+
+* 主应用称为 `MyApp`：
+  * 应用实际驻留在 *d:\\MyApp* 中。
+  * 在 `https://www.contoso.com/{MYAPP RESOURCE}` 收到请求。
+* 名为 `CoolApp` 的 Blazor 应用是 `MyApp` 的子应用：
+  * 子应用实际驻留在 *d:\\MyApp\\CoolApp* 中。
+  * 在 `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}` 收到请求。
+
+如果不为 `CoolApp` 指定其他配置，此方案中的子应用将不知道其在服务器上的位置。 例如，不知道它驻留在相对 URL 路径 `/CoolApp/` 上，应用就无法构造其资源的正确相对 URL。
+
+若要为 Blazor 应用的基路径 `https://www.contoso.com/CoolApp/` 提供配置，请将 `<base>` 标记的 `href` 属性设置为 wwwroot/index.html  文件中的相对根路径：
+
+```html
+<base href="/CoolApp/">
+```
+
+提供相对 URL 路径，不再根目录中的元件可以构造相对于应用根路径的 URL。 位于目录结构不同级别的组件可生成指向整个应用其他位置的资源链接。 应用基路径也用于截获超链接单击，其中链接的 `href` 目标位于应用基路径 URI 空间中 &mdash; Blazor 路由器可处理内部导航。
+
+在许多托管方案中，应用的相对 URL 路径为应用的根目录。 在这些情况下，应用的相对 URL 基路径为正斜杠 (`<base href="/" />`)，它是 Blazor 应用的默认配置。 在其他托管方案中（例如 GitHub 页和 IIS 子应用），应用基路径必须设置为应用的服务器相对 URL 路径。
+
+要设置应用的基本路径，请更新 wwwroot/index.html 文件的 `<head>` 标记元素中的 `<base>` 标记  。 将 `href` 属性值设置为 `/{RELATIVE URL PATH}/`（需要尾部反斜杠），其中 `{RELATIVE URL PATH}` 是应用完整相对 URL 路径。
+
+对于配置了非根相对 URL 路径的应用（例如 `<base href="/CoolApp/">`），当在本地运行应用时，将无法查找其资源  。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值  。 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
+
+```console
+dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
+```
+
+对于具有相对 URL 路径 `/CoolApp/` (`<base href="/CoolApp/">`) 的应用，命令如下：
+
+```console
+dotnet run --pathbase=/CoolApp
+```
+
+应用在 `http://localhost:port/CoolApp` 本地响应。
+
 ## <a name="deployment"></a>部署
 
 有关部署指南，请参阅以下主题：
 
 * <xref:host-and-deploy/blazor/client-side>
 * <xref:host-and-deploy/blazor/server-side>
-
-## <a name="blazor-serverless-hosting-with-azure-storage"></a>使用 Azure 存储实现 Blazor 无服务器托管
-
-可以使用 [Azure 存储](https://azure.microsoft.com/services/storage/)将 Blazor 客户端应用作为直接来自存储容器的静态内容提供。
-
-有关详细信息，请参阅[托管和部署 ASP.NET Core Blazor 客户端（独立部署）：Azure 存储](xref:host-and-deploy/blazor/client-side#azure-storage)。

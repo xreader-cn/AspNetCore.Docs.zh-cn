@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: ec2b5b72eeff21d183397284b0d538681282d45b
-ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
+ms.openlocfilehash: c9b33b16de354c8bac804e8fd5e8e3ce3af688fc
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67399162"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773711"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -63,7 +63,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 * 跨平台。 在 macOS、Linux 和 Windows 上运行。
 * 增强的性能
-* 并行版本控制
+* [并行版本控制](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level)
 * 新 API
 * 开源
 

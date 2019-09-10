@@ -5,14 +5,14 @@ description: 了解 Blazor 身份验证和授权的方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310528"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800506"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -277,7 +277,7 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-`<Authorized>` 和 `<NotAuthorized>` 的内容可以包括任意项，如其他交互式组件。
+`<Authorized>` 和 `<NotAuthorized>` 标记的内容可以包括任意项，如其他交互式组件。
 
 [授权](#authorization)一节中介绍了授权条件，如用于控制 UI 选项或访问权限的角色或策略。
 
@@ -410,9 +410,9 @@ You can only see this if you're signed in.
 </Router>
 ```
 
-`<NotFound>`、`<NotAuthorized>` 和 `<Authorizing>` 的内容可以包括任意项，如其他交互式组件。
+`<NotFound>`、`<NotAuthorized>` 和 `<Authorizing>` 标记的内容可以包括任意项，如其他交互式组件。
 
-如果未指定 `<NotAuthorized>`，`<AuthorizeRouteView>` 就会使用以下回退消息：
+如果未指定 `<NotAuthorized>` 元素，`AuthorizeRouteView` 就会使用以下回退消息：
 
 ```html
 Not authorized.

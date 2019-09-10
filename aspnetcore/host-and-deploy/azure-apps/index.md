@@ -5,14 +5,14 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 09/07/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 5035a31526e0290964e0fdee05753aeaf6cb3790
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 5da32b5fd1026263f721db442b2676d45b239b8d
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602436"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815599"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -97,17 +97,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="monitoring-and-logging"></a>监视和日志记录
 
-::: moniker range=">= aspnetcore-3.0"
-
-部署到应用服务的 ASP.NET Core 应用会自动接收“ASP.NET Core 记录集成”这一应用服务扩展  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
-
-::: moniker-end
+Azure 应用服务提供 ASP.NET Core 日志记录扩展，可启用针对 ASP.NET Core 应用的日志记录集成  。 要将扩展自动添加到应用服务，可以将 Visual Studio 的“发布”过程与应用服务发布配置文件一起使用   。 如果不能使用 Visual Studio 部署应用，请通过应用服务的“开发工具” > “扩展”对话框，在 Azure 门户中手动安装扩展   。
 
 有关监视、日志记录和故障排除的信息，请参阅以下文章：
 

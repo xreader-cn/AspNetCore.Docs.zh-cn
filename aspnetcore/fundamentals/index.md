@@ -5,14 +5,14 @@ description: 了解生成 ASP.NET Core 应用的基础概念。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/11/2019
+ms.date: 09/02/2019
 uid: fundamentals/index
-ms.openlocfilehash: a6c848987c97103864fd5410922346e85a68c353
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 7e2901919c8b0165d0f169abf74fe5bc0edd8be4
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856239"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773747"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -67,7 +67,7 @@ ASP.NET Core 应用在启动时构建主机  。 主机是封装所有应用资�
 
 * HTTP 服务器实现
 * 中间件组件
-* 日志记录
+* Logging
 * DI
 * 配置
 
@@ -199,7 +199,7 @@ app.UseWebSockets(options);
 
 有关详细信息，请参阅 <xref:fundamentals/environments>。
 
-## <a name="logging"></a>日志记录
+## <a name="logging"></a>Logging
 
 ASP.NET Core 支持适用于各种内置和第三方日志记录提供程序的日志记录 API。 可用的提供程序包括：
 
@@ -269,6 +269,18 @@ ASP.NET Core 具有用于处理错误的内置功能，例如：
 ## <a name="web-root"></a>Web 根
 
 Web 根（也称为 webroot）是公共、静态资源（例如 CSS、JavaScript 和图像文件）的基路径  。 默认情况下，静态文件中间件仅提供来自 Web 根目录（及子目录）的文件。 Web 根路径默认为 {Content Root}/wwwroot  ，但[构建主机](#host)时可以指定其他位置。
+
+::: moniker range=">= aspnetcore-3.0"
+
+有关详细信息，请参阅 [ContentRootPath](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#contentrootpath)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+有关详细信息，请参阅 [Web 根目录](/aspnet/core/fundamentals/host/web-host#webroot)。
+
+::: moniker-end
 
 在 Razor (.cshtml) 文件中，波浪号斜杠 `~/` 指向 Web 根  。 以 `~/` 开头的路径称为虚拟路径。
 
