@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/14/2018
 uid: client-side/libman/index
-ms.openlocfilehash: a6ff0cc3342cfac74739387aa17046ed5050232f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 87987446b7f2c625da90951510e697e06569ba36
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882202"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878328"
 ---
 # <a name="client-side-library-acquisition-in-aspnet-core-with-libman"></a>通过 LibMan 在 ASP.NET Core 中获取客户端库
 
 作者：[Scott Addie](https://twitter.com/Scott_Addie)
 
-库管理器 (LibMan) 是一个轻量型客户端库获取工具。 LibMan 可从文件系统或从[内容分发网络 (CDN)](https://wikipedia.org/wiki/Content_delivery_network) 下载库和框架。 支持的 CDN 包括 [CDNJS](https://cdnjs.com/) 和 [unpkg](https://unpkg.com/#/)。 将提取所选库文件，并将其置于 ASP.NET Core 项目中的相应位置。
+库管理器 (LibMan) 是一个轻量型客户端库获取工具。 LibMan 可从文件系统或从[内容分发网络 (CDN)](https://wikipedia.org/wiki/Content_delivery_network) 下载库和框架。 支持的 CDN 包括 [CDNJS](https://cdnjs.com/)、[jsDelivr](https://www.jsdelivr.com/) 和 [unpkg](https://unpkg.com/#/)。 将提取所选库文件，并将其置于 ASP.NET Core 项目中的相应位置。
 
 ## <a name="libman-use-cases"></a>LibMan 用例
 
