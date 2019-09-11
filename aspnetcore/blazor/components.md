@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: e877abfb568f71046c3603cac5e888e99ffc8d15
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: dbd0879d200061151e8307346adef784967bf123
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800418"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878394"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -1466,3 +1466,7 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 ```
 
 但是，在所有情况下均不支持内联 SVG 标记。 如果将`<svg>`标记直接放入组件文件（*razor*），则支持基本图像呈现，但尚不支持很多高级方案。 例如， `<use>`标记当前未遵循，并且`@bind`不能与一些 SVG 标记一起使用。 我们预计会在将来的版本中解决这些限制。
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:security/blazor/server-side>&ndash;介绍如何生成必须与资源耗尽相关的 Blazor 服务器端应用。

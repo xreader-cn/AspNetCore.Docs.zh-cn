@@ -5,14 +5,14 @@ description: 了解如何缓解 Blazor 服务器端应用的安全威胁。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: security/blazor/server-side
-ms.openlocfilehash: 13bb4475b4beac78cf489d83fb59a3e0d6d8f2d9
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: d30f19bfbbcdb6c142f03a6e0cc6e1fc154c2091
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800491"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878523"
 ---
 # <a name="secure-aspnet-core-blazor-server-side-apps"></a>安全 ASP.NET Core Blazor 服务器端应用
 
@@ -115,7 +115,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 对于从 .NET 方法到 JavaScript 的调用：
 
 * 所有调用都具有可配置的超时时间，在此之后<xref:System.OperationCanceledException> ，将返回到调用方。
-  * 调用的默认超时值（`CircuitOptions.JSInteropDefaultCallTimeout`）为一分钟。
+  * 调用的默认超时值（`CircuitOptions.JSInteropDefaultCallTimeout`）为一分钟。 若要配置此限制， <xref:blazor/javascript-interop#harden-js-interop-calls>请参阅。
   * 可以提供取消标记以按调用控制取消。 如果提供了取消标记，则使用默认调用超时，如果有可能，则依赖于对客户端的任何调用。
 * JavaScript 调用的结果不能受信任。 在浏览器中运行的 Blazor 应用客户端将搜索要调用的 JavaScript 函数。 调用函数，并生成结果或错误。 恶意客户端可以尝试：
   * 通过从 JavaScript 函数返回错误，导致应用中出现问题。
@@ -123,7 +123,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 
 请采取以下预防措施来防范前述方案：
 
-* 将 JS 互操作调用包装在[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中，以考虑在调用期间可能发生的错误。 有关详细信息，请参阅 <xref:blazor/handle-errors#javascript-interop>。
+* 将 JS 互操作调用包装在[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中，以考虑在调用期间可能发生的错误。 有关详细信息，请参阅 <xref:blazor/handle-errors#javascript-interop> 。
 * 在执行任何操作之前，验证从 JS 互操作调用返回的数据，包括错误消息。
 
 ### <a name="net-methods-invoked-from-the-browser"></a>从浏览器调用的 .NET 方法
@@ -145,7 +145,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 
 事件提供 Blazor 服务器端应用程序的入口点。 用于保护 web 应用中的终结点的相同规则适用于 Blazor 服务器端应用中的事件处理。 恶意客户端可以将其希望发送的任何数据发送为事件的负载。
 
-例如:
+例如：
 
 * 的更改事件`<select>`可能会发送一个值，该值不在应用提供给客户端的选项中。
 * `<input>`可以跳过客户端验证，将任何文本数据发送到服务器。
@@ -200,6 +200,72 @@ Blazor 服务器端事件是异步的，因此可以通过生成新的呈现来�
 ```
 
 通过在处理`if (count < 3) { ... }`程序内添加检查，可以根据当前应用`count`程序状态进行增量决定。 该决策不基于 UI 的状态，这可能是暂时过时的。
+
+### <a name="guard-against-multiple-dispatches"></a>防范多个派单
+
+如果事件回调调用长时间运行的操作（如从外部服务或数据库提取数据），请考虑使用临界。 当操作正在进行时，该保护可阻止用户在执行多个操作的同时进行可视反馈。 以下组件代码将设置`isLoading`为`true` ， `GetForecastAsync`同时从服务器获取数据。 当`isLoading` 为`true`时，该按钮在 UI 中处于禁用状态：
+
+```cshtml
+@page "/fetchdata"
+@using BlazorServerSample.Data
+@inject WeatherForecastService ForecastService
+
+<button disabled="@isLoading" @onclick="UpdateForecasts">Update</button>
+
+@code {
+    private bool isLoading;
+    private WeatherForecast[] forecasts;
+
+    private async Task UpdateForecasts()
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+            isLoading = false;
+        }
+    }
+}
+```
+
+### <a name="cancel-early-and-avoid-use-after-dispose"></a>尽早取消并避免使用-dispose
+
+除了使用防范[多个派单](#guard-against-multiple-dispatches)部分中所述的临界外，还应考虑使用<xref:System.Threading.CancellationToken>在释放组件时取消长时间运行的操作。 此方法的优点在于避免在组件中*使用后期*处理：
+
+```cshtml
+@implements IDisposable
+
+...
+
+@code {
+    private readonly CancellationTokenSource TokenSource = 
+        new CancellationTokenSource();
+
+    private async Task UpdateForecasts()
+    {
+        ...
+
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 
+            TokenSource.Token);
+
+        if (TokenSource.Token.IsCancellationRequested)
+        {
+           return;
+        }
+
+        ...
+    }
+
+    public void Dispose()
+    {
+        CancellationTokenSource.Cancel();
+    }
+}
+```
+
+### <a name="avoid-events-that-produce-large-amounts-of-data"></a>避免产生大量数据的事件
+
+某些 DOM 事件（如`oninput`或`onscroll`）可能会生成大量的数据。 避免在 Blazor 服务器应用中使用这些事件。
 
 ## <a name="additional-security-guidance"></a>其他安全指南
 
@@ -277,7 +343,7 @@ Blazor 服务器端框架采用一些步骤来防范前面的一些威胁：
 
 作为防范 XSS 攻击的一部分，请考虑实施 XSS 缓解，如[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)。
 
-有关详细信息，请参阅 <xref:security/cross-site-scripting>。
+有关详细信息，请参阅 <xref:security/cross-site-scripting> 。
 
 ### <a name="cross-origin-protection"></a>跨源保护
 
@@ -314,7 +380,7 @@ Blazor 服务器端框架采用一些步骤来防范前面的一些威胁：
 * 如果可能，请使用相对链接。
 * 验证绝对链接目标是否有效，然后再将它们包含在页中。
 
-有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
+有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
 
 ## <a name="authentication-and-authorization"></a>身份验证和授权
 
@@ -330,6 +396,9 @@ Blazor 服务器端框架采用一些步骤来防范前面的一些威胁：
 * 阻止客户端分配未绑定的内存量。
   * 组件中的数据。
   * `DotNetObject`返回到客户端的引用。
+* 防范多个派单。
+* 释放组件时，取消长时间运行的操作。
+* 避免产生大量数据的事件。
 * 避免使用用户输入作为对的调用`NavigationManager.Navigate`的一部分，并先针对一组允许的来源验证 url 的用户输入。
 * 不要基于 UI 的状态做出授权决策，只需从组件状态进行决策。
 * 请考虑使用[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)来防范 XSS 攻击。

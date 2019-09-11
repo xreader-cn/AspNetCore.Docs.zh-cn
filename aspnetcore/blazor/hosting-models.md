@@ -5,14 +5,14 @@ description: 了解 Blazor 客户端和服务器端的托管模型。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: f7a16d64e1f874a4f6b3c8db5217810b13c7c6ff
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 7880affa59af1fa4fc47aee3dc98ae9aa53729af
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800425"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878345"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -83,24 +83,68 @@ ASP.NET Core 应用引用要添加的应用`Startup`的类：
 
 &dagger;*Blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。
 
+### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 的比较
+
+了解 Blazor 服务器应用程序的一种方法是了解它与传统模型的不同之处在于，使用 Razor 视图或 Razor Pages 在 ASP.NET Core 应用程序中呈现 UI。 这两种模型都使用 Razor 语言来描述 HTML 内容，但在显示标记的方式上差别很大。
+
+在显示 Razor 页面或视图时，每行 Razor 代码都会以文本形式发出 HTML。 在呈现后，服务器将释放页面或视图实例，包括生成的任何状态。 当对该页的另一请求出现时，例如，当服务器验证失败并显示验证摘要时：
+
+* 整个页面将再次重新呈现到 HTML 文本。
+* 该页将发送到客户端。
+
+Blazor 应用由 UI 的可重用元素组成，这些元素称为*组件*。 组件包含C#代码、标记和其他组件。 呈现组件时，Blazor 将生成包含的组件的图，类似于 HTML 或 XML 文档对象模型（DOM）。 此图包含属性和字段中保存的组件状态。 Blazor 计算组件图以生成标记的二进制表示形式。 二进制格式可以是：
+
+* 转换为 HTML 文本（在预呈现期间）。
+* 用于在常规呈现期间有效地更新标记。
+
+Blazor 中的 UI 更新由以下用户触发：
+
+* 用户交互，如选择一个按钮。
+* 应用触发器，如计时器。
+
+关系图为重新呈现，并计算了 UI*差异*（差异）。 这种差异是更新客户端上 UI 所需的最小 DOM 编辑集。 将以二进制格式将差异发送到客户端，并由浏览器应用。
+
+当用户在客户端上导航掉组件后，将释放该组件。 当用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于多个组件的状态可能同时由服务器维护，因此内存耗尽是必须解决的问题。 有关如何创作 Blazor 服务器应用程序以确保最大程度地使用服务器内存的指导，请<xref:security/blazor/server-side>参阅。
+
+### <a name="circuits"></a>而言
+
+Blazor 服务器应用基于[ASP.NET Core SignalR](xref:signalr/introduction)构建。 每个客户端通过一个或多个称为*线路*的 SignalR 连接与服务器通信。 线路是 Blazor 对 SignalR 连接的抽象，可容忍临时网络中断。 当 Blazor 客户端发现 SignalR 连接已断开连接时，它会尝试使用新的 SignalR 连接重新连接到服务器。
+
+连接到 Blazor 服务器应用的每个浏览器屏幕（浏览器选项卡或 iframe）都使用 SignalR 连接。 与典型服务器呈现的应用相比，这一点还有一个重要的区别。 在服务器呈现的应用程序中，在多个浏览器屏幕中打开同一应用程序通常不会转换为服务器上的其他资源需求。 在 Blazor 服务器应用中，每个浏览器屏幕都需要一个单独的线路，并将组件状态的实例单独置于服务器管理的状态。
+
+Blazor 考虑关闭浏览器选项卡或导航到外部 URL，*正常*终止。 如果正常终止，则会立即释放线路和关联的资源。 例如，由于网络中断，客户端也可能断开连接。 Blazor 服务器会将断开连接的线路存储为可配置的间隔，以允许客户端重新连接。 有关详细信息，请参阅重新[连接到同一服务器](#reconnection-to-the-same-server)部分。
+
+### <a name="ui-latency"></a>UI 延迟
+
+UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来说，更小的 UI 延迟值非常适合应用程序对用户的响应。 在 Blazor 服务器应用中，每个操作都将发送到服务器，进行处理，并向后发送 UI 差异。 因此，UI 延迟是网络延迟和处理操作时服务器延迟的总和。
+
+对于仅限于专用公司网络的业务线应用，对用户而言，由于网络延迟导致的延迟通常是让的。 对于通过 Internet 部署的应用，用户可能会对延迟造成明显的影响，尤其是用户广泛分散于各地。
+
+内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关详细信息，请参阅 <xref:security/blazor/server-side> 。
+
+应通过减少网络延迟和内存使用来优化 Blazor 服务器应用，从而最大限度地减少 UI 延迟。 有关测量网络延迟的方法，请参阅<xref:host-and-deploy/blazor/server-side#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅：
+
+* <xref:host-and-deploy/blazor/server-side>
+* <xref:security/blazor/server-side>
+
 ### <a name="reconnection-to-the-same-server"></a>重新连接到同一台服务器
 
 Blazor 服务器端应用需要与服务器建立活动的 SignalR 连接。 如果连接丢失，应用会尝试重新连接到服务器。 只要客户端的状态仍在内存中，客户端会话便会恢复而不会失去状态。
- 
+
 当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在`components-reconnect-modal` *_Host* Razor 页`id`中使用作为其定义的元素。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
- 
+
 * `components-reconnect-show`&ndash;显示 UI 以指示连接已丢失，并且客户端正在尝试重新连接。
 * `components-reconnect-hide`&ndash;客户端具有活动的连接，隐藏 UI。
 * `components-reconnect-failed`&ndash;重新连接失败。 若要再次尝试重新连接`window.Blazor.reconnect()`，请调用。
 
 ### <a name="stateful-reconnection-after-prerendering"></a>预呈现后有状态重新连接
- 
+
 默认情况下，Blazor 服务器端应用设置为在客户端与服务器建立连接之前，在服务器上预呈现 UI。 这是在 *_Host* Razor 页面中设置的：
- 
+
 ```cshtml
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
- 
+
     <script src="_framework/blazor.server.js"></script>
 </body>
 ```
@@ -117,11 +161,11 @@ Blazor 服务器端应用需要与服务器建立活动的 SignalR 连接。 如
 | `Static`            | 将组件呈现为静态 HTML。 支持参数。 |
 
 不支持从静态 HTML 页面呈现服务器组件。
- 
+
 客户端重新连接到服务器，该服务器具有用于预呈现应用的相同状态。 如果应用的状态仍在内存中，则在建立 SignalR 连接后，组件状态将不重新呈现。
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现有状态交互式组件
- 
+
 可以将有状态交互组件添加到 Razor 页面或视图。
 
 呈现页面或视图时：
@@ -129,19 +173,19 @@ Blazor 服务器端应用需要与服务器建立活动的 SignalR 连接。 如
 * 该组件与页面或视图预呈现。
 * 用于预呈现的初始组件状态将丢失。
 * 建立 SignalR 连接时，将创建新的组件状态。
- 
+
 以下 Razor 页面呈现`Counter`组件：
 
 ```cshtml
 <h1>My Razor Page</h1>
- 
+
 @(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
 ```
 
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现非交互式组件
 
 在以下 Razor 页面中， `MyComponent`组件以静态方式呈现，其初始值是使用窗体指定的：
- 
+
 ```cshtml
 <h1>My Razor Page</h1>
 
@@ -149,10 +193,10 @@ Blazor 服务器端应用需要与服务器建立活动的 SignalR 连接。 如
     <input type="number" asp-for="InitialValue" />
     <button type="submit">Set initial value</button>
 </form>
- 
+
 @(await Html.RenderComponentAsync<MyComponent>(RenderMode.Static, 
     new { InitialValue = InitialValue }))
- 
+
 @code {
     [BindProperty(SupportsGet=true)]
     public int InitialValue { get; set; }
@@ -162,18 +206,18 @@ Blazor 服务器端应用需要与服务器建立活动的 SignalR 连接。 如
 由于`MyComponent`是静态呈现的，因此该组件不能是交互式的。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>检测预呈现应用的时间
- 
+
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
 ### <a name="configure-the-signalr-client-for-blazor-server-side-apps"></a>为 Blazor 服务器端应用配置 SignalR 客户端
- 
+
 有时，你需要配置 Blazor 服务器端应用使用的 SignalR 客户端。 例如，你可能想要在 SignalR 客户端上配置日志记录以诊断连接问题。
- 
+
 若要在*Pages/_Host*文件中配置 SignalR 客户端：
 
 * 将属性添加到 blazor `<script>`脚本的标记中。 `autostart="false"`
 * 调用`Blazor.start`并传入指定 SignalR 生成器的配置对象。
- 
+
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>
 <script>
