@@ -5,14 +5,14 @@ description: 了解如何写入自定义 ASP.NET Core 中间件。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/17/2019
+ms.date: 08/22/2019
 uid: fundamentals/middleware/write
-ms.openlocfilehash: 352db93dd7061070c76e34f6c03883f68e2041ee
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67167099"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773719"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>写入自定义 ASP.NET Core 中间件
 
@@ -24,7 +24,7 @@ ms.locfileid: "67167099"
 
 通常，中间件封装在类中，并且通过扩展方法公开。 请考虑以下中间件，该中间件通过查询字符串设置当前请求的区域性：
 
-[!code-csharp[](index/snapshot/Culture/StartupCulture.cs?name=snippet1)]
+[!code-csharp[](write/snapshot/StartupCulture.cs)]
 
 以上示例代码用于演示创建中间件组件。 有关 ASP.NET Core 的内置本地化支持，请参阅 <xref:fundamentals/localization>。
 
@@ -32,7 +32,7 @@ ms.locfileid: "67167099"
 
 以下代码将中间件委托移动到类：
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddleware.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddleware.cs)]
 
 必须包括中间件类：
 
@@ -45,13 +45,13 @@ ms.locfileid: "67167099"
 
 ## <a name="middleware-dependencies"></a>中间件依赖项
 
-中间件应通过在其构造函数中公开其依赖项来遵循[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。 在每个应用程序生存期  构造一次中间件。 如果需要与请求中的中间件共享服务，请参阅[按请求中间件依赖项](#per-request-middleware-dependencies)部分。
+中间件应通过在其构造函数中公开其依赖项来遵循[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。 在每个应用程序生存期构造一次中间件。 如果需要与请求中的中间件共享服务，请参阅[按请求中间件依赖项](#per-request-middleware-dependencies)部分。
 
 中间件组件可通过构造函数参数从[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 解析其依赖项。 [UseMiddleware&lt;T&gt;](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) 也可直接接受其他参数。
 
 ## <a name="per-request-middleware-dependencies"></a>按请求中间件依赖项
 
-由于中间件是在应用启动时构造的，而不是按请求构造的，因此在每个请求过程中，中间件构造函数使用的范围内  生存期服务不与其他依赖关系注入类型共享。 如果必须在中间件和其他类型之间共享范围内  服务，请将这些服务添加到 `Invoke` 方法的签名。 `Invoke` 方法可接受由 DI 填充的其他参数：
+由于中间件是在应用启动时构造的，而不是按请求构造的，因此在每个请求过程中，中间件构造函数使用的范围内生存期服务不与其他依赖关系注入类型共享。 如果必须在中间件和其他类型之间共享范围内服务，请将这些服务添加到 `Invoke` 方法的签名。 `Invoke` 方法可接受由 DI 填充的其他参数：
 
 ```csharp
 public class CustomMiddleware
@@ -76,11 +76,11 @@ public class CustomMiddleware
 
 以下扩展方法通过 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 公开中间件：
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddlewareExtensions.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddlewareExtensions.cs)]
 
 以下代码通过 `Startup.Configure` 调用中间件：
 
-[!code-csharp[](index/snapshot/Culture/Startup.cs?name=snippet1&highlight=5)]
+[!code-csharp[](write/snapshot/Startup.cs?highlight=5)]
 
 ## <a name="additional-resources"></a>其他资源
 
