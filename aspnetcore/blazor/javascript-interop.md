@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: fa485420c01e6a6d4181f733d6848de08ffca730
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: 1572b9ee646577d094409cc33dd621f2f73dc863
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878352"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964205"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -28,15 +28,15 @@ Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScrip
 
 若要从 .net 调入 JavaScript，请`IJSRuntime`使用抽象。 `InvokeAsync<T>`方法采用 JavaScript 函数的标识符，该标识符可与任意数量的 JSON 可序列化参数一起调用。 函数标识符是相对于全局范围（`window`）的。 如果要调用`window.someScope.someFunction`，则标识符为`someScope.someFunction`。 无需在调用函数之前注册它。 返回类型`T`也必须是 JSON 可序列化的。
 
-对于服务器端应用：
+对于 Blazor 服务器应用：
 
-* 服务器端应用处理多个用户请求。 不要在`JSRuntime.Current`组件中调用来调用 JavaScript 函数。
+* Blazor 服务器应用处理多个用户请求。 不要在`JSRuntime.Current`组件中调用来调用 JavaScript 函数。
 * `IJSRuntime`注入抽象并使用注入的对象发出 JavaScript 互操作调用。
 * 预呈现 Blazor 的应用时，无法调用 JavaScript，因为尚未建立与浏览器的连接。 有关详细信息，请参阅 "在预[呈现 Blazor 应用时检测](#detect-when-a-blazor-app-is-prerendering)" 部分。
 
 下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（基于实验性 JavaScript 的解码器）。 该示例演示如何从C#方法调用 JavaScript 函数。 JavaScript 函数从C#方法接受字节数组，对数组进行解码，并将文本返回给组件以供显示。
 
-在 wwwroot/index.html `<head>` （Blazor客户端）或*Pages/_Host* （Blazor 服务器端）的元素中`TextDecoder` ，提供用于对传递的数组进行解码的函数：
+在 wwwroot/index.html `<head>` （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的元素中`TextDecoder` ，提供用于对传递的数组进行解码的函数：
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -70,7 +70,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
   IJSRuntime JSRuntime { get; set; }
   ```
 
-本主题附带的客户端示例应用程序提供了两个 JavaScript 函数，可用于与 DOM 交互以接收用户输入并显示欢迎消息的客户端应用程序：
+本主题附带的客户端示例应用程序提供了两个 JavaScript 函数，可用于与 DOM 交互以接收用户输入并显示欢迎消息：
 
 * `showPrompt`&ndash;生成一个提示，以接受用户输入（用户名）并将名称返回给调用方。
 * `displayWelcome`将来自调用方的欢迎消息分配给具有的`welcome`一个`id` DOM 对象。 &ndash;
@@ -79,13 +79,13 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 标记放在wwwroot/index.html文件（Blazor客户端）或Pages/_Host文件中（Blazor服务器端`<script>` ）。
+将引用 JavaScript 文件的 标记放置在wwwroot/index.html文件（BlazorWebAssembly）或Pages/_Host文件（Blazor服务器）`<script>`中。
 
-*wwwroot/index.html*（Blazor 客户端）：
+*wwwroot/index.html*(Blazor WebAssembly):
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-*Pages/_Host*（Blazor 服务器端）：
+*Pages/_Host*（Blazor 服务器）：
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
@@ -93,7 +93,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 .NET 方法通过调用`IJSRuntime.InvokeAsync<T>`来与*ExampleJsInterop*文件中的 JavaScript 函数互操作。
 
-`IJSRuntime`抽象是异步的，以允许服务器端方案。 如果应用程序运行客户端，并且你希望同步调用 JavaScript 函数，则转到`IJSInProcessRuntime`和调用。 `Invoke<T>` 建议大多数 JavaScript 互操作库使用异步 Api，以确保所有方案、客户端或服务器端的库可用。
+`IJSRuntime`抽象是异步的，以允许 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且希望同步调用 JavaScript 函数，请转到`IJSInProcessRuntime`和调用。 `Invoke<T>` 建议大多数 JavaScript 互操作库使用异步 Api，以确保库在所有方案中都可用。
 
 该示例应用包含一个用于演示 JavaScript 互操作的组件。 组件：
 
@@ -178,7 +178,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 ### <a name="static-net-method-call"></a>静态 .NET 方法调用
 
-若要从 JavaScript 调用静态 .net 方法，请使用`DotNet.invokeMethod`或`DotNet.invokeMethodAsync`函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持服务器端方案的首选。 若要从 JavaScript 调用 .net 方法，.net 方法必须是公共的，静态的，并具有`[JSInvokable]`属性。 默认情况下，方法标识符为方法名称，但可以使用`JSInvokableAttribute`构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
+若要从 JavaScript 调用静态 .net 方法，请使用`DotNet.invokeMethod`或`DotNet.invokeMethodAsync`函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 若要从 JavaScript 调用 .net 方法，.net 方法必须是公共的，静态的，并具有`[JSInvokable]`属性。 默认情况下，方法标识符为方法名称，但可以使用`JSInvokableAttribute`构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
 
 该示例应用包含一个C#返回数组的`int`方法。 `JSInvokable`特性应用于方法。
 
@@ -248,7 +248,7 @@ JavaScript 互操作代码可以包含在类库中，这使你可以共享 NuGet
 
 在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。 包还原后，应用程序代码可以调入 JavaScript，就像它是C#一样。
 
-有关详细信息，请参阅 <xref:blazor/class-libraries> 。
+有关详细信息，请参阅 <xref:blazor/class-libraries>。
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 
@@ -268,4 +268,4 @@ JavaScript 互操作代码可以包含在类库中，这使你可以共享 NuGet
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-有关资源耗尽的详细信息，请<xref:security/blazor/server-side>参阅。
+有关资源耗尽的详细信息，请<xref:security/blazor/server>参阅。

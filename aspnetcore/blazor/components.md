@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: dbd0879d200061151e8307346adef784967bf123
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: bc9fa06e5acccb773717fe87bf4aabb971b8dee5
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878394"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963784"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -79,7 +79,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 尽管页面和视图可以使用组件，但不是这样。 组件不能使用视图和特定于页的方案，如分部视图和节。 若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。
 
-有关如何呈现组件和在 Blazor 服务器端应用程序中管理组件状态的详细信息，请参阅<xref:blazor/hosting-models>文章。
+若要详细了解如何呈现组件以及如何在 Blazor Server 应用程序中管理组件状态，请<xref:blazor/hosting-models>参阅文章。
 
 ## <a name="use-components"></a>使用组件
 
@@ -217,7 +217,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 ```cshtml
 <input value="@CurrentValue"
-    @onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    @onchange="@((ChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
 呈现组件时，输入元素`value` `CurrentValue`的将来自属性。 当用户在文本框中键入内容时， `onchange`将触发事件`CurrentValue` ，并将属性设置为更改的值。 事实上，由于`@bind`处理类型转换的几种情况，代码生成会稍微复杂一些。 原则上， `@bind`将表达式的当前值`value`与属性相关联，并使用注册的处理程序来处理更改。
@@ -379,7 +379,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 </button>
 
 @code {
-    private void UpdateHeading(UIMouseEventArgs e)
+    private void UpdateHeading(MouseEventArgs e)
     {
         ...
     }
@@ -409,7 +409,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 </button>
 
 @code {
-    private async Task UpdateHeading(UIMouseEventArgs e)
+    private async Task UpdateHeading(MouseEventArgs e)
     {
         ...
     }
@@ -446,7 +446,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 <button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
-通常可以很方便地关闭其他值，如在循环访问一组元素时。 下面的示例创建了三个按钮，每个`UpdateHeading`按钮在 UI 中选择`UIMouseEventArgs`时均调用传递事件参数`buttonNumber`（）和按钮号（）：
+通常可以很方便地关闭其他值，如在循环访问一组元素时。 下面的示例创建了三个按钮，每个`UpdateHeading`按钮在 UI 中选择`MouseEventArgs`时均调用传递事件参数`buttonNumber`（）和按钮号（）：
 
 ```cshtml
 <h2>@message</h2>
@@ -464,7 +464,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 @code {
     private string message = "Select a button to learn its position.";
 
-    private void UpdateHeading(UIMouseEventArgs e, int buttonNumber)
+    private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
         message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
@@ -479,7 +479,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 
 使用嵌套组件的常见方案是，当发生&mdash;子组件事件时（例如， `onclick`当子组件发生在子组件中时）需要运行父组件的方法。 若要跨组件公开事件，请`EventCallback`使用。 父组件可将回调方法分配给子组件的`EventCallback`。
 
-示例`ChildComponent`应用中的演示如何`EventCallback`设置按钮的`onclick`处理程序，以接收来自示例的的`ParentComponent`委托。 使用进行类型化， `onclick`这适用于来自外围设备的事件： `UIMouseEventArgs` `EventCallback`
+示例`ChildComponent`应用中的演示如何`EventCallback`设置按钮的`onclick`处理程序，以接收来自示例的的`ParentComponent`委托。 使用进行类型化， `onclick`这适用于来自外围设备的事件： `MouseEventArgs` `EventCallback`
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
@@ -516,6 +516,126 @@ await callback.InvokeAsync(arg);
 将`EventCallback` 和`EventCallback<T>`用于事件处理和绑定组件参数。
 
 优先使用强类型`EventCallback<T>`化`EventCallback`。 `EventCallback<T>`向组件的用户提供更好的错误反馈。 与其他 UI 事件处理程序类似，指定事件参数是可选的。 当`EventCallback`没有任何值传递到回调时使用。
+
+## <a name="chained-bind"></a>链式绑定
+
+常见的情况是将数据绑定参数链接到组件输出中的页元素。 此方案称为*链接绑定*，因为多个级别的绑定同时发生。
+
+无法使用`@bind`页面元素中的语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将语法与`@bind`组件的参数一起使用。
+
+以下`PasswordField`组件（*self.passwordfield.text*）：
+
+* 将元素的值设置`Password`为属性。 `<input>`
+* 使用[EventCallback](#eventcallback)向父`Password`组件公开属性的更改。
+
+```cshtml
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+@code {
+    private bool showPassword;
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        showPassword = !showPassword;
+    }
+}
+```
+
+`PasswordField`组件用于另一个组件：
+
+```cshtml
+<PasswordField @bind-Password="password" />
+
+@code {
+    private string password;
+}
+```
+
+对上述示例中的密码执行检查或陷阱错误：
+
+* 为`Password`创建支持字段（`password`在下面的示例代码中）。
+* 在资源库中`Password`执行检查或陷阱错误。
+
+如果密码的值中使用了空格，则以下示例向用户提供即时反馈：
+
+```cshtml
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+<span class="text-danger">@validationMessage</span>
+
+@code {
+    private bool showPassword;
+    private string password;
+    private string validationMessage;
+
+    [Parameter]
+    public string Password
+    {
+        get { return password ?? string.Empty; }
+        set
+        {
+            if (password != value)
+            {
+                if (value.Contains(' '))
+                {
+                    validationMessage = "Spaces not allowed!";
+                }
+                else
+                {
+                    password = value;
+                    validationMessage = string.Empty;
+                }
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        showPassword = !showPassword;
+    }
+}
+```
 
 ## <a name="capture-references-to-components"></a>捕获对组件的引用
 
@@ -565,7 +685,7 @@ public class NotifierService
         }
     }
 
-    public event Action<string, int, Task> Notify;
+    public event Func<string, int, Task> Notify;
 }
 ```
 
@@ -613,7 +733,7 @@ public class NotifierService
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor Details="@person.Details" />
+    <DetailsEditor Details="person.Details" />
 }
 
 @code {
@@ -629,7 +749,7 @@ public class NotifierService
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor @key="@person" Details="@person.Details" />
+    <DetailsEditor @key="person" Details="person.Details" />
 }
 
 @code {
@@ -656,8 +776,8 @@ public class NotifierService
 当对象发生更改`@key`时，还可以使用阻止 Blazor 保留元素或组件子树：
 
 ```cshtml
-<div @key="@currentPerson">
-    ... content that depends on @currentPerson ...
+<div @key="currentPerson">
+    ... content that depends on currentPerson ...
 </div>
 ```
 
@@ -896,7 +1016,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关详细信息，请参阅 <xref:mvc/views/razor> 。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -934,7 +1054,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 使用模板化组件时，可以使用与参数名称匹配的子元素（`TableHeader` `RowTemplate`在以下示例中）指定模板参数：
 
 ```cshtml
-<TableTemplate Items="@pets">
+<TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -951,7 +1071,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 作为元素传递的`RenderFragment<T>`类型的组件参数具有一个名为`context`的隐式参数（如前面`@context.PetId`的代码示例所示），但你可以使用子上`Context`的属性更改参数名称element. 在下面的示例中， `RowTemplate`元素的`Context`属性指定`pet`参数：
 
 ```cshtml
-<TableTemplate Items="@pets">
+<TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -966,7 +1086,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 或者，您可以在 component `Context`元素上指定属性。 指定`Context`的特性应用于所有指定的模板参数。 如果要为隐式子内容指定内容参数名称（不包含任何换行子元素），这会很有用。 在下面的示例中， `Context`属性出现`TableTemplate`在元素上，并应用于所有模板参数：
 
 ```cshtml
-<TableTemplate Items="@pets" Context="pet">
+<TableTemplate Items="pets" Context="pet">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -987,7 +1107,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 当使用泛型类型的组件时，将在可能的情况下推断类型参数：
 
 ```cshtml
-<ListViewTemplate Items="@pets">
+<ListViewTemplate Items="pets">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
     </ItemTemplate>
@@ -997,7 +1117,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 否则，必须使用与类型参数的名称匹配的属性显式指定 type 参数。 在下面的示例中`TItem="Pet"` ，指定类型：
 
 ```cshtml
-<ListViewTemplate Items="@pets" TItem="Pet">
+<ListViewTemplate Items="pets" TItem="Pet">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
     </ItemTemplate>
@@ -1037,7 +1157,7 @@ public class ThemeInfo
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="@theme">
+            <CascadingValue Value="theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -1331,7 +1451,7 @@ builder.AddContent(seq++, "Second");
 
 ## <a name="localization"></a>本地化
 
-Blazor 服务器端应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用程序请求资源的用户选择相应的区域性。
+使用[本地化中间件](xref:fundamentals/localization#localization-middleware)对 Blazor 服务器应用进行本地化。 中间件为从应用程序请求资源的用户选择相应的区域性。
 
 可以使用以下方法之一设置区域性：
 
@@ -1348,7 +1468,7 @@ Blazor 服务器端应用使用[本地化中间件](xref:fundamentals/localizati
 
 如果在本地化 cookie 中保留了区域性，则可使用任何方法来分配区域性。 如果应用已建立服务器端 ASP.NET Core 的本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
 
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor 服务器端应用中创建包含以下内容的*页面/主机 .cs*文件：
+下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor 服务器应用中创建包含以下内容的*页面/主机 .cs*文件：
 
 ```csharp
 public class HostModel : PageModel
@@ -1370,9 +1490,9 @@ public class HostModel : PageModel
 1. 浏览器将初始 HTTP 请求发送到应用程序。
 1. 区域性由本地化中间件分配。
 1. _Host `OnGet`中的方法将区域性作为响应的一部分保留在 cookie 中。
-1. 浏览器将打开 WebSocket 连接以创建交互式 Blazor 服务器端会话。
+1. 浏览器将打开 WebSocket 连接以创建交互式 Blazor 服务器会话。
 1. 本地化中间件读取 cookie 并分配区域性。
-1. Blazor 服务器端会话以正确的区域性开头。
+1. Blazor 服务器会话以正确的区域性开头。
 
 ## <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
 
@@ -1420,7 +1540,7 @@ public class CultureController : Controller
 @code {
     private double textNumber;
 
-    private void OnSelected(UIChangeEventArgs e)
+    private void OnSelected(ChangeEventArgs e)
     {
         var culture = (string)e.Value;
         var uri = new Uri(NavigationManager.Uri())
@@ -1447,7 +1567,7 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization>。
+有关详细信息，请参阅 <xref:fundamentals/localization> 。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 
@@ -1469,4 +1589,4 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:security/blazor/server-side>&ndash;介绍如何生成必须与资源耗尽相关的 Blazor 服务器端应用。
+* <xref:security/blazor/server>&ndash;包括构建必须与资源耗尽相关的 Blazor 服务器应用的指南。

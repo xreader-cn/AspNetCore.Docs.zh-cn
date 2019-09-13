@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 0b48cd0cbe14d2b07627f56ab78611bbd3209fa1
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 6c01fdc390cc9150cf81673c717b73c4b10c31f1
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800392"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963970"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -31,8 +31,8 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api> 。 |
-| `IJSRuntime` | 单例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关详细信息，请参阅 <xref:blazor/javascript-interop>。 |
+| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
+| `IJSRuntime` | 单例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关详细信息，请参阅 <xref:blazor/javascript-interop> 。 |
 | `NavigationManager` | 单例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果使用自定义服务提供程序并且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序中。
@@ -61,7 +61,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly apps 目前没有 DI 作用域的概念。 `Scoped`注册的服务的行为`Singleton`类似于服务。 但是，服务器端承载模型支持`Scoped`生存期。 在 Blazor 服务器应用中，作用域内服务注册的范围为*连接*。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly apps 目前没有 DI 作用域的概念。 `Scoped`注册的服务的行为`Singleton`类似于服务。 但是，Blazor 服务器托管模型支持`Scoped`生存期。 在 Blazor 服务器应用中，作用域内服务注册的范围为*连接*。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI 创建服务的*单个实例*。 所有需要服务的`Singleton`组件都接收相同服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | 每当组件从服务容器获取`Transient`服务的实例时，它都会接收服务的*新实例*。 |
 

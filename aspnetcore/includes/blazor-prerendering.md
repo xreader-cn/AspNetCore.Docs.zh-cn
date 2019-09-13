@@ -1,4 +1,4 @@
-预呈现 Blazor 服务器端应用程序时，由于尚未建立与浏览器的连接，因此无法执行某些操作（如调用 JavaScript）。 在预呈现时，组件可能需要以不同的方式呈现。
+预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。 在预呈现时，组件可能需要以不同的方式呈现。
 
 若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用`OnAfterRenderAsync`组件生命周期事件。 仅在完全呈现应用并建立客户端连接后，才调用此事件。
 
@@ -62,7 +62,7 @@
 }
 ```
 
-若要根据应用当前是否为预呈现内容，有条件地呈现不同的`IsConnected`内容，请`IComponentContext`对服务使用属性。 在运行服务器端时， `IsConnected`仅当`true`有与客户端的活动连接时才返回。 当客户端`true`运行时，它始终返回。
+若要根据应用当前是否为预呈现内容，有条件地呈现不同的`IsConnected`内容，请`IComponentContext`对服务使用属性。 对于 Blazor 服务器应用， `IsConnected`仅当`true`有与客户端的活动连接时才返回。 它始终在`true` Blazor WebAssembly apps 中返回。
 
 ```cshtml
 @page "/isconnected-example"

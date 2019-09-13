@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 7bff1d38de77adfa1835ee37f4e5f8912ba629cc
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: e33ca421676caa20c823faf635442eda2a40ba65
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800310"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964014"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -40,7 +40,7 @@ Blazor 入门：
 
    4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
-   5 \。 对于 Blazor 客户端体验，请选择**Blazor WebAssembly 应用程序**模板。 对于 Blazor 服务器端体验，请选择**Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。
+   5 \。 对于 "Blazor WebAssembly 体验"，请选择 " **Blazor WebAssembly 应用**" 模板。 对于 Blazor 服务器体验，请选择**Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型、 *Blazor 服务器*和*Blazor WebAssembly*的信息， <xref:blazor/hosting-models>请参阅。
 
    6 \。 按 F5 运行应用。
 
@@ -53,25 +53,25 @@ Blazor 入门：
 
    2。 安装[ C# Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)的最新版本。
 
-   3。 对于 Blazor 客户端体验，请在命令行界面中执行以下命令：
+   3。 对于 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
       ```console
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      对于 Blazor 服务器端体验，请在命令行界面中执行以下命令：
+      对于 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
       ```console
       dotnet new blazorserver -o WebApplication1
       ```
 
-      有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。
+      有关这两个 Blazor 托管模型、 *Blazor 服务器*和*Blazor WebAssembly*的信息， <xref:blazor/hosting-models>请参阅。
 
    4 \。 在 Visual Studio Code 中打开 " *WebApplication1* " 文件夹。
 
-   5 \。 对于 Blazor 服务器端项目，IDE 请求你添加资产以生成和调试项目。 选择 **“是”** 。
+   5 \。 对于 Blazor 服务器项目，IDE 请求你添加资产以生成和调试项目。 选择 **“是”** 。
 
-   6 \。 如果使用的是 Blazor 服务器端应用，请使用 Visual Studio Code 调试程序运行该应用程序。 如果使用 Blazor 客户端应用，则从应用`dotnet run`的项目文件夹执行。
+   6 \。 如果使用的是 Blazor 服务器应用，请使用 Visual Studio Code 调试程序运行该应用程序。 如果使用 Blazor WebAssembly 应用，请从`dotnet run`应用的项目文件夹执行。
 
    7 \。 在浏览器中导航到 `https://localhost:5001`。
 
@@ -85,7 +85,7 @@ Blazor 入门：
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **Blazor Server App** template. For a Blazor client-side experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor Server experience, select the **Blazor Server App** template. For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
@@ -97,7 +97,7 @@ Blazor 入门：
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-   对于 Blazor 客户端体验，请在命令行界面中执行以下命令：
+   对于 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
    ```console
    dotnet new blazorwasm -o WebApplication1
@@ -105,7 +105,7 @@ Blazor 入门：
    dotnet run
    ```
 
-   对于 Blazor 服务器端体验，请在命令行界面中执行以下命令：
+   对于 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
    ```console
    dotnet new blazorserver -o WebApplication1
@@ -113,7 +113,7 @@ Blazor 入门：
    dotnet run
    ```
 
-   有关这两个 Blazor 托管模型、服务器端和客户端的信息，请参阅<xref:blazor/hosting-models>。
+   有关这两个 Blazor 托管模型、 *Blazor 服务器*和*Blazor WebAssembly*的信息， <xref:blazor/hosting-models>请参阅。
 
    在浏览器中导航到 `https://localhost:5001`。
 
