@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/routing
-ms.openlocfilehash: d348908261c51b477aa698a407266d05c0df5a33
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
-ms.translationtype: HT
+ms.openlocfilehash: 1c61eedf7dbf0bbc8796eaa11360783b9d7aba6c
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800340"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963875"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -22,7 +22,7 @@ ms.locfileid: "70800340"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor 服务器端集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 的应用程序配置为使用`MapBlazorHub`中`Startup.Configure`的交互式组件接受传入连接：
+Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 的应用程序配置为使用`MapBlazorHub`中`Startup.Configure`的交互式组件接受传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -55,7 +55,7 @@ Blazor 服务器端集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> 若要正确解析 url，应用必须在其*wwwroot/index.html*文件（Blazor 客户端）或*Pages/_Host*文件（Blazor 服务器端）中包含一个`href` `<base>`标记，并在属性中指定应用程序基路径（`<base href="/">`). 有关详细信息，请参阅 <xref:host-and-deploy/blazor/index#app-base-path> 。
+> 若要正确解析 url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中包含一个`href` `<base>`标记，该标记具有属性中指定的应用程序基路径（`<base href="/">`). 有关详细信息，请参阅 <xref:host-and-deploy/blazor/index#app-base-path> 。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>当找不到内容时提供自定义内容
 
@@ -120,7 +120,7 @@ ASP.NET Core 3.0 预览中的 Blazor 应用不支持可选参数。 前面`@page
 
 ### <a name="routing-with-urls-that-contain-dots"></a>带有包含点的 Url 的路由
 
-在 Blazor 服务器端应用中， *_Host*中的默认路由是`/` （`@page "/"`）。 由于 url 显示为请求文件，因此`.`包含点（）的请求 URL 不能与默认路由匹配。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
+在 Blazor 服务器应用程序中， *_Host*中的默认路由是`/` （`@page "/"`）。 由于 url 显示为请求文件，因此`.`包含点（）的请求 URL 不能与默认路由匹配。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
 
 ```cshtml
 @page "/{**path}"
@@ -167,7 +167,7 @@ ASP.NET Core 3.0 预览中的 Blazor 应用不支持可选参数。 前面`@page
 | 成员 | 描述 |
 | ------ | ----------- |
 | `Uri` | 获取当前的绝对 URI。 |
-| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常， `BaseUri`与*wwwroot/index.html* （ `href` Blazor 客户端）或`<base>` *Pages/_Host* （Blazor 服务器端）中文档的元素的属性相对应。 |
+| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常， `BaseUri`对应于*wwwroot/index.html* （Blazor WebAssembly）或`<base>` *Pages/_Host* （Blazor Server）中文档的元素的`href`属性。 |
 | `NavigateTo` | 定位到指定的 URI。 如果`forceLoad`为`true`：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
 | `LocationChanged` | 导航位置发生更改时触发的事件。 |
 | `ToAbsoluteUri` | 将相对 URI 转换为绝对 URI。 |
