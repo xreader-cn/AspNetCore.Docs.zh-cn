@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.date: 11/14/2018
 uid: signalr/version-differences
-ms.openlocfilehash: d140becaed5b4fc765b7a72571c7f5dce7f4e3d4
-ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
+ms.openlocfilehash: 70b09493d9b4c96c897465d60e53e93a793c42f9
+ms.sourcegitcommit: 387cf29f5d5addef2cbc70670a11d612806b36b2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2019
-ms.locfileid: "67333445"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70746542"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>ASP.NET SignalR 和 ASP.NET Core SignalR 之间的差异
 
@@ -24,7 +24,7 @@ ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 �
 | 服务器 NuGet 包 | [Microsoft.AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) (.NET Core)<br>[Microsoft.AspNetCore.SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
 | 客户端 NuGet 包 | [Microsoft.AspNet.SignalR.Client](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft.AspNet.SignalR.JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft.AspNetCore.SignalR.Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
 | 客户端 npm 包 | [signalr](https://www.npmjs.com/package/signalr) | [@aspnet/signalr](https://www.npmjs.com/package/@aspnet/signalr) |
-| Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[com.microsoft.signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
+| Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)弃用  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
 | 服务器应用类型 | ASP.NET (System.Web) 或 OWIN 自承载 | ASP.NET Core |
 | 受支持的服务器平台 | .NET framework 4.5 或更高版本 | .NET Framework 4.6.1 或更高版本<br>.NET core 2.1 或更高版本 |
 
@@ -32,7 +32,7 @@ ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 �
 
 ### <a name="automatic-reconnects"></a>自动重新连接
 
-ASP.NET Core SignalR 不支持自动重新连接。 如果客户端已断开连接，则用户必须显式启动新连接才能重新连接。 在 ASP.NET SignalR 中，如果连接断开，SignalR 会尝试重新连接到服务器。 
+ASP.NET Core SignalR 不支持自动重新连接。 如果客户端已断开连接，则用户必须显式启动新连接才能重新连接。 在 ASP.NET SignalR 中，如果连接断开，SignalR 会尝试重新连接到服务器。
 
 ### <a name="protocol-support"></a>协议支持
 
@@ -52,6 +52,24 @@ ASP.NET Core SignalR 是一个 ASP.NET Core 中间件，因此必须通过在 `S
 services.AddSignalR()
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
+若要配置路由，请将路由映射到`Startup.Configure` 方法中的 [UseEndpoints](/dotnet/api/microsoft.aspnetcore.builder.endpointroutingapplicationbuilderextensions.useendpoints) 方法调用内的中心。
+
+
+```csharp
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/hub");
+});
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
 若要配置路由，请在 `Startup.Configure` 方法中将路由映射到 [UseSignalR](/dotnet/api/microsoft.aspnetcore.builder.signalrappbuilderextensions.usesignalr) 方法调用内的中心。
 
 ```csharp
@@ -61,9 +79,11 @@ app.UseSignalR(routes =>
 });
 ```
 
+::: moniker-end
+
 ### <a name="sticky-sessions"></a>粘滞会话
 
-ASP.NET SignalR 的横向扩展模型允许客户端重新连接场中的任何服务器并将消息发送到这些服务器。 在 ASP.NET Core SignalR 中，客户端必须在连接期间与同一服务器进行交互。 对于使用 Redis 的横向扩展，这意味着需要粘滞会话。 对于使用 [Azure SignalR 服务](/azure/azure-signalr/)的横向扩展，则不需要粘滞会话，因为该服务会处理与客户端的连接。 
+ASP.NET SignalR 的横向扩展模型允许客户端重新连接场中的任何服务器并将消息发送到这些服务器。 在 ASP.NET Core SignalR 中，客户端必须在连接期间与同一服务器进行交互。 对于使用 Redis 的横向扩展，这意味着需要粘滞会话。 对于使用 [Azure SignalR 服务](/azure/azure-signalr/)的横向扩展，则不需要粘滞会话，因为该服务会处理与客户端的连接。
 
 ### <a name="single-hub-per-connection"></a>一个连接一个中心
 
@@ -79,7 +99,7 @@ ASP.NET Core SignalR 现在支持从中心[流式传输数据](xref:signalr/stre
 
 ### <a name="persistentconnection-removal"></a>删除 PersistentConnection
 
-在 ASP.NET Core SignalR 中，[PersistentConnection](https://docs.microsoft.com/previous-versions/aspnet/jj919047(v%3dvs.118)) 类已删除。 
+在 ASP.NET Core SignalR 中，[PersistentConnection](https://docs.microsoft.com/previous-versions/aspnet/jj919047(v%3dvs.118)) 类已删除。
 
 ### <a name="globalhost"></a>GlobalHost
 
