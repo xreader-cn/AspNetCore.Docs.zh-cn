@@ -1,31 +1,54 @@
 ---
 title: 使用 Web API 分析器
 author: pranavkm
-description: 了解 Microsoft.AspNetCore.Mvc.Api.Analyzers 中的 Web API 分析器。
+description: 了解有关 ASP.NET Core MVC Web API 分析器包的信息。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 12/14/2018
+ms.date: 09/05/2019
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 2aaef738ab2a64f85cb85708f63d2375c04cacb5
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: 1568eb0304a58758caa5f82249dc42872f5c36b9
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538569"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384870"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
-ASP.NET Core 2.2 和更高版本包含 [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet 包，其中包含适用于 Web API 的分析器。 分析器使用带有 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 批注的控制器，同时构建 [API 约定](xref:web-api/advanced/conventions)。
+ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器包。 分析器使用带有 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 批注的控制器，同时构建 [Web API 约定](xref:web-api/advanced/conventions)。
+
+分析器包会通知你执行以下操作的任何控制器操作：
+
+* 返回未声明的状态代码。
+* 返回未声明的成功结果。
+* 记录不返回的状态代码。
+* 包含显式模型验证检查。
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="reference-the-analyzer-package"></a>引用分析器包
+
+在 ASP.NET Core 3.0 或更高版本中，分析器随附在 .NET Core SDK 中。 若要在项目中启用分析器，请在项目文件中包含 `IncludeOpenAPIAnalyzers` 属性：
+
+```xml
+<PropertyGroup>
+ <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+</PropertyGroup>
+```
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 ## <a name="package-installation"></a>包安装
 
-可以使用以下方法之一添加 `Microsoft.AspNetCore.Mvc.Api.Analyzers`：
+通过以下方法之一安装 [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet 包：
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从“程序包管理器控制台”  窗口：
-  * 转到“视图” > “其他窗口” > “包管理器控制台”    。
+从“程序包管理器控制台”  窗口：
+  * 转到“视图”>“其他窗口”>“包管理器控制台”    。
   * 导航到 ApiConventions.csproj 文件所在的目录  。
   * 请执行以下命令：
 
@@ -33,15 +56,9 @@ ASP.NET Core 2.2 和更高版本包含 [Microsoft.AspNetCore.Mvc.Api.Analyzers](
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
     ```
 
-* 从“管理 NuGet 程序包”  对话框中：
-  * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目   。
-  * 将“包源”设置为“nuget.org”  。
-  * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
-  * 从“浏览”选项卡中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“安装”   。
-
 ### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击“Solution Pad” > “添加包...”中的“包”文件夹    。
+* 在“Solution Pad”>“添加包...”中右键单击“包”文件夹    。
 * 将“添加包”窗口的“源”下拉列表设置为“nuget.org”   。
 * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
 * 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”  。
@@ -64,13 +81,15 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 ---
 
-## <a name="analyzers-for-api-conventions"></a>API 约定的分析器
+::: moniker-end
 
-OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。 <xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 API 的详细信息。
+## <a name="analyzers-for-web-api-conventions"></a>Web API 约定的分析器
+
+OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。 <xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。
 
 包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请看下面的示例：
 
-[!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=9)]
+[!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 
 上述操作记录了 HTTP 200 成功返回类型，但未记录 HTTP 404 失败状态代码。 分析器将 HTTP 404 状态代码的缺失文档报告为警告。 提供了修复此问题的选项。
 

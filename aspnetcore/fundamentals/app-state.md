@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 4b02a9b5867559da493054bb128aabed4d920ace
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 578be568b58dc630e8aabf8cb355266766741b9e
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813625"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384741"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core 中的会话和应用状态
 
@@ -163,7 +163,29 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core 公开 [Razor Pages 页模型的 TempData 属性](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.tempdata)或 [MVC 控制器的 TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata)。 此属性存储未读取的数据。 [Keep](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.itempdatadictionary.keep) 和 [Peek](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.itempdatadictionary.peek) 方法可用于检查数据，而不执行删除。 多个请求需要数据时，TempData 非常有助于进行重定向。 使用 Cookie 或会话状态通过 TempData 提供程序实现 TempData。
+ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) 或控制器 <xref:Microsoft.AspNetCore.Mvc.Controller.TempData>。 在另一个请求读取数据之前，此属性将读取此数据。 [Keep(String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 和 [Peek(string)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) 方法可用于检查数据，而无需在请求结束时删除。 [Keep()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) 将标记字典中的所有项以进行保留。 当多个请求需要数据时，`TempData` 非常有助于进行重定向。 `TempData` 提供程序使用 Cookie 或会话状态实现 `TempData`。
+
+## <a name="tempdata-samples"></a>TempData 示例
+
+考虑创建客户的以下页面：
+
+[!code-csharp[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet&highlight=15-16,30)]
+
+以下页面显示 `TempData["Message"]`：
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexPeek.cshtml?range=1-14)]
+
+在前面的标记中，在请求结束时，不会删除 `TempData["Message"]`，因为正在使用 `Peek`。  刷新页面将显示 `TempData["Message"]`。
+
+以下标记类似于前面的代码，但使用 `Keep` 在请求结束时保留数据：
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexKeep.cshtml?range=1-14)]
+
+在 IndexPeek  和 IndexKeep  页面之间导航不会删除 `TempData["Message"]`。
+
+以下代码显示 `TempData["Message"]`，但请求结束时，将删除 `TempData["Message"]`：
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/Index.cshtml?range=1-14)]
 
 ### <a name="tempdata-providers"></a>TempData 提供程序
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 9f5ecc7840fc7ffd9432a3bb67d0418efb7e8fd6
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 261abae499a0d5f807a14aebd224949881067bc7
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975619"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773817"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
@@ -170,6 +170,8 @@ CreateDefaultBuilder 包含前缀为 `DOTNET_` 的环境变量提供程序和命
 
 本部分列出了适用于 HTTP 和非 HTTP 工作负荷的主机设置。 默认情况下，用来配置这些设置的环境变量可以具有 `DOTNET_` 或 `ASPNETCORE_` 前缀。
 
+<!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
+
 ### <a name="applicationname"></a>ApplicationName
 
 [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) 属性是在主机构造期间通过主机配置设定的。
@@ -312,8 +314,9 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assem
 
 HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)。
 
-键：https_port；类型：字符串；
-默认值     ：未设置默认值。
+**密钥**：https_port  
+**类型**：string   
+**默认**：未设置默认值。  
 **环境变量**：`<PREFIX_>HTTPS_PORT`
 
 要设置此值，使用配置或调用 `UseSetting`：
@@ -356,8 +359,9 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 要搜索 `Startup` 类的程序集。
 
-**键**：startupAssembly **类型**：字符串   
-**默认**：应用的程序集  
+**键**：startupAssembly  
+**类型**：string   
+**默认值**：应用的程序集  
 **环境变量**：`<PREFIX_>STARTUPASSEMBLY`
 
 若要设置此值，请使用环境变量或调用 `UseStartup`。 `UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
@@ -376,7 +380,7 @@ IP 地址或主机地址的分号分隔列表，其中包含服务器应针对�
 
 **键**：urls  
 **类型**：string   
-**默认值**：`http://localhost:5000` 和 `https://localhost:5001`
+**默认值**：`http://localhost:5000` 和 `https://localhost:5001`  
 **环境变量**：`<PREFIX_>URLS`
 
 若要设置此值，请使用环境变量或调用 `UseUrls`：

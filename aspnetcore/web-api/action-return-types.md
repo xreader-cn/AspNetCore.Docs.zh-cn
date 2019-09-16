@@ -1,17 +1,17 @@
 ---
-title: ASP.NET Core Web API 中的控制器操作返回类型
+title: ASP.NET Core Web API 中控制器操作的返回类型
 author: scottaddie
 description: 了解在 ASP.NET Core Web API 中使用各种控制器操作方法返回类型的相关信息。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 01/04/2019
+ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: b89ead55cd46ef62a3bc28b1cfc9077d3ce9aba2
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: 79134ab252f309f8b39b8db5f8f3e82035e0eb7f
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470411"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815752"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 
@@ -42,60 +42,121 @@ ASP.NET Core 提供以下 Web API 控制器操作返回类型选项：
 
 最简单的操作返回基元或复杂数据类型（如 `string` 或自定义对象类型）。 请参考以下操作，该操作返回自定义 `Product` 对象的集合：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_Get)]
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_Get)]
 
 在执行操作期间无需防范已知条件，返回特定类型即可满足要求。 上述操作不接受任何参数，因此不需要参数约束验证。
 
-当在操作中需要考虑已知条件时，将引入多个返回路径。 在此类情况下，通常会将 [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) 返回类型和基元或复杂返回类型混合。 要支持此类操作，必须使用 [IActionResult](#iactionresult-type) 或 [ActionResult\<T>](#actionresultt-type)。
+当在操作中需要考虑已知条件时，将引入多个返回路径。 在此类情况下，通常会将 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 返回类型和基元或复杂返回类型混合。 要支持此类操作，必须使用 [IActionResult](#iactionresult-type) 或 [ActionResult\<T>](#actionresultt-type)。
+
+### <a name="return-ienumerablet-or-iasyncenumerablet"></a>返回 IEnumerable\<T> 或 IAsyncEnumerable\<T>
+
+在 ASP.NET Core 2.2 及更低版本中，从操作返回 <xref:System.Collections.Generic.IAsyncEnumerable%601> 会导致序列化程序同步集合迭代。 因此会阻止调用，并且可能会导致线程池资源不足。 为了说明这一点，假设 Entity Framework (EF) Core 用于满足 Web API 的数据访问需求。 序列化期间，将同步枚举以下操作的返回类型：
+
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale);
+```
+
+若要避免在 ASP.NET Core 2.2 及更低版本的数据库上同步枚举和阻止等待，请调用 `ToListAsync`：
+
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale).ToListAsync();
+```
+
+在 ASP.NET Core 3.0 及更高版本中，从操作返回 `IAsyncEnumerable<T>`：
+
+* 不再会导致同步迭代。
+* 变成和返回 <xref:System.Collections.Generic.IEnumerable%601> 一样高效。
+
+ASP.NET Core 3.0 和更高版本将缓冲以下操作的结果，然后将其提供给序列化程序：
+
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale);
+```
+
+考虑将操作签名的返回类型声明为 `IAsyncEnumerable<T>` 以保证异步迭代。 最终，迭代模式基于要返回的基础具体类型。 MVC 自动对实现 `IAsyncEnumerable<T>` 的任何具体类型进行缓冲。
+
+请考虑以下操作，该操作将销售价格的产品记录返回为 `IEnumerable<Product>`：
+
+[!code-csharp[](../web-api/action-return-types/samples/3x/WebApiSample.Api.30/Controllers/ProductsController.cs?name=snippet_GetOnSaleProducts)]
+
+上述操作的 `IAsyncEnumerable<Product>` 等效项为：
+
+[!code-csharp[](../web-api/action-return-types/samples/3x/WebApiSample.Api.30/Controllers/ProductsController.cs?name=snippet_GetOnSaleProductsAsync)]
+
+自 ASP.NET Core 3.0 起，前面两个操作均为非阻止性。
 
 ## <a name="iactionresult-type"></a>IActionResult 类型
 
-当操作中可能有多个 [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) 返回类型时，适合使用 [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) 返回类型。 `ActionResult` 类型表示多种 HTTP 状态代码。 属于此类别的一些常见返回类型包括：[BadRequestResult](/dotnet/api/microsoft.aspnetcore.mvc.badrequestresult) (400)、[NotFoundResult](/dotnet/api/microsoft.aspnetcore.mvc.notfoundresult) (404) 和 [OkObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.okobjectresult) (200)。
+当操作中可能有多个 `ActionResult` 返回类型时，适合使用 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 返回类型。 `ActionResult` 类型表示多种 HTTP 状态代码。 派生自 `ActionResult` 的任何非抽象类都限定为有效的返回类型。 此类别中的某些常见返回类型为 <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400)、<xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404) 和 <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200)。 或者，可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase> 类中的便利方法从操作返回 `ActionResult` 类型。 例如，`return BadRequest();` 是 `return new BadRequestResult();` 的简写形式。
 
-由于操作中有多个返回类型和路径，因此必须自由使用 [[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute.-ctor) 特性。 此特性可针对 [Swagger](/aspnet/core/tutorials/web-api-help-pages-using-swagger) 等工具生成的 API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
+由于此操作类型中有多个返回类型和路径，因此必须自由使用 [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性。 此特性可针对 [Swagger](xref:tutorials/web-api-help-pages-using-swagger) 等工具生成的 Web API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
 
 ### <a name="synchronous-action"></a>同步操作
 
 请参考以下同步操作，其中有两种可能的返回类型：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+::: moniker range=">= aspnetcore-2.1"
 
-在上述操作中，当 `id` 代表的产品不在基础数据存储中时，则返回 404 状态代码。 调用 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) 帮助程序方法作为 `return new NotFoundResult();` 的快捷方式。 如果产品确实存在，则返回代表有效负载的 `Product` 对象和状态代码 200。 调用 [Ok](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok) 帮助程序方法作为 `return new OkObjectResult(product);` 的快捷方式。
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.0"
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+
+::: moniker-end
+
+在上述操作中：
+
+* 当 `id` 代表的产品不在基础数据存储中时，则返回 404 状态代码。 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> 便利方法作为 `return new NotFoundResult();` 的简写调用。
+* 如果产品确实存在，则返回状态代码 200 及 `Product` 对象。 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> 便利方法作为 `return new OkObjectResult(product);` 的简写调用。
 
 ### <a name="asynchronous-action"></a>异步操作
 
 请参考以下异步操作，其中有两种可能的返回类型：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+::: moniker range=">= aspnetcore-2.1"
 
-在上述代码中：
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-* 如果项目说明包含“XYZ 小组件”，ASP.NET Core 运行时返回 400 状态代码 ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*))。
-* 在产品创建后，[CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) 方法生成 201 状态代码。 在此代码路径中，返回的对象是 `Product`。
+::: moniker-end
 
-例如，以下模型指明请求必须包含 `Name` 和 `Description` 属性。 因此，如果没有在请求中提供 `Name` 和 `Description`，便会导致模型验证失败。
+::: moniker range="<= aspnetcore-2.0"
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+
+::: moniker-end
+
+在上述操作中：
+
+* 当产品说明包含“XYZ 小组件”时，返回 400 状态代码。 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> 便利方法作为 `return new BadRequestResult();` 的简写调用。
+* 在创建产品后，<xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 便利方法生成 201 状态代码。 调用 `CreatedAtAction` 的替代方法是 `return new CreatedAtActionResult(nameof(GetById), "Products", new { id = product.Id }, product);`。 在此代码路径中，将在响应正文中提供 `Product` 对象。 提供了包含新建产品 URL 的 `Location` 响应标头。
+
+例如，以下模型指明请求必须包含 `Name` 和 `Description` 属性。 未在请求中提供 `Name` 和 `Description` 会导致模型验证失败。
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
 
 ::: moniker range=">= aspnetcore-2.1"
 
-如果应用的是 ASP.NET Core 2.1 或更高版本中的 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，模型验证错误会导致 400 状态代码生成。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
+如果应用的是 ASP.NET Core 2.1 或更高版本中的 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，模型验证错误会导致生成 400 状态代码。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
 ## <a name="actionresultt-type"></a>ActionResult\<T> 类型
 
-ASP.NET Core 2.1 引入了面向 Web API 控制器操作的 [ActionResult\<T>](/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1) 返回类型。 它支持返回从 [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) 派生的类型或返回[特定类型](#specific-type)。 `ActionResult<T>` 通过 [IActionResult 类型](#iactionresult-type)可提供以下优势：
+ASP.NET Core 2.1 引入了面向 Web API 控制器操作的 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) 返回类型。 它支持返回从 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 派生的类型或返回[特定类型](#specific-type)。 `ActionResult<T>` 通过 [IActionResult 类型](#iactionresult-type)可提供以下优势：
 
-* 可排除 [[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute) 特性的 `Type` 属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 可简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
-* [隐式强制转换运算符](/dotnet/csharp/language-reference/keywords/implicit)支持将 `T` 和 `ActionResult` 均转换为 `ActionResult<T>`。 将 `T` 转换为 [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult)，也就是将 `return new ObjectResult(T);` 简化为 `return T;`。
+* 可排除 [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性的 `Type` 属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 可简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
+* [隐式强制转换运算符](/dotnet/csharp/language-reference/keywords/implicit)支持将 `T` 和 `ActionResult` 均转换为 `ActionResult<T>`。 将 `T` 转换为 <xref:Microsoft.AspNetCore.Mvc.ObjectResult>，也就是将 `return new ObjectResult(T);` 简化为 `return T;`。
 
 C# 不支持对接口使用隐式强制转换运算符。 因此，必须使用 `ActionResult<T>`，才能将接口转换为具体类型。 例如，在下面的示例中，使用 `IEnumerable` 不起作用：
 
 ```csharp
 [HttpGet]
-public ActionResult<IEnumerable<Product>> Get()
-{
-    return _repository.GetProducts();
-}
+public ActionResult<IEnumerable<Product>> Get() =>
+    _repository.GetProducts();
 ```
 
 上面代码的一种修复方法是返回 `_repository.GetProducts().ToList();`。
@@ -106,28 +167,25 @@ public ActionResult<IEnumerable<Product>> Get()
 
 请参考以下同步操作，其中有两种可能的返回类型：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=7,10)]
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=7,10)]
 
-在上述代码中，当产品不在数据库中时则返回状态代码 404。 如果产品确实存在，则返回相应的 `Product` 对象。 ASP.NET Core 2.1 之前，`return product;` 行是 `return Ok(product);`。
+在上述操作中：
 
-> [!TIP]
-> 从 ASP.NET Core 2.1 开始，使用 `[ApiController]` 特性修饰控制器类时，将启用操作参数绑定源推理。 与路由模板中的名称相匹配的参数名称将通过请求路由数据自动绑定。 因此，不会使用 [[FromRoute]](/dotnet/api/microsoft.aspnetcore.mvc.fromrouteattribute) 特性对上述操作中的 `id` 参数进行显示批注。
+* 当产品不在数据库中时返回状态代码 404。
+* 如果产品确实存在，则返回状态代码 200 及相应的 `Product` 对象。 ASP.NET Core 2.1 之前，`return product;` 行必须是 `return Ok(product);`。
 
 ### <a name="asynchronous-action"></a>异步操作
 
 请参考以下异步操作，其中有两种可能的返回类型：
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-在上述代码中：
+在上述操作中：
 
-* 在以下情况下，ASP.NET Core 运行时返回 400 状态代码 ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*))：
+* 在以下情况下，ASP.NET Core 运行时返回 400 状态代码 (<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>)：
   * 已应用 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，且模型验证失败。
   * 产品说明包含“XYZ 小组件”。
-* 在产品创建后，[CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) 方法生成 201 状态代码。 在此代码路径中，返回的对象是 `Product`。
-
-> [!TIP]
-> 从 ASP.NET Core 2.1 开始，使用 `[ApiController]` 特性修饰控制器类时，将启用操作参数绑定源推理。 复杂类型参数通过请求正文自动绑定。 因此，不会使用 [[FromBody]](/dotnet/api/microsoft.aspnetcore.mvc.frombodyattribute) 特性对前面操作中的 `product` 参数进行显示批注。
+* 在创建产品后，<xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 方法生成 201 状态代码。 在此代码路径中，将在响应正文中提供 `Product` 对象。 提供了包含新建产品 URL 的 `Location` 响应标头。
 
 ::: moniker-end
 

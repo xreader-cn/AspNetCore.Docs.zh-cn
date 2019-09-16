@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/03/2019
+ms.date: 09/09/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 308a8bd10371cc70c431b8858ef7d82c1bb624da
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: c2a2941f2a4e27218c90cf47453c69149da8e766
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975419"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815700"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -312,15 +312,17 @@ Remove-Service -Name {NAME}
 
 与来自 Internet 或公司网络的请求进行交互且在代理或负载均衡器后方的服务可能需要其他配置。 有关详细信息，请参阅 <xref:host-and-deploy/proxy-load-balancer>。
 
-## <a name="configure-https"></a>配置 HTTPS
+## <a name="configure-endpoints"></a>配置终结点
 
-若要为服务配置安全终结点，请执行以下操作：
+默认情况下，ASP.NET Core 绑定到 `http://localhost:5000`。 通过设置 `ASPNETCORE_URLS` 环境变量来配置 URL 和端口。
 
-1. 使用平台的证书获取和部署机制，为托管系统创建 X.509 证书。
+有关其他 URL 和端口配置方法（包括对 HTTPS 终结点的支持），请参阅以下主题：
 
-1. 将 [Kestrel 服务器 HTTPS 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)指定为使用此证书。
+* <xref:fundamentals/servers/kestrel#endpoint-configuration> (Kestrel)
+* <xref:fundamentals/servers/httpsys#configure-windows-server> (HTTP.sys)
 
-不支持使用 ASP.NET Core HTTPS 开发证书保护服务终结点。
+> [!NOTE]
+> 不支持使用 ASP.NET Core HTTPS 开发证书保护服务终结点。
 
 ## <a name="current-directory-and-content-root"></a>当前目录和内容根
 

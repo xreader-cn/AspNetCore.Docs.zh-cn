@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 09/05/2019
 uid: blazor/index
-ms.openlocfilehash: 6b62eb372d642c1ad9df880a4b71e5d5a8e40b60
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 767ec8f106bebb92cf13a10eb63fab4905715d3d
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800323"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964115"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -101,37 +101,37 @@ Welcome to your new app.
 
 组件呈现为浏览器文档对象模型 (DOM) 的内存中表现形式，称为“呈现树”  ，用于以灵活高效的方式更新 UI。
 
-## <a name="blazor-client-side"></a>Blazor 客户端
+## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-Blazor 客户端是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor 客户端使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
+Blazor WebAssembly 是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor WebAssembly 使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
 
 通过 [WebAssembly](https://webassembly.org)（缩写为 wasm  ），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
 
 WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性  或 JavaScript 互操作  ）访问浏览器的完整功能。 通过浏览器中的 WebAssembly 执行的 .NET 代码在浏览器的 JavaScript 沙盒中运行，沙盒提供的保护可防御客户端计算机上的恶意操作。
 
-![Blazor 客户端使用 WebAssembly 在浏览器中运行 .NET 代码。](index/_static/blazor-client-side.png)
+![Blazor WebAssembly 使用 WebAssembly 在浏览器中运行 .NET 代码。](index/_static/blazor-webassembly.png)
 
-生成 Blazor 客户端应用并在浏览器中运行时：
+生成 Blazor WebAssembly 应用并在浏览器中运行时：
 
 * C# 代码文件和 Razor 文件将被编译为 .NET 程序集。
 * 该程序集和 .NET 运行时将被下载到浏览器。
-* Blazor 客户端启动 .NET 运行时并配置运行时，为应用加载程序集。 Blazor 客户端运行时使用 JavaScript 互操作处理 DOM 操作和浏览器 API 调用。
+* Blazor WebAssembly 启动 .NET 运行时并配置运行时，为应用加载程序集。 Blazor WebAssembly 运行时使用 JavaScript 互操作处理 DOM 操作和浏览器 API 调用。
 
-已发布应用的大小（其有效负载大小  ）是应用可用性的关键性能因素。 大型应用需要相对较长的时间才能下载到浏览器，这会损害用户体验。 Blazor 客户端优化有效负载大小，以缩短下载时间：
+已发布应用的大小（其有效负载大小  ）是应用可用性的关键性能因素。 大型应用需要相对较长的时间才能下载到浏览器，这会损害用户体验。 Blazor WebAssembly 优化有效负载大小，以缩短下载时间：
 
 * 在[中间语言 (IL) 链接器](xref:host-and-deploy/blazor/configure-linker)发布应用时，会从应用删除未使用的代码。
 * 压缩 HTTP 响应。
 * .NET 运行时和程序集缓存在浏览器中。
 
-## <a name="blazor-server-side"></a>Razor 服务器端
+## <a name="blazor-server"></a>Blazor 服务器
 
-Razor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Razor 服务器端在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
+Razor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
 
 运行时处理从浏览器向服务器发送 UI 事件，并在运行组件后，将服务器发送的 UI 更新重新应用到浏览器。
 
-被 Razor 服务器端用于与浏览器进行通信的组件还可用于处理 JavaScript 互操作调用。
+Blazor 服务器用于与浏览器通信的连接还用于处理 JavaScript 互操作调用。
 
-![Razor 服务器端在服务器上运行 .NET 代码，并通过 SignalR 连接与客户端上的文档对象模型进行交互](index/_static/blazor-server-side.png)
+![Blazor 服务器在服务器上运行 .NET 代码，并通过 SignalR 连接与客户端上的文档对象模型进行交互](index/_static/blazor-server.png)
 
 ## <a name="javascript-interop"></a>JavaScript 互操作
 

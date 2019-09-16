@@ -5,12 +5,12 @@ description: 了解如何通过模型绑定，使控制器操作能够直接使�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 3623a29976a2e2a7b1bdb22d35716b8a3b448958
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 91f42393ffee3249f9167e10eaea7b279a7cb70b
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891222"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878409"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -26,7 +26,7 @@ ms.locfileid: "64891222"
 
 ## <a name="model-binding-review"></a>模型绑定查看
 
-模型绑定为其操作对象的类型使用特定定义。 简单类型转换自输入中的单个字符串。 复杂类型转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
+模型绑定为其操作对象的类型使用特定定义。 简单类型  转换自输入中的单个字符串。 复杂类型  转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
 
 创建自己的自定义模型绑定器之前，有必要查看现有模型绑定器的实现方式。 考虑使用 [ByteArrayModelBinder](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.binders.bytearraymodelbinder)，它可将 base64 编码的字符串转换为字节数组。 字节数组通常存储为文件或数据库 BLOB 字段。
 
@@ -104,17 +104,17 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Controllers/BoundAuthorsController.cs?name=demo1&highlight=2)]
 
-在此示例中，由于参数的名称不是默认的 `authorId`，因此，使用 `ModelBinder` 属性在参数上指定该名称。 请注意，比起在操作方法中查找实体，控制器和操作方法都得到了简化。 使用 Entity Framework Core 获取创建者的逻辑会移动到模型绑定器。 如果有多种方法绑定到 `Author` 模型，就能得到很大程度的简化。
+在此示例中，由于参数的名称不是默认的 `authorId`，因此，使用 `ModelBinder` 属性在参数上指定该名称。 比起在操作方法中查找实体，控制器和操作方法都得到了简化。 使用 Entity Framework Core 获取创建者的逻辑会移动到模型绑定器。 如果有多种方法绑定到 `Author` 模型，就能得到很大程度的简化。
 
 可以将 `ModelBinder` 属性应用到各个模型属性（例如视图模型上）或操作方法参数，以便为该类型或操作指定某一模型绑定器或模型名称。
 
 ### <a name="implementing-a-modelbinderprovider"></a>实现 ModelBinderProvider
 
-可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
+可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是  绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinderProvider.cs?highlight=17-20)]
 
-> 注意:上述代码返回 `BinderTypeModelBinder`。 `BinderTypeModelBinder` 充当模型绑定器中心，并提供依赖关系注入 (DI)。 `AuthorEntityBinder` 需要 DI 来访问 EF Core。 如果模型绑定器需要 DI 中的服务，请使用 `BinderTypeModelBinder`。
+> 注意：上述代码返回 `BinderTypeModelBinder`。 `BinderTypeModelBinder` 充当模型绑定器中心，并提供依赖关系注入 (DI)。 `AuthorEntityBinder` 需要 DI 来访问 EF Core。 如果模型绑定器需要 DI 中的服务，请使用 `BinderTypeModelBinder`。
 
 若要使用自定义模型绑定器提供程序，请将其添加到 `ConfigureServices` 中：
 
@@ -129,6 +129,19 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 向集合的末尾添加提供程序，可能会导致在调用自定义绑定器之前调用内置模型绑定器。 在此示例中，向集合的开头添加自定义提供程序，确保它用于 `Author` 操作参数。
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Startup.cs?name=callout&highlight=5-9)]
+
+### <a name="polymorphic-model-binding"></a>多态模型绑定
+
+绑定到不同的派生类型模型称为多态模型绑定。 如果请求值必须绑定到特定的派生模型类型，则需要自定义模型绑定。 除非需要此方法，否则我们建议避免多态模型绑定。 多态模型绑定使绑定模型难以推理。 但是，如果应用需要多态模型绑定，则实现可能类似于以下代码：
+
+绑定到不同的派生类型模型称为多态模型绑定。 如果请求值必须绑定到特定的派生模型类型，则需要自定义模型绑定。 多态模型绑定：
+
+* 对于旨在与所有语言进行互操作的 REST API 并不常见。
+* 使绑定模型难以推理。
+
+但是，如果应用需要多态模型绑定，则实现可能类似于以下代码：
+
+[!code-csharp[](custom-model-binding/3.0sample/PolymorphicModelBinding/ModelBinders/PolymorphicModelBinder.cs?name=snippet)]
 
 ## <a name="recommendations-and-best-practices"></a>建议和最佳做法
 

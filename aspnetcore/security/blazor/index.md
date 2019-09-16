@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: ab8cc547463ef647316b5a4e377c15021debc4b1
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800506"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963954"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -20,26 +20,26 @@ ms.locfileid: "70800506"
 
 ASP.NET Core 支持 Blazor 应用程序的安全配置和管理。
 
-Blazor 服务器端和客户端应用程序的安全方案存在差异。 由于 Blazor 服务器端应用程序在服务器上运行，因此通过授权检查可以确定以下内容：
+Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由于 Blazor 服务器应用在服务器上运行，因此通过授权检查可以确定以下内容：
 
 * 向用户呈现的 UI 选项（例如，用户可以使用哪些菜单条目）。
 * 应用程序和组件区域的访问规则。
 
-Blazor 客户端应用程序在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可以修改或绕过客户端检查，因此 Blazor 客户端应用程序无法强制执行授权访问规则。
+Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可以修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
 ## <a name="authentication"></a>身份验证
 
-Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于在服务器端或客户端托管 Blazor 应用程序的方式。
+Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于在 Blazor 服务器或 Blazor WebAssembly 托管 Blazor 应用的方式。
 
-### <a name="blazor-server-side-authentication"></a>Blazor 服务器端身份验证
+### <a name="blazor-server-authentication"></a>Blazor 服务器身份验证
 
-Blazor 服务器端应用程序通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用程序的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
+Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用程序的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
 
-创建项目后，Blazor 服务器端项目模板可以为你设置身份验证。
+创建项目后，Blazor 服务器项目模板可以为你设置身份验证。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-按照 <xref:blazor/get-started>一文中的 Visual Studio 指南操作，创建具有身份验证机制的新 Blazor 服务器端项目。
+按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
 在“创建新的 ASP.NET Core Web 应用程序”  对话框中选择“Blazor 服务器应用”  模板后，在“身份验证”  下选择“更改”  。
 
@@ -54,7 +54,7 @@ Blazor 服务器端应用程序通过使用 SignalR 创建的实时连接执行�
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-按照 <xref:blazor/get-started>一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器端项目：
+按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -88,7 +88,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 <!--
 # [.NET Core CLI](#tab/netcore-cli/)
 
-Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
+Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor Server project with an authentication mechanism:
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -111,15 +111,15 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-client-side-authentication"></a>Blazor 客户端身份验证
+### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly 身份验证
 
-在 Blazor 客户端应用程序中，可以绕过身份验证检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
+在 Blazor WebAssembly 应用中，可以绕过身份验证检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
-以下各节介绍了如何实现 Blazor 客户端应用程序的自定义 `AuthenticationStateProvider` 服务。
+以下各节介绍了如何实现 Blazor WebAssembly 应用的自定义 `AuthenticationStateProvider` 服务。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider 服务
 
-Blazor 服务器端应用程序包含一个内置 `AuthenticationStateProvider` 服务，可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 这就是身份验证状态与现有 ASP.NET Core 服务器端身份验证机制的集成。
+Blazor 服务器应用包含一个内置 `AuthenticationStateProvider` 服务，可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 这就是身份验证状态与现有 ASP.NET Core 服务器端身份验证机制的集成。
 
 `AuthenticationStateProvider` 是 `AuthorizeView` 组件和 `CascadingAuthenticationState` 组件用于获取身份验证状态的基础服务。
 
@@ -157,7 +157,7 @@ Blazor 服务器端应用程序包含一个内置 `AuthenticationStateProvider` 
 
 ## <a name="implement-a-custom-authenticationstateprovider"></a>现自定义 AuthenticationStateProvider
 
-如果你正在生成 Blazor 客户端应用程序，或者如果你的应用程序规范确实需要自定义提供程序，可实现提供程序并覆盖 `GetAuthenticationStateAsync`：
+如果你正在生成 Blazor WebAssembly 应用，或者如果你的应用规范确实需要自定义提供程序，可实现提供程序并覆盖 `GetAuthenticationStateAsync`：
 
 ```csharp
 class CustomAuthStateProvider : AuthenticationStateProvider
@@ -310,13 +310,13 @@ public void ConfigureServices(IServiceCollection services)
 
 基于策略的授权包含一个特例，即基于声明的授权。 例如，可以定义一个要求用户具有特定声明的策略。 有关详细信息，请参阅 <xref:security/authorization/policies>。
 
-这些 API 可用于 Blazor 服务器端或 Blazor 客户端应用程序。
+这些 API 可用于 Blazor 服务器或 Blazor WebAssembly 应用。
 
 如果 `Roles` 或 `Policy` 均未指定，则 `AuthorizeView` 使用默认策略。
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>异步身份验证期间显示的内容
 
-Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要应用场景是 Blazor 客户端应用程序向外部终结点发出请求以进行身份验证。
+Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求以进行身份验证。
 
 正在进行身份验证时，`AuthorizeView` 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
 
@@ -333,7 +333,7 @@ Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要�
 </AuthorizeView>
 ```
 
-此方法通常不适用于 Blazor 服务器端应用程序。 身份验证状态一经确立，Blazor 服务器端应用程序便会立即获知身份验证状态。 `Authorizing` 内容可以在 Blazor 服务器端应用程序的 `AuthorizeView` 组件中提供，但该内容永远不会显示。
+此方法通常不适用于 Blazor 服务器应用。 身份验证状态一经确立，Blazor 服务器应用便会立即获知身份验证状态。 `Authorizing` 内容可以在 Blazor 服务器应用的 `AuthorizeView` 组件中提供，但该内容永远不会显示。
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
@@ -382,7 +382,7 @@ You can only see this if you're signed in.
 * 用户不符合应用于组件的 `[Authorize]` 条件。 [[Authorize] 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
 * 正在进行异步身份验证。
 
-在默认的 Blazor 服务器端项目模板中，App.razor 文件演示了如何设置自定义内容  ：
+在默认的 Blazor 服务器项目模板中，App.razor 文件演示了如何设置自定义内容  ：
 
 ```cshtml
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -459,9 +459,9 @@ Not authorized.
 }
 ```
 
-## <a name="authorization-in-blazor-client-side-apps"></a>Blazor 客户端应用程序中的授权
+## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
 
-在 Blazor 客户端应用程序中，可以绕过授权检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
+在 Blazor WebAssembly 应用中，可以绕过授权检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
 **始终对客户端应用程序访问的任何 API 终结点内的服务器执行授权检查。**
 
@@ -473,7 +473,7 @@ Not authorized.
 
 * **对于 `authenticationStateTask`，收到了 `null` 值**
 
-项目可能不是使用启用了身份验证的 Blazor 服务器端模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面所示的 App.razor  ：
+项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面所示的 App.razor  ：
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -488,5 +488,5 @@ Not authorized.
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:security/index>
-* <xref:security/blazor/server-side>
+* <xref:security/blazor/server>
 * <xref:security/authentication/windowsauth>

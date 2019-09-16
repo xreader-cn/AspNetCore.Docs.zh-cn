@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 2f0410eb75a6ef3f3d361c75bce7e79ae6d42a61
-ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
+ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/24/2019
-ms.locfileid: "70017504"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800489"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -67,11 +67,11 @@ ms.locfileid: "70017504"
 
 ## <a name="component-parameters"></a>组件参数
 
-组件也可以有参数。 组件参数由使用 `[Parameter]` 修饰的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
+组件也可以有参数。 组件参数由具有 `[Parameter]` 的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
 
 1. 更新组件的 `@code` C# 代码：
 
-   * 添加使用 `[Parameter]` 属性修饰的 `IncrementAmount` 属性。
+   * 使用 `[Parameter]` 特性添加公共 `IncrementAmount` 属性。
    * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
    *Pages/Counter.razor*：
