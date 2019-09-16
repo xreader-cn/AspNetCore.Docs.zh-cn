@@ -304,8 +304,8 @@
           items:
             - name: 概述
               uid: security/blazor/index
-            - name: 服务器端
-              uid: security/blazor/server-side
+            - name: Blazor 服务器
+              uid: security/blazor/server
         - name: 状态管理
           uid: blazor/state-management
         - name: 处理错误
@@ -318,10 +318,10 @@
           items:
             - name: 概述
               uid: host-and-deploy/blazor/index
-            - name: 客户端
-              uid: host-and-deploy/blazor/client-side
-            - name: 服务器端
-              uid: host-and-deploy/blazor/server-side
+            - name: Blazor WebAssembly
+              uid: host-and-deploy/blazor/webassembly
+            - name: Blazor 服务器
+              uid: host-and-deploy/blazor/server
             - name: 配置链接器
               uid: host-and-deploy/blazor/configure-linker
     - name: 客户端开发
@@ -785,10 +785,10 @@
       items:
         - name: 概述
           uid: host-and-deploy/blazor/index
-        - name: 客户端
-          uid: host-and-deploy/blazor/client-side
-        - name: 服务器端
-          uid: host-and-deploy/blazor/server-side
+        - name: Blazor WebAssembly
+          uid: host-and-deploy/blazor/webassembly
+        - name: Blazor 服务器
+          uid: host-and-deploy/blazor/server
         - name: 配置链接器
           uid: host-and-deploy/blazor/configure-linker
 - name: 安全和标识
@@ -999,8 +999,8 @@
       items:
         - name: 概述
           uid: security/blazor/index
-        - name: 服务器端
-          uid: security/blazor/server-side
+        - name: Blazor 服务器
+          uid: security/blazor/server
 - name: 性能
   items:
     - name: 概述
