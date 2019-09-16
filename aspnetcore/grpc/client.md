@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
-ms.openlocfilehash: 27e4b3e7307ae49bacb01a46fbc1b55b6967c7a0
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 56f79b303a8d53699e8eb6156d328c0da1259416
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773697"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011134"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>通过 .NET 客户端调用 gRPC 服务
 
@@ -45,6 +45,9 @@ var counterClient = new Count.CounterClient(channel);
 ```
 
 `GrpcChannel.ForAddress`不是创建 gRPC 客户端的唯一选项。 如果从 ASP.NET Core 应用程序调用 gRPC 服务，请考虑[gRPC 客户端工厂集成](xref:grpc/clientfactory)。 与的`HttpClientFactory` gRPC 集成提供了一种用于创建 gRPC 客户端的集中替代方法。
+
+> [!NOTE]
+> 需要额外的配置才能[通过 .net 客户端调用不安全的 gRPC 服务](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)。
 
 ## <a name="make-grpc-calls"></a>进行 gRPC 调用
 

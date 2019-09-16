@@ -5,14 +5,14 @@ description: 了解如何在 Blazor 中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/04/2019
+ms.date: 09/15/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 4531ef44a7df3951f3bebdf88e597165fa75f06e
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 2fd76db90a53e328cd2ac8f452fba58365db0384
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310329"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011062"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -194,7 +194,7 @@ public class Starship
 
 ## <a name="validation-support"></a>验证支持
 
-组件使用数据批注将验证支持附加到级联`EditContext`。 `DataAnnotationsValidator` 使用数据批注启用验证支持目前需要此显式手势，但我们要考虑使其成为可以重写的默认行为。 若要使用不同于数据批注的验证系统，请`DataAnnotationsValidator`将替换为自定义实现。 ASP.NET Core 实现可用于引用源中的检查：[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/EditContextDataAnnotationsExtensions.cs). *ASP.NET Core 实现将在预览发布期间进行快速更新。*
+组件使用数据批注将验证支持附加到级联`EditContext`。 `DataAnnotationsValidator` 使用数据批注启用验证支持需要此显式手势。 若要使用不同于数据批注的验证系统，请`DataAnnotationsValidator`将替换为自定义实现。 ASP.NET Core 实现可用于引用源中的检查：[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).
 
 该`ValidationSummary`组件汇总了所有验证消息，这类似于[验证摘要标记帮助](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)程序。
 

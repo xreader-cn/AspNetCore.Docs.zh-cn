@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core web 应用中要求使用 HTTPS/TLS。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 654b083a0dade2fc8df5cccf9fa434f30627794b
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 8474b8f12d3e08e47a4cc9b20543d2a9e6e91998
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773967"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011075"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -232,7 +232,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="http-strict-transport-security-protocol-hsts"></a>HTTP 严格传输安全协议（HSTS）
 
-根据[OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)， [HTTP 严格传输安全（HSTS）](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)是由 web 应用通过使用响应标头指定的选择加入安全增强功能。 当[支持 HSTS 的浏览器](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support)收到此标头时：
+根据[OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)， [HTTP 严格传输安全（HSTS）](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)是由 web 应用通过使用响应标头指定的选择加入安全增强功能。 当[支持 HSTS 的浏览器](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#browser-support)收到此标头时：
 
 * 浏览器存储域的配置，阻止通过 HTTP 发送任何通信。 浏览器强制通过 HTTPS 进行的所有通信。
 * 浏览器阻止用户使用不受信任或无效的证书。 浏览器将禁用允许用户暂时信任此类证书的提示。
