@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: bc9fa06e5acccb773717fe87bf4aabb971b8dee5
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: e51f6745f6e0c748e51d7f8a49193f3d81fd2a06
+ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963784"
+ms.lasthandoff: 09/17/2019
+ms.locfileid: "71039185"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -229,6 +229,34 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 ```
 
 不同`onchange`于，当元素失去`oninput`焦点时，将在文本框的值更改时激发。
+
+**不可分析值**
+
+当用户向数据绑定元素提供无法分析的值时，触发绑定事件时，无法分析的值将自动恢复为其以前的值。
+
+请参考以下方案：
+
+* 元素绑定到一个`int`类型`123`，其初始值为： `<input>`
+
+  ```cshtml
+  <input @bind="MyProperty" />
+
+  @code {
+      [Parameter]
+      public int MyProperty { get; set; } = 123;
+  }
+  ```
+* 用户在页中将元素的值更新`123.45`为，并更改元素焦点。
+
+在前面的方案中，将元素的值恢复为`123`。 如果拒绝该值`123.45`以取代的原始`123`值，则用户将知道其值不被接受。
+
+默认情况下，绑定适用于该元素`onchange`的事件`@bind="{PROPERTY OR FIELD}"`（）。 使用`@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}`设置其他事件。 对于事件（`@bind-value:event="oninput"`），重新确定会在引入无法分析值的任何击键之后发生。 `oninput` 当`oninput` `.`以绑定类型为事件定位时，将阻止用户键入字符。 `int` 将`.`立即删除一个字符，因此，用户将收到仅允许整数的即时反馈。 在某些情况下，恢复`oninput`事件的值并不理想，例如当用户应允许清除无法解析`<input>`的值时。 替代项包括：
+
+* 不要使用`oninput`事件。 使用默认`onchange`事件（`@bind="{PROPERTY OR FIELD}"`），其中无效值直到元素失去焦点时才会还原。
+* 绑定到可为 null 的类型（ `int?`如`string`或），并提供自定义逻辑来处理无效条目。
+* 使用[窗体验证组件](xref:blazor/forms-validation)，如`InputNumber`或`InputDate`。 窗体验证组件具有用于管理无效输入的内置支持。 窗体验证组件：
+  * 允许用户提供无效输入并在关联`EditContext`的上收到验证错误。
+  * 在 UI 中显示验证错误，不干扰用户输入其他 webform 数据。
 
 **全球化**
 
@@ -1522,7 +1550,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
+> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
 
 以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
 
