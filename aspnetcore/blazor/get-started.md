@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: e33ca421676caa20c823faf635442eda2a40ba65
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: cce91b6332295f77c639f881fe342b625fee7fca
+ms.sourcegitcommit: 92c901c7f32ee9efb335d99ec4c3add2cc9f3142
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964014"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71025516"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -25,7 +25,7 @@ Blazor 入门：
 1. 在命令 shell 中运行以下命令，安装 Blazor 模板：
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19424.4
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19457.4
    ```
 
 1. 按照所选工具的指导进行操作：
