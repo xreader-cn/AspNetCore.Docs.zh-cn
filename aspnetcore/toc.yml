@@ -153,6 +153,9 @@
 - name: 教程 (Microsoft Learn)
   displayName: tutorial
   items:
+    - name: Web 应用
+      displayName: 'tutorial, razor, razor pages, ui'
+      href: /learn/modules/create-razor-pages-aspnet-core/
     - name: Web API 应用
       href: /learn/modules/build-web-api-net-core/
     - name: 数据访问
@@ -435,6 +438,8 @@
           uid: tutorials/get-started-with-nswag
     - name: 操作返回类型
       uid: web-api/action-return-types
+    - name: 处理 JSON Patch 请求
+      uid: web-api/jsonpatch
     - name: 格式化响应数据
       uid: web-api/advanced/formatting
     - name: 自定义格式化程序
