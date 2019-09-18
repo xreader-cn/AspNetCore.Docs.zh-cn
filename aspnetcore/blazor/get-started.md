@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: cce91b6332295f77c639f881fe342b625fee7fca
-ms.sourcegitcommit: 92c901c7f32ee9efb335d99ec4c3add2cc9f3142
+ms.openlocfilehash: 58773ae6c605ddc7a3d85fb97eeae40d0bbe15fb
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71025516"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080513"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -24,7 +24,7 @@ Blazor 入门：
 
 1. 在命令 shell 中运行以下命令，安装 Blazor 模板：
 
-   ```console
+   ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19457.4
    ```
 
@@ -36,7 +36,7 @@ Blazor 入门：
 
    2。 创建新项目。
 
-   3。 选择**Blazor 应用**。 选择“下一步”。
+   3。 选择**Blazor 应用**。 选择“**下一步**”。
 
    4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
@@ -55,13 +55,13 @@ Blazor 入门：
 
    3。 对于 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
-      ```console
+      ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
       ```
 
       对于 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
-      ```console
+      ```dotnetcli
       dotnet new blazorserver -o WebApplication1
       ```
 
@@ -99,7 +99,7 @@ Blazor 入门：
 
    对于 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
-   ```console
+   ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
    cd WebApplication1
    dotnet run
@@ -107,7 +107,7 @@ Blazor 入门：
 
    对于 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
-   ```console
+   ```dotnetcli
    dotnet new blazorserver -o WebApplication1
    cd WebApplication1
    dotnet run

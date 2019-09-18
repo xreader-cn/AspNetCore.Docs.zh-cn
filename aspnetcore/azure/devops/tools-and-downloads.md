@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: ae4827f735274405021e5ee539d1029b7ddb9553
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 25ce311373b0aaddfa3bc2728c39e503acbca69d
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891984"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080638"
 ---
 # <a name="tools-and-downloads"></a>工具和下载
 
@@ -32,7 +32,7 @@ Azure 具有多个用于配置和管理资源的界面，例如 [Azure 门户](h
 
     验证 .NET Core SDK 安装。 打开命令外壳，并运行以下命令：
 
-    ```console
+    ```dotnetcli
     dotnet --version
     ```
 

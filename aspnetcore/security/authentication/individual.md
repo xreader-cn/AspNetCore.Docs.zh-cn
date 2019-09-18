@@ -5,12 +5,12 @@ description: 发现基于 ASP.NET Core 项目使用单个用户帐户创建的�
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: f9c1be16386da935382275815bb5fd5c72894b1c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: cf548417268a8587787471b9ed91c0ed109fbee9
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892524"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080707"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于 ASP.NET Core 项目使用单个用户帐户创建项目
 
@@ -20,7 +20,7 @@ ASP.NET Core 标识包含在 Visual Studio 中使用"单个用户帐户"选项�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-```console
+```dotnetcli
 dotnet new mvc -au Individual
 dotnet new webapp -au Individual
 ```
@@ -29,33 +29,33 @@ dotnet new webapp -au Individual
 
 ::: moniker range="= aspnetcore-2.0"
 
-```console
+```dotnetcli
 dotnet new mvc -au Individual
 dotnet new razor -au Individual
 ```
 
 ::: moniker-end
 
-请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5833)web API 身份验证。
+对于 web API 身份验证，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5833)。
 
 <a name="no"></a>
 
 ## <a name="no-authentication"></a>无身份验证
 
-在.NET Core CLI 与指定身份验证`-au`选项。 在 Visual Studio 中，**更改身份验证**对话框是适用于新 web 应用程序。 默认值为 Visual Studio 中的新 web 应用**无身份验证**。
+在 .NET Core CLI 中通过`-au`选项指定了身份验证。 在 Visual Studio 中，"**更改身份验证**" 对话框可用于新的 web 应用程序。 Visual Studio 中新 web 应用的默认值为 "**无身份验证**"。
 
-使用无身份验证创建的项目：
+用无身份验证创建的项目：
 
-* 不包含 web 页面和 UI 中登录和注销。
+* 不要包含用于登录和注销的网页和 UI。
 * 不包含身份验证代码。
 
 <a name="win"></a>
 
 ## <a name="windows-authentication"></a>Windows 身份验证
 
-Windows 身份验证指定为新 web 应用程序中使用.NET Core CLI`-au Windows`选项。 在 Visual Studio 中，**更改身份验证**对话框提供了**Windows 身份验证**选项。
+Windows 身份验证是通过`-au Windows`选项在 .NET Core CLI 中为新 web 应用指定的。 在 Visual Studio 中，"**更改身份验证**" 对话框提供**Windows 身份验证**选项。
 
-如果选择 Windows 身份验证，则该应用程序配置为使用[Windows 身份验证 IIS 模块](xref:host-and-deploy/iis/modules)。 Windows 身份验证适用于 Intranet web 站点。
+如果选择了 "Windows 身份验证"，则会将应用程序配置为使用[Windows 身份验证 IIS 模块](xref:host-and-deploy/iis/modules)。 Windows 身份验证适用于 Intranet 网站。
 
 ## <a name="additional-resources"></a>其他资源
 

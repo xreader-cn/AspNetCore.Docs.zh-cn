@@ -5,12 +5,12 @@ description: 了解有关 ASP.NET Core 以及如何配置密钥的存储位置�
 ms.author: riande
 ms.date: 06/11/2019
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 19d51399e24d085f7c34f70098ca02cbba7a888f
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: d5d15779d89a2d746ca2165abab2840232ae0128
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67167042"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082043"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>在 ASP.NET Core 中的密钥存储提供程序
 
@@ -35,9 +35,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="azure-storage"></a>Azure 存储
 
-[Microsoft.AspNetCore.DataProtection.AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)包允许在 Azure Blob 存储中存储数据保护密钥。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) package 允许将数据保护密钥存储在 Azure Blob 存储中。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
 
-若要配置 Azure Blob 存储提供程序，请调用之一[PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)重载。
+若要配置 Azure Blob 存储提供程序，请调用[PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)重载之一。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -47,7 +47,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果 web 应用正在作为一项 Azure 服务，身份验证令牌可以自动使用创建[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)。
+如果 web 应用作为 Azure 服务运行，则可以使用[microsoft.azure.services.appauthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)自动创建身份验证令牌。
 
 ```csharp
 var tokenProvider = new AzureServiceTokenProvider();
@@ -64,19 +64,19 @@ services.AddDataProtection()
     .PersistKeysToAzureBlobStorage(container, "keys.xml");
 ```
 
-请参阅[有关配置服务到服务身份验证的更多详细信息。](/azure/key-vault/service-to-service-authentication)
+查看[有关配置服务到服务身份验证的更多详细信息。](/azure/key-vault/service-to-service-authentication)
 
-## <a name="redis"></a>Redis
+## <a name="redis"></a>redis
 
 ::: moniker range=">= aspnetcore-2.2"
 
-[Microsoft.AspNetCore.DataProtection.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/)包允许将数据保护密钥存储在 Redis 缓存。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) package 允许在 Redis 缓存中存储数据保护密钥。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-[Microsoft.AspNetCore.DataProtection.Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/)包允许将数据保护密钥存储在 Redis 缓存。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) package 允许在 Redis 缓存中存储数据保护密钥。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
 
 ::: moniker-end
 
@@ -145,15 +145,15 @@ public void ConfigureServices(IServiceCollection services)
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-15)]
 
-泛型参数`TContext`，必须继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ，并实现[IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
+泛型参数`TContext`必须从[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)继承，并实现[IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext)：
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
-创建`DataProtectionKeys`表。
+`DataProtectionKeys`创建表。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-执行以下命令中的**程序包管理器控制台**(PMC) 窗口：
+在 "**包管理器控制台**" （PMC）窗口中执行以下命令：
 
 ```PowerShell
 Add-Migration AddDataProtectionKeys -Context MyKeysContext
@@ -164,22 +164,22 @@ Update-Database -Context MyKeysContext
 
 在命令行界面中执行以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add AddDataProtectionKeys --context MyKeysContext
 dotnet ef database update --context MyKeysContext
 ```
 
 ---
 
-`MyKeysContext` 是`DbContext`在上面的代码示例中定义。 如果您使用的`DbContext`使用不同的名称，替换为你`DbContext`名称`MyKeysContext`。
+`MyKeysContext`是前面`DbContext`的代码示例中定义的。 如果你使用的是`DbContext`其他名称，请将你`DbContext`的名称替换`MyKeysContext`为。
 
-`DataProtectionKeys`类/实体采用下表中所示的结构。
+`DataProtectionKeys`类/实体采用下表所示的结构。
 
 | 属性/字段 | CLR 类型 | SQL 类型              |
 | -------------- | -------- | --------------------- |
-| `Id`           | `int`    | `int`PK，不为 null   |
-| `FriendlyName` | `string` | `nvarchar(MAX)`null |
-| `Xml`          | `string` | `nvarchar(MAX)`null |
+| `Id`           | `int`    | `int`，PK，not null   |
+| `FriendlyName` | `string` | `nvarchar(MAX)`，null |
+| `Xml`          | `string` | `nvarchar(MAX)`，null |
 
 ::: moniker-end
 

@@ -7,18 +7,18 @@ ms.author: riande
 ms.date: 08/22/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 5b83cb44302a5900ec7b2ccc049790b4c1ca57e5
-ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
+ms.openlocfilehash: 92c04c1ac4c70c6245accf272753bc914aaab860
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/23/2019
-ms.locfileid: "69985382"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081876"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库 (RCL) 中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。
+Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库（RCL）中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。
 
 此功能要求 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
@@ -34,7 +34,7 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
 * 选择“Razor 类库” > “确定”。
 
-RCL 具有以下项目文件:
+RCL 具有以下项目文件：
 
 [!code-xml[Main](ui-class/samples/cli/RazorUIClassLib/RazorUIClassLib.csproj)]
 
@@ -42,7 +42,7 @@ RCL 具有以下项目文件:
 
 从命令行中，运行 `dotnet new razorclasslib`。 例如：
 
-```console
+```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
@@ -52,7 +52,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#afs) , 以创建在中`~/Pages`而不是`~/Areas/Pages`公开内容的 RCL。
+ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#afs) ，以创建在中`~/Pages`而不是`~/Areas/Pages`公开内容的 RCL。
 
 ## <a name="referencing-rcl-content"></a>引用 RCL 内容
 
@@ -77,13 +77,13 @@ ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pag
 
 在 cli 目录中的命令提示符下生成 RCL 和 Web 应用。
 
-```console
+```dotnetcli
 dotnet build
 ```
 
 移动至 WebApp1 目录，并运行应用：
 
-```console
+```dotnetcli
 dotnet run
 ```
 
@@ -93,7 +93,7 @@ dotnet run
 
 ## <a name="create-an-rcl"></a>创建 RCL
 
-在本部分中, 将创建一个 RCL。 将 Razor 文件添加到 RCL。
+在本部分中，将创建一个 RCL。 将 Razor 文件添加到 RCL。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -110,7 +110,7 @@ dotnet run
 
 从命令行运行以下命令：
 
-```console
+```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 dotnet new page -n _Message -np -o RazorUIClassLib/Areas/MyFeature/Pages/Shared
 dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
@@ -138,7 +138,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如：
 
-```console
+```dotnetcli
 dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
 ```
 
@@ -146,7 +146,7 @@ dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
 
 * 生成类库以验证是否不存在编译器错误：
 
-```console
+```dotnetcli
 dotnet build RazorUIClassLib
 ```
 
@@ -174,9 +174,9 @@ dotnet build RazorUIClassLib
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-创建 Razor Pages web 应用和包含 Razor Pages 应用和 RCL 的解决方案文件:
+创建 Razor Pages web 应用和包含 Razor Pages 应用和 RCL 的解决方案文件：
 
-```console
+```dotnetcli
 dotnet new webapp -o WebApp1
 dotnet new sln
 dotnet sln add WebApp1
@@ -186,7 +186,7 @@ dotnet add WebApp1 reference RazorUIClassLib
 
 生成并运行 Web 应用：
 
-```console
+```dotnetcli
 cd WebApp1
 dotnet run
 ```
@@ -197,13 +197,13 @@ dotnet run
 
 ### <a name="test-webapp1"></a>测试 WebApp1
 
-验证 Razor UI 类库是否正在使用:
+验证 Razor UI 类库是否正在使用：
 
 * 浏览到 `/MyFeature/Page1`。
 
 ## <a name="override-views-partial-views-and-pages"></a>重写视图、分部视图和页面
 
-如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。 例如, 将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1, WebApp1 中的 page1 将优先于 RCL 中的 page1。
+如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。 例如，将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1，WebApp1 中的 page1 将优先于 RCL 中的 page1。
 
 在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级。
 
@@ -232,17 +232,17 @@ dotnet run
 
 ## <a name="create-an-rcl-with-static-assets"></a>使用静态资产创建 RCL
 
-RCL 可能需要随附静态资产, 这些资产可由 RCL 的使用应用程序引用。 ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。
+RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程序引用。 ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。
 
-若要将配套资产作为 RCL 的一部分包括在内, 请在类库中创建*wwwroot*文件夹, 并在该文件夹中包含所有必需的文件。
+若要将配套资产作为 RCL 的一部分包括在内，请在类库中创建*wwwroot*文件夹，并在该文件夹中包含所有必需的文件。
 
-当对 RCL 进行打包时, *wwwroot*文件夹中的所有伴随资产将自动包含在包中。
+当对 RCL 进行打包时， *wwwroot*文件夹中的所有伴随资产将自动包含在包中。
 
 ### <a name="exclude-static-assets"></a>排除静态资产
 
-若要排除静态资产, 请将所需的排除`$(DefaultItemExcludes)`路径添加到项目文件中的属性组。 用分号 (`;`) 分隔条目。
+若要排除静态资产，请将所需的排除`$(DefaultItemExcludes)`路径添加到项目文件中的属性组。 用分号（`;`）分隔条目。
 
-在下面的示例中, *wwwroot*文件夹中的*lib*样式表不被视为静态资产, 而且不包含在已发布的 RCL 中:
+在下面的示例中， *wwwroot*文件夹中的*lib*样式表不被视为静态资产，而且不包含在已发布的 RCL 中：
 
 ```xml
 <PropertyGroup>
@@ -252,17 +252,17 @@ RCL 可能需要随附静态资产, 这些资产可由 RCL 的使用应用程序
 
 ### <a name="typescript-integration"></a>Typescript 集成
 
-若要在 RCL 中包含 TypeScript 文件:
+若要在 RCL 中包含 TypeScript 文件：
 
-1. 将 TypeScript 文件 (*ts*) 置于*wwwroot*文件夹之外。 例如, 将文件放在*客户端*文件夹中。
+1. 将 TypeScript 文件（*ts*）置于*wwwroot*文件夹之外。 例如，将文件放在*客户端*文件夹中。
 
-1. 为*wwwroot*文件夹配置 TypeScript 生成输出。 在项目文件中设置的中的属性:`TypescriptOutDir` `PropertyGroup`
+1. 为*wwwroot*文件夹配置 TypeScript 生成输出。 在项目文件中设置的中的属性：`TypescriptOutDir` `PropertyGroup`
 
    ```xml
    <TypescriptOutDir>wwwroot</TypescriptOutDir>
    ```
 
-1. 通过`PropertyGroup`在项目文件内的中添加以下`ResolveCurrentProjectStaticWebAssets`目标, 将 TypeScript 目标作为目标的依赖项:
+1. 通过`PropertyGroup`在项目文件内的中添加以下`ResolveCurrentProjectStaticWebAssets`目标，将 TypeScript 目标作为目标的依赖项：
 
    ```xml
    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
@@ -273,9 +273,9 @@ RCL 可能需要随附静态资产, 这些资产可由 RCL 的使用应用程序
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 
-RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀`_content/{LIBRARY NAME}/`。 例如, 名为*Razor*的库会生成指向中的静态内容`_content/Razor.Class.Lib/`的路径。
+RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀`_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会生成指向中的静态内容`_content/Razor.Class.Lib/`的路径。
 
-使用应用引用库`<script>`提供的静态资产, 以及、 `<style>`、 `<img>`和其他 HTML 标记。 使用的应用必须在中`Startup.Configure`启用[静态文件支持](xref:fundamentals/static-files):
+使用应用引用库`<script>`提供的静态资产，以及、 `<style>`、 `<img>`和其他 HTML 标记。 使用的应用必须在中`Startup.Configure`启用[静态文件支持](xref:fundamentals/static-files)：
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -288,7 +288,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-从生成输出 (`dotnet run`) 运行使用中的应用时, 默认情况下会在开发环境中启用静态 web 资产。 若要在从生成输出运行时支持其他环境中的`UseStaticWebAssets`资产, 请在*Program.cs*中的主机生成器上调用:
+从生成输出（`dotnet run`）运行使用中的应用时，默认情况下会在开发环境中启用静态 web 资产。 若要在从生成输出运行时支持其他环境中的`UseStaticWebAssets`资产，请在*Program.cs*中的主机生成器上调用：
 
 ```csharp
 using Microsoft.AspNetCore.Hosting;
@@ -311,19 +311,19 @@ public class Program
 }
 ```
 
-从`UseStaticWebAssets`已发布的输出 (`dotnet publish`) 运行应用时, 不需要调用。
+从`UseStaticWebAssets`已发布的输出（`dotnet publish`）运行应用时，不需要调用。
 
 ### <a name="multi-project-development-flow"></a>多项目开发流程
 
-当使用中的应用运行时:
+当使用中的应用运行时：
 
 * RCL 中的资产保留在其原始文件夹中。 资产不会移动到使用的应用。
-* 重新生成 RCL 后, RCL 的*wwwroot*文件夹内的任何更改都会反映在使用的应用程序中, 而无需重新生成使用的应用。
+* 重新生成 RCL 后，RCL 的*wwwroot*文件夹内的任何更改都会反映在使用的应用程序中，而无需重新生成使用的应用。
 
-生成 RCL 时, 将生成描述静态 web 资产位置的清单。 使用的应用程序会在运行时读取清单, 以使用来自引用项目和包的资产。 将新资产添加到 RCL 时, 必须重新生成 RCL 以更新其清单, 然后使用的应用才能访问新资产。
+生成 RCL 时，将生成描述静态 web 资产位置的清单。 使用的应用程序会在运行时读取清单，以使用来自引用项目和包的资产。 将新资产添加到 RCL 时，必须重新生成 RCL 以更新其清单，然后使用的应用才能访问新资产。
 
 ### <a name="publish"></a>发布
 
-发布应用后, 所有被引用项目和包中的助理资产将复制到下`_content/{LIBRARY NAME}/`的已发布应用的*wwwroot*文件夹中。
+发布应用后，所有被引用项目和包中的助理资产将复制到下`_content/{LIBRARY NAME}/`的已发布应用的*wwwroot*文件夹中。
 
 ::: moniker-end

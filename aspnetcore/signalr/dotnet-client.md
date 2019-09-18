@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 09/13/2019
 uid: signalr/dotnet-client
-ms.openlocfilehash: d2755f652e734bad6447ddeb9a82345dcde25b28
-ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
+ms.openlocfilehash: 4419799ef11469413f813843a9d02ac0223d30c6
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70985486"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081284"
 ---
 # <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR.NET 客户端
 
@@ -38,7 +38,7 @@ Install-Package Microsoft.AspNetCore.SignalR.Client
 
 若要安装客户端库，请在命令 shell 中运行以下命令：
 
-```console
+```dotnetcli
 dotnet add package Microsoft.AspNetCore.SignalR.Client
 ```
 

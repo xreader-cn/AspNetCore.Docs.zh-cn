@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: e09d03f1d30f128b1db1588aa92b28ec3e4ae626
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892634"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080442"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 
@@ -35,7 +35,7 @@ ms.locfileid: "64892634"
 
 从命令行界面，下载的代码、 生成项目时，和运行它，如下所示。
 
-> *注意：Linux/macOS 用户应更改相应的路径，例如，使用正斜杠 (`/`) 而不是反斜杠 (`\`)。*
+> *注意：Linux/macOS 用户应对路径进行适当的更改，例如，使用正斜杠（`/`）而不是反斜杠（`\`）。*
 
 1. 代码克隆到本地计算机上的文件夹。
 
@@ -51,13 +51,13 @@ ms.locfileid: "64892634"
 
 3. 还原包，并生成解决方案。
 
-    ```console
+    ```dotnetcli
     dotnet build
     ```
 
 4. 运行应用。
 
-    ```console
+    ```dotnetcli
     dotnet run
     ```
 
@@ -73,7 +73,7 @@ ms.locfileid: "64892634"
 
 若要部署应用程序，你将需要创建应用服务[Web 应用](/azure/app-service/app-service-web-overview)。 创建后的 Web 应用，你将部署到它从使用 Git 在本地计算机。
 
-1. 登录到[Azure Cloud Shell](https://shell.azure.com/bash)。 注意:在登录时第一次，Cloud Shell 会提示创建配置文件的存储帐户。 接受默认值或提供唯一的名称。
+1. 登录到[Azure Cloud Shell](https://shell.azure.com/bash)。 注意:首次登录时，Cloud Shell 会提示为配置文件创建存储帐户。 接受默认值或提供唯一的名称。
 
 2. 对于以下步骤使用 Cloud Shell。
 
@@ -151,9 +151,9 @@ ms.locfileid: "64892634"
 4. 在解决方案资源管理器，右键单击项目并单击**发布**。
 
     ![显示单击鼠标右键，发布的屏幕截图](./media/deploying-to-app-service/publish.png)
-5. Visual Studio 可以创建新的应用服务资源，但此更新将发布对现有部署。 在**选取发布目标**对话框中，选择**应用服务**从列表中的左侧，然后选择**选择现有**。 单击“发布” 。
+5. Visual Studio 可以创建新的应用服务资源，但此更新将发布对现有部署。 在**选取发布目标**对话框中，选择**应用服务**从列表中的左侧，然后选择**选择现有**。 单击“发布”。
 6. 在中**应用服务**对话框中，确认已显示在右上方的 Microsoft 或组织帐户用于创建你的 Azure 订阅。 如果不是这样，单击下拉列表，并将其添加。
-7. 确认正确的 Azure**订阅**处于选中状态。 有关**视图**，选择**资源组**。 展开**AzureTutorial**资源组，然后选择现有的 web 应用。 单击 **“确定”**。
+7. 确认正确的 Azure**订阅**处于选中状态。 有关**视图**，选择**资源组**。 展开**AzureTutorial**资源组，然后选择现有的 web 应用。 单击 **“确定”** 。
 
     ![屏幕截图显示发布的应用服务对话框](./media/deploying-to-app-service/publish-dialog.png)
 

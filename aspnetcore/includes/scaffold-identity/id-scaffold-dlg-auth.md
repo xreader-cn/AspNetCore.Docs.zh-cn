@@ -10,10 +10,10 @@
  例如: `~/Pages/Shared/_Layout.cshtml`对于 MVC 项目`~/Views/Shared/_Layout.cshtml` Razor Pages
 * 若要使用现有的数据上下文, 请至少选择一个要重写的文件。 必须至少选择一个文件以添加数据上下文。
   * 选择数据上下文类。
-  * 选择“添加”  。
+  * 选择 **添加** 。
 * 创建新的用户上下文, 并可能为标识创建自定义用户类:
   * 选择 **+** 按钮以创建一个新**数据上下文类**。
-  * 选择“添加”  。
+  * 选择 **添加** 。
 
 注意:如果要创建新的用户上下文, 则无需选择要重写的文件。
 
@@ -21,32 +21,32 @@
 
 如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 
-```console
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 将对[VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)的包引用添加到项目 (\*.csproj) 文件中。 在项目目录中运行以下命令：
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 运行以下命令以列出标识基架选项：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
 在项目文件夹中, 运行具有所需选项的标识 scaffolder。 例如, 若要设置默认 UI 和最小文件数的标识, 请运行以下命令。 为数据库上下文使用正确的完全限定名:
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
-PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时, 请在文件列表中转义分号, 或将文件列表置于双引号中。 例如:
+PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时, 请在文件列表中转义分号, 或将文件列表置于双引号中。 例如：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
 ```
 

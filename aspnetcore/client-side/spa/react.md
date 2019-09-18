@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 91a71498574d6d96c2c06e896283fed801e8adb3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0e61c5b3e31a0b050d356b8f8e16306dc1e2a7f3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893694"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080419"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 
@@ -24,9 +24,9 @@ ms.locfileid: "64893694"
 
 如果您有安装 ASP.NET Core 2.1，则无需安装响应项目模板。
 
-在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app 目录中创建应用并切换到该目录：
+在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app目录中创建应用并切换到该目录：
 
-```console
+```dotnetcli
 dotnet new react -o my-new-app
 cd my-new-app
 ```
@@ -35,7 +35,7 @@ cd my-new-app
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-打开生成的 .csproj 文件，并从此文件正常运行应用。
+打开生成的 .csproj文件，并从此文件正常运行应用。
 
 生成过程会在首次运行时还原 npm 依赖关系，这可能需要几分钟的时间。 后续版本要快得多。
 
@@ -49,7 +49,7 @@ cd my-new-app
 
 ---
 
-该项目模板创建一个 ASP.NET Core 应用和一个 React 应用。 ASP.NET Core 应用旨在用于数据访问、授权和其他服务器端问题。 位于 ClientApp 子目录中的 React 应用旨在用于所有 UI 问题。
+该项目模板创建一个 ASP.NET Core 应用和一个 React 应用。 ASP.NET Core 应用旨在用于数据访问、授权和其他服务器端问题。 位于 ClientApp子目录中的 React 应用旨在用于所有 UI 问题。
 
 ## <a name="add-pages-images-styles-modules-etc"></a>添加页面、映像、样式、模块等。
 
@@ -59,7 +59,7 @@ ClientApp 目录是标准的 CRA React 应用。 有关详细信息，请参阅�
 
 ## <a name="install-npm-packages"></a>安装 npm 包
 
-要安装第三方 npm 程序包，请使用 ClientApp 子目录中的命令提示符。 例如：
+要安装第三方 npm 程序包，请使用 ClientApp子目录中的命令提示符。 例如：
 
 ```console
 cd ClientApp
@@ -80,22 +80,22 @@ npm install --save <package_name>
 
 这种默认设置有一个缺点。 每次修改 C# 代码并且需要重启 ASP.NET Core 应用时，CRA 服务器都会重启。 大约需要几秒才能开始备份。 如果你经常进行 C# 代码编辑并且不希望等待 CRA 服务器重启，请在外部运行独立于 ASP.NET Core 进程的 CRA 服务器。 为此，请执行以下操作：
 
-1. 添加 *.env*的文件*ClientApp*子目录使用以下设置：
+1. 使用以下设置将一个*env*文件添加到*ClientApp*子目录：
 
     ```
     BROWSER=none
     ```
 
-    启动外部 CRA 服务器时这将阻止打开 web 浏览器。
+    这会阻止你的 web 浏览器在外部启动 CRA 服务器时打开。
 
-2. 在命令提示符中，切换到 ClientApp 子目录，并启动 CRA 开发服务器：
+2. 在命令提示符中，切换到 ClientApp子目录，并启动 CRA 开发服务器：
 
     ```console
     cd ClientApp
     npm start
     ```
 
-3. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup 类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
+3. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
@@ -104,7 +104,7 @@ npm install --save <package_name>
 当启动 ASP.NET Core 应用时，它不会启动 CRA 服务器， 而是使用你手动启动的实例。 这使它能够更快地启动和重新启动。 不再需要每次等待 React 应用重新生成。
 
 > [!IMPORTANT]
-> "服务器端呈现"不是此模板的受支持的功能。 我们使用此模板的目标是以满足与"创建-react-应用程序"的奇偶校验。 在这种情况下，方案和功能不包括"创建-react-应用程序"项目 （如 SSR) 中不受支持，留给大家练练手的用户。
+> "服务器端呈现" 不是此模板支持的功能。 此模板的目标是通过 "创建-响应-应用" 来满足奇偶校验。 因此，不支持 "创建响应应用" 项目中未包含的方案和功能（如 SSR），也不会为用户提供练习。
 
 ## <a name="additional-resources"></a>其他资源
 

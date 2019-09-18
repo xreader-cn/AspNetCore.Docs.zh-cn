@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 06/18/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: c219500b7595fd8d200e4e5e742b1e1fda836ba3
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f5a47ffd2e068414268ed9037d4376bfd21ba1bb
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207737"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080800"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>添加、 下载和删除标识到 ASP.NET Core 项目中的自定义用户数据
 
@@ -20,7 +20,7 @@ ms.locfileid: "67207737"
 本文介绍如何：
 
 * 将自定义用户数据添加到 ASP.NET Core web 应用程序。
-* 修饰自定义用户数据模型的<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>属性是自动可供下载和删除。 使能够下载和删除数据可帮助满足[GDPR](xref:security/gdpr)要求。
+* 使用<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>特性修饰自定义用户数据模型，使其自动可供下载和删除。 使能够下载和删除数据可帮助满足[GDPR](xref:security/gdpr)要求。
 
 项目示例将创建从 Razor 页 web 应用，但了 ASP.NET Core MVC web 应用的类似的说明。
 
@@ -34,15 +34,15 @@ ms.locfileid: "67207737"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”    。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码。
 * 选择**ASP.NET Core Web 应用程序** > **确定**
-* 选择**ASP.NET Core 2.2**下拉列表中
+* 在下拉列表中选择**ASP.NET Core 2.2**
 * 选择**Web 应用程序**  > **确定**
 * 生成并运行该项目。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet new webapp -o WebApp1
 ```
 
@@ -67,26 +67,26 @@ dotnet new webapp -o WebApp1
 
 如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 
-```cli
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 添加到包引用[Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)项目 (.csproj) 文件。 在项目目录中运行以下命令：
 
-```cli
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 运行以下命令以列出标识基架选项：
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
 在项目文件夹中，运行标识基架：
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
 ```
 
@@ -143,14 +143,14 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 在 Visual Studio**程序包管理器控制台**:
 
-```PMC
+```powershell
 Add-Migration CustomUserData
 Update-Database
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet ef migrations add CustomUserData
 dotnet ef database update
 ```

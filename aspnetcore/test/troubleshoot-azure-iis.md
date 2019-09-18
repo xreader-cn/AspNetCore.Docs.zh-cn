@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/18/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: deae568a6ba88c9a8365b9d7f2df629899bc64a1
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: 384ae6645ce083fba76a430dfc3bec3a59d3870e
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483311"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081534"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 
@@ -51,28 +51,28 @@ ms.locfileid: "68483311"
 
 ### <a name="40314-forbidden"></a>403.14 禁止
 
-应用启动失败。 记录以下错误:
+应用启动失败。 记录以下错误：
 
 ```
 The Web server is configured to not list the contents of this directory.
 ```
 
-此错误通常是由托管系统上的部署中断引起的, 其中包括以下任何方案:
+此错误通常是由托管系统上的部署中断引起的，其中包括以下任何方案：
 
 * 该应用程序部署到托管系统上的错误文件夹中。
 * 部署过程未能将所有应用的文件和文件夹移到托管系统上的部署文件夹中。
-* 部署中缺少*web.config*文件, 或*web.config 文件内容*的格式不正确。
+* 部署中缺少*web.config*文件，或*web.config 文件内容的格式*不正确。
 
 执行以下步骤:
 
 1. 删除宿主系统上的部署文件夹中的所有文件和文件夹。
-1. 使用常规部署方法 (如 Visual Studio、PowerShell 或手动部署) 将应用程序的 "*发布*" 文件夹的内容重新部署到宿主系统:
+1. 使用常规部署方法（如 Visual Studio、PowerShell 或手动部署）将应用程序的 "*发布*" 文件夹的内容重新部署到宿主系统：
    * 确认部署中存在*web.config*文件且其内容正确。
-   * 在 Azure App Service 上承载时, 确认该应用程序已部署到`D:\home\site\wwwroot`该文件夹。
-   * 当应用程序由 IIS 承载时, 确认该应用程序部署到 iis**管理器**的 "**基本设置**" 中显示的 iis**物理路径**。
-1. 通过将主机系统上的部署与项目的 "*发布*" 文件夹的内容进行比较, 确认应用的所有文件和文件夹都已部署。
+   * 在 Azure App Service 上承载时，确认该应用程序已部署到`D:\home\site\wwwroot`该文件夹。
+   * 当应用程序由 IIS 承载时，确认该应用程序部署到 iis**管理器**的 "**基本设置**" 中显示的 iis**物理路径**。
+1. 通过将主机系统上的部署与项目的 "*发布*" 文件夹的内容进行比较，确认应用的所有文件和文件夹都已部署。
 
-有关已发布 ASP.NET Core 应用布局的详细信息, 请参阅<xref:host-and-deploy/directory-structure>。 有关*web.config*文件的详细信息, 请参阅<xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>。
+有关已发布 ASP.NET Core 应用布局的详细信息，请参阅<xref:host-and-deploy/directory-structure>。 有关*web.config*文件的详细信息，请参阅<xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>。
 
 ### <a name="500-internal-server-error"></a>500 内部服务器错误
 
@@ -86,7 +86,7 @@ The Web server is configured to not list the contents of this directory.
 
 工作进程失败。 应用不启动。
 
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)未能找到 .NET Core CLR 并找不到进程内请求处理程序 (*aspnetcorev2_inprocess*)。 检查：
+[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)未能找到 .NET Core CLR 并找不到进程内请求处理程序（*aspnetcorev2_inprocess*）。 检查：
 
 * 该应用针对 [Microsoft.AspNetCore.Server.IIS NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) 包或 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)。
 * 目标计算机上安装了该应用所针对的 ASP.NET Core 共享框架版本。
@@ -265,7 +265,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. 运行应用：
    * 如果应用是[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
 
-     ```console
+     ```dotnetcli
      dotnet .\{ASSEMBLY NAME}.dll
      ```
 
@@ -363,7 +363,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 * 从本地删除 web.config 文件中的 `<handlerSettings>` 并重新部署该应用。
 * 使用 Kudu 控制台编辑 web.config 文件并删除 `<handlerSettings>` 部分。 保存该文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 。
+有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>。
 
 > [!WARNING]
 > 无法禁用调试日志可能会导致应用或服务器出现故障。 日志文件大小没有任何限制。 仅使用调试日志记录来解决应用启动问题。
@@ -477,7 +477,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 1. 将“stdoutLogEnabled”设置为 `false`。
 1. 保存该文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
+有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection> 。
 
 > [!WARNING]
 > 无法禁用 stdout 日志可能会导致应用或服务器出现故障。 日志文件大小或创建的日志文件数没有限制。

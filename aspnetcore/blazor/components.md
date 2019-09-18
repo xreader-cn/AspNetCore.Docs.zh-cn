@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: e51f6745f6e0c748e51d7f8a49193f3d81fd2a06
-ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
+ms.openlocfilehash: 521421ac413218c1f04dd9feade2a49dc1f7b918
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2019
-ms.locfileid: "71039185"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080530"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -1044,7 +1044,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor> 。
+有关详细信息，请参阅 <xref:mvc/views/razor>。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -1449,7 +1449,7 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | 类型      | Data   |
+| 序列 | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | 第一个  |
 | 1        | Text 节点 | 第二个 |
@@ -1473,7 +1473,7 @@ builder.AddContent(seq++, "Second");
 
 * 如果动态生成了序列号，则应用程序性能会受到影响。
 * 框架无法在运行时自动创建自己的序列号，因为所需信息不存在，除非它在编译时捕获。
-* 不要编写长时间的手动实现`RenderTreeBuilder`逻辑。 首选`.razor`文件，并允许编译器处理序列号。
+* 不要编写长时间的手动实现`RenderTreeBuilder`逻辑。 首选`.razor`文件，并允许编译器处理序列号。 `RenderTreeBuilder`如果无法避免手动逻辑，请将较长的代码块拆分为包装在调用中`OpenRegion` / `CloseRegion`的较小部分。 每个区域都有其自己单独的序列号空间，因此可以从每个区域内的零（或任何其他任意数字）重新启动。
 * 如果对序列号进行硬编码，则 diff 算法只要求序列号的值增加。 初始值和间隙无关。 一个合法选项是将代码行号用作序列号，或从零开始，并按一个或数百个（或任何首选间隔）递增。 
 * Blazor 使用序列号，而其他树比较的 UI 框架不使用序列号。 使用序列号时，比较速度要快得多，并且 Blazor 具有用于为开发人员创作`.razor`文件自动处理序列号的编译步骤。
 
@@ -1550,7 +1550,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
+> `LocalRedirect`使用操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
 
 以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
 
@@ -1595,7 +1595,7 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关详细信息，请参阅 <xref:fundamentals/localization>。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

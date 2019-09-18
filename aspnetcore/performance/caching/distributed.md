@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/27/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: 8417463038bcdc0f77852bec3c3bb8a618153009
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: dbcdfcd07877fabfe6d18cd4d840b5597afa1afd
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773852"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081550"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 
@@ -32,7 +32,7 @@ ms.locfileid: "70773852"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -104,7 +104,7 @@ ms.locfileid: "70773852"
 
 通过运行`sql-cache create`命令在 SQL Server 中创建一个表。 提供 SQL Server 实例`Data Source`（）、数据库（`Initial Catalog`）、架构（例如， `dbo`）和表名（ `TestCache`例如）：
 
-```console
+```dotnetcli
 dotnet sql-cache create "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DistCache;Integrated Security=True;" dbo TestCache
 ```
 

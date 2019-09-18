@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: d95f44394d6ecc3c3896b45c5bebc73fa2d92445
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: d827f6f839c9e42e6d3d7b04fe8b24a1c9732aee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011191"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082437"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用受授权的用户数据创建 ASP.NET Core 应用
 
@@ -69,7 +69,7 @@ ms.locfileid: "71011191"
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 本教程被高级。 您应熟悉：
 
@@ -103,7 +103,7 @@ ms.locfileid: "71011191"
 
 创建新的迁移并更新数据库：
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -130,7 +130,7 @@ dotnet ef database update
 
 `SeedData`类创建两个帐户： 管理员和管理员。 使用[机密管理器工具](xref:security/app-secrets)设置这些帐户的密码。 从项目目录中设置密码 (目录包含*Program.cs*):
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -279,7 +279,7 @@ dotnet user-secrets set SeedUserPW <PW>
 * 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!`符合强密码要求。
 * 执行以下命令从项目的文件夹，其中`<PW>`的密码：
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
@@ -310,7 +310,7 @@ dotnet user-secrets set SeedUserPW <PW>
   * 它命名为"ContactManager"使命名空间匹配的示例中使用的命名空间。
   * `-uld` 指定 LocalDB，而不是 SQLite
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -321,14 +321,14 @@ dotnet user-secrets set SeedUserPW <PW>
 * 基架`Contact`模型。
 * 创建初始迁移并更新数据库：
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 dotnet ef database drop -f
 dotnet ef migrations add initial
 dotnet ef database update
-  ```
+```
 
 如果使用`dotnet aspnet-codegenerator razorpage`命令遇到 bug，请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
 
@@ -392,7 +392,7 @@ dotnet ef database update
 * `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
 * `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 本教程被高级。 您应熟悉：
 
@@ -426,7 +426,7 @@ dotnet ef database update
 
 创建新的迁移并更新数据库：
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -453,7 +453,7 @@ dotnet ef database update
 
 `SeedData`类创建两个帐户： 管理员和管理员。 使用[机密管理器工具](xref:security/app-secrets)设置这些帐户的密码。 从项目目录中设置密码 (目录包含*Program.cs*):
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -602,16 +602,16 @@ dotnet user-secrets set SeedUserPW <PW>
 * 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!`符合强密码要求。
 * 执行以下命令从项目的文件夹，其中`<PW>`的密码：
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
 * 删除和更新数据库
 
-    ```console
-     dotnet ef database drop -f
-     dotnet ef database update  
-     ```
+  ```dotnetcli
+  dotnet ef database drop -f
+  dotnet ef database update  
+  ```
 
 * 重新启动应用以设定数据库种子。
 
@@ -637,7 +637,7 @@ dotnet user-secrets set SeedUserPW <PW>
   * 它命名为"ContactManager"使命名空间匹配的示例中使用的命名空间。
   * `-uld` 指定 LocalDB，而不是 SQLite
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -648,7 +648,7 @@ dotnet user-secrets set SeedUserPW <PW>
 * 基架`Contact`模型。
 * 创建初始迁移并更新数据库：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
   dotnet ef database drop -f
   dotnet ef migrations add initial

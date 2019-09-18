@@ -4,18 +4,18 @@
 
 在 Visual Studio**程序包管理器控制台**:
 
-```PMC
+```powershell
 Add-Migration CreateIdentitySchema
 Update-Database
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet ef migrations add CreateIdentitySchema
 dotnet ef database update
 ```
 
 ---
 
-"CreateIdentitySchema"name 参数为`Add-Migration`是任意的命令。 `"CreateIdentitySchema"` 介绍迁移。
+`Add-Migration`命令的 "CreateIdentitySchema" 名称参数是任意的。 `"CreateIdentitySchema"`介绍迁移。
