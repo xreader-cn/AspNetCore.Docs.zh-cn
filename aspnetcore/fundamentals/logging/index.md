@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 21e7ee144bdf0355cac8bd8a7706f100c15342da
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 03734addcc0e063c2c216b26b59762d27d35d47c
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975498"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081161"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -374,7 +374,7 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 * 调试 = 1
 
-  有关在开发和调试中可能有用的信息。 示例:`Entering method Configure with flag set to true.` 由于日志数量过多，因此仅当执行故障排除时，才在生产中启用 `Debug` 级别日志。
+  有关在开发和调试中可能有用的信息。 示例：`Entering method Configure with flag set to true.` 由于日志数量过多，因此仅当执行故障排除时，才在生产中启用 `Debug` 级别日志。
 
 * 信息 = 2
 
@@ -784,7 +784,7 @@ logging.AddConsole();
 
 要查看控制台日志记录输出，请在项目文件夹中打开命令提示符并运行以下命令：
 
-```console
+```dotnetcli
 dotnet run
 ```
 

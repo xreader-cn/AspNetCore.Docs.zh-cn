@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 26c8fcf56ab8ca68aeca93560785fc6c1144ab86
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 0ded2979b8576f10812e20ae3385c94fd29689c2
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963693"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081040"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -32,7 +32,7 @@ ms.locfileid: "70963693"
 
 使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令发布具有发布配置的应用：
 
-```console
+```dotnetcli
 dotnet publish -c Release
 ```
 
@@ -71,13 +71,13 @@ Blazor WebAssembly 应用发布到 /bin/Release/{TARGET FRAMEWORK}/publish/{ASSE
 
 对于配置了非根相对 URL 路径的应用（例如 `<base href="/CoolApp/">`），当在本地运行应用时，将无法查找其资源  。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值  。 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
 
-```console
+```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
 ```
 
 对于具有相对 URL 路径 `/CoolApp/` (`<base href="/CoolApp/">`) 的应用，命令如下：
 
-```console
+```dotnetcli
 dotnet run --pathbase=/CoolApp
 ```
 

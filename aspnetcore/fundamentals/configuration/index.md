@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 5723295c70f8d893f758ca5dc87180c6b707f493
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 0de2222e8072523ff0e5d261a9fe5ef8eb9a7606
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994176"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081824"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -354,7 +354,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 示例命令：
 
-```console
+```dotnetcli
 dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
 dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
 dotnet run CommandLineKey1= CommandLineKey2=value2
@@ -402,7 +402,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 如果在启动应用时使用了交换映射的键，则配置将接收字典提供的密钥上的配置值：
 
-```console
+```dotnetcli
 dotnet run -CLKey1=value1 -CLKey2=value2
 ```
 
@@ -621,7 +621,7 @@ key=value
 | -------------------------- | :---------------: | :--------------: |
 | Logging:LogLevel:System    | 信息       | 信息      |
 | Logging:LogLevel:Microsoft | 信息       | 信息      |
-| Logging:LogLevel:Default   | 调试             | Error            |
+| Logging:LogLevel:Default   | 调试             | 错误            |
 | AllowedHosts               | *                 | *                |
 
 ### <a name="xml-configuration-provider"></a>XML 配置提供程序
