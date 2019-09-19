@@ -7,79 +7,79 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/20/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: ff66148fc9aad2871f9f55ce76b5a0dacb0ad10c
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: 0aa632bce32ef44f65d92639284c64c1d00e952e
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313785"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080814"
 ---
-# <a name="razor-file-compilation-in-aspnet-core"></a><span data-ttu-id="5e1e9-103">ASP.NET Core 中的 Razor 文件编译</span><span class="sxs-lookup"><span data-stu-id="5e1e9-103">Razor file compilation in ASP.NET Core</span></span>
+# <a name="razor-file-compilation-in-aspnet-core"></a><span data-ttu-id="1751f-103">ASP.NET Core 中的 Razor 文件编译</span><span class="sxs-lookup"><span data-stu-id="1751f-103">Razor file compilation in ASP.NET Core</span></span>
 
-<span data-ttu-id="5e1e9-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="5e1e9-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="1751f-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="1751f-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range="= aspnetcore-1.1"
 
-<span data-ttu-id="5e1e9-105">调用相关的 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-105">A Razor file is compiled at runtime, when the associated MVC view is invoked.</span></span> <span data-ttu-id="5e1e9-106">不支持在生成时发布 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-106">Build-time Razor file publishing is unsupported.</span></span> <span data-ttu-id="5e1e9-107">可以使用预编译工具，在发布时选择编译 Razor 文件并将其与应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-107">Razor files can optionally be compiled at publish time and deployed with the app&mdash;using the precompilation tool.</span></span>
+<span data-ttu-id="1751f-105">调用相关的 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-105">A Razor file is compiled at runtime, when the associated MVC view is invoked.</span></span> <span data-ttu-id="1751f-106">不支持在生成时发布 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-106">Build-time Razor file publishing is unsupported.</span></span> <span data-ttu-id="1751f-107">可以使用预编译工具，在发布时选择编译 Razor 文件并将其与应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="1751f-107">Razor files can optionally be compiled at publish time and deployed with the app&mdash;using the precompilation tool.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-<span data-ttu-id="5e1e9-108">调用相关的 Razor 页和 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-108">A Razor file is compiled at runtime, when the associated Razor Page or MVC view is invoked.</span></span> <span data-ttu-id="5e1e9-109">不支持在生成时发布 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-109">Build-time Razor file publishing is unsupported.</span></span> <span data-ttu-id="5e1e9-110">可以使用预编译工具，在发布时选择编译 Razor 文件并将其与应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-110">Razor files can optionally be compiled at publish time and deployed with the app&mdash;using the precompilation tool.</span></span>
+<span data-ttu-id="1751f-108">调用相关的 Razor 页和 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-108">A Razor file is compiled at runtime, when the associated Razor Page or MVC view is invoked.</span></span> <span data-ttu-id="1751f-109">不支持在生成时发布 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-109">Build-time Razor file publishing is unsupported.</span></span> <span data-ttu-id="1751f-110">可以使用预编译工具，在发布时选择编译 Razor 文件并将其与应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="1751f-110">Razor files can optionally be compiled at publish time and deployed with the app&mdash;using the precompilation tool.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-<span data-ttu-id="5e1e9-111">调用相关的 Razor 页和 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-111">A Razor file is compiled at runtime, when the associated Razor Page or MVC view is invoked.</span></span> <span data-ttu-id="5e1e9-112">在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-112">Razor files are compiled at both build and publish time using the [Razor SDK](xref:razor-pages/sdk).</span></span>
+<span data-ttu-id="1751f-111">调用相关的 Razor 页和 MVC 视图时，Razor 文件在运行时进行编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-111">A Razor file is compiled at runtime, when the associated Razor Page or MVC view is invoked.</span></span> <span data-ttu-id="1751f-112">在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-112">Razor files are compiled at both build and publish time using the [Razor SDK](xref:razor-pages/sdk).</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="5e1e9-113">在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-113">Razor files are compiled at both build and publish time using the [Razor SDK](xref:razor-pages/sdk).</span></span> <span data-ttu-id="5e1e9-114">通过配置应用程序，可以选择启用运行时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-114">Runtime compilation may be optionally enabled by configuring your application.</span></span>
+<span data-ttu-id="1751f-113">在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-113">Razor files are compiled at both build and publish time using the [Razor SDK](xref:razor-pages/sdk).</span></span> <span data-ttu-id="1751f-114">通过配置应用程序，可以选择启用运行时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-114">Runtime compilation may be optionally enabled by configuring your application.</span></span>
 
 ::: moniker-end
 
-## <a name="razor-compilation"></a><span data-ttu-id="5e1e9-115">Razor 编译</span><span class="sxs-lookup"><span data-stu-id="5e1e9-115">Razor compilation</span></span>
+## <a name="razor-compilation"></a><span data-ttu-id="1751f-115">Razor 编译</span><span class="sxs-lookup"><span data-stu-id="1751f-115">Razor compilation</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
-<span data-ttu-id="5e1e9-116">Razor SDK 默认启用 Razor 文件的生成时和发布时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-116">Build- and publish-time compilation of Razor files is enabled by default by the Razor SDK.</span></span> <span data-ttu-id="5e1e9-117">启用后，运行时编译将补充生成时编译，允许更新 Razor 文件（如果对其进行编辑）。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-117">When enabled, runtime compilation complements build-time compilation, allowing Razor files to be updated if they are edited.</span></span>
+<span data-ttu-id="1751f-116">Razor SDK 默认启用 Razor 文件的生成时和发布时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-116">Build- and publish-time compilation of Razor files is enabled by default by the Razor SDK.</span></span> <span data-ttu-id="1751f-117">启用后，运行时编译将补充生成时编译，允许更新 Razor 文件（如果对其进行编辑）。</span><span class="sxs-lookup"><span data-stu-id="1751f-117">When enabled, runtime compilation complements build-time compilation, allowing Razor files to be updated if they are edited.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-<span data-ttu-id="5e1e9-118">Razor SDK 默认启用 Razor 文件的生成时和发布时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-118">Build- and publish-time compilation of Razor files is enabled by default by the Razor SDK.</span></span> <span data-ttu-id="5e1e9-119">Razor 文件更新后，支持在生成时编辑这些文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-119">Editing Razor files after they're updated is supported at build time.</span></span> <span data-ttu-id="5e1e9-120">默认情况下，只有编译 Razor 文件所需的编译的 Views.dll（而非 .cshtml）文件或引用程序集随应用一起部署   。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-120">By default, only the compiled *Views.dll* and no *.cshtml* files or references assemblies required to compile Razor files are deployed with your app.</span></span>
+<span data-ttu-id="1751f-118">Razor SDK 默认启用 Razor 文件的生成时和发布时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-118">Build- and publish-time compilation of Razor files is enabled by default by the Razor SDK.</span></span> <span data-ttu-id="1751f-119">Razor 文件更新后，支持在生成时编辑这些文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-119">Editing Razor files after they're updated is supported at build time.</span></span> <span data-ttu-id="1751f-120">默认情况下，只有编译 Razor 文件所需的编译的 Views.dll（而非 .cshtml）文件或引用程序集随应用一起部署   。</span><span class="sxs-lookup"><span data-stu-id="1751f-120">By default, only the compiled *Views.dll* and no *.cshtml* files or references assemblies required to compile Razor files are deployed with your app.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="5e1e9-121">已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-121">The precompilation tool has been deprecated, and will be removed in ASP.NET Core 3.0.</span></span> <span data-ttu-id="5e1e9-122">建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-122">We recommend migrating to [Razor Sdk](xref:razor-pages/sdk).</span></span>
+> <span data-ttu-id="1751f-121">已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。</span><span class="sxs-lookup"><span data-stu-id="1751f-121">The precompilation tool has been deprecated, and will be removed in ASP.NET Core 3.0.</span></span> <span data-ttu-id="1751f-122">建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。</span><span class="sxs-lookup"><span data-stu-id="1751f-122">We recommend migrating to [Razor Sdk](xref:razor-pages/sdk).</span></span>
 >
-> <span data-ttu-id="5e1e9-123">仅当项目文件中未设置特定于预编译的属性时，Razor SDK 才有效。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-123">The Razor SDK is effective only when no precompilation-specific properties are set in the project file.</span></span> <span data-ttu-id="5e1e9-124">例如，通过将 .csproj 文件的 `MvcRazorCompileOnPublish` 属性设置为 `true` 来禁用 Razor SDK  。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-124">For instance, setting the *.csproj* file's `MvcRazorCompileOnPublish` property to `true` disables the Razor SDK.</span></span>
+> <span data-ttu-id="1751f-123">仅当项目文件中未设置特定于预编译的属性时，Razor SDK 才有效。</span><span class="sxs-lookup"><span data-stu-id="1751f-123">The Razor SDK is effective only when no precompilation-specific properties are set in the project file.</span></span> <span data-ttu-id="1751f-124">例如，通过将 .csproj 文件的 `MvcRazorCompileOnPublish` 属性设置为 `true` 来禁用 Razor SDK  。</span><span class="sxs-lookup"><span data-stu-id="1751f-124">For instance, setting the *.csproj* file's `MvcRazorCompileOnPublish` property to `true` disables the Razor SDK.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-<span data-ttu-id="5e1e9-125">如果项目面向 .NET Framework，请安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-125">If your project targets .NET Framework, install the [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet package:</span></span>
+<span data-ttu-id="1751f-125">如果项目面向 .NET Framework，请安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="1751f-125">If your project targets .NET Framework, install the [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet package:</span></span>
 
 [!code-xml[](view-compilation/sample/DotNetFrameworkProject.csproj?name=snippet_ViewCompilationPackage)]
 
-<span data-ttu-id="5e1e9-126">如果项目面向 .NET Core，则无需进行任何更改。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-126">If your project targets .NET Core, no changes are necessary.</span></span>
+<span data-ttu-id="1751f-126">如果项目面向 .NET Core，则无需进行任何更改。</span><span class="sxs-lookup"><span data-stu-id="1751f-126">If your project targets .NET Core, no changes are necessary.</span></span>
 
-<span data-ttu-id="5e1e9-127">默认情况下，ASP.NET Core 2.x 项目模板将 `MvcRazorCompileOnPublish` 属性隐式设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-127">The ASP.NET Core 2.x project templates implicitly set the `MvcRazorCompileOnPublish` property to `true` by default.</span></span> <span data-ttu-id="5e1e9-128">因此，可以从 .csproj 文件中安全地删除此元素  。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-128">Consequently, this element can be safely removed from the *.csproj* file.</span></span>
+<span data-ttu-id="1751f-127">默认情况下，ASP.NET Core 2.x 项目模板将 `MvcRazorCompileOnPublish` 属性隐式设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="1751f-127">The ASP.NET Core 2.x project templates implicitly set the `MvcRazorCompileOnPublish` property to `true` by default.</span></span> <span data-ttu-id="1751f-128">因此，可以从 .csproj 文件中安全地删除此元素  。</span><span class="sxs-lookup"><span data-stu-id="1751f-128">Consequently, this element can be safely removed from the *.csproj* file.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="5e1e9-129">已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-129">The precompilation tool has been deprecated, and will be removed in ASP.NET Core 3.0.</span></span> <span data-ttu-id="5e1e9-130">建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-130">We recommend migrating to [Razor Sdk](xref:razor-pages/sdk).</span></span>
+> <span data-ttu-id="1751f-129">已弃用预编译工具，并且将在 ASP.NET Core 3.0 中删除该工具。</span><span class="sxs-lookup"><span data-stu-id="1751f-129">The precompilation tool has been deprecated, and will be removed in ASP.NET Core 3.0.</span></span> <span data-ttu-id="1751f-130">建议迁移到 [Razor Sdk](xref:razor-pages/sdk)。</span><span class="sxs-lookup"><span data-stu-id="1751f-130">We recommend migrating to [Razor Sdk](xref:razor-pages/sdk).</span></span>
 >
-> <span data-ttu-id="5e1e9-131">在 ASP.NET Core 2.0 中执行[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时，无法使用 Razor 文件预编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-131">Razor file precompilation is unavailable when performing a [self-contained deployment (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) in ASP.NET Core 2.0.</span></span>
+> <span data-ttu-id="1751f-131">在 ASP.NET Core 2.0 中执行[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时，无法使用 Razor 文件预编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-131">Razor file precompilation is unavailable when performing a [self-contained deployment (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) in ASP.NET Core 2.0.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-1.1"
 
-<span data-ttu-id="5e1e9-132">将 `MvcRazorCompileOnPublish` 属性设置为 `true`，然后安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-132">Set the `MvcRazorCompileOnPublish` property to `true`, and install the [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet package.</span></span> <span data-ttu-id="5e1e9-133">以下 .csproj 示例突出显示了这些设置  ：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-133">The following *.csproj* sample highlights these settings:</span></span>
+<span data-ttu-id="1751f-132">将 `MvcRazorCompileOnPublish` 属性设置为 `true`，然后安装 [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="1751f-132">Set the `MvcRazorCompileOnPublish` property to `true`, and install the [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) NuGet package.</span></span> <span data-ttu-id="1751f-133">以下 .csproj 示例突出显示了这些设置  ：</span><span class="sxs-lookup"><span data-stu-id="1751f-133">The following *.csproj* sample highlights these settings:</span></span>
 
 [!code-xml[](view-compilation/sample/MvcRazorCompileOnPublish.csproj?highlight=4,10)]
 
@@ -87,45 +87,45 @@ ms.locfileid: "67313785"
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="5e1e9-134">使用 [.NET Core CLI 发布命令](/dotnet/core/tools/dotnet-publish)，让应用做好[框架依赖型部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)的准备。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-134">Prepare the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd) with the [.NET Core CLI publish command](/dotnet/core/tools/dotnet-publish).</span></span> <span data-ttu-id="5e1e9-135">例如，在项目根目录中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-135">For example, execute the following command at the project root:</span></span>
+<span data-ttu-id="1751f-134">使用 [.NET Core CLI 发布命令](/dotnet/core/tools/dotnet-publish)，让应用做好[框架依赖型部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)的准备。</span><span class="sxs-lookup"><span data-stu-id="1751f-134">Prepare the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd) with the [.NET Core CLI publish command](/dotnet/core/tools/dotnet-publish).</span></span> <span data-ttu-id="1751f-135">例如，在项目根目录中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="1751f-135">For example, execute the following command at the project root:</span></span>
 
-```console
+```dotnetcli
 dotnet publish -c Release
 ```
 
-<span data-ttu-id="5e1e9-136">预编译成功后，将生成包含已编译 Razor 文件的 \<project_name>.PrecompiledViews.dll  文件。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-136">A *\<project_name>.PrecompiledViews.dll* file, containing the compiled Razor files, is produced when precompilation succeeds.</span></span> <span data-ttu-id="5e1e9-137">例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容   ：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-137">For example, the screenshot below depicts the contents of *Index.cshtml* within *WebApplication1.PrecompiledViews.dll*:</span></span>
+<span data-ttu-id="1751f-136">预编译成功后，将生成包含已编译 Razor 文件的 \<project_name>.PrecompiledViews.dll  文件。</span><span class="sxs-lookup"><span data-stu-id="1751f-136">A *\<project_name>.PrecompiledViews.dll* file, containing the compiled Razor files, is produced when precompilation succeeds.</span></span> <span data-ttu-id="1751f-137">例如，以下屏幕截图描述了 WebApplication1.PrecompiledViews.dll 中 Index.cshtml 的内容   ：</span><span class="sxs-lookup"><span data-stu-id="1751f-137">For example, the screenshot below depicts the contents of *Index.cshtml* within *WebApplication1.PrecompiledViews.dll*:</span></span>
 
 ![DLL 中的 Razor 视图](view-compilation/_static/razor-views-in-dll.png)
 
 ::: moniker-end
 
-## <a name="runtime-compilation"></a><span data-ttu-id="5e1e9-139">运行时编译</span><span class="sxs-lookup"><span data-stu-id="5e1e9-139">Runtime compilation</span></span>
+## <a name="runtime-compilation"></a><span data-ttu-id="1751f-139">运行时编译</span><span class="sxs-lookup"><span data-stu-id="1751f-139">Runtime compilation</span></span>
 
 ::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="5e1e9-140">通过 Razor 文件的运行时编译补充生成时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-140">Build-time compilation is supplemented by runtime compilation of Razor files.</span></span> <span data-ttu-id="5e1e9-141">当 .cshtml 文件的内容发生更改时，ASP.NET Core MVC 将重新编译 Razor 文件  。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-141">ASP.NET Core MVC will recompile Razor files when the contents of a *.cshtml* file change.</span></span>
+<span data-ttu-id="1751f-140">通过 Razor 文件的运行时编译补充生成时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-140">Build-time compilation is supplemented by runtime compilation of Razor files.</span></span> <span data-ttu-id="1751f-141">当 .cshtml 文件的内容发生更改时，ASP.NET Core MVC 将重新编译 Razor 文件  。</span><span class="sxs-lookup"><span data-stu-id="1751f-141">ASP.NET Core MVC will recompile Razor files when the contents of a *.cshtml* file change.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.2"
 
-<span data-ttu-id="5e1e9-142">通过 Razor 文件的运行时编译补充生成时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-142">Build-time compilation is supplemented by runtime compilation of Razor files.</span></span> <span data-ttu-id="5e1e9-143"><xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-143">The <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> gets or sets a value that determines if Razor files (Razor views and Razor Pages) are recompiled and updated if files change on disk.</span></span>
+<span data-ttu-id="1751f-142">通过 Razor 文件的运行时编译补充生成时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-142">Build-time compilation is supplemented by runtime compilation of Razor files.</span></span> <span data-ttu-id="1751f-143"><xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> 获取或设置一个值，该值确定当磁盘上的文件发生更改时是否重新编译和更新 Razor 文件（Razor 视图和 Razor Pages）。</span><span class="sxs-lookup"><span data-stu-id="1751f-143">The <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> gets or sets a value that determines if Razor files (Razor views and Razor Pages) are recompiled and updated if files change on disk.</span></span>
 
-<span data-ttu-id="5e1e9-144">对于以下项，默认值为 `true`：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-144">The default value is `true` for:</span></span>
+<span data-ttu-id="1751f-144">对于以下项，默认值为 `true`：</span><span class="sxs-lookup"><span data-stu-id="1751f-144">The default value is `true` for:</span></span>
 
-* <span data-ttu-id="5e1e9-145">将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本</span><span class="sxs-lookup"><span data-stu-id="5e1e9-145">If the app's compatibility version is set to <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> or earlier</span></span>
-* <span data-ttu-id="5e1e9-146">如果应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> 或更高版本，并且应用位于开发环境 <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*> 中。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-146">If the app's compatibility version is set to <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> or later and the app is in the Development environment <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>.</span></span> <span data-ttu-id="5e1e9-147">换句话说，除非明确设置 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange>，否则 Razor 文件不会在非开发环境中重新编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-147">In other words, Razor files would not recompile in non-Development environment unless <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> is explicitly set.</span></span>
+* <span data-ttu-id="1751f-145">将应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> 或更早版本</span><span class="sxs-lookup"><span data-stu-id="1751f-145">If the app's compatibility version is set to <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> or earlier</span></span>
+* <span data-ttu-id="1751f-146">如果应用的兼容性版本设置为 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> 或更高版本，并且应用位于开发环境 <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*> 中。</span><span class="sxs-lookup"><span data-stu-id="1751f-146">If the app's compatibility version is set to <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> or later and the app is in the Development environment <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>.</span></span> <span data-ttu-id="1751f-147">换句话说，除非明确设置 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange>，否则 Razor 文件不会在非开发环境中重新编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-147">In other words, Razor files would not recompile in non-Development environment unless <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> is explicitly set.</span></span>
 
-<span data-ttu-id="5e1e9-148">有关设置应用的兼容性版本的指导和示例，请参阅 <xref:mvc/compatibility-version>。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-148">For guidance and examples of setting the app's compatibility version, see <xref:mvc/compatibility-version>.</span></span>
+<span data-ttu-id="1751f-148">有关设置应用的兼容性版本的指导和示例，请参阅 <xref:mvc/compatibility-version>。</span><span class="sxs-lookup"><span data-stu-id="1751f-148">For guidance and examples of setting the app's compatibility version, see <xref:mvc/compatibility-version>.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="5e1e9-149">使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-149">Runtime compilation is enabled using the `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` package.</span></span> <span data-ttu-id="5e1e9-150">要启用运行时编译，应用必须：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-150">To enable runtime compilation, apps must:</span></span>
+<span data-ttu-id="1751f-149">使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。</span><span class="sxs-lookup"><span data-stu-id="1751f-149">Runtime compilation is enabled using the `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` package.</span></span> <span data-ttu-id="1751f-150">要启用运行时编译，应用必须：</span><span class="sxs-lookup"><span data-stu-id="1751f-150">To enable runtime compilation, apps must:</span></span>
 
-* <span data-ttu-id="5e1e9-151">安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="5e1e9-151">Install the [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet package.</span></span>
-* <span data-ttu-id="5e1e9-152">将项目的 `Startup.ConfigureServices` 方法更新为包含对 `AddRazorRuntimeCompilation` 的调用：</span><span class="sxs-lookup"><span data-stu-id="5e1e9-152">Update the project's `Startup.ConfigureServices` method to include a call to `AddRazorRuntimeCompilation`:</span></span>
+* <span data-ttu-id="1751f-151">安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="1751f-151">Install the [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet package.</span></span>
+* <span data-ttu-id="1751f-152">将项目的 `Startup.ConfigureServices` 方法更新为包含对 `AddRazorRuntimeCompilation` 的调用：</span><span class="sxs-lookup"><span data-stu-id="1751f-152">Update the project's `Startup.ConfigureServices` method to include a call to `AddRazorRuntimeCompilation`:</span></span>
 
   ```csharp
   services
@@ -135,7 +135,7 @@ dotnet publish -c Release
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="5e1e9-153">其他资源</span><span class="sxs-lookup"><span data-stu-id="5e1e9-153">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="1751f-153">其他资源</span><span class="sxs-lookup"><span data-stu-id="1751f-153">Additional resources</span></span>
 
 ::: moniker range="= aspnetcore-1.1"
 
