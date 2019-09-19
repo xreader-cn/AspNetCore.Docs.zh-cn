@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 50be5a20f6d927270ef2d9dbc6c1cbf24196978f
-ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
+ms.openlocfilehash: fd08a5ebe5b85dcddcec4ef3e57d326a44ce2f2d
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/23/2019
-ms.locfileid: "67333421"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080859"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件
 
@@ -72,13 +72,13 @@ Web SDK 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配 `**\*.cshtml
 
 命令行发布适用于所有支持 .NET Core 的平台，而且不需要 Visual Studio。 在下面的示例中，从项目目录（其中包含 .csproj文件）运行 .NET Core CLI 的 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令  。 如果当前工作目录中没有项目文件夹，则在项目文件路径中显式传递。 例如:
 
-```console
+```dotnetcli
 dotnet publish C:\Webs\Web1
 ```
 
 运行以下命令以创建并发布 Web 应用：
 
-```console
+```dotnetcli
 dotnet new mvc
 dotnet publish
 ```
@@ -100,7 +100,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 以下命令指定 `Release` 生成和发布目录：
 
-```console
+```dotnetcli
 dotnet publish -c Release -o C:\MyWebs\test
 ```
 
@@ -113,7 +113,9 @@ dotnet publish -c Release -o C:\MyWebs\test
 
 例如，以下命令将 `Release` 版本发布到网络共享。 网络共享通过正斜杠指定 (//r8/  ) 并适用于所有支持 .NET Core 的平台。
 
-`dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb`
+```dotnetcli
+dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb
+```
 
 确认用于部署的发布应用未在运行。 如果应用正在运行，publish 文件夹中的文件会被锁定  。 部署不会发生，因为无法复制锁定的文件。
 
@@ -156,19 +158,19 @@ Visual Studio 的生成工具会生成一个 Properties/PublishProfiles/{PROFILE
 
 文件夹（跨平台工作）  ：
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 ```
 
 MSDeploy  ：
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
 ```
 
 MSDeploy 包  ：
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
 ```
 
@@ -193,7 +195,7 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileNa
 
 运行以下命令将会压缩发布内容并将其发布到使用 Kudu API 的 Azure：
 
-```console
+```dotnetcli
 dotnet publish /p:PublishProfile=Azure /p:Configuration=Release
 ```
 
@@ -245,7 +247,7 @@ MSBuild file.
 * `<LastUsedBuildConfiguration>` 属性设置为 `Release`。 从 Visual Studio 发布时，启动发布过程后将使用该值设置 `<LastUsedBuildConfiguration>` 的值。 `<LastUsedBuildConfiguration>` 比较特殊，不得在导入的 MSBuild 文件中覆盖它。 但是，可通过下述方法之一在命令行中覆盖此属性。
   * 使用 .NET Core CLI：
 
-    ```console
+    ```dotnetcli
     dotnet build -c Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
     ```
 
@@ -292,7 +294,7 @@ msbuild "AzureWebApp.csproj"
 
 发布配置文件还可通过 Windows 命令行界面与 .NET Core CLI 的 [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) 一起使用：
 
-```console
+```dotnetcli
 dotnet msbuild "AzureWebApp.csproj"
     /p:DeployOnBuild=true 
     /p:PublishProfile="AzureWebApp - Web Deploy" 

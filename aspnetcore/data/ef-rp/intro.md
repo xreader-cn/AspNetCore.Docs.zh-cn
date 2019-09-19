@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: c5347049151aed90f453f0ead2fc06649d9cf949
-ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
+ms.openlocfilehash: 107b348b4484301b86eeb5528833914fe4c1eaf7
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69908402"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080942"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -86,7 +86,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * 生成项目。
 * 在项目文件夹中的命令提示符下运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef --version 3.0.0-*
   dotnet ef database update
   ```
@@ -116,7 +116,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 * 运行以下命令，在新的项目文件夹中创建 Razor Pages 项目和 `cd`：
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContosoUniversity
   cd ContosoUniversity
   ```
@@ -228,7 +228,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 * 运行以下 .NET Core CLI 命令，安装所需的 NuGet 包：
 
-  ```console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
   dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
@@ -243,7 +243,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 * 运行以下命令安装 [aspnet-codegenerator 基架工具](xref:fundamentals/tools/dotnet-aspnet-codegenerator)。
 
-  ```console
+  ```dotnetcli
   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
   ```
 
@@ -251,13 +251,13 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
   **在 Windows 上**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages\Students --referenceScriptLibraries
   ```
 
   **在 macOS 或 Linux 上**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries
   ```
 
@@ -500,7 +500,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-```CLI
+```dotnetcli
 dotnet new webapp -o ContosoUniversity
 cd ContosoUniversity
 dotnet run
@@ -605,7 +605,7 @@ dotnet run
 
 运行以下命令，搭建“学生”模型的基架。
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 2.1.0
 dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries
@@ -633,7 +633,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 在 Startup.cs 中检查 `ConfigureServices` 方法  。 基架添加了突出显示的行：
 
-[!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=5-6)]
+[!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=13-14)]
 
 通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
 

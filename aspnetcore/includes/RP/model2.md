@@ -22,7 +22,7 @@
 
 打开 RazorPagesMovie 项目的终端。  右键单击设计/布局栏中的项目名称，然后转到终端中的“工具”>“打开”  。 在终端中运行以下 .NET Core CLI 命令：
 
-```console
+```dotnetcli
 dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
@@ -57,11 +57,10 @@ using Microsoft.EntityFrameworkCore;
 
 运行以下 .NET Core CLI 命令，以将 SQLite 和 CodeGeneration.Design 添加到项目中：
 
-```console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
-
 ```
 
 `Microsoft.VisualStudio.Web.CodeGeneration.Design` 包对基架是必需的。

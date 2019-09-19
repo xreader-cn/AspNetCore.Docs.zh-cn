@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: c5d5b723b31a5c211a47e378e50be858fda0b2bd
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: d387098662cc832cc0e49b6a1636f0ebcc7308de
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313797"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081691"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web 主机
 
@@ -431,7 +431,7 @@ hostsettings.json  ：
 
 若要指定在特定的 URL 上运行的主机，所需的值可以在执行 [dotnet 运行](/dotnet/core/tools/dotnet-run)时从命令提示符传入。 命令行参数重写 hostsettings.json  文件中的 `urls` 值，且服务器侦听端口 8080：
 
-```console
+```dotnetcli
 dotnet run --urls "http://*:8080"
 ```
 

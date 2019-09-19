@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 39e2a38e0b91b7dbecf05c084ca0be5e312dcb0d
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: 18cf9aea930a7989bb844bc6c40dfa1ce84b7b4d
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862873"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082603"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -98,19 +98,19 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * **对于 Windows**：运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
 * **对于 macOS 和 Linux**：运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
@@ -121,13 +121,13 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * 运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
@@ -355,19 +355,19 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * **对于 Windows**：运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
 * **对于 macOS 和 Linux**：运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
@@ -378,13 +378,13 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * 运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 

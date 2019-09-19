@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 07/08/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 53d3763a93cc72b6bcf85b64a706500299b3597f
-ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.openlocfilehash: 2dfa994b9763a0139cb70cbf9847ac3b02b568e4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "67893799"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081971"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -68,7 +68,7 @@ ms.locfileid: "67893799"
 
 * 运行以下命令：
 
-   ```console
+   ```dotnetcli
    dotnet new webapp -o SignalRChat
    code -r SignalRChat
    ```
@@ -110,7 +110,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在集成终端中，运行以下命令以安装 LibMan。
 
-  ```console
+  ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
@@ -137,7 +137,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在“终端”  中，运行以下命令以安装 LibMan。
 
-  ```console
+  ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
@@ -220,7 +220,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在集成终端中，运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet run -p SignalRChat.csproj
   ```
 
@@ -242,7 +242,8 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 > * 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。
 >   ![未找到 signalr.js 错误](signalr/_static/3.x/f12-console.png)
 > * 如果 Chrome 中出现 ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY 错误或 Firefox 中出现 NS_ERROR_NET_INADEQUATE_SECURITY 错误，请运行这些命令以更新开发证书：
->   ```
+>
+>   ```dotnetcli
 >   dotnet dev-certs https --clean
 >   dotnet dev-certs https --trust
 >   ```
@@ -309,7 +310,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 运行以下命令：
 
-   ```console
+   ```dotnetcli
    dotnet new webapp -o SignalRChat
    code -r SignalRChat
    ```
@@ -352,7 +353,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在集成终端中，运行以下命令以安装 LibMan。
 
-  ```console
+  ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
@@ -379,7 +380,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在“终端”  中，运行以下命令以安装 LibMan。
 
-  ```console
+  ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
@@ -462,7 +463,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 * 在集成终端中，运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet run -p SignalRChat.csproj
   ```
 

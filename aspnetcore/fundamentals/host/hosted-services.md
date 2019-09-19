@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 3d4279a291182da60c0cb2fbb93a3922ed673cde
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 1db3ee1a9bcc0d41edf24df55bcd8d54fb0e9724
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914021"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081779"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -49,7 +49,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 将辅助角色服务 (`worker`) 模板用于命令行界面中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。 下面的示例中创建了名为 `ContosoWorkerService` 的辅助角色服务应用。 执行命令时会自动为 `ContosoWorkerService` 应用创建文件夹。
 
-```console
+```dotnetcli
 dotnet new worker -o ContosoWorkerService
 ```
 

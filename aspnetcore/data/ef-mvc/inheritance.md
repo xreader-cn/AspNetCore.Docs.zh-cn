@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 60d97137fbc6a08152b7b8a631b7a32940875b38
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 8e092ac47b2fd5fb6f3a0524bf1c559b7c3935c4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975105"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080423"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>教程：实现继承 - ASP.NET MVC 和 EF Core
 
@@ -93,7 +93,7 @@ TPC 和 TPH 继承模式的性能通常比 TPT 继承模式好，因为 TPT 模�
 
 保存更改并生成项目。 随后在项目文件夹中打开命令窗口并输入以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add Inheritance
 ```
 
@@ -127,7 +127,7 @@ dotnet ef migrations add Inheritance
 
 运行 `database update` 命令：
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

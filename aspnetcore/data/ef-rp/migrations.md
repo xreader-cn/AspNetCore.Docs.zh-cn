@@ -5,12 +5,12 @@ description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 110ffa8ecea1fe6e55a2f979a4ce851ed59e1807
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 8a4929a905c6a488231d7d29e1101f6fd887477f
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583504"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082080"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（共 8 个）
 
@@ -44,7 +44,7 @@ Drop-Database
 
 * 在命令提示符下运行以下命令以安装 EF CLI 工具：
 
-  ```console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
@@ -52,7 +52,7 @@ Drop-Database
 
 * 删除 CU.db 文件，或运行以下命令  ：
 
-  ```console
+  ```dotnetcli
   dotnet ef database drop --force
   ```
 
@@ -73,7 +73,7 @@ Update-Database
 
 确保命令提示符位于项目文件夹中，并运行以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
@@ -192,7 +192,7 @@ Drop-Database
 
 在命令窗口中输入以下内容：
 
- ```console
+ ```dotnetcli
  dotnet ef database drop
  ```
 
@@ -211,7 +211,7 @@ Update-Database
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
@@ -249,7 +249,7 @@ Remove-Migration
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-```console
+```dotnetcli
 dotnet ef migrations remove
 ```
 

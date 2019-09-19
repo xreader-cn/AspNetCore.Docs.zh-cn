@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 08/02/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 3be036d9b4fc6c9898faf14e8a60a8cc7a8683b7
-ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
+ms.openlocfilehash: f20f8c4e9b1089acca6689d14cdf84bef648d461
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/02/2019
-ms.locfileid: "68739550"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081755"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
@@ -203,13 +203,13 @@ HostingStartupLibrary;HostingStartupPackage;StartupDiagnostics
 
 构建承载启动后，使用清单项目文件和 [dotnet store](/dotnet/core/tools/dotnet-store) 命令生成运行时存储。
 
-```console
+```dotnetcli
 dotnet store --manifest {MANIFEST FILE} --runtime {RUNTIME IDENTIFIER} --output {OUTPUT LOCATION} --skip-optimization
 ```
 
 在示例应用（*RuntimeStore* 项目）中，使用以下命令：
 
-``` console
+```dotnetcli
 dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./deployment/store --skip-optimization
 ```
 
@@ -361,7 +361,7 @@ additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.jso
 
 如果更改并重新编译 HostingStartupPackage 项目，请清除本地 NuGet 包缓存，确保 HostingStartupApp 从本地缓存中收到更新后的包而不是旧包   。 要清除本地 NuGet 缓存，请执行以下 [dotnet nuget locals](/dotnet/core/tools/dotnet-nuget-locals) 命令：
 
-```console
+```dotnetcli
 dotnet nuget locals all --clear
 ```
 

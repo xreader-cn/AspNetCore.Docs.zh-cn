@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/10/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: cc30b3fc67cec42eada20aed494642cf6d88b289
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: 8fdb1332882fd25bd61f5403a3b1f10e8a0bc7f7
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878430"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081520"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -82,7 +82,7 @@ public class BasicStartup
 
 若要使用示例应用运行基本配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario basic
 ```
 
@@ -332,7 +332,7 @@ app.UseEndpoints(endpoints =>
 
 若要使用示例应用运行数据库探测方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario db
 ```
 
@@ -370,7 +370,7 @@ app.UseEndpoints(endpoints =>
 
 在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario dbcontext
 ```
 
@@ -456,7 +456,7 @@ app.UseEndpoints(endpoints =>
 
 若要使用示例应用运行就绪情况/运行情况配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario liveness
 ```
 
@@ -519,7 +519,7 @@ app.UseEndpoints(endpoints =>
 
 若要使用示例应用运行具有自定义响应编写器输出的基于指标的探测，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario writer
 ```
 
@@ -615,7 +615,7 @@ app.UseEndpoints(endpoints =>
 
 若要使用示例应用运行管理端口配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario port
 ```
 
@@ -821,7 +821,7 @@ public class BasicStartup
 
 若要使用示例应用运行基本配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario basic
 ```
 
@@ -1047,7 +1047,7 @@ app.UseHealthChecks("/health");
 
 若要使用示例应用运行数据库探测方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario db
 ```
 
@@ -1082,7 +1082,7 @@ app.UseHealthChecks("/health");
 
 在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario dbcontext
 ```
 
@@ -1157,7 +1157,7 @@ app.UseHealthChecks("/health/live", new HealthCheckOptions()
 
 若要使用示例应用运行就绪情况/运行情况配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario liveness
 ```
 
@@ -1221,7 +1221,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 若要使用示例应用运行具有自定义响应编写器输出的基于指标的探测，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario writer
 ```
 
@@ -1290,7 +1290,7 @@ dotnet run --scenario writer
 
 若要使用示例应用运行管理端口配置方案，请在命令行界面中从项目文件夹执行以下命令：
 
-```console
+```dotnetcli
 dotnet run --scenario port
 ```
 

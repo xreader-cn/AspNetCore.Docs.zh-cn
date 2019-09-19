@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 038ea8cf7c72e4aaca6e06c0208d3dd1d5597577
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: b0efaf76cb2172f5b7568e42065b99b1259949de
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022479"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082032"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -71,7 +71,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer -IncludePrerelease
 
 运行以下 .NET Core CLI 命令：
 
-```console
+```dotnetcli
 dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
@@ -190,8 +190,8 @@ Visual Studio 将创建：
 
 * 运行下面的命令：
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -202,8 +202,8 @@ Visual Studio 将创建：
 
 * 运行下面的命令：
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -247,7 +247,7 @@ Update-Database
 
 运行以下 .NET Core CLI 命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
@@ -447,7 +447,7 @@ Visual Studio 将创建：
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
@@ -459,8 +459,8 @@ Visual Studio 将创建：
 
 * 运行下面的命令：
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -472,14 +472,14 @@ Visual Studio 将创建：
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 * 安装基架工具：
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * 运行下面的命令：
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: c2c815735ad1b4dcec761b26ea3992a4effebe62
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 1043a578f66d5bb57f4a81e9fe21afa5e3c37cb8
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682692"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081513"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -25,13 +25,13 @@ ms.locfileid: "68682692"
 
 `dotnet-aspnet-codegenerator` 是必须安装的一个[全局工具](/dotnet/core/tools/global-tools)。 以下命令安装 `dotnet-aspnet-codegenerator` 工具的最新稳定版本：
 
-```console
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 以下命令将 `dotnet-aspnet-codegenerator` 更新到已安装的.NET Core SDK 提供的最新稳定版本：
 
-```console
+```dotnetcli
 dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
@@ -56,9 +56,9 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ | 
 | area      | [搭建区域的基架](/aspnet/core/mvc/controllers/areas) |
   controller| [搭建控制器的基架](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  identity  | [搭建标识的基架](/aspnet/core/security/authentication/scaffold-identity) |
+  标识  | [搭建标识的基架](/aspnet/core/security/authentication/scaffold-identity) |
   razorpage | [搭建 Razor Pages 的基架](/aspnet/core/tutorials/razor-pages/model) |
-  view      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
+  查看      | [搭建视图的基架](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a>选项
 
@@ -137,7 +137,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 使用 `-h` 开关获取 `aspnet-codegenerator controller` 命令方面的帮助：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 
@@ -158,7 +158,7 @@ dotnet aspnet-codegenerator controller -h
 
 例如，以下命令使用 Edit 模板生成MyEdit.cshtml  和 MyEdit.cshtml.cs  ：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies
 ```
 
@@ -184,7 +184,7 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 
 使用 `-h` 开关获取 `aspnet-codegenerator razorpage` 命令方面的帮助：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage -h
 ```
 

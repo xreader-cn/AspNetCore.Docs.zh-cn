@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: da57633c345ec087b1a4f24ddc7771e7a2d04720
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: c9cbf8fd3ed85f32b3c166bf2df702fd26df4fc3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059077"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080993"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -156,7 +156,7 @@ modelBuilder.Entity<Department>()
 
 * 在终端中运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet ef migrations add RowVersion
   ```
 
@@ -190,7 +190,7 @@ modelBuilder.Entity<Department>()
 
 * 在终端中运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet ef database update
   ```
 
@@ -216,13 +216,13 @@ modelBuilder.Entity<Department>()
 
   在 Windows 上： 
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages\Departments --referenceScriptLibraries
   ```
 
   **在 Linux 或 macOS 上：**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages/Departments --referenceScriptLibraries
   ```
 
@@ -494,7 +494,7 @@ modelBuilder.Entity<Department>()
 
 生成项目。 在命令窗口中输入以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add RowVersion
 dotnet ef database update
 ```
@@ -520,7 +520,7 @@ dotnet ef database update
 
  运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages\Departments --referenceScriptLibraries
   ```
 

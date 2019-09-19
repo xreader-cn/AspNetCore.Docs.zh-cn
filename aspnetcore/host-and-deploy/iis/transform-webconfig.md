@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2019
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 58dee024f5b032d1ef13df02648727b6a07eac1f
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 32e66007d527f7f7b7cfd88d3bebc9b808251941
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813352"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081452"
 ---
 # <a name="transform-webconfig"></a>转换 web.config
 
@@ -58,7 +58,7 @@ ms.locfileid: "67813352"
 
 当配置设置为“发布”  时，将应用转换：
 
-```console
+```dotnetcli
 dotnet publish --configuration Release
 ```
 
@@ -92,7 +92,7 @@ dotnet publish --configuration Release
 
 当配置文件为 FolderProfile  时，将应用转换：
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 ```
 
@@ -128,7 +128,7 @@ dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 
 当环境为“生产”  时，将应用转换：
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:EnvironmentName=Production
 ```
 
@@ -166,7 +166,7 @@ dotnet publish --configuration Release /p:EnvironmentName=Production
 
 将 `CustomTransformFileName` 属性传递给 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令时，将应用转换：
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:CustomTransformFileName=custom.transform
 ```
 
@@ -176,7 +176,7 @@ dotnet publish --configuration Release /p:CustomTransformFileName=custom.transfo
 
 若要阻止转换 web.config  文件，请设置 MSBuild 属性 `$(IsWebConfigTransformDisabled)`：
 
-```console
+```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true
 ```
 

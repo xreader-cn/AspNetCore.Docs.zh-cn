@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: b93641c96ad093b40aaa887f19409d4c2e1490df
-ms.sourcegitcommit: efb9c16321b34f8ede802822b26eb983de16479b
+ms.openlocfilehash: 8ef49797fed3379e33810f311bfc474e524122e0
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/09/2019
-ms.locfileid: "70842274"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082588"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -44,7 +44,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 
 若要安装 HTTP REPL，运行以下命令：
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 ```
 
@@ -227,19 +227,19 @@ https://localhost:5001/people~
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
-%HOME%/.httpreplprefs
+%HOME%/.httpreplprefs 
 
 # <a name="macostabmacos"></a>[macOS](#tab/macos)
 
-%HOME%/.httpreplprefs
+%HOME%/.httpreplprefs 
 
 # <a name="windowstabwindows"></a>[Windows](#tab/windows)
 
-%USERPROFILE%\\.httpreplprefs
+%USERPROFILE%\\.httpreplprefs 
 
 ---
 
-.httpreplprefs 文件将在启动时加载，并且在运行时不监控对其的更改。 对文件的手动修改只会在重启该工具后生效。
+.httpreplprefs  文件将在启动时加载，并且在运行时不监控对其的更改。 对文件的手动修改只会在重启该工具后生效。
 
 ### <a name="view-the-settings"></a>查看设置
 
@@ -490,7 +490,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
 
     ```json
     {
@@ -511,7 +511,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     }
     ```
 
-1. 保存 .tmp 文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
+1. 保存 .tmp  文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
 
     ```console
     HTTP/1.1 201 Created
@@ -585,7 +585,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp 文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
 
     ```json
     {
@@ -606,7 +606,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     }
     ```
 
-1. 保存 .tmp 文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
+1. 保存 .tmp  文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
 
     ```console
     [main 2019-06-28T17:27:01.805Z] update#setState idle
@@ -872,7 +872,7 @@ Request echoing is off
 
 如果经常执行一组相同的 HTTP REPL 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如:
 
-1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt 文件：
+1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt  文件：
 
     ```text
     set base https://localhost:5001

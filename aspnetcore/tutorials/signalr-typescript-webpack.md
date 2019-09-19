@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/23/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 628fbb9940ad14cb15e3abd88b8b6a524b24d70a
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 99628b4f52980e6d32c70d11bb0d8a770dac7f86
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773950"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081571"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
@@ -70,7 +70,7 @@ ms.locfileid: "70773950"
 
 在“集成终端”中运行以下命令  ：
 
-```console
+```dotnetcli
 dotnet new web -o SignalRWebPack
 ```
 
@@ -249,7 +249,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
 1. 通过在项目根中执行以下命令生成和运行应用：
 
-    ```console
+    ```dotnetcli
     dotnet run
     ```
 
@@ -305,7 +305,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
 在“集成终端”中运行以下命令  ：
 
-```console
+```dotnetcli
 dotnet new web -o SignalRWebPack
 ```
 
@@ -484,7 +484,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
 1. 通过在项目根中执行以下命令生成和运行应用：
 
-    ```console
+    ```dotnetcli
     dotnet run
     ```
 

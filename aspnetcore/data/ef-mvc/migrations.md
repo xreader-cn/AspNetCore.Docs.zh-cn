@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: fcb238c132a774200e9f54f1141f5ba79fa2f802
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 3ee95d9b648a90c90d06e33a30b568626a1eb0aa
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975170"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080834"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -51,7 +51,7 @@ ms.locfileid: "69975170"
 > [!NOTE]
 > 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令  ：
 >
-> ```console
+> ```dotnetcli
 > dotnet ef database drop
 > ```
 >
@@ -71,7 +71,7 @@ ms.locfileid: "69975170"
 
 在命令窗口中输入以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
@@ -112,7 +112,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 在命令窗口中，输入以下命令以创建数据库并在其中创建表。
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: a69f1fdd38fec35dec6bb8125bf29859a437a891
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 85a11ba082fc8f6b364019f6cefcd5b1fe5a9215
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975083"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080462"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
@@ -98,11 +98,11 @@ ms.locfileid: "69975083"
 
 保存更改并生成项目。 随后打开项目文件夹中的命令窗口并输入以下命令：
 
-```console
+```dotnetcli
 dotnet ef migrations add MaxLengthOnNames
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -126,11 +126,11 @@ Entity Framework 使用迁移文件名的前缀时间戳发出迁移命令。 �
 
 保存更改并生成项目。 随后打开项目文件夹中的命令窗口，输入以下命令，创建另一个迁移：
 
-```console
+```dotnetcli
 dotnet ef migrations add ColumnFirstName
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -434,7 +434,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 保存更改并生成项目。 然后打开项目文件夹中的命令窗口，输入 `migrations add` 命令（先不要执行 update-database 命令）：
 
-```console
+```dotnetcli
 dotnet ef migrations add ComplexDataModel
 ```
 
@@ -483,7 +483,7 @@ Done. To undo this action, use 'ef migrations remove'
 > [!NOTE]
 > 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令  ：
 >
-> ```console
+> ```dotnetcli
 > dotnet ef database drop
 > ```
 
@@ -491,7 +491,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 更改数据库名称或删除数据库后，在命令窗口运行 `database update` 命令，执行迁移。
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 4af41422288847c5e77057215390b901d1074c88
-ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
+ms.openlocfilehash: 0629605f4d5597a9694cb20ce00b91ff4a768468
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68670100"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082473"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -122,7 +122,7 @@ Update-Database
 
 删除迁移文件夹。  使用以下命令重新创建数据库。
 
-```console
+```dotnetcli
 dotnet ef database drop
 dotnet ef migrations add InitialCreate
 dotnet ef database update
@@ -247,7 +247,7 @@ Update-Database
 
 删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)  。 然后运行 `ef database update` 命令：
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

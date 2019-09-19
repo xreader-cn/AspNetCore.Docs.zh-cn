@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 62224312aa9b7f3e0164b5300e491f59b0832acd
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: f53f8edef7fe8690d0e414bc094d81dc99ad198a
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024725"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082091"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
 
@@ -85,13 +85,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   在 Windows 上： 
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
   ```
 
   **在 Linux 或 macOS 上：**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages/Courses --referenceScriptLibraries
   ```
 
@@ -182,13 +182,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   在 Windows 上： 
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
   ```
 
   **在 Linux 或 macOS 上：**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages/Instructors --referenceScriptLibraries
   ```
 
@@ -390,7 +390,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
  运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
   ```
 
@@ -477,7 +477,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
  运行下面的命令：
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
   ```
 

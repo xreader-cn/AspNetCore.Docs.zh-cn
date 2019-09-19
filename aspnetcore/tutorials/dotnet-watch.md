@@ -5,12 +5,12 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 03b4f7f4ade5268915482a659890c7edc2d9a852
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5462f89a3b5a257ed0a6a8439efb077653fb14f6
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889872"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082252"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
@@ -20,16 +20,16 @@ ms.locfileid: "64889872"
 
 本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。 乘积的方法有一个 bug，本教程将会对其进行修复。
 
-下载[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp (ASP.NET Core Web API) 和 WebAppTests（用于 Web API 的单元测试）。
+下载[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp  (ASP.NET Core Web API) 和 WebAppTests  （用于 Web API 的单元测试）。
 
-在命令行界面中，导航到 WebApp 文件夹。 运行下面的命令：
+在命令行界面中，导航到 WebApp 文件夹  。 运行下面的命令：
 
-```console
+```dotnetcli
 dotnet run
 ```
 
 > [!NOTE]
-> 可使用 `dotnet run --project <PROJECT>` 来指定要运行的项目。 例如，从示例应用的根路径运行 `dotnet run --project WebApp` 还会运行 WebApp 项目。
+> 可使用 `dotnet run --project <PROJECT>` 来指定要运行的项目。 例如，从示例应用的根路径运行 `dotnet run --project WebApp` 还会运行 WebApp  项目。
 
 控制台输出会显示如下类似的消息（表示应用正在运行且正在等待请求）：
 
@@ -51,7 +51,7 @@ Application started. Press Ctrl+C to shut down.
 
 `dotnet watch` 文件观察程序工具随 2.1.300 版本的 .NET Core SDK 一同提供。 使用早期版本的 .NET Core SDK 时，需要执行以下步骤。
 
-1. 将 `Microsoft.DotNet.Watcher.Tools` 包引用添加到 .csproj 文件：
+1. 将 `Microsoft.DotNet.Watcher.Tools` 包引用添加到 .csproj 文件  ：
 
     ```xml
     <ItemGroup>
@@ -61,7 +61,7 @@ Application started. Press Ctrl+C to shut down.
 
 1. 运行以下命令，安装 `Microsoft.DotNet.Watcher.Tools` 包：
 
-    ```console
+    ```dotnetcli
     dotnet restore
     ```
 
@@ -78,16 +78,16 @@ Application started. Press Ctrl+C to shut down.
 | dotnet run -f netcoreapp2.0 -- --arg1 | dotnet watch run -f netcoreapp2.0 -- --arg1 |
 | dotnet test | dotnet watch test |
 
-运行“WebApp”文件夹中的 `dotnet watch run`。 控制台输出指示 `watch` 已启动。
+运行“WebApp”文件夹中的 `dotnet watch run`  。 控制台输出指示 `watch` 已启动。
 
 > [!NOTE]
-> 可使用 `dotnet watch --project <PROJECT>` 来指定要监视的项目。 例如，从示例应用的根路径运行 `dotnet watch --project WebApp run` 还会运行并监视 WebApp 项目。
+> 可使用 `dotnet watch --project <PROJECT>` 来指定要监视的项目。 例如，从示例应用的根路径运行 `dotnet watch --project WebApp run` 还会运行并监视 WebApp  项目。
 
 ## <a name="make-changes-with-dotnet-watch"></a>使用 `dotnet watch` 执行更改
 
 确保 `dotnet watch` 正在运行。
 
-修复 MathController 的 `Product` 方法中的 bug，使其返回乘积而非总和。
+修复 MathController 的 `Product` 方法中的 bug，使其返回乘积而非总和  。
 
 ```csharp
 public static int Product(int a, int b)
@@ -102,8 +102,8 @@ public static int Product(int a, int b)
 
 ## <a name="run-tests-using-dotnet-watch"></a>使用 `dotnet watch` 运行测试
 
-1. 将 MathController.cs 的 `Product` 方法改回返回总和。 保存该文件。
-1. 在命令外壳中，导航到“WebAppTests”文件夹。
+1. 将 MathController.cs 的 `Product` 方法改回返回总和  。 保存该文件。
+1. 在命令外壳中，导航到“WebAppTests”文件夹  。
 1. 运行 [dotnet restore](/dotnet/core/tools/dotnet-restore)。
 1. 运行 `dotnet watch test`。 其输出指示测试失败且观察程序正在等待文件更改：
 
@@ -124,7 +124,7 @@ public static int Product(int a, int b)
 * `*.csproj`
 * `**/*.resx`
 
-通过编辑 .csproj 文件，可向监视列表添加更多项。 可以单独指定项或使用 glob 模式指定。
+通过编辑 .csproj 文件，可向监视列表添加更多项  。 可以单独指定项或使用 glob 模式指定。
 
 ```xml
 <ItemGroup>
@@ -135,7 +135,7 @@ public static int Product(int a, int b)
 
 ## <a name="opt-out-of-files-to-be-watched"></a>从要监视的文件中排除
 
-`dotnet-watch` 可配置为忽略其默认设置。 要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性：
+`dotnet-watch` 可配置为忽略其默认设置。 要忽略特定文件，请在 .csproj 文件中向某项的定义中添加 `Watch="false"` 特性  ：
 
 ```xml
 <ItemGroup>
@@ -175,9 +175,9 @@ public static int Product(int a, int b)
 </Project>
 ```
 
-要对这两个项目启动文件监视，请更改为 test 文件夹。 请执行以下命令：
+要对这两个项目启动文件监视，请更改为 test 文件夹  。 请执行以下命令：
 
-```console
+```dotnetcli
 dotnet watch msbuild /t:Test
 ```
 

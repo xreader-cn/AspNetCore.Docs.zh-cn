@@ -11,7 +11,7 @@
 
 使用 `h` 开关获取 `aspnet-codegenerator controller` 命令方面的帮助：
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 

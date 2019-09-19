@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: c2a2941f2a4e27218c90cf47453c69149da8e766
-ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
+ms.openlocfilehash: 995fdd2bbba30ff983bc2055fcb97c14541e2ac6
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/09/2019
-ms.locfileid: "70815700"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081484"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -48,7 +48,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 将辅助角色服务 (`worker`) 模板用于命令行界面中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。 下面的示例中创建了名为 `ContosoWorkerService` 的辅助角色服务应用。 执行命令时会自动为 `ContosoWorkerService` 应用创建文件夹。
 
-```console
+```dotnetcli
 dotnet new worker -o ContosoWorkerService
 ```
 

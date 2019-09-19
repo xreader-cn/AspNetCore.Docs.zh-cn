@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 913511948def86cb2065459a3fcf5f16362a92d5
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 7a67efad187f29773c1cac7a5a2457d02080114b
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975035"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080547"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -235,7 +235,7 @@ EF CLI 命令不会自动关闭并保存代码文件。 如果在运行`migratio
 
 若要使用 CLI 删除数据库，可以运行`database drop`CLI 命令：
 
-```console
+```dotnetcli
 dotnet ef database drop
 ```
 

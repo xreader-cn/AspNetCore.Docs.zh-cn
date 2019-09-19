@@ -1,6 +1,6 @@
 * 通过运行以下命令来信任 HTTPS 开发证书：
 
-    ```console
+    ```dotnetcli
     dotnet dev-certs https --trust
     ```
 

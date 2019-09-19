@@ -7,12 +7,12 @@ ms.author: shboyer
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 1a092a302bbffa74fa7a861901046ebda1998989
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: ec14bce5d8ada9a56ccc44d1159373dc73a09c1b
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813390"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081884"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -25,7 +25,7 @@ ms.locfileid: "67813390"
 * 运行 CentOS 7 的服务器，使用具有 sudo 特权的标准用户帐户。
 * 在服务器上安装 .NET Core 运行时。
    1. 访问 [.NET Core“所有下载”页](https://www.microsoft.com/net/download/all)。
-   1. 从“运行时”下的列表中选择最新的非预览运行时  。
+   1. 从“运行时”下的列表中选择最新的非预览运行时。
    1. 选择并执行适用于 CentOS/Oracle 的说明。
 * 一个现有 ASP.NET Core 应用。
 
@@ -36,17 +36,17 @@ ms.locfileid: "67813390"
 如果应用在本地运行，且未配置为建立安全连接 (HTTPS)，则采用以下任一方法：
 
 * 配置应用，以处理安全的本地连接。 有关详细信息，请参阅 [HTTPS 配置](#https-configuration)部分。
-* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）  。
+* 从 Properties/launchSettings.json 文件中的 `applicationUrl` 属性中删除 `https://localhost:5001`（如果存在）。
 
-在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）  ：
+在开发环境中运行 [dotnet publish](/dotnet/core/tools/dotnet-publish)，将应用打包到可在服务器上运行的目录中（例如 bin/Release/&lt;target_framework_moniker&gt;/publish）：
 
-```console
+```dotnetcli
 dotnet publish --configuration Release
 ```
 
 如果不希望维护服务器上的 .NET Core 运行时，还可将应用发布为[独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)。
 
-使用集成到组织工作流的工具（例如 SCP、SFTP）将 ASP.NET Core 应用复制到服务器。 通常可在 var 目录（例如 var/www/helloapp）下找到 Web 应用   。
+使用集成到组织工作流的工具（例如 SCP、SFTP）将 ASP.NET Core 应用复制到服务器。 通常可在 var 目录（例如 var/www/helloapp）下找到 Web 应用。
 
 > [!NOTE]
 > 在生产部署方案中，持续集成工作流会执行发布应用并将资产复制到服务器的工作。
@@ -122,9 +122,9 @@ Complete!
 
 ### <a name="configure-apache"></a>配置 Apache
 
-Apache 的配置文件位于 `/etc/httpd/conf.d/` 目录内。 除了 `/etc/httpd/conf.modules.d/` 中的模块配置文件外（其中包含加载模块所需的任何配置文件），将对任何带 .conf  扩展名的文件按字母顺序进行处理。
+Apache 的配置文件位于 `/etc/httpd/conf.d/` 目录内。 除了 `/etc/httpd/conf.modules.d/` 中的模块配置文件外（其中包含加载模块所需的任何配置文件），将对任何带 .conf 扩展名的文件按字母顺序进行处理。
 
-为应用创建名为 helloapp.conf  的配置文件：
+为应用创建名为 helloapp.conf 的配置文件：
 
 ```
 <VirtualHost *:*>
@@ -145,7 +145,7 @@ Apache 的配置文件位于 `/etc/httpd/conf.d/` 目录内。 除了 `/etc/http
 `VirtualHost` 块可以在服务器上的一个或多个文件中多次出现。 在前面的配置文件中，Apache 接受端口 80 上的公共流量。 正在向域 `www.example.com` 提供服务，`*.example.com` 别名解析为同一网站。 有关详细信息，请参阅[基于名称的虚拟主机支持](https://httpd.apache.org/docs/current/vhosts/name-based.html)。 请求会通过代理从根位置转到 127.0.0.1 处的服务器的端口 5000。 对于双向通信，需要 `ProxyPass` 和 `ProxyPassReverse`。 若要更改 Kestrel 的 IP/端口，请参阅 [Kestrel：终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)。
 
 > [!WARNING]
-> 未能指定 VirtualHost  块中的正确 [ServerName 指令](https://httpd.apache.org/docs/current/mod/core.html#servername)会公开应用的安全漏洞。 如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.example.com`）不具有此安全风险。 有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。
+> 未能指定 VirtualHost 块中的正确 [ServerName 指令](https://httpd.apache.org/docs/current/mod/core.html#servername)会公开应用的安全漏洞。 如果可控制整个父域（区别于易受攻击的 `*.com`），则子域通配符绑定（例如，`*.example.com`）不具有此安全风险。 有关详细信息，请参阅 [rfc7230 第 5.4 条](https://tools.ietf.org/html/rfc7230#section-5.4)。
 
 可以使用 `ErrorLog` 和 `CustomLog` 指令配置每个 `VirtualHost` 的日志记录。 `ErrorLog` 是服务器记录错误的位置，`CustomLog` 则设置文件名和日志文件的格式。 在这种情况下，这是记录请求信息的位置。 每个请求将各占一行。
 
@@ -164,7 +164,7 @@ sudo systemctl enable httpd
 
 ## <a name="monitor-the-app"></a>监视应用
 
-Apache 现在已设置为将对 `http://localhost:80` 发起的请求转发到运行在 `http://127.0.0.1:5000` 处的 Kestrel 上的 ASP.NET Core 应用。 但是，未将 Apache 设置为管理 Kestrel 进程。 使用 systemd  ，并创建服务文件以启动和监视基础 Web 应用。 systemd  是一个 init 系统，可以提供用于启动、停止和管理进程的许多强大的功能。
+Apache 现在已设置为将对 `http://localhost:80` 发起的请求转发到运行在 `http://127.0.0.1:5000` 处的 Kestrel 上的 ASP.NET Core 应用。 但是，未将 Apache 设置为管理 Kestrel 进程。 使用 systemd，并创建服务文件以启动和监视基础 Web 应用。 systemd 是一个 init 系统，可以提供用于启动、停止和管理进程的许多强大的功能。
 
 ### <a name="create-the-service-file"></a>创建服务文件
 
@@ -236,7 +236,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-在配置了反向代理并通过 systemd  管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。 检查响应标头，服务器  标头表示 ASP.NET Core 应用由 Kestrel 提供服务：
+在配置了反向代理并通过 systemd 管理 Kestrel 后，Web 应用现已完全配置，并能在本地计算机上的浏览器中从 `http://localhost` 进行访问。 检查响应标头，服务器标头表示 ASP.NET Core 应用由 Kestrel 提供服务：
 
 ```
 HTTP/1.1 200 OK
@@ -249,7 +249,7 @@ Transfer-Encoding: chunked
 
 ### <a name="view-logs"></a>查看日志
 
-由于使用 Kestrel 的 Web 应用是通过 systemd  进行管理的，因此事件和进程将记录到集中日志。 但是，此日志包含由 systemd  管理的所有服务和进程的条目。 若要查看特定于 `kestrel-helloapp.service` 的项，请使用以下命令：
+由于使用 Kestrel 的 Web 应用是通过 systemd 进行管理的，因此事件和进程将记录到集中日志。 但是，此日志包含由 systemd 管理的所有服务和进程的条目。 若要查看特定于 `kestrel-helloapp.service` 的项，请使用以下命令：
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service
@@ -314,18 +314,18 @@ rich rules:
 
 ### <a name="https-configuration"></a>HTTPS 配置
 
-配置应用，以进行安全的 (HTTPS) 本地连接 
+配置应用，以进行安全的 (HTTPS) 本地连接
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL  。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL。
 
 使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
 
-* [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐） 
+* [从配置中替换默认证书](xref:fundamentals/servers/kestrel#configuration)（推荐）
 * [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
-配置反向代理，以便进行安全 (HTTPS) 客户端连接 
+配置反向代理，以便进行安全 (HTTPS) 客户端连接
 
-若要为 Apache 配置 HTTPS，请使用 mod_ssl  模块。 安装了 httpd  模块时，也会安装了 mod_ssl  模块。 如果未安装，请使用 `yum` 将其添加到配置。
+若要为 Apache 配置 HTTPS，请使用 mod_ssl 模块。 安装了 httpd 模块时，也会安装了 mod_ssl 模块。 如果未安装，请使用 `yum` 将其添加到配置。
 
 ```bash
 sudo yum install mod_ssl
@@ -337,7 +337,7 @@ sudo yum install mod_ssl
 sudo yum install mod_rewrite
 ```
 
-修改 helloapp.conf  文件以启用 URL 重写和端口 443 上的安全通信：
+修改 helloapp.conf 文件以启用 URL 重写和端口 443 上的安全通信：
 
 ```
 <VirtualHost *:*>
@@ -365,7 +365,7 @@ sudo yum install mod_rewrite
 ```
 
 > [!NOTE]
-> 此示例中使用了本地生成的证书。 SSLCertificateFile  应为域名的主证书文件。 SSLCertificateKeyFile  应为创建 CSR 时生成的密钥文件。 SSLCertificateChainFile  应为证书颁发机构提供的中间证书文件（如有）。
+> 此示例中使用了本地生成的证书。 SSLCertificateFile 应为域名的主证书文件。 SSLCertificateKeyFile 应为创建 CSR 时生成的密钥文件。 SSLCertificateChainFile 应为证书颁发机构提供的中间证书文件（如有）。
 
 保存文件，并测试配置：
 
@@ -419,13 +419,13 @@ sudo nano /etc/httpd/conf/httpd.conf
 
 ### <a name="load-balancing"></a>负载平衡
 
-此示例演示如何在同一实例计算机上的 CentOS 7 和 Kestrel 上设置和配置 Apache。 为了不出现单一故障点；使用 mod_proxy_balancer  并修改 VirtualHost  可实现在 Apache 代理服务器后方管理 Web 应用的多个实例。
+此示例演示如何在同一实例计算机上的 CentOS 7 和 Kestrel 上设置和配置 Apache。 为了不出现单一故障点；使用 mod_proxy_balancer 并修改 VirtualHost 可实现在 Apache 代理服务器后方管理 Web 应用的多个实例。
 
 ```bash
 sudo yum install mod_proxy_balancer
 ```
 
-在下面所示的配置文件中，`helloapp` 的其他实例设置为在端口 5001 上运行。 “代理”  部分设置了具有两个成员的均衡器配置，以便对 byrequests  进行负载均衡。
+在下面所示的配置文件中，`helloapp` 的其他实例设置为在端口 5001 上运行。 “代理”部分设置了具有两个成员的均衡器配置，以便对 byrequests 进行负载均衡。
 
 ```
 <VirtualHost *:*>
@@ -465,7 +465,7 @@ sudo yum install mod_proxy_balancer
 
 ### <a name="rate-limits"></a>速率限制
 
-使用 httpd  模块中包含的 mod_ratelimit  ，客户端的带宽可以限制为：
+使用 httpd 模块中包含的 mod_ratelimit，客户端的带宽可以限制为：
 
 ```bash
 sudo nano /etc/httpd/conf.d/ratelimit.conf
