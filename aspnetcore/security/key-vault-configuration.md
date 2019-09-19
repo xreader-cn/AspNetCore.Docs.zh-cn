@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/01/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: fe6cdca1f7180f9da26fe2838e529becb26ccd45
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: f16891182d274333ddc05eea401c06468e0717b1
+ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081104"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71108082"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -90,13 +90,13 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. 使用以下命令创建资源组，其中`{RESOURCE GROUP NAME}`是新资源`{LOCATION}`组的资源组名称，是 Azure 区域（数据中心）：
 
-   ```console
+   ```azure-cli
    az group create --name "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
 1. 使用以下命令在资源组中创建密钥保管库，其中`{KEY VAULT NAME}`是新密钥`{LOCATION}`保管库的名称，是 Azure 区域（datacenter）：
 
-   ```console
+   ```azure-cli
    az keyvault create --name "{KEY VAULT NAME}" --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
@@ -106,7 +106,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
    以下机密用于示例应用。 这些值包含`_prod`后缀，以将其与从`_dev`用户机密的开发环境中加载的后缀值区分开来。 将`{KEY VAULT NAME}`替换为在上一步中创建的密钥保管库的名称：
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
@@ -176,7 +176,7 @@ appsettings.json：
 
 使用 Azure CLI 和应用程序的对象 ID，为应用程序提供`list`访问`get`密钥保管库的和权限：
 
-```console
+```azure-cli
 az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
 ```
 
@@ -240,7 +240,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 1. 使用以下 Azure CLI 命令在 Azure Key Vault 中保存机密：
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```
@@ -287,7 +287,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 使用双短划线（`--`）表示法和数值段在 Azure Key Vault 中存储前面的 JSON 文件中所示的配置：
 
-| Key | ReplTest1 |
+| Key | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -308,7 +308,7 @@ Configuration.Reload();
 
 禁用和过期的`KeyVaultClientException`机密会在运行时引发。 若要防止应用程序引发，请使用不同的配置提供程序提供配置，或更新禁用或过期的机密。
 
-## <a name="troubleshoot"></a>故障排除
+## <a name="troubleshoot"></a>疑难解答
 
 当应用无法使用访问接口加载配置时，会将错误消息写入[ASP.NET Core 日志记录基础结构](xref:fundamentals/logging/index)。 以下条件将阻止加载配置：
 
