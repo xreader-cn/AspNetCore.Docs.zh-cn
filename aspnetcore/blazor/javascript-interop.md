@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 1572b9ee646577d094409cc33dd621f2f73dc863
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: aee9b981349e62dcc7ccf352dd5bab520969ed3b
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964205"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168196"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)、 [Daniel Roth](https://github.com/danroth27)和[Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScript 函数。
 
@@ -248,7 +250,7 @@ JavaScript 互操作代码可以包含在类库中，这使你可以共享 NuGet
 
 在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。 包还原后，应用程序代码可以调入 JavaScript，就像它是C#一样。
 
-有关详细信息，请参阅 <xref:blazor/class-libraries>。
+有关详细信息，请参阅 <xref:blazor/class-libraries> 。
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 

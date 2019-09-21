@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 09/05/2019
 uid: blazor/index
-ms.openlocfilehash: 767ec8f106bebb92cf13a10eb63fab4905715d3d
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 378892efafa6b979d7f92a5e559b2dc8bb12295d
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964115"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168255"
 ---
 # <a name="introduction-to-blazor"></a>Blazor 简介
 
@@ -102,6 +102,8 @@ Welcome to your new app.
 组件呈现为浏览器文档对象模型 (DOM) 的内存中表现形式，称为“呈现树”  ，用于以灵活高效的方式更新 UI。
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor WebAssembly 是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor WebAssembly 使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
 

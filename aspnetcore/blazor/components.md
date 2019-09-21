@@ -5,14 +5,14 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/19/2019
 uid: blazor/components
-ms.openlocfilehash: 521421ac413218c1f04dd9feade2a49dc1f7b918
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 55b40bc640715bf4052fa99ed68f63250b67e8d1
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080530"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168218"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -450,11 +450,11 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 
 下表显示了支持的[EventArgs](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web) 。
 
-| Event | 类 |
+| 事件 | 类 |
 | ----- | ----- |
 | 剪贴板        | `ClipboardEventArgs` |
 | 入             | `DragEventArgs`&ndash; 并保存`DataTransferItem`拖动的项数据。 `DataTransfer` |
-| Error            | `ErrorEventArgs` |
+| 错误            | `ErrorEventArgs` |
 | 焦点            | `FocusEventArgs`不包含对的`relatedTarget`支持。 &ndash; |
 | `<input>` 已更改 | `ChangeEventArgs` |
 | 键盘         | `KeyboardEventArgs` |
@@ -1044,7 +1044,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关详细信息，请参阅 <xref:mvc/views/razor> 。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -1128,7 +1128,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 
 ### <a name="generic-typed-components"></a>泛型类型化组件
 
-模板化组件通常是通用类型。 例如，泛型`ListViewTemplate`组件可用于呈现`IEnumerable<T>`值。 若要定义一般组件，请使用`@typeparam`指令指定类型参数：
+模板化组件通常是通用类型。 例如，泛型`ListViewTemplate`组件可用于呈现`IEnumerable<T>`值。 若要定义一般组件，请使用[@typeparam](xref:mvc/views/razor#typeparam)指令指定类型参数：
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
 
@@ -1417,16 +1417,16 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时， `someFlag` `true`生成器将接收：
 
-| 序列 | 类型      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 假设它`someFlag`变为`false`，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | 类型       | Data   |
+| 序列 | 类型       | 数据   |
 | :------: | ---------- | :----: |
-| 1        | Text 节点  | 第二个 |
+| 1        | Text 节点  | 秒 |
 
 当运行时执行差异时，它会发现序列`0`中的项已被删除，因此它生成以下简单的*编辑脚本*：
 
@@ -1449,16 +1449,16 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 此结果与以前的情况相同，因此不存在负面问题。 `someFlag``false`在第二次呈现时，输出为：
 
-| 序列 | 类型      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | ------ |
-| 0        | Text 节点 | 第二个 |
+| 0        | Text 节点 | 秒 |
 
 这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
 
@@ -1595,7 +1595,7 @@ Blazor 的`@bind`功能基于用户的当前区域性执行全球化。 有关�
 * `IStringLocalizer<>`在 Blazor 应用中*受支持*。
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization>。
+有关详细信息，请参阅 <xref:fundamentals/localization> 。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

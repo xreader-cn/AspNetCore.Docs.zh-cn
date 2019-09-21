@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 58773ae6c605ddc7a3d85fb97eeae40d0bbe15fb
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b1d0b1a99bac202567e44ae11986c57ab5891e43
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080513"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168097"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor 入门：
 
@@ -36,7 +38,7 @@ Blazor 入门：
 
    2。 创建新项目。
 
-   3。 选择**Blazor 应用**。 选择“**下一步**”。
+   3。 选择**Blazor 应用**。 选择“下一步”。
 
    4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
@@ -121,7 +123,7 @@ Blazor 入门：
 
 边栏中的选项卡上提供了多个页面：
 
-* 主页
+* Home
 * 计数器
 * 提取数据
 

@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/routing
-ms.openlocfilehash: 1c61eedf7dbf0bbc8796eaa11360783b9d7aba6c
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 6d9d1614b6e0cc9f4711de0db4513ada4841809f
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963875"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168175"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
 作者：[Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 了解如何路由请求，以及如何使用该`NavLink`组件在 Blazor apps 中创建导航链接。
 

@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 6c01fdc390cc9150cf81673c717b73c4b10c31f1
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 074d7a669c900eb242c8329147b28d1c50652915
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963970"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168088"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
 作者： [Rainer Stropek](https://www.timecockpit.com)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor 支持[依赖关系注入（DI）](xref:fundamentals/dependency-injection)。 应用可以通过将内置服务注入组件来使用这些服务。 应用还可以定义和注册自定义服务，并通过 DI 使其在整个应用中可用。
 
@@ -31,7 +33,7 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
+| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api> 。 |
 | `IJSRuntime` | 单例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关详细信息，请参阅 <xref:blazor/javascript-interop> 。 |
 | `NavigationManager` | 单例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
