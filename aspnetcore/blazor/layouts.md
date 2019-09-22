@@ -5,14 +5,14 @@ description: 了解如何为 Blazor 应用创建可重用的布局组件。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/21/2019
 uid: blazor/layouts
-ms.openlocfilehash: 05a38c10e18407d50422192ab1ddf3ff4b0f3a5b
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 6ae795f720cd2cc1010ebec46bcee877b31d20c6
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800371"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176421"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -45,6 +45,8 @@ ms.locfileid: "70800371"
 
 有关`Router`组件的详细信息，请参阅<xref:blazor/routing>。
 
+在路由器中将布局指定为默认布局是一项有用的做法，因为它可以基于每个组件或每个文件夹进行重写。 首选使用路由器设置应用的默认布局，因为这是最常见的方法。
+
 ## <a name="specify-a-layout-in-a-component"></a>在组件中指定布局
 
 使用 Razor 指令`@layout`将布局应用于组件。 编译器将转换`@layout` `LayoutAttribute`为，它将应用于组件类。
@@ -52,6 +54,8 @@ ms.locfileid: "70800371"
 以下`MasterList`组件的内容将插入`MasterLayout`到中的位置`@Body`：
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
+
+直接在组件中指定布局会重写路由器中的*默认布局*集或`@layout`从 *_Imports*导入的指令。
 
 ## <a name="centralized-layout-selection"></a>集中式布局选择
 
@@ -66,6 +70,8 @@ ms.locfileid: "70800371"
 [!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
 *_Imports*文件类似于[razor 视图和页面的 _ViewImports 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 razor 组件文件。
+
+在 *_Imports*中指定布局会替代指定为路由器*默认布局*的布局。
 
 ## <a name="nested-layouts"></a>嵌套布局
 

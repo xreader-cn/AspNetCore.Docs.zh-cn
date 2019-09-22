@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: aee9b981349e62dcc7ccf352dd5bab520969ed3b
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 505bd22c92c6723fb8f41621c05ba9fa3a74943b
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168196"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176439"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -113,7 +113,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 ## <a name="call-a-void-javascript-function"></a>调用 void JavaScript 函数
 
-返回[void （0）/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)或[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)的 JavaScript 函数`IJSRuntime.InvokeAsync<object>`将在返回`null`的中调用。
+返回[void （0）/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)或[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)的 JavaScript 函数将通过`IJSRuntime.InvokeVoidAsync`调用。
 
 ## <a name="detect-when-a-blazor-app-is-prerendering"></a>检测何时预呈现 Blazor 应用
  

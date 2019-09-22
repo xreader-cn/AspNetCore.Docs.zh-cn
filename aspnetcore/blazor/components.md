@@ -5,14 +5,14 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/19/2019
+ms.date: 09/21/2019
 uid: blazor/components
-ms.openlocfilehash: 55b40bc640715bf4052fa99ed68f63250b67e8d1
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: cf12be950043095b7e3e5eab897dd626021cb982
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168218"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176388"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -27,14 +27,6 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 在[razor](xref:mvc/views/razor)组件文件（*razor*）中，使用和 HTML 标记的C#组合实现了组件。 Blazor 中的组件正式称为*Razor 组件*。
 
 组件的名称必须以大写字符开头。 例如， *MyCoolComponent*是有效的，并且*MyCoolComponent*无效。
-
-可以使用 *# 文件扩展名*编写组件，只要使用`_RazorComponentInclude` MSBuild 属性将这些文件标识为 Razor 组件文件即可。 例如，指定 "*页面*" 文件夹下的所有 *.* 文件都应被视为 Razor 组件文件的应用：
-
-```xml
-<PropertyGroup>
-  <_RazorComponentInclude>Pages\**\*.cshtml</_RazorComponentInclude>
-</PropertyGroup>
-```
 
 使用 HTML 定义组件的 UI。 动态呈现逻辑（例如，循环、条件、表达式）是使用名为 [Razor](xref:mvc/views/razor) 的嵌入式 C# 语法添加的。 在编译应用程序时，会将 HTML 标记C#和呈现逻辑转换为组件类。 生成的类的名称与文件的名称匹配。
 
@@ -1046,6 +1038,9 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值为`false`或`nul
 
 有关详细信息，请参阅 <xref:mvc/views/razor> 。
 
+> [!WARNING]
+> 当 .NET 类型为`bool`时，某些 HTML 特性（如[aria 按下](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）不能正常工作。 在这些情况下，请`string`使用类型而不`bool`是。
+
 ## <a name="raw-html"></a>原始 HTML
 
 通常使用 DOM 文本节点呈现字符串，这意味着将忽略它们可能包含的任何标记，并将其视为文本文本。 若要呈现原始 html，请在`MarkupString`值中换行 html 内容。 该值将分析为 HTML 或 SVG，并插入 DOM 中。
@@ -1333,7 +1328,7 @@ public class ThemeInfo
 
 ## <a name="manual-rendertreebuilder-logic"></a>手动 RenderTreeBuilder 逻辑
 
-`Microsoft.AspNetCore.Components.RenderTree`提供操作组件和元素的方法，包括在代码中C#手动生成组件。
+`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder`提供操作组件和元素的方法，包括在代码中C#手动生成组件。
 
 > [!NOTE]
 > `RenderTreeBuilder`使用创建组件是一种高级方案。 格式不正确的组件（例如，未闭合的标记标记）可能会导致未定义的行为。
@@ -1386,6 +1381,8 @@ public class ThemeInfo
     }
 }
 ```
+
+> !出现中`Microsoft.AspNetCore.Components.RenderTree`的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 

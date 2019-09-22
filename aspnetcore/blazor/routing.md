@@ -5,14 +5,14 @@ description: 了解如何在应用中路由请求，以及如何在 NavLink 组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/21/2019
 uid: blazor/routing
-ms.openlocfilehash: 6d9d1614b6e0cc9f4711de0db4513ada4841809f
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: d6fb3f03be94ff99ac3ed434265e6cd6b752c625
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168175"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176399"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -27,6 +27,8 @@ ms.locfileid: "71168175"
 Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 的应用程序配置为使用`MapBlazorHub`中`Startup.Configure`的交互式组件接受传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
+
+最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor 服务器应用的服务器端部分的主机。 按照约定，*主机*页通常名为 *_Host*。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
 
 ## <a name="route-templates"></a>路由模板
 

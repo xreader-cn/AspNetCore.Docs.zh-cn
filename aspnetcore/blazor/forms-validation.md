@@ -7,21 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/15/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 2fd76db90a53e328cd2ac8f452fba58365db0384
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: c68ebf7f7bf07b6c243ab16307716cea13870446
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011062"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176342"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 使用[数据批注](xref:mvc/models/validation)在 Blazor 中支持窗体和验证。
-
-> [!NOTE]
-> 每个预览版本都可能会更改窗体和验证方案。
 
 下面`ExampleModel`的类型使用数据批注定义验证逻辑：
 
