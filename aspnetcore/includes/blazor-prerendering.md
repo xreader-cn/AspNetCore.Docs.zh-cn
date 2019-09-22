@@ -1,6 +1,6 @@
-<span data-ttu-id="6a1f3-101">预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-101">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="6a1f3-102">在预呈现时，组件可能需要以不同的方式呈现。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-102">Components may need to render differently when prerendered.</span></span>
+<span data-ttu-id="14aed-101">预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="14aed-101">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="14aed-102">在预呈现时，组件可能需要以不同的方式呈现。</span><span class="sxs-lookup"><span data-stu-id="14aed-102">Components may need to render differently when prerendered.</span></span>
 
-<span data-ttu-id="6a1f3-103">若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用`OnAfterRenderAsync`组件生命周期事件。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the `OnAfterRenderAsync` component lifecycle event.</span></span> <span data-ttu-id="6a1f3-104">仅在完全呈现应用并建立客户端连接后，才调用此事件。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
+<span data-ttu-id="14aed-103">若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用`OnAfterRenderAsync`组件生命周期事件。</span><span class="sxs-lookup"><span data-stu-id="14aed-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the `OnAfterRenderAsync` component lifecycle event.</span></span> <span data-ttu-id="14aed-104">仅在完全呈现应用并建立客户端连接后，才调用此事件。</span><span class="sxs-lookup"><span data-stu-id="14aed-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
 
 ```cshtml
 @using Microsoft.JSInterop
@@ -22,17 +22,16 @@
 }
 ```
 
-<span data-ttu-id="6a1f3-105">以下组件演示了如何以与预呈现兼容的方式将 JavaScript 互操作作为组件的初始化逻辑的一部分使用。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-105">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="6a1f3-106">组件显示可以从内部`OnAfterRenderAsync`触发呈现更新。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-106">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="6a1f3-107">开发人员必须避免在此方案中创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-107">The developer must avoid creating an infinite loop in this scenario.</span></span>
+<span data-ttu-id="14aed-105">以下组件演示了如何以与预呈现兼容的方式将 JavaScript 互操作作为组件的初始化逻辑的一部分使用。</span><span class="sxs-lookup"><span data-stu-id="14aed-105">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="14aed-106">组件显示可以从内部`OnAfterRenderAsync`触发呈现更新。</span><span class="sxs-lookup"><span data-stu-id="14aed-106">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="14aed-107">开发人员必须避免在此方案中创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="14aed-107">The developer must avoid creating an infinite loop in this scenario.</span></span>
 
-<span data-ttu-id="6a1f3-108">在中，调用`ElementRef` ，仅在任何`OnAfterRenderAsync`早期的生命周期方法中使用，因为在呈现组件之前没有 JavaScript 元素。 `JSRuntime.InvokeAsync`</span><span class="sxs-lookup"><span data-stu-id="6a1f3-108">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
+<span data-ttu-id="14aed-108">在中，调用`ElementRef` ，仅在任何`OnAfterRenderAsync`早期的生命周期方法中使用，因为在呈现组件之前没有 JavaScript 元素。 `JSRuntime.InvokeAsync`</span><span class="sxs-lookup"><span data-stu-id="14aed-108">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
 
-<span data-ttu-id="6a1f3-109">`StateHasChanged`调用以诸如此类具有从 JavaScript 互操作调用获取的新状态的组件。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-109">`StateHasChanged` is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="6a1f3-110">由于仅在为`StateHasChanged` `infoFromJs` `null`时调用，因此代码不会创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-110">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
+<span data-ttu-id="14aed-109">`StateHasChanged`调用以诸如此类具有从 JavaScript 互操作调用获取的新状态的组件。</span><span class="sxs-lookup"><span data-stu-id="14aed-109">`StateHasChanged` is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="14aed-110">由于仅在为`StateHasChanged` `infoFromJs` `null`时调用，因此代码不会创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="14aed-110">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
 
 ```cshtml
 @page "/prerendered-interop"
 @using Microsoft.AspNetCore.Components
 @using Microsoft.JSInterop
-@inject IComponentContext ComponentContext
 @inject IJSRuntime JSRuntime
 
 <p>
@@ -59,32 +58,5 @@
             StateHasChanged();
         }
     }
-}
-```
-
-<span data-ttu-id="6a1f3-111">若要根据应用当前是否为预呈现内容，有条件地呈现不同的`IsConnected`内容，请`IComponentContext`对服务使用属性。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-111">To conditionally render different content based on whether the app is currently prerendering content, use the `IsConnected` property on the `IComponentContext` service.</span></span> <span data-ttu-id="6a1f3-112">对于 Blazor 服务器应用， `IsConnected`仅当`true`有与客户端的活动连接时才返回。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-112">For Blazor Server apps, `IsConnected` only returns `true` if there's an active connection to the client.</span></span> <span data-ttu-id="6a1f3-113">它始终在`true` Blazor WebAssembly apps 中返回。</span><span class="sxs-lookup"><span data-stu-id="6a1f3-113">It always returns `true` in Blazor WebAssembly apps.</span></span>
-
-```cshtml
-@page "/isconnected-example"
-@using Microsoft.AspNetCore.Components.Services
-@inject IComponentContext ComponentContext
-
-<h1>IsConnected Example</h1>
-
-<p>
-    Current state:
-    <strong id="connected-state">
-        @(ComponentContext.IsConnected ? "connected" : "not connected")
-    </strong>
-</p>
-
-<p>
-    Clicks:
-    <strong id="count">@count</strong>
-    <button id="increment-count" @onclick="@(() => count++)">Click me</button>
-</p>
-
-@code {
-    private int count;
 }
 ```
