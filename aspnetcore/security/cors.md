@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: security/cors
-ms.openlocfilehash: a34b77ad799a00707048c923b82b48774ce91682
-ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
+ms.openlocfilehash: a02b3497684979c1a9e792437f9f1a4c467600f0
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/19/2019
-ms.locfileid: "71108069"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187253"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -70,7 +70,7 @@ CORS 中间件处理跨域请求。 以下代码通过指定源为整个应用�
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup2.cs?name=snippet2)]
 
-注意:URL**不得包含尾随**斜杠（`/`）。 如果 URL 以结尾`/`，则比较返回`false` ，不返回任何标头。
+注意：URL**不得包含尾随**斜杠（`/`）。 如果 URL 以结尾`/`，则比较返回`false` ，不返回任何标头。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -217,7 +217,7 @@ DisableCors 属性为控制器/页模型/操作禁用 CORS。 [ &lbrack;&rbrack;
 
 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*>将策略的属性设置为一个函数，当计算是否允许源时，此函数允许源匹配已配置的通配符域。 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> &ndash;
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-105&highlight=4-5)]
 
 ::: moniker-end
 
