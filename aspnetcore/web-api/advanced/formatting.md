@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: e3417c9bfd3824133b86de2fe74f5f71367e1560
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 8bee4efdae5341ddab5bd3aec278ecfef37f0c08
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886524"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082347"
 ---
 <!-- DO NOT EDIT BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12077 MERGES -->
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
@@ -106,13 +106,29 @@ services.AddMvc(options =>
 
 ### <a name="configure-systemtextjson-based-formatters"></a>配置基于 System.Text.Json 的格式化程序
 
-可以使用 `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions` 配置基于 `System.Text.Json` 的格式化程序的功能。
+可以使用 `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions` 配置基于 `System.Text.Json` 的格式化程序的功能。
 
 ```csharp
-services.AddMvc(options =>
+services.AddControllers().AddJsonOptions(options =>
 {
-    options.SerializerOptions.WriterSettings.Indented = true;
+    // Use the default property (Pascal) casing.
+    options.SerializerOptions.PropertyNamingPolicy = null;
+
+    // Configure a custom converter.
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
 });
+```
+
+可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如:
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerOptions
+    {
+        options.WriteIndented = true,
+    });
+}
 ```
 
 ### <a name="add-newtonsoftjson-based-json-format-support"></a>添加基于 Newtonsoft.Json 的 JSON 格式支持
@@ -120,7 +136,7 @@ services.AddMvc(options =>
 ASP.NET Core 3.0 之前的版本中，MVC 默认使用通过 `Newtonsoft.Json` 包实现的 JSON 格式化程序。 在 ASP.NET Core 3.0 或更高版本中，默认 JSON 格式化程序基于 `System.Text.Json`。 通过安装 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet 包并在 `Startup.ConfigureServices` 中配置可以支持基于 `Newtonsoft.Json` 的格式化程序和功能。
 
 ```csharp
-services.AddMvc()
+services.AddControllers()
     .AddNewtonsoftJson();
 ```
 
@@ -129,6 +145,31 @@ services.AddMvc()
 * 使用 `Newtonsoft.Json` 属性（例如，`[JsonProperty]` 或 `[JsonIgnore]`），自定义序列化设置，或依赖于 `Newtonsoft.Json` 提供的功能。
 * 配置 `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`。 ASP.NET Core 3.0 之前的版本中，`JsonResult.SerializerSettings` 接受特定于 `Newtonsoft.Json` 的 `JsonSerializerSettings` 的实例。
 * 生成 [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) 文档。
+
+可以使用 `Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings` 配置基于 `Newtonsoft.Json` 的格式化程序的功能：
+
+```csharp
+services.AddControllers().AddNewtonsoftJson(options =>
+{
+    // Use the default property (Pascal) casing
+    options.SerializerSettings.ContractResolver = new DefautlContractResolver();
+
+    // Configure a custom converter
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
+});
+```
+
+可以使用 `JsonResult` 配置基于每个操作的输出序列化选项。 例如:
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerSettings
+    {
+        options.Formatting = Formatting.Indented,
+    });
+}
+```
 
 ::: moniker-end
 

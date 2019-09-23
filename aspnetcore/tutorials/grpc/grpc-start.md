@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 7f80ead06f00037ae51b35d40dff9bc7f99bc5d8
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 924aa3880fc7f2aa777d4ab2e5ea3bed38e227d4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310570"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081190"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -51,7 +51,7 @@ ms.locfileid: "70310570"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 启动 Visual Studio 并选择“创建新项目”  。 或者，从 Visual Studio“文件”菜单中选择“新建” > “项目”    。
-* 在“创建新项目”对话框中，选择“gPRC 服务”，然后选择“下一步”    ：
+* 在“创建新项目”对话框中，选择“gRPC 服务”，然后选择“下一步”    ：
 
   ![**创建新项目** 对话框](~/tutorials/grpc/grpc-start/static/cnp.png)
 
@@ -67,7 +67,7 @@ ms.locfileid: "70310570"
 * 将目录更改为 (`cd`) 包含项目的文件夹。
 * 运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet new grpc -o GrpcGreeter
   code -r GrpcGreeter
   ```
@@ -82,9 +82,9 @@ ms.locfileid: "70310570"
 
 从终端运行以下命令：
 
-```console
-  dotnet new grpc -o GrpcGreeter
-  cd GrpcGreeter
+```dotnetcli
+dotnet new grpc -o GrpcGreeter
+cd GrpcGreeter
 ```
 
 上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 gRPC 服务。
@@ -153,7 +153,7 @@ GrpcGreeter 项目文件  ：
 * 将目录更改为 (`cd`) 包含项目的文件夹。
 * 运行以下命令：
 
-  ```console
+  ```dotnetcli
   dotnet new console -o GrpcGreeterClient
   code -r GrpcGreeterClient
   ```
@@ -200,7 +200,7 @@ gRPC 客户端项目需要以下包：
 
 从“集成终端”运行以下命令  ：
 
-```console
+```dotnetcli
 dotnet add GrpcGreeterClient.csproj package Grpc.Net.Client
 dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools

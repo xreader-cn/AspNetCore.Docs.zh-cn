@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/23/2019
+ms.date: 09/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: b433d793ae615bc4ece7c63bebd72d349adf43ee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800489"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081256"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -57,7 +57,7 @@ ms.locfileid: "70800489"
 
 1. 通过向 `Index` 组件 (Index.razor  ) 添加 `<Counter />` 元素，将 `Counter` 组件添加到应用的 `Index` 组件。
 
-   如果在此体验中使用的是 Blazor 客户端，则 `Index` 组件使用 `SurveyPrompt` 组件。 将 `<SurveyPrompt>` 元素替换为 `<Counter />` 元素。 如果在此体验中使用的是 Blazor 服务器端应用，则向 `Index` 组件添加 `<Counter />` 元素：
+   如果在此体验中使用的是 Blazor WebAssembly，则 `Index` 组件使用 `SurveyPrompt` 组件。 将 `<SurveyPrompt>` 元素替换为 `<Counter />` 元素。 如果在此体验中使用的是 Blazor 服务器应用，请向 `Index` 组件添加 `<Counter />` 元素：
 
    *Pages/Index.razor*：
 
@@ -97,11 +97,11 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
-通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)，组件可以使用注册了应用服务容器的服务。 使用 `@inject` 指令将服务注入到组件中。
+如果使用 Blazor Server 应用程序，则 `WeatherForecastService` 服务在 `Startup.ConfigureServices` 中注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)。 可通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在整个应用中使用服务的实例：
 
-检查 `FetchData` 组件的指令。
+[!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-如果使用的是 Blazor 服务器端应用，则 `WeatherForecastService` 服务注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)，因此整个应用中有一个服务实例。 `@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到组件中。
+`@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到 `FetchData` 组件中。
 
 *Pages/FetchData.razor*：
 
@@ -111,7 +111,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-如果使用的是 Blazor 客户端应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据   ：
+如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据   。
 
 *Pages/FetchData.razor*：
 
@@ -120,7 +120,6 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 [\@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
-
 
 ## <a name="build-a-todo-list"></a>生成待办项列表
 
