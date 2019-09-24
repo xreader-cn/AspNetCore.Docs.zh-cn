@@ -1,84 +1,96 @@
 ---
-title: ASP.NET Core SignalR 生产承载和扩展
+title: ASP.NET Core SignalR 生产托管和缩放
 author: bradygaster
-description: 了解如何避免性能和缩放的应用程序使用 ASP.NET Core SignalR 中的问题。
+description: 了解如何避免使用 ASP.NET Core SignalR 的应用的性能和缩放问题。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/scale
-ms.openlocfilehash: 4ac4509acc89d0091a3757c7cfbc9981614f29ad
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 26b02cffdd472fc21dc4aee7052a0ba939b82c0f
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895074"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71211735"
 ---
-# <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 承载和扩展
+# <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
 
-通过[Andrew Stanton-nurse](https://twitter.com/anurse)， [Brady Gaster](https://twitter.com/bradygaster)，并[Tom Dykstra](https://github.com/tdykstra)，
+作者： [Andrew Stanton](https://twitter.com/anurse)、 [Brady Gaster](https://twitter.com/bradygaster)和[Tom Dykstra](https://github.com/tdykstra)
 
-本文介绍承载和扩展使用 ASP.NET Core SignalR 的高流量应用的注意事项。
+本文介绍了使用 ASP.NET Core SignalR 的高流量应用的托管和扩展注意事项。
+
+## <a name="sticky-sessions"></a>粘滞会话
+
+SignalR 要求对特定连接的所有 HTTP 请求都由同一服务器进程处理。 当 SignalR 在服务器场（多台服务器）上运行时，必须使用 "粘滞会话"。 某些负载均衡器也称为 "粘滞会话"。 Azure App Service 使用[应用程序请求路由](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview)（ARR）来路由请求。 启用 Azure App Service 中的 "ARR 相似性" 设置将启用 "粘滞会话"。 不需要手写会话的唯一情况是：
+
+1. 在单个服务器上承载时，在单个进程中。
+1. 使用 Azure SignalR 服务时。
+1. 当所有客户端都配置为**仅**使用 websocket 时，**并且**在客户端配置中启用了[SkipNegotiation 设置](xref:signalr/configuration#configure-additional-options)。
+
+在所有其他情况下（包括使用 Redis 底板时），必须为粘滞会话配置服务器环境。
+
+有关为 SignalR 配置 Azure App Service 的指南，请<xref:signalr/publish-to-azure-web-app>参阅。
 
 ## <a name="tcp-connection-resources"></a>TCP 连接资源
 
-Web 服务器可以支持的并发 TCP 连接数会受到限制。 使用标准 HTTP 客户端*临时*连接。 当客户端进入空闲状态，并在以后再次打开时，可以关闭这些连接。 但是，SignalR 连接是*持久*。 甚至当客户端进入空闲状态时，SignalR 连接保持打开状态。 在高流量应用中提供多个客户端，这些持久连接可能会导致服务器达到其最大连接数。
+Web 服务器可以支持的并发 TCP 连接数受到限制。 标准 HTTP 客户端使用*临时*连接。 当客户端进入空闲状态并在稍后重新打开时，可以关闭这些连接。 另一方面，SignalR 连接是*永久性*的。 即使客户端进入空闲状态，SignalR 连接仍保持打开状态。 在服务于多个客户端的高流量应用程序中，这些持久连接可能会导致服务器达到其最大连接数。
 
-持久连接还使用一些额外的内存，则还跟踪每个连接。
+持久性连接还会占用一些额外的内存，用于跟踪每个连接。
 
-大量使用 SignalR 通过与连接相关的资源可能会影响托管在同一台服务器的其他 web 应用。 当 SignalR 打开和保存最后一个可用的 TCP 连接时，在同一服务器上的其他 web 应用还可提供给他们没有更多连接。
+SignalR 的连接相关资源的大量使用可能会影响托管在同一服务器上的其他 web 应用程序。 当 SignalR 打开并保存最近可用的 TCP 连接时，同一服务器上的其他 web 应用也不会有更多的可用连接。
 
-如果服务器的连接，会看到随机套接字错误和连接重置错误。 例如：
+如果服务器的连接用尽，你会看到随机套接字错误和连接重置错误。 例如:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
 ```
 
-若要防止在其他 web 应用中导致错误 SignalR 资源使用情况，比在其他 web 应用程序的不同服务器上运行 SignalR。
+若要防止 SignalR 资源使用导致其他 web 应用中出现错误，请在不同于其他 web 应用的服务器上运行 SignalR。
 
-若要防止 SignalR 资源使用情况导致出错的 SignalR 应用程序，横向扩展以限制服务器必须处理的连接数。
+为了使 SignalR 的资源使用不会导致 SignalR 应用中出现错误，请向外扩展以限制服务器必须处理的连接数。
 
 ## <a name="scale-out"></a>横向扩展
 
-使用 SignalR 的应用程序需要跟踪的所有连接，这将创建服务器场的问题。 添加服务器，并获取其他服务器不了解的内容的新连接。 例如，以下关系图中每个服务器上的 SignalR 是不知道的其他服务器上的连接数。 当在一台服务器上的 SignalR 想要将消息发送到所有客户端时，消息将只发送到连接到该服务器的客户端。
+使用 SignalR 的应用需要跟踪其所有连接，这会为服务器场带来问题。 添加服务器，并获取其他服务器不知道的新连接。 例如，在下图中的每个服务器上，SignalR 不知道其他服务器上的连接。 当某个服务器上的 SignalR 要向所有客户端发送消息时，该消息只会发送到连接到该服务器的客户端。
 
-![不带底板缩放 SignalR](scale/_static/scale-no-backplane.png)
+![无底板缩放 SignalR](scale/_static/scale-no-backplane.png)
 
-解决此问题的选项都[Azure SignalR 服务](#azure-signalr-service)并[Redis 底板](#redis-backplane)。
+解决此问题的方法是[Azure SignalR 服务](#azure-signalr-service)和[Redis 底板](#redis-backplane)。
 
 ## <a name="azure-signalr-service"></a>Azure SignalR 服务
 
-Azure SignalR 服务是一个代理而不是基架。 客户端启动连接到服务器，每次客户端将重定向连接到服务。 下图说明了该过程：
+Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动与服务器的连接时，客户端都将被重定向以连接到服务。 下图说明了该过程：
 
 ![建立与 Azure SignalR 服务的连接](scale/_static/azure-signalr-service-one-connection.png)
 
-结果是，该服务管理的所有客户端连接，而每台服务器需要仅小的一定数量的连接到服务，如以下关系图中所示：
+因此，服务管理所有客户端连接，而每个服务器只需要与服务建立少量的固定连接，如下图所示：
 
-![客户端连接到服务，连接到服务的服务器](scale/_static/azure-signalr-service-multiple-connections.png)
+![连接到服务的客户端，连接到服务的服务器](scale/_static/azure-signalr-service-multiple-connections.png)
 
-若要横向扩展此方法具有几大优势，Redis 底板替代方法：
+与 Redis 底板替代方法相比，这种扩展方法具有多个优点：
 
-* 粘性会话，也称为[客户端相关性](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)，不是必需的因为客户端将立即重定向到 Azure SignalR 服务在连接时。
-* 应用程序可以向外扩展 SignalR 基于 Azure SignalR 服务可以自动缩放以处理任意数量的连接时发送的消息数。 例如，可能有数千个客户端，但如果只发送少量消息数 / 秒，SignalR 应用程序不需要向外扩展到多个服务器只是为了处理连接本身。
-* SignalR 应用程序不会使用更多的连接资源，而无需 SignalR 的 web 应用比。
+* 粘滞会话（也称为[客户端关联](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)）不是必需的，因为客户端在连接时立即重定向到 Azure SignalR 服务。
+* SignalR 应用可以根据发送的消息数进行扩展，而 Azure SignalR 服务会自动缩放以处理任意数量的连接。 例如，可能有数千个客户端，但如果每秒只发送了几条消息，则 SignalR 应用不需要向外扩展到多个服务器即可直接处理连接。
+* SignalR 应用使用的连接资源比没有 SignalR 的 web 应用要大得多。
 
-出于这些原因，我们建议 Azure SignalR 服务托管在 Azure 中，包括应用服务、 Vm 和容器上的所有 ASP.NET Core SignalR 应用程序。
+出于此原因，我们建议 azure SignalR 服务适用于在 Azure 上托管的所有 ASP.NET Core SignalR 应用，包括应用服务、Vm 和容器。
 
-有关详细信息请参阅[Azure SignalR 服务文档](/azure/azure-signalr/signalr-overview)。
+有关详细信息，请参阅[Azure SignalR 服务文档](/azure/azure-signalr/signalr-overview)。
 
 ## <a name="redis-backplane"></a>Redis 底板
 
-[Redis](https://redis.io/)是支持发布/订阅模型的消息传送系统的内存中键 / 值存储。 Redis 的 SignalR 基架使用发布/订阅功能以将消息转发到其他服务器。 当客户端进行连接时，连接信息传递给基架。 当服务器想要将消息发送到所有客户端时，它将发送到底板。 底板知道所有连接的客户端和服务器它们是在。 它将消息发送给所有客户端通过其各自的服务器。 此过程是在下图中所示：
+[Redis](https://redis.io/)是内存中的键-值存储，它支持具有发布/订阅模型的消息传送系统。 SignalR Redis 底板使用发布/订阅功能将消息转发到其他服务器。 当客户端建立连接时，会将连接信息传递到底板。 当服务器要向所有客户端发送消息时，它会发送到底板。 底板知道所有连接的客户端和它们所在的服务器。 它通过各自的服务器将消息发送到所有客户端。 下图演示了此过程：
 
-![Redis 底板，消息从一台服务器发送到所有客户端](scale/_static/redis-backplane.png)
+![Redis 底板，从一台服务器发送到所有客户端的消息](scale/_static/redis-backplane.png)
 
-Redis 底板是用于在自己的基础结构上托管的应用建议的向外缩放方法。 Azure SignalR 服务并不可行的本地应用，原因是你的数据中心和 Azure 数据中心之间的连接延迟用于生产。
+对于托管在你自己的基础结构上的应用，建议使用 Redis 底板。 由于你的数据中心与 Azure 数据中心之间的连接延迟，Azure SignalR 服务不适用于本地应用。
 
-前面记下 Azure SignalR 服务的优点是 Redis 底板的缺点：
+前面提到的 Azure SignalR 服务优点是 Redis 底板的缺点：
 
-* 粘性会话，也称为[客户端相关性](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)，是必需的。 在服务器上启动的连接，连接后继续使用该服务器。
-* SignalR 应用程序必须横向扩展根据的客户端数，即使正发送的几个消息。
-* SignalR 应用程序使用的更多 web 应用而无需 SignalR 连接资源。
+* 需要有粘滞会话（也称为[客户端相关性](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)）。 在服务器上启动连接后，连接必须停留在该服务器上。
+* 即使发送的消息太少，SignalR 应用也必须基于客户端数量进行扩展。
+* SignalR 应用比没有 SignalR 的 web 应用使用更多的连接资源。
 
 ## <a name="next-steps"></a>后续步骤
 

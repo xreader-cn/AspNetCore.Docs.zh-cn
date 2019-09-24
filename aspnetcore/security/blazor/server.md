@@ -5,14 +5,14 @@ description: 了解如何缓解 Blazor 服务器应用的安全威胁。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 09/23/2019
 uid: security/blazor/server
-ms.openlocfilehash: 72788980ff7c7bd56f55e4e84d820a3684f7275e
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 706f504738d9c6e5af3c368c382424f2e206bcbf
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964238"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71211708"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
 
@@ -352,7 +352,7 @@ Blazor 服务器框架采用一些步骤来防范前面的威胁：
 * 可以跨源访问 Blazor 服务器应用，除非采取其他措施来阻止它。 若要禁用跨域访问，请在终结点中禁用 cors，方法是将 cors 中间件添加到管道`DisableCorsAttribute` ，将添加到 Blazor 终结点元数据，或通过[为跨域资源配置 SignalR 来限制允许来源集共享](xref:signalr/security#cross-origin-resource-sharing)。
 * 如果启用了 CORS，则可能需要执行额外的步骤来保护应用，具体情况视 CORS 配置而定。 如果已全局启用 cors，则可以在调用`DisableCorsAttribute` `hub.MapBlazorHub()`后将元数据添加到终结点元数据，从而为 Blazor 服务器中心禁用 cors。
 
-有关详细信息，请参阅 <xref:security/anti-request-forgery>。
+有关详细信息，请参阅 <xref:security/anti-request-forgery> 。
 
 ### <a name="click-jacking"></a>单击-点击劫持
 
@@ -380,7 +380,7 @@ Blazor 服务器框架采用一些步骤来防范前面的威胁：
 * 如果可能，请使用相对链接。
 * 验证绝对链接目标是否有效，然后再将它们包含在页中。
 
-有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
+有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
 
 ## <a name="authentication-and-authorization"></a>身份验证和授权
 

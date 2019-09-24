@@ -5,14 +5,14 @@ description: 了解如何在 Blazor 应用程序中将组件包含在外部组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/23/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 91c4ffb29649c162fc15e5cb70dc60144b53afea
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: d9ef276357e95d97b7d89427c5e237aceea7a0d3
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080668"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207098"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -33,7 +33,7 @@ ms.locfileid: "71080668"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 创建新项目。
-1. 选择 " **Razor 类库**"。 选择“**下一步**”。
+1. 选择 " **Razor 类库**"。 选择“下一步”。
 1. 在 "**创建新的 Razor 类库**" 对话框中，选择 "**创建**"。
 1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称`MyComponentLib1`。 选择“创建”。
 1. 将 RCL 添加到解决方案：

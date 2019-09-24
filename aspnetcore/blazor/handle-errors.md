@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何 Blazor Blazor 如何管理未经处理�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/06/2019
+ms.date: 09/23/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: d3e261e83f375574339a8ce3428e8bfb73df4307
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: de0a2f74df84f41581ac93dbeec7a5c5e90c6fa2
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963992"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207189"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -48,9 +48,9 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>使用永久性提供程序记录错误
 
-如果发生未处理的异常，则会将异常<xref:Microsoft.Extensions.Logging.ILogger>记录到服务容器中配置的实例。 默认情况下，Blazor apps 使用控制台日志记录提供程序登录到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
+如果发生未处理的异常，则会将异常<xref:Microsoft.Extensions.Logging.ILogger>记录到服务容器中配置的实例。 默认情况下，Blazor apps 使用控制台日志记录提供程序登录到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index> 。
 
-在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling>。
+在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling> 。
 
 您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，不要记录某个错误中的事件，其中显示产品`ProductId`详细信息的组件 URL 中提供了未知的。 不是所有的错误都应视为日志记录的高严重性事件。
 
