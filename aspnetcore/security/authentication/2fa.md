@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 96b4cc98f191d7c24637b8f352acbed3f46806f8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 68219579be9b7a7b25da6e348054e1ff2015cf5f
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893424"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248391"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>在 ASP.NET Core SMS 的双因素身份验证
 
@@ -27,29 +27,29 @@ ms.locfileid: "64893424"
 
 ## <a name="create-a-new-aspnet-core-project"></a>创建新的 ASP.NET Core 项目
 
-创建新的 ASP.NET Core web 应用名为`Web2FA`与单个用户帐户。 按照中的说明<xref:security/enforcing-ssl>设置并要求使用 HTTPS。
+创建新的 ASP.NET Core web 应用名为`Web2FA`与单个用户帐户。 按照中<xref:security/enforcing-ssl>的说明进行操作，设置并要求 HTTPS。
 
 ### <a name="create-an-sms-account"></a>创建 SMS 帐户
 
-创建一个 SMS 帐户，例如，从[twilio](https://www.twilio.com/)或[ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/)。 记录身份验证凭据 (twilio: accountSid 和 authToken 的 ASPSMS:用户密钥和密码）。
+创建一个 SMS 帐户，例如，从[twilio](https://www.twilio.com/)或[ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/)。 为 ASPSMS 记录身份验证凭据（对于 twilio： accountSid 和 authToken）：用户密钥和 Password）。
 
 #### <a name="figuring-out-sms-provider-credentials"></a>找出 SMS 提供程序凭据
 
-**Twilio:**
+**Twilio**
 
-从你的 Twilio 帐户的仪表板选项卡上，复制**帐户 SID**并**身份验证令牌**。
+在 Twilio 帐户的 "仪表板" 选项卡中，复制 "**帐户 SID** " 和 "**身份验证令牌**"。
 
 **ASPSMS:**
 
-在帐户设置中，导航到**Userkey**并将其连同复制你**密码**。
+从帐户设置中，导航到**用户密钥**，并将其与**密码**一起复制。
 
 我们将更高版本存储中密钥的机密管理器工具使用这些值`SMSAccountIdentification`和`SMSAccountPassword`。
 
 #### <a name="specifying-senderid--originator"></a>指定 SenderID / 原始发件人
 
-**Twilio:** 从数字选项卡，将复制你的 Twilio**电话号码**。
+**Twilio**从 "数字" 选项卡中，复制 Twilio 的**电话号码**。
 
-**ASPSMS:** 在解锁始发者的菜单中，解锁一个或多个原始发件人或选择字母数字发信方 （不支持的所有网络）。
+**ASPSMS:** 在 "解锁工作项" 菜单中，解锁一个或多个发信方，或选择一个字母数字发信方（并非所有网络都支持）。
 
 我们稍后将存储此值与中密钥的机密管理器工具`SMSAccountFrom`。
 
@@ -70,7 +70,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * SMS 提供程序添加 NuGet 包。 从包管理器控制台 (PMC) 运行：
 
-**Twilio:**
+**Twilio**
 
 `Install-Package Twilio`
 
@@ -80,9 +80,11 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * 将代码中的添加*Services/MessageServices.cs*文件以启用短信。 使用 Twilio 或 ASPSMS 部分：
 
-**Twilio:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
+**Twilio**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
 
-**ASPSMS:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
+**ASPSMS:**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
 
 ### <a name="configure-startup-to-use-smsoptions"></a>将启动要使用配置 `SMSoptions`
 
@@ -92,7 +94,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 ### <a name="enable-two-factor-authentication"></a>启用双因素身份验证
 
-打开*Views/Manage/Index.cshtml* Razor 视图文件并删除注释字符 （因此，没有标记已被注释掉）。
+打开*Views/管理/索引。 cshtml* Razor 视图文件并删除注释字符（因此不会注释掉标记）。
 
 ## <a name="log-in-with-two-factor-authentication"></a>使用双因素身份验证登录
 
@@ -140,7 +142,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 ## <a name="account-lockout-for-protecting-against-brute-force-attacks"></a>用于防范暴力破解攻击的帐户锁定
 
-帐户锁定，建议使用 2FA。 用户登录后通过本地帐户或社交帐户，存储在 2FA 每次失败的尝试。 如果达到最大的失败的访问尝试，则用户锁定 (默认值：5 分钟后锁定 5 失败访问尝试）。 成功的身份验证失败的访问尝试计数重置并重置时钟。 最大失败访问尝试，可使用设置锁定时间[MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts)并[DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan)。 以下 10 分钟后访问尝试失败 10 次配置帐户锁定：
+帐户锁定，建议使用 2FA。 用户登录后通过本地帐户或社交帐户，存储在 2FA 每次失败的尝试。 如果达到了最大失败访问尝试次数，则用户将被锁定（默认值：5分钟在访问尝试失败后锁定5分钟）。 成功的身份验证失败的访问尝试计数重置并重置时钟。 最大失败访问尝试，可使用设置锁定时间[MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts)并[DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan)。 以下 10 分钟后访问尝试失败 10 次配置帐户锁定：
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet2&highlight=13-17)]
 
