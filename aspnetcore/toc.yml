@@ -12,6 +12,8 @@
   uid: getting-started
 - name: 新增功能
   items:
+    - name: 3.0 中的新增功能
+      uid: aspnetcore-3.0
     - name: 2.2 中的新变化
       uid: aspnetcore-2.2
     - name: 2.1 中的新变化
@@ -164,7 +166,7 @@
     - name: Web 应用安全
       displayName: 'tutorial, identity'
       href: /learn/modules/secure-aspnet-core-identity/
-- name: 基础知识
+- name: 基本
   items:
     - name: 概述
       uid: fundamentals/index
@@ -188,7 +190,7 @@
       uid: fundamentals/configuration/options
     - name: 环境（开发、分阶段、生产）
       uid: fundamentals/environments
-    - name: Logging
+    - name: 日志记录
       uid: fundamentals/logging/index
     - name: 路由
       uid: fundamentals/routing
@@ -281,7 +283,7 @@
       items:
         - name: 概述
           uid: blazor/index
-        - name: 受支持的平台
+        - name: 支持的平台
           uid: blazor/supported-platforms
         - name: 入门
           uid: blazor/get-started
@@ -289,7 +291,7 @@
           uid: blazor/hosting-models
         - name: 生成首个应用
           uid: tutorials/first-blazor-app
-        - name: 组件数
+        - name: 组件
           uid: blazor/components
         - name: 窗体和验证
           uid: blazor/forms-validation
@@ -297,7 +299,7 @@
           uid: blazor/class-libraries
         - name: 布局
           uid: blazor/layouts
-        - name: 依赖关系注入
+        - name: 依赖项注入
           uid: blazor/dependency-injection
         - name: 路由
           uid: blazor/routing
@@ -327,6 +329,8 @@
               uid: host-and-deploy/blazor/server
             - name: 配置链接器
               uid: host-and-deploy/blazor/configure-linker
+        - name: 示例
+          href: 'https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor'
     - name: 客户端开发
       items:
         - name: 单页应用
@@ -384,9 +388,9 @@
               uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
             - name: 环境
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-            - name: 窗体
+            - name: 表单
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
-            - name: 图像
+            - name: 映像
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 输入
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
@@ -394,7 +398,7 @@
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
             - name: 部分
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-            - name: 选择
+            - name: Select
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
             - name: Textarea
               href: 'mvc/views/working-with-forms.md#the-textarea-tag-helper'
@@ -436,6 +440,8 @@
           uid: tutorials/get-started-with-swashbuckle
         - name: NSwag 入门
           uid: tutorials/get-started-with-nswag
+        - name: OpenAPI 工具
+          uid: web-api/Microsoft.dotnet-openapi
     - name: 操作返回类型
       uid: web-api/action-return-types
     - name: 处理 JSON Patch 请求
@@ -457,7 +463,7 @@
   items:
     - name: SignalR 概述
       uid: signalr/introduction
-    - name: 受支持的平台
+    - name: 支持的平台
       uid: signalr/supported-platforms
       displayName: signalr
     - name: 教程
@@ -487,6 +493,9 @@
     - name: 客户端
       displayName: signalr
       items:
+        - name: SignalR 客户端功能
+          uid: signalr/client-features
+          displayName: signalr
         - name: .NET 客户端
           uid: signalr/dotnet-client
           displayName: signalr
@@ -563,6 +572,8 @@
       uid: grpc/configuration
     - name: 身份验证和授权
       uid: grpc/authn-and-authz
+    - name: 日志记录和诊断
+      uid: grpc/diagnostics
     - name: 安全注意事项
       uid: grpc/security
     - name: 从 C Core 迁移 gRPC 服务
@@ -571,7 +582,7 @@
       uid: grpc/comparison
     - name: 示例
       href: 'https://github.com/grpc/grpc-dotnet/tree/master/examples'
-    - name: 疑难解答
+    - name: 故障排除
       uid: grpc/troubleshoot
 - name: 测试、调试和疑难解答
   items:
@@ -591,9 +602,9 @@
       uid: test/integration-tests
     - name: 负载测试和压力测试
       uid: test/loadtests
-    - name: 疑难解答
+    - name: 故障排除
       uid: test/troubleshoot
-    - name: Logging
+    - name: 日志记录
       uid: fundamentals/logging/index
     - name: Azure 和 IIS 疑难解答
       uid: test/troubleshoot-azure-iis
@@ -691,7 +702,7 @@
         - name: ASP.NET Core 模块
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/aspnet-core-module
-        - name: 疑难解答
+        - name: 故障排除
           displayName: 'azure, deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: 错误参考
@@ -734,7 +745,7 @@
         - name: IIS 模块
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/modules
-        - name: 疑难解答
+        - name: 故障排除
           displayName: 'deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: 错误参考
@@ -809,7 +820,7 @@
   items:
     - name: 概述
       uid: security/index
-    - name: 身份验证
+    - name: Authentication
       items:
         - name: 标识简介
           uid: security/authentication/identity
@@ -988,7 +999,7 @@
         - name: Azure Key Vault 配置提供程序
           displayName: 'password, connection string, API key, secrets'
           uid: security/key-vault-configuration
-    - name: 强制执行 HTTPS
+    - name: 实施 HTTPS
       uid: security/enforcing-ssl
     - name: 使用 HTTPS 托管 Docker
       uid: security/docker-https
@@ -1043,9 +1054,9 @@
       uid: fundamentals/localization
     - name: 可移植对象本地化
       uid: fundamentals/portable-object-localization
-    - name: 扩展性
+    - name: 可扩展性
       uid: fundamentals/localization-extensibility
-    - name: 疑难解答
+    - name: 故障排除
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: 高级
   items:
