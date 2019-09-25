@@ -1,36 +1,38 @@
 ---
-title: 比较 gRPC 服务和 HTTP API
+title: 将 gRPC services 与 HTTP Api 进行比较
 author: jamesnk
 description: 了解 gRPC 如何与 HTTP Api 进行比较以及其建议方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 03/31/2019
+ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: c34c7ecb668e478e2be3271928a2439979a746d9
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
+ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310473"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71267715"
 ---
-# <a name="comparing-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
+# <a name="compare-grpc-services-with-http-apis"></a>将 gRPC services 与 HTTP Api 进行比较
 
 按[James 牛顿-k](https://twitter.com/jamesnk)
 
-本文介绍[gRPC services](https://grpc.io/docs/guides/)如何与 HTTP api （包括 ASP.NET Core [Web api](xref:web-api/index)）进行比较。 用于为你的应用程序提供 API 的技术是一个重要的选择，gRPC 与 HTTP Api 相比具有独特的优势。 本文讨论 gRPC 的优势和劣势，并建议使用 gRPC 通过其他技术的方案。
+本文介绍[gRPC services](https://grpc.io/docs/guides/)如何与 HTTP api （包括 ASP.NET Core [web api](xref:web-api/index)）进行比较。 用于为你的应用程序提供 API 的技术是一个重要的选择，gRPC 与 HTTP Api 相比具有独特的优势。 本文讨论 gRPC 的优势和劣势，并建议使用 gRPC 通过其他技术的方案。
 
-#### <a name="overview"></a>概述
+## <a name="high-level-comparison"></a>高级别比较
+
+下表提供了 gRPC 和 HTTP Api 与 JSON 之间功能的高级比较。
 
 | 功能          | gRPC                                               | 具有 JSON 的 HTTP Api           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | 协定         | 必需（*proto*）                                | 可选（OpenAPI）            |
 | 传输        | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf （小，二进制）](#performance)           | JSON （大、可读）  |
-| Prescriptiveness | [严格规范](#strict-specification)      | 松散. 任何 HTTP 有效      |
+| Prescriptiveness | [严格规范](#strict-specification)      | 松散. 任何 HTTP 都有效。      |
 | 流式处理        | [客户端、服务器、双向](#streaming)       | 客户端、服务器                |
 | 浏览器支持  | [否（需要 grpc-web）](#limited-browser-support) | 是                           |
 | 安全性         | 传输（HTTPS）                                  | 传输（HTTPS）             |
-| 客户端代码-生成  | [是](#code-generation)                            | OpenAPI + 第三方工具 |
+| 客户端代码生成 | [是](#code-generation)                      | OpenAPI + 第三方工具 |
 
 ## <a name="grpc-strengths"></a>gRPC 强度
 
@@ -47,7 +49,7 @@ gRPC 专用于 HTTP/2，这是一个主要的 HTTP 修订版，通过 HTTP 1.x �
 
 所有 gRPC 框架都提供对代码生成的一流支持。 GRPC 开发的核心文件是一个[ *proto*文件](https://developers.google.com/protocol-buffers/docs/proto3)，用于定义 gRPC 服务和消息的协定。 从此文件 gRPC 框架将生成服务基类、消息和完整客户端。
 
-通过在服务器`*.proto`和客户端之间共享文件，可以从端到端生成消息和客户端代码。 客户端代码生成将消除客户端和服务器上的重复消息，并为您创建一个强类型的客户端。 无需编写客户端，就可以在具有多个服务的应用程序中节省大量的开发时间。
+通过在服务器和客户端之间共享*proto*文件，可以从端到端生成消息和客户端代码。 客户端代码生成将消除客户端和服务器上的重复消息，并为您创建一个强类型的客户端。 无需编写客户端，就可以在具有多个服务的应用程序中节省大量的开发时间。
 
 ### <a name="strict-specification"></a>严格规范
 
@@ -95,7 +97,7 @@ gRPC 适用于以下方案：
 
 HTTP API 请求以文本的形式发送，可由人读取和创建。
 
-默认情况下，使用 Protobuf 对 gRPC 消息进行编码。 尽管 Protobuf 是发送和接收的高效，但其二进制格式不是用户可读的。 Protobuf 要求在`*.proto`文件中指定的消息接口说明正确地进行反序列化。 需要使用其他工具来分析线路上的 Protobuf 负载，并手动撰写请求。
+默认情况下，使用 Protobuf 对 gRPC 消息进行编码。 尽管 Protobuf 是发送和接收的高效，但其二进制格式不是用户可读的。 Protobuf 要求在*proto*文件中指定的消息接口说明正确地进行反序列化。 需要使用其他工具来分析线路上的 Protobuf 负载，并手动撰写请求。
 
 诸如[server 反射](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)和[gRPC 命令行工具](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md)等功能可帮助进行二进制 Protobuf 消息。 此外，Protobuf 消息支持[与 JSON 之间的转换](https://developers.google.com/protocol-buffers/docs/proto3#json)。 内置 JSON 转换提供了一种有效的方法，可在调试时将 Protobuf 消息转换为可读的形式。
 
