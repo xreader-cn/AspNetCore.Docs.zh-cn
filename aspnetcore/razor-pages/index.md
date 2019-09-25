@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: 284fb0fa64b26cf51f822b9ef42fe9bb7247e421
-ms.sourcegitcommit: e7dc89620fa02c2ff80bee1e3f77297f97616968
+ms.openlocfilehash: 7e27bbc84816bd282b2b8de936772eb5c597d74f
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71151154"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207371"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -414,7 +414,7 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
 
 之前显示的 `Create` 页面使用 `RedirectToPage`：
 
-[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=15-16)]
+[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=28)]
 
 应用具有以下文件/文件夹结构：
 
@@ -428,13 +428,13 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
     * Edit.cshtml 
     * *Index.cshtml*
 
-成功后，Pages/Customers/Create.cshtml and Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Customers/Index.cshtml    。 字符串 `./Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `./Index` 生成 Pages/Customers/Index.cshtml  页面的 URI。 例如:
+成功后，Pages/Customers/Create.cshtml and Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Customers/Index.cshtml    。 字符串 `./Index` 是用于访问前一页的相对页名称。 它用于生成 *Pages/Customers/Index.cshtml* 页面的 URL。 例如:
 
 * `Url.Page("./Index", ...)`
-* `<a asp-page="/Customers/Index">Customers Index Page</a>`
+* `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-可以使用字符串 `/Index` 生成 Pages/Index.cshtml  页面的 URI。 例如:
+绝对页名称 `/Index` 用于生成 *Pages/Index. cshtml* 页面的 URL。 例如:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
