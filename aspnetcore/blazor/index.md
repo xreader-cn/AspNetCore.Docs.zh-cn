@@ -35,7 +35,7 @@ Blazor 是一个用于使用 .NET 生成交互式客户端 Web UI 的框架：
 * 始终高效支持 Windows、Linux 和 macOS 上的 Visual Studio。
 * 以一组稳定、功能丰富且易用的通用语言、框架和工具为基础来进行生成。
 
-## <a name="components"></a>组件数
+## <a name="components"></a>组件
 
 Blazor 应用基于组件  。 Blazor 中的组件是指 UI 元素，例如，页面、对话框或数据输入窗体。
 
