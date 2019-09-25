@@ -5,14 +5,14 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 7736888c43aafd2f64e3d7b079f2099fe548a825
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 4dc150ff4534e42e1995a185f650cea9df70ccc4
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081077"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187050"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -97,7 +97,17 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="monitoring-and-logging"></a>监视和日志记录
 
-Azure 应用服务提供 ASP.NET Core 日志记录扩展，可启用针对 ASP.NET Core 应用的日志记录集成  。 要将扩展自动添加到应用服务，可以将 Visual Studio 的“发布”过程与应用服务发布配置文件一起使用   。 如果不能使用 Visual Studio 部署应用，请通过应用服务的“开发工具” > “扩展”对话框，在 Azure 门户中手动安装扩展   。
+::: moniker range=">= aspnetcore-3.0"
+
+部署到应用服务的 ASP.NET Core 应用会自动接收“ASP.NET Core 记录集成”这一应用服务扩展  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+
+::: moniker-end
 
 有关监视、日志记录和故障排除的信息，请参阅以下文章：
 
@@ -128,10 +138,21 @@ Azure 应用服务提供 ASP.NET Core 日志记录扩展，可启用针对 ASP.N
 * Redis 缓存
 
 有关详细信息，请参阅 <xref:security/data-protection/implementation/key-storage-providers>。
+<a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
+<!-- revert this after 3.0 supported
+## Deploy ASP.NET Core preview release to Azure App Service
 
-## <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>将 ASP.NET Core 预览版部署到 Azure 应用服务
+Use one of the following approaches if the app relies on a preview release of .NET Core:
 
-如果应用依赖于 .NET Core 的预览发布版，请使用下述方法之一：
+* [Install the preview site extension](#install-the-preview-site-extension).
+* [Deploy a self-contained preview app](#deploy-a-self-contained-preview-app).
+* [Use Docker with Web Apps for containers](#use-docker-with-web-apps-for-containers).
+-->
+## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>将 ASP.NET Core 3.0 部署到 Azure 应用服务
+
+我们希望尽快在 Azure 应用服务中提供 ASP.NET Core 3.0。
+
+如果应用依赖于 .NET Core 3.0，请使用以下方法之一：
 
 * [安装预览站点扩展](#install-the-preview-site-extension)。
 * [部署独立式预览版应用](#deploy-a-self-contained-preview-app)。
@@ -230,7 +251,7 @@ Azure 应用服务提供 ASP.NET Core 日志记录扩展，可启用针对 ASP.N
 
 1. 在命令 shell 中，使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令在发布配置中发布应用。 在下例中，应用发布为依赖框架的应用：
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release
    ```
 
@@ -268,7 +289,7 @@ Azure 应用服务提供 ASP.NET Core 日志记录扩展，可启用针对 ASP.N
 
 1. 在命令 shell 中，使用 [dotnet publish ](/dotnet/core/tools/dotnet-publish) 命令在主机运行时的发布配置中发布应用。 在以下示例中，为 `win-x86` RID 发布应用。 提供给 `--runtime` 选项的 RID 必须在项目文件的 `<RuntimeIdentifier>`（或 `<RuntimeIdentifiers>`）属性中提供。
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release --runtime win-x86
    ```
 

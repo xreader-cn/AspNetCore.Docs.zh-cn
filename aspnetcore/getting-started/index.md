@@ -4,14 +4,14 @@ author: rick-anderson
 description: 介绍如何使用 ASP.NET Core 创建并运行简单的 Hello World 应用的快速教程。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/15/2019
+ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: d1edf91f1b37ba2b69732471dc6c1f306ac5ad24
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 0f05ab120d64832a4bc2fd70921efc7238ee9eac
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081134"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187067"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -31,7 +31,7 @@ ms.locfileid: "71081134"
 
 ## <a name="prerequisites"></a>系统必备
 
-* [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/all)
+[!INCLUDE[](~/includes/3.0-SDK.md)]
 
 ## <a name="create-a-web-app-project"></a>创建 Web 应用项目
 
@@ -40,6 +40,11 @@ ms.locfileid: "71081134"
 ```dotnetcli
 dotnet new webapp -o aspnetcoreapp
 ```
+
+上面的命令：
+
+* 创建新 Web 应用。  
+* `-o` 参数使用应用的源文件创建名为 aspnetcoreapp  的目录。
 
 ### <a name="trust-the-development-certificate"></a>信任开发证书
 
