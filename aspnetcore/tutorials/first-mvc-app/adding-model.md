@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: b0efaf76cb2172f5b7568e42065b99b1259949de
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 5ad31a2536ad70590eaa767cf20068512241f36b
+ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082032"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71295479"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -62,28 +62,14 @@ ms.locfileid: "71082032"
 在 PMC 中运行以下命令：
 
 ```powershell
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -IncludePrerelease
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 前面的命令添加 EF Core SQL Server 提供程序。 提供程序包将 EF Core 包作为依赖项进行安装。 在本教程后面的基架步骤中会自动安装其他包。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-运行以下 .NET Core CLI 命令：
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-上述命令添加：
-
-* 适用于 .NET CLI 的 Entity Framework Core 工具。
-* EF Core SQLite 提供程序将 EF Core 包作为依赖项进行安装。
-* 基架需要的包：`Microsoft.VisualStudio.Web.CodeGeneration.Design` 和 `Microsoft.EntityFrameworkCore.SqlServer`。
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 ---
 

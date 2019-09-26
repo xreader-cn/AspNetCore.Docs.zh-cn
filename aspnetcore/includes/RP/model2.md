@@ -20,17 +20,7 @@
 
 ### <a name="add-nuget-packages-and-ef-tools"></a>添加 NuGet 包和 EF 工具
 
-打开 RazorPagesMovie 项目的终端。  右键单击设计/布局栏中的项目名称，然后转到终端中的“工具”>“打开”  。 在终端中运行以下 .NET Core CLI 命令：
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-上述命令为 .NET CLI 添加了 Entity Framework Core 工具，并为项目添加了多个包。 `Microsoft.VisualStudio.Web.CodeGeneration.Design` 包对基架是必需的。
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 <a name="reg"></a>
 

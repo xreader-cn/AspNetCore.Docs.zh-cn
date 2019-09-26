@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: 7e27bbc84816bd282b2b8de936772eb5c597d74f
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: bccdd7e5c1c90dd76ca1b788dbf09000c5cbe14b
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207371"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71256188"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -281,7 +281,9 @@ Edit.cshtml.cs 文件  ：
   * 客户端验证。
   * 验证错误呈现。
 
-* 会生成以下 HTML：[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
+* 则会生成以下 HTML：
+
+  [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
 
 如果在不使用名称值的情况下发布“创建”窗体，则将显示错误消息“名称字段是必需的”。 窗体上。 如果客户端上已启用 JavaScript，浏览器会显示错误，而不会发布到服务器。
 
@@ -396,7 +398,9 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
 
 `@namespace`  也可用于传统的 Razor 视图。
 
-考虑 Pages/Create.cshtml  视图文件：[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=2-3)]
+考虑 Pages/Create.cshtml 视图文件  ：
+
+[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=2-3)]
 
 包含 _ViewImports.cshtml 的已更新的 Pages/Create.cshtml 视图文件和前面的布局文件   ：
 

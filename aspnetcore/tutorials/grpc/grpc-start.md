@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 924aa3880fc7f2aa777d4ab2e5ea3bed38e227d4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 8c0f57e69d4cdee5b5f5510d7db04991ed6df475
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081190"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71250824"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -183,9 +183,9 @@ gRPC 客户端项目需要以下包：
 * 运行以下命令：
 
   ```powershell
-  Install-Package Grpc.Net.Client -prerelease
-  Install-Package Google.Protobuf -prerelease
-  Install-Package Grpc.Tools -prerelease
+  Install-Package Grpc.Net.Client
+  Install-Package Google.Protobuf
+  Install-Package Grpc.Tools
   ```
 
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包

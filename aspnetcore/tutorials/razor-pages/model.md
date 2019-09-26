@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中向 Razor Pages 应用添加模型
 author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
-ms.date: 07/22/2019
+ms.date: 9/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 18cf9aea930a7989bb844bc6c40dfa1ce84b7b4d
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: dcbcf37dfd95d784ebe249ec6e9e4184a8853d3d
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082603"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187173"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -99,7 +99,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 安装基架工具：
 
   ```dotnetcli
-   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+   dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * **对于 Windows**：运行下面的命令：
@@ -122,7 +122,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 * 安装基架工具：
 
   ```dotnetcli
-   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+   dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * 运行下面的命令：

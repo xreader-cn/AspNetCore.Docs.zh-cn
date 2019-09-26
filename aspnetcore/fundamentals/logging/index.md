@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 90b439603dd51ff02e40045b9420876d7200bef1
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 2d517a89c6002b5c85e98128605f95585354f8db
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: HT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219157"
+ms.locfileid: "71248253"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -36,7 +36,7 @@ ms.locfileid: "71219157"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-若要在使用通用主机的应用中添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法：
+若要在使用通用主机的应用中添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=6)]
 
@@ -61,7 +61,7 @@ ms.locfileid: "71219157"
 
 ::: moniker range="< aspnetcore-3.0 "
 
-要添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法：
+要添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=18-20)]
 
@@ -87,7 +87,7 @@ ms.locfileid: "71219157"
 
 若要创建日志，请使用 <xref:Microsoft.Extensions.Logging.ILogger%601> 对象。 在 Web 应用或托管服务中，由依赖关系注入 (DI) 获取 `ILogger`。 在非主机控制台应用中，使用 `LoggerFactory` 来创建 `ILogger`。
 
-下面的 ASP.NET Core 示例创建了一个以 `TodoApiSample.Pages.AboutModel` 为类别的记录器。 日志“类别”是与每个日志关联的字符串。 DI 提供的 `ILogger<T>` 实例创建日志，该日志以类型 `T` 的完全限定名称为类别。 
+下面的 ASP.NET Core 示例创建了一个以 `TodoApiSample.Pages.AboutModel` 为类别的记录器。 日志“类别”是与每个日志关联的字符串  。 DI 提供的 `ILogger<T>` 实例创建日志，该日志以类型 `T` 的完全限定名称为类别。 
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -105,7 +105,7 @@ ms.locfileid: "71219157"
 
 ::: moniker-end
 
-在下面的 ASP.NET Core 和控制台应用示例中，记录器用于创建以 `Information` 为级别的日志。 日志“级别”代表所记录事件的严重程度。 
+在下面的 ASP.NET Core 和控制台应用示例中，记录器用于创建以 `Information` 为级别的日志。 日志“级别”代表所记录事件的严重程度  。 
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -312,7 +312,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ## <a name="log-category"></a>日志类别
 
-创建 `ILogger` 对象后，将为其指定“类别”。 该类别包含在由此 `ILogger` 实例创建的每条日志消息中。 类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。
+创建 `ILogger` 对象后，将为其指定“类别”  。 该类别包含在由此 `ILogger` 实例创建的每条日志消息中。 类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。
 
 使用 `ILogger<T>` 获取一个 `ILogger` 实例，该实例使用 `T` 的完全限定类型名称作为类别：
 
@@ -346,7 +346,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ## <a name="log-level"></a>日志级别
 
-每个日志都指定了一个 <xref:Microsoft.Extensions.Logging.LogLevel> 值。 日志级别指示严重性或重要程度。 例如，可在方法正常结束时写入 `Information` 日志，在方法返回“404 找不到”状态代码时写入 `Warning` 日志。
+每个日志都指定了一个 <xref:Microsoft.Extensions.Logging.LogLevel> 值。 日志级别指示严重性或重要程度。 例如，可在方法正常结束时写入 `Information` 日志，在方法返回“404 找不到”状态代码时写入 `Warning` 日志  。
 
 下面的代码会创建 `Information` 和 `Warning` 日志：
 
@@ -370,7 +370,7 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 * 跟踪 = 0
 
-  有关通常仅用于调试的信息。 这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。 默认情况下禁用。
+  有关通常仅用于调试的信息。 这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。 默认情况下禁用。 
 
 * 调试 = 1
 
@@ -479,7 +479,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ## <a name="log-event-id"></a>日志事件 ID
 
-每个日志都可指定一个事件 ID。 该示例应用通过使用本地定义的 `LoggingEvents` 类来执行此操作：
+每个日志都可指定一个事件 ID  。 该示例应用通过使用本地定义的 `LoggingEvents` 类来执行此操作：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -636,7 +636,7 @@ System.Exception: Item not found exception.
 
 * 选择匹配提供程序或其别名的所有规则。 如果找不到任何匹配项，则选择提供程序为空的所有规则。
 * 根据上一步的结果，选择具有最长匹配类别前缀的规则。 如果找不到任何匹配项，则选择未指定类别的所有规则。
-* 如果选择了多条规则，则采用最后一条。
+* 如果选择了多条规则，则采用最后一条  。
 * 如果未选择任何规则，则使用 `MinimumLevel`。
 
 假设你使用上述规则列表为类别“Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine”创建了 `ILogger` 对象：
@@ -648,7 +648,7 @@ System.Exception: Item not found exception.
 
 ### <a name="provider-aliases"></a>提供程序别名
 
-每个提供程序都定义了一个别名；可在配置中使用该别名来代替完全限定的类型名称。  对于内置提供程序，请使用以下别名：
+每个提供程序都定义了一个别名；可在配置中使用该别名来代替完全限定的类型名称  。  对于内置提供程序，请使用以下别名：
 
 * 控制台
 * 调试
@@ -711,7 +711,7 @@ System.Exception: Item not found exception.
 
 ## <a name="log-scopes"></a>日志作用域
 
- “作用域”可对一组逻辑操作分组。 此分组可用于将相同的数据附加到作为集合的一部分而创建的每个日志。 例如，在处理事务期间创建的每个日志都可包括事务 ID。
+ “作用域”可对一组逻辑操作分组  。 此分组可用于将相同的数据附加到作为集合的一部分而创建的每个日志。 例如，在处理事务期间创建的每个日志都可包括事务 ID。
 
 范围是由 <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> 方法返回的 `IDisposable` 类型，持续至释放为止。 要使用作用域，请在 `using` 块中包装记录器调用：
 
@@ -729,7 +729,7 @@ System.Exception: Item not found exception.
 
 下列代码为控制台提供程序启用作用域：
 
-Program.cs:
+Program.cs  :
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -792,7 +792,7 @@ dotnet run
 
 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) 提供程序包使用 [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) 类（`Debug.WriteLine` 方法调用）来写入日志输出。
 
-在 Linux 中，此提供程序将日志写入 /var/log/message。
+在 Linux 中，此提供程序将日志写入 /var/log/message  。
 
 ```csharp
 logging.AddDebug();
@@ -808,7 +808,7 @@ logging.AddEventSourceLogger();
 
 可使用 [PerfView 实用工具](https://github.com/Microsoft/perfview)收集和查看日志。 虽然其他工具也可以查看 ETW 日志，但在处理由 ASP.NET Core 发出的 ETW 事件时，使用 PerfView 能获得最佳体验。
 
-要将 PerfView 配置为收集此提供程序记录的事件，请向 Additional Providers 列表添加字符串 `*Microsoft-Extensions-Logging`。 （请勿遗漏字符串起始处的星号。）
+要将 PerfView 配置为收集此提供程序记录的事件，请向 Additional Providers 列表添加字符串 `*Microsoft-Extensions-Logging`  。 （请勿遗漏字符串起始处的星号。）
 
 ![其他 Perfview 提供程序](index/_static/perfview-additional-providers.png)
 
@@ -872,16 +872,16 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker range="= aspnetcore-2.1"
 
-<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。 设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。 （“输出模板”是一个消息模板，除了通过 `ILogger` 方法调用提供的内容之外，还可将其应用于所有日志。）
+<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。 设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。 （“输出模板”是一个消息模板，除了通过 `ILogger` 方法调用提供的内容之外，还可将其应用于所有日志。  ）
 
 ::: moniker-end
 
-在部署应用服务应用时，应用程序将采用 Azure 门户中“应用服务”页面下的[应用服务日志](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag)部分的设置。 更新以下设置后，更改立即生效，无需重启或重新部署应用。
+在部署应用服务应用时，应用程序将采用 Azure 门户中“应用服务”页面下的[应用服务日志](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag)部分的设置  。 更新以下设置后，更改立即生效，无需重启或重新部署应用。
 
-* 应用程序日志记录(Filesystem)
-* 应用程序日志记录(Blob)
+* 应用程序日志记录(Filesystem) 
+* 应用程序日志记录(Blob) 
 
-日志文件的默认位置是 D:\\home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt。 默认文件大小上限为 10 MB，默认最大保留文件数为 2。 默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt。
+日志文件的默认位置是 D:\\home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt   。 默认文件大小上限为 10 MB，默认最大保留文件数为 2。 默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt  。
 
 该提供程序仅当项目在 Azure 环境中运行时有效。 项目在本地运行时，该提供程序无效 &mdash; 它不会写入本地文件或 blob 的本地开发存储。
 
@@ -895,11 +895,11 @@ logging.AddAzureWebAppDiagnostics();
 
 要配置 Azure 日志流式处理，请执行以下操作：
 
-* 从应用的门户页导航到“应用服务日志”页。
-* 将“应用程序日志记录(Filesystem)”设置为“开”。
-* 选择日志级别。
+* 从应用的门户页导航到“应用服务日志”页  。
+* 将“应用程序日志记录(Filesystem)”设置为“开”   。
+* 选择日志级别  。
 
-导航到“日志流”页面来查看应用消息。 它们由应用通过 `ILogger` 接口记录。
+导航到“日志流”页面来查看应用消息  。 它们由应用通过 `ILogger` 接口记录。
 
 ### <a name="azure-application-insights-trace-logging"></a>Azure Application Insights 跟踪日志记录
 
@@ -936,7 +936,7 @@ logging.AddAzureWebAppDiagnostics();
 使用第三方框架类似于使用以下内置提供程序之一：
 
 1. 将 NuGet 包添加到你的项目。
-1. 调用 `ILoggerFactory`。
+1. 调用日志记录框架提供的 `ILoggerFactory` 扩展方法。
 
 有关详细信息，请参阅各提供程序的相关文档。 Microsoft 不支持第三方日志记录提供程序。
 

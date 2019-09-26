@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 107b348b4484301b86eeb5528833914fe4c1eaf7
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 6b7d2ca1cea23efd195f1ae0e0a749c6d2d9b622
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080942"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186953"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -87,7 +87,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * 在项目文件夹中的命令提示符下运行以下命令：
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   dotnet ef database update
   ```
 
@@ -227,14 +227,17 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 运行以下 .NET Core CLI 命令，安装所需的 NuGet 包：
-
+<!-- TO DO  After testing, Replace with
+[!INCLUDE[](~/includes/includes/add-EF-NuGet-SQLite-CLI.md)]
+remove dotnet tool install --global  below
+ -->
   ```dotnetcli
-  dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.Tools --version 3.0.0-*
-  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-  dotnet add package Microsoft.Extensions.Logging.Debug --version 3.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.SQLite
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  dotnet add package Microsoft.EntityFrameworkCore.Tools
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+  dotnet add package Microsoft.Extensions.Logging.Debug
   ```
 
   基架需要 Microsoft.VisualStudio.Web.CodeGeneration.Design 包。 虽然应用不使用 SQL Server，但基架工具需要 SQL Server 包。
@@ -244,7 +247,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * 运行以下命令安装 [aspnet-codegenerator 基架工具](xref:fundamentals/tools/dotnet-aspnet-codegenerator)。
 
   ```dotnetcli
-  dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+  dotnet tool install --global dotnet-aspnet-codegenerator
   ```
 
 * 运行以下命令，搭建“学生”页的基架。

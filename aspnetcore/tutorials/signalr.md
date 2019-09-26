@@ -4,14 +4,14 @@ author: bradygaster
 description: 在本教程中，创建使用 ASP.NET Core SignalR 的聊天应用。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 07/08/2019
+ms.date: 09/24/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 2dfa994b9763a0139cb70cbf9847ac3b02b568e4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 7a6574bd3c463f0890f5dc076944f1ab0f0c919a
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081971"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248394"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -484,6 +484,10 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 > [!TIP]
 > 如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。 可能会看到与 HTML 和 JavaScript 代码相关的错误。 例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。 在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。
 > ![未找到 signalr.js 错误](signalr/_static/2.x/f12-console.png)
+
+## <a name="additional-resources"></a>其他资源
+
+* [本教程的 YouTube 版本](https://www.youtube.com/watch?v=iKlVmu-r0JQ)
 
 ## <a name="next-steps"></a>后续步骤
 
