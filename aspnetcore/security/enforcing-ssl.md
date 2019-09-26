@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: eafb06d181ca3f085cccb314749c8d4deba074fa
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: aa42b1c7199e951714be809de9c9c5f857473485
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082561"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278754"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -362,6 +362,58 @@ dotnet dev-certs https --help
 * 在 WSL 窗口中运行以下命令：`ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   上述命令将设置环境变量，以便 Linux 使用 Windows 受信任的证书。
+
+## <a name="troubleshoot-certificate-problems"></a>排查证书问题
+
+本部分提供了在[安装和信任](#trust)ASP.NET Core HTTPS 开发证书时，但仍会出现浏览器警告，指出该证书不受信任。
+
+### <a name="all-platforms---certificate-not-trusted"></a>所有平台-证书不受信任
+
+运行以下命令：
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。 证书信任由浏览器进行缓存。
+
+前面的命令解决了大多数浏览器信任问题。 如果浏览器仍不信任证书，请遵循以下特定于平台的建议。
+
+### <a name="docker---certificate-not-trusted"></a>Docker-证书不受信任
+
+* 删除*C:\Users\{USER} \AppData\Roaming\ASP.NET\Https*文件夹。
+* 清理解决方案。 删除 bin 和 obj 文件夹。
+* 重新启动开发工具。 例如，Visual Studio、Visual Studio Code 或 Visual Studio for Mac。
+
+### <a name="windows---certificate-not-trusted"></a>Windows-证书不受信任
+
+* 检查证书存储区中的证书。 在`localhost` `ASP.NET Core HTTPS development certificate`和中应有一个具有友好名称的证书`Current User > Personal > Certificates``Current User > Trusted root certification authorities > Certificates`
+* 从 "个人" 和 "受信任的根证书颁发机构" 中删除所有找到的证书。 请勿**删除 IIS Express** localhost 证书。
+* 运行以下命令：
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。
+
+### <a name="os-x---certificate-not-trusted"></a>OS X-证书不受信任
+
+* 打开密钥链访问。
+* 选择系统密钥链。
+* 检查是否存在 localhost 证书。
+* 检查它是否包含`+`图标上的符号，以指示所有用户的信任。
+* 从系统密钥链中删除证书。
+* 运行以下命令：
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。
 
 ## <a name="additional-information"></a>其他信息
 
