@@ -5,14 +5,14 @@ description: 使用所选工具构建 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/25/2019
 uid: blazor/get-started
-ms.openlocfilehash: 4c2a8f62b7f6a60815d131756d1e551904d918ad
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 5aec91eff7de0732a47fec1aafa5e094c89c37a4
+ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207219"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71295436"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -24,7 +24,7 @@ Blazor 入门：
 
 1. 安装最新的[.Net Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)版本。
 
-1. 在命令 shell 中运行以下命令，安装 Blazor 模板：
+1. 在命令 shell 中运行以下命令，安装[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)模板：
 
    ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19465.2
