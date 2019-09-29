@@ -29,13 +29,13 @@ HTTP 是无状态的协议。 不采取其他步骤的情况下，HTTP 请求是
 | 存储方法 | 存储机制 |
 | ---------------- | ----------------- |
 | [Cookie](#cookies) | HTTP Cookie（可能包括使用服务器端应用代码存储的数据） |
-| [会话状态](#session-state) | HTTP Cookie 和服务器端应用代码 |
+| [Session State](#session-state) | HTTP Cookie 和服务器端应用代码 |
 | [TempData](#tempdata) | HTTP Cookie 或会话状态 |
-| [查询字符串](#query-strings) | HTTP 查询字符串 |
-| [隐藏字段](#hidden-fields) | HTTP 窗体字段 |
+| [Query Strings](#query-strings) | HTTP 查询字符串 |
+| [Hidden Fields](#hidden-fields) | HTTP 窗体字段 |
 | [HttpContext.Items](#httpcontextitems) | 服务器端应用代码 |
-| [缓存](#cache) | 服务器端应用代码 |
-| [依赖关系注入](#dependency-injection) | 服务器端应用代码 |
+| [Cache](#cache) | 服务器端应用代码 |
+| [Dependency Injection](#dependency-injection) | 服务器端应用代码 |
 
 ## <a name="cookies"></a>Cookie
 
