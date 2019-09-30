@@ -5,12 +5,12 @@ description: 了解如何通过模型绑定，使控制器操作能够直接使�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 91f42393ffee3249f9167e10eaea7b279a7cb70b
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: b2fbe6a9f11315d1fb8863fbf62e8929c7ff3fc2
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878409"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186881"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -26,7 +26,7 @@ ms.locfileid: "70878409"
 
 ## <a name="model-binding-review"></a>模型绑定查看
 
-模型绑定为其操作对象的类型使用特定定义。 简单类型  转换自输入中的单个字符串。 复杂类型  转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
+模型绑定为其操作对象的类型使用特定定义。 简单类型转换自输入中的单个字符串。 复杂类型转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
 
 创建自己的自定义模型绑定器之前，有必要查看现有模型绑定器的实现方式。 考虑使用 [ByteArrayModelBinder](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.binders.bytearraymodelbinder)，它可将 base64 编码的字符串转换为字节数组。 字节数组通常存储为文件或数据库 BLOB 字段。
 
@@ -110,7 +110,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 ### <a name="implementing-a-modelbinderprovider"></a>实现 ModelBinderProvider
 
-可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是  绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
+可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinderProvider.cs?highlight=17-20)]
 
@@ -132,9 +132,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 ### <a name="polymorphic-model-binding"></a>多态模型绑定
 
-绑定到不同的派生类型模型称为多态模型绑定。 如果请求值必须绑定到特定的派生模型类型，则需要自定义模型绑定。 除非需要此方法，否则我们建议避免多态模型绑定。 多态模型绑定使绑定模型难以推理。 但是，如果应用需要多态模型绑定，则实现可能类似于以下代码：
-
-绑定到不同的派生类型模型称为多态模型绑定。 如果请求值必须绑定到特定的派生模型类型，则需要自定义模型绑定。 多态模型绑定：
+绑定到不同的派生类型模型称为多态模型绑定。 如果请求值必须绑定到特定的派生模型类型，则需要多态自定义模型绑定。 多态模型绑定：
 
 * 对于旨在与所有语言进行互操作的 REST API 并不常见。
 * 使绑定模型难以推理。

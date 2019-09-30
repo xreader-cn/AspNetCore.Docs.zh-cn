@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 578be568b58dc630e8aabf8cb355266766741b9e
-ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
+ms.openlocfilehash: ccb37a422d972ab9113bb4115473d054282dac87
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70384741"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278692"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core 中的会话和应用状态
 
@@ -29,13 +29,13 @@ HTTP 是无状态的协议。 不采取其他步骤的情况下，HTTP 请求是
 | 存储方法 | 存储机制 |
 | ---------------- | ----------------- |
 | [Cookie](#cookies) | HTTP Cookie（可能包括使用服务器端应用代码存储的数据） |
-| [Session State](#session-state) | HTTP Cookie 和服务器端应用代码 |
+| [会话状态](#session-state) | HTTP Cookie 和服务器端应用代码 |
 | [TempData](#tempdata) | HTTP Cookie 或会话状态 |
-| [Query Strings](#query-strings) | HTTP 查询字符串 |
-| [Hidden Fields](#hidden-fields) | HTTP 窗体字段 |
+| [查询字符串](#query-strings) | HTTP 查询字符串 |
+| [隐藏字段](#hidden-fields) | HTTP 窗体字段 |
 | [HttpContext.Items](#httpcontextitems) | 服务器端应用代码 |
-| [Cache](#cache) | 服务器端应用代码 |
-| [Dependency Injection](#dependency-injection) | 服务器端应用代码 |
+| [缓存](#cache) | 服务器端应用代码 |
+| [依赖关系注入](#dependency-injection) | 服务器端应用代码 |
 
 ## <a name="cookies"></a>Cookie
 
@@ -72,7 +72,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 内存中缓存提供程序在应用驻留的服务器内存中存储会话数据。 在服务器场方案中：
 
-* 使用粘性会话将每个会话加入到单独服务器上的特定应用实例  。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
+* 使用粘性会话将每个会话加入到单独服务器上的特定应用实例。 默认情况下，[Azure 应用服务](https://azure.microsoft.com/services/app-service/)使用[应用程序请求路由 (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) 强制实施粘性会话。 然而，粘性会话可能会影响可伸缩性，并使 Web 应用更新变得复杂。 更好的方法是使用 Redis 或 SQL Server 分布式缓存，它们不需要粘性会话。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
 * 通过 [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) 加密会话 Cookie。 必须正确配置数据保护，以在每台计算机上读取会话 Cookie。 有关详细信息，请参阅 <xref:security/data-protection/introduction> 和[密钥存储提供程序](xref:security/data-protection/implementation/key-storage-providers)。
 
 ### <a name="configure-session-state"></a>配置会话状态
@@ -119,7 +119,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 应用使用 [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) 属性确定放弃服务器缓存中的内容前，内容可以空闲多长时间。 此属性独立于 Cookie 到期时间。 通过[会话中间件](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware)传递的每个请求都会重置超时。
 
-会话状态为“非锁定”  。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起  。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
+会话状态为“非锁定”。 如果两个请求同时尝试修改同一会话的内容，则后一个请求替代前一个请求。 `Session` 是作为一个连贯会话实现的，这意味着所有内容都存储在一起。 两个请求试图修改不同的会话值时，后一个请求可能替代前一个做出的会话更改。
 
 ### <a name="set-and-get-session-values"></a>设置和获取会话值
 
@@ -175,13 +175,13 @@ ASP.NET Core 公开 Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPa
 
 [!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexPeek.cshtml?range=1-14)]
 
-在前面的标记中，在请求结束时，不会删除 `TempData["Message"]`，因为正在使用 `Peek`。  刷新页面将显示 `TempData["Message"]`。
+在前面的标记中，在请求结束时，不会删除 `TempData["Message"]`，因为正在使用 `Peek`。 刷新页面将显示 `TempData["Message"]`。
 
 以下标记类似于前面的代码，但使用 `Keep` 在请求结束时保留数据：
 
 [!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexKeep.cshtml?range=1-14)]
 
-在 IndexPeek  和 IndexKeep  页面之间导航不会删除 `TempData["Message"]`。
+在 IndexPeek 和 IndexKeep 页面之间导航不会删除 `TempData["Message"]`。
 
 以下代码显示 `TempData["Message"]`，但请求结束时，将删除 `TempData["Message"]`：
 
@@ -315,6 +315,10 @@ app.Run(async (context) =>
   例如，用户将购物车存储在会话中。 用户将商品添加到购物车，但提交失败。 应用不知道有此失败，因此它向用户报告商品已添加到购物车，但事实并非如此。
 
   检查此类错误的建议方法是完成将应用写入到该会话后，从应用代码调用 `await feature.Session.CommitAsync();`。 如果后备存储不可用，则 `CommitAsync` 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，`LoadAsync` 引发异常。
+  
+## <a name="signalr-and-session-state"></a>SignalR 和会话状态
+
+SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
 ## <a name="additional-resources"></a>其他资源
 

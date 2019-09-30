@@ -1,21 +1,47 @@
 ---
-title: ASP.NET Core 2.1 或更高版本的 Microsoft.AspNetCore.App 元包
+title: ASP.NET Core 的 Microsoft.AspNetCore.App 元包
 author: Rick-Anderson
-description: Microsoft.AspNetCore.App 元包包含所有受支持的 ASP.NET Core 和 Entity Framework Core 包。
+description: Microsoft.AspNetCore.App 共享框架
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 04/21/2019
+ms.date: 09/24/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 913e3d83fbf1af7ea995a88202f86c60b359a7e2
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 8435445890ce00f33ab9a8692f5442b1609192da
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085656"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219109"
 ---
-# <a name="microsoftaspnetcoreapp-metapackage-for-aspnet-core-21-or-later"></a>ASP.NET Core 2.1 或更高版本的 Microsoft.AspNetCore.App 元包
+# <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>Microsoft.AspNetCore.App for ASP.NET Core
 
-此功能需要面向 .NET Core 2.1 或更高版本的 ASP.NET Core 2.1 或更高版本。
+::: moniker range=">= aspnetcore-3.0"
+
+ ASP.NET Core 共享框架 (`Microsoft.AspNetCore.App`) 包含由 Microsoft 开发和支持的程序集。 当安装 [NET Core 3.0 或更高版本 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) 时，安装 `Microsoft.AspNetCore.App`。 共享框架是安装在计算机上并包括运行时组件和目标包的一组程序集（*.dll* 文件）。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
+
+* 面向 `Microsoft.NET.Sdk.Web` SDK 的项目隐式引用 `Microsoft.AspNetCore.App` 框架。
+
+对于这些项目，不需要其他引用：
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+    ...
+</Project>
+```
+
+ASP.NET Core 共享框架：
+
+* 不包括第三方依赖项。
+* 包括 ASP.NET Core 团队支持的所有包。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+此功能需要面向 .NET Core 2.x 的 ASP.NET Core 2.x。
 
 ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App) [元包](/dotnet/core/packages#metapackages)：
 
@@ -23,7 +49,7 @@ ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Micro
 * 包括 ASP.NET Core 团队支持的所有软件包，包含第三方依赖项的软件包（不包括上文所述）除外。
 * 包括 Entity Framework Core 团队支持的所有软件包，包含第三方依赖项的软件包（不包括上文所述）除外。
 
-`Microsoft.AspNetCore.App` 包中包含了 ASP.NET Core 2.1 及更高版本和 Entity Framework Core 2.1 及更高版本的所有功能。 面向 ASP.NET Core 2.1 及更高版本的默认项目模板使用此包。 建议面向 ASP.NET Core 2.1 及更高版本和 Entity Framework Core 2.1 及更高版本的应用程序使用 `Microsoft.AspNetCore.App` 包。
+`Microsoft.AspNetCore.App` 包中包含了 ASP.NET Core 2.x 和 Entity Framework Core 2.x 的所有功能。 面向 ASP.NET Core 2.x 的默认项目模板使用此包。 建议面向 ASP.NET Core 2.x 和 Entity Framework Core 2.x 的应用程序使用 `Microsoft.AspNetCore.App` 包。
 
 `Microsoft.AspNetCore.App` 元包的版本号表示最低 ASP.NET Core 版本和 Entity Framework Core 版本。
 
@@ -35,13 +61,13 @@ ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Micro
 
 使用 `Microsoft.AspNetCore.App` 元包的应用程序会自动使用 ASP.NET Core 共享框架。 使用 `Microsoft.AspNetCore.App` 元包时，应用程序不部署所引用的 ASP.NET Core NuGet 包中的任何资产 &mdash; .NET Core 共享框架包含这些资产。 共享框架中的资产已经过预编译，以便缩短应用程序启动时间。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
 
-以下项目文件为 ASP.NET Core 引用 `Microsoft.AspNetCore.App` 元包，该文件是一种典型的 ASP.NET Core 2.1 模板：
+以下项目文件为 ASP.NET Core 引用 `Microsoft.AspNetCore.App` 元包，，它表示一种典型的 ASP.NET Core 2.2 模板：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,11 +77,13 @@ ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Micro
 </Project>
 ```
 
-前面的标记表示典型的 ASP.NET Core 2.1 及更高版本模板。 它不会为 `Microsoft.AspNetCore.App` 包引用指定版本号。 如果未指定版本，SDK 会指定[隐式](https://github.com/dotnet/core/blob/master/release-notes/1.0/sdk/1.0-rc3-implicit-package-refs.md)版本，即 `Microsoft.NET.Sdk.Web`。 建议使用 SDK 指定的隐式版本，而不是在包引用上显式设置版本号。 如果对这种方法有任何疑问，可以在 [Microsoft.AspNetCore.App 隐式版本讨论](https://github.com/aspnet/AspNetCore.Docs/issues/6430)上发表 GitHub 评论。
+前面的标记表示典型的 ASP.NET Core 2.x 模板。 它不会为 `Microsoft.AspNetCore.App` 包引用指定版本号。 如果未指定版本，SDK 会指定[隐式](https://github.com/dotnet/core/blob/master/release-notes/1.0/sdk/1.0-rc3-implicit-package-refs.md)版本，即 `Microsoft.NET.Sdk.Web`。 建议使用 SDK 指定的隐式版本，而不是在包引用上显式设置版本号。 如果对这种方法有任何疑问，可以在 [Microsoft.AspNetCore.App 隐式版本讨论](https://github.com/aspnet/AspNetCore.Docs/issues/6430)上发表 GitHub 评论。
 
 对于便携式应用，隐式版本设置为 `major.minor.0`。 共享框架前滚机制将在安装的共享框架的最新兼容版本上运行应用。 为确保在开发、测试和生产中使用相同的版本，请确保在所有环境中都安装相同版本的共享框架。 对于独立应用，将隐式版本号设置为在已安装的 SDK 中捆绑的共享框架的 `major.minor.patch`。
 
-在 `Microsoft.AspNetCore.App` 引用上指定版本号，不能保证将选择该共享框架版本。 例如，假设指定的版本是“2.1.1”，但安装的是“2.1.3”。 这种情况下，应用将使用"2.1.3"。 不过不建议这样做，你可以禁用前滚（修补程序和/或次要版本）。 有关 dotnet 主机前滚以及如何配置其行为的详细信息，请参阅 [dotnet 主机前滚](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md)。
+在 `Microsoft.AspNetCore.App` 引用上指定版本号，不能保证将选择该共享框架版本。 例如，假设指定的版本是“2.2.1”，但安装的是“2.2.3”。 这种情况下，应用将使用"2.2.3"。 不过不建议这样做，你可以禁用前滚（修补程序和/或次要版本）。 有关 dotnet 主机前滚以及如何配置其行为的详细信息，请参阅 [dotnet 主机前滚](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md)。
+
+::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
 
@@ -68,6 +96,8 @@ ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Micro
 * 这是 .NET Core 2.1 SDK 的一个已知问题。
 
 ::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 <a name="update"></a>
 
@@ -83,3 +113,5 @@ ASP.NET Core 的 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Micro
  在应用程序重启时，应用程序将前滚到最新安装的版本。 无需更新项目文件中的 `Microsoft.AspNetCore.App` 版本号。 有关详细信息，请参阅[依赖于框架的应用会前滚](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward)。
 
 如果应用程序之前使用 `Microsoft.AspNetCore.All`，请参阅[从 Microsoft.AspNetCore.All 迁移到 Microsoft.AspNetCore.App](xref:fundamentals/metapackage#migrate)。
+
+::: moniker-end

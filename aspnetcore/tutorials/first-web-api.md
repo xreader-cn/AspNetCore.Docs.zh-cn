@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 1cc4fffc50978a3a958a96e1eb250cb85a8d2879
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 5e5215f246c6c7a805a4c99f485d51a2fb3c712d
+ms.sourcegitcommit: cf9ffcce4fe0b69fe795aae9ae06e99fdb18bdfc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082069"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71306667"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -71,7 +71,7 @@ ms.locfileid: "71082069"
 * 从“文件”菜单中选择“新建”>“项目”    。
 * 选择“ASP.NET Core Web 应用程序”模板，再单击“下一步”   。
 * 将项目命名为 TodoApi，然后单击“创建”   。
-* 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”    。 选择“API”模板，然后单击“创建”   。 请不要选择“启用 Docker 支持”   。
+* 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”    。 选择“API”模板，然后单击“创建”   。
 
 ![VS“新建项目”对话框](first-web-api/_static/vs3.png)
 
@@ -84,8 +84,8 @@ ms.locfileid: "71082069"
    ```dotnetcli
    dotnet new webapi -o TodoApi
    cd TodoAPI
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-   dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.0.0-*
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+   dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
    ```
 
@@ -117,8 +117,8 @@ ms.locfileid: "71082069"
 在项目文件夹中打开命令终端并运行以下命令：
 
    ```dotnetcli
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-   dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.0.0-*
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+   dotnet add package Microsoft.EntityFrameworkCore.InMemory
    ```
 
 ---
@@ -227,9 +227,8 @@ ms.locfileid: "71082069"
 ### <a name="add-microsoftentityframeworkcoresqlserver"></a>添加 Add Microsoft.EntityFrameworkCore.SqlServer
 
 * 在“工具”菜单中，依次选择“NuGet 包管理器”、“管理解决方案的 NuGet 包”   。
-* 选中“包括预发行版”复选框  。
 * 选择“浏览”选项卡，然后在搜索框中输入 Microsoft.EntityFrameworkCore.SqlServer   。
-* 在左窗口中选择“Microsoft.EntityFrameworkCore.SqlServer V3.0.0-preview”  。
+* 在左窗格中选择“Microsoft.EntityFrameworkCore.SqlServer”  。
 * 选中右窗格中的“项目”复选框，然后选择“安装”   。
 * 使用上述说明添加 `Microsoft.EntityFrameworkCore.InMemory` NuGet 包。
 
@@ -281,8 +280,8 @@ ms.locfileid: "71082069"
 运行以下命令：
 
 ```dotnetcli
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext  -outDir Controllers
 ```
@@ -913,6 +912,12 @@ Fetch 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accept
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AjaxDelete)]
 
 ::: moniker-end
+
+<a name="auth"></a>
+
+## <a name="add-authentication-support-to-a-web-api"></a>向 Web API 添加身份验证支持
+
+请参阅 [IdentityServer4](https://identityserver4.readthedocs.io/en/latest/quickstarts/0_overview.html) 教程。
 
 ## <a name="additional-resources"></a>其他资源
 

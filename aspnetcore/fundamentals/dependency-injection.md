@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 09/24/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: a984bb766e6876db4f8ed4c850a1984ba87d627d
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: fefd0b9df71d5b0e7c30a31620292fd37eeecfa4
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022279"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248263"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -74,11 +74,31 @@ public class IndexModel : PageModel
 
 在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
+
+::: moniker-end
 
 此接口由具体类型 `MyDependency` 实现：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
+
+::: moniker-end
 
 `MyDependency` 在其构造函数中请求一个 <xref:Microsoft.Extensions.Logging.ILogger`1>。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”  、“依赖关系图”  或“对象图”  。
 
@@ -92,7 +112,17 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 
 在示例应用中，使用具体类型 `MyDependency` 注册 `IMyDependency` 服务。 注册将服务生存期的范围限定为单个请求的生存期。 本主题后面将介绍[服务生存期](#service-lifetimes)。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
+
+::: moniker-end
 
 > [!NOTE]
 > 每个 `services.Add{SERVICE_NAME}` 扩展方法添加（并可能配置）服务。 例如，`services.AddMvc()` 添加 Razor Pages 和 MVC 需要的服务。 我们建议应用遵循此约定。 将扩展方法置于 [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 命名空间中以封装服务注册的组。
@@ -117,11 +147,63 @@ public class MyDependency : IMyDependency
 
 在示例应用中，请求 `IMyDependency` 实例并用于调用服务的 `WriteMessage` 方法：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
+
+::: moniker-end
+
+## <a name="services-injected-into-startup"></a>注入启动的服务
+
+使用泛型主机 (<xref:Microsoft.Extensions.Hosting.IHostBuilder>) 时，只能将以下服务类型注入 `Startup` 构造函数：
+
+* `IWebHostEnvironment`
+* <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
+* <xref:Microsoft.Extensions.Configuration.IConfiguration>
+
+服务可以注入 `Startup.Configure`：
+
+```csharp
+public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
+{
+    ...
+}
+```
+
+有关详细信息，请参阅 <xref:fundamentals/startup>。
 
 ## <a name="framework-provided-services"></a>框架提供的服务
 
-`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 定义了以下服务（具体取决于[配置主机的方式](xref:fundamentals/index#host)）：
+`Startup.ConfigureServices` 方法负责定义应用使用的服务，包括 Entity Framework Core 和 ASP.NET Core MVC 等平台功能。 最初，提供给 `ConfigureServices` 的 `IServiceCollection` 具有框架定义的服务（具体取决于[主机配置方式](xref:fundamentals/index#host)）。 基于 ASP.NET Core 模板的应用程序具有框架注册的数百个服务的情况并不少见。 下表列出了框架注册的服务的一个小示例。
+
+::: moniker range=">= aspnetcore-3.0"
+
+| 服务类型 | 生存期 |
+| ------------ | -------- |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时 |
+| `IHostApplicationLifetime` | 单例 |
+| `IWebHostEnvironment` | 单例 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | 单例 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | 单例 |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | 单例 |
+| <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | 单例 |
+| <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | 单例 |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | 单例 |
+| <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
+| <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
@@ -140,11 +222,17 @@ public class MyDependency : IMyDependency
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
 
-当服务集合扩展方法可用于注册服务（及其依赖服务，如果需要）时，约定使用单个 `Add{SERVICE_NAME}` 扩展方法来注册该服务所需的所有服务。 以下代码是如何使用扩展方法 [AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*> 和 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> 向容器添加其他服务的示例：
+::: moniker-end
+
+## <a name="register-additional-services-with-extension-methods"></a>使用扩展方法注册附加服务
+
+当服务集合扩展方法可用于注册服务（及其依赖服务，如果需要）时，约定使用单个 `Add{SERVICE_NAME}` 扩展方法来注册该服务所需的所有服务。 以下代码是如何使用扩展方法 [AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) 和 <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*> 向容器添加附加服务的示例：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
+    ...
+
     services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -152,7 +240,7 @@ public void ConfigureServices(IServiceCollection services)
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-    services.AddMvc();
+    ...
 }
 ```
 
@@ -184,11 +272,11 @@ public void ConfigureServices(IServiceCollection services)
 
 每个服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>对象 (object)<br>处置 | 多个<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象 (object)<br>处置 | 多种<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
-| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例:<br>`services.AddScoped<IMyDep, MyDep>();` | 是 | 是 | No |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddScoped<IMyDep, MyDep>();` | 是 | 是 | No |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped<IMyDep>(sp => new MyDep());`<br>`services.AddScoped<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
-| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>示例:<br>`services.AddScoped<MyDep>();` | 是 | 否 | No |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>示例：<br>`services.AddScoped<MyDep>();` | 是 | 否 | No |
 | `Add{LIFETIME}<{SERVICE}>(new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped<IMyDep>(new MyDep());`<br>`services.AddScoped<IMyDep>(new MyDep("A string!"));` | No | 是 | 是 |
 | `Add{LIFETIME}(new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped(new MyDep());`<br>`services.AddScoped(new MyDep("A string!"));` | No | 否 | 是 |
 
@@ -211,7 +299,7 @@ services.TryAddSingleton<IMyDependency, DifferentDependency>();
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton*>
 
-[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable*) 方法仅当没有同一类型的实现时，注册该服务。  . 多个服务通过 `IEnumerable<{SERVICE}>` 解析。 注册服务时，开发人员只希望在尚未添加一个相同类型时添加实例。 通常情况下，库创建者使用此方法来避免在容器中注册一个实例的两个副本。
+[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable*) 方法仅当没有同一类型的实现时，注册该服务。  多个服务通过 `IEnumerable<{SERVICE}>` 解析。 注册服务时，开发人员只希望在尚未添加一个相同类型时添加实例。 通常情况下，库创建者使用此方法来避免在容器中注册一个实例的两个副本。
 
 在以下示例中，第一行向 `IMyDep1` 注册 `MyDep`。 第二行向 `IMyDep2` 注册 `MyDep`。 第三行没有任何作用，因为 `IMyDep1` 已有一个 `MyDep` 的已注册的实现：
 
@@ -248,11 +336,31 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 为了演示生存期和注册选项之间的差异，请考虑以下接口，将任务表示为具有唯一标识符 `OperationId` 的操作。 根据为以下接口配置操作服务的生存期的方式，容器在类请求时提供相同或不同的服务实例：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
+
+::: moniker-end
 
 接口在 `Operation` 类中实现。 `Operation` 构造函数将生成一个 GUID（如果未提供）：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
+
+::: moniker-end
 
 注册 `OperationService` 取决于，每个其他 `Operation` 类型。 当通过依赖关系注入请求 `OperationService` 时，它将接收每个服务的新实例或基于从属服务的生存期的现有实例。
 
@@ -260,17 +368,47 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 * 如果按客户端请求创建有作用域的服务，则 `IOperationScoped` 服务的 `OperationId` 与客户端请求中 `OperationService` 的该 ID 相同。 在客户端请求中，两个服务共享不同的 `OperationId` 值。
 * 如果单一数据库和单一实例服务只创建一次并在所有客户端请求和所有服务中使用，则 `OperationId` 在所有服务请求中保持不变。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
+
+::: moniker-end
 
 在 `Startup.ConfigureServices` 中，根据其指定的生存期，将每个类型添加到容器中：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
+
+::: moniker-end
 
 `IOperationSingletonInstance` 服务正在使用已知 ID 为 `Guid.Empty` 的特定实例。 此类型在使用时很明显（其 GUID 全部为零）。
 
 示例应用演示了各个请求中和之间的对象生存期。 示例应用的 `IndexModel` 请求每种 `IOperation` 类型和 `OperationService`。 然后，页面通过属性分配显示所有页面模型类和服务的 `OperationId` 值：
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
+
+::: moniker-end
 
 以下两个输出显示了两个请求的结果：
 
@@ -316,30 +454,93 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 使用 [IServiceScopeFactory.CreateScope](xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope*) 创建 <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> 以解析应用范围内的已设置范围的服务。 此方法可以用于在启动时访问有作用域的服务以便运行初始化任务。 以下示例演示如何在 `Program.Main` 中获取 `MyScopedService` 的上下文：
 
+::: moniker range=">= aspnetcore-3.0"
+
 ```csharp
-public static void Main(string[] args)
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
+public class Program
 {
-    var host = CreateWebHostBuilder(args).Build();
-
-    using (var serviceScope = host.Services.CreateScope())
+    public static async Task Main(string[] args)
     {
-        var services = serviceScope.ServiceProvider;
+        var host = CreateHostBuilder(args).Build();
 
-        try
+        using (var serviceScope = host.Services.CreateScope())
         {
-            var serviceContext = services.GetRequiredService<MyScopedService>();
-            // Use the context here
+            var services = serviceScope.ServiceProvider;
+
+            try
+            {
+                var serviceContext = services.GetRequiredService<MyScopedService>();
+                // Use the context here
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred.");
+            }
         }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred.");
-        }
+    
+        await host.RunAsync();
     }
 
-    host.Run();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }
 ```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var host = CreateWebHostBuilder(args).Build();
+
+        using (var serviceScope = host.Services.CreateScope())
+        {
+            var services = serviceScope.ServiceProvider;
+
+            try
+            {
+                var serviceContext = services.GetRequiredService<MyScopedService>();
+                // Use the context here
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred.");
+            }
+        }
+    
+        await host.RunAsync();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+            .UseStartup<Startup>();
+}
+```
+
+::: moniker-end
 
 ## <a name="scope-validation"></a>作用域验证
 
@@ -405,7 +606,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="default-service-container-replacement"></a>默认服务容器替换
 
-内置的服务容器旨在满足框架和大多数消费者应用的需求。 我们建议使用内置容器，除非你需要的特定功能不受它支持。 内置容器中找不到第三方容器支持的某些功能：
+内置的服务容器旨在满足框架和大多数消费者应用的需求。 我们建议使用内置容器，除非你需要的特定功能不受内置容器支持，例如：
 
 * 属性注入
 * 基于名称的注入
@@ -413,47 +614,15 @@ public void ConfigureServices(IServiceCollection services)
 * 自定义生存期管理
 * 对迟缓初始化的 `Func<T>` 支持
 
-有关支持适配器的部分容器列表，请参阅[依赖关系注入 readme.md 文件](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection)。
+以下第三方容器可用于 ASP.NET Core 应用：
 
-以下示例将内置容器替换为 [Autofac](https://autofac.org/)：
-
-* 安装适当的容器包：
-
-  * [Autofac](https://www.nuget.org/packages/Autofac/)
-  * [Autofac.Extensions.DependencyInjection](https://www.nuget.org/packages/Autofac.Extensions.DependencyInjection/)
-
-* 在 `Startup.ConfigureServices` 中配置容器并返回 `IServiceProvider`：
-
-    ```csharp
-    public IServiceProvider ConfigureServices(IServiceCollection services)
-    {
-        services.AddMvc();
-        // Add other framework services
-
-        // Add Autofac
-        var containerBuilder = new ContainerBuilder();
-        containerBuilder.RegisterModule<DefaultModule>();
-        containerBuilder.Populate(services);
-        var container = containerBuilder.Build();
-        return new AutofacServiceProvider(container);
-    }
-    ```
-
-    要使用第三方容器，`Startup.ConfigureServices` 必须返回 `IServiceProvider`。
-
-* 在 `DefaultModule` 中配置 Autofac：
-
-    ```csharp
-    public class DefaultModule : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<CharacterRepository>().As<ICharacterRepository>();
-        }
-    }
-    ```
-
-在运行时，使用 Autofac 来解析类型，并注入依赖关系。 要了解有关结合使用 Autofac 和 ASP.NET Core 的详细信息，请参阅 [Autofac 文档](https://docs.autofac.org/en/latest/integration/aspnetcore.html)。
+* [Autofac](https://autofac.readthedocs.io/en/latest/integration/aspnetcore.html)
+* [DryIoc](https://www.nuget.org/packages/DryIoc.Microsoft.DependencyInjection)
+* [Grace](https://www.nuget.org/packages/Grace.DependencyInjection.Extensions)
+* [LightInject](https://github.com/seesharper/LightInject.Microsoft.DependencyInjection)
+* [Lamar](https://jasperfx.github.io/lamar/)
+* [Stashbox](https://github.com/z4kn4fein/stashbox-extensions-dependencyinjection)
+* [Unity](https://www.nuget.org/packages/Unity.Microsoft.DependencyInjection)
 
 ### <a name="thread-safety"></a>线程安全
 

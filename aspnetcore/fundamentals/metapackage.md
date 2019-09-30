@@ -7,14 +7,20 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: 5d49213e6d694f121d8301c94ba71782b2dc45cf
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 91f39fc59e5682fb19f8cbc6e9ebe5b30e5dcf3c
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086934"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219133"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 的 Microsoft.AspNetCore.All 元包
+
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core 3.0 及更高版本中不包含 `Microsoft.AspNetCore.All` 元包。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/Announcements/issues/314)。
+
+::: moniker-end
 
 > [!NOTE]
 > 对于面向 ASP.NET Core 2.1 及更高版本的应用程序，建议使用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)而不是此包。 请参阅本文中的[从 Microsoft.AspNetCore.All 迁移到 Microsoft.AspNetCore.App](#migrate)。
