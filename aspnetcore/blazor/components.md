@@ -5,14 +5,14 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/30/2019
 uid: blazor/components
-ms.openlocfilehash: 28e908968bd77c61da72d1bcc6032e580d15541b
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: ea216e405e5be52b578e99a529d8c6a726ea9cdd
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207268"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71688028"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -440,13 +440,13 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 
 对于某些事件，允许使用事件参数类型。 如果不需要访问这些事件类型之一，则方法调用中不需要这样做。
 
-下表显示了支持的[EventArgs](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web) 。
+下表显示了支持的 `EventArgs`。
 
-| 事件 | 类 |
+| Event | 类 |
 | ----- | ----- |
 | 剪贴板        | `ClipboardEventArgs` |
 | 入             | `DragEventArgs`&ndash; 并保存`DataTransferItem`拖动的项数据。 `DataTransfer` |
-| 错误            | `ErrorEventArgs` |
+| Error            | `ErrorEventArgs` |
 | 焦点            | `FocusEventArgs`不包含对的`relatedTarget`支持。 &ndash; |
 | `<input>` 已更改 | `ChangeEventArgs` |
 | 键盘         | `KeyboardEventArgs` |
@@ -456,7 +456,7 @@ Razor 组件提供事件处理功能。 对于带有委托类型值的`on{event}
 | 进度         | `ProgressEventArgs` |
 | 触控            | `TouchEventArgs`&ndash; 表示触摸敏感设备上`TouchPoint`的单个联系点。 |
 
-有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（aspnet/AspNetCore release/3.0-preview9 分支）](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web)。
+有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（aspnet/AspNetCore release/3.0 分支）](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)。
 
 ### <a name="lambda-expressions"></a>Lambda 表达式
 
@@ -1382,7 +1382,7 @@ public class ThemeInfo
 }
 ```
 
-> !出现中`Microsoft.AspNetCore.Components.RenderTree`的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
+> !出现@No__t 中的类型允许处理渲染操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 
@@ -1414,16 +1414,16 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时， `someFlag` `true`生成器将接收：
 
-| 序列 | 类型      | 数据   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第一个  |
+| 1        | Text 节点 | 第二个 |
 
 假设它`someFlag`变为`false`，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | 类型       | 数据   |
+| 序列 | 类型       | Data   |
 | :------: | ---------- | :----: |
-| 1        | Text 节点  | 秒 |
+| 1        | Text 节点  | 第二个 |
 
 当运行时执行差异时，它会发现序列`0`中的项已被删除，因此它生成以下简单的*编辑脚本*：
 
@@ -1446,16 +1446,16 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | 类型      | 数据   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第一个  |
+| 1        | Text 节点 | 第二个 |
 
 此结果与以前的情况相同，因此不存在负面问题。 `someFlag``false`在第二次呈现时，输出为：
 
-| 序列 | 类型      | 数据   |
+| 序列 | type      | Data   |
 | :------: | --------- | ------ |
-| 0        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第二个 |
 
 这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
 
@@ -1514,7 +1514,7 @@ public class HostModel : PageModel
 
 1. 浏览器将初始 HTTP 请求发送到应用程序。
 1. 区域性由本地化中间件分配。
-1. _Host `OnGet`中的方法将区域性作为响应的一部分保留在 cookie 中。
+1. *_Host*中的 `OnGet` 方法将区域性作为响应的一部分保留在 cookie 中。
 1. 浏览器将打开 WebSocket 连接以创建交互式 Blazor 服务器会话。
 1. 本地化中间件读取 cookie 并分配区域性。
 1. Blazor 服务器会话以正确的区域性开头。
