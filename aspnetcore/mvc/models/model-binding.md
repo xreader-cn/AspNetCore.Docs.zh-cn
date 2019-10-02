@@ -165,20 +165,20 @@ http://contoso.com/api/pets/2?DogsOnly=true
 
 模型绑定器可以将源字符串转换为以下简单类型：
 
-* [布尔值](xref:System.ComponentModel.BooleanConverter)
-* [字节](xref:System.ComponentModel.ByteConverter)、[SByte](xref:System.ComponentModel.SByteConverter)
+* [Boolean](xref:System.ComponentModel.BooleanConverter)
+* [Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
 * [Char](xref:System.ComponentModel.CharConverter)
 * [DateTime](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [小数](xref:System.ComponentModel.DecimalConverter)
-* [双精度](xref:System.ComponentModel.DoubleConverter)
+* [Decimal](xref:System.ComponentModel.DecimalConverter)
+* [Double](xref:System.ComponentModel.DoubleConverter)
 * [Enum](xref:System.ComponentModel.EnumConverter)
 * [Guid](xref:System.ComponentModel.GuidConverter)
-* [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
-* [单精度](xref:System.ComponentModel.SingleConverter)
+* [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
+* [Single](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
-* [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
-* [URI](xref:System.UriTypeConverter)
+* [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
+* [Uri](xref:System.UriTypeConverter)
 * [Version](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
