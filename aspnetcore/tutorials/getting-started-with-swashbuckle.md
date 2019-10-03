@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: f538b06d2245400e234dadc2fd93c8aef94743ff
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b96d15e732b78fd834e16347739b5a3a2ba2e98d
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081211"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317788"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -39,7 +39,7 @@ Swashbuckle 有三个主要组成部分：
   * 请执行以下命令：
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc2
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc3
     ```
 
 * 从“管理 NuGet 程序包”  对话框中：
@@ -62,7 +62,7 @@ Swashbuckle 有三个主要组成部分：
 从“集成终端”  中运行以下命令：
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc3
 ```
 
 ### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -70,7 +70,7 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 运行下面的命令：
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc3
 ```
 
 ---
