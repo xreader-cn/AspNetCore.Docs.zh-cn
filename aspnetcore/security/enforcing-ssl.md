@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 1d1bba6a1f1da2af959bc69b31f79bac53bf48b9
-ms.sourcegitcommit: fe3e556bf438fc4136fcf0bac61cf96e3e91caf5
+ms.openlocfilehash: 25e4f7cd6ae3cd58813c89d13262e91a706644b3
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2019
-ms.locfileid: "71341475"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924724"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -372,8 +372,8 @@ dotnet dev-certs https --help
 运行以下命令：
 
 ```dotnetcli
-dotnet devcerts https --clean
-dotnet devcerts https --trust
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。 证书信任由浏览器进行缓存。

@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: grpc/configuration
-ms.openlocfilehash: 42574b43b4751efc37ff3a827716df4cb8130842
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: 3ef92f10d914ef9fa3e13a7bdd5c863bab297f57
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199081"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925207"
 ---
 # <a name="grpc-for-net-configuration"></a>gRPC for .NET 配置
 
@@ -20,7 +20,7 @@ ms.locfileid: "71199081"
 
 gRPC 服务是在`AddGrpc` *Startup.cs*中配置的。 下表描述了用于配置 gRPC 服务的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | Default Value | 描述 |
 | ------ | ------------- | ----------- |
 | `MaxSendMessageSize` | `null` | 可从服务器发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息将导致异常。 |
 | `MaxReceiveMessageSize` | 4 MB | 服务器可接收的最大消息大小（以字节为单位）。 如果服务器收到的消息超过此限制，则会引发异常。 增大此值可使服务器接收更大的消息，但会对内存消耗产生负面影响。 |
@@ -41,7 +41,7 @@ gRPC 服务是在`AddGrpc` *Startup.cs*中配置的。 下表描述了用于配�
 
 gRPC 客户端配置设置为`GrpcChannelOptions`on。 下表描述了用于配置 gRPC 通道的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | Default Value | 描述 |
 | ------ | ------------- | ----------- |
 | `HttpClient` | 新实例 | 用于`HttpClient`进行 gRPC 调用的。 可以将客户端设置为配置自定义`HttpClientHandler`，也可以将其他处理程序添加到 HTTP 管道进行 gRPC 调用。 如果未`HttpClient`指定，则为通道创建`HttpClient`新的实例。 它将自动被释放。 |
 | `DisposeHttpClient` | `false` | 如果`true`指定了`HttpClient`和，则在释放时`HttpClient`将释放`GrpcChannel`该实例。 |
@@ -57,6 +57,8 @@ gRPC 客户端配置设置为`GrpcChannelOptions`on。 下表描述了用于配�
 * 创建客户端。
 
 [!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-8)]
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>其他资源
 

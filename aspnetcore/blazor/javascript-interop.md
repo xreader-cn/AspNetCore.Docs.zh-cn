@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2b5d1433fce6e09adf3caa58e55e678b00ad98ee
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: b30bce6ef3ebf1cd2f4f3fe8d046e1db9b6929d5
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211644"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924651"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -38,7 +38,7 @@ Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScrip
 
 下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（基于实验性 JavaScript 的解码器）。 该示例演示如何从C#方法调用 JavaScript 函数。 JavaScript 函数从C#方法接受字节数组，对数组进行解码，并将文本返回给组件以供显示。
 
-在 wwwroot/index.html `<head>` （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的元素中`TextDecoder` ，提供用于对传递的数组进行解码的函数：
+在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor 服务器）的 `<head>` 元素内，提供一个函数，该函数使用 @no__t 来解码传递的数组：
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -81,13 +81,13 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 标记放置在wwwroot/index.html文件（BlazorWebAssembly）或Pages/_Host文件（Blazor服务器）`<script>`中。
+将引用 JavaScript 文件的 @no__t 0 标记放置在*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中。
 
 *wwwroot/index.html*(Blazor WebAssembly):
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-*Pages/_Host*（Blazor 服务器）：
+*Pages/_Host* （Blazor 服务器）：
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
@@ -139,7 +139,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 ```
 
 > [!NOTE]
-> 当 Blazor 与所引用的元素交互时，**不要使用捕获**的元素引用作为填充或操作 DOM 的方式。 这样做可能会干扰声明性呈现模型。
+> 不要**使用捕获**的元素引用作为填充 DOM 的方式。 这样做可能会干扰声明性呈现模型。
 
 就 .net 代码而言， `ElementReference`是不透明的句柄。 *唯一*可以执行的操作`ElementReference`是通过 javascript 互操作将它传递给 javascript 代码。 当你执行此操作时，JavaScript 端代码将收到`HTMLElement`一个实例，该实例可与普通 DOM api 一起使用。
 

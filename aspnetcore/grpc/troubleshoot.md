@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 09/21/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: 15377ba4b31ce9319df300b23e5a95c67bca7db4
-ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
+ms.openlocfilehash: c31f499b008cdec9d759e804b18965156ca99f30
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/21/2019
-ms.locfileid: "71176508"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942890"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>排查 .NET Core 上的 gRPC 问题
 
@@ -151,3 +151,21 @@ GRPC 客户端还必须配置为不使用 TLS。 有关详细信息，请参阅[
   <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
 </ItemGroup>
 ```
+
+## <a name="wpf-projects-unable-to-generated-grpc-c-assets-from-proto-files"></a>WPF 项目无法从C# *\** 文件生成 gRPC 资产
+
+WPF 项目有一个[已知问题](https://github.com/dotnet/wpf/issues/810)，可阻止 gRPC 代码生成正常运行。 在 WPF 项目中生成的任何 gRPC 类型都将在使用时创建编译错误，方法是引用 `Grpc.Tools` 和*proto*文件：
+
+> 错误 CS0246：找不到类型或命名空间名称 "MyGrpcServices" （是否缺少 using 指令或程序集引用？）
+
+可以通过以下方式解决此问题：
+
+1. 创建新的 .NET Core 类库项目。
+2. 在新项目中，添加引用以启用[ C#从 *\** 文件生成的代码：
+    * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
+    * 将 *\** 文件添加到 @no__t 项组。
+3. 在 WPF 应用程序中，添加对新项目的引用。
+
+WPF 应用程序可以使用来自新类库项目的 gRPC 生成类型。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]

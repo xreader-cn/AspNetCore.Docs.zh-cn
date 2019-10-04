@@ -5,14 +5,14 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器承载模型。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/03/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 766b52df82f75ea1223e20d8471faa5732311f91
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: bc3ad9c7c4731b685fc161844d9f55e51722c0ea
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207229"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924673"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -133,11 +133,14 @@ UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来
 
 Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果连接丢失，应用会尝试重新连接到服务器。 只要客户端的状态仍在内存中，客户端会话便会恢复而不会失去状态。
 
-当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在`components-reconnect-modal` *_Host* Razor 页`id`中使用作为其定义的元素。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
+当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在 *_Host* Razor 页面中定义一个元素，其 @no__t 为 @no__t，其为-1。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
 
-* `components-reconnect-show`&ndash;显示 UI 以指示连接已丢失，并且客户端正在尝试重新连接。
+* `components-reconnect-show` &ndash; 显示 UI 以指示断开连接，并且客户端正在尝试重新连接。
 * `components-reconnect-hide`&ndash;客户端具有活动的连接，隐藏 UI。
-* `components-reconnect-failed`&ndash;重新连接失败。 若要再次尝试重新连接`window.Blazor.reconnect()`，请调用。
+* `components-reconnect-failed` &ndash; 重新连接失败，可能是由于网络故障引起的。 若要尝试重新连接，请调用 `window.Blazor.reconnect()`。
+* `components-reconnect-rejected` &ndash; 重新连接被拒绝。 服务器已达到但拒绝了连接，但该服务器上的用户状态已断开。 若要重新加载应用，请调用 `location.reload()`。 当以下情况时，可能会导致此连接状态：
+  * 线路（服务器端代码）发生崩溃。
+  * 断开客户端的连接时间足以使服务器删除用户的状态。 已释放用户与之交互的组件的实例。
 
 ### <a name="stateful-reconnection-after-prerendering"></a>预呈现后有状态重新连接
 
