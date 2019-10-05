@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/31/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: df4d74a2800ef586091347289561a03b31e33f44
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 4cc25cba95b476f1d14aad87564f9777a0530f86
+ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913944"
+ms.lasthandoff: 10/05/2019
+ms.locfileid: "71975671"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -297,7 +297,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ## <a name="install-the-net-core-hosting-bundle"></a>安装 .NET Core 托管捆绑包
 
-在托管系统上安装 .NET Core 托管捆绑包  。 捆绑包可安装 .NET Core 运行时、.NET Core 库和 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)。 该模块允许 ASP.NET Core 应用在 IIS 后面运行。 如果系统没有 Internet 连接，请先获取并安装 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/download/details.aspx?id=53840)，然后再安装 .NET Core 托管捆绑包。
+在托管系统上安装 .NET Core 托管捆绑包  。 捆绑包可安装 .NET Core 运行时、.NET Core 库和 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)。 该模块允许 ASP.NET Core 应用在 IIS 后面运行。
 
 > [!IMPORTANT]
 > 如果在 IIS 之前安装了托管捆绑包，则必须修复捆绑包安装。 在安装 IIS 后再次运行托管捆绑包安装程序。

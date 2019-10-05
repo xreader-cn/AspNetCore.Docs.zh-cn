@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: 798f1ee87c05d886d8991e3f0230c8ebc6341ba8
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 116a22bce80257948bfcc02c03a74a4b5568b8b5
+ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925106"
+ms.lasthandoff: 10/05/2019
+ms.locfileid: "71975695"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -75,8 +75,6 @@ dotnet dev-certs https --trust
 此命令可能会提示你输入密码以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
-
-对于适用于 Linux 的 Windows 子系统，请参阅[在适用于 Linux 的 Windows 子系统中信任 HTTPS 证书](xref:security/enforcing-ssl#wsl)。
 
 查看你的 Linux 分发对应的文档，了解如何信任 HTTPS 开发证书。
 
