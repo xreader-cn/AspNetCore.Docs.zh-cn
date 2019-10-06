@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 03/26/2019
 uid: security/authentication/identity
-ms.openlocfilehash: 979681cfc196aca9fb5097583d99a086e1c597ba
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 6701eb0ac1b1abb8699a5a529bcc29f295e5c7c9
+ms.sourcegitcommit: 4115bf0e850c13d4e655beb5ab5e8ff431173cb6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082453"
+ms.lasthandoff: 10/06/2019
+ms.locfileid: "71981911"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -30,13 +30,13 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 
 ## <a name="adddefaultidentity-and-addidentity"></a>AddDefaultIdentity 和 AddIdentity
 
-ASP.NET Core 2.1 中引入了[AddDefaultIdentity](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionuiextensions.adddefaultidentity?view=aspnetcore-2.1#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionUIExtensions_AddDefaultIdentity__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Identity_IdentityOptions__) 。 调用`AddDefaultIdentity`类似于调用以下内容：
+ASP.NET Core 2.1 中引入了[AddDefaultIdentity](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionuiextensions.adddefaultidentity?view=aspnetcore-2.1#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionUIExtensions_AddDefaultIdentity__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Identity_IdentityOptions__) 。 调用 `AddDefaultIdentity` 类似于调用以下内容：
 
 * [AddIdentity](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.addidentity?view=aspnetcore-2.1#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_AddIdentity__2_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Identity_IdentityOptions__)
 * [AddDefaultUI](/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui?view=aspnetcore-2.1#Microsoft_AspNetCore_Identity_IdentityBuilderUIExtensions_AddDefaultUI_Microsoft_AspNetCore_Identity_IdentityBuilder_)
 * [AddDefaultTokenProviders](/dotnet/api/microsoft.aspnetcore.identity.identitybuilderextensions.adddefaulttokenproviders?view=aspnetcore-2.1#Microsoft_AspNetCore_Identity_IdentityBuilderExtensions_AddDefaultTokenProviders_Microsoft_AspNetCore_Identity_IdentityBuilder_)
 
-有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
+有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
 
 ::: moniker-end
 
@@ -59,7 +59,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成的项目提供[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。 标识 Razor 类库公开带有`Identity`区域的终结点。 例如：
+生成的项目提供[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。 标识 Razor 类库公开 @no__t 为0的端点。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -93,7 +93,7 @@ dotnet ef database update
 
 ### <a name="configure-identity-services"></a>配置标识服务
 
-中`ConfigureServices`添加了服务。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
+服务添加到 `ConfigureServices`。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -101,7 +101,7 @@ dotnet ef database update
 
 前面的代码用默认选项值配置标识。 服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
-   通过调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)来启用标识。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
+   通过调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)来启用标识。 `UseAuthentication` 会将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
 
    [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configure&highlight=18)]
 
@@ -113,7 +113,7 @@ dotnet ef database update
 
    服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
-   `UseAuthentication` 通过`Configure`在方法中调用来为应用程序启用标识。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
+   通过在 @no__t 方法中调用 `UseAuthentication`，为应用程序启用标识。 `UseAuthentication` 会将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
 
    [!code-csharp[](identity/sample/src/ASPNETv2-IdentityDemo/Startup.cs?name=snippet_configure&highlight=17)]
 
@@ -125,7 +125,7 @@ dotnet ef database update
 
    这些服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
-   `UseIdentity` 通过`Configure`在方法中调用来为应用程序启用标识。 `UseIdentity`将基于 cookie 的身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
+   通过在 @no__t 方法中调用 `UseIdentity`，为应用程序启用标识。 `UseIdentity` 会将基于 cookie 的身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
 
    [!code-csharp[](identity/sample/src/ASPNET-IdentityDemo/Startup.cs?name=snippet_configure&highlight=21)]
 
@@ -143,7 +143,7 @@ dotnet ef database update
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间`ApplicationDbContext`：
+如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext`：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -158,7 +158,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-   当用户单击 "**注册**" 链接时， `RegisterModel.OnPostAsync`将调用该操作。 用户是通过[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)对`_userManager`对象创建的。 `_userManager`由依赖关系注入提供：
+   当用户单击 "**注册**" 链接时，将调用 `RegisterModel.OnPostAsync` 操作。 用户由[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)在 `_userManager` 对象上创建。 `_userManager` 由依赖关系注入提供）：
 
    [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=7,22)]
 
@@ -166,13 +166,13 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ::: moniker range="= aspnetcore-2.0"
 
-   当用户单击 "**注册**" 链接时， `Register`将在上`AccountController`调用该操作。 操作通过对`CreateAsync` `AccountController`对象调用来创建用户（由依赖项注入提供）： `_userManager` `Register`
+   当用户单击 "**注册**" 链接时，将在 `AccountController` 上调用 `Register` 操作。 @No__t-0 操作可通过对 `_userManager` 对象调用 `CreateAsync` 来创建用户（通过依赖关系注入向 @no__t 提供）：
 
    [!code-csharp[](identity/sample/src/ASPNET-IdentityDemo/Controllers/AccountController.cs?name=snippet_register&highlight=11)]
 
 ::: moniker-end
 
-   如果用户已成功创建，则对的调用`_signInManager.SignInAsync`会登录该用户。
+   如果已成功创建用户，则会通过调用 `_signInManager.SignInAsync` 来登录用户。
 
    **注意：** 请参阅[帐户确认](xref:security/authentication/accconfirm#prevent-login-at-registration)以了解在注册时要阻止立即登录的步骤。
 
@@ -183,25 +183,25 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 发生下列情况时，会显示登录窗体：
 
 * 选择 "**登录**" 链接。
-* 用户在无权访问的情况下或未经系统进行身份验证的情况下尝试访问受限页面。
+* 用户尝试访问他们无权访问的受限制的页面，**或**未经系统的身份验证。
 
 提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。 会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
 
    [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-   基 `Controller` 类公开了一个 `User` 属性，方便你通过控制器方法对其进行访问。 例如，可以枚举 `User.Claims` 并进行授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
+   基 `Controller` 类公开了一个 `User` 属性，方便你通过控制器方法对其进行访问。 例如，可以枚举 `User.Claims` 并进行授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction> 。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-当用户选择 "**登录**" 链接或访问需要身份验证的页面时，将显示登录窗体。 当用户在登录页上提交窗体时，将`AccountController`调用该`Login`操作。
+当用户选择 "**登录**" 链接或访问需要身份验证的页面时，将显示登录窗体。 当用户在登录页上提交窗体时，将调用 @no__t 0 `Login` 操作。
 
-操作对对象`_signInManager`调用`AccountController` （由依赖关系注入提供）。 `PasswordSignInAsync` `Login`
+@No__t-0 操作对 `_signInManager` 对象调用 @no__t （通过依赖关系注入向 @no__t 提供）。
 
 [!code-csharp[](identity/sample/src/ASPNET-IdentityDemo/Controllers/AccountController.cs?name=snippet_login&highlight=13-14)]
 
-基（`Controller`或`PageModel`）类公开了一个`User`属性。 例如， `User.Claims`可以枚举来做出授权决策。
+Base （`Controller` 或 `PageModel`）公开了 `User` 属性。 例如，可以枚举 `User.Claims` 来做出授权决策。
 
 ::: moniker-end
 
@@ -209,7 +209,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-"**注销**" 链接将调用`LogoutModel.OnPost`该操作。 
+"**注销**" 链接调用 `LogoutModel.OnPost` 操作。 
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
@@ -223,17 +223,17 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ::: moniker range="= aspnetcore-2.0"
 
-   单击 "**注销**" 链接将调用`LogOut`该操作。
+   单击 "**注销**" 链接将调用 `LogOut` 操作。
 
    [!code-csharp[](identity/sample/src/ASPNET-IdentityDemo/Controllers/AccountController.cs?name=snippet_logout&highlight=7)]
 
-   前面的代码调用`_signInManager.SignOutAsync`方法。 `SignOutAsync`方法会清除 cookie 中存储的用户声明。
+   前面的代码调用 `_signInManager.SignOutAsync` 方法。 @No__t-0 方法会清除 cookie 中存储的用户声明。
 
 ::: moniker-end
 
 ## <a name="test-identity"></a>测试标识
 
-默认 web 项目模板允许匿名访问主页。 若要测试标识， [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)请将添加到 "隐私" 页。
+默认 web 项目模板允许匿名访问主页。 若要测试标识，请将[`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)添加到 "隐私" 页。
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=6)]
 
