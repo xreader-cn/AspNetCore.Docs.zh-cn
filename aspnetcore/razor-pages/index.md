@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: bccdd7e5c1c90dd76ca1b788dbf09000c5cbe14b
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: 63938b0347dc698a67f2ba8c083097c55c6c9c66
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256188"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925280"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -185,7 +185,7 @@ Pages/Create.cshtml 中呈现的 HTML  ：
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=15-16)]
 
-`[BindProperty]` 不应  用于包含不应由客户端更改的属性的模型。 有关详细信息，请参阅[过度发布](xref:data/ef-rp/crud#overposting)
+`[BindProperty]` 不应  用于包含不应由客户端更改的属性的模型。 有关详细信息，请参阅[过度发布](xref:data/ef-rp/crud#overposting)。
 
 默认情况下，Razor 页面只绑定带有非 `GET` 谓词的属性。 如果绑定到属性，则无需通过编写代码将 HTTP 数据转换为模型类型。 绑定通过使用相同的属性显示窗体字段 (`<input asp-for="Customer.Name">`) 来减少代码，并接受输入。
 
@@ -212,7 +212,7 @@ Index.cshtml 文件包含以下标记  ：
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml?range=21)]
 
-`<a /a>`[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
+`<a /a>`[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
 
 Index.cshtml 文件包含用于为每个客户联系人创建删除按钮的标记： 
 
@@ -298,7 +298,7 @@ Edit.cshtml.cs 文件  ：
 
 验证特性指定要对应用这些特性的模型属性强制执行的行为：
 
-* `Required` 和 `MinimumLength` 特性表示属性必须有值；但用户可输入空格来满足此验证。
+* `Required` 和 `MinimumLength` 特性表示属性必须有值，但用户可输入空格来满足此验证。
 * `RegularExpression` 特性用于限制可输入的字符。 在上述代码中，即“Genre”（分类）：
 
   * 只能使用字母。
@@ -336,7 +336,7 @@ Edit.cshtml.cs 文件  ：
 
 ## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF 和 Razor 页面
 
-Razor Pages 由 [防伪造验证](xref:security/anti-request-forgery)保护。 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 将防伪造令牌注入 HTML 窗体元素。
+Razor Pages 由[防伪造验证](xref:security/anti-request-forgery)保护。 [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) 将防伪造令牌注入 HTML 窗体元素。
 
 <a name="layout"></a>
 
@@ -474,7 +474,7 @@ RedirectToPage("/Index", new { area = "Services" });
 
 ## <a name="viewdata-attribute"></a>ViewData 特性
 
-可以通过 <xref:Microsoft.AspNetCore.Mvc.ViewDataAttribute> 将数据传递到页面。 具有 [ViewData] 特性的属性从 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary> 保存和加载值。
+可以通过 <xref:Microsoft.AspNetCore.Mvc.ViewDataAttribute> 将数据传递到页面。 具有 `[ViewData]` 特性的属性从 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary> 保存和加载值。
 
 在下面的示例中，`AboutModel` 将 `[ViewData]` 特性应用于 `Title` 属性：
 
@@ -595,8 +595,8 @@ public string Message { get; set; }
 
 ## <a name="additional-resources"></a>其他资源
 
-* 请参阅 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)，这篇文章以本文为基础编写。
-* [下载或查看示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample).
+* 请参阅 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)这篇文章以本文为基础撰写
+* [下载或查看示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample)
 * <xref:index>
 * <xref:mvc/views/razor>
 * <xref:mvc/controllers/areas>

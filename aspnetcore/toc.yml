@@ -122,13 +122,8 @@
               uid: data/ef-rp/update-related-data
             - name: 处理并发冲突
               uid: data/ef-rp/concurrency
-        - name: EF Core 与 MVC，现有数据库
+        - name: 使用 MVC 的 EF Core
           displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core 与 MVC，新数据库
-          displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core 与 MVC，10 篇教程
           items:
             - name: 概述
               uid: data/ef-mvc/index
@@ -231,8 +226,6 @@
           uid: razor-pages/filter
         - name: 路由和应用约定
           uid: razor-pages/razor-pages-conventions
-        - name: 上传文件
-          uid: razor-pages/upload-files
         - name: Razor SDK
           uid: razor-pages/sdk
     - name: MVC
@@ -271,8 +264,6 @@
           uid: mvc/controllers/actions
         - name: 路由
           uid: mvc/controllers/routing
-        - name: 文件上传
-          uid: mvc/models/file-uploads
         - name: 依赖关系注入 - 控制器
           uid: mvc/controllers/dependency-injection
         - name: 依赖关系注入 - 视图
@@ -291,7 +282,7 @@
           uid: blazor/hosting-models
         - name: 生成首个应用
           uid: tutorials/first-blazor-app
-        - name: 组件数
+        - name: 组件
           uid: blazor/components
         - name: 窗体和验证
           uid: blazor/forms-validation
@@ -418,6 +409,8 @@
           uid: mvc/controllers/filters
         - name: Areas
           uid: mvc/controllers/areas
+        - name: 上传文件
+          uid: mvc/models/file-uploads
         - name: 应用部件
           uid: mvc/extensibility/app-parts
         - name: aspnet-codegenerator
@@ -632,11 +625,7 @@
               uid: data/ef-rp/update-related-data
             - name: 处理并发冲突
               uid: data/ef-rp/concurrency
-        - name: EF Core 与 MVC，新数据库
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core 与 MVC，现有数据库
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core 与 MVC，10 篇教程
+        - name: 使用 MVC 的 EF Core
           items:
             - name: 概述
               uid: data/ef-mvc/index

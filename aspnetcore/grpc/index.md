@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: 88ceeba329ff2c7d764b7a5eabd5413da6ace765
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 2f32bf6e8df2c5b3574c337682cdc2845991630c
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219118"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925173"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core 上的 gRPC 的简介
 
@@ -120,6 +120,8 @@ Console.WriteLine(response.Message);
 gRPC 客户端是使用通道创建的，该通道表示与 gRPC 服务的长期连接。 可以使用 `GrpcChannel.ForAddress` 创建通道。
 
 有关创建客户端、调用不同服务方法的详细信息，请参阅 <xref:grpc/client>。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>其他资源
 
