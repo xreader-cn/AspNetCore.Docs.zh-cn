@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/26/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 490d00da7282e2efe28fcc52e593dd71d7324d3f
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: ec3de5b35883752b7b3dbefceccec55da3986f39
+ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198989"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703682"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -319,6 +319,17 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 * [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
 * [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
 
+## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
+
+[IdentityServer4](https://identityserver.io) 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。 IdentityServer4 支持以下安全功能：
+
+* 身份验证即服务 (AaaS)
+* 跨多个应用程序类型的单一登录/注销 (SSO)
+* API 的访问控制
+* Federation Gateway
+
+有关详细信息，请参阅[欢迎使用 IdentityServer4](http://docs.identityserver.io/en/latest/index.html)。
+
 ## <a name="certificate-and-kerberos-authentication"></a>证书和 Kerberos 身份验证
 
 证书身份验证需要：
@@ -412,7 +423,7 @@ ASP.NET Core 3.0 模板使用 <xref:fundamentals/host/generic-host>。 以前版
 * 已从 Kestrel 中删除连接适配器，并将其替换为连接中间件，这与 ASP.NET Core 管道中的 HTTP 中间件类似，但适用于较低级别的连接。
 * Kestrel 传输层已作为 `Connections.Abstractions` 中的公共接口公开。
 * 通过将尾随标题移到新集合中，已解决了标头和尾部之间的歧义。
-* 同步 IO API（例如 `HttpReqeuest.Body.Read`）是导致应用崩溃的线程不足的常见原因。 在 3.0 中，默认情况下禁用 `AllowSynchronousIO`。
+* 同步 IO API（例如 `HttpRequest.Body.Read`）是导致应用崩溃的线程不足的常见原因。 在 3.0 中，默认情况下禁用 `AllowSynchronousIO`。
 
 有关详细信息，请参阅 <xref:migration/22-to-30#kestrel>。
 
@@ -420,9 +431,9 @@ ASP.NET Core 3.0 模板使用 <xref:fundamentals/host/generic-host>。 以前版
 
 默认情况下，在 HTTPS 终结点的 Kestrel 中启用 HTTP/2。 当操作系统支持 HTTP/2 时，对 IIS 或 HTTP.sys 启用 HTTP/2 支持。
 
-## <a name="request-counters"></a>请求计数器
+## <a name="eventcounters-on-request"></a>根据请求提供事件计数器
 
-宿主 EventSource (Microsoft.AspNetCore.Hosting) 发出以下与传入请求相关的 EventCounters：
+托管事件源 `Microsoft.AspNetCore.Hosting` 发出以下与传入请求有关的新 <xref:System.Diagnostics.Tracing.EventCounter> 类型：
 
 * `requests-per-second`
 * `total-requests`
@@ -474,7 +485,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="worker-service-and-worker-sdk"></a>辅助角色服务和辅助角色 SDK
 
-.NET Core 3.0 引入了新的辅助角色服务应用模板。 此模板可作为 .NET Core 中编写长期运行服务的起点。
+.NET Core 3.0 引入了新的辅助角色服务应用模板。 可根据此模板开始在 .NET Core 中编写长期运行的服务。
 
 有关详细信息，请参见:
 

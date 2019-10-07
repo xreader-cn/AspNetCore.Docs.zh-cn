@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/18/2019
+ms.date: 09/26/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 8df86b10d7ba853edb3265df0e02eabbf8a2c058
-ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
+ms.openlocfilehash: 0eaa3a62370c1e413840bb65f597dc664adafc38
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71205708"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71688099"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -20,7 +20,7 @@ ms.locfileid: "71205708"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET Core 中，后台任务作为托管服务实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
+在 ASP.NET Core 中，后台任务作为托管服务实现  。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
 
 * 在计时器上运行的后台任务。
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)。
@@ -37,29 +37,7 @@ ms.locfileid: "71205708"
 
 ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点。 要使用该模板作为编写托管服务应用的基础：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-1. 创建新项目。
-1. 选择“ASP.NET Core Web 应用程序”。 选择“下一步”。
-1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 选择“创建”。
-1. 在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.0”。
-1. 选择“辅助角色服务”模板。 选择“创建”。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-1. 创建新项目。
-1. 在侧栏中的“.NET Core”下，选择“应用”。
-1. 在“ASP.NET Core”下，选择“辅助角色”。 选择“下一步”。
-1. 对于“目标框架”，选择“.NET Core 3.0”。 选择“下一步”。
-1. 在“项目名称”字段中提供名称。 选择“创建”。
-
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
-
-将辅助角色服务 (`worker`) 模板用于命令行界面中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。 下面的示例中创建了名为 `ContosoWorker` 的辅助角色服务应用。 执行命令时会自动为 `ContosoWorker` 应用创建文件夹。
-
-```dotnetcli
-dotnet new worker -o ContosoWorker
-```
+[!INCLUDE[](~/includes/worker-template-instructions.md)]
 
 ---
 
@@ -71,7 +49,7 @@ dotnet new worker -o ContosoWorker
 
 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口为主机托管的对象定义了两种方法：
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`：
+* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`  ：
 
   * 已配置应用的请求处理管道 (`Startup.Configure`)。
   * 已启动服务器且已触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*)。
@@ -123,10 +101,12 @@ dotnet new worker -o ContosoWorker
 
 ## <a name="backgroundservice"></a>BackgroundService
 
-`BackgroundService` 是用于实现长时间运行的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的基类。 `BackgroundService` 定义用于后台操作的两个方法：
+`BackgroundService` 是用于实现长时间运行的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的基类。 `BackgroundService` 提供 `ExecuteAsync(CancellationToken stoppingToken)` 抽象方法来包含服务的逻辑。 当调用 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) 时，触发 `stoppingToken`。 此方法的实现返回一个 `Task`，它表示后台服务的整个生存期。
 
-* `ExecuteAsync(CancellationToken stoppingToken)` &ndash; 在 <xref:Microsoft.Extensions.Hosting.IHostedService> 启动时调用 `ExecuteAsync`。 该实现应返回一个 `Task`，它表示执行的长时间运行的操作的生存期。 调用 [IHostedService StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) 时触发 `stoppingToken`。
-* `StopAsync(CancellationToken stoppingToken)` &ndash; 应用程序主机执行正常关闭时触发 `StopAsync`。 `stoppingToken` 指示关闭进程应不再是正常关闭。
+此外，还可以重写 `IHostedService` 上定义的方法，以便为你的服务运行启动和关闭代码  ：
+
+* 当应用程序主机执行正常关机时，会调用 `StopAsync(CancellationToken cancellationToken)` &ndash; `StopAsync`。 当主机决定强行终止服务时，会发出 `cancellationToken` 信号。 如果重写此方法，则必须调用（和 `await`）基类方法，以确保服务正常关闭  。
+* 调用 `StartAsync(CancellationToken cancellationToken)` &ndash; `StartAsync` 以启动后台服务。 如果启动进程中断，会发出 `cancellationToken` 信号。 实现返回一个 `Task`，它表示服务的启动进程。 在此 `Task` 完成之前，不会启动任何其他服务。 如果重写此方法，则必须调用（和 `await`）基类方法，以确保服务正常启动  。
 
 ## <a name="timed-background-tasks"></a>计时的后台任务
 
@@ -185,7 +165,7 @@ dotnet new worker -o ContosoWorker
 
 ::: moniker range="< aspnetcore-3.0"
 
-在 ASP.NET Core 中，后台任务作为托管服务实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
+在 ASP.NET Core 中，后台任务作为托管服务实现  。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
 
 * 在计时器上运行的后台任务。
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)
@@ -273,7 +253,7 @@ dotnet new worker -o ContosoWorker
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Pages/Index.cshtml.cs?name=snippet1)]
 
-在索引页上选择“添加任务”按钮时，会执行 `OnPostAddTask` 方法。 调用 `QueueBackgroundWorkItem` 来将工作项排入队列：
+在索引页上选择“添加任务”按钮时，会执行 `OnPostAddTask` 方法  。 调用 `QueueBackgroundWorkItem` 来将工作项排入队列：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Pages/Index.cshtml.cs?name=snippet2)]
 

@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core Web API 的错误处理。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 09/25/2019
+ms.date: 09/27/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: 9c5dd2f89e7351f386d1f0633c831952dc58e568
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: dc21d4b2cf096b8d38b0a24d739e6874186004e7
+ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278731"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71551747"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -22,18 +22,97 @@ ms.locfileid: "71278731"
 
 ## <a name="developer-exception-page"></a>开发人员异常页
 
-[开发人员异常页](xref:fundamentals/error-handling)是一种用于获取服务器错误详细堆栈跟踪的有用工具。
+[开发人员异常页](xref:fundamentals/error-handling)是一种用于获取服务器错误详细堆栈跟踪的有用工具。 它使用 <xref:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware> 来捕获 HTTP 管道中的同步和异步异常，并生成错误响应。 为了进行说明，请考虑以下控制器操作：
 
-如果客户端不接受 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 例如:
+[!code-csharp[](handle-errors/samples/3.x/Controllers/WeatherForecastController.cs?name=snippet_GetByCity)]
 
+运行以下 `curl` 命令以测试前面的操作：
+
+```bash
+curl -i https://localhost:5001/weatherforecast/chicago
 ```
-> curl https://localhost:5001/weatherforecast
-System.ArgumentException: count
-   at errorhandling.Controllers.WeatherForecastController.Get(Int32 x) in D:\work\Samples\samples\aspnetcore\mvc\errorhandling\Controllers\WeatherForecastController.cs:line 35
+
+::: moniker range=">= aspnetcore-3.0"
+
+在 ASP.NET Core 3.0 及更高版本中，如果客户端不请求 HTML 格式的输出，则开发人员异常页将显示纯文本响应。 将显示以下输出：
+
+```console
+HTTP/1.1 500 Internal Server Error
+Transfer-Encoding: chunked
+Content-Type: text/plain
+Server: Microsoft-IIS/10.0
+X-Powered-By: ASP.NET
+Date: Fri, 27 Sep 2019 16:13:16 GMT
+
+System.ArgumentException: We don't offer a weather forecast for chicago. (Parameter 'city')
+   at WebApiSample.Controllers.WeatherForecastController.Get(String city) in C:\working_folder\aspnet\AspNetCore.Docs\aspnetcore\web-api\handle-errors\samples\3.x\Controllers\WeatherForecastController.cs:line 34
    at lambda_method(Closure , Object , Object[] )
    at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
-...
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+
+HEADERS
+=======
+Accept: */*
+Host: localhost:44312
+User-Agent: curl/7.55.1
 ```
+
+要改为显示 HTML 格式的响应，请将 `Accept` HTTP 请求头设置为 `text/html` 媒体类型。 例如:
+
+```bash
+curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
+```
+
+请考虑以下 HTTP 响应摘录：
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+在 ASP.NET Core 2.2 及更低版本中，开发人员异常页将显示 HTML 格式的响应。 例如，请考虑以下 HTTP 响应摘录：
+
+::: moniker-end
+
+```console
+HTTP/1.1 500 Internal Server Error
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/10.0
+X-Powered-By: ASP.NET
+Date: Fri, 27 Sep 2019 16:55:37 GMT
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Internal Server Error</title>
+        <style>
+            body {
+    font-family: 'Segoe UI', Tahoma, Arial, Helvetica, sans-serif;
+    font-size: .813em;
+    color: #222;
+    background-color: #fff;
+}
+```
+
+::: moniker range=">= aspnetcore-3.0"
+
+通过 Postman 等工具进行测试时，HTML 格式的响应会很有用。 以下屏幕截图显示了 Postman 中的纯文本和 HTML 格式的响应：
+
+![Postman 中的开发人员异常页测试](handle-errors/_static/developer-exception-page-postman.gif)
+
+::: moniker-end
 
 > [!WARNING]
 > 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。

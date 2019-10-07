@@ -5,14 +5,14 @@ description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/27/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: d8be6c8eb45cde162693621e63bf40d48d04c324
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: e4b2a577815335078f7e0c9128144a514e42a6c3
+ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198997"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71482054"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -46,7 +46,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 另一个运行状况检查方案演示如何将运行状况检查筛选到某个管理端口。 示例应用要求创建包含管理 URL 和管理端口的 Properties/launchSettings.json 文件。 有关详细信息，请参阅[按端口筛选](#filter-by-port)部分。
 
@@ -337,7 +337,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext 探测
 
@@ -526,7 +526,7 @@ dotnet run --scenario writer
 > [!NOTE]
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括基于指标的运行状况检查方案（包括磁盘存储和最大值运行情况检查）。
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="filter-by-port"></a>按端口筛选
 
@@ -741,7 +741,7 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 > [!NOTE]
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括多个系统的发布服务器（包括 [Application Insights](/azure/application-insights/app-insights-overview)）。
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="restrict-health-checks-with-mapwhen"></a>使用 MapWhen 限制运行状况检查
 
@@ -793,7 +793,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 另一个运行状况检查方案演示如何将运行状况检查筛选到某个管理端口。 示例应用要求创建包含管理 URL 和管理端口的 Properties/launchSettings.json 文件。 有关详细信息，请参阅[按端口筛选](#filter-by-port)部分。
 
@@ -1055,7 +1055,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext 探测
 
@@ -1231,7 +1231,7 @@ dotnet run --scenario writer
 > [!NOTE]
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括基于指标的运行状况检查方案（包括磁盘存储和最大值运行情况检查）。
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="filter-by-port"></a>按端口筛选
 
@@ -1432,7 +1432,7 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 > [!NOTE]
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 包括多个系统的发布服务器（包括 [Application Insights](/azure/application-insights/app-insights-overview)）。
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 是 [BeatPulse](https://github.com/xabaril/beatpulse) 的端口，不由 Microsoft 维护或支持。
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) 不由 Microsoft 维护或支持。
 
 ## <a name="restrict-health-checks-with-mapwhen"></a>使用 MapWhen 限制运行状况检查
 

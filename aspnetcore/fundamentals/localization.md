@@ -5,16 +5,18 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: ec78d35daf6823779fca491aca7b7b309db4b02e
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 6dfbeae201a3586dfea6620917083130c4985b22
+ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750039"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703801"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Damien Bowden](https://twitter.com/damien_bod)、[Bart Calixto](https://twitter.com/bartmax)、[Nadeem Afana](https://afana.me/) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
+
+在针对 ASP.NET Core 3.0 更新本文档之前，请参见 Hisham 的博客 [What is new in Localization in ASP.NET Core 3.0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)（ASP.NET Core 3.0 中的本地化新增功能）。
 
 使用 ASP.NET Core 创建多语言网站，可让网站拥有更多受众。 ASP.NET Core 提供的服务和中间件可将网站本地化为不同的语言和文化。
 
@@ -146,7 +148,7 @@ ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `Supported
 
 资源名称是类的完整类型名称减去程序集名称。 例如，类 `LocalizationWebsite.Web.Startup` 的主要程序集为 `LocalizationWebsite.Web.dll` 的项目中的法语资源将命名为 Startup.fr.resx  。 类 `LocalizationWebsite.Web.Controllers.HomeController` 的资源将命名为 Controllers.HomeController.fr.resx  。 如果目标类的命名空间与将需要完整类型名称的程序集名称不同。 例如，在示例项目中，类型 `ExtraNamespace.Tools` 的资源将命名为 ExtraNamespace.Tools.fr.resx  。
 
-在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“Resources”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 *Resources/Controllers/HomeController.fr.resx*。 如果不使用 `ResourcesPath` 选项， *.resx* 文件将转到项目的基目录中。 `HomeController` 的资源文件将命名为 *Controllers.HomeController.fr.resx*。 是选择使用圆点还是路径命名约定，具体取决于你想如何组织资源文件。
+在示例项目中，`ConfigureServices` 方法将 `ResourcesPath` 设置为“资源”，因此主控制器的法语资源文件的项目相对路径是 Resources/Controllers.HomeController.fr.resx  。 或者，你可以使用文件夹组织资源文件。 对于主控制器，该路径将为 Resources/Controllers/HomeController.fr.resx  。 如果不使用 `ResourcesPath` 选项，.resx 文件将转到项目的基目录中  。 `HomeController` 的资源文件将命名为 Controllers.HomeController.fr.resx  。 是选择使用圆点还是路径命名约定，具体取决于你想如何组织资源文件。
 
 | 资源名称 | 圆点或路径命名 |
 | ------------   | ------------- |

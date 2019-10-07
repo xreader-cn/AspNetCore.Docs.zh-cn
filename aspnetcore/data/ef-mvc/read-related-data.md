@@ -3,15 +3,15 @@ title: 教程：读取相关数据 - ASP.NET MVC 和 EF Core
 description: 本教程将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
 author: tdykstra
 ms.author: riande
-ms.date: 03/27/2019
+ms.date: 09/28/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 2bf556dae5d30819c54ecc3f0dadfbd3316db1cc
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: cb691dce757a72a01bfd29717710d1be590c4150
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059112"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592288"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -63,17 +63,17 @@ ms.locfileid: "70059112"
 
 Course 实体包括导航属性，其中包含分配有课程的系的 Department 实体。 若要在课程列表中显示接受分配的系的名称，需从位于 `Course.Department` 导航属性中的 Department 实体获取 Name 属性。
 
-使用与带视图的 MVC 控制器相同的选项，及之前用于学生控制器的 Entity Framework 基架为 Course 实体类型创建名为 CoursesController 的控制器，如下图所示  ：
+使用与带视图的 MVC 控制器相同的选项，及之前用于学生控制器的 Entity Framework 基架为 Course 实体类型创建名为 CoursesController 的控制器，如下图所示：
 
 ![添加课程控制器](read-related-data/_static/add-courses-controller.png)
 
-打开 CoursesController.cs 并检查 `Index` 方法  。 自动基架使用 `Include` 方法为 `Department` 导航属性指定了预先加载。
+打开 CoursesController.cs 并检查 `Index` 方法。 自动基架使用 `Include` 方法为 `Department` 导航属性指定了预先加载。
 
 将 `Index` 方法替换为以下代码，该代码为返回 Course 实体（是 `courses` 而不是 `schoolContext`）的 `IQueryable` 赋予了更合适的名称：
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_RevisedIndexMethod)]
 
-在 Views/Courses/Index.cshtml 中，将模板代码替换为以下代码  。 突出显示所作更改：
+在 Views/Courses/Index.cshtml 中，将模板代码替换为以下代码。 突出显示所作更改：
 
 [!code-html[](intro/samples/cu/Views/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
@@ -81,15 +81,15 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 * 将标题从“索引”更改为“课程”。
 
-* 添加了显示 `CourseID` 属性值的“数字”列  。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在这种情况下主键是有意义的，而你需要将其呈现出来。
+* 添加了显示 `CourseID` 属性值的“数字”列。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在这种情况下主键是有意义的，而你需要将其呈现出来。
 
-* 更改“院系”列，显示院系名称  。 该代码显示已加载到 `Department` 导航属性中的 Department 实体的 `Name` 属性：
+* 更改“院系”列，显示院系名称。 该代码显示已加载到 `Department` 导航属性中的 Department 实体的 `Name` 属性：
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-运行应用并选择“课程”选项卡，查看包含系名称的列表  。
+运行应用并选择“课程”选项卡，查看包含系名称的列表。
 
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
@@ -111,7 +111,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 “讲师”页显示来自三个不同表格的数据。 因此将创建包含三个属性的视图模型，每个属性都包含一个表的数据。
 
-在 SchoolViewModels 文件夹中，创建 InstructorIndexData.cs，并使用以下代码替换现有代码   ：
+在 SchoolViewModels 文件夹中，创建 InstructorIndexData.cs，并使用以下代码替换现有代码：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/InstructorIndexData.cs)]
 
@@ -121,7 +121,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ![添加讲师控制器](read-related-data/_static/add-instructors-controller.png)
 
-打开 InstructorsController.cs 并为 ViewModels 名称空间添加 using 语句  ：
+打开 InstructorsController.cs 并为 ViewModels 名称空间添加 using 语句：
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_Using)]
 
@@ -129,7 +129,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_EagerLoading)]
 
-该方法接受可选路由数据 (`id`) 和查询字符串参数 (`courseID`)，二者提供所选讲师和课程的 ID 值。 参数由页面上的“选择”超链接提供  。
+该方法接受可选路由数据 (`id`) 和查询字符串参数 (`courseID`)，二者提供所选讲师和课程的 ID 值。 参数由页面上的“选择”超链接提供。
 
 代码先创建一个视图模型实例，并在其中放入讲师列表。 代码指定预先加载 `Instructor.OfficeAssignment` 和 `Instructor.CourseAssignments` 导航属性。 在 `CourseAssignments` 属性中，加载 `Course` 属性，在其中加载 `Enrollments` 和 `Department` 属性，同时在每个 `Enrollment` 实体中加载 `Student` 属性。
 
@@ -169,7 +169,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ### <a name="modify-the-instructor-index-view"></a>修改讲师索引视图
 
-在 Views/Instructors/Index.cshtml 中，将模板代码替换为以下代码  。 突出显示所作更改。
+在 Views/Instructors/Index.cshtml 中，将模板代码替换为以下代码。 突出显示所作更改。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
 
@@ -177,9 +177,9 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 * 将模型类更改为了 `InstructorIndexData`。
 
-* 将页标题从“索引”更改为了“讲师”   。
+* 将页标题从“索引”更改为了“讲师”。
 
-* 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。 （由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。）
+* 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列。 （由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。）
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -188,7 +188,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
   }
   ```
 
-* 添加了显示每位讲师所授课程的“课程”列  。 有关更多信息，请参阅 Razor 语法文章的[使用 @: 的显式行转换](xref:mvc/views/razor#explicit-line-transition-with-)部分。
+* 添加了显示每位讲师所授课程的“课程”列。 有关更多信息，请参阅 Razor 语法文章的[显式行转换](xref:mvc/views/razor#explicit-line-transition)部分。
 
 * 添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
 
@@ -201,21 +201,21 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
   <tr class="@selectedRow">
   ```
 
-* 紧贴每行其他链接的前端添加了标有 Select 的新超链接，从而使所选讲师 ID 发送到 `Index` 方法  。
+* 紧贴每行其他链接的前端添加了标有 Select 的新超链接，从而使所选讲师 ID 发送到 `Index` 方法。
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-运行应用并选择“讲师”选项卡  。没有相关 OfficeAssignment 实体时，该页面显示相关 OfficeAssignment 实体的 Location 属性和空表格单元格。
+运行应用并选择“讲师”选项卡。没有相关 OfficeAssignment 实体时，该页面显示相关 OfficeAssignment 实体的 Location 属性和空表格单元格。
 
 ![未选择“讲师索引”页中的任何项](read-related-data/_static/instructors-index-no-selection.png)
 
-在 Views/Instructors/Index.cshtml 文件中，关闭表格元素（在文件末尾）后，添加以下代码  。 选择讲师时，此代码显示与讲师相关的课程列表。
+在 Views/Instructors/Index.cshtml 文件中，关闭表格元素（在文件末尾）后，添加以下代码。 选择讲师时，此代码显示与讲师相关的课程列表。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
 
-此代码读取视图模型的 `Courses` 属性以显示课程列表。 它还提供 Select 超链接，该链接可将所选课程的 ID 发送到 `Index` 操作方法  。
+此代码读取视图模型的 `Courses` 属性以显示课程列表。 它还提供 Select 超链接，该链接可将所选课程的 ID 发送到 `Index` 操作方法。
 
 刷新页面并选择讲师。 此时会出现一个网格，其中显示有分配给所选讲师的课程，且还显示有每个课程的分配系的名称。
 
@@ -233,13 +233,13 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ## <a name="about-explicit-loading"></a>关于显式加载
 
-在 InstructorsController.cs 中检索讲师列表时，指定了预先加载 `CourseAssignments` 导航属性  。
+在 InstructorsController.cs 中检索讲师列表时，指定了预先加载 `CourseAssignments` 导航属性。
 
 假设你希望用户在选中讲师和课程时尽量少查看注册情况。 此时建议只在有请求时加载注册数据。 若要查看如何执行显式加载的示例，请使用以下代码替换 `Index` 方法，这将删除预先加载 Enrollment 并显式加载该属性。 代码所作更改为突出显示状态。
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_ExplicitLoading&highlight=23-29)]
 
-新代码将从检索 Instructor 实体的代码中删除注册数据的 ThenInclude 方法调用  。 它还会删除 `AsNoTracking`。  如果选择了讲师和课程，突出显示的代码会检索所选课程的 Enrollment 实体，及每个 Enrollment 的 Student 实体。
+新代码将从检索 Instructor 实体的代码中删除注册数据的 ThenInclude 方法调用。 它还会删除 `AsNoTracking`。  如果选择了讲师和课程，突出显示的代码会检索所选课程的 Enrollment 实体，及每个 Enrollment 的 Student 实体。
 
 运行应用，立即转到“讲师”索引页，尽管已经更改了数据的检索方式，但该页上显示的内容没有任何不同。
 

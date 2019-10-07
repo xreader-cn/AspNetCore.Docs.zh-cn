@@ -3,14 +3,14 @@ title: ASP.NET Core 的 Razor 语法参考
 author: rick-anderson
 description: 了解 Razor 标记语法，该语法用于将基于服务器的代码嵌入网页中。
 ms.author: riande
-ms.date: 09/19/2019
+ms.date: 09/28/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 9a319f7efb6d879559afd9faca6955aba719fa2f
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 6f8835419dbf4c271617f57484c3408e0af30617
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168301"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592326"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -227,9 +227,9 @@ Razor 代码块以 `@` 开头，并括在 `{}` 中。 代码块内的 C# 代码�
 * 仅呈现 `<text>` 标记之间的内容。
 * `<text>` 标记之前或之后的空格不会显示在 HTML 输出中。
 
-### <a name="explicit-line-transition-with-colon"></a>使用 \@&colon; 的显式行转换
+### <a name="explicit-line-transition"></a>显式行转换
 
-若要在代码块内以 HTML 的形式呈现整个行的其余内容，请使用 `@:` 语法：
+要在代码块内以 HTML 形式呈现整个行的其余内容，请使用 `@:` 语法：
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)

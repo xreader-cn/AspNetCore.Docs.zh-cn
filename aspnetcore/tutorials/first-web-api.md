@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/27/2019
+ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 5e5215f246c6c7a805a4c99f485d51a2fb3c712d
-ms.sourcegitcommit: cf9ffcce4fe0b69fe795aae9ae06e99fdb18bdfc
+ms.openlocfilehash: 7bb98fe5befa8eea80885d246da31ad87d5cfc2d
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306667"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71691212"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -83,7 +83,7 @@ ms.locfileid: "71306667"
 
    ```dotnetcli
    dotnet new webapi -o TodoApi
-   cd TodoAPI
+   cd TodoApi
    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
@@ -271,9 +271,9 @@ ms.locfileid: "71306667"
 * 选择“其操作使用实体框架的 API 控制器”，然后选择“添加”   。
 * 在“添加其操作使用实体框架的 API 控制器”对话框中  ：
 
-  * 在“模型类”中选择“TodoItem (TodoAPI.Models)”   。
+  * 在“模型类”中选择“TodoItem (TodoApi.Models)”   。
   * 在“数据上下文类”中选择“TodoContext (TodoAPI.Models)”   。
-  * 选择“添加” 
+  * 选择“添加”  。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -283,7 +283,7 @@ ms.locfileid: "71306667"
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext  -outDir Controllers
+dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
 前面的命令：
@@ -322,7 +322,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
-* 在“文件”>“设置”  （“常规”*  选项卡）中，禁用“SSL 证书验证”  。
+* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证”     。
     > [!WARNING]
     > 在测试控制器之后重新启用 SSL 证书验证。
 
@@ -356,7 +356,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/3/create.png)
 
 * 将方法设置为“GET”。
-* 粘贴 URI（例如，`https://localhost:5001/api/TodoItems/1`）
+* 粘贴 URI（例如，`https://localhost:5001/api/TodoItems/1`）。
 * 选择“发送”  。
 
 ## <a name="examine-the-get-methods"></a>检查 GET 方法
@@ -458,8 +458,8 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 使用 Postman 删除待办事项：
 
 * 将方法设置为 `DELETE`。
-* 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`
-* 选择“Send” 
+* 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
+* 选择“发送”  。
 
 ## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
@@ -741,10 +741,10 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 本教程使用 Postman 测试 Web API。
 
-* 安装 [Postman](https://www.getpostman.com/downloads/)
+* 安装 [Postman](https://www.getpostman.com/downloads/)。
 * 启动 Web 应用。
 * 启动 Postman。
-* 禁用 **SSL 证书验证**
+* 禁用 **SSL 证书验证**。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -813,7 +813,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/pmc2.png)
 
 * 将方法设置为“GET”。
-* 粘贴 URI（例如，`https://localhost:5001/api/Todo/2`）
+* 粘贴 URI（例如，`https://localhost:5001/api/Todo/2`）。
 * 选择“发送”  。
 
 ## <a name="add-a-puttodoitem-method"></a>添加 PutTodoItem 方法
@@ -857,8 +857,8 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 使用 Postman 删除待办事项：
 
 * 将方法设置为 `DELETE`。
-* 设置要删除的对象的 URI，例如 `https://localhost:5001/api/todo/1`
-* 选择“Send” 
+* 设置要删除的对象的 URI，例如 `https://localhost:5001/api/todo/1`。
+* 选择“发送”  。
 
 可通过示例应用删除所有项。 但如果删除最后一项，则在下次调用 API 时，模型类构造函数会创建一个新项。
 

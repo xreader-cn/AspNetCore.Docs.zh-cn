@@ -4,14 +4,14 @@ author: tdykstra
 description: 在本教程中，将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/22/2019
+ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: f53f8edef7fe8690d0e414bc094d81dc99ad198a
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 02b52dee0b661ad26cd6fa9fea08fcea3d7dd9bd
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082091"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592302"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
 
@@ -258,7 +258,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   }
   ```
 
-* 添加显示每位讲师所授课程的“课程”列  。 有关此 Razor 语法的详细信息，请参阅[使用 `@:` 进行显式行转换](xref:mvc/views/razor#explicit-line-transition-with-)。
+* 添加显示每位讲师所授课程的“课程”列  。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
 
 * 添加向所选讲师和课程的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
 
@@ -527,7 +527,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   }
   ```
 
-* 添加了显示每位讲师所授课程的“课程”列  。 有关此 Razor 语法的详细信息，请参阅[使用 `@:` 的显式行转换](xref:mvc/views/razor#explicit-line-transition-with-)。
+* 添加了显示每位讲师所授课程的“课程”列  。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
 
 * 添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
 
