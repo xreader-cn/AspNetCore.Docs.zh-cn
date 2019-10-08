@@ -7,52 +7,52 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: d9ef276357e95d97b7d89427c5e237aceea7a0d3
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 2e042b43c6db24e0ecac727be100575fe1275e17
+ms.sourcegitcommit: 6d26ab647ede4f8e57465e29b03be5cb130fc872
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207098"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "71999775"
 ---
-# <a name="aspnet-core-razor-components-class-libraries"></a><span data-ttu-id="5f6e4-103">ASP.NET Core Razor 组件类库</span><span class="sxs-lookup"><span data-stu-id="5f6e4-103">ASP.NET Core Razor components class libraries</span></span>
+# <a name="aspnet-core-razor-components-class-libraries"></a><span data-ttu-id="96e70-103">ASP.NET Core Razor 组件类库</span><span class="sxs-lookup"><span data-stu-id="96e70-103">ASP.NET Core Razor components class libraries</span></span>
 
-<span data-ttu-id="5f6e4-104">作者： [Simon Timms](https://github.com/stimms)</span><span class="sxs-lookup"><span data-stu-id="5f6e4-104">By [Simon Timms](https://github.com/stimms)</span></span>
+<span data-ttu-id="96e70-104">作者： [Simon Timms](https://github.com/stimms)</span><span class="sxs-lookup"><span data-stu-id="96e70-104">By [Simon Timms](https://github.com/stimms)</span></span>
 
-<span data-ttu-id="5f6e4-105">可在[Razor 类库（RCL）](xref:razor-pages/ui-class)中跨项目共享组件。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-105">Components can be shared in a [Razor class library (RCL)](xref:razor-pages/ui-class) across projects.</span></span> <span data-ttu-id="5f6e4-106">*Razor 组件类库*可以包含在其中：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-106">A *Razor components class library* can be included from:</span></span>
+<span data-ttu-id="96e70-105">可在[Razor 类库（RCL）](xref:razor-pages/ui-class)中跨项目共享组件。</span><span class="sxs-lookup"><span data-stu-id="96e70-105">Components can be shared in a [Razor class library (RCL)](xref:razor-pages/ui-class) across projects.</span></span> <span data-ttu-id="96e70-106">*Razor 组件类库*可以包含在其中：</span><span class="sxs-lookup"><span data-stu-id="96e70-106">A *Razor components class library* can be included from:</span></span>
 
-* <span data-ttu-id="5f6e4-107">解决方案中的另一个项目。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-107">Another project in the solution.</span></span>
-* <span data-ttu-id="5f6e4-108">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-108">A NuGet package.</span></span>
-* <span data-ttu-id="5f6e4-109">引用的 .NET 库。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-109">A referenced .NET library.</span></span>
+* <span data-ttu-id="96e70-107">解决方案中的另一个项目。</span><span class="sxs-lookup"><span data-stu-id="96e70-107">Another project in the solution.</span></span>
+* <span data-ttu-id="96e70-108">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="96e70-108">A NuGet package.</span></span>
+* <span data-ttu-id="96e70-109">引用的 .NET 库。</span><span class="sxs-lookup"><span data-stu-id="96e70-109">A referenced .NET library.</span></span>
 
-<span data-ttu-id="5f6e4-110">正如组件是常规 .NET 类型一样，RCL 提供的组件是普通的 .NET 程序集。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-110">Just as components are regular .NET types, components provided by an RCL are normal .NET assemblies.</span></span>
+<span data-ttu-id="96e70-110">正如组件是常规 .NET 类型一样，RCL 提供的组件是普通的 .NET 程序集。</span><span class="sxs-lookup"><span data-stu-id="96e70-110">Just as components are regular .NET types, components provided by an RCL are normal .NET assemblies.</span></span>
 
-## <a name="create-an-rcl"></a><span data-ttu-id="5f6e4-111">创建 RCL</span><span class="sxs-lookup"><span data-stu-id="5f6e4-111">Create an RCL</span></span>
+## <a name="create-an-rcl"></a><span data-ttu-id="96e70-111">创建 RCL</span><span class="sxs-lookup"><span data-stu-id="96e70-111">Create an RCL</span></span>
 
-<span data-ttu-id="5f6e4-112">请按照<xref:blazor/get-started>文章中的指导配置 Blazor 的环境。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-112">Follow the guidance in the <xref:blazor/get-started> article to configure your environment for Blazor.</span></span>
+<span data-ttu-id="96e70-112">按照 <xref:blazor/get-started> 一文中的指导配置 Blazor 的环境。</span><span class="sxs-lookup"><span data-stu-id="96e70-112">Follow the guidance in the <xref:blazor/get-started> article to configure your environment for Blazor.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="5f6e4-113">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="5f6e4-113">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="96e70-113">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="96e70-113">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="5f6e4-114">创建新项目。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-114">Create a new project.</span></span>
-1. <span data-ttu-id="5f6e4-115">选择 " **Razor 类库**"。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-115">Select **Razor Class Library**.</span></span> <span data-ttu-id="5f6e4-116">选择“下一步”。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-116">Select **Next**.</span></span>
-1. <span data-ttu-id="5f6e4-117">在 "**创建新的 Razor 类库**" 对话框中，选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-117">In the **Create a new Razor class library** dialog, select **Create**.</span></span>
-1. <span data-ttu-id="5f6e4-118">在“项目名称”字段提供项目名称，或接受默认项目名称。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="5f6e4-119">本主题中的示例使用项目名称`MyComponentLib1`。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-119">The examples in this topic use the project name `MyComponentLib1`.</span></span> <span data-ttu-id="5f6e4-120">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-120">Select **Create**.</span></span>
-1. <span data-ttu-id="5f6e4-121">将 RCL 添加到解决方案：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-121">Add the RCL to a solution:</span></span>
-   1. <span data-ttu-id="5f6e4-122">右键单击解决方案。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-122">Right-click the solution.</span></span> <span data-ttu-id="5f6e4-123">选择 "**添加** > **现有项目**"。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-123">Select **Add** > **Existing Project**.</span></span>
-   1. <span data-ttu-id="5f6e4-124">导航到 RCL 的项目文件。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-124">Navigate to the RCL's project file.</span></span>
-   1. <span data-ttu-id="5f6e4-125">选择 RCL 的项目文件（ *.csproj*）。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-125">Select the RCL's project file (*.csproj*).</span></span>
-1. <span data-ttu-id="5f6e4-126">在应用中添加对 RCL 的引用：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-126">Add a reference the RCL from the app:</span></span>
-   1. <span data-ttu-id="5f6e4-127">右键单击应用程序项目。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-127">Right-click the app project.</span></span> <span data-ttu-id="5f6e4-128">选择 "**添加** > **引用**"。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-128">Select **Add** > **Reference**.</span></span>
-   1. <span data-ttu-id="5f6e4-129">选择 RCL 项目。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-129">Select the RCL project.</span></span> <span data-ttu-id="5f6e4-130">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-130">Select **OK**.</span></span>
+1. <span data-ttu-id="96e70-114">创建新项目。</span><span class="sxs-lookup"><span data-stu-id="96e70-114">Create a new project.</span></span>
+1. <span data-ttu-id="96e70-115">选择 " **Razor 类库**"。</span><span class="sxs-lookup"><span data-stu-id="96e70-115">Select **Razor Class Library**.</span></span> <span data-ttu-id="96e70-116">选择“**下一步**”。</span><span class="sxs-lookup"><span data-stu-id="96e70-116">Select **Next**.</span></span>
+1. <span data-ttu-id="96e70-117">在 "**创建新的 Razor 类库**" 对话框中，选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="96e70-117">In the **Create a new Razor class library** dialog, select **Create**.</span></span>
+1. <span data-ttu-id="96e70-118">在“项目名称”字段提供项目名称，或接受默认项目名称。</span><span class="sxs-lookup"><span data-stu-id="96e70-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="96e70-119">本主题中的示例使用项目名称 `MyComponentLib1`。</span><span class="sxs-lookup"><span data-stu-id="96e70-119">The examples in this topic use the project name `MyComponentLib1`.</span></span> <span data-ttu-id="96e70-120">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="96e70-120">Select **Create**.</span></span>
+1. <span data-ttu-id="96e70-121">将 RCL 添加到解决方案：</span><span class="sxs-lookup"><span data-stu-id="96e70-121">Add the RCL to a solution:</span></span>
+   1. <span data-ttu-id="96e70-122">右键单击解决方案。</span><span class="sxs-lookup"><span data-stu-id="96e70-122">Right-click the solution.</span></span> <span data-ttu-id="96e70-123">选择 "**添加** >  个**现有项目**。</span><span class="sxs-lookup"><span data-stu-id="96e70-123">Select **Add** > **Existing Project**.</span></span>
+   1. <span data-ttu-id="96e70-124">导航到 RCL 的项目文件。</span><span class="sxs-lookup"><span data-stu-id="96e70-124">Navigate to the RCL's project file.</span></span>
+   1. <span data-ttu-id="96e70-125">选择 RCL 的项目文件（ *.csproj*）。</span><span class="sxs-lookup"><span data-stu-id="96e70-125">Select the RCL's project file (*.csproj*).</span></span>
+1. <span data-ttu-id="96e70-126">在应用中添加对 RCL 的引用：</span><span class="sxs-lookup"><span data-stu-id="96e70-126">Add a reference the RCL from the app:</span></span>
+   1. <span data-ttu-id="96e70-127">右键单击应用程序项目。</span><span class="sxs-lookup"><span data-stu-id="96e70-127">Right-click the app project.</span></span> <span data-ttu-id="96e70-128">选择 "**添加** > **引用**"。</span><span class="sxs-lookup"><span data-stu-id="96e70-128">Select **Add** > **Reference**.</span></span>
+   1. <span data-ttu-id="96e70-129">选择 RCL 项目。</span><span class="sxs-lookup"><span data-stu-id="96e70-129">Select the RCL project.</span></span> <span data-ttu-id="96e70-130">选择“确定”。</span><span class="sxs-lookup"><span data-stu-id="96e70-130">Select **OK**.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="5f6e4-131">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="5f6e4-131">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="96e70-131">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="96e70-131">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-1. <span data-ttu-id="5f6e4-132">在命令行界面中，将`razorclasslib` **Razor 类库**模板（）与[dotnet new](/dotnet/core/tools/dotnet-new)命令一起使用。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-132">Use the **Razor Class Library** template (`razorclasslib`) with the [dotnet new](/dotnet/core/tools/dotnet-new) command in a command shell.</span></span> <span data-ttu-id="5f6e4-133">在下面的示例中，创建了一个名`MyComponentLib1`为的 RCL。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-133">In the following example, an RCL is created named `MyComponentLib1`.</span></span> <span data-ttu-id="5f6e4-134">执行命令时， `MyComponentLib1`将自动创建包含的文件夹：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-134">The folder that holds `MyComponentLib1` is created automatically when the command is executed:</span></span>
+1. <span data-ttu-id="96e70-132">在命令行界面中使用**Razor 类库**模板（`razorclasslib`）和[dotnet new](/dotnet/core/tools/dotnet-new)命令。</span><span class="sxs-lookup"><span data-stu-id="96e70-132">Use the **Razor Class Library** template (`razorclasslib`) with the [dotnet new](/dotnet/core/tools/dotnet-new) command in a command shell.</span></span> <span data-ttu-id="96e70-133">在下面的示例中，创建了一个名为 `MyComponentLib1` 的 RCL。</span><span class="sxs-lookup"><span data-stu-id="96e70-133">In the following example, an RCL is created named `MyComponentLib1`.</span></span> <span data-ttu-id="96e70-134">执行命令时，将自动创建包含 `MyComponentLib1` 的文件夹：</span><span class="sxs-lookup"><span data-stu-id="96e70-134">The folder that holds `MyComponentLib1` is created automatically when the command is executed:</span></span>
 
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
-1. <span data-ttu-id="5f6e4-135">若要将库添加到现有项目，请在命令行界面中使用[dotnet add reference](/dotnet/core/tools/dotnet-add-reference)命令。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-135">To add the library to an existing project, use the [dotnet add reference](/dotnet/core/tools/dotnet-add-reference) command in a command shell.</span></span> <span data-ttu-id="5f6e4-136">在下面的示例中，将 RCL 添加到应用中。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-136">In the following example, the RCL is added to the app.</span></span> <span data-ttu-id="5f6e4-137">在应用程序的项目文件夹中执行以下命令，并在其中包含库的路径：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-137">Execute the following command from the app's project folder with the path to the library:</span></span>
+1. <span data-ttu-id="96e70-135">若要将库添加到现有项目，请在命令行界面中使用[dotnet add reference](/dotnet/core/tools/dotnet-add-reference)命令。</span><span class="sxs-lookup"><span data-stu-id="96e70-135">To add the library to an existing project, use the [dotnet add reference](/dotnet/core/tools/dotnet-add-reference) command in a command shell.</span></span> <span data-ttu-id="96e70-136">在下面的示例中，将 RCL 添加到应用中。</span><span class="sxs-lookup"><span data-stu-id="96e70-136">In the following example, the RCL is added to the app.</span></span> <span data-ttu-id="96e70-137">在应用程序的项目文件夹中执行以下命令，并在其中包含库的路径：</span><span class="sxs-lookup"><span data-stu-id="96e70-137">Execute the following command from the app's project folder with the path to the library:</span></span>
 
    ```dotnetcli
    dotnet add reference {PATH TO LIBRARY}
@@ -60,16 +60,16 @@ ms.locfileid: "71207098"
 
 ---
 
-## <a name="consume-a-library-component"></a><span data-ttu-id="5f6e4-138">使用库组件</span><span class="sxs-lookup"><span data-stu-id="5f6e4-138">Consume a library component</span></span>
+## <a name="consume-a-library-component"></a><span data-ttu-id="96e70-138">使用库组件</span><span class="sxs-lookup"><span data-stu-id="96e70-138">Consume a library component</span></span>
 
-<span data-ttu-id="5f6e4-139">若要使用另一个项目的库中定义的组件，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-139">In order to consume components defined in a library in another project, use either of the following approaches:</span></span>
+<span data-ttu-id="96e70-139">若要使用另一个项目的库中定义的组件，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="96e70-139">In order to consume components defined in a library in another project, use either of the following approaches:</span></span>
 
-* <span data-ttu-id="5f6e4-140">使用带有命名空间的完整类型名称。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-140">Use the full type name with the namespace.</span></span>
-* <span data-ttu-id="5f6e4-141">使用 Razor 的[ \@using](xref:mvc/views/razor#using)指令。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-141">Use Razor's [\@using](xref:mvc/views/razor#using) directive.</span></span> <span data-ttu-id="5f6e4-142">可以按名称添加单个组件。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-142">Individual components can be added by name.</span></span>
+* <span data-ttu-id="96e70-140">使用带有命名空间的完整类型名称。</span><span class="sxs-lookup"><span data-stu-id="96e70-140">Use the full type name with the namespace.</span></span>
+* <span data-ttu-id="96e70-141">使用 Razor 的[@no__t 1using](xref:mvc/views/razor#using)指令。</span><span class="sxs-lookup"><span data-stu-id="96e70-141">Use Razor's [\@using](xref:mvc/views/razor#using) directive.</span></span> <span data-ttu-id="96e70-142">可以按名称添加单个组件。</span><span class="sxs-lookup"><span data-stu-id="96e70-142">Individual components can be added by name.</span></span>
 
-<span data-ttu-id="5f6e4-143">在下面的示例中`MyComponentLib1` ，是`SalesReport`包含组件的组件库。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-143">In the following examples, `MyComponentLib1` is a component library containing a `SalesReport` component.</span></span>
+<span data-ttu-id="96e70-143">在下面的示例中，`MyComponentLib1` 是包含 @no__t 组件的组件库。</span><span class="sxs-lookup"><span data-stu-id="96e70-143">In the following examples, `MyComponentLib1` is a component library containing a `SalesReport` component.</span></span>
 
-<span data-ttu-id="5f6e4-144">可以`SalesReport`使用命名空间的完整类型名称引用该组件：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-144">The `SalesReport` component can be referenced using its full type name with namespace:</span></span>
+<span data-ttu-id="96e70-144">可以使用命名空间的完整类型名称引用 `SalesReport` 组件：</span><span class="sxs-lookup"><span data-stu-id="96e70-144">The `SalesReport` component can be referenced using its full type name with namespace:</span></span>
 
 ```cshtml
 <h1>Hello, world!</h1>
@@ -79,7 +79,7 @@ Welcome to your new app.
 <MyComponentLib1.SalesReport />
 ```
 
-<span data-ttu-id="5f6e4-145">如果库与`@using`指令一起使用，也可以引用组件：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-145">The component can also be referenced if the library is brought into scope with an `@using` directive:</span></span>
+<span data-ttu-id="96e70-145">如果使用 @no__t 0 指令将库引入到范围中，也可以引用此组件：</span><span class="sxs-lookup"><span data-stu-id="96e70-145">The component can also be referenced if the library is brought into scope with an `@using` directive:</span></span>
 
 ```cshtml
 @using MyComponentLib1
@@ -91,26 +91,22 @@ Welcome to your new app.
 <SalesReport />
 ```
 
-<span data-ttu-id="5f6e4-146">在顶级 *_Import*文件中包含指令，使库的组件可用于整个项目。`@using MyComponentLib1`</span><span class="sxs-lookup"><span data-stu-id="5f6e4-146">Include the `@using MyComponentLib1` directive in the top-level *_Import.razor* file to make the library's components available to an entire project.</span></span> <span data-ttu-id="5f6e4-147">将指令添加到任何级别的 *_Import*文件，以将命名空间应用于文件夹中的单个页面或一组页面。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-147">Add the directive to an *_Import.razor* file at any level to apply the namespace to a single page or set of pages within a folder.</span></span>
+<span data-ttu-id="96e70-146">将 `@using MyComponentLib1` 指令包含在顶级 *_Import*文件中，使库的组件可用于整个项目。</span><span class="sxs-lookup"><span data-stu-id="96e70-146">Include the `@using MyComponentLib1` directive in the top-level *_Import.razor* file to make the library's components available to an entire project.</span></span> <span data-ttu-id="96e70-147">将指令添加到任何级别的 *_Import*文件，以将命名空间应用于文件夹中的单个页面或一组页面。</span><span class="sxs-lookup"><span data-stu-id="96e70-147">Add the directive to an *_Import.razor* file at any level to apply the namespace to a single page or set of pages within a folder.</span></span>
 
-## <a name="build-pack-and-ship-to-nuget"></a><span data-ttu-id="5f6e4-148">生成、打包和传送到 NuGet</span><span class="sxs-lookup"><span data-stu-id="5f6e4-148">Build, pack, and ship to NuGet</span></span>
+## <a name="build-pack-and-ship-to-nuget"></a><span data-ttu-id="96e70-148">生成、打包和传送到 NuGet</span><span class="sxs-lookup"><span data-stu-id="96e70-148">Build, pack, and ship to NuGet</span></span>
 
-<span data-ttu-id="5f6e4-149">由于组件库是标准的 .NET 库，因此将其打包并传送到 NuGet 与将任何库打包到 NuGet 没有什么不同。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-149">Because component libraries are standard .NET libraries, packaging and shipping them to NuGet is no different from packaging and shipping any library to NuGet.</span></span> <span data-ttu-id="5f6e4-150">在命令行界面中使用[dotnet pack](/dotnet/core/tools/dotnet-pack)命令执行打包：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-150">Packaging is performed using the [dotnet pack](/dotnet/core/tools/dotnet-pack) command in a command shell:</span></span>
+<span data-ttu-id="96e70-149">由于组件库是标准的 .NET 库，因此将其打包并传送到 NuGet 与将任何库打包到 NuGet 没有什么不同。</span><span class="sxs-lookup"><span data-stu-id="96e70-149">Because component libraries are standard .NET libraries, packaging and shipping them to NuGet is no different from packaging and shipping any library to NuGet.</span></span> <span data-ttu-id="96e70-150">在命令行界面中使用[dotnet pack](/dotnet/core/tools/dotnet-pack)命令执行打包：</span><span class="sxs-lookup"><span data-stu-id="96e70-150">Packaging is performed using the [dotnet pack](/dotnet/core/tools/dotnet-pack) command in a command shell:</span></span>
 
 ```dotnetcli
 dotnet pack
 ```
 
-<span data-ttu-id="5f6e4-151">在命令行界面中使用[dotnet NuGet publish](/dotnet/core/tools/dotnet-nuget-push)命令将包上传到 nuget：</span><span class="sxs-lookup"><span data-stu-id="5f6e4-151">Upload the package to NuGet using the [dotnet nuget publish](/dotnet/core/tools/dotnet-nuget-push) command in a command shell:</span></span>
+<span data-ttu-id="96e70-151">在命令行界面中使用[dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push)命令将包上传到 nuget。</span><span class="sxs-lookup"><span data-stu-id="96e70-151">Upload the package to NuGet using the [dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push) command in a command shell.</span></span>
 
-```dotnetcli
-dotnet nuget publish
-```
+## <a name="create-a-razor-components-class-library-with-static-assets"></a><span data-ttu-id="96e70-152">使用静态资产创建 Razor 组件类库</span><span class="sxs-lookup"><span data-stu-id="96e70-152">Create a Razor components class library with static assets</span></span>
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a><span data-ttu-id="5f6e4-152">使用静态资产创建 Razor 组件类库</span><span class="sxs-lookup"><span data-stu-id="5f6e4-152">Create a Razor components class library with static assets</span></span>
+<span data-ttu-id="96e70-153">RCL 可以包括静态资产。</span><span class="sxs-lookup"><span data-stu-id="96e70-153">An RCL can include static assets.</span></span> <span data-ttu-id="96e70-154">静态资产可用于使用库的任何应用。</span><span class="sxs-lookup"><span data-stu-id="96e70-154">The static assets are available to any app that consumes the library.</span></span> <span data-ttu-id="96e70-155">有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets> 。</span><span class="sxs-lookup"><span data-stu-id="96e70-155">For more information, see <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.</span></span>
 
-<span data-ttu-id="5f6e4-153">RCL 可以包括静态资产。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-153">An RCL can include static assets.</span></span> <span data-ttu-id="5f6e4-154">静态资产可用于使用库的任何应用。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-154">The static assets are available to any app that consumes the library.</span></span> <span data-ttu-id="5f6e4-155">有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets> 。</span><span class="sxs-lookup"><span data-stu-id="5f6e4-155">For more information, see <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.</span></span>
-
-## <a name="additional-resources"></a><span data-ttu-id="5f6e4-156">其他资源</span><span class="sxs-lookup"><span data-stu-id="5f6e4-156">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="96e70-156">其他资源</span><span class="sxs-lookup"><span data-stu-id="96e70-156">Additional resources</span></span>
 
 * <xref:razor-pages/ui-class>
