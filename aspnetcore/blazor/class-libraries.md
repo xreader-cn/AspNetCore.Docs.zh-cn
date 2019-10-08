@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: d9ef276357e95d97b7d89427c5e237aceea7a0d3
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 2e042b43c6db24e0ecac727be100575fe1275e17
+ms.sourcegitcommit: 6d26ab647ede4f8e57465e29b03be5cb130fc872
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207098"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "71999775"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -28,16 +28,16 @@ ms.locfileid: "71207098"
 
 ## <a name="create-an-rcl"></a>创建 RCL
 
-请按照<xref:blazor/get-started>文章中的指导配置 Blazor 的环境。
+按照 <xref:blazor/get-started> 一文中的指导配置 Blazor 的环境。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 创建新项目。
-1. 选择 " **Razor 类库**"。 选择“下一步”。
+1. 选择 " **Razor 类库**"。 选择“**下一步**”。
 1. 在 "**创建新的 Razor 类库**" 对话框中，选择 "**创建**"。
-1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称`MyComponentLib1`。 选择“创建”。
+1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称 `MyComponentLib1`。 选择“创建”。
 1. 将 RCL 添加到解决方案：
-   1. 右键单击解决方案。 选择 "**添加** > **现有项目**"。
+   1. 右键单击解决方案。 选择 "**添加** >  个**现有项目**。
    1. 导航到 RCL 的项目文件。
    1. 选择 RCL 的项目文件（ *.csproj*）。
 1. 在应用中添加对 RCL 的引用：
@@ -46,7 +46,7 @@ ms.locfileid: "71207098"
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-1. 在命令行界面中，将`razorclasslib` **Razor 类库**模板（）与[dotnet new](/dotnet/core/tools/dotnet-new)命令一起使用。 在下面的示例中，创建了一个名`MyComponentLib1`为的 RCL。 执行命令时， `MyComponentLib1`将自动创建包含的文件夹：
+1. 在命令行界面中使用**Razor 类库**模板（`razorclasslib`）和[dotnet new](/dotnet/core/tools/dotnet-new)命令。 在下面的示例中，创建了一个名为 `MyComponentLib1` 的 RCL。 执行命令时，将自动创建包含 `MyComponentLib1` 的文件夹：
 
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
@@ -65,11 +65,11 @@ ms.locfileid: "71207098"
 若要使用另一个项目的库中定义的组件，请使用以下方法之一：
 
 * 使用带有命名空间的完整类型名称。
-* 使用 Razor 的[ \@using](xref:mvc/views/razor#using)指令。 可以按名称添加单个组件。
+* 使用 Razor 的[@no__t 1using](xref:mvc/views/razor#using)指令。 可以按名称添加单个组件。
 
-在下面的示例中`MyComponentLib1` ，是`SalesReport`包含组件的组件库。
+在下面的示例中，`MyComponentLib1` 是包含 @no__t 组件的组件库。
 
-可以`SalesReport`使用命名空间的完整类型名称引用该组件：
+可以使用命名空间的完整类型名称引用 `SalesReport` 组件：
 
 ```cshtml
 <h1>Hello, world!</h1>
@@ -79,7 +79,7 @@ Welcome to your new app.
 <MyComponentLib1.SalesReport />
 ```
 
-如果库与`@using`指令一起使用，也可以引用组件：
+如果使用 @no__t 0 指令将库引入到范围中，也可以引用此组件：
 
 ```cshtml
 @using MyComponentLib1
@@ -91,7 +91,7 @@ Welcome to your new app.
 <SalesReport />
 ```
 
-在顶级 *_Import*文件中包含指令，使库的组件可用于整个项目。`@using MyComponentLib1` 将指令添加到任何级别的 *_Import*文件，以将命名空间应用于文件夹中的单个页面或一组页面。
+将 `@using MyComponentLib1` 指令包含在顶级 *_Import*文件中，使库的组件可用于整个项目。 将指令添加到任何级别的 *_Import*文件，以将命名空间应用于文件夹中的单个页面或一组页面。
 
 ## <a name="build-pack-and-ship-to-nuget"></a>生成、打包和传送到 NuGet
 
@@ -101,11 +101,7 @@ Welcome to your new app.
 dotnet pack
 ```
 
-在命令行界面中使用[dotnet NuGet publish](/dotnet/core/tools/dotnet-nuget-push)命令将包上传到 nuget：
-
-```dotnetcli
-dotnet nuget publish
-```
+在命令行界面中使用[dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push)命令将包上传到 nuget。
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>使用静态资产创建 Razor 组件类库
 
