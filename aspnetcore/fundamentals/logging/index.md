@@ -1,18 +1,18 @@
 ---
 title: .NET Core 和 ASP.NET Core 中的日志记录
-author: tdykstra
+author: rick-anderson
 description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供的日志记录框架。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/08/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 9f7b39cc1c557356b75608817db4e8d6f61af794
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 697e6cf0cd1b51ad6c2942e21bc084d1fe6bfa4e
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007021"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259734"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -394,8 +394,12 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。 例如:
 
-* 在生产中，通过 `Information` 级别将 `Trace` 发送到卷数据存储。 通过 `Critical` 级别将 `Warning` 发送到值数据存储。
-* 在开发过程中，通过`Critical` 级别将 `Warning` 发送到控制台，并在进行故障排除时通过 `Information` 级别添加 `Trace`。
+* 生产中：
+  * 如果通过 `Information` 级别在 `Trace` 处记录，则会生成大量详细的日志消息。 为控制成本且不超过数据存储限制，请通过 `Information` 级别消息将 `Trace` 记录到容量大、成本低的数据存储中。
+  * 如果通过 `Critical` 级别在 `Warning` 处记录，通常生成的日志消息更少且更小。 因此，成本和存储限制通常不是问题，而这使得在选择数据信息时更为灵活。
+* 在开发过程中：
+  * 通过 `Critical` 消息将 `Warning` 记录到控制台。
+  * 在疑难解答时通过 `Information` 消息添加 `Trace`。
 
 本文稍后的[日志筛选](#log-filtering)部分介绍如何控制提供程序处理的日志级别。
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 438b3802087e2ac3df4cbe69a700b878c1cbbf63
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
-ms.translationtype: HT
+ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
+ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037421"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179029"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -194,30 +194,42 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 ## <a name="data-binding"></a>数据绑定
 
-对组件和 DOM 元素的数据绑定都是通过[@bind](xref:mvc/views/razor#bind)属性来完成的。 下面的示例将 `_italicsCheck` 字段绑定到复选框的选中状态：
+对组件和 DOM 元素的数据绑定都是通过[@bind](xref:mvc/views/razor#bind)属性来完成的。 下面的示例将 `CurrentValue` 属性绑定到文本框的值：
 
 ```cshtml
-<input type="checkbox" class="form-check-input" id="italicsCheck" 
-    @bind="_italicsCheck" />
+<input @bind="CurrentValue" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-选中并清除该复选框后，属性的值将更新为分别 @no__t 0 和 @no__t。
+当文本框失去焦点时，会更新该属性的值。
 
-仅当呈现组件时，才会在 UI 中更新此复选框，而不会在响应属性值的更改时进行更新。 由于组件会在事件处理程序代码执行后呈现自身，因此属性更新通常会立即反映在 UI 中。
+仅当呈现组件时，才会在 UI 中更新文本框，而不是响应更改属性值。 由于在事件处理程序代码执行后组件会自行呈现，因此在事件处理程序触发后，属性更新*通常*会立即反映在 UI 中。
 
 将 `@bind` 与 @no__t 属性（`<input @bind="CurrentValue" />`）一起使用本质上相当于以下内容：
 
 ```cshtml
 <input value="@CurrentValue"
-    @onchange="@((ChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    @onchange="@((ChangeEventArgs __e) => CurrentValue = 
+        __e.Value.ToString())" />
+        
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-呈现组件时，输入元素的 @no__t 为 @no__t 的属性。 当用户在文本框中键入内容时，将激发 @no__t 0 事件，并将 @no__t 属性设置为更改的值。 实际上，代码生成更复杂一些，因为 `@bind` 会处理执行类型转换的几种情况。 原则上，`@bind` 将表达式的当前值与 @no__t 属性相关联，并使用注册的处理程序来处理更改。
+呈现组件时，输入元素的 @no__t 为 @no__t 的属性。 当用户在文本框中键入内容并更改元素焦点时，将激发 @no__t 0 事件，并将 @no__t 属性设置为更改的值。 事实上，代码生成更复杂，因为 `@bind` 处理执行类型转换的情况。 原则上，`@bind` 将表达式的当前值与 @no__t 属性相关联，并使用注册的处理程序来处理更改。
 
 除了使用 `@bind` 语法处理 `onchange` 事件外，还可以使用其他事件来绑定属性或字段，方法是使用 `event` 参数指定[@bind-value](xref:mvc/views/razor#bind)属性（[@bind-value:event](xref:mvc/views/razor#bind)）。 下面的示例绑定了 `oninput` 事件的 `CurrentValue` 属性：
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
 与 `onchange` 不同，后者在元素失去焦点时激发，`oninput` 在文本框的值更改时激发。
@@ -1417,14 +1429,14 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时，如果 `someFlag` @no__t 为-1，生成器将接收：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | 第一个  |
 | 1        | Text 节点 | 第二个 |
 
 假设 `someFlag` 变为 @no__t，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | type       | Data   |
+| 序列 | 类型       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Text 节点  | 第二个 |
 
@@ -1449,14 +1461,14 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | 类型      | Data   |
+| 序列 | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | 第一个  |
 | 1        | Text 节点 | 第二个 |
 
 此结果与以前的情况相同，因此不存在负面问题。 第二次呈现时 `someFlag` @no__t 为-1，输出为：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | Data   |
 | :------: | --------- | ------ |
 | 0        | Text 节点 | 第二个 |
 
