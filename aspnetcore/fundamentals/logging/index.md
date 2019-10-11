@@ -1,59 +1,59 @@
 ---
 title: .NET Core 和 ASP.NET Core 中的日志记录
-author: tdykstra
+author: rick-anderson
 description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供的日志记录框架。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/08/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 9f7b39cc1c557356b75608817db4e8d6f61af794
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 697e6cf0cd1b51ad6c2942e21bc084d1fe6bfa4e
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007021"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259734"
 ---
-# <a name="logging-in-net-core-and-aspnet-core"></a><span data-ttu-id="ea9c9-103">.NET Core 和 ASP.NET Core 中的日志记录</span><span class="sxs-lookup"><span data-stu-id="ea9c9-103">Logging in .NET Core and ASP.NET Core</span></span>
+# <a name="logging-in-net-core-and-aspnet-core"></a><span data-ttu-id="fa397-103">.NET Core 和 ASP.NET Core 中的日志记录</span><span class="sxs-lookup"><span data-stu-id="fa397-103">Logging in .NET Core and ASP.NET Core</span></span>
 
-<span data-ttu-id="ea9c9-104">作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="ea9c9-104">By [Tom Dykstra](https://github.com/tdykstra) and [Steve Smith](https://ardalis.com/)</span></span>
+<span data-ttu-id="fa397-104">作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="fa397-104">By [Tom Dykstra](https://github.com/tdykstra) and [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="ea9c9-105">.NET Core 支持适用于各种内置和第三方日志记录提供程序的日志记录 API。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-105">.NET Core supports a logging API that works with a variety of built-in and third-party logging providers.</span></span> <span data-ttu-id="ea9c9-106">本文介绍了如何将日志记录 API 与内置提供程序一起使用。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-106">This article shows how to use the logging API with built-in providers.</span></span>
+<span data-ttu-id="fa397-105">.NET Core 支持适用于各种内置和第三方日志记录提供程序的日志记录 API。</span><span class="sxs-lookup"><span data-stu-id="fa397-105">.NET Core supports a logging API that works with a variety of built-in and third-party logging providers.</span></span> <span data-ttu-id="fa397-106">本文介绍了如何将日志记录 API 与内置提供程序一起使用。</span><span class="sxs-lookup"><span data-stu-id="fa397-106">This article shows how to use the logging API with built-in providers.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ea9c9-107">本文中所述的大多数代码示例都来自 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-107">Most of the code examples shown in this article are from ASP.NET Core apps.</span></span> <span data-ttu-id="ea9c9-108">这些代码片段的日志记录特定部分适用于任何使用[通用主机](xref:fundamentals/host/generic-host)的 .NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-108">The logging-specific parts of these code snippets apply to any .NET Core app that uses the [Generic host](xref:fundamentals/host/generic-host).</span></span> <span data-ttu-id="ea9c9-109">有关如何在非 Web 控制台应用中使用通用主机的信息，请参阅[托管服务](xref:fundamentals/host/hosted-services)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-109">For information about how to use the Generic Host in non-web console apps, see [Hosted services](xref:fundamentals/host/hosted-services).</span></span>
+<span data-ttu-id="fa397-107">本文中所述的大多数代码示例都来自 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="fa397-107">Most of the code examples shown in this article are from ASP.NET Core apps.</span></span> <span data-ttu-id="fa397-108">这些代码片段的日志记录特定部分适用于任何使用[通用主机](xref:fundamentals/host/generic-host)的 .NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="fa397-108">The logging-specific parts of these code snippets apply to any .NET Core app that uses the [Generic Host](xref:fundamentals/host/generic-host).</span></span> <span data-ttu-id="fa397-109">有关如何在非 Web 控制台应用中使用通用主机的信息，请参阅[托管服务](xref:fundamentals/host/hosted-services)。</span><span class="sxs-lookup"><span data-stu-id="fa397-109">For information about how to use the Generic Host in non-web console apps, see [Hosted services](xref:fundamentals/host/hosted-services).</span></span>
 
-<span data-ttu-id="ea9c9-110">对于没有通用主机的应用，日志记录代码在[添加提供程序](#add-providers)和[创建记录器](#create-logs)的方式上有所不同。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-110">Logging code for apps without Generic Host differs in the way [providers are added](#add-providers) and [loggers are created](#create-logs).</span></span> <span data-ttu-id="ea9c9-111">本文的这些部分显示了非主机代码示例。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-111">Non-host code examples are shown in those sections of the article.</span></span>
+<span data-ttu-id="fa397-110">对于没有通用主机的应用，日志记录代码在[添加提供程序](#add-providers)和[创建记录器](#create-logs)的方式上有所不同。</span><span class="sxs-lookup"><span data-stu-id="fa397-110">Logging code for apps without Generic Host differs in the way [providers are added](#add-providers) and [loggers are created](#create-logs).</span></span> <span data-ttu-id="fa397-111">本文的这些部分显示了非主机代码示例。</span><span class="sxs-lookup"><span data-stu-id="fa397-111">Non-host code examples are shown in those sections of the article.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-112">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-112">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="fa397-112">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="fa397-112">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="add-providers"></a><span data-ttu-id="ea9c9-113">添加提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-113">Add providers</span></span>
+## <a name="add-providers"></a><span data-ttu-id="fa397-113">添加提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-113">Add providers</span></span>
 
-<span data-ttu-id="ea9c9-114">日志记录提供程序会显示或存储日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-114">A logging provider displays or stores logs.</span></span> <span data-ttu-id="ea9c9-115">例如，控制台提供程序在控制台上显示日志，Azure Application Insights 提供程序会将这些日志存储在 Azure Application Insights 中。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-115">For example, the Console provider displays logs on the console, and the Azure Application Insights provider stores them in Azure Application Insights.</span></span> <span data-ttu-id="ea9c9-116">可通过添加多个提供程序将日志发送到多个目标。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-116">Logs can be sent to multiple destinations by adding multiple providers.</span></span>
+<span data-ttu-id="fa397-114">日志记录提供程序会显示或存储日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-114">A logging provider displays or stores logs.</span></span> <span data-ttu-id="fa397-115">例如，控制台提供程序在控制台上显示日志，Azure Application Insights 提供程序会将这些日志存储在 Azure Application Insights 中。</span><span class="sxs-lookup"><span data-stu-id="fa397-115">For example, the Console provider displays logs on the console, and the Azure Application Insights provider stores them in Azure Application Insights.</span></span> <span data-ttu-id="fa397-116">可通过添加多个提供程序将日志发送到多个目标。</span><span class="sxs-lookup"><span data-stu-id="fa397-116">Logs can be sent to multiple destinations by adding multiple providers.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ea9c9-117">若要在使用通用主机的应用中添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-117">To add a provider in an app that uses Generic Host, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
+<span data-ttu-id="fa397-117">若要在使用通用主机的应用中添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：</span><span class="sxs-lookup"><span data-stu-id="fa397-117">To add a provider in an app that uses Generic Host, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=6)]
 
-<span data-ttu-id="ea9c9-118">在非主机控制台应用中，在创建 `LoggerFactory` 时调用提供程序的 `Add{provider name}` 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-118">In a non-host console app, call the provider's `Add{provider name}` extension method while creating a `LoggerFactory`:</span></span>
+<span data-ttu-id="fa397-118">在非主机控制台应用中，在创建 `LoggerFactory` 时调用提供程序的 `Add{provider name}` 扩展方法：</span><span class="sxs-lookup"><span data-stu-id="fa397-118">In a non-host console app, call the provider's `Add{provider name}` extension method while creating a `LoggerFactory`:</span></span>
 
 [!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=1,7)]
 
-<span data-ttu-id="ea9c9-119">`LoggerFactory` 和 `AddConsole` 需要用于 `Microsoft.Extensions.Logging` 的 `using` 语句。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-119">`LoggerFactory` and `AddConsole` require a `using` statement for `Microsoft.Extensions.Logging`.</span></span>
+<span data-ttu-id="fa397-119">`LoggerFactory` 和 `AddConsole` 需要用于 `Microsoft.Extensions.Logging` 的 `using` 语句。</span><span class="sxs-lookup"><span data-stu-id="fa397-119">`LoggerFactory` and `AddConsole` require a `using` statement for `Microsoft.Extensions.Logging`.</span></span>
 
-<span data-ttu-id="ea9c9-120">默认 ASP.NET Core 项目模板调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-120">The default ASP.NET Core project templates call <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
+<span data-ttu-id="fa397-120">默认 ASP.NET Core 项目模板调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：</span><span class="sxs-lookup"><span data-stu-id="fa397-120">The default ASP.NET Core project templates call <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
 
-* <span data-ttu-id="ea9c9-121">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-121">Console</span></span>
-* <span data-ttu-id="ea9c9-122">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-122">Debug</span></span>
-* <span data-ttu-id="ea9c9-123">EventSource</span><span class="sxs-lookup"><span data-stu-id="ea9c9-123">EventSource</span></span>
-* <span data-ttu-id="ea9c9-124">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-124">EventLog (only when running on Windows)</span></span>
+* <span data-ttu-id="fa397-121">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-121">Console</span></span>
+* <span data-ttu-id="fa397-122">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-122">Debug</span></span>
+* <span data-ttu-id="fa397-123">EventSource</span><span class="sxs-lookup"><span data-stu-id="fa397-123">EventSource</span></span>
+* <span data-ttu-id="fa397-124">EventLog（仅当在 Windows 上运行时）</span><span class="sxs-lookup"><span data-stu-id="fa397-124">EventLog (only when running on Windows)</span></span>
 
-<span data-ttu-id="ea9c9-125">可自行选择提供程序来替换默认提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-125">You can replace the default providers with your own choices.</span></span> <span data-ttu-id="ea9c9-126">调用 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>，然后添加所需的提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-126">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
+<span data-ttu-id="fa397-125">可自行选择提供程序来替换默认提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-125">You can replace the default providers with your own choices.</span></span> <span data-ttu-id="fa397-126">调用 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>，然后添加所需的提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-126">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=5)]
 
@@ -61,39 +61,39 @@ ms.locfileid: "72007021"
 
 ::: moniker range="< aspnetcore-3.0 "
 
-<span data-ttu-id="ea9c9-127">要添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-127">To add a provider, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
+<span data-ttu-id="fa397-127">要添加提供程序，请在 Program.cs 中调用提供程序的 `Add{provider name}` 扩展方法  ：</span><span class="sxs-lookup"><span data-stu-id="fa397-127">To add a provider, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=18-20)]
 
-<span data-ttu-id="ea9c9-128">前面的代码需要引用 `Microsoft.Extensions.Logging` 和 `Microsoft.Extensions.Configuration`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-128">The preceding code requires references to `Microsoft.Extensions.Logging` and `Microsoft.Extensions.Configuration`.</span></span>
+<span data-ttu-id="fa397-128">前面的代码需要引用 `Microsoft.Extensions.Logging` 和 `Microsoft.Extensions.Configuration`。</span><span class="sxs-lookup"><span data-stu-id="fa397-128">The preceding code requires references to `Microsoft.Extensions.Logging` and `Microsoft.Extensions.Configuration`.</span></span>
 
-<span data-ttu-id="ea9c9-129">默认项目模板调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-129">The default project template calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
+<span data-ttu-id="fa397-129">默认项目模板调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：</span><span class="sxs-lookup"><span data-stu-id="fa397-129">The default project template calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
 
-* <span data-ttu-id="ea9c9-130">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-130">Console</span></span>
-* <span data-ttu-id="ea9c9-131">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-131">Debug</span></span>
-* <span data-ttu-id="ea9c9-132">EventSource（从 ASP.NET Core 2.2 开始）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-132">EventSource (starting in ASP.NET Core 2.2)</span></span>
+* <span data-ttu-id="fa397-130">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-130">Console</span></span>
+* <span data-ttu-id="fa397-131">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-131">Debug</span></span>
+* <span data-ttu-id="fa397-132">EventSource（从 ASP.NET Core 2.2 开始）</span><span class="sxs-lookup"><span data-stu-id="fa397-132">EventSource (starting in ASP.NET Core 2.2)</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
-<span data-ttu-id="ea9c9-133">如果使用 `CreateDefaultBuilder`，则可自行选择提供程序来替换默认提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-133">If you use `CreateDefaultBuilder`, you can replace the default providers with your own choices.</span></span> <span data-ttu-id="ea9c9-134">调用 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>，然后添加所需的提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-134">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
+<span data-ttu-id="fa397-133">如果使用 `CreateDefaultBuilder`，则可自行选择提供程序来替换默认提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-133">If you use `CreateDefaultBuilder`, you can replace the default providers with your own choices.</span></span> <span data-ttu-id="fa397-134">调用 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>，然后添加所需的提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-134">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=18-22)]
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-135">详细了解[内置日志记录提供程序](#built-in-logging-providers)，以及本文稍后部分介绍的[第三方日志记录提供程序](#third-party-logging-providers)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-135">Learn more about [built-in logging providers](#built-in-logging-providers) and [third-party logging providers](#third-party-logging-providers) later in the article.</span></span>
+<span data-ttu-id="fa397-135">详细了解[内置日志记录提供程序](#built-in-logging-providers)，以及本文稍后部分介绍的[第三方日志记录提供程序](#third-party-logging-providers)。</span><span class="sxs-lookup"><span data-stu-id="fa397-135">Learn more about [built-in logging providers](#built-in-logging-providers) and [third-party logging providers](#third-party-logging-providers) later in the article.</span></span>
 
-## <a name="create-logs"></a><span data-ttu-id="ea9c9-136">创建日志</span><span class="sxs-lookup"><span data-stu-id="ea9c9-136">Create logs</span></span>
+## <a name="create-logs"></a><span data-ttu-id="fa397-136">创建日志</span><span class="sxs-lookup"><span data-stu-id="fa397-136">Create logs</span></span>
 
-<span data-ttu-id="ea9c9-137">若要创建日志，请使用 <xref:Microsoft.Extensions.Logging.ILogger%601> 对象。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-137">To create logs, use an <xref:Microsoft.Extensions.Logging.ILogger%601> object.</span></span> <span data-ttu-id="ea9c9-138">在 Web 应用或托管服务中，由依赖关系注入 (DI) 获取 `ILogger`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-138">In a web app or hosted service, get an `ILogger` from dependency injection (DI).</span></span> <span data-ttu-id="ea9c9-139">在非主机控制台应用中，使用 `LoggerFactory` 来创建 `ILogger`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-139">In non-host console apps, use the `LoggerFactory` to create an `ILogger`.</span></span>
+<span data-ttu-id="fa397-137">若要创建日志，请使用 <xref:Microsoft.Extensions.Logging.ILogger%601> 对象。</span><span class="sxs-lookup"><span data-stu-id="fa397-137">To create logs, use an <xref:Microsoft.Extensions.Logging.ILogger%601> object.</span></span> <span data-ttu-id="fa397-138">在 Web 应用或托管服务中，由依赖关系注入 (DI) 获取 `ILogger`。</span><span class="sxs-lookup"><span data-stu-id="fa397-138">In a web app or hosted service, get an `ILogger` from dependency injection (DI).</span></span> <span data-ttu-id="fa397-139">在非主机控制台应用中，使用 `LoggerFactory` 来创建 `ILogger`。</span><span class="sxs-lookup"><span data-stu-id="fa397-139">In non-host console apps, use the `LoggerFactory` to create an `ILogger`.</span></span>
 
-<span data-ttu-id="ea9c9-140">下面的 ASP.NET Core 示例创建了一个以 `TodoApiSample.Pages.AboutModel` 为类别的记录器。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-140">The following ASP.NET Core example creates a logger with `TodoApiSample.Pages.AboutModel` as the category.</span></span> <span data-ttu-id="ea9c9-141">日志“类别”是与每个日志关联的字符串  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-141">The log *category* is a string that is associated with each log.</span></span> <span data-ttu-id="ea9c9-142">DI 提供的 `ILogger<T>` 实例创建日志，该日志以类型 `T` 的完全限定名称为类别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-142">The `ILogger<T>` instance provided by DI creates logs that have the fully qualified name of type `T` as the category.</span></span> 
+<span data-ttu-id="fa397-140">下面的 ASP.NET Core 示例创建了一个以 `TodoApiSample.Pages.AboutModel` 为类别的记录器。</span><span class="sxs-lookup"><span data-stu-id="fa397-140">The following ASP.NET Core example creates a logger with `TodoApiSample.Pages.AboutModel` as the category.</span></span> <span data-ttu-id="fa397-141">日志“类别”是与每个日志关联的字符串  。</span><span class="sxs-lookup"><span data-stu-id="fa397-141">The log *category* is a string that is associated with each log.</span></span> <span data-ttu-id="fa397-142">DI 提供的 `ILogger<T>` 实例创建日志，该日志以类型 `T` 的完全限定名称为类别。</span><span class="sxs-lookup"><span data-stu-id="fa397-142">The `ILogger<T>` instance provided by DI creates logs that have the fully qualified name of type `T` as the category.</span></span> 
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3,5,7)]
 
-<span data-ttu-id="ea9c9-143">下面的非主机控制台应用示例创建了一个以 `LoggingConsoleApp.Program` 为类别的记录器。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-143">The following non-host console app example creates a logger with `LoggingConsoleApp.Program` as the category.</span></span>
+<span data-ttu-id="fa397-143">下面的非主机控制台应用示例创建了一个以 `LoggingConsoleApp.Program` 为类别的记录器。</span><span class="sxs-lookup"><span data-stu-id="fa397-143">The following non-host console app example creates a logger with `LoggingConsoleApp.Program` as the category.</span></span>
 
 [!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=10)]
 
@@ -105,7 +105,7 @@ ms.locfileid: "72007021"
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-144">在下面的 ASP.NET Core 和控制台应用示例中，记录器用于创建以 `Information` 为级别的日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-144">In the following ASP.NET Core and console app examples, the logger is used to create logs with `Information` as the level.</span></span> <span data-ttu-id="ea9c9-145">日志“级别”代表所记录事件的严重程度  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-145">The Log *level* indicates the severity of the logged event.</span></span> 
+<span data-ttu-id="fa397-144">在下面的 ASP.NET Core 和控制台应用示例中，记录器用于创建以 `Information` 为级别的日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-144">In the following ASP.NET Core and console app examples, the logger is used to create logs with `Information` as the level.</span></span> <span data-ttu-id="fa397-145">日志“级别”代表所记录事件的严重程度  。</span><span class="sxs-lookup"><span data-stu-id="fa397-145">The Log *level* indicates the severity of the logged event.</span></span> 
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -121,72 +121,72 @@ ms.locfileid: "72007021"
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-146">本文稍后部分将更详细地介绍[级别](#log-level)和[类别](#log-category)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-146">[Levels](#log-level) and [categories](#log-category) are explained in more detail later in this article.</span></span> 
+<span data-ttu-id="fa397-146">本文稍后部分将更详细地介绍[级别](#log-level)和[类别](#log-category)。</span><span class="sxs-lookup"><span data-stu-id="fa397-146">[Levels](#log-level) and [categories](#log-category) are explained in more detail later in this article.</span></span> 
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="ea9c9-147">在 Program 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="ea9c9-147">Create logs in the Program class</span></span>
+### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="fa397-147">在 Program 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="fa397-147">Create logs in the Program class</span></span>
 
-<span data-ttu-id="ea9c9-148">若要将日志写入 ASP.NET Core 应用的 `Program` 类中，请在生成主机后从 DI 获取 `ILogger`实例：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-148">To write logs in the `Program` class of an ASP.NET Core app, get an `ILogger` instance from DI after building the host:</span></span>
+<span data-ttu-id="fa397-148">若要将日志写入 ASP.NET Core 应用的 `Program` 类中，请在生成主机后从 DI 获取 `ILogger`实例：</span><span class="sxs-lookup"><span data-stu-id="fa397-148">To write logs in the `Program` class of an ASP.NET Core app, get an `ILogger` instance from DI after building the host:</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
 
-### <a name="create-logs-in-the-startup-class"></a><span data-ttu-id="ea9c9-149">在 Startup 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="ea9c9-149">Create logs in the Startup class</span></span>
+### <a name="create-logs-in-the-startup-class"></a><span data-ttu-id="fa397-149">在 Startup 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="fa397-149">Create logs in the Startup class</span></span>
 
-<span data-ttu-id="ea9c9-150">若要将日志写入 ASP.NET Core 应用的 `Startup.Configure` 方法中，请在方法签名中包含 `ILogger` 参数：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-150">To write logs in the `Startup.Configure` method of an ASP.NET Core app, include an `ILogger` parameter in the method signature:</span></span>
+<span data-ttu-id="fa397-150">若要将日志写入 ASP.NET Core 应用的 `Startup.Configure` 方法中，请在方法签名中包含 `ILogger` 参数：</span><span class="sxs-lookup"><span data-stu-id="fa397-150">To write logs in the `Startup.Configure` method of an ASP.NET Core app, include an `ILogger` parameter in the method signature:</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_Configure&highlight=1,5)]
 
-<span data-ttu-id="ea9c9-151">不支持在 `Startup.ConfigureServices` 方法中完成 DI 容器设置之前就写入日志：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-151">Writing logs before completion of the DI container setup in the `Startup.ConfigureServices` method is not supported:</span></span>
+<span data-ttu-id="fa397-151">不支持在 `Startup.ConfigureServices` 方法中完成 DI 容器设置之前就写入日志：</span><span class="sxs-lookup"><span data-stu-id="fa397-151">Writing logs before completion of the DI container setup in the `Startup.ConfigureServices` method is not supported:</span></span>
 
-* <span data-ttu-id="ea9c9-152">不支持将记录器注入到 `Startup` 构造函数中。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-152">Logger injection into the `Startup` constructor is not supported.</span></span>
-* <span data-ttu-id="ea9c9-153">不支持将记录器注入到 `Startup.ConfigureServices` 方法签名中</span><span class="sxs-lookup"><span data-stu-id="ea9c9-153">Logger injection into the `Startup.ConfigureServices` method signature is not supported</span></span>
+* <span data-ttu-id="fa397-152">不支持将记录器注入到 `Startup` 构造函数中。</span><span class="sxs-lookup"><span data-stu-id="fa397-152">Logger injection into the `Startup` constructor is not supported.</span></span>
+* <span data-ttu-id="fa397-153">不支持将记录器注入到 `Startup.ConfigureServices` 方法签名中</span><span class="sxs-lookup"><span data-stu-id="fa397-153">Logger injection into the `Startup.ConfigureServices` method signature is not supported</span></span>
 
-<span data-ttu-id="ea9c9-154">这一限制的原因是，日志记录依赖于 DI 和配置，而配置又依赖于 DI。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-154">The reason for this restriction is that logging depends on DI and on configuration, which in turns depends on DI.</span></span> <span data-ttu-id="ea9c9-155">在完成 `ConfigureServices` 之前，不会设置 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-155">The DI container isn't set up until `ConfigureServices` finishes.</span></span>
+<span data-ttu-id="fa397-154">这一限制的原因是，日志记录依赖于 DI 和配置，而配置又依赖于 DI。</span><span class="sxs-lookup"><span data-stu-id="fa397-154">The reason for this restriction is that logging depends on DI and on configuration, which in turns depends on DI.</span></span> <span data-ttu-id="fa397-155">在完成 `ConfigureServices` 之前，不会设置 DI 容器。</span><span class="sxs-lookup"><span data-stu-id="fa397-155">The DI container isn't set up until `ConfigureServices` finishes.</span></span>
 
-<span data-ttu-id="ea9c9-156">由于为 Web 主机创建了单独的 DI 容器，所以在 ASP.NET Core 的早期版本中，构造函数将记录器注入到 `Startup` 工作。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-156">Constructor injection of a logger into `Startup` works in earlier versions of ASP.NET Core because a separate DI container is created for the Web Host.</span></span> <span data-ttu-id="ea9c9-157">若要了解为何仅为通用主机创建一个容器，请参阅[重大更改公告](https://github.com/aspnet/Announcements/issues/353)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-157">For information about why only one container is created for the Generic Host, see the [breaking change announcement](https://github.com/aspnet/Announcements/issues/353).</span></span>
+<span data-ttu-id="fa397-156">由于为 Web 主机创建了单独的 DI 容器，所以在 ASP.NET Core 的早期版本中，构造函数将记录器注入到 `Startup` 工作。</span><span class="sxs-lookup"><span data-stu-id="fa397-156">Constructor injection of a logger into `Startup` works in earlier versions of ASP.NET Core because a separate DI container is created for the Web Host.</span></span> <span data-ttu-id="fa397-157">若要了解为何仅为通用主机创建一个容器，请参阅[重大更改公告](https://github.com/aspnet/Announcements/issues/353)。</span><span class="sxs-lookup"><span data-stu-id="fa397-157">For information about why only one container is created for the Generic Host, see the [breaking change announcement](https://github.com/aspnet/Announcements/issues/353).</span></span>
 
-<span data-ttu-id="ea9c9-158">如果需要配置依赖于 `ILogger<T>` 的服务，则仍可通过使用构造函数注入或提供工厂方法的方式来执行此操作。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-158">If you need to configure a service that depends on `ILogger<T>`, you can still do that by using constructor injection or by providing a factory method.</span></span> <span data-ttu-id="ea9c9-159">只有在没有其他选择的情况下，才建议使用工厂方法。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-159">The factory method approach is recommended only if there is no other option.</span></span> <span data-ttu-id="ea9c9-160">例如，假设你需要由 DI 为服务填充属性：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-160">For example, suppose you need to fill a property with a service from DI:</span></span>
+<span data-ttu-id="fa397-158">如果需要配置依赖于 `ILogger<T>` 的服务，则仍可通过使用构造函数注入或提供工厂方法的方式来执行此操作。</span><span class="sxs-lookup"><span data-stu-id="fa397-158">If you need to configure a service that depends on `ILogger<T>`, you can still do that by using constructor injection or by providing a factory method.</span></span> <span data-ttu-id="fa397-159">只有在没有其他选择的情况下，才建议使用工厂方法。</span><span class="sxs-lookup"><span data-stu-id="fa397-159">The factory method approach is recommended only if there is no other option.</span></span> <span data-ttu-id="fa397-160">例如，假设你需要由 DI 为服务填充属性：</span><span class="sxs-lookup"><span data-stu-id="fa397-160">For example, suppose you need to fill a property with a service from DI:</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_ConfigureServices&highlight=6-10)]
 
-<span data-ttu-id="ea9c9-161">前面突出显示的代码是 `Func`，该代码在 DI 容器第一次需要构造 `MyService` 实例时运行。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-161">The preceding highlighted code is a `Func` that runs the first time the DI container needs to construct an instance of `MyService`.</span></span> <span data-ttu-id="ea9c9-162">可以用这种方式访问任何已注册的服务。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-162">You can access any of the registered services in this way.</span></span>
+<span data-ttu-id="fa397-161">前面突出显示的代码是 `Func`，该代码在 DI 容器第一次需要构造 `MyService` 实例时运行。</span><span class="sxs-lookup"><span data-stu-id="fa397-161">The preceding highlighted code is a `Func` that runs the first time the DI container needs to construct an instance of `MyService`.</span></span> <span data-ttu-id="fa397-162">可以用这种方式访问任何已注册的服务。</span><span class="sxs-lookup"><span data-stu-id="fa397-162">You can access any of the registered services in this way.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-### <a name="create-logs-in-startup"></a><span data-ttu-id="ea9c9-163">启动时创建日志</span><span class="sxs-lookup"><span data-stu-id="ea9c9-163">Create logs in Startup</span></span>
+### <a name="create-logs-in-startup"></a><span data-ttu-id="fa397-163">启动时创建日志</span><span class="sxs-lookup"><span data-stu-id="fa397-163">Create logs in Startup</span></span>
 
-<span data-ttu-id="ea9c9-164">要将日志写入 `Startup` 类，构造函数签名需包含 `ILogger` 参数：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-164">To write logs in the `Startup` class, include an `ILogger` parameter in the constructor signature:</span></span>
+<span data-ttu-id="fa397-164">要将日志写入 `Startup` 类，构造函数签名需包含 `ILogger` 参数：</span><span class="sxs-lookup"><span data-stu-id="fa397-164">To write logs in the `Startup` class, include an `ILogger` parameter in the constructor signature:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Startup.cs?name=snippet_Startup&highlight=3,5,8,20,27)]
 
-### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="ea9c9-165">在 Program 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="ea9c9-165">Create logs in the Program class</span></span>
+### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="fa397-165">在 Program 类中创建日志</span><span class="sxs-lookup"><span data-stu-id="fa397-165">Create logs in the Program class</span></span>
 
-<span data-ttu-id="ea9c9-166">要将日志写入 `Program` 类，请从 DI 获取 `ILogger` 实例：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-166">To write logs in the `Program` class, get an `ILogger` instance from DI:</span></span>
+<span data-ttu-id="fa397-166">要将日志写入 `Program` 类，请从 DI 获取 `ILogger` 实例：</span><span class="sxs-lookup"><span data-stu-id="fa397-166">To write logs in the `Program` class, get an `ILogger` instance from DI:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
 
 ::: moniker-end
 
-### <a name="no-asynchronous-logger-methods"></a><span data-ttu-id="ea9c9-167">没有异步记录器方法</span><span class="sxs-lookup"><span data-stu-id="ea9c9-167">No asynchronous logger methods</span></span>
+### <a name="no-asynchronous-logger-methods"></a><span data-ttu-id="fa397-167">没有异步记录器方法</span><span class="sxs-lookup"><span data-stu-id="fa397-167">No asynchronous logger methods</span></span>
 
-<span data-ttu-id="ea9c9-168">日志记录应该会很快，不值得牺牲性能来使用异步代码。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-168">Logging should be so fast that it isn't worth the performance cost of asynchronous code.</span></span> <span data-ttu-id="ea9c9-169">如果你的日志数据存储很慢，请不要直接写入它。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-169">If your logging data store is slow, don't write to it directly.</span></span> <span data-ttu-id="ea9c9-170">首先考虑将日志消息写入快速存储，稍后再将其变为慢速存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-170">Consider writing the log messages to a fast store initially, then move them to the slow store later.</span></span> <span data-ttu-id="ea9c9-171">例如，如果你要记录到 SQL Server，你可能不想直接在 `Log` 方法中记录，因为 `Log` 方法是同步的。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-171">For example, if you're logging to SQL Server, you don't want to do that directly in a `Log` method, since the `Log` methods are synchronous.</span></span> <span data-ttu-id="ea9c9-172">相反，你会将日志消息同步添加到内存中的队列，并让后台辅助线程从队列中拉出消息，以完成将数据推送到 SQL Server 的异步工作。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-172">Instead, synchronously add log messages to an in-memory queue and have a background worker pull the messages out of the queue to do the asynchronous work of pushing data to SQL Server.</span></span>
+<span data-ttu-id="fa397-168">日志记录应该会很快，不值得牺牲性能来使用异步代码。</span><span class="sxs-lookup"><span data-stu-id="fa397-168">Logging should be so fast that it isn't worth the performance cost of asynchronous code.</span></span> <span data-ttu-id="fa397-169">如果你的日志数据存储很慢，请不要直接写入它。</span><span class="sxs-lookup"><span data-stu-id="fa397-169">If your logging data store is slow, don't write to it directly.</span></span> <span data-ttu-id="fa397-170">首先考虑将日志消息写入快速存储，稍后再将其变为慢速存储。</span><span class="sxs-lookup"><span data-stu-id="fa397-170">Consider writing the log messages to a fast store initially, then move them to the slow store later.</span></span> <span data-ttu-id="fa397-171">例如，如果你要记录到 SQL Server，你可能不想直接在 `Log` 方法中记录，因为 `Log` 方法是同步的。</span><span class="sxs-lookup"><span data-stu-id="fa397-171">For example, if you're logging to SQL Server, you don't want to do that directly in a `Log` method, since the `Log` methods are synchronous.</span></span> <span data-ttu-id="fa397-172">相反，你会将日志消息同步添加到内存中的队列，并让后台辅助线程从队列中拉出消息，以完成将数据推送到 SQL Server 的异步工作。</span><span class="sxs-lookup"><span data-stu-id="fa397-172">Instead, synchronously add log messages to an in-memory queue and have a background worker pull the messages out of the queue to do the asynchronous work of pushing data to SQL Server.</span></span>
 
-## <a name="configuration"></a><span data-ttu-id="ea9c9-173">配置</span><span class="sxs-lookup"><span data-stu-id="ea9c9-173">Configuration</span></span>
+## <a name="configuration"></a><span data-ttu-id="fa397-173">配置</span><span class="sxs-lookup"><span data-stu-id="fa397-173">Configuration</span></span>
 
-<span data-ttu-id="ea9c9-174">日志记录提供程序配置由一个或多个配置提供程序提供：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-174">Logging provider configuration is provided by one or more configuration providers:</span></span>
+<span data-ttu-id="fa397-174">日志记录提供程序配置由一个或多个配置提供程序提供：</span><span class="sxs-lookup"><span data-stu-id="fa397-174">Logging provider configuration is provided by one or more configuration providers:</span></span>
 
-* <span data-ttu-id="ea9c9-175">文件格式（INI、JSON 和 XML）。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-175">File formats (INI, JSON, and XML).</span></span>
-* <span data-ttu-id="ea9c9-176">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-176">Command-line arguments.</span></span>
-* <span data-ttu-id="ea9c9-177">环境变量。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-177">Environment variables.</span></span>
-* <span data-ttu-id="ea9c9-178">内存中的 .NET 对象。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-178">In-memory .NET objects.</span></span>
-* <span data-ttu-id="ea9c9-179">未加密的[机密管理器](xref:security/app-secrets)存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-179">The unencrypted [Secret Manager](xref:security/app-secrets) storage.</span></span>
-* <span data-ttu-id="ea9c9-180">加密的用户存储，如 [Azure Key Vault](xref:security/key-vault-configuration)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-180">An encrypted user store, such as [Azure Key Vault](xref:security/key-vault-configuration).</span></span>
-* <span data-ttu-id="ea9c9-181">（已安装或已创建的）自定义提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-181">Custom providers (installed or created).</span></span>
+* <span data-ttu-id="fa397-175">文件格式（INI、JSON 和 XML）。</span><span class="sxs-lookup"><span data-stu-id="fa397-175">File formats (INI, JSON, and XML).</span></span>
+* <span data-ttu-id="fa397-176">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="fa397-176">Command-line arguments.</span></span>
+* <span data-ttu-id="fa397-177">环境变量。</span><span class="sxs-lookup"><span data-stu-id="fa397-177">Environment variables.</span></span>
+* <span data-ttu-id="fa397-178">内存中的 .NET 对象。</span><span class="sxs-lookup"><span data-stu-id="fa397-178">In-memory .NET objects.</span></span>
+* <span data-ttu-id="fa397-179">未加密的[机密管理器](xref:security/app-secrets)存储。</span><span class="sxs-lookup"><span data-stu-id="fa397-179">The unencrypted [Secret Manager](xref:security/app-secrets) storage.</span></span>
+* <span data-ttu-id="fa397-180">加密的用户存储，如 [Azure Key Vault](xref:security/key-vault-configuration)。</span><span class="sxs-lookup"><span data-stu-id="fa397-180">An encrypted user store, such as [Azure Key Vault](xref:security/key-vault-configuration).</span></span>
+* <span data-ttu-id="fa397-181">（已安装或已创建的）自定义提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-181">Custom providers (installed or created).</span></span>
 
-<span data-ttu-id="ea9c9-182">例如，日志记录配置通常由应用设置文件的 `Logging` 部分提供。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-182">For example, logging configuration is commonly provided by the `Logging` section of app settings files.</span></span> <span data-ttu-id="ea9c9-183">以下示例显示了典型 *appsettings.Development.json* 文件的内容：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-183">The following example shows the contents of a typical *appsettings.Development.json* file:</span></span>
+<span data-ttu-id="fa397-182">例如，日志记录配置通常由应用设置文件的 `Logging` 部分提供。</span><span class="sxs-lookup"><span data-stu-id="fa397-182">For example, logging configuration is commonly provided by the `Logging` section of app settings files.</span></span> <span data-ttu-id="fa397-183">以下示例显示了典型 *appsettings.Development.json* 文件的内容：</span><span class="sxs-lookup"><span data-stu-id="fa397-183">The following example shows the contents of a typical *appsettings.Development.json* file:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -206,21 +206,21 @@ ms.locfileid: "72007021"
 }
 ```
 
-<span data-ttu-id="ea9c9-184">`Logging` 属性可具有 `LogLevel` 和日志提供程序属性（显示控制台）。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-184">The `Logging` property can have `LogLevel` and log provider properties (Console is shown).</span></span>
+<span data-ttu-id="fa397-184">`Logging` 属性可具有 `LogLevel` 和日志提供程序属性（显示控制台）。</span><span class="sxs-lookup"><span data-stu-id="fa397-184">The `Logging` property can have `LogLevel` and log provider properties (Console is shown).</span></span>
 
-<span data-ttu-id="ea9c9-185">`Logging` 下的 `LogLevel` 属性指定了用于记录所选类别的最低[级别](#log-level)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-185">The `LogLevel` property under `Logging` specifies the minimum [level](#log-level) to log for selected categories.</span></span> <span data-ttu-id="ea9c9-186">在本例中，`System` 和 `Microsoft` 类别在 `Information` 级别记录，其他均在 `Debug` 级别记录。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-186">In the example, `System` and `Microsoft` categories log at `Information` level, and all others log at `Debug` level.</span></span>
+<span data-ttu-id="fa397-185">`Logging` 下的 `LogLevel` 属性指定了用于记录所选类别的最低[级别](#log-level)。</span><span class="sxs-lookup"><span data-stu-id="fa397-185">The `LogLevel` property under `Logging` specifies the minimum [level](#log-level) to log for selected categories.</span></span> <span data-ttu-id="fa397-186">在本例中，`System` 和 `Microsoft` 类别在 `Information` 级别记录，其他均在 `Debug` 级别记录。</span><span class="sxs-lookup"><span data-stu-id="fa397-186">In the example, `System` and `Microsoft` categories log at `Information` level, and all others log at `Debug` level.</span></span>
 
-<span data-ttu-id="ea9c9-187">`Logging` 下的其他属性均指定了日志记录提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-187">Other properties under `Logging` specify logging providers.</span></span> <span data-ttu-id="ea9c9-188">本示例针对控制台提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-188">The example is for the Console provider.</span></span> <span data-ttu-id="ea9c9-189">如果提供程序支持[日志作用域](#log-scopes)，则 `IncludeScopes` 将指示是否启用这些域。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-189">If a provider supports [log scopes](#log-scopes), `IncludeScopes` indicates whether they're enabled.</span></span> <span data-ttu-id="ea9c9-190">提供程序属性（例如本例的 `Console`）也可指定 `LogLevel` 属性。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-190">A provider property (such as `Console` in the example) may also specify a `LogLevel` property.</span></span> <span data-ttu-id="ea9c9-191">提供程序下的 `LogLevel` 指定了该提供程序记录的级别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-191">`LogLevel` under a provider specifies levels to log for that provider.</span></span>
+<span data-ttu-id="fa397-187">`Logging` 下的其他属性均指定了日志记录提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-187">Other properties under `Logging` specify logging providers.</span></span> <span data-ttu-id="fa397-188">本示例针对控制台提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-188">The example is for the Console provider.</span></span> <span data-ttu-id="fa397-189">如果提供程序支持[日志作用域](#log-scopes)，则 `IncludeScopes` 将指示是否启用这些域。</span><span class="sxs-lookup"><span data-stu-id="fa397-189">If a provider supports [log scopes](#log-scopes), `IncludeScopes` indicates whether they're enabled.</span></span> <span data-ttu-id="fa397-190">提供程序属性（例如本例的 `Console`）也可指定 `LogLevel` 属性。</span><span class="sxs-lookup"><span data-stu-id="fa397-190">A provider property (such as `Console` in the example) may also specify a `LogLevel` property.</span></span> <span data-ttu-id="fa397-191">提供程序下的 `LogLevel` 指定了该提供程序记录的级别。</span><span class="sxs-lookup"><span data-stu-id="fa397-191">`LogLevel` under a provider specifies levels to log for that provider.</span></span>
 
-<span data-ttu-id="ea9c9-192">如果在 `Logging.{providername}.LogLevel` 中指定了级别，则这些级别将重写 `Logging.LogLevel` 中设置的所有内容。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-192">If levels are specified in `Logging.{providername}.LogLevel`, they override anything set in `Logging.LogLevel`.</span></span>
+<span data-ttu-id="fa397-192">如果在 `Logging.{providername}.LogLevel` 中指定了级别，则这些级别将重写 `Logging.LogLevel` 中设置的所有内容。</span><span class="sxs-lookup"><span data-stu-id="fa397-192">If levels are specified in `Logging.{providername}.LogLevel`, they override anything set in `Logging.LogLevel`.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-193">若要了解如何实现配置提供程序，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-193">For information on implementing configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="fa397-193">若要了解如何实现配置提供程序，请参阅 <xref:fundamentals/configuration/index>。</span><span class="sxs-lookup"><span data-stu-id="fa397-193">For information on implementing configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
 
-## <a name="sample-logging-output"></a><span data-ttu-id="ea9c9-194">日志记录输出示例</span><span class="sxs-lookup"><span data-stu-id="ea9c9-194">Sample logging output</span></span>
+## <a name="sample-logging-output"></a><span data-ttu-id="fa397-194">日志记录输出示例</span><span class="sxs-lookup"><span data-stu-id="fa397-194">Sample logging output</span></span>
 
-<span data-ttu-id="ea9c9-195">使用上一部分中显示的示例代码从命令行运行应用时，将在控制台中看到日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-195">With the sample code shown in the preceding section, logs appear in the console when the app is run from the command line.</span></span> <span data-ttu-id="ea9c9-196">以下是控制台输出示例：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-196">Here's an example of console output:</span></span>
+<span data-ttu-id="fa397-195">使用上一部分中显示的示例代码从命令行运行应用时，将在控制台中看到日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-195">With the sample code shown in the preceding section, logs appear in the console when the app is run from the command line.</span></span> <span data-ttu-id="fa397-196">以下是控制台输出示例：</span><span class="sxs-lookup"><span data-stu-id="fa397-196">Here's an example of console output:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -266,9 +266,9 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-197">通过向 `http://localhost:5000/api/todo/0` 处的示例应用发出 HTTP Get 请求来生成前述日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-197">The preceding logs were generated by making an HTTP Get request to the sample app at `http://localhost:5000/api/todo/0`.</span></span>
+<span data-ttu-id="fa397-197">通过向 `http://localhost:5000/api/todo/0` 处的示例应用发出 HTTP Get 请求来生成前述日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-197">The preceding logs were generated by making an HTTP Get request to the sample app at `http://localhost:5000/api/todo/0`.</span></span>
 
-<span data-ttu-id="ea9c9-198">在 Visual Studio 中运行示例应用时，“调试”窗口中将显示如下日志：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-198">Here's an example of the same logs as they appear in the Debug window when you run the sample app in Visual Studio:</span></span>
+<span data-ttu-id="fa397-198">在 Visual Studio 中运行示例应用时，“调试”窗口中将显示如下日志：</span><span class="sxs-lookup"><span data-stu-id="fa397-198">Here's an example of the same logs as they appear in the Debug window when you run the sample app in Visual Studio:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -284,7 +284,7 @@ Microsoft.AspNetCore.Routing.EndpointMiddleware: Information: Executed endpoint 
 Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 98.41300000000001ms 404
 ```
 
-<span data-ttu-id="ea9c9-199">由上一部分所示的 `ILogger` 调用创建的日志以“TodoApiSample”开头。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-199">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApiSample".</span></span> <span data-ttu-id="ea9c9-200">以“Microsoft”类别开头的日志来自 ASP.NET Core 框架代码。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-200">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="ea9c9-201">ASP.NET Core 和应用程序代码使用相同的日志记录 API 和提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-201">ASP.NET Core and application code are using the same logging API and providers.</span></span>
+<span data-ttu-id="fa397-199">由上一部分所示的 `ILogger` 调用创建的日志以“TodoApiSample”开头。</span><span class="sxs-lookup"><span data-stu-id="fa397-199">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApiSample".</span></span> <span data-ttu-id="fa397-200">以“Microsoft”类别开头的日志来自 ASP.NET Core 框架代码。</span><span class="sxs-lookup"><span data-stu-id="fa397-200">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="fa397-201">ASP.NET Core 和应用程序代码使用相同的日志记录 API 和提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-201">ASP.NET Core and application code are using the same logging API and providers.</span></span>
 
 ::: moniker-end
 
@@ -300,21 +300,21 @@ Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executed 
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 316.3195ms 404
 ```
 
-<span data-ttu-id="ea9c9-202">由上一部分所示的 `ILogger` 调用创建的日志以“TodoApi”开头。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-202">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApi".</span></span> <span data-ttu-id="ea9c9-203">以“Microsoft”类别开头的日志来自 ASP.NET Core 框架代码。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-203">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="ea9c9-204">ASP.NET Core 和应用程序代码使用相同的日志记录 API 和提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-204">ASP.NET Core and application code are using the same logging API and providers.</span></span>
+<span data-ttu-id="fa397-202">由上一部分所示的 `ILogger` 调用创建的日志以“TodoApi”开头。</span><span class="sxs-lookup"><span data-stu-id="fa397-202">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApi".</span></span> <span data-ttu-id="fa397-203">以“Microsoft”类别开头的日志来自 ASP.NET Core 框架代码。</span><span class="sxs-lookup"><span data-stu-id="fa397-203">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="fa397-204">ASP.NET Core 和应用程序代码使用相同的日志记录 API 和提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-204">ASP.NET Core and application code are using the same logging API and providers.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-205">本文余下部分将介绍有关日志记录的某些详细信息及选项。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-205">The remainder of this article explains some details and options for logging.</span></span>
+<span data-ttu-id="fa397-205">本文余下部分将介绍有关日志记录的某些详细信息及选项。</span><span class="sxs-lookup"><span data-stu-id="fa397-205">The remainder of this article explains some details and options for logging.</span></span>
 
-## <a name="nuget-packages"></a><span data-ttu-id="ea9c9-206">NuGet 包</span><span class="sxs-lookup"><span data-stu-id="ea9c9-206">NuGet packages</span></span>
+## <a name="nuget-packages"></a><span data-ttu-id="fa397-206">NuGet 包</span><span class="sxs-lookup"><span data-stu-id="fa397-206">NuGet packages</span></span>
 
-<span data-ttu-id="ea9c9-207">`ILogger` 和 `ILoggerFactory` 接口位于 [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/) 中，其默认实现位于 [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 中。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-207">The `ILogger` and `ILoggerFactory` interfaces are in [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/), and default implementations for them are in [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/).</span></span>
+<span data-ttu-id="fa397-207">`ILogger` 和 `ILoggerFactory` 接口位于 [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/) 中，其默认实现位于 [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 中。</span><span class="sxs-lookup"><span data-stu-id="fa397-207">The `ILogger` and `ILoggerFactory` interfaces are in [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/), and default implementations for them are in [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/).</span></span>
 
-## <a name="log-category"></a><span data-ttu-id="ea9c9-208">日志类别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-208">Log category</span></span>
+## <a name="log-category"></a><span data-ttu-id="fa397-208">日志类别</span><span class="sxs-lookup"><span data-stu-id="fa397-208">Log category</span></span>
 
-<span data-ttu-id="ea9c9-209">创建 `ILogger` 对象后，将为其指定“类别”  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-209">When an `ILogger` object is created, a *category* is specified for it.</span></span> <span data-ttu-id="ea9c9-210">该类别包含在由此 `ILogger` 实例创建的每条日志消息中。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-210">That category is included with each log message created by that instance of `ILogger`.</span></span> <span data-ttu-id="ea9c9-211">类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-211">The category may be any string, but the convention is to use the class name, such as "TodoApi.Controllers.TodoController".</span></span>
+<span data-ttu-id="fa397-209">创建 `ILogger` 对象后，将为其指定“类别”  。</span><span class="sxs-lookup"><span data-stu-id="fa397-209">When an `ILogger` object is created, a *category* is specified for it.</span></span> <span data-ttu-id="fa397-210">该类别包含在由此 `ILogger` 实例创建的每条日志消息中。</span><span class="sxs-lookup"><span data-stu-id="fa397-210">That category is included with each log message created by that instance of `ILogger`.</span></span> <span data-ttu-id="fa397-211">类别可以是任何字符串，但约定需使用类名，例如“TodoApi.Controllers.TodoController”。</span><span class="sxs-lookup"><span data-stu-id="fa397-211">The category may be any string, but the convention is to use the class name, such as "TodoApi.Controllers.TodoController".</span></span>
 
-<span data-ttu-id="ea9c9-212">使用 `ILogger<T>` 获取一个 `ILogger` 实例，该实例使用 `T` 的完全限定类型名称作为类别：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-212">Use `ILogger<T>` to get an `ILogger` instance that uses the fully qualified type name of `T` as the category:</span></span>
+<span data-ttu-id="fa397-212">使用 `ILogger<T>` 获取一个 `ILogger` 实例，该实例使用 `T` 的完全限定类型名称作为类别：</span><span class="sxs-lookup"><span data-stu-id="fa397-212">Use `ILogger<T>` to get an `ILogger` instance that uses the fully qualified type name of `T` as the category:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -328,7 +328,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-213">要显式指定类别，请调用 `ILoggerFactory.CreateLogger`：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-213">To explicitly specify the category, call `ILoggerFactory.CreateLogger`:</span></span>
+<span data-ttu-id="fa397-213">要显式指定类别，请调用 `ILoggerFactory.CreateLogger`：</span><span class="sxs-lookup"><span data-stu-id="fa397-213">To explicitly specify the category, call `ILoggerFactory.CreateLogger`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -342,13 +342,13 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-214">`ILogger<T>` 相当于使用 `T` 的完全限定类型名称来调用 `CreateLogger`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-214">`ILogger<T>` is equivalent to calling `CreateLogger` with the fully qualified type name of `T`.</span></span>
+<span data-ttu-id="fa397-214">`ILogger<T>` 相当于使用 `T` 的完全限定类型名称来调用 `CreateLogger`。</span><span class="sxs-lookup"><span data-stu-id="fa397-214">`ILogger<T>` is equivalent to calling `CreateLogger` with the fully qualified type name of `T`.</span></span>
 
-## <a name="log-level"></a><span data-ttu-id="ea9c9-215">日志级别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-215">Log level</span></span>
+## <a name="log-level"></a><span data-ttu-id="fa397-215">日志级别</span><span class="sxs-lookup"><span data-stu-id="fa397-215">Log level</span></span>
 
-<span data-ttu-id="ea9c9-216">每个日志都指定了一个 <xref:Microsoft.Extensions.Logging.LogLevel> 值。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-216">Every log specifies a <xref:Microsoft.Extensions.Logging.LogLevel> value.</span></span> <span data-ttu-id="ea9c9-217">日志级别指示严重性或重要程度。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-217">The log level indicates the severity or importance.</span></span> <span data-ttu-id="ea9c9-218">例如，可在方法正常结束时写入 `Information` 日志，在方法返回“404 找不到”状态代码时写入 `Warning` 日志  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-218">For example, you might write an `Information` log when a method ends normally and a `Warning` log when a method returns a *404 Not Found* status code.</span></span>
+<span data-ttu-id="fa397-216">每个日志都指定了一个 <xref:Microsoft.Extensions.Logging.LogLevel> 值。</span><span class="sxs-lookup"><span data-stu-id="fa397-216">Every log specifies a <xref:Microsoft.Extensions.Logging.LogLevel> value.</span></span> <span data-ttu-id="fa397-217">日志级别指示严重性或重要程度。</span><span class="sxs-lookup"><span data-stu-id="fa397-217">The log level indicates the severity or importance.</span></span> <span data-ttu-id="fa397-218">例如，可在方法正常结束时写入 `Information` 日志，在方法返回“404 找不到”状态代码时写入 `Warning` 日志  。</span><span class="sxs-lookup"><span data-stu-id="fa397-218">For example, you might write an `Information` log when a method ends normally and a `Warning` log when a method returns a *404 Not Found* status code.</span></span>
 
-<span data-ttu-id="ea9c9-219">下面的代码会创建 `Information` 和 `Warning` 日志：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-219">The following code creates `Information` and `Warning` logs:</span></span>
+<span data-ttu-id="fa397-219">下面的代码会创建 `Information` 和 `Warning` 日志：</span><span class="sxs-lookup"><span data-stu-id="fa397-219">The following code creates `Information` and `Warning` logs:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -362,44 +362,48 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-220">在上述代码中，第一个参数是[日志事件 ID](#log-event-id)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-220">In the preceding code, the first parameter is the [Log event ID](#log-event-id).</span></span> <span data-ttu-id="ea9c9-221">第二个参数是消息模板，其中的占位符用于填写剩余方法形参提供的实参值。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-221">The second parameter is a message template with placeholders for argument values provided by the remaining method parameters.</span></span> <span data-ttu-id="ea9c9-222">稍后将在本文的[消息模板部分](#log-message-template)介绍方法参数。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-222">The method parameters are explained in the [message template section](#log-message-template) later in this article.</span></span>
+<span data-ttu-id="fa397-220">在上述代码中，第一个参数是[日志事件 ID](#log-event-id)。</span><span class="sxs-lookup"><span data-stu-id="fa397-220">In the preceding code, the first parameter is the [Log event ID](#log-event-id).</span></span> <span data-ttu-id="fa397-221">第二个参数是消息模板，其中的占位符用于填写剩余方法形参提供的实参值。</span><span class="sxs-lookup"><span data-stu-id="fa397-221">The second parameter is a message template with placeholders for argument values provided by the remaining method parameters.</span></span> <span data-ttu-id="fa397-222">稍后将在本文的[消息模板部分](#log-message-template)介绍方法参数。</span><span class="sxs-lookup"><span data-stu-id="fa397-222">The method parameters are explained in the [message template section](#log-message-template) later in this article.</span></span>
 
-<span data-ttu-id="ea9c9-223">在方法名称中包含级别的日志方法（例如 `LogInformation` 和 `LogWarning`）是 [ILogger 的扩展方法](xref:Microsoft.Extensions.Logging.LoggerExtensions)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-223">Log methods that include the level in the method name (for example, `LogInformation` and `LogWarning`) are [extension methods for ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions).</span></span> <span data-ttu-id="ea9c9-224">这些方法会调用可接受 `LogLevel` 参数的 `Log` 方法。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-224">These methods call a `Log` method that takes a `LogLevel` parameter.</span></span> <span data-ttu-id="ea9c9-225">可直接调用 `Log` 方法而不调用其中某个扩展方法，但语法相对复杂。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-225">You can call the `Log` method directly rather than one of these extension methods, but the syntax is relatively complicated.</span></span> <span data-ttu-id="ea9c9-226">有关详细信息，请参阅 <xref:Microsoft.Extensions.Logging.ILogger> 和[记录器扩展源代码](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-226">For more information, see <xref:Microsoft.Extensions.Logging.ILogger> and the [logger extensions source code](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs).</span></span>
+<span data-ttu-id="fa397-223">在方法名称中包含级别的日志方法（例如 `LogInformation` 和 `LogWarning`）是 [ILogger 的扩展方法](xref:Microsoft.Extensions.Logging.LoggerExtensions)。</span><span class="sxs-lookup"><span data-stu-id="fa397-223">Log methods that include the level in the method name (for example, `LogInformation` and `LogWarning`) are [extension methods for ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions).</span></span> <span data-ttu-id="fa397-224">这些方法会调用可接受 `LogLevel` 参数的 `Log` 方法。</span><span class="sxs-lookup"><span data-stu-id="fa397-224">These methods call a `Log` method that takes a `LogLevel` parameter.</span></span> <span data-ttu-id="fa397-225">可直接调用 `Log` 方法而不调用其中某个扩展方法，但语法相对复杂。</span><span class="sxs-lookup"><span data-stu-id="fa397-225">You can call the `Log` method directly rather than one of these extension methods, but the syntax is relatively complicated.</span></span> <span data-ttu-id="fa397-226">有关详细信息，请参阅 <xref:Microsoft.Extensions.Logging.ILogger> 和[记录器扩展源代码](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)。</span><span class="sxs-lookup"><span data-stu-id="fa397-226">For more information, see <xref:Microsoft.Extensions.Logging.ILogger> and the [logger extensions source code](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs).</span></span>
 
-<span data-ttu-id="ea9c9-227">ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-227">ASP.NET Core defines the following log levels, ordered here from lowest to highest severity.</span></span>
+<span data-ttu-id="fa397-227">ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。</span><span class="sxs-lookup"><span data-stu-id="fa397-227">ASP.NET Core defines the following log levels, ordered here from lowest to highest severity.</span></span>
 
-* <span data-ttu-id="ea9c9-228">跟踪 = 0</span><span class="sxs-lookup"><span data-stu-id="ea9c9-228">Trace = 0</span></span>
+* <span data-ttu-id="fa397-228">跟踪 = 0</span><span class="sxs-lookup"><span data-stu-id="fa397-228">Trace = 0</span></span>
 
-  <span data-ttu-id="ea9c9-229">有关通常仅用于调试的信息。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-229">For information that's typically valuable only for debugging.</span></span> <span data-ttu-id="ea9c9-230">这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-230">These messages may contain sensitive application data and so shouldn't be enabled in a production environment.</span></span> <span data-ttu-id="ea9c9-231">默认情况下禁用。 </span><span class="sxs-lookup"><span data-stu-id="ea9c9-231">*Disabled by default.*</span></span>
+  <span data-ttu-id="fa397-229">有关通常仅用于调试的信息。</span><span class="sxs-lookup"><span data-stu-id="fa397-229">For information that's typically valuable only for debugging.</span></span> <span data-ttu-id="fa397-230">这些消息可能包含敏感应用程序数据，因此不得在生产环境中启用它们。</span><span class="sxs-lookup"><span data-stu-id="fa397-230">These messages may contain sensitive application data and so shouldn't be enabled in a production environment.</span></span> <span data-ttu-id="fa397-231">默认情况下禁用。 </span><span class="sxs-lookup"><span data-stu-id="fa397-231">*Disabled by default.*</span></span>
 
-* <span data-ttu-id="ea9c9-232">调试 = 1</span><span class="sxs-lookup"><span data-stu-id="ea9c9-232">Debug = 1</span></span>
+* <span data-ttu-id="fa397-232">调试 = 1</span><span class="sxs-lookup"><span data-stu-id="fa397-232">Debug = 1</span></span>
 
-  <span data-ttu-id="ea9c9-233">有关在开发和调试中可能有用的信息。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-233">For information that may be useful in development and debugging.</span></span> <span data-ttu-id="ea9c9-234">示例：`Entering method Configure with flag set to true.` 由于日志数量过多，因此仅当执行故障排除时，才在生产中启用 `Debug` 级别日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-234">Example: `Entering method Configure with flag set to true.` Enable `Debug` level logs in production only when troubleshooting, due to the high volume of logs.</span></span>
+  <span data-ttu-id="fa397-233">有关在开发和调试中可能有用的信息。</span><span class="sxs-lookup"><span data-stu-id="fa397-233">For information that may be useful in development and debugging.</span></span> <span data-ttu-id="fa397-234">示例：`Entering method Configure with flag set to true.` 由于日志数量过多，因此仅当执行故障排除时，才在生产中启用 `Debug` 级别日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-234">Example: `Entering method Configure with flag set to true.` Enable `Debug` level logs in production only when troubleshooting, due to the high volume of logs.</span></span>
 
-* <span data-ttu-id="ea9c9-235">信息 = 2</span><span class="sxs-lookup"><span data-stu-id="ea9c9-235">Information = 2</span></span>
+* <span data-ttu-id="fa397-235">信息 = 2</span><span class="sxs-lookup"><span data-stu-id="fa397-235">Information = 2</span></span>
 
-  <span data-ttu-id="ea9c9-236">用于跟踪应用的常规流。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-236">For tracking the general flow of the app.</span></span> <span data-ttu-id="ea9c9-237">这些日志通常有长期价值。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-237">These logs typically have some long-term value.</span></span> <span data-ttu-id="ea9c9-238">示例：`Request received for path /api/todo`</span><span class="sxs-lookup"><span data-stu-id="ea9c9-238">Example: `Request received for path /api/todo`</span></span>
+  <span data-ttu-id="fa397-236">用于跟踪应用的常规流。</span><span class="sxs-lookup"><span data-stu-id="fa397-236">For tracking the general flow of the app.</span></span> <span data-ttu-id="fa397-237">这些日志通常有长期价值。</span><span class="sxs-lookup"><span data-stu-id="fa397-237">These logs typically have some long-term value.</span></span> <span data-ttu-id="fa397-238">示例：`Request received for path /api/todo`</span><span class="sxs-lookup"><span data-stu-id="fa397-238">Example: `Request received for path /api/todo`</span></span>
 
-* <span data-ttu-id="ea9c9-239">警告 = 3</span><span class="sxs-lookup"><span data-stu-id="ea9c9-239">Warning = 3</span></span>
+* <span data-ttu-id="fa397-239">警告 = 3</span><span class="sxs-lookup"><span data-stu-id="fa397-239">Warning = 3</span></span>
 
-  <span data-ttu-id="ea9c9-240">表示应用流中的异常或意外事件。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-240">For abnormal or unexpected events in the app flow.</span></span> <span data-ttu-id="ea9c9-241">可能包括不会中断应用运行但仍需调查的错误或其他条件。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-241">These may include errors or other conditions that don't cause the app to stop but might need to be investigated.</span></span> <span data-ttu-id="ea9c9-242">`Warning` 日志级别常用于已处理的异常。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-242">Handled exceptions are a common place to use the `Warning` log level.</span></span> <span data-ttu-id="ea9c9-243">示例：`FileNotFoundException for file quotes.txt.`</span><span class="sxs-lookup"><span data-stu-id="ea9c9-243">Example: `FileNotFoundException for file quotes.txt.`</span></span>
+  <span data-ttu-id="fa397-240">表示应用流中的异常或意外事件。</span><span class="sxs-lookup"><span data-stu-id="fa397-240">For abnormal or unexpected events in the app flow.</span></span> <span data-ttu-id="fa397-241">可能包括不会中断应用运行但仍需调查的错误或其他条件。</span><span class="sxs-lookup"><span data-stu-id="fa397-241">These may include errors or other conditions that don't cause the app to stop but might need to be investigated.</span></span> <span data-ttu-id="fa397-242">`Warning` 日志级别常用于已处理的异常。</span><span class="sxs-lookup"><span data-stu-id="fa397-242">Handled exceptions are a common place to use the `Warning` log level.</span></span> <span data-ttu-id="fa397-243">示例：`FileNotFoundException for file quotes.txt.`</span><span class="sxs-lookup"><span data-stu-id="fa397-243">Example: `FileNotFoundException for file quotes.txt.`</span></span>
 
-* <span data-ttu-id="ea9c9-244">错误 = 4</span><span class="sxs-lookup"><span data-stu-id="ea9c9-244">Error = 4</span></span>
+* <span data-ttu-id="fa397-244">错误 = 4</span><span class="sxs-lookup"><span data-stu-id="fa397-244">Error = 4</span></span>
 
-  <span data-ttu-id="ea9c9-245">表示无法处理的错误和异常。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-245">For errors and exceptions that cannot be handled.</span></span> <span data-ttu-id="ea9c9-246">这些消息指示的是当前活动或操作（例如当前 HTTP 请求）中的失败，而不是整个应用中的失败。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-246">These messages indicate a failure in the current activity or operation (such as the current HTTP request), not an app-wide failure.</span></span> <span data-ttu-id="ea9c9-247">日志消息示例：`Cannot insert record due to duplicate key violation.`</span><span class="sxs-lookup"><span data-stu-id="ea9c9-247">Example log message: `Cannot insert record due to duplicate key violation.`</span></span>
+  <span data-ttu-id="fa397-245">表示无法处理的错误和异常。</span><span class="sxs-lookup"><span data-stu-id="fa397-245">For errors and exceptions that cannot be handled.</span></span> <span data-ttu-id="fa397-246">这些消息指示的是当前活动或操作（例如当前 HTTP 请求）中的失败，而不是整个应用中的失败。</span><span class="sxs-lookup"><span data-stu-id="fa397-246">These messages indicate a failure in the current activity or operation (such as the current HTTP request), not an app-wide failure.</span></span> <span data-ttu-id="fa397-247">日志消息示例：`Cannot insert record due to duplicate key violation.`</span><span class="sxs-lookup"><span data-stu-id="fa397-247">Example log message: `Cannot insert record due to duplicate key violation.`</span></span>
 
-* <span data-ttu-id="ea9c9-248">严重 = 5</span><span class="sxs-lookup"><span data-stu-id="ea9c9-248">Critical = 5</span></span>
+* <span data-ttu-id="fa397-248">严重 = 5</span><span class="sxs-lookup"><span data-stu-id="fa397-248">Critical = 5</span></span>
 
-  <span data-ttu-id="ea9c9-249">需要立即关注的失败。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-249">For failures that require immediate attention.</span></span> <span data-ttu-id="ea9c9-250">例如数据丢失、磁盘空间不足。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-250">Examples: data loss scenarios, out of disk space.</span></span>
+  <span data-ttu-id="fa397-249">需要立即关注的失败。</span><span class="sxs-lookup"><span data-stu-id="fa397-249">For failures that require immediate attention.</span></span> <span data-ttu-id="fa397-250">例如数据丢失、磁盘空间不足。</span><span class="sxs-lookup"><span data-stu-id="fa397-250">Examples: data loss scenarios, out of disk space.</span></span>
 
-<span data-ttu-id="ea9c9-251">使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-251">Use the log level to control how much log output is written to a particular storage medium or display window.</span></span> <span data-ttu-id="ea9c9-252">例如:</span><span class="sxs-lookup"><span data-stu-id="ea9c9-252">For example:</span></span>
+<span data-ttu-id="fa397-251">使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。</span><span class="sxs-lookup"><span data-stu-id="fa397-251">Use the log level to control how much log output is written to a particular storage medium or display window.</span></span> <span data-ttu-id="fa397-252">例如:</span><span class="sxs-lookup"><span data-stu-id="fa397-252">For example:</span></span>
 
-* <span data-ttu-id="ea9c9-253">在生产中，通过 `Information` 级别将 `Trace` 发送到卷数据存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-253">In production, send `Trace` through `Information` level to a volume data store.</span></span> <span data-ttu-id="ea9c9-254">通过 `Critical` 级别将 `Warning` 发送到值数据存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-254">Send `Warning` through `Critical` to a value data store.</span></span>
-* <span data-ttu-id="ea9c9-255">在开发过程中，通过`Critical` 级别将 `Warning` 发送到控制台，并在进行故障排除时通过 `Information` 级别添加 `Trace`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-255">During development, send `Warning` through `Critical` to the console, and add `Trace` through `Information` when troubleshooting.</span></span>
+* <span data-ttu-id="fa397-253">生产中：</span><span class="sxs-lookup"><span data-stu-id="fa397-253">In production:</span></span>
+  * <span data-ttu-id="fa397-254">如果通过 `Information` 级别在 `Trace` 处记录，则会生成大量详细的日志消息。</span><span class="sxs-lookup"><span data-stu-id="fa397-254">Logging at the `Trace` through `Information` levels produces a high-volume of detailed log messages.</span></span> <span data-ttu-id="fa397-255">为控制成本且不超过数据存储限制，请通过 `Information` 级别消息将 `Trace` 记录到容量大、成本低的数据存储中。</span><span class="sxs-lookup"><span data-stu-id="fa397-255">To control costs and not exceed data storage limits, log `Trace` through `Information` level messages to a high-volume, low-cost data store.</span></span>
+  * <span data-ttu-id="fa397-256">如果通过 `Critical` 级别在 `Warning` 处记录，通常生成的日志消息更少且更小。</span><span class="sxs-lookup"><span data-stu-id="fa397-256">Logging at `Warning` through `Critical` levels typically produces fewer, smaller log messages.</span></span> <span data-ttu-id="fa397-257">因此，成本和存储限制通常不是问题，而这使得在选择数据信息时更为灵活。</span><span class="sxs-lookup"><span data-stu-id="fa397-257">Therefore, costs and storage limits usually aren't a concern, which results in greater flexibility of data store choice.</span></span>
+* <span data-ttu-id="fa397-258">在开发过程中：</span><span class="sxs-lookup"><span data-stu-id="fa397-258">During development:</span></span>
+  * <span data-ttu-id="fa397-259">通过 `Critical` 消息将 `Warning` 记录到控制台。</span><span class="sxs-lookup"><span data-stu-id="fa397-259">Log `Warning` through `Critical` messages to the console.</span></span>
+  * <span data-ttu-id="fa397-260">在疑难解答时通过 `Information` 消息添加 `Trace`。</span><span class="sxs-lookup"><span data-stu-id="fa397-260">Add `Trace` through `Information` messages when troubleshooting.</span></span>
 
-<span data-ttu-id="ea9c9-256">本文稍后的[日志筛选](#log-filtering)部分介绍如何控制提供程序处理的日志级别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-256">The [Log filtering](#log-filtering) section later in this article explains how to control which log levels a provider handles.</span></span>
+<span data-ttu-id="fa397-261">本文稍后的[日志筛选](#log-filtering)部分介绍如何控制提供程序处理的日志级别。</span><span class="sxs-lookup"><span data-stu-id="fa397-261">The [Log filtering](#log-filtering) section later in this article explains how to control which log levels a provider handles.</span></span>
 
-<span data-ttu-id="ea9c9-257">ASP.NET Core 为框架事件写入日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-257">ASP.NET Core writes logs for framework events.</span></span> <span data-ttu-id="ea9c9-258">本文前面部分提供的日志示例排除了低于 `Information` 级别的日志，因此未创建 `Debug` 或 `Trace` 级别日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-258">The log examples earlier in this article excluded logs below `Information` level, so no `Debug` or `Trace` level logs were created.</span></span> <span data-ttu-id="ea9c9-259">以下示例介绍了通过运行配置为显示 `Debug` 日志的示例应用而生成的控制台日志：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-259">Here's an example of console logs produced by running the sample app configured to show `Debug` logs:</span></span>
+<span data-ttu-id="fa397-262">ASP.NET Core 为框架事件写入日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-262">ASP.NET Core writes logs for framework events.</span></span> <span data-ttu-id="fa397-263">本文前面部分提供的日志示例排除了低于 `Information` 级别的日志，因此未创建 `Debug` 或 `Trace` 级别日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-263">The log examples earlier in this article excluded logs below `Information` level, so no `Debug` or `Trace` level logs were created.</span></span> <span data-ttu-id="fa397-264">以下示例介绍了通过运行配置为显示 `Debug` 日志的示例应用而生成的控制台日志：</span><span class="sxs-lookup"><span data-stu-id="fa397-264">Here's an example of console logs produced by running the sample app configured to show `Debug` logs:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -477,9 +481,9 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ::: moniker-end
 
-## <a name="log-event-id"></a><span data-ttu-id="ea9c9-260">日志事件 ID</span><span class="sxs-lookup"><span data-stu-id="ea9c9-260">Log event ID</span></span>
+## <a name="log-event-id"></a><span data-ttu-id="fa397-265">日志事件 ID</span><span class="sxs-lookup"><span data-stu-id="fa397-265">Log event ID</span></span>
 
-<span data-ttu-id="ea9c9-261">每个日志都可指定一个事件 ID  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-261">Each log can specify an *event ID*.</span></span> <span data-ttu-id="ea9c9-262">该示例应用通过使用本地定义的 `LoggingEvents` 类来执行此操作：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-262">The sample app does this by using a locally defined `LoggingEvents` class:</span></span>
+<span data-ttu-id="fa397-266">每个日志都可指定一个事件 ID  。</span><span class="sxs-lookup"><span data-stu-id="fa397-266">Each log can specify an *event ID*.</span></span> <span data-ttu-id="fa397-267">该示例应用通过使用本地定义的 `LoggingEvents` 类来执行此操作：</span><span class="sxs-lookup"><span data-stu-id="fa397-267">The sample app does this by using a locally defined `LoggingEvents` class:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -497,9 +501,9 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-263">事件 ID 与一组事件相关联。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-263">An event ID associates a set of events.</span></span> <span data-ttu-id="ea9c9-264">例如，与在页面上显示项列表相关的所有日志可能是 1001。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-264">For example, all logs related to displaying a list of items on a page might be 1001.</span></span>
+<span data-ttu-id="fa397-268">事件 ID 与一组事件相关联。</span><span class="sxs-lookup"><span data-stu-id="fa397-268">An event ID associates a set of events.</span></span> <span data-ttu-id="fa397-269">例如，与在页面上显示项列表相关的所有日志可能是 1001。</span><span class="sxs-lookup"><span data-stu-id="fa397-269">For example, all logs related to displaying a list of items on a page might be 1001.</span></span>
 
-<span data-ttu-id="ea9c9-265">日志记录提供程序可将事件 ID 存储在 ID 字段中，存储在日志记录消息中，或者不进行存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-265">The logging provider may store the event ID in an ID field, in the logging message, or not at all.</span></span> <span data-ttu-id="ea9c9-266">调试提供程序不显示事件 ID。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-266">The Debug provider doesn't show event IDs.</span></span> <span data-ttu-id="ea9c9-267">控制台提供程序在类别后的括号中显示事件 ID：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-267">The console provider shows event IDs in brackets after the category:</span></span>
+<span data-ttu-id="fa397-270">日志记录提供程序可将事件 ID 存储在 ID 字段中，存储在日志记录消息中，或者不进行存储。</span><span class="sxs-lookup"><span data-stu-id="fa397-270">The logging provider may store the event ID in an ID field, in the logging message, or not at all.</span></span> <span data-ttu-id="fa397-271">调试提供程序不显示事件 ID。</span><span class="sxs-lookup"><span data-stu-id="fa397-271">The Debug provider doesn't show event IDs.</span></span> <span data-ttu-id="fa397-272">控制台提供程序在类别后的括号中显示事件 ID：</span><span class="sxs-lookup"><span data-stu-id="fa397-272">The console provider shows event IDs in brackets after the category:</span></span>
 
 ```console
 info: TodoApi.Controllers.TodoController[1002]
@@ -508,9 +512,9 @@ warn: TodoApi.Controllers.TodoController[4000]
       GetById(invalidid) NOT FOUND
 ```
 
-## <a name="log-message-template"></a><span data-ttu-id="ea9c9-268">日志消息模板</span><span class="sxs-lookup"><span data-stu-id="ea9c9-268">Log message template</span></span>
+## <a name="log-message-template"></a><span data-ttu-id="fa397-273">日志消息模板</span><span class="sxs-lookup"><span data-stu-id="fa397-273">Log message template</span></span>
 
-<span data-ttu-id="ea9c9-269">每个日志都会指定一个消息模板。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-269">Each log specifies a message template.</span></span> <span data-ttu-id="ea9c9-270">消息模板可包含要填写参数的占位符。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-270">The message template can contain placeholders for which arguments are provided.</span></span> <span data-ttu-id="ea9c9-271">请在占位符中使用名称而不是数字。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-271">Use names for the placeholders, not numbers.</span></span>
+<span data-ttu-id="fa397-274">每个日志都会指定一个消息模板。</span><span class="sxs-lookup"><span data-stu-id="fa397-274">Each log specifies a message template.</span></span> <span data-ttu-id="fa397-275">消息模板可包含要填写参数的占位符。</span><span class="sxs-lookup"><span data-stu-id="fa397-275">The message template can contain placeholders for which arguments are provided.</span></span> <span data-ttu-id="fa397-276">请在占位符中使用名称而不是数字。</span><span class="sxs-lookup"><span data-stu-id="fa397-276">Use names for the placeholders, not numbers.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -524,7 +528,7 @@ warn: TodoApi.Controllers.TodoController[4000]
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-272">占位符的顺序（而非其名称）决定了为其提供值的参数。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-272">The order of placeholders, not their names, determines which parameters are used to provide their values.</span></span> <span data-ttu-id="ea9c9-273">在以下代码中，请注意消息模板中的参数名称未按顺序排列：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-273">In the following code, notice that the parameter names are out of sequence in the message template:</span></span>
+<span data-ttu-id="fa397-277">占位符的顺序（而非其名称）决定了为其提供值的参数。</span><span class="sxs-lookup"><span data-stu-id="fa397-277">The order of placeholders, not their names, determines which parameters are used to provide their values.</span></span> <span data-ttu-id="fa397-278">在以下代码中，请注意消息模板中的参数名称未按顺序排列：</span><span class="sxs-lookup"><span data-stu-id="fa397-278">In the following code, notice that the parameter names are out of sequence in the message template:</span></span>
 
 ```csharp
 string p1 = "parm1";
@@ -532,23 +536,23 @@ string p2 = "parm2";
 _logger.LogInformation("Parameter values: {p2}, {p1}", p1, p2);
 ```
 
-<span data-ttu-id="ea9c9-274">此代码创建了一个参数值按顺序排列的日志消息：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-274">This code creates a log message with the parameter values in sequence:</span></span>
+<span data-ttu-id="fa397-279">此代码创建了一个参数值按顺序排列的日志消息：</span><span class="sxs-lookup"><span data-stu-id="fa397-279">This code creates a log message with the parameter values in sequence:</span></span>
 
 ```text
 Parameter values: parm1, parm2
 ```
 
-<span data-ttu-id="ea9c9-275">日志记录框架按此方式工作，这样日志记录提供程序即可实现[语义日志记录，也称为结构化日志记录](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-275">The logging framework works this way so that logging providers can implement [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span> <span data-ttu-id="ea9c9-276">参数本身会传递给日志记录系统，而不仅仅是格式化的消息模板。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-276">The arguments themselves are passed to the logging system, not just the formatted message template.</span></span> <span data-ttu-id="ea9c9-277">通过此信息，日志记录提供程序能够将参数值存储为字段。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-277">This information enables logging providers to store the parameter values as fields.</span></span> <span data-ttu-id="ea9c9-278">例如，假设记录器方法调用如下所示：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-278">For example, suppose logger method calls look like this:</span></span>
+<span data-ttu-id="fa397-280">日志记录框架按此方式工作，这样日志记录提供程序即可实现[语义日志记录，也称为结构化日志记录](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。</span><span class="sxs-lookup"><span data-stu-id="fa397-280">The logging framework works this way so that logging providers can implement [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span> <span data-ttu-id="fa397-281">参数本身会传递给日志记录系统，而不仅仅是格式化的消息模板。</span><span class="sxs-lookup"><span data-stu-id="fa397-281">The arguments themselves are passed to the logging system, not just the formatted message template.</span></span> <span data-ttu-id="fa397-282">通过此信息，日志记录提供程序能够将参数值存储为字段。</span><span class="sxs-lookup"><span data-stu-id="fa397-282">This information enables logging providers to store the parameter values as fields.</span></span> <span data-ttu-id="fa397-283">例如，假设记录器方法调用如下所示：</span><span class="sxs-lookup"><span data-stu-id="fa397-283">For example, suppose logger method calls look like this:</span></span>
 
 ```csharp
 _logger.LogInformation("Getting item {Id} at {RequestTime}", id, DateTime.Now);
 ```
 
-<span data-ttu-id="ea9c9-279">如果要将日志发送到 Azure 表存储，则每个 Azure 表实体都可具有 `ID` 和 `RequestTime` 属性，这简化了对日志数据的查询。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-279">If you're sending the logs to Azure Table Storage, each Azure Table entity can have `ID` and `RequestTime` properties, which simplifies queries on log data.</span></span> <span data-ttu-id="ea9c9-280">无需分析文本消息的超时，查询即可找到特定 `RequestTime` 范围内的全部日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-280">A query can find all logs within a particular `RequestTime` range without parsing the time out of the text message.</span></span>
+<span data-ttu-id="fa397-284">如果要将日志发送到 Azure 表存储，则每个 Azure 表实体都可具有 `ID` 和 `RequestTime` 属性，这简化了对日志数据的查询。</span><span class="sxs-lookup"><span data-stu-id="fa397-284">If you're sending the logs to Azure Table Storage, each Azure Table entity can have `ID` and `RequestTime` properties, which simplifies queries on log data.</span></span> <span data-ttu-id="fa397-285">无需分析文本消息的超时，查询即可找到特定 `RequestTime` 范围内的全部日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-285">A query can find all logs within a particular `RequestTime` range without parsing the time out of the text message.</span></span>
 
-## <a name="logging-exceptions"></a><span data-ttu-id="ea9c9-281">日志记录异常</span><span class="sxs-lookup"><span data-stu-id="ea9c9-281">Logging exceptions</span></span>
+## <a name="logging-exceptions"></a><span data-ttu-id="fa397-286">日志记录异常</span><span class="sxs-lookup"><span data-stu-id="fa397-286">Logging exceptions</span></span>
 
-<span data-ttu-id="ea9c9-282">记录器方法有可传入异常的重载，如下方示例所示：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-282">The logger methods have overloads that let you pass in an exception, as in the following example:</span></span>
+<span data-ttu-id="fa397-287">记录器方法有可传入异常的重载，如下方示例所示：</span><span class="sxs-lookup"><span data-stu-id="fa397-287">The logger methods have overloads that let you pass in an exception, as in the following example:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -562,7 +566,7 @@ _logger.LogInformation("Getting item {Id} at {RequestTime}", id, DateTime.Now);
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-283">不同的提供程序处理异常信息的方式不同。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-283">Different providers handle the exception information in different ways.</span></span> <span data-ttu-id="ea9c9-284">以下是上示代码的调试提供程序输出示例。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-284">Here's an example of Debug provider output from the code shown above.</span></span>
+<span data-ttu-id="fa397-288">不同的提供程序处理异常信息的方式不同。</span><span class="sxs-lookup"><span data-stu-id="fa397-288">Different providers handle the exception information in different ways.</span></span> <span data-ttu-id="fa397-289">以下是上示代码的调试提供程序输出示例。</span><span class="sxs-lookup"><span data-stu-id="fa397-289">Here's an example of Debug provider output from the code shown above.</span></span>
 
 ```text
 TodoApiSample.Controllers.TodoController: Warning: GetById(55) NOT FOUND
@@ -571,17 +575,17 @@ System.Exception: Item not found exception.
    at TodoApiSample.Controllers.TodoController.GetById(String id) in C:\TodoApiSample\Controllers\TodoController.cs:line 226
 ```
 
-## <a name="log-filtering"></a><span data-ttu-id="ea9c9-285">日志筛选</span><span class="sxs-lookup"><span data-stu-id="ea9c9-285">Log filtering</span></span>
+## <a name="log-filtering"></a><span data-ttu-id="fa397-290">日志筛选</span><span class="sxs-lookup"><span data-stu-id="fa397-290">Log filtering</span></span>
 
-<span data-ttu-id="ea9c9-286">可为特定或所有提供程序和类别指定最低日志级别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-286">You can specify a minimum log level for a specific provider and category or for all providers or all categories.</span></span> <span data-ttu-id="ea9c9-287">最低级别以下的日志不会传递给该提供程序，因此不会显示或存储它们。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-287">Any logs below the minimum level aren't passed to that provider, so they don't get displayed or stored.</span></span>
+<span data-ttu-id="fa397-291">可为特定或所有提供程序和类别指定最低日志级别。</span><span class="sxs-lookup"><span data-stu-id="fa397-291">You can specify a minimum log level for a specific provider and category or for all providers or all categories.</span></span> <span data-ttu-id="fa397-292">最低级别以下的日志不会传递给该提供程序，因此不会显示或存储它们。</span><span class="sxs-lookup"><span data-stu-id="fa397-292">Any logs below the minimum level aren't passed to that provider, so they don't get displayed or stored.</span></span>
 
-<span data-ttu-id="ea9c9-288">要禁止显示所有日志，可将 `LogLevel.None` 指定为最低日志级别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-288">To suppress all logs, specify `LogLevel.None` as the minimum log level.</span></span> <span data-ttu-id="ea9c9-289">`LogLevel.None` 的整数值为 6，它大于 `LogLevel.Critical` (5)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-289">The integer value of `LogLevel.None` is 6, which is higher than `LogLevel.Critical` (5).</span></span>
+<span data-ttu-id="fa397-293">要禁止显示所有日志，可将 `LogLevel.None` 指定为最低日志级别。</span><span class="sxs-lookup"><span data-stu-id="fa397-293">To suppress all logs, specify `LogLevel.None` as the minimum log level.</span></span> <span data-ttu-id="fa397-294">`LogLevel.None` 的整数值为 6，它大于 `LogLevel.Critical` (5)。</span><span class="sxs-lookup"><span data-stu-id="fa397-294">The integer value of `LogLevel.None` is 6, which is higher than `LogLevel.Critical` (5).</span></span>
 
-### <a name="create-filter-rules-in-configuration"></a><span data-ttu-id="ea9c9-290">在配置中创建筛选规则</span><span class="sxs-lookup"><span data-stu-id="ea9c9-290">Create filter rules in configuration</span></span>
+### <a name="create-filter-rules-in-configuration"></a><span data-ttu-id="fa397-295">在配置中创建筛选规则</span><span class="sxs-lookup"><span data-stu-id="fa397-295">Create filter rules in configuration</span></span>
 
-<span data-ttu-id="ea9c9-291">项目模板代码调用 `CreateDefaultBuilder` 来为控制台和调试提供程序设置日志记录。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-291">The project template code calls `CreateDefaultBuilder` to set up logging for the Console and Debug providers.</span></span> <span data-ttu-id="ea9c9-292">正如[本文前面部分](#configuration)所述，`CreateDefaultBuilder` 方法设置日志记录以在 `Logging` 部分查找配置。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-292">The `CreateDefaultBuilder` method sets up logging to look for configuration in a `Logging` section, as explained [earlier in this article](#configuration).</span></span>
+<span data-ttu-id="fa397-296">项目模板代码调用 `CreateDefaultBuilder` 来为控制台和调试提供程序设置日志记录。</span><span class="sxs-lookup"><span data-stu-id="fa397-296">The project template code calls `CreateDefaultBuilder` to set up logging for the Console and Debug providers.</span></span> <span data-ttu-id="fa397-297">正如[本文前面部分](#configuration)所述，`CreateDefaultBuilder` 方法设置日志记录以在 `Logging` 部分查找配置。</span><span class="sxs-lookup"><span data-stu-id="fa397-297">The `CreateDefaultBuilder` method sets up logging to look for configuration in a `Logging` section, as explained [earlier in this article](#configuration).</span></span>
 
-<span data-ttu-id="ea9c9-293">配置数据按提供程序和类别指定最低日志级别，如下方示例所示：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-293">The configuration data specifies minimum log levels by provider and category, as in the following example:</span></span>
+<span data-ttu-id="fa397-298">配置数据按提供程序和类别指定最低日志级别，如下方示例所示：</span><span class="sxs-lookup"><span data-stu-id="fa397-298">The configuration data specifies minimum log levels by provider and category, as in the following example:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -595,11 +599,11 @@ System.Exception: Item not found exception.
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-294">此 JSON 将创建 6 条筛选规则：1 条用于调试提供程序， 4 条用于控制台提供程序， 1 条用于所有提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-294">This JSON creates six filter rules: one for the Debug provider, four for the Console provider, and one for all providers.</span></span> <span data-ttu-id="ea9c9-295">创建 `ILogger` 对象时，为每个提供程序选择一个规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-295">A single rule is chosen for each provider when an `ILogger` object is created.</span></span>
+<span data-ttu-id="fa397-299">此 JSON 将创建 6 条筛选规则：1 条用于调试提供程序， 4 条用于控制台提供程序， 1 条用于所有提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-299">This JSON creates six filter rules: one for the Debug provider, four for the Console provider, and one for all providers.</span></span> <span data-ttu-id="fa397-300">创建 `ILogger` 对象时，为每个提供程序选择一个规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-300">A single rule is chosen for each provider when an `ILogger` object is created.</span></span>
 
-### <a name="filter-rules-in-code"></a><span data-ttu-id="ea9c9-296">代码中的筛选规则</span><span class="sxs-lookup"><span data-stu-id="ea9c9-296">Filter rules in code</span></span>
+### <a name="filter-rules-in-code"></a><span data-ttu-id="fa397-301">代码中的筛选规则</span><span class="sxs-lookup"><span data-stu-id="fa397-301">Filter rules in code</span></span>
 
-<span data-ttu-id="ea9c9-297">下面的示例演示了如何在代码中注册筛选规则：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-297">The following example shows how to register filter rules in code:</span></span>
+<span data-ttu-id="fa397-302">下面的示例演示了如何在代码中注册筛选规则：</span><span class="sxs-lookup"><span data-stu-id="fa397-302">The following example shows how to register filter rules in code:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -613,55 +617,55 @@ System.Exception: Item not found exception.
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-298">第二个 `AddFilter` 使用类型名称来指定调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-298">The second `AddFilter` specifies the Debug provider by using its type name.</span></span> <span data-ttu-id="ea9c9-299">第一个 `AddFilter` 应用于全部提供程序，因为它未指定提供程序类型。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-299">The first `AddFilter` applies to all providers because it doesn't specify a provider type.</span></span>
+<span data-ttu-id="fa397-303">第二个 `AddFilter` 使用类型名称来指定调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-303">The second `AddFilter` specifies the Debug provider by using its type name.</span></span> <span data-ttu-id="fa397-304">第一个 `AddFilter` 应用于全部提供程序，因为它未指定提供程序类型。</span><span class="sxs-lookup"><span data-stu-id="fa397-304">The first `AddFilter` applies to all providers because it doesn't specify a provider type.</span></span>
 
-### <a name="how-filtering-rules-are-applied"></a><span data-ttu-id="ea9c9-300">如何应用筛选规则</span><span class="sxs-lookup"><span data-stu-id="ea9c9-300">How filtering rules are applied</span></span>
+### <a name="how-filtering-rules-are-applied"></a><span data-ttu-id="fa397-305">如何应用筛选规则</span><span class="sxs-lookup"><span data-stu-id="fa397-305">How filtering rules are applied</span></span>
 
-<span data-ttu-id="ea9c9-301">先前示例中显示的配置数据和 `AddFilter` 代码会创建下表所示的规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-301">The configuration data and the `AddFilter` code shown in the preceding examples create the rules shown in the following table.</span></span> <span data-ttu-id="ea9c9-302">前六条由配置示例创建，后两条由代码示例创建。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-302">The first six come from the configuration example and the last two come from the code example.</span></span>
+<span data-ttu-id="fa397-306">先前示例中显示的配置数据和 `AddFilter` 代码会创建下表所示的规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-306">The configuration data and the `AddFilter` code shown in the preceding examples create the rules shown in the following table.</span></span> <span data-ttu-id="fa397-307">前六条由配置示例创建，后两条由代码示例创建。</span><span class="sxs-lookup"><span data-stu-id="fa397-307">The first six come from the configuration example and the last two come from the code example.</span></span>
 
-| <span data-ttu-id="ea9c9-303">数字</span><span class="sxs-lookup"><span data-stu-id="ea9c9-303">Number</span></span> | <span data-ttu-id="ea9c9-304">提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-304">Provider</span></span>      | <span data-ttu-id="ea9c9-305">类别的开头为...</span><span class="sxs-lookup"><span data-stu-id="ea9c9-305">Categories that begin with ...</span></span>          | <span data-ttu-id="ea9c9-306">最低日志级别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-306">Minimum log level</span></span> |
+| <span data-ttu-id="fa397-308">数字</span><span class="sxs-lookup"><span data-stu-id="fa397-308">Number</span></span> | <span data-ttu-id="fa397-309">提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-309">Provider</span></span>      | <span data-ttu-id="fa397-310">类别的开头为...</span><span class="sxs-lookup"><span data-stu-id="fa397-310">Categories that begin with ...</span></span>          | <span data-ttu-id="fa397-311">最低日志级别</span><span class="sxs-lookup"><span data-stu-id="fa397-311">Minimum log level</span></span> |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| <span data-ttu-id="ea9c9-307">1</span><span class="sxs-lookup"><span data-stu-id="ea9c9-307">1</span></span>      | <span data-ttu-id="ea9c9-308">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-308">Debug</span></span>         | <span data-ttu-id="ea9c9-309">全部类别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-309">All categories</span></span>                          | <span data-ttu-id="ea9c9-310">信息</span><span class="sxs-lookup"><span data-stu-id="ea9c9-310">Information</span></span>       |
-| <span data-ttu-id="ea9c9-311">2</span><span class="sxs-lookup"><span data-stu-id="ea9c9-311">2</span></span>      | <span data-ttu-id="ea9c9-312">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-312">Console</span></span>       | <span data-ttu-id="ea9c9-313">Microsoft.AspNetCore.Mvc.Razor.Internal</span><span class="sxs-lookup"><span data-stu-id="ea9c9-313">Microsoft.AspNetCore.Mvc.Razor.Internal</span></span> | <span data-ttu-id="ea9c9-314">警告</span><span class="sxs-lookup"><span data-stu-id="ea9c9-314">Warning</span></span>           |
-| <span data-ttu-id="ea9c9-315">3</span><span class="sxs-lookup"><span data-stu-id="ea9c9-315">3</span></span>      | <span data-ttu-id="ea9c9-316">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-316">Console</span></span>       | <span data-ttu-id="ea9c9-317">Microsoft.AspNetCore.Mvc.Razor.Razor</span><span class="sxs-lookup"><span data-stu-id="ea9c9-317">Microsoft.AspNetCore.Mvc.Razor.Razor</span></span>    | <span data-ttu-id="ea9c9-318">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-318">Debug</span></span>             |
-| <span data-ttu-id="ea9c9-319">4</span><span class="sxs-lookup"><span data-stu-id="ea9c9-319">4</span></span>      | <span data-ttu-id="ea9c9-320">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-320">Console</span></span>       | <span data-ttu-id="ea9c9-321">Microsoft.AspNetCore.Mvc.Razor</span><span class="sxs-lookup"><span data-stu-id="ea9c9-321">Microsoft.AspNetCore.Mvc.Razor</span></span>          | <span data-ttu-id="ea9c9-322">错误</span><span class="sxs-lookup"><span data-stu-id="ea9c9-322">Error</span></span>             |
-| <span data-ttu-id="ea9c9-323">5</span><span class="sxs-lookup"><span data-stu-id="ea9c9-323">5</span></span>      | <span data-ttu-id="ea9c9-324">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-324">Console</span></span>       | <span data-ttu-id="ea9c9-325">全部类别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-325">All categories</span></span>                          | <span data-ttu-id="ea9c9-326">信息</span><span class="sxs-lookup"><span data-stu-id="ea9c9-326">Information</span></span>       |
-| <span data-ttu-id="ea9c9-327">6</span><span class="sxs-lookup"><span data-stu-id="ea9c9-327">6</span></span>      | <span data-ttu-id="ea9c9-328">全部提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-328">All providers</span></span> | <span data-ttu-id="ea9c9-329">全部类别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-329">All categories</span></span>                          | <span data-ttu-id="ea9c9-330">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-330">Debug</span></span>             |
-| <span data-ttu-id="ea9c9-331">7</span><span class="sxs-lookup"><span data-stu-id="ea9c9-331">7</span></span>      | <span data-ttu-id="ea9c9-332">全部提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-332">All providers</span></span> | <span data-ttu-id="ea9c9-333">System</span><span class="sxs-lookup"><span data-stu-id="ea9c9-333">System</span></span>                                  | <span data-ttu-id="ea9c9-334">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-334">Debug</span></span>             |
-| <span data-ttu-id="ea9c9-335">8</span><span class="sxs-lookup"><span data-stu-id="ea9c9-335">8</span></span>      | <span data-ttu-id="ea9c9-336">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-336">Debug</span></span>         | <span data-ttu-id="ea9c9-337">Microsoft</span><span class="sxs-lookup"><span data-stu-id="ea9c9-337">Microsoft</span></span>                               | <span data-ttu-id="ea9c9-338">跟踪</span><span class="sxs-lookup"><span data-stu-id="ea9c9-338">Trace</span></span>             |
+| <span data-ttu-id="fa397-312">1</span><span class="sxs-lookup"><span data-stu-id="fa397-312">1</span></span>      | <span data-ttu-id="fa397-313">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-313">Debug</span></span>         | <span data-ttu-id="fa397-314">全部类别</span><span class="sxs-lookup"><span data-stu-id="fa397-314">All categories</span></span>                          | <span data-ttu-id="fa397-315">信息</span><span class="sxs-lookup"><span data-stu-id="fa397-315">Information</span></span>       |
+| <span data-ttu-id="fa397-316">2</span><span class="sxs-lookup"><span data-stu-id="fa397-316">2</span></span>      | <span data-ttu-id="fa397-317">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-317">Console</span></span>       | <span data-ttu-id="fa397-318">Microsoft.AspNetCore.Mvc.Razor.Internal</span><span class="sxs-lookup"><span data-stu-id="fa397-318">Microsoft.AspNetCore.Mvc.Razor.Internal</span></span> | <span data-ttu-id="fa397-319">警告</span><span class="sxs-lookup"><span data-stu-id="fa397-319">Warning</span></span>           |
+| <span data-ttu-id="fa397-320">3</span><span class="sxs-lookup"><span data-stu-id="fa397-320">3</span></span>      | <span data-ttu-id="fa397-321">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-321">Console</span></span>       | <span data-ttu-id="fa397-322">Microsoft.AspNetCore.Mvc.Razor.Razor</span><span class="sxs-lookup"><span data-stu-id="fa397-322">Microsoft.AspNetCore.Mvc.Razor.Razor</span></span>    | <span data-ttu-id="fa397-323">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-323">Debug</span></span>             |
+| <span data-ttu-id="fa397-324">4</span><span class="sxs-lookup"><span data-stu-id="fa397-324">4</span></span>      | <span data-ttu-id="fa397-325">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-325">Console</span></span>       | <span data-ttu-id="fa397-326">Microsoft.AspNetCore.Mvc.Razor</span><span class="sxs-lookup"><span data-stu-id="fa397-326">Microsoft.AspNetCore.Mvc.Razor</span></span>          | <span data-ttu-id="fa397-327">错误</span><span class="sxs-lookup"><span data-stu-id="fa397-327">Error</span></span>             |
+| <span data-ttu-id="fa397-328">5</span><span class="sxs-lookup"><span data-stu-id="fa397-328">5</span></span>      | <span data-ttu-id="fa397-329">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-329">Console</span></span>       | <span data-ttu-id="fa397-330">全部类别</span><span class="sxs-lookup"><span data-stu-id="fa397-330">All categories</span></span>                          | <span data-ttu-id="fa397-331">信息</span><span class="sxs-lookup"><span data-stu-id="fa397-331">Information</span></span>       |
+| <span data-ttu-id="fa397-332">6</span><span class="sxs-lookup"><span data-stu-id="fa397-332">6</span></span>      | <span data-ttu-id="fa397-333">全部提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-333">All providers</span></span> | <span data-ttu-id="fa397-334">全部类别</span><span class="sxs-lookup"><span data-stu-id="fa397-334">All categories</span></span>                          | <span data-ttu-id="fa397-335">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-335">Debug</span></span>             |
+| <span data-ttu-id="fa397-336">7</span><span class="sxs-lookup"><span data-stu-id="fa397-336">7</span></span>      | <span data-ttu-id="fa397-337">全部提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-337">All providers</span></span> | <span data-ttu-id="fa397-338">System</span><span class="sxs-lookup"><span data-stu-id="fa397-338">System</span></span>                                  | <span data-ttu-id="fa397-339">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-339">Debug</span></span>             |
+| <span data-ttu-id="fa397-340">8</span><span class="sxs-lookup"><span data-stu-id="fa397-340">8</span></span>      | <span data-ttu-id="fa397-341">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-341">Debug</span></span>         | <span data-ttu-id="fa397-342">Microsoft</span><span class="sxs-lookup"><span data-stu-id="fa397-342">Microsoft</span></span>                               | <span data-ttu-id="fa397-343">跟踪</span><span class="sxs-lookup"><span data-stu-id="fa397-343">Trace</span></span>             |
 
-<span data-ttu-id="ea9c9-339">创建 `ILogger` 对象时，`ILoggerFactory` 对象将根据提供程序选择一条规则，将其应用于该记录器。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-339">When an `ILogger` object is created, the `ILoggerFactory` object selects a single rule per provider to apply to that logger.</span></span> <span data-ttu-id="ea9c9-340">将按所选规则筛选 `ILogger` 实例写入的所有消息。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-340">All messages written by an `ILogger` instance are filtered based on the selected rules.</span></span> <span data-ttu-id="ea9c9-341">从可用规则中为每个提供程序和类别对选择最具体的规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-341">The most specific rule possible for each provider and category pair is selected from the available rules.</span></span>
+<span data-ttu-id="fa397-344">创建 `ILogger` 对象时，`ILoggerFactory` 对象将根据提供程序选择一条规则，将其应用于该记录器。</span><span class="sxs-lookup"><span data-stu-id="fa397-344">When an `ILogger` object is created, the `ILoggerFactory` object selects a single rule per provider to apply to that logger.</span></span> <span data-ttu-id="fa397-345">将按所选规则筛选 `ILogger` 实例写入的所有消息。</span><span class="sxs-lookup"><span data-stu-id="fa397-345">All messages written by an `ILogger` instance are filtered based on the selected rules.</span></span> <span data-ttu-id="fa397-346">从可用规则中为每个提供程序和类别对选择最具体的规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-346">The most specific rule possible for each provider and category pair is selected from the available rules.</span></span>
 
-<span data-ttu-id="ea9c9-342">在为给定的类别创建 `ILogger` 时，以下算法将用于每个提供程序：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-342">The following algorithm is used for each provider when an `ILogger` is created for a given category:</span></span>
+<span data-ttu-id="fa397-347">在为给定的类别创建 `ILogger` 时，以下算法将用于每个提供程序：</span><span class="sxs-lookup"><span data-stu-id="fa397-347">The following algorithm is used for each provider when an `ILogger` is created for a given category:</span></span>
 
-* <span data-ttu-id="ea9c9-343">选择匹配提供程序或其别名的所有规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-343">Select all rules that match the provider or its alias.</span></span> <span data-ttu-id="ea9c9-344">如果找不到任何匹配项，则选择提供程序为空的所有规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-344">If no match is found, select all rules with an empty provider.</span></span>
-* <span data-ttu-id="ea9c9-345">根据上一步的结果，选择具有最长匹配类别前缀的规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-345">From the result of the preceding step, select rules with longest matching category prefix.</span></span> <span data-ttu-id="ea9c9-346">如果找不到任何匹配项，则选择未指定类别的所有规则。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-346">If no match is found, select all rules that don't specify a category.</span></span>
-* <span data-ttu-id="ea9c9-347">如果选择了多条规则，则采用最后一条  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-347">If multiple rules are selected, take the **last** one.</span></span>
-* <span data-ttu-id="ea9c9-348">如果未选择任何规则，则使用 `MinimumLevel`。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-348">If no rules are selected, use `MinimumLevel`.</span></span>
+* <span data-ttu-id="fa397-348">选择匹配提供程序或其别名的所有规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-348">Select all rules that match the provider or its alias.</span></span> <span data-ttu-id="fa397-349">如果找不到任何匹配项，则选择提供程序为空的所有规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-349">If no match is found, select all rules with an empty provider.</span></span>
+* <span data-ttu-id="fa397-350">根据上一步的结果，选择具有最长匹配类别前缀的规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-350">From the result of the preceding step, select rules with longest matching category prefix.</span></span> <span data-ttu-id="fa397-351">如果找不到任何匹配项，则选择未指定类别的所有规则。</span><span class="sxs-lookup"><span data-stu-id="fa397-351">If no match is found, select all rules that don't specify a category.</span></span>
+* <span data-ttu-id="fa397-352">如果选择了多条规则，则采用最后一条  。</span><span class="sxs-lookup"><span data-stu-id="fa397-352">If multiple rules are selected, take the **last** one.</span></span>
+* <span data-ttu-id="fa397-353">如果未选择任何规则，则使用 `MinimumLevel`。</span><span class="sxs-lookup"><span data-stu-id="fa397-353">If no rules are selected, use `MinimumLevel`.</span></span>
 
-<span data-ttu-id="ea9c9-349">假设你使用上述规则列表为类别“Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine”创建了 `ILogger` 对象：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-349">With the preceding list of rules, suppose you create an `ILogger` object for category "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine":</span></span>
+<span data-ttu-id="fa397-354">假设你使用上述规则列表为类别“Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine”创建了 `ILogger` 对象：</span><span class="sxs-lookup"><span data-stu-id="fa397-354">With the preceding list of rules, suppose you create an `ILogger` object for category "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine":</span></span>
 
-* <span data-ttu-id="ea9c9-350">对于调试提供程序，规则 1、6 和 8 适用。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-350">For the Debug provider, rules 1, 6, and 8 apply.</span></span> <span data-ttu-id="ea9c9-351">规则 8 最为具体，因此选择了它。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-351">Rule 8 is most specific, so that's the one selected.</span></span>
-* <span data-ttu-id="ea9c9-352">对于控制台提供程序，符合的有规则 3、规则 4、规则 5 和规则 6。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-352">For the Console provider, rules 3, 4, 5, and 6 apply.</span></span> <span data-ttu-id="ea9c9-353">规则 3 最为具体。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-353">Rule 3 is most specific.</span></span>
+* <span data-ttu-id="fa397-355">对于调试提供程序，规则 1、6 和 8 适用。</span><span class="sxs-lookup"><span data-stu-id="fa397-355">For the Debug provider, rules 1, 6, and 8 apply.</span></span> <span data-ttu-id="fa397-356">规则 8 最为具体，因此选择了它。</span><span class="sxs-lookup"><span data-stu-id="fa397-356">Rule 8 is most specific, so that's the one selected.</span></span>
+* <span data-ttu-id="fa397-357">对于控制台提供程序，符合的有规则 3、规则 4、规则 5 和规则 6。</span><span class="sxs-lookup"><span data-stu-id="fa397-357">For the Console provider, rules 3, 4, 5, and 6 apply.</span></span> <span data-ttu-id="fa397-358">规则 3 最为具体。</span><span class="sxs-lookup"><span data-stu-id="fa397-358">Rule 3 is most specific.</span></span>
 
-<span data-ttu-id="ea9c9-354">生成的 `ILogger` 实例将 `Trace` 级别及更高级别的日志发送到调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-354">The resulting `ILogger` instance sends logs of `Trace` level and above to the Debug provider.</span></span> <span data-ttu-id="ea9c9-355">`Debug` 级别及更高级别的日志会发送到控制台提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-355">Logs of `Debug` level and above are sent to the Console provider.</span></span>
+<span data-ttu-id="fa397-359">生成的 `ILogger` 实例将 `Trace` 级别及更高级别的日志发送到调试提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-359">The resulting `ILogger` instance sends logs of `Trace` level and above to the Debug provider.</span></span> <span data-ttu-id="fa397-360">`Debug` 级别及更高级别的日志会发送到控制台提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-360">Logs of `Debug` level and above are sent to the Console provider.</span></span>
 
-### <a name="provider-aliases"></a><span data-ttu-id="ea9c9-356">提供程序别名</span><span class="sxs-lookup"><span data-stu-id="ea9c9-356">Provider aliases</span></span>
+### <a name="provider-aliases"></a><span data-ttu-id="fa397-361">提供程序别名</span><span class="sxs-lookup"><span data-stu-id="fa397-361">Provider aliases</span></span>
 
-<span data-ttu-id="ea9c9-357">每个提供程序都定义了一个别名；可在配置中使用该别名来代替完全限定的类型名称  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-357">Each provider defines an *alias* that can be used in configuration in place of the fully qualified type name.</span></span>  <span data-ttu-id="ea9c9-358">对于内置提供程序，请使用以下别名：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-358">For the built-in providers, use the following aliases:</span></span>
+<span data-ttu-id="fa397-362">每个提供程序都定义了一个别名；可在配置中使用该别名来代替完全限定的类型名称  。</span><span class="sxs-lookup"><span data-stu-id="fa397-362">Each provider defines an *alias* that can be used in configuration in place of the fully qualified type name.</span></span>  <span data-ttu-id="fa397-363">对于内置提供程序，请使用以下别名：</span><span class="sxs-lookup"><span data-stu-id="fa397-363">For the built-in providers, use the following aliases:</span></span>
 
-* <span data-ttu-id="ea9c9-359">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-359">Console</span></span>
-* <span data-ttu-id="ea9c9-360">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-360">Debug</span></span>
-* <span data-ttu-id="ea9c9-361">EventSource</span><span class="sxs-lookup"><span data-stu-id="ea9c9-361">EventSource</span></span>
-* <span data-ttu-id="ea9c9-362">EventLog</span><span class="sxs-lookup"><span data-stu-id="ea9c9-362">EventLog</span></span>
-* <span data-ttu-id="ea9c9-363">TraceSource</span><span class="sxs-lookup"><span data-stu-id="ea9c9-363">TraceSource</span></span>
-* <span data-ttu-id="ea9c9-364">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="ea9c9-364">AzureAppServicesFile</span></span>
-* <span data-ttu-id="ea9c9-365">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="ea9c9-365">AzureAppServicesBlob</span></span>
-* <span data-ttu-id="ea9c9-366">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="ea9c9-366">ApplicationInsights</span></span>
+* <span data-ttu-id="fa397-364">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-364">Console</span></span>
+* <span data-ttu-id="fa397-365">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-365">Debug</span></span>
+* <span data-ttu-id="fa397-366">EventSource</span><span class="sxs-lookup"><span data-stu-id="fa397-366">EventSource</span></span>
+* <span data-ttu-id="fa397-367">EventLog</span><span class="sxs-lookup"><span data-stu-id="fa397-367">EventLog</span></span>
+* <span data-ttu-id="fa397-368">TraceSource</span><span class="sxs-lookup"><span data-stu-id="fa397-368">TraceSource</span></span>
+* <span data-ttu-id="fa397-369">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="fa397-369">AzureAppServicesFile</span></span>
+* <span data-ttu-id="fa397-370">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="fa397-370">AzureAppServicesBlob</span></span>
+* <span data-ttu-id="fa397-371">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="fa397-371">ApplicationInsights</span></span>
 
-### <a name="default-minimum-level"></a><span data-ttu-id="ea9c9-367">默认最低级别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-367">Default minimum level</span></span>
+### <a name="default-minimum-level"></a><span data-ttu-id="fa397-372">默认最低级别</span><span class="sxs-lookup"><span data-stu-id="fa397-372">Default minimum level</span></span>
 
-<span data-ttu-id="ea9c9-368">仅当配置或代码中的规则对给定提供程序和类别都不适用时，最低级别设置才会生效。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-368">There's a minimum level setting that takes effect only if no rules from configuration or code apply for a given provider and category.</span></span> <span data-ttu-id="ea9c9-369">下面的示例演示如何设置最低级别：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-369">The following example shows how to set the minimum level:</span></span>
+<span data-ttu-id="fa397-373">仅当配置或代码中的规则对给定提供程序和类别都不适用时，最低级别设置才会生效。</span><span class="sxs-lookup"><span data-stu-id="fa397-373">There's a minimum level setting that takes effect only if no rules from configuration or code apply for a given provider and category.</span></span> <span data-ttu-id="fa397-374">下面的示例演示如何设置最低级别：</span><span class="sxs-lookup"><span data-stu-id="fa397-374">The following example shows how to set the minimum level:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -675,11 +679,11 @@ System.Exception: Item not found exception.
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-370">如果没有明确设置最低级别，则默认值为 `Information`，它表示 `Trace` 和 `Debug` 日志将被忽略。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-370">If you don't explicitly set the minimum level, the default value is `Information`, which means that `Trace` and `Debug` logs are ignored.</span></span>
+<span data-ttu-id="fa397-375">如果没有明确设置最低级别，则默认值为 `Information`，它表示 `Trace` 和 `Debug` 日志将被忽略。</span><span class="sxs-lookup"><span data-stu-id="fa397-375">If you don't explicitly set the minimum level, the default value is `Information`, which means that `Trace` and `Debug` logs are ignored.</span></span>
 
-### <a name="filter-functions"></a><span data-ttu-id="ea9c9-371">筛选器函数</span><span class="sxs-lookup"><span data-stu-id="ea9c9-371">Filter functions</span></span>
+### <a name="filter-functions"></a><span data-ttu-id="fa397-376">筛选器函数</span><span class="sxs-lookup"><span data-stu-id="fa397-376">Filter functions</span></span>
 
-<span data-ttu-id="ea9c9-372">对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-372">A filter function is invoked for all providers and categories that don't have rules assigned to them by configuration or code.</span></span> <span data-ttu-id="ea9c9-373">函数中的代码可访问提供程序类型、类别和日志级别。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-373">Code in the function has access to the provider type, category, and log level.</span></span> <span data-ttu-id="ea9c9-374">例如:</span><span class="sxs-lookup"><span data-stu-id="ea9c9-374">For example:</span></span>
+<span data-ttu-id="fa397-377">对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。</span><span class="sxs-lookup"><span data-stu-id="fa397-377">A filter function is invoked for all providers and categories that don't have rules assigned to them by configuration or code.</span></span> <span data-ttu-id="fa397-378">函数中的代码可访问提供程序类型、类别和日志级别。</span><span class="sxs-lookup"><span data-stu-id="fa397-378">Code in the function has access to the provider type, category, and log level.</span></span> <span data-ttu-id="fa397-379">例如:</span><span class="sxs-lookup"><span data-stu-id="fa397-379">For example:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -693,27 +697,27 @@ System.Exception: Item not found exception.
 
 ::: moniker-end
 
-## <a name="system-categories-and-levels"></a><span data-ttu-id="ea9c9-375">系统类别和级别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-375">System categories and levels</span></span>
+## <a name="system-categories-and-levels"></a><span data-ttu-id="fa397-380">系统类别和级别</span><span class="sxs-lookup"><span data-stu-id="fa397-380">System categories and levels</span></span>
 
-<span data-ttu-id="ea9c9-376">下面是 ASP.NET Core 和 Entity Framework Core 使用的一些类别，备注中说明了可从这些类别获取的具体日志：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-376">Here are some categories used by ASP.NET Core and Entity Framework Core, with notes about what logs to expect from them:</span></span>
+<span data-ttu-id="fa397-381">下面是 ASP.NET Core 和 Entity Framework Core 使用的一些类别，备注中说明了可从这些类别获取的具体日志：</span><span class="sxs-lookup"><span data-stu-id="fa397-381">Here are some categories used by ASP.NET Core and Entity Framework Core, with notes about what logs to expect from them:</span></span>
 
-| <span data-ttu-id="ea9c9-377">类别</span><span class="sxs-lookup"><span data-stu-id="ea9c9-377">Category</span></span>                            | <span data-ttu-id="ea9c9-378">说明</span><span class="sxs-lookup"><span data-stu-id="ea9c9-378">Notes</span></span> |
+| <span data-ttu-id="fa397-382">类别</span><span class="sxs-lookup"><span data-stu-id="fa397-382">Category</span></span>                            | <span data-ttu-id="fa397-383">说明</span><span class="sxs-lookup"><span data-stu-id="fa397-383">Notes</span></span> |
 | ----------------------------------- | ----- |
-| <span data-ttu-id="ea9c9-379">Microsoft.AspNetCore</span><span class="sxs-lookup"><span data-stu-id="ea9c9-379">Microsoft.AspNetCore</span></span>                | <span data-ttu-id="ea9c9-380">常规 ASP.NET Core 诊断。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-380">General ASP.NET Core diagnostics.</span></span> |
-| <span data-ttu-id="ea9c9-381">Microsoft.AspNetCore.DataProtection</span><span class="sxs-lookup"><span data-stu-id="ea9c9-381">Microsoft.AspNetCore.DataProtection</span></span> | <span data-ttu-id="ea9c9-382">考虑、找到并使用了哪些密钥。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-382">Which keys were considered, found, and used.</span></span> |
-| <span data-ttu-id="ea9c9-383">Microsoft.AspNetCore.HostFiltering</span><span class="sxs-lookup"><span data-stu-id="ea9c9-383">Microsoft.AspNetCore.HostFiltering</span></span>  | <span data-ttu-id="ea9c9-384">所允许的主机。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-384">Hosts allowed.</span></span> |
-| <span data-ttu-id="ea9c9-385">Microsoft.AspNetCore.Hosting</span><span class="sxs-lookup"><span data-stu-id="ea9c9-385">Microsoft.AspNetCore.Hosting</span></span>        | <span data-ttu-id="ea9c9-386">HTTP 请求完成的时间和启动时间。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-386">How long HTTP requests took to complete and what time they started.</span></span> <span data-ttu-id="ea9c9-387">加载了哪些承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-387">Which hosting startup assemblies were loaded.</span></span> |
-| <span data-ttu-id="ea9c9-388">Microsoft.AspNetCore.Mvc</span><span class="sxs-lookup"><span data-stu-id="ea9c9-388">Microsoft.AspNetCore.Mvc</span></span>            | <span data-ttu-id="ea9c9-389">MVC 和 Razor 诊断。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-389">MVC and Razor diagnostics.</span></span> <span data-ttu-id="ea9c9-390">模型绑定、筛选器执行、视图编译和操作选择。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-390">Model binding, filter execution, view compilation, action selection.</span></span> |
-| <span data-ttu-id="ea9c9-391">Microsoft.AspNetCore.Routing</span><span class="sxs-lookup"><span data-stu-id="ea9c9-391">Microsoft.AspNetCore.Routing</span></span>        | <span data-ttu-id="ea9c9-392">路由匹配信息。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-392">Route matching information.</span></span> |
-| <span data-ttu-id="ea9c9-393">Microsoft.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="ea9c9-393">Microsoft.AspNetCore.Server</span></span>         | <span data-ttu-id="ea9c9-394">连接启动、停止和保持活动响应。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-394">Connection start, stop, and keep alive responses.</span></span> <span data-ttu-id="ea9c9-395">HTTP 证书信息。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-395">HTTPS certificate information.</span></span> |
-| <span data-ttu-id="ea9c9-396">Microsoft.AspNetCore.StaticFiles</span><span class="sxs-lookup"><span data-stu-id="ea9c9-396">Microsoft.AspNetCore.StaticFiles</span></span>    | <span data-ttu-id="ea9c9-397">提供的文件。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-397">Files served.</span></span> |
-| <span data-ttu-id="ea9c9-398">Microsoft.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="ea9c9-398">Microsoft.EntityFrameworkCore</span></span>       | <span data-ttu-id="ea9c9-399">常规 Entity Framework Core 诊断。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-399">General Entity Framework Core diagnostics.</span></span> <span data-ttu-id="ea9c9-400">数据库活动和配置、更改检测、迁移。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-400">Database activity and configuration, change detection, migrations.</span></span> |
+| <span data-ttu-id="fa397-384">Microsoft.AspNetCore</span><span class="sxs-lookup"><span data-stu-id="fa397-384">Microsoft.AspNetCore</span></span>                | <span data-ttu-id="fa397-385">常规 ASP.NET Core 诊断。</span><span class="sxs-lookup"><span data-stu-id="fa397-385">General ASP.NET Core diagnostics.</span></span> |
+| <span data-ttu-id="fa397-386">Microsoft.AspNetCore.DataProtection</span><span class="sxs-lookup"><span data-stu-id="fa397-386">Microsoft.AspNetCore.DataProtection</span></span> | <span data-ttu-id="fa397-387">考虑、找到并使用了哪些密钥。</span><span class="sxs-lookup"><span data-stu-id="fa397-387">Which keys were considered, found, and used.</span></span> |
+| <span data-ttu-id="fa397-388">Microsoft.AspNetCore.HostFiltering</span><span class="sxs-lookup"><span data-stu-id="fa397-388">Microsoft.AspNetCore.HostFiltering</span></span>  | <span data-ttu-id="fa397-389">所允许的主机。</span><span class="sxs-lookup"><span data-stu-id="fa397-389">Hosts allowed.</span></span> |
+| <span data-ttu-id="fa397-390">Microsoft.AspNetCore.Hosting</span><span class="sxs-lookup"><span data-stu-id="fa397-390">Microsoft.AspNetCore.Hosting</span></span>        | <span data-ttu-id="fa397-391">HTTP 请求完成的时间和启动时间。</span><span class="sxs-lookup"><span data-stu-id="fa397-391">How long HTTP requests took to complete and what time they started.</span></span> <span data-ttu-id="fa397-392">加载了哪些承载启动程序集。</span><span class="sxs-lookup"><span data-stu-id="fa397-392">Which hosting startup assemblies were loaded.</span></span> |
+| <span data-ttu-id="fa397-393">Microsoft.AspNetCore.Mvc</span><span class="sxs-lookup"><span data-stu-id="fa397-393">Microsoft.AspNetCore.Mvc</span></span>            | <span data-ttu-id="fa397-394">MVC 和 Razor 诊断。</span><span class="sxs-lookup"><span data-stu-id="fa397-394">MVC and Razor diagnostics.</span></span> <span data-ttu-id="fa397-395">模型绑定、筛选器执行、视图编译和操作选择。</span><span class="sxs-lookup"><span data-stu-id="fa397-395">Model binding, filter execution, view compilation, action selection.</span></span> |
+| <span data-ttu-id="fa397-396">Microsoft.AspNetCore.Routing</span><span class="sxs-lookup"><span data-stu-id="fa397-396">Microsoft.AspNetCore.Routing</span></span>        | <span data-ttu-id="fa397-397">路由匹配信息。</span><span class="sxs-lookup"><span data-stu-id="fa397-397">Route matching information.</span></span> |
+| <span data-ttu-id="fa397-398">Microsoft.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="fa397-398">Microsoft.AspNetCore.Server</span></span>         | <span data-ttu-id="fa397-399">连接启动、停止和保持活动响应。</span><span class="sxs-lookup"><span data-stu-id="fa397-399">Connection start, stop, and keep alive responses.</span></span> <span data-ttu-id="fa397-400">HTTP 证书信息。</span><span class="sxs-lookup"><span data-stu-id="fa397-400">HTTPS certificate information.</span></span> |
+| <span data-ttu-id="fa397-401">Microsoft.AspNetCore.StaticFiles</span><span class="sxs-lookup"><span data-stu-id="fa397-401">Microsoft.AspNetCore.StaticFiles</span></span>    | <span data-ttu-id="fa397-402">提供的文件。</span><span class="sxs-lookup"><span data-stu-id="fa397-402">Files served.</span></span> |
+| <span data-ttu-id="fa397-403">Microsoft.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="fa397-403">Microsoft.EntityFrameworkCore</span></span>       | <span data-ttu-id="fa397-404">常规 Entity Framework Core 诊断。</span><span class="sxs-lookup"><span data-stu-id="fa397-404">General Entity Framework Core diagnostics.</span></span> <span data-ttu-id="fa397-405">数据库活动和配置、更改检测、迁移。</span><span class="sxs-lookup"><span data-stu-id="fa397-405">Database activity and configuration, change detection, migrations.</span></span> |
 
-## <a name="log-scopes"></a><span data-ttu-id="ea9c9-401">日志作用域</span><span class="sxs-lookup"><span data-stu-id="ea9c9-401">Log scopes</span></span>
+## <a name="log-scopes"></a><span data-ttu-id="fa397-406">日志作用域</span><span class="sxs-lookup"><span data-stu-id="fa397-406">Log scopes</span></span>
 
- <span data-ttu-id="ea9c9-402">“作用域”可对一组逻辑操作分组  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-402">A *scope* can group a set of logical operations.</span></span> <span data-ttu-id="ea9c9-403">此分组可用于将相同的数据附加到作为集合的一部分而创建的每个日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-403">This grouping can be used to attach the same data to each log that's created as part of a set.</span></span> <span data-ttu-id="ea9c9-404">例如，在处理事务期间创建的每个日志都可包括事务 ID。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-404">For example, every log created as part of processing a transaction can include the transaction ID.</span></span>
+ <span data-ttu-id="fa397-407">“作用域”可对一组逻辑操作分组  。</span><span class="sxs-lookup"><span data-stu-id="fa397-407">A *scope* can group a set of logical operations.</span></span> <span data-ttu-id="fa397-408">此分组可用于将相同的数据附加到作为集合的一部分而创建的每个日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-408">This grouping can be used to attach the same data to each log that's created as part of a set.</span></span> <span data-ttu-id="fa397-409">例如，在处理事务期间创建的每个日志都可包括事务 ID。</span><span class="sxs-lookup"><span data-stu-id="fa397-409">For example, every log created as part of processing a transaction can include the transaction ID.</span></span>
 
-<span data-ttu-id="ea9c9-405">范围是由 <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> 方法返回的 `IDisposable` 类型，持续至释放为止。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-405">A scope is an `IDisposable` type that's returned by the <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> method and lasts until it's disposed.</span></span> <span data-ttu-id="ea9c9-406">要使用作用域，请在 `using` 块中包装记录器调用：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-406">Use a scope by wrapping logger calls in a `using` block:</span></span>
+<span data-ttu-id="fa397-410">范围是由 <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> 方法返回的 `IDisposable` 类型，持续至释放为止。</span><span class="sxs-lookup"><span data-stu-id="fa397-410">A scope is an `IDisposable` type that's returned by the <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> method and lasts until it's disposed.</span></span> <span data-ttu-id="fa397-411">要使用作用域，请在 `using` 块中包装记录器调用：</span><span class="sxs-lookup"><span data-stu-id="fa397-411">Use a scope by wrapping logger calls in a `using` block:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -727,9 +731,9 @@ System.Exception: Item not found exception.
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-407">下列代码为控制台提供程序启用作用域：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-407">The following code enables scopes for the console provider:</span></span>
+<span data-ttu-id="fa397-412">下列代码为控制台提供程序启用作用域：</span><span class="sxs-lookup"><span data-stu-id="fa397-412">The following code enables scopes for the console provider:</span></span>
 
-<span data-ttu-id="ea9c9-408">Program.cs  :</span><span class="sxs-lookup"><span data-stu-id="ea9c9-408">*Program.cs*:</span></span>
+<span data-ttu-id="fa397-413">Program.cs  :</span><span class="sxs-lookup"><span data-stu-id="fa397-413">*Program.cs*:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -744,11 +748,11 @@ System.Exception: Item not found exception.
 ::: moniker-end
 
 > [!NOTE]
-> <span data-ttu-id="ea9c9-409">要启用基于作用域的日志记录，必须先配置 `IncludeScopes` 控制台记录器选项。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-409">Configuring the `IncludeScopes` console logger option is required to enable scope-based logging.</span></span>
+> <span data-ttu-id="fa397-414">要启用基于作用域的日志记录，必须先配置 `IncludeScopes` 控制台记录器选项。</span><span class="sxs-lookup"><span data-stu-id="fa397-414">Configuring the `IncludeScopes` console logger option is required to enable scope-based logging.</span></span>
 >
-> <span data-ttu-id="ea9c9-410">若要了解关配置，请参阅[配置](#configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-410">For information on configuration, see the [Configuration](#configuration) section.</span></span>
+> <span data-ttu-id="fa397-415">若要了解关配置，请参阅[配置](#configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fa397-415">For information on configuration, see the [Configuration](#configuration) section.</span></span>
 
-<span data-ttu-id="ea9c9-411">每条日志消息都包含作用域内的信息：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-411">Each log message includes the scoped information:</span></span>
+<span data-ttu-id="fa397-416">每条日志消息都包含作用域内的信息：</span><span class="sxs-lookup"><span data-stu-id="fa397-416">Each log message includes the scoped information:</span></span>
 
 ```
 info: TodoApiSample.Controllers.TodoController[1002]
@@ -759,84 +763,84 @@ warn: TodoApiSample.Controllers.TodoController[4000]
       GetById(0) NOT FOUND
 ```
 
-## <a name="built-in-logging-providers"></a><span data-ttu-id="ea9c9-412">内置日志记录提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-412">Built-in logging providers</span></span>
+## <a name="built-in-logging-providers"></a><span data-ttu-id="fa397-417">内置日志记录提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-417">Built-in logging providers</span></span>
 
-<span data-ttu-id="ea9c9-413">ASP.NET Core 提供以下提供程序：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-413">ASP.NET Core ships the following providers:</span></span>
+<span data-ttu-id="fa397-418">ASP.NET Core 提供以下提供程序：</span><span class="sxs-lookup"><span data-stu-id="fa397-418">ASP.NET Core ships the following providers:</span></span>
 
-* [<span data-ttu-id="ea9c9-414">控制台</span><span class="sxs-lookup"><span data-stu-id="ea9c9-414">Console</span></span>](#console-provider)
-* [<span data-ttu-id="ea9c9-415">调试</span><span class="sxs-lookup"><span data-stu-id="ea9c9-415">Debug</span></span>](#debug-provider)
-* [<span data-ttu-id="ea9c9-416">EventSource</span><span class="sxs-lookup"><span data-stu-id="ea9c9-416">EventSource</span></span>](#eventsource-provider)
-* [<span data-ttu-id="ea9c9-417">EventLog</span><span class="sxs-lookup"><span data-stu-id="ea9c9-417">EventLog</span></span>](#windows-eventlog-provider)
-* [<span data-ttu-id="ea9c9-418">TraceSource</span><span class="sxs-lookup"><span data-stu-id="ea9c9-418">TraceSource</span></span>](#tracesource-provider)
-* [<span data-ttu-id="ea9c9-419">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="ea9c9-419">AzureAppServicesFile</span></span>](#azure-app-service-provider)
-* [<span data-ttu-id="ea9c9-420">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="ea9c9-420">AzureAppServicesBlob</span></span>](#azure-app-service-provider)
-* [<span data-ttu-id="ea9c9-421">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="ea9c9-421">ApplicationInsights</span></span>](#azure-application-insights-trace-logging)
+* [<span data-ttu-id="fa397-419">控制台</span><span class="sxs-lookup"><span data-stu-id="fa397-419">Console</span></span>](#console-provider)
+* [<span data-ttu-id="fa397-420">调试</span><span class="sxs-lookup"><span data-stu-id="fa397-420">Debug</span></span>](#debug-provider)
+* [<span data-ttu-id="fa397-421">EventSource</span><span class="sxs-lookup"><span data-stu-id="fa397-421">EventSource</span></span>](#eventsource-provider)
+* [<span data-ttu-id="fa397-422">EventLog</span><span class="sxs-lookup"><span data-stu-id="fa397-422">EventLog</span></span>](#windows-eventlog-provider)
+* [<span data-ttu-id="fa397-423">TraceSource</span><span class="sxs-lookup"><span data-stu-id="fa397-423">TraceSource</span></span>](#tracesource-provider)
+* [<span data-ttu-id="fa397-424">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="fa397-424">AzureAppServicesFile</span></span>](#azure-app-service-provider)
+* [<span data-ttu-id="fa397-425">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="fa397-425">AzureAppServicesBlob</span></span>](#azure-app-service-provider)
+* [<span data-ttu-id="fa397-426">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="fa397-426">ApplicationInsights</span></span>](#azure-application-insights-trace-logging)
 
-<span data-ttu-id="ea9c9-422">要通过 ASP.NET Core 模块了解 stdout 和调试日志记录，请参阅 <xref:test/troubleshoot-azure-iis> 和 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-422">For information on stdout and debug logging with the ASP.NET Core Module, see <xref:test/troubleshoot-azure-iis> and <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.</span></span>
+<span data-ttu-id="fa397-427">要通过 ASP.NET Core 模块了解 stdout 和调试日志记录，请参阅 <xref:test/troubleshoot-azure-iis> 和 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。</span><span class="sxs-lookup"><span data-stu-id="fa397-427">For information on stdout and debug logging with the ASP.NET Core Module, see <xref:test/troubleshoot-azure-iis> and <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.</span></span>
 
-### <a name="console-provider"></a><span data-ttu-id="ea9c9-423">控制台提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-423">Console provider</span></span>
+### <a name="console-provider"></a><span data-ttu-id="fa397-428">控制台提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-428">Console provider</span></span>
 
-<span data-ttu-id="ea9c9-424">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) 提供程序包向控制台发送日志输出。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-424">The [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) provider package sends log output to the console.</span></span> 
+<span data-ttu-id="fa397-429">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) 提供程序包向控制台发送日志输出。</span><span class="sxs-lookup"><span data-stu-id="fa397-429">The [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) provider package sends log output to the console.</span></span> 
 
 ```csharp
 logging.AddConsole();
 ```
 
-<span data-ttu-id="ea9c9-425">要查看控制台日志记录输出，请在项目文件夹中打开命令提示符并运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-425">To see console logging output, open a command prompt in the project folder and run the following command:</span></span>
+<span data-ttu-id="fa397-430">要查看控制台日志记录输出，请在项目文件夹中打开命令提示符并运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="fa397-430">To see console logging output, open a command prompt in the project folder and run the following command:</span></span>
 
 ```dotnetcli
 dotnet run
 ```
 
-### <a name="debug-provider"></a><span data-ttu-id="ea9c9-426">调试提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-426">Debug provider</span></span>
+### <a name="debug-provider"></a><span data-ttu-id="fa397-431">调试提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-431">Debug provider</span></span>
 
-<span data-ttu-id="ea9c9-427">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) 提供程序包使用 [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) 类（`Debug.WriteLine` 方法调用）来写入日志输出。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-427">The [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) provider package writes log output by using the [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) class (`Debug.WriteLine` method calls).</span></span>
+<span data-ttu-id="fa397-432">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) 提供程序包使用 [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) 类（`Debug.WriteLine` 方法调用）来写入日志输出。</span><span class="sxs-lookup"><span data-stu-id="fa397-432">The [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) provider package writes log output by using the [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) class (`Debug.WriteLine` method calls).</span></span>
 
-<span data-ttu-id="ea9c9-428">在 Linux 中，此提供程序将日志写入 /var/log/message  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-428">On Linux, this provider writes logs to */var/log/message*.</span></span>
+<span data-ttu-id="fa397-433">在 Linux 中，此提供程序将日志写入 /var/log/message  。</span><span class="sxs-lookup"><span data-stu-id="fa397-433">On Linux, this provider writes logs to */var/log/message*.</span></span>
 
 ```csharp
 logging.AddDebug();
 ```
 
-### <a name="eventsource-provider"></a><span data-ttu-id="ea9c9-429">EventSource 提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-429">EventSource provider</span></span>
+### <a name="eventsource-provider"></a><span data-ttu-id="fa397-434">EventSource 提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-434">EventSource provider</span></span>
 
-<span data-ttu-id="ea9c9-430">对于面向 ASP.NET Core 1.1.0 或更高版本的应用，[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) 提供程序包可实现事件跟踪。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-430">For apps that target ASP.NET Core 1.1.0 or later, the [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) provider package can implement event tracing.</span></span> <span data-ttu-id="ea9c9-431">在 Windows 中，它使用 [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-431">On Windows, it uses [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803).</span></span> <span data-ttu-id="ea9c9-432">提供程序可跨平台使用，但尚无支持 Linux 或 macOS 的事件集合和显示工具。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-432">The provider is cross-platform, but there are no event collection and display tools yet for Linux or macOS.</span></span>
+<span data-ttu-id="fa397-435">对于面向 ASP.NET Core 1.1.0 或更高版本的应用，[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) 提供程序包可实现事件跟踪。</span><span class="sxs-lookup"><span data-stu-id="fa397-435">For apps that target ASP.NET Core 1.1.0 or later, the [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) provider package can implement event tracing.</span></span> <span data-ttu-id="fa397-436">在 Windows 中，它使用 [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803)。</span><span class="sxs-lookup"><span data-stu-id="fa397-436">On Windows, it uses [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803).</span></span> <span data-ttu-id="fa397-437">提供程序可跨平台使用，但尚无支持 Linux 或 macOS 的事件集合和显示工具。</span><span class="sxs-lookup"><span data-stu-id="fa397-437">The provider is cross-platform, but there are no event collection and display tools yet for Linux or macOS.</span></span>
 
 ```csharp
 logging.AddEventSourceLogger();
 ```
 
-<span data-ttu-id="ea9c9-433">可使用 [PerfView 实用工具](https://github.com/Microsoft/perfview)收集和查看日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-433">A good way to collect and view logs is to use the [PerfView utility](https://github.com/Microsoft/perfview).</span></span> <span data-ttu-id="ea9c9-434">虽然其他工具也可以查看 ETW 日志，但在处理由 ASP.NET Core 发出的 ETW 事件时，使用 PerfView 能获得最佳体验。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-434">There are other tools for viewing ETW logs, but PerfView provides the best experience for working with the ETW events emitted by ASP.NET Core.</span></span>
+<span data-ttu-id="fa397-438">可使用 [PerfView 实用工具](https://github.com/Microsoft/perfview)收集和查看日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-438">A good way to collect and view logs is to use the [PerfView utility](https://github.com/Microsoft/perfview).</span></span> <span data-ttu-id="fa397-439">虽然其他工具也可以查看 ETW 日志，但在处理由 ASP.NET Core 发出的 ETW 事件时，使用 PerfView 能获得最佳体验。</span><span class="sxs-lookup"><span data-stu-id="fa397-439">There are other tools for viewing ETW logs, but PerfView provides the best experience for working with the ETW events emitted by ASP.NET Core.</span></span>
 
-<span data-ttu-id="ea9c9-435">要将 PerfView 配置为收集此提供程序记录的事件，请向 Additional Providers 列表添加字符串 `*Microsoft-Extensions-Logging`  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-435">To configure PerfView for collecting events logged by this provider, add the string `*Microsoft-Extensions-Logging` to the **Additional Providers** list.</span></span> <span data-ttu-id="ea9c9-436">（请勿遗漏字符串起始处的星号。）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-436">(Don't miss the asterisk at the start of the string.)</span></span>
+<span data-ttu-id="fa397-440">要将 PerfView 配置为收集此提供程序记录的事件，请向 Additional Providers 列表添加字符串 `*Microsoft-Extensions-Logging`  。</span><span class="sxs-lookup"><span data-stu-id="fa397-440">To configure PerfView for collecting events logged by this provider, add the string `*Microsoft-Extensions-Logging` to the **Additional Providers** list.</span></span> <span data-ttu-id="fa397-441">（请勿遗漏字符串起始处的星号。）</span><span class="sxs-lookup"><span data-stu-id="fa397-441">(Don't miss the asterisk at the start of the string.)</span></span>
 
 ![其他 Perfview 提供程序](index/_static/perfview-additional-providers.png)
 
-### <a name="windows-eventlog-provider"></a><span data-ttu-id="ea9c9-438">Windows EventLog 提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-438">Windows EventLog provider</span></span>
+### <a name="windows-eventlog-provider"></a><span data-ttu-id="fa397-443">Windows EventLog 提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-443">Windows EventLog provider</span></span>
 
-<span data-ttu-id="ea9c9-439">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) 提供程序包向 Windows 事件日志发送日志输出。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-439">The [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) provider package sends log output to the Windows Event Log.</span></span>
+<span data-ttu-id="fa397-444">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) 提供程序包向 Windows 事件日志发送日志输出。</span><span class="sxs-lookup"><span data-stu-id="fa397-444">The [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) provider package sends log output to the Windows Event Log.</span></span>
 
 ```csharp
 logging.AddEventLog();
 ```
 
-<span data-ttu-id="ea9c9-440">[AddEventLog 重载](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)允许传入 <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-440">[AddEventLog overloads](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) let you pass in <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>.</span></span>
+<span data-ttu-id="fa397-445">[AddEventLog 重载](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)允许传入 <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>。</span><span class="sxs-lookup"><span data-stu-id="fa397-445">[AddEventLog overloads](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) let you pass in <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>.</span></span>
 
-### <a name="tracesource-provider"></a><span data-ttu-id="ea9c9-441">TraceSource 提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-441">TraceSource provider</span></span>
+### <a name="tracesource-provider"></a><span data-ttu-id="fa397-446">TraceSource 提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-446">TraceSource provider</span></span>
 
-<span data-ttu-id="ea9c9-442">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) 提供程序包使用 <xref:System.Diagnostics.TraceSource> 库和提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-442">The [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) provider package uses the <xref:System.Diagnostics.TraceSource> libraries and providers.</span></span>
+<span data-ttu-id="fa397-447">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) 提供程序包使用 <xref:System.Diagnostics.TraceSource> 库和提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-447">The [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) provider package uses the <xref:System.Diagnostics.TraceSource> libraries and providers.</span></span>
 
 ```csharp
 logging.AddTraceSource(sourceSwitchName);
 ```
 
-<span data-ttu-id="ea9c9-443">[AddTraceSource 重载](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) 允许传入资源开关和跟踪侦听器。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-443">[AddTraceSource overloads](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) let you pass in a source switch and a trace listener.</span></span>
+<span data-ttu-id="fa397-448">[AddTraceSource 重载](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) 允许传入资源开关和跟踪侦听器。</span><span class="sxs-lookup"><span data-stu-id="fa397-448">[AddTraceSource overloads](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) let you pass in a source switch and a trace listener.</span></span>
 
-<span data-ttu-id="ea9c9-444">要使用此提供程序，应用必须在 .NET Framework（而非 .NET Core）上运行。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-444">To use this provider, an app has to run on the .NET Framework (rather than .NET Core).</span></span> <span data-ttu-id="ea9c9-445">提供程序可将消息路由到多个[侦听器](/dotnet/framework/debug-trace-profile/trace-listeners)，例如示例应用中使用的 <xref:System.Diagnostics.TextWriterTraceListener>。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-445">The provider can route messages to a variety of [listeners](/dotnet/framework/debug-trace-profile/trace-listeners), such as the <xref:System.Diagnostics.TextWriterTraceListener> used in the sample app.</span></span>
+<span data-ttu-id="fa397-449">要使用此提供程序，应用必须在 .NET Framework（而非 .NET Core）上运行。</span><span class="sxs-lookup"><span data-stu-id="fa397-449">To use this provider, an app has to run on the .NET Framework (rather than .NET Core).</span></span> <span data-ttu-id="fa397-450">提供程序可将消息路由到多个[侦听器](/dotnet/framework/debug-trace-profile/trace-listeners)，例如示例应用中使用的 <xref:System.Diagnostics.TextWriterTraceListener>。</span><span class="sxs-lookup"><span data-stu-id="fa397-450">The provider can route messages to a variety of [listeners](/dotnet/framework/debug-trace-profile/trace-listeners), such as the <xref:System.Diagnostics.TextWriterTraceListener> used in the sample app.</span></span>
 
-### <a name="azure-app-service-provider"></a><span data-ttu-id="ea9c9-446">Azure 应用服务提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-446">Azure App Service provider</span></span>
+### <a name="azure-app-service-provider"></a><span data-ttu-id="fa397-451">Azure 应用服务提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-451">Azure App Service provider</span></span>
 
-<span data-ttu-id="ea9c9-447">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) 提供程序包将日志写入 Azure App Service 应用的文件系统，以及 Azure 存储帐户中的 [blob 存储](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-447">The [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) provider package writes logs to text files in an Azure App Service app's file system and to [blob storage](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) in an Azure Storage account.</span></span>
+<span data-ttu-id="fa397-452">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) 提供程序包将日志写入 Azure App Service 应用的文件系统，以及 Azure 存储帐户中的 [blob 存储](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage)。</span><span class="sxs-lookup"><span data-stu-id="fa397-452">The [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) provider package writes logs to text files in an Azure App Service app's file system and to [blob storage](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) in an Azure Storage account.</span></span>
 
 ```csharp
 logging.AddAzureWebAppDiagnostics();
@@ -844,19 +848,19 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ea9c9-448">共享框架中不包括该提供程序包。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-448">The provider package isn't included in the shared framework.</span></span> <span data-ttu-id="ea9c9-449">若要使用提供程序，请将提供程序包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-449">To use the provider, add the provider package to the project.</span></span>
+<span data-ttu-id="fa397-453">共享框架中不包括该提供程序包。</span><span class="sxs-lookup"><span data-stu-id="fa397-453">The provider package isn't included in the shared framework.</span></span> <span data-ttu-id="fa397-454">若要使用提供程序，请将提供程序包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="fa397-454">To use the provider, add the provider package to the project.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-<span data-ttu-id="ea9c9-450">[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中不包括此提供程序包。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-450">The provider package isn't included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="ea9c9-451">如果面向 .NET Framework 或引用 `Microsoft.AspNetCore.App` 元包，请向项目添加提供程序包。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-451">When targeting .NET Framework or referencing the `Microsoft.AspNetCore.App` metapackage, add the provider package to the project.</span></span> 
+<span data-ttu-id="fa397-455">[Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中不包括此提供程序包。</span><span class="sxs-lookup"><span data-stu-id="fa397-455">The provider package isn't included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="fa397-456">如果面向 .NET Framework 或引用 `Microsoft.AspNetCore.App` 元包，请向项目添加提供程序包。</span><span class="sxs-lookup"><span data-stu-id="fa397-456">When targeting .NET Framework or referencing the `Microsoft.AspNetCore.App` metapackage, add the provider package to the project.</span></span> 
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="ea9c9-452">要配置提供程序设置，请使用 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> 和 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-452">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
+<span data-ttu-id="fa397-457">要配置提供程序设置，请使用 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> 和 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="fa397-457">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=17-28)]
 
@@ -864,7 +868,7 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker range="= aspnetcore-2.2"
 
-<span data-ttu-id="ea9c9-453">要配置提供程序设置，请使用 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> 和 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-453">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
+<span data-ttu-id="fa397-458">要配置提供程序设置，请使用 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> 和 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="fa397-458">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=19-27)]
 
@@ -872,75 +876,75 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="ea9c9-454"><xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-454">An <xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> overload lets you pass in <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>.</span></span> <span data-ttu-id="ea9c9-455">设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-455">The settings object can override default settings, such as the logging output template, blob name, and file size limit.</span></span> <span data-ttu-id="ea9c9-456">（“输出模板”是一个消息模板，除了通过 `ILogger` 方法调用提供的内容之外，还可将其应用于所有日志。  ）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-456">(*Output template* is a message template that's applied to all logs in addition to what's provided with an `ILogger` method call.)</span></span>
+<span data-ttu-id="fa397-459"><xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。</span><span class="sxs-lookup"><span data-stu-id="fa397-459">An <xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> overload lets you pass in <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>.</span></span> <span data-ttu-id="fa397-460">设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。</span><span class="sxs-lookup"><span data-stu-id="fa397-460">The settings object can override default settings, such as the logging output template, blob name, and file size limit.</span></span> <span data-ttu-id="fa397-461">（“输出模板”是一个消息模板，除了通过 `ILogger` 方法调用提供的内容之外，还可将其应用于所有日志。  ）</span><span class="sxs-lookup"><span data-stu-id="fa397-461">(*Output template* is a message template that's applied to all logs in addition to what's provided with an `ILogger` method call.)</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="ea9c9-457">在部署应用服务应用时，应用程序将采用 Azure 门户中“应用服务”页面下的[应用服务日志](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag)部分的设置  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-457">When you deploy to an App Service app, the application honors the settings in the [App Service logs](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) section of the **App Service** page of the Azure portal.</span></span> <span data-ttu-id="ea9c9-458">更新以下设置后，更改立即生效，无需重启或重新部署应用。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-458">When the following settings are updated, the changes take effect immediately without requiring a restart or redeployment of the app.</span></span>
+<span data-ttu-id="fa397-462">在部署应用服务应用时，应用程序将采用 Azure 门户中“应用服务”页面下的[应用服务日志](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag)部分的设置  。</span><span class="sxs-lookup"><span data-stu-id="fa397-462">When you deploy to an App Service app, the application honors the settings in the [App Service logs](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) section of the **App Service** page of the Azure portal.</span></span> <span data-ttu-id="fa397-463">更新以下设置后，更改立即生效，无需重启或重新部署应用。</span><span class="sxs-lookup"><span data-stu-id="fa397-463">When the following settings are updated, the changes take effect immediately without requiring a restart or redeployment of the app.</span></span>
 
-* <span data-ttu-id="ea9c9-459">应用程序日志记录(Filesystem) </span><span class="sxs-lookup"><span data-stu-id="ea9c9-459">**Application Logging (Filesystem)**</span></span>
-* <span data-ttu-id="ea9c9-460">应用程序日志记录(Blob) </span><span class="sxs-lookup"><span data-stu-id="ea9c9-460">**Application Logging (Blob)**</span></span>
+* <span data-ttu-id="fa397-464">应用程序日志记录(Filesystem) </span><span class="sxs-lookup"><span data-stu-id="fa397-464">**Application Logging (Filesystem)**</span></span>
+* <span data-ttu-id="fa397-465">应用程序日志记录(Blob) </span><span class="sxs-lookup"><span data-stu-id="fa397-465">**Application Logging (Blob)**</span></span>
 
-<span data-ttu-id="ea9c9-461">日志文件的默认位置是 D:\\home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt   。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-461">The default location for log files is in the *D:\\home\\LogFiles\\Application* folder, and the default file name is *diagnostics-yyyymmdd.txt*.</span></span> <span data-ttu-id="ea9c9-462">默认文件大小上限为 10 MB，默认最大保留文件数为 2。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-462">The default file size limit is 10 MB, and the default maximum number of files retained is 2.</span></span> <span data-ttu-id="ea9c9-463">默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-463">The default blob name is *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.</span></span>
+<span data-ttu-id="fa397-466">日志文件的默认位置是 D:\\home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt   。</span><span class="sxs-lookup"><span data-stu-id="fa397-466">The default location for log files is in the *D:\\home\\LogFiles\\Application* folder, and the default file name is *diagnostics-yyyymmdd.txt*.</span></span> <span data-ttu-id="fa397-467">默认文件大小上限为 10 MB，默认最大保留文件数为 2。</span><span class="sxs-lookup"><span data-stu-id="fa397-467">The default file size limit is 10 MB, and the default maximum number of files retained is 2.</span></span> <span data-ttu-id="fa397-468">默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt  。</span><span class="sxs-lookup"><span data-stu-id="fa397-468">The default blob name is *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.</span></span>
 
-<span data-ttu-id="ea9c9-464">该提供程序仅当项目在 Azure 环境中运行时有效。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-464">The provider only works when the project runs in the Azure environment.</span></span> <span data-ttu-id="ea9c9-465">项目在本地运行时，该提供程序无效 &mdash; 它不会写入本地文件或 blob 的本地开发存储。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-465">It has no effect when the project is run locally&mdash;it doesn't write to local files or local development storage for blobs.</span></span>
+<span data-ttu-id="fa397-469">该提供程序仅当项目在 Azure 环境中运行时有效。</span><span class="sxs-lookup"><span data-stu-id="fa397-469">The provider only works when the project runs in the Azure environment.</span></span> <span data-ttu-id="fa397-470">项目在本地运行时，该提供程序无效 &mdash; 它不会写入本地文件或 blob 的本地开发存储。</span><span class="sxs-lookup"><span data-stu-id="fa397-470">It has no effect when the project is run locally&mdash;it doesn't write to local files or local development storage for blobs.</span></span>
 
-#### <a name="azure-log-streaming"></a><span data-ttu-id="ea9c9-466">Azure 日志流式处理</span><span class="sxs-lookup"><span data-stu-id="ea9c9-466">Azure log streaming</span></span>
+#### <a name="azure-log-streaming"></a><span data-ttu-id="fa397-471">Azure 日志流式处理</span><span class="sxs-lookup"><span data-stu-id="fa397-471">Azure log streaming</span></span>
 
-<span data-ttu-id="ea9c9-467">通过 Azure 日志流式处理，可从以下位置实时查看日志活动：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-467">Azure log streaming lets you view log activity in real time from:</span></span>
+<span data-ttu-id="fa397-472">通过 Azure 日志流式处理，可从以下位置实时查看日志活动：</span><span class="sxs-lookup"><span data-stu-id="fa397-472">Azure log streaming lets you view log activity in real time from:</span></span>
 
-* <span data-ttu-id="ea9c9-468">应用服务器</span><span class="sxs-lookup"><span data-stu-id="ea9c9-468">The app server</span></span>
-* <span data-ttu-id="ea9c9-469">Web 服务器</span><span class="sxs-lookup"><span data-stu-id="ea9c9-469">The web server</span></span>
-* <span data-ttu-id="ea9c9-470">请求跟踪失败</span><span class="sxs-lookup"><span data-stu-id="ea9c9-470">Failed request tracing</span></span>
+* <span data-ttu-id="fa397-473">应用服务器</span><span class="sxs-lookup"><span data-stu-id="fa397-473">The app server</span></span>
+* <span data-ttu-id="fa397-474">Web 服务器</span><span class="sxs-lookup"><span data-stu-id="fa397-474">The web server</span></span>
+* <span data-ttu-id="fa397-475">请求跟踪失败</span><span class="sxs-lookup"><span data-stu-id="fa397-475">Failed request tracing</span></span>
 
-<span data-ttu-id="ea9c9-471">要配置 Azure 日志流式处理，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-471">To configure Azure log streaming:</span></span>
+<span data-ttu-id="fa397-476">要配置 Azure 日志流式处理，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="fa397-476">To configure Azure log streaming:</span></span>
 
-* <span data-ttu-id="ea9c9-472">从应用的门户页导航到“应用服务日志”页  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-472">Navigate to the **App Service logs** page from your app's portal page.</span></span>
-* <span data-ttu-id="ea9c9-473">将“应用程序日志记录(Filesystem)”设置为“开”   。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-473">Set **Application Logging (Filesystem)** to **On**.</span></span>
-* <span data-ttu-id="ea9c9-474">选择日志级别  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-474">Choose the log **Level**.</span></span>
+* <span data-ttu-id="fa397-477">从应用的门户页导航到“应用服务日志”页  。</span><span class="sxs-lookup"><span data-stu-id="fa397-477">Navigate to the **App Service logs** page from your app's portal page.</span></span>
+* <span data-ttu-id="fa397-478">将“应用程序日志记录(Filesystem)”设置为“开”   。</span><span class="sxs-lookup"><span data-stu-id="fa397-478">Set **Application Logging (Filesystem)** to **On**.</span></span>
+* <span data-ttu-id="fa397-479">选择日志级别  。</span><span class="sxs-lookup"><span data-stu-id="fa397-479">Choose the log **Level**.</span></span>
 
-<span data-ttu-id="ea9c9-475">导航到“日志流”页面来查看应用消息  。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-475">Navigate to the **Log Stream** page to view app messages.</span></span> <span data-ttu-id="ea9c9-476">它们由应用通过 `ILogger` 接口记录。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-476">They're logged by the app through the `ILogger` interface.</span></span>
+<span data-ttu-id="fa397-480">导航到“日志流”页面来查看应用消息  。</span><span class="sxs-lookup"><span data-stu-id="fa397-480">Navigate to the **Log Stream** page to view app messages.</span></span> <span data-ttu-id="fa397-481">它们由应用通过 `ILogger` 接口记录。</span><span class="sxs-lookup"><span data-stu-id="fa397-481">They're logged by the app through the `ILogger` interface.</span></span>
 
-### <a name="azure-application-insights-trace-logging"></a><span data-ttu-id="ea9c9-477">Azure Application Insights 跟踪日志记录</span><span class="sxs-lookup"><span data-stu-id="ea9c9-477">Azure Application Insights trace logging</span></span>
+### <a name="azure-application-insights-trace-logging"></a><span data-ttu-id="fa397-482">Azure Application Insights 跟踪日志记录</span><span class="sxs-lookup"><span data-stu-id="fa397-482">Azure Application Insights trace logging</span></span>
 
-<span data-ttu-id="ea9c9-478">[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) 提供程序包将日志写入 Azure Application Insights。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-478">The [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) provider package writes logs to Azure Application Insights.</span></span> <span data-ttu-id="ea9c9-479">Application Insights 是一项服务，可监视 Web 应用并提供用于查询和分析遥测数据的工具。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-479">Application Insights is a service that monitors a web app and provides tools for querying and analyzing the telemetry data.</span></span> <span data-ttu-id="ea9c9-480">如果使用此提供程序，则可以使用 Application Insights 工具来查询和分析日志。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-480">If you use this provider, you can query and analyze your logs by using the Application Insights tools.</span></span>
+<span data-ttu-id="fa397-483">[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) 提供程序包将日志写入 Azure Application Insights。</span><span class="sxs-lookup"><span data-stu-id="fa397-483">The [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) provider package writes logs to Azure Application Insights.</span></span> <span data-ttu-id="fa397-484">Application Insights 是一项服务，可监视 Web 应用并提供用于查询和分析遥测数据的工具。</span><span class="sxs-lookup"><span data-stu-id="fa397-484">Application Insights is a service that monitors a web app and provides tools for querying and analyzing the telemetry data.</span></span> <span data-ttu-id="fa397-485">如果使用此提供程序，则可以使用 Application Insights 工具来查询和分析日志。</span><span class="sxs-lookup"><span data-stu-id="fa397-485">If you use this provider, you can query and analyze your logs by using the Application Insights tools.</span></span>
 
-<span data-ttu-id="ea9c9-481">日志记录提供程序作为 [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore)（这是提供 ASP.NET Core 的所有可用遥测的包）的依赖项包括在内。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-481">The logging provider is included as a dependency of [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), which is the package that provides all available telemetry for ASP.NET Core.</span></span> <span data-ttu-id="ea9c9-482">如果使用此包，则无需安装提供程序包。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-482">If you use this package, you don't have to install the provider package.</span></span>
+<span data-ttu-id="fa397-486">日志记录提供程序作为 [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore)（这是提供 ASP.NET Core 的所有可用遥测的包）的依赖项包括在内。</span><span class="sxs-lookup"><span data-stu-id="fa397-486">The logging provider is included as a dependency of [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), which is the package that provides all available telemetry for ASP.NET Core.</span></span> <span data-ttu-id="fa397-487">如果使用此包，则无需安装提供程序包。</span><span class="sxs-lookup"><span data-stu-id="fa397-487">If you use this package, you don't have to install the provider package.</span></span>
 
-<span data-ttu-id="ea9c9-483">请勿使用用于 ASP.NET 4.x 的 [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) 包&mdash;。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-483">Don't use the [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) package&mdash;that's for ASP.NET 4.x.</span></span>
+<span data-ttu-id="fa397-488">请勿使用用于 ASP.NET 4.x 的 [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) 包&mdash;。</span><span class="sxs-lookup"><span data-stu-id="fa397-488">Don't use the [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) package&mdash;that's for ASP.NET 4.x.</span></span>
 
-<span data-ttu-id="ea9c9-484">有关更多信息，请参见以下资源：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-484">For more information, see the following resources:</span></span>
+<span data-ttu-id="fa397-489">有关更多信息，请参见以下资源：</span><span class="sxs-lookup"><span data-stu-id="fa397-489">For more information, see the following resources:</span></span>
 
-* [<span data-ttu-id="ea9c9-485">Application Insights 概述</span><span class="sxs-lookup"><span data-stu-id="ea9c9-485">Application Insights overview</span></span>](/azure/application-insights/app-insights-overview)
-* <span data-ttu-id="ea9c9-486">[用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core) - 如果想要实现各种 Application Insights 遥测以及日志记录，请从这里开始。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-486">[Application Insights for ASP.NET Core applications](/azure/azure-monitor/app/asp-net-core) - Start here if you want to implement the full range of Application Insights telemetry along with logging.</span></span>
-* <span data-ttu-id="ea9c9-487">[.NET Core ILogger 日志的 ApplicationInsightsLoggerProvider](/azure/azure-monitor/app/ilogger) - 如果想要在没有其他 Application Insights 遥测的情况下实现日志记录提供程序，请从这里开始。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-487">[ApplicationInsightsLoggerProvider for .NET Core ILogger logs](/azure/azure-monitor/app/ilogger) - Start here if you want to implement the logging provider without the rest of Application Insights telemetry.</span></span>
-* <span data-ttu-id="ea9c9-488">[Application Insights 日志记录适配器](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-488">[Application Insights logging adapters](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs).</span></span>
-* <span data-ttu-id="ea9c9-489">[安装、配置和初始化 Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn 网站上的交互式教程。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-489">[Install, configure, and initialize the Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Interactive tutorial on the Microsoft Learn site.</span></span>
+* [<span data-ttu-id="fa397-490">Application Insights 概述</span><span class="sxs-lookup"><span data-stu-id="fa397-490">Application Insights overview</span></span>](/azure/application-insights/app-insights-overview)
+* <span data-ttu-id="fa397-491">[用于 ASP.NET Core 应用程序的 Application Insights](/azure/azure-monitor/app/asp-net-core) - 如果想要实现各种 Application Insights 遥测以及日志记录，请从这里开始。</span><span class="sxs-lookup"><span data-stu-id="fa397-491">[Application Insights for ASP.NET Core applications](/azure/azure-monitor/app/asp-net-core) - Start here if you want to implement the full range of Application Insights telemetry along with logging.</span></span>
+* <span data-ttu-id="fa397-492">[.NET Core ILogger 日志的 ApplicationInsightsLoggerProvider](/azure/azure-monitor/app/ilogger) - 如果想要在没有其他 Application Insights 遥测的情况下实现日志记录提供程序，请从这里开始。</span><span class="sxs-lookup"><span data-stu-id="fa397-492">[ApplicationInsightsLoggerProvider for .NET Core ILogger logs](/azure/azure-monitor/app/ilogger) - Start here if you want to implement the logging provider without the rest of Application Insights telemetry.</span></span>
+* <span data-ttu-id="fa397-493">[Application Insights 日志记录适配器](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。</span><span class="sxs-lookup"><span data-stu-id="fa397-493">[Application Insights logging adapters](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs).</span></span>
+* <span data-ttu-id="fa397-494">[安装、配置和初始化 Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn 网站上的交互式教程。</span><span class="sxs-lookup"><span data-stu-id="fa397-494">[Install, configure, and initialize the Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Interactive tutorial on the Microsoft Learn site.</span></span>
 
-## <a name="third-party-logging-providers"></a><span data-ttu-id="ea9c9-490">第三方日志记录提供程序</span><span class="sxs-lookup"><span data-stu-id="ea9c9-490">Third-party logging providers</span></span>
+## <a name="third-party-logging-providers"></a><span data-ttu-id="fa397-495">第三方日志记录提供程序</span><span class="sxs-lookup"><span data-stu-id="fa397-495">Third-party logging providers</span></span>
 
-<span data-ttu-id="ea9c9-491">适用于 ASP.NET Core 的第三方日志记录框架：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-491">Third-party logging frameworks that work with ASP.NET Core:</span></span>
+<span data-ttu-id="fa397-496">适用于 ASP.NET Core 的第三方日志记录框架：</span><span class="sxs-lookup"><span data-stu-id="fa397-496">Third-party logging frameworks that work with ASP.NET Core:</span></span>
 
-* <span data-ttu-id="ea9c9-492">[elmah.io](https://elmah.io/)（[GitHub 存储库](https://github.com/elmahio/Elmah.Io.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-492">[elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span></span>
-* <span data-ttu-id="ea9c9-493">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html)（[GitHub 存储库](https://github.com/mattwcole/gelf-extensions-logging)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-493">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub repo](https://github.com/mattwcole/gelf-extensions-logging))</span></span>
-* <span data-ttu-id="ea9c9-494">[JSNLog](https://jsnlog.com/)（[GitHub 存储库](https://github.com/mperdeck/jsnlog)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-494">[JSNLog](https://jsnlog.com/) ([GitHub repo](https://github.com/mperdeck/jsnlog))</span></span>
-* <span data-ttu-id="ea9c9-495">[KissLog.net](https://kisslog.net/)（[GitHub 存储库](https://github.com/catalingavan/KissLog-net)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-495">[KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))</span></span>
-* <span data-ttu-id="ea9c9-496">[Log4Net](https://logging.apache.org/log4net/)（[GitHub 存储库](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-496">[Log4Net](https://logging.apache.org/log4net/) ([GitHub repo](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))</span></span>
-* <span data-ttu-id="ea9c9-497">[Loggr](https://loggr.net/)（[GitHub 存储库](https://github.com/imobile3/Loggr.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-497">[Loggr](https://loggr.net/) ([GitHub repo](https://github.com/imobile3/Loggr.Extensions.Logging))</span></span>
-* <span data-ttu-id="ea9c9-498">[NLog](https://nlog-project.org/)（[GitHub 存储库](https://github.com/NLog/NLog.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-498">[NLog](https://nlog-project.org/) ([GitHub repo](https://github.com/NLog/NLog.Extensions.Logging))</span></span>
-* <span data-ttu-id="ea9c9-499">[Sentry](https://sentry.io/welcome/)（[GitHub 存储库](https://github.com/getsentry/sentry-dotnet)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-499">[Sentry](https://sentry.io/welcome/) ([GitHub repo](https://github.com/getsentry/sentry-dotnet))</span></span>
-* <span data-ttu-id="ea9c9-500">[Serilog](https://serilog.net/)（[GitHub 存储库](https://github.com/serilog/serilog-aspnetcore)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-500">[Serilog](https://serilog.net/) ([GitHub repo](https://github.com/serilog/serilog-aspnetcore))</span></span>
-* <span data-ttu-id="ea9c9-501">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging)（[Github 存储库](https://github.com/googleapis/google-cloud-dotnet)）</span><span class="sxs-lookup"><span data-stu-id="ea9c9-501">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github repo](https://github.com/googleapis/google-cloud-dotnet))</span></span>
+* <span data-ttu-id="fa397-497">[elmah.io](https://elmah.io/)（[GitHub 存储库](https://github.com/elmahio/Elmah.Io.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="fa397-497">[elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span></span>
+* <span data-ttu-id="fa397-498">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html)（[GitHub 存储库](https://github.com/mattwcole/gelf-extensions-logging)）</span><span class="sxs-lookup"><span data-stu-id="fa397-498">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub repo](https://github.com/mattwcole/gelf-extensions-logging))</span></span>
+* <span data-ttu-id="fa397-499">[JSNLog](https://jsnlog.com/)（[GitHub 存储库](https://github.com/mperdeck/jsnlog)）</span><span class="sxs-lookup"><span data-stu-id="fa397-499">[JSNLog](https://jsnlog.com/) ([GitHub repo](https://github.com/mperdeck/jsnlog))</span></span>
+* <span data-ttu-id="fa397-500">[KissLog.net](https://kisslog.net/)（[GitHub 存储库](https://github.com/catalingavan/KissLog-net)）</span><span class="sxs-lookup"><span data-stu-id="fa397-500">[KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))</span></span>
+* <span data-ttu-id="fa397-501">[Log4Net](https://logging.apache.org/log4net/)（[GitHub 存储库](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore)）</span><span class="sxs-lookup"><span data-stu-id="fa397-501">[Log4Net](https://logging.apache.org/log4net/) ([GitHub repo](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))</span></span>
+* <span data-ttu-id="fa397-502">[Loggr](https://loggr.net/)（[GitHub 存储库](https://github.com/imobile3/Loggr.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="fa397-502">[Loggr](https://loggr.net/) ([GitHub repo](https://github.com/imobile3/Loggr.Extensions.Logging))</span></span>
+* <span data-ttu-id="fa397-503">[NLog](https://nlog-project.org/)（[GitHub 存储库](https://github.com/NLog/NLog.Extensions.Logging)）</span><span class="sxs-lookup"><span data-stu-id="fa397-503">[NLog](https://nlog-project.org/) ([GitHub repo](https://github.com/NLog/NLog.Extensions.Logging))</span></span>
+* <span data-ttu-id="fa397-504">[Sentry](https://sentry.io/welcome/)（[GitHub 存储库](https://github.com/getsentry/sentry-dotnet)）</span><span class="sxs-lookup"><span data-stu-id="fa397-504">[Sentry](https://sentry.io/welcome/) ([GitHub repo](https://github.com/getsentry/sentry-dotnet))</span></span>
+* <span data-ttu-id="fa397-505">[Serilog](https://serilog.net/)（[GitHub 存储库](https://github.com/serilog/serilog-aspnetcore)）</span><span class="sxs-lookup"><span data-stu-id="fa397-505">[Serilog](https://serilog.net/) ([GitHub repo](https://github.com/serilog/serilog-aspnetcore))</span></span>
+* <span data-ttu-id="fa397-506">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging)（[Github 存储库](https://github.com/googleapis/google-cloud-dotnet)）</span><span class="sxs-lookup"><span data-stu-id="fa397-506">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github repo](https://github.com/googleapis/google-cloud-dotnet))</span></span>
 
-<span data-ttu-id="ea9c9-502">某些第三方框架可以执行[语义日志记录（又称结构化日志记录）](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-502">Some third-party frameworks can perform [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span>
+<span data-ttu-id="fa397-507">某些第三方框架可以执行[语义日志记录（又称结构化日志记录）](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)。</span><span class="sxs-lookup"><span data-stu-id="fa397-507">Some third-party frameworks can perform [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span>
 
-<span data-ttu-id="ea9c9-503">使用第三方框架类似于使用以下内置提供程序之一：</span><span class="sxs-lookup"><span data-stu-id="ea9c9-503">Using a third-party framework is similar to using one of the built-in providers:</span></span>
+<span data-ttu-id="fa397-508">使用第三方框架类似于使用以下内置提供程序之一：</span><span class="sxs-lookup"><span data-stu-id="fa397-508">Using a third-party framework is similar to using one of the built-in providers:</span></span>
 
-1. <span data-ttu-id="ea9c9-504">将 NuGet 包添加到你的项目。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-504">Add a NuGet package to your project.</span></span>
-1. <span data-ttu-id="ea9c9-505">调用日志记录框架提供的 `ILoggerFactory` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-505">Call an `ILoggerFactory` extension method provided by the logging framework.</span></span>
+1. <span data-ttu-id="fa397-509">将 NuGet 包添加到你的项目。</span><span class="sxs-lookup"><span data-stu-id="fa397-509">Add a NuGet package to your project.</span></span>
+1. <span data-ttu-id="fa397-510">调用日志记录框架提供的 `ILoggerFactory` 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fa397-510">Call an `ILoggerFactory` extension method provided by the logging framework.</span></span>
 
-<span data-ttu-id="ea9c9-506">有关详细信息，请参阅各提供程序的相关文档。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-506">For more information, see each provider's documentation.</span></span> <span data-ttu-id="ea9c9-507">Microsoft 不支持第三方日志记录提供程序。</span><span class="sxs-lookup"><span data-stu-id="ea9c9-507">Third-party logging providers aren't supported by Microsoft.</span></span>
+<span data-ttu-id="fa397-511">有关详细信息，请参阅各提供程序的相关文档。</span><span class="sxs-lookup"><span data-stu-id="fa397-511">For more information, see each provider's documentation.</span></span> <span data-ttu-id="fa397-512">Microsoft 不支持第三方日志记录提供程序。</span><span class="sxs-lookup"><span data-stu-id="fa397-512">Third-party logging providers aren't supported by Microsoft.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="ea9c9-508">其他资源</span><span class="sxs-lookup"><span data-stu-id="ea9c9-508">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="fa397-513">其他资源</span><span class="sxs-lookup"><span data-stu-id="fa397-513">Additional resources</span></span>
 
 * <xref:fundamentals/logging/loggermessage>
