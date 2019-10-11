@@ -5,14 +5,14 @@ description: 了解 Blazor 身份验证和授权的方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: b0536b4290cd39397ceb440e0508b75d0373bc88
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 1fcd54e954d09e66b8bb1c9a51ef56193f3acf93
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211725"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007432"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -117,6 +117,8 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 在 Blazor WebAssembly 应用中，可以绕过身份验证检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
+向应用的项目文件中添加 [Microsoft.AspNetCore.Components.Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
+
 以下各节介绍了如何实现 Blazor WebAssembly 应用的自定义 `AuthenticationStateProvider` 服务。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider 服务
@@ -131,6 +133,7 @@ Blazor 服务器应用包含一个内置 `AuthenticationStateProvider` 服务，
 
 ```cshtml
 @page "/"
+@using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <button @onclick="@LogUsername">Write user info to console</button>
@@ -162,18 +165,25 @@ Blazor 服务器应用包含一个内置 `AuthenticationStateProvider` 服务，
 如果你正在生成 Blazor WebAssembly 应用，或者如果你的应用规范确实需要自定义提供程序，可实现提供程序并覆盖 `GetAuthenticationStateAsync`：
 
 ```csharp
-class CustomAuthStateProvider : AuthenticationStateProvider
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+
+namespace BlazorSample.Services
 {
-    public override Task<AuthenticationState> GetAuthenticationStateAsync()
+    public class CustomAuthStateProvider : AuthenticationStateProvider
     {
-        var identity = new ClaimsIdentity(new[]
+        public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            new Claim(ClaimTypes.Name, "mrfibuli"),
-        }, "Fake authentication type");
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, "mrfibuli"),
+            }, "Fake authentication type");
 
-        var user = new ClaimsPrincipal(identity);
+            var user = new ClaimsPrincipal(identity);
 
-        return Task.FromResult(new AuthenticationState(user));
+            return Task.FromResult(new AuthenticationState(user));
+        }
     }
 }
 ```
@@ -181,10 +191,10 @@ class CustomAuthStateProvider : AuthenticationStateProvider
 在 `Startup.ConfigureServices` 中注册 `CustomAuthStateProvider` 服务：
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-}
+// using Microsoft.AspNetCore.Components.Authorization;
+// using BlazorSample.Services;
+
+services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 ```
 
 使用 `CustomAuthStateProvider` 后，通过用户名 `mrfibuli` 对所有用户进行身份验证。
@@ -218,6 +228,9 @@ public void ConfigureServices(IServiceCollection services)
     }
 }
 ```
+
+> [!NOTE]
+> 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Components.Authorization` 命名空间 (`@using Microsoft.AspNetCore.Components.Authorization`)。
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
@@ -339,7 +352,7 @@ Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要�
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
-就像应用程序可以将 `[Authorize]` 与 MVC 控制器或 Razor 页面一起使用那样，也可以将 `[Authorize]` 与 Razor 组件一起使用：
+`[Authorize]` 属性可在 Razor 组件中使用：
 
 ```cshtml
 @page "/"
@@ -348,10 +361,11 @@ Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要�
 You can only see this if you're signed in.
 ```
 
+> [!NOTE]
+> 在 Blazor WebAssembly 应用组件中，向本部分的示例中添加 `Microsoft.AspNetCore.Authorization` 命名空间 (`@using Microsoft.AspNetCore.Authorization`)。
+
 > [!IMPORTANT]
 > 仅对通过 Blazor 路由器到达的 `@page` 组件使用 `[Authorize]`。 授权仅作为路由的一个方面执行，而不是作为页面中呈现的子组件来执行  。 若要授权在页面中显示特定部分，请改用 `AuthorizeView`。
-
-可能需要将 `@using Microsoft.AspNetCore.Authorization` 添加到组件或添加到 _Imports.razor 文件以供组件编译  。
 
 `[Authorize]` 属性还支持基于角色或基于策略的授权。 对于基于角色的授权，请使用 `Roles` 参数：
 
@@ -460,6 +474,14 @@ Not authorized.
     }
 }
 ```
+
+> [!NOTE]
+> 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Authorization` 命名空间 (`Microsoft.AspNetCore.Components.Authorization`)：
+>
+> ```cshtml
+> @using Microsoft.AspNetCore.Authorization
+> @using Microsoft.AspNetCore.Components.Authorization
+> ```
 
 ## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
 

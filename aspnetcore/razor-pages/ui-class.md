@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/21/2019
+ms.date: 10/08/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 1b544e208be049f02d01e35daa6eb3bfba94265a
-ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
-ms.translationtype: MT
+ms.openlocfilehash: d656e924033f1b217cdd8c86f7d00411c5d71beb
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/21/2019
-ms.locfileid: "71176479"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037582"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -32,19 +32,19 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 * 选择“ASP.NET Core Web 应用程序”。
 * 命名库（例如，“RazorClassLib”）>“确定”。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
 * 验证是否已选中**ASP.NET Core 3.0**或更高版本。
-* 选择 " **Razor 类库** > **"** 。
+* 选择**Razor 类库**>**正常**。
 
-默认情况下，Razor 类库（RCL）模板默认为 Razor 组件开发。 Visual Studio 中的模板选项为页面和视图提供模板支持。
+默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 Visual Studio 中的模板选项为页面和视图提供模板支持。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-从命令行中，运行 `dotnet new razorclasslib`。 例如:
+从命令行中，运行 `dotnet new razorclasslib`。 例如：
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
-默认情况下，Razor 类库（RCL）模板默认为 Razor 组件开发。 传递选项（`dotnet new razorclasslib -support-pages-and-views`），以提供对页面和视图的支持。 `-support-pages-and-views`
+默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 传递 `--support-pages-and-views` 选项（`dotnet new razorclasslib --support-pages-and-views`）以提供对页面和视图的支持。
 
 有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
 
@@ -52,7 +52,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建在中`~/Pages`而不是`~/Areas/Pages`公开内容的 RCL。
+ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages` 中公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -96,7 +96,7 @@ RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程�
 
 ### <a name="exclude-static-assets"></a>排除静态资产
 
-若要排除静态资产，请将所需的排除`$(DefaultItemExcludes)`路径添加到项目文件中的属性组。 用分号（`;`）分隔条目。
+若要排除静态资产，请将所需的排除路径添加到项目文件中的 `$(DefaultItemExcludes)` 属性组。 用分号（`;`）分隔条目。
 
 在下面的示例中， *wwwroot*文件夹中的*lib*样式表不被视为静态资产，而且不包含在已发布的 RCL 中：
 
@@ -112,13 +112,13 @@ RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程�
 
 1. 将 TypeScript 文件（*ts*）置于*wwwroot*文件夹之外。 例如，将文件放在*客户端*文件夹中。
 
-1. 为*wwwroot*文件夹配置 TypeScript 生成输出。 在项目文件中设置的中的属性：`TypescriptOutDir` `PropertyGroup`
+1. 为*wwwroot*文件夹配置 TypeScript 生成输出。 在项目文件中的 @no__t @no__t 中设置-0 属性：
 
    ```xml
    <TypescriptOutDir>wwwroot</TypescriptOutDir>
    ```
 
-1. 通过`PropertyGroup`在项目文件内的中添加以下`ResolveCurrentProjectStaticWebAssets`目标，将 TypeScript 目标作为目标的依赖项：
+1. 通过在项目文件中的 @no__t 中添加以下目标，将 TypeScript 目标作为 @no__t 目标的依赖项：
 
    ```xml
    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
@@ -129,9 +129,9 @@ RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程�
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 
-RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀`_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会生成指向中的静态内容`_content/Razor.Class.Lib/`的路径。
+RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会生成指向 `_content/Razor.Class.Lib/` 的静态内容的路径。
 
-使用应用引用库`<script>`提供的静态资产，以及、 `<style>`、 `<img>`和其他 HTML 标记。 使用的应用必须在中`Startup.Configure`启用[静态文件支持](xref:fundamentals/static-files)：
+使用应用引用库提供的静态资产，@no__t 为-0，`<style>`，`<img>`）和其他 HTML 标记。 使用的应用必须在 `Startup.Configure` 中启用[静态文件支持](xref:fundamentals/static-files)：
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -144,7 +144,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-从生成输出（`dotnet run`）运行使用中的应用时，默认情况下会在开发环境中启用静态 web 资产。 若要在从生成输出运行时支持其他环境中的`UseStaticWebAssets`资产，请在*Program.cs*中的主机生成器上调用：
+从生成输出（`dotnet run`）运行使用应用时，默认情况下会在开发环境中启用静态 web 资产。 若要在从生成输出运行时支持其他环境中的资产，请在*Program.cs*中的主机生成器上调用 `UseStaticWebAssets`：
 
 ```csharp
 using Microsoft.AspNetCore.Hosting;
@@ -167,7 +167,7 @@ public class Program
 }
 ```
 
-从`UseStaticWebAssets`已发布的输出（`dotnet publish`）运行应用时，不需要调用。
+从已发布的输出（`dotnet publish`）运行应用程序时，不需要调用 `UseStaticWebAssets`。
 
 ### <a name="multi-project-development-flow"></a>多项目开发流程
 
@@ -180,7 +180,7 @@ public class Program
 
 ### <a name="publish"></a>发布
 
-发布应用后，所有被引用项目和包中的助理资产将复制到下`_content/{LIBRARY NAME}/`的已发布应用的*wwwroot*文件夹中。
+在发布应用程序时，所有被引用项目和包中的助理资产都将复制到 `_content/{LIBRARY NAME}/` 下的已发布应用程序的*wwwroot*文件夹中。
 
 ::: moniker-end
 
@@ -198,7 +198,7 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 * 选择“ASP.NET Core Web 应用程序”。
 * 命名库（例如，“RazorClassLib”）>“确定”。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
-* 选择 " **Razor 类库** > **"** 。
+* 选择**Razor 类库**>**正常**。
 
 RCL 具有以下项目文件：
 
@@ -218,7 +218,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建在中`~/Pages`而不是`~/Areas/Pages`公开内容的 RCL。
+ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages` 中公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -267,9 +267,9 @@ dotnet run
 
 * 从 Visual Studio“文件”菜单中，选择“新建”>“项目”。
 * 选择“ASP.NET Core Web 应用程序”。
-* 将应用命名为 " **RazorUIClassLib** > **"** 。
+* 将应用命名为**RazorUIClassLib** >**正常**。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
-* 选择 " **Razor 类库** > **"** 。
+* 选择**Razor 类库**>**正常**。
 * 添加一个名为 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 的 Razor 分部视图文件。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -284,7 +284,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 前面的命令：
 
-* `RazorUIClassLib`创建 RCL。
+* 创建 `RazorUIClassLib` RCL。
 * 创建 Razor _Message 页面，并将其添加至 RCL。 `-np` 参数创建不含 `PageModel` 的页面。
 * 创建[_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)文件，并将其添加到 RCL。
 
@@ -324,17 +324,17 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 创建 Razor 页面 Web 应用：
 
-* 在**解决方案资源管理器**中，右键单击解决方案 > "**添加** >**新项目**"。
+* 在**解决方案资源管理器**中，右键单击解决方案 >**添加**>**新项目**。
 * 选择“ASP.NET Core Web 应用程序”。
 * 将应用命名为 WebApp1。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
-* 选择 " **Web 应用程序** > **"** 。
+* 选择 " **Web 应用程序**>**正常"** 。
 
 * 在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”。
-* 在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**生成依赖** >项" "**项目依赖项**"。
+* 在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**生成依赖关系**>**项目依赖项**"。
 * 将 RazorUIClassLib 勾选为 WebApp1 的依赖项。
-* 在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**添加** > **引用**"。
-* 在 "**引用管理器**" 对话框中，选中 " **RazorUIClassLib** > **"** 。
+* 在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**添加**@no__t" "**引用**"。
+* 在 "**引用管理器**" 对话框中，选中 " **RazorUIClassLib** >**正常"** 。
 
 运行应用。
 
@@ -361,7 +361,7 @@ dotnet run
 
 ### <a name="test-webapp1"></a>测试 WebApp1
 
-浏览到`/MyFeature/Page1`以验证 Razor UI 类库是否正在使用中。
+浏览到 `/MyFeature/Page1`，验证 Razor UI 类库是否正在使用中。
 
 ## <a name="override-views-partial-views-and-pages"></a>重写视图、分部视图和页面
 

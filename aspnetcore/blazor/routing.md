@@ -5,14 +5,14 @@ description: 了解如何在应用中路由请求，以及如何在 NavLink 组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/09/2019
 uid: blazor/routing
-ms.openlocfilehash: 76266aedd4655161f1f50a8beb0936660d452912
-ms.sourcegitcommit: 6d26ab647ede4f8e57465e29b03be5cb130fc872
+ms.openlocfilehash: 8f48112237e6dd3fed88404c53b8d7d9137ef6ff
+ms.sourcegitcommit: 0b8a7571bf7acf85bf16118acb2435001cbe4b5d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "71999812"
+ms.lasthandoff: 10/10/2019
+ms.locfileid: "72236533"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -85,7 +85,13 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 
 使用 @no__t 参数为在搜索可路由组件时要考虑的 @no__t 1 组件指定其他程序集。 除了 @no__t 旁1/-0 指定的程序集，还会考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 @no__t 为 @no__t 的示例将导致路由支持-1：
 
-< 路由器 AppAssembly = "typeof （程序）。程序集 "AdditionalAssemblies =" new [] {typeof （Component1）。Assembly} > ... </Router>
+```cshtml
+<Router
+    AppAssembly="typeof(Program).Assembly"
+    AdditionalAssemblies="new[] { typeof(Component1).Assembly }>
+    ...
+</Router>
+```
 
 ## <a name="route-parameters"></a>路由参数
 

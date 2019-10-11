@@ -5,14 +5,14 @@ description: 了解生成 ASP.NET Core 应用的基础概念。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 10/07/2019
 uid: fundamentals/index
-ms.openlocfilehash: cff2afd62ed60648dc689d408dde56ecda18c261
-ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
+ms.openlocfilehash: a70d6aa05a2c92d19076b8d6e4ea24d7554368b6
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/09/2019
-ms.locfileid: "70815650"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007113"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -252,36 +252,57 @@ ASP.NET Core 具有用于处理错误的内置功能，例如：
 
 ## <a name="content-root"></a>内容根
 
-内容根是应用所使用的任何专用内容的基路径，例如 Razor 文件。 默认情况下，内容根是托管应用的可执行文件的基路径。 在[构建主机](#host)时，可以指定备用位置。
+内容根是指向以下内容的基本路径：
+
+* 托管应用程序的可执行文件 (.exe  )。
+* 构成应用程序的已编译程序集 (.dll  )。
+* 应用使用的非代码内容文件，例如：
+  * Razor 文件（.cshtml  、.razor  ）
+  * 配置文件（.json  、.xml  ）
+  * 数据文件 (.db  )
+* [Web 根目录](#web-root)，通常是已发布的 wwwroot  文件夹。
+
+在开发过程中：
+
+* 内容根默认为项目的根目录。
+* 项目的根目录用于创建：
+  * 项目根目录中应用的非代码内容文件的路径。
+  * [Web 根目录](#web-root)，通常是项目根目录中的 wwwroot  文件夹。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-有关详细信息，请参阅[内容根](xref:fundamentals/host/generic-host#content-root)。
+在[构建主机](#host)时，可以指定备用内容根路径。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#contentrootpath>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-有关详细信息，请参阅[内容根](xref:fundamentals/host/web-host#content-root)。
+在[构建主机](#host)时，可以指定备用内容根路径。 有关详细信息，请参阅 <xref:fundamentals/host/web-host#content-root>。
 
 ::: moniker-end
 
 ## <a name="web-root"></a>Web 根
 
-Web 根（也称为 webroot）是公共、静态资源（例如 CSS、JavaScript 和图像文件）的基路径  。 默认情况下，静态文件中间件仅提供来自 Web 根目录（及子目录）的文件。 Web 根路径默认为 {Content Root}/wwwroot  ，但[构建主机](#host)时可以指定其他位置。
+Web 根目录是公共、非代码、静态资源文件的基本路径，例如：
+
+* 样式表 (.css  )
+* JavaScript (.js  )
+* 图像（.png  、.jpg  ）
+
+默认情况下，静态文件仅从 Web 根目录（及子目录）提供。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-有关详细信息，请参阅 [WebRoot](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#webroot)
+Web 根路径默认为 {content root}/wwwroot  ，但[构建主机](#host)时可以指定其他 Web 根路径。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#webroot>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-有关详细信息，请参阅 [Web 根目录](/aspnet/core/fundamentals/host/web-host#webroot)。
+Web 根路径默认为 {content root}/wwwroot  ，但[构建主机](#host)时可以指定其他 Web 根路径。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/web-host#web-root)。
 
 ::: moniker-end
 
-在 Razor (.cshtml) 文件中，波浪号斜杠 `~/` 指向 Web 根  。 以 `~/` 开头的路径称为虚拟路径。
+在 Razor (.cshtml  ) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录。 以 `~/` 开头的路径称为虚拟路径  。
 
 有关详细信息，请参阅 <xref:fundamentals/static-files>。

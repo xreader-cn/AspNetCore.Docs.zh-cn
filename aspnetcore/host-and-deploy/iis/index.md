@@ -5,14 +5,14 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/31/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 4cc25cba95b476f1d14aad87564f9777a0530f86
-ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
+ms.openlocfilehash: 8131e9b8e6a3bb3643f41a9be57c5bd2e511476c
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/05/2019
-ms.locfileid: "71975671"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007368"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -239,7 +239,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ### <a name="webconfig-file-location"></a>web.config 文件位置
 
-为了正确设置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)web.config  文件必须存在于已部署应用的内容根路径（通常为应用基路径）中。 该位置与向 IIS 提供的网站物理路径相同。 若要使用 Web 部署发布多个应用，应用的根路径中需要包含 web.config 文件  。
+为了正确设置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)，web.config  文件必须位于已部署应用的[内容根](xref:fundamentals/index#content-root)路径（通常为应用基路径）中。 该位置与向 IIS 提供的网站物理路径相同。 若要使用 Web 部署发布多个应用，应用的根路径中需要包含 web.config 文件  。
 
 敏感文件存在于应用的物理路径中，如 \<assembly>.runtimeconfig.json  、\<assembly>.xml  （XML 文档注释）和 \<assembly>.deps.json  。 如果存在 web.config 文件且站点正常启动，则请求获取这些敏感文件时，IIS 不会提供  。 如果缺少 web.config  文件、命名不正确，或无法配置站点以正常启动，IIS 可能会公开提供敏感文件。
 

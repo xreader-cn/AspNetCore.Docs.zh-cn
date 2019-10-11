@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/26/2019
+ms.date: 10/08/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: ec3de5b35883752b7b3dbefceccec55da3986f39
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: 90433773bec2efc5a2bc39d71ce7ae324b922046
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703682"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165358"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -302,7 +302,7 @@ subject.complete();
 
 使用类似于上述两个代码片段的代码，可创建实时流式处理体验。
 
-### <a name="new-json-serialization"></a>新的 JSON 序列化
+## <a name="new-json-serialization"></a>新的 JSON 序列化
 
 ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列化：
 
@@ -397,7 +397,7 @@ Web UI 模板（Razor Pages、具有控制器和视图的 MVC）已删除以下�
 
 Angular 模板已更新，以便使用 Angular 8。
 
-默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 Visual Studio 中的新模板选项提供了对页面和视图的模板支持。 在命令行界面中通过模板创建 RCL 时，请传递 `-support-pages-and-views` 选项 (`dotnet new razorclasslib -support-pages-and-views`)。
+默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 Visual Studio 中的新模板选项提供了对页面和视图的模板支持。 在命令行界面中通过模板创建 RCL 时，请传递 `--support-pages-and-views` 选项 (`dotnet new razorclasslib --support-pages-and-views`)。
 
 ## <a name="generic-host"></a>泛型主机
 
