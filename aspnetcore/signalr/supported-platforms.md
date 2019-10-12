@@ -24,7 +24,7 @@ ASP.NET Core SignalR 适用于 ASP.NET Core 支持的任何服务器平台。
 
 [JavaScript 客户端](https://www.npmjs.com/package/@aspnet/signalr)需要NodeJS 8或更高版本和以下浏览器上运行：
 
-| 浏览者                         | 版本 |
+| 浏览器                        | 版本 |
 | ------------------------------- | ------- |
 | Microsoft Edge                  | 当前 |
 | Mozilla Firefox                 | 当前 |
