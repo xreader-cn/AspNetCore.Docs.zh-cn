@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/26/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: a2952f5234cdef7f749a1af8dd4adcb887290629
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 3484a0233a0d56811235192c4b64aa9296e72b58
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259771"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289066"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
@@ -178,10 +178,7 @@ ASP.NET Core 中的所有 IO 都是异步的。 服务器实现 `Stream` 接口�
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet3)]
 
-前面的代码异步将整个 HTTP 请求正文读入内存中。
-
-> [!WARNING]
-> 如果请求很大，则将整个 HTTP 请求正文读取到内存中可能会导致内存不足（OOM）。 OOM 可能会导致拒绝服务。  有关详细信息，请参阅本文档中的[避免将大型请求正文或响应正文读入内存](#arlb)中。
+前面的代码将请求正文异步反序列化为C#对象。
 
 ## <a name="prefer-readformasync-over-requestform"></a>首选 ReadFormAsync over 请求。窗体
 
@@ -265,7 +262,7 @@ ASP.NET Core 3.0 默认使用 @no__t 为 JSON 序列化。 <xref:System.Text.Jso
 
 `HttpContext` 只在 ASP.NET Core 管道中存在活动 HTTP 请求时才有效。 整个 ASP.NET Core 管道是一系列执行每个请求的委托。 当从此链返回的 @no__t 0 完成时，将回收 `HttpContext`。
 
-**请勿执行此操作：** 下面的示例使用 `async void`：
+**请勿执行此操作：** 下面的示例使用 `async void`，这会在达到第一个 @no__t 时完成 HTTP 请求：
 
 * 在 ASP.NET Core 应用程序中，这**始终**是一种不好的做法。
 * HTTP 请求完成后，访问 `HttpResponse`。

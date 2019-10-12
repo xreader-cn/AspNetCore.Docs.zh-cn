@@ -1,19 +1,19 @@
 ---
-title: 将 gRPC services 与 HTTP Api 进行比较
+title: 比较 gRPC 服务和 HTTP API
 author: jamesnk
 description: 了解 gRPC 如何与 HTTP Api 进行比较以及其建议方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
-ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
+ms.openlocfilehash: 5c3ea7a78401e6483425fa0774b3051b3d20f516
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71267715"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289033"
 ---
-# <a name="compare-grpc-services-with-http-apis"></a>将 gRPC services 与 HTTP Api 进行比较
+# <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
 按[James 牛顿-k](https://twitter.com/jamesnk)
 
@@ -55,7 +55,7 @@ gRPC 专用于 HTTP/2，这是一个主要的 HTTP 修订版，通过 HTTP 1.x �
 
 不存在具有 JSON 的 HTTP API 的正式规范。 开发人员会争论 Url、HTTP 谓词和响应代码的最佳格式。
 
-[GRPC 规范](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)规定了 gRPC 服务必须遵循的格式。 gRPC 消除了对开发人员时间的争论，因为 gPRC 在平台和实现中保持一致。
+[GRPC 规范](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)规定了 gRPC 服务必须遵循的格式。 gRPC 消除了对开发人员时间的争论，因为 gRPC 在平台和实现中保持一致。
 
 ### <a name="streaming"></a>流式处理
 
@@ -78,10 +78,10 @@ gRPC 允许客户端指定它们等待 RPC 完成的时间。 [截止时间](htt
 
 gRPC 适用于以下方案：
 
-* **微服务**&ndash; gRPC 旨在实现低延迟和高吞吐量通信。 gRPC 非常适合轻型微服务，其中效率非常重要。
-* **点到点实时通信**&ndash; gRPC 具有对双向流式处理的出色支持。 gRPC services 无需轮询即可实时推送消息。
-* **Polyglot 环境**&ndash; gRPC 工具支持所有常用的开发语言，gRPC 为多语言环境提供了一个不错的选择。
-* **网络受限环境**&ndash;使用 Protobuf （一种轻型消息格式）对 gRPC 消息进行序列化。 GRPC 消息始终小于等效的 JSON 消息。
+* **微服务**&ndash; gRPC 用于低延迟和高吞吐量通信。 gRPC 非常适合轻型微服务，其中效率非常重要。
+* **点到点实时通信**&ndash; gRPC 具有对双向流式处理的极佳支持。 gRPC services 无需轮询即可实时推送消息。
+* **Polyglot 环境**&ndash; gRPC 工具支持所有常用的开发语言，并为多语言环境选择 gRPC。
+* **网络约束环境**&ndash; gRPC 消息使用 Protobuf （一种轻型消息格式）进行序列化。 GRPC 消息始终小于等效的 JSON 消息。
 
 ## <a name="grpc-weaknesses"></a>gRPC 弱点
 
@@ -105,9 +105,9 @@ HTTP API 请求以文本的形式发送，可由人读取和创建。
 
 建议在以下情况中通过 gRPC 使用其他框架：
 
-* **浏览器可访问 api**&ndash; gRPC 在浏览器中不受完全支持。 gRPC 可以提供浏览器支持，但它具有局限性并引入了服务器代理。
+* 浏览器不完全支持**浏览器辅助功能 api** &ndash; gRPC。 gRPC 可以提供浏览器支持，但它具有局限性并引入了服务器代理。
 * **广播实时通信**&ndash; gRPC 支持通过流式处理进行实时通信，但将消息广播到注册连接的概念并不存在。 例如，在聊天室方案中，应将新的聊天消息发送到聊天室中的所有客户端，而每个 gRPC 调用都需要分别将新的聊天消息流式传输到客户端。 [SignalR](xref:signalr/introduction)是此方案的有用框架。 SignalR 具有持续连接和广播消息的内置支持的概念。
-* **进程间通信**&ndash;进程必须托管 HTTP/2 服务器以接受传入的 gRPC 调用。 对于 Windows，进程间通信[管道](/dotnet/standard/io/pipe-operations)是一种快速、轻量的通信方法。
+* **进程间通信**&ndash; 进程必须托管 HTTP/2 服务器以接受传入的 gRPC 调用。 对于 Windows，进程间通信[管道](/dotnet/standard/io/pipe-operations)是一种快速、轻量的通信方法。
 
 ## <a name="additional-resources"></a>其他资源
 
