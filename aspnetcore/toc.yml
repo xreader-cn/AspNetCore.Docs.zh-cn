@@ -667,7 +667,7 @@
     - name: 概述
       displayName: 'azure, deploy, publish'
       uid: host-and-deploy/index
-    - name: 在 Azure 应用服务上托管
+    - name: Azure 应用服务
       displayName: 'deploy, publish'
       items:
         - name: 概述
@@ -717,7 +717,7 @@
         - name: 后续步骤
           displayName: 'azure, deploy, publish'
           uid: azure/devops/next-steps
-    - name: 使用 IIS 在 Windows 上进行托管
+    - name: IIS
       displayName: 'deploy, publish'
       items:
         - name: 概述
@@ -749,16 +749,16 @@
     - name: HTTP.sys
       displayName: 'deploy, publish, server'
       uid: fundamentals/servers/httpsys
-    - name: 在 Windows 服务中托管
+    - name: Windows 服务
       displayName: 'deploy, publish'
       uid: host-and-deploy/windows-service
-    - name: 使用 Nginx 在 Linux 中托管
+    - name: Linux 与 Nginx
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-nginx
-    - name: 使用 Apache 在 Linux 中托管
+    - name: Linux 与 Apache
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-apache
-    - name: 在 Docker 中托管
+    - name: Docker
       displayName: 'deploy, publish'
       items:
         - name: 概述
@@ -779,7 +779,7 @@
     - name: 代理和负载均衡器配置
       displayName: 'deploy, publish'
       uid: host-and-deploy/proxy-load-balancer
-    - name: 在 Web 场中托管
+    - name: Web 场
       displayName: 'deploy, publish'
       uid: host-and-deploy/web-farm
     - name: Visual Studio 发布配置文件
