@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/09/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 544037a2a1f836e51b4f10551316312ef55c68da
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: 32226c06ba005b4a61c473d6584b2b762733dcbd
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71688086"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007299"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -49,7 +49,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 生成主机时，将调用 [Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 包提供的 `IHostBuilder.UseWindowsService`。 若应用作为 Windows 服务运行，方法为：
 
 * 将主机生存期设置为 `WindowsServiceLifetime`。
-* 设置内容根路径。
+* 设置[内容根目录](xref:fundamentals/index#content-root)。
 * 启用事件日志记录，并将应用程序名称作为默认源名称。
   * 可以使用 appsettings.Production.json  文件中的 `Logging:LogLevel:Default` 键配置日志级别。
   * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。 
@@ -326,7 +326,7 @@ Remove-Service -Name {NAME}
 
 ### <a name="set-the-content-root-path-to-the-apps-folder"></a>设置应用文件夹的内容根路径
 
-<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*> 是创建服务时提供给 `binPath` 参数的同一路径。 请调用包含应用内容根的路径的 <xref:System.IO.Directory.SetCurrentDirectory*>，而不是调用 `GetCurrentDirectory` 来创建设置文件的路径。
+<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*> 是创建服务时提供给 `binPath` 参数的同一路径。 请调用包含应用[内容根目录](xref:fundamentals/index#content-root)的路径的 <xref:System.IO.Directory.SetCurrentDirectory*>，而不是调用 `GetCurrentDirectory` 来创建设置文件的路径。
 
 在 `Program.Main` 中，确定服务可执行文件的文件夹路径，并使用该路径来建立应用的内容根：
 

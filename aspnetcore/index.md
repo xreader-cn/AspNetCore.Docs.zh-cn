@@ -4,14 +4,14 @@ author: rick-anderson
 description: 获取 ASP.NET Core 的简介，它是一个跨平台的高性能开源框架，用于生成基于云且连接 Internet 的新式应用程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 10/10/2019
 uid: index
-ms.openlocfilehash: c9b33b16de354c8bac804e8fd5e8e3ce3af688fc
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 1ccc1f5d095833e89fc20127ee23b8fa3dc4c79f
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773711"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289062"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -77,10 +77,12 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
    |应用类型  |方案  |教程  |
    |----------|----------|----------|
-   |Web 应用       | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
-   |Web 应用       | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
-   |Web API       |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
-   |实时应用 |                            |[SignalR 入门](xref:tutorials/signalr) |
+   |Web 应用                   | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
+   |Web 应用                   | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
+   |Web API                   |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
+   |实时应用             |                            |[SignalR 入门](xref:tutorials/signalr) |
+   |Blazor 应用                |                            |[Blazor 入门](xref:blazor/get-started) |
+   |远程过程调用应用 |                            |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
 
 1. 请按照介绍如何进行基本数据访问的教程操作：
 
@@ -107,7 +109,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 ### <a name="preprocessor-directives-in-sample-code"></a>示例代码中的预处理器指令
 
-为了演示多个方案，示例应用将使用 `#define` 和 `#if-#else/#elif-#endif` C# 语句选择性地编译和运行不同的示例代码段。 对于那些利用此方法的示例，请将 C# 文件顶部的 `#define` 语句设置为与你想要运行的方案相关联的符号。 一些示例要求在多个文件的顶部设置符号才能运行方案。
+为了演示多个方案，示例应用使用 `#define` 和 `#if-#else/#elif-#endif` 预处理器指令选择性地编译和运行示例代码中不同的片段。 对于那些利用此方法的示例，请将 C# 文件顶部的 `#define` 指令设置为定义与你想要运行的方案相关联的符号。 一些示例要求在多个文件的顶部定义符号才能运行方案。
 
 例如，以下 `#define` 符号列表指示四个方案可用（每个符号一个方案）。 当前示例配置运行 `TemplateCode` 方案：
 
@@ -125,28 +127,27 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 ### <a name="regions-in-sample-code"></a>示例代码中的区域
 
-一些示例应用包含由 [#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) 和 [#endregion](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion) C# 语句包围的代码片段。 文档生成系统会将这些区域注入到所呈现的文档主题中。  
+一些示例应用包含由 [#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) 和 [#endregion](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion) C# 指令包围的代码片段。 文档生成系统会将这些区域注入到所呈现的文档主题中。  
 
-区域名称通常包含“代码段”一词。 下面的示例显示了一个名为 `snippet_FilterInCode` 的区域：
+区域名称通常包含“代码段”一词。 下面的示例显示了一个名为 `snippet_WebHostDefaults` 的区域：
 
 ```csharp
-#region snippet_FilterInCode
-WebHost.CreateDefaultBuilder(args)
-    .UseStartup<Startup>()
-    .ConfigureLogging(logging =>
-        logging.AddFilter("System", LogLevel.Debug)
-            .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Trace))
-            .Build();
+#region snippet_WebHostDefaults
+Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseStartup<Startup>();
+    });
 #endregion
 ```
 
 主题的 markdown 文件在以下行中应用了前面的 C# 代码段：
 
 ```md
-[!code-csharp[](sample/SampleApp/Program.cs?name=snippet_FilterInCode)]
+[!code-csharp[](sample/SampleApp/Program.cs?name=snippet_WebHostDefaults)]
 ```
 
-你可放心忽略（或删除）代码两侧的 `#region` 和 `#endregion` 语句。 如果计划运行主题中所述的示例方案，请不要更改这些语句中的代码。 试用其他方案时，可随时更改代码。
+可放心忽略（或删除）代码两侧的 `#region` 和 `#endregion` 指令。 如果计划运行主题中所述的示例方案，请不要更改这些指令中的代码。 试用其他方案时，可随时更改代码。
 
 有关详细信息，请参阅[参与 ASP.NET 文档：代码片段](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)。
 

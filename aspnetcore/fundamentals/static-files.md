@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core Web 应用中提供和保护静态文件，以及如何配置静态文件托管中间件行为。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/8/2019
+ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 1c665d1206e984fe41e9f57bb5356839c354dde2
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 2f153551a86860616469200862723528e4a8cc1c
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308185"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007332"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -23,7 +23,7 @@ ms.locfileid: "68308185"
 
 ## <a name="serve-static-files"></a>提供静态文件
 
-静态文件存储在项目的 Web 根目录中。 默认目录是 \<content_root>/wwwroot，但可通过 [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) 方法更改目录  。 有关详细信息，请参阅[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)。
+静态文件存储在项目的 [Web 根](xref:fundamentals/index#web-root)目录中。 默认目录是 {content root}/wwwroot，但可通过 [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) 方法更改目录  。 有关详细信息，请参阅[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)。
 
 应用的 Web 主机必须识别内容根目录。
 
@@ -43,7 +43,7 @@ ms.locfileid: "68308185"
 
 ::: moniker-end
 
-可通过 Web 根目录的相关路径访问静态文件。 例如，Web 应用程序项目模板包含 wwwroot 文件夹中的多个文件夹   ：
+可通过 [Web 根目录](xref:fundamentals/index#web-root)的相关路径访问静态文件。 例如，Web 应用程序项目模板包含 wwwroot 文件夹中的多个文件夹   ：
 
 * **wwwroot**
   * **css**
@@ -78,15 +78,15 @@ ms.locfileid: "68308185"
 
 [!code-csharp[](static-files/samples/1x/StartupStaticFiles.cs?name=snippet_ConfigureMethod&highlight=3)]
 
-无参数 `UseStaticFiles` 方法重载将 Web 根目录中的文件标记为可用。 以下标记引用 wwwroot/images/banner1.svg  ：
+无参数 `UseStaticFiles` 方法重载将 [Web 根目录](xref:fundamentals/index#web-root)中的文件标记为可用。 以下标记引用 wwwroot/images/banner1.svg  ：
 
 [!code-cshtml[](static-files/samples/1x/Views/Home/Index.cshtml?name=snippet_static_file_wwwroot)]
 
-在上面的代码中，波形符 `~/` 指向 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/index#web-root)。
+在上面的代码中，波形符 `~/` 指向 [Web 根目录](xref:fundamentals/index#web-root)。
 
 ### <a name="serve-files-outside-of-web-root"></a>提供 Web 根目录外的文件
 
-考虑一个目录层次结构，其中要提供的静态文件位于 Web 根目录之外：
+考虑一个目录层次结构，其中要提供的静态文件位于 [Web 根目录](xref:fundamentals/index#web-root)之外：
 
 * **wwwroot**
   * **css**
@@ -108,7 +108,7 @@ ms.locfileid: "68308185"
 
 ### <a name="set-http-response-headers"></a>设置 HTTP 响应标头
 
-[StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) 对象可用于设置 HTTP 响应标头。 除配置从 Web 根目录提供静态文件外，以下代码还设置 `Cache-Control` 标头：
+[StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) 对象可用于设置 HTTP 响应标头。 除配置从 [Web 根目录](xref:fundamentals/index#web-root)提供静态文件外，以下代码还设置 `Cache-Control` 标头：
 
 [!code-csharp[](static-files/samples/1x/StartupAddHeader.cs?name=snippet_ConfigureMethod)]
 
@@ -256,7 +256,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 > [!WARNING]
 > 如果启用了 IIS 静态文件处理程序且 ASP.NET Core 模块配置不正确，则会提供静态文件  。 例如，如果未部署 web.config 文件，则会发生这种情况  。
 
-* 将代码文件（包括 .cs 和 .cshtml ）放在应用项目的 Web 根目录之外   。 这样就在应用的客户端内容和基于服务器的代码间创建了逻辑分隔。 可以防止服务器端代码泄漏。
+* 将代码文件（包括 .cs 和 .cshtml ）放在应用项目的 [Web 根目录](xref:fundamentals/index#web-root)之外   。 这样就在应用的客户端内容和基于服务器的代码间创建了逻辑分隔。 可以防止服务器端代码泄漏。
 
 ## <a name="additional-resources"></a>其他资源
 

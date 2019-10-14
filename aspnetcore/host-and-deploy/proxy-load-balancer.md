@@ -5,14 +5,14 @@ description: 了解在代理服务器和负载均衡器后方托管的应用程�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/12/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 3243f5d3254e6585ff9ca48900a3326aa9b6f502
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 5eb69c2a253d1b8c42edd39b64b595898e6fb948
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219173"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007289"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -252,6 +252,60 @@ if (string.Equals(
 }
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="certificate-forwarding"></a>转发证书 
+
+### <a name="azure"></a>Azure
+
+若要为证书转发配置 Azure 应用服务，请参阅[为 Azure 应用服务配置 TLS 相互身份验证](/azure/app-service/app-service-web-configure-tls-mutual-auth)。 以下指南与配置 ASP.NET Core 应用相关。
+
+在 `Startup.Configure` 中，在调用 `app.UseAuthentication();` 前添加以下代码：
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+
+配置证书转发中间件，以指定 Azure 使用的标头名称。 在 `Startup.ConfigureServices` 中，添加以下代码来配置中间件从中生成证书的标头：
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "X-ARR-ClientCert");
+```
+
+### <a name="other-web-proxies"></a>其他 Web 代理
+
+如果使用的代理不是 IIS 或 Azure 应用服务的应用程序请求路由 (ARR)，请配置代理，以便转发其在 HTTP 标头中收到的证书。 在 `Startup.Configure` 中，在调用 `app.UseAuthentication();` 前添加以下代码：
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+配置证书转发中间件，以指定标头名称。 在 `Startup.ConfigureServices` 中，添加以下代码来配置中间件从中生成证书的标头：
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
+```
+
+如果代理不在对证书进行 base64 编码（与 Nginx 的情况一样），请设置 `HeaderConverter` 选项。 请看下面 `Startup.ConfigureServices` 中的示例：
+
+```csharp
+services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
+    options.HeaderConverter = (headerValue) => 
+    {
+        var clientCertificate = 
+           /* some conversion logic to create an X509Certificate2 */
+        return clientCertificate;
+    }
+});
+```
+
+::: moniker-end
+
 ## <a name="troubleshoot"></a>疑难解答
 
 如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 
@@ -336,53 +390,6 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 > [!IMPORTANT]
 > 仅允许受信任的代理和网络转接头。 否则，可能会受到 [IP 欺骗](https://www.iplocation.net/ip-spoofing)攻击。
-
-## <a name="certificate-forwarding"></a>转发证书 
-
-### <a name="on-azure"></a>在 Azure 上
-
-请参阅 [Azure 文档](/azure/app-service/app-service-web-configure-tls-mutual-auth)以配置 Azure Web 应用。 在应用的 `Startup.Configure` 方法中，在调用 `app.UseAuthentication();` 前添加以下代码：
-
-```csharp
-app.UseCertificateForwarding();
-```
-
-此外，还需要配置证书转发中间件，以指定 Azure 使用的标头名称。 在应用的 `Startup.ConfigureServices` 方法中，添加以下代码来配置中间件从中生成证书的标头：
-
-```csharp
-services.AddCertificateForwarding(options =>
-    options.CertificateHeader = "X-ARR-ClientCert");
-```
-
-### <a name="with-other-web-proxies"></a>使用其他 Web 代理
-
-如果使用的代理不是 IIS 或 Azure 的 Web 应用应用程序请求路由，请配置代理，以便转发其在 HTTP 标头中收到的证书。 在应用的 `Startup.Configure` 方法中，在调用 `app.UseAuthentication();` 前添加以下代码：
-
-```csharp
-app.UseCertificateForwarding();
-```
-
-此外，还需要配置证书转发中间件，以指定标头名称。 在应用的 `Startup.ConfigureServices` 方法中，添加以下代码来配置中间件从中生成证书的标头：
-
-```csharp
-services.AddCertificateForwarding(options =>
-    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
-```
-
-最后，如果代理正在执行除对证书进行 base64 编码之外的操作（与 Nginx 的情况一样），请设置 `HeaderConverter` 选项。 请看下面 `Startup.ConfigureServices` 中的示例：
-
-```csharp
-services.AddCertificateForwarding(options =>
-{
-    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
-    options.HeaderConverter = (headerValue) => 
-    {
-        var clientCertificate = 
-           /* some conversion logic to create an X509Certificate2 */
-        return clientCertificate;
-    }
-});
-```
 
 ## <a name="additional-resources"></a>其他资源
 

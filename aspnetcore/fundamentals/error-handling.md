@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/10/2019
+ms.date: 10/08/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 652a97a6b7fbe4c8cc678b86a92eea59937e809c
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: a5bdbc3ce75f5897c9cd67fe18897281bf2fb57b
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975585"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037566"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -208,7 +208,7 @@ if (statusCodePagesFeature != null)
 
 ## <a name="database-error-page"></a>数据库错误页
 
-[数据库错误页](<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>)中间件捕获与数据库相关的异常，可使用实体框架迁移来解析这些异常。 当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。 应仅在开发环境中启用此页。 通过向 `Startup.Configure` 添加代码来启用此页：
+数据库错误页中间件捕获与数据库相关的异常，可使用实体框架迁移来解析这些异常。 当这些异常出现时，便会生成 HTML 响应，其中包含用于解决问题的可能操作的详细信息。 应仅在开发环境中启用此页。 通过向 `Startup.Configure` 添加代码来启用此页：
 
 ```csharp
 if (env.IsDevelopment())
@@ -216,6 +216,8 @@ if (env.IsDevelopment())
     app.UseDatabaseErrorPage();
 }
 ```
+
+<!-- FUTURE UPDATE: On the next topic overhaul/release update, add API crosslink to this section for xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage* when available via the API docs. -->
 
 ## <a name="exception-filters"></a>异常筛选器
 

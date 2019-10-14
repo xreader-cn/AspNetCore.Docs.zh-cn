@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 47194f786b2d32fb343e8f1078a4400d6db37293
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: 0ea3965f73f4b0334810bc9ec2910b0c9364a7ba
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248339"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942868"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -192,7 +192,10 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 ## <a name="extend-startup-with-startup-filters"></a>使用 Startup 筛选器扩展 Startup
 
-在应用的 [Configure](#the-configure-method) 中间件管道的开头或末尾使用 <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> 来配置中间件。 `IStartupFilter` 用于创建 `Configure` 方法的管道。 [IStartupFilter.Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) 可以将中间件设置为在库添加的中间件之前或之后运行。
+使用 <xref:Microsoft.AspNetCore.Hosting.IStartupFilter>：
+
+* 在应用的 [Configure](#the-configure-method) 中间件管道的开头或末尾配置中间件，而无需显式调用 `Use{Middleware}`。 `IStartupFilter` 由 ASP.NET Core 用于将默认值添加到管道的开头，而无需使应用作者显式注册默认中间件。 `IStartupFilter` 允许代表应用作者使用不同的组件调用 `Use{Middleware}`。
+* 创建 `Configure` 方法的管道。 [IStartupFilter.Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) 可以将中间件设置为在库添加的中间件之前或之后运行。
 
 `IStartupFilter` 实现 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>，即接收并返回 `Action<IApplicationBuilder>`。 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> 定义用于配置应用请求管道的类。 有关详细信息，请参阅[使用 IApplicationBuilder 创建中间件管道](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)。
 

@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何通过文件提供程序来抽象化文�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/26/2019
+ms.date: 10/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 44c439dce893d486668bf8ac3f20cdf7952c5186
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: 3a92b44efc70d156596ee9fe80b4f6a65266e73d
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059100"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007169"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -22,7 +22,7 @@ ms.locfileid: "70059100"
 
 ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.NET Core 框架中使用文件提供程序：
 
-* `IWebHostEnvironment` 将应用的内容根和 Web 根作为 `IFileProvider` 类型公开。
+* `IWebHostEnvironment` 将应用的[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)作为 `IFileProvider` 类型公开。
 * [静态文件中间件](xref:fundamentals/static-files)使用文件提供程序来查找静态文件。
 * [Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。
 * .NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。
@@ -171,7 +171,7 @@ var manifestEmbeddedProvider =
 
 ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.NET Core 框架中使用文件提供程序：
 
-* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 将应用的内容根和 Web 根作为 `IFileProvider` 类型公开。
+* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> 将应用的[内容根目录](xref:fundamentals/index#content-root)和 [Web 根目录](xref:fundamentals/index#web-root)作为 `IFileProvider` 类型公开。
 * [静态文件中间件](xref:fundamentals/static-files)使用文件提供程序来查找静态文件。
 * [Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。
 * .NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。

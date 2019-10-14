@@ -5,14 +5,14 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: cdb424137d80b280873347c1352fc43d23b4aec3
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: a0a11f3aed9035000e79844fbec7cdd17b73fdaa
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211621"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007334"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -198,7 +198,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="content-root"></a>内容根
 
-`--contentroot` 参数设置包含应用内容文件的目录的绝对路径。 在下面的示例中，`/content-root-path` 是应用的内容根路径。
+`--contentroot` 参数设置包含应用内容文件的目录的绝对路径（[内容根目录](xref:fundamentals/index#content-root)）。 在下面的示例中，`/content-root-path` 是应用的内容根路径。
 
 * 以本地方式在命令提示符下运行应用时传递该参数。 在应用的目录中，执行以下操作：
 

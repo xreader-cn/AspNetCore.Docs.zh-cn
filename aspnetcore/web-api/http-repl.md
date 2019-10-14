@@ -5,14 +5,14 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 10/07/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 086ac141a04ab4a560f2c26fb049ef8a5493dc97
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187244"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037708"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -790,25 +790,107 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
 
 若要设置 HTTP 请求标头，请使用下面一种方法：
 
-1. 使用该 HTTP 请求进行内联设置。 例如:
+* 使用该 HTTP 请求进行内联设置。 例如:
 
-  ```console
-  https://localhost:5001/people~ post -h Content-Type=application/json
-  ```
+    ```console
+    https://localhost:5001/people~ post -h Content-Type=application/json
+    ```
+    
+    若使用上述方法，每个不同的 HTTP 请求标头都需要其自己的 `-h` 选项。
 
-  若使用上述方法，每个不同的 HTTP 请求标头都需要其自己的 `-h` 选项。
+* 在发送 HTTP 请求之前进行设置。 例如:
 
-1. 在发送 HTTP 请求之前进行设置。 例如:
+    ```console
+    https://localhost:5001/people~ set header Content-Type application/json
+    ```
+    
+    在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。 若要清除标头，请提供一个空值。 例如:
+    
+    ```console
+    https://localhost:5001/people~ set header Content-Type
+    ```
 
-  ```console
-  https://localhost:5001/people~ set header Content-Type application/json
-  ```
+## <a name="test-secured-endpoints"></a>测试受保护的终结点
 
-  在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。 若要清除标头，请提供一个空值。 例如:
+HTTP REPL 支持通过使用 HTTP 请求标头来测试受保护的终结点。 支持的身份验证和授权方案的示例包括基本身份验证、JWT 持有者令牌和摘要式身份验证。 例如，可以使用以下命令将持有者令牌发送到终结点：
 
-  ```console
-  https://localhost:5001/people~ set header Content-Type
-  ```
+```console
+set header Authorization "bearer <TOKEN VALUE>"
+```
+
+若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。 使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。 HTTP REPL 设置 HTTP 请求标头中的持有者令牌，并检索 Azure 应用服务 Web 应用的列表。
+
+1. 登录到 Azure：
+
+    ```azcli
+    az login
+    ```
+
+1. 使用以下命令获取订阅 ID：
+
+    ```azcli
+    az account show --query id
+    ```
+
+1. 复制订阅 ID 并运行以下命令：
+
+    ```azcli
+    az account set --subscription "<SUBSCRIPTION ID>"
+    ```
+
+1. 使用以下命令获取持有者令牌：
+
+    ```azcli
+    az account get-access-token --query accessToken
+    ```
+
+1. 通过 HTTP REPL 连接到 Azure REST API：
+
+    ```console
+    httprepl https://management.azure.com
+    ```
+
+1. 设置 `Authorization` HTTP 请求标头：
+
+    ```console
+    https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
+    ```
+
+1. 导航到订阅：
+
+    ```console
+    https://management.azure.com/> cd subscriptions/<SUBSCRIPTION ID>
+    ```
+
+1. 获取订阅的 Azure 应用服务 Web 应用的列表：
+
+    ```console
+    https://management.azure.com/subscriptions/{SUBSCRIPTION ID}> get providers/Microsoft.Web/sites?api-version=2016-08-01
+    ```
+
+    将显示以下响应：
+
+    ```console
+    HTTP/1.1 200 OK
+    Cache-Control: no-cache
+    Content-Length: 35948
+    Content-Type: application/json; charset=utf-8
+    Date: Thu, 19 Sep 2019 23:04:03 GMT
+    Expires: -1
+    Pragma: no-cache
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    x-ms-correlation-request-id: <em>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</em>
+    x-ms-original-request-ids: <em>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</em>
+    x-ms-ratelimit-remaining-subscription-reads: 11999
+    x-ms-request-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    x-ms-routing-request-id: WESTUS:xxxxxxxxxxxxxxxx:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx
+    {
+      "value": [
+        <AZURE RESOURCES LIST>
+      ]
+    }
+    ```
 
 ## <a name="toggle-http-request-display"></a>切换 HTTP 请求显示
 

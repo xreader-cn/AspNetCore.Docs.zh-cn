@@ -4,14 +4,14 @@ author: ardalis
 description: 了解筛选器的工作原理以及如何在 ASP.NET Core 中使用它们。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/08/2019
+ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 50b199744f32ad19335080da406db69665ec1ae9
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: ed48c2074360768b8d8c5af7057b353b00592394
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856159"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037693"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -437,9 +437,12 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解[操作结果](xref:mvc/controllers/actions)
+要执行的结果类型取决于所执行的操作。 返回视图的操作会将所有 Razor 处理作为要执行的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 的一部分。 API 方法可能会将某些序列化操作作为结果执行的一部分。 详细了解[操作结果](xref:mvc/controllers/actions)。
 
-当操作或操作筛选器生成操作结果时，仅针对成功的结果执行结果筛选器。 当异常筛选器处理异常时，不执行结果筛选器。
+仅当操作或操作筛选器生成操作结果时，才会执行结果筛选器。 不会在以下情况下执行结果筛选器：
+
+* 授权筛选器或资源筛选器使管道短路。
+* 异常筛选器通过生成操作结果来处理异常。
 
 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting*?displayProperty=fullName> 方法可以将 <xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel?displayProperty=fullName> 设置为 `true`，使操作结果和后续结果筛选器的执行短路。 设置短路时写入响应对象，以免生成空响应。 如果在 `IResultFilter.OnResultExecuting` 中引发异常，则会导致：
 
@@ -471,12 +474,10 @@ If an exception was thrown **IN THE RESULT FILTER**, the response body is not se
 
 ### <a name="ialwaysrunresultfilter-and-iasyncalwaysrunresultfilter"></a>IAlwaysRunResultFilter 和 IAsyncAlwaysRunResultFilter
 
-<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> 接口声明了一个针对所有操作结果运行的 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> 实现。 筛选器将应用于所有操作结果，除非：
+<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> 和 <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> 接口声明了一个针对所有操作结果运行的 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> 实现。 这包括由以下对象生成的操作结果：
 
-* 应用 <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter> 或 <xref:Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter>，并使响应短路。
-* 异常筛选器通过生成操作结果来处理异常。
-
-除 `IExceptionFilter` 和 `IAuthorizationFilter` 之外的筛选器不会使 `IAlwaysRunResultFilter` 和 `IAsyncAlwaysRunResultFilter` 短路。
+* 设置短路的授权筛选器和资源筛选器。
+* 异常筛选器。
 
 例如，以下筛选器始终运行并在内容协商失败时设置具有“422 无法处理的实体”  状态代码的操作结果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>)：
 
