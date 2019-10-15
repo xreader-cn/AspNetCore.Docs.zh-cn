@@ -24,7 +24,7 @@ ms.locfileid: "72236533"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中 @no__t 为0的交互式组件的传入连接：
+Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中 `MapBlazorHub` 为0的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -32,7 +32,7 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 
 ## <a name="route-templates"></a>路由模板
 
-@No__t-0 组件允许路由到具有指定路由的每个组件。 @No__t-0 组件将出现在*app.config*文件中：
+`Router` 组件允许路由到具有指定路由的每个组件。 `Router` 组件将出现在*app.config*文件中：
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -45,16 +45,16 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 </Router>
 ```
 
-编译带有 `@page` 指令的*razor*文件时，将提供生成的类，@no__t 指定路由模板。
+编译带有 `@page` 指令的*razor*文件时，将提供生成的类，<xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板。
 
-在运行时，@no__t 的组件：
+在运行时，`RouteView` 的组件：
 
-* 接收来自 `Router` 的 @no__t，以及任何所需的参数。
+* 接收来自 `Router` 的 `RouteData`，以及任何所需的参数。
 * 使用指定的参数呈现指定组件及其布局（或可选默认布局）。
 
-您可以选择指定一个带有布局类的 @no__t 0 参数，用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
+您可以选择指定一个带有布局类的 `DefaultLayout` 参数，用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
 
-可以将多个路由模板应用于组件。 以下组件响应 @no__t 0 和 `/DifferentBlazorRoute` 的请求：
+可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute` 的请求：
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
@@ -63,7 +63,7 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>当找不到内容时提供自定义内容
 
-如果找不到请求的路由的内容，则 @no__t 的组件允许应用指定自定义内容。
+如果找不到请求的路由的内容，则 `Router` 的组件允许应用指定自定义内容。
 
 在*app.config*文件中，在 `Router` 组件的 `NotFound` 模板参数中设置自定义内容：
 
@@ -79,11 +79,11 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 </Router>
 ```
 
-@No__t （0）标记的内容可以包含任意项，例如其他交互组件。 若要将默认布局应用于 `NotFound` 内容，请参阅 <xref:blazor/layouts>。
+`<NotFound>` 标记的内容可以包含任意项，例如其他交互组件。 若要将默认布局应用于 `NotFound` 内容，请参阅 <xref:blazor/layouts>。
 
 ## <a name="route-to-components-from-multiple-assemblies"></a>从多个程序集中路由到组件
 
-使用 @no__t 参数为在搜索可路由组件时要考虑的 @no__t 1 组件指定其他程序集。 除了 @no__t 旁1/-0 指定的程序集，还会考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 @no__t 为 @no__t 的示例将导致路由支持-1：
+使用 `AdditionalAssemblies` 参数为在搜索可路由组件时要考虑的 `Router` 组件指定其他程序集。 除了 `AppAssembly` 旁1/-0 指定的程序集，还会考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 `AdditionalAssemblies` 为 `Component1` 的示例将导致路由支持-1：
 
 ```cshtml
 <Router
@@ -99,7 +99,7 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
 
-ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 @no__t 0 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 @no__t 的路由参数，并将该值分配给 @no__t。
+ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 的路由参数，并将该值分配给 `Text`。
 
 ## <a name="route-constraints"></a>路由约束
 
@@ -107,8 +107,8 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 在下面的示例中，到 `Users` 组件的路由仅在以下情况下才匹配：
 
-* 请求 URL 上存在 @no__t 0 个路由段。
-* @No__t-0 段是一个整数（@no__t 为-1）。
+* 请求 URL 上存在 `Id` 个路由段。
+* `Id` 段是一个整数（`int`）。
 
 [!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
@@ -136,27 +136,27 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 @page "/{**path}"
 ```
 
-@No__t 0 模板包括：
+`"/{**path}"` 模板包括：
 
 * 双星号*catch-all*语法（`**`）捕获跨多个文件夹边界的路径，而无需编码正斜杠（`/`）。
-* @No__t-0 路由参数名称。
+* `path` 路由参数名称。
 
 有关详细信息，请参阅 <xref:fundamentals/routing> 。
 
 ## <a name="navlink-component"></a>NavLink 组件
 
-创建导航链接时，请使用 @no__t 0 组件来代替 HTML hyperlink 元素（`<a>`）。 @No__t-0 组件的行为类似于 @no__t 1 元素，只不过它根据其 `href` 是否与当前 URL 匹配来切换 @no__t 2 CSS 类。 @No__t 0 类可帮助用户了解在显示的导航链接中哪一页是活动页。
+创建导航链接时，请使用 `NavLink` 组件来代替 HTML hyperlink 元素（`<a>`）。 `NavLink` 组件的行为类似于 `<a>` 元素，只不过它根据其 `href` 是否与当前 URL 匹配来切换 `active` CSS 类。 `active` 类可帮助用户了解在显示的导航链接中哪一页是活动页。
 
 以下`NavMenu`组件创建演示如何使用`NavLink`组件的[启动](https://getbootstrap.com/docs/)导航栏：
 
 [!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-可以将两个 `NavLinkMatch` 选项分配给 `<NavLink>` 元素的 @no__t 属性：
+可以将两个 `NavLinkMatch` 选项分配给 `<NavLink>` 元素的 `Match` 属性：
 
 * `NavLinkMatch.All` &ndash; 如果 `NavLink` 与整个当前 URL 匹配，则为 "活动"。
-* @no__t 为0（*默认值*） &ndash; 当 @no__t 与当前 URL 的任何前缀匹配时，将处于活动状态。
+* `NavLinkMatch.Prefix`（*默认值*） &ndash; 当 `NavLink` 与当前 URL 的任何前缀匹配时，将处于活动状态。
 
-在前面的示例中，Home `NavLink` `href=""` 与 home URL 匹配，并且仅接收应用的默认基路径 URL 中的 `active` CSS 类（例如，`https://localhost:5001/`）。 第二个 `NavLink` 会在用户访问具有 @no__t 2 前缀的任何 URL 时收到 `active` 类（例如，`https://localhost:5001/MyComponent` 和 @no__t）。
+在前面的示例中，Home `NavLink` `href=""` 与 home URL 匹配，并且仅接收应用的默认基路径 URL 中的 `active` CSS 类（例如，`https://localhost:5001/`）。 第二个 `NavLink` 会在用户访问具有 `MyComponent` 前缀的任何 URL 时收到 `active` 类（例如，`https://localhost:5001/MyComponent` 和 `https://localhost:5001/MyComponent/AnotherSegment`）。
 
 其他 `NavLink` 组件特性会传递到呈现的定位点标记。 在下面的示例中，`NavLink` 组件包含 `target` 属性：
 
@@ -172,13 +172,13 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 ## <a name="uri-and-navigation-state-helpers"></a>URI 和导航状态帮助程序
 
-使用 @no__t 在代码中C#处理 uri 和导航。 @no__t 提供下表中显示的事件和方法。
+使用 `Microsoft.AspNetCore.Components.NavigationManager` 在代码中C#处理 uri 和导航。 `NavigationManager` 提供下表中显示的事件和方法。
 
 | 成员 | 描述 |
 | ------ | ----------- |
 | `Uri` | 获取当前的绝对 URI。 |
-| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常，@no__t 为*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）中文档的 `<base>` 元素上的 @no__t 属性。 |
-| `NavigateTo` | 定位到指定的 URI。 如果 `forceLoad` @no__t 为-1：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
+| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常，`BaseUri` 为*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）中文档的 `<base>` 元素上的 `href` 属性。 |
+| `NavigateTo` | 定位到指定的 URI。 如果 `forceLoad` `true`：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
 | `LocationChanged` | 导航位置发生更改时触发的事件。 |
 | `ToAbsoluteUri` | 将相对 URI 转换为绝对 URI。 |
 | `ToBaseRelativePath` | 给定基 URI （例如，以前由 `GetBaseUri` 返回的 URI），会将绝对 URI 转换为相对于基 URI 前缀的 URI。 |

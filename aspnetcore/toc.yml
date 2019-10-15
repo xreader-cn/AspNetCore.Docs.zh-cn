@@ -569,6 +569,8 @@
       uid: grpc/diagnostics
     - name: 安全注意事项
       uid: grpc/security
+    - name: 通过 dotnet-grpc 管理 Protobuf 参考
+      uid: grpc/dotnet-grpc
     - name: 从 C-core 迁移 gRPC 服务
       uid: grpc/migration
     - name: 比较 gRPC 服务和 HTTP API
