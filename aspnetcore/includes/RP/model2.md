@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>添加数据库上下文类
 
-在 RazorPagesMovie 项目中，创建名为“数据”的新文件夹  。 将以下 `RazorPagesMovieContext` 类添加到“数据”文件夹  ：
+在 RazorPagesMovie 项目中，创建名为“数据”的新文件夹  。 将以下 `RazorPagesMovieContext` 类添加到“Data”文件夹  ：
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
