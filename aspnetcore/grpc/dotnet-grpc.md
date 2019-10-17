@@ -1,23 +1,23 @@
 ---
-title: 通过 dotnet 管理 Protobuf 引用-grpc
+title: 通过 dotnet-grpc 管理 Protobuf 参考
 author: juntaoluo
 description: 了解如何通过 dotnet grpc 全局工具添加、更新、删除和列出 Protobuf 引用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 09/24/2019
+ms.date: 10/17/2019
 uid: grpc/dotnet-grpc
-ms.openlocfilehash: ebd57419be24f7f4ed9765e36cf14189be8438b1
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 994597c854a95bb33de1686ab025cb3744cf6845
+ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72290045"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72519032"
 ---
-# <a name="manage-protobuf-references-with-dotnet-grpc"></a>通过 dotnet 管理 Protobuf 引用-grpc
+# <a name="manage-protobuf-references-with-dotnet-grpc"></a>通过 dotnet-grpc 管理 Protobuf 参考
 
 作者：[John Luo](https://github.com/juntaoluo)
 
-`dotnet-grpc` 是 .NET Core 全局工具，用于管理 .NET gRPC 项目中的 Protobuf 引用。 该工具可用于添加、刷新、删除和列出 Protobuf 引用。
+`dotnet-grpc` 是一个 .NET Core 全局工具，用于管理 .NET gRPC 项目中的[Protobuf （*proto*）](xref:grpc/basics#proto-file)引用。 该工具可用于添加、刷新、删除和列出 Protobuf 引用。
 
 ## <a name="installation"></a>安装
 
@@ -32,10 +32,10 @@ dotnet tool install -g dotnet-grpc
 `dotnet-grpc` 可用于将 Protobuf 引用作为 @no__t 项添加到 *.csproj*文件：
 
 ```xml
-<Protobuf Include="..\Proto\count.proto" GrpcServices="Server" Link="Protos\count.proto" />
+<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 ```
 
-Protobuf 引用用于生成C#客户端和/或服务器资产。 @No__t 0tool 可以：
+Protobuf 引用用于生成C#客户端和/或服务器资产。 @No__t-0 工具可以：
 
 * 从磁盘上的本地文件创建 Protobuf 引用。
 * 从 URL 指定的远程文件创建 Protobuf 引用。
@@ -58,11 +58,11 @@ Protobuf 引用用于生成C#客户端和/或服务器资产。 @No__t 0tool 可
 dotnet grpc add-file [options] <files>...
 ```
 
-#### <a name="arguments"></a>参数
+#### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
-| files | Protobuf 文件引用。 它们可以是本地 protobuf 文件的 glob 的路径。 |
+| 文件 | Protobuf 文件引用。 它们可以是本地 protobuf 文件的 glob 的路径。 |
 
 #### <a name="options"></a>选项
 
@@ -83,7 +83,7 @@ dotnet grpc add-file [options] <files>...
 dotnet-grpc add-url [options] <url>
 ```
 
-#### <a name="arguments"></a>参数
+#### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -99,7 +99,7 @@ dotnet-grpc add-url [options] <url>
 | -i | --附加-import-目录 | 解析 protobuf 文件的导入时要使用的其他目录。 这是以分号分隔的路径列表。
 | | --访问 | 要用于生成C#的类的访问修饰符。 默认值是 `Public`。 接受的值为 `Internal`，@no__t 为-1。
 
-## <a name="remove"></a>删除
+## <a name="remove"></a>移除
 
 @No__t-0 命令用于从 *.csproj*文件中删除 Protobuf 引用。 命令接受路径自变量和源 Url 作为参数。 工具：
 
@@ -112,7 +112,7 @@ dotnet-grpc add-url [options] <url>
 dotnet-grpc remove [options] <references>...
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -124,7 +124,7 @@ dotnet-grpc remove [options] <references>...
 |-|-|-|
 | -p | --项目 | 要操作的项目文件的路径。 如果未指定文件，此命令将在当前目录中搜索一个。
 
-## <a name="refresh"></a>刷新
+## <a name="refresh"></a>“刷新”
 
 @No__t-0 命令用于使用源 URL 中的最新内容更新远程引用。 下载文件路径和源 URL 都可以用来指定要更新的引用。 注意:
 
@@ -139,7 +139,7 @@ dotnet-grpc remove [options] <references>...
 dotnet-grpc refresh [options] [<references>...]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -152,7 +152,7 @@ dotnet-grpc refresh [options] [<references>...]
 | -p | --项目 | 要操作的项目文件的路径。 如果未指定文件，此命令将在当前目录中搜索一个。
 | | --模拟运行 | 输出将更新但不下载任何新内容的文件的列表。
 
-## <a name="list"></a>List
+## <a name="list"></a>列表
 
 @No__t-0 命令用于显示项目文件中的所有 Protobuf 引用。 如果列的所有值均为默认值，则可以省略该列。
 
