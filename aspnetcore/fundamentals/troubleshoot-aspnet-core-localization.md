@@ -5,12 +5,12 @@ description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
 ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: c76732c1a0389818f8f9efae8fe384ca0f9ca308
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 98e06a92af0b6c045095ac803196bf4b1f25e5c5
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087393"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289009"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除
 
@@ -75,6 +75,7 @@ _**提示：** 使用 `CookieRequestCultureProvider` 时，验证未对本地化
 
 - 在 `RequestCultureProviders` 列表的位置 0 处插入自定义提供程序，如下所示：
 
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(async context =>
     {
@@ -82,6 +83,17 @@ options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(async
         return new ProviderCultureResult("en");
     }));
 ```
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
+    {
+        // My custom request culture logic
+        return new ProviderCultureResult("en");
+    }));
+```
+::: moniker-end
 
 - 使用 `AddInitialRequestCultureProvider` 扩展方法将自定义提供程序设置为初始提供程序。
 
@@ -91,4 +103,4 @@ options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(async
 
 ## <a name="resources--build-action"></a>设置和生成操作
 
-如果使用资源文件进行本地化，则该资源文件必须具有相应的生成操作。 它们应是“嵌入的资源”，否则 `ResourceStringLocalizer` 找不到这些资源。
+如果使用资源文件进行本地化，则该资源文件必须具有相应的生成操作。 它们应是“嵌入的资源”  ，否则 `ResourceStringLocalizer` 找不到这些资源。
