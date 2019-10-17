@@ -5,14 +5,14 @@ description: 了解如何调试 Blazor 应用程序。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/debug
-ms.openlocfilehash: 3519479d8058f013de23cc9cfa0f5574cd158053
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 9fc3f1d2dd7dc79d2ba3d64bff6e0f92ac2cf6dc
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207206"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391185"
 ---
 # <a name="debug-aspnet-core-blazor"></a>调试 ASP.NET Core Blazor
 
@@ -26,12 +26,12 @@ ms.locfileid: "71207206"
 
 * 设置和删除断点。
 * 单步执行（`F10`），通过代码或恢复（`F8`）代码执行。
-* 在 "*局部变量*" 显示中，观察类型`int`为、 `string`和`bool`的任何本地变量的值。
+* 在 "*局部变量*" 显示中，观察类型为 `int`、`string` 和 @no__t 的任何本地变量的值。
 * 请参阅调用堆栈，其中包括从 JavaScript 到 .NET 和从 .NET 到 JavaScript 的调用链。
 
 *不能*：
 
-* 观察所有不是`int`、 `string`或`bool`的局部变量的值。
+* 观察不是 `int`、`string` 或 `bool` 的任何局部变量的值。
 * 观察任何类属性或字段的值。
 * 将鼠标悬停在变量上以查看其值。
 * 在控制台中计算表达式的值。
@@ -40,7 +40,7 @@ ms.locfileid: "71207206"
 
 开发进一步的调试方案是工程团队不断关注的重点。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>Prerequisites
 
 调试需要以下任一浏览器：
 
@@ -49,16 +49,16 @@ ms.locfileid: "71207206"
 
 ## <a name="procedure"></a>过程
 
-1. 在配置中`Debug`运行 Blazor WebAssembly 应用。 将选项传递到[dotnet run](/dotnet/core/tools/dotnet-run)命令： `dotnet run --configuration Debug`。 `--configuration Debug`
+1. 在 `Debug` 配置中运行 Blazor WebAssembly 应用。 将 `--configuration Debug` 选项传递到[dotnet 运行](/dotnet/core/tools/dotnet-run)命令： `dotnet run --configuration Debug`。
 1. 在浏览器中访问应用程序。
 1. 将键盘焦点置于应用上，而不是开发人员工具面板上。 启动调试时可关闭 "开发人员工具" 面板。
 1. 选择以下 Blazor 特定的键盘快捷方式：
-   * `Shift+Alt+D`在 Windows/Linux 上
-   * `Shift+Cmd+D`在 macOS 上
+   * Windows/Linux 上的 @no__t 0
+   * macOS 上的 `Shift+Cmd+D`
 1. 按照屏幕上列出的步骤，在启用远程调试的情况重启浏览器。
 1. 再次选择以下 Blazor 特定的键盘快捷方式，以启动调试会话：
-   * `Shift+Alt+D`在 Windows/Linux 上
-   * `Shift+Cmd+D`在 macOS 上
+   * Windows/Linux 上的 @no__t 0
+   * macOS 上的 `Shift+Cmd+D`
 
 ## <a name="enable-remote-debugging"></a>启用远程调试
 
@@ -66,7 +66,7 @@ ms.locfileid: "71207206"
 
 ## <a name="debug-the-app"></a>调试应用
 
-在启用了远程调试的情况下运行 Chrome 后，调试键盘快捷方式将打开一个新的 "调试器" 选项卡。一段时间后，"**源**" 选项卡显示应用程序中的 .net 程序集列表。 展开每个程序集，找到可用于调试的 *.cs*/*文件。* 设置断点，切换回应用的选项卡，并在代码执行时命中断点。 命中断点后，通过代码或恢复（`F10``F8`）代码执行的单步执行（）。
+在启用了远程调试的情况下运行 Chrome 后，调试键盘快捷方式将打开一个新的 "调试器" 选项卡。一段时间后，"**源**" 选项卡显示应用程序中的 .net 程序集列表。 展开每个程序集，并查找 *.cs*/ *.* 设置断点，切换回应用的选项卡，并在代码执行时命中断点。 命中断点后，通过 @no__t 代码执行单步（`F10`），并正常执行。
 
 Blazor 提供了一个实现[Chrome DevTools 协议](https://chromedevtools.github.io/devtools-protocol/)的调试代理，并使用对该协议进行了补充。特定于网络的信息。 按下调试键盘快捷方式时，Blazor 会将 Chrome DevTools 指向代理。 代理连接到要调试的浏览器窗口（因此需要启用远程调试）。
 
@@ -78,4 +78,4 @@ Blazor 提供了一个实现[Chrome DevTools 协议](https://chromedevtools.gith
 
 如果遇到错误，下列提示可能会有所帮助：
 
-在 "**调试器**" 选项卡上，在浏览器中打开开发人员工具。 在控制台中，执行`localStorage.clear()`以删除所有断点。
+在 "**调试器**" 选项卡上，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除任何断点。

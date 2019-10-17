@@ -5,14 +5,14 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器承载模型。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/03/2019
+ms.date: 10/15/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: bc3ad9c7c4731b685fc161844d9f55e51722c0ea
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 072f9bbdcf7171ede63383b085f9f0f030bf1076
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924673"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391174"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -22,13 +22,13 @@ ms.locfileid: "71924673"
 
 Blazor 是一种 web 框架，旨在在基于[WebAssembly](https://webassembly.org/)的 .net 运行时（*Blazor WebAssembly*）上的浏览器中运行客户端，或在 ASP.NET Core 中的服务器端（*Blazor 服务器*）运行。 无论采用何种托管模型，应用和组件模型*都是相同*的。
 
-若要为本文中所述的宿主模型创建项目，请<xref:blazor/get-started>参阅。
+若要为本文所述的宿主模型创建项目，请参阅 <xref:blazor/get-started>。
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 Blazor 的主体托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理发生在同一进程中。 应用的资产将作为静态文件部署到 web 服务器或可为客户端提供静态内容的服务。
 
-![Blazor WebAssembly:Blazor 应用程序在浏览器中的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
+![Blazor WebAssembly： Blazor 应用程序在浏览器内的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
 若要使用客户端托管模型创建 Blazor 应用，请使用**Blazor WebAssembly 应用**模板（[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)）。
 
@@ -61,12 +61,12 @@ Blazor WebAssembly 托管有缺点：
 
 若要使用 Blazor 服务器托管模型创建 Blazor 应用，请使用 ASP.NET Core **Blazor 服务器应用**模板（[dotnet new blazorserver](/dotnet/core/tools/dotnet-new)）。 ASP.NET Core 应用托管 Blazor 服务器应用，并创建客户端连接到的 SignalR 终结点。
 
-ASP.NET Core 应用引用要添加的应用`Startup`的类：
+ASP.NET Core 应用引用要添加的应用的 @no__t 0 类：
 
 * 服务器端服务。
 * 请求处理管道的应用。
 
-*Blazor*脚本&dagger;建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
+*Blazor* script @ no__t-1 用于建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
 
 Blazor 服务器托管模型具有以下几个优点：
 
@@ -83,7 +83,7 @@ Blazor 服务器托管有缺点：
 * 对于包含多个用户的应用而言，可伸缩性非常困难。 服务器必须管理多个客户端连接并处理客户端状态。
 * 为应用提供服务需要 ASP.NET Core 服务器。 不可能的无服务器部署方案（例如，通过 CDN 为应用提供服务）。
 
-&dagger;*Blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。
+0The *blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。 @no__t
 
 ### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 的比较
 
@@ -106,7 +106,7 @@ Blazor 中的 UI 更新由以下用户触发：
 
 关系图为重新呈现，并计算了 UI*差异*（差异）。 这种差异是更新客户端上 UI 所需的最小 DOM 编辑集。 将以二进制格式将差异发送到客户端，并由浏览器应用。
 
-当用户在客户端上导航掉组件后，将释放该组件。 当用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于多个组件的状态可能同时由服务器维护，因此内存耗尽是必须解决的问题。 有关如何创作 Blazor 服务器应用程序以确保最大程度地使用服务器内存的指导，请<xref:security/blazor/server>参阅。
+当用户在客户端上导航掉组件后，将释放该组件。 当用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于多个组件的状态可能同时由服务器维护，因此内存耗尽是必须解决的问题。 有关如何创作 Blazor 服务器应用以确保最大程度地使用服务器内存的指导，请参阅 <xref:security/blazor/server>。
 
 ### <a name="circuits"></a>而言
 
@@ -122,9 +122,9 @@ UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来
 
 对于仅限于专用公司网络的业务线应用，对用户而言，由于网络延迟导致的延迟通常是让的。 对于通过 Internet 部署的应用，用户可能会对延迟造成明显的影响，尤其是用户广泛分散于各地。
 
-内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关详细信息，请参阅 <xref:security/blazor/server> 。
+内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关更多信息，请参见<xref:security/blazor/server>。
 
-应通过减少网络延迟和内存使用来优化 Blazor 服务器应用，从而最大限度地减少 UI 延迟。 有关测量网络延迟的方法，请参阅<xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅：
+应通过减少网络延迟和内存使用来优化 Blazor 服务器应用，从而最大限度地减少 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅：
 
 * <xref:host-and-deploy/blazor/server>
 * <xref:security/blazor/server>
@@ -136,7 +136,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在 *_Host* Razor 页面中定义一个元素，其 @no__t 为 @no__t，其为-1。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
 
 * `components-reconnect-show` &ndash; 显示 UI 以指示断开连接，并且客户端正在尝试重新连接。
-* `components-reconnect-hide`&ndash;客户端具有活动的连接，隐藏 UI。
+* `components-reconnect-hide` &ndash;：客户端具有活动的连接，隐藏 UI。
 * `components-reconnect-failed` &ndash; 重新连接失败，可能是由于网络故障引起的。 若要尝试重新连接，请调用 `window.Blazor.reconnect()`。
 * `components-reconnect-rejected` &ndash; 重新连接被拒绝。 服务器已达到但拒绝了连接，但该服务器上的用户状态已断开。 若要重新加载应用，请调用 `location.reload()`。 当以下情况时，可能会导致此连接状态：
   * 线路（服务器端代码）发生崩溃。
@@ -154,7 +154,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 </body>
 ```
 
-`RenderMode`配置组件是否：
+`RenderMode` 配置组件是否：
 
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者，如果包含从用户代理启动 Blazor 应用所需的信息，则为。
@@ -179,7 +179,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 * 用于预呈现的初始组件状态将丢失。
 * 建立 SignalR 连接时，将创建新的组件状态。
 
-以下 Razor 页面呈现`Counter`组件：
+以下 Razor 页面将呈现一个 `Counter` 组件：
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -189,7 +189,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现非交互式组件
 
-在以下 Razor 页面中， `MyComponent`组件以静态方式呈现，其初始值是使用窗体指定的：
+在以下 Razor 页面中，使用以下格式通过指定的初始值静态呈现 `MyComponent` 组件：
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -208,7 +208,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 }
 ```
 
-由于`MyComponent`是静态呈现的，因此该组件不能是交互式的。
+由于 @no__t 是静态呈现的，因此该组件不能是交互式的。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>检测预呈现应用的时间
 
@@ -220,8 +220,8 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 若要在*Pages/_Host*文件中配置 SignalR 客户端：
 
-* 将属性添加到 blazor `<script>`脚本的标记中。 `autostart="false"`
-* 调用`Blazor.start`并传入指定 SignalR 生成器的配置对象。
+* 将 `autostart="false"` 特性添加到*blazor*脚本的 @no__t 标记中。
+* 调用 `Blazor.start` 并传入指定 SignalR 生成器的配置对象。
 
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>

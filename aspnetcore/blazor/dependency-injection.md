@@ -5,14 +5,14 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 00c874e43496eaad8841db91843f41a299813aec
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: b548f0e50e1a60b74969e5bbee43860be9ba5a7f
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207167"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391143"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -25,7 +25,7 @@ Blazor 支持[依赖关系注入（DI）](xref:fundamentals/dependency-injection
 DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor 应用中，这种方法可用于：
 
 * 跨多个组件（称为*单独*服务）共享服务类的单个实例。
-* 使用引用抽象将组件与具体服务类分离。 例如，请考虑一个用于`IDataAccess`访问应用程序中的数据的接口。 接口由具体`DataAccess`类实现并在应用服务容器中注册为服务。 当组件使用 DI 接收`IDataAccess`实现时，组件不与具体类型耦合。 可以交换实现，这可能是单元测试中的模拟实现。
+* 使用引用抽象将组件与具体服务类分离。 例如，请考虑一个 `IDataAccess` 的接口，用于访问应用中的数据。 接口由具体 `DataAccess` 类实现并在应用的服务容器中注册为服务。 当组件使用 DI 接收 @no__t 0 实现时，组件不与具体类型耦合。 可以交换实现，这可能是单元测试中的模拟实现。
 
 ## <a name="default-services"></a>默认服务
 
@@ -33,15 +33,15 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此实例`HttpClient`使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关详细信息，请参阅 <xref:blazor/call-web-api> 。 |
-| `IJSRuntime` | 单例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关详细信息，请参阅 <xref:blazor/javascript-interop> 。 |
-| `NavigationManager` | 单例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
+| <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，@no__t 的此实例使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关更多信息，请参见<xref:blazor/call-web-api>。 |
+| `IJSRuntime` | 单一实例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关更多信息，请参见<xref:blazor/javascript-interop>。 |
+| `NavigationManager` | 单一实例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果使用自定义服务提供程序并且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序中。
 
 ## <a name="add-services-to-an-app"></a>向应用程序添加服务
 
-创建新应用后，请检查`Startup.ConfigureServices`方法：
+创建新应用后，检查 `Startup.ConfigureServices` 方法：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -50,7 +50,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-向`ConfigureServices` <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>传递方法，该方法是服务描述符对象（）的列表。 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 通过向服务集合提供服务描述符来添加服务。 下面的示例演示了`IDataAccess`接口及其具体实现`DataAccess`的概念：
+向 `ConfigureServices` 方法传递 <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>，它是服务描述符对象（<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>）的列表。 通过向服务集合提供服务描述符来添加服务。 下面的示例演示了 @no__t 接口的概念及其具体实现 `DataAccess`：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -63,28 +63,28 @@ public void ConfigureServices(IServiceCollection services)
 
 | 生存期 | 描述 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly apps 目前没有 DI 作用域的概念。 `Scoped`注册的服务的行为`Singleton`类似于服务。 但是，Blazor 服务器托管模型支持`Scoped`生存期。 在 Blazor 服务器应用中，作用域内服务注册的范围为*连接*。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI 创建服务的*单个实例*。 所有需要服务的`Singleton`组件都接收相同服务的实例。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | 每当组件从服务容器获取`Transient`服务的实例时，它都会接收服务的*新实例*。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly apps 目前没有 DI 作用域的概念。 @no__t 旁1/-0 注册的服务的行为类似于 @no__t 1 服务。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，作用域内服务注册的范围为*连接*。 出于此原因，使用作用域内服务的目的是应该作用于当前用户的服务，即使当前目的是在浏览器中运行客户端。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI 创建服务的*单个实例*。 需要 `Singleton` 服务的所有组件均可接收同一服务的实例。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | 每当组件从服务容器获取 @no__t 0 服务的实例时，它都会接收服务的*新实例*。 |
 
-DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 <xref:fundamentals/dependency-injection> 。
+DI 系统基于 ASP.NET Core 中的 DI 系统。 有关更多信息，请参见<xref:fundamentals/dependency-injection>。
 
 ## <a name="request-a-service-in-a-component"></a>在组件中请求服务
 
-将服务添加到服务集合后，使用[ \@注入](xref:mvc/views/razor#inject)Razor 指令将服务注入到组件。 `@inject`具有两个参数：
+将服务添加到服务集合后，使用[@no__t 1inject](xref:mvc/views/razor#inject) Razor 指令将服务注入到组件。 `@inject` 有两个参数：
 
-* 键入&ndash;要注入的服务的类型。
-* 属性&ndash;接收注入的应用服务的属性的名称。 属性不需要手动创建。 编译器将创建属性。
+* 键入 &ndash; 要注入的服务的类型。
+* 属性 &ndash; 接收插入的应用服务的属性的名称。 属性不需要手动创建。 编译器将创建属性。
 
-有关详细信息，请参阅 <xref:mvc/views/dependency-injection> 。
+有关更多信息，请参见<xref:mvc/views/dependency-injection>。
 
-使用多`@inject`个语句注入不同的服务。
+使用多 `@inject` 语句注入不同的服务。
 
-下面的示例说明如何使用 `@inject`。 服务实现`Services.IDataAccess`被注入到组件的属性`DataRepository`中。 请注意代码如何只使用`IDataAccess`抽象：
+下面的示例说明如何使用 `@inject`。 将实现 `Services.IDataAccess` 的服务注入组件的属性中 `DataRepository`。 请注意代码如何只使用 `IDataAccess` 抽象：
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-在内部，生成的属性`DataRepository`（） `InjectAttribute`用特性修饰。 通常不会直接使用此属性。 如果基类对于组件是必需的，并且插入的属性也是基类所必需的，请手动添加`InjectAttribute`：
+在内部，生成的属性（`DataRepository`）用 @no__t 属性修饰。 通常不会直接使用此属性。 如果基类对于组件是必需的，并且插入的属性也是基类所必需的，请手动添加 `InjectAttribute`：
 
 ```csharp
 public class ComponentBase : IComponent
@@ -96,7 +96,7 @@ public class ComponentBase : IComponent
 }
 ```
 
-在从基类派生的组件中，指令`@inject`不是必需的。 `InjectAttribute`基类的可满足以下要求：
+在派生自基类的组件中，不需要 `@inject` 指令。 基类的 @no__t 是足够的：
 
 ```cshtml
 @page "/demo"
@@ -107,7 +107,7 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂服务可能需要其他服务。 在前面的示例中`DataAccess` ，可能`HttpClient`需要默认服务。 `@inject`（或`InjectAttribute`）不可用于服务。 必须改为使用*构造函数注入*。 通过将参数添加到服务的构造函数中，添加了所需的服务。 当 DI 创建服务时，它将在构造函数中识别它所需要的服务，并相应地提供这些服务。
+复杂服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 @no__t 的默认服务。 `@inject` （或 `InjectAttribute`）不能在服务中使用。 必须改为使用*构造函数注入*。 通过将参数添加到服务的构造函数中，添加了所需的服务。 当 DI 创建服务时，它将在构造函数中识别它所需要的服务，并相应地提供这些服务。
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -131,7 +131,7 @@ public class DataAccess : IDataAccess
 
 在 ASP.NET Core 应用中，作用域内服务通常作用于当前请求。 请求完成后，DI 系统将释放任何作用域内或暂时性的服务。 在 Blazor 服务器应用中，请求范围将在客户端连接期间持续，这可能会导致暂时性和作用域内服务的运行时间比预期要长得多。
 
-若要将服务的作用域限定为组件的生存期， `OwningComponentBase`可以`OwningComponentBase<TService>`使用和基类。 这些基类公开了`ScopedServices`类型`IServiceProvider`为的属性，该属性可解析范围限制在组件生存期内的服务。 若要创作从 Razor 中的基类继承的组件，请使用`@inherits`指令。
+若要将服务的作用域限定为组件的生存期，可以使用 @no__t 0 和 @no__t 的基类。 这些基类公开了 `IServiceProvider` 类型的 `ScopedServices` 属性，该属性解析范围限制在组件生存期内的服务。 若要创作从 Razor 中的基类继承的组件，请使用 @no__t 的指令。
 
 ```cshtml
 @page "/users"
@@ -148,7 +148,7 @@ public class DataAccess : IDataAccess
 ```
 
 > [!NOTE]
-> 使用`@inject`或注入到组件中的`InjectAttribute`服务不会在组件的作用域中创建，并绑定到请求范围。
+> 使用 @no__t 0 或 @no__t 在组件中注入的服务不会在组件的作用域中创建，并绑定到请求范围。
 
 ## <a name="additional-resources"></a>其他资源
 

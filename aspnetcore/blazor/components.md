@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179029"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378686"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -454,7 +454,7 @@ Razor 组件提供事件处理功能。 对于名为 `on{event}` 的 HTML 元素
 
 下表显示了支持的 `EventArgs`。
 
-| Event | 类 |
+| Event — 事件 | 实例 |
 | ----- | ----- |
 | 剪贴板        | `ClipboardEventArgs` |
 | 入             | `DragEventArgs` &ndash; `DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
@@ -692,7 +692,7 @@ Password:
 呈现组件时，将用 @no__t 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 @no__t 1 元素。 在该点之前，没有任何内容可供参考。 若要在组件完成呈现后操作组件引用，请使用 @no__t 或 @no__t 方法。
+> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 @no__t 1 元素。 在该点之前，没有任何内容可供参考。 若要在组件完成呈现后操作组件引用，请使用[OnAfterRenderAsync 或 OnAfterRender 方法](#lifecycle-methods)。
 
 捕获组件引用时，请使用类似的语法来[捕获元素引用](xref:blazor/javascript-interop#capture-references-to-elements)，而不是[JavaScript 互操作](xref:blazor/javascript-interop)功能。 不会将组件引用传递给 JavaScript 代码 @ no__t-0they're 仅用于 .NET 代码。
 
@@ -841,6 +841,9 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
+> [!NOTE]
+> 在 `OnInitializedAsync` 生命周期事件期间，必须在组件初始化期间进行异步工作。
+
 对于同步操作，请使用 `OnInitialized`：
 
 ```csharp
@@ -858,6 +861,9 @@ protected override async Task OnParametersSetAsync()
     await ...
 }
 ```
+
+> [!NOTE]
+> 应用参数和属性值时的异步工作必须在 `OnParametersSetAsync` 生命周期事件期间发生。
 
 ```csharp
 protected override void OnParametersSet()
@@ -884,6 +890,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
     }
 }
 ```
+
+> [!NOTE]
+> 呈现后，应立即在 `OnAfterRenderAsync` 生命周期事件期间进行异步工作。
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -1051,7 +1060,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果该值 `false` 或 `
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor> 。
+有关更多信息，请参见<xref:mvc/views/razor>。
 
 > [!WARNING]
 > 当 .NET 类型为 `bool` 时，某些 HTML 特性（如[aria 按下](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）不会正常运行。 在这些情况下，请使用 @no__t 0 类型，而不是 `bool`。
@@ -1294,7 +1303,7 @@ public class ThemeInfo
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
-子 @no__t 0 组件不会显式作为参数传递给 `TabSet`。 相反，子 `Tab` 组件是 @no__t 的子内容的一部分。 不过，@no__t 仍需要了解每个 @no__t 的组件，以便它可以呈现标头和活动的选项卡。若要启用此协调而不需要额外的代码，则 `TabSet` 组件*可以将自身作为级联值提供*，然后由子代 `Tab` 组件选取。
+子 @no__t 0 组件不会显式作为参数传递给 `TabSet`。 相反，子 `Tab` 组件是 @no__t 的子内容的一部分。 不过，@no__t 仍需要了解每个 @no__t 的组件，以便它可以呈现标头和活动的选项卡。若要启用此协调而不需要其他代码，则 @no__t 的组件*可以将自身作为级联值提供*，然后由子代的 `Tab` 组件选取。
 
 `TabSet` 组件：
 
@@ -1429,16 +1438,16 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时，如果 `someFlag` @no__t 为-1，生成器将接收：
 
-| 序列 | 类型      | Data   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 假设 `someFlag` 变为 @no__t，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | 类型       | Data   |
+| 序列 | 键入       | 数据   |
 | :------: | ---------- | :----: |
-| 1        | Text 节点  | 第二个 |
+| 1        | Text 节点  | 秒 |
 
 当运行时执行差异时，它会发现序列 `0` 的项已被删除，因此它生成以下简单的*编辑脚本*：
 
@@ -1461,16 +1470,16 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | type      | Data   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 此结果与以前的情况相同，因此不存在负面问题。 第二次呈现时 `someFlag` @no__t 为-1，输出为：
 
-| 序列 | 类型      | Data   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | ------ |
-| 0        | Text 节点 | 第二个 |
+| 0        | Text 节点 | 秒 |
 
 这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
 
@@ -1562,7 +1571,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> 使用 @no__t 0 操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects> 。
+> 使用 @no__t 0 操作结果可防止开放重定向攻击。 有关更多信息，请参见<xref:security/preventing-open-redirects>。
 
 以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
 
@@ -1607,7 +1616,7 @@ Blazor 的 `@bind` 功能基于用户的当前区域性执行全球化。 有关
 * Blazor 应用*支持*`IStringLocalizer<>`。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>` 和数据批注本地化 ASP.NET Core MVC 方案，在 Blazor 应用中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization> 。
+有关更多信息，请参见<xref:fundamentals/localization>。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

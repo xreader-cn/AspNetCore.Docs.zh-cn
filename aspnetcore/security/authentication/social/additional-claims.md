@@ -5,14 +5,14 @@ description: 了解如何建立来自外部提供程序的其他声明和标记�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/01/2019
+ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: cdf263df8d1aa17ea3820a16ecbd10abce9d683d
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 72710d249d3210208dd9b0356a700ba02a0b727a
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925154"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378889"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
 
@@ -24,9 +24,9 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>Prerequisites
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index> 。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -47,7 +47,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 @no__t，指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供程序  | 范围                                                            |
+| Provider  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -68,7 +68,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在 <xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*> 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
+在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
 
 在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser` 确定了区域设置（`urn:google:locale`）和图片（`urn:google:picture`），其中包括 @no__t 的声明：
 
@@ -110,7 +110,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 @no__t 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims> 。
+有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -164,9 +164,9 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>Prerequisites
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index> 。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -187,7 +187,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 @no__t，指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供程序  | 范围                                                            |
+| Provider  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -208,7 +208,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在 <xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*> 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
+在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
 
 在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser` 确定了区域设置（`urn:google:locale`）和图片（`urn:google:picture`），其中包括 @no__t 的声明：
 
@@ -250,7 +250,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 @no__t 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims> 。
+有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 

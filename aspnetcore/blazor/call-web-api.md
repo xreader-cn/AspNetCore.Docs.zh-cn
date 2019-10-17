@@ -5,14 +5,14 @@ description: 了解如何使用 JSON 帮助程序（包括生成跨域资源共�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 10/15/2019
 uid: blazor/call-web-api
-ms.openlocfilehash: 3d70af2226eb29870458a5fd3c2bbbc3ee5c14ce
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037438"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72390834"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 web API
 
@@ -22,7 +22,7 @@ ms.locfileid: "72037438"
 
 Blazor WebAssembly apps 使用预先配置的 @no__t 0 服务来调用 web Api。 撰写请求，其中可以包含 JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助器或 <xref:System.Net.Http.HttpRequestMessage>。
 
-Blazor 服务器应用使用 <xref:System.Net.Http.IHttpClientFactory> 创建的 @no__t 的实例来调用 web Api。 有关详细信息，请参阅 <xref:fundamentals/http-requests> 。
+Blazor 服务器应用使用 <xref:System.Net.Http.IHttpClientFactory> 创建的 @no__t 的实例来调用 web Api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -200,7 +200,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 }
 ```
 
-有关 Fetch API 选项的详细信息，@no__t 请参阅 0MDN web 文档：WindowOrWorkerGlobalScope （）:P arameters @ no__t-0。
+有关获取 API 选项的详细信息，请参阅[MDN web 文档： WindowOrWorkerGlobalScope （）:P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
 
 在 CORS 请求上发送凭据（授权 cookie/标头）时，CORS 策略必须允许 @no__t 0 标头。
 
