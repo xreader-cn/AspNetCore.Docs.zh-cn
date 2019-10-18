@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: b4776a20c6da6c722d2c057d19863c570f530a21
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: a8c3a0951761faab1c11507834aeef2507388d71
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391067"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531124"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -38,7 +38,7 @@ Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScrip
 
 下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（基于实验性 JavaScript 的解码器）。 该示例演示如何从C#方法调用 JavaScript 函数。 JavaScript 函数从C#方法接受字节数组，对数组进行解码，并将文本返回给组件以供显示。
 
-在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor 服务器）的 `<head>` 元素内，提供一个函数，该函数使用 @no__t 来解码传递的数组：
+在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor 服务器）的 `<head>` 元素中，提供一个函数，该函数使用 `TextDecoder` 对传递的数组进行解码：
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -65,7 +65,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-* 对于使用[BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)的动态内容生成，请使用 `[Inject]` 属性：
+* 对于使用[BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)的动态内容生成，请使用 `[Inject]` 特性：
 
   ```csharp
   [Inject]
@@ -79,17 +79,17 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 *wwwroot/exampleJsInterop*：
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 @no__t 0 标记放置在*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中。
+将引用 JavaScript 文件的 `<script>` 标记放置在*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中。
 
 *wwwroot/index.html* （Blazor WebAssembly）：
 
-[!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
+[!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=15)]
 
 *Pages/_Host* （Blazor 服务器）：
 
-[!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
+[!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=21)]
 
 请勿在组件文件中放置 @no__t 的标记，因为 @no__t 的标记无法动态更新。
 
@@ -105,7 +105,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 *Pages/JSInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
 1. 通过选择组件的 "**触发器 JavaScript" 提示**按钮执行 `TriggerJsPrompt` 时，将调用*wwwroot/exampleJsInterop*文件中提供的 JavaScript `showPrompt` 功能。
 1. @No__t-0 函数接受经过 HTML 编码并返回到组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量中，`name`。
@@ -180,19 +180,19 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 ### <a name="static-net-method-call"></a>静态 .NET 方法调用
 
-若要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 若要从 JavaScript 调用 .NET 方法，.NET 方法必须是公共的且为静态的，并具有 `[JSInvokable]` 属性。 默认情况下，方法标识符为方法名称，但可以使用 `JSInvokableAttribute` 构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
+若要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 若要从 JavaScript 调用 .NET 方法，.NET 方法必须是公共的、静态的并且具有 `[JSInvokable]` 特性。 默认情况下，方法标识符为方法名称，但可以使用 `JSInvokableAttribute` 构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
 
 示例应用包含一个方法C# ，该方法返回 @no__t 1 的数组。 @No__t-0 特性应用于方法。
 
 *Pages/JsInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
 
 为客户端提供的 JavaScript 调用C# .net 方法。
 
 *wwwroot/exampleJsInterop*：
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=8-14)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
 如果选择了 "**触发器 .net 静态方法 ReturnArrayAsync** " 按钮，请在浏览器的 web 开发人员工具中检查控制台输出。
 
@@ -218,23 +218,23 @@ Array(4) [ 1, 2, 3, 4 ]
 
 *Pages/JsInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
 
 `CallHelloHelperSayHello` 用 `HelloHelper` 的新实例调用 JavaScript 函数 @no__t。
 
 *JsInteropClasses/ExampleJsInterop*：
 
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
 
 *wwwroot/exampleJsInterop*：
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-18)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 该名称将传递给 @no__t 0 的构造函数，该构造函数设置 @no__t 的属性。 当执行 JavaScript 函数 `sayHello` 时，`HelloHelper.SayHello` 返回 `Hello, {Name}!` 消息，JavaScript 函数将该消息写入控制台。
 
 *JsInteropClasses/HelloHelper*：
 
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
 浏览器 web 开发人员工具中的控制台输出：
 

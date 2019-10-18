@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: cd48111e8d601fc67e8a938fcdd686759a9ddeca
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378686"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531116"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -37,8 +37,8 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 可以使用C#以 `@` 开头的表达式将组件成员作为组件的呈现逻辑的一部分。 例如， C#字段通过在字段名称 `@` 之前进行呈现。 下面的示例计算并呈现：
 
-* `_headingFontStyle` 到 @no__t 的 CSS 属性值。
-* `_headingText` 到 @no__t 元素的内容。
+* `_headingFontStyle` `font-style` 的 CSS 属性值。
+* `_headingText` 到 `<h1>` 元素的内容。
 
 ```cshtml
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
@@ -81,27 +81,27 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 *Index*中的以下标记会呈现 `HeadingComponent` 实例：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
 *组件/HeadingComponent*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
 如果某个组件包含一个 HTML 元素，该元素的首字母大写字母与组件名称不匹配，则会发出警告，指示该元素具有意外的名称。 为组件命名空间添加 `@using` 语句会使组件可用，从而消除了警告。
 
 ## <a name="component-parameters"></a>组件参数
 
-组件可以具有*组件参数*，这些参数是使用组件类上的公共属性和 `[Parameter]` 属性来定义的。 使用这些属性在标记中为组件指定参数。
+组件可以具有*组件参数*，这些参数是使用组件类上的公共属性和 `[Parameter]` 特性定义的。 使用这些属性在标记中为组件指定参数。
 
 *组件/ChildComponent*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=11-12)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
 
 在下面的示例中，@no__t 设置了 `ChildComponent` 的 @no__t 属性的值。
 
 *Pages/ParentComponent*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
 
 ## <a name="child-content"></a>子内容
 
@@ -111,7 +111,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 *组件/ChildComponent*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=3,14-15)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > 接收 `RenderFragment` 内容的属性必须按约定命名为 `ChildContent`。
@@ -120,7 +120,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 *Pages/ParentComponent*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Attribute 展开和任意参数
 
@@ -181,7 +181,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
        size="50">
 ```
 
-若要接受任意属性，请使用 `[Parameter]` 属性定义一个组件参数，并将 @no__t 属性设置为 `true`：
+若要接受任意属性，请使用 `[Parameter]` 特性定义组件参数，并将 `CaptureUnmatchedValues` 属性设置为 `true`：
 
 ```cshtml
 @code {
@@ -190,7 +190,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 }
 ```
 
-@No__t-1 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的属性。 组件只能定义一个 @no__t 为0的参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须从具有字符串键的 `Dictionary<string, object>` 中赋值。 此方案中也有 `IEnumerable<KeyValuePair<string, object>>` 或 @no__t。
+@No__t_1 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的属性。 组件只能定义一个 @no__t 为0的参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须从具有字符串键的 `Dictionary<string, object>` 中赋值。 此方案中也有 `IEnumerable<KeyValuePair<string, object>>` 或 @no__t。
 
 ## <a name="data-binding"></a>数据绑定
 
@@ -513,11 +513,11 @@ Razor 组件提供事件处理功能。 对于名为 `on{event}` 的 HTML 元素
 
 示例应用中的 @no__t （0）演示如何设置按钮的 `onclick` 处理程序，以便从示例的 @no__t 获取 @no__t 2 委托。 @No__t 的类型为，@no__t 为-1，这适用于来自外围设备的 @no__t 2 事件：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 @No__t 将子级的 @no__t 设置为其 @no__t 2 方法：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
 在 @no__t 中选择该按钮时为-0：
 
@@ -968,7 +968,7 @@ protected override bool ShouldRender()
 
 可以将多个路由模板应用于组件。 以下组件响应 @no__t 0 和 `/DifferentBlazorRoute` 的请求：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 ## <a name="route-parameters"></a>路由参数
 
@@ -976,7 +976,7 @@ protected override bool ShouldRender()
 
 *路由参数组件*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
 不支持可选参数，因此在上面的示例中应用了两个 @no__t 0 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 @no__t 的路由参数，并将该值分配给 @no__t。
 
@@ -988,11 +988,11 @@ protected override bool ShouldRender()
 
 *Pages/BlazorRocks*：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
 
 *BlazorRocksBase.cs*：
 
-[!code-csharp[](common/samples/3.x/BlazorSample/Pages/BlazorRocksBase.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocksBase.cs)]
 
 基类应派生自 `ComponentBase`。
 
@@ -1096,7 +1096,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果该值 `false` 或 `
 
 `TableTemplate` 组件：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
 使用模板化组件时，可以使用与参数名称匹配的子元素（在以下示例中为 @no__t，`RowTemplate`）指定模板参数：
 
@@ -1149,7 +1149,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果该值 `false` 或 `
 
 模板化组件通常是通用类型。 例如，泛型 @no__t 0 组件可用于呈现 @no__t 1 值。 若要定义一般组件，请使用[@typeparam](xref:mvc/views/razor#typeparam)指令指定类型参数：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
 当使用泛型类型的组件时，将在可能的情况下推断类型参数：
 
@@ -1218,7 +1218,7 @@ public class ThemeInfo
 }
 ```
 
-为了使用级联值，组件使用 @no__t 的属性声明级联参数。 级联值按类型绑定到级联参数。
+为了使用级联值，组件使用 `[CascadingParameter]` 属性声明级联参数。 级联值按类型绑定到级联参数。
 
 在示例应用中，`CascadingValuesParametersTheme` 组件将 @no__t 级级联值绑定到级联参数。 参数用于设置由组件显示的一个按钮的 CSS 类。
 
@@ -1297,23 +1297,23 @@ public class ThemeInfo
 
 该示例应用包含一个选项卡实现的 @no__t 0 接口：
 
-[!code-csharp[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
 @No__t-0 组件使用 @no__t 组件，其中包含几个 @no__t 组件：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
 子 @no__t 0 组件不会显式作为参数传递给 `TabSet`。 相反，子 `Tab` 组件是 @no__t 的子内容的一部分。 不过，@no__t 仍需要了解每个 @no__t 的组件，以便它可以呈现标头和活动的选项卡。若要启用此协调而不需要其他代码，则 @no__t 的组件*可以将自身作为级联值提供*，然后由子代的 `Tab` 组件选取。
 
 `TabSet` 组件：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
 子代 `Tab` 组件将包含 `TabSet` 作为级联参数捕获，因此，@no__t 2 组件会将其自身添加到 @no__t 为3并在哪个选项卡处于活动状态。
 
 `Tab` 组件：
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
 ## <a name="razor-templates"></a>Razor 模板
 
@@ -1406,7 +1406,7 @@ public class ThemeInfo
 }
 ```
 
-> !出现@No__t 中的类型允许处理渲染操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
+> !出现@No__t_0 中的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 
