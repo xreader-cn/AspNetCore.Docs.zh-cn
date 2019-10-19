@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: 5c3ea7a78401e6483425fa0774b3051b3d20f516
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 52b057876481bd9be4f83d93b1f05081ed19660f
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289033"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589971"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -26,12 +26,12 @@ ms.locfileid: "72289033"
 | 功能          | gRPC                                               | 具有 JSON 的 HTTP Api           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | 协定         | 必需（*proto*）                                | 可选（OpenAPI）            |
-| 传输        | HTTP/2                                             | HTTP                          |
+| 协议         | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf （小，二进制）](#performance)           | JSON （大、可读）  |
-| Prescriptiveness | [严格规范](#strict-specification)      | 松散. 任何 HTTP 都有效。      |
+| Prescriptiveness | [严格规范](#strict-specification)      | 松散. 任何 HTTP 都有效。     |
 | 流式处理        | [客户端、服务器、双向](#streaming)       | 客户端、服务器                |
 | 浏览器支持  | [否（需要 grpc-web）](#limited-browser-support) | 是                           |
-| 安全性         | 传输（HTTPS）                                  | 传输（HTTPS）             |
+| 安全         | 传输（TLS）                                    | 传输（TLS）               |
 | 客户端代码生成 | [是](#code-generation)                      | OpenAPI + 第三方工具 |
 
 ## <a name="grpc-strengths"></a>gRPC 强度
@@ -78,10 +78,10 @@ gRPC 允许客户端指定它们等待 RPC 完成的时间。 [截止时间](htt
 
 gRPC 适用于以下方案：
 
-* **微服务**&ndash; gRPC 用于低延迟和高吞吐量通信。 gRPC 非常适合轻型微服务，其中效率非常重要。
-* **点到点实时通信**&ndash; gRPC 具有对双向流式处理的极佳支持。 gRPC services 无需轮询即可实时推送消息。
-* **Polyglot 环境**&ndash; gRPC 工具支持所有常用的开发语言，并为多语言环境选择 gRPC。
-* **网络约束环境**&ndash; gRPC 消息使用 Protobuf （一种轻型消息格式）进行序列化。 GRPC 消息始终小于等效的 JSON 消息。
+* **微服务**&ndash; gRPC 旨在实现低延迟和高吞吐量通信。 gRPC 非常适合轻型微服务，其中效率非常重要。
+* **点到点实时通信**&ndash; gRPC 对双向流式处理提供了极佳支持。 gRPC services 无需轮询即可实时推送消息。
+* **Polyglot 环境**&ndash; gRPC 工具支持所有常用的开发语言，并为多语言环境提供 gRPC。
+* @No__t_1 gRPC 消息的**网络约束环境**使用 Protobuf （一种轻量消息格式）进行序列化。 GRPC 消息始终小于等效的 JSON 消息。
 
 ## <a name="grpc-weaknesses"></a>gRPC 弱点
 
@@ -107,7 +107,7 @@ HTTP API 请求以文本的形式发送，可由人读取和创建。
 
 * 浏览器不完全支持**浏览器辅助功能 api** &ndash; gRPC。 gRPC 可以提供浏览器支持，但它具有局限性并引入了服务器代理。
 * **广播实时通信**&ndash; gRPC 支持通过流式处理进行实时通信，但将消息广播到注册连接的概念并不存在。 例如，在聊天室方案中，应将新的聊天消息发送到聊天室中的所有客户端，而每个 gRPC 调用都需要分别将新的聊天消息流式传输到客户端。 [SignalR](xref:signalr/introduction)是此方案的有用框架。 SignalR 具有持续连接和广播消息的内置支持的概念。
-* **进程间通信**&ndash; 进程必须托管 HTTP/2 服务器以接受传入的 gRPC 调用。 对于 Windows，进程间通信[管道](/dotnet/standard/io/pipe-operations)是一种快速、轻量的通信方法。
+* 进程**间的通信**&ndash; 必须托管 HTTP/2 服务器以接受传入的 gRPC 调用。 对于 Windows，进程间通信[管道](/dotnet/standard/io/pipe-operations)是一种快速、轻量的通信方法。
 
 ## <a name="additional-resources"></a>其他资源
 

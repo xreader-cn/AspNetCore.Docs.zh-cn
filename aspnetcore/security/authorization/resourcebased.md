@@ -1,35 +1,35 @@
 ---
 title: ASP.NET Core 中基于资源的授权
 author: scottaddie
-description: 了解如何在 ASP.NET Core 应用程序中实现的基于资源的授权，Authorize 属性不会满足要求。
+description: 了解如何在 ASP.NET Core 应用中实现基于资源的授权。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: security/authorization/resourcebased
-ms.openlocfilehash: afc152ea677cab42d57bd642b4821159f125117e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 835592521c714e270595e1448ae6e0aed1707b77
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891734"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72590004"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于资源的授权
 
-授权策略取决于要访问的资源。 请考虑具有 author 属性的文档。 允许仅作者更新文档。 因此，文档必须检索从数据存储区进行授权评估之前。
+授权策略取决于要访问的资源。 假设有一个具有 author 属性的文档。 仅允许作者更新文档。 因此，在进行授权评估之前，必须从数据存储中检索文档。
 
-数据绑定之前和之后，页面处理程序或加载文档的操作的执行进行属性评估。 出于这些原因，使用声明性授权`[Authorize]`属性不足以满足需求。 相反，可以调用自定义授权方法&mdash;称为样式*命令性授权*。
+在数据绑定之前和在执行加载文档的页面处理程序或操作之前，会发生属性评估。 由于这些原因，具有 `[Authorize]` 特性的声明性授权无法满足要求。 相反，你可以调用自定义授权方法 &mdash;a 称为*命令性授权*的样式。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
-[使用受授权的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含的示例应用程序使用的基于资源的授权。
+使用[由授权保护的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含使用基于资源的授权的示例应用。
 
 ## <a name="use-imperative-authorization"></a>使用命令性授权
 
-授权作为实现[IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice)服务并注册内的服务集合中`Startup`类。 该服务可通过[依赖关系注入](xref:fundamentals/dependency-injection)页面处理程序或进行操作。
+授权作为[IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice)服务实现，并在 `Startup` 类中的服务集合中进行注册。 通过[依赖关系注入](xref:fundamentals/dependency-injection)到页面处理程序或操作使该服务可用。
 
 [!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Controllers/DocumentController.cs?name=snippet_IAuthServiceDI&highlight=6)]
 
-`IAuthorizationService` 具有两个`AuthorizeAsync`方法重载： 一个接受资源和策略名称和其他接受资源和要求来评估的列表。
+`IAuthorizationService` 有两个 `AuthorizeAsync` 方法重载：一个接受资源和策略名称，另一个接受资源并提供要评估的要求的列表。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -59,10 +59,10 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 <a name="security-authorization-resource-based-imperative"></a>
 
-在以下示例中，要保护的资源加载到自定义`Document`对象。 `AuthorizeAsync`重载进行调用以确定当前用户是否允许编辑提供的文档。 自定义"EditPolicy"授权策略可分解为决策。 请参阅[自定义基于策略的授权](xref:security/authorization/policies)创建授权策略的详细信息。
+在下面的示例中，要保护的资源将加载到自定义的 `Document` 对象。 调用 `AuthorizeAsync` 重载来确定是否允许当前用户编辑提供的文档。 将自定义 "EditPolicy" 授权策略分解为决定。 有关创建授权策略的详细信息，请参阅[基于策略的自定义授权](xref:security/authorization/policies)。
 
 > [!NOTE]
-> 下面的代码示例假定已经运行了身份验证和组`User`属性。
+> 下面的代码示例假定已运行身份验证，并设置 `User` 属性。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -78,9 +78,9 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ## <a name="write-a-resource-based-handler"></a>编写基于资源的处理程序
 
-编写处理程序的基于资源的授权没有太大区别比[编写普通要求处理程序](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler)。 创建自定义要求类，并实现要求处理程序类。 创建要求类的详细信息，请参阅[要求](xref:security/authorization/policies#requirements)。
+为基于资源的授权编写处理程序与[编写简单的要求处理程序并无](xref:security/authorization/policies#security-authorization-policies-based-authorization-handler)差别。 创建自定义要求类，并实现需求处理程序类。 有关创建要求类的详细信息，请参阅[要求](xref:security/authorization/policies#requirements)。
 
-处理程序类指定的要求和资源类型。 例如，处理程序利用`SameAuthorRequirement`和一个`Document`资源如下所示：
+处理程序类同时指定要求和资源类型。 例如，使用 `SameAuthorRequirement` 和 `Document` 资源的处理程序如下所示：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -94,19 +94,19 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker-end
 
-在上述示例中，假设`SameAuthorRequirement`是一种特殊情况的多个泛型`SpecificAuthorRequirement`类。 `SpecificAuthorRequirement`类 （未显示） 包含`Name`属性表示的作者的名称。 `Name`属性可以设置为当前用户。
+在前面的示例中，假设 `SameAuthorRequirement` 是更通用 `SpecificAuthorRequirement` 类的特例。 @No__t_0 类（未显示）包含表示作者姓名的 `Name` 属性。 @No__t_0 属性可以设置为当前用户。
 
-注册的要求和处理程序中的`Startup.ConfigureServices`:
+在 `Startup.ConfigureServices` 中注册要求和处理程序：
 
 [!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Startup.cs?name=snippet_ConfigureServicesSample&highlight=3-7,9)]
 
 ### <a name="operational-requirements"></a>操作要求
 
-若要进行决策基于 CRUD （创建、 读取、 更新、 删除） 操作的结果，请使用[OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement)帮助器类。 此类，可为每个操作类型编写单个处理程序而不是单独的类。 若要使用它，提供一些操作名称：
+如果要根据 CRUD （创建、读取、更新、删除）操作的结果做出决策，请使用[OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement)帮助器类。 此类使你能够为每个操作类型编写单一处理程序而不是单个类。 若要使用它，请提供一些操作名称：
 
 [!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_OperationsClass)]
 
-处理程序的实现，如下所示，使用`OperationAuthorizationRequirement`要求和`Document`资源：
+处理程序的实现方式如下：使用 `OperationAuthorizationRequirement` 要求和 `Document` 资源：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -120,18 +120,22 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker-end
 
-前面的处理程序验证该操作使用的资源、 用户的标识和需求的`Name`属性。
+前面的处理程序使用资源、用户的标识和要求的 `Name` 属性验证操作。
 
-若要调用的操作的资源处理程序，指定该操作时调用`AuthorizeAsync`页面处理程序或操作中。 下面的示例确定是否允许经过身份验证的用户若要查看提供的文档。
+## <a name="challenge-and-forbid-with-an-operational-resource-handler"></a>操作资源处理程序的挑战和禁止
+
+本部分说明如何处理质询和禁止操作结果，以及质询和禁止的不同之处。
+
+若要调用操作资源处理程序，请在调用页面处理程序或操作中的 `AuthorizeAsync` 时指定操作。 下面的示例确定是否允许经过身份验证的用户查看所提供的文档。
 
 > [!NOTE]
-> 下面的代码示例假定已经运行了身份验证和组`User`属性。
+> 下面的代码示例假定已运行身份验证，并设置 `User` 属性。
 
 ::: moniker range=">= aspnetcore-2.0"
 
 [!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Pages/Document/View.cshtml.cs?name=snippet_DocumentViewHandler&highlight=10-11)]
 
-如果授权成功，则返回查看文档的页。 如果授权失败而用户进行身份验证，返回`ForbidResult`通知授权失败的任何身份验证中间件。 一个`ChallengeResult`时必须执行身份验证，将返回。 对于交互式浏览器客户端，可能需要将用户重定向到登录页。
+如果授权成功，则返回用于查看文档的页面。 如果授权失败但用户已通过身份验证，则返回 `ForbidResult` 通知任何身份验证中间件身份验证失败。 当必须执行身份验证时，将返回 `ChallengeResult`。 对于交互式浏览器客户端，可能需要将用户重定向到登录页。
 
 ::: moniker-end
 
@@ -139,6 +143,6 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 [!code-csharp[](resourcebased/samples/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentViewAction&highlight=11-12)]
 
-如果授权成功，则返回文档的视图。 如果授权失败，返回`ChallengeResult`授权失败，并将中间件可以采取适当的响应将通知任何身份验证中间件。 相应的响应可能返回 401 或 403 状态代码。 对于交互式浏览器客户端，这可能意味着将用户重定向到登录页。
+如果授权成功，则返回文档的视图。 如果授权失败，则返回 `ChallengeResult` 会通知任何授权失败的身份验证中间件，中间件可以进行适当的响应。 适当的响应可能返回401或403状态代码。 对于交互式浏览器客户端，这可能意味着将用户重定向到登录页。
 
 ::: moniker-end

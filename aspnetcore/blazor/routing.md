@@ -6,15 +6,17 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/routing
-ms.openlocfilehash: d9f81c8aa2cf07f8bfaede65efcb7328088f55b9
-ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
+ms.openlocfilehash: d4b76c00f79f333884fa7e30b27eadc6e36de287
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72531148"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589939"
 ---
-# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
+# <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
 作者：[Luke Latham](https://github.com/guardrex)
 
@@ -24,11 +26,11 @@ ms.locfileid: "72531148"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中 `MapBlazorHub` 的交互式组件的传入连接：
+Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中 `MapBlazorHub` 的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor 服务器应用的服务器端部分的主机。 按照约定，*主机*页通常名为 *_Host*。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
+最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor Server 应用程序的服务器端部分的主机。 按照约定，*主机*页通常名为 *_Host*。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
 
 ## <a name="route-templates"></a>路由模板
 
@@ -52,14 +54,14 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 * 接收来自 `Router` 的 `RouteData` 以及任何所需的参数。
 * 使用指定的参数呈现指定组件及其布局（或可选默认布局）。
 
-您可以选择指定一个包含布局类的 `DefaultLayout` 参数，以用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
+您可以选择指定一个包含布局类的 `DefaultLayout` 参数，以用于未指定布局的组件。 默认 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
 
-可以将多个路由模板应用于组件。 以下组件响应 @no__t 0 和 `/DifferentBlazorRoute` 的请求：
+可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute` 的请求：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）中包含 `<base>` 标记，或在 `href` 属性（`<base href="/">`）中指定应用程序基路径的*页/_Host。 Cshtml*文件（Blazor 服务器）。 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
+> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中包含一个 `<base>` 标记，该文件具有 `href` 属性（`<base href="/">`）中指定的应用程序基路径。 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>当找不到内容时提供自定义内容
 
@@ -99,7 +101,7 @@ Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/rou
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
 
-ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 @no__t 的路由参数，并将该值分配给 @no__t。
+ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
 
 ## <a name="route-constraints"></a>路由约束
 
@@ -130,7 +132,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 ### <a name="routing-with-urls-that-contain-dots"></a>带有包含点的 Url 的路由
 
-在 Blazor 服务器应用中， *_Host*中的默认路由 `/` （`@page "/"`）。 默认路由不会匹配包含点（`.`）的请求 URL，因为 URL 显示为请求文件。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
+在 Blazor Server apps 中， *_Host*中的默认路由 `/` （`@page "/"`）。 默认路由不会匹配包含点（`.`）的请求 URL，因为 URL 显示为请求文件。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
 
 ```cshtml
 @page "/{**path}"
@@ -177,7 +179,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 | 成员 | 描述 |
 | ------ | ----------- |
 | `Uri` | 获取当前的绝对 URI。 |
-| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常，`BaseUri` 对应于*wwwroot/index.html* （Blazor WebAssembly）中文档的 `<base>` 元素或*Pages/_Host* （Blazor 服务器）中的 `href` 属性。 |
+| `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常，`BaseUri` 对应于*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）中文档的 `<base>` 元素上的 `href` 属性。 |
 | `NavigateTo` | 定位到指定的 URI。 如果 `true` `forceLoad`：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
 | `LocationChanged` | 导航位置发生更改时触发的事件。 |
 | `ToAbsoluteUri` | 将相对 URI 转换为绝对 URI。 |
