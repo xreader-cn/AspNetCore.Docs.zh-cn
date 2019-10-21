@@ -4,24 +4,24 @@ author: coderandhiker
 description: 了解如何在 ASP.NET Core 中访问 HttpContext。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2018
+ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 373c036e0839ce51259e23f8503fbe4691b48751
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886512"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288979"
 ---
-# <a name="access-httpcontext-in-aspnet-core"></a><span data-ttu-id="f3a0a-103">在 ASP.NET Core 中访问 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-103">Access HttpContext in ASP.NET Core</span></span>
+# <a name="access-httpcontext-in-aspnet-core"></a><span data-ttu-id="1c8d7-103">在 ASP.NET Core 中访问 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-103">Access HttpContext in ASP.NET Core</span></span>
 
-<span data-ttu-id="f3a0a-104">ASP.NET Core 应用通过 [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) 接口及其默认实现 [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor) 来访问 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-104">ASP.NET Core apps access the `HttpContext` through the [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) interface and its default implementation [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor).</span></span> <span data-ttu-id="f3a0a-105">只有在需要访问服务内的 `HttpContext` 时，才有必要使用 `IHttpContextAccessor`。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-105">It's only necessary to use `IHttpContextAccessor` when you need access to the `HttpContext` inside a service.</span></span>
+<span data-ttu-id="1c8d7-104">ASP.NET Core 应用通过 [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) 接口及其默认实现 [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor) 来访问 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-104">ASP.NET Core apps access the `HttpContext` through the [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) interface and its default implementation [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor).</span></span> <span data-ttu-id="1c8d7-105">只有在需要访问服务内的 `HttpContext` 时，才有必要使用 `IHttpContextAccessor`。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-105">It's only necessary to use `IHttpContextAccessor` when you need access to the `HttpContext` inside a service.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-httpcontext-from-razor-pages"></a><span data-ttu-id="f3a0a-106">通过 Razor Pages 使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-106">Use HttpContext from Razor Pages</span></span>
+## <a name="use-httpcontext-from-razor-pages"></a><span data-ttu-id="1c8d7-106">通过 Razor Pages 使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-106">Use HttpContext from Razor Pages</span></span>
 
-<span data-ttu-id="f3a0a-107">Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 公开 [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) 属性：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-107">The Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) exposes the [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) property:</span></span>
+<span data-ttu-id="1c8d7-107">Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 公开 [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) 属性：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-107">The Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) exposes the [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) property:</span></span>
 
 ```csharp
 public class AboutModel : PageModel
@@ -37,9 +37,9 @@ public class AboutModel : PageModel
 
 ::: moniker-end
 
-## <a name="use-httpcontext-from-a-razor-view"></a><span data-ttu-id="f3a0a-108">通过 Razor 视图使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-108">Use HttpContext from a Razor view</span></span>
+## <a name="use-httpcontext-from-a-razor-view"></a><span data-ttu-id="1c8d7-108">通过 Razor 视图使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-108">Use HttpContext from a Razor view</span></span>
 
-<span data-ttu-id="f3a0a-109">Razor 视图通过视图上的 [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) 属性直接公开 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-109">Razor views expose the `HttpContext` directly via a [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) property on the view.</span></span> <span data-ttu-id="f3a0a-110">下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-110">The following example retrieves the current username in an Intranet app using Windows Authentication:</span></span>
+<span data-ttu-id="1c8d7-109">Razor 视图通过视图上的 [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) 属性直接公开 `HttpContext`。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-109">Razor views expose the `HttpContext` directly via a [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) property on the view.</span></span> <span data-ttu-id="1c8d7-110">下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-110">The following example retrieves the current username in an Intranet app using Windows Authentication:</span></span>
 
 ```cshtml
 @{
@@ -47,9 +47,9 @@ public class AboutModel : PageModel
 }
 ```
 
-## <a name="use-httpcontext-from-a-controller"></a><span data-ttu-id="f3a0a-111">通过控制器使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-111">Use HttpContext from a controller</span></span>
+## <a name="use-httpcontext-from-a-controller"></a><span data-ttu-id="1c8d7-111">通过控制器使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-111">Use HttpContext from a controller</span></span>
 
-<span data-ttu-id="f3a0a-112">控制器公开 [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) 属性：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-112">Controllers expose the [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) property:</span></span>
+<span data-ttu-id="1c8d7-112">控制器公开 [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) 属性：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-112">Controllers expose the [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) property:</span></span>
 
 ```csharp
 public class HomeController : Controller
@@ -64,9 +64,9 @@ public class HomeController : Controller
 }
 ```
 
-## <a name="use-httpcontext-from-middleware"></a><span data-ttu-id="f3a0a-113">通过中间件使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-113">Use HttpContext from middleware</span></span>
+## <a name="use-httpcontext-from-middleware"></a><span data-ttu-id="1c8d7-113">通过中间件使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-113">Use HttpContext from middleware</span></span>
 
-<span data-ttu-id="f3a0a-114">使用自定义中间件组件时，`HttpContext` 传递到 `Invoke` 或 `InvokeAsync` 方法，在中间件配置后可供访问：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-114">When working with custom middleware components, `HttpContext` is passed into the `Invoke` or `InvokeAsync` method and can be accessed when the middleware is configured:</span></span>
+<span data-ttu-id="1c8d7-114">使用自定义中间件组件时，`HttpContext` 传递到 `Invoke` 或 `InvokeAsync` 方法，在中间件配置后可供访问：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-114">When working with custom middleware components, `HttpContext` is passed into the `Invoke` or `InvokeAsync` method and can be accessed when the middleware is configured:</span></span>
 
 ```csharp
 public class MyCustomMiddleware
@@ -78,9 +78,9 @@ public class MyCustomMiddleware
 }
 ```
 
-## <a name="use-httpcontext-from-custom-components"></a><span data-ttu-id="f3a0a-115">通过自定义组件使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-115">Use HttpContext from custom components</span></span>
+## <a name="use-httpcontext-from-custom-components"></a><span data-ttu-id="1c8d7-115">通过自定义组件使用 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-115">Use HttpContext from custom components</span></span>
 
-<span data-ttu-id="f3a0a-116">对于需要访问 `HttpContext` 的其他框架和自定义组件，建议使用内置的[依赖项注入](xref:fundamentals/dependency-injection)容器来注册依赖项。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-116">For other framework and custom components that require access to `HttpContext`, the recommended approach is to register a dependency using the built-in [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="f3a0a-117">依赖项注入容器向任意类提供 `IHttpContextAccessor`，以供类在自己的构造函数中将它声明为依赖项。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-117">The dependency injection container supplies the `IHttpContextAccessor` to any classes that declare it as a dependency in their constructors.</span></span>
+<span data-ttu-id="1c8d7-116">对于需要访问 `HttpContext` 的其他框架和自定义组件，建议使用内置的[依赖项注入](xref:fundamentals/dependency-injection)容器来注册依赖项。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-116">For other framework and custom components that require access to `HttpContext`, the recommended approach is to register a dependency using the built-in [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="1c8d7-117">依赖项注入容器向任意类提供 `IHttpContextAccessor`，以供类在自己的构造函数中将它声明为依赖项。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-117">The dependency injection container supplies the `IHttpContextAccessor` to any classes that declare it as a dependency in their constructors.</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -109,10 +109,10 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-<span data-ttu-id="f3a0a-118">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-118">In the following example:</span></span>
+<span data-ttu-id="1c8d7-118">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-118">In the following example:</span></span>
 
-* <span data-ttu-id="f3a0a-119">`UserRepository` 声明自己对 `IHttpContextAccessor` 的依赖。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-119">`UserRepository` declares its dependency on `IHttpContextAccessor`.</span></span>
-* <span data-ttu-id="f3a0a-120">当依赖项注入容器解析依赖链并创建 `UserRepository` 实例时，就会注入依赖项。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-120">The dependency is supplied when dependency injection resolves the dependency chain and creates an instance of `UserRepository`.</span></span>
+* <span data-ttu-id="1c8d7-119">`UserRepository` 声明自己对 `IHttpContextAccessor` 的依赖。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-119">`UserRepository` declares its dependency on `IHttpContextAccessor`.</span></span>
+* <span data-ttu-id="1c8d7-120">当依赖项注入容器解析依赖链并创建 `UserRepository` 实例时，就会注入依赖项。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-120">The dependency is supplied when dependency injection resolves the dependency chain and creates an instance of `UserRepository`.</span></span>
 
 ```csharp
 public class UserRepository : IUserRepository
@@ -132,19 +132,19 @@ public class UserRepository : IUserRepository
 }
 ```
 
-## <a name="httpcontext-access-from-a-background-thread"></a><span data-ttu-id="f3a0a-121">从后台线程访问 HttpContext</span><span class="sxs-lookup"><span data-stu-id="f3a0a-121">HttpContext access from a background thread</span></span>
+## <a name="httpcontext-access-from-a-background-thread"></a><span data-ttu-id="1c8d7-121">从后台线程访问 HttpContext</span><span class="sxs-lookup"><span data-stu-id="1c8d7-121">HttpContext access from a background thread</span></span>
 
-<span data-ttu-id="f3a0a-122">`HttpContext` 不是线程安全。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-122">`HttpContext` is not thread-safe.</span></span> <span data-ttu-id="f3a0a-123">在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 `NullReferenceException`。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-123">Reading or writing properties of the `HttpContext` outside of processing a request can result in a `NullReferenceException`.</span></span>
+<span data-ttu-id="1c8d7-122">`HttpContext` 不是线程安全。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-122">`HttpContext` is not thread-safe.</span></span> <span data-ttu-id="1c8d7-123">在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 `NullReferenceException`。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-123">Reading or writing properties of the `HttpContext` outside of processing a request can result in a `NullReferenceException`.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f3a0a-124">在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-124">Using `HttpContext` outside of processing a request often results in a `NullReferenceException`.</span></span> <span data-ttu-id="f3a0a-125">如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-125">If your app generates sporadic `NullReferenceException`s , review parts of the code that start background processing, or that continue processing after a request completes.</span></span> <span data-ttu-id="f3a0a-126">查找将控制器方法定义为 `async void` 的错误。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-126">Look for a mistakes like defining a controller method as `async void`.</span></span>
+> <span data-ttu-id="1c8d7-124">在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-124">Using `HttpContext` outside of processing a request often results in a `NullReferenceException`.</span></span> <span data-ttu-id="1c8d7-125">如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-125">If your app generates sporadic `NullReferenceException`s , review parts of the code that start background processing, or that continue processing after a request completes.</span></span> <span data-ttu-id="1c8d7-126">查找诸如将控制器方法定义为 `async void` 的错误。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-126">Look for mistakes, such as defining a controller method as `async void`.</span></span>
 
-<span data-ttu-id="f3a0a-127">要使用 `HttpContext` 数据安全地执行后台工作，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="f3a0a-127">To safely perform background work with `HttpContext` data:</span></span>
+<span data-ttu-id="1c8d7-127">要使用 `HttpContext` 数据安全地执行后台工作，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="1c8d7-127">To safely perform background work with `HttpContext` data:</span></span>
 
-* <span data-ttu-id="f3a0a-128">在请求处理过程中复制所需的数据。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-128">Copy the required data during request processing.</span></span>
-* <span data-ttu-id="f3a0a-129">将复制的数据传递给后台任务。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-129">Pass the copied data to a background task.</span></span>
+* <span data-ttu-id="1c8d7-128">在请求处理过程中复制所需的数据。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-128">Copy the required data during request processing.</span></span>
+* <span data-ttu-id="1c8d7-129">将复制的数据传递给后台任务。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-129">Pass the copied data to a background task.</span></span>
 
-<span data-ttu-id="f3a0a-130">要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法，而是传递所需要的数据。</span><span class="sxs-lookup"><span data-stu-id="f3a0a-130">To avoid unsafe code, never pass the `HttpContext` into a method that does background work - pass the data you need instead.</span></span>
+<span data-ttu-id="1c8d7-130">要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法，而是传递所需要的数据。</span><span class="sxs-lookup"><span data-stu-id="1c8d7-130">To avoid unsafe code, never pass the `HttpContext` into a method that does background work - pass the data you need instead.</span></span>
 
 ```csharp
 public class EmailController
