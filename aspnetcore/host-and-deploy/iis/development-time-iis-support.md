@@ -5,14 +5,14 @@ description: 发现对调试在 Windows Server 上与 IIS 一起运行的 ASP.NE
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/08/2019
+ms.date: 10/10/2019
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: f2d5dbbdc80eec035616ddea234ee5d3343eeae8
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e5da4f7202bf31e65c366d6f7de54212f5b0fed7
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815178"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259798"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Visual Studio 中针对 ASP.NET Core 的开发时 IIS 支持
 
@@ -140,7 +140,7 @@ IIS 必须具有具备以下配置的网站：
 以管理员身份运行 Visual Studio：
 
 * 确认已将生成配置下拉列表设置为“调试”  。
-* 将“运行”按钮设置为 IIS  配置文件，然后选择此按钮以启动该应用。
+* 将[“开始调试”按钮](/visualstudio/debugger/debugger-feature-tour)设置为 IIS 配置文件，然后选择此按钮以启动该应用  。
 
 如果不以管理员身份运行，Visual Studio 可能会提示重启。 如果出现提示，请重启 Visual Studio。
 

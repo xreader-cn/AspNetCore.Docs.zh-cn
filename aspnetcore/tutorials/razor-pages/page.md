@@ -5,12 +5,12 @@ description: 介绍通过搭建基架生成的 Razor 页面。
 ms.author: riande
 ms.date: 08/17/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 00a8458b9bee4d30c5774a980ff5c23fb8872737
-ms.sourcegitcommit: 38cac2552029fc19428722bb204ff9e16eb94225
+ms.openlocfilehash: 939ed5c3cdf33d8d99712e3166d8d07d3bac719f
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/18/2019
-ms.locfileid: "69573142"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334085"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -30,9 +30,9 @@ ms.locfileid: "69573142"
 
 Razor 页面派生自 `PageModel`。 按照约定，`PageModel` 派生的类称为 `<PageName>Model`。 此构造函数使用[依赖关系注入](xref:fundamentals/dependency-injection)将 `RazorPagesMovieContext` 添加到页。 所有已搭建基架的页面都遵循此模式。 请参阅[异步代码](xref:data/ef-rp/intro#asynchronous-code)，了解有关使用实体框架的异步编程的详细信息。
 
-对页面发出请求时，`OnGetAsync` 方法向 Razor 页面返回影片列表。 在 Razor 页面上调用 `OnGetAsync` 或 `OnGet` 以初始化页面状态。 在这种情况下，`OnGetAsync` 将获得影片列表并显示出来。
+对页面发出请求时，`OnGetAsync` 方法向 Razor 页面返回影片列表。 调用 `OnGetAsync` 或 `OnGet` 以初始化页面的状态。 在这种情况下，`OnGetAsync` 将获得影片列表并显示出来。
 
-当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回方法。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs  `OnPostAsync` 方法：
+当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回语句。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs  `OnPostAsync` 方法：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -41,6 +41,8 @@ Razor 页面派生自 `PageModel`。 按照约定，`PageModel` 派生的类称�
 [!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml)]
 
 Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟 [Razor 保留关键字](xref:mvc/views/razor#razor-reserved-keywords)时，它会转换为 Razor 特定标记，否则会转换为 C#。
+
+### <a name="the-page-directive"></a>@page 指令
 
 `@page` Razor 指令将文件转换为一个 MVC 操作，这意味着它可以处理请求。 `@page` 必须是页面上的第一个 Razor 指令。 `@page` 是转换到 Razor 特定标记的一个示例。 有关详细信息，请参阅 [Razor 语法](xref:mvc/views/razor#razor-syntax)。
 
@@ -81,7 +83,7 @@ Razor 可以从 HTML 转换为 C# 或 Razor 特定标记。 当 `@` 符号后跟
 
 前面突出显示的标记是 Razor 转换为 C# 的一个示例。 `{` 和 `}` 字符括住 C# 代码块。
 
-`PageModel` 基类包含 `ViewData` 字典属性，可用于添加数据并将其传递到某个视图。 可以使用键/值模式将对象添加到 `ViewData` 字典。 在前面的示例中，`"Title"` 属性被添加到 `ViewData` 字典。
+`PageModel` 基类包含 `ViewData` 字典属性，可用于将数据传递到某个视图。 可以使用键/值模式将对象添加到 `ViewData` 字典。 在前面的示例中，`"Title"` 属性被添加到 `ViewData` 字典。
 
 `"Title"` 属性用于 Pages/Shared/_Layout.cshtml 文件  。 以下标记显示 _Layout.cshtml 文件的前几行  。
 

@@ -1,0 +1,2 @@
+> [!NOTE]
+> 可能无法在小数字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，[请参阅 GitHub 问题 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。

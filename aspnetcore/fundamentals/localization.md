@@ -5,18 +5,16 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 6dfbeae201a3586dfea6620917083130c4985b22
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: 9ed133c93a9ec95c63869b710d120eca9fda1b6e
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703801"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333703"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Damien Bowden](https://twitter.com/damien_bod)、[Bart Calixto](https://twitter.com/bartmax)、[Nadeem Afana](https://afana.me/) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
-
-在针对 ASP.NET Core 3.0 更新本文档之前，请参见 Hisham 的博客 [What is new in Localization in ASP.NET Core 3.0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)（ASP.NET Core 3.0 中的本地化新增功能）。
 
 使用 ASP.NET Core 创建多语言网站，可让网站拥有更多受众。 ASP.NET Core 提供的服务和中间件可将网站本地化为不同的语言和文化。
 
@@ -275,10 +273,36 @@ Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic`
 
 6. 点击语言，然后点击“向上移动”  。
 
+::: moniker range=">= aspnetcore-3.0"
+### <a name="the-content-language-http-header"></a>Content-Language HTTP 标头
+
+[Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) 实体标头：
+
+ - 用于描述面向受众的语言。
+ - 允许用户根据用户的首选语言来区分。
+
+实体标头用于 HTTP 请求和响应。
+
+在 ASP.NET Core 3.0 中，可以通过设置属性 `ApplyCurrentCultureToResponseHeaders` 来添加 `Content-Language` 标头。
+
+添加 `Content-Language` 标头：
+
+ - 允许 RequestLocalizationMiddleware 使用 `CurrentUICulture` 设置 `Content-Language` 标头。
+ - 无需显式设置响应标头 `Content-Language`。
+
+```csharp
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    ApplyCurrentCultureToResponseHeaders = true
+});
+```
+::: moniker-end
+
 ### <a name="use-a-custom-provider"></a>使用自定义提供程序
 
 假设你想要让客户在数据库中存储其语言和区域性。 你可以编写一个提供程序来查找用户的这些值。 下面的代码演示如何添加自定义提供程序：
 
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 private const string enUSCulture = "en-US";
 
@@ -301,6 +325,32 @@ services.Configure<RequestLocalizationOptions>(options =>
     }));
 });
 ```
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+private const string enUSCulture = "en-US";
+
+services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo(enUSCulture),
+        new CultureInfo("fr")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(culture: enUSCulture, uiCulture: enUSCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+
+    options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
+    {
+        // My custom request culture logic
+        return new ProviderCultureResult("en");
+    }));
+});
+```
+::: moniker-end
 
 使用 `RequestLocalizationOptions` 添加或删除本地化提供程序。
 
@@ -341,7 +391,11 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 * 父区域性：包含特定区域性的非特定区域性。 （例如，“en”是“en-US”和“en-GB”的父区域性）
 * 区域设置：区域设置与区域性相同。
 
-[!INCLUDE[](~/includes/currency.md)]
+[!INCLUDE[](~/includes/localization/currency.md)]
+
+::: moniker range=">= aspnetcore-3.0"
+[!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -351,3 +405,4 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 * [.resx 文件中的资源](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Microsoft 多语言应用工具包](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
 * [本地化与泛型](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
+* [ASP.NET Core 3.0 本地化中的新增功能](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)

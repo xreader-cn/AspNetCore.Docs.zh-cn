@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 9/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: dcbcf37dfd95d784ebe249ec6e9e4184a8853d3d
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
+ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187173"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72519072"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -196,9 +196,9 @@ Update-Database
 
 你可以忽略该警告，它将后面的教程中得到修复。
 
-`ef migrations add InitialCreate` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `DbContext` 中指定的模型（在 RazorPagesMovieContext.cs 文件中）  。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
+migrations 命令生成用于创建初始数据库架构的代码。 该架构基于在 `DbContext` 中指定的模型。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
 
-`ef database update` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。 `Up` 方法会创建数据库。
+`update` 命令在尚未应用的迁移中运行 `Up` 方法。 在这种情况下，`update` 在用于创建数据库的 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -229,10 +229,6 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 检查 `Up` 方法。
 
 ---
-
-`Add-Migration` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `RazorPagesMovieContext` 中指定的模型（在 Data/RazorPagesMovieContext.cs  文件中）。 `Initial` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关详细信息，请参阅 <xref:data/ef-mvc/migrations>。
-
-`Update-Database` 命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法  。
 
 <a name="test"></a>
 
@@ -422,10 +418,14 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 
 在 PMC 中，输入以下命令：
 
-```PMC
+```Powershell
 Add-Migration Initial
 Update-Database
 ```
+
+`Add-Migration` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `DbContext` 中指定的模型（在 RazorPagesMovieContext.cs 文件中）  。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关详细信息，请参阅 <xref:data/ef-mvc/migrations>。
+
+`Update-Database` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。 `Up` 方法会创建数据库。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -436,14 +436,8 @@ Update-Database
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
 ---
-
-前面的命令生成以下警告：“No type was specified for the decimal column 'Price' on entity type 'Movie'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.”
-
-你可以忽略该警告，它将后面的教程中得到修复。
-
-`ef migrations add InitialCreate` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `DbContext` 中指定的模型（在 RazorPagesMovieContext.cs 文件中）  。 `InitialCreate` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会选择可说明迁移的名称。
-
-`ef database update` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。 `Up` 方法会创建数据库。
+> [!NOTE]
+> 前面的命令生成以下警告："*No type was specified for the decimal column 'Price' on entity type 'Movie'.This will cause values to be silently truncated if they do not fit in the default precision and scale.Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.* " 你可以忽略该警告，它将后面的教程中得到修复。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -474,10 +468,6 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 检查 `Up` 方法。
 
 ---
-
-`Add-Migration` 命令生成用于创建初始数据库架构的代码。 此架构的依据为 `RazorPagesMovieContext` 中指定的模型（在 Data/RazorPagesMovieContext.cs  文件中）。 `Initial` 参数用于为迁移命名。 可以使用任何名称，但是按照惯例，会使用可说明迁移的名称。 有关详细信息，请参阅 <xref:data/ef-mvc/migrations>。
-
-`Update-Database` 命令在用于创建数据库的 Migrations/{time-stamp}_InitialCreate.cs 文件中运行 `Up` 方法  。
 
 <a name="test"></a>
 

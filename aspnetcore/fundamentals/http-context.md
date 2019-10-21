@@ -4,14 +4,14 @@ author: coderandhiker
 description: 了解如何在 ASP.NET Core 中访问 HttpContext。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2018
+ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 373c036e0839ce51259e23f8503fbe4691b48751
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886512"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288979"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 
@@ -137,7 +137,7 @@ public class UserRepository : IUserRepository
 `HttpContext` 不是线程安全。 在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 `NullReferenceException`。
 
 > [!NOTE]
-> 在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。 如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。 查找将控制器方法定义为 `async void` 的错误。
+> 在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。 如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。 查找诸如将控制器方法定义为 `async void` 的错误。
 
 要使用 `HttpContext` 数据安全地执行后台工作，请执行以下操作：
 

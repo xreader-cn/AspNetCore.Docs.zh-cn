@@ -5,14 +5,14 @@ description: 了解 Windows 上适用于 ASP.NET Core 的 Web 服务器 HTTP.sys
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 10/14/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: acdcdca3250f2aa3445458cc2c4e5f50360338a1
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: f9e564119604e13bdc48a6c36de7d283c56f68f0
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037610"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333817"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 HTTP.sys Web 服务器实现
 
@@ -117,7 +117,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 | [Authentication.Schemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | 指定允许的身份验证方案。 可能在处理侦听器之前随时修改。 通过 [AuthenticationSchemes 枚举](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`、`Kerberos`、`Negotiate`、`None` 和 `NTLM` 提供值。 | `None` |
 | [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | 尝试[内核模式](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode)缓存，响应合格的标头。 该响应可能不包括 `Set-Cookie`、`Vary` 或 `Pragma` 标头。 它必须包括属性为 `public` 的 `Cache-Control` 标头和 `shared-max-age` 或 `max-age` 值，或 `Expires` 标头。 | `true` |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | 最大并发接受数量。 | 5 &times; [环境。<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（无限制） |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（计算机范围内的<br>设置） |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | 请参阅 <a href="#maxrequestbodysize">MaxRequestBodySize</a> 部分。 | 30000000 个字节<br>(~28.6 MB) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | 队列中允许的最大请求数。 | 1000 |
 | `RequestQueueMode` | 这指示服务器是否负责创建和配置请求队列，或是否应附加到现有队列。<br>附加到现有队列时，大多数现有配置选项不适用。 | `RequestQueueMode.Create` |
@@ -137,7 +137,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 | [Authentication.Schemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | 指定允许的身份验证方案。 可能在处理侦听器之前随时修改。 通过 [AuthenticationSchemes 枚举](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`、`Kerberos`、`Negotiate`、`None` 和 `NTLM` 提供值。 | `None` |
 | [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | 尝试[内核模式](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode)缓存，响应合格的标头。 该响应可能不包括 `Set-Cookie`、`Vary` 或 `Pragma` 标头。 它必须包括属性为 `public` 的 `Cache-Control` 标头和 `shared-max-age` 或 `max-age` 值，或 `Expires` 标头。 | `true` |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | 最大并发接受数量。 | 5 &times; [环境。<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（无限制） |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（计算机范围内的<br>设置） |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | 请参阅 <a href="#maxrequestbodysize">MaxRequestBodySize</a> 部分。 | 30000000 个字节<br>(~28.6 MB) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | 队列中允许的最大请求数。 | 1000 |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | 指示由于客户端断开连接而失败的响应主体写入应引发异常还是正常完成。 | `false`<br>（正常完成） |
@@ -155,7 +155,7 @@ HTTP.sys 通过 Kerberos 身份验证协议委托给内核模式身份验证。 
 | [Authentication.Schemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | 指定允许的身份验证方案。 可能在处理侦听器之前随时修改。 通过 [AuthenticationSchemes 枚举](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`、`Kerberos`、`Negotiate`、`None` 和 `NTLM` 提供值。 | `None` |
 | [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | 尝试[内核模式](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode)缓存，响应合格的标头。 该响应可能不包括 `Set-Cookie`、`Vary` 或 `Pragma` 标头。 它必须包括属性为 `public` 的 `Cache-Control` 标头和 `shared-max-age` 或 `max-age` 值，或 `Expires` 标头。 | `true` |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | 最大并发接受数量。 | 5 &times; [环境。<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（无限制） |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | 要接受的最大并发连接数。 使用 `-1` 实现无限。 通过 `null` 使用注册表的计算机范围内的设置。 | `null`<br>（计算机范围内的<br>设置） |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | 请参阅 <a href="#maxrequestbodysize">MaxRequestBodySize</a> 部分。 | 30000000 个字节<br>(~28.6 MB) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | 队列中允许的最大请求数。 | 1000 |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | 指示由于客户端断开连接而失败的响应主体写入应引发异常还是正常完成。 | `false`<br>（正常完成） |

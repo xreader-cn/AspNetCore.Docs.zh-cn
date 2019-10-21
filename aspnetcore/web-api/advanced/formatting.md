@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 8/22/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: e503df3d81efbb2800503c0cb4ff5ae093b6e1ac
-ms.sourcegitcommit: 023495344053dc59115c80538f0ece935e7490a2
+ms.openlocfilehash: 78fe620ea8fdd681a276253f77939bcb2a56ebb9
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71592353"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391279"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -57,9 +57,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_search)]
 
-将返回 JSON 格式的响应，除非请求了另一个格式且服务器可以返回所请求格式。 [Fiddler](https://www.telerik.com/fiddler) 或 [Postman](https://www.getpostman.com/tools) 等工具可以设置 `Accept` 标头，来指定返回格式。 `Accept` 包含服务器支持的类型时，将返回该类型。
-
-默认情况下，ASP.NET Core 仅支持 JSON。 如果应用未更改默认设置，则无论客户端请求如何，将始终返回 JSON 格式的响应。 下一节将介绍如何添加其他格式化程序。
+默认情况下，ASP.NET Core 支持 `application/json`、`text/json` 和 `text/plain` 媒体类型。 [Fiddler](https://www.telerik.com/fiddler) 或 [Postman](https://www.getpostman.com/tools) 等工具可以设置 `Accept` 请求标头，来指定返回格式。 `Accept` 标头包含服务器支持的类型时，将返回该类型。 下一节将介绍如何添加其他格式化程序。
 
 控制器操作可以返回 POCO（普通旧 CLR 对象）。 返回 POCO 时，运行时自动创建包装该对象的 `ObjectResult`。 客户端将获得已格式化和序列化的对象。 若将返回的对象为 `null`，将返回 `204 No Content` 响应。
 
@@ -221,16 +219,16 @@ XML 格式需要 [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org
 
 ### <a name="special-case-formatters"></a>特例格式化程序
 
-一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）   。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter> 删除此行为。 在 `Configure` 方法中删除格式化程序。 有模型对象返回类型的操作将在返回 `null` 时返回 `204 No Content`。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> 删除此行为。 以下代码删除 `TextOutputFormatter` 和 `HttpNoContentOutputFormatter`。
+一些特例是使用内置格式化程序实现的。 默认情况下，`string` 返回类型的格式将设为 text/plain（如果通过 `Accept` 标头请求则为 text/html）   。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> 删除此行为。 在 `ConfigureServices` 方法中删除格式化程序。 有模型对象返回类型的操作将在返回 `null` 时返回 `204 No Content`。 可以通过删除 <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> 删除此行为。 以下代码删除 `StringOutputFormatter` 和 `HttpNoContentOutputFormatter`。
 
 ::: moniker range=">= aspnetcore-3.0"
-[!code-csharp[](./formatting/3.0sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
-[!code-csharp[](./formatting/sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 
-如果没有 `TextOutputFormatter`，`string` 返回类型返回 `406 Not Acceptable`。 如果 XML 格式化程序存在，当删除 `TextOutputFormatter` 时，它将设置 `string` 返回类型的格式。
+如果没有 `StringOutputFormatter`，内置 JSON 格式化程序将设置 `string` 返回类型的格式。 如果删除了内置 JSON 格式化程序并提供了 XML 格式化程序，则 XML 格式化程序将设置 `string` 返回类型的格式。 否则，`string` 返回类型返回 `406 Not Acceptable`。
 
 没有 `HttpNoContentOutputFormatter`，null 对象将使用配置的格式化程序来进行格式设置。 例如:
 

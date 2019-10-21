@@ -5,14 +5,14 @@ description: 了解如何使用 ASP.NET Core 托管和部署 Blazor 服务器应
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/05/2019
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: aedef7fe695dd4a0cbf04d3f3e9947f33f7afa40
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 693d7ff67bad3a0c5bd050b795833763056ed511
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211603"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378813"
 ---
 # <a name="host-and-deploy-blazor-server"></a>托管和部署 Blazor 服务器
 
@@ -52,7 +52,11 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
 
 由于低延迟、可靠性和[安全性](xref:signalr/security)，使用 WebSocket 作为 SignalR 传输时，Blazor 的效果最佳。 当 WebSocket 不可用时，或在将应用显式配置为使用长轮询时，SignalR 将使用长轮询。 部署到 Azure 应用服务时，请在服务的 Azure 门户设置中将应用配置为使用 WebSocket。 有关为 Azure 应用服务配置应用的详细信息，请参阅 [SignalR 发布指南](xref:signalr/publish-to-azure-web-app)。
 
-我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor 服务器应用。 该服务允许将 Blazor 服务器应用扩展到大量并发 SignalR 连接。 此外，SignalR 服务的全球覆盖和高性能数据中心可帮助显著减少由于地理位置造成的延迟。
+我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor 服务器应用。 该服务允许将 Blazor 服务器应用扩展到大量并发 SignalR 连接。 此外，SignalR 服务的全球覆盖和高性能数据中心可帮助显著减少由于地理位置造成的延迟。 若要配置应用（并选择性地预配），Azure SignalR 服务应：
+
+* 在 Visual Studio 中创建适用于 Blazor 服务器应用的 Azure 应用发布配置文件。
+* 将 Azure SignalR 服务  依赖项添加到配置文件。 如果 Azure 订阅没有要分配给应用的预先存在的 Azure SignalR 服务实例，请选择“创建新的 Azure SignalR 服务实例”  以预配新的服务实例。
+* 将应用发布到 Azure。
 
 ### <a name="measure-network-latency"></a>衡量网络延迟
 

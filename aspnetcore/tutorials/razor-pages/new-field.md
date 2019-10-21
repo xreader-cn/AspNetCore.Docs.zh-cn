@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 0629605f4d5597a9694cb20ce00b91ff4a768468
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 1b08e1515afe656b95be9fb436caa00cd53ab9ad
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082473"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334093"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -28,7 +28,7 @@ ms.locfileid: "71082473"
 
 使用 EF Code First 自动创建数据库时，Code First 将：
 
-* 向数据库添加表格，以跟踪数据库的架构是否与从生成它的模型类同步。
+* 向数据库添加 `__EFMigrationsHistory` 表格，以跟踪数据库的架构是否与从生成它的模型类同步。
 * 如果该模型类未与数据库同步，EF 将引发异常。
 
 通过自动验证同步的架构/模型可以更容易地发现不一致的数据库/代码问题。
@@ -51,11 +51,11 @@ ms.locfileid: "71082473"
 * 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
-在 DB 更新为包括新字段之前，应用将不会正常工作。 如果立即运行，应用会引发 `SqlException`：
+在 DB 更新为包括新字段之前，应用将不会正常工作。 在不更新数据库的情况下运行应用会引发 `SqlException`：
 
 `SqlException: Invalid column name 'Rating'.`
 
-此错误是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。 （数据库表中没有 `Rating` 列。）
+`SqlException` 异常是由于更新的 Movie 模型类与数据库的 Movie 表架构不同导致的。 （数据库表中没有 `Rating` 列。）
 
 可通过几种方法解决此错误：
 
@@ -96,7 +96,7 @@ Update-Database
 
 名称“Rating”是任意的，用于对迁移文件进行命名。 为迁移文件使用有意义的名称是有帮助的。
 
-`Update-Database` 命令指示框架将架构更改应用到数据库。
+`Update-Database` 命令指示框架将架构更改应用到数据库并保留现有数据。
 
 <a name="ssox"></a>
 

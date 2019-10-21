@@ -5,12 +5,12 @@ description: 说明如何使用数据库和 ASP.NET Core。
 ms.author: riande
 ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 197697f28e9faa45c1ac2b7f993bde15994957e5
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440371"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334226"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>使用数据库和 ASP.NET Core
 
@@ -38,7 +38,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 生成代码的数据库名称值 (`Database={Database name}`) 将并不不同。 名称值是任意的。
 
-[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json)]
+[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -52,7 +52,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 `C:/Users/<user/>` 目录下创建 `*.mdf` 文件。
+LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 `C:\Users\<user>\` 目录下创建 `*.mdf` 文件。
 
 <a name="ssox"></a>
 * 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX)   。
@@ -107,10 +107,10 @@ if (context.Movie.Any())
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
-生产应用不会调用 `Database.Migrate`。 它会添加到上面的代码中，以防止在未运行 `Update-Database` 时出现以下异常：
+未运行 `Update-Database` 时出现以下异常：
 
-SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21”。 登录失败。
-用户“用户名”登录失败。
+> `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
+> `Login failed for user 'user name'.`
 
 ### <a name="test-the-app"></a>测试应用
 

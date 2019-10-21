@@ -4,14 +4,14 @@ author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 8/26/2019
+ms.date: 10/10/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 9eeb71ca751005780560f0f2200edc2013541c34
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 61324cdd5b574ea8a12a1be5846a25c311ab4499
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925228"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259667"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -91,7 +91,7 @@ cd GrpcGreeter
 
 ### <a name="open-the-project"></a>打开项目
 
-在 Visual Studio 中，选择“文件” > “打开”，然后选择“GrpcGreeter.sln”文件    。
+在 Visual Studio 中，选择“文件” > “打开”，然后选择“GrpcGreeter.csproj”文件    。
 
 ---
 

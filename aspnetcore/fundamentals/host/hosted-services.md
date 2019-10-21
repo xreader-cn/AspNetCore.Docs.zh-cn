@@ -7,16 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/26/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 0eaa3a62370c1e413840bb65f597dc664adafc38
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: c1fbb5ae8ffc4ee506f42df6a4cbbe845b2b903d
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71688099"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333656"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
-作者：[Luke Latham](https://github.com/guardrex)
+作者：[Luke Latham](https://github.com/guardrex) 和 [Jeow Li Huan](https://github.com/huan086)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -147,13 +147,17 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 * `BackgroundProcessing` 方法返回 `ExecuteAsync` 中等待的 `Task`。
 * 在 `BackgroundProcessing` 中，取消排队并执行队列中的后台任务。
+* 服务在 `StopAsync` 中停止之前，将等待工作项。
 
-[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=28,39-40,44)]
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=28-29,33)]
 
 每当在输入设备上选择 `w` 键时，`MonitorLoop` 服务将处理托管服务的排队任务：
 
 * `IBackgroundTaskQueue` 注入到 `MonitorLoop` 服务中。
 * 调用 `IBackgroundTaskQueue.QueueBackgroundWorkItem` 来将工作项排入队列。
+* 工作项模拟长时间运行的后台任务：
+  * 将执行三次 5 秒的延迟 (`Task.Delay`)。
+  * 如果任务已取消，`try-catch` 语句将捕获 <xref:System.OperationCanceledException>。
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/MonitorLoop.cs?name=snippet_Monitor&highlight=7,33)]
 
@@ -234,7 +238,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ## <a name="queued-background-tasks"></a>排队的后台任务
 
-后台任务队列基于 .NET 4.x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*>（[暂定为 ASP.NET Core 内置版本](https://github.com/aspnet/Hosting/issues/1280)）：
+后台任务队列基于 .NET Framework 4.x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*>（[暂定为 ASP.NET Core 内置版本](https://github.com/aspnet/Hosting/issues/1280)）：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/BackgroundTaskQueue.cs?name=snippet1)]
 

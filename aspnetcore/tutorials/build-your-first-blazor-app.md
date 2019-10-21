@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/15/2019
+ms.date: 10/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 10feb5467a6a6b5a43e0df739fa72902af9854da
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: c357b324905ee3a4c9f4bd167dbbcacaf7e1bc76
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168360"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391207"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -99,6 +99,8 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
+### <a name="blazor-server-experience"></a>Blazor 服务器体验
+
 如果使用 Blazor Server 应用程序，则 `WeatherForecastService` 服务在 `Startup.ConfigureServices` 中注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)。 可通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在整个应用中使用服务的实例：
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
@@ -113,13 +115,15 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
+### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly 体验
+
 如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据   。
 
 *Pages/FetchData.razor*：
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
-[\@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
+[@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 

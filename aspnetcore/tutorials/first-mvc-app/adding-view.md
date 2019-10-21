@@ -5,12 +5,12 @@ description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 1c29b59f9306774316ff37eeb57cc441fe5c7370
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: de75c3b0651c0cda6629af786d7db9dc83bc4fef
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820078"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288818"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -86,7 +86,7 @@ ms.locfileid: "68820078"
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>更改布局文件中的标题、页脚和菜单链接
 
-将 Views\Shared\_Layout.cshtml  文件的内容替换为以下标记。 突出显示所作更改：
+将 Views/Shared/_Layout.cshtml 文件的内容替换为以下标记。  突出显示所作更改：
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
 

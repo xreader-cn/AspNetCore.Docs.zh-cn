@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: ed48c2074360768b8d8c5af7057b353b00592394
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: 0c3597f24e02af40517e12a86127b140ed4fb550
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037693"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333935"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -158,7 +158,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 `TestController`：
 
-* 将 `SampleActionFilterAttribute` (`[SampleActionFilter]`) 应用于 `FilterTest2` 操作：
+* 将 `SampleActionFilterAttribute` (`[SampleActionFilter]`) 应用于 `FilterTest2` 操作。
 * 重写 `OnActionExecuting` 和 `OnActionExecuted`。
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/TestController.cs?name=snippet)]
@@ -449,18 +449,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * 阻止操作结果和后续筛选器的执行。
 * 结果被视为失败而不是成功。
 
-当 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName> 方法运行时：
-
-* 响应可能已发送到客户端，且无法更改。
-* 如果引发了异常，则不会发送响应正文。
-
-<!-- Review preceding "If an exception was thrown: Original 
-When the OnResultExecuted method runs, the response has likely been sent to the client and cannot be changed further (unless an exception was thrown).
-
-SHould that be , 
-If an exception was thrown **IN THE RESULT FILTER**, the response body is not sent.
-
- -->
+当 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName> 方法运行时，响应可能已发送到客户端。 如果响应已发送到客户端，则无法再更改。
 
 如果操作结果执行已被另一个筛选器设置短路，则 `ResultExecutedContext.Canceled` 设置为 `true`。
 
@@ -494,7 +483,7 @@ If an exception was thrown **IN THE RESULT FILTER**, the response body is not se
 可以通过运行[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)来测试前面的代码：
 
 * 调用 F12 开发人员工具。
-* 导航到 `https://localhost:5001/Sample/HeaderWithFactory`
+* 导航到 `https://localhost:5001/Sample/HeaderWithFactory`。
 
 F12 开发人员工具显示示例代码添加的以下响应标头：
 
@@ -532,7 +521,7 @@ What's a non-named attribute?
 
 若要将中间件用作筛选器，可创建一个具有 `Configure` 方法的类型，该方法可指定要注入到筛选器管道的中间件。 下面的示例使用本地化中间件为请求建立当前区域性：
 
-[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,21)]
+[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,22)]
 
 使用 <xref:Microsoft.AspNetCore.Mvc.MiddlewareFilterAttribute> 运行中间件：
 
@@ -542,5 +531,5 @@ What's a non-named attribute?
 
 ## <a name="next-actions"></a>后续操作
 
-* 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)
+* 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)。
 * 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
