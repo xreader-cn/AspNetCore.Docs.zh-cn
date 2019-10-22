@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 8f0d9dd980fa3281f30dc29d329d10ccd352ae72
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: 596eca0f510387a18472eb353672980e0a8e0d24
+ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278704"
+ms.lasthandoff: 10/21/2019
+ms.locfileid: "72697996"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>将 gRPC services 从 C 核迁移到 ASP.NET Core
 
@@ -23,13 +23,13 @@ ms.locfileid: "71278704"
 
 在 ASP.NET Core 堆栈中，默认情况下，使用范围内的[生存期](xref:fundamentals/dependency-injection#service-lifetimes)创建 gRPC services。 与此相反，默认情况下 gRPC C 核心将绑定到[单一实例生存期内](xref:fundamentals/dependency-injection#service-lifetimes)的服务。
 
-范围内的生存期允许服务实现使用范围内的生存期解析其他服务。 例如，作用域生存期还可以通过构造`DbContext`函数注入从 DI 容器进行解析。 使用范围生存期：
+范围内的生存期允许服务实现使用范围内的生存期解析其他服务。 例如，作用域内的生存期还可以通过构造函数注入解析 DI 容器 `DbContext`。 使用范围生存期：
 
 * 为每个请求构造服务实现的新实例。
 * 不能通过实现类型上的实例成员来共享请求之间的状态。
 * 预期是在 DI 容器的单一实例服务中存储共享状态。 在 gRPC 服务实现的构造函数中解析存储的共享状态。
 
-有关服务生存期的详细信息，请<xref:fundamentals/dependency-injection#service-lifetimes>参阅。
+有关服务生存期的详细信息，请参阅 <xref:fundamentals/dependency-injection#service-lifetimes>。
 
 ### <a name="add-a-singleton-service"></a>添加单一实例服务
 
@@ -47,25 +47,25 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="configure-grpc-services-options"></a>配置 gRPC services 选项
 
-在基于 C 的应用程序中，设置（例如`grpc.max_receive_message_length`和`grpc.max_send_message_length` ）在[构造服务器实例](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__) `ChannelOption`时配置。
+在基于 C 的应用程序中，当[构造服务器实例](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)时，将在 `ChannelOption` 配置 `grpc.max_receive_message_length` 和 `grpc.max_send_message_length` 等设置。
 
-在 ASP.NET Core 中，gRPC 通过`GrpcServiceOptions`类型提供配置。 例如，可以通过`AddGrpc`配置 gRPC 服务的最大传入消息大小。 下面的示例将 4 mb `ReceiveMaxMessageSize`的默认值更改为 16 mb：
+在 ASP.NET Core 中，gRPC 通过 `GrpcServiceOptions` 类型提供配置。 例如，可以通过 `AddGrpc` 配置 gRPC 服务的最大传入消息大小。 下面的示例将默认 `MaxReceiveMessageSize` 为 4 MB 到 16 MB：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddGrpc(options =>
     {
-        options.ReceiveMaxMessageSize = 16 * 1024 * 1024; // 16 MB
+        options.MaxReceiveMessageSize = 16 * 1024 * 1024; // 16 MB
     });
 }
 ```
 
-有关配置的详细信息，请<xref:grpc/configuration>参阅。
+有关配置的详细信息，请参阅 <xref:grpc/configuration>。
 
 ## <a name="logging"></a>Logging
 
-基于 C 核的应用依赖`GrpcEnvironment`于来[配置记录器](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)以进行调试。 ASP.NET Core 堆栈通过[日志记录 API](xref:fundamentals/logging/index)提供此功能。 例如，可以通过构造函数注入将记录器添加到 gRPC 服务：
+基于 C 核的应用依赖于 `GrpcEnvironment` 来[配置记录器](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)，以便进行调试。 ASP.NET Core 堆栈通过[日志记录 API](xref:fundamentals/logging/index)提供此功能。 例如，可以通过构造函数注入将记录器添加到 gRPC 服务：
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
