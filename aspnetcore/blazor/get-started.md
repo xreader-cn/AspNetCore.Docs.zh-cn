@@ -5,14 +5,14 @@ description: 使用所选工具构建 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/21/2019
 uid: blazor/get-started
-ms.openlocfilehash: fc368be5eb2e5d8f7c80071dc86a02ae986a685f
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 80ff7b42a44e722dd27bc4fde53a066863448e10
+ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391052"
+ms.lasthandoff: 10/22/2019
+ms.locfileid: "72779129"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -46,7 +46,7 @@ Blazor 入门：
 
    5 \。 对于 "Blazor WebAssembly 体验"，请选择 " **Blazor WebAssembly 应用**" 模板。 对于 Blazor 服务器体验，请选择**Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型、 *Blazor 服务器*和*Blazor WebAssembly*的信息，请参阅 <xref:blazor/hosting-models>。
 
-   6 \。 按 F5 运行应用。
+   6 \。 按 Ctrl+F5 运行应用。
 
    > [!NOTE]
    > 如果安装了 Blazor Visual Studio extension for the ASP.NET Core Blazor （预览版6或更早版本）的先前预览版本，则可以卸载该扩展。 现在，在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
@@ -248,12 +248,12 @@ Blazor 入门：
 
 * 引发 `onclick` 事件。
 * 调用 `IncrementCount` 方法。
-* @No__t-0 递增。
+* @No__t_0 递增。
 * 再次呈现该组件。
 
 运行时将新内容与以前的内容进行比较，并仅将更改的内容应用到文档对象模型（DOM）。
 
-使用 HTML 语法将组件添加到其他组件。 例如，通过将 @no__t 元素添加到 `Index` 组件，将 `Counter` 组件添加到应用的主页。
+使用 HTML 语法将组件添加到其他组件。 例如，通过向 `Index` 组件添加 `<Counter />` 元素，将 `Counter` 组件添加到应用的主页。
 
 *Pages/Index.razor*：
 
@@ -261,22 +261,22 @@ Blazor 入门：
 
 运行应用。 主页具有由 `Counter` 组件提供的自己的计数器。
 
-使用特性或[子内容](xref:blazor/components#child-content)指定组件参数，这些参数允许你设置子组件的属性。 若要将参数添加到 `Counter` 组件，请更新组件的 @no__t 块：
+使用特性或[子内容](xref:blazor/components#child-content)指定组件参数，这些参数允许你设置子组件的属性。 若要将参数添加到 `Counter` 组件，请更新组件的 `@code` 块：
 
-* 使用 @no__t 属性为 @no__t 添加一个公共属性。
+* 使用 `[Parameter]` 属性为 `IncrementAmount` 添加公共属性。
 * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
 *Pages/Counter.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-使用属性在 `Index` 组件的 `<Counter>` 元素中指定 @no__t 0。
+使用特性指定 `Index` 组件的 `<Counter>` 元素中的 `IncrementAmount`。
 
 *Pages/Index.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-运行应用。 每次选择 "**单击我**" 按钮时，@no__t 0 组件都有其自己的计数器，每次增加10个。 @No__t-2 上的 `Counter` 组件（*Counter*）继续递增1。
+运行应用。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 @No__t_2 的 `Counter` 组件（*Counter*）继续递增1。
 
 ## <a name="next-steps"></a>后续步骤
 
