@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 1b08e1515afe656b95be9fb436caa00cd53ab9ad
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: b31711eb6f797de2de1559a3303e14b32a88f1ff
+ms.sourcegitcommit: b3ebf96560b75b752d0e71161d788da800ad0999
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334093"
+ms.lasthandoff: 10/24/2019
+ms.locfileid: "72822384"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -42,6 +42,8 @@ ms.locfileid: "72334093"
 构建应用程序。
 
 编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
+
+<a name="addrat"></a>
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/IndexRating.cshtml?highlight=40-42,62-64)]
 
