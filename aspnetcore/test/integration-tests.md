@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/14/2019
 uid: test/integration-tests
-ms.openlocfilehash: 863b95230d376d050c34a9ed585b7696e649cb05
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: c0fede8f9f46d1b10502055d8e1fe7caa48cf351
+ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378716"
+ms.lasthandoff: 10/22/2019
+ms.locfileid: "72779234"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core 中的集成测试
 
@@ -86,7 +86,7 @@ ASP.NET Core 中的集成测试需要以下各项：
 
 基础结构组件（例如测试 web 主机和内存中测试服务器（[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)））由[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包提供或管理。 使用此包简化了测试的创建和执行。
 
-@No__t-0 包处理以下任务：
+`Microsoft.AspNetCore.Mvc.Testing` 包处理以下任务：
 
 * 将依赖项文件（ *. .deps.json*）从 SUT 复制到测试项目的*bin*目录中。
 * 将[内容根](xref:fundamentals/index#content-root)设置为 SUT 的项目根，以便在执行测试时找到静态文件和页面/视图。
@@ -126,13 +126,13 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>具有默认 WebApplicationFactory 的基本测试
 
-[WebApplicationFactory @ no__t-1TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)用于创建集成测试的[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 。 @no__t 为 SUT 的入口点类，通常为 @no__t 的类。
+[WebApplicationFactory\<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)用于创建集成测试的[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 。 `TEntryPoint` 是 SUT （通常是 `Startup` 类）的入口点类。
 
 测试类实现*类装置*接口（[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)）以指示类包含测试，并跨类中的测试提供共享对象实例。
 
 ### <a name="basic-test-of-app-endpoints"></a>应用终结点的基本测试
 
-下面的测试类 `BasicTests`，使用 @no__t 来启动 SUT，并为测试方法提供[HttpClient](/dotnet/api/system.net.http.httpclient) @no__t。 此方法检查响应状态代码是否成功（范围200-299 中的状态代码）和 `Content-Type` 标头对于多个应用程序页 @no__t 为-1。
+下面的测试类 `BasicTests`使用 `WebApplicationFactory` 来启动 SUT，并为测试方法 `Get_EndpointsReturnSuccessAndCorrectContentType`提供[HttpClient](/dotnet/api/system.net.http.httpclient) 。 方法将检查响应状态代码是否成功（范围200-299 中的状态代码）和多个应用页面的 `Content-Type` 标头是否 `text/html; charset=utf-8`。
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)创建自动跟随重定向并处理 cookie 的 `HttpClient` 的实例。
 
@@ -142,20 +142,20 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 ### <a name="test-a-secure-endpoint"></a>测试安全终结点
 
-@No__t-0 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
+`BasicTests` 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
 
 在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
-在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 @no__t，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
+在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
 
 通过禁止客户端按照重定向操作，可以执行以下检查：
 
 * 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
-* 系统将检查响应标头中的 @no__t 0 标头值，以确认它以 @no__t 1 而不是最终的登录页响应开头，其中 @no__t 2 标头不存在。
+* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
 
 有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
 
@@ -163,19 +163,19 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 通过继承 `WebApplicationFactory` 创建一个或多个自定义工厂，可以独立于测试类创建 Web 主机配置：
 
-1. 从 @no__t 继承，并覆盖[ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost)。 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)允许通过[ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices)配置服务集合：
+1. 从 `WebApplicationFactory` 继承并重写[ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost)。 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)允许通过[ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices)配置服务集合：
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
    [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)中的数据库种子设定由 `InitializeDbForTests` 方法执行。 [集成测试示例：测试应用组织](#test-app-organization)部分介绍了方法。
 
-   已在其 @no__t 的方法中注册了 SUT 的数据库上下文。 执行应用的 `Startup.ConfigureServices` 代码*后*，将执行测试应用的 @no__t 0 回调。 若要将不同于应用程序的数据库用于测试，则必须将应用程序的数据库上下文替换 `builder.ConfigureServices`。
+   在其 `Startup.ConfigureServices` 方法中注册了 SUT 的数据库上下文。 执行应用的 `Startup.ConfigureServices` 代码*后*，将执行测试应用的 `builder.ConfigureServices` 回调。 若要将不同于应用程序的数据库用于测试，则必须将应用程序的数据库上下文替换 `builder.ConfigureServices`。
 
    示例应用将查找数据库上下文的服务描述符，并使用描述符来删除服务注册。 接下来，工厂添加新的 `ApplicationDbContext`，使用内存中数据库进行测试。
 
    若要连接到与内存中数据库不同的数据库，请更改 `UseInMemoryDatabase` 调用以将上下文连接到其他数据库。 使用 SQL Server 测试数据库：
 
-   * 引用项目文件中的 [Microsoft.entityframeworkcore] https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) NuGet 包。
+   * 引用项目文件中的[Microsoft.entityframeworkcore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) NuGet 包。
    * 使用数据库的连接字符串调用 `UseSqlServer`。
 
    ```csharp
@@ -190,9 +190,9 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是使用 @no__t 0 标头在其中许多测试中进行重定向。
+   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
 
-3. 典型测试使用 @no__t 0 和 helper 方法来处理请求和响应：
+3. 典型的测试使用 `HttpClient` 和 helper 方法来处理请求和响应：
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet2)]
 
@@ -202,10 +202,10 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 1. 分析防伪 cookie 并请求响应中的验证令牌。
 1. 发出带有防伪 cookie 的 POST 请求，并就地请求验证令牌。
 
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 @no__t 0 帮助器扩展方法（Helper */HttpClientExtensions*）和 `GetDocumentAsync` helper 方法（helper */HtmlHelpers*）使用[AngleSharp](https://anglesharp.github.io/)分析器来处理防伪检查以下方法：
+[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 `SendAsync` helper 扩展方法（Helper */HttpClientExtensions*）和 `GetDocumentAsync` helper 方法（helper */HtmlHelpers*）使用[AngleSharp](https://anglesharp.github.io/)分析器来处理防伪检查以下方法：
 
-* `GetDocumentAsync` &ndash; 接收[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)并返回 @no__t 为3。 `GetDocumentAsync` 使用工厂来准备基于原始 `HttpResponseMessage` 的*虚拟响应*。 有关详细信息，请参阅[AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
-* @no__t `HttpClient` 扩展方法：编写[HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)并调用[SendAsync （HttpRequestMessage）](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)将请求提交到 SUT。 @No__t 的重载会接受 HTML 格式（`IHtmlFormElement`）和以下内容：
+* `GetDocumentAsync` &ndash; 接收[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用工厂来准备基于原始 `HttpResponseMessage` 的*虚拟响应*。 有关详细信息，请参阅[AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
+* `SendAsync` 扩展方法 `HttpClient` 构成[HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)并调用[SendAsync （HttpRequestMessage）](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)将请求提交到 SUT。 `SendAsync` 的重载接受 HTML 窗体（`IHtmlFormElement`）以及以下内容：
   * 窗体的 "提交" 按钮（`IHtmlElement`）
   * 窗体值集合（`IEnumerable<KeyValuePair<string, string>>`）
   * 提交按钮（`IHtmlElement`）和窗体值（`IEnumerable<KeyValuePair<string, string>>`）
@@ -217,9 +217,9 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 如果在测试方法中需要其他配置， [WithWebHostBuilder](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.withwebhostbuilder)会创建一个新的 `WebApplicationFactory`，其中包含由配置进一步自定义的[IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 。
 
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)的 @no__t 0 测试方法演示了 `WithWebHostBuilder` 的使用。 此测试通过在 SUT 中触发窗体提交来在数据库中执行记录删除。
+[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)的 `Post_DeleteMessageHandler_ReturnsRedirectToRoot` 测试方法演示如何使用 `WithWebHostBuilder`。 此测试通过在 SUT 中触发窗体提交来在数据库中执行记录删除。
 
-因为 `IndexPageTests` 类中的另一个测试会执行一个操作，该操作将删除数据库中的所有记录，并且该操作可能在 @no__t 1 方法之前运行，因此，该数据库在此测试方法中种子，以确保存在记录，以便将其删除。 选择 SUT 中 `messages` 窗体的第一个 "删除" 按钮时，会将请求中的内容模拟到 SUT：
+由于 `IndexPageTests` 类中的另一个测试会执行一个操作，该操作将删除数据库中的所有记录，并且该操作可能在 `Post_DeleteMessageHandler_ReturnsRedirectToRoot` 方法之前运行，因此，该数据库在此测试方法中种子，以确保要删除的 SUT 存在记录。 选择 SUT 中 `messages` 窗体的第一个 "删除" 按钮时，会将请求中的内容模拟到 SUT：
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet3)]
 
@@ -229,12 +229,12 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 | 选项 | 描述 | Default |
 | ------ | ----------- | ------- |
-| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | 获取或设置 @no__t 实例是否应自动跟随重定向响应。 | `true` |
-| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | 获取或设置 @no__t 实例的基址。 | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | 获取或设置 @no__t 实例是否应处理 cookie。 | `true` |
-| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | 获取或设置 @no__t 实例应遵循的重定向响应的最大数目。 | 7 |
+| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | 获取或设置 `HttpClient` 实例是否应自动跟随重定向响应。 | `true` |
+| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | 获取或设置 `HttpClient` 实例的基址。 | `http://localhost` |
+| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | 获取或设置 `HttpClient` 实例是否应处理 cookie。 | `true` |
+| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | 获取或设置 `HttpClient` 实例应遵循的重定向响应的最大数目。 | 7 |
 
-创建 @no__t 0 类并将其传递给[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)方法（在代码示例中显示默认值）：
+创建 `WebApplicationFactoryClientOptions` 类并将其传递给[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)方法（在代码示例中显示默认值）：
 
 ```csharp
 // Default client option values are shown
@@ -249,7 +249,7 @@ _client = _factory.CreateClient(clientOptions);
 
 ## <a name="inject-mock-services"></a>注入模拟服务
 
-通过在主机生成器上调用[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) ，可以在测试中覆盖服务。 **若要注入 mock 服务，SUT 必须具有具有 @no__t 2 方法的 @no__t 1 类。**
+通过在主机生成器上调用[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) ，可以在测试中覆盖服务。 **若要注入模拟服务，SUT 必须有一个具有 `Startup.ConfigureServices` 方法的 `Startup` 类。**
 
 示例 SUT 包含一个返回 quote 的作用域服务。 请求索引页时，引号嵌入到索引页上的隐藏字段中。
 
@@ -280,7 +280,7 @@ Pages/Index.cshtml.cs：
     London, and we&#x27;re already 30,000 years late.">
 ```
 
-若要在集成测试中测试服务和引号注入，测试会将模拟服务注入到 SUT。 模拟服务会将应用的 @no__t 0 替换为测试应用提供的服务，称为 `TestQuoteService`：
+若要在集成测试中测试服务和引号注入，测试会将模拟服务注入到 SUT。 模拟服务会将应用的 `QuoteService` 替换为测试应用提供的服务，称为 `TestQuoteService`：
 
 *IntegrationTests.IndexPageTests.cs*：
 
@@ -290,7 +290,7 @@ Pages/Index.cshtml.cs：
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
-在测试执行过程中生成的标记反映 @no__t 提供的引号文本，因此断言通过：
+在测试执行过程中生成的标记反映 `TestQuoteService`提供的引号文本，因此断言通过：
 
 ```html
 <input id="quote" type="hidden" value="Something&#x27;s interfering with time, 
@@ -299,7 +299,7 @@ Pages/Index.cshtml.cs：
 
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>测试基础结构如何推断应用内容根路径
 
-@No__t-0 构造函数通过搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径，该键等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 @no__t 2 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
+`WebApplicationFactory` 构造函数通过使用等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`的键搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 `TEntryPoint` 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
 
 ## <a name="disable-shadow-copying"></a>禁用卷影复制
 
@@ -337,11 +337,11 @@ dotnet test
 SUT 是 Razor Pages 的消息系统，具有以下特征：
 
 * 应用的 "索引" 页（*Pages/索引. cshtml*和*pages/index*）提供了一个 UI 和页面模型方法，用于控制消息的添加、删除和分析（每条消息的平均单词数）。
-* 消息由具有两个属性的 @no__t 0 类（*Data/message*）描述： `Id` （键）和 `Text` （message）。 @No__t-0 属性是必需的，并且限制为200个字符。
+* 消息由 `Message` 类（*Data/message*）描述，具有两个属性： `Id` （密钥）和 `Text` （message）。 `Text` 属性是必需的，并且限制为200个字符。
 * 使用[实体框架的内存中数据库](/ef/core/providers/in-memory/)&#8224;来存储消息。
-* 应用在其数据库上下文 @no__t 类（*AppDbContext*）中包含数据访问层（DAL）。
+* 应用在其数据库上下文类中包含数据访问层（DAL），`AppDbContext` （*data/AppDbContext*）。
 * 如果数据库在应用启动时为空，则会用三条消息初始化消息存储。
-* 应用包括只能由经过身份验证的用户访问的 @no__t 0。
+* 应用包括只能由经过身份验证的用户访问的 `/SecurePage`。
 
 &#8224;EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明了如何将内存中数据库用于使用 MSTest 进行测试。 本主题使用[xUnit](https://xunit.github.io/)测试框架。 不同测试框架中的测试概念和测试实现相似，但并不完全相同。
 
@@ -355,7 +355,7 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 | ------------------ | ----------- |
 | *BasicTests* | *BasicTests.cs*包含用于路由的测试方法、通过未经身份验证的用户访问安全页以及获取 GitHub 用户配置文件和检查配置文件的用户登录名。 |
 | *IntegrationTests* | *IndexPageTests.cs*包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
-| *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使数据库具有测试数据的 @no__t 1 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
+| *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使用测试数据对数据库进行种子设定的 `InitializeDbForTests` 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
 
 测试框架为[xUnit](https://xunit.github.io/)。 集成测试是使用 TestHost 的[AspNetCore](/dotnet/api/microsoft.aspnetcore.testhost)进行的，其中包括[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)。 由于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包用于配置测试主机和测试服务器，因此，在测试应用程序的项目文件或测试的开发人员配置中，`TestHost` 和 `TestServer` 包不需要直接包引用应用.
 
@@ -367,7 +367,7 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/Helpers/Utilities.cs?name=snippet1)]
 
-已在其 @no__t 的方法中注册了 SUT 的数据库上下文。 执行应用的 `Startup.ConfigureServices` 代码*后*，将执行测试应用的 @no__t 0 回调。 若要将不同的数据库用于测试，则必须将应用程序的数据库上下文替换 `builder.ConfigureServices`。 有关详细信息，请参阅[自定义 WebApplicationFactory](#customize-webapplicationfactory)部分。
+在其 `Startup.ConfigureServices` 方法中注册了 SUT 的数据库上下文。 执行应用的 `Startup.ConfigureServices` 代码*后*，将执行测试应用的 `builder.ConfigureServices` 回调。 若要将不同的数据库用于测试，则必须将应用程序的数据库上下文替换 `builder.ConfigureServices`。 有关详细信息，请参阅[自定义 WebApplicationFactory](#customize-webapplicationfactory)部分。
 
 ::: moniker-end
 
@@ -439,7 +439,7 @@ ASP.NET Core 中的集成测试需要以下各项：
 
 基础结构组件（例如测试 web 主机和内存中测试服务器（[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)））由[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包提供或管理。 使用此包简化了测试的创建和执行。
 
-@No__t-0 包处理以下任务：
+`Microsoft.AspNetCore.Mvc.Testing` 包处理以下任务：
 
 * 将依赖项文件（ *. .deps.json*）从 SUT 复制到测试项目的*bin*目录中。
 * 将[内容根](xref:fundamentals/index#content-root)设置为 SUT 的项目根，以便在执行测试时找到静态文件和页面/视图。
@@ -473,13 +473,13 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>具有默认 WebApplicationFactory 的基本测试
 
-[WebApplicationFactory @ no__t-1TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)用于创建集成测试的[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 。 @no__t 为 SUT 的入口点类，通常为 @no__t 的类。
+[WebApplicationFactory\<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)用于创建集成测试的[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 。 `TEntryPoint` 是 SUT （通常是 `Startup` 类）的入口点类。
 
 测试类实现*类装置*接口（[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)）以指示类包含测试，并跨类中的测试提供共享对象实例。
 
 ### <a name="basic-test-of-app-endpoints"></a>应用终结点的基本测试
 
-下面的测试类 `BasicTests`，使用 @no__t 来启动 SUT，并为测试方法提供[HttpClient](/dotnet/api/system.net.http.httpclient) @no__t。 此方法检查响应状态代码是否成功（范围200-299 中的状态代码）和 `Content-Type` 标头对于多个应用程序页 @no__t 为-1。
+下面的测试类 `BasicTests`使用 `WebApplicationFactory` 来启动 SUT，并为测试方法 `Get_EndpointsReturnSuccessAndCorrectContentType`提供[HttpClient](/dotnet/api/system.net.http.httpclient) 。 方法将检查响应状态代码是否成功（范围200-299 中的状态代码）和多个应用页面的 `Content-Type` 标头是否 `text/html; charset=utf-8`。
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)创建自动跟随重定向并处理 cookie 的 `HttpClient` 的实例。
 
@@ -489,20 +489,20 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 ### <a name="test-a-secure-endpoint"></a>测试安全终结点
 
-@No__t-0 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
+`BasicTests` 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
 
 在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
-在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 @no__t，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
+在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
 
 通过禁止客户端按照重定向操作，可以执行以下检查：
 
 * 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
-* 系统将检查响应标头中的 @no__t 0 标头值，以确认它以 @no__t 1 而不是最终的登录页响应开头，其中 @no__t 2 标头不存在。
+* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
 
 有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
 
@@ -510,7 +510,7 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 通过继承 `WebApplicationFactory` 创建一个或多个自定义工厂，可以独立于测试类创建 Web 主机配置：
 
-1. 从 @no__t 继承，并覆盖[ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost)。 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)允许通过[ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices)配置服务集合：
+1. 从 `WebApplicationFactory` 继承并重写[ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost)。 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)允许通过[ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices)配置服务集合：
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
@@ -520,9 +520,9 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是使用 @no__t 0 标头在其中许多测试中进行重定向。
+   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
 
-3. 典型测试使用 @no__t 0 和 helper 方法来处理请求和响应：
+3. 典型的测试使用 `HttpClient` 和 helper 方法来处理请求和响应：
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet2)]
 
@@ -532,10 +532,10 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 1. 分析防伪 cookie 并请求响应中的验证令牌。
 1. 发出带有防伪 cookie 的 POST 请求，并就地请求验证令牌。
 
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 @no__t 0 帮助器扩展方法（Helper */HttpClientExtensions*）和 `GetDocumentAsync` helper 方法（helper */HtmlHelpers*）使用[AngleSharp](https://anglesharp.github.io/)分析器来处理防伪检查以下方法：
+[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 `SendAsync` helper 扩展方法（Helper */HttpClientExtensions*）和 `GetDocumentAsync` helper 方法（helper */HtmlHelpers*）使用[AngleSharp](https://anglesharp.github.io/)分析器来处理防伪检查以下方法：
 
-* `GetDocumentAsync` &ndash; 接收[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)并返回 @no__t 为3。 `GetDocumentAsync` 使用工厂来准备基于原始 `HttpResponseMessage` 的*虚拟响应*。 有关详细信息，请参阅[AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
-* @no__t `HttpClient` 扩展方法：编写[HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)并调用[SendAsync （HttpRequestMessage）](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)将请求提交到 SUT。 @No__t 的重载会接受 HTML 格式（`IHtmlFormElement`）和以下内容：
+* `GetDocumentAsync` &ndash; 接收[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用工厂来准备基于原始 `HttpResponseMessage` 的*虚拟响应*。 有关详细信息，请参阅[AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
+* `SendAsync` 扩展方法 `HttpClient` 构成[HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)并调用[SendAsync （HttpRequestMessage）](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)将请求提交到 SUT。 `SendAsync` 的重载接受 HTML 窗体（`IHtmlFormElement`）以及以下内容：
   * 窗体的 "提交" 按钮（`IHtmlElement`）
   * 窗体值集合（`IEnumerable<KeyValuePair<string, string>>`）
   * 提交按钮（`IHtmlElement`）和窗体值（`IEnumerable<KeyValuePair<string, string>>`）
@@ -547,9 +547,9 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 如果在测试方法中需要其他配置， [WithWebHostBuilder](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.withwebhostbuilder)会创建一个新的 `WebApplicationFactory`，其中包含由配置进一步自定义的[IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 。
 
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)的 @no__t 0 测试方法演示了 `WithWebHostBuilder` 的使用。 此测试通过在 SUT 中触发窗体提交来在数据库中执行记录删除。
+[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)的 `Post_DeleteMessageHandler_ReturnsRedirectToRoot` 测试方法演示如何使用 `WithWebHostBuilder`。 此测试通过在 SUT 中触发窗体提交来在数据库中执行记录删除。
 
-因为 `IndexPageTests` 类中的另一个测试会执行一个操作，该操作将删除数据库中的所有记录，并且该操作可能在 @no__t 1 方法之前运行，因此，该数据库在此测试方法中种子，以确保存在记录，以便将其删除。 选择 SUT 中 `messages` 窗体的第一个 "删除" 按钮时，会将请求中的内容模拟到 SUT：
+由于 `IndexPageTests` 类中的另一个测试会执行一个操作，该操作将删除数据库中的所有记录，并且该操作可能在 `Post_DeleteMessageHandler_ReturnsRedirectToRoot` 方法之前运行，因此，该数据库在此测试方法中种子，以确保要删除的 SUT 存在记录。 选择 SUT 中 `messages` 窗体的第一个 "删除" 按钮时，会将请求中的内容模拟到 SUT：
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet3)]
 
@@ -559,12 +559,12 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 | 选项 | 描述 | Default |
 | ------ | ----------- | ------- |
-| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | 获取或设置 @no__t 实例是否应自动跟随重定向响应。 | `true` |
-| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | 获取或设置 @no__t 实例的基址。 | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | 获取或设置 @no__t 实例是否应处理 cookie。 | `true` |
-| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | 获取或设置 @no__t 实例应遵循的重定向响应的最大数目。 | 7 |
+| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | 获取或设置 `HttpClient` 实例是否应自动跟随重定向响应。 | `true` |
+| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | 获取或设置 `HttpClient` 实例的基址。 | `http://localhost` |
+| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | 获取或设置 `HttpClient` 实例是否应处理 cookie。 | `true` |
+| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | 获取或设置 `HttpClient` 实例应遵循的重定向响应的最大数目。 | 7 |
 
-创建 @no__t 0 类并将其传递给[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)方法（在代码示例中显示默认值）：
+创建 `WebApplicationFactoryClientOptions` 类并将其传递给[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)方法（在代码示例中显示默认值）：
 
 ```csharp
 // Default client option values are shown
@@ -579,7 +579,7 @@ _client = _factory.CreateClient(clientOptions);
 
 ## <a name="inject-mock-services"></a>注入模拟服务
 
-通过在主机生成器上调用[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) ，可以在测试中覆盖服务。 **若要注入 mock 服务，SUT 必须具有具有 @no__t 2 方法的 @no__t 1 类。**
+通过在主机生成器上调用[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) ，可以在测试中覆盖服务。 **若要注入模拟服务，SUT 必须有一个具有 `Startup.ConfigureServices` 方法的 `Startup` 类。**
 
 示例 SUT 包含一个返回 quote 的作用域服务。 请求索引页时，引号嵌入到索引页上的隐藏字段中。
 
@@ -610,7 +610,7 @@ Pages/Index.cshtml.cs：
     London, and we&#x27;re already 30,000 years late.">
 ```
 
-若要在集成测试中测试服务和引号注入，测试会将模拟服务注入到 SUT。 模拟服务会将应用的 @no__t 0 替换为测试应用提供的服务，称为 `TestQuoteService`：
+若要在集成测试中测试服务和引号注入，测试会将模拟服务注入到 SUT。 模拟服务会将应用的 `QuoteService` 替换为测试应用提供的服务，称为 `TestQuoteService`：
 
 *IntegrationTests.IndexPageTests.cs*：
 
@@ -620,7 +620,7 @@ Pages/Index.cshtml.cs：
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
-在测试执行过程中生成的标记反映 @no__t 提供的引号文本，因此断言通过：
+在测试执行过程中生成的标记反映 `TestQuoteService`提供的引号文本，因此断言通过：
 
 ```html
 <input id="quote" type="hidden" value="Something&#x27;s interfering with time, 
@@ -629,7 +629,7 @@ Pages/Index.cshtml.cs：
 
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>测试基础结构如何推断应用内容根路径
 
-@No__t-0 构造函数通过搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径，该键等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 @no__t 2 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
+`WebApplicationFactory` 构造函数通过使用等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`的键搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 `TEntryPoint` 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
 
 ## <a name="disable-shadow-copying"></a>禁用卷影复制
 
@@ -677,11 +677,11 @@ dotnet test
 SUT 是 Razor Pages 的消息系统，具有以下特征：
 
 * 应用的 "索引" 页（*Pages/索引. cshtml*和*pages/index*）提供了一个 UI 和页面模型方法，用于控制消息的添加、删除和分析（每条消息的平均单词数）。
-* 消息由具有两个属性的 @no__t 0 类（*Data/message*）描述： `Id` （键）和 `Text` （message）。 @No__t-0 属性是必需的，并且限制为200个字符。
+* 消息由 `Message` 类（*Data/message*）描述，具有两个属性： `Id` （密钥）和 `Text` （message）。 `Text` 属性是必需的，并且限制为200个字符。
 * 使用[实体框架的内存中数据库](/ef/core/providers/in-memory/)&#8224;来存储消息。
-* 应用在其数据库上下文 @no__t 类（*AppDbContext*）中包含数据访问层（DAL）。
+* 应用在其数据库上下文类中包含数据访问层（DAL），`AppDbContext` （*data/AppDbContext*）。
 * 如果数据库在应用启动时为空，则会用三条消息初始化消息存储。
-* 应用包括只能由经过身份验证的用户访问的 @no__t 0。
+* 应用包括只能由经过身份验证的用户访问的 `/SecurePage`。
 
 &#8224;EF 主题[使用 InMemory 进行测试](/ef/core/miscellaneous/testing/in-memory)说明了如何将内存中数据库用于使用 MSTest 进行测试。 本主题使用[xUnit](https://xunit.github.io/)测试框架。 不同测试框架中的测试概念和测试实现相似，但并不完全相同。
 
@@ -695,7 +695,7 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 | ------------------ | ----------- |
 | *BasicTests* | *BasicTests.cs*包含用于路由的测试方法、通过未经身份验证的用户访问安全页以及获取 GitHub 用户配置文件和检查配置文件的用户登录名。 |
 | *IntegrationTests* | *IndexPageTests.cs*包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
-| *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使数据库具有测试数据的 @no__t 1 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
+| *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使用测试数据对数据库进行种子设定的 `InitializeDbForTests` 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
 
 测试框架为[xUnit](https://xunit.github.io/)。 集成测试是使用 TestHost 的[AspNetCore](/dotnet/api/microsoft.aspnetcore.testhost)进行的，其中包括[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)。 由于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包用于配置测试主机和测试服务器，因此，在测试应用程序的项目文件或测试的开发人员配置中，`TestHost` 和 `TestServer` 包不需要直接包引用应用.
 
