@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 7bb98fe5befa8eea80885d246da31ad87d5cfc2d
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: 6f2d62600da828261ecfc3a1df688ce914eccf33
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71691212"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72590011"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -429,7 +429,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ### <a name="test-the-puttodoitem-method"></a>测试 PutTodoItem 方法
 
-本示例使用内存数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET，以确保在调用 PUT 之前数据库中存在项目。
+本示例使用内存内、数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET，以确保在调用 PUT 之前数据库中存在项目。
 
 更新 ID = 1 的待办事项并将其名称设置为“feed fish”：
 
@@ -828,7 +828,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ### <a name="test-the-puttodoitem-method"></a>测试 PutTodoItem 方法
 
-本示例使用内存数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET，以确保在调用 PUT 之前数据库中存在项目。
+本示例使用内存内、数据库，每次启动应用时都必须对其进行初始化。 在进行 PUT 调用之前，数据库中必须有一个项。 调用 GET，以确保在调用 PUT 之前数据库中存在项目。
 
 更新 id = 1 的待办事项并将其名称设置为“feed fish”：
 
@@ -864,7 +864,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
-在本部分中，将添加一个 HTML 页面，该页面使用 JavaScript 调用 Web API。 Fetch API 可启动该请求。 JavaScript 会使用 Web API 响应的详细信息来更新页面。
+在本部分中，将添加一个 HTML 页面，该页面使用 JavaScript 调用 Web API。 jQuery 可启动该请求。 JavaScript 会使用 Web API 响应的详细信息来更新页面。
 
 通过下面突出显示的代码更新 Startup.cs，配置应用来[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[实现默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)  ：
 
@@ -889,13 +889,13 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ### <a name="get-a-list-of-to-do-items"></a>获取待办事项的列表
 
-Fetch 将向 Web API 发送 HTTP GET 请求，该 API 返回表示待办事项的数组的 JSON。 如果请求成功，则调用 `success` 回调函数。 在该回调中使用待办事项信息更新 DOM。
+jQuery 将向 Web API 发送 HTTP GET 请求，该 API 返回表示待办事项的数组的 JSON。 如果请求成功，则调用 `success` 回调函数。 在该回调中使用待办事项信息更新 DOM。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
 ### <a name="add-a-to-do-item"></a>添加待办事项
 
-Fetch 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accepts` 和 `contentType` 选项设置为 `application/json`，以便指定接收和发送的媒体类型。 待办事项使用 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 转换为 JSON。 当 API 返回成功状态的代码时，将调用 `getData` 函数来更新 HTML 表。
+jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accepts` 和 `contentType` 选项设置为 `application/json`，以便指定接收和发送的媒体类型。 待办事项使用 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 转换为 JSON。 当 API 返回成功状态的代码时，将调用 `getData` 函数来更新 HTML 表。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 

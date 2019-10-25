@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 10/12/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: fefd0b9df71d5b0e7c30a31620292fd37eeecfa4
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: b07ed6d1c23454c95778a5942de615684b70bc36
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248263"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589890"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -270,15 +270,15 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="service-registration-methods"></a>服务注册方法
 
-每个服务注册扩展方法提供适用于特定场景的重载。
+服务注册扩展方法提供适用于特定场景的重载。
 
 | 方法 | 自动<br>对象 (object)<br>处置 | 多种<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
-| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddScoped<IMyDep, MyDep>();` | 是 | 是 | No |
-| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped<IMyDep>(sp => new MyDep());`<br>`services.AddScoped<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
-| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>示例：<br>`services.AddScoped<MyDep>();` | 是 | 否 | No |
-| `Add{LIFETIME}<{SERVICE}>(new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped<IMyDep>(new MyDep());`<br>`services.AddScoped<IMyDep>(new MyDep("A string!"));` | No | 是 | 是 |
-| `Add{LIFETIME}(new {IMPLEMENTATION})`<br>示例：<br>`services.AddScoped(new MyDep());`<br>`services.AddScoped(new MyDep("A string!"));` | No | 否 | 是 |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();` | 是 | 是 | No |
+| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<MyDep>();` | 是 | 否 | No |
+| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | No | 是 | 是 |
+| `AddSingleton(new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | No | 否 | 是 |
 
 要详细了解类型处置，请参阅[服务处置](#disposal-of-services)部分。 多个实现的常见场景是[为测试模拟类型](xref:test/integration-tests#inject-mock-services)。
 
