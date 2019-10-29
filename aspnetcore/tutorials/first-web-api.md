@@ -322,7 +322,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
-* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证”     。
+* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证” 。
     > [!WARNING]
     > 在测试控制器之后重新启用 SSL 证书验证。
 
@@ -332,9 +332,9 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 创建新请求。
 * 将 HTTP 方法设置为 `POST`。
-* 选择“正文”选项卡  。
-* 选择“原始”单选按钮  。
-* 将类型设置为 JSON (application/json) 
+* 选择“正文”选项卡 。
+* 选择“原始”单选按钮 。
+* 将类型设置为 JSON (application/json)。
 * 在请求正文中，输入待办事项的 JSON：
 
     ```json
@@ -344,20 +344,20 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
     }
     ```
 
-* 选择“发送”  。
+* 选择“发送”。
 
   ![使用创建请求的 Postman](first-web-api/_static/3/create.png)
 
 ### <a name="test-the-location-header-uri"></a>测试位置标头 URI
 
-* 在“响应”  窗格中选择“标头”  选项卡。
-* 复制“位置”  标头值：
+* 在“响应”窗格中选择“标头”选项卡。
+* 复制“位置”标头值：
 
   ![Postman 控制台的“标头”选项卡](first-web-api/_static/3/create.png)
 
 * 将方法设置为“GET”。
 * 粘贴 URI（例如，`https://localhost:5001/api/TodoItems/1`）。
-* 选择“发送”  。
+* 选择“发送”。
 
 ## <a name="examine-the-get-methods"></a>检查 GET 方法
 
@@ -388,8 +388,8 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 创建新请求。
 * 将 HTTP 方法设置为“GET”  。
 * 将请求 URL 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
-* 在 Postman 中设置“两窗格视图”  。
-* 选择“发送”  。
+* 在 Postman 中设置“两窗格视图”。
+* 选择“发送”。
 
 此应用使用内存中数据库。 如果应用已停止并启动，则前面的 GET 请求将不会返回任何数据。 如果未返回任何数据，将数据 [POST](#post) 到应用。
 
@@ -459,7 +459,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 将方法设置为 `DELETE`。
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
-* 选择“发送”  。
+* 选择“发送”。
 
 ## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
