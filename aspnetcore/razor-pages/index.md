@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 10/07/2019
 uid: razor-pages/index
-ms.openlocfilehash: d12cf7f4f45c98c292b0d035c99e051d9b779e9a
-ms.sourcegitcommit: 383017d7060a6d58f6a79cf4d7335d5b4b6c5659
+ms.openlocfilehash: 61e15b9b9b8f84de36621c301ecb9d33b21dff88
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72816120"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034275"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -157,7 +157,7 @@ Pages/Create.cshtml  视图文件：
 
 Pages/Create.cshtml 中呈现的 HTML  ：
 
-[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create4.html)]
+[!code-html[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create4.html)]
 
 在前面的代码中，发布窗体：
 
@@ -283,7 +283,7 @@ Edit.cshtml.cs 文件  ：
 
 * 则会生成以下 HTML：
 
-  [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
+  [!code-html[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
 
 如果在不使用名称值的情况下发布“创建”窗体，则将显示错误消息“名称字段是必需的”。 窗体上。 如果客户端上已启用 JavaScript，浏览器会显示错误，而不会发布到服务器。
 
