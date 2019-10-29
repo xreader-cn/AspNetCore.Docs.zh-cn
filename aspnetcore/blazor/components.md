@@ -5,14 +5,14 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/20/2019
+ms.date: 10/21/2019
 uid: blazor/components
-ms.openlocfilehash: 065a3a078c56f813ed38f85d7414f22061217dff
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: 8c228b168cdbd58928ef3f57ff26bc86e8dfc1ba
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697961"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033979"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -37,7 +37,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 可以使用C#以 `@` 开头的表达式将组件成员作为组件的呈现逻辑的一部分。 例如， C#字段通过在字段名称 `@` 之前进行呈现。 下面的示例计算并呈现：
 
-* `_headingFontStyle` `font-style` 的 CSS 属性值。
+* `_headingFontStyle` `font-style`的 CSS 属性值。
 * `_headingText` 到 `<h1>` 元素的内容。
 
 ```cshtml
@@ -107,7 +107,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 组件可以设置另一个组件的内容。 分配组件提供用于指定接收组件的标记之间的内容。
 
-在下面的示例中，`ChildComponent` 具有一个表示 `RenderFragment` 的 `ChildContent` 属性，该属性表示要呈现的 UI 段。 @No__t_0 的值放置在应呈现内容的组件标记中。 @No__t_0 的值从父组件接收，并呈现在启动面板的 `panel-body` 中。
+在下面的示例中，`ChildComponent` 具有一个表示 `RenderFragment` 的 `ChildContent` 属性，该属性表示要呈现的 UI 段。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值从父组件接收，并呈现在启动面板的 `panel-body`中。
 
 *组件/ChildComponent*：
 
@@ -190,7 +190,53 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 }
 ```
 
-@No__t_1 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的属性。 组件只能使用 `CaptureUnmatchedValues` 定义单个参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须从具有字符串键的 `Dictionary<string, object>` 中赋值。 此方案中也可以选择 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>`。
+`[Parameter]` 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的属性。 组件只能使用 `CaptureUnmatchedValues` 定义单个参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须从具有字符串键的 `Dictionary<string, object>` 中赋值。 此方案中也可以选择 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>`。
+
+相对于元素特性位置 `@attributes` 的位置很重要。 当在元素上 splatted `@attributes` 时，将从右到左（从上到下）处理特性。 请考虑以下示例：使用 `Child` 组件的组件：
+
+*ParentComponent*：
+
+```cshtml
+<ChildComponent extra="10" />
+```
+
+*ChildComponent*：
+
+```cshtml
+<div @attributes="AdditionalAttributes" extra="5" />
+
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object> AdditionalAttributes { get; set; }
+```
+
+`Child` 组件的 `extra` 属性设置为 `@attributes`的右侧。 当通过附加属性传递时，`Parent` 组件的呈现 `<div>` 包含 `extra="5"`，因为属性从右到左处理（从上到第一）：
+
+```html
+<div extra="5" />
+```
+
+在下面的示例中，`Child` 组件的 `<div>`中反转 `extra` 和 `@attributes` 的顺序：
+
+*ParentComponent*：
+
+```cshtml
+<ChildComponent extra="10" />
+```
+
+*ChildComponent*：
+
+```cshtml
+<div extra="5" @attributes="AdditionalAttributes" />
+
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object> AdditionalAttributes { get; set; }
+```
+
+`Parent` 组件中呈现的 `<div>` 包含通过附加属性传递的 `extra="10"`：
+
+```html
+<div extra="10" />
+```
 
 ## <a name="data-binding"></a>数据绑定
 
@@ -240,7 +286,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 请参考以下方案：
 
-* @No__t_0 元素绑定到 `int` 类型，其初始值为 `123`：
+* `<input>` 元素绑定到 `int` 类型，其初始值为 `123`：
 
   ```cshtml
   <input @bind="MyProperty" />
@@ -309,7 +355,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-@No__t_0 特性指定要应用于 `<input>` 元素的 `value` 的日期格式。 此格式还用于分析 `onchange` 事件发生时的值。
+`@bind:format` 特性指定要应用于 `<input>` 元素的 `value` 的日期格式。 此格式还用于分析 `onchange` 事件发生时的值。
 
 不建议为 `date` 字段类型指定格式，因为 Blazor 具有设置日期格式的内置支持。
 
@@ -385,7 +431,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 <p>Year: 1986</p>
 ```
 
-@No__t_0 参数是可绑定的，因为它具有与 `Year` 参数类型相匹配的伴随 `YearChanged` 事件。
+`Year` 参数是可绑定的，因为它具有与 `Year` 参数类型相匹配的伴随 `YearChanged` 事件。
 
 按照约定，`<ChildComponent @bind-Year="ParentYear" />` 实质上等同于编写：
 
@@ -511,11 +557,11 @@ Razor 组件提供事件处理功能。 对于名为 `on{event}` 的 HTML 元素
 
 使用嵌套组件的常见方案是，需要在子组件事件发生时运行父组件的方法 &mdash;for 例如，当子组件中发生 `onclick` 事件时。 若要跨组件公开事件，请使用 `EventCallback`。 父组件可将回调方法分配给子组件的 `EventCallback`。
 
-示例应用中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序，以便从示例的 `ParentComponent` 接收 `EventCallback` 委托。 @No__t_0 是使用 `MouseEventArgs` 键入的，这适用于来自外围设备的 `onclick` 事件：
+示例应用中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序，以便从示例的 `ParentComponent` 接收 `EventCallback` 委托。 `EventCallback` 是使用 `MouseEventArgs`键入的，这适用于来自外围设备的 `onclick` 事件：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-@No__t_0 将子级的 `EventCallback<T>` 设置为其 `ShowMessage` 方法：
+`ParentComponent` 将子级的 `EventCallback<T>` 设置为其 `ShowMessage` 方法：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
@@ -595,7 +641,7 @@ Password:
 }
 ```
 
-@No__t_0 组件用于另一个组件：
+`PasswordField` 组件用于另一个组件：
 
 ```cshtml
 <PasswordField @bind-Password="password" />
@@ -774,7 +820,7 @@ public class NotifierService
 }
 ```
 
-@No__t_0 集合的内容可能会随插入、删除或重新排序条目而更改。 当组件 rerenders 时，`<DetailsEditor>` 组件可能会更改以接收不同 `Details` 参数值。 这可能导致比预期更复杂的 rerendering。 在某些情况下，rerendering 可能会导致可见行为差异，如失去元素焦点。
+`People` 集合的内容可能会随插入、删除或重新排序条目而更改。 当组件 rerenders 时，`<DetailsEditor>` 组件可能会更改以接收不同 `Details` 参数值。 这可能导致比预期更复杂的 rerendering。 在某些情况下，rerendering 可能会导致可见行为差异，如失去元素焦点。
 
 可以用 `@key` 指令特性来控制映射过程。 `@key` 会使比较算法根据键的值保证保留元素或组件：
 
@@ -876,7 +922,7 @@ protected override void OnParametersSet()
 
 在*服务器上预呈现时不会调用*`OnAfterRender`。
 
-@No__t_1 的 `firstRender` 参数和 `OnAfterRender` 为：
+`OnAfterRenderAsync` 的 `firstRender` 参数和 `OnAfterRender` 为：
 
 * 第一次调用组件实例时，设置为 `true`。
 * 确保仅执行一次初始化工作。
@@ -906,9 +952,9 @@ protected override void OnAfterRender(bool firstRender)
 
 ### <a name="handle-incomplete-async-actions-at-render"></a>在呈现时处理未完成的异步操作
 
-在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。 在执行生命周期方法时，对象可能 `null` 或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 @No__t_0 对象时呈现占位符 UI 元素（例如，加载消息）。
+在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。 在执行生命周期方法时，对象可能 `null` 或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 `null`对象时呈现占位符 UI 元素（例如，加载消息）。
 
-在 Blazor 模板的 `FetchData` 组件中，`OnInitializedAsync` 被重写为 asychronously 接收预测数据（`forecasts`）。 @No__t_1 `forecasts` 时，将向用户显示一条加载消息。 @No__t_1 的 `Task` 返回完成后，组件将重新呈现已更新状态。
+在 Blazor 模板的 `FetchData` 组件中，`OnInitializedAsync` 被重写为 asychronously 接收预测数据（`forecasts`）。 `null``forecasts` 时，将向用户显示一条加载消息。 `OnInitializedAsync` 的 `Task` 返回完成后，组件将重新呈现已更新状态。
 
 *Pages/FetchData.razor*：
 
@@ -1052,7 +1098,7 @@ namespace BlazorApp.Pages
 
 ## <a name="specify-a-component-base-class"></a>指定组件基类
 
-@No__t_0 指令可用于指定组件的基类。
+`@inherits` 指令可用于指定组件的基类。
 
 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)演示组件如何继承基类 `BlazorRocksBase`，以便提供组件的属性和方法。
 
@@ -1276,7 +1322,7 @@ public class ThemeInfo
 }
 ```
 
-祖先组件可以使用级联值组件提供级联值。 @No__t_0 组件包装组件层次结构的子树，并向该子树内的所有组件提供单个值。
+祖先组件可以使用级联值组件提供级联值。 `CascadingValue` 组件包装组件层次结构的子树，并向该子树内的所有组件提供单个值。
 
 例如，示例应用程序将应用程序布局之一中的主题信息（`ThemeInfo`）指定为构成 `@Body` 属性布局正文的所有组件的级联参数。 在布局组件中为 `ButtonClass` 分配 `btn-success` 值。 任何子代组件都可以通过 `ThemeInfo` 级联对象使用此属性。
 
@@ -1387,7 +1433,7 @@ public class ThemeInfo
 
 [!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
-@No__t_0 组件使用 `TabSet` 组件，该组件包含多个 `Tab` 组件：
+`CascadingValuesParametersTabSet` 组件使用 `TabSet` 组件，该组件包含多个 `Tab` 组件：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
@@ -1494,7 +1540,7 @@ public class ThemeInfo
 }
 ```
 
-> !出现@No__t_0 中的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
+> !出现`Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 

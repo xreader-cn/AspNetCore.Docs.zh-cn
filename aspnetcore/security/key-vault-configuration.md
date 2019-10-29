@@ -5,14 +5,14 @@ description: 了解如何使用 Azure Key Vault 配置提供程序通过在运�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2019
+ms.date: 10/27/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: c8e76068dbcf2a59a15fa75a1fc5aa0032e6acc5
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: acc3a77cdeb3ba73d8467d465128106e461efa7c
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334199"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034331"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -34,7 +34,7 @@ ms.locfileid: "72334199"
 若要采用[Azure 资源的托管标识](/azure/active-directory/managed-identities-azure-resources/overview)方案，请将包引用添加到[microsoft.azure.services.appauthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)包。
 
 > [!NOTE]
-> 撰写本文时，`Microsoft.Azure.Services.AppAuthentication` 的最新稳定版本 `1.0.3` 版本提供对[系统分配的托管标识](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)的支持。 @No__t_1 包中提供了对*用户分配的托管标识*的支持。 本主题演示如何使用系统管理的标识，提供的示例应用使用 `Microsoft.Azure.Services.AppAuthentication` 包的版本 `1.0.3`。
+> 撰写本文时，`Microsoft.Azure.Services.AppAuthentication` 的最新稳定版本 `1.0.3` 版本提供对[系统分配的托管标识](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)的支持。 `1.2.0-preview2` 包中提供了对*用户分配的托管标识*的支持。 本主题演示如何使用系统管理的标识，提供的示例应用使用 `Microsoft.Azure.Services.AppAuthentication` 包的版本 `1.0.3`。
 
 ## <a name="sample-app"></a>示例应用
 
@@ -139,9 +139,9 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 选择“保存”。
 1. 部署应用程序。
 
-@No__t_0 示例应用从 `IConfigurationRoot` 中获取其配置值，名称与机密名称相同：
+`Certificate` 示例应用从 `IConfigurationRoot` 中获取其配置值，名称与机密名称相同：
 
-* 非分层值： `SecretName` 的值是通过 `config["SecretName"]` 获取的。
+* 非分层值： `SecretName` 的值是通过 `config["SecretName"]`获取的。
 * 分层值（节）：使用 `:` （冒号）表示法或 `GetSection` 扩展方法。 使用以下任一方法来获取配置值：
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
@@ -186,7 +186,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 * 创建不带连接字符串的 `AzureServiceTokenProvider` 类的实例。 如果未提供连接字符串，提供程序将尝试从 Azure 资源的托管标识获取访问令牌。
 * 使用 `AzureServiceTokenProvider` 实例令牌回调创建新 `KeyVaultClient`。
-* @No__t_0 实例与加载所有机密值的 `IKeyVaultSecretManager` 的默认实现一起使用，并将键名称中的双破折号（`--`）替换为冒号（`:`）。
+* `KeyVaultClient` 实例与加载所有机密值的 `IKeyVaultSecretManager` 的默认实现一起使用，并将键名称中的双破折号（`--`）替换为冒号（`:`）。
 
 [!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet2&highlight=13-21)]
 
@@ -204,6 +204,8 @@ appsettings.json：
 
 如果收到 `Access denied` 错误，请确认已向应用程序注册了 Azure AD 并提供了对密钥保管库的访问权限。 确认已在 Azure 中重新启动该服务。
 
+有关将提供程序与托管标识和 Azure DevOps 管道一起使用的信息，请参阅使用[托管服务标识创建与 VM 的 Azure 资源管理器服务连接](/azure/devops/pipelines/library/connect-to-azure#create-an-azure-resource-manager-service-connection-to-a-vm-with-a-managed-service-identity)。
+
 ## <a name="use-a-key-name-prefix"></a>使用密钥名称前缀
 
 `AddAzureKeyVault` 提供一个重载，该重载接受 `IKeyVaultSecretManager` 的实现，这允许你控制密钥保管库机密如何转换为配置密钥。 例如，你可以实现接口，以便基于在应用启动时提供的前缀值加载机密值。 例如，你可以根据应用程序的版本加载机密。
@@ -217,11 +219,11 @@ appsettings.json：
 
 [!code-csharp[](key-vault-configuration/sample_snapshot/Program.cs?highlight=30-34)]
 
-@No__t_0 实现将对机密的版本前缀做出反应，以将适当的机密加载到配置中：
+`IKeyVaultSecretManager` 实现将对机密的版本前缀做出反应，以将适当的机密加载到配置中：
 
 [!code-csharp[](key-vault-configuration/sample_snapshot/Startup.cs?name=snippet1)]
 
-@No__t_0 方法由提供程序算法调用，该算法会循环访问保管库机密，查找具有版本前缀的文件。 在 `Load` 找到版本前缀后，该算法使用 `GetKey` 方法返回密钥名称的配置名称。 它从机密名称中去除版本前缀，并返回密钥名称的其余部分，以便加载到应用的配置名称-值对中。
+`Load` 方法由提供程序算法调用，该算法会循环访问保管库机密，查找具有版本前缀的文件。 在 `Load` 找到版本前缀后，该算法使用 `GetKey` 方法返回密钥名称的配置名称。 它从机密名称中去除版本前缀，并返回密钥名称的其余部分，以便加载到应用的配置名称-值对中。
 
 实现此方法时：
 
@@ -255,7 +257,7 @@ appsettings.json：
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```
 
-1. 当应用运行时，将加载密钥保管库机密。 @No__t_0 的字符串机密与应用程序的项目文件（`5.0.0.0`）中指定的应用程序版本相匹配。
+1. 当应用运行时，将加载密钥保管库机密。 `5000-AppSecret` 的字符串机密与应用程序的项目文件（`5.0.0.0`）中指定的应用程序版本相匹配。
 
 1. 将从键名称中去除版本 `5000` （带有短划线）。 在整个应用程序中，读取带有密钥的配置 `AppSecret` 加载机密值。
 
@@ -272,7 +274,7 @@ appsettings.json：
 
 Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的方法使用双短划线（`--`）作为层次结构值（节）的分隔符。 数组键存储在具有双短划线和数值段（`--0--`、`--1--` &hellip; `--{n}--`） Azure Key Vault 中。
 
-检查 JSON 文件提供的以下[Serilog](https://serilog.net/)日志记录提供程序配置。 @No__t_0 数组中定义了两个对象文本，该对象反映了两个 Serilog*接收器*，它们描述了日志记录输出的目标：
+检查 JSON 文件提供的以下[Serilog](https://serilog.net/)日志记录提供程序配置。 `WriteTo` 数组中定义了两个对象文本，该对象反映了两个 Serilog*接收器*，它们描述了日志记录输出的目标：
 
 ```json
 "Serilog": {

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 072f9bbdcf7171ede63383b085f9f0f030bf1076
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: be67c129af4f071d10719e0bbf121de761dde9f4
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391174"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033997"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -61,12 +61,12 @@ Blazor WebAssembly 托管有缺点：
 
 若要使用 Blazor 服务器托管模型创建 Blazor 应用，请使用 ASP.NET Core **Blazor 服务器应用**模板（[dotnet new blazorserver](/dotnet/core/tools/dotnet-new)）。 ASP.NET Core 应用托管 Blazor 服务器应用，并创建客户端连接到的 SignalR 终结点。
 
-ASP.NET Core 应用引用要添加的应用的 @no__t 0 类：
+ASP.NET Core 应用引用要添加的应用 `Startup` 类：
 
 * 服务器端服务。
 * 请求处理管道的应用。
 
-*Blazor* script @ no__t-1 用于建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
+*Blazor*脚本&dagger; 建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
 
 Blazor 服务器托管模型具有以下几个优点：
 
@@ -83,7 +83,7 @@ Blazor 服务器托管有缺点：
 * 对于包含多个用户的应用而言，可伸缩性非常困难。 服务器必须管理多个客户端连接并处理客户端状态。
 * 为应用提供服务需要 ASP.NET Core 服务器。 不可能的无服务器部署方案（例如，通过 CDN 为应用提供服务）。
 
-0The *blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。 @no__t
+&dagger;*blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。
 
 ### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 的比较
 
@@ -133,7 +133,7 @@ UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来
 
 Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果连接丢失，应用会尝试重新连接到服务器。 只要客户端的状态仍在内存中，客户端会话便会恢复而不会失去状态。
 
-当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在 *_Host* Razor 页面中定义一个元素，其 @no__t 为 @no__t，其为-1。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
+当客户端检测到连接已丢失时，用户会在客户端尝试重新连接时向用户显示默认 UI。 如果重新连接失败，则会向用户提供重试选项。 若要自定义 UI，请在 *_Host* Razor 页面中使用 `components-reconnect-modal` 作为其 `id` 来定义元素。 客户端根据连接状态将此元素更新为下面的一个 CSS 类：
 
 * `components-reconnect-show` &ndash; 显示 UI 以指示断开连接，并且客户端正在尝试重新连接。
 * `components-reconnect-hide` &ndash;：客户端具有活动的连接，隐藏 UI。
@@ -208,7 +208,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 }
 ```
 
-由于 @no__t 是静态呈现的，因此该组件不能是交互式的。
+由于 `MyComponent` 是以静态方式呈现的，因此该组件不能是交互式的。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>检测预呈现应用的时间
 
@@ -220,7 +220,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 若要在*Pages/_Host*文件中配置 SignalR 客户端：
 
-* 将 `autostart="false"` 特性添加到*blazor*脚本的 @no__t 标记中。
+* 将 `autostart="false"` 特性添加到*blazor*脚本的 `<script>` 标记中。
 * 调用 `Blazor.start` 并传入指定 SignalR 生成器的配置对象。
 
 ```html
@@ -228,7 +228,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 <script>
   Blazor.start({
     configureSignalR: function (builder) {
-      builder.configureLogging(2); // LogLevel.Information
+      builder.configureLogging("information"); // LogLevel.Information
     }
   });
 </script>
