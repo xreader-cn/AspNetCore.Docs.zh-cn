@@ -5,14 +5,14 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/13/2019
+ms.date: 10/26/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: bf535134277a08103ba8ce55eeed540a9fce8260
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 179ab4c97426c9d3cb8ed069d2059d767d755533
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333880"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034268"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -129,8 +129,6 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 使用模块时，不需要调用 `UseUrls` 或 Kestrel 的 `Listen` API。 如果调用 `UseUrls` 或 `Listen`，则 Kestrel 仅会侦听在没有 IIS 的情况下运行应用时指定的端口。
 
-有关进程内和进程外托管模型的详细信息，请参阅 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)和 [ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module)。
-
 ::: moniker-end
 
 有关 ASP.NET Core 模块配置指南，请参阅 <xref:host-and-deploy/aspnet-core-module>。
@@ -221,7 +219,7 @@ web.config  文件配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-如果项目中不存在 web.config 文件，则会使用正确的 processPath 和参数创建该文件，以便配置 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)，并将该文件移动到[已发布的输出](xref:host-and-deploy/directory-structure)    。
+如果项目中不存在 web.config 文件，则会使用正确的 processPath 和参数创建该文件，以便配置 ASP.NET Core 模块，并将该文件移动到[已发布的输出](xref:host-and-deploy/directory-structure)    。
 
 如果项目中存在 web.config  文件，则会使用正确的 processPath  和参数  转换该文件，以便配置 ASP.NET Core 模块，并将该文件移动到已发布的输出。 转换不会修改文件中的 IIS 配置设置。
 
@@ -235,7 +233,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 </PropertyGroup>
 ```
 
-在禁用 Web SDK 转换文件时，开发人员应手动设置 processPath  和参数  。 有关详细信息，请参阅 [ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module)。
+在禁用 Web SDK 转换文件时，开发人员应手动设置 processPath  和参数  。 有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module>。
 
 ### <a name="webconfig-file-location"></a>web.config 文件位置
 
@@ -332,6 +330,10 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
    * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此参数。 如果有可能会同时托管 32 位和 64 位应用，请勿使用此参数，并安装两个运行时。
    * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config  ) 与 IIS 安装位于同一台计算机上时，禁用检查使用的是否是 IIS 共享配置。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。  有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
 1. 重启系统或在命令行界面中执行 net stop was /y，后跟 net start w3svc   。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
+
+安装托管捆绑包时，无需在 IIS 中手动停止各个站点。 IIS 重新启动后，托管应用（IIS 站点）也将重新启动。 应用收到第一个请求（包括来自[应用程序初始化模块](#application-initialization-module-and-idle-timeout)）后，将再次启动。
+
+ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 IIS 托管的应用重新启动 IIS 时，应用会在收到第一个请求后使用其引用的包的最新修补程序版本进行加载。 如果未重新启动 IIS，应用会在其工作进程被回收并收到第一个请求后重新启动并显示前滚行为。
 
 > [!NOTE]
 > 有关 IIS 共享配置的信息，请参阅[使用 IIS 共享配置的 ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration)。
@@ -528,13 +530,19 @@ ASP.NET Core 应用不支持 [IIS 虚拟目录](/iis/get-started/planning-your-i
 
 使用进程内托管模型时，需要向子应用分配单独的应用池。
 
-有关进程内托管模型及 ASP.NET Core 模块配置的详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module> 和 <xref:host-and-deploy/aspnet-core-module>。
+有关进程内托管模型及 ASP.NET Core 模块配置的详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module>。
 
 ## <a name="configuration-of-iis-with-webconfig"></a>使用 web.config 配置 IIS
 
 IIS 配置受用于 IIS 方案（适用于包含 ASP.NET Core 模块的 ASP.NET Core 应用）的 web.config  的 `<system.webServer>` 部分影响。 例如，IIS 配置适用于动态压缩。 如果在服务器一级将 IIS 配置为使用动态压缩，可通过应用的 web.config  文件中的 `<urlCompression>` 元素，对 ASP.NET Core 应用禁用它。
 
-有关详细信息，请参阅 [\<system.webServer> 的配置参考](/iis/configuration/system.webServer/)、[ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module)和[使用 ASP.NET Core 的 IIS 模块](xref:host-and-deploy/iis/modules)。 若要为在独立应用池中运行的各应用设置环境变量（IIS 10.0 或更高版本中支持此操作），请参阅 IIS 参考文档的[环境变量 \<environmentVariables>](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) 主题中的“AppCmd.exe 命令”  部分。
+有关详细信息，请参阅下列主题：
+
+* [\<system.webServer> 的配置参考](/iis/configuration/system.webServer/)
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:host-and-deploy/iis/modules>
+
+若要为在独立应用池中运行的各应用设置环境变量（IIS 10.0 或更高版本中支持此操作），请参阅 IIS 参考文档的[环境变量 \<environmentVariables>](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) 主题中的“AppCmd.exe 命令”  部分。
 
 ## <a name="configuration-sections-of-webconfig"></a>web.config 的配置节
 
@@ -728,11 +736,8 @@ Windows Server 2008 R2 或更高版本：
 了解 .NET Core 应用部署模型。  
 [.NET Core 应用程序部署](/dotnet/core/deploying/)
 
-了解 ASP.NET Core 模块如何使 Kestrel Web 服务器将 IIS 或 IIS Express 用作反向代理服务器。  
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)
-
-了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用。  
-[ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module)
+了解 ASP.NET Core 模块，包括配置指南。  
+<xref:host-and-deploy/aspnet-core-module>
 
 了解已发布的 ASP.NET Core 应用的目录结构。  
 [目录结构](xref:host-and-deploy/directory-structure)

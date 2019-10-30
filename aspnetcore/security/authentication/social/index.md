@@ -1,31 +1,30 @@
 ---
 title: ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 author: rick-anderson
-description: 本教程演示如何使用外部身份验证提供程序通过 OAuth 2.0 生成 ASP.NET Core 2.x 应用。
+description: 本教程演示如何使用外部身份验证提供程序通过 OAuth 2.0 生成 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 10/21/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: edaf9eeaf02879b2f7816bab0eb373a7de640c05
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 627ca483d60514d85e38c0e346ff5aef64ad9fee
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082509"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034297"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
 作者：[Valeriy Novytskyy](https://github.com/01binary) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-本教程演示如何生成 ASP.NET Core 2.2 应用，该应用可让用户使用外部身份验证提供程序提供的凭据通过 OAuth 2.0 登录。
+本教程演示如何生成 ASP.NET Core 3.0 应用，该应用可让用户使用外部身份验证提供程序提供的凭据通过 OAuth 2.0 登录。
 
-以下几节中介绍了 [Facebook](xref:security/authentication/facebook-logins)、[Twitter](xref:security/authentication/twitter-logins)、[Google](xref:security/authentication/google-logins) 和 [Microsoft](xref:security/authentication/microsoft-logins) 提供程序。 第三方程序包中提供了其他提供程序，例如 [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers) 和 [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)。
-
-![Facebook、Twitter、Google plus 和 Windows 的社交媒体图标](index/_static/social.png)
+以下几节中介绍了 [Facebook](xref:security/authentication/facebook-logins)、[Twitter](xref:security/authentication/twitter-logins)、[Google](xref:security/authentication/google-logins) 和 [Microsoft](xref:security/authentication/microsoft-logins) 提供程序，这些提供程序使用本文中创建的初学者项目。 第三方程序包中提供了其他提供程序，例如 [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers) 和 [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)。
 
 让用户使用其现有凭据登录的好处：
+
 * 方便用户操作。
-* 将管理登录流程的许多复杂性转移到了第三方。 
+* 将管理登录流程的许多复杂性转移到了第三方。
 
 有关社交登录如何驱动流量和客户转换的示例，请参阅 [Facebook](https://www.facebook.com/unsupportedbrowser) 和 [Twitter](https://dev.twitter.com/resources/case-studies) 的案例分析。
 
@@ -36,36 +35,32 @@ ms.locfileid: "71082509"
 * 创建新项目。
 * 依次选择“ASP.NET Core Web 应用程序”和“下一步”   。
 * 提供项目名称，再确认或更改位置   。 选择“创建”  。
-* 在下拉列表中选择 ASP.NET Core 2.2  。 在模板列表中选择“Web 应用程序”  。
+* 在下拉列表中选择“ASP.NET Core 3.0”，然后选择“Web 应用程序”   。
 * 在“身份验证”下，选择“更改”再设置针对单个用户帐户的身份验证    。 选择“确定”  。
 * 在“创建新的 ASP.NET Core Web 应用程序”窗口中，选择“创建”   。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
+* 打开终端。  对于 Visual Studio Code，可以打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
 * 将目录更改为 (`cd`) 包含项目的文件夹。
 
-* 运行以下命令：
+* 在 Windows 上，运行以下命令：
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
-  code -r WebApp1
+  ```
+
+  对于 macOS 和 Linux，运行下面的命令：
+
+  ```dotnetcli
+  dotnet new webapp -o WebApp1 -au Individual
   ```
 
   * `dotnet new` 命令可在“WebApp1”文件夹中创建新的 Razor Pages 项目  。
-  * `-uld` 使用 LocalDB，而不是 SQLite。 省略 `-uld` 以使用 SQLite。
   * `-au Individual` 创建用于个人身份验证的代码。
+  * `-uld` 使用 LocalDB，这是 SQL Server Express for Windows 的轻型版本。 省略 `-uld` 以使用 SQLite。
   * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹  。
-
-* 一个对话框随即出现，其中包含：“‘WebApp1’中缺少进行生成和调试所需的资产。  是否添加它们?” 选择 **“是”** 。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* 选择“文件”   > “新建解决方案”  。
-* 在边栏中选择 .NET Core  > “应用”   。 选择“Web 应用程序”模板  。 选择“下一步”  。
-* 将“目标框架”下拉项设置为 .NET Core 2.2   。 选择“下一步”  。
-* 提供项目名称  。 确认或更改位置  。 选择“创建”  。
 
 ---
 
