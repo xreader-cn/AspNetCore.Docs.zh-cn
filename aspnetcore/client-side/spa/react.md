@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 0e61c5b3e31a0b050d356b8f8e16306dc1e2a7f3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: bbe5328bfa5b4187989a00c3c94e98dabc5d032a
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080419"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190520"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
 
@@ -20,9 +20,11 @@ ms.locfileid: "71080419"
 
 该模板等同于创建两个项目，即用作 API 后端的 ASP.NET Core 项目和用作 UI 的标准 CRA React 项目，但均可在可以生成并发布为单个单元的单个应用程序项目中进行托管。
 
+"响应项目" 模板不适用于服务器端呈现（SSR）。 对于带有响应和 node.js 的 SSR，请考虑[下 .js](https://github.com/zeit/next.js/)或[Razzle](https://github.com/jaredpalmer/razzle)。
+
 ## <a name="create-a-new-app"></a>创建新应用
 
-如果您有安装 ASP.NET Core 2.1，则无需安装响应项目模板。
+如果已安装 ASP.NET Core 2.1，则无需安装 React 项目模板。
 
 在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app目录中创建应用并切换到该目录：
 
@@ -59,7 +61,7 @@ ClientApp 目录是标准的 CRA React 应用。 有关详细信息，请参阅�
 
 ## <a name="install-npm-packages"></a>安装 npm 包
 
-要安装第三方 npm 程序包，请使用 ClientApp子目录中的命令提示符。 例如：
+要安装第三方 npm 程序包，请使用 ClientApp子目录中的命令提示符。 例如:
 
 ```console
 cd ClientApp
