@@ -5,18 +5,18 @@ description: 了解集成测试如何在基础结构级别（包括数据库、�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2019
+ms.date: 10/28/2019
 uid: test/integration-tests
-ms.openlocfilehash: c0fede8f9f46d1b10502055d8e1fe7caa48cf351
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 33f3e29bc649fa65efdff0c47e54a83662005577
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779234"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143361"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core 中的集成测试
 
-作者： [Luke Latham](https://github.com/guardrex)和[Steve Smith](https://ardalis.com/)
+作者： [Luke Latham](https://github.com/guardrex)、 [Javier Calvarro 使用](https://github.com/javiercn)、 [Steve Smith](https://ardalis.com/)和[Jos van der 等到](https://jvandertil.nl)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -130,8 +130,6 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 测试类实现*类装置*接口（[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)）以指示类包含测试，并跨类中的测试提供共享对象实例。
 
-### <a name="basic-test-of-app-endpoints"></a>应用终结点的基本测试
-
 下面的测试类 `BasicTests`使用 `WebApplicationFactory` 来启动 SUT，并为测试方法 `Get_EndpointsReturnSuccessAndCorrectContentType`提供[HttpClient](/dotnet/api/system.net.http.httpclient) 。 方法将检查响应状态代码是否成功（范围200-299 中的状态代码）和多个应用页面的 `Content-Type` 标头是否 `text/html; charset=utf-8`。
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)创建自动跟随重定向并处理 cookie 的 `HttpClient` 的实例。
@@ -139,25 +137,6 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
 默认情况下，当启用[GDPR 同意策略](xref:security/gdpr)时，不会跨请求保留非关键 cookie。 若要保留不重要的 cookie （如 TempData 提供程序使用的 cookie），请将它们标记为测试中的重要 cookie。 有关将 cookie 标记为必要的说明，请参阅[基本 cookie](xref:security/gdpr#essential-cookies)。
-
-### <a name="test-a-secure-endpoint"></a>测试安全终结点
-
-`BasicTests` 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
-
-在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
-
-[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
-
-在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
-
-[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
-
-通过禁止客户端按照重定向操作，可以执行以下检查：
-
-* 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
-* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
-
-有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
 
 ## <a name="customize-webapplicationfactory"></a>自定义 WebApplicationFactory
 
@@ -190,7 +169,7 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
+   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如稍后在 "[模拟身份验证](#mock-authentication)" 部分中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
 
 3. 典型的测试使用 `HttpClient` 和 helper 方法来处理请求和响应：
 
@@ -297,6 +276,50 @@ Pages/Index.cshtml.cs：
     Mr. Scarman, and time is my business.">
 ```
 
+## <a name="mock-authentication"></a>模拟身份验证
+
+`AuthTests` 类中的测试检查安全终结点：
+
+* 将未经身份验证的用户重定向到应用程序的登录页。
+* 返回已经过身份验证的用户的内容。
+
+在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
+
+在 `Get_SecurePageRedirectsAnUnauthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet2)]
+
+通过禁止客户端按照重定向操作，可以执行以下检查：
+
+* 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
+* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
+
+测试应用可以模拟[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices)中的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>，以便测试身份验证和授权的各个方面。 最小方案返回[AuthenticateResult](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*)：
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
+
+当身份验证方案设置为 `Test` 在其中向 `ConfigureTestServices`注册了 `AddAuthentication` 时，将调用 `TestAuthHandler` 来对用户进行身份验证：
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
+
+有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
+
+## <a name="set-the-environment"></a>设置环境
+
+默认情况下，SUT 的主机和应用环境配置为使用开发环境。 重写 SUT 的环境：
+
+* 设置 `ASPNETCORE_ENVIRONMENT` 环境变量（例如，`Staging`、`Production`或其他自定义值，例如 `Testing`）。
+* 重写测试应用中 `CreateHostBuilder`，以读取以 `ASPNETCORE`为前缀的环境变量。
+
+```csharp
+protected override IHostBuilder CreateHostBuilder() => 
+    base.CreateHostBuilder()
+        .ConfigureHostConfiguration(
+            config => config.AddEnvironmentVariables("ASPNETCORE"));
+```
+
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>测试基础结构如何推断应用内容根路径
 
 `WebApplicationFactory` 构造函数通过使用等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`的键搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 `TEntryPoint` 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
@@ -353,8 +376,9 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 
 | 测试应用程序目录 | 描述 |
 | ------------------ | ----------- |
-| *BasicTests* | *BasicTests.cs*包含用于路由的测试方法、通过未经身份验证的用户访问安全页以及获取 GitHub 用户配置文件和检查配置文件的用户登录名。 |
-| *IntegrationTests* | *IndexPageTests.cs*包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
+| *AuthTests* | 包含的测试方法：<ul><li>通过未经身份验证的用户访问安全页。</li><li>使用模拟 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>通过经过身份验证的用户访问安全页。</li><li>获取 GitHub 用户配置文件，并检查配置文件的用户登录名。</li></ul> |
+| *BasicTests* | 包含路由和内容类型的测试方法。 |
+| *IntegrationTests* | 包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
 | *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使用测试数据对数据库进行种子设定的 `InitializeDbForTests` 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
 
 测试框架为[xUnit](https://xunit.github.io/)。 集成测试是使用 TestHost 的[AspNetCore](/dotnet/api/microsoft.aspnetcore.testhost)进行的，其中包括[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)。 由于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包用于配置测试主机和测试服务器，因此，在测试应用程序的项目文件或测试的开发人员配置中，`TestHost` 和 `TestServer` 包不需要直接包引用应用.
@@ -477,8 +501,6 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
 测试类实现*类装置*接口（[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)）以指示类包含测试，并跨类中的测试提供共享对象实例。
 
-### <a name="basic-test-of-app-endpoints"></a>应用终结点的基本测试
-
 下面的测试类 `BasicTests`使用 `WebApplicationFactory` 来启动 SUT，并为测试方法 `Get_EndpointsReturnSuccessAndCorrectContentType`提供[HttpClient](/dotnet/api/system.net.http.httpclient) 。 方法将检查响应状态代码是否成功（范围200-299 中的状态代码）和多个应用页面的 `Content-Type` 标头是否 `text/html; charset=utf-8`。
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient)创建自动跟随重定向并处理 cookie 的 `HttpClient` 的实例。
@@ -486,25 +508,6 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
 默认情况下，当启用[GDPR 同意策略](xref:security/gdpr)时，不会跨请求保留非关键 cookie。 若要保留不重要的 cookie （如 TempData 提供程序使用的 cookie），请将它们标记为测试中的重要 cookie。 有关将 cookie 标记为必要的说明，请参阅[基本 cookie](xref:security/gdpr#essential-cookies)。
-
-### <a name="test-a-secure-endpoint"></a>测试安全终结点
-
-`BasicTests` 类中的另一个测试检查安全终结点是否将未经身份验证的用户重定向到应用程序的登录页。
-
-在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
-
-[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
-
-在 `Get_SecurePageRequiresAnAuthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
-
-[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
-
-通过禁止客户端按照重定向操作，可以执行以下检查：
-
-* 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
-* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
-
-有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
 
 ## <a name="customize-webapplicationfactory"></a>自定义 WebApplicationFactory
 
@@ -520,7 +523,7 @@ Razor Pages 应用和 MVC 应用的测试的配置几乎没有任何区别。 �
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如 "[测试安全终结点](#test-a-secure-endpoint)" 一节中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
+   示例应用的客户端配置为阻止以下重定向中的 `HttpClient`。 如稍后在 "[模拟身份验证](#mock-authentication)" 部分中所述，这允许测试检查应用程序的第一个响应的结果。 第一个响应是包含 `Location` 标头的多个测试的重定向。
 
 3. 典型的测试使用 `HttpClient` 和 helper 方法来处理请求和响应：
 
@@ -627,6 +630,50 @@ Pages/Index.cshtml.cs：
     Mr. Scarman, and time is my business.">
 ```
 
+## <a name="mock-authentication"></a>模拟身份验证
+
+`AuthTests` 类中的测试检查安全终结点：
+
+* 将未经身份验证的用户重定向到应用程序的登录页。
+* 返回已经过身份验证的用户的内容。
+
+在 SUT 中，`/SecurePage` 页面使用[AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage)约定将[AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)应用到页面。 有关详细信息，请参阅[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page)。
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
+
+在 `Get_SecurePageRedirectsAnUnauthenticatedUser` 测试中，通过将[AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect)设置为 `false`，将[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)设置为禁止重定向：
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet2)]
+
+通过禁止客户端按照重定向操作，可以执行以下检查：
+
+* 可以对照预期的[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)结果检查 SUT 返回的状态代码，而不是在重定向到登录页后返回最终状态代码，这会是[HttpStatusCode](/dotnet/api/system.net.httpstatuscode)。
+* 将检查响应标头中的 `Location` 标头值，以确认该标头值以 `http://localhost/Identity/Account/Login`（而不是最终的登录页响应）开头，而 `Location` 标头不存在。
+
+测试应用可以模拟[ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices)中的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>，以便测试身份验证和授权的各个方面。 最小方案返回[AuthenticateResult](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*)：
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
+
+当身份验证方案设置为 `Test` 在其中向 `ConfigureTestServices`注册了 `AddAuthentication` 时，将调用 `TestAuthHandler` 来对用户进行身份验证：
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
+
+有关 `WebApplicationFactoryClientOptions` 的详细信息，请参阅[Client options](#client-options)部分。
+
+## <a name="set-the-environment"></a>设置环境
+
+默认情况下，SUT 的主机和应用环境配置为使用开发环境。 重写 SUT 的环境：
+
+* 设置 `ASPNETCORE_ENVIRONMENT` 环境变量（例如，`Staging`、`Production`或其他自定义值，例如 `Testing`）。
+* 重写测试应用中 `CreateHostBuilder`，以读取以 `ASPNETCORE`为前缀的环境变量。
+
+```csharp
+protected override IHostBuilder CreateHostBuilder() => 
+    base.CreateHostBuilder()
+        .ConfigureHostConfiguration(
+            config => config.AddEnvironmentVariables("ASPNETCORE"));
+```
+
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>测试基础结构如何推断应用内容根路径
 
 `WebApplicationFactory` 构造函数通过使用等于 `TEntryPoint` 程序集 `System.Reflection.Assembly.FullName`的键搜索包含集成测试的程序集上的[WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute)来推断应用[内容根](xref:fundamentals/index#content-root)路径。 如果找不到具有正确键的属性，`WebApplicationFactory` 将回退到搜索解决方案文件（ *.sln*），并在解决方案目录中追加 `TEntryPoint` 程序集名称。 应用根目录（内容根路径）用于发现视图和内容文件。
@@ -693,8 +740,9 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 
 | 测试应用程序目录 | 描述 |
 | ------------------ | ----------- |
-| *BasicTests* | *BasicTests.cs*包含用于路由的测试方法、通过未经身份验证的用户访问安全页以及获取 GitHub 用户配置文件和检查配置文件的用户登录名。 |
-| *IntegrationTests* | *IndexPageTests.cs*包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
+| *AuthTests* | 包含的测试方法：<ul><li>通过未经身份验证的用户访问安全页。</li><li>使用模拟 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>通过经过身份验证的用户访问安全页。</li><li>获取 GitHub 用户配置文件，并检查配置文件的用户登录名。</li></ul> |
+| *BasicTests* | 包含路由和内容类型的测试方法。 |
+| *IntegrationTests* | 包含使用自定义 `WebApplicationFactory` 类的索引页的集成测试。 |
 | *帮助程序/实用工具* | <ul><li>*Utilities.cs*包含用于使用测试数据对数据库进行种子设定的 `InitializeDbForTests` 方法。</li><li>*HtmlHelpers.cs*提供了一个方法，用于返回 AngleSharp `IHtmlDocument` 以供测试方法使用。</li><li>*HttpClientExtensions.cs*提供 `SendAsync` 的重载，以将请求提交到 SUT。</li></ul> |
 
 测试框架为[xUnit](https://xunit.github.io/)。 集成测试是使用 TestHost 的[AspNetCore](/dotnet/api/microsoft.aspnetcore.testhost)进行的，其中包括[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)。 由于[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)包用于配置测试主机和测试服务器，因此，在测试应用程序的项目文件或测试的开发人员配置中，`TestHost` 和 `TestServer` 包不需要直接包引用应用.
@@ -712,6 +760,6 @@ SUT 是 Razor Pages 的消息系统，具有以下特征：
 ## <a name="additional-resources"></a>其他资源
 
 * [单元测试](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
-* [Razor 页面单元测试](xref:test/razor-pages-tests)
-* [中间件](xref:fundamentals/middleware/index)
-* [测试控制器](xref:mvc/controllers/testing)
+* <xref:test/razor-pages-tests>
+* <xref:fundamentals/middleware/index>
+* <xref:mvc/controllers/testing>
