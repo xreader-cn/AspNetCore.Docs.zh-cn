@@ -1,18 +1,18 @@
 ---
 title: 将 ASP.NET Core 应用部署到 Azure 应用服务
-author: guardrex
+author: bradygaster
 description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
+ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/02/2019
+ms.date: 10/11/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: bda4923adb0f9769f883ef64f7902c8650308222
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 392868b4fc9105279f8f3b10436a9915123e7070
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924893"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190652"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -29,6 +29,8 @@ Azure 应用文档、教程、示例、操作指南和其他资源由[应用服�
 使用命令行创建 ASP.NET Core Web 应用，并将其部署到 Linux 上的 Azure 应用服务。
 
 有关 Azure 应用服务上可用的 ASP.NET Core 版本，请参阅[应用服务仪表板上的 ASP.NET Core](https://aspnetcoreon.azurewebsites.net/)。
+
+订阅[应用服务公告](https://github.com/Azure/app-service-announcements/)存储库并监视问题。 应用服务团队会定期发布应用服务中的公告和方案。
 
 ASP.NET Core 文档中提供以下文章：
 
@@ -141,24 +143,48 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 有关详细信息，请参阅 <xref:security/data-protection/implementation/key-storage-providers>。
 <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
-<!-- revert this after 3.0 supported
-## Deploy ASP.NET Core preview release to Azure App Service
 
-Use one of the following approaches if the app relies on a preview release of .NET Core:
-
-* [Install the preview site extension](#install-the-preview-site-extension).
-* [Deploy a self-contained preview app](#deploy-a-self-contained-preview-app).
-* [Use Docker with Web Apps for containers](#use-docker-with-web-apps-for-containers).
--->
 ## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>将 ASP.NET Core 3.0 部署到 Azure 应用服务
 
-我们希望尽快在 Azure 应用服务中提供 ASP.NET Core 3.0。
+Azure 应用服务支持 ASP.NET Core 3.0。 若要部署高于 .NET Core 3.0 的 .NET Core 版本的预览版本，请使用以下方法之一。 当运行时可用，但 SDK 尚未安装在 Azure 应用服务上时，也可以使用这些方法。
 
-如果应用依赖于 .NET Core 3.0，请使用以下方法之一：
-
-* [安装预览站点扩展](#install-the-preview-site-extension)。
+* [使用 Azure Pipelines 指定 .NET Core SDK 版本](#specify-the-net-core-sdk-version-using-azure-pipelines)
 * [部署独立式预览版应用](#deploy-a-self-contained-preview-app)。
 * [对用于容器的 Web 应用使用 Docker](#use-docker-with-web-apps-for-containers)。
+* [安装预览站点扩展](#install-the-preview-site-extension)。
+
+### <a name="specify-the-net-core-sdk-version-using-azure-pipelines"></a>使用 Azure Pipelines 指定 .NET Core SDK 版本
+
+使用 [Azure 应用服务 CI/CD 方案](/azure/app-service/deploy-continuous-deployment)设置与 Azure DevOps 的持续集成版本。 创建 Azure DevOps 版本后，配置版本以使用特定的 SDK 版本（可选）。 
+
+#### <a name="specify-the-net-core-sdk-version"></a>指定 .NET Core SDK 版本
+
+使用应用服务部署中心创建 Azure DevOps 版本时，默认版本管道包含 `Restore`、`Build`、`Test` 和 `Publish` 的步骤。 若要指定 SDK 版本，请在“代理作业”列表中选择“添加 (+)”  按钮以添加新步骤。 在搜索栏中搜索“.NET Core SDK”  。 
+
+![添加 .NET Core SDK 步骤](index/add-sdk-step.png)
+
+将该步骤移至版本中的第一个位置，使其后面的步骤使用 .NET Core SDK 的指定版本。 指定 .NET Core SDK 版本。 在本示例中，SDK 被设置为 `3.0.100`。
+
+![完成的 SDK 步骤](index/sdk-step-first-place.png)
+
+若要发布[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，请在 `Publish` 步骤中配置 SCD 并提供[运行时标识符 (RID)](/dotnet/core/rid-catalog)。
+
+![独立发布](index/self-contained.png)
+
+### <a name="deploy-a-self-contained-preview-app"></a>部署独立式预览版应用
+
+针对预览运行时的[自包含部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)在部署中承载预览运行时。
+
+部署自包含应用时：
+
+* Azure 应用服务中的站点不需要[预览站点扩展名](#install-the-preview-site-extension)。
+* 必须使用不同于发布[依赖框架部署 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) 的方法发布应用。
+
+按照[部署独立式应用](#deploy-the-app-self-contained)部分中的指南操作。
+
+### <a name="use-docker-with-web-apps-for-containers"></a>对用于容器的 Web 应用使用 Docker
+
+[Docker 中心](https://hub.docker.com/r/microsoft/aspnetcore/)包含最新的预览 Docker 映像。 这些映像可以用作基础映像。 按常规方法使用映像并部署到用于容器的 Web 应用。
 
 ### <a name="install-the-preview-site-extension"></a>安装预览站点扩展
 
@@ -205,21 +231,6 @@ Use one of the following approaches if the app relies on a preview release of .N
 如果使用 ARM 模板创建和部署应用，则可使用 `siteextensions` 资源类型将站点扩展添加到 Web 应用。 例如:
 
 [!code-json[](index/sample/arm.json?highlight=2)]
-
-### <a name="deploy-a-self-contained-preview-app"></a>部署独立式预览版应用
-
-针对预览运行时的[自包含部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)在部署中承载预览运行时。
-
-部署自包含应用时：
-
-* Azure 应用服务中的站点不需要[预览站点扩展名](#install-the-preview-site-extension)。
-* 必须使用不同于发布[依赖框架部署 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) 的方法发布应用。
-
-按照[部署独立式应用](#deploy-the-app-self-contained)部分中的指南操作。
-
-### <a name="use-docker-with-web-apps-for-containers"></a>对用于容器的 Web 应用使用 Docker
-
-[Docker 中心](https://hub.docker.com/r/microsoft/aspnetcore/)包含最新的预览 Docker 映像。 这些映像可以用作基础映像。 按常规方法使用映像并部署到用于容器的 Web 应用。
 
 ## <a name="publish-and-deploy-the-app"></a>发布和部署应用
 
