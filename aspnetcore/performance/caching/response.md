@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何通过响应缓存降低带宽要求和提高 ASP.NET Core 应用性能。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/15/2019
+ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: 4ebac97689347245d25e0954b33729d78dd1b516
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: a456e97053fea7c9ee9ec634ae9b7bbd52febe7f
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378836"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611474"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core 中的响应缓存
 
@@ -21,13 +21,15 @@ ms.locfileid: "72378836"
 
 响应缓存可减少客户端或代理对 web 服务器发出的请求数。 响应缓存还减少了 web 服务器生成响应所需的工作量。 响应缓存由指定你希望客户端、代理和中间件缓存响应的方式的标头控制。
 
-[ResponseCache 属性](#responsecache-attribute)参与设置响应缓存标头，客户端在缓存响应时可能会服从这些标头。 [响应缓存中间件](xref:performance/caching/middleware)可用于在服务器上缓存响应。 中间件可以使用 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 属性来影响服务器端的缓存行为。
+[ResponseCache 属性](#responsecache-attribute)参与设置响应缓存标头。 在[HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234)下，客户端和中间代理应遵循用于缓存响应的标头。
+
+对于遵循 HTTP 1.1 缓存规范的服务器端缓存，请使用[响应缓存中间件](xref:performance/caching/middleware)。 中间件可以使用 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 属性来影响服务器端的缓存行为。
 
 ## <a name="http-based-response-caching"></a>基于 HTTP 的响应缓存
 
 [HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234)描述了 Internet 缓存的行为方式。 用于缓存的主 HTTP 标头是[缓存控制](https://tools.ietf.org/html/rfc7234#section-5.2)，它用于指定缓存*指令*。 指令控制缓存行为作为请求从客户端发送到服务器，而作为响应，使其从服务器到客户端的方式。 请求和响应在代理服务器之间移动，并且代理服务器还必须符合 HTTP 1.1 缓存规范。
 
-下表显示了常见 @no__t 0 指令。
+下表显示了常见的 `Cache-Control` 指令。
 
 | 指令                                                       | 操作 |
 | --------------------------------------------------------------- | ------ |
@@ -43,16 +45,16 @@ ms.locfileid: "72378836"
 | ---------------------------------------------------------- | -------- |
 | [年](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
 | [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
-| [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，用于设置 `no-cache` 行为的向后兼容 HTTP/1.0 缓存。 如果 @no__t 的标头存在，则将忽略 @no__t 的标头。 |
+| [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，用于设置 `no-cache` 行为的向后兼容 HTTP/1.0 缓存。 如果 `Cache-Control` 标头存在，则将忽略 `Pragma` 标头。 |
 | [大](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非缓存响应的原始请求和新请求中的所有 `Vary` 标头字段都匹配。 |
 
 ## <a name="http-based-caching-respects-request-cache-control-directives"></a>基于 HTTP 的缓存遵循请求缓存控制指令
 
-[缓存控制标头的 HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234#section-5.2)要求使用缓存来服从客户端发送的有效 @no__t 1 标头。 客户端可以使用 @no__t 的标头值发出请求，并强制服务器为每个请求生成新的响应。
+[缓存控制标头的 HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234#section-5.2)要求使用缓存来服从客户端发送的有效 `Cache-Control` 标头。 客户端可以使用 `no-cache` 标头值发出请求，并强制服务器为每个请求生成新的响应。
 
-如果考虑到 HTTP 缓存的目标，则应始终考虑客户端 @no__t 0 请求标头。 在官方规范下，缓存旨在减少在客户端、代理和服务器网络中满足请求的延迟和网络开销。 它不一定是控制源服务器上的负载的一种方法。
+如果考虑 HTTP 缓存的目标，则始终考虑客户端 `Cache-Control` 请求标头是有意义的。 在官方规范下，缓存旨在减少在客户端、代理和服务器网络中满足请求的延迟和网络开销。 它不一定是控制源服务器上的负载的一种方法。
 
-使用[响应缓存中间件](xref:performance/caching/middleware)时，无开发人员对此缓存行为的控制，因为中间件遵循官方缓存规范。 [中间件的计划增强功能](https://github.com/aspnet/AspNetCore/issues/2612)是在决定为缓存的响应提供服务时，将中间件配置为忽略请求的 @no__t 1 标头的机会。 计划的增强功能提供了一种更好地控制服务器负载的机会。
+使用[响应缓存中间件](xref:performance/caching/middleware)时，无开发人员对此缓存行为的控制，因为中间件遵循官方缓存规范。 [中间件的计划增强功能](https://github.com/aspnet/AspNetCore/issues/2612)是在决定为缓存的响应提供服务时，将中间件配置为忽略请求的 `Cache-Control` 标头的机会。 计划的增强功能提供了一种更好地控制服务器负载的机会。
 
 ## <a name="other-caching-technology-in-aspnet-core"></a>ASP.NET Core 中的其他缓存技术
 
@@ -82,14 +84,14 @@ ms.locfileid: "72378836"
 
 ## <a name="responsecache-attribute"></a>ResponseCache 特性
 
-@No__t 指定在响应缓存中设置适当的标头所需的参数。
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 指定在响应缓存中设置适当的标头所需的参数。
 
 > [!WARNING]
 > 禁用包含经过身份验证的客户端信息的内容的缓存。 只应为不会根据用户身份更改或用户是否已登录的内容启用缓存。
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> 会根据给定的查询密钥列表值改变存储的响应。 当提供了 `*` 的单个值时，中间件将根据所有请求查询字符串参数来改变响应。
 
-必须启用[响应缓存中间件](xref:performance/caching/middleware)才能设置 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> 属性。 否则，会引发运行时异常。 @No__t-0 属性没有相应的 HTTP 标头。 属性是由响应缓存中间件处理的 HTTP 功能。 对于用于缓存响应的中间件，查询字符串和查询字符串值必须与上一个请求匹配。 例如，请考虑下表中显示的请求和结果的顺序。
+必须启用[响应缓存中间件](xref:performance/caching/middleware)才能设置 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> 属性。 否则，会引发运行时异常。 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> 属性没有相应的 HTTP 标头。 属性是由响应缓存中间件处理的 HTTP 功能。 对于用于缓存响应的中间件，查询字符串和查询字符串值必须与上一个请求匹配。 例如，请考虑下表中显示的请求和结果的顺序。
 
 | 请求                          | 结果                    |
 | -------------------------------- | ------------------------- |
@@ -99,15 +101,15 @@ ms.locfileid: "72378836"
 
 第一个请求由服务器返回，并缓存在中间件中。 第二个请求是由中间件返回的，因为查询字符串与上一个请求匹配。 第三个请求不在中间件缓存中，因为查询字符串值与以前的请求不匹配。
 
-@No__t-0 用于配置和创建（通过 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>） `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter`。 @No__t-0 执行更新相应 HTTP 标头和响应功能的工作。 筛选器：
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 用于配置和创建（通过 <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>） `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter`。 `ResponseCacheFilter` 执行更新相应 HTTP 标头和响应功能的工作。 筛选器：
 
 * 删除 `Vary`、`Cache-Control` 和 `Pragma` 的任何现有标头。
 * 根据 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 中设置的属性写出适当的标头。
-* 如果设置 @no__t，则更新响应缓存 HTTP 功能。
+* 如果设置 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys>，则更新响应缓存 HTTP 功能。
 
 ### <a name="vary"></a>大
 
-仅当设置了 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 属性时才写入此标头。 属性设置为 @no__t 的属性值。 下面的示例使用 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 属性：
+仅当设置了 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 属性时才写入此标头。 属性设置为 `Vary` 属性的值。 下面的示例使用 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 属性：
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache1.cshtml.cs?name=snippet)]
 
@@ -120,14 +122,14 @@ Vary: User-Agent
 
 ### <a name="nostore-and-locationnone"></a>NoStore 和 Location。 None
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 替代其他所有属性。 如果将此属性设置为 `true`，则 @no__t 的标头将设置为 `no-store`。 如果 @no__t 设置为 `None`：
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 替代其他所有属性。 如果将此属性设置为 `true`，则 `Cache-Control` 标头将设置为 `no-store`。 如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 设置为 `None`：
 
 * 将 `Cache-Control` 设置为 `no-store,no-cache`。
 * 将 `Pragma` 设置为 `no-cache`。
 
-如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> @no__t 为-1，<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 为 `None`、`Cache-Control`，并且 @no__t 设置为 `no-cache`。
+如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> `false` 并且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 为 `None`，`Cache-Control`和 `Pragma` 设置为 `no-cache`。
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 通常设置为 @no__t 错误页的-1。 示例应用中的 Cache2 页面生成响应标头，以指示客户端不存储响应。
+对于错误页，<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 通常设置为 `true`。 示例应用中的 Cache2 页面生成响应标头，以指示客户端不存储响应。
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache2.cshtml.cs?name=snippet)]
 
@@ -140,10 +142,15 @@ Pragma: no-cache
 
 ### <a name="location-and-duration"></a>位置和持续时间
 
-若要启用缓存，必须将 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 设置为正值，<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 必须是 `Any` （默认值）或 @no__t 为3。 在这种情况下，@no__t 的标头设置为位置值，后跟响应的 `max-age`。
+若要启用缓存，必须将 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 设置为正值，<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 必须是 `Any` （默认值）或 `Client`。 框架将 `Cache-Control` 标头设置为位置值，后跟响应的 `max-age`。
 
-> [!NOTE]
-> @no__t 的 @no__t 的选项 @no__t，分别转换为 `public` 和 @no__t 的 @no__t 3 个标头值。 如前文所述，将 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 设置为 `None` 会将 @no__t 2 和 3 @no__t 标头设置为 @no__t。
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>的 `Any` 和 `Client` 的选项分别转换为 `public` 和 `private``Cache-Control` 的标头值。 如[NoStore](#nostore-and-locationnone)部分中所述，将 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 设置为 `None` 将 `Cache-Control` 和 `Pragma` 标头设置为 `no-cache`。
+
+`Location.Any` （`Cache-Control` 设置为 `public`）表示*客户端或任何中间代理*可以缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
+
+`Location.Client` （`Cache-Control` 设置为 `private`）表示*只有客户端*可以缓存该值。 中间缓存不应缓存值，包括[响应缓存中间件](xref:performance/caching/middleware)。
+
+缓存控制标头仅向客户端和中间代理提供指导，以及如何缓存响应。 不保证客户端和代理将遵循[HTTP 1.1 缓存规范](https://tools.ietf.org/html/rfc7234)。 [响应缓存中间件](xref:performance/caching/middleware)始终遵循由规范布局的缓存规则。
 
 下面的示例演示示例应用中的 Cache3 页模型以及通过设置 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 并保留默认 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 值而生成的标头：
 
@@ -157,9 +164,9 @@ Cache-Control: public,max-age=10
 
 ### <a name="cache-profiles"></a>缓存配置文件
 
-在 @no__t 中设置 MVC/Razor Pages 时，可以将缓存配置文件配置为选项，而不是在多个控制器操作属性上复制响应缓存设置。 在引用的缓存配置文件中找到的值将用作 @no__t 的默认值，并由特性上指定的任何属性重写。
+在 `Startup.ConfigureServices`中设置 MVC/Razor Pages 时，可以将缓存配置文件配置为选项，而不是对许多控制器操作属性复制响应缓存设置。 在引用的缓存配置文件中找到的值将用作 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 的默认值，并由特性上指定的任何属性重写。
 
-设置缓存配置文件。 以下示例显示示例应用的 @no__t 中的30秒缓存配置文件：
+设置缓存配置文件。 以下示例显示示例应用的 `Startup.ConfigureServices`中的30秒缓存配置文件：
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Startup.cs?name=snippet1)]
 
@@ -167,13 +174,13 @@ Cache-Control: public,max-age=10
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache4.cshtml.cs?name=snippet)]
 
-@No__t-0 可应用于：
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 可应用于：
 
 * Razor 页面处理程序（类） &ndash; 特性不能应用于处理程序方法。
 * MVC 控制器（类）。
-* MVC 操作（方法） @no__t 0 方法级特性覆盖类级特性中指定的设置。
+* MVC 操作（方法） &ndash; 方法级特性覆盖类级特性中指定的设置。
 
-Cache4 缓存配置文件将生成的标头应用到页 @no__t 响应：
+`Default30` 缓存配置文件将生成的标头应用到 Cache4 页响应：
 
 ```
 Cache-Control: public,max-age=30

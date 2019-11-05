@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 内存中缓存数据。
 ms.author: riande
 ms.custom: mvc
-ms.date: 8/22/2019
+ms.date: 11/2/2019
 uid: performance/caching/memory
-ms.openlocfilehash: d6b2aa363c552fdbda7f6e9ec5d476768c17d8a5
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 1114d154ed1af09958df63ae718712177bbf6db0
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779191"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611447"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 中的缓存内存
 
@@ -39,7 +39,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-@No__t_4 `System.Runtime.Caching` 建议将 / `IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
+/`System.Runtime.Caching`建议将/`IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
 
 将 ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，使用 `System.Runtime.Caching` / `MemoryCache` 作为兼容性桥。
 
@@ -62,7 +62,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ctor)]
 
-以下代码使用[TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)来检查缓存中是否有时间。 如果未缓存时间，则将创建一个新条目，并[将其设置](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)为已添加到缓存中。 @No__t_0 类是下载示例的一部分。
+以下代码使用[TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)来检查缓存中是否有时间。 如果未缓存时间，则将创建一个新条目，并[将其设置](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)为已添加到缓存中。 `CacheKeys` 类是下载示例的一部分。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
 
@@ -108,7 +108,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>使用 SetSize、Size 和 SizeLimit 限制缓存大小
 
-@No__t_0 实例可以选择指定并强制实施大小限制。 缓存大小限制没有定义的度量单位，因为缓存没有度量条目大小的机制。 如果设置了缓存大小限制，则所有条目都必须指定 size。 ASP.NET Core 运行时不会根据内存压力限制缓存大小。 开发人员需要限制缓存大小。 指定的大小以开发人员选择的单位为单位。
+`MemoryCache` 实例可以选择指定并强制实施大小限制。 缓存大小限制没有定义的度量单位，因为缓存没有度量条目大小的机制。 如果设置了缓存大小限制，则所有条目都必须指定 size。 ASP.NET Core 运行时不会根据内存压力限制缓存大小。 开发人员需要限制缓存大小。 指定的大小以开发人员选择的单位为单位。
 
 例如:
 
@@ -158,15 +158,18 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="cache-dependencies"></a>缓存依赖关系
 
-下面的示例演示如何在依赖条目过期时使缓存条目过期。 将 `CancellationChangeToken` 添加到缓存的项。 如果对 `CancellationTokenSource` 调用 `Cancel`，则会逐出两个缓存条目。
+下面的示例演示如何在依赖条目过期时使缓存条目过期。 将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> 添加到缓存的项。 如果对 `CancellationTokenSource` 调用 `Cancel`，则会逐出两个缓存条目。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ed)]
 
-使用 `CancellationTokenSource` 允许以组的形式逐出多个缓存条目。 在上面的代码中，在 `using` 模式下，在 `using` 块中创建的缓存条目将继承触发器和过期设置。
+使用 <xref:System.Threading.CancellationTokenSource> 允许以组的形式逐出多个缓存条目。 在上面的代码中，在 `using` 模式下，在 `using` 块中创建的缓存条目将继承触发器和过期设置。
 
 ## <a name="additional-notes"></a>附加说明
 
-* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存中的任何活动（`Get`、`Set`、`Remove`）都可以触发过期项的后台扫描。 @No__t_0 （`CancelAfter`）上的计时器还会删除该条目，并触发扫描过期的项目。 例如，使用已注册令牌的 `CancellationTokenSource.CancelAfter(TimeSpan.FromHours(1))`，而不是使用 `SetAbsoluteExpiration(TimeSpan.FromHours(1))`。 此令牌激发后，会立即删除该条目，并激发逐出回调。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/Caching/issues/248)。
+* 不会在后台进行过期。 没有计时器可主动扫描过期项目的缓存。 缓存中的任何活动（`Get`、`Set`、`Remove`）都可以触发过期项的后台扫描。 `CancellationTokenSource` （<xref:System.Threading.CancellationTokenSource.CancelAfter*>）上的计时器还会删除项，并触发扫描过期项。 下面的示例使用[CancellationTokenSource （TimeSpan）](/dotnet/api/system.threading.cancellationtokensource.-ctor)作为已注册令牌。 此令牌激发后，会立即删除该条目，并激发逐出回调：
+
+[!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ae)]
+
 * 使用回调来重新填充缓存项时：
 
   * 多个请求可以查找缓存的密钥值为空，因为回调未完成。
@@ -213,7 +216,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-@No__t_4 `System.Runtime.Caching` 建议将 / `IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
+/`System.Runtime.Caching`建议将/`IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
 
 将 ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，使用 `System.Runtime.Caching` / `MemoryCache` 作为兼容性桥。
 
@@ -231,7 +234,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 > 使用[依赖关系注入](xref:fundamentals/dependency-injection)中的*共享*内存缓存并调用 `SetSize`、`Size` 或 `SizeLimit` 来限制缓存大小可能会导致应用程序失败。 在缓存上设置大小限制时，在添加时，所有项都必须指定大小。 这可能会导致问题，因为开发人员可能无法完全控制使用共享缓存的内容。 例如，Entity Framework Core 使用共享缓存并且未指定大小。 如果应用设置了缓存大小限制并使用 EF Core，则应用将引发 `InvalidOperationException`。
 > 使用 `SetSize`、`Size` 或 `SizeLimit` 限制缓存时，为缓存创建一个缓存单独。 有关详细信息和示例，请参阅[使用 SetSize、Size 和 SizeLimit 限制缓存大小](#use-setsize-size-and-sizelimit-to-limit-cache-size)。
 
-内存中缓存是从应用程序中使用[依赖关系注入](../../fundamentals/dependency-injection.md)引用的一种*服务*。 @No__t_1 调用 `AddMemoryCache`：
+内存中缓存是从应用程序中使用[依赖关系注入](../../fundamentals/dependency-injection.md)引用的一种*服务*。 `ConfigureServices`调用 `AddMemoryCache`：
 
 [!code-csharp[](memory/sample/WebCache/Startup.cs?highlight=9)]
 
@@ -277,7 +280,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>使用 SetSize、Size 和 SizeLimit 限制缓存大小
 
-@No__t_0 实例可以选择指定并强制实施大小限制。 缓存大小限制没有定义的度量单位，因为缓存没有度量条目大小的机制。 如果设置了缓存大小限制，则所有条目都必须指定 size。 ASP.NET Core 运行时不会根据内存压力限制缓存大小。 开发人员需要限制缓存大小。 指定的大小以开发人员选择的单位为单位。
+`MemoryCache` 实例可以选择指定并强制实施大小限制。 缓存大小限制没有定义的度量单位，因为缓存没有度量条目大小的机制。 如果设置了缓存大小限制，则所有条目都必须指定 size。 ASP.NET Core 运行时不会根据内存压力限制缓存大小。 开发人员需要限制缓存大小。 指定的大小以开发人员选择的单位为单位。
 
 例如:
 
@@ -327,7 +330,7 @@ Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免�
 
 ## <a name="cache-dependencies"></a>缓存依赖关系
 
-下面的示例演示如何在依赖条目过期时使缓存条目过期。 将 `CancellationChangeToken` 添加到缓存的项。 如果对 `CancellationTokenSource` 调用 `Cancel`，则会逐出两个缓存条目。
+下面的示例演示如何在依赖条目过期时使缓存条目过期。 将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> 添加到缓存的项。 如果对 `CancellationTokenSource` 调用 `Cancel`，则会逐出两个缓存条目。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 
