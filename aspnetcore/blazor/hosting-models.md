@@ -5,14 +5,14 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器承载模型。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/03/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: be67c129af4f071d10719e0bbf121de761dde9f4
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: d1b9e6ab7ba93c00a569be309f2334df9e3f4140
+ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033997"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73616590"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -146,6 +146,22 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 默认情况下，Blazor 服务器应用程序设置为在客户端与服务器建立连接之前，在服务器上预呈现 UI。 这是在 *_Host* Razor 页面中设置的：
 
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<body>
+    <app>
+      <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
 ```cshtml
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
@@ -154,10 +170,24 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 </body>
 ```
 
+::: moniker-end
+
 `RenderMode` 配置组件是否：
 
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者，如果包含从用户代理启动 Blazor 应用所需的信息，则为。
+
+::: moniker range=">= aspnetcore-3.1"
+
+| `RenderMode`        | 描述 |
+| ------------------- | ----------- |
+| `ServerPrerendered` | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| `Static`            | 将组件呈现为静态 HTML。 |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 | `RenderMode`        | 描述 |
 | ------------------- | ----------- |
@@ -165,9 +195,65 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
 | `Static`            | 将组件呈现为静态 HTML。 支持参数。 |
 
+::: moniker-end
+
 不支持从静态 HTML 页面呈现服务器组件。
 
-客户端重新连接到服务器，该服务器具有用于预呈现应用的相同状态。 如果应用的状态仍在内存中，则在建立 SignalR 连接后，组件状态将不重新呈现。
+当 `ServerPrerendered``RenderMode` 时，组件最初作为页面的一部分以静态方式呈现。 一旦浏览器与服务器建立了连接，该组件将*再次*呈现，并且该组件现在是交互式的。 如果存在用于初始化组件的[生命周期方法](xref:blazor/components#lifecycle-methods)（`OnInitialized{Async}`），则执行*两次*此方法：
+
+* 如果组件预呈现静态，则为。
+* 建立服务器连接之后。
+
+这可能会导致在最终呈现组件时，UI 中显示的数据发生显著变化。
+
+若要避免 Blazor 服务器应用中出现双重渲染方案：
+
+* 传入一个标识符，该标识符可用于在预呈现期间缓存状态并在应用重新启动后检索状态。
+* 在预呈现期间使用标识符以保存组件状态。
+* 在预呈现后使用标识符检索缓存状态。
+
+下面的代码演示基于模板的 Blazor 服务器应用中的更新 `WeatherForecastService`，可避免双重呈现：
+
+```csharp
+public class WeatherForecastService
+{
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+        "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+    
+    public WeatherForecastService(IMemoryCache memoryCache)
+    {
+        MemoryCache = memoryCache;
+    }
+    
+    public IMemoryCache MemoryCache { get; }
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    {
+        return MemoryCache.GetOrCreateAsync(startDate, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = 
+                    TimeSpan.FromSeconds(30)
+            });
+
+            var rng = new Random();
+
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            }).ToArray();
+        });
+    }
+}
+```
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现有状态交互式组件
 
@@ -181,15 +267,63 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 以下 Razor 页面将呈现一个 `Counter` 组件：
 
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<component type="typeof(Counter)" render-mode="ServerPrerendered" 
+    param-InitialValue="InitialValue" />
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
 ```cshtml
 <h1>My Razor Page</h1>
 
 @(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
 ```
+
+::: moniker-end
 
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现非交互式组件
 
 在以下 Razor 页面中，使用以下格式通过指定的初始值静态呈现 `MyComponent` 组件：
+
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<form>
+    <input type="number" asp-for="InitialValue" />
+    <button type="submit">Set initial value</button>
+</form>
+
+<component type="typeof(Counter)" render-mode="Static" 
+    param-InitialValue="InitialValue" />
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -207,6 +341,8 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
     public int InitialValue { get; set; }
 }
 ```
+
+::: moniker-end
 
 由于 `MyComponent` 是以静态方式呈现的，因此该组件不能是交互式的。
 

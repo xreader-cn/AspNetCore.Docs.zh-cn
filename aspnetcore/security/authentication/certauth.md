@@ -6,16 +6,16 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 08/19/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: bb375cf380175daf2399f3b56f543819ee5692b8
-ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
+ms.openlocfilehash: 1e646aabb4e384e6906575e7beaa680e91f968a0
+ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2019
-ms.locfileid: "71039245"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73616583"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
-`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。 证书身份验证发生在 TLS 级别，在它被 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的`ClaimsPrincipal`事件。 
+`Microsoft.AspNetCore.Authentication.Certificate` 包含类似于 ASP.NET Core[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。 证书身份验证发生在 TLS 级别，在它被 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到 `ClaimsPrincipal`的事件。 
 
 将[主机配置](#configure-your-host-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者其他任何所用的。
 
@@ -32,11 +32,11 @@ ms.locfileid: "71039245"
 
 获取并应用 HTTPS 证书，并将[主机配置](#configure-your-host-to-require-certificates)为需要证书。
 
-在 web 应用中，添加对`Microsoft.AspNetCore.Authentication.Certificate`包的引用。 然后在`Startup.Configure`方法中，使用`app.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);`你的选项调用`OnCertificateValidated` ，同时提供一个委托，用于对随请求发送的客户端证书进行任何补充验证。 将该信息转换为`ClaimsPrincipal`并`context.Principal`在属性上设置。
+在 web 应用中，添加对 `Microsoft.AspNetCore.Authentication.Certificate` 包的引用。 然后，在 `Startup.ConfigureServices` 方法中，使用你的选项调用 `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);`，并为 `OnCertificateValidated` 提供一个委托，以便在与请求一起发送的客户端证书上执行任何补充验证。 将该信息转换为 `ClaimsPrincipal`，并在 `context.Principal` 属性上对其进行设置。
 
-如果身份验证失败，此处理程序`403 (Forbidden)`将像你`401 (Unauthorized)`所料，返回响应，而不是。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
+如果身份验证失败，则此处理程序将返回 `403 (Forbidden)` 响应，而不是 `401 (Unauthorized)`，如你所料。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
-还会`app.UseAuthentication();` `Startup.Configure`在方法中添加。 否则，HttpContext 将不会设置为`ClaimsPrincipal`从证书创建。 例如:
+此外，还可以在 `Startup.Configure` 方法中添加 `app.UseAuthentication();`。 否则，HttpContext 不会设置为从证书创建 `ClaimsPrincipal`。 例如:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -59,7 +59,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ## <a name="configure-certificate-validation"></a>配置证书验证
 
-`CertificateAuthenticationOptions`处理程序具有一些内置的验证，这些验证是你应在证书上执行的最小验证。 默认情况下，将启用这些设置中的每一个。
+`CertificateAuthenticationOptions` 处理程序具有一些内置的验证，这些验证是你应在证书上执行的最小验证。 默认情况下，将启用这些设置中的每一个。
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = 链式、SelfSigned 或 All （链式 |SelfSigned)
 
@@ -95,8 +95,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 处理程序有两个事件：
 
-* `OnAuthenticationFailed`&ndash;如果在身份验证过程中发生异常，则调用，并允许您做出反应。
-* `OnCertificateValidated`&ndash;在验证证书后调用，已经创建了验证并创建了一个默认主体。 此事件允许你执行自己的验证并增加或替换主体。 例如：
+* 如果在身份验证过程中发生异常，则调用 `OnAuthenticationFailed` &ndash;，并允许您做出反应。
+* 验证证书后调用 `OnCertificateValidated` &ndash;，已创建验证，已创建默认主体。 此事件允许你执行自己的验证并增加或替换主体。 例如：
   * 确定你的服务是否知道该证书。
   * 构造自己的主体。 请看下面 `Startup.ConfigureServices` 中的示例：
 
@@ -132,7 +132,7 @@ services.AddAuthentication(
     });
 ```
 
-如果发现入站证书不符合额外的验证，请调用`context.Fail("failure reason")`失败原因。
+如果发现入站证书不能满足额外的验证，请调用 `context.Fail("failure reason")` 失败原因。
 
 对于实际功能，你可能需要调用在依赖关系注入中注册的服务，该服务连接到数据库或其他类型的用户存储。 使用传递到委托中的上下文访问你的服务。 请看下面 `Startup.ConfigureServices` 中的示例：
 
@@ -177,7 +177,7 @@ services.AddAuthentication(
     });
 ```
 
-从概念上讲，验证证书是一种授权问题。 例如，在授权策略中添加一个颁发者或指纹，而不`OnCertificateValidated`是在中，这是完全可以接受的。
+从概念上讲，验证证书是一种授权问题。 例如，在授权策略中添加一个颁发者或指纹（而不是 `OnCertificateValidated`）是完全可以接受的。
 
 ## <a name="configure-your-host-to-require-certificates"></a>将主机配置为需要证书
 
