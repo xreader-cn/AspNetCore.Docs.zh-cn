@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何 Blazor Blazor 如何管理未经处理�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/31/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: fb4c7cacfe8be2417d6009cfc722595d0d91d530
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: afcaa4d926c3e5f0a018897ce4b67b54574dae77
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288833"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73426986"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -29,7 +29,7 @@ Blazor 服务器是有状态框架。 当用户与应用交互时，它们会保
 
 如果用户在多个浏览器选项卡中打开应用程序，则它们具有多个独立的线路。
 
-Blazor 将大多数未经处理的异常视为致命的异常，以使其发生。 如果线路由于未经处理的异常而终止，则用户只可以通过重新加载页面来创建新线路，从而继续与应用进行交互。 已终止的线路（其他用户或其他浏览器选项卡的线路）不会受到影响。 此方案类似于桌面应用程序，该应用程序必须重新启动崩溃 @ no__t-0the 崩溃的应用程序，但其他应用不会受到影响。
+Blazor 将大多数未经处理的异常视为致命的异常，以使其发生。 如果线路由于未经处理的异常而终止，则用户只可以通过重新加载页面来创建新线路，从而继续与应用进行交互。 已终止的线路（其他用户或其他浏览器选项卡的线路）不会受到影响。 这种情况类似于桌面应用程序崩溃&mdash;崩溃的应用程序必须重新启动，但其他应用不受影响。
 
 当发生未处理的异常时，线路会终止，原因如下：
 
@@ -48,11 +48,11 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>使用永久性提供程序记录错误
 
-如果发生未处理的异常，则会将异常记录到在服务容器中配置 @no__t 0 实例。 默认情况下，Blazor apps 使用控制台日志记录提供程序登录到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index> 。
+如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，Blazor apps 使用控制台日志记录提供程序登录到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关更多信息，请参见<xref:fundamentals/logging/index>。
 
-在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling> 。
+在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关更多信息，请参见<xref:fundamentals/error-handling>。
 
-您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，不要记录某个错误中的事件，其中显示产品详细信息的组件的 URL 中提供了未知的 `ProductId`。 不是所有的错误都应视为日志记录的高严重性事件。
+您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，请勿记录一个错误，其中显示产品详细信息的组件 URL 中提供了未知 `ProductId`。 不是所有的错误都应视为日志记录的高严重性事件。
 
 ## <a name="places-where-errors-may-occur"></a>可能发生错误的位置
 
@@ -77,7 +77,7 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 * 调用组件的构造函数。
 * 将调用通过[@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[[注入]](xref:blazor/dependency-injection#request-a-service-in-a-component)特性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。 
 
-任何已执行的构造函数或任何 `[Inject]` 属性的 setter 都将引发未经处理的异常时，线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
+任何 `[Inject]` 属性的任何已执行构造函数或 setter 均引发未经处理的异常时，线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
@@ -92,24 +92,24 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 在下面的示例中，`OnParametersSetAsync` 调用方法来获取产品：
 
-* @No__t-0 方法中引发的异常由 @no__t 的语句处理。
-* 当执行 `catch` 块时：
-  * @no__t 设置为 `true`，用于向用户显示一条错误消息。
+* `ProductRepository.GetProductByIdAsync` 方法中引发的异常由 `try-catch` 语句处理。
+* 执行 `catch` 块时：
+  * `loadFailed` 设置为 `true`，用于向用户显示一条错误消息。
   * 记录错误。
 
 [!code-cshtml[](handle-errors/samples_snapshot/3.x/product-details.razor?highlight=11,27-39)]
 
 ### <a name="rendering-logic"></a>呈现逻辑
 
-@No__t-0 组件文件中的声明性标记被编译到称为C# @no__t 的方法中。 呈现组件时，@no__t 执行并生成一个数据结构，该结构描述所呈现组件的元素、文本和子组件。
+`.razor` 组件文件中的声明性标记被编译到称为C# `BuildRenderTree`的方法中。 当组件呈现时，`BuildRenderTree` 执行并生成一个数据结构，该结构描述所呈现组件的元素、文本和子组件。
 
-呈现逻辑可能引发异常。 这种情况的一个示例是在计算 `@someObject.PropertyName` 但 `@someObject` @no__t 为-2 时出现。 呈现逻辑引发的未经处理的异常对于线路是致命的。
+呈现逻辑可能引发异常。 在计算 `@someObject.PropertyName` 但 `@someObject` `null`时，会发生这种情况。 呈现逻辑引发的未经处理的异常对于线路是致命的。
 
-若要防止呈现逻辑中出现空引用异常，请在访问其成员之前检查 `null` 对象。 在以下示例中，如果 @no__t @no__t 为-2，则不会访问 `person.Address` 属性：
+若要防止呈现逻辑中出现空引用异常，请在访问其成员之前检查 `null` 对象。 在以下示例中，如果 `person.Address` `null`，则不会访问 `person.Address` 属性：
 
 [!code-cshtml[](handle-errors/samples_snapshot/3.x/person-example.razor?highlight=1)]
 
-前面的代码假定 `person` 不 @no__t 为-1。 通常，代码的结构保证在呈现组件时存在对象。 在这些情况下，不需要检查呈现逻辑中的 @no__t 0。 在前面的示例中，可以保证存在 `person`，因为在实例化组件时创建 @no__t。
+前面的代码假定 `person` 不 `null`。 通常，代码的结构保证在呈现组件时存在对象。 在这些情况下，不需要检查呈现逻辑中的 `null`。 在前面的示例中，可以保证存在 `person` 因为在实例化组件时创建 `person`。
 
 ### <a name="event-handlers"></a>事件处理程序
 
@@ -117,7 +117,7 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 * `@onclick`
 * `@onchange`
-* 其他 `@on...` 属性
+* 其他 `@on...` 特性
 * `@bind`
 
 在这些情况下，事件处理程序代码可能会引发未处理的异常。
@@ -128,30 +128,30 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 ### <a name="component-disposal"></a>组件处置
 
-例如，可以从 UI 中删除组件，因为用户已导航到另一个页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 @no__t 方法。 
+例如，可以从 UI 中删除组件，因为用户已导航到另一个页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose*> 方法。 
 
-如果组件的 `Dispose` 方法引发未经处理的异常，则该异常对于线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
+如果组件的 `Dispose` 方法引发未处理的异常，则该异常对于线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
 有关组件处置的详细信息，请参阅 <xref:blazor/components#component-disposal-with-idisposable>。
 
 ### <a name="javascript-interop"></a>JavaScript 互操作
 
-`IJSRuntime.InvokeAsync<T>` 使 .NET 代码可以在用户浏览器中异步调用 JavaScript 运行时。
+`IJSRuntime.InvokeAsync<T>` 允许 .NET 代码对用户浏览器中的 JavaScript 运行时进行异步调用。
 
-以下条件适用于与 `InvokeAsync<T>` 的错误处理：
+以下条件适用于带有 `InvokeAsync<T>`的错误处理：
 
-* 如果对 @no__t 的调用同步失败，则会发生 .NET 异常。 例如，对 @no__t 的调用可能会失败，因为无法对提供的参数进行序列化。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则生成的异常对于线路是致命的。
-* 如果对 @no__t 的调用异步失败，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 @no__t 的调用可能会失败，这是因为 JavaScript 端代码引发异常或返回一个以 `rejected` 完成的 `Promise`。 开发人员代码必须捕获异常。 如果使用[await](/dotnet/csharp/language-reference/keywords/await)运算符，请考虑在包含错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中包装方法调用。 否则，失败的代码会导致未处理的异常，这是对线路至关重要的。
-* 默认情况下，对 @no__t 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时可防止代码丢失网络连接或从不发送回完成消息的 JavaScript 代码。 如果调用超时，则生成的 `Task` 会失败，并出现 <xref:System.OperationCanceledException>。 捕获并处理日志记录的异常。
+* 如果对 `InvokeAsync<T>` 的调用同步失败，则会发生 .NET 异常。 例如，对 `InvokeAsync<T>` 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则生成的异常对于线路是致命的。
+* 如果对 `InvokeAsync<T>` 的调用异步失败，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 `InvokeAsync<T>` 的调用可能会失败，这是因为 JavaScript 端代码引发异常或返回以 `rejected`完成的 `Promise`。 开发人员代码必须捕获异常。 如果使用[await](/dotnet/csharp/language-reference/keywords/await)运算符，请考虑在包含错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中包装方法调用。 否则，失败的代码会导致未处理的异常，这是对线路至关重要的。
+* 默认情况下，对 `InvokeAsync<T>` 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时可防止代码丢失网络连接或从不发送回完成消息的 JavaScript 代码。 如果调用超时，则生成的 `Task` 将失败，并出现 <xref:System.OperationCanceledException>。 捕获并处理日志记录的异常。
 
 同样，JavaScript 代码可以启动对[[JSInvokable] 属性](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)指示的 .net 方法的调用。 如果这些 .NET 方法引发未经处理的异常：
 
 * 此异常不会被视为对线路的严重。
-* JavaScript 端 `Promise` 已被拒绝。
+* JavaScript 端 `Promise` 被拒绝。
 
 您可以选择在 .NET 端或方法调用的 JavaScript 端使用错误处理代码。
 
-有关详细信息，请参阅 <xref:blazor/javascript-interop> 。
+有关更多信息，请参见<xref:blazor/javascript-interop>。
 
 ### <a name="circuit-handlers"></a>线路处理程序
 
@@ -168,30 +168,30 @@ Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户�
 
 ### <a name="circuit-disposal"></a>线路处置
 
-当某个线路由于用户已断开连接并且该框架正在清理线路状态而结束时，框架会释放该线路的 DI 范围。 释放作用域将释放任何实现 <xref:System.IDisposable?displayProperty=fullName> 的线路范围的 DI 服务。 如果任何 DI 服务在处理过程中引发未经处理的异常，则框架将记录该异常。
+当某个线路由于用户已断开连接并且该框架正在清理线路状态而结束时，框架会释放该线路的 DI 范围。 释放作用域将释放任何实现 <xref:System.IDisposable?displayProperty=fullName>的线路范围的 DI 服务。 如果任何 DI 服务在处理过程中引发未经处理的异常，则框架将记录该异常。
 
 ### <a name="prerendering"></a>呈现
 
-Blazor 组件可以使用 @no__t 来预呈现，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
+Blazor 组件可以使用 `Html.RenderComponentAsync` 进行预呈现，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
 
-* 创建一个新线路，其中包含属于同一页面的所有预呈现组件。
+* 为属于同一页面的所有预呈现组件创建新线路。
 * 正在生成初始 HTML。
-* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接到同一台服务器，以恢复线路上的交互性。
+* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接到同一服务器。 建立连接后，将恢复对线路的交互，并更新组件的 HTML 标记。
 
 如果任何组件在预呈现期间引发未经处理的异常，例如，在生命周期方法或呈现逻辑中：
 
 * 此异常是线路致命的。
-* 从 `Html.RenderComponentAsync` 调用引发了调用堆栈后引发的异常。 因此，整个 HTTP 请求将失败，除非开发人员代码显式捕获了异常。
+* 调用堆栈从 `Html.RenderComponentAsync` 调用中引发了异常。 因此，整个 HTTP 请求将失败，除非开发人员代码显式捕获了异常。
 
 在正常情况下，如果预呈现失败，则继续生成并呈现组件没有意义，因为无法呈现工作组件。
 
-若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不是在 @no__t 1 语句中包装对 @no__t 的调用，而是将错误处理逻辑放在由 `RenderComponentAsync` 呈现的组件中。
+若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不要在 `try-catch` 语句中包装对 `RenderComponentAsync` 的调用，而是将错误处理逻辑放在由 `RenderComponentAsync`呈现的组件中。
 
 ## <a name="advanced-scenarios"></a>高级方案
 
 ### <a name="recursive-rendering"></a>递归呈现
 
-组件可以递归嵌套。 这适用于表示递归数据结构。 例如，@no__t 的组件可以为每个节点的子节点呈现更多 @no__t 的组件。
+组件可以递归嵌套。 这适用于表示递归数据结构。 例如，`TreeNode` 组件可以为节点的每个子元素呈现更多 `TreeNode` 组件。
 
 以递归方式呈现时，请避免将导致无限递归的编码模式：
 
@@ -213,14 +213,14 @@ Blazor 组件可以使用 @no__t 来预呈现，以便在用户初始 HTTP 请�
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树根逻辑
 
-大多数 Blazor 组件都作为*razor*文件实现并进行编译，以生成在 `RenderTreeBuilder` 上进行操作以呈现其输出的逻辑。 开发人员可以使用程序C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/components#manual-rendertreebuilder-logic> 。
+大多数 Blazor 组件都作为*razor*文件实现并进行编译，以生成可对 `RenderTreeBuilder` 进行操作以呈现输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关更多信息，请参见<xref:blazor/components#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 使用手动渲染树生成器逻辑被视为一种高级不安全的方案，不建议用于常规组件开发。
 
-如果写入 @no__t 0 代码，开发人员必须保证代码的正确性。 例如，开发人员必须确保：
+如果编写 `RenderTreeBuilder` 代码，开发人员必须保证代码的正确性。 例如，开发人员必须确保：
 
-* 对 @no__t 和 `CloseElement` 的调用已正确平衡。
+* 对 `OpenElement` 和 `CloseElement` 的调用已正确平衡。
 * 特性仅添加到正确的位置。
 
 手动呈现树生成器逻辑不正确可能会导致任意未定义的行为，包括崩溃、服务器挂起和安全漏洞。
