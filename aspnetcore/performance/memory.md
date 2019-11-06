@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: performance/memory
-ms.openlocfilehash: 48397e9fe7da912c1930f17fb86b686f0a20c60e
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 8f6b47ecde6f265bfb9437234b89f11f7d235869
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 11/06/2019
-ms.locfileid: "73638158"
+ms.locfileid: "73660018"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -70,7 +70,7 @@ GC 分配堆段，其中每个段都是一系列连续的内存。 位于堆中�
 
 GitHub 上提供了[MemoryLeak 示例应用](https://github.com/sebastienros/memoryleak)。 MemoryLeak 应用：
 
-* 包括一个收集应用的实际 tine 内存和 GC 数据的诊断控制器。
+* 包括一个收集应用程序的实时内存和 GC 数据的诊断控制器。
 * 具有显示内存和 GC 数据的索引页。 索引页每秒刷新一次。
 * 包含提供各种内存负载模式的 API 控制器。
 * 不是受支持的工具，但它可用于显示 ASP.NET Core 应用的内存使用模式。
@@ -114,7 +114,7 @@ public ActionResult<string> GetBigString()
 
 上面的图表显示：
 
-* 22 RPS
+* 22K RPS
 * 第0代垃圾回收每秒发生多次。
 * 由于每秒分配的内存量明显增加，因此将触发第1代回收。
 * 工作集的大小约为 500 MB。

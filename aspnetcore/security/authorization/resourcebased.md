@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: security/authorization/resourcebased
-ms.openlocfilehash: 835592521c714e270595e1448ae6e0aed1707b77
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: acc931da1be0940fac72b0aabe07ab17ca7e63bd
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72590004"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659999"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于资源的授权
 
@@ -19,7 +19,17 @@ ms.locfileid: "72590004"
 
 在数据绑定之前和在执行加载文档的页面处理程序或操作之前，会发生属性评估。 由于这些原因，具有 `[Authorize]` 特性的声明性授权无法满足要求。 相反，你可以调用自定义授权方法 &mdash;a 称为*命令性授权*的样式。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
+::: moniker range=">= aspnetcore-3.0"
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0)（[如何下载](xref:index#how-to-download-a-sample)）。
+::: moniker-end
+
+ ::: moniker range=">= aspnetcore-2.0 < aspnetcore-3.0"
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2)（[如何下载](xref:index#how-to-download-a-sample)）。
+::: moniker-end
+
+::: moniker range="<= aspnetcore-1.1"
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1)（[如何下载](xref:index#how-to-download-a-sample)）。
+::: moniker-end
 
 使用[由授权保护的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)包含使用基于资源的授权的示例应用。
 
@@ -27,7 +37,7 @@ ms.locfileid: "72590004"
 
 授权作为[IAuthorizationService](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationservice)服务实现，并在 `Startup` 类中的服务集合中进行注册。 通过[依赖关系注入](xref:fundamentals/dependency-injection)到页面处理程序或操作使该服务可用。
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Controllers/DocumentController.cs?name=snippet_IAuthServiceDI&highlight=6)]
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Controllers/DocumentController.cs?name=snippet_IAuthServiceDI&highlight=6)]
 
 `IAuthorizationService` 有两个 `AuthorizeAsync` 方法重载：一个接受资源和策略名称，另一个接受资源并提供要评估的要求的列表。
 
@@ -66,13 +76,13 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker range=">= aspnetcore-2.0"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Pages/Document/Edit.cshtml.cs?name=snippet_DocumentEditHandler)]
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Pages/Document/Edit.cshtml.cs?name=snippet_DocumentEditHandler)]
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentEditAction)]
+[!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentEditAction)]
 
 ::: moniker-end
 
@@ -84,39 +94,48 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker range=">= aspnetcore-2.0"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Services/DocumentAuthorizationHandler.cs?name=snippet_HandlerAndRequirement)]
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Services/DocumentAuthorizationHandler.cs?name=snippet_HandlerAndRequirement)]
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp1/Services/DocumentAuthorizationHandler.cs?name=snippet_HandlerAndRequirement)]
+[!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Services/DocumentAuthorizationHandler.cs?name=snippet_HandlerAndRequirement)]
 
 ::: moniker-end
 
-在前面的示例中，假设 `SameAuthorRequirement` 是更通用 `SpecificAuthorRequirement` 类的特例。 @No__t_0 类（未显示）包含表示作者姓名的 `Name` 属性。 @No__t_0 属性可以设置为当前用户。
+在前面的示例中，假设 `SameAuthorRequirement` 是更通用 `SpecificAuthorRequirement` 类的特例。 `SpecificAuthorRequirement` 类（未显示）包含表示作者姓名的 `Name` 属性。 `Name` 属性可以设置为当前用户。
 
 在 `Startup.ConfigureServices` 中注册要求和处理程序：
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Startup.cs?name=snippet_ConfigureServicesSample&highlight=3-7,9)]
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Startup.cs?name=snippet_ConfigureServicesSample&highlight=4-8,10)]
+::: moniker-end
+
+ ::: moniker range=">= aspnetcore-2.0 < aspnetcore-3.0"
+[!code-csharp[](resourcebased/samples/2_2/ResourceBasedAuthApp2/Startup.cs?name=snippet_ConfigureServicesSample&highlight=3-7,9)]
+::: moniker-end
+
+::: moniker range="<= aspnetcore-1.1"
+[!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Startup.cs?name=snippet_ConfigureServicesSample&highlight=3-7,9)]
+::: moniker-end
 
 ### <a name="operational-requirements"></a>操作要求
 
 如果要根据 CRUD （创建、读取、更新、删除）操作的结果做出决策，请使用[OperationAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.infrastructure.operationauthorizationrequirement)帮助器类。 此类使你能够为每个操作类型编写单一处理程序而不是单个类。 若要使用它，请提供一些操作名称：
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_OperationsClass)]
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_OperationsClass)]
 
 处理程序的实现方式如下：使用 `OperationAuthorizationRequirement` 要求和 `Document` 资源：
 
-::: moniker range=">= aspnetcore-2.0"
-
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_Handler)]
+ ::: moniker range=">= aspnetcore-2.0"
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_Handler)]
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp1/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_Handler)]
+[!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Services/DocumentAuthorizationCrudHandler.cs?name=snippet_Handler)]
 
 ::: moniker-end
 
@@ -133,7 +152,7 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker range=">= aspnetcore-2.0"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp2/Pages/Document/View.cshtml.cs?name=snippet_DocumentViewHandler&highlight=10-11)]
+[!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Pages/Document/View.cshtml.cs?name=snippet_DocumentViewHandler&highlight=10-11)]
 
 如果授权成功，则返回用于查看文档的页面。 如果授权失败但用户已通过身份验证，则返回 `ForbidResult` 通知任何身份验证中间件身份验证失败。 当必须执行身份验证时，将返回 `ChallengeResult`。 对于交互式浏览器客户端，可能需要将用户重定向到登录页。
 
@@ -141,7 +160,7 @@ Task<bool> AuthorizeAsync(ClaimsPrincipal user,
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[!code-csharp[](resourcebased/samples/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentViewAction&highlight=11-12)]
+[!code-csharp[](resourcebased/samples/1_1/ResourceBasedAuthApp1/Controllers/DocumentController.cs?name=snippet_DocumentViewAction&highlight=11-12)]
 
 如果授权成功，则返回文档的视图。 如果授权失败，则返回 `ChallengeResult` 会通知任何授权失败的身份验证中间件，中间件可以进行适当的响应。 适当的响应可能返回401或403状态代码。 对于交互式浏览器客户端，这可能意味着将用户重定向到登录页。
 
