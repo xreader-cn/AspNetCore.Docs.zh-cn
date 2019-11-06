@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/21/2019
 uid: blazor/get-started
-ms.openlocfilehash: 80ff7b42a44e722dd27bc4fde53a066863448e10
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 48d7ff4bf23273daf43128831aa46cfab3d982fe
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779129"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634033"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -29,7 +29,7 @@ Blazor 入门：
 1. 通过在命令行界面中运行以下命令，安装[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)模板。 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/)包具有预览版本，而 Blazor WebAssembly 处于预览阶段。
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview1.19508.20
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview2.19528.8
    ```
 
 1. 按照所选工具的指导进行操作：
@@ -248,7 +248,7 @@ Blazor 入门：
 
 * 引发 `onclick` 事件。
 * 调用 `IncrementCount` 方法。
-* @No__t_0 递增。
+* `currentCount` 递增。
 * 再次呈现该组件。
 
 运行时将新内容与以前的内容进行比较，并仅将更改的内容应用到文档对象模型（DOM）。
@@ -276,7 +276,7 @@ Blazor 入门：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-运行应用。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 @No__t_2 的 `Counter` 组件（*Counter*）继续递增1。
+运行应用。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 `/counter` 的 `Counter` 组件（*Counter*）继续递增1。
 
 ## <a name="next-steps"></a>后续步骤
 

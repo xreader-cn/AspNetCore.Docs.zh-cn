@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 596eca0f510387a18472eb353672980e0a8e0d24
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: c4c07808540c9af370bfa253e8154a8a19f0f3de
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697996"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634067"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>将 gRPC services 从 C 核迁移到 ASP.NET Core
 
@@ -80,9 +80,27 @@ public class GreeterService : Greeter.GreeterBase
 
 基于 C 核的应用通过[服务器端口属性](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server_Ports)配置 HTTPS。 类似的概念用于在 ASP.NET Core 中配置服务器。 例如，Kestrel 使用[终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)来实现此功能。
 
-## <a name="interceptors-and-middleware"></a>拦截和中间件
+## <a name="grpc-interceptors-vs-middleware"></a>gRPC 拦截 vs 中间件
 
-与基于 gRPC 的应用中的侦听器相比，[中间件](xref:fundamentals/middleware/index)提供的功能类似。 ASP.NET Core 中间件和侦听器在概念上是相同的，它们用于构造处理 gRPC 请求的管道。 它们都允许在管道中的下一个组件之前或之后执行工作。 但 ASP.NET Core 中间件对基础 HTTP/2 消息进行操作，而侦听器则使用[ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)在 gRPC 抽象层上操作。
+与基于 gRPC 的应用中的侦听器相比，[中间件](xref:fundamentals/middleware/index)提供的功能类似。 ASP.NET Core ASP.NET Core 中间件和侦听器在概念上类似。 全部
+
+* 用于构造处理 gRPC 请求的管道。
+* 允许在管道中的下一个组件之前或之后执行工作。
+* 提供对 `HttpContext`的访问权限：
+  * 在中间件中，`HttpContext` 是参数。
+  * 在拦截中，可以通过 `ServerCallContext.GetHttpContext` 扩展方法使用 `ServerCallContext` 参数访问 `HttpContext`。 请注意，此功能特定于运行 ASP.NET Core 中的侦听器。
+
+gRPC 侦听器与 ASP.NET Core 中间件的不同之处：
+
+* 侦听器
+  * 使用[ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)在 gRPC 抽象层上操作。
+  * 提供以下内容的访问权限：
+    * 发送到调用的反序列化消息。
+    * 序列化之前从调用返回的消息。
+* 中间件
+  * 在 gRPC 侦听器之前运行。
+  * 对基础 HTTP/2 消息进行操作。
+  * 只能访问请求和响应流中的字节。
 
 ## <a name="additional-resources"></a>其他资源
 
