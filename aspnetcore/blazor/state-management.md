@@ -31,7 +31,7 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 > [!NOTE]
 > 本文介绍 Blazor 服务器应用中的状态持久性。 Blazor WebAssembly 应用程序可以[在浏览器中利用客户端状态持久性，但在](#client-side-in-the-browser)本文的讨论范围之外需要自定义解决方案或第三方包。
 
-## <a name="blazor-circuits"></a>Blazor 电路
+## <a name="blazor-circuits"></a>Blazor 线路
 
 如果用户遇到暂时的网络连接丢失，Blazor 会尝试将用户重新连接到其原始线路，以便他们可以继续使用该应用。 但是，并不总是能够将用户重新连接到服务器内存中的原始线路：
 
