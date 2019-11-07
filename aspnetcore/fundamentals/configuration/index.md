@@ -5,14 +5,14 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/29/2019
+ms.date: 11/04/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: c63609cfb91a1668b8e125c54fcfecf5f4ec259b
-ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
+ms.openlocfilehash: 9f0ad2791e504a0ff46daad07054b6bf909a546a
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2019
-ms.locfileid: "73143357"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634079"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -20,7 +20,7 @@ ms.locfileid: "73143357"
 
 ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配置提供程序将配置数据从各种配置源读取到键值对：
 
-* Azure 密钥保管库
+* Azure Key Vault
 * Azure 应用配置
 * 命令行参数
 * （已安装或已创建的）自定义提供程序
@@ -98,7 +98,7 @@ using Microsoft.Extensions.Configuration;
 
 ::: moniker-end
 
-## <a name="security"></a>安全
+## <a name="security"></a>安全性
 
 采用以下做法来保护敏感配置数据：
 
@@ -106,7 +106,7 @@ using Microsoft.Extensions.Configuration;
 * 不要在开发或测试环境中使用生产机密。
 * 请在项目外部指定机密，避免将其意外提交到源代码存储库。
 
-相关详细信息，请参阅以下主题：
+有关详细信息，请参阅下列主题：
 
 * <xref:fundamentals/environments>
 * <xref:security/app-secrets> &ndash; 包含有关使用环境变量存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
@@ -168,7 +168,7 @@ public class IndexModel : PageModel
 
 配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。
 
-### <a name="keys"></a>密钥
+### <a name="keys"></a>键
 
 配置键采用以下约定：
 
@@ -193,7 +193,7 @@ public class IndexModel : PageModel
 
 | 提供程序 | 通过以下对象提供配置&hellip; |
 | -------- | ----------------------------------- |
-| [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全主题） | Azure 密钥保管库 |
+| [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全主题） | Azure Key Vault |
 | [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档） | Azure 应用配置 |
 | [命令行配置提供程序](#command-line-configuration-provider) | 命令行参数 |
 | [自定义配置提供程序](#custom-configuration-provider) | 自定义源 |
@@ -208,7 +208,7 @@ public class IndexModel : PageModel
 配置提供程序的典型顺序为：
 
 1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）
-1. [Azure Key Vault](xref:security/key-vault-configuration)
+1. [Azure 密钥保管库](xref:security/key-vault-configuration)
 1. [用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）
 1. 环境变量
 1. 命令行参数
@@ -352,15 +352,15 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 1. 应用运行后，在 `http://localhost:5000` 打开应用的浏览器。
 1. 观察输出是否包含提供给 `dotnet run` 的配置命令行参数的键值对。
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 该值必须后跟一个等号 (`=`)，否则当值后跟一个空格时，键必须具有前缀（`--` 或 `/`）。 如果使用等号（例如 `CommandLineKey=`），则不需要该值。
 
 | 键前缀               | 示例                                                |
 | ------------------------ | ------------------------------------------------------ |
 | 无前缀                | `CommandLineKey1=value1`                               |
-| 双划线 (`--`)        | `--CommandLineKey2=value2`、`--CommandLineKey2 value2` |
-| 正斜杠 (`/`)      | `/CommandLineKey3=value3`、`/CommandLineKey3 value3`   |
+| 双划线 (`--`)        | `--CommandLineKey2=value2`， `--CommandLineKey2 value2` |
+| 正斜杠 (`/`)      | `/CommandLineKey3=value3`， `/CommandLineKey3 value3`   |
 
 在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。
 
@@ -407,7 +407,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 密钥       | 值             |
+| 键       | 值             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -420,7 +420,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 运行上述命令后，配置包含下表中显示的值。
 
-| 密钥               | 值    |
+| 键               | 值    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -623,7 +623,7 @@ key=value
 1. 运行示例应用。 在 `http://localhost:5000` 打开应用的浏览器。
 1. 观察输出是否包含表中所示的配置的键值对，具体取决于环境。 记录配置键使用冒号 (`:`) 作为分层分隔符。
 
-| 密钥                        | 开发值 | 生产值 |
+| 键                        | 开发值 | 生产值 |
 | -------------------------- | :---------------: | :--------------: |
 | Logging:LogLevel:System    | 信息       | 信息      |
 | Logging:LogLevel:Microsoft | 信息       | 信息      |
@@ -775,7 +775,7 @@ public static readonly Dictionary<string, string> _dict =
 
 [ConfigurationBinder.GetValueT\<>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将其转换为指定的非集合类型。 重载接受默认值。
 
-以下示例：
+如下示例中：
 
 * 使用键 `NumberKey` 从配置中提取字符串值。 如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。
 * 键入值作为 `int`。
@@ -871,7 +871,7 @@ var configSection = _config.GetSection("section2");
 var children = configSection.GetChildren();
 ```
 
-### <a name="exists"></a>Exists
+### <a name="exists"></a>存在
 
 使用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 确定配置节是否存在：
 
@@ -917,7 +917,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 创建以下配置键值对：
 
-| 密钥                   | 值                                             |
+| 键                   | 值                                             |
 | --------------------- | ------------------------------------------------- |
 | starship:name         | USS Enterprise                                    |
 | starship:registry     | NCC-1701                                          |
@@ -1007,7 +1007,7 @@ TvShow = tvShow;
 
 请考虑下表中所示的配置键和值。
 
-| 密钥             | 值  |
+| 键             | 值  |
 | :-------------: | :----: |
 | array:entries:0 | value0 |
 | array:entries:1 | value1 |
@@ -1088,7 +1088,7 @@ _config.GetSection("array").Bind(arrayExample);
 }
 ```
 
-在 `ConfigureAppConfiguration` 中：
+在 `ConfigureAppConfiguration`中：
 
 ```csharp
 config.AddJsonFile(
@@ -1097,7 +1097,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 密钥             | 值  |
+| 键             | 值  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1130,7 +1130,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 密钥                     | 值  |
+| 键                     | 值  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |
@@ -1189,7 +1189,7 @@ JSON 配置提供程序将配置数据读入以下键值对：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。
+通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。 当数据库为空时，配置提供程序将对其进行初始化。 由于[配置密钥不区分大小写](#keys)，因此用来初始化数据库的字典是用不区分大小写的比较程序 ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)) 创建的。
 
 *EFConfigurationProvider/EFConfigurationProvider.cs*：
 
