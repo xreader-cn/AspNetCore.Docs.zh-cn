@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 6f2d62600da828261ecfc3a1df688ce914eccf33
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: abb55ea12583374639f28945037cb6aa41a5a32d
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72590011"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427037"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -21,7 +21,7 @@ ms.locfileid: "72590011"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在本教程中，你将了解：
+本教程介绍如何执行下列操作：
 
 > [!div class="checklist"]
 > * 创建 Web API 项目。
@@ -232,7 +232,7 @@ ms.locfileid: "72590011"
 * 选中右窗格中的“项目”复选框，然后选择“安装”   。
 * 使用上述说明添加 `Microsoft.EntityFrameworkCore.InMemory` NuGet 包。
 
-![NuGet 程序包管理器](first-web-api/_static/vs3NuGet.png)
+![NuGet 包管理器](first-web-api/_static/vs3NuGet.png)
 
 ## <a name="add-the-todocontext-database-context"></a>添加 TodoContext 数据库上下文
 
@@ -273,7 +273,7 @@ ms.locfileid: "72590011"
 
   * 在“模型类”中选择“TodoItem (TodoApi.Models)”   。
   * 在“数据上下文类”中选择“TodoContext (TodoAPI.Models)”   。
-  * 选择“添加”  。
+  * 选择 **添加** 。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -387,7 +387,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 创建新请求。
 * 将 HTTP 方法设置为“GET”  。
-* 将请求 URL 设置为 `https://localhost:<port>/api/TodoItems`。 例如 `https://localhost:5001/api/TodoItems`。
+* 将请求 URL 设置为 `https://localhost:<port>/api/TodoItems`。 例如，`https://localhost:5001/api/TodoItems` 。
 * 在 Postman 中设置**Two pane view** 。
 * 选择**Send**。
 
@@ -469,7 +469,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ::: moniker range="< aspnetcore-3.0"
 
-在本教程中，你将了解：
+本教程介绍如何执行下列操作：
 
 > [!div class="checklist"]
 > * 创建 Web API 项目。
@@ -761,7 +761,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 创建新请求。
   * 将 HTTP 方法设置为“GET”  。
-  * 将请求 URL 设置为 `https://localhost:<port>/api/todo`。 例如 `https://localhost:5001/api/todo`。
+  * 将请求 URL 设置为 `https://localhost:<port>/api/todo`。 例如，`https://localhost:5001/api/todo` 。
 * 在 Postman 中设置**Two pane view** 。
 * 选择**Send**。
 
@@ -876,7 +876,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 [!code-html[](first-web-api/samples/2.2/TodoApi/wwwroot/index.html)]
 
-将名为 site.js 的 JavaScript 文件添加到 wwwroot 目录   。 用以下代码替代其内容：
+将名为 site.js 的 JavaScript 文件添加到 wwwroot 目录   。 将其内容替换为以下代码：
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_SiteJs)]
 
@@ -917,13 +917,13 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 
 ## <a name="add-authentication-support-to-a-web-api"></a>向 Web API 添加身份验证支持
 
-请参阅 [IdentityServer4](https://identityserver4.readthedocs.io/en/latest/quickstarts/0_overview.html) 教程。
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 ## <a name="additional-resources"></a>其他资源
 
 [查看或下载本教程的示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
 
-有关更多信息，请参见以下资源：
+有关详细信息，请参阅以下资源：
 
 * <xref:web-api/index>
 * <xref:tutorials/web-api-help-pages-using-swagger>

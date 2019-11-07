@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 5e62a8cc50947969d42981350b65a24781929d62
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: 23927e6ce0a7b29ce3f32d4e7f7d3f234257ca9b
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71691185"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416160"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag 和 ASP.NET Core 入门
 
@@ -52,7 +52,7 @@ NSwag 提供了下列功能：
 * 从“程序包管理器控制台”  窗口：
   * 转到“视图” > “其他窗口” > “程序包管理器控制台”   
   * 导航到包含 TodoApi.csproj 文件的目录 
-  * 请执行以下命令：
+  * 运行以下命令：
 
     ```powershell
     Install-Package NSwag.AspNetCore
@@ -73,7 +73,7 @@ NSwag 提供了下列功能：
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-运行下面的命令：
+运行以下命令：
 
 ```dotnetcli
 dotnet add TodoApi.csproj package NSwag.AspNetCore
@@ -253,7 +253,7 @@ Swagger UI 显示版本的信息：
 
 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [IActionResult](xref:Microsoft.AspNetCore.Mvc.IActionResult)，因此无法推断正在执行的操作和返回的内容。
 
-请看下面的示例：
+下面是一个示例：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
@@ -265,9 +265,9 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range=">= aspnetcore-2.1"
 
- 由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。
+由于 NSwag 使用[反射](/dotnet/csharp/programming-guide/concepts/reflection)，且建议的 Web API 操作返回类型为 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601)，因此只能推断 `T` 定义的返回类型。 无法自动推断其他可能的返回类型。
 
-请看下面的示例：
+下面是一个示例：
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 

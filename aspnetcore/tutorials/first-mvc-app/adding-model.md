@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 5ad31a2536ad70590eaa767cf20068512241f36b
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
+ms.openlocfilehash: d6d75bcbab875c08bfff532d968013dca323beed
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71295479"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634111"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -174,7 +174,7 @@ Visual Studio 将创建：
     export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -186,7 +186,7 @@ Visual Studio 将创建：
 
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -212,7 +212,7 @@ Visual Studio 将创建：
 
 在 PMC 中，输入以下命令：
 
-```console
+```PMC
 Add-Migration InitialCreate
 Update-Database
 ```
@@ -256,7 +256,7 @@ dotnet ef database update
 
 <a name="test"></a>
 
-## <a name="test-the-app"></a>测试应用
+## <a name="test-the-app"></a>测试应用程序
 
 * 运行应用并单击“Movie App”链接  。
 
@@ -443,7 +443,7 @@ Visual Studio 将创建：
     export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -462,7 +462,7 @@ Visual Studio 将创建：
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -517,7 +517,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 1. 在 PMC 中，输入以下命令：
 
-   ```console
+   ```PMC
    Add-Migration Initial
    Update-Database
    ```
@@ -566,7 +566,7 @@ ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-inject
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用
+### <a name="test-the-app"></a>测试应用程序
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 
