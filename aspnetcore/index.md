@@ -4,14 +4,14 @@ author: rick-anderson
 description: 获取 ASP.NET Core 的简介，它是一个跨平台的高性能开源框架，用于生成基于云且连接 Internet 的新式应用程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2019
+ms.date: 11/03/2019
 uid: index
-ms.openlocfilehash: 1ccc1f5d095833e89fc20127ee23b8fa3dc4c79f
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: edbdce19656af64d7c2c0ee554bc5213a0d0c50e
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289062"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611409"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -98,6 +98,10 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 1. 浏览目录以了解其他感兴趣的主题。
 
 \* 新增了[在浏览器中完全遵循的 Web API 教程](https://docs.microsoft.com/learn/modules/build-web-api-net-core)，无需安装本地 IDE。  代码在 [Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) 中运行，并且 [curl](https://curl.haxx.se/) 用于测试。
+
+## <a name="migration-from-the-net-framework"></a>从 .NET Framework 迁移
+
+有关将 ASP.NET 应用迁移到 ASP.NET Core 的参考指南，请参阅 <migration/proper-to-2x/index>。
 
 ## <a name="how-to-download-a-sample"></a>如何下载示例
 
