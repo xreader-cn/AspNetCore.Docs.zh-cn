@@ -4,14 +4,14 @@ author: blowdart
 description: 了解如何在 ASP.NET Core for IIS 和 http.sys 中配置证书身份验证。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 11/05/2019
+ms.date: 11/07/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 081935e6e6248b5fe9b7bf4cd966dc73761d2ec1
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 0db23c325f0b1f5a6500e3b2549db170e3df97c5
+ms.sourcegitcommit: 68d804d60e104c81fe77a87a9af70b5df2726f60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634053"
+ms.lasthandoff: 11/08/2019
+ms.locfileid: "73830721"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -36,7 +36,7 @@ ms.locfileid: "73634053"
 
 如果身份验证失败，则此处理程序将返回 `403 (Forbidden)` 响应，而不是 `401 (Unauthorized)`，如你所料。 原因是，在初次 TLS 连接期间应进行身份验证。 当它到达处理程序时，它的时间太晚。 无法将连接从匿名连接升级到证书。
 
-此外，还可以在 `Startup.Configure` 方法中添加 `app.UseAuthentication();`。 否则，HttpContext 不会设置为从证书创建 `ClaimsPrincipal`。 例如:
+此外，还可以在 `Startup.Configure` 方法中添加 `app.UseAuthentication();`。 否则，不会将 `HttpContext.User` 设置为从证书创建 `ClaimsPrincipal`。 例如:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -186,7 +186,6 @@ services.AddAuthentication(
 在*Program.cs*中，按如下所示配置 Kestrel：
 
 ```csharp
-
 public static void Main(string[] args)
 {
     CreateHostBuilder(args).Build().Run();
@@ -219,3 +218,254 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ### <a name="azure-and-custom-web-proxies"></a>Azure 和自定义 web 代理
 
 有关如何配置证书转发中间件的详细[说明，请参阅托管和部署文档](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)。
+
+### <a name="use-certificate-authentication-in-azure-web-apps"></a>在 Azure Web 应用中使用证书身份验证
+
+`AddCertificateForwarding` 方法用于指定：
+
+* 客户端标头名称。
+* 如何加载证书（使用 `HeaderConverter` 属性）。
+
+在 Azure Web 应用中，证书将作为名为 `X-ARR-ClientCert`的自定义请求标头传递。 若要使用它，请在 `Startup.ConfigureServices`中配置证书转发：
+
+```csharp
+services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "X-ARR-ClientCert";
+    options.HeaderConverter = (headerValue) =>
+    {
+        X509Certificate2 clientCertificate = null;
+        if(!string.IsNullOrWhiteSpace(headerValue))
+        {
+            byte[] bytes = StringToByteArray(headerValue);
+            clientCertificate = new X509Certificate2(bytes);
+        }
+
+        return clientCertificate;
+    };
+});
+```
+
+然后 `Startup.Configure` 方法添加中间件。 在调用 `UseAuthentication` 和 `UseAuthorization`之前调用 `UseCertificateForwarding`：
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    ...
+    
+    app.UseRouting();
+
+    app.UseCertificateForwarding();
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+}
+```
+
+单独的类可用于实现验证逻辑。 由于本示例中使用了相同的自签名证书，因此请确保只能使用证书。 验证客户端证书和服务器证书的指纹是否匹配，否则，任何证书都可以使用，并且足以进行身份验证。 这会在 `AddCertificate` 方法中使用。 如果使用的是中间证书或子证书，也可以在此处验证使用者或颁发者。
+
+```csharp
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
+
+namespace AspNetCoreCertificateAuthApi
+{
+    public class MyCertificateValidationService
+    {
+        public bool ValidateCertificate(X509Certificate2 clientCertificate)
+        {
+            // Do not hardcode passwords in production code, use thumbprint or key vault
+            var cert = new X509Certificate2(Path.Combine("sts_dev_cert.pfx"), "1234");
+            if (clientCertificate.Thumbprint == cert.Thumbprint)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
+```
+
+#### <a name="implement-an-httpclient-using-a-certificate"></a>使用证书实现 HttpClient
+
+Web API 客户端使用 `HttpClient`，这是使用 `IHttpClientFactory` 实例创建的。 这并不提供为 `HttpClient`定义处理程序的方法，因此使用 `HttpRequestMessage` 将证书添加到 `X-ARR-ClientCert` 请求标头。 使用 `GetRawCertDataString` 方法将证书添加为字符串。 
+
+```csharp
+private async Task<JsonDocument> GetApiDataAsync()
+{
+    try
+    {
+        // Do not hardcode passwords in production code, use thumbprint or key vault
+        var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+
+        var client = _clientFactory.CreateClient();
+
+        var request = new HttpRequestMessage()
+        {
+            RequestUri = new Uri("https://localhost:44379/api/values"),
+            Method = HttpMethod.Get,
+        };
+
+        request.Headers.Add("X-ARR-ClientCert", cert.GetRawCertDataString());
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var data = JsonDocument.Parse(responseContent);
+
+            return data;
+        }
+
+        throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+    }
+    catch (Exception e)
+    {
+        throw new ApplicationException($"Exception {e}");
+    }
+}
+```
+
+如果将正确的证书发送到服务器，则返回数据。 如果未发送证书或证书不正确，则返回 HTTP 403 状态代码。
+
+### <a name="create-certificates-in-powershell"></a>在 PowerShell 中创建证书
+
+创建证书是最难设置此流的部分。 可以使用 `New-SelfSignedCertificate` PowerShell cmdlet 创建根证书。 创建证书时，请使用强密码。 添加 `KeyUsageProperty` 参数和 `KeyUsage` 参数非常重要，如下所示。
+
+#### <a name="create-root-ca"></a>创建根 CA
+
+```powershell
+New-SelfSignedCertificate -DnsName "root_ca_dev_damienbod.com", "root_ca_dev_damienbod.com" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(20) -FriendlyName "root_ca_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
+
+$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+
+Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\root_ca_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath root_ca_dev_damienbod.crt
+```
+
+#### <a name="install-in-the-trusted-root"></a>在受信任的根中安装
+
+根证书需要在主机系统上受信任。 默认情况下，不信任证书颁发机构创建的根证书。 下面的链接说明了如何在 Windows 上完成此操作：
+
+https://social.msdn.microsoft.com/Forums/SqlServer/5ed119ef-1704-4be4-8a4f-ef11de7c8f34/a-certificate-chain-processed-but-terminated-in-a-root-certificate-which-is-not-trusted-by-the
+
+#### <a name="intermediate-certificate"></a>中间证书
+
+现在可以从根证书创建中间证书。 这并不是所有用例所必需的，但你可能需要创建多个证书，或者需要激活或禁用证书组。 需要 `TextExtension` 参数以设置证书的基本约束中的路径长度。
+
+然后，可以将中间证书添加到 Windows 主机系统中的受信任中间证书。
+
+```powershell
+$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+
+$parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint of the root..." )
+
+New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "intermediate_dev_damienbod.com" -Signer $parentcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "intermediate_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature -TextExtension @("2.5.29.19={text}CA=1&pathlength=1")
+
+Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\intermediate_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath intermediate_dev_damienbod.crt
+```
+
+#### <a name="create-child-certificate-from-intermediate-certificate"></a>从中间证书创建子证书
+
+可以从中间证书创建子证书。 这是最终实体，不需要创建更多的子证书。
+
+```powershell
+$parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the Intermediate certificate..." )
+
+New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_a_dev_damienbod.com" -Signer $parentcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_a_dev_damienbod.com"
+
+$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+
+Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_a_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
+```
+
+#### <a name="create-child-certificate-from-root-certificate"></a>从根证书创建子证书
+
+还可以直接从根证书创建子证书。 
+
+```powershell
+$rootcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the root cert..." )
+
+New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_a_dev_damienbod.com" -Signer $rootcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_a_dev_damienbod.com"
+
+$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+
+Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_a_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
+```
+
+#### <a name="example-root---intermediate-certificate---certificate"></a>示例根中间证书证书
+
+```powershell
+$mypwdroot = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+
+New-SelfSignedCertificate -DnsName "root_ca_dev_damienbod.com", "root_ca_dev_damienbod.com" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(20) -FriendlyName "root_ca_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
+
+Get-ChildItem -Path cert:\localMachine\my\0C89639E4E2998A93E423F919B36D4009A0F9991 | Export-PfxCertificate -FilePath C:\git\root_ca_dev_damienbod.pfx -Password $mypwdroot
+
+Export-Certificate -Cert cert:\localMachine\my\0C89639E4E2998A93E423F919B36D4009A0F9991 -FilePath root_ca_dev_damienbod.crt
+
+$rootcert = ( Get-ChildItem -Path cert:\LocalMachine\My\0C89639E4E2998A93E423F919B36D4009A0F9991 )
+
+New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_a_dev_damienbod.com" -Signer $rootcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_a_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature -TextExtension @("2.5.29.19={text}CA=1&pathlength=1")
+
+Get-ChildItem -Path cert:\localMachine\my\BA9BF91ED35538A01375EFC212A2F46104B33A44 | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_a_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\BA9BF91ED35538A01375EFC212A2F46104B33A44 -FilePath child_a_dev_damienbod.crt
+
+$parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\BA9BF91ED35538A01375EFC212A2F46104B33A44 )
+
+New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_b_from_a_dev_damienbod.com" -Signer $parentcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_b_from_a_dev_damienbod.com" 
+
+Get-ChildItem -Path cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F28A | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_b_from_a_dev_damienbod.pfx -Password $mypwd
+
+Export-Certificate -Cert cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F28A -FilePath child_b_from_a_dev_damienbod.crt
+```
+
+使用根证书、中间证书或子证书时，可以根据需要使用颁发者或使用者验证证书。
+
+```csharp
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
+
+namespace AspNetCoreCertificateAuthApi
+{
+    public class MyCertificateValidationService 
+    {
+        public bool ValidateCertificate(X509Certificate2 clientCertificate)
+        {
+            return CheckIfThumbprintIsValid(clientCertificate);
+        }
+
+        private bool CheckIfThumbprintIsValid(X509Certificate2 clientCertificate)
+        {
+            var listOfValidThumbprints = new List<string>
+            {
+                "141594A0AE38CBBECED7AF680F7945CD51D8F28A",
+                "0C89639E4E2998A93E423F919B36D4009A0F9991",
+                "BA9BF91ED35538A01375EFC212A2F46104B33A44"
+            };
+
+            if (listOfValidThumbprints.Contains(clientCertificate.Thumbprint))
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
+```
