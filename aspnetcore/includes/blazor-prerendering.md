@@ -25,7 +25,6 @@
 对于前面的示例代码，请在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素内提供 `setElementText` JavaScript 函数。 使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：
 
 ```html
-<!--  -->
 <script>
   window.setElementText = (element, text) => element.innerText = text;
 </script>
