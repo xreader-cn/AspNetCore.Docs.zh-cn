@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 11/07/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 0db23c325f0b1f5a6500e3b2549db170e3df97c5
-ms.sourcegitcommit: 68d804d60e104c81fe77a87a9af70b5df2726f60
+ms.openlocfilehash: 0062bc0d7688ebcc67f8240da7166d89493f6639
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/08/2019
-ms.locfileid: "73830721"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897032"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -229,21 +229,35 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 在 Azure Web 应用中，证书将作为名为 `X-ARR-ClientCert`的自定义请求标头传递。 若要使用它，请在 `Startup.ConfigureServices`中配置证书转发：
 
 ```csharp
-services.AddCertificateForwarding(options =>
+public void ConfigureServices(IServiceCollection services)
 {
-    options.CertificateHeader = "X-ARR-ClientCert";
-    options.HeaderConverter = (headerValue) =>
+    // ...
+    
+    services.AddCertificateForwarding(options =>
     {
-        X509Certificate2 clientCertificate = null;
-        if(!string.IsNullOrWhiteSpace(headerValue))
+        options.CertificateHeader = "X-ARR-ClientCert";
+        options.HeaderConverter = (headerValue) =>
         {
-            byte[] bytes = StringToByteArray(headerValue);
-            clientCertificate = new X509Certificate2(bytes);
-        }
+            X509Certificate2 clientCertificate = null;
+            if(!string.IsNullOrWhiteSpace(headerValue))
+            {
+                byte[] bytes = StringToByteArray(headerValue);
+                clientCertificate = new X509Certificate2(bytes);
+            }
 
-        return clientCertificate;
-    };
-});
+            return clientCertificate;
+        };
+    });
+}
+
+private static byte[] StringToByteArray(string hex)
+{
+    int NumberChars = hex.Length;
+    byte[] bytes = new byte[NumberChars / 2];
+    for (int i = 0; i < NumberChars; i += 2)
+        bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+    return bytes;
+}
 ```
 
 然后 `Startup.Configure` 方法添加中间件。 在调用 `UseAuthentication` 和 `UseAuthorization`之前调用 `UseCertificateForwarding`：
@@ -434,7 +448,7 @@ Get-ChildItem -Path cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F2
 Export-Certificate -Cert cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F28A -FilePath child_b_from_a_dev_damienbod.crt
 ```
 
-使用根证书、中间证书或子证书时，可以根据需要使用颁发者或使用者验证证书。
+使用根证书、中间证书或子证书时，可以根据需要使用指纹或 PublicKey 来验证证书。
 
 ```csharp
 using System.Collections.Generic;

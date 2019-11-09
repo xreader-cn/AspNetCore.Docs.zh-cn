@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2019
 uid: web-api/index
-ms.openlocfilehash: aab9b848eb6e69055b019c9253c716898e9847e2
-ms.sourcegitcommit: a11f09c10ef3d4eeab7ae9ce993e7f30427741c1
+ms.openlocfilehash: 122de0a225668a7523eec900e2ad8fdac56d7886
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149342"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897013"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -159,7 +159,7 @@ namespace WebApiSample
 
 ::: moniker-end
 
-### <a name="automatic-http-400-responses"></a>自动 HTTP 400 响应
+## <a name="automatic-http-400-responses"></a>自动 HTTP 400 响应
 
 `[ApiController]` 属性使模型验证错误自动触发 HTTP 400 响应。 因此，操作方法中不需要以下代码：
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: performance/memory
-ms.openlocfilehash: 8f6b47ecde6f265bfb9437234b89f11f7d235869
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 4c25c069aa2a6088c0549d786ecdd487ab7b9ea5
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73660018"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896934"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -82,7 +82,7 @@ GitHub 上提供了[MemoryLeak 示例应用](https://github.com/sebastienros/mem
 此图表显示内存使用量的两个值：
 
 - 已分配：托管对象占用的内存量
-- 工作集：进程使用的总物理内存（RAM）。 显示的工作集是任务管理器可以显示的相同值。
+- [工作集](/windows/win32/memory/working-set)：进程的虚拟地址空间中当前驻留在物理内存中的页集。 显示的工作集与任务管理器显示的值相同。
 
 ### <a name="transient-objects"></a>暂时性对象
 

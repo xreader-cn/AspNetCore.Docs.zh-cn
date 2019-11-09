@@ -5,14 +5,14 @@ description: 将标识用于在 ASP.NET Core 应用内托管的单页面应用�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/29/2019
+ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 5ed5fb61e5989b291523332c6a2ec332f9ca0f6b
-ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
+ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73616619"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897039"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
@@ -182,6 +182,30 @@ services.Configure<JwtBearerOptions>(
         ...
     });
 ```
+
+API 的 JWT 处理程序会引发事件，这些事件可以使用 `JwtBearerEvents`来控制身份验证过程。 若要为 API 授权提供支持，`AddIdentityServerJwt` 会注册其自己的事件处理程序。
+
+若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。 例如:
+
+```csharp
+services.Configure<JwtBearerOptions>(
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
+    options =>
+    {
+        var onTokenValidated = options.Events.OnTokenValidated;       
+        
+        options.Events.OnTokenValidated = async context =>
+        {
+            await onTokenValidated(context);
+            ...
+        }
+    });
+```
+
+在前面的代码中，`OnTokenValidated` 事件处理程序将替换为自定义实现。 此实现：
+
+1. 调用 API 授权支持提供的原始实现。
+1. 运行自己的自定义逻辑。
 
 ## <a name="protect-a-client-side-route-angular"></a>保护客户端路线（角度）
 
