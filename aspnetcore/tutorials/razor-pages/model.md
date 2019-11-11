@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中向 Razor Pages 应用添加模型
 author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
-ms.date: 9/22/2019
+ms.date: 11/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
-ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
+ms.openlocfilehash: 312b3d4eb13eb04453bf0c3256fc362918157a45
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72519072"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634180"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -18,7 +18,7 @@ ms.locfileid: "72519072"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在本节中，添加了用于管理数据库中的电影的类。 这些类与 [Entity Framework Core](/ef/core)（EF Core）一起使用来处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问。
+在本节中，添加了用于管理跨平台 [SQLite 数据库](https://www.sqlite.org/index.html)中的电影的类。 从 ASP.NET Core 模板创建的应用使用 SQLite 数据库。 应用的模型类配合 [Entity Framework Core (EF Core)](/ef/core)（[SQLite EF Core 数据库提供程序](/ef/core/providers/sqlite)）使用，以处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问。
 
 模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系。 它们定义数据库中存储的数据属性。
 
@@ -84,7 +84,7 @@ ms.locfileid: "72519072"
 
 * 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)   。
 * 在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models  .RazorPagesMovieContext 更改为 RazorPagesMovie.Data  .RazorPagesMovieContext   。 不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
-* 选择“添加”  。
+* 选择 **添加** 。
 
 ![上述说明的图像。](model/_static/3/arp.png)
 
@@ -102,13 +102,13 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **对于 Windows**：运行下面的命令：
+* **对于 Windows**：运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行下面的命令：
+* **对于 macOS 和 Linux**：运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -125,7 +125,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -232,7 +232,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用
+### <a name="test-the-app"></a>测试应用程序
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 
@@ -267,7 +267,7 @@ Login failed for user 'User-name'.
 <!--  ::: moniker previous version   -->
 ::: moniker range="< aspnetcore-3.0"
 
-在本节中，添加了用于管理数据库中的电影的类。 这些类与 [Entity Framework Core](/ef/core)（EF Core）一起使用来处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问代码。
+在本节中，添加了用于管理跨平台 [SQLite 数据库](https://www.sqlite.org/index.html)中的电影的类。 从 ASP.NET Core 模板创建的应用使用 SQLite 数据库。 应用的模型类配合 [Entity Framework Core (EF Core)](/ef/core)（[SQLite EF Core 数据库提供程序](/ef/core/providers/sqlite)）使用，以处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问。
 
 模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系。 它们定义数据库中存储的数据属性。
 
@@ -337,7 +337,7 @@ to use Data, it should not use models. That will make the namespace the same for
 
 * 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)   。
 * 在“数据上下文类”行中，选择 +（加号）并接受生成的名称“RazorPagesMovie.Models.RazorPagesMovieContext”    。
-* 选择“添加”  。
+* 选择 **添加** 。
 
 ![上述说明的图像。](model/_static/arp.png)
 
@@ -355,13 +355,13 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **对于 Windows**：运行下面的命令：
+* **对于 Windows**：运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行下面的命令：
+* **对于 macOS 和 Linux**：运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -378,7 +378,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行下面的命令：
+* 运行以下命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -471,7 +471,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用
+### <a name="test-the-app"></a>测试应用程序
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 

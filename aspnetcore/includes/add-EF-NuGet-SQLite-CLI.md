@@ -14,3 +14,5 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 * 适用于 .NET Core CLI 的 Entity Framework Core 工具。
 * EF Core SQLite 提供程序将 EF Core 包作为依赖项进行安装。
 * 基架需要的包：`Microsoft.VisualStudio.Web.CodeGeneration.Design` 和 `Microsoft.EntityFrameworkCore.SqlServer`。
+
+有关允许应用按环境配置其数据库上下文的多个环境配置指南，请参阅 <xref:fundamentals/environments#environment-based-startup-class-and-methods>。

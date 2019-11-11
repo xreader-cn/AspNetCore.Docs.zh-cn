@@ -5,14 +5,14 @@ description: 了解如何在 CentOS 上将 Apache 设置为反向代理服务器
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 11/05/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: ec14bce5d8ada9a56ccc44d1159373dc73a09c1b
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: fce91db736908e433ba6803319aa8984bb68a554
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081884"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659883"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -402,7 +402,7 @@ sudo yum install mod_headers
    ```
 
    添加行 `Header append X-FRAME-OPTIONS "SAMEORIGIN"`。
-1. 保存该文件。
+1. 保存文件。
 1. 重启 Apache。
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查
@@ -415,9 +415,9 @@ sudo yum install mod_headers
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 
-添加行 `Header set X-Content-Type-Options "nosniff"`。 保存该文件。 重启 Apache。
+添加行 `Header set X-Content-Type-Options "nosniff"`。 保存文件。 重启 Apache。
 
-### <a name="load-balancing"></a>负载平衡
+### <a name="load-balancing"></a>负载均衡
 
 此示例演示如何在同一实例计算机上的 CentOS 7 和 Kestrel 上设置和配置 Apache。 为了不出现单一故障点；使用 mod_proxy_balancer 并修改 VirtualHost 可实现在 Apache 代理服务器后方管理 Web 应用的多个实例。
 
@@ -484,7 +484,7 @@ sudo nano /etc/httpd/conf.d/ratelimit.conf
 
 ### <a name="long-request-header-fields"></a>较长的请求标头字段
 
-如果应用需要的请求标头字段超过代理服务器的默认设置允许的长度（通常为 8,190 字节），请调整 [LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) 指令的值。 要应用的值依赖应用场景。 有关详细信息，请参见服务器文档。
+代理服务器默认设置通常将请求标头字段限制为 8190 字节。 某些应用可能需要超过默认值的字段（例如，使用 [Azure Active Directory](https://azure.microsoft.com/services/active-directory/) 的应用）。 如果需要更长的字段，则代理服务器的 [LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) 指令需要进行调整。 要应用的值具体取决于方案。 有关详细信息，请参见服务器文档。
 
 > [!WARNING]
 > 除非必要，否则不要提高 `LimitRequestFieldSize` 的默认值。 提高该值将增加缓冲区溢出的风险和恶意用户的拒绝服务 (DoS) 攻击风险。

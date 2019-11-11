@@ -5,14 +5,14 @@ description: 发现适用于 ASP.NET Core 的 Web 服务器 Kestrel 和 HTTP.sys
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/10/2019
+ms.date: 11/07/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 3bdc2bf776946b8fae8886a37ecd3ed5e3f860fe
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: e542dd4506eb77f949c0c87bea3044397bbb1b8f
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259813"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799394"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -156,7 +156,9 @@ ASP.NET Core 随附 [Kestrel 服务器](xref:fundamentals/servers/kestrel)，这
 * [Visual Studio Code](https://code.visualstudio.com/) &ndash; 由[Omnisharp](https://github.com/OmniSharp/omnisharp-vscode) 通过激活 CoreCLR 调试程序来启动应用和服务器。
 * [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) &ndash; 由 [Mono Soft-Mode Debugger](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/) 启动应用和服务器。
 
-从项目文件夹中的命令提示符启动应用时，[dotnet run](/dotnet/core/tools/dotnet-run) 会启动该应用和服务器（仅 Kestrel 和 HTTP.sys）。 可通过 `-c|--configuration` 选项指定此配置，该选项设置为 `Debug`（默认值）或 `Release`。 如果启动配置文件位于 launchSettings.json 文件中，请使用 `--launch-profile <NAME>` 选项设置启动配置文件（例如 `Development` 或 `Production`）  。 有关详细信息，请参阅 [dotnet run](/dotnet/core/tools/dotnet-run) 和 [.NET Core 分发打包](/dotnet/core/build/distribution-packaging)。
+从项目文件夹中的命令提示符启动应用时，[dotnet run](/dotnet/core/tools/dotnet-run) 会启动该应用和服务器（仅 Kestrel 和 HTTP.sys）。 可通过 `-c|--configuration` 选项指定此配置，该选项设置为 `Debug`（默认值）或 `Release`。
+
+使用 `dotnet run` 或使用工具中内置的调试程序（如 Visual Studio）启动应用时，launchSettings.json 文件会提供配置  。 如果启动配置文件位于 launchSettings.json 文件中，请结合使用 `--launch-profile {PROFILE NAME}` 选项和 `dotnet run` 命令或在 Visual Studio 中选择配置文件  。 有关详细信息，请参阅 [dotnet run](/dotnet/core/tools/dotnet-run) 和 [.NET Core 分发打包](/dotnet/core/build/distribution-packaging)。
 
 ## <a name="http2-support"></a>HTTP/2 支持
 

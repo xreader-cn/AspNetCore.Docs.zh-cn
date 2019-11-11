@@ -45,7 +45,7 @@ using Microsoft.EntityFrameworkCore;
 
 ### <a name="add-required-nuget-packages"></a>添加所需的 NuGet 包
 
-运行以下 .NET Core CLI 命令，以将 SQLite 和 CodeGeneration.Design 添加到项目中：
+运行以下 .NET Core CLI 命令，将 SQLite 和 CodeGeneration.Design 添加到项目中：
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
@@ -71,4 +71,5 @@ using Microsoft.EntityFrameworkCore;
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 生成项目以检查错误。
+
 ::: moniker-end

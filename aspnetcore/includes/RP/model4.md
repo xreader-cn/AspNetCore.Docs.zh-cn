@@ -14,4 +14,4 @@
 dotnet aspnet-codegenerator razorpage -h
 ```
 
-有关详细信息，请查看 [dotnet aspnet-codegenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator) 
+有关详细信息，请查看 [dotnet aspnet-codegenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator)。

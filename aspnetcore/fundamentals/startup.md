@@ -2,16 +2,17 @@
 title: ASP.NET Core 中的应用启动
 author: rick-anderson
 description: 了解 ASP.NET Core 中的 Startup 类如何配置服务和应用的请求管道。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 8/7/2019
+ms.date: 11/02/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 0ea3965f73f4b0334810bc9ec2910b0c9364a7ba
-ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
+ms.openlocfilehash: 081eaa772d136477a37a3392877886327e0cda7c
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71942868"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634040"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core 中的应用启动
 
@@ -23,7 +24,7 @@ ms.locfileid: "71942868"
 
 ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `Startup` 类：
 
-* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务  。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中配置配置（也称为“注册”）并通过[依存关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用  。
+* 可选择性地包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> 方法以配置应用的服务  。 服务是一个提供应用功能的可重用组件。 在 `ConfigureServices` 中注册服务，并通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 或 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> 在整个应用中使用服务  。
 * 包括 <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> 方法以创建应用的请求处理管道。
 
 在应用启动时，ASP.NET Core 运行时会调用 `ConfigureServices` 和 `Configure`：
@@ -56,9 +57,9 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 主机提供 `Startup` 类构造函数可用的某些服务。 应用通过 `ConfigureServices` 添加其他服务。 主机和应用服务都可以在 `Configure` 和整个应用中使用。
 
-使用 <xref:Microsoft.Extensions.Hosting.IHostBuilder> 时，只能将以下服务类型注入 `Startup` 构造函数：
+使用[泛型主机](xref:fundamentals/host/generic-host) (<xref:Microsoft.Extensions.Hosting.IHostBuilder>) 时，只能将以下服务类型注入 `Startup` 构造函数：
 
-* `IWebHostEnvironment`
+* <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment>
 * <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
 * <xref:Microsoft.Extensions.Configuration.IConfiguration>
 
@@ -175,11 +176,12 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 <a name="convenience-methods"></a>
 
-## <a name="configure-services-without-startup"></a>在不使用 Startup 的情况下配置服务
+## <a name="configure-services-without-startup"></a>在不启动的情况下配置服务
 
 若要配置服务和请求处理管道，而不使用 `Startup` 类，请在主机生成器上调用 `ConfigureServices` 和 `Configure` 便捷方法。 多次调用 `ConfigureServices` 将追加到另一个。 如果存在多个 `Configure` 方法调用，则使用最后一个 `Configure` 调用。
 
 ::: moniker range=">= aspnetcore-3.0"
+
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Program1.cs?name=snippet)]
 
 ::: moniker-end

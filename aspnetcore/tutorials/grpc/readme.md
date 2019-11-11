@@ -8,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: create-grpc-client
-ms.openlocfilehash: a281adc3b1fe90eeb32c1185750f911af683af83
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: b9feb9eed62177358fffc0d7da582f625a431e32
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69029010"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73463048"
 ---
 # <a name="create-a-grpc-client-and-server-in-aspnet-core-30-using-visual-studio"></a>使用 Visual Studio 在 ASP.NET Core 3.0 中创建 gRPC 客户端和服务器
 
@@ -39,7 +39,7 @@ ms.locfileid: "69029010"
   * 选择“gRPC 服务”模板  。
   * 选择“创建” 
 
-### <a name="run-the-service"></a>运行服务
+### <a name="run-the-service"></a>运行该服务
 
 * 按 `Ctrl+F5` 以在不使用调试程序的情况下运行 gRPC 服务。
 
@@ -69,7 +69,7 @@ GrpcGreeter 项目文件  ：
 * *greet.proto*：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。 有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。
 * Services  文件夹：包含 `Greeter` 服务的实现。
 * *appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
-* Program.cs  :包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
+* Program.cs  ：包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
 * *Startup.cs*：包含配置应用行为的代码。 有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>在 .NET 控制台应用中创建 gRPC 客户端
@@ -106,7 +106,7 @@ Install-Package Grpc.Tools
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包
 
 * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
-* 选择“浏览”选项卡  。
+* 选择“浏览”按钮  。
 * 在搜索框中输入 Grpc.Net.Client  。
 * 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”    。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。
@@ -146,10 +146,9 @@ namespace GrpcGreeterClient
     {
         static async Task Main(string[] args)
         {
-            var httpClient = new HttpClient();
             // The port number(5001) must match the port of the gRPC server.
-            httpClient.BaseAddress = new Uri("https://localhost:5001");
-            var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+            var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Greeter.GreeterClient(channel);
             var reply = await client.SayHelloAsync(
                               new HelloRequest { Name = "GreeterClient" });
             Console.WriteLine("Greeting: " + reply.Message);
@@ -164,40 +163,8 @@ Program.cs  包含 gRPC 客户端的入口点和逻辑。
 
 通过以下方式创建 Greeter 客户端：
 
-* 实例化 `HttpClient`，其包含用于创建与 gRPC 服务的连接的信息。
-* 使用 `HttpClient` 构造 Greeter 客户端：
-
-```csharp
-static async Task Main(string[] args)
-{
-    var httpClient = new HttpClient();
-    // The port number(5001) must match the port of the gRPC server.
-    httpClient.BaseAddress = new Uri("https://localhost:5001");
-    var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
-    var reply = await client.SayHelloAsync(
-                      new HelloRequest { Name = "GreeterClient" });
-    Console.WriteLine("Greeting: " + reply.Message);
-    Console.WriteLine("Press any key to exit...");
-    Console.ReadKey();
-}
-```
-
-Greeter 客户端会调用异步 `SayHello` 方法。 随即显示 `SayHello` 调用的结果：
-
-```csharp
-static async Task Main(string[] args)
-{
-    var httpClient = new HttpClient();
-    // The port number(5001) must match the port of the gRPC server.
-    httpClient.BaseAddress = new Uri("https://localhost:5001");
-    var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
-    var reply = await client.SayHelloAsync(
-                      new HelloRequest { Name = "GreeterClient" });
-    Console.WriteLine("Greeting: " + reply.Message);
-    Console.WriteLine("Press any key to exit...");
-    Console.ReadKey();
-}
-```
+* 实例化 `GrpcChannel`，使其包含用于创建到 gRPC 服务的连接的信息。
+* 使用 `GrpcChannel` 构造 Greeter 客户端。
 
 ## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a>使用 gRPC Greeter 服务测试 gRPC 客户端
 

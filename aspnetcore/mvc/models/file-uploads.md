@@ -5,14 +5,14 @@ description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/02/2019
+ms.date: 10/31/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: de8bfee22e39dfc5a6ed254cf0555887891d4590
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: 04e7533aa190a4875d3f66e8665fec16abec48b3
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179309"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73462938"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -34,13 +34,12 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 降低成功攻击可能性的安全措施如下：
 
-* 将文件上传到系统的专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
-* 切勿将上传的文件保存在与应用相同的目录树中。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;若要在 UI 或登录消息中显示不受信任的文件名，请对值进行 HTML 编码。
-* 仅允许使用一组特定的已批准文件扩展名。&dagger;
-* 检查文件格式签名，阻止用户上传伪装文件。&dagger;例如，请勿允许用户上传带 .txt 扩展名的 .exe 文件。  
-* 验证是否也在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
-* 检查上传的文件的大小，阻止超出预期大小的文件上传。&dagger;
+* 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
+* 请勿将上传的文件保存在与应用相同的目录树中  。&dagger;
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。
+* 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* 验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
+* 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
 
@@ -184,7 +183,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 请使用 `XMLHttpRequest`。 例如:
+* 使用 `XMLHttpRequest`。 例如:
 
   ```javascript
   <script>
@@ -212,8 +211,20 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 上传到服务器的单个文件可使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。 示例应用演示了数据库和物理存储方案的多个缓冲文件上传。
 
+<a name="filename"></a>
+
 > [!WARNING]
-> 切勿依赖或信任未经验证的 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性。 只应将 `FileName` 属性用于显示用途，并且只应在对值进行 HTML 编码后使用它。
+> 除了显示和日志记录用途外，请勿使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性  。 显示或日志记录时，HTML 对文件名进行编码。 攻击者可以提供恶意文件名，包括完整路径或相对路径。 应用程序应：
+>
+> * 从用户提供的文件名中删除路径。
+> * 为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。
+> * 生成新的随机文件名进行存储。
+>
+> 以下代码可从文件名中删除路径：
+>
+> ```csharp
+> string untrustedFileName = Path.GetFileName(pathName);
+> ```
 >
 > 目前提供的示例未考虑安全注意事项。 以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：
 >
@@ -231,7 +242,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+以下示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -707,7 +718,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
 
-## <a name="troubleshoot"></a>疑难解答
+## <a name="troubleshoot"></a>故障排除
 
 以下是上传文件时遇到的一些常见问题及其可能的解决方案。
 
@@ -748,13 +759,12 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 降低成功攻击可能性的安全措施如下：
 
-* 将文件上传到系统的专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
-* 切勿将上传的文件保存在与应用相同的目录树中。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;若要在 UI 或登录消息中显示不受信任的文件名，请对值进行 HTML 编码。
-* 仅允许使用一组特定的已批准文件扩展名。&dagger;
-* 检查文件格式签名，阻止用户上传伪装文件。&dagger;例如，请勿允许用户上传带 .txt 扩展名的 .exe 文件。  
-* 验证是否也在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
-* 检查上传的文件的大小，阻止超出预期大小的文件上传。&dagger;
+* 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
+* 请勿将上传的文件保存在与应用相同的目录树中  。&dagger;
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。
+* 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* 验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
+* 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
 
@@ -898,7 +908,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 请使用 `XMLHttpRequest`。 例如:
+* 使用 `XMLHttpRequest`。 例如:
 
   ```javascript
   <script>
@@ -926,8 +936,20 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 上传到服务器的单个文件可使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。 示例应用演示了数据库和物理存储方案的多个缓冲文件上传。
 
+<a name="filename2"></a>
+
 > [!WARNING]
-> 切勿依赖或信任未经验证的 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性。 只应将 `FileName` 属性用于显示用途，并且只应在对值进行 HTML 编码后使用它。
+> 除了显示和日志记录用途外，请勿使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性  。 显示或日志记录时，HTML 对文件名进行编码。 攻击者可以提供恶意文件名，包括完整路径或相对路径。 应用程序应：
+>
+> * 从用户提供的文件名中删除路径。
+> * 为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。
+> * 生成新的随机文件名进行存储。
+>
+> 以下代码可从文件名中删除路径：
+>
+> ```csharp
+> string untrustedFileName = Path.GetFileName(pathName);
+> ```
 >
 > 目前提供的示例未考虑安全注意事项。 以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：
 >
@@ -945,7 +967,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+以下示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -1414,7 +1436,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
 
-## <a name="troubleshoot"></a>疑难解答
+## <a name="troubleshoot"></a>故障排除
 
 以下是上传文件时遇到的一些常见问题及其可能的解决方案。
 

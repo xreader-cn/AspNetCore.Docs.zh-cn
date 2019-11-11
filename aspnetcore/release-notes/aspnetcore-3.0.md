@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 10/31/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 90433773bec2efc5a2bc39d71ce7ae324b922046
-ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
+ms.openlocfilehash: 8c53d8a9fa222ca40f26dc713ec3b70ddde76539
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72165358"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416126"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -64,13 +64,13 @@ Blazor 应用是基于组件构建的。 组件是自包含的用户界面 (UI) 
   * 二进制序列化格式。
 * 提供如下功能：
 
-  * 身份验证
+  * Authentication
   * 双向流式处理和流控制。
   * 取消和超时。
 
 ASP.NET Core 3.0 中的 gRPC 功能包括：
 
-* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash; 用于托管 gRPC 服务的 ASP.NET Core 框架。 ASP.NET Core 上的 gRPC 与标准 ASP.NET Core 功能（例如日志记录、依赖关系注入(DI)、身份验证和授权）集成。
+* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash; 用于托管 gRPC 服务的 ASP.NET Core 框架。 ASP.NET Core 上的 gRPC 与标准 ASP.NET Core 功能（例如日志记录、依赖关系注入 (DI)、身份验证和授权）集成。
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; 基于熟悉的 `HttpClient` 构建的 .NET Core 的 gRPC 客户端。
 * [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; gRPC 客户端与 `HttpClientFactory` 的集成。
 
@@ -231,7 +231,7 @@ app.UseSignalR(routes =>
 });
 ```
 
-在以前的版本中，开发人员需要将控制器、Razor 页面和中心连接到各种不同的位置。 显式连接会生成一系列几乎相同的路由段：
+在以前的版本中，开发人员需要将控制器、Razor 页面和中心连接到各种位置。 显式连接会生成一系列几乎相同的路由段：
 
 ```csharp
 app.UseSignalR(routes =>
@@ -316,19 +316,21 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 下面的列表包含新的 Razor 指令：
 
-* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
-* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
+* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如，`@attribute [Authorize]` 。
+* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如，`@implements IDisposable` 。
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 
-[IdentityServer4](https://identityserver.io) 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。 IdentityServer4 支持以下安全功能：
+ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。 用于验证和存储用户身份信息的 ASP.NET Core 标识与用于实现 Open ID Connect 的 [IdentityServer4](https://identityserver.io/) 结合使用。
+
+IdentityServer4 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。 它提供了以下安全功能：
 
 * 身份验证即服务 (AaaS)
 * 跨多个应用程序类型的单一登录/注销 (SSO)
 * API 的访问控制
 * Federation Gateway
 
-有关详细信息，请参阅[欢迎使用 IdentityServer4](http://docs.identityserver.io/en/latest/index.html)。
+有关详细信息，请参阅 [IdentityServer4 文档](http://docs.identityserver.io/en/latest/index.html)或 [SPA 的身份验证和授权](xref:security/authentication/identity/spa)。
 
 ## <a name="certificate-and-kerberos-authentication"></a>证书和 Kerberos 身份验证
 
@@ -407,7 +409,7 @@ ASP.NET Core 3.0 模板使用 <xref:fundamentals/host/generic-host>。 以前版
 
 在 ASP.NET Core 3.0 版本之前，为 Web 主机的主机配置加载了前缀为 `ASPNETCORE_` 的环境变量。 在 3.0 中，对于带有 `CreateDefaultBuilder` 的主机配置，使用 `AddEnvironmentVariables` 加载以 `DOTNET_` 为前缀的环境变量。
 
-### <a name="changes-to-startup-contructor-injection"></a>对启动构造函数注入的更改
+### <a name="changes-to-startup-constructor-injection"></a>对启动构造函数注入的更改
 
 泛型主机仅支持以下类型的 `Startup` 构造函数注入：
 
@@ -475,7 +477,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="pipes-on-httpcontext"></a>HttpContext 上的管道
 
-现在可以使用 <xref:System.IO.Pipelines> API 读取请求正文和写入响应正文。 必须向 <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader` 属性提供可用于读取请求正文的 <xref:System.IO.Pipelines.PipeReader>。 必须向 <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter` 属性提供可用于写入响应正文的 <xref:System.IO.Pipelines.PipeWriter>。 `HttpRequest.BodyReader` 是 `HttpRequest.Body` 流的模拟。 `HttpResponse.BodyWriter` 是 `HttpResponse.Body` 流的模拟。
+现在可以使用 <xref:System.IO.Pipelines> API 读取请求正文和写入响应正文。 The <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader` 属性提供可用于读取请求正文的 <xref:System.IO.Pipelines.PipeReader>。 The <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter` 属性提供可用于写入响应正文的 <xref:System.IO.Pipelines.PipeWriter>。 `HttpRequest.BodyReader` 是 `HttpRequest.Body` 流的模拟。 `HttpResponse.BodyWriter` 是 `HttpResponse.Body` 流的模拟。
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -487,7 +489,7 @@ app.UseEndpoints(endpoints =>
 
 .NET Core 3.0 引入了新的辅助角色服务应用模板。 可根据此模板开始在 .NET Core 中编写长期运行的服务。
 
-有关详细信息，请参见:
+有关详细信息，请参阅：
 
 * [作为 Windows 服务的 .NET Core 辅助角色](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
@@ -499,7 +501,7 @@ app.UseEndpoints(endpoints =>
 
 此方案已在 ASP.NET Core 3.0 中修复。 如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 环境变量设置为 `true`，则主机启用[转接的标头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options)。 在容器映像中，`ASPNETCORE_FORWARDEDHEADERS_ENABLED` 设置为 `true`。
 
-## <a name="performance-improvements"></a>性能改进
+## <a name="performance-improvements"></a>性能提升
 
 ASP.NET Core 3.0 包含了许多改进，可减少内存使用量并提高吞吐量：
 
@@ -529,7 +531,7 @@ ASP.NET Core 3.0 包含了许多改进，可减少内存使用量并提高吞吐
 从 ASP.NET Core 3.0 共享框架中删除的最值得注意的程序集有：
 
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) (Json.NET)。 若要将 Json.NET 添加到 ASP.NET Core 3.0，请参阅[添加基于 Newtonsoft.Json 的 JSON 格式支持](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support)。 ASP.NET Core 3.0 引入了 `System.Text.Json` 以读取和写入 JSON。 有关详细信息，请参阅本文档中的[新 JSON 序列化](#new-json-serialization)。
-* [Entity Framework Core](/ef/core/)
+* [实体框架核心](/ef/core/)
 
 有关从共享框架中删除的程序集的完整列表，请参阅[从 Microsoft.AspNetCore.App 3.0 中删除的程序集](https://github.com/aspnet/AspNetCore/issues/3755)。 有关此更改的动机的详细信息，请参阅 [3.0 中对 Microsoft.AspNetCore.App 所做的重大变更](https://github.com/aspnet/Announcements/issues/325)和[首先查看 ASP.NET Core 3.0 中的变更](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/)。
 

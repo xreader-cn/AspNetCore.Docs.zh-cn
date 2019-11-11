@@ -5,22 +5,22 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2019
+ms.date: 10/30/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: b02e627af875f15a81d68b0d625a2eccf25c0657
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 014585cd1e170fc94f7f577e11ec19824e54572f
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333802"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659849"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
-作者：[Luke Latham](https://github.com/guardrex)、[Tom Dykstra](https://github.com/tdykstra)
+作者：[Luke Latham](https://github.com/guardrex)
 
 不使用 IIS 时，可以在 Windows 上将 ASP.NET Core 应用作为 [Windows 服务](/dotnet/framework/windows-services/introduction-to-windows-service-applications)进行托管。 作为 Windows 服务进行托管时，应用将在服务器重新启动后自动启动。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>系统必备
 
@@ -38,15 +38,15 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!INCLUDE[](~/includes/worker-template-instructions.md)]
 
----
-
 ::: moniker-end
 
 ## <a name="app-configuration"></a>应用配置
 
 ::: moniker range=">= aspnetcore-3.0"
 
-生成主机时，将调用 [Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 包提供的 `IHostBuilder.UseWindowsService`。 若应用作为 Windows 服务运行，方法为：
+应用需要 [Microsoft.AspNetCore.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 的包引用。
+
+生成主机时会调用 `IHostBuilder.UseWindowsService`。 若应用作为 Windows 服务运行，方法为：
 
 * 将主机生存期设置为 `WindowsServiceLifetime`。
 * 设置[内容根目录](xref:fundamentals/index#content-root)。
@@ -54,7 +54,20 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
   * 可以使用 appsettings.Production.json  文件中的 `Logging:LogLevel:Default` 键配置日志级别。
   * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。 
 
-[!code-csharp[](windows-service/samples/3.x/AspNetCoreService/Program.cs?name=snippet_Program)]
+在 Program.cs 的 `CreateHostBuilder` 中  ：
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .UseWindowsService()
+    ...
+```
+
+本主题附带了以下示例应用：
+
+* 后台辅助角色服务示例 &ndash; 一个基于[辅助角色服务模板](#worker-service-template)的非 Web 应用示例，该模板使用[托管服务](xref:fundamentals/host/hosted-services)执行后台任务。
+* Web 应用服务示例 &ndash; 一个作为 Windows 服务运行的 Razor Pages Web 应用示例，通过[托管服务](xref:fundamentals/host/hosted-services)执行后台任务。
+
+有关 MVC 指南，请参阅 <xref:mvc/overview> 和 <xref:migration/22-to-30> 下的文章。
 
 ::: moniker-end
 
@@ -81,24 +94,31 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 有关部署方案的信息和建议，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
+### <a name="sdk"></a>SDK 中 IsInRole 中的声明
+
+对于使用 Razor Pages 或 MVC 框架的基于 Web 应用的服务，请在项目文件中指定 Web SDK：
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+```
+
+如果服务仅执行后台任务（例如 [托管服务](xref:fundamentals/host/hosted-services)），请在项目文件中指定辅助角色 SDK：
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+```
+
 ### <a name="framework-dependent-deployment-fdd"></a>依赖框架的部署 (FDD)
 
 依赖框架的部署 (FDD) 依赖目标系统上存在共享系统级版本的 .NET Core。 按照本文中的指南采用 FDD 方案时，SDK 会生成一个称为“依赖框架的可执行文件”的可执行文件 (.exe)。  
 
 ::: moniker range=">= aspnetcore-3.0"
 
-向项目文件添加以下属性元素：
-
-* `<OutputType>` &ndash; 应用的输出类型（`Exe` 表示可执行文件）。
-* `<LangVersion>` &ndash; C# 语言版本（`latest` 或 `preview`）。
-
-web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+如果使用 [Web SDK](#sdk)，则 web.config 文件（通常在发布 ASP.NET Core 应用时生成）不是 Windows 服务应用的必要文件  。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
   <TargetFramework>netcoreapp3.0</TargetFramework>
-  <OutputType>Exe</OutputType>
-  <LangVersion>preview</LangVersion>
   <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
 </PropertyGroup>
 ```
@@ -132,7 +152,7 @@ web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windo
 
 ```xml
 <PropertyGroup>
-  <TargetFramework>netcoreapp2.1</TargetFramework>
+  <TargetFramework>netcoreapp2.2</TargetFramework>
   <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
   <UseAppHost>true</UseAppHost>
   <SelfContained>false</SelfContained>
@@ -203,7 +223,7 @@ powershell -Command "New-LocalUser -Name {NAME}"
 1. 选择“添加用户或组”  。
 1. 使用下列方法之一提供对象名称（用户帐户）：
    1. 在对象名称字段键入用户帐户 (`{DOMAIN OR COMPUTER NAME\USER}`)，然后选择“确定”，以将此用户添加到策略。 
-   1. 选择“高级”  。 选择“开始查找”。  从列表中选择该用户帐户。 选择“确定”  。 再次选择“确定”，以将该用户添加到策略。 
+   1. 选择“高级”。  选择“开始查找”。  从列表中选择该用户帐户。 选择“确定”  。 再次选择“确定”，以将该用户添加到策略。 
 1. 选择“确定”或“应用”，以接受更改。  
 
 ## <a name="create-and-manage-the-windows-service"></a>创建和管理 Windows 服务

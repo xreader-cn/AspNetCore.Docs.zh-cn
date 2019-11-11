@@ -5,14 +5,14 @@ description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/20/2019
+ms.date: 10/31/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 0aa632bce32ef44f65d92639284c64c1d00e952e
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 95fa0d72ed9c088945707ac6b79c3fbde35a5a30
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080814"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416151"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -38,13 +38,14 @@ ms.locfileid: "71080814"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在生成时和发布时使用 [Razor SDK](xref:razor-pages/sdk) 编译 Razor 文件。 通过配置应用程序，可以选择启用运行时编译。
+在生成和发布时均使用 [Razor SDK](xref:razor-pages/sdk) 编译扩展名为 .cshtml 的 Razor 文件  。 通过配置应用程序，可以选择启用运行时编译。
 
 ::: moniker-end
 
 ## <a name="razor-compilation"></a>Razor 编译
 
 ::: moniker range=">= aspnetcore-3.0"
+
 Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 启用后，运行时编译将补充生成时编译，允许更新 Razor 文件（如果对其进行编辑）。
 
 ::: moniker-end

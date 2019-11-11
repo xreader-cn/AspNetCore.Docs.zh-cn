@@ -5,14 +5,14 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/31/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: c357b324905ee3a4c9f4bd167dbbcacaf7e1bc76
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: cc7caa1ee01e0282024895ab35c5b9933b1504d0
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391207"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416176"
 ---
 # <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
 
@@ -28,7 +28,7 @@ ms.locfileid: "72391207"
 
 1. 在 Pages  文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor  、Counter.razor  和 FetchData.razor  ）实现。
 
-1. 在“计数器”页上，选择“单击我”  按钮，在不刷新页面的情况下增加计数器值。 增加网页中的计数器值通常需要编写 JavaScript，但 Blazor 使用 C# 提供了更好的方法。
+1. 在“计数器”页上，选择“单击我”  按钮，在不刷新页面的情况下增加计数器值。 增加网页的计数器值通常需要编写 JavaScript。 通过 Blazor，可以改为编写 C#。
 
 1. 检查 Counter.razor  文件中 `Counter` 组件的实现。
 
@@ -65,7 +65,7 @@ ms.locfileid: "72391207"
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-1. 重新生成并运行应用。 `Index` 组件有其自己的计数器。
+1. 构建并运行应用程序。 `Index` 组件有其自己的计数器。
 
 ## <a name="component-parameters"></a>组件参数
 
@@ -97,7 +97,7 @@ ms.locfileid: "72391207"
 
 Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终结点。 `Counter` 组件处理发送到 `/counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但该组件仍可以被其他组件使用。
 
-## <a name="dependency-injection"></a>依赖关系注入
+## <a name="dependency-injection"></a>依赖项注入
 
 ### <a name="blazor-server-experience"></a>Blazor 服务器体验
 
@@ -155,7 +155,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
    </li>
    ```
 
-1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
+1. 构建并运行应用程序。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
 
 1. 向项目的根目录添加“TodoItem.cs”  文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
@@ -172,7 +172,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. 重新生成并运行应用。 选择“添加待办项”  按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
+1. 构建并运行应用程序。 选择“添加待办项”  按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
@@ -190,7 +190,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. 重新生成并运行应用。 在待办项列表中添加一些待办项以测试新代码。
+1. 构建并运行应用程序。 在待办项列表中添加一些待办项以测试新代码。
 
 1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
 
@@ -206,7 +206,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
-1. 重新生成并运行应用。 添加待办项以测试新代码。
+1. 构建并运行应用程序。 添加待办项以测试新代码。
 
 > [!div class="nextstepaction"]
 > <xref:blazor/components>

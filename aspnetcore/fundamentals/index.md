@@ -5,14 +5,14 @@ description: 了解生成 ASP.NET Core 应用的基础概念。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 11/07/2019
 uid: fundamentals/index
-ms.openlocfilehash: a70d6aa05a2c92d19076b8d6e4ea24d7554368b6
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 7173a732a04bf3e598adef298fa9120c15dd52fb
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007113"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799369"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -302,6 +302,14 @@ Web 根路径默认为 {content root}/wwwroot  ，但[构建主机](#host)时可
 Web 根路径默认为 {content root}/wwwroot  ，但[构建主机](#host)时可以指定其他 Web 根路径。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/web-host#web-root)。
 
 ::: moniker-end
+
+防止使用项目文件中的 [\<Content> 项目项](/visualstudio/msbuild/common-msbuild-project-items#content)在 wwwroot 中发布文件  。 下面的示例会阻止在 wwwroot/local 目录和子目录中发布内容  ：
+
+```xml
+<ItemGroup>
+  <Content Update="wwwroot\local\**\*.*" CopyToPublishDirectory="Never" />
+</ItemGroup>
+```
 
 在 Razor (.cshtml  ) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录。 以 `~/` 开头的路径称为虚拟路径  。
 

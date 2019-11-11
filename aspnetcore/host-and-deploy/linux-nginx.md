@@ -5,14 +5,14 @@ description: 了解如何在 Ubuntu 16.04 上将 Nginx 设置为反向代理，�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 11/05/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: b71bc0464892f15ef8db0324a8e66a28a6192577
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: c6ae86ec9ac54ddf2d487fd72156199fbdd029ef
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080873"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659878"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -287,7 +287,7 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="long-request-header-fields"></a>较长的请求标头字段
 
-如果应用需要的请求标头字段超过代理服务器的默认设置允许的长度（具体取决于平台，通常为 4K 或 8K），则需调整以下指令。 要应用的值依赖应用场景。 有关详细信息，请参见服务器文档。
+代理服务器默认设置通常将请求标头字段限制为 4 K 或 8 K，具体取决于平台。 某些应用可能需要超过默认值的字段（例如，使用 [Azure Active Directory](https://azure.microsoft.com/services/active-directory/) 的应用）。 如果需要更长的字段，则代理服务器的默认设置需要进行调整。 要应用的值具体取决于方案。 有关详细信息，请参见服务器文档。
 
 * [proxy_buffer_size](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
 * [proxy_buffers](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
@@ -379,7 +379,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
    ```
 
    添加行 `add_header X-Frame-Options "SAMEORIGIN";`。
-1. 保存该文件。
+1. 保存文件。
 1. 重启 Nginx。
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查
