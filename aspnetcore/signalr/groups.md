@@ -1,50 +1,52 @@
 ---
-title: SignalR 中管理用户和组
+title: 管理 SignalR 中的用户和组
 author: bradygaster
 description: ASP.NET Core SignalR 用户和组管理的概述。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/04/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/groups
-ms.openlocfilehash: 180f8b4551eea39cc340bf1d250f4575cb5f71ed
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 59e90042ecbaf936602643bbdc3965e036426b26
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087436"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963812"
 ---
-# <a name="manage-users-and-groups-in-signalr"></a>SignalR 中管理用户和组
+# <a name="manage-users-and-groups-in-opno-locsignalr"></a>管理 SignalR 中的用户和组
 
-通过[brennan，第 Conroy](https://github.com/BrennanConroy)
+作者： [Brennan Conroy](https://github.com/BrennanConroy)
 
-SignalR 允许消息发送到与特定用户关联的所有连接，以及要命名的连接组。
+SignalR 允许将消息发送到与特定用户关联的所有连接以及命名连接组。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="users-in-signalr"></a>SignalR 中的用户
+## <a name="users-in-opno-locsignalr"></a>SignalR 中的用户
 
-SignalR，可将消息发送到与特定用户关联的所有连接。 默认情况下，使用 SignalR`ClaimTypes.NameIdentifier`从`ClaimsPrincipal`与作为用户标识符连接相关联。 单个用户可以向 SignalR 应用程序的多个连接。 例如，用户无法连接其桌面，以及他们的手机上。 每个设备都有单独的 SignalR 连接，但它们具有相同的用户所有关联。 如果向用户发送一条消息，所有与该用户关联的连接收到的消息。 可以通过访问连接的用户标识符`Context.UserIdentifier`中心中的属性。
+SignalR 允许向与特定用户关联的所有连接发送消息。 默认情况下，SignalR 使用与连接关联的 `ClaimsPrincipal` 中的 `ClaimTypes.NameIdentifier` 作为用户标识符。 单个用户可以有多个到 SignalR 应用的连接。 例如，用户可以连接到其桌面以及他们的手机上。 每个设备都有一个单独的 SignalR 连接，但它们都与同一用户关联。 如果向用户发送一条消息，则所有与该用户关联的连接都将收到该消息。 可以通过中心中的 `Context.UserIdentifier` 属性访问连接的用户标识符。
 
-向特定用户发送消息，通过将传递到的用户标识符`User`函数集线器方法中，在下面的示例所示：
+向特定用户发送一条消息，方法是将用户标识符传递到中心方法中的 `User` 函数，如以下示例中所示：
 
 > [!NOTE]
-> 用户标识符是区分大小写。
+> 用户标识符区分大小写。
 
 [!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
-## <a name="groups-in-signalr"></a>SignalR 中的组
+## <a name="groups-in-opno-locsignalr"></a>SignalR 中的组
 
-组是与名称相关联的连接的集合。 可以将消息发送到组中的所有连接。 组是发送到的连接或多个连接，因为组管理的应用程序的建议的方法。 连接可以是多个组的成员。 这使得组理想之选类似的聊天应用程序，其中每个房间可以表示为一个组。 可以添加到连接或通过组中删除`AddToGroupAsync`和`RemoveFromGroupAsync`方法。
+组是与某个名称关联的连接的集合。 可以将消息发送到组中的所有连接。 建议将组发送到一个或多个连接，因为这些组由应用程序管理。 连接可以是多个组的成员。 这使得组非常适合作为聊天应用程序，其中每个会议室都可以表示为一个组。 可以通过 `AddToGroupAsync` 和 `RemoveFromGroupAsync` 方法将连接添加到组或从组中删除连接。
 
 [!code-csharp[Hub methods](groups/sample/hubs/chathub.cs?range=15-27)]
 
-当连接重新连接时，不会保留组成员身份。 需要重新建立时重新加入组的连接。 不能进行计数的一组成员，因为此信息不可用，如果应用程序扩展到多个服务器。
+连接重新连接时，不会保留组成员身份。 重新建立组后，连接需要重新加入组。 不能对组的成员进行计数，因为如果将应用程序扩展到多台服务器，此信息不可用。
 
-若要使用组的同时保护资源的访问权限，请使用[身份验证和授权](xref:signalr/authn-and-authz)ASP.NET Core 中的功能。 如果您仅将用户添加到组的凭据有效该组时，发送到该组的消息将仅转到经过授权的用户。 但是，组不是一项安全功能。 身份验证声明具有组却没有，如到期和吊销的功能。 如果撤消用户的权限访问组，您必须手动检测，并从组中删除它们。
+若要在使用组时保护对资源的访问，请在 ASP.NET Core 中使用[身份验证和授权](xref:signalr/authn-and-authz)功能。 如果只在凭据对该组有效的情况下将用户添加到组中，则发送到该组的消息将只发送到已授权的用户。 但组不是一种安全功能。 身份验证声明具有组不具备的功能，如过期和吊销。 如果用户对组的访问权限被吊销，则必须手动检测并将其从组中删除。
 
 > [!NOTE]
-> 组名称是区分大小写。
+> 组名区分大小写。
 
 ## <a name="related-resources"></a>相关资源
 

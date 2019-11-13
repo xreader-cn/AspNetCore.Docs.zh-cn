@@ -1,20 +1,22 @@
 ---
 title: ASP.NET Core Blazor JavaScript 互操作
 author: guardrex
-description: 了解如何从 Blazor apps 中的 JavaScript 调用来自 .NET 和 .NET 方法的 JavaScript 函数。
+description: 了解如何从 Blazor 应用中的 JavaScript 的 .NET 和 .NET 方法中调用 JavaScript 函数。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/16/2019
+no-loc:
+- Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: b157e16918975cd522318a02f21824d9a0198b11
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: 76437ef00e00f5de1b995b4f0b1a09e5876dff8f
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697932"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962840"
 ---
-# <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
+# <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)、 [Daniel Roth](https://github.com/danroth27)和[Luke Latham](https://github.com/guardrex)
 
@@ -28,21 +30,21 @@ Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScrip
 
 有时需要 .NET 代码才能调用 JavaScript 函数。 例如，JavaScript 调用可以向应用公开 JavaScript 库中的浏览器功能或功能。
 
-若要从 .NET 调入 JavaScript，请使用 `IJSRuntime` 抽象。 @No__t_0 方法采用 JavaScript 函数的标识符，该标识符将与任意数量的 JSON 可序列化参数一起调用。 函数标识符相对于全局范围（`window`）。 如果要调用 `window.someScope.someFunction`，则 `someScope.someFunction` 标识符。 无需在调用函数之前注册它。 返回类型 `T` 也必须是 JSON 可序列化的。
+若要从 .NET 调入 JavaScript，请使用 `IJSRuntime` 抽象。 `InvokeAsync<T>` 方法采用 JavaScript 函数的标识符，该标识符将与任意数量的 JSON 可序列化参数一起调用。 函数标识符相对于全局范围（`window`）。 如果要调用 `window.someScope.someFunction`，则 `someScope.someFunction` 标识符。 无需在调用函数之前注册它。 返回类型 `T` 也必须是 JSON 可序列化的。
 
 对于 Blazor 服务器应用：
 
-* Blazor 服务器应用处理多个用户请求。 请勿在组件中调用 `JSRuntime.Current` 来调用 JavaScript 函数。
+* Blazor Server 应用处理多个用户请求。 请勿在组件中调用 `JSRuntime.Current` 来调用 JavaScript 函数。
 * 注入 `IJSRuntime` 抽象，并使用注入的对象发出 JavaScript 互操作调用。
-* 预呈现 Blazor 的应用时，无法调用 JavaScript，因为尚未建立与浏览器的连接。 有关详细信息，请参阅 "在预[呈现 Blazor 应用时检测](#detect-when-a-blazor-app-is-prerendering)" 部分。
+* 在预呈现 Blazor 应用程序时，无法调用 JavaScript，因为尚未建立与浏览器的连接。 有关详细信息，请参阅[检测何时预呈现 Blazor 应用](#detect-when-a-blazor-app-is-prerendering)部分。
 
 下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（基于实验性 JavaScript 的解码器）。 该示例演示如何从C#方法调用 JavaScript 函数。 JavaScript 函数从C#方法接受字节数组，对数组进行解码，并将文本返回给组件以供显示。
 
-在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host*的 `<head>` 元素中，提供一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
+在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素中，提供一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
 
 [!code-html[](javascript-interop/samples_snapshot/index-script-convertarray.html)]
 
-JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScript 文件（ *.js*）加载，其中包含对脚本文件的引用：
+JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScript 文件（*.js*）加载，其中包含对脚本文件的引用：
 
 ```html
 <script src="exampleJsInterop.js"></script>
@@ -63,15 +65,15 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor 服务器）的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：
+  在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged1.html)]
 
-* 将 `IJSRuntime` 抽象插入到类（ *.cs*）中：
+* 将 `IJSRuntime` 抽象插入到类（*.cs*）中：
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor 服务器）的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 使用 `JSRuntime.InvokeAsync` 调用函数并返回值：
+  在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 使用 `JSRuntime.InvokeAsync` 调用函数并返回值：
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -91,13 +93,13 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 `<script>` 标记放置在*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中。
+将引用 JavaScript 文件的 `<script>` 标记放在*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/Blazor _Host*
 
 *wwwroot/index.html* （Blazor WebAssembly）：
 
 [!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=15)]
 
-*Pages/_Host* （Blazor 服务器）：
+*Pages/_Host cshtml* （Blazor Server）：
 
 [!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=21)]
 
@@ -105,7 +107,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 .NET 方法通过调用 `IJSRuntime.InvokeAsync<T>`，与*exampleJsInterop*文件中的 JavaScript 函数互操作。
 
-@No__t_0 抽象是异步的，以允许 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且你想要同步调用 JavaScript 函数，则向下转换到 `IJSInProcessRuntime` 并改为调用 `Invoke<T>`。 建议大多数 JavaScript 互操作库使用异步 Api，以确保库在所有方案中都可用。
+`IJSRuntime` 抽象是异步的，以允许 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且希望同步调用 JavaScript 函数，则向下转换到 `IJSInProcessRuntime` 并改为调用 `Invoke<T>`。 建议大多数 JavaScript 互操作库使用异步 Api，以确保库在所有方案中都可用。
 
 该示例应用包含一个用于演示 JavaScript 互操作的组件。 组件：
 
@@ -118,14 +120,14 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 [!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
 1. 通过选择组件的 "**触发器 JavaScript" 提示**按钮执行 `TriggerJsPrompt` 时，将调用*wwwroot/exampleJsInterop*文件中提供的 JavaScript `showPrompt` 功能。
-1. @No__t_0 函数接受 HTML 编码并返回到组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量中，`name`。
+1. `showPrompt` 函数接受 HTML 编码并返回到组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量中，`name`。
 1. 存储在 `name` 中的字符串合并为一个欢迎消息，该消息将被传递给 JavaScript 函数，`displayWelcome`，这会将欢迎消息呈现到标题标记中。
 
 ## <a name="call-a-void-javascript-function"></a>调用 void JavaScript 函数
 
 返回[void （0）/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)或[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)的 JavaScript 函数在 `IJSRuntime.InvokeVoidAsync` 的情况中调用。
 
-## <a name="detect-when-a-blazor-app-is-prerendering"></a>检测何时预呈现 Blazor 应用
+## <a name="detect-when-a-opno-locblazor-app-is-prerendering"></a>检测何时预呈现 Blazor 应用
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -192,7 +194,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 若要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 若要从 JavaScript 调用 .NET 方法，.NET 方法必须是公共的、静态的并且具有 `[JSInvokable]` 特性。 默认情况下，方法标识符为方法名称，但可以使用 `JSInvokableAttribute` 构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
 
-示例应用包含一个方法C# ，该方法返回 `int`s 的数组。 @No__t_0 特性应用于方法。
+示例应用包含一个方法C# ，该方法返回 `int`s 的数组。 `JSInvokable` 特性应用于方法。
 
 *Pages/JsInterop*：
 
@@ -224,7 +226,7 @@ Array(4) [ 1, 2, 3, 4 ]
 > [!NOTE]
 > 示例应用将消息记录到客户端控制台。 对于示例应用演示的以下示例，请在浏览器的开发人员工具中查看浏览器的控制台输出。
 
-如果选择了**触发器 .net 实例方法 HelloHelper SayHello**按钮，则会调用 `ExampleJsInterop.CallHelloHelperSayHello`，并将名称 `Blazor` 传递给方法。
+如果选择了 "**触发器 .net 实例方法 HelloHelper** " 按钮，则会调用 `ExampleJsInterop.CallHelloHelperSayHello` 并向方法传递 `Blazor`名称。
 
 *Pages/JsInterop*：
 
@@ -264,7 +266,7 @@ JavaScript 互操作代码可以包含在类库中，这使你可以共享 NuGet
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 
-由于网络错误，JS 互操作可能会失败，因此应将其视为不可靠。 默认情况下，Blazor 服务器应用程序在一分钟后就会超时服务器上的 JS 互操作调用。 如果应用可以容忍更严格的超时，如10秒，请使用以下方法之一设置超时：
+由于网络错误，JS 互操作可能会失败，因此应将其视为不可靠。 默认情况下，Blazor Server 应用程序一分钟后，服务器上的 JS 互操作调用会超时。 如果应用可以容忍更严格的超时，如10秒，请使用以下方法之一设置超时：
 
 * 在 `Startup.ConfigureServices` 中全局指定超时值：
 

@@ -4,14 +4,16 @@ author: mjrousos
 description: 在 ASP.NET Core 应用中提高性能并避免出现常见性能问题的提示。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/26/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 1cd4ca6fccfee674f46e87ba051e049f7daa5b66
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 279bf352580e5e45fc005e800ee536871210409b
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799516"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963247"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
@@ -117,7 +119,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 * **请**不要等待长时间运行的任务在普通的 HTTP 请求处理过程中完成。
 * **请考虑使用**[后台服务](xref:fundamentals/host/hosted-services)处理长时间运行的请求，或使用[Azure 函数](/azure/azure-functions/)处理进程外的请求。 在进程外完成工作对于 CPU 密集型任务特别有用。
-* **请使用实时**通信选项（如[SignalR](xref:signalr/introduction)）异步与客户端进行通信。
+* **请使用实时**通信选项（如[SignalR](xref:signalr/introduction)）以异步方式与客户端进行通信。
 
 ## <a name="minify-client-assets"></a>缩小客户端资产
 

@@ -4,14 +4,16 @@ author: scottaddie
 description: 了解如何在 ASP.NET Core 项目中使用 LibMan 命令行接口（CLI）。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 08/30/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: cf61bab2f0c3fc33d293968b8ac380cb56958d29
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 8b2b1e45ab4685482554ac439b0276e0cf381609
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080623"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962800"
 ---
 # <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>将 LibMan 命令行接口（CLI）用于 ASP.NET Core
 
@@ -19,7 +21,7 @@ ms.locfileid: "71080623"
 
 [LibMan](xref:client-side/libman/index) CLI 是一个跨平台工具，在支持 .net Core 的任何地方都受支持。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>Prerequisites
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
@@ -92,7 +94,7 @@ Use "libman [command] --help" for more information about a command.
 
 ## <a name="initialize-libman-in-the-project"></a>在项目中初始化 LibMan
 
-如果`libman init` *libman*文件不存在，则该命令将创建一个。 将用默认项模板内容创建文件。
+`libman init` 命令将创建一个*libman*文件（如果不存在）。 将用默认项模板内容创建文件。
 
 ### <a name="synopsis"></a>摘要
 
@@ -107,11 +109,11 @@ libman init [-h|--help]
 
 * `-d|--default-destination <PATH>`
 
-  相对于当前文件夹的路径。 如果未在*libman*中为库定义任何`destination`属性，则会在此位置安装库文件。 该值将写入`defaultDestination`到 libman 的属性。 `<PATH>`
+  相对于当前文件夹的路径。 如果未在*libman*中为库定义 `destination` 属性，则会在此位置安装库文件。 `<PATH>` 值将写入*libman*的 `defaultDestination` 属性。
 
 * `-p|--default-provider <PROVIDER>`
 
-  为给定库定义了提供程序时要使用的提供程序。 该值将写入`defaultProvider`到 libman 的属性。 `<PROVIDER>` 替换`<PROVIDER>`为以下值之一：
+  为给定库定义了提供程序时要使用的提供程序。 `<PROVIDER>` 值将写入*libman*的 `defaultProvider` 属性。 将 `<PROVIDER>` 替换为以下值之一：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -128,7 +130,7 @@ libman init [-h|--help]
   libman init
   ```
 
-* 键入默认提供程序的名称，或按`Enter`使用默认的 CDNJS 提供程序。 有效值包括：
+* 键入默认提供程序的名称，或按 `Enter` 使用默认的 CDNJS 提供程序。 有效值包括：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -146,7 +148,7 @@ libman init [-h|--help]
 
 ## <a name="add-library-files"></a>添加库文件
 
-命令`libman install`将库文件下载并安装到项目中。 如果不存在*libman*文件，则添加一个。 修改*libman*文件以存储库文件的配置详细信息。
+`libman install` 命令将库文件下载并安装到项目中。 如果不存在*libman*文件，则添加一个。 修改*libman*文件以存储库文件的配置详细信息。
 
 ### <a name="synopsis"></a>摘要
 
@@ -155,11 +157,11 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
-要安装的库的名称。 此名称可以包含版本号表示法（例如`@1.2.0`）。
+要安装的库的名称。 此名称可以包含版本号表示法（例如 `@1.2.0`）。
 
 ### <a name="options"></a>选项
 
@@ -167,19 +169,19 @@ libman install [-h|--help]
 
 * `-d|--destination <PATH>`
 
-  库的安装位置。 如果未指定，则使用默认位置。 如果 libman `defaultDestination`中未指定任何属性，则此选项是必需的。
+  库的安装位置。 如果未指定，则使用默认位置。 如果*libman*中未指定 `defaultDestination` 属性，则此选项是必需的。
 
 * `--files <FILE>`
 
-  指定要从库中安装的文件的名称。 如果未指定，则会安装库中的所有文件。 为每`--files`个要安装的文件提供一个选项。 还支持相对路径。 例如：`--files dist/browser/signalr.js`。
+  指定要从库中安装的文件的名称。 如果未指定，则会安装库中的所有文件。 为每个要安装的文件提供一个 `--files` 选项。 还支持相对路径。 例如：`--files dist/browser/signalr.js`。
 
 * `-p|--provider <PROVIDER>`
 
-  用于库获取的提供程序的名称。 替换`<PROVIDER>`为以下值之一：
+  用于库获取的提供程序的名称。 将 `<PROVIDER>` 替换为以下值之一：
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  如果未指定，则`defaultProvider`使用*libman*中的属性。 如果 libman `defaultProvider`中未指定任何属性，则此选项是必需的。
+  如果未指定，则使用*libman*中的 `defaultProvider` 属性。 如果*libman*中未指定 `defaultProvider` 属性，则此选项是必需的。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
@@ -219,7 +221,7 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-使用文件系统提供程序从*C：\\temp\\\\ contosoCalendar*安装*node.js*和*calendar*文件：
+使用文件系统提供程序从*C：\\temp\\contosoCalendar\\* 中安装*node.js*和*calendar*文件：
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
@@ -227,8 +229,8 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 
 出现以下两个原因的提示：
 
-* *Libman*文件不包含`defaultDestination`属性。
-* 此`libman install`命令不`-d|--destination`包含选项。
+* *Libman*文件不包含 `defaultDestination` 属性。
+* `libman install` 命令不包含 `-d|--destination` 选项。
 
 ![libman 安装命令-目标](_static/libman-install-destination.png)
 
@@ -259,13 +261,13 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-## <a name="restore-library-files"></a>库将文件还原
+## <a name="restore-library-files"></a>还原库文件
 
-该`libman restore`命令将安装在*libman*中定义的库文件。 适用以下规则：
+`libman restore` 命令安装在*libman*中定义的库文件。 适用以下规则：
 
 * 如果项目根目录中不存在*libman*文件，则会返回错误。
-* 如果库指定提供程序，则忽略`defaultProvider` *libman*中的属性。
-* 如果库指定一个目标，则将`defaultDestination`忽略*libman*中的属性。
+* 如果库指定提供程序，则会忽略*libman*中的 `defaultProvider` 属性。
+* 如果库指定一个目标，则将忽略*libman*中的 `defaultDestination` 属性。
 
 ### <a name="synopsis"></a>摘要
 
@@ -290,7 +292,7 @@ libman restore
 
 ## <a name="delete-library-files"></a>删除库文件
 
-`libman clean`命令删除以前通过 LibMan 还原的库文件。 删除此操作后变成空的文件夹。 不会删除`libraries` *libman*的属性中的库文件的关联配置。
+`libman clean` 命令删除之前通过 LibMan 还原的库文件。 删除此操作后变成空的文件夹。 不会删除*libman*的 `libraries` 属性中的库文件的关联配置。
 
 ### <a name="synopsis"></a>摘要
 
@@ -315,7 +317,7 @@ libman clean
 
 ## <a name="uninstall-library-files"></a>卸载库文件
 
-`libman uninstall`命令：
+`libman uninstall` 命令：
 
 * 从*libman*中的目标删除与指定库关联的所有文件。
 * 从*libman*中删除关联的库配置。
@@ -334,11 +336,11 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
-要卸载的库的名称。 此名称可以包含版本号表示法（例如`@1.2.0`）。
+要卸载的库的名称。 此名称可以包含版本号表示法（例如 `@1.2.0`）。
 
 ### <a name="options"></a>选项
 
@@ -362,7 +364,7 @@ libman uninstall [-h|--help]
   libman uninstall jquery@3.3.1
   ```
 
-* 卸载通过`filesystem`提供程序安装的 lodash 等文件：
+* 卸载通过 `filesystem` 提供程序安装的 Lodash 等文件：
 
   ```console
   libman uninstall C:\temp\lodash\
@@ -370,7 +372,7 @@ libman uninstall [-h|--help]
 
 ## <a name="update-library-version"></a>更新库版本
 
-`libman update`命令将通过 LibMan 安装的库更新到指定的版本。
+`libman update` 命令将通过 LibMan 安装的库更新到指定的版本。
 
 出现错误时：
 
@@ -386,7 +388,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -428,7 +430,7 @@ libman update [-h|--help]
 
 ## <a name="manage-library-cache"></a>管理库缓存
 
-`libman cache`命令管理 LibMan 库缓存。 `filesystem`提供程序不使用库缓存。
+`libman cache` 命令管理 LibMan 库缓存。 `filesystem` 提供程序不使用库缓存。
 
 ### <a name="synopsis"></a>摘要
 
@@ -438,11 +440,11 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `PROVIDER`
 
-仅与`clean`命令一起使用。 指定要清除的提供程序缓存。 有效值包括：
+仅与 `clean` 命令一起使用。 指定要清除的提供程序缓存。 有效值包括：
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -546,7 +548,7 @@ libman cache [-h|--help]
   libman cache clean cdnjs
   ```
 
-  清空 CDNJS 提供程序缓存后，该`libman cache list`命令会显示以下内容：
+  清空 CDNJS 提供程序缓存后，`libman cache list` 命令将显示以下内容：
 
   ```console
   Cache contents:
@@ -565,7 +567,7 @@ libman cache [-h|--help]
   libman cache clean
   ```
 
-  在清空所有提供程序缓存后`libman cache list` ，该命令会显示以下内容：
+  在清空所有提供程序缓存后，`libman cache list` 命令将显示以下内容：
 
   ```console
   Cache contents:

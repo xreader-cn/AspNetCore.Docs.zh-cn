@@ -1,37 +1,39 @@
 ---
 title: ASP.NET Core Blazor 状态管理
 author: guardrex
-description: 了解如何在 Blazor Server 应用程序中持久保存状态。
+description: 了解如何在 Blazor 服务器应用程序中保持状态。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 67042fa9b86125fe95d877dbce246abeb6f35dd0
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 408d44a3f2e81a165e8b786c6d2efc9329082e30
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391278"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962828"
 ---
-# <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
+# <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用保持与服务器的持续连接。 用户处于*线路*中的服务器内存中。 
+Blazor Server 是有状态的应用程序框架。 大多数情况下，应用保持与服务器的持续连接。 用户处于*线路*中的服务器内存中。 
 
 用户线路的状态的示例包括：
 
-* 呈现的 UI @ no__t-0the 组件实例及其最新呈现输出的层次结构。
+* 呈现的 UI&mdash;组件实例和其最新的呈现输出的层次结构。
 * 组件实例中的任何字段和属性的值。
 * 依赖于线路的[依赖关系注入（DI）](xref:fundamentals/dependency-injection)服务实例中保存的数据。
 
 > [!NOTE]
-> 本文介绍 Blazor 服务器应用中的状态持久性。 Blazor WebAssembly 应用程序可以[在浏览器中利用客户端状态持久性，但在](#client-side-in-the-browser)本文的讨论范围之外需要自定义解决方案或第三方包。
+> 本文介绍 Blazor 服务器应用中的状态持久性。 Blazor WebAssembly 应用程序可以[在浏览器中利用客户端状态持久性，但在](#client-side-in-the-browser)本文讨论范围之外需要自定义解决方案或第三方包。
 
-## <a name="blazor-circuits"></a>Blazor 线路
+## <a name="opno-locblazor-circuits"></a>Blazor 电路
 
 如果用户遇到暂时的网络连接丢失，Blazor 会尝试将用户重新连接到其原始线路，以便他们可以继续使用该应用。 但是，并不总是能够将用户重新连接到服务器内存中的原始线路：
 
@@ -50,7 +52,7 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 
 通常情况下，跨线路维护状态适用于用户主动创建数据的情况，不只是读取已存在的数据。
 
-若要将状态保留在单个线路以外，请*不要只将数据存储在服务器的内存中*。 应用必须将数据保存到其他某个存储位置。 状态持久性不是自动的 @ no__t-开发应用程序时必须采取措施来实现有状态数据持久性。
+若要将状态保留在单个线路以外，请*不要只将数据存储在服务器的内存中*。 应用必须将数据保存到其他某个存储位置。 状态持久性不是自动&mdash;必须在开发应用程序时采取措施来实现有状态数据持久性。
 
 数据暂留通常只需要用于用户需要花费大量精力才能创建的高值状态。 在下面的示例中，保存状态可节省商业活动的时间或辅助：
 
@@ -64,7 +66,7 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 
 ## <a name="where-to-persist-state"></a>保留状态的位置
 
-在 Blazor 服务器应用程序中保存状态有三个常见位置。 每种方法最适合于不同的方案，并且有不同的注意事项：
+有三个常见位置用于保存 Blazor 服务器应用中的状态。 每种方法最适合于不同的方案，并且有不同的注意事项：
 
 * [数据库中的服务器端](#server-side-in-a-database)
 * [URL](#url)
@@ -93,16 +95,16 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 将保留浏览器地址栏的内容：
 
 * 如果用户手动重新加载页面，则为。
-* 如果 web 服务器变为不可用 @ no__t，则会强制重新加载页面，以便连接到其他服务器。
+* 如果 web 服务器不可用&mdash;则用户被迫重新加载页面，以便连接到其他服务器。
 
 有关用 `@page` 指令定义 URL 模式的信息，请参阅 <xref:blazor/routing>。
 
 ### <a name="client-side-in-the-browser"></a>浏览器中的客户端
 
-对于用户正在主动创建的暂时性数据，公共后备存储是浏览器的 @no__t 0 和 @no__t 集合。 如果放弃该线路，则无需使用该应用程序管理或清除已存储状态，这与服务器端存储相比，这是一项优势。
+对于用户正在主动创建的暂时性数据，公共后备存储是浏览器的 `localStorage` 和 `sessionStorage` 集合。 如果放弃该线路，则无需使用该应用程序管理或清除已存储状态，这与服务器端存储相比，这是一项优势。
 
 > [!NOTE]
-> 本部分中的 "客户端" 是指浏览器中的客户端方案，而不是[Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)。 `localStorage` 和 `sessionStorage` 只能在 Blazor WebAssembly 应用中使用，但只需要编写自定义代码或使用第三方包。
+> 本部分中的 "客户端" 指的是浏览器中的客户端方案，而不是[Blazor WebAssembly 承载模型](xref:blazor/hosting-models#blazor-webassembly)。 `localStorage` 和 `sessionStorage` 可用于 Blazor WebAssembly 应用中，只需要编写自定义代码或使用第三方包。
 
 `localStorage` 和 `sessionStorage` 不同，如下所示：
 
@@ -140,14 +142,14 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 
 安装 `Microsoft.AspNetCore.ProtectedBrowserStorage` 包：
 
-1. 在 Blazor 服务器应用程序项目中，将包引用添加到[AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
-1. 在顶级 HTML （例如，在默认项目模板中的*Pages/_Host*文件中）添加以下 `<script>` 标记：
+1. 在 Blazor Server 应用程序项目中，添加对[AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)的包引用。
+1. 在顶级 HTML （例如，在默认项目模板中的*Pages/_Host cshtml*文件中）添加以下 `<script>` 标记：
 
    ```html
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
    ```
 
-1. 在 `Startup.ConfigureServices` 方法中，调用 `AddProtectedBrowserStorage` 将 @no__t 2 和 @no__t 服务添加到服务集合：
+1. 在 `Startup.ConfigureServices` 方法中，调用 `AddProtectedBrowserStorage` 将 `localStorage` 和 `sessionStorage` 服务添加到服务集合：
 
    ```csharp
    services.AddProtectedBrowserStorage();
@@ -167,9 +169,9 @@ Blazor 服务器是有状态的应用程序框架。 大多数情况下，应用
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
-@No__t-0 语句可以放入 *_Imports*文件中，而不是组件中。 使用 *_Imports*文件可使命名空间可用于应用或整个应用的更大段。
+`@using` 语句可以放入 *_Imports*文件，而不是组件中。 使用 *_Imports*文件使命名空间可用于应用或整个应用的更大段。
 
-若要在项目模板的 `Counter` 组件中保存 @no__t 值，请将 `IncrementCount` 方法修改为使用 @no__t：
+若要在项目模板的 `Counter` 组件中保存 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：
 
 ```csharp
 private async Task IncrementCount()
@@ -181,7 +183,7 @@ private async Task IncrementCount()
 
 在更大、更真实的应用中，每个字段的存储都是不太可能的方案。 应用更有可能存储包含复杂状态的整个模型对象。 `ProtectedSessionStore` 会自动序列化并反序列化 JSON 数据。
 
-在上面的代码示例中，`currentCount` 数据在用户浏览器中存储为 `sessionStorage['count']`。 数据不会以纯文本形式存储，而是使用 ASP.NET Core 的[数据保护](xref:security/data-protection/introduction)进行保护。 如果在浏览器的开发人员控制台中计算 `sessionStorage['count']`，则可以查看加密的数据。
+在上面的代码示例中，`currentCount` 的数据在用户浏览器中存储为 `sessionStorage['count']`。 数据不会以纯文本形式存储，而是使用 ASP.NET Core 的[数据保护](xref:security/data-protection/introduction)进行保护。 如果在浏览器的开发人员控制台中计算 `sessionStorage['count']`，则可以查看加密的数据。
 
 若要在用户稍后返回到 `Counter` 组件时恢复 `currentCount` 数据（包括在全新线路上），请使用 `ProtectedSessionStore.GetAsync`：
 
@@ -192,7 +194,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配给 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅当第一次实例化组件时，才会调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 @no__t。
+如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配给 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅当第一次实例化组件时，才会调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 `OnInitializedAsync`。
 
 > [!WARNING]
 > 本部分中的示例仅适用于服务器未启用预呈现功能的情况。 启用预呈现后，会生成错误，如下所示：
@@ -205,7 +207,7 @@ protected override async Task OnInitializedAsync()
 
 由于浏览器存储是异步的（通过网络连接进行访问），因此，在加载数据之前始终有一段时间，并且可供组件使用。 为获得最佳结果，请在加载正在进行时呈现加载状态消息，而不是显示空数据或默认数据。
 
-一种方法是跟踪数据是否 `null` （仍在加载）。 在默认 `Counter` 组件中，计数保存在 `int` 中。 通过向类型（`int`）添加问号（`?`）使 @no__t 值为 null：
+一种方法是跟踪数据是否 `null` （仍在加载）。 在默认 `Counter` 组件中，计数保存在 `int` 中。 将问号（`?`）添加到类型（`int`），使 `currentCount` 可以为 null：
 
 ```csharp
 private int? currentCount;
@@ -233,13 +235,13 @@ else
 * 与用户浏览器之间的交互连接不存在。
 * 浏览器还没有可在其中运行 JavaScript 代码的页面。
 
-`localStorage` 或 @no__t 在预呈现期间不可用。 如果组件尝试与存储交互，则会生成类似于以下内容的错误：
+预呈现期间 `localStorage` 或 `sessionStorage` 不可用。 如果组件尝试与存储交互，则会生成类似于以下内容的错误：
 
 > 此时无法发出 JavaScript 互操作调用。 这是因为该组件正在预呈现。
 
 解决错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现增加了复杂性，因此不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用不能将任何有用的内容预呈现。
 
-若要禁用预呈现，请打开*Pages/_Host*文件并将调用更改为 `Html.RenderComponentAsync<App>(RenderMode.Server)`。
+若要禁用预呈现，请打开*Pages/_Host cshtml*文件并将调用更改为 `Html.RenderComponentAsync<App>(RenderMode.Server)`。
 
 对于不使用 `localStorage` 或 `sessionStorage` 的其他页，预呈现可能很有用。 要使预呈现功能保持启用状态，请推迟加载操作，直到浏览器连接到线路。 下面是存储计数器值的示例：
 
@@ -320,9 +322,9 @@ else
 }
 ```
 
-@No__t-0 组件通过在加载完成之前不呈现其子内容来处理加载阶段。
+`CounterStateProvider` 组件通过在加载完成之前不呈现其子内容来处理加载阶段。
 
-若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请在 `App` 组件（*app.config*）中的 @no__t @no__t 上环绕0个组件：
+若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件（*app.config*）中的 `Router` 环绕 `CounterStateProvider` 组件：
 
 ```cshtml
 <CounterStateProvider>
@@ -332,7 +334,7 @@ else
 </CounterStateProvider>
 ```
 
-包装的组件接收并可以修改持久化计数器状态。 以下 @no__t 0 组件实现了模式：
+包装的组件接收并可以修改持久化计数器状态。 以下 `Counter` 组件实现了模式：
 
 ```cshtml
 @page "/counter"
@@ -353,7 +355,7 @@ else
 }
 ```
 
-前面的组件无需与 @no__t 进行交互，也不会处理 "加载" 阶段。
+前面的组件无需与 `ProtectedBrowserStorage`进行交互，也不会处理 "正在加载" 阶段。
 
 若要处理前面所述的预呈现，可以修改 `CounterStateProvider`，以使使用计数器数据的所有组件自动使用预呈现。 有关详细信息，请参阅[处理预呈现](#handle-prerendering)部分。
 

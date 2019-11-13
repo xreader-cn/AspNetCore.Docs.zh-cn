@@ -1,28 +1,30 @@
 ---
-title: 从 ASP.NET Core Blazor 调用 web API
+title: 从 ASP.NET Core 调用 web API Blazor
 author: guardrex
-description: 了解如何使用 JSON 帮助程序（包括生成跨域资源共享（CORS）请求）从 Blazor 应用程序调用 web API。
+description: 了解如何使用 JSON 帮助程序从 Blazor 应用程序调用 web API，包括建立跨域资源共享（CORS）请求。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: b5c57317005d0072410542bad322458b1cb3f5ee
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72390834"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962716"
 ---
-# <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 web API
+# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>从 ASP.NET Core 调用 web API Blazor
 
 作者： [Luke Latham](https://github.com/guardrex)、 [Daniel Roth](https://github.com/danroth27)和[Juan De la Cruz](https://github.com/juandelacruz23)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly apps 使用预先配置的 @no__t 0 服务来调用 web Api。 撰写请求，其中可以包含 JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助器或 <xref:System.Net.Http.HttpRequestMessage>。
+Blazor WebAssembly 应用使用预先配置的 `HttpClient` 服务来调用 web Api。 撰写请求，其中可以包含 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助程序或 <xref:System.Net.Http.HttpRequestMessage>。
 
-Blazor 服务器应用使用 <xref:System.Net.Http.IHttpClientFactory> 创建的 @no__t 的实例来调用 web Api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
+Blazor Server apps 使用通常使用 <xref:System.Net.Http.IHttpClientFactory>创建 <xref:System.Net.Http.HttpClient> 实例来调用 web Api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -33,7 +35,7 @@ Blazor 服务器应用使用 <xref:System.Net.Http.IHttpClientFactory> 创建的
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient 和 JSON 帮助器
 
-在 Blazor WebAssembly apps 中， [HttpClient](xref:fundamentals/http-requests)作为预配置服务提供，用于向源服务器发送请求。 若要使用 `HttpClient` JSON 帮助程序，请将包引用添加到 @no__t。 @no__t 0 和 JSON 帮助器也用于调用第三方 web API 终结点。 `HttpClient` 是使用浏览器[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)实现的，并且受到其限制，包括强制实施相同的源策略。
+在 Blazor WebAssembly 应用中， [HttpClient](xref:fundamentals/http-requests)作为预配置服务提供，用于向源服务器发送请求。 若要使用 `HttpClient` JSON 帮助程序，请将包引用添加到 `Microsoft.AspNetCore.Blazor.HttpClient`。 `HttpClient` 和 JSON 帮助程序还用于调用第三方 web API 终结点。 `HttpClient` 是使用浏览器[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)实现的，并且受到其限制，包括强制实施相同的源策略。
 
 客户端的基址设置为源服务器的地址。 使用 `@inject` 指令插入 `HttpClient` 实例：
 
@@ -42,10 +44,10 @@ Blazor 服务器应用使用 <xref:System.Net.Http.IHttpClientFactory> 创建的
 @inject HttpClient Http
 ```
 
-在下面的示例中，Todo web API 处理创建、读取、更新和删除（CRUD）操作。 这些示例基于一个 @no__t 0 类，该类用于存储：
+在下面的示例中，Todo web API 处理创建、读取、更新和删除（CRUD）操作。 这些示例基于存储以下内容的 `TodoItem` 类：
 
-* ID （`Id`，`long`） @no__t 项的唯一 ID。
-* 名称（`Name`，`string`） @no__t 项的2名称。
+* ID （`Id`、`long`） &ndash; 项的唯一 ID。
+* 名称（`Name`、`string`） &ndash; 项的名称。
 * Status （`IsComplete`，`bool`） &ndash; 指示是否已完成 Todo 项。
 
 ```csharp
@@ -61,7 +63,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 * `GetJsonAsync` &ndash; 发送 HTTP GET 请求并分析 JSON 响应正文以创建对象。
 
-  在下面的代码中，组件显示 `_todoItems`。 当组件完成呈现（[OnInitializedAsync](xref:blazor/components#lifecycle-methods)）时，将触发 `GetTodoItems` 方法。 有关完整示例，请参阅示例应用。
+  在下面的代码中，`_todoItems` 由组件显示。 当组件完成呈现（[OnInitializedAsync](xref:blazor/components#lifecycle-methods)）时，将触发 `GetTodoItems` 方法。 有关完整示例，请参阅示例应用。
 
   ```cshtml
   @using System.Net.Http
@@ -77,7 +79,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 * `PostJsonAsync` &ndash; 发送 HTTP POST 请求（包括 JSON 编码的内容），并分析 JSON 响应正文以创建对象。
 
-  在下面的代码中，`_newItemName` 由组件的绑定元素提供。 @No__t-0 方法通过选择 @no__t 1 元素触发。 有关完整示例，请参阅示例应用。
+  在下面的代码中，`_newItemName` 由组件的绑定元素提供。 通过选择 `<button>` 元素触发 `AddItem` 方法。 有关完整示例，请参阅示例应用。
 
   ```cshtml
   @using System.Net.Http
@@ -99,7 +101,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 * `PutJsonAsync` &ndash; 发送 HTTP PUT 请求，其中包括 JSON 编码的内容。
 
-  在下面的代码中，@no__t 的 @no__t 值为-1，`IsCompleted` 由组件的绑定元素提供。 当在 UI 的另一部分中选择项并且调用 `EditItem` 时，将设置项的 `Id`。 通过选择 "保存 `<button>`" 元素触发 `SaveItem` 方法。 有关完整示例，请参阅示例应用。
+  在下面的代码中，`Name` 和 `IsCompleted` 的 `_editItem` 值由组件的绑定元素提供。 当在 UI 的另一部分中选择项并且调用 `EditItem` 时，将设置项的 `Id`。 通过选择 "保存 `<button>`" 元素触发 `SaveItem` 方法。 有关完整示例，请参阅示例应用。
 
   ```cshtml
   @using System.Net.Http
@@ -126,7 +128,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 <xref:System.Net.Http> 包含用于发送 HTTP 请求和接收 HTTP 响应的附加扩展方法。 [HttpClient. DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*)用于将 HTTP DELETE 请求发送到 web API。
 
-在下面的代码中，Delete `<button>` 元素调用 `DeleteItem` 方法。 绑定 `<input>` 元素提供要删除的项的 @no__t。 有关完整示例，请参阅示例应用。
+在下面的代码中，Delete `<button>` 元素调用 `DeleteItem` 方法。 绑定 `<input>` 元素提供要删除的项的 `id`。 有关完整示例，请参阅示例应用。
 
 ```cshtml
 @using System.Net.Http
@@ -153,7 +155,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>带有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
 
-在 Blazor WebAssembly 应用中的 WebAssembly 上运行时，使用[HttpClient](xref:fundamentals/http-requests)并 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。 例如，可以指定请求 URI、HTTP 方法以及任何所需的请求标头。
+在 Blazor WebAssembly 应用程序的 WebAssembly 上运行时，使用[HttpClient](xref:fundamentals/http-requests)和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。 例如，可以指定请求 URI、HTTP 方法以及任何所需的请求标头。
 
 使用请求的 `WebAssemblyHttpMessageHandler.FetchArgs` 属性向基础 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)提供请求选项。 如以下示例中所示，将 `credentials` 属性设置为以下任意值：
 
@@ -202,14 +204,14 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 有关获取 API 选项的详细信息，请参阅[MDN web 文档： WindowOrWorkerGlobalScope （）:P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
 
-在 CORS 请求上发送凭据（授权 cookie/标头）时，CORS 策略必须允许 @no__t 0 标头。
+在 CORS 请求上发送凭据（授权 cookie/标头）时，CORS 策略必须允许 `Authorization` 标头。
 
 以下策略包括的配置：
 
 * 请求来源（`http://localhost:5000`，`https://localhost:5001`）。
 * 任何方法（谓词）。
-* @no__t 0 和 @no__t 标头。 若要允许自定义标头（例如 `x-custom-header`），请在调用 @no__t 时列出标头。
-* 由客户端 JavaScript 代码（@no__t 设置为 `include`）设置的凭据。
+* `Content-Type` 和 `Authorization` 标头。 若要允许自定义标头（例如 `x-custom-header`），请在调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>时列出该标头。
+* 由客户端 JavaScript 代码（`credentials` 属性设置为 `include`）设置的凭据。
 
 ```csharp
 app.UseCors(policy => 
