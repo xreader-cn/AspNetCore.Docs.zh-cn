@@ -26,7 +26,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 
 在[razor](xref:mvc/views/razor)组件文件（*razor*）中，使用和 HTML 标记的C#组合实现了组件。 Blazor 中的组件正式称为*Razor 组件*。
 
-组件的名称必须以大写字符开头。 例如， *MyCoolComponent*是有效的，并且*MyCoolComponent*无效。
+组件的名称必须以大写字符开头。 例如， *MyCoolComponent*是有效的，并且*myCoolComponent*无效。
 
 使用 HTML 定义组件的 UI。 动态呈现逻辑（例如，循环、条件、表达式）是使用名为 [Razor](xref:mvc/views/razor) 的嵌入式 C# 语法添加的。 在编译应用程序时，会将 HTML 标记C#和呈现逻辑转换为组件类。 生成的类的名称与文件的名称匹配。
 
