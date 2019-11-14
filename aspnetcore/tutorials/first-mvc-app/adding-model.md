@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: d6d75bcbab875c08bfff532d968013dca323beed
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 2fac37e7069fb2a464d4de1da8912197f7adf8a8
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634111"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73761092"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -174,7 +174,7 @@ Visual Studio 将创建：
     export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -186,7 +186,7 @@ Visual Studio 将创建：
 
 * 打开项目目录（包含 Program.cs  、Startup.cs  和 .csproj  文件的目录）中的命令窗口。
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -256,7 +256,7 @@ dotnet ef database update
 
 <a name="test"></a>
 
-## <a name="test-the-app"></a>测试应用程序
+## <a name="test-the-app"></a>测试应用
 
 * 运行应用并单击“Movie App”链接  。
 
@@ -286,6 +286,8 @@ dotnet ef database update
 
 ## <a name="dependency-injection-in-the-controller"></a>控制器中的依赖项注入
 
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
 打开 Controllers/MoviesController.cs 文件并检查构造函数  ：
 
 <!-- l.. Make copy of Movies controller (or use the old one as I did in the 3.0 upgrade) because we comment out the initial index method and update it later  -->
@@ -293,6 +295,17 @@ dotnet ef database update
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
 构造函数使用[依赖关系注入](xref:fundamentals/dependency-injection)将数据库上下文 (`MvcMovieContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
+
+构造函数使用[依赖关系注入](xref:fundamentals/dependency-injection)将数据库上下文 (`MvcMovieContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
+
+[!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
+
+---
+<!-- end of tabs --->
 
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>
@@ -443,7 +456,7 @@ Visual Studio 将创建：
     export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -462,7 +475,7 @@ Visual Studio 将创建：
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -566,7 +579,7 @@ ASP.NET Core 通过[依赖关系注入 (DI)](xref:fundamentals/dependency-inject
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用程序
+### <a name="test-the-app"></a>测试应用
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 

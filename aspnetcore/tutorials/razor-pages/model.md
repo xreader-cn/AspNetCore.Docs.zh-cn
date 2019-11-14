@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 11/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 312b3d4eb13eb04453bf0c3256fc362918157a45
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: f2c9c2fc8112ef8a1a5afdbe448de6319c43521d
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634180"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73761222"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -84,7 +84,7 @@ ms.locfileid: "73634180"
 
 * 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)   。
 * 在“数据上下文类”行中，选择 +（加号）并将生成的名称从 RazorPagesMovie.Models  .RazorPagesMovieContext 更改为 RazorPagesMovie.Data  .RazorPagesMovieContext   。 不需要[此更新](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html)。 它创建具有正确命名空间的数据库上下文类。
-* 选择 **添加** 。
+* 选择“添加”  。
 
 ![上述说明的图像。](model/_static/3/arp.png)
 
@@ -102,19 +102,21 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **对于 Windows**：运行以下命令：
+* **对于 Windows**：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行以下命令：
+* **对于 macOS 和 Linux**：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
+
+[!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -125,13 +127,15 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
+
+[!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
 
 ---
 
@@ -232,7 +236,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用程序
+### <a name="test-the-app"></a>测试应用
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 
@@ -337,7 +341,7 @@ to use Data, it should not use models. That will make the namespace the same for
 
 * 在“模型类”下拉列表中，选择“Movie (RazorPagesMovie.Models)   。
 * 在“数据上下文类”行中，选择 +（加号）并接受生成的名称“RazorPagesMovie.Models.RazorPagesMovieContext”    。
-* 选择 **添加** 。
+* 选择“添加”  。
 
 ![上述说明的图像。](model/_static/arp.png)
 
@@ -355,13 +359,13 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **对于 Windows**：运行以下命令：
+* **对于 Windows**：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **对于 macOS 和 Linux**：运行以下命令：
+* **对于 macOS 和 Linux**：运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -378,7 +382,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* 运行以下命令：
+* 运行下面的命令：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -471,7 +475,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>测试应用程序
+### <a name="test-the-app"></a>测试应用
 
 * 运行应用并将 `/Movies` 追加到浏览器中的 URL (`http://localhost:port/movies`)。
 
