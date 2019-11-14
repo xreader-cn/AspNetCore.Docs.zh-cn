@@ -1,26 +1,29 @@
 ---
 title: ASP.NET Core Blazor 简介
 author: guardrex
-description: 了解 ASP.NET Core Blazor，用户可以借助它在 ASP.NET Core 应用中使用 .NET 生成交互式客户端 Web UI。
+description: 了解 ASP.NET Core Blazor，用户可用它在 ASP.NET Core 应用中使用 .NET 生成交互式客户端 Web UI。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 10/31/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: blazor/index
-ms.openlocfilehash: c2574c1250cf94e89dd5476b6174620d83546236
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: 8b656a7461c78475432722540ad628258cfe19c4
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73427030"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962915"
 ---
-# <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
+# <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 简介
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 *欢迎使用 Blazor！*
 
-Blazor 是一个用于使用 .NET 生成交互式客户端 Web UI 的框架：
+Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 * 使用 C# 代替 JavaScript 来创建丰富的交互式 UI。
 * 共享使用 .NET 编写的服务器端和客户端应用逻辑。
@@ -37,7 +40,7 @@ Blazor 是一个用于使用 .NET 生成交互式客户端 Web UI 的框架：
 
 ## <a name="components"></a>组件
 
-Blazor 应用基于组件  。 Blazor 中的组件是指 UI 元素，例如，页面、对话框或数据输入窗体。
+Blazor应用基于组件  。 Blazor 中的组件是指 UI 元素，例如页面、对话框或数据输入窗体。
 
 组件是内置到 .NET 程序集的 .NET 类，用来：
 
@@ -101,11 +104,11 @@ Welcome to your new app.
 
 组件呈现为浏览器文档对象模型 (DOM) 的内存中表现形式，称为“呈现树”  ，用于以灵活高效的方式更新 UI。
 
-## <a name="blazor-webassembly"></a>Blazor WebAssembly
+## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly 是一个单页应用框架，用于使用 .NET 生成交互式客户端 Web 应用。 Blazor WebAssembly 使用开放的 Web 标准（没有插件或代码转换），并且适用于所有新式 Web 浏览器（包括移动浏览器）。
+Blazor WebAssembly 是一个单页应用框架，可用它通过 .NET 生成交互式客户端 Web 应用。 Blazor WebAssembly 使用开放的 Web 标准（没有插件或代码转换），适用于移动浏览器等各种新式 Web 浏览器。
 
 通过 [WebAssembly](https://webassembly.org)（缩写为 wasm  ），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
 
@@ -125,9 +128,9 @@ WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性  或 Jav
 * 压缩 HTTP 响应。
 * .NET 运行时和程序集缓存在浏览器中。
 
-## <a name="blazor-server"></a>Blazor 服务器
+## <a name="opno-locblazor-server"></a>Blazor 服务器
 
-Razor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
+Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
 
 运行时处理从浏览器向服务器发送 UI 事件，并在运行组件后，将服务器发送的 UI 更新重新应用到浏览器。
 

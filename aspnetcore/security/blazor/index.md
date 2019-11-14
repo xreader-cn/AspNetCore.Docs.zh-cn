@@ -1,49 +1,52 @@
 ---
 title: ASP.NET Core Blazor 身份验证和授权
 author: guardrex
-description: 了解 Blazor 身份验证和授权的方案。
+description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 85a6a32ea068e6cd00ebb71bdf7fe0bd06b77618
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 2ebc4d72191dff33a7fb6170650be67c3836cdaa
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391316"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73964006"
 ---
-# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
+# <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-ASP.NET Core 支持 Blazor 应用程序的安全配置和管理。
+ASP.NET Core 支持 Blazor 应用中的安全配置和管理。
 
-Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由于 Blazor 服务器应用在服务器上运行，因此通过授权检查可以确定以下内容：
+Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由于 Blazor 服务器应用在服务器上运行，因此通过授权检查可确定以下内容：
 
 * 向用户呈现的 UI 选项（例如，用户可以使用哪些菜单条目）。
 * 应用程序和组件区域的访问规则。
 
-Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可以修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
+Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
 ## <a name="authentication"></a>身份验证
 
 Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于在 Blazor 服务器或 Blazor WebAssembly 托管 Blazor 应用的方式。
 
-### <a name="blazor-server-authentication"></a>Blazor 服务器身份验证
+### <a name="opno-locblazor-server-authentication"></a>Blazor 服务器身份验证
 
-Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用程序的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
+Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
 
-创建项目后，Blazor 服务器项目模板可以为你设置身份验证。
+创建项目后，Blazor 服务器项目模板可为你设置身份验证。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
+按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，新建具有身份验证机制的 Blazor 服务器项目。
 
-在“创建新的 ASP.NET Core Web 应用程序”  对话框中选择“Blazor 服务器应用”  模板后，在“身份验证”  下选择“更改”  。
+在“创建新的 ASP.NET Core Web 应用程序”对话框中选择“Blazor 服务器应用”模板后，在“身份验证”下选择“更改”     。
 
 此时将打开一个对话框，为其他 ASP.NET Core 项目提供一组相同的身份验证机制：
 
@@ -56,7 +59,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
+按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，新建具有身份验证机制的 Blazor 服务器项目：
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -113,9 +116,9 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly 身份验证
+### <a name="opno-locblazor-webassembly-authentication"></a>Blazor WebAssembly 身份验证
 
-在 Blazor WebAssembly 应用中，可以绕过身份验证检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
+在 Blazor WebAssembly 应用中，可绕过身份验证检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
 向应用的项目文件中添加 [Microsoft.AspNetCore.Components.Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
 
@@ -331,7 +334,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>异步身份验证期间显示的内容
 
-Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求以进行身份验证。
+通过 Blazor，可通过异步方式确定身份验证状态  。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求来进行身份验证。
 
 正在进行身份验证时，`AuthorizeView` 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
 
@@ -348,7 +351,7 @@ Blazor 允许通过异步方式确定身份验证状态  。 此方法的主要�
 </AuthorizeView>
 ```
 
-此方法通常不适用于 Blazor 服务器应用。 身份验证状态一经确立，Blazor 服务器应用便会立即获知身份验证状态。 `Authorizing` 内容可以在 Blazor 服务器应用的 `AuthorizeView` 组件中提供，但该内容永远不会显示。
+此方法通常不适用于 Blazor 服务器应用。 身份验证状态一经确立，Blazor 服务器应用便会立即获知身份验证状态。 `Authorizing` 内容可在 Blazor 服务器应用的 `AuthorizeView` 组件中提供，但该内容永远不会显示。
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
@@ -476,16 +479,16 @@ Not authorized.
 ```
 
 > [!NOTE]
-> 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Authorization` 命名空间 (`Microsoft.AspNetCore.Components.Authorization`)：
+> 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Authorization` 和 `Microsoft.AspNetCore.Components.Authorization` 命名空间：
 >
 > ```cshtml
 > @using Microsoft.AspNetCore.Authorization
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
 
-## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
+## <a name="authorization-in-opno-locblazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
 
-在 Blazor WebAssembly 应用中，可以绕过授权检查，因为用户可以修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
+在 Blazor WebAssembly 应用中，可绕过授权检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
 **始终对客户端应用程序访问的任何 API 终结点内的服务器执行授权检查。**
 

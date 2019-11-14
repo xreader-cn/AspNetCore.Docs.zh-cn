@@ -4,14 +4,17 @@ author: rick-anderson
 description: 获取 ASP.NET Core 的简介，它是一个跨平台的高性能开源框架，用于生成基于云且连接 Internet 的新式应用程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/03/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: index
-ms.openlocfilehash: edbdce19656af64d7c2c0ee554bc5213a0d0c50e
-ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
+ms.openlocfilehash: dc1acd9e31fdc4f626c9dee2f378252c802491b6
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73611409"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963646"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -44,7 +47,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -80,8 +83,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
    |Web 应用                   | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
    |Web API                   |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
-   |实时应用             |                            |[SignalR 入门](xref:tutorials/signalr) |
-   |Blazor 应用                |                            |[Blazor 入门](xref:blazor/get-started) |
+   |实时应用             |                            |[开始使用 SignalR](xref:tutorials/signalr) |
+   |Blazor 应用                |                            |[开始使用 Blazor](xref:blazor/get-started) |
    |远程过程调用应用 |                            |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
 
 1. 请按照介绍如何进行基本数据访问的教程操作：
