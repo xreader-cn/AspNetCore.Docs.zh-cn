@@ -243,7 +243,7 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 |[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | 作为操作参数插入的请求服务 |
 
 > [!WARNING]
-> 当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。 `%2f` 不会转换为 `/`（非转移形式）。 如果值可能包含 `%2f`，则使用 `[FromQuery]`。
+> 当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。 `%2f` 不会转换为 `/`（非转义形式）。 如果值可能包含 `%2f`，则使用 `[FromQuery]`。
 
 如果没有 `[ApiController]` 属性或诸如 `[FromQuery]` 的绑定源属性，ASP.NET Core 运行时会尝试使用复杂对象模型绑定器。 复杂对象模型绑定器按已定义顺序从值提供程序拉取数据。
 
