@@ -31,7 +31,7 @@ ms.locfileid: "72007374"
 
 ## <a name="protectkeyswithazurekeyvault"></a>ProtectKeysWithAzureKeyVault
 
-若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在 @no__t 2 类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统：
+若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在 `Startup` 类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -42,15 +42,15 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-设置密钥环存储位置（例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)）。 必须设置位置，因为调用 `ProtectKeysWithAzureKeyVault` 实现了禁用自动数据保护设置的[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) ，包括密钥环存储位置。 前面的示例使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅 @no__t 0Key 存储提供程序：Azure 存储](xref:security/data-protection/implementation/key-storage-providers#azure-storage)。 还可以通过[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)将密钥环保存到本地。
+设置密钥环存储位置（例如， [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)）。 必须设置位置，因为调用 `ProtectKeysWithAzureKeyVault` 实现了禁用自动数据保护设置的[IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) ，包括密钥环存储位置。 前面的示例使用 Azure Blob 存储来持久保存密钥环。 有关详细信息，请参阅[密钥存储提供程序： Azure 存储](xref:security/data-protection/implementation/key-storage-providers#azure-storage)。 还可以通过[PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system)将密钥环保存到本地。
 
-@No__t-0 是用于密钥加密的密钥保管库密钥标识符。 例如，在 `contosokeyvault` 中名为 `dataprotection` 的密钥保管库中创建的密钥具有密钥标识符 `https://contosokeyvault.vault.azure.net/keys/dataprotection/`。 向应用提供对密钥保管库的**解包密钥**和**包装密钥**权限。
+`keyIdentifier` 是用于密钥加密的密钥保管库密钥标识符。 例如，在 `contosokeyvault` 中名为 `dataprotection` 的密钥保管库中创建的密钥具有密钥标识符 `https://contosokeyvault.vault.azure.net/keys/dataprotection/`。 向应用提供对密钥保管库的**解包密钥**和**包装密钥**权限。
 
 `ProtectKeysWithAzureKeyVault` 重载：
 
 * [ProtectKeysWithAzureKeyVault （IDataProtectionBuilder，KeyVaultClient，String）](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_Microsoft_Azure_KeyVault_KeyVaultClient_System_String_)允许使用[KeyVaultClient](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)使数据保护系统能够使用密钥保管库。
-* [ProtectKeysWithAzureKeyVault （IDataProtectionBuilder，string，string，X509Certificate2）](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_)允许使用 `ClientId` 和[X509Certificate](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2) ，使数据保护系统能够使用密钥保管库。
-* [ProtectKeysWithAzureKeyVault （IDataProtectionBuilder，string，string，string）](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_)允许使用 `ClientId` 和 `ClientSecret` 来使数据保护系统使用密钥保管库。
+* [ProtectKeysWithAzureKeyVault （IDataProtectionBuilder，string，string，X509Certificate2）](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_)允许使用 `ClientId` 和[X509Certificate](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2)使数据保护系统能够使用密钥保管库。
+* [ProtectKeysWithAzureKeyVault （IDataProtectionBuilder，string，string，string）](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_)允许使用 `ClientId` 和 `ClientSecret` 使数据保护系统能够使用密钥保管库。
 
 ::: moniker-end
 
@@ -71,7 +71,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="protectkeyswith"></a>ProtectKeysWith\*
 
-可以通过调用[ProtectKeysWith @ no__t](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions)配置 api，将系统配置为保护静态密钥。 请考虑以下示例，该示例将密钥存储在 UNC 共享上，并使用特定的 x.509 证书对静态密钥进行加密：
+可以通过调用[ProtectKeysWith\*](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions)配置 api，将系统配置为保护静态密钥。 请考虑以下示例，该示例将密钥存储在 UNC 共享上，并使用特定的 x.509 证书对静态密钥进行加密：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -154,7 +154,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="disableautomatickeygeneration"></a>DisableAutomaticKeyGeneration
 
-您可能会遇到这样的情况：不希望应用程序在接近过期时自动滚动更新密钥（创建新的密钥）。 这种情况的一个示例可能是在主/辅助关系中设置的应用，其中只有主应用负责密钥管理问题，辅助应用只是具有密钥环的只读视图。 可以通过将系统配置为 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*>，将辅助应用配置为将密钥环视为只读：
+您可能会遇到这样的情况：不希望应用程序在接近过期时自动滚动更新密钥（创建新的密钥）。 这种情况的一个示例可能是在主/辅助关系中设置的应用，其中只有主应用负责密钥管理问题，辅助应用只是具有密钥环的只读视图。 可以通过使用 <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*>配置系统，将辅助应用配置为将密钥环视为只读：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -166,14 +166,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="per-application-isolation"></a>每应用程序隔离
 
-数据保护系统提供了 ASP.NET Core 主机，但它自动隔离了从另一个，应用程序，即使这些应用在相同的工作进程帐户下运行，并且使用相同的主密钥材料。 这有点类似于 IsolateApps @no__t 中的修饰符。
+数据保护系统提供了 ASP.NET Core 主机，但它自动隔离了从另一个，应用程序，即使这些应用在相同的工作进程帐户下运行，并且使用相同的主密钥材料。 这有点类似于 IsolateApps 的 `<machineKey>` 元素中的修饰符。
 
-隔离机制的工作原理是将本地计算机上的每个应用视为唯一的租户，因此，任何给定应用的 @no__t 0 会自动将应用 ID 包含为鉴别器。 应用的唯一 ID 是应用的物理路径：
+隔离机制的工作原理是将本地计算机上的每个应用视为唯一的租户，因此，任何给定应用的根 <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> 会自动将应用 ID 包含为鉴别器。 应用的唯一 ID 是应用的物理路径：
 
 * 对于在 IIS 中托管的应用，唯一 ID 是应用的 IIS 物理路径。 如果在 web 场环境中部署了应用，则此值是稳定的，假定在 web 场中的所有计算机上配置了类似的 IIS 环境。
 * 对于在[Kestrel 服务器](xref:fundamentals/servers/index#kestrel)上运行的自承载应用程序，唯一 ID 是指向磁盘上的应用程序的物理路径。
 
-唯一标识符旨在重置单个应用和计算机本身的 @ no__t-0both。
+唯一标识符的设计目的是在每个应用程序和计算机本身&mdash;重置。
 
 此隔离机制假定应用不是恶意的。 恶意应用始终会影响在同一工作进程帐户下运行的任何其他应用。 在应用不受信任的共享主机环境中，托管提供商应采取措施来确保应用之间的操作系统级隔离，包括分离应用程序的底层密钥存储库。
 
@@ -211,9 +211,9 @@ services.AddDataProtection()
 
 ::: moniker-end
 
-默认 EncryptionAlgorithm 为 AES-256-CBC，默认 ValidationAlgorithm 为 HMACSHA256。 系统管理员可以通过[计算机范围的策略](xref:security/data-protection/configuration/machine-wide-policy)设置默认策略，但对 @no__t 的显式调用会替代默认策略。
+默认 EncryptionAlgorithm 为 AES-256-CBC，默认 ValidationAlgorithm 为 HMACSHA256。 系统管理员可以通过[计算机范围的策略](xref:security/data-protection/configuration/machine-wide-policy)设置默认策略，但对 `UseCryptographicAlgorithms` 的显式调用会替代默认策略。
 
-调用 `UseCryptographicAlgorithms` 使你可以从预定义的内置列表中指定所需的算法。 您无需担心算法的实现。 在上述方案中，如果在 Windows 上运行，数据保护系统将尝试使用 AES 的 CNG 实现。 否则，它会回退到托管的[系统。](/dotnet/api/system.security.cryptography.aes)
+通过调用 `UseCryptographicAlgorithms`，可以从预定义的内置列表中指定所需的算法。 您无需担心算法的实现。 在上述方案中，如果在 Windows 上运行，数据保护系统将尝试使用 AES 的 CNG 实现。 否则，它会回退到托管的[系统。](/dotnet/api/system.security.cryptography.aes)
 
 可以通过调用[UseCustomCryptographicAlgorithms](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.usecustomcryptographicalgorithms)手动指定实现。
 
@@ -266,7 +266,7 @@ serviceCollection.AddDataProtection()
 
 ::: moniker-end
 
-通常，@no__t 0Type 属性必须指向[system.security.cryptography.symmetricalgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm)和[KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm)的具体实例实例（通过公共无参数的 ctor）实现，尽管系统 @no__t 特别适用于方便性.
+通常，\*类型属性必须指向[system.security.cryptography.symmetricalgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm)和[KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm)的具体实例实例（通过公共无参数的 ctor）实现，尽管系统特别适用于一些值（如 `typeof(Aes)`）以方便使用。
 
 > [!NOTE]
 > System.security.cryptography.symmetricalgorithm 必须具有≥128位的密钥长度和≥64位的块大小，并且必须支持 PKCS #7 填充的 CBC 模式加密。 KeyedHashAlgorithm 的摘要大小必须为 > = 128 位，并且它必须支持长度等于哈希算法摘要长度的键。 KeyedHashAlgorithm 不一定是 HMAC。
@@ -322,7 +322,7 @@ services.AddDataProtection()
 ::: moniker-end
 
 > [!NOTE]
-> 对称块加密算法的密钥长度必须为 > = 128 位，块大小为 > = 64 位，并且它必须支持 PKCS #7 填充的 CBC 模式加密。 哈希算法的摘要大小必须为 > = 128 位，并且必须支持使用 BCRYPT @ no__t-0ALG @ no__t-1HANDLE @ no__t-2HMAC @ no__t-3FLAG 标志打开。 可以将 @no__t 0Provider 属性设置为 null，以将默认提供程序用于指定的算法。 有关详细信息，请参阅[BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx)文档。
+> 对称块加密算法的密钥长度必须为 > = 128 位，块大小为 > = 64 位，并且它必须支持 PKCS #7 填充的 CBC 模式加密。 哈希算法的摘要大小必须为 > = 128 位，并且必须支持使用 BCRYPT\_ALG\_处理\_HMAC\_标志标志打开。 \*提供程序属性可以设置为 null，以将默认提供程序用于指定的算法。 有关详细信息，请参阅[BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx)文档。
 
 ::: moniker range=">= aspnetcore-2.0"
 

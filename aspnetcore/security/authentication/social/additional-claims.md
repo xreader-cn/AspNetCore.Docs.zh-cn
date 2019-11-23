@@ -24,9 +24,9 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>先决条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -45,16 +45,16 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 ## <a name="establish-the-authentication-scope"></a>建立身份验证范围
 
-通过指定 @no__t，指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
+通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| Provider  | 范围                                                            |
+| 提供商  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-在示例应用中，当在 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> 上调用 @no__t 时，框架会自动添加 Google 的 @no__t 0 范围。 如果应用需要其他作用域，请将它们添加到选项。 在下面的示例中，添加了 Google @no__t 0 范围以便检索用户的生日：
+在示例应用中，当对 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>调用 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> 时，框架会自动添加 Google 的 `userinfo.profile` 范围。 如果应用需要其他作用域，请将它们添加到选项。 在下面的示例中，添加了 Google `https://www.googleapis.com/auth/user.birthday.read` 范围以便检索用户的生日：
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -64,13 +64,13 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 在提供程序的选项中，为外部提供程序的 JSON 用户数据中的每个键/子项指定 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> 或 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*>，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请参阅 <xref:System.Security.Claims.ClaimTypes>。
 
-示例应用在 Google 用户数据中的 `locale` 和 @no__t 3 键中创建区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明：
+该示例应用在 Google 用户数据中的 `locale` 和 `picture` 密钥中创建区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
+在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>提供的用户数据的 `ApplicationUser` 声明。
 
-在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser` 确定了区域设置（`urn:google:locale`）和图片（`urn:google:picture`），其中包括 @no__t 的声明：
+在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser`建立了区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明，其中包括 <xref:System.Security.Claims.ClaimTypes.GivenName>的声明：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -82,25 +82,25 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 如果需要大量用户数据来处理用户请求：
 
 * 将请求处理的用户声明的数量和大小限制为仅应用需要的内容。
-* 为 Cookie 身份验证中间件 @no__t 使用自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore>，以跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
+* 使用 Cookie 身份验证中间件 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> 的自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> 来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
 
 ## <a name="save-the-access-token"></a>保存访问令牌
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> 定义在成功授权后是否应将访问令牌和刷新令牌存储在 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 中。 默认情况下，@no__t 设置为 `false`，以减小最终身份验证 cookie 的大小。
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> 定义在授权成功后是否应将访问令牌和刷新令牌存储到 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 中。 默认情况下，`SaveTokens` 设置为 `false` 以减小最终身份验证 cookie 的大小。
 
-示例应用将 `SaveTokens` 的值设置为 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> 中 `true`：
+示例应用在 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>中将 `SaveTokens` 的值设置为 `true`：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-@No__t 执行时，将从 @no__t 的 @no__t 中的外部提供程序存储访问令牌（[AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
+`OnPostConfirmationAsync` 执行时，从 `ApplicationUser`的 `AuthenticationProperties`中的外部提供程序存储访问令牌（[AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
 
-示例应用程序将访问令牌保存在*帐户/ExternalLogin*的 @no__t 0 （新用户注册）和 @no__t 1 （以前注册的用户）中：
+示例应用将访问令牌保存在*帐户/ExternalLogin*的 `OnPostConfirmationAsync` （新用户注册）和 `OnGetCallbackAsync` （以前注册的用户）中：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>如何添加其他自定义令牌
 
-若要演示如何添加作为 @no__t 的一部分存储的自定义令牌，示例应用会添加一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>，并将当前 <xref:System.DateTime> 用于 `TicketCreated` 的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*) ：
+为了演示如何添加作为 `SaveTokens`的一部分存储的自定义令牌，示例应用添加了一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>，其中包含当前 <xref:System.DateTime> 的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)为 `TicketCreated`：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -108,9 +108,9 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 框架提供用于创建声明并将其添加到集合的常见操作和扩展方法。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> 和 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>。
 
-用户可以通过从 @no__t 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
+用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -164,9 +164,9 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>先决条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -185,16 +185,16 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 ## <a name="establish-the-authentication-scope"></a>建立身份验证范围
 
-通过指定 @no__t，指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
+通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| Provider  | 范围                                                            |
+| 提供商  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-在示例应用中，当在 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> 上调用 @no__t 时，框架会自动添加 Google 的 @no__t 0 范围。 如果应用需要其他作用域，请将它们添加到选项。 在下面的示例中，添加了 Google @no__t 0 范围以便检索用户的生日：
+在示例应用中，当对 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>调用 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> 时，框架会自动添加 Google 的 `userinfo.profile` 范围。 如果应用需要其他作用域，请将它们添加到选项。 在下面的示例中，添加了 Google `https://www.googleapis.com/auth/user.birthday.read` 范围以便检索用户的生日：
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -204,13 +204,13 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 在提供程序的选项中，为外部提供程序的 JSON 用户数据中的每个键/子项指定 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> 或 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*>，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请参阅 <xref:System.Security.Claims.ClaimTypes>。
 
-示例应用在 Google 用户数据中的 `locale` 和 @no__t 3 键中创建区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明：
+该示例应用在 Google 用户数据中的 `locale` 和 `picture` 密钥中创建区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` 中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 @no__t 3 登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 中可用用户数据的 @no__t 1 声明。
+在 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`中，<xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>登录到应用中。 在登录过程中，<xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>提供的用户数据的 `ApplicationUser` 声明。
 
-在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser` 确定了区域设置（`urn:google:locale`）和图片（`urn:google:picture`），其中包括 @no__t 的声明：
+在示例应用中，`OnPostConfirmationAsync` （*Account/ExternalLogin*）为已登录的 `ApplicationUser`建立了区域设置（`urn:google:locale`）和图片（`urn:google:picture`）声明，其中包括 <xref:System.Security.Claims.ClaimTypes.GivenName>的声明：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -222,25 +222,25 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 如果需要大量用户数据来处理用户请求：
 
 * 将请求处理的用户声明的数量和大小限制为仅应用需要的内容。
-* 为 Cookie 身份验证中间件 @no__t 使用自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore>，以跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
+* 使用 Cookie 身份验证中间件 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> 的自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> 来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
 
 ## <a name="save-the-access-token"></a>保存访问令牌
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> 定义在成功授权后是否应将访问令牌和刷新令牌存储在 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 中。 默认情况下，@no__t 设置为 `false`，以减小最终身份验证 cookie 的大小。
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> 定义在授权成功后是否应将访问令牌和刷新令牌存储到 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 中。 默认情况下，`SaveTokens` 设置为 `false` 以减小最终身份验证 cookie 的大小。
 
-示例应用将 `SaveTokens` 的值设置为 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> 中 `true`：
+示例应用在 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>中将 `SaveTokens` 的值设置为 `true`：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-@No__t 执行时，将从 @no__t 的 @no__t 中的外部提供程序存储访问令牌（[AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
+`OnPostConfirmationAsync` 执行时，从 `ApplicationUser`的 `AuthenticationProperties`中的外部提供程序存储访问令牌（[AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
 
-示例应用程序将访问令牌保存在*帐户/ExternalLogin*的 @no__t 0 （新用户注册）和 @no__t 1 （以前注册的用户）中：
+示例应用将访问令牌保存在*帐户/ExternalLogin*的 `OnPostConfirmationAsync` （新用户注册）和 `OnGetCallbackAsync` （以前注册的用户）中：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>如何添加其他自定义令牌
 
-若要演示如何添加作为 @no__t 的一部分存储的自定义令牌，示例应用会添加一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>，并将当前 <xref:System.DateTime> 用于 `TicketCreated` 的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*) ：
+为了演示如何添加作为 `SaveTokens`的一部分存储的自定义令牌，示例应用添加了一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>，其中包含当前 <xref:System.DateTime> 的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)为 `TicketCreated`：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -248,9 +248,9 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 框架提供用于创建声明并将其添加到集合的常见操作和扩展方法。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> 和 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>。
 
-用户可以通过从 @no__t 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
+用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -300,4 +300,4 @@ Authentication Properties
 
 ## <a name="additional-resources"></a>其他资源
 
-* [aspnet/AspNetCore 工程 SocialSample 应用](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash; 此链接的示例应用位于[Aspnet/AspNetCore GitHub](https://github.com/aspnet/AspNetCore)存储库的 `master` 工程分支上。 @No__t 在 ASP.NET Core 的下一版本中，分支包含处于活动开发下的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择发布分支（例如 `release/{X.Y}`）。
+* [aspnet/AspNetCore 工程 SocialSample 应用](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash; 链接的示例应用在[Aspnet/AspNetCore GitHub](https://github.com/aspnet/AspNetCore)存储库的 `master` 工程分支中。 对于 ASP.NET Core 的下一版本，`master` 分支包含处于活动开发下的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择发布分支（例如 `release/{X.Y}`）。

@@ -35,7 +35,7 @@ info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 ```
 
-.NET Core 客户端必须在服务器地址中使用 `https` 才能使用安全连接调用：
+.NET Core 客户端必须使用服务器地址中 `https`，才能使用安全连接调用：
 
 ```csharp
 static async Task Main(string[] args)
@@ -46,7 +46,7 @@ static async Task Main(string[] args)
 }
 ```
 
-所有 gRPC 客户端实现都支持 TLS。 从其他语言 gRPC 的客户端通常需要配置有 `SslCredentials` 的通道。 @no__t 指定客户端将使用的证书，则必须使用该证书，而不是使用不安全凭据。 有关将不同 gRPC 客户端实现配置为使用 TLS 的示例，请参阅[GRPC Authentication](https://www.grpc.io/docs/guides/auth/)。
+所有 gRPC 客户端实现都支持 TLS。 从其他语言 gRPC 的客户端通常需要配置有 `SslCredentials`的通道。 `SslCredentials` 指定客户端将使用的证书，并且必须使用该证书，而不是使用不安全凭据。 有关将不同 gRPC 客户端实现配置为使用 TLS 的示例，请参阅[GRPC Authentication](https://www.grpc.io/docs/guides/auth/)。
 
 ## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>使用不受信任/无效证书调用 gRPC 服务
 
@@ -76,7 +76,7 @@ var client = new Greet.GreeterClient(channel);
 
 ## <a name="call-insecure-grpc-services-with-net-core-client"></a>通过 .NET Core 客户端调用不安全的 gRPC 服务
 
-若要将不安全的 gRPC 服务与 .NET Core 客户端一起调用，需要进行其他配置。 GRPC 客户端必须将 `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` 开关设置为 `true`，并在服务器地址中使用 `http`：
+若要将不安全的 gRPC 服务与 .NET Core 客户端一起调用，需要进行其他配置。 GRPC 客户端必须将 `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` 开关设置为 `true` 并使用服务器地址中的 `http`：
 
 ```csharp
 // This switch must be set before creating the GrpcChannel/HttpClient.
@@ -92,7 +92,7 @@ var client = new Greet.GreeterClient(channel);
 
 Kestrel 不支持 macOS 上的 HTTP/2 和更早的 Windows 版本，如 Windows 7。 默认情况下，ASP.NET Core gRPC 模板和示例使用 TLS。 当您尝试启动 gRPC 服务器时，您将看到以下错误消息：
 
-> 无法绑定到 IPv4 环回接口上的 https://localhost:5001 ： "由于缺少 ALPN 支持，macOS 上的 HTTP/2 不受 TLS 支持。"。
+> 无法绑定到 IPv4 环回接口上的 https://localhost:5001：在 macOS 上不支持 HTTP/2，因为缺少 ALPN 支持。 "。
 
 若要解决此问题，请将 Kestrel 和 gRPC 客户端配置为在不使用 TLS 的*情况下*使用 HTTP/2。 只应在开发过程中执行此操作。 如果不使用 TLS，将会在不加密的情况下发送 gRPC 消息。
 
@@ -113,7 +113,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-如果未使用 TLS 配置 HTTP/2 终结点，则终结点的[ListenOptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)必须设置为 `HttpProtocols.Http2`。 不能使用 `HttpProtocols.Http1AndHttp2`，因为需要使用 TLS 来协商 HTTP/2。 如果没有 TLS，与端点的所有连接默认为 HTTP/1.1，并且 gRPC 调用失败。
+如果未使用 TLS 配置 HTTP/2 终结点，则终结点的[ListenOptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)必须设置为 `HttpProtocols.Http2`。 无法使用 `HttpProtocols.Http1AndHttp2`，因为需要使用 TLS 来协商 HTTP/2。 如果没有 TLS，与端点的所有连接默认为 HTTP/1.1，并且 gRPC 调用失败。
 
 GRPC 客户端还必须配置为不使用 TLS。 有关详细信息，请参阅[Call 不安全的 gRPC services 与 .Net Core client](#call-insecure-grpc-services-with-net-core-client)。
 
@@ -129,9 +129,9 @@ GRPC 客户端还必须配置为不使用 TLS。 有关详细信息，请参阅[
 
 有关生成 gRPC C#资产的详细信息，请参阅 <xref:grpc/basics>。
 
-默认情况下，`<Protobuf>` 引用将生成具体的客户端和服务基类。 可以使用引用元素的 `GrpcServices` 特性来限制C#资产生成。 有效 `GrpcServices` 选项为：
+默认情况下，`<Protobuf>` 引用将生成具体的客户端和服务基类。 可以使用引用元素的 `GrpcServices` 特性来限制C#资产生成。 有效 `GrpcServices` 选项如下：
 
-* `Both` （如果不存在则为默认值）
+* `Both` （当不存在时则为默认值）
 * `Server`
 * `Client`
 * `None`
@@ -154,16 +154,16 @@ GRPC 客户端还必须配置为不使用 TLS。 有关详细信息，请参阅[
 
 ## <a name="wpf-projects-unable-to-generate-grpc-c-assets-from-proto-files"></a>WPF 项目无法从 proto 文件C#生成 gRPC 资产
 
-WPF 项目有一个[已知问题](https://github.com/dotnet/wpf/issues/810)，可阻止 gRPC 代码生成正常运行。 在 WPF 项目中生成的任何 gRPC 类型都将在使用时创建编译错误，方法是引用 `Grpc.Tools` 和*proto*文件：
+WPF 项目有一个[已知问题](https://github.com/dotnet/wpf/issues/810)，可阻止 gRPC 代码生成正常运行。 在 WPF 项目中生成的任何 gRPC 类型（通过引用 `Grpc.Tools` 和*proto*文件）在使用时将创建编译错误：
 
 > 错误 CS0246：找不到类型或命名空间名称 "MyGrpcServices" （是否缺少 using 指令或程序集引用？）
 
 可以通过以下方式解决此问题：
 
 1. 创建新的 .NET Core 类库项目。
-2. 在新项目中，添加引用以启用[ C#从 *\** 文件生成的代码](xref:grpc/basics#generated-c-assets)：
+2. 在新项目中，添加引用以启用[ C#从 *\*proto*文件生成的代码](xref:grpc/basics#generated-c-assets)：
     * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
-    * 将 \*.proto 文件添加到 `<Protobuf>` 项目组。
+    * 将 *.proto\** 文件添加到 `<Protobuf>` 项目组。
 3. 在 WPF 应用程序中，添加对新项目的引用。
 
 WPF 应用程序可以使用来自新类库项目的 gRPC 生成类型。
