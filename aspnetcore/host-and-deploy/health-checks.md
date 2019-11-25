@@ -5,14 +5,14 @@ description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/03/2019
+ms.date: 11/13/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: c7cf1c432d2186f0e2f9f5082e8a2229d8a5ef8f
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: 4a4606a58178018f0d71d467d4c8b6c9982c09dc
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463016"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74115994"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -150,6 +150,40 @@ services.AddHealthChecks()
         HealthCheckResult.Healthy("Example is OK!"), tags: new[] { "example" });
 ```
 
+调用 <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck*> 将参数传递到运行状况检查实现。 在以下示例中，`TestHealthCheckWithArgs` 接受一个整数和一个字符串，以便在调用 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*> 时使用：
+
+```csharp
+private class TestHealthCheckWithArgs : IHealthCheck
+{
+    public TestHealthCheckWithArgs(int i, string s)
+    {
+        I = i;
+        S = s;
+    }
+
+    public int I { get; set; }
+
+    public string S { get; set; }
+
+    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, 
+        CancellationToken cancellationToken = default)
+    {
+        ...
+    }
+}
+```
+
+`TestHealthCheckWithArgs` 通过使用传递到实现的整数和字符串调用 `AddTypeActivatedCheck` 来注册：
+
+```csharp
+services.AddHealthChecks()
+    .AddTypeActivatedCheck<TestHealthCheckWithArgs>(
+        "test", 
+        failureStatus: HealthStatus.Degraded, 
+        tags: new[] { "example" }, 
+        args: new object[] { 5, "string" });
+```
+
 ## <a name="use-health-checks-routing"></a>使用运行状况检查路由
 
 在 `Startup.Configure` 内，使用终结点 URL 或相对路径在终结点生成器上调用 `MapHealthChecks`：
@@ -202,7 +236,7 @@ app.UseEndpoints(endpoints =>
 
 默认情况下，运行状况检查中间件会运行所有已注册的运行状况检查。 若要运行运行状况检查的子集，请提供向 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> 选项返回布尔值的函数。 在以下示例中，`Bar` 运行状况检查在函数条件语句 中由于其标记 (`bar_tag`) 而被筛选掉，在条件语句中，仅当运行状况检查的 <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> 属性与 `foo_tag` 或 `baz_tag` 匹配时才返回 `true`：
 
-在 `Startup.ConfigureServices` 中：
+在 `Startup.ConfigureServices`中：
 
 ```csharp
 services.AddHealthChecks()
@@ -231,7 +265,7 @@ app.UseEndpoints(endpoints =>
 
 使用 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes> 可自定义运行状况状态到 HTTP 状态代码的映射。 以下 <xref:Microsoft.AspNetCore.Http.StatusCodes> 分配是中间件所使用的默认值。 更改状态代码值以满足要求。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -252,7 +286,7 @@ app.UseEndpoints(endpoints =>
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> 控制运行状况检查中间件是否将 HTTP 标头添加到探测响应以防止响应缓存。 如果值为 `false`（默认值），则中间件会设置或替代 `Cache-Control`、`Expires` 和 `Pragma` 标头以防止响应缓存。 如果值为 `true`，则中间件不会修改响应的缓存标头。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -268,7 +302,7 @@ app.UseEndpoints(endpoints =>
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> 选项可获取或设置用于编写响应的委托。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -588,7 +622,7 @@ app.UseEndpoints(endpoints =>
 > [!NOTE]
 > 可以通过在代码中显式设置管理端口，来避免在示例应用中创建 launchSettings.json  文件。 在创建 <xref:Microsoft.Extensions.Hosting.HostBuilder> 的 Program.cs  中，添加对 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenAnyIP*> 的调用并提供应用的管理端口终结点。 在 ManagementPortStartup.cs  的 `Configure` 中，使用 `RequireHost` 指定管理端口：
 >
-> Program.cs  ：
+> Program.cs  :
 >
 > ```csharp
 > return new HostBuilder()
@@ -682,7 +716,7 @@ dotnet run --scenario port
    * 运行状况检查名称 (`name`)。 如果为 `null`，则使用 `example_health_check`。
    * 运行状况检查的字符串数据点 (`data1`)。
    * 运行状况检查的整数数据点 (`data2`)。 如果为 `null`，则使用 `1`。
-   * 失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 默认为 `null`。 如果为 `null`，则报告失败状态 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。
+   * 失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 默认值为 `null`。 如果为 `null`，则报告失败状态 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。
    * 标记 (`IEnumerable<string>`)。
 
    ```csharp
@@ -952,7 +986,7 @@ public void Configure(IApplicationBuilder app)
 
 使用 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes> 可自定义运行状况状态到 HTTP 状态代码的映射。 以下 <xref:Microsoft.AspNetCore.Http.StatusCodes> 分配是中间件所使用的默认值。 更改状态代码值以满足要求。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -973,7 +1007,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> 控制运行状况检查中间件是否将 HTTP 标头添加到探测响应以防止响应缓存。 如果值为 `false`（默认值），则中间件会设置或替代 `Cache-Control`、`Expires` 和 `Pragma` 标头以防止响应缓存。 如果值为 `true`，则中间件不会修改响应的缓存标头。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -989,7 +1023,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> 选项可获取或设置用于编写响应的委托。 默认委托会使用 [HealthReport.Status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status) 字符串值编写最小的纯文本响应。
 
-在 `Startup.Configure` 中：
+在 `Startup.Configure`中：
 
 ```csharp
 // using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -1268,7 +1302,7 @@ dotnet run --scenario writer
 > [!NOTE]
 > 可以通过在代码中显式设置 URL 和管理端口，来避免在示例应用中创建 launchSettings.json  文件。 在创建 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> 的 Program.cs  中，添加 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> 调用并提供应用的正常响应终结点和管理端口终结点。 在调用 <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> 的 ManagementPortStartup.cs  中，显式指定管理端口。
 >
-> Program.cs  ：
+> Program.cs  :
 >
 > ```csharp
 > return new WebHostBuilder()
@@ -1357,7 +1391,7 @@ dotnet run --scenario port
    * 运行状况检查名称 (`name`)。 如果为 `null`，则使用 `example_health_check`。
    * 运行状况检查的字符串数据点 (`data1`)。
    * 运行状况检查的整数数据点 (`data2`)。 如果为 `null`，则使用 `1`。
-   * 失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 默认为 `null`。 如果为 `null`，则报告失败状态 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。
+   * 失败状态 (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>)。 默认值为 `null`。 如果为 `null`，则报告失败状态 [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)。
    * 标记 (`IEnumerable<string>`)。
 
    ```csharp

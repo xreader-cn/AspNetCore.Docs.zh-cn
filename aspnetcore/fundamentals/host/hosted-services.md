@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/26/2019
+ms.date: 11/19/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: c1fbb5ae8ffc4ee506f42df6a4cbbe845b2b903d
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: da3c2679005714a3d82de94cf3bc3c809aa3500d
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333656"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239724"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -28,22 +28,23 @@ ms.locfileid: "72333656"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-此示例应用分为两个版本：
-
-* Web 主机 &ndash; Web 主机可用于托管 Web 应用。 本主题中所示的示例代码来自示例的 Web 主机版本。 有关详细信息，请参阅 [Web 主机](xref:fundamentals/host/web-host)主题。
-* 通用主机 &ndash; 通用主机是 ASP.NET Core 2.1 中的新增功能。 有关详细信息，请参阅[通用主机](xref:fundamentals/host/generic-host)主题。
-
 ## <a name="worker-service-template"></a>辅助角色服务模板
 
-ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点。 要使用该模板作为编写托管服务应用的基础：
+ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点。 通过辅助角色服务模板创建的应用将在其项目文件中指定 Worker SDK：
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+```
+
+要使用该模板作为编写托管服务应用的基础：
 
 [!INCLUDE[](~/includes/worker-template-instructions.md)]
 
----
-
 ## <a name="package"></a>Package
 
-对于 ASP.NET Core 应用，将隐式添加对 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包的包引用。
+基于辅助角色服务模板的应用使用 `Microsoft.NET.Sdk.Worker` SDK，并且具有对 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包的显式包引用。 有关示例，请参阅示例应用的项目文件 (*BackgroundTasksSample.csproj*)。
+
+对于使用 `Microsoft.NET.Sdk.Web` SDK 的 Web 应用，通过共享框架隐式引用 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包。 在应用的项目文件中不需要显式包引用。
 
 ## <a name="ihostedservice-interface"></a>IHostedService 接口
 
@@ -99,14 +100,13 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
 
-## <a name="backgroundservice"></a>BackgroundService
+## <a name="backgroundservice-base-class"></a>BackgroundService 基类
 
-`BackgroundService` 是用于实现长时间运行的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的基类。 `BackgroundService` 提供 `ExecuteAsync(CancellationToken stoppingToken)` 抽象方法来包含服务的逻辑。 当调用 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) 时，触发 `stoppingToken`。 此方法的实现返回一个 `Task`，它表示后台服务的整个生存期。
+<xref:Microsoft.Extensions.Hosting.BackgroundService> 是用于实现长时间运行的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的基类。
 
-此外，还可以重写 `IHostedService` 上定义的方法，以便为你的服务运行启动和关闭代码  ：
+调用 [ExecuteAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.ExecuteAsync*) 来运行后台服务。 实现返回一个 <xref:System.Threading.Tasks.Task>，其表示后台服务的整个生存期。 在 [ExecuteAsync 变为异步](https://github.com/aspnet/Extensions/issues/2149)（例如通过调用 `await`）之前，不会启动任何其他服务。 避免在 `ExecuteAsync` 中执行长时间的阻塞初始化工作。 [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.StopAsync*) 中的主机块等待完成 `ExecuteAsync`。
 
-* 当应用程序主机执行正常关机时，会调用 `StopAsync(CancellationToken cancellationToken)` &ndash; `StopAsync`。 当主机决定强行终止服务时，会发出 `cancellationToken` 信号。 如果重写此方法，则必须调用（和 `await`）基类方法，以确保服务正常关闭  。
-* 调用 `StartAsync(CancellationToken cancellationToken)` &ndash; `StartAsync` 以启动后台服务。 如果启动进程中断，会发出 `cancellationToken` 信号。 实现返回一个 `Task`，它表示服务的启动进程。 在此 `Task` 完成之前，不会启动任何其他服务。 如果重写此方法，则必须调用（和 `await`）基类方法，以确保服务正常启动  。
+调用 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) 时，将触发取消令牌。 当激发取消令牌以便正常关闭服务时，`ExecuteAsync` 的实现应立即完成。 否则，服务将在关闭超时后不正常关闭。 有关更多信息，请参阅 [IHostedService interface](#ihostedservice-interface) 部分。
 
 ## <a name="timed-background-tasks"></a>计时的后台任务
 
@@ -120,7 +120,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>在后台任务中使用有作用域的服务
 
-要在 `BackgroundService` 中使用[有作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)，请创建一个作用域。 默认情况下，不会为托管服务创建作用域。
+要在 [BackgroundService](#backgroundservice-base-class) 中使用[有作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)，请创建作用域。 默认情况下，不会为托管服务创建作用域。
 
 作用域后台任务服务包含后台任务的逻辑。 如下示例中：
 
@@ -176,11 +176,6 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 * 按顺序运行的已排队后台任务。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
-
-此示例应用分为两个版本：
-
-* Web 主机 &ndash; Web 主机可用于托管 Web 应用。 本主题中所示的示例代码来自示例的 Web 主机版本。 有关详细信息，请参阅 [Web 主机](xref:fundamentals/host/web-host)主题。
-* 通用主机 &ndash; 通用主机是 ASP.NET Core 2.1 中的新增功能。 有关详细信息，请参阅[通用主机](xref:fundamentals/host/generic-host)主题。
 
 ## <a name="package"></a>Package
 
@@ -242,7 +237,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/BackgroundTaskQueue.cs?name=snippet1)]
 
-在 `QueueHostedService` 中，队列中的后台任务会取消排队，并作为 <xref:Microsoft.Extensions.Hosting.BackgroundService> 执行，此类是用于实现长时间运行 `IHostedService` 的基类：
+在 `QueueHostedService` 中，队列中的后台任务会取消排队，并作为 [BackgroundService](#backgroundservice-base-class) 执行，此类是用于实现长时间运行 `IHostedService` 的基类：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=21,25)]
 

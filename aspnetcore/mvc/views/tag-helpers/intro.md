@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 870ce2eb28f384b380cc1178842325dc28199f09
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 15f94fd1c619e9f69c5783f664eafc9ca28f86f9
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814989"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239859"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序
 
@@ -97,7 +97,7 @@ public class Movie
 
 `@removeTagHelper` 与 `@addTagHelper` 具有相同的两个参数，它会删除之前添加的标记帮助程序。 例如，应用于特定视图的 `@removeTagHelper` 会删除该视图中的指定标记帮助程序。 在 Views/Folder/_ViewImports.cshtml 文件中使用 `@removeTagHelper`，将从 Folder 中的所有视图删除指定的标记帮助程序。  
 
-### <a name="controlling-tag-helper-scope-with-the-viewimportscshtml-file"></a>使用 _ViewImports.cshtml 文件控制标记帮助程序作用域 
+### <a name="controlling-tag-helper-scope-with-the-_viewimportscshtml-file"></a>使用 _ViewImports.cshtml 文件控制标记帮助程序作用域 
 
 可将 _ViewImports.cshtml 添加到任何视图文件夹，视图引擎将同时应用该文件和 Views/_ViewImports.cshtml 文件中的指令。   如果为 Home 视图添加空的 Views/Home/_ViewImports.cshtml 文件，则不会发生任何更改，因为 _ViewImports.cshtml 文件是附加的。    添加到 Views/Home/_ViewImports.cshtml 文件（不在默认 Views/_ViewImports.cshtml 文件中）的任何 `@addTagHelper` 指令，都只会将这些标记帮助程序公开给 Home 文件夹中的视图。   
 
@@ -132,6 +132,22 @@ public class Movie
 ## <a name="self-closing-tag-helpers"></a>自结束标记帮助程序
 
 许多标记帮助程序都不能用作自结束标记。 某些标记帮助程序被设计为自结束标记。 使用未被设计为自结束的标记帮助程序会抑制呈现的输出。 自结束标记帮助程序会在呈现的输出中生成自结束标记。 有关详细信息，请在[创作标记帮助程序](xref:mvc/views/tag-helpers/authoring)中查看[此问题](xref:mvc/views/tag-helpers/authoring#self-closing)。
+
+## <a name="c-in-tag-helpers-attributedeclaration"></a>标记帮助程序属性/声明中的 C# 
+
+标记帮助程序不允许在元素的属性或标记声明区域中出现 C#。 例如，以下代码是无效的：
+
+```cshtml
+<input asp-for="LastName"  
+       @(Model?.LicenseId == null ? "disabled" : string.Empty) />
+```
+
+前面的代码可以编写为：
+
+```cshtml
+<input asp-for="LastName" 
+       disabled="@(Model?.LicenseId == null)" />
+```
 
 ## <a name="intellisense-support-for-tag-helpers"></a>标记帮助程序的 Intellisense 支持
 
