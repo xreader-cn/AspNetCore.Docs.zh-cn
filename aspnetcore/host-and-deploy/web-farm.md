@@ -5,20 +5,20 @@ description: 了解如何在 Web 场环境中托管包含共享资源的 ASP.NET
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: df1be8cc76a5017923f26636a241b69881dfcc81
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 16ec2162be8199857d0f2d0ff989ec4cdc6c3277
+ms.sourcegitcommit: 68d804d60e104c81fe77a87a9af70b5df2726f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970113"
+ms.lasthandoff: 11/08/2019
+ms.locfileid: "73830706"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
 作者：[Luke Latham](https://github.com/guardrex)、[Chris Ross](https://github.com/Tratcher)
 
-Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于托管应用的多个实例。 若有用户请求到达 Web 场，负载均衡器会将请求分发到 Web 场中的各个节点。 Web 场提高了：
+Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用于托管应用的多个实例。 若有用户请求到达 Web 场，负载均衡器  会将请求分发到 Web 场中的各个节点。 Web 场提高了：
 
 * **可靠性/可用性** &ndash; 如果一个或多个节点失败，负载均衡器可以将请求路由到其他正常运行的节点，以继续处理请求。
 * **容量/性能** &ndash; 多个节点可以处理的请求数多于一个服务器。 负载均衡器均衡工作负载的方式是，将请求分发到各个节点。
@@ -48,11 +48,11 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 
 ### <a name="data-protection"></a>数据保护
 
-应用使用 [ASP.NET Core 数据保护系统](xref:security/data-protection/introduction)来保护数据。 数据保护系统依赖一组在密钥环中存储的加密密钥。 初始化后，数据保护系统会应用在本地存储密钥环的[默认设置](xref:security/data-protection/configuration/default-settings)。 根据默认配置，唯一密钥环存储在 Web 场的各个节点上。 因此，Web 场中的每个节点都无法解密应用在其他任何节点上加密的数据。 默认配置通常不适合在 Web 场中托管应用。 若要实现共享密钥环，可以改为始终将用户请求路由到相同的节点。 若要详细了解与 Web 场部署有关的数据保护系统配置，请参阅<xref:security/data-protection/configuration/overview>。
+应用使用 [ASP.NET Core 数据保护系统](xref:security/data-protection/introduction)来保护数据。 数据保护系统依赖一组在密钥环  中存储的加密密钥。 初始化后，数据保护系统会应用在本地存储密钥环的[默认设置](xref:security/data-protection/configuration/default-settings)。 根据默认配置，唯一密钥环存储在 Web 场的各个节点上。 因此，Web 场中的每个节点都无法解密应用在其他任何节点上加密的数据。 默认配置通常不适合在 Web 场中托管应用。 若要实现共享密钥环，可以改为始终将用户请求路由到相同的节点。 若要详细了解与 Web 场部署有关的数据保护系统配置，请参阅<xref:security/data-protection/configuration/overview>。
 
 ### <a name="caching"></a>缓存
 
-在 Web 场环境中，缓存机制必须跨 Web 场中的节点共享缓存项。 缓存必须依赖公用 Redis 缓存、共享 SQL Server 数据库，或跨 Web 场共享缓存项的自定义缓存实现。 有关更多信息，请参见<xref:performance/caching/distributed>。
+在 Web 场环境中，缓存机制必须跨 Web 场中的节点共享缓存项。 缓存必须依赖公用 Redis 缓存、共享 SQL Server 数据库，或跨 Web 场共享缓存项的自定义缓存实现。 有关详细信息，请参阅 <xref:performance/caching/distributed>。
 
 ## <a name="dependent-components"></a>依赖组件
 
@@ -61,10 +61,10 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 | 方案 | 依赖&hellip; |
 | -------- | ------------------- |
 | 身份验证 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 |
-| 标识 | 身份验证和数据库配置。<br><br>有关更多信息，请参见<xref:security/authentication/identity>。 |
+| 标识 | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
 | 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和应用状态：会话状态](xref:fundamentals/app-state#session-state)。 |
 | TempData | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和应用状态：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和应用状态：TempData](xref:fundamentals/app-state#tempdata)。 |
-| 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关更多信息，请参见<xref:security/anti-request-forgery>。 |
+| 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
 
 ## <a name="troubleshoot"></a>疑难解答
 
@@ -74,7 +74,7 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 
 假设用户通过 Cookie 身份验证来登录应用。 用户在 Web 场中的一个节点上登录应用。 如果用户的下一个请求到达登录应用时所用的同一节点，应用便能解密身份验证 Cookie，并允许用户访问应用资源。 如果用户的下一个请求到达其他节点，应用便无法从用户登录时所用的节点解密身份验证 Cookie，并且无法授权用户请求获取的资源。
 
-如果以下任一症状间歇性出现，问题原因通常是为 Web 场环境配置的数据保护或缓存不正确：
+如果以下任一症状间歇性  出现，问题原因通常是为 Web 场环境配置的数据保护或缓存不正确：
 
 * 身份验证中断 &ndash; 身份验证 Cookie 配置不正确或无法解密。 OAuth（Facebook、Microsoft、Twitter）或 OpenIdConnect 登录失败，出现错误“关联失败”。
 * 授权中断 &ndash; 标识丢失。
@@ -88,3 +88,7 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 ## <a name="obtain-data-from-apps"></a>从应用中获取数据
 
 如果 Web 场应用能够响应请求，则使用终端内联中间件从应用中获取请求、连接和其他数据。 有关详细信息和示例代码，请参阅<xref:test/troubleshoot#obtain-data-from-an-app>。
+
+## <a name="additional-resources"></a>其他资源
+
+* [适用于 Windows 的自定义脚本扩展](/azure/virtual-machines/extensions/custom-script-windows) &ndash; 在 Azure 虚拟机上下载和执行脚本，这对于部署后配置和软件安装很有用。
