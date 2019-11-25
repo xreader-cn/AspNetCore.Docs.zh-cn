@@ -1,35 +1,76 @@
 ---
 title: 处理 ASP.NET Core Blazor 应用中的错误
 author: guardrex
-description: 了解 ASP.NET Core 如何 Blazor Blazor 如何管理未经处理的异常以及如何开发检测并处理错误的应用程序。
+description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理的异常以及如何开发检测并处理错误的应用程序。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
+- SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: afcaa4d926c3e5f0a018897ce4b67b54574dae77
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: f2fa59259f1dd36f50e81256bddea265e347554b
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73426986"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317158"
 ---
-# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
+# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
 本文介绍 Blazor 如何管理未经处理的异常以及如何开发检测和处理错误的应用。
 
-## <a name="how-the-blazor-framework-reacts-to-unhandled-exceptions"></a>Blazor 框架如何响应未经处理的异常
+::: moniker range=">= aspnetcore-3.1"
 
-Blazor 服务器是有状态框架。 当用户与应用交互时，它们会保持与服务器（称为*线路*）的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
+## <a name="detailed-errors-during-development"></a>开发过程中的详细错误
+
+如果在开发过程中 Blazor 应用程序不能正常工作，则从应用程序接收详细的错误信息可帮助进行故障排除并解决问题。 出现错误时，Blazor 应用程序会在屏幕底部显示一个金色栏：
+
+* 在开发过程中，黄金栏会将您定向到浏览器控制台，您可以在其中查看异常。
+* 在生产环境中，黄金栏通知用户发生了错误，并建议刷新浏览器。
+
+此错误处理体验的 UI 是 Blazor 项目模板的一部分。 在 Blazor WebAssembly 应用程序中，自定义*wwwroot/index.html*文件中的体验：
+
+```html
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+```
+
+在 Blazor Server 应用程序中，自定义*Pages/_Host*文件中的体验：
+
+```cshtml
+<div id="blazor-error-ui">
+    <environment include="Staging,Production">
+        An error has occurred. This application may no longer respond until reloaded.
+    </environment>
+    <environment include="Development">
+        An unhandled exception has occurred. See browser dev tools for details.
+    </environment>
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+```
+
+`blazor-error-ui` 元素被 Blazor 模板附带的样式隐藏，然后在发生错误时显示。
+
+::: moniker-end
+
+## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Blazor 框架如何响应未经处理的异常
+
+Blazor Server 是有状态框架。 当用户与应用交互时，它们会保持与服务器（称为*线路*）的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
 * 最新呈现的组件输出。
 * 客户端事件可触发的事件处理委托的当前集合。
 
 如果用户在多个浏览器选项卡中打开应用程序，则它们具有多个独立的线路。
 
-Blazor 将大多数未经处理的异常视为致命的异常，以使其发生。 如果线路由于未经处理的异常而终止，则用户只可以通过重新加载页面来创建新线路，从而继续与应用进行交互。 已终止的线路（其他用户或其他浏览器选项卡的线路）不会受到影响。 这种情况类似于桌面应用程序崩溃&mdash;崩溃的应用程序必须重新启动，但其他应用不受影响。
+Blazor 将最未经处理的异常视为致命的异常，并将其出现在线路上。 如果线路由于未经处理的异常而终止，则用户只可以通过重新加载页面来创建新线路，从而继续与应用进行交互。 已终止的线路（其他用户或其他浏览器选项卡的线路）不会受到影响。 这种情况类似于桌面应用程序崩溃&mdash;崩溃的应用程序必须重新启动，但其他应用不受影响。
 
 当发生未处理的异常时，线路会终止，原因如下：
 
@@ -48,9 +89,9 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>使用永久性提供程序记录错误
 
-如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，Blazor apps 使用控制台日志记录提供程序登录到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关更多信息，请参见<xref:fundamentals/logging/index>。
+如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，使用控制台日志记录提供程序 Blazor 应用日志输出到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
 
-在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关更多信息，请参见<xref:fundamentals/error-handling>。
+在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling>。
 
 您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，请勿记录一个错误，其中显示产品详细信息的组件 URL 中提供了未知 `ProductId`。 不是所有的错误都应视为日志记录的高严重性事件。
 
@@ -151,11 +192,11 @@ Blazor 将大多数未经处理的异常视为致命的异常，以使其发生�
 
 您可以选择在 .NET 端或方法调用的 JavaScript 端使用错误处理代码。
 
-有关更多信息，请参见<xref:blazor/javascript-interop>。
+有关详细信息，请参阅 <xref:blazor/javascript-interop>。
 
 ### <a name="circuit-handlers"></a>线路处理程序
 
-Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户线路的状态发生变化时接收通知。 使用以下状态：
+Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户线路的状态发生更改时接收通知。 使用以下状态：
 
 * `initialized`
 * `connected`
@@ -172,11 +213,32 @@ Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户�
 
 ### <a name="prerendering"></a>呈现
 
-Blazor 组件可以使用 `Html.RenderComponentAsync` 进行预呈现，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
+::: moniker range=">= aspnetcore-3.1"
+
+使用 `Component` 标记帮助器可以预呈现 Blazor 组件，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
 
 * 为属于同一页面的所有预呈现组件创建新线路。
 * 正在生成初始 HTML。
-* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接到同一服务器。 建立连接后，将恢复对线路的交互，并更新组件的 HTML 标记。
+* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接回同一服务器。 建立连接后，将恢复对线路的交互，并更新组件的 HTML 标记。
+
+如果任何组件在预呈现期间引发未经处理的异常，例如，在生命周期方法或呈现逻辑中：
+
+* 此异常是线路致命的。
+* 此异常将从 `Component` 标记帮助程序中的调用堆栈引发。 因此，整个 HTTP 请求将失败，除非开发人员代码显式捕获了异常。
+
+在正常情况下，如果预呈现失败，则继续生成并呈现组件没有意义，因为无法呈现工作组件。
+
+若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不要将 `Component` 标记帮助程序包装在 `try-catch` 语句中，而是将错误处理逻辑放在由 `Component` 标记帮助器呈现的组件中。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
+可以使用 `Html.RenderComponentAsync` 预呈现 Blazor 组件，以便将其呈现的 HTML 标记作为用户初始的 HTTP 请求的一部分返回。 此功能的工作方式如下：
+
+* 为属于同一页面的所有预呈现组件创建新线路。
+* 正在生成初始 HTML。
+* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接回同一服务器。 建立连接后，将恢复对线路的交互，并更新组件的 HTML 标记。
 
 如果任何组件在预呈现期间引发未经处理的异常，例如，在生命周期方法或呈现逻辑中：
 
@@ -186,6 +248,8 @@ Blazor 组件可以使用 `Html.RenderComponentAsync` 进行预呈现，以便�
 在正常情况下，如果预呈现失败，则继续生成并呈现组件没有意义，因为无法呈现工作组件。
 
 若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不要在 `try-catch` 语句中包装对 `RenderComponentAsync` 的调用，而是将错误处理逻辑放在由 `RenderComponentAsync`呈现的组件中。
+
+::: moniker-end
 
 ## <a name="advanced-scenarios"></a>高级方案
 
@@ -213,7 +277,7 @@ Blazor 组件可以使用 `Html.RenderComponentAsync` 进行预呈现，以便�
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树根逻辑
 
-大多数 Blazor 组件都作为*razor*文件实现并进行编译，以生成可对 `RenderTreeBuilder` 进行操作以呈现输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关更多信息，请参见<xref:blazor/components#manual-rendertreebuilder-logic>。
+大多数 Blazor 组件都作为*razor*文件实现，并且编译为生成可对 `RenderTreeBuilder` 进行操作以呈现其输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/components#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 使用手动渲染树生成器逻辑被视为一种高级不安全的方案，不建议用于常规组件开发。

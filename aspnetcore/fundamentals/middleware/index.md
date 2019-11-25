@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/08/2019
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 8f5c3aabf17e78ae9675048602317c54f08e82a7
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: d678f3d1f6ca10e486543a2965506236e4e61b82
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259811"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239839"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -57,13 +57,24 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 >
 > <xref:Microsoft.AspNetCore.Http.HttpResponse.HasStarted*> 是一个有用的提示，指示是否已发送标头或已写入正文。
 
-## <a name="order"></a>顺序
+<a name="order"></a>
 
-向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此排序对于安全性、性能和功能至关重要。
+## <a name="middleware-order"></a>中间件顺序
 
-以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
+向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。 
+
+下面的 `Startup.Configure` 方法按照建议的顺序增加与安全相关的中间件组件：
 
 ::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/snapshot/StartupAll3.cs?name=snippet)]
+
+在上述代码中：
+
+* 在使用[单个用户帐户](xref:security/authentication/identity)创建新的 Web 应用时未添加的中间件已被注释掉。
+* 并非所有中间件都需要准确按照此顺序运行，但许多中间件必须遵循这个顺序。 例如，`UseCors`、`UseAuthentication` 和 `UseAuthorization` 必须按照上述顺序运行。
+
+以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
 
 1. 异常/错误处理
    * 当应用在开发环境中运行时：
@@ -150,6 +161,15 @@ public void Configure(IApplicationBuilder app)
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](index/snapshot/Startup22.cs?name=snippet)]
+
+在上述代码中：
+
+* 在使用[单个用户帐户](xref:security/authentication/identity)创建新的 Web 应用时未添加的中间件已被注释掉。
+* 并非所有中间件都需要准确按照此顺序运行，但许多中间件必须遵循这个顺序。 例如，`UseCors` 和 `UseAuthentication` 必须按照上述顺序运行。
+
+以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
 
 1. 异常/错误处理
    * 当应用在开发环境中运行时：

@@ -5,14 +5,16 @@ description: 发现保留请求间会话和应用状态的方法。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/12/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: ccb37a422d972ab9113bb4115473d054282dac87
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: b80b1e72eb2f25e9c9fe07a0c33c14ecf5ae05aa
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278692"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963481"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core 中的会话和应用状态
 
@@ -316,7 +318,7 @@ app.Run(async (context) =>
 
   检查此类错误的建议方法是完成将应用写入到该会话后，从应用代码调用 `await feature.Session.CommitAsync();`。 如果后备存储不可用，则 `CommitAsync` 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，`LoadAsync` 引发异常。
   
-## <a name="signalr-and-session-state"></a>SignalR 和会话状态
+## <a name="opno-locsignalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 

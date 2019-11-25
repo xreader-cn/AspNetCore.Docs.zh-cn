@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 应用中控制多个环境的应用�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 11/07/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 91fa2a78e62dff65704a3dda826f45f27bad6064
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 7e49499e94fb9ea82a0ba17e4e9de05c6a2d4e98
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634092"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799311"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -262,7 +262,7 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 
 **项目文件或发布配置文件**
 
-**对于 Windows IIS 部署：** 将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml  ）或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
+**对于 Windows IIS 部署：** 将 `<EnvironmentName>` 属性包含在[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) 或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
 
 ```xml
 <PropertyGroup>
@@ -327,7 +327,7 @@ export ASPNETCORE_ENVIRONMENT=Development
 ::: moniker range=">= aspnetcore-3.0"
 
 * appsettings 文件 (appsettings.Environment>.json)   。 请参阅 <xref:fundamentals/configuration/index#json-configuration-provider>。
-* 环境变量（在托管应用的每个系统上进行设置）。 参阅 <xref:fundamentals/host/generic-host#environmentname> 和 <xref:security/app-secrets#environment-variables>。
+* 环境变量（在托管应用的每个系统上进行设置）。 请参见 <xref:fundamentals/host/generic-host#environmentname> 和 <xref:security/app-secrets#environment-variables>。
 * 密码管理器（仅限开发环境中）。 请参阅 <xref:security/app-secrets>。
 
 ::: moniker-end
@@ -335,7 +335,7 @@ export ASPNETCORE_ENVIRONMENT=Development
 ::: moniker range="< aspnetcore-3.0"
 
 * appsettings 文件 (appsettings.Environment>.json)   。 请参阅 <xref:fundamentals/configuration/index#json-configuration-provider>。
-* 环境变量（在托管应用的每个系统上进行设置）。 参阅 <xref:fundamentals/host/web-host#environment> 和 <xref:security/app-secrets#environment-variables>。
+* 环境变量（在托管应用的每个系统上进行设置）。 请参见 <xref:fundamentals/host/web-host#environment> 和 <xref:security/app-secrets#environment-variables>。
 * 密码管理器（仅限开发环境中）。 请参阅 <xref:security/app-secrets>。
 
 ::: moniker-end

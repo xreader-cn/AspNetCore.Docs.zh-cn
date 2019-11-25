@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: 991265810324d6339ebf346ff9aa14c479112af9
-ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
+ms.openlocfilehash: c409170a24225e160c1c53e7294590589e114f7f
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71205765"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116083"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 
@@ -50,7 +50,7 @@ ASP.NET Core 提供以下 Web API 控制器操作返回类型选项：
 
 ### <a name="return-ienumerablet-or-iasyncenumerablet"></a>返回 IEnumerable\<T> 或 IAsyncEnumerable\<T>
 
-在 ASP.NET Core 2.2 及更低版本中，从操作返回 <xref:System.Collections.Generic.IAsyncEnumerable%601> 会导致序列化程序同步集合迭代。 因此会阻止调用，并且可能会导致线程池资源不足。 为了说明这一点，假设 Entity Framework (EF) Core 用于满足 Web API 的数据访问需求。 序列化期间，将同步枚举以下操作的返回类型：
+在 ASP.NET Core 2.2 及更低版本中，从操作返回 <xref:System.Collections.Generic.IEnumerable%601> 会导致序列化程序同步集合迭代。 因此会阻止调用，并且可能会导致线程池资源不足。 为了说明这一点，假设 Entity Framework (EF) Core 用于满足 Web API 的数据访问需求。 序列化期间，将同步枚举以下操作的返回类型：
 
 ```csharp
 public IEnumerable<Product> GetOnSaleProducts() =>

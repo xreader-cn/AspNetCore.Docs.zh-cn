@@ -5,14 +5,14 @@ description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 42ff4438738931fde70e123031412bcfc8a83efb
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: c9bbd36b8a55b837f6d78abf99215c5496895a39
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034214"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799414"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -208,7 +208,7 @@ ASP.NET Core 模块还可以：
 ```
 
 > [!NOTE]
-> 直接在 web.config  中设置环境的替代方法是将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml  ）或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
+> 直接在 web.config  中设置环境的替代方法是将 `<EnvironmentName>` 属性包含在[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) 或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
 >
 > ```xml
 > <PropertyGroup>
@@ -623,7 +623,7 @@ ASP.NET Core 模块还可以：
 ```
 
 > [!NOTE]
-> 直接在 web.config  中设置环境的替代方法是将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml  ）或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
+> 直接在 web.config  中设置环境的替代方法是将 `<EnvironmentName>` 属性包含在[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) 或项目文件中。 此方法在发布项目时设置 web.config  中的环境：
 >
 > ```xml
 > <PropertyGroup>

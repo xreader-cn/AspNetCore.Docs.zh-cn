@@ -9,12 +9,12 @@ ms.date: 10/15/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 408d44a3f2e81a165e8b786c6d2efc9329082e30
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 38ee5fccdf476f08c9f39d01b53c81b48eea04bf
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962828"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317188"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -56,8 +56,8 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 
 数据暂留通常只需要用于用户需要花费大量精力才能创建的高值状态。 在下面的示例中，保存状态可节省商业活动的时间或辅助：
 
-* 多步骤 webform &ndash; 如果用户的状态丢失，则需要花时间为多步骤进程的几个已完成步骤重新输入数据。 如果用户离开多步骤窗体并稍后返回窗体，则该用户将失去状态。
-* 购物车 &ndash; 可以维持任何表示可能收入的应用的商业重要组件。 如果用户的购物车丢失了其状态，因此他们的购物车以后可能会购买更少的产品或服务。
+* 多步骤 webform &ndash; 当用户在其状态丢失时，为多步骤进程的几个已完成步骤重新输入数据是非常耗时的。 如果用户离开多步骤窗体并稍后返回窗体，则该用户将失去状态。
+* 购物车 &ndash; 应用的任何商业重要组件，这些组件可维持潜在收入。 如果用户的购物车丢失了其状态，因此他们的购物车以后可能会购买更少的产品或服务。
 
 通常不需要保留轻松重新创建的状态，例如输入到未提交的登录对话框中的用户名。
 
@@ -106,12 +106,12 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 > [!NOTE]
 > 本部分中的 "客户端" 指的是浏览器中的客户端方案，而不是[Blazor WebAssembly 承载模型](xref:blazor/hosting-models#blazor-webassembly)。 `localStorage` 和 `sessionStorage` 可用于 Blazor WebAssembly 应用中，只需要编写自定义代码或使用第三方包。
 
-`localStorage` 和 `sessionStorage` 不同，如下所示：
+`localStorage` 和 `sessionStorage` 的差异如下：
 
-* `localStorage` 的作用域限定为用户的浏览器。 如果用户重新加载页面或关闭并重新打开浏览器，则状态将保持不变。 如果用户打开多个浏览器选项卡，则状态在选项卡上共享。 数据将一直保持 `localStorage`，直到显式清除。
+* `localStorage` 的作用域限定为用户的浏览器。 如果用户重新加载页面或关闭并重新打开浏览器，则状态将保持不变。 如果用户打开多个浏览器选项卡，则状态在选项卡上共享。 数据一直保留在 `localStorage` 中，直到显式清除。
 * `sessionStorage` 的作用域限定为用户的浏览器选项卡。如果用户重新加载该选项卡，则状态将保持不变。 如果用户关闭该选项卡或浏览器，则状态将丢失。 如果用户打开多个浏览器选项卡，则每个选项卡都有自己独立的数据版本。
 
-通常情况下，`sessionStorage` 更安全。 `sessionStorage` 避免了用户打开多个选项卡并遇到以下情况的风险：
+通常，`sessionStorage` 更安全。 `sessionStorage` 避免了用户打开多个选项卡并遇到以下问题的风险：
 
 * 跨选项卡的状态存储中的 bug。
 * 当选项卡覆盖其他选项卡状态时，混乱的行为。
@@ -127,7 +127,7 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 
 ## <a name="third-party-browser-storage-solutions"></a>第三方浏览器存储解决方案
 
-第三方 NuGet 包提供用于处理 `localStorage` 和 `sessionStorage` 的 Api。
+第三方 NuGet 包提供用于处理 `localStorage` 和 `sessionStorage`的 Api。
 
 值得一提的是，选择一个可透明地使用 ASP.NET Core 的[数据保护](xref:security/data-protection/introduction)的包。 ASP.NET Core 的数据保护会对存储的数据进行加密，并降低篡改存储数据的潜在风险。 如果 JSON 序列化的数据以纯文本形式存储，则用户可以使用浏览器开发人员工具查看数据，还可以修改存储的数据。 保护数据并不总是问题，因为数据在性质上可能很简单。 例如，读取或修改 UI 元素的存储颜色不会对用户或组织造成严重的安全风险。 避免允许用户检查或篡改*敏感数据*。
 
@@ -136,7 +136,7 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 为 `localStorage` 和 `sessionStorage` 提供[数据保护](xref:security/data-protection/introduction)的 NuGet 包的一个示例是[AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
 
 > [!WARNING]
-> `Microsoft.AspNetCore.ProtectedBrowserStorage` 是不受支持的实验包此时不适合用于生产。
+> `Microsoft.AspNetCore.ProtectedBrowserStorage` 是一种不受支持的实验包此时不适合用于生产。
 
 ### <a name="installation"></a>安装
 
@@ -157,7 +157,7 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 
 ### <a name="save-and-load-data-within-a-component"></a>保存和加载组件中的数据
 
-在需要将数据加载到浏览器存储或将数据保存到浏览器存储的任何组件中，使用[@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)注入下列任一项的实例：
+在需要将数据加载到浏览器存储或将数据保存到浏览器存储的任何组件中，使用[@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)来注入以下任一操作的实例：
 
 * `ProtectedLocalStorage`
 * `ProtectedSessionStorage`
@@ -194,7 +194,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配给 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅当第一次实例化组件时，才会调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 `OnInitializedAsync`。
+如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅在第一次实例化组件时调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 `OnInitializedAsync`。
 
 > [!WARNING]
 > 本部分中的示例仅适用于服务器未启用预呈现功能的情况。 启用预呈现后，会生成错误，如下所示：
@@ -207,7 +207,7 @@ protected override async Task OnInitializedAsync()
 
 由于浏览器存储是异步的（通过网络连接进行访问），因此，在加载数据之前始终有一段时间，并且可供组件使用。 为获得最佳结果，请在加载正在进行时呈现加载状态消息，而不是显示空数据或默认数据。
 
-一种方法是跟踪数据是否 `null` （仍在加载）。 在默认 `Counter` 组件中，计数保存在 `int` 中。 将问号（`?`）添加到类型（`int`），使 `currentCount` 可以为 null：
+一种方法是跟踪数据是否 `null` （仍在加载）。 在默认 `Counter` 组件中，计数保存在 `int`中。 将问号（`?`）添加到类型（`int`），使 `currentCount` 可以为 null：
 
 ```csharp
 private int? currentCount;
@@ -239,11 +239,21 @@ else
 
 > 此时无法发出 JavaScript 互操作调用。 这是因为该组件正在预呈现。
 
-解决错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现增加了复杂性，因此不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用不能将任何有用的内容预呈现。
+解决错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现增加了复杂性，因此不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用程序无法将任何有用的内容预呈现。
+
+::: moniker range=">= aspnetcore-3.1"
+
+若要禁用预呈现，请打开*Pages/_Host cshtml*文件，并将对 `Component` 标记帮助程序 `render-mode` 的调用更改为 `Server`。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 若要禁用预呈现，请打开*Pages/_Host cshtml*文件并将调用更改为 `Html.RenderComponentAsync<App>(RenderMode.Server)`。
 
-对于不使用 `localStorage` 或 `sessionStorage` 的其他页，预呈现可能很有用。 要使预呈现功能保持启用状态，请推迟加载操作，直到浏览器连接到线路。 下面是存储计数器值的示例：
+::: moniker-end
+
+对于不使用 `localStorage` 或 `sessionStorage`的其他页，预呈现可能很有用。 要使预呈现功能保持启用状态，请推迟加载操作，直到浏览器连接到线路。 下面是存储计数器值的示例：
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -284,7 +294,7 @@ else
 
 如果许多组件依赖于基于浏览器的存储，则多次重新实现状态提供程序代码会创建代码重复。 避免代码重复的一个选择是创建一个用于封装状态提供程序逻辑的*状态提供程序父组件*。 子组件可以使用永久性数据，而不考虑状态持久性机制。
 
-在下面 `CounterStateProvider` 组件的示例中，将保留计数器数据：
+在 `CounterStateProvider` 组件的以下示例中，将保留计数器数据：
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -324,7 +334,7 @@ else
 
 `CounterStateProvider` 组件通过在加载完成之前不呈现其子内容来处理加载阶段。
 
-若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件（*app.config*）中的 `Router` 环绕 `CounterStateProvider` 组件：
+若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件环绕组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件（*app.config*）中的 `Router` 环绕 `CounterStateProvider` 组件：
 
 ```cshtml
 <CounterStateProvider>
@@ -357,7 +367,7 @@ else
 
 前面的组件无需与 `ProtectedBrowserStorage`进行交互，也不会处理 "正在加载" 阶段。
 
-若要处理前面所述的预呈现，可以修改 `CounterStateProvider`，以使使用计数器数据的所有组件自动使用预呈现。 有关详细信息，请参阅[处理预呈现](#handle-prerendering)部分。
+若要处理前面所述的预呈现，`CounterStateProvider` 可以修改，以便使用计数器数据的所有组件自动使用预呈现。 有关详细信息，请参阅[处理预呈现](#handle-prerendering)部分。
 
 通常，建议使用*状态提供程序父组件*模式：
 

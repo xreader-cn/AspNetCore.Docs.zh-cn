@@ -5,12 +5,12 @@ description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
 ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 98e06a92af0b6c045095ac803196bf4b1f25e5c5
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 229e274a22e170d984a16d3b1ee64ebc38c4ef77
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289009"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963339"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除
 
@@ -100,6 +100,9 @@ options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async 
 ## <a name="root-namespace-issues"></a>根命名空间问题
 
 如果程序集的根命名空间不同于程序集名称，则默认情况下本地化无法工作。 若要避免此问题，请使用 [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1)，[此处](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming)是其详细描述
+
+> [!WARNING]
+> 当项目名称不是有效的 .NET 标识符时，可能会发生这种情况。 例如，`my-project-name.csproj` 将使用根命名空间 `my_project_name` 和导致此错误的程序集名称 `my-project-name`。 
 
 ## <a name="resources--build-action"></a>设置和生成操作
 

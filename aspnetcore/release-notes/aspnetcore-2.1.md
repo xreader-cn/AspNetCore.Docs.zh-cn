@@ -4,20 +4,22 @@ author: isaac2004
 description: 了解 ASP.NET Core 2.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/30/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 359f961db768b9048427c8ab296ee3e035879408
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: a45ba44fb7911a21927a4a996c0d6fa9eb776357
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086396"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963181"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
 本文重点介绍 ASP.NET Core 2.1 中最重要的更改，并提供相关文档的链接。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
 已针对 ASP.NET Core 2.1 重新编写 SignalR。 ASP.NET Core SignalR 包含大量改进：
 
@@ -43,7 +45,7 @@ ms.locfileid: "65086396"
 
 ASP.NET Core 2.1 提供 [ASP.NET Core 标识](xref:security/authentication/identity)作为 [Razor 类库](xref:razor-pages/ui-class)。 包含标识的应用可以应用新的标识基架，以便有选择地添加标识 Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。
 
-不包含身份验证的应用可以应用标识基架以添加 RCL 标识包。 可以选择要生成的标识代码。
+不包含身份验证的应用可以应用标识基架以添加 RCL 标识包  。 可以选择要生成的标识代码。
 
 有关详细信息，请参阅 [ASP.NET Core 项目中的基架标识](xref:security/authentication/scaffold-identity)。
 
@@ -81,7 +83,7 @@ ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 
 
 引入了可简化创建和执行测试的新包。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/) 包可处理以下任务：
 
-* 将依赖项文件 (\*.deps) 从已测试的应用复制到测试项目的 bin 文件夹中。
+* 将依赖项文件 (\*.deps) 从已测试的应用复制到测试项目的 bin 文件夹中   。
 * 将内容根目录设置为已测试应用的项目根目录，以便可在执行测试时找到静态文件和页面/视图。
 * 提供 [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) 类，以简化已测试应用在 [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 中的启动过程。
 
@@ -156,18 +158,18 @@ Angular 模板基于 Angular CLI，而 React 模板基于 create-react-app。
 在 2.1 中，Razor Pages 按所列顺序搜索以下目录中的 Razor 资产（例如布局和分区）：
 
 1. 当前 Pages 文件夹。
-1. /Pages/Shared/
-1. /Views/Shared/
+1. /Pages/Shared/ 
+1. /Views/Shared/ 
 
 ## <a name="razor-pages-in-an-area"></a>某个区域内的 Razor Pages
 
-Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。 使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages。
+Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域示例，请使用个人用户帐户创建新 Razor Pages Web 应用。 使用个人用户帐户的 Razor Pages Web 应用包括 /Areas/Identity/Pages  。
 
 ## <a name="mvc-compatibility-version"></a>MVC 兼容性版本
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许应用选择加入或退出 ASP.NET Core MVC 2.1 或更高版本中引入的潜在中断行为变更。
 
-有关更多信息，请参见<xref:mvc/compatibility-version>。
+有关详细信息，请参阅 <xref:mvc/compatibility-version>。
 
 ## <a name="migrate-from-20-to-21"></a>从 2.0 迁移到 2.1
 

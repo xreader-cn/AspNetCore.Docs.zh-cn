@@ -5,14 +5,16 @@ description: 了解如何在 ASP.NET Core 中开始使用 WebSocket。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: 098e6826d6f7114baceb9578dc6d9883eb83f0aa
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: fc07d572116f8eea2b30ea6cf80324e5c66f994c
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589710"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963173"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -22,11 +24,11 @@ ms.locfileid: "72589710"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 [如何运行](#sample-app)。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
 [ASP.NET Core SignalR](xref:signalr/introduction) 是一个库，可用于简化向应用添加实时 Web 功能。 它会尽可能地使用 WebSocket。
 
-对于大多数应用程序，我们建议使用 SignalR，而不是原始 Websocket。 SignalR 可为 Websocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 Websocket 相比，SignalR 没有显著的性能缺点。
+对于大多数应用程序，我们建议使用 SignalR，而不是原始 WebSocket。 SignalR 可为 WebSocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 WebSocket 相比，SignalR 没有显著的性能缺点。
 
 ## <a name="prerequisites"></a>系统必备
 

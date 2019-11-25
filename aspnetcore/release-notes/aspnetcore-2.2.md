@@ -4,14 +4,16 @@ author: rick-anderson
 description: 了解 ASP.NET Core 2.2 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 88a202d85c4d4ed7a395dba78feea29ef4637732
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: fca653158c95e7c1a11f25f4076830fe3e7e93ae
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975709"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963124"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -74,9 +76,9 @@ HTTP/2 是 HTTP 协议的主要修订版本。 HTTP/2 的一些值得注意的�
 
 有关详细信息，请参阅 [IIS 进程内承载](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model)。
 
-## <a name="signalr-java-client"></a>SignalR Java 客户端
+## <a name="opno-locsignalr-java-client"></a>SignalR Java 客户端
 
-ASP.NET Core 2.2 引入了适用于 SignalR 的 Java 客户端。 此客户端支持通过 Java 代码连接到 ASP.NET Core SignalR 服务器（包括 Android 应用）。
+ASP.NET Core 2.2 引入了适用于 SignalR 的 Java 客户端。 此客户端支持通过 Java 代码连接到 ASP.NET Core SignalR Server（包括 Android 应用）。
 
 有关详细信息，请参阅 [ASP.NET Core SignalR Java 客户端](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2)。
 

@@ -8,8 +8,6 @@
 
 **[环境标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
 
-**[FormActionTagHelper](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
-
 **[表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)**
 
 **[窗体操作标记帮助程序](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
@@ -20,13 +18,11 @@
 
 **[标签标记帮助程序](xref:mvc/views/working-with-forms#the-label-tag-helper)**
 
-**[LinkTagHelper](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
-
-[comment]: **[OptionTagHelper](xref:mvc/views/tag-helpers/builtin-th/option-tag-helper)**
-
-**[ScriptTagHelper](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
+**[链接标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
 
 **[部分标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
+
+**[脚本标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
 
 **[选择标记帮助程序](xref:mvc/views/working-with-forms#the-select-tag-helper)**
 

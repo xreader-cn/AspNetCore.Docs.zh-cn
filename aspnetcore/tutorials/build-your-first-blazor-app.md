@@ -1,20 +1,22 @@
 ---
-title: 生成你的第一个 Blazor 应用
+title: 生成首个 Blazor 应用
 author: guardrex
 description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/31/2019
+no-loc:
+- Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: cc7caa1ee01e0282024895ab35c5b9933b1504d0
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 646e14060b88fc2a0fefc2f7a5ebb1c15ac39b79
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416176"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963711"
 ---
-# <a name="build-your-first-blazor-app"></a>生成你的第一个 Blazor 应用
+# <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -59,13 +61,13 @@ ms.locfileid: "73416176"
 
 1. 通过向 `Index` 组件 (Index.razor  ) 添加 `<Counter />` 元素，将 `Counter` 组件添加到应用的 `Index` 组件。
 
-   如果在此体验中使用的是 Blazor WebAssembly，则 `Index` 组件使用 `SurveyPrompt` 组件。 将 `<SurveyPrompt>` 元素替换为 `<Counter />` 元素。 如果在此体验中使用的是 Blazor 服务器应用，请向 `Index` 组件添加 `<Counter />` 元素：
+   如果在此体验中使用的是 Blazor WebAssembly，则 `Index` 组件使用 `SurveyPrompt` 组件。 将 `<SurveyPrompt>` 元素替换为 `<Counter />` 元素。 如果在此体验中使用的是 Blazor Server 应用，请向 `Index` 组件添加 `<Counter />` 元素：
 
    *Pages/Index.razor*：
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-1. 构建并运行应用程序。 `Index` 组件有其自己的计数器。
+1. 重新生成并运行应用。 `Index` 组件有其自己的计数器。
 
 ## <a name="component-parameters"></a>组件参数
 
@@ -97,11 +99,11 @@ ms.locfileid: "73416176"
 
 Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终结点。 `Counter` 组件处理发送到 `/counter` 的请求。 如果没有 `@page` 指令，组件将无法处理路由的请求，但该组件仍可以被其他组件使用。
 
-## <a name="dependency-injection"></a>依赖项注入
+## <a name="dependency-injection"></a>依赖关系注入
 
-### <a name="blazor-server-experience"></a>Blazor 服务器体验
+### <a name="opno-locblazor-server-experience"></a>Blazor Server 体验
 
-如果使用 Blazor Server 应用程序，则 `WeatherForecastService` 服务在 `Startup.ConfigureServices` 中注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)。 可通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在整个应用中使用服务的实例：
+如果使用的是 Blazor Server 应用，则 `WeatherForecastService` 服务在 `Startup.ConfigureServices` 中注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)。 可通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在整个应用中使用服务的实例：
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -115,9 +117,9 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly 体验
+### <a name="opno-locblazor-webassembly-experience"></a>Blazor WebAssembly 体验
 
-如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据   。
+如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据。  
 
 *Pages/FetchData.razor*：
 
@@ -155,7 +157,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
    </li>
    ```
 
-1. 构建并运行应用程序。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
+1. 重新生成并运行应用。 访问新的“待办事项”页面，确认指向 `Todo` 组件的链接有效。
 
 1. 向项目的根目录添加“TodoItem.cs”  文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
@@ -172,7 +174,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. 构建并运行应用程序。 选择“添加待办项”  按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
+1. 重新生成并运行应用。 选择“添加待办项”  按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
@@ -190,7 +192,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. 构建并运行应用程序。 在待办项列表中添加一些待办项以测试新代码。
+1. 重新生成并运行应用。 在待办项列表中添加一些待办项以测试新代码。
 
 1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
 
@@ -206,7 +208,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
-1. 构建并运行应用程序。 添加待办项以测试新代码。
+1. 重新生成并运行应用。 添加待办项以测试新代码。
 
 > [!div class="nextstepaction"]
 > <xref:blazor/components>

@@ -4,20 +4,23 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 8c53d8a9fa222ca40f26dc713ec3b70ddde76539
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: c3dde383507ec919f82b5268ddbf23911c3d24f8
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416126"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963112"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
 本文重点介绍 ASP.NET Core 3.0 中最重要的更改，并提供相关文档的链接。
 
-## <a name="blazor"></a>Blazor
+## Blazor
 
 Blazor 是 ASP.NET Core 中的新框架，用于使用 .NET 生成交互式客户端 Web UI：
 
@@ -37,19 +40,19 @@ Blazor 框架支持的方案：
 
 有关详细信息，请参阅 <xref:blazor/index>。
 
-### <a name="blazor-server"></a>Blazor 服务器
+### <a name="opno-locblazor-server"></a>Blazor 服务器
 
-Razor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
+Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
 
-### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
+### <a name="opno-locblazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
 
-还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 中不支持它  。 ASP.NET Core 的未来版本中将支持 Blazor WebAssembly。
+还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。  ASP.NET Core 的未来版本将支持 Blazor WebAssembly。
 
 ### <a name="razor-components"></a>Razor 组件
 
 Blazor 应用是基于组件构建的。 组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。 组件是定义 UI 呈现逻辑和客户端事件处理程序的普通 .NET 类。 无需 JavaScript 即可创建丰富的交互式 Web 应用。
 
-通常使用 Razor 语法（一种 HTML 和 C# 的自然混合）创建 Blazor 中的组件。 Razor 组件与 Razor Pages 和 MVC 视图类似，因为它们都使用 Razor。 与基于请求-响应模型的页和视图不同，组件专门用于处理 UI 构成。
+通常使用 Razor 语法（HTML 和 C# 的自然混合）创建 Blazor 中的组件。 Razor 组件与 Razor Pages 和 MVC 视图类似，因为它们都使用 Razor。 与基于请求-响应模型的页和视图不同，组件专门用于处理 UI 构成。
 
 ## <a name="grpc"></a>gRPC
 
@@ -64,7 +67,7 @@ Blazor 应用是基于组件构建的。 组件是自包含的用户界面 (UI) 
   * 二进制序列化格式。
 * 提供如下功能：
 
-  * Authentication
+  * 身份验证
   * 双向流式处理和流控制。
   * 取消和超时。
 
@@ -76,9 +79,9 @@ ASP.NET Core 3.0 中的 gRPC 功能包括：
 
 有关详细信息，请参阅 <xref:grpc/index>。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
-有关迁移说明，请参阅[更新 SignalR 代码](xref:migration/22-to-30#signalr)。 SignalR 现在使用 `System.Text.Json` 来序列化/反序列化 JSON 消息。 有关还原基于 `Newtonsoft.Json` 的序列化程序的说明，请参阅[切换到 Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson)。
+有关迁移说明，请参阅[更新 ](xref:migration/22-to-30#signalr) 代码SignalR。 SignalR 现在使用 `System.Text.Json` 来序列化/反序列化 JSON 消息。 有关还原基于 `Newtonsoft.Json` 的序列化程序的说明，请参阅[切换到 Newtonsoft.Json](xref:migration/22-to-30#switch-to-newtonsoftjson)。
 
 在 SignalR 的 JavaScript 和 .NET 客户端中，添加了自动重新连接支持。 默认情况下，客户端会立即尝试重新连接，并根据需要分别在 2 秒、10 秒和 30 秒后重试。 如果客户端成功重新连接，则会收到新的连接 ID。 选择启用自动重新连接：
 
@@ -255,7 +258,7 @@ app.UseRouting(routes =>
 });
 ```
 
-添加了 ASP.NET Core 3.0 SignalR：
+ASP.NET Core 3.0 SignalR 添加了：
 
 客户端到服务器的流式处理。 使用客户端到服务器的流式处理时，服务器端方法可以获取 `IAsyncEnumerable<T>` 或 `ChannelReader<T>` 的实例。 在下面的 C# 示例中，中心上的 `UploadStream` 方法将从客户端接收字符串流：
 
@@ -316,8 +319,8 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 下面的列表包含新的 Razor 指令：
 
-* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如，`@attribute [Authorize]` 。
-* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如，`@implements IDisposable` 。
+* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
+* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 
@@ -477,7 +480,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="pipes-on-httpcontext"></a>HttpContext 上的管道
 
-现在可以使用 <xref:System.IO.Pipelines> API 读取请求正文和写入响应正文。 The <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader` 属性提供可用于读取请求正文的 <xref:System.IO.Pipelines.PipeReader>。 The <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter` 属性提供可用于写入响应正文的 <xref:System.IO.Pipelines.PipeWriter>。 `HttpRequest.BodyReader` 是 `HttpRequest.Body` 流的模拟。 `HttpResponse.BodyWriter` 是 `HttpResponse.Body` 流的模拟。
+现在可以使用 <xref:System.IO.Pipelines> API 读取请求正文和写入响应正文。 必须向 <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader` 属性提供可用于读取请求正文的 <xref:System.IO.Pipelines.PipeReader>。 必须向 <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter` 属性提供可用于写入响应正文的 <xref:System.IO.Pipelines.PipeWriter>。 `HttpRequest.BodyReader` 是 `HttpRequest.Body` 流的模拟。 `HttpResponse.BodyWriter` 是 `HttpResponse.Body` 流的模拟。
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -489,7 +492,7 @@ app.UseEndpoints(endpoints =>
 
 .NET Core 3.0 引入了新的辅助角色服务应用模板。 可根据此模板开始在 .NET Core 中编写长期运行的服务。
 
-有关详细信息，请参阅：
+有关详细信息，请参见:
 
 * [作为 Windows 服务的 .NET Core 辅助角色](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
@@ -501,7 +504,7 @@ app.UseEndpoints(endpoints =>
 
 此方案已在 ASP.NET Core 3.0 中修复。 如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 环境变量设置为 `true`，则主机启用[转接的标头中间件](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options)。 在容器映像中，`ASPNETCORE_FORWARDEDHEADERS_ENABLED` 设置为 `true`。
 
-## <a name="performance-improvements"></a>性能提升
+## <a name="performance-improvements"></a>性能改进
 
 ASP.NET Core 3.0 包含了许多改进，可减少内存使用量并提高吞吐量：
 
@@ -531,7 +534,7 @@ ASP.NET Core 3.0 包含了许多改进，可减少内存使用量并提高吞吐
 从 ASP.NET Core 3.0 共享框架中删除的最值得注意的程序集有：
 
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) (Json.NET)。 若要将 Json.NET 添加到 ASP.NET Core 3.0，请参阅[添加基于 Newtonsoft.Json 的 JSON 格式支持](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support)。 ASP.NET Core 3.0 引入了 `System.Text.Json` 以读取和写入 JSON。 有关详细信息，请参阅本文档中的[新 JSON 序列化](#new-json-serialization)。
-* [实体框架核心](/ef/core/)
+* [Entity Framework Core](/ef/core/)
 
 有关从共享框架中删除的程序集的完整列表，请参阅[从 Microsoft.AspNetCore.App 3.0 中删除的程序集](https://github.com/aspnet/AspNetCore/issues/3755)。 有关此更改的动机的详细信息，请参阅 [3.0 中对 Microsoft.AspNetCore.App 所做的重大变更](https://github.com/aspnet/Announcements/issues/325)和[首先查看 ASP.NET Core 3.0 中的变更](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/)。
 

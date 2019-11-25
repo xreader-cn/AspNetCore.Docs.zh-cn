@@ -5,14 +5,14 @@ description: 了解如何使用 Moq 和 xUnit 测试 ASP.NET Core 中的控制�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/22/2019
+ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 3b5e60bbc76030b6d08bcb2f3aa1f6eca3c9bb05
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: 7f4fcb1a5d6e9959c751ebe24e41b39ee05a5819
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199089"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799505"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
 
@@ -347,4 +347,6 @@ ms.locfileid: "71199089"
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:test/integration-tests>
-* [使用 Visual Studio 创建和运行单位测试](/visualstudio/test/unit-test-your-code)。
+* [使用 Visual Studio 创建和运行单元测试](/visualstudio/test/unit-test-your-code)
+* [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 的 Fluent 测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; 强类型单元测试库，提供用于测试 MVC 和 Web API 应用的 Fluent 界面。 （*不由 Microsoft 进行支持或维护*。）
+

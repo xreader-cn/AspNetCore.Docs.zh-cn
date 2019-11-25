@@ -5,14 +5,14 @@ description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/04/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 04e7533aa190a4875d3f66e8665fec16abec48b3
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: b57ad4fe62de38085c11d7026d278cc6e0c565ce
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73462938"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963159"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -183,7 +183,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 使用 `XMLHttpRequest`。 例如:
+* 请使用 `XMLHttpRequest`。 例如:
 
   ```javascript
   <script>
@@ -242,7 +242,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-以下示例：
+如下示例中：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -718,7 +718,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
 
-## <a name="troubleshoot"></a>故障排除
+## <a name="troubleshoot"></a>疑难解答
 
 以下是上传文件时遇到的一些常见问题及其可能的解决方案。
 
@@ -740,6 +740,10 @@ The request filtering module is configured to deny a request that exceeds the re
 ### <a name="null-reference-exception-with-iformfile"></a>IFormFile 的空引用异常
 
 如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `multipart/form-data` 值是否为 `enctype`。 如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。 此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。
+
+### <a name="stream-was-too-long"></a>数据流太长
+
+本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。 `MemoryStream` 的大小限制为 `int.MaxValue`。 如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。
 
 ::: moniker-end
 
@@ -908,7 +912,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 使用 `XMLHttpRequest`。 例如:
+* 请使用 `XMLHttpRequest`。 例如:
 
   ```javascript
   <script>
@@ -967,7 +971,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-以下示例：
+如下示例中：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -1436,7 +1440,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
 
-## <a name="troubleshoot"></a>故障排除
+## <a name="troubleshoot"></a>疑难解答
 
 以下是上传文件时遇到的一些常见问题及其可能的解决方案。
 
@@ -1458,6 +1462,10 @@ The request filtering module is configured to deny a request that exceeds the re
 ### <a name="null-reference-exception-with-iformfile"></a>IFormFile 的空引用异常
 
 如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `multipart/form-data` 值是否为 `enctype`。 如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。 此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。
+
+### <a name="stream-was-too-long"></a>数据流太长
+
+本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。 `MemoryStream` 的大小限制为 `int.MaxValue`。 如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。
 
 ::: moniker-end
 

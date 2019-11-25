@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: 379d46fcaabb8eb0d04e521a5ad698229f947b7c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 0461fc6a212ba78111bc2054cca74951721c5820
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963920"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289041"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-opno-locsignalr-scale-out"></a>为 ASP.NET Core SignalR 横向扩展设置 Redis 底板
 
@@ -37,8 +37,7 @@ ms.locfileid: "73963920"
 
 ::: moniker range="= aspnetcore-2.1"
 
-* 在 SignalR 应用中，安装 `Microsoft.AspNetCore.SignalR.Redis` NuGet 包。 （还有一个 `Microsoft.AspNetCore.SignalR.StackExchangeRedis` 包，但它适用于 ASP.NET Core 2.2 及更高版本。）
-
+* 在 SignalR 应用中，安装 `Microsoft.AspNetCore.SignalR.Redis` NuGet 包。
 * 在 `Startup.ConfigureServices` 方法中，在 `AddSignalR`后调用 `AddRedis`：
 
   ```csharp
@@ -62,19 +61,54 @@ ms.locfileid: "73963920"
 
 ::: moniker-end
 
-::: moniker range="> aspnetcore-2.1"
+::: moniker range="= aspnetcore-2.2"
 
 * 在 SignalR 应用中，安装以下 NuGet 包之一：
 
   * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`-依赖于 Stackexchange.redis Redis 采用2.X.X。 建议将此包用于 ASP.NET Core 2.2 及更高版本。
-  * `Microsoft.AspNetCore.SignalR.Redis`-依赖于 Stackexchange.redis Redis 采用2.X.X。 此包不会在 ASP.NET Core 3.0 中发布。
+  * `Microsoft.AspNetCore.SignalR.Redis`-依赖于 Stackexchange.redis Redis 采用2.X.X。 此包不包含在 ASP.NET Core 3.0 及更高版本中。
 
-* 在 `Startup.ConfigureServices` 方法中，在 `AddSignalR`后调用 `AddStackExchangeRedis`：
+* 在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>：
 
   ```csharp
   services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
   ```
 
+ 使用 `Microsoft.AspNetCore.SignalR.Redis`时，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>。
+
+* 根据需要配置选项：
+ 
+  可以在连接字符串中或在[ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)对象中设置大多数选项。 在 `ConfigurationOptions` 中指定的选项会替代在连接字符串中设置的选项。
+
+  下面的示例演示如何在 `ConfigurationOptions` 对象中设置选项。 此示例将添加一个通道前缀，以便多个应用可以共享同一 Redis 实例，如以下步骤中所述。
+
+  ```csharp
+  services.AddSignalR()
+    .AddStackExchangeRedis(connectionString, options => {
+        options.Configuration.ChannelPrefix = "MyApp";
+    });
+  ```
+
+ 使用 `Microsoft.AspNetCore.SignalR.Redis`时，请调用 <xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>。
+
+  在前面的代码中，`options.Configuration` 用连接字符串中指定的内容进行初始化。
+
+  有关 Redis 选项的信息，请参阅[Stackexchange.redis Redis 文档](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+* 在 SignalR 应用中，安装以下 NuGet 包：
+
+  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`
+  
+* 在 `Startup.ConfigureServices` 方法中，调用 <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>：
+
+  ```csharp
+  services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
+  ```
+  
 * 根据需要配置选项：
  
   可以在连接字符串中或在[ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)对象中设置大多数选项。 在 `ConfigurationOptions` 中指定的选项会替代在连接字符串中设置的选项。

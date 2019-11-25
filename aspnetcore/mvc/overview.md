@@ -3,14 +3,14 @@ title: ASP.NET Core MVC 概述
 author: ardalis
 description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视图-控制器”设计模式构建 Web 应用和 API。
 ms.author: riande
-ms.date: 08/01/2019
+ms.date: 11/07/2019
 uid: mvc/overview
-ms.openlocfilehash: 7f09751850cbfa7bb3dc79656d4530445a9767b1
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: 4f4ea3da8563cabaaa6183c6835c2f1eb8c387b4
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68707810"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799485"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -64,7 +64,7 @@ ASP.NET Core MVC 包括以下功能：
 * [模型验证](#model-validation)
 * [依赖关系注入](../fundamentals/dependency-injection.md)
 * [筛选器](#filters)
-* [区域](#areas)
+* [Areas](#areas)
 * [Web API](#web-apis)
 * [可测试性](#testability)
 * [Razor 视图引擎](#razor-view-engine)
@@ -170,7 +170,7 @@ ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-in
 public class AccountController : Controller
 ```
 
-### <a name="areas"></a>区域
+### <a name="areas"></a>Areas
 
 [区域](controllers/areas.md)提供将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。每个单位都有自己的逻辑组件视图、控制器和模型。
 
@@ -254,3 +254,8 @@ public class AccountController : Controller
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许应用选择加入或退出 ASP.NET Core MVC 2.1 或更高版本中引入的潜在中断行为变更。
 
 有关详细信息，请参阅 <xref:mvc/compatibility-version>。
+
+## <a name="additional-resources"></a>其他资源
+
+* [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 的 Fluent 测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; 强类型单元测试库，提供用于测试 MVC 和 Web API 应用的 Fluent 界面。 （*不由 Microsoft 进行支持或维护*。）
+

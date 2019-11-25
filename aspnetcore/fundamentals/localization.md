@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 9ed133c93a9ec95c63869b710d120eca9fda1b6e
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 36235e305037c0bbf20093327e2a0ff21b3de809
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333703"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963669"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -166,6 +166,9 @@ Razor 视图中使用 `@inject IViewLocalizer` 的资源文件遵循类似的模
 
 [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) 属性在程序集的根命名空间不同于程序集名称时，提供程序集的根命名空间。 
 
+> [!WARNING]
+> 当项目名称不是有效的 .NET 标识符时，可能会发生这种情况。 例如，`my-project-name.csproj` 将使用根命名空间 `my_project_name` 和导致此错误的程序集名称 `my-project-name`。 
+
 如果程序集的根命名空间不同于程序集名称：
 
 * 默认情况下无法进行本地化。
@@ -197,7 +200,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="generate-resource-files-with-visual-studio"></a>使用 Visual Studio 生成资源文件
 
-如果在 Visual Studio 中创建文件名没有区域性的资源文件（例如 Welcome.resx），Visual Studio 将创建一个 C# 类，并且具有每个字符串的属性  。 这通常不是你想在 ASP.NET Core 中使用的。 你通常没有默认的 .resx 资源文件（没有区域性名称的 .resx 文件）   。 建议创建具有区域性名称（例如 Welcome.fr.resx）的 .resx 文件   。 创建具有区域性名称的 .resx 文件时，Visual Studio 不会生成类文件  。 我们预计许多开发者不会创建默认语言资源文件。
+如果在 Visual Studio 中创建文件名没有区域性的资源文件（例如 Welcome.resx），Visual Studio 将创建一个 C# 类，并且具有每个字符串的属性  。 这通常不是你想在 ASP.NET Core 中使用的。 你通常没有默认的 .resx 资源文件（没有区域性名称的 .resx 文件）   。 建议创建具有区域性名称（例如 Welcome.fr.resx）的 .resx 文件   。 创建具有区域性名称的 .resx 文件时，Visual Studio 不会生成类文件  。
 
 ### <a name="add-other-cultures"></a>添加其他区域性
 

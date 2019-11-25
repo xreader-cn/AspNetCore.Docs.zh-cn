@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 应用中呈现视图之前，使用�
 ms.author: riande
 ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 9a7b8003b24329f6e9cbd349ee47f6844b7c5f6d
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 3ba2f459ca2b04a3001e261acab26880b6582500
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238030"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289001"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core 中的布局
 
@@ -68,9 +68,9 @@ Razor 视图具有 `Layout` 属性。 单个视图通过设置此属性来指定
 布局可以通过调用 `RenderSection` 来选择引用一个或多个节  。 节提供一种方法来组织某些页面元素应当放置的位置。 每次调用 `RenderSection` 时都可指定该部分是必需还是可选：
 
 ```html
-@section Scripts {
-    @RenderSection("Scripts", required: false)
-}
+<script type="text/javascript" src="~/scripts/global.js"></script>
+
+@RenderSection("Scripts", required: false)
 ```
 
 如果找不到所需的节，将引发异常。 单个视图使用 `@section` Razor 语法指定要在节中呈现的内容。 如果某个页面或视图定义了一个部分，则必须呈现该部分（否则将发生错误）。
@@ -79,7 +79,7 @@ Razor Pages 视图中的示例 `@section` 定义：
 
 ```html
 @section Scripts {
-     <script type="text/javascript" src="/scripts/main.js"></script>
+     <script type="text/javascript" src="~/scripts/main.js"></script>
 }
 ```
 

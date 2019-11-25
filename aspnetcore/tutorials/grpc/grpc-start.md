@@ -2,16 +2,15 @@
 title: 在 ASP.NET Core 中创建 .NET Core gRPC 客户端和服务器
 author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
-monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 10/10/2019
+ms.date: 11/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 0da5a4cf0d9cc15fee6417d143cfc9e9f1e4509c
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: e5373d9abb9a770132e756843dbd15534dbe3356
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463066"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116141"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -23,7 +22,7 @@ ms.locfileid: "73463066"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
-本教程介绍以下操作：
+在本教程中，你将了解：
 
 > [!div class="checklist"]
 > * 创建 gRPC 服务器。
@@ -76,7 +75,7 @@ ms.locfileid: "73463066"
   * `code` 命令将在新 Visual Studio Code 实例中打开 GrpcGreeter 文件夹  。
 
   一个对话框随即出现，其中包含：“‘GrpcGreeter’中缺少进行生成和调试所需的资产”。  是否添加它们?”
-* 请选择“是”。 
+* 选择 **“是”** 。
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -95,23 +94,9 @@ cd GrpcGreeter
 
 ---
 
-### <a name="run-the-service"></a>运行该服务
+### <a name="run-the-service"></a>运行服务
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-* 按 `Ctrl+F5` 以在不使用调试程序的情况下运行 gRPC 服务。
-
-  Visual Studio 在命令提示符中运行该服务。
-
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-* 使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter  。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* 使用 `dotnet run` 从命令行运行 gRPC Greeter 项目 GrpcGreeter  。
-
----
+  [!INCLUDE[](~/includes/run-the-app.md)]
 
 日志显示该服务正在侦听 `https://localhost:5001`。
 
@@ -191,7 +176,7 @@ gRPC 客户端项目需要以下包：
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包
 
 * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
-* 选择“浏览”按钮  。
+* 选择“浏览”选项卡  。
 * 在搜索框中输入 Grpc.Net.Client  。
 * 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”    。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。

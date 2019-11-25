@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 313d951ccdd45ae1209ffd9612d24738822fbed8
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: b8b1ade4c8c29d34200bf8c0944cff6adec0bb95
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259608"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74288955"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
@@ -153,13 +153,14 @@ dotnet ef database update
 
 ### <a name="the-required-attribute"></a>Required 特性
 
-`Required` 特性使名称属性成为必填字段。 值类型（DateTime、int、double、float 等）等不可为 null 的类型不需要 `Required` 特性。 系统会将不可为 null 的类型自动视为必填字段。
+`Required` 特性使名称属性成为必填字段。 值类型（DateTime、int、double、float 等）等不可为 null 的类型不需要 `Required` 特性。 系统会将不可为 NULL 的类型自动视为必填字段。
 
-可删除 `Required` 特性，并用 `StringLength` 特性的最小长度参数来替换：
+`Required` 特性必须与 `MinimumLength` 结合使用才能强制执行 `MinimumLength`。
 
 ```csharp
 [Display(Name = "Last Name")]
-[StringLength(50, MinimumLength=1)]
+[Required]
+[StringLength(50, MinimumLength=2)]
 public string LastName { get; set; }
 ```
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 0bf40f9cd2554f5ba01ccc06001fa4f1940d51a5
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288979"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289051"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 
@@ -147,9 +147,9 @@ public class UserRepository : IUserRepository
 要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法，而是传递所需要的数据。
 
 ```csharp
-public class EmailController
+public class EmailController : Controller
 {
-    public ActionResult SendEmail(string email)
+    public IActionResult SendEmail(string email)
     {
         var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
 

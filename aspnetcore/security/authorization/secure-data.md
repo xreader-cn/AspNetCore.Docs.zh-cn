@@ -1,77 +1,77 @@
 ---
-title: 使用授权保护的用户数据创建 ASP.NET Core 应用
+title: Create an ASP.NET Core app with user data protected by authorization
 author: rick-anderson
-description: 了解如何使用授权保护的用户数据创建 Razor Pages 应用。 包括 HTTPS、身份验证、安全性 ASP.NET Core 标识。
+description: Learn how to create a Razor Pages app with user data protected by authorization. Includes HTTPS, authentication, security, ASP.NET Core Identity.
 ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 6e2f785a6dc014884f105766686f284cb2685530
-ms.sourcegitcommit: 383017d7060a6d58f6a79cf4d7335d5b4b6c5659
+ms.openlocfilehash: 65c72d4dd457f85451796c5713bedebafec7a7de
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72816147"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239836"
 ---
-# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>使用授权保护的用户数据创建 ASP.NET Core 应用
+# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Create an ASP.NET Core app with user data protected by authorization
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
 
 ::: moniker range="<= aspnetcore-1.1"
 
-请参阅[此 PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)以获取 ASP.NET Core MVC 版本。 本教程的 ASP.NET Core 1.1 版本位于[此](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)文件夹中。 1\.1 ASP.NET Core 示例位于[示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)中。
+See [this PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) for the ASP.NET Core MVC version. The ASP.NET Core 1.1 version of this tutorial is in [this](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) folder. The 1.1 ASP.NET Core sample is in the [samples](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-查看[此 pdf](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)
+See [this pdf](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它显示已验证（注册）用户已创建的联系人的列表。 有三个安全组：
+This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
 
-* **已注册的用户**可以查看所有已批准的数据，并可以编辑/删除他们自己的数据。
-* **经理**可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
-* **管理员**可以批准/拒绝和编辑/删除任何数据。
+* **Registered users** can view all the approved data and can edit/delete their own data.
+* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
+* **Administrators** can approve/reject and edit/delete any data.
 
-此文档中的图像与最新模板并不完全匹配。
+The images in this document don't exactly match the latest templates.
 
-在下图中，用户 Rick （`rick@example.com`）登录。 Rick 只能查看已批准的联系人并**编辑**/**Delete**/为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
 
-![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
+![Screenshot showing Rick signed in](secure-data/_static/rick.png)
 
-在下图中，`manager@contoso.com` 已登录，并在管理器的角色中：
+In the following image, `manager@contoso.com` is signed in and in the manager's role:
 
-![显示 manager@contoso.com 登录的屏幕截图](secure-data/_static/manager1.png)
+![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
 
-下图显示了联系人的经理详细信息视图：
+The following image shows the managers details view of a contact:
 
-![联系人的经理视图](secure-data/_static/manager.png)
+![Manager's view of a contact](secure-data/_static/manager.png)
 
-"**批准**" 和 "**拒绝**" 按钮仅为经理和管理员显示。
+The **Approve** and **Reject** buttons are only displayed for managers and administrators.
 
-在下图中，`admin@contoso.com` 以管理员角色登录：
+In the following image, `admin@contoso.com` is signed in and in the administrator's role:
 
-![显示 admin@contoso.com 登录的屏幕截图](secure-data/_static/admin.png)
+![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
 
-管理员具有所有权限。 她可以读取/编辑/删除任何联系人并更改联系人的状态。
+The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
 
-该应用由[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建，以下 `Contact` 模型：
+The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-该示例包含以下授权处理程序：
+The sample contains the following authorization handlers:
 
-* `ContactIsOwnerAuthorizationHandler`：确保用户只能编辑其数据。
-* `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
-* `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
+* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
+* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
+* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>Prerequisites
 
-本教程是高级教程。 你应该熟悉：
+This tutorial is advanced. You should be familiar with:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [身份验证](xref:security/authentication/identity)
@@ -79,258 +79,260 @@ ms.locfileid: "72816147"
 * [授权](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
+## <a name="the-starter-and-completed-app"></a>The starter and completed app
 
-[下载](xref:index#how-to-download-a-sample)[已完成](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)的应用。 [测试](#test-the-completed-app)已完成的应用程序，使其安全功能熟悉。
+[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
 
-### <a name="the-starter-app"></a>入门应用
+### <a name="the-starter-app"></a>The starter app
 
-[下载](xref:index#how-to-download-a-sample)[初学者](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)应用。
+[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
 
-运行应用程序，点击 " **ContactManager** " 链接，并验证是否可以创建、编辑和删除联系人。
+Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
 
-## <a name="secure-user-data"></a>保护用户数据
+## <a name="secure-user-data"></a>Secure user data
 
-以下部分包含创建安全用户数据应用的所有主要步骤。 你可能会发现，引用已完成的项目非常有用。
+The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
 
-### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
+### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) user ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和 `ContactStatus` 添加到 `Contact` 模型：
+Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` 是[标识](xref:security/authentication/identity)数据库的 `AspNetUser` 表中的用户 ID。 "`Status`" 字段确定常规用户是否可查看联系人。
+`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
 
-创建新的迁移并更新数据库：
+Create a new migration and update the database:
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+### <a name="add-role-services-to-identity"></a>Add Role services to Identity
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
+Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet2&highlight=9)]
 
-### <a name="require-authenticated-users"></a>需要经过身份验证的用户
+### <a name="require-authenticated-users"></a>Require authenticated users
 
-将默认的 "身份验证策略" 设置为 "要求用户进行身份验证"：
+Set the default authentication policy to require users to be authenticated:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
 
- 可在 Razor 页、控制器或操作方法级别选择不通过 `[AllowAnonymous]` 属性进行身份验证。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor Pages 和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor Pages 来包括 `[Authorize]` 属性更安全。
+ You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
 
-将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引" 和 "隐私" 页，以便匿名用户在注册之前可以获取有关站点的信息。
+Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index and Privacy pages so anonymous users can get information about the site before they register.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
-### <a name="configure-the-test-account"></a>配置测试帐户
+### <a name="configure-the-test-account"></a>Configure the test account
 
-`SeedData` 类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 从项目目录（包含*Program.cs*的目录）设置密码：
+The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-如果未指定强密码，则在调用 `SeedData.Initialize` 时将引发异常。
+If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
 
-更新 `Main` 以使用测试密码：
+Update `Main` to use the test password:
 
 [!code-csharp[](secure-data/samples/final3/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>创建测试帐户并更新联系人
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
 
-更新 `SeedData` 类中的 `Initialize` 方法，以创建测试帐户：
+Update the `Initialize` method in the `SeedData` class to create the test accounts:
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet_Initialize)]
 
-向联系人添加管理员用户 ID 和 `ContactStatus`。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
+Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>创建所有者、经理和管理员授权处理程序
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
 
-在*Authorization*文件夹中创建 `ContactIsOwnerAuthorizationHandler` 类。 `ContactIsOwnerAuthorizationHandler` 将验证对资源的用户是否拥有该资源。
+Create a `ContactIsOwnerAuthorizationHandler` class in the *Authorization* folder. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-`ContactIsOwnerAuthorizationHandler` 调用[上下文。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)如果当前经过身份验证的用户是联系人所有者，则会成功。 授权处理程序通常：
+The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
 
-* 满足要求时返回 `context.Succeed`。
-* 不满足要求时返回 `Task.CompletedTask`。 `Task.CompletedTask` 不是成功或失败&mdash;它允许其他授权处理程序运行。
+* Return `context.Succeed` when the requirements are met.
+* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
 
-如果需要显式失败，请返回[context。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
+If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-该应用程序允许联系人所有者编辑/删除/创建他们自己的数据。 `ContactIsOwnerAuthorizationHandler` 不需要检查在要求参数中传递的操作。
+The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
 
-### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
+### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
 
-在*Authorization*文件夹中创建 `ContactManagerAuthorizationHandler` 类。 `ContactManagerAuthorizationHandler` 将验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>创建管理员授权处理程序
+### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
 
-在*Authorization*文件夹中创建 `ContactAdministratorsAuthorizationHandler` 类。 `ContactAdministratorsAuthorizationHandler` 将验证对资源的用户是否为管理员。 管理员可以执行所有操作。
+Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>注册授权处理程序
+## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
 
-Entity Framework Core 使用 [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions) 的服务必须使用注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler` 使用 ASP.NET Core[标识](xref:security/authentication/identity)，这是在 Entity Framework Core 上构建的。 向服务集合注册处理程序，以便 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到 `ConfigureServices`末尾：
+Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
-`ContactAdministratorsAuthorizationHandler` 和 `ContactManagerAuthorizationHandler` 添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有信息都在 `HandleRequirementAsync` 方法的 `Context` 参数中。
+`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
 
-## <a name="support-authorization"></a>支持授权
+## <a name="support-authorization"></a>Support authorization
 
-在本部分中，将更新 Razor Pages 并添加操作要求类。
+In this section, you update the Razor Pages and add an operations requirements class.
 
-### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
+### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
 
-查看 `ContactOperations` 类。 此类包含应用支持的要求：
+Review the `ContactOperations` class. This class contains the requirements the app supports:
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人创建基类 Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
 
-创建一个基类，该基类包含联系人 Razor Pages 中使用的服务。 基类将初始化代码放在一个位置：
+Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
-* 添加 `IAuthorizationService` 服务以访问授权处理程序。
-* `UserManager` 服务添加标识。
+* Adds the `IAuthorizationService` service to access to the authorization handlers.
+* Adds the Identity `UserManager` service.
 * 添加 `ApplicationDbContext`。
 
-### <a name="update-the-createmodel"></a>更新 CreateModel
+### <a name="update-the-createmodel"></a>Update the CreateModel
 
-更新 "创建页模型" 构造函数以使用 `DI_BasePageModel` 基类：
+Update the create page model constructor to use the `DI_BasePageModel` base class:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-将 `CreateModel.OnPostAsync` 方法更新为：
+Update the `CreateModel.OnPostAsync` method to:
 
-* 将用户 ID 添加到 `Contact` 模型中。
-* 调用授权处理程序以验证用户是否有权创建联系人。
+* Add the user ID to the `Contact` model.
+* Call the authorization handler to verify the user has permission to create contacts.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>更新 IndexModel
+### <a name="update-the-indexmodel"></a>Update the IndexModel
 
-更新 `OnGetAsync` 方法，以便仅向一般用户显示批准的联系人：
+Update the `OnGetAsync` method so only approved contacts are shown to general users:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>更新 EditModel
+### <a name="update-the-editmodel"></a>Update the EditModel
 
-添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此 `[Authorize]` 特性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
+Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>更新 DeleteModel
+### <a name="update-the-deletemodel"></a>Update the DeleteModel
 
-更新 "删除" 页模型，以使用授权处理程序来验证用户是否具有对联系人的 "删除" 权限。
+Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>将授权服务注入视图
+## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
 
-目前，UI 会显示用户不能修改的联系人的编辑和删除链接。
+Currently, the UI shows edit and delete links for contacts the user can't modify.
 
-将授权服务注入*Pages/_ViewImports*文件中，使其可供所有视图使用：
+Inject the authorization service in the *Pages/_ViewImports.cshtml* file so it's available to all views:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-前面的标记添加了几个 `using` 语句。
+The preceding markup adds several `using` statements.
 
-更新*页面/联系人/索引*中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
+Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor 页或控制器必须强制进行访问检查以确保数据的安全。
+> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
 
-### <a name="update-details"></a>更新详细信息
+### <a name="update-details"></a>Update Details
 
-更新详细信息视图，以便经理可以批准或拒绝联系人：
+Update the details view so managers can approve or reject contacts:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Details.cshtml?name=snippet)]
 
-更新详细信息页模型：
+Update the details page model:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>在角色中添加或删除用户
+## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
 
-有关信息，请参阅[此问题](https://github.com/aspnet/AspNetCore.Docs/issues/8502)：
+See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
 
-* 正在删除用户的权限。 例如，在聊天应用中对用户进行静音。
-* 向用户添加特权。
+* Removing privileges from a user. For example, muting a user in a chat app.
+* Adding privileges to a user.
 
-## <a name="differences-between-challenge-vs-forbid"></a>质询与禁止之间的差异
+<a name="challenge"></a>
 
-此应用将默认策略设置为 "[需要经过身份验证的用户](#require-authenticated-users)"。 以下代码允许匿名用户。 允许匿名用户显示质询与禁止之间的差异。
+## <a name="differences-between-challenge-and-forbid"></a>Differences between Challenge and Forbid
+
+This app sets the default policy to [require authenticated users](#require-authenticated-users). The following code allows anonymous users. Anonymous users are allowed to show the differences between Challenge vs Forbid.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details2.cshtml.cs?name=snippet)]
 
 在上述代码中：
 
-* 如果**用户未通过身份验证**，将返回 `ChallengeResult`。 返回 `ChallengeResult` 后，用户将重定向到登录页。
-* 如果用户已通过身份验证，但未获得授权，则返回 `ForbidResult`。 返回 `ForbidResult` 后，用户将被重定向到 "拒绝访问" 页。
+* When the user is **not** authenticated, a `ChallengeResult` is returned. When a `ChallengeResult` is returned, the user is redirected to the sign-in page.
+* When the user is authenticated, but not authorized, a `ForbidResult` is returned. When a `ForbidResult` is returned, the user is redirected to the access denied page.
 
-## <a name="test-the-completed-app"></a>测试已完成的应用程序
+## <a name="test-the-completed-app"></a>Test the completed app
 
-如果尚未为种子设定用户帐户设置密码，请使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
+If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
 
-* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!` 满足强密码要求。
-* 从项目的文件夹中执行以下命令，其中 `<PW>` 是密码：
+* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
+* Execute the following command from the project's folder, where `<PW>` is the password:
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-如果应用有联系人：
+If the app has contacts:
 
-* 删除 `Contact` 表中的所有记录。
-* 重新启动应用以对数据库进行种子设定。
+* Delete all of the records in the `Contact` table.
+* Restart the app to seed the database.
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中注册新用户（例如 `test@example.com`）。 使用其他用户登录到每个浏览器。 验证下列操作：
+An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
 
-* 已注册的用户可以查看所有已批准的联系人数据。
-* 已注册的用户可以编辑/删除他们自己的数据。
-* 经理可以批准/拒绝联系人数据。 `Details` 视图显示 "**批准**" 和 "**拒绝**" 按钮。
-* 管理员可以批准/拒绝和编辑/删除所有数据。
+* Registered users can view all of the approved contact data.
+* Registered users can edit/delete their own data.
+* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
+* Administrators can approve/reject and edit/delete all data.
 
-| 用户                | 应用程序的种子 | 选项                                  |
+| 用户                | Seeded by the app | 选项                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | No                | 编辑/删除自己的数据。                |
-| manager@contoso.com | 是               | 批准/拒绝和编辑/删除自己的数据。 |
-| admin@contoso.com   | 是               | 批准/拒绝和编辑/删除所有数据。 |
+| test@example.com    | No                | Edit/delete the own data.                |
+| manager@contoso.com | 是               | Approve/reject and edit/delete own data. |
+| admin@contoso.com   | 是               | Approve/reject and edit/delete all data. |
 
-在管理员的浏览器中创建联系人。 复制管理员联系人的 "删除" 和 "编辑" 的 URL。 将这些链接粘贴到测试用户的浏览器中，以验证测试用户是否无法执行这些操作。
+Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
 
-## <a name="create-the-starter-app"></a>创建初学者应用
+## <a name="create-the-starter-app"></a>Create the starter app
 
-* 创建名为 "ContactManager" 的 Razor Pages 应用
-  * 创建具有**单个用户帐户**的应用。
-  * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
-  * `-uld` 指定 LocalDB 而不是 SQLite
+* Create a Razor Pages app named "ContactManager"
+  * Create the app with **Individual User Accounts**.
+  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
+  * `-uld` specifies LocalDB instead of SQLite
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加*模型/联系方式*：
+* Add *Models/Contact.cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* 基架 `Contact` 模型。
-* 创建初始迁移并更新数据库：
+* Scaffold the `Contact` model.
+* Create initial migration and update the database:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -341,71 +343,71 @@ dotnet ef migrations add initial
 dotnet ef database update
 ```
 
-如果使用 `dotnet aspnet-codegenerator razorpage` 命令时遇到 bug，请参阅[此 GitHub 问题](https://github.com/aspnet/Scaffolding/issues/984)。
+If you experience a bug with the `dotnet aspnet-codegenerator razorpage` command, see [this GitHub issue](https://github.com/aspnet/Scaffolding/issues/984).
 
-* 更新*Pages/Shared/_Layout*文件中的**ContactManager**定位点：
+* Update the **ContactManager** anchor in the *Pages/Shared/_Layout.cshtml* file:
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
   ```
 
-* 通过创建、编辑和删除联系人来测试应用
+* Test the app by creating, editing, and deleting a contact
 
 ### <a name="seed-the-database"></a>设定数据库种子
 
-将[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)类添加到*Data*文件夹：
+Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) class to the *Data* folder:
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
-从 `Main`调用 `SeedData.Initialize`：
+Call `SeedData.Initialize` from `Main`:
 
 [!code-csharp[](secure-data/samples/starter3/Program.cs)]
 
-测试该应用是否为该数据库的种子。 如果 contact DB 中存在任何行，则 seed 方法不会运行。
+Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
 
-本教程演示如何创建 ASP.NET Core 的 web 应用，其中包含由授权保护的用户数据。 它显示已验证（注册）用户已创建的联系人的列表。 有三个安全组：
+This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
 
-* **已注册的用户**可以查看所有已批准的数据，并可以编辑/删除他们自己的数据。
-* **经理**可以批准或拒绝联系人数据。 只有已批准的联系人对用户可见。
-* **管理员**可以批准/拒绝和编辑/删除任何数据。
+* **Registered users** can view all the approved data and can edit/delete their own data.
+* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
+* **Administrators** can approve/reject and edit/delete any data.
 
-在下图中，用户 Rick （`rick@example.com`）登录。 Rick 只能查看已批准的联系人并**编辑**/**Delete**/为其联系人**创建新**链接。 只有 Rick 创建的最后一条记录才会显示 "**编辑**" 和 "**删除**" 链接。 在经理或管理员将状态更改为 "已批准" 之前，其他用户将看不到最后一条记录。
+In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
 
-![显示已登录的 Rick 的屏幕截图](secure-data/_static/rick.png)
+![Screenshot showing Rick signed in](secure-data/_static/rick.png)
 
-在下图中，`manager@contoso.com` 已登录，并在管理器的角色中：
+In the following image, `manager@contoso.com` is signed in and in the manager's role:
 
-![显示 manager@contoso.com 登录的屏幕截图](secure-data/_static/manager1.png)
+![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
 
-下图显示了联系人的经理详细信息视图：
+The following image shows the managers details view of a contact:
 
-![联系人的经理视图](secure-data/_static/manager.png)
+![Manager's view of a contact](secure-data/_static/manager.png)
 
-"**批准**" 和 "**拒绝**" 按钮仅为经理和管理员显示。
+The **Approve** and **Reject** buttons are only displayed for managers and administrators.
 
-在下图中，`admin@contoso.com` 以管理员角色登录：
+In the following image, `admin@contoso.com` is signed in and in the administrator's role:
 
-![显示 admin@contoso.com 登录的屏幕截图](secure-data/_static/admin.png)
+![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
 
-管理员具有所有权限。 她可以读取/编辑/删除任何联系人并更改联系人的状态。
+The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
 
-该应用由[基架](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)创建，以下 `Contact` 模型：
+The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-该示例包含以下授权处理程序：
+The sample contains the following authorization handlers:
 
-* `ContactIsOwnerAuthorizationHandler`：确保用户只能编辑其数据。
-* `ContactManagerAuthorizationHandler`：允许经理批准或拒绝联系人。
-* `ContactAdministratorsAuthorizationHandler`：允许管理员批准或拒绝联系人以及编辑/删除联系人。
+* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
+* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
+* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>Prerequisites
 
-本教程是高级教程。 你应该熟悉：
+This tutorial is advanced. You should be familiar with:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [身份验证](xref:security/authentication/identity)
@@ -413,251 +415,251 @@ dotnet ef database update
 * [授权](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>入门和已完成的应用程序
+## <a name="the-starter-and-completed-app"></a>The starter and completed app
 
-[下载](xref:index#how-to-download-a-sample)[已完成](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)的应用。 [测试](#test-the-completed-app)已完成的应用程序，使其安全功能熟悉。
+[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
 
-### <a name="the-starter-app"></a>入门应用
+### <a name="the-starter-app"></a>The starter app
 
-[下载](xref:index#how-to-download-a-sample)[初学者](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)应用。
+[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
 
-运行应用程序，点击 " **ContactManager** " 链接，并验证是否可以创建、编辑和删除联系人。
+Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
 
-## <a name="secure-user-data"></a>保护用户数据
+## <a name="secure-user-data"></a>Secure user data
 
-以下部分包含创建安全用户数据应用的所有主要步骤。 你可能会发现，引用已完成的项目非常有用。
+The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
 
-### <a name="tie-the-contact-data-to-the-user"></a>将联系人数据与用户关联
+### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
 
-使用 ASP.NET [Identity](xref:security/authentication/identity) user ID 可确保用户能够编辑其数据，而不是其他用户数据。 将 `OwnerID` 和 `ContactStatus` 添加到 `Contact` 模型：
+Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` 是[标识](xref:security/authentication/identity)数据库的 `AspNetUser` 表中的用户 ID。 "`Status`" 字段确定常规用户是否可查看联系人。
+`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
 
-创建新的迁移并更新数据库：
+Create a new migration and update the database:
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+### <a name="add-role-services-to-identity"></a>Add Role services to Identity
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
+Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=12)]
 
-### <a name="require-authenticated-users"></a>需要经过身份验证的用户
+### <a name="require-authenticated-users"></a>Require authenticated users
 
-将默认的 "身份验证策略" 设置为 "要求用户进行身份验证"：
+Set the default authentication policy to require users to be authenticated:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- 可在 Razor 页、控制器或操作方法级别选择不通过 `[AllowAnonymous]` 属性进行身份验证。 将默认身份验证策略设置为 "要求用户进行身份验证" 可保护新添加的 Razor Pages 和控制器。 默认情况下，需要进行身份验证比依赖新控制器和 Razor Pages 来包括 `[Authorize]` 属性更安全。
+ You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
 
-将[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)添加到 "索引"、"关于" 和 "联系人" 页，以便匿名用户在注册之前可以获取有关站点的信息。
+Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index, About, and Contact pages so anonymous users can get information about the site before they register.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Index.cshtml.cs?highlight=1,6)]
 
-### <a name="configure-the-test-account"></a>配置测试帐户
+### <a name="configure-the-test-account"></a>Configure the test account
 
-`SeedData` 类创建两个帐户：管理员和管理器。 使用[机密管理器工具](xref:security/app-secrets)来设置这些帐户的密码。 从项目目录（包含*Program.cs*的目录）设置密码：
+The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-如果未指定强密码，则在调用 `SeedData.Initialize` 时将引发异常。
+If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
 
-更新 `Main` 以使用测试密码：
+Update `Main` to use the test password:
 
 [!code-csharp[](secure-data/samples/final2.1/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>创建测试帐户并更新联系人
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
 
-更新 `SeedData` 类中的 `Initialize` 方法，以创建测试帐户：
+Update the `Initialize` method in the `SeedData` class to create the test accounts:
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet_Initialize)]
 
-向联系人添加管理员用户 ID 和 `ContactStatus`。 使其中一个联系人 "已提交" 和一个 "已拒绝"。 将用户 ID 和状态添加到所有联系人。 只显示一个联系人：
+Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>创建所有者、经理和管理员授权处理程序
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
 
-创建一个*授权*文件夹，并在其中创建一个 `ContactIsOwnerAuthorizationHandler` 类。 `ContactIsOwnerAuthorizationHandler` 将验证对资源的用户是否拥有该资源。
+Create an *Authorization* folder and create a `ContactIsOwnerAuthorizationHandler` class in it. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-`ContactIsOwnerAuthorizationHandler` 调用[上下文。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)如果当前经过身份验证的用户是联系人所有者，则会成功。 授权处理程序通常：
+The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
 
-* 满足要求时返回 `context.Succeed`。
-* 不满足要求时返回 `Task.CompletedTask`。 `Task.CompletedTask` 不是成功或失败&mdash;它允许其他授权处理程序运行。
+* Return `context.Succeed` when the requirements are met.
+* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
 
-如果需要显式失败，请返回[context。失败](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
+If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-该应用程序允许联系人所有者编辑/删除/创建他们自己的数据。 `ContactIsOwnerAuthorizationHandler` 不需要检查在要求参数中传递的操作。
+The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
 
-### <a name="create-a-manager-authorization-handler"></a>创建管理器授权处理程序
+### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
 
-在*Authorization*文件夹中创建 `ContactManagerAuthorizationHandler` 类。 `ContactManagerAuthorizationHandler` 将验证对资源的用户是否为管理员。 只有经理才能批准或拒绝内容更改（新的或更改的更改）。
+Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>创建管理员授权处理程序
+### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
 
-在*Authorization*文件夹中创建 `ContactAdministratorsAuthorizationHandler` 类。 `ContactAdministratorsAuthorizationHandler` 将验证对资源的用户是否为管理员。 管理员可以执行所有操作。
+Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>注册授权处理程序
+## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
 
-Entity Framework Core 使用 [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions) 的服务必须使用注册以进行[依赖关系注入](xref:fundamentals/dependency-injection)。 `ContactIsOwnerAuthorizationHandler` 使用 ASP.NET Core[标识](xref:security/authentication/identity)，这是在 Entity Framework Core 上构建的。 向服务集合注册处理程序，以便 `ContactsController` 通过[依赖关系注入](xref:fundamentals/dependency-injection)获得。 将以下代码添加到 `ConfigureServices`末尾：
+Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
-`ContactAdministratorsAuthorizationHandler` 和 `ContactManagerAuthorizationHandler` 添加为单一实例。 它们是单一实例的，因为它们不使用 EF，并且所需的所有信息都在 `HandleRequirementAsync` 方法的 `Context` 参数中。
+`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
 
-## <a name="support-authorization"></a>支持授权
+## <a name="support-authorization"></a>Support authorization
 
-在本部分中，将更新 Razor Pages 并添加操作要求类。
+In this section, you update the Razor Pages and add an operations requirements class.
 
-### <a name="review-the-contact-operations-requirements-class"></a>查看联系操作要求类
+### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
 
-查看 `ContactOperations` 类。 此类包含应用支持的要求：
+Review the `ContactOperations` class. This class contains the requirements the app supports:
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>为联系人创建基类 Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
 
-创建一个基类，该基类包含联系人 Razor Pages 中使用的服务。 基类将初始化代码放在一个位置：
+Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
 前面的代码：
 
-* 添加 `IAuthorizationService` 服务以访问授权处理程序。
-* `UserManager` 服务添加标识。
+* Adds the `IAuthorizationService` service to access to the authorization handlers.
+* Adds the Identity `UserManager` service.
 * 添加 `ApplicationDbContext`。
 
-### <a name="update-the-createmodel"></a>更新 CreateModel
+### <a name="update-the-createmodel"></a>Update the CreateModel
 
-更新 "创建页模型" 构造函数以使用 `DI_BasePageModel` 基类：
+Update the create page model constructor to use the `DI_BasePageModel` base class:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-将 `CreateModel.OnPostAsync` 方法更新为：
+Update the `CreateModel.OnPostAsync` method to:
 
-* 将用户 ID 添加到 `Contact` 模型中。
-* 调用授权处理程序以验证用户是否有权创建联系人。
+* Add the user ID to the `Contact` model.
+* Call the authorization handler to verify the user has permission to create contacts.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>更新 IndexModel
+### <a name="update-the-indexmodel"></a>Update the IndexModel
 
-更新 `OnGetAsync` 方法，以便仅向一般用户显示批准的联系人：
+Update the `OnGetAsync` method so only approved contacts are shown to general users:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>更新 EditModel
+### <a name="update-the-editmodel"></a>Update the EditModel
 
-添加一个授权处理程序来验证用户是否拥有该联系人。 由于正在验证资源授权，因此 `[Authorize]` 特性不够。 计算属性时，应用无法访问资源。 基于资源的授权必须是必需的。 如果应用有权访问该资源，则必须执行检查，方法是将其加载到页面模型中，或在处理程序本身中加载它。 通过传入资源键，可以频繁地访问资源。
+Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>更新 DeleteModel
+### <a name="update-the-deletemodel"></a>Update the DeleteModel
 
-更新 "删除" 页模型，以使用授权处理程序来验证用户是否具有对联系人的 "删除" 权限。
+Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>将授权服务注入视图
+## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
 
-目前，UI 会显示用户不能修改的联系人的编辑和删除链接。
+Currently, the UI shows edit and delete links for contacts the user can't modify.
 
-将授权服务注入到*views/_ViewImports*文件中，使其可供所有视图使用：
+Inject the authorization service in the *Views/_ViewImports.cshtml* file so it's available to all views:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-前面的标记添加了几个 `using` 语句。
+The preceding markup adds several `using` statements.
 
-更新*页面/联系人/索引*中的 "**编辑**" 和 "**删除**" 链接，以便仅为具有适当权限的用户呈现它们：
+Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> 隐藏不具有更改数据权限的用户的链接不会保护应用的安全。 隐藏链接使应用程序更易于用户理解，只显示有效的链接。 用户可以通过攻击生成的 Url 来对其不拥有的数据调用编辑和删除操作。 Razor 页或控制器必须强制进行访问检查以确保数据的安全。
+> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
 
-### <a name="update-details"></a>更新详细信息
+### <a name="update-details"></a>Update Details
 
-更新详细信息视图，以便经理可以批准或拒绝联系人：
+Update the details view so managers can approve or reject contacts:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml?name=snippet)]
 
-更新详细信息页模型：
+Update the details page model:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>在角色中添加或删除用户
+## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
 
-有关信息，请参阅[此问题](https://github.com/aspnet/AspNetCore.Docs/issues/8502)：
+See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
 
-* 正在删除用户的权限。 例如，在聊天应用中对用户进行静音。
-* 向用户添加特权。
+* Removing privileges from a user. For example, muting a user in a chat app.
+* Adding privileges to a user.
 
-## <a name="test-the-completed-app"></a>测试已完成的应用程序
+## <a name="test-the-completed-app"></a>Test the completed app
 
-如果尚未为种子设定用户帐户设置密码，请使用[机密管理器工具](xref:security/app-secrets#secret-manager)设置密码：
+If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
 
-* 选择强密码：使用八个或更多字符，并且至少使用一个大写字符、数字和符号。 例如，`Passw0rd!` 满足强密码要求。
-* 从项目的文件夹中执行以下命令，其中 `<PW>` 是密码：
+* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
+* Execute the following command from the project's folder, where `<PW>` is the password:
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* 删除和更新数据库
+* Drop and update the Database
 
   ```dotnetcli
   dotnet ef database drop -f
   dotnet ef database update  
   ```
 
-* 重新启动应用以对数据库进行种子设定。
+* Restart the app to seed the database.
 
-测试已完成应用程序的一种简单方法是启动三个不同的浏览器（或 incognito/InPrivate 会话）。 在一个浏览器中注册新用户（例如 `test@example.com`）。 使用其他用户登录到每个浏览器。 验证下列操作：
+An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
 
-* 已注册的用户可以查看所有已批准的联系人数据。
-* 已注册的用户可以编辑/删除他们自己的数据。
-* 经理可以批准/拒绝联系人数据。 `Details` 视图显示 "**批准**" 和 "**拒绝**" 按钮。
-* 管理员可以批准/拒绝和编辑/删除所有数据。
+* Registered users can view all of the approved contact data.
+* Registered users can edit/delete their own data.
+* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
+* Administrators can approve/reject and edit/delete all data.
 
-| 用户                | 应用程序的种子 | 选项                                  |
+| 用户                | Seeded by the app | 选项                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | No                | 编辑/删除自己的数据。                |
-| manager@contoso.com | 是               | 批准/拒绝和编辑/删除自己的数据。 |
-| admin@contoso.com   | 是               | 批准/拒绝和编辑/删除所有数据。 |
+| test@example.com    | No                | Edit/delete the own data.                |
+| manager@contoso.com | 是               | Approve/reject and edit/delete own data. |
+| admin@contoso.com   | 是               | Approve/reject and edit/delete all data. |
 
-在管理员的浏览器中创建联系人。 复制管理员联系人的 "删除" 和 "编辑" 的 URL。 将这些链接粘贴到测试用户的浏览器中，以验证测试用户是否无法执行这些操作。
+Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
 
-## <a name="create-the-starter-app"></a>创建初学者应用
+## <a name="create-the-starter-app"></a>Create the starter app
 
-* 创建名为 "ContactManager" 的 Razor Pages 应用
-  * 创建具有**单个用户帐户**的应用。
-  * 将其命名为 "ContactManager"，使命名空间与该示例中使用的命名空间匹配。
-  * `-uld` 指定 LocalDB 而不是 SQLite
+* Create a Razor Pages app named "ContactManager"
+  * Create the app with **Individual User Accounts**.
+  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
+  * `-uld` specifies LocalDB instead of SQLite
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 添加*模型/联系方式*：
+* Add *Models/Contact.cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* 基架 `Contact` 模型。
-* 创建初始迁移并更新数据库：
+* Scaffold the `Contact` model.
+* Create initial migration and update the database:
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
@@ -666,23 +668,23 @@ Entity Framework Core 使用 [AddScoped](/dotnet/api/microsoft.extensions.depend
   dotnet ef database update
   ```
 
-* 更新*Pages/_Layout*文件中的**ContactManager**定位点：
+* Update the **ContactManager** anchor in the *Pages/_Layout.cshtml* file:
 
   ```cshtml
   <a asp-page="/Contacts/Index" class="navbar-brand">ContactManager</a>
   ```
 
-* 通过创建、编辑和删除联系人来测试应用
+* Test the app by creating, editing, and deleting a contact
 
 ### <a name="seed-the-database"></a>设定数据库种子
 
-将[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)类添加到*Data*文件夹中。
+Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) class to the *Data* folder.
 
-从 `Main`调用 `SeedData.Initialize`：
+Call `SeedData.Initialize` from `Main`:
 
 [!code-csharp[](secure-data/samples/starter2.1/Program.cs?name=snippet)]
 
-测试该应用是否为该数据库的种子。 如果 contact DB 中存在任何行，则 seed 方法不会运行。
+Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
 
 ::: moniker-end
 
@@ -690,7 +692,7 @@ Entity Framework Core 使用 [AddScoped](/dotnet/api/microsoft.extensions.depend
 
 ### <a name="additional-resources"></a>其他资源
 
-* [在 Azure App Service 中生成 .NET Core 和 SQL 数据库 web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
-* [ASP.NET Core 授权实验室](https://github.com/blowdart/AspNetAuthorizationWorkshop)。 此实验室更详细地介绍了本教程中所介绍的安全功能。
+* [Build a .NET Core and SQL Database web app in Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
+* [ASP.NET Core Authorization Lab](https://github.com/blowdart/AspNetAuthorizationWorkshop). This lab goes into more detail on the security features introduced in this tutorial.
 * <xref:security/authorization/introduction>
 * [基于自定义策略的授权](xref:security/authorization/policies)
