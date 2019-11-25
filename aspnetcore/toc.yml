@@ -381,14 +381,20 @@
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: 窗体
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
+            - name: 表单操作
+              href: 'mvc/views/working-with-forms.md#the-form-action-tag-helper'
             - name: 图像
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 输入
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
             - name: Label
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
+            - name: 链接
+              uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
             - name: 部分
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
+            - name: 脚本
+              uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
             - name: 选择
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
             - name: Textarea
