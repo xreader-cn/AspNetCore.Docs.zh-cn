@@ -5,14 +5,14 @@ description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 11/19/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 2cb19d251ad69ebd7d18480c14857e948c69b747
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: b23e64077290f0f613e904651e4bb640fcbba95d
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659961"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289091"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -311,8 +311,6 @@ public class Program
 
 例如，日志记录配置通常由应用设置文件的 `Logging` 部分提供。 以下示例显示了典型 *appsettings.Development.json* 文件的内容：
 
-::: moniker range=">= aspnetcore-2.1"
-
 ```json
 {
   "Logging": {
@@ -337,7 +335,7 @@ public class Program
 
 如果在 `Logging.{providername}.LogLevel` 中指定了级别，则这些级别将重写 `Logging.LogLevel` 中设置的所有内容。
 
-::: moniker-end
+不可使用日志记录 API 在应用运行时更改日志记录。 但是，一些配置提供程序可重新加载配置，这将对日志记录配置立即产生影响。 例如，[文件配置提供程序](xref:fundamentals/configuration/index#file-configuration-provider)会默认重新加载日志记录配置，该程序由 `CreateDefaultBuilder` 添加用来读取设置文件。 如果在应用运行时在代码中更改了配置，则该应用可调用 [IConfigurationRoot.Reload](xref:Microsoft.Extensions.Configuration.IConfigurationRoot.Reload*) 来更新应用的日志记录配置。
 
 若要了解如何实现配置提供程序，请参阅 <xref:fundamentals/configuration/index>。
 
@@ -706,7 +704,7 @@ System.Exception: Item not found exception.
 
 ### <a name="create-filter-rules-in-configuration"></a>在配置中创建筛选规则
 
-项目模板代码调用 `CreateDefaultBuilder` 来为控制台和调试提供程序设置日志记录。 正如[本文前面部分](#configuration)所述，`CreateDefaultBuilder` 方法设置日志记录以在 `Logging` 部分查找配置。
+项目模板代码调用 `CreateDefaultBuilder` 来为 Console、Debug 和 EventSource（ASP.NET Core 2.2 或更高版本）提供程序设置日志记录。 正如[本文前面部分](#configuration)所述，`CreateDefaultBuilder` 方法设置日志记录以在 `Logging` 部分查找配置。
 
 配置数据按提供程序和类别指定最低日志级别，如下方示例所示：
 
@@ -892,7 +890,7 @@ ASP.NET Core 提供以下提供程序：
 
 * [控制台](#console-provider)
 * [调试](#debug-provider)
-* [EventSource](#eventsource-provider)
+* [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
 * [AzureAppServicesFile](#azure-app-service-provider)
@@ -925,15 +923,121 @@ dotnet run
 logging.AddDebug();
 ```
 
-### <a name="eventsource-provider"></a>EventSource 提供程序
+### <a name="event-source-provider"></a>事件源提供程序
 
-对于面向 ASP.NET Core 1.1.0 或更高版本的应用，[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) 提供程序包可实现事件跟踪。 在 Windows 中，它使用 [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803)。 提供程序可跨平台使用，但尚无支持 Linux 或 macOS 的事件集合和显示工具。
+[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) 提供程序包会使用名称 `Microsoft-Extensions-Logging` 跨平台写入事件源。 在 Windows 上，提供程序使用的是 [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803)。
 
 ```csharp
 logging.AddEventSourceLogger();
 ```
 
-可使用 [PerfView 实用工具](https://github.com/Microsoft/perfview)收集和查看日志。 虽然其他工具也可以查看 ETW 日志，但在处理由 ASP.NET Core 发出的 ETW 事件时，使用 PerfView 能获得最佳体验。
+在调用 `CreateDefaultBuilder` 来生成主机时，会自动添加事件源提供程序。
+
+::: moniker range=">= aspnetcore-3.0"
+
+#### <a name="dotnet-trace-tooling"></a>dotnet 跟踪工具
+
+[dotnet-trace](/dotnet/core/diagnostics/dotnet-trace) 工具是一种跨平台 CLI 全局工具，可用于收集正在运行的进程的 .NET Core 跟踪。 该工具会使用 <xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource> 收集 <xref:Microsoft.Extensions.Logging.EventSource> 提供程序数据。
+
+使用以下命令安装 dotnet 跟踪工具：
+
+```dotnetcli
+dotnet tool install --global dotnet-trace
+```
+
+使用 dotnet 跟踪工具从应用中收集跟踪：
+
+1. 如果应用不使用 `CreateDefaultBuilder` 生成主机，则请向应用的日志记录配置添加[事件源提供程序](#event-source-provider)
+
+1. 使用 `dotnet run` 命令运行此应用。
+
+1. 确定 .NET Core 应用的进程标识符 (PID)：
+
+   * 在 Windows 上，使用下述方法之一：
+     * 任务管理器 (Ctrl+Alt+Del)
+     * [tasklist 命令](/windows-server/administration/windows-commands/tasklist)
+     * [Get-Process Powershell 命令](/powershell/module/microsoft.powershell.management/get-process)
+   * 在 Linux 上，使用 [pidof 命令](https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/pidof.html)。
+
+   找到进程的 PID，它与应用的程序集的名称相同。
+
+1. 执行 `dotnet trace` 命令。
+
+   常规命令语法：
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} 
+       --providers Microsoft-Extensions-Logging:{Keyword}:{Event Level}
+           :FilterSpecs=\"
+               {Logger Category 1}:{Event Level 1};
+               {Logger Category 2}:{Event Level 2};
+               ...
+               {Logger Category N}:{Event Level N}\"
+   ```
+
+   使用 PowerShell 命令行界面时，将 `--providers` 值用单引号 (`'`) 引起来：
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} 
+       --providers 'Microsoft-Extensions-Logging:{Keyword}:{Event Level}
+           :FilterSpecs=\"
+               {Logger Category 1}:{Event Level 1};
+               {Logger Category 2}:{Event Level 2};
+               ...
+               {Logger Category N}:{Event Level N}\"'
+   ```
+
+   在非 Windows 平台上，添加 `-f speedscope` 选项，将输出跟踪文件更改为 `speedscope`。
+
+   | 关键字 | 说明 |
+   | :-----: | ----------- |
+   | 1       | 记录有关 `LoggingEventSource` 的 meta 事件。 请不要从 `ILogger` 记录事件。 |
+   | 2       | 在调用 `ILogger.Log()` 时启用 `Message` 事件。 以编程（未格式化）方式提供信息。 |
+   | 4       | 在调用 `ILogger.Log()` 时启用 `FormatMessage` 事件。 提供格式化字符串版本的信息。 |
+   | 8       | 在调用 `ILogger.Log()` 时启用 `MessageJson` 事件。 提供参数的 JSON 表示形式。 |
+
+   | 事件级别 | 说明     |
+   | :---------: | --------------- |
+   | 0           | `LogAlways`     |
+   | 1           | `Critical`      |
+   | 2           | `Error`         |
+   | 3           | `Warning`       |
+   | 4           | `Informational` |
+   | 5           | `Verbose`       |
+
+   `{Logger Category}` 和 `{Event Level}` 的 `FilterSpecs` 条目表示其他日志筛选条件。 请用分号 (`;`) 分隔 `FilterSpecs` 条目。
+
+   下例使用 Windows 命令界面（`--providers` 值不用单引号引起来）  ：
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} --providers Microsoft-Extensions-Logging:4:2:FilterSpecs=\"Microsoft.AspNetCore.Hosting*:4\"
+   ```
+
+   上面的命令会激活：
+
+   * 事件源记录器，它用于为错误 (`2`) 生成格式化字符串 (`4`)。
+   * `Informational` 日志记录级别 (`4`) 的 `Microsoft.AspNetCore.Hosting` 日志记录。
+
+1. 通过按 Enter 键或 Ctrl+C 停止 dotnet 跟踪工具。
+
+   跟踪使用名称 trace.nettrace 保存在执行 `dotnet trace` 命令的文件夹中  。
+
+1. 使用[预览](#perfview)功能打开跟踪。 打开 trace.nettrace 文件并浏览跟踪事件  。
+
+有关详细信息，请参见:
+
+* [跟踪性能分析实用工具 (dotnet-trace)](/dotnet/core/diagnostics/dotnet-trace)（.NET Core 文档）
+* [跟踪性能分析实用工具 (dotnet-trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md)（dotnet/诊断 GitHub 存储库文档）
+* [LoggingEventSource 类](xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource)（.NET API 浏览器）
+* <xref:System.Diagnostics.Tracing.EventLevel>
+* [LoggingEventSource 引用源 (3.0)](https://github.com/aspnet/Extensions/blob/release/3.0/src/Logging/Logging.EventSource/src/LoggingEventSource.cs) &ndash; 要获取不同版本的引用源，请将分支更改为 `release/{Version}`，其中 `{Version}` 是所需的 ASP.NET Core 版本。
+* [预览](#perfview) &ndash; 用于查看事件源跟踪。
+
+#### <a name="perfview"></a>Perfview
+
+::: moniker-end
+
+使用 [PerfView 实用工具](https://github.com/Microsoft/perfview)收集和查看日志。 虽然其他工具也可以查看 ETW 日志，但在处理由 ASP.NET Core 发出的 ETW 事件时，使用 PerfView 能获得最佳体验。
 
 要将 PerfView 配置为收集此提供程序记录的事件，请向 Additional Providers 列表添加字符串 `*Microsoft-Extensions-Logging`  。 （请勿遗漏字符串起始处的星号。）
 
@@ -975,7 +1079,7 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中不包括此提供程序包。 如果面向 .NET Framework 或引用 `Microsoft.AspNetCore.App` 元包，请向项目添加提供程序包。 
 
@@ -1024,7 +1128,7 @@ logging.AddAzureWebAppDiagnostics();
 
 * 从应用的门户页导航到“应用服务日志”页  。
 * 将“应用程序日志记录(Filesystem)”设置为“开”   。
-* 选择日志级别  。
+* 选择日志级别  。 此设置仅适用于 Azure 日志流，不适用于应用中的其他日志记录提供程序。
 
 导航到“日志流”页面来查看应用消息  。 它们由应用通过 `ILogger` 接口记录。
 
