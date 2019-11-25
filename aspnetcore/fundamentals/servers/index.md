@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: e542dd4506eb77f949c0c87bea3044397bbb1b8f
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: d46793ef54c99fe609b5983c5a658fb7b20032fa
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799394"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289065"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -22,7 +22,7 @@ ASP.NET Core 应用与进程内 HTTP 服务器实现一起运行。 该服务器
 
 ## <a name="kestrel"></a>Kestrel
 
-Kestrel 是 ASP.NET Core 项目模板中包括的默认 Web 服务器。
+Kestrel 是 ASP.NET Core 项目模板指定的默认 Web 服务器。
 
 使用 Kestrel：
 
