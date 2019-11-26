@@ -77,7 +77,7 @@ ms.locfileid: "74317211"
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
 
-| `RenderMode`        | 描述 |
+| `RenderMode`        | 说明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
@@ -104,7 +104,7 @@ ms.locfileid: "74317211"
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
 
-| `RenderMode`        | 描述 |
+| `RenderMode`        | 说明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
@@ -329,7 +329,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 当用户向数据绑定元素提供无法分析的值时，触发绑定事件时，无法分析的值将自动恢复为其以前的值。
 
-请参考以下方案：
+请考虑以下情形：
 
 * `<input>` 元素绑定到 `int` 类型，其初始值为 `123`：
 
@@ -545,13 +545,13 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 
 下表显示了支持的 `EventArgs`。
 
-| Event            | 实例                | DOM 事件和说明 |
+| 事件            | 实例                | DOM 事件和说明 |
 | ---------------- | -------------------- | -------------------- |
 | 剪贴板        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
 | 入             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
-| 错误            | `ErrorEventArgs`     | `onerror` |
-| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*许可证*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
-| 焦点            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
+| Error            | `ErrorEventArgs`     | `onerror` |
+| 事件            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*许可证*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
+| 聚焦            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
 | 输入            | `ChangeEventArgs`    | `onchange`, `oninput` |
 | 键盘         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
 | 鼠标            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
@@ -1688,16 +1688,16 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时，如果 `true``someFlag`，生成器将接收：
 
-| 序列 | Type      | 数据   |
+| 序列 | type      | Data   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第一个  |
+| 1        | Text 节点 | 第二个 |
 
 假设 `someFlag` 成为 `false`，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | Type       | 数据   |
+| 序列 | type       | Data   |
 | :------: | ---------- | :----: |
-| 1        | Text 节点  | 秒 |
+| 1        | Text 节点  | 第二个 |
 
 当运行时执行差异时，它会发现序列 `0` 上的项已被删除，因此它生成以下简单的*编辑脚本*：
 
@@ -1720,16 +1720,16 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | Type      | 数据   |
+| 序列 | type      | Data   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第一个  |
+| 1        | Text 节点 | 第二个 |
 
 此结果与以前的情况相同，因此不存在负面问题。 第二个呈现 `false` `someFlag`，输出为：
 
-| 序列 | Type      | 数据   |
+| 序列 | type      | Data   |
 | :------: | --------- | ------ |
-| 0        | Text 节点 | 秒 |
+| 0        | Text 节点 | 第二个 |
 
 这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
 

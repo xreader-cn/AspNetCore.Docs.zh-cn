@@ -29,7 +29,7 @@ ms.locfileid: "74289041"
   > [!IMPORTANT] 
   > 对于生产用途，建议仅当 Redis 底板与 SignalR 应用在同一数据中心内运行时，才建议使用底板。 否则，网络延迟会降低性能。 如果 SignalR 应用在 Azure 云中运行，我们建议使用 Azure SignalR 服务，而不是 Redis 底板。 可以使用 Azure Redis 缓存服务进行开发和测试环境。
 
-  有关更多信息，请参见以下资源：
+  有关详细信息，请参阅以下资源：
 
   * <xref:signalr/scale>
   * [Redis 文档](https://redis.io/)
@@ -226,7 +226,7 @@ services.AddSignalR()
 
 ## <a name="next-steps"></a>后续步骤
 
-有关更多信息，请参见以下资源：
+有关详细信息，请参阅以下资源：
 
 * <xref:signalr/scale>
 * [Redis 文档](https://redis.io/documentation)

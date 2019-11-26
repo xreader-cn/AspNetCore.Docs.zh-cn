@@ -150,7 +150,7 @@ ms.locfileid: "74317359"
 
 部署到 Azure App Service 时，请按照[教程：将现有的自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)中的指导进行操作。
 
-### <a name="options"></a>选项
+### <a name="options"></a>“常规”
 
 以下突出显示的代码调用[AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)来配置中间件选项：
 
@@ -259,7 +259,7 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 由于 HSTS 设置由浏览器高度缓存，因此不建议在开发中使用。 `UseHsts` 默认情况下，`UseHsts` 会排除本地环回地址。
 
-对于第一次实现 HTTPS 的生产环境，请使用其中一种[ 方法将初始 ](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)HstsOptions.MaxAge<xref:System.TimeSpan>  设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
+对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
 
 下面的代码：
 

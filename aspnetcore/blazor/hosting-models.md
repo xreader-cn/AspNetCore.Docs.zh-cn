@@ -29,7 +29,7 @@ Blazor 是一种 web 框架，旨在在基于[WebAssembly](https://webassembly.o
 
 ## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
-Blazor 的主体宿主模型在 WebAssembly 上的浏览器中运行客户端。 Blazor 应用、其依赖项以及 .NET 运行时将下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理发生在同一进程中。 应用的资产将作为静态文件部署到 web 服务器或可为客户端提供静态内容的服务。
+Blazor 的主体宿主模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理发生在同一进程中。 应用的资产将作为静态文件部署到 web 服务器或可为客户端提供静态内容的服务。
 
 ![[!基金.非 LOC （Blazor）] WebAssembly： [！基金.无 LOC （Blazor）] 应用在浏览器内的 UI 线程上运行。](hosting-models/_static/blazor-webassembly.png)
 
@@ -58,7 +58,7 @@ Blazor WebAssembly 托管有一些缺点：
 
 ## <a name="opno-locblazor-server"></a>Blazor 服务器
 
-使用 Blazor 服务器托管模型，可在服务器上从 ASP.NET Core 应用中执行应用。 UI 更新、事件处理和 JavaScript 调用通过[SignalR](xref:signalr/introduction)连接进行处理。
+使用 Blazor 服务器托管模型，可在服务器上从 ASP.NET Core 应用中执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
 
 ![浏览器与应用程序（托管在 ASP.NET Core 应用内的应用程序）通过 [！基金.无 LOC （SignalR）] 连接。](hosting-models/_static/blazor-server.png)
 
@@ -140,7 +140,7 @@ Blazor Server 应用需要与服务器建立活动的 SignalR 连接。 如果�
 
 Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在服务器上设置 UI 状态。 当客户端尝试创建 SignalR 连接时，客户端必须重新连接到同一服务器。 使用多台后端服务器 Blazor 服务器应用应为 SignalR 连接实现*粘滞会话*。
 
-建议对 Blazor 服务器应用使用[Azure SignalR 服务](/azure/azure-signalr)。 服务允许将 Blazor 服务器应用扩展到大量并发 SignalR 连接。 可以通过将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/server#signalr-configuration>。
+我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可以通过将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/server#signalr-configuration>。
 
 使用 IIS 时，将使用应用程序请求路由启用粘滞会话。 有关详细信息，请参阅[使用应用程序请求路由的 HTTP 负载平衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
@@ -202,7 +202,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 ::: moniker range=">= aspnetcore-3.1"
 
-| `RenderMode`        | 描述 |
+| `RenderMode`        | 说明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
@@ -212,7 +212,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 ::: moniker range="< aspnetcore-3.1"
 
-| `RenderMode`        | 描述 |
+| `RenderMode`        | 说明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |

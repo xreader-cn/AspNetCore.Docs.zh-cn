@@ -1,7 +1,7 @@
 ---
-title: Get started with ASP.NET Core Blazor
+title: ASP.NET Core Blazor 入门
 author: guardrex
-description: Get started with Blazor by building a Blazor app with the tooling of your choice.
+description: 通过使用所选工具生成 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
@@ -16,70 +16,70 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 11/20/2019
 ms.locfileid: "74239717"
 ---
-# <a name="get-started-with-aspnet-core-opno-locblazor"></a>Get started with ASP.NET Core Blazor
+# <a name="get-started-with-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 入门
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Get started with Blazor:
+Blazor入门：
 
 ::: moniker range=">= aspnetcore-3.1"
 
-1. Install the [.NET Core 3.1 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+1. 安装[.Net Core 3.1 预览版 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
 
-1. Install the [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) template by running the following command in a command shell. The [Microsoft.AspNetCore.Blazor.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/) package has a preview version while Blazor WebAssembly is in preview.
+1. 通过在命令行界面中运行以下命令来安装[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)模板。 [AspNetCore.Blazor。模板](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/)包具有预览版本，而 Blazor WebAssembly 处于预览阶段。
 
    ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview3.19555.2
    ```
 
-1. Follow the guidance for your choice of tooling:
+1. 按照所选工具的指导进行操作：
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1\. Install [Visual Studio 16.4 Preview 2 or later](https://visualstudio.microsoft.com/vs/preview/) with the **ASP.NET and web development** workload.
+   1 \。 安装[Visual Studio 16.4 Preview 2 或更高版本](https://visualstudio.microsoft.com/vs/preview/)，其中包含**ASP.NET 和 web 开发**工作负荷。
 
-   2\. 创建新项目。
+   2。 创建新项目。
 
-   3\. Select **Blazor App**. 选择“下一步”。
+   3。 选择 **Blazor 应用**。 选择 **“下一步”** 。
 
-   4\. 在“项目名称”字段提供项目名称，或接受默认项目名称。 Confirm the **Location** entry is correct or provide a location for the project. 选择“创建”。
+   4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择 **“创建”** 。
 
-   5\. For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template. For a Blazor Server experience, choose the **Blazor Server App** template. 选择“创建”。 For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   5 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择 **“创建”** 。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   6\. 按 Ctrl+F5 运行应用。
+   6 \。 按 Ctrl**F5 运行应用**+。
 
    > [!NOTE]
-   > If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension. Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.
+   > 如果安装了 ASP.NET Core Blazor （预览版6或更早版本）的先前预览版本的 Blazor Visual Studio 扩展，则可以卸载该扩展。 现在，在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-   1\. 安装 [Visual Studio Code](https://code.visualstudio.com/)。
+   1 \。 安装 [Visual Studio Code](https://code.visualstudio.com/)。
 
-   2\. Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
+   2。 安装[ C# Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)的最新版本。
 
-   3\. For a Blazor WebAssembly experience, execute the following command in a command shell:
+   3。 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      For a Blazor Server experience, execute the following command in a command shell:
+      若要获得 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
       ```dotnetcli
       dotnet new blazorserver -o WebApplication1
       ```
 
-      For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+      有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   4\. Open the *WebApplication1* folder in Visual Studio Code.
+   4 \。 在 Visual Studio Code 中打开 " *WebApplication1* " 文件夹。
 
-   5\. For a Blazor Server project, the IDE requests that you add assets to build and debug the project. 选择 **“是”** 。
+   5 \。 对于 Blazor 服务器项目，IDE 请求你添加资产以生成和调试项目。 选择 **“是”** 。
 
-   6\. If using a Blazor Server app, run the app using the Visual Studio Code debugger. If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.
+   6 \。 如果使用 Blazor Server 应用程序，请使用 Visual Studio Code 调试器运行该应用程序。 如果使用 Blazor WebAssembly 应用，请从应用的项目文件夹中执行 `dotnet run`。
 
-   7\. 在浏览器中导航到 `https://localhost:5001`。
+   7 \。 在浏览器中导航到 `https://localhost:5001`。
 
    <!--
 
@@ -103,7 +103,7 @@ Get started with Blazor:
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-   For a Blazor WebAssembly experience, execute the following commands in a command shell:
+   Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
@@ -111,7 +111,7 @@ Get started with Blazor:
    dotnet run
    ```
 
-   For a Blazor Server experience, execute the following commands in a command shell:
+   若要获得 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
@@ -119,7 +119,7 @@ Get started with Blazor:
    dotnet run
    ```
 
-   For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
    在浏览器中导航到 `https://localhost:5001`。
 
@@ -129,62 +129,62 @@ Get started with Blazor:
 
 ::: moniker range="< aspnetcore-3.1"
 
-1. Install the latest [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.
+1. 安装最新的[.Net Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)版本。
 
-1. Optionally install the [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) template by installing the [.NET Core 3.1 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) and then running the following command in a command shell:
+1. 还可以通过安装[.Net Core 3.1 PREVIEW SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) ，然后在命令行界面中运行以下命令来安装[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)模板：
 
    ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview3.19555.2
    ```
 
-1. Follow the guidance for your choice of tooling:
+1. 按照所选工具的指导进行操作：
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1\. Install the latest [Visual Studio](https://visualstudio.com/vs/) with the **ASP.NET and web development** workload.
+   1 \。 安装最新的[Visual Studio](https://visualstudio.com/vs/) **和 ASP.NET 和 web 开发**工作负荷。
 
-   2\. Optionally install [Visual Studio 16.4 Preview 2 or later](https://visualstudio.microsoft.com/vs/preview/) with the **ASP.NET and web development** workload for Blazor WebAssembly app development.
+   2。 可以选择安装[Visual Studio 16.4 Preview 2 或更高版本](https://visualstudio.microsoft.com/vs/preview/)，其中包含用于 Blazor WebAssembly 应用开发的**ASP.NET 和 web 开发**工作负荷。
 
-   3\. 创建新项目。
+   3。 创建新项目。
 
-   4\. Select **Blazor App**. 选择“下一步”。
+   4 \。 选择 **Blazor 应用**。 选择 **“下一步”** 。
 
-   5\. 在“项目名称”字段提供项目名称，或接受默认项目名称。 Confirm the **Location** entry is correct or provide a location for the project. 选择“创建”。
+   5 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择 **“创建”** 。
 
-   6\. For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template. For a Blazor Server experience, choose the **Blazor Server App** template. 选择“创建”。 For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   6 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择 **“创建”** 。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   7\. 按 F5 运行应用。
+   7 \。 按 F5 运行应用。
 
    > [!NOTE]
-   > If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension. Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.
+   > 如果安装了 ASP.NET Core Blazor （预览版6或更早版本）的先前预览版本的 Blazor Visual Studio 扩展，则可以卸载该扩展。 现在，在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-   1\. 安装 [Visual Studio Code](https://code.visualstudio.com/)。
+   1 \。 安装 [Visual Studio Code](https://code.visualstudio.com/)。
 
-   2\. Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
+   2。 安装[ C# Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)的最新版本。
 
-   3\. For a Blazor WebAssembly experience, execute the following command in a command shell:
+   3。 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      For a Blazor Server experience, execute the following command in a command shell:
+      若要获得 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
       ```dotnetcli
       dotnet new blazorserver -o WebApplication1
       ```
 
-      For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+      有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   4\. Open the *WebApplication1* folder in Visual Studio Code.
+   4 \。 在 Visual Studio Code 中打开 " *WebApplication1* " 文件夹。
 
-   5\. For a Blazor Server project, the IDE requests that you add assets to build and debug the project. 选择 **“是”** 。
+   5 \。 对于 Blazor 服务器项目，IDE 请求你添加资产以生成和调试项目。 选择 **“是”** 。
 
-   6\. If using a Blazor Server app, run the app using the Visual Studio Code debugger. If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.
+   6 \。 如果使用 Blazor Server 应用程序，请使用 Visual Studio Code 调试器运行该应用程序。 如果使用 Blazor WebAssembly 应用，请从应用的项目文件夹中执行 `dotnet run`。
 
-   7\. 在浏览器中导航到 `https://localhost:5001`。
+   7 \。 在浏览器中导航到 `https://localhost:5001`。
 
    <!--
 
@@ -208,7 +208,7 @@ Get started with Blazor:
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-   For a Blazor WebAssembly experience, execute the following commands in a command shell:
+   Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
@@ -216,7 +216,7 @@ Get started with Blazor:
    dotnet run
    ```
 
-   For a Blazor Server experience, execute the following commands in a command shell:
+   若要获得 Blazor 服务器体验，请在命令行界面中执行以下命令：
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
@@ -224,7 +224,7 @@ Get started with Blazor:
    dotnet run
    ```
 
-   For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
    在浏览器中导航到 `https://localhost:5001`。
 
@@ -232,53 +232,53 @@ Get started with Blazor:
 
 ::: moniker-end
 
-Multiple pages are available from tabs in the sidebar:
+边栏中的选项卡上提供了多个页面：
 
-* Home
+* 主页
 * 计数器
-* Fetch data
+* 提取数据
 
-在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 Incrementing a counter in a webpage normally requires writing JavaScript, but with Blazor you can use C#.
+在“计数器”页上，选择“单击我”按钮，在不刷新页面的情况下增加计数器值。 在网页中递增计数器通常需要编写 JavaScript，但 Blazor 可以使用C#。
 
 *Pages/Counter.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content. Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.
+浏览器中 `/counter` 的请求由顶部的 `@page` 指令指定，导致 `Counter` 组件呈现其内容。 组件呈现为呈现树的内存中表示形式，然后可以使用它以一种灵活而高效的方式更新 UI。
 
-Each time the **Click me** button is selected:
+每次选择 "**单击我**" 按钮时：
 
-* The `onclick` event is fired.
+* 引发 `onclick` 事件。
 * 调用 `IncrementCount` 方法。
-* The `currentCount` is incremented.
-* The component is rendered again.
+* `currentCount` 递增。
+* 再次呈现该组件。
 
-The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).
+运行时将新内容与以前的内容进行比较，并仅将更改的内容应用到文档对象模型（DOM）。
 
-Add a component to another component using HTML syntax. For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.
+使用 HTML 语法将组件添加到其他组件。 例如，通过向 `Index` 组件添加 `<Counter />` 元素，将 `Counter` 组件添加到应用的主页。
 
 *Pages/Index.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-运行应用。 The homepage has its own counter provided by the `Counter` component.
+运行应用。 主页有由 `Counter` 组件提供的自己的计数器。
 
-Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component. To add a parameter to the `Counter` component, update the component's `@code` block:
+使用特性或[子内容](xref:blazor/components#child-content)指定组件参数，这些参数允许你设置子组件的属性。 若要将参数添加到 `Counter` 组件，请更新组件的 `@code` 块：
 
-* Add a public property for `IncrementAmount` with a `[Parameter]` attribute.
-* 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
+* 使用 `[Parameter]` 属性为 `IncrementAmount` 添加公共属性。
+* 增加 `IncrementCount` 的值时，更改 `IncrementAmount` 方法以使用 `currentCount`。
 
 *Pages/Counter.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.
+使用特性指定 `Index` 组件的 `<Counter>` 元素中的 `IncrementAmount`。
 
 *Pages/Index.razor*：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-运行应用。 The `Index` component has its own counter that increments by ten each time the **Click me** button is selected. The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.
+运行应用。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 `/counter` 的 `Counter` 组件（*Counter*）继续递增1。
 
 ## <a name="next-steps"></a>后续步骤
 
