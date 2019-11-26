@@ -587,8 +587,6 @@
       uid: grpc/troubleshoot
 - name: 测试、调试和疑难解答
   items:
-    - name: 单元测试
-      href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Razor Pages 单元测试
       uid: test/razor-pages-tests
     - name: 测试控制器
