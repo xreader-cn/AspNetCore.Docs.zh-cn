@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 04512504cc5a7c4b9cb30ce2280e86956f8cc25c
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: 6fba6689f72f7a565e28d80f6770765ab097cf11
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155062"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289105"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -81,9 +81,9 @@ Kestrel 用于反向代理配置：
 > [!WARNING]
 > 采用反向代理配置进行托管需要[主机筛选](#host-filtering)。
 
-## <a name="how-to-use-kestrel-in-aspnet-core-apps"></a>如何在 ASP.NET Core 应用中使用 Kestrel
+## <a name="kestrel-in-aspnet-core-apps"></a>ASP.NET Core 应用中的 Kestrel
 
-默认情况下，ASP.NET Core 项目模板使用 Kestrel。 在 Program.cs 中，该应用调用 `ConfigureWebHostDefaults`，后者在后台调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>  。
+默认情况下，ASP.NET Core 项目模板使用 Kestrel。 在“Program.cs”中，  <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> 方法调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>：
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=8)]
 

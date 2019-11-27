@@ -5,14 +5,14 @@ description: 本文包含 Azure 主机和部署资源的链接。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/11/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 392868b4fc9105279f8f3b10436a9915123e7070
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: f9fc6e706046165c142e19ca38d97ac21914dc9b
+ms.sourcegitcommit: a104ba258ae7c0b3ee7c6fa7eaea1ddeb8b6eb73
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190652"
+ms.lasthandoff: 11/25/2019
+ms.locfileid: "74478757"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -52,6 +52,8 @@ ASP.NET Core 文档中提供以下文章：
 ## <a name="application-configuration"></a>应用程序配置
 
 ### <a name="platform"></a>Platform
+
+对于在 A 系列计算（基本）上或更高级托管层上托管的应用，可在 Azure 门户中的应用设置中设置应用服务应用的平台体系结构 (x86/x64)。 请确认应用的发布设置（例如 Visual Studio 中的[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles)）与 Azure 门户中应用的服务配置设置匹配。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -213,9 +215,11 @@ Azure 应用服务支持 ASP.NET Core 3.0。 若要部署高于 .NET Core 3.0 �
    如果安装 x64 预览版运行时，该命令将返回`True`。
 
 > [!NOTE]
-> 对于在 A 系列计算机上或更高级托管层上托管的应用，可在 Azure 门户中的应用设置中设置应用服务应用的平台体系结构 (x86/x64)。 如果应用在进程内模式下运行并且平台体系结构配置为 64 位 (x64)，则 ASP.NET Core 模块会使用 64 位预览版运行时（如存在）。 安装“ASP.NET Core {X.Y} (x64) 运行时”  扩展。
+> 对于在 A 系列计算（基本）上或更高级托管层上托管的应用，可在 Azure 门户中的应用设置中设置应用服务应用的平台体系结构 (x86/x64)。 请确认应用的发布设置（例如 Visual Studio 中的[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles)）与 Azure 门户中应用的服务配置设置匹配。
 >
-> 安装 x64 预览版运行时后，在 Kudu PowerShell 命令窗口中运行以下命令以验证该安装。 在以下命令中，将 ASP.NET Core 运行时版本替换为 `{X.Y}` ：
+> 如果应用在进程内模式下运行并且平台体系结构配置为 64 位 (x64)，则 ASP.NET Core 模块会使用 64 位预览版运行时（如存在）。 使用 Azure 门户安装“ASP.NET Core {X.Y} (x64) 运行时”  扩展。
+>
+> 安装 x64 预览版运行时后，在 Azure Kudu PowerShell 命令窗口中运行以下命令以验证该安装。 在以下命令中，将 ASP.NET Core 运行时版本替换为 `{X.Y}`：
 >
 > ```powershell
 > Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64\
@@ -234,16 +238,16 @@ Azure 应用服务支持 ASP.NET Core 3.0。 若要部署高于 .NET Core 3.0 �
 
 ## <a name="publish-and-deploy-the-app"></a>发布和部署应用
 
-### <a name="deploy-the-app-framework-dependent"></a>部署依赖框架的应用
-
 ::: moniker range=">= aspnetcore-2.2"
 
-对于 64 位[依赖框架的部署](/dotnet/core/deploying/#framework-dependent-deployments-fdd)：
+对于 64 位部署：
 
 * 使用 64 位 .NET Core SDK 部署 64 位的应用。
 * 在应用服务的“配置” > “常规”l“设置”中将“平台”设置为“64 位”     。 应用必须使用基本服务计划或更高级别的服务计划才能选择平台位数。
 
 ::: moniker-end
+
+### <a name="deploy-the-app-framework-dependent"></a>部署依赖框架的应用
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
