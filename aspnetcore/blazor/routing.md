@@ -5,16 +5,16 @@ description: 了解如何在应用中路由请求，以及如何在 NavLink 组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/routing
-ms.openlocfilehash: d4b76c00f79f333884fa7e30b27eadc6e36de287
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 2c139db4e44679fbd9f3455a2d2543be0e128765
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589939"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550336"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -26,15 +26,15 @@ ms.locfileid: "72589939"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中 `MapBlazorHub` 的交互式组件的传入连接：
+Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure`中 `MapBlazorHub` 的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor Server 应用程序的服务器端部分的主机。 按照约定，*主机*页通常名为 *_Host*。 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
+最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor Server 应用程序的服务器端部分的主机。 按照约定，*主机*页通常命名 *_Host。* 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
 
 ## <a name="route-templates"></a>路由模板
 
-@No__t_0 组件允许路由到具有指定路由的每个组件。 @No__t_0 组件显示在*app.config*文件中：
+`Router` 组件允许路由到具有指定路由的每个组件。 `Router` 组件显示在*app.config*文件中：
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -56,12 +56,12 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 您可以选择指定一个包含布局类的 `DefaultLayout` 参数，以用于未指定布局的组件。 默认 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
 
-可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute` 的请求：
+可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute`的请求：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）或*Pages/_Host*文件（Blazor 服务器）中包含一个 `<base>` 标记，该文件具有 `href` 属性（`<base href="/">`）中指定的应用程序基路径。 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
+> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）中包含 `<base>` 标记，或在 `href` 属性（`<base href="/">`）中指定应用程序基路径的*页面/Blazor _Host* 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>当找不到内容时提供自定义内容
 
@@ -81,11 +81,11 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 </Router>
 ```
 
-@No__t_0 标记的内容可以包括任意项，如其他交互组件。 若要将默认布局应用于 `NotFound` 内容，请参阅 <xref:blazor/layouts>。
+`<NotFound>` 标记的内容可以包括任意项，如其他交互组件。 若要将默认布局应用于 `NotFound` 内容，请参阅 <xref:blazor/layouts>。
 
 ## <a name="route-to-components-from-multiple-assemblies"></a>从多个程序集中路由到组件
 
-使用 `AdditionalAssemblies` 参数为 `Router` 组件指定在搜索可路由组件时要考虑的其他程序集。 除了 `AppAssembly` 指定的程序集之外，还将考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 `AdditionalAssemblies` 示例将导致对 `Component1` 的路由支持：
+使用 `AdditionalAssemblies` 参数为 `Router` 组件指定在搜索可路由组件时要考虑的其他程序集。 除了 `AppAssembly`指定的程序集之外，还将考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 `AdditionalAssemblies` 示例将导致对 `Component1`的路由支持：
 
 ```cshtml
 <Router
@@ -110,7 +110,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 在下面的示例中，路由到 `Users` 组件仅在以下情况下才匹配：
 
 * 请求 URL 上存在 `Id` 路由段。
-* @No__t_0 段是一个整数（`int`）。
+* `Id` 段是一个整数（`int`）。
 
 [!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
@@ -118,12 +118,12 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 | 约束 | 示例           | 匹配项示例                                                                  | 固定条件<br>区域性<br>匹配 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`，`FALSE`                                                                  | No                               |
+| `bool`     | `{active:bool}`   | `true`，`FALSE`                                                                  | 否                               |
 | `datetime` | `{dob:datetime}`  | `2016-12-31`，`2016-12-31 7:32pm`                                                | 是                              |
 | `decimal`  | `{price:decimal}` | `49.99`，`-1,000.01`                                                             | 是                              |
 | `double`   | `{weight:double}` | `1.234`，`-1,001.01e8`                                                           | 是                              |
 | `float`    | `{weight:float}`  | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | No                               |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
 | `int`      | `{id:int}`        | `123456789`，`-123456789`                                                        | 是                              |
 | `long`     | `{ticks:long}`    | `123456789`，`-123456789`                                                        | 是                              |
 
@@ -138,16 +138,19 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 @page "/{**path}"
 ```
 
-@No__t_0 模板包括：
+`"/{**path}"` 模板包括：
 
 * 双星号*catch-all*语法（`**`）捕获跨多个文件夹边界的路径，而无需编码正斜杠（`/`）。
-* @No__t_0 路由参数名称。
+* `path` 路由参数名称。
+
+> [!NOTE]
+> Razor 组件（*razor*）**不**支持*Catch all*参数语法（`*`/`**`）。
 
 有关更多信息，请参见<xref:fundamentals/routing>。
 
 ## <a name="navlink-component"></a>NavLink 组件
 
-创建导航链接时，请使用 `NavLink` 组件来代替 HTML hyperlink 元素（`<a>`）。 @No__t_0 组件的行为类似于 `<a>` 元素，只不过它会根据其 `href` 是否匹配当前 URL 来切换 `active` CSS 类。 @No__t_0 类可帮助用户了解在显示的导航链接中哪一页是活动页。
+创建导航链接时，请使用 `NavLink` 组件来代替 HTML hyperlink 元素（`<a>`）。 `NavLink` 组件的行为类似于 `<a>` 元素，只不过它会根据其 `href` 是否匹配当前 URL 来切换 `active` CSS 类。 `active` 类可帮助用户了解在显示的导航链接中哪一页是活动页。
 
 以下 `NavMenu` 组件创建一个演示如何使用 `NavLink` 组件的[启动](https://getbootstrap.com/docs/)导航栏：
 
@@ -180,10 +183,10 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 | ------ | ----------- |
 | `Uri` | 获取当前的绝对 URI。 |
 | `BaseUri` | 获取可附加到相对 URI 路径以生成绝对 URI 的基本 URI （带有尾随斜杠）。 通常，`BaseUri` 对应于*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）中文档的 `<base>` 元素上的 `href` 属性。 |
-| `NavigateTo` | 定位到指定的 URI。 如果 `true` `forceLoad`：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
+| `NavigateTo` | 定位到指定的 URI。 如果 `true``forceLoad`：<ul><li>客户端路由被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都被迫从服务器加载新页面。</li></ul> |
 | `LocationChanged` | 导航位置发生更改时触发的事件。 |
 | `ToAbsoluteUri` | 将相对 URI 转换为绝对 URI。 |
-| `ToBaseRelativePath` | 给定基 URI （例如，以前由 `GetBaseUri` 返回的 URI），将绝对 URI 转换为相对于基 URI 前缀的 URI。 |
+| `ToBaseRelativePath` | 给定基 URI （例如，以前由 `GetBaseUri`返回的 URI），将绝对 URI 转换为相对于基 URI 前缀的 URI。 |
 
 选择该按钮时，以下组件将导航到应用的 `Counter` 组件：
 

@@ -5,16 +5,16 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 267a6f5aa96feeecc280238abbef86949750b07e
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317211"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550307"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -77,7 +77,7 @@ ms.locfileid: "74317211"
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
 
-| `RenderMode`        | 说明 |
+| `RenderMode`        | 描述 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
@@ -104,7 +104,7 @@ ms.locfileid: "74317211"
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
 
-| `RenderMode`        | 说明 |
+| `RenderMode`        | 描述 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
@@ -396,9 +396,9 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 在前面的代码中，`<input>` 元素的字段类型（`type`）默认为 `text`。 支持 `@bind:format` 绑定以下 .NET 类型：
 
 * <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName>?
+* <xref:System.DateTime?displayProperty=fullName>？
 * <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName>?
+* <xref:System.DateTimeOffset?displayProperty=fullName>？
 
 `@bind:format` 特性指定要应用于 `<input>` 元素的 `value` 的日期格式。 此格式还用于分析 `onchange` 事件发生时的值。
 
@@ -545,20 +545,20 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 
 下表显示了支持的 `EventArgs`。
 
-| 事件            | 实例                | DOM 事件和说明 |
+| Event            | 类                | DOM 事件和说明 |
 | ---------------- | -------------------- | -------------------- |
-| 剪贴板        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
+| 剪贴板        | `ClipboardEventArgs` | `oncut`中， `oncopy`中， `onpaste` |
 | 入             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
-| Error            | `ErrorEventArgs`     | `onerror` |
-| 事件            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*许可证*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
-| 聚焦            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
-| 输入            | `ChangeEventArgs`    | `onchange`, `oninput` |
-| 键盘         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
+| 错误            | `ErrorEventArgs`     | `onerror` |
+| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`中， `onbeforecopy`中， `onbeforepaste`<br><br>*输入*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*许可证*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
+| 专注            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
+| 输入            | `ChangeEventArgs`    | `onchange`，`oninput` |
+| 键盘         | `KeyboardEventArgs`  | `onkeydown`中， `onkeypress`中， `onkeyup` |
 | 鼠标            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | 鼠标指针    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
-| 鼠标滚轮      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
-| 进度         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
-| 触控            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
+| 鼠标滚轮      | `WheelEventArgs`     | `onwheel`，`onmousewheel` |
+| 爬网         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
+| 触控            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
 
 有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（aspnet/AspNetCore release/3.0 分支）](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)。
 
@@ -1145,6 +1145,8 @@ protected override bool ShouldRender()
 
 不支持可选参数，因此在上面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
 
+*捕获所有*参数语法（`*`/`**`），该语法跨多个文件夹边界捕获路径，而 razor 组件（*razor*）**不**支持此语法。
+
 ::: moniker range=">= aspnetcore-3.1"
 
 ## <a name="partial-class-support"></a>分部类支持
@@ -1310,7 +1312,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值是 `false` 或 `
 <input type="checkbox" />
 ```
 
-有关详细信息，请参阅 <xref:mvc/views/razor>。
+有关更多信息，请参见<xref:mvc/views/razor>。
 
 > [!WARNING]
 > 当 .NET 类型为 `bool`时，某些 HTML 特性（如[aria 按下](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）不会正常运行。 在这些情况下，请使用 `string` 类型，而不是 `bool`。
@@ -1688,16 +1690,16 @@ builder.AddContent(1, "Second");
 
 当第一次执行代码时，如果 `true``someFlag`，生成器将接收：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 假设 `someFlag` 成为 `false`，并再次呈现标记。 这次，生成器将接收：
 
-| 序列 | type       | Data   |
+| 序列 | 类型       | 数据   |
 | :------: | ---------- | :----: |
-| 1        | Text 节点  | 第二个 |
+| 1        | Text 节点  | 秒 |
 
 当运行时执行差异时，它会发现序列 `0` 上的项已被删除，因此它生成以下简单的*编辑脚本*：
 
@@ -1720,16 +1722,16 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | :----: |
-| 0        | Text 节点 | 第一个  |
-| 1        | Text 节点 | 第二个 |
+| 0        | Text 节点 | First  |
+| 1        | Text 节点 | 秒 |
 
 此结果与以前的情况相同，因此不存在负面问题。 第二个呈现 `false` `someFlag`，输出为：
 
-| 序列 | type      | Data   |
+| 序列 | 类型      | 数据   |
 | :------: | --------- | ------ |
-| 0        | Text 节点 | 第二个 |
+| 0        | Text 节点 | 秒 |
 
 这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
 
@@ -1748,7 +1750,7 @@ builder.AddContent(seq++, "Second");
 * 如果对序列号进行硬编码，则 diff 算法只要求序列号的值增加。 初始值和间隙无关。 一个合法选项是将代码行号用作序列号，或从零开始，并按一个或数百个（或任何首选间隔）递增。 
 * Blazor 使用序列号，而其他树比较的 UI 框架不使用序列号。 使用序列号时，比较速度要快得多，Blazor 具有一个编译步骤，该步骤会自动处理序列号，以便为开发人员创作*razor*文件。
 
-## <a name="localization"></a>本地化
+## <a name="localization"></a>Localization
 
 使用[本地化中间件](xref:fundamentals/localization#localization-middleware)本地化 Blazor Server 应用。 中间件为从应用程序请求资源的用户选择相应的区域性。
 
@@ -1825,7 +1827,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> 使用 `LocalRedirect` 操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
+> 使用 `LocalRedirect` 操作结果可防止开放重定向攻击。 有关更多信息，请参见<xref:security/preventing-open-redirects>。
 
 以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
 
@@ -1870,7 +1872,7 @@ Blazor的 `@bind` 功能基于用户的当前区域性执行全球化。 有关�
 * Blazor 应用*支持*`IStringLocalizer<>`。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，但在 Blazor 应用程序中**不受支持**。
 
-有关详细信息，请参阅 <xref:fundamentals/localization>。
+有关更多信息，请参见<xref:fundamentals/localization>。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

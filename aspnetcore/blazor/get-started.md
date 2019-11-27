@@ -5,16 +5,16 @@ description: 通过使用所选工具生成 Blazor 应用，开始使用 Blazor�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 11/25/2019
 no-loc:
 - Blazor
 uid: blazor/get-started
-ms.openlocfilehash: 198093b37cb4f440eb7b520d18004304aea570a5
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 7d495bddde3c01c743db9757204a5cf59d8b160b
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239717"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550318"
 ---
 # <a name="get-started-with-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 入门
 
@@ -42,13 +42,13 @@ Blazor入门：
 
    2。 创建新项目。
 
-   3。 选择 **Blazor 应用**。 选择 **“下一步”** 。
+   3。 选择 **Blazor 应用**。 选择“下一步”。
 
-   4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择 **“创建”** 。
+   4 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
-   5 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择 **“创建”** 。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
+   5 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   6 \。 按 Ctrl**F5 运行应用**+。
+   6 \。 按 Ctrl+F5 运行应用。
 
    > [!NOTE]
    > 如果安装了 ASP.NET Core Blazor （预览版6或更早版本）的先前预览版本的 Blazor Visual Studio 扩展，则可以卸载该扩展。 现在，在命令外壳中安装 Blazor 模板足以在 Visual Studio 中显示模板。
@@ -81,25 +81,25 @@ Blazor入门：
 
    7 \。 在浏览器中导航到 `https://localhost:5001`。
 
-   <!--
+   # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-   # [Visual Studio for Mac](#tab/visual-studio-mac)
+   1 \。 安装[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)。 将[更新通道切换到 "预览](/visualstudio/mac/install-preview)"。
 
-   1\. Install [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/). Switch the [Update channel to Preview](/visualstudio/mac/install-preview).
+   2。 选择 "**文件**" > "**新建解决方案**" 或创建一个**新项目**。
 
-   2\. Select **File** > **New Solution** or **New Project**.
+   3。 在边栏中，选择 " **.Net Core** > **应用**"。
 
-   3\. In the sidebar, select **.NET Core** > **App**.
+   4 \。 选择 **Blazor 服务器应用程序**模板。 此时 Visual Studio for Mac 中仅提供 Blazor 服务器模板。 Blazor WebAssembly 体验，请按照 **.NET Core CLI**选项卡上的说明进行操作。选择 Blazor 服务器模板之后，选择 "**下一步**"。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   4\. For a Blazor Server experience, select the **Blazor Server App** template. For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   <!-- For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. -->
 
-   5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
+   5 \。 如果安装了 3.1 Preview SDK，则**目标框架**默认为 " **.net core 3.0** " （或 " **.net core 3.1** "）。 选择框架，然后选择 "**下一步**"。
 
-   6\. In the **Project Name** field, enter `WebApplication1`. Select **Create**.
+   6 \。 在 "**项目名称**" 字段中，将应用命名为 `WebApplication1`。 选择“创建”。
 
-   7\. Select **Run** > **Run Without Debugging** to run the app *without the debugger*. Running with the debugger isn't supported at this time.
+   7 \。 选择 "**运行**" > "运行**但不调试** *" 以在没有调试器的情况下*运行应用。 通过 "**启动调试**" 运行应用程序，以*通过调试器*运行该应用程序。
 
-   -->
+       If a prompt appears to trust the development certificate, trust the certificate and continue.
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
@@ -147,11 +147,11 @@ Blazor入门：
 
    3。 创建新项目。
 
-   4 \。 选择 **Blazor 应用**。 选择 **“下一步”** 。
+   4 \。 选择 **Blazor 应用**。 选择“下一步”。
 
-   5 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择 **“创建”** 。
+   5 \。 在“项目名称”字段提供项目名称，或接受默认项目名称。 确认**位置**项正确或提供项目的位置。 选择“创建”。
 
-   6 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择 **“创建”** 。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
+   6 \。 Blazor WebAssembly 体验，请选择 **Blazor WebAssembly 应用程序**模板。 要获得 Blazor 服务器体验，请选择 **Blazor 服务器应用程序**模板。 选择“创建”。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
    7 \。 按 F5 运行应用。
 
@@ -186,25 +186,25 @@ Blazor入门：
 
    7 \。 在浏览器中导航到 `https://localhost:5001`。
 
-   <!--
+   # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-   # [Visual Studio for Mac](#tab/visual-studio-mac)
+   1 \。 安装[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)。 将[更新通道切换到 "预览](/visualstudio/mac/install-preview)"。
 
-   1\. Install [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/). Switch the [Update channel to Preview](/visualstudio/mac/install-preview).
+   2。 选择 "**文件**" > "**新建解决方案**" 或创建一个**新项目**。
 
-   2\. Select **File** > **New Solution** or **New Project**.
+   3。 在边栏中，选择 " **.Net Core** > **应用**"。
 
-   3\. In the sidebar, select **.NET Core** > **App**.
+   4 \。 选择 **Blazor 服务器应用程序**模板。 此时 Visual Studio for Mac 中仅提供 Blazor 服务器模板。 Blazor WebAssembly 体验，请按照 **.NET Core CLI**选项卡上的说明进行操作。选择 Blazor 服务器模板之后，选择 "**下一步**"。 有关这两个 Blazor 托管模型的信息，请 *Blazor Server*和 *Blazor WebAssembly*，请参阅 <xref:blazor/hosting-models>。
 
-   4\. For a Blazor Server experience, select the **Blazor Server App** template. For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
+   <!-- For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. -->
 
-   5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
+   5 \。 如果安装了 3.1 Preview SDK，则**目标框架**默认为 " **.net core 3.0** " （或 " **.net core 3.1** "）。 选择框架，然后选择 "**下一步**"。
 
-   6\. In the **Project Name** field, enter `WebApplication1`. Select **Create**.
+   6 \。 在 "**项目名称**" 字段中，将应用命名为 `WebApplication1`。 选择“创建”。
 
-   7\. Select **Run** > **Run Without Debugging** to run the app *without the debugger*. Running with the debugger isn't supported at this time.
+   7 \。 选择 "**运行**" > "运行**但不调试** *" 以在没有调试器的情况下*运行应用。 通过 "**启动调试**" 运行应用程序，以*通过调试器*运行该应用程序。
 
-   -->
+       If a prompt appears to trust the development certificate, trust the certificate and continue.
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
@@ -261,12 +261,12 @@ Blazor入门：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-运行应用。 主页有由 `Counter` 组件提供的自己的计数器。
+运行应用程序。 主页有由 `Counter` 组件提供的自己的计数器。
 
 使用特性或[子内容](xref:blazor/components#child-content)指定组件参数，这些参数允许你设置子组件的属性。 若要将参数添加到 `Counter` 组件，请更新组件的 `@code` 块：
 
 * 使用 `[Parameter]` 属性为 `IncrementAmount` 添加公共属性。
-* 增加 `IncrementCount` 的值时，更改 `IncrementAmount` 方法以使用 `currentCount`。
+* 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
 
 *Pages/Counter.razor*：
 
@@ -278,7 +278,7 @@ Blazor入门：
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-运行应用。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 `/counter` 的 `Counter` 组件（*Counter*）继续递增1。
+运行应用程序。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 `/counter` 的 `Counter` 组件（*Counter*）继续递增1。
 
 ## <a name="next-steps"></a>后续步骤
 
@@ -286,4 +286,5 @@ Blazor入门：
 
 ## <a name="additional-resources"></a>其他资源
 
+* <xref:blazor/templates>
 * <xref:signalr/introduction>
