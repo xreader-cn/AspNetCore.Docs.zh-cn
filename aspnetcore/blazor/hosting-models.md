@@ -5,17 +5,17 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器托管模型。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a017737eacd93ac776afe7ee8024eed602d7edcc
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 38db9804c9cdd1aa31ca48af2dd9ec2e85175156
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317216"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681040"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -125,7 +125,7 @@ UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来
 
 对于仅限于专用公司网络的业务线应用，对用户而言，由于网络延迟导致的延迟通常是让的。 对于通过 Internet 部署的应用，用户可能会对延迟造成明显的影响，尤其是用户广泛分散于各地。
 
-内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关详细信息，请参阅 <xref:security/blazor/server>。
+内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关更多信息，请参见<xref:security/blazor/server>。
 
 Blazor Server apps 应进行优化，以通过减少网络延迟和内存使用率来最大限度地减少 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor的详细信息，请参阅：
 
@@ -140,7 +140,7 @@ Blazor Server 应用需要与服务器建立活动的 SignalR 连接。 如果�
 
 Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在服务器上设置 UI 状态。 当客户端尝试创建 SignalR 连接时，客户端必须重新连接到同一服务器。 使用多台后端服务器 Blazor 服务器应用应为 SignalR 连接实现*粘滞会话*。
 
-我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可以通过将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/server#signalr-configuration>。
+我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可以通过将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，为 Azure SignalR 服务启用粘滞会话。 有关更多信息，请参见<xref:host-and-deploy/blazor/server#signalr-configuration>。
 
 使用 IIS 时，将使用应用程序请求路由启用粘滞会话。 有关详细信息，请参阅[使用应用程序请求路由的 HTTP 负载平衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
@@ -202,7 +202,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 ::: moniker range=">= aspnetcore-3.1"
 
-| `RenderMode`        | 说明 |
+| `RenderMode`        | 描述 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
@@ -212,7 +212,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 ::: moniker range="< aspnetcore-3.1"
 
-| `RenderMode`        | 说明 |
+| `RenderMode`        | 描述 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
@@ -222,7 +222,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 不支持从静态 HTML 页面呈现服务器组件。
 
-当 `ServerPrerendered``RenderMode` 时，组件最初作为页面的一部分以静态方式呈现。 一旦浏览器与服务器建立了连接，该组件将*再次*呈现，并且该组件现在是交互式的。 如果存在用于初始化组件的[生命周期方法](xref:blazor/components#lifecycle-methods)（`OnInitialized{Async}`），则执行*两次*此方法：
+当 `ServerPrerendered``RenderMode` 时，组件最初作为页面的一部分以静态方式呈现。 一旦浏览器与服务器建立了连接，该组件将*再次*呈现，并且该组件现在是交互式的。 如果存在用于初始化组件的[OnInitialized {Async}](xref:blazor/lifecycle#component-initialization-methods)生命周期方法，则将执行*两次*此方法：
 
 * 如果组件预呈现静态，则为。
 * 建立服务器连接之后。

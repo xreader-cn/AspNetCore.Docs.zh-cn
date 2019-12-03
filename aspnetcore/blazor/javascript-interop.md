@@ -5,16 +5,16 @@ description: 了解如何从 Blazor 应用中的 JavaScript 的 .NET 和 .NET �
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: f55eda512f8dcf0695c2e7f4655db83b26ea4159
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 79555ca6c987e2ca57e0cfab9779024498fdd58b
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317200"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681015"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -199,7 +199,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `username` 变量。 如果将未填充 `ElementReference` 传递给 JavaScript 代码，JavaScript 代码将接收值 `null`。 若要在组件完成呈现后操作元素引用（若要设置元素的初始焦点），请使用 `OnAfterRenderAsync` 或 `OnAfterRender`[组件生命周期方法](xref:blazor/components#lifecycle-methods)。
+> 仅在呈现组件后填充 `username` 变量。 如果将未填充 `ElementReference` 传递给 JavaScript 代码，JavaScript 代码将接收值 `null`。 若要在组件完成呈现后操作元素引用（若要设置元素的初始焦点），请使用[OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/lifecycle#after-component-render)。
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>从 JavaScript 函数调用 .NET 方法
 
@@ -275,7 +275,7 @@ Hello, Blazor!
 
 在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。 包还原后，应用程序代码可以调入 JavaScript，就像它是C#一样。
 
-有关详细信息，请参阅 <xref:blazor/class-libraries>。
+有关更多信息，请参见<xref:blazor/class-libraries>。
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 

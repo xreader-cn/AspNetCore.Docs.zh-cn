@@ -9,12 +9,12 @@ ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 764e5e7db995b2dcadccf6d93c826ccf32c9ba04
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550307"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681001"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -522,7 +522,7 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 }
 ```
 
-事件处理程序也可以是异步的，并返回 <xref:System.Threading.Tasks.Task>。 无需手动调用 `StateHasChanged()`。 异常在发生时进行记录。
+事件处理程序也可以是异步的，并返回 <xref:System.Threading.Tasks.Task>。 无需手动调用[StateHasChanged](xref:blazor/lifecycle#state-changes)。 异常在发生时进行记录。
 
 在下面的示例中，当选择按钮时，将异步调用 `UpdateHeading`：
 
@@ -614,7 +614,7 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 在 `ChildComponent`中选择该按钮时：
 
 * 调用 `ParentComponent`的 `ShowMessage` 方法。 `messageText` 会更新并显示在 `ParentComponent`中。
-* 回调的方法（`ShowMessage`）中不需要调用 `StateHasChanged`。 `StateHasChanged` 将自动调用以诸如此类 `ParentComponent`，就像子事件在子中执行的事件处理程序中 rerendering。
+* 回调的方法（`ShowMessage`）中不需要调用[StateHasChanged](xref:blazor/lifecycle#state-changes) 。 `StateHasChanged` 将自动调用以诸如此类 `ParentComponent`，就像子事件在子中执行的事件处理程序中 rerendering。
 
 `EventCallback` 和 `EventCallback<T>` 允许异步委托。 `EventCallback<T>` 为强类型，并且需要特定的参数类型。 `EventCallback` 弱类型化，并允许任何参数类型。
 
@@ -854,7 +854,7 @@ Password:
 呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在该点之前，没有任何内容可供参考。 若要在组件完成呈现后操作组件引用，请使用[OnAfterRenderAsync 或 OnAfterRender 方法](#lifecycle-methods)。
+> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在该点之前，没有任何内容可供参考。 若要在组件完成呈现后操作组件引用，请使用[OnAfterRenderAsync 或 OnAfterRender 方法](xref:blazor/lifecycle#after-component-render)。
 
 捕获组件引用时，请使用类似的语法来[捕获元素引用](xref:blazor/javascript-interop#capture-references-to-elements)，而不是[JavaScript 互操作](xref:blazor/javascript-interop)功能。 不会将组件引用传递给 JavaScript 代码&mdash;它们只在 .NET 代码中使用。
 
@@ -863,7 +863,7 @@ Password:
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
-Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 在此 `SynchronizationContext`上执行由 Blazor 引发的组件生命周期方法和任何事件回调。 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor的 `SynchronizationContext`。
+Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 在此 `SynchronizationContext`上执行由 Blazor 引发的组件[生命周期方法](xref:blazor/lifecycle)和任何事件回调。 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor的 `SynchronizationContext`。
 
 例如，假设有一个*通告程序服务*可以通知已更新状态的任何侦听组件：
 
@@ -991,139 +991,6 @@ public class NotifierService
 * 唯一标识符（例如，类型的主键值 `int`、`string`或 `Guid`）。
 
 确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，Blazor 引发异常，因为它无法确定将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
-
-## <a name="lifecycle-methods"></a>生命周期方法
-
-`OnInitializedAsync` 和 `OnInitialized` 执行代码来初始化组件。 若要执行异步操作，请在操作中使用 `OnInitializedAsync` 和 `await` 关键字：
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> 在 `OnInitializedAsync` 生命周期事件期间，必须在组件初始化期间进行异步工作。
-
-对于同步操作，请使用 `OnInitialized`：
-
-```csharp
-protected override void OnInitialized()
-{
-    ...
-}
-```
-
-当组件已从其父级接收参数并且为属性分配了值时，将调用 `OnParametersSetAsync` 和 `OnParametersSet`。 这些方法在组件初始化之后以及每次呈现父组件时执行：
-
-```csharp
-protected override async Task OnParametersSetAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> 应用参数和属性值时的异步工作必须在 `OnParametersSetAsync` 生命周期事件期间发生。
-
-```csharp
-protected override void OnParametersSet()
-{
-    ...
-}
-```
-
-当组件完成呈现后，将调用 `OnAfterRenderAsync` 和 `OnAfterRender`。 此时将填充元素和组件引用。 使用此阶段，可以使用呈现的内容来执行其他初始化步骤，如激活在呈现的 DOM 元素上操作的第三方 JavaScript 库。
-
-在*服务器上预呈现时不会调用 `OnAfterRender`。*
-
-`OnAfterRenderAsync` 的 `firstRender` 参数和 `OnAfterRender` 为：
-
-* 设置为第一次调用组件实例时 `true`。
-* 确保仅执行一次初始化工作。
-
-```csharp
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-    if (firstRender)
-    {
-        await ...
-    }
-}
-```
-
-> [!NOTE]
-> 在 `OnAfterRenderAsync` 生命周期事件期间，必须立即进行渲染后的异步工作。
-
-```csharp
-protected override void OnAfterRender(bool firstRender)
-{
-    if (firstRender)
-    {
-        ...
-    }
-}
-```
-
-### <a name="handle-incomplete-async-actions-at-render"></a>在呈现时处理未完成的异步操作
-
-在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。 在执行生命周期方法时，对象可能 `null` 或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 `null`对象时呈现占位符 UI 元素（例如，加载消息）。
-
-在 Blazor 模板的 `FetchData` 组件中，`OnInitializedAsync` 被重写为 asychronously 接收预测数据（`forecasts`）。 `null``forecasts` 时，将向用户显示一条加载消息。 `OnInitializedAsync` 的 `Task` 返回完成后，组件将重新呈现已更新状态。
-
-*Pages/FetchData.razor*：
-
-[!code-cshtml[](components/samples_snapshot/3.x/FetchData.razor?highlight=9)]
-
-### <a name="execute-code-before-parameters-are-set"></a>在设置参数之前执行代码
-
-在设置参数之前，可以重写 `SetParameters` 以执行代码：
-
-```csharp
-public override void SetParameters(ParameterView parameters)
-{
-    ...
-
-    base.SetParameters(parameters);
-}
-```
-
-如果未调用 `base.SetParameters`，则自定义代码可以通过任何所需的方式解释传入参数值。 例如，无需将传入参数分配给类的属性。
-
-### <a name="suppress-refreshing-of-the-ui"></a>禁止刷新 UI
-
-可以重写 `ShouldRender` 以禁止刷新 UI。 如果实现返回 `true`，则将刷新 UI。 即使 `ShouldRender` 被重写，组件也始终是最初呈现的。
-
-```csharp
-protected override bool ShouldRender()
-{
-    var renderUI = true;
-
-    return renderUI;
-}
-```
-
-## <a name="component-disposal-with-idisposable"></a>用 IDisposable 进行的组件处置
-
-如果某个组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时，将调用[Dispose 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
-
-```csharp
-@using System
-@implements IDisposable
-
-...
-
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
-
-> [!NOTE]
-> 不支持在 `Dispose` 中调用 `StateHasChanged`。 `StateHasChanged` 可能会在要关闭的呈现器中被调用。 不支持在该点请求 UI 更新。
 
 ## <a name="routing"></a>路由
 

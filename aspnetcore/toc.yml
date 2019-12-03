@@ -286,6 +286,8 @@
           uid: blazor/templates
         - name: 组件
           uid: blazor/components
+        - name: 生命周期
+          uid: blazor/lifecycle
         - name: 窗体和验证
           uid: blazor/forms-validation
         - name: 组件库
@@ -819,6 +821,8 @@
       uid: security/index
     - name: 身份验证
       items:
+        - name: 概述
+          uid: security/authentication/index
         - name: 标识简介
           uid: security/authentication/identity
         - name: 使用 SPA 标识

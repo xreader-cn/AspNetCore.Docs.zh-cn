@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: f2fa59259f1dd36f50e81256bddea265e347554b
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 9784b357c2cdeb7422bbe40a39f881c97f6d716a
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317158"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680988"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -89,9 +89,9 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>使用永久性提供程序记录错误
 
-如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，使用控制台日志记录提供程序 Blazor 应用日志输出到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
+如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，使用控制台日志记录提供程序 Blazor 应用日志输出到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关更多信息，请参见<xref:fundamentals/logging/index>。
 
-在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling>。
+在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关更多信息，请参见<xref:fundamentals/error-handling>。
 
 您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，请勿记录一个错误，其中显示产品详细信息的组件 URL 中提供了未知 `ProductId`。 不是所有的错误都应视为日志记录的高严重性事件。
 
@@ -122,7 +122,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
-在组件的生存期内，Blazor 调用生命周期方法：
+在组件的生存期内，Blazor 调用[生命周期方法](xref:blazor/lifecycle)：
 
 * `OnInitialized` / `OnInitializedAsync`
 * `OnParametersSet` / `OnParametersSetAsync`
@@ -173,7 +173,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 如果组件的 `Dispose` 方法引发未处理的异常，则该异常对于线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
-有关组件处置的详细信息，请参阅 <xref:blazor/components#component-disposal-with-idisposable>。
+有关组件处置的详细信息，请参阅 <xref:blazor/lifecycle#component-disposal-with-idisposable>。
 
 ### <a name="javascript-interop"></a>JavaScript 互操作
 
@@ -192,7 +192,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 您可以选择在 .NET 端或方法调用的 JavaScript 端使用错误处理代码。
 
-有关详细信息，请参阅 <xref:blazor/javascript-interop>。
+有关更多信息，请参见<xref:blazor/javascript-interop>。
 
 ### <a name="circuit-handlers"></a>线路处理程序
 
@@ -277,7 +277,7 @@ Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户�
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树根逻辑
 
-大多数 Blazor 组件都作为*razor*文件实现，并且编译为生成可对 `RenderTreeBuilder` 进行操作以呈现其输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/components#manual-rendertreebuilder-logic>。
+大多数 Blazor 组件都作为*razor*文件实现，并且编译为生成可对 `RenderTreeBuilder` 进行操作以呈现其输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关更多信息，请参见<xref:blazor/components#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 使用手动渲染树生成器逻辑被视为一种高级不安全的方案，不建议用于常规组件开发。
