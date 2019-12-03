@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/01/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 9784b357c2cdeb7422bbe40a39f881c97f6d716a
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 9f249fac331d31249f9325892e8365e3d0b4cc5a
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74680988"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717056"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -122,7 +122,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
-在组件的生存期内，Blazor 调用[生命周期方法](xref:blazor/lifecycle)：
+在组件的生存期内，Blazor 调用以下[生命周期方法](xref:blazor/lifecycle)：
 
 * `OnInitialized` / `OnInitializedAsync`
 * `OnParametersSet` / `OnParametersSetAsync`

@@ -1,22 +1,22 @@
 ---
-title: ASP.NET Core 简介 SignalR
+title: ASP.NET Core SignalR 简介
 author: bradygaster
 description: 了解 ASP.NET Core SignalR 库如何简化将实时功能添加到应用程序。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/27/2019
 no-loc:
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 7108d9f223db78937dd1203a1cb4b890006b20ec
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: e84dd0d086cbfc80a80bc10baa33979da9b5d137
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963941"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717229"
 ---
-# <a name="introduction-to-aspnet-core-opno-locsignalr"></a>ASP.NET Core 简介 SignalR
+# <a name="introduction-to-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR 简介
 
 ## <a name="what-is-opno-locsignalr"></a>什么是 SignalR？
 
@@ -42,7 +42,7 @@ SignalR 提供用于创建服务器到客户端[远程过程调用（RPC）](htt
 
 ## <a name="transports"></a>传输
 
-SignalR 支持多种用于处理实时通信的技术：
+SignalR 支持以下用于处理实时通信的技术（按正常回退的顺序）：
 
 * [WebSockets](https://tools.ietf.org/html/rfc7118)
 * 服务器发送的事件
