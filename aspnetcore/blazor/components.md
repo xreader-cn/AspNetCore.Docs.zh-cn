@@ -5,16 +5,16 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 764e5e7db995b2dcadccf6d93c826ccf32c9ba04
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 19636b0f10e71133eddece918b1bb9e2bc25a226
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681001"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733838"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -71,6 +71,8 @@ ms.locfileid: "74681001"
 <component type="typeof(Counter)" render-mode="ServerPrerendered" 
     param-IncrementAmount="10" />
 ```
+
+支持传递参数（例如，在前面的示例中为 `IncrementAmount`）。
 
 `RenderMode` 配置组件是否：
 
@@ -402,7 +404,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 `@bind:format` 特性指定要应用于 `<input>` 元素的 `value` 的日期格式。 此格式还用于分析 `onchange` 事件发生时的值。
 
-不建议为 `date` 字段类型指定格式，因为 Blazor 具有对日期进行格式设置的内置支持。
+不建议为 `date` 字段类型指定格式，因为 Blazor 具有对日期进行格式设置的内置支持。 尽管建议，但如果使用 `date` 字段类型提供格式，则仅使用 `yyyy-MM-dd` 日期格式才能正常工作：
+
+```razor
+<input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
+```
 
 **组件参数**
 

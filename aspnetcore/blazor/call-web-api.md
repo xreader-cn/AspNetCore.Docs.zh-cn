@@ -5,16 +5,16 @@ description: 了解如何使用 JSON 帮助程序从 Blazor 应用程序调用 w
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/03/2019
 no-loc:
 - Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: ffc9904c5746fbf0fafa10cf054666608942650c
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: d4c69e8be2d4f6295c7177bf5d00aed596d0ead2
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74680897"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733851"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>从 ASP.NET Core 调用 web API Blazor
 
@@ -22,20 +22,30 @@ ms.locfileid: "74680897"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly 应用使用预先配置的 `HttpClient` 服务来调用 web Api。 撰写请求，其中可以包含 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助程序或 <xref:System.Net.Http.HttpRequestMessage>。
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)应用使用预先配置的 `HttpClient` 服务来调用 web api。 撰写请求，其中可以包含 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助程序或 <xref:System.Net.Http.HttpRequestMessage>。
 
-Blazor Server apps 使用通常使用 <xref:System.Net.Http.IHttpClientFactory>创建 <xref:System.Net.Http.HttpClient> 实例来调用 web Api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
+[Blazor Server](xref:blazor/hosting-models#blazor-server) apps 使用通常使用 <xref:System.Net.Http.IHttpClientFactory>创建 <xref:System.Net.Http.HttpClient> 实例来调用 web api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)） &ndash; 选择*BlazorWebAssemblySample*应用。
 
-有关 Blazor WebAssembly 示例，请参阅示例应用中的以下组件：
+请参阅*BlazorWebAssemblySample*示例应用中的以下组件：
 
 * 调用 Web API （*Pages/CallWebAPI*）
 * HTTP 请求测试器（*组件/HTTPRequestTester*）
 
+## <a name="packages"></a>package
+
+引用*实验*性[BlazorAspNetCore。](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/)项目文件中的 HttpClient NuGet 包。 `Microsoft.AspNetCore.Blazor.HttpClient` 基于 `HttpClient` 和[system.object](https://www.nuget.org/packages/System.Text.Json/)。
+
+若要使用稳定的 API，请使用[WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)包，其中使用[newtonsoft.json](https://www.nuget.org/packages/Newtonsoft.Json/)/[Json.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)。 在 `Microsoft.AspNet.WebApi.Client` 中使用稳定 API 并不提供本主题中所述的 JSON 帮助程序，这对于实验性 `Microsoft.AspNetCore.Blazor.HttpClient` 包是唯一的。
+
 ## <a name="httpclient-and-json-helpers"></a>HttpClient 和 JSON 帮助器
 
-在 Blazor WebAssembly 应用中， [HttpClient](xref:fundamentals/http-requests)作为预配置服务提供，用于向源服务器发送请求。 若要使用 `HttpClient` JSON 帮助程序，请将包引用添加到 `Microsoft.AspNetCore.Blazor.HttpClient`。 `HttpClient` 和 JSON 帮助程序还用于调用第三方 web API 终结点。 `HttpClient` 是使用浏览器[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)实现的，并且受到其限制，包括强制实施相同的源策略。
+在 Blazor WebAssembly 应用中， [HttpClient](xref:fundamentals/http-requests)作为预配置服务提供，用于向源服务器发送请求。
+
+默认情况下，Blazor Server 应用不包括 `HttpClient` 服务。 使用[HttpClient 工厂基础结构](xref:fundamentals/http-requests)向应用提供 `HttpClient`。
+
+`HttpClient` 和 JSON 帮助程序还用于调用第三方 web API 终结点。 `HttpClient` 是使用浏览器[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)实现的，并且受到其限制，包括强制实施相同的源策略。
 
 客户端的基址设置为源服务器的地址。 使用 `@inject` 指令插入 `HttpClient` 实例：
 
@@ -149,19 +159,13 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 浏览器安全性可防止网页向其他域发出请求，而不是提供给网页的域。 此限制称为*相同源策略*。 同一源策略可防止恶意站点读取另一个站点中的敏感数据。 若要将浏览器请求发送到具有不同源的终结点，*终结点*必须启用[跨域资源共享（CORS）](https://www.w3.org/TR/cors/)。
 
-示例应用演示了如何在调用 Web API 组件（*Pages/CallWebAPI*）中使用 CORS。
+[Blazor WebAssembly 示例应用（BlazorWebAssemblySample）](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)演示了如何在调用 Web API 组件（*Pages/CallWebAPI*）中使用 CORS。
 
 若要允许其他站点对应用进行跨域资源共享（CORS）请求，请参阅 <xref:security/cors>。
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>带有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
 
 在 Blazor WebAssembly 应用程序的 WebAssembly 上运行时，使用[HttpClient](xref:fundamentals/http-requests)和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。 例如，可以指定请求 URI、HTTP 方法以及任何所需的请求标头。
-
-使用请求的 `WebAssemblyHttpMessageHandler.FetchArgs` 属性向基础 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)提供请求选项。 如下面的示例中所示，`credentials` 属性设置为以下任意值：
-
-* `FetchCredentialsOption.Include` （"include"） &ndash; 建议浏览器发送凭据（如 cookie 或 HTTP 身份验证标头），即使对于跨源请求也是如此。 仅当 CORS 策略配置为允许凭据时才允许。
-* `FetchCredentialsOption.Omit` （"省略"） &ndash; 建议浏览器从不发送凭据（如 cookie 或 HTTP 身份验证标头）。
-* `FetchCredentialsOption.SameOrigin` （"相同来源"） &ndash; 建议仅当目标 URL 与调用应用程序位于同一源时，才向浏览器发送凭据（如 cookie 或 HTTP 身份验证标头）。
 
 ```cshtml
 @using System.Net.Http
@@ -189,11 +193,6 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
         requestMessage.Content.Headers.TryAddWithoutValidation(
             "x-custom-header", "value");
-        
-        requestMessage.Properties[WebAssemblyHttpMessageHandler.FetchArgs] = new
-        { 
-            credentials = FetchCredentialsOption.Include
-        };
 
         var response = await Http.SendAsync(requestMessage);
         var responseStatusCode = response.StatusCode;

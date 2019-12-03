@@ -1,19 +1,19 @@
 ---
-title: SameSite
+title: 在 ASP.NET Core 中使用 SameSite cookie
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中使用 SameSite cookie
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/11/2019
+ms.date: 12/03/2019
 uid: security/samesite
-ms.openlocfilehash: 91c69c4caf0644c1f40750233175ddb4c02d7cfe
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
-ms.translationtype: HT
+ms.openlocfilehash: 988069a66cc4772583444303948bff2e47ff4310
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717435"
+ms.locfileid: "74733981"
 ---
-# <a name="working-with-samesite-cookies-in-aspnet-core"></a>在 ASP.NET Core 中使用 SameSite cookie
+# <a name="work-with-samesite-cookies-in-aspnet-core"></a>在 ASP.NET Core 中使用 SameSite cookie
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 

@@ -5,16 +5,16 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: a39d913636afc55ac9d831de923ba7ae8db1216b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 165cfa7a98cdd523c25d5c4bfc8e2c9d0ef1ad22
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963081"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733812"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -27,7 +27,7 @@ Blazor 支持[依赖关系注入（DI）](xref:fundamentals/dependency-injection
 DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor 应用程序中，这可能很有用：
 
 * 跨多个组件（称为*单独*服务）共享服务类的单个实例。
-* 使用引用抽象将组件与具体服务类分离。 例如，请考虑一个 `IDataAccess` 的接口，用于访问应用中的数据。 接口由具体 `DataAccess` 类实现并在应用的服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可以交换实现，这可能是单元测试中的模拟实现。
+* 使用引用抽象将组件与具体服务类分离。 例如，请考虑用于访问应用中的数据的接口 `IDataAccess`。 接口由具体 `DataAccess` 类实现并在应用服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可以交换实现，这可能是单元测试中的模拟实现。
 
 ## <a name="default-services"></a>默认服务
 
@@ -35,7 +35,7 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。 请注意，此 `HttpClient` 实例使用浏览器在后台处理 HTTP 流量。 [HttpClient](xref:System.Net.Http.HttpClient.BaseAddress)会自动设置为应用的基本 URI 前缀。 有关更多信息，请参见<xref:blazor/call-web-api>。 |
+| <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor Server apps 不包括配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关更多信息，请参见<xref:blazor/call-web-api>。 |
 | `IJSRuntime` | 单一实例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关更多信息，请参见<xref:blazor/javascript-interop>。 |
 | `NavigationManager` | 单一实例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
@@ -43,7 +43,7 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 ## <a name="add-services-to-an-app"></a>向应用程序添加服务
 
-创建新应用后，检查 `Startup.ConfigureServices` 方法：
+创建新应用后，请检查 `Startup.ConfigureServices` 方法：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -75,14 +75,14 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关更多信息，请参见<
 
 将服务添加到服务集合后，使用[\@插入](xref:mvc/views/razor#inject)Razor 指令将服务注入到组件。 `@inject` 有两个参数：
 
-* 键入 &ndash; 要注入的服务的类型。
+* 键入要注入的服务的类型 &ndash;。
 * 属性 &ndash; 接收插入的应用服务的属性的名称。 属性不需要手动创建。 编译器将创建属性。
 
 有关更多信息，请参见<xref:mvc/views/dependency-injection>。
 
-使用多 `@inject` 语句注入不同的服务。
+使用多个 `@inject` 语句注入不同的服务。
 
-下面的示例说明如何使用 `@inject`。 将实现 `Services.IDataAccess` 的服务注入组件的属性中 `DataRepository`。 请注意代码如何只使用 `IDataAccess` 抽象：
+下面的示例说明如何使用 `@inject`。 将实现 `Services.IDataAccess` 的服务注入组件的属性 `DataRepository`。 请注意代码如何只使用 `IDataAccess` 抽象：
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
@@ -133,7 +133,7 @@ public class DataAccess : IDataAccess
 
 在 ASP.NET Core 应用中，作用域内服务通常作用于当前请求。 请求完成后，DI 系统将释放任何作用域内或暂时性的服务。 在 Blazor Server apps 中，请求范围将在客户端连接期间持续，这可能会导致暂时性和作用域内服务的运行时间比预期要长得多。
 
-若要将服务范围限定于组件的生存期，可以使用 `OwningComponentBase` 和 `OwningComponentBase<TService>` 基类。 这些基类公开了 `IServiceProvider` 类型的 `ScopedServices` 属性，该属性解析范围限制在组件生存期内的服务。 若要创作从 Razor 中的基类继承的组件，请使用 `@inherits` 指令。
+若要将服务范围限定于组件的生存期，可以使用 `OwningComponentBase` 和 `OwningComponentBase<TService>` 基类。 这些基类公开 `IServiceProvider` 类型的 `ScopedServices` 属性，该属性可解析范围限制在组件生存期内的服务。 若要创作从 Razor 中的基类继承的组件，请使用 `@inherits` 指令。
 
 ```cshtml
 @page "/users"
