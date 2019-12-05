@@ -12,6 +12,8 @@
   uid: getting-started
 - name: 新增功能
   items:
+    - name: 3.1 版中的新增功能
+      uid: aspnetcore-3.1
     - name: 3.0 中的新增功能
       uid: aspnetcore-3.0
     - name: 2.2 中的新变化
@@ -1016,6 +1018,8 @@
       uid: security/cors
     - name: 在应用之间共享 Cookie
       uid: security/cookie-sharing
+    - name: SameSite Cookie
+      uid: security/samesite
     - name: IP 安全列表
       uid: security/ip-safelist
     - name: 应用程序安全性 - OWASP
