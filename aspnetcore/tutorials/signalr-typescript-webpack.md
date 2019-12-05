@@ -1,19 +1,21 @@
 ---
 title: 配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 author: ssougnez
-description: 本教程将配置 Webpack，以捆绑和生成 ASP.NET Core SignalR Web 应用，该应用的客户端是使用 TypeScript 编写的。
+description: 在本教程中，我们将配置 Webpack，以捆绑和生成 ASP.NET Core SignalR Web 应用，该应用的客户端是使用 TypeScript 编写的。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/04/2019
+ms.date: 11/21/2019
+no-loc:
+- SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 630e8cb5efe9c313479960626d3d864c4923cbd1
-ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
+ms.openlocfilehash: a7c99c9e79647995886aec5b3a91584fd2f24451
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71955930"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317477"
 ---
-# <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
+# <a name="use-aspnet-core-opno-locsignalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
 作者：[Sébastien Sougnez](https://twitter.com/ssougnez) 和 [Scott Addie](https://twitter.com/Scott_Addie)
 
@@ -130,7 +132,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
     前面的文件配置 Webpack 编译。 需要注意的一些配置细节：
 
     * `output` 属性替代 dist 的默认值  。 捆绑反而在 wwwroot 目录中发出  。
-    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript  。
+    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript。 
 
 1. 在项目根中创建新的 src 目录  。 目的是存储项目的客户端资产。
 
@@ -196,10 +198,10 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 1. 在项目根执行以下命令：
 
     ```console
-    npm install @aspnet/signalr
+    npm install @microsoft/signalr
     ```
 
-    前面的命令安装 [SignalR TypeScript 客户端](https://www.npmjs.com/package/@aspnet/signalr)，它允许客户端向服务器发送消息。
+    前面的命令将安装 [SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
 
 1. 将突出显示的代码添加到 src/index.ts 文件  ：
 
@@ -365,7 +367,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
     前面的文件配置 Webpack 编译。 需要注意的一些配置细节：
 
     * `output` 属性替代 dist 的默认值  。 捆绑反而在 wwwroot 目录中发出  。
-    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript  。
+    * `resolve.extensions` 数组包含 .js，以便导入 SignalR 客户端 JavaScript。 
 
 1. 在项目根中创建新的 src 目录  。 目的是存储项目的客户端资产。
 
@@ -431,10 +433,10 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 1. 在项目根执行以下命令：
 
     ```console
-    npm install @aspnet/signalr
+    npm install @microsoft/signalr
     ```
 
-    前面的命令安装 [SignalR TypeScript 客户端](https://www.npmjs.com/package/@aspnet/signalr)，它允许客户端向服务器发送消息。
+    前面的命令将安装 [SignalR TypeScript 客户端](https://www.npmjs.com/package/@microsoft/signalr)，它允许客户端向服务器发送消息。
 
 1. 将突出显示的代码添加到 src/index.ts 文件  ：
 

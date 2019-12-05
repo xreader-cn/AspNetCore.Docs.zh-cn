@@ -5,16 +5,16 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 646e14060b88fc2a0fefc2f7a5ebb1c15ac39b79
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 2a83761b598a339aeaf8bec6f8fd50d09e608f0c
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963711"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681209"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
 
@@ -36,7 +36,7 @@ ms.locfileid: "73963711"
 
    *Pages/Counter.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
 
    使用 HTML 定义 `Counter`组件的 UI。 动态呈现逻辑（例如，循环、条件、表达式）是使用名为 [Razor](xref:mvc/views/razor) 的嵌入式 C# 语法添加的。 HTML 标记和 C# 呈现逻辑在构建时转换为组件类。 生成的 .NET 类的名称与文件名匹配。
 
@@ -51,7 +51,7 @@ ms.locfileid: "73963711"
 
 1. 修改 `Counter` 组件的 C# 逻辑，使计数递增 2 而不是 1。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
 1. 重新生成并运行应用以查看更改。 选择“单击我”  按钮。 计数器的值将增加 2。
 
@@ -65,7 +65,7 @@ ms.locfileid: "73963711"
 
    *Pages/Index.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
 1. 重新生成并运行应用。 `Index` 组件有其自己的计数器。
 
@@ -80,7 +80,7 @@ ms.locfileid: "73963711"
 
    *Pages/Counter.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
 <!-- Add back when supported.
    > [!NOTE]
@@ -91,7 +91,7 @@ ms.locfileid: "73963711"
 
    *Pages/Index.razor*：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
 1. 重新加载 `Index` 组件。 每次选择“单击我”  按钮时，计数器值递增 10。 `Counter` 组件中的计数器继续递增 1。
 
@@ -111,11 +111,11 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 *Pages/FetchData.razor*：
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
 `FetchData` 组件使用注入的服务（作为 `ForecastService`）来检索 `WeatherForecast` 对象的数组：
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
 ### <a name="opno-locblazor-webassembly-experience"></a>Blazor WebAssembly 体验
 
@@ -123,11 +123,11 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 *Pages/FetchData.razor*：
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
 [@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
 ## <a name="build-a-todo-list"></a>生成待办项列表
 
@@ -137,7 +137,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 1. 为组件提供初始标记：
 
-   ```cshtml
+   ```razor
    @page "/todo"
 
    <h1>Todo</h1>
@@ -149,7 +149,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    通过在“Shared/NavMenu.razor”  文件中的现有列表项下添加以下列表项标记，为 `Todo` 组件添加一个 `<NavLink>` 元素：
 
-   ```cshtml
+   ```razor
    <li class="nav-item px-3">
        <NavLink class="nav-link" href="todo">
            <span class="oi oi-list-rich" aria-hidden="true"></span> Todo
@@ -161,28 +161,28 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 1. 向项目的根目录添加“TodoItem.cs”  文件，以保存一个用于表示待办项的类。 为 `TodoItem` 类使用以下 C# 代码：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
+   [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
 1. 返回到 `Todo` 组件 (Pages/Todo.razor  )：
 
    * 在 `@code` 块中为待办项添加一个字段。 `Todo` 组件使用此字段来维护待办项列表的状态。
    * 添加无序列表标记和 `foreach` 循环，以将每个待办项呈现为列表项 (`<li>`)。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
 
 1. 该应用需要 UI 元素来将待办项添加到列表。 在未排序列表 (`<ul>...</ul>`) 下方添加一个文本输入 (`<input>`) 和一个按钮 (`<button>`)：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
 1. 重新生成并运行应用。 选择“添加待办项”  按钮时没有任何反应，因为没有事件处理程序连接到该按钮。
 
 1. 向 `Todo` 组件添加 `AddTodo` 方法，并使用 `@onclick` 属性注册该方法以选择按钮。 选择按钮时，会调用 `AddTodo` C# 方法：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
 
 1. 要获得新待办项标题，请在 `@code` 块顶部添加 `newTodo` 字符串字段，并使用 `<input>` 元素中的 `bind` 属性将其绑定到文本输入的值：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
    ```cshtml
    <input placeholder="Something todo" @bind="newTodo" />
@@ -190,23 +190,23 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 1. 更新 `AddTodo` 方法，将具有指定标题的 `TodoItem` 添加到列表。 通过将 `newTodo` 设置为空字符串来清除文本输入的值：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
 1. 重新生成并运行应用。 在待办项列表中添加一些待办项以测试新代码。
 
 1. 每个待办项的标题文本都可以编辑，复选框可以帮助用户跟踪已完成的项。 为每个待办项添加一个复选框输入，并将它的值绑定到 `IsDone` 属性。 将 `@todo.Title` 更改为绑定到 `@todo.Title` 的 `<input>` 元素：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
 
 1. 若要验证这些值是否已绑定，请更新 `<h1>` 标头以显示尚未完成的待办项计数（`IsDone` 是 `false`）。
 
-   ```cshtml
+   ```razor
    <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
    ```
 
 1. 完成的 `Todo` 组件 (Pages/Todo.razor  )：
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
 1. 重新生成并运行应用。 添加待办项以测试新代码。
 

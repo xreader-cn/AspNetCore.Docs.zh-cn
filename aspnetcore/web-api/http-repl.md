@@ -5,14 +5,14 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 12/02/2019
 uid: web-api/http-repl
-ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037708"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717160"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -270,7 +270,7 @@ colors.status=BoldYellow
 https://localhost:5001/people~ pref set colors.json White
 ```
 
-只能使用[允许的颜色](https://github.com/aspnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)。 后续 HTTP 请求使用新着色显示输出。
+只能使用[允许的颜色](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)。 后续 HTTP 请求使用新着色显示输出。
 
 如果未设置特定颜色键，则会考虑使用更通用的键。 若要演示此回退行为，请考虑使用以下示例：
 
@@ -1037,4 +1037,4 @@ https://localhost:5001/~
 ## <a name="additional-resources"></a>其他资源
 
 * [REST API 请求](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [HTTP REPL GitHub 存储库](https://github.com/aspnet/HttpRepl)
+* [HTTP REPL GitHub 存储库](https://github.com/dotnet/HttpRepl)

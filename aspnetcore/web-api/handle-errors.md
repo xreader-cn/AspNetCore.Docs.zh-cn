@@ -7,12 +7,12 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 09/27/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: dc21d4b2cf096b8d38b0a24d739e6874186004e7
-ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
+ms.openlocfilehash: 457ad7449c608c3b1b0acd729626e07808f55897
+ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71551747"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74412100"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -115,13 +115,13 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 ::: moniker-end
 
 > [!WARNING]
-> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+> 仅当应用程序在开发环境中运行时才启用开发人员异常页  。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
 ## <a name="exception-handler"></a>异常处理程序
 
 在非开发环境中，可使用[异常处理中间件](xref:fundamentals/error-handling)来生成错误负载：
 
-1. 在 `Startup.Configure` 中，调用 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 以使用中间件：
+1. 在 `Startup.Configure` 中，调用 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> 以使用中间件：
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -266,7 +266,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 ## <a name="client-error-response"></a>客户端错误响应
 
-错误结果定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
+错误结果  定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -301,7 +301,7 @@ public void ConfigureServices(IServiceCollection serviceCollection)
 
 ### <a name="use-apibehavioroptionsclienterrormapping"></a>使用 ApiBehaviorOptions.ClientErrorMapping
 
-使用 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping*> 属性配置 `ProblemDetails` 响应的内容。 例如，`Startup.ConfigureServices` 中的以下代码会更新 404 响应的 `type` 属性：
+使用 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping%2A> 属性配置 `ProblemDetails` 响应的内容。 例如，`Startup.ConfigureServices` 中的以下代码会更新 404 响应的 `type` 属性：
 
 ::: moniker-end
 
@@ -313,6 +313,6 @@ public void ConfigureServices(IServiceCollection serviceCollection)
 
 ::: moniker range="= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=9-10)]
+[!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=9-10)]
 
 ::: moniker-end

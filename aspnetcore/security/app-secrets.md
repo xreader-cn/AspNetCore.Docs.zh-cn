@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何存储和检索在 ASP.NET Core 应用程序开发期间为应用程序机密的敏感信息。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 0203a5737caf1af809b739d9e266a6971cd1523b
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 3323b7b614b7e8bc711b2c5acfb501b65b3d783b
+ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080720"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74852683"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>安全存储中 ASP.NET Core 中开发的应用程序机密
 
@@ -19,7 +19,7 @@ ms.locfileid: "71080720"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-本文档介绍用于存储和检索敏感数据的 ASP.NET Core 应用程序开发过程的技术。 永远不要将密码或其他敏感数据存储在源代码中。 不应使用生产机密进行开发或测试。 可使用 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
+本文档介绍用于存储和检索敏感数据的 ASP.NET Core 应用程序开发过程的技术。 永远不要将密码或其他敏感数据存储在源代码中。 不应使用生产机密进行开发或测试。 机密不应与应用一起部署。 相反，机密应通过受控方式（如环境变量、Azure Key Vault 等）在生产环境中可用。可以通过[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
 
 ## <a name="environment-variables"></a>环境变量
 
@@ -27,7 +27,7 @@ ms.locfileid: "71080720"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-<xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 通过`Startup`在构造函数中调用来配置读取环境变量值：
+通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 来配置读取环境变量值：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
@@ -127,19 +127,19 @@ Use "dotnet user-secrets [command] --help" for more information about a command.
 
 ::: moniker range=">= aspnetcore-3.0"
 
-机密管理器工具在 .NET Core SDK `init` 3.0.100 或更高版本中包含命令。 若要使用用户机密，请在项目目录中运行以下命令：
+机密管理器工具在 .NET Core SDK 3.0.100 或更高版本中包含 `init` 命令。 若要使用用户机密，请在项目目录中运行以下命令：
 
 ```dotnetcli
 dotnet user-secrets init
 ```
 
-前面的命令将在`UserSecretsId` *.csproj*文件的`PropertyGroup`中添加一个元素。 默认情况下，的`UserSecretsId`内部文本是 GUID。 内部文本是任意的，但对项目是唯一的。
+前面的命令将 `UserSecretsId` 元素添加到 *.csproj*文件的 `PropertyGroup` 中。 默认情况下，`UserSecretsId` 的内部文本是一个 GUID。 内部文本是任意的，但对项目是唯一的。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-若要使用用户机密，定义`UserSecretsId`中的元素`PropertyGroup`的 *.csproj*文件。 的内部文本是`UserSecretsId`任意的，但对项目是唯一的。 开发人员通常会生成的 GUID `UserSecretsId`。
+若要使用用户机密，定义`UserSecretsId`中的元素`PropertyGroup`的 *.csproj*文件。 `UserSecretsId` 的内部文本是任意的，但对项目是唯一的。 开发人员通常会生成的 GUID `UserSecretsId`。
 
 ::: moniker-end
 
@@ -229,11 +229,11 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ::: moniker range=">= aspnetcore-2.0"
 
-在 ASP.NET Core 2.0 或更高版本中，当项目调用<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>来初始化具有预先配置默认值的主机的新实例时，用户机密配置源将在开发模式下自动添加。 `CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>为时<xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>调用： <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName>
+在 ASP.NET Core 2.0 或更高版本中，当项目调用时，用户机密配置源会自动添加到 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 以使用预先配置的默认值初始化主机的新实例。 <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> 时，`CreateDefaultBuilder` 调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>：
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-不`CreateDefaultBuilder`调用时，通过在`Startup`构造函数中调用<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>来显式添加用户机密配置源。 仅`AddUserSecrets`在开发环境中运行应用时调用，如以下示例中所示：
+如果未调用 `CreateDefaultBuilder`，请通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 来显式添加用户机密配置源。 仅在开发环境中运行应用时调用 `AddUserSecrets`，如以下示例中所示：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -243,7 +243,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 安装[Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。
 
-在构造函数中使用对<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>的调用添加用户机密配置源： `Startup`
+使用 `Startup` 构造函数中的 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 调用添加用户机密配置源：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -303,7 +303,7 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-可以对<xref:System.Data.SqlClient.SqlConnectionStringBuilder>对象的<xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*>属性设置机密的值，以完成连接字符串：
+可以对 <xref:System.Data.SqlClient.SqlConnectionStringBuilder> 对象的 <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> 属性设置机密的值，以完成连接字符串：
 
 ::: moniker range=">= aspnetcore-2.0"
 
