@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/26/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 179ab4c97426c9d3cb8ed069d2059d767d755533
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: de1b3e270ccd90bde741975de38a224e557f1a08
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034268"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717411"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -325,15 +325,36 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 1. 在服务器上运行安装程序。 通过管理员命令行界面运行安装程序时，以下参数可用：
 
    * `OPT_NO_ANCM=1` &ndash; 跳过安装 ASP.NET Core 模块。
-   * `OPT_NO_RUNTIME=1` &ndash; 跳过安装 .NET Core 运行时。
-   * `OPT_NO_SHAREDFX=1` &ndash; 跳过安装 ASP.NET 共享框架（ASP.NET 运行时）。
+   * `OPT_NO_RUNTIME=1` &ndash; 跳过安装 .NET Core 运行时。 当服务器仅承载[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时使用。
+   * `OPT_NO_SHAREDFX=1` &ndash; 跳过安装 ASP.NET 共享框架（ASP.NET 运行时）。 当服务器仅承载[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时使用。
    * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此参数。 如果有可能会同时托管 32 位和 64 位应用，请勿使用此参数，并安装两个运行时。
    * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config  ) 与 IIS 安装位于同一台计算机上时，禁用检查使用的是否是 IIS 共享配置。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。  有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
-1. 重启系统或在命令行界面中执行 net stop was /y，后跟 net start w3svc   。 重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
+1. 重新启动系统，或在命令行界面中执行以下命令：
+
+   ```console
+   net stop was /y
+   net start w3svc
+   ```
+   重启 IIS 会选取安装程序对系统 PATH（环境变量）所作的更改。
+
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core 不采用共享框架包的修补程序版本的前滚行为。 通过安装新的托管捆绑包升级共享框架后，请重新启动系统，或在命令行界面中执行以下命令：
+
+```console
+net stop was /y
+net start w3svc
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 安装托管捆绑包时，无需在 IIS 中手动停止各个站点。 IIS 重新启动后，托管应用（IIS 站点）也将重新启动。 应用收到第一个请求（包括来自[应用程序初始化模块](#application-initialization-module-and-idle-timeout)）后，将再次启动。
 
 ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 IIS 托管的应用重新启动 IIS 时，应用会在收到第一个请求后使用其引用的包的最新修补程序版本进行加载。 如果未重新启动 IIS，应用会在其工作进程被回收并收到第一个请求后重新启动并显示前滚行为。
+
+::: moniker-end
 
 > [!NOTE]
 > 有关 IIS 共享配置的信息，请参阅[使用 IIS 共享配置的 ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration)。
