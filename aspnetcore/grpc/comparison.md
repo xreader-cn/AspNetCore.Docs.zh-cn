@@ -4,16 +4,16 @@ author: jamesnk
 description: 了解 gRPC 如何与 HTTP Api 进行比较以及其建议方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: ceb24d656827548492a6fa326681922297fc481b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8935e665dfd5d8f9afa002f475c202ec0f0ee657
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963659"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880672"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -31,9 +31,9 @@ ms.locfileid: "73963659"
 | 协议         | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf （小，二进制）](#performance)           | JSON （大、可读）  |
 | Prescriptiveness | [严格规范](#strict-specification)      | 松散. 任何 HTTP 都有效。     |
-| 流式处理        | [客户端、服务器、双向](#streaming)       | 客户端、服务器                |
+| 流式传输        | [客户端、服务器、双向](#streaming)       | 客户端、服务器                |
 | 浏览器支持  | [否（需要 grpc-web）](#limited-browser-support) | 是                           |
-| 安全         | 传输（TLS）                                    | 传输（TLS）               |
+| 安全性         | 传输（TLS）                                    | 传输（TLS）               |
 | 客户端代码生成 | [是](#code-generation)                      | OpenAPI + 第三方工具 |
 
 ## <a name="grpc-strengths"></a>gRPC 强度
@@ -49,7 +49,7 @@ gRPC 专用于 HTTP/2，这是一个主要的 HTTP 修订版，通过 HTTP 1.x �
 
 ### <a name="code-generation"></a>代码生成
 
-所有 gRPC 框架都提供对代码生成的一流支持。 GRPC 开发的核心文件是一个[ *proto*文件](https://developers.google.com/protocol-buffers/docs/proto3)，用于定义 gRPC 服务和消息的协定。 从此文件 gRPC 框架将生成服务基类、消息和完整客户端。
+所有 gRPC 框架都提供对代码生成的一流支持。 GRPC 开发的核心文件是一个[proto 文件](https://developers.google.com/protocol-buffers/docs/proto3)，用于定义 gRPC 服务和消息的协定。 从此文件 gRPC 框架将生成服务基类、消息和完整客户端。
 
 通过在服务器和客户端之间共享*proto*文件，可以从端到端生成消息和客户端代码。 客户端代码生成将消除客户端和服务器上的重复消息，并为您创建一个强类型的客户端。 无需编写客户端，就可以在具有多个服务的应用程序中节省大量的开发时间。
 
@@ -59,7 +59,7 @@ gRPC 专用于 HTTP/2，这是一个主要的 HTTP 修订版，通过 HTTP 1.x �
 
 [GRPC 规范](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)规定了 gRPC 服务必须遵循的格式。 gRPC 消除了对开发人员时间的争论，因为 gRPC 在平台和实现中保持一致。
 
-### <a name="streaming"></a>流式处理
+### <a name="streaming"></a>流式传输
 
 HTTP/2 为生存期较长的实时通信流奠定了基础。 gRPC 为通过 HTTP/2 进行流式处理提供一流支持。
 

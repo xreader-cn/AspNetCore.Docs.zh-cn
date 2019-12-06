@@ -5,16 +5,16 @@ description: 了解如何在 ASP.NET Core SignalR中使用身份验证和授权�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 5a1e15ef46a3f89af3fbd3d505e7bd340c46e672
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 091cc9b2adc1f6a8fac79519884695d1c1725d2a
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963828"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880418"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core 中的身份验证和授权 SignalR
 
@@ -24,7 +24,7 @@ ms.locfileid: "73963828"
 
 ## <a name="authenticate-users-connecting-to-a-opno-locsignalr-hub"></a>对连接到 SignalR 集线器的用户进行身份验证
 
-SignalR 可以与[ASP.NET Core authentication](xref:security/authentication/identity)一起使用，以将用户与每个连接相关联。 在中心中，可以从[`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性访问身份验证数据。 身份验证允许中心对与用户关联的所有连接调用方法。 有关详细信息，请参阅[SignalR中的 "管理用户和组](xref:signalr/groups)"。 单个用户可以关联多个连接。
+SignalR 可以与[ASP.NET Core authentication](xref:security/authentication/identity)一起使用，以将用户与每个连接相关联。 在中心中，可以从[HubConnectionContext](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)属性访问身份验证数据。 身份验证允许中心对与用户关联的所有连接调用方法。 有关详细信息，请参阅[SignalR中的 "管理用户和组](xref:signalr/groups)"。 单个用户可能与多个链接相关联。
 
 下面是使用 SignalR 和 ASP.NET Core 身份验证的 `Startup.Configure` 的示例：
 
@@ -82,15 +82,15 @@ public void Configure(IApplicationBuilder app)
 
 ### <a name="cookie-authentication"></a>Cookie 身份验证
 
-在基于浏览器的应用程序中，cookie 身份验证允许现有用户凭据自动流向 SignalR 连接。 使用浏览器客户端时，无需进行其他配置。 如果用户已登录到你的应用，则 SignalR 连接将自动继承此身份验证。
+在基于浏览器的应用程序中，cookie 身份验证允许现有用户凭据自动流向 SignalR 连接。 使用浏览器客户端时，无需额外配置。 如果用户已登录到你的应用，则 SignalR 连接将自动继承此身份验证。
 
-Cookie 是一种用于发送访问令牌的特定于浏览器的方法，但非浏览器客户端可以发送它们。 使用[.Net 客户端](xref:signalr/dotnet-client)时，可以在 `.WithUrl` 调用中配置 `Cookies` 属性以提供 cookie。 但是，从 .NET 客户端使用 cookie 身份验证要求应用提供 API 来交换 cookie 的身份验证数据。
+Cookie 是一种特定于浏览器的发送访问令牌的方式，但非浏览器客户端也可以发送这些令牌。 使用[.Net 客户端](xref:signalr/dotnet-client)时，可以在 `.WithUrl` 调用中配置 `Cookies` 属性以提供 cookie。 但是，从 .NET 客户端使用 cookie 身份验证要求应用提供 API 来交换 cookie 的身份验证数据。
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
-客户端可以提供访问令牌，而不是使用 cookie。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 在连接的生命周期内，服务器不会自动重新验证以检查令牌是否已吊销。
+客户端可以提供访问令牌，而不是使用 cookie。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 连接开启后，服务器不会通过自动重新验证来检查令牌是否撤销。
 
-在服务器上，使用[JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)来配置持有者令牌身份验证。
+在服务器上，持有者令牌身份验证使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)进行配置。
 
 在 JavaScript 客户端中，可使用[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项提供令牌。
 
@@ -174,7 +174,7 @@ var connection = new HubConnectionBuilder()
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
-在 `Startup.ConfigureServices` 中注册此组件。
+在 `Startup.ConfigureServices`中注册此组件。
 
 ```csharp
 services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
@@ -266,7 +266,7 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-在 `Startup.ConfigureServices` 中，添加新策略，并提供自定义 `DomainRestrictedRequirement` 要求作为参数，以创建 `DomainRestricted` 策略。
+在 `Startup.ConfigureServices`中，添加新策略，并提供自定义 `DomainRestrictedRequirement` 要求作为参数，以创建 `DomainRestricted` 策略。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

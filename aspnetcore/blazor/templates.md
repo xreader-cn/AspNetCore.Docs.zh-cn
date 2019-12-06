@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: e82f28afdac8517f72538094d97f28bdcfe46102
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74551533"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879656"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -61,7 +61,7 @@ Blazor 框架提供模板，用于为每个 Blazor 承载模型开发应用程�
 
 * *App.config* &ndash; 使用 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件设置客户端路由的应用程序的根组件。 `Router` 组件会截获浏览器导航，并呈现与请求的地址匹配的页面。
 
-* *Pages*文件夹 &ndash; 包含组成 Blazor 应用的可路由组件/页面（*razor*）。 每页的路由都是使用[@page](xref:mvc/views/razor#page)指令指定的。 此模板包括以下组件：
+* *Pages*文件夹 &ndash; 包含组成 Blazor 应用的可路由组件/页面（*razor*）。 每页的路由都是使用[`@page`](xref:mvc/views/razor#page)指令指定的。 此模板包括以下组件：
   * `Index` （&ndash;*razor*）实现主页。
   * `Counter` （*razor*） &ndash; 实现计数器页。
   * 应用中发生未经处理的异常时，将 `Error` （仅限*Error*、Blazor Server app） &ndash; 呈现。
@@ -71,7 +71,7 @@ Blazor 框架提供模板，用于为每个 Blazor 承载模型开发应用程�
   * `MainLayout` （*MainLayout*） &ndash; 应用的布局组件。
   * `NavMenu` （*NavMenu*） &ndash; 实现侧栏导航。 包含[NavLink 组件](xref:blazor/routing#navlink-component)（<xref:Microsoft.AspNetCore.Components.Routing.NavLink>），该组件将呈现指向其他 Razor 组件的导航链接。 加载组件时，`NavLink` 组件会自动指示选定状态，这有助于用户了解当前显示的组件。
 
-* *_Imports* &ndash; 包含包含在应用组件（*razor*）中的常见 razor 指令，如用于命名空间的[@using](xref:mvc/views/razor#using)指令。
+* *_Imports* &ndash; 包含包含在应用组件（*razor*）中的常见 razor 指令，如用于命名空间的[`@using`](xref:mvc/views/razor#using)指令。
 
 * *数据*文件夹（Blazor Server） &ndash; 包含向应用程序的 `FetchData` 组件提供示例天气数据的 `WeatherForecastService` 的 `WeatherForecast` 类和实现。
 

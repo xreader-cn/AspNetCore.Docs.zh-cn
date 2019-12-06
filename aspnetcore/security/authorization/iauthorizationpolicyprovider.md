@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core 中的自定义授权策略提供程序
 author: mjrousos
-description: 了解如何在 ASP.NET Core 应用程序中使用自定义 IAuthorizationPolicyProvider 动态生成授权策略。
+description: 了解如何在 ASP.NET Core 应用程序中使用自定义 IAuthorizationPolicyProvider 动态生成的授权策略。
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: 4f6a4ea209ebe30759f9f14b15b0385399b36ead
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: fe07a113a29ed3e14679e3f3f2249b0810c17593
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116056"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880697"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>在 ASP.NET Core 中使用 IAuthorizationPolicyProvider 的自定义授权策略提供程序 
 
@@ -29,9 +29,9 @@ ms.locfileid: "74116056"
 
 ## <a name="customize-policy-retrieval"></a>自定义策略检索
 
-ASP.NET Core 应用使用 `IAuthorizationPolicyProvider` 接口的实现来检索授权策略。 默认情况下， [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider)已注册并使用。 `DefaultAuthorizationPolicyProvider` 返回 `IServiceCollection.AddAuthorization` 调用中提供的 `AuthorizationOptions` 的策略。
+ASP.NET Core 应用使用的实现`IAuthorizationPolicyProvider`接口以检索授权策略。 默认情况下， [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider)已注册并使用。 `DefaultAuthorizationPolicyProvider` 返回 `IServiceCollection.AddAuthorization` 调用中提供的 `AuthorizationOptions` 的策略。
 
-您可以通过在应用程序的[依赖关系注入](xref:fundamentals/dependency-injection)容器中注册不同的 `IAuthorizationPolicyProvider` 实现来自定义此行为。 
+自定义此行为，方法是在应用程序的[依赖关系注入](xref:fundamentals/dependency-injection)容器中注册不同的 `IAuthorizationPolicyProvider` 实现。 
 
 `IAuthorizationPolicyProvider` 接口包含三个 Api：
 
@@ -121,7 +121,7 @@ internal class MinimumAgePolicyProvider : IAuthorizationPolicyProvider
 
 ## <a name="multiple-authorization-policy-providers"></a>多个授权策略提供程序
 
-使用自定义 `IAuthorizationPolicyProvider` 实现时，请记住 ASP.NET Core 只使用 `IAuthorizationPolicyProvider`的一个实例。 如果自定义提供程序无法为将使用的所有策略名称提供授权策略，则该提供程序应遵从备份提供程序。 
+使用自定义时`IAuthorizationPolicyProvider`实现中，请记住，ASP.NET Core 仅使用的一个实例`IAuthorizationPolicyProvider`。 如果自定义提供程序无法为将使用的所有策略名称提供授权策略，则该提供程序应遵从备份提供程序。 
 
 例如，假设某个应用程序需要自定义年龄策略和更传统的基于角色的策略检索。 此类应用程序可使用自定义授权策略提供程序，该提供程序：
 

@@ -4,16 +4,16 @@ author: mjrousos
 description: 在 ASP.NET Core 应用中提高性能并避免出现常见性能问题的提示。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 64d231ca435ccbfe9bfcd839a2b67fcee68c0cc6
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: bd30776d527b4ac9f44005e9f5d03fec7cfda2e6
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239880"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880923"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
@@ -23,7 +23,7 @@ ms.locfileid: "74239880"
 
 ## <a name="cache-aggressively"></a>主动缓存
 
-此文档的几个部分讨论了缓存。 有关详细信息，请参阅 <xref:performance/caching/response>。
+此文档的几个部分讨论了缓存。 有关更多信息，请参见<xref:performance/caching/response>。
 
 ## <a name="understand-hot-code-paths"></a>了解热代码路径
 
@@ -41,7 +41,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 * 获取通用代码路径中的锁。 当构建为并行运行代码时，ASP.NET Core 应用程序的性能最高。
 * 调用[任务。运行](/dotnet/api/system.threading.tasks.task.run)并立即等待。 ASP.NET Core 已在正常线程池线程上运行应用程序代码，因此调用任务。运行仅会导致额外的不必要的线程池计划。 即使计划的代码会阻止线程，任务也不会阻止。
 
-**Do**：
+**建议做法**：
 
 * 使[热代码路径](#understand-hot-code-paths)处于异步状态。
 * 如果异步 API 可用，则异步调用数据访问和长时间运行的操作 Api。 同样，不要使用[任务。运行](/dotnet/api/system.threading.tasks.task.run)以使 synchronus API 成为异步。
@@ -56,7 +56,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 建议：
 
 * **请考虑缓存**经常使用的大型对象。 缓存大型对象会阻止开销较高的分配。
-* 使用用于存储大型数组的[`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1) **来池缓冲区**。
+* 使用[ArrayPool\<t >](/dotnet/api/system.buffers.arraypool-1)来存储大型数组，从而对缓冲区**进行**缓冲。
 * **不要**在[热代码路径](#understand-hot-code-paths)上分配很多生存期较短的大型对象。
 
 可以通过查看[PerfView](https://github.com/Microsoft/perfview)中的垃圾回收（GC）统计信息并进行检查来诊断内存问题，例如前面的问题：
@@ -75,9 +75,9 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 * **请**以异步方式调用所有数据访问 api。
 * 检索的数据**不**是必需的。 编写查询以仅返回当前 HTTP 请求所必需的数据。
-* 如果数据可以接受，**请考虑缓存**经常访问的从数据库或远程服务检索的数据。 使用[MemoryCache](xref:performance/caching/memory)或[microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关详细信息，请参阅 <xref:performance/caching/response>。
+* 如果数据可以接受，**请考虑缓存**经常访问的从数据库或远程服务检索的数据。 使用[MemoryCache](xref:performance/caching/memory)或[microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关更多信息，请参见<xref:performance/caching/response>。
 * **尽量减少**网络往返次数。 目标是使用单个调用而不是多个调用来检索所需数据。
-* 在访问数据时，**请不要**在 Entity Framework Core 中使用[无跟踪查询](/ef/core/querying/tracking#no-tracking-queries)。 EF Core 可以更有效地返回非跟踪查询的结果。
+* 在 Entity Framework Core 中，当出于只读目的访问数据时，**使用** [no-tracking 查询](/ef/core/querying/tracking#no-tracking-queries) 。 EF Core 可以更有效地返回非跟踪查询的结果。
 * **筛选和**聚合 LINQ 查询（例如，使用 `.Where`、`.Select`或 `.Sum` 语句），以便数据库执行筛选。
 * **请考虑 EF Core**在客户端上解析一些查询运算符，这可能导致查询执行效率低下。 有关详细信息，请参阅[客户端评估性能问题](/ef/core/querying/client-eval#client-evaluation-performance-issues)。
 * **不要**对集合使用投影查询，这可能会导致执行 "N + 1" 个 SQL 查询。 有关详细信息，请参阅[相关子查询的优化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)。
@@ -140,7 +140,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 ## <a name="use-the-latest-aspnet-core-release"></a>使用最新 ASP.NET Core 版本
 
-ASP.NET Core 的每个新版本都包括性能改进。 .NET Core 和 ASP.NET Core 中的优化意味着较新版本通常优于较旧的版本。 例如，.NET Core 2.1 添加了对[`Span<T>`](https://msdn.microsoft.com/magazine/mt814808.aspx)中已编译的正则表达式和获益的支持。 ASP.NET Core 2.2 添加了对 HTTP/2 的支持。 [ASP.NET Core 3.0 添加了许多改进](xref:aspnetcore-3.0)，减少了内存使用量并提高了吞吐量。 如果性能是优先考虑的，请考虑升级到 ASP.NET Core 的当前版本。
+ASP.NET Core 的每个新版本都包括性能改进。 .NET Core 和 ASP.NET Core 中的优化意味着较新版本通常优于较旧的版本。 例如，.NET Core 2.1 添加了对[跨\<t >](https://msdn.microsoft.com/magazine/mt814808.aspx)中已编译的正则表达式和获益的支持。 ASP.NET Core 2.2 添加了对 HTTP/2 的支持。 [ASP.NET Core 3.0 添加了许多改进](xref:aspnetcore-3.0)，减少了内存使用量并提高了吞吐量。 如果性能是优先考虑的，请考虑升级到 ASP.NET Core 的当前版本。
 
 ## <a name="minimize-exceptions"></a>最小化异常
 

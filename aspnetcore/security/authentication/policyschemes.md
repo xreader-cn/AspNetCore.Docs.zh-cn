@@ -1,38 +1,38 @@
 ---
-title: 在 ASP.NET Core 中的策略方案
+title: ASP.NET Core 中的策略方案
 author: rick-anderson
-description: 身份验证策略方案，更便于具有单一逻辑身份验证方案
+description: 使用身份验证策略方案，可以更轻松地创建一个逻辑身份验证方案
 ms.author: riande
-ms.date: 02/28/2019
+ms.date: 12/05/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: be03f349455c673b0739935ad20e596325c8cb74
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815286"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880720"
 ---
-# <a name="policy-schemes-in-aspnet-core"></a>在 ASP.NET Core 中的策略方案
+# <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core 中的策略方案
 
-身份验证策略方案更加轻松地有可能使用多个方法的单一逻辑身份验证方案。 例如，策略方案可能使用的挑战，Google 身份验证和 cookie 身份验证的其他所有内容。 身份验证策略方案使其：
+使用身份验证策略方案，可以更方便地使用多种方法。 例如，策略方案可能使用 Google 身份验证，并对其他所有内容使用 cookie 身份验证。 身份验证策略方案：
 
-* 轻松地将转发到另一个方案的任何身份验证操作。
-* 正向动态根据该请求。
+* 可以轻松地将任何身份验证操作转发到另一个方案。
+* 根据请求动态转发。
 
-使用派生的所有身份验证方案<xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions>和关联[ `AuthenticationHandler<TOptions>` ](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
+使用派生 <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> 和关联的[AuthenticationHandler\<TOptions >](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1)的所有身份验证方案：
 
-* 会自动在 ASP.NET Core 2.1 及更高版本的策略方案。
+* 是 ASP.NET Core 2.1 及更高版本中自动的策略方案。
 * 可以通过配置方案的选项来启用。
 
 [!code-csharp[sample](policyschemes/samples/AuthenticationSchemeOptions.cs?name=snippet)]
 
 ## <a name="examples"></a>示例
 
-下面的示例演示结合了较低级别方案的更高级别方案。 Google 身份验证用于挑战，并为其他所有使用 cookie 身份验证：
+下面的示例演示了结合较低级别方案的更高级别的方案。 Google 身份验证用于质询，cookie 身份验证用于所有其他操作：
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 
-下面的示例可动态选择基于每个请求的方案。 它是如何混合使用 cookie 和 API 身份验证：
+下面的示例基于每个请求启用动态选择方案。 也就是说，如何混合使用 cookie 和 API 身份验证：
 
  <!-- REVIEW, missing If set in public Func<HttpContext, string> ForwardDefaultSelector -->
 

@@ -4,14 +4,14 @@ author: jamesnk
 description: 了解如何在 gRPC 中使用身份验证和授权 ASP.NET Core。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 08/13/2019
+ms.date: 12/05/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 84903ee781588ff525d1dfce6a313e3867794762
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 258b34113f3c3d9ef2031a43295ea5806b1e22ff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852696"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880688"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC 中的身份验证和授权 ASP.NET Core
 
@@ -150,7 +150,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 将 gRPC 客户端配置为使用身份验证将取决于所使用的身份验证机制。 以前的持有者令牌和客户端证书示例显示了几种方法，gRPC 客户端可以配置为通过 gRPC 调用发送身份验证元数据：
 
-* 强类型化 gRPC 客户端在内部使用 `HttpClient`。 可以在[`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)上配置身份验证，也可以通过将自定义[`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler)实例添加到 `HttpClient`来配置身份验证。
+* 强类型化 gRPC 客户端在内部使用 `HttpClient`。 可以在[HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)上配置身份验证，或者通过将自定义[HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler)实例添加到 `HttpClient`。
 * 每个 gRPC 调用都有一个可选 `CallOptions` 参数。 可以使用选项的标头集合来发送自定义标头。
 
 > [!NOTE]
@@ -158,7 +158,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>授权用户访问服务和服务方法
 
-默认情况下，服务中的所有方法都可以由未经身份验证的用户调用。 若要要求身份验证，请将[[授权]](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)特性应用于服务：
+默认情况下，服务中的所有方法都可以由未经身份验证的用户调用。 若要要求身份验证，请将[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)特性应用于服务：
 
 ```csharp
 [Authorize]

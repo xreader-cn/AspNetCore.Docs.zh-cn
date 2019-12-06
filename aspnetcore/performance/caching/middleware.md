@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中配置和使用响应缓存中间�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 12/05/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: a8e656e1d59114e2e953323e98e0a2399efca98a
-ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
+ms.openlocfilehash: d034252f69f8efdc9a912a0d9c3ecde65196e7e3
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73611459"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880941"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>响应缓存在 ASP.NET Core 中的中间件
 
@@ -20,7 +20,7 @@ ms.locfileid: "73611459"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-此文章介绍了如何在 ASP.NET Core 应用程序中配置缓存响应的中间件。 中间件确定响应何时可缓存、存储响应，并提供来自缓存的响应。 有关 HTTP 缓存和[[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性的介绍，请参阅[响应缓存](xref:performance/caching/response)。
+此文章介绍了如何在 ASP.NET Core 应用程序中配置缓存响应的中间件。 中间件确定响应何时可缓存、存储响应，并提供来自缓存的响应。 有关 HTTP 缓存和[`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性的介绍，请参阅[响应缓存](xref:performance/caching/response)。
 
 ## <a name="configuration"></a>配置
 
@@ -39,7 +39,7 @@ ms.locfileid: "73611459"
 示例应用添加标头以在后续请求时控制缓存：
 
 * [缓存控制](https://tools.ietf.org/html/rfc7234#section-5.2)&ndash; 将可缓存的响应缓存多达10秒。
-* [Vary](https://tools.ietf.org/html/rfc7231#section-7.1.4) &ndash; 将中间件配置为仅当后续请求的[`Accept-Encoding`](https://tools.ietf.org/html/rfc7231#section-5.3.4)标头与原始请求的标头匹配时才提供缓存的响应。
+* [不同](https://tools.ietf.org/html/rfc7231#section-7.1.4)&ndash; 将中间件配置为仅当后续请求的 Accept 编码标头与原始请求的[接受编码](https://tools.ietf.org/html/rfc7231#section-5.3.4)标头匹配时才提供缓存的响应。
 
 [!code-csharp[](middleware/samples_snippets/3.x/AddHeaders.cs)]
 
@@ -65,7 +65,7 @@ ms.locfileid: "73611459"
 示例应用添加标头以在后续请求时控制缓存：
 
 * [缓存控制](https://tools.ietf.org/html/rfc7234#section-5.2)&ndash; 将可缓存的响应缓存多达10秒。
-* [Vary](https://tools.ietf.org/html/rfc7231#section-7.1.4) &ndash; 将中间件配置为仅当后续请求的[`Accept-Encoding`](https://tools.ietf.org/html/rfc7231#section-5.3.4)标头与原始请求的标头匹配时才提供缓存的响应。
+* [不同](https://tools.ietf.org/html/rfc7231#section-7.1.4)&ndash; 将中间件配置为仅当后续请求的 Accept 编码标头与原始请求的[接受编码](https://tools.ietf.org/html/rfc7231#section-5.3.4)标头匹配时才提供缓存的响应。
 
 [!code-csharp[](middleware/samples_snippets/2.x/AddHeaders.cs)]
 
@@ -101,7 +101,7 @@ services.AddResponseCaching(options =>
 
 ## <a name="varybyquerykeys"></a>VaryByQueryKeys
 
-使用 MVC/web API 控制器或 Razor Pages 页面模型时， [[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性指定为响应缓存设置适当的标头所需的参数。 严格需要中间件的 `[ResponseCache]` 属性的唯一参数 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys>，这与实际 HTTP 标头不对应。 有关详细信息，请参阅 <xref:performance/caching/response#responsecache-attribute> 。
+使用 MVC/web API 控制器或 Razor Pages 页面模型时， [`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性指定为响应缓存设置适当的标头所需的参数。 严格需要中间件的 `[ResponseCache]` 属性的唯一参数 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys>，这与实际 HTTP 标头不对应。 有关更多信息，请参见<xref:performance/caching/response#responsecache-attribute>。
 
 如果不使用 `[ResponseCache]` 属性，响应缓存可能会与 `VaryByQueryKeys`不同。 直接从 [HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Features) 使用: <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingFeature>
 
@@ -123,7 +123,7 @@ if (responseCachingFeature != null)
 | Header | 详细信息 |
 | ------ | ------- |
 | `Authorization` | 如果标头存在，则不会缓存响应。 |
-| `Cache-Control` | 中间件仅考虑用 `public` 缓存指令标记的缓存响应。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>max-stale&#8224;</li><li>最小-新</li><li>必须-重新验证</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果没有指定 `max-stale`的限制，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 与 `must-revalidate`的效果相同。<br><br>有关详细信息，请参阅 [RFC 7231：](https://tools.ietf.org/html/rfc7234#section-5.2.1)的请求缓存控制指令。 |
+| `Cache-Control` | 中间件仅考虑用 `public` 缓存指令标记的缓存响应。 具有以下参数的控件缓存：<ul><li>max-age</li><li>max-stale&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-revalidate&#8225;</li></ul>&#8224;如果没有指定 `max-stale`的限制，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 与 `must-revalidate`的效果相同。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 |
 | `Pragma` | 请求中的 `Pragma: no-cache` 标头将产生与 `Cache-Control: no-cache`相同的效果。 如果存在此标头，则由 `Cache-Control` 标头中的相关指令重写。 考虑向后兼容 HTTP/1.0。 |
 | `Set-Cookie` | 如果标头存在，则不会缓存响应。 请求处理管道中设置一个或多个 cookie 的任何中间件会阻止响应缓存中间件缓存响应（例如，[基于 cookie 的 TempData 提供程序](xref:fundamentals/app-state#tempdata)）。  |
 | `Vary` | `Vary` 标头用于根据另一个标头改变缓存的响应。 例如，通过编码来缓存响应，包括 `Vary: Accept-Encoding` 标头，该标头将缓存标头为 `Accept-Encoding: gzip` 和 `Accept-Encoding: text/plain` 的请求的响应。 永远不会存储标头值为 `*` 的响应。 |
@@ -145,7 +145,7 @@ if (responseCachingFeature != null)
 * <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>
 * <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>
 
-## <a name="troubleshooting"></a>疑难解答
+## <a name="troubleshooting"></a>故障排除
 
 如果缓存行为与预期不符，请确认响应是可缓存的并且能够通过缓存提供服务。 检查请求的传入标头和响应的传出标头。 启用[日志记录](xref:fundamentals/logging/index)以帮助进行调试。
 
@@ -158,7 +158,7 @@ if (responseCachingFeature != null)
 
 * 请求必须导致服务器响应，状态代码为200（正常）。
 * 请求方法必须为 GET 或 HEAD。
-* 在 `Startup.Configure`中，响应缓存中间件必须置于需要缓存的中间件之前。 有关详细信息，请参阅 <xref:fundamentals/middleware/index> 。
+* 在 `Startup.Configure`中，响应缓存中间件必须置于需要缓存的中间件之前。 有关更多信息，请参见<xref:fundamentals/middleware/index>。
 * `Authorization` 标头不得存在。
 * `Cache-Control` 标头参数必须是有效的，并且响应必须标记为 "`public`" 且未标记为 "`private`"。
 * 如果 `Cache-Control` 标头不存在，则 `Pragma: no-cache` 标头不得存在，因为 `Cache-Control` 标头在存在时将覆盖 `Pragma` 标头。
@@ -168,7 +168,7 @@ if (responseCachingFeature != null)
 * 不使用 <xref:Microsoft.AspNetCore.Http.Features.IHttpSendFileFeature>。
 * `Expires` 标头和 `max-age` 和 `s-maxage` 缓存指令指定的响应不能过时。
 * 响应缓冲必须成功。 响应的大小必须小于配置的或默认 <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit>。 响应的正文大小必须小于配置的或默认的 <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize>。
-* 必须根据[RFC 7234](https://tools.ietf.org/html/rfc7234)规范来缓存响应。 例如，"请求" 或 "响应" 标头字段中不得存在 "`no-store`" 指令。 请参阅 *第3部分：在* [RFC 7234](https://tools.ietf.org/html/rfc7234)的缓存中存储响应以获取详细信息。
+* 必须根据[RFC 7234](https://tools.ietf.org/html/rfc7234)规范来缓存响应。 例如，"请求" 或 "响应" 标头字段中不得存在 "`no-store`" 指令。 有关详细信息，请参阅*第3部分：将响应存储在* [RFC 7234](https://tools.ietf.org/html/rfc7234)的缓存中。
 
 > [!NOTE]
 > 用于生成安全令牌以防止跨站点请求伪造（CSRF）攻击的防伪系统将 `Cache-Control` 和 `Pragma` 标头设置为 `no-cache`，以便不缓存响应。 有关如何为 HTML 窗体元素禁用防伪标记的信息，请参阅 <xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration>。

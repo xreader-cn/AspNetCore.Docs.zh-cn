@@ -4,14 +4,14 @@ author: steve-smith
 description: 了解如何防止恶意网站可能会影响客户端浏览器与应用程序之间的交互的 web 应用程序的攻击。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/11/2019
+ms.date: 12/05/2019
 uid: security/anti-request-forgery
-ms.openlocfilehash: c3d32a93bcbf9f3897c10e68ba4e43d269a3ea80
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.openlocfilehash: 54e153af55f28d9a89bbf16bce1c17f876567b59
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803365"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880811"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
 
@@ -172,7 +172,7 @@ CSRF 攻击的示例：
 }
 ```
 
-将防伪标记显式添加到 `<form>` 元素，而不将标记帮助程序与 HTML helper [@Html.AntiForgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)一起使用：
+将防伪标记显式添加到 `<form>` 元素，而不将标记帮助程序与 HTML helper [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)一起使用：
 
 ```cshtml
 <form action="/" method="post">
@@ -305,7 +305,7 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 }
 ```
 
-`ValidateAntiForgeryToken` 特性要求对其修饰的操作方法的请求进行标记，包括 HTTP GET 请求。 如果在应用的控制器上应用 `ValidateAntiForgeryToken` 属性，则可以通过 `IgnoreAntiforgeryToken` 属性将其重写。
+`ValidateAntiForgeryToken` 特性要求对其标记的操作方法（包括 HTTP GET 请求）发出请求的令牌。 如果在应用的控制器上应用 `ValidateAntiForgeryToken` 属性，则可以通过 `IgnoreAntiforgeryToken` 属性将其重写。
 
 > [!NOTE]
 > ASP.NET Core 不支持自动将 antiforgery 令牌添加到 GET 请求。

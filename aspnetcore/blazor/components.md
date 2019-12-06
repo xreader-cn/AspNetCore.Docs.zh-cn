@@ -9,12 +9,12 @@ ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 19636b0f10e71133eddece918b1bb9e2bc25a226
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 9cdbae0bde8f6c44dc8b680dccbf9c8f96043c7f
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733838"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879699"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -171,7 +171,7 @@ ms.locfileid: "74733838"
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Attribute 展开和任意参数
 
-除了组件的声明参数外，组件还可以捕获和呈现附加属性。 其他属性可以在字典中捕获，然后在使用[@attributes](xref:mvc/views/razor#attributes) Razor 指令呈现组件时， *splatted*到元素上。 此方案在定义生成支持各种自定义项的标记元素的组件时非常有用。 例如，为支持多个参数的 `<input>` 分别定义属性可能比较繁琐。
+除了组件的声明参数外，组件还可以捕获和呈现附加属性。 其他属性可以在字典中捕获，然后在使用[`@attributes`](xref:mvc/views/razor#attributes) Razor 指令呈现组件时， *splatted*到元素上。 此方案在定义生成支持各种自定义项的标记元素的组件时非常有用。 例如，为支持多个参数的 `<input>` 分别定义属性可能比较繁琐。
 
 在下面的示例中，第一个 `<input>` 元素（`id="useIndividualParams"`）使用单个组件参数，第二个 `<input>` 元素（`id="useAttributesDict"`）使用属性展开：
 
@@ -287,7 +287,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 ## <a name="data-binding"></a>数据绑定
 
-对组件和 DOM 元素的数据绑定都是通过[@bind](xref:mvc/views/razor#bind)特性来完成的。 下面的示例将 `CurrentValue` 属性绑定到文本框的值：
+对组件和 DOM 元素的数据绑定都是通过[`@bind`](xref:mvc/views/razor#bind)特性来完成的。 下面的示例将 `CurrentValue` 属性绑定到文本框的值：
 
 ```cshtml
 <input @bind="CurrentValue" />
@@ -315,7 +315,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 当用户在文本框中键入内容并更改元素焦点时，将激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更复杂，因为 `@bind` 处理执行类型转换的情况。 原则上，`@bind` 将表达式的当前值与 `value` 属性相关联，并使用注册的处理程序来处理更改。
 
-除了使用 `@bind` 语法处理 `onchange` 事件之外，还可以使用其他事件来绑定属性或字段，方法是使用 `event` 参数（[@bind-value:event](xref:mvc/views/razor#bind)）指定[@bind-value](xref:mvc/views/razor#bind)属性。 下面的示例将绑定 `oninput` 事件的 `CurrentValue` 属性：
+除了使用 `@bind` 语法处理 `onchange` 事件之外，还可以使用其他事件来绑定属性或字段，方法是使用 `event` 参数（[`@bind-value:event`](xref:mvc/views/razor#bind)）指定[`@bind-value`](xref:mvc/views/razor#bind)属性。 下面的示例将绑定 `oninput` 事件的 `CurrentValue` 属性：
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
@@ -384,7 +384,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 **格式字符串**
 
-数据绑定使用[@bind:format](xref:mvc/views/razor#bind)<xref:System.DateTime> 格式字符串。 现在不能使用其他格式的表达式，如货币或数字格式。
+数据绑定使用[`@bind:format`](xref:mvc/views/razor#bind)<xref:System.DateTime> 格式字符串。 现在不能使用其他格式的表达式，如货币或数字格式。
 
 ```cshtml
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -498,7 +498,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 ## <a name="event-handling"></a>事件处理
 
-Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素特性（例如，`onclick` 和 `onsubmit`）与委托类型的值，Razor 组件将属性值视为事件处理程序。 特性名称始终[@on{EVENT}](xref:mvc/views/razor#onevent)格式设置。
+Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素特性（例如，`onclick` 和 `onsubmit`）与委托类型的值，Razor 组件将属性值视为事件处理程序。 特性的名称始终[`@on{EVENT}`](xref:mvc/views/razor#onevent)格式。
 
 当在 UI 中选择该按钮时，以下代码将调用 `UpdateHeading` 方法：
 
@@ -554,9 +554,9 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 | Event            | 类                | DOM 事件和说明 |
 | ---------------- | -------------------- | -------------------- |
 | 剪贴板        | `ClipboardEventArgs` | `oncut`中， `oncopy`中， `onpaste` |
-| 入             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
+| 拖动             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
 | 错误            | `ErrorEventArgs`     | `onerror` |
-| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`中， `onbeforecopy`中， `onbeforepaste`<br><br>*输入*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*许可证*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
+| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`中， `onbeforecopy`中， `onbeforepaste`<br><br>*输入*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*介质*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
 | 专注            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
 | 输入            | `ChangeEventArgs`    | `onchange`，`oninput` |
 | 键盘         | `KeyboardEventArgs`  | `onkeydown`中， `onkeypress`中， `onkeyup` |
@@ -651,7 +651,7 @@ await callback.InvokeAsync(arg);
 
 ### <a name="prevent-default-actions"></a>阻止默认操作
 
-使用[@on{EVENT}:P reventdefault](xref:mvc/views/razor#oneventpreventdefault)指令属性可防止对事件执行默认操作。
+使用[`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault)指令特性可防止事件的默认操作。
 
 如果在输入设备上选择了某个键，并且该元素焦点位于某个文本框上，则浏览器通常会在文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令特性来阻止默认行为。 计数器会递增，并且不会将 **+** 键捕获到 `<input>` 元素的值中：
 
@@ -683,7 +683,7 @@ await callback.InvokeAsync(arg);
 
 ### <a name="stop-event-propagation"></a>停止事件传播
 
-使用[@on{EVENT}： .stoppropagation](xref:mvc/views/razor#oneventstoppropagation)指令特性来停止事件传播。
+使用[`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation)指令特性来停止事件传播。
 
 在下面的示例中，选中此复选框可阻止单击第二个子 `<div>` 中的事件传播到父 `<div>`：
 
@@ -841,7 +841,7 @@ Password:
 
 组件引用提供了一种方法来引用组件实例，以便可以向该实例发出命令，如 `Show` 或 `Reset`。 捕获组件引用：
 
-* 向子组件添加[@ref](xref:mvc/views/razor#ref)特性。
+* 向子组件添加[`@ref`](xref:mvc/views/razor#ref)特性。
 * 定义与子组件类型相同的字段。
 
 ```cshtml
@@ -1026,7 +1026,7 @@ public class NotifierService
 
 Razor 组件以分部类的形式生成。 使用以下方法之一创作 Razor 组件：
 
-* C#在一个文件中使用 HTML 标记和 Razor 代码在[@code](xref:mvc/views/razor#code)块中定义代码。 Blazor 模板使用此方法来定义其 Razor 组件。
+* C#在一个文件中使用 HTML 标记和 Razor 代码在[`@code`](xref:mvc/views/razor#code)块中定义代码。 Blazor 模板使用此方法来定义其 Razor 组件。
 * C#代码位于定义为分部类的代码隐藏文件中。
 
 下面的示例演示了默认 `Counter` 组件，该组件在 Blazor 模板生成的应用程序中具有 `@code` 块。 HTML 标记、Razor 代码和C#代码位于同一个文件中：
@@ -1125,13 +1125,13 @@ namespace BlazorSample
 
 使用 Razor 编写的组件的命名空间基于（按优先级顺序）：
 
-* Razor 文件（*razor*）标记中的[@namespace](xref:mvc/views/razor#namespace)指定（`@namespace BlazorSample.MyNamespace`）。
+* Razor 文件（*razor*）标记中的[`@namespace`](xref:mvc/views/razor#namespace)指定（`@namespace BlazorSample.MyNamespace`）。
 * 项目在项目文件中的 `RootNamespace` （`<RootNamespace>BlazorSample</RootNamespace>`）。
 * 项目名称，从项目文件的文件名（ *.csproj*）获取，并从项目根路径到组件。 例如，框架将 *{PROJECT ROOT}/Pages/Index.razor* （*BlazorSample*）解析为命名空间 `BlazorSample.Pages`。 组件遵循C#名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件都是组件：
   * 在相同的文件夹中，*页*。
   * 项目的根中未显式指定其他命名空间的组件。
 
-使用 Razor 的[@using](xref:mvc/views/razor#using)指令将不同命名空间中定义的组件引入作用域。
+使用 Razor 的[`@using`](xref:mvc/views/razor#using)指令将不同命名空间中定义的组件引入作用域。
 
 如果*BlazorSample/Shared/* 文件夹中存在另一个组件 `NavMenu.razor`，则可以使用以下 `@using` 语句在 `Index.razor` 中使用该组件：
 
@@ -1143,7 +1143,7 @@ This is the Index page.
 <NavMenu></NavMenu>
 ```
 
-还可以使用其完全限定名称（不需要[@using](xref:mvc/views/razor#using)指令）来引用组件：
+还可以使用其完全限定名称（不需要[`@using`](xref:mvc/views/razor#using)指令）来引用组件：
 
 ```cshtml
 This is the Index page.
@@ -1272,7 +1272,7 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值是 `false` 或 `
 
 ### <a name="generic-typed-components"></a>泛型类型化组件
 
-模板化组件通常是通用类型。 例如，泛型 `ListViewTemplate` 组件可用于呈现 `IEnumerable<T>` 值。 若要定义一般组件，请使用[@typeparam](xref:mvc/views/razor#typeparam)指令指定类型参数：
+模板化组件通常是通用类型。 例如，泛型 `ListViewTemplate` 组件可用于呈现 `IEnumerable<T>` 值。 若要定义一般组件，请使用[`@typeparam`](xref:mvc/views/razor#typeparam)指令指定类型参数：
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 

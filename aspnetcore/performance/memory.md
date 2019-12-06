@@ -4,20 +4,20 @@ author: rick-anderson
 description: 了解 ASP.NET Core 如何管理内存，以及垃圾回收器（GC）的工作方式。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: 4c25c069aa2a6088c0549d786ecdd487ab7b9ea5
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 85e34c9faa31a1020a4200eb99003455ca435ec3
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73896934"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880953"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
 作者： [Sébastien Ros](https://github.com/sebastienros)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-内存管理是很复杂的，即使在 .NET 等托管框架中也是如此。 分析和了解内存问题可能非常困难。 本文内容：
+内存管理是很复杂的，即使在 .NET 等托管框架中也是如此。 分析和了解内存问题可能非常困难。 本文：
 
 * 有很多*内存泄漏*和*GC 不起作用*的问题。 其中的大多数问题都是由不了解 .NET Core 中的内存使用情况或不了解其测量方式导致的。
 * 演示内存使用情况，并提出替代方法。
@@ -274,7 +274,7 @@ public int GetLOH1(int size)
 - [ResponseCaching/StreamUtilities](https://github.com/aspnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 - [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-有关详细信息，请参见:
+有关详细信息，请参阅：
 
 * [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)
@@ -373,7 +373,7 @@ NuGet 包[ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.Object
 
 在上图中，第0代回收大约每秒发生一次。
 
-可以通过使用[`ArrayPool<T>`](xref:System.Buffers.ArrayPool`1)将 `byte` 缓冲区进行缓冲来优化前面的代码。 静态实例可跨请求重复使用。
+可以通过使用[ArrayPool\<t >](xref:System.Buffers.ArrayPool`1)，将 `byte` 缓冲区进行合并，从而优化前面的代码。 静态实例可跨请求重复使用。
 
 此方法的不同之处在于，将从 API 返回一个共用对象。 这意味着：
 

@@ -1,28 +1,28 @@
 ---
-title: 向 ASP.NET Core 项目中的标识添加、下载和删除用户数据
+title: 添加、 下载和删除标识到 ASP.NET Core 项目中的用户数据
 author: rick-anderson
-description: 了解如何将自定义用户数据添加到 ASP.NET Core 项目中的标识。 删除每个 GDPR 的数据。
+description: 了解如何在 ASP.NET Core 项目中添加到标识的自定义用户数据。 删除每个 GDPR 的数据。
 ms.author: riande
-ms.date: 06/18/2019
+ms.date: 12/05/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 6daca5776930f80eec8d81132b5a5c4d4d5c13ad
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: f54df68834cd3e2493e558aaab9851f036f3f01b
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681157"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880758"
 ---
-# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>向 ASP.NET Core 项目中的标识添加、下载和删除自定义用户数据
+# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>添加、 下载和删除标识到 ASP.NET Core项目中的自定义用户数据
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-本文介绍如何执行以下操作：
+本文介绍如何：
 
-* 向 ASP.NET Core web 应用添加自定义用户数据。
-* 使用 <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> 特性修饰自定义用户数据模型，使其自动可供下载和删除。 使数据能够下载和删除有助于满足[GDPR](xref:security/gdpr)要求。
+* 将自定义用户数据添加到 ASP.NET Core web 应用程序。
+* 使用 <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> 特性标记自定义用户数据模型，使其自动可供下载和删除。 使能够下载和删除数据可帮助满足[GDPR](xref:security/gdpr)要求。
 
-此项目示例是从 Razor Pages web 应用创建的，但是 ASP.NET Core MVC web 应用的说明类似。
+项目示例将创建从 Razor 页 web 应用，但了 ASP.NET Core MVC web 应用的类似的说明。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -46,7 +46,7 @@ ms.locfileid: "74681157"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名为 " **WebApp1** " （如果你希望它与[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码的命名空间相匹配）。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码。
 * 选择**ASP.NET Core Web 应用程序**>**确定**
 * 在下拉列表中选择**ASP.NET Core 3.0**
 * 选择**Web 应用程序**>**确定**
@@ -56,7 +56,7 @@ ms.locfileid: "74681157"
 
 ::: moniker range="< aspnetcore-3.0"
 
-* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名为 " **WebApp1** " （如果你希望它与[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码的命名空间相匹配）。
+* 从 Visual Studio“文件”菜单中选择“新建” > “项目”。 将项目命名**WebApp1**如果你想与其匹配的命名空间[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)代码。
 * 选择**ASP.NET Core Web 应用程序**>**确定**
 * 在下拉列表中选择**ASP.NET Core 2.2**
 * 选择**Web 应用程序**>**确定**
@@ -73,43 +73,43 @@ dotnet new webapp -o WebApp1
 
 ---
 
-## <a name="run-the-identity-scaffolder"></a>运行标识 scaffolder
+## <a name="run-the-identity-scaffolder"></a>运行标识基架
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在**解决方案资源管理器**中，右键单击项目 >**添加** > 新的**基架项**。
-* 在 "**添加基架**" 对话框的左窗格中，选择 "**标识**" > "**添加**"。
-* 在 "**添加标识**" 对话框中，选择以下选项：
-  * 选择现有的布局文件 *~/Pages/Shared/_Layout cshtml*
-  * 选择以下要重写的文件：
+* 从**解决方案资源管理器**，右键单击该项目 >**添加** > **新基架项**。
+* 从左窗格**添加基架**对话框中，选择**标识** > **添加**。
+* 在中**ADD 标识添加**对话框中，以下选项：
+  * 选择现有的布局文件 *~/Pages/Shared/_Layout.cshtml*
+  * 选择要重写的以下文件：
     * **帐户/注册**
     * **帐户/管理/索引**
-  * 选择 " **+** " 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**，则接受类型（**WebApp1. WebApp1Context。**
-  * 选择 " **+** " 按钮以创建新的**用户类**。 接受类型（如果项目命名为 " **WebApp1**"，则为**WebApp1User** ） > "**添加**"。
-* 选择 "**添加**"。
+  * 选择 **+** 按钮以创建一个新**数据上下文类**。 接受的类型 (**WebApp1.Models.WebApp1Context**如果项目命名为**WebApp1**)。
+  * 选择 **+** 按钮以创建一个新**User 类**。 接受的类型 (**WebApp1User**如果项目命名为**WebApp1**) >**添加**。
+* 选择**添加**。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果你之前未安装 ASP.NET Core scaffolder，请立即安装：
+如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 
 ```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-将对[VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)的包引用添加到项目（.csproj）文件中。 在项目目录中运行以下命令：
+添加到包引用[Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)项目 (.csproj) 文件。 在项目目录中运行以下命令：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
-运行以下命令以列出 Identity scaffolder 选项：
+运行以下命令以列出标识基架选项：
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
-在项目文件夹中，运行标识 scaffolder：
+在项目文件夹中，运行标识基架：
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
@@ -117,21 +117,21 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 ---
 
-按照 "[迁移"、"UseAuthentication" 和 "布局](xref:security/authentication/scaffold-identity#efm)" 中的说明执行以下步骤：
+按照中的说明[迁移、 UseAuthentication 和布局](xref:security/authentication/scaffold-identity#efm)来执行以下步骤：
 
 * 创建迁移并更新数据库。
 * 将 `UseAuthentication` 添加到 `Startup.Configure`。
-* 将 `<partial name="_LoginPartial" />` 添加到布局文件中。
+* 添加`<partial name="_LoginPartial" />`布局文件。
 * 测试应用：
   * 注册用户
-  * 选择新用户名（"**注销**" 链接旁边）。 可能需要展开窗口或选择导航栏图标来显示用户名和其他链接。
-  * 选择 "**个人数据**" 选项卡。
-  * 选择 "**下载**" 按钮，然后检查*PersonalData*文件。
-  * 测试**删除**按钮，该按钮将删除已登录的用户。
+  * 选择新的用户名称 (旁边**注销**链接)。 您可能需要展开窗口或选择要显示的用户名称和其他链接的导航栏图标。
+  * 选择**个人数据**选项卡。
+  * 选择**下载**按钮，然后检查*PersonalData.json*文件。
+  * 测试**删除**按钮，删除已登录用户。
 
-## <a name="add-custom-user-data-to-the-identity-db"></a>向标识数据库添加自定义用户数据
+## <a name="add-custom-user-data-to-the-identity-db"></a>向标识数据库中添加自定义用户数据
 
-用自定义属性更新 `IdentityUser` 派生类。 如果已将项目命名为 WebApp1，则该文件的名称为*Areas/Identity/Data/WebApp1User*。 用以下代码更新文件：
+更新`IdentityUser`派生类使用自定义属性。 如果项目 WebApp1 命名为，将该文件命名*Areas/Identity/Data/WebApp1User.cs*。 使用以下代码更新文件：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -145,20 +145,20 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 ::: moniker-end
 
-用[PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute)特性修饰的属性包括：
+具有[PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute)属性的属性为：
 
-* 当 "*区域/标识/页面/帐户/管理/DeletePersonalData* " Razor 页面调用 `UserManager.Delete`时删除。
-* 按*区域/标识/页面/帐户/管理/DownloadPersonalData* Razor 页面包含在下载的数据中。
+* 时删除*Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml* Razor 页面调用`UserManager.Delete`。
+* 通过下载的数据中包含*Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml* Razor 页面。
 
-### <a name="update-the-accountmanageindexcshtml-page"></a>更新 "帐户/管理/索引" 页
+### <a name="update-the-accountmanageindexcshtml-page"></a>更新 Account/Manage/Index.cshtml 页
 
-用以下突出显示的代码更新*区域/标识/页/帐户/管理/* `InputModel` 中的：
+更新`InputModel`中*Areas/Identity/Pages/Account/Manage/Index.cshtml.cs*用以下突出显示的代码：
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=24-32,48-49,96-104,106)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/管理/索引。 cshtml* ：
+更新*Areas/Identity/Pages/Account/Manage/Index.cshtml*与以下突出显示的标记：
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=18-25)]
 
@@ -168,21 +168,21 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=28-36,63-64,98-106,119)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/管理/索引。 cshtml* ：
+更新*Areas/Identity/Pages/Account/Manage/Index.cshtml*与以下突出显示的标记：
 
 [!code-chtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=35-42)]
 
 ::: moniker-end
 
-### <a name="update-the-accountregistercshtml-page"></a>更新帐户/注册. cshtml 页
+### <a name="update-the-accountregistercshtml-page"></a>更新 account/Register.cshtml 页面
 
-用以下突出显示的代码更新*区域/标识/页/帐户/注册. .cs*中的 `InputModel`：
+更新`InputModel`中*Areas/Identity/Pages/Account/Register.cshtml.cs*用以下突出显示的代码：
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=30-38,70-71)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/注册. cshtml* ：
+更新*Areas/Identity/Pages/Account/Register.cshtml*与以下突出显示的标记：
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -192,7 +192,7 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=28-36,67,66)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/注册. cshtml* ：
+更新*Areas/Identity/Pages/Account/Register.cshtml*与以下突出显示的标记：
 
 [!code-chtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -205,7 +205,7 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在 Visual Studio**包管理器控制台**中：
+在 Visual Studio**程序包管理器控制台**:
 
 ```powershell
 Add-Migration CustomUserData
@@ -221,10 +221,10 @@ dotnet ef database update
 
 ---
 
-## <a name="test-create-view-download-delete-custom-user-data"></a>测试创建、查看、下载、删除自定义用户数据
+## <a name="test-create-view-download-delete-custom-user-data"></a>测试创建、 查看、 下载和删除自定义用户数据
 
 测试应用：
 
-* 注册新用户。
-* 查看 `/Identity/Account/Manage` 页上的自定义用户数据。
-* 从 "`/Identity/Account/Manage/PersonalData`" 页下载并查看用户个人数据。
+* 注册一个新用户。
+* 查看自定义用户数据`/Identity/Account/Manage`页。
+* 下载并查看用户个人数据从`/Identity/Account/Manage/PersonalData`页。

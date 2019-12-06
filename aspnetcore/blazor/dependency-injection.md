@@ -5,16 +5,16 @@ description: 了解 Blazor 应用如何将服务注入组件。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: 165cfa7a98cdd523c25d5c4bfc8e2c9d0ef1ad22
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 17dd0f927064ae7c2b1e3e439fd93e2cb220a5a4
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733812"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879783"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -86,7 +86,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关更多信息，请参见<
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-在内部，生成的属性（`DataRepository`）是通过 `InjectAttribute` 特性修饰的。 通常不会直接使用此属性。 如果基类对于组件是必需的，并且插入的属性也是基类所必需的，请手动添加 `InjectAttribute`：
+在内部，生成的属性（`DataRepository`）使用 `InjectAttribute` 属性。 通常不会直接使用此属性。 如果基类对于组件是必需的，并且插入的属性也是基类所必需的，请手动添加 `InjectAttribute`：
 
 ```csharp
 public class ComponentBase : IComponent

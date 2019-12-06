@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 9f249fac331d31249f9325892e8365e3d0b4cc5a
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: e737a8a85e7eb83d95618d71e85b0307c54b0766
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717056"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879687"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -116,7 +116,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 当 Blazor 创建组件的实例时：
 
 * 调用组件的构造函数。
-* 将调用通过[@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[[注入]](xref:blazor/dependency-injection#request-a-service-in-a-component)特性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。 
+* 将调用通过[`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。 
 
 任何 `[Inject]` 属性的任何已执行构造函数或 setter 均引发未经处理的异常时，线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
@@ -185,7 +185,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 * 如果对 `InvokeAsync<T>` 的调用异步失败，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 `InvokeAsync<T>` 的调用可能会失败，这是因为 JavaScript 端代码引发异常或返回以 `rejected`完成的 `Promise`。 开发人员代码必须捕获异常。 如果使用[await](/dotnet/csharp/language-reference/keywords/await)运算符，请考虑在包含错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中包装方法调用。 否则，失败的代码会导致未处理的异常，这是对线路至关重要的。
 * 默认情况下，对 `InvokeAsync<T>` 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时可防止代码丢失网络连接或从不发送回完成消息的 JavaScript 代码。 如果调用超时，则生成的 `Task` 将失败，并出现 <xref:System.OperationCanceledException>。 捕获并处理日志记录的异常。
 
-同样，JavaScript 代码可以启动对[[JSInvokable] 属性](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)指示的 .net 方法的调用。 如果这些 .NET 方法引发未经处理的异常：
+同样，JavaScript 代码可能会启动对[`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)属性所指示的 .net 方法的调用。 如果这些 .NET 方法引发未经处理的异常：
 
 * 此异常不会被视为对线路的严重。
 * JavaScript 端 `Promise` 被拒绝。
