@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 3323b7b614b7e8bc711b2c5acfb501b65b3d783b
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 0bbd6af01ce3a29d3931faa2853a50dc895490cc
+ms.sourcegitcommit: fd2483f0a384b1c479c5b4af025ee46917db1919
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852683"
+ms.locfileid: "74868025"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>安全存储中 ASP.NET Core 中开发的应用程序机密
 
@@ -27,7 +27,7 @@ ms.locfileid: "74852683"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 来配置读取环境变量值：
+通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables%2A> 来配置读取环境变量值：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
@@ -229,11 +229,11 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ::: moniker range=">= aspnetcore-2.0"
 
-在 ASP.NET Core 2.0 或更高版本中，当项目调用时，用户机密配置源会自动添加到 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 以使用预先配置的默认值初始化主机的新实例。 <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> 时，`CreateDefaultBuilder` 调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>：
+在 ASP.NET Core 2.0 或更高版本中，当项目调用时，用户机密配置源会自动添加到 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以使用预先配置的默认值初始化主机的新实例。 <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> 时，`CreateDefaultBuilder` 调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>：
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-如果未调用 `CreateDefaultBuilder`，请通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 来显式添加用户机密配置源。 仅在开发环境中运行应用时调用 `AddUserSecrets`，如以下示例中所示：
+如果未调用 `CreateDefaultBuilder`，请通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 来显式添加用户机密配置源。 仅在开发环境中运行应用时调用 `AddUserSecrets`，如以下示例中所示：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -243,7 +243,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 安装[Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。
 
-使用 `Startup` 构造函数中的 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 调用添加用户机密配置源：
+使用 `Startup` 构造函数中的 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 调用添加用户机密配置源：
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -303,7 +303,7 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-可以对 <xref:System.Data.SqlClient.SqlConnectionStringBuilder> 对象的 <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> 属性设置机密的值，以完成连接字符串：
+可以对 <xref:System.Data.SqlClient.SqlConnectionStringBuilder> 对象的 <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> 属性设置机密的值，以完成连接字符串：
 
 ::: moniker range=">= aspnetcore-2.0"
 
