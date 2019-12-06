@@ -4,78 +4,78 @@ author: ardalis
 description: 了解如何将 web API 实现从 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/10/2018
+ms.date: 12/05/2019
 uid: migration/webapi
-ms.openlocfilehash: 74c7730a667ebc979241489733cdace149cacdf2
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: c68cf83f427f53b110075168c6d5e4d021808782
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555746"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881148"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>将从 ASP.NET Web API 迁移到 ASP.NET Core
 
-通过[Scott Addie](https://twitter.com/scott_addie)和[Steve Smith](https://ardalis.com/)
+作者： [Scott Addie](https://twitter.com/scott_addie)和[Steve Smith](https://ardalis.com/)
 
-ASP.NET 4.x Web API 是到达范围广泛的客户端，包括浏览器和移动设备的 HTTP 服务。 ASP.NET Core 统一了 ASP.NET 4.x 的 MVC 和 Web API 应用模型到名为 ASP.NET Core MVC 更简单的编程模型。 本文演示如何将 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC 所需的步骤。
+ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括浏览器和移动设备。 ASP.NET Core 将 ASP.NET 4.x 的 MVC 和 Web API 应用模型统一到称为 ASP.NET Core MVC 的更简单的编程模型中。 本文演示从 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC 所需的步骤。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs2019-2.2.md)]
 
-## <a name="review-aspnet-4x-web-api-project"></a>检查 ASP.NET 4.x Web API 项目
+## <a name="review-aspnet-4x-web-api-project"></a>查看 ASP.NET 4.x Web API 项目
 
-作为起点，本文使用*ProductsApp*中创建项目[Getting Started with ASP.NET Web API 2](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)。 该项目中，一个简单的 ASP.NET 4.x Web API 项目配置，如下所示。
+作为起点，本文使用[ASP.NET Web API 2 入门](/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)中创建的*ProductsApp*项目。 在该项目中，简单的 ASP.NET 4.x Web API 项目配置如下。
 
-在中*Global.asax.cs*，调用`WebApiConfig.Register`:
+在*Global.asax.cs*中，调用 `WebApiConfig.Register`：
 
 [!code-csharp[](webapi/sample/ProductsApp/Global.asax.cs?highlight=14)]
 
-`WebApiConfig`类位于*App_Start*文件夹并且具有静态`Register`方法：
+`WebApiConfig` 类在*App_Start*文件夹中找到，并且具有静态 `Register` 方法：
 
 [!code-csharp[](webapi/sample/ProductsApp/App_Start/WebApiConfig.cs)]
 
-此类配置[的属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，但它实际上未使用项目中。 它还可以配置 ASP.NET Web API 使用的路由表。 在这种情况下，ASP.NET 4.x Web API 需要 Url 以匹配格式`/api/{controller}/{id}`，使用`{id}`可选的。
+此类配置[属性路由](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2)，不过实际上它并不是在项目中使用。 它还配置 ASP.NET Web API 使用的路由表。 在这种情况下，ASP.NET 4.x Web API 需要 Url 与格式 `/api/{controller}/{id}`，`{id}` 是可选的。
 
-*ProductsApp*项目包括一个控制器。 在控制器继承`ApiController`和包含两个操作：
+*ProductsApp*项目包含一个控制器。 控制器继承自 `ApiController`，其中包含两个操作：
 
 [!code-csharp[](webapi/sample/ProductsApp/Controllers/ProductsController.cs?highlight=28,33)]
 
-`Product`使用模型`ProductsController`是一个简单的类：
+`ProductsController` 使用的 `Product` 模型是一个简单的类：
 
 [!code-csharp[](webapi/sample/ProductsApp/Models/Product.cs)]
 
-以下部分演示了迁移到 ASP.NET Core MVC Web API 项目。
+以下部分演示了如何将 Web API 项目迁移到 ASP.NET Core MVC。
 
 ## <a name="create-destination-project"></a>创建目标项目
 
-完成 Visual Studio 中的以下步骤：
+在 Visual Studio 中完成以下步骤：
 
-* 转到**文件** > **新** > **项目** > **其他项目类型** > **Visual Studio 解决方案**。 选择**空白解决方案**，并将解决方案命名*WebAPIMigration*。 单击**确定**按钮。
-* 添加现有*ProductsApp*到解决方案。
-* 添加一个新**ASP.NET Core Web 应用程序**到解决方案。 选择 **.NET Core**从下拉列表中的框架为目标，然后选择**API**项目模板。 将项目命名*ProductsCore*，然后单击**确定**按钮。
+* 请参阅**文件** > **新**的 > **项目** >  > **Visual Studio 解决方案**中的**其他项目类型**。 选择 "**空白解决方案**"，并将解决方案命名为 " *WebAPIMigration*"。 单击 **“确定”** 按钮。
+* 将现有的*ProductsApp*项目添加到解决方案。
+* 向解决方案添加新的**ASP.NET Core Web 应用程序**项目。 从下拉选择 " **.Net Core**目标框架"，然后选择 " **API**项目" 模板。 将项目命名为 " *ProductsCore*"，然后单击 **"确定"** 按钮。
 
-该解决方案现在包含两个项目。 以下各节介绍了迁移*ProductsApp*项目的内容与*ProductsCore*项目。
+解决方案现在包含两个项目。 以下各节介绍了如何将*ProductsApp*项目的内容迁移到*ProductsCore*项目。
 
 ## <a name="migrate-configuration"></a>迁移配置
 
-不使用 ASP.NET Core *App_Start*文件夹或*Global.asax*文件，并*web.config*文件添加在发布时间。 *Startup.cs*将取代*Global.asax*和位于项目根目录中。 `Startup`类负责处理所有应用程序启动任务。 有关详细信息，请参阅 <xref:fundamentals/startup>。
+ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件，并且在发布时添加*web.config*文件。 *Startup.cs*是*global.asa*的替代，位于项目根目录中。 `Startup` 类处理所有应用启动任务。 有关更多信息，请参见<xref:fundamentals/startup>。
 
-在 ASP.NET Core MVC 中，在默认情况下包含的属性路由时<xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>名为`Startup.Configure`。 以下`UseMvc`调用替换*ProductsApp*项目的*app_start/webapiconfig.cs*文件：
+在 ASP.NET Core MVC 中，当在 `Startup.Configure`中调用 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> 时，默认情况下将包含特性路由。 以下 `UseMvc` 调用替换*ProductsApp*项目的*App_Start/webapiconfig.cs*文件：
 
 [!code-csharp[](webapi/sample/ProductsCore/Startup.cs?name=snippet_Configure&highlight=13])]
 
 ## <a name="migrate-models-and-controllers"></a>迁移模型和控制器
 
-通过复制*ProductApp*项目的控制器和它所使用的模型。 请执行以下步骤：
+复制*ProductApp*项目的控制器及其使用的模型。 按照以下步骤进行操作：
 
-1. 复制*Controllers/ProductsController.cs*从原始到新项目。
-1. 复制整个*模型*从原始项目到新的文件夹。
-1. 更改复制的文件的命名空间以匹配新的项目名称 (*ProductsCore*)。 调整`using ProductsApp.Models;`中的语句*ProductsController.cs*过。
+1. 将*控制器/ProductsController*从原始项目复制到新项目。
+1. 将整个*模型*文件夹从原始项目复制到新的项目。
+1. 更改复制的文件的命名空间，使其与新项目名称（*ProductsCore*）相匹配。 同时调整*ProductsController.cs*中的 `using ProductsApp.Models;` 语句。
 
-此时，生成中的多个编译错误的应用程序结果。 发生错误的原因在 ASP.NET Core 中不存在以下组件：
+此时，生成应用会导致大量编译错误。 之所以发生这些错误是因为 ASP.NET Core 中不存在下列组件：
 
 * `ApiController` 类
 * `System.Web.Http` 命名空间
@@ -83,11 +83,11 @@ ASP.NET 4.x Web API 是到达范围广泛的客户端，包括浏览器和移动
 
 修复错误，如下所示：
 
-1. 更改`ApiController`到<xref:Microsoft.AspNetCore.Mvc.ControllerBase>。 添加`using Microsoft.AspNetCore.Mvc;`若要解决`ControllerBase`引用。
+1. 更改`ApiController`到<xref:Microsoft.AspNetCore.Mvc.ControllerBase>。 添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。
 1. 删除 `using System.Web.Http;`。
-1. 更改`GetProduct`操作的返回类型从`IHttpActionResult`到`ActionResult<Product>`。
+1. 将 `GetProduct` 操作的返回类型从 `IHttpActionResult` 更改为 `ActionResult<Product>`。
 
-简化`GetProduct`操作的`return`与以下语句：
+简化 `GetProduct` 操作的 `return` 语句，如下所示：
 
 ```csharp
 return product;
@@ -95,66 +95,66 @@ return product;
 
 ## <a name="configure-routing"></a>配置路由
 
-配置路由，如下所示：
+按如下所示配置路由：
 
-1. 修饰`ProductsController`类具有以下属性：
+1. 用以下特性标记 `ProductsController` 类：
 
     ```csharp
     [Route("api/[controller]")]
     [ApiController]
     ```
 
-    在前面[[Route]](xref:Microsoft.AspNetCore.Mvc.RouteAttribute)属性所配置控制器的属性路由模式。 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使此控制器中的路由所必需的所有操作的属性。
+    前面的[`[Route]`](xref:Microsoft.AspNetCore.Mvc.RouteAttribute)属性配置控制器的属性路由模式。 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)特性使特性路由成为此控制器中所有操作的要求。
 
-    属性路由支持令牌，如`[controller]`和`[action]`。 在运行时，每个令牌是分别替换为控制器或操作的名称，已向其应用了该属性。 令牌减少的项目中的魔幻字符串。 路由保持与相应的控制器同步，并将应用时自动重命名重构操作，还请确保令牌。
-1. 将项目的兼容性模式设置为 ASP.NET Core 2.2:
+    特性路由支持令牌，如 `[controller]` 和 `[action]`。 在运行时，每个标记分别替换为应用了属性的控制器或操作的名称。 这些标记减少了项目中的幻字符串的数目。 标记还可确保在应用自动重命名重构时，路由与相应的控制器和操作保持同步。
+1. 将项目的兼容模式设置为 ASP.NET Core 2.2：
 
     [!code-csharp[](webapi/sample/ProductsCore/Startup.cs?name=snippet_ConfigureServices&highlight=4)]
 
     上述更改：
 
-    * 使用所需`[ApiController]`在控制器级别属性。
-    * 选择启用可能出现的中断 ASP.NET Core 2.2 中引入的行为。
-1. 启用 HTTP Get 请求到`ProductController`操作：
-    * 将应用[[HttpGet]](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute)属性为`GetAllProducts`操作。
-    * 将应用`[HttpGet("{id}")]`属性为`GetProduct`操作。
+    * 需要在控制器级别使用 `[ApiController]` 特性。
+    * 在 ASP.NET Core 2.2 中引入了可能中断的行为。
+1. 启用 `ProductController` 操作的 HTTP Get 请求：
+    * 向 `GetAllProducts` 操作应用[`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute)特性。
+    * 向 `GetProduct` 操作应用 `[HttpGet("{id}")]` 特性。
 
-上述更改和删除未使用之后`using`语句， *ProductsController.cs*文件如下所示：
+前面的更改和删除未使用的 `using` 语句后， *ProductsController.cs*文件如下所示：
 
 [!code-csharp[](webapi/sample/ProductsCore/Controllers/ProductsController.cs)]
 
-运行已迁移的项目，并浏览到`/api/products`。 将显示三种产品的完整列表。 浏览到 `/api/products/1`。 第一个产品将出现。
+运行迁移的项目，并浏览到 `/api/products`。 此时会显示三个产品的完整列表。 浏览到 `/api/products/1`。 第一个产品随即出现。
 
-## <a name="compatibility-shim"></a>兼容性修补程序
+## <a name="compatibility-shim"></a>兼容性填充码
 
-[Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim)库提供了兼容性填充程序移动到 ASP.NET Core 的 ASP.NET 4.x Web API 项目。 兼容性填充程序扩展了 ASP.NET Core 支持数量从 ASP.NET 4.x Web API 2 的约定。 移植之前在本文档中的示例是基本兼容性填充程序是不需要的。 对于大型项目，使用兼容性修补程序也可用于临时之间的隔阂 API ASP.NET Core 和 ASP.NET 4.x Web API 2。
+[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim)库提供兼容性填充码，以将 ASP.NET 4.X Web API 项目移动到 ASP.NET Core。 兼容性填充码扩展 ASP.NET Core，以支持 ASP.NET 4.x Web API 2 中的一些约定。 本文档前面的示例移植的基本操作足以确保兼容性填充程序是不必要的。 对于较大的项目，使用兼容性填充码对于临时桥接 ASP.NET Core 与 ASP.NET 4.x Web API 2 之间的 API 间隙非常有用。
 
-旨在用作临时度量值以支持大型 ASP.NET 4.x Web API 项目迁移到 ASP.NET Core Web API 兼容性修补程序。 随着时间推移，应更新项目以使用 ASP.NET Core 模式，而不是依靠兼容性填充码。
+Web API 兼容性填充码旨在用作一种临时度量，以支持将大型 ASP.NET 4.x Web API 项目迁移到 ASP.NET Core。 随着时间推移，应更新项目以使用 ASP.NET Core 模式，而不是依靠兼容性填充码。
 
-中包含的兼容性功能`Microsoft.AspNetCore.Mvc.WebApiCompatShim`包括：
+`Microsoft.AspNetCore.Mvc.WebApiCompatShim` 中包含的兼容性功能包括：
 
-* 添加`ApiController`类型，以便控制器的基类型不需要更新。
-* 启用 Web API 样式模型绑定。 ASP.NET Core MVC 模型绑定函数类似于的 ASP.NET 4.x MVC 5，默认情况下。 兼容性填充程序更改模型绑定是更类似于 ASP.NET 4.x Web API 2 模型绑定约定。 例如，复杂类型自动绑定从请求正文。
-* 扩展模型绑定，以便控制器操作可以采取的类型参数`HttpRequestMessage`。
-* 添加消息格式化程序，允许的操作以返回类型的结果`HttpResponseMessage`。
-* 添加 Web API 2 操作可能具有用于为响应提供服务的其他响应方法：
+* 添加 `ApiController` 类型，以便不需要更新控制器的基类型。
+* 启用 Web API 样式的模型绑定。 默认情况下，ASP.NET Core MVC 模型绑定函数与 ASP.NET 4.x MVC 5 的绑定函数类似。 兼容性填充码更改模型绑定，更类似于 ASP.NET 4.x Web API 2 模型绑定约定。 例如，复杂类型会自动从请求正文进行绑定。
+* 扩展模型绑定，以便控制器操作可以采用 `HttpRequestMessage`类型的参数。
+* 添加消息格式化程序，以允许操作返回 `HttpResponseMessage`类型的结果。
+* 添加 Web API 2 操作可能用于提供响应的其他响应方法：
   * `HttpResponseMessage` 生成器：
     * `CreateResponse<T>`
     * `CreateErrorResponse`
-  * 结果的操作方法：
+  * 操作结果方法：
     * `BadRequestErrorMessageResult`
     * `ExceptionResult`
     * `InternalServerErrorResult`
     * `InvalidModelStateResult`
     * `NegotiatedContentResult`
     * `ResponseMessageResult`
-* 添加的一个实例`IContentNegotiator`向应用程序的依赖关系注入 (DI) 容器，并使可从内容协商相关类型[Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)。 此类类型的示例包括`DefaultContentNegotiator`和`MediaTypeFormatter`。
+* 将 `IContentNegotiator` 的实例添加到应用的依赖项注入（DI）容器，并使[WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)中与内容协商相关的类型可用。 此类类型的示例包括 `DefaultContentNegotiator` 和 `MediaTypeFormatter`。
 
-若要使用兼容性修补程序：
+使用兼容性填充码：
 
-1. 安装[Microsoft.AspNetCore.Mvc.WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet 包。
-1. 兼容性修补程序的服务注册应用程序的 DI 容器通过调用`services.AddMvc().AddWebApiConventions()`在`Startup.ConfigureServices`。
-1. 定义特定于 API 的路由使用的 web`MapWebApiRoute`上`IRouteBuilder`在应用的`IApplicationBuilder.UseMvc`调用。
+1. 安装[AspNetCore WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim) NuGet 包。
+1. 通过在 `Startup.ConfigureServices`中调用 `services.AddMvc().AddWebApiConventions()`，将兼容性填充程序的服务注册到应用的 DI 容器。
+1. 使用应用的 `IApplicationBuilder.UseMvc` 调用中 `IRouteBuilder` 上的 `MapWebApiRoute` 定义特定于 web API 的路由。
 
 ## <a name="additional-resources"></a>其他资源
 

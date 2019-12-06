@@ -4,14 +4,14 @@ author: mjrousos
 description: 了解 ASP.NET Core 中的身份验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 5e6c875188831c468bc6ca52ce71c5961b43573c
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
+ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681361"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74810248"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -57,7 +57,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 * 身份验证处理程序。
 * 用于配置处理程序的该特定实例的选项。
 
-方案可用作一种机制，供用户参考相关处理程序的身份验证、挑战和禁止行为。 例如，授权策略可按名称指定，其授权方案须用于对用户进行身份验证。 配置身份验证时，通常是指定默认身份验证方案。 除非资源请求了特定方案，否则使用默认方案。 还可：
+方案可用作一种机制，供用户参考相关处理程序的身份验证、挑战和禁止行为。 例如，授权策略可使用方案名称来指定应使用哪种（或哪些）身份验证方案来对用户进行身份验证。 配置身份验证时，通常是指定默认身份验证方案。 除非资源请求了特定方案，否则使用默认方案。 还可：
 
 * 指定其他默认方案供授权、挑战和禁止操作使用。
 * 可通过[策略方案](xref:security/authentication/policyschemes)将多个方案合成一个。

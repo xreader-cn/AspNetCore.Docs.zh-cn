@@ -5,16 +5,16 @@ description: 了解如何在 ASP.NET Core SignalR中使用身份验证和授权�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: c5a34ae67bdfb8f7fd92c00f18973b66b685a99c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: f443fe0fbaaa1facd09edc0878c048772895ecff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963904"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881186"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core 中的安全注意事项 SignalR
 
@@ -24,7 +24,7 @@ ms.locfileid: "73963904"
 
 ## <a name="cross-origin-resource-sharing"></a>跨域资源共享
 
-[跨源资源共享（CORS）](https://www.w3.org/TR/cors/)可用于允许在浏览器中进行跨域 SignalR 连接。 如果 JavaScript 代码托管在 SignalR 应用的另一个域中，则必须启用[CORS 中间件](xref:security/cors)才能使 JavaScript 连接到 SignalR 应用。 仅允许来自你信任或控制的域的跨域请求。 例如:
+[跨源资源共享（CORS）](https://www.w3.org/TR/cors/)可用于允许在浏览器中进行跨域 SignalR 连接。 如果 JavaScript 代码托管在 SignalR 应用的另一个域中，则必须启用[CORS 中间件](xref:security/cors)才能使 JavaScript 连接到 SignalR 应用。 仅允许来自你信任或控制的域的跨域请求。 例如：
 
 * 网站托管在 `http://www.example.com`
 * SignalR 应用承载于 `http://signalr.example.com`
@@ -106,7 +106,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 ## <a name="access-token-logging"></a>访问令牌日志记录
 
-使用 Websocket 或服务器发送事件时，浏览器客户端会在查询字符串中发送访问令牌。 通过查询字符串接收访问令牌通常与使用标准 `Authorization` 标题的安全性相同。 应始终使用 HTTPS 来确保客户端与服务器之间的安全端到端连接。 许多 web 服务器都记录每个请求的 URL，包括查询字符串。 记录 Url 可能会记录访问令牌。 默认情况下，ASP.NET Core 记录每个请求的 URL，其中将包括查询字符串。 例如:
+使用 Websocket 或服务器发送事件时，浏览器客户端会在查询字符串中发送访问令牌。 通过查询字符串接收访问令牌通常与使用标准 `Authorization` 标题的安全性相同。 应始终使用 HTTPS 来确保客户端与服务器之间的安全端到端连接。 许多 web 服务器都记录每个请求的 URL，包括查询字符串。 记录 Url 可能会记录访问令牌。 默认情况下，ASP.NET Core 记录每个请求的 URL，其中将包括查询字符串。 例如：
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
@@ -117,7 +117,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
 
 ## <a name="exceptions"></a>异常
 
-异常消息通常被视为不应泄露给客户端的敏感数据。 默认情况下，SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。 相反，客户端将收到一条指示出错的一般消息。 可以通过[`EnableDetailedErrors`](xref:signalr/configuration#configure-server-options)重写到客户端的异常消息传递（例如，在开发或测试中）。 不应在生产应用程序中向客户端公开异常消息。
+异常消息通常被视为不应泄露给客户端的敏感数据。 默认情况下，SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。 相反，客户端将收到一条指示出错的一般消息。 向客户端发送的异常消息可以通过[EnableDetailedErrors](xref:signalr/configuration#configure-server-options)重写（例如，在开发或测试中）。 不应在生产应用程序中向客户端公开异常消息。
 
 ## <a name="buffer-management"></a>缓冲区管理
 
@@ -131,7 +131,7 @@ SignalR 使用每个连接的缓冲区来管理传入消息和传出消息。 �
 * 客户端可能会导致服务器分配大的内存缓冲区。
 * 大缓冲区的服务器分配可能会减少并发连接的数量。
 
-传入消息和传出消息有限制，可在 `MapHub`中配置的[`HttpConnectionDispatcherOptions`](xref:signalr/configuration#configure-server-options)对象上进行配置：
+传入消息和传出消息有限制，可以在 `MapHub`中配置的[HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options)对象上进行配置：
 
 * `ApplicationMaxBufferSize` 表示从客户端缓冲的最大字节数。 如果客户端尝试发送比此限制更大的消息，则可能会关闭该连接。
 * `TransportMaxBufferSize` 表示服务器可以发送的最大字节数。 如果服务器尝试发送的消息（包括从集线器方法返回的值）大于此限制，则会引发异常。

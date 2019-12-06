@@ -5,14 +5,14 @@ description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 23ce2d09d2ce9f415ce71bcd7c21c29cb2a040fc
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
+ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550365"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74825492"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -48,10 +48,10 @@ ms.locfileid: "74550365"
 
 默认 ASP.NET Core 项目模板调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：
 
-* 控制台
-* 调试
-* EventSource
-* EventLog（仅当在 Windows 上运行时）
+* [控制台](#console-provider)
+* [调试](#debug-provider)
+* [EventSource](#event-source-provider)
+* [EventLog](#windows-eventlog-provider)（仅当在 Windows 上运行时）
 
 可自行选择提供程序来替换默认提供程序。 调用 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>，然后添加所需的提供程序。
 
@@ -129,7 +129,7 @@ ms.locfileid: "74550365"
 
 若要将日志写入 ASP.NET Core 应用的 `Program` 类中，请在生成主机后从 DI 获取 `ILogger`实例：
 
-[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+[!code-csharp[](index/samples_snapshot/3.x/TodoApiSample/Program.cs?highlight=9,10)]
 
 不直接支持在主机构造期间进行日志记录。 但是，可以使用单独的记录器。 在以下示例中，[Serilog](https://serilog.net/) 记录器用于登录 `CreateHostBuilder`。 `AddSerilog` 使用 `Log.Logger` 中指定的静态配置：
 
@@ -1051,7 +1051,11 @@ dotnet tool install --global dotnet-trace
 logging.AddEventLog();
 ```
 
-[AddEventLog 重载](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)允许传入 <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>。
+[AddEventLog 重载](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)允许传入 <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>。 如果为 `null` 或未指定，则使用以下默认设置：
+
+* `LogName` &ndash; "Application"
+* `SourceName` &ndash; ".NET Runtime"
+* `MachineName` &ndash; local machine
 
 ### <a name="tracesource-provider"></a>TraceSource 提供程序
 

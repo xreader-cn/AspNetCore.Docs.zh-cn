@@ -3,14 +3,14 @@ title: 从 ASP.NET 迁移到 ASP.NET Core
 author: isaac2004
 description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Core Web 的指南
 ms.author: scaddie
-ms.date: 12/11/2018
+ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 9c97b9c0f13a265ab5c90225dcd5a581a1272701
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815464"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "74803339"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -154,6 +154,10 @@ Web 开发的一个重要环节是提供客户端静态资产的功能。 HTML�
 
 > [!NOTE]
 > 若要获取在 ASP.NET Core 中提供静态文件的更深入的参考信息，请参阅[静态文件](xref:fundamentals/static-files)。
+
+## <a name="multi-value-cookies"></a>多值 cookie
+
+ASP.NET Core 不支持[多值 cookie](xref:System.Web.HttpCookie.Values)。 为每个值创建一个 cookie。
 
 ## <a name="additional-resources"></a>其他资源
 
