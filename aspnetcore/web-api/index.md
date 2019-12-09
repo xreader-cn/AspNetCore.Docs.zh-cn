@@ -7,24 +7,24 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/22/2019
 uid: web-api/index
-ms.openlocfilehash: 3f52e4ce2d26902324ab30e0bda7ed8a4942daa0
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: 5ef8b4d012f4ed90339ffea191612e4dc365d958
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412042"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880532"
 ---
-# <a name="create-web-apis-with-aspnet-core"></a><span data-ttu-id="d0cbe-103">使用 ASP.NET Core 创建 Web API</span><span class="sxs-lookup"><span data-stu-id="d0cbe-103">Create web APIs with ASP.NET Core</span></span>
+# <a name="create-web-apis-with-aspnet-core"></a><span data-ttu-id="6d819-103">使用 ASP.NET Core 创建 Web API</span><span class="sxs-lookup"><span data-stu-id="6d819-103">Create web APIs with ASP.NET Core</span></span>
 
-<span data-ttu-id="d0cbe-104">作者：[Scott Addie](https://github.com/scottaddie) 和 [Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-104">By [Scott Addie](https://github.com/scottaddie) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
+<span data-ttu-id="6d819-104">作者：[Scott Addie](https://github.com/scottaddie) 和 [Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="6d819-104">By [Scott Addie](https://github.com/scottaddie) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
 
-<span data-ttu-id="d0cbe-105">ASP.NET Core 支持使用 C# 创建 RESTful 服务，也称为 Web API。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-105">ASP.NET Core supports creating RESTful services, also known as web APIs, using C#.</span></span> <span data-ttu-id="d0cbe-106">若要处理请求，Web API 使用控制器。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-106">To handle requests, a web API uses controllers.</span></span> <span data-ttu-id="d0cbe-107">Web API 中的*控制器*是派生自 `ControllerBase` 的类。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-107">*Controllers* in a web API are classes that derive from `ControllerBase`.</span></span> <span data-ttu-id="d0cbe-108">本文介绍了如何使用控制器处理 Web API 请求。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-108">This article shows how to use controllers for handling web API requests.</span></span>
+<span data-ttu-id="6d819-105">ASP.NET Core 支持使用 C# 创建 RESTful 服务，也称为 Web API。</span><span class="sxs-lookup"><span data-stu-id="6d819-105">ASP.NET Core supports creating RESTful services, also known as web APIs, using C#.</span></span> <span data-ttu-id="6d819-106">若要处理请求，Web API 使用控制器。</span><span class="sxs-lookup"><span data-stu-id="6d819-106">To handle requests, a web API uses controllers.</span></span> <span data-ttu-id="6d819-107">Web API 中的*控制器*是派生自 `ControllerBase` 的类。</span><span class="sxs-lookup"><span data-stu-id="6d819-107">*Controllers* in a web API are classes that derive from `ControllerBase`.</span></span> <span data-ttu-id="6d819-108">本文介绍了如何使用控制器处理 Web API 请求。</span><span class="sxs-lookup"><span data-stu-id="6d819-108">This article shows how to use controllers for handling web API requests.</span></span>
 
-<span data-ttu-id="d0cbe-109">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples)。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span></span> <span data-ttu-id="d0cbe-110">（[下载方法](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-110">([How to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="6d819-109">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples)。</span><span class="sxs-lookup"><span data-stu-id="6d819-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span></span> <span data-ttu-id="6d819-110">（[下载方法](xref:index#how-to-download-a-sample)）。</span><span class="sxs-lookup"><span data-stu-id="6d819-110">([How to download](xref:index#how-to-download-a-sample)).</span></span>
 
-## <a name="controllerbase-class"></a><span data-ttu-id="d0cbe-111">ControllerBase 类</span><span class="sxs-lookup"><span data-stu-id="d0cbe-111">ControllerBase class</span></span>
+## <a name="controllerbase-class"></a><span data-ttu-id="6d819-111">ControllerBase 类</span><span class="sxs-lookup"><span data-stu-id="6d819-111">ControllerBase class</span></span>
 
-<span data-ttu-id="d0cbe-112">Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.ControllerBase> 的控制器类。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-112">A web API consists of one or more controller classes that derive from <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="d0cbe-113">Web API 项目模板提供了一个入门版控制器：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-113">The web API project template provides a starter controller:</span></span>
+<span data-ttu-id="6d819-112">Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.ControllerBase> 的控制器类。</span><span class="sxs-lookup"><span data-stu-id="6d819-112">A web API consists of one or more controller classes that derive from <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="6d819-113">Web API 项目模板提供了一个入门版控制器：</span><span class="sxs-lookup"><span data-stu-id="6d819-113">The web API project template provides a starter controller:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -38,57 +38,57 @@ ms.locfileid: "74412042"
 
 ::: moniker-end
 
-<span data-ttu-id="d0cbe-114">不要通过从 <xref:Microsoft.AspNetCore.Mvc.Controller> 类派生来创建 Web API 控制器。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-114">Don't create a web API controller by deriving from the <xref:Microsoft.AspNetCore.Mvc.Controller> class.</span></span> <span data-ttu-id="d0cbe-115">`Controller` 派生自 `ControllerBase`，并添加对视图的支持，因此它用于处理 Web 页面，而不是 Web API 请求。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-115">`Controller` derives from `ControllerBase` and adds support for views, so it's for handling web pages, not web API requests.</span></span> <span data-ttu-id="d0cbe-116">此规则有一个例外：如果打算为视图和 Web API 使用相同的控制器，则从 `Controller` 派生控制器。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-116">There's an exception to this rule: if you plan to use the same controller for both views and web APIs, derive it from `Controller`.</span></span>
+<span data-ttu-id="6d819-114">不要通过从 <xref:Microsoft.AspNetCore.Mvc.Controller> 类派生来创建 Web API 控制器。</span><span class="sxs-lookup"><span data-stu-id="6d819-114">Don't create a web API controller by deriving from the <xref:Microsoft.AspNetCore.Mvc.Controller> class.</span></span> <span data-ttu-id="6d819-115">`Controller` 派生自 `ControllerBase`，并添加对视图的支持，因此它用于处理 Web 页面，而不是 Web API 请求。</span><span class="sxs-lookup"><span data-stu-id="6d819-115">`Controller` derives from `ControllerBase` and adds support for views, so it's for handling web pages, not web API requests.</span></span> <span data-ttu-id="6d819-116">此规则有一个例外：如果打算为视图和 Web API 使用相同的控制器，则从 `Controller` 派生控制器。</span><span class="sxs-lookup"><span data-stu-id="6d819-116">There's an exception to this rule: if you plan to use the same controller for both views and web APIs, derive it from `Controller`.</span></span>
 
-<span data-ttu-id="d0cbe-117">`ControllerBase` 类提供了很多用于处理 HTTP 请求的属性和方法。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-117">The `ControllerBase` class provides many properties and methods that are useful for handling HTTP requests.</span></span> <span data-ttu-id="d0cbe-118">例如，`ControllerBase.CreatedAtAction` 返回 201 状态代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-118">For example, `ControllerBase.CreatedAtAction` returns a 201 status code:</span></span>
+<span data-ttu-id="6d819-117">`ControllerBase` 类提供了很多用于处理 HTTP 请求的属性和方法。</span><span class="sxs-lookup"><span data-stu-id="6d819-117">The `ControllerBase` class provides many properties and methods that are useful for handling HTTP requests.</span></span> <span data-ttu-id="6d819-118">例如，`ControllerBase.CreatedAtAction` 返回 201 状态代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-118">For example, `ControllerBase.CreatedAtAction` returns a 201 status code:</span></span>
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_400And201&highlight=10)]
 
-<span data-ttu-id="d0cbe-119">下面是 `ControllerBase` 提供的方法的更多示例。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-119">Here are some more examples of methods that `ControllerBase` provides.</span></span>
+<span data-ttu-id="6d819-119">下面是 `ControllerBase` 提供的方法的更多示例。</span><span class="sxs-lookup"><span data-stu-id="6d819-119">Here are some more examples of methods that `ControllerBase` provides.</span></span>
 
-|<span data-ttu-id="d0cbe-120">方法</span><span class="sxs-lookup"><span data-stu-id="d0cbe-120">Method</span></span>   |<span data-ttu-id="d0cbe-121">说明</span><span class="sxs-lookup"><span data-stu-id="d0cbe-121">Notes</span></span>    |
+|<span data-ttu-id="6d819-120">方法</span><span class="sxs-lookup"><span data-stu-id="6d819-120">Method</span></span>   |<span data-ttu-id="6d819-121">说明</span><span class="sxs-lookup"><span data-stu-id="6d819-121">Notes</span></span>    |
 |---------|---------|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest%2A>| <span data-ttu-id="d0cbe-122">返回 400 状态代码。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-122">Returns 400 status code.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A>|<span data-ttu-id="d0cbe-123">返回 404 状态代码。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-123">Returns 404 status code.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.PhysicalFile%2A>|<span data-ttu-id="d0cbe-124">返回文件。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-124">Returns a file.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync%2A>|<span data-ttu-id="d0cbe-125">调用[模型绑定](xref:mvc/models/model-binding)。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-125">Invokes [model binding](xref:mvc/models/model-binding).</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryValidateModel%2A>|<span data-ttu-id="d0cbe-126">调用[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-126">Invokes [model validation](xref:mvc/models/validation).</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest%2A>| <span data-ttu-id="6d819-122">返回 400 状态代码。</span><span class="sxs-lookup"><span data-stu-id="6d819-122">Returns 400 status code.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A>|<span data-ttu-id="6d819-123">返回 404 状态代码。</span><span class="sxs-lookup"><span data-stu-id="6d819-123">Returns 404 status code.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.PhysicalFile%2A>|<span data-ttu-id="6d819-124">返回文件。</span><span class="sxs-lookup"><span data-stu-id="6d819-124">Returns a file.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync%2A>|<span data-ttu-id="6d819-125">调用[模型绑定](xref:mvc/models/model-binding)。</span><span class="sxs-lookup"><span data-stu-id="6d819-125">Invokes [model binding](xref:mvc/models/model-binding).</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryValidateModel%2A>|<span data-ttu-id="6d819-126">调用[模型验证](xref:mvc/models/validation)。</span><span class="sxs-lookup"><span data-stu-id="6d819-126">Invokes [model validation](xref:mvc/models/validation).</span></span>|
 
-<span data-ttu-id="d0cbe-127">有关可用方法和属性的列表，请参阅 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-127">For a list of all available methods and properties, see <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span>
+<span data-ttu-id="6d819-127">有关可用方法和属性的列表，请参阅 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。</span><span class="sxs-lookup"><span data-stu-id="6d819-127">For a list of all available methods and properties, see <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span>
 
-## <a name="attributes"></a><span data-ttu-id="d0cbe-128">特性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-128">Attributes</span></span>
+## <a name="attributes"></a><span data-ttu-id="6d819-128">特性</span><span class="sxs-lookup"><span data-stu-id="6d819-128">Attributes</span></span>
 
-<span data-ttu-id="d0cbe-129"><xref:Microsoft.AspNetCore.Mvc> 命名空间提供可用于配置 Web API 控制器的行为和操作方法的属性。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-129">The <xref:Microsoft.AspNetCore.Mvc> namespace provides attributes that can be used to configure the behavior of web API controllers and action methods.</span></span> <span data-ttu-id="d0cbe-130">下述示例使用属性来指定受支持的 HTTP 操作谓词和所有可返回的已知 HTTP 状态代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-130">The following example uses attributes to specify the supported HTTP action verb and any known HTTP status codes that could be returned:</span></span>
+<span data-ttu-id="6d819-129"><xref:Microsoft.AspNetCore.Mvc> 命名空间提供可用于配置 Web API 控制器的行为和操作方法的属性。</span><span class="sxs-lookup"><span data-stu-id="6d819-129">The <xref:Microsoft.AspNetCore.Mvc> namespace provides attributes that can be used to configure the behavior of web API controllers and action methods.</span></span> <span data-ttu-id="6d819-130">下述示例使用属性来指定受支持的 HTTP 操作谓词和所有可返回的已知 HTTP 状态代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-130">The following example uses attributes to specify the supported HTTP action verb and any known HTTP status codes that could be returned:</span></span>
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_400And201&highlight=1-3)]
 
-<span data-ttu-id="d0cbe-131">以下是可用属性的更多示例。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-131">Here are some more examples of attributes that are available.</span></span>
+<span data-ttu-id="6d819-131">以下是可用属性的更多示例。</span><span class="sxs-lookup"><span data-stu-id="6d819-131">Here are some more examples of attributes that are available.</span></span>
 
-|<span data-ttu-id="d0cbe-132">特性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-132">Attribute</span></span>|<span data-ttu-id="d0cbe-133">说明</span><span class="sxs-lookup"><span data-stu-id="d0cbe-133">Notes</span></span>|
+|<span data-ttu-id="6d819-132">特性</span><span class="sxs-lookup"><span data-stu-id="6d819-132">Attribute</span></span>|<span data-ttu-id="6d819-133">说明</span><span class="sxs-lookup"><span data-stu-id="6d819-133">Notes</span></span>|
 |---------|-----|
-|<span data-ttu-id="d0cbe-134">[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-134">[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span></span>      |<span data-ttu-id="d0cbe-135">指定控制器或操作的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-135">Specifies URL pattern for a controller or action.</span></span>|
-|<span data-ttu-id="d0cbe-136">[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-136">[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span></span>        |<span data-ttu-id="d0cbe-137">指定要包含的前缀和属性，以进行模型绑定。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-137">Specifies prefix and properties to include for model binding.</span></span>|
-|<span data-ttu-id="d0cbe-138">[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-138">[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span></span>  |<span data-ttu-id="d0cbe-139">标识支持 HTTP GET 操作谓词的操作。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-139">Identifies an action that supports the HTTP GET action verb.</span></span>|
-|<span data-ttu-id="d0cbe-140">[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-140">[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span></span>|<span data-ttu-id="d0cbe-141">指定某个操作接受的数据类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-141">Specifies data types that an action accepts.</span></span>|
-|<span data-ttu-id="d0cbe-142">[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-142">[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span></span>|<span data-ttu-id="d0cbe-143">指定某个操作返回的数据类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-143">Specifies data types that an action returns.</span></span>|
+|[`[Route]`](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)      |<span data-ttu-id="6d819-134">指定控制器或操作的 URL 模式。</span><span class="sxs-lookup"><span data-stu-id="6d819-134">Specifies URL pattern for a controller or action.</span></span>|
+|[`[Bind]`](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)        |<span data-ttu-id="6d819-135">指定要包含的前缀和属性，以进行模型绑定。</span><span class="sxs-lookup"><span data-stu-id="6d819-135">Specifies prefix and properties to include for model binding.</span></span>|
+|[`[HttpGet]`](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)  |<span data-ttu-id="6d819-136">标识支持 HTTP GET 操作谓词的操作。</span><span class="sxs-lookup"><span data-stu-id="6d819-136">Identifies an action that supports the HTTP GET action verb.</span></span>|
+|[`[Consumes]`](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)|<span data-ttu-id="6d819-137">指定某个操作接受的数据类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-137">Specifies data types that an action accepts.</span></span>|
+|[`[Produces]`](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)|<span data-ttu-id="6d819-138">指定某个操作返回的数据类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-138">Specifies data types that an action returns.</span></span>|
 
-<span data-ttu-id="d0cbe-144">有关包含可用属性的列表，请参阅 <xref:Microsoft.AspNetCore.Mvc> 命名空间。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-144">For a list that includes the available attributes, see the <xref:Microsoft.AspNetCore.Mvc> namespace.</span></span>
+<span data-ttu-id="6d819-139">有关包含可用属性的列表，请参阅 <xref:Microsoft.AspNetCore.Mvc> 命名空间。</span><span class="sxs-lookup"><span data-stu-id="6d819-139">For a list that includes the available attributes, see the <xref:Microsoft.AspNetCore.Mvc> namespace.</span></span>
 
-## <a name="apicontroller-attribute"></a><span data-ttu-id="d0cbe-145">ApiController 属性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-145">ApiController attribute</span></span>
+## <a name="apicontroller-attribute"></a><span data-ttu-id="6d819-140">ApiController 属性</span><span class="sxs-lookup"><span data-stu-id="6d819-140">ApiController attribute</span></span>
 
-<span data-ttu-id="d0cbe-146">[[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性可应用于控制器类，以启用下述 API 特定的固定行为：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-146">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute can be applied to a controller class to enable the following opinionated, API-specific behaviors:</span></span>
+<span data-ttu-id="6d819-141">[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性可应用于控制器类，以启用下述 API 特定的固定行为：</span><span class="sxs-lookup"><span data-stu-id="6d819-141">The [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute can be applied to a controller class to enable the following opinionated, API-specific behaviors:</span></span>
 
-* [<span data-ttu-id="d0cbe-147">属性路由要求</span><span class="sxs-lookup"><span data-stu-id="d0cbe-147">Attribute routing requirement</span></span>](#attribute-routing-requirement)
-* [<span data-ttu-id="d0cbe-148">自动 HTTP 400 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-148">Automatic HTTP 400 responses</span></span>](#automatic-http-400-responses)
-* [<span data-ttu-id="d0cbe-149">绑定源参数推理</span><span class="sxs-lookup"><span data-stu-id="d0cbe-149">Binding source parameter inference</span></span>](#binding-source-parameter-inference)
-* [<span data-ttu-id="d0cbe-150">Multipart/form-data 请求推理</span><span class="sxs-lookup"><span data-stu-id="d0cbe-150">Multipart/form-data request inference</span></span>](#multipartform-data-request-inference)
-* [<span data-ttu-id="d0cbe-151">错误状态代码的问题详细信息</span><span class="sxs-lookup"><span data-stu-id="d0cbe-151">Problem details for error status codes</span></span>](#problem-details-for-error-status-codes)
+* [<span data-ttu-id="6d819-142">属性路由要求</span><span class="sxs-lookup"><span data-stu-id="6d819-142">Attribute routing requirement</span></span>](#attribute-routing-requirement)
+* [<span data-ttu-id="6d819-143">自动 HTTP 400 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-143">Automatic HTTP 400 responses</span></span>](#automatic-http-400-responses)
+* [<span data-ttu-id="6d819-144">绑定源参数推理</span><span class="sxs-lookup"><span data-stu-id="6d819-144">Binding source parameter inference</span></span>](#binding-source-parameter-inference)
+* [<span data-ttu-id="6d819-145">Multipart/form-data 请求推理</span><span class="sxs-lookup"><span data-stu-id="6d819-145">Multipart/form-data request inference</span></span>](#multipartform-data-request-inference)
+* [<span data-ttu-id="6d819-146">错误状态代码的问题详细信息</span><span class="sxs-lookup"><span data-stu-id="6d819-146">Problem details for error status codes</span></span>](#problem-details-for-error-status-codes)
 
-<span data-ttu-id="d0cbe-152">这些功能需要[兼容性版本](xref:mvc/compatibility-version)为 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-152">These features require a [compatibility version](xref:mvc/compatibility-version) of 2.1 or later.</span></span>
+<span data-ttu-id="6d819-147">这些功能需要[兼容性版本](xref:mvc/compatibility-version)为 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="6d819-147">These features require a [compatibility version](xref:mvc/compatibility-version) of 2.1 or later.</span></span>
 
-### <a name="attribute-on-specific-controllers"></a><span data-ttu-id="d0cbe-153">特定控制器上的属性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-153">Attribute on specific controllers</span></span>
+### <a name="attribute-on-specific-controllers"></a><span data-ttu-id="6d819-148">特定控制器上的属性</span><span class="sxs-lookup"><span data-stu-id="6d819-148">Attribute on specific controllers</span></span>
 
-<span data-ttu-id="d0cbe-154">`[ApiController]` 属性可应用于特定控制器，如项目模板中的以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-154">The `[ApiController]` attribute can be applied to specific controllers, as in the following example from the project template:</span></span>
+<span data-ttu-id="6d819-149">`[ApiController]` 属性可应用于特定控制器，如项目模板中的以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="6d819-149">The `[ApiController]` attribute can be applied to specific controllers, as in the following example from the project template:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -102,9 +102,9 @@ ms.locfileid: "74412042"
 
 ::: moniker-end
 
-### <a name="attribute-on-multiple-controllers"></a><span data-ttu-id="d0cbe-155">多个控制器上的属性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-155">Attribute on multiple controllers</span></span>
+### <a name="attribute-on-multiple-controllers"></a><span data-ttu-id="6d819-150">多个控制器上的属性</span><span class="sxs-lookup"><span data-stu-id="6d819-150">Attribute on multiple controllers</span></span>
 
-<span data-ttu-id="d0cbe-156">在多个控制器上使用该属性的一种方法是创建通过 `[ApiController]` 属性批注的自定义基控制器类。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-156">One approach to using the attribute on more than one controller is to create a custom base controller class annotated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="d0cbe-157">下述示例展示了自定义基类以及从其派生的控制器：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-157">The following example shows a custom base class and a controller that derives from it:</span></span>
+<span data-ttu-id="6d819-151">在多个控制器上使用该属性的一种方法是创建通过 `[ApiController]` 属性批注的自定义基控制器类。</span><span class="sxs-lookup"><span data-stu-id="6d819-151">One approach to using the attribute on more than one controller is to create a custom base controller class annotated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="6d819-152">下述示例展示了自定义基类以及从其派生的控制器：</span><span class="sxs-lookup"><span data-stu-id="6d819-152">The following example shows a custom base class and a controller that derives from it:</span></span>
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/MyControllerBase.cs?name=snippet_MyControllerBase)]
 
@@ -122,9 +122,9 @@ ms.locfileid: "74412042"
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="attribute-on-an-assembly"></a><span data-ttu-id="d0cbe-158">程序集上的属性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-158">Attribute on an assembly</span></span>
+### <a name="attribute-on-an-assembly"></a><span data-ttu-id="6d819-153">程序集上的属性</span><span class="sxs-lookup"><span data-stu-id="6d819-153">Attribute on an assembly</span></span>
 
-<span data-ttu-id="d0cbe-159">如果将[兼容性版本](xref:mvc/compatibility-version)设置为 2.2 或更高版本，则 `[ApiController]` 属性可应用于程序集。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-159">If [compatibility version](xref:mvc/compatibility-version) is set to 2.2 or later, the `[ApiController]` attribute can be applied to an assembly.</span></span> <span data-ttu-id="d0cbe-160">以这种方式进行注释，会将 web API 行为应用到程序集中的所有控制器。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-160">Annotation in this manner applies web API behavior to all controllers in the assembly.</span></span> <span data-ttu-id="d0cbe-161">无法针对单个控制器执行选择退出操作。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-161">There's no way to opt out for individual controllers.</span></span> <span data-ttu-id="d0cbe-162">将程序集级别的属性应用于 `Startup` 类两侧的命名空间声明：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-162">Apply the assembly-level attribute to the namespace declaration surrounding the `Startup` class:</span></span>
+<span data-ttu-id="6d819-154">如果将[兼容性版本](xref:mvc/compatibility-version)设置为 2.2 或更高版本，则 `[ApiController]` 属性可应用于程序集。</span><span class="sxs-lookup"><span data-stu-id="6d819-154">If [compatibility version](xref:mvc/compatibility-version) is set to 2.2 or later, the `[ApiController]` attribute can be applied to an assembly.</span></span> <span data-ttu-id="6d819-155">以这种方式进行注释，会将 web API 行为应用到程序集中的所有控制器。</span><span class="sxs-lookup"><span data-stu-id="6d819-155">Annotation in this manner applies web API behavior to all controllers in the assembly.</span></span> <span data-ttu-id="6d819-156">无法针对单个控制器执行选择退出操作。</span><span class="sxs-lookup"><span data-stu-id="6d819-156">There's no way to opt out for individual controllers.</span></span> <span data-ttu-id="6d819-157">将程序集级别的属性应用于 `Startup` 类两侧的命名空间声明：</span><span class="sxs-lookup"><span data-stu-id="6d819-157">Apply the assembly-level attribute to the namespace declaration surrounding the `Startup` class:</span></span>
 
 ```csharp
 [assembly: ApiController]
@@ -139,15 +139,15 @@ namespace WebApiSample
 
 ::: moniker-end
 
-## <a name="attribute-routing-requirement"></a><span data-ttu-id="d0cbe-163">特性路由要求</span><span class="sxs-lookup"><span data-stu-id="d0cbe-163">Attribute routing requirement</span></span>
+## <a name="attribute-routing-requirement"></a><span data-ttu-id="6d819-158">特性路由要求</span><span class="sxs-lookup"><span data-stu-id="6d819-158">Attribute routing requirement</span></span>
 
-<span data-ttu-id="d0cbe-164">`[ApiController]` 属性使属性路由成为要求。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-164">The `[ApiController]` attribute makes attribute routing a requirement.</span></span> <span data-ttu-id="d0cbe-165">例如:</span><span class="sxs-lookup"><span data-stu-id="d0cbe-165">For example:</span></span>
+<span data-ttu-id="6d819-159">`[ApiController]` 属性使属性路由成为要求。</span><span class="sxs-lookup"><span data-stu-id="6d819-159">The `[ApiController]` attribute makes attribute routing a requirement.</span></span> <span data-ttu-id="6d819-160">例如:</span><span class="sxs-lookup"><span data-stu-id="6d819-160">For example:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](index/samples/3.x/Controllers/WeatherForecastController.cs?name=snippet_ControllerSignature&highlight=2)]
 
-<span data-ttu-id="d0cbe-166">不能通过由 `Startup.Configure` 中的 `UseEndpoints`、<xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> 或 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> 定义的[传统路由](xref:mvc/controllers/routing#conventional-routing)访问操作。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-166">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A>, or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
+<span data-ttu-id="6d819-161">不能通过由 `Startup.Configure` 中的 `UseEndpoints`、<xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> 或 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> 定义的[传统路由](xref:mvc/controllers/routing#conventional-routing)访问操作。</span><span class="sxs-lookup"><span data-stu-id="6d819-161">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A>, or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
 
 ::: moniker-end
 
@@ -155,13 +155,13 @@ namespace WebApiSample
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=1)]
 
-<span data-ttu-id="d0cbe-167">不能通过 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> 定义的[传统路由](xref:mvc/controllers/routing#conventional-routing)或通过 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> 访问操作。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-167">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
+<span data-ttu-id="6d819-162">不能通过 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> 定义的[传统路由](xref:mvc/controllers/routing#conventional-routing)或通过 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> 访问操作。</span><span class="sxs-lookup"><span data-stu-id="6d819-162">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
 
 ::: moniker-end
 
-## <a name="automatic-http-400-responses"></a><span data-ttu-id="d0cbe-168">自动 HTTP 400 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-168">Automatic HTTP 400 responses</span></span>
+## <a name="automatic-http-400-responses"></a><span data-ttu-id="6d819-163">自动 HTTP 400 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-163">Automatic HTTP 400 responses</span></span>
 
-<span data-ttu-id="d0cbe-169">`[ApiController]` 属性使模型验证错误自动触发 HTTP 400 响应。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-169">The `[ApiController]` attribute makes model validation errors automatically trigger an HTTP 400 response.</span></span> <span data-ttu-id="d0cbe-170">因此，操作方法中不需要以下代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-170">Consequently, the following code is unnecessary in an action method:</span></span>
+<span data-ttu-id="6d819-164">`[ApiController]` 属性使模型验证错误自动触发 HTTP 400 响应。</span><span class="sxs-lookup"><span data-stu-id="6d819-164">The `[ApiController]` attribute makes model validation errors automatically trigger an HTTP 400 response.</span></span> <span data-ttu-id="6d819-165">因此，操作方法中不需要以下代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-165">Consequently, the following code is unnecessary in an action method:</span></span>
 
 ```csharp
 if (!ModelState.IsValid)
@@ -170,11 +170,11 @@ if (!ModelState.IsValid)
 }
 ```
 
-<span data-ttu-id="d0cbe-171">ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> 操作筛选器来执行上述检查。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-171">ASP.NET Core MVC uses the <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> action filter to do the preceding check.</span></span>
+<span data-ttu-id="6d819-166">ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> 操作筛选器来执行上述检查。</span><span class="sxs-lookup"><span data-stu-id="6d819-166">ASP.NET Core MVC uses the <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> action filter to do the preceding check.</span></span>
 
-### <a name="default-badrequest-response"></a><span data-ttu-id="d0cbe-172">默认 BadRequest 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-172">Default BadRequest response</span></span>
+### <a name="default-badrequest-response"></a><span data-ttu-id="6d819-167">默认 BadRequest 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-167">Default BadRequest response</span></span>
 
-<span data-ttu-id="d0cbe-173">使用 2.1 的兼容性版本时，HTTP 400 响应的默认响应类型为 <xref:Microsoft.AspNetCore.Mvc.SerializableError>。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-173">With a compatibility version of 2.1, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span></span> <span data-ttu-id="d0cbe-174">下述请求正文是序列化类型的示例：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-174">The following request body is an example of the serialized type:</span></span>
+<span data-ttu-id="6d819-168">使用 2.1 的兼容性版本时，HTTP 400 响应的默认响应类型为 <xref:Microsoft.AspNetCore.Mvc.SerializableError>。</span><span class="sxs-lookup"><span data-stu-id="6d819-168">With a compatibility version of 2.1, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span></span> <span data-ttu-id="6d819-169">下述请求正文是序列化类型的示例：</span><span class="sxs-lookup"><span data-stu-id="6d819-169">The following request body is an example of the serialized type:</span></span>
 
 ```json
 {
@@ -186,7 +186,7 @@ if (!ModelState.IsValid)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="d0cbe-175">使用 2.2 或更高版本的兼容性版本时，HTTP 400 响应的默认响应类型为 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-175">With a compatibility version of 2.2 or later, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>.</span></span> <span data-ttu-id="d0cbe-176">下述请求正文是序列化类型的示例：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-176">The following request body is an example of the serialized type:</span></span>
+<span data-ttu-id="6d819-170">使用 2.2 或更高版本的兼容性版本时，HTTP 400 响应的默认响应类型为 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>。</span><span class="sxs-lookup"><span data-stu-id="6d819-170">With a compatibility version of 2.2 or later, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>.</span></span> <span data-ttu-id="6d819-171">下述请求正文是序列化类型的示例：</span><span class="sxs-lookup"><span data-stu-id="6d819-171">The following request body is an example of the serialized type:</span></span>
 
 ```json
 {
@@ -202,20 +202,20 @@ if (!ModelState.IsValid)
 }
 ```
 
-<span data-ttu-id="d0cbe-177">`ValidationProblemDetails` 类型：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-177">The `ValidationProblemDetails` type:</span></span>
+<span data-ttu-id="6d819-172">`ValidationProblemDetails` 类型：</span><span class="sxs-lookup"><span data-stu-id="6d819-172">The `ValidationProblemDetails` type:</span></span>
 
-* <span data-ttu-id="d0cbe-178">提供计算机可读的格式来指定 Web API 响应中的错误。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-178">Provides a machine-readable format for specifying errors in web API responses.</span></span>
-* <span data-ttu-id="d0cbe-179">符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-179">Complies with the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807).</span></span>
+* <span data-ttu-id="6d819-173">提供计算机可读的格式来指定 Web API 响应中的错误。</span><span class="sxs-lookup"><span data-stu-id="6d819-173">Provides a machine-readable format for specifying errors in web API responses.</span></span>
+* <span data-ttu-id="6d819-174">符合 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)。</span><span class="sxs-lookup"><span data-stu-id="6d819-174">Complies with the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807).</span></span>
 
 ::: moniker-end
 
-### <a name="log-automatic-400-responses"></a><span data-ttu-id="d0cbe-180">记录自动 400 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-180">Log automatic 400 responses</span></span>
+### <a name="log-automatic-400-responses"></a><span data-ttu-id="6d819-175">记录自动 400 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-175">Log automatic 400 responses</span></span>
 
-<span data-ttu-id="d0cbe-181">请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157)。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-181">See [How to log automatic 400 responses on model validation errors (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span></span>
+<span data-ttu-id="6d819-176">请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157)。</span><span class="sxs-lookup"><span data-stu-id="6d819-176">See [How to log automatic 400 responses on model validation errors (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span></span>
 
-### <a name="disable-automatic-400-response"></a><span data-ttu-id="d0cbe-182">禁用自动 400 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-182">Disable automatic 400 response</span></span>
+### <a name="disable-automatic-400-response"></a><span data-ttu-id="6d819-177">禁用自动 400 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-177">Disable automatic 400 response</span></span>
 
-<span data-ttu-id="d0cbe-183">若要禁用自动 400 行为，请将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> 属性设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-183">To disable the automatic 400 behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> property to `true`.</span></span> <span data-ttu-id="d0cbe-184">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-184">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="6d819-178">若要禁用自动 400 行为，请将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> 属性设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="6d819-178">To disable the automatic 400 behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> property to `true`.</span></span> <span data-ttu-id="6d819-179">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="6d819-179">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -235,56 +235,56 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-## <a name="binding-source-parameter-inference"></a><span data-ttu-id="d0cbe-185">绑定源参数推理</span><span class="sxs-lookup"><span data-stu-id="d0cbe-185">Binding source parameter inference</span></span>
+## <a name="binding-source-parameter-inference"></a><span data-ttu-id="6d819-180">绑定源参数推理</span><span class="sxs-lookup"><span data-stu-id="6d819-180">Binding source parameter inference</span></span>
 
-<span data-ttu-id="d0cbe-186">绑定源特性定义可找到操作参数值的位置。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-186">A binding source attribute defines the location at which an action parameter's value is found.</span></span> <span data-ttu-id="d0cbe-187">存在以下绑定源特性：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-187">The following binding source attributes exist:</span></span>
+<span data-ttu-id="6d819-181">绑定源特性定义可找到操作参数值的位置。</span><span class="sxs-lookup"><span data-stu-id="6d819-181">A binding source attribute defines the location at which an action parameter's value is found.</span></span> <span data-ttu-id="6d819-182">存在以下绑定源特性：</span><span class="sxs-lookup"><span data-stu-id="6d819-182">The following binding source attributes exist:</span></span>
 
-|<span data-ttu-id="d0cbe-188">特性</span><span class="sxs-lookup"><span data-stu-id="d0cbe-188">Attribute</span></span>|<span data-ttu-id="d0cbe-189">绑定源</span><span class="sxs-lookup"><span data-stu-id="d0cbe-189">Binding source</span></span> |
+|<span data-ttu-id="6d819-183">特性</span><span class="sxs-lookup"><span data-stu-id="6d819-183">Attribute</span></span>|<span data-ttu-id="6d819-184">绑定源</span><span class="sxs-lookup"><span data-stu-id="6d819-184">Binding source</span></span> |
 |---------|---------|
-|<span data-ttu-id="d0cbe-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span></span>     | <span data-ttu-id="d0cbe-191">请求正文</span><span class="sxs-lookup"><span data-stu-id="d0cbe-191">Request body</span></span> |
-|<span data-ttu-id="d0cbe-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span></span>     | <span data-ttu-id="d0cbe-193">请求正文中的表单数据</span><span class="sxs-lookup"><span data-stu-id="d0cbe-193">Form data in the request body</span></span> |
-|<span data-ttu-id="d0cbe-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span></span> | <span data-ttu-id="d0cbe-195">请求标头</span><span class="sxs-lookup"><span data-stu-id="d0cbe-195">Request header</span></span> |
-|<span data-ttu-id="d0cbe-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span></span>   | <span data-ttu-id="d0cbe-197">请求查询字符串参数</span><span class="sxs-lookup"><span data-stu-id="d0cbe-197">Request query string parameter</span></span> |
-|<span data-ttu-id="d0cbe-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span></span>   | <span data-ttu-id="d0cbe-199">当前请求中的路由数据</span><span class="sxs-lookup"><span data-stu-id="d0cbe-199">Route data from the current request</span></span> |
-|<span data-ttu-id="d0cbe-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span><span class="sxs-lookup"><span data-stu-id="d0cbe-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span></span> | <span data-ttu-id="d0cbe-201">作为操作参数插入的请求服务</span><span class="sxs-lookup"><span data-stu-id="d0cbe-201">The request service injected as an action parameter</span></span> |
+|[`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | <span data-ttu-id="6d819-185">请求正文</span><span class="sxs-lookup"><span data-stu-id="6d819-185">Request body</span></span> |
+|[`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | <span data-ttu-id="6d819-186">请求正文中的表单数据</span><span class="sxs-lookup"><span data-stu-id="6d819-186">Form data in the request body</span></span> |
+|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | <span data-ttu-id="6d819-187">请求标头</span><span class="sxs-lookup"><span data-stu-id="6d819-187">Request header</span></span> |
+|[`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | <span data-ttu-id="6d819-188">请求查询字符串参数</span><span class="sxs-lookup"><span data-stu-id="6d819-188">Request query string parameter</span></span> |
+|[`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)   | <span data-ttu-id="6d819-189">当前请求中的路由数据</span><span class="sxs-lookup"><span data-stu-id="6d819-189">Route data from the current request</span></span> |
+|[`[FromServices]`](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | <span data-ttu-id="6d819-190">作为操作参数插入的请求服务</span><span class="sxs-lookup"><span data-stu-id="6d819-190">The request service injected as an action parameter</span></span> |
 
 > [!WARNING]
-> <span data-ttu-id="d0cbe-202">当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-202">Don't use `[FromRoute]` when values might contain `%2f` (that is `/`).</span></span> <span data-ttu-id="d0cbe-203">`%2f` 不会转换为 `/`（非转义形式）。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-203">`%2f` won't be unescaped to `/`.</span></span> <span data-ttu-id="d0cbe-204">如果值可能包含 `%2f`，则使用 `[FromQuery]`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-204">Use `[FromQuery]` if the value might contain `%2f`.</span></span>
+> <span data-ttu-id="6d819-191">当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。</span><span class="sxs-lookup"><span data-stu-id="6d819-191">Don't use `[FromRoute]` when values might contain `%2f` (that is `/`).</span></span> <span data-ttu-id="6d819-192">`%2f` 不会转换为 `/`（非转义形式）。</span><span class="sxs-lookup"><span data-stu-id="6d819-192">`%2f` won't be unescaped to `/`.</span></span> <span data-ttu-id="6d819-193">如果值可能包含 `%2f`，则使用 `[FromQuery]`。</span><span class="sxs-lookup"><span data-stu-id="6d819-193">Use `[FromQuery]` if the value might contain `%2f`.</span></span>
 
-<span data-ttu-id="d0cbe-205">如果没有 `[ApiController]` 属性或诸如 `[FromQuery]` 的绑定源属性，ASP.NET Core 运行时会尝试使用复杂对象模型绑定器。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-205">Without the `[ApiController]` attribute or binding source attributes like `[FromQuery]`, the ASP.NET Core runtime attempts to use the complex object model binder.</span></span> <span data-ttu-id="d0cbe-206">复杂对象模型绑定器按已定义顺序从值提供程序拉取数据。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-206">The complex object model binder pulls data from value providers in a defined order.</span></span>
+<span data-ttu-id="6d819-194">如果没有 `[ApiController]` 属性或诸如 `[FromQuery]` 的绑定源属性，ASP.NET Core 运行时会尝试使用复杂对象模型绑定器。</span><span class="sxs-lookup"><span data-stu-id="6d819-194">Without the `[ApiController]` attribute or binding source attributes like `[FromQuery]`, the ASP.NET Core runtime attempts to use the complex object model binder.</span></span> <span data-ttu-id="6d819-195">复杂对象模型绑定器按已定义顺序从值提供程序拉取数据。</span><span class="sxs-lookup"><span data-stu-id="6d819-195">The complex object model binder pulls data from value providers in a defined order.</span></span>
 
-<span data-ttu-id="d0cbe-207">在下面的示例中，`[FromQuery]` 特性指示 `discontinuedOnly` 参数值在请求 URL 的查询字符串中提供：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-207">In the following example, the `[FromQuery]` attribute indicates that the `discontinuedOnly` parameter value is provided in the request URL's query string:</span></span>
+<span data-ttu-id="6d819-196">在下面的示例中，`[FromQuery]` 特性指示 `discontinuedOnly` 参数值在请求 URL 的查询字符串中提供：</span><span class="sxs-lookup"><span data-stu-id="6d819-196">In the following example, the `[FromQuery]` attribute indicates that the `discontinuedOnly` parameter value is provided in the request URL's query string:</span></span>
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
 
-<span data-ttu-id="d0cbe-208">`[ApiController]` 属性将推理规则应用于操作参数的默认数据源。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-208">The `[ApiController]` attribute applies inference rules for the default data sources of action parameters.</span></span> <span data-ttu-id="d0cbe-209">借助这些规则，无需通过将属性应用于操作参数来手动识别绑定源。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-209">These rules save you from having to identify binding sources manually by applying attributes to the action parameters.</span></span> <span data-ttu-id="d0cbe-210">绑定源推理规则的行为如下：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-210">The binding source inference rules behave as follows:</span></span>
+<span data-ttu-id="6d819-197">`[ApiController]` 属性将推理规则应用于操作参数的默认数据源。</span><span class="sxs-lookup"><span data-stu-id="6d819-197">The `[ApiController]` attribute applies inference rules for the default data sources of action parameters.</span></span> <span data-ttu-id="6d819-198">借助这些规则，无需通过将属性应用于操作参数来手动识别绑定源。</span><span class="sxs-lookup"><span data-stu-id="6d819-198">These rules save you from having to identify binding sources manually by applying attributes to the action parameters.</span></span> <span data-ttu-id="6d819-199">绑定源推理规则的行为如下：</span><span class="sxs-lookup"><span data-stu-id="6d819-199">The binding source inference rules behave as follows:</span></span>
 
-* <span data-ttu-id="d0cbe-211">`[FromBody]` 针对复杂类型参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-211">`[FromBody]` is inferred for complex type parameters.</span></span> <span data-ttu-id="d0cbe-212">`[FromBody]` 不适用于具有特殊含义的任何复杂的内置类型，如 <xref:Microsoft.AspNetCore.Http.IFormCollection> 和 <xref:System.Threading.CancellationToken>。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-212">An exception to the `[FromBody]` inference rule is any complex, built-in type with a special meaning, such as <xref:Microsoft.AspNetCore.Http.IFormCollection> and <xref:System.Threading.CancellationToken>.</span></span> <span data-ttu-id="d0cbe-213">绑定源推理代码将忽略这些特殊类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-213">The binding source inference code ignores those special types.</span></span>
-* <span data-ttu-id="d0cbe-214">`[FromForm]` 针对 <xref:Microsoft.AspNetCore.Http.IFormFile> 和 <xref:Microsoft.AspNetCore.Http.IFormFileCollection> 类型的操作参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-214">`[FromForm]` is inferred for action parameters of type <xref:Microsoft.AspNetCore.Http.IFormFile> and <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span></span> <span data-ttu-id="d0cbe-215">该特性不针对任何简单类型或用户定义类型进行推断。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-215">It's not inferred for any simple or user-defined types.</span></span>
-* <span data-ttu-id="d0cbe-216">`[FromRoute]` 针对与路由模板中的参数相匹配的任何操作参数名称进行推断。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-216">`[FromRoute]` is inferred for any action parameter name matching a parameter in the route template.</span></span> <span data-ttu-id="d0cbe-217">当多个路由与一个操作参数匹配时，任何路由值都视为 `[FromRoute]`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-217">When more than one route matches an action parameter, any route value is considered `[FromRoute]`.</span></span>
-* <span data-ttu-id="d0cbe-218">`[FromQuery]` 针对任何其他操作参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-218">`[FromQuery]` is inferred for any other action parameters.</span></span>
+* <span data-ttu-id="6d819-200">`[FromBody]` 针对复杂类型参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="6d819-200">`[FromBody]` is inferred for complex type parameters.</span></span> <span data-ttu-id="6d819-201">`[FromBody]` 不适用于具有特殊含义的任何复杂的内置类型，如 <xref:Microsoft.AspNetCore.Http.IFormCollection> 和 <xref:System.Threading.CancellationToken>。</span><span class="sxs-lookup"><span data-stu-id="6d819-201">An exception to the `[FromBody]` inference rule is any complex, built-in type with a special meaning, such as <xref:Microsoft.AspNetCore.Http.IFormCollection> and <xref:System.Threading.CancellationToken>.</span></span> <span data-ttu-id="6d819-202">绑定源推理代码将忽略这些特殊类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-202">The binding source inference code ignores those special types.</span></span>
+* <span data-ttu-id="6d819-203">`[FromForm]` 针对 <xref:Microsoft.AspNetCore.Http.IFormFile> 和 <xref:Microsoft.AspNetCore.Http.IFormFileCollection> 类型的操作参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="6d819-203">`[FromForm]` is inferred for action parameters of type <xref:Microsoft.AspNetCore.Http.IFormFile> and <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span></span> <span data-ttu-id="6d819-204">该特性不针对任何简单类型或用户定义类型进行推断。</span><span class="sxs-lookup"><span data-stu-id="6d819-204">It's not inferred for any simple or user-defined types.</span></span>
+* <span data-ttu-id="6d819-205">`[FromRoute]` 针对与路由模板中的参数相匹配的任何操作参数名称进行推断。</span><span class="sxs-lookup"><span data-stu-id="6d819-205">`[FromRoute]` is inferred for any action parameter name matching a parameter in the route template.</span></span> <span data-ttu-id="6d819-206">当多个路由与一个操作参数匹配时，任何路由值都视为 `[FromRoute]`。</span><span class="sxs-lookup"><span data-stu-id="6d819-206">When more than one route matches an action parameter, any route value is considered `[FromRoute]`.</span></span>
+* <span data-ttu-id="6d819-207">`[FromQuery]` 针对任何其他操作参数进行推断。</span><span class="sxs-lookup"><span data-stu-id="6d819-207">`[FromQuery]` is inferred for any other action parameters.</span></span>
 
-### <a name="frombody-inference-notes"></a><span data-ttu-id="d0cbe-219">FromBody 推理说明</span><span class="sxs-lookup"><span data-stu-id="d0cbe-219">FromBody inference notes</span></span>
+### <a name="frombody-inference-notes"></a><span data-ttu-id="6d819-208">FromBody 推理说明</span><span class="sxs-lookup"><span data-stu-id="6d819-208">FromBody inference notes</span></span>
 
-<span data-ttu-id="d0cbe-220">对于简单类型（例如 `string` 或 `int`），推断不出 `[FromBody]`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-220">`[FromBody]` isn't inferred for simple types such as `string` or `int`.</span></span> <span data-ttu-id="d0cbe-221">因此，如果需要该功能，对于简单类型，应使用 `[FromBody]` 属性。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-221">Therefore, the `[FromBody]` attribute should be used for simple types when that functionality is needed.</span></span>
+<span data-ttu-id="6d819-209">对于简单类型（例如 `string` 或 `int`），推断不出 `[FromBody]`。</span><span class="sxs-lookup"><span data-stu-id="6d819-209">`[FromBody]` isn't inferred for simple types such as `string` or `int`.</span></span> <span data-ttu-id="6d819-210">因此，如果需要该功能，对于简单类型，应使用 `[FromBody]` 属性。</span><span class="sxs-lookup"><span data-stu-id="6d819-210">Therefore, the `[FromBody]` attribute should be used for simple types when that functionality is needed.</span></span>
 
-<span data-ttu-id="d0cbe-222">当操作拥有多个从请求正文中绑定的参数时，将会引发异常。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-222">When an action has more than one parameter bound from the request body, an exception is thrown.</span></span> <span data-ttu-id="d0cbe-223">例如，以下所有操作方法签名都会导致异常：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-223">For example, all of the following action method signatures cause an exception:</span></span>
+<span data-ttu-id="6d819-211">当操作拥有多个从请求正文中绑定的参数时，将会引发异常。</span><span class="sxs-lookup"><span data-stu-id="6d819-211">When an action has more than one parameter bound from the request body, an exception is thrown.</span></span> <span data-ttu-id="6d819-212">例如，以下所有操作方法签名都会导致异常：</span><span class="sxs-lookup"><span data-stu-id="6d819-212">For example, all of the following action method signatures cause an exception:</span></span>
 
-* <span data-ttu-id="d0cbe-224">`[FromBody]` 对两者进行推断，因为它们是复杂类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-224">`[FromBody]` inferred on both because they're complex types.</span></span>
+* <span data-ttu-id="6d819-213">`[FromBody]` 对两者进行推断，因为它们是复杂类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-213">`[FromBody]` inferred on both because they're complex types.</span></span>
 
   ```csharp
   [HttpPost]
   public IActionResult Action1(Product product, Order order)
   ```
 
-* <span data-ttu-id="d0cbe-225">`[FromBody]` 对一个进行归属，对另一个进行推断，因为它是复杂类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-225">`[FromBody]` attribute on one, inferred on the other because it's a complex type.</span></span>
+* <span data-ttu-id="6d819-214">`[FromBody]` 对一个进行归属，对另一个进行推断，因为它是复杂类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-214">`[FromBody]` attribute on one, inferred on the other because it's a complex type.</span></span>
 
   ```csharp
   [HttpPost]
   public IActionResult Action2(Product product, [FromBody] Order order)
   ```
 
-* <span data-ttu-id="d0cbe-226">`[FromBody]` 对两者进行归属。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-226">`[FromBody]` attribute on both.</span></span>
+* <span data-ttu-id="6d819-215">`[FromBody]` 对两者进行归属。</span><span class="sxs-lookup"><span data-stu-id="6d819-215">`[FromBody]` attribute on both.</span></span>
 
   ```csharp
   [HttpPost]
@@ -294,13 +294,13 @@ if (!ModelState.IsValid)
 ::: moniker range="= aspnetcore-2.1"
 
 > [!NOTE]
-> <span data-ttu-id="d0cbe-227">在 ASP.NET Core 2.1 中，集合类型参数（如列表和数组）被不正确地推断为 `[FromQuery]`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-227">In ASP.NET Core 2.1, collection type parameters such as lists and arrays are incorrectly inferred as `[FromQuery]`.</span></span> <span data-ttu-id="d0cbe-228">若要从请求正文中绑定参数，应对这些参数使用 `[FromBody]` 属性。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-228">The `[FromBody]` attribute should be used for these parameters if they are to be bound from the request body.</span></span> <span data-ttu-id="d0cbe-229">此行为在 ASP.NET Core 2.2 或更高版本中得到了更正，其中集合类型参数默认被推断为从正文中绑定。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-229">This behavior is corrected in ASP.NET Core 2.2 or later, where collection type parameters are inferred to be bound from the body by default.</span></span>
+> <span data-ttu-id="6d819-216">在 ASP.NET Core 2.1 中，集合类型参数（如列表和数组）被不正确地推断为 `[FromQuery]`。</span><span class="sxs-lookup"><span data-stu-id="6d819-216">In ASP.NET Core 2.1, collection type parameters such as lists and arrays are incorrectly inferred as `[FromQuery]`.</span></span> <span data-ttu-id="6d819-217">若要从请求正文中绑定参数，应对这些参数使用 `[FromBody]` 属性。</span><span class="sxs-lookup"><span data-stu-id="6d819-217">The `[FromBody]` attribute should be used for these parameters if they are to be bound from the request body.</span></span> <span data-ttu-id="6d819-218">此行为在 ASP.NET Core 2.2 或更高版本中得到了更正，其中集合类型参数默认被推断为从正文中绑定。</span><span class="sxs-lookup"><span data-stu-id="6d819-218">This behavior is corrected in ASP.NET Core 2.2 or later, where collection type parameters are inferred to be bound from the body by default.</span></span>
 
 ::: moniker-end
 
-### <a name="disable-inference-rules"></a><span data-ttu-id="d0cbe-230">禁用推理规则</span><span class="sxs-lookup"><span data-stu-id="d0cbe-230">Disable inference rules</span></span>
+### <a name="disable-inference-rules"></a><span data-ttu-id="6d819-219">禁用推理规则</span><span class="sxs-lookup"><span data-stu-id="6d819-219">Disable inference rules</span></span>
 
-<span data-ttu-id="d0cbe-231">若要禁用绑定源推理，请将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> 设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-231">To disable binding source inference, set <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> to `true`.</span></span> <span data-ttu-id="d0cbe-232">在 `Startup.ConfigureServices` 中添加下列代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-232">Add the following code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="6d819-220">若要禁用绑定源推理，请将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> 设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="6d819-220">To disable binding source inference, set <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> to `true`.</span></span> <span data-ttu-id="6d819-221">在 `Startup.ConfigureServices` 中添加下列代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-221">Add the following code in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -320,11 +320,11 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-## <a name="multipartform-data-request-inference"></a><span data-ttu-id="d0cbe-233">Multipart/form-data 请求推理</span><span class="sxs-lookup"><span data-stu-id="d0cbe-233">Multipart/form-data request inference</span></span>
+## <a name="multipartform-data-request-inference"></a><span data-ttu-id="6d819-222">Multipart/form-data 请求推理</span><span class="sxs-lookup"><span data-stu-id="6d819-222">Multipart/form-data request inference</span></span>
 
-<span data-ttu-id="d0cbe-234">使用 [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) 属性批注操作参数时，`[ApiController]` 属性应用推理规则。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-234">The `[ApiController]` attribute applies an inference rule when an action parameter is annotated with the [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) attribute.</span></span> <span data-ttu-id="d0cbe-235">将推断 `multipart/form-data` 请求内容类型。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-235">The `multipart/form-data` request content type is inferred.</span></span>
+<span data-ttu-id="6d819-223">使用 [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) 属性批注操作参数时，`[ApiController]` 属性应用推理规则。</span><span class="sxs-lookup"><span data-stu-id="6d819-223">The `[ApiController]` attribute applies an inference rule when an action parameter is annotated with the [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) attribute.</span></span> <span data-ttu-id="6d819-224">将推断 `multipart/form-data` 请求内容类型。</span><span class="sxs-lookup"><span data-stu-id="6d819-224">The `multipart/form-data` request content type is inferred.</span></span>
 
-<span data-ttu-id="d0cbe-236">要禁用默认行为，请在 `Startup.ConfigureServices` 中将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> 属性设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-236">To disable the default behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> property to `true` in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="6d819-225">要禁用默认行为，请在 `Startup.ConfigureServices` 中将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> 属性设置为 `true`：</span><span class="sxs-lookup"><span data-stu-id="6d819-225">To disable the default behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> property to `true` in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -346,15 +346,15 @@ if (!ModelState.IsValid)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-## <a name="problem-details-for-error-status-codes"></a><span data-ttu-id="d0cbe-237">错误状态代码的问题详细信息</span><span class="sxs-lookup"><span data-stu-id="d0cbe-237">Problem details for error status codes</span></span>
+## <a name="problem-details-for-error-status-codes"></a><span data-ttu-id="6d819-226">错误状态代码的问题详细信息</span><span class="sxs-lookup"><span data-stu-id="6d819-226">Problem details for error status codes</span></span>
 
-<span data-ttu-id="d0cbe-238">当兼容性版本为 2.2 或更高版本时，MVC 会将错误结果（状态代码为 400 或更高的结果）转换为状态代码为 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-238">When the compatibility version is 2.2 or later, MVC transforms an error result (a result with status code 400 or higher) to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span></span> <span data-ttu-id="d0cbe-239">`ProblemDetails` 类型基于 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)，用于提供 HTTP 响应中计算机可读的错误详细信息。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-239">The `ProblemDetails` type is based on the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807) for providing machine-readable error details in an HTTP response.</span></span>
+<span data-ttu-id="6d819-227">当兼容性版本为 2.2 或更高版本时，MVC 会将错误结果（状态代码为 400 或更高的结果）转换为状态代码为 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。</span><span class="sxs-lookup"><span data-stu-id="6d819-227">When the compatibility version is 2.2 or later, MVC transforms an error result (a result with status code 400 or higher) to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span></span> <span data-ttu-id="6d819-228">`ProblemDetails` 类型基于 [RFC 7807 规范](https://tools.ietf.org/html/rfc7807)，用于提供 HTTP 响应中计算机可读的错误详细信息。</span><span class="sxs-lookup"><span data-stu-id="6d819-228">The `ProblemDetails` type is based on the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807) for providing machine-readable error details in an HTTP response.</span></span>
 
-<span data-ttu-id="d0cbe-240">考虑在控制器操作中使用以下代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-240">Consider the following code in a controller action:</span></span>
+<span data-ttu-id="6d819-229">考虑在控制器操作中使用以下代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-229">Consider the following code in a controller action:</span></span>
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-<span data-ttu-id="d0cbe-241">`NotFound` 方法会生成带 `ProblemDetails` 正文的 HTTP 404 状态代码。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-241">The `NotFound` method produces an HTTP 404 status code with a `ProblemDetails` body.</span></span> <span data-ttu-id="d0cbe-242">例如:</span><span class="sxs-lookup"><span data-stu-id="d0cbe-242">For example:</span></span>
+<span data-ttu-id="6d819-230">`NotFound` 方法会生成带 `ProblemDetails` 正文的 HTTP 404 状态代码。</span><span class="sxs-lookup"><span data-stu-id="6d819-230">The `NotFound` method produces an HTTP 404 status code with a `ProblemDetails` body.</span></span> <span data-ttu-id="6d819-231">例如:</span><span class="sxs-lookup"><span data-stu-id="6d819-231">For example:</span></span>
 
 ```json
 {
@@ -365,9 +365,9 @@ if (!ModelState.IsValid)
 }
 ```
 
-### <a name="disable-problemdetails-response"></a><span data-ttu-id="d0cbe-243">禁用 ProblemDetails 响应</span><span class="sxs-lookup"><span data-stu-id="d0cbe-243">Disable ProblemDetails response</span></span>
+### <a name="disable-problemdetails-response"></a><span data-ttu-id="6d819-232">禁用 ProblemDetails 响应</span><span class="sxs-lookup"><span data-stu-id="6d819-232">Disable ProblemDetails response</span></span>
 
-<span data-ttu-id="d0cbe-244">当 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> 属性设置为 `true` 时，会禁止自动创建 `ProblemDetails` 实例。</span><span class="sxs-lookup"><span data-stu-id="d0cbe-244">The automatic creation of a `ProblemDetails` instance is disabled when the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> property is set to `true`.</span></span> <span data-ttu-id="d0cbe-245">在 `Startup.ConfigureServices` 中添加下列代码：</span><span class="sxs-lookup"><span data-stu-id="d0cbe-245">Add the following code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="6d819-233">当 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> 属性设置为 `true` 时，会禁止自动创建 `ProblemDetails` 实例。</span><span class="sxs-lookup"><span data-stu-id="6d819-233">The automatic creation of a `ProblemDetails` instance is disabled when the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> property is set to `true`.</span></span> <span data-ttu-id="6d819-234">在 `Startup.ConfigureServices` 中添加下列代码：</span><span class="sxs-lookup"><span data-stu-id="6d819-234">Add the following code in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker-end
 
@@ -383,7 +383,7 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="d0cbe-246">其他资源</span><span class="sxs-lookup"><span data-stu-id="d0cbe-246">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="6d819-235">其他资源</span><span class="sxs-lookup"><span data-stu-id="6d819-235">Additional resources</span></span>
 
 * <xref:web-api/action-return-types>
 * <xref:web-api/handle-errors>
