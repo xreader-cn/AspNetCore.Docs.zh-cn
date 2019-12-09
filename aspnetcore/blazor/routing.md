@@ -5,16 +5,16 @@ description: 了解如何在应用中路由请求，以及如何在 NavLink 组�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/routing
-ms.openlocfilehash: 2c139db4e44679fbd9f3455a2d2543be0e128765
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550336"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944013"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -36,7 +36,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 `Router` 组件允许路由到具有指定路由的每个组件。 `Router` 组件显示在*app.config*文件中：
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -58,7 +58,12 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute`的请求：
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+```razor
+@page "/BlazorRoute"
+@page "/DifferentBlazorRoute"
+
+<h1>Blazor routing</h1>
+```
 
 > [!IMPORTANT]
 > 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）中包含 `<base>` 标记，或在 `href` 属性（`<base href="/">`）中指定应用程序基路径的*页面/Blazor _Host* 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
@@ -69,7 +74,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 在*app.config*文件中，设置 `Router` 组件的 `NotFound` 模板参数中的自定义内容：
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -87,7 +92,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 使用 `AdditionalAssemblies` 参数为 `Router` 组件指定在搜索可路由组件时要考虑的其他程序集。 除了 `AppAssembly`指定的程序集之外，还将考虑指定的程序集。 在下面的示例中，`Component1` 是在引用的类库中定义的可路由组件。 以下 `AdditionalAssemblies` 示例将导致对 `Component1`的路由支持：
 
-```cshtml
+```razor
 <Router
     AppAssembly="typeof(Program).Assembly"
     AdditionalAssemblies="new[] { typeof(Component1).Assembly }">
@@ -99,7 +104,22 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 路由器使用路由参数来填充具有相同名称（不区分大小写）的相应组件参数：
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
+```razor
+@page "/RouteParameter"
+@page "/RouteParameter/{text}"
+
+<h1>Blazor is @Text!</h1>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "fantastic";
+    }
+}
+```
 
 ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
 
@@ -112,7 +132,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 * 请求 URL 上存在 `Id` 路由段。
 * `Id` 段是一个整数（`int`）。
 
-[!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
+[!code-razor[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
 下表中显示的路由约束可用。 有关与固定区域性匹配的路由约束，请参阅表下面的警告以获取详细信息。
 
@@ -152,9 +172,9 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 创建导航链接时，请使用 `NavLink` 组件来代替 HTML hyperlink 元素（`<a>`）。 `NavLink` 组件的行为类似于 `<a>` 元素，只不过它会根据其 `href` 是否匹配当前 URL 来切换 `active` CSS 类。 `active` 类可帮助用户了解在显示的导航链接中哪一页是活动页。
 
-以下 `NavMenu` 组件创建一个演示如何使用 `NavLink` 组件的[启动](https://getbootstrap.com/docs/)导航栏：
+以下`NavMenu`组件创建演示如何使用`NavLink`组件的[启动](https://getbootstrap.com/docs/)导航栏：
 
-[!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
+[!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
 可以将两个 `NavLinkMatch` 选项分配给 `<NavLink>` 元素的 `Match` 属性：
 
@@ -165,7 +185,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 其他 `NavLink` 组件特性会传递到呈现的定位点标记。 在下面的示例中，`NavLink` 组件包含 `target` 属性：
 
-```cshtml
+```razor
 <NavLink href="my-page" target="_blank">My page</NavLink>
 ```
 
@@ -190,7 +210,7 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 选择该按钮时，以下组件将导航到应用的 `Counter` 组件：
 
-```cshtml
+```razor
 @page "/navigate"
 @inject NavigationManager NavigationManager
 

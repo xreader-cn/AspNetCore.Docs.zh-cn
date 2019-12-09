@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/01/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: e737a8a85e7eb83d95618d71e85b0307c54b0766
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: d73eb9a0dd0ec7a4bec4b7b9aeaaa4a9ee888bce
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879687"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943701"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -138,7 +138,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
   * `loadFailed` 设置为 `true`，用于向用户显示一条错误消息。
   * 记录错误。
 
-[!code-cshtml[](handle-errors/samples_snapshot/3.x/product-details.razor?highlight=11,27-39)]
+[!code-razor[](handle-errors/samples_snapshot/3.x/product-details.razor?highlight=11,27-39)]
 
 ### <a name="rendering-logic"></a>呈现逻辑
 
@@ -148,7 +148,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 若要防止呈现逻辑中出现空引用异常，请在访问其成员之前检查 `null` 对象。 在以下示例中，如果 `person.Address` `null`，则不会访问 `person.Address` 属性：
 
-[!code-cshtml[](handle-errors/samples_snapshot/3.x/person-example.razor?highlight=1)]
+[!code-razor[](handle-errors/samples_snapshot/3.x/person-example.razor?highlight=1)]
 
 前面的代码假定 `person` 不 `null`。 通常，代码的结构保证在呈现组件时存在对象。 在这些情况下，不需要检查呈现逻辑中的 `null`。 在前面的示例中，可以保证存在 `person` 因为在实例化组件时创建 `person`。
 

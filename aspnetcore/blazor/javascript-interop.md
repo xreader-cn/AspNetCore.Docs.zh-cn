@@ -5,16 +5,16 @@ description: 了解如何从 Blazor 应用中的 JavaScript 的 .NET 和 .NET �
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 108fdac8667f407adba3470de4eb8e35883cefbf
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 05225b86701b7a5d5c84dd43afbef70dd1ece228
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733825"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944065"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -55,7 +55,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 * 选择组件按钮（**转换数组**）时使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
 * 调用 JavaScript 函数后，传递的数组将转换为字符串。 将字符串返回到要显示的组件。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
+[!code-razor[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
 
 ## <a name="use-of-ijsruntime"></a>使用 IJSRuntime
 
@@ -63,7 +63,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 * 将 `IJSRuntime` 抽象插入 Razor 组件（*razor*）：
 
-  [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
+  [!code-razor[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
   在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素中，提供 `handleTickerChanged` JavaScript 函数。 使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：
 
@@ -79,7 +79,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 * 对于使用[BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)的动态内容生成，请使用 `[Inject]` 特性：
 
-  ```csharp
+  ```razor
   [Inject]
   IJSRuntime JSRuntime { get; set; }
   ```
@@ -117,7 +117,35 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 *Pages/JSInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
+```razor
+@page "/JSInterop"
+@using BlazorSample.JsInteropClasses
+@inject IJSRuntime JSRuntime
+
+<h1>JavaScript Interop</h1>
+
+<h2>Invoke JavaScript functions from .NET methods</h2>
+
+<button type="button" class="btn btn-primary" @onclick="TriggerJsPrompt">
+    Trigger JavaScript Prompt
+</button>
+
+<h3 id="welcome" style="color:green;font-style:italic"></h3>
+
+@code {
+    public async Task TriggerJsPrompt()
+    {
+        // showPrompt is implemented in wwwroot/exampleJsInterop.js
+        var name = await JSRuntime.InvokeAsync<string>(
+                "exampleJsFunctions.showPrompt",
+                "What's your name?");
+        // displayWelcome is implemented in wwwroot/exampleJsInterop.js
+        await JSRuntime.InvokeVoidAsync(
+                "exampleJsFunctions.displayWelcome",
+                $"Hello {name}! Welcome to Blazor!");
+    }
+}
+```
 
 1. 通过选择组件的 "**触发器 JavaScript" 提示**按钮执行 `TriggerJsPrompt` 时，将调用*wwwroot/exampleJsInterop*文件中提供的 JavaScript `showPrompt` 函数。
 1. `showPrompt` 函数接受 HTML 编码并返回到组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量 `name`中。
@@ -142,7 +170,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 
 下面的示例演示捕获对 `username` `<input>` 元素的引用：
 
-```cshtml
+```razor
 <input @ref="username" ... />
 
 @code {
@@ -155,7 +183,7 @@ JavaScript 代码（如前面的示例中所示的代码）也可以从 JavaScri
 >
 > 在下面的示例中，改变无序列表（`ul`）的内容很*危险*，因为 Blazor 与 DOM 交互以填充此元素的列表项（`<li>`）：
 >
-> ```cshtml
+> ```razor
 > <ul ref="MyList">
 >     @foreach (var item in Todos)
 >     {
@@ -182,7 +210,7 @@ window.exampleJsFunctions = {
 
 若要调用不返回值的 JavaScript 函数，请使用 `IJSRuntime.InvokeVoidAsync`。 下面的代码通过使用捕获的 `ElementReference`调用前面的 JavaScript 函数，对用户名输入设置焦点：
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
+[!code-razor[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
 若要使用扩展方法，请创建一个静态扩展方法，用于接收 `IJSRuntime` 实例：
 
@@ -196,7 +224,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 
 在对象上直接调用 `Focus` 方法。 下面的示例假定 `Focus` 方法可从 `JsInteropClasses` 命名空间中获得：
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1-4,12)]
+[!code-razor[](javascript-interop/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
 > 仅在呈现组件后填充 `username` 变量。 如果将未填充 `ElementReference` 传递给 JavaScript 代码，JavaScript 代码将接收值 `null`。 若要在组件完成呈现后操作元素引用（若要设置元素的初始焦点），请使用[OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/lifecycle#after-component-render)。
@@ -214,7 +242,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 直接在具有类型的对象上调用 `GenericMethod`。 下面的示例假定 `JsInteropClasses` 命名空间中提供了 `GenericMethod`：
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
+[!code-razor[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>从 JavaScript 函数调用 .NET 方法
 
@@ -226,7 +254,20 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 *Pages/JsInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
+```razor
+<button type="button" class="btn btn-primary"
+        onclick="exampleJsFunctions.returnArrayAsyncJs()">
+    Trigger .NET static method ReturnArrayAsync
+</button>
+
+@code {
+    [JSInvokable]
+    public static Task<int[]> ReturnArrayAsync()
+    {
+        return Task.FromResult(new int[] { 1, 2, 3 });
+    }
+}
+```
 
 为客户端提供的 JavaScript 调用C# .net 方法。
 
@@ -258,7 +299,19 @@ Array(4) [ 1, 2, 3, 4 ]
 
 *Pages/JsInterop*：
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
+```razor
+<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+    Trigger .NET instance method HelloHelper.SayHello
+</button>
+
+@code {
+    public async Task TriggerNetInstanceMethod()
+    {
+        var exampleJsInterop = new ExampleJsInterop(JSRuntime);
+        await exampleJsInterop.CallHelloHelperSayHello("Blazor");
+    }
+}
+```
 
 `CallHelloHelperSayHello` 使用 `HelloHelper`的新实例调用 JavaScript 函数 `sayHello`。
 

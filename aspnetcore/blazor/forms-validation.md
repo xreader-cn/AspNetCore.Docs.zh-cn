@@ -5,16 +5,16 @@ description: 了解如何在 Blazor中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/forms-validation
-ms.openlocfilehash: f1df213b16bb7ecd6a771700291d834776dee475
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: f4c1845ee4b6ff9274b7117167367ccdd9f36c12
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317169"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943688"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -111,7 +111,7 @@ public class Starship
 
 以下窗体使用 `Starship` 模型中定义的验证来验证用户输入：
 
-```cshtml
+```razor
 @page "/FormsValidation"
 
 <h1>Starfleet Starship Database</h1>
@@ -180,7 +180,7 @@ public class Starship
 
 使用以下标记创建组件，并使用组件，就像使用 `InputText` 一样：
 
-```cshtml
+```razor
 @inherits InputText
 
 <input 
@@ -204,19 +204,19 @@ Blazor 执行两种类型的验证：
 
 `ValidationSummary` 组件汇总了与[验证摘要标记帮助](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)程序类似的所有验证消息：
 
-```csthml
+```razor
 <ValidationSummary />
 ```
 
 使用 `Model` 参数输出特定模型的验证消息：
   
-```csthml
+```razor
 <ValidationSummary Model="@starship" />
 ```
 
 `ValidationMessage` 组件显示特定字段的验证消息，这类似于[验证消息标记帮助器](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)。 使用 `For` 特性指定验证字段，并使用命名模型属性的 lambda 表达式指定：
 
-```cshtml
+```razor
 <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
 ```
 
@@ -259,7 +259,7 @@ Blazor 提供对通过内置 `DataAnnotationsValidator`使用数据批注验证�
 
 若要验证绑定模型的整个对象关系图，包括集合和复杂类型属性，请使用BlazorAspNetCore 提供的 `ObjectGraphDataAnnotationsValidator` 。 [DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)包：
 
-```cshtml
+```razor
 <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...

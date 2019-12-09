@@ -5,16 +5,16 @@ description: 通过使用所选工具生成 Blazor 应用，开始使用 Blazor�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/03/2019
+ms.date: 12/09/2019
 no-loc:
 - Blazor
 uid: blazor/get-started
-ms.openlocfilehash: d356a06849f54434c492dc68f57f7edc8805de22
-ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
+ms.openlocfilehash: e368ecaf931d392de7e52ec2d5a2dfd171c2c86f
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74778773"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943755"
 ---
 # <a name="get-started-with-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 入门
 
@@ -95,7 +95,7 @@ Blazor入门：
 
    <!-- For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. -->
 
-   5 \。 如果安装了 3.1 Preview SDK，则**目标框架**默认为 " **.net core 3.0** " （或 " **.net core 3.1** "）。 选择框架，然后选择 "**下一步**"。
+   5 \。 将**目标框架**设置为 **.net Core 3.1** ，然后选择 "**下一步**"。
 
    6 \。 在 "**项目名称**" 字段中，将应用命名为 `WebApplication1`。 选择“创建”。
 
@@ -202,7 +202,7 @@ Blazor入门：
 
    <!-- For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. -->
 
-   5 \。 如果安装了 3.1 Preview SDK，则**目标框架**默认为 " **.net core 3.0** " （或 " **.net core 3.1** "）。 选择框架，然后选择 "**下一步**"。
+   5 \。 将**目标框架**设置为 **.net Core 3.0** ，然后选择 "**下一步**"。
 
    6 \。 在 "**项目名称**" 字段中，将应用命名为 `WebApplication1`。 选择“创建”。
 
@@ -246,7 +246,7 @@ Blazor入门：
 
 *Pages/Counter.razor*：
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
+[!code-razor[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
 浏览器中 `/counter` 的请求由顶部的 `@page` 指令指定，导致 `Counter` 组件呈现其内容。 组件呈现为呈现树的内存中表示形式，然后可以使用它以一种灵活而高效的方式更新 UI。
 
@@ -263,7 +263,7 @@ Blazor入门：
 
 *Pages/Index.razor*：
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
+[!code-razor[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
 运行应用程序。 主页有由 `Counter` 组件提供的自己的计数器。
 
@@ -274,13 +274,13 @@ Blazor入门：
 
 *Pages/Counter.razor*：
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
+[!code-razor[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
 使用特性指定 `Index` 组件的 `<Counter>` 元素中的 `IncrementAmount`。
 
 *Pages/Index.razor*：
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
+[!code-razor[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
 运行应用程序。 每次选择 "**单击我**" 按钮时，`Index` 组件都有其自己的计数器，每次增加10个。 `/counter` 的 `Counter` 组件（*Counter*）继续递增1。
 

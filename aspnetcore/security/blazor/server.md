@@ -5,17 +5,17 @@ description: 了解如何缓解 Blazor 服务器应用的安全威胁。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 5cf83a4dd255959e8840fca3a8194b5b4e2ad0a8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963880"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944277"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
 
@@ -94,15 +94,15 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 
 拒绝服务（DoS）攻击涉及客户端导致服务器耗尽其一个或多个资源，使应用不可用。 Blazor Server 应用程序包含一些默认限制，并依赖于其他 ASP.NET Core 和 SignalR 限制来防范 DoS 攻击：
 
-| Blazor Server 应用限制                            | 描述 | Default |
+| Blazor Server 应用限制                            | 描述 | 默认值 |
 | ------------------------------------------------------- | ----------- | ------- |
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | 给定服务器一次在内存中保留的最大断开连接电路数。 | 100 |
-| `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | 断开连接线路之前在内存中保留的最大时间。 | 3分钟 |
+| `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | 断开连接线路之前在内存中保留的最大时间。 | 3 分钟 |
 | `CircuitOptions.JSInteropDefaultCallTimeout`            | 服务器在超时异步 JavaScript 函数调用之前等待的最长时间。 | 1 分钟 |
 | `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | 服务器在给定时间为每个线路保存在内存中的未确认呈现批处理的最大数目，以支持可靠的重新连接。 达到该限制后，服务器将停止生成新的呈现批，直到客户端确认了一个或多个批处理。 | 10 |
 
 
-| SignalR 和 ASP.NET Core 限制             | 描述 | Default |
+| SignalR 和 ASP.NET Core 限制             | 描述 | 默认值 |
 | ------------------------------------------ | ----------- | ------- |
 | `CircuitOptions.MaximumReceiveMessageSize` | 单个消息的消息大小。 | 32 KB |
 
@@ -144,11 +144,11 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
   * 避免将用户提供的数据传入参数到 JavaScript 调用。 如果绝对需要在参数中传递数据，请确保 JavaScript 代码处理数据，而不引入[跨站点脚本（XSS）](#cross-site-scripting-xss)漏洞。 例如，不要通过设置元素的 `innerHTML` 属性将用户提供的数据写入文档对象模型（DOM）。 请考虑使用[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)来禁用 `eval` 和其他不安全的 JavaScript 基元。
 * 避免在框架的调度实现之上实现 .NET 调用的自定义调度。 将 .NET 方法公开给浏览器是一种高级方案，不建议用于常规 Blazor 开发。
 
-### <a name="events"></a>事件
+### <a name="events"></a>Events
 
 事件提供 Blazor Server 应用程序的入口点。 用于保护 web 应用中的终结点的相同规则适用于 Blazor 服务器应用中的事件处理。 恶意客户端可以将其希望发送的任何数据发送为事件的负载。
 
-例如:
+例如：
 
 * `<select>` 的更改事件可以发送应用程序向客户端提供的选项中不存在的值。
 * `<input>` 可以将任何文本数据发送到服务器，绕过客户端验证。
@@ -159,7 +159,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
 假设有一个计数器组件，该组件应该允许用户最多递增三次计数器。 根据 `count`的值，有条件地递增计数器的按钮：
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -180,7 +180,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
 在框架生成此组件的新呈现之前，客户端可以调度一个或多个增量事件。 因此，用户可以在*三个时间内*递增 `count`，因为用户界面不会快速删除该按钮。 下面的示例显示了实现三个 `count` 增量限制的正确方法：
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -208,7 +208,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
 如果事件回调调用长时间运行的操作（如从外部服务或数据库提取数据），请考虑使用临界。 当操作正在进行时，该保护可阻止用户在执行多个操作的同时进行可视反馈。 以下组件代码将 `isLoading` 设置为 `true`，同时 `GetForecastAsync` 从服务器获取数据。 `true``isLoading` 时，UI 中的按钮将被禁用：
 
-```cshtml
+```razor
 @page "/fetchdata"
 @using BlazorServerSample.Data
 @inject WeatherForecastService ForecastService
@@ -235,7 +235,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
 除了使用防范[多个派单](#guard-against-multiple-dispatches)部分中所述的临界外，还应考虑使用 <xref:System.Threading.CancellationToken> 在组件被释放时取消长时间运行的操作。 此方法的优点在于避免在组件中*使用后期*处理：
 
-```cshtml
+```razor
 @implements IDisposable
 
 ...
@@ -291,8 +291,8 @@ ASP.NET Core 应用的安全指南适用于 Blazor 服务器应用，并将在�
 
 使用以下内容启用详细错误：
 
-* `CircuitOptions.DetailedErrors`
-* `DetailedErrors` 配置密钥。 例如，将 `ASPNETCORE_DETAILEDERRORS` 环境变量设置为 `true`值。
+* `CircuitOptions.DetailedErrors`。
+* `DetailedErrors` 配置键。 例如，将 `ASPNETCORE_DETAILEDERRORS` 环境变量设置为 `true`值。
 
 > [!WARNING]
 > 向 Internet 上的客户端公开错误信息是应始终避免的安全风险。

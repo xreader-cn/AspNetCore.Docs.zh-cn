@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/lifecycle
-ms.openlocfilehash: 280ea832f492852e425e3e15c61cac54fd1e39d6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: e600e7c7a6a8c646a655520bd5c127f2cd662753
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879675"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944026"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -154,7 +154,7 @@ protected override bool ShouldRender()
 
 *页面/FetchData* Blazor 服务器模板：
 
-[!code-cshtml[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
+[!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
 ## <a name="component-disposal-with-idisposable"></a>用 IDisposable 进行的组件处置
 

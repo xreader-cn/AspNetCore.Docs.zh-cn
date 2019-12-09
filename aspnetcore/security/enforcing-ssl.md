@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core web 应用中要求使用 HTTPS/TLS。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/14/2019
+ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 82cd2e52f3bd929682b9eae24611ad04fd9f8682
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 032105c67e15ab94635ae6fadea103450c7eb0fb
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317359"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944234"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -52,7 +52,7 @@ ms.locfileid: "74317359"
 
 ::: moniker-end
 
-## <a name="require-https"></a>要求使用 HTTPS
+## <a name="require-https"></a>需要 HTTPS
 
 建议将生产 ASP.NET Core web 应用使用：
 
@@ -131,7 +131,7 @@ ms.locfileid: "74317359"
 > [!NOTE]
 > 在反向代理配置中运行应用时，<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 不可用。 使用本部分中所述的其他方法之一设置端口。
 
-### <a name="edge-deployments"></a>边缘部署 
+### <a name="edge-deployments"></a>Edge 部署 
 
 当 Kestrel 或 http.sys 用作面向公众的边缘服务器时，必须将 Kestrel 或 http.sys 配置为侦听两者：
 
@@ -150,7 +150,7 @@ ms.locfileid: "74317359"
 
 部署到 Azure App Service 时，请按照[教程：将现有的自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)中的指导进行操作。
 
-### <a name="options"></a>“常规”
+### <a name="options"></a>选项
 
 以下突出显示的代码调用[AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)来配置中间件选项：
 
@@ -173,7 +173,7 @@ ms.locfileid: "74317359"
 前面突出显示的代码：
 
 * 将[HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)设置为 <xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>，这是默认值。 使用 <xref:Microsoft.AspNetCore.Http.StatusCodes> 类的字段来分配 `RedirectStatusCode`。
-* 将 HTTPS 端口设置为5001。 默认值为443。
+* 将 HTTPS 端口设置为5001。
 
 #### <a name="configure-permanent-redirects-in-production"></a>在生产环境中配置永久重定向
 
@@ -259,7 +259,7 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 由于 HSTS 设置由浏览器高度缓存，因此不建议在开发中使用。 `UseHsts` 默认情况下，`UseHsts` 会排除本地环回地址。
 
-对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
+对于第一次实现 HTTPS 的生产环境，请使用其中一种<xref:System.TimeSpan> 方法将初始 [HstsOptions.MaxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)  设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
 
 下面的代码：
 

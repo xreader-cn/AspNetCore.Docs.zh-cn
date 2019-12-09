@@ -5,16 +5,16 @@ description: 了解如何使用 JSON 帮助程序从 Blazor 应用程序调用 w
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/03/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: d4c69e8be2d4f6295c7177bf5d00aed596d0ead2
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: f1929b48275a36552f061a64823267df0f3acabc
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733851"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943909"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>从 ASP.NET Core 调用 web API Blazor
 
@@ -49,7 +49,7 @@ ms.locfileid: "74733851"
 
 客户端的基址设置为源服务器的地址。 使用 `@inject` 指令插入 `HttpClient` 实例：
 
-```cshtml
+```razor
 @using System.Net.Http
 @inject HttpClient Http
 ```
@@ -75,7 +75,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
   在下面的代码中，`_todoItems` 由组件显示。 当组件完成呈现（[OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)）时，将触发 `GetTodoItems` 方法。 有关完整示例，请参阅示例应用。
 
-  ```cshtml
+  ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
@@ -91,7 +91,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
   在下面的代码中，`_newItemName` 由组件的绑定元素提供。 通过选择 `<button>` 元素触发 `AddItem` 方法。 有关完整示例，请参阅示例应用。
 
-  ```cshtml
+  ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
@@ -113,7 +113,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
   在下面的代码中，`Name` 和 `IsCompleted` 的 `_editItem` 值由组件的绑定元素提供。 当在 UI 的另一部分中选择项并调用 `EditItem` 时，将设置该项的 `Id`。 通过选择 Save `<button>` 元素触发 `SaveItem` 方法。 有关完整示例，请参阅示例应用。
 
-  ```cshtml
+  ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
@@ -140,7 +140,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 在下面的代码中，Delete `<button>` 元素调用 `DeleteItem` 方法。 绑定 `<input>` 元素提供要删除的项的 `id`。 有关完整示例，请参阅示例应用。
 
-```cshtml
+```razor
 @using System.Net.Http
 @inject HttpClient Http
 
@@ -167,7 +167,7 @@ JSON helper 方法将请求发送到 URI （以下示例中的 web API）并处�
 
 在 Blazor WebAssembly 应用程序的 WebAssembly 上运行时，使用[HttpClient](xref:fundamentals/http-requests)和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。 例如，可以指定请求 URI、HTTP 方法以及任何所需的请求标头。
 
-```cshtml
+```razor
 @using System.Net.Http
 @using System.Net.Http.Headers
 @inject HttpClient Http
