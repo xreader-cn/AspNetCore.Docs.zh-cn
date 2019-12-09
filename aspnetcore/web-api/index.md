@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/22/2019
 uid: web-api/index
-ms.openlocfilehash: 3f52e4ce2d26902324ab30e0bda7ed8a4942daa0
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: 5ef8b4d012f4ed90339ffea191612e4dc365d958
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412042"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880532"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -66,17 +66,17 @@ Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.Controller
 
 |特性|说明|
 |---------|-----|
-|[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)      |指定控制器或操作的 URL 模式。|
-|[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)        |指定要包含的前缀和属性，以进行模型绑定。|
-|[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)  |标识支持 HTTP GET 操作谓词的操作。|
-|[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)|指定某个操作接受的数据类型。|
-|[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)|指定某个操作返回的数据类型。|
+|[`[Route]`](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)      |指定控制器或操作的 URL 模式。|
+|[`[Bind]`](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)        |指定要包含的前缀和属性，以进行模型绑定。|
+|[`[HttpGet]`](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)  |标识支持 HTTP GET 操作谓词的操作。|
+|[`[Consumes]`](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)|指定某个操作接受的数据类型。|
+|[`[Produces]`](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)|指定某个操作返回的数据类型。|
 
 有关包含可用属性的列表，请参阅 <xref:Microsoft.AspNetCore.Mvc> 命名空间。
 
 ## <a name="apicontroller-attribute"></a>ApiController 属性
 
-[[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性可应用于控制器类，以启用下述 API 特定的固定行为：
+[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性可应用于控制器类，以启用下述 API 特定的固定行为：
 
 * [属性路由要求](#attribute-routing-requirement)
 * [自动 HTTP 400 响应](#automatic-http-400-responses)
@@ -241,12 +241,12 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 |特性|绑定源 |
 |---------|---------|
-|[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | 请求正文 |
-|[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | 请求正文中的表单数据 |
-|[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | 请求标头 |
-|[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | 请求查询字符串参数 |
-|[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)   | 当前请求中的路由数据 |
-|[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | 作为操作参数插入的请求服务 |
+|[`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | 请求正文 |
+|[`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | 请求正文中的表单数据 |
+|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | 请求标头 |
+|[`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | 请求查询字符串参数 |
+|[`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)   | 当前请求中的路由数据 |
+|[`[FromServices]`](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | 作为操作参数插入的请求服务 |
 
 > [!WARNING]
 > 当值可能包含 `%2f`（即 `/`）时，请勿使用 `[FromRoute]`。 `%2f` 不会转换为 `/`（非转义形式）。 如果值可能包含 `%2f`，则使用 `[FromQuery]`。
@@ -322,7 +322,7 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 ## <a name="multipartform-data-request-inference"></a>Multipart/form-data 请求推理
 
-使用 [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) 属性批注操作参数时，`[ApiController]` 属性应用推理规则。 将推断 `multipart/form-data` 请求内容类型。
+使用 [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) 属性批注操作参数时，`[ApiController]` 属性应用推理规则。 将推断 `multipart/form-data` 请求内容类型。
 
 要禁用默认行为，请在 `Startup.ConfigureServices` 中将 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> 属性设置为 `true`：
 

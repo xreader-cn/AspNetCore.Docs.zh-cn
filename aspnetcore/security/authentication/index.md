@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
-ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
+ms.openlocfilehash: 40b2fb59b96486435a2ec0a7d69bee5ab4a814d2
+ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74810248"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74852709"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -80,14 +80,14 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="authenticate"></a>身份验证
 
-身份验证方案的身份验证操作负责根据请求上下文构造用户的身份。 它会返回一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>指示身份验证是否成功；若成功，则还在身份验证票证中指示用户的身份。 请参阅 HttpContext.AuthenticateAsync。 身份验证示例包括：
+身份验证方案的身份验证操作负责根据请求上下文构造用户的身份。 它会返回一个 <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>指示身份验证是否成功；若成功，则还在身份验证票证中指示用户的身份。 请参阅 `HttpContext.AuthenticateAsync`。 身份验证示例包括：
 
 * 根据 Cookie 构造用户身份的 Cookie 身份验证方案。
 * 对 JWT 持有者令牌进行反序列化和验证以构造用户身份的 JWT 持有者方案。
 
 ### <a name="challenge"></a>挑战
 
-当未经身份验证的用户请求要求身份验证的终结点时，授权会发起身份验证挑战。 例如，当匿名用户请求受限资源或单击登录链接时，会引发身份验证挑战。 授权会使用指定的身份验证方案发起挑战；如果未指定任何方案，则使用默认方案。 请参阅 HttpContext.ChallengeAsync。 身份验证挑战示例包括：
+当未经身份验证的用户请求要求身份验证的终结点时，授权会发起身份验证挑战。 例如，当匿名用户请求受限资源或单击登录链接时，会引发身份验证挑战。 授权会使用指定的身份验证方案发起挑战；如果未指定任何方案，则使用默认方案。 请参阅 `HttpContext.ChallengeAsync`。 身份验证挑战示例包括：
 
 * 将用户重定向到登录页面的 Cookie 身份验证方案。
 * 返回具有 `www-authenticate: bearer` 标头的 401 结果的 JWT 持有者方案。
@@ -96,7 +96,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="forbid"></a>禁止
 
-当已经过身份验证的用户尝试访问其无权访问的资源时，授权会调用身份验证方案的禁止操作。 请参阅 HttpContext.ForbidAsync。 身份验证禁止示例包括：
+当已经过身份验证的用户尝试访问其无权访问的资源时，授权会调用身份验证方案的禁止操作。 请参阅 `HttpContext.ForbidAsync`。 身份验证禁止示例包括：
 * 将用户重定向到表示访问遭禁的页面的 Cookie 身份验证方案。
 * 返回 403 结果的 JWT 持有者方案。
 * 重定向到用户可请求资源访问权限的页面的自定义身份验证方案。

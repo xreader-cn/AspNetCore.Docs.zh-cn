@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 2ebc4d72191dff33a7fb6170650be67c3836cdaa
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 693ac1a5b5bcaf8a9bbf0ff9ab63fb41764e3888
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73964006"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880456"
 ---
 # <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -398,7 +398,7 @@ You can only see this if you're signed in.
 `Router` 组件与 `AuthorizeRouteView` 组件搭配使用时，可允许应用程序在以下情况下指定自定义内容：
 
 * 找不到内容。
-* 用户不符合应用于组件的 `[Authorize]` 条件。 [[Authorize] 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
+* 用户不符合应用于组件的 `[Authorize]` 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
 * 正在进行异步身份验证。
 
 在默认的 Blazor 服务器项目模板中，App.razor 文件演示了如何设置自定义内容  ：
