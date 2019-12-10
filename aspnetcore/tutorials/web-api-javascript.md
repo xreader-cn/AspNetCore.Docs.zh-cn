@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何使用 JavaScript 调用 ASP.NET Core Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/27/2019
+ms.date: 11/26/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 0070816149d64fc1d71d453eb0f135050c78597a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 5a31aa2974eb41938db89f97c070c352a26290fd
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/13/2019
-ms.locfileid: "72378705"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681170"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>教程：使用 JavaScript 调用 ASP.NET Core Web API
 
@@ -44,13 +44,15 @@ ms.locfileid: "72378705"
 
     [!code-csharp[](first-web-api/samples/3.0/TodoApi/StartupJavaScript.cs?highlight=8-9&name=snippet_configure)]
 
-1. 在项目根中创建 wwwroot 目录  。
+1. 在项目根中创建 wwwroot 文件夹  。
 
-1. 将一个名为 index.html 的 HTML 文件添加到 wwwroot 目录   。 用以下标记替代其内容：
+1. 在 wwwroot 文件夹中创建一个 js 文件夹   。
+
+1. 将一个名为 index.html 的 HTML 文件添加到 wwwroot 文件夹   。 将 index.html 的内容替换为以下标记  ：
 
     [!code-html[](first-web-api/samples/3.0/TodoApi/wwwroot/index.html)]
 
-1. 将名为 site.js 的 JavaScript 文件添加到 wwwroot 目录   。 用以下代码替代其内容：
+1. 将一个名为 site.js 的 JavaScript 文件添加到 wwwroot/js 文件夹   。 将 site.js 的内容替换为以下代码  ：
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
@@ -75,9 +77,9 @@ ms.locfileid: "72378705"
 
 * 声明 `item` 变量来构造待办事项的对象文字表示形式。
 * 使用以下选项来配置提取请求：
-    * `method`&mdash;指定 POST HTTP 操作谓词。
-    * `body`&mdash;指定请求正文的 JSON 表示形式。 通过将存储在 `item` 中的对象文字传递到 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 函数来生成 JSON。
-    * `headers`&mdash;指定 `Accept` 和 `Content-Type` HTTP 请求标头。 将两个标头都设置为 `application/json`，以便分别指定接收和发送的媒体类型。
+  * `method`&mdash;指定 POST HTTP 操作谓词。
+  * `body`&mdash;指定请求正文的 JSON 表示形式。 通过将存储在 `item` 中的对象文字传递到 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 函数来生成 JSON。
+  * `headers`&mdash;指定 `Accept` 和 `Content-Type` HTTP 请求标头。 将两个标头都设置为 `application/json`，以便分别指定接收和发送的媒体类型。
 * 将 HTTP POST 请求发送到 api/TodoItems 路由  。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]

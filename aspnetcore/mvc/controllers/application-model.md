@@ -5,12 +5,12 @@ description: 了解如何读取和控制应用程序模型，从而修改 MVC �
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/application-model
-ms.openlocfilehash: f7f64c8b3a63ec66936772e724edb57037654059
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 4e264dc7cc63955df42df0b9eeeb7b82ae286241
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815511"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733955"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -71,7 +71,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 ## <a name="conventions"></a>约定
 
-应用程序模型定义了约定抽象，通过约定抽象来自定义模型行为比重写整个模型或提供程序更简单。 建议使用这些抽象来修改应用的行为。 通过使用约定，可以编写能动态应用自定义项的代码。 使用[筛选器](xref:mvc/controllers/filters)可以修改框架的行为，而利用自定义项可以控制整个应用连接在一起的方式。
+应用程序模型定义了约定抽象，通过约定抽象来自定义模型行为比重写整个模型或提供程序更简单。 建议使用这些抽象来修改应用的行为。 通过使用约定，可以编写能动态应用自定义项的代码。 使用[筛选器](xref:mvc/controllers/filters)可修改框架的行为，而利用自定义项可控制整个应用协同工作的方式。
 
 可用约定如下：
 

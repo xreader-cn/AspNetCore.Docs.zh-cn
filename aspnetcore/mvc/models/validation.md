@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core MVC 和 Razor Pages 中的模型验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 11/21/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 1277cac231bab6b56657793ed78dbc4cfb7d9704
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 19f71799e958e2761832c91cec6762a6d391d2b5
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239872"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317431"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -208,7 +208,7 @@ public string MiddleName { get; set; }
 
 ## <a name="maximum-recursion"></a>最大递归次数
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 对于深度或无限递归的模型，验证可能会导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 `MvcOptions.MaxValidationDepth` 的默认值为 200。
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 对于深度或无限递归的模型，验证可能会导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 `MvcOptions.MaxValidationDepth` 的默认值为 32。
 
 ## <a name="automatic-short-circuit"></a>自动短路
 
@@ -569,7 +569,7 @@ public string MiddleName { get; set; }
 
 ## <a name="maximum-recursion"></a>最大递归次数
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 如果模型非常深或无限递归，验证可能导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 在 `CompatibilityVersion.Version_2_2` 或更高版本上运行时，`MvcOptions.MaxValidationDepth` 的默认值为 200。 对于更低版本，该值为 null，这表示没有深度约束。
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 如果模型非常深或无限递归，验证可能导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 在 `CompatibilityVersion.Version_2_2` 或更高版本上运行时，`MvcOptions.MaxValidationDepth` 的默认值为 32。 对于更低版本，该值为 null，这表示没有深度约束。
 
 ## <a name="automatic-short-circuit"></a>自动短路
 

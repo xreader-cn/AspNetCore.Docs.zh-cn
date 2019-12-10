@@ -2,26 +2,25 @@
 title: 在 ASP.NET Core 中访问 HttpContext
 author: coderandhiker
 description: 了解如何在 ASP.NET Core 中访问 HttpContext。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/11/2018
+ms.date: 12/03/2019
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 0bf40f9cd2554f5ba01ccc06001fa4f1940d51a5
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 8a7ee180380c42ea745c91b8e6a18c1baa820220
+ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289051"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74778734"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 
-ASP.NET Core 应用通过 [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) 接口及其默认实现 [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor) 来访问 `HttpContext`。 只有在需要访问服务内的 `HttpContext` 时，才有必要使用 `IHttpContextAccessor`。
-
-::: moniker range=">= aspnetcore-2.0"
+ASP.NET Core 应用通过 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 接口及其默认实现 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> 访问 `HttpContext`。 只有在需要访问服务内的 `HttpContext` 时，才有必要使用 `IHttpContextAccessor`。
 
 ## <a name="use-httpcontext-from-razor-pages"></a>通过 Razor Pages 使用 HttpContext
 
-Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) 公开 [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) 属性：
+Razor 页面 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 公开 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> 属性：
 
 ```csharp
 public class AboutModel : PageModel
@@ -35,21 +34,21 @@ public class AboutModel : PageModel
 }
 ```
 
-::: moniker-end
-
 ## <a name="use-httpcontext-from-a-razor-view"></a>通过 Razor 视图使用 HttpContext
 
-Razor 视图通过视图上的 [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) 属性直接公开 `HttpContext`。 下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：
+Razor 视图通过视图上的 [RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) 属性直接公开 `HttpContext`。 下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：
 
 ```cshtml
 @{
     var username = Context.User.Identity.Name;
+    
+    ...
 }
 ```
 
 ## <a name="use-httpcontext-from-a-controller"></a>通过控制器使用 HttpContext
 
-控制器公开 [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) 属性：
+控制器公开 [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) 属性：
 
 ```csharp
 public class HomeController : Controller
@@ -57,7 +56,8 @@ public class HomeController : Controller
     public IActionResult About()
     {
         var pathBase = HttpContext.Request.PathBase;
-        // Do something with the PathBase.
+
+        ...
 
         return View();
     }
@@ -73,22 +73,21 @@ public class MyCustomMiddleware
 {
     public Task InvokeAsync(HttpContext context)
     {
-        // Middleware initialization optionally using HttpContext
+        ...
     }
 }
 ```
 
 ## <a name="use-httpcontext-from-custom-components"></a>通过自定义组件使用 HttpContext
 
-对于需要访问 `HttpContext` 的其他框架和自定义组件，建议使用内置的[依赖项注入](xref:fundamentals/dependency-injection)容器来注册依赖项。 依赖项注入容器向任意类提供 `IHttpContextAccessor`，以供类在自己的构造函数中将它声明为依赖项。
+对于需要访问 `HttpContext` 的其他框架和自定义组件，建议使用内置的[依赖项注入](xref:fundamentals/dependency-injection)容器来注册依赖项。 依赖项注入容器向任意类提供 `IHttpContextAccessor`，以供类在自己的构造函数中将它声明为依赖项：
 
-::: moniker range=">= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-     services.AddMvc()
-         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+     services.AddControllersWithViews();
      services.AddHttpContextAccessor();
      services.AddTransient<IUserRepository, UserRepository>();
 }
@@ -96,13 +95,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-     services.AddMvc();
-     services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+     services.AddMvc()
+         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+     services.AddHttpContextAccessor();
      services.AddTransient<IUserRepository, UserRepository>();
 }
 ```
@@ -134,17 +134,17 @@ public class UserRepository : IUserRepository
 
 ## <a name="httpcontext-access-from-a-background-thread"></a>从后台线程访问 HttpContext
 
-`HttpContext` 不是线程安全。 在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 `NullReferenceException`。
+`HttpContext` 不是线程安全型。 在处理请求之外读取或写入 `HttpContext` 的属性可能会导致 <xref:System.NullReferenceException>。
 
 > [!NOTE]
-> 在处理请求之外使用 `HttpContext` 通常会导致 `NullReferenceException`。 如果应用生成偶发的 `NullReferenceException`，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。 查找诸如将控制器方法定义为 `async void` 的错误。
+> 如果应用生成偶发的 `NullReferenceException` 错误，请评审启动后台处理的部分代码，或者在请求完成后继续处理的部分代码。 查找诸如将控制器方法定义为 `async void` 的错误。
 
 要使用 `HttpContext` 数据安全地执行后台工作，请执行以下操作：
 
 * 在请求处理过程中复制所需的数据。
 * 将复制的数据传递给后台任务。
 
-要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法，而是传递所需要的数据。
+要避免不安全代码，请勿将 `HttpContext` 传递给执行后台工作的方法。 而是传递所需要的数据。 在以下示例中，调用 `SendEmailCore`，开始发送电子邮件。 将 `correlationId` 传递到 `SendEmailCore`，而不是 `HttpContext`。 代码执行不会等待 `SendEmailCore` 完成：
 
 ```csharp
 public class EmailController : Controller
@@ -153,13 +153,13 @@ public class EmailController : Controller
     {
         var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
 
-        // Starts sending an email, but doesn't wait for it to complete
         _ = SendEmailCore(correlationId);
+
         return View();
     }
 
     private async Task SendEmailCore(string correlationId)
     {
-        // send the email
+        ...
     }
 }

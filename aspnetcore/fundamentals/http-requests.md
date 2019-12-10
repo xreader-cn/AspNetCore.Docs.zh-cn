@@ -4,14 +4,14 @@ author: stevejgordon
 description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 中的逻辑 HttpClient 实例。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/27/2019
+ms.date: 11/27/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: a963833acfa12889c8ae3dac443962682e1cb931
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: f33444b8fc08dc022da7700af53a218600290162
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190579"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733916"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -93,7 +93,7 @@ ms.locfileid: "73190579"
   * 封装处理终结点的所有逻辑。
 * 使用 DI 且可以被注入到应用中需要的位置。
 
-类型化客户端在构造函数中接收 `HttpClient` 参数：
+类型化客户端在构造函数中接受 `HttpClient` 参数：
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -201,7 +201,7 @@ public class ValuesController : ControllerBase
 
 上述代码检查请求中是否存在 `X-API-KEY` 标头。 如果缺失 `X-API-KEY`，则返回 <xref:System.Net.HttpStatusCode.BadRequest>。
 
-可以使用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName> 将多个处理程序添加到 `HttpClient` 的配置中：
+可使用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName> 将多个处理程序添加到 `HttpClient` 的配置中：
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup2.cs?name=snippet1)]
 
@@ -288,6 +288,35 @@ public class ValuesController : ControllerBase
 
 保持各个 `HttpClient` 实例长时间处于活动状态是在 `IHttpClientFactory` 推出前使用的常见模式。 迁移到 `IHttpClientFactory` 后，就无需再使用此模式。
 
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory 的替代项
+
+通过在启用了 DI 的应用中使用 `IHttpClientFactory`，可避免：
+
+* 通过共用 `HttpMessageHandler` 实例，解决资源耗尽问题。
+* 通过定期循环 `HttpMessageHandler` 实例，解决 DNS 过时问题。
+
+此外，还有其他方法使用生命周期长的 <xref:System.Net.Http.SocketsHttpHandler> 实例来解决上述问题。
+
+- 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
+- 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
+- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+
+上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
+
+- `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
+- `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
+
+### <a name="cookies"></a>Cookie
+
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+
+ - 禁用自动 Cookie 处理
+ - 避免 `IHttpClientFactory`
+
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
+
 ## <a name="logging"></a>Logging
 
 通过 `IHttpClientFactory` 创建的客户端记录所有请求的日志消息。 在日志记录配置中启用合适的信息级别可以查看默认日志消息。 仅在跟踪级别包含附加日志记录（例如请求标头的日志记录）。
@@ -361,7 +390,7 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-注册后，在可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可以用于创建 `HttpClient` 实例：
+注册后，在可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可用于创建 `HttpClient` 实例：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
@@ -392,7 +421,7 @@ public class ValuesController : ControllerBase
 * 提供单个位置来配置特定 `HttpClient` 并与其进行交互。 例如，单个类型化客户端可能用于单个后端终结点，并封装此终结点的所有处理逻辑。
 * 使用 DI 且可以被注入到应用中需要的位置。
 
-类型化客户端在构造函数中接收 `HttpClient` 参数：
+类型化客户端在构造函数中接受 `HttpClient` 参数：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -481,7 +510,7 @@ public class ValuesController : ControllerBase
 
 上述代码定义了基本处理程序。 它检查请求中是否包含 `X-API-KEY` 头。 如果标头缺失，它可以避免 HTTP 调用，并返回合适的响应。
 
-在注册期间可将一个或多个标头添加到 `HttpClient` 的配置。 此任务通过 <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> 上的扩展方法完成。
+在注册期间可将一个或多个标头添加到 `HttpClient` 的配置中。 此任务通过 <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> 上的扩展方法完成。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
@@ -560,6 +589,35 @@ public class ValuesController : ControllerBase
 
 保持各个 `HttpClient` 实例长时间处于活动状态是在 `IHttpClientFactory` 推出前使用的常见模式。 迁移到 `IHttpClientFactory` 后，就无需再使用此模式。
 
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory 的替代项
+
+通过在启用了 DI 的应用中使用 `IHttpClientFactory`，可避免：
+
+* 通过共用 `HttpMessageHandler` 实例，解决资源耗尽问题。
+* 通过定期循环 `HttpMessageHandler` 实例，解决 DNS 过时问题。
+
+此外，还有其他方法使用生命周期长的 <xref:System.Net.Http.SocketsHttpHandler> 实例来解决上述问题。
+
+- 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
+- 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
+- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+
+上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
+
+- `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
+- `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
+
+### <a name="cookies"></a>Cookie
+
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+
+ - 禁用自动 Cookie 处理
+ - 避免 `IHttpClientFactory`
+
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
+
 ## <a name="logging"></a>Logging
 
 通过 `IHttpClientFactory` 创建的客户端记录所有请求的日志消息。 在日志记录配置中启用合适的信息级别可以查看默认日志消息。 仅在跟踪级别包含附加日志记录（例如请求标头的日志记录）。
@@ -637,7 +695,7 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-注册后，在可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可以用于创建 `HttpClient` 实例：
+注册后，在可以使用[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 注入服务的任何位置，代码都能接受 `IHttpClientFactory`。 `IHttpClientFactory` 可用于创建 `HttpClient` 实例：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
@@ -668,7 +726,7 @@ public class ValuesController : ControllerBase
 * 提供单个位置来配置特定 `HttpClient` 并与其进行交互。 例如，单个类型化客户端可能用于单个后端终结点，并封装此终结点的所有处理逻辑。
 * 使用 DI 且可以被注入到应用中需要的位置。
 
-类型化客户端在构造函数中接收 `HttpClient` 参数：
+类型化客户端在构造函数中接受 `HttpClient` 参数：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -757,7 +815,7 @@ public class ValuesController : ControllerBase
 
 上述代码定义了基本处理程序。 它检查请求中是否包含 `X-API-KEY` 头。 如果标头缺失，它可以避免 HTTP 调用，并返回合适的响应。
 
-在注册期间可将一个或多个标头添加到 `HttpClient` 的配置。 此任务通过 <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> 上的扩展方法完成。
+在注册期间可将一个或多个标头添加到 `HttpClient` 的配置中。 此任务通过 <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> 上的扩展方法完成。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
@@ -838,6 +896,35 @@ public class ValuesController : ControllerBase
 无需处置客户端。 处置既取消传出请求，又保证在调用 <xref:System.IDisposable.Dispose*> 后无法使用给定的 `HttpClient` 实例。 `IHttpClientFactory` 跟踪和处置 `HttpClient` 实例使用的资源。 `HttpClient` 实例通常可视为无需处置的 .NET 对象。
 
 保持各个 `HttpClient` 实例长时间处于活动状态是在 `IHttpClientFactory` 推出前使用的常见模式。 迁移到 `IHttpClientFactory` 后，就无需再使用此模式。
+
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory 的替代项
+
+通过在启用了 DI 的应用中使用 `IHttpClientFactory`，可避免：
+
+* 通过共用 `HttpMessageHandler` 实例，解决资源耗尽问题。
+* 通过定期循环 `HttpMessageHandler` 实例，解决 DNS 过时问题。
+
+此外，还有其他方法使用生命周期长的 <xref:System.Net.Http.SocketsHttpHandler> 实例来解决上述问题。
+
+- 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
+- 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
+- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+
+上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
+
+- `SocketsHttpHandler` 在 `HttpClient` 实例之间共享连接。 此共享可防止套接字耗尽。
+- `SocketsHttpHandler` 会根据 `PooledConnectionLifetime` 循环连接，避免出现 DNS 过时问题。
+
+### <a name="cookies"></a>Cookie
+
+共用 `HttpMessageHandler` 实例将导致共享 `CookieContainer` 对象。 意外的 `CookieContainer` 对象共享通常会导致错误的代码。 对于需要 Cookie 的应用，请考虑执行以下任一操作：
+
+ - 禁用自动 Cookie 处理
+ - 避免 `IHttpClientFactory`
+
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
 ## <a name="logging"></a>Logging
 

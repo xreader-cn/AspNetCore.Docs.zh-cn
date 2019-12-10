@@ -3,14 +3,14 @@ title: ASP.NET Core 全球化和本地化
 author: rick-anderson
 description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本地化为不同的语言和区域性。
 ms.author: riande
-ms.date: 01/14/2017
+ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 36235e305037c0bbf20093327e2a0ff21b3de809
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963669"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717398"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -276,7 +276,7 @@ Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic`
 
 6. 点击语言，然后点击“向上移动”  。
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Content-Language HTTP 标头
 
 [Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) 实体标头：
@@ -286,7 +286,7 @@ Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic`
 
 实体标头用于 HTTP 请求和响应。
 
-在 ASP.NET Core 3.0 中，可以通过设置属性 `ApplyCurrentCultureToResponseHeaders` 来添加 `Content-Language` 标头。
+可通过设置属性 `ApplyCurrentCultureToResponseHeaders` 来添加 `Content-Language` 标头。
 
 添加 `Content-Language` 标头：
 
@@ -373,6 +373,10 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码  。 [GitHub](https://github.com/aspnet/entropy) 上的项目 Localization.StarterWeb 包含代码，可部分通过[依赖关系注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor  。
 
+## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
+
+请参阅[模型绑定路由数据和查询字符串的全球化行为](xref:mvc/models/model-binding#glob)。
+
 ## <a name="globalization-and-localization-terms"></a>全球化和本地化术语
 
 本地化应用的过程还要求基本了解现代软件开发中常用的相关字符集，以及与之相关的问题。 尽管所有计算机将文本都存储为数字（代码），但不同的系统使用不同的数字存储相同的文本。 本地化过程是指针对特定区域性/区域设置转换应用的用户界面 (UI)。
@@ -407,5 +411,4 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 * [对 .NET 应用程序进行全球化和本地化](/dotnet/standard/globalization-localization/index)
 * [.resx 文件中的资源](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Microsoft 多语言应用工具包](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
-* [本地化与泛型](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
-* [ASP.NET Core 3.0 本地化中的新增功能](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)
+* [本地化与泛型](http://hishambinateya.com/localization-and-generics)

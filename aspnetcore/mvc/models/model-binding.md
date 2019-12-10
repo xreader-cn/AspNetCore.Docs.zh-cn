@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 中模型绑定的工作原理以及如何自定义模型绑定的行为。
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
-ms.date: 11/15/2019
+ms.date: 11/21/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: a025419a5b4d2c2e3e5c5a7850df281ddd3164ea
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: a49fec38a6d38bbd33e9461cbcceb39bfe810f5c
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155038"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717281"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -83,18 +83,18 @@ http://contoso.com/api/pets/2?DogsOnly=true
 
 默认情况下，模型绑定以键值对的形式从 HTTP 请求中的以下源中获取数据：
 
-1. 表单域 
+1. 表单域
 1. 请求正文（对于[具有 [ApiController] 属性的控制器](xref:web-api/index#binding-source-parameter-inference)。）
 1. 路由数据
 1. 查询字符串参数
-1. 上传的文件 
+1. 上传的文件
 
-对于每个目标参数或属性，将按此列表中指示的顺序扫描源。 有几个例外情况：
+对于每个目标参数或属性，按照之前列表中指示的顺序扫描源。 有几个例外情况：
 
 * 路由数据和查询字符串值仅用于简单类型。
 * 上传的文件仅绑定到实现 `IFormFile` 或 `IEnumerable<IFormFile>` 的目标类型。
 
-如果默认行为没有给出正确结果，则可以使用以下某种属性来指定用于任意给定目标的源。 
+如果默认源不正确，请使用下列属性之一来指定源：
 
 * [[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) - 从查询字符串中获取值。 
 * [[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) - 从路由数据中获取值。
@@ -114,9 +114,34 @@ http://contoso.com/api/pets/2?DogsOnly=true
 
 ### <a name="frombody-attribute"></a>[FromBody] 属性
 
-使用特定于请求内容类型的输入格式化程序来分析请求正文数据。 输入格式化程序的解释位于[本文后面部分](#input-formatters)。
+将 `[FromBody]` 特性应用于一个参数，以便从一个 HTTP 请求的正文填充其属性。 ASP.NET Core 运行时将读取正文的责任委托给输入格式化程序。 输入格式化程序的解释位于[本文后面部分](#input-formatters)。
 
-不要将 `[FromBody]` 应用于每个操作方法的多个参数。 ASP.NET Core 运行时将读取请求流的责任委托给输入格式化程序。 读取请求流后，无法再次读取该请求来绑定其他 `[FromBody]` 参数。
+将 `[FromBody]` 应用于复杂类型参数时，应用于其属性的任何绑定源属性都将被忽略。 例如，以下 `Create` 操作指定从正文填充其 `pet` 参数：
+
+```csharp
+public ActionResult<Pet> Create([FromBody] Pet pet)
+```
+
+`Pet` 类指定从查询字符串参数填充其 `Breed` 属性：
+
+```csharp
+public class Pet
+{
+    public string Name { get; set; }
+
+    [FromQuery] // Attribute is ignored.
+    public string Breed { get; set; }
+}
+```
+
+在上面的示例中：
+
+* `[FromQuery]` 特性被忽略。
+* `Breed` 属性未从查询字符串参数进行填充。 
+
+输入格式化程序只读取正文，不了解绑定源特性。 如果在正文中找到合适的值，则使用该值填充 `Breed` 属性。
+
+不要将 `[FromBody]` 应用于每个操作方法的多个参数。 输入格式化程序读取请求流后，无法再次读取该流以绑定其他 `[FromBody]` 参数。
 
 ### <a name="additional-sources"></a>其他源
 
@@ -355,6 +380,27 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
   * selectedCourses["1050"]="Chemistry"
   * selectedCourses["2000"]="Economics"
+
+<a name="glob"></a>
+
+## <a name="globalization-behavior-of-model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串的全球化行为
+
+ASP.NET Core 路由值提供程序和查询字符串值提供程序：
+
+* 将值视为固定区域性。
+* URL 的区域性应固定。
+
+相反，来自窗体数据的值要进行区分区域性的转换。 这是设计使然，目的是让 URL 可在各个区域设置中共享。
+
+使 ASP.NET Core 路由值提供程序和查询字符串值提供程序进行区分区域性的转换：
+
+* 继承自 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
+* 从 [QueryStringValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs) 或 [RouteValueValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/RouteValueProviderFactory.cs) 复制代码
+* 使用 [CultureInfo.CurrentCulture](xref:System.Globalization.CultureInfo.CurrentCulture) 替换传递给值提供程序构造函数的[区域性值](https://github.com/aspnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30)
+* 将 MVC 选项中的默认值提供程序工厂替换为新的工厂：
+
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet)]
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet1)]
 
 ## <a name="special-data-types"></a>特殊数据类型
 

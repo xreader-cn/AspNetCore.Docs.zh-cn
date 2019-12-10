@@ -7,32 +7,32 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 7f4fcb1a5d6e9959c751ebe24e41b39ee05a5819
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 449d8791962e4233d599f364b2e8c922f0975d2f
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799505"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681092"
 ---
-# <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的测试控制器逻辑
+# <a name="unit-test-controller-logic-in-aspnet-core"></a>ASP.NET Core 中的单元测试控制器逻辑
 
 作者：[Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[控制器](xref:mvc/controllers/actions)在任何 ASP.NET Core MVC 应用中起着核心作用。 因此，应该对控制器表现达到预期怀有信心。 在将应用部署到生产环境之前，自动测试可以检测到错误。
-
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
-
-## <a name="unit-tests-of-controller-logic"></a>控制器逻辑的单元测试
-
 [单元测试](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)涉及通过基础结构和依赖项单独测试应用的一部分。 单元测试控制器逻辑时，仅测试单个操作的内容，不测试其依赖项或框架自身的行为。
+
+## <a name="unit-testing-controllers"></a>单元测试控制器
 
 将控制器操作的单元测试设置为专注于控制器的行为。 控制器单元测试将避开[筛选器](xref:mvc/controllers/filters)、[路由](xref:fundamentals/routing)或[模型绑定](xref:mvc/models/model-binding)等方案。 涵盖共同响应请求的组件之间的交互的测试由*集成测试*处理。 有关集成测试的详细信息，请参阅<xref:test/integration-tests>。
 
 如果编写自定义筛选器和路由，应对其单独进行单元测试，而不是在测试特定控制器操作时进行。
 
-要演示控制器单元测试，请查看以下示例应用中的控制器。 主控制器显示集体讨论会话列表并允许使用 POST 请求创建新的集体讨论会话：
+要演示控制器单元测试，请查看以下示例应用中的控制器。 
+
+[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+
+主控制器显示集体讨论会话列表并允许使用 POST 请求创建新的集体讨论会话：
 
 [!code-csharp[](testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/HomeController.cs?name=snippet_HomeController&highlight=1,5,10,31-32)]
 

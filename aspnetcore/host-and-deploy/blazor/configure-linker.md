@@ -5,22 +5,24 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: a7e59e63c163986c40155e230dc644028e78e5fd
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 0bc987d72d2f684b1ecbd4a883e9a09fac7c801e
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391452"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317290"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
+# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>配置 ASP.NET Core Blazor 链接器
 
 作者：[Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor 在版本生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。
+Blazor 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。
 
 使用以下任何一种方法控制程序集链接：
 
@@ -29,7 +31,7 @@ Blazor 在版本生成期间执行[中间语言 (IL)](/dotnet/standard/managed-c
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>使用 MSBuild 属性禁用链接
 
-在构建应用程序（包括发布）时，默认在发布模式下启用链接。 若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：
+在生成应用（包括发布）时，默认启用链接。 若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：
 
 ```xml
 <PropertyGroup>
@@ -80,3 +82,29 @@ Linker.xml  ：
 ```
 
 有关详细信息，请参阅 [IL Linker：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。
+
+### <a name="configure-the-linker-for-internationalization"></a>配置链接器以实现国际化
+
+默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
+
+要控制保留哪些国际化程序集，请在项目文件中设置 `<MonoLinkerI18NAssemblies>` MSBuild 属性：
+
+```xml
+<PropertyGroup>
+  <MonoLinkerI18NAssemblies>{all|none|REGION1,REGION2,...}</MonoLinkerI18NAssemblies>
+</PropertyGroup>
+```
+
+| 区域值     | Mono 区域程序集    |
+| ---------------- | ----------------------- |
+| `all`            | 包含的所有程序集 |
+| `cjk`            | I18N.CJK.dll           |
+| `mideast`        | I18N.MidEast.dll       |
+| `none`（默认值） | 无                    |
+| `other`          | I18N.Other.dll         |
+| `rare`           | I18N.Rare.dll          |
+| `west`           | I18N.West.dll          |
+
+各个值之间用逗号分隔（例如：`mideast,west`）。
+
+有关详细信息，请参阅[国际化：Pnetlib 国际化框架库（mono/mono GitHub 存储库）](https://github.com/mono/mono/tree/master/mcs/class/I18N)。
