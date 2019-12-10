@@ -4,14 +4,14 @@ author: rick-anderson
 ms.author: riande
 description: 了解 ASP.NET Core 脚本标记帮助程序属性以及每个属性在扩展 HTML 脚本标记的行为中所起的作用。
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 12/02/2019
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: 5f2fb8a45048804afa8aff2989cd53489e45a33b
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: 8a90eb5a74ff3f8178a47c59ad7ba1b6a389ab87
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256464"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717372"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的脚本标记帮助程序
 
@@ -23,43 +23,30 @@ ms.locfileid: "71256464"
 
 可以使用脚本标记帮助程序指定脚本文件的 CDN 以及回退文件（CDN 不可用时）。 脚本标记帮助程序借助本地宿主的可靠性提供 CDN 性能优势。
 
-以下 Razor 标记显示使用 ASP.NET Core Web 应用模板创建的布局文件的 `script` 元素：
+以下 Razor 标记显示了带有一个回退操作的 `script` 元素：
 
-[!code-html[](link-tag-helper/sample/_Layout.cshtml?name=snippet2)]
+```HTML
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        crossorigin="anonymous"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+</script>
+```
 
-以下内容类似于上述代码呈现的 HTML（非开发环境）：
-
-[!code-csharp[](link-tag-helper/sample/HtmlPage2.html)]
-
-在上述代码中，脚本标记帮助程序生成了第二个脚本 (`<script>  (window.jQuery || document.write(`) 元素，该元素测试 `window.jQuery`。 如果找不到 `window.jQuery`，`document.write(` 将运行并创建脚本 
+请勿使用 `<script>` 元素的属性来[延迟](https://developer.mozilla.org/docs/Web/HTML/Element/script)加载 CDN 脚本。 脚本标记帮助程序呈现能够立即执行 [asp-fallback-test](#asp-fallback-test) 表达式的 JavaScript。 如果延迟加载 CDN 脚本，则该表达式失败。
 
 ## <a name="commonly-used-script-tag-helper-attributes"></a>常用的脚本标记帮助程序属性
 
 若要了解所有脚本标记帮助程序属性和方法，请参阅[标记帮助程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper)。
 
-### <a name="href"></a>href
+### <a name="asp-fallback-test"></a>asp-fallback-test
 
-链接的资源的首选地址。 在任何情况下，均会将此地址传递到生成的 HTML。
+主脚本中定义的用于回退测试的脚本方法。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>。
 
-### <a name="asp-fallback-href"></a>asp-fallback-href
+### <a name="asp-fallback-src"></a>asp-fallback-src
 
-主 URL 失效后要回退到的 CSS 样式表的 URL。
-
-### <a name="asp-fallback-test-class"></a>asp-fallback-test-class
-
-样式表中定义的用于回退测试的类名称。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestClass>。
-
-### <a name="asp-fallback-test-property"></a>asp-fallback-test-property
-
-用于回退测试的 CSS 属性名称。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestProperty>。
-
-### <a name="asp-fallback-test-value"></a>asp-fallback-test-value
-
-用于回退测试的 CSS 属性值。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>。
-
-### <a name="asp-fallback-test-value"></a>asp-fallback-test-value
-
-用于回退测试的 CSS 属性值。 有关详细信息，请参阅<xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>。
+主 URL 失效后要回退到的脚本标签的 URL。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -5,17 +5,17 @@ description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 693ac1a5b5bcaf8a9bbf0ff9ab63fb41764e3888
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: d3860a5e7f6ae5a3193d657b77fc593c9bd39131
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880456"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944195"
 ---
 # <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -134,7 +134,7 @@ Blazor 服务器应用包含一个内置 `AuthenticationStateProvider` 服务，
 
 `AuthenticationStateProvider` 服务可以提供当前用户的 <xref:System.Security.Claims.ClaimsPrincipal> 数据，如以下示例所示：
 
-```cshtml
+```razor
 @page "/"
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -206,7 +206,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 如果过程逻辑需要身份验证状态数据（例如在执行用户触发的操作时），请通过定义 `Task<AuthenticationState>` 类型的级联参数来获取身份验证状态数据：
 
-```cshtml
+```razor
 @page "/"
 
 <button @onclick="@LogUsername">Log username</button>
@@ -237,9 +237,9 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
-使用 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
+使用 App.razor  文件中的 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
 
-```cshtml
+```razor
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -273,7 +273,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 该组件公开了一个 `AuthenticationState` 类型的 `context` 变量，可以使用该变量来访问有关已登录用户的信息：
 
-```cshtml
+```razor
 <AuthorizeView>
     <h1>Hello, @context.User.Identity.Name!</h1>
     <p>You can only see this content if you're authenticated.</p>
@@ -282,7 +282,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 另外，如果用户未经过身份验证，你还可以提供不同的内容以供显示：
 
-```cshtml
+```razor
 <AuthorizeView>
     <Authorized>
         <h1>Hello, @context.User.Identity.Name!</h1>
@@ -310,7 +310,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 对于基于角色的授权，请使用 `Roles` 参数：
 
-```cshtml
+```razor
 <AuthorizeView Roles="admin, superuser">
     <p>You can only see this if you're an admin or superuser.</p>
 </AuthorizeView>
@@ -320,7 +320,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 对于基于策略的授权，请使用 `Policy` 参数：
 
-```cshtml
+```razor
 <AuthorizeView Policy="content-editor">
     <p>You can only see this if you satisfy the "content-editor" policy.</p>
 </AuthorizeView>
@@ -338,7 +338,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 正在进行身份验证时，`AuthorizeView` 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
 
-```cshtml
+```razor
 <AuthorizeView>
     <Authorized>
         <h1>Hello, @context.User.Identity.Name!</h1>
@@ -357,7 +357,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 `[Authorize]` 属性可在 Razor 组件中使用：
 
-```cshtml
+```razor
 @page "/"
 @attribute [Authorize]
 
@@ -372,7 +372,7 @@ You can only see this if you're signed in.
 
 `[Authorize]` 属性还支持基于角色或基于策略的授权。 对于基于角色的授权，请使用 `Roles` 参数：
 
-```cshtml
+```razor
 @page "/"
 @attribute [Authorize(Roles = "admin, superuser")]
 
@@ -381,7 +381,7 @@ You can only see this if you're signed in.
 
 对于基于策略的授权，请使用 `Policy` 参数：
 
-```cshtml
+```razor
 @page "/"
 @attribute [Authorize(Policy = "content-editor")]
 
@@ -403,7 +403,7 @@ You can only see this if you're signed in.
 
 在默认的 Blazor 服务器项目模板中，App.razor 文件演示了如何设置自定义内容  ：
 
-```cshtml
+```razor
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -445,7 +445,7 @@ Not authorized.
 
 如果作为过程逻辑的一部分应用程序需要检查授权规则，请使用 `Task<AuthenticationState>` 类型的级联参数获取用户的 <xref:System.Security.Claims.ClaimsPrincipal>。 `Task<AuthenticationState>` 可以与其他服务（例如 `IAuthorizationService`）结合使用以评估策略。
 
-```cshtml
+```razor
 @inject IAuthorizationService AuthorizationService
 
 <button @onclick="@DoSomething">Do something important</button>
@@ -481,7 +481,7 @@ Not authorized.
 > [!NOTE]
 > 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Authorization` 和 `Microsoft.AspNetCore.Components.Authorization` 命名空间：
 >
-> ```cshtml
+> ```razor
 > @using Microsoft.AspNetCore.Authorization
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
@@ -502,7 +502,7 @@ Not authorized.
 
 项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面所示的 App.razor  ：
 
-```cshtml
+```razor
 <CascadingAuthenticationState>
     <Router AppAssembly="typeof(Startup).Assembly">
         ...
