@@ -1,17 +1,17 @@
 ---
 title: 带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
-author: rsuter
+author: RicoSuter
 description: 本教程提供添加 Swagger 以生成文档的演练和针对 Web API 应用的帮助页。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 09/20/2018
+ms.date: 12/07/2019
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: 06a942ca213c7c0a58932494be0ed23cb6896d48
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 4408e02996b958bf009903aa1e4eeda9ad4f457c
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856092"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944078"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>带有 Swagger/OpenAPI 的 ASP.NET Core Web API 帮助页
 
@@ -31,7 +31,7 @@ Swagger 是一个与语言无关的规范，用于描述 [REST](https://en.wikip
 
 ## <a name="swagger-specification-swaggerjson"></a>Swagger 规范 (swagger.json)
 
-Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json 的文档  。 它由 Swagger 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 Swagger 规范的示例：
+Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json 的文档。 它由 Swagger 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 Swagger 规范的示例：
 
 ```json
 {
@@ -108,7 +108,7 @@ Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json �
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-控制器中的每个公共操作方法都可以从 UI 中进行测试。 单击方法名称可以展开该部分。 添加所有必要的参数，然后单击“试试看!”  。
+控制器中的每个公共操作方法都可以从 UI 中进行测试。 单击方法名称可以展开该部分。 添加所有必要的参数，然后单击“试试看!”。
 
 ![示例 Swagger GET 测试](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 

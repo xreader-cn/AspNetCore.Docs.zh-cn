@@ -2,9 +2,9 @@
 
 ### <a name="add-a-database-context-class"></a>添加数据库上下文类
 
-在 RazorPagesMovie 项目中，创建名为“数据”的新文件夹  。 将以下 `RazorPagesMovieContext` 类添加到“Data”文件夹  ：
+在 RazorPagesMovie 项目中，创建名为“数据”的新文件夹。 将以下 `RazorPagesMovieContext` 类添加到“Data”文件夹：
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Data/RazorPagesMovieContext.cs)]
 
 前面的代码为实体集创建 `DbSet` 属性。 在 Entity Framework 中，实体集通常与数据表相对应，具体实体与表中的行相对应。
 
@@ -12,7 +12,7 @@
 
 ### <a name="add-a-database-connection-string"></a>添加数据库连接字符串
 
-向 appsettings.json 文件添加一个连接字符串，如以下突出显示的代码所示： 
+向 appsettings.json 文件添加一个连接字符串，如以下突出显示的代码所示：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -26,10 +26,10 @@
 
 ### <a name="register-the-database-context"></a>注册数据库上下文
 
-将以下 `using` 语句添加到 Startup.cs 顶部  ：
+将以下 `using` 语句添加到 Startup.cs 顶部：
 
 ```csharp
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
@@ -59,7 +59,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 ### <a name="register-the-database-context"></a>注册数据库上下文
 
-将以下 `using` 语句添加到 Startup.cs 顶部  ：
+将以下 `using` 语句添加到 Startup.cs 顶部：
 
 ```csharp
 using RazorPagesMovie.Models;

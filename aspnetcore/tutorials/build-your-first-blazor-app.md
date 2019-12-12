@@ -5,16 +5,16 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 2a83761b598a339aeaf8bec6f8fd50d09e608f0c
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 11ff540a70ebdb8baa0c7adb98cb1dfe27d91e50
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681209"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944182"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
 
@@ -125,7 +125,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
-[@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
+[`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) 循环用于将每个预测实例呈现为“天气”数据表中的一行：
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
@@ -184,7 +184,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
-   ```cshtml
+   ```razor
    <input placeholder="Something todo" @bind="newTodo" />
    ```
 

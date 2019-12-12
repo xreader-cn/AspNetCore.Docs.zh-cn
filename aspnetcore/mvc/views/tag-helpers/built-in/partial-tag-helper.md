@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 757c407bbae9c33c5b05a1edc01a37c2ced8dd36
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 508f91cdcd93c149602223250520eecb73625b24
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890282"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880990"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
@@ -32,10 +32,10 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 用于呈现分部视图的 HTML 帮助程序选项包括：
 
-* [@await Html.PartialAsync](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.partialasync)
-* [@await Html.RenderPartialAsync](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.renderpartialasync)
-* [@Html.Partial](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.partial)
-* [@Html.RenderPartial](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.renderpartial)
+* [`@await Html.PartialAsync`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.partialasync)
+* [`@await Html.RenderPartialAsync`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.renderpartialasync)
+* [`@Html.Partial`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.partial)
+* [`@Html.RenderPartial`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.renderpartial)
 
 本文档中的示例均使用产品模型：
 
@@ -43,7 +43,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 以下是分部标记帮助程序属性的清单。
 
-## <a name="name"></a>name
+## <a name="name"></a>NAME
 
 需要 `name` 属性。 它指示要呈现的分部视图的名称或路径。 提供分部视图名称时，会启动[视图发现](xref:mvc/views/overview#view-discovery)进程。 提供显式路径时，将绕过该进程。 有关所有可接受的 `name` 值，请参阅[分部视图发现](xref:mvc/views/partial#partial-view-discovery)。
 
