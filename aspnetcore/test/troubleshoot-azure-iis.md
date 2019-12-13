@@ -1,24 +1,24 @@
 ---
 title: Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 author: guardrex
-description: 了解如何诊断 ASP.NET Core 应用 Azure App Service 和 Internet Information Services (IIS) 部署的问题。
+description: 了解如何诊断 ASP.NET Core 应用 Azure App Service 和 Internet Information Services （IIS）部署的问题。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/18/2019
+ms.date: 11/20/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 384ae6645ce083fba76a430dfc3bec3a59d3870e
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 49a0f59fb6930235de10c726f3695f2a5352efb2
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081534"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74251967"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 
-作者: [Luke Latham](https://github.com/guardrex)和[Justin Kotalik](https://github.com/jkotalik)
+作者： [Luke Latham](https://github.com/guardrex)和[Justin Kotalik](https://github.com/jkotalik)
 
-本文提供了有关常见应用启动错误的信息, 以及在将应用部署到 Azure App Service 或 IIS 时如何诊断错误的说明:
+本文提供了有关常见应用启动错误的信息，以及在将应用部署到 Azure App Service 或 IIS 时如何诊断错误的说明：
 
 [应用启动错误](#app-startup-errors)  
 介绍常见的启动 HTTP 状态代码方案。
@@ -39,7 +39,7 @@ ms.locfileid: "71081534"
 
 ::: moniker range=">= aspnetcore-2.2"
 
-在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 在本地调试时, 可以使用本主题中的建议来诊断 " *502.5-进程故障*" 或 " *500.30-启动" 故障*。
+在 Visual Studio 中，ASP.NET Core 项目默认为在调试期间进行 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 托管。 在本地调试时，可以使用本主题中的建议来诊断 " *502.5-进程故障*" 或 " *500.30-启动" 故障*。
 
 ::: moniker-end
 
@@ -63,22 +63,22 @@ The Web server is configured to not list the contents of this directory.
 * 部署过程未能将所有应用的文件和文件夹移到托管系统上的部署文件夹中。
 * 部署中缺少*web.config*文件，或*web.config 文件内容的格式*不正确。
 
-执行以下步骤:
+执行以下步骤：
 
 1. 删除宿主系统上的部署文件夹中的所有文件和文件夹。
 1. 使用常规部署方法（如 Visual Studio、PowerShell 或手动部署）将应用程序的 "*发布*" 文件夹的内容重新部署到宿主系统：
    * 确认部署中存在*web.config*文件且其内容正确。
-   * 在 Azure App Service 上承载时，确认该应用程序已部署到`D:\home\site\wwwroot`该文件夹。
+   * 在 Azure App Service 上承载时，确认应用程序已部署到 `D:\home\site\wwwroot` 文件夹。
    * 当应用程序由 IIS 承载时，确认该应用程序部署到 iis**管理器**的 "**基本设置**" 中显示的 iis**物理路径**。
 1. 通过将主机系统上的部署与项目的 "*发布*" 文件夹的内容进行比较，确认应用的所有文件和文件夹都已部署。
 
-有关已发布 ASP.NET Core 应用布局的详细信息，请参阅<xref:host-and-deploy/directory-structure>。 有关*web.config*文件的详细信息，请参阅<xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>。
+有关已发布 ASP.NET Core 应用布局的详细信息，请参阅 <xref:host-and-deploy/directory-structure>。 有关*web.config*文件的详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>。
 
 ### <a name="500-internal-server-error"></a>500 内部服务器错误
 
 应用启动，但某个错误阻止了服务器完成请求。
 
-在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 在服务器上的命令提示符处运行应用程序, 或启用 ASP.NET Core Module stdout 日志来解决该问题。
+在启动期间或在创建响应时，应用的代码内出现此错误。 响应可能不包含任何内容，或响应可能会在浏览器中显示为“500 内部服务器错误”。 应用程序事件日志通常表明应用正常启动。 从服务器的角度来看，这是正确的。 应用已启动，但无法生成有效的响应。 在服务器上的命令提示符处运行应用程序，或启用 ASP.NET Core Module stdout 日志来解决该问题。
 
 ::: moniker range="= aspnetcore-2.2"
 
@@ -115,7 +115,7 @@ The Web server is configured to not list the contents of this directory.
 
 工作进程失败。 应用不启动。
 
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试在进程中启动 .NET Core CLR, 但无法启动。 通常, 可以根据应用程序事件日志中的条目和 ASP.NET Core 模块 stdout 日志中的条目来确定进程启动失败的原因。
+[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试在进程中启动 .NET Core CLR，但无法启动。 通常，可以根据应用程序事件日志中的条目和 ASP.NET Core 模块 stdout 日志中的条目来确定进程启动失败的原因。
 
 常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
 
@@ -123,7 +123,7 @@ The Web server is configured to not list the contents of this directory.
 
 工作进程失败。 应用不启动。
 
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试在进程内启动 .net Core 运行时, 但无法启动。 此类启动失败的最常见原因是未安装 `Microsoft.NETCore.App` 或 `Microsoft.AspNetCore.App`运行时。 如果将应用部署为面向 ASP.NET Core 3.0，并且计算机上不存在该版本，则会发生此错误。 示例错误消息如下所示：
+[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试在进程内启动 .net Core 运行时，但无法启动。 此类启动失败的最常见原因是未安装 `Microsoft.NETCore.App` 或 `Microsoft.AspNetCore.App`运行时。 如果将应用部署为面向 ASP.NET Core 3.0，并且计算机上不存在该版本，则会发生此错误。 示例错误消息如下所示：
 
 ```
 The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
@@ -158,7 +158,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 工作进程失败。 应用不启动。
 
-应用未引用 `Microsoft.AspNetCore.App` 框架。 只有面向该框架`Microsoft.AspNetCore.App`的应用才能由[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)承载。
+应用未引用 `Microsoft.AspNetCore.App` 框架。 只有面向 `Microsoft.AspNetCore.App` 框架的应用可由[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)承载。
 
 要修复此错误，请确保应用面向 `Microsoft.AspNetCore.App` 框架。 检查 `.runtimeconfig.json` 以验证该应用所面向的框架。
 
@@ -170,7 +170,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 ### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM 同一进程内有多个进程内应用程序
 
-工作进程不能在同一进程中同时运行进程内应用和进程外应用。
+工作进程无法在同一进程中运行多个进程内应用程序。
 
 要修复此错误，请在单独的 IIS 应用程序池中运行应用。
 
@@ -192,7 +192,7 @@ ANCM 无法在提供的启动时间限制内启动。 默认情况下，超时�
 
 工作进程失败。 应用不启动。
 
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试启动工作进程，但启动失败。 通常, 可以根据应用程序事件日志中的条目和 ASP.NET Core 模块 stdout 日志中的条目来确定进程启动失败的原因。
+[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试启动工作进程，但启动失败。 通常，可以根据应用程序事件日志中的条目和 ASP.NET Core 模块 stdout 日志中的条目来确定进程启动失败的原因。
 
 常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。 共享框架是安装在计算机上并由 `Microsoft.AspNetCore.App` 等元包引用的一组程序集（.dll 文件）。 元包引用可以指定所需的最低版本。 有关详细信息，请参阅[共享框架](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)。
 
@@ -218,7 +218,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
    * 如果部署 32 位 (x86) 应用，则将值设置为 `True`。
    * 如果部署 64 位 (x64) 应用，则将值设置为 `False`。
 
-确认项目文件中的`<Platform>` MSBuild 属性和应用的已发布位之间没有冲突。
+确认项目文件中的 `<Platform>` MSBuild 属性和应用的已发布位之间没有冲突。
 
 ### <a name="connection-reset"></a>连接重置
 
@@ -232,7 +232,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 
 [!INCLUDE [Azure App Service Preview Notice](~/includes/azure-apps-preview-notice.md)]
 
-### <a name="application-event-log-azure-app-service"></a>应用程序事件日志 (Azure App Service)
+### <a name="application-event-log-azure-app-service"></a>应用程序事件日志（Azure App Service）
 
 若要访问应用程序事件日志，请在 Azure 门户中使用“诊断并解决问题”边栏选项卡：
 
@@ -308,7 +308,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 
 来自应用且显示任何错误的控制台输出将传送到 Kudu 控制台。
 
-### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>ASP.NET Core 模块 stdout 日志 (Azure App Service)
+### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>ASP.NET Core 模块 stdout 日志（Azure App Service）
 
 ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不到的有用错误消息。 若要启用和查看 stdout 日志，请执行以下操作：
 
@@ -341,7 +341,7 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core 模块调试日志 (Azure App Service)
+### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core 模块调试日志（Azure App Service）
 
 ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详细的日志记录。 若要启用和查看 stdout 日志，请执行以下操作：
 
@@ -363,7 +363,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 * 从本地删除 web.config 文件中的 `<handlerSettings>` 并重新部署该应用。
 * 使用 Kudu 控制台编辑 web.config 文件并删除 `<handlerSettings>` 部分。 保存该文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>。
+有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 。
 
 > [!WARNING]
 > 无法禁用调试日志可能会导致应用或服务器出现故障。 日志文件大小没有任何限制。 仅使用调试日志记录来解决应用启动问题。
@@ -372,7 +372,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ::: moniker-end
 
-### <a name="slow-or-hanging-app-azure-app-service"></a>缓慢或悬挂式应用 (Azure App Service)
+### <a name="slow-or-hanging-app-azure-app-service"></a>缓慢或悬挂式应用（Azure App Service）
 
 如果应用程序响应缓慢或在有请求时挂起，请参阅以下文章：
 
@@ -429,7 +429,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ## <a name="troubleshoot-on-iis"></a>IIS 故障排除
 
-### <a name="application-event-log-iis"></a>应用程序事件日志 (IIS)
+### <a name="application-event-log-iis"></a>应用程序事件日志（IIS）
 
 访问应用程序事件日志：
 
@@ -458,7 +458,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 1. 来自应用且显示任何错误的控制台输出将写入控制台窗口。
 1. 如果向应用发出请求时出现错误，请向 Kestrel 侦听所在的主机和端口发出请求。 如果使用默认主机和端口，请向 `http://localhost:5000/` 发出请求。 如果应用在 Kestrel 终结点地址处正常响应，则问题更可能与承载配置相关，而不太可能在于应用。
 
-### <a name="aspnet-core-module-stdout-log-iis"></a>ASP.NET Core 模块 stdout 日志 (IIS)
+### <a name="aspnet-core-module-stdout-log-iis"></a>ASP.NET Core 模块 stdout 日志（IIS）
 
 若要启用和查看 stdout 日志，请执行以下操作：
 
@@ -486,9 +486,9 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="aspnet-core-module-debug-log-iis"></a>ASP.NET Core 模块调试日志 (IIS)
+### <a name="aspnet-core-module-debug-log-iis"></a>ASP.NET Core 模块调试日志（IIS）
 
-将以下处理程序设置添加到应用程序的*web.config 文件,* 以启用 ASP.NET Core 模块调试日志:
+将以下处理程序设置添加到应用程序的*web.config 文件，* 以启用 ASP.NET Core 模块调试日志：
 
 ```xml
 <aspNetCore ...>
@@ -546,9 +546,9 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 如果应用能够响应请求，则使用终端内联中间件从应用中获取请求、连接和其他数据。 有关详细信息和示例代码，请参阅<xref:test/troubleshoot#obtain-data-from-an-app>。
 
-### <a name="slow-or-hanging-app-iis"></a>慢或挂起应用 (IIS)
+### <a name="slow-or-hanging-app-iis"></a>慢或挂起应用（IIS）
 
-*故障转储*是系统内存的快照, 可帮助确定应用崩溃、启动失败或应用速度缓慢的原因。
+*故障转储*是系统内存的快照，可帮助确定应用崩溃、启动失败或应用速度缓慢的原因。
 
 #### <a name="app-crashes-or-encounters-an-exception"></a>应用崩溃或引发异常
 
@@ -597,15 +597,15 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ## <a name="clear-package-caches"></a>清除包缓存
 
-有时, 在升级开发计算机上的 .NET Core SDK 或更改应用中的包版本后, 运行中的应用会立即失败。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
+有时，在升级开发计算机上的 .NET Core SDK 或更改应用中的包版本后，运行中的应用会立即失败。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
 
 1. 删除 bin 和 obj 文件夹。
-1. 通过从命令行界面执行`dotnet nuget locals all --clear`来清除包缓存。
+1. 通过从命令行界面执行 `dotnet nuget locals all --clear` 来清除包缓存。
 
-   还可以通过[nuget.exe](https://www.nuget.org/downloads)工具和执行命令`nuget locals all -clear`来清除包缓存。 *nuget.exe* 不是与 Windows 桌面操作系统的捆绑安装，必须从 [NuGet 网站](https://www.nuget.org/downloads)中单独获取。
+   还可以通过[nuget.exe](https://www.nuget.org/downloads)工具来完成清除包缓存并执行命令 `nuget locals all -clear`。 *nuget.exe* 不是与 Windows 桌面操作系统的捆绑安装，必须从 [NuGet 网站](https://www.nuget.org/downloads)中单独获取。
 
 1. 还原并重新生成项目。
-1. 重新部署应用之前, 请先删除服务器上部署文件夹中的所有文件。
+1. 重新部署应用之前，请先删除服务器上部署文件夹中的所有文件。
 
 ## <a name="additional-resources"></a>其他资源
 
