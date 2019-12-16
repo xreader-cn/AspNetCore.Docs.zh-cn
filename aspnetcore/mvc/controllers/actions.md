@@ -3,14 +3,14 @@ title: 在 ASP.NET Core MVC 中使用控制器处理请求
 author: ardalis
 description: ''
 ms.author: riande
-ms.date: 07/03/2017
+ms.date: 12/05/2019
 uid: mvc/controllers/actions
-ms.openlocfilehash: 952e4dbb2c4343ca87ace1535e4a5968faf088cf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890252"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881110"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>在 ASP.NET Core MVC 中使用控制器处理请求
 
@@ -23,13 +23,15 @@ ms.locfileid: "64890252"
 控制器用于对一组操作进行定义和分组。 操作（或操作方法  ）是控制器上一种用来处理请求的方法。 控制器按逻辑将类似的操作集合到一起。 通过这种操作的聚合，可以共同应用路由、缓存和授权等通用规则集。 请求通过[路由](xref:mvc/controllers/routing)映射到操作。
 
 根据惯例，控制器类：
-* 驻留在项目的根级别“Controllers”  文件夹中
-* 继承自 `Microsoft.AspNetCore.Mvc.Controller`
+
+* 驻留在项目的根级别“Controllers”  文件夹中。
+* 继承自 `Microsoft.AspNetCore.Mvc.Controller`。
 
 控制器是一个可实例化的类，其中下列条件至少某一个为 true：
-* 类名称带有“Controller”后缀
-* 该类继承自带有“Controller”后缀的类
-* 使用 `[Controller]` 属性修饰该类
+
+* 类名称带有 `Controller` 后缀。
+* 该类继承自带有 `Controller` 后缀的类。
+* `[Controller]` 特性应用于该类。
 
 控制器类不可含有关联的 `[NonController]` 属性。
 
@@ -43,7 +45,7 @@ ms.locfileid: "64890252"
 
 ## <a name="defining-actions"></a>定义操作
 
-控制器上的公共方法（除了那些使用 `[NonAction]` 属性装饰的方法）均为操作。 操作上的参数会绑定到请求数据，并使用[模型绑定](xref:mvc/models/model-binding)进行验证。 所有模型绑定的内容都会执行模型验证。 `ModelState.IsValid` 属性值指示模型绑定和验证是否成功。
+控制器上的公共方法（除了那些带有 `[NonAction]` 属性的方法）均为操作。 操作上的参数会绑定到请求数据，并使用[模型绑定](xref:mvc/models/model-binding)进行验证。 所有模型绑定的内容都会执行模型验证。 `ModelState.IsValid` 属性值指示模型绑定和验证是否成功。
 
 操作方法应包含用于将请求映射到某个业务关注点的逻辑。 业务关注点通常应当表示为控制器通过[依赖关系注入](xref:mvc/controllers/dependency-injection)来访问的服务。 然后，操作将业务操作的结果映射到应用程序状态。
 

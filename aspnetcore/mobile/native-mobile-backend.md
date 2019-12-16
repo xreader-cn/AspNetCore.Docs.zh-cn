@@ -3,14 +3,14 @@ title: 使用 ASP.NET Core 为本机移动应用创建后端服务
 author: ardalis
 description: 了解如何使用 ASP.NET Core MVC 创建后端服务，以支持本机移动应用。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 12/05/2019
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: b50d2593d7dc4b89472033898373e3a22fc9a7a3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38ac69bfe9d99d6d61f96fde92d86fd752ebbb6b
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883952"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881150"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>使用 ASP.NET Core 为本机移动应用创建后端服务
 
@@ -26,7 +26,7 @@ ms.locfileid: "64883952"
 
 ![在 Android 智能手机上运行的 ToDoRest 应用程序](native-mobile-backend/_static/todo-android.png)
 
-### <a name="features"></a>功能
+### <a name="features"></a>特征
 
 ToDoRest 应用支持列出、 添加、删除和更新待办事项。 每个项都有一个 ID、 Name（名称）、Notes（说明）以及一个指示该项是否已完成的属性 Done。
 
@@ -56,7 +56,7 @@ public static string RestUrl = "http://192.168.1.207:5000/api/todoitems/{0}";
 
 ![“新建 ASP.NET Web 应用程序”对话框，其中已选中 Web API 项目模板](native-mobile-backend/_static/web-api-template.png)
 
-对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 `.UseUrls("http://*:5000")`，以便实现以下操作：
+对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 `.UseUrls("http://*:5000")`，以便实现以下操作  ：
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Program.cs?range=10-16&highlight=3)]
 
@@ -79,7 +79,7 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Startup.cs?highlight=6&range=29-35)]
 
-现可创建 ToDoItemsController。
+现可创建 ToDoItemsController  。
 
 > [!TIP]
 > 有关创建 Web API 的详细信息，请参阅[使用 ASP.NET Core MVC 和 Visual Studio 生成首个 Web API](../tutorials/first-web-api.md)。
@@ -108,7 +108,7 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 ### <a name="creating-items"></a>创建项目
 
-按照约定，创建新数据项映射到 HTTP POST 谓词。 `Create` 方法具有应用于该对象的 `[HttpPost]` 属性，并接受 `ToDoItem` 实例。 由于 `item` 参数将在 POST 的正文中传递，因此该参数用 `[FromBody]` 属性修饰。
+按照约定，创建新数据项映射到 HTTP POST 谓词。 `Create` 方法具有应用于它的 `[HttpPost]` 属性，并接受 `ToDoItem` 实例。 由于 `item` 参数在 POST 的正文中传递，因此该参数会指定 `[FromBody]` 属性。
 
 在该方法中，会检查项的有效性和之前是否存在于数据存储，并且如果没有任何问题，则使用存储库添加。 检查 `ModelState.IsValid` 将执行 [模型验证](../mvc/models/validation.md)，应该在每个接受用户输入的 API 方法中执行此步骤。
 

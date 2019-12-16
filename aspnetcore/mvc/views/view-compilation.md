@@ -5,14 +5,14 @@ description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 12/05/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 95fa0d72ed9c088945707ac6b79c3fbde35a5a30
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 0a5770a00c5cb319b571628659a07e73e0de54f9
+ms.sourcegitcommit: fd2483f0a384b1c479c5b4af025ee46917db1919
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416151"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74867973"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -123,16 +123,57 @@ dotnet publish -c Release
 
 ::: moniker range=">= aspnetcore-3.0"
 
-使用 `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` 包启用运行时编译。 要启用运行时编译，应用必须：
+为所有环境和配置模式启用运行时编译：
 
-* 安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。
-* 将项目的 `Startup.ConfigureServices` 方法更新为包含对 `AddRazorRuntimeCompilation` 的调用：
+1. 安装 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet 包。
 
-  ```csharp
-  services
-      .AddControllersWithViews()
-      .AddRazorRuntimeCompilation();
-  ```
+1. 更新项目的 `Startup.ConfigureServices` 方法以包含对 `AddRazorRuntimeCompilation` 的调用。 例如:
+
+    ```csharp
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddRazorPages()
+            .AddRazorRuntimeCompilation();
+
+        // code omitted for brevity
+    }
+    ```
+
+### <a name="conditionally-enable-runtime-compilation"></a>有条件地启用运行时编译
+
+启用运行时编译时可使其仅用于本地开发。 以这种方式有条件地启用可确保已发布的输出：
+
+* 使用编译视图。
+* 较小。
+* 不会在生产环境中启用文件观察程序。
+
+基于环境和配置模式启用运行时编译：
+
+1. 根据活动的 `Configuration` 值，有条件地引用 [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) 包：
+
+    ```xml
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" Condition="'$(Configuration)' == 'Debug'" />
+    ```
+
+1. 更新项目的 `Startup.ConfigureServices` 方法以包含对 `AddRazorRuntimeCompilation` 的调用。 有条件地执行 `AddRazorRuntimeCompilation`，使其仅当 `ASPNETCORE_ENVIRONMENT` 变量设置为 `Development`时在调试模式下运行：
+
+    ```csharp
+    public IWebHostEnvironment Env { get; set; }
+    
+    public void ConfigureServices(IServiceCollection services)
+    {
+        IMvcBuilder builder = services.AddRazorPages();
+    
+    #if DEBUG
+        if (Env.IsDevelopment())
+        {
+            builder.AddRazorRuntimeCompilation();
+        }
+    #endif
+
+        // code omitted for brevity
+    }
+    ```
 
 ::: moniker-end
 

@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: a8381dee05f267077a29999f3d8bbe6327c2b863
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: b651437b698d01310f90c5f14832616c1896e6c0
+ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116146"
+ms.lasthandoff: 12/10/2019
+ms.locfileid: "74959094"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -40,15 +40,15 @@ ms.locfileid: "74116146"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
@@ -62,7 +62,7 @@ ms.locfileid: "74116146"
 * 将项目命名为“RazorPagesMovie”  。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配  。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/config.png)
 
-* 在下拉列表中选择“ASP.NET Core 3.0”，然后依次选择“Web 应用程序”和“创建”    。
+* 在下拉列表中选择“ASP.NET Core 3.1”，然后依次选择“Web 应用程序”和“创建”    。
 
 ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/3/npx.png)
 
@@ -100,7 +100,7 @@ ms.locfileid: "74116146"
 
   ![macOS“新建项目”对话框](razor-pages-start/_static/webapp.png)
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.0”    。
+* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.1”    。
 
   ![macOS .NET Core 3.0 选择](razor-pages-start/_static/targetframework3.png)
 

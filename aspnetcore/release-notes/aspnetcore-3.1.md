@@ -4,17 +4,17 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 634c6937089a0a0fe1f862a83771aff65a1f8418
-ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
+ms.openlocfilehash: 89c676b96ef66f648544a8a884593bdafa3876de
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74778838"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944221"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
 
@@ -28,7 +28,7 @@ Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐�
 
 在 ASP.NET Core 3.0 的 Blazor 中，使用 HTML 帮助程序 (`Html.RenderComponentAsync`) 将组件呈现到页面和视图中。 在 ASP.NET Core 3.1 中，使用新的组件标记帮助程序从页面或视图呈现组件：
 
-```razor
+```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 

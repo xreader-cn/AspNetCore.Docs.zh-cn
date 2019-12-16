@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core MVC 和 Razor Pages 中的模型验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 19f71799e958e2761832c91cec6762a6d391d2b5
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317431"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881045"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -55,10 +55,10 @@ ms.locfileid: "74317431"
 * `[Phone]`：验证属性是否有电话号码格式。
 * `[Range]`：验证属性值是否在指定范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否非 NULL。 请参阅 [[必需] 特性](#required-attribute)，获取关于该特性的行为的详细信息。
+* `[Required]`：验证字段是否非 NULL。 请参阅 [`[Required]` 属性](#required-attribute)，获取关于该特性的行为的详细信息。
 * `[StringLength]`：验证字符串属性值是否未超过指定长度限制。
 * `[Url]`：验证属性是否有 URL 格式。
-* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [[远程] 特性](#remote-attribute)获取关于该特性的行为的详细信息。
+* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 `[`[Remote]` 属性(#remote-attribute)，获取关于该特性的行为的详细信息。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
@@ -134,7 +134,7 @@ ms.locfileid: "74317431"
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
-`AdditionalFields` 可能已显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 操作符可简化稍后的重构过程。 此验证的操作方法必须接受 `firstName` 和 `lastName` 参数：
+`AdditionalFields` 可以显式设置为字符串 "FirstName" 和 "LastName"，但使用 [nameof](/dotnet/csharp/language-reference/keywords/nameof) 运算符可简化稍后的重构过程。 此验证的操作方法必须接受 `firstName` 和 `lastName` 参数：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -255,9 +255,13 @@ public string MiddleName { get; set; }
 </div>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
+请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [required()](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
+
+## <a name="unobtrusive-validation"></a>非介入式验证
+
+有关非介入式验证的信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/1111)。
 
 ### <a name="add-validation-to-dynamic-forms"></a>向动态表单添加验证
 
@@ -415,10 +419,10 @@ $.get({
 * `[Phone]`：验证属性是否有电话号码格式。
 * `[Range]`：验证属性值是否在指定范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否非 NULL。 请参阅 [[必需] 特性](#required-attribute)，获取关于该特性的行为的详细信息。
+* `[Required]`：验证字段是否非 NULL。 请参阅 [`[Required]` 属性](#required-attribute)，获取关于该特性的行为的详细信息。
 * `[StringLength]`：验证字符串属性值是否未超过指定长度限制。
 * `[Url]`：验证属性是否有 URL 格式。
-* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [[远程] 特性](#remote-attribute)获取关于该特性的行为的详细信息。
+* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [`[Remote]` 属性](#remote-attribute)，获取关于该特性的行为的详细信息。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
@@ -494,7 +498,7 @@ $.get({
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields` 可能已显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 操作符可简化稍后的重构过程。 此验证的操作方法必须接受 first name 和 last name 参数：
+`AdditionalFields`可以显式设置为字符串 `"FirstName"` 和 `"LastName"`，但使用 [nameof](/dotnet/csharp/language-reference/keywords/nameof) 运算符可简化稍后的重构过程。 此验证的操作方法必须接受 first name 和 last name 参数：
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -624,7 +628,7 @@ public string MiddleName { get; set; }
 </form>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
+请注意，HTML 输出中的 `data-` 特性与 `ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [required()](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 

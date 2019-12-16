@@ -3,14 +3,14 @@ title: ASP.NET Core 中的自定义模型绑定
 author: ardalis
 description: 了解如何通过模型绑定，使控制器操作能够直接使用 ASP.NET Core 中的模型类型。
 ms.author: riande
-ms.date: 11/13/2018
+ms.date: 12/05/2019
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: b2fbe6a9f11315d1fb8863fbf62e8929c7ff3fc2
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 625cc6c9ca5a2c22d028ea25f8fc0d942b71f12d
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71186881"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881134"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core 中的自定义模型绑定
 
@@ -26,7 +26,7 @@ ms.locfileid: "71186881"
 
 ## <a name="model-binding-review"></a>模型绑定查看
 
-模型绑定为其操作对象的类型使用特定定义。 简单类型转换自输入中的单个字符串。 复杂类型转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
+模型绑定为其操作对象的类型使用特定定义。 简单类型  转换自输入中的单个字符串。 复杂类型  转换自多个输入值。 框架基于是否存在 `TypeConverter` 来确定差异。 如果简单 `string` -> `SomeType` 映射不需要外部资源，建议创建类型转换器。
 
 创建自己的自定义模型绑定器之前，有必要查看现有模型绑定器的实现方式。 考虑使用 [ByteArrayModelBinder](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.binders.bytearraymodelbinder)，它可将 base64 编码的字符串转换为字节数组。 字节数组通常存储为文件或数据库 BLOB 字段。
 
@@ -38,7 +38,7 @@ Base64 编码的字符串可用来表示二进制数据。 例如，下图可编
 
 如下显示了编码字符串的一小部分：
 
-![编码的 dotnet 机器人](custom-model-binding/images/encoded-bot.png "编码的 dotnet 机器人")
+![经过编码的 dotnet 机器人](custom-model-binding/images/encoded-bot.png "经过编码的 dotnet 机器人")
 
 按照[示例的自述文件](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/sample/CustomModelBindingSample/README.md)中的说明将 base64 编码的字符串转换为文件。
 
@@ -69,7 +69,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 可以使用 [Postman](https://www.getpostman.com/) 等工具将 base64 编码的字符串发布到此 api 方法：
 
-![postman](custom-model-binding/images/postman.png "postman")
+![Postman](custom-model-binding/images/postman.png "Postman")
 
 只要绑定器可以将请求数据绑定到相应命名的属性或参数，模型绑定就会成功。 以下示例演示如何将 `ByteArrayModelBinder` 与 视图模型结合使用：
 
@@ -110,7 +110,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 ### <a name="implementing-a-modelbinderprovider"></a>实现 ModelBinderProvider
 
-可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
+可以实现 `IModelBinderProvider`，而不是应用属性。 这就是内置框架绑定器的实现方式。 指定绑定器所操作的类型时，指定它生成的参数的类型，而不是  绑定器接受的输入。 以下绑定器提供程序适用于 `AuthorEntityBinder`。 将其添加到 MVC 提供程序的集合中时，无需在 `Author` 或 `Author` 类型参数上使用 `ModelBinder` 属性。
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinderProvider.cs?highlight=17-20)]
 
@@ -124,7 +124,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 下图显示调试程序中的默认模型绑定器。
 
-![默认模型绑定器](custom-model-binding/images/default-model-binders.png "默认模型绑定器")
+![默认模型绑定程序](custom-model-binding/images/default-model-binders.png "默认模型绑定程序")
 
 向集合的末尾添加提供程序，可能会导致在调用自定义绑定器之前调用内置模型绑定器。 在此示例中，向集合的开头添加自定义提供程序，确保它用于 `Author` 操作参数。
 
@@ -147,4 +147,4 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 - 不应尝试设置状态代码或返回结果（例如 404 Not Found）。 如果模型绑定失败，那么该操作方法本身的[操作筛选器](xref:mvc/controllers/filters)或逻辑会处理失败。
 - 对于消除操作方法中的重复代码和跨领域问题最为有用。
-- 通常不应用其将字符串转换为自定义类型，而应选择用 [`TypeConverter`](/dotnet/api/system.componentmodel.typeconverter) 来完成此操作。
+- 通常不应用其将字符串转换为自定义类型，而应选择用 [TypeConverter](/dotnet/api/system.componentmodel.typeconverter) 来完成此操作。

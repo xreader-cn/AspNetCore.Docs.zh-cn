@@ -8,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 402b25f3f7c1644a52832b5c8566269773932e95
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 01f9cf237dcf2a9b95c181c2cb87ef9f59102244
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886296"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881174"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -166,10 +166,10 @@ ms.locfileid: "69886296"
     在前面的类中，`Id`属性：
 
     * 需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。
-    * 使用 [[BsonId]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。
-    * 使用 [[BsonRepresentation(BsonType.ObjectId)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而不是 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构进行传递。 Mongo 处理从 `string` 到 `ObjectId` 的转换。
+    * 使用 [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。
+    * 使用 [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而非 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构传递。 Mongo 处理从 `string` 到 `ObjectId` 的转换。
 
-    `BookName` 属性使用 [[BsonElement]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。 `Name` 的属性值表示 MongoDB 集合中的属性名称。
+    `BookName` 属性使用 [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。 `Name` 的属性值表示 MongoDB 集合中的属性名称。
 
 ## <a name="add-a-configuration-model"></a>添加配置模型
 
@@ -491,7 +491,7 @@ namespace BooksApi.Controllers
 
     通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。 例如，`Book` 类的 `Author` 属性序列化为 `Author`。
 
-1. 在 Models/Book.cs 中，使用以下 [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性  ：
+1. 在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性  ：
 
     ```csharp
     [BsonElement("Name")]

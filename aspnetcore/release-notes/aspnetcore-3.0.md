@@ -4,17 +4,17 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: c3dde383507ec919f82b5268ddbf23911c3d24f8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 4ade13c38880c9915ec590297f2a43548ca400a8
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963112"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880830"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -182,7 +182,7 @@ public class DomainRestrictedRequirement :
 * 检查在其中调用中心的上下文。
 * 做出允许用户执行单个中心方法的决策。
 
-可以通过代码在运行时检查的策略的名称来修饰单个中心方法。 当客户端尝试调用单个中心方法时，`DomainRestrictedRequirement` 处理程序将运行并控制对方法的访问。 基于 `DomainRestrictedRequirement` 控制访问的方式：
+可以通过代码在运行时检查的策略的名称来标记单个中心方法。 当客户端尝试调用单个中心方法时，`DomainRestrictedRequirement` 处理程序将运行并控制对方法的访问。 基于 `DomainRestrictedRequirement` 控制访问的方式：
 
 * 所有已登录的用户都可以调用 `SendMessage` 方法。
 * 只有使用 `@jabbr.net` 电子邮件地址登录的用户才能查看用户的历史记录。
@@ -319,8 +319,8 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 下面的列表包含新的 Razor 指令：
 
-* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
-* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
+* [`@attribute`](xref:mvc/views/razor#attribute) &ndash; `@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
+* [`@implements`](xref:mvc/views/razor#implements) &ndash; `@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 

@@ -4,16 +4,16 @@ author: isaac2004
 description: 了解 ASP.NET Core 2.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: a45ba44fb7911a21927a4a996c0d6fa9eb776357
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: d969b4caab44e3e50b3a0202b25864921d6d01dc
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963181"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880861"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -51,7 +51,7 @@ ASP.NET Core 2.1 提供 [ASP.NET Core 标识](xref:security/authentication/ident
 
 ## <a name="https"></a>HTTPS
 
-随着对安全和隐私的关注度日益增加，为 Web 应用启用 HTTPS 变得非常重要。 Web 上正在越来越严格要求强制使用 HTTPS。 不使用 HTTPS 的站点会被视为不安全的站点。 浏览器（Chromium、Mozilla）开始强制要求必须在安全的上下文中使用 Web 功能。 [GDPR](xref:security/gdpr) 要求使用 HTTPS 保护用户隐私。 不仅在生产环境中使用 HTTPS 至关重要，而且在开发环境中使用 HTTPS 还可以帮助防止部署中的各种问题（例如，不安全的链接）。 ASP.NET Core 2.1 包含大量改进，更方便在开发环境使用 HTTPS 和在生产环境配置 HTTPS。 有关详细信息，请参阅[强制使用 HTTPS](xref:security/enforcing-ssl)。
+随着对安全和隐私的关注度日益增加，为 Web 应用启用 HTTPS 变得非常重要。 Web 上强制使用 HTTPS 的要求日趋严格。 不使用 HTTPS 的站点被视为不安全的站点。 浏览器（Chromium、Mozilla）开始强制要求必须在安全的上下文中使用 Web 功能。 [GDPR](xref:security/gdpr) 要求使用 HTTPS 保护用户隐私。 不仅在生产环境中使用 HTTPS 至关重要，而且在开发环境中使用 HTTPS 还可以帮助防止部署中的各种问题（例如，不安全的链接）。 ASP.NET Core 2.1 包含大量改进，更方便在开发环境使用 HTTPS 和在生产环境配置 HTTPS。 有关详细信息，请参阅[强制使用 HTTPS](xref:security/enforcing-ssl)。
 
 ### <a name="on-by-default"></a>默认开启
 

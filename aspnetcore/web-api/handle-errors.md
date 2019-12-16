@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core Web API 的错误处理。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 09/27/2019
+ms.date: 12/10/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: 457ad7449c608c3b1b0acd729626e07808f55897
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: c2dbc47b4495b7187aefbc62eb6d2f0c9683c2da
+ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412100"
+ms.lasthandoff: 12/10/2019
+ms.locfileid: "74987830"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -149,7 +149,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
     ::: moniker-end
 
-前面的 `Error` 操作向客户端发送与 [RFC7807](https://tools.ietf.org/html/rfc7807) 兼容的负载。
+前面的 `Error` 操作向客户端发送符合 [RFC 7807](https://tools.ietf.org/html/rfc7807) 的负载。
 
 异常处理中间件还可以在本地开发环境中提供更详细的内容协商输出。 使用以下步骤在开发和生产环境中生成一致的负载格式：
 
@@ -267,6 +267,13 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 ## <a name="client-error-response"></a>客户端错误响应
 
 错误结果  定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
+
+::: moniker range="= aspnetcore-2.1"
+
+> [!IMPORTANT]
+> ASP.NET Core 2.1 生成一个基本符合 RFC 7807 的问题详细信息响应。 如果需要达到百分百的符合性，请将项目升级到 ASP.NET Core 2.2 或更高版本。
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 

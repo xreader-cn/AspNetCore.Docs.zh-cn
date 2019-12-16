@@ -3,14 +3,14 @@ title: 使用 ASP.NET Core 中的应用程序模型
 author: ardalis
 description: 了解如何读取和控制应用程序模型，从而修改 MVC 元素在 ASP.NET Core 中的行为。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 12/05/2019
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 4e264dc7cc63955df42df0b9eeeb7b82ae286241
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733955"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881093"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -196,7 +196,7 @@ services.AddMvc().AddWebApiConventions();
 
 `UseWebApiRoutesAttribute` 控制是否应用 `WebApiApplicationModelConvention` 控制器约定。 启用后，此约定用于向路由添加对[区域](xref:mvc/controllers/areas)的支持。
 
-除了一组约定外，该兼容性包还包含一个 `System.Web.Http.ApiController` 基类，用于替换 Web API 提供的等效项。 这允许针对 Web API 编写并且继承自 `ApiController` 的控制器在 ASP.NET Core MVC 上运行时，能够按照设计的方式运行。 此控制器基类使用上面列出的所有 `UseWebApi*` 属性进行修饰。 `ApiController` 公开了与在 Web API 中找到的属性、方法和结果类型兼容的属性、方法和结果类型。
+除了一组约定外，该兼容性包还包含一个 `System.Web.Http.ApiController` 基类，用于替换 Web API 提供的等效项。 这允许针对 Web API 编写并且继承自 `ApiController` 的控制器在 ASP.NET Core MVC 上运行时，能够按照设计的方式运行。 前面列出的所有 `UseWebApi*` 属性将应用于基本控制器类。 `ApiController` 公开了与在 Web API 中找到的属性、方法和结果类型兼容的属性、方法和结果类型。
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>使用 ApiExplorer 记录应用
 
