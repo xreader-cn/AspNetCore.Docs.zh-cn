@@ -3,14 +3,14 @@ title: ASP.NET Core 中的区域
 author: rick-anderson
 description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的名称空间（用于路由）和文件夹结构（用于视图）的形式组织到一个组中。
 ms.author: riande
-ms.date: 08/16/2019
+ms.date: 12/05/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 9065aa23a537add5a9376472e4f4478e9d4149bd
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: 7e02a21361e0e2148b29a3ae0f1ba25e68239e13
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024734"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881115"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -34,7 +34,7 @@ ms.locfileid: "70024734"
 使用区域、控制器和视图的典型 ASP.NET Core Web 应用包含以下内容：
 
 * [区域文件夹结构](#area-folder-structure)。
-* 使用 [&lbrack;Area&rbrack;](#attribute) 属性（该属性将控制器与区域关联）进行修饰的控制器：
+* 使用 [`[Area]`](#attribute) 属性将自己与区域关联的控制器：
 
   [!code-csharp[](areas/samples/MVCareas/Areas/Products/Controllers/ManageController.cs?name=snippet2)]
 

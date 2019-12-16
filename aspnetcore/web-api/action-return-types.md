@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: c409170a24225e160c1c53e7294590589e114f7f
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: fe665026fdced22ccf4b4f1ba655e858a7acf016
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116083"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879743"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 
@@ -92,7 +92,7 @@ public IEnumerable<Product> GetOnSaleProducts() =>
 
 当操作中可能有多个 `ActionResult` 返回类型时，适合使用 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 返回类型。 `ActionResult` 类型表示多种 HTTP 状态代码。 派生自 `ActionResult` 的任何非抽象类都限定为有效的返回类型。 此类别中的某些常见返回类型为 <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400)、<xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404) 和 <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200)。 或者，可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase> 类中的便利方法从操作返回 `ActionResult` 类型。 例如，`return BadRequest();` 是 `return new BadRequestResult();` 的简写形式。
 
-由于此操作类型中有多个返回类型和路径，因此必须自由使用 [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性。 此特性可针对 [Swagger](xref:tutorials/web-api-help-pages-using-swagger) 等工具生成的 Web API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
+由于此操作类型中有多个返回类型和路径，因此必须自由使用 [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性。 此特性可针对 [Swagger](xref:tutorials/web-api-help-pages-using-swagger) 等工具生成的 Web API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
 
 ### <a name="synchronous-action"></a>同步操作
 
@@ -142,13 +142,13 @@ public IEnumerable<Product> GetOnSaleProducts() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-如果应用的是 ASP.NET Core 2.1 或更高版本中的 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，模型验证错误会导致生成 400 状态代码。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
+如果应用的是 ASP.NET Core 2.1 或更高版本中的 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，模型验证错误会导致生成 400 状态代码。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
 ## <a name="actionresultt-type"></a>ActionResult\<T> 类型
 
 ASP.NET Core 2.1 引入了面向 Web API 控制器操作的 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) 返回类型。 它支持返回从 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 派生的类型或返回[特定类型](#specific-type)。 `ActionResult<T>` 通过 [IActionResult 类型](#iactionresult-type)可提供以下优势：
 
-* 可排除 [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性的 `Type` 属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 可简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
+* 可排除 [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性的 `Type` 属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 可简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
 * [隐式强制转换运算符](/dotnet/csharp/language-reference/keywords/implicit)支持将 `T` 和 `ActionResult` 均转换为 `ActionResult<T>`。 将 `T` 转换为 <xref:Microsoft.AspNetCore.Mvc.ObjectResult>，也就是将 `return new ObjectResult(T);` 简化为 `return T;`。
 
 C# 不支持对接口使用隐式强制转换运算符。 因此，必须使用 `ActionResult<T>`，才能将接口转换为具体类型。 例如，在下面的示例中，使用 `IEnumerable` 不起作用：
@@ -183,7 +183,7 @@ public ActionResult<IEnumerable<Product>> Get() =>
 在上述操作中：
 
 * 在以下情况下，ASP.NET Core 运行时返回 400 状态代码 (<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>)：
-  * 已应用 [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，且模型验证失败。
+  * 已应用 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性，且模型验证失败。
   * 产品说明包含“XYZ 小组件”。
 * 在创建产品后，<xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 方法生成 201 状态代码。 在此代码路径中，将在响应正文中提供 `Product` 对象。 提供了包含新建产品 URL 的 `Location` 响应标头。
 

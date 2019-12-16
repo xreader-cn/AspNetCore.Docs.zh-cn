@@ -5,14 +5,14 @@ description: 了解如何处理 ASP.NET Core 应用中的错误。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 12/05/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: bff526e196ecc378d4687e1c38188977aeeccfd9
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 162972043a90fc8cc45aed52b5fa80ade3e11f39
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589879"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880065"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -64,7 +64,7 @@ public IActionResult Error()
 }
 ```
 
-不要使用 HTTP 方法属性（如 `HttpGet`）修饰错误处理程序操作方法。 显式谓词可阻止某些请求访问方法。 允许匿名访问方法，以便未经身份验证的用户能够接收错误视图。
+不要使用 HTTP 方法属性（如 `HttpGet`）标记错误处理程序操作方法。 显式谓词可阻止某些请求访问方法。 允许匿名访问方法，以便未经身份验证的用户能够接收错误视图。
 
 ### <a name="access-the-exception"></a>访问异常
 
@@ -166,7 +166,7 @@ URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)�
 
 ## <a name="disable-status-code-pages"></a>禁用状态代码页
 
-若要禁用 MVC 控制器或操作方法的状态代码页，请使用 [[SkipStatusCodePages]](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) 特性。
+若要禁用 MVC 控制器或操作方法的状态代码页，请使用 [`[SkipStatusCodePages]`](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) 特性。
 
 若要禁用 Razor Pages 处理程序方法或 MVC 控制器中的特定请求的状态代码页，请使用 <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>：
 

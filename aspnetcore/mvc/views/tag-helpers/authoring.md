@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中创作标记帮助程序。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/29/2019
+ms.date: 12/05/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: f0c7e114583b2ca2e681c507bef3487c863d8cd0
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: e8b62d795f6444e6dd79e27ace687d5db4db86de
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589876"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881002"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
@@ -117,7 +117,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 <a name="self-closing"></a>
 
    > [!NOTE]
-   > 如果打算编写电子邮件标记自结束 (`<email mail-to="Rick" />`)，最终输出也将为自结束。 要启用只使用开始标记 (`<email mail-to="Rick">`) 来编写标记的功能，必须用以下内容修饰类：
+   > 如果打算编写电子邮件标记自结束 (`<email mail-to="Rick" />`)，最终输出也将为自结束。 要启用只使用开始标记 (`<email mail-to="Rick">`) 来编写标记的功能，必须用以下内容来标记类：
    >
    > [!code-csharp[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailVoid.cs?highlight=1&range=6-10)]
 

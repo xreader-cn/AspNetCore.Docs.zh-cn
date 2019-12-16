@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core 2.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: 452ccd76eece55cb5cf38fe39781f2f64dd5d466
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048106"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880865"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -52,7 +52,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 ## <a name="logging-update"></a>日志记录更新
 
-在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs  文件（而非 Startup.cs  文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
+在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs 文件（而非 Startup.cs 文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
 
 有关详细信息，请参阅[日志记录介绍](xref:fundamentals/logging/index)。
 
@@ -104,7 +104,7 @@ var entityTag = new EntityTagHeaderValue("\"MyCalculatedEtagValue\"");
 return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNow.AddSeconds(-5), entityTag: entityTag);
 ```
 
-返回给访问者的文件将附带 `ETag` 和 `LastModified` 值的适当 HTTP 标头。
+返回给访问者的文件带有 `ETag` 和 `LastModified` 值的适当 HTTP 标头。
 
 如果应用程序访问者使用范围请求标头请求内容，ASP.NET Core 将识别出该请求，并会处理该标头。 如果可以对请求的内容执行部分传输操作，ASP.NET Core 将适当地跳过一些内容，只返回请求的字节集。 不必为了采用或处理此功能而将任何特殊的处理程序写入方法；系统会自动处理。
 
@@ -138,7 +138,7 @@ Razor 视图引擎已更新为可使用新的 Roslyn 编译器。 其中包含�
 
 有关 C# 7.1 功能的状态的信息，请参阅 [Roslyn GitHub 存储库](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
 
-## <a name="other-documentation-updates-for-20"></a>2\.0 的其他文档更新
+## <a name="other-documentation-updates-for-20"></a>2.0 的其他文档更新
 
 * [用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles)
 * [密钥管理](xref:security/data-protection/implementation/key-management)

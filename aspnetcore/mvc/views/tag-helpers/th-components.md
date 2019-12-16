@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: de053dd0138224a9bece218010eaaedcf7e084cb
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 070cc3aae08664c13d8eb793a066766d0a5569ee
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583537"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880978"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -111,8 +111,8 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 创建自定义标记帮助程序组件：
 
 * 创建派生自 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper> 的公共类。
-* 将 [[HtmlTargetElement]](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 属性应用于该类。 指定目标 HTML 元素的名称。
-* *可选*：将 [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) 属性应用于类，以取消在 IntelliSense 中显示类型。
+* 将 [`[HtmlTargetElement]`](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 属性应用于该类。 指定目标 HTML 元素的名称。
+* *可选*：将 [`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute) 属性应用于类，以取消在 IntelliSense 中显示类型。
 
 以下代码可创建面向 `<address>` HTML 元素的自定义标记帮助程序组件：
 

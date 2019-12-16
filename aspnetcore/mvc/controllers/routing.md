@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中路由到控制器操作
 author: rick-anderson
 description: 了解 ASP.NET Core MVC 如何使用路由中间件来匹配传入请求的 URL 并将它们映射到操作。
 ms.author: riande
-ms.date: 01/24/2019
+ms.date: 12/05/2019
 uid: mvc/controllers/routing
-ms.openlocfilehash: a0dbfbe60c151990581b494f81e500fe0b315f55
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: b0cd3df6eb0efa90fc76d206413016d6c624285c
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589857"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881079"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -336,7 +336,7 @@ public class ProductsApiController : Controller
 }
 ```
 
-在此示例中，URL 路径 `/products` 可以匹配 `ProductsApi.ListProducts`，URL 路径 `/products/5` 可以匹配 `ProductsApi.GetProduct(int)`。 这两项操作仅匹配 HTTP `GET`，因为它们用 `HttpGetAttribute` 修饰。
+在此示例中，URL 路径 `/products` 可以匹配 `ProductsApi.ListProducts`，URL 路径 `/products/5` 可以匹配 `ProductsApi.GetProduct(int)`。 这两项操作仅匹配 HTTP `GET`，因为它们用 `HttpGetAttribute` 标记。
 
 应用于操作的以 `/` 或 `~/` 开头的路由模板不与应用于控制器的路由模板合并。 此示例匹配一组与*默认路由*类似的 URL 路径。
 

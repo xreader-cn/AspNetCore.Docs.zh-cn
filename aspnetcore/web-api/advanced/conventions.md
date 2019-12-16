@@ -5,20 +5,20 @@ description: 了解 ASP.NET Core 中的 Web API 约定。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/13/2018
+ms.date: 12/05/2019
 uid: web-api/advanced/conventions
-ms.openlocfilehash: ae409158defe15ffaa7454039b302cf3c6437e54
-ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.openlocfilehash: 2c7e33da24322504fc5e1be83c0b814710186687
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67463283"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881322"
 ---
 # <a name="use-web-api-conventions"></a>使用 Web API 约定
 
 作者：[Pranav Krishnamoorthy](https://github.com/pranavkm) 和 [Scott Addie](https://github.com/scottaddie)
 
-ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文档](xref:tutorials/web-api-help-pages-using-swagger)并将其应用于多个操作、控制器或某程序集内的所有控制器。 Web API 约定可替代使用 [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 来装饰单个操作。
+ASP.NET Core 2.2 及更高版本附带一种方法，可提取常见的 [API 文档](xref:tutorials/web-api-help-pages-using-swagger)并将其应用于多个操作、控制器或某程序集内的所有控制器。 Web API 约定可替代使用 [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 来装饰单个操作。
 
 使用此约定，可以：
 
@@ -52,7 +52,7 @@ ASP.NET Core MVC 2.2 及更高版本在 <xref:Microsoft.AspNetCore.Mvc.DefaultAp
 
     若要详细了解 `[ProducesDefaultResponseType]`，请参阅[默认响应](https://swagger.io/docs/specification/describing-responses/#default)。
 
-1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于控制器 &mdash; 将指定约定类型应用于控制器上的所有操作。 约定方法都带有提示，可确定要向其应用约定方法的操作。 有关提示的详细信息，请参阅[创建 Web API 约定](#create-web-api-conventions)）。
+1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` 应用于控制器 &mdash; 将指定约定类型应用于控制器上的所有操作。 约定方法都标记有提示，可确定要向其应用约定方法的操作。 有关提示的详细信息，请参阅[创建 Web API 约定](#create-web-api-conventions)）。
 
     在以下示例中，默认的约定集将应用于 ContactsConventionController 中的所有操作  ：
 
