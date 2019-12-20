@@ -279,7 +279,7 @@ CORS 中间件始终允许发送 `Access-Control-Request-Headers` 中的四个�
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为白名单：
+CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为允许列表：
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
