@@ -154,7 +154,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
 * 每个 gRPC 调用都有一个可选 `CallOptions` 参数。 可以使用选项的标头集合来发送自定义标头。
 
 > [!NOTE]
-> Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 一起使用。 gRPC 要求 HTTP/2，但是 HTTP/2 不支持 Windows 身份验证。
+> Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 一起使用。 gRPC 要求使用 HTTP/2，但是 HTTP/2 不支持 Windows 身份验证。
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>授权用户访问服务和服务方法
 
@@ -167,7 +167,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-您可以使用 `[Authorize]` 特性的构造函数参数和属性，将访问权限限制为仅匹配特定[授权策略](xref:security/authorization/policies)的用户。 例如，如果你有一个名为 `MyAuthorizationPolicy`的自定义授权策略，请确保只有符合该策略的用户才能使用以下代码访问该服务：
+可以使用 `[Authorize]` 特性的构造函数参数和属性，将访问权限限制为仅提供给符合特定[授权策略](xref:security/authorization/policies)的用户。 例如，如果你有一个名为 `MyAuthorizationPolicy`的自定义授权策略，请确保只有符合该策略的用户才能使用以下代码访问该服务：
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
