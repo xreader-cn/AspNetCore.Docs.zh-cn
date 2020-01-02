@@ -176,9 +176,9 @@ ASP.NET Core 应用使用 `Startup` 类，按照约定命名为 `Startup`。 `St
 
 <a name="convenience-methods"></a>
 
-## <a name="configure-services-without-startup"></a>在不使用Startup类的情况下配置服务
+## <a name="configure-services-without-startup"></a>在不使用 Startup 类的情况下配置服务
 
-若要配置服务和请求处理管道，而不使用 `Startup` 类，请在WebHostBuilder上调用 `ConfigureServices` 和 `Configure` 便捷方法。 多次调用 `ConfigureServices` 将追加到前一个之后。 如果存在多个 `Configure` 方法调用，则使用最后一个 `Configure` 调用。
+若要配置服务和请求处理管道，而不使用 `Startup` 类，请在主机生成器上调用 `ConfigureServices` 和 `Configure` 便捷方法。 多次调用 `ConfigureServices` 将追加到前一个之后。 如果存在多个 `Configure` 方法调用，则使用最后一个 `Configure` 调用。
 
 ::: moniker range=">= aspnetcore-3.0"
 
