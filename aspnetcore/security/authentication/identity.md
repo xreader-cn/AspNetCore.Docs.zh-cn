@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/identity
-ms.openlocfilehash: c867b73a96fd081f6e2ca17fef561ac539c0a129
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 787d39dd7824f912128e6af849fa268c3e8eb908
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880730"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359194"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -48,8 +48,8 @@ GitHub 上提供了[标识源代码](https://github.com/aspnet/AspNetCore/tree/m
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择“文件”>“新建”>“项目”。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择 "**文件**" >**新建**>**项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
@@ -216,6 +216,7 @@ Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例�
 
 ## <a name="next-steps"></a>后续步骤
 
+* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
 * [配置标识](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -257,8 +258,8 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择“文件”>“新建”>“项目”。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
+* 选择 "**文件**" >**新建**>**项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
@@ -403,6 +404,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ## <a name="next-steps"></a>后续步骤
 
+* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
 * [配置标识](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

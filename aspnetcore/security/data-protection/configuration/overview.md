@@ -1,19 +1,19 @@
 ---
-title: 配置 ASP.NET Core 数据保护
+title: 配置 ASP.NET Core数据保护
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中配置数据保护。
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 380293f650c9548c286f98c0447c7ed08b918f2a
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: cda510d0f8211641e3544b53ded79878d717cc58
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007374"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358405"
 ---
-# <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
+# <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core数据保护
 
 当数据保护系统已初始化时，它将基于操作环境应用[默认设置](xref:security/data-protection/configuration/default-settings)。 这些设置通常适用于在一台计算机上运行的应用程序。 在某些情况下，开发人员可能想要更改默认设置：
 
@@ -26,6 +26,15 @@ ms.locfileid: "72007374"
 > 与配置文件类似，应使用适当的权限保护数据保护密钥环。 你可以选择对静态密钥加密，但这不会阻止攻击者创建新密钥。 因此，应用的安全将受到影响。 使用数据保护配置的存储位置应该将其访问权限限制为应用本身，这与保护配置文件的方式类似。 例如，如果选择将密钥环存储在磁盘上，请使用文件系统权限。 确保你的 web 应用在其下运行的标识具有对该目录的读取、写入和创建访问权限。 如果使用 Azure Blob 存储，则只有 web 应用应能够在 Blob 存储中读取、写入或创建新条目等。
 >
 > 扩展方法[AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection)返回[IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder)。 `IDataProtectionBuilder` 公开扩展方法，你可以将这些方法链接在一起来配置数据保护选项。
+
+::: moniker range=">= aspnetcore-3.0"
+
+本文中使用的数据保护扩展插件需要以下 NuGet 包：
+
+* [AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)
+* [AspNetCore. DataProtection. AzureKeyVault](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault/)
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 

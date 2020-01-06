@@ -6,16 +6,18 @@ ms.author: casoper
 ms.date: 12/05/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 0c7e8a1db924bdedf29468bf6b8cc17f03962c6d
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9b18b19838a2d25944a2498b6eec1677e56b12cc
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880743"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358256"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>中的 web Api 使用 Azure Active Directory B2C 在 ASP.NET Core 中的身份验证
 
 作者：[Cam Soper](https://twitter.com/camsoper)
+
+<!-- Next update remove screenshots. They become obsolete too soon and are more work to update -->
 
 [Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) 是云标识管理解决方案，适用于 web 和移动应用。 该服务提供用于在云中和本地托管的应用的身份验证。 身份验证类型包括个人帐户，社交网络帐户和联合企业帐户。 Azure AD B2C 还提供了最小配置多重身份验证。
 
@@ -56,7 +58,7 @@ Azure Active Directory (Azure AD) 和 Azure AD B2C 是单独的产品产品/服�
 
 | 设置                       | {2&gt;值&lt;2}               | 注释                                                                                  |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------|
-| **名称**                      | *{API 名称}*        | 输入**名称**描述你的应用向使用者的应用。                     |
+| **Name**                      | *{API 名称}*        | 输入**名称**描述你的应用向使用者的应用。                     |
 | **包括 web 应用 /web API** | 是                 |                                                                                        |
 | **允许隐式流**       | 是                 |                                                                                        |
 | **回复 URL**                 | `https://localhost` | 回复 Url 属于终结点，Azure AD B2C 在其中返回应用请求的任何令牌。 |
@@ -71,7 +73,7 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
 
 在 Visual Studio 中：
 
-1. 创建新的 ASP.NET Core Web 应用呈现。 
+1. 创建新的 ASP.NET Core Web 应用程序。 
 2. 选择**Web API**从模板列表。
 3. 选择**更改身份验证**按钮。
 
@@ -112,7 +114,7 @@ Postman 模拟 web 应用从 Azure AD B2C 租户中获取令牌，因为它必�
 
 | 设置                       | {2&gt;值&lt;2}                            | 注释                           |
 |-------------------------------|----------------------------------|---------------------------------|
-| **名称**                      | Postman                          |                                 |
+| **Name**                      | Postman                          |                                 |
 | **包括 web 应用 /web API** | 是                              |                                 |
 | **允许隐式流**       | 是                              |                                 |
 | **回复 URL**                 | `https://getpostman.com/postman` |                                 |

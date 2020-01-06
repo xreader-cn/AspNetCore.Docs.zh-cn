@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 05225b86701b7a5d5c84dd43afbef70dd1ece228
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2350870f8548a9c8df324182883a105706c12c20
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944065"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355737"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -30,13 +30,9 @@ Blazor 应用可从 JavaScript 代码调用 .NET 和 .NET 方法中的 JavaScrip
 
 有时需要 .NET 代码才能调用 JavaScript 函数。 例如，JavaScript 调用可以向应用公开 JavaScript 库中的浏览器功能或功能。 此方案称为*JavaScript 互操作性*（*JS 互操作*）。
 
-若要从 .NET 调入 JavaScript，请使用 `IJSRuntime` 抽象。 `InvokeAsync<T>` 方法采用 JavaScript 函数的标识符，该标识符将与任意数量的 JSON 可序列化参数一起调用。 函数标识符相对于全局范围（`window`）。 如果要调用 `window.someScope.someFunction`，则 `someScope.someFunction`标识符。 无需在调用函数之前注册它。 返回类型 `T` 也必须是 JSON 可序列化的。 `T` 应匹配最适合于返回的 JSON 类型的 .NET 类型。
+若要从 .NET 调入 JavaScript，请使用 `IJSRuntime` 抽象。 若要发出 JS 互操作调用，请在组件中注入 `IJSRuntime` 抽象。 `InvokeAsync<T>` 方法采用 JavaScript 函数的标识符，该标识符将与任意数量的 JSON 可序列化参数一起调用。 函数标识符相对于全局范围（`window`）。 如果要调用 `window.someScope.someFunction`，则 `someScope.someFunction`标识符。 无需在调用函数之前注册它。 返回类型 `T` 也必须是 JSON 可序列化的。 `T` 应匹配最适合于返回的 JSON 类型的 .NET 类型。
 
-对于 Blazor 服务器应用：
-
-* Blazor Server 应用处理多个用户请求。 请勿在组件中调用 `JSRuntime.Current` 来调用 JavaScript 函数。
-* 注入 `IJSRuntime` 抽象，并使用注入的对象颁发 JS 互操作调用。
-* 在预呈现 Blazor 应用程序时，无法调用 JavaScript，因为尚未建立与浏览器的连接。 有关详细信息，请参阅[检测何时预呈现 Blazor 应用](#detect-when-a-blazor-app-is-prerendering)部分。
+对于启用了预呈现的 Blazor Server 应用，初始预呈现期间无法调用 JavaScript。 在建立与浏览器的连接后，必须延迟 JavaScript 互操作调用。 有关详细信息，请参阅[检测何时预呈现 Blazor 应用](#detect-when-a-blazor-app-is-prerendering)部分。
 
 下面的示例基于[TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（基于实验性 JavaScript 的解码器）。 该示例演示如何从C#方法调用 JavaScript 函数。 JavaScript 函数从C#方法接受字节数组，对数组进行解码，并将文本返回给组件以供显示。
 

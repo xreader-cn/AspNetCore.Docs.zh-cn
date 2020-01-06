@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 000732115153eeafed3948c2a07acf77ffc34218
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 324592759af79d1229eb147fb4551e97c678ef64
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73964047"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358673"
 ---
 # <a name="host-aspnet-core-opno-locsignalr-in-background-services"></a>在后台服务中宿主 ASP.NET Core SignalR
 
@@ -27,7 +27,7 @@ ms.locfileid: "73964047"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="wire-up-opno-locsignalr-during-startup"></a>启动时连接 SignalR
+## <a name="enable-opno-locsignalr-in-startup"></a>启用启动中的 SignalR
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -62,7 +62,7 @@ public class Startup
 
 ::: moniker range="<= aspnetcore-2.2"
 
-在后台工作进程的上下文中托管 ASP.NET Core SignalR 中心与在 ASP.NET Core web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用 `services.AddSignalR` 会将所需的服务添加到 ASP.NET Core 依赖关系注入（DI）层以支持 SignalR。 在 `Startup.Configure`中，将调用 `UseSignalR` 方法，以便在 ASP.NET Core 请求管道中连接中心终结点。
+在后台工作进程的上下文中托管 ASP.NET Core SignalR 中心与在 ASP.NET Core web 应用中托管集线器完全相同。 在 `Startup.ConfigureServices` 方法中，调用 `services.AddSignalR` 会将所需的服务添加到 ASP.NET Core 依赖关系注入（DI）层以支持 SignalR。 在 `Startup.Configure`中，调用 `UseSignalR` 方法连接 ASP.NET Core 请求管道中的中心终结点。
 
 [!code-csharp[Startup](background-service/sample/Server/Startup.cs?name=Startup)]
 
@@ -83,13 +83,13 @@ public class Startup
 
 ## <a name="call-a-opno-locsignalr-hub-from-a-background-service"></a>从后台服务调用 SignalR 集线器
 
-在启动过程中，`Worker` 类（`BackgroundService`）是使用 `AddHostedService`连接的。
+在启动过程中，将使用 `AddHostedService`启用 `Worker` 类 `BackgroundService`。
 
 ```csharp
 services.AddHostedService<Worker>();
 ```
 
-由于 SignalR 也在 `Startup` 阶段中进行了连接，因此，每个中心均附加到 ASP.NET Core 的 HTTP 请求管道中的单个终结点，每个中心由服务器上的 `IHubContext<T>` 表示。 使用 ASP.NET Core 的 DI 功能，由宿主层实例化的其他类（如 `BackgroundService` 类、MVC 控制器类或 Razor 页面模型）可通过在构造期间接受 `IHubContext<ClockHub, IClock>` 的实例来获取对服务器端集线器的引用。
+由于 SignalR 也是在 `Startup` 阶段启用的，在这种情况下，每个中心均附加到 ASP.NET Core 的 HTTP 请求管道中的单个终结点，每个中心由服务器上的 `IHubContext<T>` 表示。 使用 ASP.NET Core 的 DI 功能，由宿主层实例化的其他类（如 `BackgroundService` 类、MVC 控制器类或 Razor 页面模型）可通过在构造期间接受 `IHubContext<ClockHub, IClock>` 的实例来获取对服务器端集线器的引用。
 
 [!code-csharp[Startup](background-service/sample/Server/Worker.cs?name=Worker)]
 
@@ -99,7 +99,7 @@ services.AddHostedService<Worker>();
 
 与使用 SignalR 的 JavaScript 客户端或 .NET 桌面应用程序一样，使用 JavaScript 客户端的单页面应用程序也可以使用 <xref:signalr/dotnet-client>，`BackgroundService` 或 `IHostedService` 实现也可用于连接到 SignalR 中心和响应事件。
 
-`ClockHubClient` 类既实现了 `IClock` 接口，又实现了 `IHostedService` 接口。 这样，便可以在 `Startup` 期间将其连接起来，以便连续运行，并响应服务器的集线器事件。
+`ClockHubClient` 类既实现了 `IClock` 接口，又实现了 `IHostedService` 接口。 这样，便可以在 `Startup` 期间启用此功能，以便连续运行和响应来自服务器的集线器事件。
 
 ```csharp
 public partial class ClockHubClient : IClock, IHostedService
@@ -107,7 +107,7 @@ public partial class ClockHubClient : IClock, IHostedService
 }
 ```
 
-在初始化期间，`ClockHubClient` 会创建一个 `HubConnection` 的实例，并将 `IClock.ShowTime` 方法向上滑为中心的 `ShowTime` 事件的处理程序。
+在初始化期间，`ClockHubClient` 将创建一个 `HubConnection` 的实例，并将 `IClock.ShowTime` 方法启用为中心的 `ShowTime` 事件的处理程序。
 
 [!code-csharp[The ClockHubClient constructor](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=ClockHubClientCtor)]
 

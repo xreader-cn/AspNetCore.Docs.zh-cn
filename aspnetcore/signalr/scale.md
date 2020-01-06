@@ -9,12 +9,12 @@ ms.date: 11/28/2018
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 7fc767939996a489174be949742637030924616d
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6506430202870ba9de2f8eb6f33d79c7c1fbbbd4
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963750"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608062"
 ---
 # <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR 宿主和缩放
 
@@ -42,7 +42,7 @@ Web 服务器可以支持的并发 TCP 连接数受到限制。 标准 HTTP 客�
 
 SignalR 的连接相关资源的大量使用可能会影响在同一服务器上托管的其他 web 应用程序。 当 SignalR 打开并保存最近可用的 TCP 连接时，同一服务器上的其他 web 应用也不会有更多的可用连接。
 
-如果服务器的连接用尽，你会看到随机套接字错误和连接重置错误。 例如:
+如果服务器的连接用尽，你会看到随机套接字错误和连接重置错误。 例如：
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
@@ -90,9 +90,24 @@ Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动�
 
 前面所述的 Azure SignalR 服务优点是 Redis 底板的缺点：
 
-* 需要有粘滞会话（也称为[客户端相关性](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)）。 在服务器上启动连接后，连接必须停留在该服务器上。
+* 需要将粘滞会话（也称为[客户端关联](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)）用于以下**两**种情况：
+  * 所有客户端都配置为**仅**使用 websocket。
+  * 在客户端配置中启用了[SkipNegotiation 设置](xref:signalr/configuration#configure-additional-options)。 
+   在服务器上启动连接后，连接必须停留在该服务器上。
 * 即使发送的消息太少，SignalR 应用也必须基于客户端数量进行扩展。
 * SignalR 应用比没有 SignalR的 web 应用使用的连接资源要多得多。
+
+## <a name="iis-limitations-on-windows-client-os"></a>Windows 客户端操作系统上的 IIS 限制
+
+Windows 10 和 Windows 8.x 是客户端操作系统。 客户端操作系统上的 IIS 的并发连接数限制为10个。 SignalR的连接是：
+
+* 暂时性并经常重新建立。
+* 不再使用时**不会**立即释放。
+
+上述情况可能导致在客户端操作系统上达到10个连接限制。 当客户端操作系统用于开发时，建议：
+
+* 避免 IIS。
+* 使用 Kestrel 或 IIS Express 作为部署目标。
 
 ## <a name="next-steps"></a>后续步骤
 

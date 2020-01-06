@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 7aff46f739239246191763e0590046b2d9995922
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 52285999d7710cc3198836b9246596980cfc1666
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080510"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355789"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>使用 JavaScript 服务在 ASP.NET Core 中创建单页面应用程序
 
@@ -69,7 +69,7 @@ SpaServices 提供有用的基础结构，例如：
     node -v && npm -v
     ```
 
-  * 如果要部署到 Azure 网站，则无需&mdash;执行任何操作 node.js 已安装，并且在服务器环境中可用。
+  * 如果部署到 Azure 网站，则不需要执行任何操作&mdash;在服务器环境中安装了 node.js。
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -195,7 +195,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 
 在大多数基于 ASP.NET Core 的 Spa 中，通常还需要客户端路由，而不是服务器端路由。 SPA 和 MVC 路由系统可以不受干扰地独立工作。 没有，但是，一个边缘事例造成面临的难题： 标识 404 HTTP 响应。
 
-请考虑在该方案中的无扩展名路由`/some/page`使用。 假定该请求不模式匹配的服务器端的路由，但其模式匹配的客户端的路由。 现在，考虑的传入请求`/images/user-512.png`，这通常需要查找服务器上的图像文件。 如果请求的资源路径与任何服务器端路由或静态文件都不匹配，则客户端应用程序可能会处理它，但&mdash;通常不需要返回 404 HTTP 状态代码。
+请考虑在该方案中的无扩展名路由`/some/page`使用。 假定该请求不模式匹配的服务器端的路由，但其模式匹配的客户端的路由。 现在，考虑的传入请求`/images/user-512.png`，这通常需要查找服务器上的图像文件。 如果请求的资源路径与任何服务器端路由或静态文件都不匹配，则客户端应用程序可能会处理它，&mdash;通常返回 404 HTTP 状态代码。
 
 ### <a name="routing-helpers-prerequisites"></a>路由帮助程序先决条件
 
@@ -225,7 +225,7 @@ dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 
 显示可用的 SPA 模板的列表：
 
-| 模板                                 | 短名称 | 语言 | Tags        |
+| 模板                                 | 短名称 | Language | Tags        |
 | ------------------------------------------| :--------: | :------: | :---------: |
 | 带 Angular 的 MVC ASP.NET Core             | angular    | [C#]     | Web/MVC/SPA |
 | 带有 React.js 的 MVC ASP.NET Core            | react      | [C#]     | Web/MVC/SPA |
@@ -241,10 +241,10 @@ dotnet new angular
 
 存在两种主要的运行时配置模式：
 
-* **开发**:
+* **开发**：
   * 包括源映射，以便进行调试。
   * 不会优化性能的客户端代码。
-* **生产**:
+* **生产**：
   * 不包括源映射。
   * 通过绑定和缩减优化客户端代码。
 
@@ -289,6 +289,8 @@ npm test
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/test/karma.conf.js?range=4-5,8-11)]
 
 ## <a name="publish-the-app"></a>发布应用
+
+有关发布到 Azure 的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/12474)。
 
 将生成的客户端的资产和已发布的 ASP.NET Core 项目合并为随时可部署的包可能会很麻烦。 幸运的是，SpaServices 协调与名为的自定义 MSBuild 目标的整个发布过程`RunWebpack`:
 

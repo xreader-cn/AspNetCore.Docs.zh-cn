@@ -4,14 +4,14 @@ author: blowdart
 description: 了解如何在 ASP.NET Core for IIS 和 http.sys 中配置证书身份验证。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 12/09/2019
+ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 38ee8a6767191bb3eee4286e49b96162b14d9889
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959055"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608140"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -63,23 +63,33 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = 链式、SelfSigned 或 All （链式 |SelfSigned)
 
-此检查将验证是否只允许使用适当的证书类型。
+默认值：30`CertificateTypes.Chained`
+
+此检查将验证是否只允许使用适当的证书类型。 如果应用使用自签名证书，则需要将此选项设置为 `CertificateTypes.All` 或 `CertificateTypes.SelfSigned`。
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
+
+默认值：30`true`
 
 此检查将验证客户端提供的证书是否具有客户端身份验证扩展密钥使用（EKU），或者根本没有 Eku。 如规范所示，如果未指定 EKU，则所有 Eku 均视为有效。
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
+默认值：30`true`
+
 此检查将验证证书是否在其有效期内。 对于每个请求，处理程序将确保在其在其当前会话期间提供的证书过期时，该证书是有效的。
 
 ### <a name="revocationflag"></a>RevocationFlag
+
+默认值：30`X509RevocationFlag.ExcludeRoot`
 
 一个标志，该标志指定将检查链中的哪些证书进行吊销。
 
 仅当证书链接到根证书时才执行吊销检查。
 
 ### <a name="revocationmode"></a>RevocationMode
+
+默认值：30`X509RevocationMode.Online`
 
 指定如何执行吊销检查的标志。
 
@@ -208,7 +218,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。
+> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*>**之前**调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点不会应用默认值。
 
 ### <a name="iis"></a>IIS
 
@@ -376,6 +386,9 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath root_ca_dev_damienbod.crt
 ```
+
+> [!NOTE]
+> `-DnsName` 参数值必须与应用的部署目标匹配。 例如，用于开发的 "localhost"。
 
 #### <a name="install-in-the-trusted-root"></a>在受信任的根中安装
 

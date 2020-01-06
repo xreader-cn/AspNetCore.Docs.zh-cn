@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: c4c07808540c9af370bfa253e8154a8a19f0f3de
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 451171a041f7bbb3711babd73d2fa2e245aadd28
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634067"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355131"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>将 gRPC services 从 C 核迁移到 ASP.NET Core
 
@@ -49,7 +49,7 @@ public void ConfigureServices(IServiceCollection services)
 
 在基于 C 的应用程序中，当[构造服务器实例](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)时，将在 `ChannelOption` 配置 `grpc.max_receive_message_length` 和 `grpc.max_send_message_length` 等设置。
 
-在 ASP.NET Core 中，gRPC 通过 `GrpcServiceOptions` 类型提供配置。 例如，可以通过 `AddGrpc` 配置 gRPC 服务的最大传入消息大小。 下面的示例将默认 `MaxReceiveMessageSize` 为 4 MB 到 16 MB：
+在 ASP.NET Core 中，gRPC 通过 `GrpcServiceOptions` 类型提供配置。 例如，可以通过 `AddGrpc`配置 gRPC 服务的最大传入消息大小。 下面的示例将默认 `MaxReceiveMessageSize` 为 4 MB 到 16 MB：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -82,7 +82,7 @@ public class GreeterService : Greeter.GreeterBase
 
 ## <a name="grpc-interceptors-vs-middleware"></a>gRPC 拦截 vs 中间件
 
-与基于 gRPC 的应用中的侦听器相比，[中间件](xref:fundamentals/middleware/index)提供的功能类似。 ASP.NET Core ASP.NET Core 中间件和侦听器在概念上类似。 全部
+与基于 gRPC 的应用中的侦听器相比，[中间件](xref:fundamentals/middleware/index)提供的功能类似。 ASP.NET Core ASP.NET Core 中间件和侦听器在概念上类似。 两者：
 
 * 用于构造处理 gRPC 请求的管道。
 * 允许在管道中的下一个组件之前或之后执行工作。
@@ -97,7 +97,8 @@ gRPC 侦听器与 ASP.NET Core 中间件的不同之处：
   * 提供以下内容的访问权限：
     * 发送到调用的反序列化消息。
     * 序列化之前从调用返回的消息。
-* 中间件
+  * 可以捕获和处理从 gRPC 服务引发的异常。
+* 中间件：
   * 在 gRPC 侦听器之前运行。
   * 对基础 HTTP/2 消息进行操作。
   * 只能访问请求和响应流中的字节。

@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: ef5cb120c15d349be744c401bd518e026ddf11e9
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9b36ae64fbe277cd81ed22ba7b21b0a035082dbd
+ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880775"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75606787"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>安全存储中 ASP.NET Core 中开发的应用程序机密
 
@@ -19,7 +19,7 @@ ms.locfileid: "74880775"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-本文档介绍用于存储和检索敏感数据的 ASP.NET Core 应用程序开发过程的技术。 永远不要将密码或其他敏感数据存储在源代码中。 不应使用生产机密进行开发或测试。 机密不应与应用一起部署。 相反，机密应通过受控方式（如环境变量、Azure Key Vault 等）在生产环境中可用。可以通过[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
+本文档介绍在开发计算机上开发 ASP.NET Core 应用过程中存储和检索敏感数据的方法。 永远不要将密码或其他敏感数据存储在源代码中。 不应使用生产机密进行开发或测试。 机密不应与应用一起部署。 相反，机密应通过受控方式（如环境变量、Azure Key Vault 等）在生产环境中可用。可以通过[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
 
 ## <a name="environment-variables"></a>环境变量
 
@@ -410,5 +410,6 @@ No secrets configured for this application.
 
 ## <a name="additional-resources"></a>其他资源
 
+* 有关从 IIS 访问密钥管理器的信息，请参阅[此问题](https://github.com/aspnet/AspNetCore.Docs/issues/16328)。
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>

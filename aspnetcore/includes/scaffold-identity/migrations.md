@@ -5,6 +5,7 @@
 在 Visual Studio**程序包管理器控制台**:
 
 ```powershell
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
 Add-Migration CreateIdentitySchema
 Update-Database
 ```
@@ -18,4 +19,4 @@ dotnet ef database update
 
 ---
 
-`Add-Migration`命令的 "CreateIdentitySchema" 名称参数是任意的。 `"CreateIdentitySchema"`介绍迁移。
+`Add-Migration` 命令的 "CreateIdentitySchema" name 参数是任意的。 `"CreateIdentitySchema"` 介绍迁移。

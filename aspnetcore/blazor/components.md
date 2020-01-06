@@ -5,16 +5,16 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/28/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: a79202565f45b4d26e280427892ea16b33f3f853
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 87f21d84c17e5bbd1247bb955acee81384b890e7
+ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943857"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75597897"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -579,16 +579,16 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 
 | Event            | 类                | DOM 事件和说明 |
 | ---------------- | -------------------- | -------------------- |
-| 剪贴板        | `ClipboardEventArgs` | `oncut`中， `oncopy`中， `onpaste` |
+| 剪贴板        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
 | 拖动             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
 | 错误            | `ErrorEventArgs`     | `onerror` |
-| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`中， `onbeforecopy`中， `onbeforepaste`<br><br>*输入*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*介质*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
+| Event            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*输入*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*媒体*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
 | 专注            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
-| 输入            | `ChangeEventArgs`    | `onchange`，`oninput` |
-| 键盘         | `KeyboardEventArgs`  | `onkeydown`中， `onkeypress`中， `onkeyup` |
+| 输入            | `ChangeEventArgs`    | `onchange`, `oninput` |
+| 键盘         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
 | 鼠标            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | 鼠标指针    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
-| 鼠标滚轮      | `WheelEventArgs`     | `onwheel`，`onmousewheel` |
+| 鼠标滚轮      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
 | 爬网         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | 触控            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
 
@@ -1624,7 +1624,8 @@ public class ThemeInfo
 }
 ```
 
-> !出现`Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
+> [!WARNING]
+> `Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 
@@ -1729,7 +1730,7 @@ builder.AddContent(seq++, "Second");
 
 ### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>为国际化配置链接器（Blazor WebAssembly）
 
-默认情况下，Blazor的 Blazor WebAssembly 应用程序的链接器配置会去除国际化信息，因为显式请求的区域设置除外。 有关控制链接器行为的详细信息和指南，请参阅 <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>。
+默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>。
 
 ### <a name="cookies"></a>Cookie
 

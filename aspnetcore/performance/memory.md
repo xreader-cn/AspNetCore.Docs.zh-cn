@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: 85e34c9faa31a1020a4200eb99003455ca435ec3
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880953"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75357273"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -35,9 +35,9 @@ GC 分配堆段，其中每个段都是一系列连续的内存。 位于堆中�
 
 出于性能方面的原因，上述内存分配已完成。 性能优势来自连续内存中的堆段。
 
-### <a name="call-gccollect"></a>调用 GC.Collect
+### <a name="call-gccollect"></a>调用 GC。收集
 
-显式调用[GC.Collect](xref:System.GC.Collect*)：
+调用[GC。显式收集](xref:System.GC.Collect*)：
 
 * **不**应由生产 ASP.NET Core 应用完成。
 * 调查内存泄漏时非常有用。
@@ -203,7 +203,7 @@ public void GetFileProvider()
 }
 ```
 
-[PhysicaFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)是托管类，因此将在请求结束时收集任何实例。
+[PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)是托管类，因此将在请求结束时收集任何实例。
 
 下图显示了连续调用 `fileprovider` API 时的内存配置文件。
 

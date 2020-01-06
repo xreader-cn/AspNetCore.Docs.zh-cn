@@ -3,14 +3,14 @@ title: Facebook、Google 和外部提供程序身份验证，无需 ASP.NET Core
 author: rick-anderson
 description: 使用 Facebook、Google、Twitter 等帐户用户身份验证的说明，无需 ASP.NET Core 标识。
 ms.author: riande
-ms.date: 11/19/2019
+ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 680ea091dcc5ed7f94879b5d277e8be7e5abeb7b
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289120"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359053"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>在不 ASP.NET Core 标识的情况下使用社交登录提供程序身份验证
 
@@ -47,7 +47,7 @@ ms.locfileid: "74289120"
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet2&highlight=3-4)]
 
-若要详细了解身份验证方案和 cookie 身份验证，请参阅 <xref:security/authentication/cookie>。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie>。
 
 ## <a name="apply-authorization"></a>应用授权
 
@@ -98,11 +98,11 @@ ms.locfileid: "74289120"
 
 如果将应用程序的 `DefaultScheme` 设置为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用程序的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 设置为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用程序配置为使用 Google 作为调用 `ChallengeAsync`的默认方案。 `DefaultScheme``DefaultChallengeScheme` 重写。 有关在设置时覆盖 `DefaultScheme` 的其他属性，请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>。
 
-在 `Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc`之前调用 `UseAuthentication` 方法：
+在 `Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc` 之前调用 `UseAuthentication` 方法：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
-若要详细了解身份验证方案和 cookie 身份验证，请参阅 <xref:security/authentication/cookie>。
+若要详细了解身份验证方案，请参阅[身份验证概念](xref:security/authentication/index#authentication-concepts)。 若要详细了解 cookie 身份验证，请参阅 <xref:security/authentication/cookie>。
 
 ## <a name="apply-authorization"></a>应用授权
 
