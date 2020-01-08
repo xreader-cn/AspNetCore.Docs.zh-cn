@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/21/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 627ca483d60514d85e38c0e346ff5aef64ad9fee
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 06ce9c72f43955345efb61afed2538158810005f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034297"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358064"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -45,7 +45,7 @@ ms.locfileid: "73034297"
 
 * 将目录更改为 (`cd`) 包含项目的文件夹。
 
-* 在 Windows 上，运行以下命令：
+* 对于 Windows，运行下面的命令：
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
@@ -111,8 +111,7 @@ ms.locfileid: "73034297"
 
 ## <a name="next-steps"></a>后续步骤
 
+* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/10563)，了解有关如何自定义登录按钮的信息。
 * 本文介绍了外部身份验证，并说明了向 ASP.NET Core 应用添加外部登录所需的先决条件。
-
 * 引用特定于提供程序的页，为应用所需的提供程序配置登录。
-
 * 可能需要保留有关用户及其访问和刷新令牌的其他数据。 有关详细信息，请参阅 <xref:security/authentication/social/additional-claims>。

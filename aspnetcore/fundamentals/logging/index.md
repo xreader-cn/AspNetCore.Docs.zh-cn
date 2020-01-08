@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
-ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
+ms.openlocfilehash: e1c50c4592b21d56ed813dac43204d63f1bfe46c
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74825492"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359343"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -513,7 +513,7 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
   需要立即关注的失败。 例如数据丢失、磁盘空间不足。
 
-使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。 例如:
+使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。 例如：
 
 * 生产中：
   * 如果通过 `Information` 级别在 `Trace` 处记录，则会生成大量详细的日志消息。 为控制成本且不超过数据存储限制，请通过 `Information` 级别消息将 `Trace` 记录到容量大、成本低的数据存储中。
@@ -804,7 +804,7 @@ System.Exception: Item not found exception.
 
 ### <a name="filter-functions"></a>筛选器函数
 
-对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。 函数中的代码可访问提供程序类型、类别和日志级别。 例如:
+对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。 函数中的代码可访问提供程序类型、类别和日志级别。 例如：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -989,14 +989,14 @@ dotnet tool install --global dotnet-trace
 
    在非 Windows 平台上，添加 `-f speedscope` 选项，将输出跟踪文件更改为 `speedscope`。
 
-   | 关键字 | 说明 |
+   | 关键字 | 描述 |
    | :-----: | ----------- |
    | 1       | 记录有关 `LoggingEventSource` 的 meta 事件。 请不要从 `ILogger` 记录事件。 |
    | 2       | 在调用 `ILogger.Log()` 时启用 `Message` 事件。 以编程（未格式化）方式提供信息。 |
    | 4       | 在调用 `ILogger.Log()` 时启用 `FormatMessage` 事件。 提供格式化字符串版本的信息。 |
    | 8       | 在调用 `ILogger.Log()` 时启用 `MessageJson` 事件。 提供参数的 JSON 表示形式。 |
 
-   | 事件级别 | 说明     |
+   | 事件级别 | 描述     |
    | :---------: | --------------- |
    | 0           | `LogAlways`     |
    | 1           | `Critical`      |
@@ -1030,7 +1030,7 @@ dotnet tool install --global dotnet-trace
 * [跟踪性能分析实用工具 (dotnet-trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md)（dotnet/诊断 GitHub 存储库文档）
 * [LoggingEventSource 类](xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource)（.NET API 浏览器）
 * <xref:System.Diagnostics.Tracing.EventLevel>
-* [LoggingEventSource 引用源 (3.0)](https://github.com/aspnet/Extensions/blob/release/3.0/src/Logging/Logging.EventSource/src/LoggingEventSource.cs) &ndash; 要获取不同版本的引用源，请将分支更改为 `release/{Version}`，其中 `{Version}` 是所需的 ASP.NET Core 版本。
+* [LoggingEventSource 引用源 (3.0)](https://github.com/aspnet/Extensions/blob/release/3.0/src/Logging/Logging.EventSource/src/LoggingEventSource.cs) &ndash; 若要获取不同版本的引用源，请将分支更改为 `release/{Version}`，其中 `{Version}` 是所需的 ASP.NET Core 版本。
 * [预览](#perfview) &ndash; 用于查看事件源跟踪。
 
 #### <a name="perfview"></a>Perfview
@@ -1056,6 +1056,16 @@ logging.AddEventLog();
 * `LogName` &ndash; "Application"
 * `SourceName` &ndash; ".NET Runtime"
 * `MachineName` &ndash; local machine
+
+为[警告等级和更高等级](#log-level)记录事件。 若要记录低于 `Warning` 的事件，请显式设置日志级别。 例如，将以下内容添加到 appsettings 文件中  ：
+
+```json
+"EventLog": {
+  "LogLevel": {
+    "Default": "Information"
+  }
+}
+```
 
 ### <a name="tracesource-provider"></a>TraceSource 提供程序
 

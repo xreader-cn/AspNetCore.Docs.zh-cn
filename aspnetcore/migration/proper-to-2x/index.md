@@ -5,12 +5,12 @@ description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Cor
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 19be7191792c44fb5414eb0a7b24772c45391253
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "74803339"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359407"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -18,7 +18,7 @@ ms.locfileid: "74803339"
 
 本文可作为从 ASP.NET 应用迁移到 ASP.NET Core 的参考指南。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download)
 
@@ -60,7 +60,7 @@ ASP.NET Core 引入了启动应用的新机制。 ASP.NET 应用程序的入口�
 
 这会配置默认路由，默认为 XmlSerialization 而不是 Json。 根据需要向此管道添加其他中间件（加载服务、配置设置、静态文件等）。
 
-ASP.NET Core 使用相似的方法，但是不依赖 OWIN 处理条目。 相反，这是通过 Program.cs  `Main` 方法（类似于控制台应用程序）完成，其中加载了 `Startup`。
+ASP.NET Core 使用相似的方法，但是不依赖 OWIN 处理条目。 而是通过 Program.cs  `Main` 方法（类似于控制台应用程序）来完成，并且 `Startup` 会通过该处进行加载。
 
 [!code-csharp[](samples/program.cs)]
 
@@ -158,6 +158,40 @@ Web 开发的一个重要环节是提供客户端静态资产的功能。 HTML�
 ## <a name="multi-value-cookies"></a>多值 cookie
 
 ASP.NET Core 不支持[多值 cookie](xref:System.Web.HttpCookie.Values)。 为每个值创建一个 cookie。
+
+## <a name="partial-app-migration"></a>部分应用迁移
+
+部分应用迁移的一种方法是创建 IIS 子应用程序，只将特定的路由从 ASP.NET 4.x 迁移到 ASP.NET Core，同时保留应用的 URL 结构。 例如，applicationHost.config 文件中应用的 URL 结构  ：
+
+```xml
+<sites>
+    <site name="Default Web Site" id="1" serverAutoStart="true">
+        <application path="/">
+            <virtualDirectory path="/" physicalPath="D:\sites\MainSite\" />
+        </application>
+        <application path="/api" applicationPool="DefaultAppPool">
+            <virtualDirectory path="/" physicalPath="D:\sites\netcoreapi" />
+        </application>
+        <bindings>
+            <binding protocol="http" bindingInformation="*:80:" />
+            <binding protocol="https" bindingInformation="*:443:" sslFlags="0" />
+        </bindings>
+    </site>
+    ...
+</sites>
+```
+
+目录结构：
+
+```
+.
+├── MainSite
+│   ├── ...
+│   └── Web.config
+└── NetCoreApi
+    ├── ...
+    └── web.config
+```
 
 ## <a name="additional-resources"></a>其他资源
 
