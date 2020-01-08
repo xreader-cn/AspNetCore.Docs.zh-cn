@@ -326,8 +326,6 @@
               uid: host-and-deploy/blazor/server
             - name: 配置链接器
               uid: host-and-deploy/blazor/configure-linker
-        - name: 示例
-          href: 'https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor'
     - name: 客户端开发
       items:
         - name: 单页应用
@@ -612,7 +610,7 @@
       uid: test/integration-tests
     - name: 负载测试和压力测试
       uid: test/loadtests
-    - name: 疑难解答
+    - name: 故障排除和调试
       uid: test/troubleshoot
     - name: Logging
       uid: fundamentals/logging/index
@@ -885,15 +883,15 @@
             - name: 概述
               uid: security/authentication/azure-active-directory/index
             - name: 将 Azure AD 集成到 Web 应用中
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/ms-identity-aspnetcore-webapp-tutorial'
             - name: 将 Azure AD B2C 集成到 Web 应用中
               uid: security/authentication/azure-ad-b2c
             - name: 将 Azure AD B2C 集成到 Web API 中
               uid: security/authentication/azure-ad-b2c-webapi
             - name: 从 WPF 调用 Web API
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore'
             - name: 使用 Azure AD 在 Web 应用中调用 Web API
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore'
         - name: 使用 IdentityServer4 保护 ASP.NET Core 应用
           href: 'https://identityserver4.readthedocs.io/'
         - name: 使用 Azure App Service 身份验证保护 ASP.NET Core 应用（简易身份验证）
@@ -1101,6 +1099,9 @@
       uid: fundamentals/host/hosted-services
     - name: 托管启动程序集
       uid: fundamentals/configuration/platform-specific-configuration
+    - name: 类库中的 ASP.NET Core
+      displayName: shared framework
+      uid: fundamentals/target-aspnetcore
     - name: Microsoft.AspNetCore.App 元包
       uid: fundamentals/metapackage-app
     - name: Microsoft.AspNetCore.All 元包
