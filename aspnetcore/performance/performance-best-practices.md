@@ -8,16 +8,16 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: bd30776d527b4ac9f44005e9f5d03fec7cfda2e6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c74adf7479d176c41dc26c7e77acfc3dc9cdcb88
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880923"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693955"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
-作者： [Mike Rousos](https://github.com/mjrousos)
+作者：[Mike Rousos](https://github.com/mjrousos)
 
 本文提供了有关 ASP.NET Core 的性能最佳做法的准则。
 
@@ -44,7 +44,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 **建议做法**：
 
 * 使[热代码路径](#understand-hot-code-paths)处于异步状态。
-* 如果异步 API 可用，则异步调用数据访问和长时间运行的操作 Api。 同样，不要使用[任务。运行](/dotnet/api/system.threading.tasks.task.run)以使 synchronus API 成为异步。
+* 如果异步 API 可用，则异步调用数据访问、i/o 和长时间运行的操作 Api。 不要**使用**[任务。运行](/dotnet/api/system.threading.tasks.task.run)以使 synchronus API 成为异步。
 * 使控制器/Razor 页面操作异步。 为了受益于[async/await](/dotnet/csharp/programming-guide/concepts/async/)模式，整个调用堆栈是异步的。
 
 探查器（如[PerfView](https://github.com/Microsoft/perfview)）可用于查找频繁添加到[线程池中](/windows/desktop/procthread/thread-pools)的线程。 `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` 事件表示添加到线程池中的线程。 <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
@@ -67,7 +67,7 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 有关详细信息，请参阅[垃圾回收和性能](/dotnet/standard/garbage-collection/performance)。
 
-## <a name="optimize-data-access"></a>优化数据访问
+## <a name="optimize-data-access-and-io"></a>优化数据访问和 i/o
 
 与数据存储和其他远程服务的交互通常是 ASP.NET Core 应用程序的最慢部分。 有效读取和写入数据对于良好的性能至关重要。
 
