@@ -1,4 +1,4 @@
-<span data-ttu-id="90292-101">运行以下 .NET Core CLI 命令：</span><span class="sxs-lookup"><span data-stu-id="90292-101">Run the following .NET Core CLI commands:</span></span>
+<span data-ttu-id="c9006-101">运行以下 .NET Core CLI 命令：</span><span class="sxs-lookup"><span data-stu-id="c9006-101">Run the following .NET Core CLI commands:</span></span>
 
 ```dotnetcli
 dotnet tool install --global dotnet-ef
@@ -9,11 +9,13 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-<span data-ttu-id="90292-102">上述命令添加：</span><span class="sxs-lookup"><span data-stu-id="90292-102">The preceding commands add:</span></span>
+<span data-ttu-id="c9006-102">上述命令添加：</span><span class="sxs-lookup"><span data-stu-id="c9006-102">The preceding commands add:</span></span>
 
-* <span data-ttu-id="90292-103">[aspnet-codegenerator 基架工具](xref:fundamentals/tools/dotnet-aspnet-codegenerator)。</span><span class="sxs-lookup"><span data-stu-id="90292-103">The [aspnet-codegenerator scaffolding tool](xref:fundamentals/tools/dotnet-aspnet-codegenerator).</span></span>
-* <span data-ttu-id="90292-104">适用于 .NET Core CLI 的 Entity Framework Core 工具。</span><span class="sxs-lookup"><span data-stu-id="90292-104">The Entity Framework Core Tools for the .NET Core CLI.</span></span>
-* <span data-ttu-id="90292-105">EF Core SQLite 提供程序将 EF Core 包作为依赖项进行安装。</span><span class="sxs-lookup"><span data-stu-id="90292-105">The EF Core SQLite provider, which installs the EF Core package as a dependency.</span></span>
-* <span data-ttu-id="90292-106">基架需要的包：`Microsoft.VisualStudio.Web.CodeGeneration.Design` 和 `Microsoft.EntityFrameworkCore.SqlServer`。</span><span class="sxs-lookup"><span data-stu-id="90292-106">Packages needed for scaffolding: `Microsoft.VisualStudio.Web.CodeGeneration.Design` and `Microsoft.EntityFrameworkCore.SqlServer`.</span></span>
+* <span data-ttu-id="c9006-103">[aspnet-codegenerator 基架工具](xref:fundamentals/tools/dotnet-aspnet-codegenerator)。</span><span class="sxs-lookup"><span data-stu-id="c9006-103">The [aspnet-codegenerator scaffolding tool](xref:fundamentals/tools/dotnet-aspnet-codegenerator).</span></span>
+* <span data-ttu-id="c9006-104">适用于 .NET Core CLI 的 Entity Framework Core 工具。</span><span class="sxs-lookup"><span data-stu-id="c9006-104">The Entity Framework Core Tools for the .NET Core CLI.</span></span>
+* <span data-ttu-id="c9006-105">EF Core SQLite 提供程序将 EF Core 包作为依赖项进行安装。</span><span class="sxs-lookup"><span data-stu-id="c9006-105">The EF Core SQLite provider, which installs the EF Core package as a dependency.</span></span>
+* <span data-ttu-id="c9006-106">基架需要的包：`Microsoft.VisualStudio.Web.CodeGeneration.Design` 和 `Microsoft.EntityFrameworkCore.SqlServer`。</span><span class="sxs-lookup"><span data-stu-id="c9006-106">Packages needed for scaffolding: `Microsoft.VisualStudio.Web.CodeGeneration.Design` and `Microsoft.EntityFrameworkCore.SqlServer`.</span></span>
 
-<span data-ttu-id="90292-107">有关允许应用按环境配置其数据库上下文的多个环境配置指南，请参阅 <xref:fundamentals/environments#environment-based-startup-class-and-methods>。</span><span class="sxs-lookup"><span data-stu-id="90292-107">For guidance on multiple environment configuration that permits an app to configure its database contexts by environment, see <xref:fundamentals/environments#environment-based-startup-class-and-methods>.</span></span>
+<span data-ttu-id="c9006-107">有关允许应用按环境配置其数据库上下文的多个环境配置指南，请参阅 <xref:fundamentals/environments#environment-based-startup-class-and-methods>。</span><span class="sxs-lookup"><span data-stu-id="c9006-107">For guidance on multiple environment configuration that permits an app to configure its database contexts by environment, see <xref:fundamentals/environments#environment-based-startup-class-and-methods>.</span></span>
+
+[!INCLUDE[](~/includes/scaffoldTFM.md)]
