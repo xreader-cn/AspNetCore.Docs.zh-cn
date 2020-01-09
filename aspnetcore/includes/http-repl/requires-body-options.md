@@ -1,6 +1,6 @@
 * `-c|--content`
 
-  提供内联 HTTP 请求正文。 例如 `-c "{ 'id': 2, 'name': 'Cherry' }"`。
+  提供内联 HTTP 请求正文。 例如 `-c "{"id":2,"name":"Cherry"}"`。
 
 * `-f|--file`
 

@@ -17,3 +17,5 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 * 基架需要的包：`Microsoft.VisualStudio.Web.CodeGeneration.Design` 和 `Microsoft.EntityFrameworkCore.SqlServer`。
 
 有关允许应用按环境配置其数据库上下文的多个环境配置指南，请参阅 <xref:fundamentals/environments#environment-based-startup-class-and-methods>。
+
+[!INCLUDE[](~/includes/scaffoldTFM.md)]
