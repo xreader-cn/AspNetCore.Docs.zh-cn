@@ -5,14 +5,14 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/26/2019
+ms.date: 01/06/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: de1b3e270ccd90bde741975de38a224e557f1a08
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 8e0475e3e18688c7d4344661826290d15a2443c0
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717411"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829187"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -139,13 +139,33 @@ ASP.NET Core 模块生成分配给后端进程的动态端口。 `CreateDefaultB
 
 ### <a name="enable-the-iisintegration-components"></a>启用 IISIntegration 组件
 
-典型 Program.cs 会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>，以开始设置将实现与 IIS 的集成的主机  ：
+::: moniker range=">= aspnetcore-3.0"
+
+在 `CreateHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 以启用 IIS 集成：
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        ...
+```
+
+有关 `CreateDefaultBuilder` 的详细信息，请参阅 <xref:fundamentals/host/generic-host#default-builder-settings>。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+在 `CreateWebHostBuilder` 中生成主机 (*Program.cs*)，请调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 以启用 IIS 集成：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         ...
 ```
+
+有关 `CreateDefaultBuilder` 的详细信息，请参阅 <xref:fundamentals/host/web-host#set-up-a-host>。
+
+::: moniker-end
 
 ### <a name="iis-options"></a>IIS 选项
 
@@ -328,7 +348,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
    * `OPT_NO_RUNTIME=1` &ndash; 跳过安装 .NET Core 运行时。 当服务器仅承载[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时使用。
    * `OPT_NO_SHAREDFX=1` &ndash; 跳过安装 ASP.NET 共享框架（ASP.NET 运行时）。 当服务器仅承载[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 时使用。
    * `OPT_NO_X86=1` &ndash; 跳过安装 x86 运行时。 确定不会托管 32 位应用时，请使用此参数。 如果有可能会同时托管 32 位和 64 位应用，请勿使用此参数，并安装两个运行时。
-   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config  ) 与 IIS 安装位于同一台计算机上时，禁用检查使用的是否是 IIS 共享配置。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。  有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
+   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 当共享配置 (applicationHost.config  ) 与 IIS 安装位于同一台计算机上时，禁止对使用的是否是 IIS 共享配置进行检查。 仅适用于 ASP.NET Core 2.2 或更高版本托管捆绑程序安装程序。  有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>。
 1. 重新启动系统，或在命令行界面中执行以下命令：
 
    ```console
@@ -462,7 +482,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
   ASP.NET Core 应用使用的数据保护密钥存储在应用外部的注册表中。 要持久保存给定应用的密钥，需为应用池创建注册表项。
 
-  对于独立的非 Web 场 IIS 安装，可以对用于 ASP.NET Core 应用的每个应用池使用[数据保护 Provision-AutoGenKeys.ps1 PowerShell 脚本](https://github.com/aspnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1)。 此脚本在 HKLM 注册表中创建注册表项，仅应用程序的应用池工作进程帐户可对其进行访问。 通过计算机范围的密钥使用 DPAPI 对密钥静态加密。
+  对于独立的非 Web 场 IIS 安装，可以对用于 ASP.NET Core 应用的每个应用池使用[数据保护 Provision-AutoGenKeys.ps1 PowerShell 脚本](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1)。 此脚本在 HKLM 注册表中创建注册表项，仅应用程序的应用池工作进程帐户可对其进行访问。 通过计算机范围的密钥使用 DPAPI 对密钥静态加密。
 
   在 web 场方案中，可以将应用配置为使用 UNC 路径存储其数据保护密钥环。 默认情况下，数据保护密钥未加密。 确保网络共享的文件权限仅限于应用在其下运行的 Windows 帐户。 可使用 X509 证书来保护静态密钥。 考虑允许用户上传证书的机制：将证书置于用户信任的证书存储中，并确保这些证书对所有运行用户应用的计算机都可用。 有关详细信息，请参阅[配置 ASP.NET Core 数据保护](xref:security/data-protection/configuration/overview)。
 
@@ -488,7 +508,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 * **设置用于数据保护的计算机范围的策略**
 
-  数据保护系统对以下操作提供有限支持：为使用数据保护 API 的所有应用设置默认[计算机范围的策略](xref:security/data-protection/configuration/machine-wide-policy)。 有关更多信息，请参见<xref:security/data-protection/introduction>。
+  数据保护系统对以下操作提供有限支持：为使用数据保护 API 的所有应用设置默认[计算机范围的策略](xref:security/data-protection/configuration/machine-wide-policy)。 有关详细信息，请参阅 <xref:security/data-protection/introduction>。
 
 ## <a name="virtual-directories"></a>虚拟目录
 
@@ -678,8 +698,8 @@ ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 
 通过 ASP.NET Core 模板版本 2 托管在 IIS 中时：
 
-* [应用程序初始化模块](#application-initialization-module) &ndash; 应用的托管[进程内](#in-process-hosting-model)或[进程外](#out-of-process-hosting-model)可配置为在工作进程重启或服务器重启后自动启动。
-* [空闲超时](#idle-timeout) &ndash; 可以将托管在[进程内](#in-process-hosting-model)的应用配置为在非活动时段期间不超时。
+* [应用程序初始化模块](#application-initialization-module) &ndash;应用的托管[进程内](#in-process-hosting-model)或[进程外](#out-of-process-hosting-model)可配置为在工作进程重启或服务器重启后自动启动。
+* [空闲超时](#idle-timeout) &ndash;可以将托管在[进程内](#in-process-hosting-model)的应用配置为在非活动时段期间不超时。
 
 ### <a name="application-initialization-module"></a>应用程序初始化模块
 
@@ -691,7 +711,7 @@ ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 
 Windows 7 或更高版本桌面系统，在本地使用 IIS 时：
 
-1. 导航到“控制面板”>“程序”>“程序和功能”>“启用或禁用 Windows 功能”（位于屏幕左侧）     。
+1. 导航到“控制面板”>“程序”>“程序和功能”>“打开或关闭 Windows 功能”（位于屏幕左侧）     。
 1. 打开“Internet Information Services”  >“万维网服务”  >“应用程序开发功能”  。
 1. 选中“应用程序初始化”  的复选框。
 

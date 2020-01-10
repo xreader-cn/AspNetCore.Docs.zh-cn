@@ -4,14 +4,14 @@ author: rick-anderson
 description: 介绍如何使用 ASP.NET Core 创建并运行简单的 Hello World 应用的快速教程。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/22/2019
+ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 116a22bce80257948bfcc02c03a74a4b5568b8b5
-ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
+ms.openlocfilehash: c806bd1e79dea9119f1c9e99d0a2b9742a10987a
+ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/05/2019
-ms.locfileid: "71975695"
+ms.lasthandoff: 01/08/2020
+ms.locfileid: "75737472"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -29,9 +29,9 @@ ms.locfileid: "71975695"
 
 ![Web 应用主页](_static/home-page.png)
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
-[!INCLUDE[](~/includes/3.0-SDK.md)]
+[!INCLUDE[](~/includes/3.1-SDK.md)]
 
 ## <a name="create-a-web-app-project"></a>创建 Web 应用项目
 
