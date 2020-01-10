@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
-ms.openlocfilehash: 56f79b303a8d53699e8eb6156d328c0da1259416
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: 1e7887388a752fb35d00e65db210c3924c6ab192
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011134"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829096"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>通过 .NET 客户端调用 gRPC 服务
 
@@ -22,18 +22,16 @@ ms.locfileid: "71011134"
 
 ## <a name="configure-grpc-client"></a>配置 gRPC 客户端
 
-gRPC 客户端是[从 *\*proto*文件生成](xref:grpc/basics#generated-c-assets)的具体客户端类型。 混凝土 gRPC 客户端具有转换为 *\*proto*文件中 gRPC 服务的方法。
+gRPC 客户端是从 [\*.proto 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto 文件中 gRPC 服务的方法。
 
-从通道创建 gRPC 客户端。 首先使用`GrpcChannel.ForAddress`创建通道，然后使用通道创建 gRPC 客户端：
+从通道创建 gRPC 客户端。 开始使用 `GrpcChannel.ForAddress` 创建通道，然后使用通道创建 gRPC 客户端：
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greet.GreeterClient(channel);
 ```
 
-通道表示 gRPC 服务的长期连接。 创建通道时，会使用与调用服务相关的选项来配置该通道。 例如，可在`HttpClient`上`GrpcChannelOptions`指定并与`GrpcChannel.ForAddress`一起使用的、最大发送和接收消息大小以及日志记录。 有关选项的完整列表，请参阅[客户端配置选项](xref:grpc/configuration#configure-client-options)。
-
-创建通道是一种开销高昂的操作，使用 gRPC 调用的通道可带来性能优势。 可以从通道（包括不同类型的客户端）创建多个具体的 gRPC 客户端。 具体 gRPC 客户端类型为轻型对象，并可在需要时创建。
+通道表示 gRPC 服务的长期连接。 创建通道后，会将其配置为与调用服务相关的选项。 例如，可在 `GrpcChannelOptions` 上指定 `HttpClient`，并在 `GrpcChannel.ForAddress`上指定日志记录的最大发送和接收消息大小和日志记录。 有关选项的完整列表，请参阅[客户端配置选项](xref:grpc/configuration#configure-client-options)。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -44,7 +42,15 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
-`GrpcChannel.ForAddress`不是创建 gRPC 客户端的唯一选项。 如果从 ASP.NET Core 应用程序调用 gRPC 服务，请考虑[gRPC 客户端工厂集成](xref:grpc/clientfactory)。 与的`HttpClientFactory` gRPC 集成提供了一种用于创建 gRPC 客户端的集中替代方法。
+通道和客户端性能和使用情况：
+
+* 创建通道是一种开销高昂的操作。 为 gRPC 调用重用通道可带来性能优势。
+* 将通过通道创建 gRPC 客户端。 gRPC 客户端是轻型对象，无需缓存或重复使用。
+* 可以从通道（包括不同类型的客户端）创建多个 gRPC 客户端。
+* 通道和从通道创建的客户端可以安全地由多个线程使用。
+* 从通道创建的客户端可以同时进行多次调用。
+
+`GrpcChannel.ForAddress` 不是创建 gRPC 客户端的唯一选项。 如果要从 ASP.NET Core 的应用程序中调用 gRPC 服务，请考虑[gRPC 客户端工厂集成](xref:grpc/clientfactory)。 gRPC 与 `HttpClientFactory` 的集成提供了创建 gRPC 客户端的集中式替代方法。
 
 > [!NOTE]
 > 需要额外的配置才能[通过 .net 客户端调用不安全的 gRPC 服务](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)。
@@ -72,14 +78,14 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-*\*Proto*文件中的每个一元服务方法将导致用于调用方法的具体 gRPC 客户端类型上有两个 .net 方法：一个异步方法和一个阻止方法。 例如， `GreeterClient`可以通过两种方法调用`SayHello`：
+*\*proto*文件中的每个一元服务方法都将导致用于调用方法的具体 gRPC 客户端类型上有两个 .net 方法：异步方法和阻塞方法。 例如，在 `GreeterClient` 有两种方法可调用 `SayHello`：
 
-* `GreeterClient.SayHelloAsync`-以`Greeter.SayHello`异步方式调用服务。 可以等待。
-* `GreeterClient.SayHello`-调用`Greeter.SayHello`服务和阻止到完成。 不要在异步代码中使用。
+* `GreeterClient.SayHelloAsync`-异步调用 `Greeter.SayHello` 服务。 可以等待。
+* `GreeterClient.SayHello`-调用 `Greeter.SayHello` 服务，直到完成。 不要在异步代码中使用。
 
 ### <a name="server-streaming-call"></a>服务器流式处理调用
 
-服务器流式处理调用会从客户端发送请求消息开始。 `ResponseStream.MoveNext()`读取从服务传输的消息。 `ResponseStream.MoveNext()` 返回`false`时，服务器流调用已完成。
+服务器流式处理调用会从客户端发送请求消息开始。 `ResponseStream.MoveNext()` 读取从服务传输的消息。 `ResponseStream.MoveNext()` 返回 `false`时，服务器流调用已完成。
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -93,7 +99,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 }
 ```
 
-如果使用C#的`await foreach`是8或更高版本，则可以使用语法来读取消息。 `IAsyncStreamReader<T>.ReadAllAsync()`扩展方法从响应流中读取所有消息：
+如果使用C#的是8或更高版本，则可以使用 `await foreach` 语法来读取消息。 `IAsyncStreamReader<T>.ReadAllAsync()` 扩展方法读取响应流中的所有消息：
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -109,7 +115,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 
 ### <a name="client-streaming-call"></a>客户端流式处理调用
 
-客户端流式处理调用在客户端发送消息的*情况下*启动。 客户端可以选择发送发送消息`RequestStream.WriteAsync`。 当客户端已经完成发送消息`RequestStream.CompleteAsync`时，应调用来通知服务。 当服务返回响应消息时，调用完成。
+客户端流式处理调用在客户端发送消息的*情况下*启动。 客户端可以选择通过 `RequestStream.WriteAsync`发送消息。 当客户端已经完成发送消息 `RequestStream.CompleteAsync` 应调用来通知服务。 当服务返回响应消息时，调用完成。
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -129,7 +135,7 @@ using (var call = client.AccumulateCount())
 
 ### <a name="bi-directional-streaming-call"></a>双向流式处理调用
 
-双向流式处理调用在客户端发送消息的*情况下*启动。 客户端可以选择通过`RequestStream.WriteAsync`发送消息。 可以通过或`ResponseStream.ReadAllAsync()`访问从服务流式处理`ResponseStream.MoveNext()`的消息。 当没有更多消息时`ResponseStream` ，双向流式处理调用完成。
+双向流式处理调用在客户端发送消息的*情况下*启动。 客户端可以选择通过 `RequestStream.WriteAsync`发送消息。 通过 `ResponseStream.MoveNext()` 或 `ResponseStream.ReadAllAsync()`可以访问从服务流式处理的消息。 当 `ResponseStream` 没有更多消息时，双向流式处理调用完成。
 
 ```csharp
 using (var call = client.Echo())

@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: fe07a113a29ed3e14679e3f3f2249b0810c17593
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9f0a0cd5337f7f8d2fc8a4b6902a63b98f6bd702
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880697"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828979"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>在 ASP.NET Core 中使用 IAuthorizationPolicyProvider 的自定义授权策略提供程序 
 
-作者： [Mike Rousos](https://github.com/mjrousos)
+作者：[Mike Rousos](https://github.com/mjrousos)
 
 通常，在使用[基于策略的授权](xref:security/authorization/policies)时，通过调用 `AuthorizationOptions.AddPolicy` 作为授权服务配置的一部分来注册策略。 在某些情况下，可能无法（或需要）以这种方式注册所有的授权策略。 在这些情况下，可以使用自定义 `IAuthorizationPolicyProvider` 来控制如何提供授权策略。
 
@@ -25,7 +25,7 @@ ms.locfileid: "74880697"
 * 使用大范围的策略（例如，使用不同的房间号或年龄），因此，将每个授权策略添加到 `AuthorizationOptions.AddPolicy` 调用并无意义。
 * 根据外部数据源（如数据库）中的信息在运行时创建策略，或通过其他机制动态确定授权要求。
 
-从[AspNetCore GitHub 存储库](https://github.com/aspnet/AspNetCore)[查看或下载示例代码](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)。 下载 aspnet/AspNetCore 存储库 ZIP 文件。 解压缩文件。 导航到*src/Security/samples/CustomPolicyProvider*项目文件夹。
+从[AspNetCore GitHub 存储库](https://github.com/dotnet/AspNetCore)[查看或下载示例代码](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)。 下载 dotnet/AspNetCore 存储库 ZIP 文件。 解压缩文件。 导航到*src/Security/samples/CustomPolicyProvider*项目文件夹。
 
 ## <a name="customize-policy-retrieval"></a>自定义策略检索
 
@@ -183,4 +183,4 @@ public Task<AuthorizationPolicy> GetFallbackPolicyAsync() =>
 services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 ```
 
-[Aspnet/AuthSamples GitHub 存储库](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)中提供了一个完整的自定义 `IAuthorizationPolicyProvider` 示例。
+[Aspnet/AuthSamples GitHub 存储库](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)中提供了一个完整的自定义 `IAuthorizationPolicyProvider` 示例。

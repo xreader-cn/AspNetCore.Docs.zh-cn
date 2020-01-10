@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 72710d249d3210208dd9b0356a700ba02a0b727a
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: 44b3e72085e6265319b53b548f7f7ddde2adbd14
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378889"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828576"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
 
@@ -26,7 +26,7 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 ## <a name="prerequisites"></a>先决条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -47,7 +47,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供商  | 范围                                                            |
+| Provider  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -110,7 +110,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -166,7 +166,7 @@ ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Goog
 
 ## <a name="prerequisites"></a>先决条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -187,7 +187,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供商  | 范围                                                            |
+| Provider  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -250,7 +250,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -300,4 +300,4 @@ Authentication Properties
 
 ## <a name="additional-resources"></a>其他资源
 
-* [aspnet/AspNetCore 工程 SocialSample 应用](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash; 链接的示例应用在[Aspnet/AspNetCore GitHub](https://github.com/aspnet/AspNetCore)存储库的 `master` 工程分支中。 对于 ASP.NET Core 的下一版本，`master` 分支包含处于活动开发下的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择发布分支（例如 `release/{X.Y}`）。
+* [dotnet/AspNetCore 工程 SocialSample 应用](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash; 链接的示例应用位于[Dotnet/AspNetCore GitHub](https://github.com/dotnet/AspNetCore)存储库的 `master` 工程分支。 对于 ASP.NET Core 的下一版本，`master` 分支包含处于活动开发下的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择发布分支（例如 `release/{X.Y}`）。

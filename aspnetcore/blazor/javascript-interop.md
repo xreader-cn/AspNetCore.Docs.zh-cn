@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2350870f8548a9c8df324182883a105706c12c20
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 7135e44278632ee53bdf899b95da9ad70d329045
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355737"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828121"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -363,4 +363,4 @@ Hello, Blazor!
 
 ## <a name="additional-resources"></a>其他资源
 
-* [InteropComponent 示例（aspnet/AspNetCore GitHub 存储库，3.0 发布分支）](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [InteropComponent 示例（dotnet/AspNetCore GitHub 存储库，3.0 发布分支）](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

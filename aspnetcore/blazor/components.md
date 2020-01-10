@@ -9,12 +9,12 @@ ms.date: 12/28/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 87f21d84c17e5bbd1247bb955acee81384b890e7
-ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
+ms.openlocfilehash: 9e796a23a0b24a9fee314051644703ef12bd7607
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75597897"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828199"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -592,7 +592,7 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 | 爬网         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | 触控            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
 
-有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（aspnet/AspNetCore release/3.0 分支）](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)。
+有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（dotnet/AspNetCore release/3.0 分支）](https://github.com/dotnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)。
 
 ### <a name="lambda-expressions"></a>Lambda 表达式
 

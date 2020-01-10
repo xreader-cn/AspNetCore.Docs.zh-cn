@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/forms-validation
-ms.openlocfilehash: f4c1845ee4b6ff9274b7117167367ccdd9f36c12
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: a94a433f26e451bbadc73615e502e46d273f05c2
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943688"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828134"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -193,7 +193,7 @@ public class Starship
 
 ## <a name="validation-support"></a>验证支持
 
-`DataAnnotationsValidator` 组件使用数据批注将验证支持附加到级联 `EditContext`。 使用数据批注启用验证支持需要此显式手势。 若要使用不同于数据批注的验证系统，请将 `DataAnnotationsValidator` 替换为自定义实现。 ASP.NET Core 实现可在引用源： [DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)中进行检查。
+`DataAnnotationsValidator` 组件使用数据批注将验证支持附加到级联 `EditContext`。 使用数据批注启用验证支持需要此显式手势。 若要使用不同于数据批注的验证系统，请将 `DataAnnotationsValidator` 替换为自定义实现。 ASP.NET Core 实现可在引用源： [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)中进行检查。
 
 Blazor 执行两种类型的验证：
 
@@ -251,7 +251,7 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件。 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *实验*包引入了一个附加的验证特性 `ComparePropertyAttribute`，该特性围绕这些限制。 在 Blazor 应用中，`[CompareProperty]` 是 `[Compare]` 属性的直接替换。 有关详细信息，请参阅[CompareAttribute With OnValidSubmit EditForm （aspnet/AspNetCore #10643）已忽略](https://github.com/aspnet/AspNetCore/issues/10643#issuecomment-543909748)。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件。 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *实验*包引入了一个附加的验证特性 `ComparePropertyAttribute`，该特性围绕这些限制。 在 Blazor 应用中，`[CompareProperty]` 是 `[Compare]` 属性的直接替换。 有关详细信息，请参阅[CompareAttribute With OnValidSubmit EditForm （dotnet/AspNetCore #10643）已忽略](https://github.com/dotnet/AspNetCore/issues/10643#issuecomment-543909748)。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>嵌套模型、集合类型和复杂类型
 

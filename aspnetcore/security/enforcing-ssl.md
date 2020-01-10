@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 032105c67e15ab94635ae6fadea103450c7eb0fb
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: d7d4eece935bd83b69a6a5d81898012b99d73193
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944234"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828901"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -415,7 +415,7 @@ dotnet dev-certs https --trust
 
 关闭所有打开的浏览器实例。 在应用程序中打开新的浏览器窗口。
 
-请参阅[使用 IIS Express （aspnet/AspNetCore #16892）进行 HTTPS 错误，使用](https://github.com/aspnet/AspNetCore/issues/16892)Visual Studio 解决证书问题。
+若要解决 Visual Studio 的证书问题，请参阅[使用 IIS Express （dotnet/AspNetCore #16892）进行 HTTPS 错误](https://github.com/dotnet/AspNetCore/issues/16892)。
 
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>用于 Visual Studio 的 IIS Express SSL 证书
 

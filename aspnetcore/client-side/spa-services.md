@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 52285999d7710cc3198836b9246596980cfc1666
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: caff1a735de3274b371f67e6e485dc42e579452c
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355789"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828212"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>使用 JavaScript 服务在 ASP.NET Core 中创建单页面应用程序
 
@@ -23,7 +23,7 @@ ms.locfileid: "75355789"
 ::: moniker range=">= aspnetcore-3.0"
 
 > [!WARNING]
-> 本文中所述的功能从 ASP.NET Core 3.0 过时。 [SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices.Extensions) NuGet 包中提供了更简单的 SPA 框架集成机制。 有关详细信息，请参阅[[公告] Obsoleting AspNetCore. SpaServices 和 AspNetCore。](https://github.com/aspnet/AspNetCore/issues/12890)
+> 本文中所述的功能从 ASP.NET Core 3.0 过时。 [SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices.Extensions) NuGet 包中提供了更简单的 SPA 框架集成机制。 有关详细信息，请参阅[[公告] Obsoleting AspNetCore. SpaServices 和 AspNetCore。](https://github.com/dotnet/AspNetCore/issues/12890)
 
 ::: moniker-end
 

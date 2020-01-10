@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: 1242ec9f71f4a26b07f9a56a2a960bf315b56ccf
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880012"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828927"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>从 ASP.NET Core 1.x 迁移到 2.0
 
@@ -23,7 +23,7 @@ ms.locfileid: "74880012"
 
 <a name="prerequisites"></a>
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 请参阅 [ASP.NET Core 入门](xref:getting-started)。
 
@@ -42,7 +42,7 @@ ms.locfileid: "74880012"
 > [!NOTE]
 > 相比于 .NET Core 1.x，.NET Core 2.0 提供更多的外围应用。 如果仅因为 .NET Core 1.x 中缺少 API 而要面向 .NET Framework，则定向于 .NET Core 2.0 可能有用。
 
-如果项目文件包含 `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/3221#issuecomment-413094268)。
+如果项目文件包含 `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268)。
 
 <a name="global-json"></a>
 
@@ -152,7 +152,7 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-从 2.0 开始，`BuildWebHost` 只应用于生成和配置 Web 主机。 有关运行应用程序的任何内容都应在 `BuildWebHost` &mdash; 外部处理，通常是在 Program.cs  的 `Main` 方法中。
+从 2.0 开始，`BuildWebHost` 只应用于生成和配置 Web 主机。 有关运行应用程序的所有内容都应在 `BuildWebHost` 外部处理 &mdash; 通常是在 Program.cs 的 `Main` 方法中  。
 
 <a name="view-compilation"></a>
 

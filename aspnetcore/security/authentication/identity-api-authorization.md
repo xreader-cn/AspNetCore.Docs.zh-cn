@@ -7,22 +7,22 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73897039"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829161"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
 ASP.NET Core 3.0 或更高版本通过支持 API 授权在单页面应用（Spa）中提供身份验证。 用于对用户进行身份验证和存储的 ASP.NET Core 标识与用于实现 Open ID Connect 的[IdentityServer](https://identityserver.io/)结合。
 
-已将身份验证参数添加到 "**角度**" 和 "**响应**" 项目模板，该模板类似于 web 应用程序中的身份验证参数 **（模型-视图-控制器）** （MVC）和**web 应用程序**（Razor Pages）项目模板。 允许的参数值为**None**和**个体**。 目前，**反应和 Redux**项目模板不支持 authentication 参数。
+身份验证参数已添加到与**Web 应用程序（模型-视图-控制器）** （MVC）和**web 应用**程序（Razor Pages）项目模板中的身份验证参数类似的 "**角度**" 和 "**响应**" 项目模板。 允许的参数值为**None**和**个体**。 目前，**反应和 Redux**项目模板不支持 authentication 参数。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>使用 API 授权支持创建应用
 
-用户身份验证和授权可用于角度和响应 Spa。 打开命令 shell，并运行以下命令：
+用户身份验证和授权可用于角度和响应 Spa。 打开命令外壳，并运行以下命令：
 
 **角**：
 
@@ -58,7 +58,7 @@ dotnet new react -o <output_directory_name> -au Individual
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * 使用其他 `AddApiAuthorization` 帮助器方法，在 IdentityServer 上设置一些默认的 ASP.NET Core 约定：
+  * 使用附加的 `AddApiAuthorization` 帮助器方法，可在 IdentityServer 上设置某些默认的 ASP.NET Core 约定：
 
     ```csharp
     services.AddIdentityServer()
@@ -95,7 +95,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-在*Controllers\WeatherForecastController.cs*文件中，请注意应用于类的 `[Authorize]` 属性，该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认身份验证方案，该方案通过 `AddIdentityServerJwt` 设置为上面提到的策略方案，使此类 helper 方法将 `JwtBearerHandler` 配置为请求的默认处理程序应用程序。
+在*Controllers\WeatherForecastController.cs*文件中，请注意应用于类的 `[Authorize]` 属性，该属性指示用户需要根据默认策略进行授权才能访问资源。 默认授权策略将配置为使用默认身份验证方案，该方案通过 `AddIdentityServerJwt` 设置为上面提到的策略方案，使此类 helper 方法配置的 `JwtBearerHandler` 成为应用请求的默认处理程序。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
@@ -121,7 +121,7 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings.开发 json
+### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
 
 在*appsettings 中。* 项目根的开发 json 文件，有一个 `IdentityServer` 部分描述用于对令牌进行签名的密钥。 部署到生产环境时，需要在应用中预配和部署密钥，如 "[部署到生产](#deploy-to-production)" 一节中所述。
 
@@ -185,7 +185,7 @@ services.Configure<JwtBearerOptions>(
 
 API 的 JWT 处理程序会引发事件，这些事件可以使用 `JwtBearerEvents`来控制身份验证过程。 若要为 API 授权提供支持，`AddIdentityServerJwt` 会注册其自己的事件处理程序。
 
-若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。 例如:
+若要自定义事件的处理，请根据需要使用其他逻辑来包装现有的事件处理程序。 例如：
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -260,7 +260,7 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>部署到生产环境
+## <a name="deploy-to-production"></a>部署到生产
 
 若要将应用部署到生产环境，需预配以下资源：
 

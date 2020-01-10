@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75357273"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829018"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -209,7 +209,7 @@ public void GetFileProvider()
 
 ![上图](memory/_static/fileprovider.png)
 
-上面的图表显示了此类的实现的一个明显问题，因为它会不断增加内存使用量。 这是[此问题](https://github.com/aspnet/Home/issues/3110)中正在跟踪的已知问题。
+上面的图表显示了此类的实现的一个明显问题，因为它会不断增加内存使用量。 这是[此问题](https://github.com/dotnet/aspnetcore/issues/3110)中正在跟踪的已知问题。
 
 可以通过以下方式之一在用户代码中发生相同的泄漏：
 
@@ -271,8 +271,9 @@ public int GetLOH1(int size)
 为了获得最佳性能，应最大程度地减少使用的大型对象。 如果可能，请拆分大型对象。 例如，ASP.NET Core 中的[响应缓存](xref:performance/caching/response)中间件会将缓存项拆分为小于85000个字节的块。
 
 以下链接显示了在 LOH 限制下保留对象的 ASP.NET Core 方法：
-- [ResponseCaching/StreamUtilities](https://github.com/aspnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
-- [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
+
+* [ResponseCaching/StreamUtilities](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
+* [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
 有关详细信息，请参阅：
 

@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/identity
-ms.openlocfilehash: 787d39dd7824f912128e6af849fa268c3e8eb908
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: d4cda43c417a0d8e1b78f8b59b7050debf017269
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359194"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828225"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -25,7 +25,7 @@ ASP.NET Core 标识：
 
 用户可以创建一个具有存储在标识中的登录信息的帐户，也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
 
-GitHub 上提供了[标识源代码](https://github.com/aspnet/AspNetCore/tree/master/src/Identity)。 [基架标识](xref:security/authentication/scaffold-identity)并查看生成的文件以查看模板与标识的交互。
+GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)。 [基架标识](xref:security/authentication/scaffold-identity)并查看生成的文件以查看模板与标识的交互。
 
 通常使用 SQL Server 数据库配置标识，以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
@@ -212,7 +212,7 @@ Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例�
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
+有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
 
 ## <a name="next-steps"></a>后续步骤
 
@@ -250,7 +250,7 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
+有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
 
 ## <a name="create-a-web-app-with-authentication"></a>创建具有身份验证的 Web 应用
 

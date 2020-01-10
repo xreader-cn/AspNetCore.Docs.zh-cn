@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: cda510d0f8211641e3544b53ded79878d717cc58
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: c0846aca4bb663b1d562ab0c877fefba02da460f
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358405"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829031"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core数据保护
 
@@ -389,7 +389,7 @@ services.AddDataProtection()
 
 ## <a name="persisting-keys-with-redis"></a>通过 Redis 保持密钥
 
-只应使用支持[Redis 数据暂留](/azure/azure-cache-for-redis/cache-how-to-premium-persistence)的 Redis 版本来存储密钥。 [Azure Blob 存储](/azure/storage/blobs/storage-blobs-introduction)是持久性的，可用于存储密钥。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/13476)。
+只应使用支持[Redis 数据暂留](/azure/azure-cache-for-redis/cache-how-to-premium-persistence)的 Redis 版本来存储密钥。 [Azure Blob 存储](/azure/storage/blobs/storage-blobs-introduction)是持久性的，可用于存储密钥。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore/issues/13476)。
 
 ## <a name="additional-resources"></a>其他资源
 
