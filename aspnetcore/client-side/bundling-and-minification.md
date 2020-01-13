@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 7499381a24a2513a4fbd1205f245e624c86647c3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: a7a5c40d6c31c4416212c02c1b491dd794f2a1d3
+ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080561"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74803274"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>ASP.NET Core 中的捆绑和缩小静态资产
 
@@ -27,7 +27,7 @@ ms.locfileid: "71080561"
 
 ### <a name="bundling"></a>捆绑
 
-绑定将多个文件合并到一个文件中。 绑定可减少呈现 web 资产（如网页）所需的服务器请求数。 可以专门为 CSS、JavaScript 等创建任意数量的单独包。文件越少，从浏览器到服务器的 HTTP 请求或提供应用程序的服务就会减少。 这会提高第一页的加载性能。
+捆绑将多个文件合并到单个文件中。 绑定可减少呈现 web 资产（如网页）所需的服务器请求数。 可以专门为 CSS、JavaScript 等创建任意数量的单独包。文件越少，从浏览器到服务器的 HTTP 请求或提供应用程序的服务就会减少。 这会提高第一页的加载性能。
 
 ### <a name="minification"></a>缩减
 
@@ -63,7 +63,7 @@ ms.locfileid: "71080561"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>选择捆绑和缩减策略
 
-MVC 和 Razor Pages 项目模板提供了一种现成的解决方案，可用于缩减和 JSON 配置文件。 第三方工具（如[Grunt](xref:client-side/using-grunt)任务运行程序）以更复杂的方式完成相同的任务。 当开发工作流需要处理超过绑定和缩减&mdash;（例如 linting 和图像优化）时，第三方工具非常合适。 通过使用设计时绑定和缩减，缩小文件是在应用部署之前创建的。 在部署之前绑定和缩小提供了降低服务器负载的优点。 但是，必须认识到，设计时绑定和缩减会增加生成的复杂性，并且仅适用于静态文件。
+MVC 和 Razor Pages 项目模板提供了一种现成的解决方案，可用于缩减和 JSON 配置文件。 第三方工具（如[Grunt](xref:client-side/using-grunt)任务运行程序）以更复杂的方式完成相同的任务。 当开发工作流需要处理超过绑定和缩减&mdash;如 linting 和图像优化）时，第三方工具非常合适。 通过使用设计时绑定和缩减，缩小文件是在应用部署之前创建的。 在部署之前绑定和缩小提供了降低服务器负载的优点。 但是，必须认识到，设计时绑定和缩减会增加生成的复杂性，并且仅适用于静态文件。
 
 ## <a name="configure-bundling-and-minification"></a>配置捆绑和缩减
 
@@ -83,18 +83,18 @@ MVC 和 Razor Pages 项目模板提供了一种现成的解决方案，可用于
 
 *Bundleconfig*文件定义每个绑定的选项。 在前面的示例中，为自定义 JavaScript （*wwwroot/js/node.js*）和样式表（*wwwroot/css/站点导航*）文件定义了单个捆绑配置。
 
-配置选项包括:
+配置选项包括：
 
-* `outputFileName`：要输出的绑定文件的名称。 可以包含*bundleconfig*文件中的相对路径。 **必填**
+* `outputFileName`：要输出的绑定文件的名称。 可以包含*bundleconfig*文件中的相对路径。 （必需）
 * `inputFiles`：要捆绑在一起的文件的数组。 这些是配置文件的相对路径。 **可选**，* 空值将导致空的输出文件。 支持[通配](https://www.tldp.org/LDP/abs/html/globbingref.html)模式。
-* `minify`：输出类型的缩减选项。 **可选**，*默认值`minify: { enabled: true }` -*
+* `minify`：输出类型的缩减选项。 **可选**，*默认值-`minify: { enabled: true }`*
   * 每个输出文件类型都有配置选项。
     * [CSS 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScript 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML 缩小器](https://github.com/madskristensen/BundlerMinifier/wiki)
 * `includeInProject`：指示是否将生成的文件添加到项目文件的标记。 **可选**，*默认值为 false*
-* `sourceMap`：指示是否为捆绑的文件生成源映射的标记。 **可选**，*默认值为 false*
-* `sourceMapRootPath`：用于存储所生成的源映射文件的根路径。
+* `sourceMap`：标记，指示是否为绑定的文件生成源映射。 **可选**，*默认值为 false*
+* `sourceMapRootPath`：用于存储生成的源映射文件的根路径。
 
 ## <a name="build-time-execution-of-bundling-and-minification"></a>绑定和缩减的生成时执行
 
@@ -107,7 +107,7 @@ MVC 和 Razor Pages 项目模板提供了一种现成的解决方案，可用于
 
 将*BuildBundlerMinifier*包添加到项目。
 
-生成项目。 "输出" 窗口中将显示以下内容：
+生成此项目。 "输出" 窗口中将显示以下内容：
 
 ```console
 1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -197,7 +197,7 @@ dotnet bundle
 ```
 
 > [!IMPORTANT]
-> NuGet 包管理器将依赖项添加到 * .csproj 文件`<PackageReference />`作为节点。 `dotnet bundle`命令注册.NET Core CLI 时，才`<DotNetCliToolReference />`使用节点。 请相应地修改 * .csproj 文件。
+> NuGet 包管理器将依赖项添加到 * .csproj 文件作为 `<PackageReference />` 节点。 `dotnet bundle`命令注册.NET Core CLI 时，才`<DotNetCliToolReference />`使用节点。 请相应地修改 * .csproj 文件。
 
 ## <a name="add-files-to-workflow"></a>向工作流添加文件
 
@@ -213,7 +213,7 @@ dotnet bundle
 > 或者，可以使用以下组合模式：
 >
 > ```json
-> "inputFiles": ["wwwroot/**/*(*.css|!(*.min.css))"]
+> "inputFiles": ["wwwroot/**/!(*.min).css" ]
 > ```
 >
 > 此组合模式匹配所有 CSS 文件，并排除缩小文件模式。
@@ -226,7 +226,7 @@ dotnet bundle
 
 通过在视图中使用[环境标记帮助器](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)来指定要包含在页面中的文件。 环境标记帮助程序仅在特定[环境](xref:fundamentals/environments)中运行时呈现其内容。
 
-在环境中运行时，以下`environment`标记将呈现未处理的 CSS 文件： `Development`
+以下 `environment` 标记将在 `Development` 环境中运行时呈现未处理的 CSS 文件：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -240,7 +240,7 @@ dotnet bundle
 
 ::: moniker-end
 
-当在`environment`以外的环境`Development`中运行时，以下标记将呈现捆绑的和缩小的 CSS 文件。 例如，在中`Production`运行或`Staging`触发这些样式表的呈现：
+当在非 `Development`环境中运行时，以下 `environment` 标记将呈现捆绑的和缩小的 CSS 文件。 例如，在 `Production` 或 `Staging` 中运行将触发这些样式表的呈现：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -269,7 +269,7 @@ Visual Studio[捆绑程序 & 缩小器](https://marketplace.visualstudio.com/ite
 
 ![转换为 Gulp 上下文菜单项](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
 
-将*gulpfile*和*包*文件添加到项目。 安装了*package. json*文件的`devDependencies`部分中列出的支持[npm](https://www.npmjs.com/)包。
+将*gulpfile*和*包*文件添加到项目。 安装 package.json 文件的 `devDependencies` 部分中列出的支持的 [npm](https://www.npmjs.com/) 包。
 
 在 PMC 窗口中运行以下命令，以将 Gulp CLI 作为全局依赖项安装：
 
@@ -285,10 +285,10 @@ npm i -g gulp-cli
 
 如果 Visual Studio 和/或捆绑程序 & 缩小器扩展不可用，请手动转换。
 
-将*包 json*文件`devDependencies`添加到项目根目录：
+使用以下 `devDependencies`将*包 json*文件添加到项目根目录：
 
 > [!WARNING]
-> 该`gulp-uglify`模块不支持 ECMAScript （ES） 2015/ES6 和更高版本。 安装[gulp-terser](https://www.npmjs.com/package/gulp-terser) `gulp-uglify` ，而不是使用 ES2015/ES6 或更高版本。
+> `gulp-uglify` 模块不支持 ECMAScript （ES） 2015/ES6 和更高版本。 安装[gulp-terser](https://www.npmjs.com/package/gulp-terser)而不是 `gulp-uglify` 来使用 ES2015/ES6 或更高版本。
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
@@ -314,7 +314,7 @@ npm i -g gulp-cli
 
 [!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=14-16)]
 
-在此示例中，在`MyPreCompileTarget`目标内定义的任何任务都在预定义`Build`目标之前运行。 Visual Studio 的输出窗口中显示类似于以下内容的输出：
+在此示例中，`MyPreCompileTarget` 目标内定义的所有任务在预定义 `Build` 目标之前运行。 Visual Studio 的输出窗口中显示类似于以下内容的输出：
 
 ```console
 1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -327,7 +327,6 @@ npm i -g gulp-cli
 1>[14:17:49] Finished 'min:css' after 88 ms
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
-
 
 ## <a name="additional-resources"></a>其他资源
 
