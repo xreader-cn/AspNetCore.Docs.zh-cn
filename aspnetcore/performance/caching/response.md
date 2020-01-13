@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: 9246305e6979a6a7e006f567ee6bf9569029aef1
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e20c197c7ce3334d4f4f0b917d1fc94174e6c615
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828303"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914202"
 ---
 # <a name="response-caching-in-aspnet-core"></a>响应缓存在 ASP.NET Core
 
@@ -66,7 +66,7 @@ ms.locfileid: "75828303"
 
 ### <a name="distributed-cache"></a>分布式缓存
 
-当应用程序托管在云或服务器场中时，使用分布式缓存将数据存储在内存中。 缓存在处理请求的服务器之间共享。 如果客户端的缓存数据可用，则客户端可以提交由组中的任何服务器处理的请求。 ASP.NET Core 提供 SQL Server 和分布式的 Redis 缓存。
+当应用程序托管在云或服务器场中时，使用分布式缓存将数据存储在内存中。 缓存在处理请求的服务器之间共享。 如果客户端的缓存数据可用，则客户端可以提交由组中的任何服务器处理的请求。 ASP.NET Core 适用于 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)和[NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)分布式缓存。
 
 有关更多信息，请参见<xref:performance/caching/distributed>。
 
@@ -78,7 +78,7 @@ ms.locfileid: "75828303"
 
 ### <a name="distributed-cache-tag-helper"></a>分布式缓存标记帮助程序
 
-使用分布式缓存标记帮助程序在分布式云和 web 场方案中，通过 MVC 视图或 Razor 页面缓存内容。 分布式缓存标记帮助程序使用 SQL Server 或 Redis 来存储数据。
+使用分布式缓存标记帮助程序在分布式云和 web 场方案中，通过 MVC 视图或 Razor 页面缓存内容。 分布式缓存标记帮助程序使用 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)或[NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)来存储数据。
 
 有关更多信息，请参见<xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>。
 
