@@ -5,14 +5,14 @@ description: 了解跨平台 ASP.NET Core Web 服务器 Kestrel。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/14/2019
+ms.date: 12/26/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 6fba6689f72f7a565e28d80f6770765ab097cf11
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 9fbf0ec93634100fccef279fc7cad92cb1420e84
+ms.sourcegitcommit: 991442dfb16ef08a0aae05bc79f9e9a2d819c587
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289105"
+ms.lasthandoff: 12/26/2019
+ms.locfileid: "75492598"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -135,15 +135,30 @@ Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配�
 * 在 `Startup.ConfigureServices` 中配置 Kestrel：
 
   1. 将 `IConfiguration` 的实例注入到 `Startup` 类中。 下面的示例假定注入的配置已分配给 `Configuration` 属性。
-  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中。
+  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中：
 
      ```csharp
-     // using Microsoft.Extensions.Configuration
-
-     public void ConfigureServices(IServiceCollection services)
+     using Microsoft.Extensions.Configuration
+     
+     public class Startup
      {
-         services.Configure<KestrelServerOptions>(
-             Configuration.GetSection("Kestrel"));
+         public Startup(IConfiguration configuration)
+         {
+             Configuration = configuration;
+         }
+
+         public IConfiguration Configuration { get; }
+
+         public void ConfigureServices(IServiceCollection services)
+         {
+             services.Configure<KestrelServerOptions>(
+                 Configuration.GetSection("Kestrel"));
+         }
+
+         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         {
+             ...
+         }
      }
      ```
 
@@ -637,7 +652,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 方法绑定至 TCP 套接字，且 options lambda 允许 X.509 证书配置：
 
-[!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_TCPSocket&highlight=9-16)]
+[!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_TCPSocket&highlight=12-18)]
 
 示例使用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions> 为终结点配置 HTTPS。 可使用相同 API 为特定终结点配置其他 Kestrel 设置。
 
@@ -697,7 +712,7 @@ HTTP/2 的 TLS 限制：
 * 重新协商已禁用
 * 压缩已禁用
 * 最小的临时密钥交换大小：
-  * 椭圆曲线 Diffie-Hellman (ECDHE) &lbrack;[RFC4492](https://www.ietf.org/rfc/rfc4492.txt)&rbrack; &ndash;最小 224 位
+  * 椭圆曲线 Diffie-Hellman (ECDHE) &lbrack;[RFC4492](https://www.ietf.org/rfc/rfc4492.txt)&rbrack; &ndash; 最小 224 位
   * 有限字段 Diffie-Hellman (DHE) &lbrack;`TLS12`&rbrack; &ndash; 最小 2048 位
 * 密码套件未列入阻止列表
 
@@ -1089,15 +1104,30 @@ Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配�
 * 在 `Startup.ConfigureServices` 中配置 Kestrel：
 
   1. 将 `IConfiguration` 的实例注入到 `Startup` 类中。 下面的示例假定注入的配置已分配给 `Configuration` 属性。
-  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中。
+  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中：
 
      ```csharp
-     // using Microsoft.Extensions.Configuration
-
-     public void ConfigureServices(IServiceCollection services)
+     using Microsoft.Extensions.Configuration
+     
+     public class Startup
      {
-         services.Configure<KestrelServerOptions>(
-             Configuration.GetSection("Kestrel"));
+         public Startup(IConfiguration configuration)
+         {
+             Configuration = configuration;
+         }
+
+         public IConfiguration Configuration { get; }
+
+         public void ConfigureServices(IServiceCollection services)
+         {
+             services.Configure<KestrelServerOptions>(
+                 Configuration.GetSection("Kestrel"));
+         }
+
+         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         {
+             ...
+         }
      }
      ```
 
@@ -1680,7 +1710,7 @@ HTTP/2 的 TLS 限制：
 * 重新协商已禁用
 * 压缩已禁用
 * 最小的临时密钥交换大小：
-  * 椭圆曲线 Diffie-Hellman (ECDHE) &lbrack;[RFC4492](https://www.ietf.org/rfc/rfc4492.txt)&rbrack; &ndash;最小 224 位
+  * 椭圆曲线 Diffie-Hellman (ECDHE) &lbrack;[RFC4492](https://www.ietf.org/rfc/rfc4492.txt)&rbrack; &ndash; 最小 224 位
   * 有限字段 Diffie-Hellman (DHE) &lbrack;`TLS12`&rbrack; &ndash; 最小 2048 位
 * 密码套件未列入阻止列表
 
@@ -1979,15 +2009,30 @@ Kestrel 选项（已在以下示例的 C# 代码中配置）也可以使用[配�
 * 在 `Startup.ConfigureServices` 中配置 Kestrel：
 
   1. 将 `IConfiguration` 的实例注入到 `Startup` 类中。 下面的示例假定注入的配置已分配给 `Configuration` 属性。
-  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中。
+  2. 在 `Startup.ConfigureServices` 中，将配置的 `Kestrel` 部分加载到 Kestrel 的配置中：
 
      ```csharp
-     // using Microsoft.Extensions.Configuration
-
-     public void ConfigureServices(IServiceCollection services)
+     using Microsoft.Extensions.Configuration
+     
+     public class Startup
      {
-         services.Configure<KestrelServerOptions>(
-             Configuration.GetSection("Kestrel"));
+         public Startup(IConfiguration configuration)
+         {
+             Configuration = configuration;
+         }
+
+         public IConfiguration Configuration { get; }
+
+         public void ConfigureServices(IServiceCollection services)
+         {
+             services.Configure<KestrelServerOptions>(
+                 Configuration.GetSection("Kestrel"));
+         }
+
+         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         {
+             ...
+         }
      }
      ```
 
