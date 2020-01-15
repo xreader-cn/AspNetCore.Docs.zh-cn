@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: index
-ms.openlocfilehash: dc1acd9e31fdc4f626c9dee2f378252c802491b6
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 3e41b329feb359c006258b8ed558496dfcbbf3b0
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963646"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914223"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -104,7 +104,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 ## <a name="migration-from-the-net-framework"></a>从 .NET Framework 迁移
 
-有关将 ASP.NET 应用迁移到 ASP.NET Core 的参考指南，请参阅 <migration/proper-to-2x/index>。
+有关将 ASP.NET 应用迁移到 ASP.NET Core 的参考指南，请参阅 <xref:migration/proper-to-2x/index>。
 
 ## <a name="how-to-download-a-sample"></a>如何下载示例
 

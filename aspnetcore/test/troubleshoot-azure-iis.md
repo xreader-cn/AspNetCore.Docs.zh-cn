@@ -5,14 +5,14 @@ description: 了解如何诊断 ASP.NET Core 应用 Azure App Service 和 Intern
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/20/2019
+ms.date: 01/10/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: b0f5d44f153a095a6108a12ee91f4cc46fe0a0de
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.openlocfilehash: 23c90c33d197d26d1c4ad758449e318e20ef3760
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829005"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952143"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 
@@ -240,7 +240,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. 选择“诊断并解决问题”。
 1. 选择“诊断工具”标题。
 1. 在“支持工具”下，选择“应用程序事件”按钮。
-1. 检查“源”列中由 IIS AspNetCoreModule 或 IIS AspNetCoreModule V2条目提供的最新错误。
+1. 检查 **“源”** 列中由 *IIS AspNetCoreModule* 或 *IIS AspNetCoreModule V2* 条目提供的最新错误。
 
 使用“诊断并解决问题”边栏选项卡的替代方法是直接使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 检查应用程序事件日志文件：
 
@@ -433,7 +433,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 访问应用程序事件日志：
 
-1. 打开“开始”菜单，搜索“事件查看器”，然后选择“事件查看器”应用。
+1. 打开 "开始" 菜单，搜索 "*事件查看器*"，然后选择 "**事件查看器**应用"。
 1. 在“事件查看器”中，打开“Windows 日志”节点。
 1. 选择“应用程序”以打开应用程序事件日志。
 1. 搜索与失败应用相关联的错误。 错误具有“源”列中“IIS AspNetCore 模块”或“IIS Express AspNetCore 模块”的值。
@@ -597,10 +597,10 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 ## <a name="clear-package-caches"></a>清除包缓存
 
-有时，在升级开发计算机上的 .NET Core SDK 或更改应用中的包版本后，运行中的应用会立即失败。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
+升级开发计算机上的 .NET Core SDK 或更改应用中的包版本后，正常运行的应用可能会立即失败。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
 
 1. 删除 bin 和 obj 文件夹。
-1. 通过从命令行界面执行 `dotnet nuget locals all --clear` 来清除包缓存。
+1. 通过从命令行界面执行[dotnet nuget 局部变量 all--clear](/dotnet/core/tools/dotnet-nuget-locals)清除包缓存。
 
    还可以通过[nuget.exe](https://www.nuget.org/downloads)工具来完成清除包缓存并执行命令 `nuget locals all -clear`。 *nuget.exe* 不是与 Windows 桌面操作系统的捆绑安装，必须从 [NuGet 网站](https://www.nuget.org/downloads)中单独获取。
 
