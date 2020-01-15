@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 802d5c65423227e5fb7ccf39d692df2f0178ad34
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 7fc3644df3dcb957f2537538aaa9506c6b38a480
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238185"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693968"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
@@ -23,7 +23,7 @@ ms.locfileid: "70238185"
 ::: moniker-end
 
 
-如果你在 macOS 上工作，请参阅[从 Visual Studio for Mac 发布到 Azure](https://blog.xamarin.com/publish-azure-visual-studio-mac/)。
+若使用的是 macOS，请参阅[使用 Visual Studio for Mac 将 Web 应用发布到 Azure 应用服务](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019)。
 
 若要对应用服务部署问题进行故障排除，请参阅 <xref:test/troubleshoot-azure-iis>。
 

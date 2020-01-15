@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 1.1 的新增功能。
 ms.author: riande
 ms.date: 12/18/2018
 uid: aspnetcore-1.1
-ms.openlocfilehash: 167842a7376a6bb0a88e6f41159730f076bb2bdb
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 0b1c4eb467dd13a7654229b3ed76dd14e984e94b
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034714"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355231"
 ---
 # <a name="whats-new-in-aspnet-core-11"></a>ASP.NET Core 1.1 的新增功能
 
@@ -29,7 +29,7 @@ ASP.NET Core 1.1 新增了以下功能：
 
 ## <a name="choosing-between-versions-10-and-11-of-aspnet-core"></a>在 ASP.NET Core 的 1.0 和 1.1 版本之间进行选择
 
-ASP.NET Core 1.1 比 1.0 功能更多。 通常情况下，建议使用最新版本。
+ASP.NET Core 1.1 比 ASP.NET Core 1.0 功能更多。 通常情况下，建议使用最新版本。
 
 ## <a name="additional-information"></a>其他信息
 

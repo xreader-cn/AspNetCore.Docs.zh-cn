@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 2fac37e7069fb2a464d4de1da8912197f7adf8a8
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 5d4251a2577111324aa2cfb715c41e3ecad5a9d1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761092"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722787"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -32,9 +32,13 @@ ms.locfileid: "73761092"
 
 右键单击 Models 文件夹，然后单击“添加” > “类”    。 将文件命名为 Movie.cs  。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 将名为 Movie.cs 的文件添加到“Models”文件夹   。
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+右键单击 Models 文件夹，然后单击“添加” > “新类” > “空类”。     将文件命名为 Movie.cs  。
 
 ---
 
@@ -55,7 +59,7 @@ ms.locfileid: "73761092"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“工具”菜单中选择“NuGet 包管理器”>“包管理器控制台 (PMC)”    。
+ 从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”(PMC)。  
 
 ![PMC 菜单](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
@@ -67,9 +71,26 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 前面的命令添加 EF Core SQL Server 提供程序。 提供程序包将 EF Core 包作为依赖项进行安装。 在本教程后面的基架步骤中会自动安装其他包。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+从“项目”菜单中选择“管理 Nuget 程序包”   。
+
+在右上方的“搜索”字段中，输入 `Microsoft.EntityFrameworkCore.SQLite` 并按回车键进行搜索。   搜索匹配的 NuGet 程序包，并按“添加”按钮。 
+
+![添加 Entity Framework Core NuGet 包](~/tutorials/first-mvc-app-mac/adding-model/_static/add-nuget-packages.png)
+
+“选择项目”对话框将显示，并已选中  `MvcMovie` 项目。 按“确认”按钮。 
+
+“接受许可证”对话框将显示。  根据需要查看许可证，然后单击“接受”按钮。 
+
+重复上面的步骤，以安装以下 NuGet 程序包：
+ * `Microsoft.VisualStudio.Web.CodeGeneration.Design`
+ * `Microsoft.EntityFrameworkCore.SqlServer`
+ * `Microsoft.EntityFrameworkCore.Design`
 
 ---
 
@@ -208,7 +229,7 @@ Visual Studio 将创建：
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“工具”菜单中选择“NuGet 包管理器”>“包管理器控制台 (PMC)”    。
+ 从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”(PMC)。  
 
 在 PMC 中，输入以下命令：
 
@@ -524,7 +545,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 从“工具”菜单中选择“NuGet 包管理器”>“包管理器控制台 (PMC)”    。
+1.  从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”(PMC)。  
 
    ![PMC 菜单](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
@@ -689,6 +710,6 @@ return View(movie);
 
 > [!div class="step-by-step"]
 > [上一篇：添加视图](adding-view.md)
-> [下一篇：使用 SQL](working-with-sql.md)
+> [下一篇：使用数据库](working-with-sql.md)
 
 ::: moniker-end

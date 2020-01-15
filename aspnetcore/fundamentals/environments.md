@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 应用中控制多个环境的应用�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 12/17/2019
 uid: fundamentals/environments
-ms.openlocfilehash: affbb95273c91fe5bf452e0e1ebefa669297304c
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 30e2771c0a24fcbf6490d08c7028566314b6c011
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944316"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358716"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -188,11 +188,12 @@ Production 环境应配置为最大限度地提高安全性、性能和应用可
 若要在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)中设置环境，请执行以下步骤：
 
 1. 从“应用服务”边栏选项卡中选择应用  。
-1. 在“设置”组中，选择“应用程序设置”边栏选项卡   。
-1. 在“应用程序设置”区域中，选择“添加新设置”   。
-1. 在“输入名称”中提供 `ASPNETCORE_ENVIRONMENT`  。 在“输入值”中提供环境（例如 `Staging`）  。
-1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框  。 有关详细信息，请参阅 [Azure 文档：交换哪些设置？](/azure/app-service/web-sites-staged-publishing)。
-1. 选择边栏选项卡顶部的“保存”  。
+1. 在“设置”组中，选择“配置”边栏选项卡   。
+1. 在“应用程序设置”选项卡中，选择“新建应用程序设置”。  
+1. 在“添加/编辑应用程序设置”窗口中，在“名称”中提供  `ASPNETCORE_ENVIRONMENT`  。 在“值”中提供环境（例如 `Staging`）  。
+1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“部署槽位设置”复选框  。 有关详细信息，请参阅 Azure 文档中的[在 Azure 应用服务中设置过渡环境](/azure/app-service/web-sites-staged-publishing)。
+1. 选择“确定”以关闭“添加/编辑应用程序设置”窗口。  
+1. 选择“配置”边栏选项卡顶部的“保存”   。
 
 在 Azure 门户中添加、更改或删除应用设置（环境变量）后，Azure 应用服务自动重启应用。
 
@@ -617,11 +618,12 @@ Production 环境应配置为最大限度地提高安全性、性能和应用可
 若要在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)中设置环境，请执行以下步骤：
 
 1. 从“应用服务”边栏选项卡中选择应用  。
-1. 在“设置”组中，选择“应用程序设置”边栏选项卡   。
-1. 在“应用程序设置”区域中，选择“添加新设置”   。
-1. 在“输入名称”中提供 `ASPNETCORE_ENVIRONMENT`  。 在“输入值”中提供环境（例如 `Staging`）  。
-1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“槽位设置”复选框  。 有关详细信息，请参阅 [Azure 文档：交换哪些设置？](/azure/app-service/web-sites-staged-publishing)。
-1. 选择边栏选项卡顶部的“保存”  。
+1. 在“设置”组中，选择“配置”边栏选项卡   。
+1. 在“应用程序设置”选项卡中，选择“新建应用程序设置”。  
+1. 在“添加/编辑应用程序设置”窗口中，在“名称”中提供  `ASPNETCORE_ENVIRONMENT`  。 在“值”中提供环境（例如 `Staging`）  。
+1. 交换部署槽位时，如果希望环境设置保持当前槽位，请选中“部署槽位设置”复选框  。 有关详细信息，请参阅 Azure 文档中的[在 Azure 应用服务中设置过渡环境](/azure/app-service/web-sites-staged-publishing)。
+1. 选择“确定”以关闭“添加/编辑应用程序设置”窗口。  
+1. 选择“配置”边栏选项卡顶部的“保存”   。
 
 在 Azure 门户中添加、更改或删除应用设置（环境变量）后，Azure 应用服务自动重启应用。
 

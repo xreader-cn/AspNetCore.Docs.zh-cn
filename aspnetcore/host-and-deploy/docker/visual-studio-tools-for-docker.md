@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: 5faf0be19448d8272901bf018357da63bbe22d4b
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: cecec09d3d58a84a7c15630e41d23facdb9b236e
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308075"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356157"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>带有 ASP.NET Core 的 Visual Studio 容器工具
 
@@ -19,7 +19,7 @@ Visual Studio 2017 及更高版本支持构建、调试和运行面向 .NET Core
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 * 带有 .NET Core 跨平台开发工作负载的 [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 
@@ -90,10 +90,10 @@ Visual Studio 2017 版本 15.8 或更高版本仅在获得指示时添加业务�
 
 Visual Studio 容器工具通过以下文件向解决方案添加 docker-compose  项目：
 
-* docker-compose.dcproj &ndash; 表示项目的文件  。 包括 `<DockerTargetOS>` 元素，用于指定要使用的操作系统。
-* .dockerignore &ndash; 列出在生成生成上下文时要排除的文件和目录模式  。
-* docker-compose.yml  &ndash; 基本 [Docker Compose](https://docs.docker.com/compose/overview/) 文件，用于定义要分别通过 `docker-compose build` 和 `docker-compose run` 生成和运行的映像集合。
-* docker compose.override.yml  &ndash; 一个可选文件，通过 Docker Compose 读取，包含服务的配置替代。 Visual Studio 执行 `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` 以合并这些文件。
+* *docker-compose.dcproj* &ndash; 表示项目的文件。 包括 `<DockerTargetOS>` 元素，用于指定要使用的操作系统。
+* *.dockerignore* &ndash; 列出在生成生成上下文时要排除的文件和目录模式。
+* *docker-compose.yml* &ndash; 基本 [Docker Compose](https://docs.docker.com/compose/overview/) 文件，用于定义要分别通过 `docker-compose build` 和 `docker-compose run` 生成和运行的映像集合。
+* *docker compose.override.yml* &ndash; 一个可选文件，通过 Docker Compose 读取，包含服务的配置替代。 Visual Studio 执行 `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` 以合并这些文件。
 
 docker-compose.yml  文件引用在项目运行时创建的映像的名称：
 
@@ -106,6 +106,8 @@ docker-compose.yml  文件引用在项目运行时创建的映像的名称：
 如果根据生成配置需要不同行为（例如，调试或发布），请添加特定于配置的 docker-compose  文件。 这些文件应根据生成配置进行命名（例如，docker-compose.vs.debug.yml  和 docker compose.vs.release.yml  ）并放置在与  docker-compose-override.yml 文件相同的位置。 
 
 使用特定于配置的替代文件，可以为调试和发布生成配置指定不同的配置设置（如环境变量或入口点）。
+
+docker 项目必须是启动项目，Docker Compose 才会显示要在 Visual Studio 中显示的选项。
 
 ### <a name="service-fabric"></a>Service Fabric
 
@@ -225,7 +227,7 @@ microsoft/aspnetcore        2.0     c69d39472da9  13 days ago     347MB
 ::: moniker-end
 
 > [!NOTE]
-> `docker images` 命令返回存储库名称和标记标识为 \<none>  （上面未列出）的中间映像。 这些未命名映像由[多阶段生成](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) *Dockerfile* 生成。 它们可提高生成最终映像的效率 &mdash; 发生更改时，仅重新生成必要的层。 不再需要中间映像时，请使用 [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) 命令将其删除。
+> `docker images` 命令返回存储库名称和标记标识为 \<none>  （上面未列出）的中间映像。 这些未命名映像由[多阶段生成](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) Dockerfile  生成。 它们可提高生成最终映像的效率 &mdash; 发生更改时，仅重新生成必要的层。 不再需要中间映像时，请使用 [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) 命令将其删除。
 
 可能希望生产或发布映像的大小比开发映像小  。 由于卷映射，调试程序和应用从本地计算机运行，而不在容器内运行。 最新  映像已打包必要的应用代码，以在主机上运行应用。 因此，增量是应用代码的大小。
 

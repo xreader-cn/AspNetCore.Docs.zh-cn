@@ -5,14 +5,14 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 12/11/2019
 uid: web-api/http-repl
-ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 34ec2b2eb511f33e1263cdad4a338183a3e4b83a
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717160"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356172"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -36,7 +36,7 @@ HTTP 读取–求值–打印循环 (REPL)：
 
 若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
@@ -134,7 +134,7 @@ HTTP REPL 提供命令完成。 按 Tab <kbd></kbd>键可循环访问补全所�
 httprepl <ROOT URI>
 ```
 
-`<ROOT URI>` 是 Web API 的基 URI。 例如:
+`<ROOT URI>` 是 Web API 的基 URI。 例如：
 
 ```console
 httprepl https://localhost:5001
@@ -146,7 +146,7 @@ httprepl https://localhost:5001
 connect <ROOT URI>
 ```
 
-例如:
+例如：
 
 ```console
 (Disconnected)~ connect https://localhost:5001
@@ -160,7 +160,7 @@ connect <ROOT URI>
 connect <ROOT URI> --swagger <SWAGGER URI>
 ```
 
-例如:
+例如：
 
 ```console
 (Disconnected)~ connect https://localhost:5001 --swagger /swagger/v1/swagger.json
@@ -199,7 +199,7 @@ https://localhost:5001/fruits~ ls
 https://localhost:5001/fruits~
 ```
 
-或者，运行 `ui` 命令，在浏览器中打开 Web API 的 Swagger UI 页。 例如:
+或者，运行 `ui` 命令，在浏览器中打开 Web API 的 Swagger UI 页。 例如：
 
 ```console
 https://localhost:5001/~ ui
@@ -243,7 +243,7 @@ https://localhost:5001/people~
 
 ### <a name="view-the-settings"></a>查看设置
 
-若要查看可用的设置，请运行 `pref get` 命令。 例如:
+若要查看可用的设置，请运行 `pref get` 命令。 例如：
 
 ```console
 https://localhost:5001/~ pref get
@@ -281,7 +281,7 @@ https://localhost:5001/people~ pref set colors.json White
 
 ### <a name="set-indentation-size"></a>设置缩进尺寸
 
-当前，仅 JSON 支持响应缩进尺寸自定义。 默认尺寸为两个空格。 例如:
+当前，仅 JSON 支持响应缩进尺寸自定义。 默认尺寸为两个空格。 例如：
 
 ```json
 [
@@ -370,7 +370,7 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 - */swagger.json*
 - */swagger/v1/swagger.json*
 
-若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。 该值必须是以竖线分隔的相对路径列表。 例如:
+若要在环境中使用一组不同的搜索路径，请设置 `swagger.searchPaths` 首选项。 该值必须是以竖线分隔的相对路径列表。 例如：
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -490,7 +490,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
 
     ```json
     {
@@ -585,7 +585,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如:
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
 
     ```json
     {
@@ -690,8 +690,9 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
         "data": "Strawberry"
       }
     ]
+    ```
 
-1. Run the `delete` command on an endpoint that supports it:
+1. 在支持 `delete` 命令的终结点上运行该命令：
 
     ```console
     https://localhost:5001/fruits~ delete 2
@@ -790,7 +791,7 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
 
 若要设置 HTTP 请求标头，请使用下面一种方法：
 
-* 使用该 HTTP 请求进行内联设置。 例如:
+* 使用该 HTTP 请求进行内联设置。 例如：
 
     ```console
     https://localhost:5001/people~ post -h Content-Type=application/json
@@ -798,13 +799,13 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
     
     若使用上述方法，每个不同的 HTTP 请求标头都需要其自己的 `-h` 选项。
 
-* 在发送 HTTP 请求之前进行设置。 例如:
+* 在发送 HTTP 请求之前进行设置。 例如：
 
     ```console
     https://localhost:5001/people~ set header Content-Type application/json
     ```
     
-    在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。 若要清除标头，请提供一个空值。 例如:
+    在发送请求之前设置标头时，标头在命令行界面会话期间保持设置。 若要清除标头，请提供一个空值。 例如：
     
     ```console
     https://localhost:5001/people~ set header Content-Type
@@ -820,7 +821,7 @@ set header Authorization "bearer <TOKEN VALUE>"
 
 若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。 使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。 HTTP REPL 设置 HTTP 请求标头中的持有者令牌，并检索 Azure 应用服务 Web 应用的列表。
 
-1. 登录到 Azure：
+1. 登录 Azure：
 
     ```azcli
     az login
@@ -898,14 +899,14 @@ set header Authorization "bearer <TOKEN VALUE>"
 
 ### <a name="enable-request-display"></a>启用请求显示
 
-运行 `echo on` 命令可查看正在发送的 HTTP 请求。 例如:
+运行 `echo on` 命令可查看正在发送的 HTTP 请求。 例如：
 
 ```console
 https://localhost:5001/people~ echo on
 Request echoing is on
 ```
 
-当前会话中的后续 HTTP 请求显示请求标头。 例如:
+当前会话中的后续 HTTP 请求显示请求标头。 例如：
 
 ```console
 https://localhost:5001/people~ post
@@ -943,7 +944,7 @@ https://localhost:5001/people~
 
 ### <a name="disable-request-display"></a>禁用请求显示
 
-运行 `echo off` 命令可禁止显示正在发送的 HTTP 请求。 例如:
+运行 `echo off` 命令可禁止显示正在发送的 HTTP 请求。 例如：
 
 ```console
 https://localhost:5001/people~ echo off
@@ -952,7 +953,7 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>运行脚本
 
-如果经常执行一组相同的 HTTP REPL 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如:
+如果经常执行一组相同的 HTTP REPL 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如：
 
 1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt  文件：
 
@@ -964,7 +965,7 @@ Request echoing is off
     get 1
     ```
 
-1. 执行 `run` 命令，传入文本文件的路径。 例如:
+1. 执行 `run` 命令，传入文本文件的路径。 例如：
 
     ```console
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt

@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 路由如何负责将请求 URI 映射到终结
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: be4493cc927bd5437a2c9dab00b6a555756195bb
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 9780183f8f9bc322f73d058b3cab7f8c10f7cd5f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416140"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354742"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -20,7 +20,7 @@ ms.locfileid: "73416140"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-路由负责将请求 URI 映射到终结点并向这些终结点调度传入的请求。 路由在应用中定义，并在应用启动时进行配置。 路由可以选择从请求包含的 URL 中提取值，然后这些值便可用于处理请求。 通过使用应用中的路由信息，路由还能生成映射到终结点的 URL。
+路由负责将请求 URI 映射到终结点并向这些终结点调度传入的请求。 路由在应用中定义，并在应用启动时进行配置。 路由可以选择从请求包含的 URL 中提取值，然后这些值便可用于处理请求。 通过使用应用中的路由信息，路由还能生成映射到终结点的 URL。 许多应用不需要添加模板所提供内容之外的路由。 控制器和 Razor 页面的 ASP.NET Core 模板配置路由终结点。 如果需要添加自定义路由终结点，则可以将自定义终结点与模板生成的路由终结点一起配置。
 
 > [!IMPORTANT]
 > 本文档介绍较低级别的 ASP.NET Core 路由。 有关 ASP.NET Core MVC 路由的信息，请参阅 <xref:mvc/controllers/routing>。 有关 Razor Pages 中路由约定的信息，请参阅 <xref:razor-pages/razor-pages-conventions>。
@@ -115,7 +115,7 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
 
 对任何类型的地址，<xref:Microsoft.AspNetCore.Routing.LinkGenerator> 提供的方法均支持标准链接生成功能。 使用链接生成器的最简便方法是通过扩展方法对特定地址类型执行操作。
 
-| 扩展方法 | 说明 |
+| 扩展方法 | 描述 |
 | ---------------- | ----------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | 根据提供的值生成具有绝对路径的 URI。 |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | 根据提供的值生成绝对 URI。             |
@@ -126,6 +126,22 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
 > * 对于不验证传入请求的 `Host` 标头的应用配置，请谨慎使用 `GetUri*` 扩展方法。 如果未验证传入请求的 `Host`标头，则可能以视图/页面中 URI 的形式将不受信任的请求输入发送回客户端。 建议所有生产应用都将其服务器配置为针对已知有效值验证 `Host` 标头。
 >
 > * 在中间件中将 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 与 `Map` 或 `MapWhen` 结合使用时，请小心谨慎。 `Map*` 会更改执行请求的基路径，这会影响链接生成的输出。 所有 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API 都允许指定基路径。 始终指定一个空的基路径来撤消 `Map*` 对链接生成的影响。
+
+## <a name="endpoint-routing"></a>终结点路由
+
+* 路由终结点具有模板、元数据以及为终结点响应提供服务的请求委托。 元数据用于实现横切关注点，该实现基于附加到每个终结点的策略和配置。 例如，授权中间件可以在终结点的元数据集合中询问[授权策略](xref:security/authorization/policies#applying-policies-to-mvc-controllers)。
+* 终结点路由使用两个扩展方法与中间件集成：
+  * [UseRouting](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*) 向中间件管道添加路由匹配。 它必须在任何路由感知中间件（如授权、终结点执行等）之前。
+  * [UseEndpoints](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*) 向中间件管道添加终结点执行。 它运行为终结点响应提供服务的请求委托。
+  此外，`UseEndpoints` 还是配置可由应用匹配和执行的路由终结点的位置。 例如：<xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*> 和 <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>。
+* 应用使用 ASP.NET Core 的 Helper 方法来配置其路由。 ASP.NET Core 框架提供了 <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> 和 `MapHub<THub>` 等 Helper 方法。 还提供了用于配置自己的自定义路由终结点的 Helper 方法：<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> 和 [MapVerb](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions)。 
+* 终结点路由还支持在应用程序启动后更改终结点。 若要在应用或 ASP.NET Core 框架中支持这一点，必须创建并注册自定义 <xref:Microsoft.AspNetCore.Routing.EndpointDataSource>。 这是一项高级功能，通常不需要。 终结点通常在启动时配置，并且在应用的生存期内是静态的。 在启动时从文件或数据库加载路由配置不是动态的。
+
+以下代码演示终结点路由的基本示例：
+
+[!code-csharp[](routing/samples/3.x/Startup.cs?name=snippet)]
+
+有关终结点路由的详细信息，请参阅本文档中的 [URL 匹配](#url-matching)。
 
 ## <a name="endpoint-routing-differences-from-earlier-versions-of-routing"></a>终结点路由与早期版本路由的差异
 
@@ -443,14 +459,14 @@ routes.MapRoute(
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、`-123456789` | 匹配任何整数 |
-| `bool` | `{active:bool}` | `true`、`FALSE` | 匹配 `true`或 `false`（区分大小写） |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
-| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
-| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
-| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
-| `long` | `{ticks:long}` | `123456789`、`-123456789` | 匹配有效的 `long` 值 |
+| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数 |
+| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true`或 `false`（区分大小写） |
+| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
+| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
+| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
+| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
+| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值 |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 字符串不得超过 8 个字符 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符 |
@@ -491,8 +507,8 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 | `[a-z]{2}`   | 123abc456 | 是   | 子字符串匹配     |
 | `[a-z]{2}`   | mz        | 是   | 匹配表达式    |
 | `[a-z]{2}`   | MZ        | 是   | 不区分大小写    |
-| `^[a-z]{2}$` | hello     | No    | 参阅上述 `^` 和 `$` |
-| `^[a-z]{2}$` | 123abc456 | No    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | hello     | 否    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | 123abc456 | 否    | 参阅上述 `^` 和 `$` |
 
 有关正则表达式语法的详细信息，请参阅 [.NET Framework 正则表达式](/dotnet/standard/base-types/regular-expression-language-quick-reference)。
 
@@ -502,7 +518,7 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
 
-若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如:
+若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如：
 
 ```csharp
 services.AddRouting(options =>
@@ -511,7 +527,7 @@ services.AddRouting(options =>
 });
 ```
 
-然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如:
+然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如：
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -541,7 +557,7 @@ services.AddRouting(options =>
 });
 ```
 
-框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area` `controller` `action` 和 `page` 的路由值。
+框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area``controller``action` 和 `page` 的路由值。
 
 ```csharp
 routes.MapRoute(
@@ -776,7 +792,7 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
 
 对任何类型的地址，<xref:Microsoft.AspNetCore.Routing.LinkGenerator> 提供的方法均支持标准链接生成功能。 使用链接生成器的最简便方法是通过扩展方法对特定地址类型执行操作。
 
-| 扩展方法   | 说明                                                         |
+| 扩展方法   | 描述                                                         |
 | ------------------ | ------------------------------------------------------------------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | 根据提供的值生成具有绝对路径的 URI。 |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | 根据提供的值生成绝对 URI。             |
@@ -1104,14 +1120,14 @@ routes.MapRoute(
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、`-123456789` | 匹配任何整数 |
-| `bool` | `{active:bool}` | `true`、`FALSE` | 匹配 `true`或 `false`（区分大小写） |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
-| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
-| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
-| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
-| `long` | `{ticks:long}` | `123456789`、`-123456789` | 匹配有效的 `long` 值 |
+| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数 |
+| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true`或 `false`（区分大小写） |
+| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
+| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
+| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
+| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
+| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值 |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 字符串不得超过 8 个字符 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符 |
@@ -1152,8 +1168,8 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 | `[a-z]{2}`   | 123abc456 | 是   | 子字符串匹配     |
 | `[a-z]{2}`   | mz        | 是   | 匹配表达式    |
 | `[a-z]{2}`   | MZ        | 是   | 不区分大小写    |
-| `^[a-z]{2}$` | hello     | No    | 参阅上述 `^` 和 `$` |
-| `^[a-z]{2}$` | 123abc456 | No    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | hello     | 否    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | 123abc456 | 否    | 参阅上述 `^` 和 `$` |
 
 有关正则表达式语法的详细信息，请参阅 [.NET Framework 正则表达式](/dotnet/standard/base-types/regular-expression-language-quick-reference)。
 
@@ -1163,7 +1179,7 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
 
-若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如:
+若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如：
 
 ```csharp
 services.AddRouting(options =>
@@ -1172,7 +1188,7 @@ services.AddRouting(options =>
 });
 ```
 
-然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如:
+然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如：
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -1202,7 +1218,7 @@ services.AddRouting(options =>
 });
 ```
 
-框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area` `controller` `action` 和 `page` 的路由值。
+框架使用参数转化器来转换进行终结点解析的 URI。 例如，ASP.NET Core MVC 使用参数转换器来转换用于匹配 `area``controller``action` 和 `page` 的路由值。
 
 ```csharp
 routes.MapRoute(
@@ -1558,14 +1574,14 @@ routes.MapRoute(
 
 | 约束 | 示例 | 匹配项示例 | 说明 |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、`-123456789` | 匹配任何整数 |
-| `bool` | `{active:bool}` | `true`、`FALSE` | 匹配 `true`或 `false`（区分大小写） |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
-| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
-| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
-| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
-| `long` | `{ticks:long}` | `123456789`、`-123456789` | 匹配有效的 `long` 值 |
+| `int` | `{id:int}` | `123456789`，`-123456789` | 匹配任何整数 |
+| `bool` | `{active:bool}` | `true`，`FALSE` | 匹配 `true`或 `false`（区分大小写） |
+| `datetime` | `{dob:datetime}` | `2016-12-31`，`2016-12-31 7:32pm` | 匹配有效的 `DateTime` 值（位于固定区域性中 - 查看警告） |
+| `decimal` | `{price:decimal}` | `49.99`，`-1,000.01` | 匹配有效的 `decimal` 值（位于固定区域性中 - 查看警告） |
+| `double` | `{weight:double}` | `1.234`，`-1,001.01e8` | 匹配有效的 `double` 值（位于固定区域性中 - 查看警告） |
+| `float` | `{weight:float}` | `1.234`，`-1,001.01e8` | 匹配有效的 `float` 值（位于固定区域性中 - 查看警告） |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 匹配有效的 `Guid` 值 |
+| `long` | `{ticks:long}` | `123456789`，`-123456789` | 匹配有效的 `long` 值 |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 字符串必须至少为 4 个字符 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 字符串不得超过 8 个字符 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 字符串必须正好为 12 个字符 |
@@ -1606,8 +1622,8 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 | `[a-z]{2}`   | 123abc456 | 是   | 子字符串匹配     |
 | `[a-z]{2}`   | mz        | 是   | 匹配表达式    |
 | `[a-z]{2}`   | MZ        | 是   | 不区分大小写    |
-| `^[a-z]{2}$` | hello     | No    | 参阅上述 `^` 和 `$` |
-| `^[a-z]{2}$` | 123abc456 | No    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | hello     | 否    | 参阅上述 `^` 和 `$` |
+| `^[a-z]{2}$` | 123abc456 | 否    | 参阅上述 `^` 和 `$` |
 
 有关正则表达式语法的详细信息，请参阅 [.NET Framework 正则表达式](/dotnet/standard/base-types/regular-expression-language-quick-reference)。
 
@@ -1617,7 +1633,7 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 除了内置路由约束以外，还可以通过实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口包含一个方法 `Match`，当满足约束时，它返回 `true`，否则返回 `false`。
 
-若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如:
+若要使用自定义 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>，必须在应用的服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 是将路由约束键映射到验证这些约束的 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 实现的目录。 应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如：
 
 ```csharp
 services.AddRouting(options =>
@@ -1626,7 +1642,7 @@ services.AddRouting(options =>
 });
 ```
 
-然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如:
+然后，可以使用在注册约束类型时指定的名称，以常规方式将约束应用于路由。 例如：
 
 ```csharp
 [HttpGet("{id:customName}")]

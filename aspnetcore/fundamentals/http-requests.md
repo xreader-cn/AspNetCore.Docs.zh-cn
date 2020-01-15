@@ -2,16 +2,17 @@
 title: 在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 author: stevejgordon
 description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 中的逻辑 HttpClient 实例。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/16/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: f33444b8fc08dc022da7700af53a218600290162
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 482f8e28c23c621cecaf9ce111d89e9166ea6d85
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733916"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722721"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -190,7 +191,7 @@ public class ValuesController : ControllerBase
     * 缓存
     * 错误处理
     * 序列化
-    * logging
+    * 日志记录
 
 创建委托处理程序：
 
@@ -299,7 +300,7 @@ public class ValuesController : ControllerBase
 
 - 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
 - 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
-- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+- 根据需要，使用 `new HttpClient(handler, disposeHandler: false)` 创建 `HttpClient` 实例。
 
 上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
 
@@ -357,6 +358,7 @@ public class ValuesController : ControllerBase
 * [使用 HttpClientFactory 来实现复原 HTTP 请求](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [通过 HttpClientFactory 和 Polly 策略实现使用指数退避算法的 HTTP 调用重试](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [实现断路器模式](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
+* [如何在 .NET 中对 JSON 数据进行序列化和反序列化](/dotnet/standard/serialization/system-text-json-how-to)
 
 ::: moniker-end
 
@@ -600,7 +602,7 @@ public class ValuesController : ControllerBase
 
 - 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
 - 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
-- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+- 根据需要，使用 `new HttpClient(handler, disposeHandler: false)` 创建 `HttpClient` 实例。
 
 上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
 
@@ -614,7 +616,7 @@ public class ValuesController : ControllerBase
  - 禁用自动 Cookie 处理
  - 避免 `IHttpClientFactory`
 
-调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 cookie 处理：
+调用 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 以禁用自动 Cookie 处理：
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
@@ -661,7 +663,7 @@ public class ValuesController : ControllerBase
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.1"
+::: moniker range="= aspnetcore-2.1"
 
 作者：[Glenn Condron](https://github.com/glennc)[Ryan Nowak](https://github.com/rynowak) 和 [Steve Gordon](https://github.com/stevejgordon)
 
@@ -674,7 +676,7 @@ public class ValuesController : ControllerBase
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 面向.NET Framework 的项目要求安装 [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet 包。 面向 .NET Core 且引用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)的项目已经包括 `Microsoft.Extensions.Http` 包。
 
@@ -908,7 +910,7 @@ public class ValuesController : ControllerBase
 
 - 在应用启动时创建 `SocketsHttpHandler` 的实例，并在应用的整个生命周期中使用它。
 - 根据 DNS 刷新时间，将 <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> 配置为适当的值。
-- 根据需要，使用 `new HttpClient(handler, dispostHandler: false)` 创建 `HttpClient` 实例。
+- 根据需要，使用 `new HttpClient(handler, disposeHandler: false)` 创建 `HttpClient` 实例。
 
 上述方法使用 `IHttpClientFactory` 解决问题的类似方式解决资源管理问题。
 

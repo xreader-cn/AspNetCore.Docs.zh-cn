@@ -5,12 +5,12 @@ description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Page
 ms.author: riande
 ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: b651437b698d01310f90c5f14832616c1896e6c0
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 6e1d58ccd83f7d7c1083dc2bf9ce7476650812a1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959094"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722986"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -36,7 +36,7 @@ ms.locfileid: "74959094"
 
 ![主页或索引页](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -56,7 +56,7 @@ ms.locfileid: "74959094"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”    。
+* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 * 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”  。
   ![新建 ASP.NET Core Web 应用程序](razor-pages-start/_static/np_2.1.png)
 * 将项目命名为“RazorPagesMovie”  。 将项目命名为“RazorPagesMovie”非常重要，这样在复制和粘贴代码时命名空间就会匹配  。
@@ -92,26 +92,21 @@ ms.locfileid: "74959094"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件”>“新建解决方案”  >  。
+* 选择“文件”>“新建解决方案”   。
 
 ![macOS 新建解决方案](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-* 选择“.NET Core”  >“应用”  >“Web 应用程序”  >“下一步”  。
+* 选择“.NET Core”  >“应用”  >“Web 应用程序”  >“下一步”。 
 
   ![macOS“新建项目”对话框](razor-pages-start/_static/webapp.png)
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.1”    。
+* 在“配置新的 Web 应用程序”对话框中，将目标框架设置为“.NET Core 3.1”    。
 
-  ![macOS .NET Core 3.0 选择](razor-pages-start/_static/targetframework3.png)
+  ![macOS .NET Core 3.1 选择](razor-pages-start/_static/targetframework3.png)
 
 * 将项目命名为“RazorPagesMovie”，然后选择“创建”。  
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
-
-
-## <a name="open-the-project"></a>打开项目
-
-在 Visual Studio 中，选择“文件”>“打开”  ，然后选择“RazorPagesMovie.csproj”  文件。
 
 <!-- End of VS tabs -->
 
@@ -182,7 +177,7 @@ ms.locfileid: "74959094"
 
 ![主页或索引页](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -202,7 +197,7 @@ ms.locfileid: "74959094"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”    。
+* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 
 * 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”  。
 
@@ -242,19 +237,21 @@ ms.locfileid: "74959094"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-从终端运行以下命令：
+* 选择“文件”>“新建解决方案”   。
 
-<!-- TODO: update these instruction once mac support 2.2 projects -->
+![macOS 新建解决方案](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-```dotnetcli
-dotnet new webapp -o RazorPagesMovie
-```
+* 选择“.NET Core”  >“应用”  >“Web 应用程序”  >“下一步”。 
 
-上述命令使用 [.NET Core CLI](/dotnet/core/tools/dotnet) 创建 Razor Pages 项目。
+  ![macOS“新建项目”对话框](razor-pages-start/_static/webapp.png)
 
-## <a name="open-the-project"></a>打开项目
+* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.1”    。
 
-在 Visual Studio 中，选择“文件”>“打开”  ，然后选择“RazorPagesMovie.csproj”  文件。
+  ![macOS .NET Core 3.0 选择](razor-pages-start/_static/targetframework3.png)
+
+* 将项目命名为“RazorPagesMovie”，然后选择“创建”。  
+
+  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 
 <!-- End of VS tabs -->
 

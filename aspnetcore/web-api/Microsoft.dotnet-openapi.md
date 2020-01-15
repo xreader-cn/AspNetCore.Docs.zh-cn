@@ -6,12 +6,12 @@ ms.author: rybrande
 ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: web-api/Microsoft.dotnet-openapi
-ms.openlocfilehash: f5eae9e871bc8efc30d500769adb845ff244a90c
-ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
+ms.openlocfilehash: 4be2846f0348788102672978a0487e646da434a0
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317774"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354752"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>使用 OpenAPI 工具开发 ASP.NET Core 应用
 
@@ -44,7 +44,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | Short option | Long option | Description | Example |
 |-------|------|-------|---------|
-| -v|--verbose | Show verbose output. |dotnet openapi add project *-v* ../Ref/ProjRef.csproj |
 | -p|--project | The project to operate on. |dotnet openapi add project *--project .\Ref.csproj* ../Ref/ProjRef.csproj |
 
 #### Arguments
@@ -57,16 +56,15 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------|---------|
-| -v|--verbose | 显示详细输出。 |dotnet openapi add file -v  .\OpenAPI.json |
 | -p|--updateProject | 要操作的项目。 |dotnet openapi add file --updateProject .\Ref.csproj  .\OpenAPI.json |
 | -c|--code-generator| 应用于引用的代码生成器。 选项包括 `NSwagCSharp` 和 `NSwagTypeScript`。 如果未指定 `--code-generator`，则工具将默认为 `NSwagCSharp`。|dotnet openapi add file .\OpenApi.json --code-generator
 | -h|--help|显示帮助信息|dotnet openapi add file --help|
 
 #### <a name="arguments"></a>自变量
 
-|  参数  | 说明 | 示例 |
+|  参数  | 描述 | 示例 |
 |-------------|-------------|---------|
 | source-file | 要创建的引用的源。 必须为 OpenAPI 文件。 |dotnet openapi add file .\OpenAPI.json  |
 
@@ -74,9 +72,8 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------------|---------|
-| -v|--verbose | 显示详细输出。 |dotnet openapi add url -v  `https://contoso.com/openapi.json` |
 | -p|--updateProject | 要操作的项目。 |dotnet openapi add url --updateProject .\Ref.csproj  `https://contoso.com/openapi.json` |
 | -o|--output-file | 用于放置 OpenAPI 文件本地副本的位置。 |dotnet openapi add url `https://contoso.com/openapi.json` --output-file myclient.json  |
 | -c|--code-generator| 应用于引用的代码生成器。 选项包括 `NSwagCSharp` 和 `NSwagTypeScript`。 |dotnet openapi add file .\OpenApi.json --code-generator
@@ -84,7 +81,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 #### <a name="arguments"></a>自变量
 
-|  参数  | 说明 | 示例 |
+|  参数  | 描述 | 示例 |
 |-------------|-------------|---------|
 | source-URL | 要创建的引用的源。 必须是 URL。 |dotnet openapi add url `https://contoso.com/openapi.json` |
 
@@ -94,15 +91,14 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明| 示例 |
+| 短选项| 长选项| 描述| 示例 |
 |-------|------|------------|---------|
-| -v|--verbose | 显示详细输出。 |dotnet openapi remove -v |
 | -p|--updateProject | 要操作的项目。 |dotnet openapi remove --updateProject .\Ref.csproj  .\OpenAPI.json |
 | -h|--help|显示帮助信息|dotnet openapi remove --help|
 
 ### <a name="arguments"></a>自变量
 
-|  参数  | 说明| 示例 |
+|  参数  | 描述| 示例 |
 | ------------|------------|---------|
 | source-file | 要删除的引用的源。 |dotnet openapi remove .\OpenAPI.json  |
 
@@ -112,14 +108,13 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ### <a name="options"></a>选项
 
-| 短选项| 长选项| 说明 | 示例 |
+| 短选项| 长选项| 描述 | 示例 |
 |-------|------|-------------|---------|
-| -v|--verbose | 显示详细输出。 | dotnet openapi refresh -v  `https://contoso.com/openapi.json` |
 | -p|--updateProject | 要操作的项目。 | dotnet openapi refresh --updateProject .\Ref.csproj  `https://contoso.com/openapi.json` |
 | -h|--help|显示帮助信息|dotnet openapi refresh --help|
 
 ### <a name="arguments"></a>自变量
 
-|  参数  | 说明 | 示例 |
+|  参数  | 描述 | 示例 |
 | ------------|-------------|---------|
 | source-URL | 用于刷新引用的 URL。 | dotnet openapi refresh `https://contoso.com/openapi.json` |

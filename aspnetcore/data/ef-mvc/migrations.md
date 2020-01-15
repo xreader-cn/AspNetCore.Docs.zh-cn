@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 4c96815461898ce9273f953f083143d8b50d406e
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: bcd36509fe42da0a79b9243d17701f40e066a212
+ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259417"
+ms.lasthandoff: 12/29/2019
+ms.locfileid: "75542686"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -28,7 +28,7 @@ ms.locfileid: "72259417"
 > * 了解数据模型快照
 > * 应用迁移
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [排序、筛选和分页](sort-filter-page.md)
 
@@ -86,7 +86,7 @@ Done. To undo this action, use 'ef migrations remove'
 > [!NOTE]
 > 如果出现错误消息“找不到任何匹配 "dotnet-ef" 命令的可执行文件”，请参阅[此博客文章](https://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/)获取故障排除帮助  。
 
-如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”*  。
+如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”   。
 
 ## <a name="examine-up-and-down-methods"></a>检查 Up 和 Down 方法
 
@@ -104,7 +104,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 迁移在 Migrations/SchoolContextModelSnapshot.cs 中创建当前数据库架构的快照   。 添加迁移时，EF 会通过将数据模型与快照文件进行对比来确定已更改的内容。
 
-删除迁移时，请使用 [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) 命令。 `dotnet ef migrations remove` 删除迁移，并确保正确重置快照。
+使用 [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) 命令删除迁移。 `dotnet ef migrations remove` 删除迁移，并确保正确重置快照。 如果 `dotnet ef migrations remove` 失败，使用 `dotnet ef migrations remove -v` 获取失败的详细信息。
 
 有关如何使用快照文件的详细信息，请参阅[团队环境中的 EF Core 迁移](/ef/core/managing-schemas/migrations/teams)。
 

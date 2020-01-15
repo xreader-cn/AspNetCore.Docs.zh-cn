@@ -5,12 +5,12 @@ description: 了解如何将控制器添加到简单的 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 1c54959130f3a9959d4d4fdb8dcaa0d37ee2f046
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: fe0c1d3c066d6ab20387391e15c3a7cfe684c61e
+ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820062"
+ms.lasthandoff: 12/29/2019
+ms.locfileid: "75542705"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
@@ -108,7 +108,7 @@ MVC 根据入站 URL 调用控制器类（及其中的操作方法）。 MVC 所
 
 （将 `{PORT}` 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
 
-![显示应用程序响应的浏览器窗口，响应为：你好 Rick，NumTimes 为4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+![显示 Hello Rick 的应用程序响应的浏览器窗口，NumTimes 为 \: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
 在上图中，未使用 URL 段 (`Parameters`)，且 `name` 和 `numTimes` 参数作为[查询字符串](https://wikipedia.org/wiki/Query_string)进行传递。 上述 URL 中的 `?`（问号）为分隔符，后接查询字符串。 `&` 字符用于分隔查询字符串。
 
@@ -227,7 +227,7 @@ Remove link for simplified tutorial.
 
 （将 `{PORT}` 替换为端口号。）可在 URL 中对 `name` 和 `numtimes` 使用其他值。 MVC [模型绑定](xref:mvc/models/model-binding)系统可将命名参数从地址栏中的查询字符串自动映射到方法中的参数。 有关详细信息，请参阅[模型绑定](xref:mvc/models/model-binding)。
 
-![显示应用程序响应的浏览器窗口，响应为：你好 Rick，NumTimes 为4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+![显示 Hello Rick 的应用程序响应的浏览器窗口，NumTimes 为 \: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
 在上图中，未使用 URL 段 (`Parameters`)，且 `name` 和 `numTimes` 参数作为[查询字符串](https://wikipedia.org/wiki/Query_string)进行传递。 上述 URL 中的 `?`（问号）为分隔符，后接查询字符串。 `&` 字符用于分隔查询字符串。
 

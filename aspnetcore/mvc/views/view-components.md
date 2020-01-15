@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何将其添加到应用中。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/14/2019
+ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: e6990368519857a27b291d7d565c09072f23f1b0
-ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
+ms.openlocfilehash: a4583d49eb0b42f1fa6e3d8c444d263cba34da79
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68670087"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356847"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -87,6 +87,14 @@ ms.locfileid: "68670087"
 视图组件的默认视图名称为“默认”，这意味着视图文件通常命名为“Default.cshtml”   。 可以在创建视图组件结果或调用 `View` 方法时指定不同的视图名称。
 
 建议将视图文件命名为 Default.cshtml 并使用 Views/Shared/Components/{View Component Name}/{View Name} 路径。   此示例中使用的 `PriorityList` 视图组件对视图组件视图使用 Views/Shared/Components/PriorityList/Default.cshtml  。
+
+### <a name="customize-the-view-search-path"></a>自定义视图搜索路径
+
+修改 Razor 的 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> 集合，以自定义视图搜索路径。 例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：
+
+[!code-cs[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
+
+在前面的代码中，占位符“{0}”表示路径“Components/{视图组件名称}/{视图名称}”。
 
 ## <a name="invoking-a-view-component"></a>调用视图组件
 

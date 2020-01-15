@@ -19,7 +19,7 @@
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* 在 Visual Studio 中，按 Alt-Cmd-Enter 可在不使用调试器的情况下运行  。 或者，导航到菜单栏，转到“运行”>“在不调试的情况下启动”  。
+* 在 Visual Studio 中，按“Opt-Cmd-Return”可在不使用调试器的情况下运行  。 或者，导航到菜单栏，转到“运行”>“在不调试的情况下启动”  。
 
   Visual Studio 启动 [Kestrel](xref:fundamentals/servers/kestrel)，启动浏览器并导航到 `http://localhost:5001`。
 

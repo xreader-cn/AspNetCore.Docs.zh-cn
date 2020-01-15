@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: c2397a535fa2c128f18d65323d0f4920af914205
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 34157a63e43372876a02a858741dfd3a83a063b1
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334216"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354814"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -92,6 +92,8 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
       return Page();
    }
   ```
+  
+或者可以[禁用服务器上的客户端验证](xref:mvc/models/validation#disable-client-side-validation)。
 
 以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分  。 它用于在“创建”和“编辑”页面中显示初始表单并在发生错误后重新显示表单。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 4377d7d1895b80b3c98a5b480c0f42820f11fbb8
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 3bf930d19684e84365f0ff0255fccd2939fb3f39
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959107"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354924"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -36,19 +36,19 @@ ms.locfileid: "74959107"
 
 本教程将创建以下 API：
 
-|API | 说明 | 请求正文 | 响应正文 |
+|API | 描述 | 请求正文 | 响应正文 |
 |--- | ---- | ---- | ---- |
-|GET /api/TodoItems | 获取所有待办事项 | 无 | 待办事项的数组|
-|GET /api/TodoItems/{id} | 按 ID 获取项 | 无 | 待办事项|
+|GET /api/TodoItems | 获取所有待办事项 | None | 待办事项的数组|
+|GET /api/TodoItems/{id} | 按 ID 获取项 | None | 待办事项|
 |POST /api/TodoItems | 添加新项 | 待办事项 | 待办事项 |
-|PUT /api/TodoItems/{id} | 更新现有项 &nbsp; | 待办事项 | 无 |
-|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | 无 | 无|
+|PUT /api/TodoItems/{id} | 更新现有项 &nbsp; | 待办事项 | None |
+|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | 删除项 &nbsp;&nbsp; | None | None|
 
 下图显示了应用的设计。
 
 ![右侧的框表示客户端。 它提交请求并从应用程序接收响应，如右侧的框所示。 在应用程序框内，三个框分别代表控制器、模型和数据访问层。 请求进入应用程序的控制器，读/写操作是在控制器和数据访问层之间进行的。 模型被序列化并在响应中被返回给客户端。](first-web-api/_static/architecture.png)
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -98,11 +98,11 @@ ms.locfileid: "74959107"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件”>“新建解决方案”  >  。
+* 选择“文件”>“新建解决方案”   。
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 选择“.NET Core”>“应用”>“API”>“下一步”     。
+* 选择“.NET Core”  >“应用”  >“API”  >“下一步”。 
 
   ![macOS“新建项目”对话框](first-web-api-mac/_static/1.png)
   
@@ -204,7 +204,7 @@ ms.locfileid: "74959107"
 
   ![新建文件夹](first-web-api-mac/_static/folder.png)
 
-* 右键单击“Models”文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”      。
+* 右键单击“Models”  文件夹，然后选择“添加”  >“新建文件”  >“常规”  >“空类”  。
 
 * 将类命名为“TodoItem”，然后单击“新建”   。
 
@@ -322,7 +322,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
-* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证”     。
+* 在“文件”  >“设置”（“常规”   选项卡）中，禁用“SSL 证书验证”。 
     > [!WARNING]
     > 在测试控制器之后重新启用 SSL 证书验证。
 
@@ -366,7 +366,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * `GET /api/TodoItems`
 * `GET /api/TodoItems/{id}`
 
-通过从浏览器或 Postman 调用两个终结点来测试应用。 例如:
+通过从浏览器或 Postman 调用两个终结点来测试应用。 例如：
 
 * [https://localhost:5001/api/TodoItems](https://localhost:5001/api/TodoItems)
 * [https://localhost:5001/api/TodoItems/1](https://localhost:5001/api/TodoItems/1)
@@ -451,8 +451,6 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Delete)]
 
-`DeleteTodoItem` 响应是 [204（无内容）](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)。
-
 ### <a name="test-the-deletetodoitem-method"></a>测试 DeleteTodoItem 方法
 
 使用 Postman 删除待办事项：
@@ -463,7 +461,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
-有关分步说明，请参阅[教程：使用 JavaScript 调用 ASP.NET Core Web API](xref:tutorials/web-api-javascript)。
+请参阅[教程：使用 JavaScript 调用 ASP.NET Core Web API](xref:tutorials/web-api-javascript)。
 
 ::: moniker-end
 
@@ -487,19 +485,19 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 本教程将创建以下 API：
 
-|API | 说明 | 请求正文 | 响应正文 |
+|API | 描述 | 请求正文 | 响应正文 |
 |--- | ---- | ---- | ---- |
-|GET /api/TodoItems | 获取所有待办事项 | 无 | 待办事项的数组|
-|GET /api/TodoItems/{id} | 按 ID 获取项 | 无 | 待办事项|
+|GET /api/TodoItems | 获取所有待办事项 | None | 待办事项的数组|
+|GET /api/TodoItems/{id} | 按 ID 获取项 | None | 待办事项|
 |POST /api/TodoItems | 添加新项 | 待办事项 | 待办事项 |
-|PUT /api/TodoItems/{id} | 更新现有项 &nbsp; | 待办事项 | 无 |
-|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | 删除项&nbsp; &nbsp; | 无 | 无|
+|PUT /api/TodoItems/{id} | 更新现有项 &nbsp; | 待办事项 | None |
+|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | 删除项 &nbsp;&nbsp; | None | None|
 
 下图显示了应用的设计。
 
 ![右侧的框表示客户端。 它提交请求并从应用程序接收响应，如右侧的框所示。 在应用程序框内，三个框分别代表控制器、模型和数据访问层。 请求进入应用程序的控制器，读/写操作是在控制器和数据访问层之间进行的。 模型被序列化并在响应中被返回给客户端。](first-web-api/_static/architecture.png)
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -543,11 +541,11 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件”>“新建解决方案”  >  。
+* 选择“文件”>“新建解决方案”   。
 
   ![macOS 新建解决方案](first-web-api-mac/_static/sln.png)
 
-* 选择“.NET Core”>“应用”>“API”>“下一步”     。
+* 选择“.NET Core”  >“应用”  >“API”  >“下一步”。 
 
   ![macOS“新建项目”对话框](first-web-api-mac/_static/1.png)
   
@@ -609,7 +607,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
   ![新建文件夹](first-web-api-mac/_static/folder.png)
 
-* 右键单击“Models”文件夹，然后选择“添加”>“新建文件”>“常规”>“空类”      。
+* 右键单击“Models”  文件夹，然后选择“添加”  >“新建文件”  >“常规”  >“空类”  。
 
 * 将类命名为“TodoItem”，然后单击“新建”   。
 
@@ -696,7 +694,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 如果应用仍在运行，请停止它。 然后再次运行它以包括最新更改。
 
-通过从浏览器调用两个终结点来测试应用。 例如:
+通过从浏览器调用两个终结点来测试应用。 例如：
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
@@ -748,7 +746,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“文件”>“设置”（“常规”选项卡）中，禁用“SSL 证书验证”     。
+* 在“文件”  >“设置”（“常规”   选项卡）中，禁用“SSL 证书验证”。 
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 

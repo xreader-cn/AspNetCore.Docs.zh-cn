@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 ASP.NET Core MVC 和 Razor Pages 中的模型验证。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881045"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355269"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -58,19 +58,19 @@ ms.locfileid: "74881045"
 * `[Required]`：验证字段是否非 NULL。 请参阅 [`[Required]` 属性](#required-attribute)，获取关于该特性的行为的详细信息。
 * `[StringLength]`：验证字符串属性值是否未超过指定长度限制。
 * `[Url]`：验证属性是否有 URL 格式。
-* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 `[`[Remote]` 属性(#remote-attribute)，获取关于该特性的行为的详细信息。
+* `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [`[Remote]` 属性](#remote-attribute)，获取关于该特性的行为的详细信息。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
 ### <a name="error-messages"></a>错误消息
 
-通过验证特性可以指定要为无效输入显示的错误消息。 例如:
+通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如:
+在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -424,17 +424,19 @@ $.get({
 * `[Url]`：验证属性是否有 URL 格式。
 * `[Remote]`：通过调用服务器上的操作方法，验证客户端上的输入。 请参阅 [`[Remote]` 属性](#remote-attribute)，获取关于该特性的行为的详细信息。
 
+将 `[RegularExpression]` 属性用于客户端验证时，在客户端上使用 JavaScript 执行正则表达式。 这意味着将使用 [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 匹配行为。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/corefx/issues/42487)。
+
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
 ### <a name="error-messages"></a>错误消息
 
-通过验证特性可以指定要为无效输入显示的错误消息。 例如:
+通过验证特性可以指定要为无效输入显示的错误消息。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如:
+在内部，特性使用用于字段名的某个占位符调用 `String.Format`，有时还使用额外占位符。 例如：
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
