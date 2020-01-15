@@ -5,14 +5,14 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/06/2020
+ms.date: 01/13/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 8e0475e3e18688c7d4344661826290d15a2443c0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: bf035bc65f0f120f52e55effe4d413bfecdf735d
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829187"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952087"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -771,31 +771,19 @@ Windows Server 2008 R2 或更高版本：
 
 ## <a name="deployment-resources-for-iis-administrators"></a>面向 IIS 管理员的部署资源
 
-在 IIS 文档中深入了解 IIS。  
-[IIS 文档](/iis)
-
-了解 .NET Core 应用部署模型。  
-[.NET Core 应用程序部署](/dotnet/core/deploying/)
-
-了解 ASP.NET Core 模块，包括配置指南。  
-<xref:host-and-deploy/aspnet-core-module>
-
-了解已发布的 ASP.NET Core 应用的目录结构。  
-[目录结构](xref:host-and-deploy/directory-structure)
-
-了解适用于 ASP.NET Core 应用的活动和非活动 IIS 模块以及如何管理 IIS 模块。  
-[IIS 模块](xref:host-and-deploy/iis/modules)
-
-了解如何诊断 ASP.NET Core 应用的 IIS 部署的问题。  
-[疑难解答](xref:test/troubleshoot-azure-iis)
-
-了解在 IIS 上托管 ASP.NET Core 应用的常见错误。  
-[Azure 应用服务和 IIS 的常见错误参考](xref:host-and-deploy/azure-iis-errors-reference)
+* [IIS 文档](/iis)
+* [IIS 中 IIS 管理器入门](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [.NET Core 应用程序部署](/dotnet/core/deploying/)
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:host-and-deploy/directory-structure>
+* <xref:host-and-deploy/iis/modules>
+* <xref:test/troubleshoot-azure-iis>
+* <xref:host-and-deploy/azure-iis-errors-reference>
 
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:test/troubleshoot>
-* [ASP.NET Core 简介](xref:index)
+* <xref:index>
 * [Microsoft IIS 官方网站](https://www.iis.net/)
 * [Windows Server 技术内容库](/windows-server/windows-server)
 * [IIS 上的 HTTP/2](/iis/get-started/whats-new-in-iis-10/http2-on-iis)

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/20/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 49a0f59fb6930235de10c726f3695f2a5352efb2
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
-ms.translationtype: MT
+ms.openlocfilehash: b0f5d44f153a095a6108a12ee91f4cc46fe0a0de
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74251967"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829005"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 
@@ -86,7 +86,7 @@ The Web server is configured to not list the contents of this directory.
 
 工作进程失败。 应用不启动。
 
-[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)未能找到 .NET Core CLR 并找不到进程内请求处理程序（*aspnetcorev2_inprocess*）。 检查：
+[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)未能找到 .NET Core CLR 并找不到进程内请求处理程序（*aspnetcorev2_inprocess*）。 请检查：
 
 * 该应用针对 [Microsoft.AspNetCore.Server.IIS NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) 包或 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)。
 * 目标计算机上安装了该应用所针对的 ASP.NET Core 共享框架版本。
@@ -109,7 +109,7 @@ The Web server is configured to not list the contents of this directory.
 
 * 联系 [Microsoft 支持部门](https://support.microsoft.com/oas/default.aspx?prid=15832)（依次选择“开发人员工具”和“ASP.NET Core”）。
 * 在 Stack Overflow 上提出问题。
-* 在 [GitHub 存储库](https://github.com/aspnet/AspNetCore)中提出问题。
+* 在 [GitHub 存储库](https://github.com/dotnet/AspNetCore)中提出问题。
 
 ### <a name="50030-in-process-startup-failure"></a>500.30 进程内启动失败
 
@@ -240,7 +240,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. 选择“诊断并解决问题”。
 1. 选择“诊断工具”标题。
 1. 在“支持工具”下，选择“应用程序事件”按钮。
-1. 检查“源”列中由 IIS AspNetCoreModule 或 IIS AspNetCoreModule V2 条目提供的最新错误。
+1. 检查“源”列中由 IIS AspNetCoreModule 或 IIS AspNetCoreModule V2条目提供的最新错误。
 
 使用“诊断并解决问题”边栏选项卡的替代方法是直接使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 检查应用程序事件日志文件：
 
@@ -332,7 +332,7 @@ ASP.NET Core 模块 stdout 日志通常记录应用程序事件日志中找不�
 1. 将“stdoutLogEnabled”设置为 `false`。
 1. 选择“保存”以保存文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection> 。
+有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
 
 > [!WARNING]
 > 无法禁用 stdout 日志可能会导致应用或服务器出现故障。 日志文件大小或创建的日志文件数没有限制。 仅使用 stdout 日志记录来解决应用启动问题。
@@ -363,7 +363,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 * 从本地删除 web.config 文件中的 `<handlerSettings>` 并重新部署该应用。
 * 使用 Kudu 控制台编辑 web.config 文件并删除 `<handlerSettings>` 部分。 保存该文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 。
+有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>。
 
 > [!WARNING]
 > 无法禁用调试日志可能会导致应用或服务器出现故障。 日志文件大小没有任何限制。 仅使用调试日志记录来解决应用启动问题。
@@ -477,7 +477,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 1. 将“stdoutLogEnabled”设置为 `false`。
 1. 保存该文件。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection> 。
+有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>。
 
 > [!WARNING]
 > 无法禁用 stdout 日志可能会导致应用或服务器出现故障。 日志文件大小或创建的日志文件数没有限制。
@@ -501,13 +501,13 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 确认为日志指定的路径存在，并且应用池的标识具有该位置的写入权限。
 
-有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 。
+有关更多信息，请参见<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>。
 
 ::: moniker-end
 
 ### <a name="enable-the-developer-exception-page"></a>启用开发人员异常页面
 
-`ASPNETCORE_ENVIRONMENT` [环境变量可以添加到 web.config](xref:host-and-deploy/aspnet-core-module#setting-environment-variables) 以在开发环境中运行应用。 只要在应用启动时环境不被主机生成器上的 `UseEnvironment` 重写，设置环境变量就会在运行应用时显示“[开发人员异常页面](xref:fundamentals/error-handling)”。
+可以将 `ASPNETCORE_ENVIRONMENT`[环境变量添加到](xref:host-and-deploy/aspnet-core-module#setting-environment-variables)web.config 中，以便在开发环境中运行应用。 只要在应用启动时环境不被主机生成器上的 `UseEnvironment` 重写，设置环境变量就会在运行应用时显示“[开发人员异常页面](xref:fundamentals/error-handling)”。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -589,7 +589,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 
 #### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>应用挂起、在启动期间失败或正常运行
 
-如果应用挂起（停止响应但不崩溃）、在启动期间失败或者正常运行*hangs*，请参阅[用户模式转储文件：选择最佳工具](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)，以选择适合用于生成转储的工具。
+当应用*挂起*（停止响应但不崩溃）时，在启动过程中失败或正常运行时，请参阅[用户模式转储文件：选择最佳工具](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)来选择适当的工具以生成转储。
 
 #### <a name="analyze-the-dump"></a>分析转储
 
@@ -625,7 +625,7 @@ ASP.NET Core 模块调试日志从 ASP.NET Core 模块提供了更多、更详�
 * [解决 Azure 应用服务中 Web 应用性能缓慢的问题](/azure/app-service/app-service-web-troubleshoot-performance-degradation)
 * [Azure 中的 Web 应用的应用程序性能常见问题](/azure/app-service/app-service-web-availability-performance-application-issues-faq)
 * [Azure Web 应用沙盒（应用服务运行时执行限制）](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)
-* [Azure Friday：Azure 应用服务诊断和疑难解答体验（12 分钟视频）](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
+* [Azure Friday：Azure 应用服务诊断和故障排除体验（12 分钟视频）](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 
 ### <a name="visual-studio-documentation"></a>Visual Studio 文档
 
