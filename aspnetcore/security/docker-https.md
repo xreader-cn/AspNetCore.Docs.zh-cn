@@ -9,12 +9,12 @@ ms.date: 07/05/2019
 no-loc:
 - Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: 47027033c0b7130f2d38d22c02a54945b2cc31b3
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 07e2791e5b26975c71323f8cb41a4b0fbe0cdf11
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358908"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952128"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -43,7 +43,7 @@ ms.locfileid: "75358908"
 * `dotnet dev-certs` 工具不是必需的。
 * 证书不需要存储在说明中使用的位置。 尽管不建议在网站目录中存储证书，但任何位置都应有效。
 
-说明卷将证书装载到容器中。 可以使用*Dockerfile*中的 `COPY` 命令将证书添加到容器映像中。 由于以下原因，不建议将证书复制到映像：
+以下部分中包含的说明使用 Docker 的 `-v` 命令行选项将证书装载到容器中。 可以使用*Dockerfile*中的 `COPY` 命令将证书添加到容器映像中，但不建议这样做。 由于以下原因，不建议将证书复制到映像：
 
 * 使用同一个映像测试开发人员证书非常困难。
 * 使用同一个映像通过生产证书进行托管很困难。

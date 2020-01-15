@@ -9,12 +9,12 @@ ms.date: 11/28/2018
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 6506430202870ba9de2f8eb6f33d79c7c1fbbbd4
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 8e7b7596fcfe2d6b7150fe1ab09a7ab1dc4a2e47
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608062"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952124"
 ---
 # <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR 宿主和缩放
 
@@ -86,7 +86,7 @@ Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动�
 
 ![Redis 底板，从一台服务器发送到所有客户端的消息](scale/_static/redis-backplane.png)
 
-对于托管在你自己的基础结构上的应用，建议使用 Redis 底板。 由于你的数据中心与 Azure 数据中心之间的连接延迟，Azure SignalR 服务不适用于本地应用。
+对于托管在你自己的基础结构上的应用，建议使用 Redis 底板。 如果在数据中心与 Azure 数据中心之间存在明显的连接延迟，Azure SignalR 服务对于具有低延迟或高吞吐量要求的本地应用程序可能不是一种可行的选择。
 
 前面所述的 Azure SignalR 服务优点是 Redis 底板的缺点：
 
