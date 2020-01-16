@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 8995a514ea2e5016da85952d0f0beaf396a5d639
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 97deafd520926476f7653fc3de40d577b394734b
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880849"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829122"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -119,4 +119,4 @@ MVC 的验证系统设计为具有可扩展性和灵活性，从而使你可以�
 
 ## <a name="additional-information"></a>其他信息
 
-要获取完整的更改列表，请参阅 [ASP.NET Core 2.2 发行说明](https://github.com/aspnet/Home/releases/tag/2.2.0)。
+要获取完整的更改列表，请参阅 [ASP.NET Core 2.2 发行说明](https://github.com/dotnet/aspnetcore/releases/tag/2.2.0)。

@@ -5,14 +5,14 @@ description: 了解如何在发布 ASP.NET Core 应用时转换 web.config 文�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: d28c362a200ad433e316bc1af710231a169a30a4
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: ef627de70c6aea44962d2187c4d401baab6557ae
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007313"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952049"
 ---
 # <a name="transform-webconfig"></a>转换 web.config
 
@@ -182,5 +182,5 @@ dotnet publish /p:IsWebConfigTransformDisabled=true
 
 ## <a name="additional-resources"></a>其他资源
 
-* [用于 Web 应用程序项目部署的 Web.config 转换语法](https://go.microsoft.com/fwlink/?LinkId=301874)
-* [用于使用 Visual Studio 的 Web 项目部署的 Web.config 转换语法](https://docs.microsoft.com/previous-versions/aspnet/dd465326(v=vs.110))
+* [用于 Web 应用程序项目部署的 Web.config 转换语法](/previous-versions/dd465326(v=vs.100))
+* [用于使用 Visual Studio 的 Web 项目部署的 Web.config 转换语法](/previous-versions/aspnet/dd465326(v=vs.110))

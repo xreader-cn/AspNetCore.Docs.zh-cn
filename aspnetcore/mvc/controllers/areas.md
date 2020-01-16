@@ -5,12 +5,12 @@ description: 了解 ASP.NET MVC 的区域功能如何将相关功能以单独的
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 7e02a21361e0e2148b29a3ae0f1ba25e68239e13
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 1066f4ce104e507abe63302fd3523a3a7a8dfde9
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881115"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828238"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core 中的区域
 
@@ -61,7 +61,7 @@ ms.locfileid: "74881115"
     * Services
       * Controllers
         * HomeController.cs
-      * Views
+      * 视图
         * Home
           * Index.cshtml
 
@@ -96,7 +96,7 @@ ms.locfileid: "74881115"
 
 [!code-csharp[](areas/samples/MVCareas/StartupMapAreaRoute.cs?name=snippet&highlight=18-27)]
 
-将 `MapAreaRoute` 与 ASP.NET Core 2.2 配合使用时，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/7772)。
+将 `MapAreaRoute` 与 ASP.NET Core 2.2 配合使用时，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore/issues/7772)。
 
 有关详细信息，请参阅[区域路由](xref:mvc/controllers/routing#areas)。
 

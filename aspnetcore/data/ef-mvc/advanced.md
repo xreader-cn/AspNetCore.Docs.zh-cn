@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: d4a2aad6d93cc9a53c730323620de59fead6d5ab
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: abea9b189861954533b24cb73650af41952d1a86
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259589"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914119"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -31,7 +31,7 @@ ms.locfileid: "72259589"
 > * 了解 EF Core 源代码与开发计划
 > * 了解如何使用动态 LINQ 简化代码
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [实现继承](inheritance.md)
 
@@ -173,7 +173,7 @@ Entity Framework 通过比较的实体的当前值与原始值来判断更改实
 
 * ChangeTracker.Entries
 
-如果正在跟踪大量实体，并且这些方法之一在循环中多次调用，通过使用`ChangeTracker.AutoDetectChangesEnabled`属性暂时关闭自动脏值检测，能够显著改进性能。 例如:
+如果正在跟踪大量实体，并且这些方法之一在循环中多次调用，通过使用`ChangeTracker.AutoDetectChangesEnabled`属性暂时关闭自动脏值检测，能够显著改进性能。 例如：
 
 ```csharp
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -181,7 +181,7 @@ _context.ChangeTracker.AutoDetectChangesEnabled = false;
 
 ## <a name="ef-core-source-code-and-development-plans"></a>EF Core 源代码与开发计划
 
-Entity Framework Core 源位于 [https://github.com/aspnet/EntityFrameworkCore](https://github.com/aspnet/EntityFrameworkCore)。 仓库中除了有源代码，还可包括每夜生成、 问题跟踪、 功能规范、 设计会议备忘录和[将来的开发路线图](https://github.com/aspnet/EntityFrameworkCore/wiki/Roadmap)。 你可以归档或查找 bug 并进行更改。
+Entity Framework Core 源位于 [https://github.com/dotnet/efcore](https://github.com/dotnet/efcore)。 仓库中除了有源代码，还可包括每夜生成、 问题跟踪、 功能规范、 设计会议备忘录和[将来的开发路线图](https://github.com/dotnet/efcore/wiki/Roadmap)。 你可以归档或查找 bug 并进行更改。
 
 尽管源代码处于开源状态， Entity Framework Core 是由 Microsoft 完全支持的产品。 Microsoft Entity Framework 团队将控制接受哪些贡献和测试所有的代码更改，以确保每个版本的质量。
 

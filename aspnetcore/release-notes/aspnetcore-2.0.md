@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 452ccd76eece55cb5cf38fe39781f2f64dd5d466
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9d1e1b1154113b8825f4d0faf0f4552b8bd22287
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880865"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828420"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
@@ -52,7 +52,7 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 ## <a name="logging-update"></a>日志记录更新
 
-在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs 文件（而非 Startup.cs 文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
+在 ASP.NET Core 2.0 中，已默认将日志记录并入依存关系注入 (DI) 系统。 在 Program.cs  文件（而非 Startup.cs  文件）中添加提供程序并配置筛选。 此外，默认的 `ILoggerFactory` 支持进行筛选，并且你可以使用灵活的方式来进行跨提供程序筛选和特定于提供程序的筛选。
 
 有关详细信息，请参阅[日志记录介绍](xref:fundamentals/logging/index)。
 
@@ -138,7 +138,7 @@ Razor 视图引擎已更新为可使用新的 Roslyn 编译器。 其中包含�
 
 有关 C# 7.1 功能的状态的信息，请参阅 [Roslyn GitHub 存储库](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)。
 
-## <a name="other-documentation-updates-for-20"></a>2.0 的其他文档更新
+## <a name="other-documentation-updates-for-20"></a>2\.0 的其他文档更新
 
 * [用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件](xref:host-and-deploy/visual-studio-publish-profiles)
 * [密钥管理](xref:security/data-protection/implementation/key-management)
@@ -156,6 +156,6 @@ Razor 视图引擎已更新为可使用新的 Roslyn 编译器。 其中包含�
 
 ## <a name="additional-information"></a>其他信息
 
-有关更改的完整列表，请参阅 [ASP.NET Core 2.0 发行说明](https://github.com/aspnet/Home/releases/tag/2.0.0)。
+有关更改的完整列表，请参阅 [ASP.NET Core 2.0 发行说明](https://github.com/dotnet/aspnetcore/releases/tag/2.0.0)。
 
 若要实时了解 ASP.NET Core 开发团队的进度和计划，请收看 [ASP.NET Community Standup](https://live.asp.net/)。

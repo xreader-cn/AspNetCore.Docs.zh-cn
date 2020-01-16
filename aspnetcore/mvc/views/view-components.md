@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: a4583d49eb0b42f1fa6e3d8c444d263cba34da79
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 8df070b580b6125db6616b33a81f3ffebad69f3a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75356847"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828914"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -337,7 +337,7 @@ public class PriorityList : ViewComponent
 
 ## <a name="all-view-component-parameters-are-required"></a>所有视图组件参数都是必需的
 
-视图组件中的每个参数都是必需的属性。 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore/issues/5011)。 如果省略任何参数：
+视图组件中的每个参数都是必需的属性。 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore/issues/5011)。 如果省略任何参数：
 
 * `InvokeAsync` 方法签名不匹配，因此该方法将不会执行。
 * ViewComponent 不会呈现任何标记。
