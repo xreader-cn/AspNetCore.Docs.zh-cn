@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 1/1/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: 2300b14a6a89191d3d8c673311880fc144183da9
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 759c150e7f35f3f6a52947edc5ef41448dc227fe
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608115"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828966"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -213,7 +213,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
   * `MySampleActionFilter.OnActionExecuted`
 * `TestController.OnActionExecuted`
 
-控制器级别筛选器将 [Order](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。 控制器级别筛选器无法设置为在将筛选器应用于方法之后运行  。 在下一节对 Order 进行了介绍。
+控制器级别筛选器将 [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。 控制器级别筛选器无法设置为在将筛选器应用于方法之后运行  。 在下一节对 Order 进行了介绍。
 
 对于 Razor Pages，请参阅[通过重写筛选器方法实现 Razor 页面筛选器](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)。
 
@@ -246,7 +246,7 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
   * `MyAction2FilterAttribute.OnResultExecuting`
 * `Test2Controller.OnActionExecuted`
 
-在确定筛选器的运行顺序时，`Order` 属性重写作用域。 先按顺序对筛选器排序，然后使用作用域消除并列问题。 所有内置筛选器实现 `IOrderedFilter` 并将默认 `Order` 值设为 0。 如前所述，控制器级别筛选器将 [Order](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。对于内置筛选器，作用域会确定顺序，除非将 `Order` 设为非零值。
+在确定筛选器的运行顺序时，`Order` 属性重写作用域。 先按顺序对筛选器排序，然后使用作用域消除并列问题。 所有内置筛选器实现 `IOrderedFilter` 并将默认 `Order` 值设为 0。 如前所述，控制器级别筛选器将 [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) 属性设置为 `int.MinValue`。对于内置筛选器，作用域会确定顺序，除非将 `Order` 设为非零值。
 
 在前面的代码中，`MySampleActionFilter` 具有全局作用域，因此它在具有控制器作用域的 `MyAction2FilterAttribute` 之前运行。 若要首先运行 `MyAction2FilterAttribute`，请将顺序设置为 `int.MinValue`：
 
