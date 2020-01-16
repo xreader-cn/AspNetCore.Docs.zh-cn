@@ -5,23 +5,23 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 01/13/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9f0ad2791e504a0ff46daad07054b6bf909a546a
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 09ef06f179e34cd7f4f04ac30c3b5dd95d058244
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634079"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951901"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
 作者：[Luke Latham](https://github.com/guardrex)
 
-ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配置提供程序将配置数据从各种配置源读取到键值对：
+ASP.NET Core 中的应用配置基于配置提供程序  建立的键值对。 配置提供程序将配置数据从各种配置源读取到键值对：
 
 * Azure Key Vault
-* Azure 应用配置
+* Azure 应用程序配置
 * 命令行参数
 * （已安装或已创建的）自定义提供程序
 * 目录文件
@@ -47,13 +47,13 @@ ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。 配
 using Microsoft.Extensions.Configuration;
 ```
 
-选项模式是本主题中描述的配置概念的扩展。 选项使用类来表示相关设置的组。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
+选项模式  是本主题中描述的配置概念的扩展。 选项使用类来表示相关设置的组。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="host-versus-app-configuration"></a>主机与应用配置
 
-在配置并启动应用之前，配置并启动主机。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 应用的配置中也包含主机配置键值对。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。
+在配置并启动应用之前，配置并启动主机  。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 应用的配置中也包含主机配置键值对。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。
 
 ## <a name="default-configuration"></a>默认配置
 
@@ -72,8 +72,8 @@ using Microsoft.Extensions.Configuration;
   * 如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 环境变量设置为 `true`，则添加转发的标头中间件。
   * 启用 IIS 集成。
 * 应用配置通过以下方式提供：
-  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。
-  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json  提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json  提供。
   * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
   * 使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。
   * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
@@ -90,8 +90,8 @@ using Microsoft.Extensions.Configuration;
   * 使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。 在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。
   * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
 * 应用配置通过以下方式提供：
-  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。
-  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json  提供。
+  * 使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json  提供。
   * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
   * 使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。
   * 使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。
@@ -109,7 +109,7 @@ using Microsoft.Extensions.Configuration;
 有关详细信息，请参阅下列主题：
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets> &ndash; 包含有关使用环境变量存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
+* <xref:security/app-secrets> &ndash; 包含有关如何使用环境变量来存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
 
 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。 有关详细信息，请参阅 <xref:security/key-vault-configuration>。
 
@@ -149,7 +149,9 @@ using Microsoft.Extensions.Configuration;
 
 实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。 例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。
 
-应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 <xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 以获取以下类的配置：
+应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。 <xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 或 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 来获取以下类的配置。
+
+在下面的示例中，使用 `_config` 字段来访问配置值：
 
 ```csharp
 public class IndexModel : PageModel
@@ -160,9 +162,18 @@ public class IndexModel : PageModel
     {
         _config = config;
     }
+}
+```
 
-    // The _config local variable is used to obtain configuration 
-    // throughout the class.
+```csharp
+public class HomeController : Controller
+{
+    private readonly IConfiguration _config;
+
+    public HomeController(IConfiguration config)
+    {
+        _config = config;
+    }
 }
 ```
 
@@ -177,7 +188,7 @@ public class IndexModel : PageModel
 * 分层键
   * 在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。
   * 在环境变量中，冒号分隔符可能无法适用于所有平台。 所有平台均支持采用双下划线 (`__`)，并可以将其自动转换为冒号。
-  * 在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。 将机密加载到应用的配置中时，必须提供代码以用冒号替换破折号。
+  * 在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。 将机密加载到应用的配置中时，用冒号替换破折号。
 * <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。 数组绑定将在[将数组绑定到类](#bind-an-array-to-a-class)部分中进行介绍。
 
 ### <a name="values"></a>值
@@ -193,21 +204,21 @@ public class IndexModel : PageModel
 
 | 提供程序 | 通过以下对象提供配置&hellip; |
 | -------- | ----------------------------------- |
-| [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全主题） | Azure Key Vault |
-| [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档） | Azure 应用配置 |
+| [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全  主题） | Azure Key Vault |
+| [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档） | Azure 应用程序配置 |
 | [命令行配置提供程序](#command-line-configuration-provider) | 命令行参数 |
 | [自定义配置提供程序](#custom-configuration-provider) | 自定义源 |
 | [环境变量配置提供程序](#environment-variables-configuration-provider) | 环境变量 |
 | [文件配置提供程序](#file-configuration-provider) | 文件（INI、JSON、XML） |
 | [Key-per-file 配置提供程序](#key-per-file-configuration-provider) | 目录文件 |
 | [内存配置提供程序](#memory-configuration-provider) | 内存中集合 |
-| [用户机密 (Secret Manager)](xref:security/app-secrets)（安全主题） | 用户配置文件目录中的文件 |
+| [用户机密 (Secret Manager)](xref:security/app-secrets)（安全  主题） | 用户配置文件目录中的文件 |
 
-按照启动时指定的配置提供程序的顺序读取配置源。 本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。 代码中的配置提供程序应以特定顺序排列以符合基础配置源的优先级。
+按照启动时指定的配置提供程序的顺序读取配置源。 本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。 代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。
 
 配置提供程序的典型顺序为：
 
-1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）
+1. 文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）  
 1. [Azure 密钥保管库](xref:security/key-vault-configuration)
 1. [用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）
 1. 环境变量
@@ -325,7 +336,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 此外，`CreateDefaultBuilder` 也会加载：
 
-* appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置。
+* appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置   。
 * [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
 * 环境变量。
 
@@ -359,8 +370,8 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 | 键前缀               | 示例                                                |
 | ------------------------ | ------------------------------------------------------ |
 | 无前缀                | `CommandLineKey1=value1`                               |
-| 双划线 (`--`)        | `--CommandLineKey2=value2`， `--CommandLineKey2 value2` |
-| 正斜杠 (`/`)      | `/CommandLineKey3=value3`， `/CommandLineKey3 value3`   |
+| 双划线 (`--`)        | `--CommandLineKey2=value2`，`--CommandLineKey2 value2` |
+| 正斜杠 (`/`)      | `/CommandLineKey3=value3`，`/CommandLineKey3 value3`   |
 
 在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。
 
@@ -374,7 +385,7 @@ dotnet run CommandLineKey1= CommandLineKey2=value2
 
 ### <a name="switch-mappings"></a>交换映射
 
-交换映射支持键名替换逻辑。 使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，可以为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。
+交换映射支持键名替换逻辑。 使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，需要为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。
 
 当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。 如果在字典中找到命令行键，则传回字典值（键替换）以将键值对设置为应用的配置。 对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。
 
@@ -407,7 +418,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 创建交换映射字典后，它将包含下表所示的数据。
 
-| 键       | 值             |
+| 键       | “值”             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -420,7 +431,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 运行上述命令后，配置包含下表中显示的值。
 
-| 键               | 值    |
+| 键               | “值”    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -433,7 +444,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，用户可以在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。 有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。
+借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，可在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。 有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -450,25 +461,22 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 此外，`CreateDefaultBuilder` 也会加载：
 
 * 来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。
-* appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置。
+* appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置   。
 * [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
 * 命令行参数。
 
-环境变量配置提供程序是在配置已根据用户机密和 appsettings 文件建立后调用。 在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings 文件设置的配置。
+环境变量配置提供程序是在配置已根据用户机密和 appsettings  文件建立后调用。 在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings  文件设置的配置。
 
-如果需要从其他环境变量提供应用配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`。
+要从其他环境变量提供应用配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`：
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    // Call additional providers here as needed.
-    // Call AddEnvironmentVariables last if you need to allow
-    // environment variables to override values from other 
-    // providers.
     config.AddEnvironmentVariables(prefix: "PREFIX_");
 })
-}
 ```
+
+最后调用 `AddEnvironmentVariables`让带给定前缀的环境变量可替代其他提供程序中的值。
 
 **示例**
 
@@ -477,9 +485,9 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 1. 运行示例应用。 在 `http://localhost:5000` 打开应用的浏览器。
 1. 观察输出是否包含环境变量 `ENVIRONMENT` 的键值对。 该值反映了应用运行的环境，在本地运行时通常为 `Development`。
 
-为了缩短应用呈现的环境变量列表，应用会筛选环境变量。 请参阅示例应用的“Pages/Index.cshtml.cs”文件。
+为了缩短应用呈现的环境变量列表，应用会筛选环境变量。 请参阅示例应用的“Pages/Index.cshtml.cs”文件  。
 
-如果希望公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs 中的 `FilteredConfiguration` 更改为以下内容：
+要公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs 中的 `FilteredConfiguration` 更改为以下内容  ：
 
 ```csharp
 FilteredConfiguration = _config.AsEnumerable();
@@ -591,10 +599,10 @@ key=value
 * 如果文件更改，是否重载配置。
 * <xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。
 
-若使用 `CreateDefaultBuilder` 初始化新的主机生成器，则自动调用两次 `AddJsonFile`。 调用该方法来从以下文件加载配置：
+使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。 调用该方法来从以下文件加载配置：
 
-* appsettings.json &ndash; 首先读取此文件。 该文件的环境版本可以替代 appsettings.json 文件提供的值。
-* *appsettings.{Environment}.json*&ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本。
+* appsettings.json &ndash; 首先读取此文件  。 该文件的环境版本可以替代 appsettings.json  文件提供的值。
+* appsettings.{Environment}.json &ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本  。
 
 有关详细信息，请参阅[默认配置](#default-configuration)部分。
 
@@ -604,9 +612,9 @@ key=value
 * [用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。
 * 命令行参数。
 
-首先建立 JSON 配置提供程序。 因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。
+首先建立 JSON 配置提供程序。 因此，用户机密、环境变量和命令行参数会替代由 appsettings  文件设置的配置。
 
-构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：
+构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：  
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -618,17 +626,47 @@ key=value
 
 **示例**
 
-示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用。 配置从 appsettings.json 和 appsettings.{Environment}.json 进行加载。
+示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用：
+
+::: moniker range=">= aspnetcore-3.0"
+
+* 第一次调用 `AddJsonFile` 会从 appsettings 加载配置  ：
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.json)]
+
+* 第二次调用 `AddJsonFile` 会从 appsettings.{Environment}.json 加载配置  。 对于示例应用中的 appsettings.Development.json，将加载以下文件  ：
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.Development.json)]
 
 1. 运行示例应用。 在 `http://localhost:5000` 打开应用的浏览器。
-1. 观察输出是否包含表中所示的配置的键值对，具体取决于环境。 记录配置键使用冒号 (`:`) 作为分层分隔符。
+1. 输出包含配置的键值对（由应用的环境而定）。 在开发环境中运行应用时，键 `Logging:LogLevel:Default` 的日志级别为 `Debug`。
+1. 再次在生产环境中运行示例应用：
+   1. 打开 Properties/launchSettings.json 文件  。
+   1. 在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。
+   1. 保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。
+1. appsettings.Development.json 中的设置不再替代 appsettings.json 中的设置   。 键 `Logging:LogLevel:Default` 的日志级别为 `Information`。
 
-| 键                        | 开发值 | 生产值 |
-| -------------------------- | :---------------: | :--------------: |
-| Logging:LogLevel:System    | 信息       | 信息      |
-| Logging:LogLevel:Microsoft | 信息       | 信息      |
-| Logging:LogLevel:Default   | 调试             | 错误            |
-| AllowedHosts               | *                 | *                |
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+* 第一次调用 `AddJsonFile` 会从 appsettings 加载配置  ：
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
+
+* 第二次调用 `AddJsonFile` 会从 appsettings.{Environment}.json 加载配置  。 对于示例应用中的 appsettings.Development.json，将加载以下文件  ：
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
+
+1. 运行示例应用。 在 `http://localhost:5000` 打开应用的浏览器。
+1. 输出包含配置的键值对（由应用的环境而定）。 在开发环境中运行应用时，键 `Logging:LogLevel:Default` 的日志级别为 `Debug`。
+1. 再次在生产环境中运行示例应用：
+   1. 打开 Properties/launchSettings.json 文件  。
+   1. 在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。
+   1. 保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。
+1. appsettings.Development.json 中的设置不再替代 appsettings.json 中的设置   。 键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。
+
+::: moniker-end
 
 ### <a name="xml-configuration-provider"></a>XML 配置提供程序
 
@@ -883,11 +921,11 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ## <a name="bind-to-a-class"></a>绑定至类
 
-可以使用选项模式将配置绑定到表示相关设置组的类。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
+可以使用选项模式  将配置绑定到表示相关设置组的类。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
 配置值作为字符串返回，但调用 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 可以构造 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 对象。
 
-示例应用包含 `Starship` 模型 (Models/Starship.cs)：
+示例应用包含 `Starship` 模型 (Models/Starship.cs  )：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -901,7 +939,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ::: moniker-end
 
-当示例应用使用 JSON 配置提供程序加载配置时，starship.json 文件的 `starship` 节会创建配置：
+当示例应用使用 JSON 配置提供程序加载配置时，starship.json  文件的 `starship` 节会创建配置：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -917,7 +955,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 创建以下配置键值对：
 
-| 键                   | 值                                             |
+| 键                   | “值”                                             |
 | --------------------- | ------------------------------------------------- |
 | starship:name         | USS Enterprise                                    |
 | starship:registry     | NCC-1701                                          |
@@ -944,7 +982,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。
 
-该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs)：
+该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs  )：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -958,7 +996,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ::: moniker-end
 
-示例应用有一个包含配置数据的 tvshow.xml 文件：
+示例应用有一个包含配置数据的 tvshow.xml  文件：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -996,7 +1034,7 @@ TvShow = tvShow;
 
 ## <a name="bind-an-array-to-a-class"></a>将数组绑定至类
 
-示例应用演示了本部分中介绍的概念。
+示例应用演示了本部分中介绍的概念。 
 
 <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。 公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。
 
@@ -1007,7 +1045,7 @@ TvShow = tvShow;
 
 请考虑下表中所示的配置键和值。
 
-| 键             | 值  |
+| 键             | “值”  |
 | :-------------: | :----: |
 | array:entries:0 | value0 |
 | array:entries:1 | value1 |
@@ -1097,7 +1135,7 @@ config.AddJsonFile(
 
 将表中所示的键值对加载到配置中。
 
-| 键             | 值  |
+| 键             | “值”  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1130,7 +1168,7 @@ config.AddJsonFile(
 
 JSON 配置提供程序将配置数据读入以下键值对：
 
-| 键                     | 值  |
+| 键                     | “值”  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |
@@ -1197,11 +1235,11 @@ JSON 配置提供程序将配置数据读入以下键值对：
 
 可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。
 
-Extensions/EntityFrameworkExtensions.cs：
+Extensions/EntityFrameworkExtensions.cs  ：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：
+下面的代码演示如何在 Program.cs  中使用自定义的 `EFConfigurationProvider`：
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
@@ -1233,11 +1271,11 @@ Extensions/EntityFrameworkExtensions.cs：
 
 可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。
 
-Extensions/EntityFrameworkExtensions.cs：
+Extensions/EntityFrameworkExtensions.cs  ：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：
+下面的代码演示如何在 Program.cs  中使用自定义的 `EFConfigurationProvider`：
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
