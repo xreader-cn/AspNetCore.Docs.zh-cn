@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 生命周期
 author: guardrex
 description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生命周期方法。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: e600e7c7a6a8c646a655520bd5c127f2cd662753
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944026"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146363"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -26,26 +27,23 @@ Blazor 框架包括同步和异步生命周期方法。 重写生命周期方法
 
 ### <a name="component-initialization-methods"></a>组件初始化方法
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> 执行用于初始化组件的代码。 仅在第一次实例化组件时，才会调用这些方法一次。
+当组件从其父组件收到其初始参数后，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*>。 当组件执行异步操作时，请使用 `OnInitializedAsync`，并在操作完成时进行刷新。 仅在第一次实例化组件时，才会调用这些方法一次。
 
-若要执行异步操作，请在操作中使用 `OnInitializedAsync` 和 `await` 关键字：
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> 在 `OnInitializedAsync` 生命周期事件期间，必须在组件初始化期间进行异步工作。
-
-对于同步操作，请使用 `OnInitialized`：
+对于同步操作，请重写 `OnInitialized`：
 
 ```csharp
 protected override void OnInitialized()
 {
     ...
+}
+```
+
+若要执行异步操作，请重写 `OnInitializedAsync`，并对操作使用 `await` 关键字：
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+    await ...
 }
 ```
 
@@ -70,7 +68,12 @@ public override async Task SetParametersAsync(ParameterView parameters)
 
 ### <a name="after-parameters-are-set"></a>设置参数后
 
-当组件已从其父级接收参数并且为属性分配了值时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*>。 这些方法在组件初始化之后以及每次指定新参数值时执行：
+调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*>：
+
+* 当组件已初始化并收到其父组件的第一组参数时。
+* 当父组件重新呈现并提供时：
+  * 仅有至少一个参数发生更改的已知基元不可变类型。
+  * 任何复杂类型的参数。 此框架无法知道复杂类型参数的值是否在内部转变，因此它将参数集视为已更改。
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -160,7 +163,7 @@ protected override bool ShouldRender()
 
 如果某个组件实现 <xref:System.IDisposable>，则在从 UI 中删除该组件时，将调用[Dispose 方法](/dotnet/standard/garbage-collection/implementing-dispose)。 以下组件使用 `@implements IDisposable` 和 `Dispose` 方法：
 
-```csharp
+```razor
 @using System
 @implements IDisposable
 

@@ -2,20 +2,20 @@
 title: 安全 ASP.NET Core Blazor 服务器应用
 author: guardrex
 description: 了解如何缓解 Blazor 服务器应用的安全威胁。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: d87aac02137681e62cf8f5cbd4dc8b0be6f8431e
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944277"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146298"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
 
@@ -206,7 +206,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
 ### <a name="guard-against-multiple-dispatches"></a>防范多个派单
 
-如果事件回调调用长时间运行的操作（如从外部服务或数据库提取数据），请考虑使用临界。 当操作正在进行时，该保护可阻止用户在执行多个操作的同时进行可视反馈。 以下组件代码将 `isLoading` 设置为 `true`，同时 `GetForecastAsync` 从服务器获取数据。 `true``isLoading` 时，UI 中的按钮将被禁用：
+如果事件回调异步调用长时间运行的操作（例如从外部服务或数据库提取数据），请考虑使用临界。 当操作正在进行时，该保护可阻止用户在执行多个操作的同时进行可视反馈。 以下组件代码将 `isLoading` 设置为 `true`，同时 `GetForecastAsync` 从服务器获取数据。 `true``isLoading` 时，UI 中的按钮将被禁用：
 
 ```razor
 @page "/fetchdata"
@@ -230,6 +230,8 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
     }
 }
 ```
+
+如果使用 `async`-`await` 模式以异步方式执行后台操作，则上述示例中演示的临界模式将起作用。
 
 ### <a name="cancel-early-and-avoid-use-after-dispose"></a>尽早取消并避免使用-dispose
 
@@ -292,7 +294,7 @@ ASP.NET Core 应用的安全指南适用于 Blazor 服务器应用，并将在�
 使用以下内容启用详细错误：
 
 * `CircuitOptions.DetailedErrors`。
-* `DetailedErrors` 配置键。 例如，将 `ASPNETCORE_DETAILEDERRORS` 环境变量设置为 `true`值。
+* `DetailedErrors` 配置密钥。 例如，将 `ASPNETCORE_DETAILEDERRORS` 环境变量设置为 `true`值。
 
 > [!WARNING]
 > 向 Internet 上的客户端公开错误信息是应始终避免的安全风险。

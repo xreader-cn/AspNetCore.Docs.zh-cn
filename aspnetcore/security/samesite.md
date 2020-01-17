@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2019
 uid: security/samesite
-ms.openlocfilehash: 988069a66cc4772583444303948bff2e47ff4310
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: b344ed8f539979210980b3421659207edd513f32
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733981"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146428"
 ---
 # <a name="work-with-samesite-cookies-in-aspnet-core"></a>在 ASP.NET Core 中使用 SameSite cookie
 
@@ -36,7 +36,7 @@ ms.locfileid: "74733981"
 
 发出 cookie 的所有 ASP.NET Core 组件都用适用于其方案的设置替代前面的默认值。 先前重写的默认值尚未更改。
 
-| 组件 | 票证 | 默认值 |
+| 组件 | cookie | 默认值 |
 | ------------- | ------------- |
 | <xref:Microsoft.AspNetCore.Http.CookieBuilder> | <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> | `Unspecified` |
 | <xref:Microsoft.AspNetCore.Http.HttpContext.Session>  | [SessionOptions](xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie) |`Lax` |
@@ -72,7 +72,7 @@ ASP.NET Core 3.1 和更高版本提供了以下 SameSite 支持：
 
 SameSite 支持在2.0 中第一次 ASP.NET Core 实现，使用[2016 草案标准](https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1)。 2016标准已选择加入。 ASP.NET Core 选择在默认情况下 `Lax` 的几个 cookie。 在遇到身份验证的几个[问题](https://github.com/aspnet/Announcements/issues/318)后，大多数 SameSite 使用已[禁用](https://github.com/aspnet/Announcements/issues/348)。
 
-2019年11月发布了修补程序，从2016标准版更新为2019标准。 [SameSite 规范的2019草案](https://github.com/aspnet/Announcements/issues/390)：
+2019年11月发布了[修补程序](https://devblogs.microsoft.com/dotnet/net-core-November-2019/)，从2016标准版更新为2019标准。 [SameSite 规范的2019草案](https://github.com/aspnet/Announcements/issues/390)：
 
 * **不**向后兼容2016草案。 有关详细信息，请参阅本文档中的[支持旧版浏览器](#sob)。
 * 指定默认情况下将 cookie 视为 `SameSite=Lax`。
@@ -146,7 +146,7 @@ Google 不会使旧版 chrome 版本可用。 遵循[下载 Chromium](https://ww
 
 ### <a name="test-with-safari"></a>用 Safari 测试
 
-Safari 12 严格实现了之前的草稿，在新的 `None` 值在 cookie 中时失败。 通过本文档中[支持旧版浏览](#sob)器的浏览器检测代码，可避免 `None`。 使用 MSAL、ADAL 或所使用的任何库，测试 Safari 12、Safari 13 和基于 WebKit 的 OS 样式登录。 此问题依赖于基础操作系统版本。 已知 OSX Mojave （10.14）和 iOS 12 与新的 SameSite 行为存在兼容性问题。 将 OS 升级到 OSX Catalina （10.15）或 iOS 13 会解决此问题。 Safari 当前没有用于测试新规范行为的选择标记。
+Safari 12 严格实现了之前的草稿，在新的 `None` 值在 cookie 中时失败。 通过本文档中[支持旧版浏览](#sob)器的浏览器检测代码，可避免 `None`。 使用 MSAL、ADAL 或所使用的任何库，测试 Safari 12、Safari 13 和基于 WebKit 的 OS 样式登录。 问题取决于基础 OS 版本。 已知 OSX Mojave （10.14）和 iOS 12 与新的 SameSite 行为存在兼容性问题。 将 OS 升级到 OSX Catalina （10.15）或 iOS 13 会解决此问题。 Safari 当前没有用于测试新规范行为的选择标记。
 
 ### <a name="test-with-firefox"></a>用 Firefox 测试
 
@@ -168,3 +168,4 @@ Electron 的版本包括较早版本的 Chromium。 例如，团队使用的 Ele
 
 * [Chromium 博客：开发人员：准备好新 SameSite = 无;安全 Cookie 设置](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html)
 * [SameSite cookie 说明](https://web.dev/samesite-cookies-explained/)
+* [2019年11月修补程序](https://devblogs.microsoft.com/dotnet/net-core-November-2019/)

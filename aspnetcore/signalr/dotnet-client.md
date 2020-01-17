@@ -5,16 +5,16 @@ description: 有关 .NET 客户端 SignalR ASP.NET Core 的信息
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 28e8fcf808406cd0251ba94e2ef97ab04841fcd0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963973"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146311"
 ---
 # <a name="aspnet-core-opno-locsignalr-net-client"></a>.NET 客户端 SignalR ASP.NET Core
 
@@ -46,7 +46,7 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="connect-to-a-hub"></a>连接到集线器
+## <a name="connect-to-a-hub"></a>连接到中心
 
 若要建立连接，请创建 `HubConnectionBuilder` 并调用 `Build`。 在建立连接时，可以配置中心 URL、协议、传输类型、日志级别、标头和其他选项。 通过在 `Build`中插入任意 `HubConnectionBuilder` 方法来配置任何所需的选项。 开始与 `StartAsync`的连接。
 
@@ -164,7 +164,7 @@ HubConnection connection= new HubConnectionBuilder()
 
 如果需要更好地控制计时和自动重新连接尝试的次数，`WithAutomaticReconnect` 接受一个实现 `IRetryPolicy` 接口的对象，该对象具有名为 `NextRetryDelay`的单个方法。
 
-`NextRetryDelay` 采用 `RetryContext`类型的单个自变量。 `RetryContext` 具有三个属性： `PreviousRetryCount`、`ElapsedTime` 和 `RetryReason` 分别为 `long`、`TimeSpan` 和 `Exception`。 第一次重新连接尝试之前，`PreviousRetryCount` 和 `ElapsedTime` 均为零，`RetryReason` 将是导致连接丢失的异常。 每次重试失败后，`PreviousRetryCount` 会递增1，`ElapsedTime` 将更新以反映到目前为止所用的时间量，`RetryReason` 将是导致上次重新连接尝试失败的异常。
+`NextRetryDelay` 采用 `RetryContext`类型的单个自变量。 `RetryContext` 具有三个属性： `PreviousRetryCount`、`ElapsedTime` 和 `RetryReason`，分别为 `long`、`TimeSpan` 和 `Exception`。 第一次重新连接尝试之前，`PreviousRetryCount` 和 `ElapsedTime` 均为零，`RetryReason` 将是导致连接丢失的异常。 每次重试失败后，`PreviousRetryCount` 会递增1，`ElapsedTime` 将更新以反映到目前为止所用的时间量，`RetryReason` 将是导致上次重新连接尝试失败的异常。
 
 `NextRetryDelay` 必须返回一个 TimeSpan，表示在下一次重新连接尝试之前等待的时间，或 `null` 如果 `HubConnection` 应停止重新连接。
 
@@ -179,7 +179,7 @@ public class RandomRetryPolicy : IRetryPolicy
         // wait between 0 and 10 seconds before the next reconnect attempt.
         if (retryContext.ElapsedTime < TimeSpan.FromSeconds(60))
         {
-            return TimeSpan.FromSeconds(_random.Next() * 10);
+            return TimeSpan.FromSeconds(_random.NextDouble() * 10);
         }
         else
         {
@@ -206,7 +206,7 @@ HubConnection connection = new HubConnectionBuilder()
 ::: moniker range="< aspnetcore-3.0"
 
 > [!WARNING]
-> 在3.0 之前，SignalR 的 .NET 客户端不会自动重新连接。 必须编写代码来手动重新连接客户端。
+> 在3.0 之前，SignalR 的 .NET 客户端不会自动重新连接。 必须编写代码将手动重新连接你的客户端。
 
 ::: moniker-end
 
@@ -240,7 +240,7 @@ connection.Closed += (error) => {
 > [!NOTE]
 > 如果在*无服务器模式下*使用 Azure SignalR 服务，则无法从客户端调用集线器方法。 有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
 
-## <a name="call-client-methods-from-hub"></a>从中心调用客户端方法
+## <a name="call-client-methods-from-hub"></a>从集线器调用客户端方法
 
 定义集线器在生成之后但在启动连接之前 `connection.On` 调用的方法。
 
