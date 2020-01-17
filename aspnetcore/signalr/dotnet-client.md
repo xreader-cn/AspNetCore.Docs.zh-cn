@@ -5,40 +5,40 @@ description: 有关 .NET 客户端 SignalR ASP.NET Core 的信息
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 28e8fcf808406cd0251ba94e2ef97ab04841fcd0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963973"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146311"
 ---
-# <a name="aspnet-core-opno-locsignalr-net-client"></a><span data-ttu-id="81331-103">.NET 客户端 SignalR ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="81331-103">ASP.NET Core SignalR .NET Client</span></span>
+# <a name="aspnet-core-opno-locsignalr-net-client"></a><span data-ttu-id="bc69e-103">.NET 客户端 SignalR ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="bc69e-103">ASP.NET Core SignalR .NET Client</span></span>
 
-<span data-ttu-id="81331-104">.NET 客户端库的 ASP.NET Core SignalR 使你可以从 .NET 应用程序与 SignalR 中心进行通信。</span><span class="sxs-lookup"><span data-stu-id="81331-104">The ASP.NET Core SignalR .NET client library lets you communicate with SignalR hubs from .NET apps.</span></span>
+<span data-ttu-id="bc69e-104">.NET 客户端库的 ASP.NET Core SignalR 使你可以从 .NET 应用程序与 SignalR 中心进行通信。</span><span class="sxs-lookup"><span data-stu-id="bc69e-104">The ASP.NET Core SignalR .NET client library lets you communicate with SignalR hubs from .NET apps.</span></span>
 
-<span data-ttu-id="81331-105">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="81331-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="bc69e-105">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="bc69e-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="81331-106">本文中的代码示例是使用 .NET 客户端 SignalR ASP.NET Core 的 WPF 应用程序。</span><span class="sxs-lookup"><span data-stu-id="81331-106">The code sample in this article is a WPF app that uses the ASP.NET Core SignalR .NET client.</span></span>
+<span data-ttu-id="bc69e-106">本文中的代码示例是使用 .NET 客户端 SignalR ASP.NET Core 的 WPF 应用程序。</span><span class="sxs-lookup"><span data-stu-id="bc69e-106">The code sample in this article is a WPF app that uses the ASP.NET Core SignalR .NET client.</span></span>
 
-## <a name="install-the-opno-locsignalr-net-client-package"></a><span data-ttu-id="81331-107">安装 SignalR .NET 客户端包</span><span class="sxs-lookup"><span data-stu-id="81331-107">Install the SignalR .NET client package</span></span>
+## <a name="install-the-opno-locsignalr-net-client-package"></a><span data-ttu-id="bc69e-107">安装 SignalR .NET 客户端包</span><span class="sxs-lookup"><span data-stu-id="bc69e-107">Install the SignalR .NET client package</span></span>
 
-<span data-ttu-id="81331-108">[AspNetCore.SignalR。](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)要使 .net 客户端连接到 SignalR 集线器，需要客户端包。</span><span class="sxs-lookup"><span data-stu-id="81331-108">The [Microsoft.AspNetCore.SignalR.Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package is required for .NET clients to connect to SignalR hubs.</span></span>
+<span data-ttu-id="bc69e-108">[AspNetCore.SignalR。](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)要使 .net 客户端连接到 SignalR 集线器，需要客户端包。</span><span class="sxs-lookup"><span data-stu-id="bc69e-108">The [Microsoft.AspNetCore.SignalR.Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package is required for .NET clients to connect to SignalR hubs.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="81331-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="81331-109">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="bc69e-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="bc69e-109">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="81331-110">若要安装客户端库，请在 "**包管理器控制台**" 窗口中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="81331-110">To install the client library, run the following command in the **Package Manager Console** window:</span></span>
+<span data-ttu-id="bc69e-110">若要安装客户端库，请在 "**包管理器控制台**" 窗口中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="bc69e-110">To install the client library, run the following command in the **Package Manager Console** window:</span></span>
 
 ```powershell
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="81331-111">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="81331-111">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="bc69e-111">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="bc69e-111">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="81331-112">若要安装客户端库，请在命令 shell 中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="81331-112">To install the client library, run the following command in a command shell:</span></span>
+<span data-ttu-id="bc69e-112">若要安装客户端库，请在命令 shell 中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="bc69e-112">To install the client library, run the following command in a command shell:</span></span>
 
 ```dotnetcli
 dotnet add package Microsoft.AspNetCore.SignalR.Client
@@ -46,19 +46,19 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="connect-to-a-hub"></a><span data-ttu-id="81331-113">连接到集线器</span><span class="sxs-lookup"><span data-stu-id="81331-113">Connect to a hub</span></span>
+## <a name="connect-to-a-hub"></a><span data-ttu-id="bc69e-113">连接到中心</span><span class="sxs-lookup"><span data-stu-id="bc69e-113">Connect to a hub</span></span>
 
-<span data-ttu-id="81331-114">若要建立连接，请创建 `HubConnectionBuilder` 并调用 `Build`。</span><span class="sxs-lookup"><span data-stu-id="81331-114">To establish a connection, create a `HubConnectionBuilder` and call `Build`.</span></span> <span data-ttu-id="81331-115">在建立连接时，可以配置中心 URL、协议、传输类型、日志级别、标头和其他选项。</span><span class="sxs-lookup"><span data-stu-id="81331-115">The hub URL, protocol, transport type, log level, headers, and other options can be configured while building a connection.</span></span> <span data-ttu-id="81331-116">通过在 `Build`中插入任意 `HubConnectionBuilder` 方法来配置任何所需的选项。</span><span class="sxs-lookup"><span data-stu-id="81331-116">Configure any required options by inserting any of the `HubConnectionBuilder` methods into `Build`.</span></span> <span data-ttu-id="81331-117">开始与 `StartAsync`的连接。</span><span class="sxs-lookup"><span data-stu-id="81331-117">Start the connection with `StartAsync`.</span></span>
+<span data-ttu-id="bc69e-114">若要建立连接，请创建 `HubConnectionBuilder` 并调用 `Build`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-114">To establish a connection, create a `HubConnectionBuilder` and call `Build`.</span></span> <span data-ttu-id="bc69e-115">在建立连接时，可以配置中心 URL、协议、传输类型、日志级别、标头和其他选项。</span><span class="sxs-lookup"><span data-stu-id="bc69e-115">The hub URL, protocol, transport type, log level, headers, and other options can be configured while building a connection.</span></span> <span data-ttu-id="bc69e-116">通过在 `Build`中插入任意 `HubConnectionBuilder` 方法来配置任何所需的选项。</span><span class="sxs-lookup"><span data-stu-id="bc69e-116">Configure any required options by inserting any of the `HubConnectionBuilder` methods into `Build`.</span></span> <span data-ttu-id="bc69e-117">开始与 `StartAsync`的连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-117">Start the connection with `StartAsync`.</span></span>
 
 [!code-csharp[Build hub connection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_MainWindowClass&highlight=15-17,39)]
 
-## <a name="handle-lost-connection"></a><span data-ttu-id="81331-118">处理丢失的连接</span><span class="sxs-lookup"><span data-stu-id="81331-118">Handle lost connection</span></span>
+## <a name="handle-lost-connection"></a><span data-ttu-id="bc69e-118">处理丢失的连接</span><span class="sxs-lookup"><span data-stu-id="bc69e-118">Handle lost connection</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="automatically-reconnect"></a><span data-ttu-id="81331-119">自动重新连接</span><span class="sxs-lookup"><span data-stu-id="81331-119">Automatically reconnect</span></span>
+### <a name="automatically-reconnect"></a><span data-ttu-id="bc69e-119">自动重新连接</span><span class="sxs-lookup"><span data-stu-id="bc69e-119">Automatically reconnect</span></span>
 
-<span data-ttu-id="81331-120">可以将 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> 配置为使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>上的 `WithAutomaticReconnect` 方法自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-120">The <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> can be configured to automatically reconnect using the `WithAutomaticReconnect` method on the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>.</span></span> <span data-ttu-id="81331-121">默认情况下，它不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-121">It won't automatically reconnect by default.</span></span>
+<span data-ttu-id="bc69e-120">可以将 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> 配置为使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>上的 `WithAutomaticReconnect` 方法自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-120">The <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> can be configured to automatically reconnect using the `WithAutomaticReconnect` method on the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>.</span></span> <span data-ttu-id="bc69e-121">默认情况下，它不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-121">It won't automatically reconnect by default.</span></span>
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -67,9 +67,9 @@ HubConnection connection= new HubConnectionBuilder()
     .Build();
 ```
 
-<span data-ttu-id="81331-122">如果没有任何参数，`WithAutomaticReconnect()` 会将客户端配置为分别等待0、2、10和30秒，然后再尝试重新连接尝试。</span><span class="sxs-lookup"><span data-stu-id="81331-122">Without any parameters, `WithAutomaticReconnect()` configures the client to wait 0, 2, 10, and 30 seconds respectively before trying each reconnect attempt, stopping after four failed attempts.</span></span>
+<span data-ttu-id="bc69e-122">如果没有任何参数，`WithAutomaticReconnect()` 会将客户端配置为分别等待0、2、10和30秒，然后再尝试重新连接尝试。</span><span class="sxs-lookup"><span data-stu-id="bc69e-122">Without any parameters, `WithAutomaticReconnect()` configures the client to wait 0, 2, 10, and 30 seconds respectively before trying each reconnect attempt, stopping after four failed attempts.</span></span>
 
-<span data-ttu-id="81331-123">在开始任何重新连接尝试之前，`HubConnection` 将转换为 `HubConnectionState.Reconnecting` 状态，并激发 `Reconnecting` 事件。</span><span class="sxs-lookup"><span data-stu-id="81331-123">Before starting any reconnect attempts, the `HubConnection` will transition to the `HubConnectionState.Reconnecting` state and fire the `Reconnecting` event.</span></span>  <span data-ttu-id="81331-124">这为用户提供警告连接已丢失并禁用 UI 元素的机会。</span><span class="sxs-lookup"><span data-stu-id="81331-124">This provides an opportunity to warn users that the connection has been lost and to disable UI elements.</span></span> <span data-ttu-id="81331-125">非交互式应用可以开始排队或删除消息。</span><span class="sxs-lookup"><span data-stu-id="81331-125">Non-interactive apps can start queuing or dropping messages.</span></span>
+<span data-ttu-id="bc69e-123">在开始任何重新连接尝试之前，`HubConnection` 将转换为 `HubConnectionState.Reconnecting` 状态，并激发 `Reconnecting` 事件。</span><span class="sxs-lookup"><span data-stu-id="bc69e-123">Before starting any reconnect attempts, the `HubConnection` will transition to the `HubConnectionState.Reconnecting` state and fire the `Reconnecting` event.</span></span>  <span data-ttu-id="bc69e-124">这为用户提供警告连接已丢失并禁用 UI 元素的机会。</span><span class="sxs-lookup"><span data-stu-id="bc69e-124">This provides an opportunity to warn users that the connection has been lost and to disable UI elements.</span></span> <span data-ttu-id="bc69e-125">非交互式应用可以开始排队或删除消息。</span><span class="sxs-lookup"><span data-stu-id="bc69e-125">Non-interactive apps can start queuing or dropping messages.</span></span>
 
 ```csharp
 connection.Reconnecting += error =>
@@ -83,12 +83,12 @@ connection.Reconnecting += error =>
 };
 ```
 
-<span data-ttu-id="81331-126">如果客户端在其前四次尝试内成功重新连接，则 `HubConnection` 将转换回 `Connected` 状态，并激发 `Reconnected` 事件。</span><span class="sxs-lookup"><span data-stu-id="81331-126">If the client successfully reconnects within its first four attempts, the `HubConnection` will transition back to the `Connected` state and fire the `Reconnected` event.</span></span> <span data-ttu-id="81331-127">这为用户提供了通知用户已重新建立连接并取消排队消息的排队的机会。</span><span class="sxs-lookup"><span data-stu-id="81331-127">This provides an opportunity to inform users the connection has been reestablished and dequeue any queued messages.</span></span>
+<span data-ttu-id="bc69e-126">如果客户端在其前四次尝试内成功重新连接，则 `HubConnection` 将转换回 `Connected` 状态，并激发 `Reconnected` 事件。</span><span class="sxs-lookup"><span data-stu-id="bc69e-126">If the client successfully reconnects within its first four attempts, the `HubConnection` will transition back to the `Connected` state and fire the `Reconnected` event.</span></span> <span data-ttu-id="bc69e-127">这为用户提供了通知用户已重新建立连接并取消排队消息的排队的机会。</span><span class="sxs-lookup"><span data-stu-id="bc69e-127">This provides an opportunity to inform users the connection has been reestablished and dequeue any queued messages.</span></span>
 
-<span data-ttu-id="81331-128">由于连接完全是服务器的新内容，因此向 `Reconnected` 事件处理程序提供了一个新的 `ConnectionId`。</span><span class="sxs-lookup"><span data-stu-id="81331-128">Since the connection looks entirely new to the server, a new `ConnectionId` will be provided to the `Reconnected` event handlers.</span></span>
+<span data-ttu-id="bc69e-128">由于连接完全是服务器的新内容，因此向 `Reconnected` 事件处理程序提供了一个新的 `ConnectionId`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-128">Since the connection looks entirely new to the server, a new `ConnectionId` will be provided to the `Reconnected` event handlers.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="81331-129">如果 `HubConnection` 配置为[跳过协商](xref:signalr/configuration#configure-client-options)，则 `Reconnected` 事件处理程序的 `connectionId` 参数将为 null。</span><span class="sxs-lookup"><span data-stu-id="81331-129">The `Reconnected` event handler's `connectionId` parameter will be null if the `HubConnection` was configured to [skip negotiation](xref:signalr/configuration#configure-client-options).</span></span>
+> <span data-ttu-id="bc69e-129">如果 `HubConnection` 配置为[跳过协商](xref:signalr/configuration#configure-client-options)，则 `Reconnected` 事件处理程序的 `connectionId` 参数将为 null。</span><span class="sxs-lookup"><span data-stu-id="bc69e-129">The `Reconnected` event handler's `connectionId` parameter will be null if the `HubConnection` was configured to [skip negotiation](xref:signalr/configuration#configure-client-options).</span></span>
 
 ```csharp
 connection.Reconnected += connectionId =>
@@ -102,7 +102,7 @@ connection.Reconnected += connectionId =>
 };
 ```
 
-<span data-ttu-id="81331-130">`WithAutomaticReconnect()` 不会将 `HubConnection` 配置为重试初始启动失败，因此，需要手动处理启动失败：</span><span class="sxs-lookup"><span data-stu-id="81331-130">`WithAutomaticReconnect()` won't configure the `HubConnection` to retry initial start failures, so start failures need to be handled manually:</span></span>
+<span data-ttu-id="bc69e-130">`WithAutomaticReconnect()` 不会将 `HubConnection` 配置为重试初始启动失败，因此，需要手动处理启动失败：</span><span class="sxs-lookup"><span data-stu-id="bc69e-130">`WithAutomaticReconnect()` won't configure the `HubConnection` to retry initial start failures, so start failures need to be handled manually:</span></span>
 
 ```csharp
 public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, CancellationToken token)
@@ -130,7 +130,7 @@ public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, C
 }
 ```
 
-<span data-ttu-id="81331-131">如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态，并激发 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件。</span><span class="sxs-lookup"><span data-stu-id="81331-131">If the client doesn't successfully reconnect within its first four attempts, the `HubConnection` will transition to the `Disconnected` state and fire the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event.</span></span> <span data-ttu-id="81331-132">这为尝试手动重新启动连接或通知用户连接永久丢失有机会。</span><span class="sxs-lookup"><span data-stu-id="81331-132">This provides an opportunity to attempt to restart the connection manually or inform users the connection has been permanently lost.</span></span>
+<span data-ttu-id="bc69e-131">如果客户端在其前四次尝试中未成功重新连接，则 `HubConnection` 将转换为 `Disconnected` 状态，并激发 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件。</span><span class="sxs-lookup"><span data-stu-id="bc69e-131">If the client doesn't successfully reconnect within its first four attempts, the `HubConnection` will transition to the `Disconnected` state and fire the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event.</span></span> <span data-ttu-id="bc69e-132">这为尝试手动重新启动连接或通知用户连接永久丢失有机会。</span><span class="sxs-lookup"><span data-stu-id="bc69e-132">This provides an opportunity to attempt to restart the connection manually or inform users the connection has been permanently lost.</span></span>
 
 ```csharp
 connection.Closed += error =>
@@ -143,7 +143,7 @@ connection.Closed += error =>
 };
 ```
 
-<span data-ttu-id="81331-133">为了在断开连接或更改重新连接时间安排之前配置自定义的重新连接尝试次数，`WithAutomaticReconnect` 接受一个数字数组，表示在开始每次重新连接尝试之前等待的延迟（以毫秒为单位）。</span><span class="sxs-lookup"><span data-stu-id="81331-133">In order to configure a custom number of reconnect attempts before disconnecting or change the reconnect timing, `WithAutomaticReconnect` accepts an array of numbers representing the delay in milliseconds to wait before starting each reconnect attempt.</span></span>
+<span data-ttu-id="bc69e-133">为了在断开连接或更改重新连接时间安排之前配置自定义的重新连接尝试次数，`WithAutomaticReconnect` 接受一个数字数组，表示在开始每次重新连接尝试之前等待的延迟（以毫秒为单位）。</span><span class="sxs-lookup"><span data-stu-id="bc69e-133">In order to configure a custom number of reconnect attempts before disconnecting or change the reconnect timing, `WithAutomaticReconnect` accepts an array of numbers representing the delay in milliseconds to wait before starting each reconnect attempt.</span></span>
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -154,19 +154,19 @@ HubConnection connection= new HubConnectionBuilder()
     // .WithAutomaticReconnect(new[] { TimeSpan.Zero, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(30) }) yields the default behavior.
 ```
 
-<span data-ttu-id="81331-134">前面的示例将 `HubConnection` 配置为在连接丢失后立即开始尝试重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-134">The preceding example configures the `HubConnection` to start attempting reconnects immediately after the connection is lost.</span></span> <span data-ttu-id="81331-135">这也适用于默认配置。</span><span class="sxs-lookup"><span data-stu-id="81331-135">This is also true for the default configuration.</span></span>
+<span data-ttu-id="bc69e-134">前面的示例将 `HubConnection` 配置为在连接丢失后立即开始尝试重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-134">The preceding example configures the `HubConnection` to start attempting reconnects immediately after the connection is lost.</span></span> <span data-ttu-id="bc69e-135">这也适用于默认配置。</span><span class="sxs-lookup"><span data-stu-id="bc69e-135">This is also true for the default configuration.</span></span>
 
-<span data-ttu-id="81331-136">如果第一次重新连接尝试失败，则第二次重新连接尝试还会立即启动，而不是等待2秒，就像在默认配置中一样。</span><span class="sxs-lookup"><span data-stu-id="81331-136">If the first reconnect attempt fails, the second reconnect attempt will also start immediately instead of waiting 2 seconds like it would in the default configuration.</span></span>
+<span data-ttu-id="bc69e-136">如果第一次重新连接尝试失败，则第二次重新连接尝试还会立即启动，而不是等待2秒，就像在默认配置中一样。</span><span class="sxs-lookup"><span data-stu-id="bc69e-136">If the first reconnect attempt fails, the second reconnect attempt will also start immediately instead of waiting 2 seconds like it would in the default configuration.</span></span>
 
-<span data-ttu-id="81331-137">如果第二次重新连接尝试失败，则第三次重新连接尝试将在10秒内启动，这与默认配置相同。</span><span class="sxs-lookup"><span data-stu-id="81331-137">If the second reconnect attempt fails, the third reconnect attempt will start in 10 seconds which is again like the default configuration.</span></span>
+<span data-ttu-id="bc69e-137">如果第二次重新连接尝试失败，则第三次重新连接尝试将在10秒内启动，这与默认配置相同。</span><span class="sxs-lookup"><span data-stu-id="bc69e-137">If the second reconnect attempt fails, the third reconnect attempt will start in 10 seconds which is again like the default configuration.</span></span>
 
-<span data-ttu-id="81331-138">然后，在第三次重新连接尝试失败后，自定义行为将再次从默认行为与其分离。</span><span class="sxs-lookup"><span data-stu-id="81331-138">The custom behavior then diverges again from the default behavior by stopping after the third reconnect attempt failure.</span></span> <span data-ttu-id="81331-139">在默认配置中，将在另一个30秒内再次尝试重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-139">In the default configuration there would be one more reconnect attempt in another 30 seconds.</span></span>
+<span data-ttu-id="bc69e-138">然后，在第三次重新连接尝试失败后，自定义行为将再次从默认行为与其分离。</span><span class="sxs-lookup"><span data-stu-id="bc69e-138">The custom behavior then diverges again from the default behavior by stopping after the third reconnect attempt failure.</span></span> <span data-ttu-id="bc69e-139">在默认配置中，将在另一个30秒内再次尝试重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-139">In the default configuration there would be one more reconnect attempt in another 30 seconds.</span></span>
 
-<span data-ttu-id="81331-140">如果需要更好地控制计时和自动重新连接尝试的次数，`WithAutomaticReconnect` 接受一个实现 `IRetryPolicy` 接口的对象，该对象具有名为 `NextRetryDelay`的单个方法。</span><span class="sxs-lookup"><span data-stu-id="81331-140">If you want even more control over the timing and number of automatic reconnect attempts, `WithAutomaticReconnect` accepts an object implementing the `IRetryPolicy` interface, which has a single method named `NextRetryDelay`.</span></span>
+<span data-ttu-id="bc69e-140">如果需要更好地控制计时和自动重新连接尝试的次数，`WithAutomaticReconnect` 接受一个实现 `IRetryPolicy` 接口的对象，该对象具有名为 `NextRetryDelay`的单个方法。</span><span class="sxs-lookup"><span data-stu-id="bc69e-140">If you want even more control over the timing and number of automatic reconnect attempts, `WithAutomaticReconnect` accepts an object implementing the `IRetryPolicy` interface, which has a single method named `NextRetryDelay`.</span></span>
 
-<span data-ttu-id="81331-141">`NextRetryDelay` 采用 `RetryContext`类型的单个自变量。</span><span class="sxs-lookup"><span data-stu-id="81331-141">`NextRetryDelay` takes a single argument with the type `RetryContext`.</span></span> <span data-ttu-id="81331-142">`RetryContext` 具有三个属性： `PreviousRetryCount`、`ElapsedTime` 和 `RetryReason` 分别为 `long`、`TimeSpan` 和 `Exception`。</span><span class="sxs-lookup"><span data-stu-id="81331-142">The `RetryContext` has three properties: `PreviousRetryCount`, `ElapsedTime` and `RetryReason` which are a `long`, a `TimeSpan` and an `Exception` respectively.</span></span> <span data-ttu-id="81331-143">第一次重新连接尝试之前，`PreviousRetryCount` 和 `ElapsedTime` 均为零，`RetryReason` 将是导致连接丢失的异常。</span><span class="sxs-lookup"><span data-stu-id="81331-143">Before the first reconnect attempt, both `PreviousRetryCount` and `ElapsedTime` will be zero, and the `RetryReason` will be the Exception that caused the connection to be lost.</span></span> <span data-ttu-id="81331-144">每次重试失败后，`PreviousRetryCount` 会递增1，`ElapsedTime` 将更新以反映到目前为止所用的时间量，`RetryReason` 将是导致上次重新连接尝试失败的异常。</span><span class="sxs-lookup"><span data-stu-id="81331-144">After each failed retry attempt, `PreviousRetryCount` will be incremented by one, `ElapsedTime` will be updated to reflect the amount of time spent reconnecting so far, and the `RetryReason` will be the Exception that caused the last reconnect attempt to fail.</span></span>
+<span data-ttu-id="bc69e-141">`NextRetryDelay` 采用 `RetryContext`类型的单个自变量。</span><span class="sxs-lookup"><span data-stu-id="bc69e-141">`NextRetryDelay` takes a single argument with the type `RetryContext`.</span></span> <span data-ttu-id="bc69e-142">`RetryContext` 具有三个属性： `PreviousRetryCount`、`ElapsedTime` 和 `RetryReason`，分别为 `long`、`TimeSpan` 和 `Exception`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-142">The `RetryContext` has three properties: `PreviousRetryCount`, `ElapsedTime` and `RetryReason`, which are a `long`, a `TimeSpan` and an `Exception` respectively.</span></span> <span data-ttu-id="bc69e-143">第一次重新连接尝试之前，`PreviousRetryCount` 和 `ElapsedTime` 均为零，`RetryReason` 将是导致连接丢失的异常。</span><span class="sxs-lookup"><span data-stu-id="bc69e-143">Before the first reconnect attempt, both `PreviousRetryCount` and `ElapsedTime` will be zero, and the `RetryReason` will be the Exception that caused the connection to be lost.</span></span> <span data-ttu-id="bc69e-144">每次重试失败后，`PreviousRetryCount` 会递增1，`ElapsedTime` 将更新以反映到目前为止所用的时间量，`RetryReason` 将是导致上次重新连接尝试失败的异常。</span><span class="sxs-lookup"><span data-stu-id="bc69e-144">After each failed retry attempt, `PreviousRetryCount` will be incremented by one, `ElapsedTime` will be updated to reflect the amount of time spent reconnecting so far, and the `RetryReason` will be the Exception that caused the last reconnect attempt to fail.</span></span>
 
-<span data-ttu-id="81331-145">`NextRetryDelay` 必须返回一个 TimeSpan，表示在下一次重新连接尝试之前等待的时间，或 `null` 如果 `HubConnection` 应停止重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-145">`NextRetryDelay` must return either a TimeSpan representing the time to wait before the next reconnect attempt or `null` if the `HubConnection` should stop reconnecting.</span></span>
+<span data-ttu-id="bc69e-145">`NextRetryDelay` 必须返回一个 TimeSpan，表示在下一次重新连接尝试之前等待的时间，或 `null` 如果 `HubConnection` 应停止重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-145">`NextRetryDelay` must return either a TimeSpan representing the time to wait before the next reconnect attempt or `null` if the `HubConnection` should stop reconnecting.</span></span>
 
 ```csharp
 public class RandomRetryPolicy : IRetryPolicy
@@ -179,7 +179,7 @@ public class RandomRetryPolicy : IRetryPolicy
         // wait between 0 and 10 seconds before the next reconnect attempt.
         if (retryContext.ElapsedTime < TimeSpan.FromSeconds(60))
         {
-            return TimeSpan.FromSeconds(_random.Next() * 10);
+            return TimeSpan.FromSeconds(_random.NextDouble() * 10);
         }
         else
         {
@@ -197,22 +197,22 @@ HubConnection connection = new HubConnectionBuilder()
     .Build();
 ```
 
-<span data-ttu-id="81331-146">或者，你可以编写将手动重新连接客户端的代码，如[手动重新连接](#manually-reconnect)中所示。</span><span class="sxs-lookup"><span data-stu-id="81331-146">Alternatively, you can write code that will reconnect your client manually as demonstrated in [Manually reconnect](#manually-reconnect).</span></span>
+<span data-ttu-id="bc69e-146">或者，你可以编写将手动重新连接客户端的代码，如[手动重新连接](#manually-reconnect)中所示。</span><span class="sxs-lookup"><span data-stu-id="bc69e-146">Alternatively, you can write code that will reconnect your client manually as demonstrated in [Manually reconnect](#manually-reconnect).</span></span>
 
 ::: moniker-end
 
-### <a name="manually-reconnect"></a><span data-ttu-id="81331-147">手动重新连接</span><span class="sxs-lookup"><span data-stu-id="81331-147">Manually reconnect</span></span>
+### <a name="manually-reconnect"></a><span data-ttu-id="bc69e-147">手动重新连接</span><span class="sxs-lookup"><span data-stu-id="bc69e-147">Manually reconnect</span></span>
 
 ::: moniker range="< aspnetcore-3.0"
 
 > [!WARNING]
-> <span data-ttu-id="81331-148">在3.0 之前，SignalR 的 .NET 客户端不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-148">Prior to 3.0, the .NET client for SignalR doesn't automatically reconnect.</span></span> <span data-ttu-id="81331-149">必须编写代码来手动重新连接客户端。</span><span class="sxs-lookup"><span data-stu-id="81331-149">You must write code that will reconnect your client manually.</span></span>
+> <span data-ttu-id="bc69e-148">在3.0 之前，SignalR 的 .NET 客户端不会自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-148">Prior to 3.0, the .NET client for SignalR doesn't automatically reconnect.</span></span> <span data-ttu-id="bc69e-149">必须编写代码将手动重新连接你的客户端。</span><span class="sxs-lookup"><span data-stu-id="bc69e-149">You must write code that will reconnect your client manually.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="81331-150">使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件来响应丢失的连接。</span><span class="sxs-lookup"><span data-stu-id="81331-150">Use the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event to respond to a lost connection.</span></span> <span data-ttu-id="81331-151">例如，你可能需要自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="81331-151">For example, you might want to automate reconnection.</span></span>
+<span data-ttu-id="bc69e-150">使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> 事件来响应丢失的连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-150">Use the <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> event to respond to a lost connection.</span></span> <span data-ttu-id="bc69e-151">例如，你可能需要自动重新连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-151">For example, you might want to automate reconnection.</span></span>
 
-<span data-ttu-id="81331-152">`Closed` 事件需要一个返回 `Task`的委托，该委托允许异步代码在不使用 `async void`的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="81331-152">The `Closed` event requires a delegate that returns a `Task`, which allows async code to run without using `async void`.</span></span> <span data-ttu-id="81331-153">若要在同步运行的 `Closed` 事件处理程序中满足委托签名，请返回 `Task.CompletedTask`：</span><span class="sxs-lookup"><span data-stu-id="81331-153">To satisfy the delegate signature in a `Closed` event handler that runs synchronously, return `Task.CompletedTask`:</span></span>
+<span data-ttu-id="bc69e-152">`Closed` 事件需要一个返回 `Task`的委托，该委托允许异步代码在不使用 `async void`的情况下运行。</span><span class="sxs-lookup"><span data-stu-id="bc69e-152">The `Closed` event requires a delegate that returns a `Task`, which allows async code to run without using `async void`.</span></span> <span data-ttu-id="bc69e-153">若要在同步运行的 `Closed` 事件处理程序中满足委托签名，请返回 `Task.CompletedTask`：</span><span class="sxs-lookup"><span data-stu-id="bc69e-153">To satisfy the delegate signature in a `Closed` event handler that runs synchronously, return `Task.CompletedTask`:</span></span>
 
 ```csharp
 connection.Closed += (error) => {
@@ -221,44 +221,44 @@ connection.Closed += (error) => {
 };
 ```
 
-<span data-ttu-id="81331-154">异步支持的主要原因是，可以重启连接。</span><span class="sxs-lookup"><span data-stu-id="81331-154">The main reason for the async support is so you can restart the connection.</span></span> <span data-ttu-id="81331-155">启动连接是一种异步操作。</span><span class="sxs-lookup"><span data-stu-id="81331-155">Starting a connection is an async action.</span></span>
+<span data-ttu-id="bc69e-154">异步支持的主要原因是，可以重启连接。</span><span class="sxs-lookup"><span data-stu-id="bc69e-154">The main reason for the async support is so you can restart the connection.</span></span> <span data-ttu-id="bc69e-155">启动连接是一种异步操作。</span><span class="sxs-lookup"><span data-stu-id="bc69e-155">Starting a connection is an async action.</span></span>
 
-<span data-ttu-id="81331-156">在重启连接的 `Closed` 处理程序中，考虑等待一些随机延迟以防止服务器过载，如以下示例中所示：</span><span class="sxs-lookup"><span data-stu-id="81331-156">In a `Closed` handler that restarts the connection, consider waiting for some random delay to prevent overloading the server, as shown in the following example:</span></span>
+<span data-ttu-id="bc69e-156">在重启连接的 `Closed` 处理程序中，考虑等待一些随机延迟以防止服务器过载，如以下示例中所示：</span><span class="sxs-lookup"><span data-stu-id="bc69e-156">In a `Closed` handler that restarts the connection, consider waiting for some random delay to prevent overloading the server, as shown in the following example:</span></span>
 
 [!code-csharp[Use Closed event handler to automate reconnection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ClosedRestart)]
 
-## <a name="call-hub-methods-from-client"></a><span data-ttu-id="81331-157">从客户端调用集线器方法</span><span class="sxs-lookup"><span data-stu-id="81331-157">Call hub methods from client</span></span>
+## <a name="call-hub-methods-from-client"></a><span data-ttu-id="bc69e-157">从客户端调用集线器方法</span><span class="sxs-lookup"><span data-stu-id="bc69e-157">Call hub methods from client</span></span>
 
-<span data-ttu-id="81331-158">`InvokeAsync` 在集线器上调用方法。</span><span class="sxs-lookup"><span data-stu-id="81331-158">`InvokeAsync` calls methods on the hub.</span></span> <span data-ttu-id="81331-159">将 hub 方法名称和在 hub 方法中定义的所有参数传递到 `InvokeAsync`。</span><span class="sxs-lookup"><span data-stu-id="81331-159">Pass the hub method name and any arguments defined in the hub method to `InvokeAsync`.</span></span> SignalR<span data-ttu-id="81331-160"> 是异步的，因此在进行调用时使用 `async` 和 `await`。</span><span class="sxs-lookup"><span data-stu-id="81331-160"> is asynchronous, so use `async` and `await` when making the calls.</span></span>
+<span data-ttu-id="bc69e-158">`InvokeAsync` 在集线器上调用方法。</span><span class="sxs-lookup"><span data-stu-id="bc69e-158">`InvokeAsync` calls methods on the hub.</span></span> <span data-ttu-id="bc69e-159">将 hub 方法名称和在 hub 方法中定义的所有参数传递到 `InvokeAsync`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-159">Pass the hub method name and any arguments defined in the hub method to `InvokeAsync`.</span></span> SignalR<span data-ttu-id="bc69e-160"> 是异步的，因此在进行调用时使用 `async` 和 `await`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-160"> is asynchronous, so use `async` and `await` when making the calls.</span></span>
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
-<span data-ttu-id="81331-161">`InvokeAsync` 方法返回一个在服务器方法返回时完成的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="81331-161">The `InvokeAsync` method returns a `Task` which completes when the server method returns.</span></span> <span data-ttu-id="81331-162">返回值（如果有）作为 `Task`的结果提供。</span><span class="sxs-lookup"><span data-stu-id="81331-162">The return value, if any, is provided as the result of the `Task`.</span></span> <span data-ttu-id="81331-163">服务器上的方法所引发的任何异常都会产生出错的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="81331-163">Any exceptions thrown by the method on the server produce a faulted `Task`.</span></span> <span data-ttu-id="81331-164">使用 `await` 语法等待服务器方法完成，并 `try...catch` 语法来处理错误。</span><span class="sxs-lookup"><span data-stu-id="81331-164">Use `await` syntax to wait for the server method to complete and `try...catch` syntax to handle errors.</span></span>
+<span data-ttu-id="bc69e-161">`InvokeAsync` 方法返回一个在服务器方法返回时完成的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-161">The `InvokeAsync` method returns a `Task` which completes when the server method returns.</span></span> <span data-ttu-id="bc69e-162">返回值（如果有）作为 `Task`的结果提供。</span><span class="sxs-lookup"><span data-stu-id="bc69e-162">The return value, if any, is provided as the result of the `Task`.</span></span> <span data-ttu-id="bc69e-163">服务器上的方法所引发的任何异常都会产生出错的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-163">Any exceptions thrown by the method on the server produce a faulted `Task`.</span></span> <span data-ttu-id="bc69e-164">使用 `await` 语法等待服务器方法完成，并 `try...catch` 语法来处理错误。</span><span class="sxs-lookup"><span data-stu-id="bc69e-164">Use `await` syntax to wait for the server method to complete and `try...catch` syntax to handle errors.</span></span>
 
-<span data-ttu-id="81331-165">`SendAsync` 方法返回一个在消息已发送到服务器时完成的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="81331-165">The `SendAsync` method returns a `Task` which completes when the message has been sent to the server.</span></span> <span data-ttu-id="81331-166">不会提供返回值，因为此 `Task` 不会等待服务器方法完成。</span><span class="sxs-lookup"><span data-stu-id="81331-166">No return value is provided since this `Task` doesn't wait until the server method completes.</span></span> <span data-ttu-id="81331-167">发送消息时，在客户端上引发的任何异常都会产生出错的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="81331-167">Any exceptions thrown on the client while sending the message produce a faulted `Task`.</span></span> <span data-ttu-id="81331-168">使用 `await` 和 `try...catch` 语法处理发送错误。</span><span class="sxs-lookup"><span data-stu-id="81331-168">Use `await` and `try...catch` syntax to handle send errors.</span></span>
+<span data-ttu-id="bc69e-165">`SendAsync` 方法返回一个在消息已发送到服务器时完成的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-165">The `SendAsync` method returns a `Task` which completes when the message has been sent to the server.</span></span> <span data-ttu-id="bc69e-166">不会提供返回值，因为此 `Task` 不会等待服务器方法完成。</span><span class="sxs-lookup"><span data-stu-id="bc69e-166">No return value is provided since this `Task` doesn't wait until the server method completes.</span></span> <span data-ttu-id="bc69e-167">发送消息时，在客户端上引发的任何异常都会产生出错的 `Task`。</span><span class="sxs-lookup"><span data-stu-id="bc69e-167">Any exceptions thrown on the client while sending the message produce a faulted `Task`.</span></span> <span data-ttu-id="bc69e-168">使用 `await` 和 `try...catch` 语法处理发送错误。</span><span class="sxs-lookup"><span data-stu-id="bc69e-168">Use `await` and `try...catch` syntax to handle send errors.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="81331-169">如果在*无服务器模式下*使用 Azure SignalR 服务，则无法从客户端调用集线器方法。</span><span class="sxs-lookup"><span data-stu-id="81331-169">If you're using Azure SignalR Service in *Serverless mode*, you cannot call hub methods from a client.</span></span> <span data-ttu-id="81331-170">有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。</span><span class="sxs-lookup"><span data-stu-id="81331-170">For more information, see the [SignalR Service documentation](/azure/azure-signalr/signalr-concept-serverless-development-config).</span></span>
+> <span data-ttu-id="bc69e-169">如果在*无服务器模式下*使用 Azure SignalR 服务，则无法从客户端调用集线器方法。</span><span class="sxs-lookup"><span data-stu-id="bc69e-169">If you're using Azure SignalR Service in *Serverless mode*, you cannot call hub methods from a client.</span></span> <span data-ttu-id="bc69e-170">有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。</span><span class="sxs-lookup"><span data-stu-id="bc69e-170">For more information, see the [SignalR Service documentation](/azure/azure-signalr/signalr-concept-serverless-development-config).</span></span>
 
-## <a name="call-client-methods-from-hub"></a><span data-ttu-id="81331-171">从中心调用客户端方法</span><span class="sxs-lookup"><span data-stu-id="81331-171">Call client methods from hub</span></span>
+## <a name="call-client-methods-from-hub"></a><span data-ttu-id="bc69e-171">从集线器调用客户端方法</span><span class="sxs-lookup"><span data-stu-id="bc69e-171">Call client methods from hub</span></span>
 
-<span data-ttu-id="81331-172">定义集线器在生成之后但在启动连接之前 `connection.On` 调用的方法。</span><span class="sxs-lookup"><span data-stu-id="81331-172">Define methods the hub calls using `connection.On` after building, but before starting the connection.</span></span>
+<span data-ttu-id="bc69e-172">定义集线器在生成之后但在启动连接之前 `connection.On` 调用的方法。</span><span class="sxs-lookup"><span data-stu-id="bc69e-172">Define methods the hub calls using `connection.On` after building, but before starting the connection.</span></span>
 
 [!code-csharp[Define client methods](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ConnectionOn)]
 
-<span data-ttu-id="81331-173">当服务器端代码使用 `SendAsync` 方法调用时，`connection.On` 中的前面的代码将运行。</span><span class="sxs-lookup"><span data-stu-id="81331-173">The preceding code in `connection.On` runs when server-side code calls it using the `SendAsync` method.</span></span>
+<span data-ttu-id="bc69e-173">当服务器端代码使用 `SendAsync` 方法调用时，`connection.On` 中的前面的代码将运行。</span><span class="sxs-lookup"><span data-stu-id="bc69e-173">The preceding code in `connection.On` runs when server-side code calls it using the `SendAsync` method.</span></span>
 
 [!code-csharp[Call client method](dotnet-client/sample/signalrchat/hubs/chathub.cs?name=snippet_SendMessage)]
 
-## <a name="error-handling-and-logging"></a><span data-ttu-id="81331-174">错误处理和日志记录</span><span class="sxs-lookup"><span data-stu-id="81331-174">Error handling and logging</span></span>
+## <a name="error-handling-and-logging"></a><span data-ttu-id="bc69e-174">错误处理和日志记录</span><span class="sxs-lookup"><span data-stu-id="bc69e-174">Error handling and logging</span></span>
 
-<span data-ttu-id="81331-175">使用 try-catch 语句处理错误。</span><span class="sxs-lookup"><span data-stu-id="81331-175">Handle errors with a try-catch statement.</span></span> <span data-ttu-id="81331-176">检查 `Exception` 对象，以确定在发生错误之后要执行的适当操作。</span><span class="sxs-lookup"><span data-stu-id="81331-176">Inspect the `Exception` object to determine the proper action to take after an error occurs.</span></span>
+<span data-ttu-id="bc69e-175">使用 try-catch 语句处理错误。</span><span class="sxs-lookup"><span data-stu-id="bc69e-175">Handle errors with a try-catch statement.</span></span> <span data-ttu-id="bc69e-176">检查 `Exception` 对象，以确定在发生错误之后要执行的适当操作。</span><span class="sxs-lookup"><span data-stu-id="bc69e-176">Inspect the `Exception` object to determine the proper action to take after an error occurs.</span></span>
 
 [!code-csharp[Logging](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ErrorHandling)]
 
-## <a name="additional-resources"></a><span data-ttu-id="81331-177">其他资源</span><span class="sxs-lookup"><span data-stu-id="81331-177">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="bc69e-177">其他资源</span><span class="sxs-lookup"><span data-stu-id="bc69e-177">Additional resources</span></span>
 
-* [<span data-ttu-id="81331-178">中心</span><span class="sxs-lookup"><span data-stu-id="81331-178">Hubs</span></span>](xref:signalr/hubs)
-* [<span data-ttu-id="81331-179">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="81331-179">JavaScript client</span></span>](xref:signalr/javascript-client)
-* [<span data-ttu-id="81331-180">发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="81331-180">Publish to Azure</span></span>](xref:signalr/publish-to-azure-web-app)
-* <span data-ttu-id="81331-181">[Azure SignalR Service 无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)</span><span class="sxs-lookup"><span data-stu-id="81331-181">[Azure SignalR Service serverless documentation](/azure/azure-signalr/signalr-concept-serverless-development-config)</span></span>
+* [<span data-ttu-id="bc69e-178">中心</span><span class="sxs-lookup"><span data-stu-id="bc69e-178">Hubs</span></span>](xref:signalr/hubs)
+* [<span data-ttu-id="bc69e-179">JavaScript 客户端</span><span class="sxs-lookup"><span data-stu-id="bc69e-179">JavaScript client</span></span>](xref:signalr/javascript-client)
+* [<span data-ttu-id="bc69e-180">发布到 Azure</span><span class="sxs-lookup"><span data-stu-id="bc69e-180">Publish to Azure</span></span>](xref:signalr/publish-to-azure-web-app)
+* <span data-ttu-id="bc69e-181">[Azure SignalR Service 无服务器文档](/azure/azure-signalr/signalr-concept-serverless-development-config)</span><span class="sxs-lookup"><span data-stu-id="bc69e-181">[Azure SignalR Service serverless documentation](/azure/azure-signalr/signalr-concept-serverless-development-config)</span></span>
