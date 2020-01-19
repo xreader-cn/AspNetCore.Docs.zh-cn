@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/04/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 20e58660185a3055e06e92d9136e80e2394a470d
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: b5433576ff3e997e6d80201236be2d8463a52d07
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881061"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829226"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -83,7 +83,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
   * 服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。
   * 在大型存储基础结构方案中，服务的成本可能更低。
 
-  有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 Blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
+  有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
 
 ## <a name="file-upload-scenarios"></a>文件上传方案
 
@@ -183,7 +183,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 请使用 `XMLHttpRequest`。 例如:
+* 请使用 `XMLHttpRequest`。 例如：
 
   ```javascript
   <script>
@@ -456,7 +456,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 ### <a name="file-extension-validation"></a>文件扩展名验证
 
-应在允许的扩展名列表中查找上传的文件的扩展名。 例如:
+应在允许的扩展名列表中查找上传的文件的扩展名。 例如：
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -716,7 +716,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
-ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
+ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 
 ## <a name="troubleshoot"></a>疑难解答
 
@@ -812,7 +812,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
   * 服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。
   * 在大型存储基础结构方案中，服务的成本可能更低。
 
-  有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 Blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
+  有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。 此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。
 
 ## <a name="file-upload-scenarios"></a>文件上传方案
 
@@ -912,7 +912,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：
 
 * 使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。
-* 请使用 `XMLHttpRequest`。 例如:
+* 请使用 `XMLHttpRequest`。 例如：
 
   ```javascript
   <script>
@@ -1185,7 +1185,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 ### <a name="file-extension-validation"></a>文件扩展名验证
 
-应在允许的扩展名列表中查找上传的文件的扩展名。 例如:
+应在允许的扩展名列表中查找上传的文件的扩展名。 例如：
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -1438,7 +1438,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 
 此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
-ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (aspnet/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711)。
+ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 
 ## <a name="troubleshoot"></a>疑难解答
 

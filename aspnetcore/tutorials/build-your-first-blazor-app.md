@@ -5,16 +5,16 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/13/2020
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 11ff540a70ebdb8baa0c7adb98cb1dfe27d91e50
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
+ms.sourcegitcommit: 925cdbd94613243f33bc7613a62ea34006219931
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944182"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75921295"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
 
@@ -73,19 +73,19 @@ ms.locfileid: "74944182"
 
 组件也可以有参数。 组件参数由具有 `[Parameter]` 的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
 
-1. 更新组件的 `@code` C# 代码：
+1. 更新组件的 `@code` C# 代码，如下所示：
 
    * 使用 `[Parameter]` 特性添加公共 `IncrementAmount` 属性。
-   * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。
+   * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount` 属性。
 
    *Pages/Counter.razor*：
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
-<!-- Add back when supported.
-   > [!NOTE]
-   > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
--->
+   <!-- Add back when supported.
+       > [!NOTE]
+       > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
+   -->
 
 1. 使用属性在 `Index` 组件的 `<Counter>` 元素中指定 `IncrementAmount` 参数。 将计数器递增值设置为 10。
 

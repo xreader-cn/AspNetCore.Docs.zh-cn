@@ -5,14 +5,14 @@ description: 了解如何配置 ASP.NET Core 模块以托管 ASP.NET Core 应用
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: c9bbd36b8a55b837f6d78abf99215c5496895a39
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 75f4a158253dd3276ed37011d9aa73d82cad5b79
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799414"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952022"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core 模块
 
@@ -173,7 +173,7 @@ ASP.NET Core 模块还可以：
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 元素的属性
 
-| 特性 | 说明 | 默认 |
+| 特性 | 描述 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath  中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”  页面，而会优先显示 web.config  中配置的 502 状态代码页面。</p> | `false` |
@@ -188,7 +188,7 @@ ASP.NET Core 模块还可以：
 | `stdoutLogEnabled` | <p>可选布尔属性。</p><p>如果为 true，processPath  中指定的 进程的 stdout  和 stderr  将重定向到 stdoutLogFile  中指定的文件。</p> | `false` |
 | `stdoutLogFile` | <p>可选的字符串属性。</p><p>指定在其中记录 processPath  中指定进程的 stdout  和 stderr  的相对路径或绝对路径。 相对路径与站点根目录相对。 以 `.` 开头的任何路径均与站点根目录相对，所有其他路径被视为绝对路径。 创建日志文件时，模块会创建路径中提供的所有文件夹。 使用下划线分隔符，将时间戳、进程 ID 和文件扩展名 (.log  ) 添加到 stdoutLogFile  路径的最后一段。 如果 `.\logs\stdout` 作为值提供，则在示例 stdout 日志使用进程 ID 1934 于 2018 年 2 月 5 日 19:41:32 保存时，将在 logs  文件夹中保存为 stdout_20180205194132_1934.log  。</p> | `aspnetcore-stdout` |
 
-### <a name="set-environment-variables"></a>设置环境变量。
+### <a name="set-environment-variables"></a>设置环境变量
 
 可以为 `processPath` 属性中的进程指定环境变量。 使用 `<environmentVariables>` 集合元素的 `<environmentVariable>` 子元素指定环境变量。 本部分中设置的环境变量优先于系统环境变量。
 
@@ -588,7 +588,7 @@ ASP.NET Core 模块还可以：
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 元素的属性
 
-| 特性 | 说明 | 默认 |
+| 特性 | 描述 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath  中指定的可执行文件的参数。</p> | |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”  页面，而会优先显示 web.config  中配置的 502 状态代码页面。</p> | `false` |
@@ -895,7 +895,7 @@ ASP.NET Core 模块还可以：
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 元素的属性
 
-| 特性 | 说明 | 默认 |
+| 特性 | 描述 | 默认 |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>可选的字符串属性。</p><p>processPath  中指定的可执行文件的参数。</p>| |
 | `disableStartUpErrorPage` | <p>可选布尔属性。</p><p>如果为 true，将禁止显示“502.5 - 进程失败”  页面，而会优先显示 web.config  中配置的 502 状态代码页面。</p> | `false` |
@@ -1046,5 +1046,6 @@ ASP.NET Core 模块安装程序使用 TrustedInstaller 帐户的权限运行  �
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:host-and-deploy/iis/index>
-* [ASP.NET Core 模块 GitHub 存储库（引用源）](https://github.com/aspnet/AspNetCoreModule)
+* <xref:host-and-deploy/azure-apps/index>
+* [ASP.NET Core 模块引用源（主分支）](https://github.com/dotnet/aspnetcore/tree/master/src/Servers/IIS/AspNetCoreModuleV2) &ndash; 使用“分支”  下拉列表选择特定版本（例如，`release/3.1`）。
 * <xref:host-and-deploy/iis/modules>
