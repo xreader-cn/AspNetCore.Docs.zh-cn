@@ -1,6 +1,17 @@
-<span data-ttu-id="cb796-101">预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="cb796-101">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="cb796-102">在预呈现时，组件可能需要以不同的方式呈现。</span><span class="sxs-lookup"><span data-stu-id="cb796-102">Components may need to render differently when prerendered.</span></span>
+---
+no-loc:
+- Blazor
+- SignalR
+ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159883"
+---
+<span data-ttu-id="8eeb7-101">在预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-101">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="8eeb7-102">在预呈现时，组件可能需要以不同的方式呈现。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-102">Components may need to render differently when prerendered.</span></span>
 
-<span data-ttu-id="cb796-103">若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用[OnAfterRenderAsync 组件生命周期事件](xref:blazor/lifecycle#after-component-render)。</span><span class="sxs-lookup"><span data-stu-id="cb796-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the [OnAfterRenderAsync component lifecycle event](xref:blazor/lifecycle#after-component-render).</span></span> <span data-ttu-id="cb796-104">仅在完全呈现应用并建立客户端连接后，才调用此事件。</span><span class="sxs-lookup"><span data-stu-id="cb796-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
+<span data-ttu-id="8eeb7-103">若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用[OnAfterRenderAsync 组件生命周期事件](xref:blazor/lifecycle#after-component-render)。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the [OnAfterRenderAsync component lifecycle event](xref:blazor/lifecycle#after-component-render).</span></span> <span data-ttu-id="8eeb7-104">仅在完全呈现应用并建立客户端连接后，才调用此事件。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
 
 ```cshtml
 @using Microsoft.JSInterop
@@ -22,7 +33,7 @@
 }
 ```
 
-<span data-ttu-id="cb796-105">对于前面的示例代码，请在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素内提供 `setElementText` JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="cb796-105">For the preceding example code, provide a `setElementText` JavaScript function inside the `<head>` element of *wwwroot/index.html* (Blazor WebAssembly) or *Pages/_Host.cshtml* (Blazor Server).</span></span> <span data-ttu-id="cb796-106">使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：</span><span class="sxs-lookup"><span data-stu-id="cb796-106">The function is called with `IJSRuntime.InvokeVoidAsync` and doesn't return a value:</span></span>
+<span data-ttu-id="8eeb7-105">对于前面的示例代码，请在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素内提供 `setElementText` JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-105">For the preceding example code, provide a `setElementText` JavaScript function inside the `<head>` element of *wwwroot/index.html* (Blazor WebAssembly) or *Pages/_Host.cshtml* (Blazor Server).</span></span> <span data-ttu-id="8eeb7-106">使用 `IJSRuntime.InvokeVoidAsync` 调用函数，并且不返回值：</span><span class="sxs-lookup"><span data-stu-id="8eeb7-106">The function is called with `IJSRuntime.InvokeVoidAsync` and doesn't return a value:</span></span>
 
 ```html
 <script>
@@ -31,13 +42,13 @@
 ```
 
 > [!WARNING]
-> <span data-ttu-id="cb796-107">前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="cb796-107">The preceding example modifies the Document Object Model (DOM) directly for demonstration purposes only.</span></span> <span data-ttu-id="cb796-108">大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor 的更改跟踪。</span><span class="sxs-lookup"><span data-stu-id="cb796-108">Directly modifying the DOM with JavaScript isn't recommended in most scenarios because JavaScript can interfere with Blazor's change tracking.</span></span>
+> <span data-ttu-id="8eeb7-107">前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-107">The preceding example modifies the Document Object Model (DOM) directly for demonstration purposes only.</span></span> <span data-ttu-id="8eeb7-108">大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor的更改跟踪。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-108">Directly modifying the DOM with JavaScript isn't recommended in most scenarios because JavaScript can interfere with Blazor's change tracking.</span></span>
 
-<span data-ttu-id="cb796-109">以下组件演示了如何以与预呈现兼容的方式将 JavaScript 互操作作为组件的初始化逻辑的一部分使用。</span><span class="sxs-lookup"><span data-stu-id="cb796-109">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="cb796-110">该组件显示可以从 `OnAfterRenderAsync`内触发呈现更新。</span><span class="sxs-lookup"><span data-stu-id="cb796-110">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="cb796-111">开发人员必须避免在此方案中创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="cb796-111">The developer must avoid creating an infinite loop in this scenario.</span></span>
+<span data-ttu-id="8eeb7-109">以下组件演示了如何以与预呈现兼容的方式将 JavaScript 互操作作为组件的初始化逻辑的一部分使用。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-109">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="8eeb7-110">该组件显示可以从 `OnAfterRenderAsync`内触发呈现更新。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-110">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="8eeb7-111">开发人员必须避免在此方案中创建无限循环。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-111">The developer must avoid creating an infinite loop in this scenario.</span></span>
 
-<span data-ttu-id="cb796-112">在调用 `JSRuntime.InvokeAsync` 的情况下，`ElementRef` 仅用于 `OnAfterRenderAsync`，而不是在任何早期的生命周期方法中，因为在呈现组件之前，不会有 JavaScript 元素。</span><span class="sxs-lookup"><span data-stu-id="cb796-112">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
+<span data-ttu-id="8eeb7-112">在调用 `JSRuntime.InvokeAsync` 的情况下，`ElementRef` 仅用于 `OnAfterRenderAsync`，而不是在任何早期的生命周期方法中，因为在呈现组件之前，不会有 JavaScript 元素。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-112">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
 
-<span data-ttu-id="cb796-113">调用[StateHasChanged](xref:blazor/lifecycle#state-changes)以诸如此类组件，并将新状态从 JavaScript 互操作调用中获取。</span><span class="sxs-lookup"><span data-stu-id="cb796-113">[StateHasChanged](xref:blazor/lifecycle#state-changes) is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="cb796-114">此代码不会创建无限循环，因为仅当 `infoFromJs` `null`时才会调用 `StateHasChanged`。</span><span class="sxs-lookup"><span data-stu-id="cb796-114">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
+<span data-ttu-id="8eeb7-113">调用[StateHasChanged](xref:blazor/lifecycle#state-changes)以诸如此类组件，并将新状态从 JavaScript 互操作调用中获取。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-113">[StateHasChanged](xref:blazor/lifecycle#state-changes) is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="8eeb7-114">此代码不会创建无限循环，因为仅当 `infoFromJs` `null`时才会调用 `StateHasChanged`。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-114">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
 
 ```cshtml
 @page "/prerendered-interop"
@@ -70,7 +81,7 @@ Set value via JS interop call:
 }
 ```
 
-<span data-ttu-id="cb796-115">对于前面的示例代码，请在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素内提供 `setElementText` JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="cb796-115">For the preceding example code, provide a `setElementText` JavaScript function inside the `<head>` element of *wwwroot/index.html* (Blazor WebAssembly) or *Pages/_Host.cshtml* (Blazor Server).</span></span> <span data-ttu-id="cb796-116">使用 `IJSRuntime.InvokeAsync` 调用函数并返回值：</span><span class="sxs-lookup"><span data-stu-id="cb796-116">The function is called with `IJSRuntime.InvokeAsync` and returns a value:</span></span>
+<span data-ttu-id="8eeb7-115">对于前面的示例代码，请在*wwwroot/index.html* （Blazor WebAssembly）或*Pages/_Host* （Blazor Server）的 `<head>` 元素内提供 `setElementText` JavaScript 函数。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-115">For the preceding example code, provide a `setElementText` JavaScript function inside the `<head>` element of *wwwroot/index.html* (Blazor WebAssembly) or *Pages/_Host.cshtml* (Blazor Server).</span></span> <span data-ttu-id="8eeb7-116">使用 `IJSRuntime.InvokeAsync` 调用函数并返回值：</span><span class="sxs-lookup"><span data-stu-id="8eeb7-116">The function is called with `IJSRuntime.InvokeAsync` and returns a value:</span></span>
 
 ```html
 <script>
@@ -82,4 +93,4 @@ Set value via JS interop call:
 ```
 
 > [!WARNING]
-> <span data-ttu-id="cb796-117">前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="cb796-117">The preceding example modifies the Document Object Model (DOM) directly for demonstration purposes only.</span></span> <span data-ttu-id="cb796-118">大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor 的更改跟踪。</span><span class="sxs-lookup"><span data-stu-id="cb796-118">Directly modifying the DOM with JavaScript isn't recommended in most scenarios because JavaScript can interfere with Blazor's change tracking.</span></span>
+> <span data-ttu-id="8eeb7-117">前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-117">The preceding example modifies the Document Object Model (DOM) directly for demonstration purposes only.</span></span> <span data-ttu-id="8eeb7-118">大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor的更改跟踪。</span><span class="sxs-lookup"><span data-stu-id="8eeb7-118">Directly modifying the DOM with JavaScript isn't recommended in most scenarios because JavaScript can interfere with Blazor's change tracking.</span></span>
