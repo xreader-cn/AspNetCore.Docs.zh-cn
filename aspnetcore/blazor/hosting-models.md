@@ -2,20 +2,21 @@
 title: ASP.NET Core Blazor 宿主模型
 author: guardrex
 description: 了解 Blazor WebAssembly 和 Blazor 服务器托管模型。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
+- blazor.webassembly.js
 uid: blazor/hosting-models
-ms.openlocfilehash: 7676d16bddf146ea38619ed35c5e32c5bce731de
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: c9521acf40317c90d1197660bfa516710263cfc9
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943754"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160036"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -37,7 +38,7 @@ Blazor 的主体宿主模型在 WebAssembly 上的浏览器中运行客户端。
 
 选择 **Blazor WebAssembly 应用程序**模板之后，你可以选择将应用配置为使用 ASP.NET Core 后端，方法是选中 " **ASP.NET Core 托管**" 复选框（"[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)"）。 ASP.NET Core 应用将 Blazor 应用程序提供给客户端。 Blazor WebAssembly 应用可通过网络使用 web API 调用或[SignalR](xref:signalr/introduction)与服务器交互。
 
-这些模板包含处理以下内容的*blazor. webassembly*脚本：
+模板包括处理的 `blazor.webassembly.js` 脚本：
 
 * 下载 .NET 运行时、应用程序和应用程序的依赖项。
 * 用于运行应用程序的运行时初始化。
@@ -69,7 +70,7 @@ ASP.NET Core 应用引用要添加的应用 `Startup` 类：
 * 服务器端服务。
 * 请求处理管道的应用。
 
-*Blazor*脚本&dagger; 建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
+`blazor.server.js` 脚本&dagger; 建立客户端连接。 应用负责根据需要保存和还原应用状态（例如，在网络连接丢失的情况下）。
 
 Blazor Server 宿主模型具有以下几个优点：
 
@@ -86,7 +87,7 @@ Blazor Server 宿主有一些缺点：
 * 对于包含多个用户的应用而言，可伸缩性非常困难。 服务器必须管理多个客户端连接并处理客户端状态。
 * 为应用提供服务需要 ASP.NET Core 服务器。 不可能的无服务器部署方案（例如，通过 CDN 为应用提供服务）。
 
-&dagger;*blazor*脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。
+&dagger;`blazor.server.js` 脚本是从 ASP.NET Core 共享框架中的嵌入资源提供的。
 
 ### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 的比较
 
@@ -110,6 +111,187 @@ Blazor 中的 UI 更新由以下用户触发：
 关系图为重新呈现，并计算了 UI*差异*（差异）。 这种差异是更新客户端上 UI 所需的最小 DOM 编辑集。 将以二进制格式将差异发送到客户端，并由浏览器应用。
 
 当用户在客户端上导航掉组件后，将释放该组件。 当用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于多个组件的状态可能同时由服务器维护，因此内存耗尽是必须解决的问题。 有关如何创作 Blazor Server 应用程序以确保最大程度地使用服务器内存的指导，请参阅 <xref:security/blazor/server>。
+
+### <a name="integrate-razor-components-into-razor-pages-and-mvc-apps"></a>将 Razor 组件集成到 Razor Pages 和 MVC 应用
+
+#### <a name="use-components-in-pages-and-views"></a>使用页面和视图中的组件
+
+现有 Razor Pages 或 MVC 应用可以将 Razor 组件集成到页面和视图中：
+
+1. 在应用的布局文件（ *_Layout cshtml*）中：
+
+   * 将以下 `<base>` 标记添加到 `<head>` 元素：
+
+     ```html
+     <base href="~/" />
+     ```
+
+     上一示例中的 `href` 值（*应用程序基路径*）假定应用位于根 URL 路径（`/`）。 如果应用是子应用程序，请按照 <xref:host-and-deploy/blazor/index#app-base-path> 文章的*应用程序基路径*部分中的指导进行操作。
+
+     *_Layout*的文件位于一个 Razor Pages 应用中的*Pages/shared*文件夹中，或位于 MVC 应用程序的*视图/共享*文件夹中。
+
+   * 在关闭 `</body>` 标记内添加*blazor*脚本的 `<script>` 标记：
+
+     ```html
+     <script src="_framework/blazor.server.js"></script>
+     ```
+
+     框架将*blazor*脚本添加到应用程序。 无需手动将脚本添加到应用。
+
+1. 将 *_Imports razor*文件添加到具有以下内容的项目的根文件夹中（将最后一个命名空间 `MyAppNamespace`更改为应用的命名空间）：
+
+   ```csharp
+   @using System.Net.Http
+   @using Microsoft.AspNetCore.Authorization
+   @using Microsoft.AspNetCore.Components.Authorization
+   @using Microsoft.AspNetCore.Components.Forms
+   @using Microsoft.AspNetCore.Components.Routing
+   @using Microsoft.AspNetCore.Components.Web
+   @using Microsoft.JSInterop
+   @using MyAppNamespace
+   ```
+
+1. 在 `Startup.ConfigureServices`中，添加 Blazor 服务器服务：
+
+   ```csharp
+   services.AddServerSideBlazor();
+   ```
+
+1. 在 `Startup.Configure`中，将 Blazor 中心终结点添加到 `app.UseEndpoints`：
+
+   ```csharp
+   endpoints.MapBlazorHub();
+   ```
+
+1. 将组件集成到任何页面或视图中。 有关详细信息，请参阅 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps> 文章的将*组件集成到 Razor Pages 和 MVC 应用程序*部分。
+
+#### <a name="use-routable-components-in-a-razor-pages-app"></a>在 Razor Pages 应用程序中使用可路由组件
+
+支持 Razor Pages 应用中的可路由 Razor 组件：
+
+1. 按照[使用页面和视图中的组件](#use-components-in-pages-and-views)部分中的指导进行操作。
+
+1. 将一个*app.config*文件添加到项目的根目录，其中包含以下内容：
+
+   ```razor
+   @using Microsoft.AspNetCore.Components.Routing
+
+   <Router AppAssembly="typeof(Program).Assembly">
+       <Found Context="routeData">
+           <RouteView RouteData="routeData" />
+       </Found>
+       <NotFound>
+           <h1>Page not found</h1>
+           <p>Sorry, but there's nothing here!</p>
+       </NotFound>
+   </Router>
+   ```
+
+1. 将 *_Host 的 cshtml*文件添加到*Pages*文件夹，其中包含以下内容：
+
+   ```cshtml
+   @page "/blazor"
+   @{
+       Layout = "_Layout";
+   }
+
+   <app>
+       <component type="typeof(App)" render-mode="ServerPrerendered" />
+   </app>
+   ```
+
+   组件使用共享的 *_Layout cshtml*文件进行布局。
+
+1. 将 *_Host cshtml*页的低优先级路由添加到 `Startup.Configure`中的终结点配置：
+
+   ```csharp
+   app.UseEndpoints(endpoints =>
+   {
+       ...
+
+       endpoints.MapFallbackToPage("/_Host");
+   });
+   ```
+
+1. 将可路由的组件添加到应用。 例如：
+
+   ```razor
+   @page "/counter"
+
+   <h1>Counter</h1>
+
+   ...
+   ```
+
+   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Pages/_ViewImports cshtml*文件中。 有关更多信息，请参见<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
+
+#### <a name="use-routable-components-in-an-mvc-app"></a>在 MVC 应用中使用可路由组件
+
+在 MVC 应用中支持可路由的 Razor 组件：
+
+1. 按照[使用页面和视图中的组件](#use-components-in-pages-and-views)部分中的指导进行操作。
+
+1. 将一个*app.config*文件添加到项目的根目录，其中包含以下内容：
+
+   ```razor
+   @using Microsoft.AspNetCore.Components.Routing
+
+   <Router AppAssembly="typeof(Program).Assembly">
+       <Found Context="routeData">
+           <RouteView RouteData="routeData" />
+       </Found>
+       <NotFound>
+           <h1>Page not found</h1>
+           <p>Sorry, but there's nothing here!</p>
+       </NotFound>
+   </Router>
+   ```
+
+1. 将 *_Host 的 cshtml*文件添加到具有以下内容的*Views/Home*文件夹中：
+
+   ```cshtml
+   @{
+       Layout = "_Layout";
+   }
+
+   <app>
+       <component type="typeof(App)" render-mode="ServerPrerendered" />
+   </app>
+   ```
+
+   组件使用共享的 *_Layout cshtml*文件进行布局。
+
+1. 向 Home 控制器添加操作：
+
+   ```csharp
+   public IActionResult Blazor()
+   {
+      return View("_Host");
+   }
+   ```
+
+1. 将返回 *_Host*的控制器操作的低优先级路由添加到 `Startup.Configure`中的终结点配置：
+
+   ```csharp
+   app.UseEndpoints(endpoints =>
+   {
+       ...
+
+       endpoints.MapFallbackToController("Blazor", "Home");
+   });
+   ```
+
+1. 创建*Pages*文件夹，并将可路由的组件添加到应用。 例如：
+
+   ```razor
+   @page "/counter"
+
+   <h1>Counter</h1>
+
+   ...
+   ```
+
+   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Views/_ViewImports cshtml*文件中。 有关更多信息，请参见<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
 
 ### <a name="circuits"></a>而言
 
@@ -142,7 +324,7 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可以通过将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，为 Azure SignalR 服务启用粘滞会话。 有关更多信息，请参见<xref:host-and-deploy/blazor/server#signalr-configuration>。
 
-使用 IIS 时，将使用应用程序请求路由启用粘滞会话。 有关详细信息，请参阅[使用应用程序请求路由的 HTTP 负载平衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
+使用 IIS 时，粘滞会话通过应用程序请求路由启用。 有关详细信息，请参阅[使用应用程序请求路由实现 HTTP 负载均衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
 #### <a name="reflect-the-connection-state-in-the-ui"></a>反映 UI 中的连接状态
 
@@ -169,8 +351,6 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 
 默认情况下，Blazor 服务器应用程序设置为在建立客户端与服务器之间的连接之前，在服务器上预呈现 UI。 这是在 *_Host*的 "Razor" Razor 页面中设置的：
 
-::: moniker range=">= aspnetcore-3.1"
-
 ```cshtml
 <body>
     <app>
@@ -181,44 +361,16 @@ Blazor Server 应用 prerenders 为响应第一个客户端请求，该请求在
 </body>
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<body>
-    <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
-
-    <script src="_framework/blazor.server.js"></script>
-</body>
-```
-
-::: moniker-end
-
 `RenderMode` 配置组件是否：
 
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
-
-::: moniker range=">= aspnetcore-3.1"
 
 | `RenderMode`        | 描述 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Static`            | 将组件呈现为静态 HTML。 |
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-| `RenderMode`        | 描述 |
-| ------------------- | ----------- |
-| `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
-| `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
-| `Static`            | 将组件呈现为静态 HTML。 支持参数。 |
-
-::: moniker-end
 
 不支持从静态 HTML 页面呈现服务器组件。
 
@@ -290,8 +442,6 @@ public class WeatherForecastService
 
 以下 Razor 页面将呈现一个 `Counter` 组件：
 
-::: moniker range=">= aspnetcore-3.1"
-
 ```cshtml
 <h1>My Razor Page</h1>
 
@@ -304,28 +454,9 @@ public class WeatherForecastService
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<h1>My Razor Page</h1>
-
-@(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-::: moniker-end
-
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现非交互式组件
 
 在以下 Razor 页面中，使用以下格式使用指定的初始值静态呈现 `Counter` 组件：
-
-::: moniker range=">= aspnetcore-3.1"
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -344,29 +475,6 @@ public class WeatherForecastService
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<form>
-    <input type="number" asp-for="InitialValue" />
-    <button type="submit">Set initial value</button>
-</form>
-
-@(await Html.RenderComponentAsync<Counter>(RenderMode.Static, 
-    new { InitialValue = InitialValue }))
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-::: moniker-end
-
 由于 `MyComponent` 是以静态方式呈现的，因此该组件不能是交互式的。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>检测预呈现应用的时间
@@ -379,7 +487,7 @@ public class WeatherForecastService
 
 若要在*Pages/_Host* # 文件中配置 SignalR 客户端：
 
-* 将 `autostart="false"` 特性添加到*blazor*脚本的 `<script>` 标记中。
+* 将 `autostart="false"` 特性添加到 `blazor.server.js` 脚本的 `<script>` 标记中。
 * 调用 `Blazor.start` 并传入指定 SignalR 生成器的配置对象。
 
 ```html

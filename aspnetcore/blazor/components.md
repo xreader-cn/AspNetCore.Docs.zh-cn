@@ -2,19 +2,20 @@
 title: 创建和使用 ASP.NET Core Razor 组件
 author: guardrex
 description: 了解如何创建和使用 Razor 组件，包括如何绑定到数据、处理事件和管理组件生命周期。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/28/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/components
-ms.openlocfilehash: 9e796a23a0b24a9fee314051644703ef12bd7607
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e73667925c04dd1b2360138343c4a2dcef0ee310
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828199"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160010"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -34,9 +35,6 @@ ms.locfileid: "75828199"
 
 组件类的成员在 `@code` 块中定义。 在 `@code` 块中，组件状态（属性、字段）是通过用于事件处理的方法或定义其他组件逻辑来指定的。 允许多个 `@code` 块。
 
-> [!NOTE]
-> 在 ASP.NET Core 3.0 的先前预览中，`@functions` 块用于与 Razor 组件中 `@code` 块相同的用途。 `@functions` 块继续在 Razor 组件中运行，但我们建议在 ASP.NET Core 3.0 Preview 6 或更高版本中使用 `@code` 块。
-
 可以使用C#以 `@`开头的表达式将组件成员作为组件的呈现逻辑的一部分。 例如， C#字段通过在字段名称 `@` 前缀来呈现。 下面的示例计算并呈现：
 
 * `_headingFontStyle` `font-style`的 CSS 属性值。
@@ -53,17 +51,37 @@ ms.locfileid: "75828199"
 
 最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新的呈现树与上一个树进行比较，并将所有修改应用于浏览器的文档对象模型（DOM）。
 
-组件是普通C#类，可以放置在项目中的任何位置。 生成网页的组件通常位于*Pages*文件夹中。 非页组件通常放置在*共享*文件夹中或添加到项目的自定义文件夹中。 若要使用自定义文件夹，请将自定义文件夹的命名空间添加到父组件或应用程序的 *_Imports*文件。 例如，以下命名空间使*组件*文件夹中的组件在应用的根命名空间 `WebApplication`时可用：
+组件是普通C#类，可以放置在项目中的任何位置。 生成网页的组件通常位于*Pages*文件夹中。 非页组件通常放置在*共享*文件夹中或添加到项目的自定义文件夹中。
+
+通常，组件的命名空间是从应用程序的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp` 的，并且 `Counter` 组件位于*Pages*文件夹中：
+
+* `Counter` 组件的命名空间为 `BlazorApp.Pages`。
+* 组件的完全限定类型名称为 `BlazorApp.Pages.Counter`。
+
+有关详细信息，请参阅[导入组件](#import-components)部分。
+
+若要使用自定义文件夹，请将自定义文件夹的命名空间添加到父组件或应用程序的 *_Imports*文件。 例如，以下命名空间使*组件*文件夹中的组件在应用的根命名空间 `BlazorApp`时可用：
 
 ```razor
-@using WebApplication.Components
+@using BlazorApp.Components
 ```
 
 ## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>将组件集成到 Razor Pages 和 MVC 应用
 
-将组件用于现有 Razor Pages 和 MVC 应用。 无需重写现有页面或视图即可使用 Razor 组件。 呈现页面或视图时，组件将同时预呈现。
+Razor 组件可集成到 Razor Pages 和 MVC 应用。 呈现页面或视图时，组件可以同时预呈现。
 
-::: moniker range=">= aspnetcore-3.1"
+若要准备 Razor Pages 或 MVC 应用以承载 Razor 组件，请按照将*razor 组件集成到 <xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps> 文章的 Razor Pages 和 MVC 应用程序*部分中的指导进行操作。
+
+当使用自定义文件夹来保存应用程序的组件时，将表示文件夹的命名空间添加到页面/视图或 *_ViewImports.* # 文件中。 在下例中：
+
+* 将 `MyAppNamespace` 更改为应用的命名空间。
+* 如果未使用名为 "*组件*" 的文件夹来保存组件，请将 `Components` 更改为组件所在的文件夹。
+
+```csharp
+@using MyAppNamespace.Components
+```
+
+*_ViewImports*的 Razor Pages 应用的 "*页面*" 文件夹或 MVC 应用的 " *Views* " 文件夹。
 
 若要从页面或视图呈现组件，请使用 `Component` 标记帮助程序：
 
@@ -90,35 +108,6 @@ ms.locfileid: "75828199"
 不支持从静态 HTML 页面呈现服务器组件。
 
 有关如何呈现组件、组件状态和 `Component` 标记帮助器的详细信息，请参阅 <xref:blazor/hosting-models>。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-若要从页面或视图呈现组件，请使用 `RenderComponentAsync<TComponent>` HTML 帮助器方法：
-
-```cshtml
-@(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
-```
-
-`RenderMode` 配置组件是否：
-
-* 已预呈现到页面中。
-* 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
-
-| `RenderMode`        | 描述 |
-| ------------------- | ----------- |
-| `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
-| `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 不支持参数。 |
-| `Static`            | 将组件呈现为静态 HTML。 支持参数。 |
-
-尽管页面和视图可以使用组件，但不是这样。 组件不能使用视图和特定于页的方案，如分部视图和节。 若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。
-
-不支持从静态 HTML 页面呈现服务器组件。
-
-有关如何呈现组件、组件状态和 `RenderComponentAsync` HTML 帮助器的详细信息，请参阅 <xref:blazor/hosting-models>。
-
-::: moniker-end
 
 ## <a name="use-components"></a>使用组件
 
@@ -353,6 +342,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 与 `onchange`不同，后者会在元素失去焦点时触发，`oninput` 在文本框的值更改时激发。
 
+前面的示例中的 `@bind-value` 将绑定：
+
+* 元素的 `value` 属性的指定表达式（`CurrentValue`）。
+* `@bind-value:event`指定的事件的 change 事件委托。
+
 **不可分析值**
 
 当用户向数据绑定元素提供无法分析的值时，触发绑定事件时，无法分析的值将自动恢复为其以前的值。
@@ -522,6 +516,10 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
+**单选按钮**
+
+有关绑定到窗体中的单选按钮的详细信息，请参阅 <xref:blazor/forms-validation#work-with-radio-buttons>。
+
 ## <a name="event-handling"></a>事件处理
 
 Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素特性（例如，`onclick` 和 `onsubmit`）与委托类型的值，Razor 组件将属性值视为事件处理程序。 特性的名称始终[`@on{EVENT}`](xref:mvc/views/razor#onevent)格式。
@@ -592,7 +590,7 @@ Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素
 | 爬网         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | 触控            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
 
-有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（dotnet/AspNetCore release/3.0 分支）](https://github.com/dotnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)。
+有关上表中事件的属性和事件处理行为的信息，请参阅[引用源中的 EventArgs 类（dotnet/aspnetcore release/3.1 分支）](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。
 
 ### <a name="lambda-expressions"></a>Lambda 表达式
 
@@ -696,8 +694,6 @@ await callback.InvokeAsync(arg);
 
 优先使用强类型 `EventCallback<T>` `EventCallback`。 `EventCallback<T>` 向组件用户提供更好的错误反馈。 与其他 UI 事件处理程序类似，指定事件参数是可选的。 当没有值传递到回调时，使用 `EventCallback`。
 
-::: moniker range=">= aspnetcore-3.1"
-
 ### <a name="prevent-default-actions"></a>阻止默认操作
 
 使用[`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault)指令特性可防止事件的默认操作。
@@ -763,8 +759,6 @@ await callback.InvokeAsync(arg);
         Console.WriteLine($"A child div was selected. {DateTime.Now}");
 }
 ```
-
-::: moniker-end
 
 ## <a name="chained-bind"></a>链式绑定
 
@@ -1091,8 +1085,6 @@ public class NotifierService
 
 *捕获所有*参数语法（`*`/`**`），该语法跨多个文件夹边界捕获路径，而 razor 组件（*razor*）**不**支持此语法。
 
-::: moniker range=">= aspnetcore-3.1"
-
 ## <a name="partial-class-support"></a>分部类支持
 
 Razor 组件以分部类的形式生成。 使用以下方法之一创作 Razor 组件：
@@ -1154,43 +1146,16 @@ namespace BlazorApp.Pages
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-## <a name="specify-a-component-base-class"></a>指定组件基类
-
-`@inherits` 指令可用于指定组件的基类。
-
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)演示组件如何继承基类 `BlazorRocksBase`，以提供组件的属性和方法。
-
-*Pages/BlazorRocks*：
-
-```razor
-@page "/BlazorRocks"
-@inherits BlazorRocksBase
-
-<h1>@BlazorRocksText</h1>
-```
-
-*BlazorRocksBase.cs*：
+根据需要将任何所需的命名空间添加到分部类文件中。 Razor 组件使用的典型命名空间包括：
 
 ```csharp
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-
-namespace BlazorSample
-{
-    public class BlazorRocksBase : ComponentBase
-    {
-        public string BlazorRocksText { get; set; } = 
-            "Blazor rocks the browser!";
-    }
-}
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 ```
-
-基类应派生自 `ComponentBase`。
-
-::: moniker-end
 
 ## <a name="import-components"></a>导入组件
 

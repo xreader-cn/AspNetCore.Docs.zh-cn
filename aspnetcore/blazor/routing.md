@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 路由
 author: guardrex
 description: 了解如何在应用中路由请求，以及如何在 NavLink 组件中路由请求。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/routing
-ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 0cd15f25ff7975cae3f63a739212aa23062ece23
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944013"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160153"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -121,7 +122,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 }
 ```
 
-ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
+不支持可选参数。 前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
 
 ## <a name="route-constraints"></a>路由约束
 
@@ -138,14 +139,14 @@ ASP.NET Core 3.0 中的 Blazor 应用不支持可选参数。 前面的示例中
 
 | 约束 | 示例           | 匹配项示例                                                                  | 固定条件<br>区域性<br>匹配 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`，`FALSE`                                                                  | 否                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`，`2016-12-31 7:32pm`                                                | 是                              |
-| `decimal`  | `{price:decimal}` | `49.99`，`-1,000.01`                                                             | 是                              |
-| `double`   | `{weight:double}` | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `float`    | `{weight:float}`  | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
-| `int`      | `{id:int}`        | `123456789`，`-123456789`                                                        | 是                              |
-| `long`     | `{ticks:long}`    | `123456789`，`-123456789`                                                        | 是                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | 否                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | 是                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | 是                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | 是                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | 是                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | 是                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | 是                              |
 
 > [!WARNING]
 > 验证 URL 的路由约束并将转换为始终使用固定区域性的 CLR 类型（例如 `int` 或 `DateTime`）。 这些约束假定 URL 不可本地化。

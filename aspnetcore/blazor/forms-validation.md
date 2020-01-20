@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 窗体和验证
 author: guardrex
 description: 了解如何在 Blazor中使用窗体和字段验证方案。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: a94a433f26e451bbadc73615e502e46d273f05c2
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 6f6fdc13dbb754ecfe06025d496017d3c16951fe
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828134"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159958"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -37,8 +38,8 @@ public class ExampleModel
 
 使用 `EditForm` 组件定义窗体。 下面的窗体演示典型的元素、组件和 Razor 代码：
 
-```csharp
-<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+```razor
+<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -57,7 +58,12 @@ public class ExampleModel
 }
 ```
 
+在上面的示例中：
+
 * 窗体使用 `ExampleModel` 类型中定义的验证来验证 `name` 字段中的用户输入。 该模型是在组件的 `@code` 块中创建的，并保存在私有字段（`exampleModel`）中。 该字段将分配给 `<EditForm>` 元素的 `Model` 特性。
+* `InputText` 组件 `@bind-Value` 绑定：
+  * 模型属性（`exampleModel.Name`）到 `InputText` 组件的 `Value` 属性。
+  * `InputText` 组件的 `ValueChanged` 属性的 change 事件委托。
 * `DataAnnotationsValidator` 组件使用数据批注附加验证支持。
 * `ValidationSummary` 组件汇总验证消息。
 * 当窗体成功提交（通过验证）时，将触发 `HandleValidSubmit`。
@@ -118,39 +124,50 @@ public class Starship
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <p>
-        <label for="identifier">Identifier: </label>
-        <InputText id="identifier" @bind-Value="starship.Identifier" />
+        <label>
+            Identifier:
+            <InputText @bind-Value="starship.Identifier" />
+        </label>
     </p>
     <p>
-        <label for="description">Description (optional): </label>
-        <InputTextArea id="description" @bind-Value="starship.Description" />
+        <label>
+            Description (optional):
+            <InputTextArea @bind-Value="starship.Description" />
+        </label>
     </p>
     <p>
-        <label for="classification">Primary Classification: </label>
-        <InputSelect id="classification" @bind-Value="starship.Classification">
-            <option value="">Select classification ...</option>
-            <option value="Exploration">Exploration</option>
-            <option value="Diplomacy">Diplomacy</option>
-            <option value="Defense">Defense</option>
-        </InputSelect>
+        <label>
+            Primary Classification:
+            <InputSelect @bind-Value="starship.Classification">
+                <option value="">Select classification ...</option>
+                <option value="Exploration">Exploration</option>
+                <option value="Diplomacy">Diplomacy</option>
+                <option value="Defense">Defense</option>
+            </InputSelect>
+        </label>
     </p>
     <p>
-        <label for="accommodation">Maximum Accommodation: </label>
-        <InputNumber id="accommodation" 
-            @bind-Value="starship.MaximumAccommodation" />
+        <label>
+            Maximum Accommodation:
+            <InputNumber @bind-Value="starship.MaximumAccommodation" />
+        </label>
     </p>
     <p>
-        <label for="valid">Engineering Approval: </label>
-        <InputCheckbox id="valid" @bind-Value="starship.IsValidatedDesign" />
+        <label>
+            Engineering Approval:
+            <InputCheckbox @bind-Value="starship.IsValidatedDesign" />
+        </label>
     </p>
     <p>
-        <label for="productionDate">Production Date: </label>
-        <InputDate id="productionDate" @bind-Value="starship.ProductionDate" />
+        <label>
+            Production Date:
+            <InputDate @bind-Value="starship.ProductionDate" />
+        </label>
     </p>
 
     <button type="submit">Submit</button>
@@ -174,6 +191,54 @@ public class Starship
 
 `EditForm` 创建一个 `EditContext` 作为[级联值](xref:blazor/components#cascading-values-and-parameters)，用于跟踪有关编辑过程的元数据，包括已修改的字段和当前验证消息。 `EditForm` 还为有效提交和无效提交（`OnValidSubmit`、`OnInvalidSubmit`）提供便利事件。 或者，使用 `OnSubmit` 使用自定义验证代码来触发验证和检查字段值。
 
+在下例中：
+
+* 选择 "**提交**" 按钮时，将运行 `HandleSubmit` 方法。
+* 使用窗体的 `EditContext`验证窗体。
+* 通过将 `EditContext` 传递给调用服务器上的 web API 终结点的 `ServerValidate` 方法来进一步验证窗体（*未显示*）。
+* 根据客户端和服务器端验证的结果，运行其他代码，方法是检查 `isValid`。
+
+```razor
+<EditForm EditContext="@editContext" OnSubmit="@HandleSubmit">
+
+    ...
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private Starship starship = new Starship();
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(starship);
+    }
+
+    private async Task HandleSubmit()
+    {
+        var isValid = editContext.Validate() && 
+            await ServerValidate(editContext);
+
+        if (isValid)
+        {
+            ...
+        }
+        else
+        {
+            ...
+        }
+    }
+
+    private async Task<bool> ServerValidate(EditContext editContext)
+    {
+        var serverChecksValid = ...
+
+        return serverChecksValid;
+    }
+}
+```
+
 ## <a name="inputtext-based-on-the-input-event"></a>基于输入事件的 InputText
 
 使用 `InputText` 组件创建使用 `input` 事件而不是 `change` 事件的自定义组件。
@@ -189,6 +254,94 @@ public class Starship
     value="@CurrentValue" 
     @oninput="EventCallback.Factory.CreateBinder<string>(
         this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+```
+
+## <a name="work-with-radio-buttons"></a>使用单选按钮
+
+使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮作为一个组进行计算。 每个单选按钮的值都是固定的，但单选按钮组的值是所选单选按钮的值。 以下示例介绍如何：
+
+* 处理单选按钮组的数据绑定。
+* 使用自定义 `InputRadio` 组件支持验证。
+
+```razor
+@using System.Globalization
+@typeparam TValue
+@inherits InputBase<TValue>
+
+<input @attributes="AdditionalAttributes" type="radio" value="@SelectedValue" 
+       checked="@(SelectedValue.Equals(Value))" @onchange="OnChange" />
+
+@code {
+    [Parameter]
+    public TValue SelectedValue { get; set; }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        CurrentValueAsString = args.Value.ToString();
+    }
+
+    protected override bool TryParseValueFromString(string value, 
+        out TValue result, out string errorMessage)
+    {
+        var success = BindConverter.TryConvertTo<TValue>(
+            value, CultureInfo.CurrentCulture, out var parsedValue);
+        if (success)
+        {
+            result = parsedValue;
+            errorMessage = null;
+
+            return true;
+        }
+        else
+        {
+            result = default;
+            errorMessage = $"{FieldIdentifier.FieldName} field isn't valid.";
+
+            return false;
+        }
+    }
+}
+```
+
+以下 `EditForm` 使用上述 `InputRadio` 组件获取和验证用户的评级：
+
+```razor
+@page "/RadioButtonExample"
+@using System.ComponentModel.DataAnnotations
+
+<h1>Radio Button Group Test</h1>
+
+<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    @for (int i = 1; i <= 5; i++)
+    {
+        <label>
+            <InputRadio name="rate" SelectedValue="i" @bind-Value="model.Rating" />
+            @i
+        </label>
+    }
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<p>You chose: @model.Rating</p>
+
+@code {
+    private Model model = new Model();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("valid");
+    }
+
+    public class Model
+    {
+        [Range(1, 5)]
+        public int Rating { get; set; }
+    }
+}
 ```
 
 ## <a name="validation-support"></a>验证支持
@@ -243,15 +396,13 @@ private class MyCustomValidator : ValidationAttribute
 }
 ```
 
-::: moniker range=">= aspnetcore-3.1"
-
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor 数据批注验证包
 
 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)是使用 `DataAnnotationsValidator` 组件填充验证体验缺口的包。 包当前正在*试验*。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件。 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *实验*包引入了一个附加的验证特性 `ComparePropertyAttribute`，该特性围绕这些限制。 在 Blazor 应用中，`[CompareProperty]` 是 `[Compare]` 属性的直接替换。 有关详细信息，请参阅[CompareAttribute With OnValidSubmit EditForm （dotnet/AspNetCore #10643）已忽略](https://github.com/dotnet/AspNetCore/issues/10643#issuecomment-543909748)。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证之间的行为不一致，并在提交时验证整个模型。 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *实验*包引入了一个附加的验证特性 `ComparePropertyAttribute`，该特性围绕这些限制。 在 Blazor 应用中，`[CompareProperty]` 是 `[Compare]` 属性的直接替换。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>嵌套模型、集合类型和复杂类型
 
@@ -260,7 +411,7 @@ Blazor 提供对通过内置 `DataAnnotationsValidator`使用数据批注验证�
 若要验证绑定模型的整个对象关系图，包括集合和复杂类型属性，请使用BlazorAspNetCore 提供的 `ObjectGraphDataAnnotationsValidator` 。 [DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)包：
 
 ```razor
-<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...
 </EditForm>
@@ -303,12 +454,69 @@ public class ShipDescription
 }
 ```
 
-::: moniker-end
+### <a name="enable-the-submit-button-based-on-form-validation"></a>基于窗体验证启用 "提交" 按钮
 
-::: moniker range="< aspnetcore-3.1"
+若要启用和禁用基于窗体验证的 "提交" 按钮：
 
-### <a name="validation-of-complex-or-collection-type-properties"></a>验证复杂或集合类型属性
+* 使用窗体的 `EditContext` 在初始化组件时分配模型。
+* 验证上下文的 `OnFieldChanged` 回调中的窗体，以启用和禁用 "提交" 按钮。
 
-应用于模型属性的验证属性在提交表单时进行验证。 但是，在由 `DataAnnotationsValidator` 组件提交窗体时，不会验证模型的集合或复杂数据类型的属性。 若要在此方案中遵守嵌套验证属性，请使用自定义验证组件。 有关示例，请参阅[Blazor 验证示例（aspnet/示例）](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation)。
+```razor
+<EditForm EditContext="@editContext">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-::: moniker-end
+    ...
+
+    <button type="submit" disabled="@formInvalid">Submit</button>
+</EditForm>
+
+@code {
+    private Starship starship = new Starship();
+    private bool formInvalid = true;
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(starship);
+
+        editContext.OnFieldChanged += (_, __) =>
+        {
+            formInvalid = !editContext.Validate();
+            StateHasChanged();
+        };
+    }
+}
+```
+
+在前面的示例中，将 `formInvalid` 设置为 `false` 如果：
+
+* 该窗体预加载了有效的默认值。
+* 您希望在加载窗体时启用 "提交" 按钮。
+
+上述方法的副作用是，在用户与任何一个字段交互后，使用无效的字段填充 `ValidationSummary` 组件。 可以通过以下方式之一解决此方案：
+
+* 请勿使用窗体上的 `ValidationSummary` 组件。
+* 选择 "提交" 按钮（例如，在 `HandleValidSubmit` 方法中）时，使 `ValidationSummary` 组件可见。
+
+```razor
+<EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary style="@displaySummary" />
+
+    ...
+
+    <button type="submit" disabled="@formInvalid">Submit</button>
+</EditForm>
+
+@code {
+    private string displaySummary = "display:none";
+
+    ...
+
+    private void HandleValidSubmit()
+    {
+        displaySummary = "display:block";
+    }
+}
+```

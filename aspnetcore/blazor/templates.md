@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor 模板
 author: guardrex
 description: 了解 ASP.NET Core Blazor 应用程序模板和 Blazor 项目结构。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/25/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879656"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160114"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -50,13 +50,13 @@ Blazor 框架提供模板，用于为每个 Blazor 承载模型开发应用程�
 * *wwwroot/index.html* （Blazor WebAssembly） &ndash; 作为 html 页面实现的应用的根页面：
   * 当最初请求应用的任何页面时，此页将呈现并在响应中返回。
   * 页面指定 `App` 呈现根组件的位置。 `App` 组件（*app.config*）指定为 `Startup.Configure`中 `AddComponent` 方法的 `app` DOM 元素。
-  * 已加载 *_framework/Blazor.webassembly.js* JavaScript 文件，该文件：
+  * `_framework/blazor.webassembly.js` 加载 JavaScript 文件，该文件：
     * 下载 .NET 运行时、应用程序和应用程序的依赖项。
     * 初始化运行时以运行应用程序。
 
 * *Pages/_Host cshtml* （Blazor Server） &ndash; 作为 Razor 页面实现的应用的根页面：
   * 当最初请求应用的任何页面时，此页将呈现并在响应中返回。
-  * 加载 *_framework/Blazor.server.js* JavaScript 文件，该文件将设置浏览器与服务器之间的实时 SignalR 连接。
+  * `_framework/blazor.server.js` 加载 JavaScript 文件，该文件将设置浏览器与服务器之间的实时 SignalR 连接。
   * "主机" 页指定根 `App` 组件（*app.config*）的呈现位置。
 
 * *App.config* &ndash; 使用 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件设置客户端路由的应用程序的根组件。 `Router` 组件会截获浏览器导航，并呈现与请求的地址匹配的页面。

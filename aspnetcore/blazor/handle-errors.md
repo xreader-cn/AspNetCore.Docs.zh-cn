@@ -2,20 +2,20 @@
 title: 处理 ASP.NET Core Blazor 应用中的错误
 author: guardrex
 description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理的异常以及如何开发检测并处理错误的应用程序。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: d73eb9a0dd0ec7a4bec4b7b9aeaaa4a9ee888bce
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: fe4cc13b1efb8c70c9632f032626aa938fb65ea3
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943701"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159945"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -23,14 +23,12 @@ ms.locfileid: "74943701"
 
 本文介绍 Blazor 如何管理未经处理的异常以及如何开发检测和处理错误的应用。
 
-::: moniker range=">= aspnetcore-3.1"
-
 ## <a name="detailed-errors-during-development"></a>开发过程中的详细错误
 
-如果在开发过程中 Blazor 应用程序不能正常工作，则从应用程序接收详细的错误信息可帮助进行故障排除并解决问题。 出现错误时，Blazor 应用程序会在屏幕底部显示一个金色栏：
+当 Blazor 应用在开发过程中运行不正常时，从该应用接收详细的错误信息有助于故障排除和修复问题。 出现错误时，Blazor 应用会在屏幕底部显示一个黄色条框：
 
-* 在开发过程中，黄金栏会将您定向到浏览器控制台，您可以在其中查看异常。
-* 在生产环境中，黄金栏通知用户发生了错误，并建议刷新浏览器。
+* 在开发过程中，黄色条框会将你定向到浏览器控制台，你可在其中查看异常。
+* 在生产过程中，黄色条框会通知用户发生了错误，并建议刷新浏览器。
 
 此错误处理体验的 UI 是 Blazor 项目模板的一部分。 在 Blazor WebAssembly 应用程序中，自定义*wwwroot/index.html*文件中的体验：
 
@@ -58,8 +56,6 @@ ms.locfileid: "74943701"
 ```
 
 `blazor-error-ui` 元素被 Blazor 模板附带的样式隐藏，然后在发生错误时显示。
-
-::: moniker-end
 
 ## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Blazor 框架如何响应未经处理的异常
 
@@ -213,8 +209,6 @@ Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户�
 
 ### <a name="prerendering"></a>呈现
 
-::: moniker range=">= aspnetcore-3.1"
-
 使用 `Component` 标记帮助器可以预呈现 Blazor 组件，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
 
 * 为属于同一页面的所有预呈现组件创建新线路。
@@ -229,27 +223,6 @@ Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户�
 在正常情况下，如果预呈现失败，则继续生成并呈现组件没有意义，因为无法呈现工作组件。
 
 若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不要将 `Component` 标记帮助程序包装在 `try-catch` 语句中，而是将错误处理逻辑放在由 `Component` 标记帮助器呈现的组件中。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-可以使用 `Html.RenderComponentAsync` 预呈现 Blazor 组件，以便将其呈现的 HTML 标记作为用户初始的 HTTP 请求的一部分返回。 此功能的工作方式如下：
-
-* 为属于同一页面的所有预呈现组件创建新线路。
-* 正在生成初始 HTML。
-* 将线路视为 `disconnected`，直到用户的浏览器将 SignalR 连接回同一服务器。 建立连接后，将恢复对线路的交互，并更新组件的 HTML 标记。
-
-如果任何组件在预呈现期间引发未经处理的异常，例如，在生命周期方法或呈现逻辑中：
-
-* 此异常是线路致命的。
-* 调用堆栈从 `Html.RenderComponentAsync` 调用中引发了异常。 因此，整个 HTTP 请求将失败，除非开发人员代码显式捕获了异常。
-
-在正常情况下，如果预呈现失败，则继续生成并呈现组件没有意义，因为无法呈现工作组件。
-
-若要容忍在预呈现期间可能发生的错误，必须将错误处理逻辑放置在可能引发异常的组件中。 使用带有错误处理和日志记录的[try catch](/dotnet/csharp/language-reference/keywords/try-catch)语句。 不要在 `try-catch` 语句中包装对 `RenderComponentAsync` 的调用，而是将错误处理逻辑放在由 `RenderComponentAsync`呈现的组件中。
-
-::: moniker-end
 
 ## <a name="advanced-scenarios"></a>高级方案
 

@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 状态管理
 author: guardrex
 description: 了解如何在 Blazor 服务器应用程序中保持状态。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 7351ee2438c6adf675b8aa5e8ecdb1b2da7b4f23
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: ffb32a4f274a30f2a5ceed9cbf193285e85bab4c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943922"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160140"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -241,17 +242,7 @@ else
 
 解决错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现增加了复杂性，因此不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用程序无法将任何有用的内容预呈现。
 
-::: moniker range=">= aspnetcore-3.1"
-
 若要禁用预呈现，请打开*Pages/_Host cshtml*文件，并将对 `Component` 标记帮助程序 `render-mode` 的调用更改为 `Server`。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-若要禁用预呈现，请打开*Pages/_Host cshtml*文件并将调用更改为 `Html.RenderComponentAsync<App>(RenderMode.Server)`。
-
-::: moniker-end
 
 对于不使用 `localStorage` 或 `sessionStorage`的其他页，预呈现可能很有用。 要使预呈现功能保持启用状态，请推迟加载操作，直到浏览器连接到线路。 下面是存储计数器值的示例：
 
