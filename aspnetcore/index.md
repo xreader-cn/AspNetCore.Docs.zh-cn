@@ -22,14 +22,14 @@ ms.locfileid: "75914223"
 
 ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/home)框架，用于生成基于云且连接 Internet 的新式应用程序。 使用 ASP.NET Core，您可以：
 
-* 创建 Web 应用程序、服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
+* 创建 Web 应用和服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
 * 在 Windows、macOS 和 Linux上跨平台的开发。
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
 
 ## <a name="why-choose-aspnet-core"></a>为何选择 ASP.NET Core？
 
-数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是对ASP.NET 4.x的重新设计，其架构更加精简，更加模块化。
+数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
 
 [!INCLUDE[](~/includes/benefits.md)]
 
@@ -53,9 +53,9 @@ ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)
 
 ## <a name="aspnet-core-targeting-net-framework"></a>面向 .NET Framework 的 ASP.NET Core
 
-ASP.NET Core 2.x 可以面向 .NET Core 或 .NET Framework。 面向 .NET Framework 的 ASP.NET Core 应用无法跨平台，它们仅在 Windows 上运行。 通常，ASP.NET Core 2.x 由 [.NET Standard](/dotnet/standard/net-standard) 库组成。 使用 .NET Standard 2.0 编写的库可以在[实现 .NET Standard 2.0 的任何 .NET 平台](/dotnet/standard/net-standard#net-implementation-support)上运行。
+ASP.NET Core 2.x 可以面向 .NET Core 或 .NET Framework。 面向 .NET Framework 的 ASP.NET Core 应用无法跨平台，它们仅在 Windows 上运行。 通常，ASP.NET Core 2.x 由 [.NET Standard](/dotnet/standard/net-standard) 库组成。 使用 .NET Standard 2.0 编写的库在[实现 .NET Standard 2.0 的任何 .NET 平台](/dotnet/standard/net-standard#net-implementation-support)上运行。
 
-使用.NET Standard 2.0的库支持ASP.NET Core 2.x和.NET Framework：
+ASP.NET Core 2.x 在实现 .NET Standard 2.0 的 .NET Framework 版本上受支持：
 
 * 强烈建议使用最新版本的 .NET Framework。
 * .NET Framework 4.6.1 及更高版本。
@@ -64,8 +64,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 面向 .NET Core 有以下几个优势，并且这些优势会随着每次发布增加。 与 .NET Framework 相比，.NET Core 的部分优势包括：
 
-* 跨平台， 在 macOS、Linux 和 Windows 上运行。
-* 性能提升
+* 跨平台。 在 macOS、Linux 和 Windows 上运行。
+* 性能更强
 * [并行版本控制](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level)
 * 新 API
 * 开源
@@ -74,9 +74,9 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 ## <a name="recommended-learning-path"></a>推荐的学习路径
 
-建议使用以下教程和文章，来介绍如何开发 ASP.NET Core 应用程序：  
+建议通过以下一系列教程和文章来了解如何开发 ASP.NET Core 应用： 
 
-1. 根据开发或维护的应用类型列出以下教程：
+1. 按照你要开发或维护的应用类型的教程操作：
 
    |应用类型  |方案  |教程  |
    |----------|----------|----------|
@@ -87,7 +87,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
    |Blazor 应用                |                            |[开始使用 Blazor](xref:blazor/get-started) |
    |远程过程调用应用 |                            |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
 
-1. 根据基本数据的访问列出以下教程：
+1. 按照介绍如何进行基本数据访问的教程操作：
 
    |方案  |教程  |
    |----------|----------|
@@ -148,7 +148,7 @@ Host.CreateDefaultBuilder(args)
 #endregion
 ```
 
-在 markdown 文件中使用前面的 C# 代码块：
+主题的 Markdown 文件在以下行中引用了前面的 C# 代码片段：
 
 ```md
 [!code-csharp[](sample/SampleApp/Program.cs?name=snippet_WebHostDefaults)]
