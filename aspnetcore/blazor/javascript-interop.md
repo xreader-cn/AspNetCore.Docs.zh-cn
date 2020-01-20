@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor JavaScript 互操作
 author: guardrex
 description: 了解如何从 Blazor 应用中的 JavaScript 的 .NET 和 .NET 方法中调用 JavaScript 函数。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/javascript-interop
-ms.openlocfilehash: 7135e44278632ee53bdf899b95da9ad70d329045
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e1b9c84dace193768c6f3fbb5636ef675d65a20d
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828121"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159884"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -363,4 +364,4 @@ Hello, Blazor!
 
 ## <a name="additional-resources"></a>其他资源
 
-* [InteropComponent 示例（dotnet/AspNetCore GitHub 存储库，3.0 发布分支）](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [InteropComponent 示例（dotnet/AspNetCore GitHub 存储库，3.1 发布分支）](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

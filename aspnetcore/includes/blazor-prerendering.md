@@ -1,4 +1,15 @@
-预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。 在预呈现时，组件可能需要以不同的方式呈现。
+---
+no-loc:
+- Blazor
+- SignalR
+ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159883"
+---
+在预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。 在预呈现时，组件可能需要以不同的方式呈现。
 
 若要在建立与浏览器的连接后延迟 JavaScript 互操作调用，可以使用[OnAfterRenderAsync 组件生命周期事件](xref:blazor/lifecycle#after-component-render)。 仅在完全呈现应用并建立客户端连接后，才调用此事件。
 
@@ -31,7 +42,7 @@
 ```
 
 > [!WARNING]
-> 前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。 大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor 的更改跟踪。
+> 前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。 大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor的更改跟踪。
 
 以下组件演示了如何以与预呈现兼容的方式将 JavaScript 互操作作为组件的初始化逻辑的一部分使用。 该组件显示可以从 `OnAfterRenderAsync`内触发呈现更新。 开发人员必须避免在此方案中创建无限循环。
 
@@ -82,4 +93,4 @@ Set value via JS interop call:
 ```
 
 > [!WARNING]
-> 前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。 大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor 的更改跟踪。
+> 前面的示例仅修改了文档对象模型（DOM），以便仅用于演示目的。 大多数情况下不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor的更改跟踪。

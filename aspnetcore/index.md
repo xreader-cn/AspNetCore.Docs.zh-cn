@@ -24,12 +24,14 @@ ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/ho
 
 * 创建 Web 应用和服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
 * 在 Windows、macOS 和 Linux上跨平台的开发。
+
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
 
 ## <a name="why-choose-aspnet-core"></a>为何选择 ASP.NET Core？
 
 数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
+
 
 [!INCLUDE[](~/includes/benefits.md)]
 
@@ -75,6 +77,7 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 ## <a name="recommended-learning-path"></a>推荐的学习路径
 
 建议通过以下一系列教程和文章来了解如何开发 ASP.NET Core 应用： 
+
 
 1. 按照你要开发或维护的应用类型的教程操作：
 

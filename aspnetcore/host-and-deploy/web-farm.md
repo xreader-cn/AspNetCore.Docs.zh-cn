@@ -5,14 +5,14 @@ description: 了解如何在 Web 场环境中托管包含共享资源的 ASP.NET
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 16ec2162be8199857d0f2d0ff989ec4cdc6c3277
-ms.sourcegitcommit: 68d804d60e104c81fe77a87a9af70b5df2726f60
+ms.openlocfilehash: 5c13e9bc4c514f9b42871d55a430265c8ec2da23
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/08/2019
-ms.locfileid: "73830706"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951820"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
@@ -92,3 +92,4 @@ Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用�
 ## <a name="additional-resources"></a>其他资源
 
 * [适用于 Windows 的自定义脚本扩展](/azure/virtual-machines/extensions/custom-script-windows) &ndash; 在 Azure 虚拟机上下载和执行脚本，这对于部署后配置和软件安装很有用。
+* <xref:host-and-deploy/proxy-load-balancer>

@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 依赖关系注入
 author: guardrex
 description: 了解 Blazor 应用如何将服务注入组件。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/08/2020
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: aad6cfee500b5cb502470f6a4a7cb5756df09dc4
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 6930d721f04fd5f7cad2ba472724497a157fda0f
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943779"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159971"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
@@ -36,8 +37,8 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor Server apps 不包括配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关更多信息，请参见<xref:blazor/call-web-api>。 |
-| `IJSRuntime` | 单一实例 | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关更多信息，请参见<xref:blazor/javascript-interop>。 |
-| `NavigationManager` | 单一实例 | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
+| `IJSRuntime` | Singleton （Blazor WebAssembly）<br>作用域（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关更多信息，请参见<xref:blazor/javascript-interop>。 |
+| `NavigationManager` | Singleton （Blazor WebAssembly）<br>作用域（Blazor 服务器） | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果使用自定义服务提供程序并且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序中。
 

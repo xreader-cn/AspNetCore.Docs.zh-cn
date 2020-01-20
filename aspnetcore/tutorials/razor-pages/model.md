@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 0934c94236b507f2f57200ded4344a71c483d356
-ms.sourcegitcommit: 5fe17e54f7e4267a2fdecc6f9aa1d41166cecc34
+ms.openlocfilehash: fa5be8f3a222a7c186409faa2f48e43347df637a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/08/2020
-ms.locfileid: "75737853"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829291"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -142,6 +142,16 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 ![上述说明的图像。](model/_static/arpMac.png)
 
 appsettings.json  文件通过用于连接到本地数据的连接字符串进行更新。
+
+### <a name="add-ef-tools"></a>添加 EF 工具
+
+运行以下 .NET Core CLI 命令：
+
+```dotnetcli
+dotnet tool install --global dotnet-ef
+```
+
+前面的命令将添加适用于 .NET Core CLI 的 Entity Framework Core 工具。
 
 ---
 

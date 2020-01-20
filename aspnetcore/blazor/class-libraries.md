@@ -2,19 +2,20 @@
 title: ASP.NET Core Razor 组件类库
 author: guardrex
 description: 了解如何在来自外部组件库 Blazor 应用中包含组件。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: 6bac007e3e1d046d6b16a3a0be6dc5976b99b766
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: f8e8688cdb3d1aef0d470e0e2d8c3857140ef65f
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943870"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160023"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 

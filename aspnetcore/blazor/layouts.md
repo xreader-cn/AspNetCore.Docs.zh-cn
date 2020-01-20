@@ -2,19 +2,20 @@
 title: Blazor 布局 ASP.NET Core
 author: guardrex
 description: 了解如何为 Blazor 应用创建可重用的布局组件。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 90acfb0d4e9daadb12be79de6bd0c99fc545697a
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 51720af8fec5b4427fc66660eb8ac9c54ba2e99e
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944052"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159854"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor 布局 ASP.NET Core
 
@@ -90,6 +91,10 @@ ms.locfileid: "74944052"
 最后， *MasterLayout*中的 `MasterLayout` 包含顶级布局元素，如标头、主菜单和脚注。 在显示 `@Body` 的情况下，将呈现与 `EpisodesComponent` `MasterListLayout`：
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
+
+## <a name="share-a-razor-pages-layout-with-integrated-components"></a>使用集成组件共享 Razor Pages 布局
+
+当可路由组件集成到 Razor Pages 的应用时，应用的共享布局可用于组件。 有关更多信息，请参见<xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps>。
 
 ## <a name="additional-resources"></a>其他资源
 

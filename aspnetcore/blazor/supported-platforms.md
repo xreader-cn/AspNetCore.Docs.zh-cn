@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 支持的平台
 author: guardrex
 description: 了解 ASP.NET Core Blazor的支持平台。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/supported-platforms
-ms.openlocfilehash: de51296cc8785474e1c1406cfd5d4e5bd4050172
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962729"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160127"
 ---
 # <a name="aspnet-core-opno-locblazor-supported-platforms"></a>ASP.NET Core Blazor 支持的平台
 
@@ -26,7 +27,7 @@ ms.locfileid: "73962729"
 
 ### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
-| 浏览者                          | Version               |
+| 浏览器                          | {2&gt;版本&lt;2}               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | 当前               |
 | Mozilla Firefox                  | 当前               |
@@ -38,7 +39,7 @@ ms.locfileid: "73962729"
 
 ### <a name="opno-locblazor-server"></a>Blazor 服务器
 
-| 浏览者                          | Version    |
+| 浏览器                          | {2&gt;版本&lt;2}    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | 当前    |
 | Mozilla Firefox                  | 当前    |
