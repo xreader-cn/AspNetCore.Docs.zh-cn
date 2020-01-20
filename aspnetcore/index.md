@@ -23,13 +23,15 @@ ms.locfileid: "75914223"
 ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/home)框架，用于生成基于云且连接 Internet 的新式应用程序。 使用 ASP.NET Core，您可以：
 
 * 创建 Web 应用和服务、[IoT](https://www.microsoft.com/internet-of-things/) 应用和移动后端。
-* 在 Windows、macOS 和 Linux 上使用喜爱的开发工具。
+* 在 Windows、macOS 和 Linux上跨平台的开发。
+
 * 部署到云或本地。
 * 在 [.NET Core 或 .NET Framework](/dotnet/articles/standard/choosing-core-framework-server) 上运行。
 
 ## <a name="why-choose-aspnet-core"></a>为何选择 ASP.NET Core？
 
-数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
+数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
+
 
 [!INCLUDE[](~/includes/benefits.md)]
 
@@ -47,7 +49,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -74,7 +76,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 ## <a name="recommended-learning-path"></a>推荐的学习路径
 
-建议通过以下一系列教程和文章来了解如何开发 ASP.NET Core 应用：
+建议通过以下一系列教程和文章来了解如何开发 ASP.NET Core 应用： 
+
 
 1. 按照你要开发或维护的应用类型的教程操作：
 
