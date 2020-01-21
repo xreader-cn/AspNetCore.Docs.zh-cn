@@ -5,16 +5,16 @@ description: 了解如何在 ASP.NET Core SignalR中使用身份验证和授权�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 1bdb8b10a24c65735f49f04285e4129cb77eb3fb
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828940"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294703"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core 中的安全注意事项 SignalR
 
@@ -112,16 +112,20 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 
 ::: moniker-end
 
+## <a name="connectionid"></a>ConnectionId
+
+如果 SignalR 服务器或客户端版本 ASP.NET Core 2.2 或更早版本，公开 `ConnectionId` 可能会导致恶意模拟。 如果 SignalR 服务器和客户端版本 ASP.NET Core 3.0 或更高版本，则 `ConnectionToken`，而不是 `ConnectionId` 必须保持机密。 不会在任何 API 中公开 `ConnectionToken`。  很难确保较旧的 SignalR 客户端未连接到服务器，因此即使 SignalR 服务器版本 ASP.NET Core 3.0 或更高版本，也不应公开 `ConnectionId`。
+
 ## <a name="access-token-logging"></a>访问令牌日志记录
 
-使用 Websocket 或服务器发送事件时，浏览器客户端会在查询字符串中发送访问令牌。 通过查询字符串接收访问令牌通常与使用标准 `Authorization` 标题的安全性相同。 应始终使用 HTTPS 来确保客户端与服务器之间的安全端到端连接。 许多 web 服务器都记录每个请求的 URL，包括查询字符串。 记录 Url 可能会记录访问令牌。 默认情况下，ASP.NET Core 记录每个请求的 URL，其中将包括查询字符串。 例如：
+使用 Websocket 或服务器发送事件时，浏览器客户端会在查询字符串中发送访问令牌。 使用 "标准 `Authorization`" 标头，通过查询字符串接收访问令牌通常是安全的。 始终使用 HTTPS 确保客户端和服务器之间安全的端到端连接。 许多 web 服务器都记录每个请求的 URL，包括查询字符串。 记录 Url 可能会记录访问令牌。 默认情况下，ASP.NET Core 记录每个请求的 URL，其中将包括查询字符串。 例如：
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
 ```
 
-如果你对将此数据与服务器日志进行日志记录有关，你可以通过将 `Microsoft.AspNetCore.Hosting` 记录器配置到 `Warning` 级别或更高级别来完全禁用此日志记录（这些消息在 `Info` 级别写入）。 有关详细信息，请参阅有关[日志筛选](xref:fundamentals/logging/index#log-filtering)的文档。 如果仍想记录某些请求信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录所需的数据，并筛选出 `access_token` 查询字符串值（如果存在）。
+如果你对将此数据与服务器日志进行日志记录有关，你可以通过将 `Microsoft.AspNetCore.Hosting` 记录器配置到 `Warning` 级别或更高级别来完全禁用此日志记录（这些消息在 `Info` 级别写入）。 有关详细信息，请参阅[日志筛选](xref:fundamentals/logging/index#log-filtering)。 如果仍想记录某些请求信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录所需的数据，并筛选出 `access_token` 查询字符串值（如果存在）。
 
 ## <a name="exceptions"></a>异常
 

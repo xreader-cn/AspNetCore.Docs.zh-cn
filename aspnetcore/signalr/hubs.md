@@ -5,16 +5,16 @@ description: 了解如何使用 ASP.NET Core SignalR中的中心。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: f95766cab84bddff2c7c62f30bce1e6d1e43deab
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: e5bc12c5ccafe2b5273d72e6bde0f631ca043428
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963805"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294629"
 ---
 # <a name="use-hubs-in-opno-locsignalr-for-aspnet-core"></a>在 SignalR 中使用中心 ASP.NET Core
 
@@ -56,7 +56,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="create-and-use-hubs"></a>创建和使用集线器
 
-通过声明从 `Hub`继承的类创建一个中心，并向其添加公共方法。 客户端可以调用定义为 `public`的方法。
+通过声明从`Hub`继承的类来创建中心，并向其添加公共方法。 客户端可以调用定义为`public`的方法。
 
 ```csharp
 public class ChatHub : Hub
@@ -73,7 +73,7 @@ public class ChatHub : Hub
 > [!NOTE]
 > 中心是暂时性的：
 >
-> * 不要将状态存储在 hub 类的属性中。 每个中心方法调用在新的中心实例上执行。
+> * 不要将状态存储在 hub 类的属性中。 每个 hub 方法调用都在新的 hub 实例上执行。
 > * 调用依赖于中心保持活动状态的异步方法时，请使用 `await`。 例如，如果在没有 `await` 的情况下调用，则方法（如 `Clients.All.SendAsync(...)`）可能会失败，并且在 `SendAsync` 完成之前中心方法完成。
 
 ## <a name="the-context-object"></a>上下文对象
@@ -146,7 +146,7 @@ public class ChatHub : Hub
 
 使用 `Hub<IChatClient>` 启用对客户端方法的编译时检查。 这可以防止由于使用神奇字符串而导致的问题，因为 `Hub<T>` 只能提供对在接口中定义的方法的访问。
 
-使用强类型 `Hub<T>` 禁用使用 `SendAsync`的能力。 接口上定义的任何方法仍可以定义为异步方法。 事实上，其中每个方法都应该返回 `Task`。 由于它是一个接口，因此请勿使用 `async` 关键字。 例如:
+使用强类型 `Hub<T>` 禁用使用 `SendAsync`的能力。 接口上定义的任何方法仍可以定义为异步方法。 事实上，其中每个方法都应该返回 `Task`。 由于它是一个接口，因此请勿使用 `async` 关键字。 例如：
 
 ```csharp
 public interface IClient
@@ -174,13 +174,15 @@ SignalR 中心 API 提供 `OnConnectedAsync` 和 `OnDisconnectedAsync` 虚拟方
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
+[!INCLUDE[](~/includes/connectionid-signalr.md)]
+
 ## <a name="handle-errors"></a>处理错误
 
 在中心方法中引发的异常将发送到调用方法的客户端。 在 JavaScript 客户端上，`invoke` 方法返回[Javascript 承诺](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises)。 当客户端使用 `catch`收到包含附加到承诺的处理程序的错误时，将调用该处理程序并将其作为 JavaScript `Error` 对象进行传递。
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
-如果中心引发异常，则不会关闭连接。 默认情况下，SignalR 会向客户端返回一般的错误消息。 例如:
+如果中心引发异常，则不会关闭连接。 默认情况下，SignalR 会向客户端返回一般的错误消息。 例如：
 
 ```
 Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
