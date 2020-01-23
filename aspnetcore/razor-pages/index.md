@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编码方式比使用 MVC 更简单高效。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/18/2020
 uid: razor-pages/index
-ms.openlocfilehash: fbe6e307ff5f7388e91cc2276f22ae1672507587
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 69c9f09aa0e3dbdbe78720c573b5e1fc63464571
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880893"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294657"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -25,7 +25,7 @@ ms.locfileid: "74880893"
 
 本文档介绍 Razor 页面。 它并不是分步教程。 如果认为某些部分过于复杂，请参阅 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)。 有关 ASP.NET Core 的概述，请参阅 [ASP.NET Core 简介](xref:index)。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -195,7 +195,7 @@ Pages/Create.cshtml 中呈现的 HTML  ：
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml?highlight=3,9)]
 
-* 在前面的代码中，[输入标记帮助程序](xref:mvc/views/working-with-forms#the-input-tag-helper) `<input asp-for="Customer.Name" />`将 HTML `<input>` 元素绑定到 `Customer.Name` 模型表达式。
+* 在前面的代码中，[输入标记帮助程序](xref:mvc/views/working-with-forms#the-input-tag-helper) `<input asp-for="Customer.Name" />` 将 HTML `<input>` 元素绑定到 `Customer.Name` 模型表达式。
 * 使用 [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#addtaghelper-makes-tag-helpers-available) 提供标记帮助程序。
 
 ### <a name="the-home-page"></a>主页
@@ -212,7 +212,7 @@ Index.cshtml 文件包含以下标记  ：
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml?range=21)]
 
-`<a /a>`[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
+`<a /a>` [定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。
 
 Index.cshtml 文件包含用于为每个客户联系人创建删除按钮的标记： 
 
@@ -290,7 +290,7 @@ Edit.cshtml.cs 文件  ：
 `[StringLength(10)]` 特性在呈现的 HTML 上生成 `data-val-length-max="10"`。 `data-val-length-max` 阻止浏览器输入超过指定最大长度的内容。 如果使用 [Fiddler](https://www.telerik.com/fiddler) 等工具来编辑和重播文章：
 
 * 对于长度超过 10 的名称。
-* 错误消息“字段名称必须是最大长度为 10 的字符串。” 返回。
+* 错误消息“字段名称必须是最大长度为 10 的字符串。” 将返回。
 
 考虑下列 `Movie` 模型：
 
@@ -396,7 +396,7 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
 
 为 Pages/Customers/Edit.cshtml  Razor 页面生成的命名空间与 `PageModel` 类相同。
 
-`@namespace`  也可用于传统的 Razor 视图。
+`@namespace`  也适用于传统的 Razor 视图。
 
 考虑 Pages/Create.cshtml 视图文件  ：
 
@@ -432,13 +432,13 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
     * Edit.cshtml 
     * *Index.cshtml*
 
-成功后，Pages/Customers/Create.cshtml and Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Customers/Index.cshtml    。 字符串 `./Index` 是用于访问前一页的相对页名称。 它用于生成 *Pages/Customers/Index.cshtml* 页面的 URL。 例如:
+成功后，Pages/Customers/Create.cshtml and Pages/Customers/Edit.cshtml 页面将重定向到 Pages/Customers/Index.cshtml    。 字符串 `./Index` 是用于访问前一页的相对页名称。 它用于生成 *Pages/Customers/Index.cshtml* 页面的 URL。 例如：
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-绝对页名称 `/Index` 用于生成 *Pages/Index. cshtml* 页面的 URL。 例如:
+绝对页名称 `/Index` 用于生成 *Pages/Index. cshtml* 页面的 URL。 例如：
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
@@ -559,9 +559,7 @@ public string Message { get; set; }
 
 支持开头处以波形符 (`~`) 指定的相对于根目录的路径。 例如，`@page "~/Some/Other/Path"` 和 `@page "/Some/Other/Path"` 相同。
 
-可以通过指定路由模板 `@page "{handler?}"`，将 URL 中的查询字符串 `?handler=JoinList` 更改为路由段 `/JoinList`。
-
-如果你不喜欢 URL 中的查询字符串 `?handler=JoinList`，可以更改路由，将处理程序名称放在 URL 的路径部分。 可以通过在 `@page` 指令后面添加使用双引号括起来的路由模板来自定义路由。
+如果你不喜欢 URL 中的查询字符串 `?handler=JoinList`，请更改路由，将处理程序名称放在 URL 的路径部分。 可以通过在 `@page` 指令后面添加使用双引号括起来的路由模板来自定义路由。
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateRoute.cshtml?highlight=1)]
 
@@ -618,7 +616,7 @@ Razor 页面是 ASP.NET Core MVC 的一个新特性，它可以使基于页面�
 
 本文档介绍 Razor 页面。 它并不是分步教程。 如果认为某些部分过于复杂，请参阅 [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)。 有关 ASP.NET Core 的概述，请参阅 [ASP.NET Core 简介](xref:index)。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -768,7 +766,7 @@ Index.cshtml  文件包含以下标记来创建每个联系人项的编辑链接
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-`<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>`[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 标记帮助程序由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
+`<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>` [定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)使用 `asp-route-{value}` 属性生成“编辑”页面的链接。 此链接包含路由数据及联系人 ID。 例如 `https://localhost:5001/Edit/1`。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 标记帮助程序由 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` 启动
 
 Pages/Edit.cshtml  文件：
 
@@ -915,7 +913,7 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
 
 为 Pages/Customers/Edit.cshtml  Razor 页面生成的命名空间与 `PageModel` 类相同。
 
-`@namespace`  也可用于传统的 Razor 视图。
+`@namespace`  也适用于传统的 Razor 视图。
 
 原始的 Pages/Create.cshtml  视图文件：
 
@@ -948,7 +946,7 @@ Pages/_ViewImports.cshtml  文件设置以下命名空间：
     * Edit.cshtml 
     * *Index.cshtml*
 
-成功后，Pages/Customers/Create.cshtml  和 Pages/Customers/Edit.cshtml  页面将重定向到 Pages/Index.cshtml  。 字符串 `/Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `/Index` 生成 Pages/Index.cshtml  页面的 URI。 例如:
+成功后，Pages/Customers/Create.cshtml  和 Pages/Customers/Edit.cshtml  页面将重定向到 Pages/Index.cshtml  。 字符串 `/Index` 是用于访问上一页的 URI 的组成部分。 可以使用字符串 `/Index` 生成 Pages/Index.cshtml  页面的 URI。 例如：
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
@@ -1066,9 +1064,7 @@ public string Message { get; set; }
 
 支持开头处以波形符 (`~`) 指定的相对于根目录的路径。 例如，`@page "~/Some/Other/Path"` 和 `@page "/Some/Other/Path"` 相同。
 
-可以通过指定路由模板 `@page "{handler?}"`，将 URL 中的查询字符串 `?handler=JoinList` 更改为路由段 `/JoinList`。
-
-如果你不喜欢 URL 中的查询字符串 `?handler=JoinList`，可以更改路由，将处理程序名称放在 URL 的路径部分。 可以通过在 `@page` 指令后面添加使用双引号括起来的路由模板来自定义路由。
+如果你不喜欢 URL 中的查询字符串 `?handler=JoinList`，请更改路由，将处理程序名称放在 URL 的路径部分。 可以通过在 `@page` 指令后面添加使用双引号括起来的路由模板来自定义路由。
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateRoute.cshtml?highlight=1)]
 
