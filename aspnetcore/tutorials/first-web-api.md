@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 3bf930d19684e84365f0ff0255fccd2939fb3f39
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 73e547b014d78dcbcbf1c887ebec16e0743d10b9
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354924"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294753"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -296,7 +296,6 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 生成的代码：
 
-* 定义了没有方法的 API 控制器类。
 * 使用 [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
 * 使用 DI 将数据库上下文 (`TodoContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
 
@@ -322,7 +321,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Web 应用。
 * 启动 Postman。
 * 禁用 **SSL 证书验证**
-* 在“文件”  >“设置”（“常规”   选项卡）中，禁用“SSL 证书验证”。 
+  * 在“文件”  >“设置”（“常规”   选项卡）中，禁用“SSL 证书验证”。 
     > [!WARNING]
     > 在测试控制器之后重新启用 SSL 证书验证。
 
