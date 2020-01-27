@@ -1,80 +1,80 @@
 ---
 title: ASP.NET Core 的类库中的可重用 Razor UI
 author: Rick-Anderson
-description: 说明如何在 ASP.NET Core 中使用类库中的分部视图创建可重用 Razor UI。
+description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 ms.author: riande
 ms.date: 10/26/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: ff12eea5406c4f5392a466728741000e3dd16fc1
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: b5235f4e31f6edd21fb410824fb215ab2d4a41b6
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034224"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727284"
 ---
-# <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a><span data-ttu-id="7d381-103">在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI</span><span class="sxs-lookup"><span data-stu-id="7d381-103">Create reusable UI using the Razor class library project in ASP.NET Core</span></span>
+# <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a><span data-ttu-id="dc500-103">在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI</span><span class="sxs-lookup"><span data-stu-id="dc500-103">Create reusable UI using the Razor class library project in ASP.NET Core</span></span>
 
-<span data-ttu-id="7d381-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="7d381-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="dc500-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="dc500-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="7d381-105">Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库（RCL）中。</span><span class="sxs-lookup"><span data-stu-id="7d381-105">Razor views, pages, controllers, page models, [Razor components](xref:blazor/class-libraries), [View components](xref:mvc/views/view-components), and data models can be built into a Razor class library (RCL).</span></span> <span data-ttu-id="7d381-106">RCL 可以打包并重复使用。</span><span class="sxs-lookup"><span data-stu-id="7d381-106">The RCL can be packaged and reused.</span></span> <span data-ttu-id="7d381-107">应用程序可以包括 RCL，并重写其中包含的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="7d381-107">Applications can include the RCL and override the views and pages it contains.</span></span> <span data-ttu-id="7d381-108">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="7d381-108">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span>
+<span data-ttu-id="dc500-105">Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库（RCL）中。</span><span class="sxs-lookup"><span data-stu-id="dc500-105">Razor views, pages, controllers, page models, [Razor components](xref:blazor/class-libraries), [View components](xref:mvc/views/view-components), and data models can be built into a Razor class library (RCL).</span></span> <span data-ttu-id="dc500-106">RCL 可以打包并重复使用。</span><span class="sxs-lookup"><span data-stu-id="dc500-106">The RCL can be packaged and reused.</span></span> <span data-ttu-id="dc500-107">应用程序可以包括 RCL，并重写其中包含的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="dc500-107">Applications can include the RCL and override the views and pages it contains.</span></span> <span data-ttu-id="dc500-108">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="dc500-108">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span>
 
-<span data-ttu-id="7d381-109">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7d381-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="dc500-109">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="dc500-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="create-a-class-library-containing-razor-ui"></a><span data-ttu-id="7d381-110">创建一个包含 Razor UI 的类库</span><span class="sxs-lookup"><span data-stu-id="7d381-110">Create a class library containing Razor UI</span></span>
+## <a name="create-a-class-library-containing-razor-ui"></a><span data-ttu-id="dc500-110">创建一个包含 Razor UI 的类库</span><span class="sxs-lookup"><span data-stu-id="dc500-110">Create a class library containing Razor UI</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7d381-111">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7d381-111">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="dc500-111">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dc500-111">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="7d381-112">从 Visual Studio 中选择 "新建**项目**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-112">From Visual Studio select **Create new a new project**.</span></span>
-* <span data-ttu-id="7d381-113">选择 " **Razor 类库**>"**下一步**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-113">Select **Razor Class Library** > **Next**.</span></span>
-* <span data-ttu-id="7d381-114">命名库（例如 "RazorClassLib"），>**创建**。</span><span class="sxs-lookup"><span data-stu-id="7d381-114">Name the library (for example, "RazorClassLib"), > **Create**.</span></span> <span data-ttu-id="7d381-115">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="7d381-115">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
-* <span data-ttu-id="7d381-116">如果需要支持视图，请选择 "**支持页和视图**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-116">Select **Support pages and views** if you need to support views.</span></span> <span data-ttu-id="7d381-117">默认情况下，仅支持 Razor Pages。</span><span class="sxs-lookup"><span data-stu-id="7d381-117">By default, only Razor Pages are supported.</span></span> <span data-ttu-id="7d381-118">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="7d381-118">Select **Create**.</span></span>
+* <span data-ttu-id="dc500-112">从 Visual Studio 中选择 "新建**项目**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-112">From Visual Studio select **Create new a new project**.</span></span>
+* <span data-ttu-id="dc500-113">选择 " **Razor 类库**>"**下一步**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-113">Select **Razor Class Library** > **Next**.</span></span>
+* <span data-ttu-id="dc500-114">命名库（例如 "RazorClassLib"），>**创建**。</span><span class="sxs-lookup"><span data-stu-id="dc500-114">Name the library (for example, "RazorClassLib"), > **Create**.</span></span> <span data-ttu-id="dc500-115">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="dc500-115">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
+* <span data-ttu-id="dc500-116">如果需要支持视图，请选择 "**支持页和视图**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-116">Select **Support pages and views** if you need to support views.</span></span> <span data-ttu-id="dc500-117">默认情况下，仅支持 Razor Pages。</span><span class="sxs-lookup"><span data-stu-id="dc500-117">By default, only Razor Pages are supported.</span></span> <span data-ttu-id="dc500-118">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="dc500-118">Select **Create**.</span></span>
 
-<span data-ttu-id="7d381-119">默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。</span><span class="sxs-lookup"><span data-stu-id="7d381-119">The Razor class library (RCL) template defaults to Razor component development by default.</span></span> <span data-ttu-id="7d381-120">**支持页和视图**选项支持页和视图。</span><span class="sxs-lookup"><span data-stu-id="7d381-120">The **Support pages and views** option supports pages and views.</span></span>
+<span data-ttu-id="dc500-119">默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。</span><span class="sxs-lookup"><span data-stu-id="dc500-119">The Razor class library (RCL) template defaults to Razor component development by default.</span></span> <span data-ttu-id="dc500-120">**支持页和视图**选项支持页和视图。</span><span class="sxs-lookup"><span data-stu-id="dc500-120">The **Support pages and views** option supports pages and views.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="7d381-121">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="7d381-121">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="dc500-121">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="dc500-121">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="7d381-122">从命令行中，运行 `dotnet new razorclasslib`。</span><span class="sxs-lookup"><span data-stu-id="7d381-122">From the command line, run `dotnet new razorclasslib`.</span></span> <span data-ttu-id="7d381-123">例如:</span><span class="sxs-lookup"><span data-stu-id="7d381-123">For example:</span></span>
+<span data-ttu-id="dc500-122">从命令行中，运行 `dotnet new razorclasslib`。</span><span class="sxs-lookup"><span data-stu-id="dc500-122">From the command line, run `dotnet new razorclasslib`.</span></span> <span data-ttu-id="dc500-123">例如：</span><span class="sxs-lookup"><span data-stu-id="dc500-123">For example:</span></span>
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
-<span data-ttu-id="7d381-124">默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。</span><span class="sxs-lookup"><span data-stu-id="7d381-124">The Razor class library (RCL) template defaults to Razor component development by default.</span></span> <span data-ttu-id="7d381-125">传递 `--support-pages-and-views` 选项（`dotnet new razorclasslib --support-pages-and-views`）以提供对页面和视图的支持。</span><span class="sxs-lookup"><span data-stu-id="7d381-125">Pass the `--support-pages-and-views` option (`dotnet new razorclasslib --support-pages-and-views`) to provide support for pages and views.</span></span>
+<span data-ttu-id="dc500-124">默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。</span><span class="sxs-lookup"><span data-stu-id="dc500-124">The Razor class library (RCL) template defaults to Razor component development by default.</span></span> <span data-ttu-id="dc500-125">传递 `--support-pages-and-views` 选项（`dotnet new razorclasslib --support-pages-and-views`）以提供对页面和视图的支持。</span><span class="sxs-lookup"><span data-stu-id="dc500-125">Pass the `--support-pages-and-views` option (`dotnet new razorclasslib --support-pages-and-views`) to provide support for pages and views.</span></span>
 
-<span data-ttu-id="7d381-126">有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。</span><span class="sxs-lookup"><span data-stu-id="7d381-126">For more information, see [dotnet new](/dotnet/core/tools/dotnet-new).</span></span> <span data-ttu-id="7d381-127">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="7d381-127">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
+<span data-ttu-id="dc500-126">有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。</span><span class="sxs-lookup"><span data-stu-id="dc500-126">For more information, see [dotnet new](/dotnet/core/tools/dotnet-new).</span></span> <span data-ttu-id="dc500-127">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="dc500-127">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
 
 ---
 
-<span data-ttu-id="7d381-128">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-128">Add Razor files to the RCL.</span></span>
+<span data-ttu-id="dc500-128">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-128">Add Razor files to the RCL.</span></span>
 
-<span data-ttu-id="7d381-129">ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="7d381-129">The ASP.NET Core templates assume the RCL content is in the *Areas* folder.</span></span> <span data-ttu-id="7d381-130">请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。</span><span class="sxs-lookup"><span data-stu-id="7d381-130">See [RCL Pages layout](#rcl-pages-layout) to create an RCL that exposes content in `~/Pages` rather than `~/Areas/Pages`.</span></span>
+<span data-ttu-id="dc500-129">ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。</span><span class="sxs-lookup"><span data-stu-id="dc500-129">The ASP.NET Core templates assume the RCL content is in the *Areas* folder.</span></span> <span data-ttu-id="dc500-130">请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。</span><span class="sxs-lookup"><span data-stu-id="dc500-130">See [RCL Pages layout](#rcl-pages-layout) to create an RCL that exposes content in `~/Pages` rather than `~/Areas/Pages`.</span></span>
 
-## <a name="reference-rcl-content"></a><span data-ttu-id="7d381-131">引用 RCL 内容</span><span class="sxs-lookup"><span data-stu-id="7d381-131">Reference RCL content</span></span>
+## <a name="reference-rcl-content"></a><span data-ttu-id="dc500-131">引用 RCL 内容</span><span class="sxs-lookup"><span data-stu-id="dc500-131">Reference RCL content</span></span>
 
-<span data-ttu-id="7d381-132">可以通过以下方式引用 RCL：</span><span class="sxs-lookup"><span data-stu-id="7d381-132">The RCL can be referenced by:</span></span>
+<span data-ttu-id="dc500-132">可以通过以下方式引用 RCL：</span><span class="sxs-lookup"><span data-stu-id="dc500-132">The RCL can be referenced by:</span></span>
 
-* <span data-ttu-id="7d381-133">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="7d381-133">NuGet package.</span></span> <span data-ttu-id="7d381-134">请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。</span><span class="sxs-lookup"><span data-stu-id="7d381-134">See [Creating NuGet packages](/nuget/create-packages/creating-a-package) and [dotnet add package](/dotnet/core/tools/dotnet-add-package) and [Create and publish a NuGet package](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).</span></span>
-* <span data-ttu-id="7d381-135">{ProjectName}.csproj。</span><span class="sxs-lookup"><span data-stu-id="7d381-135">*{ProjectName}.csproj*.</span></span> <span data-ttu-id="7d381-136">请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。</span><span class="sxs-lookup"><span data-stu-id="7d381-136">See [dotnet-add reference](/dotnet/core/tools/dotnet-add-reference).</span></span>
+* <span data-ttu-id="dc500-133">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="dc500-133">NuGet package.</span></span> <span data-ttu-id="dc500-134">请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。</span><span class="sxs-lookup"><span data-stu-id="dc500-134">See [Creating NuGet packages](/nuget/create-packages/creating-a-package) and [dotnet add package](/dotnet/core/tools/dotnet-add-package) and [Create and publish a NuGet package](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).</span></span>
+* <span data-ttu-id="dc500-135">{ProjectName}.csproj。</span><span class="sxs-lookup"><span data-stu-id="dc500-135">*{ProjectName}.csproj*.</span></span> <span data-ttu-id="dc500-136">请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。</span><span class="sxs-lookup"><span data-stu-id="dc500-136">See [dotnet-add reference](/dotnet/core/tools/dotnet-add-reference).</span></span>
 
-## <a name="override-views-partial-views-and-pages"></a><span data-ttu-id="7d381-137">重写视图、分部视图和页面</span><span class="sxs-lookup"><span data-stu-id="7d381-137">Override views, partial views, and pages</span></span>
+## <a name="override-views-partial-views-and-pages"></a><span data-ttu-id="dc500-137">重写视图、分部视图和页面</span><span class="sxs-lookup"><span data-stu-id="dc500-137">Override views, partial views, and pages</span></span>
 
-<span data-ttu-id="7d381-138">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="7d381-138">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span> <span data-ttu-id="7d381-139">例如，将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1，WebApp1 中的 page1 将优先于 RCL 中的 page1。</span><span class="sxs-lookup"><span data-stu-id="7d381-139">For example, add *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* to WebApp1, and Page1 in the WebApp1 will take precedence over Page1 in the RCL.</span></span>
+<span data-ttu-id="dc500-138">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="dc500-138">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span> <span data-ttu-id="dc500-139">例如，将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1，WebApp1 中的 page1 将优先于 RCL 中的 page1。</span><span class="sxs-lookup"><span data-stu-id="dc500-139">For example, add *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* to WebApp1, and Page1 in the WebApp1 will take precedence over Page1 in the RCL.</span></span>
 
-<span data-ttu-id="7d381-140">在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级。</span><span class="sxs-lookup"><span data-stu-id="7d381-140">In the sample download, rename *WebApp1/Areas/MyFeature2* to *WebApp1/Areas/MyFeature* to test precedence.</span></span>
+<span data-ttu-id="dc500-140">在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级。</span><span class="sxs-lookup"><span data-stu-id="dc500-140">In the sample download, rename *WebApp1/Areas/MyFeature2* to *WebApp1/Areas/MyFeature* to test precedence.</span></span>
 
-<span data-ttu-id="7d381-141">将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml。</span><span class="sxs-lookup"><span data-stu-id="7d381-141">Copy the *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* partial view to *WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span> <span data-ttu-id="7d381-142">更新标记以指示新的位置。</span><span class="sxs-lookup"><span data-stu-id="7d381-142">Update the markup to indicate the new location.</span></span> <span data-ttu-id="7d381-143">生成并运行应用，验证使用部分的应用版本。</span><span class="sxs-lookup"><span data-stu-id="7d381-143">Build and run the app to verify the app's version of the partial is being used.</span></span>
+<span data-ttu-id="dc500-141">将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml。</span><span class="sxs-lookup"><span data-stu-id="dc500-141">Copy the *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* partial view to *WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span> <span data-ttu-id="dc500-142">更新标记以指示新的位置。</span><span class="sxs-lookup"><span data-stu-id="dc500-142">Update the markup to indicate the new location.</span></span> <span data-ttu-id="dc500-143">生成并运行应用，验证使用部分的应用版本。</span><span class="sxs-lookup"><span data-stu-id="dc500-143">Build and run the app to verify the app's version of the partial is being used.</span></span>
 
-### <a name="rcl-pages-layout"></a><span data-ttu-id="7d381-144">RCL 页面布局</span><span class="sxs-lookup"><span data-stu-id="7d381-144">RCL Pages layout</span></span>
+### <a name="rcl-pages-layout"></a><span data-ttu-id="dc500-144">RCL 页面布局</span><span class="sxs-lookup"><span data-stu-id="dc500-144">RCL Pages layout</span></span>
 
-<span data-ttu-id="7d381-145">若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="7d381-145">To reference RCL content as though it is part of the web app's *Pages* folder, create the RCL project with the following file structure:</span></span>
+<span data-ttu-id="dc500-145">为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="dc500-145">To reference RCL content as though it is part of the web app's *Pages* folder, create the RCL project with the following file structure:</span></span>
 
-* <span data-ttu-id="7d381-146">*RazorUIClassLib/Pages*</span><span class="sxs-lookup"><span data-stu-id="7d381-146">*RazorUIClassLib/Pages*</span></span>
-* <span data-ttu-id="7d381-147">*RazorUIClassLib/Pages/Shared*</span><span class="sxs-lookup"><span data-stu-id="7d381-147">*RazorUIClassLib/Pages/Shared*</span></span>
+* <span data-ttu-id="dc500-146">*RazorUIClassLib/页*</span><span class="sxs-lookup"><span data-stu-id="dc500-146">*RazorUIClassLib/Pages*</span></span>
+* <span data-ttu-id="dc500-147">*RazorUIClassLib/页/Shared*</span><span class="sxs-lookup"><span data-stu-id="dc500-147">*RazorUIClassLib/Pages/Shared*</span></span>
 
-<span data-ttu-id="7d381-148">假设*RazorUIClassLib/Pages/Shared*包含两部分文件： *_Header*和 *_Footer*。</span><span class="sxs-lookup"><span data-stu-id="7d381-148">Suppose *RazorUIClassLib/Pages/Shared* contains two partial files: *_Header.cshtml* and *_Footer.cshtml*.</span></span> <span data-ttu-id="7d381-149">可以将 `<partial>` 标记添加到 *_Layout*文件中：</span><span class="sxs-lookup"><span data-stu-id="7d381-149">The `<partial>` tags could be added to *_Layout.cshtml* file:</span></span>
+<span data-ttu-id="dc500-148">假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。</span><span class="sxs-lookup"><span data-stu-id="dc500-148">Suppose *RazorUIClassLib/Pages/Shared* contains two partial files: *_Header.cshtml* and *_Footer.cshtml*.</span></span> <span data-ttu-id="dc500-149">`<partial>`标记无法添加到 *_Layout.cshtml*文件：</span><span class="sxs-lookup"><span data-stu-id="dc500-149">The `<partial>` tags could be added to *_Layout.cshtml* file:</span></span>
 
 ```cshtml
 <body>
@@ -84,19 +84,19 @@ dotnet new razorclasslib -o RazorUIClassLib
 </body>
 ```
 
-## <a name="create-an-rcl-with-static-assets"></a><span data-ttu-id="7d381-150">使用静态资产创建 RCL</span><span class="sxs-lookup"><span data-stu-id="7d381-150">Create an RCL with static assets</span></span>
+## <a name="create-an-rcl-with-static-assets"></a><span data-ttu-id="dc500-150">使用静态资产创建 RCL</span><span class="sxs-lookup"><span data-stu-id="dc500-150">Create an RCL with static assets</span></span>
 
-<span data-ttu-id="7d381-151">RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程序引用。</span><span class="sxs-lookup"><span data-stu-id="7d381-151">An RCL may require companion static assets that can be referenced by the consuming app of the RCL.</span></span> <span data-ttu-id="7d381-152">ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。</span><span class="sxs-lookup"><span data-stu-id="7d381-152">ASP.NET Core allows creating RCLs that include static assets that are available to a consuming app.</span></span>
+<span data-ttu-id="dc500-151">RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程序引用。</span><span class="sxs-lookup"><span data-stu-id="dc500-151">An RCL may require companion static assets that can be referenced by the consuming app of the RCL.</span></span> <span data-ttu-id="dc500-152">ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。</span><span class="sxs-lookup"><span data-stu-id="dc500-152">ASP.NET Core allows creating RCLs that include static assets that are available to a consuming app.</span></span>
 
-<span data-ttu-id="7d381-153">若要将配套资产作为 RCL 的一部分包括在内，请在类库中创建*wwwroot*文件夹，并在该文件夹中包含所有必需的文件。</span><span class="sxs-lookup"><span data-stu-id="7d381-153">To include companion assets as part of an RCL, create a *wwwroot* folder in the class library and include any required files in that folder.</span></span>
+<span data-ttu-id="dc500-153">若要将配套资产作为 RCL 的一部分包括在内，请在类库中创建*wwwroot*文件夹，并在该文件夹中包含所有必需的文件。</span><span class="sxs-lookup"><span data-stu-id="dc500-153">To include companion assets as part of an RCL, create a *wwwroot* folder in the class library and include any required files in that folder.</span></span>
 
-<span data-ttu-id="7d381-154">当对 RCL 进行打包时， *wwwroot*文件夹中的所有伴随资产将自动包含在包中。</span><span class="sxs-lookup"><span data-stu-id="7d381-154">When packing an RCL, all companion assets in the *wwwroot* folder are automatically included in the package.</span></span>
+<span data-ttu-id="dc500-154">当对 RCL 进行打包时， *wwwroot*文件夹中的所有伴随资产将自动包含在包中。</span><span class="sxs-lookup"><span data-stu-id="dc500-154">When packing an RCL, all companion assets in the *wwwroot* folder are automatically included in the package.</span></span>
 
-### <a name="exclude-static-assets"></a><span data-ttu-id="7d381-155">排除静态资产</span><span class="sxs-lookup"><span data-stu-id="7d381-155">Exclude static assets</span></span>
+### <a name="exclude-static-assets"></a><span data-ttu-id="dc500-155">排除静态资产</span><span class="sxs-lookup"><span data-stu-id="dc500-155">Exclude static assets</span></span>
 
-<span data-ttu-id="7d381-156">若要排除静态资产，请将所需的排除路径添加到项目文件中的 `$(DefaultItemExcludes)` 属性组。</span><span class="sxs-lookup"><span data-stu-id="7d381-156">To exclude static assets, add the desired exclusion path to the `$(DefaultItemExcludes)` property group in the project file.</span></span> <span data-ttu-id="7d381-157">用分号（`;`）分隔条目。</span><span class="sxs-lookup"><span data-stu-id="7d381-157">Separate entries with a semicolon (`;`).</span></span>
+<span data-ttu-id="dc500-156">若要排除静态资产，请将所需的排除路径添加到项目文件中的 `$(DefaultItemExcludes)` 属性组。</span><span class="sxs-lookup"><span data-stu-id="dc500-156">To exclude static assets, add the desired exclusion path to the `$(DefaultItemExcludes)` property group in the project file.</span></span> <span data-ttu-id="dc500-157">用分号（`;`）分隔条目。</span><span class="sxs-lookup"><span data-stu-id="dc500-157">Separate entries with a semicolon (`;`).</span></span>
 
-<span data-ttu-id="7d381-158">在下面的示例中， *wwwroot*文件夹中的*lib*样式表不被视为静态资产，而且不包含在已发布的 RCL 中：</span><span class="sxs-lookup"><span data-stu-id="7d381-158">In the following example, the *lib.css* stylesheet in the *wwwroot* folder isn't considered a static asset and isn't included in the published RCL:</span></span>
+<span data-ttu-id="dc500-158">在下面的示例中， *wwwroot*文件夹中的*lib*样式表不被视为静态资产，而且不包含在已发布的 RCL 中：</span><span class="sxs-lookup"><span data-stu-id="dc500-158">In the following example, the *lib.css* stylesheet in the *wwwroot* folder isn't considered a static asset and isn't included in the published RCL:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -104,19 +104,19 @@ dotnet new razorclasslib -o RazorUIClassLib
 </PropertyGroup>
 ```
 
-### <a name="typescript-integration"></a><span data-ttu-id="7d381-159">Typescript 集成</span><span class="sxs-lookup"><span data-stu-id="7d381-159">Typescript integration</span></span>
+### <a name="typescript-integration"></a><span data-ttu-id="dc500-159">Typescript 集成</span><span class="sxs-lookup"><span data-stu-id="dc500-159">Typescript integration</span></span>
 
-<span data-ttu-id="7d381-160">若要在 RCL 中包含 TypeScript 文件：</span><span class="sxs-lookup"><span data-stu-id="7d381-160">To include TypeScript files in an RCL:</span></span>
+<span data-ttu-id="dc500-160">若要在 RCL 中包含 TypeScript 文件：</span><span class="sxs-lookup"><span data-stu-id="dc500-160">To include TypeScript files in an RCL:</span></span>
 
-1. <span data-ttu-id="7d381-161">将 TypeScript 文件（*ts*）置于*wwwroot*文件夹之外。</span><span class="sxs-lookup"><span data-stu-id="7d381-161">Place the TypeScript files (*.ts*) outside of the *wwwroot* folder.</span></span> <span data-ttu-id="7d381-162">例如，将文件放在*客户端*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="7d381-162">For example, place the files in a *Client* folder.</span></span>
+1. <span data-ttu-id="dc500-161">将 TypeScript 文件（*ts*）置于*wwwroot*文件夹之外。</span><span class="sxs-lookup"><span data-stu-id="dc500-161">Place the TypeScript files (*.ts*) outside of the *wwwroot* folder.</span></span> <span data-ttu-id="dc500-162">例如，将文件放在*客户端*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="dc500-162">For example, place the files in a *Client* folder.</span></span>
 
-1. <span data-ttu-id="7d381-163">为*wwwroot*文件夹配置 TypeScript 生成输出。</span><span class="sxs-lookup"><span data-stu-id="7d381-163">Configure the TypeScript build output for the *wwwroot* folder.</span></span> <span data-ttu-id="7d381-164">在项目文件中的 `PropertyGroup` 内设置 `TypescriptOutDir` 属性：</span><span class="sxs-lookup"><span data-stu-id="7d381-164">Set the `TypescriptOutDir` property inside of a `PropertyGroup` in the project file:</span></span>
+1. <span data-ttu-id="dc500-163">为*wwwroot*文件夹配置 TypeScript 生成输出。</span><span class="sxs-lookup"><span data-stu-id="dc500-163">Configure the TypeScript build output for the *wwwroot* folder.</span></span> <span data-ttu-id="dc500-164">在项目文件中的 `PropertyGroup` 内设置 `TypescriptOutDir` 属性：</span><span class="sxs-lookup"><span data-stu-id="dc500-164">Set the `TypescriptOutDir` property inside of a `PropertyGroup` in the project file:</span></span>
 
    ```xml
    <TypescriptOutDir>wwwroot</TypescriptOutDir>
    ```
 
-1. <span data-ttu-id="7d381-165">将 TypeScript 目标作为 `ResolveCurrentProjectStaticWebAssets` 目标的依赖项，方法是将以下目标添加到项目文件中的 `PropertyGroup` 内：</span><span class="sxs-lookup"><span data-stu-id="7d381-165">Include the TypeScript target as a dependency of the `ResolveCurrentProjectStaticWebAssets` target by adding the following target inside of a `PropertyGroup` in the project file:</span></span>
+1. <span data-ttu-id="dc500-165">将 TypeScript 目标作为 `ResolveCurrentProjectStaticWebAssets` 目标的依赖项，方法是将以下目标添加到项目文件中的 `PropertyGroup` 内：</span><span class="sxs-lookup"><span data-stu-id="dc500-165">Include the TypeScript target as a dependency of the `ResolveCurrentProjectStaticWebAssets` target by adding the following target inside of a `PropertyGroup` in the project file:</span></span>
 
    ```xml
    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
@@ -125,11 +125,11 @@ dotnet new razorclasslib -o RazorUIClassLib
    </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
    ```
 
-### <a name="consume-content-from-a-referenced-rcl"></a><span data-ttu-id="7d381-166">使用引用 RCL 中的内容</span><span class="sxs-lookup"><span data-stu-id="7d381-166">Consume content from a referenced RCL</span></span>
+### <a name="consume-content-from-a-referenced-rcl"></a><span data-ttu-id="dc500-166">使用引用 RCL 中的内容</span><span class="sxs-lookup"><span data-stu-id="dc500-166">Consume content from a referenced RCL</span></span>
 
-<span data-ttu-id="7d381-167">RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。</span><span class="sxs-lookup"><span data-stu-id="7d381-167">The files included in the *wwwroot* folder of the RCL are exposed to the consuming app under the prefix `_content/{LIBRARY NAME}/`.</span></span> <span data-ttu-id="7d381-168">例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。</span><span class="sxs-lookup"><span data-stu-id="7d381-168">For example, a library named *Razor.Class.Lib* results in a path to static content at `_content/Razor.Class.Lib/`.</span></span>
+<span data-ttu-id="dc500-167">RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。</span><span class="sxs-lookup"><span data-stu-id="dc500-167">The files included in the *wwwroot* folder of the RCL are exposed to the consuming app under the prefix `_content/{LIBRARY NAME}/`.</span></span> <span data-ttu-id="dc500-168">例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。</span><span class="sxs-lookup"><span data-stu-id="dc500-168">For example, a library named *Razor.Class.Lib* results in a path to static content at `_content/Razor.Class.Lib/`.</span></span> <span data-ttu-id="dc500-169">如果生成 NuGet 包，并且程序集名称与包 ID 不同，请使用 `{LIBRARY NAME}`的包 ID。</span><span class="sxs-lookup"><span data-stu-id="dc500-169">When producing a NuGet package and the assembly name isn't the same as the package ID, use the the package ID for `{LIBRARY NAME}`.</span></span>
 
-<span data-ttu-id="7d381-169">使用应用引用库提供的静态资产，其中包含 `<script>`、`<style>`、`<img>`和其他 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="7d381-169">The consuming app references static assets provided by the library with `<script>`, `<style>`, `<img>`, and other HTML tags.</span></span> <span data-ttu-id="7d381-170">使用的应用必须在 `Startup.Configure`中启用[静态文件支持](xref:fundamentals/static-files)：</span><span class="sxs-lookup"><span data-stu-id="7d381-170">The consuming app must have [static file support](xref:fundamentals/static-files) enabled in `Startup.Configure`:</span></span>
+<span data-ttu-id="dc500-170">使用应用引用库提供的静态资产，其中包含 `<script>`、`<style>`、`<img>`和其他 HTML 标记。</span><span class="sxs-lookup"><span data-stu-id="dc500-170">The consuming app references static assets provided by the library with `<script>`, `<style>`, `<img>`, and other HTML tags.</span></span> <span data-ttu-id="dc500-171">使用的应用必须在 `Startup.Configure`中启用[静态文件支持](xref:fundamentals/static-files)：</span><span class="sxs-lookup"><span data-stu-id="dc500-171">The consuming app must have [static file support](xref:fundamentals/static-files) enabled in `Startup.Configure`:</span></span>
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -142,7 +142,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-<span data-ttu-id="7d381-171">从生成输出（`dotnet run`）运行使用应用时，默认情况下会在开发环境中启用静态 web 资产。</span><span class="sxs-lookup"><span data-stu-id="7d381-171">When running the consuming app from build output (`dotnet run`), static web assets are enabled by default in the Development environment.</span></span> <span data-ttu-id="7d381-172">若要在从生成输出运行时支持其他环境中的资产，请在*Program.cs*中的主机生成器上调用 `UseStaticWebAssets`：</span><span class="sxs-lookup"><span data-stu-id="7d381-172">To support assets in other environments when running from build output, call `UseStaticWebAssets` on the host builder in *Program.cs*:</span></span>
+<span data-ttu-id="dc500-172">从生成输出（`dotnet run`）运行使用应用时，默认情况下会在开发环境中启用静态 web 资产。</span><span class="sxs-lookup"><span data-stu-id="dc500-172">When running the consuming app from build output (`dotnet run`), static web assets are enabled by default in the Development environment.</span></span> <span data-ttu-id="dc500-173">若要在从生成输出运行时支持其他环境中的资产，请在*Program.cs*中的主机生成器上调用 `UseStaticWebAssets`：</span><span class="sxs-lookup"><span data-stu-id="dc500-173">To support assets in other environments when running from build output, call `UseStaticWebAssets` on the host builder in *Program.cs*:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Hosting;
@@ -165,87 +165,87 @@ public class Program
 }
 ```
 
-<span data-ttu-id="7d381-173">从已发布的输出（`dotnet publish`）运行应用时，不需要调用 `UseStaticWebAssets`。</span><span class="sxs-lookup"><span data-stu-id="7d381-173">Calling `UseStaticWebAssets` isn't required when running an app from published output (`dotnet publish`).</span></span>
+<span data-ttu-id="dc500-174">从已发布的输出（`dotnet publish`）运行应用时，不需要调用 `UseStaticWebAssets`。</span><span class="sxs-lookup"><span data-stu-id="dc500-174">Calling `UseStaticWebAssets` isn't required when running an app from published output (`dotnet publish`).</span></span>
 
-### <a name="multi-project-development-flow"></a><span data-ttu-id="7d381-174">多项目开发流程</span><span class="sxs-lookup"><span data-stu-id="7d381-174">Multi-project development flow</span></span>
+### <a name="multi-project-development-flow"></a><span data-ttu-id="dc500-175">多项目开发流程</span><span class="sxs-lookup"><span data-stu-id="dc500-175">Multi-project development flow</span></span>
 
-<span data-ttu-id="7d381-175">当使用中的应用运行时：</span><span class="sxs-lookup"><span data-stu-id="7d381-175">When the consuming app runs:</span></span>
+<span data-ttu-id="dc500-176">当使用中的应用运行时：</span><span class="sxs-lookup"><span data-stu-id="dc500-176">When the consuming app runs:</span></span>
 
-* <span data-ttu-id="7d381-176">RCL 中的资产保留在其原始文件夹中。</span><span class="sxs-lookup"><span data-stu-id="7d381-176">The assets in the RCL stay in their original folders.</span></span> <span data-ttu-id="7d381-177">资产不会移动到使用的应用。</span><span class="sxs-lookup"><span data-stu-id="7d381-177">The assets aren't moved to the consuming app.</span></span>
-* <span data-ttu-id="7d381-178">重新生成 RCL 后，RCL 的*wwwroot*文件夹内的任何更改都会反映在使用的应用程序中，而无需重新生成使用的应用。</span><span class="sxs-lookup"><span data-stu-id="7d381-178">Any change within the RCL's *wwwroot* folder is reflected in the consuming app after the RCL is rebuilt and without rebuilding the consuming app.</span></span>
+* <span data-ttu-id="dc500-177">RCL 中的资产保留在其原始文件夹中。</span><span class="sxs-lookup"><span data-stu-id="dc500-177">The assets in the RCL stay in their original folders.</span></span> <span data-ttu-id="dc500-178">资产不会移动到使用的应用。</span><span class="sxs-lookup"><span data-stu-id="dc500-178">The assets aren't moved to the consuming app.</span></span>
+* <span data-ttu-id="dc500-179">重新生成 RCL 后，RCL 的*wwwroot*文件夹内的任何更改都会反映在使用的应用程序中，而无需重新生成使用的应用。</span><span class="sxs-lookup"><span data-stu-id="dc500-179">Any change within the RCL's *wwwroot* folder is reflected in the consuming app after the RCL is rebuilt and without rebuilding the consuming app.</span></span>
 
-<span data-ttu-id="7d381-179">生成 RCL 时，将生成描述静态 web 资产位置的清单。</span><span class="sxs-lookup"><span data-stu-id="7d381-179">When the RCL is built, a manifest is produced that describes the static web asset locations.</span></span> <span data-ttu-id="7d381-180">使用的应用程序会在运行时读取清单，以使用来自引用项目和包的资产。</span><span class="sxs-lookup"><span data-stu-id="7d381-180">The consuming app reads the manifest at runtime to consume the assets from referenced projects and packages.</span></span> <span data-ttu-id="7d381-181">将新资产添加到 RCL 时，必须重新生成 RCL 以更新其清单，然后使用的应用才能访问新资产。</span><span class="sxs-lookup"><span data-stu-id="7d381-181">When a new asset is added to an RCL, the RCL must be rebuilt to update its manifest before a consuming app can access the new asset.</span></span>
+<span data-ttu-id="dc500-180">生成 RCL 时，将生成描述静态 web 资产位置的清单。</span><span class="sxs-lookup"><span data-stu-id="dc500-180">When the RCL is built, a manifest is produced that describes the static web asset locations.</span></span> <span data-ttu-id="dc500-181">使用的应用程序会在运行时读取清单，以使用来自引用项目和包的资产。</span><span class="sxs-lookup"><span data-stu-id="dc500-181">The consuming app reads the manifest at runtime to consume the assets from referenced projects and packages.</span></span> <span data-ttu-id="dc500-182">将新资产添加到 RCL 时，必须重新生成 RCL 以更新其清单，然后使用的应用才能访问新资产。</span><span class="sxs-lookup"><span data-stu-id="dc500-182">When a new asset is added to an RCL, the RCL must be rebuilt to update its manifest before a consuming app can access the new asset.</span></span>
 
-### <a name="publish"></a><span data-ttu-id="7d381-182">发布</span><span class="sxs-lookup"><span data-stu-id="7d381-182">Publish</span></span>
+### <a name="publish"></a><span data-ttu-id="dc500-183">发布</span><span class="sxs-lookup"><span data-stu-id="dc500-183">Publish</span></span>
 
-<span data-ttu-id="7d381-183">在发布应用程序时，所有被引用项目和包中的助理资产都将复制到 `_content/{LIBRARY NAME}/`下的已发布应用程序的*wwwroot*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="7d381-183">When the app is published, the companion assets from all referenced projects and packages are copied into the *wwwroot* folder of the published app under `_content/{LIBRARY NAME}/`.</span></span>
+<span data-ttu-id="dc500-184">在发布应用程序时，所有被引用项目和包中的助理资产都将复制到 `_content/{LIBRARY NAME}/`下的已发布应用程序的*wwwroot*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="dc500-184">When the app is published, the companion assets from all referenced projects and packages are copied into the *wwwroot* folder of the published app under `_content/{LIBRARY NAME}/`.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="7d381-184">Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库（RCL）中。</span><span class="sxs-lookup"><span data-stu-id="7d381-184">Razor views, pages, controllers, page models, [Razor components](xref:blazor/class-libraries), [View components](xref:mvc/views/view-components), and data models can be built into a Razor class library (RCL).</span></span> <span data-ttu-id="7d381-185">RCL 可以打包并重复使用。</span><span class="sxs-lookup"><span data-stu-id="7d381-185">The RCL can be packaged and reused.</span></span> <span data-ttu-id="7d381-186">应用程序可以包括 RCL，并重写其中包含的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="7d381-186">Applications can include the RCL and override the views and pages it contains.</span></span> <span data-ttu-id="7d381-187">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="7d381-187">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span>
+<span data-ttu-id="dc500-185">Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以内置于 Razor 类库（RCL）中。</span><span class="sxs-lookup"><span data-stu-id="dc500-185">Razor views, pages, controllers, page models, [Razor components](xref:blazor/class-libraries), [View components](xref:mvc/views/view-components), and data models can be built into a Razor class library (RCL).</span></span> <span data-ttu-id="dc500-186">RCL 可以打包并重复使用。</span><span class="sxs-lookup"><span data-stu-id="dc500-186">The RCL can be packaged and reused.</span></span> <span data-ttu-id="dc500-187">应用程序可以包括 RCL，并重写其中包含的视图和页面。</span><span class="sxs-lookup"><span data-stu-id="dc500-187">Applications can include the RCL and override the views and pages it contains.</span></span> <span data-ttu-id="dc500-188">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="dc500-188">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span>
 
-<span data-ttu-id="7d381-188">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7d381-188">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="dc500-189">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="dc500-189">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="create-a-class-library-containing-razor-ui"></a><span data-ttu-id="7d381-189">创建一个包含 Razor UI 的类库</span><span class="sxs-lookup"><span data-stu-id="7d381-189">Create a class library containing Razor UI</span></span>
+## <a name="create-a-class-library-containing-razor-ui"></a><span data-ttu-id="dc500-190">创建一个包含 Razor UI 的类库</span><span class="sxs-lookup"><span data-stu-id="dc500-190">Create a class library containing Razor UI</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7d381-190">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7d381-190">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="dc500-191">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dc500-191">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="7d381-191">从 Visual Studio“文件”菜单中，选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="7d381-191">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="7d381-192">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="7d381-192">Select **ASP.NET Core Web Application**.</span></span>
-* <span data-ttu-id="7d381-193">命名库（例如，“RazorClassLib”）>“确定”。</span><span class="sxs-lookup"><span data-stu-id="7d381-193">Name the library (for example, "RazorClassLib") > **OK**.</span></span> <span data-ttu-id="7d381-194">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="7d381-194">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
-* <span data-ttu-id="7d381-195">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="7d381-195">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
-* <span data-ttu-id="7d381-196">选择**Razor 类库**> **"确定"** 。</span><span class="sxs-lookup"><span data-stu-id="7d381-196">Select **Razor Class Library** > **OK**.</span></span>
+* <span data-ttu-id="dc500-192">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="dc500-192">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="dc500-193">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="dc500-193">Select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="dc500-194">命名库（例如，“RazorClassLib”）>“确定”。</span><span class="sxs-lookup"><span data-stu-id="dc500-194">Name the library (for example, "RazorClassLib") > **OK**.</span></span> <span data-ttu-id="dc500-195">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="dc500-195">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
+* <span data-ttu-id="dc500-196">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="dc500-196">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
+* <span data-ttu-id="dc500-197">选择**Razor 类库**> **"确定"** 。</span><span class="sxs-lookup"><span data-stu-id="dc500-197">Select **Razor Class Library** > **OK**.</span></span>
 
-<span data-ttu-id="7d381-197">RCL 具有以下项目文件：</span><span class="sxs-lookup"><span data-stu-id="7d381-197">An RCL has the following project file:</span></span>
+<span data-ttu-id="dc500-198">RCL 具有以下项目文件：</span><span class="sxs-lookup"><span data-stu-id="dc500-198">An RCL has the following project file:</span></span>
 
 [!code-xml[](ui-class/samples/cli/RazorUIClassLib/RazorUIClassLib.csproj)]
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="7d381-198">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="7d381-198">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="dc500-199">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="dc500-199">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="7d381-199">从命令行中，运行 `dotnet new razorclasslib`。</span><span class="sxs-lookup"><span data-stu-id="7d381-199">From the command line, run `dotnet new razorclasslib`.</span></span> <span data-ttu-id="7d381-200">例如:</span><span class="sxs-lookup"><span data-stu-id="7d381-200">For example:</span></span>
+<span data-ttu-id="dc500-200">从命令行中，运行 `dotnet new razorclasslib`。</span><span class="sxs-lookup"><span data-stu-id="dc500-200">From the command line, run `dotnet new razorclasslib`.</span></span> <span data-ttu-id="dc500-201">例如：</span><span class="sxs-lookup"><span data-stu-id="dc500-201">For example:</span></span>
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
-<span data-ttu-id="7d381-201">有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。</span><span class="sxs-lookup"><span data-stu-id="7d381-201">For more information, see [dotnet new](/dotnet/core/tools/dotnet-new).</span></span> <span data-ttu-id="7d381-202">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="7d381-202">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
+<span data-ttu-id="dc500-202">有关详细信息，请查看 [dotnet new](/dotnet/core/tools/dotnet-new)。</span><span class="sxs-lookup"><span data-stu-id="dc500-202">For more information, see [dotnet new](/dotnet/core/tools/dotnet-new).</span></span> <span data-ttu-id="dc500-203">为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。</span><span class="sxs-lookup"><span data-stu-id="dc500-203">To avoid a file name collision with the generated view library, ensure the library name doesn't end in `.Views`.</span></span>
 
 ---
 
-<span data-ttu-id="7d381-203">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-203">Add Razor files to the RCL.</span></span>
+<span data-ttu-id="dc500-204">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-204">Add Razor files to the RCL.</span></span>
 
-<span data-ttu-id="7d381-204">ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="7d381-204">The ASP.NET Core templates assume the RCL content is in the *Areas* folder.</span></span> <span data-ttu-id="7d381-205">请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。</span><span class="sxs-lookup"><span data-stu-id="7d381-205">See [RCL Pages layout](#rcl-pages-layout) to create an RCL that exposes content in `~/Pages` rather than `~/Areas/Pages`.</span></span>
+<span data-ttu-id="dc500-205">ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。</span><span class="sxs-lookup"><span data-stu-id="dc500-205">The ASP.NET Core templates assume the RCL content is in the *Areas* folder.</span></span> <span data-ttu-id="dc500-206">请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。</span><span class="sxs-lookup"><span data-stu-id="dc500-206">See [RCL Pages layout](#rcl-pages-layout) to create an RCL that exposes content in `~/Pages` rather than `~/Areas/Pages`.</span></span>
 
-## <a name="reference-rcl-content"></a><span data-ttu-id="7d381-206">引用 RCL 内容</span><span class="sxs-lookup"><span data-stu-id="7d381-206">Reference RCL content</span></span>
+## <a name="reference-rcl-content"></a><span data-ttu-id="dc500-207">引用 RCL 内容</span><span class="sxs-lookup"><span data-stu-id="dc500-207">Reference RCL content</span></span>
 
-<span data-ttu-id="7d381-207">可以通过以下方式引用 RCL：</span><span class="sxs-lookup"><span data-stu-id="7d381-207">The RCL can be referenced by:</span></span>
+<span data-ttu-id="dc500-208">可以通过以下方式引用 RCL：</span><span class="sxs-lookup"><span data-stu-id="dc500-208">The RCL can be referenced by:</span></span>
 
-* <span data-ttu-id="7d381-208">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="7d381-208">NuGet package.</span></span> <span data-ttu-id="7d381-209">请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。</span><span class="sxs-lookup"><span data-stu-id="7d381-209">See [Creating NuGet packages](/nuget/create-packages/creating-a-package) and [dotnet add package](/dotnet/core/tools/dotnet-add-package) and [Create and publish a NuGet package](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).</span></span>
-* <span data-ttu-id="7d381-210">{ProjectName}.csproj。</span><span class="sxs-lookup"><span data-stu-id="7d381-210">*{ProjectName}.csproj*.</span></span> <span data-ttu-id="7d381-211">请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。</span><span class="sxs-lookup"><span data-stu-id="7d381-211">See [dotnet-add reference](/dotnet/core/tools/dotnet-add-reference).</span></span>
+* <span data-ttu-id="dc500-209">NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="dc500-209">NuGet package.</span></span> <span data-ttu-id="dc500-210">请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。</span><span class="sxs-lookup"><span data-stu-id="dc500-210">See [Creating NuGet packages](/nuget/create-packages/creating-a-package) and [dotnet add package](/dotnet/core/tools/dotnet-add-package) and [Create and publish a NuGet package](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).</span></span>
+* <span data-ttu-id="dc500-211">{ProjectName}.csproj。</span><span class="sxs-lookup"><span data-stu-id="dc500-211">*{ProjectName}.csproj*.</span></span> <span data-ttu-id="dc500-212">请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。</span><span class="sxs-lookup"><span data-stu-id="dc500-212">See [dotnet-add reference](/dotnet/core/tools/dotnet-add-reference).</span></span>
 
-## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a><span data-ttu-id="7d381-212">演练：创建 RCL 项目并从 Razor Pages 项目使用</span><span class="sxs-lookup"><span data-stu-id="7d381-212">Walkthrough: Create an RCL project and use from a Razor Pages project</span></span>
+## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a><span data-ttu-id="dc500-213">演练：创建 RCL 项目并从 Razor Pages 项目使用</span><span class="sxs-lookup"><span data-stu-id="dc500-213">Walkthrough: Create an RCL project and use from a Razor Pages project</span></span>
 
-<span data-ttu-id="7d381-213">可以下载并测试[完整项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。</span><span class="sxs-lookup"><span data-stu-id="7d381-213">You can download the [complete project](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) and test it rather than creating it.</span></span> <span data-ttu-id="7d381-214">示例下载包含附加代码和链接，以方便测试项目。</span><span class="sxs-lookup"><span data-stu-id="7d381-214">The sample download contains additional code and links that make the project easy to test.</span></span> <span data-ttu-id="7d381-215">可以在[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。</span><span class="sxs-lookup"><span data-stu-id="7d381-215">You can leave feedback in [this GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/6098) with your comments on download samples versus step-by-step instructions.</span></span>
+<span data-ttu-id="dc500-214">可以下载并测试[完整项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。</span><span class="sxs-lookup"><span data-stu-id="dc500-214">You can download the [complete project](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) and test it rather than creating it.</span></span> <span data-ttu-id="dc500-215">示例下载包含附加代码和链接，以方便测试项目。</span><span class="sxs-lookup"><span data-stu-id="dc500-215">The sample download contains additional code and links that make the project easy to test.</span></span> <span data-ttu-id="dc500-216">可以在[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。</span><span class="sxs-lookup"><span data-stu-id="dc500-216">You can leave feedback in [this GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/6098) with your comments on download samples versus step-by-step instructions.</span></span>
 
-### <a name="test-the-download-app"></a><span data-ttu-id="7d381-216">测试下载应用</span><span class="sxs-lookup"><span data-stu-id="7d381-216">Test the download app</span></span>
+### <a name="test-the-download-app"></a><span data-ttu-id="dc500-217">测试下载应用</span><span class="sxs-lookup"><span data-stu-id="dc500-217">Test the download app</span></span>
 
-<span data-ttu-id="7d381-217">如果尚未下载已完成的应用，并更愿意创建演练项目，请跳转至[下一节](#create-an-rcl)。</span><span class="sxs-lookup"><span data-stu-id="7d381-217">If you haven't downloaded the completed app and would rather create the walkthrough project, skip to the [next section](#create-an-rcl).</span></span>
+<span data-ttu-id="dc500-218">如果尚未下载已完成的应用，并更愿意创建演练项目，请跳转至[下一节](#create-an-rcl)。</span><span class="sxs-lookup"><span data-stu-id="dc500-218">If you haven't downloaded the completed app and would rather create the walkthrough project, skip to the [next section](#create-an-rcl).</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7d381-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7d381-218">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="dc500-219">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dc500-219">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="7d381-219">在 Visual Studio 中打开 .sln 文件。</span><span class="sxs-lookup"><span data-stu-id="7d381-219">Open the *.sln* file in Visual Studio.</span></span> <span data-ttu-id="7d381-220">运行应用。</span><span class="sxs-lookup"><span data-stu-id="7d381-220">Run the app.</span></span>
+<span data-ttu-id="dc500-220">在 Visual Studio 中打开 .sln 文件。</span><span class="sxs-lookup"><span data-stu-id="dc500-220">Open the *.sln* file in Visual Studio.</span></span> <span data-ttu-id="dc500-221">运行应用程序。</span><span class="sxs-lookup"><span data-stu-id="dc500-221">Run the app.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="7d381-221">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="7d381-221">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="dc500-222">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="dc500-222">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="7d381-222">在 cli 目录中的命令提示符下生成 RCL 和 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="7d381-222">From a command prompt in the *cli* directory, build the RCL and web app.</span></span>
+<span data-ttu-id="dc500-223">在 cli 目录中的命令提示符下生成 RCL 和 Web 应用。</span><span class="sxs-lookup"><span data-stu-id="dc500-223">From a command prompt in the *cli* directory, build the RCL and web app.</span></span>
 
 ```dotnetcli
 dotnet build
 ```
 
-<span data-ttu-id="7d381-223">移动至 WebApp1 目录，并运行应用：</span><span class="sxs-lookup"><span data-stu-id="7d381-223">Move to the *WebApp1* directory and run the app:</span></span>
+<span data-ttu-id="dc500-224">移动至 WebApp1 目录，并运行应用：</span><span class="sxs-lookup"><span data-stu-id="dc500-224">Move to the *WebApp1* directory and run the app:</span></span>
 
 ```dotnetcli
 dotnet run
@@ -253,26 +253,26 @@ dotnet run
 
 ---
 
-<span data-ttu-id="7d381-224">按[“测试 Test WebApp1”](#test-webapp1)中的说明进行操作</span><span class="sxs-lookup"><span data-stu-id="7d381-224">Follow the instructions in [Test WebApp1](#test-webapp1)</span></span>
+<span data-ttu-id="dc500-225">按[“测试 Test WebApp1”](#test-webapp1)中的说明进行操作</span><span class="sxs-lookup"><span data-stu-id="dc500-225">Follow the instructions in [Test WebApp1](#test-webapp1)</span></span>
 
-## <a name="create-an-rcl"></a><span data-ttu-id="7d381-225">创建 RCL</span><span class="sxs-lookup"><span data-stu-id="7d381-225">Create an RCL</span></span>
+## <a name="create-an-rcl"></a><span data-ttu-id="dc500-226">创建 RCL</span><span class="sxs-lookup"><span data-stu-id="dc500-226">Create an RCL</span></span>
 
-<span data-ttu-id="7d381-226">在本部分中，将创建一个 RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-226">In this section, an RCL is created.</span></span> <span data-ttu-id="7d381-227">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-227">Razor files are added to the RCL.</span></span>
+<span data-ttu-id="dc500-227">在本部分中，将创建一个 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-227">In this section, an RCL is created.</span></span> <span data-ttu-id="dc500-228">将 Razor 文件添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-228">Razor files are added to the RCL.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7d381-228">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7d381-228">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="dc500-229">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dc500-229">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="7d381-229">创建 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="7d381-229">Create the RCL project:</span></span>
+<span data-ttu-id="dc500-230">创建 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="dc500-230">Create the RCL project:</span></span>
 
-* <span data-ttu-id="7d381-230">从 Visual Studio“文件”菜单中，选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="7d381-230">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="7d381-231">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="7d381-231">Select **ASP.NET Core Web Application**.</span></span>
-* <span data-ttu-id="7d381-232">将应用命名为 " **RazorUIClassLib** > **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="7d381-232">Name the app **RazorUIClassLib** > **OK**.</span></span>
-* <span data-ttu-id="7d381-233">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="7d381-233">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
-* <span data-ttu-id="7d381-234">选择**Razor 类库**> **"确定"** 。</span><span class="sxs-lookup"><span data-stu-id="7d381-234">Select **Razor Class Library** > **OK**.</span></span>
-* <span data-ttu-id="7d381-235">添加一个名为 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 的 Razor 分部视图文件。</span><span class="sxs-lookup"><span data-stu-id="7d381-235">Add a Razor partial view file named *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span>
+* <span data-ttu-id="dc500-231">从 Visual Studio“文件”菜单中选择“新建”>“项目”。</span><span class="sxs-lookup"><span data-stu-id="dc500-231">From the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="dc500-232">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="dc500-232">Select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="dc500-233">将应用命名为 " **RazorUIClassLib** > **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="dc500-233">Name the app **RazorUIClassLib** > **OK**.</span></span>
+* <span data-ttu-id="dc500-234">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="dc500-234">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
+* <span data-ttu-id="dc500-235">选择**Razor 类库**> **"确定"** 。</span><span class="sxs-lookup"><span data-stu-id="dc500-235">Select **Razor Class Library** > **OK**.</span></span>
+* <span data-ttu-id="dc500-236">添加一个名为 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 的 Razor 分部视图文件。</span><span class="sxs-lookup"><span data-stu-id="dc500-236">Add a Razor partial view file named *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="7d381-236">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="7d381-236">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="dc500-237">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="dc500-237">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="7d381-237">从命令行运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7d381-237">From the command line, run the following:</span></span>
+<span data-ttu-id="dc500-238">从命令行运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="dc500-238">From the command line, run the following:</span></span>
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -280,65 +280,65 @@ dotnet new page -n _Message -np -o RazorUIClassLib/Areas/MyFeature/Pages/Shared
 dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 ```
 
-<span data-ttu-id="7d381-238">前面的命令：</span><span class="sxs-lookup"><span data-stu-id="7d381-238">The preceding commands:</span></span>
+<span data-ttu-id="dc500-239">前面的命令：</span><span class="sxs-lookup"><span data-stu-id="dc500-239">The preceding commands:</span></span>
 
-* <span data-ttu-id="7d381-239">创建 `RazorUIClassLib` RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-239">Creates the `RazorUIClassLib` RCL.</span></span>
-* <span data-ttu-id="7d381-240">创建 Razor _Message 页面，并将其添加至 RCL。</span><span class="sxs-lookup"><span data-stu-id="7d381-240">Creates a Razor _Message page, and adds it to the RCL.</span></span> <span data-ttu-id="7d381-241">`-np` 参数创建不含 `PageModel` 的页面。</span><span class="sxs-lookup"><span data-stu-id="7d381-241">The `-np` parameter creates the page without a `PageModel`.</span></span>
-* <span data-ttu-id="7d381-242">创建[_ViewStart](xref:mvc/views/layout#running-code-before-each-view)文件并将其添加到 RCL 中。</span><span class="sxs-lookup"><span data-stu-id="7d381-242">Creates a [_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view) file and adds it to the RCL.</span></span>
+* <span data-ttu-id="dc500-240">创建 `RazorUIClassLib` RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-240">Creates the `RazorUIClassLib` RCL.</span></span>
+* <span data-ttu-id="dc500-241">创建 Razor _Message 页面，并将其添加至 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-241">Creates a Razor _Message page, and adds it to the RCL.</span></span> <span data-ttu-id="dc500-242">`-np` 参数创建不含 `PageModel` 的页面。</span><span class="sxs-lookup"><span data-stu-id="dc500-242">The `-np` parameter creates the page without a `PageModel`.</span></span>
+* <span data-ttu-id="dc500-243">创建[_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)文件，并将其添加到 RCL。</span><span class="sxs-lookup"><span data-stu-id="dc500-243">Creates a [_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view) file and adds it to the RCL.</span></span>
 
-<span data-ttu-id="7d381-243">需要使用 *_ViewStart*文件才能使用 Razor Pages 项目的布局（将在下一节中添加）。</span><span class="sxs-lookup"><span data-stu-id="7d381-243">The *_ViewStart.cshtml* file is required to use the layout of the Razor Pages project (which is added in the next section).</span></span>
+<span data-ttu-id="dc500-244">*_ViewStart.cshtml*时需要使用 （其中添加下一节中） 的 Razor 页面项目的布局文件。</span><span class="sxs-lookup"><span data-stu-id="dc500-244">The *_ViewStart.cshtml* file is required to use the layout of the Razor Pages project (which is added in the next section).</span></span>
 
 ---
 
-### <a name="add-razor-files-and-folders-to-the-project"></a><span data-ttu-id="7d381-244">将 Razor 文件和文件夹添加到项目</span><span class="sxs-lookup"><span data-stu-id="7d381-244">Add Razor files and folders to the project</span></span>
+### <a name="add-razor-files-and-folders-to-the-project"></a><span data-ttu-id="dc500-245">将 Razor 文件和文件夹添加到项目</span><span class="sxs-lookup"><span data-stu-id="dc500-245">Add Razor files and folders to the project</span></span>
 
-* <span data-ttu-id="7d381-245">使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 中的标记：</span><span class="sxs-lookup"><span data-stu-id="7d381-245">Replace the markup in *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* with the following code:</span></span>
+* <span data-ttu-id="dc500-246">使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 中的标记：</span><span class="sxs-lookup"><span data-stu-id="dc500-246">Replace the markup in *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* with the following code:</span></span>
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml)]
 
-* <span data-ttu-id="7d381-246">使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml 中的标记：</span><span class="sxs-lookup"><span data-stu-id="7d381-246">Replace the markup in *RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml* with the following code:</span></span>
+* <span data-ttu-id="dc500-247">使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml 中的标记：</span><span class="sxs-lookup"><span data-stu-id="dc500-247">Replace the markup in *RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml* with the following code:</span></span>
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  <span data-ttu-id="7d381-247">使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。</span><span class="sxs-lookup"><span data-stu-id="7d381-247">`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` is required to use the partial view (`<partial name="_Message" />`).</span></span> <span data-ttu-id="7d381-248">可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。</span><span class="sxs-lookup"><span data-stu-id="7d381-248">Rather than including the `@addTagHelper` directive, you can add a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="7d381-249">例如:</span><span class="sxs-lookup"><span data-stu-id="7d381-249">For example:</span></span>
+  <span data-ttu-id="dc500-248">使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。</span><span class="sxs-lookup"><span data-stu-id="dc500-248">`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` is required to use the partial view (`<partial name="_Message" />`).</span></span> <span data-ttu-id="dc500-249">可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。</span><span class="sxs-lookup"><span data-stu-id="dc500-249">Rather than including the `@addTagHelper` directive, you can add a *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="dc500-250">例如：</span><span class="sxs-lookup"><span data-stu-id="dc500-250">For example:</span></span>
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
   ```
 
-  <span data-ttu-id="7d381-250">有关 *_ViewImports*的详细信息，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)</span><span class="sxs-lookup"><span data-stu-id="7d381-250">For more information on *_ViewImports.cshtml*, see [Importing Shared Directives](xref:mvc/views/layout#importing-shared-directives)</span></span>
+  <span data-ttu-id="dc500-251">有关详细信息 *_ViewImports.cshtml*，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)</span><span class="sxs-lookup"><span data-stu-id="dc500-251">For more information on *_ViewImports.cshtml*, see [Importing Shared Directives](xref:mvc/views/layout#importing-shared-directives)</span></span>
 
-* <span data-ttu-id="7d381-251">生成类库以验证是否不存在编译器错误：</span><span class="sxs-lookup"><span data-stu-id="7d381-251">Build the class library to verify there are no compiler errors:</span></span>
+* <span data-ttu-id="dc500-252">生成类库以验证是否不存在编译器错误：</span><span class="sxs-lookup"><span data-stu-id="dc500-252">Build the class library to verify there are no compiler errors:</span></span>
 
   ```dotnetcli
   dotnet build RazorUIClassLib
   ```
 
-<span data-ttu-id="7d381-252">生成输出内容包含 RazorUIClassLib.dll 和 RazorUIClassLib.Views.dll。</span><span class="sxs-lookup"><span data-stu-id="7d381-252">The build output contains *RazorUIClassLib.dll* and *RazorUIClassLib.Views.dll*.</span></span> <span data-ttu-id="7d381-253">RazorUIClassLib.Views.dll 包含已编译的 Razor 内容。</span><span class="sxs-lookup"><span data-stu-id="7d381-253">*RazorUIClassLib.Views.dll* contains the compiled Razor content.</span></span>
+<span data-ttu-id="dc500-253">生成输出内容包含 RazorUIClassLib.dll 和 RazorUIClassLib.Views.dll。</span><span class="sxs-lookup"><span data-stu-id="dc500-253">The build output contains *RazorUIClassLib.dll* and *RazorUIClassLib.Views.dll*.</span></span> <span data-ttu-id="dc500-254">RazorUIClassLib.Views.dll 包含已编译的 Razor 内容。</span><span class="sxs-lookup"><span data-stu-id="dc500-254">*RazorUIClassLib.Views.dll* contains the compiled Razor content.</span></span>
 
-### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a><span data-ttu-id="7d381-254">从 Razor 页面项目使用 Razor UI 库</span><span class="sxs-lookup"><span data-stu-id="7d381-254">Use the Razor UI library from a Razor Pages project</span></span>
+### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a><span data-ttu-id="dc500-255">从 Razor 页面项目使用 Razor UI 库</span><span class="sxs-lookup"><span data-stu-id="dc500-255">Use the Razor UI library from a Razor Pages project</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7d381-255">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7d381-255">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="dc500-256">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dc500-256">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="7d381-256">创建 Razor 页面 Web 应用：</span><span class="sxs-lookup"><span data-stu-id="7d381-256">Create the Razor Pages web app:</span></span>
+<span data-ttu-id="dc500-257">创建 Razor 页面 Web 应用：</span><span class="sxs-lookup"><span data-stu-id="dc500-257">Create the Razor Pages web app:</span></span>
 
-* <span data-ttu-id="7d381-257">在**解决方案资源管理器**中，右键单击解决方案 >**添加**> "**新建项目**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-257">From **Solution Explorer**, right-click the solution > **Add** >  **New Project**.</span></span>
-* <span data-ttu-id="7d381-258">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="7d381-258">Select **ASP.NET Core Web Application**.</span></span>
-* <span data-ttu-id="7d381-259">将应用命名为 WebApp1。</span><span class="sxs-lookup"><span data-stu-id="7d381-259">Name the app **WebApp1**.</span></span>
-* <span data-ttu-id="7d381-260">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="7d381-260">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
-* <span data-ttu-id="7d381-261">选择 " **Web 应用程序**> **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="7d381-261">Select **Web Application** > **OK**.</span></span>
+* <span data-ttu-id="dc500-258">在**解决方案资源管理器**中，右键单击解决方案 >**添加**>"**新建项目**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-258">From **Solution Explorer**, right-click the solution > **Add** >  **New Project**.</span></span>
+* <span data-ttu-id="dc500-259">选择“ASP.NET Core Web 应用程序”。</span><span class="sxs-lookup"><span data-stu-id="dc500-259">Select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="dc500-260">将应用命名为 WebApp1。</span><span class="sxs-lookup"><span data-stu-id="dc500-260">Name the app **WebApp1**.</span></span>
+* <span data-ttu-id="dc500-261">验证是否已选择 ASP.NET Core 2.1 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="dc500-261">Verify **ASP.NET Core 2.1** or later is selected.</span></span>
+* <span data-ttu-id="dc500-262">选择 " **Web 应用程序**> **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="dc500-262">Select **Web Application** > **OK**.</span></span>
 
-* <span data-ttu-id="7d381-262">在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”。</span><span class="sxs-lookup"><span data-stu-id="7d381-262">From **Solution Explorer**, right-click on **WebApp1** and select **Set as StartUp Project**.</span></span>
-* <span data-ttu-id="7d381-263">在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**生成依赖**关系 >**项目依赖项**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-263">From **Solution Explorer**, right-click on **WebApp1** and select **Build Dependencies** > **Project Dependencies**.</span></span>
-* <span data-ttu-id="7d381-264">将 RazorUIClassLib 勾选为 WebApp1 的依赖项。</span><span class="sxs-lookup"><span data-stu-id="7d381-264">Check **RazorUIClassLib** as a dependency of **WebApp1**.</span></span>
-* <span data-ttu-id="7d381-265">在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**添加**>**引用**"。</span><span class="sxs-lookup"><span data-stu-id="7d381-265">From **Solution Explorer**, right-click on **WebApp1** and select **Add** > **Reference**.</span></span>
-* <span data-ttu-id="7d381-266">在 "**引用管理器**" 对话框中，选中 " **RazorUIClassLib** > **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="7d381-266">In the **Reference Manager** dialog, check **RazorUIClassLib** > **OK**.</span></span>
+* <span data-ttu-id="dc500-263">在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”。</span><span class="sxs-lookup"><span data-stu-id="dc500-263">From **Solution Explorer**, right-click on **WebApp1** and select **Set as StartUp Project**.</span></span>
+* <span data-ttu-id="dc500-264">在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**生成依赖**关系 >**项目依赖项**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-264">From **Solution Explorer**, right-click on **WebApp1** and select **Build Dependencies** > **Project Dependencies**.</span></span>
+* <span data-ttu-id="dc500-265">将 RazorUIClassLib 勾选为 WebApp1 的依赖项。</span><span class="sxs-lookup"><span data-stu-id="dc500-265">Check **RazorUIClassLib** as a dependency of **WebApp1**.</span></span>
+* <span data-ttu-id="dc500-266">在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**添加**>**引用**"。</span><span class="sxs-lookup"><span data-stu-id="dc500-266">From **Solution Explorer**, right-click on **WebApp1** and select **Add** > **Reference**.</span></span>
+* <span data-ttu-id="dc500-267">在 "**引用管理器**" 对话框中，选中 " **RazorUIClassLib** > **" 确定 "** 。</span><span class="sxs-lookup"><span data-stu-id="dc500-267">In the **Reference Manager** dialog, check **RazorUIClassLib** > **OK**.</span></span>
 
-<span data-ttu-id="7d381-267">运行应用。</span><span class="sxs-lookup"><span data-stu-id="7d381-267">Run the app.</span></span>
+<span data-ttu-id="dc500-268">运行应用程序。</span><span class="sxs-lookup"><span data-stu-id="dc500-268">Run the app.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="7d381-268">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="7d381-268">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="dc500-269">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="dc500-269">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="7d381-269">创建 Razor Pages web 应用和包含 Razor Pages 应用和 RCL 的解决方案文件：</span><span class="sxs-lookup"><span data-stu-id="7d381-269">Create a Razor Pages web app and a solution file containing the Razor Pages app and the RCL:</span></span>
+<span data-ttu-id="dc500-270">创建 Razor Pages web 应用和包含 Razor Pages 应用和 RCL 的解决方案文件：</span><span class="sxs-lookup"><span data-stu-id="dc500-270">Create a Razor Pages web app and a solution file containing the Razor Pages app and the RCL:</span></span>
 
 ```dotnetcli
 dotnet new webapp -o WebApp1
@@ -348,7 +348,7 @@ dotnet sln add RazorUIClassLib
 dotnet add WebApp1 reference RazorUIClassLib
 ```
 
-<span data-ttu-id="7d381-270">生成并运行 Web 应用：</span><span class="sxs-lookup"><span data-stu-id="7d381-270">Build and run the web app:</span></span>
+<span data-ttu-id="dc500-271">生成并运行 Web 应用：</span><span class="sxs-lookup"><span data-stu-id="dc500-271">Build and run the web app:</span></span>
 
 ```dotnetcli
 cd WebApp1
@@ -357,26 +357,26 @@ dotnet run
 
 ---
 
-### <a name="test-webapp1"></a><span data-ttu-id="7d381-271">测试 WebApp1</span><span class="sxs-lookup"><span data-stu-id="7d381-271">Test WebApp1</span></span>
+### <a name="test-webapp1"></a><span data-ttu-id="dc500-272">测试 WebApp1</span><span class="sxs-lookup"><span data-stu-id="dc500-272">Test WebApp1</span></span>
 
-<span data-ttu-id="7d381-272">浏览到 `/MyFeature/Page1`，验证 Razor UI 类库是否正在使用中。</span><span class="sxs-lookup"><span data-stu-id="7d381-272">Browse to `/MyFeature/Page1` to verify that the Razor UI class library is in use.</span></span>
+<span data-ttu-id="dc500-273">浏览到 `/MyFeature/Page1`，验证 Razor UI 类库是否正在使用中。</span><span class="sxs-lookup"><span data-stu-id="dc500-273">Browse to `/MyFeature/Page1` to verify that the Razor UI class library is in use.</span></span>
 
-## <a name="override-views-partial-views-and-pages"></a><span data-ttu-id="7d381-273">重写视图、分部视图和页面</span><span class="sxs-lookup"><span data-stu-id="7d381-273">Override views, partial views, and pages</span></span>
+## <a name="override-views-partial-views-and-pages"></a><span data-ttu-id="dc500-274">重写视图、分部视图和页面</span><span class="sxs-lookup"><span data-stu-id="dc500-274">Override views, partial views, and pages</span></span>
 
-<span data-ttu-id="7d381-274">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="7d381-274">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span> <span data-ttu-id="7d381-275">例如，将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1，WebApp1 中的 page1 将优先于 RCL 中的 page1。</span><span class="sxs-lookup"><span data-stu-id="7d381-275">For example, add *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* to WebApp1, and Page1 in the WebApp1 will take precedence over Page1 in the RCL.</span></span>
+<span data-ttu-id="dc500-275">如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。</span><span class="sxs-lookup"><span data-stu-id="dc500-275">When a view, partial view, or Razor Page is found in both the web app and the RCL, the Razor markup (*.cshtml* file) in the web app takes precedence.</span></span> <span data-ttu-id="dc500-276">例如，将*WebApp1/Areas/MyFeature/Pages/Page1. cshtml*添加到 WebApp1，WebApp1 中的 page1 将优先于 RCL 中的 page1。</span><span class="sxs-lookup"><span data-stu-id="dc500-276">For example, add *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* to WebApp1, and Page1 in the WebApp1 will take precedence over Page1 in the RCL.</span></span>
 
-<span data-ttu-id="7d381-276">在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级。</span><span class="sxs-lookup"><span data-stu-id="7d381-276">In the sample download, rename *WebApp1/Areas/MyFeature2* to *WebApp1/Areas/MyFeature* to test precedence.</span></span>
+<span data-ttu-id="dc500-277">在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级。</span><span class="sxs-lookup"><span data-stu-id="dc500-277">In the sample download, rename *WebApp1/Areas/MyFeature2* to *WebApp1/Areas/MyFeature* to test precedence.</span></span>
 
-<span data-ttu-id="7d381-277">将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml。</span><span class="sxs-lookup"><span data-stu-id="7d381-277">Copy the *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* partial view to *WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span> <span data-ttu-id="7d381-278">更新标记以指示新的位置。</span><span class="sxs-lookup"><span data-stu-id="7d381-278">Update the markup to indicate the new location.</span></span> <span data-ttu-id="7d381-279">生成并运行应用，验证使用部分的应用版本。</span><span class="sxs-lookup"><span data-stu-id="7d381-279">Build and run the app to verify the app's version of the partial is being used.</span></span>
+<span data-ttu-id="dc500-278">将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml。</span><span class="sxs-lookup"><span data-stu-id="dc500-278">Copy the *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* partial view to *WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml*.</span></span> <span data-ttu-id="dc500-279">更新标记以指示新的位置。</span><span class="sxs-lookup"><span data-stu-id="dc500-279">Update the markup to indicate the new location.</span></span> <span data-ttu-id="dc500-280">生成并运行应用，验证使用部分的应用版本。</span><span class="sxs-lookup"><span data-stu-id="dc500-280">Build and run the app to verify the app's version of the partial is being used.</span></span>
 
-### <a name="rcl-pages-layout"></a><span data-ttu-id="7d381-280">RCL 页面布局</span><span class="sxs-lookup"><span data-stu-id="7d381-280">RCL Pages layout</span></span>
+### <a name="rcl-pages-layout"></a><span data-ttu-id="dc500-281">RCL 页面布局</span><span class="sxs-lookup"><span data-stu-id="dc500-281">RCL Pages layout</span></span>
 
-<span data-ttu-id="7d381-281">若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="7d381-281">To reference RCL content as though it is part of the web app's *Pages* folder, create the RCL project with the following file structure:</span></span>
+<span data-ttu-id="dc500-282">为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：</span><span class="sxs-lookup"><span data-stu-id="dc500-282">To reference RCL content as though it is part of the web app's *Pages* folder, create the RCL project with the following file structure:</span></span>
 
-* <span data-ttu-id="7d381-282">*RazorUIClassLib/Pages*</span><span class="sxs-lookup"><span data-stu-id="7d381-282">*RazorUIClassLib/Pages*</span></span>
-* <span data-ttu-id="7d381-283">*RazorUIClassLib/Pages/Shared*</span><span class="sxs-lookup"><span data-stu-id="7d381-283">*RazorUIClassLib/Pages/Shared*</span></span>
+* <span data-ttu-id="dc500-283">*RazorUIClassLib/页*</span><span class="sxs-lookup"><span data-stu-id="dc500-283">*RazorUIClassLib/Pages*</span></span>
+* <span data-ttu-id="dc500-284">*RazorUIClassLib/页/Shared*</span><span class="sxs-lookup"><span data-stu-id="dc500-284">*RazorUIClassLib/Pages/Shared*</span></span>
 
-<span data-ttu-id="7d381-284">假设*RazorUIClassLib/Pages/Shared*包含两部分文件： *_Header*和 *_Footer*。</span><span class="sxs-lookup"><span data-stu-id="7d381-284">Suppose *RazorUIClassLib/Pages/Shared* contains two partial files: *_Header.cshtml* and *_Footer.cshtml*.</span></span> <span data-ttu-id="7d381-285">可以将 `<partial>` 标记添加到 *_Layout*文件中：</span><span class="sxs-lookup"><span data-stu-id="7d381-285">The `<partial>` tags could be added to *_Layout.cshtml* file:</span></span>
+<span data-ttu-id="dc500-285">假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。</span><span class="sxs-lookup"><span data-stu-id="dc500-285">Suppose *RazorUIClassLib/Pages/Shared* contains two partial files: *_Header.cshtml* and *_Footer.cshtml*.</span></span> <span data-ttu-id="dc500-286">`<partial>`标记无法添加到 *_Layout.cshtml*文件：</span><span class="sxs-lookup"><span data-stu-id="dc500-286">The `<partial>` tags could be added to *_Layout.cshtml* file:</span></span>
 
 ```cshtml
 <body>
