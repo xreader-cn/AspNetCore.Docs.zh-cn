@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 应用中允许或拒绝跨源请求的标准。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/13/2019
+ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 3a51d365626c858ad48298a1108e37eba9050fe7
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 57098be73164c71d1b0d1fe2f3aee7ec41a32346
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391299"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727322"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -279,7 +279,7 @@ CORS 中间件始终允许发送 `Access-Control-Request-Headers` 中的四个�
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为允许列表：
+CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为白名单：
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
@@ -502,6 +502,11 @@ Test message
 * 不需要 CORS 中间件来处理请求。
 * 不会在响应中返回 CORS 标头。
 
+## <a name="cors-in-iis"></a>IIS 中的 CORS
+
+部署到 IIS 时，如果未将服务器配置为允许匿名访问，则必须在 Windows 身份验证之前运行 CORS。 若要支持此方案，需要为应用安装和配置[IIS CORS 模块](https://www.iis.net/downloads/microsoft/iis-cors-module)。
+
 ## <a name="additional-resources"></a>其他资源
 
 * [跨域资源共享（CORS）](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [IIS CORS 模块入门](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)

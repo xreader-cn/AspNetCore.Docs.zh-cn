@@ -5,14 +5,14 @@ description: 了解如何诊断 ASP.NET Core 应用 Azure App Service 和 Intern
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/10/2020
+ms.date: 01/18/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 23c90c33d197d26d1c4ad758449e318e20ef3760
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 071dba9e936351e201b7582b3d0667cd6fac54bb
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952143"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294619"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service 和 IIS 上的 ASP.NET Core 疑难解答
 
@@ -117,7 +117,10 @@ The Web server is configured to not list the contents of this directory.
 
 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)尝试在进程中启动 .NET Core CLR，但无法启动。 通常，可以根据应用程序事件日志中的条目和 ASP.NET Core 模块 stdout 日志中的条目来确定进程启动失败的原因。
 
-常见的失败情况是，由于目标 ASP.NET Core 共享框架版本不存在，因此应用配置错误。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
+常见失败情况：
+
+* 由于目标为不存在的 ASP.NET Core 共享框架版本，应用程序配置不正确。 检查目标计算机上安装的 ASP.NET Core 共享框架版本。
+* 使用 Azure Key Vault，缺少 Key Vault 的权限。 检查目标 Key Vault 中的访问策略，以确保授予正确的权限。
 
 ### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 ANCM 找不到本机依赖项
 
@@ -240,7 +243,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. 选择“诊断并解决问题”。
 1. 选择“诊断工具”标题。
 1. 在“支持工具”下，选择“应用程序事件”按钮。
-1. 检查 **“源”** 列中由 *IIS AspNetCoreModule* 或 *IIS AspNetCoreModule V2* 条目提供的最新错误。
+1. 检查“源”列中由 *IIS AspNetCoreModule* 或 *IIS AspNetCoreModule V2*条**目**提供的最新错误。
 
 使用“诊断并解决问题”边栏选项卡的替代方法是直接使用 [Kudu](https://github.com/projectkudu/kudu/wiki) 检查应用程序事件日志文件：
 

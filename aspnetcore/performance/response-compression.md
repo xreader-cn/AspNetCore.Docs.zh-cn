@@ -5,14 +5,14 @@ description: 了解响应压缩以及如何在 ASP.NET Core 应用中使用响�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/22/2020
 uid: performance/response-compression
-ms.openlocfilehash: 04b2ffd7047e8b127968adb5d40e0141365fb5fe
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: b8a84418a3258e9ac43b4eadd8564c0708590bce
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880908"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726959"
 ---
 # <a name="response-compression-in-aspnet-core"></a>ASP.NET Core 中的响应压缩
 
@@ -139,7 +139,7 @@ public class Startup
 
 注意：
 
-* `app.UseResponseCompression` 必须在`app.UseMvc` 之前调用。
+* 必须在压缩响应的任何中间件之前调用 `app.UseResponseCompression`。 有关更多信息，请参见<xref:fundamentals/middleware/index#middleware-order>。
 * 使用[Fiddler](https://www.telerik.com/fiddler)、 [Firebug](https://getfirebug.com/)或[Postman](https://www.getpostman.com/)等工具设置 `Accept-Encoding` 请求标头，并研究响应标头、大小和正文。
 
 将请求提交到没有 `Accept-Encoding` 标头的示例应用，并观察响应是否未压缩。 响应中不存在 `Content-Encoding` 和 `Vary` 标头。
@@ -202,7 +202,7 @@ public void ConfigureServices(IServiceCollection services)
 
 设置 <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>的压缩级别。 Brotli 压缩提供程序默认为最快的压缩级别（[CompressionLevel](xref:System.IO.Compression.CompressionLevel)），这可能不会生成最有效的压缩。 如果需要最有效的压缩，请将中间件配置为最佳压缩。
 
-| Compression Level | 描述 |
+| 压缩级别 | 描述 |
 | ----------------- | ----------- |
 | [CompressionLevel.Fastest](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
 | [CompressionLevel. NoCompression](xref:System.IO.Compression.CompressionLevel) | 不应执行压缩。 |
@@ -265,7 +265,7 @@ public void ConfigureServices(IServiceCollection services)
 
 设置 <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>的压缩级别。 Gzip 压缩提供程序默认为最快的压缩级别（[CompressionLevel](xref:System.IO.Compression.CompressionLevel)），这可能不会生成最有效的压缩。 如果需要最有效的压缩，请将中间件配置为最佳压缩。
 
-| Compression Level | 描述 |
+| 压缩级别 | 描述 |
 | ----------------- | ----------- |
 | [CompressionLevel.Fastest](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
 | [CompressionLevel. NoCompression](xref:System.IO.Compression.CompressionLevel) | 不应执行压缩。 |

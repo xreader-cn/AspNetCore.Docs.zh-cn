@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core 的类库中的可重用 Razor UI
 author: Rick-Anderson
-description: 说明如何在 ASP.NET Core 中使用类库中的分部视图创建可重用 Razor UI。
+description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 ms.author: riande
 ms.date: 10/26/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: ff12eea5406c4f5392a466728741000e3dd16fc1
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: b5235f4e31f6edd21fb410824fb215ab2d4a41b6
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034224"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727284"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -36,7 +36,7 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-从命令行中，运行 `dotnet new razorclasslib`。 例如:
+从命令行中，运行 `dotnet new razorclasslib`。 例如：
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -50,7 +50,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
+ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -69,12 +69,12 @@ ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 
-若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：
+为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：
 
-* *RazorUIClassLib/Pages*
-* *RazorUIClassLib/Pages/Shared*
+* *RazorUIClassLib/页*
+* *RazorUIClassLib/页/Shared*
 
-假设*RazorUIClassLib/Pages/Shared*包含两部分文件： *_Header*和 *_Footer*。 可以将 `<partial>` 标记添加到 *_Layout*文件中：
+假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。 `<partial>`标记无法添加到 *_Layout.cshtml*文件：
 
 ```cshtml
 <body>
@@ -127,7 +127,7 @@ RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程�
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 
-RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。
+RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。 如果生成 NuGet 包，并且程序集名称与包 ID 不同，请使用 `{LIBRARY NAME}`的包 ID。
 
 使用应用引用库提供的静态资产，其中包含 `<script>`、`<style>`、`<img>`和其他 HTML 标记。 使用的应用必须在 `Startup.Configure`中启用[静态文件支持](xref:fundamentals/static-files)：
 
@@ -192,7 +192,7 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”。
+* 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
 * 选择“ASP.NET Core Web 应用程序”。
 * 命名库（例如，“RazorClassLib”）>“确定”。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
@@ -204,7 +204,7 @@ RCL 具有以下项目文件：
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-从命令行中，运行 `dotnet new razorclasslib`。 例如:
+从命令行中，运行 `dotnet new razorclasslib`。 例如：
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -216,7 +216,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
+ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -235,7 +235,7 @@ ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在 Visual Studio 中打开 .sln 文件。 运行应用。
+在 Visual Studio 中打开 .sln 文件。 运行应用程序。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -263,7 +263,7 @@ dotnet run
 
 创建 RCL 项目：
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”。
+* 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
 * 选择“ASP.NET Core Web 应用程序”。
 * 将应用命名为 " **RazorUIClassLib** > **" 确定 "** 。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
@@ -284,9 +284,9 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 * 创建 `RazorUIClassLib` RCL。
 * 创建 Razor _Message 页面，并将其添加至 RCL。 `-np` 参数创建不含 `PageModel` 的页面。
-* 创建[_ViewStart](xref:mvc/views/layout#running-code-before-each-view)文件并将其添加到 RCL 中。
+* 创建[_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)文件，并将其添加到 RCL。
 
-需要使用 *_ViewStart*文件才能使用 Razor Pages 项目的布局（将在下一节中添加）。
+*_ViewStart.cshtml*时需要使用 （其中添加下一节中） 的 Razor 页面项目的布局文件。
 
 ---
 
@@ -300,13 +300,13 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如:
+  使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如：
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
   ```
 
-  有关 *_ViewImports*的详细信息，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)
+  有关详细信息 *_ViewImports.cshtml*，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)
 
 * 生成类库以验证是否不存在编译器错误：
 
@@ -322,7 +322,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 创建 Razor 页面 Web 应用：
 
-* 在**解决方案资源管理器**中，右键单击解决方案 >**添加**> "**新建项目**"。
+* 在**解决方案资源管理器**中，右键单击解决方案 >**添加**>"**新建项目**"。
 * 选择“ASP.NET Core Web 应用程序”。
 * 将应用命名为 WebApp1。
 * 验证是否已选择 ASP.NET Core 2.1 或更高版本。
@@ -334,7 +334,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 * 在**解决方案资源管理器**中，右键单击**WebApp1** ，然后选择 "**添加**>**引用**"。
 * 在 "**引用管理器**" 对话框中，选中 " **RazorUIClassLib** > **" 确定 "** 。
 
-运行应用。
+运行应用程序。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -371,12 +371,12 @@ dotnet run
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 
-若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：
+为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：
 
-* *RazorUIClassLib/Pages*
-* *RazorUIClassLib/Pages/Shared*
+* *RazorUIClassLib/页*
+* *RazorUIClassLib/页/Shared*
 
-假设*RazorUIClassLib/Pages/Shared*包含两部分文件： *_Header*和 *_Footer*。 可以将 `<partial>` 标记添加到 *_Layout*文件中：
+假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。 `<partial>`标记无法添加到 *_Layout.cshtml*文件：
 
 ```cshtml
 <body>
