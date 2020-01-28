@@ -47,7 +47,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [[!OP.NO-LOC(Blazor)]](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -83,8 +83,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
    |Web 应用                   | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
    |Web API                   |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
-   |实时应用             |                            |[开始使用 SignalR](xref:tutorials/signalr) |
-   |Blazor 应用                |                            |[开始使用 Blazor](xref:blazor/get-started) |
+   |实时应用             |                            |[开始使用 [!OP.NO-LOC(SignalR)]](xref:tutorials/signalr) |
+   |[!OP.NO-LOC(Blazor)] 应用                |                            |[开始使用 [!OP.NO-LOC(Blazor)]](xref:blazor/get-started) |
    |远程过程调用应用 |                            |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
 
 1. 按照介绍如何进行基本数据访问的教程操作：

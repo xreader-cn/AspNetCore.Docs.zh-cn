@@ -1,0 +1,61 @@
+### YamlMime:Landing
+title: ASP.NET Core 文档新增内容
+summary: 欢迎了解 ASP.NET Core 文档中的新增内容。使用本页可快速查找最新更改。
+metadata:
+  title: ASP.NET Core 文档新增内容
+  description: 了解 ASP.NET Core 文档中的新内容和更新内容。
+  ms.topic: landing-page
+  ms.date: 01/17/2020
+  ms.openlocfilehash: edd748d4d53583e531a280e64979190dcd3c9296
+  ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+  ms.translationtype: HT
+  ms.contentlocale: zh-CN
+  ms.lasthandoff: 01/24/2020
+  ms.locfileid: "76727348"
+landingContent:
+- title: 查找 ASP.NET Core 文档更新
+  linkLists:
+  - linkListType: whats-new
+    links:
+    - text: 2019 年 12 月
+      url: 2019-12.md
+    - text: 2019 年 11 月
+      url: 2019-11.md
+    - text: 2019 年 10 月
+      url: 2019-10.md
+    - text: 2019 年 9 月
+      url: 2019-09.md
+- title: 参与编写 ASP.NET Core 文档
+  linkLists:
+  - linkListType: overview
+    links:
+    - text: ASP.NET Core 文档存储库
+      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/README.md
+    - text: 问题和拉取请求的项目结构和标签
+      url: https://github.com/dotnet/docs/blob/master/styleguide/labels-projects.md
+  - linkListType: concept
+    links:
+    - text: Microsoft 文档参与者指南
+      url: https://docs.microsoft.com/contribute
+    - text: ASP.NET Core 文档参与者指南
+      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md
+    - text: ASP.NET Core API 参考文档参与者指南
+      url: https://github.com/aspnet/ApiDocs/blob/master/CONTRIBUTING.md
+- title: 相关新增内容页面
+  linkLists:
+  - linkListType: whats-new
+    links:
+    - text: Xamarin 文档更新
+      url: /xamarin/whats-new/
+    - text: .NET Core 发行说明
+      url: https://github.com/dotnet/core/blob/master/release-notes/README.md
+    - text: ASP.NET Core 发行说明
+      url: /aspnet/core/release-notes/aspnetcore-3.1
+    - text: C# 编译器 (Roslyn) 发行说明
+      url: https://github.com/dotnet/roslyn/tree/master/docs/ide
+    - text: Visual Studio 发行说明
+      url: /visualstudio/releases/2019/release-notes
+    - text: Visual Studio for Mac 发行说明
+      url: /visualstudio/releasenotes/vs2019-mac-relnotes
+    - text: Visual Studio Code 发行说明
+      url: https://code.visualstudio.com/updates
