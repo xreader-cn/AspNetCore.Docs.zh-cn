@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/22/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: fe4cc13b1efb8c70c9632f032626aa938fb65ea3
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 7b5602d5ae5e58d1678762fe1cd2adec1f31c969
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159945"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76808998"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -112,7 +112,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 当 Blazor 创建组件的实例时：
 
 * 调用组件的构造函数。
-* 将调用通过[`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。 
+* 将调用通过[`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。
 
 任何 `[Inject]` 属性的任何已执行构造函数或 setter 均引发未经处理的异常时，线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
@@ -165,7 +165,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ### <a name="component-disposal"></a>组件处置
 
-例如，可以从 UI 中删除组件，因为用户已导航到另一个页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose*> 方法。 
+例如，可以从 UI 中删除组件，因为用户已导航到另一个页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose*> 方法。
 
 如果组件的 `Dispose` 方法引发未处理的异常，则该异常对于线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
@@ -192,16 +192,49 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ### <a name="circuit-handlers"></a>线路处理程序
 
-Blazor 允许代码定义一个*线路处理程序，该处理程序*在用户线路的状态发生更改时接收通知。 使用以下状态：
+Blazor Server 允许代码定义*线路处理程序，该处理程序*允许在用户线路的状态发生更改时运行代码。 线路处理程序是通过从 `CircuitHandler` 派生并在应用程序的服务容器中注册该类来实现的。 以下线路处理程序示例将跟踪打开的 SignalR 连接：
 
-* `initialized`
-* `connected`
-* `disconnected`
-* `disposed`
+```csharp
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 
-通过注册从 `CircuitHandler` 抽象基类继承的 DI 服务来管理通知。
+public class TrackingCircuitHandler : CircuitHandler
+{
+    private HashSet<Circuit> _circuits = new HashSet<Circuit>();
 
-如果自定义线路处理程序的方法引发未经处理的异常，则该异常对于线路是致命的。 若要容忍处理程序代码或调用方法中的异常，请使用错误处理和日志记录将代码包装在一个或多个[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中。
+    public override Task OnConnectionUpAsync(Circuit circuit, 
+        CancellationToken cancellationToken)
+    {
+        _circuits.Add(circuit);
+
+        return Task.CompletedTask;
+    }
+
+    public override Task OnConnectionDownAsync(Circuit circuit, 
+        CancellationToken cancellationToken)
+    {
+        _circuits.Remove(circuit);
+
+        return Task.CompletedTask;
+    }
+
+    public int ConnectedCircuits => _circuits.Count;
+}
+```
+
+使用 DI 注册线路处理程序。 为每个线路实例创建范围内的实例。 使用前面示例中的 `TrackingCircuitHandler`，将创建一个单一实例服务，因为必须跟踪所有线路的状态：
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    ...
+    services.AddSingleton<CircuitHandler, TrackingCircuitHandler>();
+}
+```
+
+如果自定义线路处理程序的方法引发未经处理的异常，则该异常对于 Blazor 服务器线路是致命的。 若要容忍处理程序代码或调用方法中的异常，请使用错误处理和日志记录将代码包装在一个或多个[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中。
 
 ### <a name="circuit-disposal"></a>线路处置
 

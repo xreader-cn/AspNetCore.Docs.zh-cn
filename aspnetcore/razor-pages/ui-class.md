@@ -3,15 +3,15 @@ title: ASP.NET Core 的类库中的可重用 Razor UI
 author: Rick-Anderson
 description: 说明如何创建可重复使用 Razor UI 在 ASP.NET Core 中的类库中使用分部视图。
 ms.author: riande
-ms.date: 10/26/2019
+ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: b5235f4e31f6edd21fb410824fb215ab2d4a41b6
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 420cc54701394673e2b442b1fdf999e421820fd5
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727284"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809115"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -86,7 +86,7 @@ ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pag
 
 ## <a name="create-an-rcl-with-static-assets"></a>使用静态资产创建 RCL
 
-RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程序引用。 ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。
+RCL 可能需要随附静态资产，这些资产可由 RCL 的 RCL 或使用应用程序引用。 ASP.NET Core 允许创建包含可用于使用中的应用的静态资产的 RCLs。
 
 若要将配套资产作为 RCL 的一部分包括在内，请在类库中创建*wwwroot*文件夹，并在该文件夹中包含所有必需的文件。
 
@@ -127,7 +127,7 @@ RCL 可能需要随附静态资产，这些资产可由 RCL 的使用应用程�
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用 RCL 中的内容
 
-RCL 的*wwwroot*文件夹中包含的文件会公开给使用的应用的前缀 `_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。 如果生成 NuGet 包，并且程序集名称与包 ID 不同，请使用 `{LIBRARY NAME}`的包 ID。
+RCL 的*wwwroot*文件夹中包含的文件会公开给 RCL 或应用程序下的前缀 `_content/{LIBRARY NAME}/`。 例如，名为*Razor*的库会导致 `_content/Razor.Class.Lib/`的静态内容的路径。 如果生成 NuGet 包，并且程序集名称与包 ID 不同，请使用 `{LIBRARY NAME}`的包 ID。
 
 使用应用引用库提供的静态资产，其中包含 `<script>`、`<style>`、`<img>`和其他 HTML 标记。 使用的应用必须在 `Startup.Configure`中启用[静态文件支持](xref:fundamentals/static-files)：
 
