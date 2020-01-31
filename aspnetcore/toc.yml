@@ -230,8 +230,6 @@
           uid: razor-pages/filter
         - name: 路由和应用约定
           uid: razor-pages/razor-pages-conventions
-        - name: Razor SDK
-          uid: razor-pages/sdk
     - name: MVC
       items:
         - name: 概述
@@ -409,21 +407,25 @@
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
     - name: 高级
       items:
+        - name: 应用程序部件
+          uid: mvc/extensibility/app-parts
+        - name: 应用程序模型
+          uid: mvc/controllers/application-model
+        - name: Areas
+          uid: mvc/controllers/areas
+        - name: 筛选器
+          uid: mvc/controllers/filters
+        - name: Razor SDK
+          uid: razor-pages/sdk
         - name: 视图组件
           uid: mvc/views/view-components
         - name: 视图编译
           uid: mvc/views/view-compilation
-        - name: 应用模型
-          uid: mvc/controllers/application-model
-        - name: 筛选器
-          uid: mvc/controllers/filters
-        - name: Areas
-          uid: mvc/controllers/areas
         - name: 上传文件
           uid: mvc/models/file-uploads
-        - name: 应用部件
-          uid: mvc/extensibility/app-parts
-        - name: aspnet-codegenerator
+        - name: Web SDK
+          uid: razor-pages/web-sdk
+        - name: aspnet-codegenerator（基架）
           uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Web API 应用
   items:
@@ -578,6 +580,8 @@
       uid: grpc/client
     - name: gRPC 客户端工厂集成
       uid: grpc/clientfactory
+    - name: 在浏览器应用中使用 gRPC
+      uid: grpc/browser
     - name: Configuration
       uid: grpc/configuration
     - name: 身份验证和授权
