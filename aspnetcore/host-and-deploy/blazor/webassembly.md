@@ -2,19 +2,20 @@
 title: 托管和部署 ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件服务器和 GitHub 页来托管和部署 Blazor 应用。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 0fcefc3f1e51beb7cc29aef6dd4f4b8557e61965
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8ed95cdb96804e08c3f1273bbea8f64a8e4f173c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963633"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160243"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -81,11 +82,11 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config  文件：
 
 * 对以下文件扩展名设置 MIME 类型：
-  * .dll &ndash; `application/octet-stream` 
-  * .json &ndash; `application/json` 
-  * .wasm &ndash; `application/wasm` 
-  * .woff &ndash; `application/font-woff` 
-  * .woff2 &ndash; `application/font-woff` 
+  * .dll  &ndash; `application/octet-stream`
+  * .json  &ndash; `application/json`
+  * .wasm  &ndash; `application/wasm`
+  * .woff  &ndash; `application/font-woff`
+  * .woff2  &ndash; `application/font-woff`
 * 对以下 MIME 类型启用 HTTP 压缩：
   * `application/octet-stream`
   * `application/wasm`

@@ -5,48 +5,48 @@ description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 2ce2cff8d3ab77f21181070b6f1e48c50561036c
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: e9087c246f4805e5931180fa0869fc8a8d23a6c1
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160283"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885593"
 ---
-# <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
+# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-ASP.NET Core 支持 Blazor 应用中的安全配置和管理。
+ASP.NET Core 支持 Blazor 应用程序的安全配置和管理。
 
-Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由于 Blazor 服务器应用在服务器上运行，因此通过授权检查可确定以下内容：
+Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由于 Blazor 服务器应用在服务器上运行，因此通过授权检查可以确定以下内容：
 
 * 向用户呈现的 UI 选项（例如，用户可以使用哪些菜单条目）。
 * 应用程序和组件区域的访问规则。
 
-Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
+Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可以修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
 ## <a name="authentication"></a>身份验证
 
 Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于在 Blazor 服务器或 Blazor WebAssembly 托管 Blazor 应用的方式。
 
-### <a name="opno-locblazor-server-authentication"></a>Blazor 服务器身份验证
+### <a name="blazor-server-authentication"></a>Blazor 服务器身份验证
 
-Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
+Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用程序的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
 
-创建项目后，Blazor 服务器项目模板可为你设置身份验证。
+创建项目后，Blazor 服务器项目模板可以为你设置身份验证。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，新建具有身份验证机制的 Blazor 服务器项目。
+按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
-在“创建新的 ASP.NET Core Web 应用程序”对话框中选择“Blazor 服务器应用”模板后，在“身份验证”下选择“更改”     。
+在“创建新的 ASP.NET Core Web 应用程序”  对话框中选择“Blazor 服务器应用”  模板后，在“身份验证”  下选择“更改”  。
 
 此时将打开一个对话框，为其他 ASP.NET Core 项目提供一组相同的身份验证机制：
 
@@ -59,7 +59,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，新建具有身份验证机制的 Blazor 服务器项目：
+按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -191,13 +191,26 @@ namespace BlazorSample.Services
 }
 ```
 
-在 `Startup.ConfigureServices` 中注册 `CustomAuthStateProvider` 服务：
+在 Blazor WebAssembly 应用中，`CustomAuthStateProvider` 服务已在 Program.cs  的 `Main` 中注册：
 
 ```csharp
-// using Microsoft.AspNetCore.Components.Authorization;
-// using BlazorSample.Services;
+using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using BlazorSample.Services;
 
-services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.Services.AddScoped<AuthenticationStateProvider, 
+            CustomAuthStateProvider>();
+        builder.RootComponents.Add<App>("app");
+
+        await builder.Build().RunAsync();
+    }
+}
 ```
 
 使用 `CustomAuthStateProvider` 后，通过用户名 `mrfibuli` 对所有用户进行身份验证。

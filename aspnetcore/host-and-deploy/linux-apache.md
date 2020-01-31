@@ -5,14 +5,14 @@ description: 了解如何在 CentOS 上将 Apache 设置为反向代理服务器
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 730ed1847ec5728657d56db3ccf0f1f5fab6b5dd
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 028f5112188e2b74f4f01409e25268aecdc761c0
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717359"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146285"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "74717359"
 
 使用本指南，了解如何在 [CentOS 7](https://www.centos.org/) 上将 [Apache](https://httpd.apache.org/) 设置为反向代理服务器，以将 HTTP 流量重定向到在 [Kestrel](xref:fundamentals/servers/kestrel) 服务器上运行的 ASP.NET Core Web 应用。 [mod_proxy extension](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html) 和相关模块可创建服务器的反向代理。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * 运行 CentOS 7 的服务器，使用具有 sudo 特权的标准用户帐户。
 * 在服务器上安装 .NET Core 运行时。
@@ -198,7 +198,7 @@ Environment=ASPNETCORE_ENVIRONMENT=Production
 WantedBy=multi-user.target
 ```
 
-如果配置未使用用户 *apache*，则必须先创建用户，并为该用户提供适当的文件所有权。
+在前面的示例中，管理服务的用户由 `User` 选项指定。 用户 (`apache`) 必须存在并且拥有正确应用文件的所有权。
 
 使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
 

@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编码方式比使用 MVC 更简单高效。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 01/18/2020
+ms.date: 01/28/2020
 uid: razor-pages/index
-ms.openlocfilehash: 69c9f09aa0e3dbdbe78720c573b5e1fc63464571
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: da30908b38d553405fd3f959f09a19eff750ed17
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294657"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870500"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -603,6 +603,7 @@ public string Message { get; set; }
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
+* [将 Razor 组件集成到 Razor Pages 和 MVC 应用](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
 
 ::: moniker-end
 

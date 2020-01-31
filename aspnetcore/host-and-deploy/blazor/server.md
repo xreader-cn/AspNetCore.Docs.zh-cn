@@ -2,20 +2,20 @@
 title: 托管和部署 ASP.NET Core Blazor Server
 author: guardrex
 description: 了解如何使用 ASP.NET Core 托管和部署 Blazor Server 应用。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: d45d355eabc53fc90bcda4cb7be22fb6a9f04541
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: c07cd05dd8e1c4384c6f8f019173b9b7a9a06fd0
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944329"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160218"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -35,7 +35,7 @@ ms.locfileid: "74944329"
 
 计划部署以将可用的基础设施充分用于 Blazor Server 应用。 请参阅以下资源来解决 Blazor Server 应用的可伸缩性：
 
-* [ Blazor Server 应用的基础知识](xref:blazor/hosting-models#blazor-server)
+* [Blazor Server 应用的基础知识](xref:blazor/hosting-models#blazor-server)
 * <xref:security/blazor/server>
 
 ### <a name="deployment-server"></a>部署服务器

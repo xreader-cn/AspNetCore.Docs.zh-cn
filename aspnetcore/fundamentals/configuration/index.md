@@ -5,14 +5,14 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 01/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 141ae5cda7672159032013cbda1ef4bfa7c142dd
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: df49286c3f050b8e90cb5427cf03e2b896a39294
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726979"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885558"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -54,6 +54,19 @@ using Microsoft.Extensions.Configuration;
 ## <a name="host-versus-app-configuration"></a>主机与应用配置
 
 在配置并启动应用之前，配置并启动主机  。 主机负责应用程序启动和生存期管理。 应用和主机均使用本主题中所述的配置提供程序进行配置。 应用的配置中也包含主机配置键值对。 有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。
+
+## <a name="other-configuration"></a>其他配置
+
+本主题仅与应用配置相关  。 运行和托管 ASP.NET Core 应用的其他方面是使用本主题中未包含的配置文件进行配置：
+
+* launch.json  /launchSettings.json  是用于开发环境的工具配置文件，如
+  * <xref:fundamentals/environments#development> 中所述。
+  * 整个文档集中的文件用于为开发方案配置 ASP.NET Core 应用。
+* web.config  是服务器配置文件，如以下主题中所述：
+  * <xref:host-and-deploy/iis/index>
+  * <xref:host-and-deploy/aspnet-core-module>
+
+若要详细了解如何从旧版 ASP.NET 迁移应用配置，请参阅 <xref:migration/proper-to-2x/index#store-configurations>。
 
 ## <a name="default-configuration"></a>默认配置
 

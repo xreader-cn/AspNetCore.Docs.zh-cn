@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b697f02183c76b9a96471a748a86c144fde47bb0
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355269"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268743"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -82,7 +82,9 @@ ms.locfileid: "75355269"
 
 ## <a name="required-attribute"></a>[必需] 特性
 
-默认情况下，验证系统将不可为 null 的参数或属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。
+.NET Core 3.0 和更高版本中的验证系统将不可为 null 的参数或绑定属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。 可以通过在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 来禁用此行为：
+
+``csharp services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
 
 ### <a name="required-validation-on-the-server"></a>[必需] 服务器上的验证
 

@@ -7,22 +7,21 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: a8909d391ae1a35e9c8155df767ab157701c8a51
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 04694f20c7142cc2917df25458e8e335ee933900
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259448"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268774"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
-::: moniker range=">= aspnetcore-3.0"
+本教程没有升级至 ASP.NET Core 3.0  。 [Razor Pages 版本](xref:data/ef-rp/intro)已更新。 针对本教程的 ASP.NET Core 3.0 及更高版本的大多数代码更改：
 
-本教程没有升级至 ASP.NET Core 3.0  。 [Razor Pages 版本](xref:data/ef-rp/intro)已更新。 有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/13920)。
+* 在 Startup.cs  和 Program.cs  文件中。
+* 可在 [Razor Pages 版本](xref:data/ef-rp/intro)中找到。 
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
+有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/13920)。
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -43,7 +42,7 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 > * 创建控制器和视图
 > * 查看数据库
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 包含以下工作负荷：
@@ -387,4 +386,3 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 > [!div class="nextstepaction"]
 > [实现基本的 CRUD 功能](crud.md)
 
-::: moniker-end

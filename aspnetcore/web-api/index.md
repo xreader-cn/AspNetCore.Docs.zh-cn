@@ -5,14 +5,14 @@ description: 了解在 ASP.NET Core 中创建 Web API 的基础知识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 01/27/2020
 uid: web-api/index
-ms.openlocfilehash: 5ef8b4d012f4ed90339ffea191612e4dc365d958
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880532"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870012"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -78,13 +78,28 @@ Web API 包含一个或多个派生自 <xref:Microsoft.AspNetCore.Mvc.Controller
 
 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性可应用于控制器类，以启用下述 API 特定的固定行为：
 
+::: moniker range=">= aspnetcore-2.2"
+
 * [属性路由要求](#attribute-routing-requirement)
 * [自动 HTTP 400 响应](#automatic-http-400-responses)
 * [绑定源参数推理](#binding-source-parameter-inference)
 * [Multipart/form-data 请求推理](#multipartform-data-request-inference)
 * [错误状态代码的问题详细信息](#problem-details-for-error-status-codes)
 
+必须有[兼容性版本](xref:mvc/compatibility-version) 2.2 或更高版本，才能使用“错误状态代码的问题详细信息”  功能。 必须有兼容性版本 2.1 或更高版本，才能使用其他功能。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+* [属性路由要求](#attribute-routing-requirement)
+* [自动 HTTP 400 响应](#automatic-http-400-responses)
+* [绑定源参数推理](#binding-source-parameter-inference)
+* [Multipart/form-data 请求推理](#multipartform-data-request-inference)
+
 这些功能需要[兼容性版本](xref:mvc/compatibility-version)为 2.1 或更高版本。
+
+::: moniker-end
 
 ### <a name="attribute-on-specific-controllers"></a>特定控制器上的属性
 
@@ -141,7 +156,7 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>特性路由要求
 
-`[ApiController]` 属性使属性路由成为要求。 例如:
+`[ApiController]` 属性使属性路由成为要求。 例如：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -354,7 +369,7 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-`NotFound` 方法会生成带 `ProblemDetails` 正文的 HTTP 404 状态代码。 例如:
+`NotFound` 方法会生成带 `ProblemDetails` 正文的 HTTP 404 状态代码。 例如：
 
 ```json
 {

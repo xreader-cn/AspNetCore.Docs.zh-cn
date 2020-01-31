@@ -5,14 +5,14 @@ description: 了解如何在 Ubuntu 16.04 上将 Nginx 设置为反向代理，�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: f307a1c3e0dc62c5dc03e50d710696fadd9fd487
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: e718592127115e46df3154364957943a457b0b1b
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717385"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146324"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -32,7 +32,7 @@ ms.locfileid: "74717385"
 * 确保 Web 应用在启动时作为守护程序运行。
 * 配置进程管理工具以帮助重新启动 Web 应用。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 1. 使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。
 1. 在服务器上安装 .NET Core 运行时。
@@ -205,7 +205,7 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
- 如果配置未使用用户 www-data，则必须先创建此处定义的用户，并为该用户提供适当的文件所有权。
+在前面的示例中，管理服务的用户由 `User` 选项指定。 用户 (`www-data`) 必须存在并且拥有正确应用文件的所有权。
 
 使用 `TimeoutStopSec` 配置在收到初始中断信号后等待应用程序关闭的持续时间。 如果应用程序在此时间段内未关闭，则将发出 SIGKILL 以终止该应用程序。 提供作为无单位秒数的值（例如，`150`）、时间跨度值（例如，`2min 30s`）或 `infinity` 以禁用超时。 `TimeoutStopSec` 默认为管理器配置文件（*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*）中 `DefaultTimeoutStopSec` 的值。 大多数分发版的默认超时时间为 90 秒。
 
