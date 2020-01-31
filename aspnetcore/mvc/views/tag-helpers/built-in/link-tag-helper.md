@@ -6,12 +6,12 @@ description: 了解 ASP.NET Core 链接标记帮助程序属性以及每个属�
 ms.custom: mvc
 ms.date: 09/24/2019
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-ms.openlocfilehash: e1e2e58b4ab9087e1f9de5b5c03b587feb88f1b9
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: d7514433bee8a138cd7d75bfd15c9798d4fd31a3
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256482"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809102"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的链接标记帮助程序
 
@@ -31,7 +31,7 @@ ms.locfileid: "71256482"
 
 [!code-csharp[](link-tag-helper/sample/HtmlPage1.html)]
 
-在上述代码中，链接标记帮助程序生成 `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` 元素以及以下 JavaScript（用于验证是否可以从 CDN 获取请求的 bootstrap.min.css 文件）。 在此示例中，可以获取 CSS 文件，因此标记帮助程序使用 CDN CSS 文件生成 `<link />` 元素。
+在上述代码中，链接标记帮助程序生成 `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` 元素以及以下 JavaScript（用于验证是否可以从 CDN 获取请求的 bootstrap.min.css 文件）  。 在此示例中，可以获取 CSS 文件，因此标记帮助程序使用 CDN CSS 文件生成 `<link />` 元素。
 
 ## <a name="commonly-used-link-tag-helper-attributes"></a>常用的链接标记帮助程序属性
 
@@ -56,10 +56,6 @@ ms.locfileid: "71256482"
 ### <a name="asp-fallback-test-value"></a>asp-fallback-test-value
 
 用于回退测试的 CSS 属性值。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>。
-
-### <a name="asp-fallback-test-value"></a>asp-fallback-test-value
-
-用于回退测试的 CSS 属性值。 有关详细信息，请参阅<xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>。
 
 ## <a name="additional-resources"></a>其他资源
 

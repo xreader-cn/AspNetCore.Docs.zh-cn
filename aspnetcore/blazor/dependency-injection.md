@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: 6930d721f04fd5f7cad2ba472724497a157fda0f
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
-ms.translationtype: MT
+ms.openlocfilehash: fa6762522c831c7fbe2742dbfe4e25a377988e1e
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159971"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869559"
 ---
-# <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
+# <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
 作者： [Rainer Stropek](https://www.timecockpit.com)
 
@@ -25,7 +25,7 @@ ms.locfileid: "76159971"
 
 Blazor 支持[依赖关系注入（DI）](xref:fundamentals/dependency-injection)。 应用可以通过将内置服务注入组件来使用这些服务。 应用还可以定义和注册自定义服务，并通过 DI 使其在整个应用中可用。
 
-DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor 应用程序中，这可能很有用：
+DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor 应用中，这种方法可用于：
 
 * 跨多个组件（称为*单独*服务）共享服务类的单个实例。
 * 使用引用抽象将组件与具体服务类分离。 例如，请考虑用于访问应用中的数据的接口 `IDataAccess`。 接口由具体 `DataAccess` 类实现并在应用服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可以交换实现，这可能是单元测试中的模拟实现。
@@ -36,7 +36,7 @@ DI 是一种用于访问在中心位置配置的服务的技术。 在 Blazor �
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor Server apps 不包括配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关更多信息，请参见<xref:blazor/call-web-api>。 |
+| <xref:System.Net.Http.HttpClient> | 单一实例 | 提供用于发送 HTTP 请求以及从 URI 所标识资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用程序中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包括配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关更多信息，请参见<xref:blazor/call-web-api>。 |
 | `IJSRuntime` | Singleton （Blazor WebAssembly）<br>作用域（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时的实例。 有关更多信息，请参见<xref:blazor/javascript-interop>。 |
 | `NavigationManager` | Singleton （Blazor WebAssembly）<br>作用域（Blazor 服务器） | 包含用于处理 Uri 和导航状态的帮助器。 有关详细信息，请参阅[URI 和导航状态帮助](xref:blazor/routing#uri-and-navigation-state-helpers)程序。 |
 

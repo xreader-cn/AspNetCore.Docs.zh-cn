@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core Blazor 应用程序模板和 Blazor 项目结�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: acfa4b8a42cbd310c6fc6dc973573578e94ef999
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160114"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885507"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -36,16 +36,20 @@ Blazor 框架提供模板，用于为每个 Blazor 承载模型开发应用程�
 
 以下文件和文件夹构成了 Blazor 模板生成的 Blazor 应用：
 
-* *Program.cs* &ndash; 设置 ASP.NET Core[主机](xref:fundamentals/host/generic-host)的应用入口点。 此文件中的代码对于从 ASP.NET Core 模板生成的所有 ASP.NET Core 应用都是通用的。
+* *Program.cs* &ndash; 应用程序的入口点，用于设置：
 
-* *Startup.cs* &ndash; 包含应用的启动逻辑。 `Startup` 类定义两种方法：
+  * ASP.NET Core[主机](xref:fundamentals/host/generic-host)（Blazor Server）
+  * WebAssembly host （Blazor WebAssembly） &ndash; 此文件中的代码对于从 Blazor WebAssembly 模板（`blazorwasm`）创建的应用程序是唯一的。
+    * 作为应用程序的根组件的 `App` 组件被指定为 `Add` 方法的 `app` DOM 元素。
+    * 服务可以在主机生成器上配置 `ConfigureServices` 方法（例如，`builder.Services.AddSingleton<IMyDependency, MyDependency>();`）。
+    * 可以通过主机生成器（`builder.Configuration`）提供配置。
+
+* *Startup.cs* （Blazor Server） &ndash; 包含应用的启动逻辑。 `Startup` 类定义两种方法：
 
   * `ConfigureServices` &ndash; 配置应用的[依赖项注入（DI）](xref:fundamentals/dependency-injection)服务。 在 Blazor Server apps 中，通过调用 <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>添加服务，`WeatherForecastService` 将添加到服务容器中，供示例 `FetchData` 组件使用。
   * `Configure` &ndash; 配置应用的请求处理管道：
-    * Blazor WebAssembly &ndash; 将 `App` 组件（指定为 `app` DOM 元素添加到 `AddComponent` 方法），这是应用的根组件。
-    * Blazor 服务器
-      * 调用 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*> 来设置与浏览器进行实时连接时使用的终结点。 该连接是使用[SignalR](xref:signalr/introduction)创建的，它是一个框架，用于向应用程序添加实时 web 功能。
-      * 调用[MapFallbackToPage （"/_Host"）](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*)以设置应用的根页面（*Pages/_Host*），并启用导航。
+    * 调用 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*> 来设置与浏览器进行实时连接时使用的终结点。 该连接是使用[SignalR](xref:signalr/introduction)创建的，它是一个框架，用于向应用程序添加实时 web 功能。
+    * 调用[MapFallbackToPage （"/_Host"）](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*)以设置应用的根页面（*Pages/_Host*），并启用导航。
 
 * *wwwroot/index.html* （Blazor WebAssembly） &ndash; 作为 html 页面实现的应用的根页面：
   * 当最初请求应用的任何页面时，此页将呈现并在响应中返回。

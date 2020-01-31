@@ -3,15 +3,15 @@ title: 添加、 下载和删除标识到 ASP.NET Core 项目中的用户数据
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 项目中添加到标识的自定义用户数据。 删除每个 GDPR 的数据。
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/28/2020
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: f54df68834cd3e2493e558aaab9851f036f3f01b
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: e08c02e2e5d4a429aae10c59e7ae3ea48c975067
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880758"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885554"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>添加、 下载和删除标识到 ASP.NET Core项目中的自定义用户数据
 
@@ -78,15 +78,15 @@ dotnet new webapp -o WebApp1
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从**解决方案资源管理器**，右键单击该项目 >**添加** > **新基架项**。
-* 从左窗格**添加基架**对话框中，选择**标识** > **添加**。
-* 在中**ADD 标识添加**对话框中，以下选项：
+* 在 "**添加基架**" 对话框的左窗格中，选择 "**标识**" > "**添加**"。
+* 在 "**添加标识**" 对话框中，选择以下选项：
   * 选择现有的布局文件 *~/Pages/Shared/_Layout.cshtml*
   * 选择要重写的以下文件：
     * **帐户/注册**
     * **帐户/管理/索引**
   * 选择 **+** 按钮以创建一个新**数据上下文类**。 接受的类型 (**WebApp1.Models.WebApp1Context**如果项目命名为**WebApp1**)。
   * 选择 **+** 按钮以创建一个新**User 类**。 接受的类型 (**WebApp1User**如果项目命名为**WebApp1**) >**添加**。
-* 选择**添加**。
+* 选择“添加”。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 

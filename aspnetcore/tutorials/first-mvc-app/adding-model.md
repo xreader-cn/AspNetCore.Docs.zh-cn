@@ -5,12 +5,12 @@ description: 将模型添加到简单的 ASP.NET Core 应用。
 ms.author: riande
 ms.date: 01/13/2020
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: adf313418e82cc265304262f7a751273fa0e139f
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 12429f1f381788569615a2a40e1ca13c4b3cfb6e
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952112"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727120"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>将模型添加到 ASP.NET Core MVC 应用
 
@@ -22,7 +22,7 @@ ms.locfileid: "75952112"
 
 要创建的模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系     。 它们只定义将存储在数据库中的数据的属性。
 
-在本教程中，首先要编写模型类，然后 EF Core 将创建数据库。 有一种备选方法（此处未介绍）：从现有数据库生成模型类。 有关此方法的信息，请参阅 [ASP.NET Core - Existing Database](/ef/core/get-started/aspnetcore/existing-db)（ASP.NET Core - 现有数据库）。
+在本教程中，首先要编写模型类，然后 EF Core 将创建数据库。
 
 ::: moniker range=">= aspnetcore-3.0"
 
