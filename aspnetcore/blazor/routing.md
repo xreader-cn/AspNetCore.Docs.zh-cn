@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/routing
-ms.openlocfilehash: 0cd15f25ff7975cae3f63a739212aa23062ece23
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160153"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928288"
 ---
-# <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor 路由
+# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
 作者：[Luke Latham](https://github.com/guardrex)
 
@@ -27,11 +27,11 @@ ms.locfileid: "76160153"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure`中 `MapBlazorHub` 的交互式组件的传入连接：
+Blazor 服务器已集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure`中 `MapBlazorHub` 的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor Server 应用程序的服务器端部分的主机。 按照约定，*主机*页通常命名 *_Host。* 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
+最典型的配置是将所有请求路由到 Razor 页，该页面充当 Blazor 服务器应用的服务器端部分的主机。 按照约定，*主机*页通常命名 *_Host。* 主机文件中指定的路由称为*回退路由*，因为它在路由匹配中以低优先级操作。 当其他路由不匹配时，将考虑回退路由。 这允许应用使用其他控制器和页面，而不会干扰 Blazor Server 应用。
 
 ## <a name="route-templates"></a>路由模板
 
@@ -48,14 +48,14 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 </Router>
 ```
 
-编译带有 `@page` 指令的*razor*文件时，将提供生成的类 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板。
+编译带有 `@page` 指令的*razor*文件时，将提供生成的类 <xref:Microsoft.AspNetCore.Components.RouteAttribute> 指定路由模板。
 
 在运行时，`RouteView` 组件：
 
 * 接收来自 `Router` 的 `RouteData` 以及任何所需的参数。
 * 使用指定的参数呈现指定组件及其布局（或可选默认布局）。
 
-您可以选择指定一个包含布局类的 `DefaultLayout` 参数，以用于未指定布局的组件。 默认 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
+您可以选择指定一个包含布局类的 `DefaultLayout` 参数，以用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout*位于模板项目的*共享*文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
 
 可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute`的请求：
 
@@ -67,7 +67,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 ```
 
 > [!IMPORTANT]
-> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）中包含 `<base>` 标记，或在 `href` 属性（`<base href="/">`）中指定应用程序基路径的*页面/Blazor _Host* 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
+> 若要正确解析 Url，应用必须在其*wwwroot/index.html*文件（Blazor WebAssembly）中包含 `<base>` 标记，或在 `href` 特性（`<base href="/">`）中指定应用程序基路径的*页面/_Host Cshtml*文件（Blazor 服务器）。 有关更多信息，请参见<xref:host-and-deploy/blazor/index#app-base-path>。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>当找不到内容时提供自定义内容
 
@@ -153,7 +153,7 @@ Blazor Server 集成到[ASP.NET Core 终结点路由](xref:fundamentals/routing)
 
 ### <a name="routing-with-urls-that-contain-dots"></a>带有包含点的 Url 的路由
 
-在 Blazor Server apps 中， *_Host*中的默认路由 `/` （`@page "/"`）。 默认路由不会匹配包含点（`.`）的请求 URL，因为 URL 显示为请求文件。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
+在 Blazor 服务器应用中， *_Host*中的默认路由 `/` （`@page "/"`）。 默认路由不会匹配包含点（`.`）的请求 URL，因为 URL 显示为请求文件。 对于不存在的静态文件，Blazor 应用返回 " *404-未找到*" 响应。 若要使用包含点的路由，请使用以下路由模板配置 *_Host* ：
 
 ```cshtml
 @page "/{**path}"

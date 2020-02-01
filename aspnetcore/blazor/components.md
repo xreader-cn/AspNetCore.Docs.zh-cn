@@ -5,17 +5,17 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/28/2019
+ms.date: 01/24/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 6643ccd0fdb62243427bb0972d8deb3f7b57079d
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: d6ba60b20d21636c7f780a80d8fbdb152505a3a3
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726932"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928256"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -23,7 +23,7 @@ ms.locfileid: "76726932"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-使用*组件*构建 Blazor 应用。 组件是自包含的用户界面（UI）块，如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻型。 它们可以嵌套、重复使用和在项目之间共享。
+Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（UI）块，如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻型。 它们可以嵌套、重复使用和在项目之间共享。
 
 ## <a name="component-classes"></a>组件类
 
@@ -49,7 +49,7 @@ ms.locfileid: "76726932"
 }
 ```
 
-最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新的呈现树与上一个树进行比较，并将所有修改应用于浏览器的文档对象模型（DOM）。
+最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后，Blazor 将新的呈现树与上一个树进行比较，并将所有修改应用于浏览器的文档对象模型（DOM）。
 
 组件是普通C#类，可以放置在项目中的任何位置。 生成网页的组件通常位于*Pages*文件夹中。 非页组件通常放置在*共享*文件夹中或添加到项目的自定义文件夹中。
 
@@ -90,16 +90,16 @@ Razor 组件可集成到 Razor Pages 和 MVC 应用。 呈现页面或视图时�
     param-IncrementAmount="10" />
 ```
 
-支持传递参数（例如，在前面的示例中为 `IncrementAmount`）。
+参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，你可以指定 `IncrementAmount` 的值，因为 `IncrementAmount` 的类型为 `int`，这是 JSON 序列化程序支持的基元类型。
 
 `RenderMode` 配置组件是否：
 
 * 已预呈现到页面中。
-* 在页面上呈现为静态 HTML，或者它包含从用户代理启动 Blazor 应用程序所需的信息。
+* 在页面上呈现为静态 HTML，或者，如果包含从用户代理启动 Blazor 应用所需的信息，则为。
 
 | `RenderMode`        | 描述 |
 | ------------------- | ----------- |
-| `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| `ServerPrerendered` | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Static`            | 将组件呈现为静态 HTML。 |
 
@@ -108,6 +108,10 @@ Razor 组件可集成到 Razor Pages 和 MVC 应用。 呈现页面或视图时�
 不支持从静态 HTML 页面呈现服务器组件。
 
 有关如何呈现组件、组件状态和 `Component` 标记帮助器的详细信息，请参阅 <xref:blazor/hosting-models>。
+
+## <a name="tag-helpers-arent-used-in-components"></a>标记帮助程序不用于组件
+
+Razor 组件（*razor*文件）不支持[标记帮助](xref:mvc/views/tag-helpers/intro)程序。 若要在 Blazor 中提供类似于标记帮助程序的功能，请创建一个组件，该组件与标记帮助器具有相同的功能，并改用该组件。
 
 ## <a name="use-components"></a>使用组件
 
@@ -392,13 +396,13 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 * 不能包含自由格式的文本。
 * 基于浏览器的实现提供用户交互特性。
 
-以下字段类型具有特定的格式要求，当前不受 Blazor 支持，因为所有主要浏览器不支持它们：
+以下字段类型具有特定的格式要求，Blazor 当前不支持它们，因为它们不受所有主要浏览器的支持：
 
 * `datetime-local`
 * `month`
 * `week`
 
-`@bind` 支持 `@bind:culture` 参数，以提供用于分析值并设置其格式的 <xref:System.Globalization.CultureInfo?displayProperty=fullName>。 使用 `date` 和 `number` 字段类型时，不建议指定区域性。 `date` 和 `number` 提供提供所需区域性的内置 Blazor 支持。
+`@bind` 支持 `@bind:culture` 参数，以提供用于分析值并设置其格式的 <xref:System.Globalization.CultureInfo?displayProperty=fullName>。 使用 `date` 和 `number` 字段类型时，不建议指定区域性。 `date` 和 `number` 具有提供所需区域性的内置 Blazor 支持。
 
 有关如何设置用户的区域性的信息，请参阅[本地化](#localization)部分。
 
@@ -904,7 +908,7 @@ Password:
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
-Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 在此 `SynchronizationContext`上执行由 Blazor 引发的组件[生命周期方法](xref:blazor/lifecycle)和任何事件回调。 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor的 `SynchronizationContext`。
+Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 此 `SynchronizationContext`上将执行 Blazor 引发的组件[生命周期方法](xref:blazor/lifecycle)和任何事件回调。 如果必须根据外部事件（如计时器或其他通知）更新组件，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的 `SynchronizationContext`。
 
 例如，假设有一个*通告程序服务*可以通知已更新状态的任何侦听组件：
 
@@ -957,11 +961,11 @@ public class NotifierService
 }
 ```
 
-在前面的示例中，`NotifierService` 在 Blazor的 `SynchronizationContext`之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现器排队。
+在前面的示例中，`NotifierService` 在 Blazor 的 `SynchronizationContext`之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现器排队。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>使用 \@键控制是否保留元素和组件
 
-在呈现元素或组件的列表并且元素或组件随后发生变化时，Blazor的比较算法必须决定哪些之前的元素或组件可以保留，以及模型对象应如何映射到它们。 通常，此过程是自动的，可以忽略，但在某些情况下，您可能需要控制该过程。
+在呈现元素或组件的列表并且元素或组件随后发生变化时，Blazor 的比较算法必须决定哪些之前的元素或组件可以保留，以及模型对象应如何映射到它们。 通常，此过程是自动的，可以忽略，但在某些情况下，您可能需要控制该过程。
 
 请看下面的示例：
 
@@ -1008,7 +1012,7 @@ public class NotifierService
 
 通常，每当呈现列表时（例如，在 `@foreach` 块中）和适当的值（用于定义 `@key`），都有必要使用 `@key`。
 
-还可以使用 `@key` 来防止 Blazor 在对象发生更改时保留元素或组件子树：
+当对象发生更改时，还可以使用 `@key` 来防止 Blazor 保留元素或组件子树：
 
 ```razor
 <div @key="currentPerson">
@@ -1016,7 +1020,7 @@ public class NotifierService
 </div>
 ```
 
-如果 `@currentPerson` 更改，则 `@key` attribute 指令强制 Blazor 丢弃整个 `<div>` 及其后代，并利用新的元素和组件重新生成 UI 中的子树。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
+如果 `@currentPerson` 更改，则 `@key` attribute 指令强制 Blazor 丢弃整个 `<div>` 及其后代，并将 UI 中的子树与新元素和组件重新生成。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
 
 ### <a name="when-not-to-use-key"></a>何时不使用 \@键
 
@@ -1031,11 +1035,11 @@ public class NotifierService
 * 模型对象实例（例如，在前面的示例中，`Person` 实例）。 这可确保基于对象引用相等性保存。
 * 唯一标识符（例如，类型的主键值 `int`、`string`或 `Guid`）。
 
-确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，Blazor 引发异常，因为它无法确定将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
+确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 会引发异常，因为它无法确定将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
 
 ## <a name="routing"></a>路由
 
-可以通过为应用中的每个可访问组件提供路由模板来实现 Blazor 中的路由。
+通过向应用程序中的每个可访问组件提供路由模板，实现 Blazor 中的路由。
 
 编译具有 `@page` 指令的 Razor 文件时，将为生成的类指定 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板的。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现哪个组件包含与请求的 URL 匹配的路由模板。
 
@@ -1084,7 +1088,7 @@ Razor 组件以分部类的形式生成。 使用以下方法之一创作 Razor 
 * C#在一个文件中使用 HTML 标记和 Razor 代码在[`@code`](xref:mvc/views/razor#code)块中定义代码。 Blazor 模板使用此方法来定义其 Razor 组件。
 * C#代码位于定义为分部类的代码隐藏文件中。
 
-下面的示例演示了默认 `Counter` 组件，该组件在 Blazor 模板生成的应用程序中具有 `@code` 块。 HTML 标记、Razor 代码和C#代码位于同一个文件中：
+下面的示例演示了在 Blazor 模板生成的应用中具有 `@code` 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和C#代码位于同一个文件中：
 
 *Counter*：
 
@@ -1147,6 +1151,43 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
+```
+
+## <a name="specify-a-base-class"></a>指定基类
+
+[`@inherits`](xref:mvc/views/razor#inherits)指令可用于指定组件的基类。 下面的示例演示组件如何继承基类（`BlazorRocksBase`）以提供组件的属性和方法。 基类应派生自 `ComponentBase`。
+
+*Pages/BlazorRocks*：
+
+```razor
+@page "/BlazorRocks"
+@inherits BlazorRocksBase
+
+<h1>@BlazorRocksText</h1>
+```
+
+*BlazorRocksBase.cs*：
+
+```csharp
+using Microsoft.AspNetCore.Components;
+
+namespace BlazorSample
+{
+    public class BlazorRocksBase : ComponentBase
+    {
+        public string BlazorRocksText { get; set; } = 
+            "Blazor rocks the browser!";
+    }
+}
+```
+
+## <a name="specify-an-attribute"></a>指定属性
+
+可在 Razor 组件中通过[`@attribute`](xref:mvc/views/razor#attribute)指令指定属性。 下面的示例将 `[Authorize]` 特性应用于组件类：
+
+```razor
+@page "/"
+@attribute [Authorize]
 ```
 
 ## <a name="import-components"></a>导入组件
@@ -1581,11 +1622,11 @@ public class ThemeInfo
 ```
 
 > [!WARNING]
-> `Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
+> `Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
 
-Blazor 始终编译 `.razor` 文件。 这可能对 `.razor` 有很大的优势，因为编译步骤可用于注入在运行时提高应用性能的信息。
+Blazor `.razor` 文件始终被编译。 这可能对 `.razor` 有很大的优势，因为编译步骤可用于注入在运行时提高应用性能的信息。
 
 这些改进涉及到*序列号*的主要示例。 序列号指示运行时输出来自代码的不同和有序行。 运行时使用此信息以线性时间生成有效的树差异，其速度远快于一般树差异算法通常可以实现的速度。
 

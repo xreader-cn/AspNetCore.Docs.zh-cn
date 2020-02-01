@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7b5602d5ae5e58d1678762fe1cd2adec1f31c969
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.openlocfilehash: b987513e5410e95ab632b9935d858b648838d94f
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76808998"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928273"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -30,7 +30,9 @@ ms.locfileid: "76808998"
 * 在开发过程中，黄色条框会将你定向到浏览器控制台，你可在其中查看异常。
 * 在生产过程中，黄色条框会通知用户发生了错误，并建议刷新浏览器。
 
-此错误处理体验的 UI 是 Blazor 项目模板的一部分。 在 Blazor WebAssembly 应用程序中，自定义*wwwroot/index.html*文件中的体验：
+此错误处理体验的 UI 是 Blazor 项目模板的一部分。
+
+在 Blazor WebAssembly 应用程序中，自定义*wwwroot/index.html*文件中的体验：
 
 ```html
 <div id="blazor-error-ui">
@@ -57,7 +59,7 @@ ms.locfileid: "76808998"
 
 `blazor-error-ui` 元素被 Blazor 模板附带的样式隐藏，然后在发生错误时显示。
 
-## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Blazor 框架如何响应未经处理的异常
+## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor Server 应用如何响应未经处理的异常
 
 Blazor Server 是有状态框架。 当用户与应用交互时，它们会保持与服务器（称为*线路*）的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
@@ -101,9 +103,9 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 * [事件处理程序](#event-handlers)
 * [组件处置](#component-disposal)
 * [JavaScript 互操作](#javascript-interop)
-* [线路处理程序](#circuit-handlers)
-* [线路处置](#circuit-disposal)
-* [呈现](#prerendering)
+* [Blazor Server 线路处理程序](#blazor-server-circuit-handlers)
+* [服务器线路处置 Blazor](#blazor-server-circuit-disposal)
+* [Blazor Server rerendering](#blazor-server-prerendering)
 
 本文的以下部分介绍了前面未处理的异常。
 
@@ -114,7 +116,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 * 调用组件的构造函数。
 * 将调用通过[`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)指令或[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性提供给组件的构造函数的任何非单一服务器 DI 服务的构造函数。
 
-任何 `[Inject]` 属性的任何已执行构造函数或 setter 均引发未经处理的异常时，线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
+如果任何已执行的构造函数或任何 `[Inject]` 属性的 setter 引发了未处理的异常，则 Blazor 服务器线路会失败。 异常是致命的，因为框架无法实例化组件。 如果构造函数逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
 ### <a name="lifecycle-methods"></a>生命周期方法
 
@@ -125,7 +127,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 * `ShouldRender` / `ShouldRenderAsync`
 * `OnAfterRender` / `OnAfterRenderAsync`
 
-如果任何生命周期方法以同步或异步方式引发异常，则该异常对于线路是致命的。 若要使组件处理生命周期方法中的错误，请添加错误处理逻辑。
+如果任何生命周期方法以同步或异步方式引发异常，则该异常对于 Blazor 服务器线路是致命的。 若要使组件处理生命周期方法中的错误，请添加错误处理逻辑。
 
 在下面的示例中，`OnParametersSetAsync` 调用方法来获取产品：
 
@@ -140,7 +142,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 `.razor` 组件文件中的声明性标记被编译到称为C# `BuildRenderTree`的方法中。 当组件呈现时，`BuildRenderTree` 执行并生成一个数据结构，该结构描述所呈现组件的元素、文本和子组件。
 
-呈现逻辑可能引发异常。 在计算 `@someObject.PropertyName` 但 `@someObject` `null`时，会发生这种情况。 呈现逻辑引发的未经处理的异常对于线路是致命的。
+呈现逻辑可能引发异常。 在计算 `@someObject.PropertyName` 但 `@someObject` `null`时，会发生这种情况。 呈现逻辑引发的未经处理的异常对于 Blazor 服务器线路是致命的。
 
 若要防止呈现逻辑中出现空引用异常，请在访问其成员之前检查 `null` 对象。 在以下示例中，如果 `person.Address` `null`，则不会访问 `person.Address` 属性：
 
@@ -159,7 +161,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 在这些情况下，事件处理程序代码可能会引发未处理的异常。
 
-如果事件处理程序引发未经处理的异常（例如，数据库查询失败），则异常对于线路是致命的。 如果应用调用可能因外部原因而失败的代码，则使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
+如果事件处理程序引发未经处理的异常（例如，数据库查询失败），则异常对于 Blazor 服务器线路是致命的。 如果应用调用可能因外部原因而失败的代码，则使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
 如果用户代码不会捕获并处理异常，则框架将记录异常并终止线路。
 
@@ -167,7 +169,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 例如，可以从 UI 中删除组件，因为用户已导航到另一个页面。 当从 UI 中删除实现 <xref:System.IDisposable?displayProperty=fullName> 的组件时，框架将调用该组件的 <xref:System.IDisposable.Dispose*> 方法。
 
-如果组件的 `Dispose` 方法引发未处理的异常，则该异常对于线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
+如果组件的 `Dispose` 方法引发未处理的异常，则该异常对于 Blazor 服务器线路是致命的。 如果处理逻辑可能引发异常，应用应使用带有错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句来捕获异常。
 
 有关组件处置的详细信息，请参阅 <xref:blazor/lifecycle#component-disposal-with-idisposable>。
 
@@ -177,20 +179,20 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 以下条件适用于带有 `InvokeAsync<T>`的错误处理：
 
-* 如果对 `InvokeAsync<T>` 的调用同步失败，则会发生 .NET 异常。 例如，对 `InvokeAsync<T>` 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则生成的异常对于线路是致命的。
-* 如果对 `InvokeAsync<T>` 的调用异步失败，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 `InvokeAsync<T>` 的调用可能会失败，这是因为 JavaScript 端代码引发异常或返回以 `rejected`完成的 `Promise`。 开发人员代码必须捕获异常。 如果使用[await](/dotnet/csharp/language-reference/keywords/await)运算符，请考虑在包含错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中包装方法调用。 否则，失败的代码会导致未处理的异常，这是对线路至关重要的。
+* 如果对 `InvokeAsync<T>` 的调用同步失败，则会发生 .NET 异常。 例如，对 `InvokeAsync<T>` 的调用可能会失败，因为不能序列化提供的自变量。 开发人员代码必须捕获异常。 如果事件处理程序或组件生命周期方法中的应用代码未处理异常，则生成的异常对于 Blazor 服务器线路是致命的。
+* 如果对 `InvokeAsync<T>` 的调用异步失败，则 .NET <xref:System.Threading.Tasks.Task> 会失败。 例如，对 `InvokeAsync<T>` 的调用可能会失败，这是因为 JavaScript 端代码引发异常或返回以 `rejected`完成的 `Promise`。 开发人员代码必须捕获异常。 如果使用[await](/dotnet/csharp/language-reference/keywords/await)运算符，请考虑在包含错误处理和日志记录的[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中包装方法调用。 否则，失败的代码会导致未处理的异常，这是 Blazor 服务器线路的严重错误。
 * 默认情况下，对 `InvokeAsync<T>` 的调用必须在特定时间段内完成，否则调用会超时。默认超时期限为一分钟。 超时可防止代码丢失网络连接或从不发送回完成消息的 JavaScript 代码。 如果调用超时，则生成的 `Task` 将失败，并出现 <xref:System.OperationCanceledException>。 捕获并处理日志记录的异常。
 
 同样，JavaScript 代码可能会启动对[`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)属性所指示的 .net 方法的调用。 如果这些 .NET 方法引发未经处理的异常：
 
-* 此异常不会被视为对线路的严重。
+* 此异常不会被视为 Blazor 服务器线路的严重。
 * JavaScript 端 `Promise` 被拒绝。
 
 您可以选择在 .NET 端或方法调用的 JavaScript 端使用错误处理代码。
 
 有关更多信息，请参见<xref:blazor/javascript-interop>。
 
-### <a name="circuit-handlers"></a>线路处理程序
+### <a name="opno-locblazor-server-circuit-handlers"></a>Blazor Server 线路处理程序
 
 Blazor Server 允许代码定义*线路处理程序，该处理程序*允许在用户线路的状态发生更改时运行代码。 线路处理程序是通过从 `CircuitHandler` 派生并在应用程序的服务容器中注册该类来实现的。 以下线路处理程序示例将跟踪打开的 SignalR 连接：
 
@@ -236,11 +238,11 @@ public void ConfigureServices(IServiceCollection services)
 
 如果自定义线路处理程序的方法引发未经处理的异常，则该异常对于 Blazor 服务器线路是致命的。 若要容忍处理程序代码或调用方法中的异常，请使用错误处理和日志记录将代码包装在一个或多个[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中。
 
-### <a name="circuit-disposal"></a>线路处置
+### <a name="opno-locblazor-server-circuit-disposal"></a>服务器线路处置 Blazor
 
 当某个线路由于用户已断开连接并且该框架正在清理线路状态而结束时，框架会释放该线路的 DI 范围。 释放作用域将释放任何实现 <xref:System.IDisposable?displayProperty=fullName>的线路范围的 DI 服务。 如果任何 DI 服务在处理过程中引发未经处理的异常，则框架将记录该异常。
 
-### <a name="prerendering"></a>呈现
+### <a name="opno-locblazor-server-prerendering"></a>Blazor Server 预呈现
 
 使用 `Component` 标记帮助器可以预呈现 Blazor 组件，以便在用户初始 HTTP 请求过程中返回其呈现的 HTML 标记。 此功能的工作方式如下：
 
@@ -274,7 +276,7 @@ public void ConfigureServices(IServiceCollection services)
 * 导致呈现过程永久继续。
 * 等效于创建未终止的循环。
 
-在这些情况下，受影响的线路会挂起，并且该线程通常会尝试执行以下操作：
+在这些情况下，受影响的 Blazor 服务器线路会失败，并且该线程通常会尝试执行以下操作：
 
 * 无限期地消耗操作系统允许的 CPU 时间。
 * 消耗不限数量的服务器内存。 使用无限制内存等效于未终止的循环在每次迭代时向集合添加项的情况。

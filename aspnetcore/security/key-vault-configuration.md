@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 37ba756cc4170c145d2ab1f9f0a465057cc826c1
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: cd31094884f53f34d55c0bceabae41ca2bacba4c
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358703"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928541"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -73,11 +73,11 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. 使用[Azure 门户](https://portal.azure.com/)中的以下方法之一打开 Azure Cloud shell：
 
-   * 选择代码块右上角的“试用”。 在文本框中使用搜索字符串 "Azure CLI"。
+   * 选择代码块右上角的 "**试用**"。 在文本框中使用搜索字符串 "Azure CLI"。
    * 在浏览器中打开 Cloud Shell，并提供 "**启动 Cloud Shell** " 按钮。
-   * 选择 Azure 门户右上角菜单上的“Cloud Shell”**Cloud Shell**按钮。
+   * 选择 Azure 门户右上角菜单中的 " **Cloud Shell** " 按钮。
 
-   有关详细信息，请参阅[Azure 命令行接口（CLI）](/cli/azure/)和[Azure Cloud Shell 概述](/azure/cloud-shell/overview)。
+   有关详细信息，请参阅 Azure Cloud Shell [Azure CLI](/cli/azure/)和[概述](/azure/cloud-shell/overview)。
 
 1. 如果尚未通过身份验证，请在 `az login` 命令中登录。
 
@@ -124,10 +124,10 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings*文件中。
 1. 导航到 Azure 门户中的**密钥保管库**。
 1. 选择在[生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault)创建的密钥保管库，其中 Azure Key Vault "部分。
-1. 选择“访问策略”。
+1. 选择 "**访问策略**"。
 1. 选择 "**添加访问策略**"。
 1. 打开**机密权限**，并为应用提供**Get**和**List**权限。
-1. 选择 "**选择主体**"，并按名称选择注册的应用。 选择“选择”按钮。
+1. 选择 "**选择主体**"，并按名称选择注册的应用。 选择 "**选择**" 按钮。
 1. 选择“确定”。
 1. 选择“保存”。
 1. 部署应用程序。

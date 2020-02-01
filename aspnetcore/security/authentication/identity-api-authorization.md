@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829161"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928551"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
@@ -260,7 +260,7 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>部署到生产
+## <a name="deploy-to-production"></a>部署到生产环境
 
 若要将应用部署到生产环境，需预配以下资源：
 
@@ -285,9 +285,9 @@ async populateWeatherData() {
 }
 ```
 
-* 证书上的名称属性对应于证书的可分辨主题。
-* 存储位置表示从何处加载证书（`CurrentUser` 或 `LocalMachine`）。
 * 存储名称表示存储证书的证书存储区的名称。 在这种情况下，它指向个人用户存储区。
+* 存储位置表示从何处加载证书（`CurrentUser` 或 `LocalMachine`）。
+* 证书上的名称属性对应于证书的可分辨主题。
 
 若要部署到 Azure 网站，请遵循将[应用程序部署到 azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)中的步骤部署应用，以创建所需的 Azure 资源，并将该应用部署到生产环境。
 

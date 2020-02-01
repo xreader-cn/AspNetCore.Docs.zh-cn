@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 38da80519b9d5d097c24d38b5a37503174629fc4
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 9c173a4589279b03bc12b4b7dea594fae88cf471
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73896967"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928385"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>使用 ASP.NET Core 中的特定方案授权
 
-在某些情况下（例如单页应用程序（Spa）），通常使用多种身份验证方法。 例如，应用可能会使用基于 cookie 的身份验证来登录和 JWT 请求的 JWT 持有者身份验证。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证（MFA）时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。
+在某些情况下（例如单页应用程序（Spa）），通常使用多种身份验证方法。 例如，应用可能会使用基于 cookie 的身份验证来登录和 JWT 请求的 JWT 持有者身份验证。 在某些情况下，应用程序可能有多个身份验证处理程序实例。 例如，两个 cookie 处理程序，其中一个包含基本标识，一个在已触发多重身份验证（MFA）时创建。 可能会触发 MFA，因为用户请求了需要额外安全的操作。 有关在用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅 GitHub 颁发[保护部分与 mfa](https://github.com/aspnet/AspNetCore.Docs/issues/15791#issuecomment-580464195)。
 
-身份验证方案是在身份验证过程中配置身份验证服务时命名的。 例如:
+身份验证方案是在身份验证过程中配置身份验证服务时命名的。 例如：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -42,7 +42,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="selecting-the-scheme-with-the-authorize-attribute"></a>选择具有授权属性的方案
 
-在授权时，应用指示要使用的处理程序。 通过向 `[Authorize]`传递以逗号分隔的身份验证方案列表，选择应用将授权的处理程序。 `[Authorize]` 属性指定要使用的身份验证方案或方案，不管是否配置了默认设置。 例如:
+在授权时，应用指示要使用的处理程序。 通过向 `[Authorize]`传递以逗号分隔的身份验证方案列表，选择应用将授权的处理程序。 `[Authorize]` 属性指定要使用的身份验证方案或方案，不管是否配置了默认设置。 例如：
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -118,7 +118,7 @@ public void ConfigureServices(IServiceCollection services)
 > [!NOTE]
 > 仅 `JwtBearerDefaults.AuthenticationScheme`的默认身份验证方案注册一个 JWT 持有者身份验证。 必须使用唯一的身份验证方案注册附加身份验证。
 
-下一步是更新默认授权策略，以接受这两种身份验证方案。 例如:
+下一步是更新默认授权策略，以接受这两种身份验证方案。 例如：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

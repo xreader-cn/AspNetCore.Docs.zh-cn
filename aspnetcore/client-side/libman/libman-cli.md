@@ -1,27 +1,27 @@
 ---
-title: 将 LibMan 命令行接口（CLI）用于 ASP.NET Core
+title: 将 LibMan CLI 与 ASP.NET Core
 author: scottaddie
-description: 了解如何在 ASP.NET Core 项目中使用 LibMan 命令行接口（CLI）。
+description: 了解如何在 ASP.NET Core 项目中使用 LibMan CLI。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 8b2b1e45ab4685482554ac439b0276e0cf381609
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962800"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928361"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>将 LibMan 命令行接口（CLI）用于 ASP.NET Core
+# <a name="use-the-libman-cli-with-aspnet-core"></a>将 LibMan CLI 与 ASP.NET Core
 
 作者：[Scott Addie](https://twitter.com/Scott_Addie)
 
 [LibMan](xref:client-side/libman/index) CLI 是一个跨平台工具，在支持 .net Core 的任何地方都受支持。
 
-## <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>先决条件
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
@@ -43,7 +43,7 @@ dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058
 
 在前面的示例中，从本地 Windows 计算机的*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*文件安装 .Net Core 全局工具。
 
-## <a name="usage"></a>用法
+## <a name="usage"></a>用量
 
 成功安装 CLI 后，可以使用以下命令：
 
@@ -157,7 +157,7 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -261,7 +261,7 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-## <a name="restore-library-files"></a>还原库文件
+## <a name="restore-library-files"></a>库将文件还原
 
 `libman restore` 命令安装在*libman*中定义的库文件。 适用以下规则：
 
@@ -336,7 +336,7 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -388,7 +388,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -440,7 +440,7 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PROVIDER`
 
