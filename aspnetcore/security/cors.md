@@ -13,72 +13,72 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 01/24/2020
 ms.locfileid: "76727322"
 ---
-# <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a><span data-ttu-id="35260-103">启用 ASP.NET Core 中的跨域请求 (CORS)</span><span class="sxs-lookup"><span data-stu-id="35260-103">Enable Cross-Origin Requests (CORS) in ASP.NET Core</span></span>
+# <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a><span data-ttu-id="8b74c-103">启用 ASP.NET Core 中的跨域请求 (CORS)</span><span class="sxs-lookup"><span data-stu-id="8b74c-103">Enable Cross-Origin Requests (CORS) in ASP.NET Core</span></span>
 
-<span data-ttu-id="35260-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="35260-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="8b74c-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="8b74c-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="35260-105">本文介绍如何在 ASP.NET Core 的应用程序中启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-105">This article shows how to enable CORS in an ASP.NET Core app.</span></span>
+<span data-ttu-id="8b74c-105">本文介绍如何在 ASP.NET Core 的应用程序中启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-105">This article shows how to enable CORS in an ASP.NET Core app.</span></span>
 
-<span data-ttu-id="35260-106">浏览器安全可以防止网页向其他域发送请求，而不是为网页提供服务。</span><span class="sxs-lookup"><span data-stu-id="35260-106">Browser security prevents a web page from making requests to a different domain than the one that served the web page.</span></span> <span data-ttu-id="35260-107">此限制称为*相同源策略*。</span><span class="sxs-lookup"><span data-stu-id="35260-107">This restriction is called the *same-origin policy*.</span></span> <span data-ttu-id="35260-108">同一源策略可防止恶意站点读取另一个站点中的敏感数据。</span><span class="sxs-lookup"><span data-stu-id="35260-108">The same-origin policy prevents a malicious site from reading sensitive data from another site.</span></span> <span data-ttu-id="35260-109">有时，你可能想要允许其他站点对你的应用进行跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-109">Sometimes, you might want to allow other sites make cross-origin requests to your app.</span></span> <span data-ttu-id="35260-110">有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。</span><span class="sxs-lookup"><span data-stu-id="35260-110">For more information, see the [Mozilla CORS article](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).</span></span>
+<span data-ttu-id="8b74c-106">浏览器安全可以防止网页向其他域发送请求，而不是为网页提供服务。</span><span class="sxs-lookup"><span data-stu-id="8b74c-106">Browser security prevents a web page from making requests to a different domain than the one that served the web page.</span></span> <span data-ttu-id="8b74c-107">此限制称为*相同源策略*。</span><span class="sxs-lookup"><span data-stu-id="8b74c-107">This restriction is called the *same-origin policy*.</span></span> <span data-ttu-id="8b74c-108">同一源策略可防止恶意站点读取另一个站点中的敏感数据。</span><span class="sxs-lookup"><span data-stu-id="8b74c-108">The same-origin policy prevents a malicious site from reading sensitive data from another site.</span></span> <span data-ttu-id="8b74c-109">有时，你可能想要允许其他站点对你的应用进行跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-109">Sometimes, you might want to allow other sites make cross-origin requests to your app.</span></span> <span data-ttu-id="8b74c-110">有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-110">For more information, see the [Mozilla CORS article](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).</span></span>
 
-<span data-ttu-id="35260-111">[跨源资源共享](https://www.w3.org/TR/cors/)（CORS）：</span><span class="sxs-lookup"><span data-stu-id="35260-111">[Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) (CORS):</span></span>
+<span data-ttu-id="8b74c-111">[跨源资源共享](https://www.w3.org/TR/cors/)（CORS）：</span><span class="sxs-lookup"><span data-stu-id="8b74c-111">[Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) (CORS):</span></span>
 
-* <span data-ttu-id="35260-112">是一种 W3C 标准，可让服务器放宽相同的源策略。</span><span class="sxs-lookup"><span data-stu-id="35260-112">Is a W3C standard that allows a server to relax the same-origin policy.</span></span>
-* <span data-ttu-id="35260-113">**不**是一项安全功能，CORS 放宽 security。</span><span class="sxs-lookup"><span data-stu-id="35260-113">Is **not** a security feature, CORS relaxes security.</span></span> <span data-ttu-id="35260-114">API 不能通过允许 CORS 来更安全。</span><span class="sxs-lookup"><span data-stu-id="35260-114">An API is not safer by allowing CORS.</span></span> <span data-ttu-id="35260-115">有关详细信息，请参阅[CORS 的工作](#how-cors)原理。</span><span class="sxs-lookup"><span data-stu-id="35260-115">For more information, see [How CORS works](#how-cors).</span></span>
-* <span data-ttu-id="35260-116">允许服务器明确允许一些跨源请求，同时拒绝其他请求。</span><span class="sxs-lookup"><span data-stu-id="35260-116">Allows a server to explicitly allow some cross-origin requests while rejecting others.</span></span>
-* <span data-ttu-id="35260-117">比早期的技术（如[JSONP](/dotnet/framework/wcf/samples/jsonp)）更安全且更灵活。</span><span class="sxs-lookup"><span data-stu-id="35260-117">Is safer and more flexible than earlier techniques, such as [JSONP](/dotnet/framework/wcf/samples/jsonp).</span></span>
+* <span data-ttu-id="8b74c-112">是一种 W3C 标准，可让服务器放宽相同的源策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-112">Is a W3C standard that allows a server to relax the same-origin policy.</span></span>
+* <span data-ttu-id="8b74c-113">**不**是一项安全功能，CORS 放宽 security。</span><span class="sxs-lookup"><span data-stu-id="8b74c-113">Is **not** a security feature, CORS relaxes security.</span></span> <span data-ttu-id="8b74c-114">API 不能通过允许 CORS 来更安全。</span><span class="sxs-lookup"><span data-stu-id="8b74c-114">An API is not safer by allowing CORS.</span></span> <span data-ttu-id="8b74c-115">有关详细信息，请参阅[CORS 的工作](#how-cors)原理。</span><span class="sxs-lookup"><span data-stu-id="8b74c-115">For more information, see [How CORS works](#how-cors).</span></span>
+* <span data-ttu-id="8b74c-116">允许服务器明确允许一些跨源请求，同时拒绝其他请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-116">Allows a server to explicitly allow some cross-origin requests while rejecting others.</span></span>
+* <span data-ttu-id="8b74c-117">比早期的技术（如[JSONP](/dotnet/framework/wcf/samples/jsonp)）更安全且更灵活。</span><span class="sxs-lookup"><span data-stu-id="8b74c-117">Is safer and more flexible than earlier techniques, such as [JSONP](/dotnet/framework/wcf/samples/jsonp).</span></span>
 
-<span data-ttu-id="35260-118">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="35260-118">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="8b74c-118">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="8b74c-118">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="same-origin"></a><span data-ttu-id="35260-119">同一原点</span><span class="sxs-lookup"><span data-stu-id="35260-119">Same origin</span></span>
+## <a name="same-origin"></a><span data-ttu-id="8b74c-119">同一原点</span><span class="sxs-lookup"><span data-stu-id="8b74c-119">Same origin</span></span>
 
-<span data-ttu-id="35260-120">如果两个 Url 具有相同的方案、主机和端口（[RFC 6454](https://tools.ietf.org/html/rfc6454)），则它们具有相同的源。</span><span class="sxs-lookup"><span data-stu-id="35260-120">Two URLs have the same origin if they have identical schemes, hosts, and ports ([RFC 6454](https://tools.ietf.org/html/rfc6454)).</span></span>
+<span data-ttu-id="8b74c-120">如果两个 Url 具有相同的方案、主机和端口（[RFC 6454](https://tools.ietf.org/html/rfc6454)），则它们具有相同的源。</span><span class="sxs-lookup"><span data-stu-id="8b74c-120">Two URLs have the same origin if they have identical schemes, hosts, and ports ([RFC 6454](https://tools.ietf.org/html/rfc6454)).</span></span>
 
-<span data-ttu-id="35260-121">这两个 Url 具有相同的源：</span><span class="sxs-lookup"><span data-stu-id="35260-121">These two URLs have the same origin:</span></span>
+<span data-ttu-id="8b74c-121">这两个 Url 具有相同的源：</span><span class="sxs-lookup"><span data-stu-id="8b74c-121">These two URLs have the same origin:</span></span>
 
 * `https://example.com/foo.html`
 * `https://example.com/bar.html`
 
-<span data-ttu-id="35260-122">这些 Url 的起源不同于前两个 Url：</span><span class="sxs-lookup"><span data-stu-id="35260-122">These URLs have different origins than the previous two URLs:</span></span>
+<span data-ttu-id="8b74c-122">这些 Url 的起源不同于前两个 Url：</span><span class="sxs-lookup"><span data-stu-id="8b74c-122">These URLs have different origins than the previous two URLs:</span></span>
 
-* <span data-ttu-id="35260-123">`https://example.net` &ndash; 不同的域</span><span class="sxs-lookup"><span data-stu-id="35260-123">`https://example.net` &ndash; Different domain</span></span>
-* <span data-ttu-id="35260-124">`https://www.example.com/foo.html` &ndash; 不同的子域</span><span class="sxs-lookup"><span data-stu-id="35260-124">`https://www.example.com/foo.html` &ndash; Different subdomain</span></span>
-* <span data-ttu-id="35260-125">&ndash; 不同方案 `http://example.com/foo.html`</span><span class="sxs-lookup"><span data-stu-id="35260-125">`http://example.com/foo.html` &ndash; Different scheme</span></span>
-* <span data-ttu-id="35260-126">`https://example.com:9000/foo.html` &ndash; 不同的端口</span><span class="sxs-lookup"><span data-stu-id="35260-126">`https://example.com:9000/foo.html` &ndash; Different port</span></span>
+* <span data-ttu-id="8b74c-123">`https://example.net` &ndash; 不同的域</span><span class="sxs-lookup"><span data-stu-id="8b74c-123">`https://example.net` &ndash; Different domain</span></span>
+* <span data-ttu-id="8b74c-124">`https://www.example.com/foo.html` &ndash; 不同的子域</span><span class="sxs-lookup"><span data-stu-id="8b74c-124">`https://www.example.com/foo.html` &ndash; Different subdomain</span></span>
+* <span data-ttu-id="8b74c-125">&ndash; 不同方案 `http://example.com/foo.html`</span><span class="sxs-lookup"><span data-stu-id="8b74c-125">`http://example.com/foo.html` &ndash; Different scheme</span></span>
+* <span data-ttu-id="8b74c-126">`https://example.com:9000/foo.html` &ndash; 不同的端口</span><span class="sxs-lookup"><span data-stu-id="8b74c-126">`https://example.com:9000/foo.html` &ndash; Different port</span></span>
 
-<span data-ttu-id="35260-127">比较来源时，Internet Explorer 不会考虑该端口。</span><span class="sxs-lookup"><span data-stu-id="35260-127">Internet Explorer doesn't consider the port when comparing origins.</span></span>
+<span data-ttu-id="8b74c-127">比较来源时，Internet Explorer 不会考虑该端口。</span><span class="sxs-lookup"><span data-stu-id="8b74c-127">Internet Explorer doesn't consider the port when comparing origins.</span></span>
 
-## <a name="cors-with-named-policy-and-middleware"></a><span data-ttu-id="35260-128">具有命名策略和中间件的 CORS</span><span class="sxs-lookup"><span data-stu-id="35260-128">CORS with named policy and middleware</span></span>
+## <a name="cors-with-named-policy-and-middleware"></a><span data-ttu-id="8b74c-128">具有命名策略和中间件的 CORS</span><span class="sxs-lookup"><span data-stu-id="8b74c-128">CORS with named policy and middleware</span></span>
 
-<span data-ttu-id="35260-129">CORS 中间件处理跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-129">CORS Middleware handles cross-origin requests.</span></span> <span data-ttu-id="35260-130">以下代码通过指定源为整个应用启用 CORS：</span><span class="sxs-lookup"><span data-stu-id="35260-130">The following code enables CORS for the entire app with the specified origin:</span></span>
+<span data-ttu-id="8b74c-129">CORS 中间件处理跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-129">CORS Middleware handles cross-origin requests.</span></span> <span data-ttu-id="8b74c-130">以下代码通过指定源为整个应用启用 CORS：</span><span class="sxs-lookup"><span data-stu-id="8b74c-130">The following code enables CORS for the entire app with the specified origin:</span></span>
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=8,14-23,38)]
 
-<span data-ttu-id="35260-131">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="35260-131">The preceding code:</span></span>
+<span data-ttu-id="8b74c-131">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="8b74c-131">The preceding code:</span></span>
 
-* <span data-ttu-id="35260-132">将策略名称设置为 "\_myAllowSpecificOrigins"。</span><span class="sxs-lookup"><span data-stu-id="35260-132">Sets the policy name to "\_myAllowSpecificOrigins".</span></span> <span data-ttu-id="35260-133">策略名称为任意名称。</span><span class="sxs-lookup"><span data-stu-id="35260-133">The policy name is arbitrary.</span></span>
-* <span data-ttu-id="35260-134">调用 <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> 扩展方法，该方法启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-134">Calls the <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> extension method, which enables CORS.</span></span>
-* <span data-ttu-id="35260-135">使用[lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)调用 <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*>。</span><span class="sxs-lookup"><span data-stu-id="35260-135">Calls <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> with a [lambda expression](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions).</span></span> <span data-ttu-id="35260-136">Lambda 采用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> 的对象。</span><span class="sxs-lookup"><span data-stu-id="35260-136">The lambda takes a <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> object.</span></span> <span data-ttu-id="35260-137">本文稍后将介绍[配置选项](#cors-policy-options)，如 `WithOrigins`。</span><span class="sxs-lookup"><span data-stu-id="35260-137">[Configuration options](#cors-policy-options), such as `WithOrigins`, are described later in this article.</span></span>
+* <span data-ttu-id="8b74c-132">将策略名称设置为 "\_myAllowSpecificOrigins"。</span><span class="sxs-lookup"><span data-stu-id="8b74c-132">Sets the policy name to "\_myAllowSpecificOrigins".</span></span> <span data-ttu-id="8b74c-133">策略名称为任意名称。</span><span class="sxs-lookup"><span data-stu-id="8b74c-133">The policy name is arbitrary.</span></span>
+* <span data-ttu-id="8b74c-134">调用 <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> 扩展方法，该方法启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-134">Calls the <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> extension method, which enables CORS.</span></span>
+* <span data-ttu-id="8b74c-135">使用[lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)调用 <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*>。</span><span class="sxs-lookup"><span data-stu-id="8b74c-135">Calls <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> with a [lambda expression](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions).</span></span> <span data-ttu-id="8b74c-136">Lambda 采用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> 的对象。</span><span class="sxs-lookup"><span data-stu-id="8b74c-136">The lambda takes a <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> object.</span></span> <span data-ttu-id="8b74c-137">本文稍后将介绍[配置选项](#cors-policy-options)，如 `WithOrigins`。</span><span class="sxs-lookup"><span data-stu-id="8b74c-137">[Configuration options](#cors-policy-options), such as `WithOrigins`, are described later in this article.</span></span>
 
-<span data-ttu-id="35260-138"><xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> 方法调用将 CORS 服务添加到应用的服务容器：</span><span class="sxs-lookup"><span data-stu-id="35260-138">The <xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> method call adds CORS services to the app's service container:</span></span>
+<span data-ttu-id="8b74c-138"><xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> 方法调用将 CORS 服务添加到应用的服务容器：</span><span class="sxs-lookup"><span data-stu-id="8b74c-138">The <xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> method call adds CORS services to the app's service container:</span></span>
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet2)]
 
-<span data-ttu-id="35260-139">有关详细信息，请参阅本文档中的[CORS 策略选项](#cpo)。</span><span class="sxs-lookup"><span data-stu-id="35260-139">For more information, see [CORS policy options](#cpo) in this document .</span></span>
+<span data-ttu-id="8b74c-139">有关详细信息，请参阅本文档中的[CORS 策略选项](#cpo)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-139">For more information, see [CORS policy options](#cpo) in this document .</span></span>
 
-<span data-ttu-id="35260-140"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> 方法可以链接方法，如以下代码所示：</span><span class="sxs-lookup"><span data-stu-id="35260-140">The <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> method can chain methods, as shown in the following code:</span></span>
+<span data-ttu-id="8b74c-140"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> 方法可以链接方法，如以下代码所示：</span><span class="sxs-lookup"><span data-stu-id="8b74c-140">The <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> method can chain methods, as shown in the following code:</span></span>
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup2.cs?name=snippet2)]
 
-<span data-ttu-id="35260-141">注意： URL**不得包含尾随**斜杠（`/`）。</span><span class="sxs-lookup"><span data-stu-id="35260-141">Note: The URL must **not** contain a trailing slash (`/`).</span></span> <span data-ttu-id="35260-142">如果 URL 以 `/`终止，比较将返回 `false` 并且不返回任何标头。</span><span class="sxs-lookup"><span data-stu-id="35260-142">If the URL terminates with `/`, the comparison returns `false` and no header is returned.</span></span>
+<span data-ttu-id="8b74c-141">注意： URL**不得包含尾随**斜杠（`/`）。</span><span class="sxs-lookup"><span data-stu-id="8b74c-141">Note: The URL must **not** contain a trailing slash (`/`).</span></span> <span data-ttu-id="8b74c-142">如果 URL 以 `/`终止，比较将返回 `false` 并且不返回任何标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-142">If the URL terminates with `/`, the comparison returns `false` and no header is returned.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
 <a name="acpall"></a>
 
-### <a name="apply-cors-policies-to-all-endpoints"></a><span data-ttu-id="35260-143">将 CORS 策略应用到所有终结点</span><span class="sxs-lookup"><span data-stu-id="35260-143">Apply CORS policies to all endpoints</span></span>
+### <a name="apply-cors-policies-to-all-endpoints"></a><span data-ttu-id="8b74c-143">将 CORS 策略应用到所有终结点</span><span class="sxs-lookup"><span data-stu-id="8b74c-143">Apply CORS policies to all endpoints</span></span>
 
-<span data-ttu-id="35260-144">以下代码通过 CORS 中间件将 CORS 策略应用到所有应用终结点：</span><span class="sxs-lookup"><span data-stu-id="35260-144">The following code applies CORS policies to all the apps endpoints via CORS Middleware:</span></span>
+<span data-ttu-id="8b74c-144">以下代码通过 CORS 中间件将 CORS 策略应用到所有应用终结点：</span><span class="sxs-lookup"><span data-stu-id="8b74c-144">The following code applies CORS policies to all the apps endpoints via CORS Middleware:</span></span>
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
@@ -97,12 +97,12 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 
 > [!WARNING]
-> <span data-ttu-id="35260-145">通过终结点路由，CORS 中间件必须配置为在对 `UseRouting` 和 `UseEndpoints`的调用之间执行。</span><span class="sxs-lookup"><span data-stu-id="35260-145">With endpoint routing, the CORS middleware must be configured to execute between the calls to `UseRouting` and `UseEndpoints`.</span></span> <span data-ttu-id="35260-146">配置不正确将导致中间件停止正常运行。</span><span class="sxs-lookup"><span data-stu-id="35260-146">Incorrect configuration will cause the middleware to stop functioning correctly.</span></span>
+> <span data-ttu-id="8b74c-145">通过终结点路由，CORS 中间件必须配置为在对 `UseRouting` 和 `UseEndpoints`的调用之间执行。</span><span class="sxs-lookup"><span data-stu-id="8b74c-145">With endpoint routing, the CORS middleware must be configured to execute between the calls to `UseRouting` and `UseEndpoints`.</span></span> <span data-ttu-id="8b74c-146">配置不正确将导致中间件停止正常运行。</span><span class="sxs-lookup"><span data-stu-id="8b74c-146">Incorrect configuration will cause the middleware to stop functioning correctly.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
-<span data-ttu-id="35260-147">以下代码通过 CORS 中间件将 CORS 策略应用到所有应用终结点：</span><span class="sxs-lookup"><span data-stu-id="35260-147">The following code applies CORS policies to all the apps endpoints via CORS Middleware:</span></span>
+<span data-ttu-id="8b74c-147">以下代码通过 CORS 中间件将 CORS 策略应用到所有应用终结点：</span><span class="sxs-lookup"><span data-stu-id="8b74c-147">The following code applies CORS policies to all the apps endpoints via CORS Middleware:</span></span>
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
@@ -121,21 +121,21 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     app.UseMvc();
 }
 ```
-<span data-ttu-id="35260-148">注意：必须在 `UseMvc`之前调用 `UseCors`。</span><span class="sxs-lookup"><span data-stu-id="35260-148">Note: `UseCors` must be called before `UseMvc`.</span></span>
+<span data-ttu-id="8b74c-148">注意：必须在 `UseMvc`之前调用 `UseCors`。</span><span class="sxs-lookup"><span data-stu-id="8b74c-148">Note: `UseCors` must be called before `UseMvc`.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="35260-149">请参阅[在 Razor Pages、控制器和操作方法中启用 cors，](#ecors)以在页面/控制器/操作级别应用 cors 策略。</span><span class="sxs-lookup"><span data-stu-id="35260-149">See [Enable CORS in Razor Pages, controllers, and action methods](#ecors) to apply CORS policy at the page/controller/action level.</span></span>
+<span data-ttu-id="8b74c-149">请参阅[在 Razor Pages、控制器和操作方法中启用 cors，](#ecors)以在页面/控制器/操作级别应用 cors 策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-149">See [Enable CORS in Razor Pages, controllers, and action methods](#ecors) to apply CORS policy at the page/controller/action level.</span></span>
 
-<span data-ttu-id="35260-150">有关测试上述代码的说明，请参阅[测试 CORS](#test) 。</span><span class="sxs-lookup"><span data-stu-id="35260-150">See [Test CORS](#test) for instructions on testing the preceding code.</span></span>
+<span data-ttu-id="8b74c-150">有关测试上述代码的说明，请参阅[测试 CORS](#test) 。</span><span class="sxs-lookup"><span data-stu-id="8b74c-150">See [Test CORS](#test) for instructions on testing the preceding code.</span></span>
 
 <a name="ecors"></a>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="enable-cors-with-endpoint-routing"></a><span data-ttu-id="35260-151">使用终结点路由启用 Cors</span><span class="sxs-lookup"><span data-stu-id="35260-151">Enable Cors with endpoint routing</span></span>
+## <a name="enable-cors-with-endpoint-routing"></a><span data-ttu-id="8b74c-151">使用终结点路由启用 Cors</span><span class="sxs-lookup"><span data-stu-id="8b74c-151">Enable Cors with endpoint routing</span></span>
 
-<span data-ttu-id="35260-152">使用终结点路由，可以根据每个终结点使用 `RequireCors` 的扩展方法集来启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-152">With endpoint routing, CORS can be enabled on a per-endpoint basis using the `RequireCors` set of extension methods.</span></span>
+<span data-ttu-id="8b74c-152">使用终结点路由，可以根据每个终结点使用 `RequireCors` 的扩展方法集来启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-152">With endpoint routing, CORS can be enabled on a per-endpoint basis using the `RequireCors` set of extension methods.</span></span>
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -146,7 +146,7 @@ app.UseEndpoints(endpoints =>
 
 ```
 
-<span data-ttu-id="35260-153">同样，也可以为所有控制器启用 CORS：</span><span class="sxs-lookup"><span data-stu-id="35260-153">Similarly, CORS can also be enabled for all controllers:</span></span>
+<span data-ttu-id="8b74c-153">同样，也可以为所有控制器启用 CORS：</span><span class="sxs-lookup"><span data-stu-id="8b74c-153">Similarly, CORS can also be enabled for all controllers:</span></span>
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -156,130 +156,130 @@ app.UseEndpoints(endpoints =>
 ```
 ::: moniker-end
 
-## <a name="enable-cors-with-attributes"></a><span data-ttu-id="35260-154">使用属性启用 CORS</span><span class="sxs-lookup"><span data-stu-id="35260-154">Enable CORS with attributes</span></span>
+## <a name="enable-cors-with-attributes"></a><span data-ttu-id="8b74c-154">使用属性启用 CORS</span><span class="sxs-lookup"><span data-stu-id="8b74c-154">Enable CORS with attributes</span></span>
 
-<span data-ttu-id="35260-155">[&lbrack;EnableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute)属性提供了一种用于全局应用 CORS 的替代方法。</span><span class="sxs-lookup"><span data-stu-id="35260-155">The [&lbrack;EnableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute) attribute provides an alternative to applying CORS globally.</span></span> <span data-ttu-id="35260-156">`[EnableCors]` 属性可为所选终结点启用 CORS，而不是所有终结点。</span><span class="sxs-lookup"><span data-stu-id="35260-156">The `[EnableCors]` attribute enables CORS for selected end points, rather than all end points.</span></span>
+<span data-ttu-id="8b74c-155">[&lbrack;EnableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute)属性提供了一种用于全局应用 CORS 的替代方法。</span><span class="sxs-lookup"><span data-stu-id="8b74c-155">The [&lbrack;EnableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute) attribute provides an alternative to applying CORS globally.</span></span> <span data-ttu-id="8b74c-156">`[EnableCors]` 属性可为所选终结点启用 CORS，而不是所有终结点。</span><span class="sxs-lookup"><span data-stu-id="8b74c-156">The `[EnableCors]` attribute enables CORS for selected end points, rather than all end points.</span></span>
 
-<span data-ttu-id="35260-157">使用 `[EnableCors]` 指定默认策略，并 `[EnableCors("{Policy String}")]` 指定策略。</span><span class="sxs-lookup"><span data-stu-id="35260-157">Use `[EnableCors]` to specify the default policy and `[EnableCors("{Policy String}")]` to specify a policy.</span></span>
+<span data-ttu-id="8b74c-157">使用 `[EnableCors]` 指定默认策略，并 `[EnableCors("{Policy String}")]` 指定策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-157">Use `[EnableCors]` to specify the default policy and `[EnableCors("{Policy String}")]` to specify a policy.</span></span>
 
-<span data-ttu-id="35260-158">`[EnableCors]` 特性可应用于：</span><span class="sxs-lookup"><span data-stu-id="35260-158">The `[EnableCors]` attribute can be applied to:</span></span>
+<span data-ttu-id="8b74c-158">`[EnableCors]` 特性可应用于：</span><span class="sxs-lookup"><span data-stu-id="8b74c-158">The `[EnableCors]` attribute can be applied to:</span></span>
 
-* <span data-ttu-id="35260-159">Razor 页面 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="35260-159">Razor Page `PageModel`</span></span>
-* <span data-ttu-id="35260-160">控制器</span><span class="sxs-lookup"><span data-stu-id="35260-160">Controller</span></span>
-* <span data-ttu-id="35260-161">控制器操作方法</span><span class="sxs-lookup"><span data-stu-id="35260-161">Controller action method</span></span>
+* <span data-ttu-id="8b74c-159">Razor 页面 `PageModel`</span><span class="sxs-lookup"><span data-stu-id="8b74c-159">Razor Page `PageModel`</span></span>
+* <span data-ttu-id="8b74c-160">控制器</span><span class="sxs-lookup"><span data-stu-id="8b74c-160">Controller</span></span>
+* <span data-ttu-id="8b74c-161">控制器操作方法</span><span class="sxs-lookup"><span data-stu-id="8b74c-161">Controller action method</span></span>
 
-<span data-ttu-id="35260-162">可以将不同的策略应用于控制器/页面模型/操作，并使用 `[EnableCors]` 特性。</span><span class="sxs-lookup"><span data-stu-id="35260-162">You can apply different policies to controller/page-model/action with the  `[EnableCors]` attribute.</span></span> <span data-ttu-id="35260-163">将 `[EnableCors]` 特性应用到控制器/页模型/操作方法，并在中间件中启用 CORS 时，将应用这两种策略。</span><span class="sxs-lookup"><span data-stu-id="35260-163">When the `[EnableCors]` attribute is applied to a controllers/page-model/action method, and CORS is enabled in middleware, both policies are applied.</span></span> <span data-ttu-id="35260-164">建议不要结合策略。</span><span class="sxs-lookup"><span data-stu-id="35260-164">We recommend against combining policies.</span></span> <span data-ttu-id="35260-165">使用 `[EnableCors]` 特性或中间件，而不是在同一应用中。</span><span class="sxs-lookup"><span data-stu-id="35260-165">Use the `[EnableCors]` attribute or middleware, not both in the same app.</span></span>
+<span data-ttu-id="8b74c-162">可以将不同的策略应用于控制器/页面模型/操作，并使用 `[EnableCors]` 特性。</span><span class="sxs-lookup"><span data-stu-id="8b74c-162">You can apply different policies to controller/page-model/action with the  `[EnableCors]` attribute.</span></span> <span data-ttu-id="8b74c-163">将 `[EnableCors]` 特性应用到控制器/页模型/操作方法，并在中间件中启用 CORS 时，将应用这两种策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-163">When the `[EnableCors]` attribute is applied to a controllers/page-model/action method, and CORS is enabled in middleware, both policies are applied.</span></span> <span data-ttu-id="8b74c-164">建议不要结合策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-164">We recommend against combining policies.</span></span> <span data-ttu-id="8b74c-165">使用 `[EnableCors]` 特性或中间件，而不是在同一应用中。</span><span class="sxs-lookup"><span data-stu-id="8b74c-165">Use the `[EnableCors]` attribute or middleware, not both in the same app.</span></span>
 
-<span data-ttu-id="35260-166">下面的代码将不同的策略应用于每个方法：</span><span class="sxs-lookup"><span data-stu-id="35260-166">The following code applies a different policy to each method:</span></span>
+<span data-ttu-id="8b74c-166">下面的代码将不同的策略应用于每个方法：</span><span class="sxs-lookup"><span data-stu-id="8b74c-166">The following code applies a different policy to each method:</span></span>
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Controllers/WidgetController.cs?name=snippet&highlight=6,14)]
 
-<span data-ttu-id="35260-167">以下代码创建 CORS 默认策略和名为 `"AnotherPolicy"`的策略：</span><span class="sxs-lookup"><span data-stu-id="35260-167">The following code creates a CORS default policy and a policy named `"AnotherPolicy"`:</span></span>
+<span data-ttu-id="8b74c-167">以下代码创建 CORS 默认策略和名为 `"AnotherPolicy"`的策略：</span><span class="sxs-lookup"><span data-stu-id="8b74c-167">The following code creates a CORS default policy and a policy named `"AnotherPolicy"`:</span></span>
 
 [!code-csharp[](cors/sample/Cors/WebAPI/StartupMultiPolicy.cs?name=snippet&highlight=12-28)]
 
-### <a name="disable-cors"></a><span data-ttu-id="35260-168">禁用 CORS</span><span class="sxs-lookup"><span data-stu-id="35260-168">Disable CORS</span></span>
+### <a name="disable-cors"></a><span data-ttu-id="8b74c-168">禁用 CORS</span><span class="sxs-lookup"><span data-stu-id="8b74c-168">Disable CORS</span></span>
 
-<span data-ttu-id="35260-169">[&lbrack;DisableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute)属性对控制器/页模型/操作禁用 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-169">The [&lbrack;DisableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute) attribute disables CORS for the controller/page-model/action.</span></span>
+<span data-ttu-id="8b74c-169">[&lbrack;DisableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute)属性对控制器/页模型/操作禁用 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-169">The [&lbrack;DisableCors&rbrack;](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute) attribute disables CORS for the controller/page-model/action.</span></span>
 
 <a name="cpo"></a>
 
-## <a name="cors-policy-options"></a><span data-ttu-id="35260-170">CORS 策略选项</span><span class="sxs-lookup"><span data-stu-id="35260-170">CORS policy options</span></span>
+## <a name="cors-policy-options"></a><span data-ttu-id="8b74c-170">CORS 策略选项</span><span class="sxs-lookup"><span data-stu-id="8b74c-170">CORS policy options</span></span>
 
-<span data-ttu-id="35260-171">本部分介绍可在 CORS 策略中设置的各种选项：</span><span class="sxs-lookup"><span data-stu-id="35260-171">This section describes the various options that can be set in a CORS policy:</span></span>
+<span data-ttu-id="8b74c-171">本部分介绍可在 CORS 策略中设置的各种选项：</span><span class="sxs-lookup"><span data-stu-id="8b74c-171">This section describes the various options that can be set in a CORS policy:</span></span>
 
-* [<span data-ttu-id="35260-172">设置允许的来源</span><span class="sxs-lookup"><span data-stu-id="35260-172">Set the allowed origins</span></span>](#set-the-allowed-origins)
-* [<span data-ttu-id="35260-173">设置允许的 HTTP 方法</span><span class="sxs-lookup"><span data-stu-id="35260-173">Set the allowed HTTP methods</span></span>](#set-the-allowed-http-methods)
-* [<span data-ttu-id="35260-174">设置允许的请求标头</span><span class="sxs-lookup"><span data-stu-id="35260-174">Set the allowed request headers</span></span>](#set-the-allowed-request-headers)
-* [<span data-ttu-id="35260-175">设置公开的响应标头</span><span class="sxs-lookup"><span data-stu-id="35260-175">Set the exposed response headers</span></span>](#set-the-exposed-response-headers)
-* [<span data-ttu-id="35260-176">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="35260-176">Credentials in cross-origin requests</span></span>](#credentials-in-cross-origin-requests)
-* [<span data-ttu-id="35260-177">设置预检过期时间</span><span class="sxs-lookup"><span data-stu-id="35260-177">Set the preflight expiration time</span></span>](#set-the-preflight-expiration-time)
+* [<span data-ttu-id="8b74c-172">设置允许的来源</span><span class="sxs-lookup"><span data-stu-id="8b74c-172">Set the allowed origins</span></span>](#set-the-allowed-origins)
+* [<span data-ttu-id="8b74c-173">设置允许的 HTTP 方法</span><span class="sxs-lookup"><span data-stu-id="8b74c-173">Set the allowed HTTP methods</span></span>](#set-the-allowed-http-methods)
+* [<span data-ttu-id="8b74c-174">设置允许的请求标头</span><span class="sxs-lookup"><span data-stu-id="8b74c-174">Set the allowed request headers</span></span>](#set-the-allowed-request-headers)
+* [<span data-ttu-id="8b74c-175">设置公开的响应标头</span><span class="sxs-lookup"><span data-stu-id="8b74c-175">Set the exposed response headers</span></span>](#set-the-exposed-response-headers)
+* [<span data-ttu-id="8b74c-176">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="8b74c-176">Credentials in cross-origin requests</span></span>](#credentials-in-cross-origin-requests)
+* [<span data-ttu-id="8b74c-177">设置预检过期时间</span><span class="sxs-lookup"><span data-stu-id="8b74c-177">Set the preflight expiration time</span></span>](#set-the-preflight-expiration-time)
 
-<span data-ttu-id="35260-178"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> 在 `Startup.ConfigureServices`中调用。</span><span class="sxs-lookup"><span data-stu-id="35260-178"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> is called in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="35260-179">对于某些选项，最好先阅读[CORS 如何工作](#how-cors)部分。</span><span class="sxs-lookup"><span data-stu-id="35260-179">For some options, it may be helpful to read the [How CORS works](#how-cors) section first.</span></span>
+<span data-ttu-id="8b74c-178"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> 在 `Startup.ConfigureServices`中调用。</span><span class="sxs-lookup"><span data-stu-id="8b74c-178"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> is called in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="8b74c-179">对于某些选项，最好先阅读[CORS 如何工作](#how-cors)部分。</span><span class="sxs-lookup"><span data-stu-id="8b74c-179">For some options, it may be helpful to read the [How CORS works](#how-cors) section first.</span></span>
 
-## <a name="set-the-allowed-origins"></a><span data-ttu-id="35260-180">设置允许的来源</span><span class="sxs-lookup"><span data-stu-id="35260-180">Set the allowed origins</span></span>
+## <a name="set-the-allowed-origins"></a><span data-ttu-id="8b74c-180">设置允许的来源</span><span class="sxs-lookup"><span data-stu-id="8b74c-180">Set the allowed origins</span></span>
 
-<span data-ttu-id="35260-181"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; 允许所有来源的 CORS 请求和任何方案（`http` 或 `https`）。</span><span class="sxs-lookup"><span data-stu-id="35260-181"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; Allows CORS requests from all origins with any scheme (`http` or `https`).</span></span> <span data-ttu-id="35260-182">`AllowAnyOrigin` 不安全，因为*任何网站*都可以向应用程序发出跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-182">`AllowAnyOrigin` is insecure because *any website* can make cross-origin requests to the app.</span></span>
+<span data-ttu-id="8b74c-181"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; 允许所有来源的 CORS 请求和任何方案（`http` 或 `https`）。</span><span class="sxs-lookup"><span data-stu-id="8b74c-181"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; Allows CORS requests from all origins with any scheme (`http` or `https`).</span></span> <span data-ttu-id="8b74c-182">`AllowAnyOrigin` 不安全，因为*任何网站*都可以向应用程序发出跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-182">`AllowAnyOrigin` is insecure because *any website* can make cross-origin requests to the app.</span></span>
 
 ::: moniker range=">= aspnetcore-2.2"
 
 > [!NOTE]
-> <span data-ttu-id="35260-183">指定 `AllowAnyOrigin` 和 `AllowCredentials` 是不安全的配置，可能导致跨站点请求伪造。</span><span class="sxs-lookup"><span data-stu-id="35260-183">Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration and can result in cross-site request forgery.</span></span> <span data-ttu-id="35260-184">使用这两种方法配置应用时，CORS 服务将返回无效的 CORS 响应。</span><span class="sxs-lookup"><span data-stu-id="35260-184">The CORS service returns an invalid CORS response when an app is configured with both methods.</span></span>
+> <span data-ttu-id="8b74c-183">指定 `AllowAnyOrigin` 和 `AllowCredentials` 是不安全的配置，可能导致跨站点请求伪造。</span><span class="sxs-lookup"><span data-stu-id="8b74c-183">Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration and can result in cross-site request forgery.</span></span> <span data-ttu-id="8b74c-184">使用这两种方法配置应用时，CORS 服务将返回无效的 CORS 响应。</span><span class="sxs-lookup"><span data-stu-id="8b74c-184">The CORS service returns an invalid CORS response when an app is configured with both methods.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
 > [!NOTE]
-> <span data-ttu-id="35260-185">指定 `AllowAnyOrigin` 和 `AllowCredentials` 是不安全的配置，可能导致跨站点请求伪造。</span><span class="sxs-lookup"><span data-stu-id="35260-185">Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration and can result in cross-site request forgery.</span></span> <span data-ttu-id="35260-186">对于安全应用，如果客户端必须授权自身访问服务器资源，请指定准确的来源列表。</span><span class="sxs-lookup"><span data-stu-id="35260-186">For a secure app, specify an exact list of origins if the client must authorize itself to access server resources.</span></span>
+> <span data-ttu-id="8b74c-185">指定 `AllowAnyOrigin` 和 `AllowCredentials` 是不安全的配置，可能导致跨站点请求伪造。</span><span class="sxs-lookup"><span data-stu-id="8b74c-185">Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration and can result in cross-site request forgery.</span></span> <span data-ttu-id="8b74c-186">对于安全应用，如果客户端必须授权自身访问服务器资源，请指定准确的来源列表。</span><span class="sxs-lookup"><span data-stu-id="8b74c-186">For a secure app, specify an exact list of origins if the client must authorize itself to access server resources.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="35260-187">`AllowAnyOrigin` 影响预检请求和 `Access-Control-Allow-Origin` 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-187">`AllowAnyOrigin` affects preflight requests and the `Access-Control-Allow-Origin` header.</span></span> <span data-ttu-id="35260-188">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="35260-188">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
+<span data-ttu-id="8b74c-187">`AllowAnyOrigin` 影响预检请求和 `Access-Control-Allow-Origin` 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-187">`AllowAnyOrigin` affects preflight requests and the `Access-Control-Allow-Origin` header.</span></span> <span data-ttu-id="8b74c-188">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="8b74c-188">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="35260-189"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; 将策略的 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> 属性设置为在评估是否允许源时允许源与配置的通配符域匹配的函数。</span><span class="sxs-lookup"><span data-stu-id="35260-189"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; Sets the <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> property of the policy to be a function that allows origins to match a configured wildcard domain when evaluating if the origin is allowed.</span></span>
+<span data-ttu-id="8b74c-189"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; 将策略的 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> 属性设置为在评估是否允许源时允许源与配置的通配符域匹配的函数。</span><span class="sxs-lookup"><span data-stu-id="8b74c-189"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; Sets the <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> property of the policy to be a function that allows origins to match a configured wildcard domain when evaluating if the origin is allowed.</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-105&highlight=4-5)]
 
 ::: moniker-end
 
-### <a name="set-the-allowed-http-methods"></a><span data-ttu-id="35260-190">设置允许的 HTTP 方法</span><span class="sxs-lookup"><span data-stu-id="35260-190">Set the allowed HTTP methods</span></span>
+### <a name="set-the-allowed-http-methods"></a><span data-ttu-id="8b74c-190">设置允许的 HTTP 方法</span><span class="sxs-lookup"><span data-stu-id="8b74c-190">Set the allowed HTTP methods</span></span>
 
-<span data-ttu-id="35260-191"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>：</span><span class="sxs-lookup"><span data-stu-id="35260-191"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:</span></span>
+<span data-ttu-id="8b74c-191"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>设置用户帐户 ：</span><span class="sxs-lookup"><span data-stu-id="8b74c-191"><xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:</span></span>
 
-* <span data-ttu-id="35260-192">允许任何 HTTP 方法：</span><span class="sxs-lookup"><span data-stu-id="35260-192">Allows any HTTP method:</span></span>
-* <span data-ttu-id="35260-193">影响预检请求和 `Access-Control-Allow-Methods` 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-193">Affects preflight requests and the `Access-Control-Allow-Methods` header.</span></span> <span data-ttu-id="35260-194">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="35260-194">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
+* <span data-ttu-id="8b74c-192">允许任何 HTTP 方法：</span><span class="sxs-lookup"><span data-stu-id="8b74c-192">Allows any HTTP method:</span></span>
+* <span data-ttu-id="8b74c-193">影响预检请求和 `Access-Control-Allow-Methods` 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-193">Affects preflight requests and the `Access-Control-Allow-Methods` header.</span></span> <span data-ttu-id="8b74c-194">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="8b74c-194">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
 
-### <a name="set-the-allowed-request-headers"></a><span data-ttu-id="35260-195">设置允许的请求标头</span><span class="sxs-lookup"><span data-stu-id="35260-195">Set the allowed request headers</span></span>
+### <a name="set-the-allowed-request-headers"></a><span data-ttu-id="8b74c-195">设置允许的请求标头</span><span class="sxs-lookup"><span data-stu-id="8b74c-195">Set the allowed request headers</span></span>
 
-<span data-ttu-id="35260-196">若要允许在 CORS 请求中发送特定标头（称为*作者请求标头*），请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> 并指定允许的标头：</span><span class="sxs-lookup"><span data-stu-id="35260-196">To allow specific headers to be sent in a CORS request, called *author request headers*, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> and specify the allowed headers:</span></span>
+<span data-ttu-id="8b74c-196">若要允许在 CORS 请求中发送特定标头（称为*作者请求标头*），请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> 并指定允许的标头：</span><span class="sxs-lookup"><span data-stu-id="8b74c-196">To allow specific headers to be sent in a CORS request, called *author request headers*, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> and specify the allowed headers:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
-<span data-ttu-id="35260-197">若要允许所有作者请求标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>：</span><span class="sxs-lookup"><span data-stu-id="35260-197">To allow all author request headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:</span></span>
+<span data-ttu-id="8b74c-197">若要允许所有作者请求标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-197">To allow all author request headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
-<span data-ttu-id="35260-198">此设置会影响预检请求和 `Access-Control-Request-Headers` 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-198">This setting affects preflight requests and the `Access-Control-Request-Headers` header.</span></span> <span data-ttu-id="35260-199">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="35260-199">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
+<span data-ttu-id="8b74c-198">此设置会影响预检请求和 `Access-Control-Request-Headers` 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-198">This setting affects preflight requests and the `Access-Control-Request-Headers` header.</span></span> <span data-ttu-id="8b74c-199">有关详细信息，请参阅[预检请求](#preflight-requests)部分。</span><span class="sxs-lookup"><span data-stu-id="8b74c-199">For more information, see the [Preflight requests](#preflight-requests) section.</span></span>
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="35260-200">仅当在 `Access-Control-Request-Headers` 中发送的标头与 `WithHeaders`中所述的标头完全匹配时，才可以使用 CORS 中间件策略匹配 `WithHeaders` 指定的特定标头。</span><span class="sxs-lookup"><span data-stu-id="35260-200">A CORS Middleware policy match to specific headers specified by `WithHeaders` is only possible when the headers sent in `Access-Control-Request-Headers` exactly match the headers stated in `WithHeaders`.</span></span>
+<span data-ttu-id="8b74c-200">仅当在 `Access-Control-Request-Headers` 中发送的标头与 `WithHeaders`中所述的标头完全匹配时，才可以使用 CORS 中间件策略匹配 `WithHeaders` 指定的特定标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-200">A CORS Middleware policy match to specific headers specified by `WithHeaders` is only possible when the headers sent in `Access-Control-Request-Headers` exactly match the headers stated in `WithHeaders`.</span></span>
 
-<span data-ttu-id="35260-201">例如，考虑按如下方式配置的应用：</span><span class="sxs-lookup"><span data-stu-id="35260-201">For instance, consider an app configured as follows:</span></span>
+<span data-ttu-id="8b74c-201">例如，考虑按如下方式配置的应用：</span><span class="sxs-lookup"><span data-stu-id="8b74c-201">For instance, consider an app configured as follows:</span></span>
 
 ```csharp
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-<span data-ttu-id="35260-202">CORS 中间件使用以下请求标头拒绝预检请求，因为 `WithHeaders`中未列出 `Content-Language` （[HeaderNames. ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)）：</span><span class="sxs-lookup"><span data-stu-id="35260-202">CORS Middleware declines a preflight request with the following request header because `Content-Language` ([HeaderNames.ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)) isn't listed in `WithHeaders`:</span></span>
+<span data-ttu-id="8b74c-202">CORS 中间件使用以下请求标头拒绝预检请求，因为 `WithHeaders`中未列出 `Content-Language` （[HeaderNames. ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)）：</span><span class="sxs-lookup"><span data-stu-id="8b74c-202">CORS Middleware declines a preflight request with the following request header because `Content-Language` ([HeaderNames.ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)) isn't listed in `WithHeaders`:</span></span>
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
 ```
 
-<span data-ttu-id="35260-203">应用返回*200 OK*响应，但不会向后发送 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-203">The app returns a *200 OK* response but doesn't send the CORS headers back.</span></span> <span data-ttu-id="35260-204">因此，浏览器不会尝试跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-204">Therefore, the browser doesn't attempt the cross-origin request.</span></span>
+<span data-ttu-id="8b74c-203">应用返回*200 OK*响应，但不会向后发送 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-203">The app returns a *200 OK* response but doesn't send the CORS headers back.</span></span> <span data-ttu-id="8b74c-204">因此，浏览器不会尝试跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-204">Therefore, the browser doesn't attempt the cross-origin request.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-<span data-ttu-id="35260-205">CORS 中间件始终允许发送 `Access-Control-Request-Headers` 中的四个标头，而不考虑在 CorsPolicy 中配置的值。</span><span class="sxs-lookup"><span data-stu-id="35260-205">CORS Middleware always allows four headers in the `Access-Control-Request-Headers` to be sent regardless of the values configured in CorsPolicy.Headers.</span></span> <span data-ttu-id="35260-206">此标头列表包括：</span><span class="sxs-lookup"><span data-stu-id="35260-206">This list of headers includes:</span></span>
+<span data-ttu-id="8b74c-205">CORS 中间件始终允许发送 `Access-Control-Request-Headers` 中的四个标头，而不考虑在 CorsPolicy 中配置的值。</span><span class="sxs-lookup"><span data-stu-id="8b74c-205">CORS Middleware always allows four headers in the `Access-Control-Request-Headers` to be sent regardless of the values configured in CorsPolicy.Headers.</span></span> <span data-ttu-id="8b74c-206">此标头列表包括：</span><span class="sxs-lookup"><span data-stu-id="8b74c-206">This list of headers includes:</span></span>
 
 * `Accept`
 * `Accept-Language`
 * `Content-Language`
 * `Origin`
 
-<span data-ttu-id="35260-207">例如，考虑按如下方式配置的应用：</span><span class="sxs-lookup"><span data-stu-id="35260-207">For instance, consider an app configured as follows:</span></span>
+<span data-ttu-id="8b74c-207">例如，考虑按如下方式配置的应用：</span><span class="sxs-lookup"><span data-stu-id="8b74c-207">For instance, consider an app configured as follows:</span></span>
 
 ```csharp
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-<span data-ttu-id="35260-208">CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为白名单：</span><span class="sxs-lookup"><span data-stu-id="35260-208">CORS Middleware responds successfully to a preflight request with the following request header because `Content-Language` is always whitelisted:</span></span>
+<span data-ttu-id="8b74c-208">CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为白名单：</span><span class="sxs-lookup"><span data-stu-id="8b74c-208">CORS Middleware responds successfully to a preflight request with the following request header because `Content-Language` is always whitelisted:</span></span>
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
@@ -287,11 +287,11 @@ Access-Control-Request-Headers: Cache-Control, Content-Language
 
 ::: moniker-end
 
-### <a name="set-the-exposed-response-headers"></a><span data-ttu-id="35260-209">设置公开的响应标头</span><span class="sxs-lookup"><span data-stu-id="35260-209">Set the exposed response headers</span></span>
+### <a name="set-the-exposed-response-headers"></a><span data-ttu-id="8b74c-209">设置公开的响应标头</span><span class="sxs-lookup"><span data-stu-id="8b74c-209">Set the exposed response headers</span></span>
 
-<span data-ttu-id="35260-210">默认情况下，浏览器不会向应用程序公开所有的响应标头。</span><span class="sxs-lookup"><span data-stu-id="35260-210">By default, the browser doesn't expose all of the response headers to the app.</span></span> <span data-ttu-id="35260-211">有关详细信息，请参阅[W3C 跨域资源共享（术语）：简单的响应标头](https://www.w3.org/TR/cors/#simple-response-header)。</span><span class="sxs-lookup"><span data-stu-id="35260-211">For more information, see [W3C Cross-Origin Resource Sharing (Terminology): Simple Response Header](https://www.w3.org/TR/cors/#simple-response-header).</span></span>
+<span data-ttu-id="8b74c-210">默认情况下，浏览器不会向应用程序公开所有的响应标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-210">By default, the browser doesn't expose all of the response headers to the app.</span></span> <span data-ttu-id="8b74c-211">有关详细信息，请参阅[W3C 跨域资源共享（术语）：简单的响应标头](https://www.w3.org/TR/cors/#simple-response-header)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-211">For more information, see [W3C Cross-Origin Resource Sharing (Terminology): Simple Response Header](https://www.w3.org/TR/cors/#simple-response-header).</span></span>
 
-<span data-ttu-id="35260-212">默认情况下可用的响应标头包括：</span><span class="sxs-lookup"><span data-stu-id="35260-212">The response headers that are available by default are:</span></span>
+<span data-ttu-id="8b74c-212">默认情况下可用的响应标头包括：</span><span class="sxs-lookup"><span data-stu-id="8b74c-212">The response headers that are available by default are:</span></span>
 
 * `Cache-Control`
 * `Content-Language`
@@ -300,15 +300,15 @@ Access-Control-Request-Headers: Cache-Control, Content-Language
 * `Last-Modified`
 * `Pragma`
 
-<span data-ttu-id="35260-213">CORS 规范将这些标头称为*简单的响应标头*。</span><span class="sxs-lookup"><span data-stu-id="35260-213">The CORS specification calls these headers *simple response headers*.</span></span> <span data-ttu-id="35260-214">若要使其他标头可用于应用程序，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>：</span><span class="sxs-lookup"><span data-stu-id="35260-214">To make other headers available to the app, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>:</span></span>
+<span data-ttu-id="8b74c-213">CORS 规范将这些标头称为*简单的响应标头*。</span><span class="sxs-lookup"><span data-stu-id="8b74c-213">The CORS specification calls these headers *simple response headers*.</span></span> <span data-ttu-id="8b74c-214">若要使其他标头可用于应用程序，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-214">To make other headers available to the app, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=73-78&highlight=5)]
 
-### <a name="credentials-in-cross-origin-requests"></a><span data-ttu-id="35260-215">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="35260-215">Credentials in cross-origin requests</span></span>
+### <a name="credentials-in-cross-origin-requests"></a><span data-ttu-id="8b74c-215">跨域请求中的凭据</span><span class="sxs-lookup"><span data-stu-id="8b74c-215">Credentials in cross-origin requests</span></span>
 
-<span data-ttu-id="35260-216">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="35260-216">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="35260-217">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="35260-217">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="35260-218">凭据包括 cookie 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="35260-218">Credentials include cookies and HTTP authentication schemes.</span></span> <span data-ttu-id="35260-219">若要使用跨域请求发送凭据，客户端必须将 `XMLHttpRequest.withCredentials` 设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="35260-219">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
+<span data-ttu-id="8b74c-216">凭据需要在 CORS 请求中进行特殊处理。</span><span class="sxs-lookup"><span data-stu-id="8b74c-216">Credentials require special handling in a CORS request.</span></span> <span data-ttu-id="8b74c-217">默认情况下，浏览器不会使用跨域请求发送凭据。</span><span class="sxs-lookup"><span data-stu-id="8b74c-217">By default, the browser doesn't send credentials with a cross-origin request.</span></span> <span data-ttu-id="8b74c-218">凭据包括 cookie 和 HTTP 身份验证方案。</span><span class="sxs-lookup"><span data-stu-id="8b74c-218">Credentials include cookies and HTTP authentication schemes.</span></span> <span data-ttu-id="8b74c-219">若要使用跨域请求发送凭据，客户端必须将 `XMLHttpRequest.withCredentials` 设置为 `true`。</span><span class="sxs-lookup"><span data-stu-id="8b74c-219">To send credentials with a cross-origin request, the client must set `XMLHttpRequest.withCredentials` to `true`.</span></span>
 
-<span data-ttu-id="35260-220">直接使用 `XMLHttpRequest`：</span><span class="sxs-lookup"><span data-stu-id="35260-220">Using `XMLHttpRequest` directly:</span></span>
+<span data-ttu-id="8b74c-220">直接使用 `XMLHttpRequest`：</span><span class="sxs-lookup"><span data-stu-id="8b74c-220">Using `XMLHttpRequest` directly:</span></span>
 
 ```javascript
 var xhr = new XMLHttpRequest();
@@ -316,7 +316,7 @@ xhr.open('get', 'https://www.example.com/api/test');
 xhr.withCredentials = true;
 ```
 
-<span data-ttu-id="35260-221">使用 jQuery：</span><span class="sxs-lookup"><span data-stu-id="35260-221">Using jQuery:</span></span>
+<span data-ttu-id="8b74c-221">使用 jQuery：</span><span class="sxs-lookup"><span data-stu-id="8b74c-221">Using jQuery:</span></span>
 
 ```javascript
 $.ajax({
@@ -328,7 +328,7 @@ $.ajax({
 });
 ```
 
-<span data-ttu-id="35260-222">使用[提取 API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)：</span><span class="sxs-lookup"><span data-stu-id="35260-222">Using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):</span></span>
+<span data-ttu-id="8b74c-222">使用[提取 API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)：</span><span class="sxs-lookup"><span data-stu-id="8b74c-222">Using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):</span></span>
 
 ```javascript
 fetch('https://www.example.com/api/test', {
@@ -336,33 +336,33 @@ fetch('https://www.example.com/api/test', {
 });
 ```
 
-<span data-ttu-id="35260-223">服务器必须允许凭据。</span><span class="sxs-lookup"><span data-stu-id="35260-223">The server must allow the credentials.</span></span> <span data-ttu-id="35260-224">若要允许跨域凭据，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>：</span><span class="sxs-lookup"><span data-stu-id="35260-224">To allow cross-origin credentials, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>:</span></span>
+<span data-ttu-id="8b74c-223">服务器必须允许凭据。</span><span class="sxs-lookup"><span data-stu-id="8b74c-223">The server must allow the credentials.</span></span> <span data-ttu-id="8b74c-224">若要允许跨域凭据，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-224">To allow cross-origin credentials, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=82-87&highlight=5)]
 
-<span data-ttu-id="35260-225">HTTP 响应包含一个 `Access-Control-Allow-Credentials` 标头，该标头通知浏览器服务器允许跨源请求的凭据。</span><span class="sxs-lookup"><span data-stu-id="35260-225">The HTTP response includes an `Access-Control-Allow-Credentials` header, which tells the browser that the server allows credentials for a cross-origin request.</span></span>
+<span data-ttu-id="8b74c-225">HTTP 响应包含一个 `Access-Control-Allow-Credentials` 标头，该标头通知浏览器服务器允许跨源请求的凭据。</span><span class="sxs-lookup"><span data-stu-id="8b74c-225">The HTTP response includes an `Access-Control-Allow-Credentials` header, which tells the browser that the server allows credentials for a cross-origin request.</span></span>
 
-<span data-ttu-id="35260-226">如果浏览器发送凭据，但响应不包含有效的 `Access-Control-Allow-Credentials` 标头，则浏览器不会向应用程序公开响应，而且跨源请求会失败。</span><span class="sxs-lookup"><span data-stu-id="35260-226">If the browser sends credentials but the response doesn't include a valid `Access-Control-Allow-Credentials` header, the browser doesn't expose the response to the app, and the cross-origin request fails.</span></span>
+<span data-ttu-id="8b74c-226">如果浏览器发送凭据，但响应不包含有效的 `Access-Control-Allow-Credentials` 标头，则浏览器不会向应用程序公开响应，而且跨源请求会失败。</span><span class="sxs-lookup"><span data-stu-id="8b74c-226">If the browser sends credentials but the response doesn't include a valid `Access-Control-Allow-Credentials` header, the browser doesn't expose the response to the app, and the cross-origin request fails.</span></span>
 
-<span data-ttu-id="35260-227">允许跨域凭据会带来安全风险。</span><span class="sxs-lookup"><span data-stu-id="35260-227">Allowing cross-origin credentials is a security risk.</span></span> <span data-ttu-id="35260-228">另一个域中的网站可以代表用户将登录用户的凭据发送给该应用程序，而无需用户的知识。</span><span class="sxs-lookup"><span data-stu-id="35260-228">A website at another domain can send a signed-in user's credentials to the app on the user's behalf without the user's knowledge.</span></span> <!-- TODO Review: When using `AllowCredentials`, all CORS enabled domains must be trusted.
+<span data-ttu-id="8b74c-227">允许跨域凭据会带来安全风险。</span><span class="sxs-lookup"><span data-stu-id="8b74c-227">Allowing cross-origin credentials is a security risk.</span></span> <span data-ttu-id="8b74c-228">另一个域中的网站可以代表用户将登录用户的凭据发送给该应用程序，而无需用户的知识。</span><span class="sxs-lookup"><span data-stu-id="8b74c-228">A website at another domain can send a signed-in user's credentials to the app on the user's behalf without the user's knowledge.</span></span> <!-- TODO Review: When using `AllowCredentials`, all CORS enabled domains must be trusted.
 I don't like "all CORS enabled domains must be trusted", because it implies that if you're not using  `AllowCredentials`, domains don't need to be trusted. -->
 
-<span data-ttu-id="35260-229">CORS 规范还指出，如果 `Access-Control-Allow-Credentials` 标头存在，则将源设置为 `"*"` （所有源）是无效的。</span><span class="sxs-lookup"><span data-stu-id="35260-229">The CORS specification also states that setting origins to `"*"` (all origins) is invalid if the `Access-Control-Allow-Credentials` header is present.</span></span>
+<span data-ttu-id="8b74c-229">CORS 规范还指出，如果 `Access-Control-Allow-Credentials` 标头存在，则将源设置为 `"*"` （所有源）是无效的。</span><span class="sxs-lookup"><span data-stu-id="8b74c-229">The CORS specification also states that setting origins to `"*"` (all origins) is invalid if the `Access-Control-Allow-Credentials` header is present.</span></span>
 
-### <a name="preflight-requests"></a><span data-ttu-id="35260-230">预检请求</span><span class="sxs-lookup"><span data-stu-id="35260-230">Preflight requests</span></span>
+### <a name="preflight-requests"></a><span data-ttu-id="8b74c-230">预检请求</span><span class="sxs-lookup"><span data-stu-id="8b74c-230">Preflight requests</span></span>
 
-<span data-ttu-id="35260-231">对于某些 CORS 请求，浏览器会在发出实际请求之前发送其他请求。</span><span class="sxs-lookup"><span data-stu-id="35260-231">For some CORS requests, the browser sends an additional request before making the actual request.</span></span> <span data-ttu-id="35260-232">此请求称为*预检请求*。</span><span class="sxs-lookup"><span data-stu-id="35260-232">This request is called a *preflight request*.</span></span> <span data-ttu-id="35260-233">如果满足以下条件，浏览器可以跳过预检请求：</span><span class="sxs-lookup"><span data-stu-id="35260-233">The browser can skip the preflight request if the following conditions are true:</span></span>
+<span data-ttu-id="8b74c-231">对于某些 CORS 请求，浏览器会在发出实际请求之前发送其他请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-231">For some CORS requests, the browser sends an additional request before making the actual request.</span></span> <span data-ttu-id="8b74c-232">此请求称为*预检请求*。</span><span class="sxs-lookup"><span data-stu-id="8b74c-232">This request is called a *preflight request*.</span></span> <span data-ttu-id="8b74c-233">如果满足以下条件，浏览器可以跳过预检请求：</span><span class="sxs-lookup"><span data-stu-id="8b74c-233">The browser can skip the preflight request if the following conditions are true:</span></span>
 
-* <span data-ttu-id="35260-234">请求方法为 GET、HEAD 或 POST。</span><span class="sxs-lookup"><span data-stu-id="35260-234">The request method is GET, HEAD, or POST.</span></span>
-* <span data-ttu-id="35260-235">应用不会设置 `Accept`、`Accept-Language`、`Content-Language`、`Content-Type`或 `Last-Event-ID`以外的请求标头。</span><span class="sxs-lookup"><span data-stu-id="35260-235">The app doesn't set request headers other than `Accept`, `Accept-Language`, `Content-Language`, `Content-Type`, or `Last-Event-ID`.</span></span>
-* <span data-ttu-id="35260-236">`Content-Type` 标头（如果已设置）具有以下值之一：</span><span class="sxs-lookup"><span data-stu-id="35260-236">The `Content-Type` header, if set, has one of the following values:</span></span>
+* <span data-ttu-id="8b74c-234">请求方法为 GET、HEAD 或 POST。</span><span class="sxs-lookup"><span data-stu-id="8b74c-234">The request method is GET, HEAD, or POST.</span></span>
+* <span data-ttu-id="8b74c-235">应用不会设置 `Accept`、`Accept-Language`、`Content-Language`、`Content-Type`或 `Last-Event-ID`以外的请求标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-235">The app doesn't set request headers other than `Accept`, `Accept-Language`, `Content-Language`, `Content-Type`, or `Last-Event-ID`.</span></span>
+* <span data-ttu-id="8b74c-236">`Content-Type` 标头（如果已设置）具有以下值之一：</span><span class="sxs-lookup"><span data-stu-id="8b74c-236">The `Content-Type` header, if set, has one of the following values:</span></span>
   * `application/x-www-form-urlencoded`
   * `multipart/form-data`
   * `text/plain`
 
-<span data-ttu-id="35260-237">为客户端请求设置的请求标头上的规则适用于应用通过调用 `XMLHttpRequest` 对象的 `setRequestHeader` 来设置的标头。</span><span class="sxs-lookup"><span data-stu-id="35260-237">The rule on request headers set for the client request applies to headers that the app sets by calling `setRequestHeader` on the `XMLHttpRequest` object.</span></span> <span data-ttu-id="35260-238">CORS 规范调用这些标头*作者请求标头*。</span><span class="sxs-lookup"><span data-stu-id="35260-238">The CORS specification calls these headers *author request headers*.</span></span> <span data-ttu-id="35260-239">此规则不适用于浏览器可以设置的标头，如 `User-Agent`、`Host`或 `Content-Length`。</span><span class="sxs-lookup"><span data-stu-id="35260-239">The rule doesn't apply to headers the browser can set, such as `User-Agent`, `Host`, or `Content-Length`.</span></span>
+<span data-ttu-id="8b74c-237">为客户端请求设置的请求标头上的规则适用于应用通过调用 `XMLHttpRequest` 对象的 `setRequestHeader` 来设置的标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-237">The rule on request headers set for the client request applies to headers that the app sets by calling `setRequestHeader` on the `XMLHttpRequest` object.</span></span> <span data-ttu-id="8b74c-238">CORS 规范调用这些标头*作者请求标头*。</span><span class="sxs-lookup"><span data-stu-id="8b74c-238">The CORS specification calls these headers *author request headers*.</span></span> <span data-ttu-id="8b74c-239">此规则不适用于浏览器可以设置的标头，如 `User-Agent`、`Host`或 `Content-Length`。</span><span class="sxs-lookup"><span data-stu-id="8b74c-239">The rule doesn't apply to headers the browser can set, such as `User-Agent`, `Host`, or `Content-Length`.</span></span>
 
-<span data-ttu-id="35260-240">下面是预检请求的示例：</span><span class="sxs-lookup"><span data-stu-id="35260-240">The following is an example of a preflight request:</span></span>
+<span data-ttu-id="8b74c-240">下面是预检请求的示例：</span><span class="sxs-lookup"><span data-stu-id="8b74c-240">The following is an example of a preflight request:</span></span>
 
 ```
 OPTIONS https://myservice.azurewebsites.net/api/test HTTP/1.1
@@ -376,24 +376,24 @@ Host: myservice.azurewebsites.net
 Content-Length: 0
 ```
 
-<span data-ttu-id="35260-241">预航班请求使用 HTTP OPTIONS 方法。</span><span class="sxs-lookup"><span data-stu-id="35260-241">The pre-flight request uses the HTTP OPTIONS method.</span></span> <span data-ttu-id="35260-242">它包括两个特殊标头：</span><span class="sxs-lookup"><span data-stu-id="35260-242">It includes two special headers:</span></span>
+<span data-ttu-id="8b74c-241">预航班请求使用 HTTP OPTIONS 方法。</span><span class="sxs-lookup"><span data-stu-id="8b74c-241">The pre-flight request uses the HTTP OPTIONS method.</span></span> <span data-ttu-id="8b74c-242">它包括两个特殊标头：</span><span class="sxs-lookup"><span data-stu-id="8b74c-242">It includes two special headers:</span></span>
 
-* <span data-ttu-id="35260-243">`Access-Control-Request-Method`：将用于实际请求的 HTTP 方法。</span><span class="sxs-lookup"><span data-stu-id="35260-243">`Access-Control-Request-Method`: The HTTP method that will be used for the actual request.</span></span>
-* <span data-ttu-id="35260-244">`Access-Control-Request-Headers`：应用在实际请求上设置的请求标头的列表。</span><span class="sxs-lookup"><span data-stu-id="35260-244">`Access-Control-Request-Headers`: A list of request headers that the app sets on the actual request.</span></span> <span data-ttu-id="35260-245">如前文所述，这不包含浏览器设置的标头，如 `User-Agent`。</span><span class="sxs-lookup"><span data-stu-id="35260-245">As stated earlier, this doesn't include headers that the browser sets, such as `User-Agent`.</span></span>
+* <span data-ttu-id="8b74c-243">`Access-Control-Request-Method`：将用于实际请求的 HTTP 方法。</span><span class="sxs-lookup"><span data-stu-id="8b74c-243">`Access-Control-Request-Method`: The HTTP method that will be used for the actual request.</span></span>
+* <span data-ttu-id="8b74c-244">`Access-Control-Request-Headers`：应用在实际请求上设置的请求标头的列表。</span><span class="sxs-lookup"><span data-stu-id="8b74c-244">`Access-Control-Request-Headers`: A list of request headers that the app sets on the actual request.</span></span> <span data-ttu-id="8b74c-245">如前文所述，这不包含浏览器设置的标头，如 `User-Agent`。</span><span class="sxs-lookup"><span data-stu-id="8b74c-245">As stated earlier, this doesn't include headers that the browser sets, such as `User-Agent`.</span></span>
 
-<span data-ttu-id="35260-246">CORS 预检请求可能包含一个 `Access-Control-Request-Headers` 标头，该标头向服务器指示与实际请求一起发送的标头。</span><span class="sxs-lookup"><span data-stu-id="35260-246">A CORS preflight request might include an `Access-Control-Request-Headers` header, which indicates to the server the headers that are sent with the actual request.</span></span>
+<span data-ttu-id="8b74c-246">CORS 预检请求可能包含一个 `Access-Control-Request-Headers` 标头，该标头向服务器指示与实际请求一起发送的标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-246">A CORS preflight request might include an `Access-Control-Request-Headers` header, which indicates to the server the headers that are sent with the actual request.</span></span>
 
-<span data-ttu-id="35260-247">若要允许特定标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>：</span><span class="sxs-lookup"><span data-stu-id="35260-247">To allow specific headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>:</span></span>
+<span data-ttu-id="8b74c-247">若要允许特定标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-247">To allow specific headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
-<span data-ttu-id="35260-248">若要允许所有作者请求标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>：</span><span class="sxs-lookup"><span data-stu-id="35260-248">To allow all author request headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:</span></span>
+<span data-ttu-id="8b74c-248">若要允许所有作者请求标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-248">To allow all author request headers, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
-<span data-ttu-id="35260-249">浏览器在设置 `Access-Control-Request-Headers`的方式上并不完全一致。</span><span class="sxs-lookup"><span data-stu-id="35260-249">Browsers aren't entirely consistent in how they set `Access-Control-Request-Headers`.</span></span> <span data-ttu-id="35260-250">如果将标头设置为 `"*"` 以外的任何内容（或使用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>），则应至少包含 `Accept`、`Content-Type`和 `Origin`，以及要支持的任何自定义标头。</span><span class="sxs-lookup"><span data-stu-id="35260-250">If you set headers to anything other than `"*"` (or use <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>), you should include at least `Accept`, `Content-Type`, and `Origin`, plus any custom headers that you want to support.</span></span>
+<span data-ttu-id="8b74c-249">浏览器在设置 `Access-Control-Request-Headers`的方式上并不完全一致。</span><span class="sxs-lookup"><span data-stu-id="8b74c-249">Browsers aren't entirely consistent in how they set `Access-Control-Request-Headers`.</span></span> <span data-ttu-id="8b74c-250">如果将标头设置为 `"*"` 以外的任何内容（或使用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>），则应至少包含 `Accept`、`Content-Type`和 `Origin`，以及要支持的任何自定义标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-250">If you set headers to anything other than `"*"` (or use <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>), you should include at least `Accept`, `Content-Type`, and `Origin`, plus any custom headers that you want to support.</span></span>
 
-<span data-ttu-id="35260-251">下面是针对预检请求的示例响应（假定服务器允许该请求）：</span><span class="sxs-lookup"><span data-stu-id="35260-251">The following is an example response to the preflight request (assuming that the server allows the request):</span></span>
+<span data-ttu-id="8b74c-251">下面是针对预检请求的示例响应（假定服务器允许该请求）：</span><span class="sxs-lookup"><span data-stu-id="8b74c-251">The following is an example response to the preflight request (assuming that the server allows the request):</span></span>
 
 ```
 HTTP/1.1 200 OK
@@ -406,36 +406,36 @@ Access-Control-Allow-Methods: PUT
 Date: Wed, 20 May 2015 06:33:22 GMT
 ```
 
-<span data-ttu-id="35260-252">响应包括一个 `Access-Control-Allow-Methods` 标头，该标头列出了允许的方法，还可以选择一个 `Access-Control-Allow-Headers` 标头，其中列出了允许的标头。</span><span class="sxs-lookup"><span data-stu-id="35260-252">The response includes an `Access-Control-Allow-Methods` header that lists the allowed methods and optionally an `Access-Control-Allow-Headers` header, which lists the allowed headers.</span></span> <span data-ttu-id="35260-253">如果预检请求成功，则浏览器发送实际请求。</span><span class="sxs-lookup"><span data-stu-id="35260-253">If the preflight request succeeds, the browser sends the actual request.</span></span>
+<span data-ttu-id="8b74c-252">响应包括一个 `Access-Control-Allow-Methods` 标头，该标头列出了允许的方法，还可以选择一个 `Access-Control-Allow-Headers` 标头，其中列出了允许的标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-252">The response includes an `Access-Control-Allow-Methods` header that lists the allowed methods and optionally an `Access-Control-Allow-Headers` header, which lists the allowed headers.</span></span> <span data-ttu-id="8b74c-253">如果预检请求成功，则浏览器发送实际请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-253">If the preflight request succeeds, the browser sends the actual request.</span></span>
 
-<span data-ttu-id="35260-254">如果预检请求被拒绝，应用将返回*200 OK*响应，但不会向后发送 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-254">If the preflight request is denied, the app returns a *200 OK* response but doesn't send the CORS headers back.</span></span> <span data-ttu-id="35260-255">因此，浏览器不会尝试跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-255">Therefore, the browser doesn't attempt the cross-origin request.</span></span>
+<span data-ttu-id="8b74c-254">如果预检请求被拒绝，应用将返回*200 OK*响应，但不会向后发送 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-254">If the preflight request is denied, the app returns a *200 OK* response but doesn't send the CORS headers back.</span></span> <span data-ttu-id="8b74c-255">因此，浏览器不会尝试跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-255">Therefore, the browser doesn't attempt the cross-origin request.</span></span>
 
-### <a name="set-the-preflight-expiration-time"></a><span data-ttu-id="35260-256">设置预检过期时间</span><span class="sxs-lookup"><span data-stu-id="35260-256">Set the preflight expiration time</span></span>
+### <a name="set-the-preflight-expiration-time"></a><span data-ttu-id="8b74c-256">设置预检过期时间</span><span class="sxs-lookup"><span data-stu-id="8b74c-256">Set the preflight expiration time</span></span>
 
-<span data-ttu-id="35260-257">`Access-Control-Max-Age` 标头指定可缓存对预检请求的响应的时间长度。</span><span class="sxs-lookup"><span data-stu-id="35260-257">The `Access-Control-Max-Age` header specifies how long the response to the preflight request can be cached.</span></span> <span data-ttu-id="35260-258">若要设置此标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>：</span><span class="sxs-lookup"><span data-stu-id="35260-258">To set this header, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>:</span></span>
+<span data-ttu-id="8b74c-257">`Access-Control-Max-Age` 标头指定可缓存对预检请求的响应的时间长度。</span><span class="sxs-lookup"><span data-stu-id="8b74c-257">The `Access-Control-Max-Age` header specifies how long the response to the preflight request can be cached.</span></span> <span data-ttu-id="8b74c-258">若要设置此标头，请调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>：</span><span class="sxs-lookup"><span data-stu-id="8b74c-258">To set this header, call <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>:</span></span>
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=91-96&highlight=5)]
 
 <a name="how-cors"></a>
 
-## <a name="how-cors-works"></a><span data-ttu-id="35260-259">CORS 如何工作</span><span class="sxs-lookup"><span data-stu-id="35260-259">How CORS works</span></span>
+## <a name="how-cors-works"></a><span data-ttu-id="8b74c-259">CORS 如何工作</span><span class="sxs-lookup"><span data-stu-id="8b74c-259">How CORS works</span></span>
 
-<span data-ttu-id="35260-260">本部分介绍 HTTP 消息级别的[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)请求中发生的情况。</span><span class="sxs-lookup"><span data-stu-id="35260-260">This section describes what happens in a [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) request at the level of the HTTP messages.</span></span>
+<span data-ttu-id="8b74c-260">本部分介绍 HTTP 消息级别的[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)请求中发生的情况。</span><span class="sxs-lookup"><span data-stu-id="8b74c-260">This section describes what happens in a [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) request at the level of the HTTP messages.</span></span>
 
-* <span data-ttu-id="35260-261">CORS**不**是一种安全功能。</span><span class="sxs-lookup"><span data-stu-id="35260-261">CORS is **not** a security feature.</span></span> <span data-ttu-id="35260-262">CORS 是一种 W3C 标准，可让服务器放宽相同的源策略。</span><span class="sxs-lookup"><span data-stu-id="35260-262">CORS is a W3C standard that allows a server to relax the same-origin policy.</span></span>
-  * <span data-ttu-id="35260-263">例如，恶意执行组件可能会对站点使用[阻止跨站点脚本（XSS）](xref:security/cross-site-scripting) ，并对启用了 CORS 的站点执行跨站点请求，以窃取信息。</span><span class="sxs-lookup"><span data-stu-id="35260-263">For example, a malicious actor could use [Prevent Cross-Site Scripting (XSS)](xref:security/cross-site-scripting) against your site and execute a cross-site request to their CORS enabled site to steal information.</span></span>
-* <span data-ttu-id="35260-264">API 不能通过允许 CORS 来更安全。</span><span class="sxs-lookup"><span data-stu-id="35260-264">Your API is not safer by allowing CORS.</span></span>
-  * <span data-ttu-id="35260-265">它由客户端（浏览器）来强制执行 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-265">It's up to the client (browser) to enforce CORS.</span></span> <span data-ttu-id="35260-266">服务器执行请求并返回响应，这是返回错误并阻止响应的客户端。</span><span class="sxs-lookup"><span data-stu-id="35260-266">The server executes the request and returns the response, it's the client that returns an error and blocks the response.</span></span> <span data-ttu-id="35260-267">例如，以下任何工具都将显示服务器响应：</span><span class="sxs-lookup"><span data-stu-id="35260-267">For example, any of the following tools will display the server response:</span></span>
-    * [<span data-ttu-id="35260-268">Fiddler</span><span class="sxs-lookup"><span data-stu-id="35260-268">Fiddler</span></span>](https://www.telerik.com/fiddler)
-    * [<span data-ttu-id="35260-269">Postman</span><span class="sxs-lookup"><span data-stu-id="35260-269">Postman</span></span>](https://www.getpostman.com/)
-    * [<span data-ttu-id="35260-270">.NET HttpClient</span><span class="sxs-lookup"><span data-stu-id="35260-270">.NET HttpClient</span></span>](/dotnet/csharp/tutorials/console-webapiclient)
-    * <span data-ttu-id="35260-271">Web 浏览器，方法是在地址栏中输入 URL。</span><span class="sxs-lookup"><span data-stu-id="35260-271">A web browser by entering the URL in the address bar.</span></span>
-* <span data-ttu-id="35260-272">这是一种方法，使服务器能够允许浏览器执行跨源[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)或[获取 API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)请求，否则将被禁止。</span><span class="sxs-lookup"><span data-stu-id="35260-272">It's a way for a server to allow browsers to execute a cross-origin [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) or [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) request that otherwise would be forbidden.</span></span>
-  * <span data-ttu-id="35260-273">浏览器（不含 CORS）不能执行跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-273">Browsers (without CORS) can't do cross-origin requests.</span></span> <span data-ttu-id="35260-274">在 CORS 之前，使用[JSONP](https://www.w3schools.com/js/js_json_jsonp.asp)来绕过此限制。</span><span class="sxs-lookup"><span data-stu-id="35260-274">Before CORS, [JSONP](https://www.w3schools.com/js/js_json_jsonp.asp) was used to circumvent this restriction.</span></span> <span data-ttu-id="35260-275">JSONP 不使用 XHR，它使用 `<script>` 标记接收响应。</span><span class="sxs-lookup"><span data-stu-id="35260-275">JSONP doesn't use XHR, it uses the `<script>` tag to receive the response.</span></span> <span data-ttu-id="35260-276">允许跨源加载脚本。</span><span class="sxs-lookup"><span data-stu-id="35260-276">Scripts are allowed to be loaded cross-origin.</span></span>
+* <span data-ttu-id="8b74c-261">CORS**不**是一种安全功能。</span><span class="sxs-lookup"><span data-stu-id="8b74c-261">CORS is **not** a security feature.</span></span> <span data-ttu-id="8b74c-262">CORS 是一种 W3C 标准，可让服务器放宽相同的源策略。</span><span class="sxs-lookup"><span data-stu-id="8b74c-262">CORS is a W3C standard that allows a server to relax the same-origin policy.</span></span>
+  * <span data-ttu-id="8b74c-263">例如，恶意执行组件可能会对站点使用[阻止跨站点脚本（XSS）](xref:security/cross-site-scripting) ，并对启用了 CORS 的站点执行跨站点请求，以窃取信息。</span><span class="sxs-lookup"><span data-stu-id="8b74c-263">For example, a malicious actor could use [Prevent Cross-Site Scripting (XSS)](xref:security/cross-site-scripting) against your site and execute a cross-site request to their CORS enabled site to steal information.</span></span>
+* <span data-ttu-id="8b74c-264">API 不能通过允许 CORS 来更安全。</span><span class="sxs-lookup"><span data-stu-id="8b74c-264">Your API is not safer by allowing CORS.</span></span>
+  * <span data-ttu-id="8b74c-265">它由客户端（浏览器）来强制执行 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-265">It's up to the client (browser) to enforce CORS.</span></span> <span data-ttu-id="8b74c-266">服务器执行请求并返回响应，这是返回错误并阻止响应的客户端。</span><span class="sxs-lookup"><span data-stu-id="8b74c-266">The server executes the request and returns the response, it's the client that returns an error and blocks the response.</span></span> <span data-ttu-id="8b74c-267">例如，以下任何工具都将显示服务器响应：</span><span class="sxs-lookup"><span data-stu-id="8b74c-267">For example, any of the following tools will display the server response:</span></span>
+    * [<span data-ttu-id="8b74c-268">Fiddler</span><span class="sxs-lookup"><span data-stu-id="8b74c-268">Fiddler</span></span>](https://www.telerik.com/fiddler)
+    * [<span data-ttu-id="8b74c-269">Postman</span><span class="sxs-lookup"><span data-stu-id="8b74c-269">Postman</span></span>](https://www.getpostman.com/)
+    * [<span data-ttu-id="8b74c-270">.NET HttpClient</span><span class="sxs-lookup"><span data-stu-id="8b74c-270">.NET HttpClient</span></span>](/dotnet/csharp/tutorials/console-webapiclient)
+    * <span data-ttu-id="8b74c-271">Web 浏览器，方法是在地址栏中输入 URL。</span><span class="sxs-lookup"><span data-stu-id="8b74c-271">A web browser by entering the URL in the address bar.</span></span>
+* <span data-ttu-id="8b74c-272">这是一种方法，使服务器能够允许浏览器执行跨源[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)或[获取 API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)请求，否则将被禁止。</span><span class="sxs-lookup"><span data-stu-id="8b74c-272">It's a way for a server to allow browsers to execute a cross-origin [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) or [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) request that otherwise would be forbidden.</span></span>
+  * <span data-ttu-id="8b74c-273">浏览器（不含 CORS）不能执行跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-273">Browsers (without CORS) can't do cross-origin requests.</span></span> <span data-ttu-id="8b74c-274">在 CORS 之前，使用[JSONP](https://www.w3schools.com/js/js_json_jsonp.asp)来绕过此限制。</span><span class="sxs-lookup"><span data-stu-id="8b74c-274">Before CORS, [JSONP](https://www.w3schools.com/js/js_json_jsonp.asp) was used to circumvent this restriction.</span></span> <span data-ttu-id="8b74c-275">JSONP 不使用 XHR，它使用 `<script>` 标记接收响应。</span><span class="sxs-lookup"><span data-stu-id="8b74c-275">JSONP doesn't use XHR, it uses the `<script>` tag to receive the response.</span></span> <span data-ttu-id="8b74c-276">允许跨源加载脚本。</span><span class="sxs-lookup"><span data-stu-id="8b74c-276">Scripts are allowed to be loaded cross-origin.</span></span>
 
-<span data-ttu-id="35260-277">[CORS 规范](https://www.w3.org/TR/cors/)介绍了几个新的 HTTP 标头，它们启用了跨域请求。</span><span class="sxs-lookup"><span data-stu-id="35260-277">The [CORS specification](https://www.w3.org/TR/cors/) introduced several new HTTP headers that enable cross-origin requests.</span></span> <span data-ttu-id="35260-278">如果浏览器支持 CORS，则会自动为跨域请求设置这些标头。</span><span class="sxs-lookup"><span data-stu-id="35260-278">If a browser supports CORS, it sets these headers automatically for cross-origin requests.</span></span> <span data-ttu-id="35260-279">若要启用 CORS，无需自定义 JavaScript 代码。</span><span class="sxs-lookup"><span data-stu-id="35260-279">Custom JavaScript code isn't required to enable CORS.</span></span>
+<span data-ttu-id="8b74c-277">[CORS 规范](https://www.w3.org/TR/cors/)介绍了几个新的 HTTP 标头，它们启用了跨域请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-277">The [CORS specification](https://www.w3.org/TR/cors/) introduced several new HTTP headers that enable cross-origin requests.</span></span> <span data-ttu-id="8b74c-278">如果浏览器支持 CORS，则会自动为跨域请求设置这些标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-278">If a browser supports CORS, it sets these headers automatically for cross-origin requests.</span></span> <span data-ttu-id="8b74c-279">若要启用 CORS，无需自定义 JavaScript 代码。</span><span class="sxs-lookup"><span data-stu-id="8b74c-279">Custom JavaScript code isn't required to enable CORS.</span></span>
 
-<span data-ttu-id="35260-280">下面是一个跨源请求的示例。</span><span class="sxs-lookup"><span data-stu-id="35260-280">The following is an example of a cross-origin request.</span></span> <span data-ttu-id="35260-281">`Origin` 标头提供发出请求的站点的域。</span><span class="sxs-lookup"><span data-stu-id="35260-281">The `Origin` header provides the domain of the site that's making the request.</span></span> <span data-ttu-id="35260-282">`Origin` 标头是必需的，并且必须与主机不同。</span><span class="sxs-lookup"><span data-stu-id="35260-282">The `Origin` header is required and must be different from the host.</span></span>
+<span data-ttu-id="8b74c-280">下面是一个跨源请求的示例。</span><span class="sxs-lookup"><span data-stu-id="8b74c-280">The following is an example of a cross-origin request.</span></span> <span data-ttu-id="8b74c-281">`Origin` 标头提供发出请求的站点的域。</span><span class="sxs-lookup"><span data-stu-id="8b74c-281">The `Origin` header provides the domain of the site that's making the request.</span></span> <span data-ttu-id="8b74c-282">`Origin` 标头是必需的，并且必须与主机不同。</span><span class="sxs-lookup"><span data-stu-id="8b74c-282">The `Origin` header is required and must be different from the host.</span></span>
 
 ```
 GET https://myservice.azurewebsites.net/api/test HTTP/1.1
@@ -448,7 +448,7 @@ User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6
 Host: myservice.azurewebsites.net
 ```
 
-<span data-ttu-id="35260-283">如果服务器允许该请求，则会在响应中设置 `Access-Control-Allow-Origin` 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-283">If the server allows the request, it sets the `Access-Control-Allow-Origin` header in the response.</span></span> <span data-ttu-id="35260-284">此标头的值可以与请求中的 `Origin` 标头匹配，也可以是通配符值 `"*"`，这意味着允许任何源：</span><span class="sxs-lookup"><span data-stu-id="35260-284">The value of this header either matches the `Origin` header from the request or is the wildcard value `"*"`, meaning that any origin is allowed:</span></span>
+<span data-ttu-id="8b74c-283">如果服务器允许该请求，则会在响应中设置 `Access-Control-Allow-Origin` 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-283">If the server allows the request, it sets the `Access-Control-Allow-Origin` header in the response.</span></span> <span data-ttu-id="8b74c-284">此标头的值可以与请求中的 `Origin` 标头匹配，也可以是通配符值 `"*"`，这意味着允许任何源：</span><span class="sxs-lookup"><span data-stu-id="8b74c-284">The value of this header either matches the `Origin` header from the request or is the wildcard value `"*"`, meaning that any origin is allowed:</span></span>
 
 ```
 HTTP/1.1 200 OK
@@ -462,51 +462,51 @@ Content-Length: 12
 Test message
 ```
 
-<span data-ttu-id="35260-285">如果响应不包括 `Access-Control-Allow-Origin` 标头，则跨域请求会失败。</span><span class="sxs-lookup"><span data-stu-id="35260-285">If the response doesn't include the `Access-Control-Allow-Origin` header, the cross-origin request fails.</span></span> <span data-ttu-id="35260-286">具体而言，浏览器不允许该请求。</span><span class="sxs-lookup"><span data-stu-id="35260-286">Specifically, the browser disallows the request.</span></span> <span data-ttu-id="35260-287">即使服务器返回成功的响应，浏览器也不会将响应提供给客户端应用程序。</span><span class="sxs-lookup"><span data-stu-id="35260-287">Even if the server returns a successful response, the browser doesn't make the response available to the client app.</span></span>
+<span data-ttu-id="8b74c-285">如果响应不包括 `Access-Control-Allow-Origin` 标头，则跨域请求会失败。</span><span class="sxs-lookup"><span data-stu-id="8b74c-285">If the response doesn't include the `Access-Control-Allow-Origin` header, the cross-origin request fails.</span></span> <span data-ttu-id="8b74c-286">具体而言，浏览器不允许该请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-286">Specifically, the browser disallows the request.</span></span> <span data-ttu-id="8b74c-287">即使服务器返回成功的响应，浏览器也不会将响应提供给客户端应用程序。</span><span class="sxs-lookup"><span data-stu-id="8b74c-287">Even if the server returns a successful response, the browser doesn't make the response available to the client app.</span></span>
 
 <a name="test"></a>
 
-## <a name="test-cors"></a><span data-ttu-id="35260-288">测试 CORS</span><span class="sxs-lookup"><span data-stu-id="35260-288">Test CORS</span></span>
+## <a name="test-cors"></a><span data-ttu-id="8b74c-288">测试 CORS</span><span class="sxs-lookup"><span data-stu-id="8b74c-288">Test CORS</span></span>
 
-<span data-ttu-id="35260-289">测试 CORS：</span><span class="sxs-lookup"><span data-stu-id="35260-289">To test CORS:</span></span>
+<span data-ttu-id="8b74c-289">测试 CORS：</span><span class="sxs-lookup"><span data-stu-id="8b74c-289">To test CORS:</span></span>
 
-1. <span data-ttu-id="35260-290">[创建 API 项目](xref:tutorials/first-web-api)。</span><span class="sxs-lookup"><span data-stu-id="35260-290">[Create an API project](xref:tutorials/first-web-api).</span></span> <span data-ttu-id="35260-291">或者，您也可以[下载该示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors)。</span><span class="sxs-lookup"><span data-stu-id="35260-291">Alternatively, you can [download the sample](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).</span></span>
-1. <span data-ttu-id="35260-292">使用本文档中的方法之一启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-292">Enable CORS using one of the approaches in this document.</span></span> <span data-ttu-id="35260-293">例如：</span><span class="sxs-lookup"><span data-stu-id="35260-293">For example:</span></span>
+1. <span data-ttu-id="8b74c-290">[创建 API 项目](xref:tutorials/first-web-api)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-290">[Create an API project](xref:tutorials/first-web-api).</span></span> <span data-ttu-id="8b74c-291">或者，您也可以[下载该示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-291">Alternatively, you can [download the sample](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).</span></span>
+1. <span data-ttu-id="8b74c-292">使用本文档中的方法之一启用 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-292">Enable CORS using one of the approaches in this document.</span></span> <span data-ttu-id="8b74c-293">例如：</span><span class="sxs-lookup"><span data-stu-id="8b74c-293">For example:</span></span>
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
   > [!WARNING]
-  > <span data-ttu-id="35260-294">`WithOrigins("https://localhost:<port>");` 应仅用于测试类似于[下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors)的示例应用。</span><span class="sxs-lookup"><span data-stu-id="35260-294">`WithOrigins("https://localhost:<port>");` should only be used for testing a sample app similar to the [download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).</span></span>
+  > <span data-ttu-id="8b74c-294">`WithOrigins("https://localhost:<port>");` 应仅用于测试类似于[下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors)的示例应用。</span><span class="sxs-lookup"><span data-stu-id="8b74c-294">`WithOrigins("https://localhost:<port>");` should only be used for testing a sample app similar to the [download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).</span></span>
 
-1. <span data-ttu-id="35260-295">创建 web 应用项目（Razor Pages 或 MVC）。</span><span class="sxs-lookup"><span data-stu-id="35260-295">Create a web app project (Razor Pages or MVC).</span></span> <span data-ttu-id="35260-296">该示例使用 Razor Pages。</span><span class="sxs-lookup"><span data-stu-id="35260-296">The sample uses Razor Pages.</span></span> <span data-ttu-id="35260-297">可以在与 API 项目相同的解决方案中创建 web 应用。</span><span class="sxs-lookup"><span data-stu-id="35260-297">You can create the web app in the same solution as the API project.</span></span>
-1. <span data-ttu-id="35260-298">将以下突出显示的代码添加到*索引 cshtml*文件中：</span><span class="sxs-lookup"><span data-stu-id="35260-298">Add the following highlighted code to the *Index.cshtml* file:</span></span>
+1. <span data-ttu-id="8b74c-295">创建 web 应用项目（Razor Pages 或 MVC）。</span><span class="sxs-lookup"><span data-stu-id="8b74c-295">Create a web app project (Razor Pages or MVC).</span></span> <span data-ttu-id="8b74c-296">该示例使用 Razor Pages。</span><span class="sxs-lookup"><span data-stu-id="8b74c-296">The sample uses Razor Pages.</span></span> <span data-ttu-id="8b74c-297">可以在与 API 项目相同的解决方案中创建 web 应用。</span><span class="sxs-lookup"><span data-stu-id="8b74c-297">You can create the web app in the same solution as the API project.</span></span>
+1. <span data-ttu-id="8b74c-298">将以下突出显示的代码添加到*索引 cshtml*文件中：</span><span class="sxs-lookup"><span data-stu-id="8b74c-298">Add the following highlighted code to the *Index.cshtml* file:</span></span>
 
   [!code-csharp[](cors/sample/Cors/ClientApp/Pages/Index2.cshtml?highlight=7-99)]
 
-1. <span data-ttu-id="35260-299">在上面的代码中，将 `url: 'https://<web app>.azurewebsites.net/api/values/1',` 替换为已部署应用的 URL。</span><span class="sxs-lookup"><span data-stu-id="35260-299">In the preceding code, replace `url: 'https://<web app>.azurewebsites.net/api/values/1',` with the URL to the deployed app.</span></span>
-1. <span data-ttu-id="35260-300">部署 API 项目。</span><span class="sxs-lookup"><span data-stu-id="35260-300">Deploy the API project.</span></span> <span data-ttu-id="35260-301">例如，[部署到 Azure](xref:host-and-deploy/azure-apps/index)。</span><span class="sxs-lookup"><span data-stu-id="35260-301">For example, [deploy to Azure](xref:host-and-deploy/azure-apps/index).</span></span>
-1. <span data-ttu-id="35260-302">从桌面运行 Razor Pages 或 MVC 应用，然后单击 "**测试**" 按钮。</span><span class="sxs-lookup"><span data-stu-id="35260-302">Run the Razor Pages or MVC app from the desktop and click on the **Test** button.</span></span> <span data-ttu-id="35260-303">使用 F12 工具查看错误消息。</span><span class="sxs-lookup"><span data-stu-id="35260-303">Use the F12 tools to review error messages.</span></span>
-1. <span data-ttu-id="35260-304">从 `WithOrigins` 中删除 localhost 源并部署应用。</span><span class="sxs-lookup"><span data-stu-id="35260-304">Remove the localhost origin from `WithOrigins` and deploy the app.</span></span> <span data-ttu-id="35260-305">或者，使用其他端口运行客户端应用。</span><span class="sxs-lookup"><span data-stu-id="35260-305">Alternatively, run the client app with a different port.</span></span> <span data-ttu-id="35260-306">例如，在 Visual Studio 中运行。</span><span class="sxs-lookup"><span data-stu-id="35260-306">For example, run from Visual Studio.</span></span>
-1. <span data-ttu-id="35260-307">与客户端应用程序进行测试。</span><span class="sxs-lookup"><span data-stu-id="35260-307">Test with the client app.</span></span> <span data-ttu-id="35260-308">CORS 故障返回一个错误，但错误消息不能用于 JavaScript。</span><span class="sxs-lookup"><span data-stu-id="35260-308">CORS failures return an error, but the error message isn't available to JavaScript.</span></span> <span data-ttu-id="35260-309">使用 F12 工具中的 "控制台" 选项卡查看错误。</span><span class="sxs-lookup"><span data-stu-id="35260-309">Use the console tab in the F12 tools to see the error.</span></span> <span data-ttu-id="35260-310">根据浏览器，你会收到类似于以下内容的错误（在 F12 工具控制台中）：</span><span class="sxs-lookup"><span data-stu-id="35260-310">Depending on the browser, you get an error (in the F12 tools console) similar to the following:</span></span>
+1. <span data-ttu-id="8b74c-299">在上面的代码中，将 `url: 'https://<web app>.azurewebsites.net/api/values/1',` 替换为已部署应用的 URL。</span><span class="sxs-lookup"><span data-stu-id="8b74c-299">In the preceding code, replace `url: 'https://<web app>.azurewebsites.net/api/values/1',` with the URL to the deployed app.</span></span>
+1. <span data-ttu-id="8b74c-300">部署 API 项目。</span><span class="sxs-lookup"><span data-stu-id="8b74c-300">Deploy the API project.</span></span> <span data-ttu-id="8b74c-301">例如，[部署到 Azure](xref:host-and-deploy/azure-apps/index)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-301">For example, [deploy to Azure](xref:host-and-deploy/azure-apps/index).</span></span>
+1. <span data-ttu-id="8b74c-302">从桌面运行 Razor Pages 或 MVC 应用，然后单击 "**测试**" 按钮。</span><span class="sxs-lookup"><span data-stu-id="8b74c-302">Run the Razor Pages or MVC app from the desktop and click on the **Test** button.</span></span> <span data-ttu-id="8b74c-303">使用 F12 工具查看错误消息。</span><span class="sxs-lookup"><span data-stu-id="8b74c-303">Use the F12 tools to review error messages.</span></span>
+1. <span data-ttu-id="8b74c-304">从 `WithOrigins` 中删除 localhost 源并部署应用。</span><span class="sxs-lookup"><span data-stu-id="8b74c-304">Remove the localhost origin from `WithOrigins` and deploy the app.</span></span> <span data-ttu-id="8b74c-305">或者，使用其他端口运行客户端应用。</span><span class="sxs-lookup"><span data-stu-id="8b74c-305">Alternatively, run the client app with a different port.</span></span> <span data-ttu-id="8b74c-306">例如，在 Visual Studio 中运行。</span><span class="sxs-lookup"><span data-stu-id="8b74c-306">For example, run from Visual Studio.</span></span>
+1. <span data-ttu-id="8b74c-307">与客户端应用程序进行测试。</span><span class="sxs-lookup"><span data-stu-id="8b74c-307">Test with the client app.</span></span> <span data-ttu-id="8b74c-308">CORS 故障返回一个错误，但错误消息不能用于 JavaScript。</span><span class="sxs-lookup"><span data-stu-id="8b74c-308">CORS failures return an error, but the error message isn't available to JavaScript.</span></span> <span data-ttu-id="8b74c-309">使用 F12 工具中的 "控制台" 选项卡查看错误。</span><span class="sxs-lookup"><span data-stu-id="8b74c-309">Use the console tab in the F12 tools to see the error.</span></span> <span data-ttu-id="8b74c-310">根据浏览器，你会收到类似于以下内容的错误（在 F12 工具控制台中）：</span><span class="sxs-lookup"><span data-stu-id="8b74c-310">Depending on the browser, you get an error (in the F12 tools console) similar to the following:</span></span>
 
-   * <span data-ttu-id="35260-311">使用 Microsoft Edge：</span><span class="sxs-lookup"><span data-stu-id="35260-311">Using Microsoft Edge:</span></span>
+   * <span data-ttu-id="8b74c-311">使用 Microsoft Edge：</span><span class="sxs-lookup"><span data-stu-id="8b74c-311">Using Microsoft Edge:</span></span>
 
-     <span data-ttu-id="35260-312">**SEC7120： [CORS] 源 `https://localhost:44375` 在 `https://webapi.azurewebsites.net/api/values/1` 上找不到跨源资源的访问控制允许源响应标头中 `https://localhost:44375`**</span><span class="sxs-lookup"><span data-stu-id="35260-312">**SEC7120: [CORS] The origin `https://localhost:44375` did not find `https://localhost:44375` in the Access-Control-Allow-Origin response header for cross-origin  resource at `https://webapi.azurewebsites.net/api/values/1`**</span></span>
+     <span data-ttu-id="8b74c-312">**SEC7120： [CORS] 源 `https://localhost:44375` 在 `https://webapi.azurewebsites.net/api/values/1` 上找不到跨源资源的访问控制允许源响应标头中 `https://localhost:44375`**</span><span class="sxs-lookup"><span data-stu-id="8b74c-312">**SEC7120: [CORS] The origin `https://localhost:44375` did not find `https://localhost:44375` in the Access-Control-Allow-Origin response header for cross-origin  resource at `https://webapi.azurewebsites.net/api/values/1`**</span></span>
 
-   * <span data-ttu-id="35260-313">使用 Chrome：</span><span class="sxs-lookup"><span data-stu-id="35260-313">Using Chrome:</span></span>
+   * <span data-ttu-id="8b74c-313">使用 Chrome：</span><span class="sxs-lookup"><span data-stu-id="8b74c-313">Using Chrome:</span></span>
 
-     <span data-ttu-id="35260-314">**`https://webapi.azurewebsites.net/api/values/1` 源 `https://localhost:44375` 中对 XMLHttpRequest 的访问已被 CORS 策略阻止：请求的资源上没有 "访问控制-允许" 标头。**</span><span class="sxs-lookup"><span data-stu-id="35260-314">**Access to XMLHttpRequest at `https://webapi.azurewebsites.net/api/values/1` from origin `https://localhost:44375` has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.**</span></span>
+     <span data-ttu-id="8b74c-314">**`https://webapi.azurewebsites.net/api/values/1` 源 `https://localhost:44375` 中对 XMLHttpRequest 的访问已被 CORS 策略阻止：请求的资源上没有 "访问控制-允许" 标头。**</span><span class="sxs-lookup"><span data-stu-id="8b74c-314">**Access to XMLHttpRequest at `https://webapi.azurewebsites.net/api/values/1` from origin `https://localhost:44375` has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.**</span></span>
      
-<span data-ttu-id="35260-315">可以使用工具（如[Fiddler](https://www.telerik.com/fiddler)或[Postman](https://www.getpostman.com/)）测试启用 CORS 的终结点。</span><span class="sxs-lookup"><span data-stu-id="35260-315">CORS-enabled endpoints can be tested with a tool, such as [Fiddler](https://www.telerik.com/fiddler) or [Postman](https://www.getpostman.com/).</span></span> <span data-ttu-id="35260-316">使用工具时，`Origin` 标头指定的请求源必须与接收请求的主机不同。</span><span class="sxs-lookup"><span data-stu-id="35260-316">When using a tool, the origin of the request specified by the `Origin` header must differ from the host receiving the request.</span></span> <span data-ttu-id="35260-317">如果请求不是基于 `Origin` 标头的值*跨*域的，则：</span><span class="sxs-lookup"><span data-stu-id="35260-317">If the request isn't *cross-origin* based on the value of the `Origin` header:</span></span>
+<span data-ttu-id="8b74c-315">可以使用工具（如[Fiddler](https://www.telerik.com/fiddler)或[Postman](https://www.getpostman.com/)）测试启用 CORS 的终结点。</span><span class="sxs-lookup"><span data-stu-id="8b74c-315">CORS-enabled endpoints can be tested with a tool, such as [Fiddler](https://www.telerik.com/fiddler) or [Postman](https://www.getpostman.com/).</span></span> <span data-ttu-id="8b74c-316">使用工具时，`Origin` 标头指定的请求源必须与接收请求的主机不同。</span><span class="sxs-lookup"><span data-stu-id="8b74c-316">When using a tool, the origin of the request specified by the `Origin` header must differ from the host receiving the request.</span></span> <span data-ttu-id="8b74c-317">如果请求不是基于 `Origin` 标头的值*跨*域的，则：</span><span class="sxs-lookup"><span data-stu-id="8b74c-317">If the request isn't *cross-origin* based on the value of the `Origin` header:</span></span>
 
-* <span data-ttu-id="35260-318">不需要 CORS 中间件来处理请求。</span><span class="sxs-lookup"><span data-stu-id="35260-318">There's no need for CORS Middleware to process the request.</span></span>
-* <span data-ttu-id="35260-319">不会在响应中返回 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="35260-319">CORS headers aren't returned in the response.</span></span>
+* <span data-ttu-id="8b74c-318">不需要 CORS 中间件来处理请求。</span><span class="sxs-lookup"><span data-stu-id="8b74c-318">There's no need for CORS Middleware to process the request.</span></span>
+* <span data-ttu-id="8b74c-319">不会在响应中返回 CORS 标头。</span><span class="sxs-lookup"><span data-stu-id="8b74c-319">CORS headers aren't returned in the response.</span></span>
 
-## <a name="cors-in-iis"></a><span data-ttu-id="35260-320">IIS 中的 CORS</span><span class="sxs-lookup"><span data-stu-id="35260-320">CORS in IIS</span></span>
+## <a name="cors-in-iis"></a><span data-ttu-id="8b74c-320">IIS 中的 CORS</span><span class="sxs-lookup"><span data-stu-id="8b74c-320">CORS in IIS</span></span>
 
-<span data-ttu-id="35260-321">部署到 IIS 时，如果未将服务器配置为允许匿名访问，则必须在 Windows 身份验证之前运行 CORS。</span><span class="sxs-lookup"><span data-stu-id="35260-321">When deploying to IIS, CORS has to run before Windows Authentication if the server isn't configured to allow anonymous access.</span></span> <span data-ttu-id="35260-322">若要支持此方案，需要为应用安装和配置[IIS CORS 模块](https://www.iis.net/downloads/microsoft/iis-cors-module)。</span><span class="sxs-lookup"><span data-stu-id="35260-322">To support this scenario, the [IIS CORS module](https://www.iis.net/downloads/microsoft/iis-cors-module) needs to be installed and configured for the app.</span></span>
+<span data-ttu-id="8b74c-321">部署到 IIS 时，如果未将服务器配置为允许匿名访问，则必须在 Windows 身份验证之前运行 CORS。</span><span class="sxs-lookup"><span data-stu-id="8b74c-321">When deploying to IIS, CORS has to run before Windows Authentication if the server isn't configured to allow anonymous access.</span></span> <span data-ttu-id="8b74c-322">若要支持此方案，需要为应用安装和配置[IIS CORS 模块](https://www.iis.net/downloads/microsoft/iis-cors-module)。</span><span class="sxs-lookup"><span data-stu-id="8b74c-322">To support this scenario, the [IIS CORS module](https://www.iis.net/downloads/microsoft/iis-cors-module) needs to be installed and configured for the app.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="35260-323">其他资源</span><span class="sxs-lookup"><span data-stu-id="35260-323">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="8b74c-323">其他资源</span><span class="sxs-lookup"><span data-stu-id="8b74c-323">Additional resources</span></span>
 
-* [<span data-ttu-id="35260-324">跨域资源共享（CORS）</span><span class="sxs-lookup"><span data-stu-id="35260-324">Cross-Origin Resource Sharing (CORS)</span></span>](https://developer.mozilla.org/docs/Web/HTTP/CORS)
-* [<span data-ttu-id="35260-325">IIS CORS 模块入门</span><span class="sxs-lookup"><span data-stu-id="35260-325">Getting started with the IIS CORS module</span></span>](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)
+* [<span data-ttu-id="8b74c-324">跨域资源共享（CORS）</span><span class="sxs-lookup"><span data-stu-id="8b74c-324">Cross-Origin Resource Sharing (CORS)</span></span>](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [<span data-ttu-id="8b74c-325">IIS CORS 模块入门</span><span class="sxs-lookup"><span data-stu-id="8b74c-325">Getting started with the IIS CORS module</span></span>](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)
