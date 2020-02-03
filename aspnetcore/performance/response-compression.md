@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core 中的响应压缩
 author: guardrex
-description: 了解响应压缩以及如何在 ASP.NET Core 应用中使用响应压缩中间件。
+description: 了解如何响应压缩以及如何在 ASP.NET Core 应用中使用响应压缩中间件。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
@@ -44,28 +44,28 @@ ms.locfileid: "76726959"
 
 ::: moniker range=">= aspnetcore-2.2"
 
-| `Accept-Encoding` 标头值 | 支持的中间件 | 描述 |
+| `Accept-Encoding` 标头值 | 支持的中间件 | 说明 |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | 是（默认值）        | [Brotli 压缩数据格式](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | 否                   | [DEFLATE 压缩数据格式](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | 否                   | [W3C 高效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `deflate`                       | 是                   | [DEFLATE 压缩数据格式](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | 是                   | [W3C 高效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | 是                  | [Gzip 文件格式](https://tools.ietf.org/html/rfc1952) |
 | `identity`                      | 是                  | "无编码" 标识符：不能对响应进行编码。 |
-| `pack200-gzip`                  | 否                   | [Java 存档的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `pack200-gzip`                  | 是                   | [Java 存档的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | 是                  | 未显式请求任何可用内容编码 |
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-| `Accept-Encoding` 标头值 | 支持的中间件 | 描述 |
+| `Accept-Encoding` 标头值 | 支持的中间件 | 说明 |
 | ------------------------------- | :------------------: | ----------- |
-| `br`                            | 否                   | [Brotli 压缩数据格式](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | 否                   | [DEFLATE 压缩数据格式](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | 否                   | [W3C 高效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `br`                            | 是                   | [Brotli 压缩数据格式](https://tools.ietf.org/html/rfc7932) |
+| `deflate`                       | 是                   | [DEFLATE 压缩数据格式](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | 是                   | [W3C 高效 XML 交换](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | 是（默认值）        | [Gzip 文件格式](https://tools.ietf.org/html/rfc1952) |
 | `identity`                      | 是                  | "无编码" 标识符：不能对响应进行编码。 |
-| `pack200-gzip`                  | 否                   | [Java 存档的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `pack200-gzip`                  | 是                   | [Java 存档的网络传输格式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | 是                  | 未显式请求任何可用内容编码 |
 
 ::: moniker-end
@@ -80,7 +80,7 @@ ms.locfileid: "76726959"
 
 下表介绍了请求、发送、缓存和接收压缩内容所涉及的标头。
 
-| Header             | 角色 |
+| 标头             | 角色 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | 从客户端发送到服务器，以指示客户端可接受的内容编码方案。 |
 | `Content-Encoding` | 从服务器发送到客户端，以指示有效负载中内容的编码。 |
@@ -94,7 +94,7 @@ ms.locfileid: "76726959"
 * 使用 Gzip 和自定义压缩提供程序的应用程序响应的压缩。
 * 如何将 MIME 类型添加到 MIME 类型的默认列表以进行压缩。
 
-## <a name="package"></a>Package
+## <a name="package"></a>包
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -137,9 +137,9 @@ public class Startup
 }
 ```
 
-注意：
+注：
 
-* 必须在压缩响应的任何中间件之前调用 `app.UseResponseCompression`。 有关更多信息，请参见<xref:fundamentals/middleware/index#middleware-order>。
+* 必须在压缩响应的任何中间件之前调用 `app.UseResponseCompression`。 有关详细信息，请参阅 <xref:fundamentals/middleware/index#middleware-order>。
 * 使用[Fiddler](https://www.telerik.com/fiddler)、 [Firebug](https://getfirebug.com/)或[Postman](https://www.getpostman.com/)等工具设置 `Accept-Encoding` 请求标头，并研究响应标头、大小和正文。
 
 将请求提交到没有 `Accept-Encoding` 标头的示例应用，并观察响应是否未压缩。 响应中不存在 `Content-Encoding` 和 `Vary` 标头。
@@ -202,11 +202,11 @@ public void ConfigureServices(IServiceCollection services)
 
 设置 <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>的压缩级别。 Brotli 压缩提供程序默认为最快的压缩级别（[CompressionLevel](xref:System.IO.Compression.CompressionLevel)），这可能不会生成最有效的压缩。 如果需要最有效的压缩，请将中间件配置为最佳压缩。
 
-| 压缩级别 | 描述 |
+| Compression Level | 说明 |
 | ----------------- | ----------- |
-| [CompressionLevel.Fastest](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
+| [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
 | [CompressionLevel. NoCompression](xref:System.IO.Compression.CompressionLevel) | 不应执行压缩。 |
-| [CompressionLevel.Optimal](xref:System.IO.Compression.CompressionLevel) | 即使压缩需要更长的时间，也应以最佳方式压缩响应。 |
+| [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 即使压缩需要更长的时间，也应以最佳方式压缩响应。 |
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -265,11 +265,11 @@ public void ConfigureServices(IServiceCollection services)
 
 设置 <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>的压缩级别。 Gzip 压缩提供程序默认为最快的压缩级别（[CompressionLevel](xref:System.IO.Compression.CompressionLevel)），这可能不会生成最有效的压缩。 如果需要最有效的压缩，请将中间件配置为最佳压缩。
 
-| 压缩级别 | 描述 |
+| Compression Level | 说明 |
 | ----------------- | ----------- |
-| [CompressionLevel.Fastest](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
+| [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 压缩应该尽快完成，即使生成的输出未以最佳方式压缩。 |
 | [CompressionLevel. NoCompression](xref:System.IO.Compression.CompressionLevel) | 不应执行压缩。 |
-| [CompressionLevel.Optimal](xref:System.IO.Compression.CompressionLevel) | 即使压缩需要更长的时间，也应以最佳方式压缩响应。 |
+| [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 即使压缩需要更长的时间，也应以最佳方式压缩响应。 |
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -322,7 +322,7 @@ public void ConfigureServices(IServiceCollection services)
 * `text/plain`
 * `text/xml`
 
-用响应压缩中间件选项替换或追加 MIME 类型。 请注意，不支持通配符 MIME 类型，如 `text/*`。 示例应用程序添加的 MIME 类型`image/svg+xml`和压缩，并提供横幅图像的 ASP.NET Core (*banner.svg*)。
+用响应压缩中间件选项替换或追加 MIME 类型。 请注意，不支持通配符 MIME 类型，如 `text/*`。 示例应用为 `image/svg+xml` 添加了 MIME 类型，并对 ASP.NET Core 横幅图像（*横幅*）进行压缩和服务。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -342,7 +342,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="adding-the-vary-header"></a>添加 Vary 标头
 
-根据 `Accept-Encoding` 标头压缩响应时，可能会有多个压缩版本的响应和未压缩的版本。 为了指示客户端和代理缓存有多个版本存在且应该存储，将使用 `Accept-Encoding` 的值添加 `Vary` 标头。 在 ASP.NET Core 2.0 或更高版本，该中间件将添加`Vary`压缩响应时自动标头。
+根据 `Accept-Encoding` 标头压缩响应时，可能会有多个压缩版本的响应和未压缩的版本。 为了指示客户端和代理缓存有多个版本存在且应该存储，将使用 `Accept-Encoding` 的值添加 `Vary` 标头。 在 ASP.NET Core 2.0 或更高版本中，在对响应进行压缩时，中间件会自动添加 `Vary` 标头。
 
 ## <a name="middleware-issue-when-behind-an-nginx-reverse-proxy"></a>Nginx 反向代理后的中间件问题
 

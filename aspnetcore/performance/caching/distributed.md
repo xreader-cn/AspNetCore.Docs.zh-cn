@@ -147,7 +147,7 @@ Table and index were created successfully.
 
 ### <a name="distributed-redis-cache"></a>分布式 Redis 缓存
 
-[Redis](https://redis.io/)是一种开源的内存中数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)。
+[Redis](https://redis.io/)是内存中数据存储的开源数据存储，通常用作分布式缓存。 可以在本地使用 Redis，也可以为 Azure 托管的 ASP.NET Core 应用配置[Azure Redis 缓存](https://azure.microsoft.com/services/cache/)。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -194,7 +194,7 @@ services.AddDistributedRedisCache(options =>
 
 1. 安装[NCache 开放源代码 NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)。
 1. 在[ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html)中配置缓存群集。
-1. 将下列代码添加到 `Startup.ConfigureServices`：
+1. 将以下代码添加到 `Startup.ConfigureServices`：
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -244,7 +244,7 @@ services.AddDistributedRedisCache(options =>
 ::: moniker-end
 
 > [!NOTE]
-> 无需为<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>实例使用 Singleton 或 Scoped 生命周期（至少对内置实现来说是这样的）。
+> 对于 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，无需使用单独的或作用域生存期（至少对于内置实现而言）。
 >
 > 你还可以创建一个 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 实例，而不必使用 DI，而是使用代码创建一个实例，从而使代码更难以测试，并违反了[显式依赖关系原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。
 

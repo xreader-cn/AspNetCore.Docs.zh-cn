@@ -86,7 +86,7 @@ Blazor Server 是有状态的应用程序框架。 大多数情况下，应用�
 
 有关 Azure 数据存储选项的详细信息，请参阅[Azure 存储空间文档](/azure/storage/)和[azure 数据库](https://azure.microsoft.com/product-categories/databases/)。
 
-### <a name="url"></a>{2&gt; URL&lt;2}
+### <a name="url"></a>URL
 
 对于表示导航状态的暂时性数据，请将数据作为 URL 的一部分进行建模。 URL 中的状态模型示例包括：
 
@@ -195,7 +195,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅在第一次实例化组件时调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 `OnInitializedAsync`。 有关更多信息，请参见<xref:blazor/lifecycle>。
+如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync`，并将结果分配 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 仅在第一次实例化组件时调用 `OnInitializedAsync`。 如果用户在同一页面上保留到不同的 URL，则稍后不会再次调用 `OnInitializedAsync`。 有关详细信息，请参阅 <xref:blazor/lifecycle>。
 
 > [!WARNING]
 > 本部分中的示例仅适用于服务器未启用预呈现功能的情况。 启用预呈现后，会生成错误，如下所示：

@@ -227,7 +227,7 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="set-the-allowed-http-methods"></a>设置允许的 HTTP 方法
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>：
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>设置用户帐户 ：
 
 * 允许任何 HTTP 方法：
 * 影响预检请求和 `Access-Control-Allow-Methods` 标头。 有关详细信息，请参阅[预检请求](#preflight-requests)部分。

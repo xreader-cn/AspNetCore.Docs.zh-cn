@@ -17,11 +17,11 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 01/24/2020
 ms.locfileid: "76726893"
 ---
-# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
+# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core [!OP.NO-LOC(Blazor)] 窗体和验证
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-使用[数据批注](xref:mvc/models/validation)Blazor 支持窗体和验证。
+使用[数据批注](xref:mvc/models/validation)[!OP.NO-LOC(Blazor)] 支持窗体和验证。
 
 以下 `ExampleModel` 类型使用数据批注定义验证逻辑：
 
@@ -258,7 +258,7 @@ public class Starship
 
 ## <a name="work-with-radio-buttons"></a>使用单选按钮
 
-使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮作为一个组进行计算。 每个单选按钮的值都是固定的，但单选按钮组的值是所选单选按钮的值。 下面的示例演示如何执行以下操作：
+使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮作为一个组进行计算。 每个单选按钮的值都是固定的，但单选按钮组的值是所选单选按钮的值。 以下示例介绍如何：
 
 * 处理单选按钮组的数据绑定。
 * 使用自定义 `InputRadio` 组件支持验证。
