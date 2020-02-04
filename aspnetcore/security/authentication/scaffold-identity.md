@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: a0e9603cbca8c7f5771b0acf1a60839dffc89d4e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146480"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972036"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core 项目中的基架标识
 
@@ -259,7 +259,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态标识资产
 
-若要防止将静态标识资产发布到 web 根目录，请参阅 <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>。
+要阻止将静态标识资产发布到 Web 根目录，请参阅 <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>。
 
 ## <a name="additional-resources"></a>其他资源
 

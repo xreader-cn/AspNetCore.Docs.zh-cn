@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 内存中缓存数据。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/2/2019
+ms.date: 02/02/2020
 uid: performance/caching/memory
-ms.openlocfilehash: eb40026bc9686357cc7cfb8a99f127a3b433cb70
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 23acc17c861c203a87b1c113940e7bf42b51e810
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/10/2020
-ms.locfileid: "75866028"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972019"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>缓存在内存中 ASP.NET Core
 
@@ -115,7 +115,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 * 如果 web 应用主要是缓存字符串，则每个缓存条目大小都可以是字符串长度。
 * 应用可以将所有条目的大小指定为1，而大小限制则为条目的计数。
 
-如果未设置 <xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit>，则缓存将不受限制。 当系统内存不足时，ASP.NET Core 运行时不会剪裁缓存。 应用程序的体系结构非常多：
+如果未设置 <xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit>，则缓存将不受限制。 当系统内存不足时，ASP.NET Core 运行时不会剪裁缓存。 应用必须构建为：
 
 * 限制缓存增长。
 * 如果可用内存有限，请调用 <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Compact*> 或 <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Remove*>：

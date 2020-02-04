@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: e20c197c7ce3334d4f4f0b917d1fc94174e6c615
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: ab5d1414ae72edade81ab55aef6b0fa5af30f0f4
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914202"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76971978"
 ---
 # <a name="response-caching-in-aspnet-core"></a>响应缓存在 ASP.NET Core
 
@@ -43,7 +43,7 @@ ms.locfileid: "75914202"
 
 | Header                                                     | 函数 |
 | ---------------------------------------------------------- | -------- |
-| [年龄](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
+| [年](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
 | [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
 | [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，以便向后兼容 HTTP/1.0 缓存以设置 `no-cache` 行为。 如果 `Cache-Control` 标头存在，则将忽略 `Pragma` 标头。 |
 | [大](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非已缓存响应的原始请求和新请求中的所有 `Vary` 标头字段都匹配。 |
