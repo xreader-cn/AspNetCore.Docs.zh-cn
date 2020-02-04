@@ -3,14 +3,14 @@ title: ASP.NET Core MVC 概述
 author: ardalis
 description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视图-控制器”设计模式构建 Web 应用和 API。
 ms.author: riande
-ms.date: 11/07/2019
+ms.date: 01/28/2020
 uid: mvc/overview
-ms.openlocfilehash: 4f4ea3da8563cabaaa6183c6835c2f1eb8c387b4
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: a147c2aa01f1440f8ac59f73eb7be734193f802a
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799485"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869966"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -258,4 +258,5 @@ public class AccountController : Controller
 ## <a name="additional-resources"></a>其他资源
 
 * [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 的 Fluent 测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; 强类型单元测试库，提供用于测试 MVC 和 Web API 应用的 Fluent 界面。 （*不由 Microsoft 进行支持或维护*。）
+* [将 Razor 组件集成到 Razor Pages 和 MVC 应用](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: e718592127115e46df3154364957943a457b0b1b
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 880d1762ebbea641c0b9c5a9f8bbca0b68a463c5
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146324"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726661"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -32,7 +32,7 @@ ms.locfileid: "76146324"
 * 确保 Web 应用在启动时作为守护程序运行。
 * 配置进程管理工具以帮助重新启动 Web 应用。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 1. 使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。
 1. 在服务器上安装 .NET Core 运行时。
@@ -144,6 +144,8 @@ server {
     }
 }
 ```
+
+如果要用是依赖于 SignalR WebSocket 的 Blazor Server 应用，请参阅 <xref:host-and-deploy/blazor/server#linux-with-nginx> 了解如何设置 `Connection` 标头。
 
 当没有匹配的 `server_name` 时，Nginx 使用默认服务器。 如果没有定义默认服务器，则配置文件中的第一台服务器是默认服务器。 作为最佳做法，添加指定默认服务器，它会在配置文件中返回状态代码 444。 默认的服务器配置示例是：
 
@@ -382,7 +384,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
    ```
 
    添加行 `add_header X-Frame-Options "SAMEORIGIN";`。
-1. 保存该文件。
+1. 保存文件。
 1. 重启 Nginx。
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查

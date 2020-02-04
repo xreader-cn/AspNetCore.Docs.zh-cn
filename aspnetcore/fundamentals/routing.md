@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 462f34664540b92ba6758224a722c7ca8f9c8de0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 5e3ff65420b3c6769d52f8b96c216043cb1fdc1a
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829057"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727005"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -134,7 +134,7 @@ URL 生成是通过其可根据一组路由值创建 URL 路径的过程。 这�
   * [UseRouting](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*) 向中间件管道添加路由匹配。 它必须在任何路由感知中间件（如授权、终结点执行等）之前。
   * [UseEndpoints](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*) 向中间件管道添加终结点执行。 它运行为终结点响应提供服务的请求委托。
   此外，`UseEndpoints` 还是配置可由应用匹配和执行的路由终结点的位置。 例如：<xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*> 和 <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>。
-* 应用使用 ASP.NET Core 的 Helper 方法来配置其路由。 ASP.NET Core 框架提供了 <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> 和 `MapHub<THub>` 等 Helper 方法。 还提供了用于配置自己的自定义路由终结点的 Helper 方法：<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> 和 [MapVerb](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions)。 
+* 应用使用 ASP.NET Core 的 Helper 方法来配置其路由。 ASP.NET Core 框架提供了 <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> 和 `MapHub<THub>` 等帮助程序方法。 还提供了用于配置自己的自定义路由终结点的 Helper 方法：<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> 和 [MapVerb](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions)。 
 * 终结点路由还支持在应用程序启动后更改终结点。 若要在应用或 ASP.NET Core 框架中支持这一点，必须创建并注册自定义 <xref:Microsoft.AspNetCore.Routing.EndpointDataSource>。 这是一项高级功能，通常不需要。 终结点通常在启动时配置，并且在应用的生存期内是静态的。 在启动时从文件或数据库加载路由配置不是动态的。
 
 以下代码演示终结点路由的基本示例：
