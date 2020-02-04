@@ -10,29 +10,29 @@ no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: cdcd62915b8f1bae26773ed91e55973527e158f6
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160270"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726775"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a><span data-ttu-id="ebd3a-103">配置 ASP.NET Core Blazor 链接器</span><span class="sxs-lookup"><span data-stu-id="ebd3a-103">Configure the Linker for ASP.NET Core Blazor</span></span>
+# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a><span data-ttu-id="b1f5c-103">配置 ASP.NET Core [!OP.NO-LOC(Blazor)] 链接器</span><span class="sxs-lookup"><span data-stu-id="b1f5c-103">Configure the Linker for ASP.NET Core [!OP.NO-LOC(Blazor)]</span></span>
 
-<span data-ttu-id="ebd3a-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="ebd3a-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="b1f5c-104">作者：[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="b1f5c-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor<span data-ttu-id="ebd3a-105"> 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-105"> performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to remove unnecessary IL from the app's output assemblies.</span></span>
+[!OP.NO-LOC(Blazor)]<span data-ttu-id="b1f5c-105"> 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-105"> performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to remove unnecessary IL from the app's output assemblies.</span></span>
 
-<span data-ttu-id="ebd3a-106">使用以下任何一种方法控制程序集链接：</span><span class="sxs-lookup"><span data-stu-id="ebd3a-106">Control assembly linking using either of the following approaches:</span></span>
+<span data-ttu-id="b1f5c-106">使用以下任何一种方法控制程序集链接：</span><span class="sxs-lookup"><span data-stu-id="b1f5c-106">Control assembly linking using either of the following approaches:</span></span>
 
-* <span data-ttu-id="ebd3a-107">使用 [MSBuild 属性](#disable-linking-with-a-msbuild-property)全局禁用链接。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
-* <span data-ttu-id="ebd3a-108">使用[配置文件](#control-linking-with-a-configuration-file)按程序集控制链接。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+* <span data-ttu-id="b1f5c-107">使用 [MSBuild 属性](#disable-linking-with-a-msbuild-property)全局禁用链接。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
+* <span data-ttu-id="b1f5c-108">使用[配置文件](#control-linking-with-a-configuration-file)按程序集控制链接。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
 
-## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="ebd3a-109">使用 MSBuild 属性禁用链接</span><span class="sxs-lookup"><span data-stu-id="ebd3a-109">Disable linking with a MSBuild property</span></span>
+## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="b1f5c-109">使用 MSBuild 属性禁用链接</span><span class="sxs-lookup"><span data-stu-id="b1f5c-109">Disable linking with a MSBuild property</span></span>
 
-<span data-ttu-id="ebd3a-110">在生成应用（包括发布）时，默认启用链接。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-110">Linking is enabled by default when an app is built, which includes publishing.</span></span> <span data-ttu-id="ebd3a-111">若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：</span><span class="sxs-lookup"><span data-stu-id="ebd3a-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
+<span data-ttu-id="b1f5c-110">在生成应用（包括发布）时，默认启用链接。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-110">Linking is enabled by default when an app is built, which includes publishing.</span></span> <span data-ttu-id="b1f5c-111">若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：</span><span class="sxs-lookup"><span data-stu-id="b1f5c-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -40,9 +40,9 @@ Blazor<span data-ttu-id="ebd3a-105"> 在生成期间执行[中间语言 (IL)](/d
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="ebd3a-112">使用配置文件控制链接</span><span class="sxs-lookup"><span data-stu-id="ebd3a-112">Control linking with a configuration file</span></span>
+## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="b1f5c-112">使用配置文件控制链接</span><span class="sxs-lookup"><span data-stu-id="b1f5c-112">Control linking with a configuration file</span></span>
 
-<span data-ttu-id="ebd3a-113">通过提供 XML 配置文件并在项目文件中将该文件指定为 MSBuild 项，按程序集控制链接：</span><span class="sxs-lookup"><span data-stu-id="ebd3a-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
+<span data-ttu-id="b1f5c-113">通过提供 XML 配置文件并在项目文件中将该文件指定为 MSBuild 项，按程序集控制链接：</span><span class="sxs-lookup"><span data-stu-id="b1f5c-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -50,12 +50,12 @@ Blazor<span data-ttu-id="ebd3a-105"> 在生成期间执行[中间语言 (IL)](/d
 </ItemGroup>
 ```
 
-<span data-ttu-id="ebd3a-114">Linker.xml  ：</span><span class="sxs-lookup"><span data-stu-id="ebd3a-114">*Linker.xml*:</span></span>
+<span data-ttu-id="b1f5c-114">Linker.xml  ：</span><span class="sxs-lookup"><span data-stu-id="b1f5c-114">*Linker.xml*:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or Blazor packages must not be
+  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -82,13 +82,13 @@ Blazor<span data-ttu-id="ebd3a-105"> 在生成期间执行[中间语言 (IL)](/d
 </linker>
 ```
 
-<span data-ttu-id="ebd3a-115">有关详细信息，请参阅 [IL Linker：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+<span data-ttu-id="b1f5c-115">有关详细信息，请参阅 [IL Linker：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
 
-### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="ebd3a-116">配置链接器以实现国际化</span><span class="sxs-lookup"><span data-stu-id="ebd3a-116">Configure the linker for internationalization</span></span>
+### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="b1f5c-116">配置链接器以实现国际化</span><span class="sxs-lookup"><span data-stu-id="b1f5c-116">Configure the linker for internationalization</span></span>
 
-<span data-ttu-id="ebd3a-117">默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-117">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="ebd3a-118">删除这些程序集可最大程度地缩减应用的大小。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-118">Removing these assemblies minimizes the app's size.</span></span>
+<span data-ttu-id="b1f5c-117">默认情况下，[!OP.NO-LOC(Blazor)] 对于 [!OP.NO-LOC(Blazor)] WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-117">By default, [!OP.NO-LOC(Blazor)]'s linker configuration for [!OP.NO-LOC(Blazor)] WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="b1f5c-118">删除这些程序集可最大程度地缩减应用的大小。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-118">Removing these assemblies minimizes the app's size.</span></span>
 
-<span data-ttu-id="ebd3a-119">要控制保留哪些国际化程序集，请在项目文件中设置 `<MonoLinkerI18NAssemblies>` MSBuild 属性：</span><span class="sxs-lookup"><span data-stu-id="ebd3a-119">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
+<span data-ttu-id="b1f5c-119">要控制保留哪些国际化程序集，请在项目文件中设置 `<MonoLinkerI18NAssemblies>` MSBuild 属性：</span><span class="sxs-lookup"><span data-stu-id="b1f5c-119">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -96,16 +96,16 @@ Blazor<span data-ttu-id="ebd3a-105"> 在生成期间执行[中间语言 (IL)](/d
 </PropertyGroup>
 ```
 
-| <span data-ttu-id="ebd3a-120">区域值</span><span class="sxs-lookup"><span data-stu-id="ebd3a-120">Region Value</span></span>     | <span data-ttu-id="ebd3a-121">Mono 区域程序集</span><span class="sxs-lookup"><span data-stu-id="ebd3a-121">Mono region assembly</span></span>    |
+| <span data-ttu-id="b1f5c-120">区域值</span><span class="sxs-lookup"><span data-stu-id="b1f5c-120">Region Value</span></span>     | <span data-ttu-id="b1f5c-121">Mono 区域程序集</span><span class="sxs-lookup"><span data-stu-id="b1f5c-121">Mono region assembly</span></span>    |
 | ---------------- | ----------------------- |
-| `all`            | <span data-ttu-id="ebd3a-122">包含的所有程序集</span><span class="sxs-lookup"><span data-stu-id="ebd3a-122">All assemblies included</span></span> |
-| `cjk`            | <span data-ttu-id="ebd3a-123">I18N.CJK.dll </span><span class="sxs-lookup"><span data-stu-id="ebd3a-123">*I18N.CJK.dll*</span></span>          |
-| `mideast`        | <span data-ttu-id="ebd3a-124">I18N.MidEast.dll </span><span class="sxs-lookup"><span data-stu-id="ebd3a-124">*I18N.MidEast.dll*</span></span>      |
-| <span data-ttu-id="ebd3a-125">`none`（默认值）</span><span class="sxs-lookup"><span data-stu-id="ebd3a-125">`none` (default)</span></span> | <span data-ttu-id="ebd3a-126">None</span><span class="sxs-lookup"><span data-stu-id="ebd3a-126">None</span></span>                    |
-| `other`          | <span data-ttu-id="ebd3a-127">I18N.Other.dll </span><span class="sxs-lookup"><span data-stu-id="ebd3a-127">*I18N.Other.dll*</span></span>        |
-| `rare`           | <span data-ttu-id="ebd3a-128">I18N.Rare.dll </span><span class="sxs-lookup"><span data-stu-id="ebd3a-128">*I18N.Rare.dll*</span></span>         |
-| `west`           | <span data-ttu-id="ebd3a-129">I18N.West.dll </span><span class="sxs-lookup"><span data-stu-id="ebd3a-129">*I18N.West.dll*</span></span>         |
+| `all`            | <span data-ttu-id="b1f5c-122">包含的所有程序集</span><span class="sxs-lookup"><span data-stu-id="b1f5c-122">All assemblies included</span></span> |
+| `cjk`            | <span data-ttu-id="b1f5c-123">I18N.CJK.dll </span><span class="sxs-lookup"><span data-stu-id="b1f5c-123">*I18N.CJK.dll*</span></span>          |
+| `mideast`        | <span data-ttu-id="b1f5c-124">I18N.MidEast.dll </span><span class="sxs-lookup"><span data-stu-id="b1f5c-124">*I18N.MidEast.dll*</span></span>      |
+| <span data-ttu-id="b1f5c-125">`none`（默认值）</span><span class="sxs-lookup"><span data-stu-id="b1f5c-125">`none` (default)</span></span> | <span data-ttu-id="b1f5c-126">None</span><span class="sxs-lookup"><span data-stu-id="b1f5c-126">None</span></span>                    |
+| `other`          | <span data-ttu-id="b1f5c-127">I18N.Other.dll </span><span class="sxs-lookup"><span data-stu-id="b1f5c-127">*I18N.Other.dll*</span></span>        |
+| `rare`           | <span data-ttu-id="b1f5c-128">I18N.Rare.dll </span><span class="sxs-lookup"><span data-stu-id="b1f5c-128">*I18N.Rare.dll*</span></span>         |
+| `west`           | <span data-ttu-id="b1f5c-129">I18N.West.dll </span><span class="sxs-lookup"><span data-stu-id="b1f5c-129">*I18N.West.dll*</span></span>         |
 
-<span data-ttu-id="ebd3a-130">各个值之间用逗号分隔（例如：`mideast,west`）。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-130">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
+<span data-ttu-id="b1f5c-130">各个值之间用逗号分隔（例如：`mideast,west`）。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-130">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
 
-<span data-ttu-id="ebd3a-131">有关详细信息，请参阅[国际化：Pnetlib 国际化框架库（mono/mono GitHub 存储库）](https://github.com/mono/mono/tree/master/mcs/class/I18N)。</span><span class="sxs-lookup"><span data-stu-id="ebd3a-131">For more information, see [I18N: Pnetlib Internationalization Framework Libary (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
+<span data-ttu-id="b1f5c-131">有关详细信息，请参阅[国际化：Pnetlib 国际化框架库（mono/mono GitHub 存储库）](https://github.com/mono/mono/tree/master/mcs/class/I18N)。</span><span class="sxs-lookup"><span data-stu-id="b1f5c-131">For more information, see [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
