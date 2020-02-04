@@ -7,36 +7,36 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: a0e9603cbca8c7f5771b0acf1a60839dffc89d4e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146480"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972036"
 ---
-# <a name="scaffold-identity-in-aspnet-core-projects"></a><span data-ttu-id="8755a-103">ASP.NET Core 项目中的基架标识</span><span class="sxs-lookup"><span data-stu-id="8755a-103">Scaffold Identity in ASP.NET Core projects</span></span>
+# <a name="scaffold-identity-in-aspnet-core-projects"></a><span data-ttu-id="361c4-103">ASP.NET Core 项目中的基架标识</span><span class="sxs-lookup"><span data-stu-id="361c4-103">Scaffold Identity in ASP.NET Core projects</span></span>
 
-<span data-ttu-id="8755a-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="8755a-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="361c4-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="361c4-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="8755a-105">ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core 标识](xref:security/authentication/identity)。</span><span class="sxs-lookup"><span data-stu-id="8755a-105">ASP.NET Core provides [ASP.NET Core Identity](xref:security/authentication/identity) as a [Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="8755a-106">包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。</span><span class="sxs-lookup"><span data-stu-id="8755a-106">Applications that include Identity can apply the scaffolder to selectively add the source code contained in the Identity Razor Class Library (RCL).</span></span> <span data-ttu-id="8755a-107">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="8755a-107">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="8755a-108">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-108">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="8755a-109">生成的代码优先于标识 RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-109">Generated code takes precedence over the same code in the Identity RCL.</span></span> <span data-ttu-id="8755a-110">若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。</span><span class="sxs-lookup"><span data-stu-id="8755a-110">To gain full control of the UI and not use the default RCL, see the section [Create full identity UI source](#full).</span></span>
+<span data-ttu-id="361c4-105">ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core 标识](xref:security/authentication/identity)。</span><span class="sxs-lookup"><span data-stu-id="361c4-105">ASP.NET Core provides [ASP.NET Core Identity](xref:security/authentication/identity) as a [Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="361c4-106">包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。</span><span class="sxs-lookup"><span data-stu-id="361c4-106">Applications that include Identity can apply the scaffolder to selectively add the source code contained in the Identity Razor Class Library (RCL).</span></span> <span data-ttu-id="361c4-107">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="361c4-107">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="361c4-108">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-108">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="361c4-109">生成的代码优先于标识 RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-109">Generated code takes precedence over the same code in the Identity RCL.</span></span> <span data-ttu-id="361c4-110">若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。</span><span class="sxs-lookup"><span data-stu-id="361c4-110">To gain full control of the UI and not use the default RCL, see the section [Create full identity UI source](#full).</span></span>
 
-<span data-ttu-id="8755a-111">**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。</span><span class="sxs-lookup"><span data-stu-id="8755a-111">Applications that do **not** include authentication can apply the scaffolder to add the RCL Identity package.</span></span> <span data-ttu-id="8755a-112">可以选择要生成的标识代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-112">You have the option of selecting Identity code to be generated.</span></span>
+<span data-ttu-id="361c4-111">**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。</span><span class="sxs-lookup"><span data-stu-id="361c4-111">Applications that do **not** include authentication can apply the scaffolder to add the RCL Identity package.</span></span> <span data-ttu-id="361c4-112">可以选择要生成的标识代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-112">You have the option of selecting Identity code to be generated.</span></span>
 
-<span data-ttu-id="8755a-113">尽管 scaffolder 生成了大部分必要的代码，但你需要更新项目以完成该过程。</span><span class="sxs-lookup"><span data-stu-id="8755a-113">Although the scaffolder generates most of the necessary code, you need to update your project to complete the process.</span></span> <span data-ttu-id="8755a-114">本文档介绍完成标识基架更新所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="8755a-114">This document explains the steps needed to complete an Identity scaffolding update.</span></span>
+<span data-ttu-id="361c4-113">尽管 scaffolder 生成了大部分必要的代码，但你需要更新项目以完成该过程。</span><span class="sxs-lookup"><span data-stu-id="361c4-113">Although the scaffolder generates most of the necessary code, you need to update your project to complete the process.</span></span> <span data-ttu-id="361c4-114">本文档介绍完成标识基架更新所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="361c4-114">This document explains the steps needed to complete an Identity scaffolding update.</span></span>
 
-<span data-ttu-id="8755a-115">建议使用显示文件差异的源代码管理系统，并使您能够回退更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-115">We recommend using a source control system that shows file differences and allows you to back out of changes.</span></span> <span data-ttu-id="8755a-116">运行标识 scaffolder 后检查更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-116">Inspect the changes after running the Identity scaffolder.</span></span>
+<span data-ttu-id="361c4-115">建议使用显示文件差异的源代码管理系统，并使您能够回退更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-115">We recommend using a source control system that shows file differences and allows you to back out of changes.</span></span> <span data-ttu-id="361c4-116">运行标识 scaffolder 后检查更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-116">Inspect the changes after running the Identity scaffolder.</span></span>
 
-<span data-ttu-id="8755a-117">使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。</span><span class="sxs-lookup"><span data-stu-id="8755a-117">Services are required when using [Two Factor Authentication](xref:security/authentication/identity-enable-qrcodes), [Account confirmation and password recovery](xref:security/authentication/accconfirm), and other security features with Identity.</span></span> <span data-ttu-id="8755a-118">基架标识时不生成服务或服务存根。</span><span class="sxs-lookup"><span data-stu-id="8755a-118">Services or service stubs aren't generated when scaffolding Identity.</span></span> <span data-ttu-id="8755a-119">要启用这些功能，必须手动添加服务。</span><span class="sxs-lookup"><span data-stu-id="8755a-119">Services to enable these features must be added manually.</span></span> <span data-ttu-id="8755a-120">例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。</span><span class="sxs-lookup"><span data-stu-id="8755a-120">For example, see [Require Email Confirmation](xref:security/authentication/accconfirm#require-email-confirmation).</span></span>
+<span data-ttu-id="361c4-117">使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。</span><span class="sxs-lookup"><span data-stu-id="361c4-117">Services are required when using [Two Factor Authentication](xref:security/authentication/identity-enable-qrcodes), [Account confirmation and password recovery](xref:security/authentication/accconfirm), and other security features with Identity.</span></span> <span data-ttu-id="361c4-118">基架标识时不生成服务或服务存根。</span><span class="sxs-lookup"><span data-stu-id="361c4-118">Services or service stubs aren't generated when scaffolding Identity.</span></span> <span data-ttu-id="361c4-119">要启用这些功能，必须手动添加服务。</span><span class="sxs-lookup"><span data-stu-id="361c4-119">Services to enable these features must be added manually.</span></span> <span data-ttu-id="361c4-120">例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。</span><span class="sxs-lookup"><span data-stu-id="361c4-120">For example, see [Require Email Confirmation](xref:security/authentication/accconfirm#require-email-confirmation).</span></span>
 
-<span data-ttu-id="8755a-121">本文档包含的详细说明比在运行 scaffolder 时生成的*ScaffoldingReadme*文件更完整。</span><span class="sxs-lookup"><span data-stu-id="8755a-121">This document contains more complete instructions than the *ScaffoldingReadme.txt* file which is generated when running the the scaffolder.</span></span>
+<span data-ttu-id="361c4-121">本文档包含的详细说明比在运行 scaffolder 时生成的*ScaffoldingReadme*文件更完整。</span><span class="sxs-lookup"><span data-stu-id="361c4-121">This document contains more complete instructions than the *ScaffoldingReadme.txt* file which is generated when running the scaffolder.</span></span>
 
-## <a name="scaffold-identity-into-an-empty-project"></a><span data-ttu-id="8755a-122">将标识基架到空项目中</span><span class="sxs-lookup"><span data-stu-id="8755a-122">Scaffold identity into an empty project</span></span>
+## <a name="scaffold-identity-into-an-empty-project"></a><span data-ttu-id="361c4-122">将标识基架到空项目中</span><span class="sxs-lookup"><span data-stu-id="361c4-122">Scaffold identity into an empty project</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-123">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="8755a-123">Update the `Startup` class with code similar to the following:</span></span>
+<span data-ttu-id="361c4-123">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="361c4-123">Update the `Startup` class with code similar to the following:</span></span>
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
@@ -44,7 +44,7 @@ ms.locfileid: "76146480"
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a><span data-ttu-id="8755a-124">将标识基架到 Razor 项目，而无需现有授权</span><span class="sxs-lookup"><span data-stu-id="8755a-124">Scaffold identity into a Razor project without existing authorization</span></span>
+## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a><span data-ttu-id="361c4-124">将标识基架到 Razor 项目，而无需现有授权</span><span class="sxs-lookup"><span data-stu-id="361c4-124">Scaffold identity into a Razor project without existing authorization</span></span>
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -73,31 +73,31 @@ before dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-125">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-125">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-126">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="8755a-126">for more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
+<span data-ttu-id="361c4-125">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-125">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-126">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="361c4-126">for more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
 
 <a name="efm"></a>
 
-### <a name="migrations-useauthentication-and-layout"></a><span data-ttu-id="8755a-127">迁移、UseAuthentication 和布局</span><span class="sxs-lookup"><span data-stu-id="8755a-127">Migrations, UseAuthentication, and layout</span></span>
+### <a name="migrations-useauthentication-and-layout"></a><span data-ttu-id="361c4-127">迁移、UseAuthentication 和布局</span><span class="sxs-lookup"><span data-stu-id="361c4-127">Migrations, UseAuthentication, and layout</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a><span data-ttu-id="8755a-128">启用身份验证</span><span class="sxs-lookup"><span data-stu-id="8755a-128">Enable authentication</span></span>
+### <a name="enable-authentication"></a><span data-ttu-id="361c4-128">启用身份验证</span><span class="sxs-lookup"><span data-stu-id="361c4-128">Enable authentication</span></span>
 
-<span data-ttu-id="8755a-129">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="8755a-129">Update the `Startup` class with code similar to the following:</span></span>
+<span data-ttu-id="361c4-129">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="361c4-129">Update the `Startup` class with code similar to the following:</span></span>
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRP.cs?name=snippet)]
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-### <a name="layout-changes"></a><span data-ttu-id="8755a-130">布局更改</span><span class="sxs-lookup"><span data-stu-id="8755a-130">Layout changes</span></span>
+### <a name="layout-changes"></a><span data-ttu-id="361c4-130">布局更改</span><span class="sxs-lookup"><span data-stu-id="361c4-130">Layout changes</span></span>
 
-<span data-ttu-id="8755a-131">可选：将登录名部分（`_LoginPartial`）添加到布局文件中：</span><span class="sxs-lookup"><span data-stu-id="8755a-131">Optional: Add the login partial (`_LoginPartial`) to the layout file:</span></span>
+<span data-ttu-id="361c4-131">可选：将登录名部分（`_LoginPartial`）添加到布局文件中：</span><span class="sxs-lookup"><span data-stu-id="361c4-131">Optional: Add the login partial (`_LoginPartial`) to the layout file:</span></span>
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a><span data-ttu-id="8755a-132">使用授权将标识基架到 Razor 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-132">Scaffold identity into a Razor project with authorization</span></span>
+## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a><span data-ttu-id="361c4-132">使用授权将标识基架到 Razor 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-132">Scaffold identity into a Razor project with authorization</span></span>
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -111,9 +111,9 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 -->
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
-<span data-ttu-id="8755a-133">某些标识选项在*区域/标识/IdentityHostingStartup*中配置。</span><span class="sxs-lookup"><span data-stu-id="8755a-133">Some Identity options are configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-134">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="8755a-134">For more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
+<span data-ttu-id="361c4-133">某些标识选项在*区域/标识/IdentityHostingStartup*中配置。</span><span class="sxs-lookup"><span data-stu-id="361c4-133">Some Identity options are configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-134">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="361c4-134">For more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
 
-## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a><span data-ttu-id="8755a-135">不使用现有授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-135">Scaffold identity into an MVC project without existing authorization</span></span>
+## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a><span data-ttu-id="361c4-135">不使用现有授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-135">Scaffold identity into an MVC project without existing authorization</span></span>
 
 <!--
 set projNam=MvcNoAuth
@@ -131,23 +131,23 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-136">可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：</span><span class="sxs-lookup"><span data-stu-id="8755a-136">Optional: Add the login partial (`_LoginPartial`) to the *Views/Shared/_Layout.cshtml* file:</span></span>
+<span data-ttu-id="361c4-136">可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：</span><span class="sxs-lookup"><span data-stu-id="361c4-136">Optional: Add the login partial (`_LoginPartial`) to the *Views/Shared/_Layout.cshtml* file:</span></span>
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
-* <span data-ttu-id="8755a-137">将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*</span><span class="sxs-lookup"><span data-stu-id="8755a-137">Move the *Pages/Shared/_LoginPartial.cshtml* file to *Views/Shared/_LoginPartial.cshtml*</span></span>
+* <span data-ttu-id="361c4-137">将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*</span><span class="sxs-lookup"><span data-stu-id="361c4-137">Move the *Pages/Shared/_LoginPartial.cshtml* file to *Views/Shared/_LoginPartial.cshtml*</span></span>
 
-<span data-ttu-id="8755a-138">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-138">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-139">有关详细信息，请参阅 IHostingStartup。</span><span class="sxs-lookup"><span data-stu-id="8755a-139">For more information, see IHostingStartup.</span></span>
+<span data-ttu-id="361c4-138">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-138">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-139">有关详细信息，请参阅 IHostingStartup。</span><span class="sxs-lookup"><span data-stu-id="361c4-139">For more information, see IHostingStartup.</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-<span data-ttu-id="8755a-140">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="8755a-140">Update the `Startup` class with code similar to the following:</span></span>
+<span data-ttu-id="361c4-140">用类似于下面的代码更新 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="361c4-140">Update the `Startup` class with code similar to the following:</span></span>
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a><span data-ttu-id="8755a-141">使用授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-141">Scaffold identity into an MVC project with authorization</span></span>
+## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a><span data-ttu-id="361c4-141">使用授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-141">Scaffold identity into an MVC project with authorization</span></span>
 
 <!--
 dotnet new mvc -au Individual -o MvcAuth
@@ -161,23 +161,23 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 <a name="full"></a>
 
-## <a name="create-full-identity-ui-source"></a><span data-ttu-id="8755a-142">创建完全标识 UI 源</span><span class="sxs-lookup"><span data-stu-id="8755a-142">Create full identity UI source</span></span>
+## <a name="create-full-identity-ui-source"></a><span data-ttu-id="361c4-142">创建完全标识 UI 源</span><span class="sxs-lookup"><span data-stu-id="361c4-142">Create full identity UI source</span></span>
 
-<span data-ttu-id="8755a-143">若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。</span><span class="sxs-lookup"><span data-stu-id="8755a-143">To maintain full control of the Identity UI, run the Identity scaffolder and select **Override all files**.</span></span>
+<span data-ttu-id="361c4-143">若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。</span><span class="sxs-lookup"><span data-stu-id="361c4-143">To maintain full control of the Identity UI, run the Identity scaffolder and select **Override all files**.</span></span>
 
-<span data-ttu-id="8755a-144">以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-144">The following highlighted code shows the changes to replace the default Identity UI with Identity in an ASP.NET Core 2.1 web app.</span></span> <span data-ttu-id="8755a-145">你可能希望执行此操作以对标识 UI 具有完全控制。</span><span class="sxs-lookup"><span data-stu-id="8755a-145">You might want to do this to have full control of the Identity UI.</span></span>
+<span data-ttu-id="361c4-144">以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-144">The following highlighted code shows the changes to replace the default Identity UI with Identity in an ASP.NET Core 2.1 web app.</span></span> <span data-ttu-id="361c4-145">你可能希望执行此操作以对标识 UI 具有完全控制。</span><span class="sxs-lookup"><span data-stu-id="361c4-145">You might want to do this to have full control of the Identity UI.</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
-<span data-ttu-id="8755a-146">在以下代码中，将替换默认标识：</span><span class="sxs-lookup"><span data-stu-id="8755a-146">The default Identity is replaced in the following code:</span></span>
+<span data-ttu-id="361c4-146">在以下代码中，将替换默认标识：</span><span class="sxs-lookup"><span data-stu-id="361c4-146">The default Identity is replaced in the following code:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
-<span data-ttu-id="8755a-147">下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：</span><span class="sxs-lookup"><span data-stu-id="8755a-147">The following code sets the [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath), [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath), and [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath):</span></span>
+<span data-ttu-id="361c4-147">下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：</span><span class="sxs-lookup"><span data-stu-id="361c4-147">The following code sets the [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath), [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath), and [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath):</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-<span data-ttu-id="8755a-148">注册 `IEmailSender` 实现，例如：</span><span class="sxs-lookup"><span data-stu-id="8755a-148">Register an `IEmailSender` implementation, for example:</span></span>
+<span data-ttu-id="361c4-148">注册 `IEmailSender` 实现，例如：</span><span class="sxs-lookup"><span data-stu-id="361c4-148">Register an `IEmailSender` implementation, for example:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -191,25 +191,25 @@ cd RPauth
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
 -->
-## <a name="disable-register-page"></a><span data-ttu-id="8755a-149">禁用注册页</span><span class="sxs-lookup"><span data-stu-id="8755a-149">Disable register page</span></span>
+## <a name="disable-register-page"></a><span data-ttu-id="361c4-149">禁用注册页</span><span class="sxs-lookup"><span data-stu-id="361c4-149">Disable register page</span></span>
 
-<span data-ttu-id="8755a-150">禁用用户注册：</span><span class="sxs-lookup"><span data-stu-id="8755a-150">To disable user registration:</span></span>
+<span data-ttu-id="361c4-150">禁用用户注册：</span><span class="sxs-lookup"><span data-stu-id="361c4-150">To disable user registration:</span></span>
 
-* <span data-ttu-id="8755a-151">基架标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-151">Scaffold Identity.</span></span> <span data-ttu-id="8755a-152">包括帐户. Register、RegisterConfirmation。</span><span class="sxs-lookup"><span data-stu-id="8755a-152">Include Account.Register, Account.Login, and Account.RegisterConfirmation.</span></span> <span data-ttu-id="8755a-153">例如：</span><span class="sxs-lookup"><span data-stu-id="8755a-153">For example:</span></span>
+* <span data-ttu-id="361c4-151">基架标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-151">Scaffold Identity.</span></span> <span data-ttu-id="361c4-152">包括帐户. Register、RegisterConfirmation。</span><span class="sxs-lookup"><span data-stu-id="361c4-152">Include Account.Register, Account.Login, and Account.RegisterConfirmation.</span></span> <span data-ttu-id="361c4-153">例如：</span><span class="sxs-lookup"><span data-stu-id="361c4-153">For example:</span></span>
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* <span data-ttu-id="8755a-154">更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：</span><span class="sxs-lookup"><span data-stu-id="8755a-154">Update *Areas/Identity/Pages/Account/Register.cshtml.cs* so users can't register from this endpoint:</span></span>
+* <span data-ttu-id="361c4-154">更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：</span><span class="sxs-lookup"><span data-stu-id="361c4-154">Update *Areas/Identity/Pages/Account/Register.cshtml.cs* so users can't register from this endpoint:</span></span>
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* <span data-ttu-id="8755a-155">更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：</span><span class="sxs-lookup"><span data-stu-id="8755a-155">Update *Areas/Identity/Pages/Account/Register.cshtml* to be consistent with the preceding changes:</span></span>
+* <span data-ttu-id="361c4-155">更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：</span><span class="sxs-lookup"><span data-stu-id="361c4-155">Update *Areas/Identity/Pages/Account/Register.cshtml* to be consistent with the preceding changes:</span></span>
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
-* <span data-ttu-id="8755a-156">注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接</span><span class="sxs-lookup"><span data-stu-id="8755a-156">Comment out or remove the registration link from *Areas/Identity/Pages/Account/Login.cshtml*</span></span>
+* <span data-ttu-id="361c4-156">注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接</span><span class="sxs-lookup"><span data-stu-id="361c4-156">Comment out or remove the registration link from *Areas/Identity/Pages/Account/Login.cshtml*</span></span>
 
 ```cshtml
 @*
@@ -219,10 +219,10 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 *@
 ```
 
-* <span data-ttu-id="8755a-157">更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。</span><span class="sxs-lookup"><span data-stu-id="8755a-157">Update the *Areas/Identity/Pages/Account/RegisterConfirmation* page.</span></span>
+* <span data-ttu-id="361c4-157">更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。</span><span class="sxs-lookup"><span data-stu-id="361c4-157">Update the *Areas/Identity/Pages/Account/RegisterConfirmation* page.</span></span>
 
-  * <span data-ttu-id="8755a-158">删除来自 cshtml 文件的代码和链接。</span><span class="sxs-lookup"><span data-stu-id="8755a-158">Remove the code and links from the cshtml file.</span></span>
-  * <span data-ttu-id="8755a-159">从 `PageModel`中删除确认代码：</span><span class="sxs-lookup"><span data-stu-id="8755a-159">Remove the confirmation code from the `PageModel`:</span></span>
+  * <span data-ttu-id="361c4-158">删除来自 cshtml 文件的代码和链接。</span><span class="sxs-lookup"><span data-stu-id="361c4-158">Remove the code and links from the cshtml file.</span></span>
+  * <span data-ttu-id="361c4-159">从 `PageModel`中删除确认代码：</span><span class="sxs-lookup"><span data-stu-id="361c4-159">Remove the confirmation code from the `PageModel`:</span></span>
 
   ```csharp
    [AllowAnonymous]
@@ -235,58 +235,58 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
     }
   ```
   
-### <a name="use-another-app-to-add-users"></a><span data-ttu-id="8755a-160">使用其他应用添加用户</span><span class="sxs-lookup"><span data-stu-id="8755a-160">Use another app to add users</span></span>
+### <a name="use-another-app-to-add-users"></a><span data-ttu-id="361c4-160">使用其他应用添加用户</span><span class="sxs-lookup"><span data-stu-id="361c4-160">Use another app to add users</span></span>
 
-<span data-ttu-id="8755a-161">提供一种在 web 应用外部添加用户的机制。</span><span class="sxs-lookup"><span data-stu-id="8755a-161">Provide a mechanism to add users outside the web app.</span></span> <span data-ttu-id="8755a-162">用于添加用户的选项包括：</span><span class="sxs-lookup"><span data-stu-id="8755a-162">Options to add users include:</span></span>
+<span data-ttu-id="361c4-161">提供一种在 web 应用外部添加用户的机制。</span><span class="sxs-lookup"><span data-stu-id="361c4-161">Provide a mechanism to add users outside the web app.</span></span> <span data-ttu-id="361c4-162">用于添加用户的选项包括：</span><span class="sxs-lookup"><span data-stu-id="361c4-162">Options to add users include:</span></span>
 
-* <span data-ttu-id="8755a-163">专用的管理 web 应用。</span><span class="sxs-lookup"><span data-stu-id="8755a-163">A dedicated admin web app.</span></span>
-* <span data-ttu-id="8755a-164">控制台应用。</span><span class="sxs-lookup"><span data-stu-id="8755a-164">A console app.</span></span>
+* <span data-ttu-id="361c4-163">专用的管理 web 应用。</span><span class="sxs-lookup"><span data-stu-id="361c4-163">A dedicated admin web app.</span></span>
+* <span data-ttu-id="361c4-164">控制台应用。</span><span class="sxs-lookup"><span data-stu-id="361c4-164">A console app.</span></span>
 
-<span data-ttu-id="8755a-165">下面的代码概述了一种添加用户的方法：</span><span class="sxs-lookup"><span data-stu-id="8755a-165">The following code outlines one approach to adding users:</span></span>
+<span data-ttu-id="361c4-165">下面的代码概述了一种添加用户的方法：</span><span class="sxs-lookup"><span data-stu-id="361c4-165">The following code outlines one approach to adding users:</span></span>
 
-* <span data-ttu-id="8755a-166">用户列表将读入内存中。</span><span class="sxs-lookup"><span data-stu-id="8755a-166">A list of users is read into memory.</span></span>
-* <span data-ttu-id="8755a-167">为每个用户生成一个强唯一密码。</span><span class="sxs-lookup"><span data-stu-id="8755a-167">A strong unique password is generated for each user.</span></span>
-* <span data-ttu-id="8755a-168">用户已添加到标识数据库。</span><span class="sxs-lookup"><span data-stu-id="8755a-168">The user is added to the Identity database.</span></span>
-* <span data-ttu-id="8755a-169">系统会通知用户并通知用户更改密码。</span><span class="sxs-lookup"><span data-stu-id="8755a-169">The user is notified and told to change the password.</span></span>
+* <span data-ttu-id="361c4-166">用户列表将读入内存中。</span><span class="sxs-lookup"><span data-stu-id="361c4-166">A list of users is read into memory.</span></span>
+* <span data-ttu-id="361c4-167">为每个用户生成一个强唯一密码。</span><span class="sxs-lookup"><span data-stu-id="361c4-167">A strong unique password is generated for each user.</span></span>
+* <span data-ttu-id="361c4-168">用户已添加到标识数据库。</span><span class="sxs-lookup"><span data-stu-id="361c4-168">The user is added to the Identity database.</span></span>
+* <span data-ttu-id="361c4-169">系统会通知用户并通知用户更改密码。</span><span class="sxs-lookup"><span data-stu-id="361c4-169">The user is notified and told to change the password.</span></span>
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Program.cs?name=snippet)]
 
-<span data-ttu-id="8755a-170">下面的代码概述了如何添加用户：</span><span class="sxs-lookup"><span data-stu-id="8755a-170">The following code outlines adding a user:</span></span>
+<span data-ttu-id="361c4-170">下面的代码概述了如何添加用户：</span><span class="sxs-lookup"><span data-stu-id="361c4-170">The following code outlines adding a user:</span></span>
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Data/SeedData.cs?name=snippet)]
 
-<span data-ttu-id="8755a-171">对于生产方案，可以遵循类似的方法。</span><span class="sxs-lookup"><span data-stu-id="8755a-171">A similar approach can be followed for production scenarios.</span></span>
+<span data-ttu-id="361c4-171">对于生产方案，可以遵循类似的方法。</span><span class="sxs-lookup"><span data-stu-id="361c4-171">A similar approach can be followed for production scenarios.</span></span>
 
-## <a name="prevent-publish-of-static-identity-assets"></a><span data-ttu-id="8755a-172">禁止发布静态标识资产</span><span class="sxs-lookup"><span data-stu-id="8755a-172">Prevent publish of static Identity assets</span></span>
+## <a name="prevent-publish-of-static-identity-assets"></a><span data-ttu-id="361c4-172">禁止发布静态标识资产</span><span class="sxs-lookup"><span data-stu-id="361c4-172">Prevent publish of static Identity assets</span></span>
 
-<span data-ttu-id="8755a-173">若要防止将静态标识资产发布到 web 根目录，请参阅 <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>。</span><span class="sxs-lookup"><span data-stu-id="8755a-173">To prevent publishing static Identity assets to the web root, see <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>.</span></span>
+<span data-ttu-id="361c4-173">要阻止将静态标识资产发布到 Web 根目录，请参阅 <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>。</span><span class="sxs-lookup"><span data-stu-id="361c4-173">To prevent publishing static Identity assets to the web root, see <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="8755a-174">其他资源</span><span class="sxs-lookup"><span data-stu-id="8755a-174">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="361c4-174">其他资源</span><span class="sxs-lookup"><span data-stu-id="361c4-174">Additional resources</span></span>
 
-* [<span data-ttu-id="8755a-175">更改为 ASP.NET Core 2.1 及更高版本的身份验证代码</span><span class="sxs-lookup"><span data-stu-id="8755a-175">Changes to authentication code to ASP.NET Core 2.1 and later</span></span>](xref:migration/20_21#changes-to-authentication-code)
+* [<span data-ttu-id="361c4-175">更改为 ASP.NET Core 2.1 及更高版本的身份验证代码</span><span class="sxs-lookup"><span data-stu-id="361c4-175">Changes to authentication code to ASP.NET Core 2.1 and later</span></span>](xref:migration/20_21#changes-to-authentication-code)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="8755a-176">ASP.NET Core 2.1 及更高版本提供了[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="8755a-176">ASP.NET Core 2.1 and later provides [ASP.NET Core Identity](xref:security/authentication/identity) as a [Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="8755a-177">包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。</span><span class="sxs-lookup"><span data-stu-id="8755a-177">Applications that include Identity can apply the scaffolder to selectively add the source code contained in the Identity Razor Class Library (RCL).</span></span> <span data-ttu-id="8755a-178">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="8755a-178">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="8755a-179">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-179">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="8755a-180">生成的代码优先于标识 RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-180">Generated code takes precedence over the same code in the Identity RCL.</span></span> <span data-ttu-id="8755a-181">若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。</span><span class="sxs-lookup"><span data-stu-id="8755a-181">To gain full control of the UI and not use the default RCL, see the section [Create full identity UI source](#full).</span></span>
+<span data-ttu-id="361c4-176">ASP.NET Core 2.1 及更高版本提供了[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。</span><span class="sxs-lookup"><span data-stu-id="361c4-176">ASP.NET Core 2.1 and later provides [ASP.NET Core Identity](xref:security/authentication/identity) as a [Razor Class Library](xref:razor-pages/ui-class).</span></span> <span data-ttu-id="361c4-177">包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。</span><span class="sxs-lookup"><span data-stu-id="361c4-177">Applications that include Identity can apply the scaffolder to selectively add the source code contained in the Identity Razor Class Library (RCL).</span></span> <span data-ttu-id="361c4-178">建议生成源代码，以便修改代码和更改行为。</span><span class="sxs-lookup"><span data-stu-id="361c4-178">You might want to generate source code so you can modify the code and change the behavior.</span></span> <span data-ttu-id="361c4-179">例如，可以指示基架生成在注册过程中使用的代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-179">For example, you could instruct the scaffolder to generate the code used in registration.</span></span> <span data-ttu-id="361c4-180">生成的代码优先于标识 RCL 中的相同代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-180">Generated code takes precedence over the same code in the Identity RCL.</span></span> <span data-ttu-id="361c4-181">若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。</span><span class="sxs-lookup"><span data-stu-id="361c4-181">To gain full control of the UI and not use the default RCL, see the section [Create full identity UI source](#full).</span></span>
 
-<span data-ttu-id="8755a-182">**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。</span><span class="sxs-lookup"><span data-stu-id="8755a-182">Applications that do **not** include authentication can apply the scaffolder to add the RCL Identity package.</span></span> <span data-ttu-id="8755a-183">可以选择要生成的标识代码。</span><span class="sxs-lookup"><span data-stu-id="8755a-183">You have the option of selecting Identity code to be generated.</span></span>
+<span data-ttu-id="361c4-182">**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。</span><span class="sxs-lookup"><span data-stu-id="361c4-182">Applications that do **not** include authentication can apply the scaffolder to add the RCL Identity package.</span></span> <span data-ttu-id="361c4-183">可以选择要生成的标识代码。</span><span class="sxs-lookup"><span data-stu-id="361c4-183">You have the option of selecting Identity code to be generated.</span></span>
 
-<span data-ttu-id="8755a-184">尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。</span><span class="sxs-lookup"><span data-stu-id="8755a-184">Although the scaffolder generates most of the necessary code, you'll have to update your project to complete the process.</span></span> <span data-ttu-id="8755a-185">本文档介绍完成标识基架更新所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="8755a-185">This document explains the steps needed to complete an Identity scaffolding update.</span></span>
+<span data-ttu-id="361c4-184">尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。</span><span class="sxs-lookup"><span data-stu-id="361c4-184">Although the scaffolder generates most of the necessary code, you'll have to update your project to complete the process.</span></span> <span data-ttu-id="361c4-185">本文档介绍完成标识基架更新所需的步骤。</span><span class="sxs-lookup"><span data-stu-id="361c4-185">This document explains the steps needed to complete an Identity scaffolding update.</span></span>
 
-<span data-ttu-id="8755a-186">运行标识 scaffolder 时，会在项目目录中创建一个*ScaffoldingReadme*文件。</span><span class="sxs-lookup"><span data-stu-id="8755a-186">When the Identity scaffolder is run, a *ScaffoldingReadme.txt* file is created in the project directory.</span></span> <span data-ttu-id="8755a-187">*ScaffoldingReadme*文件包含有关完成标识基架更新所需内容的一般说明。</span><span class="sxs-lookup"><span data-stu-id="8755a-187">The *ScaffoldingReadme.txt* file contains general instructions on what's needed to complete the Identity scaffolding update.</span></span> <span data-ttu-id="8755a-188">本文档包含的有关*ScaffoldingReadme*文件的完整说明。</span><span class="sxs-lookup"><span data-stu-id="8755a-188">This document contains more complete instructions than the *ScaffoldingReadme.txt* file.</span></span>
+<span data-ttu-id="361c4-186">运行标识 scaffolder 时，会在项目目录中创建一个*ScaffoldingReadme*文件。</span><span class="sxs-lookup"><span data-stu-id="361c4-186">When the Identity scaffolder is run, a *ScaffoldingReadme.txt* file is created in the project directory.</span></span> <span data-ttu-id="361c4-187">*ScaffoldingReadme*文件包含有关完成标识基架更新所需内容的一般说明。</span><span class="sxs-lookup"><span data-stu-id="361c4-187">The *ScaffoldingReadme.txt* file contains general instructions on what's needed to complete the Identity scaffolding update.</span></span> <span data-ttu-id="361c4-188">本文档包含的有关*ScaffoldingReadme*文件的完整说明。</span><span class="sxs-lookup"><span data-stu-id="361c4-188">This document contains more complete instructions than the *ScaffoldingReadme.txt* file.</span></span>
 
-<span data-ttu-id="8755a-189">建议使用显示文件差异的源代码管理系统，并使您能够回退更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-189">We recommend using a source control system that shows file differences and allows you to back out of changes.</span></span> <span data-ttu-id="8755a-190">运行标识 scaffolder 后检查更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-190">Inspect the changes after running the Identity scaffolder.</span></span>
+<span data-ttu-id="361c4-189">建议使用显示文件差异的源代码管理系统，并使您能够回退更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-189">We recommend using a source control system that shows file differences and allows you to back out of changes.</span></span> <span data-ttu-id="361c4-190">运行标识 scaffolder 后检查更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-190">Inspect the changes after running the Identity scaffolder.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8755a-191">使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。</span><span class="sxs-lookup"><span data-stu-id="8755a-191">Services are required when using [Two Factor Authentication](xref:security/authentication/identity-enable-qrcodes), [Account confirmation and password recovery](xref:security/authentication/accconfirm), and other security features with Identity.</span></span> <span data-ttu-id="8755a-192">基架标识时不生成服务或服务存根。</span><span class="sxs-lookup"><span data-stu-id="8755a-192">Services or service stubs aren't generated when scaffolding Identity.</span></span> <span data-ttu-id="8755a-193">要启用这些功能，必须手动添加服务。</span><span class="sxs-lookup"><span data-stu-id="8755a-193">Services to enable these features must be added manually.</span></span> <span data-ttu-id="8755a-194">例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。</span><span class="sxs-lookup"><span data-stu-id="8755a-194">For example, see [Require Email Confirmation](xref:security/authentication/accconfirm#require-email-confirmation).</span></span>
+> <span data-ttu-id="361c4-191">使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。</span><span class="sxs-lookup"><span data-stu-id="361c4-191">Services are required when using [Two Factor Authentication](xref:security/authentication/identity-enable-qrcodes), [Account confirmation and password recovery](xref:security/authentication/accconfirm), and other security features with Identity.</span></span> <span data-ttu-id="361c4-192">基架标识时不生成服务或服务存根。</span><span class="sxs-lookup"><span data-stu-id="361c4-192">Services or service stubs aren't generated when scaffolding Identity.</span></span> <span data-ttu-id="361c4-193">要启用这些功能，必须手动添加服务。</span><span class="sxs-lookup"><span data-stu-id="361c4-193">Services to enable these features must be added manually.</span></span> <span data-ttu-id="361c4-194">例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。</span><span class="sxs-lookup"><span data-stu-id="361c4-194">For example, see [Require Email Confirmation](xref:security/authentication/accconfirm#require-email-confirmation).</span></span>
 
-## <a name="scaffold-identity-into-an-empty-project"></a><span data-ttu-id="8755a-195">将标识基架到空项目中</span><span class="sxs-lookup"><span data-stu-id="8755a-195">Scaffold identity into an empty project</span></span>
+## <a name="scaffold-identity-into-an-empty-project"></a><span data-ttu-id="361c4-195">将标识基架到空项目中</span><span class="sxs-lookup"><span data-stu-id="361c4-195">Scaffold identity into an empty project</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-196">将以下突出显示的调用添加到 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="8755a-196">Add the following highlighted calls to the `Startup` class:</span></span>
+<span data-ttu-id="361c4-196">将以下突出显示的调用添加到 `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="361c4-196">Add the following highlighted calls to the `Startup` class:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupEmpty.cs?name=snippet1&highlight=5,20-23)]
 
@@ -294,7 +294,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a><span data-ttu-id="8755a-197">将标识基架到 Razor 项目，而无需现有授权</span><span class="sxs-lookup"><span data-stu-id="8755a-197">Scaffold identity into a Razor project without existing authorization</span></span>
+## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a><span data-ttu-id="361c4-197">将标识基架到 Razor 项目，而无需现有授权</span><span class="sxs-lookup"><span data-stu-id="361c4-197">Scaffold identity into a Razor project without existing authorization</span></span>
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -315,31 +315,31 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-198">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-198">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-199">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="8755a-199">for more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
+<span data-ttu-id="361c4-198">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-198">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-199">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="361c4-199">for more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
 
 <a name="efm"></a>
 
-### <a name="migrations-useauthentication-and-layout"></a><span data-ttu-id="8755a-200">迁移、UseAuthentication 和布局</span><span class="sxs-lookup"><span data-stu-id="8755a-200">Migrations, UseAuthentication, and layout</span></span>
+### <a name="migrations-useauthentication-and-layout"></a><span data-ttu-id="361c4-200">迁移、UseAuthentication 和布局</span><span class="sxs-lookup"><span data-stu-id="361c4-200">Migrations, UseAuthentication, and layout</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a><span data-ttu-id="8755a-201">启用身份验证</span><span class="sxs-lookup"><span data-stu-id="8755a-201">Enable authentication</span></span>
+### <a name="enable-authentication"></a><span data-ttu-id="361c4-201">启用身份验证</span><span class="sxs-lookup"><span data-stu-id="361c4-201">Enable authentication</span></span>
 
-<span data-ttu-id="8755a-202">在 `Startup` 类的 `Configure` 方法中，在 `UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：</span><span class="sxs-lookup"><span data-stu-id="8755a-202">In the `Configure` method of the `Startup` class, call [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) after `UseStaticFiles`:</span></span>
+<span data-ttu-id="361c4-202">在 `Startup` 类的 `Configure` 方法中，在 `UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：</span><span class="sxs-lookup"><span data-stu-id="361c4-202">In the `Configure` method of the `Startup` class, call [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) after `UseStaticFiles`:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupRPnoAuth.cs?name=snippet1&highlight=29)]
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-### <a name="layout-changes"></a><span data-ttu-id="8755a-203">布局更改</span><span class="sxs-lookup"><span data-stu-id="8755a-203">Layout changes</span></span>
+### <a name="layout-changes"></a><span data-ttu-id="361c4-203">布局更改</span><span class="sxs-lookup"><span data-stu-id="361c4-203">Layout changes</span></span>
 
-<span data-ttu-id="8755a-204">可选：将登录名部分（`_LoginPartial`）添加到布局文件中：</span><span class="sxs-lookup"><span data-stu-id="8755a-204">Optional: Add the login partial (`_LoginPartial`) to the layout file:</span></span>
+<span data-ttu-id="361c4-204">可选：将登录名部分（`_LoginPartial`）添加到布局文件中：</span><span class="sxs-lookup"><span data-stu-id="361c4-204">Optional: Add the login partial (`_LoginPartial`) to the layout file:</span></span>
 
 [!code-html[Main](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a><span data-ttu-id="8755a-205">使用授权将标识基架到 Razor 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-205">Scaffold identity into a Razor project with authorization</span></span>
+## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a><span data-ttu-id="361c4-205">使用授权将标识基架到 Razor 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-205">Scaffold identity into a Razor project with authorization</span></span>
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -353,9 +353,9 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 -->
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
-<span data-ttu-id="8755a-206">某些标识选项在*区域/标识/IdentityHostingStartup*中配置。</span><span class="sxs-lookup"><span data-stu-id="8755a-206">Some Identity options are configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-207">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="8755a-207">For more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
+<span data-ttu-id="361c4-206">某些标识选项在*区域/标识/IdentityHostingStartup*中配置。</span><span class="sxs-lookup"><span data-stu-id="361c4-206">Some Identity options are configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-207">有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。</span><span class="sxs-lookup"><span data-stu-id="361c4-207">For more information, see [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).</span></span>
 
-## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a><span data-ttu-id="8755a-208">不使用现有授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-208">Scaffold identity into an MVC project without existing authorization</span></span>
+## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a><span data-ttu-id="361c4-208">不使用现有授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-208">Scaffold identity into an MVC project without existing authorization</span></span>
 
 <!--
 set projNam=MvcNoAuth
@@ -373,23 +373,23 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-<span data-ttu-id="8755a-209">可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：</span><span class="sxs-lookup"><span data-stu-id="8755a-209">Optional: Add the login partial (`_LoginPartial`) to the *Views/Shared/_Layout.cshtml* file:</span></span>
+<span data-ttu-id="361c4-209">可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：</span><span class="sxs-lookup"><span data-stu-id="361c4-209">Optional: Add the login partial (`_LoginPartial`) to the *Views/Shared/_Layout.cshtml* file:</span></span>
 
 [!code-html[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
-* <span data-ttu-id="8755a-210">将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*</span><span class="sxs-lookup"><span data-stu-id="8755a-210">Move the *Pages/Shared/_LoginPartial.cshtml* file to *Views/Shared/_LoginPartial.cshtml*</span></span>
+* <span data-ttu-id="361c4-210">将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*</span><span class="sxs-lookup"><span data-stu-id="361c4-210">Move the *Pages/Shared/_LoginPartial.cshtml* file to *Views/Shared/_LoginPartial.cshtml*</span></span>
 
-<span data-ttu-id="8755a-211">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-211">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="8755a-212">有关详细信息，请参阅 IHostingStartup。</span><span class="sxs-lookup"><span data-stu-id="8755a-212">For more information, see IHostingStartup.</span></span>
+<span data-ttu-id="361c4-211">在*区域/标识/IdentityHostingStartup*中配置标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-211">Identity is configured in *Areas/Identity/IdentityHostingStartup.cs*.</span></span> <span data-ttu-id="361c4-212">有关详细信息，请参阅 IHostingStartup。</span><span class="sxs-lookup"><span data-stu-id="361c4-212">For more information, see IHostingStartup.</span></span>
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-<span data-ttu-id="8755a-213">`UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：</span><span class="sxs-lookup"><span data-stu-id="8755a-213">Call [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) after `UseStaticFiles`:</span></span>
+<span data-ttu-id="361c4-213">`UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：</span><span class="sxs-lookup"><span data-stu-id="361c4-213">Call [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) after `UseStaticFiles`:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupMvcNoAuth.cs?name=snippet1&highlight=23)]
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a><span data-ttu-id="8755a-214">使用授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="8755a-214">Scaffold identity into an MVC project with authorization</span></span>
+## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a><span data-ttu-id="361c4-214">使用授权将标识基架到 MVC 项目</span><span class="sxs-lookup"><span data-stu-id="361c4-214">Scaffold identity into an MVC project with authorization</span></span>
 
 <!--
 dotnet new mvc -au Individual -o MvcAuth
@@ -401,27 +401,27 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-<span data-ttu-id="8755a-215">删除*页面/共享*文件夹和该文件夹中的文件。</span><span class="sxs-lookup"><span data-stu-id="8755a-215">Delete the *Pages/Shared* folder and the files in that folder.</span></span>
+<span data-ttu-id="361c4-215">删除*页面/共享*文件夹和该文件夹中的文件。</span><span class="sxs-lookup"><span data-stu-id="361c4-215">Delete the *Pages/Shared* folder and the files in that folder.</span></span>
 
 <a name="full"></a>
 
-## <a name="create-full-identity-ui-source"></a><span data-ttu-id="8755a-216">创建完全标识 UI 源</span><span class="sxs-lookup"><span data-stu-id="8755a-216">Create full identity UI source</span></span>
+## <a name="create-full-identity-ui-source"></a><span data-ttu-id="361c4-216">创建完全标识 UI 源</span><span class="sxs-lookup"><span data-stu-id="361c4-216">Create full identity UI source</span></span>
 
-<span data-ttu-id="8755a-217">若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。</span><span class="sxs-lookup"><span data-stu-id="8755a-217">To maintain full control of the Identity UI, run the Identity scaffolder and select **Override all files**.</span></span>
+<span data-ttu-id="361c4-217">若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。</span><span class="sxs-lookup"><span data-stu-id="361c4-217">To maintain full control of the Identity UI, run the Identity scaffolder and select **Override all files**.</span></span>
 
-<span data-ttu-id="8755a-218">以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。</span><span class="sxs-lookup"><span data-stu-id="8755a-218">The following highlighted code shows the changes to replace the default Identity UI with Identity in an ASP.NET Core 2.1 web app.</span></span> <span data-ttu-id="8755a-219">你可能希望执行此操作以对标识 UI 具有完全控制。</span><span class="sxs-lookup"><span data-stu-id="8755a-219">You might want to do this to have full control of the Identity UI.</span></span>
+<span data-ttu-id="361c4-218">以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。</span><span class="sxs-lookup"><span data-stu-id="361c4-218">The following highlighted code shows the changes to replace the default Identity UI with Identity in an ASP.NET Core 2.1 web app.</span></span> <span data-ttu-id="361c4-219">你可能希望执行此操作以对标识 UI 具有完全控制。</span><span class="sxs-lookup"><span data-stu-id="361c4-219">You might want to do this to have full control of the Identity UI.</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
-<span data-ttu-id="8755a-220">在以下代码中，将替换默认标识：</span><span class="sxs-lookup"><span data-stu-id="8755a-220">The default Identity is replaced in the following code:</span></span>
+<span data-ttu-id="361c4-220">在以下代码中，将替换默认标识：</span><span class="sxs-lookup"><span data-stu-id="361c4-220">The default Identity is replaced in the following code:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
-<span data-ttu-id="8755a-221">下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：</span><span class="sxs-lookup"><span data-stu-id="8755a-221">The following code sets the [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath), [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath), and [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath):</span></span>
+<span data-ttu-id="361c4-221">下面的代码将设置[LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath)、 [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath)和[AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath)：</span><span class="sxs-lookup"><span data-stu-id="361c4-221">The following code sets the [LoginPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.loginpath), [LogoutPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.logoutpath), and [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath):</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-<span data-ttu-id="8755a-222">注册 `IEmailSender` 实现，例如：</span><span class="sxs-lookup"><span data-stu-id="8755a-222">Register an `IEmailSender` implementation, for example:</span></span>
+<span data-ttu-id="361c4-222">注册 `IEmailSender` 实现，例如：</span><span class="sxs-lookup"><span data-stu-id="361c4-222">Register an `IEmailSender` implementation, for example:</span></span>
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -435,25 +435,25 @@ cd RPauth
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
 -->
-## <a name="disable-register-page"></a><span data-ttu-id="8755a-223">禁用注册页</span><span class="sxs-lookup"><span data-stu-id="8755a-223">Disable register page</span></span>
+## <a name="disable-register-page"></a><span data-ttu-id="361c4-223">禁用注册页</span><span class="sxs-lookup"><span data-stu-id="361c4-223">Disable register page</span></span>
 
-<span data-ttu-id="8755a-224">禁用用户注册：</span><span class="sxs-lookup"><span data-stu-id="8755a-224">To disable user registration:</span></span>
+<span data-ttu-id="361c4-224">禁用用户注册：</span><span class="sxs-lookup"><span data-stu-id="361c4-224">To disable user registration:</span></span>
 
-* <span data-ttu-id="8755a-225">基架标识。</span><span class="sxs-lookup"><span data-stu-id="8755a-225">Scaffold Identity.</span></span> <span data-ttu-id="8755a-226">包括帐户. Register、RegisterConfirmation。</span><span class="sxs-lookup"><span data-stu-id="8755a-226">Include Account.Register, Account.Login, and Account.RegisterConfirmation.</span></span> <span data-ttu-id="8755a-227">例如：</span><span class="sxs-lookup"><span data-stu-id="8755a-227">For example:</span></span>
+* <span data-ttu-id="361c4-225">基架标识。</span><span class="sxs-lookup"><span data-stu-id="361c4-225">Scaffold Identity.</span></span> <span data-ttu-id="361c4-226">包括帐户. Register、RegisterConfirmation。</span><span class="sxs-lookup"><span data-stu-id="361c4-226">Include Account.Register, Account.Login, and Account.RegisterConfirmation.</span></span> <span data-ttu-id="361c4-227">例如：</span><span class="sxs-lookup"><span data-stu-id="361c4-227">For example:</span></span>
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* <span data-ttu-id="8755a-228">更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：</span><span class="sxs-lookup"><span data-stu-id="8755a-228">Update *Areas/Identity/Pages/Account/Register.cshtml.cs* so users can't register from this endpoint:</span></span>
+* <span data-ttu-id="361c4-228">更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：</span><span class="sxs-lookup"><span data-stu-id="361c4-228">Update *Areas/Identity/Pages/Account/Register.cshtml.cs* so users can't register from this endpoint:</span></span>
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* <span data-ttu-id="8755a-229">更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：</span><span class="sxs-lookup"><span data-stu-id="8755a-229">Update *Areas/Identity/Pages/Account/Register.cshtml* to be consistent with the preceding changes:</span></span>
+* <span data-ttu-id="361c4-229">更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：</span><span class="sxs-lookup"><span data-stu-id="361c4-229">Update *Areas/Identity/Pages/Account/Register.cshtml* to be consistent with the preceding changes:</span></span>
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
-* <span data-ttu-id="8755a-230">注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接</span><span class="sxs-lookup"><span data-stu-id="8755a-230">Comment out or remove the registration link from *Areas/Identity/Pages/Account/Login.cshtml*</span></span>
+* <span data-ttu-id="361c4-230">注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接</span><span class="sxs-lookup"><span data-stu-id="361c4-230">Comment out or remove the registration link from *Areas/Identity/Pages/Account/Login.cshtml*</span></span>
 
 ```cshtml
 @*
@@ -463,10 +463,10 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 *@
 ```
 
-* <span data-ttu-id="8755a-231">更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。</span><span class="sxs-lookup"><span data-stu-id="8755a-231">Update the *Areas/Identity/Pages/Account/RegisterConfirmation* page.</span></span>
+* <span data-ttu-id="361c4-231">更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。</span><span class="sxs-lookup"><span data-stu-id="361c4-231">Update the *Areas/Identity/Pages/Account/RegisterConfirmation* page.</span></span>
 
-  * <span data-ttu-id="8755a-232">删除来自 cshtml 文件的代码和链接。</span><span class="sxs-lookup"><span data-stu-id="8755a-232">Remove the code and links from the cshtml file.</span></span>
-  * <span data-ttu-id="8755a-233">从 `PageModel`中删除确认代码：</span><span class="sxs-lookup"><span data-stu-id="8755a-233">Remove the confirmation code from the `PageModel`:</span></span>
+  * <span data-ttu-id="361c4-232">删除来自 cshtml 文件的代码和链接。</span><span class="sxs-lookup"><span data-stu-id="361c4-232">Remove the code and links from the cshtml file.</span></span>
+  * <span data-ttu-id="361c4-233">从 `PageModel`中删除确认代码：</span><span class="sxs-lookup"><span data-stu-id="361c4-233">Remove the confirmation code from the `PageModel`:</span></span>
 
   ```csharp
    [AllowAnonymous]
@@ -479,30 +479,30 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
     }
   ```
   
-### <a name="use-another-app-to-add-users"></a><span data-ttu-id="8755a-234">使用其他应用添加用户</span><span class="sxs-lookup"><span data-stu-id="8755a-234">Use another app to add users</span></span>
+### <a name="use-another-app-to-add-users"></a><span data-ttu-id="361c4-234">使用其他应用添加用户</span><span class="sxs-lookup"><span data-stu-id="361c4-234">Use another app to add users</span></span>
 
-<span data-ttu-id="8755a-235">提供一种在 web 应用外部添加用户的机制。</span><span class="sxs-lookup"><span data-stu-id="8755a-235">Provide a mechanism to add users outside the web app.</span></span> <span data-ttu-id="8755a-236">用于添加用户的选项包括：</span><span class="sxs-lookup"><span data-stu-id="8755a-236">Options to add users include:</span></span>
+<span data-ttu-id="361c4-235">提供一种在 web 应用外部添加用户的机制。</span><span class="sxs-lookup"><span data-stu-id="361c4-235">Provide a mechanism to add users outside the web app.</span></span> <span data-ttu-id="361c4-236">用于添加用户的选项包括：</span><span class="sxs-lookup"><span data-stu-id="361c4-236">Options to add users include:</span></span>
 
-* <span data-ttu-id="8755a-237">专用的管理 web 应用。</span><span class="sxs-lookup"><span data-stu-id="8755a-237">A dedicated admin web app.</span></span>
-* <span data-ttu-id="8755a-238">控制台应用。</span><span class="sxs-lookup"><span data-stu-id="8755a-238">A console app.</span></span>
+* <span data-ttu-id="361c4-237">专用的管理 web 应用。</span><span class="sxs-lookup"><span data-stu-id="361c4-237">A dedicated admin web app.</span></span>
+* <span data-ttu-id="361c4-238">控制台应用。</span><span class="sxs-lookup"><span data-stu-id="361c4-238">A console app.</span></span>
 
-<span data-ttu-id="8755a-239">下面的代码概述了一种添加用户的方法：</span><span class="sxs-lookup"><span data-stu-id="8755a-239">The following code outlines one approach to adding users:</span></span>
+<span data-ttu-id="361c4-239">下面的代码概述了一种添加用户的方法：</span><span class="sxs-lookup"><span data-stu-id="361c4-239">The following code outlines one approach to adding users:</span></span>
 
-* <span data-ttu-id="8755a-240">用户列表将读入内存中。</span><span class="sxs-lookup"><span data-stu-id="8755a-240">A list of users is read into memory.</span></span>
-* <span data-ttu-id="8755a-241">为每个用户生成一个强唯一密码。</span><span class="sxs-lookup"><span data-stu-id="8755a-241">A strong unique password is generated for each user.</span></span>
-* <span data-ttu-id="8755a-242">用户已添加到标识数据库。</span><span class="sxs-lookup"><span data-stu-id="8755a-242">The user is added to the Identity database.</span></span>
-* <span data-ttu-id="8755a-243">系统会通知用户并通知用户更改密码。</span><span class="sxs-lookup"><span data-stu-id="8755a-243">The user is notified and told to change the password.</span></span>
+* <span data-ttu-id="361c4-240">用户列表将读入内存中。</span><span class="sxs-lookup"><span data-stu-id="361c4-240">A list of users is read into memory.</span></span>
+* <span data-ttu-id="361c4-241">为每个用户生成一个强唯一密码。</span><span class="sxs-lookup"><span data-stu-id="361c4-241">A strong unique password is generated for each user.</span></span>
+* <span data-ttu-id="361c4-242">用户已添加到标识数据库。</span><span class="sxs-lookup"><span data-stu-id="361c4-242">The user is added to the Identity database.</span></span>
+* <span data-ttu-id="361c4-243">系统会通知用户并通知用户更改密码。</span><span class="sxs-lookup"><span data-stu-id="361c4-243">The user is notified and told to change the password.</span></span>
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Program.cs?name=snippet)]
 
-<span data-ttu-id="8755a-244">下面的代码概述了如何添加用户：</span><span class="sxs-lookup"><span data-stu-id="8755a-244">The following code outlines adding a user:</span></span>
+<span data-ttu-id="361c4-244">下面的代码概述了如何添加用户：</span><span class="sxs-lookup"><span data-stu-id="361c4-244">The following code outlines adding a user:</span></span>
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Data/SeedData.cs?name=snippet)]
 
-<span data-ttu-id="8755a-245">对于生产方案，可以遵循类似的方法。</span><span class="sxs-lookup"><span data-stu-id="8755a-245">A similar approach can be followed for production scenarios.</span></span>
+<span data-ttu-id="361c4-245">对于生产方案，可以遵循类似的方法。</span><span class="sxs-lookup"><span data-stu-id="361c4-245">A similar approach can be followed for production scenarios.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="8755a-246">其他资源</span><span class="sxs-lookup"><span data-stu-id="8755a-246">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="361c4-246">其他资源</span><span class="sxs-lookup"><span data-stu-id="361c4-246">Additional resources</span></span>
 
-* [<span data-ttu-id="8755a-247">更改为 ASP.NET Core 2.1 及更高版本的身份验证代码</span><span class="sxs-lookup"><span data-stu-id="8755a-247">Changes to authentication code to ASP.NET Core 2.1 and later</span></span>](xref:migration/20_21#changes-to-authentication-code)
+* [<span data-ttu-id="361c4-247">更改为 ASP.NET Core 2.1 及更高版本的身份验证代码</span><span class="sxs-lookup"><span data-stu-id="361c4-247">Changes to authentication code to ASP.NET Core 2.1 and later</span></span>](xref:migration/20_21#changes-to-authentication-code)
 
 ::: moniker-end
