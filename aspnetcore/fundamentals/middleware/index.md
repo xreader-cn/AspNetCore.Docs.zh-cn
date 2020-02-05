@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 中间件和请求管道。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/19/2019
+ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 63566c1642e17ad333bb65b122330d11c4472aff
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 5c8e9e58ab222e482ef029f5099d0a8acd07d8a6
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355008"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972023"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -226,6 +226,7 @@ ASP.NET Core 附带以下中间件组件。 “顺序”  列提供备注，以�
 | [诊断](xref:fundamentals/error-handling) | 提供新应用的开发人员异常页、异常处理、状态代码页和默认网页的几个单独的中间件。 | 在生成错误的组件之前。 异常终端或为新应用提供默认网页的终端。 |
 | [转接头](xref:host-and-deploy/proxy-load-balancer) | 将代理标头转发到当前请求。 | 在使用已更新字段的组件之前。 示例：方案、主机、客户端 IP、方法。 |
 | [运行状况检查](xref:host-and-deploy/health-checks) | 检查 ASP.NET Core 应用及其依赖项的运行状况，如检查数据库可用性。 | 如果请求与运行状况检查终结点匹配，则为终端。 |
+| [标头传播](xref:fundamentals/http-requests#header-propagation-middleware) | 将 HTTP 标头从传入的请求传播到传出的 HTTP 客户端请求中。 |
 | [HTTP 方法重写](xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions) | 允许传入 POST 请求重写方法。 | 在使用已更新方法的组件之前。 |
 | [HTTPS 重定向](xref:security/enforcing-ssl#require-https) | 将所有 HTTP 请求重定向到 HTTPS。 | 在使用 URL 的组件之前。 |
 | [HTTP 严格传输安全性 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | 添加特殊响应标头的安全增强中间件。 | 在发送响应之前，修改请求的组件之后。 示例：转接头、URL 重写。 |
