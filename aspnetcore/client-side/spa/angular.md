@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/angular
-ms.openlocfilehash: 62654ca040be99de8063a63c7e4ac09cbb8564eb
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 150b2176eac2e68c1ef9ec6deabb087836ff84ce
+ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080403"
+ms.lasthandoff: 02/04/2020
+ms.locfileid: "77004261"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -22,7 +22,7 @@ ms.locfileid: "71080403"
 
 ## <a name="create-a-new-app"></a>创建新应用
 
-如果您有安装 ASP.NET Core 2.1，则无需安装角度项目模板。
+如果已安装 ASP.NET Core 2.1，则无需安装 Angular 项目模板。
 
 在空目录中使用命令 `dotnet new angular` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app目录中创建应用并切换到该目录：
 
@@ -53,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 在浏览器中导航到此 URL。
 
-该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息：*NG Live 开发服务器&lt;正在侦听 localhost： otherport&gt;，请在上 http://localhost:&lt 打开浏览器;&gt; otherport/* 。 忽略此消息&mdash;这**不是**组合 ASP.NET Core 和 Angular CLI 应用的 URL。
+该应用在后台启动 Angular CLI 服务器的一个实例。 记录类似于以下内容的消息：*NG Live 开发服务器正在 localhost:&lt;otherport&gt; 上进行侦听，在 http://localhost:&lt;otherport&gt;/* 上打开浏览器。 忽略此消息&mdash;这**不是**组合 ASP.NET Core 和 Angular CLI 应用的 URL。
 
 ---
 
@@ -61,7 +61,7 @@ Now listening on: http://localhost:<port>
 
 ## <a name="add-pages-images-styles-modules-etc"></a>添加页面、映像、样式、模块等。
 
-ClientApp目录包含标准的 Angular CLI 应用。 有关详细信息，请参阅官方 [Angular 文档](https://github.com/angular/angular-cli/wiki)。
+ClientApp目录包含标准的 Angular CLI 应用。 有关详细信息，请参阅官方 [Angular 文档](https://https://angular.io)。
 
 此模板创建的 Angular 应用与 Angular CLI 本身创建的应用（通过 `ng new`）之间存在细微差异；但是，该应用的功能未变。 该模板创建的应用包含基于 [Bootstrap](https://getbootstrap.com/) 的布局和基本路由示例。
 
@@ -73,7 +73,7 @@ ClientApp目录包含标准的 Angular CLI 应用。 有关详细信息，请参
 cd ClientApp
 ```
 
-如果全局安装了 `ng` 工具，则可以运行其任何命令。 例如，你可以运行 `ng lint`、`ng test` 或任何其他 [Angular CLI 命令](https://github.com/angular/angular-cli/wiki#additional-commands)。 不过无需运行 `ng serve`，因为 ASP.NET Core 应用为应用的服务器端和客户端部分提供服务。 在内部，它在开发中使用 `ng serve`。
+如果全局安装了 `ng` 工具，则可以运行其任何命令。 例如，你可以运行 `ng lint`、`ng test` 或任何其他 [Angular CLI 命令](https://angular.io/cli)。 不过无需运行 `ng serve`，因为 ASP.NET Core 应用为应用的服务器端和客户端部分提供服务。 在内部，它在开发中使用 `ng serve`。
 
 如果未安装 `ng` 工具，请改为运行 `npm run ng`。 例如，你可以运行 `npm run ng lint` 或 `npm run ng test`。
 
