@@ -5,17 +5,17 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器托管模型。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 145f385fd6c5d04510a4ac15a41b879591ab5caa
-ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.openlocfilehash: 7b4d4aca0bc4650c31bc8e5c4a84ecbad6a49b09
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76885523"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034077"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 宿主模型
 
@@ -35,7 +35,7 @@ Blazor 的主体托管模型在 WebAssembly 上的浏览器中运行客户端。
 
 若要使用客户端托管模型创建 Blazor 应用，请使用**Blazor WebAssembly 应用**模板（[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)）。
 
-选择**Blazor WebAssembly 应用程序**模板之后，你可以选择将应用配置为使用 ASP.NET Core 后端，方法是选择 " **ASP.NET Core 托管**" 复选框（"[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)"）。 ASP.NET Core 应用程序将 Blazor 应用程序提供给客户端。 Blazor WebAssembly 应用可通过网络使用 web API 调用或[SignalR](xref:signalr/introduction)与服务器交互。
+选择**Blazor WebAssembly 应用程序**模板之后，你可以选择将应用配置为使用 ASP.NET Core 后端，方法是选择 " **ASP.NET Core 托管**" 复选框（"[dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)"）。 ASP.NET Core 应用程序将 Blazor 应用程序提供给客户端。 Blazor WebAssembly 应用可使用 web API 调用或[SignalR](xref:signalr/introduction) （<xref:tutorials/signalr-blazor-webassembly>）通过网络与服务器交互。
 
 模板包括处理的 `blazor.webassembly.js` 脚本：
 
@@ -222,7 +222,7 @@ Blazor 中的 UI 更新由以下用户触发：
    ...
    ```
 
-   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Pages/_ViewImports cshtml*文件中。 有关更多信息，请参见<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
+   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Pages/_ViewImports cshtml*文件中。 有关详细信息，请参阅 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
 
 #### <a name="use-routable-components-in-an-mvc-app"></a>在 MVC 应用中使用可路由组件
 
@@ -290,7 +290,7 @@ Blazor 中的 UI 更新由以下用户触发：
    ...
    ```
 
-   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Views/_ViewImports cshtml*文件中。 有关更多信息，请参见<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
+   使用自定义文件夹保存应用程序的组件时，将表示文件夹的命名空间添加到*Views/_ViewImports cshtml*文件中。 有关详细信息，请参阅 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>。
 
 ### <a name="circuits"></a>而言
 
@@ -306,7 +306,7 @@ UI 延迟是指从启动的操作到 UI 更新的时间。 对于应用程序来
 
 对于仅限于专用公司网络的业务线应用，对用户而言，由于网络延迟导致的延迟通常是让的。 对于通过 Internet 部署的应用，用户可能会对延迟造成明显的影响，尤其是用户广泛分散于各地。
 
-内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关更多信息，请参见<xref:security/blazor/server>。
+内存使用率还会导致应用延迟。 增加的内存使用会导致频繁垃圾收集或将内存分页到磁盘，这两者都会降低应用程序性能，进而增加 UI 延迟。 有关详细信息，请参阅 <xref:security/blazor/server>。
 
 应通过减少网络延迟和内存使用来优化 Blazor 服务器应用，从而最大限度地减少 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅：
 
@@ -321,7 +321,7 @@ Blazor 服务器应用需要与服务器建立活动的 SignalR 连接。 如果
 
 Blazor 服务器应用 prerenders 响应第一个客户端请求，后者在服务器上设置 UI 状态。 当客户端尝试创建 SignalR 连接时，客户端必须重新连接到同一服务器。 使用多个后端服务器的 Blazor 服务器应用应为 SignalR 连接实现*粘滞会话*。
 
-我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor 服务器应用。 该服务允许将 Blazor 服务器应用扩展到大量并发 SignalR 连接。 为 Azure SignalR 服务启用了粘滞会话，方法是将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`。 有关更多信息，请参见<xref:host-and-deploy/blazor/server#signalr-configuration>。
+我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor 服务器应用。 该服务允许将 Blazor 服务器应用扩展到大量并发 SignalR 连接。 为 Azure SignalR 服务启用了粘滞会话，方法是将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/server#signalr-configuration>。
 
 使用 IIS 时，粘滞会话通过应用程序请求路由启用。 有关详细信息，请参阅[使用应用程序请求路由实现 HTTP 负载均衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
@@ -365,7 +365,7 @@ Blazor 服务器应用 prerenders 响应第一个客户端请求，后者在服�
 * 已预呈现到页面中。
 * 在页面上呈现为静态 HTML，或者，如果包含从用户代理启动 Blazor 应用所需的信息，则为。
 
-| `RenderMode`        | 描述 |
+| `RenderMode`        | 说明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | 将组件呈现为静态 HTML，并为 Blazor 服务器应用包含标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
@@ -504,3 +504,4 @@ public class WeatherForecastService
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>
+* <xref:tutorials/signalr-blazor-webassembly>
