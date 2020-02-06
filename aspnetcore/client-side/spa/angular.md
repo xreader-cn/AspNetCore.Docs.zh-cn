@@ -5,14 +5,14 @@ description: 了解如何开始使用适用于 Angular 和 Angular CLI 的 ASP.N
 monikerRange: '>= aspnetcore-2.1'
 ms.author: stevesa
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 02/06/2020
 uid: spa/angular
-ms.openlocfilehash: 150b2176eac2e68c1ef9ec6deabb087836ff84ce
-ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
+ms.openlocfilehash: 11ad5d4c7cadcc582b3e288a331569f62f0b98ac
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77004261"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044862"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 Angular 项目模板
 
@@ -22,7 +22,7 @@ ms.locfileid: "77004261"
 
 ## <a name="create-a-new-app"></a>创建新应用
 
-如果已安装 ASP.NET Core 2.1，则无需安装 Angular 项目模板。
+如果您有安装 ASP.NET Core 2.1，则无需安装角度项目模板。
 
 在空目录中使用命令 `dotnet new angular` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app目录中创建应用并切换到该目录：
 
@@ -61,7 +61,7 @@ Now listening on: http://localhost:<port>
 
 ## <a name="add-pages-images-styles-modules-etc"></a>添加页面、映像、样式、模块等。
 
-ClientApp目录包含标准的 Angular CLI 应用。 有关详细信息，请参阅官方 [Angular 文档](https://https://angular.io)。
+ClientApp目录包含标准的 Angular CLI 应用。 有关详细信息，请参阅官方 [Angular 文档](https://angular.io)。
 
 此模板创建的 Angular 应用与 Angular CLI 本身创建的应用（通过 `ng new`）之间存在细微差异；但是，该应用的功能未变。 该模板创建的应用包含基于 [Bootstrap](https://getbootstrap.com/) 的布局和基本路由示例。
 
@@ -108,7 +108,7 @@ npm install --save <package_name>
     ```
 
     > [!IMPORTANT]
-    > 使用 `npm start` 而不是 `ng serve` 启动 Angular CLI 开发服务器，以便遵守 package.json中的配置。 要将其他参数传递给 Angular CLI 服务器，请将它们添加到 package.json文件中的相关 `scripts` 行。
+    > 使用 `npm start` 而不是 `ng serve` 启动 Angular CLI 开发服务器，以便遵守 package.json中的配置。 要将其他参数传递给 Angular CLI 服务器，请将它们添加到 package.json `scripts`*文件中的相关*  行。
 
 2. 修改 ASP.NET Core 应用以使用外部 Angular CLI 实例，而不是启动它自己的实例。 在 Startup类中，将 `spa.UseAngularCliServer` 调用替换为以下内容：
 
