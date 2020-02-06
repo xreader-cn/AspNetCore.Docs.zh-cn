@@ -5,14 +5,14 @@ description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/08/2020
+ms.date: 02/05/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: f21559e43ae004c81abc18fe8a768d4145ffb184
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: 3c75fdc940701b8f4d367990b5073861467079b2
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914228"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044903"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -297,7 +297,7 @@ public class Program
 
 日志记录应该会很快，不值得牺牲性能来使用异步代码。 如果你的日志数据存储很慢，请不要直接写入它。 首先考虑将日志消息写入快速存储，稍后再将其变为慢速存储。 例如，如果你要记录到 SQL Server，你可能不想直接在 `Log` 方法中记录，因为 `Log` 方法是同步的。 相反，你会将日志消息同步添加到内存中的队列，并让后台辅助线程从队列中拉出消息，以完成将数据推送到 SQL Server 的异步工作。 有关详细信息，请参阅[此](https://github.com/aspnet/AspNetCore.Docs/issues/11801) GitHub 问题。
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 日志记录提供程序配置由一个或多个配置提供程序提供：
 
@@ -728,7 +728,7 @@ System.Exception: Item not found exception.
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=2-3)]
 
 ::: moniker-end
 
