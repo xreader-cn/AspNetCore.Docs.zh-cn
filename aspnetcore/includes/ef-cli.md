@@ -1,1 +1,1 @@
-有关 EF Core 的 CLI 工具的详细信息，请参阅 [.Net CLI 的 EF Core 工具引用](/ef/core/miscellaneous/cli/dotnet)。
+有关 EF Core 的 CLI 的详细信息，请参阅 [.Net CLI 的 EF Core 工具引用](/ef/core/miscellaneous/cli/dotnet)。

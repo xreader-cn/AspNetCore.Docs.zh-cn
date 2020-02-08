@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: bcd36509fe42da0a79b9243d17701f40e066a212
-ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
+ms.openlocfilehash: 9f3e3b29d155f1024aef530bf9c55efa57d4546a
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/29/2019
-ms.locfileid: "75542686"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928404"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>教程：使用迁移功能 - ASP.NET MVC 和 EF Core
 
@@ -38,18 +38,18 @@ ms.locfileid: "75542686"
 
 这种使数据库与数据模型保持同步的方法适用于多种情况，但将应用程序部署到生产环境的情况除外。 当应用程序在生产环境中运行时，它通常会存储要保留的数据，以便不会在每次更改（如添加新列）时丢失所有数据。 EF Core 迁移功能可通过使 EF 更新数据库 架构而不是创建新数据库来解决此问题。
 
-要使用迁移，可使用“包管理器控制台”(PMC) 或命令行接口 (CLI)  。  以下教程演示如何使用 CLI 命令。 有关 PMC 的信息，请转到[本教程末尾](#pmc)。
+要使用迁移，可使用“包管理器控制台”(PMC) 或 CLI 。  以下教程演示如何使用 CLI 命令。 有关 PMC 的信息，请转到[本教程末尾](#pmc)。
 
 ## <a name="change-the-connection-string"></a>更改连接字符串
 
-在 appsettings.json 文件中，将连接字符串中的数据库的名称更改为 ContosoUniversity2 或正在使用的计算机上未使用过的其他名称  。
+在 appsettings.json 文件中，将连接字符串中的数据库的名称更改为 ContosoUniversity2 或正在使用的计算机上未使用过的其他名称。
 
 [!code-json[](intro/samples/cu/appsettings2.json?range=1-4)]
 
 此更改将设置项目，以便初始迁移创建新的数据库。 这并不是开始使用迁移的必要操作，但稍后你便会了解这样做的好处。
 
 > [!NOTE]
-> 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令  ：
+> 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
 >
 > ```dotnetcli
 > dotnet ef database drop
@@ -61,7 +61,7 @@ ms.locfileid: "75542686"
 
 保存更改并生成项目。 然后打开命令窗口并导航到项目文件夹。 下面是执行此操作的快速方法：
 
-* 在解决方案资源管理器  中，右键单击项目，然后从上下文菜单中选择“在文件资源管理器中打开文件夹”  。
+* 在解决方案资源管理器中，右键单击项目，然后从上下文菜单中选择“在文件资源管理器中打开文件夹”。
 
   ![“在文件资源管理器中打开”菜单项](migrations/_static/open-in-file-explorer.png)
 
@@ -84,13 +84,13 @@ Done. To undo this action, use 'ef migrations remove'
 ```
 
 > [!NOTE]
-> 如果出现错误消息“找不到任何匹配 "dotnet-ef" 命令的可执行文件”，请参阅[此博客文章](https://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/)获取故障排除帮助  。
+> 如果出现错误消息“找不到任何匹配 "dotnet-ef" 命令的可执行文件”，请参阅[此博客文章](https://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/)获取故障排除帮助。
 
-如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”   。
+如果看到错误消息“无法访问文件...ContosoUniversity.dll，因为它正被另一个进程使用。”，请在 Windows 系统托盘中找到 IIS Express 图标并右键单击，然后单击“ContosoUniversity”>“停止站点”。
 
 ## <a name="examine-up-and-down-methods"></a>检查 Up 和 Down 方法
 
-执行 `migrations add` 命令时，EF 已生成将用于从头创建数据库的代码。 此代码位于“Migrations”文件夹中名为 \<timestamp>_InitialCreate.cs 的文件中   。 `InitialCreate` 类的 `Up` 的方法将创建与数据模型实体集相对应的数据库表，`Down` 方法将删除这些表，如下面的示例所示。
+执行 `migrations add` 命令时，EF 已生成将用于从头创建数据库的代码。 此代码位于“Migrations”文件夹中名为 \<timestamp>_InitialCreate.cs 的文件中。 `InitialCreate` 类的 `Up` 的方法将创建与数据模型实体集相对应的数据库表，`Down` 方法将删除这些表，如下面的示例所示。
 
 [!code-csharp[](intro/samples/cu/Migrations/20170215220724_InitialCreate.cs?range=92-118)]
 
@@ -102,7 +102,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 ## <a name="the-data-model-snapshot"></a>数据模型快照
 
-迁移在 Migrations/SchoolContextModelSnapshot.cs 中创建当前数据库架构的快照   。 添加迁移时，EF 会通过将数据模型与快照文件进行对比来确定已更改的内容。
+迁移在 Migrations/SchoolContextModelSnapshot.cs 中创建当前数据库架构的快照。 添加迁移时，EF 会通过将数据模型与快照文件进行对比来确定已更改的内容。
 
 使用 [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) 命令删除迁移。 `dotnet ef migrations remove` 删除迁移，并确保正确重置快照。 如果 `dotnet ef migrations remove` 失败，使用 `dotnet ef migrations remove -v` 获取失败的详细信息。
 
@@ -116,7 +116,7 @@ Done. To undo this action, use 'ef migrations remove'
 dotnet ef database update
 ```
 
-该命令的输出与 `migrations add` 命令的输出相似，但其中还包含设置该数据库的 SQL 命令的日志。 下面的示例输出中省略了大部分日志。 如果希望日志消息中不使用此详细级别，则可更改 appsettings.Development.json 文件中的日志级别  。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
+该命令的输出与 `migrations add` 命令的输出相似，但其中还包含设置该数据库的 SQL 命令的日志。 下面的示例输出中省略了大部分日志。 如果希望日志消息中不使用此详细级别，则可更改 appsettings.Development.json 文件中的日志级别。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
@@ -147,7 +147,7 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 Done.
 ```
 
-使用 SQL Server 对象资源管理器检查数据库（与第一个教程中的做法相同）  。  你会发现添加了 \_\_EFMigrationsHistory 表，该表可用于跟踪已应用到数据库的迁移。 查看该表中的数据，其中显示对应初始迁移的一行数据。 （上面的 CLI 输出示例中最后部分的日志显示了创建此行的 INSERT 语句。）
+使用 SQL Server 对象资源管理器检查数据库（与第一个教程中的做法相同）。  你会发现添加了 \_\_EFMigrationsHistory 表，该表可用于跟踪已应用到数据库的迁移。 查看该表中的数据，其中显示对应初始迁移的一行数据。 （上面的 CLI 输出示例中最后部分的日志显示了创建此行的 INSERT 语句。）
 
 运行应用程序以验证所有内容照旧运行。
 
@@ -157,11 +157,11 @@ Done.
 
 ## <a name="compare-cli-and-pmc"></a>比较 CLI 和 PMC
 
-可通过 .NET Core CLI 命令或 Visual Studio 包管理器控制台 (PMC) 窗口中的 PowerShell cmdlet 使用可管理迁移的 EF 工具  。 本教程演示如何使用 CLI，但也可以根据喜好使用 PMC。
+可通过 .NET Core CLI 命令或 Visual Studio 包管理器控制台 (PMC) 窗口中的 PowerShell cmdlet 使用可管理迁移的 EF 工具。 本教程演示如何使用 CLI，但也可以根据喜好使用 PMC。
 
 适用于 PMC 命令的 EF 命令位于 [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) 程序包中。 此包包含在 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)中，因此，如果应用具有对 `Microsoft.AspNetCore.App` 的包引用，则无需添加包引用。
 
-**重要提示：** 此包与通过编辑 .csproj  文件为 CLI 安装的包不同。 此程序包的名称以 `Tools` 结尾，而 CLI 程序包的名称以 `Tools.DotNet` 结尾。
+**重要提示：** 此包与通过编辑 .csproj 文件为 CLI 安装的包不同。 此程序包的名称以 `Tools` 结尾，而 CLI 程序包的名称以 `Tools.DotNet` 结尾。
 
 有关 CLI 命令的详细信息，请参阅 [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet)。
 

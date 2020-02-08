@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 5c8e9e58ab222e482ef029f5099d0a8acd07d8a6
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 47f465c00138acf434c6ec59f757e37361ad97db
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972023"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034099"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -27,7 +27,7 @@ ms.locfileid: "76972023"
 
 请求委托用于生成请求管道。 请求委托处理每个 HTTP 请求。
 
-使用 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*><xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> 和 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 扩展方法来配置请求委托。 可将一个单独的请求委托并行指定为匿名方法（称为并行中间件），或在可重用的类中对其进行定义。 这些可重用的类和并行匿名方法即为中间件  ，也叫中间件组件  。 请求管道中的每个中间件组件负责调用管道中的下一个组件，或使管道短路。 当中间件短路时，它被称为“终端中间件”  ，因为它阻止中间件进一步处理请求。
+使用 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*><xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> 和 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 扩展方法来配置请求委托。 可将一个单独的请求委托并行指定为匿名方法（称为并行中间件），或在可重用的类中对其进行定义。 这些可重用的类和并行匿名方法即为中间件，也叫中间件组件。 请求管道中的每个中间件组件负责调用管道中的下一个组件，或使管道短路。 当中间件短路时，它被称为“终端中间件”，因为它阻止中间件进一步处理请求。
 
 <xref:migration/http-modules>介绍了 ASP.NET Core 和 ASP.NET 4.x 中请求管道之间的差异，并提供了更多的中间件示例。
 
@@ -43,11 +43,11 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 
 [!code-csharp[](index/snapshot/Middleware/Startup.cs)]
 
-用 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 将多个请求委托链接在一起。 `next` 参数表示管道中的下一个委托。 可通过不  调用 next  参数使管道短路。 通常可在下一个委托前后执行操作，如以下示例所示：
+用 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 将多个请求委托链接在一起。 `next` 参数表示管道中的下一个委托。 可通过不调用 next 参数使管道短路。 通常可在下一个委托前后执行操作，如以下示例所示：
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?highlight=5-10)]
 
-当委托不将请求传递给下一个委托时，它被称为“让请求管道短路”  。 通常需要短路，因为这样可以避免不必要的工作。 例如，[静态文件中间件](xref:fundamentals/static-files)可以处理对静态文件的请求，并让管道的其余部分短路，从而起到终端中间件  的作用。 如果中间件添加到管道中，且位于终止进一步处理的中间件前，它们仍处理 `next.Invoke` 语句后面的代码。 不过，请参阅下面有关尝试对已发送的响应执行写入操作的警告。
+当委托不将请求传递给下一个委托时，它被称为“让请求管道短路”。 通常需要短路，因为这样可以避免不必要的工作。 例如，[静态文件中间件](xref:fundamentals/static-files)可以处理对静态文件的请求，并让管道的其余部分短路，从而起到终端中间件的作用。 如果中间件添加到管道中，且位于终止进一步处理的中间件前，它们仍处理 `next.Invoke` 语句后面的代码。 不过，请参阅下面有关尝试对已发送的响应执行写入操作的警告。
 
 > [!WARNING]
 > 在向客户端发送响应后，请勿调用 `next.Invoke`。 响应启动后，针对 <xref:Microsoft.AspNetCore.Http.HttpResponse> 的更改将引发异常。 例如，设置标头和状态代码更改将引发异常。 调用 `next` 后写入响应正文：
@@ -67,7 +67,7 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 
 ## <a name="middleware-order"></a>中间件顺序
 
-向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。 
+向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。
 
 下面的 `Startup.Configure` 方法按照建议的顺序增加与安全相关的中间件组件：
 
@@ -141,7 +141,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 是添加到管道的第一个中间件组件。 因此，异常处理程序中间件可捕获稍后调用中发生的任何异常。
 
-尽早在管道中调用静态文件中间件，以便它可以处理请求并使其短路，而无需通过剩余组件。 静态文件中间件不  提供授权检查。 可公开访问由静态文件中间件服务的任何文件，包括 wwwroot  下的文件。 若要了解如何保护静态文件，请参阅 <xref:fundamentals/static-files>。
+尽早在管道中调用静态文件中间件，以便它可以处理请求并使其短路，而无需通过剩余组件。 静态文件中间件不提供授权检查。 可公开访问由静态文件中间件服务的任何文件，包括 wwwroot 下的文件。 若要了解如何保护静态文件，请参阅 <xref:fundamentals/static-files>。
 
 如果静态文件中间件未处理请求，则请求将被传递给执行身份验证的身份验证中间件 (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>)。 身份验证不使未经身份验证的请求短路。 虽然身份验证中间件对请求进行身份验证，但仅在 MVC 选择特定 Razor 页或 MVC 控制器和操作后，才发生授权（和拒绝）。
 
@@ -161,6 +161,13 @@ public void Configure(IApplicationBuilder app)
     });
 }
 ```
+
+对于单页应用程序，SPA 中间件 <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> 通常是中间件管道中的最后一个。 SPA 中间件处于最后的作用是：
+
+* 允许所有其他中间件首先响应匹配的请求。
+* 允许具有客户端侧路由的 SPA 针对服务器应用无法识别的所有路由运行。
+
+有关单页应用程序的详细信息，请参阅 [React](xref:spa/react) 和 [Angular](xref: client-side/spa/angular) 项目模板的指南。
 
 ## <a name="branch-the-middleware-pipeline"></a>对中间件管道进行分支
 
@@ -215,7 +222,7 @@ app.Map("/level1", level1App => {
 
 ## <a name="built-in-middleware"></a>内置中间件
 
-ASP.NET Core 附带以下中间件组件。 “顺序”  列提供备注，以说明中间件在请求处理管道中的放置，以及中间件可能会终止请求处理的条件。 如果中间件让请求处理管道短路，并阻止下游中间件进一步处理请求，它被称为“终端中间件”  。 若要详细了解短路，请参阅[使用 IApplicationBuilder 创建中间件管道](#create-a-middleware-pipeline-with-iapplicationbuilder)部分。
+ASP.NET Core 附带以下中间件组件。 “顺序”列提供备注，以说明中间件在请求处理管道中的放置，以及中间件可能会终止请求处理的条件。 如果中间件让请求处理管道短路，并阻止下游中间件进一步处理请求，它被称为“终端中间件”。 若要详细了解短路，请参阅[使用 IApplicationBuilder 创建中间件管道](#create-a-middleware-pipeline-with-iapplicationbuilder)部分。
 
 | 中间件 | 描述 | 顺序 |
 | ---------- | ----------- | ----- |
@@ -236,7 +243,8 @@ ASP.NET Core 附带以下中间件组件。 “顺序”  列提供备注，以�
 | [响应压缩](xref:performance/response-compression) | 提供对压缩响应的支持。 | 在需要压缩的组件之前。 |
 | [请求本地化](xref:fundamentals/localization) | 提供本地化支持。 | 在对本地化敏感的组件之前。 |
 | [终结点路由](xref:fundamentals/routing) | 定义和约束请求路由。 | 用于匹配路由的终端。 |
-| [会话](xref:fundamentals/app-state) | 提供对管理用户会话的支持。 | 在需要会话的组件之前。 |
+| [SPA](xref:Microsoft.AspNetCore.Builder.SpaApplicationBuilderExtensions.UseSpa*) | 通过返回单页应用程序 (SPA) 的默认页面，在中间件链中处理来自这个点的所有请求 | 在链中处于靠后位置，因此其他服务于静态文件、MVC 操作等内容的中间件占据优先位置。|
+| [会话](xref:fundamentals/app-state) | 提供对管理用户会话的支持。 | 在需要会话的组件之前。 | 
 | [静态文件](xref:fundamentals/static-files) | 为提供静态文件和目录浏览提供支持。 | 如果请求与文件匹配，则为终端。 |
 | [URL 重写](xref:fundamentals/url-rewriting) | 提供对重写 URL 和重定向请求的支持。 | 在使用 URL 的组件之前。 |
 | [WebSockets](xref:fundamentals/websockets) | 启用 WebSockets 协议。 | 在接受 WebSocket 请求所需的组件之前。 |
@@ -263,7 +271,7 @@ ASP.NET Core 附带以下中间件组件。 “顺序”  列提供备注，以�
 
 请求委托用于生成请求管道。 请求委托处理每个 HTTP 请求。
 
-使用 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*><xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> 和 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 扩展方法来配置请求委托。 可将一个单独的请求委托并行指定为匿名方法（称为并行中间件），或在可重用的类中对其进行定义。 这些可重用的类和并行匿名方法即为中间件  ，也叫中间件组件  。 请求管道中的每个中间件组件负责调用管道中的下一个组件，或使管道短路。 当中间件短路时，它被称为“终端中间件”  ，因为它阻止中间件进一步处理请求。
+使用 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*><xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> 和 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 扩展方法来配置请求委托。 可将一个单独的请求委托并行指定为匿名方法（称为并行中间件），或在可重用的类中对其进行定义。 这些可重用的类和并行匿名方法即为中间件，也叫中间件组件。 请求管道中的每个中间件组件负责调用管道中的下一个组件，或使管道短路。 当中间件短路时，它被称为“终端中间件”，因为它阻止中间件进一步处理请求。
 
 <xref:migration/http-modules>介绍了 ASP.NET Core 和 ASP.NET 4.x 中请求管道之间的差异，并提供了更多的中间件示例。
 
@@ -281,11 +289,11 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 
 第一个 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> 委托终止了管道。
 
-用 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 将多个请求委托链接在一起。 `next` 参数表示管道中的下一个委托。 可通过不  调用 next  参数使管道短路。 通常可在下一个委托前后执行操作，如以下示例所示：
+用 <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> 将多个请求委托链接在一起。 `next` 参数表示管道中的下一个委托。 可通过不调用 next 参数使管道短路。 通常可在下一个委托前后执行操作，如以下示例所示：
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs)]
 
-当委托不将请求传递给下一个委托时，它被称为“让请求管道短路”  。 通常需要短路，因为这样可以避免不必要的工作。 例如，[静态文件中间件](xref:fundamentals/static-files)可以处理对静态文件的请求，并让管道的其余部分短路，从而起到终端中间件  的作用。 如果中间件添加到管道中，且位于终止进一步处理的中间件前，它们仍处理 `next.Invoke` 语句后面的代码。 不过，请参阅下面有关尝试对已发送的响应执行写入操作的警告。
+当委托不将请求传递给下一个委托时，它被称为“让请求管道短路”。 通常需要短路，因为这样可以避免不必要的工作。 例如，[静态文件中间件](xref:fundamentals/static-files)可以处理对静态文件的请求，并让管道的其余部分短路，从而起到终端中间件的作用。 如果中间件添加到管道中，且位于终止进一步处理的中间件前，它们仍处理 `next.Invoke` 语句后面的代码。 不过，请参阅下面有关尝试对已发送的响应执行写入操作的警告。
 
 > [!WARNING]
 > 在向客户端发送响应后，请勿调用 `next.Invoke`。 响应启动后，针对 <xref:Microsoft.AspNetCore.Http.HttpResponse> 的更改将引发异常。 例如，设置标头和状态代码更改将引发异常。 调用 `next` 后写入响应正文：
@@ -299,7 +307,7 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 
 ## <a name="middleware-order"></a>中间件顺序
 
-向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。 
+向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。
 
 下面的 `Startup.Configure` 方法按照建议的顺序增加与安全相关的中间件组件：
 
@@ -353,7 +361,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> 是添加到管道的第一个中间件组件。 因此，异常处理程序中间件可捕获稍后调用中发生的任何异常。
 
-尽早在管道中调用静态文件中间件，以便它可以处理请求并使其短路，而无需通过剩余组件。 静态文件中间件不  提供授权检查。 可公开访问由静态文件中间件服务的任何文件，包括 wwwroot  下的文件。 若要了解如何保护静态文件，请参阅 <xref:fundamentals/static-files>。
+尽早在管道中调用静态文件中间件，以便它可以处理请求并使其短路，而无需通过剩余组件。 静态文件中间件不提供授权检查。 可公开访问由静态文件中间件服务的任何文件，包括 wwwroot 下的文件。 若要了解如何保护静态文件，请参阅 <xref:fundamentals/static-files>。
 
 如果静态文件中间件未处理请求，则请求将被传递给执行身份验证的身份验证中间件 (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>)。 身份验证不使未经身份验证的请求短路。 虽然身份验证中间件对请求进行身份验证，但仅在 MVC 选择特定 Razor 页或 MVC 控制器和操作后，才发生授权（和拒绝）。
 
@@ -420,7 +428,7 @@ app.Map("/level1", level1App => {
 
 ## <a name="built-in-middleware"></a>内置中间件
 
-ASP.NET Core 附带以下中间件组件。 “顺序”  列提供备注，以说明中间件在请求处理管道中的放置，以及中间件可能会终止请求处理的条件。 如果中间件让请求处理管道短路，并阻止下游中间件进一步处理请求，它被称为“终端中间件”  。 若要详细了解短路，请参阅[使用 IApplicationBuilder 创建中间件管道](#create-a-middleware-pipeline-with-iapplicationbuilder)部分。
+ASP.NET Core 附带以下中间件组件。 “顺序”列提供备注，以说明中间件在请求处理管道中的放置，以及中间件可能会终止请求处理的条件。 如果中间件让请求处理管道短路，并阻止下游中间件进一步处理请求，它被称为“终端中间件”。 若要详细了解短路，请参阅[使用 IApplicationBuilder 创建中间件管道](#create-a-middleware-pipeline-with-iapplicationbuilder)部分。
 
 | 中间件 | 描述 | 顺序 |
 | ---------- | ----------- | ----- |

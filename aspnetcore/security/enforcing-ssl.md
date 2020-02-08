@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: d7d4eece935bd83b69a6a5d81898012b99d73193
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 59883a8165040fa58edb2f6cf22d4d6b3abf6f3e
+ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828901"
+ms.lasthandoff: 02/07/2020
+ms.locfileid: "77074544"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -150,7 +150,7 @@ ms.locfileid: "75828901"
 
 部署到 Azure App Service 时，请按照[教程：将现有的自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)中的指导进行操作。
 
-### <a name="options"></a>选项
+### <a name="options"></a>Options
 
 以下突出显示的代码调用[AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)来配置中间件选项：
 
@@ -259,7 +259,7 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 由于 HSTS 设置由浏览器高度缓存，因此不建议在开发中使用。 `UseHsts` 默认情况下，`UseHsts` 会排除本地环回地址。
 
-对于第一次实现 HTTPS 的生产环境，请使用其中一种<xref:System.TimeSpan> 方法将初始 [HstsOptions.MaxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)  设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
+对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
 
 下面的代码：
 
@@ -419,7 +419,7 @@ dotnet dev-certs https --trust
 
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>用于 Visual Studio 的 IIS Express SSL 证书
 
-若要解决 IIS Express 证书的问题，请从 Visual Studio 安装程序中选择 "**修复**"。
+若要解决 IIS Express 证书的问题，请从 Visual Studio 安装程序中选择 "**修复**"。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/aspnetcore/issues/16892)。
 
 ## <a name="additional-information"></a>其他信息
 
