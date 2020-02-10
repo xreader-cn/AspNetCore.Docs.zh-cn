@@ -5,14 +5,14 @@ description: 了解在 ASP.NET Core 中创建 Web API 的基础知识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 01/27/2020
+ms.date: 02/02/2020
 uid: web-api/index
-ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 420fe89fe969c6df5c949f643fe018fff2bc77a5
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870012"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051454"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -397,6 +397,28 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 [!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,8)]
 
 ::: moniker-end
+
+## <a name="define-supported-request-content-types-with-the-consumes-attribute"></a>使用 [Consumes] 属性定义支持的请求内容类型
+
+默认情况下，操作支持所有可用的请求内容类型。 例如，如果应用配置为同时支持 JSON 和 XML [输入格式化程序](xref:mvc/models/model-binding#input-formatters)，那么操作支持多种内容类型，其中包括 `application/json` 和 `application/xml`。
+
+使用 [[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>) 属性，操作可以限制支持的请求内容类型。 将 `[Consumes]` 属性应用于操作或控制器，同时指定一个或多个内容类型：
+
+```csharp
+[HttpPost]
+[Consumes("application/xml")]
+public IActionResult CreateProduct(Product product)
+```
+
+在上面的代码中，`CreateProduct` 操作指定内容类型 `application/xml`。 路由到此操作的请求必须指定 `application/xml` 的 `Content-Type` 头。 如果请求未指定 `application/xml` 的 `Content-Type` 头，会生成 [415 不支持的媒体类型](https://developer.mozilla.org/docs/Web/HTTP/Status/415)响应。
+
+使用 `[Consumes]` 属性，操作可以通过应用类型约束，根据传入请求的内容类型来影响它的选择。 请看下面的示例：
+
+[!code-csharp[](index/samples/3.x/Controllers/ConsumesController.cs?name=snippet_Class)]
+
+在上面的代码中，`ConsumesController` 配置为处理发送到 `https://localhost:5001/api/Consumes` URL 的请求。 控制器的两个操作（`PostJson` 和 `PostForm`）都使用相同的 URL 处理 POST 请求。 如果 `[Consumes]` 属性不应用类型约束，则会抛出不明确匹配异常。
+
+`[Consumes]` 属性应用于两个操作。 `PostJson` 操作处理使用 `application/json` 的 `Content-Type` 头发送的请求。 `PostForm` 操作处理使用 `application/x-www-form-urlencoded` 的 `Content-Type` 头发送的请求。 
 
 ## <a name="additional-resources"></a>其他资源
 

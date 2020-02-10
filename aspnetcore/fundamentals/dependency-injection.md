@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/30/2020
+ms.date: 02/05/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: a9d268489ebcef69d64c6fd65087bc38a3581821
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 7c0789dafcb7dfacd15ac448a39bad94649963c8
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928406"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044915"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -26,7 +26,7 @@ ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在�
 
 ## <a name="overview-of-dependency-injection"></a>依赖关系注入概述
 
-依赖项是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
+依赖项  是另一个对象所需的任何对象。 使用应用中其他类所依赖的 `WriteMessage` 方法检查以下 `MyDependency` 类：
 
 ```csharp
 public class MyDependency
@@ -70,7 +70,7 @@ public class IndexModel : PageModel
 
 * 使用接口或基类抽象化依赖关系实现。
 * 注册服务容器中的依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
-* 将服务注入到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
+* 将服务注入  到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
 
 在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
@@ -100,7 +100,7 @@ public class IndexModel : PageModel
 
 ::: moniker-end
 
-`MyDependency` 在其构造函数中请求一个 <xref:Microsoft.Extensions.Logging.ILogger`1>。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”、“依赖关系图”或“对象图”。
+`MyDependency` 在其构造函数中请求一个 <xref:Microsoft.Extensions.Logging.ILogger`1>。 以链式方式使用依赖关系注入并不罕见。 每个请求的依赖关系相应地请求其自己的依赖关系。 容器解析图中的依赖关系并返回完全解析的服务。 必须被解析的依赖关系的集合通常被称为“依赖关系树”  、“依赖关系图”  或“对象图”  。
 
 必须在服务容器中注册 `IMyDependency` 和 `ILogger<TCategoryName>`。 `IMyDependency` 已在 `Startup.ConfigureServices` 中注册。 `ILogger<TCategoryName>` 由日志记录抽象基础结构注册，因此它是框架默认注册的[框架提供的服务](#framework-provided-services)。
 
@@ -186,17 +186,17 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
-| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时性 |
 | `IHostApplicationLifetime` | 单例 |
 | `IWebHostEnvironment` | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
@@ -207,17 +207,17 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
-| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时 |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时性 |
 | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
@@ -250,7 +250,7 @@ public void ConfigureServices(IServiceCollection services)
 
 为每个注册的服务选择适当的生存期。 可以使用以下生存期配置 ASP.NET Core 服务：
 
-### <a name="transient"></a>暂时
+### <a name="transient"></a>暂时性
 
 暂时生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient*>) 是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
@@ -272,7 +272,7 @@ public void ConfigureServices(IServiceCollection services)
 
 服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>对象 (object)<br>处置 | 多种<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象 (object)<br>处置 | 多个<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();` | 是 | 是 | 否 |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
@@ -292,14 +292,14 @@ services.AddSingleton<IMyDependency, MyDependency>();
 services.TryAddSingleton<IMyDependency, DifferentDependency>();
 ```
 
-有关详细信息，请参见:
+有关详细信息，请参阅：
 
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton*>
 
-[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable*) 方法仅当没有同一类型的实现时，注册该服务。 多个服务通过 `IEnumerable<{SERVICE}>` 解析。 注册服务时，开发人员只希望在尚未添加一个相同类型时添加实例。 通常情况下，库创建者使用此方法来避免在容器中注册一个实例的两个副本。
+[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable*) 方法仅当没有同一类型的实现时，注册该服务。  多个服务通过 `IEnumerable<{SERVICE}>` 解析。 注册服务时，开发人员只希望在尚未添加一个相同类型时添加实例。 通常情况下，库创建者使用此方法来避免在容器中注册一个实例的两个副本。
 
 在以下示例中，第一行向 `IMyDep1` 注册 `MyDep`。 第二行向 `IMyDep2` 注册 `MyDep`。 第三行没有任何作用，因为 `IMyDep1` 已有一个 `MyDep` 的已注册的实现：
 
@@ -446,9 +446,9 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 观察哪个 `OperationId` 值会在一个请求之内和不同请求之间变化：
 
-* 暂时性对象始终不同。 第一个和第二个客户端请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在客户端请求内都是不同的。 为每个服务请求和客户端请求提供了一个新实例。
-* 作用域对象在一个客户端请求中是相同的，但在多个客户端请求中是不同的。
-* 单一实例对象对每个对象和每个请求都是相同的（不管 `Startup.ConfigureServices` 中是否提供 `Operation` 实例）。
+* 暂时性  对象始终不同。 第一个和第二个客户端请求的暂时性 `OperationId` 值对于 `OperationService` 操作和在客户端请求内都是不同的。 为每个服务请求和客户端请求提供了一个新实例。
+* 作用域  对象在一个客户端请求中是相同的，但在多个客户端请求中是不同的。
+* 单一实例  对象对每个对象和每个请求都是相同的（不管 `Startup.ConfigureServices` 中是否提供 `Operation` 实例）。
 
 ## <a name="call-services-from-main"></a>从 main 调用服务
 
@@ -544,7 +544,17 @@ public class Program
 
 ## <a name="scope-validation"></a>作用域验证
 
-如果在开发环境中运行应用，默认的服务提供程序会执行检查，从而确认以下内容：
+::: moniker range=">= aspnetcore-3.0"
+
+如果应用正在开发环境中运行，并调用 [CreateDefaultBuilder](xref:fundamentals/host/generic-host#default-builder-settings) 生成主机，默认服务提供程序会执行检查，以确认以下内容：
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+如果应用正在开发环境中运行，并调用 [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) 生成主机，默认服务提供程序会执行检查，以确认以下内容：
+
+::: moniker-end
 
 * 没有从根服务提供程序直接或间接解析到有作用域的服务。
 * 未将有作用域的服务直接或间接注入到单一实例。
@@ -625,7 +635,7 @@ public void ConfigureServices(IServiceCollection services)
 * [Stashbox](https://github.com/z4kn4fein/stashbox-extensions-dependencyinjection)
 * [Unity](https://www.nuget.org/packages/Unity.Microsoft.DependencyInjection)
 
-### <a name="thread-safety"></a>线程安全
+### <a name="thread-safety"></a>线程安全性
 
 创建线程安全的单一实例服务。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要线程安全，具体取决于单例使用它的方式。
 
@@ -639,7 +649,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 避免静态访问服务（例如，静态键入 [IApplicationBuilder.ApplicationServices](xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices) 以便在其他地方使用）。
 
-* 避免使用服务定位器模式。 例如，可以改用 DI 时，不要调用 <xref:System.IServiceProvider.GetService*> 来获取服务实例：
+* 避免使用服务定位器模式  。 例如，可以改用 DI 时，不要调用 <xref:System.IServiceProvider.GetService*> 来获取服务实例：
 
   **不正确：**
 
@@ -657,7 +667,7 @@ public void ConfigureServices(IServiceCollection services)
   }
   ```
 
-  **正确**：
+  **更正**：
 
   ```csharp
   public class MyClass
@@ -684,7 +694,7 @@ public void ConfigureServices(IServiceCollection services)
 
 像任何一组建议一样，你可能会遇到需要忽略某建议的情况。 例外情况很少见 &mdash; 主要是框架本身内部的特殊情况。
 
-DI 是静态/全局对象访问模式的替代方法。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
+DI 是静态/全局对象访问模式的替代方法  。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
 
 ## <a name="additional-resources"></a>其他资源
 

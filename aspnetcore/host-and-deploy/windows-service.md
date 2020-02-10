@@ -5,14 +5,14 @@ description: 了解如何在 Windows 服务中托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 02/06/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: d4b540de50f4153f517f871f037521347fb5eb84
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 71f7bf3f5dcf8068d0ada03675ef7948267b79f4
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972006"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044895"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -22,7 +22,7 @@ ms.locfileid: "76972006"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 * [ASP.NET .NET Core SDK 2.1 或更高版本](https://dotnet.microsoft.com/download)
 * [PowerShell 6.2 或更高版本](https://github.com/PowerShell/PowerShell)
@@ -50,11 +50,13 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 * 将主机生存期设置为 `WindowsServiceLifetime`。
 * 将[内容根](xref:fundamentals/index#content-root)设置为 [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory)。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。
-* 启用事件日志记录，并将应用程序名称作为默认源名称。
-  * 可以使用 appsettings.Production.json 文件中的 `Logging:LogLevel:Default` 键配置日志级别。
-  * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。
+* 为事件日志启用日志记录：
+  * 应用名称用作默认源名称。
+  * 对于基于 ASP.NET Core 模板且调用 `CreateDefaultBuilder` 生成主机的应用，默认日志级别为“警告”  或更高级别。
+  * 在 appsettings.json  /appsettings.{Environment}.json  或其他配置提供程序中，使用 `Logging:EventLog:LogLevel:Default` 键覆盖默认日志级别。
+  * 只有管理员可以创建新的事件源。 无法使用应用程序名称创建事件源时，应用程序源将记录一条警告，并禁用事件源。 
 
-在 Program.cs 的 `CreateHostBuilder` 中：
+在 Program.cs 的 `CreateHostBuilder` 中  ：
 
 ```csharp
 Host.CreateDefaultBuilder(args)
@@ -77,12 +79,12 @@ Host.CreateDefaultBuilder(args)
 
 在服务之外运行时，若要进行测试和调试，请添加代码以确定应用是否作为服务或控制台应用运行。 检查是否已连接调试器或是否存在 `--console` 开关。 如果其中一个条件为 true（应用不作为服务运行），请调用 <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*>。 如果条件为 false（应用作为服务运行）：
 
-* 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 <xref:System.IO.Directory.GetCurrentDirectory*> 时，Windows 服务应用将返回 C:\\WINDOWS\\system32 文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。 请先执行此步骤，然后再在 `CreateWebHostBuilder` 中配置应用。
+* 调用 <xref:System.IO.Directory.SetCurrentDirectory*> 并使用应用的发布位置路径。 不要调用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取路径，因为在调用 <xref:System.IO.Directory.GetCurrentDirectory*> 时，Windows 服务应用将返回 C:\\WINDOWS\\system32  文件夹。 有关详细信息，请参阅[当前目录和内容根](#current-directory-and-content-root)部分。 请先执行此步骤，然后再在 `CreateWebHostBuilder` 中配置应用。
 * 调用 <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> 以将应用作为服务运行。
 
 由于[命令行配置提供程序](xref:fundamentals/configuration/index#command-line-configuration-provider)需要命令行参数的名称/值对，因此将先从参数中删除 `--console` 开关，然后 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 会接收这些参数。
 
-若要写入 Windows 事件日志，请将事件日志提供程序添加到 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>。 使用 appsettings.Production.json文件中的 `Logging:LogLevel:Default` 键设置日志记录级别。
+若要写入 Windows 事件日志，请将事件日志提供程序添加到 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>。 使用 appsettings.Production.json  文件中的 `Logging:LogLevel:Default` 键设置日志记录级别。
 
 示例应用中的以下示例调用了 `RunAsCustomService`，来代替 <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*>，以处理应用内的生存期事件。 有关详细信息，请参阅[处理启动和停止事件](#handle-starting-and-stopping-events)部分。
 
@@ -94,7 +96,7 @@ Host.CreateDefaultBuilder(args)
 
 有关部署方案的信息和建议，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
-### <a name="sdk"></a>SDK
+### <a name="sdk"></a>SDK 中 IsInRole 中的声明
 
 对于使用 Razor Pages 或 MVC 框架的基于 Web 应用的服务，请在项目文件中指定 Web SDK：
 
@@ -110,11 +112,11 @@ Host.CreateDefaultBuilder(args)
 
 ### <a name="framework-dependent-deployment-fdd"></a>依赖框架的部署 (FDD)
 
-依赖框架的部署 (FDD) 依赖目标系统上存在共享系统级版本的 .NET Core。 按照本文中的指南采用 FDD 方案时，SDK 会生成一个称为“依赖框架的可执行文件”的可执行文件 (.exe)。
+依赖框架的部署 (FDD) 依赖目标系统上存在共享系统级版本的 .NET Core。 按照本文中的指南采用 FDD 方案时，SDK 会生成一个称为“依赖框架的可执行文件”的可执行文件 (.exe)。  
 
 ::: moniker range=">= aspnetcore-3.0"
 
-如果使用 [Web SDK](#sdk)，则 web.config 文件（通常在发布 ASP.NET Core 应用时生成）不是 Windows 服务应用的必要文件。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+如果使用 [Web SDK](#sdk)，则 web.config 文件（通常在发布 ASP.NET Core 应用时生成）不是 Windows 服务应用的必要文件  。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -127,9 +129,9 @@ Host.CreateDefaultBuilder(args)
 
 ::: moniker range="= aspnetcore-2.2"
 
-Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe) 以及一个依赖共享 NET Core 框架的应用。
+Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe  ) 以及一个依赖共享 NET Core 框架的应用。
 
-web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -144,11 +146,11 @@ web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows
 
 ::: moniker range="= aspnetcore-2.1"
 
-Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe) 以及一个依赖共享 NET Core 框架的应用。
+Windows [运行时标识符 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) 包含目标框架。 在以下示例中，将 RID 设置为 `win7-x64`。 `<SelfContained>` 属性设置为 `false`。 这些属性指示 SDK 生成用于 Windows 的可执行文件 (.exe  ) 以及一个依赖共享 NET Core 框架的应用。
 
-`<UseAppHost>` 属性设置为 `true`。 此属性为服务提供 FDD 的激活路径（一个可执行文件，格式为 .exe）。
+`<UseAppHost>` 属性设置为 `true`。 此属性为服务提供 FDD 的激活路径（一个可执行文件，格式为 .exe  ）。
 
-web.config文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config 文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
+web.config  文件（通常在发布 ASP.NET Core 应用时生成）对于 Windows 服务应用来说是不必要的。 若要禁止创建 web.config  文件，请将 `<IsTransformWebConfigDisabled>` 属性集添加到 `true`。
 
 ```xml
 <PropertyGroup>
@@ -215,16 +217,16 @@ powershell -Command "New-LocalUser -Name {SERVICE NAME}"
 
 ## <a name="log-on-as-a-service-rights"></a>以服务身份登录权限
 
-为服务用户帐户创建“以服务身份登录”权限：
+为服务用户帐户创建“以服务身份登录”权限： 
 
-1. 通过运行 secpool.msc，打开本地安全策略编辑器。
-1. 展开“本地策略”节点，选择“用户权限分配”。
-1. 打开“以服务身份登录”策略。
-1. 选择“添加用户或组”。
+1. 通过运行 secpool.msc  ，打开本地安全策略编辑器。
+1. 展开“本地策略”节点，选择“用户权限分配”。  
+1. 打开“以服务身份登录”策略。 
+1. 选择“添加用户或组”  。
 1. 使用下列方法之一提供对象名称（用户帐户）：
-   1. 在对象名称字段键入用户帐户 (`{DOMAIN OR COMPUTER NAME\USER}`)，然后选择“确定”，以将此用户添加到策略。
-   1. 选择“高级”。 选择“开始查找”。 从列表中选择该用户帐户。 选择“确定”。 再次选择“确定”，以将该用户添加到策略。
-1. 选择“确定”或“应用”，以接受更改。
+   1. 在对象名称字段键入用户帐户 (`{DOMAIN OR COMPUTER NAME\USER}`)，然后选择“确定”，以将此用户添加到策略。 
+   1. 选择“高级”。  选择“开始查找”。  从列表中选择该用户帐户。 选择“确定”  。 再次选择“确定”，以将该用户添加到策略。 
+1. 选择“确定”或“应用”，以接受更改。  
 
 ## <a name="create-and-manage-the-windows-service"></a>创建和管理 Windows 服务
 
@@ -334,7 +336,7 @@ Remove-Service -Name {SERVICE NAME}
 
 ## <a name="current-directory-and-content-root"></a>当前目录和内容根
 
-通过为 Windows 服务调用 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的当前工作目录是 C:\\WINDOWS\\system32 文件夹。 system32 文件夹不是存储服务文件（如设置文件）的合适位置。 使用以下方法之一来维护和访问服务的资产和设置文件。
+通过为 Windows 服务调用 <xref:System.IO.Directory.GetCurrentDirectory*> 返回的当前工作目录是 C:\\WINDOWS\\system32  文件夹。 system32 文件夹不是存储服务文件（如设置文件）的合适位置  。 使用以下方法之一来维护和访问服务的资产和设置文件。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -344,13 +346,13 @@ Remove-Service -Name {SERVICE NAME}
 
 应用作为服务运行时，<xref:Microsoft.Extensions.Hosting.WindowsServiceLifetimeHostBuilderExtensions.UseWindowsService*> 将 <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath> 设置为 [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory)。
 
-通过调用 [CreateDefaultBuilder during host construction](xref:fundamentals/host/generic-host#set-up-a-host)，从应用的内容根加载应用的默认设置文件 appsettings.json 和 appsettings.{Environment}.json。
+通过调用 [CreateDefaultBuilder during host construction](xref:fundamentals/host/generic-host#set-up-a-host)，从应用的内容根加载应用的默认设置文件 appsettings.json 和 appsettings.{Environment}.json。  
 
-对于 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中的开发人员代码加载的其他设置文件，无需调用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>。 在下面的示例中，custom_settings.json 文件位于应用的内容根，加载它时未显式设置基本路径：
+对于 <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> 中的开发人员代码加载的其他设置文件，无需调用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>。 在下面的示例中，custom_settings.json 文件位于应用的内容根，加载它时未显式设置基本路径： 
 
 [!code-csharp[](windows-service/samples_snapshot/CustomSettingsExample.cs?highlight=13)]
 
-请勿尝试使用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取资源路径，因为 Windows 服务应用会返回“C:\\WINDOWS\\system32”文件夹作为其当前目录。
+请勿尝试使用 <xref:System.IO.Directory.GetCurrentDirectory*> 来获取资源路径，因为 Windows 服务应用会返回“C:\\WINDOWS\\system32”文件夹作为其当前目录。 
 
 ::: moniker-end
 
@@ -378,19 +380,19 @@ CreateWebHostBuilder(args)
 
 使用 <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> 时，使用 <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> 指定到包含文件的文件夹的绝对路径。
 
-## <a name="troubleshoot"></a>疑难解答
+## <a name="troubleshoot"></a>故障排除
 
 若要排除 Windows 服务应用的故障，请参阅 <xref:test/troubleshoot>。
 
 ### <a name="common-errors"></a>常见错误
 
 * 正在使用 PowerShell 的早期版本或预发布版本。
-* 注册的服务未使用来自 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令的应用的已发布输出。 应用部署不支持 [dotnet build](/dotnet/core/tools/dotnet-build) 命令的输出。 已发布的资产位于以下文件夹之一中，具体取决于部署类型：
+* 注册的服务未使用来自 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令的应用的已发布输出。  应用部署不支持 [dotnet build](/dotnet/core/tools/dotnet-build) 命令的输出。 已发布的资产位于以下文件夹之一中，具体取决于部署类型：
   * *bin/Release/{TARGET FRAMEWORK}/publish* (FDD)
   * *bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish* (SCD)
 * 服务未处于“正在运行”状态。
-* 应用使用的资源（例如证书）的路径不正确。 Windows 服务的基本路径是“c:\\Windows\\System32”。
-* 用户没有“以服务身份登录”权限。
+* 应用使用的资源（例如证书）的路径不正确。 Windows 服务的基本路径是“c:\\Windows\\System32”  。
+* 用户没有“以服务身份登录”权限。 
 * 在执行 `New-Service` PowerShell 命令时，用户密码已过期，或以不正确的方式传递。
 * 应用需要进行 ASP.NET Core 身份验证，但是未配置安全连接 (HTTPS)。
 * 请求 URL 端口不正确或未在应用中正确配置。
@@ -399,9 +401,9 @@ CreateWebHostBuilder(args)
 
 访问系统和应用程序事件日志：
 
-1. 打开“开始”菜单，搜索“事件查看器”，然后选择“事件查看器”应用。
-1. 在“事件查看器”中，打开“Windows 日志”节点。
-1. 选择“系统”，以打开系统事件日志。 选择“应用程序”以打开应用程序事件日志。
+1. 打开“开始”菜单，搜索“事件查看器”  ，然后选择“事件查看器”  应用。
+1. 在“事件查看器”  中，打开“Windows 日志”  节点。
+1. 选择“系统”，以打开系统事件日志。  选择“应用程序”  以打开应用程序事件日志。
 1. 搜索与失败应用相关联的错误。
 
 ### <a name="run-the-app-at-a-command-prompt"></a>在命令提示符处运行应用
@@ -412,7 +414,7 @@ CreateWebHostBuilder(args)
 
 正常运行的应用在开发计算机上升级 .NET Core SDK 或在应用内更改包版本后可能会立即出现故障。 在某些情况下，不同的包可能在执行主要升级时中断应用。 可以按照以下说明来修复其中大部分问题：
 
-1. 删除 bin 和 obj 文件夹。
+1. 删除 bin  和 obj  文件夹。
 1. 通过从命令行界面执行 [dotnet nuget locals all --clear](/dotnet/core/tools/dotnet-nuget-locals) 清除包缓存。
 
    清除包缓存还可通过使用 [nuget.exe](https://www.nuget.org/downloads) 工具并执行命令 `nuget locals all -clear` 来完成。 *nuget.exe* 不是与 Windows 桌面操作系统的捆绑安装，必须从 [NuGet 网站](https://www.nuget.org/downloads)中单独获取。
@@ -422,7 +424,7 @@ CreateWebHostBuilder(args)
 
 ### <a name="slow-or-hanging-app"></a>应用缓慢或挂起
 
-故障转储是系统内存的一个快照，可帮助确定应用崩溃、启动故障或应用速度缓慢等状况的原因。
+故障转储是系统内存的一个快照，可帮助确定应用崩溃、启动故障或应用速度缓慢等状况的原因  。
 
 #### <a name="app-crashes-or-encounters-an-exception"></a>应用崩溃或引发异常
 

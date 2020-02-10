@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/08/2020
+ms.date: 02/05/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 49229b5db4d58f25f86425f8622d12c9107262bd
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: 6a88e56afc4fb1b4f673c362f83d948eda84b930
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914216"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044888"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -265,4 +265,5 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 ## <a name="additional-resources"></a>其他资源
 
 * [使用 IHostedService 和 BackgroundService 类在微服务中实现后台任务](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
+* [在 Azure 应用服务中使用 WebJobs 运行后台任务](/azure/app-service/webjobs-create)
 * <xref:System.Threading.Timer>
