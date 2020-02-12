@@ -5,12 +5,12 @@ description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Cor
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 19be7191792c44fb5414eb0a7b24772c45391253
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: e9ebfa7352350cf39917e515a1a66d6271829f38
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359407"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172356"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -102,10 +102,10 @@ ASP.NET Core 可以将应用程序的配置数据存储在任何文件中，并�
 
 此方法有扩展项，它们可使此过程更加可靠，例如使用[依存关系注入](xref:fundamentals/dependency-injection) (DI) 来加载使用这些值的服务。 DI 方法提供了一组强类型的配置对象。
 
-````csharp
+```csharp
 // Assume AppConfiguration is a class representing a strongly-typed version of AppConfiguration section
 services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
-````
+```
 
 > [!NOTE]
 > 若要获取 ASP.NET Core 配置的更深入的参考信息，请参阅 [ASP.NET Core 中的配置](xref:fundamentals/configuration/index)。
