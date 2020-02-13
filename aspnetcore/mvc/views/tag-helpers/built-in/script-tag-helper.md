@@ -6,12 +6,12 @@ description: 了解 ASP.NET Core 脚本标记帮助程序属性以及每个属�
 ms.custom: mvc
 ms.date: 12/02/2019
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: 8a90eb5a74ff3f8178a47c59ad7ba1b6a389ab87
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: a037abb6a454e6d06305e7d7f6ecad0c2a0ca717
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717372"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171844"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的脚本标记帮助程序
 
@@ -25,7 +25,7 @@ ms.locfileid: "74717372"
 
 以下 Razor 标记显示了带有一个回退操作的 `script` 元素：
 
-```HTML
+```html
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
         asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
         asp-fallback-test="window.jQuery"
@@ -34,7 +34,7 @@ ms.locfileid: "74717372"
 </script>
 ```
 
-请勿使用 `<script>` 元素的属性来[延迟](https://developer.mozilla.org/docs/Web/HTML/Element/script)加载 CDN 脚本。 脚本标记帮助程序呈现能够立即执行 [asp-fallback-test](#asp-fallback-test) 表达式的 JavaScript。 如果延迟加载 CDN 脚本，则该表达式失败。
+请勿使用 `<script>` 元素的 [defer](https://developer.mozilla.org/docs/Web/HTML/Element/script) 属性来延迟加载 CDN 脚本。 脚本标记帮助程序呈现能够立即执行 [asp-fallback-test](#asp-fallback-test) 表达式的 JavaScript。 如果延迟加载 CDN 脚本，则该表达式失败。
 
 ## <a name="commonly-used-script-tag-helper-attributes"></a>常用的脚本标记帮助程序属性
 

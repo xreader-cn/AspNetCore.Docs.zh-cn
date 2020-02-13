@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 1a20b136203921e6a147058eb34da6dcbb7863e7
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 8813244ea6d00b170d9f95d12743e9fee38bf810
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76971983"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172649"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>在 ASP.NET Core 中使用 Razor 类库项目创建可重用的 UI
 
@@ -30,7 +30,7 @@ Razor 视图、页、控制器、页模型、 [razor 组件](xref:blazor/class-l
 * 从 Visual Studio 中选择 "新建**项目**"。
 * 选择 " **Razor 类库**>"**下一步**"。
 * 命名库（例如 "RazorClassLib"），>**创建**。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
-* 如果需要支持视图，请选择 "**支持页和视图**"。 默认情况下，仅支持 Razor Pages。 选择“创建”。
+* 如果需要支持视图，请选择 "**支持页和视图**"。 默认情况下，仅支持 Razor Pages。 选择 **“创建”** 。
 
 默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 **支持页和视图**选项支持页和视图。
 
@@ -50,7 +50,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
+ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -69,12 +69,12 @@ ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pag
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 
-为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：
+若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：
 
-* *RazorUIClassLib/页*
-* *RazorUIClassLib/页/Shared*
+* *RazorUIClassLib/Pages*
+* *RazorUIClassLib/Pages/Shared*
 
-假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。 `<partial>`标记无法添加到 *_Layout.cshtml*文件：
+假设*RazorUIClassLib/Pages/Shared*包含两个部分文件： *_Header cshtml*和 *_Footer*。 `<partial>` 标记可以添加到 *_Layout cshtml*文件中：
 
 ```cshtml
 <body>
@@ -216,7 +216,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 将 Razor 文件添加到 RCL。
 
-ASP.NET Core 模板假定 RCL 内容位于*领域*文件夹。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
+ASP.NET Core 模板假设 RCL 内容位于 "*区域*" 文件夹中。 请参阅[RCL Pages layout](#rcl-pages-layout) ，以创建 RCL，以在 `~/Pages` 而不是 `~/Areas/Pages`公开内容。
 
 ## <a name="reference-rcl-content"></a>引用 RCL 内容
 
@@ -284,9 +284,9 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 * 创建 `RazorUIClassLib` RCL。
 * 创建 Razor _Message 页面，并将其添加至 RCL。 `-np` 参数创建不含 `PageModel` 的页面。
-* 创建[_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)文件，并将其添加到 RCL。
+* 创建一个[_ViewStart](xref:mvc/views/layout#running-code-before-each-view)的 RCL 文件并将其添加到 ""。
 
-*_ViewStart.cshtml*时需要使用 （其中添加下一节中） 的 Razor 页面项目的布局文件。
+使用 Razor Pages 项目（在下一节中添加）的布局需要 *_ViewStart。*
 
 ---
 
@@ -300,13 +300,13 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如：
+  使用分步视图 (`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`) 需要 `<partial name="_Message" />`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如：
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
   ```
 
-  有关详细信息 *_ViewImports.cshtml*，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)
+  有关 *_ViewImports cshtml*的详细信息，请参阅[导入共享指令](xref:mvc/views/layout#importing-shared-directives)
 
 * 生成类库以验证是否不存在编译器错误：
 
@@ -371,12 +371,12 @@ dotnet run
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 
-为引用 RCL 内容就好像它是 web 应用的一部分*页面*文件夹中，创建具有以下文件结构 RCL 项目：
+若要引用 RCL 内容（如同它是 web 应用的*Pages*文件夹的一部分），请创建具有以下文件结构的 RCL 项目：
 
-* *RazorUIClassLib/页*
-* *RazorUIClassLib/页/Shared*
+* *RazorUIClassLib/Pages*
+* *RazorUIClassLib/Pages/Shared*
 
-假设*RazorUIClassLib/页/共享*包含两个部分的文件： *_Header.cshtml*并 *_Footer.cshtml*。 `<partial>`标记无法添加到 *_Layout.cshtml*文件：
+假设*RazorUIClassLib/Pages/Shared*包含两个部分文件： *_Header cshtml*和 *_Footer*。 `<partial>` 标记可以添加到 *_Layout cshtml*文件中：
 
 ```cshtml
 <body>
@@ -387,3 +387,7 @@ dotnet run
 ```
 
 ::: moniker-end
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:blazor/class-libraries>

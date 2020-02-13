@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 01/15/2020
 uid: security/authentication/identity
-ms.openlocfilehash: 98fee261a741a20eed181ca5b9a4ebb693deeb63
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 164ba10c1d1e2a73ebeb8240293a58f158055699
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146506"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172530"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -49,7 +49,7 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" >**新建**>**项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
@@ -155,11 +155,11 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 * 选择 "**登录**" 链接。
 * 用户尝试访问他们无权访问的受限制的页面，**或**未经系统的身份验证。
 
-提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。 会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
+提交登录页上的窗体时，将调用 `OnPostAsync` 操作。 对 `_signInManager` 对象（由依赖关系注入提供）调用 `PasswordSignInAsync`。
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并进行授权决策。 有关更多信息，请参见<xref:security/authorization/introduction>。
+Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详情，请参阅<xref:security/authorization/introduction>。
 
 ### <a name="log-out"></a>Log out
 
@@ -171,7 +171,7 @@ Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例�
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除 cookie 中存储的用户声明。
 
-在 *Pages/Shared/_LoginPartial.cshtml* 中指定 post：
+Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
@@ -194,7 +194,7 @@ Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例�
 
 所有标识相关 NuGet 包都包含在[ASP.NET Core 共享框架](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)中。
 
-标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此包包含 ASP.NET Core 标识的核心接口集，是 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 提供的。
+标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此程序包包含用于 ASP.NET Core 标识的核心接口集，由 `Microsoft.AspNetCore.Identity.EntityFrameworkCore`包含。
 
 ## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core 标识
 
@@ -275,7 +275,7 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" >**新建**>**项目**"。
-* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
@@ -301,7 +301,9 @@ dotnet new webapp --auth Individual -o WebApp1
 
 在包管理器控制台中运行以下命令（PMC）：
 
-```PM> Update-Database```
+```powershell
+Update-Database
+```
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -371,11 +373,11 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 * 选择 "**登录**" 链接。
 * 用户尝试访问他们无权访问的受限制的页面，**或**未经系统的身份验证。
 
-提交“登录”页上的表单时，会调用 `OnPostAsync` 操作。 会在 `_signInManager` 对象（通过注入依赖项的方式提供）上调用 `PasswordSignInAsync`。
+提交登录页上的窗体时，将调用 `OnPostAsync` 操作。 对 `_signInManager` 对象（由依赖关系注入提供）调用 `PasswordSignInAsync`。
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基 `Controller` 类公开了一个 `User` 属性，方便你通过控制器方法对其进行访问。 例如，可以枚举 `User.Claims` 并进行授权决策。 有关更多信息，请参见<xref:security/authorization/introduction>。
+Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详情，请参阅<xref:security/authorization/introduction>。
 
 ### <a name="log-out"></a>Log out
 
@@ -385,7 +387,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除 cookie 中存储的用户声明。
 
-在 *Pages/Shared/_LoginPartial.cshtml* 中指定 post：
+Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
@@ -408,7 +410,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 所有标识相关 NuGet 包都包含在[AspNetCore 元包](xref:fundamentals/metapackage-app)中。
 
-标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此包包含 ASP.NET Core 标识的核心接口集，是 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 提供的。
+标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此程序包包含用于 ASP.NET Core 标识的核心接口集，由 `Microsoft.AspNetCore.Identity.EntityFrameworkCore`包含。
 
 ## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core 标识
 

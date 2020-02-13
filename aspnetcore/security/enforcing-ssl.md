@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 59883a8165040fa58edb2f6cf22d4d6b3abf6f3e
-ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
+ms.openlocfilehash: 9efd49bb246a10c4eb49fb1bb0374ae9442d55a1
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2020
-ms.locfileid: "77074544"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172628"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -327,7 +327,7 @@ dotnet new webapp --no-https
 
 .NET Core SDK 包含 HTTPS 开发证书。 此证书作为首次运行体验的一部分进行安装。 例如，`dotnet --info` 生成类似于以下内容的输出：
 
-```text
+```
 ASP.NET Core
 ------------
 Successfully installed the ASP.NET Core HTTPS Development Certificate.

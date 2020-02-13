@@ -1,25 +1,25 @@
 ---
-title: 使用 cookie 身份验证而无需 ASP.NET Core 标识
+title: 使用 cookie 而无需 ASP.NET Core 标识的身份验证
 author: rick-anderson
 description: 了解如何使用 cookie 身份验证，而无需 ASP.NET Core 标识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 08/20/2019
+ms.date: 02/11/2020
 uid: security/authentication/cookie
-ms.openlocfilehash: 288fa4317801544bf0d689280c56836431017c89
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: 62a3d247dade6c83156a8378407d5e3891713fd1
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73462929"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172122"
 ---
-# <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 身份验证而无需 ASP.NET Core 标识
+# <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
 作者： [Rick Anderson](https://twitter.com/RickAndMSFT)和[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关更多信息，请参见<xref:security/authentication/identity>。
+ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详情，请参阅<xref:security/authentication/identity>。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -37,7 +37,7 @@ ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于�
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 如果未向 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>提供 cookie 身份验证方案，则使用 `CookieAuthenticationDefaults.AuthenticationScheme` （"Cookie"）。
 
-默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关更多信息，请参见<xref:security/gdpr#essential-cookies>。
+默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详情，请参阅<xref:security/gdpr#essential-cookies>。
 
 在 `Startup.Configure`中，调用 `UseAuthentication` 和 `UseAuthorization` 设置 `HttpContext.User` 属性，并为请求运行授权中间件。 调用 `UseEndpoints`之前调用 `UseAuthentication` 和 `UseAuthorization` 方法：
 
@@ -76,11 +76,11 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 `MinimumSameSitePolicy` 的 Cookie 策略中间件设置会根据下面的矩阵影响 `CookieAuthenticationOptions` 设置中 `Cookie.SameSite` 的设置。
 
-| MinimumSameSitePolicy | SameSite | 生成的 SameSite 设置 |
+| MinimumSameSitePolicy | Cookie.SameSite | 生成的 SameSite 设置 |
 | --------------------- | --------------- | --------------------------------- |
-| SameSiteMode     | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
-| SameSiteMode      | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
-| SameSiteMode   | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
+| SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
 
 ## <a name="create-an-authentication-cookie"></a>创建身份验证 cookie
 
@@ -215,7 +215,7 @@ await HttpContext.SignInAsync(
 
 ## <a name="absolute-cookie-expiration"></a>绝对 cookie 过期
 
-绝对过期时间可使用 <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>设置。 若要创建持久性 cookie，还必须设置 `IsPersistent`。 否则，cookie 是使用基于会话的生存期创建的，并且可能会在它所包含的身份验证票证之前或之后过期。 设置 `ExpiresUtc` 后，它将覆盖 <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions>的 <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.ExpireTimeSpan> 选项的值（如果已设置）。
+绝对过期时间可使用 <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>设置。 若要创建持久性 cookie，还必须设置 `IsPersistent`。 否则，cookie 是使用基于会话的生存期创建的，并且可能会在它所包含的身份验证票证之前或之后过期。 设置 `ExpiresUtc` 后，它将覆盖 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions>的 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.ExpireTimeSpan> 选项的值（如果已设置）。
 
 下面的代码片段将创建一个标识和对应的 cookie，此 cookie 持续20分钟。 这将忽略以前配置的任何可调过期设置。
 
@@ -236,7 +236,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关更多信息，请参见<xref:security/authentication/identity>。
+ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详情，请参阅<xref:security/authentication/identity>。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -254,7 +254,7 @@ ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于�
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 如果未向 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>提供 cookie 身份验证方案，则使用 `CookieAuthenticationDefaults.AuthenticationScheme` （"Cookie"）。
 
-默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关更多信息，请参见<xref:security/gdpr#essential-cookies>。
+默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详情，请参阅<xref:security/gdpr#essential-cookies>。
 
 在 `Startup.Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc`之前调用 `UseAuthentication` 方法：
 
@@ -293,11 +293,11 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 `MinimumSameSitePolicy` 的 Cookie 策略中间件设置会根据下面的矩阵影响 `CookieAuthenticationOptions` 设置中 `Cookie.SameSite` 的设置。
 
-| MinimumSameSitePolicy | SameSite | 生成的 SameSite 设置 |
+| MinimumSameSitePolicy | Cookie.SameSite | 生成的 SameSite 设置 |
 | --------------------- | --------------- | --------------------------------- |
-| SameSiteMode     | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
-| SameSiteMode      | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
-| SameSiteMode   | SameSiteMode<br>SameSiteMode<br>SameSiteMode | SameSiteMode<br>SameSiteMode<br>SameSiteMode |
+| SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
 
 ## <a name="create-an-authentication-cookie"></a>创建身份验证 cookie
 
