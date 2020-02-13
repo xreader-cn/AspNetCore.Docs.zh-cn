@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视
 ms.author: riande
 ms.date: 01/28/2020
 uid: mvc/overview
-ms.openlocfilehash: a147c2aa01f1440f8ac59f73eb7be734193f802a
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: a0d1e364bf4cda4ad30c5070c9e61e6972759bb0
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76869966"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171815"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -258,5 +258,5 @@ public class AccountController : Controller
 ## <a name="additional-resources"></a>其他资源
 
 * [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 的 Fluent 测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; 强类型单元测试库，提供用于测试 MVC 和 Web API 应用的 Fluent 界面。 （*不由 Microsoft 进行支持或维护*。）
-* [将 Razor 组件集成到 Razor Pages 和 MVC 应用](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
+* [将 Razor 组件集成到 Razor Pages 和 MVC 应用](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
 

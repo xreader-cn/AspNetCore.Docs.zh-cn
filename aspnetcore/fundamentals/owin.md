@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 7edb4db026f1b778d43ac72883690a0b2a18ee31
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 980b60512bdeadd2a58b87e633ebf1416f725851
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814900"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172091"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>ASP.NET Core 中 .NET 的开放 Web 接口 (OWIN)
 
@@ -79,11 +79,14 @@ public void Configure(IApplicationBuilder app)
 ```csharp
 app.UseOwin(pipeline =>
 {
-    pipeline(async (next) =>
+    pipeline(next =>
     {
-        // do something before
-        await OwinHello(new OwinEnvironment(HttpContext));
-        // do something after
+        return async environment =>
+        {
+            // Do something before.
+            await next(environment);
+            // Do something after.
+        };
     });
 });
 ```
@@ -234,7 +237,7 @@ OWIN 依赖于 `IDictionary<string,object>` 对象，以在整个 HTTP请求/响
 
 ### <a name="request-data-owin-v100"></a>请求数据 (OWIN v1.0.0)
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | owin.RequestScheme | `String` |  |
 | owin.RequestMethod  | `String` | |    
@@ -247,29 +250,29 @@ OWIN 依赖于 `IDictionary<string,object>` 对象，以在整个 HTTP请求/响
 
 ### <a name="request-data-owin-v110"></a>请求数据 (OWIN v1.1.0)
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
-| owin.RequestId | `String` | Optional |
+| owin.RequestId | `String` | 可选 |
 
 ### <a name="response-data-owin-v100"></a>响应数据 (OWIN v1.0.0)
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
-| owin.ResponseStatusCode | `int` | Optional |
-| owin.ResponseReasonPhrase | `String` | Optional |
+| owin.ResponseStatusCode | `int` | 可选 |
+| owin.ResponseReasonPhrase | `String` | 可选 |
 | owin.ResponseHeaders | `IDictionary<string,string[]>`  | |
 | owin.ResponseBody | `Stream`  | |
 
 ### <a name="other-data-owin-v100"></a>其他数据 (OWIN v1.0.0)
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | owin.CallCancelled | `CancellationToken` |  |
 | owin.Version  | `String` | |   
 
 ### <a name="common-keys"></a>常用键
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | ssl.ClientCertificate | `X509Certificate` |  |
 | ssl.LoadClientCertAsync  | `Func<Task>` | |    
@@ -282,13 +285,13 @@ OWIN 依赖于 `IDictionary<string,object>` 对象，以在整个 HTTP请求/响
 
 ### <a name="sendfiles-v030"></a>SendFiles v0.3.0
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | sendfile.SendAsync | 请参阅[委托签名](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | 每请求 |
 
 ### <a name="opaque-v030"></a>Opaque v0.3.0
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
 | opaque.Upgrade | `OpaqueUpgrade` | 请参阅[委托签名](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
@@ -297,7 +300,7 @@ OWIN 依赖于 `IDictionary<string,object>` 对象，以在整个 HTTP请求/响
 
 ### <a name="websocket-v030"></a>WebSocket v0.3.0
 
-| 键               | 值（类型） | 说明 |
+| 键               | 值（类型） | 描述 |
 | ----------------- | ------------ | ----------- |
 | websocket.Version | `String` |  |
 | websocket.Accept | `WebSocketAccept` | 请参阅[委托签名](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
@@ -307,8 +310,8 @@ OWIN 依赖于 `IDictionary<string,object>` 对象，以在整个 HTTP请求/响
 | websocket.ReceiveAsync | `WebSocketReceiveAsync` | 请参阅[委托签名](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
 | websocket.CloseAsync | `WebSocketCloseAsync` | 请参阅[委托签名](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
 | websocket.CallCancelled | `CancellationToken` |  |
-| websocket.ClientCloseStatus | `int` | Optional |
-| websocket.ClientCloseDescription | `String` | Optional |
+| websocket.ClientCloseStatus | `int` | 可选 |
+| websocket.ClientCloseDescription | `String` | 可选 |
 
 ## <a name="additional-resources"></a>其他资源
 

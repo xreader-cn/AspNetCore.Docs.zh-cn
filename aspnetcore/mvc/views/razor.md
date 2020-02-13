@@ -5,18 +5,18 @@ description: 了解 Razor 标记语法，该语法用于将基于服务器的代
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: baac0ac38a0781cb9c16689cf3e29526b602d8da
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944247"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171856"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen) 和 [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。 在 [Razor 组件](xref:blazor/components)文件 (.razor) 中也可以找到 Razor。
+Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。 在 [Razor 组件](xref:blazor/components)文件 (.razor) 中也可以找到 Razor  。
 
 ## <a name="rendering-html"></a>呈现 HTML
 
@@ -128,7 +128,7 @@ Razor 支持 C#，并使用 `@` 符号从 HTML 转换为 C#。 Razor 计算 C# �
 
 该 HTML 在浏览器中显示为：
 
-```
+```html
 <span>Hello World</span>
 ```
 
@@ -457,7 +457,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="code"></a>\@code
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 `@code` 块允许 [Razor 组件](xref:blazor/components)将 C# 成员（字段、属性和方法）添加到组件：
 
@@ -487,7 +487,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker-end
 
-例如:
+例如：
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -599,7 +599,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="layout"></a>\@layout
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 `@layout` 指令指定 Razor 组件的布局。 布局组件用于避免代码重复和不一致。 有关详细信息，请参阅 <xref:blazor/layouts>。
 
@@ -607,7 +607,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="model"></a>\@model
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
 
 `@model` 指令指定传递到视图或页面的模型类型：
 
@@ -615,7 +615,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 @model TypeNameOfModel
 ```
 
-在使用个人用户帐户创建的 ASP.NET Core MVC 或 Razor Pages 应用中，Views/Account/Login.cshtml 包含以下模型声明：
+在使用个人用户帐户创建的 ASP.NET Core MVC 或 Razor Pages 应用中，Views/Account/Login.cshtml 包含以下模型声明： 
 
 ```cshtml
 @model LoginViewModel
@@ -640,7 +640,7 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 `@namespace` 指令：
 
 * 设置生成的 Razor 页面、MVC 视图或 Razor 组件的类的命名空间。
-* 从目录树中最近的导入文件、_ViewImports.cshtml（视图或页面）或 _Imports.razor (Razor) 中设置页面、视图或组件类的根派生命名空间。
+* 从目录树中最近的导入文件、_ViewImports.cshtml（视图或页面）或 _Imports.razor (Razor) 中设置页面、视图或组件类的根派生命名空间   。
 
 ```cshtml
 @namespace Your.Namespace.Here
@@ -648,27 +648,27 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 对于下表中显示的 Razor Pages 示例：
 
-* 每个页面都导入 Pages/_ViewImports.cshtml。
-* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`。
+* 每个页面都导入 Pages/_ViewImports.cshtml  。
+* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`  。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
 | 页面                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
-| Pages/Index.cshtml                        | `Hello.World`                         |
-| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages`               |
-| Pages/MorePages/EvenMorePages/Page.cshtml | `Hello.World.MorePages.EvenMorePages` |
+| Pages/Index.cshtml                         | `Hello.World`                         |
+| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages`               |
+| Pages/MorePages/EvenMorePages/Page.cshtml  | `Hello.World.MorePages.EvenMorePages` |
 
 上述关系适用于与 MVC 视图和 Razor 组件一起使用的导入文件。
 
 当多个导入文件具有 `@namespace` 指令时，最靠近目录树中的页面、视图或组件的文件将用于设置根命名空间。
 
-如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示。
+如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示   。
 
 | 页面                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
-| Pages/Index.cshtml                        | `Hello.World`           |
-| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages` |
-| Pages/MorePages/EvenMorePages/Page.cshtml | `Another.Planet`        |
+| Pages/Index.cshtml                         | `Hello.World`           |
+| Pages/MorePages/Page.cshtml                | `Hello.World.MorePages` |
+| Pages/MorePages/EvenMorePages/Page.cshtml  | `Another.Planet`        |
 
 ### <a name="page"></a>\@page
 
@@ -676,20 +676,20 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 `@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
 
-* 在 .cshtml 文件中表示该文件是 Razor Page。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
+* 在 .cshtml 文件中表示该文件是 Razor Page  。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
 * 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/routing>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-.cshtml 文件第一行上的 `@page` 指令表示该文件是 Razor Page。 有关详细信息，请参阅 <xref:razor-pages/index>。
+.cshtml 文件第一行上的 `@page` 指令表示该文件是 Razor Page  。 有关详细信息，请参阅 <xref:razor-pages/index>。
 
 ::: moniker-end
 
 ### <a name="section"></a>\@section
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
 
 `@section` 指令与 [MVC 和 Razor Pages 布局](xref:mvc/views/layout)结合使用，允许视图或页面将内容呈现在 HTML 页面的不同部分。 有关详细信息，请参阅 <xref:mvc/views/layout>。
 
@@ -711,19 +711,19 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 ### <a name="attributes"></a>\@attributes
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 `@attributes` 允许组件呈现未声明的属性。 有关详细信息，请参阅 <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>。
 
 ### <a name="bind"></a>\@bind
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/components#data-binding>。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components#event-handling>。
 
@@ -733,13 +733,13 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 
 ### <a name="oneventpreventdefault"></a>\@on{EVENT}:preventDefault
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 禁止事件的默认操作。
 
 ### <a name="oneventstoppropagation"></a>\@on{EVENT}:stopPropagation
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 停止事件的事件传播。
 
@@ -749,19 +749,19 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 
 ### <a name="key"></a>\@key
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 `@key` 指令属性使组件比较算法保证基于键的值保留元素或组件。 有关详细信息，请参阅 <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>。
 
 ### <a name="ref"></a>\@ref
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 组件引用 (`@ref`) 提供了一种引用组件实例的方法，以便可以向该实例发出命令。 有关详细信息，请参阅 <xref:blazor/components#capture-references-to-components>。
 
 ### <a name="typeparam"></a>\@typeparam
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。 
 
 `@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/components#generic-typed-components>。
 
@@ -868,7 +868,7 @@ public class Pet
 
 ## <a name="tag-helpers"></a>标记帮助程序
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。 
 
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)有三个相关指令。
 
@@ -919,41 +919,41 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录。 Razor 目录中的目录结构反映项目的目录结构。
+在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录  。 Razor 目录中的目录结构反映项目的目录结构  。
 
 在面向 .NET Core 2.1 的 ASP.NET Core 2.1 Razor Pages 项目中，请考虑以下目录结构：
 
-* Areas/
-  * Admin/
-    * Pages/
-      * Index.cshtml
-      * Index.cshtml.cs
-* Pages/
-  * Shared/
-    * _Layout.cshtml
-  * _ViewImports.cshtml
+* Areas/ 
+  * Admin/ 
+    * Pages/ 
+      * Index.cshtml 
+      * Index.cshtml.cs 
+* Pages/ 
+  * Shared/ 
+    * _Layout.cshtml 
+  * _ViewImports.cshtml 
   * *_ViewStart.cshtml*
-  * Index.cshtml
-  * Index.cshtml.cs
+  * *Index.cshtml*
+  * *Index.cshtml.cs*
 
-在 Debug 配置下生成项目将生成以下 obj 目录：
+在 Debug 配置下生成项目将生成以下 obj 目录   ：
 
-* obj/
-  * Debug/
-    * netcoreapp2.1/
-      * Razor/
-        * Areas/
-          * Admin/
-            * Pages/
-              * Index.g.cshtml.cs
-        * Pages/
-          * Shared/
-            * _Layout.g.cshtml.cs
-          * _ViewImports.g.cshtml.cs
-          * _ViewStart.g.cshtml.cs
-          * Index.g.cshtml.cs
+* obj/ 
+  * Debug/ 
+    * netcoreapp2.1/ 
+      * Razor/ 
+        * Areas/ 
+          * Admin/ 
+            * Pages/ 
+              * Index.g.cshtml.cs 
+        * Pages/ 
+          * Shared/ 
+            * _Layout.g.cshtml.cs 
+          * _ViewImports.g.cshtml.cs 
+          * _ViewStart.g.cshtml.cs 
+          * Index.g.cshtml.cs 
 
-若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs。
+若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs   。
 
 ::: moniker-end
 
@@ -978,7 +978,7 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 Razor 视图引擎为视图执行区分大小写的查找。 但是，实际查找取决于基础文件系统：
 
 * 基于文件的源：
-  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、*/Views/home/test.cshtml* 以及任何其他大小写变体。
+  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml* 以及任何其他大小写变体。
   * 在区分大小写的文件系统（例如，Linux、OSX 以及使用 `EmbeddedFileProvider` 构建的文件系统）上，查找区分大小写。 例如，`return View("Test")` 专门匹配 */Views/Home/Test.cshtml*。
 * 预编译视图：在 ASP.NET Core 2.0 及更高版本中，预编译视图查找在所有操作系统上均不区分大小写。 该行为与 Windows 上物理文件提供程序的行为相同。 如果两个预编译视图仅大小写不同，则查找的结果具有不确定性。
 
