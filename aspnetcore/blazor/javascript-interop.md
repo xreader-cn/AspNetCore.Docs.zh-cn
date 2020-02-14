@@ -5,17 +5,17 @@ description: 了解如何从 Blazor 应用中的 JavaScript 的 .NET 和 .NET �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/javascript-interop
-ms.openlocfilehash: 4edef123bc1fe41845b8060b9c3b8e77ffd2969d
-ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.openlocfilehash: c4f2444b60fc2d3a8af893df379cf62636a7bdd5
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76885467"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213358"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 互操作
 
@@ -241,11 +241,213 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 [!code-razor[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
 
+## <a name="reference-elements-across-components"></a>跨组件引用元素
+
+`ElementReference` 仅保证在组件的 `OnAfterRender` 方法中有效（并且元素引用为 `struct`），因此无法在组件之间传递元素引用。
+
+对于父组件，若要使元素引用可用于其他组件，则父组件可以：
+
+* 允许子组件注册回调。
+* 在 `OnAfterRender` 事件期间，通过传递的元素引用调用注册的回调。 此方法间接地允许子组件与父级的元素引用交互。
+
+以下 Blazor WebAssembly 示例阐释了该方法。
+
+在*wwwroot/index.html*的 `<head>` 中：
+
+```html
+<style>
+    .red { color: red }
+</style>
+```
+
+在*wwwroot/index.html*的 `<body>` 中：
+
+```html
+<script>
+    function setElementClass(element, className) {
+        /** @type {HTMLElement} **/
+        var myElement = element;
+        myElement.classList.add(className);
+    }
+</script>
+```
+
+*Pages/Index razor* （父组件）：
+
+```razor
+@page "/"
+
+<h1 @ref="_title">Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Parent="this" Title="How is Blazor working for you?" />
+```
+
+*Pages/Index. .cs*：
+
+```csharp
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Components;
+
+namespace BlazorSample.Pages
+{
+    public partial class Index : 
+        ComponentBase, IObservable<ElementReference>, IDisposable
+    {
+        private bool _disposing;
+        private IList<IObserver<ElementReference>> _subscriptions = 
+            new List<IObserver<ElementReference>>();
+        private ElementReference _title;
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            foreach (var subscription in _subscriptions)
+            {
+                try
+                {
+                    subscription.OnNext(_title);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            _disposing = true;
+
+            foreach (var subscription in _subscriptions)
+            {
+                try
+                {
+                    subscription.OnCompleted();
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            _subscriptions.Clear();
+        }
+
+        public IDisposable Subscribe(IObserver<ElementReference> observer)
+        {
+            if (_disposing)
+            {
+                throw new InvalidOperationException("Parent being disposed");
+            }
+
+            _subscriptions.Add(observer);
+
+            return new Subscription(observer, this);
+        }
+
+        private class Subscription : IDisposable
+        {
+            public Subscription(IObserver<ElementReference> observer, Index self)
+            {
+                Observer = observer;
+                Self = self;
+            }
+
+            public IObserver<ElementReference> Observer { get; }
+            public Index Self { get; }
+
+            public void Dispose()
+            {
+                Self._subscriptions.Remove(Observer);
+            }
+        }
+    }
+}
+```
+
+*Shared/SurveyPrompt* （子组件）：
+
+```razor
+@inject IJSRuntime JS
+
+<div class="alert alert-secondary mt-4" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>@Title</strong>
+
+    <span class="text-nowrap">
+        Please take our
+        <a target="_blank" class="font-weight-bold" 
+            href="https://go.microsoft.com/fwlink/?linkid=2109206">brief survey</a>
+    </span>
+    and tell us what you think.
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+}
+```
+
+*Shared/SurveyPrompt*：
+
+```csharp
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace BlazorSample.Shared
+{
+    public partial class SurveyPrompt : 
+        ComponentBase, IObserver<ElementReference>, IDisposable
+    {
+        private IDisposable _subscription = null;
+
+        [Parameter]
+        public IObservable<ElementReference> Parent { get; set; }
+
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            if (_subscription != null)
+            {
+                _subscription.Dispose();
+            }
+
+            _subscription = Parent.Subscribe(this);
+        }
+
+        public void OnCompleted()
+        {
+            _subscription = null;
+        }
+
+        public void OnError(Exception error)
+        {
+            _subscription = null;
+        }
+
+        public void OnNext(ElementReference value)
+        {
+            JS.InvokeAsync<object>(
+                "setElementClass", new object[] { value, "red" });
+        }
+
+        public void Dispose()
+        {
+            _subscription?.Dispose();
+        }
+    }
+}
+```
+
 ## <a name="invoke-net-methods-from-javascript-functions"></a>从 JavaScript 函数调用 .NET 方法
 
 ### <a name="static-net-method-call"></a>静态 .NET 方法调用
 
-若要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 若要从 JavaScript 调用 .NET 方法，.NET 方法必须是公共的、静态的并且具有 `[JSInvokable]` 特性。 默认情况下，方法标识符为方法名称，但可以使用 `JSInvokableAttribute` 构造函数指定其他标识符。 当前不支持调用开放式泛型方法。
+若要从 JavaScript 调用静态 .NET 方法，请使用 `DotNet.invokeMethod` 或 `DotNet.invokeMethodAsync` 函数。 传入要调用的静态方法的标识符、包含该函数的程序集的名称和任何自变量。 异步版本是支持 Blazor 服务器方案的首选。 .NET 方法必须是公共的，静态的，并具有 `[JSInvokable]` 特性。 当前不支持调用开放式泛型方法。
 
 示例应用包含一个方法C# ，该方法返回 `int`的数组。 `JSInvokable` 特性应用于方法。
 
@@ -281,6 +483,30 @@ Array(4) [ 1, 2, 3, 4 ]
 ```
 
 第四个数组值推送到 `ReturnArrayAsync`返回的数组（`data.push(4);`）。
+
+默认情况下，方法标识符为方法名称，但可以使用 `JSInvokableAttribute` 构造函数指定其他标识符：
+
+```csharp
+@code {
+    [JSInvokable("DifferentMethodName")]
+    public static Task<int[]> ReturnArrayAsync()
+    {
+        return Task.FromResult(new int[] { 1, 2, 3 });
+    }
+}
+```
+
+在客户端 JavaScript 文件中：
+
+```javascript
+returnArrayAsyncJs: function () {
+  DotNet.invokeMethodAsync('BlazorSample', 'DifferentMethodName')
+    .then(data => {
+      data.push(4);
+      console.log(data);
+    });
+}
+```
 
 ### <a name="instance-method-call"></a>实例方法调用
 
@@ -340,7 +566,7 @@ Hello, Blazor!
 
 在应用程序的项目文件中引用构建的 NuGet 包的方式与引用任何 NuGet 包的方式相同。 包还原后，应用程序代码可以调入 JavaScript，就像它是C#一样。
 
-有关更多信息，请参见<xref:blazor/class-libraries>。
+有关详细信息，请参阅 <xref:blazor/class-libraries>。
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 
@@ -361,6 +587,284 @@ Hello, Blazor!
   ```
 
 有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server>。
+
+## <a name="perform-large-data-transfers-in-opno-locblazor-server-apps"></a>在 Blazor Server 应用中执行大型数据传输
+
+在某些情况下，必须在 JavaScript 和 Blazor之间传输大量的数据。 通常，当发生以下情况时，会发生大型数据传输：
+
+* 浏览器文件系统 Api 用于上传或下载文件。
+* 需要使用第三方库的互操作。
+
+在 Blazor 服务器中，有一个限制是为了防止传递可能导致性能问题的单个大消息。
+
+开发在 JavaScript 和 Blazor之间传输数据的代码时，请考虑以下指南：
+
+* 将数据分割成较小的部分，并按顺序发送数据段，直到服务器接收到所有数据为止。
+* 不要在 JavaScript 和C#代码中分配大型对象。
+* 发送或接收数据时，请勿长时间阻止主 UI 线程。
+* 释放完成或取消该进程时使用的任何内存。
+* 出于安全目的，请强制执行以下附加要求：
+  * 声明可传递的最大文件或数据大小。
+  * 将客户端的最小上传速率声明到服务器。
+* 服务器接收到数据后，可以使用以下数据：
+  * 临时存储在内存缓冲区中，直到收集所有段。
+  * 立即使用。 例如，数据可以立即存储在数据库中，也可以在每个段被接收时写入磁盘。
+
+以下文件上传者类通过客户端处理 JS 互操作。 上载者类使用 JS 互操作来执行以下操作：
+
+* 轮询客户端以发送数据段。
+* 如果轮询超时，则中止该事务。
+
+```csharp
+using System;
+using System.Buffers;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.JSInterop;
+
+public class FileUploader : IDisposable
+{
+    private readonly IJSRuntime _jsRuntime;
+    private readonly int _segmentSize = 6144;
+    private readonly int _maxBase64SegmentSize = 8192;
+    private readonly DotNetObjectReference<FileUploader> _thisReference;
+    private List<IMemoryOwner<byte>> _uploadedSegments = 
+        new List<IMemoryOwner<byte>>();
+
+    public FileUploader(IJSRuntime jsRuntime)
+    {
+        _jsRuntime = jsRuntime;
+    }
+
+    public async Task<Stream> ReceiveFile(string selector, int maxSize)
+    {
+        var fileSize = 
+            await _jsRuntime.InvokeAsync<int>("getFileSize", selector);
+
+        if (fileSize > maxSize)
+        {
+            return null;
+        }
+
+        var numberOfSegments = Math.Floor(fileSize / (double)_segmentSize) + 1;
+        var lastSegmentBytes = 0;
+        string base64EncodedSegment;
+
+        for (var i = 0; i < numberOfSegments; i++)
+        {
+            try
+            {
+                base64EncodedSegment = 
+                    await _jsRuntime.InvokeAsync<string>(
+                        "receiveSegment", i, selector);
+
+                if (base64EncodedSegment.Length < _maxBase64SegmentSize && 
+                    i < numberOfSegments - 1)
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+          var current = MemoryPool<byte>.Shared.Rent(_segmentSize);
+
+          if (!Convert.TryFromBase64String(base64EncodedSegment, 
+              current.Memory.Slice(0, _segmentSize).Span, out lastSegmentBytes))
+          {
+              return null;
+          }
+
+          _uploadedSegments.Add(current);
+        }
+
+        var segments = _uploadedSegments;
+        _uploadedSegments = null;
+
+        return new SegmentedStream(segments, _segmentSize, lastSegmentBytes);
+    }
+
+    public void Dispose()
+    {
+        if (_uploadedSegments != null)
+        {
+            foreach (var segment in _uploadedSegments)
+            {
+                segment.Dispose();
+            }
+        }
+    }
+}
+```
+
+在上面的示例中：
+
+* `_maxBase64SegmentSize` 设置为 `8192`，它是从 `_maxBase64SegmentSize = _segmentSize * 4 / 3`计算得出的。
+* 低级别 .NET Core 内存管理 Api 用于在 `_uploadedSegments`的服务器上存储内存段。
+* `ReceiveFile` 方法用于通过 JS 互操作处理上载：
+  * 文件大小通过 `_jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)`的 JS 互操作来确定。
+  * 要接收的段数将计算并存储在 `numberOfSegments`中。
+  * 使用 `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)`通过 JS 互操作在 `for` 循环中请求段。 在解码之前，所有段都必须为8192字节。 客户端被迫以有效的方式发送数据。
+  * 对于收到的每个段，将在 <xref:System.Convert.TryFromBase64String*>解码之前执行检查。
+  * 上载完成后，包含数据的流将作为新的 <xref:System.IO.Stream> （`SegmentedStream`）返回。
+
+分段流类将段列表作为 readonly 不可查找的 <xref:System.IO.Stream>公开：
+
+```csharp
+using System;
+using System.Buffers;
+using System.Collections.Generic;
+using System.IO;
+
+public class SegmentedStream : Stream
+{
+    private readonly ReadOnlySequence<byte> _sequence;
+    private long _currentPosition = 0;
+
+    public SegmentedStream(IList<IMemoryOwner<byte>> segments, int segmentSize, 
+        int lastSegmentSize)
+    {
+        if (segments.Count == 1)
+        {
+            _sequence = new ReadOnlySequence<byte>(
+                segments[0].Memory.Slice(0, lastSegmentSize));
+            return;
+        }
+
+        var sequenceSegment = new BufferSegment<byte>(
+            segments[0].Memory.Slice(0, segmentSize));
+        var lastSegment = sequenceSegment;
+
+        for (int i = 1; i < segments.Count; i++)
+        {
+            var isLastSegment = i + 1 == segments.Count;
+            lastSegment = lastSegment.Append(segments[i].Memory.Slice(
+                0, isLastSegment ? lastSegmentSize : segmentSize));
+        }
+
+        _sequence = new ReadOnlySequence<byte>(
+            sequenceSegment, 0, lastSegment, lastSegmentSize);
+    }
+
+    public override long Position
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+        var bytesToWrite = (int)(_currentPosition + count < _sequence.Length ? 
+            count : _sequence.Length - _currentPosition);
+        var data = _sequence.Slice(_currentPosition, bytesToWrite);
+        data.CopyTo(buffer.AsSpan(offset, bytesToWrite));
+        _currentPosition += bytesToWrite;
+
+        return bytesToWrite;
+    }
+
+    private class BufferSegment<T> : ReadOnlySequenceSegment<T>
+    {
+        public BufferSegment(ReadOnlyMemory<T> memory)
+        {
+            Memory = memory;
+        }
+
+        public BufferSegment<T> Append(ReadOnlyMemory<T> memory)
+        {
+            var segment = new BufferSegment<T>(memory)
+            {
+                RunningIndex = RunningIndex + Memory.Length
+            };
+
+            Next = segment;
+
+            return segment;
+        }
+    }
+
+    public override bool CanRead => true;
+
+    public override bool CanSeek => false;
+
+    public override bool CanWrite => false;
+
+    public override long Length => throw new NotImplementedException();
+
+    public override void Flush() => throw new NotImplementedException();
+
+    public override long Seek(long offset, SeekOrigin origin) => 
+        throw new NotImplementedException();
+
+    public override void SetLength(long value) => 
+        throw new NotImplementedException();
+
+    public override void Write(byte[] buffer, int offset, int count) => 
+        throw new NotImplementedException();
+}
+```
+
+以下代码实现了用于接收数据的 JavaScript 函数：
+
+```javascript
+function getFileSize(selector) {
+  const file = getFile(selector);
+  return file.size;
+}
+
+async function receiveSegment(segmentNumber, selector) {
+  const file = getFile(selector);
+  var segments = getFileSegments(file);
+  var index = segmentNumber * 6144;
+  return await getNextChunk(file, index);
+}
+
+function getFile(selector) {
+  const element = document.querySelector(selector);
+  if (!element) {
+    throw new Error('Invalid selector');
+  }
+  const files = element.files;
+  if (!files || files.length === 0) {
+    throw new Error(`Element ${elementId} doesn't contain any files.`);
+  }
+  const file = files[0];
+  return file;
+}
+
+function getFileSegments(file) {
+  const segments = Math.floor(size % 6144 === 0 ? size / 6144 : 1 + size / 6144);
+  return segments;
+}
+
+async function getNextChunk(file, index) {
+  const length = file.size - index <= 6144 ? file.size - index : 6144;
+  const chunk = file.slice(index, index + length);
+  index += length;
+  const base64Chunk = await this.base64EncodeAsync(chunk);
+  return { base64Chunk, index };
+}
+
+async function base64EncodeAsync(chunk) {
+  const reader = new FileReader();
+  const result = new Promise((resolve, reject) => {
+    reader.addEventListener('load',
+      () => {
+        const base64Chunk = reader.result;
+        const cleanChunk = 
+          base64Chunk.replace('data:application/octet-stream;base64,', '');
+        resolve(cleanChunk);
+      },
+      false);
+    reader.addEventListener('error', reject);
+  });
+  reader.readAsDataURL(chunk);
+  return result;
+}
+```
 
 ## <a name="additional-resources"></a>其他资源
 

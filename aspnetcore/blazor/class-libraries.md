@@ -5,17 +5,17 @@ description: 了解如何在来自外部组件库 Blazor 应用中包含组件�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: f8e8688cdb3d1aef0d470e0e2d8c3857140ef65f
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160023"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213244"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -31,14 +31,14 @@ ms.locfileid: "76160023"
 
 ## <a name="create-an-rcl"></a>创建 RCL
 
-按照 <xref:blazor/get-started> 一文中的指导配置 Blazor环境。
+按照 <xref:blazor/get-started> 一文中的指导配置 Blazor 的环境。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 创建新项目。
-1. 选择 " **Razor 类库**"。 选择“下一步”。
+1. 选择 " **Razor 类库**"。 选择 **“下一步”** 。
 1. 在 "**创建新的 Razor 类库**" 对话框中，选择 "**创建**"。
-1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称 `MyComponentLib1`。 选择“创建”。
+1. 在“项目名称”字段提供项目名称，或接受默认项目名称。 本主题中的示例使用项目名称 `MyComponentLib1`。 选择 **“创建”** 。
 1. 将 RCL 添加到解决方案：
    1. 右键单击解决方案。 选择 "**添加** > **现有项目**"。
    1. 导航到 RCL 的项目文件。
@@ -47,6 +47,15 @@ ms.locfileid: "76160023"
    1. 右键单击应用程序项目。 选择 "**添加** > **引用**"。
    1. 选择 RCL 项目。 选择“确定”。
 
+> [!NOTE]
+> 如果在从模板生成 RCL 时选中 "**支持页和视图**" 复选框，则还会将 *_Imports*文件添加到生成的项目的根目录中，并提供以下内容以启用 razor 组件创作：
+>
+> ```razor
+> @using Microsoft.AspNetCore.Components.Web
+> ```
+>
+> 手动将该文件添加到生成的项目的根目录中。
+
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. 在命令行界面中，将**Razor 类库**模板（`razorclasslib`）与[dotnet new](/dotnet/core/tools/dotnet-new)命令一起使用。 在下面的示例中，创建了一个名为 `MyComponentLib1`的 RCL。 执行命令时，将自动创建包含 `MyComponentLib1` 的文件夹：
@@ -54,6 +63,15 @@ ms.locfileid: "76160023"
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
+
+   > [!NOTE]
+   > 如果从模板生成 RCL 时使用 `-s|--support-pages-and-views` 开关，则还应将 *_Imports*文件添加到生成的项目的根目录中，并提供以下内容以启用 razor 组件创作：
+   >
+   > ```razor
+   > @using Microsoft.AspNetCore.Components.Web
+   > ```
+   >
+   > 手动将该文件添加到生成的项目的根目录中。
 
 1. 若要将库添加到现有项目，请在命令行界面中使用[dotnet add reference](/dotnet/core/tools/dotnet-add-reference)命令。 在下面的示例中，将 RCL 添加到应用中。 在应用程序的项目文件夹中执行以下命令，并在其中包含库的路径：
 
@@ -108,7 +126,7 @@ dotnet pack
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>使用静态资产创建 Razor 组件类库
 
-RCL 可以包括静态资产。 静态资产可用于使用库的任何应用。 有关更多信息，请参见<xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
+RCL 可以包括静态资产。 静态资产可用于使用库的任何应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
 
 ## <a name="additional-resources"></a>其他资源
 

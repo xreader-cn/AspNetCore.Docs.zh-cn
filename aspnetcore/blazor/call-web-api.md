@@ -5,17 +5,17 @@ description: 了解如何使用 JSON 帮助程序从 Blazor 应用程序调用 w
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/22/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 66605f38a6fcaedebc92b0946dca1e5f28b593c6
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 345fb6962e3376c22551eb7914c70c89cb7100d5
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160062"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213270"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>从 ASP.NET Core 调用 web API Blazor
 
@@ -23,9 +23,9 @@ ms.locfileid: "76160062"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)应用使用预先配置的 `HttpClient` 服务来调用 web api。 撰写请求，其中可以包含 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助程序或 <xref:System.Net.Http.HttpRequestMessage>。
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)应用使用预先配置的 `HttpClient` 服务来调用 web api。 撰写请求，其中可以包含 JavaScript[提取 API](https://developer.mozilla.org/docs/Web/API/Fetch_API)选项，使用 Blazor JSON 帮助程序或 <xref:System.Net.Http.HttpRequestMessage>。 Blazor WebAssembly apps 中的 `HttpClient` 服务的重点是将请求发回源服务器。 本主题中的指导仅适用于 Blazor WebAssembly 应用。
 
-[Blazor Server](xref:blazor/hosting-models#blazor-server) apps 使用通常使用 <xref:System.Net.Http.IHttpClientFactory>创建 <xref:System.Net.Http.HttpClient> 实例来调用 web api。 有关更多信息，请参见<xref:fundamentals/http-requests>。
+[Blazor Server](xref:blazor/hosting-models#blazor-server) apps 使用 <xref:System.Net.Http.HttpClient> 实例来调用 web api，通常是使用 <xref:System.Net.Http.IHttpClientFactory>创建的。 本主题中的指南与 Blazor 服务器应用无关。 开发 Blazor 服务器应用时，请按照 <xref:fundamentals/http-requests>中的指南进行操作。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)） &ndash; 选择*BlazorWebAssemblySample*应用。
 
@@ -34,7 +34,7 @@ ms.locfileid: "76160062"
 * 调用 Web API （*Pages/CallWebAPI*）
 * HTTP 请求测试器（*组件/HTTPRequestTester*）
 
-## <a name="packages"></a>package
+## <a name="packages"></a>包
 
 引用*实验*性[BlazorAspNetCore。](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/)项目文件中的 HttpClient NuGet 包。 `Microsoft.AspNetCore.Blazor.HttpClient` 基于 `HttpClient` 和[system.object](https://www.nuget.org/packages/System.Text.Json/)。
 

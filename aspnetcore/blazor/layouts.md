@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 51720af8fec5b4427fc66660eb8ac9c54ba2e99e
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 8e7294f6b66d34781473522a71f929ed5f9c33f2
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159854"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213371"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor 布局 ASP.NET Core
 
@@ -66,7 +66,7 @@ ms.locfileid: "76159854"
 
 以下 *_Imports*文件导入：
 
-* `MyCoolLayout`。
+* `MyCoolLayout` 列中的一个值匹配。
 * 同一文件夹和所有子文件夹中的所有 Razor 组件。
 * `BlazorApp1.Data` 命名空间。
  
@@ -94,7 +94,7 @@ ms.locfileid: "76159854"
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>使用集成组件共享 Razor Pages 布局
 
-当可路由组件集成到 Razor Pages 的应用时，应用的共享布局可用于组件。 有关更多信息，请参见<xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps>。
+当可路由组件集成到 Razor Pages 的应用时，应用的共享布局可用于组件。 有关详细信息，请参阅 <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps>。
 
 ## <a name="additional-resources"></a>其他资源
 

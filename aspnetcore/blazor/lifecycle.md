@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146363"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213384"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -27,7 +27,7 @@ Blazor 框架包括同步和异步生命周期方法。 重写生命周期方法
 
 ### <a name="component-initialization-methods"></a>组件初始化方法
 
-当组件从其父组件收到其初始参数后，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*>。 当组件执行异步操作时，请使用 `OnInitializedAsync`，并在操作完成时进行刷新。 仅在第一次实例化组件时，才会调用这些方法一次。
+当组件从其父组件收到其初始参数后，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*>。 当组件执行异步操作时，请使用 `OnInitializedAsync`，并在操作完成时进行刷新。
 
 对于同步操作，请重写 `OnInitialized`：
 
@@ -46,6 +46,15 @@ protected override async Task OnInitializedAsync()
     await ...
 }
 ```
+
+Blazor Server apps 预[呈现其内容](xref:blazor/hosting-model-configuration#render-mode)调用 `OnInitializedAsync` **_两次_** ：
+
+* 作为页的一部分，最初以静态方式呈现组件时。
+* 第二次当浏览器与服务器建立连接时。
+
+若要防止 `OnInitializedAsync` 中的开发人员代码运行两次，请参阅预[呈现后](#stateful-reconnection-after-prerendering)的有状态重新连接部分。
+
+在预呈现 Blazor 服务器应用时，某些操作（如调用 JavaScript）不可能，因为尚未建立与浏览器的连接。 在预呈现时，组件可能需要以不同的方式呈现。 有关详细信息，请参阅[检测应用程序何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
 ### <a name="before-parameters-are-set"></a>设置参数之前
 
@@ -183,3 +192,67 @@ protected override bool ShouldRender()
 ## <a name="handle-errors"></a>处理错误
 
 有关在执行生命周期方法期间处理错误的信息，请参阅 <xref:blazor/handle-errors#lifecycle-methods>。
+
+## <a name="stateful-reconnection-after-prerendering"></a>预呈现后有状态重新连接
+
+当 `RenderMode` `ServerPrerendered`时，在 Blazor Server 应用程序中，最初以页面的形式呈现组件。 一旦浏览器与服务器建立了连接，该组件将*再次*呈现，并且该组件现在是交互式的。 如果存在用于初始化组件的[OnInitialized {Async}](xref:blazor/lifecycle#component-initialization-methods)生命周期方法，则将执行*两次*此方法：
+
+* 如果组件预呈现静态，则为。
+* 建立服务器连接之后。
+
+这可能会导致在最终呈现组件时，UI 中显示的数据发生显著变化。
+
+若要避免 Blazor 服务器应用中出现双重渲染方案：
+
+* 传入一个标识符，该标识符可用于在预呈现期间缓存状态并在应用重新启动后检索状态。
+* 在预呈现期间使用标识符以保存组件状态。
+* 在预呈现后使用标识符检索缓存状态。
+
+下面的代码演示基于模板的 Blazor 服务器应用中的更新 `WeatherForecastService`，可避免双重呈现：
+
+```csharp
+public class WeatherForecastService
+{
+    private static readonly string[] _summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+        "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+    
+    public WeatherForecastService(IMemoryCache memoryCache)
+    {
+        MemoryCache = memoryCache;
+    }
+    
+    public IMemoryCache MemoryCache { get; }
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    {
+        return MemoryCache.GetOrCreateAsync(startDate, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = 
+                    TimeSpan.FromSeconds(30)
+            });
+
+            var rng = new Random();
+
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = _summaries[rng.Next(_summaries.Length)]
+            }).ToArray();
+        });
+    }
+}
+```
+
+有关 `RenderMode`的详细信息，请参阅 <xref:blazor/hosting-model-configuration#render-mode>。
+
+## <a name="detect-when-the-app-is-prerendering"></a>检测预呈现应用的时间
+
+[!INCLUDE[](~/includes/blazor-prerendering.md)]
