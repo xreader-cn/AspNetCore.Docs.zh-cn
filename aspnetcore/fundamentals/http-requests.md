@@ -5,14 +5,14 @@ description: 了解如何将 IHttpClientFactory 接口用于管理 ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/16/2019
+ms.date: 02/09/2020
 uid: fundamentals/http-requests
-ms.openlocfilehash: 9b9da82191a587be0603ee114562e9a964f05250
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 93b75525e8a3f10c4e0b655baaff83c0f6e8131b
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870393"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171803"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -109,7 +109,12 @@ ms.locfileid: "76870393"
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
-使用 DI 将类型客户端注册为暂时客户端。 可以直接插入或使用类型化客户端：
+使用 DI 将类型客户端注册为暂时客户端。 在上述代码中，`AddHttpClient` 将 `GitHubService` 注册为暂时性服务。 此注册使用工厂方法执行以下操作：
+
+1. 创建 `HttpClient` 的实例。
+1. 创建 `GitHubService` 的实例，将 `HttpClient` 的实例传入其构造函数。
+
+可以直接插入或使用类型化客户端：
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Pages/TypedClient.cshtml.cs?name=snippet1&highlight=11-14,20)]
 
@@ -364,7 +369,7 @@ public class ValuesController : ControllerBase
 
 * 客户端在出站请求中包含配置的标头：
 
-  ```C#
+  ```csharp
   var client = clientFactory.CreateClient("MyForwardingClient");
   var response = client.GetAsync(...);
   ```
@@ -991,7 +996,7 @@ public class ValuesController : ControllerBase
 
 * 客户端在出站请求中包含配置的标头：
 
-  ```C#
+  ```csharp
   var client = clientFactory.CreateClient("MyForwardingClient");
   var response = client.GetAsync(...);
   ```

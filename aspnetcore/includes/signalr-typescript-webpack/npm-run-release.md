@@ -7,7 +7,7 @@ npm run release
 Webpack 完成了以下任务：
 
 * 清除了 wwwroot 目录的内容  。
-* 将 TypeScript 转换为 JavaScript，该过程称为“转译”  .
+* 将 TypeScript 转换为 JavaScript，该过程称为“转译”  。
 * 破坏生成的 JavaScript 以降低文件大小，该过程称为“缩小”  。
 * 将已处理的 JavaScript、CSS 和 HTML 文件从 src 复制到 wwwroot 目录   。
 * 将以下元素注入 wwwroot/index.html 文件  ：

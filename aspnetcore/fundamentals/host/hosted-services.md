@@ -5,14 +5,14 @@ description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/05/2020
+ms.date: 02/10/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 6a88e56afc4fb1b4f673c362f83d948eda84b930
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 9b7224c07df027c9466db34dcc23505410893f1f
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044888"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171793"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -166,6 +166,10 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 已在 `IHostBuilder.ConfigureServices` (*Program.cs*) 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册托管服务：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet3)]
+
+已在 `Program.Main` 中启动 `MontiorLoop`：
+
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet4)]
 
 ::: moniker-end
 
