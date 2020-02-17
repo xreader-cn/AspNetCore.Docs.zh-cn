@@ -17,13 +17,13 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 01/17/2020
 ms.locfileid: "76159984"
 ---
-# <a name="debug-aspnet-core-opno-locblazor"></a>调试 ASP.NET Core Blazor
+# <a name="debug-aspnet-core-opno-locblazor"></a>调试 ASP.NET Core [!OP.NO-LOC(Blazor)]
 
 [Daniel Roth](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-对于使用基于 Chromium 的浏览器中的浏览器开发工具（Chrome/Edge）调试 Blazor WebAssembly，存在*早期*支持。 正在进行的工作：
+对于使用基于 Chromium 的浏览器中的浏览器开发工具（Chrome/Microsoft Edge）调试 [!OP.NO-LOC(Blazor)] WebAssembly，存在*早期*支持。 正在进行的工作：
 
 * 在 Visual Studio 中完全启用调试。
 * 在 Visual Studio Code 中启用调试。
@@ -60,10 +60,10 @@ ms.locfileid: "76159984"
 > [!WARNING]
 > Visual Studio 中的调试支持在开发的早期阶段。 当前不支持**F5**调试。
 
-1. 在不进行调试的情况下，在 `Debug` 配置中运行 Blazor WebAssembly 应用（**Ctrl**+**f5** ，而不是按**f5**）。
+1. 在不进行调试的情况下，在 `Debug` 配置中运行 [!OP.NO-LOC(Blazor)] WebAssembly 应用（**Ctrl**+**f5** ，而不是按**f5**）。
 1. 打开应用程序的 "调试" 属性（"**调试**" 菜单中的 "最后一项"），然后复制 "HTTP**应用程序 URL**"。 使用基于 Chromium 的浏览器（边缘 Beta 版或 Chrome）浏览到应用的 HTTP 地址（而非 HTTPS 地址）。
 1. 将键盘焦点置于浏览器窗口中，而不是开发人员工具面板中。 最好将此过程的 "开发人员工具" 面板保持为关闭状态。 调试开始后，你可以重新打开 "开发人员工具" 面板。
-1. 选择以下特定于 Blazor的键盘快捷方式：
+1. 选择以下特定于 [!OP.NO-LOC(Blazor)]的键盘快捷方式：
 
    * Windows 上的 `Shift+Alt+D`
    * macOS 上的 `Shift+Cmd+D`
@@ -76,7 +76,7 @@ ms.locfileid: "76159984"
 
    2。 将键盘焦点置于浏览器窗口中的应用程序上。
 
-   3。 在新的浏览器窗口中选择特定于 Blazor的键盘快捷方式： `Shift+Alt+D` 在 Windows 上，或在 macOS 上的 "`Shift+Cmd+D`"。
+   3。 在新的浏览器窗口中选择特定于 [!OP.NO-LOC(Blazor)]的键盘快捷方式： `Shift+Alt+D` 在 Windows 上，或在 macOS 上的 "`Shift+Cmd+D`"。
 
    4 \。 " **DevTools** " 选项卡将在浏览器中打开。 **在浏览器窗口中重新选择应用的选项卡。**
 
@@ -84,10 +84,10 @@ ms.locfileid: "76159984"
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-1. 通过将 `--configuration Debug` 选项传递到[dotnet run](/dotnet/core/tools/dotnet-run)命令，在 `Debug` 配置中运行 Blazor WebAssembly 应用： `dotnet run --configuration Debug`。
+1. 通过将 `--configuration Debug` 选项传递到[dotnet run](/dotnet/core/tools/dotnet-run)命令，在 `Debug` 配置中运行 [!OP.NO-LOC(Blazor)] WebAssembly 应用： `dotnet run --configuration Debug`。
 1. 在 shell 窗口中显示的 HTTP URL 处导航到应用。
 1. 将键盘焦点置于应用上，而不是开发人员工具面板上。 最好将此过程的 "开发人员工具" 面板保持为关闭状态。 调试开始后，你可以重新打开 "开发人员工具" 面板。
-1. 选择以下特定于 Blazor的键盘快捷方式：
+1. 选择以下特定于 [!OP.NO-LOC(Blazor)]的键盘快捷方式：
 
    * Windows 上的 `Shift+Alt+D`
    * macOS 上的 `Shift+Cmd+D`
@@ -100,7 +100,7 @@ ms.locfileid: "76159984"
 
    2。 将键盘焦点置于浏览器窗口中，而不是开发人员工具面板中。
 
-   3。 在新的浏览器窗口中选择特定于 Blazor的键盘快捷方式： `Shift+Alt+D` 在 Windows 上，或在 macOS 上的 "`Shift+Cmd+D`"。
+   3。 在新的浏览器窗口中选择特定于 [!OP.NO-LOC(Blazor)]的键盘快捷方式： `Shift+Alt+D` 在 Windows 上，或在 macOS 上的 "`Shift+Cmd+D`"。
 
 ---
 
