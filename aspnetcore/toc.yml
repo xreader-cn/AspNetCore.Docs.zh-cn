@@ -297,18 +297,20 @@
           uid: blazor/components
         - name: 生命周期
           uid: blazor/lifecycle
-        - name: 窗体和验证
-          uid: blazor/forms-validation
-        - name: 组件库
-          uid: blazor/class-libraries
         - name: 布局
           uid: blazor/layouts
+        - name: 窗体和验证
+          uid: blazor/forms-validation
         - name: 依赖关系注入
           uid: blazor/dependency-injection
         - name: 路由
           uid: blazor/routing
         - name: JavaScript 互操作
           uid: blazor/javascript-interop
+        - name: 托管模型配置
+          uid: blazor/hosting-model-configuration
+        - name: 组件库
+          uid: blazor/class-libraries
         - name: 安全和标识
           items:
             - name: 概述
