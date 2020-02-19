@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 9efd49bb246a10c4eb49fb1bb0374ae9442d55a1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 43f3abfa4bc311ed246f6f2585d522661e492039
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172628"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447147"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
 
@@ -52,7 +52,7 @@ ms.locfileid: "77172628"
 
 ::: moniker-end
 
-## <a name="require-https"></a>需要 HTTPS
+## <a name="require-https"></a>要求使用 HTTPS
 
 建议将生产 ASP.NET Core web 应用使用：
 
@@ -150,7 +150,7 @@ ms.locfileid: "77172628"
 
 部署到 Azure App Service 时，请按照[教程：将现有的自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)中的指导进行操作。
 
-### <a name="options"></a>Options
+### <a name="options"></a>选项
 
 以下突出显示的代码调用[AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)来配置中间件选项：
 
@@ -237,7 +237,7 @@ public void ConfigureServices(IServiceCollection services)
 * 浏览器存储域的配置，阻止通过 HTTP 发送任何通信。 浏览器强制通过 HTTPS 进行的所有通信。
 * 浏览器阻止用户使用不受信任或无效的证书。 浏览器将禁用允许用户暂时信任此类证书的提示。
 
-由于 HSTS 是由客户端强制执行的，因此它有一些限制：
+由于 HSTS 是由客户端强制执行的，因此存在一些限制：
 
 * 客户端必须支持 HSTS。
 * HSTS 需要至少一个成功的 HTTPS 请求才能建立 HSTS 策略。
@@ -259,9 +259,9 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 由于 HSTS 设置由浏览器高度缓存，因此不建议在开发中使用。 `UseHsts` 默认情况下，`UseHsts` 会排除本地环回地址。
 
-对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS 最大期限值;常用值为一年。
+对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS `max-age` 值;常用值为一年。
 
-下面的代码：
+以下代码：
 
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -277,9 +277,9 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 ::: moniker-end
 
 
-* 设置严格传输安全标头的预载参数。 预加载不属于[RFC HSTS 规范](https://tools.ietf.org/html/rfc6797)，但 web 浏览器支持在全新安装时预加载 HSTS 站点。 有关详细信息，请参阅 [https://hstspreload.org/](https://hstspreload.org/)。
+* 设置 `Strict-Transport-Security` 标头的预载参数。 预加载不属于[RFC HSTS 规范](https://tools.ietf.org/html/rfc6797)，但 web 浏览器支持在全新安装时预加载 HSTS 站点。 有关详细信息，请参阅 [https://hstspreload.org/](https://hstspreload.org/)。
 * 启用[includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2)，这会将 HSTS 策略应用到托管子域。
-* 将严格传输安全标头的最大有效期参数显式设置为60天。 如果未设置，则默认值为30天。 有关详细信息，请参阅[最大期限指令](https://tools.ietf.org/html/rfc6797#section-6.1.1)。
+* 将 `Strict-Transport-Security` 标头的 `max-age` 参数显式设置为60天。 如果未设置，则默认值为30天。 有关详细信息，请参阅[最大期限指令](https://tools.ietf.org/html/rfc6797#section-6.1.1)。
 * 将 `example.com` 添加到要排除的主机列表。
 
 `UseHsts` 排除以下环回主机：
@@ -294,7 +294,7 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 选择退出 HTTPS/HSTS：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 取消选中 "**为 HTTPS 配置**" 复选框。
 
@@ -311,9 +311,9 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 ::: moniker-end
 
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
 
-使用 `--no-https` 选项。 例如
+使用 `--no-https` 选项。 例如：
 
 ```dotnetcli
 dotnet new webapp --no-https
@@ -325,7 +325,7 @@ dotnet new webapp --no-https
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>信任 Windows 和 macOS 上的 ASP.NET Core HTTPS 开发证书
 
-.NET Core SDK 包含 HTTPS 开发证书。 此证书作为首次运行体验的一部分进行安装。 例如，`dotnet --info` 生成类似于以下内容的输出：
+.NET Core SDK 包含 HTTPS 开发证书。 此证书作为首次运行体验的一部分进行安装。 例如，`dotnet --info` 生成以下输出的变体：
 
 ```
 ASP.NET Core
@@ -336,7 +336,7 @@ For establishing trust on other platforms refer to the platform specific documen
 For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
 ```
 
-安装 .NET Core SDK 会将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储。 已安装证书，但该证书不受信任。 若要信任证书，请执行一次性步骤以运行 dotnet `dev-certs` 工具：
+安装 .NET Core SDK 会将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储。 已安装证书，但该证书不受信任。 若要信任该证书，请执行一次性步骤以运行 dotnet `dev-certs` 工具：
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -404,7 +404,7 @@ dotnet dev-certs https --trust
 * 打开密钥链访问。
 * 选择系统密钥链。
 * 检查是否存在 localhost 证书。
-* 检查它是否在图标上包含 `+` 符号，以指示所有用户的信任。
+* 检查它是否在图标上包含 `+` 符号，以指示其对所有用户都是受信任的。
 * 从系统密钥链中删除证书。
 * 运行以下命令：
 

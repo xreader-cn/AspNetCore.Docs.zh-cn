@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 280daa86510d4445c791b6952653122961f13aeb
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608140"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447277"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -218,7 +218,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*>**之前**调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点不会应用默认值。
+> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 之前调用  **创建的终结点将不会应用默认值。** <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*>
 
 ### <a name="iis"></a>IIS
 
@@ -236,19 +236,26 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 
 ### <a name="use-certificate-authentication-in-azure-web-apps"></a>在 Azure Web 应用中使用证书身份验证
 
+Azure 不需要转发配置。 此设置已在证书转发中间件中进行设置。
+
+> [!NOTE]
+> 这要求存在 CertificateForwardingMiddleware。
+
+### <a name="use-certificate-authentication-in-custom-web-proxies"></a>在自定义 web 代理中使用证书身份验证
+
 `AddCertificateForwarding` 方法用于指定：
 
 * 客户端标头名称。
 * 如何加载证书（使用 `HeaderConverter` 属性）。
 
-在 Azure Web 应用中，证书将作为名为 `X-ARR-ClientCert`的自定义请求标头传递。 若要使用它，请在 `Startup.ConfigureServices`中配置证书转发：
+在自定义 web 代理中，证书作为自定义请求标头（例如 `X-SSL-CERT`）传递。 若要使用它，请在 `Startup.ConfigureServices`中配置证书转发：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddCertificateForwarding(options =>
     {
-        options.CertificateHeader = "X-ARR-ClientCert";
+        options.CertificateHeader = "X-SSL-CERT";
         options.HeaderConverter = (headerValue) =>
         {
             X509Certificate2 clientCertificate = null;
@@ -326,46 +333,80 @@ namespace AspNetCoreCertificateAuthApi
 }
 ```
 
-#### <a name="implement-an-httpclient-using-a-certificate"></a>使用证书实现 HttpClient
+#### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a>使用证书和 HttpClientHandler 实现 HttpClient
 
-Web API 客户端使用 `HttpClient`，这是使用 `IHttpClientFactory` 实例创建的。 这并不提供为 `HttpClient`定义处理程序的方法，因此使用 `HttpRequestMessage` 将证书添加到 `X-ARR-ClientCert` 请求标头。 使用 `GetRawCertDataString` 方法将证书添加为字符串。 
+HttpClientHandler 可以直接添加到 HttpClient 类的构造函数中。 创建 HttpClient 的实例时应格外小心。 然后，HttpClient 将随每个请求发送证书。
 
 ```csharp
-private async Task<JsonDocument> GetApiDataAsync()
+private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 {
-    try
+    var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+    var handler = new HttpClientHandler();
+    handler.ClientCertificates.Add(cert);
+    var client = new HttpClient(handler);
+     
+    var request = new HttpRequestMessage()
     {
-        // Do not hardcode passwords in production code
-        // Use thumbprint or key vault
-        var cert = new X509Certificate2(
-            Path.Combine(_environment.ContentRootPath, 
-                "sts_dev_cert.pfx"), "1234");
-        var client = _clientFactory.CreateClient();
-        var request = new HttpRequestMessage()
-        {
-            RequestUri = new Uri("https://localhost:44379/api/values"),
-            Method = HttpMethod.Get,
-        };
-
-        request.Headers.Add("X-ARR-ClientCert", cert.GetRawCertDataString());
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var data = JsonDocument.Parse(responseContent);
-
-            return data;
-        }
-
-        throw new ApplicationException(
-            $"Status code: {response.StatusCode}, " +
-            $"Error: {response.ReasonPhrase}");
-    }
-    catch (Exception e)
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
     {
-        throw new ApplicationException($"Exception {e}");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
     }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+}
+```
+
+#### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a>使用证书和 IHttpClientFactory 中的命名 HttpClient 实现 HttpClient 
+
+在下面的示例中，使用处理程序中的 ClientCertificates 属性将客户端证书添加到 HttpClientHandler 中。 然后，可以使用 ConfigurePrimaryHttpMessageHandler 方法在 HttpClient 的命名实例中使用此处理程序。 这是在 ConfigureServices 方法中的 Startup 类中设置的。
+
+```csharp
+var clientCertificate = 
+    new X509Certificate2(
+      Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+ 
+var handler = new HttpClientHandler();
+handler.ClientCertificates.Add(clientCertificate);
+ 
+services.AddHttpClient("namedClient", c =>
+{
+}).ConfigurePrimaryHttpMessageHandler(() => handler);
+```
+
+然后，可以使用 IHttpClientFactory 通过处理程序和证书获取命名实例。 使用 Startup 类中定义的客户端名称的 CreateClient 方法来获取实例。 可根据需要使用客户端发送 HTTP 请求。
+
+```csharp
+private readonly IHttpClientFactory _clientFactory;
+ 
+public ApiService(IHttpClientFactory clientFactory)
+{
+    _clientFactory = clientFactory;
+}
+ 
+private async Task<JsonDocument> GetApiDataWithNamedClient()
+{
+    var client = _clientFactory.CreateClient("namedClient");
+ 
+    var request = new HttpRequestMessage()
+    {
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
+    {
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
+    }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
 }
 ```
 

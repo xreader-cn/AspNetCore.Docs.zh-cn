@@ -5,17 +5,17 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/04/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 0da0d83a4fde7b753a84bf05d3a9284776f2881f
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: f9b4eab29fafe8113528062f57d28dadd0f57577
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213345"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447095"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -23,7 +23,7 @@ ms.locfileid: "77213345"
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（UI）块，如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻型。 它们可以嵌套、重复使用和在项目之间共享。
+使用*组件*构建 Blazor 应用。 组件是自包含的用户界面（UI）块，如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻型。 它们可以嵌套、重复使用和在项目之间共享。
 
 ## <a name="component-classes"></a>组件类
 
@@ -49,7 +49,7 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 }
 ```
 
-最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后，Blazor 将新的呈现树与上一个树进行比较，并将所有修改应用于浏览器的文档对象模型（DOM）。
+最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新的呈现树与上一个树进行比较，并将所有修改应用于浏览器的文档对象模型（DOM）。
 
 组件是普通C#类，可以放置在项目中的任何位置。 生成网页的组件通常位于*Pages*文件夹中。 非页组件通常放置在*共享*文件夹中或添加到项目的自定义文件夹中。
 
@@ -66,55 +66,9 @@ Blazor 应用是使用*组件*生成的。 组件是自包含的用户界面（U
 @using BlazorApp.Components
 ```
 
-## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>将组件集成到 Razor Pages 和 MVC 应用
-
-Razor 组件可集成到 Razor Pages 和 MVC 应用。 呈现页面或视图时，组件可以同时预呈现。
-
-若要准备 Razor Pages 或 MVC 应用以承载 Razor 组件，请按照将*razor 组件集成到 <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> 文章的 Razor Pages 和 MVC 应用程序*部分中的指导进行操作。
-
-当使用自定义文件夹来保存应用程序的组件时，将表示文件夹的命名空间添加到页面/视图或 *_ViewImports.* # 文件中。 在下例中：
-
-* 将 `MyAppNamespace` 更改为应用的命名空间。
-* 如果未使用名为 "*组件*" 的文件夹来保存组件，请将 `Components` 更改为组件所在的文件夹。
-
-```csharp
-@using MyAppNamespace.Components
-```
-
-*_ViewImports*的 Razor Pages 应用的 "*页面*" 文件夹或 MVC 应用的 " *Views* " 文件夹。
-
-若要从页面或视图呈现组件，请使用 `Component` 标记帮助程序：
-
-```cshtml
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-IncrementAmount="10" />
-```
-
-参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，你可以指定 `IncrementAmount` 的值，因为 `IncrementAmount` 的类型为 `int`，这是 JSON 序列化程序支持的基元类型。
-
-`RenderMode` 配置组件是否：
-
-* 已预呈现到页面中。
-* 在页面上呈现为静态 HTML，或者，如果包含从用户代理启动 Blazor 应用所需的信息，则为。
-
-| `RenderMode`        | 说明 |
-| ------------------- | ----------- |
-| `ServerPrerendered` | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| `Server`            | 呈现 Blazor 服务器应用程序的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| `Static`            | 将组件呈现为静态 HTML。 |
-
-尽管页面和视图可以使用组件，但不是这样。 组件不能使用视图和特定于页的方案，如分部视图和节。 若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。
-
-不支持从静态 HTML 页面呈现服务器组件。
-
-有关如何呈现组件、组件状态和 `Component` 标记帮助器的详细信息，请参阅以下文章：
-
-* <xref:blazor/hosting-models>
-* <xref:blazor/hosting-model-configuration>
-
 ## <a name="tag-helpers-arent-used-in-components"></a>标记帮助程序不用于组件
 
-Razor 组件（*razor*文件）不支持[标记帮助](xref:mvc/views/tag-helpers/intro)程序。 若要在 Blazor 中提供类似于标记帮助程序的功能，请创建一个组件，该组件与标记帮助器具有相同的功能，并改用该组件。
+Razor 组件（*razor*文件）不支持[标记帮助](xref:mvc/views/tag-helpers/intro)程序。 若要在 Blazor中提供标记帮助程序的功能，请创建一个组件，其功能与标记帮助程序相同，并改为使用该组件。
 
 ## <a name="use-components"></a>使用组件
 
@@ -132,33 +86,49 @@ Razor 组件（*razor*文件）不支持[标记帮助](xref:mvc/views/tag-helper
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
-如果某个组件包含一个 HTML 元素，该元素的首字母大写字母与组件名称不匹配，则会发出警告，指示该元素具有意外的名称。 添加组件命名空间的 `@using` 语句使组件可用，从而消除了警告。
+如果某个组件包含一个 HTML 元素，该元素的首字母大写字母与组件名称不匹配，则会发出警告，指示该元素具有意外的名称。 添加组件命名空间的 `@using` 指令使组件可用，从而解决了此警告。
 
-## <a name="component-parameters"></a>组件参数
+## <a name="routing"></a>路由
+
+可以通过为应用中的每个可访问组件提供路由模板来实现 Blazor 中的路由。
+
+编译具有 `@page` 指令的 Razor 文件时，将为生成的类指定 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板的。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现哪个组件包含与请求的 URL 匹配的路由模板。
+
+```razor
+@page "/ParentComponent"
+
+...
+```
+
+有关详细信息，请参阅 <xref:blazor/routing>。
+
+## <a name="parameters"></a>parameters
+
+### <a name="route-parameters"></a>路由参数
+
+组件可以接收 `@page` 指令中提供的路由模板中的路由参数。 路由器使用路由参数来填充相应的组件参数。
+
+*Pages/RouteParameter*：
+
+[!code-razor[](components/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
+
+不支持可选参数，因此在前面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令接收 `{text}` 路由参数，并将该值分配给 `Text` 属性。
+
+*捕获所有*参数语法（`*`/`**`），该语法跨多个文件夹边界捕获路径，而 razor 组件（*razor*）**不**支持此语法。
+
+### <a name="component-parameters"></a>组件参数
 
 组件可以具有*组件参数*，这些参数是使用组件类上的公共属性和 `[Parameter]` 特性定义的。 使用这些属性在标记中为组件指定参数。
 
 *组件/ChildComponent*：
 
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
 
 在下面的示例应用程序示例中，`ParentComponent` 设置 `ChildComponent`的 `Title` 属性的值。
 
 *Pages/ParentComponent*：
 
-```razor
-@page "/ParentComponent"
-
-<h1>Parent-child example</h1>
-
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
-
-...
-```
+[!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 ## <a name="child-content"></a>子内容
 
@@ -177,19 +147,7 @@ Razor 组件（*razor*文件）不支持[标记帮助](xref:mvc/views/tag-helper
 
 *Pages/ParentComponent*：
 
-```razor
-@page "/ParentComponent"
-
-<h1>Parent-child example</h1>
-
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
-
-...
-```
+[!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=7-8)]
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Attribute 展开和任意参数
 
@@ -307,595 +265,6 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 <div extra="10" />
 ```
 
-## <a name="data-binding"></a>数据绑定
-
-对组件和 DOM 元素的数据绑定都是通过[`@bind`](xref:mvc/views/razor#bind)特性来完成的。 下面的示例将 `CurrentValue` 属性绑定到文本框的值：
-
-```razor
-<input @bind="CurrentValue" />
-
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-当文本框失去焦点时，会更新该属性的值。
-
-仅当呈现组件时，才会在 UI 中更新文本框，而不是响应更改属性值。 由于在事件处理程序代码执行后组件会自行呈现，因此在事件处理程序触发后，属性更新*通常*会立即反映在 UI 中。
-
-结合使用 `@bind` 与 `CurrentValue` 属性（`<input @bind="CurrentValue" />`）本质上等效于以下内容：
-
-```razor
-<input value="@CurrentValue"
-    @onchange="@((ChangeEventArgs __e) => CurrentValue = 
-        __e.Value.ToString())" />
-        
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 当用户在文本框中键入内容并更改元素焦点时，将激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更复杂，因为 `@bind` 处理执行类型转换的情况。 原则上，`@bind` 将表达式的当前值与 `value` 属性相关联，并使用注册的处理程序来处理更改。
-
-除了使用 `@bind` 语法处理 `onchange` 事件之外，还可以使用其他事件来绑定属性或字段，方法是使用 `event` 参数（[`@bind-value:event`](xref:mvc/views/razor#bind)）指定[`@bind-value`](xref:mvc/views/razor#bind)属性。 下面的示例将绑定 `oninput` 事件的 `CurrentValue` 属性：
-
-```razor
-<input @bind-value="CurrentValue" @bind-value:event="oninput" />
-
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-与 `onchange`不同，后者会在元素失去焦点时触发，`oninput` 在文本框的值更改时激发。
-
-前面的示例中的 `@bind-value` 将绑定：
-
-* 元素的 `value` 属性的指定表达式（`CurrentValue`）。
-* `@bind-value:event`指定的事件的 change 事件委托。
-
-### <a name="unparsable-values"></a>不可分析值
-
-当用户向数据绑定元素提供无法分析的值时，触发绑定事件时，无法分析的值将自动恢复为其以前的值。
-
-请考虑以下情形：
-
-* `<input>` 元素绑定到 `int` 类型，其初始值为 `123`：
-
-  ```razor
-  <input @bind="MyProperty" />
-
-  @code {
-      [Parameter]
-      public int MyProperty { get; set; } = 123;
-  }
-  ```
-* 用户更新元素的值以便在页面中 `123.45`，并更改元素焦点。
-
-在上述方案中，将元素的值还原为 `123`。 如果拒绝值 `123.45` 以保证 `123`的原始值，则用户将知道其值不被接受。
-
-默认情况下，绑定适用于元素的 `onchange` 事件（`@bind="{PROPERTY OR FIELD}"`）。 使用 `@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` 设置不同的事件。 对于 `oninput` 事件（`@bind-value:event="oninput"`），重新确定会在引入了可分析值的任何击键之后发生。 当以 `int`绑定类型为 `oninput` 事件定位时，将阻止用户键入 `.` 字符。 会立即删除 `.` 字符，因此用户会立即收到仅允许整数的反馈。 在某些情况下，在 `oninput` 事件上恢复该值的情况并不理想，例如当用户应允许清除无法解析的 `<input>` 值时。 替代项包括：
-
-* 不要使用 `oninput` 事件。 使用默认 `onchange` 事件（`@bind="{PROPERTY OR FIELD}"`），其中无效值直到元素失去焦点时才会被还原。
-* 绑定到可为 null 的类型（如 `int?` 或 `string`），并提供自定义逻辑来处理无效项。
-* 使用[窗体验证组件](xref:blazor/forms-validation)，如 `InputNumber` 或 `InputDate`。 窗体验证组件具有用于管理无效输入的内置支持。 窗体验证组件：
-  * 允许用户提供无效输入并在关联的 `EditContext`上收到验证错误。
-  * 在 UI 中显示验证错误，不干扰用户输入其他 webform 数据。
-
-### <a name="globalization"></a>全球化
-
-`@bind` 值的格式设置为显示，并使用当前区域性的规则进行分析。
-
-可以从 <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> 属性访问当前区域性。
-
-[InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture)用于以下字段类型（`<input type="{TYPE}" />`）：
-
-* `date`
-* `number`
-
-上述字段类型：
-
-* 使用其基于浏览器的适当格式规则显示。
-* 不能包含自由格式的文本。
-* 基于浏览器的实现提供用户交互特性。
-
-以下字段类型具有特定的格式要求，Blazor 当前不支持它们，因为它们不受所有主要浏览器的支持：
-
-* `datetime-local`
-* `month`
-* `week`
-
-`@bind` 支持 `@bind:culture` 参数，以提供用于分析值并设置其格式的 <xref:System.Globalization.CultureInfo?displayProperty=fullName>。 使用 `date` 和 `number` 字段类型时，不建议指定区域性。 `date` 和 `number` 具有提供所需区域性的内置 Blazor 支持。
-
-有关如何设置用户的区域性的信息，请参阅[本地化](#localization)部分。
-
-### <a name="format-strings"></a>格式字符串
-
-数据绑定使用[`@bind:format`](xref:mvc/views/razor#bind)<xref:System.DateTime> 格式字符串。 现在不能使用其他格式的表达式，如货币或数字格式。
-
-```razor
-<input @bind="StartDate" @bind:format="yyyy-MM-dd" />
-
-@code {
-    [Parameter]
-    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
-}
-```
-
-在前面的代码中，`<input>` 元素的字段类型（`type`）默认为 `text`。 支持 `@bind:format` 绑定以下 .NET 类型：
-
-* <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName>?
-* <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName>?
-
-`@bind:format` 特性指定要应用于 `<input>` 元素的 `value` 的日期格式。 此格式还用于分析 `onchange` 事件发生时的值。
-
-不建议为 `date` 字段类型指定格式，因为 Blazor 具有对日期进行格式设置的内置支持。 尽管建议，但如果使用 `date` 字段类型提供格式，则仅使用 `yyyy-MM-dd` 日期格式才能正常工作：
-
-```razor
-<input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
-```
-
-### <a name="parent-to-child-binding-with-component-parameters"></a>带有组件参数的父到子绑定
-
-绑定可识别组件参数，其中 `@bind-{property}` 可以将属性值从父组件向下绑定到子组件。 [使用链接绑定部分从子对父绑定](#child-to-parent-binding-with-chained-bind)中介绍了从子级到父级的绑定。
-
-以下子组件（`ChildComponent`）具有 `Year` 组件参数和 `YearChanged` 回调：
-
-```razor
-<h2>Child Component</h2>
-
-<p>Year: @Year</p>
-
-@code {
-    [Parameter]
-    public int Year { get; set; }
-
-    [Parameter]
-    public EventCallback<int> YearChanged { get; set; }
-}
-```
-
-[EventCallback](#eventcallback)部分介绍了 `EventCallback<T>`。
-
-以下父组件使用：
-
-* `ChildComponent`，并将 `ParentYear` 参数从父级绑定到子组件上的 `Year` 参数。
-* `onclick` 事件用于触发 `ChangeTheYear` 方法。 有关详细信息，请参阅[事件处理](#event-handling)部分。
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-<p>ParentYear: @ParentYear</p>
-
-<ChildComponent @bind-Year="ParentYear" />
-
-<button class="btn btn-primary" @onclick="ChangeTheYear">
-    Change Year to 1986
-</button>
-
-@code {
-    [Parameter]
-    public int ParentYear { get; set; } = 1978;
-
-    private void ChangeTheYear()
-    {
-        ParentYear = 1986;
-    }
-}
-```
-
-加载 `ParentComponent` 会生成以下标记：
-
-```html
-<h1>Parent Component</h1>
-
-<p>ParentYear: 1978</p>
-
-<h2>Child Component</h2>
-
-<p>Year: 1978</p>
-```
-
-如果通过在 `ParentComponent`中选择按钮更改了 `ParentYear` 属性的值，则将更新 `ChildComponent` 的 `Year` 属性。 当 `ParentComponent` 重新呈现时，`Year` 的新值将呈现在 UI 中：
-
-```html
-<h1>Parent Component</h1>
-
-<p>ParentYear: 1986</p>
-
-<h2>Child Component</h2>
-
-<p>Year: 1986</p>
-```
-
-`Year` 参数是可绑定的，因为它具有与 `Year` 参数类型相匹配的伴随 `YearChanged` 事件。
-
-按照约定，`<ChildComponent @bind-Year="ParentYear" />` 本质上等同于编写：
-
-```razor
-<ChildComponent @bind-Year="ParentYear" @bind-Year:event="YearChanged" />
-```
-
-通常，可以使用 `@bind-property:event` 特性将属性绑定到相应的事件处理程序。 例如，可以使用以下两个属性将属性 `MyProp` 绑定到 `MyEventHandler`：
-
-```razor
-<MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
-```
-
-### <a name="child-to-parent-binding-with-chained-bind"></a>具有链接绑定的子对父绑定
-
-常见的情况是将数据绑定参数链接到组件输出中的页元素。 此方案称为*链接绑定*，因为多个级别的绑定同时发生。
-
-无法使用页面元素中 `@bind` 语法来实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将 `@bind` 语法与组件的参数一起使用。
-
-以下 `PasswordField` 组件（*self.passwordfield.text*）：
-
-* 将 `<input>` 元素的值设置为 `Password` 属性。
-* 使用[EventCallback](#eventcallback)向父组件公开 `Password` 属性的更改。
-* 使用 `onclick` 事件来触发 `ToggleShowPassword` 方法。 有关详细信息，请参阅[事件处理](#event-handling)部分。
-
-```razor
-<h1>Child Component</h2>
-
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-@code {
-    private bool _showPassword;
-
-    [Parameter]
-    public string Password { get; set; }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-`PasswordField` 组件用于另一个组件：
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-<PasswordField @bind-Password="_password" />
-
-@code {
-    private string _password;
-}
-```
-
-对上述示例中的密码执行检查或陷阱错误：
-
-* 为 `Password` 创建支持字段（在下面的示例代码中`_password`）。
-* 在 `Password` 资源库中执行检查或陷阱错误。
-
-如果密码的值中使用了空格，则以下示例向用户提供即时反馈：
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-<span class="text-danger">@_validationMessage</span>
-
-@code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
-
-    [Parameter]
-    public string Password
-    {
-        get { return _password ?? string.Empty; }
-        set
-        {
-            if (_password != value)
-            {
-                if (value.Contains(' '))
-                {
-                    _validationMessage = "Spaces not allowed!";
-                }
-                else
-                {
-                    _password = value;
-                    _validationMessage = string.Empty;
-                }
-            }
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-### <a name="radio-buttons"></a>单选按钮
-
-有关绑定到窗体中的单选按钮的详细信息，请参阅 <xref:blazor/forms-validation#work-with-radio-buttons>。
-
-## <a name="event-handling"></a>事件处理
-
-Razor 组件提供事件处理功能。 对于名为 `on{EVENT}` 的 HTML 元素特性（例如，`onclick` 和 `onsubmit`）与委托类型的值，Razor 组件将属性值视为事件处理程序。 特性的名称始终[`@on{EVENT}`](xref:mvc/views/razor#onevent)格式。
-
-当在 UI 中选择该按钮时，以下代码将调用 `UpdateHeading` 方法：
-
-```razor
-<button class="btn btn-primary" @onclick="UpdateHeading">
-    Update heading
-</button>
-
-@code {
-    private void UpdateHeading(MouseEventArgs e)
-    {
-        ...
-    }
-}
-```
-
-下面的代码在 UI 中的复选框发生更改时调用 `CheckChanged` 方法：
-
-```razor
-<input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
-
-@code {
-    private void CheckChanged()
-    {
-        ...
-    }
-}
-```
-
-事件处理程序也可以是异步的，并返回 <xref:System.Threading.Tasks.Task>。 无需手动调用[StateHasChanged](xref:blazor/lifecycle#state-changes)。 异常在发生时进行记录。
-
-在下面的示例中，当选择按钮时，将异步调用 `UpdateHeading`：
-
-```razor
-<button class="btn btn-primary" @onclick="UpdateHeading">
-    Update heading
-</button>
-
-@code {
-    private async Task UpdateHeading(MouseEventArgs e)
-    {
-        ...
-    }
-}
-```
-
-### <a name="event-argument-types"></a>事件参数类型
-
-对于某些事件，允许使用事件参数类型。 如果不需要访问这些事件类型之一，则方法调用中不需要这样做。
-
-下表显示了支持的 `EventArgs`。
-
-| 事件            | 类                | DOM 事件和说明 |
-| ---------------- | -------------------- | -------------------- |
-| 剪贴板        | `ClipboardEventArgs` | `oncut`、`oncopy`、`onpaste` |
-| 入             | `DragEventArgs`      | `ondrag`、`ondragstart`、`ondragenter`、`ondragleave`、`ondragover`、`ondrop`、`ondragend`<br><br>`DataTransfer` 和 `DataTransferItem` 保存拖动的项数据。 |
-| 错误            | `ErrorEventArgs`     | `onerror` |
-| 事件            | `EventArgs`          | *常规*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*剪贴板*<br>`onbeforecut`、`onbeforecopy`、`onbeforepaste`<br><br>*输入*<br>`oninvalid`、`onreset`、`onselect`、`onselectionchange`、`onselectstart`、`onsubmit`<br><br>*介质*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`、`onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、`onsuspend`、`ontimeupdate`、`onvolumechange`、`onwaiting` |
-| 聚焦            | `FocusEventArgs`     | `onfocus`、`onblur`、`onfocusin`、`onfocusout`<br><br>不包含对 `relatedTarget`的支持。 |
-| 输入            | `ChangeEventArgs`    | `onchange`、`oninput` |
-| 键盘         | `KeyboardEventArgs`  | `onkeydown`、`onkeypress`、`onkeyup` |
-| 鼠标            | `MouseEventArgs`     | `onclick`、`oncontextmenu`、`ondblclick`、`onmousedown`、`onmouseup`、`onmouseover`、`onmousemove`、`onmouseout` |
-| 鼠标指针    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
-| 鼠标滚轮      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
-| 进度         | `ProgressEventArgs`  | `onabort`、`onload`、`onloadend`、`onloadstart`、`onprogress`、`ontimeout` |
-| 触控            | `TouchEventArgs`     | `ontouchstart`、`ontouchend`、`ontouchmove`、`ontouchenter`、`ontouchleave`、`ontouchcancel`<br><br>`TouchPoint` 表示触控相关设备上的单个联系点。 |
-
-有关详细信息，请参阅以下资源：
-
-* [ASP.NET Core 引用源中的 EventArgs 类（dotnet/aspnetcore release/3.1 分支）](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。
-* [MDN web 文档： GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; 包括有关哪些 HTML 元素支持每个 DOM 事件的信息。
-
-### <a name="lambda-expressions"></a>Lambda 表达式
-
-还可以使用 Lambda 表达式：
-
-```razor
-<button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
-```
-
-通常可以很方便地关闭其他值，如在循环访问一组元素时。 下面的示例创建了三个按钮，每个按钮都 `UpdateHeading` 在用户界面中选择时传递事件参数（`MouseEventArgs`）和按钮号（`buttonNumber`）：
-
-```razor
-<h2>@_message</h2>
-
-@for (var i = 1; i < 4; i++)
-{
-    var buttonNumber = i;
-
-    <button class="btn btn-primary"
-            @onclick="@(e => UpdateHeading(e, buttonNumber))">
-        Button #@i
-    </button>
-}
-
-@code {
-    private string _message = "Select a button to learn its position.";
-
-    private void UpdateHeading(MouseEventArgs e, int buttonNumber)
-    {
-        _message = $"You selected Button #{buttonNumber} at " +
-            $"mouse position: {e.ClientX} X {e.ClientY}.";
-    }
-}
-```
-
-> [!NOTE]
-> 不要直接在 lambda 表达式**中使用 `for`** 循环中的循环变量（`i`）。 否则，所有 lambda 表达式都将使用相同的变量，导致 `i`的值在所有 lambda 中都相同。 始终捕获其在本地变量中的值（在前面的示例中为`buttonNumber`），然后使用它。
-
-### <a name="eventcallback"></a>EventCallback
-
-使用嵌套组件的常见方案是，当发生子组件事件时，需要运行父组件的方法&mdash;例如，在子组件发生 `onclick` 事件时。 若要跨组件公开事件，请使用 `EventCallback`。 父组件可将回调方法分配给子组件的 `EventCallback`。
-
-示例应用（*ChildComponent*）中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序，以便从示例的 `ParentComponent`接收 `EventCallback` 委托。 `EventCallback` 是使用 `MouseEventArgs`键入的，这适用于来自外围设备的 `onclick` 事件：
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
-
-`ParentComponent` 将子级的 `EventCallback<T>` （`OnClickCallback`）设置为它的 `ShowMessage` 方法。
-
-*Pages/ParentComponent*：
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent-child example</h1>
-
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
-
-<p><b>@_messageText</b></p>
-
-@code {
-    private string _messageText;
-
-    private void ShowMessage(MouseEventArgs e)
-    {
-        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
-    }
-}
-```
-
-在 `ChildComponent`中选择该按钮时：
-
-* 调用 `ParentComponent`的 `ShowMessage` 方法。 `_messageText` 会更新并显示在 `ParentComponent`中。
-* 回调的方法（`ShowMessage`）中不需要调用[StateHasChanged](xref:blazor/lifecycle#state-changes) 。 `StateHasChanged` 将自动调用以诸如此类 `ParentComponent`，就像子事件在子中执行的事件处理程序中 rerendering。
-
-`EventCallback` 和 `EventCallback<T>` 允许异步委托。 `EventCallback<T>` 为强类型，并且需要特定的参数类型。 `EventCallback` 弱类型化，并允许任何参数类型。
-
-```razor
-<ChildComponent 
-    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
-```
-
-使用 `InvokeAsync` 调用 `EventCallback` 或 `EventCallback<T>`，并等待 <xref:System.Threading.Tasks.Task>：
-
-```csharp
-await callback.InvokeAsync(arg);
-```
-
-使用 `EventCallback` 和 `EventCallback<T>` 进行事件处理和绑定组件参数。
-
-优先使用强类型 `EventCallback<T>` `EventCallback`。 `EventCallback<T>` 向组件用户提供更好的错误反馈。 与其他 UI 事件处理程序类似，指定事件参数是可选的。 当没有值传递到回调时，使用 `EventCallback`。
-
-### <a name="prevent-default-actions"></a>阻止默认操作
-
-使用[`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault)指令特性可防止事件的默认操作。
-
-如果在输入设备上选择了某个键，并且该元素焦点位于某个文本框上，则浏览器通常会在文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令特性来阻止默认行为。 计数器会递增，并且不会将 **+** 键捕获到 `<input>` 元素的值中：
-
-```razor
-<input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
-
-@code {
-    private int _count = 0;
-
-    private void KeyHandler(KeyboardEventArgs e)
-    {
-        if (e.Key == "+")
-        {
-            _count++;
-        }
-    }
-}
-```
-
-在不使用值的情况下指定 `@on{EVENT}:preventDefault` 特性等效于 `@on{EVENT}:preventDefault="true"`。
-
-特性的值还可以是表达式。 在下面的示例中，`_shouldPreventDefault` 是设置为 `true` 或 `false`的 `bool` 字段：
-
-```razor
-<input @onkeypress:preventDefault="_shouldPreventDefault" />
-```
-
-不需要使用事件处理程序来防止默认操作。 可以单独使用事件处理程序和阻止默认操作方案。
-
-### <a name="stop-event-propagation"></a>停止事件传播
-
-使用[`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation)指令特性来停止事件传播。
-
-在下面的示例中，选中此复选框可阻止单击第二个子 `<div>` 中的事件传播到父 `<div>`：
-
-```razor
-<label>
-    <input @bind="_stopPropagation" type="checkbox" />
-    Stop Propagation
-</label>
-
-<div @onclick="OnSelectParentDiv">
-    <h3>Parent div</h3>
-
-    <div @onclick="OnSelectChildDiv">
-        Child div that doesn't stop propagation when selected.
-    </div>
-
-    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="_stopPropagation">
-        Child div that stops propagation when selected.
-    </div>
-</div>
-
-@code {
-    private bool _stopPropagation = false;
-
-    private void OnSelectParentDiv() => 
-        Console.WriteLine($"The parent div was selected. {DateTime.Now}");
-    private void OnSelectChildDiv() => 
-        Console.WriteLine($"A child div was selected. {DateTime.Now}");
-}
-```
-
 ## <a name="capture-references-to-components"></a>捕获对组件的引用
 
 组件引用提供了一种方法来引用组件实例，以便可以向该实例发出命令，如 `Show` 或 `Reset`。 捕获组件引用：
@@ -928,7 +297,7 @@ await callback.InvokeAsync(arg);
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
-Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 此 `SynchronizationContext`上将执行 Blazor 引发的组件[生命周期方法](xref:blazor/lifecycle)和任何事件回调。 如果必须根据外部事件（如计时器或其他通知）更新组件，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的 `SynchronizationContext`。
+Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 在此 `SynchronizationContext`上执行由 Blazor 引发的组件[生命周期方法](xref:blazor/lifecycle)和任何事件回调。 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor的 `SynchronizationContext`。
 
 例如，假设有一个*通告程序服务*可以通知已更新状态的任何侦听组件：
 
@@ -995,11 +364,11 @@ public class NotifierService
 }
 ```
 
-在前面的示例中，`NotifierService` 在 Blazor 的 `SynchronizationContext`之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现器排队。
+在前面的示例中，`NotifierService` 在 Blazor的 `SynchronizationContext`之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现器排队。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>使用 \@键控制是否保留元素和组件
 
-在呈现元素或组件的列表并且元素或组件随后发生变化时，Blazor 的比较算法必须决定哪些之前的元素或组件可以保留，以及模型对象应如何映射到它们。 通常，此过程是自动的，可以忽略，但在某些情况下，您可能需要控制该过程。
+在呈现元素或组件的列表并且元素或组件随后发生变化时，Blazor的比较算法必须决定哪些之前的元素或组件可以保留，以及模型对象应如何映射到它们。 通常，此过程是自动的，可以忽略，但在某些情况下，您可能需要控制该过程。
 
 请考虑以下示例：
 
@@ -1046,7 +415,7 @@ public class NotifierService
 
 通常，每当呈现列表时（例如，在 `@foreach` 块中）和适当的值（用于定义 `@key`），都有必要使用 `@key`。
 
-当对象发生更改时，还可以使用 `@key` 来防止 Blazor 保留元素或组件子树：
+还可以使用 `@key` 来防止 Blazor 在对象发生更改时保留元素或组件子树：
 
 ```razor
 <div @key="currentPerson">
@@ -1054,7 +423,7 @@ public class NotifierService
 </div>
 ```
 
-如果 `@currentPerson` 更改，则 `@key` attribute 指令强制 Blazor 丢弃整个 `<div>` 及其后代，并将 UI 中的子树与新元素和组件重新生成。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
+如果 `@currentPerson` 更改，则 `@key` attribute 指令强制 Blazor 丢弃整个 `<div>` 及其后代，并利用新的元素和组件重新生成 UI 中的子树。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
 
 ### <a name="when-not-to-use-key"></a>何时不使用 \@键
 
@@ -1069,51 +438,7 @@ public class NotifierService
 * 模型对象实例（例如，在前面的示例中，`Person` 实例）。 这可确保基于对象引用相等性保存。
 * 唯一标识符（例如，类型的主键值 `int`、`string`或 `Guid`）。
 
-确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 会引发异常，因为它无法确定将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
-
-## <a name="routing"></a>路由
-
-通过向应用程序中的每个可访问组件提供路由模板，实现 Blazor 中的路由。
-
-编译具有 `@page` 指令的 Razor 文件时，将为生成的类指定 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板的。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现哪个组件包含与请求的 URL 匹配的路由模板。
-
-可以将多个路由模板应用于组件。 以下组件响应 `/BlazorRoute` 和 `/DifferentBlazorRoute`的请求。
-
-*Pages/BlazorRoute*：
-
-```razor
-@page "/BlazorRoute"
-@page "/DifferentBlazorRoute"
-
-<h1>Blazor routing</h1>
-```
-
-## <a name="route-parameters"></a>路由参数
-
-组件可以接收 `@page` 指令中提供的路由模板中的路由参数。 路由器使用路由参数来填充相应的组件参数。
-
-*Pages/RouteParameter*：
-
-```razor
-@page "/RouteParameter"
-@page "/RouteParameter/{text}"
-
-<h1>Blazor is @Text!</h1>
-
-@code {
-    [Parameter]
-    public string Text { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Text = Text ?? "fantastic";
-    }
-}
-```
-
-不支持可选参数，因此在上面的示例中应用了两个 `@page` 指令。 第一个允许导航到没有参数的组件。 第二个 `@page` 指令采用 `{text}` 路由参数，并将该值分配给 `Text` 属性。
-
-*捕获所有*参数语法（`*`/`**`），该语法跨多个文件夹边界捕获路径，而 razor 组件（*razor*）**不**支持此语法。
+确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，Blazor 引发异常，因为它无法确定将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
 
 ## <a name="partial-class-support"></a>分部类支持
 
@@ -1122,7 +447,7 @@ Razor 组件以分部类的形式生成。 使用以下方法之一创作 Razor 
 * C#在一个文件中使用 HTML 标记和 Razor 代码在[`@code`](xref:mvc/views/razor#code)块中定义代码。 Blazor 模板使用此方法来定义其 Razor 组件。
 * C#代码位于定义为分部类的代码隐藏文件中。
 
-下面的示例演示了在 Blazor 模板生成的应用中具有 `@code` 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和C#代码位于同一个文件中：
+下面的示例演示了默认 `Counter` 组件，该组件在 Blazor 模板生成的应用程序中具有 `@code` 块。 HTML 标记、Razor 代码和C#代码位于同一个文件中：
 
 *Counter*：
 
@@ -1311,94 +636,6 @@ HTML 元素特性根据 .NET 值有条件地呈现。 如果值是 `false` 或 `
 }
 ```
 
-## <a name="templated-components"></a>模板化组件
-
-模板化组件是接受一个或多个 UI 模板作为参数的组件，可将其用作组件呈现逻辑的一部分。 模板化组件允许你创作比常规组件更易于使用的更高级别的组件。 几个示例包括：
-
-* 允许用户为表的标头、行和脚注指定模板的表组件。
-* 允许用户在列表中指定用于呈现项的模板的列表组件。
-
-### <a name="template-parameters"></a>模板参数
-
-模板化组件通过指定 `RenderFragment` 或 `RenderFragment<T>`类型的一个或多个组件参数进行定义。 呈现片段表示要呈现的 UI 段。 `RenderFragment<T>` 采用可在调用呈现片段时指定的类型参数。
-
-`TableTemplate` 组件：
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
-
-使用模板化组件时，可以使用与参数名称匹配的子元素（在以下示例中为`TableHeader` 和 `RowTemplate`）指定模板参数：
-
-```razor
-<TableTemplate Items="pets">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate>
-        <td>@context.PetId</td>
-        <td>@context.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-### <a name="template-context-parameters"></a>模板上下文参数
-
-作为元素传递的类型 `RenderFragment<T>` 的组件参数具有一个名为 `context` 的隐式参数（例如，前面的代码示例 `@context.PetId`），但你可以使用子元素上的 `Context` 特性来更改参数名称。 在下面的示例中，`RowTemplate` 元素的 `Context` 特性指定了 `pet` 参数：
-
-```razor
-<TableTemplate Items="pets">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate Context="pet">
-        <td>@pet.PetId</td>
-        <td>@pet.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-或者，您可以在 component 元素上指定 `Context` 特性。 指定的 `Context` 特性适用于所有指定的模板参数。 如果要为隐式子内容指定内容参数名称（不包含任何换行子元素），这会很有用。 在下面的示例中，`Context` 特性显示在 `TableTemplate` 元素上，并应用于所有模板参数：
-
-```razor
-<TableTemplate Items="pets" Context="pet">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate>
-        <td>@pet.PetId</td>
-        <td>@pet.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-### <a name="generic-typed-components"></a>泛型类型化组件
-
-模板化组件通常是通用类型。 例如，泛型 `ListViewTemplate` 组件可用于呈现 `IEnumerable<T>` 值。 若要定义一般组件，请使用[`@typeparam`](xref:mvc/views/razor#typeparam)指令指定类型参数：
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
-
-当使用泛型类型的组件时，将在可能的情况下推断类型参数：
-
-```razor
-<ListViewTemplate Items="pets">
-    <ItemTemplate Context="pet">
-        <li>@pet.Name</li>
-    </ItemTemplate>
-</ListViewTemplate>
-```
-
-否则，必须使用与类型参数的名称匹配的属性显式指定 type 参数。 在下面的示例中，`TItem="Pet"` 指定类型：
-
-```razor
-<ListViewTemplate Items="pets" TItem="Pet">
-    <ItemTemplate Context="pet">
-        <li>@pet.Name</li>
-    </ItemTemplate>
-</ListViewTemplate>
-```
-
 ## <a name="cascading-values-and-parameters"></a>级联值和参数
 
 在某些情况下，使用[组件参数](#component-parameters)将数据从祖先组件流式传输到附属组件是不方便的，尤其是在有多个组件层时。 级联值和参数通过提供一种方便的方法，使上级组件为其所有子代组件提供值。 级联值和参数还提供了一种方法来协调组件。
@@ -1573,7 +810,7 @@ public class ThemeInfo
 @<{HTML tag}>...</{HTML tag}>
 ```
 
-下面的示例演示如何在组件中直接指定 `RenderFragment` 和 `RenderFragment<T>` 值以及呈现模板。 呈现片段还可以作为参数传递给[模板化组件](#templated-components)。
+下面的示例演示如何在组件中直接指定 `RenderFragment` 和 `RenderFragment<T>` 值以及呈现模板。 呈现片段还可以作为参数传递给[模板化组件](xref:blazor/templated-components)。
 
 ```razor
 @_timeTemplate
@@ -1598,277 +835,6 @@ public class ThemeInfo
 
 <p>Pet: Rex</p>
 ```
-
-## <a name="manual-rendertreebuilder-logic"></a>手动 RenderTreeBuilder 逻辑
-
-`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` 提供了用于操作组件和元素的方法，包括在代码C#中手动生成组件。
-
-> [!NOTE]
-> 使用 `RenderTreeBuilder` 创建组件是一种高级方案。 格式不正确的组件（例如，未闭合的标记标记）可能会导致未定义的行为。
-
-请考虑以下 `PetDetails` 组件，该组件可以手动内置到另一个组件中：
-
-```razor
-<h2>Pet Details Component</h2>
-
-<p>@PetDetailsQuote</p>
-
-@code
-{
-    [Parameter]
-    public string PetDetailsQuote { get; set; }
-}
-```
-
-在下面的示例中，`CreateComponent` 方法中的循环生成三个 `PetDetails` 组件。 当调用 `RenderTreeBuilder` 方法来创建组件（`OpenComponent` 和 `AddAttribute`）时，序列号为源代码行号。 Blazor 差异算法依赖于与不同代码行对应的序列号，而不是不同的调用调用。 使用 `RenderTreeBuilder` 方法创建组件时，将序列号的参数硬编码。 **使用计算或计数器生成序列号会导致性能不佳。** 有关详细信息，请参阅 "[序列号与代码行号和非执行顺序相关](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)" 部分。
-
-`BuiltContent` 组件：
-
-```razor
-@page "/BuiltContent"
-
-<h1>Build a component</h1>
-
-@CustomRender
-
-<button type="button" @onclick="RenderComponent">
-    Create three Pet Details components
-</button>
-
-@code {
-    private RenderFragment CustomRender { get; set; }
-    
-    private RenderFragment CreateComponent() => builder =>
-    {
-        for (var i = 0; i < 3; i++) 
-        {
-            builder.OpenComponent(0, typeof(PetDetails));
-            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
-            builder.CloseComponent();
-        }
-    };    
-    
-    private void RenderComponent()
-    {
-        CustomRender = CreateComponent();
-    }
-}
-```
-
-> [!WARNING]
-> `Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这是 Blazor 框架实现的内部详细信息。 这些类型应被视为不*稳定*，并且在将来的版本中可能会更改。
-
-### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不是与执行顺序相关
-
-Blazor `.razor` 文件始终被编译。 这可能对 `.razor` 有很大的优势，因为编译步骤可用于注入在运行时提高应用性能的信息。
-
-这些改进涉及到*序列号*的主要示例。 序列号指示运行时输出来自代码的不同和有序行。 运行时使用此信息以线性时间生成有效的树差异，其速度远快于一般树差异算法通常可以实现的速度。
-
-请考虑以下 Razor 组件（*razor*）文件：
-
-```razor
-@if (someFlag)
-{
-    <text>First</text>
-}
-
-Second
-```
-
-前面的代码编译为类似于下面的内容：
-
-```csharp
-if (someFlag)
-{
-    builder.AddContent(0, "First");
-}
-
-builder.AddContent(1, "Second");
-```
-
-当第一次执行代码时，如果 `true``someFlag`，生成器将接收：
-
-| 序列 | 类型      | 数据   |
-| :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
-
-假设 `someFlag` 成为 `false`，并再次呈现标记。 这次，生成器将接收：
-
-| 序列 | 类型       | 数据   |
-| :------: | ---------- | :----: |
-| 1        | Text 节点  | 秒 |
-
-当运行时执行差异时，它会发现序列 `0` 上的项已被删除，因此它生成以下简单的*编辑脚本*：
-
-* 删除第一个文本节点。
-
-#### <a name="what-goes-wrong-if-you-generate-sequence-numbers-programmatically"></a>如果以编程方式生成序列号，会出现什么错误
-
-假设你编写了以下呈现树生成器逻辑：
-
-```csharp
-var seq = 0;
-
-if (someFlag)
-{
-    builder.AddContent(seq++, "First");
-}
-
-builder.AddContent(seq++, "Second");
-```
-
-现在，第一个输出是：
-
-| 序列 | 类型      | 数据   |
-| :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
-
-此结果与以前的情况相同，因此不存在负面问题。 第二个呈现 `false` `someFlag`，输出为：
-
-| 序列 | 类型      | 数据   |
-| :------: | --------- | ------ |
-| 0        | Text 节点 | 秒 |
-
-这次，比较算法会发现*两个*更改已发生，并且算法将生成以下编辑脚本：
-
-* 将第一个文本节点的值更改为 `Second`。
-* 删除第二个文本节点。
-
-生成序列号会丢失有关原始代码中 `if/else` 分支和循环的位置的所有有用信息。 这会导致**两次**比较，就像以前一样。
-
-这是一个简单的示例。 在具有复杂、深度嵌套结构的更真实的情况下，特别是在循环中，性能开销更严重。 比较算法不必立即确定哪些循环块或分支已插入或删除，而是必须将其深入地递归到呈现树，并且通常会生成更长的编辑脚本，因为它 misinformed 了新的和新的结构彼此关联。
-
-#### <a name="guidance-and-conclusions"></a>指导和结论
-
-* 如果动态生成了序列号，则应用程序性能会受到影响。
-* 框架无法在运行时自动创建自己的序列号，因为所需信息不存在，除非它在编译时捕获。
-* 请勿写入长块手动实现 `RenderTreeBuilder` 逻辑。 首选 `.razor` 文件，并允许编译器处理序列号。 如果无法避免手动 `RenderTreeBuilder` 逻辑，请将长代码块拆分为 `OpenRegion`/`CloseRegion` 调用中的小块。 每个区域都有其自己单独的序列号空间，因此可以从每个区域内的零（或任何其他任意数字）重新启动。
-* 如果对序列号进行硬编码，则 diff 算法只要求序列号的值增加。 初始值和间隙无关。 一个合法选项是将代码行号用作序列号，或从零开始，并按一个或数百个（或任何首选间隔）递增。 
-* Blazor 使用序列号，而其他树比较的 UI 框架不使用序列号。 使用序列号时，比较速度要快得多，Blazor 具有一个编译步骤，该步骤会自动处理序列号，以便为开发人员创作*razor*文件。
-
-## <a name="localization"></a>本地化
-
-使用[本地化中间件](xref:fundamentals/localization#localization-middleware)本地化 Blazor Server 应用。 中间件为从应用程序请求资源的用户选择相应的区域性。
-
-可以使用以下方法之一设置区域性：
-
-* [Cookie](#cookies)
-* [提供用于选择区域性的 UI](#provide-ui-to-choose-the-culture)
-
-有关更多信息和示例，请参阅 <xref:fundamentals/localization>。
-
-### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>为国际化配置链接器（Blazor WebAssembly）
-
-默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>。
-
-### <a name="cookies"></a>Cookie
-
-本地化区域性 cookie 可以保存用户的区域性。 该 cookie 是由应用程序的主机页（*Pages/host. .cs*）的 `OnGet` 方法创建的。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
-
-使用 cookie 可确保 WebSocket 连接可以正确地传播区域性。 如果本地化方案基于 URL 路径或查询字符串，则该方案可能无法与 Websocket 一起使用，因此无法持久保存区域性。 因此，建议使用本地化区域性 cookie。
-
-如果在本地化 cookie 中保留了区域性，则可使用任何方法来分配区域性。 如果应用已建立服务器端 ASP.NET Core 的本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
-
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor Server 应用中创建包含以下内容的*页面/主机 .cs*文件：
-
-```csharp
-public class HostModel : PageModel
-{
-    public void OnGet()
-    {
-        HttpContext.Response.Cookies.Append(
-            CookieRequestCultureProvider.DefaultCookieName,
-            CookieRequestCultureProvider.MakeCookieValue(
-                new RequestCulture(
-                    CultureInfo.CurrentCulture,
-                    CultureInfo.CurrentUICulture)));
-    }
-}
-```
-
-在应用程序中处理本地化：
-
-1. 浏览器将初始 HTTP 请求发送到应用程序。
-1. 区域性由本地化中间件分配。
-1. *_Host*中的 `OnGet` 方法将区域性作为响应的一部分保留在 cookie 中。
-1. 浏览器将打开 WebSocket 连接以创建交互 Blazor 服务器会话。
-1. 本地化中间件读取 cookie 并分配区域性。
-1. Blazor Server 会话以正确的区域性开头。
-
-### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
-
-为了提供允许用户选择区域性的 UI，建议使用*基于重定向的方法*。 此过程类似于用户尝试访问安全资源时在 web 应用中发生的情况，&mdash;用户重定向到登录页，然后重定向回原始资源。 
-
-应用程序通过重定向到控制器来持久保存用户的所选区域性。 控制器将用户选定的区域性设置为 cookie，并将用户重定向回原始 URI。
-
-在服务器上创建一个 HTTP 终结点，以在 cookie 中设置用户的所选区域性，并执行重定向回原始 URI：
-
-```csharp
-[Route("[controller]/[action]")]
-public class CultureController : Controller
-{
-    public IActionResult SetCulture(string culture, string redirectUri)
-    {
-        if (culture != null)
-        {
-            HttpContext.Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(
-                    new RequestCulture(culture)));
-        }
-
-        return LocalRedirect(redirectUri);
-    }
-}
-```
-
-> [!WARNING]
-> 使用 `LocalRedirect` 操作结果可防止开放重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
-
-以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
-
-```razor
-@inject NavigationManager NavigationManager
-
-<h3>Select your language</h3>
-
-<select @onchange="OnSelected">
-    <option>Select...</option>
-    <option value="en-US">English</option>
-    <option value="fr-FR">Français</option>
-</select>
-
-@code {
-    private void OnSelected(ChangeEventArgs e)
-    {
-        var culture = (string)e.Value;
-        var uri = new Uri(NavigationManager.Uri())
-            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
-            $"redirectUri={Uri.EscapeDataString(uri)}";
-
-        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-    }
-}
-```
-
-### <a name="use-net-localization-scenarios-in-opno-locblazor-apps"></a>在 Blazor 应用中使用 .NET 本地化方案
-
-在 Blazor 应用程序中，可以使用以下 .NET 本地化和全球化方案：
-
-* .网络资源系统
-* 区域性特定的数字和日期格式设置
-
-Blazor的 `@bind` 功能基于用户的当前区域性执行全球化。 有关详细信息，请参阅[数据绑定](#data-binding)部分。
-
-目前支持有限的一组 ASP.NET Core 本地化方案：
-
-* Blazor 应用*支持*`IStringLocalizer<>`。
-* `IHtmlLocalizer<>`、`IViewLocalizer<>`和数据批注本地化 ASP.NET Core MVC 方案，但在 Blazor 应用程序中**不受支持**。
-
-有关详细信息，请参阅 <xref:fundamentals/localization>。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形（SVG）图像
 

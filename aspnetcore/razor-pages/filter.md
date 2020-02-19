@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: 了解如何为 ASP.NET Core 中的 Razor 页面创建筛选方法。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 12/28/2019
+ms.date: 2/18/2020
 uid: razor-pages/filter
-ms.openlocfilehash: 02771219454556b236080c2668243f788693b2c1
-ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
+ms.openlocfilehash: a60b17685c6f836de7c0afcc5b89a9894fb8b28f
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/29/2019
-ms.locfileid: "75542717"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447226"
 ---
 # <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面的筛选方法
 
@@ -30,7 +30,7 @@ Razor 页面筛选器：
 * 无法应用于特定的页面处理程序方法。
 * 可以具有通过[依赖关系注入](xref:fundamentals/dependency-injection)（DI）填充的构造函数依赖项。 有关详细信息，请参阅[ServiceFilterAttribute](/aspnet/core/mvc/controllers/filters#servicefilterattribute)和[TypeFilterAttribute](/aspnet/core/mvc/controllers/filters#typefilterattribute)。
 
-可以在处理程序方法使用页构造函数或中间件执行之前运行代码，但只有 Razor 页面筛选器有权访问 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext>。 筛选器具有 <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 的派生参数，该参数提供对 `HttpContext`的访问。 例如，[实现筛选器属性](#ifa)示例将标头添加到响应中，而使用构造函数或中间件则无法做到这点。
+虽然页构造函数和中间件允许在处理程序方法执行之前执行自定义代码，但只有 Razor 页面筛选器才能够访问 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> 和页面。 中间件可以访问 `HttpContext`，但不能访问 "页面上下文"。 筛选器具有 <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 的派生参数，该参数提供对 `HttpContext`的访问。 例如，[实现筛选器属性](#ifa)示例将标头添加到响应中，而使用构造函数或中间件则无法做到这点。
 
 [查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -57,7 +57,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 在前面的代码中，`ProcessUserAgent.Write` 是用户提供的与用户代理字符串一起使用的代码。
 
-以下代码启用 `Startup` 类中的 `SampleAsyncPageFilter`：
+以下代码启用 `SampleAsyncPageFilter` 类中的 `Startup`：
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Startup.cs?name=snippet2)]
 
@@ -91,7 +91,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Pages/Movies/Test.cshtml.cs)]
 
-使用浏览器开发人员工具等工具来检查标头。 在 "**响应标头**" 下，将显示 `author: Rick`。
+使用浏览器开发人员工具等工具来检查标头。 在响应标头下，将显示`author: Rick`。
 
 有关重写顺序的说明，请参阅[重写默认顺序](xref:mvc/controllers/filters#overriding-the-default-order)。
 
@@ -149,7 +149,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 在前面的代码中，[ILogger](/dotnet/api/microsoft.extensions.logging.ilogger?view=aspnetcore-2.0) 不是必需的。 它在示例中用于提供应用程序的跟踪信息。
 
-以下代码启用 `Startup` 类中的 `SampleAsyncPageFilter`：
+以下代码启用 `SampleAsyncPageFilter` 类中的 `Startup`：
 
 [!code-csharp[Main](filter/sample/PageFilter/Startup.cs?name=snippet2&highlight=11)]
 

@@ -5,17 +5,17 @@ description: 了解如何为 Blazor 应用创建可重用的布局组件。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 8e7294f6b66d34781473522a71f929ed5f9c33f2
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213371"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447134"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor 布局 ASP.NET Core
 
@@ -23,7 +23,7 @@ ms.locfileid: "77213371"
 
 某些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并由应用中的每个组件使用。 将这些元素的代码复制到应用程序的所有组件中不是一种有效的方法&mdash;每次元素需要更新时，必须更新每个组件。 此类复制很难维护，并且可能会在一段时间后导致内容不一致。 *布局*解决了此问题。
 
-从技术上讲，布局只是另一个组件。 布局在 Razor 模板或代码中C#定义，可以使用[数据绑定](xref:blazor/components#data-binding)、[依赖关系注入](xref:blazor/dependency-injection)和其他组件方案。
+从技术上讲，布局只是另一个组件。 布局在 Razor 模板或代码中C#定义，可以使用[数据绑定](xref:blazor/data-binding)、[依赖关系注入](xref:blazor/dependency-injection)和其他组件方案。
 
 若要将*组件*转换为*布局*，请执行以下操作：
 
@@ -94,7 +94,7 @@ ms.locfileid: "77213371"
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>使用集成组件共享 Razor Pages 布局
 
-当可路由组件集成到 Razor Pages 的应用时，应用的共享布局可用于组件。 有关详细信息，请参阅 <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps>。
+当可路由组件集成到 Razor Pages 的应用时，应用的共享布局可用于组件。 有关详细信息，请参阅 <xref:blazor/integrate-components>。
 
 ## <a name="additional-resources"></a>其他资源
 

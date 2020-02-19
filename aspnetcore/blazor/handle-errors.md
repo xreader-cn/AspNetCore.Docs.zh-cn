@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core 如何 Blazor 如何 Blazor 管理未经处理�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: b987513e5410e95ab632b9935d858b648838d94f
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 7191ae50d64ebd6a9b23b391116aedf3a6d01de2
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928273"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447017"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -87,9 +87,9 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>使用永久性提供程序记录错误
 
-如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，使用控制台日志记录提供程序 Blazor 应用日志输出到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关更多信息，请参见<xref:fundamentals/logging/index>。
+如果发生未处理的异常，则会将异常记录到在服务容器中配置 <xref:Microsoft.Extensions.Logging.ILogger> 实例。 默认情况下，使用控制台日志记录提供程序 Blazor 应用日志输出到控制台输出。 请考虑使用管理日志大小和日志轮换的提供程序，将日志记录到更永久性的位置。 有关详细信息，请参阅 <xref:fundamentals/logging/index>。
 
-在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关更多信息，请参见<xref:fundamentals/error-handling>。
+在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，默认情况下禁用浏览器控制台中的详细错误，这意味着不会将错误发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling>。
 
 您必须确定要记录的事件以及记录事件的严重性级别。 恶意用户可能会特意触发错误。 例如，请勿记录一个错误，其中显示产品详细信息的组件 URL 中提供了未知 `ProductId`。 不是所有的错误都应视为日志记录的高严重性事件。
 
@@ -190,7 +190,7 @@ Blazor 将最未经处理的异常视为致命的异常，并将其出现在线�
 
 您可以选择在 .NET 端或方法调用的 JavaScript 端使用错误处理代码。
 
-有关更多信息，请参见<xref:blazor/javascript-interop>。
+有关详细信息，请参阅 <xref:blazor/javascript-interop>。
 
 ### <a name="opno-locblazor-server-circuit-handlers"></a>Blazor Server 线路处理程序
 
@@ -285,7 +285,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树根逻辑
 
-大多数 Blazor 组件都作为*razor*文件实现，并且编译为生成可对 `RenderTreeBuilder` 进行操作以呈现其输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关更多信息，请参见<xref:blazor/components#manual-rendertreebuilder-logic>。
+大多数 Blazor 组件都作为*razor*文件实现，并且编译为生成可对 `RenderTreeBuilder` 进行操作以呈现其输出的逻辑。 开发人员可以使用过程C#代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 使用手动渲染树生成器逻辑被视为一种高级不安全的方案，不建议用于常规组件开发。
