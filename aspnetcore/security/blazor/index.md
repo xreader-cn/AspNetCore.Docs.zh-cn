@@ -5,17 +5,17 @@ description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 02/13/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: c7b3788b5737073100e7fa449fd6bb4a83c0043a
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: c07ffdbd5df58d6b3d19a5d75ce224d830101eac
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114882"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447420"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -42,7 +42,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 创建项目后，Blazor 服务器项目模板可以为你设置身份验证。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 按照 <xref:blazor/get-started> 一文中的 Visual Studio 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
@@ -57,7 +57,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 * **工作或学校帐户**
 * **Windows 身份验证**
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按照 <xref:blazor/get-started> 一文中的 Visual Studio Code 指南操作，创建具有身份验证机制的新 Blazor 服务器项目。
 
@@ -139,7 +139,7 @@ Blazor 服务器应用包含一个内置 `AuthenticationStateProvider` 服务，
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<button @onclick="@LogUsername">Write user info to console</button>
+<button @onclick="LogUsername">Write user info to console</button>
 
 @code {
     private async Task LogUsername()
@@ -222,7 +222,7 @@ public class Program
 ```razor
 @page "/"
 
-<button @onclick="@LogUsername">Log username</button>
+<button @onclick="LogUsername">Log username</button>
 
 @code {
     [CascadingParameter]
@@ -253,6 +253,8 @@ public class Program
 使用 App.razor  文件中的 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
 
 ```razor
+@using Microsoft.AspNetCore.Components.Authorization
+
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -265,6 +267,13 @@ public class Program
         </CascadingAuthenticationState>
     </NotFound>
 </Router>
+```
+
+将服务选项和授权添加到 `Program.Main`：
+
+```csharp
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
 ```
 
 ## <a name="authorization"></a>授权
