@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core 托管和部署 Blazor Server 应�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/17/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: e8b3a7faaf1dc88059a79abbc7e74657ebb2068c
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: a051d51e734fec4315da73d3c4df57706df7f363
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726728"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77465818"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -59,7 +59,7 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
 
 我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 此外，SignalR 服务的全球覆盖和高性能数据中心可帮助显著减少由于地理位置造成的延迟。 若要配置应用（并选择性地预配），Azure SignalR 服务应：
 
-1. 启用该服务以支持粘滞会话  ，在此情况下，客户端在[预呈现时被重定向回同一服务器](xref:blazor/hosting-models#reconnection-to-the-same-server)。 将 `ServerStickyMode` 选项或配置值设置为 `Required`。 通常，应用使用下述方法之一创建配置  ：
+1. 启用该服务以支持粘滞会话  ，在此情况下，客户端在[预呈现时被重定向回同一服务器](xref:blazor/hosting-models#connection-to-the-server)。 将 `ServerStickyMode` 选项或配置值设置为 `Required`。 通常，应用使用下述方法之一创建配置  ：
 
    * `Startup.ConfigureServices`：
   

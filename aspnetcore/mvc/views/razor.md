@@ -3,14 +3,14 @@ title: ASP.NET Core 的 Razor 语法参考
 author: rick-anderson
 description: 了解 Razor 标记语法，该语法用于将基于服务器的代码嵌入网页中。
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 0b1eed2816329d62fca4bdb5719825a4197af353
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171856"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447173"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -719,13 +719,13 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 此方案仅适用于 Razor 组件 (.razor)。 
 
-组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/components#data-binding>。
+组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/data-binding>。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
 此方案仅适用于 Razor 组件 (.razor)。 
 
-Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components#event-handling>。
+Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/event-handling>。
 
 ::: moniker-end
 
@@ -763,7 +763,7 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 
 此方案仅适用于 Razor 组件 (.razor)。 
 
-`@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/components#generic-typed-components>。
+`@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/templated-components#generic-typed-components>。
 
 ::: moniker-end
 

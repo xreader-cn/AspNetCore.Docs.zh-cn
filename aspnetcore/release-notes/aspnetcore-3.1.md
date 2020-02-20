@@ -4,17 +4,17 @@ author: rick-anderson
 description: 了解 ASP.NET Core 3.1 的新增功能。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 06c1d2596bff34bbfe3b55e782ea2d24321dd839
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: f375022ad3ebdea2990f626320ef295926f88c22
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722747"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447433"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
 
@@ -43,7 +43,7 @@ Blazor 服务器应用现可在初始呈现期间将参数传递给顶级组件�
     param-IncrementAmount="10" />
 ```
 
-有关详细信息，请参阅[将组件集成到 Razor 页面和 MVC 应用](xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps)。
+有关详细信息，请参阅[将组件集成到 Razor 页面和 MVC 应用](xref:blazor/integrate-components)。
 
 ## <a name="support-for-shared-queues-in-httpsys"></a>HTTP.sys 中对共享队列的支持
 
@@ -63,7 +63,7 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 ```
 
-有关详细信息，请参阅[阻止默认操作](xref:blazor/components#prevent-default-actions)。
+有关详细信息，请参阅[阻止默认操作](xref:blazor/event-handling#prevent-default-actions)。
 
 ## <a name="stop-event-propagation-in-opno-locblazor-apps"></a>在 Blazor 应用中停止事件传播
 
@@ -83,7 +83,7 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 }
 ```
 
-有关详细信息，请参阅[停止事件传播](xref:blazor/components#stop-event-propagation)。
+有关详细信息，请参阅[停止事件传播](xref:blazor/event-handling#stop-event-propagation)。
 
 ## <a name="detailed-errors-during-opno-locblazor-app-development"></a>Blazor 应用开发过程中的错误详细信息
 
