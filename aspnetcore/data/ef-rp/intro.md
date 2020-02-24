@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 01e507326ddd57057aa178ad3909fd4027a013fd
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 1a9d83be9180b1d32ab941932eb3cab8612dff01
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259372"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213397"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -19,19 +19,19 @@ ms.locfileid: "72259372"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本文是系列教程的第一篇，这些教程展示如何在 [ASP.NET Core Razor Pages](xref:razor-pages/index) 应用中使用 Entity Framework (EF) Core。 这些教程为虚构的 Contoso University 生成一个网站。 网站包括学生录取、课程创建和讲师分配等功能。
+本文是系列教程的第一篇，这些教程展示如何在 [ASP.NET Core Razor Pages](xref:razor-pages/index) 应用中使用 Entity Framework (EF) Core。 这些教程为虚构的 Contoso University 生成一个网站。 网站包括学生录取、课程创建和讲师分配等功能。 本教程使用代码优先方法。 有关使用数据库优先方法学习本教程的信息，请参阅[此 Github 问题](https://github.com/aspnet/AspNetCore.Docs/issues/16897)。
 
 [下载或查看已完成的应用。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * 如果不熟悉 Razor Pages，则在开始前，请浏览 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)系列教程。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[VS prereqs](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[VS Code prereqs](~/includes/net-core-prereqs-vsc-3.0.md)]
 
@@ -61,7 +61,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 单击页面顶部的链接，获取已完成项目的源代码。 “cu30”文件夹中有本教程的 ASP.NET Core 3.0 版本的代码  。 在“cu30snapshots”文件夹中可以找到反映教程 1-7 代码状态的文件  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 若要在下载完成的项目之后运行应用，请执行以下操作：
 
@@ -75,7 +75,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 * 运行项目，设定数据库种子。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 若要在下载完成的项目之后运行应用，请执行以下操作：
 
@@ -103,14 +103,14 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 ## <a name="create-the-web-app-project"></a>创建 Web 应用项目
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”    。
+* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 * 选择“ASP.NET Core Web 应用程序”  。
 * 将该项目命名为 ContosoUniversity  。 请务必使用此名称（含大写），确保在复制和粘贴代码时与命名空间相匹配。
 * 在下拉列表中选择“.NET Core”和“ASP.NET Core 3.0”，然后选择“Web 应用程序”    。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 在终端中，导航到应在其中创建项目文件夹的文件夹。
 
@@ -206,11 +206,11 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * EF Core 上下文类  。 上下文是为给定数据模型协调实体框架功能的主类。 它派生自 `Microsoft.EntityFrameworkCore.DbContext` 类。
 * Razor 页面可处理 `Student` 实体的创建、读取、更新和删除 (CRUD) 操作。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“Pages”文件夹中创建“Students”文件夹   。
 * 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹，然后选择“添加”>“新搭建基架的项目”     。
-* 在“添加基架”对话框中，选择“使用实体框架生成 Razor Pages (CRUD)”>“添加”    。
+* 在“添加基架”  对话框中，依次选择“使用实体框架的 Razor Pages (CRUD)”  >“添加”  。
 * 在“使用实体框架(CRUD)添加 Razor Pages”对话框中  ：
   * 在“模型类”下拉列表中，选择“Student (ContosoUniversity.Models)”   。
   * 在“数据上下文类”行中，选择 +（加号）   。
@@ -224,7 +224,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * `Microsoft.Extensions.Logging.Debug`
 * `Microsoft.EntityFrameworkCore.Tools`
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 运行以下 .NET Core CLI 命令，安装所需的 NuGet 包：
 <!-- TO DO  After testing, Replace with
@@ -282,7 +282,7 @@ remove dotnet tool install --global  below
 
 ## <a name="database-connection-string"></a>数据库连接字符串
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 连接字符串指定 [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb)。 
 
@@ -290,7 +290,7 @@ remove dotnet tool install --global  below
 
 LocalDB 是轻型版本 SQL Server Express 数据库引擎，专门针对应用开发，而非生产使用。 默认情况下，LocalDB 会在 `C:/Users/<user>` 目录中创建 .mdf 文件  。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 更改连接字符串以指向名为 CU.db 的 SQLite 数据库文件  ：
 
@@ -323,13 +323,13 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 基架工具自动将上下文类注册到了依赖项注入容器。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 `ConfigureServices` 中，基架添加了突出显示的行：
 
   [!code-csharp[Main](intro/samples/cu30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 在 `ConfigureServices` 中，确保基架所添加的代码调用 `UseSqlite`。
 
@@ -377,9 +377,9 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
   ```csharp
   // context.Database.EnsureCreated();
   DbInitializer.Initialize(context);
-  ````
+  ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 如果应用正在运行，则停止应用，然后在包管理器控制台 (PMC) 中运行以下命令  ：
 
@@ -387,7 +387,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 如果应用正在运行，则停止应用，然后删除 CU.db 文件  。
 
@@ -399,7 +399,7 @@ Drop-Database
 
 ## <a name="view-the-database"></a>查看数据库
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio 中的“视图”菜单打开 SQL Server 对象资源管理器 (SSOX)   。
 * 在 SSOX 中，依次选择“(localdb)\MSSQLLocalDB”>“数据库”>“SchoolContext-{GUID}”  。 数据库名称由之前提供的上下文名称以及短划线和 GUID 组成。
@@ -407,7 +407,7 @@ Drop-Database
 * 右键单击 Student 表，然后单击“查看数据”，以查看创建的列和插入到表中的行   。
 * 右键单击 Student 表，然后单击“查看代码”查看 `Student` 模型如何映射到 `Student` 表架构   。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 使用 SQLite 工具查看数据库架构和已设定种子的数据。 数据库文件名为 CU.db，位于项目文件夹  。
 
@@ -460,13 +460,13 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 [下载或查看已完成的应用。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE [](~/includes/net-core-prereqs-windows.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
@@ -492,16 +492,16 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 ## <a name="create-the-contosouniversity-razor-pages-web-app"></a>创建 ContosoUniversity Razor Pages Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”菜单中，选择“新建”>“项目”    。
+* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 * 创建新的 ASP.NET Core Web 应用程序。 将该项目命名为 ContosoUniversity  。 务必将该项目命名为 ContosoUniversity，以便复制/粘贴代码时命名空间相匹配  。
 * 在下拉列表中选择“ASP.NET Core 2.1”，然后选择“Web 应用程序”   。
 
 有关上述步骤的图像，请参阅[创建 Razor Web 应用](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app)。
 运行应用。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet new webapp -o ContosoUniversity
@@ -588,10 +588,10 @@ dotnet run
 * 生成项目。
 * 创建 Pages/Students 文件夹  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中，右键单击“Pages/Students”文件夹>“添加”>“新搭建基架的项目”     。
-* 在“添加基架”对话框中，选择“使用实体框架生成 Razor Pages (CRUD)”>“添加”    。
+* 在“解决方案资源管理器”  中，右键单击“Pages/Students”  文件夹 >“添加”  >“新搭建基架的项目”  。
+* 在“添加基架”  对话框中，依次选择“使用实体框架的 Razor Pages (CRUD)”  >“添加”  。
 
 完成“使用实体框架(CRUD)添加 Razor Pages”对话框  ：
 
@@ -604,7 +604,7 @@ dotnet run
 
 如果对前面的步骤有疑问，请参阅[搭建“电影”模型的基架](xref:tutorials/razor-pages/model#scaffold-the-movie-model)。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 运行以下命令，搭建“学生”模型的基架。
 
@@ -707,7 +707,7 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet2&highlight=14-15)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 如果应用正在运行，则停止应用，然后在包管理器控制台 (PMC) 中运行以下命令  ：
 
@@ -715,7 +715,7 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 如果应用正在运行，则停止应用，然后删除 CU.db 文件  。
 

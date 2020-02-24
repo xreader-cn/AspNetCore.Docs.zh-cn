@@ -5,14 +5,14 @@ description: 了解如何使用选项模式来表示 ASP.NET Core 应用中的�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/07/2019
+ms.date: 02/12/2020
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 98fe30fbc424dd51ce8f8319b7ce959fd755c480
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: 1f3625380d816c7d4df5a7a24b0ac146500330de
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722734"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447200"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core 中的选项模式
 
@@ -329,7 +329,7 @@ catch (OptionsValidationException e)
 选项验证在选项实例创建后运行。 系统保证在选项实例首次获得访问时通过验证。
 
 > [!IMPORTANT]
-> 选项验证无法防止在最初配置和验证选项后发生选项修改。
+> 选项验证无法防止在创建选项实例后发生选项修改。 例如，在首次访问选项时按请求创建并验证 `IOptionsSnapshot` 选项。 对于同一个请求，在后续访问尝试时不会再次验证 `IOptionsSnapshot` 选项  。
 
 `Validate` 方法接受 `Func<TOptions, bool>`。 若要完全自定义验证，请实现 `IValidateOptions<TOptions>`，它支持：
 
@@ -753,7 +753,7 @@ catch (OptionsValidationException e)
 选项验证在选项实例创建后运行。 系统保证在选项实例首次获得访问时通过验证。
 
 > [!IMPORTANT]
-> 选项验证无法防止在最初配置和验证选项后发生选项修改。
+> 选项验证无法防止在创建选项实例后发生选项修改。 例如，在首次访问选项时按请求创建并验证 `IOptionsSnapshot` 选项。 对于同一个请求，在后续访问尝试时不会再次验证 `IOptionsSnapshot` 选项  。
 
 `Validate` 方法接受 `Func<TOptions, bool>`。 若要完全自定义验证，请实现 `IValidateOptions<TOptions>`，它支持：
 

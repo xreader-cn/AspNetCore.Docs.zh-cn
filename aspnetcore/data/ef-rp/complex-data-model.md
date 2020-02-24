@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 1244b2e23a842538ff2fca01a513317a690afe7c
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 411c0874d2b2c6ecadd1da9aff7a093f1e8e525a
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034034"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213423"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
 
@@ -59,7 +59,7 @@ ms.locfileid: "73034034"
 
 对于学生注册日期，目前所有页面都显示时间和日期，但只有日期是相关的。 使用数据注释特性，可更改一次代码，修复每个页面中数据的显示格式。 
 
-[DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) 特性指定比数据库内部类型更具体的数据类型。 在此情况下，应仅显示日期，而不是日期加时间。 [DataType 枚举](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1)提供多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。应用还可通过 `DataType` 特性自动提供类型特定的功能。 例如:
+[DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) 特性指定比数据库内部类型更具体的数据类型。 在此情况下，应仅显示日期，而不是日期加时间。 [DataType 枚举](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1)提供多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。应用还可通过 `DataType` 特性自动提供类型特定的功能。 例如：
 
 * `mailto:` 链接将依据 `DataType.EmailAddress` 自动创建。
 * 大多数浏览器中都提供面向 `DataType.Date` 的日期选择器。
@@ -99,7 +99,7 @@ ms.locfileid: "73034034"
 [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
 ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在“SQL Server 对象资源管理器”(SSOX) 中，双击 Student 表，打开 Student 表设计器   。
 
@@ -107,7 +107,7 @@ ms.locfileid: "73034034"
 
 上图显示 `Student` 表的架构。 名称字段具有类型 `nvarchar(MAX)`。 在本教程的后续部分创建和应用迁移时，因为字符串的长度特性，名称字段将变为 `nvarchar(50)`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 在 SQLite 工具中检查 `Student` 表的列定义。 名称字段具有类型 `Text`。 请注意，首个名称字段名为 `FirstMidName`。 下一节会将该列的名称更改为 `FirstName`。
 
@@ -157,7 +157,7 @@ public string LastName { get; set; }
 
 运行应用并转到“学生”页。 此时引发异常。 `[Column]` 特性导致 EF 希望查找名为 `FirstName` 的列，但数据库中的列名称仍为 `FirstMidName`。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 错误消息类似于以下示例：
 
@@ -187,7 +187,7 @@ SqlException: Invalid column name 'FirstName'.
 
   执行迁移前，名称列的类型为 [nvarchar (MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql)。 名称列现在的类型为 `nvarchar(50)`。 列名已从 `FirstMidName` 更改为 `FirstName`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 错误消息类似于以下示例：
 
@@ -536,7 +536,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 生成项目。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 PMC 中运行以下命令。
 
@@ -561,7 +561,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 下一节将介绍如何处理此错误。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 如果添加迁移并运行 `database update` 命令，则将生成以下错误：
 
@@ -591,7 +591,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 若要强制 EF Core 创建新的数据库，请删除并更新该数据库：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“包管理器控制台”(PMC) 中运行以下命令  ：
 
@@ -606,7 +606,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
   Update-Database
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开命令窗口并导航到项目文件夹。 项目文件夹包含 ContosoUniversity.csproj 文件  。
 
@@ -627,7 +627,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 运行应用。 运行应用后将运行 `DbInitializer.Initialize` 方法。 `DbInitializer.Initialize` 将填充新数据库。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 SSOX 中打开数据库：
 
@@ -643,7 +643,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
   ![SSOX 中的 CourseAssignment 数据](complex-data-model/_static/ssox-ci-data.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 使用 SQLite 工具检查数据库：
 
@@ -691,7 +691,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 * 包含用于将 `Department` 行和相关 `Course` 行添加到新 `Department` 行的代码或脚本。
 * 不会使用“临时”系或 `Course.DepartmentID` 的默认值。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“包管理器控制台”(PMC) 中运行以下命令  ：
 
@@ -701,7 +701,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 由于 `DbInitializer.Initialize` 方法仅适用于空数据库，因此请使用 SSOX 删除 Student 表和 Course 表中的所有行。 （级联删除将负责 Enrollment 表。）
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 如果在 Visual Studio Code 中使用 SQL Server LocalDB，请运行以下命令：
 
@@ -749,7 +749,7 @@ https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
-[DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) 特性指定比数据库内部类型更具体的数据类型。 在此情况下，应仅显示日期，而不是日期加时间。 [DataType 枚举](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1)提供多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。应用还可通过 `DataType` 特性自动提供类型特定的功能。 例如:
+[DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) 特性指定比数据库内部类型更具体的数据类型。 在此情况下，应仅显示日期，而不是日期加时间。 [DataType 枚举](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1)提供多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。应用还可通过 `DataType` 特性自动提供类型特定的功能。 例如：
 
 * `mailto:` 链接将依据 `DataType.EmailAddress` 自动创建。
 * 大多数浏览器中都提供面向 `DataType.Date` 的日期选择器。
@@ -821,7 +821,7 @@ https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 
 添加 `Column` 特性后，`SchoolContext` 的支持模型会发生改变。 `SchoolContext` 的支持模型将不再与数据库匹配。 如果在执行迁移前运行应用，则会生成如下异常：
 
-```SQL
+```
 SqlException: Invalid column name 'FirstName'.
 ```
 
@@ -830,14 +830,14 @@ SqlException: Invalid column name 'FirstName'.
 * 生成项目。
 * 在项目文件夹中打开命令窗口。 输入以下命令以创建新迁移并更新数据库：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-```PMC
+```powershell
 Add-Migration ColumnFirstName
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ColumnFirstName
@@ -1244,13 +1244,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 生成项目。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```powershell
 Add-Migration ComplexDataModel
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ComplexDataModel
@@ -1286,18 +1286,18 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 已更新 `DbInitializer` 中的代码将为新实体添加种子数据。 若要强制 EF Core 创建新的 DB，请删除并更新 DB：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在“包管理器控制台”(PMC) 中运行以下命令  ：
 
-```PMC
+```powershell
 Drop-Database
 Update-Database
 ```
 
 从 PMC 运行 `Get-Help about_EntityFrameworkCore`，获取帮助信息。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 打开命令窗口并导航到项目文件夹。 项目文件夹包含 Startup.cs 文件  。
 
@@ -1358,7 +1358,7 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
 
-经过上面的更改，`Course` 行将在 `ComplexDataModel` `Up` 方法运行后与“临时”系建立联系。
+经过上面的更改，现有的 `Course` 行将在 `ComplexDataModel` `Up` 方法运行后与“临时”院系建立联系。
 
 生产应用可能：
 
