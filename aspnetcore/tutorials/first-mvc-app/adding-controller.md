@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
 ms.openlocfilehash: fb670902b0dafa7dce2b3372e550095387844936
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914241"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650772"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>将控制器添加到 ASP.NET Core MVC 应用
 
@@ -32,7 +32,7 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 ## <a name="add-a-controller"></a>添加控制器
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
   ![上下文菜单](adding-controller/_static/add_controller.png)  
@@ -43,13 +43,13 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 * 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”    。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs    。
 
   ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。  
 ![上下文菜单](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
@@ -146,7 +146,7 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 ## <a name="add-a-controller"></a>添加控制器
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”中，右键单击“控制器”，然后单击“添加”>“控制器”
   ![上下文菜单](adding-controller/_static/add_controller.png)  
@@ -157,13 +157,13 @@ MVC 模式可帮助创建分隔不同应用特性（输入逻辑、业务逻辑�
 
 * 在“添加空 MVC 控制器”对话框中，输入 HelloWorldController 并选择“ADD”    。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 选择“EXPLORER”图标，然后按住 Control 并单击（右键单击）“控制器”，选择“新建文件”，然后将新文件命名为 HelloWorldController.cs    。
 
   ![上下文菜单](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 在“解决方案资源管理器”中，右键单击“控制器”，选择“添加”>“新文件”。  
 ![上下文菜单](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)

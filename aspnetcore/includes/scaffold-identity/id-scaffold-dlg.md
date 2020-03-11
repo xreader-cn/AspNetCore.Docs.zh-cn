@@ -1,15 +1,15 @@
 运行标识 scaffolder：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从**解决方案资源管理器**，右键单击该项目 >**添加** > **新基架项**。
-* 从左窗格**添加基架**对话框中，选择**标识** > **添加**。
+* 在**解决方案资源管理器**中，右键单击项目 >**添加** > 新的**基架项**。
+* 在 "**添加基架**" 对话框的左窗格中，选择 "**标识**" > "**添加**"。
 * 在 "**添加标识**" 对话框中，选择所需的选项。
   * 选择现有的布局页，否则将用错误的标记覆盖你的布局文件。 例如 `~/Pages/Shared/_Layout.cshtml` Razor Pages MVC 项目的 `~/Views/Shared/_Layout.cshtml`
-  * 选择 **+** 按钮以创建一个新**数据上下文类**。
-* 选择**添加**。
+  * 选择 " **+** " 按钮以创建新的**数据上下文类**。
+* 选择 "**添加**"。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 

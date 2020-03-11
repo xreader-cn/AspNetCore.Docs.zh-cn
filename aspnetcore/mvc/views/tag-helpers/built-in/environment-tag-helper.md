@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-ms.openlocfilehash: e2e038fe69da696b67f7aef61795e23dc8512fdf
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
-ms.translationtype: HT
+ms.openlocfilehash: 308e7db47104ebd4d6bb8d08c64f14bbd118898b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856133"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653766"
 ---
 # <a name="environment-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的环境标记帮助程序
 
-作者：[Peter Kellner](https://peterkellner.net)、[Hisham Bin Ateya](https://twitter.com/hishambinateya) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Peter Kellner](https://peterkellner.net) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
 
 环境标记帮助程序根据当前[宿主环境](xref:fundamentals/environments)，有条件地呈现其包含的内容。 环境标记帮助程序的单个属性 `names` 是以逗号分隔的环境名称列表。 任何提供的环境名称与当前环境匹配时，都会呈现包含的内容。
 
@@ -23,13 +23,13 @@ ms.locfileid: "67856133"
 
 ## <a name="environment-tag-helper-attributes"></a>环境标记帮助程序属性
 
-### <a name="names"></a>名称
+### <a name="names"></a>姓名
 
 `names` 采用单个宿主环境名称或以逗号分隔的宿主环境名称列表，用于触发已包含内容的呈现。
 
 将环境值与 [ IHostingEnvironment.EnvironmentName ](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName*) 返回的当前值进行比较。 比较不区分大小写。
 
-下面的示例使用环境标记帮助程序。 如果宿主环境是暂存或生产，则呈现内容：
+下面的示例使用图像标记帮助程序。 如果宿主环境是暂存或生产，则呈现内容：
 
 ```cshtml
 <environment names="Staging,Production">
@@ -41,7 +41,7 @@ ms.locfileid: "67856133"
 
 ## <a name="include-and-exclude-attributes"></a>include 和 exclude 属性
 
-`include` & `exclude` 属性基于已包括或已排除的宿主环境名称，控制已包含内容的呈现。
+`include` & `exclude` 特性控件基于包含或已排除的宿主环境名称呈现包含的内容。
 
 ### <a name="include"></a>include
 
@@ -55,7 +55,7 @@ ms.locfileid: "67856133"
 
 ### <a name="exclude"></a>exclude
 
-与 `include` 属性相反，当托管环境与 `exclude` 属性值中列出的环境不匹配时，将呈现 `<environment>` 标记的内容。
+与 `include` 属性相反，当托管环境与 `<environment>` 属性值中列出的环境不匹配时，将呈现 `exclude` 标记的内容。
 
 ```cshtml
 <environment exclude="Development">

@@ -1,18 +1,18 @@
 ---
 title: 使用 Apache 在 Linux 上托管 ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: 了解如何在 CentOS 上将 Apache 设置为反向代理服务器，以将 HTTP 流量重定向到在 Kestrel 上运行的 ASP.NET Core Web 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: f522c54fdc584845f18040bae1b2a2bda36d28fa
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 3a3edd961b08c1952e6ded8038ed7ada381c54b0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044844"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646638"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -323,7 +323,7 @@ rich rules:
 
 配置应用，以进行安全的 (HTTPS) 本地连接 
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001; http://localhost:5000`）提供的 URL  。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL  。
 
 使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
 

@@ -9,26 +9,26 @@ ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: a9583c9d6df52ff81a402df03e663ccc3847e51f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146311"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652128"
 ---
-# <a name="aspnet-core-opno-locsignalr-net-client"></a>.NET 客户端 SignalR ASP.NET Core
+# <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR.NET 客户端
 
-.NET 客户端库的 ASP.NET Core SignalR 使你可以从 .NET 应用程序与 SignalR 中心进行通信。
+利用 ASP.NET Core SignalR .NET 客户端库，你可以从 .NET 应用与 SignalR 中心通信。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-本文中的代码示例是使用 .NET 客户端 SignalR ASP.NET Core 的 WPF 应用程序。
+这篇文章中的代码示例是使用 ASP.NET Core SignalR.NET 客户端的 WPF 应用。
 
-## <a name="install-the-opno-locsignalr-net-client-package"></a>安装 SignalR .NET 客户端包
+## <a name="install-the-signalr-net-client-package"></a>安装 SignalR .NET 客户端包
 
-[AspNetCore.SignalR。](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)要使 .net 客户端连接到 SignalR 集线器，需要客户端包。
+[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)包是 .net 客户端连接到 SignalR 中心所必需的。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 若要安装客户端库，请在 "**包管理器控制台**" 窗口中运行以下命令：
 
@@ -36,7 +36,7 @@ ms.locfileid: "76146311"
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 若要安装客户端库，请在命令 shell 中运行以下命令：
 

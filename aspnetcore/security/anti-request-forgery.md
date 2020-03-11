@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/anti-request-forgery
-ms.openlocfilehash: 54e153af55f28d9a89bbf16bce1c17f876567b59
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 3da73b8fe3e3d73d5d7754e0642e55feeb785de3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880811"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651774"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
 
@@ -48,7 +48,7 @@ CSRF 攻击的示例：
 
 除最初访问恶意网站外，这些备选方案不需要用户执行任何操作或输入。
 
-使用 HTTPS 不会阻止 CSRF 攻击。 可以发送恶意站点 `https://www.good-banking-site.com/` 请求一样方便它可以发送不安全的请求。
+使用 HTTPS 不会阻止 CSRF 攻击。 恶意站点可以发送 `https://www.good-banking-site.com/` 请求，就像发送不安全请求一样容易。
 
 某些攻击目标是响应 GET 请求的终结点，在这种情况下，可以使用图像标记执行操作。 这种形式的攻击在允许图像但阻止 JavaScript 的论坛站点上很常见。 在 GET 请求上更改状态的应用（其中变量或资源被更改）很容易受到恶意攻击。 **更改状态的 GET 请求是不安全的。最佳做法是从不更改 GET 请求的状态。**
 
@@ -60,7 +60,7 @@ CSRF 攻击的示例：
 
 但是，CSRF 攻击并不局限于利用 cookie。 例如，基本身份验证和摘要式身份验证也容易受到攻击。 用户使用基本或摘要式身份验证登录后，浏览器会自动发送凭据，直到会话&dagger; 结束。
 
-&dagger;在此上下文中， *session*是指在其中对用户进行身份验证的客户端会话。 它是与服务器端会话无关或[ASP.NET Core 会话中间件](xref:fundamentals/app-state)。
+&dagger;在此上下文中， *session*是指在其中对用户进行身份验证的客户端会话。 它与服务器端会话或[ASP.NET Core 会话中间件](xref:fundamentals/app-state)无关。
 
 用户可以采取预防措施来防止 CSRF 漏洞：
 
@@ -79,7 +79,7 @@ CSRF 攻击的示例：
 
 ### <a name="token-based-authentication"></a>基于令牌的身份验证
 
-在对用户进行身份验证时，他们将颁发一个令牌（而不是防伪令牌）。 令牌包含[声明](/dotnet/framework/security/claims-based-identity-model)形式的用户信息或引用令牌，该令牌将应用指向应用中维护的用户状态。 当用户尝试访问要求身份验证的资源时，会将令牌发送到应用程序，并以持有者令牌的形式提供附加的授权标头。 这使应用无状态。 在每个后续请求中，将在请求服务器端验证时传递该令牌。 此标记未*加密*;*编码*。 在服务器上，将解码令牌来访问其信息。 若要在后续请求中发送令牌，请将该令牌存储在浏览器的本地存储中。 如果令牌存储在浏览器的本地存储中，请不要担心 CSRF 漏洞。 如果标记存储在 cookie 中，则需要考虑 CSRF。 有关详细信息，请参阅 GitHub 问题[SPA 代码示例添加两个 cookie](https://github.com/aspnet/AspNetCore.Docs/issues/13369)。
+在对用户进行身份验证时，他们将颁发一个令牌（而不是防伪令牌）。 令牌包含[声明](/dotnet/framework/security/claims-based-identity-model)形式的用户信息或引用令牌，该令牌将应用指向应用中维护的用户状态。 当用户尝试访问要求身份验证的资源时，会将令牌发送到应用程序，并以持有者令牌的形式提供附加的授权标头。 这使应用无状态。 在每个后续请求中，将在请求服务器端验证时传递该令牌。 此标记未*加密*;*编码*。 在服务器上，将解码令牌来访问其信息。 若要在后续请求中发送令牌，请将该令牌存储在浏览器的本地存储中。 如果令牌存储在浏览器的本地存储中，请不要担心 CSRF 漏洞。 如果标记存储在 cookie 中，则需要考虑 CSRF。 有关详细信息，请参阅 GitHub 问题[SPA 代码示例添加两个 cookie](https://github.com/dotnet/AspNetCore.Docs/issues/13369)。
 
 ### <a name="multiple-apps-hosted-at-one-domain"></a>在一个域中托管多个应用
 
@@ -92,7 +92,7 @@ CSRF 攻击的示例：
 ## <a name="aspnet-core-antiforgery-configuration"></a>ASP.NET Core antiforgery 配置
 
 > [!WARNING]
-> ASP.NET Core 实现 antiforgery 使用[ASP.NET Core 数据保护](xref:security/data-protection/introduction)。 必须将数据保护堆栈配置为在服务器场中运行。 有关详细信息，请参阅[配置数据保护](xref:security/data-protection/configuration/overview)。
+> ASP.NET Core 使用[ASP.NET Core 数据保护](xref:security/data-protection/introduction)来实现防伪。 必须将数据保护堆栈配置为在服务器场中运行。 有关详细信息，请参阅[配置数据保护](xref:security/data-protection/configuration/overview)。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -111,7 +111,7 @@ CSRF 攻击的示例：
 
 ::: moniker-end
 
-在 ASP.NET Core 2.0 或更高版本， [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) antiforgery 令牌注入 HTML 窗体元素。 Razor 文件中的以下标记会自动生成防伪标记：
+在 ASP.NET Core 2.0 或更高版本中， [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper)将防伪标记注入 HTML 窗体元素。 Razor 文件中的以下标记会自动生成防伪标记：
 
 ```cshtml
 <form method="post">
@@ -186,7 +186,7 @@ CSRF 攻击的示例：
 <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NrAkS ... s2-m9Yw">
 ```
 
-ASP.NET Core 包括三个[筛选器](xref:mvc/controllers/filters)来处理 antiforgery 令牌：
+ASP.NET Core 包括三个用于处理防伪令牌的[筛选器](xref:mvc/controllers/filters)：
 
 * [ValidateAntiForgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.validateantiforgerytokenattribute)
 * [AutoValidateAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)
@@ -210,7 +210,7 @@ services.AddAntiforgery(options =>
 
 &dagger;使用[CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder)类的属性设置防伪 `Cookie` 属性。
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪 cookie 的设置。 |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
@@ -234,7 +234,7 @@ services.AddAntiforgery(options =>
 });
 ```
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪 cookie 的设置。 |
 | [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Cookie 的域。 默认为 `null`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 |
@@ -316,7 +316,7 @@ ASP.NET Core 应用不生成 antiforgery 令牌进行安全的 HTTP 方法 （GE
 
 * GET
 * HEAD
-* 选项
+* OPTIONS
 * TRACE
 
 建议为非 API 方案广泛使用 `AutoValidateAntiforgeryToken`。 这可确保默认情况下保护后操作。 另一种方法是默认忽略防伪标记，除非将 `ValidateAntiForgeryToken` 应用到各个操作方法。 在这种情况下，更有可能在此方案中，不受错误阻止的 POST 操作方法，使应用容易受到 CSRF 攻击。 所有Post请求都应发送防伪令牌。
@@ -334,10 +334,20 @@ public class ManageController : Controller
 
 全局示例：
 
+::: moniker range="< aspnetcore-3.0"
+
+服务器.Addmvc 以（options = > 选项。Filters。 Add （new AutoValidateAntiforgeryTokenAttribute （）））;
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
 ```csharp
-services.AddMvc(options => 
+services.AddControllersWithViews(options =>
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 ```
+
+::: moniker-end
 
 ### <a name="override-global-or-controller-antiforgery-attributes"></a>重写全局或控制器防伪属性
 
@@ -465,7 +475,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/anti-request-forgery/sample/AngularSample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/anti-request-forgery/sample/AngularSample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="extend-antiforgery"></a>扩展防伪
 

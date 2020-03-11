@@ -1,18 +1,18 @@
 ---
 title: 使用 Nginx 在 Linux 上托管 ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: 了解如何在 Ubuntu 16.04 上将 Nginx 设置为反向代理，从而将 HTTP 流量转发到在 Kestrel 上运行的 ASP.NET Core Web 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 7f17be1d883e8cce375487aa39f4d1ebbe8a95f4
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 320a5364efe85b06028d8e80000e3455bb8ebd18
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044873"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646650"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
@@ -23,7 +23,7 @@ ms.locfileid: "77044873"
 有关 ASP.NET Core 支持的其他 Linux 分配的信息，请参阅 [Linux 上 .NET Core 的先决条件](/dotnet/core/linux-prerequisites)。
 
 > [!NOTE]
->  对于 Ubuntu 14.04，建议进行监控，以此作为监视 Kestrel 进程的解决方案。 在 Ubuntu 14.04 上不提供 systemd  。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/aspnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
+>  对于 Ubuntu 14.04，建议进行监控，以此作为监视 Kestrel 进程的解决方案。 在 Ubuntu 14.04 上不提供 systemd  。 有关 Ubuntu 14.04 的说明，请参阅[本主题的以前版本](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md)。
 
 本指南：
 
@@ -32,7 +32,7 @@ ms.locfileid: "77044873"
 * 确保 Web 应用在启动时作为守护程序运行。
 * 配置进程管理工具以帮助重新启动 Web 应用。
 
-## <a name="prerequisites"></a>必备条件
+## <a name="prerequisites"></a>先决条件
 
 1. 使用具有 sudo 特权的标准用户帐户访问 Ubuntu 16.04 服务器。
 1. 在服务器上安装 .NET Core 运行时。
@@ -350,7 +350,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 配置应用，以进行安全的 (HTTPS) 本地连接 
 
-[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001; http://localhost:5000`）提供的 URL  。
+[dotnet run](/dotnet/core/tools/dotnet-run) 命令使用应用的 Properties/launchSettings.json 文件，该文件将应用配置为侦听 `applicationUrl` 属性（例如 `https://localhost:5001;http://localhost:5000`）提供的 URL  。
 
 使用以下方法之一配置应用，使其在开发过程中将证书用于 `dotnet run` 命令或开发环境（Visual Studio Code 中的 F5 或 Ctrl+F5）：
 
@@ -388,7 +388,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
    ```
 
    添加行 `add_header X-Frame-Options "SAMEORIGIN";`。
-1. 保存文件。
+1. 保存该文件。
 1. 重启 Nginx。
 
 #### <a name="mime-type-sniffing"></a>MIME 类型探查

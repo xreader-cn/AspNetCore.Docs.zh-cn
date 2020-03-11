@@ -9,12 +9,12 @@ ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: f92b56132d0fa55665568416d0760430cb698f8b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294703"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655152"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core 中的安全注意事项 SignalR
 
@@ -42,7 +42,7 @@ ms.locfileid: "76294703"
 However, in 5.0 we have provided an option in the TypeScript client to not use credentials.
 The not to use credentials option should only be used when you know 100% that credentials like Cookies are not needed in your app (cookies are used by azure app service when using multiple servers)
 
-For more info, see https://github.com/aspnet/AspNetCore.Docs/issues/16003
+For more info, see https://github.com/dotnet/AspNetCore.Docs/issues/16003
 .-->
 
 例如，以下 CORS 策略允许 `https://example.com` 上承载的 SignalR 浏览器客户端访问 `https://signalr.example.com`上承载的 SignalR 应用程序：
@@ -108,7 +108,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会：
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet2)]
 
 > [!NOTE]
-> 与 `Referer` 标头一样，`Origin` 标头由客户端控制，并可以伪造。 这些标头**不**应用作身份验证机制。
+> 与 `Origin` 标头一样，`Referer` 标头由客户端控制，并可以伪造。 这些标头**不**应用作身份验证机制。
 
 ::: moniker-end
 
@@ -127,7 +127,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
 
 如果你对将此数据与服务器日志进行日志记录有关，你可以通过将 `Microsoft.AspNetCore.Hosting` 记录器配置到 `Warning` 级别或更高级别来完全禁用此日志记录（这些消息在 `Info` 级别写入）。 有关详细信息，请参阅[日志筛选](xref:fundamentals/logging/index#log-filtering)。 如果仍想记录某些请求信息，可以[编写中间件](xref:fundamentals/middleware/write)来记录所需的数据，并筛选出 `access_token` 查询字符串值（如果存在）。
 
-## <a name="exceptions"></a>异常
+## <a name="exceptions"></a>例外
 
 异常消息通常被视为不应泄露给客户端的敏感数据。 默认情况下，SignalR 不会将集线器方法引发的异常的详细信息发送到客户端。 相反，客户端将收到一条指示出错的一般消息。 向客户端发送的异常消息可以通过[EnableDetailedErrors](xref:signalr/configuration#configure-server-options)重写（例如，在开发或测试中）。 不应在生产应用程序中向客户端公开异常消息。
 

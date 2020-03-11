@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
 ms.openlocfilehash: 49d3d214fd64edc5b17df2df929ddc3c2af47ede
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829265"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654222"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>帐户确认和 ASP.NET Core 中的密码恢复
 
@@ -32,7 +32,7 @@ ms.locfileid: "75829265"
 
 ::: moniker range="> aspnetcore-2.2"
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 [.NET Core 3.0 SDK 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -91,7 +91,7 @@ Successfully saved SendGridUser = RickAndMSFT to the secret store.
 
 安装 `SendGrid` NuGet 包：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 "包管理器控制台" 中，输入以下命令：
 
@@ -99,7 +99,7 @@ Successfully saved SendGridUser = RickAndMSFT to the secret store.
 Install-Package SendGrid
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 在控制台中，输入以下命令：
 
@@ -217,7 +217,7 @@ dotnet add package SendGrid
 
 ::: moniker range="> aspnetcore-2.0 < aspnetcore-3.0"
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 [.NET Core 2.2 SDK 或更高版本](https://www.microsoft.com/net/download/all)
 
@@ -263,7 +263,7 @@ dotnet run
 
 ### <a name="configure-email-provider"></a>配置电子邮件提供程序
 
-在本教程中，使用[SendGrid](https://sendgrid.com)发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 ASP.NET Core 2.x 包括`System.Net.Mail`，这允许你从你的应用程序发送电子邮件。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
+在本教程中，使用[SendGrid](https://sendgrid.com)发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 ASP.NET Core 2.x 包括 `System.Net.Mail`，这允许你从应用发送电子邮件。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
 
 创建一个类以获取安全电子邮件密钥。 对于本示例，请创建*服务/AuthMessageSenderOptions*：
 
@@ -297,7 +297,7 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 
 安装 `SendGrid` NuGet 包：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 "包管理器控制台" 中，输入以下命令：
 
@@ -305,7 +305,7 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 Install-Package SendGrid
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 在控制台中，输入以下命令：
 

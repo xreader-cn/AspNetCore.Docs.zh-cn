@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/java-client
-ms.openlocfilehash: d7143b2c22ecdc4e68f484aa4c244e1c520beae0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6919eabf454f16887e012161a454a4848c45002b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963785"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652212"
 ---
 # <a name="aspnet-core-opno-locsignalr-java-client"></a>Java 客户端 SignalR ASP.NET Core
 
@@ -24,7 +24,7 @@ Java 客户端允许从 Java 代码（包括 Android 应用）连接到 ASP.NET 
 
 本文中引用的示例 Java 控制台应用使用 SignalR Java 客户端。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="install-the-opno-locsignalr-java-client-package"></a>安装 SignalR Java 客户端包
 
@@ -40,7 +40,7 @@ implementation 'com.microsoft.signalr:signalr:1.0.0'
 
 [!code-xml[pom.xml dependency element](java-client/sample/pom.xml?name=snippet_dependencyElement)]
 
-## <a name="connect-to-a-hub"></a>连接到集线器
+## <a name="connect-to-a-hub"></a>连接到中心
 
 若要建立 `HubConnection`，应使用 `HubConnectionBuilder`。 在建立连接时，可以配置中心 URL 和日志级别。 在 `build`之前调用 `HubConnectionBuilder` 方法，配置任何必需的选项。 开始与 `start`的连接。
 
@@ -55,7 +55,7 @@ implementation 'com.microsoft.signalr:signalr:1.0.0'
 > [!NOTE]
 > 如果在*无服务器模式下*使用 Azure SignalR 服务，则无法从客户端调用集线器方法。 有关详细信息，请参阅[SignalR 服务文档](/azure/azure-signalr/signalr-concept-serverless-development-config)。
 
-## <a name="call-client-methods-from-hub"></a>从中心调用客户端方法
+## <a name="call-client-methods-from-hub"></a>从集线器调用客户端方法
 
 使用 `hubConnection.on` 可在客户端上定义中心可调用的方法。 在生成之后但在开始连接之前定义方法。
 
@@ -98,7 +98,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
     })).build();
 ```
 
-## <a name="known-limitations"></a>已知限制
+## <a name="known-limitations"></a>已知的限制
 
 ::: moniker range=">= aspnetcore-3.0"
 
