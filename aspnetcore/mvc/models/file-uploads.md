@@ -1,119 +1,119 @@
 ---
 title: 在 ASP.NET Core 中上传文件
-author: guardrex
+author: rick-anderson
 description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上传文件。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2020
+ms.date: 02/25/2020
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 56fd26c1864089558f5cd89f693dc86ea30c3331
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
-ms.translationtype: HT
+ms.openlocfilehash: fc71c39dd1aa70e6b092799fec00bd7bf66703e8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172463"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654084"
 ---
-# <a name="upload-files-in-aspnet-core"></a><span data-ttu-id="f8fe4-103">在 ASP.NET Core 中上传文件</span><span class="sxs-lookup"><span data-stu-id="f8fe4-103">Upload files in ASP.NET Core</span></span>
+# <a name="upload-files-in-aspnet-core"></a><span data-ttu-id="466cd-103">在 ASP.NET Core 中上传文件</span><span class="sxs-lookup"><span data-stu-id="466cd-103">Upload files in ASP.NET Core</span></span>
 
-<span data-ttu-id="f8fe4-104">作者：[Luke Latham](https://github.com/guardrex)、[Steve Smith](https://ardalis.com/) 和 [Rutger Storm](https://github.com/rutix)</span><span class="sxs-lookup"><span data-stu-id="f8fe4-104">By [Luke Latham](https://github.com/guardrex), [Steve Smith](https://ardalis.com/), and [Rutger Storm](https://github.com/rutix)</span></span>
+<span data-ttu-id="466cd-104">作者： [Steve Smith](https://ardalis.com/)和[Rutger 风暴](https://github.com/rutix)</span><span class="sxs-lookup"><span data-stu-id="466cd-104">By [Steve Smith](https://ardalis.com/) and [Rutger Storm](https://github.com/rutix)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="f8fe4-105">ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓冲的流式传输（针对较大文件）上传一个或多个文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-105">ASP.NET Core supports uploading one or more files using buffered model binding for smaller files and unbuffered streaming for larger files.</span></span>
+<span data-ttu-id="466cd-105">ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓冲的流式传输（针对较大文件）上传一个或多个文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-105">ASP.NET Core supports uploading one or more files using buffered model binding for smaller files and unbuffered streaming for larger files.</span></span>
 
-<span data-ttu-id="f8fe4-106">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-106">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="466cd-106">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="466cd-106">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="security-considerations"></a><span data-ttu-id="f8fe4-107">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-107">Security considerations</span></span>
+## <a name="security-considerations"></a><span data-ttu-id="466cd-107">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-107">Security considerations</span></span>
 
-<span data-ttu-id="f8fe4-108">向用户提供向服务器上传文件的功能时，必须格外小心。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-108">Use caution when providing users with the ability to upload files to a server.</span></span> <span data-ttu-id="f8fe4-109">攻击者可能会尝试执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-109">Attackers may attempt to:</span></span>
+<span data-ttu-id="466cd-108">向用户提供向服务器上传文件的功能时，必须格外小心。</span><span class="sxs-lookup"><span data-stu-id="466cd-108">Use caution when providing users with the ability to upload files to a server.</span></span> <span data-ttu-id="466cd-109">攻击者可能会尝试执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="466cd-109">Attackers may attempt to:</span></span>
 
-* <span data-ttu-id="f8fe4-110">执行[拒绝服务](/windows-hardware/drivers/ifs/denial-of-service)攻击。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-110">Execute [denial of service](/windows-hardware/drivers/ifs/denial-of-service) attacks.</span></span>
-* <span data-ttu-id="f8fe4-111">上传病毒或恶意软件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-111">Upload viruses or malware.</span></span>
-* <span data-ttu-id="f8fe4-112">以其他方式破坏网络和服务器。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-112">Compromise networks and servers in other ways.</span></span>
+* <span data-ttu-id="466cd-110">执行[拒绝服务](/windows-hardware/drivers/ifs/denial-of-service)攻击。</span><span class="sxs-lookup"><span data-stu-id="466cd-110">Execute [denial of service](/windows-hardware/drivers/ifs/denial-of-service) attacks.</span></span>
+* <span data-ttu-id="466cd-111">上传病毒或恶意软件。</span><span class="sxs-lookup"><span data-stu-id="466cd-111">Upload viruses or malware.</span></span>
+* <span data-ttu-id="466cd-112">以其他方式破坏网络和服务器。</span><span class="sxs-lookup"><span data-stu-id="466cd-112">Compromise networks and servers in other ways.</span></span>
 
-<span data-ttu-id="f8fe4-113">降低成功攻击可能性的安全措施如下：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-113">Security steps that reduce the likelihood of a successful attack are:</span></span>
+<span data-ttu-id="466cd-113">降低成功攻击可能性的安全措施如下：</span><span class="sxs-lookup"><span data-stu-id="466cd-113">Security steps that reduce the likelihood of a successful attack are:</span></span>
 
-* <span data-ttu-id="f8fe4-114">将文件上传到专用文件上传区域，最好是非系统驱动器。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-114">Upload files to a dedicated file upload area, preferably to a non-system drive.</span></span> <span data-ttu-id="f8fe4-115">使用专用位置便于对上传的文件实施安全限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-115">A dedicated location makes it easier to impose security restrictions on uploaded files.</span></span> <span data-ttu-id="f8fe4-116">禁用对文件上传位置的执行权限。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-116">Disable execute permissions on the file upload location.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-117">请勿将上传的文件保存在与应用相同的目录树中  。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-117">Do **not** persist uploaded files in the same directory tree as the app.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-118">使用应用确定的安全的文件名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-118">Use a safe file name determined by the app.</span></span> <span data-ttu-id="f8fe4-119">请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-119">Don't use a file name provided by the user or the untrusted file name of the uploaded file.&dagger; HTML encode the untrusted file name when displaying it.</span></span> <span data-ttu-id="f8fe4-120">例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-120">For example, logging the file name or displaying in UI (Razor automatically HTML encodes output).</span></span>
-* <span data-ttu-id="f8fe4-121">仅允许应用设计规范的已批准文件扩展名。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-121">Allow only approved file extensions for the app's design specification.&dagger;</span></span> <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* <span data-ttu-id="f8fe4-122">验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-122">Verify that client-side checks are performed on the server.&dagger; Client-side checks are easy to circumvent.</span></span>
-* <span data-ttu-id="f8fe4-123">检查已上传文件的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-123">Check the size of an uploaded file.</span></span> <span data-ttu-id="f8fe4-124">设置大小上限以防止上传大型文件。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-124">Set a maximum size limit to prevent large uploads.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-125">文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-125">When files shouldn't be overwritten by an uploaded file with the same name, check the file name against the database or physical storage before uploading the file.</span></span>
-* <span data-ttu-id="f8fe4-126">**先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-126">**Run a virus/malware scanner on uploaded content before the file is stored.**</span></span>
+* <span data-ttu-id="466cd-114">将文件上传到专用文件上传区域，最好是非系统驱动器。</span><span class="sxs-lookup"><span data-stu-id="466cd-114">Upload files to a dedicated file upload area, preferably to a non-system drive.</span></span> <span data-ttu-id="466cd-115">使用专用位置便于对上传的文件实施安全限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-115">A dedicated location makes it easier to impose security restrictions on uploaded files.</span></span> <span data-ttu-id="466cd-116">禁用对文件上传位置的执行权限。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-116">Disable execute permissions on the file upload location.&dagger;</span></span>
+* <span data-ttu-id="466cd-117">请勿将上传的文件保存在与应用相同的目录树中。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-117">Do **not** persist uploaded files in the same directory tree as the app.&dagger;</span></span>
+* <span data-ttu-id="466cd-118">使用应用确定的安全的文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-118">Use a safe file name determined by the app.</span></span> <span data-ttu-id="466cd-119">请勿使用用户提供的文件名或上载文件的不受信任的文件名。&dagger; HTML 在显示时对不受信任的文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="466cd-119">Don't use a file name provided by the user or the untrusted file name of the uploaded file.&dagger; HTML encode the untrusted file name when displaying it.</span></span> <span data-ttu-id="466cd-120">例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。</span><span class="sxs-lookup"><span data-stu-id="466cd-120">For example, logging the file name or displaying in UI (Razor automatically HTML encodes output).</span></span>
+* <span data-ttu-id="466cd-121">仅允许应用设计规范的已批准文件扩展名。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-121">Allow only approved file extensions for the app's design specification.&dagger;</span></span> <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* <span data-ttu-id="466cd-122">验证是否在服务器上执行了客户端检查。&dagger; 客户端检查很容易规避。</span><span class="sxs-lookup"><span data-stu-id="466cd-122">Verify that client-side checks are performed on the server.&dagger; Client-side checks are easy to circumvent.</span></span>
+* <span data-ttu-id="466cd-123">检查已上传文件的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-123">Check the size of an uploaded file.</span></span> <span data-ttu-id="466cd-124">设置大小上限以防止上传大型文件。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-124">Set a maximum size limit to prevent large uploads.&dagger;</span></span>
+* <span data-ttu-id="466cd-125">文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-125">When files shouldn't be overwritten by an uploaded file with the same name, check the file name against the database or physical storage before uploading the file.</span></span>
+* <span data-ttu-id="466cd-126">**先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**</span><span class="sxs-lookup"><span data-stu-id="466cd-126">**Run a virus/malware scanner on uploaded content before the file is stored.**</span></span>
 
-<span data-ttu-id="f8fe4-127">&dagger;示例应用演示了符合条件的方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-127">&dagger;The sample app demonstrates an approach that meets the criteria.</span></span>
+<span data-ttu-id="466cd-127">&dagger;示例应用演示了符合条件的方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-127">&dagger;The sample app demonstrates an approach that meets the criteria.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-128">将恶意代码上传到系统通常是执行代码的第一步，这些代码可以：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-128">Uploading malicious code to a system is frequently the first step to executing code that can:</span></span>
+> <span data-ttu-id="466cd-128">将恶意代码上传到系统通常是执行代码的第一步，这些代码可以：</span><span class="sxs-lookup"><span data-stu-id="466cd-128">Uploading malicious code to a system is frequently the first step to executing code that can:</span></span>
 >
-> * <span data-ttu-id="f8fe4-129">完全获得对系统的控制权限。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-129">Completely gain control of a system.</span></span>
-> * <span data-ttu-id="f8fe4-130">重载系统，导致系统崩溃。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-130">Overload a system with the result that the system crashes.</span></span>
-> * <span data-ttu-id="f8fe4-131">泄露用户或系统数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-131">Compromise user or system data.</span></span>
-> * <span data-ttu-id="f8fe4-132">将涂鸦应用于公共 UI。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-132">Apply graffiti to a public UI.</span></span>
+> * <span data-ttu-id="466cd-129">完全获得对系统的控制权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-129">Completely gain control of a system.</span></span>
+> * <span data-ttu-id="466cd-130">重载系统，导致系统崩溃。</span><span class="sxs-lookup"><span data-stu-id="466cd-130">Overload a system with the result that the system crashes.</span></span>
+> * <span data-ttu-id="466cd-131">泄露用户或系统数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-131">Compromise user or system data.</span></span>
+> * <span data-ttu-id="466cd-132">将涂鸦应用于公共 UI。</span><span class="sxs-lookup"><span data-stu-id="466cd-132">Apply graffiti to a public UI.</span></span>
 >
-> <span data-ttu-id="f8fe4-133">有关在接受用户文件时减少攻击外围应用的信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-133">For information on reducing the attack surface area when accepting files from users, see the following resources:</span></span>
+> <span data-ttu-id="466cd-133">有关在接受用户文件时减少攻击外围应用的信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="466cd-133">For information on reducing the attack surface area when accepting files from users, see the following resources:</span></span>
 >
-> * <span data-ttu-id="f8fe4-134">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-134">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
-> * [<span data-ttu-id="f8fe4-135">Azure 安全性：确保接受用户的文件时实施适当的控制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-135">Azure Security: Ensure appropriate controls are in place when accepting files from users</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * <span data-ttu-id="466cd-134">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="466cd-134">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
+> * [<span data-ttu-id="466cd-135">Azure 安全性：确保在接受用户文件时采取适当的控制措施</span><span class="sxs-lookup"><span data-stu-id="466cd-135">Azure Security: Ensure appropriate controls are in place when accepting files from users</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
-<span data-ttu-id="f8fe4-136">有关实现安全措施（包括示例应用中的示例）的详细信息，请参阅[验证](#validation)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-136">For more information on implementing security measures, including examples from the sample app, see the [Validation](#validation) section.</span></span>
+<span data-ttu-id="466cd-136">有关实现安全措施（包括示例应用中的示例）的详细信息，请参阅[验证](#validation)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-136">For more information on implementing security measures, including examples from the sample app, see the [Validation](#validation) section.</span></span>
 
-## <a name="storage-scenarios"></a><span data-ttu-id="f8fe4-137">存储方案</span><span class="sxs-lookup"><span data-stu-id="f8fe4-137">Storage scenarios</span></span>
+## <a name="storage-scenarios"></a><span data-ttu-id="466cd-137">存储方案</span><span class="sxs-lookup"><span data-stu-id="466cd-137">Storage scenarios</span></span>
 
-<span data-ttu-id="f8fe4-138">常见的文件存储选项有：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-138">Common storage options for files include:</span></span>
+<span data-ttu-id="466cd-138">常见的文件存储选项有：</span><span class="sxs-lookup"><span data-stu-id="466cd-138">Common storage options for files include:</span></span>
 
-* <span data-ttu-id="f8fe4-139">数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-139">Database</span></span>
+* <span data-ttu-id="466cd-139">数据库</span><span class="sxs-lookup"><span data-stu-id="466cd-139">Database</span></span>
 
-  * <span data-ttu-id="f8fe4-140">对于小型文件上传，数据库通常快于物理存储（文件系统或网络共享）选项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-140">For small file uploads, a database is often faster than physical storage (file system or network share) options.</span></span>
-  * <span data-ttu-id="f8fe4-141">相对于物理存储选项，数据库通常更为便利，因为检索数据库记录来获取用户数据可同时提供文件内容（如头像图像）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-141">A database is often more convenient than physical storage options because retrieval of a database record for user data can concurrently supply the file content (for example, an avatar image).</span></span>
-  * <span data-ttu-id="f8fe4-142">相对于使用数据存储服务，数据库的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-142">A database is potentially less expensive than using a data storage service.</span></span>
+  * <span data-ttu-id="466cd-140">对于小型文件上传，数据库通常快于物理存储（文件系统或网络共享）选项。</span><span class="sxs-lookup"><span data-stu-id="466cd-140">For small file uploads, a database is often faster than physical storage (file system or network share) options.</span></span>
+  * <span data-ttu-id="466cd-141">相对于物理存储选项，数据库通常更为便利，因为检索数据库记录来获取用户数据可同时提供文件内容（如头像图像）。</span><span class="sxs-lookup"><span data-stu-id="466cd-141">A database is often more convenient than physical storage options because retrieval of a database record for user data can concurrently supply the file content (for example, an avatar image).</span></span>
+  * <span data-ttu-id="466cd-142">相对于使用数据存储服务，数据库的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-142">A database is potentially less expensive than using a data storage service.</span></span>
 
-* <span data-ttu-id="f8fe4-143">物理存储（文件系统或网络共享）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-143">Physical storage (file system or network share)</span></span>
+* <span data-ttu-id="466cd-143">物理存储（文件系统或网络共享）</span><span class="sxs-lookup"><span data-stu-id="466cd-143">Physical storage (file system or network share)</span></span>
 
-  * <span data-ttu-id="f8fe4-144">对于大型文件上传：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-144">For large file uploads:</span></span>
-    * <span data-ttu-id="f8fe4-145">数据库限制可能会限制上传的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-145">Database limits may restrict the size of the upload.</span></span>
-    * <span data-ttu-id="f8fe4-146">相对于数据库存储，物理存储通常成本更高。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-146">Physical storage is often less economical than storage in a database.</span></span>
-  * <span data-ttu-id="f8fe4-147">相对于使用数据存储服务，物理存储的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-147">Physical storage is potentially less expensive than using a data storage service.</span></span>
-  * <span data-ttu-id="f8fe4-148">应用的进程必须具有存储位置的读写权限。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-148">The app's process must have read and write permissions to the storage location.</span></span> <span data-ttu-id="f8fe4-149">切勿授予执行权限。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-149">**Never grant execute permission.**</span></span>
+  * <span data-ttu-id="466cd-144">对于大型文件上传：</span><span class="sxs-lookup"><span data-stu-id="466cd-144">For large file uploads:</span></span>
+    * <span data-ttu-id="466cd-145">数据库限制可能会限制上传的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-145">Database limits may restrict the size of the upload.</span></span>
+    * <span data-ttu-id="466cd-146">相对于数据库存储，物理存储通常成本更高。</span><span class="sxs-lookup"><span data-stu-id="466cd-146">Physical storage is often less economical than storage in a database.</span></span>
+  * <span data-ttu-id="466cd-147">相对于使用数据存储服务，物理存储的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-147">Physical storage is potentially less expensive than using a data storage service.</span></span>
+  * <span data-ttu-id="466cd-148">应用的进程必须具有存储位置的读写权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-148">The app's process must have read and write permissions to the storage location.</span></span> <span data-ttu-id="466cd-149">切勿授予执行权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-149">**Never grant execute permission.**</span></span>
 
-* <span data-ttu-id="f8fe4-150">数据存储服务（例如，[Azure Blob 存储](https://azure.microsoft.com/services/storage/blobs/)）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-150">Data storage service (for example, [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs/))</span></span>
+* <span data-ttu-id="466cd-150">数据存储服务（例如，[Azure Blob 存储](https://azure.microsoft.com/services/storage/blobs/)）</span><span class="sxs-lookup"><span data-stu-id="466cd-150">Data storage service (for example, [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs/))</span></span>
 
-  * <span data-ttu-id="f8fe4-151">服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-151">Services usually offer improved scalability and resiliency over on-premises solutions that are usually subject to single points of failure.</span></span>
-  * <span data-ttu-id="f8fe4-152">在大型存储基础结构方案中，服务的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-152">Services are potentially lower cost in large storage infrastructure scenarios.</span></span>
+  * <span data-ttu-id="466cd-151">服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。</span><span class="sxs-lookup"><span data-stu-id="466cd-151">Services usually offer improved scalability and resiliency over on-premises solutions that are usually subject to single points of failure.</span></span>
+  * <span data-ttu-id="466cd-152">在大型存储基础结构方案中，服务的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-152">Services are potentially lower cost in large storage infrastructure scenarios.</span></span>
 
-  <span data-ttu-id="f8fe4-153">有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-153">For more information, see [Quickstart: Use .NET to create a blob in object storage](/azure/storage/blobs/storage-quickstart-blobs-dotnet).</span></span>
+  <span data-ttu-id="466cd-153">有关详细信息，请参阅[快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。</span><span class="sxs-lookup"><span data-stu-id="466cd-153">For more information, see [Quickstart: Use .NET to create a blob in object storage](/azure/storage/blobs/storage-quickstart-blobs-dotnet).</span></span>
 
-## <a name="file-upload-scenarios"></a><span data-ttu-id="f8fe4-154">文件上传方案</span><span class="sxs-lookup"><span data-stu-id="f8fe4-154">File upload scenarios</span></span>
+## <a name="file-upload-scenarios"></a><span data-ttu-id="466cd-154">文件上传方案</span><span class="sxs-lookup"><span data-stu-id="466cd-154">File upload scenarios</span></span>
 
-<span data-ttu-id="f8fe4-155">缓冲和流式传输是上传文件的两种常见方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-155">Two general approaches for uploading files are buffering and streaming.</span></span>
+<span data-ttu-id="466cd-155">缓冲和流式传输是上传文件的两种常见方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-155">Two general approaches for uploading files are buffering and streaming.</span></span>
 
-<span data-ttu-id="f8fe4-156">**缓冲**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-156">**Buffering**</span></span>
+<span data-ttu-id="466cd-156">**缓冲**</span><span class="sxs-lookup"><span data-stu-id="466cd-156">**Buffering**</span></span>
 
-<span data-ttu-id="f8fe4-157">整个文件读入 <xref:Microsoft.AspNetCore.Http.IFormFile>，它是文件的 C# 表示形式，用于处理或保存文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-157">The entire file is read into an <xref:Microsoft.AspNetCore.Http.IFormFile>, which is a C# representation of the file used to process or save the file.</span></span>
+<span data-ttu-id="466cd-157">整个文件读入 <xref:Microsoft.AspNetCore.Http.IFormFile>，它是文件的 C# 表示形式，用于处理或保存文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-157">The entire file is read into an <xref:Microsoft.AspNetCore.Http.IFormFile>, which is a C# representation of the file used to process or save the file.</span></span>
 
-<span data-ttu-id="f8fe4-158">文件上传所用的资源（磁盘、内存）取决于并发文件上传的数量和大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-158">The resources (disk, memory) used by file uploads depend on the number and size of concurrent file uploads.</span></span> <span data-ttu-id="f8fe4-159">如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-159">If an app attempts to buffer too many uploads, the site crashes when it runs out of memory or disk space.</span></span> <span data-ttu-id="f8fe4-160">如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-160">If the size or frequency of file uploads is exhausting app resources, use streaming.</span></span>
+<span data-ttu-id="466cd-158">文件上传所用的资源（磁盘、内存）取决于并发文件上传的数量和大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-158">The resources (disk, memory) used by file uploads depend on the number and size of concurrent file uploads.</span></span> <span data-ttu-id="466cd-159">如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。</span><span class="sxs-lookup"><span data-stu-id="466cd-159">If an app attempts to buffer too many uploads, the site crashes when it runs out of memory or disk space.</span></span> <span data-ttu-id="466cd-160">如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</span><span class="sxs-lookup"><span data-stu-id="466cd-160">If the size or frequency of file uploads is exhausting app resources, use streaming.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-161">会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-161">Any single buffered file exceeding 64 KB is moved from memory to a temp file on disk.</span></span>
+> <span data-ttu-id="466cd-161">会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-161">Any single buffered file exceeding 64 KB is moved from memory to a temp file on disk.</span></span>
 
-<span data-ttu-id="f8fe4-162">本主题的以下部分介绍了如何缓冲小型文件：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-162">Buffering small files is covered in the following sections of this topic:</span></span>
+<span data-ttu-id="466cd-162">本主题的以下部分介绍了如何缓冲小型文件：</span><span class="sxs-lookup"><span data-stu-id="466cd-162">Buffering small files is covered in the following sections of this topic:</span></span>
 
-* [<span data-ttu-id="f8fe4-163">物理存储</span><span class="sxs-lookup"><span data-stu-id="f8fe4-163">Physical storage</span></span>](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [<span data-ttu-id="f8fe4-164">数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-164">Database</span></span>](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [<span data-ttu-id="466cd-163">物理存储</span><span class="sxs-lookup"><span data-stu-id="466cd-163">Physical storage</span></span>](#upload-small-files-with-buffered-model-binding-to-physical-storage)
+* [<span data-ttu-id="466cd-164">Database</span><span class="sxs-lookup"><span data-stu-id="466cd-164">Database</span></span>](#upload-small-files-with-buffered-model-binding-to-a-database)
 
-<span data-ttu-id="f8fe4-165">**流式处理**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-165">**Streaming**</span></span>
+<span data-ttu-id="466cd-165">**流式处理**</span><span class="sxs-lookup"><span data-stu-id="466cd-165">**Streaming**</span></span>
 
-<span data-ttu-id="f8fe4-166">从多部分请求收到文件，然后应用直接处理或保存它。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-166">The file is received from a multipart request and directly processed or saved by the app.</span></span> <span data-ttu-id="f8fe4-167">流式传输无法显著提高性能。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-167">Streaming doesn't improve performance significantly.</span></span> <span data-ttu-id="f8fe4-168">流式传输可降低上传文件时对内存或磁盘空间的需求。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-168">Streaming reduces the demands for memory or disk space when uploading files.</span></span>
+<span data-ttu-id="466cd-166">从多部分请求收到文件，然后应用直接处理或保存它。</span><span class="sxs-lookup"><span data-stu-id="466cd-166">The file is received from a multipart request and directly processed or saved by the app.</span></span> <span data-ttu-id="466cd-167">流式传输无法显著提高性能。</span><span class="sxs-lookup"><span data-stu-id="466cd-167">Streaming doesn't improve performance significantly.</span></span> <span data-ttu-id="466cd-168">流式传输可降低上传文件时对内存或磁盘空间的需求。</span><span class="sxs-lookup"><span data-stu-id="466cd-168">Streaming reduces the demands for memory or disk space when uploading files.</span></span>
 
-<span data-ttu-id="f8fe4-169">[通过流式传输上传大型文件](#upload-large-files-with-streaming)部分介绍了如何流式传输大型文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-169">Streaming large files is covered in the [Upload large files with streaming](#upload-large-files-with-streaming) section.</span></span>
+<span data-ttu-id="466cd-169">[通过流式传输上传大型文件](#upload-large-files-with-streaming)部分介绍了如何流式传输大型文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-169">Streaming large files is covered in the [Upload large files with streaming](#upload-large-files-with-streaming) section.</span></span>
 
-### <a name="upload-small-files-with-buffered-model-binding-to-physical-storage"></a><span data-ttu-id="f8fe4-170">通过缓冲的模型绑定将小型文件上传到物理存储</span><span class="sxs-lookup"><span data-stu-id="f8fe4-170">Upload small files with buffered model binding to physical storage</span></span>
+### <a name="upload-small-files-with-buffered-model-binding-to-physical-storage"></a><span data-ttu-id="466cd-170">通过缓冲的模型绑定将小型文件上传到物理存储</span><span class="sxs-lookup"><span data-stu-id="466cd-170">Upload small files with buffered model binding to physical storage</span></span>
 
-<span data-ttu-id="f8fe4-171">要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-171">To upload small files, use a multipart form or construct a POST request using JavaScript.</span></span>
+<span data-ttu-id="466cd-171">要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</span><span class="sxs-lookup"><span data-stu-id="466cd-171">To upload small files, use a multipart form or construct a POST request using JavaScript.</span></span>
 
-<span data-ttu-id="f8fe4-172">下面的示例演示了使用 Razor Pages 窗体上传单个文件（示例应用中的 Pages/BufferedSingleFileUploadPhysical.cshtml  ）：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-172">The following example demonstrates the use of a Razor Pages form to upload a single file (*Pages/BufferedSingleFileUploadPhysical.cshtml* in the sample app):</span></span>
+<span data-ttu-id="466cd-172">下面的示例演示了使用 Razor Pages 窗体上传单个文件（示例应用中的 Pages/BufferedSingleFileUploadPhysical.cshtml）：</span><span class="sxs-lookup"><span data-stu-id="466cd-172">The following example demonstrates the use of a Razor Pages form to upload a single file (*Pages/BufferedSingleFileUploadPhysical.cshtml* in the sample app):</span></span>
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -130,10 +130,10 @@ ms.locfileid: "77172463"
 </form>
 ```
 
-<span data-ttu-id="f8fe4-173">下面的示例与前面的示例类似，不同之处在于：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-173">The following example is analogous to the prior example except that:</span></span>
+<span data-ttu-id="466cd-173">下面的示例与前面的示例类似，不同之处在于：</span><span class="sxs-lookup"><span data-stu-id="466cd-173">The following example is analogous to the prior example except that:</span></span>
 
-* <span data-ttu-id="f8fe4-174">使用 JavaScript ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) 提交窗体的数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-174">JavaScript's ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) is used to submit the form's data.</span></span>
-* <span data-ttu-id="f8fe4-175">无验证。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-175">There's no validation.</span></span>
+* <span data-ttu-id="466cd-174">使用 JavaScript ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) 提交窗体的数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-174">JavaScript's ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) is used to submit the form's data.</span></span>
+* <span data-ttu-id="466cd-175">无验证。</span><span class="sxs-lookup"><span data-stu-id="466cd-175">There's no validation.</span></span>
 
 ```cshtml
 <form action="BufferedSingleFileUploadPhysical/?handler=Upload" 
@@ -180,10 +180,10 @@ ms.locfileid: "77172463"
 </script>
 ```
 
-<span data-ttu-id="f8fe4-176">若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-176">To perform the form POST in JavaScript for clients that [don't support the Fetch API](https://caniuse.com/#feat=fetch), use one of the following approaches:</span></span>
+<span data-ttu-id="466cd-176">若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="466cd-176">To perform the form POST in JavaScript for clients that [don't support the Fetch API](https://caniuse.com/#feat=fetch), use one of the following approaches:</span></span>
 
-* <span data-ttu-id="f8fe4-177">使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-177">Use a Fetch Polyfill (for example, [window.fetch polyfill (github/fetch)](https://github.com/github/fetch)).</span></span>
-* <span data-ttu-id="f8fe4-178">请使用 `XMLHttpRequest`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-178">Use `XMLHttpRequest`.</span></span> <span data-ttu-id="f8fe4-179">例如：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-179">For example:</span></span>
+* <span data-ttu-id="466cd-177">使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。</span><span class="sxs-lookup"><span data-stu-id="466cd-177">Use a Fetch Polyfill (for example, [window.fetch polyfill (github/fetch)](https://github.com/github/fetch)).</span></span>
+* <span data-ttu-id="466cd-178">改用 `XMLHttpRequest`</span><span class="sxs-lookup"><span data-stu-id="466cd-178">Use `XMLHttpRequest`.</span></span> <span data-ttu-id="466cd-179">例如：</span><span class="sxs-lookup"><span data-stu-id="466cd-179">For example:</span></span>
 
   ```javascript
   <script>
@@ -201,53 +201,53 @@ ms.locfileid: "77172463"
   </script>
   ```
 
-<span data-ttu-id="f8fe4-180">为支持文件上传，HTML 窗体必须指定 `multipart/form-data` 的编码类型 (`enctype`)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-180">In order to support file uploads, HTML forms must specify an encoding type (`enctype`) of `multipart/form-data`.</span></span>
+<span data-ttu-id="466cd-180">为支持文件上传，HTML 窗体必须指定 `enctype` 的编码类型 (`multipart/form-data`)。</span><span class="sxs-lookup"><span data-stu-id="466cd-180">In order to support file uploads, HTML forms must specify an encoding type (`enctype`) of `multipart/form-data`.</span></span>
 
-<span data-ttu-id="f8fe4-181">要使 `files` 输入元素支持上传多个文件，请在 `<input>` 元素上提供 `multiple` 属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-181">For a `files` input element to support uploading multiple files provide the `multiple` attribute on the `<input>` element:</span></span>
+<span data-ttu-id="466cd-181">要使 `files` 输入元素支持上传多个文件，请在 `multiple` 元素上提供 `<input>` 属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-181">For a `files` input element to support uploading multiple files provide the `multiple` attribute on the `<input>` element:</span></span>
 
 ```cshtml
 <input asp-for="FileUpload.FormFiles" type="file" multiple>
 ```
 
-<span data-ttu-id="f8fe4-182">上传到服务器的单个文件可使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-182">The individual files uploaded to the server can be accessed through [Model Binding](xref:mvc/models/model-binding) using <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span> <span data-ttu-id="f8fe4-183">示例应用演示了数据库和物理存储方案的多个缓冲文件上传。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-183">The sample app demonstrates multiple buffered file uploads for database and physical storage scenarios.</span></span>
+<span data-ttu-id="466cd-182">上传到服务器的单个文件可使用 [ 接口通过](xref:mvc/models/model-binding)模型绑定<xref:Microsoft.AspNetCore.Http.IFormFile>进行访问。</span><span class="sxs-lookup"><span data-stu-id="466cd-182">The individual files uploaded to the server can be accessed through [Model Binding](xref:mvc/models/model-binding) using <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span> <span data-ttu-id="466cd-183">示例应用演示了数据库和物理存储方案的多个缓冲文件上传。</span><span class="sxs-lookup"><span data-stu-id="466cd-183">The sample app demonstrates multiple buffered file uploads for database and physical storage scenarios.</span></span>
 
 <a name="filename"></a>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-184">除了显示和日志记录用途外，请勿使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性  。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-184">Do **not** use the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> other than for display and logging.</span></span> <span data-ttu-id="f8fe4-185">显示或日志记录时，HTML 对文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-185">When displaying or logging, HTML encode the file name.</span></span> <span data-ttu-id="f8fe4-186">攻击者可以提供恶意文件名，包括完整路径或相对路径。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-186">An attacker can provide a malicious filename, including full paths or relative paths.</span></span> <span data-ttu-id="f8fe4-187">应用程序应：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-187">Applications should:</span></span>
+> <span data-ttu-id="466cd-184">除了显示和日志记录用途外，请勿使用 **的** 属性`FileName`<xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="466cd-184">Do **not** use the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> other than for display and logging.</span></span> <span data-ttu-id="466cd-185">显示或日志记录时，HTML 对文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="466cd-185">When displaying or logging, HTML encode the file name.</span></span> <span data-ttu-id="466cd-186">攻击者可以提供恶意文件名，包括完整路径或相对路径。</span><span class="sxs-lookup"><span data-stu-id="466cd-186">An attacker can provide a malicious filename, including full paths or relative paths.</span></span> <span data-ttu-id="466cd-187">应用程序应：</span><span class="sxs-lookup"><span data-stu-id="466cd-187">Applications should:</span></span>
 >
-> * <span data-ttu-id="f8fe4-188">从用户提供的文件名中删除路径。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-188">Remove the path from the user-supplied filename.</span></span>
-> * <span data-ttu-id="f8fe4-189">为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-189">Save the HTML-encoded, path-removed filename for UI or logging.</span></span>
-> * <span data-ttu-id="f8fe4-190">生成新的随机文件名进行存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-190">Generate a new random filename for storage.</span></span>
+> * <span data-ttu-id="466cd-188">从用户提供的文件名中删除路径。</span><span class="sxs-lookup"><span data-stu-id="466cd-188">Remove the path from the user-supplied filename.</span></span>
+> * <span data-ttu-id="466cd-189">为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-189">Save the HTML-encoded, path-removed filename for UI or logging.</span></span>
+> * <span data-ttu-id="466cd-190">生成新的随机文件名进行存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-190">Generate a new random filename for storage.</span></span>
 >
-> <span data-ttu-id="f8fe4-191">以下代码可从文件名中删除路径：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-191">The following code removes the path from the file name:</span></span>
+> <span data-ttu-id="466cd-191">以下代码可从文件名中删除路径：</span><span class="sxs-lookup"><span data-stu-id="466cd-191">The following code removes the path from the file name:</span></span>
 >
 > ```csharp
 > string untrustedFileName = Path.GetFileName(pathName);
 > ```
 >
-> <span data-ttu-id="f8fe4-192">目前提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-192">The examples provided thus far don't take into account security considerations.</span></span> <span data-ttu-id="f8fe4-193">以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-193">Additional information is provided by the following sections and the [sample app](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
+> <span data-ttu-id="466cd-192">目前提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="466cd-192">The examples provided thus far don't take into account security considerations.</span></span> <span data-ttu-id="466cd-193">以下各节及[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="466cd-193">Additional information is provided by the following sections and the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
 >
-> * [<span data-ttu-id="f8fe4-194">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-194">Security considerations</span></span>](#security-considerations)
-> * [<span data-ttu-id="f8fe4-195">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-195">Validation</span></span>](#validation)
+> * [<span data-ttu-id="466cd-194">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-194">Security considerations</span></span>](#security-considerations)
+> * [<span data-ttu-id="466cd-195">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-195">Validation</span></span>](#validation)
 
-<span data-ttu-id="f8fe4-196">使用模型绑定和 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传文件时，操作方法可以接受以下内容：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-196">When uploading files using model binding and <xref:Microsoft.AspNetCore.Http.IFormFile>, the action method can accept:</span></span>
+<span data-ttu-id="466cd-196">使用模型绑定和 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传文件时，操作方法可以接受以下内容：</span><span class="sxs-lookup"><span data-stu-id="466cd-196">When uploading files using model binding and <xref:Microsoft.AspNetCore.Http.IFormFile>, the action method can accept:</span></span>
 
-* <span data-ttu-id="f8fe4-197">单个 <xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-197">A single <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span>
-* <span data-ttu-id="f8fe4-198">以下任何表示多个文件的集合：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-198">Any of the following collections that represent several files:</span></span>
+* <span data-ttu-id="466cd-197">单个 <xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="466cd-197">A single <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span>
+* <span data-ttu-id="466cd-198">以下任何表示多个文件的集合：</span><span class="sxs-lookup"><span data-stu-id="466cd-198">Any of the following collections that represent several files:</span></span>
   * <xref:Microsoft.AspNetCore.Http.IFormFileCollection>
   * <xref:System.Collections.IEnumerable>\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
-  * <span data-ttu-id="f8fe4-199">[列表](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span><span class="sxs-lookup"><span data-stu-id="f8fe4-199">[List](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span></span>
+  * <span data-ttu-id="466cd-199">[列表](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span><span class="sxs-lookup"><span data-stu-id="466cd-199">[List](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-200">绑定根据名称匹配窗体文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-200">Binding matches form files by name.</span></span> <span data-ttu-id="f8fe4-201">例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-201">For example, the HTML `name` value in `<input type="file" name="formFile">` must match the C# parameter/property bound (`FormFile`).</span></span> <span data-ttu-id="f8fe4-202">有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-202">For more information, see the [Match name attribute value to parameter name of POST method](#match-name-attribute-value-to-parameter-name-of-post-method) section.</span></span>
+> <span data-ttu-id="466cd-200">绑定根据名称匹配窗体文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-200">Binding matches form files by name.</span></span> <span data-ttu-id="466cd-201">例如，`name` 中的 HTML `<input type="file" name="formFile">` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-201">For example, the HTML `name` value in `<input type="file" name="formFile">` must match the C# parameter/property bound (`FormFile`).</span></span> <span data-ttu-id="466cd-202">有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-202">For more information, see the [Match name attribute value to parameter name of POST method](#match-name-attribute-value-to-parameter-name-of-post-method) section.</span></span>
 
-<span data-ttu-id="f8fe4-203">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-203">The following example:</span></span>
+<span data-ttu-id="466cd-203">下面的示例：</span><span class="sxs-lookup"><span data-stu-id="466cd-203">The following example:</span></span>
 
-* <span data-ttu-id="f8fe4-204">循环访问一个或多个上传的文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-204">Loops through one or more uploaded files.</span></span>
-* <span data-ttu-id="f8fe4-205">使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-205">Uses [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to return a full path for a file, including the file name.</span></span> 
-* <span data-ttu-id="f8fe4-206">使用应用生成的文件名将文件保存到本地文件系统。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-206">Saves the files to the local file system using a file name generated by the app.</span></span>
-* <span data-ttu-id="f8fe4-207">返回上传的文件的总数量和总大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-207">Returns the total number and size of files uploaded.</span></span>
+* <span data-ttu-id="466cd-204">循环访问一个或多个上传的文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-204">Loops through one or more uploaded files.</span></span>
+* <span data-ttu-id="466cd-205">使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。</span><span class="sxs-lookup"><span data-stu-id="466cd-205">Uses [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to return a full path for a file, including the file name.</span></span> 
+* <span data-ttu-id="466cd-206">使用应用生成的文件名将文件保存到本地文件系统。</span><span class="sxs-lookup"><span data-stu-id="466cd-206">Saves the files to the local file system using a file name generated by the app.</span></span>
+* <span data-ttu-id="466cd-207">返回上传的文件的总数量和总大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-207">Returns the total number and size of files uploaded.</span></span>
 
 ```csharp
 public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
@@ -270,11 +270,11 @@ public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
     // Process uploaded files
     // Don't rely on or trust the FileName property without validation.
 
-    return Ok(new { count = files.Count, size, filePath });
+    return Ok(new { count = files.Count, size });
 }
 ```
 
-<span data-ttu-id="f8fe4-208">使用 `Path.GetRandomFileName` 生成文件名（不含路径）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-208">Use `Path.GetRandomFileName` to generate a file name without a path.</span></span> <span data-ttu-id="f8fe4-209">在下面的示例中，从配置获取路径：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-209">In the following example, the path is obtained from configuration:</span></span>
+<span data-ttu-id="466cd-208">使用 `Path.GetRandomFileName` 生成文件名（不含路径）。</span><span class="sxs-lookup"><span data-stu-id="466cd-208">Use `Path.GetRandomFileName` to generate a file name without a path.</span></span> <span data-ttu-id="466cd-209">在下面的示例中，从配置获取路径：</span><span class="sxs-lookup"><span data-stu-id="466cd-209">In the following example, the path is obtained from configuration:</span></span>
 
 ```csharp
 foreach (var formFile in files)
@@ -292,21 +292,21 @@ foreach (var formFile in files)
 }
 ```
 
-<span data-ttu-id="f8fe4-210">传递到 <xref:System.IO.FileStream> 的路径必须包含文件名  。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-210">The path passed to the <xref:System.IO.FileStream> *must* include the file name.</span></span> <span data-ttu-id="f8fe4-211">如果未提供文件名，则会在运行时引发 <xref:System.UnauthorizedAccessException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-211">If the file name isn't provided, an <xref:System.UnauthorizedAccessException> is thrown at runtime.</span></span>
+<span data-ttu-id="466cd-210">传递到 <xref:System.IO.FileStream> 的路径必须包含文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-210">The path passed to the <xref:System.IO.FileStream> *must* include the file name.</span></span> <span data-ttu-id="466cd-211">如果未提供文件名，则会在运行时引发 <xref:System.UnauthorizedAccessException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-211">If the file name isn't provided, an <xref:System.UnauthorizedAccessException> is thrown at runtime.</span></span>
 
-<span data-ttu-id="f8fe4-212">使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-212">Files uploaded using the <xref:Microsoft.AspNetCore.Http.IFormFile> technique are buffered in memory or on disk on the server before processing.</span></span> <span data-ttu-id="f8fe4-213">在操作方法中，<xref:Microsoft.AspNetCore.Http.IFormFile> 内容可作为 <xref:System.IO.Stream> 访问。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-213">Inside the action method, the <xref:Microsoft.AspNetCore.Http.IFormFile> contents are accessible as a <xref:System.IO.Stream>.</span></span> <span data-ttu-id="f8fe4-214">除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 [Azure Blob 存储](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-214">In addition to the local file system, files can be saved to a network share or to a file storage service, such as [Azure Blob storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).</span></span>
+<span data-ttu-id="466cd-212">使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。</span><span class="sxs-lookup"><span data-stu-id="466cd-212">Files uploaded using the <xref:Microsoft.AspNetCore.Http.IFormFile> technique are buffered in memory or on disk on the server before processing.</span></span> <span data-ttu-id="466cd-213">在操作方法中，<xref:Microsoft.AspNetCore.Http.IFormFile> 内容可作为 <xref:System.IO.Stream> 访问。</span><span class="sxs-lookup"><span data-stu-id="466cd-213">Inside the action method, the <xref:Microsoft.AspNetCore.Http.IFormFile> contents are accessible as a <xref:System.IO.Stream>.</span></span> <span data-ttu-id="466cd-214">除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 [Azure Blob 存储](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs)。</span><span class="sxs-lookup"><span data-stu-id="466cd-214">In addition to the local file system, files can be saved to a network share or to a file storage service, such as [Azure Blob storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).</span></span>
 
-<span data-ttu-id="f8fe4-215">若要查看循环访问要上传的多个文件并且使用安全文件名的其他示例，请参阅示例应用中的 Pages/BufferedMultipleFileUploadPhysical.cshtml.cs。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-215">For another example that loops over multiple files for upload and uses safe file names, see *Pages/BufferedMultipleFileUploadPhysical.cshtml.cs* in the sample app.</span></span>
+<span data-ttu-id="466cd-215">若要查看循环访问要上传的多个文件并且使用安全文件名的其他示例，请参阅示例应用中的 Pages/BufferedMultipleFileUploadPhysical.cshtml.cs。</span><span class="sxs-lookup"><span data-stu-id="466cd-215">For another example that loops over multiple files for upload and uses safe file names, see *Pages/BufferedMultipleFileUploadPhysical.cshtml.cs* in the sample app.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-216">如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 将抛出一个 <xref:System.IO.IOException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-216">[Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) throws an <xref:System.IO.IOException> if more than 65,535 files are created without deleting previous temporary files.</span></span> <span data-ttu-id="f8fe4-217">65,535 个文件限制是每个服务器的限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-217">The limit of 65,535 files is a per-server limit.</span></span> <span data-ttu-id="f8fe4-218">有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-218">For more information on this limit on Windows OS, see the remarks in the following topics:</span></span>
+> <span data-ttu-id="466cd-216">如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 将抛出一个 <xref:System.IO.IOException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-216">[Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) throws an <xref:System.IO.IOException> if more than 65,535 files are created without deleting previous temporary files.</span></span> <span data-ttu-id="466cd-217">65,535 个文件限制是每个服务器的限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-217">The limit of 65,535 files is a per-server limit.</span></span> <span data-ttu-id="466cd-218">有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</span><span class="sxs-lookup"><span data-stu-id="466cd-218">For more information on this limit on Windows OS, see the remarks in the following topics:</span></span>
 >
-> * [<span data-ttu-id="f8fe4-219">GetTempFileNameA 函数</span><span class="sxs-lookup"><span data-stu-id="f8fe4-219">GetTempFileNameA function</span></span>](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
+> * [<span data-ttu-id="466cd-219">GetTempFileNameA 函数</span><span class="sxs-lookup"><span data-stu-id="466cd-219">GetTempFileNameA function</span></span>](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
 > * <xref:System.IO.Path.GetTempFileName*>
 
-### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a><span data-ttu-id="f8fe4-220">使用缓冲的模型绑定将小型文件上传到数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-220">Upload small files with buffered model binding to a database</span></span>
+### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a><span data-ttu-id="466cd-220">使用缓冲的模型绑定将小型文件上传到数据库</span><span class="sxs-lookup"><span data-stu-id="466cd-220">Upload small files with buffered model binding to a database</span></span>
 
-<span data-ttu-id="f8fe4-221">要使用[实体框架](/ef/core/index)将二进制文件数据存储在数据库中，请在实体上定义 <xref:System.Byte> 数组属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-221">To store binary file data in a database using [Entity Framework](/ef/core/index), define a <xref:System.Byte> array property on the entity:</span></span>
+<span data-ttu-id="466cd-221">要使用[实体框架](/ef/core/index)将二进制文件数据存储在数据库中，请在实体上定义 <xref:System.Byte> 数组属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-221">To store binary file data in a database using [Entity Framework](/ef/core/index), define a <xref:System.Byte> array property on the entity:</span></span>
 
 ```csharp
 public class AppFile
@@ -316,7 +316,7 @@ public class AppFile
 }
 ```
 
-<span data-ttu-id="f8fe4-222">为包括 <xref:Microsoft.AspNetCore.Http.IFormFile> 的类指定页模型属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-222">Specify a page model property for the class that includes an <xref:Microsoft.AspNetCore.Http.IFormFile>:</span></span>
+<span data-ttu-id="466cd-222">为包括 <xref:Microsoft.AspNetCore.Http.IFormFile> 的类指定页模型属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-222">Specify a page model property for the class that includes an <xref:Microsoft.AspNetCore.Http.IFormFile>:</span></span>
 
 ```csharp
 public class BufferedSingleFileUploadDbModel : PageModel
@@ -338,9 +338,9 @@ public class BufferedSingleFileUploadDb
 ```
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-223"><xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-223"><xref:Microsoft.AspNetCore.Http.IFormFile> can be used directly as an action method parameter or as a bound model property.</span></span> <span data-ttu-id="f8fe4-224">前面的示例使用绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-224">The prior example uses a bound model property.</span></span>
+> <span data-ttu-id="466cd-223"><xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-223"><xref:Microsoft.AspNetCore.Http.IFormFile> can be used directly as an action method parameter or as a bound model property.</span></span> <span data-ttu-id="466cd-224">前面的示例使用绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-224">The prior example uses a bound model property.</span></span>
 
-<span data-ttu-id="f8fe4-225">在 Razor Pages 窗体中使用 `FileUpload`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-225">The `FileUpload` is used in the Razor Pages form:</span></span>
+<span data-ttu-id="466cd-225">在 Razor Pages 窗体中使用 `FileUpload`：</span><span class="sxs-lookup"><span data-stu-id="466cd-225">The `FileUpload` is used in the Razor Pages form:</span></span>
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -356,7 +356,7 @@ public class BufferedSingleFileUploadDb
 </form>
 ```
 
-<span data-ttu-id="f8fe4-226">将窗体发布到服务器后，将 <xref:Microsoft.AspNetCore.Http.IFormFile> 复制到流，并将它作为字节数组保存在数据库中。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-226">When the form is POSTed to the server, copy the <xref:Microsoft.AspNetCore.Http.IFormFile> to a stream and save it as a byte array in the database.</span></span> <span data-ttu-id="f8fe4-227">在下面的示例中，`_dbContext` 存储应用的数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-227">In the following example, `_dbContext` stores the app's database context:</span></span>
+<span data-ttu-id="466cd-226">将窗体发布到服务器后，将 <xref:Microsoft.AspNetCore.Http.IFormFile> 复制到流，并将它作为字节数组保存在数据库中。</span><span class="sxs-lookup"><span data-stu-id="466cd-226">When the form is POSTed to the server, copy the <xref:Microsoft.AspNetCore.Http.IFormFile> to a stream and save it as a byte array in the database.</span></span> <span data-ttu-id="466cd-227">在下面的示例中，`_dbContext` 存储应用的数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="466cd-227">In the following example, `_dbContext` stores the app's database context:</span></span>
 
 ```csharp
 public async Task<IActionResult> OnPostUploadAsync()
@@ -387,76 +387,76 @@ public async Task<IActionResult> OnPostUploadAsync()
 }
 ```
 
-<span data-ttu-id="f8fe4-228">上面的示例与示例应用中演示的方案相似：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-228">The preceding example is similar to a scenario demonstrated in the sample app:</span></span>
+<span data-ttu-id="466cd-228">上面的示例与示例应用中演示的方案相似：</span><span class="sxs-lookup"><span data-stu-id="466cd-228">The preceding example is similar to a scenario demonstrated in the sample app:</span></span>
 
-* <span data-ttu-id="f8fe4-229">*Pages/BufferedSingleFileUploadDb.cshtml*</span><span class="sxs-lookup"><span data-stu-id="f8fe4-229">*Pages/BufferedSingleFileUploadDb.cshtml*</span></span>
-* <span data-ttu-id="f8fe4-230">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="f8fe4-230">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span></span>
+* <span data-ttu-id="466cd-229">*Pages/BufferedSingleFileUploadDb.cshtml*</span><span class="sxs-lookup"><span data-stu-id="466cd-229">*Pages/BufferedSingleFileUploadDb.cshtml*</span></span>
+* <span data-ttu-id="466cd-230">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="466cd-230">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-231">在关系数据库中存储二进制数据时要格外小心，因为它可能对性能产生不利影响。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-231">Use caution when storing binary data in relational databases, as it can adversely impact performance.</span></span>
+> <span data-ttu-id="466cd-231">在关系数据库中存储二进制数据时要格外小心，因为它可能对性能产生不利影响。</span><span class="sxs-lookup"><span data-stu-id="466cd-231">Use caution when storing binary data in relational databases, as it can adversely impact performance.</span></span>
 >
-> <span data-ttu-id="f8fe4-232">切勿依赖或信任未经验证的 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-232">Don't rely on or trust the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> without validation.</span></span> <span data-ttu-id="f8fe4-233">只应将 `FileName` 属性用于显示用途，并且只应在进行 HTML 编码后使用它。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-233">The `FileName` property should only be used for display purposes and only after HTML encoding.</span></span>
+> <span data-ttu-id="466cd-232">切勿依赖或信任未经验证的 `FileName` 的 <xref:Microsoft.AspNetCore.Http.IFormFile> 属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-232">Don't rely on or trust the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> without validation.</span></span> <span data-ttu-id="466cd-233">只应将 `FileName` 属性用于显示用途，并且只应在进行 HTML 编码后使用它。</span><span class="sxs-lookup"><span data-stu-id="466cd-233">The `FileName` property should only be used for display purposes and only after HTML encoding.</span></span>
 >
-> <span data-ttu-id="f8fe4-234">提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-234">The examples provided don't take into account security considerations.</span></span> <span data-ttu-id="f8fe4-235">以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-235">Additional information is provided by the following sections and the [sample app](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
+> <span data-ttu-id="466cd-234">提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="466cd-234">The examples provided don't take into account security considerations.</span></span> <span data-ttu-id="466cd-235">以下各节及[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="466cd-235">Additional information is provided by the following sections and the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
 >
-> * [<span data-ttu-id="f8fe4-236">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-236">Security considerations</span></span>](#security-considerations)
-> * [<span data-ttu-id="f8fe4-237">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-237">Validation</span></span>](#validation)
+> * [<span data-ttu-id="466cd-236">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-236">Security considerations</span></span>](#security-considerations)
+> * [<span data-ttu-id="466cd-237">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-237">Validation</span></span>](#validation)
 
-### <a name="upload-large-files-with-streaming"></a><span data-ttu-id="f8fe4-238">通过流式传输上传大型文件</span><span class="sxs-lookup"><span data-stu-id="f8fe4-238">Upload large files with streaming</span></span>
+### <a name="upload-large-files-with-streaming"></a><span data-ttu-id="466cd-238">通过流式传输上传大型文件</span><span class="sxs-lookup"><span data-stu-id="466cd-238">Upload large files with streaming</span></span>
 
-<span data-ttu-id="f8fe4-239">以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-239">The following example demonstrates how to use JavaScript to stream a file to a controller action.</span></span> <span data-ttu-id="f8fe4-240">使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-240">The file's antiforgery token is generated using a custom filter attribute and passed to the client HTTP headers instead of in the request body.</span></span> <span data-ttu-id="f8fe4-241">由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-241">Because the action method processes the uploaded data directly, form model binding is disabled by another custom filter.</span></span> <span data-ttu-id="f8fe4-242">在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-242">Within the action, the form's contents are read using a `MultipartReader`, which reads each individual `MultipartSection`, processing the file or storing the contents as appropriate.</span></span> <span data-ttu-id="f8fe4-243">读取多部分节后，该操作会执行自己的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-243">After the multipart sections are read, the action performs its own model binding.</span></span>
+<span data-ttu-id="466cd-239">以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。</span><span class="sxs-lookup"><span data-stu-id="466cd-239">The following example demonstrates how to use JavaScript to stream a file to a controller action.</span></span> <span data-ttu-id="466cd-240">使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。</span><span class="sxs-lookup"><span data-stu-id="466cd-240">The file's antiforgery token is generated using a custom filter attribute and passed to the client HTTP headers instead of in the request body.</span></span> <span data-ttu-id="466cd-241">由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。</span><span class="sxs-lookup"><span data-stu-id="466cd-241">Because the action method processes the uploaded data directly, form model binding is disabled by another custom filter.</span></span> <span data-ttu-id="466cd-242">在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-242">Within the action, the form's contents are read using a `MultipartReader`, which reads each individual `MultipartSection`, processing the file or storing the contents as appropriate.</span></span> <span data-ttu-id="466cd-243">读取多部分节后，该操作会执行自己的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="466cd-243">After the multipart sections are read, the action performs its own model binding.</span></span>
 
-<span data-ttu-id="f8fe4-244">初始页响应加载窗体并将防伪令牌保存在 Cookie 中（通过 `GenerateAntiforgeryTokenCookieAttribute` 属性）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-244">The initial page response loads the form and saves an antiforgery token in a cookie (via the `GenerateAntiforgeryTokenCookieAttribute` attribute).</span></span> <span data-ttu-id="f8fe4-245">该属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置包含请求令牌的 Cookie：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-245">The attribute uses ASP.NET Core's built-in [antiforgery support](xref:security/anti-request-forgery) to set a cookie with a request token:</span></span>
+<span data-ttu-id="466cd-244">初始页响应加载窗体并将防伪令牌保存在 Cookie 中（通过 `GenerateAntiforgeryTokenCookieAttribute` 属性）。</span><span class="sxs-lookup"><span data-stu-id="466cd-244">The initial page response loads the form and saves an antiforgery token in a cookie (via the `GenerateAntiforgeryTokenCookieAttribute` attribute).</span></span> <span data-ttu-id="466cd-245">该属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置包含请求令牌的 Cookie：</span><span class="sxs-lookup"><span data-stu-id="466cd-245">The attribute uses ASP.NET Core's built-in [antiforgery support](xref:security/anti-request-forgery) to set a cookie with a request token:</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
-<span data-ttu-id="f8fe4-246">使用 `DisableFormValueModelBindingAttribute` 禁用模型绑定：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-246">The `DisableFormValueModelBindingAttribute` is used to disable model binding:</span></span>
+<span data-ttu-id="466cd-246">使用 `DisableFormValueModelBindingAttribute` 禁用模型绑定：</span><span class="sxs-lookup"><span data-stu-id="466cd-246">The `DisableFormValueModelBindingAttribute` is used to disable model binding:</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-<span data-ttu-id="f8fe4-247">在示例应用的 `Startup.ConfigureServices` 中，使用 [Razor Pages 约定](xref:razor-pages/razor-pages-conventions)将 `GenerateAntiforgeryTokenCookieAttribute` 和 `DisableFormValueModelBindingAttribute` 作为筛选器应用到 `/StreamedSingleFileUploadDb` 和 `/StreamedSingleFileUploadPhysical` 的页应用程序模型：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-247">In the sample app, `GenerateAntiforgeryTokenCookieAttribute` and `DisableFormValueModelBindingAttribute` are applied as filters to the page application models of `/StreamedSingleFileUploadDb` and `/StreamedSingleFileUploadPhysical` in `Startup.ConfigureServices` using [Razor Pages conventions](xref:razor-pages/razor-pages-conventions):</span></span>
+<span data-ttu-id="466cd-247">在示例应用的 `GenerateAntiforgeryTokenCookieAttribute` 中，使用 `DisableFormValueModelBindingAttribute`Razor Pages 约定`/StreamedSingleFileUploadDb`将 `/StreamedSingleFileUploadPhysical` 和 `Startup.ConfigureServices` 作为筛选器应用到 [ 和 ](xref:razor-pages/razor-pages-conventions) 的页应用程序模型：</span><span class="sxs-lookup"><span data-stu-id="466cd-247">In the sample app, `GenerateAntiforgeryTokenCookieAttribute` and `DisableFormValueModelBindingAttribute` are applied as filters to the page application models of `/StreamedSingleFileUploadDb` and `/StreamedSingleFileUploadPhysical` in `Startup.ConfigureServices` using [Razor Pages conventions](xref:razor-pages/razor-pages-conventions):</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Startup.cs?name=snippet_AddRazorPages&highlight=8-11,17-20)]
 
-<span data-ttu-id="f8fe4-248">由于模型绑定不读取窗体，因此不绑定从窗体绑定的参数（查询、路由和标头继续运行）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-248">Since model binding doesn't read the form, parameters that are bound from the form don't bind (query, route, and header continue to work).</span></span> <span data-ttu-id="f8fe4-249">操作方法直接使用 `Request` 属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-249">The action method works directly with the `Request` property.</span></span> <span data-ttu-id="f8fe4-250">`MultipartReader` 用于读取每个节。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-250">A `MultipartReader` is used to read each section.</span></span> <span data-ttu-id="f8fe4-251">在 `KeyValueAccumulator` 中存储键值数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-251">Key/value data is stored in a `KeyValueAccumulator`.</span></span> <span data-ttu-id="f8fe4-252">读取多部分节后，系统会使用 `KeyValueAccumulator` 的内容将窗体数据绑定到模型类型。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-252">After the multipart sections are read, the contents of the `KeyValueAccumulator` are used to bind the form data to a model type.</span></span>
+<span data-ttu-id="466cd-248">由于模型绑定不读取窗体，因此不绑定从窗体绑定的参数（查询、路由和标头继续运行）。</span><span class="sxs-lookup"><span data-stu-id="466cd-248">Since model binding doesn't read the form, parameters that are bound from the form don't bind (query, route, and header continue to work).</span></span> <span data-ttu-id="466cd-249">操作方法直接使用 `Request` 属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-249">The action method works directly with the `Request` property.</span></span> <span data-ttu-id="466cd-250">`MultipartReader` 用于读取每个节。</span><span class="sxs-lookup"><span data-stu-id="466cd-250">A `MultipartReader` is used to read each section.</span></span> <span data-ttu-id="466cd-251">在 `KeyValueAccumulator` 中存储键值数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-251">Key/value data is stored in a `KeyValueAccumulator`.</span></span> <span data-ttu-id="466cd-252">读取多部分节后，系统会使用 `KeyValueAccumulator` 的内容将窗体数据绑定到模型类型。</span><span class="sxs-lookup"><span data-stu-id="466cd-252">After the multipart sections are read, the contents of the `KeyValueAccumulator` are used to bind the form data to a model type.</span></span>
 
-<span data-ttu-id="f8fe4-253">使用 EF Core 流式传输到数据库的完整 `StreamingController.UploadDatabase` 方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-253">The complete `StreamingController.UploadDatabase` method for streaming to a database with EF Core:</span></span>
+<span data-ttu-id="466cd-253">使用 EF Core 流式传输到数据库的完整 `StreamingController.UploadDatabase` 方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-253">The complete `StreamingController.UploadDatabase` method for streaming to a database with EF Core:</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
-<span data-ttu-id="f8fe4-254">`MultipartRequestHelper` (Utilities/MultipartRequestHelper.cs)： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-254">`MultipartRequestHelper` (*Utilities/MultipartRequestHelper.cs*):</span></span>
+<span data-ttu-id="466cd-254">`MultipartRequestHelper` (Utilities/MultipartRequestHelper.cs)：</span><span class="sxs-lookup"><span data-stu-id="466cd-254">`MultipartRequestHelper` (*Utilities/MultipartRequestHelper.cs*):</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
-<span data-ttu-id="f8fe4-255">流式传输到物理位置的完整 `StreamingController.UploadPhysical` 方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-255">The complete `StreamingController.UploadPhysical` method for streaming to a physical location:</span></span>
+<span data-ttu-id="466cd-255">流式传输到物理位置的完整 `StreamingController.UploadPhysical` 方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-255">The complete `StreamingController.UploadPhysical` method for streaming to a physical location:</span></span>
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadPhysical)]
 
-<span data-ttu-id="f8fe4-256">在示例应用中，由 `FileHelpers.ProcessStreamedFile` 处理验证检查。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-256">In the sample app, validation checks are handled by `FileHelpers.ProcessStreamedFile`.</span></span>
+<span data-ttu-id="466cd-256">在示例应用中，由 `FileHelpers.ProcessStreamedFile` 处理验证检查。</span><span class="sxs-lookup"><span data-stu-id="466cd-256">In the sample app, validation checks are handled by `FileHelpers.ProcessStreamedFile`.</span></span>
 
-## <a name="validation"></a><span data-ttu-id="f8fe4-257">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-257">Validation</span></span>
+## <a name="validation"></a><span data-ttu-id="466cd-257">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-257">Validation</span></span>
 
-<span data-ttu-id="f8fe4-258">示例应用的 `FileHelpers` 类演示对缓冲 <xref:Microsoft.AspNetCore.Http.IFormFile> 和流式传输文件上传的多项检查。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-258">The sample app's `FileHelpers` class demonstrates a several checks for buffered <xref:Microsoft.AspNetCore.Http.IFormFile> and streamed file uploads.</span></span> <span data-ttu-id="f8fe4-259">有关示例应用如何处理 <xref:Microsoft.AspNetCore.Http.IFormFile> 缓冲文件上传的信息，请参阅 Utilities/FileHelpers.cs 文件中的 `ProcessFormFile` 方法。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-259">For processing <xref:Microsoft.AspNetCore.Http.IFormFile> buffered file uploads in the sample app, see the `ProcessFormFile` method in the *Utilities/FileHelpers.cs* file.</span></span> <span data-ttu-id="f8fe4-260">有关如何处理流式传输的文件的信息，请参阅同一个文件中的 `ProcessStreamedFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-260">For processing streamed files, see the `ProcessStreamedFile` method in the same file.</span></span>
+<span data-ttu-id="466cd-258">示例应用的 `FileHelpers` 类演示对缓冲 <xref:Microsoft.AspNetCore.Http.IFormFile> 和流式传输文件上传的多项检查。</span><span class="sxs-lookup"><span data-stu-id="466cd-258">The sample app's `FileHelpers` class demonstrates a several checks for buffered <xref:Microsoft.AspNetCore.Http.IFormFile> and streamed file uploads.</span></span> <span data-ttu-id="466cd-259">有关示例应用如何处理 <xref:Microsoft.AspNetCore.Http.IFormFile> 缓冲文件上传的信息，请参阅 Utilities/FileHelpers.cs 文件中的 `ProcessFormFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-259">For processing <xref:Microsoft.AspNetCore.Http.IFormFile> buffered file uploads in the sample app, see the `ProcessFormFile` method in the *Utilities/FileHelpers.cs* file.</span></span> <span data-ttu-id="466cd-260">有关如何处理流式传输的文件的信息，请参阅同一个文件中的 `ProcessStreamedFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-260">For processing streamed files, see the `ProcessStreamedFile` method in the same file.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-261">示例应用演示的验证处理方法不扫描上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-261">The validation processing methods demonstrated in the sample app don't scan the content of uploaded files.</span></span> <span data-ttu-id="f8fe4-262">在多数生产方案中，会先将病毒/恶意软件扫描程序 API 用于文件，然后再向用户或其他系统提供文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-262">In most production scenarios, a virus/malware scanner API is used on the file before making the file available to users or other systems.</span></span>
+> <span data-ttu-id="466cd-261">示例应用演示的验证处理方法不扫描上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-261">The validation processing methods demonstrated in the sample app don't scan the content of uploaded files.</span></span> <span data-ttu-id="466cd-262">在多数生产方案中，会先将病毒/恶意软件扫描程序 API 用于文件，然后再向用户或其他系统提供文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-262">In most production scenarios, a virus/malware scanner API is used on the file before making the file available to users or other systems.</span></span>
 >
-> <span data-ttu-id="f8fe4-263">尽管主题示例提供了验证技巧工作示例，但是如果不满足以下情况，请勿在生产应用中实现 `FileHelpers` 类：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-263">Although the topic sample provides a working example of validation techniques, don't implement the `FileHelpers` class in a production app unless you:</span></span>
+> <span data-ttu-id="466cd-263">尽管主题示例提供了验证技巧工作示例，但是如果不满足以下情况，请勿在生产应用中实现 `FileHelpers` 类：</span><span class="sxs-lookup"><span data-stu-id="466cd-263">Although the topic sample provides a working example of validation techniques, don't implement the `FileHelpers` class in a production app unless you:</span></span>
 >
-> * <span data-ttu-id="f8fe4-264">完全理解此实现。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-264">Fully understand the implementation.</span></span>
-> * <span data-ttu-id="f8fe4-265">根据应用的环境和规范修改实现。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-265">Modify the implementation as appropriate for the app's environment and specifications.</span></span>
+> * <span data-ttu-id="466cd-264">完全理解此实现。</span><span class="sxs-lookup"><span data-stu-id="466cd-264">Fully understand the implementation.</span></span>
+> * <span data-ttu-id="466cd-265">根据应用的环境和规范修改实现。</span><span class="sxs-lookup"><span data-stu-id="466cd-265">Modify the implementation as appropriate for the app's environment and specifications.</span></span>
 >
-> <span data-ttu-id="f8fe4-266">**切勿未处理这些要求即随意在应用中实现安全代码。**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-266">**Never indiscriminately implement security code in an app without addressing these requirements.**</span></span>
+> <span data-ttu-id="466cd-266">**切勿未处理这些要求即随意在应用中实现安全代码。**</span><span class="sxs-lookup"><span data-stu-id="466cd-266">**Never indiscriminately implement security code in an app without addressing these requirements.**</span></span>
 
-### <a name="content-validation"></a><span data-ttu-id="f8fe4-267">内容验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-267">Content validation</span></span>
+### <a name="content-validation"></a><span data-ttu-id="466cd-267">内容验证</span><span class="sxs-lookup"><span data-stu-id="466cd-267">Content validation</span></span>
 
-<span data-ttu-id="f8fe4-268">**将第三方病毒/恶意软件扫描 API 用于上传的内容**。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-268">**Use a third party virus/malware scanning API on uploaded content.**</span></span>
+<span data-ttu-id="466cd-268">**将第三方病毒/恶意软件扫描 API 用于上传的内容**。</span><span class="sxs-lookup"><span data-stu-id="466cd-268">**Use a third party virus/malware scanning API on uploaded content.**</span></span>
 
-<span data-ttu-id="f8fe4-269">在大容量方案中，在服务器资源上扫描文件较为困难。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-269">Scanning files is demanding on server resources in high volume scenarios.</span></span> <span data-ttu-id="f8fe4-270">若文件扫描导致请求处理性能降低，请考虑将扫描工作卸载到[后台服务](xref:fundamentals/host/hosted-services)，该服务可以是在应用服务器之外的服务器上运行的服务。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-270">If request processing performance is diminished due to file scanning, consider offloading the scanning work to a [background service](xref:fundamentals/host/hosted-services), possibly a service running on a server different from the app's server.</span></span> <span data-ttu-id="f8fe4-271">通常会将卸载的文件保留在隔离区，直至后台病毒扫描程序检查它们。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-271">Typically, uploaded files are held in a quarantined area until the background virus scanner checks them.</span></span> <span data-ttu-id="f8fe4-272">文件通过检查时，会将相应的文件移到常规的文件存储位置。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-272">When a file passes, the file is moved to the normal file storage location.</span></span> <span data-ttu-id="f8fe4-273">通常在执行这些步骤的同时，会提供指示文件扫描状态的数据库记录。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-273">These steps are usually performed in conjunction with a database record that indicates the scanning status of a file.</span></span> <span data-ttu-id="f8fe4-274">通过此方法，应用和应用服务器可以持续以响应请求为重点。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-274">By using such an approach, the app and app server remain focused on responding to requests.</span></span>
+<span data-ttu-id="466cd-269">在大容量方案中，在服务器资源上扫描文件较为困难。</span><span class="sxs-lookup"><span data-stu-id="466cd-269">Scanning files is demanding on server resources in high volume scenarios.</span></span> <span data-ttu-id="466cd-270">若文件扫描导致请求处理性能降低，请考虑将扫描工作卸载到[后台服务](xref:fundamentals/host/hosted-services)，该服务可以是在应用服务器之外的服务器上运行的服务。</span><span class="sxs-lookup"><span data-stu-id="466cd-270">If request processing performance is diminished due to file scanning, consider offloading the scanning work to a [background service](xref:fundamentals/host/hosted-services), possibly a service running on a server different from the app's server.</span></span> <span data-ttu-id="466cd-271">通常会将卸载的文件保留在隔离区，直至后台病毒扫描程序检查它们。</span><span class="sxs-lookup"><span data-stu-id="466cd-271">Typically, uploaded files are held in a quarantined area until the background virus scanner checks them.</span></span> <span data-ttu-id="466cd-272">文件通过检查时，会将相应的文件移到常规的文件存储位置。</span><span class="sxs-lookup"><span data-stu-id="466cd-272">When a file passes, the file is moved to the normal file storage location.</span></span> <span data-ttu-id="466cd-273">通常在执行这些步骤的同时，会提供指示文件扫描状态的数据库记录。</span><span class="sxs-lookup"><span data-stu-id="466cd-273">These steps are usually performed in conjunction with a database record that indicates the scanning status of a file.</span></span> <span data-ttu-id="466cd-274">通过此方法，应用和应用服务器可以持续以响应请求为重点。</span><span class="sxs-lookup"><span data-stu-id="466cd-274">By using such an approach, the app and app server remain focused on responding to requests.</span></span>
 
-### <a name="file-extension-validation"></a><span data-ttu-id="f8fe4-275">文件扩展名验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-275">File extension validation</span></span>
+### <a name="file-extension-validation"></a><span data-ttu-id="466cd-275">文件扩展名验证</span><span class="sxs-lookup"><span data-stu-id="466cd-275">File extension validation</span></span>
 
-<span data-ttu-id="f8fe4-276">应在允许的扩展名列表中查找上传的文件的扩展名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-276">The uploaded file's extension should be checked against a list of permitted extensions.</span></span> <span data-ttu-id="f8fe4-277">例如：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-277">For example:</span></span>
+<span data-ttu-id="466cd-276">应在允许的扩展名列表中查找上传的文件的扩展名。</span><span class="sxs-lookup"><span data-stu-id="466cd-276">The uploaded file's extension should be checked against a list of permitted extensions.</span></span> <span data-ttu-id="466cd-277">例如：</span><span class="sxs-lookup"><span data-stu-id="466cd-277">For example:</span></span>
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -469,9 +469,9 @@ if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
 }
 ```
 
-### <a name="file-signature-validation"></a><span data-ttu-id="f8fe4-278">文件签名验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-278">File signature validation</span></span>
+### <a name="file-signature-validation"></a><span data-ttu-id="466cd-278">文件签名验证</span><span class="sxs-lookup"><span data-stu-id="466cd-278">File signature validation</span></span>
 
-<span data-ttu-id="f8fe4-279">文件的签名由文件开头部分中的前几个字节确定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-279">A file's signature is determined by the first few bytes at the start of a file.</span></span> <span data-ttu-id="f8fe4-280">可以使用这些字节指示扩展名是否与文件内容匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-280">These bytes can be used to indicate if the extension matches the content of the file.</span></span> <span data-ttu-id="f8fe4-281">示例应用检查一些常见文件类型的文件签名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-281">The sample app checks file signatures for a few common file types.</span></span> <span data-ttu-id="f8fe4-282">在下面的示例中，在文件上检查 JPEG 图像的文件签名：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-282">In the following example, the file signature for a JPEG image is checked against the file:</span></span>
+<span data-ttu-id="466cd-279">文件的签名由文件开头部分中的前几个字节确定。</span><span class="sxs-lookup"><span data-stu-id="466cd-279">A file's signature is determined by the first few bytes at the start of a file.</span></span> <span data-ttu-id="466cd-280">可以使用这些字节指示扩展名是否与文件内容匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-280">These bytes can be used to indicate if the extension matches the content of the file.</span></span> <span data-ttu-id="466cd-281">示例应用检查一些常见文件类型的文件签名。</span><span class="sxs-lookup"><span data-stu-id="466cd-281">The sample app checks file signatures for a few common file types.</span></span> <span data-ttu-id="466cd-282">在下面的示例中，在文件上检查 JPEG 图像的文件签名：</span><span class="sxs-lookup"><span data-stu-id="466cd-282">In the following example, the file signature for a JPEG image is checked against the file:</span></span>
 
 ```csharp
 private static readonly Dictionary<string, List<byte[]>> _fileSignature = 
@@ -496,13 +496,13 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-283">若要获取其他文件签名，请参阅[文件签名数据库](https://www.filesignatures.net/)和官方文件规范。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-283">To obtain additional file signatures, see the [File Signatures Database](https://www.filesignatures.net/) and official file specifications.</span></span>
+<span data-ttu-id="466cd-283">若要获取其他文件签名，请参阅[文件签名数据库](https://www.filesignatures.net/)和官方文件规范。</span><span class="sxs-lookup"><span data-stu-id="466cd-283">To obtain additional file signatures, see the [File Signatures Database](https://www.filesignatures.net/) and official file specifications.</span></span>
 
-### <a name="file-name-security"></a><span data-ttu-id="f8fe4-284">文件名安全</span><span class="sxs-lookup"><span data-stu-id="f8fe4-284">File name security</span></span>
+### <a name="file-name-security"></a><span data-ttu-id="466cd-284">文件名安全</span><span class="sxs-lookup"><span data-stu-id="466cd-284">File name security</span></span>
 
-<span data-ttu-id="f8fe4-285">切勿使用客户端提供的文件名来将文件保存到物理存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-285">Never use a client-supplied file name for saving a file to physical storage.</span></span> <span data-ttu-id="f8fe4-286">使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-286">Create a safe file name for the file using [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) or [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to create a full path (including the file name) for temporary storage.</span></span>
+<span data-ttu-id="466cd-285">切勿使用客户端提供的文件名来将文件保存到物理存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-285">Never use a client-supplied file name for saving a file to physical storage.</span></span> <span data-ttu-id="466cd-286">使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-286">Create a safe file name for the file using [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) or [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to create a full path (including the file name) for temporary storage.</span></span>
 
-<span data-ttu-id="f8fe4-287">Razor 自动对属性值执行 HTML 编码，以便于显示。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-287">Razor automatically HTML encodes property values for display.</span></span> <span data-ttu-id="f8fe4-288">以下代码安全可用：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-288">The following code is safe to use:</span></span>
+<span data-ttu-id="466cd-287">Razor 自动对属性值执行 HTML 编码，以便于显示。</span><span class="sxs-lookup"><span data-stu-id="466cd-287">Razor automatically HTML encodes property values for display.</span></span> <span data-ttu-id="466cd-288">以下代码安全可用：</span><span class="sxs-lookup"><span data-stu-id="466cd-288">The following code is safe to use:</span></span>
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -514,15 +514,15 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-289">在 Razor 外部，始终对用户请求中的文件名内容执行 <xref:System.Net.WebUtility.HtmlEncode*>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-289">Outside of Razor, always <xref:System.Net.WebUtility.HtmlEncode*> file name content from a user's request.</span></span>
+<span data-ttu-id="466cd-289">在 Razor 外部，始终对用户请求中的文件名内容执行 <xref:System.Net.WebUtility.HtmlEncode*>。</span><span class="sxs-lookup"><span data-stu-id="466cd-289">Outside of Razor, always <xref:System.Net.WebUtility.HtmlEncode*> file name content from a user's request.</span></span>
 
-<span data-ttu-id="f8fe4-290">许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-290">Many implementations must include a check that the file exists; otherwise, the file is overwritten by a file of the same name.</span></span> <span data-ttu-id="f8fe4-291">提供其他逻辑以符合应用的规范。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-291">Supply additional logic to meet your app's specifications.</span></span>
+<span data-ttu-id="466cd-290">许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。</span><span class="sxs-lookup"><span data-stu-id="466cd-290">Many implementations must include a check that the file exists; otherwise, the file is overwritten by a file of the same name.</span></span> <span data-ttu-id="466cd-291">提供其他逻辑以符合应用的规范。</span><span class="sxs-lookup"><span data-stu-id="466cd-291">Supply additional logic to meet your app's specifications.</span></span>
 
-### <a name="size-validation"></a><span data-ttu-id="f8fe4-292">大小验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-292">Size validation</span></span>
+### <a name="size-validation"></a><span data-ttu-id="466cd-292">大小验证</span><span class="sxs-lookup"><span data-stu-id="466cd-292">Size validation</span></span>
 
-<span data-ttu-id="f8fe4-293">限制上传的文件的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-293">Limit the size of uploaded files.</span></span>
+<span data-ttu-id="466cd-293">限制上传的文件的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-293">Limit the size of uploaded files.</span></span>
 
-<span data-ttu-id="f8fe4-294">在示例应用中，文件大小限制为 2 MB（以字节为单位）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-294">In the sample app, the size of the file is limited to 2 MB (indicated in bytes).</span></span> <span data-ttu-id="f8fe4-295">通过 appsettings.json 文件中的[配置](xref:fundamentals/configuration/index)提供此限制： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-295">The limit is supplied via [Configuration](xref:fundamentals/configuration/index) from the *appsettings.json* file:</span></span>
+<span data-ttu-id="466cd-294">在示例应用中，文件大小限制为 2 MB（以字节为单位）。</span><span class="sxs-lookup"><span data-stu-id="466cd-294">In the sample app, the size of the file is limited to 2 MB (indicated in bytes).</span></span> <span data-ttu-id="466cd-295">通过 appsettings.json 文件中的[配置](xref:fundamentals/configuration/index)提供此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-295">The limit is supplied via [Configuration](xref:fundamentals/configuration/index) from the *appsettings.json* file:</span></span>
 
 ```json
 {
@@ -530,7 +530,7 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-296">将 `FileSizeLimit` 注入到 `PageModel` 类：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-296">The `FileSizeLimit` is injected into `PageModel` classes:</span></span>
+<span data-ttu-id="466cd-296">将 `FileSizeLimit` 注入到 `PageModel` 类：</span><span class="sxs-lookup"><span data-stu-id="466cd-296">The `FileSizeLimit` is injected into `PageModel` classes:</span></span>
 
 ```csharp
 public class BufferedSingleFileUploadPhysicalModel : PageModel
@@ -546,7 +546,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-<span data-ttu-id="f8fe4-297">文件大小超出限制时，将拒绝文件：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-297">When a file size exceeds the limit, the file is rejected:</span></span>
+<span data-ttu-id="466cd-297">文件大小超出限制时，将拒绝文件：</span><span class="sxs-lookup"><span data-stu-id="466cd-297">When a file size exceeds the limit, the file is rejected:</span></span>
 
 ```csharp
 if (formFile.Length > _fileSizeLimit)
@@ -555,19 +555,19 @@ if (formFile.Length > _fileSizeLimit)
 }
 ```
 
-### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a><span data-ttu-id="f8fe4-298">使名称属性值与 POST 方法的参数名称匹配</span><span class="sxs-lookup"><span data-stu-id="f8fe4-298">Match name attribute value to parameter name of POST method</span></span>
+### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a><span data-ttu-id="466cd-298">使名称属性值与 POST 方法的参数名称匹配</span><span class="sxs-lookup"><span data-stu-id="466cd-298">Match name attribute value to parameter name of POST method</span></span>
 
-<span data-ttu-id="f8fe4-299">在发布窗体数据或直接使用 JavaScript `FormData` 的非 Razor 窗体中，窗体元素或 `FormData` 指定的名称必须与控制器操作的参数名称相匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-299">In non-Razor forms that POST form data or use JavaScript's `FormData` directly, the name specified in the form's element or `FormData` must match the name of the parameter in the controller's action.</span></span>
+<span data-ttu-id="466cd-299">在发布窗体数据或直接使用 JavaScript `FormData` 的非 Razor 窗体中，窗体元素或 `FormData` 指定的名称必须与控制器操作的参数名称相匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-299">In non-Razor forms that POST form data or use JavaScript's `FormData` directly, the name specified in the form's element or `FormData` must match the name of the parameter in the controller's action.</span></span>
 
-<span data-ttu-id="f8fe4-300">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-300">In the following example:</span></span>
+<span data-ttu-id="466cd-300">在以下示例中：</span><span class="sxs-lookup"><span data-stu-id="466cd-300">In the following example:</span></span>
 
-* <span data-ttu-id="f8fe4-301">使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-301">When using an `<input>` element, the `name` attribute is set to the value `battlePlans`:</span></span>
+* <span data-ttu-id="466cd-301">使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="466cd-301">When using an `<input>` element, the `name` attribute is set to the value `battlePlans`:</span></span>
 
   ```html
   <input type="file" name="battlePlans" multiple>
   ```
 
-* <span data-ttu-id="f8fe4-302">使用 JavaScript `FormData` 时，将名称设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-302">When using `FormData` in JavaScript, the name is set to the value `battlePlans`:</span></span>
+* <span data-ttu-id="466cd-302">使用 JavaScript `FormData` 时，将名称设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="466cd-302">When using `FormData` in JavaScript, the name is set to the value `battlePlans`:</span></span>
 
   ```javascript
   var formData = new FormData();
@@ -577,25 +577,25 @@ if (formFile.Length > _fileSizeLimit)
   }
   ```
 
-<span data-ttu-id="f8fe4-303">将匹配的名称用于 C# 方法的参数 (`battlePlans`)：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-303">Use a matching name for the parameter of the C# method (`battlePlans`):</span></span>
+<span data-ttu-id="466cd-303">将匹配的名称用于 C# 方法的参数 (`battlePlans`)：</span><span class="sxs-lookup"><span data-stu-id="466cd-303">Use a matching name for the parameter of the C# method (`battlePlans`):</span></span>
 
-* <span data-ttu-id="f8fe4-304">对于名称为 `Upload` 的 Razor Pages 页处理程序方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-304">For a Razor Pages page handler method named `Upload`:</span></span>
+* <span data-ttu-id="466cd-304">对于名称为 `Upload` 的 Razor Pages 页处理程序方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-304">For a Razor Pages page handler method named `Upload`:</span></span>
 
   ```csharp
   public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> battlePlans)
   ```
 
-* <span data-ttu-id="f8fe4-305">对于 MVC POST 控制器操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-305">For an MVC POST controller action method:</span></span>
+* <span data-ttu-id="466cd-305">对于 MVC POST 控制器操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-305">For an MVC POST controller action method:</span></span>
 
   ```csharp
   public async Task<IActionResult> Post(List<IFormFile> battlePlans)
   ```
 
-## <a name="server-and-app-configuration"></a><span data-ttu-id="f8fe4-306">服务器和应用程序配置</span><span class="sxs-lookup"><span data-stu-id="f8fe4-306">Server and app configuration</span></span>
+## <a name="server-and-app-configuration"></a><span data-ttu-id="466cd-306">服务器和应用程序配置</span><span class="sxs-lookup"><span data-stu-id="466cd-306">Server and app configuration</span></span>
 
-### <a name="multipart-body-length-limit"></a><span data-ttu-id="f8fe4-307">多部分正文长度限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-307">Multipart body length limit</span></span>
+### <a name="multipart-body-length-limit"></a><span data-ttu-id="466cd-307">多部分正文长度限制</span><span class="sxs-lookup"><span data-stu-id="466cd-307">Multipart body length limit</span></span>
 
-<span data-ttu-id="f8fe4-308"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置每个多部分正文的长度限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-308"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> sets the limit for the length of each multipart body.</span></span> <span data-ttu-id="f8fe4-309">分析超出此限制的窗体部分时，会引发 <xref:System.IO.InvalidDataException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-309">Form sections that exceed this limit throw an <xref:System.IO.InvalidDataException> when parsed.</span></span> <span data-ttu-id="f8fe4-310">默认值为 134,217,728 (128 MB)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-310">The default is 134,217,728 (128 MB).</span></span> <span data-ttu-id="f8fe4-311">使用 `Startup.ConfigureServices` 中的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-311">Customize the limit using the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> setting in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-308"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置每个多部分正文的长度限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-308"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> sets the limit for the length of each multipart body.</span></span> <span data-ttu-id="466cd-309">分析超出此限制的窗体部分时，会引发 <xref:System.IO.InvalidDataException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-309">Form sections that exceed this limit throw an <xref:System.IO.InvalidDataException> when parsed.</span></span> <span data-ttu-id="466cd-310">默认值为 134,217,728 (128 MB)。</span><span class="sxs-lookup"><span data-stu-id="466cd-310">The default is 134,217,728 (128 MB).</span></span> <span data-ttu-id="466cd-311">使用 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 中的 `Startup.ConfigureServices` 设置自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-311">Customize the limit using the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> setting in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -608,9 +608,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="f8fe4-312">使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-312"><xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> is used to set the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> for a single page or action.</span></span>
+<span data-ttu-id="466cd-312">使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。</span><span class="sxs-lookup"><span data-stu-id="466cd-312"><xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> is used to set the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> for a single page or action.</span></span>
 
-<span data-ttu-id="f8fe4-313">在 Razor Pages 应用中，使用 `Startup.ConfigureServices` 中的[约定](xref:razor-pages/razor-pages-conventions)应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-313">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-313">在 Razor Pages 应用中，使用 [ 中的](xref:razor-pages/razor-pages-conventions)约定`Startup.ConfigureServices`应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="466cd-313">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddRazorPages()
@@ -627,7 +627,7 @@ services.AddRazorPages()
     });
 ```
 
-<span data-ttu-id="f8fe4-314">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面模型或操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-314">In a Razor Pages app or an MVC app, apply the filter to the page model or action method:</span></span>
+<span data-ttu-id="466cd-314">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面模型或操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-314">In a Razor Pages app or an MVC app, apply the filter to the page model or action method:</span></span>
 
 ```csharp
 // Set the limit to 256 MB
@@ -638,9 +638,9 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-### <a name="kestrel-maximum-request-body-size"></a><span data-ttu-id="f8fe4-315">Kestrel 最大请求正文大小</span><span class="sxs-lookup"><span data-stu-id="f8fe4-315">Kestrel maximum request body size</span></span>
+### <a name="kestrel-maximum-request-body-size"></a><span data-ttu-id="466cd-315">Kestrel 最大请求正文大小</span><span class="sxs-lookup"><span data-stu-id="466cd-315">Kestrel maximum request body size</span></span>
 
-<span data-ttu-id="f8fe4-316">对于 Kestrel 托管的应用，默认的最大请求正文大小为 30,000,000 个字节，约为 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-316">For apps hosted by Kestrel, the default maximum request body size is 30,000,000 bytes, which is approximately 28.6 MB.</span></span> <span data-ttu-id="f8fe4-317">使用 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel 服务器选项自定义限制：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-317">Customize the limit using the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel server option:</span></span>
+<span data-ttu-id="466cd-316">对于 Kestrel 托管的应用，默认的最大请求正文大小为 30,000,000 个字节，约为 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="466cd-316">For apps hosted by Kestrel, the default maximum request body size is 30,000,000 bytes, which is approximately 28.6 MB.</span></span> <span data-ttu-id="466cd-317">使用 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel 服务器选项自定义限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-317">Customize the limit using the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel server option:</span></span>
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -656,9 +656,9 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-<span data-ttu-id="f8fe4-318">使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-318"><xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> is used to set the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) for a single page or action.</span></span>
+<span data-ttu-id="466cd-318">使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。</span><span class="sxs-lookup"><span data-stu-id="466cd-318"><xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> is used to set the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) for a single page or action.</span></span>
 
-<span data-ttu-id="f8fe4-319">在 Razor Pages 应用中，使用 `Startup.ConfigureServices` 中的[约定](xref:razor-pages/razor-pages-conventions)应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-319">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-319">在 Razor Pages 应用中，使用 [ 中的](xref:razor-pages/razor-pages-conventions)约定`Startup.ConfigureServices`应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="466cd-319">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddRazorPages()
@@ -675,7 +675,7 @@ services.AddRazorPages()
     });
 ```
 
-<span data-ttu-id="f8fe4-320">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面处理程序类或操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-320">In a Razor pages app or an MVC app, apply the filter to the page handler class or action method:</span></span>
+<span data-ttu-id="466cd-320">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面处理程序类或操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-320">In a Razor pages app or an MVC app, apply the filter to the page handler class or action method:</span></span>
 
 ```csharp
 // Handle requests up to 50 MB
@@ -686,22 +686,22 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-<span data-ttu-id="f8fe4-321">也可以使用 [`@attribute`](xref:mvc/views/razor#attribute) Razor 指令应用 `RequestSizeLimitAttribute`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-321">The `RequestSizeLimitAttribute` can also be applied using the [`@attribute`](xref:mvc/views/razor#attribute) Razor directive:</span></span>
+<span data-ttu-id="466cd-321">也可以使用 `RequestSizeLimitAttribute`[`@attribute` Razor 指令应用 ](xref:mvc/views/razor#attribute)：</span><span class="sxs-lookup"><span data-stu-id="466cd-321">The `RequestSizeLimitAttribute` can also be applied using the [`@attribute`](xref:mvc/views/razor#attribute) Razor directive:</span></span>
 
 ```cshtml
 @attribute [RequestSizeLimitAttribute(52428800)]
 ```
 
-### <a name="other-kestrel-limits"></a><span data-ttu-id="f8fe4-322">其他 Kestrel 限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-322">Other Kestrel limits</span></span>
+### <a name="other-kestrel-limits"></a><span data-ttu-id="466cd-322">其他 Kestrel 限制</span><span class="sxs-lookup"><span data-stu-id="466cd-322">Other Kestrel limits</span></span>
 
-<span data-ttu-id="f8fe4-323">其他 Kestrel 限制可能适用于 Kestrel 托管的应用：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-323">Other Kestrel limits may apply for apps hosted by Kestrel:</span></span>
+<span data-ttu-id="466cd-323">其他 Kestrel 限制可能适用于 Kestrel 托管的应用：</span><span class="sxs-lookup"><span data-stu-id="466cd-323">Other Kestrel limits may apply for apps hosted by Kestrel:</span></span>
 
-* [<span data-ttu-id="f8fe4-324">客户端最大连接数</span><span class="sxs-lookup"><span data-stu-id="f8fe4-324">Maximum client connections</span></span>](xref:fundamentals/servers/kestrel#maximum-client-connections)
-* [<span data-ttu-id="f8fe4-325">请求和响应数据速率</span><span class="sxs-lookup"><span data-stu-id="f8fe4-325">Request and response data rates</span></span>](xref:fundamentals/servers/kestrel#minimum-request-body-data-rate)
+* [<span data-ttu-id="466cd-324">客户端最大连接数</span><span class="sxs-lookup"><span data-stu-id="466cd-324">Maximum client connections</span></span>](xref:fundamentals/servers/kestrel#maximum-client-connections)
+* [<span data-ttu-id="466cd-325">请求和响应数据速率</span><span class="sxs-lookup"><span data-stu-id="466cd-325">Request and response data rates</span></span>](xref:fundamentals/servers/kestrel#minimum-request-body-data-rate)
 
-### <a name="iis-content-length-limit"></a><span data-ttu-id="f8fe4-326">IIS 内容长度限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-326">IIS content length limit</span></span>
+### <a name="iis-content-length-limit"></a><span data-ttu-id="466cd-326">IIS 内容长度限制</span><span class="sxs-lookup"><span data-stu-id="466cd-326">IIS content length limit</span></span>
 
-<span data-ttu-id="f8fe4-327">默认的请求限制 (`maxAllowedContentLength`) 为 30,000,000 字节，大约 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-327">The default request limit (`maxAllowedContentLength`) is 30,000,000 bytes, which is approximately 28.6MB.</span></span> <span data-ttu-id="f8fe4-328">请在 web.config 文件中自定义此限制： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-328">Customize the limit in the *web.config* file:</span></span>
+<span data-ttu-id="466cd-327">默认的请求限制 (`maxAllowedContentLength`) 为 30,000,000 字节，大约 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="466cd-327">The default request limit (`maxAllowedContentLength`) is 30,000,000 bytes, which is approximately 28.6MB.</span></span> <span data-ttu-id="466cd-328">请在 web.config 文件中自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-328">Customize the limit in the *web.config* file:</span></span>
 
 ```xml
 <system.webServer>
@@ -714,135 +714,135 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-<span data-ttu-id="f8fe4-329">此设置仅适用于 IIS。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-329">This setting only applies to IIS.</span></span> <span data-ttu-id="f8fe4-330">在 Kestrel 上托管时，默认情况下不会出现此行为。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-330">The behavior doesn't occur by default when hosting on Kestrel.</span></span> <span data-ttu-id="f8fe4-331">有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-331">For more information, see [Request Limits \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).</span></span>
+<span data-ttu-id="466cd-329">此设置仅适用于 IIS。</span><span class="sxs-lookup"><span data-stu-id="466cd-329">This setting only applies to IIS.</span></span> <span data-ttu-id="466cd-330">在 Kestrel 上托管时，默认情况下不会出现此行为。</span><span class="sxs-lookup"><span data-stu-id="466cd-330">The behavior doesn't occur by default when hosting on Kestrel.</span></span> <span data-ttu-id="466cd-331">有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。</span><span class="sxs-lookup"><span data-stu-id="466cd-331">For more information, see [Request Limits \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).</span></span>
 
-<span data-ttu-id="f8fe4-332">ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-332">Limitations in the ASP.NET Core Module or presence of the IIS Request Filtering Module may limit uploads to either 2 or 4 GB.</span></span> <span data-ttu-id="f8fe4-333">有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-333">For more information, see [Unable to upload file greater than 2GB in size (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).</span></span>
+<span data-ttu-id="466cd-332">ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。</span><span class="sxs-lookup"><span data-stu-id="466cd-332">Limitations in the ASP.NET Core Module or presence of the IIS Request Filtering Module may limit uploads to either 2 or 4 GB.</span></span> <span data-ttu-id="466cd-333">有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。</span><span class="sxs-lookup"><span data-stu-id="466cd-333">For more information, see [Unable to upload file greater than 2GB in size (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).</span></span>
 
-## <a name="troubleshoot"></a><span data-ttu-id="f8fe4-334">疑难解答</span><span class="sxs-lookup"><span data-stu-id="f8fe4-334">Troubleshoot</span></span>
+## <a name="troubleshoot"></a><span data-ttu-id="466cd-334">故障排除</span><span class="sxs-lookup"><span data-stu-id="466cd-334">Troubleshoot</span></span>
 
-<span data-ttu-id="f8fe4-335">以下是上传文件时遇到的一些常见问题及其可能的解决方案。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-335">Below are some common problems encountered when working with uploading files and their possible solutions.</span></span>
+<span data-ttu-id="466cd-335">以下是上传文件时遇到的一些常见问题及其可能的解决方案。</span><span class="sxs-lookup"><span data-stu-id="466cd-335">Below are some common problems encountered when working with uploading files and their possible solutions.</span></span>
 
-### <a name="not-found-error-when-deployed-to-an-iis-server"></a><span data-ttu-id="f8fe4-336">部署到 IIS 服务器时出现“找不到”错误</span><span class="sxs-lookup"><span data-stu-id="f8fe4-336">Not Found error when deployed to an IIS server</span></span>
+### <a name="not-found-error-when-deployed-to-an-iis-server"></a><span data-ttu-id="466cd-336">部署到 IIS 服务器时出现“找不到”错误</span><span class="sxs-lookup"><span data-stu-id="466cd-336">Not Found error when deployed to an IIS server</span></span>
 
-<span data-ttu-id="f8fe4-337">以下错误表示上传的文件超过服务器配置的内容长度：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-337">The following error indicates that the uploaded file exceeds the server's configured content length:</span></span>
+<span data-ttu-id="466cd-337">以下错误表示上传的文件超过服务器配置的内容长度：</span><span class="sxs-lookup"><span data-stu-id="466cd-337">The following error indicates that the uploaded file exceeds the server's configured content length:</span></span>
 
 ```
 HTTP 404.13 - Not Found
 The request filtering module is configured to deny a request that exceeds the request content length.
 ```
 
-<span data-ttu-id="f8fe4-338">有关提高此限制的详细信息，请参阅 [IIS 内容长度限制](#iis-content-length-limit)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-338">For more information on increasing the limit, see the [IIS content length limit](#iis-content-length-limit) section.</span></span>
+<span data-ttu-id="466cd-338">有关提高此限制的详细信息，请参阅 [IIS 内容长度限制](#iis-content-length-limit)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-338">For more information on increasing the limit, see the [IIS content length limit](#iis-content-length-limit) section.</span></span>
 
-### <a name="connection-failure"></a><span data-ttu-id="f8fe4-339">连接失败</span><span class="sxs-lookup"><span data-stu-id="f8fe4-339">Connection failure</span></span>
+### <a name="connection-failure"></a><span data-ttu-id="466cd-339">连接失败</span><span class="sxs-lookup"><span data-stu-id="466cd-339">Connection failure</span></span>
 
-<span data-ttu-id="f8fe4-340">连接错误和重置服务器连接可能表示上传的文件超出 Kestrel 的最大请求正文大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-340">A connection error and a reset server connection probably indicates that the uploaded file exceeds Kestrel's maximum request body size.</span></span> <span data-ttu-id="f8fe4-341">有关详细信息，请参阅 [Kestrel 最大请求正文大小](#kestrel-maximum-request-body-size)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-341">For more information, see the [Kestrel maximum request body size](#kestrel-maximum-request-body-size) section.</span></span> <span data-ttu-id="f8fe4-342">可能还需要调整 Kestrel 客户端连接限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-342">Kestrel client connection limits may also require adjustment.</span></span>
+<span data-ttu-id="466cd-340">连接错误和重置服务器连接可能表示上传的文件超出 Kestrel 的最大请求正文大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-340">A connection error and a reset server connection probably indicates that the uploaded file exceeds Kestrel's maximum request body size.</span></span> <span data-ttu-id="466cd-341">有关详细信息，请参阅 [Kestrel 最大请求正文大小](#kestrel-maximum-request-body-size)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-341">For more information, see the [Kestrel maximum request body size](#kestrel-maximum-request-body-size) section.</span></span> <span data-ttu-id="466cd-342">可能还需要调整 Kestrel 客户端连接限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-342">Kestrel client connection limits may also require adjustment.</span></span>
 
-### <a name="null-reference-exception-with-iformfile"></a><span data-ttu-id="f8fe4-343">IFormFile 的空引用异常</span><span class="sxs-lookup"><span data-stu-id="f8fe4-343">Null Reference Exception with IFormFile</span></span>
+### <a name="null-reference-exception-with-iformfile"></a><span data-ttu-id="466cd-343">IFormFile 的空引用异常</span><span class="sxs-lookup"><span data-stu-id="466cd-343">Null Reference Exception with IFormFile</span></span>
 
-<span data-ttu-id="f8fe4-344">如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `multipart/form-data` 值是否为 `enctype`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-344">If the controller is accepting uploaded files using <xref:Microsoft.AspNetCore.Http.IFormFile> but the value is `null`, confirm that the HTML form is specifying an `enctype` value of `multipart/form-data`.</span></span> <span data-ttu-id="f8fe4-345">如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-345">If this attribute isn't set on the `<form>` element, the file upload doesn't occur and any bound <xref:Microsoft.AspNetCore.Http.IFormFile> arguments are `null`.</span></span> <span data-ttu-id="f8fe4-346">此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-346">Also confirm that the [upload naming in form data matches the app's naming](#match-name-attribute-value-to-parameter-name-of-post-method).</span></span>
+<span data-ttu-id="466cd-344">如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `enctype` 值是否为 `multipart/form-data`。</span><span class="sxs-lookup"><span data-stu-id="466cd-344">If the controller is accepting uploaded files using <xref:Microsoft.AspNetCore.Http.IFormFile> but the value is `null`, confirm that the HTML form is specifying an `enctype` value of `multipart/form-data`.</span></span> <span data-ttu-id="466cd-345">如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。</span><span class="sxs-lookup"><span data-stu-id="466cd-345">If this attribute isn't set on the `<form>` element, the file upload doesn't occur and any bound <xref:Microsoft.AspNetCore.Http.IFormFile> arguments are `null`.</span></span> <span data-ttu-id="466cd-346">此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。</span><span class="sxs-lookup"><span data-stu-id="466cd-346">Also confirm that the [upload naming in form data matches the app's naming](#match-name-attribute-value-to-parameter-name-of-post-method).</span></span>
 
-### <a name="stream-was-too-long"></a><span data-ttu-id="f8fe4-347">数据流太长</span><span class="sxs-lookup"><span data-stu-id="f8fe4-347">Stream was too long</span></span>
+### <a name="stream-was-too-long"></a><span data-ttu-id="466cd-347">数据流太长</span><span class="sxs-lookup"><span data-stu-id="466cd-347">Stream was too long</span></span>
 
-<span data-ttu-id="f8fe4-348">本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-348">The examples in this topic rely upon <xref:System.IO.MemoryStream> to hold the uploaded file's content.</span></span> <span data-ttu-id="f8fe4-349">`MemoryStream` 的大小限制为 `int.MaxValue`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-349">The size limit of a `MemoryStream` is `int.MaxValue`.</span></span> <span data-ttu-id="f8fe4-350">如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-350">If the app's file upload scenario requires holding file content larger than 50 MB, use an alternative approach that doesn't rely upon a single `MemoryStream` for holding an uploaded file's content.</span></span>
+<span data-ttu-id="466cd-348">本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-348">The examples in this topic rely upon <xref:System.IO.MemoryStream> to hold the uploaded file's content.</span></span> <span data-ttu-id="466cd-349">`MemoryStream` 的大小限制为 `int.MaxValue`。</span><span class="sxs-lookup"><span data-stu-id="466cd-349">The size limit of a `MemoryStream` is `int.MaxValue`.</span></span> <span data-ttu-id="466cd-350">如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-350">If the app's file upload scenario requires holding file content larger than 50 MB, use an alternative approach that doesn't rely upon a single `MemoryStream` for holding an uploaded file's content.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="f8fe4-351">ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓冲的流式传输（针对较大文件）上传一个或多个文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-351">ASP.NET Core supports uploading one or more files using buffered model binding for smaller files and unbuffered streaming for larger files.</span></span>
+<span data-ttu-id="466cd-351">ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓冲的流式传输（针对较大文件）上传一个或多个文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-351">ASP.NET Core supports uploading one or more files using buffered model binding for smaller files and unbuffered streaming for larger files.</span></span>
 
-<span data-ttu-id="f8fe4-352">[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-352">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="466cd-352">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="466cd-352">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="security-considerations"></a><span data-ttu-id="f8fe4-353">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-353">Security considerations</span></span>
+## <a name="security-considerations"></a><span data-ttu-id="466cd-353">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-353">Security considerations</span></span>
 
-<span data-ttu-id="f8fe4-354">向用户提供向服务器上传文件的功能时，必须格外小心。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-354">Use caution when providing users with the ability to upload files to a server.</span></span> <span data-ttu-id="f8fe4-355">攻击者可能会尝试执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-355">Attackers may attempt to:</span></span>
+<span data-ttu-id="466cd-354">向用户提供向服务器上传文件的功能时，必须格外小心。</span><span class="sxs-lookup"><span data-stu-id="466cd-354">Use caution when providing users with the ability to upload files to a server.</span></span> <span data-ttu-id="466cd-355">攻击者可能会尝试执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="466cd-355">Attackers may attempt to:</span></span>
 
-* <span data-ttu-id="f8fe4-356">执行[拒绝服务](/windows-hardware/drivers/ifs/denial-of-service)攻击。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-356">Execute [denial of service](/windows-hardware/drivers/ifs/denial-of-service) attacks.</span></span>
-* <span data-ttu-id="f8fe4-357">上传病毒或恶意软件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-357">Upload viruses or malware.</span></span>
-* <span data-ttu-id="f8fe4-358">以其他方式破坏网络和服务器。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-358">Compromise networks and servers in other ways.</span></span>
+* <span data-ttu-id="466cd-356">执行[拒绝服务](/windows-hardware/drivers/ifs/denial-of-service)攻击。</span><span class="sxs-lookup"><span data-stu-id="466cd-356">Execute [denial of service](/windows-hardware/drivers/ifs/denial-of-service) attacks.</span></span>
+* <span data-ttu-id="466cd-357">上传病毒或恶意软件。</span><span class="sxs-lookup"><span data-stu-id="466cd-357">Upload viruses or malware.</span></span>
+* <span data-ttu-id="466cd-358">以其他方式破坏网络和服务器。</span><span class="sxs-lookup"><span data-stu-id="466cd-358">Compromise networks and servers in other ways.</span></span>
 
-<span data-ttu-id="f8fe4-359">降低成功攻击可能性的安全措施如下：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-359">Security steps that reduce the likelihood of a successful attack are:</span></span>
+<span data-ttu-id="466cd-359">降低成功攻击可能性的安全措施如下：</span><span class="sxs-lookup"><span data-stu-id="466cd-359">Security steps that reduce the likelihood of a successful attack are:</span></span>
 
-* <span data-ttu-id="f8fe4-360">将文件上传到专用文件上传区域，最好是非系统驱动器。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-360">Upload files to a dedicated file upload area, preferably to a non-system drive.</span></span> <span data-ttu-id="f8fe4-361">使用专用位置便于对上传的文件实施安全限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-361">A dedicated location makes it easier to impose security restrictions on uploaded files.</span></span> <span data-ttu-id="f8fe4-362">禁用对文件上传位置的执行权限。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-362">Disable execute permissions on the file upload location.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-363">请勿将上传的文件保存在与应用相同的目录树中  。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-363">Do **not** persist uploaded files in the same directory tree as the app.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-364">使用应用确定的安全的文件名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-364">Use a safe file name determined by the app.</span></span> <span data-ttu-id="f8fe4-365">请勿使用用户提供的文件名，或上传的文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-365">Don't use a file name provided by the user or the untrusted file name of the uploaded file.&dagger; HTML encode the untrusted file name when displaying it.</span></span> <span data-ttu-id="f8fe4-366">例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-366">For example, logging the file name or displaying in UI (Razor automatically HTML encodes output).</span></span>
-* <span data-ttu-id="f8fe4-367">仅允许应用设计规范的已批准文件扩展名。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-367">Allow only approved file extensions for the app's design specification.&dagger;</span></span> <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* <span data-ttu-id="f8fe4-368">验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-368">Verify that client-side checks are performed on the server.&dagger; Client-side checks are easy to circumvent.</span></span>
-* <span data-ttu-id="f8fe4-369">检查已上传文件的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-369">Check the size of an uploaded file.</span></span> <span data-ttu-id="f8fe4-370">设置大小上限以防止上传大型文件。&dagger;</span><span class="sxs-lookup"><span data-stu-id="f8fe4-370">Set a maximum size limit to prevent large uploads.&dagger;</span></span>
-* <span data-ttu-id="f8fe4-371">文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-371">When files shouldn't be overwritten by an uploaded file with the same name, check the file name against the database or physical storage before uploading the file.</span></span>
-* <span data-ttu-id="f8fe4-372">**先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-372">**Run a virus/malware scanner on uploaded content before the file is stored.**</span></span>
+* <span data-ttu-id="466cd-360">将文件上传到专用文件上传区域，最好是非系统驱动器。</span><span class="sxs-lookup"><span data-stu-id="466cd-360">Upload files to a dedicated file upload area, preferably to a non-system drive.</span></span> <span data-ttu-id="466cd-361">使用专用位置便于对上传的文件实施安全限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-361">A dedicated location makes it easier to impose security restrictions on uploaded files.</span></span> <span data-ttu-id="466cd-362">禁用对文件上传位置的执行权限。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-362">Disable execute permissions on the file upload location.&dagger;</span></span>
+* <span data-ttu-id="466cd-363">请勿将上传的文件保存在与应用相同的目录树中。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-363">Do **not** persist uploaded files in the same directory tree as the app.&dagger;</span></span>
+* <span data-ttu-id="466cd-364">使用应用确定的安全的文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-364">Use a safe file name determined by the app.</span></span> <span data-ttu-id="466cd-365">请勿使用用户提供的文件名或上载文件的不受信任的文件名。&dagger; HTML 在显示时对不受信任的文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="466cd-365">Don't use a file name provided by the user or the untrusted file name of the uploaded file.&dagger; HTML encode the untrusted file name when displaying it.</span></span> <span data-ttu-id="466cd-366">例如，在 UI 中记录文件名或显示（Razor 自动对输出进行 HTML 编码）。</span><span class="sxs-lookup"><span data-stu-id="466cd-366">For example, logging the file name or displaying in UI (Razor automatically HTML encodes output).</span></span>
+* <span data-ttu-id="466cd-367">仅允许应用设计规范的已批准文件扩展名。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-367">Allow only approved file extensions for the app's design specification.&dagger;</span></span> <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* <span data-ttu-id="466cd-368">验证是否在服务器上执行了客户端检查。&dagger; 客户端检查很容易规避。</span><span class="sxs-lookup"><span data-stu-id="466cd-368">Verify that client-side checks are performed on the server.&dagger; Client-side checks are easy to circumvent.</span></span>
+* <span data-ttu-id="466cd-369">检查已上传文件的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-369">Check the size of an uploaded file.</span></span> <span data-ttu-id="466cd-370">设置大小上限以防止上传大型文件。&dagger;</span><span class="sxs-lookup"><span data-stu-id="466cd-370">Set a maximum size limit to prevent large uploads.&dagger;</span></span>
+* <span data-ttu-id="466cd-371">文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-371">When files shouldn't be overwritten by an uploaded file with the same name, check the file name against the database or physical storage before uploading the file.</span></span>
+* <span data-ttu-id="466cd-372">**先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**</span><span class="sxs-lookup"><span data-stu-id="466cd-372">**Run a virus/malware scanner on uploaded content before the file is stored.**</span></span>
 
-<span data-ttu-id="f8fe4-373">&dagger;示例应用演示了符合条件的方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-373">&dagger;The sample app demonstrates an approach that meets the criteria.</span></span>
+<span data-ttu-id="466cd-373">&dagger;示例应用演示了符合条件的方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-373">&dagger;The sample app demonstrates an approach that meets the criteria.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-374">将恶意代码上传到系统通常是执行代码的第一步，这些代码可以：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-374">Uploading malicious code to a system is frequently the first step to executing code that can:</span></span>
+> <span data-ttu-id="466cd-374">将恶意代码上传到系统通常是执行代码的第一步，这些代码可以：</span><span class="sxs-lookup"><span data-stu-id="466cd-374">Uploading malicious code to a system is frequently the first step to executing code that can:</span></span>
 >
-> * <span data-ttu-id="f8fe4-375">完全获得对系统的控制权限。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-375">Completely gain control of a system.</span></span>
-> * <span data-ttu-id="f8fe4-376">重载系统，导致系统崩溃。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-376">Overload a system with the result that the system crashes.</span></span>
-> * <span data-ttu-id="f8fe4-377">泄露用户或系统数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-377">Compromise user or system data.</span></span>
-> * <span data-ttu-id="f8fe4-378">将涂鸦应用于公共 UI。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-378">Apply graffiti to a public UI.</span></span>
+> * <span data-ttu-id="466cd-375">完全获得对系统的控制权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-375">Completely gain control of a system.</span></span>
+> * <span data-ttu-id="466cd-376">重载系统，导致系统崩溃。</span><span class="sxs-lookup"><span data-stu-id="466cd-376">Overload a system with the result that the system crashes.</span></span>
+> * <span data-ttu-id="466cd-377">泄露用户或系统数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-377">Compromise user or system data.</span></span>
+> * <span data-ttu-id="466cd-378">将涂鸦应用于公共 UI。</span><span class="sxs-lookup"><span data-stu-id="466cd-378">Apply graffiti to a public UI.</span></span>
 >
-> <span data-ttu-id="f8fe4-379">有关在接受用户文件时减少攻击外围应用的信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-379">For information on reducing the attack surface area when accepting files from users, see the following resources:</span></span>
+> <span data-ttu-id="466cd-379">有关在接受用户文件时减少攻击外围应用的信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="466cd-379">For information on reducing the attack surface area when accepting files from users, see the following resources:</span></span>
 >
-> * <span data-ttu-id="f8fe4-380">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-380">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
-> * [<span data-ttu-id="f8fe4-381">Azure 安全性：确保接受用户的文件时实施适当的控制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-381">Azure Security: Ensure appropriate controls are in place when accepting files from users</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * <span data-ttu-id="466cd-380">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="466cd-380">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
+> * [<span data-ttu-id="466cd-381">Azure 安全性：确保在接受用户文件时采取适当的控制措施</span><span class="sxs-lookup"><span data-stu-id="466cd-381">Azure Security: Ensure appropriate controls are in place when accepting files from users</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
-<span data-ttu-id="f8fe4-382">有关实现安全措施（包括示例应用中的示例）的详细信息，请参阅[验证](#validation)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-382">For more information on implementing security measures, including examples from the sample app, see the [Validation](#validation) section.</span></span>
+<span data-ttu-id="466cd-382">有关实现安全措施（包括示例应用中的示例）的详细信息，请参阅[验证](#validation)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-382">For more information on implementing security measures, including examples from the sample app, see the [Validation](#validation) section.</span></span>
 
-## <a name="storage-scenarios"></a><span data-ttu-id="f8fe4-383">存储方案</span><span class="sxs-lookup"><span data-stu-id="f8fe4-383">Storage scenarios</span></span>
+## <a name="storage-scenarios"></a><span data-ttu-id="466cd-383">存储方案</span><span class="sxs-lookup"><span data-stu-id="466cd-383">Storage scenarios</span></span>
 
-<span data-ttu-id="f8fe4-384">常见的文件存储选项有：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-384">Common storage options for files include:</span></span>
+<span data-ttu-id="466cd-384">常见的文件存储选项有：</span><span class="sxs-lookup"><span data-stu-id="466cd-384">Common storage options for files include:</span></span>
 
-* <span data-ttu-id="f8fe4-385">数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-385">Database</span></span>
+* <span data-ttu-id="466cd-385">数据库</span><span class="sxs-lookup"><span data-stu-id="466cd-385">Database</span></span>
 
-  * <span data-ttu-id="f8fe4-386">对于小型文件上传，数据库通常快于物理存储（文件系统或网络共享）选项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-386">For small file uploads, a database is often faster than physical storage (file system or network share) options.</span></span>
-  * <span data-ttu-id="f8fe4-387">相对于物理存储选项，数据库通常更为便利，因为检索数据库记录来获取用户数据可同时提供文件内容（如头像图像）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-387">A database is often more convenient than physical storage options because retrieval of a database record for user data can concurrently supply the file content (for example, an avatar image).</span></span>
-  * <span data-ttu-id="f8fe4-388">相对于使用数据存储服务，数据库的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-388">A database is potentially less expensive than using a data storage service.</span></span>
+  * <span data-ttu-id="466cd-386">对于小型文件上传，数据库通常快于物理存储（文件系统或网络共享）选项。</span><span class="sxs-lookup"><span data-stu-id="466cd-386">For small file uploads, a database is often faster than physical storage (file system or network share) options.</span></span>
+  * <span data-ttu-id="466cd-387">相对于物理存储选项，数据库通常更为便利，因为检索数据库记录来获取用户数据可同时提供文件内容（如头像图像）。</span><span class="sxs-lookup"><span data-stu-id="466cd-387">A database is often more convenient than physical storage options because retrieval of a database record for user data can concurrently supply the file content (for example, an avatar image).</span></span>
+  * <span data-ttu-id="466cd-388">相对于使用数据存储服务，数据库的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-388">A database is potentially less expensive than using a data storage service.</span></span>
 
-* <span data-ttu-id="f8fe4-389">物理存储（文件系统或网络共享）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-389">Physical storage (file system or network share)</span></span>
+* <span data-ttu-id="466cd-389">物理存储（文件系统或网络共享）</span><span class="sxs-lookup"><span data-stu-id="466cd-389">Physical storage (file system or network share)</span></span>
 
-  * <span data-ttu-id="f8fe4-390">对于大型文件上传：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-390">For large file uploads:</span></span>
-    * <span data-ttu-id="f8fe4-391">数据库限制可能会限制上传的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-391">Database limits may restrict the size of the upload.</span></span>
-    * <span data-ttu-id="f8fe4-392">相对于数据库存储，物理存储通常成本更高。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-392">Physical storage is often less economical than storage in a database.</span></span>
-  * <span data-ttu-id="f8fe4-393">相对于使用数据存储服务，物理存储的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-393">Physical storage is potentially less expensive than using a data storage service.</span></span>
-  * <span data-ttu-id="f8fe4-394">应用的进程必须具有存储位置的读写权限。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-394">The app's process must have read and write permissions to the storage location.</span></span> <span data-ttu-id="f8fe4-395">切勿授予执行权限。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-395">**Never grant execute permission.**</span></span>
+  * <span data-ttu-id="466cd-390">对于大型文件上传：</span><span class="sxs-lookup"><span data-stu-id="466cd-390">For large file uploads:</span></span>
+    * <span data-ttu-id="466cd-391">数据库限制可能会限制上传的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-391">Database limits may restrict the size of the upload.</span></span>
+    * <span data-ttu-id="466cd-392">相对于数据库存储，物理存储通常成本更高。</span><span class="sxs-lookup"><span data-stu-id="466cd-392">Physical storage is often less economical than storage in a database.</span></span>
+  * <span data-ttu-id="466cd-393">相对于使用数据存储服务，物理存储的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-393">Physical storage is potentially less expensive than using a data storage service.</span></span>
+  * <span data-ttu-id="466cd-394">应用的进程必须具有存储位置的读写权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-394">The app's process must have read and write permissions to the storage location.</span></span> <span data-ttu-id="466cd-395">切勿授予执行权限。</span><span class="sxs-lookup"><span data-stu-id="466cd-395">**Never grant execute permission.**</span></span>
 
-* <span data-ttu-id="f8fe4-396">数据存储服务（例如，[Azure Blob 存储](https://azure.microsoft.com/services/storage/blobs/)）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-396">Data storage service (for example, [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs/))</span></span>
+* <span data-ttu-id="466cd-396">数据存储服务（例如，[Azure Blob 存储](https://azure.microsoft.com/services/storage/blobs/)）</span><span class="sxs-lookup"><span data-stu-id="466cd-396">Data storage service (for example, [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs/))</span></span>
 
-  * <span data-ttu-id="f8fe4-397">服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-397">Services usually offer improved scalability and resiliency over on-premises solutions that are usually subject to single points of failure.</span></span>
-  * <span data-ttu-id="f8fe4-398">在大型存储基础结构方案中，服务的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-398">Services are potentially lower cost in large storage infrastructure scenarios.</span></span>
+  * <span data-ttu-id="466cd-397">服务通常通过本地解决方案提供提升的可伸缩性和复原能力，而它们往往受单一故障点的影响。</span><span class="sxs-lookup"><span data-stu-id="466cd-397">Services usually offer improved scalability and resiliency over on-premises solutions that are usually subject to single points of failure.</span></span>
+  * <span data-ttu-id="466cd-398">在大型存储基础结构方案中，服务的成本可能更低。</span><span class="sxs-lookup"><span data-stu-id="466cd-398">Services are potentially lower cost in large storage infrastructure scenarios.</span></span>
 
-  <span data-ttu-id="f8fe4-399">有关详细信息，请参阅[快速入门：使用 .NET 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-399">For more information, see [Quickstart: Use .NET to create a blob in object storage](/azure/storage/blobs/storage-quickstart-blobs-dotnet).</span></span> <span data-ttu-id="f8fe4-400">此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:System.IO.Stream> 时，可以使用 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 将 <xref:System.IO.FileStream> 保存到 blob 存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-400">The topic demonstrates <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>, but <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> can be used to save a <xref:System.IO.FileStream> to blob storage when working with a <xref:System.IO.Stream>.</span></span>
+  <span data-ttu-id="466cd-399">有关详细信息，请参阅[快速入门：使用 .net 在对象存储中创建 blob](/azure/storage/blobs/storage-quickstart-blobs-dotnet)。</span><span class="sxs-lookup"><span data-stu-id="466cd-399">For more information, see [Quickstart: Use .NET to create a blob in object storage](/azure/storage/blobs/storage-quickstart-blobs-dotnet).</span></span> <span data-ttu-id="466cd-400">此主题说明了 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>，但在处理 <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> 时，可以使用 <xref:System.IO.FileStream> 将 <xref:System.IO.Stream> 保存到 blob 存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-400">The topic demonstrates <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>, but <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> can be used to save a <xref:System.IO.FileStream> to blob storage when working with a <xref:System.IO.Stream>.</span></span>
 
-## <a name="file-upload-scenarios"></a><span data-ttu-id="f8fe4-401">文件上传方案</span><span class="sxs-lookup"><span data-stu-id="f8fe4-401">File upload scenarios</span></span>
+## <a name="file-upload-scenarios"></a><span data-ttu-id="466cd-401">文件上传方案</span><span class="sxs-lookup"><span data-stu-id="466cd-401">File upload scenarios</span></span>
 
-<span data-ttu-id="f8fe4-402">缓冲和流式传输是上传文件的两种常见方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-402">Two general approaches for uploading files are buffering and streaming.</span></span>
+<span data-ttu-id="466cd-402">缓冲和流式传输是上传文件的两种常见方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-402">Two general approaches for uploading files are buffering and streaming.</span></span>
 
-<span data-ttu-id="f8fe4-403">**缓冲**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-403">**Buffering**</span></span>
+<span data-ttu-id="466cd-403">**缓冲**</span><span class="sxs-lookup"><span data-stu-id="466cd-403">**Buffering**</span></span>
 
-<span data-ttu-id="f8fe4-404">整个文件读入 <xref:Microsoft.AspNetCore.Http.IFormFile>，它是文件的 C# 表示形式，用于处理或保存文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-404">The entire file is read into an <xref:Microsoft.AspNetCore.Http.IFormFile>, which is a C# representation of the file used to process or save the file.</span></span>
+<span data-ttu-id="466cd-404">整个文件读入 <xref:Microsoft.AspNetCore.Http.IFormFile>，它是文件的 C# 表示形式，用于处理或保存文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-404">The entire file is read into an <xref:Microsoft.AspNetCore.Http.IFormFile>, which is a C# representation of the file used to process or save the file.</span></span>
 
-<span data-ttu-id="f8fe4-405">文件上传所用的资源（磁盘、内存）取决于并发文件上传的数量和大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-405">The resources (disk, memory) used by file uploads depend on the number and size of concurrent file uploads.</span></span> <span data-ttu-id="f8fe4-406">如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-406">If an app attempts to buffer too many uploads, the site crashes when it runs out of memory or disk space.</span></span> <span data-ttu-id="f8fe4-407">如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-407">If the size or frequency of file uploads is exhausting app resources, use streaming.</span></span>
+<span data-ttu-id="466cd-405">文件上传所用的资源（磁盘、内存）取决于并发文件上传的数量和大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-405">The resources (disk, memory) used by file uploads depend on the number and size of concurrent file uploads.</span></span> <span data-ttu-id="466cd-406">如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。</span><span class="sxs-lookup"><span data-stu-id="466cd-406">If an app attempts to buffer too many uploads, the site crashes when it runs out of memory or disk space.</span></span> <span data-ttu-id="466cd-407">如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</span><span class="sxs-lookup"><span data-stu-id="466cd-407">If the size or frequency of file uploads is exhausting app resources, use streaming.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-408">会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-408">Any single buffered file exceeding 64 KB is moved from memory to a temp file on disk.</span></span>
+> <span data-ttu-id="466cd-408">会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-408">Any single buffered file exceeding 64 KB is moved from memory to a temp file on disk.</span></span>
 
-<span data-ttu-id="f8fe4-409">本主题的以下部分介绍了如何缓冲小型文件：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-409">Buffering small files is covered in the following sections of this topic:</span></span>
+<span data-ttu-id="466cd-409">本主题的以下部分介绍了如何缓冲小型文件：</span><span class="sxs-lookup"><span data-stu-id="466cd-409">Buffering small files is covered in the following sections of this topic:</span></span>
 
-* [<span data-ttu-id="f8fe4-410">物理存储</span><span class="sxs-lookup"><span data-stu-id="f8fe4-410">Physical storage</span></span>](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [<span data-ttu-id="f8fe4-411">数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-411">Database</span></span>](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [<span data-ttu-id="466cd-410">物理存储</span><span class="sxs-lookup"><span data-stu-id="466cd-410">Physical storage</span></span>](#upload-small-files-with-buffered-model-binding-to-physical-storage)
+* [<span data-ttu-id="466cd-411">Database</span><span class="sxs-lookup"><span data-stu-id="466cd-411">Database</span></span>](#upload-small-files-with-buffered-model-binding-to-a-database)
 
-<span data-ttu-id="f8fe4-412">**流式处理**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-412">**Streaming**</span></span>
+<span data-ttu-id="466cd-412">**流式处理**</span><span class="sxs-lookup"><span data-stu-id="466cd-412">**Streaming**</span></span>
 
-<span data-ttu-id="f8fe4-413">从多部分请求收到文件，然后应用直接处理或保存它。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-413">The file is received from a multipart request and directly processed or saved by the app.</span></span> <span data-ttu-id="f8fe4-414">流式传输无法显著提高性能。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-414">Streaming doesn't improve performance significantly.</span></span> <span data-ttu-id="f8fe4-415">流式传输可降低上传文件时对内存或磁盘空间的需求。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-415">Streaming reduces the demands for memory or disk space when uploading files.</span></span>
+<span data-ttu-id="466cd-413">从多部分请求收到文件，然后应用直接处理或保存它。</span><span class="sxs-lookup"><span data-stu-id="466cd-413">The file is received from a multipart request and directly processed or saved by the app.</span></span> <span data-ttu-id="466cd-414">流式传输无法显著提高性能。</span><span class="sxs-lookup"><span data-stu-id="466cd-414">Streaming doesn't improve performance significantly.</span></span> <span data-ttu-id="466cd-415">流式传输可降低上传文件时对内存或磁盘空间的需求。</span><span class="sxs-lookup"><span data-stu-id="466cd-415">Streaming reduces the demands for memory or disk space when uploading files.</span></span>
 
-<span data-ttu-id="f8fe4-416">[通过流式传输上传大型文件](#upload-large-files-with-streaming)部分介绍了如何流式传输大型文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-416">Streaming large files is covered in the [Upload large files with streaming](#upload-large-files-with-streaming) section.</span></span>
+<span data-ttu-id="466cd-416">[通过流式传输上传大型文件](#upload-large-files-with-streaming)部分介绍了如何流式传输大型文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-416">Streaming large files is covered in the [Upload large files with streaming](#upload-large-files-with-streaming) section.</span></span>
 
-### <a name="upload-small-files-with-buffered-model-binding-to-physical-storage"></a><span data-ttu-id="f8fe4-417">通过缓冲的模型绑定将小型文件上传到物理存储</span><span class="sxs-lookup"><span data-stu-id="f8fe4-417">Upload small files with buffered model binding to physical storage</span></span>
+### <a name="upload-small-files-with-buffered-model-binding-to-physical-storage"></a><span data-ttu-id="466cd-417">通过缓冲的模型绑定将小型文件上传到物理存储</span><span class="sxs-lookup"><span data-stu-id="466cd-417">Upload small files with buffered model binding to physical storage</span></span>
 
-<span data-ttu-id="f8fe4-418">要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-418">To upload small files, use a multipart form or construct a POST request using JavaScript.</span></span>
+<span data-ttu-id="466cd-418">要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</span><span class="sxs-lookup"><span data-stu-id="466cd-418">To upload small files, use a multipart form or construct a POST request using JavaScript.</span></span>
 
-<span data-ttu-id="f8fe4-419">下面的示例演示了使用 Razor Pages 窗体上传单个文件（示例应用中的 Pages/BufferedSingleFileUploadPhysical.cshtml  ）：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-419">The following example demonstrates the use of a Razor Pages form to upload a single file (*Pages/BufferedSingleFileUploadPhysical.cshtml* in the sample app):</span></span>
+<span data-ttu-id="466cd-419">下面的示例演示了使用 Razor Pages 窗体上传单个文件（示例应用中的 Pages/BufferedSingleFileUploadPhysical.cshtml）：</span><span class="sxs-lookup"><span data-stu-id="466cd-419">The following example demonstrates the use of a Razor Pages form to upload a single file (*Pages/BufferedSingleFileUploadPhysical.cshtml* in the sample app):</span></span>
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -859,10 +859,10 @@ The request filtering module is configured to deny a request that exceeds the re
 </form>
 ```
 
-<span data-ttu-id="f8fe4-420">下面的示例与前面的示例类似，不同之处在于：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-420">The following example is analogous to the prior example except that:</span></span>
+<span data-ttu-id="466cd-420">下面的示例与前面的示例类似，不同之处在于：</span><span class="sxs-lookup"><span data-stu-id="466cd-420">The following example is analogous to the prior example except that:</span></span>
 
-* <span data-ttu-id="f8fe4-421">使用 JavaScript ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) 提交窗体的数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-421">JavaScript's ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) is used to submit the form's data.</span></span>
-* <span data-ttu-id="f8fe4-422">无验证。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-422">There's no validation.</span></span>
+* <span data-ttu-id="466cd-421">使用 JavaScript ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) 提交窗体的数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-421">JavaScript's ([Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)) is used to submit the form's data.</span></span>
+* <span data-ttu-id="466cd-422">无验证。</span><span class="sxs-lookup"><span data-stu-id="466cd-422">There's no validation.</span></span>
 
 ```cshtml
 <form action="BufferedSingleFileUploadPhysical/?handler=Upload" 
@@ -909,10 +909,10 @@ The request filtering module is configured to deny a request that exceeds the re
 </script>
 ```
 
-<span data-ttu-id="f8fe4-423">若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-423">To perform the form POST in JavaScript for clients that [don't support the Fetch API](https://caniuse.com/#feat=fetch), use one of the following approaches:</span></span>
+<span data-ttu-id="466cd-423">若要使用 JavaScript 为[不支持 Fetch API](https://caniuse.com/#feat=fetch) 的客户端执行窗体发布，请使用以下方法之一：</span><span class="sxs-lookup"><span data-stu-id="466cd-423">To perform the form POST in JavaScript for clients that [don't support the Fetch API](https://caniuse.com/#feat=fetch), use one of the following approaches:</span></span>
 
-* <span data-ttu-id="f8fe4-424">使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-424">Use a Fetch Polyfill (for example, [window.fetch polyfill (github/fetch)](https://github.com/github/fetch)).</span></span>
-* <span data-ttu-id="f8fe4-425">请使用 `XMLHttpRequest`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-425">Use `XMLHttpRequest`.</span></span> <span data-ttu-id="f8fe4-426">例如：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-426">For example:</span></span>
+* <span data-ttu-id="466cd-424">使用 Fetch Polyfill（例如，[window.fetch polyfill (github/fetch)](https://github.com/github/fetch)）。</span><span class="sxs-lookup"><span data-stu-id="466cd-424">Use a Fetch Polyfill (for example, [window.fetch polyfill (github/fetch)](https://github.com/github/fetch)).</span></span>
+* <span data-ttu-id="466cd-425">改用 `XMLHttpRequest`</span><span class="sxs-lookup"><span data-stu-id="466cd-425">Use `XMLHttpRequest`.</span></span> <span data-ttu-id="466cd-426">例如：</span><span class="sxs-lookup"><span data-stu-id="466cd-426">For example:</span></span>
 
   ```javascript
   <script>
@@ -930,53 +930,53 @@ The request filtering module is configured to deny a request that exceeds the re
   </script>
   ```
 
-<span data-ttu-id="f8fe4-427">为支持文件上传，HTML 窗体必须指定 `multipart/form-data` 的编码类型 (`enctype`)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-427">In order to support file uploads, HTML forms must specify an encoding type (`enctype`) of `multipart/form-data`.</span></span>
+<span data-ttu-id="466cd-427">为支持文件上传，HTML 窗体必须指定 `enctype` 的编码类型 (`multipart/form-data`)。</span><span class="sxs-lookup"><span data-stu-id="466cd-427">In order to support file uploads, HTML forms must specify an encoding type (`enctype`) of `multipart/form-data`.</span></span>
 
-<span data-ttu-id="f8fe4-428">要使 `files` 输入元素支持上传多个文件，请在 `<input>` 元素上提供 `multiple` 属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-428">For a `files` input element to support uploading multiple files provide the `multiple` attribute on the `<input>` element:</span></span>
+<span data-ttu-id="466cd-428">要使 `files` 输入元素支持上传多个文件，请在 `multiple` 元素上提供 `<input>` 属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-428">For a `files` input element to support uploading multiple files provide the `multiple` attribute on the `<input>` element:</span></span>
 
 ```cshtml
 <input asp-for="FileUpload.FormFiles" type="file" multiple>
 ```
 
-<span data-ttu-id="f8fe4-429">上传到服务器的单个文件可使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 接口通过[模型绑定](xref:mvc/models/model-binding)进行访问。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-429">The individual files uploaded to the server can be accessed through [Model Binding](xref:mvc/models/model-binding) using <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span> <span data-ttu-id="f8fe4-430">示例应用演示了数据库和物理存储方案的多个缓冲文件上传。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-430">The sample app demonstrates multiple buffered file uploads for database and physical storage scenarios.</span></span>
+<span data-ttu-id="466cd-429">上传到服务器的单个文件可使用 [ 接口通过](xref:mvc/models/model-binding)模型绑定<xref:Microsoft.AspNetCore.Http.IFormFile>进行访问。</span><span class="sxs-lookup"><span data-stu-id="466cd-429">The individual files uploaded to the server can be accessed through [Model Binding](xref:mvc/models/model-binding) using <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span> <span data-ttu-id="466cd-430">示例应用演示了数据库和物理存储方案的多个缓冲文件上传。</span><span class="sxs-lookup"><span data-stu-id="466cd-430">The sample app demonstrates multiple buffered file uploads for database and physical storage scenarios.</span></span>
 
 <a name="filename2"></a>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-431">除了显示和日志记录用途外，请勿使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性  。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-431">Do **not** use the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> other than for display and logging.</span></span> <span data-ttu-id="f8fe4-432">显示或日志记录时，HTML 对文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-432">When displaying or logging, HTML encode the file name.</span></span> <span data-ttu-id="f8fe4-433">攻击者可以提供恶意文件名，包括完整路径或相对路径。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-433">An attacker can provide a malicious filename, including full paths or relative paths.</span></span> <span data-ttu-id="f8fe4-434">应用程序应：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-434">Applications should:</span></span>
+> <span data-ttu-id="466cd-431">除了显示和日志记录用途外，请勿使用 **的** 属性`FileName`<xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="466cd-431">Do **not** use the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> other than for display and logging.</span></span> <span data-ttu-id="466cd-432">显示或日志记录时，HTML 对文件名进行编码。</span><span class="sxs-lookup"><span data-stu-id="466cd-432">When displaying or logging, HTML encode the file name.</span></span> <span data-ttu-id="466cd-433">攻击者可以提供恶意文件名，包括完整路径或相对路径。</span><span class="sxs-lookup"><span data-stu-id="466cd-433">An attacker can provide a malicious filename, including full paths or relative paths.</span></span> <span data-ttu-id="466cd-434">应用程序应：</span><span class="sxs-lookup"><span data-stu-id="466cd-434">Applications should:</span></span>
 >
-> * <span data-ttu-id="f8fe4-435">从用户提供的文件名中删除路径。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-435">Remove the path from the user-supplied filename.</span></span>
-> * <span data-ttu-id="f8fe4-436">为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-436">Save the HTML-encoded, path-removed filename for UI or logging.</span></span>
-> * <span data-ttu-id="f8fe4-437">生成新的随机文件名进行存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-437">Generate a new random filename for storage.</span></span>
+> * <span data-ttu-id="466cd-435">从用户提供的文件名中删除路径。</span><span class="sxs-lookup"><span data-stu-id="466cd-435">Remove the path from the user-supplied filename.</span></span>
+> * <span data-ttu-id="466cd-436">为 UI 或日志记录保存经 HTML 编码、已删除路径的文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-436">Save the HTML-encoded, path-removed filename for UI or logging.</span></span>
+> * <span data-ttu-id="466cd-437">生成新的随机文件名进行存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-437">Generate a new random filename for storage.</span></span>
 >
-> <span data-ttu-id="f8fe4-438">以下代码可从文件名中删除路径：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-438">The following code removes the path from the file name:</span></span>
+> <span data-ttu-id="466cd-438">以下代码可从文件名中删除路径：</span><span class="sxs-lookup"><span data-stu-id="466cd-438">The following code removes the path from the file name:</span></span>
 >
 > ```csharp
 > string untrustedFileName = Path.GetFileName(pathName);
 > ```
 >
-> <span data-ttu-id="f8fe4-439">目前提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-439">The examples provided thus far don't take into account security considerations.</span></span> <span data-ttu-id="f8fe4-440">以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-440">Additional information is provided by the following sections and the [sample app](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
+> <span data-ttu-id="466cd-439">目前提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="466cd-439">The examples provided thus far don't take into account security considerations.</span></span> <span data-ttu-id="466cd-440">以下各节及[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="466cd-440">Additional information is provided by the following sections and the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
 >
-> * [<span data-ttu-id="f8fe4-441">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-441">Security considerations</span></span>](#security-considerations)
-> * [<span data-ttu-id="f8fe4-442">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-442">Validation</span></span>](#validation)
+> * [<span data-ttu-id="466cd-441">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-441">Security considerations</span></span>](#security-considerations)
+> * [<span data-ttu-id="466cd-442">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-442">Validation</span></span>](#validation)
 
-<span data-ttu-id="f8fe4-443">使用模型绑定和 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传文件时，操作方法可以接受以下内容：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-443">When uploading files using model binding and <xref:Microsoft.AspNetCore.Http.IFormFile>, the action method can accept:</span></span>
+<span data-ttu-id="466cd-443">使用模型绑定和 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传文件时，操作方法可以接受以下内容：</span><span class="sxs-lookup"><span data-stu-id="466cd-443">When uploading files using model binding and <xref:Microsoft.AspNetCore.Http.IFormFile>, the action method can accept:</span></span>
 
-* <span data-ttu-id="f8fe4-444">单个 <xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-444">A single <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span>
-* <span data-ttu-id="f8fe4-445">以下任何表示多个文件的集合：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-445">Any of the following collections that represent several files:</span></span>
+* <span data-ttu-id="466cd-444">单个 <xref:Microsoft.AspNetCore.Http.IFormFile>。</span><span class="sxs-lookup"><span data-stu-id="466cd-444">A single <xref:Microsoft.AspNetCore.Http.IFormFile>.</span></span>
+* <span data-ttu-id="466cd-445">以下任何表示多个文件的集合：</span><span class="sxs-lookup"><span data-stu-id="466cd-445">Any of the following collections that represent several files:</span></span>
   * <xref:Microsoft.AspNetCore.Http.IFormFileCollection>
   * <xref:System.Collections.IEnumerable>\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
-  * <span data-ttu-id="f8fe4-446">[列表](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span><span class="sxs-lookup"><span data-stu-id="f8fe4-446">[List](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span></span>
+  * <span data-ttu-id="466cd-446">[列表](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span><span class="sxs-lookup"><span data-stu-id="466cd-446">[List](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>></span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-447">绑定根据名称匹配窗体文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-447">Binding matches form files by name.</span></span> <span data-ttu-id="f8fe4-448">例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-448">For example, the HTML `name` value in `<input type="file" name="formFile">` must match the C# parameter/property bound (`FormFile`).</span></span> <span data-ttu-id="f8fe4-449">有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-449">For more information, see the [Match name attribute value to parameter name of POST method](#match-name-attribute-value-to-parameter-name-of-post-method) section.</span></span>
+> <span data-ttu-id="466cd-447">绑定根据名称匹配窗体文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-447">Binding matches form files by name.</span></span> <span data-ttu-id="466cd-448">例如，`name` 中的 HTML `<input type="file" name="formFile">` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-448">For example, the HTML `name` value in `<input type="file" name="formFile">` must match the C# parameter/property bound (`FormFile`).</span></span> <span data-ttu-id="466cd-449">有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-449">For more information, see the [Match name attribute value to parameter name of POST method](#match-name-attribute-value-to-parameter-name-of-post-method) section.</span></span>
 
-<span data-ttu-id="f8fe4-450">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-450">The following example:</span></span>
+<span data-ttu-id="466cd-450">下面的示例：</span><span class="sxs-lookup"><span data-stu-id="466cd-450">The following example:</span></span>
 
-* <span data-ttu-id="f8fe4-451">循环访问一个或多个上传的文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-451">Loops through one or more uploaded files.</span></span>
-* <span data-ttu-id="f8fe4-452">使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-452">Uses [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to return a full path for a file, including the file name.</span></span> 
-* <span data-ttu-id="f8fe4-453">使用应用生成的文件名将文件保存到本地文件系统。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-453">Saves the files to the local file system using a file name generated by the app.</span></span>
-* <span data-ttu-id="f8fe4-454">返回上传的文件的总数量和总大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-454">Returns the total number and size of files uploaded.</span></span>
+* <span data-ttu-id="466cd-451">循环访问一个或多个上传的文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-451">Loops through one or more uploaded files.</span></span>
+* <span data-ttu-id="466cd-452">使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。</span><span class="sxs-lookup"><span data-stu-id="466cd-452">Uses [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to return a full path for a file, including the file name.</span></span> 
+* <span data-ttu-id="466cd-453">使用应用生成的文件名将文件保存到本地文件系统。</span><span class="sxs-lookup"><span data-stu-id="466cd-453">Saves the files to the local file system using a file name generated by the app.</span></span>
+* <span data-ttu-id="466cd-454">返回上传的文件的总数量和总大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-454">Returns the total number and size of files uploaded.</span></span>
 
 ```csharp
 public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
@@ -999,11 +999,11 @@ public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
     // Process uploaded files
     // Don't rely on or trust the FileName property without validation.
 
-    return Ok(new { count = files.Count, size, filePath });
+    return Ok(new { count = files.Count, size });
 }
 ```
 
-<span data-ttu-id="f8fe4-455">使用 `Path.GetRandomFileName` 生成文件名（不含路径）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-455">Use `Path.GetRandomFileName` to generate a file name without a path.</span></span> <span data-ttu-id="f8fe4-456">在下面的示例中，从配置获取路径：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-456">In the following example, the path is obtained from configuration:</span></span>
+<span data-ttu-id="466cd-455">使用 `Path.GetRandomFileName` 生成文件名（不含路径）。</span><span class="sxs-lookup"><span data-stu-id="466cd-455">Use `Path.GetRandomFileName` to generate a file name without a path.</span></span> <span data-ttu-id="466cd-456">在下面的示例中，从配置获取路径：</span><span class="sxs-lookup"><span data-stu-id="466cd-456">In the following example, the path is obtained from configuration:</span></span>
 
 ```csharp
 foreach (var formFile in files)
@@ -1021,21 +1021,21 @@ foreach (var formFile in files)
 }
 ```
 
-<span data-ttu-id="f8fe4-457">传递到 <xref:System.IO.FileStream> 的路径必须包含文件名  。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-457">The path passed to the <xref:System.IO.FileStream> *must* include the file name.</span></span> <span data-ttu-id="f8fe4-458">如果未提供文件名，则会在运行时引发 <xref:System.UnauthorizedAccessException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-458">If the file name isn't provided, an <xref:System.UnauthorizedAccessException> is thrown at runtime.</span></span>
+<span data-ttu-id="466cd-457">传递到 <xref:System.IO.FileStream> 的路径必须包含文件名。</span><span class="sxs-lookup"><span data-stu-id="466cd-457">The path passed to the <xref:System.IO.FileStream> *must* include the file name.</span></span> <span data-ttu-id="466cd-458">如果未提供文件名，则会在运行时引发 <xref:System.UnauthorizedAccessException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-458">If the file name isn't provided, an <xref:System.UnauthorizedAccessException> is thrown at runtime.</span></span>
 
-<span data-ttu-id="f8fe4-459">使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-459">Files uploaded using the <xref:Microsoft.AspNetCore.Http.IFormFile> technique are buffered in memory or on disk on the server before processing.</span></span> <span data-ttu-id="f8fe4-460">在操作方法中，<xref:Microsoft.AspNetCore.Http.IFormFile> 内容可作为 <xref:System.IO.Stream> 访问。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-460">Inside the action method, the <xref:Microsoft.AspNetCore.Http.IFormFile> contents are accessible as a <xref:System.IO.Stream>.</span></span> <span data-ttu-id="f8fe4-461">除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 [Azure Blob 存储](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-461">In addition to the local file system, files can be saved to a network share or to a file storage service, such as [Azure Blob storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).</span></span>
+<span data-ttu-id="466cd-459">使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。</span><span class="sxs-lookup"><span data-stu-id="466cd-459">Files uploaded using the <xref:Microsoft.AspNetCore.Http.IFormFile> technique are buffered in memory or on disk on the server before processing.</span></span> <span data-ttu-id="466cd-460">在操作方法中，<xref:Microsoft.AspNetCore.Http.IFormFile> 内容可作为 <xref:System.IO.Stream> 访问。</span><span class="sxs-lookup"><span data-stu-id="466cd-460">Inside the action method, the <xref:Microsoft.AspNetCore.Http.IFormFile> contents are accessible as a <xref:System.IO.Stream>.</span></span> <span data-ttu-id="466cd-461">除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 [Azure Blob 存储](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs)。</span><span class="sxs-lookup"><span data-stu-id="466cd-461">In addition to the local file system, files can be saved to a network share or to a file storage service, such as [Azure Blob storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).</span></span>
 
-<span data-ttu-id="f8fe4-462">若要查看循环访问要上传的多个文件并且使用安全文件名的其他示例，请参阅示例应用中的 Pages/BufferedMultipleFileUploadPhysical.cshtml.cs。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-462">For another example that loops over multiple files for upload and uses safe file names, see *Pages/BufferedMultipleFileUploadPhysical.cshtml.cs* in the sample app.</span></span>
+<span data-ttu-id="466cd-462">若要查看循环访问要上传的多个文件并且使用安全文件名的其他示例，请参阅示例应用中的 Pages/BufferedMultipleFileUploadPhysical.cshtml.cs。</span><span class="sxs-lookup"><span data-stu-id="466cd-462">For another example that loops over multiple files for upload and uses safe file names, see *Pages/BufferedMultipleFileUploadPhysical.cshtml.cs* in the sample app.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-463">如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 将抛出一个 <xref:System.IO.IOException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-463">[Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) throws an <xref:System.IO.IOException> if more than 65,535 files are created without deleting previous temporary files.</span></span> <span data-ttu-id="f8fe4-464">65,535 个文件限制是每个服务器的限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-464">The limit of 65,535 files is a per-server limit.</span></span> <span data-ttu-id="f8fe4-465">有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-465">For more information on this limit on Windows OS, see the remarks in the following topics:</span></span>
+> <span data-ttu-id="466cd-463">如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 将抛出一个 <xref:System.IO.IOException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-463">[Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) throws an <xref:System.IO.IOException> if more than 65,535 files are created without deleting previous temporary files.</span></span> <span data-ttu-id="466cd-464">65,535 个文件限制是每个服务器的限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-464">The limit of 65,535 files is a per-server limit.</span></span> <span data-ttu-id="466cd-465">有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</span><span class="sxs-lookup"><span data-stu-id="466cd-465">For more information on this limit on Windows OS, see the remarks in the following topics:</span></span>
 >
-> * [<span data-ttu-id="f8fe4-466">GetTempFileNameA 函数</span><span class="sxs-lookup"><span data-stu-id="f8fe4-466">GetTempFileNameA function</span></span>](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
+> * [<span data-ttu-id="466cd-466">GetTempFileNameA 函数</span><span class="sxs-lookup"><span data-stu-id="466cd-466">GetTempFileNameA function</span></span>](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
 > * <xref:System.IO.Path.GetTempFileName*>
 
-### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a><span data-ttu-id="f8fe4-467">使用缓冲的模型绑定将小型文件上传到数据库</span><span class="sxs-lookup"><span data-stu-id="f8fe4-467">Upload small files with buffered model binding to a database</span></span>
+### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a><span data-ttu-id="466cd-467">使用缓冲的模型绑定将小型文件上传到数据库</span><span class="sxs-lookup"><span data-stu-id="466cd-467">Upload small files with buffered model binding to a database</span></span>
 
-<span data-ttu-id="f8fe4-468">要使用[实体框架](/ef/core/index)将二进制文件数据存储在数据库中，请在实体上定义 <xref:System.Byte> 数组属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-468">To store binary file data in a database using [Entity Framework](/ef/core/index), define a <xref:System.Byte> array property on the entity:</span></span>
+<span data-ttu-id="466cd-468">要使用[实体框架](/ef/core/index)将二进制文件数据存储在数据库中，请在实体上定义 <xref:System.Byte> 数组属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-468">To store binary file data in a database using [Entity Framework](/ef/core/index), define a <xref:System.Byte> array property on the entity:</span></span>
 
 ```csharp
 public class AppFile
@@ -1045,7 +1045,7 @@ public class AppFile
 }
 ```
 
-<span data-ttu-id="f8fe4-469">为包括 <xref:Microsoft.AspNetCore.Http.IFormFile> 的类指定页模型属性：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-469">Specify a page model property for the class that includes an <xref:Microsoft.AspNetCore.Http.IFormFile>:</span></span>
+<span data-ttu-id="466cd-469">为包括 <xref:Microsoft.AspNetCore.Http.IFormFile> 的类指定页模型属性：</span><span class="sxs-lookup"><span data-stu-id="466cd-469">Specify a page model property for the class that includes an <xref:Microsoft.AspNetCore.Http.IFormFile>:</span></span>
 
 ```csharp
 public class BufferedSingleFileUploadDbModel : PageModel
@@ -1067,9 +1067,9 @@ public class BufferedSingleFileUploadDb
 ```
 
 > [!NOTE]
-> <span data-ttu-id="f8fe4-470"><xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-470"><xref:Microsoft.AspNetCore.Http.IFormFile> can be used directly as an action method parameter or as a bound model property.</span></span> <span data-ttu-id="f8fe4-471">前面的示例使用绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-471">The prior example uses a bound model property.</span></span>
+> <span data-ttu-id="466cd-470"><xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-470"><xref:Microsoft.AspNetCore.Http.IFormFile> can be used directly as an action method parameter or as a bound model property.</span></span> <span data-ttu-id="466cd-471">前面的示例使用绑定模型属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-471">The prior example uses a bound model property.</span></span>
 
-<span data-ttu-id="f8fe4-472">在 Razor Pages 窗体中使用 `FileUpload`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-472">The `FileUpload` is used in the Razor Pages form:</span></span>
+<span data-ttu-id="466cd-472">在 Razor Pages 窗体中使用 `FileUpload`：</span><span class="sxs-lookup"><span data-stu-id="466cd-472">The `FileUpload` is used in the Razor Pages form:</span></span>
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -1085,7 +1085,7 @@ public class BufferedSingleFileUploadDb
 </form>
 ```
 
-<span data-ttu-id="f8fe4-473">将窗体发布到服务器后，将 <xref:Microsoft.AspNetCore.Http.IFormFile> 复制到流，并将它作为字节数组保存在数据库中。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-473">When the form is POSTed to the server, copy the <xref:Microsoft.AspNetCore.Http.IFormFile> to a stream and save it as a byte array in the database.</span></span> <span data-ttu-id="f8fe4-474">在下面的示例中，`_dbContext` 存储应用的数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-474">In the following example, `_dbContext` stores the app's database context:</span></span>
+<span data-ttu-id="466cd-473">将窗体发布到服务器后，将 <xref:Microsoft.AspNetCore.Http.IFormFile> 复制到流，并将它作为字节数组保存在数据库中。</span><span class="sxs-lookup"><span data-stu-id="466cd-473">When the form is POSTed to the server, copy the <xref:Microsoft.AspNetCore.Http.IFormFile> to a stream and save it as a byte array in the database.</span></span> <span data-ttu-id="466cd-474">在下面的示例中，`_dbContext` 存储应用的数据库上下文：</span><span class="sxs-lookup"><span data-stu-id="466cd-474">In the following example, `_dbContext` stores the app's database context:</span></span>
 
 ```csharp
 public async Task<IActionResult> OnPostUploadAsync()
@@ -1116,76 +1116,76 @@ public async Task<IActionResult> OnPostUploadAsync()
 }
 ```
 
-<span data-ttu-id="f8fe4-475">上面的示例与示例应用中演示的方案相似：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-475">The preceding example is similar to a scenario demonstrated in the sample app:</span></span>
+<span data-ttu-id="466cd-475">上面的示例与示例应用中演示的方案相似：</span><span class="sxs-lookup"><span data-stu-id="466cd-475">The preceding example is similar to a scenario demonstrated in the sample app:</span></span>
 
-* <span data-ttu-id="f8fe4-476">*Pages/BufferedSingleFileUploadDb.cshtml*</span><span class="sxs-lookup"><span data-stu-id="f8fe4-476">*Pages/BufferedSingleFileUploadDb.cshtml*</span></span>
-* <span data-ttu-id="f8fe4-477">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="f8fe4-477">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span></span>
+* <span data-ttu-id="466cd-476">*Pages/BufferedSingleFileUploadDb.cshtml*</span><span class="sxs-lookup"><span data-stu-id="466cd-476">*Pages/BufferedSingleFileUploadDb.cshtml*</span></span>
+* <span data-ttu-id="466cd-477">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="466cd-477">*Pages/BufferedSingleFileUploadDb.cshtml.cs*</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-478">在关系数据库中存储二进制数据时要格外小心，因为它可能对性能产生不利影响。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-478">Use caution when storing binary data in relational databases, as it can adversely impact performance.</span></span>
+> <span data-ttu-id="466cd-478">在关系数据库中存储二进制数据时要格外小心，因为它可能对性能产生不利影响。</span><span class="sxs-lookup"><span data-stu-id="466cd-478">Use caution when storing binary data in relational databases, as it can adversely impact performance.</span></span>
 >
-> <span data-ttu-id="f8fe4-479">切勿依赖或信任未经验证的 <xref:Microsoft.AspNetCore.Http.IFormFile> 的 `FileName` 属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-479">Don't rely on or trust the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> without validation.</span></span> <span data-ttu-id="f8fe4-480">只应将 `FileName` 属性用于显示用途，并且只应在进行 HTML 编码后使用它。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-480">The `FileName` property should only be used for display purposes and only after HTML encoding.</span></span>
+> <span data-ttu-id="466cd-479">切勿依赖或信任未经验证的 `FileName` 的 <xref:Microsoft.AspNetCore.Http.IFormFile> 属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-479">Don't rely on or trust the `FileName` property of <xref:Microsoft.AspNetCore.Http.IFormFile> without validation.</span></span> <span data-ttu-id="466cd-480">只应将 `FileName` 属性用于显示用途，并且只应在进行 HTML 编码后使用它。</span><span class="sxs-lookup"><span data-stu-id="466cd-480">The `FileName` property should only be used for display purposes and only after HTML encoding.</span></span>
 >
-> <span data-ttu-id="f8fe4-481">提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-481">The examples provided don't take into account security considerations.</span></span> <span data-ttu-id="f8fe4-482">以下各节及[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-482">Additional information is provided by the following sections and the [sample app](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
+> <span data-ttu-id="466cd-481">提供的示例未考虑安全注意事项。</span><span class="sxs-lookup"><span data-stu-id="466cd-481">The examples provided don't take into account security considerations.</span></span> <span data-ttu-id="466cd-482">以下各节及[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/)提供了其他信息：</span><span class="sxs-lookup"><span data-stu-id="466cd-482">Additional information is provided by the following sections and the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):</span></span>
 >
-> * [<span data-ttu-id="f8fe4-483">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="f8fe4-483">Security considerations</span></span>](#security-considerations)
-> * [<span data-ttu-id="f8fe4-484">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-484">Validation</span></span>](#validation)
+> * [<span data-ttu-id="466cd-483">安全注意事项</span><span class="sxs-lookup"><span data-stu-id="466cd-483">Security considerations</span></span>](#security-considerations)
+> * [<span data-ttu-id="466cd-484">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-484">Validation</span></span>](#validation)
 
-### <a name="upload-large-files-with-streaming"></a><span data-ttu-id="f8fe4-485">通过流式传输上传大型文件</span><span class="sxs-lookup"><span data-stu-id="f8fe4-485">Upload large files with streaming</span></span>
+### <a name="upload-large-files-with-streaming"></a><span data-ttu-id="466cd-485">通过流式传输上传大型文件</span><span class="sxs-lookup"><span data-stu-id="466cd-485">Upload large files with streaming</span></span>
 
-<span data-ttu-id="f8fe4-486">以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-486">The following example demonstrates how to use JavaScript to stream a file to a controller action.</span></span> <span data-ttu-id="f8fe4-487">使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-487">The file's antiforgery token is generated using a custom filter attribute and passed to the client HTTP headers instead of in the request body.</span></span> <span data-ttu-id="f8fe4-488">由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-488">Because the action method processes the uploaded data directly, form model binding is disabled by another custom filter.</span></span> <span data-ttu-id="f8fe4-489">在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-489">Within the action, the form's contents are read using a `MultipartReader`, which reads each individual `MultipartSection`, processing the file or storing the contents as appropriate.</span></span> <span data-ttu-id="f8fe4-490">读取多部分节后，该操作会执行自己的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-490">After the multipart sections are read, the action performs its own model binding.</span></span>
+<span data-ttu-id="466cd-486">以下示例演示如何使用 JavaScript 将文件流式传输到控制器操作。</span><span class="sxs-lookup"><span data-stu-id="466cd-486">The following example demonstrates how to use JavaScript to stream a file to a controller action.</span></span> <span data-ttu-id="466cd-487">使用自定义筛选器属性生成文件的防伪令牌，并将其传递到客户端 HTTP 头中（而不是在请求正文中传递）。</span><span class="sxs-lookup"><span data-stu-id="466cd-487">The file's antiforgery token is generated using a custom filter attribute and passed to the client HTTP headers instead of in the request body.</span></span> <span data-ttu-id="466cd-488">由于操作方法直接处理上传的数据，所以其他自定义筛选器会禁用窗体模型绑定。</span><span class="sxs-lookup"><span data-stu-id="466cd-488">Because the action method processes the uploaded data directly, form model binding is disabled by another custom filter.</span></span> <span data-ttu-id="466cd-489">在该操作中，使用 `MultipartReader` 读取窗体的内容，它会读取每个单独的 `MultipartSection`，从而根据需要处理文件或存储内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-489">Within the action, the form's contents are read using a `MultipartReader`, which reads each individual `MultipartSection`, processing the file or storing the contents as appropriate.</span></span> <span data-ttu-id="466cd-490">读取多部分节后，该操作会执行自己的模型绑定。</span><span class="sxs-lookup"><span data-stu-id="466cd-490">After the multipart sections are read, the action performs its own model binding.</span></span>
 
-<span data-ttu-id="f8fe4-491">初始页响应加载窗体并将防伪令牌保存在 Cookie 中（通过 `GenerateAntiforgeryTokenCookieAttribute` 属性）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-491">The initial page response loads the form and saves an antiforgery token in a cookie (via the `GenerateAntiforgeryTokenCookieAttribute` attribute).</span></span> <span data-ttu-id="f8fe4-492">该属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置包含请求令牌的 Cookie：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-492">The attribute uses ASP.NET Core's built-in [antiforgery support](xref:security/anti-request-forgery) to set a cookie with a request token:</span></span>
+<span data-ttu-id="466cd-491">初始页响应加载窗体并将防伪令牌保存在 Cookie 中（通过 `GenerateAntiforgeryTokenCookieAttribute` 属性）。</span><span class="sxs-lookup"><span data-stu-id="466cd-491">The initial page response loads the form and saves an antiforgery token in a cookie (via the `GenerateAntiforgeryTokenCookieAttribute` attribute).</span></span> <span data-ttu-id="466cd-492">该属性使用 ASP.NET Core 的内置[防伪支持](xref:security/anti-request-forgery)来设置包含请求令牌的 Cookie：</span><span class="sxs-lookup"><span data-stu-id="466cd-492">The attribute uses ASP.NET Core's built-in [antiforgery support](xref:security/anti-request-forgery) to set a cookie with a request token:</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
-<span data-ttu-id="f8fe4-493">使用 `DisableFormValueModelBindingAttribute` 禁用模型绑定：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-493">The `DisableFormValueModelBindingAttribute` is used to disable model binding:</span></span>
+<span data-ttu-id="466cd-493">使用 `DisableFormValueModelBindingAttribute` 禁用模型绑定：</span><span class="sxs-lookup"><span data-stu-id="466cd-493">The `DisableFormValueModelBindingAttribute` is used to disable model binding:</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-<span data-ttu-id="f8fe4-494">在示例应用的 `Startup.ConfigureServices` 中，使用 [Razor Pages 约定](xref:razor-pages/razor-pages-conventions)将 `GenerateAntiforgeryTokenCookieAttribute` 和 `DisableFormValueModelBindingAttribute` 作为筛选器应用到 `/StreamedSingleFileUploadDb` 和 `/StreamedSingleFileUploadPhysical` 的页应用程序模型：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-494">In the sample app, `GenerateAntiforgeryTokenCookieAttribute` and `DisableFormValueModelBindingAttribute` are applied as filters to the page application models of `/StreamedSingleFileUploadDb` and `/StreamedSingleFileUploadPhysical` in `Startup.ConfigureServices` using [Razor Pages conventions](xref:razor-pages/razor-pages-conventions):</span></span>
+<span data-ttu-id="466cd-494">在示例应用的 `GenerateAntiforgeryTokenCookieAttribute` 中，使用 `DisableFormValueModelBindingAttribute`Razor Pages 约定`/StreamedSingleFileUploadDb`将 `/StreamedSingleFileUploadPhysical` 和 `Startup.ConfigureServices` 作为筛选器应用到 [ 和 ](xref:razor-pages/razor-pages-conventions) 的页应用程序模型：</span><span class="sxs-lookup"><span data-stu-id="466cd-494">In the sample app, `GenerateAntiforgeryTokenCookieAttribute` and `DisableFormValueModelBindingAttribute` are applied as filters to the page application models of `/StreamedSingleFileUploadDb` and `/StreamedSingleFileUploadPhysical` in `Startup.ConfigureServices` using [Razor Pages conventions](xref:razor-pages/razor-pages-conventions):</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Startup.cs?name=snippet_AddMvc&highlight=8-11,17-20)]
 
-<span data-ttu-id="f8fe4-495">由于模型绑定不读取窗体，因此不绑定从窗体绑定的参数（查询、路由和标头继续运行）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-495">Since model binding doesn't read the form, parameters that are bound from the form don't bind (query, route, and header continue to work).</span></span> <span data-ttu-id="f8fe4-496">操作方法直接使用 `Request` 属性。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-496">The action method works directly with the `Request` property.</span></span> <span data-ttu-id="f8fe4-497">`MultipartReader` 用于读取每个节。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-497">A `MultipartReader` is used to read each section.</span></span> <span data-ttu-id="f8fe4-498">在 `KeyValueAccumulator` 中存储键值数据。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-498">Key/value data is stored in a `KeyValueAccumulator`.</span></span> <span data-ttu-id="f8fe4-499">读取多部分节后，系统会使用 `KeyValueAccumulator` 的内容将窗体数据绑定到模型类型。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-499">After the multipart sections are read, the contents of the `KeyValueAccumulator` are used to bind the form data to a model type.</span></span>
+<span data-ttu-id="466cd-495">由于模型绑定不读取窗体，因此不绑定从窗体绑定的参数（查询、路由和标头继续运行）。</span><span class="sxs-lookup"><span data-stu-id="466cd-495">Since model binding doesn't read the form, parameters that are bound from the form don't bind (query, route, and header continue to work).</span></span> <span data-ttu-id="466cd-496">操作方法直接使用 `Request` 属性。</span><span class="sxs-lookup"><span data-stu-id="466cd-496">The action method works directly with the `Request` property.</span></span> <span data-ttu-id="466cd-497">`MultipartReader` 用于读取每个节。</span><span class="sxs-lookup"><span data-stu-id="466cd-497">A `MultipartReader` is used to read each section.</span></span> <span data-ttu-id="466cd-498">在 `KeyValueAccumulator` 中存储键值数据。</span><span class="sxs-lookup"><span data-stu-id="466cd-498">Key/value data is stored in a `KeyValueAccumulator`.</span></span> <span data-ttu-id="466cd-499">读取多部分节后，系统会使用 `KeyValueAccumulator` 的内容将窗体数据绑定到模型类型。</span><span class="sxs-lookup"><span data-stu-id="466cd-499">After the multipart sections are read, the contents of the `KeyValueAccumulator` are used to bind the form data to a model type.</span></span>
 
-<span data-ttu-id="f8fe4-500">使用 EF Core 流式传输到数据库的完整 `StreamingController.UploadDatabase` 方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-500">The complete `StreamingController.UploadDatabase` method for streaming to a database with EF Core:</span></span>
+<span data-ttu-id="466cd-500">使用 EF Core 流式传输到数据库的完整 `StreamingController.UploadDatabase` 方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-500">The complete `StreamingController.UploadDatabase` method for streaming to a database with EF Core:</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
-<span data-ttu-id="f8fe4-501">`MultipartRequestHelper` (Utilities/MultipartRequestHelper.cs)： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-501">`MultipartRequestHelper` (*Utilities/MultipartRequestHelper.cs*):</span></span>
+<span data-ttu-id="466cd-501">`MultipartRequestHelper` (Utilities/MultipartRequestHelper.cs)：</span><span class="sxs-lookup"><span data-stu-id="466cd-501">`MultipartRequestHelper` (*Utilities/MultipartRequestHelper.cs*):</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
-<span data-ttu-id="f8fe4-502">流式传输到物理位置的完整 `StreamingController.UploadPhysical` 方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-502">The complete `StreamingController.UploadPhysical` method for streaming to a physical location:</span></span>
+<span data-ttu-id="466cd-502">流式传输到物理位置的完整 `StreamingController.UploadPhysical` 方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-502">The complete `StreamingController.UploadPhysical` method for streaming to a physical location:</span></span>
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadPhysical)]
 
-<span data-ttu-id="f8fe4-503">在示例应用中，由 `FileHelpers.ProcessStreamedFile` 处理验证检查。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-503">In the sample app, validation checks are handled by `FileHelpers.ProcessStreamedFile`.</span></span>
+<span data-ttu-id="466cd-503">在示例应用中，由 `FileHelpers.ProcessStreamedFile` 处理验证检查。</span><span class="sxs-lookup"><span data-stu-id="466cd-503">In the sample app, validation checks are handled by `FileHelpers.ProcessStreamedFile`.</span></span>
 
-## <a name="validation"></a><span data-ttu-id="f8fe4-504">验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-504">Validation</span></span>
+## <a name="validation"></a><span data-ttu-id="466cd-504">验证</span><span class="sxs-lookup"><span data-stu-id="466cd-504">Validation</span></span>
 
-<span data-ttu-id="f8fe4-505">示例应用的 `FileHelpers` 类演示对缓冲 <xref:Microsoft.AspNetCore.Http.IFormFile> 和流式传输文件上传的多项检查。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-505">The sample app's `FileHelpers` class demonstrates a several checks for buffered <xref:Microsoft.AspNetCore.Http.IFormFile> and streamed file uploads.</span></span> <span data-ttu-id="f8fe4-506">有关示例应用如何处理 <xref:Microsoft.AspNetCore.Http.IFormFile> 缓冲文件上传的信息，请参阅 Utilities/FileHelpers.cs 文件中的 `ProcessFormFile` 方法。 </span><span class="sxs-lookup"><span data-stu-id="f8fe4-506">For processing <xref:Microsoft.AspNetCore.Http.IFormFile> buffered file uploads in the sample app, see the `ProcessFormFile` method in the *Utilities/FileHelpers.cs* file.</span></span> <span data-ttu-id="f8fe4-507">有关如何处理流式传输的文件的信息，请参阅同一个文件中的 `ProcessStreamedFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-507">For processing streamed files, see the `ProcessStreamedFile` method in the same file.</span></span>
+<span data-ttu-id="466cd-505">示例应用的 `FileHelpers` 类演示对缓冲 <xref:Microsoft.AspNetCore.Http.IFormFile> 和流式传输文件上传的多项检查。</span><span class="sxs-lookup"><span data-stu-id="466cd-505">The sample app's `FileHelpers` class demonstrates a several checks for buffered <xref:Microsoft.AspNetCore.Http.IFormFile> and streamed file uploads.</span></span> <span data-ttu-id="466cd-506">有关示例应用如何处理 <xref:Microsoft.AspNetCore.Http.IFormFile> 缓冲文件上传的信息，请参阅 Utilities/FileHelpers.cs 文件中的 `ProcessFormFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-506">For processing <xref:Microsoft.AspNetCore.Http.IFormFile> buffered file uploads in the sample app, see the `ProcessFormFile` method in the *Utilities/FileHelpers.cs* file.</span></span> <span data-ttu-id="466cd-507">有关如何处理流式传输的文件的信息，请参阅同一个文件中的 `ProcessStreamedFile` 方法。</span><span class="sxs-lookup"><span data-stu-id="466cd-507">For processing streamed files, see the `ProcessStreamedFile` method in the same file.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="f8fe4-508">示例应用演示的验证处理方法不扫描上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-508">The validation processing methods demonstrated in the sample app don't scan the content of uploaded files.</span></span> <span data-ttu-id="f8fe4-509">在多数生产方案中，会先将病毒/恶意软件扫描程序 API 用于文件，然后再向用户或其他系统提供文件。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-509">In most production scenarios, a virus/malware scanner API is used on the file before making the file available to users or other systems.</span></span>
+> <span data-ttu-id="466cd-508">示例应用演示的验证处理方法不扫描上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-508">The validation processing methods demonstrated in the sample app don't scan the content of uploaded files.</span></span> <span data-ttu-id="466cd-509">在多数生产方案中，会先将病毒/恶意软件扫描程序 API 用于文件，然后再向用户或其他系统提供文件。</span><span class="sxs-lookup"><span data-stu-id="466cd-509">In most production scenarios, a virus/malware scanner API is used on the file before making the file available to users or other systems.</span></span>
 >
-> <span data-ttu-id="f8fe4-510">尽管主题示例提供了验证技巧工作示例，但是如果不满足以下情况，请勿在生产应用中实现 `FileHelpers` 类：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-510">Although the topic sample provides a working example of validation techniques, don't implement the `FileHelpers` class in a production app unless you:</span></span>
+> <span data-ttu-id="466cd-510">尽管主题示例提供了验证技巧工作示例，但是如果不满足以下情况，请勿在生产应用中实现 `FileHelpers` 类：</span><span class="sxs-lookup"><span data-stu-id="466cd-510">Although the topic sample provides a working example of validation techniques, don't implement the `FileHelpers` class in a production app unless you:</span></span>
 >
-> * <span data-ttu-id="f8fe4-511">完全理解此实现。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-511">Fully understand the implementation.</span></span>
-> * <span data-ttu-id="f8fe4-512">根据应用的环境和规范修改实现。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-512">Modify the implementation as appropriate for the app's environment and specifications.</span></span>
+> * <span data-ttu-id="466cd-511">完全理解此实现。</span><span class="sxs-lookup"><span data-stu-id="466cd-511">Fully understand the implementation.</span></span>
+> * <span data-ttu-id="466cd-512">根据应用的环境和规范修改实现。</span><span class="sxs-lookup"><span data-stu-id="466cd-512">Modify the implementation as appropriate for the app's environment and specifications.</span></span>
 >
-> <span data-ttu-id="f8fe4-513">**切勿未处理这些要求即随意在应用中实现安全代码。**</span><span class="sxs-lookup"><span data-stu-id="f8fe4-513">**Never indiscriminately implement security code in an app without addressing these requirements.**</span></span>
+> <span data-ttu-id="466cd-513">**切勿未处理这些要求即随意在应用中实现安全代码。**</span><span class="sxs-lookup"><span data-stu-id="466cd-513">**Never indiscriminately implement security code in an app without addressing these requirements.**</span></span>
 
-### <a name="content-validation"></a><span data-ttu-id="f8fe4-514">内容验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-514">Content validation</span></span>
+### <a name="content-validation"></a><span data-ttu-id="466cd-514">内容验证</span><span class="sxs-lookup"><span data-stu-id="466cd-514">Content validation</span></span>
 
-<span data-ttu-id="f8fe4-515">**将第三方病毒/恶意软件扫描 API 用于上传的内容**。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-515">**Use a third party virus/malware scanning API on uploaded content.**</span></span>
+<span data-ttu-id="466cd-515">**将第三方病毒/恶意软件扫描 API 用于上传的内容**。</span><span class="sxs-lookup"><span data-stu-id="466cd-515">**Use a third party virus/malware scanning API on uploaded content.**</span></span>
 
-<span data-ttu-id="f8fe4-516">在大容量方案中，在服务器资源上扫描文件较为困难。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-516">Scanning files is demanding on server resources in high volume scenarios.</span></span> <span data-ttu-id="f8fe4-517">若文件扫描导致请求处理性能降低，请考虑将扫描工作卸载到[后台服务](xref:fundamentals/host/hosted-services)，该服务可以是在应用服务器之外的服务器上运行的服务。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-517">If request processing performance is diminished due to file scanning, consider offloading the scanning work to a [background service](xref:fundamentals/host/hosted-services), possibly a service running on a server different from the app's server.</span></span> <span data-ttu-id="f8fe4-518">通常会将卸载的文件保留在隔离区，直至后台病毒扫描程序检查它们。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-518">Typically, uploaded files are held in a quarantined area until the background virus scanner checks them.</span></span> <span data-ttu-id="f8fe4-519">文件通过检查时，会将相应的文件移到常规的文件存储位置。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-519">When a file passes, the file is moved to the normal file storage location.</span></span> <span data-ttu-id="f8fe4-520">通常在执行这些步骤的同时，会提供指示文件扫描状态的数据库记录。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-520">These steps are usually performed in conjunction with a database record that indicates the scanning status of a file.</span></span> <span data-ttu-id="f8fe4-521">通过此方法，应用和应用服务器可以持续以响应请求为重点。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-521">By using such an approach, the app and app server remain focused on responding to requests.</span></span>
+<span data-ttu-id="466cd-516">在大容量方案中，在服务器资源上扫描文件较为困难。</span><span class="sxs-lookup"><span data-stu-id="466cd-516">Scanning files is demanding on server resources in high volume scenarios.</span></span> <span data-ttu-id="466cd-517">若文件扫描导致请求处理性能降低，请考虑将扫描工作卸载到[后台服务](xref:fundamentals/host/hosted-services)，该服务可以是在应用服务器之外的服务器上运行的服务。</span><span class="sxs-lookup"><span data-stu-id="466cd-517">If request processing performance is diminished due to file scanning, consider offloading the scanning work to a [background service](xref:fundamentals/host/hosted-services), possibly a service running on a server different from the app's server.</span></span> <span data-ttu-id="466cd-518">通常会将卸载的文件保留在隔离区，直至后台病毒扫描程序检查它们。</span><span class="sxs-lookup"><span data-stu-id="466cd-518">Typically, uploaded files are held in a quarantined area until the background virus scanner checks them.</span></span> <span data-ttu-id="466cd-519">文件通过检查时，会将相应的文件移到常规的文件存储位置。</span><span class="sxs-lookup"><span data-stu-id="466cd-519">When a file passes, the file is moved to the normal file storage location.</span></span> <span data-ttu-id="466cd-520">通常在执行这些步骤的同时，会提供指示文件扫描状态的数据库记录。</span><span class="sxs-lookup"><span data-stu-id="466cd-520">These steps are usually performed in conjunction with a database record that indicates the scanning status of a file.</span></span> <span data-ttu-id="466cd-521">通过此方法，应用和应用服务器可以持续以响应请求为重点。</span><span class="sxs-lookup"><span data-stu-id="466cd-521">By using such an approach, the app and app server remain focused on responding to requests.</span></span>
 
-### <a name="file-extension-validation"></a><span data-ttu-id="f8fe4-522">文件扩展名验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-522">File extension validation</span></span>
+### <a name="file-extension-validation"></a><span data-ttu-id="466cd-522">文件扩展名验证</span><span class="sxs-lookup"><span data-stu-id="466cd-522">File extension validation</span></span>
 
-<span data-ttu-id="f8fe4-523">应在允许的扩展名列表中查找上传的文件的扩展名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-523">The uploaded file's extension should be checked against a list of permitted extensions.</span></span> <span data-ttu-id="f8fe4-524">例如：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-524">For example:</span></span>
+<span data-ttu-id="466cd-523">应在允许的扩展名列表中查找上传的文件的扩展名。</span><span class="sxs-lookup"><span data-stu-id="466cd-523">The uploaded file's extension should be checked against a list of permitted extensions.</span></span> <span data-ttu-id="466cd-524">例如：</span><span class="sxs-lookup"><span data-stu-id="466cd-524">For example:</span></span>
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -1198,9 +1198,9 @@ if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
 }
 ```
 
-### <a name="file-signature-validation"></a><span data-ttu-id="f8fe4-525">文件签名验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-525">File signature validation</span></span>
+### <a name="file-signature-validation"></a><span data-ttu-id="466cd-525">文件签名验证</span><span class="sxs-lookup"><span data-stu-id="466cd-525">File signature validation</span></span>
 
-<span data-ttu-id="f8fe4-526">文件的签名由文件开头部分中的前几个字节确定。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-526">A file's signature is determined by the first few bytes at the start of a file.</span></span> <span data-ttu-id="f8fe4-527">可以使用这些字节指示扩展名是否与文件内容匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-527">These bytes can be used to indicate if the extension matches the content of the file.</span></span> <span data-ttu-id="f8fe4-528">示例应用检查一些常见文件类型的文件签名。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-528">The sample app checks file signatures for a few common file types.</span></span> <span data-ttu-id="f8fe4-529">在下面的示例中，在文件上检查 JPEG 图像的文件签名：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-529">In the following example, the file signature for a JPEG image is checked against the file:</span></span>
+<span data-ttu-id="466cd-526">文件的签名由文件开头部分中的前几个字节确定。</span><span class="sxs-lookup"><span data-stu-id="466cd-526">A file's signature is determined by the first few bytes at the start of a file.</span></span> <span data-ttu-id="466cd-527">可以使用这些字节指示扩展名是否与文件内容匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-527">These bytes can be used to indicate if the extension matches the content of the file.</span></span> <span data-ttu-id="466cd-528">示例应用检查一些常见文件类型的文件签名。</span><span class="sxs-lookup"><span data-stu-id="466cd-528">The sample app checks file signatures for a few common file types.</span></span> <span data-ttu-id="466cd-529">在下面的示例中，在文件上检查 JPEG 图像的文件签名：</span><span class="sxs-lookup"><span data-stu-id="466cd-529">In the following example, the file signature for a JPEG image is checked against the file:</span></span>
 
 ```csharp
 private static readonly Dictionary<string, List<byte[]>> _fileSignature = 
@@ -1225,13 +1225,13 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-530">若要获取其他文件签名，请参阅[文件签名数据库](https://www.filesignatures.net/)和官方文件规范。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-530">To obtain additional file signatures, see the [File Signatures Database](https://www.filesignatures.net/) and official file specifications.</span></span>
+<span data-ttu-id="466cd-530">若要获取其他文件签名，请参阅[文件签名数据库](https://www.filesignatures.net/)和官方文件规范。</span><span class="sxs-lookup"><span data-stu-id="466cd-530">To obtain additional file signatures, see the [File Signatures Database](https://www.filesignatures.net/) and official file specifications.</span></span>
 
-### <a name="file-name-security"></a><span data-ttu-id="f8fe4-531">文件名安全</span><span class="sxs-lookup"><span data-stu-id="f8fe4-531">File name security</span></span>
+### <a name="file-name-security"></a><span data-ttu-id="466cd-531">文件名安全</span><span class="sxs-lookup"><span data-stu-id="466cd-531">File name security</span></span>
 
-<span data-ttu-id="f8fe4-532">切勿使用客户端提供的文件名来将文件保存到物理存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-532">Never use a client-supplied file name for saving a file to physical storage.</span></span> <span data-ttu-id="f8fe4-533">使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-533">Create a safe file name for the file using [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) or [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to create a full path (including the file name) for temporary storage.</span></span>
+<span data-ttu-id="466cd-532">切勿使用客户端提供的文件名来将文件保存到物理存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-532">Never use a client-supplied file name for saving a file to physical storage.</span></span> <span data-ttu-id="466cd-533">使用 [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) 或 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 为文件创建安全的文件名，以创建完整路径（包括文件名）来执行临时存储。</span><span class="sxs-lookup"><span data-stu-id="466cd-533">Create a safe file name for the file using [Path.GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) or [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) to create a full path (including the file name) for temporary storage.</span></span>
 
-<span data-ttu-id="f8fe4-534">Razor 自动对属性值执行 HTML 编码，以便于显示。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-534">Razor automatically HTML encodes property values for display.</span></span> <span data-ttu-id="f8fe4-535">以下代码安全可用：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-535">The following code is safe to use:</span></span>
+<span data-ttu-id="466cd-534">Razor 自动对属性值执行 HTML 编码，以便于显示。</span><span class="sxs-lookup"><span data-stu-id="466cd-534">Razor automatically HTML encodes property values for display.</span></span> <span data-ttu-id="466cd-535">以下代码安全可用：</span><span class="sxs-lookup"><span data-stu-id="466cd-535">The following code is safe to use:</span></span>
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -1243,15 +1243,15 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-536">在 Razor 外部，始终对用户请求中的文件名内容执行 <xref:System.Net.WebUtility.HtmlEncode*>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-536">Outside of Razor, always <xref:System.Net.WebUtility.HtmlEncode*> file name content from a user's request.</span></span>
+<span data-ttu-id="466cd-536">在 Razor 外部，始终对用户请求中的文件名内容执行 <xref:System.Net.WebUtility.HtmlEncode*>。</span><span class="sxs-lookup"><span data-stu-id="466cd-536">Outside of Razor, always <xref:System.Net.WebUtility.HtmlEncode*> file name content from a user's request.</span></span>
 
-<span data-ttu-id="f8fe4-537">许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-537">Many implementations must include a check that the file exists; otherwise, the file is overwritten by a file of the same name.</span></span> <span data-ttu-id="f8fe4-538">提供其他逻辑以符合应用的规范。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-538">Supply additional logic to meet your app's specifications.</span></span>
+<span data-ttu-id="466cd-537">许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。</span><span class="sxs-lookup"><span data-stu-id="466cd-537">Many implementations must include a check that the file exists; otherwise, the file is overwritten by a file of the same name.</span></span> <span data-ttu-id="466cd-538">提供其他逻辑以符合应用的规范。</span><span class="sxs-lookup"><span data-stu-id="466cd-538">Supply additional logic to meet your app's specifications.</span></span>
 
-### <a name="size-validation"></a><span data-ttu-id="f8fe4-539">大小验证</span><span class="sxs-lookup"><span data-stu-id="f8fe4-539">Size validation</span></span>
+### <a name="size-validation"></a><span data-ttu-id="466cd-539">大小验证</span><span class="sxs-lookup"><span data-stu-id="466cd-539">Size validation</span></span>
 
-<span data-ttu-id="f8fe4-540">限制上传的文件的大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-540">Limit the size of uploaded files.</span></span>
+<span data-ttu-id="466cd-540">限制上传的文件的大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-540">Limit the size of uploaded files.</span></span>
 
-<span data-ttu-id="f8fe4-541">在示例应用中，文件大小限制为 2 MB（以字节为单位）。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-541">In the sample app, the size of the file is limited to 2 MB (indicated in bytes).</span></span> <span data-ttu-id="f8fe4-542">通过 appsettings.json 文件中的[配置](xref:fundamentals/configuration/index)提供此限制： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-542">The limit is supplied via [Configuration](xref:fundamentals/configuration/index) from the *appsettings.json* file:</span></span>
+<span data-ttu-id="466cd-541">在示例应用中，文件大小限制为 2 MB（以字节为单位）。</span><span class="sxs-lookup"><span data-stu-id="466cd-541">In the sample app, the size of the file is limited to 2 MB (indicated in bytes).</span></span> <span data-ttu-id="466cd-542">通过 appsettings.json 文件中的[配置](xref:fundamentals/configuration/index)提供此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-542">The limit is supplied via [Configuration](xref:fundamentals/configuration/index) from the *appsettings.json* file:</span></span>
 
 ```json
 {
@@ -1259,7 +1259,7 @@ using (var reader = new BinaryReader(uploadedFileData))
 }
 ```
 
-<span data-ttu-id="f8fe4-543">将 `FileSizeLimit` 注入到 `PageModel` 类：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-543">The `FileSizeLimit` is injected into `PageModel` classes:</span></span>
+<span data-ttu-id="466cd-543">将 `FileSizeLimit` 注入到 `PageModel` 类：</span><span class="sxs-lookup"><span data-stu-id="466cd-543">The `FileSizeLimit` is injected into `PageModel` classes:</span></span>
 
 ```csharp
 public class BufferedSingleFileUploadPhysicalModel : PageModel
@@ -1275,7 +1275,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-<span data-ttu-id="f8fe4-544">文件大小超出限制时，将拒绝文件：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-544">When a file size exceeds the limit, the file is rejected:</span></span>
+<span data-ttu-id="466cd-544">文件大小超出限制时，将拒绝文件：</span><span class="sxs-lookup"><span data-stu-id="466cd-544">When a file size exceeds the limit, the file is rejected:</span></span>
 
 ```csharp
 if (formFile.Length > _fileSizeLimit)
@@ -1284,19 +1284,19 @@ if (formFile.Length > _fileSizeLimit)
 }
 ```
 
-### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a><span data-ttu-id="f8fe4-545">使名称属性值与 POST 方法的参数名称匹配</span><span class="sxs-lookup"><span data-stu-id="f8fe4-545">Match name attribute value to parameter name of POST method</span></span>
+### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a><span data-ttu-id="466cd-545">使名称属性值与 POST 方法的参数名称匹配</span><span class="sxs-lookup"><span data-stu-id="466cd-545">Match name attribute value to parameter name of POST method</span></span>
 
-<span data-ttu-id="f8fe4-546">在发布窗体数据或直接使用 JavaScript `FormData` 的非 Razor 窗体中，窗体元素或 `FormData` 指定的名称必须与控制器操作的参数名称相匹配。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-546">In non-Razor forms that POST form data or use JavaScript's `FormData` directly, the name specified in the form's element or `FormData` must match the name of the parameter in the controller's action.</span></span>
+<span data-ttu-id="466cd-546">在发布窗体数据或直接使用 JavaScript `FormData` 的非 Razor 窗体中，窗体元素或 `FormData` 指定的名称必须与控制器操作的参数名称相匹配。</span><span class="sxs-lookup"><span data-stu-id="466cd-546">In non-Razor forms that POST form data or use JavaScript's `FormData` directly, the name specified in the form's element or `FormData` must match the name of the parameter in the controller's action.</span></span>
 
-<span data-ttu-id="f8fe4-547">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-547">In the following example:</span></span>
+<span data-ttu-id="466cd-547">在以下示例中：</span><span class="sxs-lookup"><span data-stu-id="466cd-547">In the following example:</span></span>
 
-* <span data-ttu-id="f8fe4-548">使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-548">When using an `<input>` element, the `name` attribute is set to the value `battlePlans`:</span></span>
+* <span data-ttu-id="466cd-548">使用 `<input>` 元素时，将 `name` 属性设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="466cd-548">When using an `<input>` element, the `name` attribute is set to the value `battlePlans`:</span></span>
 
   ```html
   <input type="file" name="battlePlans" multiple>
   ```
 
-* <span data-ttu-id="f8fe4-549">使用 JavaScript `FormData` 时，将名称设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-549">When using `FormData` in JavaScript, the name is set to the value `battlePlans`:</span></span>
+* <span data-ttu-id="466cd-549">使用 JavaScript `FormData` 时，将名称设置为值 `battlePlans`：</span><span class="sxs-lookup"><span data-stu-id="466cd-549">When using `FormData` in JavaScript, the name is set to the value `battlePlans`:</span></span>
 
   ```javascript
   var formData = new FormData();
@@ -1306,25 +1306,25 @@ if (formFile.Length > _fileSizeLimit)
   }
   ```
 
-<span data-ttu-id="f8fe4-550">将匹配的名称用于 C# 方法的参数 (`battlePlans`)：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-550">Use a matching name for the parameter of the C# method (`battlePlans`):</span></span>
+<span data-ttu-id="466cd-550">将匹配的名称用于 C# 方法的参数 (`battlePlans`)：</span><span class="sxs-lookup"><span data-stu-id="466cd-550">Use a matching name for the parameter of the C# method (`battlePlans`):</span></span>
 
-* <span data-ttu-id="f8fe4-551">对于名称为 `Upload` 的 Razor Pages 页处理程序方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-551">For a Razor Pages page handler method named `Upload`:</span></span>
+* <span data-ttu-id="466cd-551">对于名称为 `Upload` 的 Razor Pages 页处理程序方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-551">For a Razor Pages page handler method named `Upload`:</span></span>
 
   ```csharp
   public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> battlePlans)
   ```
 
-* <span data-ttu-id="f8fe4-552">对于 MVC POST 控制器操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-552">For an MVC POST controller action method:</span></span>
+* <span data-ttu-id="466cd-552">对于 MVC POST 控制器操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-552">For an MVC POST controller action method:</span></span>
 
   ```csharp
   public async Task<IActionResult> Post(List<IFormFile> battlePlans)
   ```
 
-## <a name="server-and-app-configuration"></a><span data-ttu-id="f8fe4-553">服务器和应用程序配置</span><span class="sxs-lookup"><span data-stu-id="f8fe4-553">Server and app configuration</span></span>
+## <a name="server-and-app-configuration"></a><span data-ttu-id="466cd-553">服务器和应用程序配置</span><span class="sxs-lookup"><span data-stu-id="466cd-553">Server and app configuration</span></span>
 
-### <a name="multipart-body-length-limit"></a><span data-ttu-id="f8fe4-554">多部分正文长度限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-554">Multipart body length limit</span></span>
+### <a name="multipart-body-length-limit"></a><span data-ttu-id="466cd-554">多部分正文长度限制</span><span class="sxs-lookup"><span data-stu-id="466cd-554">Multipart body length limit</span></span>
 
-<span data-ttu-id="f8fe4-555"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置每个多部分正文的长度限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-555"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> sets the limit for the length of each multipart body.</span></span> <span data-ttu-id="f8fe4-556">分析超出此限制的窗体部分时，会引发 <xref:System.IO.InvalidDataException>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-556">Form sections that exceed this limit throw an <xref:System.IO.InvalidDataException> when parsed.</span></span> <span data-ttu-id="f8fe4-557">默认值为 134,217,728 (128 MB)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-557">The default is 134,217,728 (128 MB).</span></span> <span data-ttu-id="f8fe4-558">使用 `Startup.ConfigureServices` 中的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-558">Customize the limit using the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> setting in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-555"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 设置每个多部分正文的长度限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-555"><xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> sets the limit for the length of each multipart body.</span></span> <span data-ttu-id="466cd-556">分析超出此限制的窗体部分时，会引发 <xref:System.IO.InvalidDataException>。</span><span class="sxs-lookup"><span data-stu-id="466cd-556">Form sections that exceed this limit throw an <xref:System.IO.InvalidDataException> when parsed.</span></span> <span data-ttu-id="466cd-557">默认值为 134,217,728 (128 MB)。</span><span class="sxs-lookup"><span data-stu-id="466cd-557">The default is 134,217,728 (128 MB).</span></span> <span data-ttu-id="466cd-558">使用 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> 中的 `Startup.ConfigureServices` 设置自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-558">Customize the limit using the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> setting in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -1337,9 +1337,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="f8fe4-559">使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-559"><xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> is used to set the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> for a single page or action.</span></span>
+<span data-ttu-id="466cd-559">使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。</span><span class="sxs-lookup"><span data-stu-id="466cd-559"><xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> is used to set the <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> for a single page or action.</span></span>
 
-<span data-ttu-id="f8fe4-560">在 Razor Pages 应用中，使用 `Startup.ConfigureServices` 中的[约定](xref:razor-pages/razor-pages-conventions)应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-560">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-560">在 Razor Pages 应用中，使用 [ 中的](xref:razor-pages/razor-pages-conventions)约定`Startup.ConfigureServices`应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="466cd-560">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddMvc()
@@ -1357,7 +1357,7 @@ services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-<span data-ttu-id="f8fe4-561">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面模型或操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-561">In a Razor Pages app or an MVC app, apply the filter to the page model or action method:</span></span>
+<span data-ttu-id="466cd-561">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面模型或操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-561">In a Razor Pages app or an MVC app, apply the filter to the page model or action method:</span></span>
 
 ```csharp
 // Set the limit to 256 MB
@@ -1368,9 +1368,9 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-### <a name="kestrel-maximum-request-body-size"></a><span data-ttu-id="f8fe4-562">Kestrel 最大请求正文大小</span><span class="sxs-lookup"><span data-stu-id="f8fe4-562">Kestrel maximum request body size</span></span>
+### <a name="kestrel-maximum-request-body-size"></a><span data-ttu-id="466cd-562">Kestrel 最大请求正文大小</span><span class="sxs-lookup"><span data-stu-id="466cd-562">Kestrel maximum request body size</span></span>
 
-<span data-ttu-id="f8fe4-563">对于 Kestrel 托管的应用，默认的最大请求正文大小为 30,000,000 个字节，约为 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-563">For apps hosted by Kestrel, the default maximum request body size is 30,000,000 bytes, which is approximately 28.6 MB.</span></span> <span data-ttu-id="f8fe4-564">使用 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel 服务器选项自定义限制：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-564">Customize the limit using the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel server option:</span></span>
+<span data-ttu-id="466cd-563">对于 Kestrel 托管的应用，默认的最大请求正文大小为 30,000,000 个字节，约为 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="466cd-563">For apps hosted by Kestrel, the default maximum request body size is 30,000,000 bytes, which is approximately 28.6 MB.</span></span> <span data-ttu-id="466cd-564">使用 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel 服务器选项自定义限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-564">Customize the limit using the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) Kestrel server option:</span></span>
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1383,9 +1383,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-<span data-ttu-id="f8fe4-565">使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-565"><xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> is used to set the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) for a single page or action.</span></span>
+<span data-ttu-id="466cd-565">使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。</span><span class="sxs-lookup"><span data-stu-id="466cd-565"><xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> is used to set the [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) for a single page or action.</span></span>
 
-<span data-ttu-id="f8fe4-566">在 Razor Pages 应用中，使用 `Startup.ConfigureServices` 中的[约定](xref:razor-pages/razor-pages-conventions)应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-566">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="466cd-566">在 Razor Pages 应用中，使用 [ 中的](xref:razor-pages/razor-pages-conventions)约定`Startup.ConfigureServices`应用筛选器：</span><span class="sxs-lookup"><span data-stu-id="466cd-566">In a Razor Pages app, apply the filter with a [convention](xref:razor-pages/razor-pages-conventions) in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.AddMvc()
@@ -1403,7 +1403,7 @@ services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-<span data-ttu-id="f8fe4-567">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面处理程序类或操作方法：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-567">In a Razor pages app or an MVC app, apply the filter to the page handler class or action method:</span></span>
+<span data-ttu-id="466cd-567">在 Razor Pages 应用或 MVC 应用中，将筛选器应用到页面处理程序类或操作方法：</span><span class="sxs-lookup"><span data-stu-id="466cd-567">In a Razor pages app or an MVC app, apply the filter to the page handler class or action method:</span></span>
 
 ```csharp
 // Handle requests up to 50 MB
@@ -1414,16 +1414,16 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-### <a name="other-kestrel-limits"></a><span data-ttu-id="f8fe4-568">其他 Kestrel 限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-568">Other Kestrel limits</span></span>
+### <a name="other-kestrel-limits"></a><span data-ttu-id="466cd-568">其他 Kestrel 限制</span><span class="sxs-lookup"><span data-stu-id="466cd-568">Other Kestrel limits</span></span>
 
-<span data-ttu-id="f8fe4-569">其他 Kestrel 限制可能适用于 Kestrel 托管的应用：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-569">Other Kestrel limits may apply for apps hosted by Kestrel:</span></span>
+<span data-ttu-id="466cd-569">其他 Kestrel 限制可能适用于 Kestrel 托管的应用：</span><span class="sxs-lookup"><span data-stu-id="466cd-569">Other Kestrel limits may apply for apps hosted by Kestrel:</span></span>
 
-* [<span data-ttu-id="f8fe4-570">客户端最大连接数</span><span class="sxs-lookup"><span data-stu-id="f8fe4-570">Maximum client connections</span></span>](xref:fundamentals/servers/kestrel#maximum-client-connections)
-* [<span data-ttu-id="f8fe4-571">请求和响应数据速率</span><span class="sxs-lookup"><span data-stu-id="f8fe4-571">Request and response data rates</span></span>](xref:fundamentals/servers/kestrel#minimum-request-body-data-rate)
+* [<span data-ttu-id="466cd-570">客户端最大连接数</span><span class="sxs-lookup"><span data-stu-id="466cd-570">Maximum client connections</span></span>](xref:fundamentals/servers/kestrel#maximum-client-connections)
+* [<span data-ttu-id="466cd-571">请求和响应数据速率</span><span class="sxs-lookup"><span data-stu-id="466cd-571">Request and response data rates</span></span>](xref:fundamentals/servers/kestrel#minimum-request-body-data-rate)
 
-### <a name="iis-content-length-limit"></a><span data-ttu-id="f8fe4-572">IIS 内容长度限制</span><span class="sxs-lookup"><span data-stu-id="f8fe4-572">IIS content length limit</span></span>
+### <a name="iis-content-length-limit"></a><span data-ttu-id="466cd-572">IIS 内容长度限制</span><span class="sxs-lookup"><span data-stu-id="466cd-572">IIS content length limit</span></span>
 
-<span data-ttu-id="f8fe4-573">默认的请求限制 (`maxAllowedContentLength`) 为 30,000,000 字节，大约 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-573">The default request limit (`maxAllowedContentLength`) is 30,000,000 bytes, which is approximately 28.6MB.</span></span> <span data-ttu-id="f8fe4-574">请在 web.config 文件中自定义此限制： </span><span class="sxs-lookup"><span data-stu-id="f8fe4-574">Customize the limit in the *web.config* file:</span></span>
+<span data-ttu-id="466cd-573">默认的请求限制 (`maxAllowedContentLength`) 为 30,000,000 字节，大约 28.6 MB。</span><span class="sxs-lookup"><span data-stu-id="466cd-573">The default request limit (`maxAllowedContentLength`) is 30,000,000 bytes, which is approximately 28.6MB.</span></span> <span data-ttu-id="466cd-574">请在 web.config 文件中自定义此限制：</span><span class="sxs-lookup"><span data-stu-id="466cd-574">Customize the limit in the *web.config* file:</span></span>
 
 ```xml
 <system.webServer>
@@ -1436,42 +1436,42 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-<span data-ttu-id="f8fe4-575">此设置仅适用于 IIS。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-575">This setting only applies to IIS.</span></span> <span data-ttu-id="f8fe4-576">在 Kestrel 上托管时，默认情况下不会出现此行为。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-576">The behavior doesn't occur by default when hosting on Kestrel.</span></span> <span data-ttu-id="f8fe4-577">有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-577">For more information, see [Request Limits \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).</span></span>
+<span data-ttu-id="466cd-575">此设置仅适用于 IIS。</span><span class="sxs-lookup"><span data-stu-id="466cd-575">This setting only applies to IIS.</span></span> <span data-ttu-id="466cd-576">在 Kestrel 上托管时，默认情况下不会出现此行为。</span><span class="sxs-lookup"><span data-stu-id="466cd-576">The behavior doesn't occur by default when hosting on Kestrel.</span></span> <span data-ttu-id="466cd-577">有关详细信息，请参阅[请求限制 \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。</span><span class="sxs-lookup"><span data-stu-id="466cd-577">For more information, see [Request Limits \<requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).</span></span>
 
-<span data-ttu-id="f8fe4-578">ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-578">Limitations in the ASP.NET Core Module or presence of the IIS Request Filtering Module may limit uploads to either 2 or 4 GB.</span></span> <span data-ttu-id="f8fe4-579">有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-579">For more information, see [Unable to upload file greater than 2GB in size (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).</span></span>
+<span data-ttu-id="466cd-578">ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。</span><span class="sxs-lookup"><span data-stu-id="466cd-578">Limitations in the ASP.NET Core Module or presence of the IIS Request Filtering Module may limit uploads to either 2 or 4 GB.</span></span> <span data-ttu-id="466cd-579">有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。</span><span class="sxs-lookup"><span data-stu-id="466cd-579">For more information, see [Unable to upload file greater than 2GB in size (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).</span></span>
 
-## <a name="troubleshoot"></a><span data-ttu-id="f8fe4-580">疑难解答</span><span class="sxs-lookup"><span data-stu-id="f8fe4-580">Troubleshoot</span></span>
+## <a name="troubleshoot"></a><span data-ttu-id="466cd-580">故障排除</span><span class="sxs-lookup"><span data-stu-id="466cd-580">Troubleshoot</span></span>
 
-<span data-ttu-id="f8fe4-581">以下是上传文件时遇到的一些常见问题及其可能的解决方案。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-581">Below are some common problems encountered when working with uploading files and their possible solutions.</span></span>
+<span data-ttu-id="466cd-581">以下是上传文件时遇到的一些常见问题及其可能的解决方案。</span><span class="sxs-lookup"><span data-stu-id="466cd-581">Below are some common problems encountered when working with uploading files and their possible solutions.</span></span>
 
-### <a name="not-found-error-when-deployed-to-an-iis-server"></a><span data-ttu-id="f8fe4-582">部署到 IIS 服务器时出现“找不到”错误</span><span class="sxs-lookup"><span data-stu-id="f8fe4-582">Not Found error when deployed to an IIS server</span></span>
+### <a name="not-found-error-when-deployed-to-an-iis-server"></a><span data-ttu-id="466cd-582">部署到 IIS 服务器时出现“找不到”错误</span><span class="sxs-lookup"><span data-stu-id="466cd-582">Not Found error when deployed to an IIS server</span></span>
 
-<span data-ttu-id="f8fe4-583">以下错误表示上传的文件超过服务器配置的内容长度：</span><span class="sxs-lookup"><span data-stu-id="f8fe4-583">The following error indicates that the uploaded file exceeds the server's configured content length:</span></span>
+<span data-ttu-id="466cd-583">以下错误表示上传的文件超过服务器配置的内容长度：</span><span class="sxs-lookup"><span data-stu-id="466cd-583">The following error indicates that the uploaded file exceeds the server's configured content length:</span></span>
 
 ```
 HTTP 404.13 - Not Found
 The request filtering module is configured to deny a request that exceeds the request content length.
 ```
 
-<span data-ttu-id="f8fe4-584">有关提高此限制的详细信息，请参阅 [IIS 内容长度限制](#iis-content-length-limit)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-584">For more information on increasing the limit, see the [IIS content length limit](#iis-content-length-limit) section.</span></span>
+<span data-ttu-id="466cd-584">有关提高此限制的详细信息，请参阅 [IIS 内容长度限制](#iis-content-length-limit)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-584">For more information on increasing the limit, see the [IIS content length limit](#iis-content-length-limit) section.</span></span>
 
-### <a name="connection-failure"></a><span data-ttu-id="f8fe4-585">连接失败</span><span class="sxs-lookup"><span data-stu-id="f8fe4-585">Connection failure</span></span>
+### <a name="connection-failure"></a><span data-ttu-id="466cd-585">连接失败</span><span class="sxs-lookup"><span data-stu-id="466cd-585">Connection failure</span></span>
 
-<span data-ttu-id="f8fe4-586">连接错误和重置服务器连接可能表示上传的文件超出 Kestrel 的最大请求正文大小。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-586">A connection error and a reset server connection probably indicates that the uploaded file exceeds Kestrel's maximum request body size.</span></span> <span data-ttu-id="f8fe4-587">有关详细信息，请参阅 [Kestrel 最大请求正文大小](#kestrel-maximum-request-body-size)部分。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-587">For more information, see the [Kestrel maximum request body size](#kestrel-maximum-request-body-size) section.</span></span> <span data-ttu-id="f8fe4-588">可能还需要调整 Kestrel 客户端连接限制。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-588">Kestrel client connection limits may also require adjustment.</span></span>
+<span data-ttu-id="466cd-586">连接错误和重置服务器连接可能表示上传的文件超出 Kestrel 的最大请求正文大小。</span><span class="sxs-lookup"><span data-stu-id="466cd-586">A connection error and a reset server connection probably indicates that the uploaded file exceeds Kestrel's maximum request body size.</span></span> <span data-ttu-id="466cd-587">有关详细信息，请参阅 [Kestrel 最大请求正文大小](#kestrel-maximum-request-body-size)部分。</span><span class="sxs-lookup"><span data-stu-id="466cd-587">For more information, see the [Kestrel maximum request body size](#kestrel-maximum-request-body-size) section.</span></span> <span data-ttu-id="466cd-588">可能还需要调整 Kestrel 客户端连接限制。</span><span class="sxs-lookup"><span data-stu-id="466cd-588">Kestrel client connection limits may also require adjustment.</span></span>
 
-### <a name="null-reference-exception-with-iformfile"></a><span data-ttu-id="f8fe4-589">IFormFile 的空引用异常</span><span class="sxs-lookup"><span data-stu-id="f8fe4-589">Null Reference Exception with IFormFile</span></span>
+### <a name="null-reference-exception-with-iformfile"></a><span data-ttu-id="466cd-589">IFormFile 的空引用异常</span><span class="sxs-lookup"><span data-stu-id="466cd-589">Null Reference Exception with IFormFile</span></span>
 
-<span data-ttu-id="f8fe4-590">如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `multipart/form-data` 值是否为 `enctype`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-590">If the controller is accepting uploaded files using <xref:Microsoft.AspNetCore.Http.IFormFile> but the value is `null`, confirm that the HTML form is specifying an `enctype` value of `multipart/form-data`.</span></span> <span data-ttu-id="f8fe4-591">如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-591">If this attribute isn't set on the `<form>` element, the file upload doesn't occur and any bound <xref:Microsoft.AspNetCore.Http.IFormFile> arguments are `null`.</span></span> <span data-ttu-id="f8fe4-592">此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-592">Also confirm that the [upload naming in form data matches the app's naming](#match-name-attribute-value-to-parameter-name-of-post-method).</span></span>
+<span data-ttu-id="466cd-590">如果控制器正在接受使用 <xref:Microsoft.AspNetCore.Http.IFormFile> 上传的文件，但该值为 `null`，请确认 HTML 窗体指定的 `enctype` 值是否为 `multipart/form-data`。</span><span class="sxs-lookup"><span data-stu-id="466cd-590">If the controller is accepting uploaded files using <xref:Microsoft.AspNetCore.Http.IFormFile> but the value is `null`, confirm that the HTML form is specifying an `enctype` value of `multipart/form-data`.</span></span> <span data-ttu-id="466cd-591">如果未在 `<form>` 元素上设置此属性，则不会发生文件上传，并且任何绑定的 <xref:Microsoft.AspNetCore.Http.IFormFile> 参数都为 `null`。</span><span class="sxs-lookup"><span data-stu-id="466cd-591">If this attribute isn't set on the `<form>` element, the file upload doesn't occur and any bound <xref:Microsoft.AspNetCore.Http.IFormFile> arguments are `null`.</span></span> <span data-ttu-id="466cd-592">此外，请确认[窗体数据中的上传命名是否与应用的命名相匹配](#match-name-attribute-value-to-parameter-name-of-post-method)。</span><span class="sxs-lookup"><span data-stu-id="466cd-592">Also confirm that the [upload naming in form data matches the app's naming](#match-name-attribute-value-to-parameter-name-of-post-method).</span></span>
 
-### <a name="stream-was-too-long"></a><span data-ttu-id="f8fe4-593">数据流太长</span><span class="sxs-lookup"><span data-stu-id="f8fe4-593">Stream was too long</span></span>
+### <a name="stream-was-too-long"></a><span data-ttu-id="466cd-593">数据流太长</span><span class="sxs-lookup"><span data-stu-id="466cd-593">Stream was too long</span></span>
 
-<span data-ttu-id="f8fe4-594">本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-594">The examples in this topic rely upon <xref:System.IO.MemoryStream> to hold the uploaded file's content.</span></span> <span data-ttu-id="f8fe4-595">`MemoryStream` 的大小限制为 `int.MaxValue`。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-595">The size limit of a `MemoryStream` is `int.MaxValue`.</span></span> <span data-ttu-id="f8fe4-596">如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。</span><span class="sxs-lookup"><span data-stu-id="f8fe4-596">If the app's file upload scenario requires holding file content larger than 50 MB, use an alternative approach that doesn't rely upon a single `MemoryStream` for holding an uploaded file's content.</span></span>
+<span data-ttu-id="466cd-594">本主题中的示例依赖于 <xref:System.IO.MemoryStream> 来保存已上传的文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-594">The examples in this topic rely upon <xref:System.IO.MemoryStream> to hold the uploaded file's content.</span></span> <span data-ttu-id="466cd-595">`MemoryStream` 的大小限制为 `int.MaxValue`。</span><span class="sxs-lookup"><span data-stu-id="466cd-595">The size limit of a `MemoryStream` is `int.MaxValue`.</span></span> <span data-ttu-id="466cd-596">如果应用的文件上传方案要求保存大于 50 MB 的文件内容，请使用另一种方法，该方法不依赖单个 `MemoryStream` 来保存已上传文件的内容。</span><span class="sxs-lookup"><span data-stu-id="466cd-596">If the app's file upload scenario requires holding file content larger than 50 MB, use an alternative approach that doesn't rely upon a single `MemoryStream` for holding an uploaded file's content.</span></span>
 
 ::: moniker-end
 
 
-## <a name="additional-resources"></a><span data-ttu-id="f8fe4-597">其他资源</span><span class="sxs-lookup"><span data-stu-id="f8fe4-597">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="466cd-597">其他资源</span><span class="sxs-lookup"><span data-stu-id="466cd-597">Additional resources</span></span>
 
-* <span data-ttu-id="f8fe4-598">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="f8fe4-598">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
-* [<span data-ttu-id="f8fe4-599">Azure 安全性：安全框架：输入验证 | 缓解措施</span><span class="sxs-lookup"><span data-stu-id="f8fe4-599">Azure Security: Security Frame: Input Validation | Mitigations</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation)
-* [<span data-ttu-id="f8fe4-600">Azure 云设计模式：附属密钥模式</span><span class="sxs-lookup"><span data-stu-id="f8fe4-600">Azure Cloud Design Patterns: Valet Key pattern</span></span>](/azure/architecture/patterns/valet-key)
+* <span data-ttu-id="466cd-598">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)（不受限制的文件上传）</span><span class="sxs-lookup"><span data-stu-id="466cd-598">[Unrestricted File Upload](https://www.owasp.org/index.php/Unrestricted_File_Upload)</span></span>
+* [<span data-ttu-id="466cd-599">Azure 安全：安全框架：输入验证 |措施</span><span class="sxs-lookup"><span data-stu-id="466cd-599">Azure Security: Security Frame: Input Validation | Mitigations</span></span>](/azure/security/azure-security-threat-modeling-tool-input-validation)
+* [<span data-ttu-id="466cd-600">Azure 云设计模式：附属密钥模式</span><span class="sxs-lookup"><span data-stu-id="466cd-600">Azure Cloud Design Patterns: Valet Key pattern</span></span>](/azure/architecture/patterns/valet-key)
