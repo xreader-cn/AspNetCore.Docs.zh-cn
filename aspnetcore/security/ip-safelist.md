@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: security/ip-safelist
-ms.openlocfilehash: ca5b0f8088773027f7403120247cbeca8900bcf5
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: d25c375f7e659168ab8cc9d8e11753cb7dfde831
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034345"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652050"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>ASP.NET Core 的客户端 IP 安全安全
 
 作者： [Damien Bowden](https://twitter.com/damien_bod)和[Tom Dykstra](https://github.com/tdykstra)
  
-本文介绍三种在 ASP.NET Core 应用程序中实现 IP 安全列表（也称为白名单）的方法。 你可以使用：
+本文介绍三种在 ASP.NET Core 应用程序中实现 IP 安全列表（也称为白名单）的方法。 可用工具如下：
 
 * 用于检查每个请求的远程 IP 地址的中间件。
 * 操作筛选器来检查针对特定控制器或操作方法的请求的远程 IP 地址。
@@ -25,7 +25,7 @@ ms.locfileid: "73034345"
 
 在每种情况下，包含批准的客户端 IP 地址的字符串存储在应用设置中。 中间件或筛选器会将字符串分析为一个列表，并检查远程 IP 是否在列表中。 如果不是，则返回 HTTP 403 禁止的状态代码。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="the-safelist"></a>安全安全
 
@@ -45,7 +45,7 @@ ms.locfileid: "73034345"
 
 ## <a name="action-filter"></a>操作筛选器
 
-如果只希望特定控制器或操作方法使用 "安全"，请使用操作筛选器。 以下是一个示例： 
+如果只希望特定控制器或操作方法使用 "安全"，请使用操作筛选器。 下面是一个示例： 
 
 [!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckFilter.cs)]
 
@@ -61,7 +61,7 @@ ms.locfileid: "73034345"
 
 ## <a name="razor-pages-filter"></a>Razor Pages 筛选器 
 
-如果需要 Razor Pages 应用的安全安全，请使用 Razor Pages 筛选器。 以下是一个示例： 
+如果需要 Razor Pages 应用的安全安全，请使用 Razor Pages 筛选器。 下面是一个示例： 
 
 [!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckPageFilter.cs)]
 

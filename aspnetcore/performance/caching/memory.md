@@ -6,28 +6,28 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: performance/caching/memory
-ms.openlocfilehash: 23acc17c861c203a87b1c113940e7bf42b51e810
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: e01e4a139893297a71aabb1af11b25cf0deb85a9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972019"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653448"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>缓存在内存中 ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT)， [John Luo](https://github.com/JunTaoLuo)，和[Steve Smith](https://ardalis.com/)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [John Luo](https://github.com/JunTaoLuo)和[Steve Smith](https://ardalis.com/)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="caching-basics"></a>缓存基础知识
 
 通过减少生成内容所需的工作，缓存可以显著提高应用的性能和可伸缩性。 缓存最适用于不经常更改的**数据，生成**成本很高。 通过缓存，可以比从数据源返回的数据的副本速度快得多。 应该对应用进行编写和测试，使其**永不**依赖于缓存的数据。
 
-ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)。 `IMemoryCache` 表示存储在 web 服务器的内存中的缓存。 使用内存中缓存时，在服务器场（多台服务器）上运行的应用应确保会话是粘滞的。 粘性会话可确保来自客户端的后续请求都转到同一台服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)(ARR) 将所有的后续请求路由到同一台服务器。
+ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)。 `IMemoryCache` 表示存储在 web 服务器的内存中的缓存。 使用内存中缓存时，在服务器场（多台服务器）上运行的应用应确保会话是粘滞的。 粘性会话可确保来自客户端的后续请求都转到同一台服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)（ARR）将所有后续请求路由到同一服务器。
 
-Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存可将缓存内存卸载到外部进程。
+Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存可将缓存内存卸载到外部进程。
 
 内存中缓存可以存储任何对象。 分布式缓存接口仅限 `byte[]`。 内存中和分布式缓存将缓存项作为键值对。
 
@@ -39,7 +39,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-建议对 `System.Runtime.Caching`/`MemoryCache` 使用 [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (本文中所述), 因为它更好地集成到 ASP.NET Core 中。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
+/`System.Runtime.Caching`建议将/`IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
 
 将 ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，使用 `System.Runtime.Caching`/`MemoryCache` 作为兼容性桥。
 
@@ -58,7 +58,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 > 使用 `SetSize`、`Size`或 `SizeLimit` 限制缓存时，为缓存创建一个缓存单独。 有关详细信息和示例，请参阅[使用 SetSize、Size 和 SizeLimit 限制缓存大小](#use-setsize-size-and-sizelimit-to-limit-cache-size)。
 > 共享缓存由其他框架或库共享。 例如，EF Core 使用共享缓存并且未指定大小。 
 
-内存中缓存是从应用程序中使用[依赖关系注入](xref:fundamentals/dependency-injection)引用的一种*服务*。 在构造函数中请求 `IMemoryCache`实例：
+内存中缓存是从应用程序中使用[依赖关系注入](xref:fundamentals/dependency-injection)引用的一种*服务*。 请求构造函数中的 `IMemoryCache` 实例：
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ctor)]
 
@@ -78,7 +78,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet2&highlight=3-7,14-19)]
 
-以下代码调用[Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)来提取缓存的时间：
+以下代码调用[Get 获取](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)缓存时间：
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_gct)]
 
@@ -102,7 +102,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 * 设置可调过期时间。 访问此缓存项的请求将重置可调过期时钟。
 * 将缓存优先级设置为[CacheItemPriority. NeverRemove](xref:Microsoft.Extensions.Caching.Memory.CacheItemPriority.NeverRemove)。
-* 设置一个[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)它将在条目从缓存中清除后调用。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
+* 设置在从缓存中逐出项后将调用的[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) 。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
@@ -158,11 +158,11 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 ## <a name="cache-dependencies"></a>缓存依赖关系
 
-以下示例演示在依赖项过期时如何使缓存项过期。 会将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken>添加到缓存项。 在 `Cancel`上调用 `CancellationTokenSource`，时，这两个缓存条目都将被清除。
+以下示例演示在依赖项过期时如何使缓存项过期。 将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> 添加到缓存的项。 如果对 `CancellationTokenSource`调用 `Cancel`，则会逐出两个缓存条目。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ed)]
 
-使用<xref:System.Threading.CancellationTokenSource>可以将多个缓存条目作为一个组来清除。 使用上面代码中的 `using`模式时`using`块中创建的缓存条目会继承触发器和过期时间设置。
+使用 <xref:System.Threading.CancellationTokenSource> 允许以组的形式逐出多个缓存条目。 在上面的代码中，在 `using` 模式下，在 `using` 块中创建的缓存条目将继承触发器和过期设置。
 
 ## <a name="additional-notes"></a>附加说明
 
@@ -194,17 +194,17 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 ::: moniker range="< aspnetcore-3.0"
 
 <!-- This is the 2.1 version -->
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT)， [John Luo](https://github.com/JunTaoLuo)，和[Steve Smith](https://ardalis.com/)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [John Luo](https://github.com/JunTaoLuo)和[Steve Smith](https://ardalis.com/)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="caching-basics"></a>缓存基础知识
 
 通过减少生成内容所需的工作，缓存可以显著提高应用的性能和可伸缩性。 缓存对不经常更改的数据效果最佳。 缓存生成的数据副本的返回速度可以比从原始源返回更快。 应编写并测试代码，使其**绝不会**依赖于缓存的数据。
 
-ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于 [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，它表示存储在 Web 服务器内存中的缓存。 在服务器场中运行的应用（多台服务器）应确保会话在使用内存中缓存时处于粘滞。 粘滞会话确保以后来自客户端的请求都发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)（ARR）将来自用户代理的所有请求路由到同一服务器。
+ASP.NET Core 支持多种不同的缓存。 最简单的缓存基于[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)，这表示存储在 web 服务器内存中的缓存。 在服务器场中运行的应用（多台服务器）应确保会话在使用内存中缓存时处于粘滞。 粘滞会话确保以后来自客户端的请求都发送到相同的服务器。 例如，Azure Web 应用使用[应用程序请求路由](https://www.iis.net/learn/extensions/planning-for-arr)（ARR）将来自用户代理的所有请求路由到同一服务器。
 
-Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存可将缓存内存卸载到外部进程。
+Web 场中的非粘滞会话需要[分布式缓存](distributed.md)，以避免缓存一致性问题。 对于某些应用，分布式缓存可支持比内存中缓存更高的向外扩展。 使用分布式缓存可将缓存内存卸载到外部进程。
 
 内存中缓存可以存储任何对象。 分布式缓存接口仅限 `byte[]`。 内存中和分布式缓存将缓存项作为键值对。
 
@@ -216,7 +216,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 * 面向 .NET Standard 2.0 或更高版本的任何[.net 实现](/dotnet/standard/net-standard#net-implementation-support)。 例如，ASP.NET Core 2.0 或更高版本。
 * .NET Framework 4.5 或更高版本。
 
-建议对 `System.Runtime.Caching`/`MemoryCache` 使用 [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (本文中所述), 因为它更好地集成到 ASP.NET Core 中。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
+/`System.Runtime.Caching`建议将/`IMemoryCache` （本文所述）的（本文中介绍），因为它更好地集成[到 `MemoryCache` 中](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)。 例如，`IMemoryCache` 与 ASP.NET Core[依赖关系注入](xref:fundamentals/dependency-injection)一起使用。
 
 将 ASP.NET 4.x 中的代码移植到 ASP.NET Core 时，使用 `System.Runtime.Caching`/`MemoryCache` 作为兼容性桥。
 
@@ -234,15 +234,15 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 > 使用[依赖关系注入](xref:fundamentals/dependency-injection)中的*共享*内存缓存并调用 `SetSize`、`Size`或 `SizeLimit` 来限制缓存大小可能会导致应用程序失败。 在缓存上设置大小限制时，在添加时，所有项都必须指定大小。 这可能会导致问题，因为开发人员可能无法完全控制使用共享缓存的内容。 例如，Entity Framework Core 使用共享缓存并且未指定大小。 如果应用设置了缓存大小限制并使用 EF Core，则应用将引发 `InvalidOperationException`。
 > 使用 `SetSize`、`Size`或 `SizeLimit` 限制缓存时，为缓存创建一个缓存单独。 有关详细信息和示例，请参阅[使用 SetSize、Size 和 SizeLimit 限制缓存大小](#use-setsize-size-and-sizelimit-to-limit-cache-size)。
 
-内存中缓存是使用[依赖关系注入](../../fundamentals/dependency-injection.md)从应用中引用的服务。 请在`ConfigureServices`中调用`AddMemoryCache`:
+内存中缓存是从应用程序中使用[依赖关系注入](../../fundamentals/dependency-injection.md)引用的一种*服务*。 `ConfigureServices`调用 `AddMemoryCache`：
 
 [!code-csharp[](memory/sample/WebCache/Startup.cs?highlight=9)]
 
-在构造函数中请求 `IMemoryCache`实例：
+请求构造函数中的 `IMemoryCache` 实例：
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
-`IMemoryCache`需要 NuGet 包[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), 此包可在[Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app)中找到的。
+`IMemoryCache` 需要 NuGet 包 AspNetCore，此包可在[元包](xref:fundamentals/metapackage-app)中找到[的。](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)
 
 以下代码使用[TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)来检查缓存中是否有时间。 如果未缓存时间，则将创建一个新条目，并[将其设置](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)为已添加到缓存中。
 
@@ -262,7 +262,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet2&highlight=3-7,14-19)]
 
-以下代码调用[Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)来提取缓存的时间：
+以下代码调用[Get 获取](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)缓存时间：
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_gct)]
 
@@ -274,7 +274,7 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 * 设置可调过期时间。 访问此缓存项的请求将重置可调过期时钟。
 * 将缓存优先级设置为 `CacheItemPriority.NeverRemove`。
-* 设置一个[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)它将在条目从缓存中清除后调用。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
+* 设置在从缓存中逐出项后将调用的[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) 。 在代码中运行该回调的线程不同于从缓存中移除条目的线程。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
@@ -330,11 +330,11 @@ Web 场中的非粘性会话需要[分布式缓存](distributed.md)以避免缓�
 
 ## <a name="cache-dependencies"></a>缓存依赖关系
 
-以下示例演示在依赖项过期时如何使缓存项过期。 会将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken>添加到缓存项。 在 `Cancel`上调用 `CancellationTokenSource`，时，这两个缓存条目都将被清除。
+以下示例演示在依赖项过期时如何使缓存项过期。 将 <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> 添加到缓存的项。 如果对 `CancellationTokenSource`调用 `Cancel`，则会逐出两个缓存条目。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 
-使用`CancellationTokenSource`可以将多个缓存条目作为一个组来清除。 使用上面代码中的 `using`模式时`using`块中创建的缓存条目会继承触发器和过期时间设置。
+使用 `CancellationTokenSource` 允许以组的形式逐出多个缓存条目。 在上面的代码中，在 `using` 模式下，在 `using` 块中创建的缓存条目将继承触发器和过期设置。
 
 ## <a name="additional-notes"></a>附加说明
 

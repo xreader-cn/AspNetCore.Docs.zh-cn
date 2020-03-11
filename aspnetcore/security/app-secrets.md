@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 9b36ae64fbe277cd81ed22ba7b21b0a035082dbd
-ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
+ms.openlocfilehash: c3f165164f3c95e8c0aab773f3731429ae224bd9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75606787"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654690"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>安全存储中 ASP.NET Core 中开发的应用程序机密
 
-通过[Rick Anderson](https://twitter.com/RickAndMSFT)， [Daniel Roth](https://github.com/danroth27)，和[Scott Addie](https://github.com/scottaddie)
+作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Daniel Roth](https://github.com/danroth27)和[Scott Addie](https://github.com/scottaddie)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 本文档介绍在开发计算机上开发 ASP.NET Core 应用过程中存储和检索敏感数据的方法。 永远不要将密码或其他敏感数据存储在源代码中。 不应使用生产机密进行开发或测试。 机密不应与应用一起部署。 相反，机密应通过受控方式（如环境变量、Azure Key Vault 等）在生产环境中可用。可以通过[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
 
@@ -33,7 +33,7 @@ ms.locfileid: "75606787"
 
 ::: moniker-end
 
-请考虑在其中一个 ASP.NET Core web 应用**单个用户帐户**已启用安全性。 默认数据库连接字符串包含在项目的*appsettings.json*文件具有键`DefaultConnection`。 默认连接字符串是 localdb，这在用户模式下运行，不需要密码。 应用程序在部署期间，`DefaultConnection`使用环境变量的值可以重写密钥值。 环境变量可以存储敏感凭据与完整的连接字符串。
+请考虑一个 ASP.NET Core web 应用，其中启用了**单个用户帐户**安全。 具有 `DefaultConnection`密钥的项目的*appsettings*文件中包含默认的数据库连接字符串。 默认连接字符串是 localdb，这在用户模式下运行，不需要密码。 在应用程序部署过程中，可以使用环境变量的值覆盖 `DefaultConnection` 键值。 环境变量可以存储敏感凭据与完整的连接字符串。
 
 > [!WARNING]
 > 环境变量通常存储在普通的未加密的文本。 如果计算机或进程受到攻击，可以由不受信任方访问环境变量。 可能需要更多措施，防止用户机密泄露。
@@ -51,13 +51,13 @@ ms.locfileid: "75606787"
 
 机密管理器工具抽象化实现详细信息，例如位置和方式存储的值。 如果不知道这些实现的详细信息，可以使用该工具。 值存储在本地计算机上 JSON 配置文件中的系统保护的用户配置文件文件夹中：
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 文件系统路径：
 
 `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
 
-# <a name="linux--macostablinuxmacos"></a>[Linux/macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 文件系统路径：
 
@@ -65,7 +65,7 @@ ms.locfileid: "75606787"
 
 ---
 
-在前面文件路径中，替换`<user_secrets_id>`与`UserSecretsId`中指定值 *.csproj*文件。
+在前面的文件路径中，将 `<user_secrets_id>` 替换为 *.csproj*文件中指定的 `UserSecretsId` 值。
 
 不编写代码，取决于使用机密管理器工具中保存的数据的格式的位置。 这些实现细节可能会更改。 例如，机密的值不会加密，但可能在将来。
 
@@ -76,7 +76,7 @@ ms.locfileid: "75606787"
 机密管理器工具是可与.NET Core CLI，在.NET Core SDK 2.1.300 捆绑或更高版本。 有关.NET Core SDK 2.1.300 之前的版本中，工具安装是必需的。
 
 > [!TIP]
-> 运行`dotnet --version`从命令行界面中，若要查看已安装的.NET Core SDK 版本号。
+> 若要查看已安装的 .NET Core SDK 版本号，请从命令行界面运行 `dotnet --version`。
 
 如果正在使用的.NET Core SDK 包括的工具，将显示警告：
 
@@ -84,7 +84,7 @@ ms.locfileid: "75606787"
 The tool 'Microsoft.Extensions.SecretManager.Tools' is now included in the .NET Core SDK. Information on resolving this warning is available at (https://aka.ms/dotnetclitools-in-box).
 ```
 
-安装[Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) ASP.NET Core 项目中的 NuGet 包。 例如：
+在 ASP.NET Core 项目中安装[SecretManager](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet 包。 例如：
 
 [!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_CsprojFile&highlight=15-16)]
 
@@ -117,7 +117,7 @@ Use "dotnet user-secrets [command] --help" for more information about a command.
 ```
 
 > [!NOTE]
-> 您必须位于与相同的目录 *.csproj*文件中定义的工具在运行 *.csproj*文件的`DotNetCliToolReference`元素。
+> 您必须与 *.csproj*文件位于同一目录中，才能运行 *.csproj*文件的 `DotNetCliToolReference` 元素中定义的工具。
 
 ::: moniker-end
 
@@ -139,7 +139,7 @@ dotnet user-secrets init
 
 ::: moniker range="<= aspnetcore-2.2"
 
-若要使用用户机密，定义`UserSecretsId`中的元素`PropertyGroup`的 *.csproj*文件。 `UserSecretsId` 的内部文本是任意的，但对项目是唯一的。 开发人员通常会生成的 GUID `UserSecretsId`。
+若要使用用户机密，请在 *.csproj*文件的 `PropertyGroup` 中定义 `UserSecretsId` 元素。 `UserSecretsId` 的内部文本是任意的，但对项目是唯一的。 开发人员通常会为 `UserSecretsId`生成 GUID。
 
 ::: moniker-end
 
@@ -156,19 +156,19 @@ dotnet user-secrets init
 ::: moniker-end
 
 > [!TIP]
-> 在 Visual Studio 中，右键单击解决方案资源管理器中的项目并选择**管理用户机密**从上下文菜单。 添加了此笔势`UserSecretsId`元素中，为填充 guid *.csproj*文件。
+> 在 Visual Studio 中，右键单击 "解决方案资源管理器中的项目，然后从上下文菜单中选择"**管理用户机密**"。 此笔势将使用 GUID 填充的 `UserSecretsId` 元素添加到 *.csproj*文件。
 
 ## <a name="set-a-secret"></a>设置的机密
 
-定义由一个键和其值组成的应用程序密码。 密钥是与项目相关联`UserSecretsId`值。 例如，从在其中的目录运行以下命令 *.csproj*文件是否存在：
+定义由一个键和其值组成的应用程序密码。 该机密与项目的 `UserSecretsId` 值相关联。 例如，从 *.csproj*文件所在的目录运行以下命令：
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 ```
 
-在前面的示例中，冒号表示`Movies`是一个对象文字与`ServiceApiKey`属性。
+在前面的示例中，冒号表示 `Movies` 是具有 `ServiceApiKey` 属性的对象文本。
 
-机密管理器工具可以过使用从其他目录。 使用`--project`选项可提供文件系统路径，在 *.csproj*文件存在。 例如：
+机密管理器工具可以过使用从其他目录。 使用 `--project` 选项提供 *.csproj*文件所在的文件系统路径。 例如：
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
@@ -176,7 +176,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ### <a name="json-structure-flattening-in-visual-studio"></a>Visual Studio 中的 JSON 结构平展
 
-Visual Studio 的 "**管理用户机密**" 手势在文本编辑器中打开一个*密码*文件。 内容替换为*secrets.json*与要存储的键 / 值对。 例如：
+Visual Studio 的 "**管理用户机密**" 手势在文本编辑器中打开一个*密码*文件。 将*私钥的内容*替换为要存储的键/值对。 例如：
 
 ```json
 {
@@ -187,7 +187,7 @@ Visual Studio 的 "**管理用户机密**" 手势在文本编辑器中打开一�
 }
 ```
 
-JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secrets set`。 例如，运行`dotnet user-secrets remove "Movies:ConnectionString"`折叠`Movies`对象文字。 修改后的文件如下所示：
+JSON 结构在通过 `dotnet user-secrets remove` 或 `dotnet user-secrets set`进行修改后进行平展。 例如，运行 `dotnet user-secrets remove "Movies:ConnectionString"` 会折叠 `Movies` 对象文本。 修改后的文件如下所示：
 
 ```json
 {
@@ -197,9 +197,9 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ## <a name="set-multiple-secrets"></a>设置多个机密
 
-可以通过管道传递到 JSON 设置机密一批`set`命令。 在以下示例中， *input.json*文件的内容通过管道传递给`set`命令。
+可以通过管道 JSON 将机密批处理设置为 `set` 命令。 在下面的示例中，将*输入 json*文件的内容传送到 `set` 命令。
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 打开命令外壳中，并执行以下命令：
 
@@ -207,7 +207,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
   type .\input.json | dotnet user-secrets set
   ```
 
-# <a name="linux--macostablinuxmacos"></a>[Linux/macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 打开命令外壳中，并执行以下命令：
 
@@ -219,7 +219,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ## <a name="access-a-secret"></a>访问机密
 
-[ASP.NET Core 配置 API](xref:fundamentals/configuration/index)提供对机密 Manager 机密的访问。
+[ASP.NET Core 配置 API](xref:fundamentals/configuration/index)提供对机密管理器密码的访问权限。
 
 ::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
 
@@ -265,7 +265,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ::: moniker range="<= aspnetcore-1.1"
 
-安装[Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。
+安装 " [UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) " NuGet 包。
 
 使用 `Startup` 构造函数中的 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 调用添加用户机密配置源：
 
@@ -273,7 +273,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ::: moniker-end
 
-可以通过检索用户机密`Configuration`API:
+可以通过 `Configuration` API 检索用户机密：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -293,7 +293,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-若要映射到 POCO，前面的机密，使用`Configuration`API 的[对象 graph 绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。 以下代码将绑定到自定义`MovieSettings`POCO 和访问`ServiceApiKey`属性值：
+若要将上述机密映射到 POCO，请使用 `Configuration` API 的[对象图形绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。 下面的代码绑定到自定义 `MovieSettings` POCO，并访问 `ServiceApiKey` 属性值：
 
 ::: moniker range=">= aspnetcore-1.1"
 
@@ -307,13 +307,13 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 
 ::: moniker-end
 
-`Movies:ConnectionString`并`Movies:ServiceApiKey`机密映射到相应的属性中`MovieSettings`:
+`Movies:ConnectionString` 和 `Movies:ServiceApiKey` 机密会映射到 `MovieSettings`中的相应属性：
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
 ## <a name="string-replacement-with-secrets"></a>包含机密的字符串替换
 
-以纯文本形式存储密码是不安全。 例如，数据库连接字符串存储在*appsettings.json*可能包括指定用户的密码：
+以纯文本形式存储密码是不安全。 例如，存储在*appsettings*中的数据库连接字符串可能包含指定用户的密码：
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
@@ -323,7 +323,7 @@ JSON 结构平展后通过修改`dotnet user-secrets remove`或`dotnet user-secr
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-删除`Password`中的连接字符串中的键 / 值对*appsettings.json*。 例如：
+从*appsettings*中的连接字符串中删除 `Password` 键值对。 例如：
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
@@ -345,7 +345,7 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-从在其中的目录运行以下命令 *.csproj*文件是否存在：
+从 *.csproj*文件所在的目录运行以下命令：
 
 ```dotnetcli
 dotnet user-secrets list
@@ -358,19 +358,19 @@ Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted
 Movies:ServiceApiKey = 12345
 ```
 
-在前面的示例中，在项名称中的冒号表示对象层次结构内的*secrets.json*。
+在前面的示例中，键名称中的冒号表示*机密 json*中的对象层次结构。
 
 ## <a name="remove-a-single-secret"></a>删除单个机密
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-从在其中的目录运行以下命令 *.csproj*文件是否存在：
+从 *.csproj*文件所在的目录运行以下命令：
 
 ```dotnetcli
 dotnet user-secrets remove "Movies:ConnectionString"
 ```
 
-应用程序的*secrets.json*已修改文件，以删除与关联的键 / 值对`MoviesConnectionString`密钥：
+已修改应用的*机密 json*文件，以删除与 `MoviesConnectionString` 项关联的键值对：
 
 ```json
 {
@@ -380,7 +380,7 @@ dotnet user-secrets remove "Movies:ConnectionString"
 }
 ```
 
-运行`dotnet user-secrets list`会显示以下消息：
+运行 `dotnet user-secrets list` 将显示以下消息：
 
 ```console
 Movies:ServiceApiKey = 12345
@@ -390,19 +390,19 @@ Movies:ServiceApiKey = 12345
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-从在其中的目录运行以下命令 *.csproj*文件是否存在：
+从 *.csproj*文件所在的目录运行以下命令：
 
 ```dotnetcli
 dotnet user-secrets clear
 ```
 
-从已删除应用程序的所有用户机密*secrets.json*文件：
+此应用的所有用户密码已从*以下文件中*删除：
 
 ```json
 {}
 ```
 
-运行`dotnet user-secrets list`会显示以下消息：
+运行 `dotnet user-secrets list` 将显示以下消息：
 
 ```console
 No secrets configured for this application.
@@ -410,6 +410,6 @@ No secrets configured for this application.
 
 ## <a name="additional-resources"></a>其他资源
 
-* 有关从 IIS 访问密钥管理器的信息，请参阅[此问题](https://github.com/aspnet/AspNetCore.Docs/issues/16328)。
+* 有关从 IIS 访问密钥管理器的信息，请参阅[此问题](https://github.com/dotnet/AspNetCore.Docs/issues/16328)。
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>

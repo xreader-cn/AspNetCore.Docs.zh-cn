@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 09/05/2019
 uid: web-api/advanced/analyzers
 ms.openlocfilehash: 7b6a7328deb8718a2a1c67c104cec359a4f13497
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082525"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653052"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
@@ -45,35 +45,35 @@ ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器�
 
 通过以下方法之一安装 [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet 包：
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“程序包管理器控制台”  窗口：
-  * 转到“视图”>“其他窗口”>“包管理器控制台”    。
-  * 导航到 ApiConventions.csproj 文件所在的目录  。
-  * 请执行以下命令：
+从“程序包管理器控制台”窗口：
+  * >**其他 Windows** >**程序包管理器控制台**中转到 "**查看**"。
+  * 导航到 ApiConventions.csproj 文件所在的目录。
+  * 执行以下命令：
 
     ```powershell
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
     ```
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 在“Solution Pad”>“添加包...”中右键单击“包”文件夹    。
-* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”   。
+* 右键单击**Solution Pad** >**添加包 ...** "中的"*包*"文件夹。
+* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”。
 * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
-* 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”  。
+* 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”。
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-从“集成终端”  中运行以下命令：
+从“集成终端”中运行以下命令：
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-运行下面的命令：
+运行以下命令：
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
@@ -87,7 +87,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。 <xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。
 
-包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请看下面的示例：
+包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请考虑以下示例：
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 

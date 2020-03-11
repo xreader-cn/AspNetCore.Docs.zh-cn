@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: c4bb9d5746e494106ead6ad5bbf972bbcc5a39f1
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
-ms.translationtype: HT
+ms.openlocfilehash: 03335811766ea3a1455901199863c6da0e35f7e4
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034060"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653340"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core 中的筛选器
 
@@ -33,7 +33,7 @@ ms.locfileid: "77034060"
 * 该组件嵌入在页面或视图中。
 * 页面或控制器/视图使用此筛选器。
 
-[查看或下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 ## <a name="how-filters-work"></a>筛选器的工作原理
 
@@ -178,12 +178,12 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | Global | `OnActionExecuting` |
+| 1 | 全局 | `OnActionExecuting` |
 | 2 | 控制器或 Razor 页面| `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器或 Razor 页面 | `OnActionExecuted` |
-| 6 | Global | `OnActionExecuted` |
+| 6 | 全局 | `OnActionExecuted` |
 
 ### <a name="controller-level-filters"></a>控制器级别筛选器
 
@@ -544,10 +544,10 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet3&highlight=21)]
 
-通过运行[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)来测试前面的代码：
+通过运行[下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)来测试前面的代码：
 
 * 调用 F12 开发人员工具。
-* 导航到 `https://localhost:5001/Sample/HeaderWithFactory`。
+* 导航到 `https://localhost:5001/Sample/HeaderWithFactory` 。
 
 F12 开发人员工具显示示例代码添加的以下响应标头：
 
@@ -596,7 +596,7 @@ What's a non-named attribute?
 ## <a name="next-actions"></a>后续操作
 
 * 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)。
-* 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)。
+* 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)。
 
 ::: moniker-end
 
@@ -615,7 +615,7 @@ What's a non-named attribute?
 
 本文档适用于 Razor Pages、API 控制器和具有视图的控制器。
 
-[查看或下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 ## <a name="how-filters-work"></a>筛选器的工作原理
 
@@ -719,12 +719,12 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 
 | 序列 | 筛选器作用域 | 筛选器方法 |
 |:--------:|:------------:|:-------------:|
-| 1 | Global | `OnActionExecuting` |
+| 1 | 全局 | `OnActionExecuting` |
 | 2 | 控制器 | `OnActionExecuting` |
 | 3 | 方法 | `OnActionExecuting` |
 | 4 | 方法 | `OnActionExecuted` |
 | 5 | 控制器 | `OnActionExecuted` |
-| 6 | Global | `OnActionExecuted` |
+| 6 | 全局 | `OnActionExecuted` |
 
 此序列显示：
 
@@ -781,8 +781,8 @@ ASP.NET Core 包含许多可子类化和自定义的基于属性的内置筛选�
 |:--------:|:------------:|:-----------------:|:-------------:|
 | 1 | 方法 | 0 | `OnActionExecuting` |
 | 2 | 控制器 | 1  | `OnActionExecuting` |
-| 3 | Global | 2  | `OnActionExecuting` |
-| 4 | Global | 2  | `OnActionExecuted` |
+| 3 | 全局 | 2  | `OnActionExecuting` |
+| 4 | 全局 | 2  | `OnActionExecuted` |
 | 5 | 控制器 | 1  | `OnActionExecuted` |
 | 6 | 方法 | 0  | `OnActionExecuted` |
 
@@ -1067,10 +1067,10 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/AddHeaderWithFactoryAttribute.cs?name=snippet_IFilterFactory&highlight=1,4,5,6,7)]
 
-可以通过运行[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)来测试前面的代码：
+可以通过运行[下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)来测试前面的代码：
 
 * 调用 F12 开发人员工具。
-* 导航到 `https://localhost:5001/Sample/HeaderWithFactory`。
+* 导航到 `https://localhost:5001/Sample/HeaderWithFactory` 。
 
 F12 开发人员工具显示示例代码添加的以下响应标头：
 
@@ -1119,6 +1119,6 @@ What's a non-named attribute?
 ## <a name="next-actions"></a>后续操作
 
 * 请参阅 [Razor Pages 的筛选器方法](xref:razor-pages/filter)。
-* 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
+* 若要尝试使用筛选器，请[下载、测试并修改 GitHub 示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。
 
 ::: moniker-end
