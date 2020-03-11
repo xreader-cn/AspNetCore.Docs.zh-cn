@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: fc07d572116f8eea2b30ea6cf80324e5c66f994c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: a8040003374906fd93e12c9fde44c4a5ccc2cf37
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963173"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645084"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core 中的 WebSocket 支持
 
@@ -22,15 +22,15 @@ ms.locfileid: "73963173"
 
 本文介绍 ASP.NET Core 中 WebSocket 的入门方法。 [WebSocket](https://wikipedia.org/wiki/WebSocket) ([RFC 6455](https://tools.ietf.org/html/rfc6455)) 是一个协议，支持通过 TCP 连接建立持久的双向信道。 它用于从快速实时通信中获益的应用，如聊天、仪表板和游戏应用。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 [如何运行](#sample-app)。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)（[如何下载](xref:index#how-to-download-a-sample)）。 [如何运行](#sample-app)。
 
-## SignalR
+## <a name="signalr"></a>SignalR
 
 [ASP.NET Core SignalR](xref:signalr/introduction) 是一个库，可用于简化向应用添加实时 Web 功能。 它会尽可能地使用 WebSocket。
 
-对于大多数应用程序，我们建议使用 SignalR，而不是原始 WebSocket。 SignalR 可为 WebSocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 WebSocket 相比，SignalR 没有显著的性能缺点。
+对于大多数应用程序，我们建议使用 SignalR，而不是原始 Websocket。 SignalR 可为 Websocket 不可用的环境提供传输回退。 它还可提供简单的远程过程调用应用模型。 并且在大多数情况下，与使用原始 Websocket 相比，SignalR 没有显著的性能缺点。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * ASP.NET Core 1.1 或更高版本
 * 支持 ASP.NET Core 的任何操作系统：
@@ -184,7 +184,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 > [!NOTE]
 > 使用 IIS Express 时无需执行这些步骤
 
-1. 导航到“控制面板” > “程序” > “程序和功能” > “打开或关闭 Windows 功能”（位于屏幕左侧）     。
+1. 导航到“控制面板” > “程序” > “程序和功能” > “启用或禁用 Windows 功能”（位于屏幕左侧）     。
 1. 打开以下节点：“Internet Information Services” > “万维网服务” > “应用程序开发功能”    。
 1. 选择“WebSocket 协议”  功能。 选择“确定”  。
 
@@ -200,7 +200,7 @@ CORS 提供的保护不适用于 WebSocket。 浏览器不会  ：
 
 ## <a name="sample-app"></a>示例应用
 
-本文附带的[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息重新发回到客户端。 从命令提示符运行该应用（它未设置为在安装了 IIS Express 的 Visual Studio 中运行）并导航到 http://localhost:5000 。 该网页的左上方显示连接状态：
+本文附带的[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)是一个 echo 应用。 它有一个可建立 WebSocket 连接的网页，且服务器将其收到的消息重新发回到客户端。 从命令提示符运行该应用（它未设置为在安装了 IIS Express 的 Visual Studio 中运行）并导航到 http://localhost:5000 。 该网页的左上方显示连接状态：
 
 ![网页的初始状态](websockets/_static/start.png)
 

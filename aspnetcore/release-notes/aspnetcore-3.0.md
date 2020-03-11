@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 1dee9a7e1cc381547e7ece71f302f407223dc838
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 35accdd2f65ac5430525be88cc621094e37d3e40
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829109"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650850"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -398,7 +398,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 Web UI 模板（Razor Pages、具有控制器和视图的 MVC）已删除以下内容：
 
 * cookie 同意 UI 不再包括在内。 若要在 ASP.NET Core 3.0 模板生成的应用中启用 cookie 同意功能，请参阅 <xref:security/gdpr>。
-* 脚本和相关静态资产现在作为本地文件（而不是使用 CDN）进行引用。 有关详细信息，[脚本和相关静态资产现在基于当前环境作为本地文件（而不是使用 CDN）进行引用 (aspnet/AspNetCore.Docs #14350)](https://github.com/aspnet/AspNetCore.Docs/issues/14350)。
+* 脚本和相关静态资产现在作为本地文件（而不是使用 CDN）进行引用。 有关详细信息，[脚本和相关静态资产现在基于当前环境作为本地文件（而不是使用 CDN）进行引用 (aspnet/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350)。
 
 Angular 模板已更新，以便使用 Angular 8。
 

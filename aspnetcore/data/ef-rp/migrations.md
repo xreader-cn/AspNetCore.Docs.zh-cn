@@ -5,12 +5,12 @@ description: 本教程使用 EF Core 迁移功能管理 ASP.NET Core MVC 应用�
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: f8e78cf7230528a4047eac1d52a12e2ed8392dec
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 86fd83c898fce8e121e4d259aaca12c59591e606
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213437"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645552"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 迁移 - 第 4 个教程（共 8 个）
 
@@ -160,7 +160,7 @@ Login failed for user 'user name'.
 本教程使用 EF Core 迁移功能管理数据模型更改。
 
 如果遇到无法解决的问题，请下载[已完成应用](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
+https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。
 
 开发新应用时，数据模型会频繁更改。 每当模型发生更改时，都无法与数据库进行同步。 本教程首先配置 Entity Framework 以创建数据库（如果不存在）。 每当数据模型发生更改时：
 
@@ -296,7 +296,7 @@ EF Core 使用 `__MigrationsHistory` 表查看是否需要运行任何迁移。 
 ## <a name="troubleshooting"></a>疑难解答
 
 下载[已完成应用](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations)。
+https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations)。
 
 应用会生成以下异常：
 

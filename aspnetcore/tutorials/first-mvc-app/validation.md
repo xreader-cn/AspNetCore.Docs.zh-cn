@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
 ms.openlocfilehash: 2bb4ed173d154e3b7457ce3f8009f0f9406e36c4
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334076"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648354"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>将验证添加到 ASP.NET Core MVC 应用
 

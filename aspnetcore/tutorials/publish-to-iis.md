@@ -1,22 +1,20 @@
 ---
 title: 将 ASP.NET Core 应用发布到 IIS
-author: guardrex
+author: rick-anderson
 description: 了解如何在 IIS 服务器上托管 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 820527cc15f883c906d2fdf1c073d443a5b3b40e
-ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
+ms.openlocfilehash: f3860ba6ca7b99e63000ba0066749751f80cdc23
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71942882"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646620"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>将 ASP.NET Core 应用发布到 IIS
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 本教程介绍如何在 IIS 服务器上托管 ASP.NET Core 应用。
 
@@ -27,7 +25,7 @@ ms.locfileid: "71942882"
 > * 在 IIS 管理器中创建 IIS 站点。
 > * 部署 ASP.NET Core 应用。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [.NET Core SDK](/dotnet/core/sdk) 安装在开发计算机上。
 * Windows Server 配置了“Web 服务器 (IIS)”服务器角色  。 如果服务器未配置为托管具有 IIS 的网站，请按照 <xref:host-and-deploy/iis/index#iis-configuration> 文章中“IIS 配置”部分的指南操作，然后返回本教程  。
@@ -72,7 +70,7 @@ ms.locfileid: "71942882"
 * 将应用发布到一个文件夹。
 * 文件夹的内容将移动到 IIS 站点的文件夹（IIS 管理器中站点的物理路径）  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 在“解决方案资源管理器”  中右键单击该项目，然后选择“发布”  。
 1. 在“选择发布目标”对话框中，选择“文件夹”发布选项   。
@@ -80,7 +78,7 @@ ms.locfileid: "71942882"
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
    * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径  。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. 在命令 shell 中，使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令在发布配置中发布应用：
 
@@ -90,7 +88,7 @@ ms.locfileid: "71942882"
 
 1. 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. 右键单击“解决方案”中的项目，然后选择“发布” > “发布到文件夹”    。
 1. 设置“选择文件夹”路径  。

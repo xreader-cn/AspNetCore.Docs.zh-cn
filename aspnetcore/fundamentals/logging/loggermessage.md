@@ -1,22 +1,20 @@
 ---
 title: 在 ASP.NET Core 中使用 LoggerMessage 的高性能日志记录
-author: guardrex
+author: rick-anderson
 description: 了解如何使用 LoggerMessage 创建可缓存的委托。对于高性能日志记录方案，这些委托需要更少的对象分配。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/26/2019
 uid: fundamentals/logging/loggermessage
-ms.openlocfilehash: 56c60fe405660ff39e2696de591449c25f669de2
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: 48ebba69b5c15a0f9a42f7f6b3d2c1fcb0a2211c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059031"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649020"
 ---
 # <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>在 ASP.NET Core 中使用 LoggerMessage 的高性能日志记录
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +25,7 @@ ms.locfileid: "70059031"
 * 记录器扩展方法需要将值类型（例如 `int`）“装箱”（转换）到 `object` 中。 <xref:Microsoft.Extensions.Logging.LoggerMessage> 模式使用带强类型参数的静态 <xref:System.Action> 字段和扩展方法来避免装箱。
 * 记录器扩展方法每次写入日志消息时必须分析消息模板（命名的格式字符串）。 如果已定义消息，那么 <xref:Microsoft.Extensions.Logging.LoggerMessage> 只需分析一次模板即可。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 此示例应用通过基本引号跟踪系统演示 <xref:Microsoft.Extensions.Logging.LoggerMessage> 功能。 此应用使用内存中数据库添加和删除引号。 发生这些操作时，通过 <xref:Microsoft.Extensions.Logging.LoggerMessage> 模式生成日志消息。
 
@@ -193,7 +191,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 * 记录器扩展方法需要将值类型（例如 `int`）“装箱”（转换）到 `object` 中。 <xref:Microsoft.Extensions.Logging.LoggerMessage> 模式使用带强类型参数的静态 <xref:System.Action> 字段和扩展方法来避免装箱。
 * 记录器扩展方法每次写入日志消息时必须分析消息模板（命名的格式字符串）。 如果已定义消息，那么 <xref:Microsoft.Extensions.Logging.LoggerMessage> 只需分析一次模板即可。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 此示例应用通过基本引号跟踪系统演示 <xref:Microsoft.Extensions.Logging.LoggerMessage> 功能。 此应用使用内存中数据库添加和删除引号。 发生这些操作时，通过 <xref:Microsoft.Extensions.Logging.LoggerMessage> 模式生成日志消息。
 

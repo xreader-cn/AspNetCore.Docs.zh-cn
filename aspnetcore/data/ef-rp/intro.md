@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 1a9d83be9180b1d32ab941932eb3cab8612dff01
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 94783aa9014aef4c5f775fc8f36a2c3a7715e4b6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213397"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645798"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -19,9 +19,9 @@ ms.locfileid: "77213397"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本文是系列教程的第一篇，这些教程展示如何在 [ASP.NET Core Razor Pages](xref:razor-pages/index) 应用中使用 Entity Framework (EF) Core。 这些教程为虚构的 Contoso University 生成一个网站。 网站包括学生录取、课程创建和讲师分配等功能。 本教程使用代码优先方法。 有关使用数据库优先方法学习本教程的信息，请参阅[此 Github 问题](https://github.com/aspnet/AspNetCore.Docs/issues/16897)。
+本文是系列教程的第一篇，这些教程展示如何在 [ASP.NET Core Razor Pages](xref:razor-pages/index) 应用中使用 Entity Framework (EF) Core。 这些教程为虚构的 Contoso University 生成一个网站。 网站包括学生录取、课程创建和讲师分配等功能。 本教程使用代码优先方法。 有关使用数据库优先方法学习本教程的信息，请参阅[此 Github 问题](https://github.com/dotnet/AspNetCore.Docs/issues/16897)。
 
-[下载或查看已完成的应用。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
+[下载或查看已完成的应用。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -47,7 +47,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 ## <a name="troubleshooting"></a>疑难解答
 
-如果遇到无法解决的问题，请将你的代码与[完成的项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)进行比较。 获取帮助的一个好方法是使用 [ASP.NET Core 标记](https://stackoverflow.com/questions/tagged/asp.net-core)或 [EF Core 标记](https://stackoverflow.com/questions/tagged/entity-framework-core)将问题发布到 StackOverflow.com。
+如果遇到无法解决的问题，请将你的代码与[完成的项目](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)进行比较。 获取帮助的一个好方法是使用 [ASP.NET Core 标记](https://stackoverflow.com/questions/tagged/asp.net-core)或 [EF Core 标记](https://stackoverflow.com/questions/tagged/entity-framework-core)将问题发布到 StackOverflow.com。
 
 ## <a name="the-sample-app"></a>示例应用
 
@@ -458,7 +458,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 该示例应用是一个虚构的 Contoso University 的网站。 其中包括学生录取、课程创建和讲师分配等功能。 本页是介绍如何构建 Contoso University 示例应用系列教程中的第一部分。
 
-[下载或查看已完成的应用。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
+[下载或查看已完成的应用。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [下载说明](xref:index#how-to-download-a-sample)。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -476,7 +476,7 @@ Contoso University 示例 Web 应用演示了如何使用 Entity Framework (EF) 
 
 ## <a name="troubleshooting"></a>疑难解答
 
-如果遇到无法解决的问题，可以通过与 [已完成的项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)对比代码来查找解决方案。 获取帮助的一个好方法是将问题发布到适用于 [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) 或 [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) 的 [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core)。
+如果遇到无法解决的问题，可以通过与 [已完成的项目](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)对比代码来查找解决方案。 获取帮助的一个好方法是将问题发布到适用于 [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) 或 [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) 的 [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core)。
 
 ## <a name="the-contoso-university-web-app"></a>Contoso University Web 应用
 

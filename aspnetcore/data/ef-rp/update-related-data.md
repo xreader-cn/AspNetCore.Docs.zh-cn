@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
-author: tdykstra
+author: rick-anderson
 description: 本教程将通过更新外键字段和导航属性来更新相关数据。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: bc237cf928d852b92c5c1984527129404f88018d
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: fdfdb14ff8414b8bf30f9b95be7ba0a6bcbd2995
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583493"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645456"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
 
@@ -48,6 +48,8 @@ ms.locfileid: "69583493"
 使用以下代码更新 Pages/Courses/Create.cshtml.cs  ：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Create.cshtml.cs?highlight=7,18,27-41)]
+
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 前面的代码：
 
@@ -235,7 +237,7 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ::: moniker range="< aspnetcore-3.0"
 
-本教程演示如何更新相关数据。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
+本教程演示如何更新相关数据。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
 
 下图显示了部分已完成页面。
 

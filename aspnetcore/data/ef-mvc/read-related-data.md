@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 09/28/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 1a16f905669d0192d713cbba9bfc6e3e75008b5d
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: a6e63723101ab09219db81ee9796c3938a612226
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259419"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646026"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>教程：读取相关数据 - ASP.NET MVC 和 EF Core
 
@@ -31,7 +31,7 @@ ms.locfileid: "72259419"
 > * 创建“讲师”页
 > * 了解显式加载
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [创建复杂数据模型](complex-data-model.md)
 
@@ -47,7 +47,7 @@ ms.locfileid: "72259419"
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-* 显式加载。 首次读取实体时，不检索相关数据。 如有需要，可编写检索相关数据的代码。 就像使用单独查询进行预先加载一样，显式加载时会向数据库发送多个查询。 二者的区别在于，代码通过显式加载指定要加载的导航属性。 在 Entity Framework Core 1.1 中，可使用 `Load` 方法执行显式加载。 例如:
+* 显式加载。 首次读取实体时，不检索相关数据。 如有需要，可编写检索相关数据的代码。 就像使用单独查询进行预先加载一样，显式加载时会向数据库发送多个查询。 二者的区别在于，代码通过显式加载指定要加载的导航属性。 在 Entity Framework Core 1.1 中，可使用 `Load` 方法执行显式加载。 例如：
 
   ![显式加载示例](read-related-data/_static/explicit-loading.png)
 
@@ -245,7 +245,7 @@ Course 实体包括导航属性，其中包含分配有课程的系的 Departmen
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 

@@ -1,22 +1,20 @@
 ---
 title: ASP.NET Core 中的选项模式
-author: guardrex
+author: rick-anderson
 description: 了解如何使用选项模式来表示 ASP.NET Core 应用中的相关设置组。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 1f3625380d816c7d4df5a7a24b0ac146500330de
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: 756d3d57122642ab10ab671c9accb75975c3799d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447200"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649986"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core 中的选项模式
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +25,7 @@ ms.locfileid: "77447200"
 
 选项还提供验证配置数据的机制。 有关详细信息，请参阅[选项验证](#options-validation)部分。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="package"></a>Package
 
@@ -324,6 +322,8 @@ catch (OptionsValidationException e)
 }
 ```
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 上面的示例将命名选项实例设置为 `optionalOptionsName`。 默认选项实例为 `Options.DefaultName`。
 
 选项验证在选项实例创建后运行。 系统保证在选项实例首次获得访问时通过验证。
@@ -451,7 +451,7 @@ public void Configure(IApplicationBuilder app,
 
 选项还提供验证配置数据的机制。 有关详细信息，请参阅[选项验证](#options-validation)部分。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -873,7 +873,7 @@ public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> option
 
 选项还提供验证配置数据的机制。 有关详细信息，请参阅[选项验证](#options-validation)部分。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>先决条件
 

@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
 ms.openlocfilehash: f283234ed8a32dc9b7904bc6fee1cc9c04741029
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172599"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650340"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -157,7 +157,7 @@ public DateTime ReleaseDate { get; set; }
 * 将字符数限制为 60。
 * 不允许使用 `null` 值。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 `Movie` 表当前具有以下架构：
 
@@ -201,7 +201,7 @@ CREATE TABLE [dbo].[Movie] (
 );
 ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 SQLite 不需要迁移。
 

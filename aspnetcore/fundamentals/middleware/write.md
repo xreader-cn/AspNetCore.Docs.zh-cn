@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 08/22/2019
 uid: fundamentals/middleware/write
 ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773719"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649272"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>写入自定义 ASP.NET Core 中间件
 
@@ -45,13 +45,13 @@ ms.locfileid: "70773719"
 
 ## <a name="middleware-dependencies"></a>中间件依赖项
 
-中间件应通过在其构造函数中公开其依赖项来遵循[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。 在每个应用程序生存期构造一次中间件。 如果需要与请求中的中间件共享服务，请参阅[按请求中间件依赖项](#per-request-middleware-dependencies)部分。
+中间件应通过在其构造函数中公开其依赖项来遵循[显式依赖项原则](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)。 在每个应用程序生存期  构造一次中间件。 如果需要与请求中的中间件共享服务，请参阅[按请求中间件依赖项](#per-request-middleware-dependencies)部分。
 
 中间件组件可通过构造函数参数从[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 解析其依赖项。 [UseMiddleware&lt;T&gt;](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) 也可直接接受其他参数。
 
 ## <a name="per-request-middleware-dependencies"></a>按请求中间件依赖项
 
-由于中间件是在应用启动时构造的，而不是按请求构造的，因此在每个请求过程中，中间件构造函数使用的范围内生存期服务不与其他依赖关系注入类型共享。 如果必须在中间件和其他类型之间共享范围内服务，请将这些服务添加到 `Invoke` 方法的签名。 `Invoke` 方法可接受由 DI 填充的其他参数：
+由于中间件是在应用启动时构造的，而不是按请求构造的，因此在每个请求过程中，中间件构造函数使用的范围内  生存期服务不与其他依赖关系注入类型共享。 如果必须在中间件和其他类型之间共享范围内  服务，请将这些服务添加到 `Invoke` 方法的签名。 `Invoke` 方法可接受由 DI 填充的其他参数：
 
 ```csharp
 public class CustomMiddleware

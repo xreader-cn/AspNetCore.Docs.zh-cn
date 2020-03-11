@@ -5,12 +5,12 @@ description: 本教程演示如何在 ASP.NET Core 应用中安装和使用 .NET
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 053c98ba032c85b61776d5b5644c5575cd4f890c
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: bedb3e6a65839db915ca7bc821a267a14d34bf30
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828992"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650958"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
 
@@ -20,7 +20,7 @@ ms.locfileid: "75828992"
 
 本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。 乘积的方法有一个 bug，本教程将会对其进行修复。
 
-下载[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp  (ASP.NET Core Web API) 和 WebAppTests  （用于 Web API 的单元测试）。
+下载[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp  (ASP.NET Core Web API) 和 WebAppTests  （用于 Web API 的单元测试）。
 
 在命令行界面中，导航到 WebApp 文件夹  。 运行下面的命令：
 

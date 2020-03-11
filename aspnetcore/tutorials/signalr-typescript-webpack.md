@@ -8,12 +8,12 @@ ms.date: 02/10/2020
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: f8bbd9ed2e9c792197eb29be459f7e5ee499bfd1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: e1ab02077abc8f8b3315a52eb29a3d571af43fa0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171987"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647640"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
@@ -30,19 +30,19 @@ ms.locfileid: "77171987"
 > * 配置 SignalR 服务器
 > * 启用客户端和服务器之间的通信
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发  工作负载
 * [.NET Core SDK 3.0 或更高版本](https://www.microsoft.com/net/download/all)
 * 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 3.0 或更高版本](https://www.microsoft.com/net/download/all)
@@ -53,7 +53,7 @@ ms.locfileid: "77171987"
 
 ## <a name="create-the-aspnet-core-web-app"></a>创建 ASP.NET Core Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 配置 Visual Studio，在 PATH 环境变量中查找 npm  。 默认情况下，Visual Studio 使用在安装目录中找到的 npm 版本。 在 Visual Studio 中按照以下说明执行操作：
 
@@ -75,7 +75,7 @@ Visual Studio 配置完成。
 
 Visual Studio 会将 NuGet 包添加到解决方案资源管理器中的“依赖项”节点下，从而在项目中启用 TypeScript 编译   。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 在“集成终端”中运行以下命令  ：
 
@@ -249,7 +249,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 确认应用遵循以下步骤。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 在 release 模式下运行 Webpack  。 使用“包管理器控制台”窗口，在项目根目录中运行以下命令  。 如果不在项目根中，请在输入该命令之前输入 `cd SignalRWebPack`。
 
@@ -263,7 +263,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 1. 选择一个浏览器，在“消息”文本框中键入任意内容，然后单击“发送”按钮   。 两个页面上立即显示唯一的用户名和消息。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. 通过在项目根中执行以下命令以 release 模式运行 Webpack  ：
 
@@ -293,13 +293,13 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发  工作负载
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
 * 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
@@ -310,7 +310,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 ## <a name="create-the-aspnet-core-web-app"></a>创建 ASP.NET Core Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 配置 Visual Studio，在 PATH 环境变量中查找 npm  。 默认情况下，Visual Studio 使用在安装目录中找到的 npm 版本。 在 Visual Studio 中按照以下说明执行操作：
 
@@ -325,7 +325,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 1. 将项目命名为 SignalRWebPack 并选择“创建”   。
 1. 从目标框架下拉列表选择 .NET Core 并从框架选择器下拉列表选择 ASP.NET Core 2.2   。 选择“空白”模板并选择“创建”   。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 在“集成终端”中运行以下命令  ：
 
@@ -486,7 +486,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
 确认应用遵循以下步骤。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 在 release 模式下运行 Webpack  。 使用“包管理器控制台”窗口，在项目根目录中运行以下命令  。 如果不在项目根中，请在输入该命令之前输入 `cd SignalRWebPack`。
 
@@ -498,7 +498,7 @@ SignalRWebPack 目录中创建了一个面向 .NET Core 的空 ASP.NET Core Web 
 
 1. 选择一个浏览器，在“消息”文本框中键入任意内容，然后单击“发送”按钮   。 两个页面上立即显示唯一的用户名和消息。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. 通过在项目根中执行以下命令以 release 模式运行 Webpack  ：
 

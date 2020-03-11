@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 5feed175999bf021cadc7e18f14e00066b50db5b
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: d244ce1527486466bcbc6557ec35869aa206bc4f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259680"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645588"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
 
@@ -48,7 +48,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
-* [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如:
+* [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如：
 
   ![显式加载示例](read-related-data/_static/explicit-loading.png)
 
@@ -69,7 +69,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="scaffold-course-pages"></a>搭建“课程”页的基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
@@ -77,7 +77,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   * 将 `Course` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 创建“Pages/Courses”文件夹  。
 
@@ -141,7 +141,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs)。
+有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs)。
 
 ## <a name="create-instructor-pages"></a>创建“讲师”页
 
@@ -166,7 +166,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="scaffold-instructor-pages"></a>搭建“讲师”页的基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
@@ -174,7 +174,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   * 将 `Instructor` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 创建“Pages/Instructors”文件夹  。
 
@@ -332,7 +332,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 在本教程中，将读取和显示相关数据。 相关数据为 EF Core 加载到导航属性中的数据。
 
-如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
+如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
 
 下图显示了本教程中已完成的页面：
 
@@ -359,7 +359,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
-* [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如:
+* [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如：
 
   ![显式加载示例](read-related-data/_static/explicit-loading.png)
 
@@ -382,11 +382,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="scaffold-the-course-model"></a>为课程模型创建基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Course`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  运行下面的命令：
 
@@ -444,7 +444,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs)。
+有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs)。
 
 ## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a>创建显示“课程”和“注册”的“讲师”页
 
@@ -469,11 +469,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="scaffold-the-instructor-model"></a>为讲师模型创建基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Instructor`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  运行下面的命令：
 

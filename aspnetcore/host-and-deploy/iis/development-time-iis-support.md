@@ -1,22 +1,22 @@
 ---
 title: Visual Studio 中针对 ASP.NET Core 的开发时 IIS 支持
-author: guardrex
+author: rick-anderson
 description: 发现对调试在 Windows Server 上与 IIS 一起运行的 ASP.NET Core 应用的支持。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: f03ee94e5890c58addef4ba0d3ba7a4af6b659e7
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: f87a1d8cf41248f14932908c0633f98a7198853f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172109"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649302"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Visual Studio 中针对 ASP.NET Core 的开发时 IIS 支持
 
-作者：[Sourabh Shirhatti](https://twitter.com/sshirhatti)、[Luke Latham](https://github.com/guardrex)
+作者：[Sourabh Shirhatti](https://twitter.com/sshirhatti)
 
 ::: moniker range=">= aspnetcore-3.0"
 

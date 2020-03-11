@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
 ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334226"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649512"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>使用数据库和 ASP.NET Core
 
@@ -22,11 +22,11 @@ ms.locfileid: "72334226"
 
 `RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs  的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -34,13 +34,13 @@ ms.locfileid: "72334226"
 
 ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 生成代码的数据库名称值 (`Database={Database name}`) 将并不不同。 名称值是任意的。
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -48,7 +48,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 将应用部署到测试或生产服务器时，可以使用环境变量将连接字符串设置为实际的数据库服务器。 有关详细信息，请参阅[配置](xref:fundamentals/configuration/index)。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
@@ -71,7 +71,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
   ![显示表数据的打开的 Movie 表](sql/_static/vd22.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
@@ -114,7 +114,7 @@ if (context.Movie.Any())
 
 ### <a name="test-the-app"></a>测试应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 删除 DB 中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 * 强制应用初始化（调用 `Startup` 类中的方法），使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 可以使用以下任一方法来执行此操作：
@@ -128,7 +128,7 @@ if (context.Movie.Any())
     * 如果是在非调试模式下运行 VS 的，请按 F5 以在调试模式下运行。
     * 如果是在调试模式下运行 VS 的，请停止调试程序并按 F5。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 删除 DB 中的所有记录（使种子方法运行）。 停止并启动应用以设定数据库种子。
 
@@ -152,11 +152,11 @@ if (context.Movie.Any())
 
 `RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs  的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -169,17 +169,17 @@ if (context.Movie.Any())
 
 ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 生成代码的数据库名称值 (`Database={Database name}`) 将并不不同。 名称值是任意的。
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie22/appsettings.json)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -187,7 +187,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 将应用部署到测试或生产服务器时，可以使用环境变量将连接字符串设置为实际的数据库服务器。 有关详细信息，请参阅[配置](xref:fundamentals/configuration/index)。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
@@ -210,12 +210,12 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
   ![显示表数据的打开的 Movie 表](sql/_static/vd22.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
@@ -258,7 +258,7 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
 
 ### <a name="test-the-app"></a>测试应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 删除 DB 中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 * 强制应用初始化（调用 `Startup` 类中的方法），使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 可以使用以下任一方法来执行此操作：
@@ -272,13 +272,13 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
     * 如果是在非调试模式下运行 VS 的，请按 F5 以在调试模式下运行。
     * 如果是在调试模式下运行 VS 的，请停止调试程序并按 F5。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 删除 DB 中的所有记录（使种子方法运行）。 停止并启动应用以设定数据库种子。
 
 应用将显示设定为种子的数据。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 删除 DB 中的所有记录（使种子方法运行）。 停止并启动应用以设定数据库种子。
 

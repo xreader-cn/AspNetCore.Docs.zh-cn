@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: b31711eb6f797de2de1559a3303e14b32a88f1ff
-ms.sourcegitcommit: b3ebf96560b75b752d0e71161d788da800ad0999
+ms.openlocfilehash: d34b938dbd1b512ddb167cac0c035837889cd38f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/24/2019
-ms.locfileid: "72822384"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646602"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -50,7 +50,7 @@ ms.locfileid: "72822384"
 更新以下页面：
 
 * 将 `Rating` 字段添加到“删除”和“详细信息”页面。
-* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。
+* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
 在 DB 更新为包括新字段之前，应用将不会正常工作。 在不更新数据库的情况下运行应用会引发 `SqlException`：
@@ -73,11 +73,11 @@ ms.locfileid: "72822384"
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-请参阅[已完成的 SeedData.cs 文件](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs)。
+请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs)。
 
 生成解决方案。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 <a name="pmc"></a>
 
@@ -116,7 +116,7 @@ Update-Database
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>删除并重新创建数据库
 
@@ -175,7 +175,7 @@ dotnet ef database update
 更新以下页面：
 
 * 将 `Rating` 字段添加到“删除”和“详细信息”页面。
-* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。
+* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
 在 DB 更新为包括新字段之前，应用将不会正常工作。 如果立即运行，应用会引发 `SqlException`：
@@ -198,11 +198,11 @@ dotnet ef database update
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-请参阅[已完成的 SeedData.cs 文件](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs)。
+请参阅[已完成的 SeedData.cs 文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs)。
 
 生成解决方案。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 <a name="pmc"></a>
 
@@ -241,7 +241,7 @@ Update-Database
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>删除并重新创建数据库
 

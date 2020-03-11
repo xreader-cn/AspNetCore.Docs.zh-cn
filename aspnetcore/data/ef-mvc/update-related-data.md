@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 98f9f780c5814c0bd6e33052ee812b01a2bce306
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 83d662659fb4bc7a2867be563e4e36927d2adafe
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259358"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646056"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -33,7 +33,7 @@ ms.locfileid: "72259358"
 > * 更新“删除”页
 > * 向“创建”页添加办公室位置和课程
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [读取相关数据](read-related-data.md)
 
@@ -301,7 +301,7 @@ public ICollection<CourseAssignment> CourseAssignments
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 

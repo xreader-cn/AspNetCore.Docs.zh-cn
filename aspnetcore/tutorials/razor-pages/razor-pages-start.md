@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
 ms.openlocfilehash: 6e1d58ccd83f7d7c1083dc2bf9ce7476650812a1
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722986"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646902"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -38,15 +38,15 @@ ms.locfileid: "75722986"
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
@@ -54,7 +54,7 @@ ms.locfileid: "75722986"
 
 ## <a name="create-a-razor-pages-web-app"></a>创建 Razor Pages Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 * 创建新的 ASP.NET Core Web 应用程序，然后选择“下一步”  。
@@ -70,7 +70,7 @@ ms.locfileid: "75722986"
 
   ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
@@ -90,7 +90,7 @@ ms.locfileid: "75722986"
 
   将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。   
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -179,15 +179,15 @@ ms.locfileid: "75722986"
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -195,7 +195,7 @@ ms.locfileid: "75722986"
 
 ## <a name="create-a-razor-pages-web-app"></a>创建 Razor Pages Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
 
@@ -215,7 +215,7 @@ ms.locfileid: "75722986"
 
   ![“解决方案资源管理器”](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
@@ -235,7 +235,7 @@ ms.locfileid: "75722986"
 
   将向项目的根目录添加包含 launch.json 和 tasks.json 文件的 .vscode 目录。   
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -259,7 +259,7 @@ ms.locfileid: "75722986"
 
 ## <a name="run-the-app"></a>运行应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 按 Ctrl+F5 以在不使用调试程序的情况下运行。
 
@@ -277,7 +277,7 @@ ms.locfileid: "75722986"
 
   ![主页或索引页](razor-pages-start/_static/home2.2.png)
   
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
   [!INCLUDE[](~/includes/trustCertVSC.md)]
 
@@ -295,7 +295,7 @@ ms.locfileid: "75722986"
 
   ![主页或索引页](razor-pages-start/_static/home2.2.png)
   
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 

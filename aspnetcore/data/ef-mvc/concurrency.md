@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 227128607460f9b5821bd0697fde3f393cf6daa9
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 6839e383093b993ff55095f26cf88cd68708f001
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259440"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646260"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>教程：处理并发 - ASP.NET MVC 和 EF Core
 
@@ -37,7 +37,7 @@ ms.locfileid: "72259440"
 > * 更新“删除”页
 > * 更新“详细信息”和“创建”视图
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [更新相关数据](update-related-data.md)
 
@@ -288,7 +288,7 @@ public async Task<IActionResult> Delete(Department department)
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="additional-resources"></a>其他资源
 

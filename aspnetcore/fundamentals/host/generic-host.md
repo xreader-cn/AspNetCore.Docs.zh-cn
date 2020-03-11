@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/02/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 2ed4af109b5ccd303a03a0d9167649dda7793126
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 6a0ef02db883db3bc91722786cd042ccec092735
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717017"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647574"
 ---
 # <a name="net-generic-host"></a>.NET 通用主机
 
@@ -26,7 +26,7 @@ ms.locfileid: "74717017"
 
 * 依赖关系注入 (DI)
 * Logging
-* 配置
+* Configuration
 * `IHostedService` 实现
 
 启动主机时，它对它在 DI 容器中找到的 <xref:Microsoft.Extensions.Hosting.IHostedService> 的每个实现调用 `IHostedService.StartAsync`。 在 web 应用中，其中一个 `IHostedService` 实现是启动 [HTTP 服务器实现](xref:fundamentals/index#servers)的 web 服务。
@@ -209,7 +209,7 @@ Host.CreateDefaultBuilder(args)
 
 **键**：环境  
 **类型**：string   
-**默认值**：生产  
+**默认**：生产  
 **环境变量**：`<PREFIX_>ENVIRONMENT`
 
 若要设置此值，请使用环境变量或对 `IHostBuilder` 调用 `UseEnvironment`：
@@ -259,7 +259,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 **键**：captureStartupErrors  
 **类型**：布尔型（`true` 或 `1`）   
-**默认值**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
 **环境变量**：`<PREFIX_>CAPTURESTARTUPERRORS`
 
 若要设置此值，使用配置或调用 `CaptureStartupErrors`：
@@ -289,7 +289,7 @@ webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
 
 **键**：hostingStartupAssemblies  
 **类型**：string   
-**默认值**：空字符串  
+**默认**：空字符串  
 **环境变量**：`<PREFIX_>_HOSTINGSTARTUPASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
@@ -304,7 +304,7 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, "assembly1;as
 
 键  ：hostingStartupExcludeAssemblies  
 **类型**：string   
-**默认值**：空字符串  
+**默认**：空字符串  
 **环境变量**：`<PREFIX_>_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
 要设置此值，使用配置或调用 `UseSetting`：
@@ -364,7 +364,7 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 **键**：startupAssembly  
 **类型**：string   
-**默认值**：应用的程序集  
+**默认**：应用的程序集  
 **环境变量**：`<PREFIX_>STARTUPASSEMBLY`
 
 若要设置此值，请使用环境变量或调用 `UseStartup`。 `UseStartup` 可以采用程序集名称 (`string`) 或类型 (`TStartup`)。 如果调用多个 `UseStartup` 方法，优先选择最后一个方法。
@@ -494,7 +494,7 @@ ASP.NET Core 应用配置和启动主机。 主机负责应用程序启动和生
 
 泛型主机是 ASP.NET Core 2.1 中的新增功能，不适用于 Web 承载方案。 对于 Web 承载方案，请使用 [Web 主机](xref:fundamentals/host/web-host)。 泛型主机将在未来版本中替换 Web 主机，并在 HTTP 和非 HTTP 方案中充当主要的主机 API。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 在 [Visual Studio Code](https://code.visualstudio.com/) 中运行示例应用时，请使用外部或集成终端  。 请勿在 `internalConsole` 中运行示例。
 
@@ -575,7 +575,7 @@ var host = new HostBuilder()
 
 **键**：contentRoot  
 **类型**：string   
-**默认值**：默认为应用程序集所在的文件夹。  
+**默认**：默认为应用程序集所在的文件夹。  
 **设置使用**：`UseContentRoot`  
 **环境变量**：`<PREFIX_>CONTENTROOT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
 
@@ -591,7 +591,7 @@ var host = new HostBuilder()
 
 **键**：环境  
 **类型**：string   
-**默认值**：生产  
+**默认**：生产  
 **设置使用**：`UseEnvironment`  
 **环境变量**：`<PREFIX_>ENVIRONMENT`（`<PREFIX_>` 是[用户定义的可选前缀](#configurehostconfiguration)）
 
@@ -670,7 +670,7 @@ appsettings.Production.json  ：
 
 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 有关详细信息，请参阅 <xref:fundamentals/host/hosted-services>。
 
-[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：
+[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)使用 `AddHostedService` 扩展方法向应用添加生存期事件 `LifetimeEventsHostedService` 和定时后台任务 `TimedHostedService` 服务：
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureServices)]
 
@@ -946,7 +946,7 @@ public class MyClass
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | 主机正在完成正常关闭。 应处理所有请求。 关闭受到阻止，直到完成此事件。 |
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | 主机正在执行正常关闭。 仍在处理请求。 关闭受到阻止，直到完成此事件。 |
 
-构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
+构造函数将 <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> 服务注入到任何类中。 [示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/)将构造函数注入到 `LifetimeEventsHostedService` 类（一个 <xref:Microsoft.Extensions.Hosting.IHostedService> 实现）中，用于注册事件。
 
 LifetimeEventsHostedService.cs  ：
 

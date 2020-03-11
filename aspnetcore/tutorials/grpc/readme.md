@@ -9,11 +9,11 @@ products:
 - vs
 urlFragment: create-grpc-client
 ms.openlocfilehash: b9feb9eed62177358fffc0d7da582f625a431e32
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463048"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648156"
 ---
 # <a name="create-a-grpc-client-and-server-in-aspnet-core-30-using-visual-studio"></a>使用 Visual Studio 在 ASP.NET Core 3.0 中创建 gRPC 客户端和服务器
 
@@ -39,7 +39,7 @@ ms.locfileid: "73463048"
   * 选择“gRPC 服务”模板  。
   * 选择“创建” 
 
-### <a name="run-the-service"></a>运行该服务
+### <a name="run-the-service"></a>运行服务
 
 * 按 `Ctrl+F5` 以在不使用调试程序的情况下运行 gRPC 服务。
 
@@ -69,7 +69,7 @@ GrpcGreeter 项目文件  ：
 * *greet.proto*：*Protos/greet.proto* 文件定义 `Greeter` gRPC，且用于生成 gRPC 服务器资产。 有关详细信息，请参阅 [gRPC 介绍](xref:grpc/index)。
 * Services  文件夹：包含 `Greeter` 服务的实现。
 * *appSettings.json*：包含配置数据，例如 Kestrel 使用的协议。 有关详细信息，请参阅 <xref:fundamentals/configuration/index>。
-* Program.cs  ：包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
+* Program.cs  :包含 gRPC 服务的入口点。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host>。
 * *Startup.cs*：包含配置应用行为的代码。 有关详细信息，请参阅[应用启动](xref:fundamentals/startup)。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>在 .NET 控制台应用中创建 gRPC 客户端
@@ -106,7 +106,7 @@ Install-Package Grpc.Tools
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>管理 NuGet 包选项以安装包
 
 * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
-* 选择“浏览”按钮  。
+* 选择“浏览”选项卡  。
 * 在搜索框中输入 Grpc.Net.Client  。
 * 从“浏览”选项卡中选择“Grpc.Net.Client”包，然后选择“安装”    。
 * 为 `Google.Protobuf` 和 `Grpc.Tools` 重复这些步骤。

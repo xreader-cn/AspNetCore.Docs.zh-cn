@@ -1,28 +1,28 @@
 ---
 title: 在 ASP.NET Core 依赖注入
-author: guardrex
+author: rick-anderson
 description: 了解 ASP.NET Core 如何实现依赖注入和如何使用它。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 7c0789dafcb7dfacd15ac448a39bad94649963c8
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 3080d1a19bb48996e2bc7a3ce824f48bfc1bcbce
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044915"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649206"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
-作者：[Steve Smith](https://ardalis.com/)、[Scott Addie](https://scottaddie.com) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Steve Smith](https://ardalis.com/) 和 [Scott Addie](https://scottaddie.com)
 
 ASP.NET Core 支持依赖关系注入 (DI) 软件设计模式，这是一种在类及其依赖关系之间实现[控制反转 (IoC)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion) 的技术。
 
 有关特定于 MVC 控制器中依赖关系注入的详细信息，请参阅 <xref:mvc/controllers/dependency-injection>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="overview-of-dependency-injection"></a>依赖关系注入概述
 
@@ -72,7 +72,7 @@ public class IndexModel : PageModel
 * 注册服务容器中的依赖关系。 ASP.NET Core 提供了一个内置的服务容器 <xref:System.IServiceProvider>。 服务已在应用的 `Startup.ConfigureServices` 方法中注册。
 * 将服务注入  到使用它的类的构造函数中。 框架负责创建依赖关系的实例，并在不再需要时对其进行处理。
 
-在[示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
+在[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)中，`IMyDependency` 接口定义了服务为应用提供的方法：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -186,17 +186,17 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
-| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时 |
 | `IHostApplicationLifetime` | 单例 |
 | `IWebHostEnvironment` | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
@@ -207,17 +207,17 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 
 | 服务类型 | 生存期 |
 | ------------ | -------- |
-| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | 单例 |
 | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | 单例 |
-| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时性 |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 暂时 |
 | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | 单例 |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | 单例 |
@@ -250,7 +250,7 @@ public void ConfigureServices(IServiceCollection services)
 
 为每个注册的服务选择适当的生存期。 可以使用以下生存期配置 ASP.NET Core 服务：
 
-### <a name="transient"></a>暂时性
+### <a name="transient"></a>暂时
 
 暂时生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient*>) 是每次从服务容器进行请求时创建的。 这种生存期适合轻量级、 无状态的服务。
 
@@ -272,7 +272,7 @@ public void ConfigureServices(IServiceCollection services)
 
 服务注册扩展方法提供适用于特定场景的重载。
 
-| 方法 | 自动<br>对象 (object)<br>处置 | 多个<br>实现 | 传递参数 |
+| 方法 | 自动<br>对象 (object)<br>处置 | 多种<br>实现 | 传递参数 |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>示例：<br>`services.AddSingleton<IMyDep, MyDep>();` | 是 | 是 | 否 |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>示例：<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | 是 | 是 | 是 |
@@ -292,7 +292,7 @@ services.AddSingleton<IMyDependency, MyDependency>();
 services.TryAddSingleton<IMyDependency, DifferentDependency>();
 ```
 
-有关详细信息，请参阅：
+有关详细信息，请参见:
 
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient*>
@@ -635,7 +635,7 @@ public void ConfigureServices(IServiceCollection services)
 * [Stashbox](https://github.com/z4kn4fein/stashbox-extensions-dependencyinjection)
 * [Unity](https://www.nuget.org/packages/Unity.Microsoft.DependencyInjection)
 
-### <a name="thread-safety"></a>线程安全性
+### <a name="thread-safety"></a>线程安全
 
 创建线程安全的单一实例服务。 如果单例服务依赖于一个瞬时服务，那么瞬时服务可能也需要线程安全，具体取决于单例使用它的方式。
 
@@ -667,7 +667,7 @@ public void ConfigureServices(IServiceCollection services)
   }
   ```
 
-  **更正**：
+  **正确**：
 
   ```csharp
   public class MyClass

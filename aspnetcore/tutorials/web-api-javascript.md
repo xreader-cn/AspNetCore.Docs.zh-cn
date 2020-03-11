@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/26/2019
 uid: tutorials/web-api-javascript
 ms.openlocfilehash: 2a19a7d16ca8b8f5d6ac8eb99ad919b89f1e368b
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114648"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644838"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>教程：使用 JavaScript 调用 ASP.NET Core Web API
 
@@ -40,36 +40,36 @@ ms.locfileid: "77114648"
 
 最简单的 `fetch` 调用接受一个表示路由的参数。 第二个参数（称为 `init` 对象）是可选的。 `init` 用于配置 HTTP 请求。
 
-1. 配置应用[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[启用默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)。 在 Startup.cs 的 `Configure` 方法中需要以下突出显示的代码：
+1. 配置应用[提供静态文件](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)并[启用默认文件映射](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)。 在 Startup.cs 的 `Configure` 方法中需要以下突出显示的代码  ：
 
     [!code-csharp[](first-web-api/samples/3.0/TodoApi/StartupJavaScript.cs?highlight=8-9&name=snippet_configure)]
 
-1. 在项目根中创建 wwwroot 文件夹。
+1. 在项目根中创建 wwwroot 文件夹  。
 
-1. 在 wwwroot 文件夹中创建一个 js 文件夹。
+1. 在 wwwroot 文件夹中创建一个 js 文件夹   。
 
-1. 将一个名为 index.html 的 HTML 文件添加到 wwwroot 文件夹。 将 index.html 的内容替换为以下标记：
+1. 将一个名为 index.html 的 HTML 文件添加到 wwwroot 文件夹   。 将 index.html 的内容替换为以下标记  ：
 
     [!code-html[](first-web-api/samples/3.0/TodoApi/wwwroot/index.html)]
 
-1. 将一个名为 site.js 的 JavaScript 文件添加到 wwwroot/js 文件夹。 将 site.js 的内容替换为以下代码：
+1. 将一个名为 site.js 的 JavaScript 文件添加到 wwwroot/js 文件夹   。 将 site.js 的内容替换为以下代码  ：
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
 可能需要更改 ASP.NET Core 项目的启动设置，以便对 HTML 页面进行本地测试：
 
-1. 打开 Properties\launchSettings.json。
-1. 删除 `launchUrl` 以便在项目的默认文件 index.html 强制打开应用。
+1. 打开 Properties\launchSettings.json  。
+1. 删除 `launchUrl` 以便在项目的默认文件 index.html 强制打开应用  。
 
 此示例调用 Web API 的所有 CRUD 方法。 下面说明 Web API 请求。
 
 ### <a name="get-a-list-of-to-do-items"></a>获取待办事项的列表
 
-在以下代码中，会将 HTTP GET 请求发送到 api/TodoItems 路由：
+在以下代码中，会将 HTTP GET 请求发送到 api/TodoItems 路由  ：
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_GetItems)]
 
-当 Web API 返回成功状态的代码时，将调用 `_displayItems` 函数。 将 `_displayItems` 接受的数组参数中的每个待办事项添加到具有“编辑”和“删除”按钮的表中。 如果 Web API 请求失败，则会将错误记录到浏览器的控制台中。
+当 Web API 返回成功状态的代码时，将调用 `_displayItems` 函数。 将 `_displayItems` 接受的数组参数中的每个待办事项添加到具有“编辑”和“删除”按钮的表中   。 如果 Web API 请求失败，则会将错误记录到浏览器的控制台中。
 
 ### <a name="add-a-to-do-item"></a>添加待办事项
 
@@ -80,7 +80,7 @@ ms.locfileid: "77114648"
   * `method`&mdash;指定 POST HTTP 操作谓词。
   * `body`&mdash;指定请求正文的 JSON 表示形式。 通过将存储在 `item` 中的对象文字传递到 [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 函数来生成 JSON。
   * `headers`&mdash;指定 `Accept` 和 `Content-Type` HTTP 请求标头。 将两个标头都设置为 `application/json`，以便分别指定接收和发送的媒体类型。
-* 将 HTTP POST 请求发送到 api/TodoItems 路由。
+* 将 HTTP POST 请求发送到 api/TodoItems 路由  。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]
 
@@ -90,7 +90,7 @@ ms.locfileid: "77114648"
 
 更新待办事项类似于添加待办事项；但是，二者存在两个重大差异：
 
-* 路由的后缀为待更新项的唯一标识符。 例如，api/TodoItems/1。
+* 路由的后缀为待更新项的唯一标识符。 例如，api/TodoItems/1  。
 * 正如 `method` 选项所示，HTTP 操作谓词是 PUT。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_UpdateItem)]

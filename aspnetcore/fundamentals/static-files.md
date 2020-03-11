@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 00bab51cb411552c884f85fa63d42d0691b401b1
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 95a77defc7e98328e1f4e3615648b1d14485e51e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717268"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647712"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -19,7 +19,7 @@ ms.locfileid: "74717268"
 
 静态文件（如 HTML、CSS、图像和 JavaScript）是 ASP.NET Core 应用直接提供给客户端的资产。 需要进行一些配置才能提供这些文件。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="serve-static-files"></a>提供静态文件
 
@@ -111,6 +111,7 @@ ms.locfileid: "74717268"
 [StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) 对象可用于设置 HTTP 响应标头。 除配置从 [Web 根目录](xref:fundamentals/index#web-root)提供静态文件外，以下代码还设置 `Cache-Control` 标头：
 
 [!code-csharp[](static-files/samples/1x/StartupAddHeader.cs?name=snippet_ConfigureMethod)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 [HeaderDictionaryExtensions.Append](/dotnet/api/microsoft.aspnetcore.http.headerdictionaryextensions.append) 方法存在于 [Microsoft.AspNetCore.Http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) 包中。
 
@@ -241,7 +242,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 
 ## <a name="serve-files-from-multiple-locations"></a>从多个位置提供文件
 
-`UseStaticFiles` 和 `UseFileServer` 默认为指向 wwwroot 的文件提供程序  。 可使用其他文件提供程序提供 `UseStaticFiles` 和 `UseFileServer` 的其他实例，从多个位置提供文件。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/15578)。
+`UseStaticFiles` 和 `UseFileServer` 默认为指向 wwwroot 的文件提供程序  。 可使用其他文件提供程序提供 `UseStaticFiles` 和 `UseFileServer` 的其他实例，从多个位置提供文件。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/15578)。
 
 ### <a name="considerations"></a>注意事项
 

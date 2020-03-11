@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
 ms.openlocfilehash: 2c442060872ab1d2d79a2e355ae257fdf1005914
-ms.sourcegitcommit: 991442dfb16ef08a0aae05bc79f9e9a2d819c587
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/26/2019
-ms.locfileid: "75492654"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649146"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core 中的控制器方法和视图
 

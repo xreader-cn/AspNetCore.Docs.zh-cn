@@ -11,11 +11,11 @@ products:
 - vs-mac
 urlFragment: getstarted-swashbuckle-aspnetcore
 ms.openlocfilehash: e02247325f430b0ce23dbb3f5bc344a60a1a164a
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879720"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647586"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle 和 ASP.NET Core 入门
 
@@ -130,22 +130,10 @@ Swagger UI 显示版本的信息：
 
 可使用以下方法启用 XML 注释：
 
-#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+#### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“解决方案资源管理器”中右键单击该项目，然后选择“编辑 <project_name>.csproj”。
-* 手动将突出显示的行添加到 .csproj 文件：
-
-```xml
-<PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-</PropertyGroup>
-```
-
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* 在 Solution Pad 中，按 control 并单击项目名称。 导航到“工具” > “编辑文件”。
-* 手动将突出显示的行添加到 .csproj 文件：
+* 在“解决方案资源管理器”中右键单击该项目，然后选择“编辑 <project_name>.csproj”   。
+* 手动将突出显示的行添加到 .csproj 文件  ：
 
 ```xml
 <PropertyGroup>
@@ -154,9 +142,21 @@ Swagger UI 显示版本的信息：
 </PropertyGroup>
 ```
 
-#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+#### <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-手动将突出显示的行添加到 .csproj 文件：
+* 在 Solution Pad 中，按 control 并单击项目名称   。 导航到“工具” > “编辑文件”   。
+* 手动将突出显示的行添加到 .csproj 文件  ：
+
+```xml
+<PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+</PropertyGroup>
+```
+
+#### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+手动将突出显示的行添加到 .csproj 文件  ：
 
 ```xml
 <PropertyGroup>
@@ -199,7 +199,7 @@ namespace TodoApi
 }
 ```
 
-将 Swagger 配置为使用按照上述说明生成的 XML 文件。 对于 Linux 或非 Windows 操作系统，文件名和路径区分大小写。 例如，“TodoApi.XML”文件在 Windows 上有效，但在 CentOS 上无效。
+将 Swagger 配置为使用按照上述说明生成的 XML 文件。 对于 Linux 或非 Windows 操作系统，文件名和路径区分大小写。 例如，“TodoApi.XML”文件在 Windows 上有效，但在 CentOS 上无效  。
 
 ```csharp
 /// NOTE LAST 3 LINES IN THIS SNIPPET
@@ -383,7 +383,7 @@ namespace TodoApi.Models
 },
 ```
 
-将 `[Produces("application/json")]` 属性添加到 API 控制器。 这样做的目的是声明控制器的操作支持 application/json 的响应内容类型：
+将 `[Produces("application/json")]` 属性添加到 API 控制器。 这样做的目的是声明控制器的操作支持 application/json 的响应内容类型  ：
 
 ```csharp
 [Produces("application/json")]
@@ -393,7 +393,7 @@ public class TodoController : ControllerBase
 {
     private readonly TodoContext _context;
 ```
-“响应内容类型”下拉列表选此内容类型作为控制器的默认 GET 操作：
+“响应内容类型”  下拉列表选此内容类型作为控制器的默认 GET 操作：
 
 ![包含默认响应内容类型的 Swagger UI](sample_images/json-response-content-type.png)
 

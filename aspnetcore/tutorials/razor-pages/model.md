@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: d2f9a64c77d76702004b94cdf36e558b33d7e19a
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: f6dbac81b4efceb30c379ab06dd715005d879228
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172574"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647172"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -28,7 +28,7 @@ ms.locfileid: "77172574"
 
 ## <a name="add-a-data-model"></a>添加数据模型
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 右键单击“RazorPagesMovie”  项目 >“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -36,7 +36,7 @@ ms.locfileid: "77172574"
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 添加名为“Models”的文件夹  。
 * 将类添加到名为“Movie.cs”  的“Models”  文件夹。
@@ -45,7 +45,7 @@ ms.locfileid: "77172574"
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 在 Solution Pad 中，右键单击“RazorPagesMovie”  项目，然后选择“添加”  >“新建文件夹...”  。将文件夹命名为“Models”  。
 * 右键单击“Models”  文件夹，然后选择“添加”  >“新建文件...”  。
@@ -65,7 +65,7 @@ ms.locfileid: "77172574"
 
 在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 创建“Pages/Movies”文件夹  ：
 
@@ -90,7 +90,7 @@ ms.locfileid: "77172574"
 
 appsettings.json  文件通过用于连接到本地数据的连接字符串进行更新。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
@@ -119,7 +119,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 
 [!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 创建“Pages/Movies”文件夹  ：
 
@@ -158,7 +158,7 @@ dotnet tool install --global dotnet-ef
 
 ### <a name="files-created"></a>创建的文件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在搭建基架时，会创建并更新以下文件：
 
@@ -171,7 +171,7 @@ dotnet tool install --global dotnet-ef
 
 创建和更新的文件将在下一节中说明。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 在搭建基架时，会创建并更新以下文件：
 
@@ -184,7 +184,7 @@ dotnet tool install --global dotnet-ef
 
 创建和更新的文件将在下一节中说明。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 在搭建基架时，会创建以下文件：
 
@@ -198,7 +198,7 @@ dotnet tool install --global dotnet-ef
 
 ## <a name="initial-migration"></a>初始迁移
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在此部分中，程序包管理器控制台 (PMC) 用于：
 
@@ -216,11 +216,11 @@ Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -234,7 +234,7 @@ migrations 命令生成用于创建初始数据库架构的代码。 该架构�
 
 `update` 命令在尚未应用的迁移中运行 `Up` 方法。 在这种情况下，`update` 在用于创建数据库的 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
 
@@ -254,11 +254,11 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 检查 `Up` 方法。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 检查 `Up` 方法。
 
@@ -284,7 +284,7 @@ Login failed for user 'User-name'.
   ![创建页面](model/_static/conan.png)
 
   > [!NOTE]
-  > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
+  > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
 * 测试“编辑”  、“详细信息”  和“删除”  链接。
 
@@ -309,7 +309,7 @@ Login failed for user 'User-name'.
 
 ## <a name="add-a-data-model"></a>添加数据模型
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 右键单击“RazorPagesMovie”  项目 >“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -317,7 +317,7 @@ Login failed for user 'User-name'.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 添加名为“Models”的文件夹  。
 * 将类添加到名为“Movie.cs”  的“Models”  文件夹。
@@ -326,7 +326,7 @@ Login failed for user 'User-name'.
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 在解决方案资源管理器中，右键单击“RazorPagesMovie”  项目，然后选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 * 右键单击“Models”  文件夹，然后选择“添加”  >“新建文件”  。
@@ -346,7 +346,7 @@ Login failed for user 'User-name'.
 
 在此部分，将搭建“电影”模型的基架。 确切地说，基架工具将生成页面，用于对“电影”模型执行创建、读取、更新和删除 (CRUD) 操作。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 创建“Pages/Movies”文件夹  ：
 
@@ -375,7 +375,7 @@ to use Data, it should not use models. That will make the namespace the same for
 
 appsettings.json  文件通过用于连接到本地数据的连接字符串进行更新。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
@@ -396,7 +396,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 创建“Pages/Movies”文件夹  ：
 
@@ -440,7 +440,7 @@ appsettings.json  文件通过用于连接到本地数据的连接字符串进�
 
 ## <a name="initial-migration"></a>初始迁移
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在此部分中，程序包管理器控制台 (PMC) 用于：
 
@@ -462,11 +462,11 @@ Update-Database
 
 `Update-Database` 命令在 Migrations/\<time-stamp>_InitialCreate.cs 文件中运行 `Up` 方法  。 `Up` 方法会创建数据库。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -474,7 +474,7 @@ Update-Database
 > [!NOTE]
 > 前面的命令生成以下警告："*No type was specified for the decimal column 'Price' on entity type 'Movie'.This will cause values to be silently truncated if they do not fit in the default precision and scale.Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.* " 你可以忽略该警告，它将后面的教程中得到修复。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a>检查通过依赖关系注入注册的上下文
 
@@ -494,11 +494,11 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 
 通过调用 [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) 对象中的一个方法将连接字符串名称传递到上下文。 进行本地开发时， [ASP.NET Core 配置系统](xref:fundamentals/configuration/index) 在 *appsettings.json* 文件中读取数据库连接字符串。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 检查 `Up` 方法。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 检查 `Up` 方法。
 
@@ -524,7 +524,7 @@ Login failed for user 'User-name'.
   ![创建页面](model/_static/conan.png)
 
   > [!NOTE]
-  > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
+  > 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的非英语区域设置，以及支持非美国英语日期格式，应用必须进行全球化。 有关全球化的说明，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
 * 测试“编辑”  、“详细信息”  和“删除”  链接。
 

@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
-author: tdykstra
+author: rick-anderson
 description: 演示如何使用 EF Core 进行创建、读取、更新和删除。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/crud
-ms.openlocfilehash: 57c4a1789d54c29a28ba7e67a1d15815415a461c
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 05519852fab22bd3ad5b77e3494b49191448286f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583117"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650148"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
 
@@ -116,7 +116,7 @@ ms.locfileid: "69583117"
 
 [SetValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) 方法通过从另一个 [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) 对象读取值来设置此对象的值。 `SetValues` 使用属性名称匹配。 视图模型类型不需要与模型类型相关，它只需要具有匹配的属性。
 
-使用 `StudentVM` 时需要更新 [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml) 才能使用 `StudentVM` 而非 `Student`。
+使用 `StudentVM` 时需要更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml) 才能使用 `StudentVM` 而非 `Student`。
 
 ## <a name="update-the-edit-page"></a>更新“编辑”页
 
@@ -322,7 +322,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 [SetValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) 方法通过从另一个 [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) 对象读取值来设置此对象的值。 `SetValues` 使用属性名称匹配。 视图模型类型不需要与模型类型相关，它只需要具有匹配的属性。
 
-使用 `StudentVM` 时需要更新 [CreateVM.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) 才能使用 `StudentVM` 而非 `Student`。
+使用 `StudentVM` 时需要更新 [CreateVM.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) 才能使用 `StudentVM` 而非 `Student`。
 
 在 Razor 页面，`PageModel` 派生类就是视图模型。
 

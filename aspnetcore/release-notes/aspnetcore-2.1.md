@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 57fe6c4e32ad666987c782fac75ddb19e3d3b5c7
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: af5807b782d4acec8c7d40111dc508dfa6127057
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829135"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650970"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -77,7 +77,7 @@ Web 应用通常需要侦听 HTTP 和 HTTPS，但随后会将所有 HTTP 流量�
 
 ## <a name="gdpr"></a>GDPR
 
-ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 (GDPR)](https://www.eugdpr.org/) 的部分要求。 有关详细信息，请参阅 [ASP.NET Core 中的 GDPR 支持](xref:security/gdpr)。 [示例应用](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)演示如何使用并允许测试已添加到 ASP.NET Core 2.1 模板中的大多数 GDPR 扩展点和 API。
+ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 (GDPR)](https://www.eugdpr.org/) 的部分要求。 有关详细信息，请参阅 [ASP.NET Core 中的 GDPR 支持](xref:security/gdpr)。 [示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample)演示如何使用并允许测试已添加到 ASP.NET Core 2.1 模板中的大多数 GDPR 扩展点和 API。
 
 ## <a name="integration-tests"></a>集成测试
 

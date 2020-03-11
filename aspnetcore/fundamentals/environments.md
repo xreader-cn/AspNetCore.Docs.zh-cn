@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/17/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 30e2771c0a24fcbf6490d08c7028566314b6c011
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b0218b2c77c283c0849dca9491046534b88c5a77
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358716"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645354"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>在 ASP.NET Core 中使用多个环境
 
@@ -22,7 +22,7 @@ ms.locfileid: "75358716"
 
 ASP.NET Core 基于使用环境变量的运行时环境配置应用行为。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="environments"></a>环境
 
@@ -417,6 +417,8 @@ public class Startup
 }
 ```
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 使用接受程序集名称的 [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) 重载：
 
 ```csharp
@@ -452,7 +454,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 ASP.NET Core 基于使用环境变量的运行时环境配置应用行为。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="environments"></a>环境
 

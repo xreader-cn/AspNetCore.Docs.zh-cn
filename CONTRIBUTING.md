@@ -4,14 +4,14 @@
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>如何提出简单的更正和建议
 
-文章作为 Markdown 文件存储在存储库中。 通过选择浏览器窗口右上角的“编辑”链接，可以在浏览器中对 Markdown 文件的内容进行简单更改。 （在窄浏览器窗口中，展开“选项”栏，以查看“编辑”链接。）按照说明创建拉取请求 (PR)。 我们将对拉取请求进行评审并接受相关请求或提出更改建议。
+文章作为 Markdown 文件存储在存储库中。 通过选择浏览器窗口右上角的“编辑”链接，可以在浏览器中对 Markdown 文件的内容进行简单更改  。 （在窄浏览器窗口中，展开“选项”栏，以查看“编辑”链接   。）按照说明创建拉取请求 (PR)。 我们将对拉取请求进行评审并接受相关请求或提出更改建议。
 
 ## <a name="how-to-make-a-more-complex-submission"></a>如何提出更复杂的提交
 
 需要对 [Git 和 GitHub.com](https://guides.github.com/activities/hello-world/) 有基本的理解。
 
-* 创建一个[问题](https://github.com/aspnet/Docs/issues/new)，描述你想要执行的操作，例如更改现有项目或创建一个新项目。 我们经常要求提供新主题建议的大纲。 请等待团队批准后再投入时间参与进来。
-* 为 [aspnet/Docs](https://github.com/aspnet/Docs/) 存储库创建分支，并为所做出的更改创建一个分支。
+* 创建一个[问题](https://github.com/dotnet/AspNetCore.Docs/issues/new)，描述你想要执行的操作，例如更改现有项目或创建一个新项目。 我们经常要求提供新主题建议的大纲。 请等待团队批准后再投入时间参与进来。
+* 为 [aspnet/Docs](https://github.com/dotnet/AspNetCore.Docs/) 存储库创建分支，并为所做出的更改创建一个分支。
 * 提交拉取请求以掌握更改。
 * 如果拉取请求分配的标签为 “cla-required”，则[完成贡献许可协议 (CLA)](https://cla.dotnetfoundation.org/)。
 * 对拉取请求反馈进行响应。
@@ -28,7 +28,7 @@
 
 ## <a name="folder-structure-conventions"></a>文件夹结构约定
 
-对于每个Markdown 文件，可能存在图像文件夹和示例代码文件夹。 如果文章是 [fundamentals/configuration/index.md](https://github.com/aspnet/Docs/blob/master/aspnetcore/fundamentals/configuration/index.md)，则图像位于 [fundamentals/configuration/index/\_](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) 中，示例应用项目文件位于 [fundamentals/configuration/index/sample](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) 中。 fundamentals/configuration/index.md 文件中的图像由以下 Markdown 呈现：
+对于每个Markdown 文件，可能存在图像文件夹和示例代码文件夹。 如果文章是 [fundamentals/configuration/index.md](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/fundamentals/configuration/index.md)，则图像位于 [fundamentals/configuration/index/\_](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) 中，示例应用项目文件位于 [fundamentals/configuration/index/sample](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) 中。 fundamentals/configuration/index.md 文件中的图像由以下 Markdown 呈现： 
 
 ```md
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
@@ -69,7 +69,7 @@ Markdown 文件名称和图像文件名称使用小写。
 
 文章经常使用代码片段来说明要点。 DFM 允许将代码复制到 Markdown 文件或引用单独的代码文件。 请尽可能使用单独的代码文件，以最大限度地减少代码中出错的可能性。 代码文件存储在使用前面示例项目所述的文件夹结构的存储库中。 
 
-以下示例说明了用于 configuration/index.md 文件的 [DFM 代码片段语法](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)。
+以下示例说明了用于 configuration/index.md 文件的 [DFM 代码片段语法](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)。 
 
 将整个代码文件呈现为代码段：
 
@@ -112,9 +112,9 @@ DocFX 要求：
 
 ### <a name="windows-instructions"></a>Windows 说明
 
-* 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”。
+* 从 [DocFX 发布](https://github.com/dotnet/docfx/releases)下载并解压缩 “docfx.zip”  。
 * 将 DocFX 添加到路径。
-* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令：
+* 在命令行界面，导航到包含 docfx.json  文件的文件夹（ASP.NET 内容为 aspnet  或 ASP.NET Core 内容为 aspnetcore  ），并运行以下命令：
 
   ```console
   docfx --serve
@@ -131,15 +131,15 @@ DocFX 要求：
   ```
 
 * 下载 [DocFX 的最新版本](https://github.com/dotnet/docfx/releases)。
-* 将存档提取到 $HOME/bin/docfx。
-* 在 Bash Shell 中为 docfx 创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
+* 将存档提取到 $HOME/bin/docfx  。
+* 在 Bash Shell 中为 docfx  创建一对别名。 第一个别名用于生成文档。 第二个别名用于生成和提供文档。
 
   ```console
   alias docfx='mono $HOME/bin/docfx/docfx.exe'
   alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
 
-* 在命令行界面，导航到包含 docfx.json 文件的文件夹（ASP.NET 内容为 aspnet 或 ASP.NET Core 内容为 aspnetcore），并运行以下命令通过其别名构建和提供文档：
+* 在命令行界面，导航到包含 docfx.json  文件的文件夹（ASP.NET 内容为 aspnet  或 ASP.NET Core 内容为 aspnetcore  ），并运行以下命令通过其别名构建和提供文档：
 
   ```console
   docfx-serve
@@ -157,4 +157,4 @@ DocFX 要求：
 
 ## <a name="redirects"></a>重定向
 
-如果删除某篇文章、更改文章的文件名或将其移到另一个文件夹，请创建一个重定向，确保将此项目收藏为书签的人不会收到 404 Not Found 错误。 添加重定向到[主重定向文件](https://github.com/aspnet/Docs/blob/master/.openpublishing.redirection.json)。
+如果删除某篇文章、更改文章的文件名或将其移到另一个文件夹，请创建一个重定向，确保将此项目收藏为书签的人不会收到 404 Not Found 错误。  添加重定向到[主重定向文件](https://github.com/dotnet/AspNetCore.Docs/blob/master/.openpublishing.redirection.json)。

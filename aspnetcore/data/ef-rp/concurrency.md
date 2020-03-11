@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 944e746624bf5fe7c586a521059fa4eb34b0f1e7
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: c4d43f26ba80e7922c3cbd37d9a5f8e1561b11ad
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259379"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645876"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
 
@@ -98,7 +98,7 @@ modelBuilder.Entity<Department>()
   .IsRowVersion();
 ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 对于 SQL Server 数据库，定义为字节数组的实体属性上的 `[Timestamp]` 特性：
 
@@ -123,7 +123,7 @@ modelBuilder.Entity<Department>()
 
 [@@ROWCOUNT](/sql/t-sql/functions/rowcount-transact-sql) 返回受上一语句影响的行数。 如果没有更新行，EF Core 会引发 `DbUpdateConcurrencyException`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 对于 SQLite 数据库，定义为字节数组的实体属性上的 `[Timestamp]` 特性：
 
@@ -144,7 +144,7 @@ modelBuilder.Entity<Department>()
 
 生成项目。 
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 PMC 中运行以下命令：
 
@@ -152,7 +152,7 @@ modelBuilder.Entity<Department>()
   Add-Migration RowVersion
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 在终端中运行以下命令：
 
@@ -169,7 +169,7 @@ modelBuilder.Entity<Department>()
 
   [!code-csharp[](intro/samples/cu30/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=15-17)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 PMC 中运行以下命令：
 
@@ -177,7 +177,7 @@ modelBuilder.Entity<Department>()
   Update-Database
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开 `Migrations/<timestamp>_RowVersion.cs` 文件，并添加以下突出显示的代码：
 
@@ -200,7 +200,7 @@ modelBuilder.Entity<Department>()
 
 ## <a name="scaffold-department-pages"></a>搭建“院系”页面的基架
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
@@ -208,7 +208,7 @@ modelBuilder.Entity<Department>()
 * 将 `Department` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 创建“Pages/Departments”文件夹  。
 
@@ -363,7 +363,7 @@ modelBuilder.Entity<Department>()
 
 * [EF Core 中的并发令牌](/ef/core/modeling/concurrency)
 * [EF Core 中的并发处理](/ef/core/saving/concurrency)
-* [调试 ASP.NET Core 2.x 源](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
+* [调试 ASP.NET Core 2.x 源](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 
 ## <a name="next-steps"></a>后续步骤
 
@@ -376,7 +376,7 @@ modelBuilder.Entity<Department>()
 
 ::: moniker range="< aspnetcore-3.0"
 
-本教程介绍如何处理多个用户并发更新同一实体（同时）时出现的冲突。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
+本教程介绍如何处理多个用户并发更新同一实体（同时）时出现的冲突。 如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。 [下载说明](xref:index#how-to-download-a-sample)。
 
 ## <a name="concurrency-conflicts"></a>并发冲突
 
@@ -512,11 +512,11 @@ dotnet ef database update
 
 ## <a name="scaffold-the-departments-model"></a>构架院系模型
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明操作，并对模型类使用 `Department`。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  运行下面的命令：
 

@@ -5,12 +5,12 @@ description: 本文介绍可移植对象文件，并概述通过 Orchard Core �
 ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: 6ec7afc59d6dfd2629a3d6d83ae619575397a9df
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 08002564eb68bc04eebaeafed560202d0d69958a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884372"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645330"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>在 ASP.NET Core 中配置可移植对象本地化
 
@@ -20,20 +20,20 @@ ms.locfileid: "64884372"
 
 **注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="what-is-a-po-file"></a>什么是 PO 文件？
 
-PO 文件作为包含给定语言的已转换字符串的文本文件分发。 使用 PO 文件替代 .resx 文件的一些优势包括：
-- PO 文件支持复数形式；而 .resx 文件不支持复数形式。
-- PO 文件的编译方法与 .resx 文件不同。 同样，无需专用工具和生成步骤。
+PO 文件作为包含给定语言的已转换字符串的文本文件分发。 使用 PO 文件替代 .resx  文件的一些优势包括：
+- PO 文件支持复数形式；而 .resx  文件不支持复数形式。
+- PO 文件的编译方法与 .resx  文件不同。 同样，无需专用工具和生成步骤。
 - PO 文件可很好地与协作联机编辑工具结合使用。
 
 ### <a name="example"></a>示例
 
 下面是一个包含两个法语字符串（其中一个具有复数形式）转换的示例 PO 文件：
 
-fr.po
+fr.po 
 
 ```text
 #: Services/EmailService.cs:29
@@ -69,21 +69,21 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 添加对 `OrchardCore.Localization.Core` NuGet 包的引用。 它可在 [MyGet](https://www.myget.org/) 上的以下包源中获得： https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
-.csproj 文件现在包含类似于以下内容的行（版本号可能不同）：
+.csproj  文件现在包含类似于以下内容的行（版本号可能不同）：
 
 [!code-xml[](localization/sample/POLocalization/POLocalization.csproj?range=9)]
 
 ### <a name="registering-the-service"></a>注册服务
 
-将所需服务添加到 Startup.cs 的 `ConfigureServices` 方法：
+将所需服务添加到 Startup.cs  的 `ConfigureServices` 方法：
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_ConfigureServices&highlight=4-21)]
 
-将所需中间件添加到 Startup.cs 的 `Configure` 方法：
+将所需中间件添加到 Startup.cs  的 `Configure` 方法：
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
-将以下代码添加到所选的 Razor 视图中。 在此示例中，使用了 About.cshtml。
+将以下代码添加到所选的 Razor 视图中。 在此示例中，使用了 About.cshtml  。
 
 [!code-cshtml[](localization/sample/POLocalization/Views/Home/About.cshtml)]
 
@@ -91,17 +91,17 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 ### <a name="creating-a-po-file"></a>创建 PO 文件
 
-在应用程序根文件夹中创建名为 \<culture code>.po 的文件。 在此示例中，文件名为 fr.po，因为使用了法语：
+在应用程序根文件夹中创建名为 \<culture code>.po  的文件。 在此示例中，文件名为 fr.po  ，因为使用了法语：
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
-此文件存储了要转换的字符串和已转换为法语的字符串。 如有必要，转换将还原为其父级区域性。 在此示例中，如果请求的区域性为 `fr-FR` 或 `fr-CA`，则使用 fr.po 文件。
+此文件存储了要转换的字符串和已转换为法语的字符串。 如有必要，转换将还原为其父级区域性。 在此示例中，如果请求的区域性为 `fr-FR` 或 `fr-CA`，则使用 fr.po  文件。
 
 ### <a name="testing-the-application"></a>测试应用程序
 
-运行应用程序并导航到 URL `/Home/About`。 此时将显示文本 Hello world! 。
+运行应用程序并导航到 URL `/Home/About`。 此时将显示文本 Hello world!  。
 
-导航到 URL `/Home/About?culture=fr-FR`。 此时将显示文本 Bonjour le monde! 。
+导航到 URL `/Home/About?culture=fr-FR`。 此时将显示文本 Bonjour le monde!  。
 
 ## <a name="pluralization"></a>复数形式
 
@@ -111,7 +111,7 @@ Orchard 本地化包提供了一个 API 以自动调用这些不同的复数形�
 
 ### <a name="creating-pluralization-po-files"></a>创建复数形式 PO 文件
 
-将以下内容添加到前面所述的 fr.po 文件：
+将以下内容添加到前面所述的 fr.po  文件：
 
 ```text
 msgid "There is one item."
@@ -145,7 +145,7 @@ var supportedCultures = new List<CultureInfo>
 };
 ```
 
-编辑 Views/Home/About.cshtml 文件以呈现一些基数的已本地化复数形式字符串：
+编辑 Views/Home/About.cshtml  文件以呈现一些基数的已本地化复数形式字符串：
 
 ```cshtml
 <p>@Localizer.Plural(1, "There is one item.", "There are {0} items.")</p>
@@ -191,7 +191,7 @@ Existuje 5 položek.
 
 PO 本地化服务使用完整类的名称或转换字符串时使用的视图。 这通过在 `msgctxt` 条目上设置值来完成。
 
-请考虑对以前的 fr.po 示例作一点小小的补充。 可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml 的 Razor 视图定义为文件上下文：
+请考虑对以前的 fr.po  示例作一点小小的补充。 可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml  的 Razor 视图定义为文件上下文：
 
 ```text
 msgctxt "Views.Home.About"
@@ -201,7 +201,7 @@ msgstr "Bonjour le monde!"
 
 这样设置 `msgctxt` 后，导航到 `/Home/About?culture=fr-FR` 时将发生文本转换。 而导航到 `/Home/Contact?culture=fr-FR` 时，则不发生转换。
 
-当没有特定条目与给定文件上下文相匹配时，Orchard Core 的回退机制将在没有上下文的情况下查找适当的 PO 文件。 假设不存在针对 Views/Home/Contact.cshtml 定义的特定文件上下文，导航到 `/Home/Contact?culture=fr-FR`，加载 PO 文件，如：
+当没有特定条目与给定文件上下文相匹配时，Orchard Core 的回退机制将在没有上下文的情况下查找适当的 PO 文件。 假设不存在针对 Views/Home/Contact.cshtml  定义的特定文件上下文，导航到 `/Home/Contact?culture=fr-FR`，加载 PO 文件，如：
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
@@ -213,7 +213,7 @@ msgstr "Bonjour le monde!"
 services.AddPortableObjectLocalization(options => options.ResourcesPath = "Localization");
 ```
 
-在此示例中，从本地化文件夹加载 PO 文件。
+在此示例中，从本地化  文件夹加载 PO 文件。
 
 ### <a name="implementing-a-custom-logic-for-finding-localization-files"></a>实现用于查找本地化文件的自定义逻辑
 

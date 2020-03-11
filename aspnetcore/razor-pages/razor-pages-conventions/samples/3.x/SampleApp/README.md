@@ -4,7 +4,7 @@
 
 ## <a name="examples-in-this-sample"></a>此示例中的示例
 
-| 应用场景 | 示例演示 |
+| 方案 | 示例演示 |
 | -------- | ----------- |
 | [模型约定](https://docs.microsoft.com/aspnet/core/razor-pages/razor-pages-conventions#model-conventions) | 将路由特性和标头添加到应用的页面。 |
 | [使用 AddPageRoute 添加页面路由](https://docs.microsoft.com/aspnet/core/razor-pages/razor-pages-conventions#configure-a-page-route) | 将指定的路由添加到指定的页面。 |

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/09/2020
 uid: fundamentals/http-requests
-ms.openlocfilehash: aae643b3d725482285c4c0ca7b08606c0a365d2c
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 912be34ae0ee25837a94aab65443f15b17ab4556
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213475"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648294"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>在 ASP.NET Core 中使用 IHttpClientFactory 发出 HTTP 请求
 
@@ -27,7 +27,7 @@ ms.locfileid: "77213475"
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期。 自动管理可避免手动管理 `HttpClient` 生存期时出现的常见 DNS（域名系统）问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
 此主题版本中的示例代码使用 <xref:System.Text.Json> 来对 HTTP 响应中返回的 JSON 内容进行反序列化。 对于使用 `Json.NET` 和 `ReadAsAsync<T>` 的示例，请使用版本选择器选择此主题的 2.x 版本。
 
@@ -97,6 +97,7 @@ ms.locfileid: "77213475"
 类型化客户端在构造函数中接受 `HttpClient` 参数：
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 在上述代码中：
 
@@ -394,7 +395,7 @@ public class ValuesController : ControllerBase
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="consumption-patterns"></a>消耗模式
 
@@ -695,7 +696,7 @@ public class ValuesController : ControllerBase
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="prerequisites"></a>先决条件
 

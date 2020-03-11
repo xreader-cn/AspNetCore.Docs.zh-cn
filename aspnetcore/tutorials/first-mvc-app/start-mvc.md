@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/16/2019
 uid: tutorials/first-mvc-app/start-mvc
 ms.openlocfilehash: 901257efdfbc7b36249233745175f5ed253da2c7
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722844"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648666"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
@@ -36,15 +36,15 @@ ms.locfileid: "75722844"
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
@@ -52,7 +52,7 @@ ms.locfileid: "75722844"
 
 ## <a name="create-a-web-app"></a>创建 Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 Visual Studio 中，选择“创建新项目”  。
 
@@ -70,7 +70,7 @@ ms.locfileid: "75722844"
 
 Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名称并选择几个选项后，就拥有了一个可正常运行的应用。 这是一个基本的入门项目。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 本教程假定用户熟悉 VS Code。 有关详细信息，请参阅 [VS Code 入门](https://code.visualstudio.com/docs) 和 [Visual Studio Code 帮助](#visual-studio-code-help)。
 
@@ -88,7 +88,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
   * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目  。
   * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件  。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -108,7 +108,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 ### <a name="run-the-app"></a>运行应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 选择 Ctrl+F5 以在非调试模式下运行应用  。
 
@@ -128,7 +128,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按 Ctrl+F5 以在不使用调试程序的情况下运行。
 
@@ -140,7 +140,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 选择“运行” > “开始执行(不调试)”以启动应用   。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号  。
 
@@ -184,22 +184,22 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
 ---
 ## <a name="create-a-web-app"></a>创建 Web 应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在 Visual Studio 中，选择“创建新项目”  。
 
@@ -218,7 +218,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名称并选择几个选项后，就拥有了一个可正常运行的应用。 这是一个基本的初学者项目，适合入门使用。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 本教程假定用户熟悉 VS Code。 有关详细信息，请参阅 [VS Code 入门](https://code.visualstudio.com/docs) 和 [Visual Studio Code 帮助](#visual-studio-code-help)。
 
@@ -236,7 +236,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
   * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目  。
   * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件  。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -256,7 +256,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 ### <a name="run-the-app"></a>运行应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 选择 Ctrl+F5 以在非调试模式下运行应用  。
 
@@ -280,7 +280,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按 Ctrl+F5 以在不使用调试程序的情况下运行。
 
@@ -298,7 +298,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   ![主页或索引页](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 选择“运行” > “开始执行(不调试)”以启动应用   。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号  。
 

@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
 ms.openlocfilehash: 5510fb6844452571ca764e21640f0bd16444c782
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171975"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647784"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -30,7 +30,7 @@ ms.locfileid: "77171975"
 
 ## <a name="add-a-view"></a>添加视图
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。   
 
@@ -48,14 +48,14 @@ ms.locfileid: "77171975"
 
 ![“添加新项”对话框](adding-view/_static/add_view.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 为 `HelloWorldController` 添加 `Index` 视图。
 
 * 添加一个名为“Views/HelloWorld”的新文件夹。 
 * 向 Views/HelloWorld 文件夹添加名为“Index.cshtml”的新文件。  
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。   
 * 右键单击“Views/HelloWorld”文件夹，然后单击“添加”>“新文件”   。
@@ -187,7 +187,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 ## <a name="add-a-view"></a>添加视图
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。   
 
@@ -205,14 +205,14 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 ![“添加新项”对话框](adding-view/_static/add_view.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 为 `HelloWorldController` 添加 `Index` 视图。
 
 * 添加一个名为“Views/HelloWorld”的新文件夹。 
 * 向 Views/HelloWorld 文件夹添加名为“Index.cshtml”的新文件。  
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击“视图”文件夹，然后单击“添加”>“新文件夹”，并将文件夹命名为“HelloWorld”。   
 * 右键单击“Views/HelloWorld”文件夹，然后单击“添加”>“新文件”   。

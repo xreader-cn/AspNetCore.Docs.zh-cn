@@ -1,22 +1,20 @@
 ---
 title: ASP.NET Core 中基于工厂的中间件激活
-author: guardrex
+author: rick-anderson
 description: 了解如何在 ASP.NET Core 中通过基于工厂的激活实现使用强类型中间件。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 uid: fundamentals/middleware/extensibility
-ms.openlocfilehash: 17018d2dd20ed7b26bd0aa1095fa720a73f77261
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: abc6268584d12fe43d972c79a99316b94e8bee4b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71186942"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648912"
 ---
 # <a name="factory-based-middleware-activation-in-aspnet-core"></a>ASP.NET Core 中基于工厂的中间件激活
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -31,7 +29,7 @@ ms.locfileid: "71186942"
 
 <xref:Microsoft.AspNetCore.Http.IMiddleware> 按客户端请求（连接）激活，因此作用域服务可以注入到中间件的构造函数中。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="imiddleware"></a>IMiddleware
 
@@ -89,7 +87,7 @@ public static IApplicationBuilder UseFactoryActivatedMiddleware(
 
 <xref:Microsoft.AspNetCore.Http.IMiddleware> 按客户端请求（连接）激活，因此作用域服务可以注入到中间件的构造函数中。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="imiddleware"></a>IMiddleware
 

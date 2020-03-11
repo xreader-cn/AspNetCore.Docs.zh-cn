@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 04694f20c7142cc2917df25458e8e335ee933900
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: 8f6561616ccd0fde050276467920da8aa93677c6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2020
-ms.locfileid: "76268774"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646146"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>教程：在 ASP.NET MVC Web 应用中使用 EF Core 入门
 
@@ -21,7 +21,7 @@ ms.locfileid: "76268774"
 * 在 Startup.cs  和 Program.cs  文件中。
 * 可在 [Razor Pages 版本](xref:data/ef-rp/intro)中找到。 
 
-有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/13920)。
+有关此版本的更新时间的详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/13920)。
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -51,7 +51,7 @@ Contoso University 示例 Web 应用程序演示如何使用 Entity Framework (E
 
 ## <a name="troubleshooting"></a>疑难解答
 
-如果遇到无法解决的问题，可以通过与 [已完成的项目](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)对比代码来查找解决方案。 常见错误以及对应的解决方案，请参阅 [最新教程中的故障排除](advanced.md#common-errors)。 如果没有找到遇到的问题的解决方案，可以将问题发布到StackOverflow.com 的 [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) 或 [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) 版块。
+如果遇到无法解决的问题，可以通过与 [已完成的项目](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)对比代码来查找解决方案。 常见错误以及对应的解决方案，请参阅 [最新教程中的故障排除](advanced.md#common-errors)。 如果没有找到遇到的问题的解决方案，可以将问题发布到StackOverflow.com 的 [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) 或 [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) 版块。
 
 > [!TIP]
 > 这是一系列一共有十个教程，其中每个都是在前面教程已完成的基础上继续。 请考虑在完成每一个教程后保存项目的副本。 之后如果遇到问题，你可以从保存的副本中开始寻找问题，而不是从头开始。
@@ -362,7 +362,7 @@ Web 服务器的可用线程是有限的，而在高负载情况下的可能所�
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 
