@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 02c95c19ebfb5ea6ad722f9d49f4cddc7471f8e1
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
+ms.openlocfilehash: 038799564078c4d3e8a7aa3a9841c6303edf9d12
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034073"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644262"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 简介
 
@@ -140,7 +140,10 @@ Blazor 服务器用于与浏览器通信的连接还用于处理 JavaScript 互�
 
 ## <a name="javascript-interop"></a>JavaScript 互操作
 
-对于需要第三方 JavaScript 库和访问浏览器 API 的应用，组件与 JavaScript 进行互操作。 组件能够使用 JavaScript 能够使用的任何库或 API。 C# 代码可以调用到 JavaScript 代码，而 JavaScript 代码可以调用到 C# 代码。 有关详细信息，请参阅 <xref:blazor/javascript-interop>。
+对于需要第三方 JavaScript 库和访问浏览器 API 的应用，组件与 JavaScript 进行互操作。 组件能够使用 JavaScript 能够使用的任何库或 API。 C# 代码可以调用到 JavaScript 代码，而 JavaScript 代码可以调用到 C# 代码。 有关详细信息，请参阅以下文章：
+
+* <xref:blazor/call-javascript-from-dotnet>
+* <xref:blazor/call-dotnet-from-javascript>
 
 ## <a name="code-sharing-and-net-standard"></a>代码共享和 .NET Standard
 

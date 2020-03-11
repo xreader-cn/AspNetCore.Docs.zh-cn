@@ -1,32 +1,30 @@
 ---
 title: 在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
-author: guardrex
+author: rick-anderson
 description: 了解如何建立来自外部提供程序的其他声明和标记。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 44b3e72085e6265319b53b548f7f7ddde2adbd14
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 9dfe5745125e34ed813d078529471a0ba2a53ab0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828576"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654660"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Google、Microsoft 和 Twitter）建立其他声明和令牌。 每个提供程序都在其平台上显示有关用户的不同信息，但用于接收用户数据并将其转换为其他声明的模式是相同的。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -47,7 +45,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| Provider  | 范围                                                            |
+| 提供程序  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -110,7 +108,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
@@ -162,11 +160,11 @@ Authentication Properties
 
 ASP.NET Core 应用可以从外部身份验证提供程序（如 Facebook、Google、Microsoft 和 Twitter）建立其他声明和令牌。 每个提供程序都在其平台上显示有关用户的不同信息，但用于接收用户数据并将其转换为其他声明的模式是相同的。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
-确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关更多信息，请参见<xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
+确定要在应用程序中支持的外部身份验证提供程序。 对于每个提供程序，注册应用程序，并获取客户端 ID 和客户端密码。 有关详细信息，请参阅 <xref:security/authentication/social/index>。 示例应用使用[Google 身份验证提供程序](xref:security/authentication/google-logins)。
 
 ## <a name="set-the-client-id-and-client-secret"></a>设置客户端 ID 和客户端密码
 
@@ -187,7 +185,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 通过指定 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>指定要从提供程序检索的权限的列表。 常见外部提供程序的身份验证范围如下表中所示。
 
-| Provider  | 范围                                                            |
+| 提供程序  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -250,7 +248,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 用户可以通过从 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 派生并实现抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 方法来定义自定义操作。
 
-有关更多信息，请参见<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
+有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 

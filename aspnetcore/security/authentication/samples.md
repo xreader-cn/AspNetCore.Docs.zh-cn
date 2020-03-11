@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 01/31/2019
 uid: security/authentication/samples
 ms.openlocfilehash: 3d7e28f6e501bd8bd3908ca4b314a63cee52ebe3
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828667"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651654"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core 的身份验证示例
 
@@ -30,7 +30,7 @@ ms.locfileid: "75828667"
 
 ## <a name="run-the-samples"></a>运行示例
 
-* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如，`Tag:v3.0.0`
+* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `Tag:v3.0.0`
 * 克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
 * 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://www.microsoft.com/net/download/all)版本。
 * 导航到*AspNetCore/src/Security/samples*中的示例，并使用 `dotnet run`运行该示例。
@@ -51,7 +51,7 @@ ms.locfileid: "75828667"
 
 ## <a name="run-the-samples"></a>运行示例
 
-* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如，`release/2.2`
+* 选择[分支](https://github.com/dotnet/AspNetCore)。 例如： `release/2.2`
 * 克隆或下载[ASP.NET Core 存储库](https://github.com/dotnet/AspNetCore)。
 * 验证是否已安装与 ASP.NET Core 存储库的克隆相匹配的[.NET Core SDK](https://www.microsoft.com/net/download/all)版本。
 * 导航到*AspNetCore/src/Security/samples*中的示例，并使用 `dotnet run`运行该示例。

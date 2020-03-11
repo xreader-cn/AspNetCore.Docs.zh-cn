@@ -1,19 +1,19 @@
 ---
-title: ASP.NET Core MVC 中基于视图的授权
+title: ASP.NET Core mvc 视图基于授权
 author: rick-anderson
-description: 本文档演示如何在 ASP.NET Core Razor 视图中注入和使用授权服务。
+description: 本文档演示如何将注入和利用 ASP.NET Core Razor 视图内的授权服务。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 uid: security/authorization/views
 ms.openlocfilehash: fc03da9eb98d36ffdda932ee5b16f327c2be9f83
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73896983"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653562"
 ---
-# <a name="view-based-authorization-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中基于视图的授权
+# <a name="view-based-authorization-in-aspnet-core-mvc"></a>ASP.NET Core mvc 视图基于授权
 
 开发人员通常需要根据当前用户标识来显示、隐藏或修改 UI。 可以通过[依赖关系注入](xref:fundamentals/dependency-injection)访问 MVC 视图中的授权服务。 若要将授权服务注入到 Razor 视图，请使用 `@inject` 指令：
 

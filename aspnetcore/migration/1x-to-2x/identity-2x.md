@@ -5,12 +5,12 @@ description: 本文概述了迁移 ASP.NET Core 1.x 身份验证和标识为 ASP
 ms.author: scaddie
 ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: f3817fa1808c331f7e167618e3bb00d68ad08571
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: af905f1127d504839f66d9e0e1ca1dfc27e32772
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355183"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654942"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>将身份验证和标识迁移到 ASP.NET Core 2.0
 
@@ -219,7 +219,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="microsoft-account-authentication"></a>Microsoft 帐户身份验证
 
-有关 Microsoft 帐户身份验证的详细信息，请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/14455)。
+有关 Microsoft 帐户身份验证的详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/14455)。
 
 在*Startup.cs*中进行以下更改：
 - 用 `UseAuthentication`替换 `Configure` 方法中的 `UseMicrosoftAccountAuthentication` 方法调用：
@@ -330,7 +330,7 @@ Windows 身份验证有两种变体：
 
   > `System.InvalidOperationException`：未指定任何 authenticationScheme，并且找不到 DefaultChallengeScheme。
 
-有关更多信息，请参见<xref:security/authentication/windowsauth>。
+有关详细信息，请参阅 <xref:security/authentication/windowsauth>。
 
 <a name="identity-cookie-options"></a>
 
@@ -381,7 +381,7 @@ public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<Id
 public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
 ```
 
-若要防止重复的外键，运行 EF Core 迁移时，将以下代码添加到你`IdentityDbContext`类的`OnModelCreating`方法 (后`base.OnModelCreating();`调用):
+若要防止在运行 EF Core 迁移时出现重复的外键，请将以下内容添加到 `IdentityDbContext` 类的 "`OnModelCreating` 方法（在 `base.OnModelCreating();` 调用之后）：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)

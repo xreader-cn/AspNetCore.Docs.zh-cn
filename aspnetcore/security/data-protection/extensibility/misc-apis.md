@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/extensibility/misc-apis
 ms.openlocfilehash: 114cdd6209970e46b827e403fbe79b95692d0242
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896614"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654354"
 ---
 # <a name="miscellaneous-aspnet-core-data-protection-apis"></a>杂项 ASP.NET Core 数据保护 Api
 
@@ -21,7 +21,7 @@ ms.locfileid: "64896614"
 
 ## <a name="isecret"></a>ISecret
 
-`ISecret`接口表示机密值，如加密密钥材料。 它包含以下 API 图面：
+`ISecret` 接口表示机密值，如加密密钥材料。 它包含以下 API 图面：
 
 * `Length`: `int`
 
@@ -29,6 +29,6 @@ ms.locfileid: "64896614"
 
 * `WriteSecretIntoBuffer(ArraySegment<byte> buffer)`: `void`
 
-`WriteSecretIntoBuffer`方法填充所提供的缓冲区与原始机密值。 此 API 将缓冲区作为参数的原因而不是返回`byte[]`直接是，这使调用方能够固定限制托管的垃圾回收器对机密暴露该缓冲区对象。
+`WriteSecretIntoBuffer` 方法用原始机密值填充所提供的缓冲区。 此 API 使用缓冲区作为参数，而不是直接返回 `byte[]`，这使调用方可以固定缓冲区对象，从而限制托管垃圾回收器的机密公开。
 
-`Secret`类型是具体的实现`ISecret`在进程内内存中存储的机密值。 在 Windows 平台上的机密值加密通过[CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx)。
+`Secret` 类型是 `ISecret` 的具体实现，其中的密钥值存储在进程内内存中。 在 Windows 平台上，通过[CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx)对机密值进行加密。

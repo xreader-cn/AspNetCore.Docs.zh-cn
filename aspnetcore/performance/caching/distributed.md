@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core 中的分布式缓存
-author: guardrex
+author: rick-anderson
 description: 了解如何使用 ASP.NET Core 分布式缓存来改善应用程序的性能和可伸缩性，尤其是在云或服务器场环境中。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: performance/caching/distributed
-ms.openlocfilehash: d39ac6c7496de7cf9dc8d40718bbaf611e744c19
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: a4d2a59c8f81ad3e3f020e73a6657864885aa39a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114739"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651798"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 
-作者： [Luke Latham](https://github.com/guardrex)、 [Mohsin Nasir](https://github.com/mohsinnasir)和[Steve Smith](https://ardalis.com/)
+作者： [Mohsin Nasir](https://github.com/mohsinnasir)和[Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,9 +32,9 @@ ms.locfileid: "77114739"
 
 分布式缓存配置是特定于实现的。 本文介绍如何配置 SQL Server 和 Redis 分布式缓存。 第三方实现也可用，例如[NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) （[GitHub 上的 NCache](https://github.com/Alachisoft/NCache)）。 无论选择哪种实现，应用都使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口与缓存交互。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 若要使用 SQL Server 分布式缓存，请[将包引用添加到 "](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
@@ -202,9 +202,9 @@ Table and index were created successfully.
 
 分布式缓存配置是特定于实现的。 本文介绍如何配置 SQL Server 和 Redis 分布式缓存。 第三方实现也可用，例如[NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) （[GitHub 上的 NCache](https://github.com/Alachisoft/NCache)）。 无论选择哪种实现，应用都使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口与缓存交互。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 若要使用 SQL Server 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，或添加对[包的包引用。](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
@@ -372,9 +372,9 @@ Table and index were created successfully.
 
 分布式缓存配置是特定于实现的。 本文介绍如何配置 SQL Server 和 Redis 分布式缓存。 第三方实现也可用，例如[NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) （[GitHub 上的 NCache](https://github.com/Alachisoft/NCache)）。 无论选择哪种实现，应用都使用 <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> 接口与缓存交互。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 若要使用 SQL Server 分布式缓存，请参考[AspNetCore 元包](xref:fundamentals/metapackage-app)，或添加对[包的包引用。](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer)
 
@@ -533,3 +533,4 @@ services.AddDistributedRedisCache(options =>
 * <xref:host-and-deploy/web-farm>
 
 ::: moniker-end
+ 

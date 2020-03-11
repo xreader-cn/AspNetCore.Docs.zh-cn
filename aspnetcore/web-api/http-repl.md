@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/11/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 15899917826fb6559244998766d99d00f56e0521
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
-ms.translationtype: HT
+ms.openlocfilehash: d9beae68cc869b665ff5d2b6cf34f120406098dc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294721"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653028"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -34,9 +34,9 @@ HTTP 读取–求值–打印循环 (REPL)：
 * [POST](#test-http-post-requests)
 * [PUT](#test-http-put-requests)
 
-若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。
+若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
@@ -48,9 +48,9 @@ HTTP 读取–求值–打印循环 (REPL)：
 dotnet tool install -g Microsoft.dotnet-httprepl
 ```
 
-从 [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。
+从 [Microsoft.dotnet-httprepl](/dotnet/core/tools/global-tools#install-a-global-tool) NuGet 包安装 [.NET Core 全局工具](https://www.nuget.org/packages/Microsoft.dotnet-httprepl)。
 
-## <a name="usage"></a>用法
+## <a name="usage"></a>使用情况
 
 成功安装该工具后，运行以下命令以启动 HTTP REPL：
 
@@ -225,21 +225,21 @@ https://localhost:5001/people~
 
 可自定义 HTTP REPL 的默认[颜色](#set-color-preferences)。 此外，还可定义[默认文本编辑器](#set-the-default-text-editor)。 HTTP REPL 首选项在当前会话中保持不变，并且也会在之后的会话中使用。 修改后，首选项存储在以下文件中：
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
-%HOME%/.httpreplprefs 
+%HOME%/.httpreplprefs
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
-%HOME%/.httpreplprefs 
+%HOME%/.httpreplprefs
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
-%USERPROFILE%\\.httpreplprefs 
+%USERPROFILE% *.httpreplprefs\\*
 
 ---
 
-.httpreplprefs  文件将在启动时加载，并且在运行时不监控对其的更改。 对文件的手动修改只会在重启该工具后生效。
+.httpreplprefs 文件将在启动时加载，并且在运行时不监控对其的更改。 对文件的手动修改只会在重启该工具后生效。
 
 ### <a name="view-the-settings"></a>查看设置
 
@@ -335,19 +335,19 @@ pref set editor.command.default "<EXECUTABLE>"
 
 在上述命令中，`<EXECUTABLE>` 是文本编辑器可执行文件的完整路径。 例如，运行以下命令，将 Visual Studio Code 设置为默认文本编辑器：
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ```console
 pref set editor.command.default "/usr/bin/code"
 ```
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ```console
 pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 ```
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ```console
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
@@ -355,7 +355,7 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ---
 
-若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HTTP REPL 在禁用了扩展的新会话中打开 Visual Studio Code。 运行下面的命令：
+若要使用特定 CLI 参数启动默认文本编辑器，请设置 `editor.command.default.arguments` 键。 例如，假设 Visual Studio Code 为默认文本编辑器，并且你总是希望 HTTP REPL 在禁用了扩展的新会话中打开 Visual Studio Code。 运行以下命令：
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"
@@ -363,7 +363,7 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 ### <a name="set-the-swagger-search-paths"></a>设置 Swagger 搜索路径
 
-默认情况下，HTTP REPL 具有一组相对路径，可用于在不使用 `--swagger` 选项执行 `connect` 命令时查找 Swagger 文档。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
+默认情况下，HTTP REPL 具有一组相对路径，可用于在不使用 `connect` 选项执行 `--swagger` 命令时查找 Swagger 文档。 将这些相对路径与 `connect` 命令中指定的根路径和基路径组合在一起。 默认相对路径为：
 
 - *swagger.json*
 - *swagger/v1/swagger.json*
@@ -384,7 +384,7 @@ pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -468,7 +468,7 @@ get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body
 post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -490,7 +490,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
 
     ```json
     {
@@ -511,7 +511,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
     }
     ```
 
-1. 保存 .tmp  文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
+1. 保存 .tmp文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
 
     ```console
     HTTP/1.1 201 Created
@@ -538,7 +538,7 @@ post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-f
 put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -554,7 +554,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
 
 发出 HTTP PUT 请求：
 
-1. *可选*：在修改之前，运行 `get` 命令以查看数据：
+1. *可选*：运行 `get` 命令，在修改之前查看数据：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -586,7 +586,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp  文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
+    在上述命令中，`Content-Type` HTTP 请求标头被设置为指示 JSON 的请求正文媒体类型。 默认文本编辑器打开一个 .tmp文件，其中包含一个表示 HTTP 请求正文的 JSON 模板。 例如：
 
     ```json
     {
@@ -607,7 +607,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     }
     ```
 
-1. 保存 .tmp  文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
+1. 保存 .tmp文件，并关闭文本编辑器。 以下输出显示在命令行界面中：
 
     ```console
     [main 2019-06-28T17:27:01.805Z] update#setState idle
@@ -616,7 +616,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     Server: Kestrel
     ```
 
-1. *可选*：发出 `get` 命令以查看修改。 例如，如果在文本编辑器中键入“Cherry”，`get` 会返回以下内容：
+1. *可选*：发出 `get` 命令来查看修改。 例如，如果在文本编辑器中键入“Cherry”，`get` 会返回以下内容：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -653,7 +653,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
 delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -667,7 +667,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
 
 发出 HTTP DELETE 请求：
 
-1. *可选*：在修改之前，运行 `get` 命令以查看数据：
+1. *可选*：运行 `get` 命令，在修改之前查看数据：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -707,7 +707,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     Server: Kestrel
     ```
 
-1. *可选*：发出 `get` 命令以查看修改。 在此示例中，`get` 返回以下内容：
+1. *可选*：发出 `get` 命令来查看修改。 在此示例中，`get` 返回以下内容：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -740,7 +740,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
 patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -760,7 +760,7 @@ patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-
 head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -778,7 +778,7 @@ head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:bod
 options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PARAMETER`
 
@@ -822,7 +822,7 @@ set header Authorization "bearer <TOKEN VALUE>"
 
 若要访问 Azure 托管的终结点或使用 [Azure REST API](/rest/api/azure/)，你需要持有者令牌。 使用以下步骤，通过 [Azure CLI](/cli/azure/) 来获取 Azure 订阅的持有者令牌。 HTTP REPL 设置 HTTP 请求标头中的持有者令牌，并检索 Azure 应用服务 Web 应用的列表。
 
-1. 登录 Azure：
+1. 登录到 Azure：
 
     ```azcli
     az login
@@ -956,7 +956,7 @@ Request echoing is off
 
 如果经常执行一组相同的 HTTP REPL 命令，请考虑将它们存储在一个文本文件中。 文件中的命令采用与在命令行上手动执行的命令相同的形式。 可使用 `run` 命令批量执行这些命令。 例如：
 
-1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt  文件：
+1. 创建一个文本文件，其中包含一组换行符分隔的命令。 例如，一个包含以下命令的 people-script.txt 文件：
 
     ```text
     set base https://localhost:5001

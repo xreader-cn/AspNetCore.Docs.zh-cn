@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 508f91cdcd93c149602223250520eecb73625b24
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 269be9ece674b39d03cb50720f4fb182c565a639
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880990"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651966"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
@@ -20,7 +20,7 @@ ms.locfileid: "74880990"
 
 有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="overview"></a>概述
 
@@ -43,7 +43,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 以下是分部标记帮助程序属性的清单。
 
-## <a name="name"></a>NAME
+## <a name="name"></a>name
 
 需要 `name` 属性。 它指示要呈现的分部视图的名称或路径。 提供分部视图名称时，会启动[视图发现](xref:mvc/views/overview#view-discovery)进程。 提供显式路径时，将绕过该进程。 有关所有可接受的 `name` 值，请参阅[分部视图发现](xref:mvc/views/partial#partial-view-discovery)。
 

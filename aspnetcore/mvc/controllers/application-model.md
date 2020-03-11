@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/application-model
 ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881093"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654552"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -38,7 +38,7 @@ ASP.NET Core MVC 应用程序模型具有以下结构：
 
 ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iapplicationmodelprovider) 接口定义）加载应用程序模型。 此部分介绍此提供程序的工作原理的一些内部实现细节。 这是一项高级主题 — 利用应用程序模型的大多数应用应使用约定来执行此操作。
 
-`IApplicationModelProvider` 接口的实现相互“包装”，每个实现都基于其 `Order` 属性以升序调用 `OnProvidersExecuting`。 然后，按相反的顺序调用 `OnProvidersExecuted` 方法。 该框架定义了多个提供程序：
+`IApplicationModelProvider` 接口的实现相互“包装”，每个实现都基于其 `OnProvidersExecuting` 属性以升序调用 `Order`。 然后，按相反的顺序调用 `OnProvidersExecuted` 方法。 该框架定义了多个提供程序：
 
 首先 (`Order=-1000`)：
 
@@ -82,13 +82,13 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 可通过以下方式应用约定：将它们添加到 MVC 选项，或实现 `Attribute` 并将它们应用于控制器、操作或操作参数（类似于 [`Filters`](xref:mvc/controllers/filters)）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
 
-### <a name="sample-modifying-the-applicationmodel"></a>示例:修改 ApplicationModel
+### <a name="sample-modifying-the-applicationmodel"></a>示例：修改 ApplicationModel
 
 以下约定用于向应用程序模型添加属性。 
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/ApplicationDescription.cs)]
 
-当在 `Startup` 的 `ConfigureServices` 中添加 MVC 时，应用程序模型约定作为选项应用。
+当在 `ConfigureServices` 的 `Startup` 中添加 MVC 时，应用程序模型约定作为选项应用。
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=5)]
 
@@ -96,7 +96,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/AppModelController.cs?name=AppModelController)]
 
-### <a name="sample-modifying-the-controllermodel-description"></a>示例:修改 ControllerModel 说明
+### <a name="sample-modifying-the-controllermodel-description"></a>示例：修改 ControllerModel 说明
 
 与上一个示例一样，也可以修改控制器模型，以包含自定义属性。 这些属性将覆盖应用程序模型中指定的具有相同名称的现有属性。 以下约定属性可在控制器级别添加说明：
 
@@ -108,7 +108,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 访问“description”属性的方式与前面示例中一样。
 
-### <a name="sample-modifying-the-actionmodel-description"></a>示例:修改 ActionModel 说明
+### <a name="sample-modifying-the-actionmodel-description"></a>示例：修改 ActionModel 说明
 
 可向各项操作应用不同的属性约定，并覆盖已在应用程序或控制器级别应用的行为。
 
@@ -118,7 +118,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/DescriptionAttributesController.cs?name=DescriptionAttributesController&highlight=9)]
 
-### <a name="sample-modifying-the-parametermodel"></a>示例:修改 ParameterModel
+### <a name="sample-modifying-the-parametermodel"></a>示例：修改 ParameterModel
 
 可将以下约定应用于操作参数，以修改其 `BindingInfo`。 以下约定要求参数为路由参数；忽略其他可能的绑定源（比如查询字符串值）。
 
@@ -128,7 +128,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/ParameterModelController.cs?name=ParameterModelController&highlight=5)]
 
-### <a name="sample-modifying-the-actionmodel-name"></a>示例:修改 ActionModel 名称
+### <a name="sample-modifying-the-actionmodel-name"></a>示例：修改 ActionModel 名称
 
 以下约定可修改 `ActionModel`，以更新其应用到的操作的*名称*。 新名称以参数形式提供给该属性。 此新名称供路由使用，因此它将影响用于访问此操作方法的路由。
 
@@ -143,7 +143,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 > [!NOTE]
 > 此示例本质上与使用内置 [ActionName](/dotnet/api/microsoft.aspnetcore.mvc.actionnameattribute) 属性相同。
 
-### <a name="sample-custom-routing-convention"></a>示例:自定义路由约定
+### <a name="sample-custom-routing-convention"></a>示例：自定义路由约定
 
 可以使用 `IApplicationModelConvention` 来自定义路由的工作方式。 例如，以下约定会将控制器的命名空间合并到其路由中，并将命名空间中的 `.` 替换为路由中的 `/`：
 
@@ -154,7 +154,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=6)]
 
 > [!TIP]
-> 可以使用 `services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));` 来访问 `MvcOptions`，以将约定添加到[中间件](xref:fundamentals/middleware/index)
+> 可以使用 [ 来访问 ](xref:fundamentals/middleware/index)，以将约定添加到`MvcOptions`中间件`services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
 
 此示例将此约定应用于未使用属性路由的路由，其中，控制器名称包含“Namespace”。 以下控制器演示了此约定：
 
@@ -167,7 +167,7 @@ ASP.NET Core MVC 使用一组不同于 ASP.NET Web API 2 的约定。 使用自�
 > [!NOTE]
 > 详细了解[从 ASP.NET Web API 迁移](xref:migration/webapi)。
 
-若要使用 Web API Compatibility Shim，需将该包添加到项目中，然后通过调用 `Startup` 中的 `AddWebApiConventions`，将约定添加到 MVC：
+若要使用 Web API Compatibility Shim，需将该包添加到项目中，然后通过调用 `AddWebApiConventions` 中的 `Startup`，将约定添加到 MVC：
 
 ```csharp
 services.AddMvc().AddWebApiConventions();

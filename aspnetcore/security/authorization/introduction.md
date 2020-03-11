@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/introduction
 ms.openlocfilehash: b5e60b3c256941fff5e54e1a02e077c34c535902
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693864"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652332"
 ---
 # <a name="introduction-to-authorization-in-aspnet-core"></a>在 ASP.NET Core 中授权简介
 
@@ -24,7 +24,7 @@ ms.locfileid: "75693864"
 
 ## <a name="authorization-types"></a>授权类型
 
-ASP.NET Core 授权提供一个简单、 声明性[角色](xref:security/authorization/roles)以及丰富[基于策略的](xref:security/authorization/policies)模型。 授权在要求中表示，而处理程序根据要求评估用户的声明。 命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。
+ASP.NET Core 授权提供简单的声明性[角色](xref:security/authorization/roles)和[基于策略](xref:security/authorization/policies)的丰富模型。 授权在要求中表示，而处理程序根据要求评估用户的声明。 命令式检查可以基于简单的策略或策略，这些策略可评估用户尝试访问的资源的用户标识和属性。
 
 ## <a name="namespaces"></a>命名空间
 

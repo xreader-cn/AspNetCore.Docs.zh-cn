@@ -9,24 +9,24 @@ ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: e5bc12c5ccafe2b5273d72e6bde0f631ca043428
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: 54ffd8614c1cec4cfeba0878e910ed25fc6ba7d2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294629"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653376"
 ---
-# <a name="use-hubs-in-opno-locsignalr-for-aspnet-core"></a>在 SignalR 中使用中心 ASP.NET Core
+# <a name="use-hubs-in-signalr-for-aspnet-core"></a>ASP.NET Core 使用 SignalR 中的中心
 
 作者： [Rachel Appel](https://twitter.com/rachelappel)和[古柯 Griffin](https://twitter.com/1kevgriff)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [（如何下载）](xref:index#how-to-download-a-sample)
 
-## <a name="what-is-a-opno-locsignalr-hub"></a>什么是 SignalR 中心
+## <a name="what-is-a-signalr-hub"></a>什么是 SignalR 中心
 
-利用 SignalR 集线器 API，你可以从服务器对连接的客户端调用方法。 在服务器代码中，您将定义由客户端调用的方法。 在客户端代码中，您将定义从服务器调用的方法。 SignalR 负责使实时的客户端到服务器和服务器到客户端的通信成为可能。
+通过 SignalR 中心 API，你可以从服务器对连接的客户端调用方法。 在服务器代码中，您将定义由客户端调用的方法。 在客户端代码中，您将定义从服务器调用的方法。 SignalR 负责使实时的客户端到服务器和服务器到客户端的通信成为可能。
 
-## <a name="configure-opno-locsignalr-hubs"></a>配置 SignalR 集线器
+## <a name="configure-signalr-hubs"></a>配置 SignalR 中心
 
 SignalR 中间件需要一些服务，这些服务通过调用 `services.AddSignalR`进行配置。
 
@@ -34,7 +34,7 @@ SignalR 中间件需要一些服务，这些服务通过调用 `services.AddSign
 
 ::: moniker range=">= aspnetcore-3.0"
 
-将 SignalR 功能添加到 ASP.NET Core 应用程序时，请通过在 `Startup.Configure` 方法的 `app.UseEndpoints` 回调中调用 `endpoint.MapHub`，设置 SignalR 路由。
+将 SignalR 功能添加到 ASP.NET Core 应用时，请通过在 `Startup.Configure` 方法的 `app.UseEndpoints` 回调中调用 `endpoint.MapHub` 来设置 SignalR 路由。
 
 ```csharp
 app.UseRouting();
@@ -48,7 +48,7 @@ app.UseEndpoints(endpoints =>
 
 ::: moniker range="<= aspnetcore-2.2"
 
-将 SignalR 功能添加到 ASP.NET Core 应用程序时，请通过在 `Startup.Configure` 方法中调用 `app.UseSignalR` 来设置 SignalR 路由。
+将 SignalR 功能添加到 ASP.NET Core 应用时，请通过在 `Startup.Configure` 方法中调用 `app.UseSignalR` 来设置 SignalR 路由。
 
 [!code-csharp[Configure routes to hubs](hubs/sample/startup.cs?range=57-60)]
 
@@ -56,7 +56,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="create-and-use-hubs"></a>创建和使用集线器
 
-通过声明从`Hub`继承的类来创建中心，并向其添加公共方法。 客户端可以调用定义为`public`的方法。
+通过声明从 `Hub`继承的类创建一个中心，并向其添加公共方法。 客户端可以调用定义为 `public`的方法。
 
 ```csharp
 public class ChatHub : Hub
@@ -68,7 +68,7 @@ public class ChatHub : Hub
 }
 ```
 
-您可以指定返回类型和参数（包括复杂类型和数组），就像在任何C#方法中一样。 SignalR 处理参数和返回值中的复杂对象和数组的序列化和反序列化。
+您可以指定返回类型和参数（包括复杂类型和数组），就像在任何C#方法中一样。 SignalR 处理复杂对象和数组在参数和返回值中的序列化和反序列化。
 
 > [!NOTE]
 > 中心是暂时性的：
@@ -80,9 +80,9 @@ public class ChatHub : Hub
 
 `Hub` 类具有一个 `Context` 属性，其中包含有关连接的信息的以下属性：
 
-| Property | 描述 |
+| properties | 说明 |
 | ------ | ----------- |
-| `ConnectionId` | 获取由 SignalR分配的连接的唯一 ID。 每个连接都有一个连接 ID。|
+| `ConnectionId` | 获取由 SignalR 分配的连接的唯一 ID。 每个连接都有一个连接 ID。|
 | `UserIdentifier` | 获取[用户标识符](xref:signalr/groups)。 默认情况下，SignalR 使用与连接关联的 `ClaimsPrincipal` 中的 `ClaimTypes.NameIdentifier` 作为用户标识符。 |
 | `User` | 获取与当前用户关联的 `ClaimsPrincipal`。 |
 | `Items` | 获取可用于在此连接的范围内共享数据的键/值集合。 数据可以存储在此集合中，它将在不同的集线器方法调用中持久保存。 |
@@ -91,7 +91,7 @@ public class ChatHub : Hub
 
 `Hub.Context` 还包含以下方法：
 
-| 方法 | 描述 |
+| 方法 | 说明 |
 | ------ | ----------- |
 | `GetHttpContext` | 返回连接的 `HttpContext`，如果连接不与 HTTP 请求关联，则为 `null`。 对于 HTTP 连接，可以使用此方法来获取 HTTP 标头和查询字符串等信息。 |
 | `Abort` | 中止连接。 |
@@ -100,7 +100,7 @@ public class ChatHub : Hub
 
 `Hub` 类具有一个 `Clients` 属性，其中包含服务器和客户端之间的通信的以下属性：
 
-| Property | 描述 |
+| properties | 说明 |
 | ------ | ----------- |
 | `All` | 在所有连接的客户端上调用方法 |
 | `Caller` | 在调用集线器方法的客户端上调用方法 |
@@ -108,7 +108,7 @@ public class ChatHub : Hub
 
 `Hub.Clients` 还包含以下方法：
 
-| 方法 | 描述 |
+| 方法 | 说明 |
 | ------ | ----------- |
 | `AllExcept` | 在所有连接的客户端（指定的连接除外）上调用方法 |
 | `Client` | 在特定连接的客户端上调用方法 |

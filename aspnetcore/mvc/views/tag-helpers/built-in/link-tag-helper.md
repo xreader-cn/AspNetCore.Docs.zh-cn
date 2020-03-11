@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 09/24/2019
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
 ms.openlocfilehash: d7514433bee8a138cd7d75bfd15c9798d4fd31a3
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809102"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653298"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的链接标记帮助程序
 
@@ -31,7 +31,7 @@ ms.locfileid: "76809102"
 
 [!code-csharp[](link-tag-helper/sample/HtmlPage1.html)]
 
-在上述代码中，链接标记帮助程序生成 `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` 元素以及以下 JavaScript（用于验证是否可以从 CDN 获取请求的 bootstrap.min.css 文件）  。 在此示例中，可以获取 CSS 文件，因此标记帮助程序使用 CDN CSS 文件生成 `<link />` 元素。
+在上述代码中，链接标记帮助程序生成 `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` 元素以及以下 JavaScript（用于验证是否可以从 CDN 获取请求的 bootstrap.min.css 文件）。 在此示例中，可以获取 CSS 文件，因此标记帮助程序使用 CDN CSS 文件生成 `<link />` 元素。
 
 ## <a name="commonly-used-link-tag-helper-attributes"></a>常用的链接标记帮助程序属性
 

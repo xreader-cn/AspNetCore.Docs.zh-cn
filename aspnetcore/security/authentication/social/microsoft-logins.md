@@ -8,11 +8,11 @@ ms.date: 12/4/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
 ms.openlocfilehash: ddaae1a25a1dcf167ffae0f24b480e2cde6aca5b
-ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74825464"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652068"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>使用 ASP.NET Core 的 Microsoft 帐户外部登录设置
 
@@ -30,7 +30,7 @@ ms.locfileid: "74825464"
 * 选择**新注册**
 * 输入“名称”。
 * 为**支持的帐户类型**选择一个选项。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* 在 "**重定向 URI**" 下，输入 `/signin-microsoft` 追加的开发 URL。 例如 `https://localhost:5001/signin-microsoft`。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理 `/signin-microsoft` 路由中的请求以实现 OAuth 流。
+* 在 "**重定向 URI**" 下，输入 `/signin-microsoft` 追加的开发 URL。 例如，`https://localhost:5001/signin-microsoft` 。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理 `/signin-microsoft` 路由中的请求以实现 OAuth 流。
 * 选择**注册**
 
 ### <a name="create-client-secret"></a>创建客户端密码
@@ -87,12 +87,12 @@ dotnet user-secrets set Authentication:Microsoft:ClientSecret <Client-Secret>
 
   尽管错误消息似乎指出了 Microsoft 身份验证存在问题，但最常见的原因是应用程序 Uri 与为**Web**平台指定的任何**重定向 uri**都不匹配。
 * 如果未通过在 `ConfigureServices`中调用 `services.AddIdentity` 来配置标识，则尝试进行身份验证将导致*ArgumentException：必须提供 "SignInScheme" 选项*。 本示例中使用的项目模板可确保完成此操作。
-* 如果尚未通过应用初始迁移创建站点数据库，则会收到*处理请求时，数据库操作失败*错误。 点击**应用迁移**创建数据库，并刷新以忽略错误继续。
+* 如果尚未通过应用初始迁移来创建站点数据库，则在处理请求错误时将会获得*数据库操作失败*。 点击 "**应用迁移**" 以创建数据库，然后单击 "刷新" 以继续出现错误。
 
 ## <a name="next-steps"></a>后续步骤
 
-* 本文演示了如何向 Microsoft 进行身份验证。 可以遵循类似的方法来使用上列出其他提供程序进行身份验证[上一页](xref:security/authentication/social/index)。
+* 本文演示了如何向 Microsoft 进行身份验证。 您可以遵循类似的方法向[前一页](xref:security/authentication/social/index)上列出的其他提供程序进行身份验证。
 
 * 将网站发布到 Azure web 应用后，在 Microsoft 开发人员门户中创建新的客户端密码。
 
-* 设置`Authentication:Microsoft:ClientId`和`Authentication:Microsoft:ClientSecret`作为在 Azure 门户中的应用程序设置。 配置系统设置以从环境变量读取密钥。
+* 将 `Authentication:Microsoft:ClientId` 和 `Authentication:Microsoft:ClientSecret` 设置为 Azure 门户中的应用程序设置。 配置系统设置以从环境变量读取密钥。

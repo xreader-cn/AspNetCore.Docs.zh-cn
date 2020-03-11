@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: web-api/index
-ms.openlocfilehash: 3dca07db3d6be4ab219a2e05e3adcf1b24ee5c40
-ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
+ms.openlocfilehash: be88b8d58f1f660f3a815c395c210c05a7b4917c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/07/2020
-ms.locfileid: "77074505"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644646"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>使用 ASP.NET Core 创建 Web API
 
@@ -20,7 +20,7 @@ ms.locfileid: "77074505"
 
 ASP.NET Core 支持使用 C# 创建 RESTful 服务，也称为 Web API。 若要处理请求，Web API 使用控制器。 Web API 中的*控制器*是派生自 `ControllerBase` 的类。 本文介绍了如何使用控制器处理 Web API 请求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples)。 （[下载方法](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples)。 （[下载方法](xref:index#how-to-download-a-sample)）。
 
 ## <a name="controllerbase-class"></a>ControllerBase 类
 
@@ -226,7 +226,7 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 ### <a name="log-automatic-400-responses"></a>记录自动 400 响应
 
-请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157)。
+请参阅[如何对模型验证错误记录自动 400 响应 (aspnet/AspNetCore.Docs #12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157)。
 
 ### <a name="disable-automatic-400-response"></a>禁用自动 400 响应
 
@@ -382,7 +382,7 @@ ASP.NET Core MVC 使用 <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelState
 
 ### <a name="disable-problemdetails-response"></a>禁用 ProblemDetails 响应
 
-当 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> 属性设置为 `true` 时，会禁止自动创建 `ProblemDetails` 实例。 在 `Startup.ConfigureServices` 中添加下列代码：
+当 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> 属性设置为 `true` 时，会禁止自动创建错误状态代码的 `ProblemDetails`。 在 `Startup.ConfigureServices` 中添加下列代码：
 
 ::: moniker-end
 

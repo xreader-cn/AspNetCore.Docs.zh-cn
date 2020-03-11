@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 4f7e67e1e422afe3f7e2970e0c40380f065390ac
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 047fd7a74d3d53f68a730d67b63c65fe6bda529f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928317"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644304"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
-本教程展示了如何使用 .NET Core CLI 来创建并运行 ASP.NET Core Web 应用。
+本教程介绍如何使用 .NET Core CLI 创建并运行 ASP.NET Core Web 应用。
 
 你将了解如何：
 
@@ -50,7 +50,7 @@ dotnet new webapp -o aspnetcoreapp
 
 信任 HTTPS 开发证书：
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -62,7 +62,7 @@ dotnet dev-certs https --trust
 
 如果你同意信任开发证书，请选择“是”。 
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -74,7 +74,7 @@ dotnet dev-certs https --trust
 
 此命令可能会提示你输入密码以在系统密钥链上安装证书。 如果你同意信任开发证书，请输入密码。
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 查看你的 Linux 分发对应的文档，了解如何信任 HTTPS 开发证书。
 

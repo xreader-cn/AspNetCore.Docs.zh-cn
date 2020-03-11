@@ -1,25 +1,25 @@
 ---
-title: 将从 2.1 到 2.2 或 3.0 Microsoft.Extensions.Logging 迁移
+title: 从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
 author: pakrym
-description: 了解如何迁移使用 Microsoft.Extensions.Logging 从 2.1 到 2.2 或 3.0 的 ASP.NET Core 应用程序。
+description: 了解如何迁移使用 non-ASP.NET 的核心应用程序。日志记录2.1 到2.2 或3.0。
 ms.author: pakrym
 ms.custom: mvc
 ms.date: 01/04/2019
 uid: migration/logging-nonaspnetcore
 ms.openlocfilehash: 2519ddc02cee5978483bcaef4341a52aad3ba2a6
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892454"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651876"
 ---
-# <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>将从 2.1 到 2.2 或 3.0 Microsoft.Extensions.Logging 迁移
+# <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
 
-本文概述了用于迁移使用的非 ASP.NET Core 应用程序的常见步骤`Microsoft.Extensions.Logging`从 2.1 到 2.2 或 3.0。
+本文概述了迁移使用2.1 到2.2 或 3.0 `Microsoft.Extensions.Logging` 的 non-ASP.NET 核心应用程序的常见步骤。
 
 ## <a name="21-to-22"></a>2.1 到 2.2
 
-手动创建`ServiceCollection`，并调用`AddLogging`。
+手动创建 `ServiceCollection` 并调用 `AddLogging`。
 
 2.1 示例：
 
@@ -45,9 +45,9 @@ using (var loggerFactory = serviceProvider.GetService<ILoggerFactory>())
 }
 ```
 
-## <a name="21-to-30"></a>2.1 到 3.0
+## <a name="21-to-30"></a>2.1 至3。0
 
-在 3.0 中，使用`LoggingFactory.Create`。
+在3.0 中，使用 `LoggingFactory.Create`。
 
 2.1 示例：
 
@@ -60,7 +60,7 @@ using (var loggerFactory = new LoggerFactory())
 }
 ```
 
-3.0 的示例：
+3.0 示例：
 
 ```csharp
 using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole()))

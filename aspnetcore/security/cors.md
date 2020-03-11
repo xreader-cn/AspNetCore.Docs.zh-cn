@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 57098be73164c71d1b0d1fe2f3aee7ec41a32346
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: e0e0e1abf1ecaa12038b3ee1bdaa384d979be254
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727322"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654444"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>启用 ASP.NET Core 中的跨域请求 (CORS)
 
@@ -28,7 +28,7 @@ ms.locfileid: "76727322"
 * 允许服务器明确允许一些跨源请求，同时拒绝其他请求。
 * 比早期的技术（如[JSONP](/dotnet/framework/wcf/samples/jsonp)）更安全且更灵活。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="same-origin"></a>同一原点
 
@@ -279,7 +279,7 @@ CORS 中间件始终允许发送 `Access-Control-Request-Headers` 中的四个�
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为允许列表：
+CORS 中间件使用以下请求标头成功响应预检请求，因为 `Content-Language` 始终为白名单：
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
@@ -470,13 +470,13 @@ Test message
 
 测试 CORS：
 
-1. [创建 API 项目](xref:tutorials/first-web-api)。 或者，您也可以[下载该示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors)。
+1. [创建 API 项目](xref:tutorials/first-web-api)。 或者，您也可以[下载该示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors)。
 1. 使用本文档中的方法之一启用 CORS。 例如：
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
   > [!WARNING]
-  > `WithOrigins("https://localhost:<port>");` 应仅用于测试类似于[下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors)的示例应用。
+  > `WithOrigins("https://localhost:<port>");` 应仅用于测试类似于[下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors)的示例应用。
 
 1. 创建 web 应用项目（Razor Pages 或 MVC）。 该示例使用 Razor Pages。 可以在与 API 项目相同的解决方案中创建 web 应用。
 1. 将以下突出显示的代码添加到*索引 cshtml*文件中：

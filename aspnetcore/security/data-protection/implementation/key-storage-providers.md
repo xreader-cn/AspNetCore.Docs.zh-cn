@@ -5,12 +5,12 @@ description: 了解有关 ASP.NET Core 以及如何配置密钥的存储位置�
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 219ebc471de32d15e4a43c938eef156c52e5f11e
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 19f64e816d88d2fc156915e31dc147645c5a630a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172579"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653382"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>在 ASP.NET Core 中的密钥存储提供程序
 
@@ -33,7 +33,7 @@ public void ConfigureServices(IServiceCollection services)
 
 `DirectoryInfo` 可以指向本地计算机上的目录，也可以指向网络共享上的文件夹。 如果指向本地计算机上的目录（并且方案为仅本地计算机上的应用需要使用此存储库的访问权限），请考虑使用[WINDOWS DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) （在 windows 上）对静态密钥进行加密。 否则，请考虑使用[x.509 证书](xref:security/data-protection/implementation/key-encryption-at-rest)来加密静态密钥。
 
-## <a name="azure-storage"></a>Azure 存储空间
+## <a name="azure-storage"></a>Azure 存储
 
 [AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) package 允许将数据保护密钥存储在 Azure Blob 存储中。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
 
@@ -145,13 +145,15 @@ public void ConfigureServices(IServiceCollection services)
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 泛型参数 `TContext`必须继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)并实现[IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext)：
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
 创建 `DataProtectionKeys` 表。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在 "**包管理器控制台**" （PMC）窗口中执行以下命令：
 
@@ -160,7 +162,7 @@ Add-Migration AddDataProtectionKeys -Context MyKeysContext
 Update-Database -Context MyKeysContext
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 在命令行界面中执行以下命令：
 

@@ -10,31 +10,31 @@ no-loc:
 - SignalR
 uid: signalr/diagnostics
 ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963845"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652410"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR 中的日志记录和诊断
+# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的日志记录和诊断
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
-本文介绍如何从 ASP.NET Core SignalR 应用收集诊断，以帮助解决问题。
+本文介绍如何从 ASP.NET Core SignalR 应用收集诊断信息，以帮助解决问题。
 
 ## <a name="server-side-logging"></a>服务器端日志记录
 
 > [!WARNING]
 > 服务器端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
 
-由于 SignalR 是 ASP.NET Core 的一部分，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，SignalR 记录的信息很少，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅有关[ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)的文档。
+由于 SignalR 是 ASP.NET Core 的一部分，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，SignalR 记录的信息非常小，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅有关[ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)的文档。
 
 SignalR 使用两个记录器类别：
 
 * 为与集线器协议相关的日志 `Microsoft.AspNetCore.SignalR` &ndash;，激活集线器，调用方法，以及其他与集线器相关的活动。
 * `Microsoft.AspNetCore.Http.Connections` 与传输相关的日志 &ndash;，如 Websocket、长轮询和服务器发送事件以及低级别 SignalR 基础结构。
 
-若要启用 SignalR的详细日志，请通过将以下项添加到 `Logging`中的 `LogLevel` 子节，将前面的两个前缀配置为*appsettings*文件中的 `Debug` 级别：
+若要从 SignalR 启用详细日志，请通过将以下项添加到 `Logging`中的 `LogLevel` 子部分，将上述两个前缀配置为*appsettings*文件中的 `Debug` 级别：
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -84,7 +84,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 下表显示了可用于 JavaScript 客户端的日志级别。 将日志级别设置为这些值之一，可以在表中对该级别和其之上的所有级别进行日志记录。
 
-| 层次 | 描述 |
+| 级别 | 说明 |
 | ----- | ----------- |
 | `None` | 不记录任何消息。 |
 | `Critical` | 指示整个应用程序中的失败的消息。 |
@@ -96,7 +96,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 配置详细级别后，日志将写入浏览器控制台（或 NodeJS 应用中的标准输出）。
 
-如果要将日志发送到自定义日志记录系统，可以提供实现 `ILogger` 接口的 JavaScript 对象。 需要实现的唯一方法是 `log`，它将使用事件的级别和与事件关联的消息。 例如:
+如果要将日志发送到自定义日志记录系统，可以提供实现 `ILogger` 接口的 JavaScript 对象。 需要实现的唯一方法是 `log`，它将使用事件的级别和与事件关联的消息。 例如：
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 

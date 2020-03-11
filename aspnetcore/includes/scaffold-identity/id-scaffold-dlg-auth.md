@@ -2,7 +2,7 @@
 
 运行标识 scaffolder：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在**解决方案资源管理器**中，右键单击项目 >**添加**> 新的**基架项**。
 * 在 "**添加基架**" 对话框的左窗格中，选择 "**标识**" > "**添加**"。
@@ -12,14 +12,14 @@
  例如： MVC 项目的 Razor Pages `~/Views/Shared/_Layout.cshtml` 的 `~/Pages/Shared/_Layout.cshtml`
 * 若要使用现有的数据上下文，请至少选择一个要重写的文件。 必须至少选择一个文件以添加数据上下文。
   * 选择数据上下文类。
-  * 选择“添加”。
+  * 选择 **添加** 。
 * 创建新的用户上下文，并可能为标识创建自定义用户类：
-  * 选择 **+** 按钮以创建一个新**数据上下文类**。
-  * 选择“添加”。
+  * 选择 " **+** " 按钮以创建新的**数据上下文类**。
+  * 选择 **添加** 。
 
 注意：如果要创建新的用户上下文，则无需选择要重写的文件。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 
@@ -68,7 +68,7 @@ dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files
 
 运行标识 scaffolder：
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在**解决方案资源管理器**中，右键单击项目 >**添加**> 新的**基架项**。
 * 在 "**添加基架**" 对话框的左窗格中，选择 "**标识**" > "**添加**"。
@@ -78,14 +78,14 @@ dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files
  例如： MVC 项目的 Razor Pages `~/Views/Shared/_Layout.cshtml` 的 `~/Pages/Shared/_Layout.cshtml`
 * 若要使用现有的数据上下文，请至少选择一个要重写的文件。 必须至少选择一个文件以添加数据上下文。
   * 选择数据上下文类。
-  * 选择“添加”。
+  * 选择 **添加** 。
 * 创建新的用户上下文，并可能为标识创建自定义用户类：
-  * 选择 **+** 按钮以创建一个新**数据上下文类**。
-  * 选择“添加”。
+  * 选择 " **+** " 按钮以创建新的**数据上下文类**。
+  * 选择 **添加** 。
 
 注意：如果要创建新的用户上下文，则无需选择要重写的文件。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果以前未安装 ASP.NET Core 基架，请立即进行安装：
 

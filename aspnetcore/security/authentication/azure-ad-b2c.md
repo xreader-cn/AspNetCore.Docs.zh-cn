@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 01/21/2019
 uid: security/authentication/azure-ad-b2c
 ms.openlocfilehash: 136fa47788456492a9a7fe6d9d9e5996c13e8c20
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727273"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653616"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Azure Active Directory B2C ASP.NET Core 中使用云身份验证
 
@@ -30,7 +30,7 @@ ms.locfileid: "76727273"
 > * 使用 Visual Studio 创建 ASP.NET Core web 应用配置为使用 Azure AD B2C 租户进行身份验证
 > * 配置控制 Azure AD B2C 租户的行为的策略
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 本演练需要以下项：
 
@@ -45,16 +45,16 @@ ms.locfileid: "76727273"
 
 在新创建的 Azure AD B2C 租户中，使用 "**注册 web 应用**" 部分下的[文档中的步骤](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)注册应用。 请在**创建 web 应用客户端机密**部分停止。 本教程不需要客户端机密。 
 
-请使用以下值：
+使用以下值：
 
-| 设置                       | 值                     | 注意                                                                                                                                                                                              |
+| 设置                       | 值                     | 说明                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **名称**                      | *&lt;应用名称&gt;*        | 输入向使用者描述你的应用程序的应用程序的**名称**。                                                                                                                                 |
 | 包括 Web 应用/Web API | 是                       |                                                                                                                                                                                                    |
 | 允许隐式流       | 是                       |                                                                                                                                                                                                    |
 | 回复 URL                 | `https://localhost:44300/signin-oidc` | 回复 URL 属于终结点，允许 Azure AD B2C 在其中返回应用请求的任何令牌。 Visual Studio 提供要使用的回复 URL。 现在，请输入 `https://localhost:44300/signin-oidc` 以完成表单。 |
 | 应用 ID URI                | 留空               | 对于本教程不被必需。                                                                                                                                                                    |
-| **包含本机客户端**     | 是                        |                                                                                                                                                                                                    |
+| **包含本机客户端**     | 否                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > 如果设置非 localhost 回复 URL，请注意["回复 url" 列表中允许的内容的约束](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)。 
@@ -69,7 +69,7 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
 
 在 Visual Studio 中：
 
-1. 创建新的 ASP.NET Core Web 应用程序。 
+1. 创建新的 ASP.NET Core Web 应用呈现。 
 2. 从模板列表中选择 " **Web 应用程序**"。
 3. 选择 "**更改身份验证**" 按钮。
     
@@ -84,7 +84,7 @@ Visual Studio Web 应用程序模板可以配置为使用 Azure AD B2C 租户进
     | 设置                       | 值                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **域名**               | *&lt;B2C 租户的域名&gt;*          |
-    | 应用程序 ID            | *&lt;从剪贴板粘贴应用程序 ID&gt;* |
+    | **应用程序 ID**            | *&lt;从剪贴板粘贴应用程序 ID&gt;* |
     | **回调路径**             | *&lt;使用默认值&gt;*                       |
     | **注册或登录策略** | `B2C_1_SiUpIn`                                        |
     | **重置密码策略**     | `B2C_1_SSPR`                                          |
@@ -130,7 +130,7 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-## <a name="run-the-app"></a>运行应用程序
+## <a name="run-the-app"></a>运行应用
 
 在 Visual Studio 中，按**F5**生成并运行应用。 Web 应用启动后，选择 "**接受**" 以接受 cookie 的使用（如果出现提示），然后选择 "**登录**"。
 
@@ -142,7 +142,7 @@ services.Configure<JwtBearerOptions>(
 
 成功登录后，浏览器将重定向到 web 应用。
 
-![成功](./azure-ad-b2c/_static/success.png)
+![Success](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>后续步骤
 

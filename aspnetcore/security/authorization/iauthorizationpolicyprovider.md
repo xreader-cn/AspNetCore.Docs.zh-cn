@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
 ms.openlocfilehash: 9f0a0cd5337f7f8d2fc8a4b6902a63b98f6bd702
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828979"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651750"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>在 ASP.NET Core 中使用 IAuthorizationPolicyProvider 的自定义授权策略提供程序 
 
@@ -29,7 +29,7 @@ ms.locfileid: "75828979"
 
 ## <a name="customize-policy-retrieval"></a>自定义策略检索
 
-ASP.NET Core 应用使用的实现`IAuthorizationPolicyProvider`接口以检索授权策略。 默认情况下， [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider)已注册并使用。 `DefaultAuthorizationPolicyProvider` 返回 `IServiceCollection.AddAuthorization` 调用中提供的 `AuthorizationOptions` 的策略。
+ASP.NET Core 应用使用 `IAuthorizationPolicyProvider` 接口的实现来检索授权策略。 默认情况下， [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider)已注册并使用。 `DefaultAuthorizationPolicyProvider` 返回 `IServiceCollection.AddAuthorization` 调用中提供的 `AuthorizationOptions` 的策略。
 
 自定义此行为，方法是在应用程序的[依赖关系注入](xref:fundamentals/dependency-injection)容器中注册不同的 `IAuthorizationPolicyProvider` 实现。 
 
@@ -121,7 +121,7 @@ internal class MinimumAgePolicyProvider : IAuthorizationPolicyProvider
 
 ## <a name="multiple-authorization-policy-providers"></a>多个授权策略提供程序
 
-使用自定义时`IAuthorizationPolicyProvider`实现中，请记住，ASP.NET Core 仅使用的一个实例`IAuthorizationPolicyProvider`。 如果自定义提供程序无法为将使用的所有策略名称提供授权策略，则该提供程序应遵从备份提供程序。 
+使用自定义 `IAuthorizationPolicyProvider` 实现时，请记住 ASP.NET Core 只使用 `IAuthorizationPolicyProvider`的一个实例。 如果自定义提供程序无法为将使用的所有策略名称提供授权策略，则该提供程序应遵从备份提供程序。 
 
 例如，假设某个应用程序需要自定义年龄策略和更传统的基于角色的策略检索。 此类应用程序可使用自定义授权策略提供程序，该提供程序：
 

@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
 ms.openlocfilehash: 1d6f605dc336d8768b8a47e4995f119d198a61af
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172637"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655074"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>防止跨站点脚本 (XSS) 在 ASP.NET Core
 
@@ -166,7 +166,7 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>编码 URL 参数
 
-如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用 `UrlEncoder` 对值进行编码。 例如，应用于对象的
+如果要使用不受信任的输入生成 URL 查询字符串作为值，请使用 `UrlEncoder` 对值进行编码。 例如，
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";

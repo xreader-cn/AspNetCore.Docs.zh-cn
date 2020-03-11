@@ -9,18 +9,18 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 091cc9b2adc1f6a8fac79519884695d1c1725d2a
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 3b7216bb064ba06a4c909016e1efd4242a64a7ad
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880418"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652014"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core 中的身份验证和授权 SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-connecting-to-a-opno-locsignalr-hub"></a>对连接到 SignalR 集线器的用户进行身份验证
 
@@ -90,7 +90,7 @@ Cookie 是一种特定于浏览器的发送访问令牌的方式，但非浏览�
 
 客户端可以提供访问令牌，而不是使用 cookie。 服务器验证令牌并使用它来标识用户。 仅在建立连接时才执行此验证。 连接开启后，服务器不会通过自动重新验证来检查令牌是否撤销。
 
-在服务器上，持有者令牌身份验证使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)进行配置。
+在服务器上，使用[JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)来配置持有者令牌身份验证。
 
 在 JavaScript 客户端中，可使用[accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)选项提供令牌。
 

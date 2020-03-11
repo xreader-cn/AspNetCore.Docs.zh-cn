@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 070cc3aae08664c13d8eb793a066766d0a5569ee
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 5e2eb2d4322068c5864fbe49acaa6d0859bd319a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880978"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652368"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core 中的标记帮助程序组件
 
@@ -21,7 +21,7 @@ ms.locfileid: "74880978"
 
 ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 它们位于 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> 命名空间中，可用于 MVC 和 Razor Pages。 标记帮助程序组件不需要在 *_ViewImports.cshtml* 中注册应用。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="use-cases"></a>用例
 
@@ -34,7 +34,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 ### <a name="inject-into-html-head-element"></a>注入到 HTML head 元素中
 
-在 HTML `<head>` 元素中，通常使用 HTML `<link>` 元素导入 CSS 文件。 以下代码使用 `head` 标记帮助程序组件将 `<link>` 元素注入到 `<head>` 元素中：
+在 HTML `<head>` 元素中，通常使用 HTML `<link>` 元素导入 CSS 文件。 以下代码使用 `<link>` 标记帮助程序组件将 `<head>` 元素注入到 `head` 元素中：
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressStyleTagHelperComponent.cs)]
 
@@ -56,7 +56,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 [!code-html[](th-components/samples/RazorPagesSample/TagHelpers/Templates/AddressToolTipScript.html)]
 
-上述代码可将[启动工具提示小组件](https://getbootstrap.com/docs/3.3/javascript/#tooltips)绑定到包含 `printable` 属性的任何 `<address>` 元素。 当鼠标指针悬停在元素上时，可以显示效果。
+上述代码可将[启动工具提示小组件](https://getbootstrap.com/docs/3.3/javascript/#tooltips)绑定到包含 `<address>` 属性的任何 `printable` 元素。 当鼠标指针悬停在元素上时，可以显示效果。
 
 ## <a name="register-a-component"></a>注册组件
 
@@ -68,7 +68,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 ### <a name="registration-via-services-container"></a>通过服务容器注册
 
-如果未使用 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager> 管理标记帮助程序组件类，则必须向[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 系统注册。 以下 `Startup.ConfigureServices` 代码可注册带有[瞬态生存期](xref:fundamentals/dependency-injection#lifetime-and-registration-options)的 `AddressStyleTagHelperComponent` 和 `AddressScriptTagHelperComponent` 类:
+如果未使用 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager> 管理标记帮助程序组件类，则必须向[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 系统注册。 以下 `Startup.ConfigureServices` 代码可注册带有`AddressStyleTagHelperComponent`瞬态生存期`AddressScriptTagHelperComponent`的 [ 和 ](xref:fundamentals/dependency-injection#lifetime-and-registration-options) 类:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Startup.cs?name=snippet_ConfigureServices&highlight=12-15)]
 
@@ -112,7 +112,7 @@ ASP.NET Core 包括两个内置标记帮助程序组件：`head` 和 `body`。 �
 
 * 创建派生自 <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper> 的公共类。
 * 将 [`[HtmlTargetElement]`](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 属性应用于该类。 指定目标 HTML 元素的名称。
-* *可选*：将 [`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute) 属性应用于类，以取消在 IntelliSense 中显示类型。
+* *可选*：将[`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute)特性应用到类，以在 IntelliSense 中禁止显示该类型的显示内容。
 
 以下代码可创建面向 `<address>` HTML 元素的自定义标记帮助程序组件：
 
@@ -151,7 +151,7 @@ public class AddressTagHelperComponent : TagHelperComponent
 * 执行上下文的 `TagName` 属性值等于 `address`。
 * 相应的 `<address>` 元素具有 `printable` 属性。
 
-例如，在处理以下 `<address>` 元素时，`if` 语句的计算结果为 true：
+例如，在处理以下 `if` 元素时，`<address>` 语句的计算结果为 true：
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_AddressPrintable)]
 

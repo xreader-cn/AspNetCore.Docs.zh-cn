@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 7825beba55cefb6236fd8d8e332d030a7e4fc6df
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 21dd8180fe168f81ed68b01f02b81a6264d6e5a6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963889"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654972"
 ---
 # <a name="use-streaming-in-aspnet-core-opno-locsignalr"></a>在 ASP.NET Core 中使用流式处理 SignalR
 
@@ -32,7 +32,7 @@ ASP.NET Core SignalR 支持服务器方法的流返回值。 这适用于数据�
 
 ::: moniker-end
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="set-up-a-hub-for-streaming"></a>设置用于流式传输的集线器
 

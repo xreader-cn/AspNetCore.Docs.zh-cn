@@ -10,11 +10,11 @@ no-loc:
 - Let's Encrypt
 uid: security/docker-https
 ms.openlocfilehash: 2f338e8883ca926c0f9a7ab339f58b088151cc87
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/08/2020
-ms.locfileid: "77089196"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653826"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -28,7 +28,7 @@ ms.locfileid: "77089196"
 
 此示例需要 docker [17.06](https://docs.docker.com/release-notes/docker-ce)或更高版本的[docker 客户端](https://www.docker.com/products/docker)。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 本文档中的某些说明需要[.Net Core 2.2 SDK](https://www.microsoft.com/net/download)或更高版本。
 

@@ -5,12 +5,12 @@ description: 将标识与 ASP.NET Core 应用配合使用。 了解如何设置�
 ms.author: riande
 ms.date: 01/15/2020
 uid: security/authentication/identity
-ms.openlocfilehash: 164ba10c1d1e2a73ebeb8240293a58f158055699
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 2e0723d34a09109a034f3375c4e94aedab2a5427
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172530"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653154"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -38,7 +38,7 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)（[如何下载）](xref:index#how-to-download-a-sample)。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)（[如何下载）](xref:index#how-to-download-a-sample)。
 
 <a name="adi"></a>
 
@@ -46,14 +46,14 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 
 使用单个用户帐户创建一个 ASP.NET Core Web 应用程序项目。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" >**新建**>**项目**"。
 * 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -77,13 +77,13 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 应用迁移以初始化数据库。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在包管理器控制台中运行以下命令（PMC）：
 
 `PM> Update-Database`
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 使用 SQLite 时，此步骤不需要迁移。 对于 LocalDB，请运行以下命令：
 
@@ -119,11 +119,11 @@ dotnet ef database update
 
 ## <a name="scaffold-register-login-and-logout"></a>基架注册、登录和注销
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 添加注册、登录和注销文件。 按照[基架标识操作，并使用授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明生成本部分中所示的代码。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用 `ApplicationDbContext`的正确命名空间：
 
@@ -148,7 +148,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 请参阅[帐户确认](xref:security/authentication/accconfirm#prevent-login-at-registration)以了解在注册时要阻止立即登录的步骤。
 
-### <a name="log-in"></a>Log in
+### <a name="log-in"></a>登录
 
 发生下列情况时，会显示登录窗体：
 
@@ -159,9 +159,9 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详情，请参阅<xref:security/authorization/introduction>。
+Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
 
-### <a name="log-out"></a>Log out
+### <a name="log-out"></a>注销
 
 "**注销**" 链接调用 `LogoutModel.OnPost` 操作。 
 
@@ -181,7 +181,7 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Privacy.cshtml.cs?highlight=7)]
 
-如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 你将重定向到登录页。
+如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 将被重定向到登录页。
 
 ### <a name="explore-identity"></a>浏览标识
 
@@ -232,7 +232,7 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="next-steps"></a>后续步骤
 
-* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
+* 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
 * [配置标识](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -252,7 +252,7 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 
 可以使用 SQL Server 数据库配置标识，以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)（[如何下载）](xref:index#how-to-download-a-sample)。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)（[如何下载）](xref:index#how-to-download-a-sample)。
 
 本主题介绍如何使用标识注册、登录和注销用户。 有关创建使用标识的应用的更多详细说明，请参阅本文末尾的后续步骤部分。
 
@@ -272,14 +272,14 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 
 使用单个用户帐户创建一个 ASP.NET Core Web 应用程序项目。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件**" >**新建**>**项目**"。
 * 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击“确定”。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"** 。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -297,7 +297,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 应用迁移以初始化数据库。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 在包管理器控制台中运行以下命令（PMC）：
 
@@ -305,7 +305,7 @@ dotnet new webapp --auth Individual -o WebApp1
 Update-Database
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet ef database update
@@ -339,11 +339,11 @@ dotnet ef database update
 
 按照[基架标识操作，并使用授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明生成本部分中所示的代码。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 添加注册、登录和注销文件。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用 `ApplicationDbContext`的正确命名空间：
 
@@ -366,7 +366,7 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 **注意：** 请参阅[帐户确认](xref:security/authentication/accconfirm#prevent-login-at-registration)以了解在注册时要阻止立即登录的步骤。
 
-### <a name="log-in"></a>Log in
+### <a name="log-in"></a>登录
 
 发生下列情况时，会显示登录窗体：
 
@@ -377,9 +377,9 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详情，请参阅<xref:security/authorization/introduction>。
+Base `Controller` 类公开可从控制器方法访问的 `User` 属性。 例如，可以枚举 `User.Claims` 并做出授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
 
-### <a name="log-out"></a>Log out
+### <a name="log-out"></a>注销
 
 "**注销**" 链接调用 `LogoutModel.OnPost` 操作。 
 
@@ -397,7 +397,7 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
-如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 你将重定向到登录页。
+如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 将被重定向到登录页。
 
 ### <a name="explore-identity"></a>浏览标识
 
@@ -422,7 +422,7 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="next-steps"></a>后续步骤
 
-* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
+* 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
 * [配置标识](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

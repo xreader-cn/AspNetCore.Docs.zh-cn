@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: ab5d1414ae72edade81ab55aef6b0fa5af30f0f4
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 91358e2553d09c5e7366ba7a2301a798ad921d69
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76971978"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651396"
 ---
 # <a name="response-caching-in-aspnet-core"></a>响应缓存在 ASP.NET Core
 
-作者： [John Luo](https://github.com/JunTaoLuo)、 [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Steve Smith](https://ardalis.com/)和[Luke Latham](https://github.com/guardrex)
+作者： [John Luo](https://github.com/JunTaoLuo)、 [Rick Anderson](https://twitter.com/RickAndMSFT)和[Steve Smith](https://ardalis.com/)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 响应缓存可减少客户端或代理对 web 服务器发出的请求数。 响应缓存还减少了 web 服务器生成响应所需的工作量。 响应缓存由指定你希望客户端、代理和中间件缓存响应的方式的标头控制。
 
@@ -31,19 +31,19 @@ ms.locfileid: "76971978"
 
 下表显示了常见的 `Cache-Control` 指令。
 
-| Directive                                                       | 操作 |
+| 指令                                                       | 操作 |
 | --------------------------------------------------------------- | ------ |
-| [公用](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | 缓存可以存储响应。 |
-| [专用](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 共享缓存不能存储响应。 专用缓存可以存储和重用响应。 |
-| [max-age](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` （60秒）、`max-age=2592000` （1个月） |
-| [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **请求时**：缓存不能使用存储的响应来满足请求。 源服务器重新生成客户端的响应，中间件更新其缓存中存储的响应。<br><br>**响应：在**源服务器上没有验证的后续请求不得使用响应。 |
-| [no-store](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **请求时**：缓存不能存储请求。<br><br>**响应**：缓存不能存储响应的任何部分。 |
+| [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | 缓存可以存储响应。 |
+| [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 共享缓存不能存储响应。 专用缓存可以存储和重用响应。 |
+| [最大期限](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` （60秒）、`max-age=2592000` （1个月） |
+| [非缓存](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **请求时**：缓存不能使用存储的响应来满足请求。 源服务器重新生成客户端的响应，中间件更新其缓存中存储的响应。<br><br>**响应：在**源服务器上没有验证的后续请求不得使用响应。 |
+| [无-商店](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **请求时**：缓存不能存储请求。<br><br>**响应**：缓存不能存储响应的任何部分。 |
 
 下表显示了在缓存中扮演角色的其他缓存标头。
 
-| Header                                                     | 函数 |
+| 标头                                                     | 函数 |
 | ---------------------------------------------------------- | -------- |
-| [年](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
+| [年龄](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
 | [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
 | [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，以便向后兼容 HTTP/1.0 缓存以设置 `no-cache` 行为。 如果 `Cache-Control` 标头存在，则将忽略 `Pragma` 标头。 |
 | [大](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非已缓存响应的原始请求和新请求中的所有 `Vary` 标头字段都匹配。 |
@@ -62,25 +62,25 @@ ms.locfileid: "76971978"
 
 内存中缓存使用服务器内存来存储缓存的数据。 这种类型的缓存适用于单个服务器或使用*粘滞会话*的多台服务器。 粘滞会话表示来自客户端的请求始终路由到同一服务器进行处理。
 
-有关更多信息，请参见<xref:performance/caching/memory>。
+有关详细信息，请参阅 <xref:performance/caching/memory>。
 
 ### <a name="distributed-cache"></a>分布式缓存
 
 当应用程序托管在云或服务器场中时，使用分布式缓存将数据存储在内存中。 缓存在处理请求的服务器之间共享。 如果客户端的缓存数据可用，则客户端可以提交由组中的任何服务器处理的请求。 ASP.NET Core 适用于 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)和[NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)分布式缓存。
 
-有关更多信息，请参见<xref:performance/caching/distributed>。
+有关详细信息，请参阅 <xref:performance/caching/distributed>。
 
 ### <a name="cache-tag-helper"></a>缓存标记帮助程序
 
 使用缓存标记帮助程序从 MVC 视图或 Razor 页面缓存内容。 缓存标记帮助程序使用内存中缓存来存储数据。
 
-有关更多信息，请参见<xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>。
+有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>。
 
 ### <a name="distributed-cache-tag-helper"></a>分布式缓存标记帮助程序
 
 使用分布式缓存标记帮助程序在分布式云和 web 场方案中，通过 MVC 视图或 Razor 页面缓存内容。 分布式缓存标记帮助程序使用 SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)或[NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)来存储数据。
 
-有关更多信息，请参见<xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>。
+有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>。
 
 ## <a name="responsecache-attribute"></a>ResponseCache 特性
 
@@ -124,8 +124,8 @@ Vary: User-Agent
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> 重写大多数其他属性。 如果将此属性设置为 `true`，则 `Cache-Control` 标头将设置为 `no-store`。 如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 设置为 `None`：
 
-* 将 `Cache-Control` 设置为 `no-store,no-cache`。
-* 将 `Pragma` 设置为 `no-cache`。
+* `Cache-Control` 设置为 `no-store,no-cache`。
+* `Pragma` 设置为 `no-cache`。
 
 如果 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> `false` 并且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 为 `None`，`Cache-Control`和 `Pragma` 设置为 `no-cache`。
 
@@ -189,7 +189,7 @@ Cache-Control: public,max-age=30
 ## <a name="additional-resources"></a>其他资源
 
 * [在缓存中存储响应](https://tools.ietf.org/html/rfc7234#section-3)
-* [Cache-Control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
+* [缓存-控制](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

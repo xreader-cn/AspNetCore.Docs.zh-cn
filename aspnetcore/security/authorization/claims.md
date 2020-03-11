@@ -1,18 +1,18 @@
 ---
-title: ASP.NET Core 中的基于声明的授权
+title: ASP.NET Core 中基于声明的授权
 author: rick-anderson
-description: 了解如何在 ASP.NET Core 的应用程序中添加对授权的声明检查。
+description: 了解如何在 ASP.NET Core 应用中添加声明授权检查。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/claims
 ms.openlocfilehash: e289851aafcbc7e3b3f60ab9fbe4b182a78bdf8a
-ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/30/2019
-ms.locfileid: "73143433"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652968"
 ---
-# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于声明的授权
+# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于声明的授权
 
 <a name="security-authorization-claims-based"></a>
 
@@ -146,7 +146,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="multiple-policy-evaluation"></a>多个策略评估
 
-如果将多个策略应用于控制器或操作，则在授予访问权限之前，所有策略都必须通过。 例如:
+如果将多个策略应用于控制器或操作，则在授予访问权限之前，所有策略都必须通过。 例如：
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]

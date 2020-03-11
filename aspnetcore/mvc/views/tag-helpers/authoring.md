@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: e8b62d795f6444e6dd79e27ace687d5db4db86de
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 43bd4eccfc06d27ade5de0e3387247a753609336
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881002"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653178"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>在 ASP.NET Core 中创作标记帮助程序
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="get-started-with-tag-helpers"></a>标记帮助程序入门
 
@@ -25,13 +25,13 @@ ms.locfileid: "74881002"
 
 标记帮助程序是实现 `ITagHelper` 接口的任何类。 但是，在创作标记帮助程序时，通常从 `TagHelper` 派生，这样可以访问 `Process` 方法。
 
-1. 创建一个名为 AuthoringTagHelpers 的新 ASP.NET Core 项目  。 此项目不需要身份验证。
+1. 创建一个名为 AuthoringTagHelpers 的新 ASP.NET Core 项目。 此项目不需要身份验证。
 
-1. 创建一个名为“TagHelpers”的文件夹来保存标记帮助程序  。 “TagHelpers”文件夹不是必需的，但它是合理的约定   。 现在让我们开始编写一些简单的标记帮助程序。
+1. 创建一个名为“TagHelpers”的文件夹来保存标记帮助程序。 “TagHelpers”文件夹不是必需的，但它是合理的约定。 现在让我们开始编写一些简单的标记帮助程序。
 
 ## <a name="a-minimal-tag-helper"></a>最小的标记帮助程序
 
-在本部分中，你将编写一个更新电子邮件标记的标记帮助程序。 例如:
+在本部分中，你将编写一个更新电子邮件标记的标记帮助程序。 例如：
 
 ```html
 <email>Support</email>
@@ -45,11 +45,11 @@ ms.locfileid: "74881002"
 
 即，使其成为电子邮件链接的定位标记。 如果你正在编写博客引擎，并且需要它将营销、支持和其他联系人的电子邮件全部发送到同一个域，则可能需要执行此操作。
 
-1. 将以下 `EmailTagHelper` 类添加到“TagHelpers”文件夹  。
+1. 将以下 `EmailTagHelper` 类添加到“TagHelpers”文件夹。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1EmailTagHelperCopy.cs)]
 
-   * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）  。 在此示例中，EmailTagHelper 的根名称是 email，因此 `<email>` 标记将作为目标名称   。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
+   * 标记帮助程序使用面向根类名称的元素的命名约定（减去类名称的 TagHelper 部分）。 在此示例中，EmailTagHelper 的根名称是 email，因此  **标记将作为目标名称**`<email>`。 此命名约定应适用于大多数标记帮助程序，稍后将介绍如何重写它。
 
    * `EmailTagHelper` 类派生自 `TagHelper`。 `TagHelper` 类提供编写标记帮助程序的方法和属性。
 
@@ -59,17 +59,17 @@ ms.locfileid: "74881002"
 
    * `Process`（和 `ProcessAsync`）的输出参数包含监控状态的 HTML 元素，它代表用于生成 HTML 标记和内容的原始源。
 
-   * 类名称的后缀是 TagHelper，这不是必需的，但被认为是最佳做法约定   。 可将类声明为：
+   * 类名称的后缀是 TagHelper，这不是必需的，但被认为是最佳做法约定。 可将类声明为：
 
    ```csharp
    public class Email : TagHelper
    ```
 
-1. 要使 `EmailTagHelper` 类可用于所有 Razor 视图，请将 `addTagHelper` 指令添加到 Views/_ViewImports.cshtml 文件： 
+1. 要使 `EmailTagHelper` 类可用于所有 Razor 视图，请将 `addTagHelper` 指令添加到 Views/_ViewImports.cshtml 文件：
 
    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
-   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行使用通配符语法引入了 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）要使标记帮助程序可用于 Razor 视图，请使用 `@addTagHelper` 指令。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
+   上面的代码使用通配符语法来指定程序集中的所有标记帮助程序都将可用。 `@addTagHelper` 之后的第一个字符串指定要加载的标记帮助程序（对所有标记帮助程序使用“*”），第二个字符串“AuthoringTagHelpers”指定标记帮助程序所在的程序集。 另请注意，第二行将使用通配符语法 ASP.NET Core MVC 标记帮助程序（[标记帮助程序简介](intro.md)中讨论了这些帮助程序。）这是使标记帮助程序可用于 Razor 视图的 `@addTagHelper` 指令。 或者，也可以提供标记帮助程序的完全限定的名称 (FQN)，如下所示：
 
 ```csharp
 @using AuthoringTagHelpers
@@ -82,13 +82,13 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
     [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
 -->
 
-若要使用 FQN 将标记帮助程序添加到视图中，请依次添加 FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) 和程序集名称  （AuthoringTagHelpers  ，不一定是 `namespace`）。 大多数开发者更喜欢使用通配符语法。 [标记帮助程序简介](intro.md)详细介绍了标记帮助程序的添加和删除方法，以及层次结构和通配符语法。
+若要使用 FQN 将标记帮助程序添加到视图中，请依次添加 FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) 和程序集名称（AuthoringTagHelpers，不一定是 `namespace`）。 大多数开发者更喜欢使用通配符语法。 [标记帮助程序简介](intro.md)详细介绍了标记帮助程序的添加和删除方法，以及层次结构和通配符语法。
 
-1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记  ：
+1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
-1. 运行应用并使用你喜爱的浏览器来查看 HTML 源，以便验证电子邮件标记是否替换为定位标记（例如，`<a>Support</a>`）。 Support 和 Marketing 呈现为链接，但它们不具备使其正常工作的 `href` 属性   。 此问题将在下一部分得以解决。
+1. 运行应用并使用你喜爱的浏览器来查看 HTML 源，以便验证电子邮件标记是否替换为定位标记（例如，`<a>Support</a>`）。 Support 和 Marketing 呈现为链接，但它们不具备使其正常工作的  *属性*`href`。 此问题将在下一部分得以解决。
 
 ## <a name="setattribute-and-setcontent"></a>SetAttribute 和 SetContent
 
@@ -108,7 +108,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 只要属性集合中当前不存在“href”属性，该方法就适用于此属性。 也可使用 `output.Attributes.Add` 方法将标记帮助程序属性添加到标记属性集合的末尾。
 
-1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记  ：
+1. 使用以下更改更新 Views/Home/Contact.cshtml 文件中的标记：
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
@@ -131,13 +131,13 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelper.cs?range=6-17)]
 
-   **注意：**
+   注意：
 
-   * 此版本使用异步 `ProcessAsync` 方法。 异步 `GetChildContentAsync` 返回包含 `TagHelperContent` 的 `Task`。
+   * 此版本使用异步 `ProcessAsync` 方法。 异步 `GetChildContentAsync` 返回包含 `Task` 的 `TagHelperContent`。
 
    * 使用 `output` 参数获取 HTML 元素的内容。
 
-1. 对 Views/Home/Contact.cshtml 文件进行以下更改，以便标记帮助程序能够获取目标电子邮件  。
+1. 对 Views/Home/Contact.cshtml 文件进行以下更改，以便标记帮助程序能够获取目标电子邮件。
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
@@ -145,15 +145,15 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 ### <a name="removeall-precontentsethtmlcontent-and-postcontentsethtmlcontent"></a>RemoveAll、PreContent.SetHtmlContent 和 PostContent.SetHtmlContent
 
-1. 将以下 `BoldTagHelper` 类添加到“TagHelpers”文件夹  。
+1. 将以下 `BoldTagHelper` 类添加到“TagHelpers”文件夹。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/BoldTagHelper.cs)]
 
    * `[HtmlTargetElement]` 属性传递一个属性参数，该参数指定包含名为“bold”的 HTML 属性的任何 HTML 元素都将匹配，并且该类中的 `Process` 重写方法将会运行。 在此示例中，`Process` 方法删除了“bold”属性，并用 `<strong></strong>` 围住了包含的标记。
 
-   * 因为你不想替换现有的标记内容，所以必须用 `PreContent.SetHtmlContent` 方法编写开头的 `<strong>` 标记，并用 `PostContent.SetHtmlContent` 方法编写结尾的 `</strong>` 标记。
+   * 因为你不想替换现有的标记内容，所以必须用 `<strong>` 方法编写开头的 `PreContent.SetHtmlContent` 标记，并用 `</strong>` 方法编写结尾的 `PostContent.SetHtmlContent` 标记。
 
-1. 修改 About.cshtml 视图，以包含 `bold` 属性值  。 完成的代码如下所示。
+1. 修改 About.cshtml 视图，以包含  *属性值*`bold`。 完成的代码如下所示。
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
 
@@ -161,7 +161,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
    上面的 `[HtmlTargetElement]` 属性仅针对提供属性名称“bold”的 HTML 标记。 标记帮助程序未修改 `<bold>` 元素。
 
-1. 标注出 `[HtmlTargetElement]` 属性行，它将默认为目标 `<bold>` 标记，也就是 `<bold>` 格式的 HTML 标记。 请记住，默认的命名约定会将类名称 BoldTagHelper 与 `<bold>` 标记相匹配  。
+1. 标注出 `[HtmlTargetElement]` 属性行，它将默认为目标 `<bold>` 标记，也就是 `<bold>` 格式的 HTML 标记。 请记住，默认的命名约定会将类名称 BoldTagHelper 与  **标记相匹配**`<bold>`。
 
 1. 运行应用并验证 `<bold>` 标记是否由标记帮助程序进行处理。
 
@@ -183,13 +183,13 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 ## <a name="pass-a-model-to-a-tag-helper"></a>将模型传递到标记帮助程序
 
-1. 添加“Models”文件夹  。
+1. 添加“Models”文件夹。
 
-1. 将以下 `WebsiteContext` 类添加到“模型”文件夹  ：
+1. 将以下 `WebsiteContext` 类添加到“模型”文件夹：
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Models/WebsiteContext.cs)]
 
-1. 将以下 `WebsiteInformationTagHelper` 类添加到“TagHelpers”文件夹  。
+1. 将以下 `WebsiteInformationTagHelper` 类添加到“TagHelpers”文件夹。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
@@ -215,7 +215,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    $@"<ul><li><strong>Version:</strong> {Info.Version}</li>
    ```
 
-1. 将以下标记添加到 About.cshtml 视图  。 突出显示的标记显示 Web 站点信息。
+1. 将以下标记添加到 About.cshtml 视图。 突出显示的标记显示 Web 站点信息。
 
    [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
@@ -237,15 +237,15 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 条件标记帮助程序在传递 true 值时呈现输出。
 
-1. 将以下 `ConditionTagHelper` 类添加到“TagHelpers”文件夹  。
+1. 将以下 `ConditionTagHelper` 类添加到“TagHelpers”文件夹。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/ConditionTagHelper.cs)]
 
-1. 将 Views/Home/Index.cshtml 文件的内容  替换为以下标记：
+1. 将 Views/Home/Index.cshtml 文件的内容替换为以下标记：
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
 
-1. 将 `Home` 控制器中的 `Index` 方法替换为以下代码：
+1. 将 `Index` 控制器中的 `Home` 方法替换为以下代码：
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Controllers/HomeController.cs?range=9-18)]
 
@@ -264,14 +264,14 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 
 由于这两个帮助程序密切相关，并且你将来可能会重构它们，因此可将其保存在同一文件中。
 
-1. 将以下 `AutoLinkerHttpTagHelper` 类添加到“TagHelpers”文件夹  。
+1. 将以下 `AutoLinkerHttpTagHelper` 类添加到“TagHelpers”文件夹。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?range=7-19)]
 
    >[!NOTE]
    >`AutoLinkerHttpTagHelper` 类以 `p` 元 素为目标，并使用[正则表达式](/dotnet/standard/base-types/regular-expression-language-quick-reference)来创建定位点。
 
-1. 将以下标记添加到 Views/Home/Contact.cshtml 文件的末尾  ：
+1. 将以下标记添加到 Views/Home/Contact.cshtml 文件的末尾：
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
 
@@ -290,7 +290,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?range=12)]
    >
-   > 也就是说，使用传递到 `ProcessAsync` 方法的 `TagHelperOutput` 调用 `GetChildContentAsync`。 如前所述，由于输出已缓存，因此将调用最后运行的标记帮助程序。 使用以下代码解决了这个问题：
+   > 也就是说，使用传递到 `GetChildContentAsync` 方法的 `TagHelperOutput` 调用 `ProcessAsync`。 如前所述，由于输出已缓存，因此将调用最后运行的标记帮助程序。 使用以下代码解决了这个问题：
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z2AutoLinkerCopy.cs?range=34-35)]
    >
@@ -307,7 +307,7 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
 标记帮助程序提供多个属性来检索内容。
 
 * 可将 `GetChildContentAsync` 的结果追加到 `output.Content`。
-* 可使用 `GetContent` 检查 `GetChildContentAsync` 的结果。
+* 可使用 `GetChildContentAsync` 检查 `GetContent` 的结果。
 * 如果修改 `output.Content`，则不会执行或呈现 TagHelper 主体，除非像自动链接器示例中那样调用 `GetChildContentAsync`：
 
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]

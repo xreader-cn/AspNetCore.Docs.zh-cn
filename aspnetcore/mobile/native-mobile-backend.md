@@ -5,12 +5,12 @@ description: 了解如何使用 ASP.NET Core MVC 创建后端服务，以支持�
 ms.author: riande
 ms.date: 12/05/2019
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 38ac69bfe9d99d6d61f96fde92d86fd752ebbb6b
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: dcd0a29af197ff0ca210c17bdff62b802219fb2d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881150"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653946"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>使用 ASP.NET Core 为本机移动应用创建后端服务
 
@@ -18,7 +18,7 @@ ms.locfileid: "74881150"
 
 移动应用可与 ASP.NET Core 后端服务通信。 有关从 iOS 模拟器和 Android 仿真程序连接本地 Web 服务的说明，请参阅[从 iOS 模拟器和 Android 仿真程序连接到本地 Web 服务](/xamarin/cross-platform/deploy-test/connect-to-local-web-services)。
 
-[查看或下载后端服务代码示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
+[查看或下载后端服务代码示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
 
 ## <a name="the-sample-native-mobile-app"></a>本机移动应用示例
 
@@ -26,7 +26,7 @@ ms.locfileid: "74881150"
 
 ![在 Android 智能手机上运行的 ToDoRest 应用程序](native-mobile-backend/_static/todo-android.png)
 
-### <a name="features"></a>特征
+### <a name="features"></a>功能
 
 ToDoRest 应用支持列出、 添加、删除和更新待办事项。 每个项都有一个 ID、 Name（名称）、Notes（说明）以及一个指示该项是否已完成的属性 Done。
 
@@ -56,7 +56,7 @@ public static string RestUrl = "http://192.168.1.207:5000/api/todoitems/{0}";
 
 ![“新建 ASP.NET Web 应用程序”对话框，其中已选中 Web API 项目模板](native-mobile-backend/_static/web-api-template.png)
 
-对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 `.UseUrls("http://*:5000")`，以便实现以下操作  ：
+对于向端口 5000 进行的请求，应用程序均需作出响应。 更新 Program.cs，使其包含 *，以便实现以下操作*`.UseUrls("http://*:5000")`：
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Program.cs?range=10-16&highlight=3)]
 
@@ -79,7 +79,7 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Startup.cs?highlight=6&range=29-35)]
 
-现可创建 ToDoItemsController  。
+现可创建 ToDoItemsController。
 
 > [!TIP]
 > 有关创建 Web API 的详细信息，请参阅[使用 ASP.NET Core MVC 和 Visual Studio 生成首个 Web API](../tutorials/first-web-api.md)。
@@ -136,7 +136,7 @@ API 方法需要通过某种方式处理数据。 使用原始 Xamarin 示例所
 
 为了与预先存在的 API 保持一致，此方法在成功时返回 `NoContent` (204) 响应。
 
-### <a name="deleting-items"></a>删除项目
+### <a name="deleting-items"></a>删除项
 
 删除记录可以通过向服务发出 DELETE 请求并传递要删除项的 ID 来完成。 与更新一样，请求的项不存在时会收到 `NotFound` 响应。 请求成功会得到 `NoContent` (204) 响应。
 

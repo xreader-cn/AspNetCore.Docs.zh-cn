@@ -6,17 +6,17 @@ ms.author: riande
 ms.date: 12/11/2019
 uid: security/authentication/individual
 ms.openlocfilehash: 7ef0d5eabded61d04fb9fe7be384a663ad7ea5f4
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828706"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651954"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于 ASP.NET Core 项目使用单个用户帐户创建项目
 
-ASP.NET Core 标识包含在 Visual Studio 中使用"单个用户帐户"选项的项目模板中。
+ASP.NET Core标识包含在 Visual Studio 中使用"单个用户帐户"选项的项目模板中。
 
-中使用的.NET Core CLI 中可用的身份验证模板`-au Individual`:
+使用 `-au Individual`的 .NET Core CLI 提供身份验证模板：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -63,7 +63,7 @@ Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 we
 
 | 选项 | 身份验证类型 | 有关详细信息的链接 |
  | ----------------- | ------------ | ---------- |
-| 无            |  不进行身份验证 | | 
+| 无            |  无身份验证 | | 
 | 个人      |  单个身份验证 | <xref:security/authentication/identity>
 | IndividualB2C   |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | SingleOrg       |  单个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
@@ -76,7 +76,7 @@ Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 we
 
 | 选项 | 身份验证类型 | 有关详细信息的链接 |
  | ----------------- | ------------ | ---------- |
-| 无            |  不进行身份验证 | | 
+| 无            |  无身份验证 | | 
 | 应用中的单个用户帐户/存储用户帐户 |  单个身份验证 | <xref:security/authentication/identity> |
 | 单个用户帐户/连接到云中的现有用户存储 |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | 工作或学校云/单个组织  |  单个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
@@ -88,4 +88,4 @@ Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 we
 以下文章演示了如何使用 ASP.NET Core 使用单个用户帐户的模板中生成的代码：
 
 * [ASP.NET Core 中的帐户确认和密码恢复](xref:security/authentication/accconfirm)
-* [使用受授权的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)
+* [使用授权保护的用户数据创建 ASP.NET Core 应用](xref:security/authorization/secure-data)

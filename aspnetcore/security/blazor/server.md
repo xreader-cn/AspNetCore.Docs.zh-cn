@@ -10,22 +10,22 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: d87aac02137681e62cf8f5cbd4dc8b0be6f8431e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 61030f9b5beb849a7cf03571da425e49b144994c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146298"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653478"
 ---
-# <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
+# <a name="secure-aspnet-core-blazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)
 
 Blazor Server apps 采用有*状态*数据处理模型，其中服务器和客户端保持长期的关系。 持久状态由线路维护，[线路](xref:blazor/state-management)可以跨也可能长期生存期的连接。
 
-用户访问 Blazor 服务器站点时，服务器将在服务器的内存中创建线路。 线路向浏览器指示要呈现的内容并响应事件，例如当用户在 UI 中选择一个按钮时。 若要执行这些操作，线路会在用户的浏览器和服务器上的 .NET 方法中调用 JavaScript 函数。 这种基于 JavaScript 的双向交互称为[javascript 互操作（JS 互操作）](xref:blazor/javascript-interop)。
+当用户访问 Blazor 服务器站点时，服务器将在服务器的内存中创建线路。 线路向浏览器指示要呈现的内容并响应事件，例如当用户在 UI 中选择一个按钮时。 若要执行这些操作，线路会在用户的浏览器和服务器上的 .NET 方法中调用 JavaScript 函数。 这种基于 JavaScript 的双向交互称为[javascript 互操作（JS 互操作）](xref:blazor/call-javascript-from-dotnet)。
 
-由于在 Internet 上发生了 JS 互操作，并且客户端使用远程浏览器，因此 Blazor Server apps 共享大多数 web 应用安全问题。 本主题介绍 Blazor 服务器应用的常见威胁，并提供侧重于面向 Internet 的应用的威胁缓解指导。
+由于在 Internet 上进行 JS 互操作，并且客户端使用远程浏览器，Blazor Server apps 共享大多数 web 应用安全问题。 本主题介绍对 Blazor 服务器应用的常见威胁，并提供侧重于面向 Internet 的应用的威胁缓解指导。
 
 在受约束的环境（如公司网络或 intranet 内部）中，一些缓解指导原则如下：
 
@@ -42,21 +42,21 @@ Blazor Server apps 采用有*状态*数据处理模型，其中服务器和客�
 
 拒绝服务（DoS）攻击通常会设法排出应用或服务器的资源。 但是，资源耗尽并不一定是对系统的攻击。 例如，由于用户需求较高，因此有限资源可能会耗尽。 [拒绝服务（DoS）攻击](#denial-of-service-dos-attacks)部分进一步介绍了 DoS。
 
-Blazor 框架之外的资源（例如数据库和文件句柄（用于读取和写入文件））可能还会遇到资源耗尽。 有关更多信息，请参见<xref:performance/performance-best-practices>。
+Blazor 框架之外的资源（例如数据库和文件句柄（用于读取和写入文件））可能还会遇到资源耗尽。 有关详细信息，请参阅 <xref:performance/performance-best-practices>。
 
 ### <a name="cpu"></a>CPU
 
 当一个或多个客户端强制服务器执行密集型 CPU 工作时，就会出现 CPU 消耗。
 
-例如，请考虑一个计算*Fibonnacci 数字*的 Blazor Server 应用。 Fibonnacci 数由 Fibonnacci 序列生成，其中序列中的每个数字都是上述两个数字之和。 达到该应答值所需的工作量取决于序列的长度和初始值的大小。 如果应用不会对客户端的请求施加限制，CPU 密集型计算可能会占用 CPU 时间，并降低其他任务的性能。 过度消耗资源是影响可用性的安全问题。
+例如，请考虑一个计算*Fibonnacci 号*的 Blazor 服务器应用程序。 Fibonnacci 数由 Fibonnacci 序列生成，其中序列中的每个数字都是上述两个数字之和。 达到该应答值所需的工作量取决于序列的长度和初始值的大小。 如果应用不会对客户端的请求施加限制，CPU 密集型计算可能会占用 CPU 时间，并降低其他任务的性能。 过度消耗资源是影响可用性的安全问题。
 
-对于所有面向公众的应用，都需要考虑 CPU 消耗。 在常规 web 应用中，请求和连接将作为一项安全措施超时，但 Blazor 服务器应用不提供相同的安全措施。 Blazor Server apps 在执行可能占用大量 CPU 的工作之前，必须包括适当的检查和限制。
+对于所有面向公众的应用，都需要考虑 CPU 消耗。 在常规 web 应用中，请求和连接将作为一项安全措施超时，但 Blazor 服务器应用不提供相同的安全措施。 在执行可能占用 CPU 的工作之前，Blazor 服务器应用必须包含适当的检查和限制。
 
 ### <a name="memory"></a>内存
 
 当一个或多个客户端强制服务器消耗大量内存时，可能会出现内存耗尽。
 
-例如，假设有一个 Blazor服务器端应用程序，该应用程序具有接受并显示项列表的组件。 如果 Blazor 应用没有对允许的项数或向客户端呈现的项数施加限制，则内存密集型处理和呈现可能会将服务器的内存占用到服务器性能的点。 服务器可能会崩溃或速度太慢，因为似乎已崩溃。
+例如，假设有一个 Blazor 的服务器端应用程序，该应用程序具有接受并显示项列表的组件。 如果 Blazor 应用不会对允许的项数或向客户端呈现的项数施加限制，则内存密集型处理和呈现可能会将服务器的内存占用到服务器性能的点。 服务器可能会崩溃或速度太慢，因为似乎已崩溃。
 
 请考虑以下方案来维护和显示与服务器上可能的内存消耗方案相关的项列表：
 
@@ -66,9 +66,9 @@ Blazor 框架之外的资源（例如数据库和文件句柄（用于读取和�
   * 仅显示前100到1000项，并要求用户输入搜索条件以查找超出所显示项的项。
   * 对于更高级的渲染方案，实现支持*虚拟化*的列表或网格。 使用虚拟化，列表只呈现用户当前可见的项的子集。 当用户与 UI 中的滚动条交互时，组件仅呈现显示所需的项。 当前不需要的显示内容可保存在辅助存储中，这是理想的方法。 副标题项还可以保存在内存中，这种情况不太理想。
 
-Blazor Server apps 为有状态应用程序（如 WPF、Windows 窗体或 Blazor WebAssembly）提供了类似的编程模型。 主要区别在于，在多个 UI 框架中，应用使用的内存属于客户端，仅影响单个客户端。 例如，Blazor WebAssembly 应用完全在客户端上运行，并且只使用客户端内存资源。 在 Blazor 服务器的情况下，应用使用的内存属于服务器，并在服务器实例上的客户端之间共享。
+Blazor Server apps 为有状态应用程序（如 WPF、Windows 窗体或 Blazor WebAssembly）的其他 UI 框架提供了类似的编程模型。 主要区别在于，在多个 UI 框架中，应用使用的内存属于客户端，仅影响单个客户端。 例如，Blazor WebAssembly 应用完全在客户端上运行，并且只使用客户端内存资源。 在 Blazor 服务器方案中，应用使用的内存属于服务器，并在服务器实例上的客户端之间共享。
 
-服务器端内存需求是所有 Blazor 服务器应用的一项考虑因素。 但是，大多数 web 应用都是无状态的，并且在返回响应时，将释放在处理请求时使用的内存。 作为一般建议，不允许客户端分配未绑定的内存量，就像在任何其他服务器端应用程序中保留客户端连接。 Blazor Server 应用使用的内存将比单个请求持续更长时间。
+服务器端内存需求是所有 Blazor 服务器应用的注意事项。 但是，大多数 web 应用都是无状态的，并且在返回响应时，将释放在处理请求时使用的内存。 作为一般建议，不允许客户端分配未绑定的内存量，就像在任何其他服务器端应用程序中保留客户端连接。 Blazor 服务器应用使用的内存比单个请求持续更长时间。
 
 > [!NOTE]
 > 在开发过程中，可以使用探查器或捕获捕获的跟踪来评估客户端的内存需求。 探查器或跟踪不会捕获分配给特定客户端的内存。 若要捕获开发期间特定客户端的内存使用情况，请捕获转储，并检查以用户线路为根的所有对象的内存需求。
@@ -77,7 +77,7 @@ Blazor Server apps 为有状态应用程序（如 WPF、Windows 窗体或 Blazor
 
 当一个或多个客户端与服务器建立的并发连接太多时，可能会发生连接耗尽，这会阻止其他客户端建立新连接。
 
-Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于打开状态，就会保持连接打开。 维护所有连接的服务器上的要求并不特定于 Blazor 应用。 由于连接的持久特性和 Blazor 服务器应用程序的有状态特性，连接用尽对于应用程序的可用性有更大的风险。
+Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于打开状态，就会保持连接打开。 维护所有连接的服务器上的要求并不特定于 Blazor 应用。 由于连接的持久特性和 Blazor 服务器应用程序的有状态特性，连接用尽对于应用程序的可用性具有更大的风险。
 
 默认情况下，Blazor 服务器应用的每个用户的连接数没有限制。 如果应用需要连接限制，请采用以下一种或多种方法：
 
@@ -87,14 +87,14 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
     * 终结点路由扩展性。
     * 要求进行身份验证以连接到应用并跟踪每个用户的活动会话。
     * 达到限制时拒绝新会话。
-    * 代理 WebSocket 通过使用代理（如[Azure SignalR 服务](/azure/azure-signalr/signalr-overview)多路复用连接到应用）与应用进行连接。 这为应用提供的连接容量比单个客户端可以建立的连接容量大，从而防止客户端耗尽连接到服务器。
+    * 代理 WebSocket 通过使用代理连接到应用，例如[Azure SignalR 服务](/azure/azure-signalr/signalr-overview)，多路复用从客户端到应用的连接。 这为应用提供的连接容量比单个客户端可以建立的连接容量大，从而防止客户端耗尽连接到服务器。
   * 在服务器级别：在应用前使用代理/网关。 例如， [Azure 前门](/azure/frontdoor/front-door-overview)使你可以定义、管理和监视 web 流量到应用的全局路由。
 
 ## <a name="denial-of-service-dos-attacks"></a>拒绝服务（DoS）攻击
 
-拒绝服务（DoS）攻击涉及客户端导致服务器耗尽其一个或多个资源，使应用不可用。 Blazor Server 应用程序包含一些默认限制，并依赖于其他 ASP.NET Core 和 SignalR 限制来防范 DoS 攻击：
+拒绝服务（DoS）攻击涉及客户端导致服务器耗尽其一个或多个资源，使应用不可用。 Blazor 服务器应用程序包含一些默认限制，并依赖于其他 ASP.NET Core 和 SignalR 限制来防范 DoS 攻击：
 
-| Blazor Server 应用限制                            | 描述 | 默认值 |
+| Blazor 服务器应用程序限制                            | 描述 | 默认 |
 | ------------------------------------------------------- | ----------- | ------- |
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | 给定服务器一次在内存中保留的最大断开连接电路数。 | 100 |
 | `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | 断开连接线路之前在内存中保留的最大时间。 | 3 分钟 |
@@ -102,7 +102,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 | `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | 服务器在给定时间为每个线路保存在内存中的未确认呈现批处理的最大数目，以支持可靠的重新连接。 达到该限制后，服务器将停止生成新的呈现批，直到客户端确认了一个或多个批处理。 | 10 |
 
 
-| SignalR 和 ASP.NET Core 限制             | 描述 | 默认值 |
+| SignalR 和 ASP.NET Core 限制             | 描述 | 默认 |
 | ------------------------------------------ | ----------- | ------- |
 | `CircuitOptions.MaximumReceiveMessageSize` | 单个消息的消息大小。 | 32 KB |
 
@@ -118,7 +118,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 对于从 .NET 方法到 JavaScript 的调用：
 
 * 所有调用都具有可配置的超时时间，在此之后，将 <xref:System.OperationCanceledException> 返回给调用方。
-  * 调用的默认超时值（`CircuitOptions.JSInteropDefaultCallTimeout`）为一分钟。 若要配置此限制，请参阅 <xref:blazor/javascript-interop#harden-js-interop-calls>。
+  * 调用的默认超时值（`CircuitOptions.JSInteropDefaultCallTimeout`）为一分钟。 若要配置此限制，请参阅 <xref:blazor/call-javascript-from-dotnet#harden-js-interop-calls>。
   * 可以提供取消标记以按调用控制取消。 如果提供了取消标记，则使用默认调用超时，如果有可能，则依赖于对客户端的任何调用。
 * JavaScript 调用的结果不能受信任。 在浏览器中运行的 Blazor 应用客户端将搜索要调用的 JavaScript 函数。 调用函数，并生成结果或错误。 恶意客户端可以尝试：
   * 通过从 JavaScript 函数返回错误，导致应用中出现问题。
@@ -126,7 +126,7 @@ Blazor 客户端建立每个会话的单个连接，只要浏览器窗口处于�
 
 请采取以下预防措施来防范前述方案：
 
-* 将 JS 互操作调用包装在[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中，以考虑在调用期间可能发生的错误。 有关更多信息，请参见<xref:blazor/handle-errors#javascript-interop>。
+* 将 JS 互操作调用包装在[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)语句中，以考虑在调用期间可能发生的错误。 有关详细信息，请参阅 <xref:blazor/handle-errors#javascript-interop>。
 * 在执行任何操作之前，验证从 JS 互操作调用返回的数据，包括错误消息。
 
 ### <a name="net-methods-invoked-from-the-browser"></a>从浏览器调用的 .NET 方法
@@ -348,7 +348,7 @@ Blazor Server 框架采用一些步骤来防范前面的威胁：
 
 作为防范 XSS 攻击的一部分，请考虑实施 XSS 缓解，如[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)。
 
-有关更多信息，请参见<xref:security/cross-site-scripting>。
+有关详细信息，请参阅 <xref:security/cross-site-scripting>。
 
 ### <a name="cross-origin-protection"></a>跨源保护
 
@@ -357,13 +357,13 @@ Blazor Server 框架采用一些步骤来防范前面的威胁：
 * 可以跨源访问 Blazor 服务器应用，除非采取其他措施来阻止该应用。 若要禁用跨域访问，请在终结点中禁用 CORS，方法是将 CORS 中间件添加到管道，并将 `DisableCorsAttribute` 添加到 Blazor 终结点元数据，或通过[配置跨域资源共享的 SignalR](xref:signalr/security#cross-origin-resource-sharing)来限制允许的来源集。
 * 如果启用了 CORS，则可能需要执行额外的步骤来保护应用，具体情况视 CORS 配置而定。 如果已全局启用 CORS，则可以通过在调用 `hub.MapBlazorHub()`后将 `DisableCorsAttribute` 的元数据添加到终结点元数据，为 Blazor 服务器中心禁用 CORS。
 
-有关更多信息，请参见<xref:security/anti-request-forgery>。
+有关详细信息，请参阅 <xref:security/anti-request-forgery>。
 
 ### <a name="click-jacking"></a>单击-点击劫持
 
 单击 "-点击劫持" 需要将站点作为不同源中的站点中的 `<iframe>` 进行呈现，以便诱使用户在受攻击的站点上执行操作。
 
-若要保护应用无法在 `<iframe>`内部呈现，请使用[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)和 `X-Frame-Options` 标头。 有关详细信息，请参阅[MDN web 文档： X 框架-选项](https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options)。
+若要保护应用无法在 `<iframe>`内部呈现，请使用[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)和 `X-Frame-Options` 标头。 有关详细信息，请参阅 [MDN web 文档：X 框架-选项](https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options)。
 
 ### <a name="open-redirects"></a>打开重定向
 
@@ -385,7 +385,7 @@ Blazor Server 框架采用一些步骤来防范前面的威胁：
 * 如果可能，请使用相对链接。
 * 验证绝对链接目标是否有效，然后再将它们包含在页中。
 
-有关更多信息，请参见<xref:security/preventing-open-redirects>。
+有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
 
 ## <a name="authentication-and-authorization"></a>身份验证和授权
 

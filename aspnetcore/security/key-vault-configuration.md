@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core 中的 Azure Key Vault 配置提供程序
-author: guardrex
+author: rick-anderson
 description: 了解如何使用 Azure Key Vault 配置提供程序通过在运行时加载的名称/值对来配置应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: security/key-vault-configuration
-ms.openlocfilehash: 7eb8cf5dcd6b9f112a2ef30e694b6223a7d1f2fe
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: d617627154e3125a6a59d082fd401fc69c25fcb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114869"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652176"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
-作者： [Luke Latham](https://github.com/guardrex)和[Andrew Stanton](https://github.com/anurse)
+作者： [Andrew Stanton](https://github.com/anurse)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -25,7 +25,7 @@ ms.locfileid: "77114869"
 * 控制对敏感配置数据的访问。
 * 在存储配置数据时满足 FIPS 140-2 级别2验证的硬件安全模块（HSM）的要求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="packages"></a>包
 
@@ -213,7 +213,7 @@ config.AddAzureKeyVault(
     });
 ```
 
-| 属性         | 说明 |
+| properties         | 说明 |
 | ---------------- | ----------- |
 | `Client`         | 用于检索值的 <xref:Microsoft.Azure.KeyVault.KeyVaultClient>。 |
 | `Manager`        | 用于控制机密加载的 <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager> 实例。 |
@@ -289,7 +289,7 @@ config.AddAzureKeyVault(
 
 提供程序能够将配置值读入数组，以便绑定到 POCO 数组。
 
-从允许键包含冒号（`:`）分隔符的配置源中进行读取时，将使用数字键段来区分组成数组的键（`:0:`、`:1:`。 `:{n}:`）。 有关详细信息，请参阅[配置：将数组绑定到类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
+当从允许键包含冒号（`:`）分隔符的配置源中进行读取时，将使用数字键段来区分组成数组的键（`:0:`、`:1:`&hellip; `:{n}:`）。 有关详细信息，请参阅[配置：将数组绑定到类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
 
 Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的方法使用双短划线（`--`）作为层次结构值（节）的分隔符。 数组键存储在具有双短划线和数值段（`--0--`、`--1--`&hellip; `--{n}--`） Azure Key Vault 中。
 
@@ -318,7 +318,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 使用双短划线（`--`）表示法和数值段 Azure Key Vault 前面的 JSON 文件中所示的配置：
 
-| Key | 值 |
+| 密钥 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -371,7 +371,7 @@ Configuration.Reload();
 * 控制对敏感配置数据的访问。
 * 在存储配置数据时满足 FIPS 140-2 级别2验证的硬件安全模块（HSM）的要求。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="packages"></a>包
 
@@ -616,7 +616,7 @@ appsettings.json：
 
 提供程序能够将配置值读入数组，以便绑定到 POCO 数组。
 
-从允许键包含冒号（`:`）分隔符的配置源中进行读取时，将使用数字键段来区分组成数组的键（`:0:`、`:1:`。 `:{n}:`）。 有关详细信息，请参阅[配置：将数组绑定到类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
+当从允许键包含冒号（`:`）分隔符的配置源中进行读取时，将使用数字键段来区分组成数组的键（`:0:`、`:1:`&hellip; `:{n}:`）。 有关详细信息，请参阅[配置：将数组绑定到类](xref:fundamentals/configuration/index#bind-an-array-to-a-class)。
 
 Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的方法使用双短划线（`--`）作为层次结构值（节）的分隔符。 数组键存储在具有双短划线和数值段（`--0--`、`--1--`&hellip; `--{n}--`） Azure Key Vault 中。
 
@@ -645,7 +645,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 使用双短划线（`--`）表示法和数值段 Azure Key Vault 前面的 JSON 文件中所示的配置：
 
-| Key | 值 |
+| 密钥 | 值 |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |

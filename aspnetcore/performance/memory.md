@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
 ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829018"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654720"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
@@ -37,7 +37,7 @@ GC 分配堆段，其中每个段都是一系列连续的内存。 位于堆中�
 
 ### <a name="call-gccollect"></a>调用 GC.Collect
 
-显式调用[GC.Collect](xref:System.GC.Collect*)
+调用[GC。显式收集](xref:System.GC.Collect*)：
 
 * **不**应由生产 ASP.NET Core 应用完成。
 * 调查内存泄漏时非常有用。
@@ -139,7 +139,7 @@ GC 模式可以在项目文件中或在已发布应用的*runtimeconfig.template
 
 更改项目文件中的 `ServerGarbageCollection` 需要重新生成应用。
 
-**注意：** 服务器垃圾回收在具有单个核心的计算机上**不可用。** 有关更多信息，请参见<xref:System.Runtime.GCSettings.IsServerGC>。
+**注意：** 服务器垃圾回收在具有单个核心的计算机上**不可用。** 有关详细信息，请参阅 <xref:System.Runtime.GCSettings.IsServerGC>。
 
 下图显示了使用工作站 GC 的占用大量 RPS 的内存配置文件。
 

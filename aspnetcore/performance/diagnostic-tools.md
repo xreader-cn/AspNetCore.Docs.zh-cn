@@ -1,76 +1,76 @@
 ---
 title: 性能诊断工具
 author: mjrousos
-description: 诊断 ASP.NET Core 应用中的性能问题的有用工具。
+description: 用于诊断 ASP.NET Core 应用程序中的性能问题的有用工具。
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 uid: performance/diagnostic-tools
 ms.openlocfilehash: d273897b9ad26d57eb94b196b58f14019a96d07d
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815619"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652470"
 ---
 # <a name="performance-diagnostic-tools"></a>性能诊断工具
 
-通过[Mike Rousos](https://github.com/mjrousos)
+作者：[Mike Rousos](https://github.com/mjrousos)
 
-本文列出了诊断 ASP.NET Core 中的性能问题的工具。
+本文列出了用于诊断 ASP.NET Core 中性能问题的工具。
 
 ## <a name="visual-studio-diagnostic-tools"></a>Visual Studio 诊断工具
 
-[分析和诊断工具](/visualstudio/profiling)内置到 Visual Studio 是开始调查性能问题的好时机。 这些工具是功能强大且方便地从 Visual Studio 开发环境使用。 此工具允许在 ASP.NET Core 应用中 CPU 使用情况、 内存使用情况和性能事件的分析。 正在内置，可以在开发时轻松分析。
+Visual Studio 中内置的[分析和诊断工具](/visualstudio/profiling)是开始调查性能问题的好地方。 这些工具的功能非常强大，可以方便地从 Visual Studio 开发环境使用。 该工具允许分析 ASP.NET Core 应用中的 CPU 使用率、内存使用率和性能事件。 内置使分析变得非常简单。
 
-中提供了详细信息[Visual Studio 文档](/visualstudio/profiling/profiling-overview)。
+有关详细信息，请[参阅 Visual Studio 文档](/visualstudio/profiling/profiling-overview)。
 
 ## <a name="application-insights"></a>Application Insights
 
-[Application Insights](/azure/application-insights/app-insights-overview)为您的应用程序提供深入的性能数据。 Application Insights 自动响应率、 故障率、 依赖项响应时间和的详细信息上收集数据。 Application Insights 支持自定义事件和特定的指标记录到您的应用程序。
+[Application Insights](/azure/application-insights/app-insights-overview)提供应用程序的详细性能数据。 Application Insights 会自动收集有关响应速率、失败率、依赖项响应时间等的数据。 Application Insights 支持记录特定于应用的自定义事件和指标。
 
-Azure Application Insights 提供了多种方式对受监视的应用程序提供见解：
+Azure 应用程序 Insights 提供多种方法来提供对受监视应用的见解：
 
-- [应用程序映射](/azure/application-insights/app-insights-app-map)– 有助于跨分布式应用程序的所有组件的发现的性能瓶颈或失败的热点。
-- [Azure 指标资源管理器](/azure/azure-monitor/platform/metrics-getting-started)是允许绘制图表，直观地关联趋势，在 Microsoft Azure 门户的组件和调查的峰值和低谷指标值。
-- [在 Application Insights 门户中的性能边栏选项卡](/azure/application-insights/app-insights-tutorial-performance):
+- [应用程序映射](/azure/application-insights/app-insights-app-map)-有助于在分布式应用程序的所有组件中发现性能瓶颈或故障热点。
+- [Azure 指标资源管理器](/azure/azure-monitor/platform/metrics-getting-started)是 Microsoft Azure 门户的一个组件，它允许绘制图表、直观关联趋势，并调查指标值中的峰值和 dip。
+- [Application Insights 门户中的 "性能" 边栏选项卡](/azure/application-insights/app-insights-tutorial-performance)：
 
-  - 受监视的应用程序中显示不同的操作的性能详细信息。
-  - 允许钻取到单个操作来检查所有部件/依赖项也会影响持续时间长。
-  - 可以从此处可收集性能跟踪根据调用 Profiler。
+  - 显示监视的应用程序中不同操作的性能详细信息。
+  - 允许钻取到单个操作，以检查影响长时间的所有部件/依赖关系。
+  - 可以从源调用探查器，按需收集性能跟踪。
 
-- [Azure Application Insights Profiler](/azure/azure-monitor/app/profiler)允许常规和按需分析的.NET 应用程序。  Azure 门户会显示捕获的调用堆栈和热路径具有的性能跟踪。 此外可以使用 PerfView 的更深入分析下载跟踪文件。
+- [Azure 应用程序 Insights 探查器](/azure/azure-monitor/app/profiler)允许 .net 应用的常规和按需分析。  Azure 门户显示通过调用堆栈和热路径捕获的性能跟踪。 还可以使用 PerfView 下载跟踪文件以进行更深入的分析。
 
-可以在各种环境中使用 application Insights:
+Application Insights 可用于各种环境：
 
-- 优化，可在 Azure 中。
-- 生产、 开发和过渡环境中的工作原理。
-- 可从在本地工作[Visual Studio](/azure/application-insights/app-insights-visual-studio)或其他托管环境中。
+- 经过优化，可在 Azure 中工作。
+- 在生产、开发和过渡环境中工作。
+- 从[Visual Studio](/azure/application-insights/app-insights-visual-studio)或其他宿主环境中运行。
 
-有关详细信息，请参阅[用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)。
+有关详细信息，请参阅[适用于 ASP.NET Core 的 Application Insights](/azure/application-insights/app-insights-asp-net-core)。
 
 ## <a name="perfview"></a>PerfView
 
-[PerfView](https://github.com/Microsoft/perfview)是性能分析工具创建的.NET 团队专门为诊断.NET 性能问题。 PerfView 允许分析 CPU 使用情况、 内存和 GC 行为、 性能事件和时钟时间。
+[PerfView](https://github.com/Microsoft/perfview)是 .net 团队为诊断 .net 性能问题而创建的一种性能分析工具。 PerfView 允许对 CPU 使用情况、内存和 GC 行为、性能事件和时钟时间进行分析。
 
-您可以了解有关 PerfView 以及如何入门的详细信息[PerfView 视频教程](https://channel9.msdn.com/Series/PerfView-Tutorial)或通过读取用户的指南，可以在工具或[GitHub 上](https://github.com/Microsoft/perfview)。
+你可以了解有关 PerfView 的详细信息以及如何开始使用[PerfView 视频教程](https://channel9.msdn.com/Series/PerfView-Tutorial)，或阅读该工具或[GitHub 上](https://github.com/Microsoft/perfview)提供的用户指南。
 
 ## <a name="windows-performance-toolkit"></a>Windows 性能工具包
 
-[Windows 性能工具包](/windows-hardware/test/wpt/)(WPT) 包含两个组件：Windows 性能记录器 (WPR) 和 Windows 性能分析器 (WPA)。 这些工具生成 Windows 操作系统和应用程序的深入的性能配置的文件。 WPT 具有更多方式可视化数据，但收集其数据比 PerfView 的功能较弱。
+[Windows 性能工具包](/windows-hardware/test/wpt/)（WPT）由两个组件组成： Windows 性能记录器（"）和 Windows 性能分析器（WPA）。 这些工具会生成 Windows 操作系统和应用的深入性能配置文件。 WPT 提供了更丰富的数据可视化方法，但其数据收集功能不如 PerfView。
 
 ## <a name="perfcollect"></a>PerfCollect
 
-PerfView 时.NET 方案一有用的性能分析工具，它仅在上运行 Windows 因此不能使用它来从 ASP.NET Core 应用在 Linux 环境中运行收集跟踪。
+尽管 PerfView 是适用于 .NET 方案的有用性能分析工具，但它仅在 Windows 上运行，因此不能使用它从 Linux 环境中运行的 ASP.NET Core 应用程序收集跟踪。
 
-[PerfCollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)是使用分析工具的本机 Linux 的 bash 脚本 ([Perf](https://perf.wiki.kernel.org/index.php/Main_Page)并[LTTng](https://lttng.org/)) 以 PerfView 可以分析在 Linux 上收集跟踪。 在其中不能直接使用 PerfView 的 Linux 环境中出现的性能问题时，PerfCollect 非常有用。 相反，PerfCollect 可以收集跟踪然后分析的.NET Core 应用中使用 PerfView 的 Windows 计算机上。
+[PerfCollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)是一个 bash 脚本，它使用本机 Linux 分析工具（[Perf](https://perf.wiki.kernel.org/index.php/Main_Page)和[LTTng](https://lttng.org/)）在 Linux 上收集可由 PerfView 分析的跟踪。 当在不能直接使用 PerfView 的 Linux 环境中出现性能问题时，PerfCollect 非常有用。 相反，PerfCollect 可以从 .NET Core 应用收集跟踪，然后使用 PerfView 在 Windows 计算机上进行分析。
 
-提供了有关如何安装和开始使用 PerfCollect 的详细信息[GitHub 上](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)。
+[GitHub 上](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md)提供了有关如何安装和开始使用 PerfCollect 的详细信息。
 
 ## <a name="other-third-party-performance-tools"></a>其他第三方性能工具
 
-下面列出了一些非常有用的.NET Core 应用程序的性能调查中的第三方性能工具。
+下面列出了一些可在 .NET Core 应用程序的性能调查中发挥作用的第三方性能工具。
 
 - [MiniProfiler](https://miniprofiler.com/)
-- dotTrace 和来自 JetBrains dotMemory
-- 从 Intel VTune
+- JetBrains 中的 dotTrace 和 dotMemory
+- 来自 Intel 的 VTune

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 6698e269e0a6480cd5a03c59f9a19da31e23bf69
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: afa71b2c2b75be2c000fadd9545ac3fb4587825a
+ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/08/2020
-ms.locfileid: "77089144"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "78964467"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -60,6 +60,7 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> 委托不会收到 `next` 参数。 第一个 `Run` 委托始终为终端，用于终止管道。 `Run` 是一种约定。 某些中间件组件可能会公开在管道末尾运行的 `Run[Middleware]` 方法：
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?highlight=12-15)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 在前面的示例中，`Run` 委托将 `"Hello from 2nd delegate."` 写入响应，然后终止管道。 如果在 `Run` 委托之后添加了另一个 `Use` 或 `Run` 委托，则不会调用该委托。
 
@@ -214,9 +215,9 @@ app.Map("/level1", level1App => {
 | localhost:1234                | Hello from non-Map delegate. |
 | localhost:1234/?branch=master | Branch used = master         |
 
-<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*> 也基于给定谓词的结果创建请求管道分支。 与 `MapWhen` 不同的是，如果这个分支发生短路或包含终端中间件，则会重新加入主管道：
+<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*> 也基于给定谓词的结果创建请求管道分支。 与 `MapWhen` 不同的是，如果这个分支不发生短路或包含终端中间件，则会重新加入主管道：
 
-[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=23-24)]
+[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=25-26)]
 
 在前面的示例中，响应 "Hello from main pipeline." 是为所有请求编写的。 如果请求中包含查询字符串变量 `branch`，则在重新加入主管道之前会记录其值。
 

@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
 ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928551"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652698"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 

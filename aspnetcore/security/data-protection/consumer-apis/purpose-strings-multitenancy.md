@@ -6,23 +6,23 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
 ms.openlocfilehash: 1133d40e7b325d58b3f70e7387494dae36ff8ac9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896794"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654018"
 ---
 # <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>目的层次结构和 ASP.NET Core 中的多租户
 
-由于`IDataProtector`也是隐式`IDataProtectionProvider`，目的可以链接在一起。 在这种情况下，`provider.CreateProtector([ "purpose1", "purpose2" ])`等效于`provider.CreateProtector("purpose1").CreateProtector("purpose2")`。
+由于 `IDataProtector` 也是隐式的 `IDataProtectionProvider`，因此，目的可以链接在一起。 从这种意义上讲，`provider.CreateProtector([ "purpose1", "purpose2" ])` 等效于 `provider.CreateProtector("purpose1").CreateProtector("purpose2")`。
 
-这允许通过数据保护系统的一些有趣的层次结构关系。 在上例中的[Contoso.Messaging.SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)，可以调用 SecureMessage 组件`provider.CreateProtector("Contoso.Messaging.SecureMessage")`一次前期和到专用缓存的结果`_myProvider`字段。 然后可以通过调用创建将来的保护程序`_myProvider.CreateProtector("User: username")`，并且这些保护程序将用于保护单个消息。
+这允许通过数据保护系统实现一些有趣的层次结构关系。 在前面的[SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)中，SecureMessage 组件可以提前调用 `provider.CreateProtector("Contoso.Messaging.SecureMessage")`，并将结果缓存到专用 `_myProvider` 字段。 以后可以通过调用 `_myProvider.CreateProtector("User: username")`创建未来的保护程序，这些保护程序将用于确保单个消息的安全。
 
-这也可以被翻转。 哪些主机可以使用其自己的身份验证和状态管理系统配置 （一个 CMS 似乎是合理） 的多个租户，以及每个租户，请考虑单个逻辑应用程序。 总括性应用程序具有单一的主提供程序，并且它将调用`provider.CreateProtector("Tenant 1")`和`provider.CreateProtector("Tenant 2")`为每个租户提供其自己的数据保护系统的独立的切片。 租户然后可以派生他们自己单独的保护程序，基于其自身的需求，但不管如何努力尝试不能创建其发生冲突的保护程序与其他任何租户系统中。 以图形方式，这表示如下所示。
+这也可以是反向的。 假设有一个逻辑应用程序托管多个租户（CMS 看似合理），并且每个租户都可以使用其自己的身份验证和状态管理系统进行配置。 该应用程序具有单个主提供程序，它调用 `provider.CreateProtector("Tenant 1")` 和 `provider.CreateProtector("Tenant 2")`，为每个租户提供自己的数据保护系统隔离切片。 然后，租户可以根据自己的需求来派生自己的单独保护程序，但不管它们尝试的情况如何，都不能创建与系统中任何其他租户发生冲突的保护程序。 以图形方式表示，如下所示。
 
-![多租户目的](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
+![多租户用途](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
 
 >[!WARNING]
-> 此操作假定涵盖性应用程序控制哪些 Api 可供各个租户和租户不能在服务器上执行任意代码。 如果租户可以执行任意代码，它们可以执行专用的反射来中断隔离保证，或它们只是无法直接读取主密钥密钥材料和派生任何子项力度。
+> 这会假定应用程序控制各个租户可用的 Api，并且租户无法在服务器上执行任意代码。 如果租户可以执行任意代码，则他们可能会执行私有反射来打破隔离保证，也可以直接读取主密钥材料，并派生出所需的任何子项。
 
-数据保护系统实际上使用其默认的箱配置中的多租户的排序。 默认情况下工作进程帐户的用户配置文件文件夹 （或用于 IIS 应用程序池标识注册表） 中存储主密钥的密钥材料。 但它实际上相当通常使用单个帐户来运行多个应用程序，并因此所有这些应用程序将最终共享主密钥材料。 若要解决此问题，数据保护系统将自动作为整体的用途链中的第一个元素插入唯一对每个应用程序标识符。 此隐式提供给[将单个应用程序隔离](xref:security/data-protection/configuration/overview#per-application-isolation)从另一个方法是有效地将每个应用程序，如系统和保护程序的创建过程中唯一租户看起来与上面的图像相同。
+数据保护系统实际上在其默认的现成配置中使用一种多租户。 默认情况下，主密钥材料存储在工作进程帐户的用户配置文件文件夹（或用于 IIS 应用程序池标识的注册表中）。 但实际使用单个帐户运行多个应用程序的情况并不是很常见，因此，所有这些应用程序都将结束共享主密钥材料。 若要解决此情况，数据保护系统会自动插入一个唯一的每个应用程序标识符作为总体用途链中的第一个元素。 这种隐式目的是通过有效地将每个应用程序视为系统内的唯一租户来将[各个应用程序彼此隔离](xref:security/data-protection/configuration/overview#per-application-isolation)，并且保护程序创建过程看起来与上图中的相同。

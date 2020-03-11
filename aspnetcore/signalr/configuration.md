@@ -10,19 +10,19 @@ no-loc:
 - SignalR
 uid: signalr/configuration
 ms.openlocfilehash: c225ff88110dc17185a430ac1c422d2433306115
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358107"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651684"
 ---
-# <a name="aspnet-core-opno-locsignalr-configuration"></a>ASP.NET Core SignalR 配置
+# <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR 配置
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="jsonmessagepack-serialization-options"></a>JSON/MessagePack 序列化选项
 
-ASP.NET Core SignalR 支持两种用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
+ASP.NET Core SignalR 支持两个用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
 
 可以使用[AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol)扩展方法在服务器上配置 JSON 序列化。 `AddJsonProtocol`[可以在 `Startup.ConfigureServices`后添加](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr)。 `AddJsonProtocol` 方法采用接收 `options` 对象的委托。 该对象上的[PayloadSerializerOptions](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializeroptions)属性是一个 `System.Text.Json` <xref:System.Text.Json.JsonSerializerOptions> 对象，可用于配置自变量和返回值的序列化。 有关详细信息，请参阅[system.object 文档](/dotnet/api/system.text.json)。
 
@@ -58,19 +58,19 @@ var connection = new HubConnectionBuilder()
 
 ### <a name="messagepack-serialization-options"></a>MessagePack 序列化选项
 
-可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
+可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR 中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
 
 > [!NOTE]
 > 目前不能在 JavaScript 客户端中配置 MessagePack 序列化。
 
 ## <a name="configure-server-options"></a>配置服务器选项
 
-下表描述了用于配置 SignalR 集线器的选项：
+下表描述了用于配置 SignalR 中心的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 秒 | 如果客户端在此时间间隔内未收到消息（包括保持活动状态），则服务器会将客户端视为已断开连接。 由于实现方式的原因，客户端实际标记为断开连接可能需要更长的时间。 建议值为 `KeepAliveInterval` 值的两倍。|
-| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 如果服务器未在此时间间隔内发送消息，则会自动发送 ping 消息，使连接保持打开状态。 更改 `KeepAliveInterval`时，请更改客户端上的 `ServerTimeout`/`serverTimeoutInMilliseconds` 设置。 建议的 `ServerTimeout`/`serverTimeoutInMilliseconds` 值为 `KeepAliveInterval` 值的双精度值。  |
 | `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下，将允许在服务器上注册的所有协议，但可以从此列表中删除协议，以禁用各个集线器的特定协议。 |
 | `EnableDetailedErrors` | `false` | 如果 `true`，则在 Hub 方法中引发异常时，详细的异常消息将返回到客户端。 默认值为 `false`，因为这些异常消息可能包含敏感信息。 |
@@ -120,9 +120,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-下表描述了用于配置 ASP.NET Core SignalR的高级 HTTP 选项的选项：
+下表描述了用于配置 ASP.NET Core SignalR 的高级 HTTP 选项的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ApplicationMaxBufferSize` | 32 KB | 在应用反压之前，服务器从客户端接收的最大字节数。 增大此值后，服务器可以更快地接收更大的消息，而无需应用反压，但会增加内存消耗。 |
 | `AuthorizationData` | 从应用于 Hub 类的 `Authorize` 属性中自动收集的数据。 | 用于确定客户端是否有权连接到集线器的[IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata)对象的列表。 |
@@ -133,13 +133,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 长轮询传输具有可使用 `LongPolling` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `PollTimeout` | 90秒 | 服务器在终止单个轮询请求之前等待发送到客户端的消息的最长时间。 减小此值将导致客户端更频繁地发出新的投票请求。 |
 
 WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `CloseTimeout` | 5 秒 | 服务器关闭后，如果客户端在此时间间隔内未能关闭，则连接将终止。 |
 | `SubProtocolSelector` | `null` | 一个委托，可用于将 `Sec-WebSocket-Protocol` 标头设置为自定义值。 委托接收客户端请求的值作为输入，并且应返回所需的值。 |
@@ -150,7 +150,7 @@ WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
 ### <a name="configure-logging"></a>配置日志记录
 
-使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 请参阅[登录 ASP.NET Core](xref:fundamentals/logging/index) 文档以了解更多信息。
+使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 有关详细信息，请参阅[ASP.NET Core 文档中的日志记录](xref:fundamentals/logging/index)。
 
 > [!NOTE]
 > 若要注册日志记录提供程序，必须安装所需的包。 有关完整列表，请参阅文档的[内置日志记录提供程序](xref:fundamentals/logging/index#built-in-logging-providers)部分。
@@ -176,7 +176,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-您还可以提供表示日志级别名称的 `string` 值，而不是 `LogLevel` 值。 当你在无权访问 `LogLevel` 常量的环境中配置 SignalR 日志记录时，这非常有用。
+您还可以提供表示日志级别名称的 `string` 值，而不是 `LogLevel` 值。 在无法访问 `LogLevel` 常量的环境中配置 SignalR 日志记录时，这非常有用。
 
 ```javascript
 let connection = new signalR.HubConnectionBuilder()
@@ -187,7 +187,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 下表列出了可用的日志级别。 你为 `configureLogging` 提供的值设置将记录的**最小**日志级别。 将记录在此级别上记录的消息**或在表中列出的级别**。
 
-| 字符串                      | LogLevel               |
+| String                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
@@ -200,9 +200,9 @@ let connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > 若要完全禁用日志记录，请在 `configureLogging` 方法中指定 `signalR.LogLevel.None`。
 
-有关日志记录的详细信息，请参阅[SignalR 诊断文档](xref:signalr/diagnostics)。
+有关日志记录的详细信息，请参阅[SignalR Diagnostics 文档](xref:signalr/diagnostics)。
 
-SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 下面的代码段演示如何将 `java.util.logging` 与 SignalR Java 客户端一起使用。
+SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 以下代码片段演示了如何在 SignalR Java 客户端中使用 `java.util.logging`。
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -220,7 +220,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 ### <a name="configure-allowed-transports"></a>配置允许的传输
 
-SignalR 使用的传输可以在 `WithUrl` 调用中配置（在 JavaScript 中为`withUrl`）。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
+可以在 `WithUrl` 调用（JavaScript 中的`withUrl`）中配置 SignalR 使用的传输。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
 
 例如，若要禁用服务器发送的事件传输，但允许 Websocket 和长轮询连接，请执行以下操作：
 
@@ -253,7 +253,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 ### <a name="configure-bearer-authentication"></a>配置持有者身份验证
 
-若要将身份验证数据与 SignalR 请求一起提供，请使用 `AccessTokenProvider` 选项（在 JavaScript 中为`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
+若要随 SignalR 请求一起提供身份验证数据，请使用 `AccessTokenProvider` 选项（JavaScript 中的`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
 
 在 .NET 客户端中，可以使用 `WithUrl`中的 options 委托指定 `AccessTokenProvider` 选项：
 
@@ -295,29 +295,29 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 用于配置超时和保持活动状态的其他选项在 `HubConnection` 对象本身上可用：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
 在 .NET 客户端中，超时值指定为 `TimeSpan` 值。
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onclose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
 | `keepAliveIntervalInMilliseconds` | 15秒（15000毫秒） | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onClose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `getKeepAliveInterval` / `setKeepAliveInterval` | 15秒（15000毫秒） | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
 ---
@@ -326,12 +326,12 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 可以在 `HubConnectionBuilder` 上的 `WithUrl` （JavaScript 中的`withUrl`）方法中配置其他选项，或在 Java 客户端中 `HttpHubConnectionBuilder` 上的各种配置 Api 上配置其他选项：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| .NET 选项 |  默认值 | 描述 |
+| .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | 要随每个 HTTP 请求一起发送的 HTTP cookie 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -342,19 +342,19 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 | `UseDefaultCredentials` | `false` | 设置此布尔值可发送 HTTP 和 Websocket 请求的默认凭据。 这样就可以使用 Windows 身份验证。 |
 | `WebSocketConfiguration` | `null` | 可用于配置其他 WebSocket 选项的委托。 接收可用于配置选项的[ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions)实例。 |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| JavaScript 选项 | 默认值 | 描述 |
+| JavaScript 选项 | 默认值 | 说明 |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| Java 选项 | 默认值 | 描述 |
+| Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -406,7 +406,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 ## <a name="jsonmessagepack-serialization-options"></a>JSON/MessagePack 序列化选项
 
-ASP.NET Core SignalR 支持两种用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
+ASP.NET Core SignalR 支持两个用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
 
 可以使用[AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol)扩展方法在服务器上配置 JSON 序列化，该方法可在 `Startup.ConfigureServices` 方法中的[AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr)之后添加。 `AddJsonProtocol` 方法采用接收 `options` 对象的委托。 该对象的[PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings)属性是可用于配置自变量和返回值的序列化 `JsonSerializerSettings` 对象的 JSON.NET。 有关详细信息，请参阅[JSON.NET 文档](https://www.newtonsoft.com/json/help/html/Introduction.htm)。
  
@@ -440,19 +440,19 @@ var connection = new HubConnectionBuilder()
 
 ### <a name="messagepack-serialization-options"></a>MessagePack 序列化选项
 
-可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
+可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR 中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
 
 > [!NOTE]
 > 目前不能在 JavaScript 客户端中配置 MessagePack 序列化。
 
 ## <a name="configure-server-options"></a>配置服务器选项
 
-下表描述了用于配置 SignalR 集线器的选项：
+下表描述了用于配置 SignalR 中心的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 秒 | 如果客户端在此时间间隔内未收到消息（包括保持活动状态），则服务器会将客户端视为已断开连接。 由于实现方式的原因，客户端实际标记为断开连接可能需要更长的时间。 建议值为 `KeepAliveInterval` 值的两倍。|
-| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 如果服务器未在此时间间隔内发送消息，则会自动发送 ping 消息，使连接保持打开状态。 更改 `KeepAliveInterval`时，请更改客户端上的 `ServerTimeout`/`serverTimeoutInMilliseconds` 设置。 建议的 `ServerTimeout`/`serverTimeoutInMilliseconds` 值为 `KeepAliveInterval` 值的双精度值。  |
 | `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下，将允许在服务器上注册的所有协议，但可以从此列表中删除协议，以禁用各个集线器的特定协议。 |
 | `EnableDetailedErrors` | `false` | 如果 `true`，则在 Hub 方法中引发异常时，详细的异常消息将返回到客户端。 默认值为 `false`，因为这些异常消息可能包含敏感信息。 |
@@ -500,9 +500,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-下表描述了用于配置 ASP.NET Core SignalR的高级 HTTP 选项的选项：
+下表描述了用于配置 ASP.NET Core SignalR 的高级 HTTP 选项的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ApplicationMaxBufferSize` | 32 KB | 服务器缓冲的客户端接收到的最大字节数。 增大此值可使服务器接收更大的消息，但会对内存消耗产生负面影响。 |
 | `AuthorizationData` | 从应用于 Hub 类的 `Authorize` 属性中自动收集的数据。 | 用于确定客户端是否有权连接到集线器的[IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata)对象的列表。 |
@@ -513,13 +513,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 长轮询传输具有可使用 `LongPolling` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `PollTimeout` | 90秒 | 服务器在终止单个轮询请求之前等待发送到客户端的消息的最长时间。 减小此值将导致客户端更频繁地发出新的投票请求。 |
 
 WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `CloseTimeout` | 5 秒 | 服务器关闭后，如果客户端在此时间间隔内未能关闭，则连接将终止。 |
 | `SubProtocolSelector` | `null` | 一个委托，可用于将 `Sec-WebSocket-Protocol` 标头设置为自定义值。 委托接收客户端请求的值作为输入，并且应返回所需的值。 |
@@ -530,7 +530,7 @@ WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
 ### <a name="configure-logging"></a>配置日志记录
 
-使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 请参阅[登录 ASP.NET Core](xref:fundamentals/logging/index) 文档以了解更多信息。
+使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 有关详细信息，请参阅[ASP.NET Core 文档中的日志记录](xref:fundamentals/logging/index)。
 
 > [!NOTE]
 > 若要注册日志记录提供程序，必须安装所需的包。 有关完整列表，请参阅文档的[内置日志记录提供程序](xref:fundamentals/logging/index#built-in-logging-providers)部分。
@@ -559,9 +559,9 @@ let connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > 若要完全禁用日志记录，请在 `configureLogging` 方法中指定 `signalR.LogLevel.None`。
 
-有关日志记录的详细信息，请参阅[SignalR 诊断文档](xref:signalr/diagnostics)。
+有关日志记录的详细信息，请参阅[SignalR Diagnostics 文档](xref:signalr/diagnostics)。
 
-SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 下面的代码段演示如何将 `java.util.logging` 与 SignalR Java 客户端一起使用。
+SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 以下代码片段演示了如何在 SignalR Java 客户端中使用 `java.util.logging`。
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -579,7 +579,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 ### <a name="configure-allowed-transports"></a>配置允许的传输
 
-SignalR 使用的传输可以在 `WithUrl` 调用中配置（在 JavaScript 中为`withUrl`）。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
+可以在 `WithUrl` 调用（JavaScript 中的`withUrl`）中配置 SignalR 使用的传输。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
 
 例如，若要禁用服务器发送的事件传输，但允许 Websocket 和长轮询连接，请执行以下操作：
 
@@ -601,7 +601,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 ### <a name="configure-bearer-authentication"></a>配置持有者身份验证
 
-若要将身份验证数据与 SignalR 请求一起提供，请使用 `AccessTokenProvider` 选项（在 JavaScript 中为`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
+若要随 SignalR 请求一起提供身份验证数据，请使用 `AccessTokenProvider` 选项（JavaScript 中的`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
 
 在 .NET 客户端中，可以使用 `WithUrl`中的 options 委托指定 `AccessTokenProvider` 选项：
 
@@ -643,29 +643,29 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 用于配置超时和保持活动状态的其他选项在 `HubConnection` 对象本身上可用：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
 在 .NET 客户端中，超时值指定为 `TimeSpan` 值。
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onclose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
 | `keepAliveIntervalInMilliseconds` | 15秒（15000毫秒） | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onClose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `getKeepAliveInterval` / `setKeepAliveInterval` | 15秒（15000毫秒） | 确定客户端发送 ping 消息的间隔。 如果从客户端发送任何消息，则会将计时器重置为间隔的开始时间。 如果客户端未在服务器上设置的 `ClientTimeoutInterval` 中发送消息，则服务器会将客户端视为已断开连接。 |
 
 ---
@@ -674,12 +674,12 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 可以在 `HubConnectionBuilder` 上的 `WithUrl` （JavaScript 中的`withUrl`）方法中配置其他选项，或在 Java 客户端中 `HttpHubConnectionBuilder` 上的各种配置 Api 上配置其他选项：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| .NET 选项 |  默认值 | 描述 |
+| .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | 要随每个 HTTP 请求一起发送的 HTTP cookie 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -690,19 +690,19 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 | `UseDefaultCredentials` | `false` | 设置此布尔值可发送 HTTP 和 Websocket 请求的默认凭据。 这样就可以使用 Windows 身份验证。 |
 | `WebSocketConfiguration` | `null` | 可用于配置其他 WebSocket 选项的委托。 接收可用于配置选项的[ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions)实例。 |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| JavaScript 选项 | 默认值 | 描述 |
+| JavaScript 选项 | 默认值 | 说明 |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| Java 选项 | 默认值 | 描述 |
+| Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---
@@ -754,7 +754,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 ## <a name="jsonmessagepack-serialization-options"></a>JSON/MessagePack 序列化选项
 
-ASP.NET Core SignalR 支持两种用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
+ASP.NET Core SignalR 支持两个用于编码消息的协议： [JSON](https://www.json.org/)和[MessagePack](https://msgpack.org/index.html)。 每个协议都具有序列化配置选项。
 
 可以使用[AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol)扩展方法在服务器上配置 JSON 序列化，该方法可在 `Startup.ConfigureServices` 方法中的[AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr)之后添加。 `AddJsonProtocol` 方法采用接收 `options` 对象的委托。 该对象的[PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings)属性是可用于配置自变量和返回值的序列化 `JsonSerializerSettings` 对象的 JSON.NET。 有关详细信息，请参阅[JSON.NET 文档](https://www.newtonsoft.com/json/help/html/Introduction.htm)。
  
@@ -788,18 +788,18 @@ var connection = new HubConnectionBuilder()
 
 ### <a name="messagepack-serialization-options"></a>MessagePack 序列化选项
 
-可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
+可以通过向[AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol)调用提供委托来配置 MessagePack 序列化。 有关更多详细信息，请参阅[SignalR 中的 MessagePack](xref:signalr/messagepackhubprotocol) 。
 
 > [!NOTE]
 > 目前不能在 JavaScript 客户端中配置 MessagePack 序列化。
 
 ## <a name="configure-server-options"></a>配置服务器选项
 
-下表描述了用于配置 SignalR 集线器的选项：
+下表描述了用于配置 SignalR 中心的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
-| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 如果客户端在此时间间隔内未发送初始握手消息，连接将关闭。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 | `KeepAliveInterval` | 15 秒 | 如果服务器未在此时间间隔内发送消息，则会自动发送 ping 消息，使连接保持打开状态。 更改 `KeepAliveInterval`时，请更改客户端上的 `ServerTimeout`/`serverTimeoutInMilliseconds` 设置。 建议的 `ServerTimeout`/`serverTimeoutInMilliseconds` 值为 `KeepAliveInterval` 值的双精度值。  |
 | `SupportedProtocols` | 所有已安装的协议 | 此中心支持的协议。 默认情况下，将允许在服务器上注册的所有协议，但可以从此列表中删除协议，以禁用各个集线器的特定协议。 |
 | `EnableDetailedErrors` | `false` | 如果 `true`，则在 Hub 方法中引发异常时，详细的异常消息将返回到客户端。 默认值为 `false`，因为这些异常消息可能包含敏感信息。 |
@@ -847,9 +847,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-下表描述了用于配置 ASP.NET Core SignalR的高级 HTTP 选项的选项：
+下表描述了用于配置 ASP.NET Core SignalR 的高级 HTTP 选项的选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ApplicationMaxBufferSize` | 32 KB | 服务器缓冲的客户端接收到的最大字节数。 增大此值可使服务器接收更大的消息，但会对内存消耗产生负面影响。 |
 | `AuthorizationData` | 从应用于 Hub 类的 `Authorize` 属性中自动收集的数据。 | 用于确定客户端是否有权连接到集线器的[IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata)对象的列表。 |
@@ -860,13 +860,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 长轮询传输具有可使用 `LongPolling` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `PollTimeout` | 90秒 | 服务器在终止单个轮询请求之前等待发送到客户端的消息的最长时间。 减小此值将导致客户端更频繁地发出新的投票请求。 |
 
 WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `CloseTimeout` | 5 秒 | 服务器关闭后，如果客户端在此时间间隔内未能关闭，则连接将终止。 |
 | `SubProtocolSelector` | `null` | 一个委托，可用于将 `Sec-WebSocket-Protocol` 标头设置为自定义值。 委托接收客户端请求的值作为输入，并且应返回所需的值。 |
@@ -877,7 +877,7 @@ WebSocket 传输具有可使用 `WebSockets` 属性配置的其他选项：
 
 ### <a name="configure-logging"></a>配置日志记录
 
-使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 请参阅[登录 ASP.NET Core](xref:fundamentals/logging/index) 文档以了解更多信息。
+使用 `ConfigureLogging` 方法在 .NET 客户端中配置日志记录。 日志提供程序和筛选器的注册方式与服务器上相同。 有关详细信息，请参阅[ASP.NET Core 文档中的日志记录](xref:fundamentals/logging/index)。
 
 > [!NOTE]
 > 若要注册日志记录提供程序，必须安装所需的包。 有关完整列表，请参阅文档的[内置日志记录提供程序](xref:fundamentals/logging/index#built-in-logging-providers)部分。
@@ -906,9 +906,9 @@ let connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > 若要完全禁用日志记录，请在 `configureLogging` 方法中指定 `signalR.LogLevel.None`。
 
-有关日志记录的详细信息，请参阅[SignalR 诊断文档](xref:signalr/diagnostics)。
+有关日志记录的详细信息，请参阅[SignalR Diagnostics 文档](xref:signalr/diagnostics)。
 
-SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 下面的代码段演示如何将 `java.util.logging` 与 SignalR Java 客户端一起使用。
+SignalR Java 客户端使用[SLF4J](https://www.slf4j.org/)库进行日志记录。 这是一个高级日志记录 API，它允许库的用户通过引入特定的日志记录依赖项来选择自己的特定日志记录实现。 以下代码片段演示了如何在 SignalR Java 客户端中使用 `java.util.logging`。
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -926,7 +926,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 ### <a name="configure-allowed-transports"></a>配置允许的传输
 
-SignalR 使用的传输可以在 `WithUrl` 调用中配置（在 JavaScript 中为`withUrl`）。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
+可以在 `WithUrl` 调用（JavaScript 中的`withUrl`）中配置 SignalR 使用的传输。 `HttpTransportType` 的值的按位 "或" 可用于将客户端限制为仅使用指定的传输。 默认情况下，将启用所有传输。
 
 例如，若要禁用服务器发送的事件传输，但允许 Websocket 和长轮询连接，请执行以下操作：
 
@@ -946,7 +946,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 ### <a name="configure-bearer-authentication"></a>配置持有者身份验证
 
-若要将身份验证数据与 SignalR 请求一起提供，请使用 `AccessTokenProvider` 选项（在 JavaScript 中为`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
+若要随 SignalR 请求一起提供身份验证数据，请使用 `AccessTokenProvider` 选项（JavaScript 中的`accessTokenFactory`）来指定返回所需访问令牌的函数。 在 .NET 客户端中，此访问令牌作为 HTTP "持有者身份验证" 令牌传入（使用 `Bearer`类型的 `Authorization` 标头）。 在 JavaScript 客户端中，访问令牌用作持有者令牌，**但**在某些情况下，浏览器 api 限制应用标头的能力（具体而言，在服务器发送事件和 websocket 请求中）。 在这些情况下，访问令牌作为查询字符串值提供 `access_token`。
 
 在 .NET 客户端中，可以使用 `WithUrl`中的 options 委托指定 `AccessTokenProvider` 选项：
 
@@ -988,27 +988,27 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 用于配置超时和保持活动状态的其他选项在 `HubConnection` 对象本身上可用：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `HandshakeTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `Closed` 事件（JavaScript 中的`onclose`）。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 
 在 .NET 客户端中，超时值指定为 `TimeSpan` 值。
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onclose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| 选项 | 默认值 | 描述 |
+| 选项 | 默认值 | 说明 |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30秒（30000毫秒） | 服务器活动超时。 如果服务器未在此时间间隔内发送消息，则客户端会将服务器视为断开连接，并触发 `onClose` 事件。 此值必须足够大，以便从服务器发送 ping 消息 **，并**在超时间隔内由客户端接收该消息。 建议值至少为服务器的 `KeepAliveInterval` 值的两倍，以允许 ping 到达的时间。 |
-| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR 集线器协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
+| `withHandshakeResponseTimeout` | 15 秒 | 初始服务器握手的超时时间。 如果服务器在此时间间隔内未发送握手响应，则客户端将取消握手，并触发 `onClose` 事件。 这是一种高级设置，只应在握手超时错误由于严重网络延迟而发生时进行修改。 有关握手过程的详细信息，请参阅[SignalR Hub 协议规范](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md)。 |
 
 ---
 
@@ -1016,12 +1016,12 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 可以在 `HubConnectionBuilder` 上的 `WithUrl` （JavaScript 中的`withUrl`）方法中配置其他选项，或在 Java 客户端中 `HttpHubConnectionBuilder` 上的各种配置 Api 上配置其他选项：
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
-| .NET 选项 |  默认值 | 描述 |
+| .NET 选项 |  默认值 | 说明 |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `SkipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `ClientCertificates` | 空 | 要发送以对请求进行身份验证的 TLS 证书的集合。 |
 | `Cookies` | 空 | 要随每个 HTTP 请求一起发送的 HTTP cookie 的集合。 |
 | `Credentials` | 空 | 要随每个 HTTP 请求一起发送的凭据。 |
@@ -1032,19 +1032,19 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 | `UseDefaultCredentials` | `false` | 设置此布尔值可发送 HTTP 和 Websocket 请求的默认凭据。 这样就可以使用 Windows 身份验证。 |
 | `WebSocketConfiguration` | `null` | 可用于配置其他 WebSocket 选项的委托。 接收可用于配置选项的[ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions)实例。 |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
-| JavaScript 选项 | 默认值 | 描述 |
+| JavaScript 选项 | 默认值 | 说明 |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `skipNegotiation` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
-| Java 选项 | 默认值 | 描述 |
+| Java 选项 | 默认值 | 说明 |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | 一个函数，它返回作为 HTTP 请求中的持有者身份验证令牌提供的字符串。 |
-| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时，无法启用此设置。 |
+| `shouldSkipNegotiate` | `false` | 将此设置为 "`true`" 以跳过协商步骤。 **仅当 websocket 传输为唯一启用的传输时才受支持**。 使用 Azure SignalR 服务时无法启用此设置。 |
 | `withHeader` `withHeaders` | 空 | 要随每个 HTTP 请求一起发送的附加 HTTP 标头的映射。 |
 
 ---

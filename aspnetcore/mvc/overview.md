@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 02/12/2020
 uid: mvc/overview
 ms.openlocfilehash: 2911399f6ed4e14345171c908c4306b9c3e33805
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447407"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651666"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -20,7 +20,7 @@ ASP.NET Core MVC 是使用“模型-视图-控制器”设计模式构建 Web �
 
 ## <a name="what-is-the-mvc-pattern"></a>什么是 MVC 模式？
 
-模型-视图-控制器 (MVC) 架构模式将应用程序分为三个主要组成部分：模型、视图和控制器。 此模式有助于实现[关注点分离](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)。 使用此模式，用户请求被路由到控制器，后者负责使用模型来执行用户操作和/或检索查询结果。 控制器选择要显示给用户的视图，并为其提供所需的任何模型数据。
+模型-视图-控制器 (MVC) 体系结构模式将应用程序分成 3 个主要组件组：模型、视图和控制器。 此模式有助于实现[关注点分离](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)。 使用此模式，用户请求被路由到控制器，后者负责使用模型来执行用户操作和/或检索查询结果。 控制器选择要显示给用户的视图，并为其提供所需的任何模型数据。
 
 下图显示 3 个主要组件及其相互引用关系：
 
@@ -41,7 +41,7 @@ MVC 应用程序的模型 (M) 表示应用程序和任何应由其执行的业�
 
 ### <a name="controller-responsibilities"></a>控制器职责
 
-控制器 (C) 是处理用户交互、使用模型并最终选择要呈现的视图的组件。 在 MVC 应用程序中，视图仅显示信息；控制器处理并响应用户输入和交互。 在 MVC 模式中，控制器是初始入口点，负责选择要使用的模型类型和要呈现的视图（因此得名 - 它控制应用如何响应给定请求）。
+控制器 (C) 是处理用户交互、使用模型并最终选择要呈现的视图的组件。 在 MVC 应用程序中，视图仅显示信息；控制器则用于处理和响应用户输入和交互。 在 MVC 模式中，控制器是初始入口点，负责选择要使用的模型类型和要呈现的视图（因此得名 - 它控制应用如何响应给定请求）。
 
 > [!NOTE]
 > 控制器不应由于责任过多而变得过于复杂。 要阻止控制器逻辑变得过于复杂，请将业务逻辑推出控制器并推入域模型。
@@ -55,7 +55,7 @@ ASP.NET Core MVC 框架是轻量级、开源、高度可测试的演示框架，
 
 ASP.NET Core MVC 提供一种基于模式的方式，用于生成可彻底分开管理事务的动态网站。 它提供对标记的完全控制，支持 TDD 友好开发并使用最新的 Web 标准。
 
-## <a name="features"></a>特征
+## <a name="features"></a>功能
 
 ASP.NET Core MVC 包括以下功能：
 
@@ -64,7 +64,7 @@ ASP.NET Core MVC 包括以下功能：
 * [模型验证](#model-validation)
 * [依赖关系注入](../fundamentals/dependency-injection.md)
 * [筛选器](#filters)
-* [Areas](#areas)
+* [区域](#areas)
 * [Web API](#web-apis)
 * [可测试性](#testability)
 * [Razor 视图引擎](#razor-view-engine)
@@ -76,13 +76,13 @@ ASP.NET Core MVC 包括以下功能：
 
 ASP.NET Core MVC 建立在 [ASP.NET Core 的路由](../fundamentals/routing.md)之上，是一个功能强大的 URL 映射组件，可用于生成具有易于理解和可搜索 URL 的应用程序。 它可让你定义适用于搜索引擎优化 (SEO) 和链接生成的应用程序 URL 命名模式，而不考虑如何组织 Web 服务器上的文件。 可以使用支持路由值约束、默认值和可选值的方便路由模板语法来定义路由。
 
-通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式  。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
+通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
 
 ```csharp
 routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息  。 这意味着路由定义位于与之相关联的控制器和操作旁。
+借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息。 这意味着路由定义位于与之相关联的控制器和操作旁。
 
 ```csharp
 [Route("api/[controller]")]
@@ -141,11 +141,11 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 框架处理客户端和服务器上的验证请求数据。 在模型类型上指定的验证逻辑作为非介入式注释添加到呈现的视图，并使用 [jQuery 验证](https://jqueryvalidation.org/)在浏览器中强制执行。
 
-### <a name="dependency-injection"></a>依赖关系注入
+### <a name="dependency-injection"></a>依赖项注入
 
 ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-injection.md) 的支持。 在 ASP.NET Core MVC 中，[控制器](controllers/dependency-injection.md)可通过其构造函数请求所需服务，使其能够遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。
 
-应用还可通过 `@inject` 指令使用[视图文件中的依赖关系注入](views/dependency-injection.md)：
+应用还可通过 [ 指令使用](views/dependency-injection.md)视图文件中的依赖关系注入`@inject`：
 
 ```cshtml
 @inject SomeService ServiceName
@@ -170,9 +170,9 @@ ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-in
 public class AccountController : Controller
 ```
 
-### <a name="areas"></a>Areas
+### <a name="areas"></a>区域
 
-[区域](controllers/areas.md)提供将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位（如结账、计费、搜索等）的电子商务应用。每个单位都有自己的逻辑组件视图、控制器和模型。
+[区域](controllers/areas.md)提供将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位的电子商务应用程序，如结帐、计费和搜索等。其中每个单位都有自己的逻辑组件视图、控制器和模型。
 
 ### <a name="web-apis"></a>Web API
 
@@ -182,7 +182,7 @@ public class AccountController : Controller
 
 使用链接生成启用对超媒体的支持。 轻松启用对[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/) 的支持，以便 Web API 可以跨多个 Web 应用程序共享。
 
-### <a name="testability"></a>可测试性
+### <a name="testability"></a>Testability
 
 框架对界面和依赖项注入的使用非常适用于单元测试，并且该框架还包括使得[集成测试](xref:test/integration-tests)快速轻松的功能（例如 TestHost 和实体框架的 InMemory 提供程序）。 详细了解[如何测试控制器逻辑](controllers/testing.md)。
 
@@ -220,7 +220,7 @@ public class AccountController : Controller
 
 [标记帮助程序](views/tag-helpers/intro.md)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。 标记帮助程序基于元素名称及其属性绑定到特定的元素。 它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。
 
-有多种常见任务（例如创建窗体、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，内置 LinkTagHelper 可以用来创建指向 `AccountsController` 的 `Login` 操作的链接：
+有多种常见任务（例如创建窗体、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，内置 LinkTagHelper 可以用来创建指向 `Login` 的 `AccountsController` 操作的链接：
 
 ```cshtml
 <p>

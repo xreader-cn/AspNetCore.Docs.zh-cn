@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/webapi
-ms.openlocfilehash: c68cf83f427f53b110075168c6d5e4d021808782
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 7f61b78c589fc9d01061b50554e5a639e372c3d8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881148"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653004"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>将从 ASP.NET Web API 迁移到 ASP.NET Core
 
@@ -19,9 +19,9 @@ ms.locfileid: "74881148"
 
 ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括浏览器和移动设备。 ASP.NET Core 将 ASP.NET 4.x 的 MVC 和 Web API 应用模型统一到称为 ASP.NET Core MVC 的更简单的编程模型中。 本文演示从 ASP.NET 4.x Web API 迁移到 ASP.NET Core MVC 所需的步骤。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>必备条件
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs2019-2.2.md)]
 
@@ -61,7 +61,7 @@ ASP.NET 4.x Web API 是一种 HTTP 服务，它可达到各种客户端，包括
 
 ## <a name="migrate-configuration"></a>迁移配置
 
-ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件，并且在发布时添加*web.config*文件。 *Startup.cs*是*global.asa*的替代，位于项目根目录中。 `Startup` 类处理所有应用启动任务。 有关更多信息，请参见<xref:fundamentals/startup>。
+ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件，并且在发布时添加*web.config*文件。 *Startup.cs*是*global.asa*的替代，位于项目根目录中。 `Startup` 类处理所有应用启动任务。 有关详细信息，请参阅 <xref:fundamentals/startup>。
 
 在 ASP.NET Core MVC 中，当在 `Startup.Configure`中调用 <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> 时，默认情况下将包含特性路由。 以下 `UseMvc` 调用替换*ProductsApp*项目的*App_Start/webapiconfig.cs*文件：
 
@@ -69,7 +69,7 @@ ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件，并且在发�
 
 ## <a name="migrate-models-and-controllers"></a>迁移模型和控制器
 
-复制*ProductApp*项目的控制器及其使用的模型。 按照以下步骤进行操作：
+复制*ProductApp*项目的控制器及其使用的模型。 执行以下步骤:
 
 1. 将*控制器/ProductsController*从原始项目复制到新项目。
 1. 将整个*模型*文件夹从原始项目复制到新的项目。
@@ -83,7 +83,7 @@ ASP.NET Core 不使用*App_Start*文件夹或*global.asax*文件，并且在发�
 
 修复错误，如下所示：
 
-1. 更改`ApiController`到<xref:Microsoft.AspNetCore.Mvc.ControllerBase>。 添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。
+1. 将 `ApiController` 更改为 <xref:Microsoft.AspNetCore.Mvc.ControllerBase>。 添加 `using Microsoft.AspNetCore.Mvc;` 以解析 `ControllerBase` 引用。
 1. 删除 `using System.Web.Http;`。
 1. 将 `GetProduct` 操作的返回类型从 `IHttpActionResult` 更改为 `ActionResult<Product>`。
 

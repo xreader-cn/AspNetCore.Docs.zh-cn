@@ -1,5 +1,5 @@
 ---
-title: 配置 ASP.NET Core数据保护
+title: 配置 ASP.NET Core 数据保护
 author: rick-anderson
 description: 了解如何在 ASP.NET Core 中配置数据保护。
 ms.author: riande
@@ -7,13 +7,13 @@ ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
 ms.openlocfilehash: c0846aca4bb663b1d562ab0c877fefba02da460f
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829031"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654588"
 ---
-# <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core数据保护
+# <a name="configure-aspnet-core-data-protection"></a>配置 ASP.NET Core 数据保护
 
 当数据保护系统已初始化时，它将基于操作环境应用[默认设置](xref:security/data-protection/configuration/default-settings)。 这些设置通常适用于在一台计算机上运行的应用程序。 在某些情况下，开发人员可能想要更改默认设置：
 
@@ -186,7 +186,7 @@ public void ConfigureServices(IServiceCollection services)
 
 此隔离机制假定应用不是恶意的。 恶意应用始终会影响在同一工作进程帐户下运行的任何其他应用。 在应用不受信任的共享主机环境中，托管提供商应采取措施来确保应用之间的操作系统级隔离，包括分离应用程序的底层密钥存储库。
 
-如果由 ASP.NET Core 主机未提供数据保护系统 (例如，如果通过其实例化`DataProtectionProvider`具体类型) 应用程序隔离在默认情况下处于禁用状态。 禁用应用隔离后，只要提供相应的[用途](xref:security/data-protection/consumer-apis/purpose-strings)，同一密钥材料支持的所有应用就可以共享有效负载。 若要在此环境中提供应用隔离，请对配置对象调用[SetApplicationName](#setapplicationname)方法，并为每个应用提供唯一的名称。
+如果数据保护系统不是由 ASP.NET Core 主机提供的（例如，如果通过 `DataProtectionProvider` 具体类型对其进行实例化），则默认情况下禁用应用程序隔离。 禁用应用隔离后，只要提供相应的[用途](xref:security/data-protection/consumer-apis/purpose-strings)，同一密钥材料支持的所有应用就可以共享有效负载。 若要在此环境中提供应用隔离，请对配置对象调用[SetApplicationName](#setapplicationname)方法，并为每个应用提供唯一的名称。
 
 ## <a name="changing-algorithms-with-usecryptographicalgorithms"></a>用 UseCryptographicAlgorithms 更改算法
 

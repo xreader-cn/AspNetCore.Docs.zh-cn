@@ -9,11 +9,11 @@ no-loc:
 - SignalR
 uid: performance/performance-best-practices
 ms.openlocfilehash: c74adf7479d176c41dc26c7e77acfc3dc9cdcb88
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693955"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654528"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core 性能最佳做法
 
@@ -23,7 +23,7 @@ ms.locfileid: "75693955"
 
 ## <a name="cache-aggressively"></a>主动缓存
 
-此文档的几个部分讨论了缓存。 有关更多信息，请参见<xref:performance/caching/response>。
+此文档的几个部分讨论了缓存。 有关详细信息，请参阅 <xref:performance/caching/response>。
 
 ## <a name="understand-hot-code-paths"></a>了解热代码路径
 
@@ -75,9 +75,9 @@ ASP.NET Core 应用中的常见性能问题是阻止可能是异步的调用。 
 
 * **请**以异步方式调用所有数据访问 api。
 * 检索的数据**不**是必需的。 编写查询以仅返回当前 HTTP 请求所必需的数据。
-* 如果数据可以接受，**请考虑缓存**经常访问的从数据库或远程服务检索的数据。 使用[MemoryCache](xref:performance/caching/memory)或[microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关更多信息，请参见<xref:performance/caching/response>。
+* 如果数据可以接受，**请考虑缓存**经常访问的从数据库或远程服务检索的数据。 使用[MemoryCache](xref:performance/caching/memory)或[microsoft.web.distributedcache](xref:performance/caching/distributed)，具体取决于方案。 有关详细信息，请参阅 <xref:performance/caching/response>。
 * **尽量减少**网络往返次数。 目标是使用单个调用而不是多个调用来检索所需数据。
-* 在 Entity Framework Core 中，当出于只读目的访问数据时，**使用** [no-tracking 查询](/ef/core/querying/tracking#no-tracking-queries) 。 EF Core 可以更有效地返回非跟踪查询的结果。
+* 在访问数据时，**请不要**在 Entity Framework Core 中使用[无跟踪查询](/ef/core/querying/tracking#no-tracking-queries)。 EF Core 可以更有效地返回非跟踪查询的结果。
 * **筛选和**聚合 LINQ 查询（例如，使用 `.Where`、`.Select`或 `.Sum` 语句），以便数据库执行筛选。
 * **请考虑 EF Core**在客户端上解析一些查询运算符，这可能导致查询执行效率低下。 有关详细信息，请参阅[客户端评估性能问题](/ef/core/querying/client-eval#client-evaluation-performance-issues)。
 * **不要**对集合使用投影查询，这可能会导致执行 "N + 1" 个 SQL 查询。 有关详细信息，请参阅[相关子查询的优化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)。
@@ -228,7 +228,7 @@ ASP.NET Core 中的所有 IO 都是异步的。 服务器实现 `Stream` 接口�
 > [!WARNING]
 > 如果请求很大，则可能导致内存不足（OOM）。 OOM 可能会导致拒绝服务。  有关详细信息，请参阅本文档中的[避免将大型请求正文或响应正文读入内存](#arlb)中。
 
-默认情况下，ASP.NET Core 3.0 使用 <xref:System.Text.Json> 进行 JSON 序列化。 <xref:System.Text.Json>：
+默认情况下，ASP.NET Core 3.0 使用 <xref:System.Text.Json> 进行 JSON 序列化。 <xref:System.Text.Json>设置用户帐户 ：
 
 * 以异步方式读取和写入 JSON。
 * 针对 UTF-8 文本进行了优化。

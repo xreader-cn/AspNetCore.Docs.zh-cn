@@ -6,22 +6,22 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/11/2020
 uid: security/authentication/cookie
-ms.openlocfilehash: 62a3d247dade6c83156a8378407d5e3891713fd1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 64f881441a7a7f9a5529cb6ee5ce81142ccd69e6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172122"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653418"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>使用 cookie 而无需 ASP.NET Core 标识的身份验证
 
-作者： [Rick Anderson](https://twitter.com/RickAndMSFT)和[Luke Latham](https://github.com/guardrex)
+作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详情，请参阅<xref:security/authentication/identity>。
+ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详细信息，请参阅 <xref:security/authentication/identity>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户在*页面/帐户/登录名. .cs*文件的 `AuthenticateUser` 方法中进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
@@ -37,7 +37,7 @@ ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于�
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 如果未向 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>提供 cookie 身份验证方案，则使用 `CookieAuthenticationDefaults.AuthenticationScheme` （"Cookie"）。
 
-默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详情，请参阅<xref:security/gdpr#essential-cookies>。
+默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详细信息，请参阅 <xref:security/gdpr#essential-cookies>。
 
 在 `Startup.Configure`中，调用 `UseAuthentication` 和 `UseAuthorization` 设置 `HttpContext.User` 属性，并为请求运行授权中间件。 调用 `UseEndpoints`之前调用 `UseAuthentication` 和 `UseAuthorization` 方法：
 
@@ -236,9 +236,9 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详情，请参阅<xref:security/authentication/identity>。
+ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于创建和维护登录名。 但是，可以使用不带 ASP.NET Core 标识的基于 cookie 的身份验证提供程序。 有关详细信息，请参阅 <xref:security/authentication/identity>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 出于演示目的，在示例应用程序中，假设用户（Maria Rodriguez）的用户帐户已硬编码到应用中。 使用**电子邮件**地址 `maria.rodriguez@contoso.com` 和任何密码来登录用户。 用户在*页面/帐户/登录名. .cs*文件的 `AuthenticateUser` 方法中进行身份验证。 在实际的示例中，用户将对数据库进行身份验证。
 
@@ -254,7 +254,7 @@ ASP.NET Core 标识是完整、功能齐全的身份验证提供程序，用于�
 
 应用的身份验证方案不同于应用的 cookie 身份验证方案。 如果未向 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>提供 cookie 身份验证方案，则使用 `CookieAuthenticationDefaults.AuthenticationScheme` （"Cookie"）。
 
-默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详情，请参阅<xref:security/gdpr#essential-cookies>。
+默认情况下，身份验证 cookie 的 <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> 属性设置为 `true`。 当站点访问者未同意数据收集时，允许使用身份验证 cookie。 有关详细信息，请参阅 <xref:security/gdpr#essential-cookies>。
 
 在 `Startup.Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc`之前调用 `UseAuthentication` 方法：
 

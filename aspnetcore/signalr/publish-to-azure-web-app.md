@@ -10,20 +10,20 @@ no-loc:
 - SignalR
 uid: signalr/publish-to-azure-web-app
 ms.openlocfilehash: d03a007ca883b3d0391b848e3e92c90469ee640a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963929"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652650"
 ---
-# <a name="publish-an-aspnet-core-opno-locsignalr-app-to-azure-app-service"></a>将 ASP.NET Core SignalR 应用程序发布到 Azure App Service
+# <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>将 ASP.NET Core SignalR 应用发布到 Azure App Service
 
 作者： [Brady Gaster](https://twitter.com/bradygaster)
 
 [Azure App Service](/azure/app-service/app-service-web-overview)是一种[Microsoft 云计算](https://azure.microsoft.com/)平台服务，用于承载 web 应用，包括 ASP.NET Core。
 
 > [!NOTE]
-> 本文介绍如何从 Visual Studio 发布 ASP.NET Core SignalR 应用。 有关详细信息，请参阅[AzureSignalR 服务](https://azure.microsoft.com/services/signalr-service)。
+> 本文是指从 Visual Studio 发布 ASP.NET Core SignalR 应用程序。 有关详细信息，请参阅[SignalR service For Azure](https://azure.microsoft.com/services/signalr-service)。
 
 ## <a name="publish-the-app"></a>发布应用
 
@@ -37,7 +37,7 @@ ms.locfileid: "73963929"
 
    在 "**创建应用服务**" 对话框中，输入下表中所述的信息，然后选择 "**创建**"。
 
-   | 项               | 描述 |
+   | Item               | 说明 |
    | ------------------ | ----------- |
    | **名称**           | 应用的唯一名称。 |
    | **订阅**   | 应用使用的 Azure 订阅。 |
@@ -46,7 +46,7 @@ ms.locfileid: "73963929"
 
 1. 在 "**依赖关系**" > **添加**"下拉列表中选择" **Azure SignalR 服务**：
 
-   !["依赖关系" 区域显示 Azure 选项 [！基金."添加" 下拉列表中的 "无 LOC （SignalR）" 服务](publish-to-azure-web-app/_static/signalr-service-dependency.png)
+   ![依赖关系 "区域显示在" 添加 "下拉列表中选择的 Azure SignalR 服务](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
 1. 在 " **Azure SignalR 服务**" 对话框中，选择 "**创建新的 Azure SignalR 服务实例**"。
 

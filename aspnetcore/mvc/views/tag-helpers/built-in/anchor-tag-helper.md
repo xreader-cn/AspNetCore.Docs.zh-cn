@@ -6,24 +6,24 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 3ff8a52361b4911a5bb3163a8ea6ae90e504e4ef
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
-ms.translationtype: HT
+ms.openlocfilehash: 6bfbad39115c7823b5677d3c52ca64cfb0683037
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333942"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653778"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的定位点标记帮助程序
 
 作者：[Peter Kellner](https://peterkellner.net) 和 [Scott Addie](https://github.com/scottaddie)
 
-[定位点标记帮助程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper)可通过添加新属性来增强标准的 HTML 定位点 (`<a ... ></a>`) 标记。 按照约定，属性名称将使用前缀 `asp-`。 `asp-` 属性的值决定呈现的定位点元素的 `href` 属性值。
+[定位点标记帮助程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper)可通过添加新属性来增强标准的 HTML 定位点 (`<a ... ></a>`) 标记。 按照约定，属性名称将使用前缀 `asp-`。 `href` 属性的值决定呈现的定位点元素的 `asp-` 属性值。
 
 有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-本文档中的示例均使用 SpeakerController  ：
+本文档中的示例均使用 SpeakerController：
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/SpeakerController.cs?name=snippet_SpeakerController)]
 
@@ -41,7 +41,7 @@ ms.locfileid: "72333942"
 <a href="/Speaker">All Speakers</a>
 ```
 
-如果指定了 `asp-controller` 属性，而未指定 `asp-action` 属性，则默认的 `asp-action` 值为与当前正在执行的视图关联的控制器操作。 如果前面的标记中省略了 `asp-action`，并在 HomeController 的索引视图 (/Home) 中使用了定位点标记帮助程序，则生成的 HTML 为    ：
+如果指定了 `asp-controller` 属性，而未指定 `asp-action` 属性，则默认的 `asp-action` 值为与当前正在执行的视图关联的控制器操作。 如果前面的标记中省略了 `asp-action`，并在 HomeController 的索引视图 (/Home) 中使用了定位点标记帮助程序，则生成的 HTML 为：
 
 ```html
 <a href="/Home">All Speakers</a>
@@ -71,7 +71,7 @@ ms.locfileid: "72333942"
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/BuiltInTagController.cs?name=snippet_AnchorTagHelperAction)]
 
-在 Startup.Configure 中定义默认路由模板  ：
+在 Startup.Configure 中定义默认路由模板：
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=8-10)]
 
@@ -127,13 +127,13 @@ MVC 视图使用操作提供的模型，如下所示：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspRoute)]
 
-定位点标记帮助程序使用 URL /Speaker/Evaluations 生成直接指向该控制器操作的路由  。 生成的 HTML：
+定位点标记帮助程序使用 URL /Speaker/Evaluations 生成直接指向该控制器操作的路由。 生成的 HTML：
 
 ```html
 <a href="/Speaker/Evaluations">Speaker Evaluations</a>
 ```
 
-如果除了 `asp-route`，还指定了 `asp-controller` 或 `asp-action`，则可能不会生成预期的路由。 为了避免发生路由冲突，不应将 `asp-route` 与 `asp-controller` 和 `asp-action` 属性结合使用。
+如果除了 `asp-controller`，还指定了 `asp-action` 或 `asp-route`，则可能不会生成预期的路由。 为了避免发生路由冲突，不应将 `asp-route` 与 `asp-controller` 和 `asp-action` 属性结合使用。
 
 ### <a name="asp-all-route-data"></a>asp-all-route-data
 
@@ -181,15 +181,15 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 
 * **{项目名称}**
   * **wwwroot**
-  * **Areas**
-    * **Sessions**
-      * **Pages**
+  * **区域**
+    * **会话**
+      * **页**
         * *\_ViewStart.cshtml*
         * *Index.cshtml*
         * *Index.cshtml.cs*
-  * **Pages**
+  * **页**
 
-用于引用“会话”区域“索引”Razor 页的标记是   ：
+用于引用“会话”区域“索引”Razor 页的标记是：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspAreaRazorPages)]
 
@@ -213,18 +213,18 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 
 * **{项目名称}**
   * **wwwroot**
-  * **Areas**
-    * **Blogs**
+  * **区域**
+    * **博客**
       * **Controllers**
         * *HomeController.cs*
-      * **Views**
-        * **Home**
+      * **视图**
+        * **主页**
           * *AboutBlog.cshtml*
           * *Index.cshtml*
         * *\_ViewStart.cshtml*
   * **Controllers**
 
-如果将 `asp-area` 设置为 “Blogs”，则会为此定位点标记的关联控制器和视图的路由添加目录 Areas/Blogs 作为前缀  。 用于引用 AboutBlog 视图的标记是  ：
+如果将 `asp-area` 设置为 “Blogs”，则会为此定位点标记的关联控制器和视图的路由添加目录 Areas/Blogs 作为前缀。 用于引用 AboutBlog 视图的标记是：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspArea)]
 
@@ -235,13 +235,13 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 ```
 
 > [!TIP]
-> 若要在 MVC 应用中支持区域，路由模板必须包含对该区域（如果存在）的引用。 该模板由 Startup.Configure 中的 `routes.MapRoute` 方法调用的第二个参数表示： 
+> 若要在 MVC 应用中支持区域，路由模板必须包含对该区域（如果存在）的引用。 该模板由 Startup.Configure 中的 `routes.MapRoute` 方法调用的第二个参数表示：
 >
 > [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=5)]
 
 ### <a name="asp-protocol"></a>asp-protocol
 
-[asp-protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) 属性用于在 URL 中指定协议（比如 `https`）。 例如:
+[asp-protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) 属性用于在 URL 中指定协议（比如 `https`）。 例如：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspProtocol)]
 
@@ -255,7 +255,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 
 ### <a name="asp-host"></a>asp-host
 
-[asp-host](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) 属性用于在 URL 中指定主机名。 例如:
+[asp-host](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) 属性用于在 URL 中指定主机名。 例如：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspHost)]
 
@@ -297,7 +297,7 @@ ASP.NET Core 2.1 或更高版本中支持 Razor Pages 区域。
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Pages/Attendee.cshtml.cs?name=snippet_OnGetProfileHandler)]
 
-页模型的关联标记链接到 `OnGetProfile` 页处理程序。 注意，`asp-page-handler` 属性值中省略了页处理程序方法名称的 `On<Verb>` 前缀。 如果方法是异步的，也省略 `Async` 后缀。
+页模型的关联标记链接到 `OnGetProfile` 页处理程序。 注意，`On<Verb>` 属性值中省略了页处理程序方法名称的 `asp-page-handler` 前缀。 如果方法是异步的，也省略 `Async` 后缀。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspPageHandler)]
 

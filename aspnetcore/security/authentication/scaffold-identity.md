@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
 ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972036"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653712"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core 项目中的基架标识
 
@@ -269,7 +269,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 2.1 及更高版本提供了[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。 包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
+ASP.NET Core 2.1 和更高版本提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core 标识](xref:security/authentication/identity)。 包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
 
 **不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。 可以选择要生成的标识代码。
 

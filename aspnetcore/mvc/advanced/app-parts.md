@@ -5,12 +5,12 @@ description: 使用 ASP.NET Core 中的应用程序部件共享控制器、视�
 ms.author: riande
 ms.date: 11/11/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: a95c344410db0651b9f8f1c1eb7551029f084c25
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.openlocfilehash: 0156c94bc6d0b83d0e14b8ef49468cfdf106d7e6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829070"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654810"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>使用应用程序部件共享控制器、视图、Razor Pages 等
 
@@ -18,9 +18,9 @@ ms.locfileid: "75829070"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
 
-应用程序部件是对应用资源的抽象化。  借助应用程序部件，ASP.NET Core 可以发现控制器、视图组件、标记帮助器、Razor Pages、Razor 编译源等。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
+应用程序部件是对应用资源的抽象化。 借助应用程序部件，ASP.NET Core 可以发现控制器、视图组件、标记帮助器、Razor Pages、Razor 编译源等。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
 [功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 借助应用程序部件，你可以与多个应用共享包含控制器、视图、Razor Pages、Razor 编译源、标记帮助器等的程序集 (DLL)。 相对于在多个项目中复制代码，首选共享程序集。
 
@@ -28,15 +28,15 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ## <a name="load-aspnet-core-features"></a>加载 ASP.NET Core 功能
 
-使用 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 和 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类发现并加载 ASP.NET Core 功能（控制器、视图组件等）。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> 跟踪可用的应用程序部件和功能提供程序。 在 `Startup.ConfigureServices` 中配置 `ApplicationPartManager`：
+使用 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 和 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类发现并加载 ASP.NET Core 功能（控制器、视图组件等）。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> 跟踪可用的应用程序部件和功能提供程序。 在 `ApplicationPartManager` 中配置 `Startup.ConfigureServices`：
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup.cs?name=snippet)]
 
-以下代码提供使用 `AssemblyPart` 配置 `ApplicationPartManager` 的可选方法：
+以下代码提供使用 `ApplicationPartManager` 配置 `AssemblyPart` 的可选方法：
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-前面的两个代码示例从程序集加载 `SharedController`。 `SharedController` 未在该应用的项目中。 请参阅 [WebAppParts 解决方案](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts)示例下载。
+前面的两个代码示例从程序集加载 `SharedController`。 `SharedController` 未在该应用的项目中。 请参阅 [WebAppParts 解决方案](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts)示例下载。
 
 ### <a name="include-views"></a>包含视图
 
@@ -44,15 +44,15 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="prevent-loading-resources"></a>阻止加载资源
 
-可以使用应用程序部件来避免加载特定程序集或位置中的资源。  添加或删除 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 集合的成员，将隐藏或提供资源。 `ApplicationParts` 集合中条目的顺序并不重要。 在使用 `ApplicationPartManager` 配置容器中的服务之前，对该类进行配置。 例如，在调用 `AddControllersAsServices` 之前配置 `ApplicationPartManager`。 在 `ApplicationParts` 集合上调用 `Remove`，将删除资源。
+可以使用应用程序部件来避免加载特定程序集或位置中的资源。 添加或删除 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 集合的成员，将隐藏或提供资源。 `ApplicationParts` 集合中条目的顺序并不重要。 在使用 `ApplicationPartManager` 配置容器中的服务之前，对该类进行配置。 例如，在调用 `ApplicationPartManager` 之前配置 `AddControllersAsServices`。 在 `Remove` 集合上调用 `ApplicationParts`，将删除资源。
 
 `ApplicationPartManager` 包括以下内容的部件：
 
 * 应用的程序集和依赖程序集。
 * `Microsoft.AspNetCore.Mvc.ApplicationParts.CompiledRazorAssemblyPart`
 * `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`
-* `Microsoft.AspNetCore.Mvc.TagHelpers`。
-* `Microsoft.AspNetCore.Mvc.Razor`。
+* `Microsoft.AspNetCore.Mvc.TagHelpers` 列中的一个值匹配。
+* `Microsoft.AspNetCore.Mvc.Razor` 列中的一个值匹配。
 
 <a name="fp"></a>
 
@@ -70,11 +70,11 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="display-available-features"></a>显示可用功能
 
-通过[依存关系注入](../../fundamentals/dependency-injection.md)请求 `ApplicationPartManager` 即可以枚举应用的可用功能：
+通过`ApplicationPartManager`依存关系注入[请求 ](../../fundamentals/dependency-injection.md) 即可以枚举应用的可用功能：
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)使用前面的代码显示应用功能：
+[下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)使用前面的代码显示应用功能：
 
 ```text
 Controllers:
@@ -108,9 +108,9 @@ View Components:
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
 
-应用程序部件是对应用资源的抽象化。  借助应用程序部件，ASP.NET Core 可以发现控制器、视图组件、标记帮助器、Razor Pages、Razor 编译源等。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
+应用程序部件是对应用资源的抽象化。 借助应用程序部件，ASP.NET Core 可以发现控制器、视图组件、标记帮助器、Razor Pages、Razor 编译源等。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
 *功能提供程序*使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 借助应用程序部件，你可以与多个应用共享包含控制器、视图、Razor Pages、Razor 编译源、标记帮助器等的程序集 (DLL)。 相对于在多个项目中复制代码，首选共享程序集。
 
@@ -118,15 +118,15 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ## <a name="load-aspnet-core-features"></a>加载 ASP.NET Core 功能
 
-使用 `ApplicationPart` 和 `AssemblyPart` 类发现并加载 ASP.NET Core 功能（控制器、视图组件等）。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> 跟踪可用的应用程序部件和功能提供程序。 在 `Startup.ConfigureServices` 中配置 `ApplicationPartManager`：
+使用 `ApplicationPart` 和 `AssemblyPart` 类发现并加载 ASP.NET Core 功能（控制器、视图组件等）。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> 跟踪可用的应用程序部件和功能提供程序。 在 `ApplicationPartManager` 中配置 `Startup.ConfigureServices`：
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup.cs?name=snippet)]
 
-以下代码提供使用 `AssemblyPart` 配置 `ApplicationPartManager` 的可选方法：
+以下代码提供使用 `ApplicationPartManager` 配置 `AssemblyPart` 的可选方法：
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-前面的两个代码示例从程序集加载 `SharedController`。 `SharedController` 未在应用程序的项目中。 请参阅 [WebAppParts 解决方案](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts)示例下载。
+前面的两个代码示例从程序集加载 `SharedController`。 `SharedController` 未在应用程序的项目中。 请参阅 [WebAppParts 解决方案](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts)示例下载。
 
 ### <a name="include-views"></a>包含视图
 
@@ -134,15 +134,15 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="prevent-loading-resources"></a>阻止加载资源
 
-可以使用应用程序部件来避免加载特定程序集或位置中的资源。  添加或删除 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 集合的成员，将隐藏或提供资源。 `ApplicationParts` 集合中条目的顺序并不重要。 在使用 `ApplicationPartManager` 配置容器中的服务之前，对该类进行配置。 例如，在调用 `AddControllersAsServices` 之前配置 `ApplicationPartManager`。 在 `ApplicationParts` 集合上调用 `Remove`，将删除资源。
+可以使用应用程序部件来避免加载特定程序集或位置中的资源。 添加或删除 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 集合的成员，将隐藏或提供资源。 `ApplicationParts` 集合中条目的顺序并不重要。 在使用 `ApplicationPartManager` 配置容器中的服务之前，对该类进行配置。 例如，在调用 `ApplicationPartManager` 之前配置 `AddControllersAsServices`。 在 `Remove` 集合上调用 `ApplicationParts`，将删除资源。
 
 以下代码使用 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 删除应用中的 `MyDependentLibrary`：[!code-csharp[](./app-parts/sample1/WebAppParts/StartupRm.cs?name=snippet)]
 
 `ApplicationPartManager` 包括以下内容的部件：
 
 * 应用的程序集和依赖程序集。
-* `Microsoft.AspNetCore.Mvc.TagHelpers`。
-* `Microsoft.AspNetCore.Mvc.Razor`。
+* `Microsoft.AspNetCore.Mvc.TagHelpers` 列中的一个值匹配。
+* `Microsoft.AspNetCore.Mvc.Razor` 列中的一个值匹配。
 
 ## <a name="application-feature-providers"></a>应用程序功能提供程序
 
@@ -156,11 +156,11 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="display-available-features"></a>显示可用功能
 
-通过[依存关系注入](../../fundamentals/dependency-injection.md)请求 `ApplicationPartManager` 即可以枚举应用的可用功能：
+通过`ApplicationPartManager`依存关系注入[请求 ](../../fundamentals/dependency-injection.md) 即可以枚举应用的可用功能：
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[下载示例](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)使用前面的代码显示应用功能：
+[下载示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)使用前面的代码显示应用功能：
 
 ```text
 Controllers:

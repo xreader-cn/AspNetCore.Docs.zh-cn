@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/password-hashing
 ms.openlocfilehash: 52532f9f4d7f9037609c8273deb8b6964d81c714
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828563"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651432"
 ---
 # <a name="hash-passwords-in-aspnet-core"></a>在 ASP.NET Core中的哈希密码
 
@@ -26,4 +26,4 @@ ms.locfileid: "75828563"
 
 [!code-csharp[](password-hashing/samples/passwordhasher.cs)]
 
-有关实际用例, 请参阅 ASP.NET Core `PasswordHasher`标识的[源代码](https://github.com/dotnet/AspNetCore/blob/master/src/Identity/Extensions.Core/src/PasswordHasher.cs)。
+有关实际用例，请参阅 ASP.NET Core 标识的 `PasswordHasher` 类型的[源代码](https://github.com/dotnet/AspNetCore/blob/master/src/Identity/Extensions.Core/src/PasswordHasher.cs)。
