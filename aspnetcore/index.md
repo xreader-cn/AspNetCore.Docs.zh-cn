@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: index
-ms.openlocfilehash: 3e41b329feb359c006258b8ed558496dfcbbf3b0
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: f6e4a624186ccf0d7f6475819df7da9ef99f9bcc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914223"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644370"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -47,7 +47,7 @@ ASP.NET Core MVC 提供生成 [Web API](xref:tutorials/first-web-api) 和 [Web �
 
 ## <a name="client-side-development"></a>客户端开发
 
-ASP.NET Core 与常用客户端框架和库（包括 [[!OP.NO-LOC(Blazor)]](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”下的相关主题。
+ASP.NET Core 与常用客户端框架和库（包括 [Blazor](xref:blazor/index)、[Angular](xref:spa/angular)、[React](xref:spa/react) 和 [Bootstrap](https://getbootstrap.com/)）无缝集成。 有关详细信息，请参阅 <xref:blazor/index> 和“客户端开发”  下的相关主题。
 
 <a name="target-framework"></a>
 
@@ -83,8 +83,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
    |Web 应用                   | 用于新的开发        |[Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start) |
    |Web 应用                   | 用于维护 MVC 应用 |[MVC 入门](xref:tutorials/first-mvc-app/start-mvc)|
    |Web API                   |                            |[创建 Web API](xref:tutorials/first-web-api)\*  |
-   |实时应用             |                            |[开始使用 [!OP.NO-LOC(SignalR)]](xref:tutorials/signalr) |
-   |[!OP.NO-LOC(Blazor)] 应用                |                            |[开始使用 [!OP.NO-LOC(Blazor)]](xref:blazor/get-started) |
+   |实时应用             |                            |[SignalR 入门](xref:tutorials/signalr) |
+   |Blazor 应用                |                            |[Blazor 入门](xref:blazor/get-started) |
    |远程过程调用应用 |                            |[开始使用 gRPC 服务](xref:tutorials/grpc/grpc-start) |
 
 1. 按照介绍如何进行基本数据访问的教程操作：
@@ -110,8 +110,8 @@ ASP.NET Core 3.0 以及更高版本只能在 .NET Core 中运行。 有关此更
 
 很多文章和教程中都包含有示例代码链接。
 
-1. [下载 ASP.NET 存储库 zip 文件](https://codeload.github.com/aspnet/AspNetCore.Docs/zip/master)。
-1. 解压缩 Docs-master.zip 文件。
+1. [下载 ASP.NET 存储库 zip 文件](https://codeload.github.com/dotnet/AspNetCore.Docs/zip/master)。
+1. 解压缩 Docs-master.zip  文件。
 1. 使用示例链接中的 URL 帮助你导航到示例目录。
 
 ### <a name="preprocessor-directives-in-sample-code"></a>示例代码中的预处理器指令
@@ -156,7 +156,7 @@ Host.CreateDefaultBuilder(args)
 
 可放心忽略（或删除）代码两侧的 `#region` 和 `#endregion` 指令。 如果计划运行主题中所述的示例方案，请不要更改这些指令中的代码。 试用其他方案时，可随时更改代码。
 
-有关详细信息，请参阅[参与 ASP.NET 文档：代码片段](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)。
+有关详细信息，请参阅[参与 ASP.NET 文档：代码片段](https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)。
 
 ## <a name="next-steps"></a>后续步骤
 

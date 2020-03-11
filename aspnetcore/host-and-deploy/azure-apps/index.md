@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
 ms.openlocfilehash: ba9671f68a0faf99ff5232a6d5dd132d0a1d5ac5
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928420"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644610"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -251,7 +251,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ### <a name="deploy-the-app-framework-dependent"></a>部署依赖框架的应用
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
 1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
@@ -264,7 +264,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    * 选择“保存”  。
 1. 按照发布向导的其余提示创建新站点或更新现有站点。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. 在项目文件中，不要指定[运行时标识符 (RID)](/dotnet/core/rid-catalog)。
 
@@ -282,7 +282,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 对[独立式部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) 使用 Visual Studio 或 .NET Core CLI。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
 1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
@@ -295,7 +295,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    * 选择“保存”  。
 1. 按照发布向导的其余提示创建新站点或更新现有站点。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. 在项目文件中，指定一个或多个[运行时标识符 (RID)](/dotnet/core/rid-catalog)。 对单个 RID 使用 `<RuntimeIdentifier>`（单数），或使用 `<RuntimeIdentifiers>`（复数）提供以分号分隔的 RID 列表。 在以下示例中，指定 `win-x86` RID：
 

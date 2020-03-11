@@ -11,11 +11,11 @@ no-loc:
 - SignalR
 uid: security/blazor/index
 ms.openlocfilehash: c07ffdbd5df58d6b3d19a5d75ce224d830101eac
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447420"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644478"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 

@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 08/09/2019
 uid: tutorials/razor-pages/index
 ms.openlocfilehash: 03acfc381cf5dca2f8b834da75191cd8053e0da4
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703786"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644592"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
 

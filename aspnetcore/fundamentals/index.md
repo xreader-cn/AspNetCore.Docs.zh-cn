@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: fundamentals/index
 ms.openlocfilehash: 3fbfc7c4c0d5e568339bc00a7cbe84a3932acf1f
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146350"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644550"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -69,7 +69,7 @@ ASP.NET Core 应用在启动时构建主机  。 主机是封装所有应用资�
 * 中间件组件
 * Logging
 * DI
-* 配置
+* Configuration
 
 一个对象中包含所有应用的相互依赖资源的主要原因是生存期管理：控制应用启动和正常关闭。
 
@@ -119,7 +119,7 @@ ASP.NET Core 应用使用 HTTP 服务器实现侦听 HTTP 请求。 服务器对
 
 ::: moniker range=">= aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core 提供以下服务器实现：
 
@@ -127,11 +127,11 @@ ASP.NET Core 提供以下服务器实现：
 * IIS HTTP 服务器是适用于使用 IIS 的 Windows 的服务器  。 借助此服务器，ASP.NET Core 应用和 IIS 在同一进程中运行。
 * HTTP.sys是适用于不与 IIS 一起使用的 Windows 的服务器  。
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
@@ -141,18 +141,18 @@ ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 �
 
 ::: moniker range="< aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core 提供以下服务器实现：
 
 * Kestrel 是跨平台 Web 服务器  。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。
 * HTTP.sys是适用于不与 IIS 一起使用的 Windows 的服务器  。
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。 Kestrel 通常使用 [Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/) 在反向代理配置中运行。
 
@@ -162,7 +162,7 @@ ASP.NET Core 提供 Kestrel 跨平台服务器实现  。 在 ASP.NET Core 2.0 �
 
 有关详细信息，请参阅 <xref:fundamentals/servers/index>。
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 ASP.NET Core 提供了配置框架，可以从配置提供程序的有序集中将设置作为名称/值对。 有适用于各种源的内置配置提供程序，例如 .json 文件、.xml 文件、环境变量和命令行参数   。 此外可以编写自定义配置提供程序。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/authentication/social/index
-ms.openlocfilehash: 7d0f6647a6f5a4d41067b13acd3d294144027bb7
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: c698edbd85d665509366287b1dcad08e276e71cc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727329"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644814"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -30,16 +30,16 @@ ms.locfileid: "76727329"
 
 ## <a name="create-a-new-aspnet-core-project"></a>创建新的 ASP.NET Core 项目
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 创建新项目。
-* 依次选择“ASP.NET Core Web 应用程序”和“下一步”。
-* 提供项目名称，再确认或更改位置。 选择“创建”。
-* 在下拉列表 (ASP.NET Core {X.Y}) 中选择最新版 ASP.NET Core，然后选择“Web 应用程序”。
-* 在“身份验证”下，选择“更改”再设置针对单个用户帐户的身份验证。 选择“确定”。
-* 在“创建新的 ASP.NET Core Web 应用程序”窗口中，选择“创建”。
+* 依次选择“ASP.NET Core Web 应用程序”和“下一步”   。
+* 提供项目名称，再确认或更改位置   。 选择“创建”  。
+* 在下拉列表 (ASP.NET Core {X.Y}) 中选择最新版 ASP.NET Core，然后选择“Web 应用程序”   。
+* 在“身份验证”下，选择“更改”再设置针对单个用户帐户的身份验证    。 选择“确定”  。
+* 在“创建新的 ASP.NET Core Web 应用程序”窗口中，选择“创建”   。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 打开终端。  对于 Visual Studio Code，可以打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 
@@ -57,24 +57,24 @@ ms.locfileid: "76727329"
   dotnet new webapp -o WebApp1 -au Individual
   ```
 
-  * `dotnet new` 命令可在“WebApp1”文件夹中创建新的 Razor Pages 项目。
+  * `dotnet new` 命令可在“WebApp1”文件夹中创建新的 Razor Pages 项目  。
   * `-au Individual` 创建用于个人身份验证的代码。
   * `-uld` 使用 LocalDB，这是 SQL Server Express for Windows 的轻型版本。 省略 `-uld` 以使用 SQLite。
-  * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹。
+  * `code` 命令将在新 Visual Studio Code 实例中打开“WebApp1”文件夹  。
 
 ---
 
 ## <a name="apply-migrations"></a>应用迁移
 
-* 运行应用并选择“注册”链接。
-* 输入新帐户的电子邮件地址和密码，再选择“注册”。
+* 运行应用并选择“注册”链接  。
+* 输入新帐户的电子邮件地址和密码，再选择“注册”  。
 * 按照说明操作来应用迁移。
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="use-secretmanager-to-store-tokens-assigned-by-login-providers"></a>使用 SecretManager 存储登录提供程序分配的令牌
 
-社交登录提供程序在注册过程中分配“应用程序 ID”和“应用程序机密”。 确切的令牌名称因提供程序而异。 这些令牌代表应用用来访问其 API 的凭据。 令牌构成“机密”，可利用[机密管理器](xref:security/app-secrets#secret-manager)将其链接到应用配置。 机密管理器是在配置文件（例如 appsettings.json）中存储令牌更安全替代方法。
+社交登录提供程序在注册过程中分配“应用程序 ID”  和“应用程序机密”  。 确切的令牌名称因提供程序而异。 这些令牌代表应用用来访问其 API 的凭据。 令牌构成“机密”，可利用[机密管理器](xref:security/app-secrets#secret-manager)将其链接到应用配置。 机密管理器是在配置文件（例如 appsettings.json  ）中存储令牌更安全替代方法。
 
 > [!IMPORTANT]
 > 机密管理器仅用于开发目的。 可使用 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。
@@ -99,11 +99,11 @@ ms.locfileid: "76727329"
 
 使用外部提供程序在登录过程中设置的电子邮箱创建密码和登录：
 
-* 选择右上角的“Hello &lt;电子邮件别名&gt;”链接，导航到“管理”视图。
+* 选择右上角的“Hello &lt;电子邮件别名&gt;”链接，导航到“管理”视图   。
 
 ![Web 应用程序“管理”视图](index/_static/pass1a.png)
 
-* 选择“创建”
+* 选择“创建” 
 
 ![“设置密码”页](index/_static/pass2a.png)
 
@@ -111,7 +111,7 @@ ms.locfileid: "76727329"
 
 ## <a name="next-steps"></a>后续步骤
 
-* 请参阅[此 GitHub 问题](https://github.com/aspnet/AspNetCore.Docs/issues/10563)，了解有关如何自定义登录按钮的信息。
+* 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/10563)，了解有关如何自定义登录按钮的信息。
 * 本文介绍了外部身份验证，并说明了向 ASP.NET Core 应用添加外部登录所需的先决条件。
 * 引用特定于提供程序的页，为应用所需的提供程序配置登录。
 * 可能需要保留有关用户及其访问和刷新令牌的其他数据。 有关详细信息，请参阅 <xref:security/authentication/social/additional-claims>。

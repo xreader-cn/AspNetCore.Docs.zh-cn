@@ -11,13 +11,13 @@ no-loc:
 - SignalR
 uid: host-and-deploy/blazor/index
 ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160257"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644706"
 ---
-# <a name="host-and-deploy-aspnet-core-opno-locblazor"></a>托管和部署 ASP.NET Core Blazor
+# <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -27,13 +27,13 @@ ms.locfileid: "76160257"
 
 发布应用，用于发布配置中的部署。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 从导航栏中选择“生成”   > “发布{应用程序}”  。
 1. 选择“发布目标”  。 若要在本地发布，请选择“文件夹”  。
 1. 接受“选择文件夹”  字段中的默认位置，或指定其他位置。 选择“发布”  按钮。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 使用 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令发布具有发布配置的应用：
 

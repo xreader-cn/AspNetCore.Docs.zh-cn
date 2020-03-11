@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/1x-to-2x/index
 ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828927"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644766"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>从 ASP.NET Core 1.x 迁移到 2.0
 

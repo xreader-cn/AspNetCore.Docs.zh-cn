@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/10/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: d0ef670aa0ac4960318f86ea7888b9eab71f17fd
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 3dcabae3f76d81e641057c346dbb9097c2da42c7
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171901"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644100"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -41,7 +41,7 @@ using Microsoft.Extensions.Configuration;
 
 选项模式  是本主题中描述的配置概念的扩展。 选项使用类来表示相关设置的组。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="host-versus-app-configuration"></a>主机与应用配置
 
@@ -1155,7 +1155,7 @@ using Microsoft.Extensions.Configuration;
 
 选项模式  是本主题中描述的配置概念的扩展。 选项使用类来表示相关设置的组。 有关详细信息，请参阅 <xref:fundamentals/configuration/options>。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="host-versus-app-configuration"></a>主机与应用配置
 

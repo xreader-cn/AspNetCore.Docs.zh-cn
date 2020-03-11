@@ -7,11 +7,11 @@ ms.date: 08/07/2018
 ms.custom: mvc, seodec18
 uid: azure/devops/index
 ms.openlocfilehash: f45bb2a5dd4b3d1a820085ede7ce3219045ed80b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64881952"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644244"
 ---
 # <a name="devops-with-aspnet-core-and-azure"></a>通过 ASP.NET Core 和 Azure 实现 DevOps
 
@@ -37,23 +37,23 @@ ms.locfileid: "64881952"
 
 ## <a name="whats-in-this-guide"></a>本指南内容
 
-### <a name="tools-and-downloadsxrefazuredevopstools-and-downloads"></a>[工具和下载](xref:azure/devops/tools-and-downloads)
+### <a name="tools-and-downloads"></a>[工具和下载](xref:azure/devops/tools-and-downloads)
 
 了解在何处获取本指南中使用的工具。
 
-### <a name="deploy-to-app-servicexrefazuredevopsdeploy-to-app-service"></a>[部署到应用服务](xref:azure/devops/deploy-to-app-service)
+### <a name="deploy-to-app-service"></a>[部署到应用服务](xref:azure/devops/deploy-to-app-service)
 
 了解将 ASP.NET Core 应用部署到 Azure 应用服务的各种方法。
 
-### <a name="continuous-integration-and-deploymentxrefazuredevopscicd"></a>[持续集成和部署](xref:azure/devops/cicd)
+### <a name="continuous-integration-and-deployment"></a>[持续集成和部署](xref:azure/devops/cicd)
 
 通过 GitHub、Azure DevOps Services 和 Azure，为 ASP.NET Core 应用生成端到端持续集成和部署解决方案。
 
-### <a name="monitor-and-debugxrefazuredevopsmonitor"></a>[监视和调试](xref:azure/devops/monitor)
+### <a name="monitor-and-debug"></a>[监视和调试](xref:azure/devops/monitor)
 
 使用 Azure 工具监视、故障排除和优化应用程序。
 
-### <a name="next-stepsxrefazuredevopsnext-steps"></a>[后续步骤](xref:azure/devops/next-steps)
+### <a name="next-steps"></a>[后续步骤](xref:azure/devops/next-steps)
 
 ASP.NET Core 开发人员学习 Azure 的其他学习路径。
 
