@@ -315,8 +315,10 @@
           uid: blazor/dependency-injection
         - name: 路由
           uid: blazor/routing
-        - name: JavaScript 互操作
-          uid: blazor/javascript-interop
+        - name: 从 .NET 调用 JavaScript
+          uid: blazor/call-javascript-from-dotnet
+        - name: 从 JavaScript 调用 .NET
+          uid: blazor/call-dotnet-from-javascript
         - name: 托管模型配置
           uid: blazor/hosting-model-configuration
         - name: 组件库
@@ -325,8 +327,30 @@
           items:
             - name: 概述
               uid: security/blazor/index
+            - name: Blazor WebAssembly
+              items:
+                - name: 概述
+                  uid: security/blazor/webassembly/index
+                - name: 包含身份验证库的独立产品
+                  uid: security/blazor/webassembly/standalone-with-authentication-library
+                - name: 包含 Microsoft 帐户的独立产品
+                  uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+                - name: 包含 AAD 的独立产品
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory
+                - name: 包含 AAD B2C 的独立产品
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+                - name: 由标识服务器托管
+                  uid: security/blazor/webassembly/hosted-with-identity-server
+                - name: 由 AAD 托管
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory
+                - name: 由 AAD B2C 托管
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                - name: 其他方案
+                  uid: security/blazor/webassembly/additional-scenarios
             - name: Blazor 服务器
               uid: security/blazor/server
+            - name: 内容安全策略
+              uid: security/blazor/content-security-policy
         - name: 状态管理
           uid: blazor/state-management
         - name: 处理错误
@@ -335,6 +359,8 @@
           uid: blazor/debug
         - name: 调用 Web API
           uid: blazor/call-web-api
+        - name: 渐进式 Web 应用程序
+          uid: blazor/progressive-web-app
         - name: 托管和部署
           items:
             - name: 概述
@@ -373,7 +399,7 @@
           uid: client-side/bundling-and-minification
         - name: 浏览器链接
           uid: client-side/using-browserlink
-    - name: 会话和应用状态
+    - name: 会话和状态管理
       uid: fundamentals/app-state
     - name: 布局
       uid: mvc/views/layout
@@ -1066,6 +1092,14 @@
       uid: security/cookie-sharing
     - name: SameSite Cookie
       uid: security/samesite
+    - name: SameSite 示例
+      items:
+        - name: Razor Pages 2.1 SameSite cookie 示例
+          uid: security/samesite/rp21
+        - name: Razor Pages 3.1 SameSite cookie 示例
+          uid: security/samesite/rp31
+        - name: MVC SameSite cookie 示例
+          uid: security/samesite/mvc21
     - name: IP 安全列表
       uid: security/ip-safelist
     - name: 应用程序安全性 - OWASP
@@ -1074,8 +1108,30 @@
       items:
         - name: 概述
           uid: security/blazor/index
+        - name: Blazor WebAssembly
+          items:
+            - name: 概述
+              uid: security/blazor/webassembly/index
+            - name: 包含身份验证库的独立产品
+              uid: security/blazor/webassembly/standalone-with-authentication-library
+            - name: 包含 Microsoft 帐户的独立产品
+              uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+            - name: 包含 AAD 的独立产品
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory
+            - name: 包含 AAD B2C 的独立产品
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+            - name: 由标识服务器托管
+              uid: security/blazor/webassembly/hosted-with-identity-server
+            - name: 由 AAD 托管
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory
+            - name: 由 AAD B2C 托管
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+            - name: 其他方案
+              uid: security/blazor/webassembly/additional-scenarios
         - name: Blazor 服务器
           uid: security/blazor/server
+        - name: 内容安全策略
+          uid: security/blazor/content-security-policy
 - name: 性能
   items:
     - name: 概述
@@ -1203,4 +1259,4 @@
 - name: API 参考
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 参与
-  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
