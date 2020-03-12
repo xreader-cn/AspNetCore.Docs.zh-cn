@@ -5,14 +5,16 @@ description: 使用 Facebook、Google、Twitter 等帐户用户身份验证的�
 ms.author: riande
 ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b30ce7055b35b721c7fb83b61a328200d6a136b1
+ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359053"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79025397"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>在不 ASP.NET Core 标识的情况下使用社交登录提供程序身份验证
+
+作者： [Kirk Larkin](https://twitter.com/serpent5)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +29,7 @@ ms.locfileid: "75359053"
 * [Twitter 身份验证](xref:security/authentication/twitter-logins)
 * [其他提供程序](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 在 `ConfigureServices` 方法中，使用 <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>、<xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>和 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> 方法配置应用的身份验证方案：
 
@@ -82,7 +84,7 @@ ms.locfileid: "75359053"
 * [Twitter 身份验证](xref:security/authentication/twitter-logins)
 * [其他提供程序](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 在 `ConfigureServices` 方法中，使用 `AddAuthentication`、`AddCookie`和 `AddGoogle` 方法配置应用的身份验证方案：
 
@@ -98,7 +100,7 @@ ms.locfileid: "75359053"
 
 如果将应用程序的 `DefaultScheme` 设置为[CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) （"cookie"），则会将应用程序配置为使用 cookie 作为这些扩展方法的默认方案。 如果将应用程序的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> 设置为[GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) （"Google"），则会将应用程序配置为使用 Google 作为调用 `ChallengeAsync`的默认方案。 `DefaultScheme``DefaultChallengeScheme` 重写。 有关在设置时覆盖 `DefaultScheme` 的其他属性，请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>。
 
-在 `Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc` 之前调用 `UseAuthentication` 方法：
+在 `Configure` 方法中，调用 `UseAuthentication` 方法来调用设置 `HttpContext.User` 属性的身份验证中间件。 在调用 `UseMvcWithDefaultRoute` 或 `UseMvc`之前调用 `UseAuthentication` 方法：
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
