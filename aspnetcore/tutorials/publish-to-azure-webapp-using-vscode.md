@@ -6,12 +6,12 @@ ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 90ba130f13903cd45eca062c0eca8945eff2e0fa
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: eaf9cca61b21d04d127ff15a579f3d8da794f7d9
+ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647178"
+ms.lasthandoff: 03/09/2020
+ms.locfileid: "78935429"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>使用 Visual Studio Code 将 ASP.NET Core 应用发布到 Azure
 
@@ -30,7 +30,7 @@ ms.locfileid: "78647178"
 - 如果没有[免费 Azure 帐户](https://azure.microsoft.com/free/dotnet/)，请开设一个。
 - 安装 [.NET Core SDK](https://dotnet.microsoft.com/download)
 - 安装 [Visual Studio Code](https://code.visualstudio.com/Download)
-  - 将 [C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)安装到 Visual Studio Code
+  - 将 [C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)安装到 Visual Studio Code
   - 将 [Azure 应用服务扩展](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)安装到 Visual Studio Code 并在继续操作之前对其进行配置
 
 ## <a name="create-an-aspnet-core-mvc-project"></a>创建 ASP.NET Core MVC 项目
