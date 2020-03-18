@@ -5,12 +5,12 @@ description: 了解如何生成使用电子邮件确认及密码重置功能的 
 ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 49d3d214fd64edc5b17df2df929ddc3c2af47ede
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 3a6b0501d507929c9929207a7bb871b3b81b7cb8
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654222"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511621"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>帐户确认和 ASP.NET Core 中的密码恢复
 
@@ -32,7 +32,7 @@ ms.locfileid: "78654222"
 
 ::: moniker range="> aspnetcore-2.2"
 
-## <a name="prerequisites"></a>必备条件
+## <a name="prerequisites"></a>先决条件
 
 [.NET Core 3.0 SDK 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -217,9 +217,9 @@ dotnet add package SendGrid
 
 ::: moniker range="> aspnetcore-2.0 < aspnetcore-3.0"
 
-## <a name="prerequisites"></a>必备条件
+## <a name="prerequisites"></a>先决条件
 
-[.NET Core 2.2 SDK 或更高版本](https://www.microsoft.com/net/download/all)
+[.NET Core 2.2 SDK 或更高版本](https://dotnet.microsoft.com/download/dotnet-core)
 
 ## <a name="create-a-web--app-and-scaffold-identity"></a>创建 web 应用和基架标识
 

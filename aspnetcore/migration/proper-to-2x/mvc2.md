@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/mvc2
-ms.openlocfilehash: 11bd3b948afaedc675ac4249099969382683f653
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5a2437f8dddee49d402bf7df67cb15aa895367b2
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653970"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511076"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>从 ASP.NET 迁移到 ASP.NET Core 2.0
 
@@ -19,9 +19,9 @@ ms.locfileid: "78653970"
 
 本文可作为从 ASP.NET 应用程序迁移到 ASP.NET Core 2.0 的参考指南。
 
-## <a name="prerequisites"></a>必备条件
+## <a name="prerequisites"></a>先决条件
 
-从 .Net 下载安装以下内容**之一** [： Windows](https://www.microsoft.com/net/download/windows)：
+从 .Net 下载安装以下内容**之一** [： Windows](https://dotnet.microsoft.com/download)：
 
 * .NET Core SDK
 * 适用于 Windows 的 Visual Studio
@@ -76,7 +76,7 @@ ASP.NET Core 使用相似的方法，但是不依赖 OWIN 处理条目。 而是
 * 错误页
 * 静态文件
 * ASP.NET Core MVC
-* 标识
+* 身份
 
 [!code-csharp[](../../common/samples/WebApplication1/Startup.cs?highlight=8,9,10,14,17,19,21&start=58&end=84)]
 
