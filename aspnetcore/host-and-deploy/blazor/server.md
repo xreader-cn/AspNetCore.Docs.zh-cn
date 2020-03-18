@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core 托管和部署 Blazor Server 应�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/15/2020
+ms.date: 03/03/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: 42321b8564524fec41104ccaf1ac47981d014c94
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 866bb348180c872d8ab20787283cfb7217183a8d
+ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647358"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79025430"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -110,14 +110,40 @@ metadata:
 
 #### <a name="linux-with-nginx"></a>Linux 与 Nginx
 
-为使 SignalR WebSocket 正常工作，请将代理的 `Upgrade` 和 `Connection` 标头设置为以下内容：
+要使 SignalR Websocket 正常运行，请确保将代理的 `Upgrade` 和 `Connection` 标头设置为以下值，并将 `$connection_upgrade` 映射到以下值之一：
+
+* 默认情况下为升级标头值。
+* 缺少升级标头或升级标头为空时为 `close`。
 
 ```
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection $connection_upgrade;
+http {
+    map $http_upgrade $connection_upgrade {
+        default Upgrade;
+        ''      close;
+    }
+
+    server {
+        listen      80;
+        server_name example.com *.example.com
+        location / {
+            proxy_pass         http://localhost:5000;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Connection $connection_upgrade;
+            proxy_set_header   Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+        }
+    }
+}
 ```
 
-有关详细信息，请参阅 [NGINX 作为 WebSocket 代理](https://www.nginx.com/blog/websocket-nginx/)。
+有关详细信息，请参阅以下文章：
+
+* [NGINX 作为 WebSocket 代理](https://www.nginx.com/blog/websocket-nginx/)
+* [WebSocket 代理](http://nginx.org/docs/http/websocket.html)
+* <xref:host-and-deploy/linux-nginx>
 
 ### <a name="measure-network-latency"></a>衡量网络延迟
 

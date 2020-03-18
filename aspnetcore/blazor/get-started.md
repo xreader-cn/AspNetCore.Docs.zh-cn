@@ -5,17 +5,17 @@ description: 使用所选的工具生成 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: bd33d874b3d6122f2ab820e9b147b0e62ba03a58
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 89c7529d2b8ec97db731f7c7268e19937c398115
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648630"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083236"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -28,12 +28,15 @@ Blazor 入门：
 1. 安装 [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
 
 1. （可选）安装 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 模板：
-   * 安装 [.NET Core 3.1 或更高版本（预览版）SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
-   * 在命令行界面中运行以下命令。 当 Blazor WebAssembly 处于预览状态时，[ Microsoft.AspNetCore.Blazor.Templates ](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/) 包具有预览版本。
+   * 安装 [.NET Core 3.1.102 或更高版本（预览版）SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
+   * 在命令行界面中运行以下命令。 当 Blazor WebAssembly 处于预览状态时，[ Microsoft.AspNetCore.Components.WebAssembly.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) 包具有预览版本。
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.2.0-preview1.20073.1
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview2.20160.5
    ```
+
+   > [!NOTE]
+   > 使用 3.2 预览版 2 Blazor WebAssembly 模板时需要 .NET Core SDK 版本 3.1.102 或更高版本  。 通过在命令行界面中运行 `dotnet --version` 来确认所安装的 .NET Core SDK 版本。
 
 1. 按照所选工具的指南进行操作：
 
@@ -47,7 +50,7 @@ Blazor 入门：
 
    4\. 在“项目名称”字段提供项目名称，或接受默认项目名称  。 确认“位置”  条目正确无误或为项目提供位置。 选择“创建”  。
 
-   5\. 若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板  。 若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板  。 选择“创建”  。 有关 *Blazor Server* 和 *Blazor WebAssembly* 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。
+   5\. 若要获得 Blazor WebAssembly 体验，请选择“Blazor WebAssembly 应用”模板  。 若要获得 Blazor Server 体验，请选择“Blazor Server 应用”模板  。 选择“创建”  。 有关 *Blazor Server* 和 *Blazor WebAssembly* 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。 如果 Blazor WebAssembly 模板不存在，请返回上一步并重新安装模板。
 
    6\. 按 Ctrl+F5 运行应用   。
 
@@ -58,7 +61,7 @@ Blazor 入门：
 
    1\. 安装 [Visual Studio Code](https://code.visualstudio.com/)。
 
-   2\. 安装最新的 [C# for Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)。
+   2\. 安装最新的 [C# for Visual Studio Code 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)。
 
    3\. 若要获得 Blazor WebAssembly 体验，请在命令行界面中执行以下命令：
 

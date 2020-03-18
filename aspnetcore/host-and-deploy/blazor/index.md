@@ -5,17 +5,17 @@ description: 了解如何托管和部署 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/11/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ddf70da29a82d462422c1bdf74ff45b92bb10b56
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644706"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434260"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
@@ -45,7 +45,12 @@ dotnet publish -c Release
 
 创建部署资产前，发布应用将触发项目依赖项的[还原](/dotnet/core/tools/dotnet-restore)并[生成](/dotnet/core/tools/dotnet-build)生成该项目。 在生成过程期间，将删除未使用的方法和程序集，以减少应用下载大小并缩短加载时间。
 
-Blazor WebAssembly 应用发布到 /bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist 文件夹中  。 Blazor 服务器应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish 文件夹  。
+发布位置：
+
+* Blazor WebAssembly
+  * 独立 &ndash; 应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot  文件夹。 若要将应用部署为静态站点，请将 wwwroot 文件夹的内容复制到静态站点主机  。
+  * 托管 &ndash; 客户端 Blazor WebAssembly 应用将发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹，以及服务器应用的任何其他静态 Web 资产  。 将 publish 文件夹的内容部署到主机  。
+* Blazor 服务器 &ndash; 应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish 文件夹  。 将 publish 文件夹的内容部署到主机  。
 
 文件夹中的资产将部署到 Web 服务器。 部署可能是手动或自动化过程，具体取决于使用的开发工具。
 

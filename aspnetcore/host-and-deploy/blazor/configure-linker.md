@@ -5,17 +5,17 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648606"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083298"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
@@ -23,20 +23,24 @@ ms.locfileid: "78648606"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中删除不必要的 IL。
+Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中剪裁不必要的 IL。 在调试配置中生成时，将禁用链接器。 应用必须在发布配置中生成才能启用链接器。 部署 Blazor WebAssembly 应用时，建议在发布中生成。 
 
-使用以下任何一种方法控制程序集链接：
+链接应用可以优化大小，但可能会造成不利影响。 使用反射或相关动态功能的应用可能会在剪裁时中断，因为链接器不知道此动态行为，而且通常无法确定在运行时反射所需的类型。 若要剪裁此类应用，必须通知链接器应用所依赖的代码和包或框架中的反射所需的任何类型。 
 
-* 使用 [MSBuild 属性](#disable-linking-with-a-msbuild-property)全局禁用链接。
+若要确保剪裁后的应用在部署后正常工作，请务必在开发时经常对应用的发行版本进行测试。
+
+可以使用以下 MSBuild 功能配置 Blazor 应用的链接：
+
+* 使用 [MSBuild 属性](#control-linking-with-an-msbuild-property)全局配置链接。
 * 使用[配置文件](#control-linking-with-a-configuration-file)按程序集控制链接。
 
-## <a name="disable-linking-with-a-msbuild-property"></a>使用 MSBuild 属性禁用链接
+## <a name="control-linking-with-an-msbuild-property"></a>使用 MSBuild 属性控制链接
 
-在生成应用（包括发布）时，默认启用链接。 若要禁用所有程序集链接，请在项目文件中将 `BlazorLinkOnBuild` MSBuild 属性设置为 `false`：
+在 `Release` 配置中生成应用时，将启用链接。 若要对此进行更改，请在项目文件中配置 `BlazorWebAssemblyEnableLinking` MSBuild 属性：
 
 ```xml
 <PropertyGroup>
-  <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+  <BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
 </PropertyGroup>
 ```
 

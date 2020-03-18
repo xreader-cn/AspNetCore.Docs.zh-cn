@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2020
 uid: security/authentication/index
-ms.openlocfilehash: 24113fd4f090cf76746a7b077212fdab012f82c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 404904ecfa30d1fe7e47f0daaa423ddd6f1b06e8
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644358"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434325"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core 身份验证概述
 
@@ -110,6 +110,18 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 * [使用操作资源处理程序的挑战和禁止](xref:security/authorization/resourcebased#challenge-and-forbid-with-an-operational-resource-handler)。
 * [挑战与禁止之间的区别](xref:security/authorization/secure-data#challenge)。
+
+## <a name="authentication-providers-per-tenant"></a>每个租户的身份验证提供程序
+
+ASP.NET Core 框架没有用于多租户身份验证的内置解决方案。
+虽然客户当然可以使用内置功能编写一个解决方案，但建议客户查看 [Orchard Core](https://www.orchardcore.net/) 以实现此目的。
+
+Orchard Core 是：
+
+* 使用 ASP.NET Core 生成的开放源代码模块和多租户应用框架。
+* 基于该应用框架生成的内容管理系统 (CMS)。
+
+请参阅 [Orchard Core](https://github.com/OrchardCMS/OrchardCore) 源，了解每个租户的身份验证提供程序的示例。
 
 ## <a name="additional-resources"></a>其他资源
 
