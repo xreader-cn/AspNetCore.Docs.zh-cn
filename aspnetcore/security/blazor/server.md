@@ -5,21 +5,21 @@ description: 了解如何缓解 Blazor 服务器应用的安全威胁。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 61030f9b5beb849a7cf03571da425e49b144994c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 128cd5e542153e07dc301032e1e73bf27e1236f3
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653478"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434417"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>安全 ASP.NET Core Blazor 服务器应用
 
-作者： [Javier Calvarro 使用](https://github.com/javiercn)
+作者：[Javier Calvarro Nelson](https://github.com/javiercn)
 
 Blazor Server apps 采用有*状态*数据处理模型，其中服务器和客户端保持长期的关系。 持久状态由线路维护，[线路](xref:blazor/state-management)可以跨也可能长期生存期的连接。
 
@@ -263,7 +263,7 @@ Blazor 服务器事件都是异步的，因此在应用程序有时间通过生�
 
     public void Dispose()
     {
-        CancellationTokenSource.Cancel();
+        TokenSource.Cancel();
     }
 }
 ```

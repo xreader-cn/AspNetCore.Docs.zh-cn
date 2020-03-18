@@ -4,7 +4,7 @@
 
 * `--verbosity <LEVEL>`
 
-  设置输出的详细级别。 替换为`<LEVEL>`使用以下值之一：
+  设置输出的详细程度。 将 `<LEVEL>` 替换为以下值之一：
   
   * `quiet`
   * `normal`

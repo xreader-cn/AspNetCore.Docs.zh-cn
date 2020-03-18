@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
-ms.openlocfilehash: ace937e72efa2343e50b11d52ebc0a2530505758
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 85cf86dcb22ef94cfc87975abaab176e4f1227d3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975598"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645426"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>ASP.NET Core 和 Entity Framework 6 入门
 
@@ -23,7 +23,7 @@ ms.locfileid: "69975598"
 
 若要使用 Entity Framework 6，则项目必须面向 .NET Framework 进行编译，因为 Entity Framework 6 不支持 .NET Core。 如果需要跨平台功能，需升级到 [Entity Framework Core](/ef/)。
 
-在 ASP.NET Core 应用程序中使用 Entity Framework 6 的推荐方法是：将 EF6 上下文和模型类放入面向完整框架的类库项目中。 添加对 ASP.NET Core 项目中的类库的引用。 请参阅示例[针对 EF6 和 ASP.NET Core 项目的 Visual Studio 解决方案](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/)。
+在 ASP.NET Core 应用程序中使用 Entity Framework 6 的推荐方法是：将 EF6 上下文和模型类放入面向 .NET Framework 的类库项目中。 添加对 ASP.NET Core 项目中的类库的引用。 请参阅示例[针对 EF6 和 ASP.NET Core 项目的 Visual Studio 解决方案](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/)。
 
 不能将 EF6 上下文放入 ASP.NET Core 项目，因为 .NET Core 项目不支持 EF6 命令（如 Enable-Migrations）所需的的各项功能  。
 
@@ -31,7 +31,7 @@ ms.locfileid: "69975598"
 
 ## <a name="reference-full-framework-and-ef6-in-the-aspnet-core-project"></a>在 ASP.NET Core 项目中引用完整框架和 EF6
 
-ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 项目的 .csproj 文件将与以下示例类似（仅显示该文件的相关部分）  。
+ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET Core 项目的 .csproj 文件将与以下示例类似（仅显示该文件的相关部分）  。
 
 [!code-xml[](entity-framework-6/sample/MVCCore/MVCCore.csproj?range=3-9&highlight=2)]
 
@@ -61,7 +61,7 @@ ASP.NET Core 项目需要引用 .NET Framework 和 EF6。 例如，ASP.NET Core 
 
 ## <a name="sample-application"></a>示例应用程序
 
-若要获取有效的示例应用程序，请参阅本文随附的[示例 Visual Studio 解决方案](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/)。
+若要获取有效的示例应用程序，请参阅本文随附的[示例 Visual Studio 解决方案](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/)。
 
 可在 Visual Studio 中按照以下步骤从头创建此示例：
 

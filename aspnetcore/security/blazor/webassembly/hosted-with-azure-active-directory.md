@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 0803e436d66ef7df3c68739e674a8652fde11166
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: 2ddbc9791ec9b31d55c9c6017d9d6d5be5c8dec8
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083661"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434481"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -95,7 +95,7 @@ ms.locfileid: "79083661"
 
 记录*客户端应用*应用程序 Id （客户端 id）（例如 `33333333-3333-3333-3333-333333333333`）。
 
-### <a name="create-the-app"></a>创建应用
+### <a name="create-the-app"></a>创建应用程序
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
@@ -199,7 +199,7 @@ public class WeatherForecastController : ControllerBase
 
 使用 `Microsoft.Authentication.WebAssembly.Msal` 包提供的 `AddMsalAuthentication` 扩展方法在服务容器中注册对用户进行身份验证。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
 
-Program.cs:
+Program.cs：
 
 生成*客户端应用*时，默认的访问令牌范围为 `api://{SERVER API APP CLIENT ID}/{DEFAULT SCOPE}`格式。 **删除范围值的 `api://` 部分。** 此问题将在将来的预览版本中得到解决。
 
@@ -235,7 +235,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-### <a name="index-page"></a>索引页
+### <a name="index-page"></a>索引页面
 
 [!INCLUDE[](~/includes/blazor-security/index-page.md)]
 
@@ -258,6 +258,10 @@ builder.Services.AddMsalAuthentication(options =>
 ### <a name="fetchdata-component"></a>FetchData 组件
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
+
+## <a name="run-the-app"></a>运行应用程序
+
+从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 

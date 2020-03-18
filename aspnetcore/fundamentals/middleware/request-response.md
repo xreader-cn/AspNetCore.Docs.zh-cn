@@ -7,12 +7,12 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: 5e531c0ce0ed48097054fd81ddc3655a66cc7c5f
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b473fa02e1d23f02bc5d2e15fa54ab7b1dbbb17c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081671"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650832"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core 中的请求和响应操作
 
@@ -22,7 +22,7 @@ ms.locfileid: "71081671"
 
 请求正文和响应正文有两个抽象元素：<xref:System.IO.Stream> 和 <xref:System.IO.Pipelines.Pipe>。 对于请求读取，[HttpRequest.Body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) 是 <xref:System.IO.Stream>，`HttpRequest.BodyReader` 是 <xref:System.IO.Pipelines.PipeReader>。 对于响应写入，[HttpResponse.Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) 是 <xref:System.IO.Stream>，`HttpResponse.BodyWriter` 是 <xref:System.IO.Pipelines.PipeWriter>。
 
-建议使用管道替代流。 在一些简单操作中，使用流会比较简单，但管道具有性能优势，并且在大多数场景中更易于使用。 ASP.NET Core 开始在内部使用管道替代流。 示例包括：
+建议使用[管道](/dotnet/standard/io/pipelines)替代流。 在一些简单操作中，使用流会比较简单，但管道具有性能优势，并且在大多数场景中更易于使用。 ASP.NET Core 开始在内部使用管道替代流。 示例包括：
 
 * `FormReader`
 * `TextReader`
@@ -36,6 +36,7 @@ ms.locfileid: "71081671"
 假设目标是要创建一个中间件，它将整个请求正文作为一个字符串列表读取，并在新行上进行拆分。 一个简单的流实现可能如下例所示：
 
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringsFromStream)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 此代码有效，但存在一些问题：
 

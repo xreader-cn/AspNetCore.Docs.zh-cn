@@ -7,16 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: bc18b5490d232758b796d33a62cd8d1a7dd7289f
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: e02d6efcb3aec1329469b8654e66ba845870421a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007104"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650580"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web 主机
 
-ASP.NET Core 应用配置和启动“主机” ** 。 主机负责应用程序启动和生存期管理。 至少，主机配置服务器和请求处理管道。 主机还可以设置日志记录、依赖关系注入和配置。
+ASP.NET Core 应用配置和启动“主机”  。 主机负责应用程序启动和生存期管理。 至少，主机配置服务器和请求处理管道。 主机还可以设置日志记录、依赖关系注入和配置。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -34,7 +34,7 @@ ASP.NET Core 应用配置和启动“主机” ** 。 主机负责应用程序�
 
 创建使用 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 实例的主机。 通常在应用的入口点来执行 `Main` 方法。
 
-在项目模板中，`Main` 位于 Program.cs ** 。 典型应用调用 [CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) 来开始创建主机：
+在项目模板中，`Main` 位于 Program.cs  。 典型应用调用 [CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) 来开始创建主机：
 
 ```csharp
 public class Program
@@ -60,18 +60,18 @@ public class Program
   * 前缀为 `ASPNETCORE_` 的环境变量（例如，`ASPNETCORE_ENVIRONMENT`）。
   * 命令行参数。
 * 按以下顺序加载应用配置：
-  * appsettings.json ** 。
-  * appsettings.{Environment}.json ** 。
+  * appsettings.json  。
+  * appsettings.{Environment}.json  。
   * 应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。
   * 环境变量。
   * 命令行参数。
-* 配置控制台和调试输出的[日志记录](xref:fundamentals/logging/index)。 日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的[日志筛选](xref:fundamentals/logging/index#log-filtering)规则 ** ** 。
+* 配置控制台和调试输出的[日志记录](xref:fundamentals/logging/index)。 日志记录包含 appsettings.json 或 appsettings.{Environment}.json 文件的日志记录配置部分中指定的[日志筛选](xref:fundamentals/logging/index#log-filtering)规则   。
 * 使用 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)在 IIS 后面运行时，`CreateDefaultBuilder` 会启用 [IIS 集成](xref:host-and-deploy/iis/index)，这会配置应用的基址和端口。 IIS 集成还配置应用以[捕获启动错误](#capture-startup-errors)。 有关 IIS 默认选项，请参阅 <xref:host-and-deploy/iis/index#iis-options>。
 * 如果应用环境为“开发”，请将 [ServiceProviderOptions.ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) 设为 `true`。 有关详细信息，请参阅[作用域验证](#scope-validation)。
 
 [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration)、[ConfigureLogging](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configurelogging) 以及 [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) 的其他方法和扩展方法可重写和增强 `CreateDefaultBuilder` 定义的配置。 下面是一些示例：
 
-* [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration) 用于指定应用的其他 `IConfiguration`。 下面的 `ConfigureAppConfiguration` 调用添加委托，以在 appsettings.xml ** 文件中添加应用配置。 可多次调用 `ConfigureAppConfiguration`。 请注意，此配置不适用于主机（例如，服务器 URL 或环境）。 请参阅[主机配置值](#host-configuration-values)部分。
+* [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration) 用于指定应用的其他 `IConfiguration`。 下面的 `ConfigureAppConfiguration` 调用添加委托，以在 appsettings.xml  文件中添加应用配置。 可多次调用 `ConfigureAppConfiguration`。 请注意，此配置不适用于主机（例如，服务器 URL 或环境）。 请参阅[主机配置值](#host-configuration-values)部分。
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -82,7 +82,7 @@ public class Program
         ...
     ```
 
-* 下面的 `ConfigureLogging` 调用添加委托，以将最小日志记录级别 ([SetMinimumLevel](/dotnet/api/microsoft.extensions.logging.loggingbuilderextensions.setminimumlevel)) 配置为 [LogLevel.Warning](/dotnet/api/microsoft.extensions.logging.loglevel)。 此设置重写 `CreateDefaultBuilder` 在 appsettings.Development.json ** 和 appsettings.Production.json ** 中配置的设置，分别为 `LogLevel.Debug` 和 `LogLevel.Error`。 可多次调用 `ConfigureLogging`。
+* 下面的 `ConfigureLogging` 调用添加委托，以将最小日志记录级别 ([SetMinimumLevel](/dotnet/api/microsoft.extensions.logging.loggingbuilderextensions.setminimumlevel)) 配置为 [LogLevel.Warning](/dotnet/api/microsoft.extensions.logging.loglevel)。 此设置重写 `CreateDefaultBuilder` 在 appsettings.Development.json  和 appsettings.Production.json  中配置的设置，分别为 `LogLevel.Debug` 和 `LogLevel.Error`。 可多次调用 `ConfigureLogging`。
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -155,7 +155,7 @@ public class Program
 ::: moniker-end
 
 **密钥**：applicationName  
-**类型**：string **  
+**类型**：string   
 **默认值**：包含应用入口点的程序集的名称。  
 **设置使用**：`UseSetting`  
 **环境变量**：`ASPNETCORE_APPLICATIONNAME`
@@ -170,8 +170,8 @@ WebHost.CreateDefaultBuilder(args)
 此设置控制启动错误的捕获。
 
 **键**：captureStartupErrors  
-**类型**：布尔型（`true` 或 `1`） **  
-**默认值**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
+**类型**：布尔型（`true` 或 `1`）   
+**默认**：默认为 `false`，除非应用使用 Kestrel 在 IIS 后方运行，其中默认值是 `true`。  
 **设置使用**：`CaptureStartupErrors`  
 **环境变量**：`ASPNETCORE_CAPTURESTARTUPERRORS`
 
@@ -187,8 +187,8 @@ WebHost.CreateDefaultBuilder(args)
 此设置确定 ASP.NET Core 开始搜索内容文件。
 
 **键**：contentRoot  
-**类型**：string **  
-**默认值**：默认为应用程序集所在的文件夹。  
+**类型**：string   
+**默认**：默认为应用程序集所在的文件夹。  
 **设置使用**：`UseContentRoot`  
 **环境变量**：`ASPNETCORE_CONTENTROOT`
 
@@ -209,7 +209,7 @@ WebHost.CreateDefaultBuilder(args)
 确定是否应捕获详细错误。
 
 **键**：detailedErrors  
-**类型**：布尔型（`true` 或 `1`） **  
+**类型**：布尔型（`true` 或 `1`）   
 **默认值**：false  
 **设置使用**：`UseSetting`  
 **环境变量**：`ASPNETCORE_DETAILEDERRORS`
@@ -226,12 +226,12 @@ WebHost.CreateDefaultBuilder(args)
 设置应用的环境。
 
 **键**：环境  
-**类型**：string **  
-**默认值**：生产  
+**类型**：string   
+**默认**：生产  
 **设置使用**：`UseEnvironment`  
 **环境变量**：`ASPNETCORE_ENVIRONMENT`
 
-可将环境设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。 默认情况下，从 `ASPNETCORE_ENVIRONMENT` 环境变量读取环境 ** 。 使用 [Visual Studio](https://visualstudio.microsoft.com) 时，可在 launchSettings.json 文件中设置环境变量 ** 。 有关详细信息，请参阅 <xref:fundamentals/environments>。
+可将环境设置为任何值。 框架定义的值包括 `Development``Staging` 和 `Production`。 值不区分大小写。 默认情况下，从 `ASPNETCORE_ENVIRONMENT` 环境变量读取环境  。 使用 [Visual Studio](https://visualstudio.microsoft.com) 时，可在 launchSettings.json 文件中设置环境变量  。 有关详细信息，请参阅 <xref:fundamentals/environments>。
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -243,8 +243,8 @@ WebHost.CreateDefaultBuilder(args)
 设置应用的承载启动程序集。
 
 **键**：hostingStartupAssemblies  
-**类型**：string **  
-**默认值**：空字符串  
+**类型**：string   
+**默认**：空字符串  
 **设置使用**：`UseSetting`  
 **环境变量**：`ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`
 
@@ -262,9 +262,9 @@ WebHost.CreateDefaultBuilder(args)
 设置 HTTPS 重定向端口。 用于[强制实施 HTTPS](xref:security/enforcing-ssl)。
 
 键：https_port；类型：字符串；
-默认值 **** **** ** **** ：未设置默认值。
-设置使用 **** ：`UseSetting`
-环境变量 **** ：`ASPNETCORE_HTTPS_PORT`
+默认值     ：未设置默认值。
+设置使用  ：`UseSetting`
+环境变量  ：`ASPNETCORE_HTTPS_PORT`
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -275,9 +275,9 @@ WebHost.CreateDefaultBuilder(args)
 
 承载启动程序集的以分号分隔的字符串在启动时排除。
 
-键 **** ：hostingStartupExcludeAssemblies  
-**类型**：string **  
-**默认值**：空字符串  
+键  ：hostingStartupExcludeAssemblies  
+**类型**：string   
+**默认**：空字符串  
 **设置使用**：`UseSetting`  
 **环境变量**：`ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
@@ -291,7 +291,7 @@ WebHost.CreateDefaultBuilder(args)
 指示主机是否应该侦听使用 `WebHostBuilder` 配置的 URL，而不是使用 `IServer` 实现配置的 URL。
 
 **键**：preferHostingUrls  
-**类型**：布尔型（`true` 或 `1`） **  
+**类型**：布尔型（`true` 或 `1`）   
 **默认值**：true  
 **设置使用**：`PreferHostingUrls`  
 **环境变量**：`ASPNETCORE_PREFERHOSTINGURLS`
@@ -306,7 +306,7 @@ WebHost.CreateDefaultBuilder(args)
 阻止承载启动程序集自动加载，包括应用的程序集所配置的承载启动程序集。 有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。
 
 **键**：preventHostingStartup  
-**类型**：布尔型（`true` 或 `1`） **  
+**类型**：布尔型（`true` 或 `1`）   
 **默认值**：false  
 **设置使用**：`UseSetting`  
 **环境变量**：`ASPNETCORE_PREVENTHOSTINGSTARTUP`
@@ -321,7 +321,7 @@ WebHost.CreateDefaultBuilder(args)
 指示 IP 地址或主机地址，其中包含服务器应针对请求侦听的端口和协议。
 
 **键**：urls  
-**类型**：string **  
+**类型**：string   
 **默认**： http://localhost:5000  
 **设置使用**：`UseUrls`  
 **环境变量**：`ASPNETCORE_URLS`
@@ -340,12 +340,12 @@ Kestrel 具有自己的终结点配置 API。 有关详细信息，请参阅 <xr
 指定等待 Web 主机关闭的时长。
 
 **键**：shutdownTimeoutSeconds  
-**类型**：int **  
-**默认值**：5  
+**类型**：int   
+**默认**：5  
 **设置使用**：`UseShutdownTimeout`  
 **环境变量**：`ASPNETCORE_SHUTDOWNTIMEOUTSECONDS`
 
-虽然键使用 `UseSetting` 接受 int（例如 `.UseSetting(WebHostDefaults.ShutdownTimeoutKey, "10")`），但是 [UseShutdownTimeout](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useshutdowntimeout) 扩展方法采用 [TimeSpan](/dotnet/api/system.timespan) ** 。
+虽然键使用 `UseSetting` 接受 int（例如 `.UseSetting(WebHostDefaults.ShutdownTimeoutKey, "10")`），但是 [UseShutdownTimeout](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useshutdowntimeout) 扩展方法采用 [TimeSpan](/dotnet/api/system.timespan)  。
 
 在超时时间段中，托管：
 
@@ -364,8 +364,8 @@ WebHost.CreateDefaultBuilder(args)
 确定要在其中搜索 `Startup` 类的程序集。
 
 **键**：startupAssembly  
-**类型**：string **  
-**默认值**：应用的程序集  
+**类型**：string   
+**默认**：应用的程序集  
 **设置使用**：`UseStartup`  
 **环境变量**：`ASPNETCORE_STARTUPASSEMBLY`
 
@@ -386,8 +386,8 @@ WebHost.CreateDefaultBuilder(args)
 设置应用的静态资产的相对路径。
 
 **键**：webroot  
-**类型**：string **  
-**默认**：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在 ** 。 如果该路径不存在，则使用无操作文件提供程序。  
+**类型**：string   
+**默认**：默认值为 `wwwroot`。 {content root}/wwwroot 的路径必须存在  。 如果该路径不存在，则使用无操作文件提供程序。  
 **设置使用**：`UseWebRoot`  
 **环境变量**：`ASPNETCORE_WEBROOT`
 
@@ -403,9 +403,9 @@ WebHost.CreateDefaultBuilder(args)
 
 ## <a name="override-configuration"></a>重写配置
 
-使用[配置](xref:fundamentals/configuration/index)可以配置 Web 主机。 在下面的示例中，主机配置是根据需要在 hostsettings.json ** 文件中指定。 命令行参数可能会重写从 hostsettings.json ** 文件加载的任何配置。 生成的配置（在 `config` 中）用于通过 [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 配置主机。 `IWebHostBuilder` 配置会添加到应用配置中，但反之不亦然&mdash;`ConfigureAppConfiguration` 不影响 `IWebHostBuilder` 配置。
+使用[配置](xref:fundamentals/configuration/index)可以配置 Web 主机。 在下面的示例中，主机配置是根据需要在 hostsettings.json  文件中指定。 命令行参数可能会重写从 hostsettings.json  文件加载的任何配置。 生成的配置（在 `config` 中）用于通过 [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 配置主机。 `IWebHostBuilder` 配置会添加到应用配置中，但反之不亦然&mdash;`ConfigureAppConfiguration` 不影响 `IWebHostBuilder` 配置。
 
-先用 hostsettings.json ** config 重写 `UseUrls` 提供的配置，再用命令行参数 config：
+先用 hostsettings.json  config 重写 `UseUrls` 提供的配置，再用命令行参数 config：
 
 ```csharp
 public class Program
@@ -435,7 +435,7 @@ public class Program
 }
 ```
 
-hostsettings.json ** ：
+hostsettings.json  ：
 
 ```json
 {
@@ -444,11 +444,9 @@ hostsettings.json ** ：
 ```
 
 > [!NOTE]
-> [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 扩展方法当前不能分析由 `GetSection` 返回的配置部分（例如 `.UseConfiguration(Configuration.GetSection("section"))`。 `GetSection` 方法将配置键筛选到所请求的部分，但将节名称保留在键上（例如 `section:urls`、`section:environment`）。 `UseConfiguration` 方法需要键来匹配 `WebHostBuilder` 键（例如 `urls`、`environment`）。 键上存在的节名称阻止节的值配置主机。 将在即将发布的版本中解决此问题。 有关详细信息和解决方法，请参阅[将配置节传入到 WebHostBuilder.UseConfiguration 使用完整的键](https://github.com/aspnet/Hosting/issues/839)。
->
-> `UseConfiguration` 只将所提供的 `IConfiguration` 中的密钥复制到主机生成器配置中。 因此，JSON、INI 和 XML 设置文件的设置 `reloadOnChange: true` 没有任何影响。
+> [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 只将所提供的 `IConfiguration` 中的密钥复制到主机生成器配置中。 因此，JSON、INI 和 XML 设置文件的设置 `reloadOnChange: true` 没有任何影响。
 
-若要指定在特定的 URL 上运行的主机，所需的值可以在执行 [dotnet 运行](/dotnet/core/tools/dotnet-run)时从命令提示符传入。 命令行参数重写 hostsettings.json ** 文件中的 `urls` 值，且服务器侦听端口 8080：
+若要指定在特定的 URL 上运行的主机，所需的值可以在执行 [dotnet 运行](/dotnet/core/tools/dotnet-run)时从命令提示符传入。 命令行参数重写 hostsettings.json  文件中的 `urls` 值，且服务器侦听端口 8080：
 
 ```dotnetcli
 dotnet run --urls "http://*:8080"
@@ -524,7 +522,7 @@ using (var host = WebHost.Start("http://localhost:8080", app => app.Response.Wri
 }
 ```
 
-生成与 Start(RequestDelegate app) 相同的结果，除非应用在 `http://localhost:8080` 上响应 **** 。
+生成与 Start(RequestDelegate app) 相同的结果，除非应用在 `http://localhost:8080` 上响应  。
 
 **Start(Action\<IRouteBuilder> routeBuilder)**
 
@@ -581,7 +579,7 @@ using (var host = WebHost.Start("http://localhost:8080", router => router
 }
 ```
 
-生成与 Start(Action\<IRouteBuilder> routeBuilder) 相同的结果，除非应用在 `http://localhost:8080` 上响应 **** 。
+生成与 Start(Action\<IRouteBuilder> routeBuilder) 相同的结果，除非应用在 `http://localhost:8080` 上响应  。
 
 **StartWith(Action\<IApplicationBuilder> app)**
 
@@ -623,7 +621,7 @@ using (var host = WebHost.StartWith("http://localhost:8080", app =>
 }
 ```
 
-生成与 StartWith(Action\<IApplicationBuilder> app) 相同的结果，除非应用在 `http://localhost:8080` 上响应 **** 。
+生成与 StartWith(Action\<IApplicationBuilder> app) 相同的结果，除非应用在 `http://localhost:8080` 上响应  。
 
 ::: moniker range=">= aspnetcore-3.0"
 

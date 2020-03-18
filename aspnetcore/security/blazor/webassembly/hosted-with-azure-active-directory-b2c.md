@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 232a4247f8bea23eec3dc35cba4659c88887124d
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: 12e09cf7e27f85473d84f42564d13e1c0ed5dff1
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083685"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434442"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -96,12 +96,14 @@ ms.locfileid: "79083685"
 
 [创建注册和登录用户流](/azure/active-directory-b2c/tutorial-create-user-flows)
 
+至少，选择 "**应用程序声明**" > "**显示名称**用户属性"，以填充 `LoginDisplay` 组件中的 `context.User.Identity.Name` （*Shared/LoginDisplay*）。
+
 记录以下信息：
 
 * 记录*客户端应用*应用程序 Id （客户端 id）（例如 `33333333-3333-3333-3333-333333333333`）。
 * 记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。
 
-### <a name="create-the-app"></a>创建应用
+### <a name="create-the-app"></a>创建应用程序
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
@@ -202,7 +204,7 @@ public class WeatherForecastController : ControllerBase
 
 使用 `Microsoft.Authentication.WebAssembly.Msal` 包提供的 `AddMsalAuthentication` 扩展方法在服务容器中注册对用户进行身份验证。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
 
-Program.cs:
+Program.cs：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -237,7 +239,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-### <a name="index-page"></a>索引页
+### <a name="index-page"></a>索引页面
 
 [!INCLUDE[](~/includes/blazor-security/index-page.md)]
 
@@ -260,6 +262,10 @@ builder.Services.AddMsalAuthentication(options =>
 ### <a name="fetchdata-component"></a>FetchData 组件
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
+
+## <a name="run-the-app"></a>运行应用程序
+
+从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 

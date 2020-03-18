@@ -1,27 +1,25 @@
 ---
 title: 使用 ASP.NET Core 中的更改令牌检测更改
-author: guardrex
+author: rick-anderson
 description: 了解如何使用更改令牌来跟踪更改。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 10/07/2019
 uid: fundamentals/change-tokens
-ms.openlocfilehash: bb30d7a4c7dc82200821c60a49c314b246562111
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 70451e219f1295b854e2f84aac55f0cfd1786b19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007211"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645396"
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>使用 ASP.NET Core 中的更改令牌检测更改
-
-作者：[Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 更改令牌  是用于跟踪状态更改的通用、低级别构建基块。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="ichangetoken-interface"></a>IChangeToken 接口
 
@@ -219,7 +217,7 @@ var compositeChangeToken =
 
 更改令牌  是用于跟踪状态更改的通用、低级别构建基块。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="ichangetoken-interface"></a>IChangeToken 接口
 

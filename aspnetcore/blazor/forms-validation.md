@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core Blazor 窗体和验证
 author: guardrex
-description: 了解如何在 Blazor中使用窗体和字段验证方案。
+description: 了解如何在 Blazor 中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/forms-validation
 ms.openlocfilehash: 2758bcbbc76c8a59716fe224dd2deb4ca8c06929
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726893"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648450"
 ---
-# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core [!OP.NO-LOC(Blazor)] 窗体和验证
+# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-使用[数据批注](xref:mvc/models/validation)[!OP.NO-LOC(Blazor)] 支持窗体和验证。
+Blazor 使用[数据注释](xref:mvc/models/validation)支持窗体和验证。
 
-以下 `ExampleModel` 类型使用数据批注定义验证逻辑：
+下面的 `ExampleModel` 类型使用数据注释定义验证逻辑：
 
 ```csharp
 using System.ComponentModel.DataAnnotations;
@@ -36,7 +36,7 @@ public class ExampleModel
 }
 ```
 
-使用 `EditForm` 组件定义窗体。 下面的窗体演示典型的元素、组件和 Razor 代码：
+窗体是使用 `EditForm` 组件定义的。 以下窗体演示了典型的元素、组件和 Razor 代码：
 
 ```razor
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
@@ -60,15 +60,15 @@ public class ExampleModel
 
 在上面的示例中：
 
-* 窗体使用 `ExampleModel` 类型中定义的验证来验证 `name` 字段中的用户输入。 该模型是在组件的 `@code` 块中创建的，并保存在私有字段（`_exampleModel`）中。 该字段将分配给 `<EditForm>` 元素的 `Model` 特性。
-* `InputText` 组件 `@bind-Value` 绑定：
-  * 模型属性（`_exampleModel.Name`）到 `InputText` 组件的 `Value` 属性。
-  * `InputText` 组件的 `ValueChanged` 属性的 change 事件委托。
-* `DataAnnotationsValidator` 组件使用数据批注附加验证支持。
+* 该窗体使用 `ExampleModel` 类型中定义的验证来验证 `name` 字段中的用户输入。 该模型在组件的 `@code` 块中创建，并保存在私有字段 (`_exampleModel`) 中。 该字段分配给 `<EditForm>` 元素的 `Model` 属性。
+* `InputText` 组件的 `@bind-Value` 进行以下绑定：
+  * 将模型属性 (`_exampleModel.Name`) 绑定到 `InputText` 组件的 `Value` 属性。
+  * 将更改事件委托绑定到 `InputText` 组件的 `ValueChanged` 属性。
+* `DataAnnotationsValidator` 组件使用数据注释附加验证支持。
 * `ValidationSummary` 组件汇总验证消息。
-* 当窗体成功提交（通过验证）时，将触发 `HandleValidSubmit`。
+* 窗体成功提交（通过验证）时触发 `HandleValidSubmit`。
 
-可使用一组内置输入组件来接收和验证用户输入。 当输入发生更改和提交窗体时，将对其进行验证。 下表显示了可用的输入组件。
+可使用一组内置的输入组件来接收和验证用户输入。 当更改输入和提交窗体时，将验证输入。 下表显示了可用的输入组件。
 
 | 输入组件 | 呈现为&hellip;       |
 | --------------- | ------------------------- |
@@ -79,11 +79,11 @@ public class ExampleModel
 | `InputCheckbox` | `<input type="checkbox">` |
 | `InputDate`     | `<input type="date">`     |
 
-所有输入组件（包括 `EditForm`）都支持任意属性。 与组件参数不匹配的任何属性将添加到呈现的 HTML 元素中。
+所有输入组件（包括 `EditForm`）都支持任意属性。 与某个组件参数不匹配的所有属性都将添加到呈现的 HTML 元素中。
 
-输入组件提供默认行为，用于验证编辑和更改其 CSS 类以反映字段状态。 某些组件包含有用的分析逻辑。 例如，`InputDate` 和 `InputNumber` 通过将其注册为验证错误来适当地处理无法分析的值。 可以接受 null 值的类型还支持目标字段的为空性（例如 `int?`）。
+输入组件为编辑时验证以及更改其 CSS 类以反映字段状态提供默认行为。 某些组件包含有用的分析逻辑。 例如，`InputDate` 和 `InputNumber` 通过将无法分析的值注册为验证错误，以恰当的方式来处理它们。 可接受 Null 值的类型也支持目标字段的为 Null 性（例如，`int?`）。
 
-以下 `Starship` 类型使用比之前 `ExampleModel`更多的属性和数据批注集定义验证逻辑：
+下面的 `Starship` 类型使用比之前的 `ExampleModel` 更大的属性和数据注释集来定义验证逻辑：
 
 ```csharp
 using System;
@@ -113,7 +113,7 @@ public class Starship
 }
 ```
 
-在前面的示例中，`Description` 是可选的，因为不存在任何数据批注。
+在上面的示例中，`Description` 是可选的，因为不存在任何数据注释。
 
 以下窗体使用 `Starship` 模型中定义的验证来验证用户输入：
 
@@ -189,14 +189,14 @@ public class Starship
 }
 ```
 
-`EditForm` 创建一个 `EditContext` 作为[级联值](xref:blazor/components#cascading-values-and-parameters)，用于跟踪有关编辑过程的元数据，包括已修改的字段和当前验证消息。 `EditForm` 还为有效提交和无效提交（`OnValidSubmit`、`OnInvalidSubmit`）提供便利事件。 或者，使用 `OnSubmit` 使用自定义验证代码来触发验证和检查字段值。
+`EditForm` 创建一个 `EditContext` 作为[级联值](xref:blazor/components#cascading-values-and-parameters)来跟踪有关编辑过程的元数据，其中包括已修改的字段和当前的验证消息。 `EditForm` 还为有效和无效的提交提供便捷的事件（`OnValidSubmit`、`OnInvalidSubmit`）。 或者，使用 `OnSubmit` 触发验证并使用自定义验证代码检查字段值。
 
-在下例中：
+如下示例中：
 
-* 选择 "**提交**" 按钮时，将运行 `HandleSubmit` 方法。
-* 使用窗体的 `EditContext`验证窗体。
-* 通过将 `EditContext` 传递给调用服务器上的 web API 终结点的 `ServerValidate` 方法来进一步验证窗体（*未显示*）。
-* 根据客户端和服务器端验证的结果，运行其他代码，方法是检查 `isValid`。
+* 选择“提交”按钮时，将运行 `HandleSubmit` 方法  。
+* 使用窗体的 `EditContext` 验证窗体。
+* 通过将 `EditContext` 传递给 `ServerValidate` 方法来进一步验证窗体，该方法会调用服务器上的 Web API 终结点（*未显示*）。
+* 通过检查 `isValid` 获得客户端和服务器端验证的结果，并根据该结果运行其他代码。
 
 ```razor
 <EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
@@ -241,9 +241,9 @@ public class Starship
 
 ## <a name="inputtext-based-on-the-input-event"></a>基于输入事件的 InputText
 
-使用 `InputText` 组件创建使用 `input` 事件而不是 `change` 事件的自定义组件。
+使用 `InputText` 组件创建一个使用 `input` 事件而不是 `change` 事件的自定义组件。
 
-使用以下标记创建组件，并使用组件，就像使用 `InputText` 一样：
+使用以下标记创建一个组件，并像使用 `InputText` 一样使用该组件：
 
 ```razor
 @inherits InputText
@@ -258,7 +258,7 @@ public class Starship
 
 ## <a name="work-with-radio-buttons"></a>使用单选按钮
 
-使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮作为一个组进行计算。 每个单选按钮的值都是固定的，但单选按钮组的值是所选单选按钮的值。 以下示例介绍如何：
+使用窗体中的单选按钮时，数据绑定的处理方式与其他元素不同，因为单选按钮是作为一个组进行计算的。 每个单选按钮的值是固定的，但单选按钮组的值是所选单选按钮的值。 以下示例介绍如何：
 
 * 处理单选按钮组的数据绑定。
 * 使用自定义 `InputRadio` 组件支持验证。
@@ -303,7 +303,7 @@ public class Starship
 }
 ```
 
-以下 `EditForm` 使用上述 `InputRadio` 组件获取和验证用户的评级：
+以下 `EditForm` 使用前面的 `InputRadio` 组件来获取和验证用户的评级：
 
 ```razor
 @page "/RadioButtonExample"
@@ -346,16 +346,16 @@ public class Starship
 
 ## <a name="validation-support"></a>验证支持
 
-`DataAnnotationsValidator` 组件使用数据批注将验证支持附加到级联 `EditContext`。 使用数据批注启用验证支持需要此显式手势。 若要使用不同于数据批注的验证系统，请将 `DataAnnotationsValidator` 替换为自定义实现。 ASP.NET Core 实现可在引用源： [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)中进行检查。
+`DataAnnotationsValidator` 组件使用数据注释将验证支持附加到级联的 `EditContext`。 使用数据注释启用对验证的支持需要此显式手势。 若要使用不同于数据注释的验证系统，请用自定义实现替换 `DataAnnotationsValidator`。 可在以下参考源中检查 ASP.NET Core 的实现：[DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)。
 
 Blazor 执行两种类型的验证：
 
-* 当用户在字段外切换时，将执行*字段验证*。 在字段验证过程中，`DataAnnotationsValidator` 组件将所有报告的验证结果与该字段相关联。
-* 当用户提交窗体时，将执行*模型验证*。 在模型验证过程中，`DataAnnotationsValidator` 组件尝试基于验证结果报告的成员名称确定字段。 与单个成员无关的验证结果与模型关联，而不是与字段关联。
+* 当用户从某个字段中跳出时，将执行*字段验证*。 在字段验证期间，`DataAnnotationsValidator` 组件将报告的所有验证结果与该字段相关联。
+* 当用户提交窗体时，将执行*模型验证*。 在模型验证期间，`DataAnnotationsValidator` 组件尝试根据验证结果报告的成员名称来确定字段。 与单个成员无关的验证结果将与模型而不是字段相关联。
 
 ### <a name="validation-summary-and-validation-message-components"></a>验证摘要和验证消息组件
 
-`ValidationSummary` 组件汇总了与[验证摘要标记帮助](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)程序类似的所有验证消息：
+`ValidationSummary` 组件用于汇总所有验证消息，这与[验证摘要标记帮助程序](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)类似：
 
 ```razor
 <ValidationSummary />
@@ -367,17 +367,17 @@ Blazor 执行两种类型的验证：
 <ValidationSummary Model="@_starship" />
 ```
 
-`ValidationMessage` 组件显示特定字段的验证消息，这类似于[验证消息标记帮助器](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)。 使用 `For` 特性指定验证字段，并使用命名模型属性的 lambda 表达式指定：
+`ValidationMessage` 组件用于显示特定字段的验证消息，这与[验证消息标记帮助程序](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)类似。 使用 `For` 属性和一个为模型属性命名的 Lambda 表达式来指定要验证的字段：
 
 ```razor
 <ValidationMessage For="@(() => _starship.MaximumAccommodation)" />
 ```
 
-`ValidationMessage` 和 `ValidationSummary` 组件支持任意属性。 与组件参数不匹配的任何属性将添加到生成的 `<div>` 或 `<ul>` 元素。
+`ValidationMessage` 和 `ValidationSummary` 组件支持任意属性。 与某个组件参数不匹配的所有属性都将添加到生成的 `<div>` 或 `<ul>` 元素中。
 
-### <a name="custom-validation-attributes"></a>自定义验证特性
+### <a name="custom-validation-attributes"></a>自定义验证属性
 
-若要确保在使用[自定义验证属性](xref:mvc/models/validation#custom-attributes)时验证结果与字段正确关联，请在创建 <xref:System.ComponentModel.DataAnnotations.ValidationResult>时传递验证上下文的 <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName>：
+当使用[自定义验证属性](xref:mvc/models/validation#custom-attributes)时，为确保验证结果与字段正确关联，请在创建 <xref:System.ComponentModel.DataAnnotations.ValidationResult> 时传递验证上下文的 <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName>：
 
 ```csharp
 using System;
@@ -396,19 +396,19 @@ private class MyCustomValidator : ValidationAttribute
 }
 ```
 
-### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor 数据批注验证包
+### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor 数据注释验证包
 
-[AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)是使用 `DataAnnotationsValidator` 组件填充验证体验缺口的包。 包当前正在*试验*。
+[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) 是一个使用 `DataAnnotationsValidator` 组件填补验证体验缺口的验证包。 该包目前处于*试验阶段*。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证之间的行为不一致，并在提交时验证整个模型。 [AspNetCore.Blazor。DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *实验*包引入了一个附加的验证特性 `ComparePropertyAttribute`，该特性围绕这些限制。 在 Blazor 应用中，`[CompareProperty]` 是 `[Compare]` 属性的直接替换。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)*试验性*包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 `[Compare]` 属性。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>嵌套模型、集合类型和复杂类型
 
-Blazor 提供对通过内置 `DataAnnotationsValidator`使用数据批注验证窗体输入的支持。 但是，`DataAnnotationsValidator` 仅验证绑定到不是集合或复杂类型属性的窗体的模型的顶级属性。
+Blazor 支持结合使用数据注释和内置的 `DataAnnotationsValidator` 来验证窗体输入。 但是，`DataAnnotationsValidator` 仅验证绑定到窗体的模型的顶级属性（不包括集合类型或复杂类型的属性）。
 
-若要验证绑定模型的整个对象关系图，包括集合和复杂类型属性，请使用BlazorAspNetCore 提供的 `ObjectGraphDataAnnotationsValidator` 。 [DataAnnotations](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)包：
+若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用*试验性*[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`：
 
 ```razor
 <EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
@@ -417,7 +417,7 @@ Blazor 提供对通过内置 `DataAnnotationsValidator`使用数据批注验证�
 </EditForm>
 ```
 
-用 `[ValidateComplexType]`批注模型属性。 在下面的模型类中，`ShipDescription` 类包含在将模型绑定到窗体时要验证的其他数据批注：
+用 `[ValidateComplexType]` 注释模型属性。 在以下模型类中，`ShipDescription` 类包含附加数据注释，用于在将模型绑定到窗体时进行验证：
 
 *Starship.cs*：
 
@@ -454,12 +454,12 @@ public class ShipDescription
 }
 ```
 
-### <a name="enable-the-submit-button-based-on-form-validation"></a>基于窗体验证启用 "提交" 按钮
+### <a name="enable-the-submit-button-based-on-form-validation"></a>基于窗体验证启用提交按钮
 
-若要启用和禁用基于窗体验证的 "提交" 按钮：
+若要基于窗体验证启用和禁用提交按钮，请执行以下操作：
 
 * 使用窗体的 `EditContext` 在初始化组件时分配模型。
-* 验证上下文的 `OnFieldChanged` 回调中的窗体，以启用和禁用 "提交" 按钮。
+* 在上下文的 `OnFieldChanged` 回调中验证窗体，以启用和禁用提交按钮。
 
 ```razor
 <EditForm EditContext="@_editContext">
@@ -489,15 +489,15 @@ public class ShipDescription
 }
 ```
 
-在前面的示例中，将 `_formInvalid` 设置为 `false` 如果：
+在上面的示例中，如果满足以下条件，则将 `_formInvalid` 设置为 `false`：
 
-* 该窗体预加载了有效的默认值。
-* 您希望在加载窗体时启用 "提交" 按钮。
+* 窗体已预加载有效的默认值。
+* 你希望在加载窗体时启用提交按钮。
 
-上述方法的副作用是，在用户与任何一个字段交互后，使用无效的字段填充 `ValidationSummary` 组件。 可以通过以下方式之一解决此方案：
+上述方法的副作用是在用户与任何一个字段进行交互后，`ValidationSummary` 组件都会填充无效的字段。 可通过以下方式之一解决此情况：
 
-* 请勿使用窗体上的 `ValidationSummary` 组件。
-* 选择 "提交" 按钮（例如，在 `HandleValidSubmit` 方法中）时，使 `ValidationSummary` 组件可见。
+* 不在窗体上使用 `ValidationSummary` 组件。
+* 选择提交按钮时，使 `ValidationSummary` 组件可见（例如，在 `HandleValidSubmit` 方法中）。
 
 ```razor
 <EditForm EditContext="@_editContext" OnValidSubmit="HandleValidSubmit">

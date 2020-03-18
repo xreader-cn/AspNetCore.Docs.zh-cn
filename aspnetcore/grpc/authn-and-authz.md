@@ -1,29 +1,29 @@
 ---
-title: GRPC 中的身份验证和授权 ASP.NET Core
+title: gRPC for ASP.NET Core 中的身份验证和授权
 author: jamesnk
-description: 了解如何在 gRPC 中使用身份验证和授权 ASP.NET Core。
+description: 了解如何在 gRPC for ASP.NET Core 中使用身份验证和授权。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 12/05/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 258b34113f3c3d9ef2031a43295ea5806b1e22ff
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: MT
+ms.openlocfilehash: c0312b186bbb35e3b802984484b7213016d8bf04
+ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880688"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "78964444"
 ---
-# <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC 中的身份验证和授权 ASP.NET Core
+# <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>gRPC for ASP.NET Core 中的身份验证和授权
 
-按[James 牛顿-k](https://twitter.com/jamesnk)
+作者：[James Newton-King](https://twitter.com/jamesnk)
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/)[（如何下载）](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-calling-a-grpc-service"></a>对调用 gRPC 服务的用户进行身份验证
 
-gRPC 可以与[ASP.NET Core authentication](xref:security/authentication/identity)一起使用，以将用户与每个调用相关联。
+gRPC 可与 [ASP.NET Core 身份验证](xref:security/authentication/identity)配合使用，将用户与每个调用关联。
 
-下面是使用 gRPC 和 ASP.NET Core 身份验证的 `Startup.Configure` 的示例：
+以下是使用 gRPC 和 ASP.NET Core 身份验证的 `Startup.Configure` 的示例：
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -35,17 +35,17 @@ public void Configure(IApplicationBuilder app)
 
     app.UseEndpoints(endpoints =>
     {
-        routes.MapGrpcService<GreeterService>();
+        endpoints.MapGrpcService<GreeterService>();
     });
 }
 ```
 
 > [!NOTE]
-> 注册 ASP.NET Core 身份验证中间件的顺序。 始终在 `UseRouting` 之后和 `UseEndpoints`之前调用 `UseAuthentication` 和 `UseAuthorization`。
+> 注册 ASP.NET Core 身份验证中间件的顺序很重要。 始终在 `UseRouting` 之后和 `UseEndpoints` 之前调用 `UseAuthentication` 和 `UseAuthorization`。
 
-需要配置应用在调用期间使用的身份验证机制。 身份验证配置是在 `Startup.ConfigureServices` 中添加的，会根据应用使用的身份验证机制而有所不同。 有关如何保护 ASP.NET Core 应用的示例，请参阅[身份验证示例](xref:security/authentication/samples)。
+应用在调用期间使用的身份验证机制需要进行配置。 身份验证配置已添加到 `Startup.ConfigureServices` 中，并因应用使用的身份验证机制而异。 有关如何保护 ASP.NET Core 应用的示例，请参阅[身份验证示例](xref:security/authentication/samples)。
 
-设置身份验证后，可以通过 `ServerCallContext`在 gRPC 服务方法中访问该用户。
+设置身份验证后，可通过 `ServerCallContext` 使用 gRPC 服务方法访问用户。
 
 ```csharp
 public override Task<BuyTicketsResponse> BuyTickets(
@@ -60,11 +60,11 @@ public override Task<BuyTicketsResponse> BuyTickets(
 
 ### <a name="bearer-token-authentication"></a>持有者令牌身份验证
 
-客户端可以提供用于身份验证的访问令牌。 服务器验证令牌并使用它来标识用户。
+客户端可提供用于身份验证的访问令牌。 服务器验证令牌并使用它来标识用户。
 
-在服务器上，持有者令牌身份验证使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)进行配置。
+在服务器上，使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置持有者令牌身份验证。
 
-在 .NET gRPC 客户端中，可通过调用以标头的形式发送令牌：
+在 .NET gRPC 客户端中，令牌可作为标头与调用一起发送：
 
 ```csharp
 public bool DoAuthenticatedCall(
@@ -80,9 +80,9 @@ public bool DoAuthenticatedCall(
 }
 ```
 
-在通道上配置 `ChannelCredentials` 是使用 gRPC 调用将令牌发送到服务的一种替代方法。 每次进行 gRPC 调用时，都将运行该凭据，这样就无需在多个位置编写代码即可自行传递令牌。
+在通道上配置 `ChannelCredentials` 是通过 gRPC 调用将令牌发送到服务的备用方法。 凭据在每次进行 gRPC 调用时运行，因而无需在多个位置编写代码用于自行传递令牌。
 
-以下示例中的凭据将通道配置为通过每个 gRPC 调用发送令牌：
+以下示例中的凭据将通道配置为随每个 gRPC 调用发送令牌：
 
 ```csharp
 private static GrpcChannel CreateAuthenticatedChannel(string address)
@@ -108,12 +108,12 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 
 ### <a name="client-certificate-authentication"></a>客户端证书身份验证
 
-客户端还可以提供用于身份验证的客户端证书。 [证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)发生在 TLS 级别，在它被 ASP.NET Core 之前。 当请求输入 ASP.NET Core 时，[客户端证书身份验证包](xref:security/authentication/certauth)可让你将证书解析为 `ClaimsPrincipal`。
+客户端还可以提供用于身份验证的客户端证书。 [证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)在 TLS 级别发生，远在到达 ASP.NET Core 之前。 当请求进入 ASP.NET Core 时，可借助[客户端证书身份验证包](xref:security/authentication/certauth)将证书解析为 `ClaimsPrincipal`。
 
 > [!NOTE]
-> 需要将主机配置为接受客户端证书。 有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅[配置主机以要求提供证书](xref:security/authentication/certauth#configure-your-host-to-require-certificates)。
+> 需要将主机配置为接受客户端证书。 有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅[将主机配置为要求提供证书](xref:security/authentication/certauth#configure-your-host-to-require-certificates)。
 
-在 .NET gRPC 客户端中，会将客户端证书添加到 `HttpClientHandler`，然后使用该证书创建 gRPC 客户端：
+在 .NET gRPC 客户端中，客户端证书已添加到 `HttpClientHandler` 中，后者之后用于创建 gRPC 客户端：
 
 ```csharp
 public Ticketer.TicketerClient CreateClientWithCert(
@@ -136,7 +136,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ### <a name="other-authentication-mechanisms"></a>其他身份验证机制
 
-许多支持 ASP.NET Core 的身份验证机制都适用于 gRPC：
+许多 ASP.NET Core 支持的身份验证机制都可以与 gRPC 配合使用：
 
 * Azure Active Directory
 * 客户端证书
@@ -146,19 +146,19 @@ public Ticketer.TicketerClient CreateClientWithCert(
 * OpenID Connect
 * WS-Federation
 
-有关在服务器上配置身份验证的详细信息，请参阅[ASP.NET Core authentication](xref:security/authentication/identity)。
+有关在服务器上配置身份验证的详细信息，请参阅 [ASP.NET Core 身份验证](xref:security/authentication/identity)。
 
-将 gRPC 客户端配置为使用身份验证将取决于所使用的身份验证机制。 以前的持有者令牌和客户端证书示例显示了几种方法，gRPC 客户端可以配置为通过 gRPC 调用发送身份验证元数据：
+将 gRPC 客户端配置为使用身份验证取决于使用的身份验证机制。 之前的持有者令牌和客户端证书示例演示可将 gRPC 客户端配置为通过 gRPC 调用发送身份验证元数据的几种方法：
 
-* 强类型化 gRPC 客户端在内部使用 `HttpClient`。 可以在[HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)上配置身份验证，或者通过将自定义[HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler)实例添加到 `HttpClient`。
-* 每个 gRPC 调用都有一个可选 `CallOptions` 参数。 可以使用选项的标头集合来发送自定义标头。
+* 强类型 gRPC 客户端在内部使用 `HttpClient`。 可在 [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler) 上配置身份验证，也可通过向 `HttpClient` 添加自定义 [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) 实例进行配置。
+* 每个 gRPC 调用都有一个可选的 `CallOptions` 参数。 可使用该选项的标头集合发送自定义标头。
 
 > [!NOTE]
-> Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 一起使用。 gRPC 要求使用 HTTP/2，但是 HTTP/2 不支持 Windows 身份验证。
+> Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 配合使用。 gRPC 需要 HTTP/2，而 HTTP/2 不支持 Windows 身份验证。
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>授权用户访问服务和服务方法
 
-默认情况下，服务中的所有方法都可以由未经身份验证的用户调用。 若要要求身份验证，请将[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)特性应用于服务：
+默认情况下，未经身份验证的用户可以调用服务中的所有方法。 若要要求进行身份验证，请将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 特性应用于服务：
 
 ```csharp
 [Authorize]
@@ -167,7 +167,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-可以使用 `[Authorize]` 特性的构造函数参数和属性，将访问权限限制为仅提供给符合特定[授权策略](xref:security/authorization/policies)的用户。 例如，如果你有一个名为 `MyAuthorizationPolicy`的自定义授权策略，请确保只有符合该策略的用户才能使用以下代码访问该服务：
+可使用 `[Authorize]` 特性的构造函数参数和属性将访问权限仅限于匹配特定[授权策略](xref:security/authorization/policies)的用户。 例如，如果有一个名为 `MyAuthorizationPolicy` 的自定义授权策略，请使用以下代码确保仅匹配该策略的用户才能访问服务：
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -176,7 +176,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-单个服务方法还可以应用 `[Authorize]` 特性。 如果当前用户与应用于方法和类的策略**都**不匹配，则会向调用方返回错误：
+各个服务方法也可以应用 `[Authorize]` 特性。 如果当前用户与**同时**应用于方法和类的策略不匹配，则会向调用方返回错误：
 
 ```csharp
 [Authorize]

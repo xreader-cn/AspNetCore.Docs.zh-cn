@@ -1,5 +1,5 @@
 ---
-title: 将 LibMan CLI 与 ASP.NET Core
+title: 将 LibMan CLI 与 ASP.NET Core 结合使用
 author: scottaddie
 description: 了解如何在 ASP.NET Core 项目中使用 LibMan CLI。
 ms.author: scaddie
@@ -9,17 +9,17 @@ no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
 ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928361"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649602"
 ---
-# <a name="use-the-libman-cli-with-aspnet-core"></a>将 LibMan CLI 与 ASP.NET Core
+# <a name="use-the-libman-cli-with-aspnet-core"></a>将 LibMan CLI 与 ASP.NET Core 结合使用
 
 作者：[Scott Addie](https://twitter.com/Scott_Addie)
 
-[LibMan](xref:client-side/libman/index) CLI 是一个跨平台工具，在支持 .net Core 的任何地方都受支持。
+[LibMan](xref:client-side/libman/index) CLI 是一种跨平台工具，在所有支持的 .NET Core 的位置都可得到支持。
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -33,19 +33,19 @@ ms.locfileid: "76928361"
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-[.Net Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)是从[LibraryManager](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet 包安装的。
+从 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。
 
-若要从特定的 NuGet 包源安装 LibMan CLI，请执行以下操作：
+从特定 NuGet 包源安装 LibMan CLI：
 
 ```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058a278 --add-source C:\Temp\
 ```
 
-在前面的示例中，从本地 Windows 计算机的*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*文件安装 .Net Core 全局工具。
+在前面的示例中，从本地 Windows 计算机的 C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg  文件安装 .NET Core 全局工具。
 
-## <a name="usage"></a>用量
+## <a name="usage"></a>用法
 
-成功安装 CLI 后，可以使用以下命令：
+成功安装 CLI 之后，可以使用以下命令：
 
 ```console
 libman
@@ -57,7 +57,7 @@ libman
 libman --version
 ```
 
-查看可用的 CLI 命令：
+查看可用 CLI 命令：
 
 ```console
 libman --help
@@ -94,7 +94,7 @@ Use "libman [command] --help" for more information about a command.
 
 ## <a name="initialize-libman-in-the-project"></a>在项目中初始化 LibMan
 
-`libman init` 命令将创建一个*libman*文件（如果不存在）。 将用默认项模板内容创建文件。
+`libman init` 命令会创建一个 libman.json  文件（如果不存在）。 该文件会使用默认项模板内容进行创建。
 
 ### <a name="synopsis"></a>摘要
 
@@ -109,11 +109,11 @@ libman init [-h|--help]
 
 * `-d|--default-destination <PATH>`
 
-  相对于当前文件夹的路径。 如果未在*libman*中为库定义 `destination` 属性，则会在此位置安装库文件。 `<PATH>` 值将写入*libman*的 `defaultDestination` 属性。
+  相对于当前文件夹的路径。 如果未在 libman.json  中为库定义 `destination` 属性，则库文件会安装在此位置。 `<PATH>` 值会写入 libman.json  的 `defaultDestination` 属性。
 
 * `-p|--default-provider <PROVIDER>`
 
-  为给定库定义了提供程序时要使用的提供程序。 `<PROVIDER>` 值将写入*libman*的 `defaultProvider` 属性。 将 `<PROVIDER>` 替换为以下值之一：
+  未为给定库定义提供程序时要使用的提供程序。 `<PROVIDER>` 值会写入 libman.json  的 `defaultProvider` 属性。 将 `<PROVIDER>` 替换为以下值之一：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -121,7 +121,7 @@ libman init [-h|--help]
 
 ### <a name="examples"></a>示例
 
-在 ASP.NET Core 项目中创建*libman*文件：
+在 ASP.NET Core 项目中创建 libman.json  文件：
 
 * 导航到项目根。
 * 运行下面的命令：
@@ -130,13 +130,13 @@ libman init [-h|--help]
   libman init
   ```
 
-* 键入默认提供程序的名称，或按 `Enter` 使用默认的 CDNJS 提供程序。 有效值包括：
+* 键入默认提供程序的名称，或按 `Enter` 以使用默认 CDNJS 提供程序。 有效值包括：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  ![libman init 命令-默认提供程序](_static/libman-init-provider.png)
+  ![libman 初始化命令 - 默认提供程序](_static/libman-init-provider.png)
 
-将*libman*文件添加到项目根，其中包含以下内容：
+具有以下内容的 libman.json  文件会添加到项目根：
 
 ```json
 {
@@ -148,7 +148,7 @@ libman init [-h|--help]
 
 ## <a name="add-library-files"></a>添加库文件
 
-`libman install` 命令将库文件下载并安装到项目中。 如果不存在*libman*文件，则添加一个。 修改*libman*文件以存储库文件的配置详细信息。
+`libman install` 命令会将库文件下载并安装到项目中。 如果 libman.json  文件不存在，则会添加一个。 libman.json  文件会进行修改，以存储库文件的配置详细信息。
 
 ### <a name="synopsis"></a>摘要
 
@@ -157,7 +157,7 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -169,11 +169,11 @@ libman install [-h|--help]
 
 * `-d|--destination <PATH>`
 
-  库的安装位置。 如果未指定，则使用默认位置。 如果*libman*中未指定 `defaultDestination` 属性，则此选项是必需的。
+  用于安装库的位置。 如果未指定，则使用默认位置。 如果 libman.json  中未指定 `defaultDestination` 属性，则此选项是必需的。
 
 * `--files <FILE>`
 
-  指定要从库中安装的文件的名称。 如果未指定，则会安装库中的所有文件。 为每个要安装的文件提供一个 `--files` 选项。 还支持相对路径。 例如：`--files dist/browser/signalr.js`。
+  指定要从库安装的文件的名称。 如果未指定，则会安装库中的所有文件。 为每个要安装的文件提供一个 `--files` 选项。 也支持相对路径。 例如：`--files dist/browser/signalr.js`。
 
 * `-p|--provider <PROVIDER>`
 
@@ -181,13 +181,13 @@ libman install [-h|--help]
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  如果未指定，则使用*libman*中的 `defaultProvider` 属性。 如果*libman*中未指定 `defaultProvider` 属性，则此选项是必需的。
+  如果未指定，则使用 libman.json  中的 `defaultProvider` 属性。 如果 libman.json  中未指定 `defaultProvider` 属性，则此选项是必需的。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>示例
 
-请考虑以下*libman*文件：
+请考虑以下 libman.json  文件：
 
 ```json
 {
@@ -197,13 +197,13 @@ libman install [-h|--help]
 }
 ```
 
-使用 CDNJS 提供程序将 jQuery 版本 3.2.1 *jquery*文件安装到*wwwroot/scripts/jQuery*文件夹：
+使用 CDNJS 提供程序将 jQuery 版本 3.2.1 jquery.min.js  文件安装到 wwwroot/scripts/jquery  文件夹：
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-*Libman*文件如下所示：
+libman.json  文件类似于以下内容：
 
 ```json
 {
@@ -221,20 +221,20 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-使用文件系统提供程序从*C：\\temp\\contosoCalendar\\* 中安装*node.js*和*calendar*文件：
+使用文件系统提供程序从 C:\\temp\\contosoCalendar\\  安装 calendar.js  和 calendar.css  ：
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
   ```
 
-出现以下两个原因的提示：
+由于两个原因而出现以下提示：
 
-* *Libman*文件不包含 `defaultDestination` 属性。
+* libman.json  文件不包含 `defaultDestination` 属性。
 * `libman install` 命令不包含 `-d|--destination` 选项。
 
-![libman 安装命令-目标](_static/libman-install-destination.png)
+![libman 安装命令 - 目标](_static/libman-install-destination.png)
 
-接受默认目标后， *libman*文件如下所示：
+接受默认目标之后，libman.json  文件类似于以下内容：
 
 ```json
 {
@@ -261,13 +261,13 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-## <a name="restore-library-files"></a>库将文件还原
+## <a name="restore-library-files"></a>还原库文件
 
-`libman restore` 命令安装在*libman*中定义的库文件。 适用以下规则：
+`libman restore` 命令安装在 libman.json  中定义的库文件。 适用以下规则：
 
-* 如果项目根目录中不存在*libman*文件，则会返回错误。
-* 如果库指定提供程序，则会忽略*libman*中的 `defaultProvider` 属性。
-* 如果库指定一个目标，则将忽略*libman*中的 `defaultDestination` 属性。
+* 如果项目根中不存在 libman.json  文件，则会返回错误。
+* 如果库指定了提供程序，则会忽略 libman.json  中的 `defaultProvider` 属性。
+* 如果库指定了目标，则会忽略 libman.json  中的 `defaultDestination` 属性。
 
 ### <a name="synopsis"></a>摘要
 
@@ -284,7 +284,7 @@ libman restore [-h|--help]
 
 ### <a name="examples"></a>示例
 
-若要还原*libman*中定义的库文件：
+还原在 libman.json  中定义的库文件：
 
 ```console
 libman restore
@@ -292,7 +292,7 @@ libman restore
 
 ## <a name="delete-library-files"></a>删除库文件
 
-`libman clean` 命令删除之前通过 LibMan 还原的库文件。 删除此操作后变成空的文件夹。 不会删除*libman*的 `libraries` 属性中的库文件的关联配置。
+`libman clean` 命令会删除之前通过 LibMan 还原的库文件。 在此操作之后成为空的文件夹会删除。 libman.json  的 `libraries` 属性中库文件的关联配置不会删除。
 
 ### <a name="synopsis"></a>摘要
 
@@ -319,15 +319,15 @@ libman clean
 
 `libman uninstall` 命令：
 
-* 从*libman*中的目标删除与指定库关联的所有文件。
-* 从*libman*中删除关联的库配置。
+* 从 libman.json  中的目标删除与指定库关联的所有文件。
+* 从 libman.json  中删除关联库配置。
 
-出现错误时：
+在下述情况中会发生错误：
 
-* 项目根目录中不存在*libman 文件。*
-* 指定的库不存在。
+* 项目根中不存在 libman.json  文件。
+* 指定库不存在。
 
-如果安装了多个具有相同名称的库，系统将提示您选择一个。
+如果安装了多个具有相同名称的库，则系统会提示选择一个。
 
 ### <a name="synopsis"></a>摘要
 
@@ -336,7 +336,7 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -350,11 +350,11 @@ libman uninstall [-h|--help]
 
 ### <a name="examples"></a>示例
 
-请考虑以下*libman*文件：
+请考虑以下 libman.json  文件：
 
 [!code-json[](samples/LibManSample/libman.json)]
 
-* 若要卸载 jQuery，以下任一命令都将成功：
+* 若要卸载 jQuery，以下任一命令都会成功：
 
   ```console
   libman uninstall jquery
@@ -364,7 +364,7 @@ libman uninstall [-h|--help]
   libman uninstall jquery@3.3.1
   ```
 
-* 卸载通过 `filesystem` 提供程序安装的 Lodash 等文件：
+* 卸载通过 `filesystem` 提供程序安装的 Lodash 文件：
 
   ```console
   libman uninstall C:\temp\lodash\
@@ -372,14 +372,14 @@ libman uninstall [-h|--help]
 
 ## <a name="update-library-version"></a>更新库版本
 
-`libman update` 命令将通过 LibMan 安装的库更新到指定的版本。
+`libman update` 命令会将通过 LibMan 安装的库更新为指定版本。
 
-出现错误时：
+在下述情况中会发生错误：
 
-* 项目根目录中不存在*libman 文件。*
-* 指定的库不存在。
+* 项目根中不存在 libman.json  文件。
+* 指定库不存在。
 
-如果安装了多个具有相同名称的库，系统将提示您选择一个。
+如果安装了多个具有相同名称的库，则系统会提示选择一个。
 
 ### <a name="synopsis"></a>摘要
 
@@ -388,7 +388,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -400,7 +400,7 @@ libman update [-h|--help]
 
 * `-pre`
 
-  获取库的最新预发布版本。
+  获取库的最新预发行版本。
 
 * `--to <VERSION>`
 
@@ -416,13 +416,13 @@ libman update [-h|--help]
   libman update jquery
   ```
 
-* 若要将 jQuery 更新为版本3.3.1：
+* 将 jQuery 更新为版本 3.3.1：
 
   ```console
   libman update jquery --to 3.3.1
   ```
 
-* 若要将 jQuery 更新为最新的预发行版本：
+* 将 jQuery 更新为最新预发行版本：
 
   ```console
   libman update jquery -pre
@@ -430,7 +430,7 @@ libman update [-h|--help]
 
 ## <a name="manage-library-cache"></a>管理库缓存
 
-`libman cache` 命令管理 LibMan 库缓存。 `filesystem` 提供程序不使用库缓存。
+`libman cache` 命令会管理 LibMan 库缓存。 `filesystem` 提供程序不使用库缓存。
 
 ### <a name="synopsis"></a>摘要
 
@@ -440,7 +440,7 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `PROVIDER`
 
@@ -491,7 +491,7 @@ libman cache [-h|--help]
       react
   ```
 
-* 若要查看每个提供程序的缓存库文件的名称，请执行以下操作：
+* 查看每个提供程序的缓存库文件的名称：
 
   ```console
   libman cache list --files
@@ -542,13 +542,13 @@ libman cache [-h|--help]
 
   请注意，前面的输出显示，jQuery 版本3.2.1 和3.3.1 缓存在 CDNJS 提供程序下。
 
-* 若要清空 CDNJS 提供程序的库缓存：
+* 清空 CDNJS 提供程序的库缓存：
 
   ```console
   libman cache clean cdnjs
   ```
 
-  清空 CDNJS 提供程序缓存后，`libman cache list` 命令将显示以下内容：
+  清空 CDNJS 提供程序缓存之后，`libman cache list` 命令会显示以下内容：
 
   ```console
   Cache contents:
@@ -567,7 +567,7 @@ libman cache [-h|--help]
   libman cache clean
   ```
 
-  在清空所有提供程序缓存后，`libman cache list` 命令将显示以下内容：
+  清空所有提供程序缓存之后，`libman cache list` 命令会显示以下内容：
 
   ```console
   Cache contents:

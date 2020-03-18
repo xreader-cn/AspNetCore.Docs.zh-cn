@@ -4,18 +4,18 @@ author: rick-anderson
 description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 2/25/2020
 uid: tutorials/first-web-api
-ms.openlocfilehash: 73e547b014d78dcbcbf1c887ebec16e0743d10b9
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: 55dfc05b5c96f7fa060d537745bac969e92daa9b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294753"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644964"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
-作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Mike Wasson](https://github.com/mikewasson)
+作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Kirk Larkin](https://twitter.com/serpent5) 和 [Mike Wasson](https://github.com/mikewasson)
 
 本教程介绍使用 ASP.NET Core 构建 Web API 的基础知识。
 
@@ -50,15 +50,15 @@ ms.locfileid: "76294753"
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
@@ -66,7 +66,7 @@ ms.locfileid: "76294753"
 
 ## <a name="create-a-web-project"></a>创建 Web 项目
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从“文件”菜单中选择“新建”>“项目”    。
 * 选择“ASP.NET Core Web 应用程序”模板，再单击“下一步”   。
@@ -75,7 +75,7 @@ ms.locfileid: "76294753"
 
 ![VS“新建项目”对话框](first-web-api/_static/vs3.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 * 将目录 (`cd`) 更改为包含项目文件夹的文件夹。
@@ -96,7 +96,7 @@ ms.locfileid: "76294753"
   * 创建新的 web API 项目，并在 Visual Studio Code 中打开它。
   * 添加下一部分中所需的 NuGet 包。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -127,17 +127,17 @@ ms.locfileid: "76294753"
 
 项目模板会创建 `WeatherForecast` API。 从浏览器调用 `Get` 方法以测试应用。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 按 Ctrl+F5 运行应用。 Visual Studio 启动浏览器并导航到 `https://localhost:<port>/WeatherForecast`，其中 `<port>` 是随机选择的端口号。
 
 如果出现询问是否应信任 IIS Express 证书的对话框，则选择“是”  。 在接下来出现的“安全警告”  对话框中，选择“是”  。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：[https://localhost:5001/WeatherForecast](https://localhost:5001/WeatherForecast)。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 选择“运行”   > “开始调试”  以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/WeatherForecast` 追加到 URL（将 URL 更改为 `https://localhost:<port>/WeatherForecast`）。
 
@@ -184,7 +184,7 @@ ms.locfileid: "76294753"
 
 模型  是一组表示应用管理的数据的类。 此应用的模型是单个 `TodoItem` 类。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”  中，右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -192,13 +192,13 @@ ms.locfileid: "76294753"
 
 * 将模板代码替换为以下代码：
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 添加名为“Models”的文件夹  。
 
 * 使用以下代码将 `TodoItem` 类添加到 Models  文件夹：
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -212,7 +212,7 @@ ms.locfileid: "76294753"
 
 ---
 
-  [!code-csharp[](first-web-api/samples/3.0/TodoApi/Models/TodoItem.cs)]
+  [!code-csharp[](first-web-api/samples/3.0/TodoApi/Models/TodoItem.cs?name=snippet)]
 
 `Id` 属性用作关系数据库中的唯一键。
 
@@ -222,7 +222,7 @@ ms.locfileid: "76294753"
 
 数据库上下文是为数据模型协调 Entity Framework 功能的主类  。 此类由 `Microsoft.EntityFrameworkCore.DbContext` 类派生而来。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="add-microsoftentityframeworkcoresqlserver"></a>添加 Add Microsoft.EntityFrameworkCore.SqlServer
 
@@ -238,7 +238,7 @@ ms.locfileid: "76294753"
 
 * 右键单击“Models”  文件夹，然后选择“添加”   > “类”  。 将类命名为 TodoContext，然后单击“添加”   。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 将 `TodoContext` 类添加到“Models”  文件夹。
 
@@ -264,7 +264,7 @@ ms.locfileid: "76294753"
 
 ## <a name="scaffold-a-controller"></a>构建控制器
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击 Controllers  文件夹。
 * 选择“添加”>“新建构建项”   。
@@ -275,7 +275,7 @@ ms.locfileid: "76294753"
   * 在“数据上下文类”中选择“TodoContext (TodoAPI.Models)”   。
   * 选择“添加”  。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 运行以下命令：
 
@@ -298,6 +298,13 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 使用 [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性标记类。 此属性指示控制器响应 Web API 请求。 有关该属性启用的特定行为的信息，请参阅 <xref:web-api/index>。
 * 使用 DI 将数据库上下文 (`TodoContext`) 注入到控制器中。 数据库上下文将在控制器中的每个 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) 方法中使用。
+
+ASP.NET Core 模板：
+
+* 具有视图的控制器在路由模板中包含 `[action]`。
+* API 控制器不在路由模板中包含 `[action]`。
+
+如果 `[action]` 标记不在路由模板中，则从路由中排除[操作](xref:mvc/controllers/routing#action)名称。 也就是说，不会在匹配的路由中使用操作的关联方法名称。
 
 ## <a name="examine-the-posttodoitem-create-method"></a>检查 PostTodoItem create 方法
 
@@ -458,6 +465,37 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 设置要删除的对象的 URI，例如 `https://localhost:5001/api/TodoItems/1`。
 * 选择**Send**。
 
+<a name="over-post"></a>
+
+## <a name="prevent-over-posting"></a>防止过度发布
+
+目前，示例应用公开了整个 `TodoItem` 对象。 生产应用通常使用模型的子集来限制输入和返回的数据。 这背后有多种原因，但安全性是主要原因。 模型的子集通常称为数据传输对象 (DTO)、输入模型或视图模型。 本文使用的是 **DTO**。
+
+DTO 可用于：
+
+* 防止过度发布。
+* 隐藏客户端不应查看的属性。
+* 省略一些属性以缩减有效负载大小。
+* 平展包含嵌套对象的对象图。 对客户端而言，平展的对象图可能更方便。
+
+若要演示 DTO 方法，请更新 `TodoItem` 类，使其包含机密字段：
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Models/TodoItem.cs?name=snippet&highlight=6)]
+
+此应用需要隐藏机密字段，但管理应用可以选择公开它。
+
+确保可以发布和获取机密字段。
+
+创建 DTO 模型：
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Models/TodoItemDTO.cs?name=snippet)]
+
+更新 `TodoItemsController` 以使用 `TodoItemDTO`：
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Controllers/TodoItemsController.cs?name=snippet)]
+
+确保无法发布或获取机密字段。
+
 ## <a name="call-the-web-api-with-javascript"></a>使用 JavaScript 调用 Web API
 
 请参阅[教程：使用 JavaScript 调用 ASP.NET Core Web API](xref:tutorials/web-api-javascript)。
@@ -498,15 +536,15 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="prerequisites"></a>先决条件
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -514,7 +552,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="create-a-web-project"></a>创建 Web 项目
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 从“文件”菜单中选择“新建”>“项目”    。
 * 选择“ASP.NET Core Web 应用程序”模板，再单击“下一步”   。
@@ -523,7 +561,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ![VS“新建项目”对话框](first-web-api/_static/vs.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。
 * 将目录 (`cd`) 更改为包含项目文件夹的文件夹。
@@ -538,7 +576,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 当对话框询问是否要将所需资产添加到项目时，选择“是”  。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 选择“文件”>“新建解决方案”   。
 
@@ -560,17 +598,17 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 项目模板会创建 `values` API。 从浏览器调用 `Get` 方法以测试应用。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 按 Ctrl+F5 运行应用。 Visual Studio 启动浏览器并导航到 `https://localhost:<port>/api/values`，其中 `<port>` 是随机选择的端口号。
 
 如果出现询问是否应信任 IIS Express 证书的对话框，则选择“是”  。 在接下来出现的“安全警告”  对话框中，选择“是”  。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：[https://localhost:5001/api/values](https://localhost:5001/api/values)。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 选择“运行”   > “开始调试”  以启动应用。 Visual Studio for Mac 会启动浏览器并导航到 `https://localhost:<port>`，其中 `<port>` 是随机选择的端口号。 将返回 HTTP 404（未找到）错误。 将 `/api/values` 追加到 URL（将 URL 更改为 `https://localhost:<port>/api/values`）。
 
@@ -586,7 +624,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 模型  是一组表示应用管理的数据的类。 此应用的模型是单个 `TodoItem` 类。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“解决方案资源管理器”  中，右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -594,13 +632,13 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * 将模板代码替换为以下代码：
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 添加名为“Models”的文件夹  。
 
 * 使用以下代码将 `TodoItem` 类添加到 Models  文件夹：
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * 右键单击项目。 选择“添加”   > “新建文件夹”  。 将文件夹命名为“Models”  。
 
@@ -624,11 +662,11 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 数据库上下文是为数据模型协调 Entity Framework 功能的主类  。 此类由 `Microsoft.EntityFrameworkCore.DbContext` 类派生而来。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击“Models”  文件夹，然后选择“添加”   > “类”  。 将类命名为 TodoContext，然后单击“添加”   。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 将 `TodoContext` 类添加到“Models”  文件夹。
 
@@ -654,7 +692,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="add-a-controller"></a>添加控制器
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 右键单击 Controllers  文件夹。
 * 选择“添加”>“新项”   。
@@ -663,7 +701,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
   ![“添加新项”对话框，“控制器”显示在搜索框中，并且“Web API 控制器”已选中](first-web-api/_static/new_controller.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 在“控制器”文件夹中，创建名为 `TodoController` 的类  。
 
@@ -743,11 +781,11 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 启动 Postman。
 * 禁用 **SSL 证书验证**。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 在“文件”  >“设置”（“常规”   选项卡）中，禁用“SSL 证书验证”。 
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * 在“Postman” > “首选项”（“常规”选项卡）中，禁用“SSL 证书验证”     。 或者，选择扳手图标并选择“设置”，然后禁用“SSL 证书验证”  。
 
@@ -918,7 +956,7 @@ jQuery 发送 HTTP POST 请求，请求正文中包含待办事项。 将 `accep
 
 ## <a name="additional-resources"></a>其他资源
 
-[查看或下载本教程的示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
+[查看或下载本教程的示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)。 请参阅[如何下载](xref:index#how-to-download-a-sample)。
 
 有关更多信息，请参见以下资源：
 

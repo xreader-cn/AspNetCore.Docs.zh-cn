@@ -1,22 +1,22 @@
 ---
 title: 在 Web 场中托管 ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: 了解如何在 Web 场环境中托管包含共享资源的 ASP.NET Core 应用的多个实例。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 5c13e9bc4c514f9b42871d55a430265c8ec2da23
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 316c87e5f49593c05991a94cbe5e55d175a49bb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951820"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647340"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
-作者：[Luke Latham](https://github.com/guardrex)、[Chris Ross](https://github.com/Tratcher)
+作者：[Chris Ross](https://github.com/Tratcher)
 
 Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用于托管应用的多个实例。 若有用户请求到达 Web 场，负载均衡器  会将请求分发到 Web 场中的各个节点。 Web 场提高了：
 
@@ -62,8 +62,8 @@ Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用�
 | -------- | ------------------- |
 | 身份验证 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 |
 | 标识 | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
-| 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和应用状态：会话状态](xref:fundamentals/app-state#session-state)。 |
-| TempData | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和应用状态：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和应用状态：TempData](xref:fundamentals/app-state#tempdata)。 |
+| 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 |
+| TempData | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 |
 | 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
 
 ## <a name="troubleshoot"></a>疑难解答
@@ -93,3 +93,4 @@ Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用�
 
 * [适用于 Windows 的自定义脚本扩展](/azure/virtual-machines/extensions/custom-script-windows) &ndash; 在 Azure 虚拟机上下载和执行脚本，这对于部署后配置和软件安装很有用。
 * <xref:host-and-deploy/proxy-load-balancer>
+ 

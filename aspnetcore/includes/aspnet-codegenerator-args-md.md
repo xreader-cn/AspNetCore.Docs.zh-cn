@@ -1,5 +1,5 @@
 <!-- Options common to Razor Pages and Controller -->
-| 选项               | 说明|
+| 选项               | 描述|
 | ----------------- | ------------ |
 | --model 或 -m  | 要使用的模型类。 |
 | --dataContext 或 -dc  | 要使用的 `DbContext` 类。 |

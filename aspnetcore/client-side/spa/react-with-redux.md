@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/react-with-redux
 ms.openlocfilehash: ed2e9aea449ddb09fef049a391f40f57452786a8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893684"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646464"
 ---
 # <a name="use-the-react-with-redux-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用带 Redux 的 React 项目模板
 
@@ -20,4 +20,4 @@ ms.locfileid: "64893684"
 
 除了项目创建命令外，关于带 Redux 的 React 模板的所有信息都与 React 模板相同。 要创建此项目类型，请运行 `dotnet new reactredux` 而不是 `dotnet new react`。 有关这两个基于 React 的模板的通用功能的详细信息，请参阅 [React 模板文档](xref:spa/react)。
 
-有关在 IIS 中配置 React 与 Redux 子应用程序的信息，请参阅[ReactRedux 模板 2.1:无法在 IIS 上使用 SPA (aspnet/Templating &num;555)](https://github.com/aspnet/Templating/issues/555)。
+有关在 IIS 中配置带 Redux 的 React 子应用程序的信息，请参阅 [ReactRedux Template 2.1:Unable to use SPA on IIS (aspnet/Templating &num;555)](https://github.com/aspnet/Templating/issues/555)（ReactRedux 模板 2.1：无法在 IIS 上使用 SPA (aspnet/Templating #555)）。

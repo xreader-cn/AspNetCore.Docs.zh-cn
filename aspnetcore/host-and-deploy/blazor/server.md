@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core 托管和部署 Blazor Server 应�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 02/15/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: a051d51e734fec4315da73d3c4df57706df7f363
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: 42321b8564524fec41104ccaf1ac47981d014c94
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77465818"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647358"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>托管和部署 Blazor Server
 
@@ -87,7 +87,10 @@ Blazor Server 应用使用 ASP.NET Core SignalR 与浏览器进行通信。 [Sig
 
 #### <a name="iis"></a>IIS
 
-使用 IIS 时，粘滞会话通过应用程序请求路由启用。 有关详细信息，请参阅[使用应用程序请求路由实现 HTTP 负载均衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
+使用 IIS 时，请启用：
+
+* [IIS 上的 WebSocket](xref:fundamentals/websockets#enabling-websockets-on-iis)。
+* [具有应用程序请求路由的粘性会话](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
 #### <a name="kubernetes"></a>Kubernetes
 
@@ -118,7 +121,7 @@ proxy_set_header Connection $connection_upgrade;
 
 ### <a name="measure-network-latency"></a>衡量网络延迟
 
-可以使用 [JS 互操作](xref:blazor/javascript-interop)来衡量网络延迟，如以下示例所示：
+可以使用 [JS 互操作](xref:blazor/call-javascript-from-dotnet)来衡量网络延迟，如以下示例所示：
 
 ```razor
 @inject IJSRuntime JS

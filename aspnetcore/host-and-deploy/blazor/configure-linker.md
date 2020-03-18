@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
 ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726775"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648606"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>配置 ASP.NET Core [!OP.NO-LOC(Blazor)] 链接器
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
 作者：[Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[!OP.NO-LOC(Blazor)] 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接以从应用的输出程序集中删除不必要的 IL。
+Blazor 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中删除不必要的 IL。
 
 使用以下任何一种方法控制程序集链接：
 
@@ -55,7 +55,7 @@ Linker.xml  ：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
+  This file specifies which parts of the BCL or Blazor packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -86,7 +86,7 @@ Linker.xml  ：
 
 ### <a name="configure-the-linker-for-internationalization"></a>配置链接器以实现国际化
 
-默认情况下，[!OP.NO-LOC(Blazor)] 对于 [!OP.NO-LOC(Blazor)] WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
+默认情况下，用于 Blazor WebAssembly 应用的 Blazor 链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
 
 要控制保留哪些国际化程序集，请在项目文件中设置 `<MonoLinkerI18NAssemblies>` MSBuild 属性：
 

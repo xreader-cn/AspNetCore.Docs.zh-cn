@@ -9,11 +9,11 @@ products:
 - vs
 urlFragment: aspnetcore-webapi-mongodb
 ms.openlocfilehash: 01f9cf237dcf2a9b95c181c2cb87ef9f59102244
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881174"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649140"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -27,7 +27,7 @@ ms.locfileid: "74881174"
 * 从 Web API 执行 MongoDB CRUD 操作
 * 自定义 JSON 序列化
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [.NET Core SDK 3.0 或更高版本](https://www.microsoft.com/net/download/all)
 * [Visual Studio 2019 预览版](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&ch=pre&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019preview) 与 ASP.NET 和 Web 开发  工作负载
@@ -325,7 +325,7 @@ ms.locfileid: "74881174"
     }
     ```
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; 表示 Mongo 数据库，以执行操作。 本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。 调用此方法后，对集合执行 CRUD 操作。 在 `GetCollection<TDocument>(collection)` 方法调用中：
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; 表示用于执行操作的 Mongo 数据库。 本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。 调用此方法后，对集合执行 CRUD 操作。 在 `GetCollection<TDocument>(collection)` 方法调用中：
   * `collection` 表示集合名称。
   * `TDocument` 表示存储在集合中的 CLR 对象类型。
 

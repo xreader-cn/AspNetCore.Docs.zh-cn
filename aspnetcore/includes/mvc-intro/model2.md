@@ -4,7 +4,7 @@
 
 创建一个“Data”文件夹  。
 
-将以下 `MvcMovieContext` 类添加到“数据”文件夹  ：  
+将以下 `MvcMovieContext` 类添加到“Data”文件夹  ：  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
 

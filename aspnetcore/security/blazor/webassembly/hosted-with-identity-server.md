@@ -5,17 +5,17 @@ description: 使用[IdentityServer](https://identityserver.io/)后端在 Visual 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 98eb126ab3c483e0a6dc2274db8ffcfd9d5bc59a
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: a3993bf635e5a7aae408d72796015f2414e13c14
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083607"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434468"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>使用标识服务器保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -49,7 +49,7 @@ dotnet new blazorwasm -au Individual -ho
 
 `Startup` 类具有以下附加项：
 
-* 在 `Startup.ConfigureServices`中：
+* 在 `Startup.ConfigureServices` 中：
 
   * 具有默认 UI 的标识：
 
@@ -76,7 +76,7 @@ dotnet new blazorwasm -au Individual -ho
         .AddIdentityServerJwt();
     ```
 
-* 在 `Startup.Configure`中：
+* 在 `Startup.Configure` 中：
 
   * 负责验证请求凭据并在请求上下文上设置用户的身份验证中间件：
 
@@ -165,7 +165,7 @@ builder.Services.AddApiAuthorization();
 
 默认情况下，它按约定从 `_configuration/{client-id}`加载应用的配置。 按照约定，将客户端 ID 设置为应用的程序集名称。 可以通过使用选项调用重载，将此 URL 更改为指向不同的终结点。
 
-### <a name="index-page"></a>索引页
+### <a name="index-page"></a>索引页面
 
 [!INCLUDE[](~/includes/blazor-security/index-page.md)]
 
@@ -224,5 +224,9 @@ builder.Services.AddApiAuthorization();
 ### <a name="fetchdata-component"></a>FetchData 组件
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
+
+## <a name="run-the-app"></a>运行应用程序
+
+从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]

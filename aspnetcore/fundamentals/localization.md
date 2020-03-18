@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717398"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648432"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -30,7 +30,7 @@ ms.locfileid: "74717398"
 
 3. 实施策略，为每个请求选择语言/区域性
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="make-the-apps-content-localizable"></a>使应用内容可本地化
 
@@ -74,7 +74,7 @@ ASP.NET Core 中引入并架构了 `IStringLocalizer` 和 `IStringLocalizer<T>`�
 
 法语资源文件可以包含以下信息：
 
-| 键 | 值 |
+| 键 | “值” |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -225,6 +225,7 @@ using Microsoft.Extensions.Localization;
 在本地化[中间件](xref:fundamentals/middleware/index)中设置有关请求的当前区域性。 在 `Startup.Configure` 方法中启用本地化中间件。 必须在中间件前面配置本地化中间件，它可能检查请求区域性（例如，`app.UseMvcWithDefaultRoute()`）。
 
 [!code-csharp[](localization/sample/Localization/Startup.cs?name=snippet2)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization` 初始化 `RequestLocalizationOptions` 对象。 在每个请求上，枚举了 `RequestLocalizationOptions` 的 `RequestCultureProvider` 列表，使用了可成功决定请求区域性的第一个提供程序。 默认提供程序来自 `RequestLocalizationOptions` 类：
 
@@ -248,7 +249,7 @@ using Microsoft.Extensions.Localization;
 
 通常，生产应用将提供一种机制来使用 ASP.NET Core 区域性 Cookie 设置区域性。 若要创建 Cookie，请使用 `MakeCookieValue` 方法。
 
-`CookieRequestCultureProvider` `DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 Cookie 名称。 默认 Cookie 名称是 `.AspNetCore.Culture`。
+`CookieRequestCultureProvider``DefaultCookieName` 将返回用来跟踪用户首选区域性信息的默认 Cookie 名称。 默认 Cookie 名称是 `.AspNetCore.Culture`。
 
 Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic` 是 `UICulture`，例如：
 
@@ -276,7 +277,7 @@ Cookie 格式为 `c=%LANGCODE%|uic=%LANGCODE%`，其中`c` 是 `Culture`，`uic`
 
 6. 点击语言，然后点击“向上移动”  。
 
-::: moniker range=">= aspnetcore-3.1"
+::: moniker range="> aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Content-Language HTTP 标头
 
 [Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) 实体标头：

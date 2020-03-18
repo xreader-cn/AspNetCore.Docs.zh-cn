@@ -7,11 +7,11 @@ ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
 ms.openlocfilehash: 1043a578f66d5bb57f4a81e9fe21afa5e3c37cb8
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081513"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649854"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -42,7 +42,7 @@ dotnet aspnet-codegenerator [arguments] [-p|--project] [-n|--nuget-package-dir] 
 dotnet aspnet-codegenerator [-h|--help]
 ```
 
-## <a name="description"></a>说明
+## <a name="description"></a>描述
 
 `dotnet aspnet-codegenerator` 全局命令运行 ASP.NET Core 代码生成器和基架引擎。
 
@@ -121,13 +121,13 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ### <a name="controller-options"></a>控制器选项
 
-下表列出了 `aspnet-codegenerator` `controller` 和 `razorpage` 的选项：
+下表列出了 `aspnet-codegenerator``controller` 和 `razorpage` 的选项：
 
 [!INCLUDE [aspnet-codegenerator-args-md.md](~/includes/aspnet-codegenerator-args-md.md)]
 
 下表列出了对于 `aspnet-codegenerator controller` 是唯一的选项：
 
-| 选项               | 说明|
+| 选项               | 描述|
 | ----------------- | ------------ |
 | --controllerName 或 -name | 控制器的名称。 |
 | --useAsyncActions 或 -async | 生成异步控制器操作。 |
@@ -170,13 +170,13 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 * `Details`
 * `List`
 
-下表列出了 `aspnet-codegenerator` `razorpage` 和 `controller` 的选项：
+下表列出了 `aspnet-codegenerator``razorpage` 和 `controller` 的选项：
 
 [!INCLUDE [aspnet-codegenerator-args-md.md](~/includes/aspnet-codegenerator-args-md.md)]
 
 下表列出了对于 `aspnet-codegenerator razorpage` 是唯一的选项：
 
-| 选项               | 说明|
+| 选项               | 描述|
 | ----------------- | ------------ |
 |   --namespaceName 或 -namespace | 用于生成的 PageModel 的命名空间的名称 |
 | --partialView 或 -partial | 生成分部视图。 如果指定此选项，将忽略布局选项 -l 和 -udl。 |

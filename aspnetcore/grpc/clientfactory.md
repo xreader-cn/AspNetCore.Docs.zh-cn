@@ -9,25 +9,25 @@ no-loc:
 - SignalR
 uid: grpc/clientfactory
 ms.openlocfilehash: 3042bb61367f8b9a9f3142217ad329270ab2cca5
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963686"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650796"
 ---
 # <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core 中的 gRPC 客户端工厂集成
 
-gRPC 与 `HttpClientFactory` 的集成提供了一种集中式方式来创建 gRPC 客户端。 它可用作[配置独立 gRPC 客户端实例](xref:grpc/client)的替代方法。 工厂集成在[Grpc ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet 包中提供。
+gRPC 与 `HttpClientFactory` 的集成提供了一种创建 gRPC 客户端的集中方式。 它可用作[配置独立 gRPC 客户端实例](xref:grpc/client)的替代方法。 [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet 包中提供了工厂集成。
 
 工厂具有以下优势：
 
-* 提供用于配置逻辑 gRPC 客户端实例的中心位置
-* 管理基础 `HttpClientMessageHandler` 的生存期
+* 提供了用于配置逻辑 gRPC 客户端实例的中心位置
+* 可管理基础 `HttpClientMessageHandler` 的生存期
 * 在 ASP.NET Core gRPC 服务中自动传播截止时间和取消
 
 ## <a name="register-grpc-clients"></a>注册 gRPC 客户端
 
-若要注册 gRPC 客户端，可在 `Startup.ConfigureServices`中使用泛型 `AddGrpcClient` 扩展方法，并指定 gRPC 类型化客户端类和服务地址：
+若要注册 gRPC 客户端，可在 `Startup.ConfigureServices` 中使用通用的 `AddGrpcClient` 扩展方法，并指定 gRPC 类型化客户端类和服务地址：
 
 ```csharp
 services.AddGrpcClient<Greeter.GreeterClient>(o =>
@@ -36,7 +36,7 @@ services.AddGrpcClient<Greeter.GreeterClient>(o =>
 });
 ```
 
-GRPC 客户端类型被注册为具有依赖关系注入（DI）的暂时性。 现在可以在 DI 创建的类型中直接注入和使用客户端。 ASP.NET Core MVC 控制器，SignalR 中心和 gRPC 服务是可以自动注入 gRPC 客户端的位置：
+gRPC 客户端类型通过依赖项注入 (DI) 注册为暂时性。 现在可以在由 DI 创建的类型中直接注入和使用客户端。 ASP.NET Core MVC 控制器、SignalR 中心和 gRPC 服务是可以自动注入 gRPC 客户端的位置：
 
 ```csharp
 public class AggregatorService : Aggregator.AggregatorBase
@@ -65,7 +65,7 @@ public class AggregatorService : Aggregator.AggregatorBase
 
 ## <a name="configure-httpclient"></a>配置 HttpClient
 
-`HttpClientFactory` 创建 gRPC 客户端使用的 `HttpClient`。 标准 `HttpClientFactory` 方法可用于添加传出请求中间件或配置 `HttpClient`的基础 `HttpClientHandler`：
+`HttpClientFactory` 创建 gRPC 客户端使用的 `HttpClient`。 标准 `HttpClientFactory` 方法可用于添加传出请求中间件或配置 `HttpClient` 的基础 `HttpClientHandler`：
 
 ```csharp
 services
@@ -105,9 +105,9 @@ services
 
 ## <a name="deadline-and-cancellation-propagation"></a>截止时间和取消传播
 
-可以使用 `EnableCallContextPropagation()` 将 gRPC 服务中工厂创建的 gRPC 客户端配置为自动将截止时间和取消标记传播到子调用。 `EnableCallContextPropagation()` 扩展方法在[ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet 包中提供。
+可以使用 `EnableCallContextPropagation()` 对 gRPC 服务中工厂所创建的 gRPC 客户端进行配置，以自动将截止时间和取消令牌传播到子调用。 [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet 包中提供了 `EnableCallContextPropagation()` 扩展方法。
 
-调用上下文传播的工作方式是从当前 gRPC 请求上下文中读取截止时间和取消标记，并自动将其传播到 gRPC 客户端发出的传出调用。 调用上下文传播是确保复杂的嵌套 gRPC 方案始终传播截止时间和取消的极佳方式。
+调用上下文传播的工作方式是：从当前 gRPC 请求上下文中读取截止时间和取消令牌，并自动将其传播到 gRPC 客户端所发出的传出调用。 调用上下文传播是确保复杂的嵌套 gRPC 场景始终传播截止时间和取消的一种极佳方式。
 
 ```csharp
 services
@@ -118,7 +118,7 @@ services
     .EnableCallContextPropagation();
 ```
 
-有关截止时间和 RPC 取消的详细信息，请参阅[rpc 生命周期](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle)。
+有关截止时间和 RPC 取消的详细信息，请参阅 [RPC 生命周期](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle)。
 
 ## <a name="additional-resources"></a>其他资源
 

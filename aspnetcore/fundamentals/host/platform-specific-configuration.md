@@ -1,28 +1,28 @@
 ---
 title: 在 ASP.NET Core 中使用承载启动程序集
-author: guardrex
+author: rick-anderson
 description: 了解如何使用 IHostingStartup 从外部程序集增强 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: c1ba742dda64296348898ec6a15ba725501dcb4f
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 71fd5cf1934b5374e0a393e055db23b98c03b62f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391015"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647910"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>在 ASP.NET Core 中使用承载启动程序集
 
-作者：[Luke Latham](https://github.com/guardrex) 和 [Pavel Krymets](https://github.com/pakrym)
+作者：[Pavel Krymets](https://github.com/pakrym)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>（承载启动）实现，在启动时从外部程序集向应用添加增强功能。 例如，外部库可使用承载启动实现为应用提供其他配置提供程序或服务。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="hostingstartup-attribute"></a>HostingStartup 属性
 
@@ -94,7 +94,7 @@ ms.locfileid: "72391015"
 
 可在类库中提供承载启动增强。 库包含 `HostingStartup` 属性。
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary   。 类库：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary   。 类库：
 
 * 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)) 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。
@@ -111,7 +111,7 @@ HostingStartupApp/Pages/Index.cshtml.cs  ：
 
 [!code-csharp[](platform-specific-configuration/samples/3.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=5-6,11-12)]
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)还包括一个 NuGet 包项目，该项目提供单独的承载启动 HostingStartupPackage  。 该包具有与前述类库相同的特征。 包：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)还包括一个 NuGet 包项目，该项目提供单独的承载启动 HostingStartupPackage  。 该包具有与前述类库相同的特征。 包：
 
 * 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性。
@@ -323,10 +323,10 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
 ```
 
-* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量中的位置。
-* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所需的共享框架。
-* `{SHARED FRAMEWORK VERSION}` &ndash; 最小共享框架版本。
-* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强功能的程序集名称。
+* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量的位置。
+* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所必需的共享框架。
+* `{SHARED FRAMEWORK VERSION}` &ndash; 最低共享框架版本。
+* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强程序集名称。
 
 在示例应用（*RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
 
@@ -375,7 +375,7 @@ deployment/additionalDeps/shared/Microsoft.AspNetCore.App/3.0.0/StartupDiagnosti
 
 ## <a name="sample-code"></a>示例代码
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）演示了承载启动实现方案：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）演示了承载启动实现方案：
 
 * 两个承载启动程序集（类库）分别设置一对内存中配置键值对：
   * NuGet 包 (HostingStartupPackage  )
@@ -448,7 +448,7 @@ dotnet nuget locals all --clear
 
 通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>（承载启动）实现，在启动时从外部程序集向应用添加增强功能。 例如，外部库可使用承载启动实现为应用提供其他配置提供程序或服务。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="hostingstartup-attribute"></a>HostingStartup 属性
 
@@ -492,7 +492,7 @@ dotnet nuget locals all --clear
 
 可在类库中提供承载启动增强。 库包含 `HostingStartup` 属性。
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary   。 类库：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)包括 Razor Pages 应用、HostingStartupApp 和类库 HostingStartupLibrary   。 类库：
 
 * 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 使用内存中配置提供程序 ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)) 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性，用于标识承载启动的命名空间和类。
@@ -509,7 +509,7 @@ HostingStartupApp/Pages/Index.cshtml.cs  ：
 
 [!code-csharp[](platform-specific-configuration/samples/2.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=5-6,11-12)]
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)还包括一个 NuGet 包项目，该项目提供单独的承载启动 HostingStartupPackage  。 该包具有与前述类库相同的特征。 包：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)还包括一个 NuGet 包项目，该项目提供单独的承载启动 HostingStartupPackage  。 该包具有与前述类库相同的特征。 包：
 
 * 包含承载启动类 `ServiceKeyInjection`，用于实现 `IHostingStartup`。 `ServiceKeyInjection` 将一对服务字符串添加到应用的配置中。
 * 包含 `HostingStartup` 属性。
@@ -709,10 +709,10 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
 ```
 
-* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量中的位置。
-* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所需的共享框架。
-* `{SHARED FRAMEWORK VERSION}` &ndash; 最小共享框架版本。
-* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强功能的程序集名称。
+* `{ADDITIONAL DEPENDENCIES PATH}` &ndash; 添加到 `DOTNET_ADDITIONAL_DEPS` 环境变量的位置。
+* `{SHARED FRAMEWORK NAME}` &ndash; 此附加依赖项文件所必需的共享框架。
+* `{SHARED FRAMEWORK VERSION}` &ndash; 最低共享框架版本。
+* `{ENHANCEMENT ASSEMBLY NAME}` &ndash; 增强程序集名称。
 
 在示例应用（*RuntimeStore*  项目）中，附加依赖项文件放于以下位置：
 
@@ -761,7 +761,7 @@ deployment/additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnosti
 
 ## <a name="sample-code"></a>示例代码
 
-[示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）演示了承载启动实现方案：
+[示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/)（[如何下载](xref:index#how-to-download-a-sample)）演示了承载启动实现方案：
 
 * 两个承载启动程序集（类库）分别设置一对内存中配置键值对：
   * NuGet 包 (HostingStartupPackage  )

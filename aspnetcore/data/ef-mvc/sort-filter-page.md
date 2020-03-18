@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: c4d50b72c5508d52b17c6754b6d8e77c1a3903b6
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 99bf9ed59b47e8fbba838b97c3e032b9808f6a94
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259342"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646050"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 
@@ -31,7 +31,7 @@ ms.locfileid: "72259342"
 > * 添加分页链接
 > * 创建“关于”页
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [实现 CRUD 功能](crud.md)
 
@@ -101,7 +101,7 @@ ms.locfileid: "72259342"
 
 [!code-html[](intro/samples/cu/Views/Students/Index3.cshtml?range=9-23&highlight=5-13)]
 
-此代码使用 `<form>` [标记帮助器](xref:mvc/views/tag-helpers/intro)添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器使用 POST 提交表单数据，这意味着参数在 HTTP 消息正文中传递，而不是作为查询字符串在 URL 中传递。 当指定 HTTP GET 时，表单数据作为查询字符串在 URL 中传递，从而使用户能够将 URL 加入书签。 W3C 指南建议在操作不会导致更新时使用 GET。
+此代码使用 `<form>`[标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器使用 POST 提交表单数据，这意味着参数在 HTTP 消息正文中传递，而不是作为查询字符串在 URL 中传递。 当指定 HTTP GET 时，表单数据作为查询字符串在 URL 中传递，从而使用户能够将 URL 加入书签。 W3C 指南建议在操作不会导致更新时使用 GET。
 
 运行应用，选择“学生”选项卡，输入搜索字符串，然后单击“搜索”以验证筛选是否正常工作  。
 
@@ -248,7 +248,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ## <a name="get-the-code"></a>获取代码
 
-[下载或查看已完成的应用程序。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[下载或查看已完成的应用程序。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>后续步骤
 

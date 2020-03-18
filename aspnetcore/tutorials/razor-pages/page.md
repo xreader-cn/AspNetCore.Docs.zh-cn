@@ -5,12 +5,12 @@ description: 介绍通过搭建基架生成的 Razor 页面。
 ms.author: riande
 ms.date: 08/17/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 594fd6186cc73aa054fc9a1478850fa01e481ef2
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: cec4295a2c08c89db0975808583f41c7d09bfc88
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034199"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648642"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core 中已搭建基架的 Razor 页面
 
@@ -32,7 +32,7 @@ Razor 页面派生自 `PageModel`。 按照约定，`PageModel` 派生的类称�
 
 对页面发出请求时，`OnGetAsync` 方法向 Razor 页面返回影片列表。 调用 `OnGetAsync` 或 `OnGet` 以初始化页面的状态。 在这种情况下，`OnGetAsync` 将获得影片列表并显示出来。
 
-当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回语句。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs  `OnPostAsync` 方法：
+当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回语句。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs `OnPostAsync` 方法  ：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -114,12 +114,12 @@ changing in in the next step.
 
 前面的定位点元素是一个[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 此处它是[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)。 `asp-page="/Movies/Index"` 标记帮助程序属性和值可以创建指向 `/Movies/Index` Razor 页面的链接。 `asp-area` 属性值为空，因此在链接中未使用区域。 有关详细信息，请参阅[区域](xref:mvc/controllers/areas)。
 
-保存所做的更改，并通过单击“RpMovie”  链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml) 文件。
+保存所做的更改，并通过单击“RpMovie”  链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml) 文件。
 
 测试其他链接（“主页”  、“RpMovie”  、“创建”  、“编辑”  和“删除”  ）。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
 
 > [!NOTE]
-> 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
+> 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
 在 Pages/_ViewStart.cshtml  文件中设置 `Layout` 属性：
 
@@ -151,7 +151,7 @@ changing in in the next step.
 
 [!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记：
 
@@ -163,7 +163,7 @@ Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记
 
 ![Create.cshtml 页的 VS17 视图](page/_static/th3.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 以下标记帮助程序显示在前面的标记中：
 
@@ -173,7 +173,7 @@ Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记
 * `<input asp-for="Movie.Title" class="form-control" />`
 * `<span asp-validation-for="Movie.Title" class="text-danger"></span>`
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记：
 
@@ -213,7 +213,7 @@ Visual Studio 以用于标记帮助程序的特殊加粗字体显示以下标记
 
 本教程介绍在[上一教程](xref:tutorials/razor-pages/model)中通过搭建基架创建的 Razor 页面。
 
-[查看或下载](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22)示例。
+[查看或下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22)示例。
 
 ## <a name="the-create-delete-details-and-edit-pages"></a>“创建”、“删除”、“详细信息”和“编辑”页面
 
@@ -225,7 +225,7 @@ Razor 页面派生自 `PageModel`。 按照约定，`PageModel` 派生的类称�
 
 对页面发出请求时，`OnGetAsync` 方法向 Razor 页面返回影片列表。 在 Razor 页面上调用 `OnGetAsync` 或 `OnGet` 以初始化页面状态。 在这种情况下，`OnGetAsync` 将获得影片列表并显示出来。
 
-当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回方法。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs  `OnPostAsync` 方法：
+当 `OnGet` 返回 `void` 或 `OnGetAsync` 返回 `Task` 时，不使用任何返回方法。 当返回类型是 `IActionResult` 或 `Task<IActionResult>` 时，必须提供返回语句。 例如，Pages/Movies/Create.cshtml.cs `OnPostAsync` 方法  ：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -300,12 +300,12 @@ changing in in the next step.
 
 前面的定位点元素是一个[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 此处它是[定位点标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)。 `asp-page="/Movies/Index"` 标记帮助程序属性和值可以创建指向 `/Movies/Index` Razor 页面的链接。 `asp-area` 属性值为空，因此在链接中未使用区域。 有关详细信息，请参阅[区域](xref:mvc/controllers/areas)。
 
-保存所做的更改，并通过单击“RpMovie”  链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml) 文件。
+保存所做的更改，并通过单击“RpMovie”  链接测试应用。 如果遇到任何问题，请参阅 GitHub 中的 [_Layout.cshtml](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml) 文件。
 
 测试其他链接（“主页”  、“RpMovie”  、“创建”  、“编辑”  和“删除”  ）。 每个页面都设置有标题，可以在浏览器选项卡中看到标题。将某个页面加入书签时，标题用于该书签。
 
 > [!NOTE]
-> 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
+> 可能无法在 `Price` 字段中输入十进制逗号。 若要使 [jQuery 验证](https://jqueryvalidation.org/)支持使用逗号（“,”）表示小数点的的非英语区域设置，以及支持非美国英语日期格式，必须执行使应用全球化的步骤。 有关添加十进制逗号的说明，请参阅 [GitHub 问题 4076](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
 
 在 Pages/_ViewStart.cshtml  文件中设置 `Layout` 属性：
 
@@ -337,17 +337,17 @@ changing in in the next step.
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio 以用于标记帮助程序的特殊加粗字体显示 `<form method="post">` 标记：
 
 ![Create.cshtml 页的 VS17 视图](page/_static/th.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 有关标记帮助程序（如 `<form method="post">`）的详细信息，请参阅 [ASP.NET Core 中的标记帮助程序](xref:mvc/views/tag-helpers/intro)。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Visual Studio for Mac 以用于标记帮助程序的特殊加粗字体显示 `<form method="post">` 标记。
 

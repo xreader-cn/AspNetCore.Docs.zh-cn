@@ -38,7 +38,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ## <a name="app-configuration"></a>应用配置
 
-应用需要 [Microsoft.AspNetCore.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 的包引用。
+应用需要 [Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 的包引用。
 
 生成主机时会调用 `IHostBuilder.UseWindowsService`。 若应用作为 Windows 服务运行，方法为：
 

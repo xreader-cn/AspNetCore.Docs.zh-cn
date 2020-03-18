@@ -8,12 +8,12 @@ ms.date: 02/10/2020
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: e1ab02077abc8f8b3315a52eb29a3d571af43fa0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e6dd200367278b1697ef232f5d79dfbd138bb82b
+ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647640"
+ms.lasthandoff: 03/09/2020
+ms.locfileid: "78935493"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>配合使用 ASP.NET Core SignalR 和 TypeScript 以及 Webpack
 
@@ -46,7 +46,7 @@ ms.locfileid: "78647640"
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 3.0 或更高版本](https://www.microsoft.com/net/download/all)
-* [适用于 Visual Studio Code 的 C# 版本 1.17.1 或更高版本](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [适用于 Visual Studio Code 的 C# 版本 1.17.1 或更高版本](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
 
 ---
@@ -93,7 +93,7 @@ code -r SignalRWebPack
 dotnet add package Microsoft.TypeScript.MSBuild
 ```
 
-上述命令将添加 (Microsoft.TypeScript.MSBuild)[https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild/ ] 包，从而在项目中启用 TypeScript 编译。
+上述命令将添加 [Microsoft.TypeScript.MSBuild](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild/) 包，从而在项目中启用 TypeScript 编译。
 
 ---
 
@@ -303,7 +303,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download/all)
-* [适用于 Visual Studio Code 的 C# 版本 1.17.1 或更高版本](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [适用于 Visual Studio Code 的 C# 版本 1.17.1 或更高版本](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * 带 [npm](https://www.npmjs.com/) 的 [Node.js](https://nodejs.org/)
 
 ---

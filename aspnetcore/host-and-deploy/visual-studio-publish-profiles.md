@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/07/2019
 uid: host-and-deploy/visual-studio-publish-profiles
 ms.openlocfilehash: 274dd2cd528d3766aa07f69aac3470a131c79ffe
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799353"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647346"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -42,7 +42,7 @@ MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 
 加载项目时，将计算 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)（文件）。 项类型确定如何处理该文件。 默认情况下，.cs  文件包含在 `Compile` 项列表内。 会对 `Compile` 项列表中的文件进行编译。
 
-除了生成输出，`Content` 项列表还包含已发布的文件。 默认情况下，匹配模式 `wwwroot\**`、`**\*.config` 和 `**\*.json` 的文件包含在 `Content` 项列表内。 例如，`wwwroot\**` [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)与 wwwroot 文件夹及其子文件夹中的所有文件相匹配  。
+除了生成输出，`Content` 项列表还包含已发布的文件。 默认情况下，匹配模式 `wwwroot\**`、`**\*.config` 和 `**\*.json` 的文件包含在 `Content` 项列表内。 例如，`wwwroot\**`[glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)与 wwwroot 文件夹及其子文件夹中的所有文件相匹配  。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -70,7 +70,7 @@ Web SDK 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配 `**\*.cshtml
 
 ## <a name="basic-command-line-publishing"></a>基本命令行发布
 
-命令行发布适用于所有支持 .NET Core 的平台，而且不需要 Visual Studio。 在下面的示例中，从项目目录（其中包含 .csproj文件）运行 .NET Core CLI 的 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令  。 如果当前工作目录中没有项目文件夹，则在项目文件路径中显式传递。 例如:
+命令行发布适用于所有支持 .NET Core 的平台，而且不需要 Visual Studio。 在下面的示例中，从项目目录（其中包含 .csproj文件）运行 .NET Core CLI 的 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令  。 如果当前工作目录中没有项目文件夹，则在项目文件路径中显式传递。 例如：
 
 ```dotnetcli
 dotnet publish C:\Webs\Web1
@@ -465,7 +465,7 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 [!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
 
-前述示例使用 `ResolvedFileToPublish` 项，其默认行为是始终将 `Include` 中提供的文件复制到已发布的站点中。 通过 `Never` 或 `PreserveNewest` 的内部文本包含 `<CopyToPublishDirectory>`覆盖默认行为。 例如:
+前述示例使用 `ResolvedFileToPublish` 项，其默认行为是始终将 `Include` 中提供的文件复制到已发布的站点中。 通过 `Never` 或 `PreserveNewest` 的内部文本包含 `<CopyToPublishDirectory>`覆盖默认行为。 例如：
 
 ```xml
 <ResolvedFileToPublish Include="..\ReadMe2.md">
@@ -501,7 +501,7 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 ## <a name="the-kudu-service"></a>Kudu 服务
 
-要查看 Azure 应用服务 Web 应用部署中的文件，请使用 [Kudu 服务](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service)。 将 `scm` 令牌追加到 Web 应用名称。 例如:
+要查看 Azure 应用服务 Web 应用部署中的文件，请使用 [Kudu 服务](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service)。 将 `scm` 令牌追加到 Web 应用名称。 例如：
 
 | URL                                    | 结果       |
 | -------------------------------------- | ------------ |

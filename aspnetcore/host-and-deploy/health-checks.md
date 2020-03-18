@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core 中的运行状况检查
-author: guardrex
+author: rick-anderson
 description: 了解如何为 ASP.NET Core 基础结构（如应用和数据库）设置运行状况检查。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 33e5e71983a55b4ee30436d8e9e1e04186259a5d
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 314e55c818cddf1dad2e3ec74d4d1e041ce7366f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829213"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649686"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
-通过 [Luke Latham](https://github.com/guardrex) 和 [Glenn Condron](https://github.com/glennc)
+作者：[Glenn Condron](https://github.com/glennc)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -28,7 +28,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
 * 可以监视内存、磁盘和其他物理服务器资源的使用情况来了解是否处于正常状态。
 * 运行状况检查可以测试应用的依赖项（如数据库和外部服务终结点）以确认是否可用和正常工作。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例应用包含本主题中所述的方案示例。 若要运行给定方案的示例应用，请在命令行界面中从项目文件夹中使用 [dotnet run](/dotnet/core/tools/dotnet-run) 命令。 请参阅示例应用的 README.md  文件和本主题中的方案说明，以了解有关如何使用示例应用的详细信息。
 
@@ -797,7 +797,7 @@ ASP.NET Core 提供运行状况检查中间件和库，以用于报告应用基�
 * 可以监视内存、磁盘和其他物理服务器资源的使用情况来了解是否处于正常状态。
 * 运行状况检查可以测试应用的依赖项（如数据库和外部服务终结点）以确认是否可用和正常工作。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 示例应用包含本主题中所述的方案示例。 若要运行给定方案的示例应用，请在命令行界面中从项目文件夹中使用 [dotnet run](/dotnet/core/tools/dotnet-run) 命令。 请参阅示例应用的 README.md  文件和本主题中的方案说明，以了解有关如何使用示例应用的详细信息。
 

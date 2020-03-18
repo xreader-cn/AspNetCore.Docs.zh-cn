@@ -1,8 +1,8 @@
-# <a name="aspnet-core-razor-pages-unit-tests-sample"></a>ASP.NET Core Razor 页单元测试示例
+# <a name="aspnet-core-razor-pages-unit-tests-sample"></a>ASP.NET Core Razor Pages 单元测试示例
 
-本示例演示的单元测试[Razor 页面](https://docs.microsoft.com/aspnet/core/mvc/razor-pages)应用。 此示例演示中所述的功能[Razor 页面单元测试](https://docs.microsoft.com/aspnet/core/test/razor-pages-tests)主题。
+本示例说明 [Razor Pages](https://docs.microsoft.com/aspnet/core/mvc/razor-pages) 应用的单元测试。 本示例演示 [Razor Pages 单元测试](https://docs.microsoft.com/aspnet/core/test/razor-pages-tests)主题中介绍的功能。
 
-如果不使用内置测试功能使用一个 IDE，执行以下命令在命令提示符处*tests/RazorPagesTestSample.Tests*文件夹：
+如果未使用带内置测试功能的 IDE，请在 *tests/RazorPagesTestSample.Tests* 文件夹中的命令提示符处执行以下命令：
 
 ```console
 dotnet test

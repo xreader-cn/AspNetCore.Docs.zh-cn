@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 0ea42943c908d8cf9d083c1cfc568c1835588ce9
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: b4d32e91b4013cbea37baecb972a535d2874d3d1
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083655"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434455"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -42,7 +42,9 @@ ms.locfileid: "79083655"
 
      记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
 
-   * [创建 & 的用户流](/azure/active-directory-b2c/tutorial-create-user-flows)创建注册和登录用户流。
+   * [创建用户流](/azure/active-directory-b2c/tutorial-create-user-flows)&ndash; 创建注册和登录用户流。
+
+     至少，选择 "**应用程序声明**" > "**显示名称**用户属性"，以填充 `LoginDisplay` 组件中的 `context.User.Identity.Name` （*Shared/LoginDisplay*）。
 
      记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。
 
@@ -73,7 +75,7 @@ ms.locfileid: "79083655"
 
 使用 `Microsoft.Authentication.WebAssembly.Msal` 包提供的 `AddMsalAuthentication` 扩展方法在服务容器中注册对用户进行身份验证。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
 
-Program.cs:
+Program.cs：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -99,7 +101,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-## <a name="index-page"></a>索引页
+## <a name="index-page"></a>索引页面
 
 [!INCLUDE[](~/includes/blazor-security/index-page.md)]
 

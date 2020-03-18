@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core 中的文件提供程序
-author: guardrex
+author: rick-anderson
 description: 了解 ASP.NET Core 如何通过文件提供程序来抽象化文件系统访问。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: a454ca394546184968222ca2ca44d7159b19a12a
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 34a48bbcf9ffb20bb61f89c80adedc1cc4783988
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944303"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647046"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
-作者：[Steve Smith](https://ardalis.com/) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +27,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 * [Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。
 * .NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="file-provider-interfaces"></a>文件提供程序接口
 
@@ -53,7 +53,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 
 `IFileProvider` 有三种实现。
 
-| 实现 | 说明 |
+| 实现 | 描述 |
 | -------------- | ----------- |
 | [PhysicalFileProvider](#physicalfileprovider) | 物理提供程序用于访问系统的物理文件。 |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 清单嵌入式提供程序用于访问程序集中嵌入的文件。 |
@@ -114,7 +114,7 @@ var manifestEmbeddedProvider =
 * 将文件范围限制到上次修改日期。
 * 为包含嵌入文件清单的嵌入资源命名。
 
-| 重载 | 说明 |
+| 重载 | 描述 |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 |
@@ -176,7 +176,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 * [Razor](xref:mvc/views/razor) 使用文件提供程序来查找页面和视图。
 * .NET Core 工具使用文件提供程序和 glob 模式来指定应该发布哪些文件。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="file-provider-interfaces"></a>文件提供程序接口
 
@@ -202,7 +202,7 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 
 `IFileProvider` 有三种实现。
 
-| 实现 | 说明 |
+| 实现 | 描述 |
 | -------------- | ----------- |
 | [PhysicalFileProvider](#physicalfileprovider) | 物理提供程序用于访问系统的物理文件。 |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 清单嵌入式提供程序用于访问程序集中嵌入的文件。 |
@@ -261,7 +261,7 @@ var manifestEmbeddedProvider =
 * 将文件范围限制到上次修改日期。
 * 为包含嵌入文件清单的嵌入资源命名。
 
-| 重载 | 说明 |
+| 重载 | 描述 |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 |

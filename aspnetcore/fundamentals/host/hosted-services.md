@@ -1,22 +1,22 @@
 ---
 title: 在 ASP.NET Core 中使用托管服务实现后台任务
-author: guardrex
+author: rick-anderson
 description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任务。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/10/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 9b7224c07df027c9466db34dcc23505410893f1f
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: d3f409170eedd281fd7608c4b9835bf9443c49b0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171793"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650412"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
-作者：[Luke Latham](https://github.com/guardrex) 和 [Jeow Li Huan](https://github.com/huan086)
+作者：[Jeow Li Huan](https://github.com/huan086)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -26,7 +26,7 @@ ms.locfileid: "77171793"
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)。
 * 按顺序运行的已排队后台任务。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="worker-service-template"></a>辅助角色服务模板
 
@@ -181,7 +181,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)
 * 按顺序运行的已排队后台任务。
 
-[查看或下载示例代码](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="package"></a>Package
 
