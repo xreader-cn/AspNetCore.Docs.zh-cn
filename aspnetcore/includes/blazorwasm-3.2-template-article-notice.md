@@ -1,0 +1,2 @@
+> [!NOTE]
+> <span data-ttu-id="4bce3-101">本文中的指导适用于 ASP.NET Core Blazor WebAssembly 模板 3.2 版或更高版本。</span><span class="sxs-lookup"><span data-stu-id="4bce3-101">The guidance in this article applies to the ASP.NET Core Blazor WebAssembly template version 3.2 or later.</span></span> <span data-ttu-id="4bce3-102">要获取最新的 Blazor WebAssembly 模板，请参阅 <xref:blazor/get-started>。</span><span class="sxs-lookup"><span data-stu-id="4bce3-102">To obtain the latest Blazor WebAssembly template, see <xref:blazor/get-started>.</span></span>
