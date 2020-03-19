@@ -969,6 +969,8 @@
           uid: security/authentication/individual
         - name: 配置证书身份验证
           uid: security/authentication/certauth
+        - name: 多重身份验证
+          uid: security/authentication/mfa
     - name: 授权
       items:
         - name: 概述
