@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: c2ca867e3eebdc3fcf512cc5d457ff3c1967f9b1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e4da57001ad369a8df87c7e0887772e3d75c032d
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644196"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511218"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -243,14 +243,14 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 使用以下链接下载安装程序：
 
-[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>先前版本的安装程序
 
 若要获取先前版本的安装程序：
 
-1. 导航到 [.NET 下载存档](https://www.microsoft.com/net/download/archives)。
-1. 在“.NET Core”  下，选择 .NET Core 版本。
+1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
+1. 单击所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
 1. 使用“运行时和托管捆绑包”  链接下载安装程序。
 
@@ -850,14 +850,14 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 使用以下链接下载安装程序：
 
-[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>先前版本的安装程序
 
 若要获取先前版本的安装程序：
 
-1. 导航到 [.NET 下载存档](https://www.microsoft.com/net/download/archives)。
-1. 在“.NET Core”  下，选择 .NET Core 版本。
+1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
+1. 单击所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
 1. 使用“运行时和托管捆绑包”  链接下载安装程序。
 
@@ -1426,14 +1426,14 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 使用以下链接下载安装程序：
 
-[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>先前版本的安装程序
 
 若要获取先前版本的安装程序：
 
-1. 导航到 [.NET 下载存档](https://www.microsoft.com/net/download/archives)。
-1. 在“.NET Core”  下，选择 .NET Core 版本。
+1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
+1. 单击所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
 1. 使用“运行时和托管捆绑包”  链接下载安装程序。
 

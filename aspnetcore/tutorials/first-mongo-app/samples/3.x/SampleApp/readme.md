@@ -8,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 01f9cf237dcf2a9b95c181c2cb87ef9f59102244
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 09d73e25667822b8748a00cc76ad6d4f0e5fe290
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649140"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511400"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -29,7 +29,7 @@ ms.locfileid: "78649140"
 
 ## <a name="prerequisites"></a>先决条件
 
-* [.NET Core SDK 3.0 或更高版本](https://www.microsoft.com/net/download/all)
+* [.NET Core SDK 3.0 或更高版本](https://dotnet.microsoft.com/download/dotnet-core)
 * [Visual Studio 2019 预览版](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&ch=pre&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019preview) 与 ASP.NET 和 Web 开发  工作负载
 * [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
@@ -124,7 +124,7 @@ ms.locfileid: "78649140"
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>创建 ASP.NET Core Web API 项目
 
-1. 转到“文件”   > “新建”   > “项目”  。
+1. 转到“文件” > “新建” > “项目”    。
 1. 选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步”   。
 1. 将项目命名为“BooksApi”，然后选择“创建”   。
 1. 选择“.NET Core”  目标框架和“ASP.NET Core 3.0”  。 选择“API”项目模板，然后选择“创建”   。

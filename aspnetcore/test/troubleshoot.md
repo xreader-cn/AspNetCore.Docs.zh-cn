@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 042e1c84a7226cb4bf56bcc0ff4e576b67e68e1b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 345967f08cf99ef5f18d0c9bcd59ab29c74454f1
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644856"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511504"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>ASP.NET Core 项目故障排除和调试
 
@@ -32,7 +32,7 @@ ms.locfileid: "78644856"
 
 > 同时安装了 .NET Core SDK 的 32 位和 64 位版本。 仅显示安装在 C:\\Program Files\\dotnet\\sdk\\ 的 64 位版本的模板。
 
-如果同时安装了 [.NET Core SDK](https://www.microsoft.com/net/download/all) 的 32 位 (x86) 和 64 位 (x64) 版本，则会出现此警告。 可能同时安装两个版本的常见原因包括：
+如果同时安装了 [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) 的 32 位 (x86) 和 64 位 (x64) 版本，则会出现此警告。 可能同时安装两个版本的常见原因包括：
 
 * 最初使用 32 位计算机下载了 .NET Core SDK 安装程序，然后将其复制并安装到 64 位计算机上。
 * 32 位 .NET Core SDK 是由另一个应用程序安装的。

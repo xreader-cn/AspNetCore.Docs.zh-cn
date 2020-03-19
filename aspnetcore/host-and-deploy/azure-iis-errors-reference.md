@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: dd74b451e396ae1dec61b6ccc9136218db39b949
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 635c4cf6f12e62ca7e795b3b3b47e9445b945551
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648612"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511595"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -161,7 +161,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 打开“程序和功能”或“应用和功能”，然后确认是否安装了 Windows Server Hosting    。 如果已安装的程序列表中没有 Windows Server Hosting，请下载并安装 .NET Core 托管捆绑包  。
 
-  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
@@ -199,7 +199,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序**。
 
-  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
@@ -439,7 +439,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 打开“程序和功能”或“应用和功能”，然后确认是否安装了 Windows Server Hosting    。 如果已安装的程序列表中没有 Windows Server Hosting，请下载并安装 .NET Core 托管捆绑包  。
 
-  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
@@ -475,7 +475,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 可能已部署 FDD，但未在托管系统上安装 .NET Core 运行时。 如果尚未安装 .NET Core 运行时，则运行系统上的 **.NET Core 托管捆绑包安装程序**。
 
-  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
