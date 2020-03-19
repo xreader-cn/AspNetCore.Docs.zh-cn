@@ -5,12 +5,12 @@ description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Cor
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: e9ebfa7352350cf39917e515a1a66d6271829f38
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 68a45dc50e00bead564500a12509b62a4a193ec4
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644340"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511078"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "78644340"
 
 ## <a name="prerequisites"></a>先决条件
 
-[.NET Core SDK 2.2 或更高版本](https://www.microsoft.com/net/download)
+[.NET Core SDK 2.2 或更高版本](https://dotnet.microsoft.com/download)
 
 ## <a name="target-frameworks"></a>目标框架
 
