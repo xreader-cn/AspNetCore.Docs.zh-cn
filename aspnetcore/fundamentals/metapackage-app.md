@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/24/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 3ce74bc7329a88ffc6f77baf6b8a311c02951318
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b30c90116f5a53ba487f88544514f36e388233d3
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648954"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511374"
 ---
 # <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>Microsoft.AspNetCore.App for ASP.NET Core
 
@@ -91,7 +91,7 @@ ASP.NET Core 共享框架：
 
 * 生成以下警告：
 
-  警告 NU1604：项目依赖项 Microsoft.AspNetCore.App 不包括包含下限。  请在依赖项版本中包括下限，以确保一致的还原结果。
+  警告 NU1604：项目依赖项 Microsoft.AspNetCore.App 不包括包含下限。请在依赖项版本中包括下限，以确保一致的还原结果。
 
 * 这是 .NET Core 2.1 SDK 的一个已知问题。
 
@@ -107,8 +107,8 @@ ASP.NET Core 共享框架：
 
 更新 ASP.NET Core：
 
-* 在开发计算机和生成服务器上：下载并安装 [.NET Core SDK](https://www.microsoft.com/net/download)。
-* 在部署服务器上：下载并安装 [.NET Core 运行时](https://www.microsoft.com/net/download)。
+* 在开发计算机和生成服务器上：下载并安装 [.NET Core SDK](https://dotnet.microsoft.com/download)。
+* 在部署服务器上：下载并安装 [.NET Core 运行时](https://dotnet.microsoft.com/download)。
 
  在应用程序重启时，应用程序将前滚到最新安装的版本。 无需更新项目文件中的 `Microsoft.AspNetCore.App` 版本号。 有关详细信息，请参阅[依赖于框架的应用会前滚](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward)。
 

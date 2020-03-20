@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: e47f583d0fa75bdeb26b669303747a70619117c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: cc00c075909da5c17a4aa2fd252c9e662e5a0fc9
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648960"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511062"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 的 Microsoft.AspNetCore.All 元包
 
@@ -94,6 +94,6 @@ ASP.NET Core 3.0 及更高版本中不包含 `Microsoft.AspNetCore.All` 元包�
 
 建议迁移到 2.1 及更高版本的 `Microsoft.AspNetCore.App` 元数据包。 要继续使用 `Microsoft.AspNetCore.All` 元数据包并确保部署最新的补丁版本，请执行以下操作：
 
-* 在开发计算机和生成服务器上：安装最新的 [.NET Core SDK](https://www.microsoft.com/net/download)。
-* 在部署服务器上：安装最新的 [.NET Core 运行时](https://www.microsoft.com/net/download)。
+* 在开发计算机和生成服务器上：安装最新的 [.NET Core SDK](https://dotnet.microsoft.com/download)。
+* 在部署服务器上：安装最新的 [.NET Core 运行时](https://dotnet.microsoft.com/download)。
  在应用程序重启时，应用将前滚到最新安装的版本。
