@@ -4,14 +4,14 @@ author: rick-anderson
 description: 本教程演示的集成到现有的 ASP.NET Core 应用程序的 Google 帐户用户身份验证。
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 10/30/2019
+ms.date: 03/19/2020
 uid: security/authentication/google-logins
-ms.openlocfilehash: 83f45143eca1be43410880bfd875a3fce1d2e9c9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a114d23c25201c9fe31ad0397efaf99fe98a312a
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654918"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989774"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>在 ASP.NET Core Google 外部登录安装程序
 
@@ -24,18 +24,21 @@ ms.locfileid: "78654918"
 * 请安装[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google)。
 * 导航到 "将[Google 登录集成到你的 web 应用"](https://developers.google.com/identity/sign-in/web/devconsole-project) ，然后选择 "**配置项目**"。
 * 在 "**配置 OAuth 客户端**" 对话框中，选择 " **Web 服务器**"。
-* 在 "**授权重定向 uri** " 文本输入框中，设置重定向 URI。 例如： `https://localhost:44312/signin-google`
+* 在 "**授权重定向 uri** " 文本输入框中，设置重定向 URI。 例如，`https://localhost:44312/signin-google`
 * 保存**客户端 ID**和**客户端密码**。
 * 部署站点时，从**Google 控制台**注册新的公共 url。
 
-## <a name="store-google-clientid-and-clientsecret"></a>应用商店 Google ClientID 和 ClientSecret
+## <a name="store-the-google-client-id-and-secret"></a>存储 Google 客户端 ID 和机密
 
-用[机密管理器](xref:security/app-secrets)存储敏感设置，例如 Google `Client ID` 和 `Client Secret`。 出于本教程的目的，请将令牌命名 `Authentication:Google:ClientId` 和 `Authentication:Google:ClientSecret`：
+用[机密管理器](xref:security/app-secrets)存储敏感设置，例如 Google 客户端 ID 和机密值。 对于本示例，请使用以下步骤：
 
-```dotnetcli
-dotnet user-secrets set "Authentication:Google:ClientId" "<client id>"
-dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
-```
+1. 按照[启用密钥存储](xref:security/app-secrets#enable-secret-storage)中的说明初始化密钥存储的项目。
+1. 将敏感设置存储在本地密钥存储中，并将机密密钥 `Authentication:Google:ClientId` 和 `Authentication:Google:ClientSecret`：
+
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
+    dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 

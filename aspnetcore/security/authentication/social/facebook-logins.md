@@ -4,15 +4,15 @@ author: rick-anderson
 description: 包含代码示例的教程演示如何将 Facebook 帐户用户身份验证集成到现有 ASP.NET Core 应用。
 ms.author: riande
 ms.custom: seoapril2019, mvc, seodec18
-ms.date: 12/02/2019
+ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 2e4cc04c6e7ff8e5f5701cc7f9ede73dbc1b4685
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: bb26a27f026e744c7d4925aa2281bf0625fff8a2
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654882"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989783"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>在 ASP.NET Core Facebook 外部登录安装程序
 
@@ -51,7 +51,7 @@ ms.locfileid: "78654882"
 > [!NOTE]
 > URI */signin-facebook*设置为 facebook 身份验证提供程序的默认回调。 通过[FacebookOptions](/dotnet/api/microsoft.aspnetcore.authentication.facebook.facebookoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性配置 Facebook 身份验证中间件时，可以更改默认的回叫 URI。
 
-* 单击 **“保存更改”** 。
+* 单击“保存更改”。
 
 * 单击左侧导航栏中的 "**设置**" > **基本**"链接。
 
@@ -59,18 +59,19 @@ ms.locfileid: "78654882"
 
 * 部署站点时，需要重新访问**Facebook 登录**设置页面并注册新的公共 URI。
 
-## <a name="store-facebook-app-id-and-app-secret"></a>应用商店 Facebook 应用程序 ID 和应用程序密码
+## <a name="store-the-facebook-app-id-and-secret"></a>存储 Facebook 应用 ID 和机密
 
-使用[机密管理器](xref:security/app-secrets)将 Facebook `App ID` 和 `App Secret` 等敏感设置链接到应用程序配置。 对于本教程，请将令牌命名 `Authentication:Facebook:AppId` 和 `Authentication:Facebook:AppSecret`。
+用[机密管理器](xref:security/app-secrets)存储敏感设置，如 FACEBOOK 应用 ID 和机密值。 对于本示例，请使用以下步骤：
+
+1. 按照[启用密钥存储](xref:security/app-secrets#enable-secret-storage)中的说明初始化密钥存储的项目。
+1. 将敏感设置存储在本地密钥存储中，并将机密密钥 `Authentication:Facebook:AppId` 和 `Authentication:Facebook:AppSecret`：
+
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Facebook:AppId" "<app-id>"
+    dotnet user-secrets set "Authentication:Facebook:AppSecret" "<app-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
-
-执行以下命令，以安全地存储使用机密管理器 `App ID` 和 `App Secret`：
-
-```dotnetcli
-dotnet user-secrets set Authentication:Facebook:AppId <app-id>
-dotnet user-secrets set Authentication:Facebook:AppSecret <app-secret>
-```
 
 ## <a name="configure-facebook-authentication"></a>配置 Facebook 身份验证
 

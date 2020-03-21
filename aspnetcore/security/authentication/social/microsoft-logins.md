@@ -4,15 +4,15 @@ author: rick-anderson
 description: 此示例演示如何将 Microsoft 帐户用户身份验证集成到现有 ASP.NET Core 应用中。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/4/2019
+ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: ddaae1a25a1dcf167ffae0f24b480e2cde6aca5b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: bd75efb1d7ce08538d1a67be74d2f40f3964614f
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652068"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989763"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>使用 ASP.NET Core 的 Microsoft 帐户外部登录设置
 
@@ -30,7 +30,7 @@ ms.locfileid: "78652068"
 * 选择**新注册**
 * 输入“名称”。
 * 为**支持的帐户类型**选择一个选项。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* 在 "**重定向 URI**" 下，输入 `/signin-microsoft` 追加的开发 URL。 例如，`https://localhost:5001/signin-microsoft` 。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理 `/signin-microsoft` 路由中的请求以实现 OAuth 流。
+* 在 "**重定向 URI**" 下，输入 `/signin-microsoft` 追加的开发 URL。 例如 `https://localhost:5001/signin-microsoft`。 稍后在本示例中配置的 Microsoft 身份验证方案将自动处理 `/signin-microsoft` 路由中的请求以实现 OAuth 流。
 * 选择**注册**
 
 ### <a name="create-client-secret"></a>创建客户端密码
@@ -46,16 +46,17 @@ ms.locfileid: "78652068"
 > [!NOTE]
 > URI 段 `/signin-microsoft` 设置为 Microsoft 身份验证提供程序的默认回调。 通过[MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性配置 Microsoft 身份验证中间件时，可以更改默认的回调 URI。
 
-## <a name="store-the-microsoft-client-id-and-client-secret"></a>存储 Microsoft 客户端 ID 和客户端密钥
+## <a name="store-the-microsoft-client-id-and-secret"></a>存储 Microsoft 客户端 ID 和机密
 
-运行以下命令，使用[机密管理器](xref:security/app-secrets)安全地存储 `ClientId` 和 `ClientSecret`：
+用[机密管理器](xref:security/app-secrets)存储敏感设置，如 Microsoft 客户端 ID 和机密值。 对于本示例，请使用以下步骤：
 
-```dotnetcli
-dotnet user-secrets set Authentication:Microsoft:ClientId <Client-Id>
-dotnet user-secrets set Authentication:Microsoft:ClientSecret <Client-Secret>
-```
+1. 按照[启用密钥存储](xref:security/app-secrets#enable-secret-storage)中的说明初始化密钥存储的项目。
+1. 将敏感设置存储在本地密钥存储中，并将机密密钥 `Authentication:Microsoft:ClientId` 和 `Authentication:Microsoft:ClientSecret`：
 
-使用[机密管理器](xref:security/app-secrets)将敏感设置（如 Microsoft `ClientId` 和 `ClientSecret`）链接到应用程序配置。 出于本示例的目的，请将令牌命名 `Authentication:Microsoft:ClientId` 和 `Authentication:Microsoft:ClientSecret`。
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Microsoft:ClientId" "<client-id>"
+    dotnet user-secrets set "Authentication:Microsoft:ClientSecret" "<client-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
