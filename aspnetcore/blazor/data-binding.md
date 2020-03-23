@@ -1,27 +1,29 @@
 ---
 title: ASP.NET Core Blazor 数据绑定
 author: guardrex
-description: 了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。
+description: 了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/24/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/data-binding
-ms.openlocfilehash: 92377730b9d353a507ffd384710fb979affe7265
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5b49d2598a451ee607e034913bd1aeaa03f941c6
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648222"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511192"
 ---
 # <a name="aspnet-core-opno-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
-针对组件和 DOM 元素的数据绑定通过 [`@bind`](xref:mvc/views/razor#bind) 属性实现。 下面的示例将 `CurrentValue` 属性绑定到文本框的值：
+Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特性提供了数据绑定功能，该特性具有字段、属性或 Razor 表达式值。
+
+下面的示例将 `CurrentValue` 属性绑定到文本框的值：
 
 ```razor
 <input @bind="CurrentValue" />
@@ -78,6 +80,8 @@ ms.locfileid: "78648222"
     private string _paragraphStyle = "color:red";
 }
 ```
+
+属性绑定是区分大小写的。 例如，`@bind` 有效，而 `@Bind` 无效。
 
 ## <a name="unparsable-values"></a>无法分析的值
 

@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: eae12b266e91a30a47daf63ac77ba082c25225aa
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ea2c625f424447209a362cdc58bdb18be061e47f
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649344"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511348"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -59,7 +59,7 @@ ms.locfileid: "78649344"
 
 托管部署  通过在 Web 服务器上运行的 [ASP.NET Core](xref:index) 应用为浏览器提供 Blazor WebAssembly 应用。
 
-Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两个应用一起进行部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 将 Blazor WebAssembly App  项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new)命令时为 `blazorwasm` 模板）包括在“托管”  选项中。
+客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹  。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择“托管”选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new)命令时为 `blazorwasm` 模板）   。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
@@ -69,7 +69,7 @@ Blazor 应用随附于已发布输出中的 ASP.NET Core 应用，因此这两�
 
 独立部署将 Blazor WebAssembly 应用作为客户端直接请求的一组静态文件提供  。 任何静态文件服务器均可提供 Blazor 应用。
 
-独立部署资产发布到 bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist 文件夹中  。
+独立部署资产发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹中  。
 
 ### <a name="iis"></a>IIS
 
@@ -91,8 +91,8 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
   * `application/octet-stream`
   * `application/wasm`
 * 建立 URL 重写模块规则：
-  * 提供应用的静态资产驻留所在的子目录 ({ASSEMBLY NAME}/dist/{PATH REQUESTED}  )。
-  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 ({ASSEMBLY NAME}/dist/index.html  )。
+  * 提供应用的静态资产驻留所在的子目录 (wwwroot/{PATH REQUESTED})  。
+  * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 (wwwroot/index.html)  。
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 
@@ -318,4 +318,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ## <a name="configure-the-linker"></a>配置链接器
 
-Blazor 对每个生成执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 可以在生成时控制程序集链接。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/configure-linker>。
+Blazor 对每个发布版本执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/configure-linker>。

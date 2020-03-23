@@ -1,27 +1,27 @@
 ---
 title: ASP.NET Core Blazor 事件处理
 author: guardrex
-description: 了解 Blazor 的事件处理场景，包括事件参数类型、事件回调和管理默认浏览器事件。
+description: 了解 Blazor 的事件处理特性，包括事件参数类型、事件回调和管理默认浏览器事件。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: 25844ef39aee849072d16f3d73eda0a1c20ee788
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c144841805e07a136f153c25a78c7f9af7c5801b
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648330"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511361"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
-Razor 组件提供事件处理功能。 对于具有委托类型值且名为 `on{EVENT}`（例如 `onclick` 和 `onsubmit`）的 HTML 元素属性，Razor 组件将该属性的值视为事件处理程序。 属性名始终的格式始终为 [`@on{EVENT}`](xref:mvc/views/razor#onevent)。
+Razor 组件提供事件处理功能。 对于具有委托类型值且名为 [`@on{EVENT}`](xref:mvc/views/razor#onevent)（例如 `@onclick`）的 HTML 元素特性，Razor 组件将该特性的值视为事件处理程序。
 
 在 UI 中选择该按钮时，以下代码调用 `UpdateHeading` 方法：
 

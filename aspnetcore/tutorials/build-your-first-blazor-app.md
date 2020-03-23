@@ -5,16 +5,16 @@ description: 逐步生成 Blazor 应用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 03/13/2020
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 8b3802a6ffe3613e5d4ca65c57fafc3f404c8329
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644862"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434494"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
 
@@ -24,9 +24,9 @@ ms.locfileid: "78644862"
 
 本教程演示如何生成和修改 Blazor 应用。
 
-按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。 将项目命名为 ToDoList  。
-
 ## <a name="build-components"></a>生成组件
+
+1. 按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。 将项目命名为 ToDoList  。
 
 1. 在 Pages  文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor  、Counter.razor  和 FetchData.razor  ）实现。
 
@@ -133,14 +133,14 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 向应用添加一个实现简单待办事项列表的新组件。
 
-1. 向 Pages  文件夹中的应用添加一个名为 Todo.razor  的空文件：
+1. 向“页面”文件夹中的应用添加一个新的 `Todo` Razor 组件  。 在 Visual Studio 中，右键单击“页面”文件夹，然后选择“添加” > “新项目” > “Razor 组件”     。 将组件的文件命名为 Todo.razor  。 在其他开发环境中，将空白文件添加到名为 **Todo.razor** 的“页面”文件夹中  。
 
 1. 为组件提供初始标记：
 
    ```razor
    @page "/todo"
 
-   <h1>Todo</h1>
+   <h3>Todo</h3>
    ```
 
 1. 将 `Todo` 组件添加到导航栏。
