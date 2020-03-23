@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: e1237db2625a127bfa5c31ac29b4394be6941b2f
-ms.sourcegitcommit: 9e2b3aaccc9a41291eb23bf4561159e79cf6bc9d
+ms.openlocfilehash: b4fa082c5a53bc9ecb3c7b8ddcbf243ef0d94ba7
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/19/2020
-ms.locfileid: "79546336"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989696"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -152,7 +152,7 @@ appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥    。
 * 在 Windows 上设置[上述示例](#appsettingsjson)的环境键和值。
 * 在使用[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)时测试设置。 `dotnet run` 命令必须在项目目录中运行。
 
-```cmd
+```dotnetcli
 set MyKey="My key from Environment"
 set Position__Title=Environment_Editor
 set Position__Name=Environment_Rick
@@ -172,7 +172,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-测试前面的命令是否会替代 apsettings.json 和 appsettings.`Environment`.json    ：
+测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：   
 
 * 使用 Visual Studio：退出并重启 Visual Studio。
 * 使用 CLI：启动新的命令窗口并输入 `dotnet run`。
@@ -190,7 +190,7 @@ setx Position__Name Environment_Rick /M
 
 以下命令对自定义前缀进行测试：
 
-```cmd
+```dotnetcli
 set MyCustomPrefix_MyKey="My key with MyCustomPrefix_ Environment"
 set MyCustomPrefix_Position__Title=Editor_with_customPrefix
 set MyCustomPrefix_Position__Name=Environment_Rick_cp
