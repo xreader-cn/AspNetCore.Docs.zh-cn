@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: afa71b2c2b75be2c000fadd9545ac3fb4587825a
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.openlocfilehash: 9dcd061d2807fb90884327916d0348af4593df9d
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/10/2020
-ms.locfileid: "78964467"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989721"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -163,12 +163,12 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-对于单页应用程序，SPA 中间件 <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> 通常是中间件管道中的最后一个。 SPA 中间件处于最后的作用是：
+对于单页应用程序 (SPA)，SPA 中间件 <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> 通常是中间件管道中的最后一个。 SPA 中间件处于最后的作用是：
 
 * 允许所有其他中间件首先响应匹配的请求。
 * 允许具有客户端侧路由的 SPA 针对服务器应用无法识别的所有路由运行。
 
-有关单页应用程序的详细信息，请参阅 [React](xref:spa/react) 和 [Angular](xref:spa/angular) 项目模板的指南。
+若要详细了解 SPA，请参阅 [React](xref:spa/react) 和 [Angular](xref:spa/angular) 项目模板的指南。
 
 ## <a name="branch-the-middleware-pipeline"></a>对中间件管道进行分支
 

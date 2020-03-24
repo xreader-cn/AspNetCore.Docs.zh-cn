@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: 48136d0717998df3311dd5177688e062d0009176
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: a65d47e55960d6e7bfeb672c0a1e6a7a305ad7ee
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083547"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989487"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -39,7 +39,7 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 * 服务器终结点不要求针对[跨站点请求伪造 (CSRF)](xref:security/anti-request-forgery) 进行保护，因为会显式发送令牌。 因此，可以将 Blazor WebAssembly 应用与 MVC 或 Razor Pages 应用托管在同一位置。
 * 令牌的权限比 cookie 窄。 例如，令牌不能用于管理用户帐户或更改用户密码，除非显式实现了此类功能。
 * 令牌的生命周期更短（默认为一小时），这限制了攻击时间窗口。 还可随时撤销令牌。
-* 自包含 JWT 向客户端和服务器提供身份验证进程保证。 例如，客户端有办法检测和验证其接收到的令牌是否合法、是不是在给定身份验证进程中发出的。 如果有第三方尝试在身份验证进程中偷换令牌，客户端可以检测被偷换的令牌并避免使用它。
+* 自包含 JWT 向客户端和服务器提供身份验证进程保证。 例如，客户端可以检测和验证它收到的令牌是否合法，以及是否是在给定身份验证过程中发出的。 如果有第三方尝试在身份验证进程中偷换令牌，客户端可以检测被偷换的令牌并避免使用它。
 * oAuth 和 OIDC 的令牌不依赖于用户代理行为正确以确保应用安全。
 * 基于令牌的协议（例如 oAuth 和 OIDC）允许用同一组安全特征对托管和独立应用进行验证和授权。
 
