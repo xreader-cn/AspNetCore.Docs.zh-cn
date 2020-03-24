@@ -3,14 +3,14 @@ title: 将身份验证和标识迁移到 ASP.NET Core
 author: ardalis
 description: 了解如何将身份验证和标识从 ASP.NET MVC 项目迁移到 ASP.NET Core MVC 项目。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 3/22/2020
 uid: migration/identity
-ms.openlocfilehash: f821930dbd36de18db31104cddf34c563009a506
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c5727c974e455144d04e66fe14ea591e160cb963
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653010"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219189"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core"></a>将身份验证和标识迁移到 ASP.NET Core
 
@@ -22,9 +22,13 @@ ms.locfileid: "78653010"
 
 在 ASP.NET MVC 中，身份验证和标识功能是使用*Startup.Auth.cs*和*IdentityConfig.cs*中的 ASP.NET Identity 配置的，位于*App_Start*文件夹中。 在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。
 
-安装 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 和 `Microsoft.AspNetCore.Authentication.Cookies` NuGet 包。
+安装以下 NuGet 包：
 
-然后，打开*Startup.cs*并更新 `Startup.ConfigureServices` 方法以使用实体框架和标识服务：
+* `Microsoft.AspNetCore.Identity.EntityFrameworkCore`
+* `Microsoft.AspNetCore.Authentication.Cookies`
+* `Microsoft.EntityFrameworkCore.SqlServer`
+
+在*Startup.cs*中，更新 `Startup.ConfigureServices` 方法以使用实体框架和标识服务：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

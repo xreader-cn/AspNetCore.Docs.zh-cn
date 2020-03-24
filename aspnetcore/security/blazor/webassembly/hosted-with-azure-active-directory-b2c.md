@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/16/2020
+ms.date: 03/22/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 12e09cf7e27f85473d84f42564d13e1c0ed5dff1
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: 0083f179f85371d4751fb179194417681fc1a01d
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434442"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219059"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 托管应用
 
@@ -103,7 +103,7 @@ ms.locfileid: "79434442"
 * 记录*客户端应用*应用程序 Id （客户端 id）（例如 `33333333-3333-3333-3333-333333333333`）。
 * 记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin`）。
 
-### <a name="create-the-app"></a>创建应用程序
+### <a name="create-the-app"></a>创建应用
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
@@ -152,7 +152,7 @@ app.UseAuthorization();
 ```json
 {
   "AzureAd": {
-    "Instance": "https://login.microsoftonline.com/",
+    "Instance": "https://{ORGANIZATION}.b2clogin.com/",
     "ClientId": "{API CLIENT ID}",
     "Domain": "{DOMAIN}",
     "SignUpSignInPolicyId": "{SIGN UP OR SIGN IN POLICY}"
@@ -241,7 +241,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ### <a name="index-page"></a>索引页面
 
-[!INCLUDE[](~/includes/blazor-security/index-page.md)]
+[!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
 ### <a name="app-component"></a>应用组件
 
@@ -263,7 +263,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用程序
+## <a name="run-the-app"></a>运行应用
 
 从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 

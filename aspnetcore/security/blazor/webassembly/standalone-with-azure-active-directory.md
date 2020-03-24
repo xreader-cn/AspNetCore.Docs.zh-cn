@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory
-ms.openlocfilehash: 76bcac29d86a236e56c0eaea24a694c4845ecbcf
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: e12c38ed42a4e2714d785ef8f03097246c40d36e
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083583"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218969"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -76,7 +76,7 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "{TENA
 
 使用 `Microsoft.Authentication.WebAssembly.Msal` 包提供的 `AddMsalAuthentication` 扩展方法在服务容器中注册对用户进行身份验证。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
 
-Program.cs:
+Program.cs：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -103,9 +103,9 @@ builder.Services.AddMsalAuthentication(options =>
 > [!NOTE]
 > 默认访问令牌范围必须是 `{SERVER API APP CLIENT ID}/{DEFAULT SCOPE}` 格式（例如，`11111111-1111-1111-1111-111111111111/API.Access`）。 如果向范围设置提供方案或方案和主机（如 Azure 门户中所示），则当*客户端应用*收到来自*服务器 API 应用*的*401 未经授权*响应时，将引发未处理的异常。
 
-## <a name="index-page"></a>索引页
+## <a name="index-page"></a>索引页面
 
-[!INCLUDE[](~/includes/blazor-security/index-page.md)]
+[!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
 ## <a name="app-component"></a>应用组件
 
