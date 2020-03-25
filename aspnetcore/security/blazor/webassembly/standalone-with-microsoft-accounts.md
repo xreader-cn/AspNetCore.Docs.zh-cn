@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: 6883af3486256e7c6905626d8da09e8ae0c4a896
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: be73bec971f96bd64afc735a1ea750d47c7bc383
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083649"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219254"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-microsoft-accounts"></a>使用 Microsoft 帐户保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -31,18 +31,18 @@ ms.locfileid: "79083649"
 
    在 Azure 门户的**Azure Active Directory** > **应用注册**区域中注册 AAD 应用：
 
-   1 \。 提供应用的**名称**（例如， **Blazor 客户端 AAD**）。<br>
-   2。 在 "**支持的帐户类型**" 中，选择**任何组织目录中的帐户**。<br>
-   3。 将 "**重定向 uri** " 下拉集保持设置为 " **Web**"，并提供 `https://localhost:5001/authentication/login-callback`的重定向 uri。<br>
-   4 \。 禁用 "**权限** > **向 openid 和 offline_access 权限授予管理员**权限" 复选框。<br>
-   5 \。 选择“注册”。
+   1\. 提供应用的**名称**（例如， **Blazor 客户端 AAD**）。<br>
+   2\. 在 "**支持的帐户类型**" 中，选择**任何组织目录中的帐户**。<br>
+   3\. 将 "**重定向 uri** " 下拉集保持设置为 " **Web**"，并提供 `https://localhost:5001/authentication/login-callback`的重定向 uri。<br>
+   4\. 禁用 "**权限** > **向 openid 和 offline_access 权限授予管理员**权限" 复选框。<br>
+   5\. 选择“注册”。
 
    在 "**身份验证**" > **平台配置** > **Web**：
 
-   1 \。 确认存在 `https://localhost:5001/authentication/login-callback` 的**重定向 URI** 。<br>
-   2。 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。<br>
-   3。 此体验可接受应用的其余默认值。<br>
-   4 \。 选择“保存”按钮。
+   1\. 确认存在 `https://localhost:5001/authentication/login-callback` 的**重定向 URI** 。<br>
+   2\. 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。<br>
+   3\. 此体验可接受应用的其余默认值。<br>
+   4\. 选择“保存”按钮。
 
    记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
 
@@ -78,7 +78,7 @@ ms.locfileid: "79083649"
 
 使用 `Microsoft.Authentication.WebAssembly.Msal` 包提供的 `AddMsalAuthentication` 扩展方法在服务容器中注册对用户进行身份验证。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
 
-Program.cs:
+Program.cs：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -91,9 +91,9 @@ builder.Services.AddMsalAuthentication(options =>
 
 `AddMsalAuthentication` 方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 Microsoft 帐户配置获取配置该应用所需的值。
 
-## <a name="index-page"></a>索引页
+## <a name="index-page"></a>索引页面
 
-[!INCLUDE[](~/includes/blazor-security/index-page.md)]
+[!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
 ## <a name="app-component"></a>应用组件
 

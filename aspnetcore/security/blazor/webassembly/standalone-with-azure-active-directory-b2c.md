@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: b4d32e91b4013cbea37baecb972a535d2874d3d1
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: bb03ef1e6d216cfc06e2b91919c64f92f2ef634e
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434455"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219267"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护 ASP.NET Core Blazor WebAssembly 独立应用
 
@@ -31,14 +31,14 @@ ms.locfileid: "79434455"
 
    * [创建 AAD B2C 租户](/azure/active-directory-b2c/tutorial-create-tenant)&ndash; 记录以下信息：
 
-     1 \。 AAD B2C 实例（例如，`https://contoso.b2clogin.com/`，其中包含尾随斜杠）<br>
-     2。 AAD B2C 租户域（例如，`contoso.onmicrosoft.com`）
+     1\. AAD B2C 实例（例如，`https://contoso.b2clogin.com/`，其中包含尾随斜杠）<br>
+     2\. AAD B2C 租户域（例如，`contoso.onmicrosoft.com`）
 
    * [注册 web 应用程序](/azure/active-directory-b2c/tutorial-register-applications)&ndash; 在应用注册过程中进行以下选择：
 
-     1 \。 将**Web 应用/WEB API**设置为 **"是"** 。<br>
-     2。 将 "**允许隐式流**" 设置为 **"是"** 。<br>
-     3。 添加 `https://localhost:5001/authentication/login-callback`的**回复 URL** 。
+     1\. 将**Web 应用/WEB API**设置为 **"是"** 。<br>
+     2\. 将 "**允许隐式流**" 设置为 **"是"** 。<br>
+     3\. 添加 `https://localhost:5001/authentication/login-callback`的**回复 URL** 。
 
      记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111`）。
 
@@ -103,7 +103,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="index-page"></a>索引页面
 
-[!INCLUDE[](~/includes/blazor-security/index-page.md)]
+[!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
 ## <a name="app-component"></a>应用组件
 
