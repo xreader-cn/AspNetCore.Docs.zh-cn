@@ -424,6 +424,8 @@
               uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
             - name: 缓存
               uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
+            - name: 组件
+              uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
             - name: 分布式缓存
               uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
             - name: 环境
