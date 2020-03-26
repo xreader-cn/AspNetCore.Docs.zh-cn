@@ -5,12 +5,12 @@ description: 了解如何在 ASP.NET Core 中使用控制器方法、视图和 D
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 2c442060872ab1d2d79a2e355ae257fdf1005914
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87b3cb2f4429157123d30274d1f12cd589c1cc99
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649146"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242505"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core 中的控制器方法和视图
 
@@ -53,6 +53,8 @@ ms.locfileid: "78649146"
 ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` 控制器的 `Edit` 操作方法的请求，参数 `Id` 为 4。 （控制器方法也称为操作方法。）
 
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)是 ASP.NET Core 中最受欢迎的新功能之一。 有关详细信息，请参阅[其他资源](#additional-resources)。
+
+<a name="get-post"></a>
 
 打开 `Movies` 控制器并检查两个 `Edit` 操作方法。 以下代码显示了 `HTTP GET Edit` 方法，此方法将提取电影并填充由 Edit.cshtml Razor 文件生成的编辑表单  。
 
