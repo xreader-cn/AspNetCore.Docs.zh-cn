@@ -5,17 +5,17 @@ description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2020
+ms.date: 02/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: ba00c0370094df4e0ae0479aeb23eceea6ef04f0
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: f7ffb4c3d5a05cb916b4f00cdfaf5898634a1a6d
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083351"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219020"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -31,6 +31,8 @@ Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由�
 * 应用程序和组件区域的访问规则。
 
 Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可以修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
+
+[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization)不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/integrate-components#render-components-from-a-page-or-view)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
 
 ## <a name="authentication"></a>身份验证
 

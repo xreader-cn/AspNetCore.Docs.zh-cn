@@ -4,6 +4,8 @@
 
 **[缓存标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)**
 
+**[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)**
+
 **[分布式缓存帮助程序](xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper)**
 
 **[环境标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**

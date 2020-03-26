@@ -5,17 +5,17 @@ description: 了解如何将 Blazor WebAssemlby 应用作为单页应用程序 (
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: a65d47e55960d6e7bfeb672c0a1e6a7a305ad7ee
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 652d4c61110f786396d9d5af4f131b817c40e333
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989487"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219241"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -54,3 +54,47 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 * 当 Blazor WebAssembly 应用加载登录回叫终结点 (`/authentication/login-callback`) 时，就处理了身份验证进程。
   * 如果身份验证进程成功完成，则用户通过身份验证，可以选择返回该用户请求的原受保护 URL。
   * 如果身份验证进程由于任何原因而失败，会将用户导向登录失败页 (`/authentication/login-failed`)，并显示错误。
+  
+## <a name="options-for-hosted-apps-and-third-party-login-providers"></a>用于托管应用和第三方登录提供程序的选项
+
+使用第三方提供程序对托管的 Blazor WebAssembly 应用进行身份验证和授权时，有几个选项可用于对用户进行身份验证。 选择哪一种选项取决于方案。
+
+有关详细信息，请参阅 <xref:security/authentication/social/additional-claims>。
+
+### <a name="authenticate-users-to-only-call-protected-third-party-apis"></a>对用户进行身份验证，以仅调用受保护的第三方 API
+
+使用针对第三方 API 提供程序的客户端 oAuth 流对用户进行身份验证：
+
+ ```csharp
+ builder.services.AddOidcAuthentication(options => { ... });
+ ```
+ 
+ 在本方案中：
+
+* 托管应用的服务器不会发挥作用。
+* 无法保护服务器上的 API。
+* 应用只能调用受保护的第三方 API。
+
+### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a>使用第三方提供程序对用户进行身份验证，并在主机服务器和第三方调用受保护的 API
+
+使用第三方登录提供程序配置标识。 获取第三方 API 访问所需的令牌并进行存储。
+
+当用户登录时，标识将在身份验证过程中收集访问和刷新令牌。 此时，可通过几种方法向第三方 API 进行 API 调用。
+
+#### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a>使用服务器访问令牌检索第三方访问令牌
+
+使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在此处，使用第三方访问令牌直接从客户端上的标识调用第三方 API 资源。
+
+我们不建议使用此方法。 此方法需要将第三方访问令牌视为针对公共客户端生成。 在 oAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用来安全地存储机密，并且访问令牌是为机密客户端而生成的。 机密客户端具有客户端机密，并且假定能够安全地存储机密。
+
+* 第三方访问令牌可能会被授予其他作用域，以便基于第三方为更受信任的客户端发出令牌的情况执行敏感操作。
+* 同样，不应向不受信任的客户端颁发刷新令牌，因为这样做会给客户端提供无限制的访问权限，除非存在其他限制。
+
+#### <a name="make-api-calls-from-the-client-to-the-server-api-in-order-to-call-third-party-apis"></a>从客户端向服务器 API 发出 API 调用以便调用第三方 API
+
+从客户端向服务器 API 发出 API 调用。 从服务器中检索第三方 API 资源的访问令牌，并发出任何所需调用。
+
+尽管此方法需要额外的网络跃点通过服务器来调用第三方 API，但最终可提供更安全的体验：
+
+* 服务器可以存储刷新令牌，并确保应用不会失去对第三方资源的访问权限。
+* 应用无法从服务器泄漏可能包含更多敏感权限的访问令牌。

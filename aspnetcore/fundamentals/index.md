@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: fundamentals/index
-ms.openlocfilehash: a16a2fbb4ad2a79f96b6646ffdc359619d361a25
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: 7533242140c31a937f32cc9082d760103347ce25
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434312"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219176"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -102,7 +102,7 @@ ASP.NET Core 应用使用 HTTP 服务器实现侦听 HTTP 请求。 服务器对
 ASP.NET Core 提供以下服务器实现：
 
 * Kestrel 是跨平台 Web 服务器  。 Kestrel 通常使用 [IIS](https://www.iis.net/) 在反向代理配置中运行。 在 ASP.NET Core 2.0 或更高版本中，Kestrel 可作为面向公众的边缘服务器运行，直接向 Internet 公开。
-* IIS HTTP 服务器是适用于使用 IIS 的 Windows 的服务器  。 借助此服务器，ASP.NET Core 应用和 IIS 在同一进程中运行。
+* IIS HTTP 服务器适用于使用 IIS 的 Windows  。 借助此服务器，ASP.NET Core 应用和 IIS 在同一进程中运行。
 * HTTP.sys是适用于不与 IIS 一起使用的 Windows 的服务器  。
 
 # <a name="macos"></a>[macOS](#tab/macos)
