@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: index
-ms.openlocfilehash: f6e4a624186ccf0d7f6475819df7da9ef99f9bcc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: fd7fa9dd70502f51222e457dd887ef668d377278
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644370"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242588"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core 简介
 
@@ -29,7 +29,7 @@ ASP.NET Core 是一个跨平台的高性能[开源](https://github.com/aspnet/ho
 
 ## <a name="why-choose-aspnet-core"></a>为何选择 ASP.NET Core？
 
-数百万开发人员使用过（并将继续使用）[ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
+数百万开发人员在使用或使用过 [ASP.NET 4.x](/aspnet/overview) 创建 Web 应用。 ASP.NET Core 是对 ASP.NET 4.x 的重新设计，通过体系结构上的更改，产生了更精简、更模块化的框架。
 
 [!INCLUDE[](~/includes/benefits.md)]
 
