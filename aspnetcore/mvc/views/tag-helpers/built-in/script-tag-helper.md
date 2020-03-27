@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/02/2019
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
 ms.openlocfilehash: a037abb6a454e6d06305e7d7f6ecad0c2a0ca717
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171844"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652092"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的脚本标记帮助程序
 
