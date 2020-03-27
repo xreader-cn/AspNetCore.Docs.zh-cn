@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core MVC 如何使用路由中间件来匹配传入�
 ms.author: riande
 ms.date: 3/25/2020
 uid: mvc/controllers/routing
-ms.openlocfilehash: be7da9eeaf64c2f52c095b5179ccc22db43d57c3
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.openlocfilehash: c1c0d978714718af1de0f627e50a54f66ed391ed
+ms.sourcegitcommit: 4b166b49ec557a03f99f872dd069ca5e56faa524
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/25/2020
-ms.locfileid: "80242565"
+ms.lasthandoff: 03/27/2020
+ms.locfileid: "80362644"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -206,7 +206,7 @@ Endpoint 路由 ASP.NET Core 3.0 及更高版本：
 * 选择最佳的候选项。
 * 引发异常。
 
-例如:
+例如：
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -264,7 +264,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 在前面的代码中，在 `UseEndpoints` 内调用 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>，以映射属性路由控制器。
 
-如下示例中：
+在以下示例中：
 
 * 使用前面的 `Configure` 方法。
 * `HomeController` 匹配一组 Url，类似于默认的传统路由 `{controller=Home}/{action=Index}/{id?}` 匹配的内容。
@@ -416,11 +416,11 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了上述代码中的 `[Route]` 属性：
 
-| 属性               | 与 `[Route("Home")]` 结合 | 定义路由模板 |
+| Attribute               | 与 `[Route("Home")]` 结合 | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
-| `[Route("/")]` | **否** | `""` |
+| `[Route("/")]` | **是** | `""` |
 | `[Route("About")]` | 是 | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
@@ -458,7 +458,7 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/MyDemo3Controller.cs?name=snippet3& highlight=2)]
 
-在前面的代码中，`/home` 运行 `HomeController.Index` 终结点。 若要转到 `MyDemoController.MyIndex`，请请求 `/home/MyIndex`。 **说明**：
+在前面的代码中，`/home` 运行 `HomeController.Index` 终结点。 若要转到 `MyDemoController.MyIndex`，请请求 `/home/MyIndex`。 **注意：**
 
 * 上面的代码是一个示例或不良路由设计。 它用于阐释 `Order` 属性。
 * `Order` 属性仅解析歧义，该模板无法匹配。 删除 `[Route("Home")]` 模板会更好。
@@ -712,7 +712,7 @@ ASP.NET Core 3.0 中添加了 <xref:Microsoft.AspNetCore.Routing.LinkGenerator> 
 
 你可能希望在默认路由 `{controller}/{action}/{id?}`遇到此问题。 此问题在实践中很罕见，因为 `Url.Action` 始终显式指定 `controller` 并 `action` 值。
 
-多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)使用路由值对象来提供除 `controller` 和 `action`以外的路由参数的值。 路由值对象经常与 `id`一起使用。 例如 `Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
+多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)使用路由值对象来提供除 `controller` 和 `action`以外的路由参数的值。 路由值对象经常与 `id`一起使用。 例如，`Url.Action("Buy", "Products", new { id = 17 })` 。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是 `IDictionary<>` 或[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)）。
@@ -846,6 +846,8 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
  * [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)中包含了[MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs)方法，用于显示路由信息。
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
+
+[!INCLUDE[](~/includes/dbg-route.md)]
 
 ::: moniker-end
 
@@ -998,7 +1000,7 @@ app.UseMvc(routes =>
 
 ### <a name="disambiguating-actions"></a>区分操作
 
-当通过路由匹配到两项操作时，MVC 必须进行区分，以选择“最佳”候选项，否则会引发异常。 例如:
+当通过路由匹配到两项操作时，MVC 必须进行区分，以选择“最佳”候选项，否则会引发异常。 例如：
 
 ```csharp
 public class ProductsController : Controller
