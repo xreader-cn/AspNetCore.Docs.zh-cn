@@ -355,7 +355,7 @@
           uid: blazor/state-management
         - name: 处理错误
           uid: blazor/handle-errors
-        - name: 调试
+        - name: 调试 WebAssembly
           uid: blazor/debug
         - name: 调用 Web API
           uid: blazor/call-web-api
