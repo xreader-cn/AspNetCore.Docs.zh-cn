@@ -5,17 +5,17 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/10/2020
+ms.date: 03/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: 109da5ef400c3b9d64ccf3ceb33a5387ea6b5618
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083298"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218656"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
@@ -50,11 +50,11 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 
 ```xml
 <ItemGroup>
-  <BlazorLinkerDescriptor Include="Linker.xml" />
+  <BlazorLinkerDescriptor Include="LinkerConfig.xml" />
 </ItemGroup>
 ```
 
-Linker.xml  ：
+LinkerConfig.xml  ：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -86,7 +86,21 @@ Linker.xml  ：
 </linker>
 ```
 
-有关详细信息，请参阅 [IL Linker：xml 描述符语法](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)。
+有关详细信息，请参阅[链接 xml 文件示例（mono/链接器 GitHub 存储库）](https://github.com/mono/linker#link-xml-file-examples)。
+
+## <a name="add-an-xml-linker-configuration-file-to-a-library"></a>将 XML 链接器配置文件添加到库
+
+要针对特定库配置链接器，请将 XML 链接器配置文件作为嵌入的资源添加到库中。 嵌入的资源必须与程序集同名。
+
+在以下示例中，LinkerConfig.xml 文件被指定为与库的程序集同名的嵌入资源  ：
+
+```xml
+<ItemGroup>
+  <EmbeddedResource Include="LinkerConfig.xml">
+    <LogicalName>$(MSBuildProjectName).xml</LogicalName>
+  </EmbeddedResource>
+</ItemGroup>
+```
 
 ### <a name="configure-the-linker-for-internationalization"></a>配置链接器以实现国际化
 

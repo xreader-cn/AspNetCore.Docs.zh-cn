@@ -5,17 +5,17 @@ description: 了解如何在 Blazor 服务器应用中保留状态。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 990d392b0e1658774256626eb277701e40287b79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e8a1959a8fc05ea59362bb5824181a9d2e418811
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78646524"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218864"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -242,7 +242,7 @@ else
 
 解决此错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现会增加复杂性，且不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用无法预呈现任何有用的内容。
 
-若要禁用预呈现，请打开“Pages/_Host.cshtml”文件，并将对 `Component` 标记帮助程序的 `render-mode` 的调用更改为 `Server`  。
+若要禁用预呈现，请打开“Pages/_Host.cshtml”文件，并将[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)的 `render-mode` 更改为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>  。
 
 对于不使用 `localStorage` 或 `sessionStorage` 的其他页面，预呈现可能很有用。 若要使预呈现保持启用状态，可延迟加载操作，直到浏览器连接到线路。 以下是存储计数器值的示例：
 

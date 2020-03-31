@@ -5,17 +5,17 @@ description: 了解如何在 Blazor 中使用窗体和字段验证方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 5aad5a4d4303151ef5be82481dfae7367abeffbc
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: 0359a9337860d9b8ce0b81d8833a034a898b05a5
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083233"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218955"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -460,8 +460,11 @@ public class ShipDescription
 
 * 使用窗体的 `EditContext` 在初始化组件时分配模型。
 * 在上下文的 `OnFieldChanged` 回调中验证窗体，以启用和禁用提交按钮。
+* 解除挂接 `Dispose` 方法中的事件处理程序。 有关详细信息，请参阅 <xref:blazor/lifecycle#component-disposal-with-idisposable>。
 
 ```razor
+@implements IDisposable
+
 <EditForm EditContext="@_editContext">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -479,12 +482,18 @@ public class ShipDescription
     protected override void OnInitialized()
     {
         _editContext = new EditContext(_starship);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
 
-        _editContext.OnFieldChanged += (_, __) =>
-        {
-            _formInvalid = !_editContext.Validate();
-            StateHasChanged();
-        };
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        _formInvalid = !_editContext.Validate();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
     }
 }
 ```

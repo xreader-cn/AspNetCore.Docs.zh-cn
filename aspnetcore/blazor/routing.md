@@ -5,17 +5,17 @@ description: 了解如何在应用中路由请求以及有关 NavLink 组件的�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/routing
-ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87579c88a37e0258921e199db2b5d8c7627f5499
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649236"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218890"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
 
@@ -198,16 +198,16 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 ## <a name="uri-and-navigation-state-helpers"></a>URI 和导航状态帮助程序
 
-在 C# 代码中将 `Microsoft.AspNetCore.Components.NavigationManager` 与 URI 和导航配合使用。 `NavigationManager` 提供下表所示的事件和方法。
+在 C# 代码中将 <xref:Microsoft.AspNetCore.Components.NavigationManager> 与 URI 和导航配合使用。 `NavigationManager` 提供下表所示的事件和方法。
 
 | 成员 | 描述 |
 | ------ | ----------- |
-| `Uri` | 获取当前绝对 URI。 |
-| `BaseUri` | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，`BaseUri` 对应于 *wwwroot/index.html* (Blazor WebAssembly) 或 *Pages/_Host.cshtml* (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
-| `NavigateTo` | 导航到指定 URI。 如果 `forceLoad` 为 `true`，则：<ul><li>客户端路由会被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</li></ul> |
-| `LocationChanged` | 导航位置更改时触发的事件。 |
-| `ToAbsoluteUri` | 将相对 URI 转换为绝对 URI。 |
-| `ToBaseRelativePath` | 给定基 URI（例如，之前由 `GetBaseUri` 返回的 URI），将绝对 URI 转换为相对于基 URI 前缀的 URI。 |
+| URI | 获取当前绝对 URI。 |
+| BaseUri | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，`BaseUri` 对应于 *wwwroot/index.html* (Blazor WebAssembly) 或 *Pages/_Host.cshtml* (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
+| NavigateTo | 导航到指定 URI。 如果 `forceLoad` 为 `true`，则：<ul><li>客户端路由会被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</li></ul> |
+| LocationChanged | 导航位置更改时触发的事件。 |
+| ToAbsoluteUri | 将相对 URI 转换为绝对 URI。 |
+| <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | 给定基 URI（例如，之前由 `GetBaseUri` 返回的 URI），将绝对 URI 转换为相对于基 URI 前缀的 URI。 |
 
 选择该按钮后，以下组件导航到应用的 `Counter` 组件：
 
@@ -228,3 +228,34 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
     }
 }
 ```
+
+以下组件处理位置更改事件。 在框架调用 `Dispose` 时，解除挂接 `HandleLocationChanged` 方法。 解除挂接该方法可允许组件进行垃圾回收。
+
+```razor
+@implement IDisposable
+@inject NavigationManager NavigationManager
+
+...
+
+protected override void OnInitialized()
+{
+    NavigationManager.LocationChanged += HandleLocationChanged;
+}
+
+private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+{
+    ...
+}
+
+public void Dispose()
+{
+    NavigationManager.LocationChanged -= HandleLocationChanged;
+}
+```
+
+<xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs> 可提供以下有关该事件的信息：
+
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location> &ndash; 新位置的 URL。
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted> &ndash; 如果为 `true`，则 Blazor 截获了浏览器中的导航。 如果为 `false`，则 [NavigationManager.NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) 导致发生导航。
+
+要详细了解组件处置，请参阅 <xref:blazor/lifecycle#component-disposal-with-idisposable>。

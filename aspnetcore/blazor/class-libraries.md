@@ -5,17 +5,17 @@ description: 了解如何从外部组件库将组件包含在 Blazor 应用中�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 03/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: f2cc57638922bd1f6ab036adb2ed37209d14c5b0
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647988"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218761"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor 组件类库
 
@@ -114,6 +114,10 @@ Welcome to your new app.
 
 在顶级 _Import.razor 文件中包含 `@using MyComponentLib1` 指令，使库的组件可用于整个项目  。 将指令添加到任何级别的 _Import.razor 文件，将命名空间应用于文件夹中的单个页面或一组页面  。
 
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>创建包括静态资源的 Razor 组件类库
+
+RCL 可以包括静态资产。 静态资产可用于任何使用该库的应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
+
 ## <a name="build-pack-and-ship-to-nuget"></a>生成并打包库，再将其传送到 NuGet
 
 由于组件库是标准的 .NET 库，因此将它们打包并传送到 NuGet 与将任何库打包并传送到 NuGet 没有什么区别。 在命令行界面中使用 [dotnet pack](/dotnet/core/tools/dotnet-pack) 命令，执行打包操作：
@@ -124,10 +128,7 @@ dotnet pack
 
 在命令行界面中使用 [dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push) 命令，将包上传到 NuGet。
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>创建包括静态资源的 Razor 组件类库
-
-RCL 可以包括静态资产。 静态资产可用于任何使用该库的应用。 有关详细信息，请参阅 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>。
-
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:razor-pages/ui-class>
+* [将 XML 链接器配置文件添加到库](xref:host-and-deploy/blazor/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

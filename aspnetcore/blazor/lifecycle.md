@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647580"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218903"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -56,6 +56,8 @@ protected override async Task OnInitializedAsync()
 
 在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行特定操作（例如调用 JavaScript）。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
+
 ### <a name="before-parameters-are-set"></a>设置参数之前
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> 在呈现树中设置组件的父组件提供的参数：
@@ -74,6 +76,8 @@ public override async Task SetParametersAsync(ParameterView parameters)
 `SetParametersAsync` 的默认实现使用 `[Parameter]` 或 `[CascadingParameter]` 特性（在 `ParameterView` 中具有对应的值）设置每个属性的值。 在 `ParameterView` 中没有对应值的参数保持不变。
 
 如果未调用 `base.SetParametersAync`，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
+
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="after-parameters-are-set"></a>设置参数之后
 
@@ -100,6 +104,8 @@ protected override void OnParametersSet()
     ...
 }
 ```
+
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="after-component-render"></a>组件呈现之后
 
@@ -136,6 +142,8 @@ protected override void OnAfterRender(bool firstRender)
 ```
 
 *在服务器上进行预呈现时*未调用 `OnAfterRender` 和 `OnAfterRenderAsync`。
+
+如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
 ### <a name="suppress-ui-refreshing"></a>禁止 UI 刷新
 
@@ -188,6 +196,16 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 
 > [!NOTE]
 > 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*>。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
+
+取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
+
+* 专用字段和 Lambda 方法
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* 专用方法
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="handle-errors"></a>处理错误
 
