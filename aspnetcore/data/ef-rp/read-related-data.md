@@ -7,89 +7,89 @@ ms.custom: mvc
 ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
 ms.openlocfilehash: d244ce1527486466bcbc6557ec35869aa206bc4f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645588"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a><span data-ttu-id="4b9a5-103">ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）</span><span class="sxs-lookup"><span data-stu-id="4b9a5-103">Razor Pages with EF Core in ASP.NET Core - Read Related Data - 6 of 8</span></span>
+# <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a><span data-ttu-id="d3996-103">ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）</span><span class="sxs-lookup"><span data-stu-id="d3996-103">Razor Pages with EF Core in ASP.NET Core - Read Related Data - 6 of 8</span></span>
 
-<span data-ttu-id="4b9a5-104">作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="4b9a5-104">By [Tom Dykstra](https://github.com/tdykstra), [Jon P Smith](https://twitter.com/thereformedprog), and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="d3996-104">作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="d3996-104">By [Tom Dykstra](https://github.com/tdykstra), [Jon P Smith](https://twitter.com/thereformedprog), and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 [!INCLUDE [about the series](../../includes/RP-EF/intro.md)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="4b9a5-105">本教程介绍如何读取和显示相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-105">This tutorial shows how to read and display related data.</span></span> <span data-ttu-id="4b9a5-106">相关数据为 EF Core 加载到导航属性中的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-106">Related data is data that EF Core loads into navigation properties.</span></span>
+<span data-ttu-id="d3996-105">本教程介绍如何读取和显示相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-105">This tutorial shows how to read and display related data.</span></span> <span data-ttu-id="d3996-106">相关数据为 EF Core 加载到导航属性中的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-106">Related data is data that EF Core loads into navigation properties.</span></span>
 
-<span data-ttu-id="4b9a5-107">下图显示了本教程中已完成的页面：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-107">The following illustrations show the completed pages for this tutorial:</span></span>
+<span data-ttu-id="d3996-107">下图显示了本教程中已完成的页面：</span><span class="sxs-lookup"><span data-stu-id="d3996-107">The following illustrations show the completed pages for this tutorial:</span></span>
 
 ![“课程索引”页](read-related-data/_static/courses-index30.png)
 
 ![“讲师索引”页](read-related-data/_static/instructors-index30.png)
 
-## <a name="eager-explicit-and-lazy-loading"></a><span data-ttu-id="4b9a5-110">预先加载、显式加载和延迟加载</span><span class="sxs-lookup"><span data-stu-id="4b9a5-110">Eager, explicit, and lazy loading</span></span>
+## <a name="eager-explicit-and-lazy-loading"></a><span data-ttu-id="d3996-110">预先加载、显式加载和延迟加载</span><span class="sxs-lookup"><span data-stu-id="d3996-110">Eager, explicit, and lazy loading</span></span>
 
-<span data-ttu-id="4b9a5-111">EF Core 可采用多种方式将相关数据加载到实体的导航属性中：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-111">There are several ways that EF Core can load related data into the navigation properties of an entity:</span></span>
+<span data-ttu-id="d3996-111">EF Core 可采用多种方式将相关数据加载到实体的导航属性中：</span><span class="sxs-lookup"><span data-stu-id="d3996-111">There are several ways that EF Core can load related data into the navigation properties of an entity:</span></span>
 
-* <span data-ttu-id="4b9a5-112">[预先加载](/ef/core/querying/related-data#eager-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-112">[Eager loading](/ef/core/querying/related-data#eager-loading).</span></span> <span data-ttu-id="4b9a5-113">预先加载是指对查询某类型的实体时一并加载相关实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-113">Eager loading is when a query for one type of entity also loads related entities.</span></span> <span data-ttu-id="4b9a5-114">读取实体时，会检索其相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-114">When an entity is read, its related data is retrieved.</span></span> <span data-ttu-id="4b9a5-115">此时通常会出现单一联接查询，检索所有必需数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-115">This typically results in a single join query that retrieves all of the data that's needed.</span></span> <span data-ttu-id="4b9a5-116">EF Core 将针对预先加载的某些类型发出多个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-116">EF Core will issue multiple queries for some types of eager loading.</span></span> <span data-ttu-id="4b9a5-117">发布多个查询可能比发布大型的单个查询更为有效。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-117">Issuing multiple queries can be more efficient than a giant single query.</span></span> <span data-ttu-id="4b9a5-118">预先加载通过 `Include` 和 `ThenInclude` 方法进行指定。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-118">Eager loading is specified with the `Include` and `ThenInclude` methods.</span></span>
+* <span data-ttu-id="d3996-112">[预先加载](/ef/core/querying/related-data#eager-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-112">[Eager loading](/ef/core/querying/related-data#eager-loading).</span></span> <span data-ttu-id="d3996-113">预先加载是指对查询某类型的实体时一并加载相关实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-113">Eager loading is when a query for one type of entity also loads related entities.</span></span> <span data-ttu-id="d3996-114">读取实体时，会检索其相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-114">When an entity is read, its related data is retrieved.</span></span> <span data-ttu-id="d3996-115">此时通常会出现单一联接查询，检索所有必需数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-115">This typically results in a single join query that retrieves all of the data that's needed.</span></span> <span data-ttu-id="d3996-116">EF Core 将针对预先加载的某些类型发出多个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-116">EF Core will issue multiple queries for some types of eager loading.</span></span> <span data-ttu-id="d3996-117">发布多个查询可能比发布大型的单个查询更为有效。</span><span class="sxs-lookup"><span data-stu-id="d3996-117">Issuing multiple queries can be more efficient than a giant single query.</span></span> <span data-ttu-id="d3996-118">预先加载通过 `Include` 和 `ThenInclude` 方法进行指定。</span><span class="sxs-lookup"><span data-stu-id="d3996-118">Eager loading is specified with the `Include` and `ThenInclude` methods.</span></span>
 
   ![预先加载示例](read-related-data/_static/eager-loading.png)
  
-  <span data-ttu-id="4b9a5-120">当包含集合导航时，预先加载会发送多个查询：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-120">Eager loading sends multiple queries when a collection navigation is included:</span></span>
+  <span data-ttu-id="d3996-120">当包含集合导航时，预先加载会发送多个查询：</span><span class="sxs-lookup"><span data-stu-id="d3996-120">Eager loading sends multiple queries when a collection navigation is included:</span></span>
 
-  * <span data-ttu-id="4b9a5-121">一个查询用于主查询</span><span class="sxs-lookup"><span data-stu-id="4b9a5-121">One query for the main query</span></span> 
-  * <span data-ttu-id="4b9a5-122">一个查询用于加载树中每个集合“边缘”。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-122">One query for each collection "edge" in the load tree.</span></span>
+  * <span data-ttu-id="d3996-121">一个查询用于主查询</span><span class="sxs-lookup"><span data-stu-id="d3996-121">One query for the main query</span></span> 
+  * <span data-ttu-id="d3996-122">一个查询用于加载树中每个集合“边缘”。</span><span class="sxs-lookup"><span data-stu-id="d3996-122">One query for each collection "edge" in the load tree.</span></span>
 
-* <span data-ttu-id="4b9a5-123">使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core 会“修复”导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-123">Separate queries with `Load`: The data can be retrieved in separate queries, and EF Core "fixes up" the navigation properties.</span></span> <span data-ttu-id="4b9a5-124">“修复”是指 EF Core 自动填充导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-124">"Fixes up" means that EF Core automatically populates the navigation properties.</span></span> <span data-ttu-id="4b9a5-125">使用 `Load` 单独查询比预先加载更像是显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-125">Separate queries with `Load` is more like explicit loading than eager loading.</span></span>
+* <span data-ttu-id="d3996-123">使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core 会“修复”导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-123">Separate queries with `Load`: The data can be retrieved in separate queries, and EF Core "fixes up" the navigation properties.</span></span> <span data-ttu-id="d3996-124">“修复”是指 EF Core 自动填充导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-124">"Fixes up" means that EF Core automatically populates the navigation properties.</span></span> <span data-ttu-id="d3996-125">使用 `Load` 单独查询比预先加载更像是显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-125">Separate queries with `Load` is more like explicit loading than eager loading.</span></span>
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  <span data-ttu-id="4b9a5-127">注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-127">Note: EF Core automatically fixes up navigation properties to any other entities that were previously loaded into the context instance.</span></span> <span data-ttu-id="4b9a5-128">即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-128">Even if the data for a navigation property is *not* explicitly included, the property may still be populated if some or all of the related entities were previously loaded.</span></span>
+  <span data-ttu-id="d3996-127">注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-127">Note: EF Core automatically fixes up navigation properties to any other entities that were previously loaded into the context instance.</span></span> <span data-ttu-id="d3996-128">即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-128">Even if the data for a navigation property is *not* explicitly included, the property may still be populated if some or all of the related entities were previously loaded.</span></span>
 
-* <span data-ttu-id="4b9a5-129">[显式加载](/ef/core/querying/related-data#explicit-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-129">[Explicit loading](/ef/core/querying/related-data#explicit-loading).</span></span> <span data-ttu-id="4b9a5-130">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-130">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="4b9a5-131">必须编写代码才能在需要时检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-131">Code must be written to retrieve the related data when it's needed.</span></span> <span data-ttu-id="4b9a5-132">使用单独查询进行显式加载时，会向数据库发送多个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-132">Explicit loading with separate queries results in multiple queries sent to the database.</span></span> <span data-ttu-id="4b9a5-133">该代码通过显式加载指定要加载的导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-133">With explicit loading, the code specifies the navigation properties to be loaded.</span></span> <span data-ttu-id="4b9a5-134">使用 `Load` 方法进行显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-134">Use the `Load` method to do explicit loading.</span></span> <span data-ttu-id="4b9a5-135">例如：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-135">For example:</span></span>
+* <span data-ttu-id="d3996-129">[显式加载](/ef/core/querying/related-data#explicit-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-129">[Explicit loading](/ef/core/querying/related-data#explicit-loading).</span></span> <span data-ttu-id="d3996-130">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-130">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="d3996-131">必须编写代码才能在需要时检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-131">Code must be written to retrieve the related data when it's needed.</span></span> <span data-ttu-id="d3996-132">使用单独查询进行显式加载时，会向数据库发送多个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-132">Explicit loading with separate queries results in multiple queries sent to the database.</span></span> <span data-ttu-id="d3996-133">该代码通过显式加载指定要加载的导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-133">With explicit loading, the code specifies the navigation properties to be loaded.</span></span> <span data-ttu-id="d3996-134">使用 `Load` 方法进行显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-134">Use the `Load` method to do explicit loading.</span></span> <span data-ttu-id="d3996-135">例如：</span><span class="sxs-lookup"><span data-stu-id="d3996-135">For example:</span></span>
 
   ![显式加载示例](read-related-data/_static/explicit-loading.png)
 
-* <span data-ttu-id="4b9a5-137">[延迟加载](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-137">[Lazy loading](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="4b9a5-138">[延迟加载已添加到版本 2.1 中的 EF Core](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-138">[Lazy loading was added to EF Core in version 2.1](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="4b9a5-139">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-139">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="4b9a5-140">首次访问导航属性时，会自动检索该导航属性所需的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-140">The first time a navigation property is accessed, the data required for that navigation property is automatically retrieved.</span></span> <span data-ttu-id="4b9a5-141">首次访问导航属性时，都会向数据库发送一个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-141">A query is sent to the database each time a navigation property is accessed for the first time.</span></span>
+* <span data-ttu-id="d3996-137">[延迟加载](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-137">[Lazy loading](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="d3996-138">[延迟加载已添加到版本 2.1 中的 EF Core](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-138">[Lazy loading was added to EF Core in version 2.1](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="d3996-139">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-139">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="d3996-140">首次访问导航属性时，会自动检索该导航属性所需的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-140">The first time a navigation property is accessed, the data required for that navigation property is automatically retrieved.</span></span> <span data-ttu-id="d3996-141">首次访问导航属性时，都会向数据库发送一个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-141">A query is sent to the database each time a navigation property is accessed for the first time.</span></span>
 
-## <a name="create-course-pages"></a><span data-ttu-id="4b9a5-142">创建“课程”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-142">Create Course pages</span></span>
+## <a name="create-course-pages"></a><span data-ttu-id="d3996-142">创建“课程”页</span><span class="sxs-lookup"><span data-stu-id="d3996-142">Create Course pages</span></span>
 
-<span data-ttu-id="4b9a5-143">`Course` 实体包括一个带相关 `Department` 实体的导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-143">The `Course` entity includes a navigation property that contains the related `Department` entity.</span></span>
+<span data-ttu-id="d3996-143">`Course` 实体包括一个带相关 `Department` 实体的导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-143">The `Course` entity includes a navigation property that contains the related `Department` entity.</span></span>
 
 ![Course.Department](read-related-data/_static/dep-crs.png)
 
-<span data-ttu-id="4b9a5-145">若要显示课程的已分配院系的名称，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-145">To display the name of the assigned department for a course:</span></span>
+<span data-ttu-id="d3996-145">若要显示课程的已分配院系的名称，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="d3996-145">To display the name of the assigned department for a course:</span></span>
 
-* <span data-ttu-id="4b9a5-146">将相关的 `Department` 实体加载到 `Course.Department` 导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-146">Load the related `Department` entity into the `Course.Department` navigation property.</span></span>
-* <span data-ttu-id="4b9a5-147">获取 `Department` 实体的 `Name` 属性中的名称。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-147">Get the name from the `Department` entity's `Name` property.</span></span>
+* <span data-ttu-id="d3996-146">将相关的 `Department` 实体加载到 `Course.Department` 导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-146">Load the related `Department` entity into the `Course.Department` navigation property.</span></span>
+* <span data-ttu-id="d3996-147">获取 `Department` 实体的 `Name` 属性中的名称。</span><span class="sxs-lookup"><span data-stu-id="d3996-147">Get the name from the `Department` entity's `Name` property.</span></span>
 
 <a name="scaffold"></a>
 
-### <a name="scaffold-course-pages"></a><span data-ttu-id="4b9a5-148">搭建“课程”页的基架</span><span class="sxs-lookup"><span data-stu-id="4b9a5-148">Scaffold Course pages</span></span>
+### <a name="scaffold-course-pages"></a><span data-ttu-id="d3996-148">搭建“课程”页的基架</span><span class="sxs-lookup"><span data-stu-id="d3996-148">Scaffold Course pages</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="4b9a5-149">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="4b9a5-149">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="d3996-149">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d3996-149">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="4b9a5-150">遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-150">Follow the instructions in [Scaffold Student pages](xref:data/ef-rp/intro#scaffold-student-pages) with the following exceptions:</span></span>
+* <span data-ttu-id="d3996-150">遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：</span><span class="sxs-lookup"><span data-stu-id="d3996-150">Follow the instructions in [Scaffold Student pages](xref:data/ef-rp/intro#scaffold-student-pages) with the following exceptions:</span></span>
 
-  * <span data-ttu-id="4b9a5-151">创建“Pages/Courses”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-151">Create a *Pages/Courses* folder.</span></span>
-  * <span data-ttu-id="4b9a5-152">将 `Course` 用于模型类。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-152">Use `Course` for the model class.</span></span>
-  * <span data-ttu-id="4b9a5-153">使用现有的上下文类，而不是新建上下文类。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-153">Use the existing context class instead of creating a new one.</span></span>
+  * <span data-ttu-id="d3996-151">创建“Pages/Courses”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="d3996-151">Create a *Pages/Courses* folder.</span></span>
+  * <span data-ttu-id="d3996-152">将 `Course` 用于模型类。</span><span class="sxs-lookup"><span data-stu-id="d3996-152">Use `Course` for the model class.</span></span>
+  * <span data-ttu-id="d3996-153">使用现有的上下文类，而不是新建上下文类。</span><span class="sxs-lookup"><span data-stu-id="d3996-153">Use the existing context class instead of creating a new one.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="4b9a5-154">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="4b9a5-154">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="d3996-154">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d3996-154">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="4b9a5-155">创建“Pages/Courses”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-155">Create a *Pages/Courses* folder.</span></span>
+* <span data-ttu-id="d3996-155">创建“Pages/Courses”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="d3996-155">Create a *Pages/Courses* folder.</span></span>
 
-* <span data-ttu-id="4b9a5-156">运行以下命令，搭建“课程”页的基架。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-156">Run the following command to scaffold the Course pages.</span></span>
+* <span data-ttu-id="d3996-156">运行以下命令，搭建“课程”页的基架。</span><span class="sxs-lookup"><span data-stu-id="d3996-156">Run the following command to scaffold the Course pages.</span></span>
 
-  <span data-ttu-id="4b9a5-157">在 Windows 上： </span><span class="sxs-lookup"><span data-stu-id="4b9a5-157">**On Windows:**</span></span>
+  <span data-ttu-id="d3996-157">在 Windows 上： </span><span class="sxs-lookup"><span data-stu-id="d3996-157">**On Windows:**</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
   ```
 
-  <span data-ttu-id="4b9a5-158">**在 Linux 或 macOS 上：**</span><span class="sxs-lookup"><span data-stu-id="4b9a5-158">**On Linux or macOS:**</span></span>
+  <span data-ttu-id="d3996-158">**在 Linux 或 macOS 上：**</span><span class="sxs-lookup"><span data-stu-id="d3996-158">**On Linux or macOS:**</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages/Courses --referenceScriptLibraries
@@ -97,96 +97,96 @@ ms.locfileid: "78645588"
 
 ---
 
-* <span data-ttu-id="4b9a5-159">打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-159">Open *Pages/Courses/Index.cshtml.cs* and examine the `OnGetAsync` method.</span></span> <span data-ttu-id="4b9a5-160">基架引擎为 `Department` 导航属性指定了预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-160">The scaffolding engine specified eager loading for the `Department` navigation property.</span></span> <span data-ttu-id="4b9a5-161">`Include` 方法指定预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-161">The `Include` method specifies eager loading.</span></span>
+* <span data-ttu-id="d3996-159">打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="d3996-159">Open *Pages/Courses/Index.cshtml.cs* and examine the `OnGetAsync` method.</span></span> <span data-ttu-id="d3996-160">基架引擎为 `Department` 导航属性指定了预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-160">The scaffolding engine specified eager loading for the `Department` navigation property.</span></span> <span data-ttu-id="d3996-161">`Include` 方法指定预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-161">The `Include` method specifies eager loading.</span></span>
 
-* <span data-ttu-id="4b9a5-162">运行应用并选择“课程”链接  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-162">Run the app and select the **Courses** link.</span></span> <span data-ttu-id="4b9a5-163">院系列显示 `DepartmentID`（该项无用）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-163">The department column displays the `DepartmentID`, which isn't useful.</span></span>
+* <span data-ttu-id="d3996-162">运行应用并选择“课程”链接  。</span><span class="sxs-lookup"><span data-stu-id="d3996-162">Run the app and select the **Courses** link.</span></span> <span data-ttu-id="d3996-163">院系列显示 `DepartmentID`（该项无用）。</span><span class="sxs-lookup"><span data-stu-id="d3996-163">The department column displays the `DepartmentID`, which isn't useful.</span></span>
 
-### <a name="display-the-department-name"></a><span data-ttu-id="4b9a5-164">显示院系名称</span><span class="sxs-lookup"><span data-stu-id="4b9a5-164">Display the department name</span></span>
+### <a name="display-the-department-name"></a><span data-ttu-id="d3996-164">显示院系名称</span><span class="sxs-lookup"><span data-stu-id="d3996-164">Display the department name</span></span>
 
-<span data-ttu-id="4b9a5-165">使用以下代码更新 Pages/Courses/Index.cshtml.cs：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-165">Update Pages/Courses/Index.cshtml.cs with the following code:</span></span>
+<span data-ttu-id="d3996-165">使用以下代码更新 Pages/Courses/Index.cshtml.cs：</span><span class="sxs-lookup"><span data-stu-id="d3996-165">Update Pages/Courses/Index.cshtml.cs with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Index.cshtml.cs?highlight=18,22,24)]
 
-<span data-ttu-id="4b9a5-166">上述代码将 `Course` 属性更改为 `Courses`，然后添加 `AsNoTracking`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-166">The preceding code changes the `Course` property to `Courses` and adds `AsNoTracking`.</span></span> <span data-ttu-id="4b9a5-167">由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-167">`AsNoTracking` improves performance because the entities returned are not tracked.</span></span> <span data-ttu-id="4b9a5-168">无需跟踪实体，因为未在当前的上下文中更新这些实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-168">The entities don't need to be tracked because they're not updated in the current context.</span></span>
+<span data-ttu-id="d3996-166">上述代码将 `Course` 属性更改为 `Courses`，然后添加 `AsNoTracking`。</span><span class="sxs-lookup"><span data-stu-id="d3996-166">The preceding code changes the `Course` property to `Courses` and adds `AsNoTracking`.</span></span> <span data-ttu-id="d3996-167">由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。</span><span class="sxs-lookup"><span data-stu-id="d3996-167">`AsNoTracking` improves performance because the entities returned are not tracked.</span></span> <span data-ttu-id="d3996-168">无需跟踪实体，因为未在当前的上下文中更新这些实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-168">The entities don't need to be tracked because they're not updated in the current context.</span></span>
 
-<span data-ttu-id="4b9a5-169">使用以下代码更新 Pages/Courses/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-169">Update *Pages/Courses/Index.cshtml* with the following code.</span></span>
+<span data-ttu-id="d3996-169">使用以下代码更新 Pages/Courses/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="d3996-169">Update *Pages/Courses/Index.cshtml* with the following code.</span></span>
 
 [!code-cshtml[](intro/samples/cu30/Pages/Courses/Index.cshtml?highlight=5,8,16-18,20,23,26,32,35-37,45)]
 
-<span data-ttu-id="4b9a5-170">对基架代码进行了以下更改：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-170">The following changes have been made to the scaffolded code:</span></span>
+<span data-ttu-id="d3996-170">对基架代码进行了以下更改：</span><span class="sxs-lookup"><span data-stu-id="d3996-170">The following changes have been made to the scaffolded code:</span></span>
 
-* <span data-ttu-id="4b9a5-171">将 `Course` 属性名称更改为了 `Courses`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-171">Changed the `Course` property name to `Courses`.</span></span>
-* <span data-ttu-id="4b9a5-172">添加了显示 `CourseID` 属性值的“数字”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-172">Added a **Number** column that shows the `CourseID` property value.</span></span> <span data-ttu-id="4b9a5-173">默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-173">By default, primary keys aren't scaffolded because normally they're meaningless to end users.</span></span> <span data-ttu-id="4b9a5-174">但在此情况下主键是有意义的。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-174">However, in this case the primary key is meaningful.</span></span>
-* <span data-ttu-id="4b9a5-175">更改“院系”列，显示院系名称  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-175">Changed the **Department** column to display the department name.</span></span> <span data-ttu-id="4b9a5-176">该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-176">The code displays the `Name` property of the `Department` entity that's loaded into the `Department` navigation property:</span></span>
+* <span data-ttu-id="d3996-171">将 `Course` 属性名称更改为了 `Courses`。</span><span class="sxs-lookup"><span data-stu-id="d3996-171">Changed the `Course` property name to `Courses`.</span></span>
+* <span data-ttu-id="d3996-172">添加了显示 `CourseID` 属性值的“数字”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-172">Added a **Number** column that shows the `CourseID` property value.</span></span> <span data-ttu-id="d3996-173">默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。</span><span class="sxs-lookup"><span data-stu-id="d3996-173">By default, primary keys aren't scaffolded because normally they're meaningless to end users.</span></span> <span data-ttu-id="d3996-174">但在此情况下主键是有意义的。</span><span class="sxs-lookup"><span data-stu-id="d3996-174">However, in this case the primary key is meaningful.</span></span>
+* <span data-ttu-id="d3996-175">更改“院系”列，显示院系名称  。</span><span class="sxs-lookup"><span data-stu-id="d3996-175">Changed the **Department** column to display the department name.</span></span> <span data-ttu-id="d3996-176">该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：</span><span class="sxs-lookup"><span data-stu-id="d3996-176">The code displays the `Name` property of the `Department` entity that's loaded into the `Department` navigation property:</span></span>
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-<span data-ttu-id="4b9a5-177">运行应用并选择“课程”选项卡，查看包含系名称的列表  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-177">Run the app and select the **Courses** tab to see the list with department names.</span></span>
+<span data-ttu-id="d3996-177">运行应用并选择“课程”选项卡，查看包含系名称的列表  。</span><span class="sxs-lookup"><span data-stu-id="d3996-177">Run the app and select the **Courses** tab to see the list with department names.</span></span>
 
 ![“课程索引”页](read-related-data/_static/courses-index30.png)
 
 <a name="select"></a>
 
-### <a name="loading-related-data-with-select"></a><span data-ttu-id="4b9a5-179">使用 Select 加载相关数据</span><span class="sxs-lookup"><span data-stu-id="4b9a5-179">Loading related data with Select</span></span>
+### <a name="loading-related-data-with-select"></a><span data-ttu-id="d3996-179">使用 Select 加载相关数据</span><span class="sxs-lookup"><span data-stu-id="d3996-179">Loading related data with Select</span></span>
 
-<span data-ttu-id="4b9a5-180">`OnGetAsync` 方法使用 `Include` 方法加载相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-180">The `OnGetAsync` method loads related data with the `Include` method.</span></span> <span data-ttu-id="4b9a5-181">`Select` 方法是只加载所需相关数据的替代方法。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-181">The `Select` method is an alternative that loads only the related data needed.</span></span> <span data-ttu-id="4b9a5-182">对于单个项（如 `Department.Name`），它使用 SQL INNER JOIN。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-182">For single items, like the `Department.Name` it uses a SQL INNER JOIN.</span></span> <span data-ttu-id="4b9a5-183">对于集合，它使用另一个数据库访问，但集合上的 `Include` 运算符也是如此。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-183">For collections, it uses another database access, but so does the `Include` operator on collections.</span></span>
+<span data-ttu-id="d3996-180">`OnGetAsync` 方法使用 `Include` 方法加载相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-180">The `OnGetAsync` method loads related data with the `Include` method.</span></span> <span data-ttu-id="d3996-181">`Select` 方法是只加载所需相关数据的替代方法。</span><span class="sxs-lookup"><span data-stu-id="d3996-181">The `Select` method is an alternative that loads only the related data needed.</span></span> <span data-ttu-id="d3996-182">对于单个项（如 `Department.Name`），它使用 SQL INNER JOIN。</span><span class="sxs-lookup"><span data-stu-id="d3996-182">For single items, like the `Department.Name` it uses a SQL INNER JOIN.</span></span> <span data-ttu-id="d3996-183">对于集合，它使用另一个数据库访问，但集合上的 `Include` 运算符也是如此。</span><span class="sxs-lookup"><span data-stu-id="d3996-183">For collections, it uses another database access, but so does the `Include` operator on collections.</span></span>
 
-<span data-ttu-id="4b9a5-184">以下代码使用 `Select` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-184">The following code loads related data with the `Select` method:</span></span>
+<span data-ttu-id="d3996-184">以下代码使用 `Select` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="d3996-184">The following code loads related data with the `Select` method:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=6)]
 
-<span data-ttu-id="4b9a5-185">`CourseViewModel`：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-185">The `CourseViewModel`:</span></span>
+<span data-ttu-id="d3996-185">`CourseViewModel`：</span><span class="sxs-lookup"><span data-stu-id="d3996-185">The `CourseViewModel`:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-<span data-ttu-id="4b9a5-186">有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-186">See [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) and [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs) for a complete example.</span></span>
+<span data-ttu-id="d3996-186">有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs)。</span><span class="sxs-lookup"><span data-stu-id="d3996-186">See [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) and [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs) for a complete example.</span></span>
 
-## <a name="create-instructor-pages"></a><span data-ttu-id="4b9a5-187">创建“讲师”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-187">Create Instructor pages</span></span>
+## <a name="create-instructor-pages"></a><span data-ttu-id="d3996-187">创建“讲师”页</span><span class="sxs-lookup"><span data-stu-id="d3996-187">Create Instructor pages</span></span>
 
-<span data-ttu-id="4b9a5-188">本节搭建“讲师”页的基架，并向讲师“索引”页添加相关“课程”和“注册”。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-188">This section scaffolds Instructor pages and adds related Courses and Enrollments to the Instructors Index page.</span></span>
+<span data-ttu-id="d3996-188">本节搭建“讲师”页的基架，并向讲师“索引”页添加相关“课程”和“注册”。</span><span class="sxs-lookup"><span data-stu-id="d3996-188">This section scaffolds Instructor pages and adds related Courses and Enrollments to the Instructors Index page.</span></span>
 
 <a name="IP"></a>
-<span data-ttu-id="4b9a5-189">![“讲师索引”页](read-related-data/_static/instructors-index30.png)</span><span class="sxs-lookup"><span data-stu-id="4b9a5-189">![Instructors Index page](read-related-data/_static/instructors-index30.png)</span></span>
+<span data-ttu-id="d3996-189">![“讲师索引”页](read-related-data/_static/instructors-index30.png)</span><span class="sxs-lookup"><span data-stu-id="d3996-189">![Instructors Index page](read-related-data/_static/instructors-index30.png)</span></span>
 
-<span data-ttu-id="4b9a5-190">该页面通过以下方式读取和显示相关数据：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-190">This page reads and displays related data in the following ways:</span></span>
+<span data-ttu-id="d3996-190">该页面通过以下方式读取和显示相关数据：</span><span class="sxs-lookup"><span data-stu-id="d3996-190">This page reads and displays related data in the following ways:</span></span>
 
-* <span data-ttu-id="4b9a5-191">讲师列表显示 `OfficeAssignment` 实体（上图中的办公室）的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-191">The list of instructors displays related data from the `OfficeAssignment` entity (Office in the preceding image).</span></span> <span data-ttu-id="4b9a5-192">`Instructor` 和 `OfficeAssignment` 实体之间存在一对零或一的关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-192">The `Instructor` and `OfficeAssignment` entities are in a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="4b9a5-193">预先加载适用于 `OfficeAssignment` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-193">Eager loading is used for the `OfficeAssignment` entities.</span></span> <span data-ttu-id="4b9a5-194">需要显示相关数据时，预先加载通常更高效。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-194">Eager loading is typically more efficient when the related data needs to be displayed.</span></span> <span data-ttu-id="4b9a5-195">在此情况下，会显示讲师的办公室分配。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-195">In this case, office assignments for the instructors are displayed.</span></span>
-* <span data-ttu-id="4b9a5-196">用户选择一名讲师时，显示相关 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-196">When the user selects an instructor, related `Course` entities are displayed.</span></span> <span data-ttu-id="4b9a5-197">`Instructor` 和 `Course` 实体之间存在多对多关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-197">The `Instructor` and `Course` entities are in a many-to-many relationship.</span></span> <span data-ttu-id="4b9a5-198">对 `Course` 实体及其相关的 `Department` 实体使用预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-198">Eager loading is used for the `Course` entities and their related `Department` entities.</span></span> <span data-ttu-id="4b9a5-199">这种情况下，单独查询可能更有效，因为仅需显示所选讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-199">In this case, separate queries might be more efficient because only courses for the selected instructor are needed.</span></span> <span data-ttu-id="4b9a5-200">此示例演示如何在位于导航实体内的实体中预先加载这些导航实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-200">This example shows how to use eager loading for navigation properties in entities that are in navigation properties.</span></span>
-* <span data-ttu-id="4b9a5-201">用户选择一门课程时，会显示 `Enrollments` 实体的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-201">When the user selects a course, related data from the `Enrollments` entity is displayed.</span></span> <span data-ttu-id="4b9a5-202">上图中显示了学生姓名和成绩。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-202">In the preceding image, student name and grade are displayed.</span></span> <span data-ttu-id="4b9a5-203">`Course` 和 `Enrollment` 实体之间存在一对多的关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-203">The `Course` and `Enrollment` entities are in a one-to-many relationship.</span></span>
+* <span data-ttu-id="d3996-191">讲师列表显示 `OfficeAssignment` 实体（上图中的办公室）的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-191">The list of instructors displays related data from the `OfficeAssignment` entity (Office in the preceding image).</span></span> <span data-ttu-id="d3996-192">`Instructor` 和 `OfficeAssignment` 实体之间存在一对零或一的关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-192">The `Instructor` and `OfficeAssignment` entities are in a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="d3996-193">预先加载适用于 `OfficeAssignment` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-193">Eager loading is used for the `OfficeAssignment` entities.</span></span> <span data-ttu-id="d3996-194">需要显示相关数据时，预先加载通常更高效。</span><span class="sxs-lookup"><span data-stu-id="d3996-194">Eager loading is typically more efficient when the related data needs to be displayed.</span></span> <span data-ttu-id="d3996-195">在此情况下，会显示讲师的办公室分配。</span><span class="sxs-lookup"><span data-stu-id="d3996-195">In this case, office assignments for the instructors are displayed.</span></span>
+* <span data-ttu-id="d3996-196">用户选择一名讲师时，显示相关 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-196">When the user selects an instructor, related `Course` entities are displayed.</span></span> <span data-ttu-id="d3996-197">`Instructor` 和 `Course` 实体之间存在多对多关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-197">The `Instructor` and `Course` entities are in a many-to-many relationship.</span></span> <span data-ttu-id="d3996-198">对 `Course` 实体及其相关的 `Department` 实体使用预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-198">Eager loading is used for the `Course` entities and their related `Department` entities.</span></span> <span data-ttu-id="d3996-199">这种情况下，单独查询可能更有效，因为仅需显示所选讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="d3996-199">In this case, separate queries might be more efficient because only courses for the selected instructor are needed.</span></span> <span data-ttu-id="d3996-200">此示例演示如何在位于导航实体内的实体中预先加载这些导航实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-200">This example shows how to use eager loading for navigation properties in entities that are in navigation properties.</span></span>
+* <span data-ttu-id="d3996-201">用户选择一门课程时，会显示 `Enrollments` 实体的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-201">When the user selects a course, related data from the `Enrollments` entity is displayed.</span></span> <span data-ttu-id="d3996-202">上图中显示了学生姓名和成绩。</span><span class="sxs-lookup"><span data-stu-id="d3996-202">In the preceding image, student name and grade are displayed.</span></span> <span data-ttu-id="d3996-203">`Course` 和 `Enrollment` 实体之间存在一对多的关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-203">The `Course` and `Enrollment` entities are in a one-to-many relationship.</span></span>
 
-### <a name="create-a-view-model"></a><span data-ttu-id="4b9a5-204">创建视图模型</span><span class="sxs-lookup"><span data-stu-id="4b9a5-204">Create a view model</span></span>
+### <a name="create-a-view-model"></a><span data-ttu-id="d3996-204">创建视图模型</span><span class="sxs-lookup"><span data-stu-id="d3996-204">Create a view model</span></span>
 
-<span data-ttu-id="4b9a5-205">“讲师”页显示来自三个不同表格的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-205">The instructors page shows data from three different tables.</span></span> <span data-ttu-id="4b9a5-206">需要一个视图模型，该模型中包含表示三个表格的三个属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-206">A view model is needed that includes three properties representing the three tables.</span></span>
+<span data-ttu-id="d3996-205">“讲师”页显示来自三个不同表格的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-205">The instructors page shows data from three different tables.</span></span> <span data-ttu-id="d3996-206">需要一个视图模型，该模型中包含表示三个表格的三个属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-206">A view model is needed that includes three properties representing the three tables.</span></span>
 
-<span data-ttu-id="4b9a5-207">使用以下代码创建 SchoolViewModels/InstructorIndexData.cs  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-207">Create *SchoolViewModels/InstructorIndexData.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-207">使用以下代码创建 SchoolViewModels/InstructorIndexData.cs  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-207">Create *SchoolViewModels/InstructorIndexData.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu30/Models/SchoolViewModels/InstructorIndexData.cs)]
 
-### <a name="scaffold-instructor-pages"></a><span data-ttu-id="4b9a5-208">搭建“讲师”页的基架</span><span class="sxs-lookup"><span data-stu-id="4b9a5-208">Scaffold Instructor pages</span></span>
+### <a name="scaffold-instructor-pages"></a><span data-ttu-id="d3996-208">搭建“讲师”页的基架</span><span class="sxs-lookup"><span data-stu-id="d3996-208">Scaffold Instructor pages</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="4b9a5-209">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="4b9a5-209">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="d3996-209">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d3996-209">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="4b9a5-210">遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-210">Follow the instructions in [Scaffold the student pages](xref:data/ef-rp/intro#scaffold-student-pages) with the following exceptions:</span></span>
+* <span data-ttu-id="d3996-210">遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：</span><span class="sxs-lookup"><span data-stu-id="d3996-210">Follow the instructions in [Scaffold the student pages](xref:data/ef-rp/intro#scaffold-student-pages) with the following exceptions:</span></span>
 
-  * <span data-ttu-id="4b9a5-211">创建“Pages/Instructors”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-211">Create a *Pages/Instructors* folder.</span></span>
-  * <span data-ttu-id="4b9a5-212">将 `Instructor` 用于模型类。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-212">Use `Instructor` for the model class.</span></span>
-  * <span data-ttu-id="4b9a5-213">使用现有的上下文类，而不是新建上下文类。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-213">Use the existing context class instead of creating a new one.</span></span>
+  * <span data-ttu-id="d3996-211">创建“Pages/Instructors”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="d3996-211">Create a *Pages/Instructors* folder.</span></span>
+  * <span data-ttu-id="d3996-212">将 `Instructor` 用于模型类。</span><span class="sxs-lookup"><span data-stu-id="d3996-212">Use `Instructor` for the model class.</span></span>
+  * <span data-ttu-id="d3996-213">使用现有的上下文类，而不是新建上下文类。</span><span class="sxs-lookup"><span data-stu-id="d3996-213">Use the existing context class instead of creating a new one.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="4b9a5-214">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="4b9a5-214">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="d3996-214">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d3996-214">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="4b9a5-215">创建“Pages/Instructors”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-215">Create a *Pages/Instructors* folder.</span></span>
+* <span data-ttu-id="d3996-215">创建“Pages/Instructors”文件夹  。</span><span class="sxs-lookup"><span data-stu-id="d3996-215">Create a *Pages/Instructors* folder.</span></span>
 
-* <span data-ttu-id="4b9a5-216">运行以下命令，搭建“讲师”页的基架。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-216">Run the following command to scaffold the Instructor pages.</span></span>
+* <span data-ttu-id="d3996-216">运行以下命令，搭建“讲师”页的基架。</span><span class="sxs-lookup"><span data-stu-id="d3996-216">Run the following command to scaffold the Instructor pages.</span></span>
 
-  <span data-ttu-id="4b9a5-217">在 Windows 上： </span><span class="sxs-lookup"><span data-stu-id="4b9a5-217">**On Windows:**</span></span>
+  <span data-ttu-id="d3996-217">在 Windows 上： </span><span class="sxs-lookup"><span data-stu-id="d3996-217">**On Windows:**</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
   ```
 
-  <span data-ttu-id="4b9a5-218">**在 Linux 或 macOS 上：**</span><span class="sxs-lookup"><span data-stu-id="4b9a5-218">**On Linux or macOS:**</span></span>
+  <span data-ttu-id="d3996-218">**在 Linux 或 macOS 上：**</span><span class="sxs-lookup"><span data-stu-id="d3996-218">**On Linux or macOS:**</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages/Instructors --referenceScriptLibraries
@@ -194,19 +194,19 @@ ms.locfileid: "78645588"
 
 ---
 
-<span data-ttu-id="4b9a5-219">若要在更新之前查看已搭建基架的页面的外观，则运行应用并导航到“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-219">To see what the scaffolded page looks like before you update it, run the app and navigate to the Instructors page.</span></span>
+<span data-ttu-id="d3996-219">若要在更新之前查看已搭建基架的页面的外观，则运行应用并导航到“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="d3996-219">To see what the scaffolded page looks like before you update it, run the app and navigate to the Instructors page.</span></span>
 
-<span data-ttu-id="4b9a5-220">使用以下代码更新 Pages/Instructors/Index.cshtml.cs  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-220">Update *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-220">使用以下代码更新 Pages/Instructors/Index.cshtml.cs  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-220">Update *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,19-53)]
 
-<span data-ttu-id="4b9a5-221">`OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-221">The `OnGetAsync` method accepts optional route data for the ID of the selected instructor.</span></span>
+<span data-ttu-id="d3996-221">`OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-221">The `OnGetAsync` method accepts optional route data for the ID of the selected instructor.</span></span>
 
-<span data-ttu-id="4b9a5-222">检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-222">Examine the query in the *Pages/Instructors/Index.cshtml.cs* file:</span></span>
+<span data-ttu-id="d3996-222">检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-222">Examine the query in the *Pages/Instructors/Index.cshtml.cs* file:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_EagerLoading)]
 
-<span data-ttu-id="4b9a5-223">代码指定以下导航属性的预先加载：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-223">The code specifies eager loading for the following navigation properties:</span></span>
+<span data-ttu-id="d3996-223">代码指定以下导航属性的预先加载：</span><span class="sxs-lookup"><span data-stu-id="d3996-223">The code specifies eager loading for the following navigation properties:</span></span>
 
 * `Instructor.OfficeAssignment`
 * `Instructor.CourseAssignments`
@@ -215,41 +215,41 @@ ms.locfileid: "78645588"
     * `Course.Enrollments`
       * `Enrollment.Student`
 
-<span data-ttu-id="4b9a5-224">注意 `CourseAssignments` 和 `Course` 对 `Include` 和 `ThenInclude` 方法的重复使用。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-224">Notice the repetition of `Include` and `ThenInclude` methods for `CourseAssignments` and `Course`.</span></span> <span data-ttu-id="4b9a5-225">若要指定 `Course` 实体的两个导航属性的预先加载，则这种重复使用是必要的。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-225">This repetition is necessary to specify eager loading for two navigation properties of the `Course` entity.</span></span>
+<span data-ttu-id="d3996-224">注意 `CourseAssignments` 和 `Course` 对 `Include` 和 `ThenInclude` 方法的重复使用。</span><span class="sxs-lookup"><span data-stu-id="d3996-224">Notice the repetition of `Include` and `ThenInclude` methods for `CourseAssignments` and `Course`.</span></span> <span data-ttu-id="d3996-225">若要指定 `Course` 实体的两个导航属性的预先加载，则这种重复使用是必要的。</span><span class="sxs-lookup"><span data-stu-id="d3996-225">This repetition is necessary to specify eager loading for two navigation properties of the `Course` entity.</span></span>
 
-<span data-ttu-id="4b9a5-226">选择讲师时 (`id != null`)，将执行以下代码。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-226">The following code executes when an instructor is selected (`id != null`).</span></span>
+<span data-ttu-id="d3996-226">选择讲师时 (`id != null`)，将执行以下代码。</span><span class="sxs-lookup"><span data-stu-id="d3996-226">The following code executes when an instructor is selected (`id != null`).</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_SelectInstructor)]
 
-<span data-ttu-id="4b9a5-227">从视图模型中的讲师列表检索所选讲师。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-227">The selected instructor is retrieved from the list of instructors in the view model.</span></span> <span data-ttu-id="4b9a5-228">向视图模型的 `Courses` 属性加载来自讲师 `CourseAssignments` 导航属性的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-228">The view model's `Courses` property is loaded with the `Course` entities from that instructor's `CourseAssignments` navigation property.</span></span>
+<span data-ttu-id="d3996-227">从视图模型中的讲师列表检索所选讲师。</span><span class="sxs-lookup"><span data-stu-id="d3996-227">The selected instructor is retrieved from the list of instructors in the view model.</span></span> <span data-ttu-id="d3996-228">向视图模型的 `Courses` 属性加载来自讲师 `CourseAssignments` 导航属性的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-228">The view model's `Courses` property is loaded with the `Course` entities from that instructor's `CourseAssignments` navigation property.</span></span>
 
-<span data-ttu-id="4b9a5-229">`Where` 方法返回一个集合。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-229">The `Where` method returns a collection.</span></span> <span data-ttu-id="4b9a5-230">但在本例中，筛选器将选择单个实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-230">But in this case, the filter will select a single entity.</span></span> <span data-ttu-id="4b9a5-231">因此，调用 `Single` 方法将集合转换为单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-231">so the `Single` method is called to convert the collection into a single `Instructor` entity.</span></span> <span data-ttu-id="4b9a5-232">`Instructor` 实体提供对 `CourseAssignments` 属性的访问。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-232">The `Instructor` entity provides access to the `CourseAssignments` property.</span></span> <span data-ttu-id="4b9a5-233">`CourseAssignments` 提供对相关 `Course` 实体的访问。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-233">`CourseAssignments` provides access to the related `Course` entities.</span></span>
+<span data-ttu-id="d3996-229">`Where` 方法返回一个集合。</span><span class="sxs-lookup"><span data-stu-id="d3996-229">The `Where` method returns a collection.</span></span> <span data-ttu-id="d3996-230">但在本例中，筛选器将选择单个实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-230">But in this case, the filter will select a single entity.</span></span> <span data-ttu-id="d3996-231">因此，调用 `Single` 方法将集合转换为单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-231">so the `Single` method is called to convert the collection into a single `Instructor` entity.</span></span> <span data-ttu-id="d3996-232">`Instructor` 实体提供对 `CourseAssignments` 属性的访问。</span><span class="sxs-lookup"><span data-stu-id="d3996-232">The `Instructor` entity provides access to the `CourseAssignments` property.</span></span> <span data-ttu-id="d3996-233">`CourseAssignments` 提供对相关 `Course` 实体的访问。</span><span class="sxs-lookup"><span data-stu-id="d3996-233">`CourseAssignments` provides access to the related `Course` entities.</span></span>
 
 ![讲师-课程 m:M](complex-data-model/_static/courseassignment.png)
 
-<span data-ttu-id="4b9a5-235">当集合仅包含一个项时，集合使用 `Single` 方法。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-235">The `Single` method is used on a collection when the collection has only one item.</span></span> <span data-ttu-id="4b9a5-236">如果集合为空或包含多个项，`Single` 方法会引发异常。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-236">The `Single` method throws an exception if the collection is empty or if there's more than one item.</span></span> <span data-ttu-id="4b9a5-237">还可使用 `SingleOrDefault`，该方式在集合为空时返回默认值（本例中为 null）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-237">An alternative is `SingleOrDefault`, which returns a default value (null in this case) if the collection is empty.</span></span>
+<span data-ttu-id="d3996-235">当集合仅包含一个项时，集合使用 `Single` 方法。</span><span class="sxs-lookup"><span data-stu-id="d3996-235">The `Single` method is used on a collection when the collection has only one item.</span></span> <span data-ttu-id="d3996-236">如果集合为空或包含多个项，`Single` 方法会引发异常。</span><span class="sxs-lookup"><span data-stu-id="d3996-236">The `Single` method throws an exception if the collection is empty or if there's more than one item.</span></span> <span data-ttu-id="d3996-237">还可使用 `SingleOrDefault`，该方式在集合为空时返回默认值（本例中为 null）。</span><span class="sxs-lookup"><span data-stu-id="d3996-237">An alternative is `SingleOrDefault`, which returns a default value (null in this case) if the collection is empty.</span></span>
 
-<span data-ttu-id="4b9a5-238">选中课程时，视图模型的 `Enrollments` 属性将填充以下代码：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-238">The following code populates the view model's `Enrollments` property when a course is selected:</span></span>
+<span data-ttu-id="d3996-238">选中课程时，视图模型的 `Enrollments` 属性将填充以下代码：</span><span class="sxs-lookup"><span data-stu-id="d3996-238">The following code populates the view model's `Enrollments` property when a course is selected:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_SelectCourse)]
 
-### <a name="update-the-instructors-index-page"></a><span data-ttu-id="4b9a5-239">更新“讲师索引”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-239">Update the instructors Index page</span></span>
+### <a name="update-the-instructors-index-page"></a><span data-ttu-id="d3996-239">更新“讲师索引”页</span><span class="sxs-lookup"><span data-stu-id="d3996-239">Update the instructors Index page</span></span>
 
-<span data-ttu-id="4b9a5-240">使用以下代码更新 Pages/Instructors/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-240">Update *Pages/Instructors/Index.cshtml* with the following code.</span></span>
+<span data-ttu-id="d3996-240">使用以下代码更新 Pages/Instructors/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="d3996-240">Update *Pages/Instructors/Index.cshtml* with the following code.</span></span>
 
 [!code-cshtml[](intro/samples/cu30/Pages/Instructors/Index.cshtml?highlight=1,5,8,16-21,25-32,43-57,67-102,104-126)]
 
-<span data-ttu-id="4b9a5-241">上面的代码执行以下更改：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-241">The preceding code makes the following changes:</span></span>
+<span data-ttu-id="d3996-241">上面的代码执行以下更改：</span><span class="sxs-lookup"><span data-stu-id="d3996-241">The preceding code makes the following changes:</span></span>
 
-* <span data-ttu-id="4b9a5-242">将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-242">Updates the `page` directive from `@page` to `@page "{id:int?}"`.</span></span> <span data-ttu-id="4b9a5-243">`"{id:int?}"` 是一个路由模板。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-243">`"{id:int?}"` is a route template.</span></span> <span data-ttu-id="4b9a5-244">路由模板将 URL 中的整数查询字符串更改为路由数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-244">The route template changes integer query strings in the URL to route data.</span></span> <span data-ttu-id="4b9a5-245">例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-245">For example, clicking on the **Select** link for an instructor with only the `@page` directive produces a URL like the following:</span></span>
+* <span data-ttu-id="d3996-242">将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。</span><span class="sxs-lookup"><span data-stu-id="d3996-242">Updates the `page` directive from `@page` to `@page "{id:int?}"`.</span></span> <span data-ttu-id="d3996-243">`"{id:int?}"` 是一个路由模板。</span><span class="sxs-lookup"><span data-stu-id="d3996-243">`"{id:int?}"` is a route template.</span></span> <span data-ttu-id="d3996-244">路由模板将 URL 中的整数查询字符串更改为路由数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-244">The route template changes integer query strings in the URL to route data.</span></span> <span data-ttu-id="d3996-245">例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-245">For example, clicking on the **Select** link for an instructor with only the `@page` directive produces a URL like the following:</span></span>
 
   `https://localhost:5001/Instructors?id=2`
 
-  <span data-ttu-id="4b9a5-246">如果页面指令为 `@page "{id:int?}"` 时，则 URL 为：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-246">When the page directive is `@page "{id:int?}"`, the URL is:</span></span>
+  <span data-ttu-id="d3996-246">如果页面指令为 `@page "{id:int?}"` 时，则 URL 为：</span><span class="sxs-lookup"><span data-stu-id="d3996-246">When the page directive is `@page "{id:int?}"`, the URL is:</span></span>
 
   `https://localhost:5001/Instructors/2`
 
-* <span data-ttu-id="4b9a5-247">添加仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-247">Adds an **Office** column that displays `item.OfficeAssignment.Location` only if `item.OfficeAssignment` isn't null.</span></span> <span data-ttu-id="4b9a5-248">由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-248">Because this is a one-to-zero-or-one relationship, there might not be a related OfficeAssignment entity.</span></span>
+* <span data-ttu-id="d3996-247">添加仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-247">Adds an **Office** column that displays `item.OfficeAssignment.Location` only if `item.OfficeAssignment` isn't null.</span></span> <span data-ttu-id="d3996-248">由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-248">Because this is a one-to-zero-or-one relationship, there might not be a related OfficeAssignment entity.</span></span>
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -258,9 +258,9 @@ ms.locfileid: "78645588"
   }
   ```
 
-* <span data-ttu-id="4b9a5-249">添加显示每位讲师所授课程的“课程”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-249">Adds a **Courses** column that displays courses taught by each instructor.</span></span> <span data-ttu-id="4b9a5-250">有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-250">See [Explicit line transition](xref:mvc/views/razor#explicit-line-transition) for more about this razor syntax.</span></span>
+* <span data-ttu-id="d3996-249">添加显示每位讲师所授课程的“课程”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-249">Adds a **Courses** column that displays courses taught by each instructor.</span></span> <span data-ttu-id="d3996-250">有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。</span><span class="sxs-lookup"><span data-stu-id="d3996-250">See [Explicit line transition](xref:mvc/views/razor#explicit-line-transition) for more about this razor syntax.</span></span>
 
-* <span data-ttu-id="4b9a5-251">添加向所选讲师和课程的 `tr` 元素中动态添加 `class="success"` 的代码。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-251">Adds code that dynamically adds `class="success"` to the `tr` element of the selected instructor and course.</span></span> <span data-ttu-id="4b9a5-252">此时会使用 Bootstrap 类为所选行设置背景色。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-252">This sets a background color for the selected row using a Bootstrap class.</span></span>
+* <span data-ttu-id="d3996-251">添加向所选讲师和课程的 `tr` 元素中动态添加 `class="success"` 的代码。</span><span class="sxs-lookup"><span data-stu-id="d3996-251">Adds code that dynamically adds `class="success"` to the `tr` element of the selected instructor and course.</span></span> <span data-ttu-id="d3996-252">此时会使用 Bootstrap 类为所选行设置背景色。</span><span class="sxs-lookup"><span data-stu-id="d3996-252">This sets a background color for the selected row using a Bootstrap class.</span></span>
 
   ```html
   string selectedRow = "";
@@ -271,125 +271,125 @@ ms.locfileid: "78645588"
   <tr class="@selectedRow">
   ```
 
-* <span data-ttu-id="4b9a5-253">添加标记为“选择”的新的超链接  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-253">Adds a new hyperlink labeled **Select**.</span></span> <span data-ttu-id="4b9a5-254">该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-254">This link sends the selected instructor's ID to the `Index` method and sets a background color.</span></span>
+* <span data-ttu-id="d3996-253">添加标记为“选择”的新的超链接  。</span><span class="sxs-lookup"><span data-stu-id="d3996-253">Adds a new hyperlink labeled **Select**.</span></span> <span data-ttu-id="d3996-254">该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。</span><span class="sxs-lookup"><span data-stu-id="d3996-254">This link sends the selected instructor's ID to the `Index` method and sets a background color.</span></span>
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-* <span data-ttu-id="4b9a5-255">添加所选讲师的课程表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-255">Adds a table of courses for the selected Instructor.</span></span>
+* <span data-ttu-id="d3996-255">添加所选讲师的课程表。</span><span class="sxs-lookup"><span data-stu-id="d3996-255">Adds a table of courses for the selected Instructor.</span></span>
 
-* <span data-ttu-id="4b9a5-256">添加所选课程的学生注册表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-256">Adds a table of student enrollments for the selected course.</span></span>
+* <span data-ttu-id="d3996-256">添加所选课程的学生注册表。</span><span class="sxs-lookup"><span data-stu-id="d3996-256">Adds a table of student enrollments for the selected course.</span></span>
 
-<span data-ttu-id="4b9a5-257">运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-257">Run the app and select the **Instructors** tab. The page displays the `Location` (office) from the related `OfficeAssignment` entity.</span></span> <span data-ttu-id="4b9a5-258">如果 `OfficeAssignment` 为 NULL，则显示空白表格单元格。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-258">If `OfficeAssignment` is null, an empty table cell is displayed.</span></span>
+<span data-ttu-id="d3996-257">运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。</span><span class="sxs-lookup"><span data-stu-id="d3996-257">Run the app and select the **Instructors** tab. The page displays the `Location` (office) from the related `OfficeAssignment` entity.</span></span> <span data-ttu-id="d3996-258">如果 `OfficeAssignment` 为 NULL，则显示空白表格单元格。</span><span class="sxs-lookup"><span data-stu-id="d3996-258">If `OfficeAssignment` is null, an empty table cell is displayed.</span></span>
 
-<span data-ttu-id="4b9a5-259">单击“选择”链接，选择讲师  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-259">Click on the **Select** link for an instructor.</span></span> <span data-ttu-id="4b9a5-260">显示行样式更改和分配给该讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-260">The row style changes and courses assigned to that instructor are displayed.</span></span>
+<span data-ttu-id="d3996-259">单击“选择”链接，选择讲师  。</span><span class="sxs-lookup"><span data-stu-id="d3996-259">Click on the **Select** link for an instructor.</span></span> <span data-ttu-id="d3996-260">显示行样式更改和分配给该讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="d3996-260">The row style changes and courses assigned to that instructor are displayed.</span></span>
 
-<span data-ttu-id="4b9a5-261">选择一门课程，查看已注册的学生及其成绩列表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-261">Select a course to see the list of enrolled students and their grades.</span></span>
+<span data-ttu-id="d3996-261">选择一门课程，查看已注册的学生及其成绩列表。</span><span class="sxs-lookup"><span data-stu-id="d3996-261">Select a course to see the list of enrolled students and their grades.</span></span>
 
 ![已选择“讲师索引”页中的讲师和课程](read-related-data/_static/instructors-index30.png)
 
-## <a name="using-single"></a><span data-ttu-id="4b9a5-263">使用 Single 方法</span><span class="sxs-lookup"><span data-stu-id="4b9a5-263">Using Single</span></span>
+## <a name="using-single"></a><span data-ttu-id="d3996-263">使用 Single 方法</span><span class="sxs-lookup"><span data-stu-id="d3996-263">Using Single</span></span>
 
-<span data-ttu-id="4b9a5-264">`Single` 方法可在 `Where` 条件中进行传递，无需分别调用 `Where` 方法：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-264">The `Single` method can pass in the `Where` condition instead of calling the `Where` method separately:</span></span>
+<span data-ttu-id="d3996-264">`Single` 方法可在 `Where` 条件中进行传递，无需分别调用 `Where` 方法：</span><span class="sxs-lookup"><span data-stu-id="d3996-264">The `Single` method can pass in the `Where` condition instead of calling the `Where` method separately:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/IndexSingle.cshtml.cs?name=snippet_single&highlight=21-22,30-31)]
 
-<span data-ttu-id="4b9a5-265">`Single` 与 Where 条件的配合使用与个人偏好相关。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-265">Use of `Single` with a Where condition is a matter of personal preference.</span></span> <span data-ttu-id="4b9a5-266">相较于使用 `Where` 方法，它没有提供任何优势。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-266">It provides no benefits over using the `Where` method.</span></span>
+<span data-ttu-id="d3996-265">`Single` 与 Where 条件的配合使用与个人偏好相关。</span><span class="sxs-lookup"><span data-stu-id="d3996-265">Use of `Single` with a Where condition is a matter of personal preference.</span></span> <span data-ttu-id="d3996-266">相较于使用 `Where` 方法，它没有提供任何优势。</span><span class="sxs-lookup"><span data-stu-id="d3996-266">It provides no benefits over using the `Where` method.</span></span>
 
-## <a name="explicit-loading"></a><span data-ttu-id="4b9a5-267">显式加载</span><span class="sxs-lookup"><span data-stu-id="4b9a5-267">Explicit loading</span></span>
+## <a name="explicit-loading"></a><span data-ttu-id="d3996-267">显式加载</span><span class="sxs-lookup"><span data-stu-id="d3996-267">Explicit loading</span></span>
 
-<span data-ttu-id="4b9a5-268">当前代码为 `Enrollments` 和 `Students` 指定预先加载：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-268">The current code specifies eager loading for `Enrollments` and `Students`:</span></span>
+<span data-ttu-id="d3996-268">当前代码为 `Enrollments` 和 `Students` 指定预先加载：</span><span class="sxs-lookup"><span data-stu-id="d3996-268">The current code specifies eager loading for `Enrollments` and `Students`:</span></span>
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_EagerLoading&highlight=6-9)]
 
-<span data-ttu-id="4b9a5-269">假设用户几乎不希望课程中显示注册情况。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-269">Suppose users rarely want to see enrollments in a course.</span></span> <span data-ttu-id="4b9a5-270">在此情况下，可仅在请求时加载注册数据进行优化。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-270">In that case, an optimization would be to only load the enrollment data if it's requested.</span></span> <span data-ttu-id="4b9a5-271">在本部分中，会更新 `OnGetAsync` 以使用 `Enrollments` 和 `Students` 的显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-271">In this section, the `OnGetAsync` is updated to use explicit loading of `Enrollments` and `Students`.</span></span>
+<span data-ttu-id="d3996-269">假设用户几乎不希望课程中显示注册情况。</span><span class="sxs-lookup"><span data-stu-id="d3996-269">Suppose users rarely want to see enrollments in a course.</span></span> <span data-ttu-id="d3996-270">在此情况下，可仅在请求时加载注册数据进行优化。</span><span class="sxs-lookup"><span data-stu-id="d3996-270">In that case, an optimization would be to only load the enrollment data if it's requested.</span></span> <span data-ttu-id="d3996-271">在本部分中，会更新 `OnGetAsync` 以使用 `Enrollments` 和 `Students` 的显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-271">In this section, the `OnGetAsync` is updated to use explicit loading of `Enrollments` and `Students`.</span></span>
 
-<span data-ttu-id="4b9a5-272">使用以下代码更新 Pages/Instructors/Index.cshtml.cs  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-272">Update *Pages/Instructors/Index.cshtml.cs* with the following code.</span></span>
+<span data-ttu-id="d3996-272">使用以下代码更新 Pages/Instructors/Index.cshtml.cs  。</span><span class="sxs-lookup"><span data-stu-id="d3996-272">Update *Pages/Instructors/Index.cshtml.cs* with the following code.</span></span>
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Index.cshtml.cs?highlight=31-35,52-56)]
 
-<span data-ttu-id="4b9a5-273">上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-273">The preceding code drops the *ThenInclude* method calls for enrollment and student data.</span></span> <span data-ttu-id="4b9a5-274">如果已选中课程，则显式加载的代码会检索：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-274">If a course is selected, the explicit loading code retrieves:</span></span>
+<span data-ttu-id="d3996-273">上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。</span><span class="sxs-lookup"><span data-stu-id="d3996-273">The preceding code drops the *ThenInclude* method calls for enrollment and student data.</span></span> <span data-ttu-id="d3996-274">如果已选中课程，则显式加载的代码会检索：</span><span class="sxs-lookup"><span data-stu-id="d3996-274">If a course is selected, the explicit loading code retrieves:</span></span>
 
-* <span data-ttu-id="4b9a5-275">所选课程的 `Enrollment` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-275">The `Enrollment` entities for the selected course.</span></span>
-* <span data-ttu-id="4b9a5-276">每个 `Enrollment` 的 `Student` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-276">The `Student` entities for each `Enrollment`.</span></span>
+* <span data-ttu-id="d3996-275">所选课程的 `Enrollment` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-275">The `Enrollment` entities for the selected course.</span></span>
+* <span data-ttu-id="d3996-276">每个 `Enrollment` 的 `Student` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-276">The `Student` entities for each `Enrollment`.</span></span>
 
-<span data-ttu-id="4b9a5-277">注意，上述代码注释掉了 `.AsNoTracking()`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-277">Notice that the preceding code comments out `.AsNoTracking()`.</span></span> <span data-ttu-id="4b9a5-278">对于跟踪的实体，仅可显式加载导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-278">Navigation properties can only be explicitly loaded for tracked entities.</span></span>
+<span data-ttu-id="d3996-277">注意，上述代码注释掉了 `.AsNoTracking()`。</span><span class="sxs-lookup"><span data-stu-id="d3996-277">Notice that the preceding code comments out `.AsNoTracking()`.</span></span> <span data-ttu-id="d3996-278">对于跟踪的实体，仅可显式加载导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-278">Navigation properties can only be explicitly loaded for tracked entities.</span></span>
 
-<span data-ttu-id="4b9a5-279">测试应用。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-279">Test the app.</span></span> <span data-ttu-id="4b9a5-280">对用户而言，该应用的行为与上一版本相同。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-280">From a user's perspective, the app behaves identically to the previous version.</span></span>
+<span data-ttu-id="d3996-279">测试应用。</span><span class="sxs-lookup"><span data-stu-id="d3996-279">Test the app.</span></span> <span data-ttu-id="d3996-280">对用户而言，该应用的行为与上一版本相同。</span><span class="sxs-lookup"><span data-stu-id="d3996-280">From a user's perspective, the app behaves identically to the previous version.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="4b9a5-281">后续步骤</span><span class="sxs-lookup"><span data-stu-id="4b9a5-281">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="d3996-281">后续步骤</span><span class="sxs-lookup"><span data-stu-id="d3996-281">Next steps</span></span>
 
-<span data-ttu-id="4b9a5-282">下一个教程将介绍如何更新相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-282">The next tutorial shows how to update related data.</span></span>
+<span data-ttu-id="d3996-282">下一个教程将介绍如何更新相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-282">The next tutorial shows how to update related data.</span></span>
 
 >[!div class="step-by-step"]
-><span data-ttu-id="4b9a5-283">[上一个教程](xref:data/ef-rp/complex-data-model)
->[下一个教程](xref:data/ef-rp/update-related-data)</span><span class="sxs-lookup"><span data-stu-id="4b9a5-283">[Previous tutorial](xref:data/ef-rp/complex-data-model)
+><span data-ttu-id="d3996-283">[上一个教程](xref:data/ef-rp/complex-data-model)
+>[下一个教程](xref:data/ef-rp/update-related-data)</span><span class="sxs-lookup"><span data-stu-id="d3996-283">[Previous tutorial](xref:data/ef-rp/complex-data-model)
 [Next tutorial](xref:data/ef-rp/update-related-data)</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="4b9a5-284">在本教程中，将读取和显示相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-284">In this tutorial, related data is read and displayed.</span></span> <span data-ttu-id="4b9a5-285">相关数据为 EF Core 加载到导航属性中的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-285">Related data is data that EF Core loads into navigation properties.</span></span>
+<span data-ttu-id="d3996-284">在本教程中，将读取和显示相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-284">In this tutorial, related data is read and displayed.</span></span> <span data-ttu-id="d3996-285">相关数据为 EF Core 加载到导航属性中的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-285">Related data is data that EF Core loads into navigation properties.</span></span>
 
-<span data-ttu-id="4b9a5-286">如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-286">If you run into problems you can't solve, [download or view the completed app.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)</span></span> <span data-ttu-id="4b9a5-287">[下载说明](xref:index#how-to-download-a-sample)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-287">[Download instructions](xref:index#how-to-download-a-sample).</span></span>
+<span data-ttu-id="d3996-286">如果遇到无法解决的问题，请[下载或查看已完成的应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)。</span><span class="sxs-lookup"><span data-stu-id="d3996-286">If you run into problems you can't solve, [download or view the completed app.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)</span></span> <span data-ttu-id="d3996-287">[下载说明](xref:index#how-to-download-a-sample)。</span><span class="sxs-lookup"><span data-stu-id="d3996-287">[Download instructions](xref:index#how-to-download-a-sample).</span></span>
 
-<span data-ttu-id="4b9a5-288">下图显示了本教程中已完成的页面：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-288">The following illustrations show the completed pages for this tutorial:</span></span>
+<span data-ttu-id="d3996-288">下图显示了本教程中已完成的页面：</span><span class="sxs-lookup"><span data-stu-id="d3996-288">The following illustrations show the completed pages for this tutorial:</span></span>
 
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
 ![“讲师索引”页](read-related-data/_static/instructors-index.png)
 
-## <a name="eager-explicit-and-lazy-loading-of-related-data"></a><span data-ttu-id="4b9a5-291">相关数据的预先加载、显式加载和延迟加载</span><span class="sxs-lookup"><span data-stu-id="4b9a5-291">Eager, explicit, and lazy Loading of related data</span></span>
+## <a name="eager-explicit-and-lazy-loading-of-related-data"></a><span data-ttu-id="d3996-291">相关数据的预先加载、显式加载和延迟加载</span><span class="sxs-lookup"><span data-stu-id="d3996-291">Eager, explicit, and lazy Loading of related data</span></span>
 
-<span data-ttu-id="4b9a5-292">EF Core 可采用多种方式将相关数据加载到实体的导航属性中：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-292">There are several ways that EF Core can load related data into the navigation properties of an entity:</span></span>
+<span data-ttu-id="d3996-292">EF Core 可采用多种方式将相关数据加载到实体的导航属性中：</span><span class="sxs-lookup"><span data-stu-id="d3996-292">There are several ways that EF Core can load related data into the navigation properties of an entity:</span></span>
 
-* <span data-ttu-id="4b9a5-293">[预先加载](/ef/core/querying/related-data#eager-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-293">[Eager loading](/ef/core/querying/related-data#eager-loading).</span></span> <span data-ttu-id="4b9a5-294">预先加载是指对查询某类型的实体时一并加载相关实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-294">Eager loading is when a query for one type of entity also loads related entities.</span></span> <span data-ttu-id="4b9a5-295">读取实体时，会检索其相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-295">When the entity is read, its related data is retrieved.</span></span> <span data-ttu-id="4b9a5-296">此时通常会出现单一联接查询，检索所有必需数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-296">This typically results in a single join query that retrieves all of the data that's needed.</span></span> <span data-ttu-id="4b9a5-297">EF Core 将针对预先加载的某些类型发出多个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-297">EF Core will issue multiple queries for some types of eager loading.</span></span> <span data-ttu-id="4b9a5-298">与存在单一查询的 EF6 中的某些查询相比，发出多个查询可能更有效。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-298">Issuing multiple queries can be more efficient than was the case for some queries in EF6 where there was a single query.</span></span> <span data-ttu-id="4b9a5-299">预先加载通过 `Include` 和 `ThenInclude` 方法进行指定。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-299">Eager loading is specified with the `Include` and `ThenInclude` methods.</span></span>
+* <span data-ttu-id="d3996-293">[预先加载](/ef/core/querying/related-data#eager-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-293">[Eager loading](/ef/core/querying/related-data#eager-loading).</span></span> <span data-ttu-id="d3996-294">预先加载是指对查询某类型的实体时一并加载相关实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-294">Eager loading is when a query for one type of entity also loads related entities.</span></span> <span data-ttu-id="d3996-295">读取实体时，会检索其相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-295">When the entity is read, its related data is retrieved.</span></span> <span data-ttu-id="d3996-296">此时通常会出现单一联接查询，检索所有必需数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-296">This typically results in a single join query that retrieves all of the data that's needed.</span></span> <span data-ttu-id="d3996-297">EF Core 将针对预先加载的某些类型发出多个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-297">EF Core will issue multiple queries for some types of eager loading.</span></span> <span data-ttu-id="d3996-298">与存在单一查询的 EF6 中的某些查询相比，发出多个查询可能更有效。</span><span class="sxs-lookup"><span data-stu-id="d3996-298">Issuing multiple queries can be more efficient than was the case for some queries in EF6 where there was a single query.</span></span> <span data-ttu-id="d3996-299">预先加载通过 `Include` 和 `ThenInclude` 方法进行指定。</span><span class="sxs-lookup"><span data-stu-id="d3996-299">Eager loading is specified with the `Include` and `ThenInclude` methods.</span></span>
 
   ![预先加载示例](read-related-data/_static/eager-loading.png)
  
-  <span data-ttu-id="4b9a5-301">当包含集合导航时，预先加载会发送多个查询：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-301">Eager loading sends multiple queries when a collection navigation is included:</span></span>
+  <span data-ttu-id="d3996-301">当包含集合导航时，预先加载会发送多个查询：</span><span class="sxs-lookup"><span data-stu-id="d3996-301">Eager loading sends multiple queries when a collection navigation is included:</span></span>
 
-  * <span data-ttu-id="4b9a5-302">一个查询用于主查询</span><span class="sxs-lookup"><span data-stu-id="4b9a5-302">One query for the main query</span></span> 
-  * <span data-ttu-id="4b9a5-303">一个查询用于加载树中每个集合“边缘”。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-303">One query for each collection "edge" in the load tree.</span></span>
+  * <span data-ttu-id="d3996-302">一个查询用于主查询</span><span class="sxs-lookup"><span data-stu-id="d3996-302">One query for the main query</span></span> 
+  * <span data-ttu-id="d3996-303">一个查询用于加载树中每个集合“边缘”。</span><span class="sxs-lookup"><span data-stu-id="d3996-303">One query for each collection "edge" in the load tree.</span></span>
 
-* <span data-ttu-id="4b9a5-304">使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core 会“修复”导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-304">Separate queries with `Load`: The data can be retrieved in separate queries, and EF Core "fixes up" the navigation properties.</span></span> <span data-ttu-id="4b9a5-305">“修复”是指 EF Core 自动填充导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-305">"fixes up" means that EF Core automatically populates the navigation properties.</span></span> <span data-ttu-id="4b9a5-306">使用 `Load` 单独查询比预先加载更像是显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-306">Separate queries with `Load` is more like explicit loading than eager loading.</span></span>
+* <span data-ttu-id="d3996-304">使用 `Load` 的单独查询：可在单独的查询中检索数据，EF Core 会“修复”导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-304">Separate queries with `Load`: The data can be retrieved in separate queries, and EF Core "fixes up" the navigation properties.</span></span> <span data-ttu-id="d3996-305">“修复”是指 EF Core 自动填充导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-305">"fixes up" means that EF Core automatically populates the navigation properties.</span></span> <span data-ttu-id="d3996-306">使用 `Load` 单独查询比预先加载更像是显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-306">Separate queries with `Load` is more like explicit loading than eager loading.</span></span>
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  <span data-ttu-id="4b9a5-308">注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-308">Note: EF Core automatically fixes up navigation properties to any other entities that were previously loaded into the context instance.</span></span> <span data-ttu-id="4b9a5-309">即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-309">Even if the data for a navigation property is *not* explicitly included, the property may still be populated if some or all of the related entities were previously loaded.</span></span>
+  <span data-ttu-id="d3996-308">注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-308">Note: EF Core automatically fixes up navigation properties to any other entities that were previously loaded into the context instance.</span></span> <span data-ttu-id="d3996-309">即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-309">Even if the data for a navigation property is *not* explicitly included, the property may still be populated if some or all of the related entities were previously loaded.</span></span>
 
-* <span data-ttu-id="4b9a5-310">[显式加载](/ef/core/querying/related-data#explicit-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-310">[Explicit loading](/ef/core/querying/related-data#explicit-loading).</span></span> <span data-ttu-id="4b9a5-311">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-311">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="4b9a5-312">必须编写代码才能在需要时检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-312">Code must be written to retrieve the related data when it's needed.</span></span> <span data-ttu-id="4b9a5-313">使用单独查询进行显式加载时，会向数据库发送多个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-313">Explicit loading with separate queries results in multiple queries sent to the DB.</span></span> <span data-ttu-id="4b9a5-314">该代码通过显式加载指定要加载的导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-314">With explicit loading, the code specifies the navigation properties to be loaded.</span></span> <span data-ttu-id="4b9a5-315">使用 `Load` 方法进行显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-315">Use the `Load` method to do explicit loading.</span></span> <span data-ttu-id="4b9a5-316">例如：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-316">For example:</span></span>
+* <span data-ttu-id="d3996-310">[显式加载](/ef/core/querying/related-data#explicit-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-310">[Explicit loading](/ef/core/querying/related-data#explicit-loading).</span></span> <span data-ttu-id="d3996-311">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-311">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="d3996-312">必须编写代码才能在需要时检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-312">Code must be written to retrieve the related data when it's needed.</span></span> <span data-ttu-id="d3996-313">使用单独查询进行显式加载时，会向数据库发送多个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-313">Explicit loading with separate queries results in multiple queries sent to the DB.</span></span> <span data-ttu-id="d3996-314">该代码通过显式加载指定要加载的导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-314">With explicit loading, the code specifies the navigation properties to be loaded.</span></span> <span data-ttu-id="d3996-315">使用 `Load` 方法进行显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-315">Use the `Load` method to do explicit loading.</span></span> <span data-ttu-id="d3996-316">例如：</span><span class="sxs-lookup"><span data-stu-id="d3996-316">For example:</span></span>
 
   ![显式加载示例](read-related-data/_static/explicit-loading.png)
 
-* <span data-ttu-id="4b9a5-318">[延迟加载](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-318">[Lazy loading](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="4b9a5-319">[延迟加载已添加到版本 2.1 中的 EF Core](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-319">[Lazy loading was added to EF Core in version 2.1](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="4b9a5-320">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-320">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="4b9a5-321">首次访问导航属性时，会自动检索该导航属性所需的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-321">The first time a navigation property is accessed, the data required for that navigation property is automatically retrieved.</span></span> <span data-ttu-id="4b9a5-322">首次访问导航属性时，都会向数据库发送一个查询。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-322">A query is sent to the DB each time a navigation property is accessed for the first time.</span></span>
+* <span data-ttu-id="d3996-318">[延迟加载](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-318">[Lazy loading](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="d3996-319">[延迟加载已添加到版本 2.1 中的 EF Core](/ef/core/querying/related-data#lazy-loading)。</span><span class="sxs-lookup"><span data-stu-id="d3996-319">[Lazy loading was added to EF Core in version 2.1](/ef/core/querying/related-data#lazy-loading).</span></span> <span data-ttu-id="d3996-320">首次读取实体时，不检索相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-320">When the entity is first read, related data isn't retrieved.</span></span> <span data-ttu-id="d3996-321">首次访问导航属性时，会自动检索该导航属性所需的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-321">The first time a navigation property is accessed, the data required for that navigation property is automatically retrieved.</span></span> <span data-ttu-id="d3996-322">首次访问导航属性时，都会向数据库发送一个查询。</span><span class="sxs-lookup"><span data-stu-id="d3996-322">A query is sent to the DB each time a navigation property is accessed for the first time.</span></span>
 
-* <span data-ttu-id="4b9a5-323">`Select` 运算符仅加载所需的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-323">The `Select` operator loads only the related data needed.</span></span>
+* <span data-ttu-id="d3996-323">`Select` 运算符仅加载所需的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-323">The `Select` operator loads only the related data needed.</span></span>
 
-## <a name="create-a-course-page-that-displays-department-name"></a><span data-ttu-id="4b9a5-324">创建显示院系名称的“课程”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-324">Create a Course page that displays department name</span></span>
+## <a name="create-a-course-page-that-displays-department-name"></a><span data-ttu-id="d3996-324">创建显示院系名称的“课程”页</span><span class="sxs-lookup"><span data-stu-id="d3996-324">Create a Course page that displays department name</span></span>
 
-<span data-ttu-id="4b9a5-325">课程实体包括一个带 `Department` 实体的导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-325">The Course entity includes a navigation property that contains the `Department` entity.</span></span> <span data-ttu-id="4b9a5-326">`Department` 实体包含要分配课程的院系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-326">The `Department` entity contains the department that the course is assigned to.</span></span>
+<span data-ttu-id="d3996-325">课程实体包括一个带 `Department` 实体的导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-325">The Course entity includes a navigation property that contains the `Department` entity.</span></span> <span data-ttu-id="d3996-326">`Department` 实体包含要分配课程的院系。</span><span class="sxs-lookup"><span data-stu-id="d3996-326">The `Department` entity contains the department that the course is assigned to.</span></span>
 
-<span data-ttu-id="4b9a5-327">要在课程列表中显示已分配院系的名称：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-327">To display the name of the assigned department in a list of courses:</span></span>
+<span data-ttu-id="d3996-327">要在课程列表中显示已分配院系的名称：</span><span class="sxs-lookup"><span data-stu-id="d3996-327">To display the name of the assigned department in a list of courses:</span></span>
 
-* <span data-ttu-id="4b9a5-328">从 `Department` 实体中获取 `Name` 属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-328">Get the `Name` property from the `Department` entity.</span></span>
-* <span data-ttu-id="4b9a5-329">`Department` 实体来自于 `Course.Department` 导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-329">The `Department` entity comes from the `Course.Department` navigation property.</span></span>
+* <span data-ttu-id="d3996-328">从 `Department` 实体中获取 `Name` 属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-328">Get the `Name` property from the `Department` entity.</span></span>
+* <span data-ttu-id="d3996-329">`Department` 实体来自于 `Course.Department` 导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-329">The `Department` entity comes from the `Course.Department` navigation property.</span></span>
 
 ![Course.Department](read-related-data/_static/dep-crs.png)
 
 <a name="scaffold"></a>
 
-### <a name="scaffold-the-course-model"></a><span data-ttu-id="4b9a5-331">为课程模型创建基架</span><span class="sxs-lookup"><span data-stu-id="4b9a5-331">Scaffold the Course model</span></span>
+### <a name="scaffold-the-course-model"></a><span data-ttu-id="d3996-331">为课程模型创建基架</span><span class="sxs-lookup"><span data-stu-id="d3996-331">Scaffold the Course model</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="4b9a5-332">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="4b9a5-332">Visual Studio</span></span>](#tab/visual-studio) 
+# <a name="visual-studio"></a>[<span data-ttu-id="d3996-332">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d3996-332">Visual Studio</span></span>](#tab/visual-studio) 
 
-<span data-ttu-id="4b9a5-333">按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Course`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-333">Follow the instructions in [Scaffold the student model](xref:data/ef-rp/intro#scaffold-the-student-model) and use `Course` for the model class.</span></span>
+<span data-ttu-id="d3996-333">按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Course`。</span><span class="sxs-lookup"><span data-stu-id="d3996-333">Follow the instructions in [Scaffold the student model](xref:data/ef-rp/intro#scaffold-the-student-model) and use `Course` for the model class.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="4b9a5-334">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="4b9a5-334">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="d3996-334">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d3996-334">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
- <span data-ttu-id="4b9a5-335">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-335">Run the following command:</span></span>
+ <span data-ttu-id="d3996-335">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="d3996-335">Run the following command:</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
@@ -397,86 +397,86 @@ ms.locfileid: "78645588"
 
 ---
 
-<span data-ttu-id="4b9a5-336">上述命令为 `Course` 模型创建基架。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-336">The preceding command scaffolds the `Course` model.</span></span> <span data-ttu-id="4b9a5-337">在 Visual Studio 中打开项目。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-337">Open the project in Visual Studio.</span></span>
+<span data-ttu-id="d3996-336">上述命令为 `Course` 模型创建基架。</span><span class="sxs-lookup"><span data-stu-id="d3996-336">The preceding command scaffolds the `Course` model.</span></span> <span data-ttu-id="d3996-337">在 Visual Studio 中打开项目。</span><span class="sxs-lookup"><span data-stu-id="d3996-337">Open the project in Visual Studio.</span></span>
 
-<span data-ttu-id="4b9a5-338">打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-338">Open *Pages/Courses/Index.cshtml.cs* and examine the `OnGetAsync` method.</span></span> <span data-ttu-id="4b9a5-339">基架引擎为 `Department` 导航属性指定了预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-339">The scaffolding engine specified eager loading for the `Department` navigation property.</span></span> <span data-ttu-id="4b9a5-340">`Include` 方法指定预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-340">The `Include` method specifies eager loading.</span></span>
+<span data-ttu-id="d3996-338">打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。</span><span class="sxs-lookup"><span data-stu-id="d3996-338">Open *Pages/Courses/Index.cshtml.cs* and examine the `OnGetAsync` method.</span></span> <span data-ttu-id="d3996-339">基架引擎为 `Department` 导航属性指定了预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-339">The scaffolding engine specified eager loading for the `Department` navigation property.</span></span> <span data-ttu-id="d3996-340">`Include` 方法指定预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-340">The `Include` method specifies eager loading.</span></span>
 
-<span data-ttu-id="4b9a5-341">运行应用并选择“课程”链接  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-341">Run the app and select the **Courses** link.</span></span> <span data-ttu-id="4b9a5-342">院系列显示 `DepartmentID`（该项无用）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-342">The department column displays the `DepartmentID`, which isn't useful.</span></span>
+<span data-ttu-id="d3996-341">运行应用并选择“课程”链接  。</span><span class="sxs-lookup"><span data-stu-id="d3996-341">Run the app and select the **Courses** link.</span></span> <span data-ttu-id="d3996-342">院系列显示 `DepartmentID`（该项无用）。</span><span class="sxs-lookup"><span data-stu-id="d3996-342">The department column displays the `DepartmentID`, which isn't useful.</span></span>
 
-<span data-ttu-id="4b9a5-343">使用以下代码更新 `OnGetAsync` 方法：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-343">Update the `OnGetAsync` method with the following code:</span></span>
+<span data-ttu-id="d3996-343">使用以下代码更新 `OnGetAsync` 方法：</span><span class="sxs-lookup"><span data-stu-id="d3996-343">Update the `OnGetAsync` method with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Index.cshtml.cs?name=snippet_RevisedIndexMethod)]
 
-<span data-ttu-id="4b9a5-344">上述代码添加了 `AsNoTracking`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-344">The preceding code adds `AsNoTracking`.</span></span> <span data-ttu-id="4b9a5-345">由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-345">`AsNoTracking` improves performance because the entities returned are not tracked.</span></span> <span data-ttu-id="4b9a5-346">未跟踪实体，因为未在当前上下文中更新这些实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-346">The entities are not tracked because they're not updated in the current context.</span></span>
+<span data-ttu-id="d3996-344">上述代码添加了 `AsNoTracking`。</span><span class="sxs-lookup"><span data-stu-id="d3996-344">The preceding code adds `AsNoTracking`.</span></span> <span data-ttu-id="d3996-345">由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。</span><span class="sxs-lookup"><span data-stu-id="d3996-345">`AsNoTracking` improves performance because the entities returned are not tracked.</span></span> <span data-ttu-id="d3996-346">未跟踪实体，因为未在当前上下文中更新这些实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-346">The entities are not tracked because they're not updated in the current context.</span></span>
 
-<span data-ttu-id="4b9a5-347">使用以下突出显示的标记更新 Pages/Courses/Index.cshtml  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-347">Update *Pages/Courses/Index.cshtml* with the following highlighted markup:</span></span>
+<span data-ttu-id="d3996-347">使用以下突出显示的标记更新 Pages/Courses/Index.cshtml  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-347">Update *Pages/Courses/Index.cshtml* with the following highlighted markup:</span></span>
 
 [!code-html[](intro/samples/cu/Pages/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
-<span data-ttu-id="4b9a5-348">对基架代码进行了以下更改：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-348">The following changes have been made to the scaffolded code:</span></span>
+<span data-ttu-id="d3996-348">对基架代码进行了以下更改：</span><span class="sxs-lookup"><span data-stu-id="d3996-348">The following changes have been made to the scaffolded code:</span></span>
 
-* <span data-ttu-id="4b9a5-349">将标题从“索引”更改为“课程”。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-349">Changed the heading from Index to Courses.</span></span>
-* <span data-ttu-id="4b9a5-350">添加了显示 `CourseID` 属性值的“数字”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-350">Added a **Number** column that shows the `CourseID` property value.</span></span> <span data-ttu-id="4b9a5-351">默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-351">By default, primary keys aren't scaffolded because normally they're meaningless to end users.</span></span> <span data-ttu-id="4b9a5-352">但在此情况下主键是有意义的。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-352">However, in this case the primary key is meaningful.</span></span>
-* <span data-ttu-id="4b9a5-353">更改“院系”列，显示院系名称  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-353">Changed the **Department** column to display the department name.</span></span> <span data-ttu-id="4b9a5-354">该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-354">The code displays the `Name` property of the `Department` entity that's loaded into the `Department` navigation property:</span></span>
+* <span data-ttu-id="d3996-349">将标题从“索引”更改为“课程”。</span><span class="sxs-lookup"><span data-stu-id="d3996-349">Changed the heading from Index to Courses.</span></span>
+* <span data-ttu-id="d3996-350">添加了显示 `CourseID` 属性值的“数字”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-350">Added a **Number** column that shows the `CourseID` property value.</span></span> <span data-ttu-id="d3996-351">默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。</span><span class="sxs-lookup"><span data-stu-id="d3996-351">By default, primary keys aren't scaffolded because normally they're meaningless to end users.</span></span> <span data-ttu-id="d3996-352">但在此情况下主键是有意义的。</span><span class="sxs-lookup"><span data-stu-id="d3996-352">However, in this case the primary key is meaningful.</span></span>
+* <span data-ttu-id="d3996-353">更改“院系”列，显示院系名称  。</span><span class="sxs-lookup"><span data-stu-id="d3996-353">Changed the **Department** column to display the department name.</span></span> <span data-ttu-id="d3996-354">该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：</span><span class="sxs-lookup"><span data-stu-id="d3996-354">The code displays the `Name` property of the `Department` entity that's loaded into the `Department` navigation property:</span></span>
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-<span data-ttu-id="4b9a5-355">运行应用并选择“课程”选项卡，查看包含系名称的列表  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-355">Run the app and select the **Courses** tab to see the list with department names.</span></span>
+<span data-ttu-id="d3996-355">运行应用并选择“课程”选项卡，查看包含系名称的列表  。</span><span class="sxs-lookup"><span data-stu-id="d3996-355">Run the app and select the **Courses** tab to see the list with department names.</span></span>
 
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
 <a name="select"></a>
 
-### <a name="loading-related-data-with-select"></a><span data-ttu-id="4b9a5-357">使用 Select 加载相关数据</span><span class="sxs-lookup"><span data-stu-id="4b9a5-357">Loading related data with Select</span></span>
+### <a name="loading-related-data-with-select"></a><span data-ttu-id="d3996-357">使用 Select 加载相关数据</span><span class="sxs-lookup"><span data-stu-id="d3996-357">Loading related data with Select</span></span>
 
-<span data-ttu-id="4b9a5-358">`OnGetAsync` 方法使用 `Include` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-358">The `OnGetAsync` method loads related data with the `Include` method:</span></span>
+<span data-ttu-id="d3996-358">`OnGetAsync` 方法使用 `Include` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="d3996-358">The `OnGetAsync` method loads related data with the `Include` method:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Index.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=4)]
 
-<span data-ttu-id="4b9a5-359">`Select` 运算符仅加载所需的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-359">The `Select` operator loads only the related data needed.</span></span> <span data-ttu-id="4b9a5-360">对于单个项（如 `Department.Name`），它使用 SQL INNER JOIN。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-360">For single items, like the `Department.Name` it uses a SQL INNER JOIN.</span></span> <span data-ttu-id="4b9a5-361">对于集合，它使用另一个数据库访问，但集合上的 `Include` 运算符也是如此。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-361">For collections, it uses another database access, but so does the `Include` operator on collections.</span></span>
+<span data-ttu-id="d3996-359">`Select` 运算符仅加载所需的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-359">The `Select` operator loads only the related data needed.</span></span> <span data-ttu-id="d3996-360">对于单个项（如 `Department.Name`），它使用 SQL INNER JOIN。</span><span class="sxs-lookup"><span data-stu-id="d3996-360">For single items, like the `Department.Name` it uses a SQL INNER JOIN.</span></span> <span data-ttu-id="d3996-361">对于集合，它使用另一个数据库访问，但集合上的 `Include` 运算符也是如此。</span><span class="sxs-lookup"><span data-stu-id="d3996-361">For collections, it uses another database access, but so does the `Include` operator on collections.</span></span>
 
-<span data-ttu-id="4b9a5-362">以下代码使用 `Select` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-362">The following code loads related data with the `Select` method:</span></span>
+<span data-ttu-id="d3996-362">以下代码使用 `Select` 方法加载相关数据：</span><span class="sxs-lookup"><span data-stu-id="d3996-362">The following code loads related data with the `Select` method:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=4)]
 
-<span data-ttu-id="4b9a5-363">`CourseViewModel`：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-363">The `CourseViewModel`:</span></span>
+<span data-ttu-id="d3996-363">`CourseViewModel`：</span><span class="sxs-lookup"><span data-stu-id="d3996-363">The `CourseViewModel`:</span></span>
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-<span data-ttu-id="4b9a5-364">有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-364">See [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) and [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs) for a complete example.</span></span>
+<span data-ttu-id="d3996-364">有关完整示例的信息，请参阅 [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) 和 [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs)。</span><span class="sxs-lookup"><span data-stu-id="d3996-364">See [IndexSelect.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) and [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs) for a complete example.</span></span>
 
-## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a><span data-ttu-id="4b9a5-365">创建显示“课程”和“注册”的“讲师”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-365">Create an Instructors page that shows Courses and Enrollments</span></span>
+## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a><span data-ttu-id="d3996-365">创建显示“课程”和“注册”的“讲师”页</span><span class="sxs-lookup"><span data-stu-id="d3996-365">Create an Instructors page that shows Courses and Enrollments</span></span>
 
-<span data-ttu-id="4b9a5-366">在本部分中，将创建“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-366">In this section, the Instructors page is created.</span></span>
+<span data-ttu-id="d3996-366">在本部分中，将创建“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="d3996-366">In this section, the Instructors page is created.</span></span>
 
 <a name="IP"></a>
-<span data-ttu-id="4b9a5-367">![“讲师索引”页](read-related-data/_static/instructors-index.png)</span><span class="sxs-lookup"><span data-stu-id="4b9a5-367">![Instructors Index page](read-related-data/_static/instructors-index.png)</span></span>
+<span data-ttu-id="d3996-367">![“讲师索引”页](read-related-data/_static/instructors-index.png)</span><span class="sxs-lookup"><span data-stu-id="d3996-367">![Instructors Index page](read-related-data/_static/instructors-index.png)</span></span>
 
-<span data-ttu-id="4b9a5-368">该页面通过以下方式读取和显示相关数据：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-368">This page reads and displays related data in the following ways:</span></span>
+<span data-ttu-id="d3996-368">该页面通过以下方式读取和显示相关数据：</span><span class="sxs-lookup"><span data-stu-id="d3996-368">This page reads and displays related data in the following ways:</span></span>
 
-* <span data-ttu-id="4b9a5-369">讲师列表显示 `OfficeAssignment` 实体（上图中的办公室）的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-369">The list of instructors displays related data from the `OfficeAssignment` entity (Office in the preceding image).</span></span> <span data-ttu-id="4b9a5-370">`Instructor` 和 `OfficeAssignment` 实体之间存在一对零或一的关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-370">The `Instructor` and `OfficeAssignment` entities are in a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="4b9a5-371">预先加载适用于 `OfficeAssignment` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-371">Eager loading is used for the `OfficeAssignment` entities.</span></span> <span data-ttu-id="4b9a5-372">需要显示相关数据时，预先加载通常更高效。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-372">Eager loading is typically more efficient when the related data needs to be displayed.</span></span> <span data-ttu-id="4b9a5-373">在此情况下，会显示讲师的办公室分配。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-373">In this case, office assignments for the instructors are displayed.</span></span>
-* <span data-ttu-id="4b9a5-374">当用户选择一名讲师（上图中的 Harui）时，显示相关的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-374">When the user selects an instructor (Harui in the preceding image), related `Course` entities are displayed.</span></span> <span data-ttu-id="4b9a5-375">`Instructor` 和 `Course` 实体之间存在多对多关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-375">The `Instructor` and `Course` entities are in a many-to-many relationship.</span></span> <span data-ttu-id="4b9a5-376">对 `Course` 实体及其相关的 `Department` 实体使用预先加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-376">Eager loading is used for the `Course` entities and their related `Department` entities.</span></span> <span data-ttu-id="4b9a5-377">这种情况下，单独查询可能更有效，因为仅需显示所选讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-377">In this case, separate queries might be more efficient because only courses for the selected instructor are needed.</span></span> <span data-ttu-id="4b9a5-378">此示例演示如何在位于导航实体内的实体中预先加载这些导航实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-378">This example shows how to use eager loading for navigation properties in entities that are in navigation properties.</span></span>
-* <span data-ttu-id="4b9a5-379">当用户选择一门课程（上图中的化学）时，显示 `Enrollments` 实体的相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-379">When the user selects a course (Chemistry in the preceding image), related data from the `Enrollments` entity is displayed.</span></span> <span data-ttu-id="4b9a5-380">上图中显示了学生姓名和成绩。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-380">In the preceding image, student name and grade are displayed.</span></span> <span data-ttu-id="4b9a5-381">`Course` 和 `Enrollment` 实体之间存在一对多的关系。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-381">The `Course` and `Enrollment` entities are in a one-to-many relationship.</span></span>
+* <span data-ttu-id="d3996-369">讲师列表显示 `OfficeAssignment` 实体（上图中的办公室）的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-369">The list of instructors displays related data from the `OfficeAssignment` entity (Office in the preceding image).</span></span> <span data-ttu-id="d3996-370">`Instructor` 和 `OfficeAssignment` 实体之间存在一对零或一的关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-370">The `Instructor` and `OfficeAssignment` entities are in a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="d3996-371">预先加载适用于 `OfficeAssignment` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-371">Eager loading is used for the `OfficeAssignment` entities.</span></span> <span data-ttu-id="d3996-372">需要显示相关数据时，预先加载通常更高效。</span><span class="sxs-lookup"><span data-stu-id="d3996-372">Eager loading is typically more efficient when the related data needs to be displayed.</span></span> <span data-ttu-id="d3996-373">在此情况下，会显示讲师的办公室分配。</span><span class="sxs-lookup"><span data-stu-id="d3996-373">In this case, office assignments for the instructors are displayed.</span></span>
+* <span data-ttu-id="d3996-374">当用户选择一名讲师（上图中的 Harui）时，显示相关的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-374">When the user selects an instructor (Harui in the preceding image), related `Course` entities are displayed.</span></span> <span data-ttu-id="d3996-375">`Instructor` 和 `Course` 实体之间存在多对多关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-375">The `Instructor` and `Course` entities are in a many-to-many relationship.</span></span> <span data-ttu-id="d3996-376">对 `Course` 实体及其相关的 `Department` 实体使用预先加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-376">Eager loading is used for the `Course` entities and their related `Department` entities.</span></span> <span data-ttu-id="d3996-377">这种情况下，单独查询可能更有效，因为仅需显示所选讲师的课程。</span><span class="sxs-lookup"><span data-stu-id="d3996-377">In this case, separate queries might be more efficient because only courses for the selected instructor are needed.</span></span> <span data-ttu-id="d3996-378">此示例演示如何在位于导航实体内的实体中预先加载这些导航实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-378">This example shows how to use eager loading for navigation properties in entities that are in navigation properties.</span></span>
+* <span data-ttu-id="d3996-379">当用户选择一门课程（上图中的化学）时，显示 `Enrollments` 实体的相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-379">When the user selects a course (Chemistry in the preceding image), related data from the `Enrollments` entity is displayed.</span></span> <span data-ttu-id="d3996-380">上图中显示了学生姓名和成绩。</span><span class="sxs-lookup"><span data-stu-id="d3996-380">In the preceding image, student name and grade are displayed.</span></span> <span data-ttu-id="d3996-381">`Course` 和 `Enrollment` 实体之间存在一对多的关系。</span><span class="sxs-lookup"><span data-stu-id="d3996-381">The `Course` and `Enrollment` entities are in a one-to-many relationship.</span></span>
 
-### <a name="create-a-view-model-for-the-instructor-index-view"></a><span data-ttu-id="4b9a5-382">创建“讲师索引”视图的视图模型</span><span class="sxs-lookup"><span data-stu-id="4b9a5-382">Create a view model for the Instructor Index view</span></span>
+### <a name="create-a-view-model-for-the-instructor-index-view"></a><span data-ttu-id="d3996-382">创建“讲师索引”视图的视图模型</span><span class="sxs-lookup"><span data-stu-id="d3996-382">Create a view model for the Instructor Index view</span></span>
 
-<span data-ttu-id="4b9a5-383">“讲师”页显示来自三个不同表格的数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-383">The instructors page shows data from three different tables.</span></span> <span data-ttu-id="4b9a5-384">创建一个视图模型，该模型中包含表示三个表格的三个实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-384">A view model is created that includes the three entities representing the three tables.</span></span>
+<span data-ttu-id="d3996-383">“讲师”页显示来自三个不同表格的数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-383">The instructors page shows data from three different tables.</span></span> <span data-ttu-id="d3996-384">创建一个视图模型，该模型中包含表示三个表格的三个实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-384">A view model is created that includes the three entities representing the three tables.</span></span>
 
-<span data-ttu-id="4b9a5-385">在 SchoolViewModels  文件夹中，使用以下代码创建 InstructorIndexData.cs  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-385">In the *SchoolViewModels* folder, create *InstructorIndexData.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-385">在 SchoolViewModels  文件夹中，使用以下代码创建 InstructorIndexData.cs  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-385">In the *SchoolViewModels* folder, create *InstructorIndexData.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/InstructorIndexData.cs)]
 
-### <a name="scaffold-the-instructor-model"></a><span data-ttu-id="4b9a5-386">为讲师模型创建基架</span><span class="sxs-lookup"><span data-stu-id="4b9a5-386">Scaffold the Instructor model</span></span>
+### <a name="scaffold-the-instructor-model"></a><span data-ttu-id="d3996-386">为讲师模型创建基架</span><span class="sxs-lookup"><span data-stu-id="d3996-386">Scaffold the Instructor model</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="4b9a5-387">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="4b9a5-387">Visual Studio</span></span>](#tab/visual-studio) 
+# <a name="visual-studio"></a>[<span data-ttu-id="d3996-387">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d3996-387">Visual Studio</span></span>](#tab/visual-studio) 
 
-<span data-ttu-id="4b9a5-388">按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Instructor`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-388">Follow the instructions in [Scaffold the student model](xref:data/ef-rp/intro#scaffold-the-student-model) and use `Instructor` for the model class.</span></span>
+<span data-ttu-id="d3996-388">按照[为“学生”模型搭建基架](xref:data/ef-rp/intro#scaffold-the-student-model)中的说明操作，并对模型类使用 `Instructor`。</span><span class="sxs-lookup"><span data-stu-id="d3996-388">Follow the instructions in [Scaffold the student model](xref:data/ef-rp/intro#scaffold-the-student-model) and use `Instructor` for the model class.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="4b9a5-389">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="4b9a5-389">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="d3996-389">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d3996-389">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
- <span data-ttu-id="4b9a5-390">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-390">Run the following command:</span></span>
+ <span data-ttu-id="d3996-390">运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="d3996-390">Run the following command:</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
@@ -484,42 +484,42 @@ ms.locfileid: "78645588"
 
 ---
 
-<span data-ttu-id="4b9a5-391">上述命令为 `Instructor` 模型创建基架。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-391">The preceding command scaffolds the `Instructor` model.</span></span> 
-<span data-ttu-id="4b9a5-392">运行应用并导航到“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-392">Run the app and navigate to the instructors page.</span></span>
+<span data-ttu-id="d3996-391">上述命令为 `Instructor` 模型创建基架。</span><span class="sxs-lookup"><span data-stu-id="d3996-391">The preceding command scaffolds the `Instructor` model.</span></span> 
+<span data-ttu-id="d3996-392">运行应用并导航到“讲师”页。</span><span class="sxs-lookup"><span data-stu-id="d3996-392">Run the app and navigate to the instructors page.</span></span>
 
-<span data-ttu-id="4b9a5-393">将 Pages/Instructors/Index.cshtml.cs  替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-393">Replace *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-393">将 Pages/Instructors/Index.cshtml.cs  替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="d3996-393">Replace *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,18-99)]
 
-<span data-ttu-id="4b9a5-394">`OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-394">The `OnGetAsync` method accepts optional route data for the ID of the selected instructor.</span></span>
+<span data-ttu-id="d3996-394">`OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-394">The `OnGetAsync` method accepts optional route data for the ID of the selected instructor.</span></span>
 
-<span data-ttu-id="4b9a5-395">检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-395">Examine the query in the *Pages/Instructors/Index.cshtml.cs* file:</span></span>
+<span data-ttu-id="d3996-395">检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-395">Examine the query in the *Pages/Instructors/Index.cshtml.cs* file:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index1.cshtml.cs?name=snippet_ThenInclude)]
 
-<span data-ttu-id="4b9a5-396">查询包括两项内容：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-396">The query has two includes:</span></span>
+<span data-ttu-id="d3996-396">查询包括两项内容：</span><span class="sxs-lookup"><span data-stu-id="d3996-396">The query has two includes:</span></span>
 
-* <span data-ttu-id="4b9a5-397">`OfficeAssignment`：在[讲师视图](#IP)中显示。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-397">`OfficeAssignment`: Displayed in the [instructors view](#IP).</span></span>
-* <span data-ttu-id="4b9a5-398">`CourseAssignments`：课程的教学内容。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-398">`CourseAssignments`: Which brings in the courses taught.</span></span>
+* <span data-ttu-id="d3996-397">`OfficeAssignment`：在[讲师视图](#IP)中显示。</span><span class="sxs-lookup"><span data-stu-id="d3996-397">`OfficeAssignment`: Displayed in the [instructors view](#IP).</span></span>
+* <span data-ttu-id="d3996-398">`CourseAssignments`：课程的教学内容。</span><span class="sxs-lookup"><span data-stu-id="d3996-398">`CourseAssignments`: Which brings in the courses taught.</span></span>
 
-### <a name="update-the-instructors-index-page"></a><span data-ttu-id="4b9a5-399">更新“讲师索引”页</span><span class="sxs-lookup"><span data-stu-id="4b9a5-399">Update the instructors Index page</span></span>
+### <a name="update-the-instructors-index-page"></a><span data-ttu-id="d3996-399">更新“讲师索引”页</span><span class="sxs-lookup"><span data-stu-id="d3996-399">Update the instructors Index page</span></span>
 
-<span data-ttu-id="4b9a5-400">使用以下标记更新 Pages/Instructors/Index.cshtml  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-400">Update *Pages/Instructors/Index.cshtml* with the following markup:</span></span>
+<span data-ttu-id="d3996-400">使用以下标记更新 Pages/Instructors/Index.cshtml  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-400">Update *Pages/Instructors/Index.cshtml* with the following markup:</span></span>
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=1-65&highlight=1,5,8,16-21,25-32,43-57)]
 
-<span data-ttu-id="4b9a5-401">上述标记进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-401">The preceding markup makes the following changes:</span></span>
+<span data-ttu-id="d3996-401">上述标记进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="d3996-401">The preceding markup makes the following changes:</span></span>
 
-* <span data-ttu-id="4b9a5-402">将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-402">Updates the `page` directive from `@page` to `@page "{id:int?}"`.</span></span> <span data-ttu-id="4b9a5-403">`"{id:int?}"` 是一个路由模板。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-403">`"{id:int?}"` is a route template.</span></span> <span data-ttu-id="4b9a5-404">路由模板将 URL 中的整数查询字符串更改为路由数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-404">The route template changes integer query strings in the URL to route data.</span></span> <span data-ttu-id="4b9a5-405">例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-405">For example, clicking on the **Select** link for an instructor with only the `@page` directive produces a URL like the following:</span></span>
+* <span data-ttu-id="d3996-402">将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。</span><span class="sxs-lookup"><span data-stu-id="d3996-402">Updates the `page` directive from `@page` to `@page "{id:int?}"`.</span></span> <span data-ttu-id="d3996-403">`"{id:int?}"` 是一个路由模板。</span><span class="sxs-lookup"><span data-stu-id="d3996-403">`"{id:int?}"` is a route template.</span></span> <span data-ttu-id="d3996-404">路由模板将 URL 中的整数查询字符串更改为路由数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-404">The route template changes integer query strings in the URL to route data.</span></span> <span data-ttu-id="d3996-405">例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-405">For example, clicking on the **Select** link for an instructor with only the `@page` directive produces a URL like the following:</span></span>
 
   `http://localhost:1234/Instructors?id=2`
 
-  <span data-ttu-id="4b9a5-406">当页面指令是 `@page "{id:int?}"` 时，之前的 URL 为：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-406">When the page directive is `@page "{id:int?}"`, the previous URL is:</span></span>
+  <span data-ttu-id="d3996-406">当页面指令是 `@page "{id:int?}"` 时，之前的 URL 为：</span><span class="sxs-lookup"><span data-stu-id="d3996-406">When the page directive is `@page "{id:int?}"`, the previous URL is:</span></span>
 
   `http://localhost:1234/Instructors/2`
 
-* <span data-ttu-id="4b9a5-407">页标题为“讲师”  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-407">Page title is **Instructors**.</span></span>
-* <span data-ttu-id="4b9a5-408">添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-408">Added an **Office** column that displays `item.OfficeAssignment.Location` only if `item.OfficeAssignment` isn't null.</span></span> <span data-ttu-id="4b9a5-409">由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-409">Because this is a one-to-zero-or-one relationship, there might not be a related OfficeAssignment entity.</span></span>
+* <span data-ttu-id="d3996-407">页标题为“讲师”  。</span><span class="sxs-lookup"><span data-stu-id="d3996-407">Page title is **Instructors**.</span></span>
+* <span data-ttu-id="d3996-408">添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-408">Added an **Office** column that displays `item.OfficeAssignment.Location` only if `item.OfficeAssignment` isn't null.</span></span> <span data-ttu-id="d3996-409">由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-409">Because this is a one-to-zero-or-one relationship, there might not be a related OfficeAssignment entity.</span></span>
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -528,9 +528,9 @@ ms.locfileid: "78645588"
   }
   ```
 
-* <span data-ttu-id="4b9a5-410">添加了显示每位讲师所授课程的“课程”列  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-410">Added a **Courses** column that displays courses taught by each instructor.</span></span> <span data-ttu-id="4b9a5-411">有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-411">See [Explicit line transition](xref:mvc/views/razor#explicit-line-transition) for more about this razor syntax.</span></span>
+* <span data-ttu-id="d3996-410">添加了显示每位讲师所授课程的“课程”列  。</span><span class="sxs-lookup"><span data-stu-id="d3996-410">Added a **Courses** column that displays courses taught by each instructor.</span></span> <span data-ttu-id="d3996-411">有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。</span><span class="sxs-lookup"><span data-stu-id="d3996-411">See [Explicit line transition](xref:mvc/views/razor#explicit-line-transition) for more about this razor syntax.</span></span>
 
-* <span data-ttu-id="4b9a5-412">添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-412">Added code that dynamically adds `class="success"` to the `tr` element of the selected instructor.</span></span> <span data-ttu-id="4b9a5-413">此时会使用 Bootstrap 类为所选行设置背景色。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-413">This sets a background color for the selected row using a Bootstrap class.</span></span>
+* <span data-ttu-id="d3996-412">添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。</span><span class="sxs-lookup"><span data-stu-id="d3996-412">Added code that dynamically adds `class="success"` to the `tr` element of the selected instructor.</span></span> <span data-ttu-id="d3996-413">此时会使用 Bootstrap 类为所选行设置背景色。</span><span class="sxs-lookup"><span data-stu-id="d3996-413">This sets a background color for the selected row using a Bootstrap class.</span></span>
 
   ```html
   string selectedRow = "";
@@ -541,114 +541,114 @@ ms.locfileid: "78645588"
   <tr class="@selectedRow">
   ```
 
-* <span data-ttu-id="4b9a5-414">添加了标记为“选择”的新的超链接  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-414">Added a new hyperlink labeled **Select**.</span></span> <span data-ttu-id="4b9a5-415">该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-415">This link sends the selected instructor's ID to the `Index` method and sets a background color.</span></span>
+* <span data-ttu-id="d3996-414">添加了标记为“选择”的新的超链接  。</span><span class="sxs-lookup"><span data-stu-id="d3996-414">Added a new hyperlink labeled **Select**.</span></span> <span data-ttu-id="d3996-415">该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。</span><span class="sxs-lookup"><span data-stu-id="d3996-415">This link sends the selected instructor's ID to the `Index` method and sets a background color.</span></span>
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-<span data-ttu-id="4b9a5-416">运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-416">Run the app and select the **Instructors** tab. The page displays the `Location` (office) from the related `OfficeAssignment` entity.</span></span> <span data-ttu-id="4b9a5-417">如果 OfficeAssignment\` 为 NULL，则显示空白表格单元格。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-417">If OfficeAssignment\` is null, an empty table cell is displayed.</span></span>
+<span data-ttu-id="d3996-416">运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。</span><span class="sxs-lookup"><span data-stu-id="d3996-416">Run the app and select the **Instructors** tab. The page displays the `Location` (office) from the related `OfficeAssignment` entity.</span></span> <span data-ttu-id="d3996-417">如果 OfficeAssignment\` 为 NULL，则显示空白表格单元格。</span><span class="sxs-lookup"><span data-stu-id="d3996-417">If OfficeAssignment\` is null, an empty table cell is displayed.</span></span>
 
-<span data-ttu-id="4b9a5-418">单击“选择”  链接。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-418">Click on the **Select** link.</span></span> <span data-ttu-id="4b9a5-419">随即更改行样式。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-419">The row style changes.</span></span>
+<span data-ttu-id="d3996-418">单击“选择”  链接。</span><span class="sxs-lookup"><span data-stu-id="d3996-418">Click on the **Select** link.</span></span> <span data-ttu-id="d3996-419">随即更改行样式。</span><span class="sxs-lookup"><span data-stu-id="d3996-419">The row style changes.</span></span>
 
-### <a name="add-courses-taught-by-selected-instructor"></a><span data-ttu-id="4b9a5-420">添加由所选讲师教授的课程</span><span class="sxs-lookup"><span data-stu-id="4b9a5-420">Add courses taught by selected instructor</span></span>
+### <a name="add-courses-taught-by-selected-instructor"></a><span data-ttu-id="d3996-420">添加由所选讲师教授的课程</span><span class="sxs-lookup"><span data-stu-id="d3996-420">Add courses taught by selected instructor</span></span>
 
-<span data-ttu-id="4b9a5-421">将 Pages/Instructors/Index.cshtml.cs  中的 `OnGetAsync` 方法替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-421">Update the `OnGetAsync` method in *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-421">将 Pages/Instructors/Index.cshtml.cs  中的 `OnGetAsync` 方法替换为以下代码：</span><span class="sxs-lookup"><span data-stu-id="d3996-421">Update the `OnGetAsync` method in *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_OnGetAsync&highlight=1,8,16-999)]
 
-<span data-ttu-id="4b9a5-422">添加 `public int CourseID { get; set; }`</span><span class="sxs-lookup"><span data-stu-id="4b9a5-422">Add `public int CourseID { get; set; }`</span></span>
+<span data-ttu-id="d3996-422">添加 `public int CourseID { get; set; }`</span><span class="sxs-lookup"><span data-stu-id="d3996-422">Add `public int CourseID { get; set; }`</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_1&highlight=12)]
 
-<span data-ttu-id="4b9a5-423">检查更新后的查询：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-423">Examine the updated query:</span></span>
+<span data-ttu-id="d3996-423">检查更新后的查询：</span><span class="sxs-lookup"><span data-stu-id="d3996-423">Examine the updated query:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_ThenInclude)]
 
-<span data-ttu-id="4b9a5-424">先前查询添加了 `Department` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-424">The preceding query adds the `Department` entities.</span></span>
+<span data-ttu-id="d3996-424">先前查询添加了 `Department` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-424">The preceding query adds the `Department` entities.</span></span>
 
-<span data-ttu-id="4b9a5-425">选择讲师时 (`id != null`)，将执行以下代码。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-425">The following code executes when an instructor is selected (`id != null`).</span></span> <span data-ttu-id="4b9a5-426">从视图模型中的讲师列表检索所选讲师。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-426">The selected instructor is retrieved from the list of instructors in the view model.</span></span> <span data-ttu-id="4b9a5-427">向视图模型的 `Courses` 属性加载来自讲师 `CourseAssignments` 导航属性的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-427">The view model's `Courses` property is loaded with the `Course` entities from that instructor's `CourseAssignments` navigation property.</span></span>
+<span data-ttu-id="d3996-425">选择讲师时 (`id != null`)，将执行以下代码。</span><span class="sxs-lookup"><span data-stu-id="d3996-425">The following code executes when an instructor is selected (`id != null`).</span></span> <span data-ttu-id="d3996-426">从视图模型中的讲师列表检索所选讲师。</span><span class="sxs-lookup"><span data-stu-id="d3996-426">The selected instructor is retrieved from the list of instructors in the view model.</span></span> <span data-ttu-id="d3996-427">向视图模型的 `Courses` 属性加载来自讲师 `CourseAssignments` 导航属性的 `Course` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-427">The view model's `Courses` property is loaded with the `Course` entities from that instructor's `CourseAssignments` navigation property.</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_ID)]
 
-<span data-ttu-id="4b9a5-428">`Where` 方法返回一个集合。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-428">The `Where` method returns a collection.</span></span> <span data-ttu-id="4b9a5-429">在前面的 `Where` 方法中，仅返回单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-429">In the preceding `Where` method, only a single `Instructor` entity is returned.</span></span> <span data-ttu-id="4b9a5-430">`Single` 方法将集合转换为单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-430">The `Single` method converts the collection into a single `Instructor` entity.</span></span> <span data-ttu-id="4b9a5-431">`Instructor` 实体提供对 `CourseAssignments` 属性的访问。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-431">The `Instructor` entity provides access to the `CourseAssignments` property.</span></span> <span data-ttu-id="4b9a5-432">`CourseAssignments` 提供对相关 `Course` 实体的访问。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-432">`CourseAssignments` provides access to the related `Course` entities.</span></span>
+<span data-ttu-id="d3996-428">`Where` 方法返回一个集合。</span><span class="sxs-lookup"><span data-stu-id="d3996-428">The `Where` method returns a collection.</span></span> <span data-ttu-id="d3996-429">在前面的 `Where` 方法中，仅返回单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-429">In the preceding `Where` method, only a single `Instructor` entity is returned.</span></span> <span data-ttu-id="d3996-430">`Single` 方法将集合转换为单个 `Instructor` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-430">The `Single` method converts the collection into a single `Instructor` entity.</span></span> <span data-ttu-id="d3996-431">`Instructor` 实体提供对 `CourseAssignments` 属性的访问。</span><span class="sxs-lookup"><span data-stu-id="d3996-431">The `Instructor` entity provides access to the `CourseAssignments` property.</span></span> <span data-ttu-id="d3996-432">`CourseAssignments` 提供对相关 `Course` 实体的访问。</span><span class="sxs-lookup"><span data-stu-id="d3996-432">`CourseAssignments` provides access to the related `Course` entities.</span></span>
 
 ![讲师-课程 m:M](complex-data-model/_static/courseassignment.png)
 
-<span data-ttu-id="4b9a5-434">当集合仅包含一个项时，集合使用 `Single` 方法。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-434">The `Single` method is used on a collection when the collection has only one item.</span></span> <span data-ttu-id="4b9a5-435">如果集合为空或包含多个项，`Single` 方法会引发异常。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-435">The `Single` method throws an exception if the collection is empty or if there's more than one item.</span></span> <span data-ttu-id="4b9a5-436">还可使用 `SingleOrDefault`，该方式在集合为空时返回默认值（本例中为 null）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-436">An alternative is `SingleOrDefault`, which returns a default value (null in this case) if the collection is empty.</span></span> <span data-ttu-id="4b9a5-437">在空集合上使用 `SingleOrDefault`：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-437">Using `SingleOrDefault` on an empty collection:</span></span>
+<span data-ttu-id="d3996-434">当集合仅包含一个项时，集合使用 `Single` 方法。</span><span class="sxs-lookup"><span data-stu-id="d3996-434">The `Single` method is used on a collection when the collection has only one item.</span></span> <span data-ttu-id="d3996-435">如果集合为空或包含多个项，`Single` 方法会引发异常。</span><span class="sxs-lookup"><span data-stu-id="d3996-435">The `Single` method throws an exception if the collection is empty or if there's more than one item.</span></span> <span data-ttu-id="d3996-436">还可使用 `SingleOrDefault`，该方式在集合为空时返回默认值（本例中为 null）。</span><span class="sxs-lookup"><span data-stu-id="d3996-436">An alternative is `SingleOrDefault`, which returns a default value (null in this case) if the collection is empty.</span></span> <span data-ttu-id="d3996-437">在空集合上使用 `SingleOrDefault`：</span><span class="sxs-lookup"><span data-stu-id="d3996-437">Using `SingleOrDefault` on an empty collection:</span></span>
 
-* <span data-ttu-id="4b9a5-438">引发异常（因为尝试在空引用上找到 `Courses` 属性）。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-438">Results in an exception (from trying to find a `Courses` property on a null reference).</span></span>
-* <span data-ttu-id="4b9a5-439">异常信息不太能清楚指出问题原因。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-439">The exception message would less clearly indicate the cause of the problem.</span></span>
+* <span data-ttu-id="d3996-438">引发异常（因为尝试在空引用上找到 `Courses` 属性）。</span><span class="sxs-lookup"><span data-stu-id="d3996-438">Results in an exception (from trying to find a `Courses` property on a null reference).</span></span>
+* <span data-ttu-id="d3996-439">异常信息不太能清楚指出问题原因。</span><span class="sxs-lookup"><span data-stu-id="d3996-439">The exception message would less clearly indicate the cause of the problem.</span></span>
 
-<span data-ttu-id="4b9a5-440">选中课程时，视图模型的 `Enrollments` 属性将填充以下代码：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-440">The following code populates the view model's `Enrollments` property when a course is selected:</span></span>
+<span data-ttu-id="d3996-440">选中课程时，视图模型的 `Enrollments` 属性将填充以下代码：</span><span class="sxs-lookup"><span data-stu-id="d3996-440">The following code populates the view model's `Enrollments` property when a course is selected:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_courseID)]
 
-<span data-ttu-id="4b9a5-441">在 Pages/Instructors/Index.cshtml Razor 页面末尾添加以下标记  ：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-441">Add the following markup to the end of the *Pages/Instructors/Index.cshtml* Razor Page:</span></span>
+<span data-ttu-id="d3996-441">在 Pages/Instructors/Index.cshtml Razor 页面末尾添加以下标记  ：</span><span class="sxs-lookup"><span data-stu-id="d3996-441">Add the following markup to the end of the *Pages/Instructors/Index.cshtml* Razor Page:</span></span>
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=60-102&highlight=7-999)]
 
-<span data-ttu-id="4b9a5-442">上述标记显示选中某讲师时与该讲师相关的课程列表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-442">The preceding markup displays a list of courses related to an instructor when an instructor is selected.</span></span>
+<span data-ttu-id="d3996-442">上述标记显示选中某讲师时与该讲师相关的课程列表。</span><span class="sxs-lookup"><span data-stu-id="d3996-442">The preceding markup displays a list of courses related to an instructor when an instructor is selected.</span></span>
 
-<span data-ttu-id="4b9a5-443">测试应用。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-443">Test the app.</span></span> <span data-ttu-id="4b9a5-444">单击讲师页面上的“选择”  链接。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-444">Click on a **Select** link on the instructors page.</span></span>
+<span data-ttu-id="d3996-443">测试应用。</span><span class="sxs-lookup"><span data-stu-id="d3996-443">Test the app.</span></span> <span data-ttu-id="d3996-444">单击讲师页面上的“选择”  链接。</span><span class="sxs-lookup"><span data-stu-id="d3996-444">Click on a **Select** link on the instructors page.</span></span>
 
-### <a name="show-student-data"></a><span data-ttu-id="4b9a5-445">显示学生数据</span><span class="sxs-lookup"><span data-stu-id="4b9a5-445">Show student data</span></span>
+### <a name="show-student-data"></a><span data-ttu-id="d3996-445">显示学生数据</span><span class="sxs-lookup"><span data-stu-id="d3996-445">Show student data</span></span>
 
-<span data-ttu-id="4b9a5-446">在本部分中，更新应用以显示所选课程的学生数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-446">In this section, the app is updated to show the student data for a selected course.</span></span>
+<span data-ttu-id="d3996-446">在本部分中，更新应用以显示所选课程的学生数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-446">In this section, the app is updated to show the student data for a selected course.</span></span>
 
-<span data-ttu-id="4b9a5-447">使用以下代码在 Pages/Instructors/Index.cshtml.cs  中更新 `OnGetAsync` 方法中的查询：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-447">Update the query in the `OnGetAsync` method in *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
+<span data-ttu-id="d3996-447">使用以下代码在 Pages/Instructors/Index.cshtml.cs  中更新 `OnGetAsync` 方法中的查询：</span><span class="sxs-lookup"><span data-stu-id="d3996-447">Update the query in the `OnGetAsync` method in *Pages/Instructors/Index.cshtml.cs* with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index.cshtml.cs?name=snippet_ThenInclude&highlight=6-9)]
 
-<span data-ttu-id="4b9a5-448">更新 Pages/Instructors/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-448">Update *Pages/Instructors/Index.cshtml*.</span></span> <span data-ttu-id="4b9a5-449">在文件末尾添加以下标记：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-449">Add the following markup to the end of the file:</span></span>
+<span data-ttu-id="d3996-448">更新 Pages/Instructors/Index.cshtml  。</span><span class="sxs-lookup"><span data-stu-id="d3996-448">Update *Pages/Instructors/Index.cshtml*.</span></span> <span data-ttu-id="d3996-449">在文件末尾添加以下标记：</span><span class="sxs-lookup"><span data-stu-id="d3996-449">Add the following markup to the end of the file:</span></span>
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=103-)]
 
-<span data-ttu-id="4b9a5-450">上述标记显示已注册所选课程的学生列表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-450">The preceding markup displays a list of the students who are enrolled in the selected course.</span></span>
+<span data-ttu-id="d3996-450">上述标记显示已注册所选课程的学生列表。</span><span class="sxs-lookup"><span data-stu-id="d3996-450">The preceding markup displays a list of the students who are enrolled in the selected course.</span></span>
 
-<span data-ttu-id="4b9a5-451">刷新页面并选择讲师。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-451">Refresh the page and select an instructor.</span></span> <span data-ttu-id="4b9a5-452">选择一门课程，查看已注册的学生及其成绩列表。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-452">Select a course to see the list of enrolled students and their grades.</span></span>
+<span data-ttu-id="d3996-451">刷新页面并选择讲师。</span><span class="sxs-lookup"><span data-stu-id="d3996-451">Refresh the page and select an instructor.</span></span> <span data-ttu-id="d3996-452">选择一门课程，查看已注册的学生及其成绩列表。</span><span class="sxs-lookup"><span data-stu-id="d3996-452">Select a course to see the list of enrolled students and their grades.</span></span>
 
 ![已选择“讲师索引”页中的讲师和课程](read-related-data/_static/instructors-index.png)
 
-## <a name="using-single"></a><span data-ttu-id="4b9a5-454">使用 Single 方法</span><span class="sxs-lookup"><span data-stu-id="4b9a5-454">Using Single</span></span>
+## <a name="using-single"></a><span data-ttu-id="d3996-454">使用 Single 方法</span><span class="sxs-lookup"><span data-stu-id="d3996-454">Using Single</span></span>
 
-<span data-ttu-id="4b9a5-455">`Single` 方法可在 `Where` 条件中进行传递，无需分别调用 `Where` 方法：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-455">The `Single` method can pass in the `Where` condition instead of calling the `Where` method separately:</span></span>
+<span data-ttu-id="d3996-455">`Single` 方法可在 `Where` 条件中进行传递，无需分别调用 `Where` 方法：</span><span class="sxs-lookup"><span data-stu-id="d3996-455">The `Single` method can pass in the `Where` condition instead of calling the `Where` method separately:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/IndexSingle.cshtml.cs?name=snippet_single&highlight=21-22,30-31)]
 
-<span data-ttu-id="4b9a5-456">使用 `Where` 时，前面的 `Single` 方法不适用。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-456">The preceding `Single` approach provides no benefits over using `Where`.</span></span> <span data-ttu-id="4b9a5-457">一些开发人员更喜欢 `Single` 方法样式。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-457">Some developers prefer the `Single` approach style.</span></span>
+<span data-ttu-id="d3996-456">使用 `Where` 时，前面的 `Single` 方法不适用。</span><span class="sxs-lookup"><span data-stu-id="d3996-456">The preceding `Single` approach provides no benefits over using `Where`.</span></span> <span data-ttu-id="d3996-457">一些开发人员更喜欢 `Single` 方法样式。</span><span class="sxs-lookup"><span data-stu-id="d3996-457">Some developers prefer the `Single` approach style.</span></span>
 
-## <a name="explicit-loading"></a><span data-ttu-id="4b9a5-458">显式加载</span><span class="sxs-lookup"><span data-stu-id="4b9a5-458">Explicit loading</span></span>
+## <a name="explicit-loading"></a><span data-ttu-id="d3996-458">显式加载</span><span class="sxs-lookup"><span data-stu-id="d3996-458">Explicit loading</span></span>
 
-<span data-ttu-id="4b9a5-459">当前代码为 `Enrollments` 和 `Students` 指定预先加载：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-459">The current code specifies eager loading for `Enrollments` and `Students`:</span></span>
+<span data-ttu-id="d3996-459">当前代码为 `Enrollments` 和 `Students` 指定预先加载：</span><span class="sxs-lookup"><span data-stu-id="d3996-459">The current code specifies eager loading for `Enrollments` and `Students`:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index.cshtml.cs?name=snippet_ThenInclude&highlight=6-9)]
 
-<span data-ttu-id="4b9a5-460">假设用户几乎不希望课程中显示注册情况。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-460">Suppose users rarely want to see enrollments in a course.</span></span> <span data-ttu-id="4b9a5-461">在此情况下，可仅在请求时加载注册数据进行优化。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-461">In that case, an optimization would be to only load the enrollment data if it's requested.</span></span> <span data-ttu-id="4b9a5-462">在本部分中，会更新 `OnGetAsync` 以使用 `Enrollments` 和 `Students` 的显式加载。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-462">In this section, the `OnGetAsync` is updated to use explicit loading of `Enrollments` and `Students`.</span></span>
+<span data-ttu-id="d3996-460">假设用户几乎不希望课程中显示注册情况。</span><span class="sxs-lookup"><span data-stu-id="d3996-460">Suppose users rarely want to see enrollments in a course.</span></span> <span data-ttu-id="d3996-461">在此情况下，可仅在请求时加载注册数据进行优化。</span><span class="sxs-lookup"><span data-stu-id="d3996-461">In that case, an optimization would be to only load the enrollment data if it's requested.</span></span> <span data-ttu-id="d3996-462">在本部分中，会更新 `OnGetAsync` 以使用 `Enrollments` 和 `Students` 的显式加载。</span><span class="sxs-lookup"><span data-stu-id="d3996-462">In this section, the `OnGetAsync` is updated to use explicit loading of `Enrollments` and `Students`.</span></span>
 
-<span data-ttu-id="4b9a5-463">使用以下代码更新 `OnGetAsync`：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-463">Update the `OnGetAsync` with the following code:</span></span>
+<span data-ttu-id="d3996-463">使用以下代码更新 `OnGetAsync`：</span><span class="sxs-lookup"><span data-stu-id="d3996-463">Update the `OnGetAsync` with the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/IndexXp.cshtml.cs?name=snippet_OnGetAsync&highlight=9-13,29-35)]
 
-<span data-ttu-id="4b9a5-464">上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-464">The preceding code drops the *ThenInclude* method calls for enrollment and student data.</span></span> <span data-ttu-id="4b9a5-465">如果已选中课程，则突出显示的代码会检索：</span><span class="sxs-lookup"><span data-stu-id="4b9a5-465">If a course is selected, the highlighted code retrieves:</span></span>
+<span data-ttu-id="d3996-464">上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。</span><span class="sxs-lookup"><span data-stu-id="d3996-464">The preceding code drops the *ThenInclude* method calls for enrollment and student data.</span></span> <span data-ttu-id="d3996-465">如果已选中课程，则突出显示的代码会检索：</span><span class="sxs-lookup"><span data-stu-id="d3996-465">If a course is selected, the highlighted code retrieves:</span></span>
 
-* <span data-ttu-id="4b9a5-466">所选课程的 `Enrollment` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-466">The `Enrollment` entities for the selected course.</span></span>
-* <span data-ttu-id="4b9a5-467">每个 `Enrollment` 的 `Student` 实体。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-467">The `Student` entities for each `Enrollment`.</span></span>
+* <span data-ttu-id="d3996-466">所选课程的 `Enrollment` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-466">The `Enrollment` entities for the selected course.</span></span>
+* <span data-ttu-id="d3996-467">每个 `Enrollment` 的 `Student` 实体。</span><span class="sxs-lookup"><span data-stu-id="d3996-467">The `Student` entities for each `Enrollment`.</span></span>
 
-<span data-ttu-id="4b9a5-468">请注意，上述代码为 `.AsNoTracking()` 加上注释。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-468">Notice the preceding code comments out `.AsNoTracking()`.</span></span> <span data-ttu-id="4b9a5-469">对于跟踪的实体，仅可显式加载导航属性。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-469">Navigation properties can only be explicitly loaded for tracked entities.</span></span>
+<span data-ttu-id="d3996-468">请注意，上述代码为 `.AsNoTracking()` 加上注释。</span><span class="sxs-lookup"><span data-stu-id="d3996-468">Notice the preceding code comments out `.AsNoTracking()`.</span></span> <span data-ttu-id="d3996-469">对于跟踪的实体，仅可显式加载导航属性。</span><span class="sxs-lookup"><span data-stu-id="d3996-469">Navigation properties can only be explicitly loaded for tracked entities.</span></span>
 
-<span data-ttu-id="4b9a5-470">测试应用。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-470">Test the app.</span></span> <span data-ttu-id="4b9a5-471">对用户而言，该应用的行为与上一版本相同。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-471">From a users perspective, the app behaves identically to the previous version.</span></span>
+<span data-ttu-id="d3996-470">测试应用。</span><span class="sxs-lookup"><span data-stu-id="d3996-470">Test the app.</span></span> <span data-ttu-id="d3996-471">对用户而言，该应用的行为与上一版本相同。</span><span class="sxs-lookup"><span data-stu-id="d3996-471">From a users perspective, the app behaves identically to the previous version.</span></span>
 
-<span data-ttu-id="4b9a5-472">下一个教程将介绍如何更新相关数据。</span><span class="sxs-lookup"><span data-stu-id="4b9a5-472">The next tutorial shows how to update related data.</span></span>
+<span data-ttu-id="d3996-472">下一个教程将介绍如何更新相关数据。</span><span class="sxs-lookup"><span data-stu-id="d3996-472">The next tutorial shows how to update related data.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="4b9a5-473">其他资源</span><span class="sxs-lookup"><span data-stu-id="4b9a5-473">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="d3996-473">其他资源</span><span class="sxs-lookup"><span data-stu-id="d3996-473">Additional resources</span></span>
 
-* [<span data-ttu-id="4b9a5-474">本教程的 YouTube 版本（第 1 部分）</span><span class="sxs-lookup"><span data-stu-id="4b9a5-474">YouTube version of this tutorial (part1)</span></span>](https://www.youtube.com/watch?v=PzKimUDmrvE)
-* [<span data-ttu-id="4b9a5-475">本教程的 YouTube 版本（第 2 部分）</span><span class="sxs-lookup"><span data-stu-id="4b9a5-475">YouTube version of this tutorial (part2)</span></span>](https://www.youtube.com/watch?v=xvDDrIHv5ko)
+* [<span data-ttu-id="d3996-474">本教程的 YouTube 版本（第 1 部分）</span><span class="sxs-lookup"><span data-stu-id="d3996-474">YouTube version of this tutorial (part1)</span></span>](https://www.youtube.com/watch?v=PzKimUDmrvE)
+* [<span data-ttu-id="d3996-475">本教程的 YouTube 版本（第 2 部分）</span><span class="sxs-lookup"><span data-stu-id="d3996-475">YouTube version of this tutorial (part2)</span></span>](https://www.youtube.com/watch?v=xvDDrIHv5ko)
 
 >[!div class="step-by-step"]
-><span data-ttu-id="4b9a5-476">[上一页](xref:data/ef-rp/complex-data-model)
->[下一页](xref:data/ef-rp/update-related-data)</span><span class="sxs-lookup"><span data-stu-id="4b9a5-476">[Previous](xref:data/ef-rp/complex-data-model)
+><span data-ttu-id="d3996-476">[上一页](xref:data/ef-rp/complex-data-model)
+>[下一页](xref:data/ef-rp/update-related-data)</span><span class="sxs-lookup"><span data-stu-id="d3996-476">[Previous](xref:data/ef-rp/complex-data-model)
 [Next](xref:data/ef-rp/update-related-data)</span></span>
 
 ::: moniker-end
