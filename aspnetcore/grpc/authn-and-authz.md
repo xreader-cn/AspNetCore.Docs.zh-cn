@@ -7,10 +7,10 @@ ms.author: jamesnk
 ms.date: 12/05/2019
 uid: grpc/authn-and-authz
 ms.openlocfilehash: c0312b186bbb35e3b802984484b7213016d8bf04
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/10/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78964444"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>gRPC for ASP.NET Core 中的身份验证和授权
@@ -41,7 +41,7 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> 注册 ASP.NET Core 身份验证中间件的顺序很重要。 始终在 `UseRouting` 之后和 `UseEndpoints` 之前调用 `UseAuthentication` 和 `UseAuthorization`。
+> 注册 ASP.NET Core 身份验证中间件的顺序很重要。 始终在 `UseAuthentication` 之后和 `UseAuthorization` 之前调用 `UseRouting` 和 `UseEndpoints`。
 
 应用在调用期间使用的身份验证机制需要进行配置。 身份验证配置已添加到 `Startup.ConfigureServices` 中，并因应用使用的身份验证机制而异。 有关如何保护 ASP.NET Core 应用的示例，请参阅[身份验证示例](xref:security/authentication/samples)。
 
@@ -150,7 +150,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 将 gRPC 客户端配置为使用身份验证取决于使用的身份验证机制。 之前的持有者令牌和客户端证书示例演示可将 gRPC 客户端配置为通过 gRPC 调用发送身份验证元数据的几种方法：
 
-* 强类型 gRPC 客户端在内部使用 `HttpClient`。 可在 [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler) 上配置身份验证，也可通过向 `HttpClient` 添加自定义 [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) 实例进行配置。
+* 强类型 gRPC 客户端在内部使用 `HttpClient`。 可在 [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler) 上配置身份验证，也可通过向 [ 添加自定义 ](/dotnet/api/system.net.http.httpmessagehandler)HttpMessageHandler`HttpClient` 实例进行配置。
 * 每个 gRPC 调用都有一个可选的 `CallOptions` 参数。 可使用该选项的标头集合发送自定义标头。
 
 > [!NOTE]

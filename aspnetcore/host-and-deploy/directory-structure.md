@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 03/20/2020
 uid: host-and-deploy/directory-structure
 ms.openlocfilehash: 0e7bf40520385b7719cb37120709e0a3fd2442e3
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79989730"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core 目录结构

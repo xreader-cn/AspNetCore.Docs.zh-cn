@@ -8,10 +8,10 @@ ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
 ms.openlocfilehash: c0c73882afd579510ad9cdf5b485c1d6fbeadd1c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649218"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>使用 JavaScript Services 在 ASP.NET Core 中创建单页应用程序
@@ -107,7 +107,7 @@ npm i -S aspnet-prerendering
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 
-在以下 Angular 示例中，*ClientApp/boot-server.ts* 文件利用 `createServerRenderer` 函数和 `aspnet-prerendering` npm 包的 `RenderResult` 类型通过 Node.js 来配置服务器呈现。 用于服务器端呈现的 HTML 标记传递到解析函数调用，该调用包装在强类型的 JavaScript `Promise` 对象中。 `Promise` 对象的意义在于，它以异步方式将 HTML 标记提供给页面，以注入到 DOM 的占位符元素中。
+在以下 Angular 示例中，*ClientApp/boot-server.ts* 文件利用 `createServerRenderer` 函数和 `RenderResult` npm 包的 `aspnet-prerendering` 类型通过 Node.js 来配置服务器呈现。 用于服务器端呈现的 HTML 标记传递到解析函数调用，该调用包装在强类型的 JavaScript `Promise` 对象中。 `Promise` 对象的意义在于，它以异步方式将 HTML 标记提供给页面，以注入到 DOM 的占位符元素中。
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-34,79-)]
 
@@ -123,11 +123,11 @@ npm i -S aspnet-prerendering
 
 在标记帮助程序中传递的属性名称用 **PascalCase** 表示法表示。 与之相反，JavaScript 用 **camelCase** 表示相同的属性名称。 默认的 JSON 序列化配置是造成这种差异的原因所在。
 
-若要扩展上面的代码示例，可以通过解冻提供给 `resolve` 函数的 `globals` 属性，将数据从服务器传递到视图：
+若要扩展上面的代码示例，可以通过解冻提供给 `globals` 函数的 `resolve` 属性，将数据从服务器传递到视图：
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-21,57-77,79-)]
 
-`globals` 对象中定义的 `postList` 数组附加到浏览器的全局 `window` 对象。 将此变量提升到全局范围可消除重复的工作，特别是在服务器上加载了一次数据，之后又在客户端上加载相同的数据时。
+`postList` 对象中定义的 `globals` 数组附加到浏览器的全局 `window` 对象。 将此变量提升到全局范围可消除重复的工作，特别是在服务器上加载了一次数据，之后又在客户端上加载相同的数据时。
 
 ![附加到 window 对象的全局 postList 变量](spa-services/_static/global_variable.png)
 
@@ -153,7 +153,7 @@ Webpack 开发中间件通过 *Startup.cs* 文件的 `Configure` 方法中的以
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_WebpackMiddlewareRegistration&highlight=4)]
 
-通过 `UseStaticFiles` 扩展方法[注册静态文件托管](xref:fundamentals/static-files)之前，必须先调用 `UseWebpackDevMiddleware` 扩展方法。 出于安全原因，仅在应用以开发模式运行时才注册该中间件。
+通过 `UseWebpackDevMiddleware` 扩展方法[注册静态文件托管](xref:fundamentals/static-files)之前，必须先调用 `UseStaticFiles` 扩展方法。 出于安全原因，仅在应用以开发模式运行时才注册该中间件。
 
 *webpack.config.js* 文件的 `output.publicPath` 属性指示中间件监视 `dist` 文件夹中的更改：
 
@@ -181,7 +181,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 });
 ```
 
-与 [Webpack 开发中间件](#webpack-dev-middleware)一样，调用 `UseStaticFiles` 扩展方法之前，必须先调用 `UseWebpackDevMiddleware` 扩展方法。 出于安全原因，仅在应用以开发模式运行时才注册该中间件。
+与 [Webpack 开发中间件](#webpack-dev-middleware)一样，调用 `UseWebpackDevMiddleware` 扩展方法之前，必须先调用 `UseStaticFiles` 扩展方法。 出于安全原因，仅在应用以开发模式运行时才注册该中间件。
 
 *webpack.config.js* 文件必须定义一个 `plugins` 数组，即便将其留空亦可：
 
@@ -207,7 +207,7 @@ npm i -S @angular/router
 
 ### <a name="routing-helpers-configuration"></a>路由帮助程序配置
 
-在 `Configure` 方法中使用名为 `MapSpaFallbackRoute` 的扩展方法：
+在 `MapSpaFallbackRoute` 方法中使用名为 `Configure` 的扩展方法：
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_MvcRoutingTable&highlight=7-9)]
 
@@ -231,7 +231,7 @@ dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 | 含 React.js 的 MVC ASP.NET Core            | react      | [C#]     | Web/MVC/SPA |
 | 含 React.js 和 Redux 的 MVC ASP.NET Core  | reactredux | [C#]     | Web/MVC/SPA |
 
-若要使用其中一个 SPA 模板创建新项目，请在 [dotnet new](/dotnet/core/tools/dotnet-new) 命令中包含该模板的**短名称**。 以下命令将使用为服务器端配置的 ASP.NET Core MVC 创建 Angular 应用程序：
+若要使用其中一个 SPA 模板创建新项目，请在 **dotnet new** 命令中包含该模板的[短名称](/dotnet/core/tools/dotnet-new)。 以下命令将使用为服务器端配置的 ASP.NET Core MVC 创建 Angular 应用程序：
 
 ```dotnetcli
 dotnet new angular
@@ -268,13 +268,13 @@ dotnet run
 
 ### <a name="run-with-visual-studio-2017"></a>使用 Visual Studio 2017 运行
 
-打开由 [dotnet new](/dotnet/core/tools/dotnet-new) 命令生成的 *.csproj* 文件。 所需的 NuGet 和 npm 包在项目打开时会自动还原。 此还原过程可能需要几分钟的时间，应用程序在此过程完成后即可运行。 单击绿色的运行按钮或按 `Ctrl + F5`，浏览器将打开到应用程序的登陆页面。 应用程序根据[运行时配置模式](#set-the-runtime-configuration-mode)在 localhost 上运行。
+打开由 *dotnet new* 命令生成的 [.csproj](/dotnet/core/tools/dotnet-new) 文件。 所需的 NuGet 和 npm 包在项目打开时会自动还原。 此还原过程可能需要几分钟的时间，应用程序在此过程完成后即可运行。 单击绿色的运行按钮或按 `Ctrl + F5`，浏览器将打开到应用程序的登陆页面。 应用程序根据[运行时配置模式](#set-the-runtime-configuration-mode)在 localhost 上运行。
 
 ## <a name="test-the-app"></a>测试应用
 
 SpaServices 模板已预先配置为使用 [Karma](https://karma-runner.github.io/1.0/index.html) 和 [Jasmine](https://jasmine.github.io/) 运行客户端测试。 Jasmine 是适用于 JavaScript 的常用单元测试框架，而 Karma 是这些测试的测试运行程序。 Karma 配置为使用 [Webpack 开发中间件](#webpack-dev-middleware)，使开发人员无需在每次进行更改时都停止并运行测试。 无论是针对测试用例运行的代码还是测试用例本身，测试都会自动运行。
 
-以 Angular 应用程序为例，系统已经为 *counter.component.spec.ts* 文件中的 `CounterComponent` 提供了两个 Jasmine 测试用例：
+以 Angular 应用程序为例，系统已经为 `CounterComponent`counter.component.spec.ts*文件中的* 提供了两个 Jasmine 测试用例：
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/app/components/counter/counter.component.spec.ts?range=15-28)]
 

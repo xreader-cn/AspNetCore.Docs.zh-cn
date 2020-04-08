@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
 ms.openlocfilehash: 04eb2efa4e67d84e575580a6248d0b5b567064af
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648864"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>检查 ASP.NET Core 应用的 Details 和 Delete 方法
@@ -40,7 +40,7 @@ EF 可以使用 `FirstOrDefaultAsync` 方法轻松搜索数据。 该方法中�
 
 公共语言运行时 (CLR) 需要重载方法拥有唯一的参数签名（相同的方法名称但不同的参数列表）。 但是，这里需要两个 `Delete` 方法 -- 一个用于 GET，另一个用于 POST -- 这两个方法拥有相同的参数签名。 （它们都需要接受单个整数作为参数。）
 
-可通过两种方法解决此问题，一种是为方法提供不同的名称。 这正是前面的示例中的基架机制进行的操作。 但是，这会造成一个小问题：ASP.NET 按名称将 URL 段映射到操作方法，如果重命名方法，则路由通常无法找到该方法。 该示例中也提供了解决方案，即向 `DeleteConfirmed` 方法添加 `ActionName("Delete")` 属性。 该属性对路由系统执行映射，以便包括 POST 请求的 /Delete/ 的 URL可找到 `DeleteConfirmed` 方法。
+可通过两种方法解决此问题，一种是为方法提供不同的名称。 这正是前面的示例中的基架机制进行的操作。 但是，这会造成一个小问题：ASP.NET 按名称将 URL 段映射到操作方法，如果重命名方法，则路由通常无法找到该方法。 该示例中也提供了解决方案，即向 `ActionName("Delete")` 方法添加 `DeleteConfirmed` 属性。 该属性对路由系统执行映射，以便包括 POST 请求的 /Delete/ 的 URL可找到 `DeleteConfirmed` 方法。
 
 对于名称和签名相同的方法，另一个常用解决方法是手动更改 POST 方法的签名以包括额外（未使用）的参数。 这正是前面的文章中添加 `notUsed` 参数时进行的操作。 这里为了 `[HttpPost] Delete` 方法可以执行同样的操作：
 
@@ -53,7 +53,7 @@ public async Task<IActionResult> Delete(int id, bool notUsed)
 
 ### <a name="publish-to-azure"></a>发布到 Azure
 
-若要了解如何部署到 Azure，请参阅[教程：在 Azure 应用服务中生成 .NET Core 和 SQL 数据库 Web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
+有关部署到 Azure 的信息，请参阅[教程：在 Azure 应用服务中构建 .NET Core 和 SQL 数据库 Web 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
 
 > [!div class="step-by-step"]
-> [上一篇](validation.md)
+> [上一篇文章](validation.md)

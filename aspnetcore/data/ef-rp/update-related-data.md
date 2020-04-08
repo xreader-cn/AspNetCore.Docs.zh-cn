@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/update-related-data
 ms.openlocfilehash: fdfdb14ff8414b8bf30f9b95be7ba0a6bcbd2995
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645456"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
@@ -96,7 +96,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 * 将“院系”下拉列表的标题从“DepartmentID”更改为“Department”   。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 
-该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
+该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `<label>` 的 `asp-for="Course.CourseID"` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
 
 ## <a name="update-the-course-details-and-delete-pages"></a>更新课程“详细信息”和“删除”页
 
@@ -104,7 +104,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="update-the-course-page-models"></a>更新“课程”页模型
 
-使用以下代码更新 Pages/Courses/Delete.cshtml.cs 以添加 `AsNoTracking`  ：
+使用以下代码更新 Pages/Courses/Delete.cshtml.cs 以添加  `AsNoTracking`：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Delete.cshtml.cs?highlight=29)]
 
@@ -150,7 +150,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 `InstructorCoursesPageModel` 是将用于“编辑”和“创建”页模型的基类。 `PopulateAssignedCourseData` 读取所有 `Course` 实体以填充 `AssignedCourseDataList`。 该代码将设置每门课程的 `CourseID` 和标题，并决定是否为讲师分配该课程。 [HashSet](/dotnet/api/system.collections.generic.hashset-1) 用于高效查找。
 
-Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `UpdateInstructorCourses` 方法中更新 `CourseAssignments` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的是允许列表重载，并且 `CourseAssignments` 不包括在该列表中。
+Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `CourseAssignments` 方法中更新 `UpdateInstructorCourses` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的是允许列表重载，并且 `CourseAssignments` 不包括在该列表中。
 
 如果未选中任何复选框，则 `UpdateInstructorCourses` 中的代码将使用空集合初始化 `CourseAssignments` 导航属性，并返回以下内容：
 
@@ -182,12 +182,12 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 前面的代码：
 
-* 使用 `OfficeAssignment`、`CourseAssignment` 和 `CourseAssignment.Course` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
+* 使用 `Instructor`、`OfficeAssignment` 和 `CourseAssignment` 导航属性的预先加载从数据库获取当前的 `CourseAssignment.Course` 实体。
 * 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
-* 调用 `OnGetAsync` 中的 `PopulateAssignedCourseData`，使用 `AssignedCourseData` 视图模型类为复选框提供信息。
-* 调用 `OnPostAsync` 中的 `UpdateInstructorCourses`，将复选框中的信息应用于将要编辑的 Instructor 实体。
-* 如果 `TryUpdateModel` 失败，则调用 `OnPostAsync` 中的 `PopulateAssignedCourseData` 和 `UpdateInstructorCourses`。 这些方法调用将在页面重新显示错误消息时还原页面上所输入的已分配课程数据。
+* 调用 `PopulateAssignedCourseData` 中的 `OnGetAsync`，使用 `AssignedCourseData` 视图模型类为复选框提供信息。
+* 调用 `UpdateInstructorCourses` 中的 `OnPostAsync`，将复选框中的信息应用于将要编辑的 Instructor 实体。
+* 如果 `PopulateAssignedCourseData` 失败，则调用 `UpdateInstructorCourses` 中的 `OnPostAsync` 和 `TryUpdateModel`。 这些方法调用将在页面重新显示错误消息时还原页面上所输入的已分配课程数据。
 
 ### <a name="update-the-instructor-edit-razor-page"></a>更新讲师“编辑”Razor 页面
 
@@ -311,7 +311,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 * 将标题从“DepartmentID”更改为“Department”   。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 
-该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
+该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `<label>` 的 `asp-for="Course.CourseID"` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
 
 测试更新的代码。 创建、编辑和删除课程。
 
@@ -355,7 +355,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 前面的代码：
 
-* 使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
+* 使用 `Instructor` 导航属性的预先加载从数据库获取当前的 `OfficeAssignment` 实体。
 * 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
 

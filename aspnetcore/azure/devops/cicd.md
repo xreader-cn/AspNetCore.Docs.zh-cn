@@ -7,10 +7,10 @@ ms.date: 10/24/2018
 ms.custom: mvc, seodec18
 uid: azure/devops/cicd
 ms.openlocfilehash: 5fdf52235b49119503885f92c370dc588e809ffe
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645126"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和持续部署
@@ -191,7 +191,7 @@ ms.locfileid: "78645126"
 ## <a name="commit-changes-to-github-and-automatically-deploy-to-azure"></a>提交对 GitHub 所做的更改并将其自动部署到 Azure
 
 1. 在 Visual Studio 中打开“SimpleFeedReader.sln”  。
-1. 在解决方案资源管理器中，打开“Pages\Index.cshtml”  。 将 `<h2>Simple Feed Reader - V3</h2>` 更改为 `<h2>Simple Feed Reader - V4</h2>`。
+1. 在解决方案资源管理器中，打开 Pages\Index.cshtml  。 将 `<h2>Simple Feed Reader - V3</h2>` 更改为 `<h2>Simple Feed Reader - V4</h2>`。
 1. 按 Ctrl+Shift+B 生成应用    。
 1. 将该文件提交到 GitHub 存储库。 使用 Visual Studio“团队资源管理器”选项卡中的“更改”页，或者使用本地计算机的命令行界面执行以下操作   ：
 

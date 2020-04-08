@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/dependency-injection
 ms.openlocfilehash: 4cdde9ee8c9fd9adf00894a067d32965b180e5ec
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78646692"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
@@ -36,8 +36,8 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 
 | 服务 | 生存期 | 描述 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | Singleton | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包含配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
-| `IJSRuntime` | Singleton (Blazor WebAssembly)<br>Scoped（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
+| <xref:System.Net.Http.HttpClient> | 单例 | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包含配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关更多信息，请参见 <xref:blazor/call-web-api>。 |
+| `IJSRuntime` | Singleton (Blazor WebAssembly)<br>Scoped（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关更多信息，请参见 <xref:blazor/call-javascript-from-dotnet>。 |
 | `NavigationManager` | Singleton (Blazor WebAssembly)<br>Scoped（Blazor 服务器） | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/routing#uri-and-navigation-state-helpers)。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果你使用自定义服务提供程序且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序。
@@ -46,7 +46,7 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-在 Program.cs 的 `Main` 方法中配置应用服务集合的服务  。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
+在 Program.cs 的 `Main` 方法中配置应用服务集合的服务  。 在下例中，为 `MyDependency` 注册了 `IMyDependency` 实现：
 
 ```csharp
 public class Program
@@ -83,7 +83,7 @@ public class Program
 }
 ```
 
-主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 appsettings.json）传递到 `InitializeWeatherAsync`  ：
+主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 appsettings.json）传递到  `InitializeWeatherAsync`：
 
 ```csharp
 public class Program
@@ -135,7 +135,7 @@ public void ConfigureServices(IServiceCollection services)
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI 创建服务的单个实例  。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例  。 |
 
-DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 <xref:fundamentals/dependency-injection>。
+DI 系统基于 ASP.NET Core 中的 DI 系统。 有关更多信息，请参见 <xref:fundamentals/dependency-injection>。
 
 ## <a name="request-a-service-in-a-component"></a>在组件中请求服务
 
@@ -144,7 +144,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 * Type &ndash; 要注入的服务类型。
 * Property &ndash; 接收注入的应用服务的属性名称。 属性无需手动创建。 编译器会创建属性。
 
-有关详细信息，请参阅 <xref:mvc/views/dependency-injection>。
+有关更多信息，请参见 <xref:mvc/views/dependency-injection>。
 
 使用多个 `@inject` 语句注入不同的服务。
 
@@ -206,7 +206,7 @@ public class DataAccess : IDataAccess
 
 可使用下面两个版本的 `OwningComponentBase` 类型：
 
-* `OwningComponentBase` 是 `ComponentBase` 类型的抽象、可释放子级，其具有 `IServiceProvider` 类型的受保护的 `ScopedServices` 属性。 此提供程序可用于解析范围限定为组件生存期的服务。
+* `OwningComponentBase` 是 `ComponentBase` 类型的抽象、可释放子级，其具有 `ScopedServices` 类型的受保护的 `IServiceProvider` 属性。 此提供程序可用于解析范围限定为组件生存期的服务。
 
   使用 `@inject` 或 `InjectAttribute` (`[Inject]`) 注入到组件中的 DI 服务不是在组件的范围中创建的。 要使用组件的范围，必须使用 `ScopedServices.GetRequiredService` 或 `ScopedServices.GetService` 解析服务。 任何使用 `ScopedServices` 提供程序进行解析的服务都具有从同一范围提供的依赖关系。
 
@@ -257,14 +257,14 @@ public class DataAccess : IDataAccess
 
 从 Web 应用中的 DI 检索的一种常见服务类型是实体框架 (EF) `DbContext` 对象。 默认情况下，使用 `IServiceCollection.AddDbContext` 注册 EF 服务会将 `DbContext` 添加为一项 Scoped 服务。 注册为 Scoped 服务可能会导致 Blazor 应用中出现问题，因为这会导致 `DbContext` 实例生存期较长且跨应用共享。 `DbContext` 不是线程安全的且不得同时使用。
 
-根据应用的不同，使用 `OwningComponentBase` 将 `DbContext` 的范围限制为单个组件可能会解决此问题  。 如果组件不并行使用 `DbContext`，则从 `OwningComponentBase` 派生该组件并从 `ScopedServices` 检索 `DbContext` 就已足够，因为它可确保：
+根据应用的不同，使用 `OwningComponentBase` 将 `DbContext` 的范围限制为单个组件可能会解决此问题  。 如果组件不并行使用 `DbContext`，则从 `OwningComponentBase` 派生该组件并从 `DbContext` 检索 `ScopedServices` 就已足够，因为它可确保：
 
 * 单独的组件不共享 `DbContext`。
 * `DbContext` 的生存期与依赖它的组件的生存期一样长。
 
 如果单个组件可能同时使用 `DbContext`（例如用户每次选择一个按钮），则即使使用 `OwningComponentBase` 也不能避免并发 EF 操作问题。 在这种情况下，请对每个逻辑 EF 操作使用不同的 `DbContext`。 请使用下述任一方法：
 
-* 使用 `DbContextOptions<TContext>` 作为参数直接创建 `DbContext`，这可从 DI 进行检索且是线程安全的。
+* 使用 `DbContext` 作为参数直接创建 `DbContextOptions<TContext>`，这可从 DI 进行检索且是线程安全的。
 
     ```razor
     @page "/example"
@@ -307,7 +307,7 @@ public class DataAccess : IDataAccess
          ServiceLifetime.Transient);
     ```  
 
-  * 可将暂时性 `DbContext` 正常注入（使用 `@inject`）到不会并行执行多个 EF 操作的组件。 可能同时执行多个 EF 操作的人员可使用 `IServiceProvider.GetRequiredService` 为每个并行操作请求单独的 `DbContext` 对象。
+  * 可将暂时性 `DbContext` 正常注入（使用 `@inject`）到不会并行执行多个 EF 操作的组件。 可能同时执行多个 EF 操作的人员可使用 `DbContext` 为每个并行操作请求单独的 `IServiceProvider.GetRequiredService` 对象。
 
     ```razor
     @page "/example"

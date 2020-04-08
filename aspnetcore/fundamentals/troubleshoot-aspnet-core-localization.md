@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
 ms.openlocfilehash: 229e274a22e170d984a16d3b1ee64ebc38c4ef77
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647892"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除

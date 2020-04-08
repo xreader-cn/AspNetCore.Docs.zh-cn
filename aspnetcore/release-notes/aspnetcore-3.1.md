@@ -10,10 +10,10 @@ no-loc:
 - SignalR
 uid: aspnetcore-3.1
 ms.openlocfilehash: f375022ad3ebdea2990f626320ef295926f88c22
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648768"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
@@ -36,7 +36,7 @@ HTML 帮助程序在 ASP.NET Core 3.1 仍受支持，但建议使用组件标记
 
 Blazor 服务器应用现可在初始呈现期间将参数传递给顶级组件。 之前，你只能将参数传递给具有 [RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) 的顶级组件。 在此版本中，[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) 和 [RenderModel.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) 均受支持。 任何指定的参数值均序列化为 JSON，并包含在初始响应中。
 
-例如，通过增量 (`IncrementAmount`) 预呈现一个 `Counter` 组件：
+例如，通过增量 (`Counter`) 预呈现一个 `IncrementAmount` 组件：
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" 
@@ -53,7 +53,7 @@ Blazor 服务器应用现可在初始呈现期间将参数传递给顶级组件�
 
 ## <a name="breaking-changes-for-samesite-cookies"></a>SameSite Cookie 的中断性变更
 
-SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改。 这可能会影响 AzureAd、OpenIdConnect 或 WsFederation 等身份验证场景。 有关详细信息，请参阅 <xref:security/samesite>。
+SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改。 这可能会影响 AzureAd、OpenIdConnect 或 WsFederation 等身份验证场景。 有关更多信息，请参见 <xref:security/samesite>。
 
 ## <a name="prevent-default-actions-for-events-in-opno-locblazor-apps"></a>在 Blazor 应用中阻止事件的默认操作
 

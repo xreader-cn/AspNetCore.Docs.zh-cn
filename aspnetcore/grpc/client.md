@@ -7,10 +7,10 @@ ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
 ms.openlocfilehash: 6a6a649f7194354b16f3d67160be02428cc01170
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650802"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>使用 .NET 客户端调用 gRPC 服务
@@ -22,7 +22,7 @@ ms.locfileid: "78650802"
 
 ## <a name="configure-grpc-client"></a>配置 gRPC 客户端
 
-gRPC 客户端是从 [\*.proto  文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto  文件中 gRPC 服务的方法。
+gRPC 客户端是从 [ *.proto\** 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 *.proto\** 文件中 gRPC 服务的方法。
 
 gRPC 客户端是通过通道创建的。 首先使用 `GrpcChannel.ForAddress` 创建一个通道，然后使用该通道创建 gRPC 客户端：
 
@@ -31,7 +31,7 @@ var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greet.GreeterClient(channel);
 ```
 
-通道表示与 gRPC 服务的长期连接。 创建通道后，进行配置，使其具有与调用服务相关的选项。 例如，可在 `GrpcChannelOptions` 上指定用于调用的 `HttpClient`、发收和接收消息的最大大小以及记录日志，并将其与 `GrpcChannel.ForAddress` 一起使用。 有关选项的完整列表，请参阅[客户端配置选项](xref:grpc/configuration#configure-client-options)。
+通道表示与 gRPC 服务的长期连接。 创建通道后，进行配置，使其具有与调用服务相关的选项。 例如，可在 `HttpClient` 上指定用于调用的 `GrpcChannelOptions`、发收和接收消息的最大大小以及记录日志，并将其与 `GrpcChannel.ForAddress` 一起使用。 有关选项的完整列表，请参阅[客户端配置选项](xref:grpc/configuration#configure-client-options)。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -81,7 +81,7 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-\*.proto 文件中的每个一元服务方法将在用于调用方法的具体 gRPC 客户端类型上产生两个 .NET 方法：异步方法和阻塞方法  。 例如，`GreeterClient` 具有两种调用 `SayHello` 的方法：
+*.proto 文件中的每个一元服务方法将在用于调用方法的具体 gRPC 客户端类型上产生两个 .NET 方法：异步方法和阻塞方法\** 。 例如，`GreeterClient` 具有两种调用 `SayHello` 的方法：
 
 * `GreeterClient.SayHelloAsync` - 以异步方式调用 `Greeter.SayHello` 服务。 敬请期待。
 * `GreeterClient.SayHello` - 调用 `Greeter.SayHello` 服务并阻塞，直至结束。 不要在异步代码中使用。

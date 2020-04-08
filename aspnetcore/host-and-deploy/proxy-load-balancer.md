@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/proxy-load-balancer
 ms.openlocfilehash: b5c81e0cfa29cddeb1aeed1119a711fca4d91ae4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647352"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
@@ -55,13 +55,13 @@ ms.locfileid: "78647352"
 
 ## <a name="iisiis-express-and-aspnet-core-module"></a>IIS/IIS Express 和 ASP.NET Core 模块
 
-当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
+当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#out-of-process-hosting-model)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
 
 ## <a name="other-proxy-server-and-load-balancer-scenarios"></a>其他代理服务器和负载均衡器方案
 
-除在[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
+除在[进程外](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#out-of-process-hosting-model)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
 
-为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `Startup.ConfigureServices` 中的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头。 调用其他中间件之前，先调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法：
+为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `X-Forwarded-For` 中的 `X-Forwarded-Proto` 和 `Startup.ConfigureServices` 标头。 调用其他中间件之前，先调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中的 `Startup.Configure` 方法：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -96,11 +96,11 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 
 > [!NOTE]
-> 如果没有在 `Startup.ConfigureServices` 中指定任何 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，或未使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 直接指定到扩展方法，则要转接的默认标头为 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 必须为 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> 属性配置要转接的标头。
+> 如果没有在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 中指定任何 `Startup.ConfigureServices`，或未使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 直接指定到扩展方法，则要转接的默认标头为 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 必须为 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> 属性配置要转接的标头。
 
 ## <a name="nginx-configuration"></a>Nginx 配置
 
-要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转发标头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
+要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转接头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
 
 ## <a name="apache-configuration"></a>Apache 配置
 
@@ -308,7 +308,7 @@ services.AddCertificateForwarding(options =>
 
 如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 
 
-要将标头写入应用的响应，请在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 后立即放置以下终端内联中间件：
+要将标头写入应用的响应，请在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中调用 `Startup.Configure` 后立即放置以下终端内联中间件：
 
 ```csharp
 app.Run(async (context) =>
@@ -345,7 +345,7 @@ app.Run(async (context) =>
 要写入日志而不是响应正文，请执行以下操作：
 
 * 将 `ILogger<Startup>` 注入到 `Startup` 类中，如[在启动时创建日志](xref:fundamentals/logging/index#create-logs-in-startup)中所述。
-* 在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 之后，立即放置以下内联中间件。
+* 在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中调用 `Startup.Configure` 之后，立即放置以下内联中间件。
 
 ```csharp
 app.Use(async (context, next) =>
@@ -377,7 +377,7 @@ app.Use(async (context, next) =>
 September 20th 2018, 15:49:44.168 Unknown proxy: 10.0.0.100:54321
 ```
 
-在上述示例中，10.0.0.100 是代理服务器。 如果该服务器是受信任的代理，请将服务器的 IP 地址添加到 `Startup.ConfigureServices` 中的 `KnownProxies`（或将受信任的网络添加到 `KnownNetworks`）。 有关详细信息，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)部分。
+在上述示例中，10.0.0.100 是代理服务器。 如果该服务器是受信任的代理，请将服务器的 IP 地址添加到 `KnownProxies` 中的 `KnownNetworks`（或将受信任的网络添加到 `Startup.ConfigureServices`）。 有关详细信息，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)部分。
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -433,13 +433,13 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ## <a name="iisiis-express-and-aspnet-core-module"></a>IIS/IIS Express 和 ASP.NET Core 模块
 
-当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
+当应用托管在 IIS 和 ASP.NET Core 模块后方的[进程外](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)时，转接头中间件由 [IIS 集成中间件](xref:host-and-deploy/iis/index#out-of-process-hosting-model)默认启用。 由于转接头的信任问题（例如，[IP 欺骗](https://www.iplocation.net/ip-spoofing)），转接头中间件被激活为首先在中间件管道中运行，并具有特定于 ASP.NET Core 模块的受限配置。 中间件配置为转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，并且被限制到单个本地 localhost 代理。 如果需要其他配置，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)。
 
 ## <a name="other-proxy-server-and-load-balancer-scenarios"></a>其他代理服务器和负载均衡器方案
 
-除在[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
+除在[进程外](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#out-of-process-hosting-model)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
 
-为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `Startup.ConfigureServices` 中的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头。 调用其他中间件之前，先调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法：
+为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `X-Forwarded-For` 中的 `X-Forwarded-Proto` 和 `Startup.ConfigureServices` 标头。 调用其他中间件之前，先调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中的 `Startup.Configure` 方法：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -474,11 +474,11 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 
 > [!NOTE]
-> 如果没有在 `Startup.ConfigureServices` 中指定任何 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，或未使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 直接指定到扩展方法，则要转接的默认标头为 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 必须为 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> 属性配置要转接的标头。
+> 如果没有在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 中指定任何 `Startup.ConfigureServices`，或未使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 直接指定到扩展方法，则要转接的默认标头为 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 必须为 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> 属性配置要转接的标头。
 
 ## <a name="nginx-configuration"></a>Nginx 配置
 
-要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转发标头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
+要转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头，请参阅 <xref:host-and-deploy/linux-nginx#configure-nginx>。 有关详细信息，请参阅 [NGINX：使用转接头](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)。
 
 ## <a name="apache-configuration"></a>Apache 配置
 
@@ -636,7 +636,7 @@ if (string.Equals(
 
 如果未按预期转接标头，请启用[日志记录](xref:fundamentals/logging/index)。 如果日志没有提供足够的信息来解决问题，请枚举服务器收到的请求标头。 使用内联中间件将请求标头写入应用程序响应或记录标头。 
 
-要将标头写入应用的响应，请在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 后立即放置以下终端内联中间件：
+要将标头写入应用的响应，请在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中调用 `Startup.Configure` 后立即放置以下终端内联中间件：
 
 ```csharp
 app.Run(async (context) =>
@@ -673,7 +673,7 @@ app.Run(async (context) =>
 要写入日志而不是响应正文，请执行以下操作：
 
 * 将 `ILogger<Startup>` 注入到 `Startup` 类中，如[在启动时创建日志](xref:fundamentals/logging/index#create-logs-in-startup)中所述。
-* 在 `Startup.Configure` 中调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 之后，立即放置以下内联中间件。
+* 在 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 中调用 `Startup.Configure` 之后，立即放置以下内联中间件。
 
 ```csharp
 app.Use(async (context, next) =>
@@ -705,7 +705,7 @@ app.Use(async (context, next) =>
 September 20th 2018, 15:49:44.168 Unknown proxy: 10.0.0.100:54321
 ```
 
-在上述示例中，10.0.0.100 是代理服务器。 如果该服务器是受信任的代理，请将服务器的 IP 地址添加到 `Startup.ConfigureServices` 中的 `KnownProxies`（或将受信任的网络添加到 `KnownNetworks`）。 有关详细信息，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)部分。
+在上述示例中，10.0.0.100 是代理服务器。 如果该服务器是受信任的代理，请将服务器的 IP 地址添加到 `KnownProxies` 中的 `KnownNetworks`（或将受信任的网络添加到 `Startup.ConfigureServices`）。 有关详细信息，请参阅[转接头中间件选项](#forwarded-headers-middleware-options)部分。
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>

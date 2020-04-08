@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/05/2020
 uid: fundamentals/logging/index
 ms.openlocfilehash: 58e236ad7f0863b87907d5585e1cb6bf61d46e99
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644448"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
@@ -22,7 +22,7 @@ ms.locfileid: "78644448"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-本文中所述的大多数代码示例都来自 ASP.NET Core 应用。 这些代码片段的日志记录特定部分适用于任何使用[通用主机](xref:fundamentals/host/generic-host)的 .NET Core 应用。 要通过示例了解如何在非 Web 控制台应用中使用一般主机，请参阅[后台任务示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples) 的 Program.cs 文件 (<xref:fundamentals/host/hosted-services>)  。
+本文中所述的大多数代码示例都来自 ASP.NET Core 应用。 这些代码片段的日志记录特定部分适用于任何使用[通用主机](xref:fundamentals/host/generic-host)的 .NET Core 应用。 要通过示例了解如何在非 Web 控制台应用中使用一般主机，请参阅*后台任务示例应用* 的 Program.cs 文件 ([)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples)<xref:fundamentals/host/hosted-services>。
 
 对于没有通用主机的应用，日志记录代码在[添加提供程序](#add-providers)和[创建记录器](#create-logs)的方式上有所不同。 本文的这些部分显示了非主机代码示例。
 
@@ -40,11 +40,11 @@ ms.locfileid: "78644448"
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=6)]
 
-在非主机控制台应用中，在创建 `LoggerFactory` 时调用提供程序的 `Add{provider name}` 扩展方法：
+在非主机控制台应用中，在创建 `Add{provider name}` 时调用提供程序的 `LoggerFactory` 扩展方法：
 
 [!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=1,7)]
 
-`LoggerFactory` 和 `AddConsole` 需要用于 `Microsoft.Extensions.Logging` 的 `using` 语句。
+`LoggerFactory` 和 `AddConsole` 需要用于 `using` 的 `Microsoft.Extensions.Logging` 语句。
 
 默认 ASP.NET Core 项目模板调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：
 
@@ -69,9 +69,9 @@ ms.locfileid: "78644448"
 
 默认项目模板调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>，该操作将添加以下日志记录提供程序：
 
-* 控制台
+* Console
 * 调试
-* EventSource（从 ASP.NET Core 2.2 开始）
+* EventSource（启动位置：ASP.NET Core 2.2）
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
@@ -297,7 +297,7 @@ public class Program
 
 日志记录应该会很快，不值得牺牲性能来使用异步代码。 如果你的日志数据存储很慢，请不要直接写入它。 首先考虑将日志消息写入快速存储，稍后再将其变为慢速存储。 例如，如果你要记录到 SQL Server，你可能不想直接在 `Log` 方法中记录，因为 `Log` 方法是同步的。 相反，你会将日志消息同步添加到内存中的队列，并让后台辅助线程从队列中拉出消息，以完成将数据推送到 SQL Server 的异步工作。 有关详细信息，请参阅[此](https://github.com/dotnet/AspNetCore.Docs/issues/11801) GitHub 问题。
 
-## <a name="configuration"></a>Configuration
+## <a name="configuration"></a>配置
 
 日志记录提供程序配置由一个或多个配置提供程序提供：
 
@@ -329,7 +329,7 @@ public class Program
 
 `Logging` 属性可具有 `LogLevel` 和日志提供程序属性（显示控制台）。
 
-`Logging` 下的 `LogLevel` 属性指定了用于记录所选类别的最低[级别](#log-level)。 在本例中，`System` 和 `Microsoft` 类别在 `Information` 级别记录，其他均在 `Debug` 级别记录。
+`LogLevel` 下的 `Logging` 属性指定了用于记录所选类别的最低[级别](#log-level)。 在本例中，`System` 和 `Microsoft` 类别在 `Information` 级别记录，其他均在 `Debug` 级别记录。
 
 `Logging` 下的其他属性均指定了日志记录提供程序。 本示例针对控制台提供程序。 如果提供程序支持[日志作用域](#log-scopes)，则 `IncludeScopes` 将指示是否启用这些域。 提供程序属性（例如本例的 `Console`）也可指定 `LogLevel` 属性。 提供程序下的 `LogLevel` 指定了该提供程序记录的级别。
 
@@ -463,7 +463,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 ::: moniker-end
 
-`ILogger<T>` 相当于使用 `T` 的完全限定类型名称来调用 `CreateLogger`。
+`ILogger<T>` 相当于使用 `CreateLogger` 的完全限定类型名称来调用 `T`。
 
 ## <a name="log-level"></a>日志级别
 
@@ -485,7 +485,7 @@ Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 3
 
 在上述代码中，第一个参数是[日志事件 ID](#log-event-id)。 第二个参数是消息模板，其中的占位符用于填写剩余方法形参提供的实参值。 稍后将在本文的[消息模板部分](#log-message-template)介绍方法参数。
 
-在方法名称中包含级别的日志方法（例如 `LogInformation` 和 `LogWarning`）是 [ILogger 的扩展方法](xref:Microsoft.Extensions.Logging.LoggerExtensions)。 这些方法会调用可接受 `LogLevel` 参数的 `Log` 方法。 可直接调用 `Log` 方法而不调用其中某个扩展方法，但语法相对复杂。 有关详细信息，请参阅 <xref:Microsoft.Extensions.Logging.ILogger> 和[记录器扩展源代码](https://github.com/dotnet/extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)。
+在方法名称中包含级别的日志方法（例如 `LogInformation` 和 `LogWarning`）是 [ILogger 的扩展方法](xref:Microsoft.Extensions.Logging.LoggerExtensions)。 这些方法会调用可接受 `Log` 参数的 `LogLevel` 方法。 可直接调用 `Log` 方法而不调用其中某个扩展方法，但语法相对复杂。 有关详细信息，请参阅 <xref:Microsoft.Extensions.Logging.ILogger> 和[记录器扩展源代码](https://github.com/dotnet/extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)。
 
 ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
@@ -495,7 +495,7 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
 * 调试 = 1
 
-  有关在开发和调试中可能有用的信息。 示例：`Entering method Configure with flag set to true.` 由于日志数量过多，因此仅当执行故障排除时，才在生产中启用 `Debug` 级别日志。
+  有关在开发和调试中可能有用的信息。 示例：由于 日志数量过多，因此`Entering method Configure with flag set to true.` 仅当故障排除时才在生产中启用 `Debug` 级别日志。
 
 * 信息 = 2
 
@@ -513,14 +513,14 @@ ASP.NET Core 定义了以下日志级别（按严重性从低到高排列）。
 
   需要立即关注的失败。 例如数据丢失、磁盘空间不足。
 
-使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。 例如：
+使用日志级别控制写入到特定存储介质或显示窗口的日志输出量。 例如:
 
 * 生产中：
-  * 如果通过 `Information` 级别在 `Trace` 处记录，则会生成大量详细的日志消息。 为控制成本且不超过数据存储限制，请通过 `Information` 级别消息将 `Trace` 记录到容量大、成本低的数据存储中。
-  * 如果通过 `Critical` 级别在 `Warning` 处记录，通常生成的日志消息更少且更小。 因此，成本和存储限制通常不是问题，而这使得在选择数据信息时更为灵活。
+  * 如果通过 `Trace` 级别在 `Information` 处记录，则会生成大量详细的日志消息。 为控制成本且不超过数据存储限制，请通过 `Trace` 级别消息将 `Information` 记录到容量大、成本低的数据存储中。
+  * 如果通过 `Warning` 级别在 `Critical` 处记录，通常生成的日志消息更少且更小。 因此，成本和存储限制通常不是问题，而这使得在选择数据信息时更为灵活。
 * 在开发过程中：
-  * 通过 `Critical` 消息将 `Warning` 记录到控制台。
-  * 在疑难解答时通过 `Information` 消息添加 `Trace`。
+  * 通过 `Warning` 消息将 `Critical` 记录到控制台。
+  * 在疑难解答时通过 `Trace` 消息添加 `Information`。
 
 本文稍后的[日志筛选](#log-filtering)部分介绍如何控制提供程序处理的日志级别。
 
@@ -704,7 +704,7 @@ System.Exception: Item not found exception.
 
 ### <a name="create-filter-rules-in-configuration"></a>在配置中创建筛选规则
 
-项目模板代码调用 `CreateDefaultBuilder` 来为 Console、Debug 和 EventSource（ASP.NET Core 2.2 或更高版本）提供程序设置日志记录。 正如[本文前面部分](#configuration)所述，`CreateDefaultBuilder` 方法设置日志记录以在 `Logging` 部分查找配置。
+项目模板代码调用 `CreateDefaultBuilder` 来为 Console、Debug 和 EventSource（ASP.NET Core 2.2 或更高版本）提供程序设置日志记录。 正如`CreateDefaultBuilder`本文前面部分`Logging`所述，[ 方法设置日志记录以在 ](#configuration) 部分查找配置。
 
 配置数据按提供程序和类别指定最低日志级别，如下方示例所示：
 
@@ -747,12 +747,12 @@ System.Exception: Item not found exception.
 | 数字 | 提供程序      | 类别的开头为...          | 最低日志级别 |
 | :----: | ------------- | --------------------------------------- | ----------------- |
 | 1      | 调试         | 全部类别                          | 信息       |
-| 2      | 控制台       | Microsoft.AspNetCore.Mvc.Razor.Internal | 警告           |
-| 3      | 控制台       | Microsoft.AspNetCore.Mvc.Razor.Razor    | 调试             |
-| 4      | 控制台       | Microsoft.AspNetCore.Mvc.Razor          | 错误             |
-| 5      | 控制台       | 全部类别                          | 信息       |
+| 2      | Console       | Microsoft.AspNetCore.Mvc.Razor.Internal | 警告           |
+| 3      | Console       | Microsoft.AspNetCore.Mvc.Razor.Razor    | 调试             |
+| 4      | Console       | Microsoft.AspNetCore.Mvc.Razor          | 错误             |
+| 5      | Console       | 全部类别                          | 信息       |
 | 6      | 全部提供程序 | 全部类别                          | 调试             |
-| 7      | 全部提供程序 | System                                  | 调试             |
+| 7      | 全部提供程序 | 系统                                  | 调试             |
 | 8      | 调试         | Microsoft                               | 跟踪             |
 
 创建 `ILogger` 对象时，`ILoggerFactory` 对象将根据提供程序选择一条规则，将其应用于该记录器。 将按所选规则筛选 `ILogger` 实例写入的所有消息。 从可用规则中为每个提供程序和类别对选择最具体的规则。
@@ -775,7 +775,7 @@ System.Exception: Item not found exception.
 
 每个提供程序都定义了一个别名；可在配置中使用该别名来代替完全限定的类型名称  。  对于内置提供程序，请使用以下别名：
 
-* 控制台
+* Console
 * 调试
 * EventSource
 * EventLog
@@ -804,7 +804,7 @@ System.Exception: Item not found exception.
 
 ### <a name="filter-functions"></a>筛选器函数
 
-对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。 函数中的代码可访问提供程序类型、类别和日志级别。 例如：
+对配置或代码没有向其分配规则的所有提供程序和类别调用筛选器函数。 函数中的代码可访问提供程序类型、类别和日志级别。 例如:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -822,7 +822,7 @@ System.Exception: Item not found exception.
 
 下面是 ASP.NET Core 和 Entity Framework Core 使用的一些类别，备注中说明了可从这些类别获取的具体日志：
 
-| 类别                            | 说明 |
+| 类别                            | 注意 |
 | ----------------------------------- | ----- |
 | Microsoft.AspNetCore                | 常规 ASP.NET Core 诊断。 |
 | Microsoft.AspNetCore.DataProtection | 考虑、找到并使用了哪些密钥。 |
@@ -838,7 +838,7 @@ System.Exception: Item not found exception.
 
  “作用域”可对一组逻辑操作分组  。 此分组可用于将相同的数据附加到作为集合的一部分而创建的每个日志。 例如，在处理事务期间创建的每个日志都可包括事务 ID。
 
-范围是由 <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> 方法返回的 `IDisposable` 类型，持续至释放为止。 要使用作用域，请在 `using` 块中包装记录器调用：
+范围是由 `IDisposable` 方法返回的 <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> 类型，持续至释放为止。 要使用作用域，请在 `using` 块中包装记录器调用：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -937,7 +937,7 @@ logging.AddEventSourceLogger();
 
 #### <a name="dotnet-trace-tooling"></a>dotnet 跟踪工具
 
-[dotnet-trace](/dotnet/core/diagnostics/dotnet-trace) 工具是一种跨平台 CLI 全局工具，可用于收集正在运行的进程的 .NET Core 跟踪。 该工具会使用 <xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource> 收集 <xref:Microsoft.Extensions.Logging.EventSource> 提供程序数据。
+[dotnet-trace](/dotnet/core/diagnostics/dotnet-trace) 工具是一种跨平台 CLI 全局工具，可用于收集正在运行的进程的 .NET Core 跟踪。 该工具会使用 <xref:Microsoft.Extensions.Logging.EventSource> 收集 <xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource> 提供程序数据。
 
 使用以下命令安装 dotnet 跟踪工具：
 
@@ -992,9 +992,9 @@ dotnet tool install --global dotnet-trace
    | 关键字 | 描述 |
    | :-----: | ----------- |
    | 1       | 记录有关 `LoggingEventSource` 的 meta 事件。 请不要从 `ILogger` 记录事件。 |
-   | 2       | 在调用 `ILogger.Log()` 时启用 `Message` 事件。 以编程（未格式化）方式提供信息。 |
-   | 4       | 在调用 `ILogger.Log()` 时启用 `FormatMessage` 事件。 提供格式化字符串版本的信息。 |
-   | 8       | 在调用 `ILogger.Log()` 时启用 `MessageJson` 事件。 提供参数的 JSON 表示形式。 |
+   | 2       | 在调用 `Message` 时启用 `ILogger.Log()` 事件。 以编程（未格式化）方式提供信息。 |
+   | 4       | 在调用 `FormatMessage` 时启用 `ILogger.Log()` 事件。 提供格式化字符串版本的信息。 |
+   | 8       | 在调用 `MessageJson` 时启用 `ILogger.Log()` 事件。 提供参数的 JSON 表示形式。 |
 
    | 事件级别 | 描述     |
    | :---------: | --------------- |
@@ -1005,9 +1005,9 @@ dotnet tool install --global dotnet-trace
    | 4           | `Informational` |
    | 5           | `Verbose`       |
 
-   `{Logger Category}` 和 `{Event Level}` 的 `FilterSpecs` 条目表示其他日志筛选条件。 请用分号 (`;`) 分隔 `FilterSpecs` 条目。
+   `FilterSpecs` 和 `{Logger Category}` 的 `{Event Level}` 条目表示其他日志筛选条件。 请用分号 (`FilterSpecs`) 分隔 `;` 条目。
 
-   下例使用 Windows 命令界面（`--providers` 值不用单引号引起来）  ：
+   下例使用 Windows 命令界面（ **值不用单引号引起来）** `--providers`：
 
    ```dotnetcli
    dotnet trace collect -p {PID} --providers Microsoft-Extensions-Logging:4:2:FilterSpecs=\"Microsoft.AspNetCore.Hosting*:4\"
@@ -1015,12 +1015,12 @@ dotnet tool install --global dotnet-trace
 
    上面的命令会激活：
 
-   * 事件源记录器，它用于为错误 (`2`) 生成格式化字符串 (`4`)。
-   * `Informational` 日志记录级别 (`4`) 的 `Microsoft.AspNetCore.Hosting` 日志记录。
+   * 事件源记录器，它用于为错误 (`4`) 生成格式化字符串 (`2`)。
+   * `Microsoft.AspNetCore.Hosting` 日志记录级别 (`Informational`) 的 `4` 日志记录。
 
 1. 通过按 Enter 键或 Ctrl+C 停止 dotnet 跟踪工具。
 
-   跟踪使用名称 trace.nettrace 保存在执行 `dotnet trace` 命令的文件夹中  。
+   跟踪使用名称 trace.nettrace 保存在执行  *命令的文件夹中*`dotnet trace`。
 
 1. 使用[预览](#perfview)功能打开跟踪。 打开 trace.nettrace 文件并浏览跟踪事件  。
 
@@ -1117,7 +1117,7 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker range="= aspnetcore-2.1"
 
-<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。 设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。 （“输出模板”是一个消息模板，除了通过 `ILogger` 方法调用提供的内容之外，还可将其应用于所有日志。  ）
+<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> 重载允许传入 <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>。 设置对象可以覆盖默认设置，例如日志记录输出模板、blob 名称和文件大小限制。 （“输出模板”是一个消息模板，除了通过  *方法调用提供的内容之外，还可将其应用于所有日志。* `ILogger`）
 
 ::: moniker-end
 
@@ -1126,7 +1126,7 @@ logging.AddAzureWebAppDiagnostics();
 * 应用程序日志记录(Filesystem) 
 * 应用程序日志记录(Blob) 
 
-日志文件的默认位置是 D:\\home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt   。 默认文件大小上限为 10 MB，默认最大保留文件数为 2。 默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt  。
+日志文件的默认位置是 D:*home\\LogFiles\\Application 文件夹，默认文件名为 diagnostics-yyyymmdd.txt\\*  。 默认文件大小上限为 10 MB，默认最大保留文件数为 2。 默认 blob 名为 {app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt  。
 
 该提供程序仅当项目在 Azure 环境中运行时有效。 项目在本地运行时，该提供程序无效 &mdash; 它不会写入本地文件或 blob 的本地开发存储。
 

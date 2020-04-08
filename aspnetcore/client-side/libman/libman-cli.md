@@ -9,10 +9,10 @@ no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
 ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649602"
 ---
 # <a name="use-the-libman-cli-with-aspnet-core"></a>将 LibMan CLI 与 ASP.NET Core 结合使用
@@ -21,7 +21,7 @@ ms.locfileid: "78649602"
 
 [LibMan](xref:client-side/libman/index) CLI 是一种跨平台工具，在所有支持的 .NET Core 的位置都可得到支持。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>系统必备
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
@@ -33,7 +33,7 @@ ms.locfileid: "78649602"
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-从 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。
+从 [Microsoft.Web.LibraryManager.Cli](/dotnet/core/tools/global-tools#install-a-global-tool) NuGet 包安装 [.NET Core 全局工具](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)。
 
 从特定 NuGet 包源安装 LibMan CLI：
 
@@ -109,11 +109,11 @@ libman init [-h|--help]
 
 * `-d|--default-destination <PATH>`
 
-  相对于当前文件夹的路径。 如果未在 libman.json  中为库定义 `destination` 属性，则库文件会安装在此位置。 `<PATH>` 值会写入 libman.json  的 `defaultDestination` 属性。
+  相对于当前文件夹的路径。 如果未在 libman.json`destination`*中为库定义* 属性，则库文件会安装在此位置。 `<PATH>` 值会写入 libman.json`defaultDestination`*的* 属性。
 
 * `-p|--default-provider <PROVIDER>`
 
-  未为给定库定义提供程序时要使用的提供程序。 `<PROVIDER>` 值会写入 libman.json  的 `defaultProvider` 属性。 将 `<PROVIDER>` 替换为以下值之一：
+  未为给定库定义提供程序时要使用的提供程序。 `<PROVIDER>` 值会写入 libman.json`defaultProvider`*的* 属性。 将 `<PROVIDER>` 替换为以下值之一：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -157,7 +157,7 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -169,7 +169,7 @@ libman install [-h|--help]
 
 * `-d|--destination <PATH>`
 
-  用于安装库的位置。 如果未指定，则使用默认位置。 如果 libman.json  中未指定 `defaultDestination` 属性，则此选项是必需的。
+  用于安装库的位置。 如果未指定，则使用默认位置。 如果 libman.json`defaultDestination`*中未指定* 属性，则此选项是必需的。
 
 * `--files <FILE>`
 
@@ -181,7 +181,7 @@ libman install [-h|--help]
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  如果未指定，则使用 libman.json  中的 `defaultProvider` 属性。 如果 libman.json  中未指定 `defaultProvider` 属性，则此选项是必需的。
+  如果未指定，则使用 libman.json`defaultProvider`*中的* 属性。 如果 libman.json`defaultProvider`*中未指定* 属性，则此选项是必需的。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
@@ -221,7 +221,7 @@ libman.json  文件类似于以下内容：
 }
 ```
 
-使用文件系统提供程序从 C:\\temp\\contosoCalendar\\  安装 calendar.js  和 calendar.css  ：
+使用文件系统提供程序从 C:*temp*contosoCalendar  *安装 calendar.js\\\\ 和 calendar.css\\* ：
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
@@ -266,8 +266,8 @@ libman.json  文件类似于以下内容：
 `libman restore` 命令安装在 libman.json  中定义的库文件。 适用以下规则：
 
 * 如果项目根中不存在 libman.json  文件，则会返回错误。
-* 如果库指定了提供程序，则会忽略 libman.json  中的 `defaultProvider` 属性。
-* 如果库指定了目标，则会忽略 libman.json  中的 `defaultDestination` 属性。
+* 如果库指定了提供程序，则会忽略 libman.json`defaultProvider`*中的* 属性。
+* 如果库指定了目标，则会忽略 libman.json`defaultDestination`*中的* 属性。
 
 ### <a name="synopsis"></a>摘要
 
@@ -292,7 +292,7 @@ libman restore
 
 ## <a name="delete-library-files"></a>删除库文件
 
-`libman clean` 命令会删除之前通过 LibMan 还原的库文件。 在此操作之后成为空的文件夹会删除。 libman.json  的 `libraries` 属性中库文件的关联配置不会删除。
+`libman clean` 命令会删除之前通过 LibMan 还原的库文件。 在此操作之后成为空的文件夹会删除。 libman.json`libraries`*的* 属性中库文件的关联配置不会删除。
 
 ### <a name="synopsis"></a>摘要
 
@@ -336,7 +336,7 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -388,7 +388,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `LIBRARY`
 
@@ -440,7 +440,7 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 `PROVIDER`
 

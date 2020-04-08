@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 12/06/2018
 uid: host-and-deploy/azure-apps/azure-continuous-deployment
 ms.openlocfilehash: 3b344505739bb4292ed1683c73ff314b6e4e01e9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648108"
 ---
 # <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>使用 Visual Studio 和 Git 将 ASP.NET Core 持续部署到 Azure
@@ -26,7 +26,7 @@ ms.locfileid: "78648108"
 > [!NOTE]
 > 若要完成本教程，需要一个 Microsoft Azure 帐户。 要获取帐户，可[激活 MSDN 订阅者权益](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F)或[注册免费试用版](https://azure.microsoft.com/free/?WT.mc_id=A261C142F)。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>系统必备
 
 本教程假定已安装以下软件：
 
@@ -38,9 +38,9 @@ ms.locfileid: "78648108"
 
 1. 启动 Visual Studio。
 
-1. 从“文件”菜单中选择“新建” > “项目”    。
+1. 从“文件”菜单中选择“新建” **“项目”。**   >  
 
-1. 选择“ASP.NET Core Web 应用程序”项目模板  。 它出现在“已安装” > “模板” > “Visual C#” > “.NET Core”下。     将项目命名为 `SampleWebAppDemo`。 选择“新建 Git 存储库”选项，然后单击“确定”   。
+1. 选择“ASP.NET Core Web 应用程序”项目模板  。 它出现在“已安装” **“模板”** “Visual C#” > “.NET Core”下。   >    >   将项目命名为 `SampleWebAppDemo`。 选择“新建 Git 存储库”选项，然后单击“确定”   。
 
    ![“新建项目”对话框](azure-continuous-deployment/_static/01-new-project.png)
 
@@ -53,7 +53,7 @@ ms.locfileid: "78648108"
 
 ### <a name="running-the-web-app-locally"></a>本地运行 Web 应用
 
-1. Visual Studio 完成创建应用后，请选择“调试” > “启动调试”以运行该应用。   作为替代方法，也可以按 F5  。
+1. Visual Studio 完成创建应用后，请选择“调试” **“启动调试”以运行该应用。**  >   作为替代方法，也可以按 F5  。
 
    可能需要一些时间对 Visual Studio 和新应用进行初始化。 完成后，浏览器将显示正在运行的应用。
 
@@ -69,9 +69,9 @@ ms.locfileid: "78648108"
 
 1. 选择门户界面左上方的“新建”  。
 
-1. 选择“Web + 移动” > “Web 应用”   。
+1. 选择“Web + 移动” **“Web 应用”**  >   。
 
-   ![Microsoft Azure 门户：“新建”按钮：“市场”下的“Web + 移动”：“特色应用”下的“Web 应用”按钮](azure-continuous-deployment/_static/05-azure-newwebapp.png)
+   ![Microsoft Azure 门户：“新建”按钮：市场下的“Web + 移动”：“特别推荐的应用”下的“Web 应用”按钮](azure-continuous-deployment/_static/05-azure-newwebapp.png)
 
 1. 在“Web 应用”边栏选项卡中，输入“应用服务名称”的唯一值。  
 
@@ -96,7 +96,7 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
 
 1. 选择在本教程的前一部分中创建的 Web 应用。
 
-1. 在“部署”边栏选项卡中，选择“部署选项” > “选择源” > “本地 Git 存储库”。    
+1. 在“部署”边栏选项卡中，选择“部署选项” **“选择源”** “本地 Git 存储库”。   >    >  
 
    ![“设置”边栏选项卡：“部署源”边栏选项卡：“选择源”边栏选项卡](azure-continuous-deployment/_static/deployment-options.png)
 
@@ -104,11 +104,11 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
 
 1. 如果事先未设置用于发布 Web 应用的部署凭据或其他应用服务应用，请立即设置：
 
-   * 选择“设置” > “部署凭据”。   “设置部署凭据”边栏选项卡将显示。 
+   * 选择“设置” **“部署凭据”。**  >   “设置部署凭据”边栏选项卡将显示。 
    * 创建用户名和密码。 在设置 Git 时保存密码供以供将来使用。
    * 选择“保存”  。
 
-1. 在“Web 应用”边栏选项卡中，选择“设置” > “属性”。    要部署到的远程 Git 存储库的 URL 会显示在“GIT URL”下。 
+1. 在“Web 应用”边栏选项卡中，选择“设置” **“属性”。**   >   要部署到的远程 Git 存储库的 URL 会显示在“GIT URL”下。 
 
 1. 复制“GIT URL”的值，稍后将在本教程中用到。 
 
@@ -126,7 +126,7 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
 
    ![“团队资源管理器连接”选项卡](azure-continuous-deployment/_static/10-team-explorer.png)
 
-1. 在“团队资源管理器”中，选择“主页”（主页图标）>“设置” > “存储库设置”。    
+1. 在“团队资源管理器”中，选择“主页”（主页图标）>“设置” **“存储库设置”。**    >  
 
 1. 在“存储库设置”的“远程”部分中选择“添加”。    将显示“添加远程”对话框  。
 
@@ -141,9 +141,9 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
    >
    > `git remote add Azure-SampleApp https://me@sampleapp.scm.azurewebsites.net:443/SampleApp.git`
 
-1. 选择“主页”（主页图标）>“设置” > “全局设置”。    确认名称和电子邮件地址已设置。 如有必要，则选择“更新”  。
+1. 选择“主页”（主页图标）>“设置” **“全局设置”。**   >   确认名称和电子邮件地址已设置。 如有必要，则选择“更新”  。
 
-1. 选择“主页” > “更改”以返回到“更改”视图。   
+1. 选择“主页” **“更改”以返回到“更改”视图。**  >   
 
 1. 输入提交消息，如“初始推送 #1”，然后选择“提交”。   此操作将本地创建“提交”。 
 
@@ -156,7 +156,7 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
    >
    > `git commit -am "Initial Push #1"`
 
-1. 选择“主页” > “同步” > “操作” > “打开命令提示符”。     命令提示符打开到项目目录。
+1. 选择“主页” **“同步”** “操作” > “打开命令提示符”。   >    >   命令提示符打开到项目目录。
 
 1. 在命令窗口中输入以下命令：
 
@@ -215,7 +215,7 @@ Git 是一个分布式版本控制系统，可用来部署 Azure App Service Web
 
 1. 按“提交”按钮以提交项目更改。 
 
-1. 选择“主页” > “同步” > “操作” > “推送”。    
+1. 选择“主页” **“同步”** “操作” > “推送”。   >    >  
 
 > [!NOTE]
 > 作为替代方法，可以通过打开“命令窗口”、更改为项目目录并输入 git 命令从“命令窗口”推送更改。   示例：

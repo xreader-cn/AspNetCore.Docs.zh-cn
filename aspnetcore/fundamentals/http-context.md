@@ -8,15 +8,15 @@ ms.custom: mvc
 ms.date: 12/03/2019
 uid: fundamentals/httpcontext
 ms.openlocfilehash: 8a7ee180380c42ea745c91b8e6a18c1baa820220
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647010"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>在 ASP.NET Core 中访问 HttpContext
 
-ASP.NET Core 应用通过 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 接口及其默认实现 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> 访问 `HttpContext`。 只有在需要访问服务内的 `HttpContext` 时，才有必要使用 `IHttpContextAccessor`。
+ASP.NET Core 应用通过 `HttpContext` 接口及其默认实现 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> 访问 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor>。 只有在需要访问服务内的 `IHttpContextAccessor` 时，才有必要使用 `HttpContext`。
 
 ## <a name="use-httpcontext-from-razor-pages"></a>通过 Razor Pages 使用 HttpContext
 
@@ -36,7 +36,7 @@ public class AboutModel : PageModel
 
 ## <a name="use-httpcontext-from-a-razor-view"></a>通过 Razor 视图使用 HttpContext
 
-Razor 视图通过视图上的 [RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) 属性直接公开 `HttpContext`。 下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：
+Razor 视图通过视图上的 `HttpContext`RazorPage.Context[ 属性直接公开 ](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context)。 下面的示例使用 Windows 身份验证检索 Intranet 应用中的当前用户名：
 
 ```cshtml
 @{

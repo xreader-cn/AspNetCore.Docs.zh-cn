@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 08/14/2018
 uid: client-side/libman/index
 ms.openlocfilehash: 87987446b7f2c625da90951510e697e06569ba36
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644574"
 ---
 # <a name="client-side-library-acquisition-in-aspnet-core-with-libman"></a>通过 LibMan 在 ASP.NET Core 中获取客户端库
@@ -27,7 +27,7 @@ LibMan 提供以下优势：
 * 无需使用其他工具（例如 [Node.js](https://nodejs.org)、[npm](https://www.npmjs.com) 和 [ WebPack](https://webpack.js.org)），即可获取库中文件的子集。
 * 可将文件放置在特定位置，无需执行生成任务，也不需手动进行文件复制。
 
-有关 LibMan 优势的详细信息，请观看 [Visual Studio 2017 中的新式前端 Web 开发：LibMan 段](https://channel9.msdn.com/Events/Build/2017/B8073#time=43m34s)。
+有关 LibMan 优势的详细信息，请观看 [Modern front-end web development in Visual Studio 2017: LibMan segment](https://channel9.msdn.com/Events/Build/2017/B8073#time=43m34s)（Visual Studio 2017 中的新式前端 Web 开发：LibMan 段）。
 
 LibMan 不是程序包管理系统。 如果已在使用包管理器（例如 npm 或[yarn](https://yarnpkg.com)），请继续使用它们。 LibMan 不是为取代这些工具而开发的。
 

@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
 ms.openlocfilehash: 85cf86dcb22ef94cfc87975abaab176e4f1227d3
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645426"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>ASP.NET Core 和 Entity Framework 6 入门
@@ -51,7 +51,7 @@ ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET
 
 ## <a name="set-up-dependency-injection-in-the-aspnet-core-project"></a>在 ASP.NET Core 项目中设置依赖项注入
 
-在 Core 项目的 Startup.cs 文件中，为 `ConfigureServices` 中的依赖项注入 (DI) 设置 EF6 上下文  。 应将 EF 上下文对象的范围设置为按请求生存期。
+在 Core 项目的 Startup.cs 文件中，为  *中的依赖项注入 (DI) 设置 EF6 上下文*`ConfigureServices`。 应将 EF 上下文对象的范围设置为按请求生存期。
 
 [!code-csharp[](entity-framework-6/sample/MVCCore/Startup.cs?name=snippet_ConfigureServices&highlight=5)]
 
@@ -72,7 +72,7 @@ ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET
 
 *  添加 >   新建项目 >   Windows 桌面 >   类库(.NET Framework)
 
-* 在两个项目的“包管理器控制台”(PMC) 中运行 `Install-Package Entityframework` 命令  。
+* 在两个项目的“包管理器控制台”(PMC) 中运行  **命令**`Install-Package Entityframework`。
 
 * 在类库项目中，创建数据模型类和上下文类，并创建 `IDbContextFactory` 的实现。
 
@@ -86,7 +86,7 @@ ASP.NET Core 项目需要面向 .NET Framework 和引用 EF6。 例如，ASP.NET
 
 * 在 Core 项目中，添加控制器和视图以验证可读取和写入数据。 （请注意，ASP.NET Core MVC 基架不会使用从类库引用的 EF6 上下文。）
 
-## <a name="summary"></a>总结
+## <a name="summary"></a>摘要
 
 本文提供了在 ASP.NET Core 应用程序中使用 Entity Framework 6 的基本指南。
 

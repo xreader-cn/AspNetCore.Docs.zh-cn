@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/call-dotnet-from-javascript
 ms.openlocfilehash: dbf44fe7923998c65119e42d97c304890fa95523
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218786"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-opno-locblazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
@@ -66,7 +66,7 @@ wwwroot/exampleJsInterop.js  ：
 Array(4) [ 1, 2, 3, 4 ]
 ```
 
-第四个数组值推送到 `ReturnArrayAsync` 返回的数组 (`data.push(4);`)。
+第四个数组值推送到 `data.push(4);` 返回的数组 (`ReturnArrayAsync`)。
 
 默认情况下，方法标识符为方法名称，但你可使用 `JSInvokableAttribute` 构造函数指定其他标识符：
 
@@ -98,13 +98,13 @@ returnArrayAsyncJs: function () {
 
 * 按引用向 JavaScript 传递 .NET 实例：
   * 对 `DotNetObjectReference.Create` 进行静态调用。
-  * 在 `DotNetObjectReference` 实例中包装实例，并在 `DotNetObjectReference` 实例上调用 `Create`。 处置 `DotNetObjectReference` 对象（本部分稍后会展示一个示例）。
+  * 在 `DotNetObjectReference` 实例中包装实例，并在 `Create` 实例上调用 `DotNetObjectReference`。 处置 `DotNetObjectReference` 对象（本部分稍后会展示一个示例）。
 * 使用 `invokeMethod` 或 `invokeMethodAsync` 函数在实例上调用 .NET 实例方法。 在从 JavaScript 调用其他 .NET 方法时，也可以将 .NET 实例作为自变量传递。
 
 > [!NOTE]
 > 示例应用会将消息记录到客户端控制台。 对于示例应用展示的以下示例，请在浏览器的开发人员工具中检查浏览器的控制台输出。
 
-选择“触发 .NET 实例方法 HelloHelper.SayHello”按钮时，将调用 `ExampleJsInterop.CallHelloHelperSayHello`，并将名称 `Blazor` 传递到方法  。
+选择“触发 .NET 实例方法 HelloHelper.SayHello”按钮时，将调用 **，并将名称**  传递到方法`ExampleJsInterop.CallHelloHelperSayHello``Blazor`。
 
 Pages/JsInterop.razor  ：
 
@@ -122,7 +122,7 @@ Pages/JsInterop.razor  ：
 }
 ```
 
-`CallHelloHelperSayHello` 使用 `HelloHelper` 的新实例调用 JavaScript 函数 `sayHello`。
+`CallHelloHelperSayHello` 使用 `sayHello` 的新实例调用 JavaScript 函数 `HelloHelper`。
 
 JsInteropClasses/ExampleJsInterop.cs  ：
 

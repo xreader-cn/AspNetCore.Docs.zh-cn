@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/lifecycle
 ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218903"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
@@ -47,14 +47,14 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-[预呈现其内容](xref:blazor/hosting-model-configuration#render-mode)的 Blazor Server 应用调用 `OnInitializedAsync` **_两次_** ：
+Blazor预呈现其内容[的 ](xref:blazor/hosting-model-configuration#render-mode) Server 应用调用 `OnInitializedAsync` **_两次_** ：
 
 * 在组件最初作为页面的一部分静态呈现时调用一次。
 * 在浏览器重新建立与服务器的连接时调用第二次。
 
 为了防止 `OnInitializedAsync` 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。
 
-在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行特定操作（例如调用 JavaScript）。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
+在 Blazor 服务器应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
 如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
@@ -71,7 +71,7 @@ public override async Task SetParametersAsync(ParameterView parameters)
 }
 ```
 
-每次调用 `SetParametersAsync` 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含整个参数值集。
+每次调用 <xref:Microsoft.AspNetCore.Components.ParameterView> 时，`SetParametersAsync` 都包含整个参数值集。
 
 `SetParametersAsync` 的默认实现使用 `[Parameter]` 或 `[CascadingParameter]` 特性（在 `ParameterView` 中具有对应的值）设置每个属性的值。 在 `ParameterView` 中没有对应值的参数保持不变。
 
@@ -111,7 +111,7 @@ protected override void OnParametersSet()
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> 在组件完成呈现后调用。 此时会填充元素和组件引用。 在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。
 
-`OnAfterRenderAsync` 和 `OnAfterRender` 的 `firstRender` 参数：
+`firstRender` 和 `OnAfterRenderAsync` 的 `OnAfterRender` 参数：
 
 * 在第一次呈现组件实例时设置为 `true`。
 * 可用于确保初始化操作仅执行一次。
@@ -129,7 +129,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 > [!NOTE]
 > 呈现后立即进行的异步操作必须在 `OnAfterRenderAsync` 生命周期事件期间发生。
 >
-> 即使从 `OnAfterRenderAsync` 返回 <xref:System.Threading.Tasks.Task>，框架也不会在任务完成后为组件再安排一个呈现循环。 这是为了避免无限呈现循环。 它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。
+> 即使从 <xref:System.Threading.Tasks.Task> 返回 `OnAfterRenderAsync`，框架也不会在任务完成后为组件再安排一个呈现循环。 这是为了避免无限呈现循环。 它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -141,7 +141,7 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-*在服务器上进行预呈现时*未调用 `OnAfterRender` 和 `OnAfterRenderAsync`。
+`OnAfterRender`在服务器上进行预呈现时`OnAfterRenderAsync`未调用 *和*。
 
 如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
@@ -170,9 +170,9 @@ protected override bool ShouldRender()
 
 在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。 执行生命周期方法时，对象可能为 `null` 或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 对象为 `null` 时，呈现占位符 UI 元素（例如，加载消息）。
 
-在 Blazor 模板的 `FetchData` 组件中，替代 `OnInitializedAsync` 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 `OnInitializedAsync` 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。
+在 `FetchData` 模板的 Blazor 组件中，替代 `OnInitializedAsync` 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 `Task` 返回的 `OnInitializedAsync` 完成后，该组件以更新后的状态重新呈现。
 
-Blazor Server 模板中的 *Pages/FetchData.razor*：
+*Server 模板中的*Pages/FetchData.razorBlazor：
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
@@ -195,7 +195,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 ```
 
 > [!NOTE]
-> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*>。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
+> 不支持在 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> 中调用 `Dispose`。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
 
 取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
 
@@ -226,7 +226,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 * 在预呈现期间使用该标识符保存组件状态。
 * 预呈现后使用该标识符检索缓存的状态。
 
-以下代码演示基于模板的 Blazor Server 应用中更新后的 `WeatherForecastService`，其避免了双重呈现：
+以下代码演示基于模板的 `WeatherForecastService` Server 应用中更新后的 Blazor，其避免了双重呈现：
 
 ```csharp
 public class WeatherForecastService

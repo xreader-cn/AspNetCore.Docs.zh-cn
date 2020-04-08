@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
 ms.openlocfilehash: bedb3e6a65839db915ca7bc821a267a14d34bf30
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650958"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>使用文件观察程序开发 ASP.NET Core 应用
@@ -20,7 +20,7 @@ ms.locfileid: "78650958"
 
 本教程使用一个现有 Web API 和两个终结点：分别返回两个数的总和以及乘积。 乘积的方法有一个 bug，本教程将会对其进行修复。
 
-下载[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp  (ASP.NET Core Web API) 和 WebAppTests  （用于 Web API 的单元测试）。
+下载[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample)。 它包含两个项目：WebApp（一种 ASP.NET Core Web API）和 WebAppTests（Web API 的单元测试）   。
 
 在命令行界面中，导航到 WebApp 文件夹  。 运行下面的命令：
 
@@ -69,7 +69,7 @@ Application started. Press Ctrl+C to shut down.
 
 ## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>使用 `dotnet watch` 运行 .NET Core CLI 命令
 
-`dotnet watch` 可用于运行任何 [.NET Core CLI 命令](/dotnet/core/tools#cli-commands) 例如：
+[ 可用于运行任何 ](/dotnet/core/tools#cli-commands).NET Core CLI 命令`dotnet watch` 例如:
 
 | 命令 | 带 watch 的命令 |
 | ---- | ----- |

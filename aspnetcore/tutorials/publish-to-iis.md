@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
 ms.openlocfilehash: 47f78ba78741a8e0175ce801c0c0e51f091273a8
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511387"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>将 ASP.NET Core 应用发布到 IIS
@@ -25,10 +25,10 @@ ms.locfileid: "79511387"
 > * 在 IIS 管理器中创建 IIS 站点。
 > * 部署 ASP.NET Core 应用。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>系统必备
 
 * [.NET Core SDK](/dotnet/core/sdk) 安装在开发计算机上。
-* Windows Server 配置了“Web 服务器 (IIS)”服务器角色  。 如果服务器未配置为托管具有 IIS 的网站，请按照 <xref:host-and-deploy/iis/index#iis-configuration> 文章中“IIS 配置”部分的指南操作，然后返回本教程  。
+* Windows Server 配置了“Web 服务器 (IIS)”服务器角色  。 如果服务器未配置为托管具有 IIS 的网站，请按照  *文章中“IIS 配置”部分的指南操作，然后返回本教程*<xref:host-and-deploy/iis/index#iis-configuration>。
 
 > [!WARNING]
 > IIS 配置和网站安全涉及到本教程未介绍的概念。  在 IIS 上托管生产应用之前，请先参阅 [Microsoft IIS 文档](https://www.iis.net/)中的 IIS 指南和[有关使用 IIS 进行托管的 ASP.NET Core 文章](xref:host-and-deploy/iis/index)。
@@ -90,7 +90,7 @@ ms.locfileid: "79511387"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. 右键单击“解决方案”中的项目，然后选择“发布” > “发布到文件夹”    。
+1. 右键单击“解决方案”中的项目，然后选择“发布” **“发布到文件夹”**   >   。
 1. 设置“选择文件夹”路径  。
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
    * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径  。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。

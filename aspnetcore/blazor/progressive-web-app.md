@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/progressive-web-app
 ms.openlocfilehash: fe69e51aefae9c80e5bb4b78151d384ce25d41a7
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218942"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>利用 ASP.NET Core Blazor WebAssembly 生成渐进式 Web 应用
@@ -221,7 +221,7 @@ const shouldServeIndexHtml = event.request.mode === 'navigate'
 
 并非所有应用都应尝试支持脱机使用。 脱机支持增加了相当大的复杂性，但并不总是与所需的用例相关。
 
-脱机支持通常仅适用于以下情况：
+脱机支持通常仅适用于：
 
 * 主数据存储是浏览器的本地数据存储。 例如，该方法与后述应用相关：该应用具有一个用于 [IoT](https://en.wikipedia.org/wiki/Internet_of_things) 设备的 UI，且该设备将数据存储在 `localStorage` 或 [IndexedDB](https://developer.mozilla.org/docs/Web/API/IndexedDB_API) 中。
 * 应用执行大量工作来提取和缓存与每个用户相关的后端 API 数据，以便用户可以脱机浏览数据。 应用必须支持编辑，需要生成一个用于跟踪更改并将数据与后端进行同步的系统。

@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 08/22/2019
 uid: fundamentals/middleware/write
 ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649272"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>写入自定义 ASP.NET Core 中间件

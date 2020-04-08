@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
 ms.openlocfilehash: ecf3d011b38347eb32020df00e44d93ca789443a
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/25/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80242531"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>将验证添加到 ASP.NET Core MVC 应用
@@ -43,7 +43,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 明显的好处在于不需要在 `MoviesController` 类或 Create.cshtml 视图中更改单个代码行来启用此验证 UI  。 在本教程前面创建的控制器和视图会自动选取验证规则，这些规则是通过在 `Movie` 模型类的属性上使用验证特性所指定的。 使用 `Edit` 操作方法测试验证后，即已应用相同的验证。
 
-存在客户端验证错误时，不会将表单数据发送到服务器。 可通过使用 [Fiddler 工具](https://www.telerik.com/fiddler)或 [F12 开发人员工具](/microsoft-edge/devtools-guide)在 `HTTP Post` 方法中设置断点来对此进行验证。
+存在客户端验证错误时，不会将表单数据发送到服务器。 可通过使用 `HTTP Post`Fiddler 工具[或 ](https://www.telerik.com/fiddler)F12 开发人员工具[在 ](/microsoft-edge/devtools-guide) 方法中设置断点来对此进行验证。
 
 ## <a name="how-validation-works"></a>验证工作原理
 
@@ -81,11 +81,11 @@ Create.cshtml 视图模板的一部分在以下标记中显示  ：
 
 ## <a name="using-datatype-attributes"></a>使用 DataType 特性
 
-打开 Movie.cs 文件并检查 `Movie` 类  。 除了一组内置的验证特性，`System.ComponentModel.DataAnnotations` 命名空间还提供格式特性。 我们已经在发布日期和价格字段中应用了 `DataType` 枚举值。 以下代码显示具有适当 `DataType` 特性的 `ReleaseDate` 和 `Price` 属性。
+打开 Movie.cs 文件并检查  *类*`Movie`。 除了一组内置的验证特性，`System.ComponentModel.DataAnnotations` 命名空间还提供格式特性。 我们已经在发布日期和价格字段中应用了 `DataType` 枚举值。 以下代码显示具有适当 `ReleaseDate` 特性的 `Price` 和 `DataType` 属性。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
-`DataType` 属性仅提供相关提示来帮助视图引擎设置数据格式（并提供元素/属性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。 可以使用 `RegularExpression` 特性验证数据的格式。 `DataType` 属性用于指定比数据库内部类型更具体的数据类型，它们不是验证属性。 在此示例中，我们只想跟踪日期，而不是时间。 `DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可以为 `DataType.EmailAddress` 创建 `mailto:` 链接，并且可以在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器理解。 `DataType` 特性不提供任何验证  。
+`DataType` 属性仅提供相关提示来帮助视图引擎设置数据格式（并提供元素/属性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。 可以使用 `RegularExpression` 特性验证数据的格式。 `DataType` 属性用于指定比数据库内部类型更具体的数据类型，它们不是验证属性。 在此示例中，我们只想跟踪日期，而不是时间。 `DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可以为 `mailto:` 创建 `DataType.EmailAddress` 链接，并且可以在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器理解。 `DataType` 特性不提供任何验证  。
 
 `DataType.Date` 不指定显示日期的格式。 默认情况下，数据字段根据基于服务器的 `CultureInfo` 的默认格式进行显示。
 
@@ -111,7 +111,7 @@ public DateTime ReleaseDate { get; set; }
 >
 > `[Range(typeof(DateTime), "1/1/1966", "1/1/2020")]`
 
-需要禁用 jQuery 日期验证才能使用具有 `DateTime` 的 `Range` 特性。 通常，在模型中编译固定日期是不恰当的，因此不推荐使用 `Range` 特性和 `DateTime`。
+需要禁用 jQuery 日期验证才能使用具有 `Range` 的 `DateTime` 特性。 通常，在模型中编译固定日期是不恰当的，因此不推荐使用 `Range` 特性和 `DateTime`。
 
 以下代码显示组合在一行上的特性：
 

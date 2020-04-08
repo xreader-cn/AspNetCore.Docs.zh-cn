@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 4eed461788f8fffa2ea00d8c931b0a0f5aaf1b46
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5cb61d330df7e15fbd54396207792596ae018fd3
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78645324"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417580"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>在 Windows 服务中托管 ASP.NET Core
 
@@ -38,7 +38,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ## <a name="app-configuration"></a>应用配置
 
-应用需要 [Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 的包引用。
+应用需要 [Microsoft.AspNetCore.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) 的包引用。
 
 生成主机时会调用 `IHostBuilder.UseWindowsService`。 若应用作为 Windows 服务运行，方法为：
 
@@ -305,16 +305,16 @@ Remove-Service -Name {SERVICE NAME}
 从 [Windows 错误报告 (WER)](/windows/desktop/wer/windows-error-reporting) 中获取转储并进行分析：
 
 1. 创建文件夹，将崩溃转储文件保存在 `c:\dumps`。
-1. 使用应用程序可执行文件名称运行 [EnableDumps PowerShell 脚本](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1)：
+1. 使用应用程序可执行文件名称运行 [EnableDumps PowerShell 脚本](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/samples/scripts/EnableDumps.ps1)：
 
-   ```console
+   ```powershell
    .\EnableDumps {APPLICATION EXE} c:\dumps
    ```
 
 1. 在造成崩溃的条件下运行应用。
-1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1)：
+1. 出现崩溃后，运行 [DisableDumps PowerShell 脚本](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/samples/scripts/DisableDumps.ps1)：
 
-   ```console
+   ```powershell
    .\DisableDumps {APPLICATION EXE}
    ```
 

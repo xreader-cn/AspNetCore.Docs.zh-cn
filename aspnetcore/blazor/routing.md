@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/routing
 ms.openlocfilehash: 87579c88a37e0258921e199db2b5d8c7627f5499
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218890"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor 路由
@@ -27,7 +27,7 @@ ms.locfileid: "80218890"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core 终结点路由集成
 
-Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `Startup.Configure` 中带有 `MapBlazorHub` 的交互式组件的传入连接：
+Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/routing)中。 ASP.NET Core 应用配置为接受 `MapBlazorHub` 中带有 `Startup.Configure` 的交互式组件的传入连接：
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -48,11 +48,11 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 </Router>
 ```
 
-编译带有 `@page` 指令的 *.razor* 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Components.RouteAttribute>。
+编译带有 *指令的*.razor`@page` 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Components.RouteAttribute>。
 
 在运行时，`RouteView` 组件：
 
-* 从 `Router` 接收 `RouteData` 以及任何所需的参数。
+* 从 `RouteData` 接收 `Router` 以及任何所需的参数。
 * 通过指定参数使用指定组件的布局（或可选的默认布局）呈现该组件。
 
 可选择使用布局类指定 `DefaultLayout` 参数，以用于未指定布局的组件。 默认的 Blazor 模板指定 `MainLayout` 组件。 *MainLayout.razor* 在模板项目的 *Shared* 文件夹中。 有关布局的详细信息，请参阅 <xref:blazor/layouts>。
@@ -67,13 +67,13 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 ```
 
 > [!IMPORTANT]
-> 若要正确解析 URL，应用必须在其 *wwwroot/index.html* 文件 (Blazor WebAssembly) 或 *Pages/_Host.cshtml* 文件 (Blazor Server) 中包括 `<base>` 标记，并使用 `href` 属性 (`<base href="/">`) 中指定的应用基路径。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/index#app-base-path>。
+> 若要正确解析 URL，应用必须在其 `<base>`wwwroot/index.html*文件 (Blazor WebAssembly) 或*Pages/_Host.cshtml*文件 (Blazor Server) 中包括* 标记，并使用 `href` 属性 (`<base href="/">`) 中指定的应用基路径。 有关更多信息，请参见 <xref:host-and-deploy/blazor/index#app-base-path>。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>在找不到内容时提供自定义内容
 
 如果找不到所请求路由的内容，则 `Router` 组件允许应用指定自定义内容。
 
-在 *App.razor* 文件中，在 `Router` 组件的 `NotFound` 模板参数中设置自定义内容：
+在 *App.razor* 文件中，在 `NotFound` 组件的 `Router` 模板参数中设置自定义内容：
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -139,14 +139,14 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 
 | 约束 | 示例           | 匹配项示例                                                                  | 固定条件<br>区域性<br>匹配 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`，`FALSE`                                                                  | 否                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`，`2016-12-31 7:32pm`                                                | 是                              |
-| `decimal`  | `{price:decimal}` | `49.99`，`-1,000.01`                                                             | 是                              |
-| `double`   | `{weight:double}` | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `float`    | `{weight:float}`  | `1.234`，`-1,001.01e8`                                                           | 是                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`，`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 否                               |
-| `int`      | `{id:int}`        | `123456789`，`-123456789`                                                        | 是                              |
-| `long`     | `{ticks:long}`    | `123456789`，`-123456789`                                                        | 是                              |
+| `bool`     | `{active:bool}`   | `true`， `FALSE`                                                                  | No                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`， `2016-12-31 7:32pm`                                                | 是                              |
+| `decimal`  | `{price:decimal}` | `49.99`， `-1,000.01`                                                             | 是                              |
+| `double`   | `{weight:double}` | `1.234`， `-1,001.01e8`                                                           | 是                              |
+| `float`    | `{weight:float}`  | `1.234`， `-1,001.01e8`                                                           | 是                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`， `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | No                               |
+| `int`      | `{id:int}`        | `123456789`， `-123456789`                                                        | 是                              |
+| `long`     | `{ticks:long}`    | `123456789`， `-123456789`                                                        | 是                              |
 
 > [!WARNING]
 > 验证 URL 的路由约束并将转换为始终使用固定区域性的 CLR 类型（例如 `int` 或 `DateTime`）。 这些约束假定 URL 不可本地化。
@@ -165,24 +165,24 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 * `path` 路由参数名称。
 
 > [!NOTE]
-> Razor 组件 ( *.razor*) **不**支持 *catch-all* 参数语法 (`*`/`**`)。
+> Razor 组件 ( *.razor*) `*`不/支持 `**`catch-all **参数语法 (**  )。
 
-有关详细信息，请参阅 <xref:fundamentals/routing>。
+有关更多信息，请参见 <xref:fundamentals/routing>。
 
 ## <a name="navlink-component"></a>NavLink 组件
 
-创建导航链接时，请使用 `NavLink` 组件代替 HTML 超链接元素 (`<a>`)。 `NavLink` 组件的行为方式类似于 `<a>` 元素，但它根据其 `href` 是否与当前 URL 匹配来切换 `active` CSS 类。 `active` 类可帮助用户了解所显示导航链接中的哪个页面是活动页面。
+创建导航链接时，请使用 `NavLink` 组件代替 HTML 超链接元素 (`<a>`)。 `NavLink` 组件的行为方式类似于 `<a>` 元素，但它根据其 `active` 是否与当前 URL 匹配来切换 `href` CSS 类。 `active` 类可帮助用户了解所显示导航链接中的哪个页面是活动页面。
 
 以下 `NavMenu` 组件创建[启动](https://getbootstrap.com/docs/)导航栏，该导航栏演示如何使用 `NavLink` 组件：
 
 [!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-有两个 `NavLinkMatch` 选项可分配给 `<NavLink>` 元素的 `Match` 属性：
+有两个 `NavLinkMatch` 选项可分配给 `Match` 元素的 `<NavLink>` 属性：
 
 * `NavLinkMatch.All` &ndash; `NavLink` 在与当前整个 URL 匹配的情况下处于活动状态。
 * `NavLinkMatch.Prefix`（*默认*）&ndash; `NavLink` 在与当前 URL 的任何前缀匹配的情况下处于活动状态。
 
-在前面的示例中，主页 `NavLink` `href=""` 与主页 URL 匹配，并且仅在应用的默认基路径 URL（例如，`https://localhost:5001/`）处接收 `active` CSS 类。 当用户访问带有 `MyComponent` 前缀的任何 URL（例如，`https://localhost:5001/MyComponent` 和 `https://localhost:5001/MyComponent/AnotherSegment`）时，第二个 `NavLink` 接收 `active` 类。
+在前面的示例中，主页 `NavLink` `href=""` 与主页 URL 匹配，并且仅在应用的默认基路径 URL（例如，`active`）处接收 `https://localhost:5001/` CSS 类。 当用户访问带有 `NavLink` 前缀的任何 URL（例如，`active` 和 `MyComponent`）时，第二个 `https://localhost:5001/MyComponent` 接收 `https://localhost:5001/MyComponent/AnotherSegment` 类。
 
 其他 `NavLink` 组件属性会传递到呈现的定位标记。 在以下示例中，`NavLink` 组件包括 `target` 属性：
 
@@ -203,7 +203,7 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 | 成员 | 描述 |
 | ------ | ----------- |
 | URI | 获取当前绝对 URI。 |
-| BaseUri | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，`BaseUri` 对应于 *wwwroot/index.html* (Blazor WebAssembly) 或 *Pages/_Host.cshtml* (Blazor Server) 中文档的 `<base>` 元素上的 `href` 属性。 |
+| BaseUri | 获取可在相对 URI 路径之前添加用于生成绝对 URI 的基 URI（带有尾部反斜杠）。 通常，`BaseUri` 对应于 `href`wwwroot/index.html`<base>` (*WebAssembly) 或*Pages/_Host.cshtmlBlazor (*Server) 中文档的* 元素上的 Blazor 属性。 |
 | NavigateTo | 导航到指定 URI。 如果 `forceLoad` 为 `true`，则：<ul><li>客户端路由会被绕过。</li><li>无论 URI 是否通常由客户端路由器处理，浏览器都必须从服务器加载新页面。</li></ul> |
 | LocationChanged | 导航位置更改时触发的事件。 |
 | ToAbsoluteUri | 将相对 URI 转换为绝对 URI。 |
@@ -229,7 +229,7 @@ Blazor Server 已集成到 [ASP.NET Core 终结点路由](xref:fundamentals/rout
 }
 ```
 
-以下组件处理位置更改事件。 在框架调用 `Dispose` 时，解除挂接 `HandleLocationChanged` 方法。 解除挂接该方法可允许组件进行垃圾回收。
+以下组件处理位置更改事件。 在框架调用 `HandleLocationChanged` 时，解除挂接 `Dispose` 方法。 解除挂接该方法可允许组件进行垃圾回收。
 
 ```razor
 @implement IDisposable

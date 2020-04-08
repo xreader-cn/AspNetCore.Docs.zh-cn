@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/supported-platforms
 ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647106"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor 支持的平台
@@ -27,7 +27,7 @@ ms.locfileid: "78647106"
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| 浏览者                          | Version               |
+| 浏览器                          | Version               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | 当前               |
 | Mozilla Firefox                  | 当前               |
@@ -39,7 +39,7 @@ ms.locfileid: "78647106"
 
 ### <a name="blazor-server"></a>Blazor 服务器
 
-| 浏览者                          | Version    |
+| 浏览器                          | Version    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | 当前    |
 | Mozilla Firefox                  | 当前    |

@@ -7,10 +7,10 @@ ms.author: riande
 ms.date: 10/07/2019
 uid: fundamentals/change-tokens
 ms.openlocfilehash: 70451e219f1295b854e2f84aac55f0cfd1786b19
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645396"
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>使用 ASP.NET Core 中的更改令牌检测更改
@@ -51,13 +51,13 @@ ms.locfileid: "78645396"
 
 * 为了监视文件更改，<xref:Microsoft.Extensions.FileProviders.IFileProvider> 的 <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> 方法将为要监视的指定文件或文件夹创建 `IChangeToken`。
 * 可以将 `IChangeToken` 令牌添加到缓存条目，以在更改时触发缓存逐出。
-* 对于 `TOptions` 更改，<xref:Microsoft.Extensions.Options.IOptionsMonitor`1> 的默认 <xref:Microsoft.Extensions.Options.OptionsMonitor`1> 实现有一个重载，可接受一个或多个 <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> 实例。 每个实例返回 `IChangeToken`，以注册用于跟踪选项更改的更改通知回调。
+* 对于 `TOptions` 更改，<xref:Microsoft.Extensions.Options.OptionsMonitor`1> 的默认 <xref:Microsoft.Extensions.Options.IOptionsMonitor`1> 实现有一个重载，可接受一个或多个 <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> 实例。 每个实例返回 `IChangeToken`，以注册用于跟踪选项更改的更改通知回调。
 
 ## <a name="monitor-for-configuration-changes"></a>监视配置更改
 
 默认情况下，ASP.NET Core 模板使用 [JSON 配置文件](xref:fundamentals/configuration/index#json-configuration-provider)（appsettings.json  、appsettings.Development.json  和 appsettings.Production.json  ）来加载应用配置设置。
 
-使用接受 `reloadOnChange` 参数的 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 上的 [AddJsonFile(IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) 扩展方法配置这些文件。 `reloadOnChange` 指示文件更改时是否应该重载配置。 此设置出现在 <xref:Microsoft.Extensions.Hosting.Host> 便捷方法 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 中：
+使用接受 [ 参数的 ](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) 上的 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>AddJsonFile(IConfigurationBuilder, String, Boolean, Boolean)`reloadOnChange` 扩展方法配置这些文件。 `reloadOnChange` 指示文件更改时是否应该重载配置。 此设置出现在 <xref:Microsoft.Extensions.Hosting.Host> 便捷方法 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 中：
 
 ```csharp
 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -67,7 +67,7 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 
 基于文件的配置由 <xref:Microsoft.Extensions.Configuration.FileConfigurationSource> 表示。 `FileConfigurationSource` 使用 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 来监视文件。
 
-默认情况下，由使用 <xref:System.IO.FileSystemWatcher> 来监视配置文件更改的 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 提供 `IFileMonitor`。
+默认情况下，由使用 `IFileMonitor` 来监视配置文件更改的 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 提供 <xref:System.IO.FileSystemWatcher>。
 
 示例应用演示监视配置更改的两个实现。 如果任一 appsettings  文件发生更改，这两个文件监视实现将执行自定义代码：示例应用向控制台写入一条消息。
 
@@ -119,7 +119,7 @@ Extensions/ConfigurationMonitor.cs  ：
 `InvokeChanged` 方法类似于前面的方法，不同之处在于：
 
 * 不运行其代码，除非 `MonitoringEnabled` 为 `true`。
-* 输出其 `WriteConsole` 输出中的当前 `state`。
+* 输出其 `state` 输出中的当前 `WriteConsole`。
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet3)]
 
@@ -170,7 +170,7 @@ Utilities/Utilities.cs  ：
 1. 使用 [IFileProviders.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) 从文件提供程序获取更改令牌。 修改该文件时，会触发令牌的回调。
 1. [可调过期](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration)时段将缓存文件内容。 如果缓存文件时发生了更改，则将更改令牌与 [MemoryCacheEntryExtensions.AddExpirationToken](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions.AddExpirationToken*) 连接在一起，以逐出缓存条目。
 
-在下面的示例中，文件存储在应用的[内容根目录](xref:fundamentals/index#content-root)中。 `IWebHostEnvironment.ContentRootFileProvider` 用于获取指向应用的 `IWebHostEnvironment.ContentRootPath` 的 <xref:Microsoft.Extensions.FileProviders.IFileProvider>。 `filePath` 通过 [IFileInfo.PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath) 获取。
+在下面的示例中，文件存储在应用的[内容根目录](xref:fundamentals/index#content-root)中。 `IWebHostEnvironment.ContentRootFileProvider` 用于获取指向应用的 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 的 `IWebHostEnvironment.ContentRootPath`。 `filePath` 通过 [IFileInfo.PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath) 获取。
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Services/FileService.cs?name=snippet1)]
 
@@ -249,13 +249,13 @@ var compositeChangeToken =
 
 * 为了监视文件更改，<xref:Microsoft.Extensions.FileProviders.IFileProvider> 的 <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> 方法将为要监视的指定文件或文件夹创建 `IChangeToken`。
 * 可以将 `IChangeToken` 令牌添加到缓存条目，以在更改时触发缓存逐出。
-* 对于 `TOptions` 更改，<xref:Microsoft.Extensions.Options.IOptionsMonitor`1> 的默认 <xref:Microsoft.Extensions.Options.OptionsMonitor`1> 实现有一个重载，可接受一个或多个 <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> 实例。 每个实例返回 `IChangeToken`，以注册用于跟踪选项更改的更改通知回调。
+* 对于 `TOptions` 更改，<xref:Microsoft.Extensions.Options.OptionsMonitor`1> 的默认 <xref:Microsoft.Extensions.Options.IOptionsMonitor`1> 实现有一个重载，可接受一个或多个 <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> 实例。 每个实例返回 `IChangeToken`，以注册用于跟踪选项更改的更改通知回调。
 
 ## <a name="monitor-for-configuration-changes"></a>监视配置更改
 
 默认情况下，ASP.NET Core 模板使用 [JSON 配置文件](xref:fundamentals/configuration/index#json-configuration-provider)（appsettings.json  、appsettings.Development.json  和 appsettings.Production.json  ）来加载应用配置设置。
 
-使用接受 `reloadOnChange` 参数的 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 上的 [AddJsonFile(IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) 扩展方法配置这些文件。 `reloadOnChange` 指示文件更改时是否应该重载配置。 此设置出现在 <xref:Microsoft.AspNetCore.WebHost> 便捷方法 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 中：
+使用接受 [ 参数的 ](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) 上的 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>AddJsonFile(IConfigurationBuilder, String, Boolean, Boolean)`reloadOnChange` 扩展方法配置这些文件。 `reloadOnChange` 指示文件更改时是否应该重载配置。 此设置出现在 <xref:Microsoft.AspNetCore.WebHost> 便捷方法 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 中：
 
 ```csharp
 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -265,7 +265,7 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 
 基于文件的配置由 <xref:Microsoft.Extensions.Configuration.FileConfigurationSource> 表示。 `FileConfigurationSource` 使用 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 来监视文件。
 
-默认情况下，由使用 <xref:System.IO.FileSystemWatcher> 来监视配置文件更改的 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 提供 `IFileMonitor`。
+默认情况下，由使用 `IFileMonitor` 来监视配置文件更改的 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 提供 <xref:System.IO.FileSystemWatcher>。
 
 示例应用演示监视配置更改的两个实现。 如果任一 appsettings  文件发生更改，这两个文件监视实现将执行自定义代码：示例应用向控制台写入一条消息。
 
@@ -317,7 +317,7 @@ Extensions/ConfigurationMonitor.cs  ：
 `InvokeChanged` 方法类似于前面的方法，不同之处在于：
 
 * 不运行其代码，除非 `MonitoringEnabled` 为 `true`。
-* 输出其 `WriteConsole` 输出中的当前 `state`。
+* 输出其 `state` 输出中的当前 `WriteConsole`。
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet3)]
 
@@ -368,7 +368,7 @@ Utilities/Utilities.cs  ：
 1. 使用 [IFileProviders.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) 从文件提供程序获取更改令牌。 修改该文件时，会触发令牌的回调。
 1. [可调过期](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration)时段将缓存文件内容。 如果缓存文件时发生了更改，则将更改令牌与 [MemoryCacheEntryExtensions.AddExpirationToken](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions.AddExpirationToken*) 连接在一起，以逐出缓存条目。
 
-在下面的示例中，文件存储在应用的[内容根目录](xref:fundamentals/index#content-root)中。 [IHostingEnvironment.ContentRootFileProvider](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootFileProvider) 用于获取指向应用的 <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath> 的 <xref:Microsoft.Extensions.FileProviders.IFileProvider>。 `filePath` 通过 [IFileInfo.PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath) 获取。
+在下面的示例中，文件存储在应用的[内容根目录](xref:fundamentals/index#content-root)中。 [IHostingEnvironment.ContentRootFileProvider](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootFileProvider) 用于获取指向应用的 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 的 <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath>。 `filePath` 通过 [IFileInfo.PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath) 获取。
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Services/FileService.cs?name=snippet1)]
 

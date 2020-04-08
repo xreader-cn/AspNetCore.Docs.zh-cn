@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: aspnetcore-2.0
 ms.openlocfilehash: 5ca43bab1496aa9fda65282cbb0b1177ad8689eb
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650856"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能

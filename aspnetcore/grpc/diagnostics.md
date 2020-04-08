@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 uid: grpc/diagnostics
-ms.openlocfilehash: 17607b734e6d777de9516aa14e81c97f87b61023
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 131144bf7a2c637eb2c1a1d5c54990dd4d429502
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78650904"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417518"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>.NET 上 gRPC 中的日志记录和诊断
 
@@ -34,11 +34,11 @@ gRPC 服务和 gRPC 客户端使用 [.NET Core 日志记录](xref:fundamentals/l
 
 由于 gRPC 服务托管在 ASP.NET Core 上，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，gRPC 只记录很少的信息，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅 [ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)上的文档。
 
-gRPC 在 `Grpc` 类别下添加日志。 若要启用来自 gRPC 的详细日志，请通过在 `Logging` 中的 `LogLevel` 子节中添加以下项目，将 `Grpc` 前缀配置为 appsettings.json 文件中的 `Debug` 级别  ：
+gRPC 在 `Grpc` 类别下添加日志。 若要启用来自 gRPC 的详细日志，请通过在 `Grpc` 中的 `Debug` 子节中添加以下项目，将 *前缀配置为 appsettings.json 文件中的* 级别`LogLevel``Logging`：
 
 [!code-json[](diagnostics/sample/logging-config.json?highlight=7)]
 
-你也可以在具有 `ConfigureLogging` 的 Startup.cs 中配置此项  ：
+你也可以在具有  *的 Startup.cs 中配置此项*`ConfigureLogging`：
 
 [!code-csharp[](diagnostics/sample/logging-config-code.cs?highlight=5)]
 
@@ -94,13 +94,13 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 启用客户端日志记录的另一种方法是使用 [gRPC 客户端工厂](xref:grpc/clientfactory)创建客户端。 已向客户端工厂注册且解析自 DI 的 gRPC 客户端将自动使用应用的已配置日志记录。
 
-如果应用未使用 DI，则可以使用 [LoggerFactory.Create](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*) 创建新的 `ILoggerFactory` 实例。 若要访问此方法，请将 [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 包添加到应用。
+如果应用未使用 DI，则可以使用 `ILoggerFactory`LoggerFactory.Create[ 创建新的 ](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*) 实例。 若要访问此方法，请将 [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 包添加到应用。
 
 [!code-csharp[](diagnostics/sample/net-client-loggerfactory-create.cs?highlight=1,8)]
 
 #### <a name="grpc-client-log-scopes"></a>gRPC 客户端日志作用域
 
-gRPC 客户端可将[日志记录作用域](https://docs.microsoft.com/aspnet/core/fundamentals/logginglog-scopes)添加到在 gRPC 调用期间创建的日志。 作用域具有与 gRPC 调用相关的元数据：
+gRPC 客户端可将[日志记录作用域](https://docs.microsoft.com/aspnet/core/fundamentals/logging#log-scopes)添加到在 gRPC 调用期间创建的日志。 作用域具有与 gRPC 调用相关的元数据：
 
 * **GrpcMethodType** - gRPC 方法类型。 可能的值为来自 `Grpc.Core.MethodType` 枚举的名称，如一元
 * **GrpcUri** - gRPC 方法的相对 URI，例如 /greet.Greeter/SayHellos
@@ -165,7 +165,7 @@ gRPC 服务托管在会报告有关传入 HTTP 请求事件的 ASP.NET Core 上�
 
 gRPC 服务器指标在 `Grpc.AspNetCore.Server` 事件源上报告。
 
-| “属性”                      | 描述                   |
+| 名称                      | 描述                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 总调用数                   |
 | `current-calls`           | 当前调用                 |
@@ -181,7 +181,7 @@ ASP.NET Core 还在 `Microsoft.AspNetCore.Hosting` 事件源上提供其自己�
 
 gRPC 客户端指标在 `Grpc.Net.Client` 事件源上报告。
 
-| “属性”                      | 描述                   |
+| 名称                      | 描述                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 总调用数                   |
 | `current-calls`           | 当前调用                 |

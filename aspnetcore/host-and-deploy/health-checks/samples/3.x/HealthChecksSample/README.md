@@ -2,7 +2,7 @@
 
 此示例演示如何使用运行状况检查中间件和服务。 此示例演示 [ASP.NET Core 中的运行状况检查](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks)主题中所述的方案。
 
-若要运行主题中所述方案的示例应用，请在命令行界面中从项目文件夹中使用 [dotnet run](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) 命令。 针对所浏览的方案传递开关。 未向 `dotnet run` 提供开关时，应用默认为 `basic` 配置。
+若要运行主题中所述方案的示例应用，请在命令行界面中从项目文件夹中使用 [dotnet run](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) 命令。 针对所浏览的方案传递开关。 未向 `basic` 提供开关时，应用默认为 `dotnet run` 配置。
 
 | 方案                                               | 示例应用命令               | 描述 |
 | ------------------------------------------------------ | -------------------------------- | ----------- |
