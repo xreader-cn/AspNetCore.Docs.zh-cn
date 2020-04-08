@@ -7,17 +7,17 @@ ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/tools-and-downloads
 ms.openlocfilehash: 9c1042dd48b9167209b46e97a09e011b80e2609c
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511140"
 ---
 # <a name="tools-and-downloads"></a>工具和下载
 
 Azure 拥有多个用于预配和管理资源的界面，例如 [Azure 门户](https://portal.azure.com)、[Azure CLI](/cli/azure/)、[Azure PowerShell](/powershell/azure/overview)、[Azure Cloud Shell](https://shell.azure.com/bash) 和 Visual Studio。 本指南采用最简单的方法，并在可能的情况下使用 Azure Cloud Shell 减少所需执行的步骤。 但是，某些部分必须使用 Azure 门户。
 
-## <a name="prerequisites"></a>先决条件
+## <a name="prerequisites"></a>系统必备
 
 需要以下订阅：
 

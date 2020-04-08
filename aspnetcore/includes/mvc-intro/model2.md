@@ -33,7 +33,7 @@ using MvcMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-使用 `Startup.ConfigureServices` 中的[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文。
+使用 [ 中的](xref:fundamentals/dependency-injection)依赖关系注入`Startup.ConfigureServices`容器注册数据库上下文。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=6-7)]
 
@@ -79,7 +79,7 @@ using MvcMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-使用 `Startup.ConfigureServices` 中的[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文。
+使用 [ 中的](xref:fundamentals/dependency-injection)依赖关系注入`Startup.ConfigureServices`容器注册数据库上下文。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 

@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
 ms.openlocfilehash: a5ea9b75cf8bb1f31cb07a2b32f361bdbfd4efa3
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648858"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
@@ -51,7 +51,7 @@ dotnet build
 
 ------
 
-因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性： 
+因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 *和* 操作方法的 `[Bind]` 属性，以包括 `Create` 属性：`Edit``Rating`
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -59,11 +59,11 @@ dotnet build
 
 更新视图模板以在浏览器视图中显示、创建和编辑新的 `Rating` 属性。
 
-编辑 /Views/Movies/Index.cshtml 文件并添加 `Rating` 字段  ：
+编辑 /Views/Movies/Index.cshtml 文件并添加  *字段*`Rating`：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
 
-使用 `Rating` 字段更新 /Views/Movies/Create.cshtml  。
+使用  *字段更新 /Views/Movies/Create.cshtml*`Rating`。
 
 # <a name="visual-studio--visual-studio-for-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
@@ -133,7 +133,7 @@ dotnet ef database update
 
 运行应用，并验证是否可以创建、编辑和显示具有 `Rating` 字段的电影。 更新应用：
 
-* 向 `Edit`、`Details` 和 `Delete` 视图模板添加 `Rating` 字段。
+* 向 `Rating`、`Edit` 和 `Details` 视图模板添加 `Delete` 字段。
 * 更新 `MoviesController` 的编辑操作方法中的绑定。
 
 > [!div class="step-by-step"]

@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 09/22/2019
 uid: fundamentals/middleware/extensibility
 ms.openlocfilehash: abc6268584d12fe43d972c79a99316b94e8bee4b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648912"
 ---
 # <a name="factory-based-middleware-activation-in-aspnet-core"></a>ASP.NET Core 中基于工厂的中间件激活
@@ -70,7 +70,7 @@ public static IApplicationBuilder UseFactoryActivatedMiddleware(
 
 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> 提供中间件的创建方法。 中间件工厂实现在容器中注册为作用域服务。
 
-可在 [Microsoft.AspNetCore.Http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) 包中找到默认的 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> 实现（即 <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>）。
+可在 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>Microsoft.AspNetCore.Http<xref:Microsoft.AspNetCore.Http.MiddlewareFactory> 包中找到默认的 [ 实现（即 ](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/)）。
 
 ::: moniker-end
 
@@ -128,7 +128,7 @@ public static IApplicationBuilder UseFactoryActivatedMiddleware(
 
 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> 提供中间件的创建方法。 中间件工厂实现在容器中注册为作用域服务。
 
-可在 [Microsoft.AspNetCore.Http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) 包中找到默认的 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> 实现（即 <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>）。
+可在 <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>Microsoft.AspNetCore.Http<xref:Microsoft.AspNetCore.Http.MiddlewareFactory> 包中找到默认的 [ 实现（即 ](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/)）。
 
 ::: moniker-end
 

@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 8/16/2019
 uid: tutorials/first-mvc-app/working-with-sql
 ms.openlocfilehash: d556f07111fb2022a1c2f1a066459566e302835d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649806"
 ---
 # <a name="work-with-sql-in-aspnet-core"></a>在 ASP.NET Core 中使用 SQL
@@ -18,7 +18,7 @@ ms.locfileid: "78649806"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-`MvcMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 文件的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文  ：
+`MvcMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 文件的 [ 方法中向](xref:fundamentals/dependency-injection)依赖关系注入`ConfigureServices`容器注册数据库上下文  ：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -44,7 +44,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 C:/Users/{user} 目录中创建 .mdf 文件   。
+LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 按需启动并在用户模式下运行，因此没有复杂的配置。 默认情况下，LocalDB 数据库在 C:/Users/{user} 目录中创建 .mdf 文件   。
 
 * 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX)   。
 
@@ -130,7 +130,7 @@ if (context.Movie.Any())
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-`MvcMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 文件的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文  ：
+`MvcMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 文件的 [ 方法中向](xref:fundamentals/dependency-injection)依赖关系注入`ConfigureServices`容器注册数据库上下文  ：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -156,7 +156,7 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 C:/Users/{user} 目录中创建 .mdf 文件   。
+LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 按需启动并在用户模式下运行，因此没有复杂的配置。 默认情况下，LocalDB 数据库在 C:/Users/{user} 目录中创建 .mdf 文件   。
 
 * 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX)   。
 

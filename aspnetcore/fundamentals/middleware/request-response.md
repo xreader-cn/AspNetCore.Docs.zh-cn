@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 08/29/2019
 uid: fundamentals/middleware/request-response
 ms.openlocfilehash: b473fa02e1d23f02bc5d2e15fa54ab7b1dbbb17c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650832"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core 中的请求和响应操作
@@ -73,11 +73,11 @@ ms.locfileid: "78650832"
 
 ## <a name="adapters"></a>适配器
 
-`Body` 和 `BodyReader/BodyWriter` 属性均可用于 `HttpRequest` 和 `HttpResponse`。 将 `Body` 设置为另一个流时，一组新的适配器会自动使每种类型彼此适应。 如果将 `HttpRequest.Body` 设置为新流，则 `HttpRequest.BodyReader` 将自动设置为包装 `HttpRequest.Body` 的新 `PipeReader`。
+`Body` 和 `BodyReader/BodyWriter` 属性均可用于 `HttpRequest` 和 `HttpResponse`。 将 `Body` 设置为另一个流时，一组新的适配器会自动使每种类型彼此适应。 如果将 `HttpRequest.Body` 设置为新流，则 `HttpRequest.BodyReader` 将自动设置为包装 `PipeReader` 的新 `HttpRequest.Body`。
 
 ## <a name="startasync"></a>StartAsync
 
-`HttpResponse.StartAsync` 用于指示标头不可修改并运行 `OnStarting` 回调。 使用 Kestrel 作为服务器时，在使用 `PipeReader` 之前调用 `StartAsync` 可确保 `GetMemory` 返回的内存属于 Kestrel 的内部 <xref:System.IO.Pipelines.Pipe> 而不是外部缓冲区。
+`HttpResponse.StartAsync` 用于指示标头不可修改并运行 `OnStarting` 回调。 使用 Kestrel 作为服务器时，在使用 `StartAsync` 之前调用 `PipeReader` 可确保 `GetMemory` 返回的内存属于 Kestrel 的内部 <xref:System.IO.Pipelines.Pipe> 而不是外部缓冲区。
 
 ## <a name="additional-resources"></a>其他资源
 

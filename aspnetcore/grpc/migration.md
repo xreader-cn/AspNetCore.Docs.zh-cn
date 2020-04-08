@@ -7,10 +7,10 @@ ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
 ms.openlocfilehash: 451171a041f7bbb3711babd73d2fa2e245aadd28
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649368"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>将 gRPC 服务从 C-core 迁移到 ASP.NET Core
@@ -47,7 +47,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="configure-grpc-services-options"></a>配置 gRPC 服务选项
 
-在基于 C-core 的应用中，[构造服务器实例](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)时，使用 `ChannelOption` 配置 `grpc.max_receive_message_length` 和 `grpc.max_send_message_length` 等设置。
+在基于 C-core 的应用中，`grpc.max_receive_message_length`构造服务器实例`grpc.max_send_message_length`时，使用 `ChannelOption` 配置 [ 和 ](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__) 等设置。
 
 在 ASP.NET Core 中，gRPC 通过 `GrpcServiceOptions` 类型提供配置。 例如，可以通过 `AddGrpc` 配置 gRPC 服务的最大传入消息大小。 下面的示例将默认 `MaxReceiveMessageSize` 4 MB 更改为 16 MB：
 
@@ -88,7 +88,7 @@ public class GreeterService : Greeter.GreeterBase
 * 允许在管道中的下一个组件前或后执行工作。
 * 提供对 `HttpContext` 的访问权限：
   * 在中间件中，`HttpContext` 是参数。
-  * 在拦截器中，可以通过 `ServerCallContext.GetHttpContext` 扩展方法使用 `ServerCallContext` 参数访问 `HttpContext`。 请注意，此功能特定于在 ASP.NET Core 中运行的拦截器。
+  * 在拦截器中，可以通过 `HttpContext` 扩展方法使用 `ServerCallContext` 参数访问 `ServerCallContext.GetHttpContext`。 请注意，此功能特定于在 ASP.NET Core 中运行的拦截器。
 
 gRPC 拦截器与 ASP.NET Core 中间件的不同之处：
 

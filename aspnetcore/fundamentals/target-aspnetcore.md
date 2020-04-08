@@ -9,10 +9,10 @@ no-loc:
 - Blazor
 uid: fundamentals/target-aspnetcore
 ms.openlocfilehash: 72096fc2f03033dfe8325b5129e074913a2fbd1f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78646686"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>使用类库中的 ASP.NET Core API
@@ -76,7 +76,7 @@ dotnet new razorclasslib
   * [Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)
   * [Microsoft.AspNetCore.Components.Web](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Web)
 
-例如：
+例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-components-library.csproj)]
 
@@ -87,7 +87,7 @@ dotnet new razorclasslib
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
 
-例如：
+例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
@@ -132,31 +132,31 @@ dotnet new razorclasslib -s
 
 ---
 
-例如：
+例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-views-pages-library.csproj)]
 
-若项目改为面向 .NET Standard，则需要 [Microsoft.AspNetCore.Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) 包引用。 `Microsoft.AspNetCore.Mvc` 包移到了 ASP.NET Core 3.0 的共享框架中，因此不再发布。 例如：
+若项目改为面向 .NET Standard，则需要 [Microsoft.AspNetCore.Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) 包引用。 `Microsoft.AspNetCore.Mvc` 包移到了 ASP.NET Core 3.0 的共享框架中，因此不再发布。 例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-views-pages-library.csproj?highlight=8)]
 
 ### <a name="tag-helpers"></a>标记帮助程序
 
-包含[标记帮助器](xref:mvc/views/tag-helpers/intro)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如：
+包含[标记帮助器](xref:mvc/views/tag-helpers/intro)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如：
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
 ### <a name="view-components"></a>视图组件
 
-包含[视图组件](xref:mvc/views/view-components)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如：
+包含[视图组件](xref:mvc/views/view-components)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) 的包引用。 `Microsoft.AspNetCore.Mvc.ViewFeatures` 包移到了共享框架，因此不再发布。 例如：
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) 的包引用。 `Microsoft.AspNetCore.Mvc.ViewFeatures` 包移到了共享框架，因此不再发布。 例如:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-view-components-library.csproj)]
 
@@ -208,7 +208,7 @@ dotnet new razorclasslib -s
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
 * 结合使用 [#if 预处理器指令](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if)和对应的目标框架符号，以进行有条件的代码编译。
 
-例如，自 ASP.NET Core 3.0 起默认不可对 HTTP 请求和响应流进行同步读写。 默认情况下，ASP.NET Core 2.2 支持同步行为。 以发生 IO 时应可以进行同步读取的中间件库为例。 此库应将用于启用同步功能的代码括在相应的预处理器指令中。 例如：
+例如，自 ASP.NET Core 3.0 起默认不可对 HTTP 请求和响应流进行同步读写。 默认情况下，ASP.NET Core 2.2 支持同步行为。 以发生 IO 时应可以进行同步读取的中间件库为例。 此库应将用于启用同步功能的代码括在相应的预处理器指令中。 例如:
 
 [!code-csharp[](target-aspnetcore/samples/middleware.cs?highlight=9-24)]
 

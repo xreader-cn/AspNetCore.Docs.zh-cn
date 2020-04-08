@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 08/16/2019
 uid: fundamentals/url-rewriting
 ms.openlocfilehash: 7d63cf381f1d8a19ed4fb789348e36f94304ad63
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650472"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core 中的 URL 重写中间件
@@ -43,7 +43,7 @@ URL 重定向和 URL 重写之间的用词差异很细微，但这对于向客�
 
 URL 重定向涉及客户端操作，指示客户端访问与客户端最初请求地址不同的资源  。 这需要往返服务器。 客户端对资源发出新请求时，返回客户端的重定向 URL 会出现在浏览器地址栏。
 
-如果 `/resource` 被重定向到 `/different-resource`，则服务器作出响应，指示客户端应在 `/different-resource` 获取资源，所提供的状态代码指示重定向是临时的还是永久的  。
+如果 `/resource` 被重定向到 *，则服务器作出响应，指示客户端应在*  获取资源，所提供的状态代码指示重定向是临时的还是永久的`/different-resource``/different-resource`。
 
 ![WebAPI 服务终结点已暂时从服务器上的版本 1 (v1) 更改为版本 2 (v2)。 客户端向版本 1 路径 /v1/api 上的服务发出请求。 服务器发回“302 (已找到)”响应，其中包括版本 2 /v2/api 上服务的新临时路径。 客户端向重定向 URL 上的服务发出第二个请求。 服务器以“200 (正常)”状态代码作出响应。](url-rewriting/_static/url_redirect.png)
 
@@ -57,7 +57,7 @@ URL 重定向涉及客户端操作，指示客户端访问与客户端最初请�
 
 URL 重写是服务器端操作，它从与客户端请求的资源地址不同的资源地址提供资源  。 重写 URL 不需要往返服务器。 重写的 URL 不会返回客户端，也不会出现在浏览器地址栏。
 
-如果 `/resource` 重写到 `/different-resource`，服务器会在内部提取并返回 `/different-resource` 处的资源   。
+如果 `/resource` 重写到 *，服务器会在内部提取并返回*  处的资源`/different-resource`  `/different-resource`。
 
 尽管客户端可能能够检索已重写 URL 处的资源，但是，客户端发出请求并收到响应时，并不知道已重写 URL 处存在的资源。
 
@@ -86,13 +86,13 @@ URL 重写是服务器端操作，它从与客户端请求的资源地址不同�
 
   基准测试是确定哪种方法会最大程度降低性能或降低的性能是否可忽略不计的唯一方法。
 
-## <a name="package"></a>Package
+## <a name="package"></a>包
 
 URL 重写中间件由 [Microsoft.AspNetCore.Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) 包提供，该包隐式包含在 ASP.NET Core 应用中。
 
 ## <a name="extension-and-options"></a>扩展和选项
 
-通过使用扩展方法为每条重写规则创建 [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) 类的实例，建立 URL 重写和重写定向规则。 按所需的处理顺序链接多个规则。 使用 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> 将 `RewriteOptions` 添加到请求管道时，它会被传递到 URL 重写中间件：
+通过使用扩展方法为每条重写规则创建 [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) 类的实例，建立 URL 重写和重写定向规则。 按所需的处理顺序链接多个规则。 使用 `RewriteOptions` 将 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> 添加到请求管道时，它会被传递到 URL 重写中间件：
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -197,8 +197,8 @@ public void Configure(IApplicationBuilder app)
 | 路径                              | 匹配 |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | 是   |
-| `/my-cool-rewrite-rule/1234/5678` | 否    |
-| `/anotherrewrite-rule/1234/5678`  | 否    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 在表达式的 `^rewrite-rule/` 部分之后，有两个捕获组 `(\d+)/(\d+)`。 `\d` 表示与数字匹配  。 加号 (`+`) 表示与前面的一个或多个字符匹配  。 因此，URL 必须包含数字加正斜杠加另一个数字的形式。 这些捕获组以 `$1` 和 `$2` 的形式注入重写 URL 中。 重写规则替换字符串将捕获组放入查询字符串中。 重写 `/rewrite-rule/1234/5678` 的请求路径，获取 `/rewritten?var1=1234&var2=5678` 处的资源。 如果原始请求中存在查询字符串，则重写 URL 时会保留此字符串。
 
@@ -285,7 +285,7 @@ public void Configure(IApplicationBuilder app)
 * 通配符
 * LogRewrittenUrl
 
-#### <a name="supported-server-variables"></a>受支持的服务器变量
+#### <a name="supported-server-variables"></a>支持的服务器变量
 
 中间件支持下列 IIS URL 重写模块服务器变量：
 
@@ -307,7 +307,7 @@ public void Configure(IApplicationBuilder app)
 * REQUEST_URI
 
 > [!NOTE]
-> 也可通过 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 获取 <xref:Microsoft.Extensions.FileProviders.IFileProvider>。 这种方法可为重写规则文件的位置提供更大的灵活性。 请确保将重写规则文件部署到所提供路径的服务器中。
+> 也可通过 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 获取 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>。 这种方法可为重写规则文件的位置提供更大的灵活性。 请确保将重写规则文件部署到所提供路径的服务器中。
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -345,7 +345,7 @@ public void Configure(IApplicationBuilder app)
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif    。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到 `/png-images/image.png`  。 如果发出针对 image.png 的请求，请求将重定向到 `/jpg-images/image.jpg`  。 状态代码设置为“301 (永久移动)”，`context.Result` 设置为停止处理规则并发送响应  。
+检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif    。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到  `/png-images/image.png`。 如果发出针对 image.png 的请求，请求将重定向到  `/jpg-images/image.jpg`。 状态代码设置为“301 (永久移动)”， *设置为停止处理规则并发送响应*`context.Result`。
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
@@ -395,7 +395,7 @@ URL 重定向和 URL 重写之间的用词差异很细微，但这对于向客�
 
 URL 重定向涉及客户端操作，指示客户端访问与客户端最初请求地址不同的资源  。 这需要往返服务器。 客户端对资源发出新请求时，返回客户端的重定向 URL 会出现在浏览器地址栏。
 
-如果 `/resource` 被重定向到 `/different-resource`，则服务器作出响应，指示客户端应在 `/different-resource` 获取资源，所提供的状态代码指示重定向是临时的还是永久的  。
+如果 `/resource` 被重定向到 *，则服务器作出响应，指示客户端应在*  获取资源，所提供的状态代码指示重定向是临时的还是永久的`/different-resource``/different-resource`。
 
 ![WebAPI 服务终结点已暂时从服务器上的版本 1 (v1) 更改为版本 2 (v2)。 客户端向版本 1 路径 /v1/api 上的服务发出请求。 服务器发回“302 (已找到)”响应，其中包括版本 2 /v2/api 上服务的新临时路径。 客户端向重定向 URL 上的服务发出第二个请求。 服务器以“200 (正常)”状态代码作出响应。](url-rewriting/_static/url_redirect.png)
 
@@ -409,7 +409,7 @@ URL 重定向涉及客户端操作，指示客户端访问与客户端最初请�
 
 URL 重写是服务器端操作，它从与客户端请求的资源地址不同的资源地址提供资源  。 重写 URL 不需要往返服务器。 重写的 URL 不会返回客户端，也不会出现在浏览器地址栏。
 
-如果 `/resource` 重写到 `/different-resource`，服务器会在内部提取并返回 `/different-resource` 处的资源   。
+如果 `/resource` 重写到 *，服务器会在内部提取并返回*  处的资源`/different-resource`  `/different-resource`。
 
 尽管客户端可能能够检索已重写 URL 处的资源，但是，客户端发出请求并收到响应时，并不知道已重写 URL 处存在的资源。
 
@@ -438,7 +438,7 @@ URL 重写是服务器端操作，它从与客户端请求的资源地址不同�
 
   基准测试是确定哪种方法会最大程度降低性能或降低的性能是否可忽略不计的唯一方法。
 
-## <a name="package"></a>Package
+## <a name="package"></a>包
 
 要在项目中包含中间件，请在项目文件中添加对 [Microsoft.AspNetCore.App 元数据包](xref:fundamentals/metapackage-app)的包引用，该文件包含 [Microsoft.AspNetCore.Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) 包。
 
@@ -446,7 +446,7 @@ URL 重写是服务器端操作，它从与客户端请求的资源地址不同�
 
 ## <a name="extension-and-options"></a>扩展和选项
 
-通过使用扩展方法为每条重写规则创建 [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) 类的实例，建立 URL 重写和重写定向规则。 按所需的处理顺序链接多个规则。 使用 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> 将 `RewriteOptions` 添加到请求管道时，它会被传递到 URL 重写中间件：
+通过使用扩展方法为每条重写规则创建 [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) 类的实例，建立 URL 重写和重写定向规则。 按所需的处理顺序链接多个规则。 使用 `RewriteOptions` 将 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> 添加到请求管道时，它会被传递到 URL 重写中间件：
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -551,8 +551,8 @@ public void Configure(IApplicationBuilder app)
 | 路径                              | 匹配 |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | 是   |
-| `/my-cool-rewrite-rule/1234/5678` | 否    |
-| `/anotherrewrite-rule/1234/5678`  | 否    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 在表达式的 `^rewrite-rule/` 部分之后，有两个捕获组 `(\d+)/(\d+)`。 `\d` 表示与数字匹配  。 加号 (`+`) 表示与前面的一个或多个字符匹配  。 因此，URL 必须包含数字加正斜杠加另一个数字的形式。 这些捕获组以 `$1` 和 `$2` 的形式注入重写 URL 中。 重写规则替换字符串将捕获组放入查询字符串中。 重写 `/rewrite-rule/1234/5678` 的请求路径，获取 `/rewritten?var1=1234&var2=5678` 处的资源。 如果原始请求中存在查询字符串，则重写 URL 时会保留此字符串。
 
@@ -639,7 +639,7 @@ public void Configure(IApplicationBuilder app)
 * 通配符
 * LogRewrittenUrl
 
-#### <a name="supported-server-variables"></a>受支持的服务器变量
+#### <a name="supported-server-variables"></a>支持的服务器变量
 
 中间件支持下列 IIS URL 重写模块服务器变量：
 
@@ -661,7 +661,7 @@ public void Configure(IApplicationBuilder app)
 * REQUEST_URI
 
 > [!NOTE]
-> 也可通过 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> 获取 <xref:Microsoft.Extensions.FileProviders.IFileProvider>。 这种方法可为重写规则文件的位置提供更大的灵活性。 请确保将重写规则文件部署到所提供路径的服务器中。
+> 也可通过 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 获取 <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>。 这种方法可为重写规则文件的位置提供更大的灵活性。 请确保将重写规则文件部署到所提供路径的服务器中。
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -699,7 +699,7 @@ public void Configure(IApplicationBuilder app)
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif    。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到 `/png-images/image.png`  。 如果发出针对 image.png 的请求，请求将重定向到 `/jpg-images/image.jpg`  。 状态代码设置为“301 (永久移动)”，`context.Result` 设置为停止处理规则并发送响应  。
+检查示例应用中 `extension` 和 `newPath` 的参数值是否符合多个条件。 `extension` 须包含一个值，并且该值必须是 .png、.jpg 或 .gif    。 如果 `newPath` 无效，则会引发 <xref:System.ArgumentException>。 如果发出针对 image.png 的请求，请求将重定向到  `/png-images/image.png`。 如果发出针对 image.png 的请求，请求将重定向到  `/jpg-images/image.jpg`。 状态代码设置为“301 (永久移动)”， *设置为停止处理规则并发送响应*`context.Result`。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 

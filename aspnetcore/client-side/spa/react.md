@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
 ms.openlocfilehash: 9703a62eb7f779974382fe0fb01702d9fcd37d64
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649752"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>通过 ASP.NET Core 使用 React 项目模板
@@ -61,7 +61,7 @@ cd my-new-app
 
 ## <a name="install-npm-packages"></a>安装 npm 包
 
-要安装第三方 npm 程序包，请使用 ClientApp  子目录中的命令提示符。 例如：
+要安装第三方 npm 程序包，请使用 ClientApp  子目录中的命令提示符。 例如:
 
 ```console
 cd ClientApp

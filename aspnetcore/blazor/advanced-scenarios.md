@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/advanced-scenarios
 ms.openlocfilehash: 5edbbe36e8389bac0335594b1e4331aee1c02867
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647412"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
@@ -158,14 +158,14 @@ builder.AddContent(1, "Second");
 
 首次执行代码时，如果 `someFlag` 为 `true`，则生成器会收到：
 
-| 序列 | 类型      | 数据   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | First  |
 | 1        | Text 节点 | 秒 |
 
 假设 `someFlag` 变为 `false` 且标记再次呈现。 此时，生成器会收到：
 
-| 序列 | 类型       | 数据   |
+| 序列 | 键入       | 数据   |
 | :------: | ---------- | :----: |
 | 1        | Text 节点  | 秒 |
 
@@ -190,14 +190,14 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | 类型      | 数据   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | :----: |
 | 0        | Text 节点 | First  |
 | 1        | Text 节点 | 秒 |
 
 此结果与之前的示例相同，因此不存在负面问题。 在第二个呈现中，`someFlag` 为 `false`，输出为：
 
-| 序列 | 类型      | 数据   |
+| 序列 | 键入      | 数据   |
 | :------: | --------- | ------ |
 | 0        | Text 节点 | 秒 |
 
@@ -337,7 +337,7 @@ public class FileUploader : IDisposable
 * `ReceiveFile` 方法用于处理通过 JS 互操作进行的上传：
   * 通过与 `_jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)` 的 JS 互操作确定文件大小（以字节为单位）。
   * 在 `numberOfSegments` 中计算要接收的段数并进行存储。
-  * 通过与 `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` 的 JS 互操作在 `for` 循环中请求段。 除最后一个段外，所有段都必须为 8,192 字节才能进行解码。 客户端被强制以高效方式发送数据。
+  * 通过与 `for` 的 JS 互操作在 `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` 循环中请求段。 除最后一个段外，所有段都必须为 8,192 字节才能进行解码。 客户端被强制以高效方式发送数据。
   * 对于接收的每个段，在使用 <xref:System.Convert.TryFromBase64String*> 解码之前执行检查。
   * 上传完成后，包含数据的数据流会作为新的<xref:System.IO.Stream> (`SegmentedStream`) 返回。
 

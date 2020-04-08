@@ -6,10 +6,10 @@ ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
 ms.openlocfilehash: 08002564eb68bc04eebaeafed560202d0d69958a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645330"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>在 ASP.NET Core 中配置可移植对象本地化
@@ -18,7 +18,7 @@ ms.locfileid: "78645330"
 
 本文演示通过 [Orchard Core](https://github.com/OrchardCMS/OrchardCore) 框架在 ASP.NET Core 应用程序中使用可移植对象 (PO) 文件的步骤。
 
-**注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
+**请注意：** Orchard Core 不是 Microsoft 产品。 因此，Microsoft 不提供针对此功能的支持。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -49,7 +49,7 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 此示例使用下列语法：
 
-- `#:`：用于指示要转换的字符串的上下文的注释。 根据使用的位置，可对相同字符串进行不同转换。
+- `#:`：注释，用于指示要转换的字符串的上下文。 根据使用的位置，可对相同字符串进行不同转换。
 - `msgid`：未转换的字符串。
 - `msgstr`：已转换的字符串。
 
@@ -75,11 +75,11 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 ### <a name="registering-the-service"></a>注册服务
 
-将所需服务添加到 Startup.cs  的 `ConfigureServices` 方法：
+将所需服务添加到 Startup.cs`ConfigureServices`*的* 方法：
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_ConfigureServices&highlight=4-21)]
 
-将所需中间件添加到 Startup.cs  的 `Configure` 方法：
+将所需中间件添加到 Startup.cs`Configure`*的* 方法：
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
@@ -91,11 +91,11 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 ### <a name="creating-a-po-file"></a>创建 PO 文件
 
-在应用程序根文件夹中创建名为 \<culture code>.po  的文件。 在此示例中，文件名为 fr.po  ，因为使用了法语：
+在应用程序根文件夹中创建名为 *culture code>.po\<* 的文件。 在此示例中，文件名为 fr.po  ，因为使用了法语：
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
-此文件存储了要转换的字符串和已转换为法语的字符串。 如有必要，转换将还原为其父级区域性。 在此示例中，如果请求的区域性为 `fr-FR` 或 `fr-CA`，则使用 fr.po  文件。
+此文件存储了要转换的字符串和已转换为法语的字符串。 如有必要，转换将还原为其父级区域性。 在此示例中，如果请求的区域性为 *或*，则使用 fr.po`fr-FR``fr-CA` 文件。
 
 ### <a name="testing-the-application"></a>测试应用程序
 
@@ -153,7 +153,7 @@ var supportedCultures = new List<CultureInfo>
 <p>@Localizer.Plural(5, "There is one item.", "There are {0} items.")</p>
 ```
 
-**注意：** 在实际方案中，将使用变量表示计数。 此处，我们通过三个不同的值重复相同代码，以公开非常特定的事例。
+**注意：** 在实际方案中，变量将用于表示计数。 此处，我们通过三个不同的值重复相同代码，以公开非常特定的事例。
 
 切换区域性时，将显示如下内容：
 
@@ -191,7 +191,7 @@ Existuje 5 položek.
 
 PO 本地化服务使用完整类的名称或转换字符串时使用的视图。 这通过在 `msgctxt` 条目上设置值来完成。
 
-请考虑对以前的 fr.po  示例作一点小小的补充。 可通过设置保留的 `msgctxt` 条目的值将位于 Views/Home/About.cshtml  的 Razor 视图定义为文件上下文：
+请考虑对以前的 fr.po  示例作一点小小的补充。 可通过设置保留的  *条目的值将位于 Views/Home/About.cshtml*`msgctxt` 的 Razor 视图定义为文件上下文：
 
 ```text
 msgctxt "Views.Home.About"

@@ -7,10 +7,10 @@ ms.author: johluo
 ms.date: 10/17/2019
 uid: grpc/dotnet-grpc
 ms.openlocfilehash: 994597c854a95bb33de1686ab025cb3744cf6845
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650898"
 ---
 # <a name="manage-protobuf-references-with-dotnet-grpc"></a>通过 dotnet-grpc 管理 Protobuf 参考
@@ -58,7 +58,7 @@ Protobuf 引用用于生成 C# 客户端和/或服务器资产。 `dotnet-grpc` 
 dotnet grpc add-file [options] <files>...
 ```
 
-#### <a name="arguments"></a>自变量
+#### <a name="arguments"></a>参数
 
 | 参数 | 描述 |
 |-|-|
@@ -83,7 +83,7 @@ dotnet grpc add-file [options] <files>...
 dotnet-grpc add-url [options] <url>
 ```
 
-#### <a name="arguments"></a>自变量
+#### <a name="arguments"></a>参数
 
 | 参数 | 描述 |
 |-|-|
@@ -112,7 +112,7 @@ dotnet-grpc add-url [options] <url>
 dotnet-grpc remove [options] <references>...
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 | 参数 | 描述 |
 |-|-|
@@ -126,7 +126,7 @@ dotnet-grpc remove [options] <references>...
 
 ## <a name="refresh"></a>刷新
 
-`refresh` 命令用于使用来自源 URL 的最新内容更新远程引用。 下载文件路径和源 URL 都可以用于指定要更新的引用。 注意：
+`refresh` 命令用于使用来自源 URL 的最新内容更新远程引用。 下载文件路径和源 URL 都可以用于指定要更新的引用。 注意:
 
 * 会比较文件内容的哈希，以确定是否应更新本地文件。
 * 不会比较时间戳信息。
@@ -139,7 +139,7 @@ dotnet-grpc remove [options] <references>...
 dotnet-grpc refresh [options] [<references>...]
 ```
 
-### <a name="arguments"></a>自变量
+### <a name="arguments"></a>参数
 
 | 参数 | 描述 |
 |-|-|
