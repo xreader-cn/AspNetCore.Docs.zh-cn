@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-nginx
 ms.openlocfilehash: 320a5364efe85b06028d8e80000e3455bb8ebd18
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78646650"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
