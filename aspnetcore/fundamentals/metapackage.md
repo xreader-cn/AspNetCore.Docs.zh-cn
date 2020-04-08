@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
 ms.openlocfilehash: cc00c075909da5c17a4aa2fd252c9e662e5a0fc9
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511062"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 的 Microsoft.AspNetCore.All 元包
@@ -55,7 +55,7 @@ ASP.NET Core 3.0 及更高版本中不包含 `Microsoft.AspNetCore.All` 元包�
 
 必须在项目文件中将项目的 SDK 设置为 `Microsoft.NET.Sdk.Web`，这样才能使用隐式版本的 `Microsoft.AspNetCore.All`。 指定 `Microsoft.NET.Sdk` SDK（项目文件顶部的 `<Project Sdk="Microsoft.NET.Sdk">`）时，将生成以下警告：
 
-警告 NU1604：项目依赖项 Microsoft.AspNetCore.All 不包括包含下限。* 请在依赖项版本中包括下限，以确保一致的还原结果。
+警告 NU1604：项目依赖项 Microsoft.AspNetCore.All 不包括包含下限。请在依赖项版本中包括下限，以确保一致的还原结果。
 
 这是 .NET Core 2.1 SDK 的一个已知问题，将在 .NET Core 2.2 SDK 中修复。
 

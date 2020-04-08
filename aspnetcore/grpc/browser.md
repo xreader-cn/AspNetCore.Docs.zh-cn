@@ -7,10 +7,10 @@ ms.author: jamesnk
 ms.date: 02/16/2020
 uid: grpc/browser
 ms.openlocfilehash: 3beeffc26ffd3c2dc85bfc22a46d97d5fd78d3d0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649416"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
@@ -36,7 +36,7 @@ ms.locfileid: "78649416"
 若要使用 ASP.NET Core gRPC 服务启用 gRPC-Web：
 
 * 添加对 [Grpc.AspNetCore.Web](https://www.nuget.org/packages/Grpc.AspNetCore.Web) 包的引用。
-* 配置应用以使用 gRPC-Web，方法是将 `AddGrpcWeb` 和 `UseGrpcWeb` 添加到 Startup.cs：
+* 配置应用以使用 gRPC-Web，方法是将 `AddGrpcWeb` 和 `UseGrpcWeb` 添加到 Startup.cs  ：
 
 [!code-csharp[](~/grpc/browser/sample/Startup.cs?name=snippet_1&highlight=10,14)]
 
@@ -98,7 +98,7 @@ ms.locfileid: "78649416"
 * **模式**：枚举类型，指定 gRPC HTTP 请求请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
     * `GrpcWebMode.GrpcWeb` 配置不进行编码即发送的内容。 默认值。
     * `GrpcWebMode.GrpcWebText` 配置需进行 base64 编码的内容。 对于浏览器中的服务器流式处理调用是必需的。
-* **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
+* **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
 
 > [!IMPORTANT]
 > 生成的 gRPC 客户端具有用于调用一元方法的同步和异步方法。 例如，`SayHello` 是同步的，而 `SayHelloAsync` 是异步的。 在 Blazor WebAssembly 应用中调用同步方法将导致应用无响应。 必须始终在 Blazor WebAssembly 中使用异步方法。
