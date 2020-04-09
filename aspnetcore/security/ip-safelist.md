@@ -1,76 +1,125 @@
 ---
-title: ASP.NET Core 的客户端 IP 安全安全
+title: ASP.NET核心客户端 IP 安全列表
 author: damienbod
-description: 了解如何编写中间件或操作筛选器，以根据已批准的 IP 地址列表来验证远程 IP 地址。
+description: 了解如何编写中间件或操作筛选器，以便根据已批准的 IP 地址列表验证远程 IP 地址。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/31/2018
+ms.date: 03/12/2020
 uid: security/ip-safelist
-ms.openlocfilehash: d25c375f7e659168ab8cc9d8e11753cb7dfde831
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 2db879a6918245cbacff8b1a5dc15786ffab6a34
+ms.sourcegitcommit: 196e4a36df5be5b04fedcff484a4261f8046ec57
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652050"
+ms.lasthandoff: 03/31/2020
+ms.locfileid: "80471794"
 ---
-# <a name="client-ip-safelist-for-aspnet-core"></a><span data-ttu-id="773a9-103">ASP.NET Core 的客户端 IP 安全安全</span><span class="sxs-lookup"><span data-stu-id="773a9-103">Client IP safelist for ASP.NET Core</span></span>
+# <a name="client-ip-safelist-for-aspnet-core"></a><span data-ttu-id="d4e53-103">ASP.NET核心客户端 IP 安全列表</span><span class="sxs-lookup"><span data-stu-id="d4e53-103">Client IP safelist for ASP.NET Core</span></span>
 
-<span data-ttu-id="773a9-104">作者： [Damien Bowden](https://twitter.com/damien_bod)和[Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="773a9-104">By [Damien Bowden](https://twitter.com/damien_bod) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
+<span data-ttu-id="d4e53-104">由[达米安·鲍登](https://twitter.com/damien_bod)和[汤姆·戴克斯特拉](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="d4e53-104">By [Damien Bowden](https://twitter.com/damien_bod) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
  
-<span data-ttu-id="773a9-105">本文介绍三种在 ASP.NET Core 应用程序中实现 IP 安全列表（也称为白名单）的方法。</span><span class="sxs-lookup"><span data-stu-id="773a9-105">This article shows three ways to implement an IP safelist (also known as a whitelist) in an ASP.NET Core app.</span></span> <span data-ttu-id="773a9-106">可用工具如下：</span><span class="sxs-lookup"><span data-stu-id="773a9-106">You can use:</span></span>
+<span data-ttu-id="d4e53-105">本文介绍了在ASP.NET核心应用中实现 IP 地址安全列表（也称为允许列表）的三种方法。</span><span class="sxs-lookup"><span data-stu-id="d4e53-105">This article shows three ways to implement an IP address safelist (also known as an allow list) in an ASP.NET Core app.</span></span> <span data-ttu-id="d4e53-106">随附的示例应用演示了所有三种方法。</span><span class="sxs-lookup"><span data-stu-id="d4e53-106">An accompanying sample app demonstrates all three approaches.</span></span> <span data-ttu-id="d4e53-107">可用工具如下：</span><span class="sxs-lookup"><span data-stu-id="d4e53-107">You can use:</span></span>
 
-* <span data-ttu-id="773a9-107">用于检查每个请求的远程 IP 地址的中间件。</span><span class="sxs-lookup"><span data-stu-id="773a9-107">Middleware to check the remote IP address of every request.</span></span>
-* <span data-ttu-id="773a9-108">操作筛选器来检查针对特定控制器或操作方法的请求的远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="773a9-108">Action filters to check the remote IP address of requests for specific controllers or action methods.</span></span>
-* <span data-ttu-id="773a9-109">Razor Pages 筛选器来检查 Razor 页面的请求的远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="773a9-109">Razor Pages filters to check the remote IP address of requests for Razor pages.</span></span>
+* <span data-ttu-id="d4e53-108">用于检查每个请求的远程 IP 地址的中间件。</span><span class="sxs-lookup"><span data-stu-id="d4e53-108">Middleware to check the remote IP address of every request.</span></span>
+* <span data-ttu-id="d4e53-109">MVC 操作筛选器，用于检查特定控制器或操作方法的请求的远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-109">MVC action filters to check the remote IP address of requests for specific controllers or action methods.</span></span>
+* <span data-ttu-id="d4e53-110">Razor 页面筛选器以检查 Razor 页面请求的远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-110">Razor Pages filters to check the remote IP address of requests for Razor pages.</span></span>
 
-<span data-ttu-id="773a9-110">在每种情况下，包含批准的客户端 IP 地址的字符串存储在应用设置中。</span><span class="sxs-lookup"><span data-stu-id="773a9-110">In each case, a string containing approved client IP addresses is stored in an app setting.</span></span> <span data-ttu-id="773a9-111">中间件或筛选器会将字符串分析为一个列表，并检查远程 IP 是否在列表中。</span><span class="sxs-lookup"><span data-stu-id="773a9-111">The middleware or filter parses the string into a list and checks if the remote IP is in the list.</span></span> <span data-ttu-id="773a9-112">如果不是，则返回 HTTP 403 禁止的状态代码。</span><span class="sxs-lookup"><span data-stu-id="773a9-112">If not, an HTTP 403 Forbidden status code is returned.</span></span>
+<span data-ttu-id="d4e53-111">在每种情况下，包含已批准的客户端 IP 地址的字符串都存储在应用设置中。</span><span class="sxs-lookup"><span data-stu-id="d4e53-111">In each case, a string containing approved client IP addresses is stored in an app setting.</span></span> <span data-ttu-id="d4e53-112">中间件或过滤器：</span><span class="sxs-lookup"><span data-stu-id="d4e53-112">The middleware or filter:</span></span>
 
-<span data-ttu-id="773a9-113">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="773a9-113">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+* <span data-ttu-id="d4e53-113">将字符串解析为数组。</span><span class="sxs-lookup"><span data-stu-id="d4e53-113">Parses the string into an array.</span></span> 
+* <span data-ttu-id="d4e53-114">检查阵列中是否存在远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-114">Checks if the remote IP address exists in the array.</span></span>
 
-## <a name="the-safelist"></a><span data-ttu-id="773a9-114">安全安全</span><span class="sxs-lookup"><span data-stu-id="773a9-114">The safelist</span></span>
+<span data-ttu-id="d4e53-115">如果数组包含 IP 地址，则允许访问。</span><span class="sxs-lookup"><span data-stu-id="d4e53-115">Access is allowed if the array contains the IP address.</span></span> <span data-ttu-id="d4e53-116">否则，将返回 HTTP 403 禁止状态代码。</span><span class="sxs-lookup"><span data-stu-id="d4e53-116">Otherwise, an HTTP 403 Forbidden status code is returned.</span></span>
 
-<span data-ttu-id="773a9-115">在*appsettings*文件中配置该列表。</span><span class="sxs-lookup"><span data-stu-id="773a9-115">The list is configured in the *appsettings.json* file.</span></span> <span data-ttu-id="773a9-116">它是以分号分隔的列表，并且可以包含 IPv4 和 IPv6 地址。</span><span class="sxs-lookup"><span data-stu-id="773a9-116">It's a semicolon-delimited list and can contain IPv4 and IPv6 addresses.</span></span>
+<span data-ttu-id="d4e53-117">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="d4e53-117">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-[!code-json[](ip-safelist/samples/2.x/ClientIpAspNetCore/appsettings.json?highlight=2)]
+## <a name="ip-address-safelist"></a><span data-ttu-id="d4e53-118">IP 地址安全列表</span><span class="sxs-lookup"><span data-stu-id="d4e53-118">IP address safelist</span></span>
 
-## <a name="middleware"></a><span data-ttu-id="773a9-117">中间件</span><span class="sxs-lookup"><span data-stu-id="773a9-117">Middleware</span></span>
+<span data-ttu-id="d4e53-119">在示例应用中，IP 地址安全列表为：</span><span class="sxs-lookup"><span data-stu-id="d4e53-119">In the sample app, the IP address safelist is:</span></span>
 
-<span data-ttu-id="773a9-118">`Configure` 方法将添加中间件，并在构造函数参数中将安全项的字符串传递给它。</span><span class="sxs-lookup"><span data-stu-id="773a9-118">The `Configure` method adds the middleware and passes the safelist string to it in a constructor parameter.</span></span>
+* <span data-ttu-id="d4e53-120">由`AdminSafeList`*appsettings.json*文件中的属性定义。</span><span class="sxs-lookup"><span data-stu-id="d4e53-120">Defined by the `AdminSafeList` property in the *appsettings.json* file.</span></span>
+* <span data-ttu-id="d4e53-121">一个分号分隔字符串，可能包含 Internet[协议版本 4 （IPv4）](https://wikipedia.org/wiki/IPv4)和[Internet 协议版本 6 （IPv6）](https://wikipedia.org/wiki/IPv6)地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-121">A semicolon-delimited string that may contain both [Internet Protocol version 4 (IPv4)](https://wikipedia.org/wiki/IPv4) and [Internet Protocol version 6 (IPv6)](https://wikipedia.org/wiki/IPv6) addresses.</span></span>
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_Configure&highlight=10)]
+[!code-json[](ip-safelist/samples/3.x/ClientIpAspNetCore/appsettings.json?range=1-3&highlight=2)]
 
-<span data-ttu-id="773a9-119">中间件将字符串分析为数组，并在数组中查找远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="773a9-119">The middleware parses the string into an array and looks for the remote IP address in the array.</span></span> <span data-ttu-id="773a9-120">如果找不到远程 IP 地址，中间件将返回 HTTP 401 禁止访问。</span><span class="sxs-lookup"><span data-stu-id="773a9-120">If the remote IP address is not found, the middleware returns HTTP 401 Forbidden.</span></span> <span data-ttu-id="773a9-121">对于 HTTP Get 请求，将跳过此验证过程。</span><span class="sxs-lookup"><span data-stu-id="773a9-121">This validation process is bypassed for HTTP Get requests.</span></span>
+<span data-ttu-id="d4e53-122">在前面的示例中，`127.0.0.1`允许 和`192.168.1.5`的 IPv4 地址和`::1`IPv6 回回地址（压缩格式`0:0:0:0:0:0:0:1`）。</span><span class="sxs-lookup"><span data-stu-id="d4e53-122">In the preceding example, the IPv4 addresses of `127.0.0.1` and `192.168.1.5` and the IPv6 loopback address of `::1` (compressed format for `0:0:0:0:0:0:0:1`) are allowed.</span></span>
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/AdminSafeListMiddleware.cs?name=snippet_ClassOnly)]
+## <a name="middleware"></a><span data-ttu-id="d4e53-123">中间件</span><span class="sxs-lookup"><span data-stu-id="d4e53-123">Middleware</span></span>
 
-## <a name="action-filter"></a><span data-ttu-id="773a9-122">操作筛选器</span><span class="sxs-lookup"><span data-stu-id="773a9-122">Action filter</span></span>
+<span data-ttu-id="d4e53-124">该方法`Startup.Configure`将自定义`AdminSafeListMiddleware`中间件类型添加到应用的请求管道中。</span><span class="sxs-lookup"><span data-stu-id="d4e53-124">The `Startup.Configure` method adds the custom `AdminSafeListMiddleware` middleware type to the app's request pipeline.</span></span> <span data-ttu-id="d4e53-125">使用 .NET Core 配置提供程序检索安全列表，并作为构造函数参数传递。</span><span class="sxs-lookup"><span data-stu-id="d4e53-125">The safelist is retrieved with the .NET Core configuration provider and is passed as a constructor parameter.</span></span>
 
-<span data-ttu-id="773a9-123">如果只希望特定控制器或操作方法使用 "安全"，请使用操作筛选器。</span><span class="sxs-lookup"><span data-stu-id="773a9-123">If you want a safelist only for specific controllers or action methods, use an action filter.</span></span> <span data-ttu-id="773a9-124">下面是一个示例：</span><span class="sxs-lookup"><span data-stu-id="773a9-124">Here's an example:</span></span> 
+[!code-csharp[](ip-safelist/samples/3.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureAddMiddleware)]
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckFilter.cs)]
+<span data-ttu-id="d4e53-126">中间件将字符串解析为数组并搜索数组中的远程 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-126">The middleware parses the string into an array and searches for the remote IP address in the array.</span></span> <span data-ttu-id="d4e53-127">如果未找到远程 IP 地址，中间件将返回 HTTP 403 禁止。</span><span class="sxs-lookup"><span data-stu-id="d4e53-127">If the remote IP address isn't found, the middleware returns HTTP 403 Forbidden.</span></span> <span data-ttu-id="d4e53-128">此验证过程是绕过 HTTP GET 请求的。</span><span class="sxs-lookup"><span data-stu-id="d4e53-128">This validation process is bypassed for HTTP GET requests.</span></span>
 
-<span data-ttu-id="773a9-125">操作筛选器将添加到服务容器中。</span><span class="sxs-lookup"><span data-stu-id="773a9-125">The action filter is added to the services container.</span></span>
+[!code-csharp[](ip-safelist/samples/Shared/ClientIpSafelistComponents/Middlewares/AdminSafeListMiddleware.cs?name=snippet_ClassOnly)]
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServices&highlight=3)]
+## <a name="action-filter"></a><span data-ttu-id="d4e53-129">操作筛选器</span><span class="sxs-lookup"><span data-stu-id="d4e53-129">Action filter</span></span>
 
-<span data-ttu-id="773a9-126">然后，可以在控制器或操作方法上使用该筛选器。</span><span class="sxs-lookup"><span data-stu-id="773a9-126">The filter can then be used on a controller or action method.</span></span>
+<span data-ttu-id="d4e53-130">如果需要针对特定 MVC 控制器或操作方法的安全列表驱动访问控制，请使用操作筛选器。</span><span class="sxs-lookup"><span data-stu-id="d4e53-130">If you want safelist-driven access control for specific MVC controllers or action methods, use an action filter.</span></span> <span data-ttu-id="d4e53-131">例如：</span><span class="sxs-lookup"><span data-stu-id="d4e53-131">For example:</span></span>
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Controllers/ValuesController.cs?name=snippet_Filter&highlight=1)]
+[!code-csharp[](ip-safelist/samples/Shared/ClientIpSafelistComponents/Filters/ClientIpCheckActionFilter.cs?name=snippet_ClassOnly)]
 
-<span data-ttu-id="773a9-127">在示例应用中，筛选器将应用于 `Get` 方法。</span><span class="sxs-lookup"><span data-stu-id="773a9-127">In the sample app, the filter is applied to the `Get` method.</span></span> <span data-ttu-id="773a9-128">因此，当你通过发送 `Get` API 请求来测试应用时，属性将验证客户端 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="773a9-128">So when you test the app by sending a `Get` API request, the attribute is validating the client IP address.</span></span> <span data-ttu-id="773a9-129">当你通过使用任何其他 HTTP 方法调用 API 进行测试时，中间件将验证客户端 IP。</span><span class="sxs-lookup"><span data-stu-id="773a9-129">When you test by calling the API with any other HTTP method, the middleware is validating the client IP.</span></span>
+<span data-ttu-id="d4e53-132">在`Startup.ConfigureServices`中，将操作筛选器添加到 MVC 筛选器集合。</span><span class="sxs-lookup"><span data-stu-id="d4e53-132">In `Startup.ConfigureServices`, add the action filter to the MVC filters collection.</span></span> <span data-ttu-id="d4e53-133">在下面的示例中，将添加`ClientIpCheckActionFilter`操作筛选器。</span><span class="sxs-lookup"><span data-stu-id="d4e53-133">In the following example, a `ClientIpCheckActionFilter` action filter is added.</span></span> <span data-ttu-id="d4e53-134">安全列表和控制台记录器实例作为构造函数参数传递。</span><span class="sxs-lookup"><span data-stu-id="d4e53-134">A safelist and a console logger instance are passed as constructor parameters.</span></span>
 
-## <a name="razor-pages-filter"></a><span data-ttu-id="773a9-130">Razor Pages 筛选器</span><span class="sxs-lookup"><span data-stu-id="773a9-130">Razor Pages filter</span></span> 
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="773a9-131">如果需要 Razor Pages 应用的安全安全，请使用 Razor Pages 筛选器。</span><span class="sxs-lookup"><span data-stu-id="773a9-131">If you want a safelist for a Razor Pages app, use a Razor Pages filter.</span></span> <span data-ttu-id="773a9-132">下面是一个示例：</span><span class="sxs-lookup"><span data-stu-id="773a9-132">Here's an example:</span></span> 
+[!code-csharp[](ip-safelist/samples/3.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServicesActionFilter)]
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckPageFilter.cs)]
+::: moniker-end
 
-<span data-ttu-id="773a9-133">此筛选器通过将其添加到 MVC 筛选器集合来启用。</span><span class="sxs-lookup"><span data-stu-id="773a9-133">This filter is enabled by adding it to the MVC Filters collection.</span></span>
+::: moniker range="<= aspnetcore-2.2"
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
+[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServicesActionFilter)]
 
-<span data-ttu-id="773a9-134">当你运行应用并请求 Razor 页面时，Razor Pages 筛选器将验证客户端 IP。</span><span class="sxs-lookup"><span data-stu-id="773a9-134">When you run the app and request a Razor page, the Razor Pages filter is validating the client IP.</span></span>
+::: moniker-end
 
-## <a name="next-steps"></a><span data-ttu-id="773a9-135">后续步骤</span><span class="sxs-lookup"><span data-stu-id="773a9-135">Next steps</span></span>
+<span data-ttu-id="d4e53-135">然后，操作筛选器可以应用于具有[[服务筛选器]](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute)属性的控制器或操作方法：</span><span class="sxs-lookup"><span data-stu-id="d4e53-135">The action filter can then be applied to a controller or action method with the [[ServiceFilter]](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute) attribute:</span></span>
 
-<span data-ttu-id="773a9-136">[了解有关 ASP.NET Core 中间件的详细信息](xref:fundamentals/middleware/index)。</span><span class="sxs-lookup"><span data-stu-id="773a9-136">[Learn more about ASP.NET Core Middleware](xref:fundamentals/middleware/index).</span></span>
+[!code-csharp[](ip-safelist/samples/3.x/ClientIpAspNetCore/Controllers/ValuesController.cs?name=snippet_ActionFilter&highlight=1)]
+
+<span data-ttu-id="d4e53-136">在示例应用中，操作筛选器应用于控制器的操作`Get`方法。</span><span class="sxs-lookup"><span data-stu-id="d4e53-136">In the sample app, the action filter is applied to the controller's `Get` action method.</span></span> <span data-ttu-id="d4e53-137">通过发送测试应用时：</span><span class="sxs-lookup"><span data-stu-id="d4e53-137">When you test the app by sending:</span></span>
+
+* <span data-ttu-id="d4e53-138">HTTP GET 请求，`[ServiceFilter]`属性验证客户端 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-138">An HTTP GET request, the `[ServiceFilter]` attribute validates the client IP address.</span></span> <span data-ttu-id="d4e53-139">如果允许访问`Get`操作方法，操作筛选器和操作方法将生成以下控制台输出的变体：</span><span class="sxs-lookup"><span data-stu-id="d4e53-139">If access is allowed to the `Get` action method, a variation of the following console output is produced by the action filter and action method:</span></span>
+
+    ```
+    dbug: ClientIpSafelistComponents.Filters.ClientIpCheckActionFilter[0]
+          Remote IpAddress: ::1
+    dbug: ClientIpAspNetCore.Controllers.ValuesController[0]
+          successful HTTP GET    
+    ```
+
+* <span data-ttu-id="d4e53-140">除了 GET 之外，`AdminSafeListMiddleware`中间件的 HTTP 请求谓词将验证客户端 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-140">An HTTP request verb other than GET, the `AdminSafeListMiddleware` middleware validates the client IP address.</span></span>
+
+## <a name="razor-pages-filter"></a><span data-ttu-id="d4e53-141">剃刀页面过滤器</span><span class="sxs-lookup"><span data-stu-id="d4e53-141">Razor Pages filter</span></span>
+
+<span data-ttu-id="d4e53-142">如果需要 Razor Pages 应用的安全列表驱动访问控制，请使用 Razor 页面筛选器。</span><span class="sxs-lookup"><span data-stu-id="d4e53-142">If you want safelist-driven access control for a Razor Pages app, use a Razor Pages filter.</span></span> <span data-ttu-id="d4e53-143">例如：</span><span class="sxs-lookup"><span data-stu-id="d4e53-143">For example:</span></span>
+
+[!code-csharp[](ip-safelist/samples/Shared/ClientIpSafelistComponents/Filters/ClientIpCheckPageFilter.cs?name=snippet_ClassOnly)]
+
+<span data-ttu-id="d4e53-144">在`Startup.ConfigureServices`中，通过将 Razor 页面添加到 MVC 筛选器集合，使其启用该筛选器。</span><span class="sxs-lookup"><span data-stu-id="d4e53-144">In `Startup.ConfigureServices`, enable the Razor Pages filter by adding it to the MVC filters collection.</span></span> <span data-ttu-id="d4e53-145">在下面的示例中，将添加`ClientIpCheckPageFilter`Razor 页面筛选器。</span><span class="sxs-lookup"><span data-stu-id="d4e53-145">In the following example, a `ClientIpCheckPageFilter` Razor Pages filter is added.</span></span> <span data-ttu-id="d4e53-146">安全列表和控制台记录器实例作为构造函数参数传递。</span><span class="sxs-lookup"><span data-stu-id="d4e53-146">A safelist and a console logger instance are passed as constructor parameters.</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](ip-safelist/samples/3.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServicesPageFilter)]
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_ConfigureServicesPageFilter)]
+
+::: moniker-end
+
+<span data-ttu-id="d4e53-147">当请求示例应用的*索引*Razor 页面时，"Razor 页面"筛选器将验证客户端 IP 地址。</span><span class="sxs-lookup"><span data-stu-id="d4e53-147">When the sample app's *Index* Razor page is requested, the Razor Pages filter validates the client IP address.</span></span> <span data-ttu-id="d4e53-148">筛选器生成以下控制台输出的变体：</span><span class="sxs-lookup"><span data-stu-id="d4e53-148">The filter produces a variation of the following console output:</span></span>
+
+```
+dbug: ClientIpSafelistComponents.Filters.ClientIpCheckPageFilter[0]
+      Remote IpAddress: ::1
+```
+
+## <a name="additional-resources"></a><span data-ttu-id="d4e53-149">其他资源</span><span class="sxs-lookup"><span data-stu-id="d4e53-149">Additional resources</span></span>
+
+* <xref:fundamentals/middleware/index>
+* [<span data-ttu-id="d4e53-150">操作筛选器</span><span class="sxs-lookup"><span data-stu-id="d4e53-150">Action filters</span></span>](xref:mvc/controllers/filters#action-filters)
+* <xref:razor-pages/filter>
