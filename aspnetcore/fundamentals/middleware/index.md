@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 中间件和请求管道。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 04/06/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 9dcd061d2807fb90884327916d0348af4593df9d
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 6bf8ed823386ca4e1cf78982f7fba41fba429db8
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989721"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80751079"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -67,6 +67,14 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 <a name="order"></a>
 
 ## <a name="middleware-order"></a>中间件顺序
+
+下图显示了 ASP.NET Core MVC 和 Razor Pages 应用的完整请求处理管道。 你可以在典型应用中了解现有中间件的顺序，以及在哪里添加自定义中间件。 你可以完全控制如何重新排列现有中间件，或根据场景需要注入新的自定义中间件。
+
+![ASP.NET Core 中间件管道](index/_static/middleware-pipeline.svg)
+
+上图中的“终结点”  中间件为相应的应用类型（MVC 或 Razor Pages）执行筛选器管道。
+
+![ASP.NET Core 筛选器管道](index/_static/mvc-endpoint.svg)
 
 向 `Startup.Configure` 方法添加中间件组件的顺序定义了针对请求调用这些组件的顺序，以及响应的相反顺序。 此顺序对于安全性、性能和功能至关重要。 
 

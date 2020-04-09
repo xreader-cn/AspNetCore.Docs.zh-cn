@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解如何处理 ASP.NET Core Web API 中的 JSON 修补程序请求。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/01/2019
+ms.date: 04/02/2020
 uid: web-api/jsonpatch
-ms.openlocfilehash: cf1a00c1928652bf5210b2442087209e23b8868e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: be4115e870dac818aeb6b1e65ddfb21e89d9cf25
+ms.sourcegitcommit: 9675db7bf4b67ae269f9226b6f6f439b5cce4603
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652950"
+ms.lasthandoff: 04/03/2020
+ms.locfileid: "80625882"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的 JSON 修补程序
 
@@ -23,30 +23,30 @@ ms.locfileid: "78652950"
 
 ## <a name="package-installation"></a>包安装
 
-使用 `Microsoft.AspNetCore.Mvc.NewtonsoftJson` 包实现了对 JsonPatch 的支持。 要启用此功能，应用必须：
+要在应用中启用 JSON 修补程序支持，请完成以下步骤：
 
-* 安装 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet 包。
-* 将项目的 `Startup.ConfigureServices` 方法更新为包含对 `AddNewtonsoftJson` 的调用：
+1. 安装 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet 包。
+1. 更新要调用<xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>的项目`Startup.ConfigureServices`方法。 例如：
 
-  ```csharp
-  services
-      .AddControllersWithViews()
-      .AddNewtonsoftJson();
-  ```
+    ```csharp
+    services
+        .AddControllersWithViews()
+        .AddNewtonsoftJson();
+    ```
 
 `AddNewtonsoftJson` 与 MVC 服务注册方法兼容：
 
-  * `AddRazorPages`
-  * `AddControllersWithViews`
-  * `AddControllers`
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages*>
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews*>
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers*>
 
-## <a name="jsonpatch-addnewtonsoftjson-and-systemtextjson"></a>JsonPatch、AddNewtonsoftJson 和 System.Text.Json
-  
-`AddNewtonsoftJson` 替换了基于 `System.Text.Json` 的输入和输出格式化程序，该格式化程序用于设置所有 JSON 内容的格式。 要使用 `JsonPatch` 添加对 `Newtonsoft.Json` 的支持，同时使其他格式化程序保持不变，请按如下所示更新项目的 `Startup.ConfigureServices`：
+## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON 补丁， 添加牛顿软件 Json， 和系统.文本.Json
+
+`AddNewtonsoftJson`替换`System.Text.Json`用于格式化**所有**JSON 内容的基于 的输入和输出。 要使用 添加对 JSON`Newtonsoft.Json`修补程序的支持，同时使其他为事保持不变，请更新项目`Startup.ConfigureServices`的方法，如下所示：
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
-上述代码需要对 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson) 的引用和以下 using 语句：
+前面的代码需要`Microsoft.AspNetCore.Mvc.NewtonsoftJson`包和以下`using`语句：
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet1)]
 
@@ -56,9 +56,9 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="json-patch"></a>JSON 修补程序
 
-[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个操作数组。 每个操作标识特定类型的更改，例如添加数组元素或替换属性值。
+[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个** 操作数组。 每个操作标识特定类型的更改。 此类更改的示例包括添加数组元素或替换属性值。
 
-例如，以下 JSON 文档表示资源、资源的 JSON 修补程序文档和应用修补程序操作的结果。
+例如，以下 JSON 文档表示资源、资源的 JSON 修补程序文档以及应用修补程序操作的结果。
 
 ### <a name="resource-example"></a>资源示例
 
@@ -98,13 +98,13 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 }
 ```
 
-通过将 JSON 修补程序文档应用于资源所做的更改是原子操作：如果列表中的任何操作失败，则不会应用列表中的任何操作。
+将 JSON 修补程序文档应用于资源所做的更改是原子的。 如果列表中的任何操作失败，则不应用列表中的任何操作。
 
 ## <a name="path-syntax"></a>路径语法
 
 操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"` 。
 
-使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要将 `add` 置于数组末尾，请使用连字符 (-)，而不是索引号：`/addresses/-`。
+使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 要`add`到数组的末尾，请使用连字符 （）`-`而不是索引编号： `/addresses/-`。
 
 ### <a name="operations"></a>操作
 
@@ -114,12 +114,12 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 |-----------|--------------------------------|
 | `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
 | `remove`  | 删除属性或数组元素。 |
-| `replace` | 与在相同位置后跟 `remove` 的 `add` 相同。 |
-| `move`    | 与从后跟 `remove` 的源到使用源中的值的目标的 `add` 相同。 |
+| `replace` | 与在相同位置后跟 `add` 的 `remove` 相同。 |
+| `move`    | 与从后跟 `add` 的源到使用源中的值的目标的 `remove` 相同。 |
 | `copy`    | 与到使用源中的值的目标的 `add` 相同。 |
 | `test`    | 如果 `path` 处的值 = 提供的 `value`，则返回成功状态代码。|
 
-## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core 中的 JSON 修补程序
+## <a name="json-patch-in-aspnet-core"></a>ASP.NET核心中的 JSON 修补程序
 
 [Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet 包中提供了 JSON 修补程序的 ASP.NET Core 实现。
 
@@ -135,7 +135,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
-示例应用中的此代码适用于以下 `Customer` 模型。
+示例应用的此代码适用于以下`Customer`模型：
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Customer.cs?name=snippet_Customer)]
 
@@ -147,7 +147,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * 应用修补程序。
 * 在响应的正文中返回结果。
 
- 在实际应用中，该代码将从存储（如数据库）中检索数据并在应用修补程序后更新数据库。
+在实际应用中，该代码将从存储（如数据库）中检索数据并在应用修补程序后更新数据库。
 
 ### <a name="model-state"></a>模型状态
 
@@ -163,7 +163,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ### <a name="dynamic-objects"></a>动态对象
 
-以下操作方法示例演示如何将修补程序应用于动态对象。
+以下操作方法示例演示如何将修补程序应用于动态对象：
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_Dynamic)]
 
@@ -188,25 +188,25 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
     * 如果属性可以为 Null：将其设置为 null。
     * 如果属性不可以为 Null，将其设置为 `default<T>`。
 
-以下示例修补程序文档将 `CustomerName` 设置为 null 并删除 `Orders[0]`。
+以下示例修补程序文档集`CustomerName`为 null 和`Orders[0]`删除：
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
 ## <a name="the-replace-operation"></a>替换操作
 
-此操作在功能上与后跟 `remove` 的 `add` 相同。
+此操作在功能上与后跟 `add` 的 `remove` 相同。
 
-以下示例修补程序文档设置 `CustomerName` 的值，并将 `Orders[0]` 替换为新的 `Order` 对象。
+以下示例修补程序文档设置 的值`CustomerName`，`Orders[0]`并将其替换为新`Order`对象：
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
 ## <a name="the-move-operation"></a>移动操作
 
-* 如果 `path` 指向数组元素：将 `from` 元素复制到 `path` 元素的位置，然后对 `remove` 元素运行 `from` 操作。
-* 如果 `path` 指向属性：将 `from` 属性的值复制到 `path` 属性，然后对 `remove` 属性运行 `from` 操作。
+* 如果 `path` 指向数组元素：将 `from` 元素复制到 `path` 元素的位置，然后对 `from` 元素运行 `remove` 操作。
+* 如果 `path` 指向属性：将 `from` 属性的值复制到 `path` 属性，然后对 `from` 属性运行 `remove` 操作。
 * 如果 `path` 指向不存在的属性：
   * 如果要修补的资源是一个静态对象：请求失败。
-  * 如果要修补的资源是一个动态对象：将 `from` 属性复制到 `path` 指示的位置，然后对 `remove` 属性运行 `from` 操作。
+  * 如果要修补的资源是一个动态对象：将 `from` 属性复制到 `path` 指示的位置，然后对 `from` 属性运行 `remove` 操作。
 
 以下示例修补程序文档：
 
@@ -218,7 +218,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="the-copy-operation"></a>复制操作
 
-此操作在功能上与不包含最后 `move` 步骤的 `remove` 操作相同。
+此操作在功能上与不包含最后 `remove` 步骤的 `move` 操作相同。
 
 以下示例修补程序文档：
 
@@ -239,14 +239,14 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="get-the-code"></a>获取代码
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)。 （[下载方法](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples)。 （[如何下载](xref:index#how-to-download-a-sample)）。
 
 若要测试此示例，请使用以下设置运行应用并发送 HTTP 请求：
 
 * URL：`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP 方法：`PATCH`
 * 标头：`Content-Type: application/json-patch+json`
-* Body：从*json*项目文件夹复制并粘贴一个 json 修补文档示例。
+* 正文：复制并粘贴 JSON 修补程序文档示例之一（来自*JSON*项目文件夹）。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -268,7 +268,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="json-patch"></a>JSON 修补程序
 
-[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个操作数组。 每个操作标识特定类型的更改，例如添加数组元素或替换属性值。
+[JSON 修补程序](https://tools.ietf.org/html/rfc6902)是一种格式，用于指定要应用于资源的更新。 JSON 修补程序文档有一个** 操作数组。 每个操作标识特定类型的更改，例如添加数组元素或替换属性值。
 
 例如，以下 JSON 文档表示资源、资源的 JSON 修补程序文档和应用修补程序操作的结果。
 
@@ -326,14 +326,14 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 |-----------|--------------------------------|
 | `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
 | `remove`  | 删除属性或数组元素。 |
-| `replace` | 与在相同位置后跟 `remove` 的 `add` 相同。 |
-| `move`    | 与从后跟 `remove` 的源到使用源中的值的目标的 `add` 相同。 |
+| `replace` | 与在相同位置后跟 `add` 的 `remove` 相同。 |
+| `move`    | 与从后跟 `add` 的源到使用源中的值的目标的 `remove` 相同。 |
 | `copy`    | 与到使用源中的值的目标的 `add` 相同。 |
 | `test`    | 如果 `path` 处的值 = 提供的 `value`，则返回成功状态代码。|
 
 ## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core 中的 JSON 修补程序
 
-[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet 包中提供了 JSON 修补程序的 ASP.NET Core 实现。 该包包含在 [Microsoft.AspnetCore.App](xref:fundamentals/metapackage-app) 元包中。
+[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet 包中提供了 JSON 修补程序的 ASP.NET Core 实现。 该包包含在[Microsoft.AspnetCore.App](xref:fundamentals/metapackage-app)元包中。
 
 ## <a name="action-method-code"></a>操作方法代码
 
@@ -406,7 +406,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="the-replace-operation"></a>替换操作
 
-此操作在功能上与后跟 `remove` 的 `add` 相同。
+此操作在功能上与后跟 `add` 的 `remove` 相同。
 
 以下示例修补程序文档设置 `CustomerName` 的值，并将 `Orders[0]` 替换为新的 `Order` 对象。
 
@@ -414,11 +414,11 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="the-move-operation"></a>移动操作
 
-* 如果 `path` 指向数组元素：将 `from` 元素复制到 `path` 元素的位置，然后对 `remove` 元素运行 `from` 操作。
-* 如果 `path` 指向属性：将 `from` 属性的值复制到 `path` 属性，然后对 `remove` 属性运行 `from` 操作。
+* 如果 `path` 指向数组元素：将 `from` 元素复制到 `path` 元素的位置，然后对 `from` 元素运行 `remove` 操作。
+* 如果 `path` 指向属性：将 `from` 属性的值复制到 `path` 属性，然后对 `from` 属性运行 `remove` 操作。
 * 如果 `path` 指向不存在的属性：
   * 如果要修补的资源是一个静态对象：请求失败。
-  * 如果要修补的资源是一个动态对象：将 `from` 属性复制到 `path` 指示的位置，然后对 `remove` 属性运行 `from` 操作。
+  * 如果要修补的资源是一个动态对象：将 `from` 属性复制到 `path` 指示的位置，然后对 `from` 属性运行 `remove` 操作。
 
 以下示例修补程序文档：
 
@@ -430,7 +430,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="the-copy-operation"></a>复制操作
 
-此操作在功能上与不包含最后 `move` 步骤的 `remove` 操作相同。
+此操作在功能上与不包含最后 `remove` 步骤的 `move` 操作相同。
 
 以下示例修补程序文档：
 
@@ -451,14 +451,14 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="get-the-code"></a>获取代码
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)。 （[下载方法](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)。 （[如何下载](xref:index#how-to-download-a-sample)）。
 
 若要测试此示例，请使用以下设置运行应用并发送 HTTP 请求：
 
 * URL：`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP 方法：`PATCH`
 * 标头：`Content-Type: application/json-patch+json`
-* Body：从*json*项目文件夹复制并粘贴一个 json 修补文档示例。
+* 正文：复制并粘贴 JSON 修补程序文档示例之一（来自*JSON*项目文件夹）。
 
 ## <a name="additional-resources"></a>其他资源
 

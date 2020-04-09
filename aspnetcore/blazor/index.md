@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core Blazor，用户可用它在 ASP.NET Core 应用
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 01/31/2020
+ms.date: 03/25/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 038799564078c4d3e8a7aa3a9841c6303edf9d12
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 6d2e95cd2ec92f97a97cb558fb39e4540450c766
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644262"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80405958"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 简介
 
@@ -28,6 +28,7 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 * 使用 C# 代替 JavaScript 来创建丰富的交互式 UI。
 * 共享使用 .NET 编写的服务器端和客户端应用逻辑。
 * 将 UI 呈现为 HTML 和 CSS，以支持众多浏览器，其中包括移动浏览器。
+* 与新式托管平台（如 [Docker](/dotnet/standard/microservices-architecture/container-docker-introduction/index)）集成。
 
 使用 .NET 进行客户端 Web 开发可提供以下优势：
 

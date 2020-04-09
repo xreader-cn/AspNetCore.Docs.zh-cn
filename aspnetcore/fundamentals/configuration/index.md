@@ -5,14 +5,14 @@ description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/29/2020
+ms.date: 3/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: b4fa082c5a53bc9ecb3c7b8ddcbf243ef0d94ba7
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: d76ca78bc988f859b4e99752a0e88735e1df1d82
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989696"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80501331"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -48,7 +48,7 @@ ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行
 1. 使用 [JSON 配置提供程序](#file-configuration-provider)通过 appsettings.`Environment`.json 提供   。 例如，appsettings.Production.json 和 appsettings.Development.json       。
 1. 应用在 `Development` 环境中运行时的[应用机密](xref:security/app-secrets)。
 1. 使用[环境变量配置提供程序](#evcp)通过环境变量提供。
-1. 使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。
+1. 使用[命令行配置提供程序](#command-line)通过命令行参数提供。
 
 后来添加的配置提供程序会替代之前的密钥设置。 例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值  。 使用默认配置提供程序，[命令行配置提供程序](#command-line-configuration-provider)将替代所有其他的提供程序。
 

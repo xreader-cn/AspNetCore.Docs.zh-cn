@@ -5,17 +5,17 @@ description: 了解如何将 Blazor WebAssemlby 应用作为单页应用程序 (
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/12/2020
+ms.date: 03/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: 652d4c61110f786396d9d5af4f131b817c40e333
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: be286d770cd8d6e5cf7885b91be8654f74ffd743
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219241"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80538975"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -25,7 +25,7 @@ ms.locfileid: "80219241"
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-Blazor WebAssembly 应用与单页应用程序 (SPA) 的保护方式相同。 可通过多种方式向 SPA 进行用户身份验证，但最常用、最全面的方式是使用基于 [oAuth 2.0 协议](https://oauth.net/)的实现，例如 [Open ID Connect (OIDC)](https://openid.net/connect/)。
+Blazor WebAssembly 应用与单页应用程序 (SPA) 的保护方式相同。 可通过多种方式向 SPA 进行用户身份验证，但最常用、最全面的方式是使用基于 [OAuth 2.0 协议](https://oauth.net/)的实现，例如 [Open ID Connect (OIDC)](https://openid.net/connect/)。
 
 ## <a name="authentication-library"></a>身份验证库
 
@@ -33,15 +33,15 @@ Blazor WebAssembly 支持通过 `Microsoft.AspNetCore.Components.WebAssembly.Aut
 
 Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基础之上，该库用于处理底层身份验证协议详细信息。
 
-还有对 SPA 进行身份验证的其他选项，例如使用 SameSite cookie。 但是，Blazor WebAssembly 的工程设计决定，oAuth 和 OIDC 是在 Blazor WebAssembly 应用中进行身份验证的最佳选择。 出于以下功能和安全原因，选择了以 [JSON Web 令牌 (JWT)](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) 为基础的[基于令牌的身份验证](xref:security/anti-request-forgery#token-based-authentication)而不是[基于 cookie 的身份验证](xref:security/anti-request-forgery#cookie-based-authentication)：
+还有对 SPA 进行身份验证的其他选项，例如使用 SameSite cookie。 但是，Blazor WebAssembly 的工程设计决定，OAuth 和 OIDC 是在 Blazor WebAssembly 应用中进行身份验证的最佳选择。 出于以下功能和安全原因，选择了以 [JSON Web 令牌 (JWT)](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) 为基础的[基于令牌的身份验证](xref:security/anti-request-forgery#token-based-authentication)而不是[基于 cookie 的身份验证](xref:security/anti-request-forgery#cookie-based-authentication)：
 
 * 使用基于令牌的协议可以减小攻击面，因为并非所有请求中都会发送令牌。
 * 服务器终结点不要求针对[跨站点请求伪造 (CSRF)](xref:security/anti-request-forgery) 进行保护，因为会显式发送令牌。 因此，可以将 Blazor WebAssembly 应用与 MVC 或 Razor Pages 应用托管在同一位置。
 * 令牌的权限比 cookie 窄。 例如，令牌不能用于管理用户帐户或更改用户密码，除非显式实现了此类功能。
 * 令牌的生命周期更短（默认为一小时），这限制了攻击时间窗口。 还可随时撤销令牌。
 * 自包含 JWT 向客户端和服务器提供身份验证进程保证。 例如，客户端可以检测和验证它收到的令牌是否合法，以及是否是在给定身份验证过程中发出的。 如果有第三方尝试在身份验证进程中偷换令牌，客户端可以检测被偷换的令牌并避免使用它。
-* oAuth 和 OIDC 的令牌不依赖于用户代理行为正确以确保应用安全。
-* 基于令牌的协议（例如 oAuth 和 OIDC）允许用同一组安全特征对托管和独立应用进行验证和授权。
+* OAuth 和 OIDC 的令牌不依赖于用户代理行为正确以确保应用安全。
+* 基于令牌的协议（例如 OAuth 和 OIDC）允许用同一组安全特征对托管和独立应用进行验证和授权。
 
 ## <a name="authentication-process-with-oidc"></a>使用 OIDC 的身份验证进程
 
@@ -54,6 +54,85 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 * 当 Blazor WebAssembly 应用加载登录回叫终结点 (`/authentication/login-callback`) 时，就处理了身份验证进程。
   * 如果身份验证进程成功完成，则用户通过身份验证，可以选择返回该用户请求的原受保护 URL。
   * 如果身份验证进程由于任何原因而失败，会将用户导向登录失败页 (`/authentication/login-failed`)，并显示错误。
+
+## <a name="support-prerendering-with-authentication"></a>支持预呈现身份验证
+
+遵循任一托管 Blazor WebAssembly 应用主题中的指导后，请按照以下说明创建应用：
+
+* 预呈现不需要授权的路径。
+* 不预呈现需要授权的路径。
+
+在客户端应用的 `Program` 类 (*Program.cs*) 中，将常见服务注册组织为单独的方法（例如 `ConfigureCommonServices`）：
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("app");
+
+        services.AddBaseAddressHttpClient();
+        services.Add...;
+
+        ConfigureCommonServices(builder.Services);
+
+        await builder.Build().RunAsync();
+    }
+
+    public static void ConfigureCommonServices(IServiceCollection services)
+    {
+        // Common service registrations
+    }
+}
+```
+
+在服务器应用的 `Startup.ConfigureServices` 中，注册以下附加服务：
+
+```csharp
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    ...
+
+    services.AddRazorPages();
+    services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+    services.AddScoped<SignOutSessionStateManager>();
+
+    Client.Program.ConfigureCommonServices(services);
+}
+```
+
+在服务器应用的 `Startup.Configure` 方法中，将 `endpoints.MapFallbackToFile("index.html")` 替换为 `endpoints.MapFallbackToPage("/_Host")`：
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapFallbackToPage("/_Host");
+});
+```
+
+在服务器应用中，如果不存在 Pages  文件夹，则创建它。 在服务器应用的 Pages 文件夹中创建 _Host.cshtml 页面。   将客户端应用 wwwroot/index.html 文件中的内容粘贴到 Pages/_Host.cshtml 文件中。   更新文件的内容：
+
+* 将 `@page "_Host"` 添加到文件顶部。
+* 将 `<app>Loading...</app>` 标记替换为以下内容：
+
+  ```cshtml
+  <app>
+      @if (!HttpContext.Request.Path.StartsWithSegments("/authentication"))
+      {
+          <component type="typeof(Wasm.Authentication.Client.App)" render-mode="Static" />
+      }
+      else
+      {
+          <text>Loading...</text>
+      }
+  </app>
+  ```
   
 ## <a name="options-for-hosted-apps-and-third-party-login-providers"></a>用于托管应用和第三方登录提供程序的选项
 
@@ -63,7 +142,7 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 
 ### <a name="authenticate-users-to-only-call-protected-third-party-apis"></a>对用户进行身份验证，以仅调用受保护的第三方 API
 
-使用针对第三方 API 提供程序的客户端 oAuth 流对用户进行身份验证：
+使用针对第三方 API 提供程序的客户端 OAuth 流对用户进行身份验证：
 
  ```csharp
  builder.services.AddOidcAuthentication(options => { ... });
@@ -85,7 +164,7 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 
 使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在此处，使用第三方访问令牌直接从客户端上的标识调用第三方 API 资源。
 
-我们不建议使用此方法。 此方法需要将第三方访问令牌视为针对公共客户端生成。 在 oAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用来安全地存储机密，并且访问令牌是为机密客户端而生成的。 机密客户端具有客户端机密，并且假定能够安全地存储机密。
+我们不建议使用此方法。 此方法需要将第三方访问令牌视为针对公共客户端生成。 在 OAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用可以安全地存储机密，将为机密客户端生成访问令牌。 机密客户端具有客户端机密，并且假定能够安全地存储机密。
 
 * 第三方访问令牌可能会被授予其他作用域，以便基于第三方为更受信任的客户端发出令牌的情况执行敏感操作。
 * 同样，不应向不受信任的客户端颁发刷新令牌，因为这样做会给客户端提供无限制的访问权限，除非存在其他限制。

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 047fd7a74d3d53f68a730d67b63c65fe6bda529f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 86a0c8d017138a949fddc0356f3de548d368a4c0
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644304"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417610"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>教程：ASP.NET Core 入门
 
@@ -91,7 +91,7 @@ cd aspnetcoreapp
 dotnet watch run
 ```
 
-在命令行界面指明应用已启动后，转到 [https://localhost:5001](https://localhost:5001)。
+命令行界面指明应用已启动后，浏览到 `https://localhost:5001`。
 
 ## <a name="edit-a-razor-page"></a>编辑 Razor 页面
 
@@ -99,7 +99,7 @@ dotnet watch run
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-浏览到 [https://localhost:5001](https://localhost:5001)，刷新页面并验证更改是否显示。
+浏览到 `https://localhost:5001`，刷新页面并验证是否显示更改。
 
 ## <a name="next-steps"></a>后续步骤
 

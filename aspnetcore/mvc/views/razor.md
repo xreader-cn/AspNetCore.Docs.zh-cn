@@ -5,18 +5,18 @@ description: 了解 Razor 标记语法，该语法用于将基于服务器的代
 ms.author: riande
 ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: e9d2e42ba3c36bc1661739f3b105ec8efe03de48
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: dd5c73be56ed0dafb759df2f5ff2eac1a3b5b09e
+ms.sourcegitcommit: d03905aadf5ceac39fff17706481af7f6c130411
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651726"
+ms.lasthandoff: 03/29/2020
+ms.locfileid: "80381769"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
-作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Taylor Mullen](https://twitter.com/ntaylormullen)和[Dan Vicarel](https://github.com/Rabadash8820)
+由[里克·安德森](https://twitter.com/RickAndMSFT)，[泰勒·马伦](https://twitter.com/ntaylormullen)和[丹·维卡尔](https://github.com/Rabadash8820)
 
-Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。 在 [Razor 组件](xref:blazor/components)文件 (.razor) 中也可以找到 Razor。
+Razor 是一种标记语法，用于将基于服务器的代码嵌入网页中。 Razor 语法由 Razor 标记、C# 和 HTML 组成。 包含 Razor 的文件通常具有 *.cshtml* 文件扩展名。 在 [Razor 组件](xref:blazor/components)文件 (.razor) 中也可以找到 Razor**。
 
 ## <a name="rendering-html"></a>呈现 HTML
 
@@ -360,7 +360,7 @@ else
 
 ### <a name="compound-using"></a>复合语句 \@using
 
-在 C# 中，`using` 语句用于确保释放对象。 在 Razor 中，可使用相同的机制来创建包含附加内容的 HTML 帮助程序。 在下面的代码中，HTML 帮助程序使用 `<form>` 语句呈现 `@using` 标记：
+在 C# 中，`using` 语句用于确保释放对象。 在 Razor 中，可使用相同的机制来创建包含附加内容的 HTML 帮助程序。 在下面的代码中，HTML 帮助程序使用 `@using` 语句呈现 `<form>` 标记：
 
 ```cshtml
 @using (Html.BeginForm())
@@ -457,7 +457,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="code"></a>\@code
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 `@code` 块允许 [Razor 组件](xref:blazor/components)将 C# 成员（字段、属性和方法）添加到组件：
 
@@ -467,7 +467,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-对于 Razor 组件，`@code` 是 [`@functions`](#functions) 的别名，并且优先于 `@functions` 使用。 允许多个 `@code` 块。
+对于 Razor`@code`组件，是[`@functions`](#functions)和 建议的`@functions`别名。 允许多个 `@code` 块。
 
 ::: moniker-end
 
@@ -599,7 +599,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="layout"></a>\@layout
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 `@layout` 指令指定 Razor 组件的布局。 布局组件用于避免代码重复和不一致。 有关详细信息，请参阅 <xref:blazor/layouts>。
 
@@ -607,7 +607,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="model"></a>\@model
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。**
 
 `@model` 指令指定传递到视图或页面的模型类型：
 
@@ -615,7 +615,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 @model TypeNameOfModel
 ```
 
-在使用个人用户帐户创建的 ASP.NET Core MVC 或 Razor Pages 应用中，Views/Account/Login.cshtml 包含以下模型声明：
+在使用个人用户帐户创建的 ASP.NET Core MVC 或 Razor Pages 应用中，Views/Account/Login.cshtml 包含以下模型声明：**
 
 ```cshtml
 @model LoginViewModel
@@ -633,14 +633,14 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 <div>The Login Email: @Model.Email</div>
 ```
 
-`@model` 指令指定 `Model` 属性的类型。 该指令将 `T` 中的 `RazorPage<T>` 指定为生成的类，视图便派生自该类。 如果未指定 `@model` 指令，则 `Model` 属性的类型为 `dynamic`。 有关详细信息，请参阅[强类型模型和 @model 关键字](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)。
+`@model` 指令指定 `Model` 属性的类型。 该指令将 `RazorPage<T>` 中的 `T` 指定为生成的类，视图便派生自该类。 如果未指定 `@model` 指令，则 `Model` 属性的类型为 `dynamic`。 有关详细信息，请参阅[强类型模型和 @model 关键字](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)。
 
 ### <a name="namespace"></a>\@namespace
 
 `@namespace` 指令：
 
 * 设置生成的 Razor 页面、MVC 视图或 Razor 组件的类的命名空间。
-* 从目录树中最近的导入文件、_ViewImports.cshtml（视图或页面）或 _Imports.razor (Razor) 中设置页面、视图或组件类的根派生命名空间。
+* 从目录树中最近的导入文件、_ViewImports.cshtml（视图或页面）或 _Imports.razor (Razor) 中设置页面、视图或组件类的根派生命名空间****。
 
 ```cshtml
 @namespace Your.Namespace.Here
@@ -648,27 +648,27 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 对于下表中显示的 Razor Pages 示例：
 
-* 每个页面都导入 Pages/_ViewImports.cshtml。
-* Pages/_ViewImports.cshtml 包含`@namespace Hello.World`。
+* 每个页面都导入 Pages/_ViewImports.cshtml**。
+* Pages/_ViewImports.cshtml 包含 `@namespace Hello.World`**。
 * 每个页面都有 `Hello.World`，作为其命名空间的根。
 
 | 页                                        | 命名空间                             |
 | ------------------------------------------- | ------------------------------------- |
-| Pages/Index.cshtml                        | `Hello.World`                         |
-| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages`               |
-| Pages/MorePages/EvenMorePages/Page.cshtml | `Hello.World.MorePages.EvenMorePages` |
+| *页面/索引.cshtml*                        | `Hello.World`                         |
+| Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages`               |
+| Pages/MorePages/EvenMorePages/Page.cshtml** | `Hello.World.MorePages.EvenMorePages` |
 
 上述关系适用于与 MVC 视图和 Razor 组件一起使用的导入文件。
 
 当多个导入文件具有 `@namespace` 指令时，最靠近目录树中的页面、视图或组件的文件将用于设置根命名空间。
 
-如果前面示例中的 EvenMorePages 文件夹具有包含 *的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含*），则结果如下表所示`@namespace Another.Planet``@namespace Another.Planet`。
+如果前面示例中的 EvenMorePages 文件夹具有包含 `@namespace Another.Planet` 的导入文件（或 Pages/MorePages/EvenMorePages/Page.cshtml 文件包含 `@namespace Another.Planet`），则结果如下表所示****。
 
 | 页                                        | 命名空间               |
 | ------------------------------------------- | ----------------------- |
-| Pages/Index.cshtml                        | `Hello.World`           |
-| Pages/MorePages/Page.cshtml               | `Hello.World.MorePages` |
-| Pages/MorePages/EvenMorePages/Page.cshtml | `Another.Planet`        |
+| *页面/索引.cshtml*                        | `Hello.World`           |
+| Pages/MorePages/Page.cshtml**               | `Hello.World.MorePages` |
+| Pages/MorePages/EvenMorePages/Page.cshtml** | `Another.Planet`        |
 
 ### <a name="page"></a>\@page
 
@@ -676,20 +676,20 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 `@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
 
-* 在 .cshtml 文件中表示该文件是 Razor Page。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
+* 在 .cshtml 文件中表示该文件是 Razor Page**。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
 * 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/routing>。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-.cshtml 文件第一行上的 `@page` 指令表示该文件是 Razor Page。 有关详细信息，请参阅 <xref:razor-pages/index>。
+.cshtml 文件第一行上的 `@page` 指令表示该文件是 Razor Page**。 有关详细信息，请参阅 <xref:razor-pages/index>。
 
 ::: moniker-end
 
 ### <a name="section"></a>\@section
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。**
 
 `@section` 指令与 [MVC 和 Razor Pages 布局](xref:mvc/views/layout)结合使用，允许视图或页面将内容呈现在 HTML 页面的不同部分。 有关详细信息，请参阅 <xref:mvc/views/layout>。
 
@@ -701,7 +701,7 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 [Razor 组件](xref:blazor/components)中，`@using` 还可控制哪些组件在范围内。
+在[Razor](xref:blazor/components)`@using`组件中，还控制哪些组件在作用域中。
 
 ::: moniker-end
 
@@ -711,19 +711,19 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 ### <a name="attributes"></a>\@attributes
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 `@attributes` 允许组件呈现未声明的属性。 有关详细信息，请参阅 <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>。
 
 ### <a name="bind"></a>\@bind
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/data-binding>。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/event-handling>。
 
@@ -733,13 +733,13 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 
 ### <a name="oneventpreventdefault"></a>\@on{EVENT}:preventDefault
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 禁止事件的默认操作。
 
 ### <a name="oneventstoppropagation"></a>\@on{EVENT}:stopPropagation
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 停止事件的事件传播。
 
@@ -749,19 +749,19 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 
 ### <a name="key"></a>\@key
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 `@key` 指令属性使组件比较算法保证基于键的值保留元素或组件。 有关详细信息，请参阅 <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>。
 
 ### <a name="ref"></a>\@ref
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 组件引用 (`@ref`) 提供了一种引用组件实例的方法，以便可以向该实例发出命令。 有关详细信息，请参阅 <xref:blazor/components#capture-references-to-components>。
 
 ### <a name="typeparam"></a>\@typeparam
 
-此方案仅适用于 Razor 组件 (.razor)。
+此方案仅适用于 Razor 组件 (.razor)。**
 
 `@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/templated-components#generic-typed-components>。
 
@@ -775,7 +775,7 @@ Razor 为组件提供事件处理功能。 有关详细信息，请参阅 <xref:
 @<tag>...</tag>
 ```
 
-下面的示例演示如何指定模板化 Razor 委托作为 <xref:System.Func%602>。 为委托封装的方法的参数指定[动态类型](/dotnet/csharp/programming-guide/types/using-type-dynamic)。 将[对象类型](/dotnet/csharp/language-reference/keywords/object)指定为委托的返回值。 该模板与 <xref:System.Collections.Generic.List%601>（具有 `Pet` 属性）的 `Name` 一起使用。
+下面的示例演示如何指定模板化 Razor 委托作为 <xref:System.Func%602>。 为委托封装的方法的参数指定[动态类型](/dotnet/csharp/programming-guide/types/using-type-dynamic)。 将[对象类型](/dotnet/csharp/language-reference/keywords/object)指定为委托的返回值。 该模板与 `Pet`（具有 `Name` 属性）的 <xref:System.Collections.Generic.List%601> 一起使用。
 
 ```csharp
 public class Pet
@@ -797,7 +797,7 @@ public class Pet
 }
 ```
 
-使用 `pets` 语句提供的 `foreach` 呈现该模板：
+使用 `foreach` 语句提供的 `pets` 呈现该模板：
 
 ```cshtml
 @foreach (var pet in pets)
@@ -840,7 +840,7 @@ public class Pet
 
 使用前面示例中的 pets 列表，调用 `Repeat` 方法以及：
 
-* <xref:System.Collections.Generic.List%601> 的 `Pet`。
+* `Pet` 的 <xref:System.Collections.Generic.List%601>。
 * 每只宠物的重复次数。
 * 用于无序列表的列表项的内联模板。
 
@@ -868,7 +868,7 @@ public class Pet
 
 ## <a name="tag-helpers"></a>标记帮助程序
 
-此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。
+此方案仅适用于 MVC 视图和 Razor Pages (.cshtml)。**
 
 [标记帮助程序](xref:mvc/views/tag-helpers/intro)有三个相关指令。
 
@@ -883,10 +883,10 @@ public class Pet
 ### <a name="razor-keywords"></a>Razor 关键字
 
 * page（需要 ASP.NET Core 2.1 或更高版本）
-* 命名空间
+* namespace
 * functions
 * 继承
-* model
+* 模型
 * section
 * helper（ASP.NET Core 当前不支持）
 
@@ -902,11 +902,11 @@ Razor 关键字使用 `@(Razor Keyword)` 进行转义（例如，`@(functions)`�
 * if
 * else
 * lock
-* 开关
+* switch
 * 尝试
 * catch
 * finally
-* 借助
+* using
 * while
 
 C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如，`@(@case)`）。 第一个 `@` 对 Razor 分析器转义。 第二个 `@` 对 C# 分析器转义。
@@ -919,41 +919,41 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录。 Razor 目录中的目录结构反映项目的目录结构。
+在 .NET Core SDK 2.1 或更高版本中，[Razor SDK](xref:razor-pages/sdk) 负责编译 Razor 文件。 生成项目时，Razor SDK 在项目根目录中生成 obj/<build_configuration>/<target_framework_moniker>/Razor 目录**。 Razor 目录中的目录结构反映项目的目录结构**。
 
 在面向 .NET Core 2.1 的 ASP.NET Core 2.1 Razor Pages 项目中，请考虑以下目录结构：
 
-* Areas/
-  * Admin/
-    * Pages/
+* Areas/****
+  * **管理员/**
+    * **页面/**
       * *Index.cshtml*
-      * *Index.cshtml.cs*
-* Pages/
-  * Shared/
-    * _Layout.cshtml
-  * _ViewImports.cshtml
+      * Index.cshtml.cs**
+* **页面/**
+  * **共享/**
+    * *_Layout.cshtml*
+  * _ViewImports.cshtml**
   * *_ViewStart.cshtml*
   * *Index.cshtml*
-  * *Index.cshtml.cs*
+  * Index.cshtml.cs**
 
-在 Debug 配置下生成项目将生成以下 obj 目录：
+在 Debug 配置下生成项目将生成以下 obj 目录****：
 
-* obj/
-  * Debug/
-    * netcoreapp2.1/
-      * Razor/
-        * Areas/
-          * Admin/
-            * Pages/
-              * Index.g.cshtml.cs
-        * Pages/
-          * Shared/
-            * _Layout.g.cshtml.cs
-          * _ViewImports.g.cshtml.cs
-          * _ViewStart.g.cshtml.cs
-          * Index.g.cshtml.cs
+* **obj/**
+  * **调试/**
+    * netcoreapp2.1/****
+      * **剃刀/**
+        * Areas/****
+          * **管理员/**
+            * **页面/**
+              * Index.g.cshtml.cs**
+        * **页面/**
+          * **共享/**
+            * _Layout.g.cshtml.cs**
+          * _ViewImports.g.cshtml.cs**
+          * _ViewStart.g.cshtml.cs**
+          * Index.g.cshtml.cs**
 
-若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs。
+若要查看 Pages/Index.cshtml 的生成类，请打开 obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs****。
 
 ::: moniker-end
 
@@ -963,11 +963,11 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 
 [!code-csharp[](razor/sample/Utilities/CustomTemplateEngine.cs)]
 
-在 `Startup.ConfigureServices` 中，使用 `RazorTemplateEngine` 类替代 MVC 添加的 `CustomTemplateEngine`：
+在 `Startup.ConfigureServices` 中，使用 `CustomTemplateEngine` 类替代 MVC 添加的 `RazorTemplateEngine`：
 
 [!code-csharp[](razor/sample/Startup.cs?highlight=4&range=10-14)]
 
-在 `return csharpDocument;` 的 `CustomTemplateEngine` 语句上设置断点。 当程序执行在断点处停止时，查看 `generatedCode` 的值。
+在 `CustomTemplateEngine` 的 `return csharpDocument;` 语句上设置断点。 当程序执行在断点处停止时，查看 `generatedCode` 的值。
 
 ![generatedCode 的文本可视化工具视图](razor/_static/tvr.png)
 
@@ -978,7 +978,7 @@ C# Razor 关键字必须使用 `@(@C# Razor Keyword)` 进行双转义（例如�
 Razor 视图引擎为视图执行区分大小写的查找。 但是，实际查找取决于基础文件系统：
 
 * 基于文件的源：
-  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml* 以及任何其他大小写变体。
+  * 在使用不区分大小写的文件系统的操作系统（例如，Windows）上，物理文件提供程序查找不区分大小写。 例如，`return View("Test")` 可匹配 */Views/Home/Test.cshtml*、*/Views/home/test.cshtml* 以及任何其他大小写变体。
   * 在区分大小写的文件系统（例如，Linux、OSX 以及使用 `EmbeddedFileProvider` 构建的文件系统）上，查找区分大小写。 例如，`return View("Test")` 专门匹配 */Views/Home/Test.cshtml*。
 * 预编译视图：在 ASP.NET Core 2.0 及更高版本中，预编译视图查找在所有操作系统上均不区分大小写。 该行为与 Windows 上物理文件提供程序的行为相同。 如果两个预编译视图仅大小写不同，则查找的结果具有不确定性。
 
@@ -988,3 +988,7 @@ Razor 视图引擎为视图执行区分大小写的查找。 但是，实际查�
 * Razor 页面。
 
 匹配大小写可确保无论使用哪种基础文件系统，部署都能找到其视图。
+
+## <a name="additional-resources"></a>其他资源
+
+[使用 Razor 语法ASP.NET Web 编程简介](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c)提供了许多使用 Razor 语法编程的示例。
