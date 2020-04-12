@@ -318,7 +318,7 @@ ASP.NET Core 依赖关系注入负责将 `SchoolContext` 实例传递到控制�
 
 ## <a name="conventions"></a>约定
 
-由于 Entity Framwork 有一定的约束条件，你只需要按规则编写很少的代码就能够创建一个完整的数据库。
+由于 Entity Framework 有一定的约束条件，你只需要按规则编写很少的代码就能够创建一个完整的数据库。
 
 * `DbSet` 类型的属性用作表名。 如果实体未被 `DbSet` 属性引用，实体类名称用作表名称。
 
