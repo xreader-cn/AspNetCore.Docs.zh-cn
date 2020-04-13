@@ -1,131 +1,150 @@
 ---
-title: 调试 ASP.NET Core Blazor
+title: 调试 ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/16/2020
+ms.date: 03/26/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 1b0035af48b82807a6ae14835a41a1ecbef06bb6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: eaa67d63f6d15249885d78d3de197ae53e73f072
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648312"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80381873"
 ---
-# <a name="debug-aspnet-core-blazor"></a>调试 ASP.NET Core Blazor
+# <a name="debug-aspnet-core-opno-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 [Daniel Roth](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-对于在基于 Chromium 的浏览器 (Chrome/Edge) 中使用浏览器开发工具调试 Blazor WebAssembly 提供*早期*支持。 以下工作正在进行：
+可以使用基于 Chromium 的浏览器 (Microsoft Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。  也可以使用 Visual Studio 或 Visual Studio Code 调试应用。
 
-* 在 Visual Studio 中完全启用调试。
-* 在 Visual Studio Code 中启用调试。
-
-调试程序功能有限。 可用方案包括：
+可用方案包括：
 
 * 设置和删除断点。
-* 单步 (`F10`) 执行代码或恢复 (`F8`) 代码执行。
-* 在“局部变量”视图中，观察类型为 `int`、`string` 和 `bool` 的所有局部变量的值  。
+* 使用 Visual Studio 和 Visual Studio Code 中的调试支持来运行应用（<kbd>F5</kbd> 支持）。
+* 单步执行代码 (<kbd>F10</kbd>)。
+* 在浏览器中使用 <kbd>F8</kbd> 恢复代码执行，在 Visual Studio 或 Visual Studio Code 中使用 <kbd>F5</kbd> 恢复代码执行。
+* 在“局部变量”视图中，观察局部变量的值  。
 * 查看调用堆栈，包括从 JavaScript 到 .NET 以及从 .NET 到 JavaScript 的调用链。
 
-你*不能*：
+目前，无法执行以下操作  ：
 
-* 观察类型不是 `int`、`string` 或 `bool` 的任何局部变量的值。
-* 观察任何类属性或字段的值。
-* 将鼠标悬停在变量上以查看其值。
-* 在控制台中计算表达式。
-* 单步执行异步调用。
-* 执行其他大部分普通调试方案。
+* 检查数组。
+* 悬停以检查成员。
+* 逐步调试托管代码。
+* 对检查值类型提供完全支持。
+* 出现未经处理的异常时中断。
+* 在应用启动期间命中断点。
+* 使用服务工作进程调试应用。
 
-开发进一步的调试方案是工程团队的长期工作重点。
+在即将发布的版本中，我们将继续改进调试体验。
 
 ## <a name="prerequisites"></a>先决条件
 
 调试需要使用以下浏览器之一：
 
+* Microsoft Edge（版本 80 或更高版本）
 * Google Chrome（版本 70 或更高版本）
-* Microsoft Edge 预览版（[Edge 开发通道](https://www.microsoftedgeinsider.com)）
 
-## <a name="procedure"></a>过程
+## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>在 Visual Studio 和 Visual Studio Code 中启用调试
 
-# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+对于使用 ASP.NET Core 3.2 预览版 3 或更高版本 Blazor WebAssembly 项目模板创建的新项目，调试功能已自动启用。
 
-> [!WARNING]
-> Visual Studio 中的调试支持处于早期开发阶段。 当前不支持 **F5** 调试。
+若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 launchSettings.json 文件，使每个启动配置文件包含以下 `inspectUri` 属性  ：
 
-1. 在 `Debug` 配置中运行 Blazor WebAssembly 应用而不进行调试（**Ctrl**+**F5**，而不是 **F5**）。
-1. 打开应用的调试属性（“调试”菜单中的最后一项），然后复制 HTTP“应用 URL”   。 使用基于 Chromium 的浏览器（Edge Beta 或 Chrome）浏览到应用的 HTTP 地址（而非 HTTPS 地址）。
-1. 在浏览器窗口中将键盘焦点置于应用上，而不是开发人员工具面板上。 对于此过程，最好保持关闭开发人员工具面板。 调试开始后，可以重新打开开发人员工具面板。
-1. 选择以下特定于 Blazor 的键盘快捷方式：
+```json
+"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+```
 
-   * 在 Windows 上为 `Shift+Alt+D`
-   * 在 macOS 上为 `Shift+Cmd+D`
+更新后，launchSettings.json 文件应类似于以下示例  ：
 
-   如果收到“无法找到可调试的浏览器选项卡”，请参阅[启用远程调试](#enable-remote-debugging)  。
-   
-   启用远程调试后：
-   
-   1\. 新的浏览器窗口将打开。 关闭之前的窗口。
+[!code-json[](debug/launchSettings.json?highlight=14,22)]
 
-   2\. 在浏览器窗口中将键盘焦点置于应用上。
+`inspectUri` 属性具有以下作用：
 
-   3\. 在新的浏览器窗口中选择特定于 Blazor 的键盘快捷方式：在 Windows 上为 `Shift+Alt+D`，在 macOS 上为 `Shift+Cmd+D`。
+* 使 IDE 能够检测到该应用为 Blazor WebAssembly 应用。
+* 指示脚本调试基础结构通过 Blazor 的调试代理连接到浏览器。
 
-   4\. “开发者工具”选项卡在浏览器中打开  。 **在浏览器窗口中重新选择应用所在的选项卡。**
+## <a name="visual-studio"></a>Visual Studio
 
-   若要将应用附加到 Visual Studio，请参阅[在 Visual Studio 中附加到进程](#attach-to-process-in-visual-studio)部分。
+要在 Visual Studio 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+1. 确保已[安装 Visual Studio 2019 16.6 的最新预览版本](https://visualstudio.com/preview)（预览版 2 或更高版本）。
+1. 创建一个由 ASP.NET Core 托管的新 Blazor WebAssembly 应用。
+1. 按 <kbd>F5</kbd> 在调试器中运行应用。
+1. 在 `IncrementCount` 方法的 Counter.razor 中设置一个断点  。
+1. 浏览到“计数器”选项卡，选择该按钮以命中断点  ：
 
-1. 通过将 `--configuration Debug` 选项传递给 [dotnet run](/dotnet/core/tools/dotnet-run) 命令 `dotnet run --configuration Debug`，在 `Debug` 配置中运行 Blazor WebAssembly 应用。
-1. 在 shell 窗口中所示的 HTTP URL 中导航到应用。
-1. 将键盘焦点置于应用上，而不是开发人员工具面板上。 对于此过程，最好保持关闭开发人员工具面板。 调试开始后，可以重新打开开发人员工具面板。
-1. 选择以下特定于 Blazor 的键盘快捷方式：
+   ![调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
 
-   * 在 Windows 上为 `Shift+Alt+D`
-   * 在 macOS 上为 `Shift+Cmd+D`
+1. 查看局部变量窗口中 `currentCount` 字段的值：
 
-   如果收到“无法找到可调试的浏览器选项卡”，请参阅[启用远程调试](#enable-remote-debugging)  。
-   
-   启用远程调试后：
-   
-   1\. 新的浏览器窗口将打开。 关闭之前的窗口。
+   ![查看局部变量](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-locals.png)
 
-   2\. 在浏览器窗口中将键盘焦点置于应用上，而不是开发人员工具面板上。
+1. 按 <kbd>F5</kbd> 继续执行。
 
-   3\. 在新的浏览器窗口中选择特定于 Blazor 的键盘快捷方式：在 Windows 上为 `Shift+Alt+D`，在 macOS 上为 `Shift+Cmd+D`。
+调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
 
----
+1. 在 `OnInitializedAsync` 的 FetchData.razor 页面中设置一个断点  。
+1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
+1. 浏览到“提取数据”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中断点  ：
 
-## <a name="enable-remote-debugging"></a>启用远程调试
+   ![调试提取数据](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
 
-如果禁用远程调试，则 Chrome 会生成“无法找到可调试的浏览器选项卡”错误页  。 错误页包含在打开调试端口的情况下运行 Chrome 的说明，以便 Blazor 调试代理可以连接到应用。 *关闭所有 Chrome 实例*，然后按照说明重启 Chrome。
+1. 按 <kbd>F5</kbd> 继续执行，然后在服务器上命中 `WeatherForecastController` 中的断点：
 
-## <a name="debug-the-app"></a>调试应用
+   ![调试服务器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-server.png)
 
-Chrome 在启用远程调试的情况下运行后，调试键盘快捷方式会打开新的调试程序选项卡。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表  。 展开每个程序集并找到可用于调试的 *.cs*/ *.razor* 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行 (`F10`) 代码或恢复 (`F8`) 代码执行。
+1. 再次按 <kbd>F5</kbd> 继续执行，查看是否呈现天气预报表。
+
+## <a name="visual-studio-code"></a>Visual Studio Code
+
+要在 Visual Studio Code 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
+ 
+1. 安装 [C# 扩展](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)和 [JavaScript 调试程序（Nightly 版）](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly)，并将 `debug.javascript.usePreview` 设置为 `true`。
+
+   ![扩展](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-extensions.png)
+
+   ![JS 预览版调试程序](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
+
+1. 打开已启用调试的现有 Blazor WebAssembly 应用。
+
+   * 如果收到以下通知告知你需要其他设置才能启用调试，请确认是否已安装正确的扩展并已启用 JavaScript 预览版调试，然后重新加载此窗口：
+
+     ![需要其他设置](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+
+   * 系统显示一个通知，询问是否将所需资产添加到应用以进行构建和调试。 选择“是”  ：
+
+     ![添加所需资产](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
+
+1. 按照以下两个步骤在调试程序中启动应用：
+
+   1\. 首先，使用“.NET Core 启动 (Blazor 独立版)”启动配置启动应用   。
+
+   2\. 应用启动后，使用“Chrome 中的 .NET Core 调试 Blazor Web 程序集”启动配置来启动浏览器（需要使用 Chrome）   。 若要使用 Microsoft Edge 而不是 Chrome，请将 .vscode/launch.json 中的启动配置的 `type` 从 `pwa-chrome` 更改为 `pwa-msedge`  。
+
+1. 在 `Counter` 组件的 `IncrementCount` 方法中设置一个断点，然后选择该按钮命中该断点。
+
+   ![VS Code 中的调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
+
+## <a name="debug-in-the-browser"></a>在浏览器中调试
+
+1. 在开发环境中运行该应用的调试版本。
+
+1. 按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>。
+
+1. 浏览器必须在启用远程调试的情况下运行。 如果远程调试未启用，则系统会生成“无法找到可调试的浏览器标签页”错误页面  。 该错误页面包含有关一些说明，指示应在调试端口处于打开状态的情况下运行浏览器以便 Blazor 调试代理可以连接到应用。 请关闭所有浏览器实例，并按照说明重启浏览器  。
+
+在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表  。 展开每个程序集并找到可用于调试的 *.cs*/ *.razor* 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
 
 Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。 按下调试键盘快捷方式后，Blazor 会将 Chrome 开发者工具指向代理。 代理连接到要调试的浏览器窗口（因此需要启用远程调试）。
-
-## <a name="attach-to-process-in-visual-studio"></a>在 Visual Studio 中附加到进程
-
-在 **F5** 调试开发期间，在 Visual Studio 中附加到应用进程是适用于 Blazor WebAssembly 的*临时*调试方案。
-
-若要将正在运行的应用的进程附加到 Visual Studio，请执行以下操作：
-
-1. 在 Visual Studio 中，选择“调试” > “附加到进程”   。
-1. 对于“连接类型”，选择“Chrome devtools protocol websocket (无身份验证)”   。
-1. 对于“连接目标”，粘贴应用的 HTTP 地址（而非 HTTPS 地址）  。
-1. 选择“刷新”以刷新“可用进程”下的条目   。
-1. 选择要调试的浏览器进程，然后选择“附加”  。
-1. 在“选择代码类型”对话框中，为要附加到的特定浏览器（Edge 或 Chrome）选择代码类型，然后选择“确定”   。
 
 ## <a name="browser-source-maps"></a>浏览器源映射
 

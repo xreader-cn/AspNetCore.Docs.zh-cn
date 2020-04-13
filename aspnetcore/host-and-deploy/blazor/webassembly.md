@@ -5,17 +5,17 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/16/2020
+ms.date: 04/06/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: ea2c625f424447209a362cdc58bdb18be061e47f
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.openlocfilehash: f364d94085d175fde5596c222ef21852c0106ec1
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/18/2020
-ms.locfileid: "79511348"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80751129"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
@@ -93,6 +93,22 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 * 建立 URL 重写模块规则：
   * 提供应用的静态资产驻留所在的子目录 (wwwroot/{PATH REQUESTED})  。
   * 创建 SPA 回退路由，以便非文件资产请求能够重定向到应用的静态资产文件夹中的默认文档 (wwwroot/index.html)  。
+  
+#### <a name="use-a-custom-webconfig"></a>使用自定义 web.config
+
+要使用自定义的 web.config 文件，请按以下步骤操作  ：
+
+1. 将自定义 web.config 文件置于项目文件夹的根目录下  。
+1. 将以下目标添加到项目文件 (.csproj  )：
+
+   ```xml
+   <Target Name="CopyWebConfigOnPublish" AfterTargets="Publish">
+     <Copy SourceFiles="web.config" DestinationFolder="$(PublishDir)" />
+   </Target>
+   ```
+   
+> [!NOTE]
+> Blazor WebAssembly 应用中不支持将 MSBuild 属性 `<IsWebConfigTransformDisabled>` 设置为 `true`，因为它[适用于部署到 IIS 的 ASP.NET Core 应用](xref:host-and-deploy/iis/index#webconfig-file)。 有关详细信息，请参阅[复制所需目标以提供自定义 Blazor WASM web.config (dotnet/aspnetcore #20569)](https://github.com/dotnet/aspnetcore/issues/20569)。
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 

@@ -5,17 +5,17 @@ description: 了解 Blazor WebAssembly 和 Blazor 服务器托管模型。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/18/2020
+ms.date: 03/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: e6ce2be53c35268854e0e8d408b649a8c6ef497e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0dfc991f76acb227ce9ea27a07fbae50571f0117
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78646800"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80471825"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
@@ -58,6 +58,8 @@ Blazor WebAssembly 托管具有以下缺点：
 * 下载项大小较大，应用加载耗时较长。
 * .NET 运行时和工具支持不够完善。 例如，[.NET Standard](/dotnet/standard/net-standard) 支持和调试方面存在限制。
 
+Blazor 托管应用模型支持 [Docker 容器](/dotnet/standard/microservices-architecture/container-docker-introduction/index)。 在 Visual Studio 中右键单击 Server 项目，然后选择“添加” > “Docker 支持”   。
+
 ## <a name="opno-locblazor-server"></a>Blazor 服务器
 
 使用 Blazor 服务器托管模型可从 ASP.NET Core 应用中在服务器上执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
@@ -71,7 +73,7 @@ ASP.NET Core 应用会引用应用的 `Startup` 类以添加以下内容：
 * 服务器端服务。
 * 用于请求处理管道的应用。
 
-`blazor.server.js` 脚本&dagger; 会建立客户端连接。 应用负责根据需要保存和还原应用状态（例如在网络连接丢失时）。
+`blazor.server.js` 脚本会建立客户端连接。 应用负责根据需要保存和还原应用状态（例如在网络连接丢失时）。 `blazor.server.js` 脚本由 ASP.NET Core 共享框架中的嵌入资源提供。
 
 Blazor 服务器托管模型具有以下优点：
 
@@ -88,7 +90,7 @@ Blazor 服务器托管具有以下缺点：
 * 如果具有多名用户，则应用扩缩性存在挑战。 服务器必须管理多个客户端连接并处理客户端状态。
 * 需要 ASP.NET Core 服务器为应用提供服务。 无服务器部署方案不可行（例如通过 CDN 为应用提供服务的方案）。
 
-&dagger;`blazor.server.js` 脚本由 ASP.NET Core 共享框架中的嵌入式资源提供。
+Blazor Server 应用模型支持 [Docker 容器](/dotnet/standard/microservices-architecture/container-docker-introduction/index)。 在 Visual Studio 中右键单击该项目并选择“添加” >  **“Docker 支持”**  。
 
 ### <a name="comparison-to-server-rendered-ui"></a>与服务器呈现的 UI 进行比较
 

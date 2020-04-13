@@ -5,14 +5,14 @@ description: 了解 ASP.NET Core 路由如何负责匹配 HTTP 请求并将其�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 3/25/2020
+ms.date: 4/1/2020
 uid: fundamentals/routing
-ms.openlocfilehash: 2ebba716de90f142a66cf7619b5a4b0c77684bd4
-ms.sourcegitcommit: 0c62042d7d030ec5296c73bccd9f9b961d84496a
+ms.openlocfilehash: 5742ac6879ce46e01247ddd2f8bfe3e3b8a2a02a
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/25/2020
-ms.locfileid: "80270441"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80751158"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -580,7 +580,7 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/TestController.cs?name=snippet&highlight=6,13)]
 
-[MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples/3.x/RoutingSample/Extensions/ControllerContextExtensions.cs) 方法包含在[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples/3.x)中，用于显示路由信息。
+[!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
 
 实现 `MyCustomConstraint` 可防止将 `0` 应用于路由参数：
 
@@ -984,6 +984,8 @@ app.UseEndpoints(endpoints =>
 * 与终结点不匹配的请求。
 
 这使得授权中间件在路由上下文之外很有用。 授权中间件可用于传统中间件的编程。
+
+[!INCLUDE[](~/includes/dbg-route.md)]
 
 ::: moniker-end
 
@@ -1626,7 +1628,7 @@ Razor Pages 应用使用默认的传统路由从应用的“页面”文件夹�
 * 响应可根据路由信息使用路由生成 URL（例如，用于重定向或链接），从而避免硬编码 URL，这有助于可维护性。
 * URL 生成基于支持任意可扩展性的路由。 <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> 提供生成 URL 的方法。
 <!-- fix [middleware](xref:fundamentals/middleware/index) -->
-路由通过 <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> 类连接到 `[middleware](xref:fundamentals/middleware/index)` 管道。 [ASP.NET Core MVC](xref:mvc/overview) 向中间件管道添加路由，作为其配置的一部分，并处理 MVC 和 Razor Pages 应用中的路由。 要了解如何将路由用作独立组件，请参阅[使用路由中间件](#use-routing-middleware)部分。
+路由通过 <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> 类连接到[中间件](xref:fundamentals/middleware/index)管道。 [ASP.NET Core MVC](xref:mvc/overview) 向中间件管道添加路由，作为其配置的一部分，并处理 MVC 和 Razor Pages 应用中的路由。 要了解如何将路由用作独立组件，请参阅[使用路由中间件](#use-routing-middleware)部分。
 
 ### <a name="url-matching"></a>URL 匹配
 
@@ -1980,6 +1982,5 @@ routes.MapRoute("blog_route", "blog/{*slug}",
 ## <a name="complex-segments"></a>复杂段
 
 复杂段（例如，`[Route("/x{token}y")]`）通过非贪婪的方式从右到左匹配文字进行处理。 请参阅[此代码](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)以了解有关如何匹配复杂段的详细说明。 ASP.NET Core 无法使用[代码示例](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)，但它提供了对复杂段的合理说明。
-
 
 ::: moniker-end

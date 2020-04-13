@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/sort-filter-page
 ms.openlocfilehash: 9563f3ef52ce429eb0a58b468acb8e9cd7b276e2
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645492"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页 - 第 3 个教程（共 8 个）
@@ -132,7 +132,7 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml?highlight=14-23)]
 
-上述代码使用 `<form>`[标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器利用 POST 提交表单数据。 借助 POST，会在 HTTP 消息正文中而不是在 URL 中传递参数。 使用 HTTP GET 时，表单数据作为查询字符串在 URL 中进行传递。 通过查询字符串传递数据时，用户可对 URL 添加书签。 [W3C 指南](https://www.w3.org/2001/tag/doc/whenToUseGet.html)建议应在操作不引起更新的情况下使用 GET。
+上述代码使用 `<form>` [标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器利用 POST 提交表单数据。 借助 POST，会在 HTTP 消息正文中而不是在 URL 中传递参数。 使用 HTTP GET 时，表单数据作为查询字符串在 URL 中进行传递。 通过查询字符串传递数据时，用户可对 URL 添加书签。 [W3C 指南](https://www.w3.org/2001/tag/doc/whenToUseGet.html)建议应在操作不引起更新的情况下使用 GET。
 
 测试应用：
 
@@ -279,11 +279,11 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ## <a name="add-sorting-to-the-index-page"></a>向索引页添加排序
 
-向 *Students/Index.cshtml.cs*`PageModel` 添加字符串，使其包含排序参数：
+向 Students/Index.cshtml.cs `PageModel` 添加字符串，使其包含排序参数  ：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet1&highlight=10-13)]
 
-用以下代码更新 *Students/Index.cshtml.cs*`OnGetAsync`：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly)]
 
@@ -359,7 +359,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-filtering-functionality-to-the-index-method"></a>向 Index 方法添加筛选功能
 
-用以下代码更新 *Students/Index.cshtml.cs*`OnGetAsync`：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
@@ -387,7 +387,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
 
-上述代码使用 `<form>`[标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器利用 POST 提交表单数据。 借助 POST，会在 HTTP 消息正文中而不是在 URL 中传递参数。 使用 HTTP GET 时，表单数据作为查询字符串在 URL 中进行传递。 通过查询字符串传递数据时，用户可对 URL 添加书签。 [W3C 指南](https://www.w3.org/2001/tag/doc/whenToUseGet.html)建议应在操作不引起更新的情况下使用 GET。
+上述代码使用 `<form>` [标记帮助程序](xref:mvc/views/tag-helpers/intro)来添加搜索文本框和按钮。 默认情况下，`<form>` 标记帮助器利用 POST 提交表单数据。 借助 POST，会在 HTTP 消息正文中而不是在 URL 中传递参数。 使用 HTTP GET 时，表单数据作为查询字符串在 URL 中进行传递。 通过查询字符串传递数据时，用户可对 URL 添加书签。 [W3C 指南](https://www.w3.org/2001/tag/doc/whenToUseGet.html)建议应在操作不引起更新的情况下使用 GET。
 
 测试应用：
 
@@ -424,7 +424,7 @@ http://localhost:5000/Students?SearchString=an
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPageType)]
 
-用以下代码更新 *Students/Index.cshtml.cs*`OnGetAsync`：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage&highlight=1-4,7-14,41-999)]
 

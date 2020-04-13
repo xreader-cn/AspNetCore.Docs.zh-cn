@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 2/25/2020
 uid: tutorials/first-web-api
-ms.openlocfilehash: 55dfc05b5c96f7fa060d537745bac969e92daa9b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 7418e962076fae3ebdbb25381838757b09046578
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644964"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417661"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -135,7 +135,7 @@ ms.locfileid: "78644964"
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：[https://localhost:5001/WeatherForecast](https://localhost:5001/WeatherForecast)。
+按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：`https://localhost:5001/WeatherForecast`。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -374,8 +374,8 @@ ASP.NET Core 模板：
 
 通过从浏览器或 Postman 调用两个终结点来测试应用。 例如：
 
-* [https://localhost:5001/api/TodoItems](https://localhost:5001/api/TodoItems)
-* [https://localhost:5001/api/TodoItems/1](https://localhost:5001/api/TodoItems/1)
+* `https://localhost:5001/api/TodoItems`
+* `https://localhost:5001/api/TodoItems/1`
 
 对 `GetTodoItems` 的调用生成类似于以下项的响应：
 
@@ -606,7 +606,7 @@ DTO 可用于：
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：[https://localhost:5001/api/values](https://localhost:5001/api/values)。
+按 Ctrl+F5 运行应用。 在浏览器中，转到以下 URL：`https://localhost:5001/api/values`。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 

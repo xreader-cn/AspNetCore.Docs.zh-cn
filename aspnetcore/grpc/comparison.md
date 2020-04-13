@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 8935e665dfd5d8f9afa002f475c202ec0f0ee657
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 2dff64f1f2d67b8a1e676acf6cf131b684099750
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78650790"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80405871"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
@@ -94,6 +94,9 @@ gRPC 非常适合以下方案：
 [gRPC-Web](https://grpc.io/docs/tutorials/basic/web.html) 是 gRPC 团队的另一项技术，可在浏览器中提供有限的 gRPC 支持。 gRPC-Web 由两部分组成：支持所有现代浏览器的 JavaScript 客户端，以及服务器上的 gRPC-Web 代理。 gRPC-Web 客户端调用代理，代理将根据 gRPC 请求转发到 gRPC 服务器。
 
 gRPC-Web 并不支持所有 gRPC 功能。 不支持客户端和双向流式传输，并且对服务器流式传输的支持有限。
+
+> [!TIP]
+> .NET Core 对 gRPC-Web 提供实验性支持。 有关详细信息，请访问 <xref:grpc/browser>。
 
 ### <a name="not-human-readable"></a>非人工可读取
 
