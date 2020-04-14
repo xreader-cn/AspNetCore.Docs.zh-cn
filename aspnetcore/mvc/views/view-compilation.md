@@ -4,26 +4,102 @@ author: rick-anderson
 description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式。
 ms.author: riande
 ms.custom: mvc
-ms.date: 4/8/2020
+ms.date: 04/13/2020
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 0afd39fdb5a6f570e0e78ad54f6c436460bad3a6
-ms.sourcegitcommit: 6f1b516e0c899a49afe9a29044a2383ce2ada3c7
+ms.openlocfilehash: 67bbeb88cd944791b522900b69bd10cff38c9f3a
+ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/13/2020
-ms.locfileid: "81223954"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81277259"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-3.1"
+
+在生成和发布时均使用 [Razor SDK](xref:razor-pages/sdk) 编译扩展名为 .cshtml 的 Razor 文件**。 通过配置项目，可以选择启用运行时编译。
+
+## <a name="razor-compilation"></a>Razor 编译
+
+Razor SDK 默认启用 Razor 文件的生成时间和发布时间编译。 启用后，运行时编译将补充生成时间编译，允许在编辑 Razor 文件时对其进行更新。
+
+## <a name="enable-runtime-compilation-at-project-creation"></a>在项目创建时启用运行时编译
+
+Razor 页面和 MVC 项目模板包括一个选项，用于在创建项目时启用运行时编译。 ASP.NET酷3.1及更高版本支持此选项。
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+在 **"创建新ASP.NET核心 Web 应用程序**对话框中：
+
+1. 选择**Web 应用程序**或**Web 应用程序（模型视图控制器）** 项目模板。
+1. 选中启用**Razor 运行时编译**复选框。
+
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+
+使用`-rrc`或`--razor-runtime-compilation`模板选项。 例如，以下命令创建启用运行时编译的新 Razor Pages 项目：
+
+```dotnetcli
+dotnet new webapp --razor-runtime-compilation
+```
+
+---
+
+## <a name="enable-runtime-compilation-in-an-existing-project"></a>在现有项目中启用运行时编译
+
+要为现有项目中的所有环境启用运行时编译，：
+
+1. 安装[微软.AspNetCore.Mvc.Razor.运行时编译](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/)NuGet包。
+1. 更新项目的 `Startup.ConfigureServices` 方法以包含对 <xref:Microsoft.Extensions.DependencyInjection.RazorRuntimeCompilationMvcBuilderExtensions.AddRazorRuntimeCompilation*> 的调用。 例如：
+
+    ```csharp
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddRazorPages()
+            .AddRazorRuntimeCompilation();
+
+        // code omitted for brevity
+    }
+    ```
+
+## <a name="conditionally-enable-runtime-compilation-in-an-existing-project"></a>在现有项目中有条件地启用运行时编译
+
+启用运行时编译时可使其仅用于本地开发。 以这种方式有条件地启用可确保已发布的输出：
+
+* 使用编译视图。
+* 不会在生产环境中启用文件观察程序。
+
+要仅在开发环境中启用运行时编译：
+
+1. 安装[微软.AspNetCore.Mvc.Razor.运行时编译](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/)NuGet包。
+1. 修改`environmentVariables`*启动设置中的*启动配置文件部分 ：
+    * 验证`ASPNETCORE_ENVIRONMENT`设置为`"Development"`。
+    * 将 `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` 设置为 `"Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"`。
+
+在下面的示例中，在 和`IIS Express``RazorPagesApp`启动配置文件的开发环境中启用了运行时编译：
+
+[!code-json[](~/mvc/views/view-compilation/samples/3.1/launchSettings.json?highlight=15-16,24-25)]
+
+项目`Startup`类不需要更改代码。 在运行时，ASP.NET Core 搜索 中的`Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`[程序集级托管启动属性](xref:fundamentals/configuration/platform-specific-configuration#hostingstartup-attribute)。 该`HostingStartup`属性指定要执行的应用启动代码。 该启动代码支持运行时编译。
+
+## <a name="additional-resources"></a>其他资源
+
+* [Razor 编译上构建和 Razor 编译上发布](xref:razor-pages/sdk#properties)属性。
+* <xref:razor-pages/index>
+* <xref:mvc/views/overview>
+* <xref:razor-pages/sdk>
+* 有关显示跨项目进行运行时编译工作的示例，请参阅[GitHub 上的运行时编译示例](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/mvc/runtimecompilation)。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-3.0"
 
 在生成和发布时均使用 [Razor SDK](xref:razor-pages/sdk) 编译扩展名为 .cshtml 的 Razor 文件**。 通过配置应用程序，可以选择启用运行时编译。
 
 ## <a name="razor-compilation"></a>Razor 编译
 
-Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 启用后，运行时编译将补充生成时编译，允许更新 Razor 文件（如果对其进行编辑）。
+Razor SDK 默认启用 Razor 文件的生成时间和发布时间编译。 启用后，运行时编译将补充生成时间编译，允许在编辑 Razor 文件时对其进行更新。
 
 ## <a name="runtime-compilation"></a>运行时编译
 
@@ -61,7 +137,7 @@ Razor SDK 默认启用 Razor 文件的生成时和发布时编译。 启用后�
 
 1. 更新项目的 `Startup.ConfigureServices` 方法以包含对 `AddRazorRuntimeCompilation` 的调用。 有条件地执行 `AddRazorRuntimeCompilation`，使其仅当 `ASPNETCORE_ENVIRONMENT` 变量设置为 `Development`时在调试模式下运行：
 
-  [!code-csharp[](~/mvc/views/view-compilation/sample/Startup.cs?name=snippet)]
+    [!code-csharp[](~/mvc/views/view-compilation/samples/3.0/Startup.cs?name=snippet)]
 
 ## <a name="additional-resources"></a>其他资源
 
