@@ -7,18 +7,18 @@ ms.custom: mvc
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 32315267e0672b0747917228f08591a15e4449f8
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: 12c86456dad86731b86487a3a4dd725f36677002
+ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277244"
+ms.locfileid: "81384045"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>微软帐户外部登录设置与ASP.NET核心
 
 作者：[Valeriy Novytskyy](https://github.com/01binary) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-此示例演示如何允许用户使用[上一页上](xref:security/authentication/social/index)创建的ASP.NET Core 3.0 项目使用其 Microsoft 帐户登录。
+此示例演示如何允许用户使用[上一页上](xref:security/authentication/social/index)创建的 ASP.NET Core 3.0 项目使用他们的工作、学校或个人 Microsoft 帐户登录。
 
 ## <a name="create-the-app-in-microsoft-developer-portal"></a>在 Microsoft 开发人员门户中创建应用
 
@@ -81,7 +81,7 @@ URI 段`/signin-microsoft`设置为 Microsoft 身份验证提供程序的默认�
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
-## <a name="troubleshooting"></a>故障排除
+## <a name="troubleshooting"></a>疑难解答
 
 * 如果 Microsoft 帐户提供程序将您重定向到登录错误页，请记下错误标题和说明查询字符串参数，直接遵循 Uri`#`中的 （hashtag）。
 
