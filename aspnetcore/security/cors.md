@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 601e26e1990a86ad60aa50c8c93ffa490ff6b708
-ms.sourcegitcommit: e72a58d6ebde8604badd254daae8077628f9d63e
+ms.openlocfilehash: e7731fd967c206679ac93209fdb84f40367bea37
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2020
-ms.locfileid: "81007179"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440904"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>在 ASP.NET 核心中启用跨源请求 （CORS）
 
@@ -109,7 +109,7 @@ CORS 中间件处理跨源请求。 以下代码将 CORS 策略应用于具有�
 
 使用端点路由，可以使用扩展方法<xref:Microsoft.AspNetCore.Builder.CorsEndpointConventionBuilderExtensions.RequireCors*>集，按终结点启用 CORS：
 
-[!code-csharp[](cors/3.1sample/Cors/WebAPI/StartupEndPt.cs?name=snippet2&highlight=3,7-15,32,41,44)]
+[!code-csharp[](cors/3.1sample/Cors/WebAPI/StartupEndPt.cs?name=snippet2&highlight=3,7-15,32,40,43)]
 
 在上述代码中：
 

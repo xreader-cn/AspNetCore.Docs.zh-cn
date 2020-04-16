@@ -4,14 +4,14 @@ author: rick-anderson
 description: 了解 Razor 文件编译在 ASP.NET Core 应用中的发生方式。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/13/2020
+ms.date: 04/14/2020
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 67bbeb88cd944791b522900b69bd10cff38c9f3a
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: 3d871ab960de28a565280d9e4cb2c597832e2455
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277259"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440930"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core 中的 Razor 文件编译
 
@@ -83,13 +83,23 @@ dotnet new webapp --razor-runtime-compilation
 
 项目`Startup`类不需要更改代码。 在运行时，ASP.NET Core 搜索 中的`Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`[程序集级托管启动属性](xref:fundamentals/configuration/platform-specific-configuration#hostingstartup-attribute)。 该`HostingStartup`属性指定要执行的应用启动代码。 该启动代码支持运行时编译。
 
+## <a name="enable-runtime-compilation-for-a-razor-class-library"></a>为 Razor 类库启用运行时编译
+
+请考虑 Razor 页面项目引用名为*MyClassLib*的[Razor 类库 （RCL）](xref:razor-pages/ui-class)的方案。 RCL 包含一个 *_Layout.cshtml*文件，所有团队的 MVC 和 Razor 页面项目都使用该文件。 您希望为该 RCL 中的 *_Layout.cshtml*文件启用运行时编译。 在 Razor 页面项目中进行以下更改：
+
+1. 使用["有条件地"中的指令在现有项目中启用运行时编译](#conditionally-enable-runtime-compilation-in-an-existing-project)， 启用运行时编译。
+1. 在 中`Startup.ConfigureServices`配置运行时编译选项。
+
+    [!code-csharp[](~/mvc/views/view-compilation/samples/3.1/Startup.cs?name=snippet_ConfigureServices&highlight=5-10)]
+
+    在前面的代码中，构造了*MyClassLib* RCL 的绝对路径。 [物理文件提供程序 API](xref:fundamentals/file-providers#physicalfileprovider)用于查找该绝对路径上的目录和文件。 最后，实例`PhysicalFileProvider`被添加到文件提供程序集合中，允许访问 RCL 的 *.cshtml*文件。
+
 ## <a name="additional-resources"></a>其他资源
 
 * [Razor 编译上构建和 Razor 编译上发布](xref:razor-pages/sdk#properties)属性。
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
-* 有关显示跨项目进行运行时编译工作的示例，请参阅[GitHub 上的运行时编译示例](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/mvc/runtimecompilation)。
 
 ::: moniker-end
 

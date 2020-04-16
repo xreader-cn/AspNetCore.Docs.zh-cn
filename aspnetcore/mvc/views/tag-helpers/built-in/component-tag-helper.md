@@ -4,17 +4,17 @@ author: guardrex
 ms.author: riande
 description: 了解如何使用ASP.NET核心组件标记帮助器在页面和视图中呈现 Razor 组件。
 ms.custom: mvc
-ms.date: 04/01/2020
+ms.date: 04/15/2020
 no-loc:
 - Blazor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 4a6b21229ce086099fcddfeb51c3a959ef639f24
-ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
+ms.openlocfilehash: aaa4b92a8912b4f52d861ed07432aa7cf3ca5240
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/11/2020
-ms.locfileid: "81123433"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440956"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET核心中的组件标记帮助程序
 
@@ -24,7 +24,7 @@ ms.locfileid: "81123433"
 
 ## <a name="prerequisites"></a>先决条件
 
-按照"准备应用"中的指南在<xref:blazor/integrate-components#prepare-the-app-to-use-components-in-pages-and-views>文章的*页面和视图部分使用组件*。
+按照"准备应用"中的指南在<xref:blazor/integrate-components#prepare-the-app>文章的*页面和视图部分使用组件*。
 
 ## <a name="component-tag-helper"></a>组件标记帮助程序
 
