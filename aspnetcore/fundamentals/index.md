@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
 uid: fundamentals/index
-ms.openlocfilehash: da2b42a7cf5d116a36d1dd9fa586d40ab31fc52d
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: c675644d8480ef7a5290045067e6cec2ea6f4764
+ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80417640"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81384061"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -205,7 +205,7 @@ ASP.NET Core 具有用于处理错误的内置功能，例如：
   * 数据文件 (.db  )
 * [Web 根目录](#web-root)，通常是 wwwroot  文件夹。
 
-在开发中，内容根目录默认为项目的根目录。 此目录还是应用内容文件和 [Web 根目录](#web-root)的基路径。 在[构建主机](#host)时设置路径，可指定不同的内容根目录。 有关详细信息，请参阅[内容根](xref:fundamentals/host/generic-host#contentrootpath-1)。
+在开发中，内容根目录默认为项目的根目录。 此目录还是应用内容文件和 [Web 根目录](#web-root)的基路径。 在[构建主机](#host)时设置路径，可指定不同的内容根目录。 有关详细信息，请参阅[内容根](xref:fundamentals/host/generic-host#contentroot)。
 
 ## <a name="web-root"></a>Web 根
 
@@ -215,7 +215,7 @@ Web 根目录是公用静态资源文件的基路径，例如：
 * JavaScript (.js  )
 * 图像（.png  、.jpg  ）
 
-默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot*。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot-1)。
+默认情况下，静态文件仅从 Web 根目录及其子目录提供。 Web 根目录路径默认为 *{content root}/wwwroot*。 在[构建主机](#host)时设置路径，可指定不同的 Web 根目录。 有关详细信息，请参阅 [Web 根目录](xref:fundamentals/host/generic-host#webroot)。
 
 防止使用项目文件中的 [\<Content> 项目项](/visualstudio/msbuild/common-msbuild-project-items#content)在 wwwroot 中发布文件  。 下面的示例会阻止在 wwwroot/local 及其子目录中发布内容  ：
 
