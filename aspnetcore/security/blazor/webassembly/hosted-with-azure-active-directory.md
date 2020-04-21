@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 8fec9f585f42469665cf29069674a199e1626629
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: a80be8d145b7c58be35e2c353a448db7e234e20b
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977127"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661835"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 AzureBlazor活动目录保护ASP.NET核心 Web 组件托管应用
 
@@ -24,8 +24,6 @@ ms.locfileid: "80977127"
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
-
-
 
 本文介绍如何创建使用[Azure 活动目录 （AAD）](https://azure.microsoft.com/services/active-directory/)进行身份验证的[BlazorWebAssembly 托管应用](xref:blazor/hosting-models#blazor-webassembly)。
 
@@ -91,7 +89,7 @@ ms.locfileid: "80977127"
 1. 从 **"名称"** 列中选择*服务器 API 应用*（例如，**Blazor服务器 AAD**）。
 1. 打开**API**列表。
 1. 启用对 API 的访问（例如， `API.Access`
-1. 选择“添加权限”****。
+1. 选择“添加权限”  。
 1. 选择 **[TENANT 名称] 按钮的授予管理员内容**。 请选择“是”以确认。****
 
 记录*客户端应用*应用程序 ID（客户端 ID）（例如。 `33333333-3333-3333-3333-333333333333`
@@ -214,7 +212,7 @@ public class WeatherForecastController : ControllerBase
 
 使用`AddMsalAuthentication``Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与标识提供程序 （IP） 交互所需的所有服务。
 
-*Program.cs*：
+Program.cs  :
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

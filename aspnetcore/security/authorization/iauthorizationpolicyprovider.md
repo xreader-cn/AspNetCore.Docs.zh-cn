@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: 2a8b189cc9f17529a962a1f9642c7bb199d5781b
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 2c67e25ff73bc8c3a5f3af4730a509b2385fc1cf
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440917"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661774"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>自定义授权策略提供程序使用 i 授权策略提供程序ASP.NET核心 
 
@@ -25,7 +25,7 @@ ms.locfileid: "81440917"
 * 使用大量策略（例如，针对不同的房间号码或年龄），因此使用`AuthorizationOptions.AddPolicy`调用添加每个单独的授权策略没有意义。
 * 根据外部数据源（如数据库）中的信息在运行时创建策略，或通过另一种机制动态确定授权要求。
 
-从[AspNetCore GitHub 存储库](https://github.com/dotnet/AspNetCore)[查看或下载示例代码](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)。 下载点网/阿斯普内科存储库 ZIP 文件。 解压缩文件。 导航到*src/安全/示例/自定义策略提供程序*项目文件夹。
+从[AspNetCore GitHub 存储库](https://github.com/dotnet/AspNetCore)[查看或下载示例代码](https://github.com/dotnet/aspnetcore/tree/v3.1.3/src/Security/samples/CustomPolicyProvider)。 下载点网/阿斯普内科存储库 ZIP 文件。 解压缩文件。 导航到*src/安全/示例/自定义策略提供程序*项目文件夹。
 
 ## <a name="customize-policy-retrieval"></a>自定义策略检索
 
@@ -183,4 +183,4 @@ public Task<AuthorizationPolicy> GetFallbackPolicyAsync() =>
 services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 ```
 
-完整的自定义`IAuthorizationPolicyProvider`示例在[dotnet/aspnetcore GitHub 存储库](https://github.com/dotnet/aspnetcore/tree/ea555458dc61e04314598c25b3ab8c56362a5123/src/Security/samples/CustomPolicyProvider)中可用。
+完整的自定义`IAuthorizationPolicyProvider`示例在[dotnet/aspnetcore GitHub 存储库](https://github.com/dotnet/aspnetcore/tree/v3.1.3/src/Security/samples/CustomPolicyProvider)中可用。
