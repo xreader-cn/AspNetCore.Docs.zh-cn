@@ -1,182 +1,103 @@
 ---
-title: 安全存储中 ASP.NET Core 中开发的应用程序机密
+title: ASP.NET核心开发中应用秘密的安全存储
 author: rick-anderson
-description: 了解如何存储和检索在 ASP.NET Core 应用程序开发期间为应用程序机密的敏感信息。
+description: 了解如何在开发ASP.NET核心应用期间将敏感信息存储和检索为应用机密。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 4/20/2020
 uid: security/app-secrets
-ms.openlocfilehash: c3f165164f3c95e8c0aab773f3731429ae224bd9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 9d4e59c003afc253971ee64fce523c7188d3582a
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654690"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661803"
 ---
-# <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a><span data-ttu-id="e5186-103">安全存储中 ASP.NET Core 中开发的应用程序机密</span><span class="sxs-lookup"><span data-stu-id="e5186-103">Safe storage of app secrets in development in ASP.NET Core</span></span>
+# <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a><span data-ttu-id="ba7dc-103">ASP.NET核心开发中应用秘密的安全存储</span><span class="sxs-lookup"><span data-stu-id="ba7dc-103">Safe storage of app secrets in development in ASP.NET Core</span></span>
 
-<span data-ttu-id="e5186-104">作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Daniel Roth](https://github.com/danroth27)和[Scott Addie](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="e5186-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), and [Scott Addie](https://github.com/scottaddie)</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="e5186-105">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="e5186-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="ba7dc-104">由[里克·安德森](https://twitter.com/RickAndMSFT)、[柯克·拉金](https://twitter.com/serpent5)、[丹尼尔·罗斯](https://github.com/danroth27)和[斯科特·阿迪](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="ba7dc-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Kirk Larkin](https://twitter.com/serpent5), [Daniel Roth](https://github.com/danroth27), and [Scott Addie](https://github.com/scottaddie)</span></span>
 
-<span data-ttu-id="e5186-106">本文档介绍在开发计算机上开发 ASP.NET Core 应用过程中存储和检索敏感数据的方法。</span><span class="sxs-lookup"><span data-stu-id="e5186-106">This document explains techniques for storing and retrieving sensitive data during development of an ASP.NET Core app on a development machine.</span></span> <span data-ttu-id="e5186-107">永远不要将密码或其他敏感数据存储在源代码中。</span><span class="sxs-lookup"><span data-stu-id="e5186-107">Never store passwords or other sensitive data in source code.</span></span> <span data-ttu-id="e5186-108">不应使用生产机密进行开发或测试。</span><span class="sxs-lookup"><span data-stu-id="e5186-108">Production secrets shouldn't be used for development or test.</span></span> <span data-ttu-id="e5186-109">机密不应与应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="e5186-109">Secrets shouldn't be deployed with the app.</span></span> <span data-ttu-id="e5186-110">相反，机密应通过受控方式（如环境变量、Azure Key Vault 等）在生产环境中可用。可以通过[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。</span><span class="sxs-lookup"><span data-stu-id="e5186-110">Instead, secrets should be made available in the production environment through a controlled means like environment variables, Azure Key Vault, etc. You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>
+<span data-ttu-id="ba7dc-105">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="ba7dc-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="environment-variables"></a><span data-ttu-id="e5186-111">环境变量</span><span class="sxs-lookup"><span data-stu-id="e5186-111">Environment variables</span></span>
+<span data-ttu-id="ba7dc-106">本文档介绍在开发计算机上开发ASP.NET酷睿应用期间存储和检索敏感数据的技术。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-106">This document explains techniques for storing and retrieving sensitive data during development of an ASP.NET Core app on a development machine.</span></span> <span data-ttu-id="ba7dc-107">切勿在源代码中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-107">Never store passwords or other sensitive data in source code.</span></span> <span data-ttu-id="ba7dc-108">生产机密不应用于开发或测试。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-108">Production secrets shouldn't be used for development or test.</span></span> <span data-ttu-id="ba7dc-109">不应将机密随应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-109">Secrets shouldn't be deployed with the app.</span></span> <span data-ttu-id="ba7dc-110">相反，应通过受控方式（如环境变量、Azure 密钥保管库等）在生产环境中提供机密。您可以使用[Azure 密钥保管库配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-110">Instead, secrets should be made available in the production environment through a controlled means like environment variables, Azure Key Vault, etc. You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>
 
-<span data-ttu-id="e5186-112">使用环境变量以避免在代码中或在本地配置文件中的应用机密的存储。</span><span class="sxs-lookup"><span data-stu-id="e5186-112">Environment variables are used to avoid storage of app secrets in code or in local configuration files.</span></span> <span data-ttu-id="e5186-113">环境变量重写所有以前指定的配置源的配置的值。</span><span class="sxs-lookup"><span data-stu-id="e5186-113">Environment variables override configuration values for all previously specified configuration sources.</span></span>
+## <a name="environment-variables"></a><span data-ttu-id="ba7dc-111">环境变量</span><span class="sxs-lookup"><span data-stu-id="ba7dc-111">Environment variables</span></span>
 
-::: moniker range="<= aspnetcore-1.1"
+<span data-ttu-id="ba7dc-112">环境变量用于避免在代码或本地配置文件中存储应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-112">Environment variables are used to avoid storage of app secrets in code or in local configuration files.</span></span> <span data-ttu-id="ba7dc-113">环境变量覆盖所有以前指定的配置源的配置值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-113">Environment variables override configuration values for all previously specified configuration sources.</span></span>
 
-<span data-ttu-id="e5186-114">通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables%2A> 来配置读取环境变量值：</span><span class="sxs-lookup"><span data-stu-id="e5186-114">Configure the reading of environment variable values by calling <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables%2A> in the `Startup` constructor:</span></span>
-
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
-
-::: moniker-end
-
-<span data-ttu-id="e5186-115">请考虑一个 ASP.NET Core web 应用，其中启用了**单个用户帐户**安全。</span><span class="sxs-lookup"><span data-stu-id="e5186-115">Consider an ASP.NET Core web app in which **Individual User Accounts** security is enabled.</span></span> <span data-ttu-id="e5186-116">具有 `DefaultConnection`密钥的项目的*appsettings*文件中包含默认的数据库连接字符串。</span><span class="sxs-lookup"><span data-stu-id="e5186-116">A default database connection string is included in the project's *appsettings.json* file with the key `DefaultConnection`.</span></span> <span data-ttu-id="e5186-117">默认连接字符串是 localdb，这在用户模式下运行，不需要密码。</span><span class="sxs-lookup"><span data-stu-id="e5186-117">The default connection string is for LocalDB, which runs in user mode and doesn't require a password.</span></span> <span data-ttu-id="e5186-118">在应用程序部署过程中，可以使用环境变量的值覆盖 `DefaultConnection` 键值。</span><span class="sxs-lookup"><span data-stu-id="e5186-118">During app deployment, the `DefaultConnection` key value can be overridden with an environment variable's value.</span></span> <span data-ttu-id="e5186-119">环境变量可以存储敏感凭据与完整的连接字符串。</span><span class="sxs-lookup"><span data-stu-id="e5186-119">The environment variable may store the complete connection string with sensitive credentials.</span></span>
+<span data-ttu-id="ba7dc-114">请考虑一个 ASP.NET 核心 Web 应用，其中启用**了单个用户帐户**安全性。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-114">Consider an ASP.NET Core web app in which **Individual User Accounts** security is enabled.</span></span> <span data-ttu-id="ba7dc-115">默认数据库连接字符串包含在项目的*appsettings.json*文件中，其中包含密钥`DefaultConnection`。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-115">A default database connection string is included in the project's *appsettings.json* file with the key `DefaultConnection`.</span></span> <span data-ttu-id="ba7dc-116">默认连接字符串用于 LocalDB，该字符串在用户模式下运行，不需要密码。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-116">The default connection string is for LocalDB, which runs in user mode and doesn't require a password.</span></span> <span data-ttu-id="ba7dc-117">在应用部署期间，`DefaultConnection`可以使用环境变量的值重写键值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-117">During app deployment, the `DefaultConnection` key value can be overridden with an environment variable's value.</span></span> <span data-ttu-id="ba7dc-118">环境变量可能将完整的连接字符串存储为具有敏感凭据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-118">The environment variable may store the complete connection string with sensitive credentials.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="e5186-120">环境变量通常存储在普通的未加密的文本。</span><span class="sxs-lookup"><span data-stu-id="e5186-120">Environment variables are generally stored in plain, unencrypted text.</span></span> <span data-ttu-id="e5186-121">如果计算机或进程受到攻击，可以由不受信任方访问环境变量。</span><span class="sxs-lookup"><span data-stu-id="e5186-121">If the machine or process is compromised, environment variables can be accessed by untrusted parties.</span></span> <span data-ttu-id="e5186-122">可能需要更多措施，防止用户机密泄露。</span><span class="sxs-lookup"><span data-stu-id="e5186-122">Additional measures to prevent disclosure of user secrets may be required.</span></span>
+> <span data-ttu-id="ba7dc-119">环境变量通常以纯、未加密的文本存储。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-119">Environment variables are generally stored in plain, unencrypted text.</span></span> <span data-ttu-id="ba7dc-120">如果计算机或进程遭到破坏，则不受信任的方可以访问环境变量。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-120">If the machine or process is compromised, environment variables can be accessed by untrusted parties.</span></span> <span data-ttu-id="ba7dc-121">可能需要采取其他措施防止泄露用户机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-121">Additional measures to prevent disclosure of user secrets may be required.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-## <a name="secret-manager"></a><span data-ttu-id="e5186-123">机密管理器</span><span class="sxs-lookup"><span data-stu-id="e5186-123">Secret Manager</span></span>
+## <a name="secret-manager"></a><span data-ttu-id="ba7dc-122">机密管理器</span><span class="sxs-lookup"><span data-stu-id="ba7dc-122">Secret Manager</span></span>
 
-<span data-ttu-id="e5186-124">密码管理器工具在 ASP.NET Core 项目的开发过程中存储敏感数据。</span><span class="sxs-lookup"><span data-stu-id="e5186-124">The Secret Manager tool stores sensitive data during the development of an ASP.NET Core project.</span></span> <span data-ttu-id="e5186-125">在此上下文中，一种敏感数据是应用程序密码。</span><span class="sxs-lookup"><span data-stu-id="e5186-125">In this context, a piece of sensitive data is an app secret.</span></span> <span data-ttu-id="e5186-126">应用程序机密存储在项目树不同的位置。</span><span class="sxs-lookup"><span data-stu-id="e5186-126">App secrets are stored in a separate location from the project tree.</span></span> <span data-ttu-id="e5186-127">与特定项目关联或在多个项目之间共享的应用程序机密。</span><span class="sxs-lookup"><span data-stu-id="e5186-127">The app secrets are associated with a specific project or shared across several projects.</span></span> <span data-ttu-id="e5186-128">应用机密不会签入源代码管理。</span><span class="sxs-lookup"><span data-stu-id="e5186-128">The app secrets aren't checked into source control.</span></span>
+<span data-ttu-id="ba7dc-123">在开发ASP.NET核心项目期间，秘密管理器工具存储敏感数据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-123">The Secret Manager tool stores sensitive data during the development of an ASP.NET Core project.</span></span> <span data-ttu-id="ba7dc-124">在此上下文中，一段敏感数据是应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-124">In this context, a piece of sensitive data is an app secret.</span></span> <span data-ttu-id="ba7dc-125">应用机密存储在与项目树不同的位置。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-125">App secrets are stored in a separate location from the project tree.</span></span> <span data-ttu-id="ba7dc-126">应用机密与特定项目关联或跨多个项目共享。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-126">The app secrets are associated with a specific project or shared across several projects.</span></span> <span data-ttu-id="ba7dc-127">应用机密不会签入源代码管理。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-127">The app secrets aren't checked into source control.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="e5186-129">机密管理器工具不会加密存储的机密，不应被视为受信任存储区。</span><span class="sxs-lookup"><span data-stu-id="e5186-129">The Secret Manager tool doesn't encrypt the stored secrets and shouldn't be treated as a trusted store.</span></span> <span data-ttu-id="e5186-130">它是仅限开发目的。</span><span class="sxs-lookup"><span data-stu-id="e5186-130">It's for development purposes only.</span></span> <span data-ttu-id="e5186-131">在用户配置文件目录中的 JSON 配置文件中存储的键和值。</span><span class="sxs-lookup"><span data-stu-id="e5186-131">The keys and values are stored in a JSON configuration file in the user profile directory.</span></span>
+> <span data-ttu-id="ba7dc-128">秘密管理器工具不加密存储的秘密，不应被视为受信任的存储。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-128">The Secret Manager tool doesn't encrypt the stored secrets and shouldn't be treated as a trusted store.</span></span> <span data-ttu-id="ba7dc-129">它仅用于开发目的。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-129">It's for development purposes only.</span></span> <span data-ttu-id="ba7dc-130">键和值存储在用户配置文件目录中的 JSON 配置文件中。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-130">The keys and values are stored in a JSON configuration file in the user profile directory.</span></span>
 
-## <a name="how-the-secret-manager-tool-works"></a><span data-ttu-id="e5186-132">机密管理器工具的工作原理</span><span class="sxs-lookup"><span data-stu-id="e5186-132">How the Secret Manager tool works</span></span>
+## <a name="how-the-secret-manager-tool-works"></a><span data-ttu-id="ba7dc-131">秘密管理器工具的工作原理</span><span class="sxs-lookup"><span data-stu-id="ba7dc-131">How the Secret Manager tool works</span></span>
 
-<span data-ttu-id="e5186-133">机密管理器工具抽象化实现详细信息，例如位置和方式存储的值。</span><span class="sxs-lookup"><span data-stu-id="e5186-133">The Secret Manager tool abstracts away the implementation details, such as where and how the values are stored.</span></span> <span data-ttu-id="e5186-134">如果不知道这些实现的详细信息，可以使用该工具。</span><span class="sxs-lookup"><span data-stu-id="e5186-134">You can use the tool without knowing these implementation details.</span></span> <span data-ttu-id="e5186-135">值存储在本地计算机上 JSON 配置文件中的系统保护的用户配置文件文件夹中：</span><span class="sxs-lookup"><span data-stu-id="e5186-135">The values are stored in a JSON configuration file in a system-protected user profile folder on the local machine:</span></span>
+<span data-ttu-id="ba7dc-132">"秘密管理器"工具会抽象出实现详细信息，例如值的存储位置和方式。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-132">The Secret Manager tool abstracts away the implementation details, such as where and how the values are stored.</span></span> <span data-ttu-id="ba7dc-133">您可以在不知道这些实现详细信息的情况下使用该工具。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-133">You can use the tool without knowing these implementation details.</span></span> <span data-ttu-id="ba7dc-134">这些值存储在本地计算机上的受系统保护的用户配置文件文件夹中的 JSON 配置文件中：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-134">The values are stored in a JSON configuration file in a system-protected user profile folder on the local machine:</span></span>
 
-# <a name="windows"></a>[<span data-ttu-id="e5186-136">Windows</span><span class="sxs-lookup"><span data-stu-id="e5186-136">Windows</span></span>](#tab/windows)
+# <a name="windows"></a>[<span data-ttu-id="ba7dc-135">Windows</span><span class="sxs-lookup"><span data-stu-id="ba7dc-135">Windows</span></span>](#tab/windows)
 
-<span data-ttu-id="e5186-137">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="e5186-137">File system path:</span></span>
+<span data-ttu-id="ba7dc-136">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-136">File system path:</span></span>
 
 `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
 
-# <a name="linux--macos"></a>[<span data-ttu-id="e5186-138">Linux/macOS</span><span class="sxs-lookup"><span data-stu-id="e5186-138">Linux / macOS</span></span>](#tab/linux+macos)
+# <a name="linux--macos"></a>[<span data-ttu-id="ba7dc-137">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="ba7dc-137">Linux / macOS</span></span>](#tab/linux+macos)
 
-<span data-ttu-id="e5186-139">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="e5186-139">File system path:</span></span>
+<span data-ttu-id="ba7dc-138">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-138">File system path:</span></span>
 
 `~/.microsoft/usersecrets/<user_secrets_id>/secrets.json`
 
 ---
 
-<span data-ttu-id="e5186-140">在前面的文件路径中，将 `<user_secrets_id>` 替换为 *.csproj*文件中指定的 `UserSecretsId` 值。</span><span class="sxs-lookup"><span data-stu-id="e5186-140">In the preceding file paths, replace `<user_secrets_id>` with the `UserSecretsId` value specified in the *.csproj* file.</span></span>
+<span data-ttu-id="ba7dc-139">在前面的文件路径中，替换为`<user_secrets_id>` `UserSecretsId` *.csproj*文件中指定的值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-139">In the preceding file paths, replace `<user_secrets_id>` with the `UserSecretsId` value specified in the *.csproj* file.</span></span>
 
-<span data-ttu-id="e5186-141">不编写代码，取决于使用机密管理器工具中保存的数据的格式的位置。</span><span class="sxs-lookup"><span data-stu-id="e5186-141">Don't write code that depends on the location or format of data saved with the Secret Manager tool.</span></span> <span data-ttu-id="e5186-142">这些实现细节可能会更改。</span><span class="sxs-lookup"><span data-stu-id="e5186-142">These implementation details may change.</span></span> <span data-ttu-id="e5186-143">例如，机密的值不会加密，但可能在将来。</span><span class="sxs-lookup"><span data-stu-id="e5186-143">For example, the secret values aren't encrypted, but could be in the future.</span></span>
+<span data-ttu-id="ba7dc-140">不要编写依赖于使用机密管理器工具保存的数据的位置或格式的代码。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-140">Don't write code that depends on the location or format of data saved with the Secret Manager tool.</span></span> <span data-ttu-id="ba7dc-141">这些实现详细信息可能会更改。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-141">These implementation details may change.</span></span> <span data-ttu-id="ba7dc-142">例如，机密值未加密，但将来可能已加密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-142">For example, the secret values aren't encrypted, but could be in the future.</span></span>
 
-::: moniker range="<= aspnetcore-2.0"
+## <a name="enable-secret-storage"></a><span data-ttu-id="ba7dc-143">启用机密存储</span><span class="sxs-lookup"><span data-stu-id="ba7dc-143">Enable secret storage</span></span>
 
-## <a name="install-the-secret-manager-tool"></a><span data-ttu-id="e5186-144">安装机密管理器工具</span><span class="sxs-lookup"><span data-stu-id="e5186-144">Install the Secret Manager tool</span></span>
+<span data-ttu-id="ba7dc-144">"机密管理器"工具可对存储在用户配置文件中的特定于项目的配置设置进行操作。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-144">The Secret Manager tool operates on project-specific configuration settings stored in your user profile.</span></span>
 
-<span data-ttu-id="e5186-145">机密管理器工具是可与.NET Core CLI，在.NET Core SDK 2.1.300 捆绑或更高版本。</span><span class="sxs-lookup"><span data-stu-id="e5186-145">The Secret Manager tool is bundled with the .NET Core CLI in .NET Core SDK 2.1.300 or later.</span></span> <span data-ttu-id="e5186-146">有关.NET Core SDK 2.1.300 之前的版本中，工具安装是必需的。</span><span class="sxs-lookup"><span data-stu-id="e5186-146">For .NET Core SDK versions before 2.1.300, tool installation is necessary.</span></span>
-
-> [!TIP]
-> <span data-ttu-id="e5186-147">若要查看已安装的 .NET Core SDK 版本号，请从命令行界面运行 `dotnet --version`。</span><span class="sxs-lookup"><span data-stu-id="e5186-147">Run `dotnet --version` from a command shell to see the installed .NET Core SDK version number.</span></span>
-
-<span data-ttu-id="e5186-148">如果正在使用的.NET Core SDK 包括的工具，将显示警告：</span><span class="sxs-lookup"><span data-stu-id="e5186-148">A warning is displayed if the .NET Core SDK being used includes the tool:</span></span>
-
-```console
-The tool 'Microsoft.Extensions.SecretManager.Tools' is now included in the .NET Core SDK. Information on resolving this warning is available at (https://aka.ms/dotnetclitools-in-box).
-```
-
-<span data-ttu-id="e5186-149">在 ASP.NET Core 项目中安装[SecretManager](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="e5186-149">Install the [Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet package in your ASP.NET Core project.</span></span> <span data-ttu-id="e5186-150">例如：</span><span class="sxs-lookup"><span data-stu-id="e5186-150">For example:</span></span>
-
-[!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_CsprojFile&highlight=15-16)]
-
-<span data-ttu-id="e5186-151">在验证工具的安装命令行界面中执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-151">Execute the following command in a command shell to validate the tool installation:</span></span>
-
-```dotnetcli
-dotnet user-secrets -h
-```
-
-<span data-ttu-id="e5186-152">机密管理器工具会显示示例用法、 选项和命令帮助：</span><span class="sxs-lookup"><span data-stu-id="e5186-152">The Secret Manager tool displays sample usage, options, and command help:</span></span>
-
-```console
-Usage: dotnet user-secrets [options] [command]
-
-Options:
-  -?|-h|--help                        Show help information
-  --version                           Show version information
-  -v|--verbose                        Show verbose output
-  -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
-  -c|--configuration <CONFIGURATION>  The project configuration to use. Defaults to 'Debug'.
-  --id                                The user secret ID to use.
-
-Commands:
-  clear   Deletes all the application secrets
-  list    Lists all the application secrets
-  remove  Removes the specified user secret
-  set     Sets the user secret to the specified value
-
-Use "dotnet user-secrets [command] --help" for more information about a command.
-```
-
-> [!NOTE]
-> <span data-ttu-id="e5186-153">您必须与 *.csproj*文件位于同一目录中，才能运行 *.csproj*文件的 `DotNetCliToolReference` 元素中定义的工具。</span><span class="sxs-lookup"><span data-stu-id="e5186-153">You must be in the same directory as the *.csproj* file to run tools defined in the *.csproj* file's `DotNetCliToolReference` elements.</span></span>
-
-::: moniker-end
-
-## <a name="enable-secret-storage"></a><span data-ttu-id="e5186-154">启用密钥存储</span><span class="sxs-lookup"><span data-stu-id="e5186-154">Enable secret storage</span></span>
-
-<span data-ttu-id="e5186-155">机密管理器工具对存储在用户配置文件中的特定于项目的配置设置进行操作。</span><span class="sxs-lookup"><span data-stu-id="e5186-155">The Secret Manager tool operates on project-specific configuration settings stored in your user profile.</span></span>
-
-::: moniker range=">= aspnetcore-3.0"
-
-<span data-ttu-id="e5186-156">机密管理器工具在 .NET Core SDK 3.0.100 或更高版本中包含 `init` 命令。</span><span class="sxs-lookup"><span data-stu-id="e5186-156">The Secret Manager tool includes an `init` command in .NET Core SDK 3.0.100 or later.</span></span> <span data-ttu-id="e5186-157">若要使用用户机密，请在项目目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-157">To use user secrets, run the following command in the project directory:</span></span>
+<span data-ttu-id="ba7dc-145">机密管理器工具包括 .NET Core SDK 3.0.100 或更高版本中`init`的命令。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-145">The Secret Manager tool includes an `init` command in .NET Core SDK 3.0.100 or later.</span></span> <span data-ttu-id="ba7dc-146">要使用用户机密，请运行项目目录中的以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-146">To use user secrets, run the following command in the project directory:</span></span>
 
 ```dotnetcli
 dotnet user-secrets init
 ```
 
-<span data-ttu-id="e5186-158">前面的命令将 `UserSecretsId` 元素添加到 *.csproj*文件的 `PropertyGroup` 中。</span><span class="sxs-lookup"><span data-stu-id="e5186-158">The preceding command adds a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="e5186-159">默认情况下，`UserSecretsId` 的内部文本是一个 GUID。</span><span class="sxs-lookup"><span data-stu-id="e5186-159">By default, the inner text of `UserSecretsId` is a GUID.</span></span> <span data-ttu-id="e5186-160">内部文本是任意的，但对项目是唯一的。</span><span class="sxs-lookup"><span data-stu-id="e5186-160">The inner text is arbitrary, but is unique to the project.</span></span>
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.2"
-
-<span data-ttu-id="e5186-161">若要使用用户机密，请在 *.csproj*文件的 `PropertyGroup` 中定义 `UserSecretsId` 元素。</span><span class="sxs-lookup"><span data-stu-id="e5186-161">To use user secrets, define a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="e5186-162">`UserSecretsId` 的内部文本是任意的，但对项目是唯一的。</span><span class="sxs-lookup"><span data-stu-id="e5186-162">The inner text of `UserSecretsId` is arbitrary, but is unique to the project.</span></span> <span data-ttu-id="e5186-163">开发人员通常会为 `UserSecretsId`生成 GUID。</span><span class="sxs-lookup"><span data-stu-id="e5186-163">Developers typically generate a GUID for the `UserSecretsId`.</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="ba7dc-147">前面的命令在`UserSecretsId`*.csproj*文件中添加一个`PropertyGroup`元素。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-147">The preceding command adds a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="ba7dc-148">默认情况下，的内部`UserSecretsId`文本是 GUID。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-148">By default, the inner text of `UserSecretsId` is a GUID.</span></span> <span data-ttu-id="ba7dc-149">内部文本是任意的，但对于项目是唯一的。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-149">The inner text is arbitrary, but is unique to the project.</span></span>
 
 [!code-xml[](app-secrets/samples/2.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
 
-::: moniker-end
+<span data-ttu-id="ba7dc-150">在 Visual Studio 中，右键单击解决方案资源管理器中的项目，然后从上下文菜单中选择 **"管理用户机密**"。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-150">In Visual Studio, right-click the project in Solution Explorer, and select **Manage User Secrets** from the context menu.</span></span> <span data-ttu-id="ba7dc-151">此手势将一`UserSecretsId`个使用 GUID 填充的元素添加到 *.csproj*文件中。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-151">This gesture adds a `UserSecretsId` element, populated with a GUID, to the *.csproj* file.</span></span>
 
-::: moniker range="<= aspnetcore-1.1"
+## <a name="set-a-secret"></a><span data-ttu-id="ba7dc-152">设置机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-152">Set a secret</span></span>
 
-[!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
-
-::: moniker-end
-
-> [!TIP]
-> <span data-ttu-id="e5186-164">在 Visual Studio 中，右键单击 "解决方案资源管理器中的项目，然后从上下文菜单中选择"**管理用户机密**"。</span><span class="sxs-lookup"><span data-stu-id="e5186-164">In Visual Studio, right-click the project in Solution Explorer, and select **Manage User Secrets** from the context menu.</span></span> <span data-ttu-id="e5186-165">此笔势将使用 GUID 填充的 `UserSecretsId` 元素添加到 *.csproj*文件。</span><span class="sxs-lookup"><span data-stu-id="e5186-165">This gesture adds a `UserSecretsId` element, populated with a GUID, to the *.csproj* file.</span></span>
-
-## <a name="set-a-secret"></a><span data-ttu-id="e5186-166">设置的机密</span><span class="sxs-lookup"><span data-stu-id="e5186-166">Set a secret</span></span>
-
-<span data-ttu-id="e5186-167">定义由一个键和其值组成的应用程序密码。</span><span class="sxs-lookup"><span data-stu-id="e5186-167">Define an app secret consisting of a key and its value.</span></span> <span data-ttu-id="e5186-168">该机密与项目的 `UserSecretsId` 值相关联。</span><span class="sxs-lookup"><span data-stu-id="e5186-168">The secret is associated with the project's `UserSecretsId` value.</span></span> <span data-ttu-id="e5186-169">例如，从 *.csproj*文件所在的目录运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-169">For example, run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="ba7dc-153">定义由键及其值组成的应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-153">Define an app secret consisting of a key and its value.</span></span> <span data-ttu-id="ba7dc-154">机密与项目`UserSecretsId`的值相关联。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-154">The secret is associated with the project's `UserSecretsId` value.</span></span> <span data-ttu-id="ba7dc-155">例如，从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-155">For example, run the following command from the directory in which the *.csproj* file exists:</span></span>
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 ```
 
-<span data-ttu-id="e5186-170">在前面的示例中，冒号表示 `Movies` 是具有 `ServiceApiKey` 属性的对象文本。</span><span class="sxs-lookup"><span data-stu-id="e5186-170">In the preceding example, the colon denotes that `Movies` is an object literal with a `ServiceApiKey` property.</span></span>
+<span data-ttu-id="ba7dc-156">在前面的示例中，冒号表示`Movies`是具有`ServiceApiKey`属性的对象文本。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-156">In the preceding example, the colon denotes that `Movies` is an object literal with a `ServiceApiKey` property.</span></span>
 
-<span data-ttu-id="e5186-171">机密管理器工具可以过使用从其他目录。</span><span class="sxs-lookup"><span data-stu-id="e5186-171">The Secret Manager tool can be used from other directories too.</span></span> <span data-ttu-id="e5186-172">使用 `--project` 选项提供 *.csproj*文件所在的文件系统路径。</span><span class="sxs-lookup"><span data-stu-id="e5186-172">Use the `--project` option to supply the file system path at which the *.csproj* file exists.</span></span> <span data-ttu-id="e5186-173">例如：</span><span class="sxs-lookup"><span data-stu-id="e5186-173">For example:</span></span>
+<span data-ttu-id="ba7dc-157">机密管理器工具也可以从其他目录使用。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-157">The Secret Manager tool can be used from other directories too.</span></span> <span data-ttu-id="ba7dc-158">使用`--project`选项提供*存在 .csproj*文件的文件系统路径。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-158">Use the `--project` option to supply the file system path at which the *.csproj* file exists.</span></span> <span data-ttu-id="ba7dc-159">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-159">For example:</span></span>
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
 ```
 
-### <a name="json-structure-flattening-in-visual-studio"></a><span data-ttu-id="e5186-174">Visual Studio 中的 JSON 结构平展</span><span class="sxs-lookup"><span data-stu-id="e5186-174">JSON structure flattening in Visual Studio</span></span>
+### <a name="json-structure-flattening-in-visual-studio"></a><span data-ttu-id="ba7dc-160">视觉工作室中的 JSON 结构拼合</span><span class="sxs-lookup"><span data-stu-id="ba7dc-160">JSON structure flattening in Visual Studio</span></span>
 
-<span data-ttu-id="e5186-175">Visual Studio 的 "**管理用户机密**" 手势在文本编辑器中打开一个*密码*文件。</span><span class="sxs-lookup"><span data-stu-id="e5186-175">Visual Studio's **Manage User Secrets** gesture opens a *secrets.json* file in the text editor.</span></span> <span data-ttu-id="e5186-176">将*私钥的内容*替换为要存储的键/值对。</span><span class="sxs-lookup"><span data-stu-id="e5186-176">Replace the contents of *secrets.json* with the key-value pairs to be stored.</span></span> <span data-ttu-id="e5186-177">例如：</span><span class="sxs-lookup"><span data-stu-id="e5186-177">For example:</span></span>
+<span data-ttu-id="ba7dc-161">可视化工作室的 **"管理用户机密**"手势将在文本编辑器中打开*一个机密.json*文件。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-161">Visual Studio's **Manage User Secrets** gesture opens a *secrets.json* file in the text editor.</span></span> <span data-ttu-id="ba7dc-162">将*机密*内容替换为要存储的键值对。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-162">Replace the contents of *secrets.json* with the key-value pairs to be stored.</span></span> <span data-ttu-id="ba7dc-163">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-163">For example:</span></span>
 
 ```json
 {
@@ -187,7 +108,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 }
 ```
 
-<span data-ttu-id="e5186-178">JSON 结构在通过 `dotnet user-secrets remove` 或 `dotnet user-secrets set`进行修改后进行平展。</span><span class="sxs-lookup"><span data-stu-id="e5186-178">The JSON structure is flattened after modifications via `dotnet user-secrets remove` or `dotnet user-secrets set`.</span></span> <span data-ttu-id="e5186-179">例如，运行 `dotnet user-secrets remove "Movies:ConnectionString"` 会折叠 `Movies` 对象文本。</span><span class="sxs-lookup"><span data-stu-id="e5186-179">For example, running `dotnet user-secrets remove "Movies:ConnectionString"` collapses the `Movies` object literal.</span></span> <span data-ttu-id="e5186-180">修改后的文件如下所示：</span><span class="sxs-lookup"><span data-stu-id="e5186-180">The modified file resembles the following:</span></span>
+<span data-ttu-id="ba7dc-164">通过`dotnet user-secrets remove`或`dotnet user-secrets set`进行修改后，JSON 结构将展平。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-164">The JSON structure is flattened after modifications via `dotnet user-secrets remove` or `dotnet user-secrets set`.</span></span> <span data-ttu-id="ba7dc-165">例如，运行`dotnet user-secrets remove "Movies:ConnectionString"`将折叠`Movies`对象文本。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-165">For example, running `dotnet user-secrets remove "Movies:ConnectionString"` collapses the `Movies` object literal.</span></span> <span data-ttu-id="ba7dc-166">修改后的文件类似于以下内容：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-166">The modified file resembles the following:</span></span>
 
 ```json
 {
@@ -195,21 +116,21 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 }
 ```
 
-## <a name="set-multiple-secrets"></a><span data-ttu-id="e5186-181">设置多个机密</span><span class="sxs-lookup"><span data-stu-id="e5186-181">Set multiple secrets</span></span>
+## <a name="set-multiple-secrets"></a><span data-ttu-id="ba7dc-167">设置多个机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-167">Set multiple secrets</span></span>
 
-<span data-ttu-id="e5186-182">可以通过管道 JSON 将机密批处理设置为 `set` 命令。</span><span class="sxs-lookup"><span data-stu-id="e5186-182">A batch of secrets can be set by piping JSON to the `set` command.</span></span> <span data-ttu-id="e5186-183">在下面的示例中，将*输入 json*文件的内容传送到 `set` 命令。</span><span class="sxs-lookup"><span data-stu-id="e5186-183">In the following example, the *input.json* file's contents are piped to the `set` command.</span></span>
+<span data-ttu-id="ba7dc-168">通过将 JSON 管道到`set`命令，可以设置一批机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-168">A batch of secrets can be set by piping JSON to the `set` command.</span></span> <span data-ttu-id="ba7dc-169">在下面的示例中 *，input.json*文件的内容被传送到命令`set`。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-169">In the following example, the *input.json* file's contents are piped to the `set` command.</span></span>
 
-# <a name="windows"></a>[<span data-ttu-id="e5186-184">Windows</span><span class="sxs-lookup"><span data-stu-id="e5186-184">Windows</span></span>](#tab/windows)
+# <a name="windows"></a>[<span data-ttu-id="ba7dc-170">Windows</span><span class="sxs-lookup"><span data-stu-id="ba7dc-170">Windows</span></span>](#tab/windows)
 
-<span data-ttu-id="e5186-185">打开命令外壳中，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-185">Open a command shell, and execute the following command:</span></span>
+<span data-ttu-id="ba7dc-171">打开命令外壳，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-171">Open a command shell, and execute the following command:</span></span>
 
   ```dotnetcli
   type .\input.json | dotnet user-secrets set
   ```
 
-# <a name="linux--macos"></a>[<span data-ttu-id="e5186-186">Linux/macOS</span><span class="sxs-lookup"><span data-stu-id="e5186-186">Linux / macOS</span></span>](#tab/linux+macos)
+# <a name="linux--macos"></a>[<span data-ttu-id="ba7dc-172">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="ba7dc-172">Linux / macOS</span></span>](#tab/linux+macos)
 
-<span data-ttu-id="e5186-187">打开命令外壳中，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-187">Open a command shell, and execute the following command:</span></span>
+<span data-ttu-id="ba7dc-173">打开命令外壳，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-173">Open a command shell, and execute the following command:</span></span>
 
   ```dotnetcli
   cat ./input.json | dotnet user-secrets set
@@ -217,160 +138,87 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ---
 
-## <a name="access-a-secret"></a><span data-ttu-id="e5186-188">访问机密</span><span class="sxs-lookup"><span data-stu-id="e5186-188">Access a secret</span></span>
+## <a name="access-a-secret"></a><span data-ttu-id="ba7dc-174">访问机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-174">Access a secret</span></span>
 
-<span data-ttu-id="e5186-189">[ASP.NET Core 配置 API](xref:fundamentals/configuration/index)提供对机密管理器密码的访问权限。</span><span class="sxs-lookup"><span data-stu-id="e5186-189">The [ASP.NET Core Configuration API](xref:fundamentals/configuration/index) provides access to Secret Manager secrets.</span></span>
+<span data-ttu-id="ba7dc-175">[ASP.NET核心配置 API](xref:fundamentals/configuration/index)提供对机密管理器机密的访问。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-175">The [ASP.NET Core Configuration API](xref:fundamentals/configuration/index) provides access to Secret Manager secrets.</span></span>
 
-::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
-
-<span data-ttu-id="e5186-190">如果你的项目以 .NET Framework 为目标，请安装[UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="e5186-190">If your project targets .NET Framework, install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="e5186-191">在 ASP.NET Core 2.0 或更高版本中，当项目调用时，用户机密配置源会自动添加到 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> 以使用预先配置的默认值初始化主机的新实例。</span><span class="sxs-lookup"><span data-stu-id="e5186-191">In ASP.NET Core 2.0 or later, the user secrets configuration source is automatically added in development mode when the project calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> to initialize a new instance of the host with preconfigured defaults.</span></span> <span data-ttu-id="e5186-192"><xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> 时，`CreateDefaultBuilder` 调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>：</span><span class="sxs-lookup"><span data-stu-id="e5186-192">`CreateDefaultBuilder` calls <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> when the <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> is <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
-
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
+<span data-ttu-id="ba7dc-176">在 ASP.NET Core 2.0 或更高版本中，当项目调用<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>使用预配置默认值初始化主机的新实例时，用户机密配置源将自动在开发模式下添加。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-176">In ASP.NET Core 2.0 or later, the user secrets configuration source is automatically added in development mode when the project calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> to initialize a new instance of the host with preconfigured defaults.</span></span> <span data-ttu-id="ba7dc-177">`CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName>为<xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>时调用 ：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-177">`CreateDefaultBuilder` calls <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> when the <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> is <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span></span>
 
 [!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program.cs?name=snippet_CreateHostBuilder&highlight=2)]
 
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="e5186-193">如果未调用 `CreateDefaultBuilder`，请通过在 `Startup` 构造函数中调用 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 来显式添加用户机密配置源。</span><span class="sxs-lookup"><span data-stu-id="e5186-193">When `CreateDefaultBuilder` isn't called, add the user secrets configuration source explicitly by calling <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> in the `Startup` constructor.</span></span> <span data-ttu-id="e5186-194">仅在开发环境中运行应用时调用 `AddUserSecrets`，如以下示例中所示：</span><span class="sxs-lookup"><span data-stu-id="e5186-194">Call `AddUserSecrets` only when the app runs in the Development environment, as shown in the following example:</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
-
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
+<span data-ttu-id="ba7dc-178">未`CreateDefaultBuilder`调用时，通过在<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>`Startup`构造函数中调用显式添加用户机密配置源。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-178">When `CreateDefaultBuilder` isn't called, add the user secrets configuration source explicitly by calling <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> in the `Startup` constructor.</span></span> <span data-ttu-id="ba7dc-179">仅在`AddUserSecrets`应用在开发环境中运行时调用，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-179">Call `AddUserSecrets` only when the app runs in the Development environment, as shown in the following example:</span></span>
 
 [!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup2.cs?name=snippet_StartupConstructor&highlight=12)]
 
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-<span data-ttu-id="e5186-195">安装 " [UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) " NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="e5186-195">Install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
-
-<span data-ttu-id="e5186-196">使用 `Startup` 构造函数中的 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 调用添加用户机密配置源：</span><span class="sxs-lookup"><span data-stu-id="e5186-196">Add the user secrets configuration source with a call to <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> in the `Startup` constructor:</span></span>
-
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
-
-::: moniker-end
-
-<span data-ttu-id="e5186-197">可以通过 `Configuration` API 检索用户机密：</span><span class="sxs-lookup"><span data-stu-id="e5186-197">User secrets can be retrieved via the `Configuration` API:</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="ba7dc-180">可通过`Configuration`API 检索用户机密：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-180">User secrets can be retrieved via the `Configuration` API:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
 
-::: moniker-end
 
-::: moniker range="<= aspnetcore-1.1"
+## <a name="map-secrets-to-a-poco"></a><span data-ttu-id="ba7dc-181">将机密映射到 POCO</span><span class="sxs-lookup"><span data-stu-id="ba7dc-181">Map secrets to a POCO</span></span>
 
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=26)]
-
-::: moniker-end
-
-## <a name="map-secrets-to-a-poco"></a><span data-ttu-id="e5186-198">映射到 POCO 的机密</span><span class="sxs-lookup"><span data-stu-id="e5186-198">Map secrets to a POCO</span></span>
-
-<span data-ttu-id="e5186-199">将整个对象文字映射到 POCO （具有属性的简单.NET 类） 可用于聚合相关的属性。</span><span class="sxs-lookup"><span data-stu-id="e5186-199">Mapping an entire object literal to a POCO (a simple .NET class with properties) is useful for aggregating related properties.</span></span>
+<span data-ttu-id="ba7dc-182">将整个对象文本映射到 POCO（具有属性的简单 .NET 类）可用于聚合相关属性。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-182">Mapping an entire object literal to a POCO (a simple .NET class with properties) is useful for aggregating related properties.</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="e5186-200">若要将上述机密映射到 POCO，请使用 `Configuration` API 的[对象图形绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。</span><span class="sxs-lookup"><span data-stu-id="e5186-200">To map the preceding secrets to a POCO, use the `Configuration` API's [object graph binding](xref:fundamentals/configuration/index#bind-to-an-object-graph) feature.</span></span> <span data-ttu-id="e5186-201">下面的代码绑定到自定义 `MovieSettings` POCO，并访问 `ServiceApiKey` 属性值：</span><span class="sxs-lookup"><span data-stu-id="e5186-201">The following code binds to a custom `MovieSettings` POCO and accesses the `ServiceApiKey` property value:</span></span>
-
-::: moniker range=">= aspnetcore-1.1"
+<span data-ttu-id="ba7dc-183">要将上述机密映射到 POCO，请使用`Configuration`API[的对象图形绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-183">To map the preceding secrets to a POCO, use the `Configuration` API's [object graph binding](xref:fundamentals/configuration/index#bind-to-an-object-graph) feature.</span></span> <span data-ttu-id="ba7dc-184">以下代码绑定到自定义`MovieSettings`POCO 并访问`ServiceApiKey`属性值：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-184">The following code binds to a custom `MovieSettings` POCO and accesses the `ServiceApiKey` property value:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
 
-::: moniker-end
-
-::: moniker range="= aspnetcore-1.0"
-
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
-
-::: moniker-end
-
-<span data-ttu-id="e5186-202">`Movies:ConnectionString` 和 `Movies:ServiceApiKey` 机密会映射到 `MovieSettings`中的相应属性：</span><span class="sxs-lookup"><span data-stu-id="e5186-202">The `Movies:ConnectionString` and `Movies:ServiceApiKey` secrets are mapped to the respective properties in `MovieSettings`:</span></span>
+<span data-ttu-id="ba7dc-185">和`Movies:ConnectionString``Movies:ServiceApiKey`机密映射到 中的`MovieSettings`相应属性：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-185">The `Movies:ConnectionString` and `Movies:ServiceApiKey` secrets are mapped to the respective properties in `MovieSettings`:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
-## <a name="string-replacement-with-secrets"></a><span data-ttu-id="e5186-203">包含机密的字符串替换</span><span class="sxs-lookup"><span data-stu-id="e5186-203">String replacement with secrets</span></span>
+## <a name="string-replacement-with-secrets"></a><span data-ttu-id="ba7dc-186">字符串替换与机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-186">String replacement with secrets</span></span>
 
-<span data-ttu-id="e5186-204">以纯文本形式存储密码是不安全。</span><span class="sxs-lookup"><span data-stu-id="e5186-204">Storing passwords in plain text is insecure.</span></span> <span data-ttu-id="e5186-205">例如，存储在*appsettings*中的数据库连接字符串可能包含指定用户的密码：</span><span class="sxs-lookup"><span data-stu-id="e5186-205">For example, a database connection string stored in *appsettings.json* may include a password for the specified user:</span></span>
+<span data-ttu-id="ba7dc-187">以纯文本形式存储密码不安全。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-187">Storing passwords in plain text is insecure.</span></span> <span data-ttu-id="ba7dc-188">例如，存储在*appsettings.json*中的数据库连接字符串可能包含指定用户的密码：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-188">For example, a database connection string stored in *appsettings.json* may include a password for the specified user:</span></span>
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-<span data-ttu-id="e5186-206">更安全的方法是将密码存储为机密。</span><span class="sxs-lookup"><span data-stu-id="e5186-206">A more secure approach is to store the password as a secret.</span></span> <span data-ttu-id="e5186-207">例如：</span><span class="sxs-lookup"><span data-stu-id="e5186-207">For example:</span></span>
+<span data-ttu-id="ba7dc-189">更安全的方法是将密码存储为机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-189">A more secure approach is to store the password as a secret.</span></span> <span data-ttu-id="ba7dc-190">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-190">For example:</span></span>
 
 ```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-<span data-ttu-id="e5186-208">从*appsettings*中的连接字符串中删除 `Password` 键值对。</span><span class="sxs-lookup"><span data-stu-id="e5186-208">Remove the `Password` key-value pair from the connection string in *appsettings.json*.</span></span> <span data-ttu-id="e5186-209">例如：</span><span class="sxs-lookup"><span data-stu-id="e5186-209">For example:</span></span>
+<span data-ttu-id="ba7dc-191">从`Password`*appsettings.json*中的连接字符串中删除键值对。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-191">Remove the `Password` key-value pair from the connection string in *appsettings.json*.</span></span> <span data-ttu-id="ba7dc-192">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-192">For example:</span></span>
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-<span data-ttu-id="e5186-210">可以对 <xref:System.Data.SqlClient.SqlConnectionStringBuilder> 对象的 <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> 属性设置机密的值，以完成连接字符串：</span><span class="sxs-lookup"><span data-stu-id="e5186-210">The secret's value can be set on a <xref:System.Data.SqlClient.SqlConnectionStringBuilder> object's <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> property to complete the connection string:</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="ba7dc-193">可以在<xref:System.Data.SqlClient.SqlConnectionStringBuilder>对象<xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A>的属性上设置机密的值以完成连接字符串：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-193">The secret's value can be set on a <xref:System.Data.SqlClient.SqlConnectionStringBuilder> object's <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> property to complete the connection string:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
 
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=26-29)]
-
-::: moniker-end
-
-## <a name="list-the-secrets"></a><span data-ttu-id="e5186-211">列出机密</span><span class="sxs-lookup"><span data-stu-id="e5186-211">List the secrets</span></span>
+## <a name="list-the-secrets"></a><span data-ttu-id="ba7dc-194">列出机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-194">List the secrets</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="e5186-212">从 *.csproj*文件所在的目录运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-212">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="ba7dc-195">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-195">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
 ```dotnetcli
 dotnet user-secrets list
 ```
 
-<span data-ttu-id="e5186-213">将显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="e5186-213">The following output appears:</span></span>
+<span data-ttu-id="ba7dc-196">将显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-196">The following output appears:</span></span>
 
 ```console
 Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true
 Movies:ServiceApiKey = 12345
 ```
 
-<span data-ttu-id="e5186-214">在前面的示例中，键名称中的冒号表示*机密 json*中的对象层次结构。</span><span class="sxs-lookup"><span data-stu-id="e5186-214">In the preceding example, a colon in the key names denotes the object hierarchy within *secrets.json*.</span></span>
+<span data-ttu-id="ba7dc-197">在前面的示例中，键名称中的冒号表示机密中的对象层次结构 *。*</span><span class="sxs-lookup"><span data-stu-id="ba7dc-197">In the preceding example, a colon in the key names denotes the object hierarchy within *secrets.json*.</span></span>
 
-## <a name="remove-a-single-secret"></a><span data-ttu-id="e5186-215">删除单个机密</span><span class="sxs-lookup"><span data-stu-id="e5186-215">Remove a single secret</span></span>
+## <a name="remove-a-single-secret"></a><span data-ttu-id="ba7dc-198">删除单个机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-198">Remove a single secret</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="e5186-216">从 *.csproj*文件所在的目录运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-216">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="ba7dc-199">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-199">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
 ```dotnetcli
 dotnet user-secrets remove "Movies:ConnectionString"
 ```
 
-<span data-ttu-id="e5186-217">已修改应用的*机密 json*文件，以删除与 `MoviesConnectionString` 项关联的键值对：</span><span class="sxs-lookup"><span data-stu-id="e5186-217">The app's *secrets.json* file was modified to remove the key-value pair associated with the `MoviesConnectionString` key:</span></span>
+<span data-ttu-id="ba7dc-200">应用的*机密.json*文件已修改以删除与`MoviesConnectionString`密钥关联的键值对：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-200">The app's *secrets.json* file was modified to remove the key-value pair associated with the `MoviesConnectionString` key:</span></span>
 
 ```json
 {
@@ -380,36 +228,285 @@ dotnet user-secrets remove "Movies:ConnectionString"
 }
 ```
 
-<span data-ttu-id="e5186-218">运行 `dotnet user-secrets list` 将显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="e5186-218">Running `dotnet user-secrets list` displays the following message:</span></span>
+<span data-ttu-id="ba7dc-201">`dotnet user-secrets list`显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-201">`dotnet user-secrets list` displays the following message:</span></span>
 
 ```console
 Movies:ServiceApiKey = 12345
 ```
 
-## <a name="remove-all-secrets"></a><span data-ttu-id="e5186-219">删除所有机密</span><span class="sxs-lookup"><span data-stu-id="e5186-219">Remove all secrets</span></span>
+## <a name="remove-all-secrets"></a><span data-ttu-id="ba7dc-202">删除所有机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-202">Remove all secrets</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="e5186-220">从 *.csproj*文件所在的目录运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="e5186-220">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="ba7dc-203">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-203">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
 ```dotnetcli
 dotnet user-secrets clear
 ```
 
-<span data-ttu-id="e5186-221">此应用的所有用户密码已从*以下文件中*删除：</span><span class="sxs-lookup"><span data-stu-id="e5186-221">All user secrets for the app have been deleted from the *secrets.json* file:</span></span>
+<span data-ttu-id="ba7dc-204">应用程序的所有用户机密已从*机密.json*文件中删除：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-204">All user secrets for the app have been deleted from the *secrets.json* file:</span></span>
 
 ```json
 {}
 ```
 
-<span data-ttu-id="e5186-222">运行 `dotnet user-secrets list` 将显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="e5186-222">Running `dotnet user-secrets list` displays the following message:</span></span>
+<span data-ttu-id="ba7dc-205">正在`dotnet user-secrets list`运行将显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-205">Running `dotnet user-secrets list` displays the following message:</span></span>
 
 ```console
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="e5186-223">其他资源</span><span class="sxs-lookup"><span data-stu-id="e5186-223">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="ba7dc-206">其他资源</span><span class="sxs-lookup"><span data-stu-id="ba7dc-206">Additional resources</span></span>
 
-* <span data-ttu-id="e5186-224">有关从 IIS 访问密钥管理器的信息，请参阅[此问题](https://github.com/dotnet/AspNetCore.Docs/issues/16328)。</span><span class="sxs-lookup"><span data-stu-id="e5186-224">See [this issue](https://github.com/dotnet/AspNetCore.Docs/issues/16328) for information on accessing Secret Manager from IIS.</span></span>
+* <span data-ttu-id="ba7dc-207">有关从 IIS 访问机密管理器的信息，请参阅[此问题](https://github.com/dotnet/AspNetCore.Docs/issues/16328)。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-207">See [this issue](https://github.com/dotnet/AspNetCore.Docs/issues/16328) for information on accessing Secret Manager from IIS.</span></span>
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<span data-ttu-id="ba7dc-208">由[里克·安德森](https://twitter.com/RickAndMSFT)，[丹尼尔·罗斯](https://github.com/danroth27)和[斯科特·艾迪](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="ba7dc-208">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), and [Scott Addie](https://github.com/scottaddie)</span></span>
+
+<span data-ttu-id="ba7dc-209">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="ba7dc-209">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+
+<span data-ttu-id="ba7dc-210">本文档介绍在开发计算机上开发ASP.NET酷睿应用期间存储和检索敏感数据的技术。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-210">This document explains techniques for storing and retrieving sensitive data during development of an ASP.NET Core app on a development machine.</span></span> <span data-ttu-id="ba7dc-211">切勿在源代码中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-211">Never store passwords or other sensitive data in source code.</span></span> <span data-ttu-id="ba7dc-212">生产机密不应用于开发或测试。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-212">Production secrets shouldn't be used for development or test.</span></span> <span data-ttu-id="ba7dc-213">不应将机密随应用一起部署。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-213">Secrets shouldn't be deployed with the app.</span></span> <span data-ttu-id="ba7dc-214">相反，应通过受控方式（如环境变量、Azure 密钥保管库等）在生产环境中提供机密。您可以使用[Azure 密钥保管库配置提供程序](xref:security/key-vault-configuration)存储和保护 Azure 测试和生产机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-214">Instead, secrets should be made available in the production environment through a controlled means like environment variables, Azure Key Vault, etc. You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>
+
+## <a name="environment-variables"></a><span data-ttu-id="ba7dc-215">环境变量</span><span class="sxs-lookup"><span data-stu-id="ba7dc-215">Environment variables</span></span>
+
+<span data-ttu-id="ba7dc-216">环境变量用于避免在代码或本地配置文件中存储应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-216">Environment variables are used to avoid storage of app secrets in code or in local configuration files.</span></span> <span data-ttu-id="ba7dc-217">环境变量覆盖所有以前指定的配置源的配置值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-217">Environment variables override configuration values for all previously specified configuration sources.</span></span>
+
+<span data-ttu-id="ba7dc-218">请考虑一个 ASP.NET 核心 Web 应用，其中启用**了单个用户帐户**安全性。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-218">Consider an ASP.NET Core web app in which **Individual User Accounts** security is enabled.</span></span> <span data-ttu-id="ba7dc-219">默认数据库连接字符串包含在项目的*appsettings.json*文件中，其中包含密钥`DefaultConnection`。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-219">A default database connection string is included in the project's *appsettings.json* file with the key `DefaultConnection`.</span></span> <span data-ttu-id="ba7dc-220">默认连接字符串用于 LocalDB，该字符串在用户模式下运行，不需要密码。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-220">The default connection string is for LocalDB, which runs in user mode and doesn't require a password.</span></span> <span data-ttu-id="ba7dc-221">在应用部署期间，`DefaultConnection`可以使用环境变量的值重写键值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-221">During app deployment, the `DefaultConnection` key value can be overridden with an environment variable's value.</span></span> <span data-ttu-id="ba7dc-222">环境变量可能将完整的连接字符串存储为具有敏感凭据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-222">The environment variable may store the complete connection string with sensitive credentials.</span></span>
+
+> [!WARNING]
+> <span data-ttu-id="ba7dc-223">环境变量通常以纯、未加密的文本存储。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-223">Environment variables are generally stored in plain, unencrypted text.</span></span> <span data-ttu-id="ba7dc-224">如果计算机或进程遭到破坏，则不受信任的方可以访问环境变量。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-224">If the machine or process is compromised, environment variables can be accessed by untrusted parties.</span></span> <span data-ttu-id="ba7dc-225">可能需要采取其他措施防止泄露用户机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-225">Additional measures to prevent disclosure of user secrets may be required.</span></span>
+
+[!INCLUDE[](~/includes/environmentVarableColon.md)]
+
+## <a name="secret-manager"></a><span data-ttu-id="ba7dc-226">机密管理器</span><span class="sxs-lookup"><span data-stu-id="ba7dc-226">Secret Manager</span></span>
+
+<span data-ttu-id="ba7dc-227">在开发ASP.NET核心项目期间，秘密管理器工具存储敏感数据。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-227">The Secret Manager tool stores sensitive data during the development of an ASP.NET Core project.</span></span> <span data-ttu-id="ba7dc-228">在此上下文中，一段敏感数据是应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-228">In this context, a piece of sensitive data is an app secret.</span></span> <span data-ttu-id="ba7dc-229">应用机密存储在与项目树不同的位置。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-229">App secrets are stored in a separate location from the project tree.</span></span> <span data-ttu-id="ba7dc-230">应用机密与特定项目关联或跨多个项目共享。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-230">The app secrets are associated with a specific project or shared across several projects.</span></span> <span data-ttu-id="ba7dc-231">应用机密不会签入源代码管理。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-231">The app secrets aren't checked into source control.</span></span>
+
+> [!WARNING]
+> <span data-ttu-id="ba7dc-232">秘密管理器工具不加密存储的秘密，不应被视为受信任的存储。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-232">The Secret Manager tool doesn't encrypt the stored secrets and shouldn't be treated as a trusted store.</span></span> <span data-ttu-id="ba7dc-233">它仅用于开发目的。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-233">It's for development purposes only.</span></span> <span data-ttu-id="ba7dc-234">键和值存储在用户配置文件目录中的 JSON 配置文件中。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-234">The keys and values are stored in a JSON configuration file in the user profile directory.</span></span>
+
+## <a name="how-the-secret-manager-tool-works"></a><span data-ttu-id="ba7dc-235">秘密管理器工具的工作原理</span><span class="sxs-lookup"><span data-stu-id="ba7dc-235">How the Secret Manager tool works</span></span>
+
+<span data-ttu-id="ba7dc-236">"秘密管理器"工具会抽象出实现详细信息，例如值的存储位置和方式。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-236">The Secret Manager tool abstracts away the implementation details, such as where and how the values are stored.</span></span> <span data-ttu-id="ba7dc-237">您可以在不知道这些实现详细信息的情况下使用该工具。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-237">You can use the tool without knowing these implementation details.</span></span> <span data-ttu-id="ba7dc-238">这些值存储在本地计算机上的受系统保护的用户配置文件文件夹中的 JSON 配置文件中：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-238">The values are stored in a JSON configuration file in a system-protected user profile folder on the local machine:</span></span>
+
+# <a name="windows"></a>[<span data-ttu-id="ba7dc-239">Windows</span><span class="sxs-lookup"><span data-stu-id="ba7dc-239">Windows</span></span>](#tab/windows)
+
+<span data-ttu-id="ba7dc-240">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-240">File system path:</span></span>
+
+`%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
+
+# <a name="linux--macos"></a>[<span data-ttu-id="ba7dc-241">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="ba7dc-241">Linux / macOS</span></span>](#tab/linux+macos)
+
+<span data-ttu-id="ba7dc-242">文件系统路径：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-242">File system path:</span></span>
+
+`~/.microsoft/usersecrets/<user_secrets_id>/secrets.json`
+
+---
+
+<span data-ttu-id="ba7dc-243">在前面的文件路径中，替换为`<user_secrets_id>` `UserSecretsId` *.csproj*文件中指定的值。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-243">In the preceding file paths, replace `<user_secrets_id>` with the `UserSecretsId` value specified in the *.csproj* file.</span></span>
+
+<span data-ttu-id="ba7dc-244">不要编写依赖于使用机密管理器工具保存的数据的位置或格式的代码。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-244">Don't write code that depends on the location or format of data saved with the Secret Manager tool.</span></span> <span data-ttu-id="ba7dc-245">这些实现详细信息可能会更改。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-245">These implementation details may change.</span></span> <span data-ttu-id="ba7dc-246">例如，机密值未加密，但将来可能已加密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-246">For example, the secret values aren't encrypted, but could be in the future.</span></span>
+
+## <a name="enable-secret-storage"></a><span data-ttu-id="ba7dc-247">启用机密存储</span><span class="sxs-lookup"><span data-stu-id="ba7dc-247">Enable secret storage</span></span>
+
+<span data-ttu-id="ba7dc-248">"机密管理器"工具可对存储在用户配置文件中的特定于项目的配置设置进行操作。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-248">The Secret Manager tool operates on project-specific configuration settings stored in your user profile.</span></span>
+
+<span data-ttu-id="ba7dc-249">要使用用户机密，请定义`UserSecretsId` `PropertyGroup` *.csproj*文件中的元素。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-249">To use user secrets, define a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="ba7dc-250">的内部`UserSecretsId`文本是任意的，但对于项目是唯一的。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-250">The inner text of `UserSecretsId` is arbitrary, but is unique to the project.</span></span> <span data-ttu-id="ba7dc-251">开发人员通常为 生成`UserSecretsId`GUID。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-251">Developers typically generate a GUID for the `UserSecretsId`.</span></span>
+
+[!code-xml[](app-secrets/samples/2.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
+
+> [!TIP]
+> <span data-ttu-id="ba7dc-252">在 Visual Studio 中，右键单击解决方案资源管理器中的项目，然后从上下文菜单中选择 **"管理用户机密**"。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-252">In Visual Studio, right-click the project in Solution Explorer, and select **Manage User Secrets** from the context menu.</span></span> <span data-ttu-id="ba7dc-253">此手势将一`UserSecretsId`个使用 GUID 填充的元素添加到 *.csproj*文件中。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-253">This gesture adds a `UserSecretsId` element, populated with a GUID, to the *.csproj* file.</span></span>
+
+## <a name="set-a-secret"></a><span data-ttu-id="ba7dc-254">设置机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-254">Set a secret</span></span>
+
+<span data-ttu-id="ba7dc-255">定义由键及其值组成的应用机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-255">Define an app secret consisting of a key and its value.</span></span> <span data-ttu-id="ba7dc-256">机密与项目`UserSecretsId`的值相关联。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-256">The secret is associated with the project's `UserSecretsId` value.</span></span> <span data-ttu-id="ba7dc-257">例如，从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-257">For example, run the following command from the directory in which the *.csproj* file exists:</span></span>
+
+```dotnetcli
+dotnet user-secrets set "Movies:ServiceApiKey" "12345"
+```
+
+<span data-ttu-id="ba7dc-258">在前面的示例中，冒号表示`Movies`是具有`ServiceApiKey`属性的对象文本。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-258">In the preceding example, the colon denotes that `Movies` is an object literal with a `ServiceApiKey` property.</span></span>
+
+<span data-ttu-id="ba7dc-259">机密管理器工具也可以从其他目录使用。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-259">The Secret Manager tool can be used from other directories too.</span></span> <span data-ttu-id="ba7dc-260">使用`--project`选项提供*存在 .csproj*文件的文件系统路径。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-260">Use the `--project` option to supply the file system path at which the *.csproj* file exists.</span></span> <span data-ttu-id="ba7dc-261">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-261">For example:</span></span>
+
+```dotnetcli
+dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
+```
+
+### <a name="json-structure-flattening-in-visual-studio"></a><span data-ttu-id="ba7dc-262">视觉工作室中的 JSON 结构拼合</span><span class="sxs-lookup"><span data-stu-id="ba7dc-262">JSON structure flattening in Visual Studio</span></span>
+
+<span data-ttu-id="ba7dc-263">可视化工作室的 **"管理用户机密**"手势将在文本编辑器中打开*一个机密.json*文件。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-263">Visual Studio's **Manage User Secrets** gesture opens a *secrets.json* file in the text editor.</span></span> <span data-ttu-id="ba7dc-264">将*机密*内容替换为要存储的键值对。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-264">Replace the contents of *secrets.json* with the key-value pairs to be stored.</span></span> <span data-ttu-id="ba7dc-265">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-265">For example:</span></span>
+
+```json
+{
+  "Movies": {
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "ServiceApiKey": "12345"
+  }
+}
+```
+
+<span data-ttu-id="ba7dc-266">通过`dotnet user-secrets remove`或`dotnet user-secrets set`进行修改后，JSON 结构将展平。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-266">The JSON structure is flattened after modifications via `dotnet user-secrets remove` or `dotnet user-secrets set`.</span></span> <span data-ttu-id="ba7dc-267">例如，运行`dotnet user-secrets remove "Movies:ConnectionString"`将折叠`Movies`对象文本。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-267">For example, running `dotnet user-secrets remove "Movies:ConnectionString"` collapses the `Movies` object literal.</span></span> <span data-ttu-id="ba7dc-268">修改后的文件类似于以下内容：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-268">The modified file resembles the following:</span></span>
+
+```json
+{
+  "Movies:ServiceApiKey": "12345"
+}
+```
+
+## <a name="set-multiple-secrets"></a><span data-ttu-id="ba7dc-269">设置多个机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-269">Set multiple secrets</span></span>
+
+<span data-ttu-id="ba7dc-270">通过将 JSON 管道到`set`命令，可以设置一批机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-270">A batch of secrets can be set by piping JSON to the `set` command.</span></span> <span data-ttu-id="ba7dc-271">在下面的示例中 *，input.json*文件的内容被传送到命令`set`。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-271">In the following example, the *input.json* file's contents are piped to the `set` command.</span></span>
+
+# <a name="windows"></a>[<span data-ttu-id="ba7dc-272">Windows</span><span class="sxs-lookup"><span data-stu-id="ba7dc-272">Windows</span></span>](#tab/windows)
+
+<span data-ttu-id="ba7dc-273">打开命令外壳，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-273">Open a command shell, and execute the following command:</span></span>
+
+  ```dotnetcli
+  type .\input.json | dotnet user-secrets set
+  ```
+
+# <a name="linux--macos"></a>[<span data-ttu-id="ba7dc-274">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="ba7dc-274">Linux / macOS</span></span>](#tab/linux+macos)
+
+<span data-ttu-id="ba7dc-275">打开命令外壳，并执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-275">Open a command shell, and execute the following command:</span></span>
+
+  ```dotnetcli
+  cat ./input.json | dotnet user-secrets set
+  ```
+
+---
+
+## <a name="access-a-secret"></a><span data-ttu-id="ba7dc-276">访问机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-276">Access a secret</span></span>
+
+<span data-ttu-id="ba7dc-277">[ASP.NET核心配置 API](xref:fundamentals/configuration/index)提供对机密管理器机密的访问。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-277">The [ASP.NET Core Configuration API](xref:fundamentals/configuration/index) provides access to Secret Manager secrets.</span></span>
+
+<span data-ttu-id="ba7dc-278">如果项目的目标是 .NET 框架，请安装[Microsoft.扩展.配置.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-278">If your project targets .NET Framework, install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
+
+
+<span data-ttu-id="ba7dc-279">在 ASP.NET Core 2.0 或更高版本中，当项目调用<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>使用预配置默认值初始化主机的新实例时，用户机密配置源将自动在开发模式下添加。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-279">In ASP.NET Core 2.0 or later, the user secrets configuration source is automatically added in development mode when the project calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> to initialize a new instance of the host with preconfigured defaults.</span></span> <span data-ttu-id="ba7dc-280">`CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName>为<xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>时调用 ：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-280">`CreateDefaultBuilder` calls <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> when the <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> is <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span></span>
+
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
+
+
+<span data-ttu-id="ba7dc-281">未`CreateDefaultBuilder`调用时，通过在<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>`Startup`构造函数中调用显式添加用户机密配置源。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-281">When `CreateDefaultBuilder` isn't called, add the user secrets configuration source explicitly by calling <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> in the `Startup` constructor.</span></span> <span data-ttu-id="ba7dc-282">仅在`AddUserSecrets`应用在开发环境中运行时调用，如以下示例所示：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-282">Call `AddUserSecrets` only when the app runs in the Development environment, as shown in the following example:</span></span>
+
+[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
+
+<span data-ttu-id="ba7dc-283">可通过`Configuration`API 检索用户机密：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-283">User secrets can be retrieved via the `Configuration` API:</span></span>
+
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
+
+## <a name="map-secrets-to-a-poco"></a><span data-ttu-id="ba7dc-284">将机密映射到 POCO</span><span class="sxs-lookup"><span data-stu-id="ba7dc-284">Map secrets to a POCO</span></span>
+
+<span data-ttu-id="ba7dc-285">将整个对象文本映射到 POCO（具有属性的简单 .NET 类）可用于聚合相关属性。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-285">Mapping an entire object literal to a POCO (a simple .NET class with properties) is useful for aggregating related properties.</span></span>
+
+[!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
+
+<span data-ttu-id="ba7dc-286">要将上述机密映射到 POCO，请使用`Configuration`API[的对象图形绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-286">To map the preceding secrets to a POCO, use the `Configuration` API's [object graph binding](xref:fundamentals/configuration/index#bind-to-an-object-graph) feature.</span></span> <span data-ttu-id="ba7dc-287">以下代码绑定到自定义`MovieSettings`POCO 并访问`ServiceApiKey`属性值：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-287">The following code binds to a custom `MovieSettings` POCO and accesses the `ServiceApiKey` property value:</span></span>
+
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
+
+<span data-ttu-id="ba7dc-288">和`Movies:ConnectionString``Movies:ServiceApiKey`机密映射到 中的`MovieSettings`相应属性：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-288">The `Movies:ConnectionString` and `Movies:ServiceApiKey` secrets are mapped to the respective properties in `MovieSettings`:</span></span>
+
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
+
+## <a name="string-replacement-with-secrets"></a><span data-ttu-id="ba7dc-289">字符串替换与机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-289">String replacement with secrets</span></span>
+
+<span data-ttu-id="ba7dc-290">以纯文本形式存储密码不安全。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-290">Storing passwords in plain text is insecure.</span></span> <span data-ttu-id="ba7dc-291">例如，存储在*appsettings.json*中的数据库连接字符串可能包含指定用户的密码：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-291">For example, a database connection string stored in *appsettings.json* may include a password for the specified user:</span></span>
+
+[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
+
+<span data-ttu-id="ba7dc-292">更安全的方法是将密码存储为机密。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-292">A more secure approach is to store the password as a secret.</span></span> <span data-ttu-id="ba7dc-293">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-293">For example:</span></span>
+
+```dotnetcli
+dotnet user-secrets set "DbPassword" "pass123"
+```
+
+<span data-ttu-id="ba7dc-294">从`Password`*appsettings.json*中的连接字符串中删除键值对。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-294">Remove the `Password` key-value pair from the connection string in *appsettings.json*.</span></span> <span data-ttu-id="ba7dc-295">例如：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-295">For example:</span></span>
+
+[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
+
+<span data-ttu-id="ba7dc-296">可以在<xref:System.Data.SqlClient.SqlConnectionStringBuilder>对象<xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A>的属性上设置机密的值以完成连接字符串：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-296">The secret's value can be set on a <xref:System.Data.SqlClient.SqlConnectionStringBuilder> object's <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> property to complete the connection string:</span></span>
+
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
+
+## <a name="list-the-secrets"></a><span data-ttu-id="ba7dc-297">列出机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-297">List the secrets</span></span>
+
+[!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
+
+<span data-ttu-id="ba7dc-298">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-298">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+
+```dotnetcli
+dotnet user-secrets list
+```
+
+<span data-ttu-id="ba7dc-299">将显示以下输出：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-299">The following output appears:</span></span>
+
+```console
+Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true
+Movies:ServiceApiKey = 12345
+```
+
+<span data-ttu-id="ba7dc-300">在前面的示例中，键名称中的冒号表示机密中的对象层次结构 *。*</span><span class="sxs-lookup"><span data-stu-id="ba7dc-300">In the preceding example, a colon in the key names denotes the object hierarchy within *secrets.json*.</span></span>
+
+## <a name="remove-a-single-secret"></a><span data-ttu-id="ba7dc-301">删除单个机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-301">Remove a single secret</span></span>
+
+[!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
+
+<span data-ttu-id="ba7dc-302">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-302">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+
+```dotnetcli
+dotnet user-secrets remove "Movies:ConnectionString"
+```
+
+<span data-ttu-id="ba7dc-303">应用的*机密.json*文件已修改以删除与`MoviesConnectionString`密钥关联的键值对：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-303">The app's *secrets.json* file was modified to remove the key-value pair associated with the `MoviesConnectionString` key:</span></span>
+
+```json
+{
+  "Movies": {
+    "ServiceApiKey": "12345"
+  }
+}
+```
+
+<span data-ttu-id="ba7dc-304">正在`dotnet user-secrets list`运行将显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-304">Running `dotnet user-secrets list` displays the following message:</span></span>
+
+```console
+Movies:ServiceApiKey = 12345
+```
+
+## <a name="remove-all-secrets"></a><span data-ttu-id="ba7dc-305">删除所有机密</span><span class="sxs-lookup"><span data-stu-id="ba7dc-305">Remove all secrets</span></span>
+
+[!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
+
+<span data-ttu-id="ba7dc-306">从*存在 .csproj*文件的目录中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-306">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+
+```dotnetcli
+dotnet user-secrets clear
+```
+
+<span data-ttu-id="ba7dc-307">应用程序的所有用户机密已从*机密.json*文件中删除：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-307">All user secrets for the app have been deleted from the *secrets.json* file:</span></span>
+
+```json
+{}
+```
+
+<span data-ttu-id="ba7dc-308">正在`dotnet user-secrets list`运行将显示以下消息：</span><span class="sxs-lookup"><span data-stu-id="ba7dc-308">Running `dotnet user-secrets list` displays the following message:</span></span>
+
+```console
+No secrets configured for this application.
+```
+
+## <a name="additional-resources"></a><span data-ttu-id="ba7dc-309">其他资源</span><span class="sxs-lookup"><span data-stu-id="ba7dc-309">Additional resources</span></span>
+
+* <span data-ttu-id="ba7dc-310">有关从 IIS 访问机密管理器的信息，请参阅[此问题](https://github.com/dotnet/AspNetCore.Docs/issues/16328)。</span><span class="sxs-lookup"><span data-stu-id="ba7dc-310">See [this issue](https://github.com/dotnet/AspNetCore.Docs/issues/16328) for information on accessing Secret Manager from IIS.</span></span>
+* <xref:fundamentals/configuration/index>
+* <xref:security/key-vault-configuration>
+
+::: moniker-end
