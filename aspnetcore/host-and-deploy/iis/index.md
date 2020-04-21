@@ -5,16 +5,27 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2020
+ms.date: 04/17/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: e4da57001ad369a8df87c7e0887772e3d75c032d
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 77f07ba89de4449c6d13006a5fd61499cb5cdfc0
+ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511218"
+ms.lasthandoff: 04/18/2020
+ms.locfileid: "81642749"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
+
+<!-- 
+
+    NOTE FOR 5.0
+    
+    When making the 5.0 version of this topic, remove the Hosting Bundle
+    direct download section from the (new) <5.0 & >2.2 version and modify 
+    the text and heading for the *Earlier versions of the installer* 
+    section. See the 2.2 version for an example.
+    
+-->
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -124,7 +135,7 @@ services.Configure<IISServerOptions>(options =>
 | ------------------------------ | :-----: | ------- |
 | `AutomaticAuthentication`      | `true`  | 若为 `true`，IIS 服务器将设置经过 [Windows 身份验证](xref:security/authentication/windowsauth)进行身份验证的 `HttpContext.User`。 若为 `false`，服务器仅提供 `HttpContext.User` 的标识并在 `AuthenticationScheme` 显式请求时响应质询。 必须在 IIS 中启用 Windows 身份验证使 `AutomaticAuthentication` 得以运行。 有关详细信息，请参阅 [Windows 身份验证](xref:security/authentication/windowsauth)。 |
 | `AuthenticationDisplayName`    | `null`  | 设置在登录页上向用户显示的显示名。 |
-| `AllowSynchronousIO`           | `false` | `HttpContext.Request` 和 `HttpContext.Response` 是否允许同步 IO。 |
+| `AllowSynchronousIO`           | `false` | `HttpContext.Request` 和 `HttpContext.Response` 是否允许同步 I/O。 |
 | `MaxRequestBodySize`           | `30000000`  | 获取或设置 `HttpRequest` 的最大请求正文大小。 请注意，IIS 本身有限制 `maxAllowedContentLength`，这一限制将在 `IISServerOptions` 中设置 `MaxRequestBodySize` 之前进行处理。 更改 `MaxRequestBodySize` 不会影响 `maxAllowedContentLength`。 若要增加 `maxAllowedContentLength`，请在 web.config  中添加一个条目，将 `maxAllowedContentLength` 设置为更高值。 有关更多详细信息，请参阅[配置](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration)。 |
 
 **进程外承载模型**
@@ -250,9 +261,9 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 若要获取先前版本的安装程序：
 
 1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
-1. 单击所需的 .NET Core 版本。
+1. 选择所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
-1. 使用“运行时和托管捆绑包”  链接下载安装程序。
+1. 使用“托管捆绑包”链接下载安装程序  。
 
 > [!WARNING]
 > 某些安装程序包含已到达其生命周期结束 (EOL) 且不再受 Microsoft 支持的发行版本。 有关详细信息，请参阅[支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。
@@ -313,7 +324,7 @@ net start w3svc
 
 1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
-   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False`  。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
+   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False` 。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
 1. 确认进程模型标识拥有适当的权限。
 
@@ -393,7 +404,7 @@ net start w3svc
 
 * **配置 IIS 应用程序池以加载用户配置文件**
 
-  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True`  。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
+  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True` 。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
 
   同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
 
@@ -846,20 +857,12 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 >
 > 如果在安装 64 位 (x64) 版本的 .NET Core 之后安装了 Hosting Bundle，则可能看上去缺少 SDK（[未检测到 .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)）。 要解决此问题，请参阅 <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>。
 
-### <a name="direct-download-current-version"></a>直接下载（当前版本）
-
-使用以下链接下载安装程序：
-
-[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
-
-### <a name="earlier-versions-of-the-installer"></a>先前版本的安装程序
-
-若要获取先前版本的安装程序：
+### <a name="download"></a>下载
 
 1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
-1. 单击所需的 .NET Core 版本。
+1. 选择所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
-1. 使用“运行时和托管捆绑包”  链接下载安装程序。
+1. 使用“托管捆绑包”链接下载安装程序  。
 
 > [!WARNING]
 > 某些安装程序包含已到达其生命周期结束 (EOL) 且不再受 Microsoft 支持的发行版本。 有关详细信息，请参阅[支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。
@@ -917,7 +920,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
-   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False`  。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
+   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False` 。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
 1. 确认进程模型标识拥有适当的权限。
 
@@ -997,7 +1000,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 * **配置 IIS 应用程序池以加载用户配置文件**
 
-  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True`  。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
+  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True` 。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
 
   同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
 
@@ -1422,20 +1425,12 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 >
 > 如果在安装 64 位 (x64) 版本的 .NET Core 之后安装了 Hosting Bundle，则可能看上去缺少 SDK（[未检测到 .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)）。 要解决此问题，请参阅 <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>。
 
-### <a name="direct-download-current-version"></a>直接下载（当前版本）
-
-使用以下链接下载安装程序：
-
-[当前 .NET Core 托管捆绑包安装程序（直接下载）](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
-
-### <a name="earlier-versions-of-the-installer"></a>先前版本的安装程序
-
-若要获取先前版本的安装程序：
+### <a name="download"></a>下载
 
 1. 导航到 [ .NET Core](https://dotnet.microsoft.com/download/dotnet-core) 页面。
-1. 单击所需的 .NET Core 版本。
+1. 选择所需的 .NET Core 版本。
 1. 在“运行应用 - 运行时”  列中，查找所需的 .NET Core 运行时版本的那一行。
-1. 使用“运行时和托管捆绑包”  链接下载安装程序。
+1. 使用“托管捆绑包”链接下载安装程序  。
 
 > [!WARNING]
 > 某些安装程序包含已到达其生命周期结束 (EOL) 且不再受 Microsoft 支持的发行版本。 有关详细信息，请参阅[支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。
@@ -1493,7 +1488,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
 
-   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False`  。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
+   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False` 。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
 
 1. 确认进程模型标识拥有适当的权限。
 
@@ -1573,7 +1568,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 * **配置 IIS 应用程序池以加载用户配置文件**
 
-  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True`  。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
+  此设置位于应用池“高级设置”下的“进程模型”部分   。 将“加载用户配置文件”设置为 `True` 。 如果设置为 `True`，会将密钥存储在用户配置文件目录中，并使用 DPAPI 和特定于用户帐户的密钥进行保护。 密钥保存在 %LOCALAPPDATA%/ASP.NET/DataProtection-Keys  文件夹中。
 
   同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
 
