@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 4/20/2020
 uid: security/app-secrets
-ms.openlocfilehash: 9d4e59c003afc253971ee64fce523c7188d3582a
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
+ms.openlocfilehash: c62c5e59ad0a72506fb72bda82aa821a4f1719c8
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661803"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791595"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>ASP.NET核心开发中应用秘密的安全存储
 
@@ -75,7 +75,7 @@ dotnet user-secrets init
 
 前面的命令在`UserSecretsId`*.csproj*文件中添加一个`PropertyGroup`元素。 默认情况下，的内部`UserSecretsId`文本是 GUID。 内部文本是任意的，但对于项目是唯一的。
 
-[!code-xml[](app-secrets/samples/2.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
+[!code-xml[](app-secrets/samples/3.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
 
 在 Visual Studio 中，右键单击解决方案资源管理器中的项目，然后从上下文菜单中选择 **"管理用户机密**"。 此手势将一`UserSecretsId`个使用 GUID 填充的元素添加到 *.csproj*文件中。
 
@@ -142,18 +142,17 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 [ASP.NET核心配置 API](xref:fundamentals/configuration/index)提供对机密管理器机密的访问。
 
-在 ASP.NET Core 2.0 或更高版本中，当项目调用<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>使用预配置默认值初始化主机的新实例时，用户机密配置源将自动在开发模式下添加。 `CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName>为<xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>时调用 ：
+当用户调用<xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>使用预配置默认值初始化主机的新实例时，将在开发模式下自动添加用户机密配置源。 `CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A><xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName>为<xref:Microsoft.Extensions.Hosting.EnvironmentName.Development>时调用 ：
 
 [!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program.cs?name=snippet_CreateHostBuilder&highlight=2)]
 
-未`CreateDefaultBuilder`调用时，通过在<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>`Startup`构造函数中调用显式添加用户机密配置源。 仅在`AddUserSecrets`应用在开发环境中运行时调用，如以下示例所示：
+未`CreateDefaultBuilder`调用时，请通过调用<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>显式添加用户机密配置源。 仅在`AddUserSecrets`应用在开发环境中运行时调用，如以下示例所示：
 
-[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup2.cs?name=snippet_StartupConstructor&highlight=12)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program2.cs?name=snippet_Host&highlight=6-9)]
 
 可通过`Configuration`API 检索用户机密：
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
-
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
 
 ## <a name="map-secrets-to-a-poco"></a>将机密映射到 POCO
 
@@ -163,17 +162,17 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 要将上述机密映射到 POCO，请使用`Configuration`API[的对象图形绑定](xref:fundamentals/configuration/index#bind-to-an-object-graph)功能。 以下代码绑定到自定义`MovieSettings`POCO 并访问`ServiceApiKey`属性值：
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
 
 和`Movies:ConnectionString``Movies:ServiceApiKey`机密映射到 中的`MovieSettings`相应属性：
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
 ## <a name="string-replacement-with-secrets"></a>字符串替换与机密
 
 以纯文本形式存储密码不安全。 例如，存储在*appsettings.json*中的数据库连接字符串可能包含指定用户的密码：
 
-[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
+[!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
 更安全的方法是将密码存储为机密。 例如：
 
@@ -183,11 +182,11 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 从`Password`*appsettings.json*中的连接字符串中删除键值对。 例如：
 
-[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
+[!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings.json?highlight=3)]
 
 可以在<xref:System.Data.SqlClient.SqlConnectionStringBuilder>对象<xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A>的属性上设置机密的值以完成连接字符串：
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
 
 ## <a name="list-the-secrets"></a>列出机密
 
@@ -388,15 +387,13 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 如果项目的目标是 .NET 框架，请安装[Microsoft.扩展.配置.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet 包。
 
-
 在 ASP.NET Core 2.0 或更高版本中，当项目调用<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>使用预配置默认值初始化主机的新实例时，用户机密配置源将自动在开发模式下添加。 `CreateDefaultBuilder`当<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName>为<xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>时调用 ：
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-
 未`CreateDefaultBuilder`调用时，通过在<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>`Startup`构造函数中调用显式添加用户机密配置源。 仅在`AddUserSecrets`应用在开发环境中运行时调用，如以下示例所示：
 
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_StartupConstructor&highlight=12)]
 
 可通过`Configuration`API 检索用户机密：
 
