@@ -5,17 +5,17 @@ description: 了解如何使 Razor 组件能够供位于不同区域、使用不
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 04/14/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: aba62fa7b6285c8ba884652694f1ea3e3a66ed18
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1b0db66b23c0caffc6b7c4e4af723c020609612a
+ms.sourcegitcommit: d5d45d84fe488427d418de770000f7df44a08370
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644892"
+ms.lasthandoff: 04/17/2020
+ms.locfileid: "81539656"
 ---
 # <a name="aspnet-core-opno-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -28,7 +28,7 @@ Razor 组件可供位于不同区域、使用不同语言的用户使用。 以�
 
 当前支持有限的 ASP.NET Core 本地化方案：
 
-* Blazor 应用中支持 `IStringLocalizer<>`  。
+* Blazor 应用中支持 `IStringLocalizer<>` 。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>` 和数据注释本地化是 ASP.NET Core MVC 方案，在 Blazor 应用中不受支持  。
 
 有关详细信息，请参阅 <xref:fundamentals/localization>。
@@ -60,6 +60,18 @@ Blazor 的 `@bind` 功能基于用户的当前区域性执行格式并分析值�
 
 ## <a name="localization"></a>本地化
 
+### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+
+Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)设置区域性。
+
+若要显式配置区域性，请在 `Program.Main` 中设置 `CultureInfo.DefaultThreadCurrentCulture` 和 `CultureInfo.DefaultThreadCurrentUICulture`。
+
+默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>。
+
+虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [LocSample](https://github.com/pranavkm/LocSample) 本地化示例应用。
+
+### <a name="opno-locblazor-server"></a>Blazor 服务器
+
 Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
 
 可使用以下方法之一设置区域性：
@@ -69,11 +81,7 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 
 有关更多信息和示例，请参见<xref:fundamentals/localization>。
 
-### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>为国际化配置链接器 (Blazor WebAssembly)
-
-默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 有关控制链接器行为的详细信息和指南，请参阅 <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>。
-
-### <a name="cookies"></a>Cookie
+#### <a name="cookies"></a>Cookie
 
 本地化区域性 cookie 可以保留用户的区域性。 该 cookie 是通过应用主机页 (Pages/Host.cshtml.cs) 的 `OnGet` 方法创建的  。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
 
@@ -81,7 +89,7 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 
 如果在本地化 cookie 中保留了区域性，则可以使用任意方法来分配区域性。 如果该应用已经为服务器端 ASP.NET Core 建立了本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
 
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor 服务器应用中创建包含以下内容的 Pages/Host.cshtml.cs 文件  ：
+下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor Server 应用中创建包含以下内容的 Pages/_Host.cshtml.cs 文件  ：
 
 ```csharp
 public class HostModel : PageModel
@@ -107,9 +115,9 @@ public class HostModel : PageModel
 1. 本地化中间件读取 cookie 并分配区域性。
 1. Blazor 服务器会话以正确的区域性开始。
 
-### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
+#### <a name="provide-ui-to-choose-the-culture"></a>提供用于选择区域性的 UI
 
-若要提供支持用户选择区域性的 UI，建议使用基于重定向的方法  。 此过程类似于用户尝试访问安全资源时在 web 应用中发生的情况 &mdash; 用户重定向到登录页，然后重定向回原始资源。 
+若要提供支持用户选择区域性的 UI，建议使用基于重定向的方法  。 此过程与用户尝试访问安全资源时 Web 应用中发生的情况类似。 用户会被重定向到登录页面，然后再重定向到原始资源。 
 
 应用通过重定向到控制器来保留用户的所选区域性。 控制器将用户选择的区域性设置为 cookie，然后将用户重定向回原始 URI。
 
@@ -154,7 +162,7 @@ public class CultureController : Controller
     private void OnSelected(ChangeEventArgs e)
     {
         var culture = (string)e.Value;
-        var uri = new Uri(NavigationManager.Uri())
+        var uri = new Uri(NavigationManager.Uri)
             .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
         var query = $"?culture={Uri.EscapeDataString(culture)}&" +
             $"redirectUri={Uri.EscapeDataString(uri)}";

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/1/2020
 uid: fundamentals/routing
-ms.openlocfilehash: 5742ac6879ce46e01247ddd2f8bfe3e3b8a2a02a
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 0fc89ccf15c14c67f284a7084a21159af300a195
+ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80751158"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81277218"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -454,6 +454,8 @@ URL 生成：
 
 复杂段通过[非贪婪](#greedy)的方式从右到左匹配文字进行处理。 例如，`[Route("/a{b}c{d}")]` 是一个复杂段。
 复杂段以一种特定的方式工作，必须理解这种方式才能成功地使用它们。 本部分中的示例演示了为什么复杂段只有在分隔符文本没有出现在参数值中时才真正有效。 对于更复杂的情况，需要使用 [regex](/dotnet/standard/base-types/regular-expressions)，然后手动提取值。
+
+[!INCLUDE[](~/includes/regex.md)]
 
 这是使用模板 `/a{b}c{d}` 和 URL 路径 `/abcd` 执行路由的步骤摘要。 `|` 有助于可视化算法的工作方式：
 

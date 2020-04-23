@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d7ee3e42d320d35c2aaff6e097203c45289ec5b1
+ms.sourcegitcommit: fbdb8b9ab5a52656384b117ff6e7c92ae070813c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646554"
+ms.lasthandoff: 04/13/2020
+ms.locfileid: "81228122"
 ---
 # <a name="deploy-an-app-to-app-service"></a>将应用部署到应用服务
 
@@ -85,7 +85,7 @@ ms.locfileid: "78646554"
 
     b. 创建资源组。 通过资源组可将 Azure 资源聚合起来，以组的形式进行管理。
 
-    ```azure-cli
+    ```azurecli
     az group create --location centralus --name AzureTutorial
     ```
 
@@ -93,25 +93,25 @@ ms.locfileid: "78646554"
 
     c. 在 S1 层级创建应用服务计划。 应用服务计划是一组共享同一定价层的 Web 应用。 S1 层级并不免费，但却是过渡槽功能所必需的。
 
-    ```azure-cli
+    ```azurecli
     az appservice plan create --name $webappname --resource-group AzureTutorial --sku S1
     ```
 
     d. 使用同一资源组中的应用服务计划创建 Web 应用资源。
 
-    ```azure-cli
+    ```azurecli
     az webapp create --name $webappname --resource-group AzureTutorial --plan $webappname
     ```
 
     e. 设置部署凭据。 这些部署凭据适用于订阅中的所有 Web 应用。 用户名中不要使用特殊字符。
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment user set --user-name REPLACE_WITH_USER_NAME --password REPLACE_WITH_PASSWORD
     ```
 
     f. 将 Web 应用配置为接受本地 Git 部署并显示 Git 部署 URL  。 请记下此 URL 供稍后参考  。
 
-    ```azure-cli
+    ```azurecli
     echo Git deployment URL: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --query url --output tsv)
     ```
 
@@ -170,13 +170,13 @@ Visual Studio 会构建应用并将其部署到 Azure。 访问 Web 应用 URL�
 
     a. 创建名为“过渡”的部署槽位  。
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment slot create --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
     b. 将过渡槽配置为使用本地 Git 部署并获取过渡部署 URL  。 请记下此 URL 供稍后参考  。
 
-    ```azure-cli
+    ```azurecli
     echo Git deployment URL for staging: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --slot staging --query url --output tsv)
     ```
 
@@ -216,7 +216,7 @@ Visual Studio 会构建应用并将其部署到 Azure。 访问 Web 应用 URL�
 
 7. 在 Cloud Shell 中，将已验证/已准备好的过渡槽交换到生产环境。
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment slot swap --name $webappname --resource-group AzureTutorial --slot staging
     ```
 

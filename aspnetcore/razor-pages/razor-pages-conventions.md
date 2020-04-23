@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: f45e327051aba54d1cab67148eb540fb1a5cc149
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 6124554d5f9859179edfb5c545cf0b082369c0c9
+ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78651108"
+ms.lasthandoff: 04/18/2020
+ms.locfileid: "81642738"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core 中 Razor 页面的路由和应用约定
 
@@ -24,7 +24,7 @@ ms.locfileid: "78651108"
 
 若要指定页面路由、添加路由段或向路由添加参数，请使用页面的 `@page` 指令。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)。
 
-有些保留字不能用作路由段或参数名称。 有关详细信息，请参阅[路由：保留的路由名称](xref:fundamentals/routing#reserved-routing-names)。
+有些保留字不能用作路由段或参数名称。 有关详细信息，请参阅[路由：保留的路由名称](xref:mvc/controllers/routing#reserved-routing-names)。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -192,18 +192,11 @@ public void ConfigureServices(IServiceCollection services)
                     new SlugifyParameterTransformer()));
         });
 }
-
-public class SlugifyParameterTransformer : IOutboundParameterTransformer
-{
-    public string TransformOutbound(object value)
-    {
-        if (value == null) { return null; }
-
-        // Slugify value
-        return Regex.Replace(value.ToString(), "([a-z])([A-Z])", "$1-$2").ToLower();
-    }
-}
 ```
+
+[!code-csharp[](~/mvc/controllers/routing/samples/3.x/main/StartupSlugifyParamTransformer.cs?name=snippet2)]
+
+[!INCLUDE[](~/includes/regex.md)]
 
 ## <a name="configure-a-page-route"></a>配置页面路由
 
