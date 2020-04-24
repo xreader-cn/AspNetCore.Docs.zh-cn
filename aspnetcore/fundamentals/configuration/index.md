@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: d76ca78bc988f859b4e99752a0e88735e1df1d82
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 506f01ace72d6e915c0f3ebdaae5b4a3328a79b9
+ms.sourcegitcommit: e72a58d6ebde8604badd254daae8077628f9d63e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80501331"
+ms.lasthandoff: 04/10/2020
+ms.locfileid: "81007153"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -311,7 +311,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 * 分层键
   * 在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。
   * 在环境变量中，冒号分隔符可能无法适用于所有平台。 所有平台均支持采用双下划线 `__`，并且它会自动转换为冒号 `:`。
-  * 在 Azure Key Vault 中，分层键使用 `--` 作为分隔符。 在机密加载到应用的配置中时，写入代码以用 `:` 替换 `--`。
+  * 在 Azure Key Vault 中，分层键使用 `--` 作为分隔符。 当机密加载到应用的配置中时，[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration) 会自动将 `--` 替换为 `:`。
 * <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。 数组绑定将在[将数组绑定到类](#boa)部分中进行介绍。
 
 配置值：

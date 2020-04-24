@@ -357,7 +357,7 @@
           uid: blazor/handle-errors
         - name: 调试 WebAssembly
           uid: blazor/debug
-        - name: 调用 Web API
+        - name: 从 WebAssembly 调用 Web API
           uid: blazor/call-web-api
         - name: 渐进式 Web 应用程序
           uid: blazor/progressive-web-app
