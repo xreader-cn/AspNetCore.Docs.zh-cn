@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/23/2020
+ms.date: 04/24/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 043e4548ad6f40fdf1e6c27cd51946c7bf59a66e
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: 25aa7761b9c1acc72081653422e80cb004500573
+ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 04/24/2020
-ms.locfileid: "82110938"
+ms.locfileid: "82138516"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证Blazor库保护 ASP.NET Core WebAssembly 独立应用
 
@@ -24,9 +24,6 @@ ms.locfileid: "82110938"
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
-
-> [!NOTE]
-> 本文中的指南适用于 ASP.NET Core 3.2 预览版4。 本主题将更新到2005年4月24日星期五的预览版5。
 
 *对于 Azure Active Directory （AAD）和 Azure Active Directory B2C （AAD B2C），请勿按照本主题中的指导进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。*
 
@@ -63,16 +60,26 @@ Program.cs  :
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
 {
-    options.ProviderOptions.Authority = "{AUTHORITY}";
-    options.ProviderOptions.ClientId = "{CLIENT ID}";
+    builder.Configuration.Bind("Local", options.ProviderOptions);
 });
+```
+
+配置由*wwwroot/appsettings*文件提供：
+
+```json
+{
+    "Local": {
+        "Authority": "{AUTHORITY}",
+        "ClientId": "{CLIENT ID}"
+    }
+}
 ```
 
 使用 Open ID Connect （OIDC）提供对独立应用程序的身份验证支持。 `AddOidcAuthentication`方法接受回调来配置使用 OIDC 对应用进行身份验证所需的参数。 配置应用所需的值可以从 OIDC 兼容的 IP 获得。 注册应用时获取值，此操作通常发生在其联机门户中。
 
 ## <a name="access-token-scopes"></a>访问令牌范围
 
-Blazor WebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将令牌设置为登录流的一部分，请将作用域添加到的默认令牌范围中`OidcProviderOptions`：
+Blazor WebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将访问令牌设置为登录流的一部分，请将作用域添加到的默认令牌范围中`OidcProviderOptions`：
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
@@ -95,11 +102,10 @@ builder.Services.AddOidcAuthentication(options =>
 >     "{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}");
 > ```
 
-有关详细信息，请参阅 <xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens>。
+有关详细信息，请参阅*其他方案*一文中的以下部分：
 
-<!--
-    For more information, see <xref:security/blazor/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests>.
--->
+* [请求其他访问令牌](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
+* [将令牌附加到传出请求](xref:security/blazor/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests)
 
 ## <a name="imports-file"></a>导入文件
 
@@ -130,4 +136,3 @@ builder.Services.AddOidcAuthentication(options =>
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:security/blazor/webassembly/additional-scenarios>
- 
