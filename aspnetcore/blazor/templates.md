@@ -5,17 +5,17 @@ description: 了解 ASP.NET Core Blazor 应用模板和 Blazor 项目结构。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 71a9d9eee8637dda0b3cecac82ff96a0c3bfedb5
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0a4a508beeae3d7bc665372d925989aa4e34ad52
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80320979"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661716"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -31,6 +31,13 @@ Blazor 框架提供了一些模板，用于为每个 Blazor 托管模型开发�
 有关 Blazor 的托管模型的详细信息，请参阅 <xref:blazor/hosting-models>。
 
 有关基于模板创建 Blazor 应用的分步说明，请参阅 <xref:blazor/get-started>。
+
+可通过将 `--help` 选项传递给 [dotnet new](/dotnet/core/tools/dotnet-new) CLI 命令，让模板选项可供使用：
+
+```dotnetcli
+dotnet new blazorwasm --help
+dotnet new blazorserver --help
+```
 
 ## <a name="opno-locblazor-project-structure"></a>Blazor 项目结构
 

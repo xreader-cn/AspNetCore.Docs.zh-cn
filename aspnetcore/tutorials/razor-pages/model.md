@@ -5,12 +5,12 @@ description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管�
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: f6dbac81b4efceb30c379ab06dd715005d879228
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 7f7c2a09b74e6007ee3ea9c038398bac54988186
+ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647172"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81488866"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -20,7 +20,7 @@ ms.locfileid: "78647172"
 
 <!-- In the next update on the CLI version, let the scaffolder do the same work the VS driven scaffolder does. That is, create the DB context, etc -->
 
-在本节中，添加了用于管理跨平台 [SQLite 数据库](https://www.sqlite.org/index.html)中的电影的类。 从 ASP.NET Core 模板创建的应用使用 SQLite 数据库。 应用的模型类配合 [Entity Framework Core (EF Core)](/ef/core)（[SQLite EF Core 数据库提供程序](/ef/core/providers/sqlite)）使用，以处理数据库。 EF Core 是一种对象关系映射 (ORM) 框架，可以简化数据访问。
+在该部分，会添加类管理影片。 应用的模型类使用 [Entity Framework Core (EF Core)](/ef/core) 来处理数据库。 EF Core 是一种对象关系映射器 (ORM)，可简化数据访问。
 
 模型类称为 POCO 类（源自“简单传统 CLR 对象”），因为它们与 EF Core 没有任何依赖关系。 它们定义数据库中存储的数据属性。
 

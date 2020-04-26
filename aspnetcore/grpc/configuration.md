@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 02/26/2020
 uid: grpc/configuration
-ms.openlocfilehash: cabe2d86f535bf3063dd7ede9e8a3bc5de70e244
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4c13c45ce745643c3cb089a1c984d2ef599db48b
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650694"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440826"
 ---
 # <a name="grpc-for-net-configuration"></a>适用于 .NET 的 gRPC 配置
 
@@ -22,8 +22,8 @@ gRPC 服务在 Startup.cs  中使用 `AddGrpc` 进行配置。 下表描述了�
 
 | 选项 | 默认值 | 描述 |
 | ------ | ------------- | ----------- |
-| MaxSendMessageSize | `null` | 可以从服务器发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息会导致异常。 |
-| MaxReceiveMessageSize | 4 MB | 可以由服务器接收的最大消息大小（以字节为单位）。 如果服务器收到的消息超过此限制，则会引发异常。 增大此值可使服务器接收更大的消息，但可能会对内存消耗产生负面影响。 |
+| MaxSendMessageSize | `null` | 可以从服务器发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息会导致异常。 设置为 `null`时，消息的大小不受限制。 |
+| MaxReceiveMessageSize | 4 MB | 可以由服务器接收的最大消息大小（以字节为单位）。 如果服务器收到的消息超过此限制，则会引发异常。 增大此值可使服务器接收更大的消息，但可能会对内存消耗产生负面影响。 设置为 `null`时，消息的大小不受限制。 |
 | EnableDetailedErrors | `false` | 如果为 `true`，则当服务方法中引发异常时，会将详细异常消息返回到客户端。 默认值为 `false`。 将 `EnableDetailedErrors` 设置为 `true` 可能会泄漏敏感信息。 |
 | CompressionProviders | gzip | 用于压缩和解压缩消息的压缩提供程序的集合。 可以创建自定义压缩提供程序并将其添加到集合中。 默认已配置提供程序支持 gzip  压缩。 |
 | <span style="word-break:normal;word-wrap:normal">ResponseCompressionAlgorithm</span> | `null` | 压缩算法用于压缩从服务器发送的消息。 该算法必须与 `CompressionProviders` 中的压缩提供程序匹配。 若要使算法可压缩响应，客户端必须通过在 grpc-accept-encoding  标头中进行发送来指示它支持算法。 |
@@ -47,8 +47,8 @@ gRPC 客户端配置在 `GrpcChannelOptions` 中进行设置。 下表描述了�
 | HttpClient | 新实例 | 用于进行 gRPC 调用的 `HttpClient`。 可以将客户端设置为配置自定义 `HttpClientHandler`，或将附加处理程序添加到 gRPC 调用的 HTTP 管道。 如果未指定 `HttpClient`，则会为通道创建新 `HttpClient` 实例。 它会自动进行处置。 |
 | DisposeHttpClient | `false` | 如果为 `true` 并且指定了 `HttpClient`，则在处置 `GrpcChannel` 时会处置 `HttpClient` 实例。 |
 | LoggerFactory | `null` | 客户端用于记录有关 gRPC 调用的信息的 `LoggerFactory`。 可以通过依赖项注入来解析或使用 `LoggerFactory.Create` 来创建 `LoggerFactory` 实例。 有关配置日志记录的示例，请参阅 <xref:grpc/diagnostics#grpc-client-logging>。 |
-| MaxSendMessageSize | `null` | 可以从客户端发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息会导致异常。 |
-| <span style="word-break:normal;word-wrap:normal">MaxReceiveMessageSize</span> | 4 MB | 可以由客户端接收的最大消息大小（以字节为单位）。 如果客户端收到的消息超过此限制，则会引发异常。 增大此值可使客户端接收更大的消息，但可能会对内存消耗产生负面影响。 |
+| MaxSendMessageSize | `null` | 可以从客户端发送的最大消息大小（以字节为单位）。 尝试发送超过配置的最大消息大小的消息会导致异常。 设置为 `null`时，消息的大小不受限制。 |
+| <span style="word-break:normal;word-wrap:normal">MaxReceiveMessageSize</span> | 4 MB | 可以由客户端接收的最大消息大小（以字节为单位）。 如果客户端收到的消息超过此限制，则会引发异常。 增大此值可使客户端接收更大的消息，但可能会对内存消耗产生负面影响。 设置为 `null`时，消息的大小不受限制。 |
 | 凭据 | `null` | 一个 `ChannelCredentials` 实例。 凭据用于将身份验证元数据添加到 gRPC 调用。 |
 | CompressionProviders | gzip | 用于压缩和解压缩消息的压缩提供程序的集合。 可以创建自定义压缩提供程序并将其添加到集合中。 默认已配置提供程序支持 gzip  压缩。 |
 

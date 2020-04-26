@@ -5,21 +5,21 @@ description: 了解如何在 Blazor 应用中从 JavaScript 函数调用 .NET �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 04/07/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 7a27b6f1be2ef296d5b2b2a4f566e0cdedbe6480
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0c6b6a0a8f88fa912523e7772fcd84ef4ce3b4ff
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647520"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80977010"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-opno-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
-作者：[Javier Calvarro Nelson](https://github.com/javiercn)[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
+作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -35,7 +35,7 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 下面的示例基于 [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 该示例演示如何从 C# 方法调用 JavaScript 函数。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
 
-在 wwwroot/index.html`<head>` *(* WebAssembly) 或 Pages/_Host.cshtmlBlazor *（* 服务器）的 Blazor 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
+在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
 
 [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-convertarray.html)]
 
@@ -47,7 +47,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 以下组件：
 
-* 在选择了组件按钮（“转换数组”`convertArray``JSRuntime`）时使用 **调用** JavaScript 函数。
+* 在选择了组件按钮（“转换数组”  ）时使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
 * 调用 JavaScript 函数之后，传递的数组会转换为字符串。 该字符串会返回给组件进行显示。
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
@@ -60,7 +60,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  在 wwwroot/index.html`<head>` *(* WebAssembly) 或 Pages/_Host.cshtmlBlazor *（* 服务器）的 Blazor 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
+  在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
@@ -68,7 +68,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  在 wwwroot/index.html`<head>` *(* WebAssembly) 或 Pages/_Host.cshtmlBlazor *（* 服务器）的 Blazor 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
+  在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -100,7 +100,7 @@ Pages/_Host.cshtml  （Blazor 服务器）：
 
 请勿将 `<script>` 标记置于组件文件中，因为 `<script>` 标记无法动态更新。
 
-.NET 方法通过调用  *与 exampleJsInterop.js*`IJSRuntime.InvokeAsync<T>` 文件中的 JavaScript 函数进行互操作。
+.NET 方法通过调用 `IJSRuntime.InvokeAsync<T>` 与 exampleJsInterop.js  文件中的 JavaScript 函数进行互操作。
 
 `IJSRuntime` 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 `IJSInProcessRuntime` 并改为调用 `Invoke<T>`。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
@@ -141,7 +141,7 @@ Pages/JSInterop.razor  ：
 }
 ```
 
-1. 通过选择组件的“触发 JavaScript 提示符”`TriggerJsPrompt`**按钮来执行**  时，则会调用在 wwwroot/exampleJsInterop.js`showPrompt`*文件中提供的 JavaScript* 函数。
+1. 通过选择组件的“触发 JavaScript 提示符”  按钮来执行 `TriggerJsPrompt` 时，则会调用在 wwwroot/exampleJsInterop.js  文件中提供的 JavaScript `showPrompt` 函数。
 1. `showPrompt` 函数接受进行 HTML 编码并返回给组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量 `name` 中。
 1. 存储在 `name` 中的字符串会合并为欢迎消息，而该消息会传递给 JavaScript 函数 `displayWelcome`（它将欢迎消息呈现到标题标记中）。
 
@@ -175,7 +175,7 @@ Pages/JSInterop.razor  ：
 > [!WARNING]
 > 只使用元素引用改变不与 Blazor 交互的空元素的内容。 当第三方 API 向元素提供内容时，此方案十分有用。 由于 Blazor 不与元素交互，因此在 Blazor 的元素表示形式与 DOM 之间不可能存在冲突。
 >
-> 在下面的示例中，改变无序列表 ( *) 的内容具有危险性*`ul`，因为 Blazor 会与 DOM 交互以填充此元素的列表项 (`<li>`)：
+> 在下面的示例中，改变无序列表 (`ul`) 的内容具有危险性  ，因为 Blazor 会与 DOM 交互以填充此元素的列表项 (`<li>`)：
 >
 > ```razor
 > <ul ref="MyList">
@@ -188,7 +188,7 @@ Pages/JSInterop.razor  ：
 >
 > 如果 JS 互操作改变元素 `MyList` 的内容，并且 Blazor 尝试将差异应用于元素，则差异与 DOM 不匹配。
 
-就 .NET 代码而言，`ElementReference` 是不透明的句柄。 可以对  *执行的唯一*`ElementReference`操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
+就 .NET 代码而言，`ElementReference` 是不透明的句柄。 可以对 `ElementReference` 执行的唯一  操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
 
 例如，以下代码定义一个 .NET 扩展方法，通过该方法可在元素上设置焦点：
 
@@ -216,7 +216,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 }
 ```
 
-`Focus` 方法在对象上直接调用。 下面的示例假设可从 `Focus` 命名空间使用 `JsInteropClasses` 方法：
+`Focus` 方法在对象上直接调用。 下面的示例假设可从 `JsInteropClasses` 命名空间使用 `Focus` 方法：
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component2.razor?highlight=1-4,12)]
 
@@ -234,7 +234,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 }
 ```
 
-`GenericMethod` 在具有类型的对象上直接调用。 下面的示例假设可从 `GenericMethod` 命名空间使用 `JsInteropClasses`：
+`GenericMethod` 在具有类型的对象上直接调用。 下面的示例假设可从 `JsInteropClasses` 命名空间使用 `GenericMethod`：
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component3.razor?highlight=17)]
 
@@ -249,7 +249,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 以下 Blazor WebAssembly 示例演示了该方法。
 
-在 wwwroot/index.html`<head>`*的* 中：
+在 wwwroot/index.html  的 `<head>` 中：
 
 ```html
 <style>
@@ -257,7 +257,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </style>
 ```
 
-在 wwwroot/index.html`<body>`*的* 中：
+在 wwwroot/index.html  的 `<body>` 中：
 
 ```html
 <script>
@@ -461,6 +461,18 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
 有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server>。
 
 [!INCLUDE[Share interop code in a class library](~/includes/blazor-share-interop-code.md)]
+
+## <a name="avoid-circular-object-references"></a>避免循环引用对象
+
+不能在客户端上针对以下调用就包含循环引用的对象进行序列化：
+
+* .NET 方法调用。
+* 返回类型具有循环引用时，从 C# 发出的 JavaScript 方法调用。
+
+有关详细信息，请查看以下问题：
+
+* [循环引用不受支持，使用两个按钮 (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)
+* [建议：在序列化时添加机制来处理循环引用 (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 31161d6841986cb0bd8080468e5d523d59400490
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ced0cb7cbeed1b8811813a70035c2e0b42c3e35a
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405921"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440774"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 的 Docker 映像
 
 本教程演示如何在 Docker 容器中运行 ASP.NET Core 应用。
 
-本教程介绍以下操作：
+在本教程中，你将了解：
 > [!div class="checklist"]
 > * 了解 Microsoft.NET 核心 Docker 映像
 > * 下载 ASP.NET Core 示例应用
@@ -40,7 +40,7 @@ ms.locfileid: "80405921"
 
    此示例将此映像用于运行应用。 此映像包含 ASP.NET Core 运行时和库，并针对在生产中运行应用进行了优化。 此映像专为部署和应用启动的速度而设计，相对较小，因此优化了从 Docker 注册表到 Docker 主机的网络性能。 仅将运行应用所需的二进制文件和内容复制到容器。 已准备运行内容，以此实现从 `Docker run` 到应用启动的最快时间。 Docker 模型中不需要动态代码编译。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 ::: moniker range="< aspnetcore-3.0"
 
 * [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core)
@@ -187,7 +187,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Dockerfile
 
-下面是先前运行的  *命令使用的 Dockerfile*`docker build`。  它以本部分中所用的方式使用 `dotnet publish` 进行生成和部署。  
+下面是先前运行的 `docker build` 命令使用的 Dockerfile  。  它以本部分中所用的方式使用 `dotnet publish` 进行生成和部署。  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
@@ -223,7 +223,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Dockerfile
 
-下面是先前运行的  *命令使用的 Dockerfile*`docker build`。  它以本部分中所用的方式使用 `dotnet publish` 进行生成和部署。  
+下面是先前运行的 `docker build` 命令使用的 Dockerfile  。  它以本部分中所用的方式使用 `dotnet publish` 进行生成和部署。  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
@@ -262,7 +262,8 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 * [ASP.NET Core Docker 示例](https://github.com/dotnet/dotnet-docker)（本教程中使用的示例。）
 * [配置 ASP.NET Core 以使用代理服务器和负载均衡器](/aspnet/core/host-and-deploy/proxy-load-balancer)
 * [使用 Visual Studio Docker 工具](https://docs.microsoft.com/aspnet/core/publishing/visual-studio-tools-for-docker)
-* [使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers) 
+* [使用 Visual Studio Code 进行调试](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers)
+* [使用 Docker 和小型容器的 GC](xref:performance/memory#sc)
 
 ## <a name="next-steps"></a>后续步骤
 

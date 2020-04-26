@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 97deafd520926476f7653fc3de40d577b394734b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 54d3f1e7b0c94d69781c052694305a389a675019
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648198"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80977166"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 的新增功能
 
@@ -107,7 +107,7 @@ ASP.NET Core Web 项目模板已更新为 [Bootstrap 4](https://getbootstrap.com
 
 ## <a name="validation-performance"></a>验证性能
 
-MVC 的验证系统设计为具有可扩展性和灵活性，从而使你可以基于每个请求确定应用于给定模型的验证程序。 这非常适用于创作复杂的验证提供程序。 但是在最常见的情况下，应用程序仅使用内置验证程序，无需这一额外的灵活性。 内置验证程序包括 DataAnnotations（如 [Required] 和 [StringLength]）和 `IValidatableObject`。
+根据设计，MVC 的验证系统具有可扩展性和灵活性，让你能够基于每个请求确定应用于给定模型的验证程序。 这非常适用于创作复杂的验证提供程序。 但最常见的情况是，应用程序仅使用内置验证程序，不需要这种额外的灵活性。 内置验证程序包括 DataAnnotations（如 [Required] 和 [StringLength]）和 `IValidatableObject`。
 
 在 ASP.NET Core 2.2 中，如果 MVC 确定给定模型关系图不需要验证，则可以绕过验证。 在验证无法具有或不具有任何验证程序的模型时，跳过验证可获得显著改进。 这包括诸如基元集合（如 `byte[]`、`string[]`、`Dictionary<string, string>` ）之类的对象，或没有许多验证程序的复杂对象关系图。
 

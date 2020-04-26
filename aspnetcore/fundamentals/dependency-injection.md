@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/26/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 943ea30c2e4887638f69b6dcdb7e323bcee40240
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4e990329b7ebcfc9cbbff8a3c9895604a22461d3
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405981"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661700"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -196,7 +196,7 @@ public void ConfigureServices(IServiceCollection services)
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
 
 > [!WARNING]
-> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
+> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
 
 ### <a name="singleton"></a>单例
 
@@ -261,9 +261,9 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 构造函数可以接受依赖关系注入不提供的参数，但参数必须分配默认值。
 
-当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，构造函数注入需要 *public* 构造函数。
+当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)需要 public 构造函数  。
 
-当服务由 `ActivatorUtilities` 解析时，构造函数注入要求只存在一个适用的构造函数。 支持构造函数重载，但其参数可以全部通过依赖注入来实现的重载只能存在一个。
+当服务由 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)要求只存在一个适用的构造函数。 支持构造函数重载，但其参数可以全部通过依赖注入来实现的重载只能存在一个。
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 
@@ -733,7 +733,7 @@ public void ConfigureServices(IServiceCollection services)
 作用域生存期服务 (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) 以每个客户端请求（连接）一次的方式创建。
 
 > [!WARNING]
-> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过构造函数注入进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
+> 在中间件内使用有作用域的服务时，请将该服务注入至 `Invoke` 或 `InvokeAsync` 方法。 请不要通过[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)进行注入，因为它会强制服务的行为与单一实例类似。 有关详细信息，请参阅 <xref:fundamentals/middleware/write#per-request-middleware-dependencies>。
 
 ### <a name="singleton"></a>单例
 
@@ -798,9 +798,9 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 构造函数可以接受依赖关系注入不提供的参数，但参数必须分配默认值。
 
-当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，构造函数注入需要 *public* 构造函数。
+当服务由 `IServiceProvider` 或 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)需要 public 构造函数  。
 
-当服务由 `ActivatorUtilities` 解析时，构造函数注入要求只存在一个适用的构造函数。 支持构造函数重载，但其参数可以全部通过依赖注入来实现的重载只能存在一个。
+当服务由 `ActivatorUtilities` 解析时，[构造函数注入](xref:mvc/controllers/dependency-injection#constructor-injection)要求只存在一个适用的构造函数。 支持构造函数重载，但其参数可以全部通过依赖注入来实现的重载只能存在一个。
 
 ## <a name="entity-framework-contexts"></a>实体框架上下文
 

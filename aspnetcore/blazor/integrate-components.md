@@ -5,17 +5,17 @@ description: 了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/17/2020
+ms.date: 04/14/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: cf6056e0985d5433bddecac8dd183ca3f4c2af5b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: c242fbef70d289929d5c005abc0aa431619862b3
+ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218929"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81383973"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
@@ -23,7 +23,14 @@ ms.locfileid: "80218929"
 
 Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图时，可以同时预呈现组件。
 
-## <a name="prepare-the-app-to-use-components-in-pages-and-views"></a>准备应用以在页面和视图中使用组件
+[准备好应用](#prepare-the-app)后，根据应用的要求按照下列部分中的指南操作：
+
+* 可路由的组件 &ndash; 针对的是可直接通过用户请求进行路由的组件。 如果访问者应该能够使用 [`@page`](xref:mvc/views/razor#page) 指令在浏览器中为组件发出 HTTP 请求，则按照此指南操作。
+  * [在 Razor Pages 应用中使用可路由组件](#use-routable-components-in-a-razor-pages-app)
+  * [在 MVC 应用中使用可路由组件](#use-routable-components-in-an-mvc-app)
+* [通过页面或视图呈现组件](#render-components-from-a-page-or-view) &ndash; 针对的是不可直接通过用户请求进行路由的组件。 如果应用使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)将组件嵌入到现有页面和视图，则按照此指南操作。
+
+## <a name="prepare-the-app"></a>准备应用
 
 现有 Razor Pages 或 MVC 应用可以将 Razor 组件集成到页面和视图中：
 
@@ -35,11 +42,11 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
      <base href="~/" />
      ```
 
-     前面示例中的 `href` 值（应用基路径  ）假设应用驻留在根 URL 路径 (`/`) 处。 如果应用是子应用程序，请按照  *一文的“应用基路径”* <xref:host-and-deploy/blazor/index#app-base-path>部分中的指导进行操作。
+     前面示例中的 `href` 值（应用基路径  ）假设应用驻留在根 URL 路径 (`/`) 处。 如果应用是子应用程序，请按照 <xref:host-and-deploy/blazor/index#app-base-path> 一文的“应用基路径”  部分中的指导进行操作。
 
      _Layout.cshtml  文件位于 Razor Pages 应用的 Pages/Shared  文件夹中，或 MVC 应用的 Views/Shared  文件夹中。
 
-   * 紧接在 `<script>` 结束标记前面，添加 blazor.server.js  脚本的 `</body>` 标记：
+   * 紧接在 `</body>` 结束标记前面，添加 blazor.server.js  脚本的 `<script>` 标记：
 
      ```html
      <script src="_framework/blazor.server.js"></script>
@@ -60,7 +67,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    @using MyAppNamespace
    ```
 
-1. 在 `Startup.ConfigureServices` 中，注册 Blazor 服务器服务：
+1. 在 `Startup.ConfigureServices` 中，注册 Blazor Server 服务：
 
    ```csharp
    services.AddServerSideBlazor();
@@ -80,7 +87,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 在 Razor Pages 应用中支持可路由 Razor 组件：
 
-1. 按照[准备应用以在页面和视图中使用组件](#prepare-the-app-to-use-components-in-pages-and-views)部分中的指导进行操作。
+1. 按照[准备应用](#prepare-the-app)部分中的指南进行操作。
 
 1. 将具有以下内容的 App.razor  文件添加到项目根：
 
@@ -113,7 +120,20 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
    组件将共享 _Layout.cshtml  文件用于布局。
 
-1. 在  *中，将 _Host.cshtml*`Startup.Configure` 的低优先级路由添加到终结点配置：
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 会配置 `App` 组件是否：
+
+   * 在页面中预呈现。
+   * 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
+
+   | 呈现模式 | 描述 |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将 `App` 组件呈现为静态 HTML，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor Server 应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
+
+   要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
+
+1. 在 `Startup.Configure` 中，将 _Host.cshtml  的低优先级路由添加到终结点配置：
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -124,7 +144,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    });
    ```
 
-1. 将可路由组件添加到应用。 例如:
+1. 将可路由组件添加到应用。 例如：
 
    ```razor
    @page "/counter"
@@ -134,7 +154,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    ...
    ```
 
-   有关命名空间的详细信息，请参阅[组件命名空间](#component-namespaces)部分。
+有关命名空间的详细信息，请参阅[组件命名空间](#component-namespaces)部分。
 
 ## <a name="use-routable-components-in-an-mvc-app"></a>在 MVC 应用中使用可路由组件
 
@@ -142,7 +162,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 在 MVC 应用中支持可路由 Razor 组件：
 
-1. 按照[准备应用以在页面和视图中使用组件](#prepare-the-app-to-use-components-in-pages-and-views)部分中的指导进行操作。
+1. 按照[准备应用](#prepare-the-app)部分中的指南进行操作。
 
 1. 将具有以下内容的 App.razor  文件添加到项目根：
 
@@ -173,6 +193,19 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    ```
 
    组件将共享 _Layout.cshtml  文件用于布局。
+   
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 会配置 `App` 组件是否：
+
+   * 在页面中预呈现。
+   * 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
+
+   | 呈现模式 | 描述 |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
+
+   要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 
 1. 向主控制器添加操作：
 
@@ -183,7 +216,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    }
    ```
 
-1. 在  *中，将返回 _Host.cshtml*`Startup.Configure` 视图的控制器操作的低优先级路由添加到终结点配置：
+1. 在 `Startup.Configure` 中，将返回 _Host.cshtml  视图的控制器操作的低优先级路由添加到终结点配置：
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -194,7 +227,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    });
    ```
 
-1. 创建 Pages  文件夹并将可路由组件添加到应用。 例如:
+1. 创建 Pages  文件夹并将可路由组件添加到应用。 例如：
 
    ```razor
    @page "/counter"
@@ -204,7 +237,19 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    ...
    ```
 
-   有关命名空间的详细信息，请参阅[组件命名空间](#component-namespaces)部分。
+有关命名空间的详细信息，请参阅[组件命名空间](#component-namespaces)部分。
+
+## <a name="render-components-from-a-page-or-view"></a>从页面或视图呈现组件
+
+本部分介绍如何在无法从用户请求直接路由组件的情况下，将组件添加到页面或视图。 
+
+若要从页面或视图呈现组件，请使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)。
+
+有关如何呈现组件、组件状态以及 `Component` 标记帮助程序的详细信息，请参阅以下文章：
+
+* <xref:blazor/hosting-models>
+* <xref:blazor/hosting-model-configuration>
+* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>
 
 ## <a name="component-namespaces"></a>组件命名空间
 
@@ -219,16 +264,4 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 _ViewImports.cshtml  文件位于 Razor Pages 应用的 Pages  文件夹中，或是 MVC 应用的 Views  文件夹中。
 
-有关更多信息，请参见 <xref:blazor/components#import-components>。
-
-## <a name="render-components-from-a-page-or-view"></a>从页面或视图呈现组件
-
-本部分介绍如何在无法从用户请求直接路由组件的情况下，将组件添加到页面或视图。 
-
-若要从页面或视图呈现组件，请使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)。
-
-有关如何呈现组件、组件状态以及 `Component` 标记帮助程序的详细信息，请参阅以下文章：
-
-* <xref:blazor/hosting-models>
-* <xref:blazor/hosting-model-configuration>
-* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>
+有关详细信息，请参阅 <xref:blazor/components#import-components>。

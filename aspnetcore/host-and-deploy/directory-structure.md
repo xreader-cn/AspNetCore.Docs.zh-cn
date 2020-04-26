@@ -5,14 +5,14 @@ description: 了解已发布的 ASP.NET Core 应用的目录结构。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/20/2020
+ms.date: 04/09/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: 0e7bf40520385b7719cb37120709e0a3fd2442e3
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 3ed27db31c5fda8376ed108568ea74b657d30531
+ms.sourcegitcommit: 4506a8f71ece921010ad6b7edebc8b200618f40d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79989730"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "81002933"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core 目录结构
 
@@ -28,7 +28,7 @@ ms.locfileid: "79989730"
 
 | 应用类型 | 目录结构 |
 | -------- | ------------------- |
-| [依赖于框架的可执行文件 (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}{.EXTENSION} 在 Windows 上扩展名为 *.exe*，在 macOS 或 Linux 上无扩展名</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li><li>createdump（[Linux createdump 实用工具](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy)）</li><li>\*.so（Linux 共享对象库）</li><li>\*.a（macOS 存档）</li><li>\*.dylib（macOS 动态库）</li></ul></li></ul> |
+| [依赖于框架的可执行文件 (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows 上的扩展名为 {ASSEMBLY NAME}{.EXTENSION} .exe，macOS 和 Linux 上没有扩展名</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li><li>createdump（[Linux createdump 实用工具](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy)）</li><li>\*.so（Linux 共享对象库）</li><li>\*.a（macOS 存档）</li><li>\*.dylib（macOS 动态库）</li></ul></li></ul> |
 | [独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
 
 &dagger;指示目录
@@ -58,9 +58,9 @@ ms.locfileid: "79989730"
 
 | 应用类型 | 目录结构 |
 | -------- | ------------------- |
-| [依赖于框架的可执行文件 (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}{.EXTENSION} 在 Windows 上扩展名为 *.exe*，在 macOS 或 Linux 上无扩展名</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li><li>createdump（[Linux createdump 实用工具](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy)）</li><li>\*.so（Linux 共享对象库）</li><li>\*.a（macOS 存档）</li><li>\*.dylib（macOS 动态库）</li></ul></li></ul> |
+| [依赖于框架的可执行文件 (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows 上的扩展名为 {ASSEMBLY NAME}{.EXTENSION} .exe，macOS 和 Linux 上没有扩展名</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li><li>createdump（[Linux createdump 实用工具](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy)）</li><li>\*.so（Linux 共享对象库）</li><li>\*.a（macOS 存档）</li><li>\*.dylib（macOS 动态库）</li></ul></li></ul> |
 | [独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC 应用（如果未预编译视图）</li><li>Pages&dagger; MVC 或 Razor Pages应用（如果未预编译页）</li><li>wwwroot&dagger;</li><li>\*.dll 文件</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config（IIS 部署）</li></ul></li></ul> |
--
+
 &dagger;指示目录
 
  publish 目录代表部署的内容根路径  ，也称为应用程序基路径  。 无论对服务器上已部署应用的 publish  目录如何命名，其位置都可作为托管应用的服务器物理路径。

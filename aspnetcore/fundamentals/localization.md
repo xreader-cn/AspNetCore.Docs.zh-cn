@@ -5,12 +5,12 @@ description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本�
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 91db83eb8685c7bee5e976f386c2a12c4090b734
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648432"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440813"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -120,11 +120,11 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures 和 SupportedUICultures
 
-ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `SupportedUICultures`。 `SupportedCultures` 的 [CultureInfo](/dotnet/api/system.globalization.cultureinfo) 对象可决定区域性相关函数的结果，如日期、时间、数字和货币格式等。 `SupportedCultures` 确定文本的排序顺序、大小写约定和字符串比较。 请参阅 [CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) 详细了解服务器如何获取区域性。 `SupportedUICultures` 可确定哪些转换字符串（.resx 文件中）按 [ResourceManager](/dotnet/api/system.resources.resourcemanager) 查找  。 `ResourceManager` 只需查找 `CurrentUICulture` 决定的区域性特定字符串。 .NET 中的每个线程都具有 `CurrentCulture` 和 `CurrentUICulture` 对象。 呈现区域性相关函数时，ASP.NET Core 可检查这些值。 例如，如果当前线程的区域性设置为“en-US”（英语，美国），`DateTime.Now.ToLongDateString()` 将显示“Thursday, February 18, 2016”，但如果 `CurrentCulture` 设置为“es-ES”（西班牙语，西班牙），则输出将为“jueves，18 de febrero de 2016”。
+ASP.NET Core 允许指定两个区域性值，`SupportedCultures` 和 `SupportedUICultures`。 `SupportedCultures` 的 [CultureInfo](/dotnet/api/system.globalization.cultureinfo) 对象可决定区域性相关函数的结果，如日期、时间、数字和货币格式等。 `SupportedCultures` 确定文本的排序顺序、大小写约定和字符串比较。 请参阅 [CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) 详细了解服务器如何获取区域性。 `SupportedUICultures` 可确定按 [ResourceManager](/dotnet/api/system.resources.resourcemanager) 来查找哪些转换字符串（位于 .resx 文件）  。 `ResourceManager` 只需查找 `CurrentUICulture` 决定的区域性特定字符串。 .NET 中的每个线程都具有 `CurrentCulture` 和 `CurrentUICulture` 对象。 呈现区域性相关函数时，ASP.NET Core 可检查这些值。 例如，如果当前线程的区域性设置为“en-US”（英语，美国），`DateTime.Now.ToLongDateString()` 将显示“Thursday, February 18, 2016”，但如果 `CurrentCulture` 设置为“es-ES”（西班牙语，西班牙），则输出将为“jueves，18 de febrero de 2016”。
 
 ## <a name="resource-files"></a>资源文件
 
-资源文件是将可本地化的字符串与代码分离的有用机制。 非默认语言的转换字符串是独立的 .resx 资源文件  。 例如，你可能想要创建包含转换字符串、名为 Welcome.es.resx 的西班牙语资源文件  。 “es”是西班牙语的语言代码。 要在 Visual Studio 中创建此资源文件，请支持以下操作：
+资源文件是将可本地化的字符串与代码分离的有用机制。 非默认语言的转换字符串在 .resx 资源文件中单独显示  。 例如，你可能想要创建包含转换字符串、名为 Welcome.es.resx 的西班牙语资源文件  。 “es”是西班牙语的语言代码。 要在 Visual Studio 中创建此资源文件，请支持以下操作：
 
 1. 在“解决方案资源管理器”中，右键单击将包含资源文件的文件夹 >“添加” > “新项”    。
 

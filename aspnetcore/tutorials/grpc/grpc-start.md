@@ -3,14 +3,14 @@ title: 在 ASP.NET Core 中创建 .NET Core gRPC 客户端和服务器
 author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 ms.author: johluo
-ms.date: 12/05/2019
+ms.date: 04/08/2020
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 0cedeb021427455c3f60a8a8cc36b52794a055bc
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 2bbd40b4b89af170dae40b8a5277749d6bcd5faf
+ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650298"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "80994630"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -298,7 +298,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 ```
 
 > [!NOTE]
-> 本文中的代码需要 ASP.NET Core HTTPS 开发证书来保护 gRPC 服务。 如果客户端失败并显示消息 `The remote certificate is invalid according to the validation procedure.`，则开发证书不受信任。 有关解决此问题的说明，请参阅[在 Windows 和 macOS 上信任 ASP.NET Core HTTPS 开发证书](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)。
+> 本文中的代码需要 ASP.NET Core HTTPS 开发证书来保护 gRPC 服务。 如果 .NET gRPC 客户端失败并显示消息 `The remote certificate is invalid according to the validation procedure.` 或 `The SSL connection could not be established.`，则开发证书不受信任。 要解决此问题，请参阅[使用不受信任/无效的证书调用 gRPC 服务](xref:grpc/troubleshoot#call-a-grpc-service-with-an-untrustedinvalid-certificate)。
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 

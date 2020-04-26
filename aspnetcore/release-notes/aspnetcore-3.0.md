@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 1a4efcd4e9e3296e9c208f1419bc86734951b0c1
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4886673a9b16b8be8d9a0b0d5c7002a91760544e
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511517"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80976971"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -428,7 +428,7 @@ ASP.NET Core 3.0 模板使用 <xref:fundamentals/host/generic-host>。 以前版
 * 已从 Kestrel 中删除连接适配器，并将其替换为连接中间件，这与 ASP.NET Core 管道中的 HTTP 中间件类似，但适用于较低级别的连接。
 * Kestrel 传输层已作为 `Connections.Abstractions` 中的公共接口公开。
 * 通过将尾随标题移到新集合中，已解决了标头和尾部之间的歧义。
-* 同步 IO API（例如 `HttpRequest.Body.Read`）是导致应用崩溃的线程不足的常见原因。 在 3.0 中，默认情况下禁用 `AllowSynchronousIO`。
+* 线程不足会导致应用崩溃，而同步 I/O API（例如 `HttpRequest.Body.Read`）是导致线程不足的常见原因。 在 3.0 中，默认情况下禁用 `AllowSynchronousIO`。
 
 有关详细信息，请参阅 <xref:migration/22-to-30#kestrel>。
 

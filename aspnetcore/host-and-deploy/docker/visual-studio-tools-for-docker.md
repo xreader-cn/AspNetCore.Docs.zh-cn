@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: 0e6747a3de220b97cc7a84f9cd42b0da54b57ee9
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ba79f0af8192ad9e8b263d4304ccc0df36c50f00
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78649320"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440748"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>带有 ASP.NET Core 的 Visual Studio 容器工具
 
@@ -19,16 +19,16 @@ Visual Studio 2017 及更高版本支持构建、调试和运行面向 .NET Core
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 * 带有 .NET Core 跨平台开发工作负载的 [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 
 
 ## <a name="installation-and-setup"></a>安装和设置
 
-要安装 Docker，请先查看[用于 Windows 的 Docker：安装须知](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install)了解相关信息。 然后安装[用于 Windows 的 Docker](https://docs.docker.com/docker-for-windows/install/)。
+如需安装 Docker，请先通过[用于 Windows 的 Docker：安装须知](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install)了解相关信息。 然后安装[用于 Windows 的 Docker](https://docs.docker.com/docker-for-windows/install/)。
 
-Docker for Windows 中的**共享驱动器[必须配置为支持卷映射和调试](https://docs.docker.com/docker-for-windows/#shared-drives)** 。 右键单击系统托盘中的 Docker 图标，单击“设置”  ，然后选择“共享驱动器”  。 选择 Docker 存储文件的驱动器。 单击“应用”  。
+Docker for Windows 中的[共享驱动器](https://docs.docker.com/docker-for-windows/#shared-drives)必须配置为支持卷映射和调试  。 右键单击系统托盘中的 Docker 图标，单击“设置”  ，然后选择“共享驱动器”  。 选择 Docker 存储文件的驱动器。 单击“应用”  。
 
 ![为容器选择本地驱动器 C 作为共享驱动器的对话框](visual-studio-tools-for-docker/_static/settings-shared-drives-win.png)
 
@@ -54,7 +54,7 @@ Docker for Windows 中的**共享驱动器[必须配置为支持卷映射和调�
 对于面向 .NET Core 的 ASP.NET Core 项目，可通过两个选项使用工具添加 Docker 支持。 在 Visual Studio 中打开项目，然后选择以下选项之一：
 
 * 从“项目”菜单中选择“Docker 支持”   。
-* 右键单击“解决方案资源管理器”中的项目，然后选择“添加” **“Docker 支持”**   >   。
+* 右键单击“解决方案资源管理器”中的项目，然后选择“添加” > “Docker 支持”    。
 
 Visual Studio 容器工具不支持向面向 .NET Framework 的现有 ASP.NET Core 项目添加 Docker。
 
@@ -82,9 +82,9 @@ Dockerfile  ，用作创建最终 Docker 映像的方案，添加到项目根目
 
 ## <a name="add-container-orchestrator-support-to-an-app"></a>向应用添加容器业务流程协调程序支持
 
-Visual Studio 2017 版本 15.7 或更早版本支持 [Docker Compose](https://docs.docker.com/compose/overview/) 作为唯一的容器业务流程解决方案。 可通过“添加” **“Docker 支持”添加 Docker Compose** >   。
+Visual Studio 2017 版本 15.7 或更早版本支持 [Docker Compose](https://docs.docker.com/compose/overview/) 作为唯一的容器业务流程解决方案。 可通过“添加” > “Docker 支持”添加 Docker Compose   。
 
-Visual Studio 2017 版本 15.8 或更高版本仅在获得指示时添加业务流程解决方案。 右键单击“解决方案资源管理器”中的项目，然后选择“添加” **“容器业务流程协调程序支持”**   >   。 提供了两个不同的选择：[Docker Compose](#docker-compose) 和 [Service Fabric](#service-fabric)。
+Visual Studio 2017 版本 15.8 或更高版本仅在获得指示时添加业务流程解决方案。 右键单击“解决方案资源管理器”中的项目，然后选择“添加” > “容器业务流程协调程序支持”    。 提供了以下两个不同的选择：[Docker Compose](#docker-compose) 和 [Service Fabric](#service-fabric)。
 
 ### <a name="docker-compose"></a>Docker Compose
 
@@ -99,7 +99,7 @@ docker-compose.yml  文件引用在项目运行时创建的映像的名称：
 
 [!code-yaml[](visual-studio-tools-for-docker/samples/2.0/docker-compose.yml?highlight=5)]
 
-在前面的示例中，应用在“调试”`image: hellodockertools``hellodockertools:dev`模式下运行时，**生成映像**。 应用在“发布”`hellodockertools:latest`**模式下运行时，生成**  映像。
+在前面的示例中，应用在“调试”  模式下运行时，`image: hellodockertools` 生成映像 `hellodockertools:dev`。 应用在“发布”  模式下运行时，生成 `hellodockertools:latest` 映像。
 
 如果将映像推送到注册表，则需要添加 [Docker Hub](https://hub.docker.com/) 用户名（如 `dockerhubusername/hellodockertools`）作为映像名称的前缀名。 或者，更改映像名称，使其包含专用注册表 URL（如 `privateregistry.domain.com/hellodockertools`），具体取决于所用配置。
 
@@ -120,7 +120,7 @@ Service Fabric 不支持在 Windows 上的本地开发群集中运行 Linux 容�
 
 Visual Studio 容器工具执行以下任务：
 
-* 向解决方案添加 *project_name&lt;Application Service Fabric 应用程序项目&gt;*  。
+* 向解决方案添加 &lt;project_name&gt;Application Service Fabric 应用程序项目   。
 * 向 ASP.NET Core 项目添加 Dockerfile 和 .dockerignore 文件   。 如果 ASP.NET Core 项目中已存在 Dockerfile，则其重命名为 Dockerfile.original   。 创建类似于以下形式的新 Dockerfile  ：
 
     [!code-dockerfile[](visual-studio-tools-for-docker/samples/2.1/HelloDockerTools/Dockerfile)]
@@ -227,14 +227,15 @@ microsoft/aspnetcore        2.0     c69d39472da9  13 days ago     347MB
 ::: moniker-end
 
 > [!NOTE]
-> `docker images` 命令返回存储库名称和标记标识为 *none>\<* （上面未列出）的中间映像。 这些未命名映像由[多阶段生成](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) Dockerfile  生成。 它们可提高生成最终映像的效率 &mdash; 发生更改时，仅重新生成必要的层。 不再需要中间映像时，请使用 [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) 命令将其删除。
+> `docker images` 命令返回存储库名称和标记标识为 \<none>  （上面未列出）的中间映像。 这些未命名映像由[多阶段生成](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) Dockerfile  生成。 它们可提高生成最终映像的效率 &mdash; 发生更改时，仅重新生成必要的层。 不再需要中间映像时，请使用 [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) 命令将其删除。
 
 可能希望生产或发布映像的大小比开发映像小  。 由于卷映射，调试程序和应用从本地计算机运行，而不在容器内运行。 最新  映像已打包必要的应用代码，以在主机上运行应用。 因此，增量是应用代码的大小。
 
 ## <a name="additional-resources"></a>其他资源
 
 * [利用 Visual Studio 进行容器开发](/visualstudio/containers)
-* [：准备开发环境](/azure/service-fabric/service-fabric-get-started)
+* [Azure Service Fabric：准备开发环境](/azure/service-fabric/service-fabric-get-started)
 * [将 Windows 容器中的 .NET 应用部署到 Azure Service Fabric](/azure/service-fabric/service-fabric-host-app-in-a-container)
 * [使用 Docker 排查 Visual Studio 开发方面的问题](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
 * [Visual Studio 容器工具 GitHub 存储库](https://github.com/Microsoft/DockerTools)
+* [使用 Docker 和小型容器的 GC](xref:performance/memory#sc)

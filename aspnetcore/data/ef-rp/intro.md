@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 94783aa9014aef4c5f775fc8f36a2c3a7715e4b6
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 07faf5e596e7ea8b134d13caa0259c1e9d74ff1b
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78645798"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661619"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
@@ -159,7 +159,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
   [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Models/Student.cs)]
 
-`ID` 属性成为此类对应的数据库表的主键列。 默认情况下，EF Core 将名为 `ID` 或 `classnameID` 的属性视为主键。 因此，`Student` 类主键的另一种自动识别的名称是 `StudentID`。
+`ID` 属性成为此类对应的数据库表的主键列。 默认情况下，EF Core 将名为 `ID` 或 `classnameID` 的属性视为主键。 因此，`Student` 类主键的另一种自动识别的名称是 `StudentID`。 有关详细信息，请参阅 [F Core - 密钥](/ef/core/modeling/keys?tabs=data-annotations)。
 
 `Enrollments` 属性是[导航属性](/ef/core/modeling/relationships)。 导航属性中包含与此实体相关的其他实体。 在本例中，`Student` 实体的 `Enrollments` 属性包含与该 Student 相关的所有 `Enrollment` 实体。 例如，如果数据库中的 Student 行有两个相关的 Enrollment 行，则 `Enrollments` 导航属性包含这两个 Enrollment 实体。 
 
@@ -703,7 +703,7 @@ EF Core 会创建一个空的数据库。 本部分中编写了 `Initialize` 方
 
 `EnsureCreated` 方法自动为数据库上下文创建数据库。 如果数据库已存在，则返回 `EnsureCreated`，并且不修改数据库。
 
-在 Program.cs 中，将 `Main` 方法修改为调用 `Initialize`  ：
+在 Program.cs 中，将 `Main` 方法修改为调用 `Initialize` ：
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet2&highlight=14-15)]
 

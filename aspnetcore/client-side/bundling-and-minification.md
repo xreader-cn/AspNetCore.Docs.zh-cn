@@ -4,14 +4,14 @@ author: scottaddie
 description: 了解如何通过应用捆绑和缩小技术优化 ASP.NET Core Web 应用程序中的静态资源。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 06/17/2019
+ms.date: 04/15/2020
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: a7a5c40d6c31c4416212c02c1b491dd794f2a1d3
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 670ac6a96c3affd2b2ac699836f536aea7d85ff3
+ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646782"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81488684"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>ASP.NET Core 中的捆绑和缩小静态资产
 
@@ -63,7 +63,7 @@ ms.locfileid: "78646782"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>选择捆绑和缩小策略
 
-MVC 和 Razor Pages 项目模板提供了一种现成的解决方案，可用于由 JSON 配置文件组成的捆绑和缩小。 第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。 开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。 通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。 在部署之前进行捆绑和缩小具有减少服务器负载的优点。 但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。
+MVC 和 Razor Pages 项目模板提供了一种用于捆绑和缩小的解决方案，它们构成 JSON 配置文件。 第三方工具（如 [Grunt](xref:client-side/using-grunt) 任务运行程序）以更复杂的方式完成相同的任务。 开发工作流需要捆绑和缩小之外的其他处理（如 linting 和图像优化）时，第三方工具非常适用。 通过使用设计时捆绑和缩小，在应用部署之前创建缩小文件。 在部署之前进行捆绑和缩小具有减少服务器负载的优点。 但是，必须认识到，设计时捆绑和缩小会增加生成的复杂性，并且仅适用于静态文件。
 
 ## <a name="configure-bundling-and-minification"></a>配置捆绑和缩小
 
@@ -87,7 +87,7 @@ bundleconfig.json 文件定义每个捆绑的选项  。 在前面的示例中�
 
 * `outputFileName`：要输出的捆绑文件的名称。 可包含 bundleconfig.json 文件中的相对路径  。 （必需） 
 * `inputFiles`：要捆绑在一起的文件数组。 这些是配置文件的相对路径。 可以选择使用空值，*这将导致输出文件为空  。 支持 [glob](https://www.tldp.org/LDP/abs/html/globbingref.html) 模式。
-* `minify`：输出类型的缩小选项。 可选，默认值 - `minify: { enabled: true }`  
+* `minify`：输出类型的缩小选项。 可选，默认值 - `minify: { enabled: true }` 
   * 每个输出文件类型都有配置选项。
     * [CSS 缩小程序](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScript 缩减程序](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
@@ -95,109 +95,6 @@ bundleconfig.json 文件定义每个捆绑的选项  。 在前面的示例中�
 * `includeInProject`：指示是否将生成的文件添加到项目文件的标记。 可选，默认值 - false  
 * `sourceMap`：指示是否为捆绑的文件生成源映射的标记。 可选，默认值 - false  
 * `sourceMapRootPath`：用于存储所生成的源映射文件的根路径。
-
-## <a name="build-time-execution-of-bundling-and-minification"></a>捆绑和缩小的生成时执行
-
-[BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundlerMinifier/) NuGet 包允许在生成时执行捆绑和缩小。 包插入在生成和清理时间运行的 [MSBuild 目标](/visualstudio/msbuild/msbuild-targets)。 bundleconfig.json 文件由生成过程进行分析，以便基于定义的配置生成输出文件  。
-
-> [!NOTE]
-> BuildBundlerMinifier 属于 GitHub 上的社区驱动项目，Microsoft 不提供支持。 应在[此处](https://github.com/madskristensen/BundlerMinifier/issues)提交问题。
-
-# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-将 BuildBundlerMinifier 包添加到项目  。
-
-生成项目。 “输出”窗口中会显示以下内容：
-
-```console
-1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
-1>
-1>Bundler: Begin processing bundleconfig.json
-1>  Minified wwwroot/css/site.min.css
-1>  Minified wwwroot/js/site.min.js
-1>Bundler: Done processing bundleconfig.json
-1>BuildBundlerMinifierApp -> C:\BuildBundlerMinifierApp\bin\Debug\netcoreapp2.0\BuildBundlerMinifierApp.dll
-========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
-```
-
-清理项目。 “输出”窗口中会显示以下内容：
-
-```console
-1>------ Clean started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
-1>
-1>Bundler: Cleaning output from bundleconfig.json
-1>Bundler: Done cleaning output file from bundleconfig.json
-========== Clean: 1 succeeded, 0 failed, 0 skipped ==========
-```
-
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
-
-将 BuildBundlerMinifier 包添加到项目  ：
-
-```dotnetcli
-dotnet add package BuildBundlerMinifier
-```
-
-如果使用 ASP.NET Core 1.x，则还原新添加的包：
-
-```dotnetcli
-dotnet restore
-```
-
-生成项目：
-
-```dotnetcli
-dotnet build
-```
-
-将显示以下内容：
-
-```console
-Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-
-    Bundler: Begin processing bundleconfig.json
-    Bundler: Done processing bundleconfig.json
-    BuildBundlerMinifierApp -> C:\BuildBundlerMinifierApp\bin\Debug\netcoreapp2.0\BuildBundlerMinifierApp.dll
-```
-
-清理项目：
-
-```dotnetcli
-dotnet clean
-```
-
-将显示以下输出：
-
-```console
-Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-
-  Bundler: Cleaning output from bundleconfig.json
-  Bundler: Done cleaning output file from bundleconfig.json
-```
-
----
-
-## <a name="ad-hoc-execution-of-bundling-and-minification"></a>捆绑和缩小的即席执行
-
-可以在不生成项目的情况下即席运行捆绑和缩小任务。 将 [BundlerMinifier.Core](https://www.nuget.org/packages/BundlerMinifier.Core/) NuGet 包添加到项目：
-
-[!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=10)]
-
-> [!NOTE]
-> BundlerMinifier.Core 属于 GitHub 上的社区驱动项目，Microsoft 不提供支持。 应在[此处](https://github.com/madskristensen/BundlerMinifier/issues)提交问题。
-
-此包扩展 .NET Core CLI 以包含 dotnet-bundle 工具  。 可以在包管理器控制台 (PMC) 窗口或命令行界面中执行以下命令：
-
-```dotnetcli
-dotnet bundle
-```
-
-> [!IMPORTANT]
-> NuGet 包管理器将依赖项添加到 *.csproj 文件作为 `<PackageReference />` 节点。 仅当使用 `<DotNetCliToolReference />` 节点时，才使用 .NET Core CLI 注册 `dotnet bundle` 命令。 请相应地修改 *.csproj 文件。
 
 ## <a name="add-files-to-workflow"></a>向工作流添加文件
 
@@ -258,32 +155,7 @@ dotnet bundle
 
 在某些情况下，应用的捆绑和缩小工作流需要额外处理。 示例包括图像优化、缓存清除和 CDN 资产处理。 为了满足这些要求，可以将捆绑和缩小工作流转换为使用 Gulp。
 
-### <a name="use-the-bundler--minifier-extension"></a>使用捆绑程序和缩小程序扩展
-
-Visual Studio [捆绑程序和缩小程序](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BundlerMinifier)扩展处理到 Gulp 的转换。
-
-> [!NOTE]
-> 捆绑程序和缩小程序扩展属于 GitHub 上的社区驱动项目，Microsoft 不提供支持。 应在[此处](https://github.com/madskristensen/BundlerMinifier/issues)提交问题。
-
-右键单击解决方案资源管理器中的 bundleconfig.json 文件，然后选择“捆绑程序和缩小程序” > “转换为 Gulp...”    ：
-
-![转换为 Gulp 上下文菜单项](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
-
-gulpfile.js 和 package.json 文件已添加到项目中   。 已安装 package.json 文件 `devDependencies` 部分中列出的支持 [npm](https://www.npmjs.com/) 包  。
-
-在 PMC 窗口中运行以下命令，以将 Gulp CLI 作为全局依赖项安装：
-
-```console
-npm i -g gulp-cli
-```
-
-gulpfile.js 文件读取输入、输出和设置的 bundleconfig.json 文件   。
-
-[!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/gulpfile.js?range=1-12&highlight=10)]
-
-### <a name="convert-manually"></a>手动转换
-
-如果 Visual Studio 和/或捆绑程序和缩小程序扩展不可用，请手动转换。
+### <a name="manually-convert-the-bundling-and-minification-workflow-to-use-gulp"></a>手动转换捆绑和缩小工作流以使用 Gulp
 
 将 package.json 文件（包含以下 `devDependencies`）添加到项目根  ：
 

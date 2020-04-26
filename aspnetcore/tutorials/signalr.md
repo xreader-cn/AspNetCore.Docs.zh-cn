@@ -8,12 +8,12 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 55ebdbfa4556deca74a6cdf0638307425cd1a01a
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 869eb325ee95a78e4b16c61c5b0573bb094292e3
+ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650610"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "80994619"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>教程：ASP.NET Core SignalR 入门
 
@@ -89,7 +89,7 @@ ms.locfileid: "78650610"
 
 ## <a name="add-the-signalr-client-library"></a>添加 SignalR 客户端库
 
-SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。
+SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -320,7 +320,7 @@ SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。 JavaScript 客
 
 ## <a name="add-the-signalr-client-library"></a>添加 SignalR 客户端库   
 
-`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。    
+`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。 JavaScript 客户端库不会自动包含在项目中。 对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。 unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。 
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)  
 

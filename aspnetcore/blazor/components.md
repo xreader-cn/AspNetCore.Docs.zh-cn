@@ -5,21 +5,21 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/25/2020
+ms.date: 04/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: bc1d07aef9cd60b89343a034168daa6754f4421b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4434636992cb2506ef6525996690946f97c43764
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80306500"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791490"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
-作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
+作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Tobias Bartsch](https://www.aveo-solutions.com/)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -138,9 +138,12 @@ Components/ChildComponent.razor  ：
 
 在示例应用的以下示例中，`ParentComponent` 设置 `ChildComponent` 的 `Title` 属性的值。
 
-Pages/ParentComponent.razor  ：
+Pages/ParentComponent  ：
 
 [!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=5-6)]
+
+> [!WARNING]
+> 请勿创建会写入其自己的组件参数的组件，而是使用私有字段  。 有关详细信息，请参阅[请勿创建会写入其自己的组参数属性的组件](#dont-create-components-that-write-to-their-own-parameter-properties)部分。
 
 ## <a name="child-content"></a>子内容
 
@@ -400,7 +403,7 @@ public class NotifierService
 
 `People` 集合的内容可能会随插入、删除或重新排序的条目而更改。 当组件重新呈现时，`<DetailsEditor>` 组件可能会更改以接收不同的 `Details` 参数值。 这可能导致重新呈现比预期更复杂。 在某些情况下，重新呈现可能会导致可见行为差异，如失去元素焦点。
 
-可以通过 `@key` 指令属性来控制映射过程。 `@key` 使比较算法保证基于键的值保留元素或组件：
+可通过 [`@key`](xref:mvc/views/razor#key) 指令属性来控制映射过程。 `@key` 使比较算法保证基于键的值保留元素或组件：
 
 ```csharp
 @foreach (var person in People)
@@ -453,6 +456,99 @@ public class NotifierService
 * 唯一标识符（例如，`int`、`string` 或 `Guid` 类型的主键值）。
 
 确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 引发异常，因为它无法明确地将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
+
+## <a name="dont-create-components-that-write-to-their-own-parameter-properties"></a>请勿创建会写入其自己的组参数属性的组件
+
+在以下情况中，会重写参数：
+
+* 子组件的内容使用 `RenderFragment` 进行呈现。
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 在父组件中调用。
+
+由于在调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 且向子组件提供新的参数值时，会重新呈现父组件，因此将重置参数。
+
+请考虑使用以下 `Expander` 组件，它们会：
+
+* 呈现子内容。
+* 切换以使用组件参数显示子内容。
+
+```razor
+<div @onclick="@Toggle">
+    Toggle (Expanded = @Expanded)
+
+    @if (Expanded)
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private void Toggle()
+    {
+        Expanded = !Expanded;
+    }
+}
+```
+
+`Expander` 组件会添加到可调用 `StateHasChanged`的父组件中：
+
+```razor
+<Expander Expanded="true">
+    <h1>Hello, world!</h1>
+</Expander>
+
+<Expander Expanded="true" />
+
+<button @onclick="@(() => StateHasChanged())">
+    Call StateHasChanged
+</button>
+```
+
+最初，在切换 `Expanded` 属性时，`Expander` 组件独立地作出行为。 子组件会按预期方式维护其状态。 在父组件中调用 `StateHasChanged` 时，第一个子组件的 `Expanded` 会重新重置为它的初始值 (`true`)。 第二个 `Expander` 组件的 `Expanded` 值不会重置，因为第二个组件中没有呈现任何子内容。
+
+要维持在前述情况中的状态，请在 `Expander` 组件中使用私有字段来保留它的切换状态  。
+
+以下 `Expander` 组件：
+
+* 接受父项中的 `Expanded` 组件参数值。
+* 将组件参数值分配给 [OnInitialized 事件](xref:blazor/lifecycle#component-initialization-methods)中的私有字段 (`_expanded`)  。
+* 使用私有字段来维持它的内部切换状态。
+
+```razor
+<div @onclick="@Toggle">
+    Toggle (Expanded = @_expanded)
+
+    @if (_expanded)
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool _expanded;
+
+    protected override void OnInitialized()
+    {
+        _expanded = Expanded;
+    }
+
+    private void Toggle()
+    {
+        _expanded = !_expanded;
+    }
+}
+```
 
 ## <a name="partial-class-support"></a>分部类支持
 
@@ -569,7 +665,7 @@ namespace BlazorSample
 
 * Razor 文件 (.razor) 标记 (`@namespace BlazorSample.MyNamespace`) 中的 [`@namespace`](xref:mvc/views/razor#namespace) 指定内容  。
 * 项目文件 (`<RootNamespace>BlazorSample</RootNamespace>`) 中项目的 `RootNamespace`。
-* 项目名称，取自项目文件的文件名 (.csproj)，以及从项目根到组件的路径  。 例如，框架将 {PROJECT ROOT}/Pages/Index.razor (BlazorSample.csproj) 解析为命名空间 `BlazorSample.Pages`   。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
+* 项目名称，取自项目文件的文件名 (.csproj)，以及从项目根到组件的路径  。 例如，框架将 {PROJECT ROOT}/Pages/Index.razor (BlazorSample.csproj) 解析为命名空间 `BlazorSample.Pages`  。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
   * 在同一文件夹 Pages 中  。
   * 未显式指定其他命名空间的项目根中的组件。
 

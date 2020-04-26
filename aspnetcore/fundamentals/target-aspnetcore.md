@@ -8,12 +8,12 @@ ms.date: 12/16/2019
 no-loc:
 - Blazor
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 72096fc2f03033dfe8325b5129e074913a2fbd1f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 5374d7eec4334223a4bba7ee26cb6e2f208ed20b
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646686"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80977192"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>使用类库中的 ASP.NET Core API
 
@@ -48,7 +48,7 @@ Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-
 
 ### <a name="support-both-hosting-models"></a>同时支持两种托管模型
 
-请按照适合你的编辑器的以下说明操作，以同时支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
+请按照适合你的编辑器的以下说明操作，以同时支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -76,18 +76,18 @@ dotnet new razorclasslib
   * [Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)
   * [Microsoft.AspNetCore.Components.Web](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Web)
 
-例如:
+例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-components-library.csproj)]
 
 ### <a name="support-a-specific-hosting-model"></a>支持特定托管模型
 
-支持单个 Blazor 托管模型的情况并不常见。 例如，完成以下操作可仅支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)项目的 Razor 组件消耗：
+支持单个 Blazor 托管模型的情况并不常见。 例如，完成以下操作可仅支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 项目的 Razor 组件消耗：
 
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
 
-例如:
+例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
@@ -132,31 +132,31 @@ dotnet new razorclasslib -s
 
 ---
 
-例如:
+例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-views-pages-library.csproj)]
 
-若项目改为面向 .NET Standard，则需要 [Microsoft.AspNetCore.Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) 包引用。 `Microsoft.AspNetCore.Mvc` 包移到了 ASP.NET Core 3.0 的共享框架中，因此不再发布。 例如:
+若项目改为面向 .NET Standard，则需要 [Microsoft.AspNetCore.Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) 包引用。 `Microsoft.AspNetCore.Mvc` 包移到了 ASP.NET Core 3.0 的共享框架中，因此不再发布。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-views-pages-library.csproj?highlight=8)]
 
 ### <a name="tag-helpers"></a>标记帮助程序
 
-包含[标记帮助器](xref:mvc/views/tag-helpers/intro)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如:
+包含[标记帮助器](xref:mvc/views/tag-helpers/intro)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如:
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
 ### <a name="view-components"></a>视图组件
 
-包含[视图组件](xref:mvc/views/view-components)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如:
+包含[视图组件](xref:mvc/views/view-components)的项目应使用 `Microsoft.NET.Sdk` SDK。 若面向 .NET Core 3.x，则添加针对共享框架的 `<FrameworkReference>` 元素。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) 的包引用。 `Microsoft.AspNetCore.Mvc.ViewFeatures` 包移到了共享框架，因此不再发布。 例如:
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) 的包引用。 `Microsoft.AspNetCore.Mvc.ViewFeatures` 包移到了共享框架，因此不再发布。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-view-components-library.csproj)]
 
@@ -208,7 +208,7 @@ dotnet new razorclasslib -s
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
 * 结合使用 [#if 预处理器指令](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if)和对应的目标框架符号，以进行有条件的代码编译。
 
-例如，自 ASP.NET Core 3.0 起默认不可对 HTTP 请求和响应流进行同步读写。 默认情况下，ASP.NET Core 2.2 支持同步行为。 以发生 IO 时应可以进行同步读取的中间件库为例。 此库应将用于启用同步功能的代码括在相应的预处理器指令中。 例如:
+例如，自 ASP.NET Core 3.0 起默认不可对 HTTP 请求和响应流进行同步读写。 默认情况下，ASP.NET Core 2.2 支持同步行为。 以一个中间件库为例，在该库中，发生 I/O 时应可进行同步读写。 此库应将用于启用同步功能的代码括在相应的预处理器指令中。 例如：
 
 [!code-csharp[](target-aspnetcore/samples/middleware.cs?highlight=9-24)]
 

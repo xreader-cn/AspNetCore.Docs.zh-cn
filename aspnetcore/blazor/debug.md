@@ -5,17 +5,17 @@ description: 了解如何调试 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: eaa67d63f6d15249885d78d3de197ae53e73f072
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 7273ae3d240de0b59a58069fdcc1880247379751
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80381873"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661611"
 ---
 # <a name="debug-aspnet-core-opno-locblazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
@@ -55,7 +55,7 @@ ms.locfileid: "80381873"
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>在 Visual Studio 和 Visual Studio Code 中启用调试
 
-对于使用 ASP.NET Core 3.2 预览版 3 或更高版本 Blazor WebAssembly 项目模板创建的新项目，调试功能已自动启用。
+对于使用 ASP.NET Core 3.2 预览版 3 或更高版本的 Blazor WebAssembly 项目模板（[当前版本为 3.2 预览版 4](xref:blazor/get-started)）创建的新项目，已自动启用调试功能。
 
 若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 launchSettings.json 文件，使每个启动配置文件包含以下 `inspectUri` 属性  ：
 
@@ -104,6 +104,8 @@ ms.locfileid: "80381873"
 
 1. 再次按 <kbd>F5</kbd> 继续执行，查看是否呈现天气预报表。
 
+<a id="vscode"></a>
+
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
 要在 Visual Studio Code 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
@@ -128,7 +130,7 @@ ms.locfileid: "80381873"
 
    1\. 首先，使用“.NET Core 启动 (Blazor 独立版)”启动配置启动应用   。
 
-   2\. 应用启动后，使用“Chrome 中的 .NET Core 调试 Blazor Web 程序集”启动配置来启动浏览器（需要使用 Chrome）   。 若要使用 Microsoft Edge 而不是 Chrome，请将 .vscode/launch.json 中的启动配置的 `type` 从 `pwa-chrome` 更改为 `pwa-msedge`  。
+   2\. 应用启动后，使用“Chrome 中的 .NET Core 调试 Blazor Web 程序集”启动配置来启动浏览器（需要使用 Chrome）   。 若要使用 Microsoft Edge 而不是 Chrome，请将 .vscode/launch.json 中的启动配置的 `type` 从 `pwa-chrome` 更改为 `pwa-msedge` 。
 
 1. 在 `Counter` 组件的 `IncrementCount` 方法中设置一个断点，然后选择该按钮命中该断点。
 
