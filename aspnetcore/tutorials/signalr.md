@@ -8,125 +8,125 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 55ebdbfa4556deca74a6cdf0638307425cd1a01a
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 869eb325ee95a78e4b16c61c5b0573bb094292e3
+ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650610"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "80994619"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-signalr"></a><span data-ttu-id="efc85-103">教程：ASP.NET Core SignalR 入门</span><span class="sxs-lookup"><span data-stu-id="efc85-103">Tutorial: Get started with ASP.NET Core SignalR</span></span>
+# <a name="tutorial-get-started-with-aspnet-core-signalr"></a><span data-ttu-id="cdbac-103">教程：ASP.NET Core SignalR 入门</span><span class="sxs-lookup"><span data-stu-id="cdbac-103">Tutorial: Get started with ASP.NET Core SignalR</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="efc85-104">本教程介绍生成使用 SignalR 的实时应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="efc85-104">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="efc85-105">您将学习如何：</span><span class="sxs-lookup"><span data-stu-id="efc85-105">You learn how to:</span></span>
+<span data-ttu-id="cdbac-104">本教程介绍生成使用 SignalR 的实时应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="cdbac-104">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="cdbac-105">您将学习如何：</span><span class="sxs-lookup"><span data-stu-id="cdbac-105">You learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="efc85-106">创建 Web 项目。</span><span class="sxs-lookup"><span data-stu-id="efc85-106">Create a web project.</span></span>
-> * <span data-ttu-id="efc85-107">添加 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-107">Add the SignalR client library.</span></span>
-> * <span data-ttu-id="efc85-108">创建 SignalR 中心。</span><span class="sxs-lookup"><span data-stu-id="efc85-108">Create a SignalR hub.</span></span>
-> * <span data-ttu-id="efc85-109">配置项目以使用 SignalR。</span><span class="sxs-lookup"><span data-stu-id="efc85-109">Configure the project to use SignalR.</span></span>
-> * <span data-ttu-id="efc85-110">添加可将消息从任何客户端发送到所有连接客户端的代码。</span><span class="sxs-lookup"><span data-stu-id="efc85-110">Add code that sends messages from any client to all connected clients.</span></span>
+> * <span data-ttu-id="cdbac-106">创建 Web 项目。</span><span class="sxs-lookup"><span data-stu-id="cdbac-106">Create a web project.</span></span>
+> * <span data-ttu-id="cdbac-107">添加 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-107">Add the SignalR client library.</span></span>
+> * <span data-ttu-id="cdbac-108">创建 SignalR 中心。</span><span class="sxs-lookup"><span data-stu-id="cdbac-108">Create a SignalR hub.</span></span>
+> * <span data-ttu-id="cdbac-109">配置项目以使用 SignalR。</span><span class="sxs-lookup"><span data-stu-id="cdbac-109">Configure the project to use SignalR.</span></span>
+> * <span data-ttu-id="cdbac-110">添加可将消息从任何客户端发送到所有连接客户端的代码。</span><span class="sxs-lookup"><span data-stu-id="cdbac-110">Add code that sends messages from any client to all connected clients.</span></span>
 
-<span data-ttu-id="efc85-111">最终将创建一个正常运行的聊天应用：</span><span class="sxs-lookup"><span data-stu-id="efc85-111">At the end, you'll have a working chat app:</span></span>
+<span data-ttu-id="cdbac-111">最终将创建一个正常运行的聊天应用：</span><span class="sxs-lookup"><span data-stu-id="cdbac-111">At the end, you'll have a working chat app:</span></span>
 
 ![SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="efc85-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="efc85-113">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="cdbac-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="cdbac-113">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-114">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-114">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-116">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-116">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
 ---
 
-## <a name="create-a-web-app-project"></a><span data-ttu-id="efc85-117">创建 Web 应用项目</span><span class="sxs-lookup"><span data-stu-id="efc85-117">Create a web app project</span></span>
+## <a name="create-a-web-app-project"></a><span data-ttu-id="cdbac-117">创建 Web 应用项目</span><span class="sxs-lookup"><span data-stu-id="cdbac-117">Create a web app project</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-118">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-118">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="efc85-119">从菜单中选择“文件”>“新建项目”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-119">From the menu, select **File > New Project**.</span></span>
+* <span data-ttu-id="cdbac-119">从菜单中选择“文件”>“新建项目”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-119">From the menu, select **File > New Project**.</span></span>
 
-* <span data-ttu-id="efc85-120">在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-120">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
+* <span data-ttu-id="cdbac-120">在“创建新项目”对话框中，选择“ASP.NET Core Web 应用程序”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-120">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
 
-* <span data-ttu-id="efc85-121">在“配置新项目”对话框中，为项目 SignalRChat 命名，然后选择“创建”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-121">In the **Configure your new project** dialog, name the project *SignalRChat*, and then select **Create**.</span></span>
+* <span data-ttu-id="cdbac-121">在“配置新项目”对话框中，为项目 SignalRChat 命名，然后选择“创建”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-121">In the **Configure your new project** dialog, name the project *SignalRChat*, and then select **Create**.</span></span>
 
-* <span data-ttu-id="efc85-122">在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择“.NET Core”和“ASP.NET Core 3.0”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-122">In the **Create a new ASP.NET Core web Application** dialog, select **.NET Core** and **ASP.NET Core 3.0**.</span></span> 
+* <span data-ttu-id="cdbac-122">在“创建新的 ASP.NET Core Web 应用程序”对话框中，选择“.NET Core”和“ASP.NET Core 3.0”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-122">In the **Create a new ASP.NET Core web Application** dialog, select **.NET Core** and **ASP.NET Core 3.0**.</span></span> 
 
-* <span data-ttu-id="efc85-123">选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="efc85-123">Select **Web Application** to create a project that uses Razor Pages, and then select **Create**.</span></span>
+* <span data-ttu-id="cdbac-123">选择“Web 应用程序”以创建使用 Razor Pages 的项目，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="cdbac-123">Select **Web Application** to create a project that uses Razor Pages, and then select **Create**.</span></span>
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/3.x/signalr-new-project-dialog.png)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-125">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-125">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-125">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-125">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="efc85-126">在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="efc85-126">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
+* <span data-ttu-id="cdbac-126">在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="cdbac-126">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
 
-* <span data-ttu-id="efc85-127">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="efc85-127">Run the following commands:</span></span>
+* <span data-ttu-id="cdbac-127">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="cdbac-127">Run the following commands:</span></span>
 
    ```dotnetcli
    dotnet new webapp -o SignalRChat
    code -r SignalRChat
    ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-128">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-128">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-128">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-128">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="efc85-129">从菜单中选择“文件”>“新建解决方案”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-129">From the menu, select **File > New Solution**.</span></span>
+* <span data-ttu-id="cdbac-129">从菜单中选择“文件”>“新建解决方案”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-129">From the menu, select **File > New Solution**.</span></span>
 
-* <span data-ttu-id="efc85-130">选择“.NET Core”>“应用”>“Web 应用程序”（不要选择“Web 应用程序(Model-View-Controller)”），然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-130">Select **.NET Core > App > Web Application** (Don't select **Web Application (Model-View-Controller)**), and then select **Next**.</span></span>
+* <span data-ttu-id="cdbac-130">选择“.NET Core”>“应用”>“Web 应用程序”（不要选择“Web 应用程序(Model-View-Controller)”），然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-130">Select **.NET Core > App > Web Application** (Don't select **Web Application (Model-View-Controller)**), and then select **Next**.</span></span>
 
-* <span data-ttu-id="efc85-131">确保“目标框架”设置为“.NET Core 3.0”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-131">Make sure the **Target Framework** is set to **.NET Core 3.0**, and then select **Next**.</span></span>
+* <span data-ttu-id="cdbac-131">确保“目标框架”设置为“.NET Core 3.0”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-131">Make sure the **Target Framework** is set to **.NET Core 3.0**, and then select **Next**.</span></span>
 
-* <span data-ttu-id="efc85-132">将项目命名为“SignalRChat”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="efc85-132">Name the project *SignalRChat*, and then select **Create**.</span></span>
+* <span data-ttu-id="cdbac-132">将项目命名为“SignalRChat”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="cdbac-132">Name the project *SignalRChat*, and then select **Create**.</span></span>
 
 ---
 
-## <a name="add-the-signalr-client-library"></a><span data-ttu-id="efc85-133">添加 SignalR 客户端库</span><span class="sxs-lookup"><span data-stu-id="efc85-133">Add the SignalR client library</span></span>
+## <a name="add-the-signalr-client-library"></a><span data-ttu-id="cdbac-133">添加 SignalR 客户端库</span><span class="sxs-lookup"><span data-stu-id="cdbac-133">Add the SignalR client library</span></span>
 
-<span data-ttu-id="efc85-134">SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。</span><span class="sxs-lookup"><span data-stu-id="efc85-134">The SignalR server library is included in the ASP.NET Core 3.0 shared framework.</span></span> <span data-ttu-id="efc85-135">JavaScript 客户端库不会自动包含在项目中。</span><span class="sxs-lookup"><span data-stu-id="efc85-135">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="efc85-136">对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-136">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="efc85-137">unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。</span><span class="sxs-lookup"><span data-stu-id="efc85-137">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>
+<span data-ttu-id="cdbac-134">SignalR 服务器库包含在 ASP.NET Core 3.0 共享框架中。</span><span class="sxs-lookup"><span data-stu-id="cdbac-134">The SignalR server library is included in the ASP.NET Core 3.0 shared framework.</span></span> <span data-ttu-id="cdbac-135">JavaScript 客户端库不会自动包含在项目中。</span><span class="sxs-lookup"><span data-stu-id="cdbac-135">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="cdbac-136">对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-136">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="cdbac-137">unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。</span><span class="sxs-lookup"><span data-stu-id="cdbac-137">unpkg is a content delivery network (CDN) that can deliver anything found in npm, the Node.js package manager.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-138">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-138">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-138">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-138">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="efc85-139">在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-139">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
+* <span data-ttu-id="cdbac-139">在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-139">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
 
-* <span data-ttu-id="efc85-140">在“添加客户端库”  对话框中，对于“提供程序”  ，选择“unpkg”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-140">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
+* <span data-ttu-id="cdbac-140">在“添加客户端库”  对话框中，对于“提供程序”  ，选择“unpkg”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-140">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
 
-* <span data-ttu-id="efc85-141">对于“库”  ，输入 `@microsoft/signalr@latest`。</span><span class="sxs-lookup"><span data-stu-id="efc85-141">For **Library**, enter `@microsoft/signalr@latest`.</span></span>
+* <span data-ttu-id="cdbac-141">对于“库”  ，输入 `@microsoft/signalr@latest`。</span><span class="sxs-lookup"><span data-stu-id="cdbac-141">For **Library**, enter `@microsoft/signalr@latest`.</span></span>
 
-* <span data-ttu-id="efc85-142">选择“选择特定文件”  ，展开“dist/browser”  文件夹，然后选择“signalr.js”  和“signalr.min.js”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-142">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
+* <span data-ttu-id="cdbac-142">选择“选择特定文件”  ，展开“dist/browser”  文件夹，然后选择“signalr.js”  和“signalr.min.js”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-142">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
 
-* <span data-ttu-id="efc85-143">将“目标位置”  设置为 wwwroot/js/signalr/  ，然后选择“安装”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-143">Set **Target Location** to *wwwroot/js/signalr/*, and select **Install**.</span></span>
+* <span data-ttu-id="cdbac-143">将“目标位置”  设置为 wwwroot/js/signalr/  ，然后选择“安装”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-143">Set **Target Location** to *wwwroot/js/signalr/*, and select **Install**.</span></span>
 
   ![“添加客户端库”对话框 - 选择库](signalr/_static/3.x/find-signalr-client-libs-select-files.png)
 
-  <span data-ttu-id="efc85-145">LibMan 创建 wwwroot/js/signalr  文件夹并将所选文件复制到该文件夹。</span><span class="sxs-lookup"><span data-stu-id="efc85-145">LibMan creates a *wwwroot/js/signalr* folder and copies the selected files to it.</span></span>
+  <span data-ttu-id="cdbac-145">LibMan 创建 wwwroot/js/signalr  文件夹并将所选文件复制到该文件夹。</span><span class="sxs-lookup"><span data-stu-id="cdbac-145">LibMan creates a *wwwroot/js/signalr* folder and copies the selected files to it.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-146">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-146">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-146">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-146">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="efc85-147">在集成终端中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="efc85-147">In the integrated terminal, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="cdbac-147">在集成终端中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="cdbac-147">In the integrated terminal, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="efc85-148">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-148">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="efc85-149">可能需要等待几秒钟的时间才能看到输出。</span><span class="sxs-lookup"><span data-stu-id="efc85-149">You might have to wait a few seconds before seeing output.</span></span>
+* <span data-ttu-id="cdbac-148">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-148">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="cdbac-149">可能需要等待几秒钟的时间才能看到输出。</span><span class="sxs-lookup"><span data-stu-id="cdbac-149">You might have to wait a few seconds before seeing output.</span></span>
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="efc85-150">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="efc85-150">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="efc85-151">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-151">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="efc85-152">将文件复制到 wwwroot/js/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="efc85-152">Copy files to the *wwwroot/js/signalr* destination.</span></span>
-  * <span data-ttu-id="efc85-153">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="efc85-153">Copy only the specified files.</span></span>
+  <span data-ttu-id="cdbac-150">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="cdbac-150">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="cdbac-151">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-151">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="cdbac-152">将文件复制到 wwwroot/js/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="cdbac-152">Copy files to the *wwwroot/js/signalr* destination.</span></span>
+  * <span data-ttu-id="cdbac-153">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="cdbac-153">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="efc85-154">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="efc85-154">The output looks like the following example:</span></span>
+  <span data-ttu-id="cdbac-154">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="cdbac-154">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/js/signalr/dist/browser/signalr.js written to disk
@@ -134,28 +134,28 @@ ms.locfileid: "78650610"
   Installed library "@microsoft/signalr@latest" to "wwwroot/js/signalr"
   ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-155">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-155">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-155">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-155">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="efc85-156">在“终端”  中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="efc85-156">In the **Terminal**, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="cdbac-156">在“终端”  中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="cdbac-156">In the **Terminal**, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="efc85-157">导航到项目文件夹（包含 SignalRChat.csproj  文件的文件夹）。</span><span class="sxs-lookup"><span data-stu-id="efc85-157">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
+* <span data-ttu-id="cdbac-157">导航到项目文件夹（包含 SignalRChat.csproj  文件的文件夹）。</span><span class="sxs-lookup"><span data-stu-id="cdbac-157">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
 
-* <span data-ttu-id="efc85-158">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-158">Run the following command to get the SignalR client library by using LibMan.</span></span>
+* <span data-ttu-id="cdbac-158">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-158">Run the following command to get the SignalR client library by using LibMan.</span></span>
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="efc85-159">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="efc85-159">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="efc85-160">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-160">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="efc85-161">将文件复制到 wwwroot/js/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="efc85-161">Copy files to the *wwwroot/js/signalr* destination.</span></span>
-  * <span data-ttu-id="efc85-162">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="efc85-162">Copy only the specified files.</span></span>
+  <span data-ttu-id="cdbac-159">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="cdbac-159">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="cdbac-160">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-160">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="cdbac-161">将文件复制到 wwwroot/js/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="cdbac-161">Copy files to the *wwwroot/js/signalr* destination.</span></span>
+  * <span data-ttu-id="cdbac-162">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="cdbac-162">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="efc85-163">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="efc85-163">The output looks like the following example:</span></span>
+  <span data-ttu-id="cdbac-163">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="cdbac-163">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/js/signalr/dist/browser/signalr.js written to disk
@@ -165,84 +165,84 @@ ms.locfileid: "78650610"
 
 ---
 
-## <a name="create-a-signalr-hub"></a><span data-ttu-id="efc85-164">创建 SignalR 中心</span><span class="sxs-lookup"><span data-stu-id="efc85-164">Create a SignalR hub</span></span>
+## <a name="create-a-signalr-hub"></a><span data-ttu-id="cdbac-164">创建 SignalR 中心</span><span class="sxs-lookup"><span data-stu-id="cdbac-164">Create a SignalR hub</span></span>
 
-<span data-ttu-id="efc85-165">*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。</span><span class="sxs-lookup"><span data-stu-id="efc85-165">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
+<span data-ttu-id="cdbac-165">*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。</span><span class="sxs-lookup"><span data-stu-id="cdbac-165">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
 
-* <span data-ttu-id="efc85-166">在 SignalRChat 项目文件夹中，创建 Hubs 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="efc85-166">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
+* <span data-ttu-id="cdbac-166">在 SignalRChat 项目文件夹中，创建 Hubs 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-166">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
 
-* <span data-ttu-id="efc85-167">在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件   ：</span><span class="sxs-lookup"><span data-stu-id="efc85-167">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
+* <span data-ttu-id="cdbac-167">在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件   ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-167">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
 
   [!code-csharp[ChatHub](signalr/sample-snapshot/3.x/ChatHub.cs)]
 
-  <span data-ttu-id="efc85-168">`ChatHub` 类继承自 SignalR `Hub` 类。</span><span class="sxs-lookup"><span data-stu-id="efc85-168">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="efc85-169">`Hub` 类管理连接、组和消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-169">The `Hub` class manages connections, groups, and messaging.</span></span>
+  <span data-ttu-id="cdbac-168">`ChatHub` 类继承自 SignalR `Hub` 类。</span><span class="sxs-lookup"><span data-stu-id="cdbac-168">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="cdbac-169">`Hub` 类管理连接、组和消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-169">The `Hub` class manages connections, groups, and messaging.</span></span>
 
-  <span data-ttu-id="efc85-170">可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-170">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="efc85-171">本教程后面部分将显示调用该方法的 JavaScript 客户端代码。</span><span class="sxs-lookup"><span data-stu-id="efc85-171">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="efc85-172">SignalR 代码是异步模式，可提供最大的可伸缩性。</span><span class="sxs-lookup"><span data-stu-id="efc85-172">SignalR code is asynchronous to provide maximum scalability.</span></span>
+  <span data-ttu-id="cdbac-170">可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-170">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="cdbac-171">本教程后面部分将显示调用该方法的 JavaScript 客户端代码。</span><span class="sxs-lookup"><span data-stu-id="cdbac-171">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="cdbac-172">SignalR 代码是异步模式，可提供最大的可伸缩性。</span><span class="sxs-lookup"><span data-stu-id="cdbac-172">SignalR code is asynchronous to provide maximum scalability.</span></span>
 
-## <a name="configure-signalr"></a><span data-ttu-id="efc85-173">配置 SignalR</span><span class="sxs-lookup"><span data-stu-id="efc85-173">Configure SignalR</span></span>
+## <a name="configure-signalr"></a><span data-ttu-id="cdbac-173">配置 SignalR</span><span class="sxs-lookup"><span data-stu-id="cdbac-173">Configure SignalR</span></span>
 
-<span data-ttu-id="efc85-174">必须配置 SignalR 服务器，以将 SignalR 请求传递到 SignalR。</span><span class="sxs-lookup"><span data-stu-id="efc85-174">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
+<span data-ttu-id="cdbac-174">必须配置 SignalR 服务器，以将 SignalR 请求传递到 SignalR。</span><span class="sxs-lookup"><span data-stu-id="cdbac-174">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
 
-* <span data-ttu-id="efc85-175">将以下突出显示的代码添加到 Startup.cs 文件  。</span><span class="sxs-lookup"><span data-stu-id="efc85-175">Add the following highlighted code to the *Startup.cs* file.</span></span>
+* <span data-ttu-id="cdbac-175">将以下突出显示的代码添加到 Startup.cs 文件  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-175">Add the following highlighted code to the *Startup.cs* file.</span></span>
 
   [!code-csharp[Startup](signalr/sample-snapshot/3.x/Startup.cs?highlight=11,28,55)]
 
-  <span data-ttu-id="efc85-176">这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入和路由系统。</span><span class="sxs-lookup"><span data-stu-id="efc85-176">These changes add SignalR to the ASP.NET Core dependency injection and routing systems.</span></span>
+  <span data-ttu-id="cdbac-176">这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入和路由系统。</span><span class="sxs-lookup"><span data-stu-id="cdbac-176">These changes add SignalR to the ASP.NET Core dependency injection and routing systems.</span></span>
 
-## <a name="add-signalr-client-code"></a><span data-ttu-id="efc85-177">添加 SignalR 客户端代码</span><span class="sxs-lookup"><span data-stu-id="efc85-177">Add SignalR client code</span></span>
+## <a name="add-signalr-client-code"></a><span data-ttu-id="cdbac-177">添加 SignalR 客户端代码</span><span class="sxs-lookup"><span data-stu-id="cdbac-177">Add SignalR client code</span></span>
 
-* <span data-ttu-id="efc85-178">使用以下代码替换 Pages\Index.cshtml 中的内容  ：</span><span class="sxs-lookup"><span data-stu-id="efc85-178">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
+* <span data-ttu-id="cdbac-178">使用以下代码替换 Pages\Index.cshtml 中的内容  ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-178">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
 
   [!code-cshtml[Index](signalr/sample-snapshot/3.x/Index.cshtml)]
 
-  <span data-ttu-id="efc85-179">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="efc85-179">The preceding code:</span></span>
+  <span data-ttu-id="cdbac-179">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="cdbac-179">The preceding code:</span></span>
 
-  * <span data-ttu-id="efc85-180">创建名称以及消息文本的文本框和“提交”按钮。</span><span class="sxs-lookup"><span data-stu-id="efc85-180">Creates text boxes for name and message text, and a submit button.</span></span>
-  * <span data-ttu-id="efc85-181">使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-181">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
-  * <span data-ttu-id="efc85-182">包含对 SignalR 的脚本引用以及在下一步中创建的 chat.js 应用程序代码  。</span><span class="sxs-lookup"><span data-stu-id="efc85-182">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
+  * <span data-ttu-id="cdbac-180">创建名称以及消息文本的文本框和“提交”按钮。</span><span class="sxs-lookup"><span data-stu-id="cdbac-180">Creates text boxes for name and message text, and a submit button.</span></span>
+  * <span data-ttu-id="cdbac-181">使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-181">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
+  * <span data-ttu-id="cdbac-182">包含对 SignalR 的脚本引用以及在下一步中创建的 chat.js 应用程序代码  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-182">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
 
-* <span data-ttu-id="efc85-183">在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件   ：</span><span class="sxs-lookup"><span data-stu-id="efc85-183">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
+* <span data-ttu-id="cdbac-183">在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件   ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-183">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
 
   [!code-javascript[chat](signalr/sample-snapshot/3.x/chat.js)]
 
-  <span data-ttu-id="efc85-184">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="efc85-184">The preceding code:</span></span>
+  <span data-ttu-id="cdbac-184">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="cdbac-184">The preceding code:</span></span>
 
-  * <span data-ttu-id="efc85-185">创建并启动连接。</span><span class="sxs-lookup"><span data-stu-id="efc85-185">Creates and starts a connection.</span></span>
-  * <span data-ttu-id="efc85-186">向“提交”按钮添加一个用于向中心发送消息的处理程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-186">Adds to the submit button a handler that sends messages to the hub.</span></span>
-  * <span data-ttu-id="efc85-187">向连接对象添加一个用于从中心接收消息并将其添加到列表的处理程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-187">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
+  * <span data-ttu-id="cdbac-185">创建并启动连接。</span><span class="sxs-lookup"><span data-stu-id="cdbac-185">Creates and starts a connection.</span></span>
+  * <span data-ttu-id="cdbac-186">向“提交”按钮添加一个用于向中心发送消息的处理程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-186">Adds to the submit button a handler that sends messages to the hub.</span></span>
+  * <span data-ttu-id="cdbac-187">向连接对象添加一个用于从中心接收消息并将其添加到列表的处理程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-187">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
 
-## <a name="run-the-app"></a><span data-ttu-id="efc85-188">运行应用</span><span class="sxs-lookup"><span data-stu-id="efc85-188">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="cdbac-188">运行应用</span><span class="sxs-lookup"><span data-stu-id="cdbac-188">Run the app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-189">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-189">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-189">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-189">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="efc85-190">按 Ctrl+F5 可运行应用而不进行调试  。</span><span class="sxs-lookup"><span data-stu-id="efc85-190">Press **CTRL+F5** to run the app without debugging.</span></span>
+* <span data-ttu-id="cdbac-190">按 Ctrl+F5 可运行应用而不进行调试  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-190">Press **CTRL+F5** to run the app without debugging.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-191">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-191">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-191">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-191">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="efc85-192">在集成终端中，运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="efc85-192">In the integrated terminal, run the following command:</span></span>
+* <span data-ttu-id="cdbac-192">在集成终端中，运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="cdbac-192">In the integrated terminal, run the following command:</span></span>
 
   ```dotnetcli
   dotnet watch run -p SignalRChat.csproj
   ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="efc85-194">从菜单中选择“运行”>“开始执行(不调试)”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-194">From the menu, select **Run > Start Without Debugging**.</span></span>
+* <span data-ttu-id="cdbac-194">从菜单中选择“运行”>“开始执行(不调试)”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-194">From the menu, select **Run > Start Without Debugging**.</span></span>
 
 ---
 
-* <span data-ttu-id="efc85-195">从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。</span><span class="sxs-lookup"><span data-stu-id="efc85-195">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+* <span data-ttu-id="cdbac-195">从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。</span><span class="sxs-lookup"><span data-stu-id="cdbac-195">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-* <span data-ttu-id="efc85-196">选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮  。</span><span class="sxs-lookup"><span data-stu-id="efc85-196">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
+* <span data-ttu-id="cdbac-196">选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-196">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
 
-  <span data-ttu-id="efc85-197">两个页面上立即显示名称和消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-197">The name and message are displayed on both pages instantly.</span></span>
+  <span data-ttu-id="cdbac-197">两个页面上立即显示名称和消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-197">The name and message are displayed on both pages instantly.</span></span>
 
   ![SignalR 示例应用](signalr/_static/3.x/signalr-get-started-finished.png)
 
 > [!TIP]
-> * <span data-ttu-id="efc85-199">如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。</span><span class="sxs-lookup"><span data-stu-id="efc85-199">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="efc85-200">可能会看到与 HTML 和 JavaScript 代码相关的错误。</span><span class="sxs-lookup"><span data-stu-id="efc85-200">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="efc85-201">例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。</span><span class="sxs-lookup"><span data-stu-id="efc85-201">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="efc85-202">在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。</span><span class="sxs-lookup"><span data-stu-id="efc85-202">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
->   <span data-ttu-id="efc85-203">![未找到 signalr.js 错误](signalr/_static/3.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="efc85-203">![signalr.js not found error](signalr/_static/3.x/f12-console.png)</span></span>
-> * <span data-ttu-id="efc85-204">如果 Chrome 中出现 ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY 错误，请运行这些命令以更新开发证书：</span><span class="sxs-lookup"><span data-stu-id="efc85-204">If you get the error ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY in Chrome, run these commands to update your development certificate:</span></span>
+> * <span data-ttu-id="cdbac-199">如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。</span><span class="sxs-lookup"><span data-stu-id="cdbac-199">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="cdbac-200">可能会看到与 HTML 和 JavaScript 代码相关的错误。</span><span class="sxs-lookup"><span data-stu-id="cdbac-200">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="cdbac-201">例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-201">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="cdbac-202">在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。</span><span class="sxs-lookup"><span data-stu-id="cdbac-202">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
+>   <span data-ttu-id="cdbac-203">![未找到 signalr.js 错误](signalr/_static/3.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="cdbac-203">![signalr.js not found error](signalr/_static/3.x/f12-console.png)</span></span>
+> * <span data-ttu-id="cdbac-204">如果 Chrome 中出现 ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY 错误，请运行这些命令以更新开发证书：</span><span class="sxs-lookup"><span data-stu-id="cdbac-204">If you get the error ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY in Chrome, run these commands to update your development certificate:</span></span>
 >
 >   ```dotnetcli
 >   dotnet dev-certs https --clean
@@ -253,113 +253,113 @@ ms.locfileid: "78650610"
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="efc85-205">本教程介绍生成使用 SignalR 的实时应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="efc85-205">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="efc85-206">您将学习如何：</span><span class="sxs-lookup"><span data-stu-id="efc85-206">You learn how to:</span></span>   
+<span data-ttu-id="cdbac-205">本教程介绍生成使用 SignalR 的实时应用的基础知识。</span><span class="sxs-lookup"><span data-stu-id="cdbac-205">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="cdbac-206">您将学习如何：</span><span class="sxs-lookup"><span data-stu-id="cdbac-206">You learn how to:</span></span>   
 
 > [!div class="checklist"]  
-> * <span data-ttu-id="efc85-207">创建 Web 项目。</span><span class="sxs-lookup"><span data-stu-id="efc85-207">Create a web project.</span></span>   
-> * <span data-ttu-id="efc85-208">添加 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-208">Add the SignalR client library.</span></span> 
-> * <span data-ttu-id="efc85-209">创建 SignalR 中心。</span><span class="sxs-lookup"><span data-stu-id="efc85-209">Create a SignalR hub.</span></span>   
-> * <span data-ttu-id="efc85-210">配置项目以使用 SignalR。</span><span class="sxs-lookup"><span data-stu-id="efc85-210">Configure the project to use SignalR.</span></span>   
-> * <span data-ttu-id="efc85-211">添加可将消息从任何客户端发送到所有连接客户端的代码。</span><span class="sxs-lookup"><span data-stu-id="efc85-211">Add code that sends messages from any client to all connected clients.</span></span>  
-<span data-ttu-id="efc85-212">最终将创建一个正常运行的聊天应用：![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)</span><span class="sxs-lookup"><span data-stu-id="efc85-212">At the end, you'll have a working chat app: ![SignalR sample app](signalr/_static/2.x/signalr-get-started-finished.png)</span></span> 
+> * <span data-ttu-id="cdbac-207">创建 Web 项目。</span><span class="sxs-lookup"><span data-stu-id="cdbac-207">Create a web project.</span></span>   
+> * <span data-ttu-id="cdbac-208">添加 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-208">Add the SignalR client library.</span></span> 
+> * <span data-ttu-id="cdbac-209">创建 SignalR 中心。</span><span class="sxs-lookup"><span data-stu-id="cdbac-209">Create a SignalR hub.</span></span>   
+> * <span data-ttu-id="cdbac-210">配置项目以使用 SignalR。</span><span class="sxs-lookup"><span data-stu-id="cdbac-210">Configure the project to use SignalR.</span></span>   
+> * <span data-ttu-id="cdbac-211">添加可将消息从任何客户端发送到所有连接客户端的代码。</span><span class="sxs-lookup"><span data-stu-id="cdbac-211">Add code that sends messages from any client to all connected clients.</span></span>  
+<span data-ttu-id="cdbac-212">最终将创建一个正常运行的聊天应用：![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)</span><span class="sxs-lookup"><span data-stu-id="cdbac-212">At the end, you'll have a working chat app: ![SignalR sample app](signalr/_static/2.x/signalr-get-started-finished.png)</span></span> 
 
-## <a name="prerequisites"></a><span data-ttu-id="efc85-213">先决条件</span><span class="sxs-lookup"><span data-stu-id="efc85-213">Prerequisites</span></span>    
+## <a name="prerequisites"></a><span data-ttu-id="cdbac-213">先决条件</span><span class="sxs-lookup"><span data-stu-id="cdbac-213">Prerequisites</span></span>    
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-214">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-214">Visual Studio</span></span>](#tab/visual-studio)   
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-214">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-214">Visual Studio</span></span>](#tab/visual-studio)   
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2017-2.2.md)] 
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-215">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-215">Visual Studio Code</span></span>](#tab/visual-studio-code) 
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-215">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-215">Visual Studio Code</span></span>](#tab/visual-studio-code) 
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]    
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-216">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-216">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-216">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-216">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]    
 
 --- 
 
-## <a name="create-a-web-project"></a><span data-ttu-id="efc85-217">创建 Web 项目</span><span class="sxs-lookup"><span data-stu-id="efc85-217">Create a web project</span></span> 
+## <a name="create-a-web-project"></a><span data-ttu-id="cdbac-217">创建 Web 项目</span><span class="sxs-lookup"><span data-stu-id="cdbac-217">Create a web project</span></span> 
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-218">Visual Studio</span></span>](#tab/visual-studio/)  
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-218">Visual Studio</span></span>](#tab/visual-studio/)  
 
-* <span data-ttu-id="efc85-219">从菜单中选择“文件”>“新建项目”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-219">From the menu, select **File > New Project**.</span></span> 
+* <span data-ttu-id="cdbac-219">从菜单中选择“文件”>“新建项目”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-219">From the menu, select **File > New Project**.</span></span> 
 
-* <span data-ttu-id="efc85-220">在“新建项目”对话框中，选择“已安装”>“Visual C#”>“Web”>“ASP.NET Core Web 应用”   。</span><span class="sxs-lookup"><span data-stu-id="efc85-220">In the **New Project** dialog, select **Installed > Visual C# > Web > ASP.NET Core Web Application**.</span></span> <span data-ttu-id="efc85-221">将项目命名为“SignalRChat”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-221">Name the project *SignalRChat*.</span></span> 
+* <span data-ttu-id="cdbac-220">在“新建项目”对话框中，选择“已安装”>“Visual C#”>“Web”>“ASP.NET Core Web 应用”   。</span><span class="sxs-lookup"><span data-stu-id="cdbac-220">In the **New Project** dialog, select **Installed > Visual C# > Web > ASP.NET Core Web Application**.</span></span> <span data-ttu-id="cdbac-221">将项目命名为“SignalRChat”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-221">Name the project *SignalRChat*.</span></span> 
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/2.x/signalr-new-project-dialog.png)    
 
-* <span data-ttu-id="efc85-223">选择“Web 应用”，以创建使用 Razor Pages 的项目  。</span><span class="sxs-lookup"><span data-stu-id="efc85-223">Select **Web Application** to create a project that uses Razor Pages.</span></span> 
+* <span data-ttu-id="cdbac-223">选择“Web 应用”，以创建使用 Razor Pages 的项目  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-223">Select **Web Application** to create a project that uses Razor Pages.</span></span> 
 
-* <span data-ttu-id="efc85-224">选择“.NET Core”目标框架，选择“ASP.NET Core 2.2”，然后单击“确定”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-224">Select a target framework of **.NET Core**, select **ASP.NET Core 2.2**, and click **OK**.</span></span>    
+* <span data-ttu-id="cdbac-224">选择“.NET Core”目标框架，选择“ASP.NET Core 2.2”，然后单击“确定”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-224">Select a target framework of **.NET Core**, select **ASP.NET Core 2.2**, and click **OK**.</span></span>    
 
   ![Visual Studio 中的“新建项目”对话框](signalr/_static/2.x/signalr-new-project-choose-type.png)   
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-226">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-226">Visual Studio Code</span></span>](#tab/visual-studio-code/)    
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-226">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-226">Visual Studio Code</span></span>](#tab/visual-studio-code/)    
 
-* <span data-ttu-id="efc85-227">在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="efc85-227">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>  
+* <span data-ttu-id="cdbac-227">在将要在其中创建新项目文件夹的文件夹中打开[集成终端](https://code.visualstudio.com/docs/editor/integrated-terminal)。</span><span class="sxs-lookup"><span data-stu-id="cdbac-227">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>  
 
-* <span data-ttu-id="efc85-228">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="efc85-228">Run the following commands:</span></span>   
+* <span data-ttu-id="cdbac-228">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="cdbac-228">Run the following commands:</span></span>   
 
    ```dotnetcli 
    dotnet new webapp -o SignalRChat 
    code -r SignalRChat  
    ```  
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-229">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-229">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-229">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-229">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
 
-* <span data-ttu-id="efc85-230">从菜单中选择“文件”>“新建解决方案”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-230">From the menu, select **File > New Solution**.</span></span>    
+* <span data-ttu-id="cdbac-230">从菜单中选择“文件”>“新建解决方案”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-230">From the menu, select **File > New Solution**.</span></span>    
 
-* <span data-ttu-id="efc85-231">选择“.NET Core”>“应用”>“ASP.NET Core Web 应用”（请勿选择 ASP.NET Core Web 应用 (MVC)）   。</span><span class="sxs-lookup"><span data-stu-id="efc85-231">Select **.NET Core > App > ASP.NET Core Web App** (Don't select **ASP.NET Core Web App (MVC)**).</span></span>  
+* <span data-ttu-id="cdbac-231">选择“.NET Core”>“应用”>“ASP.NET Core Web 应用”（请勿选择 ASP.NET Core Web 应用 (MVC)）   。</span><span class="sxs-lookup"><span data-stu-id="cdbac-231">Select **.NET Core > App > ASP.NET Core Web App** (Don't select **ASP.NET Core Web App (MVC)**).</span></span>  
 
-* <span data-ttu-id="efc85-232">选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-232">Select **Next**.</span></span>  
+* <span data-ttu-id="cdbac-232">选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-232">Select **Next**.</span></span>  
 
-* <span data-ttu-id="efc85-233">将项目命名为“SignalRChat”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="efc85-233">Name the project *SignalRChat*, and then select **Create**.</span></span>   
+* <span data-ttu-id="cdbac-233">将项目命名为“SignalRChat”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="cdbac-233">Name the project *SignalRChat*, and then select **Create**.</span></span>   
 
 --- 
 
-## <a name="add-the-signalr-client-library"></a><span data-ttu-id="efc85-234">添加 SignalR 客户端库</span><span class="sxs-lookup"><span data-stu-id="efc85-234">Add the SignalR client library</span></span>   
+## <a name="add-the-signalr-client-library"></a><span data-ttu-id="cdbac-234">添加 SignalR 客户端库</span><span class="sxs-lookup"><span data-stu-id="cdbac-234">Add the SignalR client library</span></span>   
 
-<span data-ttu-id="efc85-235">`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。</span><span class="sxs-lookup"><span data-stu-id="efc85-235">The SignalR server library is included in the `Microsoft.AspNetCore.App` metapackage.</span></span> <span data-ttu-id="efc85-236">JavaScript 客户端库不会自动包含在项目中。</span><span class="sxs-lookup"><span data-stu-id="efc85-236">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="efc85-237">对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-237">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="efc85-238">unpkg 是一个内容分发网络 (CDN)，可以分发在 npm（即 Node.js 包管理器）中找到的任何内容。</span><span class="sxs-lookup"><span data-stu-id="efc85-238">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>    
+<span data-ttu-id="cdbac-235">`Microsoft.AspNetCore.App` 元包中包括 SignalR 服务器库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-235">The SignalR server library is included in the `Microsoft.AspNetCore.App` metapackage.</span></span> <span data-ttu-id="cdbac-236">JavaScript 客户端库不会自动包含在项目中。</span><span class="sxs-lookup"><span data-stu-id="cdbac-236">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="cdbac-237">对于此教程，使用库管理器 (LibMan) 从 unpkg  获取客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-237">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="cdbac-238">unpkg 是一个内容分发网络 (CDN)，可分发在 npm（即 Node.js 包管理器）中找到的任何内容。</span><span class="sxs-lookup"><span data-stu-id="cdbac-238">unpkg is a content delivery network (CDN) that can deliver anything found in npm, the Node.js package manager.</span></span> 
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-239">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-239">Visual Studio</span></span>](#tab/visual-studio/)  
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-239">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-239">Visual Studio</span></span>](#tab/visual-studio/)  
 
-* <span data-ttu-id="efc85-240">在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”    。</span><span class="sxs-lookup"><span data-stu-id="efc85-240">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>  
+* <span data-ttu-id="cdbac-240">在“解决方案资源管理器”中，右键单击项目，然后选择“添加”>“客户端库”    。</span><span class="sxs-lookup"><span data-stu-id="cdbac-240">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>  
 
-* <span data-ttu-id="efc85-241">在“添加客户端库”  对话框中，对于“提供程序”  ，选择“unpkg”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-241">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span> 
+* <span data-ttu-id="cdbac-241">在“添加客户端库”  对话框中，对于“提供程序”  ，选择“unpkg”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-241">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span> 
 
-* <span data-ttu-id="efc85-242">对于“库”  ，输入 `@microsoft/signalr@3`，然后选择不是预览版的最新版本。</span><span class="sxs-lookup"><span data-stu-id="efc85-242">For **Library**, enter `@microsoft/signalr@3`, and select the latest version that isn't preview.</span></span>  
+* <span data-ttu-id="cdbac-242">对于“库”  ，输入 `@microsoft/signalr@3`，然后选择不是预览版的最新版本。</span><span class="sxs-lookup"><span data-stu-id="cdbac-242">For **Library**, enter `@microsoft/signalr@3`, and select the latest version that isn't preview.</span></span>  
 
   ![“添加客户端库”对话框 - 选择库](signalr/_static/2.x/libman1.png)   
 
-* <span data-ttu-id="efc85-244">选择“选择特定文件”  ，展开“dist/browser”  文件夹，然后选择“signalr.js”  和“signalr.min.js”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-244">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span> 
+* <span data-ttu-id="cdbac-244">选择“选择特定文件”  ，展开“dist/browser”  文件夹，然后选择“signalr.js”  和“signalr.min.js”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-244">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span> 
 
-* <span data-ttu-id="efc85-245">将“目标位置”  设置为 wwwroot/lib/signalr/  ，然后选择“安装”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-245">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>    
+* <span data-ttu-id="cdbac-245">将“目标位置”  设置为 wwwroot/lib/signalr/  ，然后选择“安装”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-245">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>    
 
   ![“添加客户端库”对话框 - 选择文件和目标](signalr/_static/2.x/libman2.png) 
 
-  <span data-ttu-id="efc85-247">LibMan 创建 wwwroot/lib/signalr  文件夹并将所选文件复制到该文件夹。</span><span class="sxs-lookup"><span data-stu-id="efc85-247">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>    
+  <span data-ttu-id="cdbac-247">LibMan 创建 wwwroot/lib/signalr  文件夹并将所选文件复制到该文件夹。</span><span class="sxs-lookup"><span data-stu-id="cdbac-247">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>    
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-248">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-248">Visual Studio Code</span></span>](#tab/visual-studio-code/)    
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-248">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-248">Visual Studio Code</span></span>](#tab/visual-studio-code/)    
 
-* <span data-ttu-id="efc85-249">在集成终端中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="efc85-249">In the integrated terminal, run the following command to install LibMan.</span></span>  
+* <span data-ttu-id="cdbac-249">在集成终端中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="cdbac-249">In the integrated terminal, run the following command to install LibMan.</span></span>  
 
   ```dotnetcli  
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
   ```   
 
-* <span data-ttu-id="efc85-250">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-250">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="efc85-251">可能需要等待几秒钟的时间才能看到输出。</span><span class="sxs-lookup"><span data-stu-id="efc85-251">You might have to wait a few seconds before seeing output.</span></span>   
+* <span data-ttu-id="cdbac-250">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-250">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="cdbac-251">可能需要等待几秒钟的时间才能看到输出。</span><span class="sxs-lookup"><span data-stu-id="cdbac-251">You might have to wait a few seconds before seeing output.</span></span>   
 
   ```console    
   libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
   ```   
 
-  <span data-ttu-id="efc85-252">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="efc85-252">The parameters specify the following options:</span></span> 
-  * <span data-ttu-id="efc85-253">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-253">Use the unpkg provider.</span></span> 
-  * <span data-ttu-id="efc85-254">将文件复制到 wwwroot/lib/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="efc85-254">Copy files to the *wwwroot/lib/signalr* destination.</span></span>    
-  * <span data-ttu-id="efc85-255">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="efc85-255">Copy only the specified files.</span></span>  
+  <span data-ttu-id="cdbac-252">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="cdbac-252">The parameters specify the following options:</span></span> 
+  * <span data-ttu-id="cdbac-253">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-253">Use the unpkg provider.</span></span> 
+  * <span data-ttu-id="cdbac-254">将文件复制到 wwwroot/lib/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="cdbac-254">Copy files to the *wwwroot/lib/signalr* destination.</span></span>    
+  * <span data-ttu-id="cdbac-255">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="cdbac-255">Copy only the specified files.</span></span>  
 
-  <span data-ttu-id="efc85-256">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="efc85-256">The output looks like the following example:</span></span>  
+  <span data-ttu-id="cdbac-256">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="cdbac-256">The output looks like the following example:</span></span>  
 
   ```console    
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk   
@@ -367,28 +367,28 @@ ms.locfileid: "78650610"
   Installed library "@microsoft/signalr@3.0.1" to "wwwroot/lib/signalr" 
   ```   
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-257">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-257">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-257">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-257">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)   
 
-* <span data-ttu-id="efc85-258">在“终端”  中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="efc85-258">In the **Terminal**, run the following command to install LibMan.</span></span> 
+* <span data-ttu-id="cdbac-258">在“终端”  中，运行以下命令以安装 LibMan。</span><span class="sxs-lookup"><span data-stu-id="cdbac-258">In the **Terminal**, run the following command to install LibMan.</span></span> 
 
   ```dotnetcli  
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
   ```   
 
-* <span data-ttu-id="efc85-259">导航到项目文件夹（包含 SignalRChat.csproj  文件的文件夹）。</span><span class="sxs-lookup"><span data-stu-id="efc85-259">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span> 
+* <span data-ttu-id="cdbac-259">导航到项目文件夹（包含 SignalRChat.csproj  文件的文件夹）。</span><span class="sxs-lookup"><span data-stu-id="cdbac-259">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span> 
 
-* <span data-ttu-id="efc85-260">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="efc85-260">Run the following command to get the SignalR client library by using LibMan.</span></span>  
+* <span data-ttu-id="cdbac-260">使用 LibMan 运行以下命令，以获取 SignalR 客户端库。</span><span class="sxs-lookup"><span data-stu-id="cdbac-260">Run the following command to get the SignalR client library by using LibMan.</span></span>  
 
   ```console    
   libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
   ```   
 
-  <span data-ttu-id="efc85-261">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="efc85-261">The parameters specify the following options:</span></span> 
-  * <span data-ttu-id="efc85-262">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-262">Use the unpkg provider.</span></span> 
-  * <span data-ttu-id="efc85-263">将文件复制到 wwwroot/lib/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="efc85-263">Copy files to the *wwwroot/lib/signalr* destination.</span></span>    
-  * <span data-ttu-id="efc85-264">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="efc85-264">Copy only the specified files.</span></span>  
+  <span data-ttu-id="cdbac-261">参数指定以下选项：</span><span class="sxs-lookup"><span data-stu-id="cdbac-261">The parameters specify the following options:</span></span> 
+  * <span data-ttu-id="cdbac-262">使用 unpkg 提供程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-262">Use the unpkg provider.</span></span> 
+  * <span data-ttu-id="cdbac-263">将文件复制到 wwwroot/lib/signalr  目标。</span><span class="sxs-lookup"><span data-stu-id="cdbac-263">Copy files to the *wwwroot/lib/signalr* destination.</span></span>    
+  * <span data-ttu-id="cdbac-264">仅复制指定的文件。</span><span class="sxs-lookup"><span data-stu-id="cdbac-264">Copy only the specified files.</span></span>  
 
-  <span data-ttu-id="efc85-265">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="efc85-265">The output looks like the following example:</span></span>  
+  <span data-ttu-id="cdbac-265">输出如下所示：</span><span class="sxs-lookup"><span data-stu-id="cdbac-265">The output looks like the following example:</span></span>  
 
   ```console    
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk   
@@ -398,84 +398,84 @@ ms.locfileid: "78650610"
 
 --- 
 
-## <a name="create-a-signalr-hub"></a><span data-ttu-id="efc85-266">创建 SignalR 中心</span><span class="sxs-lookup"><span data-stu-id="efc85-266">Create a SignalR hub</span></span> 
+## <a name="create-a-signalr-hub"></a><span data-ttu-id="cdbac-266">创建 SignalR 中心</span><span class="sxs-lookup"><span data-stu-id="cdbac-266">Create a SignalR hub</span></span> 
 
-<span data-ttu-id="efc85-267">*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。</span><span class="sxs-lookup"><span data-stu-id="efc85-267">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>   
+<span data-ttu-id="cdbac-267">*中心*是一个类，用作处理客户端 - 服务器通信的高级管道。</span><span class="sxs-lookup"><span data-stu-id="cdbac-267">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>   
 
-* <span data-ttu-id="efc85-268">在 SignalRChat 项目文件夹中，创建 Hubs 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="efc85-268">In the SignalRChat project folder, create a *Hubs* folder.</span></span>    
+* <span data-ttu-id="cdbac-268">在 SignalRChat 项目文件夹中，创建 Hubs 文件夹  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-268">In the SignalRChat project folder, create a *Hubs* folder.</span></span>    
 
-* <span data-ttu-id="efc85-269">在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件   ：</span><span class="sxs-lookup"><span data-stu-id="efc85-269">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span> 
+* <span data-ttu-id="cdbac-269">在 Hubs 文件夹中，使用以下代码创建 ChatHub.cs 文件   ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-269">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span> 
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/ChatHub.cs)]   
 
-  <span data-ttu-id="efc85-270">`ChatHub` 类继承自 SignalR `Hub` 类。</span><span class="sxs-lookup"><span data-stu-id="efc85-270">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="efc85-271">`Hub` 类管理连接、组和消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-271">The `Hub` class manages connections, groups, and messaging.</span></span>    
+  <span data-ttu-id="cdbac-270">`ChatHub` 类继承自 SignalR `Hub` 类。</span><span class="sxs-lookup"><span data-stu-id="cdbac-270">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="cdbac-271">`Hub` 类管理连接、组和消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-271">The `Hub` class manages connections, groups, and messaging.</span></span>    
 
-  <span data-ttu-id="efc85-272">可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-272">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="efc85-273">本教程后面部分将显示调用该方法的 JavaScript 客户端代码。</span><span class="sxs-lookup"><span data-stu-id="efc85-273">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="efc85-274">SignalR 代码是异步模式，可提供最大的可伸缩性。</span><span class="sxs-lookup"><span data-stu-id="efc85-274">SignalR code is asynchronous to provide maximum scalability.</span></span>  
+  <span data-ttu-id="cdbac-272">可通过已连接客户端调用 `SendMessage`，以向所有客户端发送消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-272">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="cdbac-273">本教程后面部分将显示调用该方法的 JavaScript 客户端代码。</span><span class="sxs-lookup"><span data-stu-id="cdbac-273">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="cdbac-274">SignalR 代码是异步模式，可提供最大的可伸缩性。</span><span class="sxs-lookup"><span data-stu-id="cdbac-274">SignalR code is asynchronous to provide maximum scalability.</span></span>  
 
-## <a name="configure-signalr"></a><span data-ttu-id="efc85-275">配置 SignalR</span><span class="sxs-lookup"><span data-stu-id="efc85-275">Configure SignalR</span></span>    
+## <a name="configure-signalr"></a><span data-ttu-id="cdbac-275">配置 SignalR</span><span class="sxs-lookup"><span data-stu-id="cdbac-275">Configure SignalR</span></span>    
 
-<span data-ttu-id="efc85-276">必须配置 SignalR 服务器，以将 SignalR 请求传递到 SignalR。</span><span class="sxs-lookup"><span data-stu-id="efc85-276">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>  
+<span data-ttu-id="cdbac-276">必须配置 SignalR 服务器，以将 SignalR 请求传递到 SignalR。</span><span class="sxs-lookup"><span data-stu-id="cdbac-276">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>  
 
-* <span data-ttu-id="efc85-277">将以下突出显示的代码添加到 Startup.cs 文件  。</span><span class="sxs-lookup"><span data-stu-id="efc85-277">Add the following highlighted code to the *Startup.cs* file.</span></span>  
+* <span data-ttu-id="cdbac-277">将以下突出显示的代码添加到 Startup.cs 文件  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-277">Add the following highlighted code to the *Startup.cs* file.</span></span>  
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/Startup.cs?highlight=7,33,52-55)]  
 
-  <span data-ttu-id="efc85-278">这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入系统和中间件管道。</span><span class="sxs-lookup"><span data-stu-id="efc85-278">These changes add SignalR to the ASP.NET Core dependency injection system and the middleware pipeline.</span></span>    
+  <span data-ttu-id="cdbac-278">这些更改将 SignalR 添加到 ASP.NET Core 依赖关系注入系统和中间件管道。</span><span class="sxs-lookup"><span data-stu-id="cdbac-278">These changes add SignalR to the ASP.NET Core dependency injection system and the middleware pipeline.</span></span>    
 
-## <a name="add-signalr-client-code"></a><span data-ttu-id="efc85-279">添加 SignalR 客户端代码</span><span class="sxs-lookup"><span data-stu-id="efc85-279">Add SignalR client code</span></span>  
+## <a name="add-signalr-client-code"></a><span data-ttu-id="cdbac-279">添加 SignalR 客户端代码</span><span class="sxs-lookup"><span data-stu-id="cdbac-279">Add SignalR client code</span></span>  
 
-* <span data-ttu-id="efc85-280">使用以下代码替换 Pages\Index.cshtml 中的内容  ：</span><span class="sxs-lookup"><span data-stu-id="efc85-280">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>  
+* <span data-ttu-id="cdbac-280">使用以下代码替换 Pages\Index.cshtml 中的内容  ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-280">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>  
 
   [!code-cshtml[Index](signalr/sample-snapshot/2.x/Index.cshtml)]   
 
-  <span data-ttu-id="efc85-281">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="efc85-281">The preceding code:</span></span>   
+  <span data-ttu-id="cdbac-281">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="cdbac-281">The preceding code:</span></span>   
 
-  * <span data-ttu-id="efc85-282">创建名称以及消息文本的文本框和“提交”按钮。</span><span class="sxs-lookup"><span data-stu-id="efc85-282">Creates text boxes for name and message text, and a submit button.</span></span>  
-  * <span data-ttu-id="efc85-283">使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-283">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span> 
-  * <span data-ttu-id="efc85-284">包含对 SignalR 的脚本引用以及在下一步中创建的 chat.js 应用程序代码  。</span><span class="sxs-lookup"><span data-stu-id="efc85-284">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>  
+  * <span data-ttu-id="cdbac-282">创建名称以及消息文本的文本框和“提交”按钮。</span><span class="sxs-lookup"><span data-stu-id="cdbac-282">Creates text boxes for name and message text, and a submit button.</span></span>  
+  * <span data-ttu-id="cdbac-283">使用 `id="messagesList"` 创建一个列表，用于显示从 SignalR 中心接收的消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-283">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span> 
+  * <span data-ttu-id="cdbac-284">包含对 SignalR 的脚本引用以及在下一步中创建的 chat.js 应用程序代码  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-284">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>  
 
-* <span data-ttu-id="efc85-285">在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件   ：</span><span class="sxs-lookup"><span data-stu-id="efc85-285">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>  
+* <span data-ttu-id="cdbac-285">在 wwwroot/js 文件夹中，使用以下代码创建 chat.js 文件   ：</span><span class="sxs-lookup"><span data-stu-id="cdbac-285">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>  
 
   [!code-javascript[Index](signalr/sample-snapshot/2.x/chat.js)]    
 
-  <span data-ttu-id="efc85-286">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="efc85-286">The preceding code:</span></span>   
+  <span data-ttu-id="cdbac-286">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="cdbac-286">The preceding code:</span></span>   
 
-  * <span data-ttu-id="efc85-287">创建并启动连接。</span><span class="sxs-lookup"><span data-stu-id="efc85-287">Creates and starts a connection.</span></span>    
-  * <span data-ttu-id="efc85-288">向“提交”按钮添加一个用于向中心发送消息的处理程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-288">Adds to the submit button a handler that sends messages to the hub.</span></span> 
-  * <span data-ttu-id="efc85-289">向连接对象添加一个用于从中心接收消息并将其添加到列表的处理程序。</span><span class="sxs-lookup"><span data-stu-id="efc85-289">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>  
+  * <span data-ttu-id="cdbac-287">创建并启动连接。</span><span class="sxs-lookup"><span data-stu-id="cdbac-287">Creates and starts a connection.</span></span>    
+  * <span data-ttu-id="cdbac-288">向“提交”按钮添加一个用于向中心发送消息的处理程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-288">Adds to the submit button a handler that sends messages to the hub.</span></span> 
+  * <span data-ttu-id="cdbac-289">向连接对象添加一个用于从中心接收消息并将其添加到列表的处理程序。</span><span class="sxs-lookup"><span data-stu-id="cdbac-289">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>  
 
-## <a name="run-the-app"></a><span data-ttu-id="efc85-290">运行应用</span><span class="sxs-lookup"><span data-stu-id="efc85-290">Run the app</span></span>  
+## <a name="run-the-app"></a><span data-ttu-id="cdbac-290">运行应用</span><span class="sxs-lookup"><span data-stu-id="cdbac-290">Run the app</span></span>  
 
-# <a name="visual-studio"></a>[<span data-ttu-id="efc85-291">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="efc85-291">Visual Studio</span></span>](#tab/visual-studio)   
+# <a name="visual-studio"></a>[<span data-ttu-id="cdbac-291">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="cdbac-291">Visual Studio</span></span>](#tab/visual-studio)   
 
-* <span data-ttu-id="efc85-292">按 Ctrl+F5 可运行应用而不进行调试  。</span><span class="sxs-lookup"><span data-stu-id="efc85-292">Press **CTRL+F5** to run the app without debugging.</span></span>   
+* <span data-ttu-id="cdbac-292">按 Ctrl+F5 可运行应用而不进行调试  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-292">Press **CTRL+F5** to run the app without debugging.</span></span>   
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="efc85-293">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="efc85-293">Visual Studio Code</span></span>](#tab/visual-studio-code) 
+# <a name="visual-studio-code"></a>[<span data-ttu-id="cdbac-293">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="cdbac-293">Visual Studio Code</span></span>](#tab/visual-studio-code) 
 
-* <span data-ttu-id="efc85-294">在集成终端中，运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="efc85-294">In the integrated terminal, run the following command:</span></span>    
+* <span data-ttu-id="cdbac-294">在集成终端中，运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="cdbac-294">In the integrated terminal, run the following command:</span></span>    
 
   ```dotnetcli
   dotnet run -p SignalRChat.csproj
   ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="efc85-295">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="efc85-295">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="cdbac-295">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="cdbac-295">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="efc85-296">从菜单中选择“运行”>“开始执行(不调试)”  。</span><span class="sxs-lookup"><span data-stu-id="efc85-296">From the menu, select **Run > Start Without Debugging**.</span></span>
+* <span data-ttu-id="cdbac-296">从菜单中选择“运行”>“开始执行(不调试)”  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-296">From the menu, select **Run > Start Without Debugging**.</span></span>
 
 ---
 
-* <span data-ttu-id="efc85-297">从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。</span><span class="sxs-lookup"><span data-stu-id="efc85-297">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+* <span data-ttu-id="cdbac-297">从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。</span><span class="sxs-lookup"><span data-stu-id="cdbac-297">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-* <span data-ttu-id="efc85-298">选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮  。</span><span class="sxs-lookup"><span data-stu-id="efc85-298">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>  
+* <span data-ttu-id="cdbac-298">选择任一浏览器，输入名称和消息，然后选择“发送消息”按钮  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-298">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>  
 
-  <span data-ttu-id="efc85-299">两个页面上立即显示名称和消息。</span><span class="sxs-lookup"><span data-stu-id="efc85-299">The name and message are displayed on both pages instantly.</span></span>   
+  <span data-ttu-id="cdbac-299">两个页面上立即显示名称和消息。</span><span class="sxs-lookup"><span data-stu-id="cdbac-299">The name and message are displayed on both pages instantly.</span></span>   
 
-  <span data-ttu-id="efc85-300">![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)</span><span class="sxs-lookup"><span data-stu-id="efc85-300">![SignalR sample app](signalr/_static/2.x/signalr-get-started-finished.png)</span></span> 
+  <span data-ttu-id="cdbac-300">![SignalR 示例应用](signalr/_static/2.x/signalr-get-started-finished.png)</span><span class="sxs-lookup"><span data-stu-id="cdbac-300">![SignalR sample app](signalr/_static/2.x/signalr-get-started-finished.png)</span></span> 
 
 > [!TIP]    
-> <span data-ttu-id="efc85-301">如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。</span><span class="sxs-lookup"><span data-stu-id="efc85-301">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="efc85-302">可能会看到与 HTML 和 JavaScript 代码相关的错误。</span><span class="sxs-lookup"><span data-stu-id="efc85-302">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="efc85-303">例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。</span><span class="sxs-lookup"><span data-stu-id="efc85-303">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="efc85-304">在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。</span><span class="sxs-lookup"><span data-stu-id="efc85-304">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>   
-> <span data-ttu-id="efc85-305">![未找到 signalr.js 错误](signalr/_static/2.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="efc85-305">![signalr.js not found error](signalr/_static/2.x/f12-console.png)</span></span>    
-## <a name="additional-resources"></a><span data-ttu-id="efc85-306">其他资源</span><span class="sxs-lookup"><span data-stu-id="efc85-306">Additional resources</span></span> 
-* [<span data-ttu-id="efc85-307">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="efc85-307">Youtube version of this tutorial</span></span>](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
+> <span data-ttu-id="cdbac-301">如果应用不起作用，请打开浏览器开发人员工具 (F12) 并转到控制台。</span><span class="sxs-lookup"><span data-stu-id="cdbac-301">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="cdbac-302">可能会看到与 HTML 和 JavaScript 代码相关的错误。</span><span class="sxs-lookup"><span data-stu-id="cdbac-302">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="cdbac-303">例如，假设将 signalr.js 放在不同于系统指示的文件夹中  。</span><span class="sxs-lookup"><span data-stu-id="cdbac-303">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="cdbac-304">在这种情况下，对该文件的引用将不起作用，并且你将在控制台中看到 404 错误。</span><span class="sxs-lookup"><span data-stu-id="cdbac-304">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>   
+> <span data-ttu-id="cdbac-305">![未找到 signalr.js 错误](signalr/_static/2.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="cdbac-305">![signalr.js not found error](signalr/_static/2.x/f12-console.png)</span></span>    
+## <a name="additional-resources"></a><span data-ttu-id="cdbac-306">其他资源</span><span class="sxs-lookup"><span data-stu-id="cdbac-306">Additional resources</span></span> 
+* [<span data-ttu-id="cdbac-307">本教程的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="cdbac-307">Youtube version of this tutorial</span></span>](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
 
 ::: moniker-end
