@@ -4,14 +4,14 @@ author: jamesnk
 description: 了解如何配置 ASP.NET Core 上的 gRPC 服务，以使其可以从使用 gRPC-Web 的浏览器应用中进行调用。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 02/16/2020
+ms.date: 04/15/2020
 uid: grpc/browser
-ms.openlocfilehash: 3beeffc26ffd3c2dc85bfc22a46d97d5fd78d3d0
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: a20e604488b1fb919f18932599ba690bfa308f0c
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78649416"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440761"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 
@@ -28,6 +28,15 @@ ms.locfileid: "78649416"
 > 请通过 [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) 提供反馈，以确保我们生成的内容受到开发人员欢迎并能帮助他们提高工作效率。
 
 无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。 [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) 是一种允许浏览器 JavaScript 和 Blazor 应用调用 gRPC 服务的协议。 本文介绍如何使用 .NET Core 中的 gRPC-Web。
+
+## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>.NET Core 中的 gRPC-Web 与Envoy
+
+有两种方式可将 gRPC-Web 添加到 ASP.NET Core 应用中：
+
+* 在 ASP.NET Core 中同时支持 gRPC-Web 和 gRPC HTTP/2。 此选项会使用 `Grpc.AspNetCore.Web` 包提供的中间件。
+* 使用 [Envoy 代理](https://www.envoyproxy.io/)的 gRPC-Web 支持将 gRPC-Web 转换为 gRPC HTTP/2。 转换后的调用随后会转发给 ASP.NET Core 应用。
+
+每种方法既有优点，也有缺点。 如果已在应用的环境中使用 Envoy 作为代理，则合理的做法可能是还用它来提供 gRPC-Web 支持。 如果想向 gRPC-Web 提供一种仅需要 ASP.NET Core 的简单解决方案，则 `Grpc.AspNetCore.Web` 是一个不错的选择。
 
 ## <a name="configure-grpc-web-in-aspnet-core"></a>配置 ASP.NET Core 中的 gRPC-Web
 
@@ -48,6 +57,11 @@ ms.locfileid: "78649416"
 或者，将所有服务配置为支持 gRPC-Web，方法是将 `services.AddGrpcWeb(o => o.GrpcWebEnabled = true);` 添加到 ConfigureServices。
 
 [!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=6,13)]
+
+> [!NOTE]
+> 存在一个已知问题，它导致在 .NET Core 3.x 中[由 Http.sys 托管](xref:fundamentals/servers/httpsys)时 gRPC-Web 会失败。
+>
+> [此处](https://github.com/grpc/grpc-dotnet/issues/853#issuecomment-610078202)提供了一种变通方法，可用来获取在 Http.sys 上工作 gRPC-Web。
 
 ### <a name="grpc-web-and-cors"></a>gRPC-Web 和 CORS
 
@@ -95,10 +109,10 @@ ms.locfileid: "78649416"
 创建后，`GrpcWebHandler` 具有以下配置选项：
 
 * **InnerHandler**：发出 gRPC HTTP 请求的基础 <xref:System.Net.Http.HttpMessageHandler>，例如 `HttpClientHandler`。
-* **模式**：枚举类型，指定 gRPC HTTP 请求请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
+* **模式**：枚举类型，指定 gRPC HTTP 请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
     * `GrpcWebMode.GrpcWeb` 配置不进行编码即发送的内容。 默认值。
     * `GrpcWebMode.GrpcWebText` 配置需进行 base64 编码的内容。 对于浏览器中的服务器流式处理调用是必需的。
-* **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
+* **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
 
 > [!IMPORTANT]
 > 生成的 gRPC 客户端具有用于调用一元方法的同步和异步方法。 例如，`SayHello` 是同步的，而 `SayHelloAsync` 是异步的。 在 Blazor WebAssembly 应用中调用同步方法将导致应用无响应。 必须始终在 Blazor WebAssembly 中使用异步方法。
