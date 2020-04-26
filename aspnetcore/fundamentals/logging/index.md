@@ -5,14 +5,14 @@ description: 了解如何使用由 Microsoft Extension.Logging NuGet 包提供�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 4/17/2020
+ms.date: 4/23/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: b897d0d775da62a11f01a64f39b47b6c5abebc8b
-ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
+ms.openlocfilehash: 7be8cef3377132ed43efde209db67401d7bdb6dc
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2020
-ms.locfileid: "81791566"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82110910"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core 和 ASP.NET Core 中的日志记录
 
@@ -165,7 +165,9 @@ public class Program
 
 前面突出显示的代码是 `Func`，该代码在 DI 容器第一次需要构造 `MyService` 实例时运行。 可以用这种方式访问任何已注册的服务。
 
-### <a name="create-logs-in-blazor-webassembly"></a>在 Blazor WebAssembly 中创建日志
+### <a name="create-logs-in-blazor"></a>在 Blazor 中创建日志
+
+#### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 使用 `Program.Main` 中的 `WebAssemblyHostBuilder.Logging` 属性在 Blazor WebAssembly 应用中创建日志：
 
@@ -181,6 +183,63 @@ builder.Logging.AddProvider(new CustomLoggingProvider());
 ```
 
 `Logging` 属性的类型为 <xref:Microsoft.Extensions.Logging.ILoggingBuilder>，因此可在 <xref:Microsoft.Extensions.Logging.ILoggingBuilder> 上使用的所有扩展方法也可在 `Logging` 上使用。
+
+#### <a name="log-in-razor-components"></a>登录 Razor 组件
+
+记录器会采用应用启动配置。
+
+要支持对 API 使用 IntelliSense 完成项（例如 <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogWarning%2A> 和 <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogError%2A>），需具备 <xref:Microsoft.Extensions.Logging> 的 `using` 指令。
+
+下面的示例演示了如何使用 Razor 组件中的 <xref:Microsoft.Extensions.Logging.ILogger> 进行日志记录：
+
+```razor
+@page "/counter"
+@using Microsoft.Extensions.Logging;
+@inject ILogger<Counter> logger;
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        logger.LogWarning("Someone has clicked me!");
+
+        currentCount++;
+    }
+}
+```
+
+下面的示例演示了如何使用 Razor 组件中的 <xref:Microsoft.Extensions.Logging.ILoggerFactory> 进行日志记录：
+
+```razor
+@page "/counter"
+@using Microsoft.Extensions.Logging;
+@inject ILoggerFactory LoggerFactory
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        var logger = LoggerFactory.CreateLogger<Counter>();
+        logger.LogWarning("Someone has clicked me!");
+
+        currentCount++;
+    }
+}
+```
 
 ### <a name="no-asynchronous-logger-methods"></a>没有异步记录器方法
 
