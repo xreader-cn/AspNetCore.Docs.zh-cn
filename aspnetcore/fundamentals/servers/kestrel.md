@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/10/2020
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: e9b4b57ee70e4050f9399b90a6e34e8cc9cca78d
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 18846d60fd5c29f17cb4e59192795fd92251e2d0
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218825"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80976763"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core 中的 Kestrel Web 服务器实现
 
@@ -344,14 +344,14 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 默认值为 96 KB (98,304)。
 
-### <a name="synchronous-io"></a>同步 IO
+### <a name="synchronous-io"></a>同步 I/O
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 IO。 默认值为 `false`。
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 I/O。 默认值为 `false`。
 
 > [!WARNING]
-> 大量的阻止同步 IO 操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 IO 的库时，才启用 `AllowSynchronousIO`。
+> 大量阻止同步 I/O 的操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 I/O 的库时，才启用 `AllowSynchronousIO`。
 
-下面的示例启用同步 IO：
+以下示例会启用同步 I/O：
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_SyncIO)]
 
@@ -1325,14 +1325,14 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 默认值为 96 KB (98,304)。
 
-### <a name="synchronous-io"></a>同步 IO
+### <a name="synchronous-io"></a>同步 I/O
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 IO。 默认值为 `true`。
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 I/O。 默认值为 `true`。
 
 > [!WARNING]
-> 大量的阻止同步 IO 操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 IO 的库时，才启用 `AllowSynchronousIO`。
+> 大量阻止同步 I/O 的操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 I/O 的库时，才启用 `AllowSynchronousIO`。
 
-下面的示例启用同步 IO：
+以下示例会启用同步 I/O：
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_SyncIO)]
 
@@ -2182,14 +2182,14 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-### <a name="synchronous-io"></a>同步 IO
+### <a name="synchronous-io"></a>同步 I/O
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 IO。 默认值为 `true`。
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> 控制是否允许对请求和响应使用同步 I/O。 默认值为 `true`。
 
 > [!WARNING]
-> 大量的阻止同步 IO 操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 IO 的库时，才启用 `AllowSynchronousIO`。
+> 大量阻止同步 I/O 的操作可能会导致线程池资源不足，进而导致应用无响应。 仅在使用不支持异步 I/O 的库时，才启用 `AllowSynchronousIO`。
 
-下面的示例禁用同步 IO：
+以下示例会禁用同步 I/O：
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
