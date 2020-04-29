@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 04bbf20d1d848edfa98e719f316b790c812bfd95
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: ced8e90147b08bc75aec4534fdd8d8552506f88c
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80501315"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82206094"
 ---
-# <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
+# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS) 及 [Luke Latham](https://github.com/guardrex)
 
@@ -44,7 +44,7 @@ Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示
 
 Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份。 具体机制取决于是用 Blazor WebAssembly 还是 Blazor 服务器托管 Blazor 应用。
 
-### <a name="opno-locblazor-webassembly-authentication"></a>Blazor WebAssembly 身份验证
+### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly 身份验证
 
 在 Blazor WebAssembly 应用中，可绕过身份验证检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
@@ -57,11 +57,11 @@ Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份�
 
 有关创建应用和配置的详细信息，请参阅 <xref:security/blazor/webassembly/index>。
 
-### <a name="opno-locblazor-server-authentication"></a>Blazor 服务器身份验证
+### <a name="blazor-server-authentication"></a>Blazor 服务器身份验证
 
 Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 建立连接后，将处理[基于 SignalR 的应用的身份验证](xref:signalr/authn-and-authz)。 可以基于 cookie 或一些其他持有者令牌进行身份验证。
 
-有关创建应用和配置的详细信息，请参阅 <xref:security/blazor/server>。
+有关创建应用和配置的详细信息，请参阅 <xref:security/blazor/server/index>。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider 服务
 
@@ -381,7 +381,7 @@ You can only see this if you're signed in.
 * 用户不符合应用于组件的 `[Authorize]` 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
 * 正在进行异步身份验证。
 
-在默认的 Blazor 服务器项目模板中，`App`  组件 (App.razor) 演示了如何设置自定义内容：
+在默认的 Blazor 服务器项目模板中，`App` 组件 (App.razor) 演示了如何设置自定义内容：
 
 ```razor
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -468,7 +468,7 @@ Not authorized.
 >
 > 可以通过将这些命名空间添加到应用的 _Imports razor 文件来全局提供它们。 
 
-## <a name="authorization-in-opno-locblazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
+## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
 
 在 Blazor WebAssembly 应用中，可绕过授权检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
 
@@ -499,6 +499,5 @@ Not authorized.
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:security/index>
-* <xref:security/blazor/server>
 * <xref:security/authentication/windowsauth>
 * [令人惊叹的 Blazor：身份验证](https://github.com/AdrienTorris/awesome-blazor#authentication)社区示例链接

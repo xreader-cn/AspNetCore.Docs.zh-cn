@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 506f01ace72d6e915c0f3ebdaae5b4a3328a79b9
-ms.sourcegitcommit: e72a58d6ebde8604badd254daae8077628f9d63e
+ms.openlocfilehash: 7715adc9b39edd4f8a5882b2e60a1b5513fe400b
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2020
-ms.locfileid: "81007153"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82205990"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -533,8 +533,6 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
 在前面的代码中，`config.AddInMemoryCollection(Dict)` 会被添加到[默认配置提供程序](#default)之后。 有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。
-
-有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。
 
 有关使用 `MemoryConfigurationProvider` 的其他示例，请参阅[绑定数组](#boa)。
 
