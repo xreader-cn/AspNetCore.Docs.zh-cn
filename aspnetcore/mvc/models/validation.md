@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: cf6b77de78f2c5dda48ffcd8ac1f9ed2f8d28bd7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0e3d4f4705dbfdae00943de2d85c603b6762a2f8
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652512"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82205886"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
 
@@ -31,7 +31,7 @@ ms.locfileid: "78652512"
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
-如果 Web API 控制器具有 `ModelState.IsValid` 特性，则它们不必检查 `[ApiController]`。 在此情况下，如果模型状态无效，将返回包含错误详细信息的自动 HTTP 400 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
+如果 Web API 控制器具有 `[ApiController]` 特性，则它们不必检查 `ModelState.IsValid`。 在此情况下，如果模型状态无效，将返回包含错误详细信息的自动 HTTP 400 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
 ## <a name="rerun-validation"></a>重新运行验证
 
@@ -55,10 +55,10 @@ ms.locfileid: "78652512"
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否不为 null。 请参阅 [`[Required]` 属性](#required-attribute)，获取关于该特性的行为的详细信息。
+* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]`特性](#required-attribute)。
 * `[StringLength]`：验证字符串属性值是否不超过指定长度限制。
 * `[Url]`：验证属性是否具有 URL 格式。
-* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 请参阅 [`[Remote]` 属性](#remote-attribute)，获取关于该特性的行为的详细信息。
+* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]`特性](#remote-attribute)。
 
 在 [System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 命名空间中可找到验证特性的完整列表。
 
@@ -78,11 +78,11 @@ ms.locfileid: "78652512"
 
 应用于 `Name` 属性时，上述代码创建的错误消息将为“名称长度必须介于 6 到 8 之间”。
 
-若要查找为特定特性的错误消息而传递给 `String.Format` 的参数，请参阅 [DataAnnotations 源代码](https://github.com/dotnet/corefx/tree/master/src/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations)。
+若要查找为特定特性的错误消息而传递给 `String.Format` 的参数，请参阅 [DataAnnotations 源代码](https://github.com/dotnet/runtime/tree/master/src/libraries/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations)。
 
 ## <a name="required-attribute"></a>[必需] 特性
 
-.NET Core 3.0 和更高版本中的验证系统将不可为 null 的参数或绑定属性视为具有 `[Required]` 特性。 [ 和 ](/dotnet/csharp/language-reference/keywords/value-types) 等`decimal`值类型`int`是不可为 null 的类型。 可以通过在 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 中配置 `Startup.ConfigureServices` 来禁用此行为：
+.NET Core 3.0 和更高版本中的验证系统将不可为 null 的参数或绑定属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。 可以通过在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 来禁用此行为：
 
 ```csharp
 services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
@@ -134,7 +134,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
    
 ### <a name="additional-fields"></a>其他字段
 
-通过 `AdditionalFields` 特性的 `[Remote]` 属性可以根据服务器上的数据验证字段组合。 例如，如果 `User` 模型具有 `FirstName` 和 `LastName` 属性，可能需要验证该名称对尚未被现有用户占用。 下面的示例演示如何使用 `AdditionalFields`：
+通过 `[Remote]` 特性的 `AdditionalFields` 属性可以根据服务器上的数据验证字段组合。 例如，如果 `User` 模型具有 `FirstName` 和 `LastName` 属性，可能需要验证该名称对尚未被现有用户占用。 下面的示例演示如何使用 `AdditionalFields`：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
@@ -164,9 +164,9 @@ public string MiddleName { get; set; }
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
-`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
+`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入**。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
 
-以下示例验证“经典”流派电影的发行日期是否不晚于指定年份。 `[ClassicMovie]` 属性：
+以下示例验证“经典”流派电影的发行日期是否不晚于指定年份**。 `[ClassicMovie]` 属性：
 
 * 仅在服务器上运行。
 * 对于经典电影，验证发行日期：
@@ -198,7 +198,7 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAgeSignature)]
 
-在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单将 `Age` 的 `99` 值作为查询字符串参数提交：`https://localhost:5001/Users/CheckAge?Age=99`。
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单**。 第一个表单将 `99` 的 `Age` 值作为查询字符串参数提交：`https://localhost:5001/Users/CheckAge?Age=99`。
 
 当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
 
@@ -236,7 +236,7 @@ public string MiddleName { get; set; }
 
 客户端验证将阻止提交，直到表单变为有效为止。 “提交”按钮运行 JavaScript：要么提交表单要么显示错误消息。
 
-表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证：
+表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证****：
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_Layout.cshtml?name=snippet_Scripts)]
 
@@ -325,7 +325,7 @@ $.get({
 * 确定验证规则名称和错误消息文本（例如，`data-val-rulename="Error message."`）。
 * 提供验证器所需的任何其他参数（例如，`data-val-rulename-param1="value"`）。
 
-以下示例显示示例应用的 `data-` 特性的 `ClassicMovie` 特性：
+以下示例显示示例应用的 `ClassicMovie` 特性的 `data-` 特性：
 
 ```html
 <input class="form-control" type="date"
@@ -339,13 +339,13 @@ $.get({
 如前所述，[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)使用验证特性的信息呈现 `data-` 特性。 编写用于创建自定义 `data-` HTML 特性的代码有以下两种方式：
 
 * 创建派生自 `AttributeAdapterBase<TAttribute>` 的类和实现 `IValidationAttributeAdapterProvider` 的类，并在 DI 中注册特性及其适配器。 此方法遵循[单一责任主体](https://wikipedia.org/wiki/Single_responsibility_principle)，这体现在与服务器相关的验证代码和与客户端相关的验证代码位于不同的类中。 适配器还有以下优势：由于适配器是在 DI 中注册的，所以如果需要，适配器可以使用 DI 中的其他服务。
-* 在 `IClientModelValidator` 类中实现 `ValidationAttribute`。 如果特性既不进行任何服务器端验证，也不需要 DI 的任何服务，则此方法可能适用。
+* 在 `ValidationAttribute` 类中实现 `IClientModelValidator`。 如果特性既不进行任何服务器端验证，也不需要 DI 的任何服务，则此方法可能适用。
 
 ### <a name="attributeadapter-for-client-side-validation"></a>用于客户端验证的 AttributeAdapter
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `AddValidation` 特性添加到所呈现输出中的 `data-` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttributeAdapter.cs?name=snippet_Class)]
 
@@ -373,7 +373,7 @@ $.get({
 
 可禁用客户端验证的其他选项：
 
-* 在所有 `_ValidationScriptsPartial`.cshtml*文件中注释掉对* 的引用。
+* 在所有 *.cshtml* 文件中注释掉对 `_ValidationScriptsPartial` 的引用。
 * 删除 *Pages\Shared\_ValidationScriptsPartial.cshtml* 文件的内容。
 
 上述方法不会阻止 ASP.NET Core Identity Razor Class Library 的客户端验证。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
@@ -399,7 +399,7 @@ $.get({
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
-如果 Web API 控制器具有 `ModelState.IsValid` 特性，则它们不必检查 `[ApiController]`。 在此情况下，如果模型状态无效，将返回包含错误详细信息的自动 HTTP 400 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
+如果 Web API 控制器具有 `[ApiController]` 特性，则它们不必检查 `ModelState.IsValid`。 在此情况下，如果模型状态无效，将返回包含错误详细信息的自动 HTTP 400 响应。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
 ## <a name="rerun-validation"></a>重新运行验证
 
@@ -423,10 +423,10 @@ $.get({
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
 * `[RegularExpression]`：验证属性值是否与指定的正则表达式匹配。
-* `[Required]`：验证字段是否不为 null。 请参阅 [`[Required]` 属性](#required-attribute)，获取关于该特性的行为的详细信息。
+* `[Required]`：验证字段是否不为 null。 有关此属性的行为的详细信息，请参阅[ `[Required]`特性](#required-attribute)。
 * `[StringLength]`：验证字符串属性值是否不超过指定长度限制。
 * `[Url]`：验证属性是否具有 URL 格式。
-* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 请参阅 [`[Remote]` 属性](#remote-attribute)，获取关于该特性的行为的详细信息。
+* `[Remote]`：通过在服务器上调用操作方法来验证客户端上的输入。 有关此属性的行为的详细信息，请参阅[ `[Remote]`特性](#remote-attribute)。
 
 将 `[RegularExpression]` 属性用于客户端验证时，在客户端上使用 JavaScript 执行正则表达式。 这意味着将使用 [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 匹配行为。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/corefx/issues/42487)。
 
@@ -452,7 +452,7 @@ $.get({
 
 ## <a name="required-attribute"></a>[必需] 特性
 
-默认情况下，验证系统将不可为 null 的参数或属性视为具有 `[Required]` 特性。 [ 和 ](/dotnet/csharp/language-reference/keywords/value-types) 等`decimal`值类型`int`是不可为 null 的类型。
+默认情况下，验证系统将不可为 null 的参数或属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。
 
 ### <a name="required-validation-on-the-server"></a>[必需] 服务器上的验证
 
@@ -496,11 +496,11 @@ $.get({
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserEmailProperty)]
  
-   `[Remote]` 特性位于 `Microsoft.AspNetCore.Mvc` 命名空间中。 如果未使用 [ 或 ](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) 元包，则请安装 `Microsoft.AspNetCore.App`Microsoft.AspNetCore.Mvc.ViewFeatures`Microsoft.AspNetCore.All` NuGet 包。
+   `[Remote]` 特性位于 `Microsoft.AspNetCore.Mvc` 命名空间中。 如果未使用 `Microsoft.AspNetCore.App` 或 `Microsoft.AspNetCore.All` 元包，则请安装 [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) NuGet 包。
    
 ### <a name="additional-fields"></a>其他字段
 
-通过 `AdditionalFields` 特性的 `[Remote]` 属性可以根据服务器上的数据验证字段组合。 例如，如果 `User` 模型具有 `FirstName` 和 `LastName` 属性，可能需要验证该名称对尚未被现有用户占用。 下面的示例演示如何使用 `AdditionalFields`：
+通过 `[Remote]` 特性的 `AdditionalFields` 属性可以根据服务器上的数据验证字段组合。 例如，如果 `User` 模型具有 `FirstName` 和 `LastName` 属性，可能需要验证该名称对尚未被现有用户占用。 下面的示例演示如何使用 `AdditionalFields`：
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
@@ -530,9 +530,9 @@ public string MiddleName { get; set; }
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
-`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
+`IsValid` 方法接受名为 value 的对象，该对象是要进行验证的输入**。 重载还接受 `ValidationContext` 对象，该对象提供其他信息，例如模型绑定创建的模型实例。
 
-以下示例验证“经典”流派电影的发行日期是否不晚于指定年份。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
+以下示例验证“经典”流派电影的发行日期是否不晚于指定年份**。 `[ClassicMovie2]` 特性首先检查流派，只有流派为“经典”时才会继续检查**。 如果电影流派为经典，它会检查发行日期，确保该日期不晚于传递给特性构造函数的限值。）
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
@@ -561,13 +561,13 @@ public string MiddleName { get; set; }
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAge)]
 
-在“检查年限”页 (CheckAge.cshtml) 中，有两个表单。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
+在“检查年限”页 (CheckAge.cshtml) 中，有两个表单**。 第一个表单提交 `Age` 的值 `99` 作为查询字符串：`https://localhost:5001/Users/CheckAge?Age=99`。
 
 当提交查询字符串中格式设置正确的 `age` 参数时，表单将进行验证。
 
 “检查年限”页面上的第二个表单提交请求正文中的 `Age` 值，验证失败。 绑定失败，因为 `age` 参数必须来自查询字符串。
 
-在 `CompatibilityVersion.Version_2_1` 或更高版本上运行时，默认启用顶级节点验证。 否则，禁用顶级节点验证。 通过在 (<xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*>) 中设置 `Startup.ConfigureServices` 属性，可以替代默认选项，如下所示：
+在 `CompatibilityVersion.Version_2_1` 或更高版本上运行时，默认启用顶级节点验证。 否则，禁用顶级节点验证。 通过在 (`Startup.ConfigureServices`) 中设置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> 属性，可以替代默认选项，如下所示：
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup.cs?name=snippet_AddMvc&highlight=4)]
 
@@ -579,7 +579,7 @@ public string MiddleName { get; set; }
 
 ## <a name="maximum-recursion"></a>最大递归次数
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 如果模型非常深或无限递归，验证可能导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 在 `MvcOptions.MaxValidationDepth` 或更高版本上运行时，`CompatibilityVersion.Version_2_2` 的默认值为 32。 对于更低版本，该值为 null，这表示没有深度约束。
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> 遍历所验证模型的对象图。 如果模型非常深或无限递归，验证可能导致堆栈溢出。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) 提供了在访问者递归超过配置深度时提前停止验证的方法。 在 `CompatibilityVersion.Version_2_2` 或更高版本上运行时，`MvcOptions.MaxValidationDepth` 的默认值为 32。 对于更低版本，该值为 null，这表示没有深度约束。
 
 ## <a name="automatic-short-circuit"></a>自动短路
 
@@ -603,7 +603,7 @@ public string MiddleName { get; set; }
 
 客户端验证将阻止提交，直到表单变为有效为止。 “提交”按钮运行 JavaScript：要么提交表单要么显示错误消息。
 
-表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证：
+表单上存在输入错误时，客户端验证会避免到服务器的不必要往返。 _Layout.cshtml 和 _ValidationScriptsPartial.cshtml 中的以下脚本引用支持客户端验证****：
 
 [!code-cshtml[](validation/samples/2.x/ValidationSample/Views/Shared/_Layout.cshtml?name=snippet_ScriptTag)]
 
@@ -696,7 +696,7 @@ $.get({
 * 确定验证规则名称和错误消息文本（例如，`data-val-rulename="Error message."`）。
 * 提供验证器所需的任何其他参数（例如，`data-val-rulename-parm1="value"`）。
 
-以下示例显示示例应用的 `data-` 特性的 `ClassicMovie` 特性：
+以下示例显示示例应用的 `ClassicMovie` 特性的 `data-` 特性：
 
 ```html
 <input class="form-control" type="datetime"
@@ -710,13 +710,13 @@ $.get({
 如前所述，[标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)使用验证特性的信息呈现 `data-` 特性。 编写用于创建自定义 `data-` HTML 特性的代码有以下两种方式：
 
 * 创建派生自 `AttributeAdapterBase<TAttribute>` 的类和实现 `IValidationAttributeAdapterProvider` 的类，并在 DI 中注册特性及其适配器。 此方法遵循[单一责任主体](https://wikipedia.org/wiki/Single_responsibility_principle)，这体现在与服务器相关的验证代码和与客户端相关的验证代码位于不同的类中。 适配器还有以下优势：由于适配器是在 DI 中注册的，所以如果需要，适配器可以使用 DI 中的其他服务。
-* 在 `IClientModelValidator` 类中实现 `ValidationAttribute`。 如果特性既不进行任何服务器端验证，也不需要 DI 的任何服务，则此方法可能适用。
+* 在 `ValidationAttribute` 类中实现 `IClientModelValidator`。 如果特性既不进行任何服务器端验证，也不需要 DI 的任何服务，则此方法可能适用。
 
 ### <a name="attributeadapter-for-client-side-validation"></a>用于客户端验证的 AttributeAdapter
 
 在 HTML 中呈现 `data-` 特性的方法在示例应用中由 `ClassicMovie` 特性使用。 若要使用此方法添加客户端验证：
 
-1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `AddValidation` 特性添加到所呈现输出中的 `data-` 方法，如下例所示：
+1. 为自定义验证特性创建特性适配器类。 从 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) 派生类。 创建将 `data-` 特性添加到所呈现输出中的 `AddValidation` 方法，如下例所示：
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttributeAdapter.cs?name=snippet_ClassicMovieAttributeAdapter)]
 
@@ -746,7 +746,7 @@ $.get({
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 
-禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释。
+禁用客户端验证的另一方式是在 .cshtml 文件中为 `_ValidationScriptsPartial` 的引用添加注释**。
 
 ## <a name="additional-resources"></a>其他资源
 
