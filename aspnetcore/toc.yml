@@ -348,7 +348,13 @@
                 - name: 其他方案
                   uid: security/blazor/webassembly/additional-scenarios
             - name: Blazor 服务器
-              uid: security/blazor/server
+              items:
+                - name: 概述
+                  uid: security/blazor/server/index
+                - name: 威胁缓解措施
+                  uid: security/blazor/server/threat-mitigation
+                - name: 其他方案
+                  uid: security/blazor/server/additional-scenarios
             - name: 内容安全策略
               uid: security/blazor/content-security-policy
         - name: 状态管理
@@ -1135,7 +1141,13 @@
             - name: 其他方案
               uid: security/blazor/webassembly/additional-scenarios
         - name: Blazor 服务器
-          uid: security/blazor/server
+          items:
+            - name: 概述
+              uid: security/blazor/server/index
+            - name: 威胁缓解措施
+              uid: security/blazor/server/threat-mitigation
+            - name: 其他方案
+              uid: security/blazor/server/additional-scenarios
         - name: 内容安全策略
           uid: security/blazor/content-security-policy
 - name: 性能

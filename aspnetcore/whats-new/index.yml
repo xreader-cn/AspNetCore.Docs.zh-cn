@@ -5,13 +5,13 @@ metadata:
   title: ASP.NET Core 文档新增内容
   description: 了解 ASP.NET Core 文档中的新内容和更新内容。
   ms.topic: landing-page
-  ms.date: 04/01/2020
-  ms.openlocfilehash: 4d1e63bafe1a40110c0b514fcaf0f1eb2f180722
-  ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+  ms.date: 04/26/2020
+  ms.openlocfilehash: 1650541ec9a6c6160f65ce1a3e83caf4b5cd092e
+  ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
   ms.translationtype: HT
   ms.contentlocale: zh-CN
-  ms.lasthandoff: 04/06/2020
-  ms.locfileid: "80538992"
+  ms.lasthandoff: 04/28/2020
+  ms.locfileid: "82206081"
 landingContent:
 - title: 查找 ASP.NET Core 文档更新
   linkLists:
@@ -45,6 +45,12 @@ landingContent:
       url: https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md
     - text: ASP.NET Core API 参考文档参与者指南
       url: https://github.com/dotnet/AspNetApiDocs/blob/master/CONTRIBUTING.md
+- title: 社区
+  linkLists:
+  - linkListType: whats-new
+    links:
+    - text: 社区
+      url: https://dotnet.microsoft.com/platform/community
 - title: 相关新增内容页面
   linkLists:
   - linkListType: whats-new
