@@ -18,5 +18,5 @@ ASP.NET Core 具有如下优点：
   * [Nginx](xref:host-and-deploy/linux-nginx)
   * [Apache](xref:host-and-deploy/linux-apache)
   * [Docker](xref:host-and-deploy/docker/index)
-* [并行版本控制](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level)。
+* [并行版本控制](/dotnet/standard/choosing-core-framework-server#side-by-side-net-versions-per-application-level)。
 * 简化新式 Web 开发的工具。

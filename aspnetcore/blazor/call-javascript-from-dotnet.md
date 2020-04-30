@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 0c6b6a0a8f88fa912523e7772fcd84ef4ce3b4ff
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: 380a14177d4bb8fa3de63a3c1cd9a39aeab13db3
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977010"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82205977"
 ---
-# <a name="call-javascript-functions-from-net-methods-in-aspnet-core-opno-locblazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
+# <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -149,7 +149,7 @@ Pages/JSInterop.razor  ：
 
 返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数使用 `IJSRuntime.InvokeVoidAsync` 进行调用。
 
-## <a name="detect-when-a-opno-locblazor-server-app-is-prerendering"></a>检测 Blazor 服务器应用进行预呈现的时间
+## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>检测 Blazor 服务器应用进行预呈现的时间
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -458,7 +458,7 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server>。
+有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server/threat-mitigation>。
 
 [!INCLUDE[Share interop code in a class library](~/includes/blazor-share-interop-code.md)]
 

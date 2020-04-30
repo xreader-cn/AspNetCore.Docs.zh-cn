@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 4434636992cb2506ef6525996690946f97c43764
-ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
+ms.openlocfilehash: a9ae84c36716bfc07ae3cf86214e48ad24770401
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2020
-ms.locfileid: "81791490"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82205951"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -966,4 +966,4 @@ public class ThemeInfo
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:security/blazor/server> &ndash; 包含有关生成必须应对资源耗尽的 Blazor 服务器应用的指南。
+* <xref:security/blazor/server/threat-mitigation> &ndash; 包含有关生成必须应对资源耗尽的 Blazor 服务器应用的指南。

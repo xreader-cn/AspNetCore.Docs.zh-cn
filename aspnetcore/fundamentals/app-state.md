@@ -8,12 +8,12 @@ ms.date: 03/06/2020
 no-loc:
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: 85d2a418c3aaae40bbcdc040095c2c98d4b7242c
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 706468d44ddabbd3a695dbb60aaf1be15fe166e2
+ms.sourcegitcommit: f9a5069577e8f7c53f8bcec9e13e117950f4f033
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80640033"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82558902"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>ASP.NET Core 中的会话和状态管理
 
@@ -96,7 +96,7 @@ ASP.NET Core 通过向客户端提供包含会话 ID 的 Cookie 来维护会话�
 
 以下代码演示如何使用 `IDistributedCache` 的默认内存中实现设置内存中会话提供程序：
 
-[!code-csharp[](app-state/samples/3.x/SessionSample/Startup4.cs?name=snippet1&highlight=12-19,39)]
+[!code-csharp[](app-state/samples/3.x/SessionSample/Startup4.cs?name=snippet1&highlight=12-19,45)]
 
 前面的代码设置较短的超时来简化测试。
 
@@ -589,7 +589,7 @@ app.Run(async (context) =>
 
   检查此类错误的建议方法是完成将应用写入到该会话后，从应用代码调用 `await feature.Session.CommitAsync();`。 如果后备存储不可用，则 `CommitAsync` 引发异常。 如果 `CommitAsync` 失败，应用可以处理异常。 在与数据存储不可用的相同的条件下，`LoadAsync` 引发异常。
   
-## <a name="opno-locsignalr-and-session-state"></a>SignalR 和会话状态
+## <a name="signalr-and-session-state"></a>SignalR 和会话状态
 
 SignalR 应用不应使用会话状态来存储信息。 SignalR 应用可以将每个连接状态存储在中心的 `Context.Items` 中。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
