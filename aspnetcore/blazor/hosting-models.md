@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 0dfc991f76acb227ce9ea27a07fbae50571f0117
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 48f5b09199091b2b55974010a2b0715c28eb1bae
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80471825"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82205964"
 ---
-# <a name="aspnet-core-opno-locblazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
+# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
 作者：[Daniel Roth](https://github.com/danroth27)
 
@@ -29,7 +29,7 @@ Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassemb
 
 对于高级配置，请参阅 <xref:blazor/hosting-model-configuration>。
 
-## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 Blazor 的主要托管模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理在同一进程中进行。 应用资产作为静态文件部署到可为客户端提供静态内容的 Web 服务器或服务中。
 
@@ -60,7 +60,7 @@ Blazor WebAssembly 托管具有以下缺点：
 
 Blazor 托管应用模型支持 [Docker 容器](/dotnet/standard/microservices-architecture/container-docker-introduction/index)。 在 Visual Studio 中右键单击 Server 项目，然后选择“添加” > “Docker 支持”   。
 
-## <a name="opno-locblazor-server"></a>Blazor 服务器
+## <a name="blazor-server"></a>Blazor 服务器
 
 使用 Blazor 服务器托管模型可从 ASP.NET Core 应用中在服务器上执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 [SignalR](xref:signalr/introduction) 连接进行处理。
 
@@ -115,7 +115,7 @@ Blazor 中的 UI 更新由以下内容触发：
 
 图已呈现，且 UI diff（差异）已计算  。 此差异是更新客户端上的 UI 所需的最小一组 DOM 编辑。 差异以二进制格式发送到客户端，并由浏览器应用。
 
-用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor 服务器应用以确保充分使用服务器内存，请参阅 <xref:security/blazor/server>。
+用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor 服务器应用以确保充分使用服务器内存，请参阅 <xref:security/blazor/server/threat-mitigation>。
 
 ### <a name="circuits"></a>线路
 
@@ -133,12 +133,12 @@ UI 延迟是指从启动操作到 UI 更新所需的时间。 要使应用对用
 
 如果是仅用于专用公司网络的业务线应用，用户通常不易感受到因网络延迟而导致的延迟。 如果是通过 Internet 部署的应用，用户可能会更容易感受到延迟，用户分布广泛时感受尤为明显。
 
-内存使用也会导致应用延迟。 内存使用率增大会导致垃圾收集频繁或内存分页到磁盘，两者均会降低应用性能，进而增大 UI 延迟。 有关详细信息，请参阅 <xref:security/blazor/server>。
+内存使用也会导致应用延迟。 内存使用率增大会导致垃圾收集频繁或内存分页到磁盘，两者均会降低应用性能，进而增大 UI 延迟。
 
 Blazor 服务器应用应降低网络延迟和内存使用率，从而优化以最大限度地降低 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅以下内容：
 
 * <xref:host-and-deploy/blazor/server>
-* <xref:security/blazor/server>
+* <xref:security/blazor/server/threat-mitigation>
 
 ### <a name="connection-to-the-server"></a>连接到服务器
 

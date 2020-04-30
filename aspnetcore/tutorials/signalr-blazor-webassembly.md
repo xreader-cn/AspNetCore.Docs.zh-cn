@@ -5,17 +5,17 @@ description: 创建结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly 的�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: c4843dc282e1978b39738e206ecc79ded87fcff9
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 78c5fbb8b91b934bcb34525672e9e26b6a95290e
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80306570"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82111144"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>结合使用 ASP.NET Core SignalR 和 Blazor WebAssembly
 
@@ -61,7 +61,7 @@ ms.locfileid: "80306570"
 若未使用 Visual Studio 版本 16.6 预览版 2 或更高版本，请安装 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 模板。 当 Blazor WebAssembly 处于预览状态时，[ Microsoft.AspNetCore.Components.WebAssembly.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) 包具有预览版本。 在命令行界面中执行以下命令：
 
 ```dotnetcli
-dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview3.20168.3
+dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
 ```
 
 按照所选工具的指南进行操作：
@@ -168,7 +168,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
 
-## <a name="add-signalr-services-and-an-endpoint-for-the-signalr-hub"></a>添加 SignalR 服务和 SignalR 集线器的终结点
+## <a name="add-services-and-an-endpoint-for-the-signalr-hub"></a>添加服务和 SignalR 集线器的终结点
 
 1. 在“BlazorSignalRApp.Server”  项目中，打开“Startup.cs”  文件。
 
@@ -178,15 +178,13 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
    using BlazorSignalRApp.Server.Hubs;
    ```
 
-1. 将 SignalR 服务添加到 `Startup.ConfigureServices`：
+1. 将 SignalR 和响应压缩中间件服务添加到 `Startup.ConfigureServices`：
 
-   ```csharp
-   services.AddSignalR();
-   ```
+   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_ConfigureServices&highlight=3,5-9)]
 
-1. 在默认控制器路由的终结点与客户端回退的终结点之间的 `Startup.Configure` 中，为集线器添加终结点：
+1. 在控制器终结点和客户端回退之间的 `Startup.Configure` 中，为集线器添加一个终结点：
 
-   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet&highlight=4)]
+   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_UseEndpoints&highlight=4)]
 
 ## <a name="add-razor-component-code-for-chat"></a>添加用于聊天的 Razor 组件代码
 
@@ -202,7 +200,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 在“解决方案资源管理器”  中，选择“BlazorSignalRApp.Server”  项目。 按 Ctrl+F5 可运行应用而不进行调试  。
+1. 在“解决方案资源管理器”  中，选择“BlazorSignalRApp.Server”  项目。 按 <kbd>F5</kbd> 来运行应用并进行调试，或者按 <kbd>Ctrl</kbd>+<kbd>F5</kbd> 来运行应用但不调试。
 
 1. 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
 
@@ -214,7 +212,13 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. 从工具栏选择“调试”   > “运行(不调试)”  。
+1. 当 VS Code 主动为服务器应用创建一个启动配置文件 (.vscode/launch.json) 时，`program` 条目如下所示，它指向应用的程序集 (`{APPLICATION NAME}.Server.dll`)  ：
+
+   ```json
+   "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
+   ```
+
+1. 按 <kbd>F5</kbd> 来运行应用并进行调试，或者按 <kbd>Ctrl</kbd>+<kbd>F5</kbd> 来运行应用但不调试。
 
 1. 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
 
@@ -226,7 +230,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. 在“解决方案”  边栏中，选择“BlazorSignalRApp.Server”  项目。 从菜单中选择“运行” > “开始执行(不调试)”   。
+1. 在“解决方案”  边栏中，选择“BlazorSignalRApp.Server”  项目。 按 <kbd>⌘</kbd>+<kbd>↩</kbd>** 来运行应用并进行调试，或者按 <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> 来运行应用但不调试。
 
 1. 从地址栏复制 URL，打开另一个浏览器实例或选项卡，并在地址栏中粘贴该 URL。
 
