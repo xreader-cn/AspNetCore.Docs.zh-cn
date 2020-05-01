@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core 项目中的基架标识
 author: rick-anderson
-description: 了解如何创建标识的基架 ASP.NET Core 项目中。
+description: 了解如何在 ASP.NET Core 项目中基架标识。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2020
+ms.date: 5/1/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ac95035b114274ddaa6ccb0b5b6e3da98885e39e
+ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653712"
+ms.lasthandoff: 04/30/2020
+ms.locfileid: "82604722"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core 项目中的基架标识
 
@@ -30,13 +30,25 @@ ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core
 
 使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。 基架标识时不生成服务或服务存根。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
 
-本文档包含的详细说明比在运行 scaffolder 时生成的*ScaffoldingReadme*文件更完整。
+当使用现有个人帐户将基架标识包含新数据上下文的项目时：
+
+* 在`Startup.ConfigureServices`中，删除对的调用：
+  * `AddDbContext`
+  * `AddDefaultIdentity`
+
+例如， `AddDbContext`在以下`AddDefaultIdentity`代码中注释掉和：
+
+[!code-csharp[](scaffold-identity/3.1sample/StartupRemove.cs?name=snippet)]
+
+前面的代码注释了*区域/标识/IdentityHostingStartup*中的重复代码。
+
+通常，使用各个帐户创建的应用***不***应创建新的数据上下文。
 
 ## <a name="scaffold-identity-into-an-empty-project"></a>将标识基架到空项目中
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-用类似于下面的代码更新 `Startup` 类：
+用类似`Startup`于下面的代码更新类：
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
@@ -85,7 +97,7 @@ before dotnet ef database update
 
 ### <a name="enable-authentication"></a>启用身份验证
 
-用类似于下面的代码更新 `Startup` 类：
+用类似`Startup`于下面的代码更新类：
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRP.cs?name=snippet)]
 
@@ -93,7 +105,7 @@ before dotnet ef database update
 
 ### <a name="layout-changes"></a>布局更改
 
-可选：将登录名部分（`_LoginPartial`）添加到布局文件中：
+可选：将登录名 partial （`_LoginPartial`）添加到布局文件中：
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
@@ -131,7 +143,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：
+可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout cshtml*文件中：
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
@@ -141,7 +153,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-用类似于下面的代码更新 `Startup` 类：
+用类似`Startup`于下面的代码更新类：
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
@@ -165,7 +177,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。
 
-以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
+以下突出显示的代码显示了将默认标识 UI 替换为 ASP.NET Core 2.1 web 应用中的标识所做的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
@@ -177,7 +189,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-注册 `IEmailSender` 实现，例如：
+注册`IEmailSender`实现，例如：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -222,7 +234,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 * 更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。
 
   * 删除来自 cshtml 文件的代码和链接。
-  * 从 `PageModel`中删除确认代码：
+  * 从中删除确认代码`PageModel`：
 
   ```csharp
    [AllowAnonymous]
@@ -286,7 +298,7 @@ ASP.NET Core 2.1 和更高版本提供作为[Razor 类库](xref:razor-pages/ui-c
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-将以下突出显示的调用添加到 `Startup` 类：
+将以下突出显示的调用添加`Startup`到类：
 
 [!code-csharp[](scaffold-identity/sample/StartupEmpty.cs?name=snippet1&highlight=5,20-23)]
 
@@ -327,7 +339,7 @@ dotnet ef database update
 
 ### <a name="enable-authentication"></a>启用身份验证
 
-在 `Startup` 类的 `Configure` 方法中，在 `UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：
+`Startup`在类`Configure`的方法中，在`UseStaticFiles`以下情况下调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：
 
 [!code-csharp[](scaffold-identity/sample/StartupRPnoAuth.cs?name=snippet1&highlight=29)]
 
@@ -335,7 +347,7 @@ dotnet ef database update
 
 ### <a name="layout-changes"></a>布局更改
 
-可选：将登录名部分（`_LoginPartial`）添加到布局文件中：
+可选：将登录名 partial （`_LoginPartial`）添加到布局文件中：
 
 [!code-html[Main](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
@@ -373,7 +385,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout*文件：
+可选：将登录名 partial （`_LoginPartial`）添加到*Views/Shared/_Layout cshtml*文件中：
 
 [!code-html[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
@@ -383,7 +395,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-`UseStaticFiles`后调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) ：
+调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)之后`UseStaticFiles`：
 
 [!code-csharp[](scaffold-identity/sample/StartupMvcNoAuth.cs?name=snippet1&highlight=23)]
 
@@ -409,7 +421,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。
 
-以下突出显示的代码显示默认标识 UI 替换标识在 ASP.NET Core 2.1 web 应用的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
+以下突出显示的代码显示了将默认标识 UI 替换为 ASP.NET Core 2.1 web 应用中的标识所做的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
@@ -421,7 +433,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-注册 `IEmailSender` 实现，例如：
+注册`IEmailSender`实现，例如：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -466,7 +478,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 * 更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。
 
   * 删除来自 cshtml 文件的代码和链接。
-  * 从 `PageModel`中删除确认代码：
+  * 从中删除确认代码`PageModel`：
 
   ```csharp
    [AllowAnonymous]
