@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 25aa7761b9c1acc72081653422e80cb004500573
-ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
+ms.openlocfilehash: 6907a1213a6a9089e2aed885093c2fd38f972ad0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82138516"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768047"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证Blazor库保护 ASP.NET Core WebAssembly 独立应用
+# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>使用身份验证Blazor库保护 ASP.NET Core WebAssembly 独立应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
 
@@ -53,7 +56,7 @@ dotnet new blazorwasm -au Individual
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用`AddOidcAuthentication` `Microsoft.AspNetCore.Components.WebAssembly.Authentication`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
+使用`AddOidcAuthentication` `Microsoft.AspNetCore.Components.WebAssembly.Authentication`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与Identity提供程序（IP）交互所需的所有服务。
 
 Program.cs  :
 

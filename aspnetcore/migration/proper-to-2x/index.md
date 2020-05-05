@@ -4,13 +4,19 @@ author: isaac2004
 description: 接收将现有 ASP.NET MVC 或 Web API 应用迁移到 ASP.NET Core Web 的指南
 ms.author: scaddie
 ms.date: 10/18/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 68a45dc50e00bead564500a12509b62a4a193ec4
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 985c08e0994314cec8d52a6651681c93aca96514
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511078"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82766506"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>从 ASP.NET 迁移到 ASP.NET Core
 
@@ -18,7 +24,7 @@ ms.locfileid: "79511078"
 
 本文可作为从 ASP.NET 应用迁移到 ASP.NET Core 的参考指南。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 [.NET Core SDK 2.2 或更高版本](https://dotnet.microsoft.com/download)
 
@@ -80,11 +86,11 @@ ASP.NET Core 使用相似的方法，但是不依赖 OWIN 处理条目。 而是
 
 ## <a name="store-configurations"></a>存储配置
 
-ASP.NET 支持存储设置。 这些设置可用于支持应用程序已部署到的环境（以此用途为例）。 常见做法是将所有的自定义键值对存储在 Web.config`<appSettings>`*文件的* 部分中：
+ASP.NET 支持存储设置。 这些设置可用于支持应用程序已部署到的环境（以此用途为例）。 常见做法是将所有的自定义键值对存储在 Web.config  文件的 `<appSettings>` 部分中：
 
 [!code-xml[](samples/webconfig-sample.xml)]
 
-应用程序使用 `ConfigurationManager.AppSettings` 命名空间中的 `System.Configuration` 集合读取这些设置：
+应用程序使用 `System.Configuration` 命名空间中的 `ConfigurationManager.AppSettings` 集合读取这些设置：
 
 [!code-csharp[](samples/read-webconfig.cs)]
 
@@ -116,7 +122,7 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 在 ASP.NET 应用中，开发人员依赖第三方库实现依存关系注入。 其中的一个库是 Microsoft 模式和做法提供的 [Unity](https://github.com/unitycontainer/unity)。
 
-实现打包 `IDependencyResolver` 的 `UnityContainer` 是使用 Unity 设置依存关系注入的一个示例：
+实现打包 `UnityContainer` 的 `IDependencyResolver` 是使用 Unity 设置依存关系注入的一个示例：
 
 [!code-csharp[](samples/sample8.cs)]
 
@@ -128,7 +134,7 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 [!code-csharp[](samples/sample5.cs)]
 
-由于依存关系注入是 ASP.NET Core 的组成部分，因此可以在 Startup.cs`ConfigureServices`*的* 方法中添加你的服务：
+由于依存关系注入是 ASP.NET Core 的组成部分，因此可以在 Startup.cs  的 `ConfigureServices` 方法中添加你的服务：
 
 [!code-csharp[](samples/configure-services.cs)]
 
@@ -143,14 +149,14 @@ Web 开发的一个重要环节是提供客户端静态资产的功能。 HTML�
 
 在 ASP.NET 中，静态文件存储在各种目录中，并在视图中进行引用。
 
-在 ASP.NET Core 中，静态文件存储在“Web 根”（*内容根&lt;/wwwroot&gt;* ）中，除非另有配置。 通过从 `UseStaticFiles` 调用 `Startup.Configure` 扩展方法将这些文件加载到请求管道中：
+在 ASP.NET Core 中，静态文件存储在“Web 根”（&lt;内容根&gt;/wwwroot  ）中，除非另有配置。 通过从 `Startup.Configure` 调用 `UseStaticFiles` 扩展方法将这些文件加载到请求管道中：
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
 > [!NOTE]
 > 如果面向 .NET Framework，请安装 NuGet 包 `Microsoft.AspNetCore.StaticFiles`。
 
-例如，可以通过浏览器从类似 *的位置访问 wwwroot/images*`http://<app>/images/<imageFileName>`文件夹中的图像资产。
+例如，可以通过浏览器从类似 `http://<app>/images/<imageFileName>` 的位置访问 wwwroot/images  文件夹中的图像资产。
 
 > [!NOTE]
 > 若要获取在 ASP.NET Core 中提供静态文件的更深入的参考信息，请参阅[静态文件](xref:fundamentals/static-files)。

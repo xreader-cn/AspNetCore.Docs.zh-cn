@@ -1,20 +1,24 @@
 ---
-title: ASP.NET Core SignalR 中的日志记录和诊断
+title: ASP.NET Core 中的日志记录和诊断SignalR
 author: anurse
-description: 了解如何从 ASP.NET Core SignalR 应用收集诊断。
+description: 了解如何从 ASP.NET Core SignalR应用收集诊断信息。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
 ms.date: 11/12/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5fda458c2418c3570d55d551ce5144730afd7f85
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652410"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767221"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的日志记录和诊断
 
@@ -31,14 +35,14 @@ ms.locfileid: "78652410"
 
 SignalR 使用两个记录器类别：
 
-* 为与集线器协议相关的日志 `Microsoft.AspNetCore.SignalR` &ndash;，激活集线器，调用方法，以及其他与集线器相关的活动。
-* `Microsoft.AspNetCore.Http.Connections` 与传输相关的日志 &ndash;，如 Websocket、长轮询和服务器发送事件以及低级别 SignalR 基础结构。
+* `Microsoft.AspNetCore.SignalR`&ndash;对于与集线器协议相关的日志，激活集线器，调用方法，以及其他与中心相关的活动。
+* `Microsoft.AspNetCore.Http.Connections`&ndash;对于与传输相关的日志，例如 Websocket、长轮询和服务器发送事件以及低级别 SignalR 基础结构。
 
-若要从 SignalR 启用详细日志，请通过将以下项添加到 `Logging`中的 `LogLevel` 子部分，将上述两个前缀配置为*appsettings*文件中的 `Debug` 级别：
+若要从 SignalR 启用详细日志，请通过将以下项添加到`Debug` *appsettings*文件中`LogLevel` `Logging`的子部分，将上述两个前缀配置为文件中的级别：
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
-你还可以在 `CreateWebHostBuilder` 方法的代码中对此进行配置：
+你还可以在方法的代码中对`CreateWebHostBuilder`此进行配置：
 
 [!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
@@ -47,9 +51,9 @@ SignalR 使用两个记录器类别：
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-查看配置系统的文档以确定如何指定嵌套配置值。 例如，使用环境变量时，将使用两个 `_` 字符，而不是 `:` （例如 `Logging__LogLevel__Microsoft.AspNetCore.SignalR`）。
+查看配置系统的文档以确定如何指定嵌套配置值。 例如，使用环境变量时，将使用`_`两个字符，而不`:`是（例如`Logging__LogLevel__Microsoft.AspNetCore.SignalR`）。
 
-建议在为应用收集更详细的诊断时使用 `Debug` 级别。 `Trace` 级别产生非常低级别的诊断，很少需要诊断应用程序中的问题。
+建议为应用收集`Debug`更详细的诊断时使用级别。 此`Trace`级别生成非常低级别的诊断，很少需要诊断应用中的问题。
 
 ## <a name="access-server-side-logs"></a>访问服务器端日志
 
@@ -65,22 +69,22 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 ### <a name="azure-app-service"></a>Azure 应用服务
 
-在 Azure App Service 门户的 "**诊断日志**" 部分中，启用 "**应用程序日志记录（文件系统）** " 选项，并将**级别**配置为 `Verbose`。 日志**流**服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅[Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
+在 Azure App Service 门户的 "**诊断日志**" 部分中，启用 "**应用程序日志记录（文件系统）** " `Verbose`选项，并将**级别**配置为。 日志**流**服务和应用服务文件系统的日志中应提供日志。 有关详细信息，请参阅[Azure 日志流式处理](xref:fundamentals/logging/index#azure-log-streaming)。
 
 ### <a name="other-environments"></a>其他环境
 
-如果将应用部署到另一个环境（例如 Docker、Kubernetes 或 Windows 服务），请参阅 <xref:fundamentals/logging/index>，了解有关如何配置适用于环境的日志记录提供程序的详细信息。
+如果将应用部署到另一个环境（例如 Docker、Kubernetes 或 Windows 服务），请参阅<xref:fundamentals/logging/index> ，以了解有关如何配置适用于环境的日志记录提供程序的详细信息。
 
 ## <a name="javascript-client-logging"></a>JavaScript 客户端日志记录
 
 > [!WARNING]
 > 客户端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
 
-使用 JavaScript 客户端时，可以使用 `HubConnectionBuilder`上的 `configureLogging` 方法配置日志记录选项：
+使用 JavaScript 客户端时，可以使用中`configureLogging` `HubConnectionBuilder`的方法配置日志记录选项：
 
 [!code-javascript[](diagnostics/logging-config-js.js?highlight=3)]
 
-若要完全禁用日志记录，请在 `configureLogging` 方法中指定 `signalR.LogLevel.None`。
+若要完全禁用日志记录`signalR.LogLevel.None` ，请`configureLogging`在方法中指定。
 
 下表显示了可用于 JavaScript 客户端的日志级别。 将日志级别设置为这些值之一，可以在表中对该级别和其之上的所有级别进行日志记录。
 
@@ -96,7 +100,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 配置详细级别后，日志将写入浏览器控制台（或 NodeJS 应用中的标准输出）。
 
-如果要将日志发送到自定义日志记录系统，可以提供实现 `ILogger` 接口的 JavaScript 对象。 需要实现的唯一方法是 `log`，它将使用事件的级别和与事件关联的消息。 例如：
+如果要将日志发送到自定义日志记录系统，可以提供实现`ILogger`接口的 JavaScript 对象。 唯一需要实现的方法是`log`，它将使用事件的级别和与事件关联的消息。 例如：
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
@@ -105,29 +109,29 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 > [!WARNING]
 > 客户端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
 
-若要从 .NET 客户端获取日志，可以使用 `HubConnectionBuilder`上的 `ConfigureLogging` 方法。 这与 `WebHostBuilder` 和 `HostBuilder`上的 `ConfigureLogging` 方法的工作方式相同。 你可以配置 ASP.NET Core 中使用的相同日志记录提供程序。 但是，您必须为单独的日志提供程序手动安装和启用 NuGet 包。
+若要从 .NET 客户端获取日志，可以对`ConfigureLogging` `HubConnectionBuilder`使用方法。 这与和`ConfigureLogging` `WebHostBuilder` `HostBuilder`上的方法的工作方式相同。 你可以配置 ASP.NET Core 中使用的相同日志记录提供程序。 但是，您必须为单独的日志提供程序手动安装和启用 NuGet 包。
 
 ### <a name="console-logging"></a>控制台日志记录
 
-若要启用控制台日志记录，请添加[""。](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) 然后，使用 `AddConsole` 方法配置控制台记录器：
+若要启用控制台日志记录，请添加[""。](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) 然后，使用`AddConsole`方法来配置控制台记录器：
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>调试输出窗口日志记录
 
-还可以配置日志，以便在 Visual Studio 中切换到 "**输出**" 窗口。 安装 " ["，](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)然后使用 `AddDebug` 方法：
+还可以配置日志，以便在 Visual Studio 中切换到 "**输出**" 窗口。 安装 " ["，](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)然后使用`AddDebug`方法：
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
 ### <a name="other-logging-providers"></a>其他日志记录提供程序
 
-SignalR 支持其他日志记录提供程序，如 Serilog、Seq、NLog 或与 `Microsoft.Extensions.Logging`集成的任何其他日志记录系统。 如果日志记录系统提供 `ILoggerProvider`，则可以将其注册 `AddProvider`：
+SignalR支持其他日志记录提供程序，如 Serilog、Seq、NLog 或与集成的`Microsoft.Extensions.Logging`任何其他日志记录系统。 如果日志记录系统提供， `ILoggerProvider`则可以将其注册到`AddProvider`：
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
 ### <a name="control-verbosity"></a>控件详细级别
 
-如果要从应用中的其他位置进行日志记录，则将默认级别更改为 `Debug` 可能会过于详细。 您可以使用筛选器来配置 SignalR 日志的日志记录级别。 可以在代码中完成此操作，其方式与在服务器上的操作大致相同：
+如果要从应用中的其他位置进行日志记录，则将默认级别`Debug`更改为可能太详细。 您可以使用筛选器来配置SignalR日志的日志记录级别。 可以在代码中完成此操作，其方式与在服务器上的操作大致相同：
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
@@ -146,7 +150,7 @@ Fiddler 是一个非常强大的工具，用于收集 HTTP 跟踪。 从[telerik
 
 如果使用 HTTPS 进行连接，则需要执行一些额外的步骤来确保 Fiddler 可以解密 HTTPS 流量。 有关更多详细信息，请参阅[Fiddler 文档](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS)。
 
-收集跟踪后，可以通过从菜单栏中选择 "文件" "**文件**" > "**保存**" > **所有会话**"来导出跟踪。
+收集跟踪后，可以通过从菜单栏中选择 "**文件** > " "**保存** > **所有会话**" 来导出跟踪。
 
 ![正在从 Fiddler 导出所有会话](diagnostics/fiddler-export.png)
 
@@ -154,13 +158,13 @@ Fiddler 是一个非常强大的工具，用于收集 HTTP 跟踪。 从[telerik
 
 此方法适用于所有应用。
 
-可以通过在命令行界面中运行以下命令，使用 tcpdump 收集原始 TCP 跟踪。 如果出现权限错误，你可能需要 `root`，或在命令前面加上前缀 `sudo`：
+可以通过在命令行界面中运行以下命令，使用 tcpdump 收集原始 TCP 跟踪。 如果出现权限错误， `root`你可能需要将命令作为或的前缀： `sudo`
 
 ```console
 tcpdump -i [interface] -w trace.pcap
 ```
 
-将 `[interface]` 替换为要捕获的网络接口。 通常，这与 `/dev/eth0` （适用于标准以太网接口）或 `/dev/lo0` （对于 localhost 流量）类似。 有关详细信息，请参阅主机系统上的 `tcpdump` 手册页。
+将`[interface]`替换为要捕获的网络接口。 通常，这类似于`/dev/eth0` （适用于标准以太网接口）或`/dev/lo0` （对于 localhost 流量）。 有关详细信息，请参阅`tcpdump`主机系统上的手册页。
 
 ## <a name="collect-a-network-trace-in-the-browser"></a>在浏览器中收集网络跟踪
 
@@ -199,7 +203,7 @@ tcpdump -i [interface] -w trace.pcap
 
 ## <a name="attach-diagnostics-files-to-github-issues"></a>将诊断文件附加到 GitHub 问题
 
-可以通过对其进行重命名，将诊断文件附加到 GitHub 问题，以便它们具有 `.txt` 扩展，然后将其拖放到问题上。
+可以通过对其进行重命名，将诊断文件附加到 GitHub 问题`.txt` ，以便它们具有一个扩展，然后将其拖放到该问题上。
 
 > [!NOTE]
 > 请不要将日志文件或网络跟踪的内容粘贴到 GitHub 问题中。 这些日志和跟踪可能会很大，GitHub 通常会将其截断。
