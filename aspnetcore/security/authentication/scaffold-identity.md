@@ -1,36 +1,42 @@
 ---
-title: ASP.NET Core 项目中的基架标识
+title: ASP.NET Core Identity项目中的基架
 author: rick-anderson
-description: 了解如何在 ASP.NET Core 项目中基架标识。
+description: 了解如何在 ASP.NET Core Identity项目中进行基架。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 5/1/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: ac95035b114274ddaa6ccb0b5b6e3da98885e39e
-ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
+ms.openlocfilehash: 6f1ff69863e14c73e90496ea61188387f5267b19
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/30/2020
-ms.locfileid: "82604722"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768385"
 ---
-# <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core 项目中的基架标识
+# <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core Identity项目中的基架
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core 标识](xref:security/authentication/identity)。 包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
+ASP.NET Core[提供Razor类库](xref:razor-pages/ui-class) [ASP.NET Core Identity ](xref:security/authentication/identity) 。 包含Identity的应用程序可以应用 scaffolder 来有选择地添加Identity Razor类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
 
-**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。 可以选择要生成的标识代码。
+**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity包。 您可以选择Identity要生成的代码。
 
-尽管 scaffolder 生成了大部分必要的代码，但你需要更新项目以完成该过程。 本文档介绍完成标识基架更新所需的步骤。
+尽管 scaffolder 生成了大部分必要的代码，但你需要更新项目以完成该过程。 本文档介绍完成Identity基架更新所需的步骤。
 
-建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行标识 scaffolder 后检查更改。
+建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行Identity scaffolder 后检查更改。
 
-使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。 基架标识时不生成服务或服务存根。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
+使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务Identity。 基架Identity时不生成服务或服务存根。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
 
-当使用现有个人帐户将基架标识包含新数据上下文的项目时：
+当使用Identity现有个人帐户将具有新数据上下文的基架插入到项目中时：
 
 * 在`Startup.ConfigureServices`中，删除对的调用：
   * `AddDbContext`
@@ -40,7 +46,7 @@ ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRemove.cs?name=snippet)]
 
-前面的代码注释了*区域/标识/IdentityHostingStartup*中的重复代码。
+前面的代码注释掉*区域/Identity/IdentityHostingStartup.cs*中的重复代码。
 
 通常，使用各个帐户创建的应用***不***应创建新的数据上下文。
 
@@ -56,7 +62,7 @@ ASP.NET Core 提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>将标识基架到 Razor 项目，而无需现有授权
+## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>不使用现有授权Razor将标识基架到项目中
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -85,7 +91,7 @@ before dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-在*区域/标识/IdentityHostingStartup*中配置标识。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -109,7 +115,7 @@ before dotnet ef database update
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>使用授权将标识基架到 Razor 项目
+## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>使用授权将Razor标识基架到项目中
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -123,7 +129,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 -->
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
-某些标识选项在*区域/标识/IdentityHostingStartup*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些Identity选项在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>不使用现有授权将标识基架到 MVC 项目
 
@@ -149,7 +155,7 @@ dotnet ef database update
 
 * 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
 
-在*区域/标识/IdentityHostingStartup*中配置标识。 有关详细信息，请参阅 IHostingStartup。
+Identity在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
@@ -175,13 +181,13 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 ## <a name="create-full-identity-ui-source"></a>创建完全标识 UI 源
 
-若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。
+若要维护 UI 的完全Identity控制，请运行Identity Scaffolder 并选择 "**替代所有文件**"。
 
-以下突出显示的代码显示了将默认标识 UI 替换为 ASP.NET Core 2.1 web 应用中的标识所做的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
+以下突出显示的代码显示了将默认Identity UI 替换为 ASP.NET Core Identity 2.1 web 应用中的更改。 你可能希望执行此操作以对Identity UI 具有完全控制。
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
-在以下代码中，将替换默认标识：
+在以下Identity代码中，将替换默认值：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
@@ -207,21 +213,21 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 禁用用户注册：
 
-* 基架标识。 包括帐户. Register、RegisterConfirmation。 例如：
+* 基架Identity。 包括帐户. Register、RegisterConfirmation。 例如：
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* 更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：
+* 更新*区域/Identity/Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* 更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：
+* 更新*区域/Identity/Pages/Account/Register.cshtml* ，使其与前面的更改一致：
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
-* 注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接
+* 注释掉或删除*区域/Identity/Pages/Account/Login.cshtml*中的注册链接
 
 ```cshtml
 @*
@@ -231,7 +237,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 *@
 ```
 
-* 更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。
+* 更新 "*区域/Identity/Pages/Account/RegisterConfirmation* " 页。
 
   * 删除来自 cshtml 文件的代码和链接。
   * 从中删除确认代码`PageModel`：
@@ -258,7 +264,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 * 用户列表将读入内存中。
 * 为每个用户生成一个强唯一密码。
-* 用户已添加到标识数据库。
+* 用户已添加到Identity数据库。
 * 系统会通知用户并通知用户更改密码。
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Program.cs?name=snippet)]
@@ -269,9 +275,9 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 对于生产方案，可以遵循类似的方法。
 
-## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态标识资产
+## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态Identity资产
 
-要阻止将静态标识资产发布到 Web 根目录，请参阅 <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>。
+若要防止将Identity静态资产发布到 web 根目录， <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>请参阅。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -281,18 +287,18 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 2.1 和更高版本提供作为[Razor 类库](xref:razor-pages/ui-class) [ASP.NET Core 标识](xref:security/authentication/identity)。 包含标识的应用程序可以应用 scaffolder 来有选择地添加标识 Razor 类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
+ASP.NET Core 2.1 和更高版本提供了[ASP.NET Core Identity ](xref:security/authentication/identity)为[ Razor类库](xref:razor-pages/ui-class)。 包含Identity的应用程序可以应用 scaffolder 来有选择地添加Identity Razor类库中包含的源代码（RCL）。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于Identity RCL 中的相同代码。 若要完全控制 UI，而不使用默认的 RCL，请参阅[创建完全标识 UI 源](#full)部分。
 
-**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL 标识包。 可以选择要生成的标识代码。
+**不**包含身份验证的应用程序可以应用 scaffolder 来添加 RCL Identity包。 您可以选择Identity要生成的代码。
 
-尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。 本文档介绍完成标识基架更新所需的步骤。
+尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。 本文档介绍完成Identity基架更新所需的步骤。
 
-运行标识 scaffolder 时，会在项目目录中创建一个*ScaffoldingReadme*文件。 *ScaffoldingReadme*文件包含有关完成标识基架更新所需内容的一般说明。 本文档包含的有关*ScaffoldingReadme*文件的完整说明。
+运行Identity scaffolder 时，将在项目目录中创建*ScaffoldingReadme*文件。 *ScaffoldingReadme*文件包含有关完成Identity基架更新所需内容的一般说明。 本文档包含的有关*ScaffoldingReadme*文件的完整说明。
 
-建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行标识 scaffolder 后检查更改。
+建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行Identity scaffolder 后检查更改。
 
 > [!NOTE]
-> 使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)，以及使用标识的其他安全功能时，需要提供服务。 基架标识时不生成服务或服务存根。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
+> 使用[双重身份验证](xref:security/authentication/identity-enable-qrcodes)、[帐户确认和密码恢复](xref:security/authentication/accconfirm)和其他安全功能时，需要提供服务Identity。 基架Identity时不生成服务或服务存根。 要启用这些功能，必须手动添加服务。 例如，请参阅[需要确认电子邮件](xref:security/authentication/accconfirm#require-email-confirmation)。
 
 ## <a name="scaffold-identity-into-an-empty-project"></a>将标识基架到空项目中
 
@@ -306,7 +312,7 @@ ASP.NET Core 2.1 和更高版本提供作为[Razor 类库](xref:razor-pages/ui-c
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>将标识基架到 Razor 项目，而无需现有授权
+## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>不使用现有授权Razor将标识基架到项目中
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -327,7 +333,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-在*区域/标识/IdentityHostingStartup*中配置标识。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+Identity在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 <a name="efm"></a>
 
@@ -351,7 +357,7 @@ dotnet ef database update
 
 [!code-html[Main](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>使用授权将标识基架到 Razor 项目
+## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>使用授权将Razor标识基架到项目中
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -365,7 +371,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 -->
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
-某些标识选项在*区域/标识/IdentityHostingStartup*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
+某些Identity选项在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅[IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration)。
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>不使用现有授权将标识基架到 MVC 项目
 
@@ -391,7 +397,7 @@ dotnet ef database update
 
 * 将*Pages/shared/_LoginPartial cshtml*文件移动到*Views/shared/_LoginPartial。 cshtml*
 
-在*区域/标识/IdentityHostingStartup*中配置标识。 有关详细信息，请参阅 IHostingStartup。
+Identity在*区域/Identity/IdentityHostingStartup.cs*中配置。 有关详细信息，请参阅 IHostingStartup。
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
@@ -419,13 +425,13 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 ## <a name="create-full-identity-ui-source"></a>创建完全标识 UI 源
 
-若要保持对标识 UI 的完全控制，请运行标识 scaffolder，并选择 "**替代所有文件**"。
+若要维护 UI 的完全Identity控制，请运行Identity Scaffolder 并选择 "**替代所有文件**"。
 
-以下突出显示的代码显示了将默认标识 UI 替换为 ASP.NET Core 2.1 web 应用中的标识所做的更改。 你可能希望执行此操作以对标识 UI 具有完全控制。
+以下突出显示的代码显示了将默认Identity UI 替换为 ASP.NET Core Identity 2.1 web 应用中的更改。 你可能希望执行此操作以对Identity UI 具有完全控制。
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet1&highlight=13-14,17-999)]
 
-在以下代码中，将替换默认标识：
+在以下Identity代码中，将替换默认值：
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet2)]
 
@@ -451,21 +457,21 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 禁用用户注册：
 
-* 基架标识。 包括帐户. Register、RegisterConfirmation。 例如：
+* 基架Identity。 包括帐户. Register、RegisterConfirmation。 例如：
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
   ```
 
-* 更新*区域/标识/页/帐户/注册. .cs* ，使用户无法从此终结点注册：
+* 更新*区域/Identity/Pages/Account/Register.cshtml.cs* ，使用户无法从此终结点注册：
 
   [!code-csharp[](scaffold-identity/sample/Register.cshtml.cs?name=snippet)]
 
-* 更新*区域/标识/页/帐户/Register. cshtml* ，使其与前面的更改一致：
+* 更新*区域/Identity/Pages/Account/Register.cshtml* ，使其与前面的更改一致：
 
   [!code-cshtml[](scaffold-identity/sample/Register.cshtml)]
 
-* 注释掉或删除*区域/标识/页面/帐户/登录名*中的注册链接
+* 注释掉或删除*区域/Identity/Pages/Account/Login.cshtml*中的注册链接
 
 ```cshtml
 @*
@@ -475,7 +481,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 *@
 ```
 
-* 更新*Areas/Identity/Pages/Account/RegisterConfirmation*页。
+* 更新 "*区域/Identity/Pages/Account/RegisterConfirmation* " 页。
 
   * 删除来自 cshtml 文件的代码和链接。
   * 从中删除确认代码`PageModel`：
@@ -502,7 +508,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 * 用户列表将读入内存中。
 * 为每个用户生成一个强唯一密码。
-* 用户已添加到标识数据库。
+* 用户已添加到Identity数据库。
 * 系统会通知用户并通知用户更改密码。
 
 [!code-csharp[](scaffold-identity/consoleAddUser/Program.cs?name=snippet)]

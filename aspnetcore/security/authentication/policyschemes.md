@@ -4,13 +4,19 @@ author: rick-anderson
 description: 使用身份验证策略方案，可以更轻松地创建一个逻辑身份验证方案
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/policyschemes
-ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ddedf62c5e8363bd93c9948fd2d3418abc566539
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652350"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767312"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core 中的策略方案
 
@@ -19,7 +25,7 @@ ms.locfileid: "78652350"
 * 可以轻松地将任何身份验证操作转发到另一个方案。
 * 根据请求动态转发。
 
-使用派生 <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> 和关联的[AuthenticationHandler\<TOptions >](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1)的所有身份验证方案：
+使用派生<xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions>的所有身份验证方案和关联[的\<AuthenticationHandler TOptions>](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1)：
 
 * 是 ASP.NET Core 2.1 及更高版本中自动的策略方案。
 * 可以通过配置方案的选项来启用。

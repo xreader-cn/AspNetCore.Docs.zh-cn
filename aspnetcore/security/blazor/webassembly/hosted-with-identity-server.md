@@ -1,5 +1,5 @@
 ---
-title: 使用标识服务器Blazor保护 ASP.NET Core WebAssembly 托管应用
+title: 使用Identity服务器保护Blazor ASP.NET Core WebAssembly 的托管应用
 author: guardrex
 description: 使用 IdentityServer 后端Blazor在 Visual Studio 中创建具有身份验证的新托管[IdentityServer](https://identityserver.io/)应用程序
 monikerRange: '>= aspnetcore-3.1'
@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: ffdcd30ae9ce5350113569a500e99cf8db82ad65
-ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
+ms.openlocfilehash: bf2298618e922df412e0742177afd390c4116388
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82138596"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768113"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>使用标识服务器Blazor保护 ASP.NET Core WebAssembly 托管应用
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>使用Identity服务器保护Blazor ASP.NET Core WebAssembly 的托管应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
 
@@ -51,7 +54,7 @@ dotnet new blazorwasm -au Individual -ho
 
 * 在 `Startup.ConfigureServices`中：
 
-  * 标识：
+  * Identity:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -104,7 +107,7 @@ dotnet new blazorwasm -au Individual -ho
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> Helper 方法为应用配置策略方案作为默认身份验证处理程序。 此策略配置为允许标识处理路由到标识 URL 空间`/Identity`中任何子路径的所有请求。 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>处理所有其他请求。 此外，此方法：
+<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> Helper 方法为应用配置策略方案作为默认身份验证处理程序。 此策略配置为允许Identity处理所有路由到 URL 空间Identity `/Identity`中的子路径的请求。 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>处理所有其他请求。 此外，此方法：
 
 * 使用 IdentityServer `{APPLICATION NAME}API`的默认范围注册 API 资源`{APPLICATION NAME}API`。
 * 将 JWT 持有者令牌中间件配置为验证 IdentityServer 为应用程序颁发的令牌。
@@ -115,9 +118,9 @@ dotnet new blazorwasm -au Individual -ho
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-在`ApplicationDbContext` （*Data/ApplicationDbContext*）中，在标识中使用<xref:Microsoft.EntityFrameworkCore.DbContext>相同的，它扩展<xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>为包含 IdentityServer 的架构。 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> 派生自 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>。
+`ApplicationDbContext`在（*Data/ApplicationDbContext*）中，在<xref:Microsoft.EntityFrameworkCore.DbContext>中Identity使用的相同例外，因为它扩展<xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>为包含 IdentityServer 的架构。 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> 派生自 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>。
 
-若要完全控制数据库架构，请从可用的标识<xref:Microsoft.EntityFrameworkCore.DbContext>类中继承一个，并通过在`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating`方法中调用来配置上下文，使其包含标识架构。
+若要完全控制数据库架构，请从某个可用Identity <xref:Microsoft.EntityFrameworkCore.DbContext>的类继承，并通过在Identity `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating`方法中调用来配置上下文以包含架构。
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
@@ -185,7 +188,7 @@ builder.Services.AddApiAuthorization();
 
 * 对于经过身份验证的用户：
   * 显示当前用户名。
-  * 提供指向 ASP.NET Core 标识中的用户配置文件页的链接。
+  * 提供 ASP.NET Core Identity中用户配置文件页的链接。
   * 提供用于注销应用的按钮。
 * 对于匿名用户：
   * 提供注册的选项。
@@ -227,7 +230,7 @@ builder.Services.AddApiAuthorization();
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用
+## <a name="run-the-app"></a>运行应用程序
 
 从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 

@@ -5,17 +5,20 @@ description: 了解如何配置Blazor WebAssembly 以实现其他安全方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/27/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: 093498c3e0d42430c66c66a0998bcc44f62d1e0d
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: e69b598431027aa540227b87dedfd091057a1af4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206146"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768164"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -25,45 +28,6 @@ ms.locfileid: "82206146"
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-## <a name="request-additional-access-tokens"></a>请求其他访问令牌
-
-大多数应用程序只需要一个访问令牌来与它们所使用的受保护资源交互。 在某些情况下，应用程序可能需要多个令牌才能与两个或更多个资源交互。
-
-在下面的示例中，应用程序需要其他 Azure Active Directory （AAD） Microsoft Graph API 作用域来读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，会在客户端应用（`Program.Main`， *Program.cs*）中配置其他范围：
-
-```csharp
-builder.Services.AddMsalAuthentication(options =>
-{
-    ...
-
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/Mail.Send");
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/User.Read");
-}
-```
-
-`IAccessTokenProvider.RequestToken`方法提供了一个重载，该重载允许应用程序使用一组给定的范围设置访问令牌，如以下示例中所示：
-
-```csharp
-var tokenResult = await AuthenticationService.RequestAccessToken(
-    new AccessTokenRequestOptions
-    {
-        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
-            "https://graph.microsoft.com/User.Read" }
-    });
-
-if (tokenResult.TryGetToken(out var token))
-{
-    ...
-}
-```
-
-`TryGetToken`返回
-
-* `true``token`供使用的。
-* `false`如果未检索到标记，则为。
-
 ## <a name="attach-tokens-to-outgoing-requests"></a>将令牌附加到传出请求
 
 `AuthorizationMessageHandler`服务可用于`HttpClient`将访问令牌附加到传出请求。 使用现有`IAccessTokenProvider`服务获取令牌。 如果无法获取令牌， `AccessTokenNotAvailableException`则会引发。 `AccessTokenNotAvailableException`提供了`Redirect`一个方法，该方法可用于将用户导航到标识提供程序以获取新令牌。 使用`AuthorizationMessageHandler` `ConfigureHandler`方法，可以配置授权 url、范围和返回 URL。
@@ -71,7 +35,7 @@ if (tokenResult.TryGetToken(out var token))
 在下面的示例中`AuthorizationMessageHandler` ， `HttpClient`在中`Program.Main`配置（*Program.cs*）：
 
 ```csharp
-builder.Services.AddSingleton(sp =>
+builder.Services.AddTransient(sp =>
 {
     return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
         .ConfigureHandler(
@@ -166,6 +130,156 @@ protected override async Task OnInitializedAsync()
     forecasts = await WeatherClient.GetWeatherForeacasts();
 }
 ```
+
+## <a name="request-additional-access-tokens"></a>请求其他访问令牌
+
+可以通过调用`IAccessTokenProvider.RequestAccessToken`手动获取访问令牌。
+
+在下面的示例中，应用程序需要其他 Azure Active Directory （AAD） Microsoft Graph API 作用域来读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，会在客户端应用（`Program.Main`， *Program.cs*）中配置其他范围：
+
+```csharp
+builder.Services.AddMsalAuthentication(options =>
+{
+    ...
+
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/Mail.Send");
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/User.Read");
+}
+```
+
+`IAccessTokenProvider.RequestToken`方法提供了一个重载，该重载允许应用程序使用一组给定的范围设置访问令牌，如以下示例中所示：
+
+```csharp
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IAccessTokenProvider TokenProvider
+
+...
+
+var tokenResult = await TokenProvider.RequestAccessToken(
+    new AccessTokenRequestOptions
+    {
+        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
+            "https://graph.microsoft.com/User.Read" }
+    });
+
+if (tokenResult.TryGetToken(out var token))
+{
+    ...
+}
+```
+
+`TryGetToken`返回
+
+* `true``token`供使用的。
+* `false`如果未检索到标记，则为。
+
+## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>带有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
+
+在 Blazor WebAssembly 应用中的 WebAssembly 上运行时[HttpClient](xref:fundamentals/http-requests) ，HttpClient <xref:System.Net.Http.HttpRequestMessage>并可用于自定义请求。 例如，可以指定 HTTP 方法和请求标头。 下面的示例向服务器`POST`上的待办事项列表 API 终结点发出请求，并显示响应正文：
+
+```razor
+@page "/todorequest"
+@using System.Net.Http
+@using System.Net.Http.Headers
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
+
+<h1>ToDo Request</h1>
+
+<button @onclick="PostRequest">Submit POST request</button>
+
+<p>Response body returned by the server:</p>
+
+<p>@_responseBody</p>
+
+@code {
+    private string _responseBody;
+
+    private async Task PostRequest()
+    {
+        var requestMessage = new HttpRequestMessage()
+        {
+            Method = new HttpMethod("POST"),
+            RequestUri = new Uri("https://localhost:10000/api/TodoItems"),
+            Content =
+                JsonContent.Create(new TodoItem
+                {
+                    Name = "My New Todo Item",
+                    IsComplete = false
+                })
+        };
+
+        var tokenResult = await TokenProvider.RequestAccessToken();
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            requestMessage.Headers.Authorization =
+                new AuthenticationHeaderValue("Bearer", token.Value);
+
+            requestMessage.Content.Headers.TryAddWithoutValidation(
+                "x-custom-header", "value");
+
+            var response = await Http.SendAsync(requestMessage);
+            var responseStatusCode = response.StatusCode;
+
+            _responseBody = await response.Content.ReadAsStringAsync();
+        }
+    }
+
+    public class TodoItem
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public bool IsComplete { get; set; }
+    }
+}
+```
+
+.NET WebAssembly 的实现`HttpClient`使用[WindowOrWorkerGlobalScope （）](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch)。 提取允许配置几个[特定于请求的选项](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。 
+
+HTTP fetch 请求选项可配置如下表`HttpRequestMessage`中所示的扩展方法。
+
+| `HttpRequestMessage`extension 方法 | 提取请求属性 |
+| ------------------------------------- | ---------------------- |
+| `SetBrowserRequestCredentials`        | [凭据](https://developer.mozilla.org/docs/Web/API/Request/credentials) |
+| `SetBrowserRequestCache`              | [区](https://developer.mozilla.org/docs/Web/API/Request/cache) |
+| `SetBrowserRequestMode`               | [mode](https://developer.mozilla.org/docs/Web/API/Request/mode) |
+| `SetBrowserRequestIntegrity`          | [完整性](https://developer.mozilla.org/docs/Web/API/Request/integrity) |
+
+您可以使用更通用`SetBrowserRequestOption`的扩展方法来设置其他选项。
+ 
+HTTP 响应通常在 Blazor WebAssembly 应用中进行缓冲，以支持对响应内容进行同步读取。 若要启用对响应流的支持， `SetBrowserResponseStreamingEnabled`请对请求使用扩展方法。
+
+若要在跨域请求中包含凭据，请使用`SetBrowserRequestCredentials`扩展方法：
+
+```csharp
+requestMessage.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+```
+
+有关获取 API 选项的详细信息，请参阅[MDN web 文档： WindowOrWorkerGlobalScope （）:P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
+
+在 CORS 请求上发送凭据（授权 cookie/标头）时`Authorization` ，cors 策略必须允许标头。
+
+以下策略包括的配置：
+
+* 请求源（`http://localhost:5000`、 `https://localhost:5001`）。
+* 任何方法（谓词）。
+* `Content-Type`和`Authorization`标头。 若要允许自定义标头（例如`x-custom-header`），请在调用<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>时列出标头。
+* 由客户端 JavaScript 代码设置的凭据（`credentials`属性设置为`include`）。
+
+```csharp
+app.UseCors(policy => 
+    policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
+    .AllowAnyMethod()
+    .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
+    .AllowCredentials());
+```
+
+有关详细信息，请<xref:security/cors>参阅和示例应用的 HTTP 请求测试器组件（*组件/HTTPRequestTester*）。
 
 ## <a name="handle-token-request-errors"></a>处理令牌请求错误
 
@@ -309,7 +423,7 @@ protected override async Task OnInitializedAsync()
 
 默认情况下， `Microsoft.AspNetCore.Components.WebAssembly.Authentication`该库使用下表中显示的路由来表示不同的身份验证状态。
 
-| 路由                            | 目的 |
+| 路由                            | 目标 |
 | -------------------------------- | ------- |
 | `authentication/login`           | 触发登录操作。 |
 | `authentication/login-callback`  | 处理任何登录操作的结果。 |
@@ -483,7 +597,7 @@ public class Program
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.RootComponents.Add<App>("app");
 
-        builder.Services.AddSingleton(new HttpClient 
+        builder.Services.AddTransient(new HttpClient 
         {
             BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
         });
@@ -573,13 +687,13 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a>使用第三方提供程序对用户进行身份验证，并在主机服务器和第三方调用受保护的 API
 
-使用第三方登录提供程序配置标识。 获取第三方 API 访问所需的令牌并进行存储。
+使用Identity第三方登录提供程序进行配置。 获取第三方 API 访问所需的令牌并进行存储。
 
-当用户登录时，标识将在身份验证过程中收集访问和刷新令牌。 此时，可通过几种方法向第三方 API 进行 API 调用。
+当用户登录时， Identity会在身份验证过程中收集访问令牌和刷新令牌。 此时，可通过几种方法向第三方 API 进行 API 调用。
 
 #### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a>使用服务器访问令牌检索第三方访问令牌
 
-使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在此处，使用第三方访问令牌直接从客户端上的标识调用第三方 API 资源。
+使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在该处，使用第三方访问令牌直接从Identity客户端调用第三方 API 资源。
 
 我们不建议使用此方法。 此方法需要将第三方访问令牌视为针对公共客户端生成。 在 OAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用可以安全地存储机密，将为机密客户端生成访问令牌。 机密客户端具有客户端机密，并且假定能够安全地存储机密。
 

@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 4ccf86550a520f1d001088859ef5909041178781
-ms.sourcegitcommit: 6d271f4b4c3cd1e82267f51d9bfb6de221c394fe
+ms.openlocfilehash: 0fb4f4176f214d6bf0c005838a0ccbe4487243f2
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82150002"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767969"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护Blazor ASP.NET Core WebAssembly 独立应用
+# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>使用 Azure Active Directory B2C 保护Blazor ASP.NET Core WebAssembly 独立应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
 
@@ -31,13 +34,13 @@ ms.locfileid: "82150002"
 
    * [创建 AAD B2C 租户](/azure/active-directory-b2c/tutorial-create-tenant) &ndash;记录以下信息：
 
-     1 \。 AAD B2C 实例（例如`https://contoso.b2clogin.com/`，包含尾随斜杠）<br>
-     2。 AAD B2C 租户域（例如`contoso.onmicrosoft.com`）
+     1\. AAD B2C 实例（例如`https://contoso.b2clogin.com/`，包含尾随斜杠）<br>
+     2\. AAD B2C 租户域（例如`contoso.onmicrosoft.com`）
 
    * [注册 web 应用程序](/azure/active-directory-b2c/tutorial-register-applications) &ndash;在应用注册过程中进行以下选择：
 
-     1 \。 将**Web 应用/WEB API**设置为 **"是"**。<br>
-     2。 将 "**允许隐式流**" 设置为 **"是"**。<br>
+     1\. 将**Web 应用/WEB API**设置为 **"是"**。<br>
+     2\. 将 "**允许隐式流**" 设置为 **"是"**。<br>
      3。 添加`https://localhost:5001/authentication/login-callback`的**回复 URL** 。
 
      记录应用程序 ID （客户端 ID）（例如`11111111-1111-1111-1111-111111111111`）。
@@ -73,7 +76,7 @@ ms.locfileid: "82150002"
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
+使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与Identity提供程序（IP）交互所需的所有服务。
 
 Program.cs  :
 

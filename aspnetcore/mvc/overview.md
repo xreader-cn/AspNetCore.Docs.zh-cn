@@ -4,13 +4,19 @@ author: ardalis
 description: 了解 ASP.NET Core MVC 这一丰富框架如何使用“模型-视图-控制器”设计模式构建 Web 应用和 API。
 ms.author: riande
 ms.date: 02/12/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/overview
-ms.openlocfilehash: 2911399f6ed4e14345171c908c4306b9c3e33805
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c6c7fd1d0cb7a462b3a13d5e31a50c704a00c0ef
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651666"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775461"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -37,11 +43,11 @@ MVC 应用程序的模型 (M) 表示应用程序和任何应由其执行的业�
 
 ### <a name="view-responsibilities"></a>视图责任
 
-视图 (V) 负责通过用户界面展示内容。 它们使用 [Razor 视图引擎](#razor-view-engine)在 HTML 标记中嵌入 .NET 代码。 视图中应该有最小逻辑，并且其中的任何逻辑都必须与展示内容相关。 如果发现需要在视图文件中执行大量逻辑以显示复杂模型中的数据，请考虑使用 [View Component](views/view-components.md)、ViewModel 或视图模板来简化视图。
+视图 (V) 负责通过用户界面展示内容。 它们使用[ Razor视图引擎](#razor-view-engine)在 HTML 标记中嵌入 .net 代码。 视图中应该有最小逻辑，并且其中的任何逻辑都必须与展示内容相关。 如果发现需要在视图文件中执行大量逻辑以显示复杂模型中的数据，请考虑使用 [View Component](views/view-components.md)、ViewModel 或视图模板来简化视图。
 
 ### <a name="controller-responsibilities"></a>控制器职责
 
-控制器 (C) 是处理用户交互、使用模型并最终选择要呈现的视图的组件。 在 MVC 应用程序中，视图仅显示信息；控制器则用于处理和响应用户输入和交互。 在 MVC 模式中，控制器是初始入口点，负责选择要使用的模型类型和要呈现的视图（因此得名 - 它控制应用如何响应给定请求）。
+控制器 (C) 是处理用户交互、使用模型并最终选择要呈现的视图的组件。 在 MVC 应用程序中，视图仅显示信息；控制器处理并响应用户输入和交互。 在 MVC 模式中，控制器是初始入口点，负责选择要使用的模型类型和要呈现的视图（因此得名 - 它控制应用如何响应给定请求）。
 
 > [!NOTE]
 > 控制器不应由于责任过多而变得过于复杂。 要阻止控制器逻辑变得过于复杂，请将业务逻辑推出控制器并推入域模型。
@@ -64,25 +70,25 @@ ASP.NET Core MVC 包括以下功能：
 * [模型验证](#model-validation)
 * [依赖关系注入](../fundamentals/dependency-injection.md)
 * [筛选器](#filters)
-* [区域](#areas)
+* [Areas](#areas)
 * [Web API](#web-apis)
-* [可测试性](#testability)
-* [Razor 视图引擎](#razor-view-engine)
+* [Testability](#testability)
+* [Razor查看引擎](#razor-view-engine)
 * [强类型视图](#strongly-typed-views)
 * [标记帮助程序](#tag-helpers)
-* [视图组件](#view-components)
+* [查看组件](#view-components)
 
 ### <a name="routing"></a>路由
 
 ASP.NET Core MVC 建立在 [ASP.NET Core 的路由](../fundamentals/routing.md)之上，是一个功能强大的 URL 映射组件，可用于生成具有易于理解和可搜索 URL 的应用程序。 它可让你定义适用于搜索引擎优化 (SEO) 和链接生成的应用程序 URL 命名模式，而不考虑如何组织 Web 服务器上的文件。 可以使用支持路由值约束、默认值和可选值的方便路由模板语法来定义路由。
 
-通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
+通过基于约定的路由，可以全局定义应用程序接受的 URL 格式以及每个格式映射到给定控制器上特定操作方法的方式**。 接收传入请求时，路由引擎分析 URL 并将其匹配到定义的 URL 格式之一，然后调用关联的控制器操作方法。
 
 ```csharp
 routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息。 这意味着路由定义位于与之相关联的控制器和操作旁。
+借助属性路由，可以通过用定义应用程序路由的属性修饰控制器和操作来指定路由信息**。 这意味着路由定义位于与之相关联的控制器和操作旁。
 
 ```csharp
 [Route("api/[controller]")]
@@ -141,11 +147,11 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 框架处理客户端和服务器上的验证请求数据。 在模型类型上指定的验证逻辑作为非介入式注释添加到呈现的视图，并使用 [jQuery 验证](https://jqueryvalidation.org/)在浏览器中强制执行。
 
-### <a name="dependency-injection"></a>依赖项注入
+### <a name="dependency-injection"></a>依赖关系注入
 
 ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-injection.md) 的支持。 在 ASP.NET Core MVC 中，[控制器](controllers/dependency-injection.md)可通过其构造函数请求所需服务，使其能够遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。
 
-应用还可通过 [ 指令使用](views/dependency-injection.md)视图文件中的依赖关系注入`@inject`：
+应用还可通过 `@inject` 指令使用[视图文件中的依赖关系注入](views/dependency-injection.md)：
 
 ```cshtml
 @inject SomeService ServiceName
@@ -170,7 +176,7 @@ ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-in
 public class AccountController : Controller
 ```
 
-### <a name="areas"></a>区域
+### <a name="areas"></a>Areas
 
 [区域](controllers/areas.md)提供将大型 ASP.NET Core MVC Web 应用分区为较小功能分组的方法。 区域是应用程序内的一个 MVC 结构。 在 MVC 项目中，模型、控制器和视图等逻辑组件保存在不同的文件夹中，MVC 使用命名约定来创建这些组件之间的关系。 对于大型应用，将应用分区为独立的高级功能区域可能更有利。 例如，具有多个业务单位的电子商务应用程序，如结帐、计费和搜索等。其中每个单位都有自己的逻辑组件视图、控制器和模型。
 
@@ -186,9 +192,9 @@ public class AccountController : Controller
 
 框架对界面和依赖项注入的使用非常适用于单元测试，并且该框架还包括使得[集成测试](xref:test/integration-tests)快速轻松的功能（例如 TestHost 和实体框架的 InMemory 提供程序）。 详细了解[如何测试控制器逻辑](controllers/testing.md)。
 
-### <a name="razor-view-engine"></a>Razor 视图引擎
+### <a name="razor-view-engine"></a>Razor查看引擎
 
-[ASP.NET Core MVC 视图](views/overview.md)使用 [Razor 视图引擎](views/razor.md)呈现视图。 Razor 是一种紧凑、富有表现力且流畅的模板标记语言，用于使用嵌入式 C# 代码定义视图。 Razor 用于在服务器上动态生成 Web 内容。 可以完全混合服务器代码与客户端内容和代码。
+[ASP.NET Core MVC 视图](views/overview.md)使用[ Razor视图引擎](views/razor.md)呈现视图。 Razor是一种紧凑、富于表现力且流畅的模板标记语言，用于使用 embedded c # 代码定义视图。 Razor用于在服务器上动态生成 web 内容。 可以完全混合服务器代码与客户端内容和代码。
 
 ```cshtml
 <ul>
@@ -198,11 +204,11 @@ public class AccountController : Controller
 </ul>
 ```
 
-使用 Razor 视图引擎可以定义[布局](views/layout.md)、[分部视图](views/partial.md)和可替换部分。
+使用Razor视图引擎可以定义[布局](views/layout.md)、[分部视图](views/partial.md)和可替换部分。
 
 ### <a name="strongly-typed-views"></a>强类型视图
 
-可以基于模型强类型化 MVC 中的 Razor 视图。 控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。
+RazorMVC 中的视图可以基于模型进行强类型化。 控制器可以将强类型化的模型传递给视图，使视图具备类型检查和 IntelliSense 支持。
 
 例如，以下视图呈现类型为 `IEnumerable<Product>` 的模型：
 
@@ -218,9 +224,9 @@ public class AccountController : Controller
 
 ### <a name="tag-helpers"></a>标记帮助程序
 
-[标记帮助程序](views/tag-helpers/intro.md)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。 标记帮助程序基于元素名称及其属性绑定到特定的元素。 它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。
+[标记帮助](views/tag-helpers/intro.md)程序使服务器端代码可以在文件中Razor参与创建和呈现 HTML 元素。 可以使用标记帮助程序定义自定义标记（例如 `<environment>`），或者修改现有标记的行为（例如 `<label>`）。 标记帮助程序基于元素名称及其属性绑定到特定的元素。 它们提供了服务器端呈现的优势，同时仍然保留了 HTML 编辑体验。
 
-有多种常见任务（例如创建窗体、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，内置 LinkTagHelper 可以用来创建指向 `Login` 的 `AccountsController` 操作的链接：
+有多种常见任务（例如创建表单、链接，加载资产等）的内置标记帮助程序，公共 GitHub 存储库和 NuGet 包中甚至还有更多可用标记帮助程序。 标记帮助程序使用 C# 创建，基于元素名称、属性名称或父标记以 HTML 元素为目标。 例如，内置 LinkTagHelper 可以用来创建指向 `AccountsController` 的 `Login` 操作的链接：
 
 ```cshtml
 <p>
@@ -243,7 +249,7 @@ public class AccountController : Controller
 </environment>
 ```
 
-标记帮助程序提供 HTML 友好型开发体验和用于创建 HTML 和 Razor 标记的丰富 IntelliSense 环境。 大多数内置标记帮助程序以现有 HTML 元素为目标，为该元素提供服务器端属性。
+标记帮助程序提供 HTML 友好的开发体验，并提供丰富的 IntelliSense 环境用于创建Razor html 和标记。 大多数内置标记帮助程序以现有 HTML 元素为目标，为该元素提供服务器端属性。
 
 ### <a name="view-components"></a>视图组件
 

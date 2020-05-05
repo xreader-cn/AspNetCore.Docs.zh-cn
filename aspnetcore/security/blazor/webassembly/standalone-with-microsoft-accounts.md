@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: 95c16bcd8da22792b27b3aaaf8632b2206372270
-ms.sourcegitcommit: 6d271f4b4c3cd1e82267f51d9bfb6de221c394fe
+ms.openlocfilehash: 3ea2b7632fc41e1c8ad72292e45a93e081b6edbe
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82150057"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776150"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-microsoft-accounts"></a>使用 Microsoft 帐户Blazor保护 ASP.NET Core WebAssembly 独立应用程序
+# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>使用 Microsoft 帐户Blazor保护 ASP.NET Core WebAssembly 独立应用程序
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
 
@@ -31,18 +34,18 @@ ms.locfileid: "82150057"
 
    在 Azure 门户的**Azure Active Directory** > **应用注册**区域中注册 AAD 应用程序：
 
-   1 \。 提供应用的**名称**（例如， ** Blazor客户端 AAD**）。<br>
-   2。 在 "**支持的帐户类型**" 中，选择**任何组织目录中的帐户**。<br>
+   1\. 提供应用的**名称**（例如， ** Blazor客户端 AAD**）。<br>
+   2\. 在 "**支持的帐户类型**" 中，选择**任何组织目录中的帐户**。<br>
    3。 将 "**重定向 uri** " 下拉状态设置为 " **Web**"，并提供`https://localhost:5001/authentication/login-callback`的重定向 uri。<br>
    4 \。 禁用 "**将** > **管理员以免授予 openid 并 offline_access 权限**" 复选框。<br>
    5 \。 选择“注册”  。
 
    在 "**身份验证** > **平台配置** > "**Web**：
 
-   1 \。 确认存在的**重定向 URI** `https://localhost:5001/authentication/login-callback` 。<br>
-   2。 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。<br>
+   1\. 确认存在的**重定向 URI** `https://localhost:5001/authentication/login-callback` 。<br>
+   2\. 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。<br>
    3。 此体验可接受应用的其余默认值。<br>
-   4 \。 选择 "**保存**" 按钮。
+   4 \。 选择“保存”按钮  。
 
    记录应用程序 ID （客户端 ID）（例如`11111111-1111-1111-1111-111111111111`）。
 
@@ -76,7 +79,7 @@ ms.locfileid: "82150057"
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
+使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与Identity提供程序（IP）交互所需的所有服务。
 
 Program.cs  :
 
@@ -171,4 +174,4 @@ builder.Services.AddMsalAuthentication(options =>
 
 * <xref:security/blazor/webassembly/additional-scenarios>
 * [快速入门：将应用程序注册到 Microsoft 标识平台](/azure/active-directory/develop/quickstart-register-app#register-a-new-application-using-the-azure-portal)
-* [快速入门：将应用程序配置为公开 web Api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
+* [快速入门：配置应用程序以公开 Web API](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
