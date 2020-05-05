@@ -1,34 +1,40 @@
 ---
-title: 将身份验证和标识迁移到 ASP.NET Core
+title: 迁移身份验证Identity和 ASP.NET Core
 author: ardalis
-description: 了解如何将身份验证和标识从 ASP.NET MVC 项目迁移到 ASP.NET Core MVC 项目。
+description: 了解如何从 ASP.NET MVC 项目将身份验证和标识迁移到 ASP.NET Core MVC 项目。
 ms.author: riande
 ms.date: 3/22/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/identity
-ms.openlocfilehash: c5727c974e455144d04e66fe14ea591e160cb963
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 0474d0d4f430d587acac5fdd8f391220f825ccee
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219189"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775526"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core"></a><span data-ttu-id="2c2a6-103">将身份验证和标识迁移到 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2c2a6-103">Migrate Authentication and Identity to ASP.NET Core</span></span>
+# <a name="migrate-authentication-and-identity-to-aspnet-core"></a><span data-ttu-id="ed2cf-103">迁移身份验证Identity和 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ed2cf-103">Migrate Authentication and Identity to ASP.NET Core</span></span>
 
-<span data-ttu-id="2c2a6-104">作者：[Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="2c2a6-104">By [Steve Smith](https://ardalis.com/)</span></span>
+<span data-ttu-id="ed2cf-104">作者：[Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="ed2cf-104">By [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="2c2a6-105">在前面的文章中，我们[已将配置从 ASP.NET mvc 项目迁移到 ASP.NET CORE mvc](xref:migration/configuration)。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-105">In the previous article, we [migrated configuration from an ASP.NET MVC project to ASP.NET Core MVC](xref:migration/configuration).</span></span> <span data-ttu-id="2c2a6-106">本文将迁移注册、登录和用户管理功能。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-106">In this article, we migrate the registration, login, and user management features.</span></span>
+<span data-ttu-id="ed2cf-105">在前面的文章中，我们[已将配置从 ASP.NET mvc 项目迁移到 ASP.NET CORE mvc](xref:migration/configuration)。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-105">In the previous article, we [migrated configuration from an ASP.NET MVC project to ASP.NET Core MVC](xref:migration/configuration).</span></span> <span data-ttu-id="ed2cf-106">本文将迁移注册、登录和用户管理功能。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-106">In this article, we migrate the registration, login, and user management features.</span></span>
 
-## <a name="configure-identity-and-membership"></a><span data-ttu-id="2c2a6-107">配置标识和成员身份</span><span class="sxs-lookup"><span data-stu-id="2c2a6-107">Configure Identity and Membership</span></span>
+## <a name="configure-identity-and-membership"></a><span data-ttu-id="ed2cf-107">配置Identity和成员资格</span><span class="sxs-lookup"><span data-stu-id="ed2cf-107">Configure Identity and Membership</span></span>
 
-<span data-ttu-id="2c2a6-108">在 ASP.NET MVC 中，身份验证和标识功能是使用*Startup.Auth.cs*和*IdentityConfig.cs*中的 ASP.NET Identity 配置的，位于*App_Start*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-108">In ASP.NET MVC, authentication and identity features are configured using ASP.NET Identity in *Startup.Auth.cs* and *IdentityConfig.cs*, located in the *App_Start* folder.</span></span> <span data-ttu-id="2c2a6-109">在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-109">In ASP.NET Core MVC, these features are configured in *Startup.cs*.</span></span>
+<span data-ttu-id="ed2cf-108">在 ASP.NET MVC 中，身份验证和标识功能是使用Identity *Startup.Auth.cs*和*IdentityConfig.cs*中的 ASP.NET 配置的，位于*App_Start*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-108">In ASP.NET MVC, authentication and identity features are configured using ASP.NET Identity in *Startup.Auth.cs* and *IdentityConfig.cs*, located in the *App_Start* folder.</span></span> <span data-ttu-id="ed2cf-109">在 ASP.NET Core MVC 中，这些功能在*Startup.cs*中进行配置。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-109">In ASP.NET Core MVC, these features are configured in *Startup.cs*.</span></span>
 
-<span data-ttu-id="2c2a6-110">安装以下 NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-110">Install the the following NuGet packages:</span></span>
+<span data-ttu-id="ed2cf-110">安装以下 NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-110">Install the the following NuGet packages:</span></span>
 
 * `Microsoft.AspNetCore.Identity.EntityFrameworkCore`
 * `Microsoft.AspNetCore.Authentication.Cookies`
 * `Microsoft.EntityFrameworkCore.SqlServer`
 
-<span data-ttu-id="2c2a6-111">在*Startup.cs*中，更新 `Startup.ConfigureServices` 方法以使用实体框架和标识服务：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-111">In *Startup.cs*, update the `Startup.ConfigureServices` method to use Entity Framework and Identity services:</span></span>
+<span data-ttu-id="ed2cf-111">在*Startup.cs*中，更新`Startup.ConfigureServices`方法以使用实体框架和Identity服务：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-111">In *Startup.cs*, update the `Startup.ConfigureServices` method to use Entity Framework and Identity services:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -45,9 +51,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="2c2a6-112">此时，在上面的代码中引用了两种类型，但尚未从 ASP.NET MVC 项目迁移 `ApplicationDbContext` 和 `ApplicationUser`。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-112">At this point, there are two types referenced in the above code that we haven't yet migrated from the ASP.NET MVC project: `ApplicationDbContext` and `ApplicationUser`.</span></span> <span data-ttu-id="2c2a6-113">在 ASP.NET Core 项目中创建新的 "*模型*" 文件夹，并将两个与这些类型对应的类添加到其中。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-113">Create a new *Models* folder in the ASP.NET Core project, and add two classes to it corresponding to these types.</span></span> <span data-ttu-id="2c2a6-114">你将在 */Models/IdentityModels.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-114">You will find the ASP.NET MVC versions of these classes in */Models/IdentityModels.cs*, but we will use one file per class in the migrated project since that's more clear.</span></span>
+<span data-ttu-id="ed2cf-112">此时，在上面的代码中引用了两个类型，这些类型尚未从 ASP.NET MVC 项目迁移： `ApplicationDbContext`和。 `ApplicationUser`</span><span class="sxs-lookup"><span data-stu-id="ed2cf-112">At this point, there are two types referenced in the above code that we haven't yet migrated from the ASP.NET MVC project: `ApplicationDbContext` and `ApplicationUser`.</span></span> <span data-ttu-id="ed2cf-113">在 ASP.NET Core 项目中创建新的 "*模型*" 文件夹，并将两个与这些类型对应的类添加到其中。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-113">Create a new *Models* folder in the ASP.NET Core project, and add two classes to it corresponding to these types.</span></span> <span data-ttu-id="ed2cf-114">你将在 */Models/IdentityModels.cs*中找到这些类的 ASP.NET MVC 版本，但我们会在迁移的项目中对每个类使用一个文件，因为这样做更为清晰。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-114">You will find the ASP.NET MVC versions of these classes in */Models/IdentityModels.cs*, but we will use one file per class in the migrated project since that's more clear.</span></span>
 
-<span data-ttu-id="2c2a6-115">*ApplicationUser.cs*：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-115">*ApplicationUser.cs*:</span></span>
+<span data-ttu-id="ed2cf-115">*ApplicationUser.cs*：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-115">*ApplicationUser.cs*:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -60,7 +66,7 @@ namespace NewMvcProject.Models
 }
 ```
 
-<span data-ttu-id="2c2a6-116">*ApplicationDbContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-116">*ApplicationDbContext.cs*:</span></span>
+<span data-ttu-id="ed2cf-116">*ApplicationDbContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-116">*ApplicationDbContext.cs*:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -86,9 +92,9 @@ namespace NewMvcProject.Models
 }
 ```
 
-<span data-ttu-id="2c2a6-117">ASP.NET Core MVC 初学者 Web 项目不包括很多自定义用户或 `ApplicationDbContext`。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-117">The ASP.NET Core MVC Starter Web project doesn't include much customization of users, or the `ApplicationDbContext`.</span></span> <span data-ttu-id="2c2a6-118">迁移实际应用时，还需要迁移应用的用户和 `DbContext` 类的所有自定义属性和方法，以及应用所使用的任何其他模型类。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-118">When migrating a real app, you also need to migrate all of the custom properties and methods of your app's user and `DbContext` classes, as well as any other Model classes your app utilizes.</span></span> <span data-ttu-id="2c2a6-119">例如，如果 `DbContext` 具有 `DbSet<Album>`，则需要迁移 `Album` 类。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-119">For example, if your `DbContext` has a `DbSet<Album>`, you need to migrate the `Album` class.</span></span>
+<span data-ttu-id="ed2cf-117">ASP.NET Core MVC 初学者 Web 项目不包括很多自定义的用户或`ApplicationDbContext`。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-117">The ASP.NET Core MVC Starter Web project doesn't include much customization of users, or the `ApplicationDbContext`.</span></span> <span data-ttu-id="ed2cf-118">迁移实际应用时，还需要迁移应用的用户和`DbContext`类的所有自定义属性和方法，以及应用所使用的任何其他模型类。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-118">When migrating a real app, you also need to migrate all of the custom properties and methods of your app's user and `DbContext` classes, as well as any other Model classes your app utilizes.</span></span> <span data-ttu-id="ed2cf-119">例如，如果`DbContext`具有`DbSet<Album>`，则需要迁移`Album`该类。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-119">For example, if your `DbContext` has a `DbSet<Album>`, you need to migrate the `Album` class.</span></span>
 
-<span data-ttu-id="2c2a6-120">在这些文件准备就绪后，可以通过更新 `using` 语句来编译*Startup.cs*文件：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-120">With these files in place, the *Startup.cs* file can be made to compile by updating its `using` statements:</span></span>
+<span data-ttu-id="ed2cf-120">将这些文件放入后， *Startup.cs*可通过更新其`using`语句对 Startup.cs 文件进行编译：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-120">With these files in place, the *Startup.cs* file can be made to compile by updating its `using` statements:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -99,13 +105,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 ```
 
-<span data-ttu-id="2c2a6-121">现在，我们的应用程序已准备好支持身份验证和标识服务。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-121">Our app is now ready to support authentication and Identity services.</span></span> <span data-ttu-id="2c2a6-122">只需将这些功能公开给用户。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-122">It just needs to have these features exposed to users.</span></span>
+<span data-ttu-id="ed2cf-121">现在，我们的应用程序已准备好Identity支持身份验证和服务。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-121">Our app is now ready to support authentication and Identity services.</span></span> <span data-ttu-id="ed2cf-122">只需将这些功能公开给用户。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-122">It just needs to have these features exposed to users.</span></span>
 
-## <a name="migrate-registration-and-login-logic"></a><span data-ttu-id="2c2a6-123">迁移注册和登录逻辑</span><span class="sxs-lookup"><span data-stu-id="2c2a6-123">Migrate registration and login logic</span></span>
+## <a name="migrate-registration-and-login-logic"></a><span data-ttu-id="ed2cf-123">迁移注册和登录逻辑</span><span class="sxs-lookup"><span data-stu-id="ed2cf-123">Migrate registration and login logic</span></span>
 
-<span data-ttu-id="2c2a6-124">对于使用实体框架和 SQL Server 配置的应用和数据访问配置的标识服务，我们已准备好添加注册和登录到应用的支持。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-124">With Identity services configured for the app and data access configured using Entity Framework and SQL Server, we're ready to add support for registration and login to the app.</span></span> <span data-ttu-id="2c2a6-125">请记住，在[迁移过程](xref:migration/mvc#migrate-the-layout-file)中，我们已注释掉对 *_Layout*中 *_LoginPartial*的引用。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-125">Recall that [earlier in the migration process](xref:migration/mvc#migrate-the-layout-file) we commented out a reference to *_LoginPartial* in *_Layout.cshtml*.</span></span> <span data-ttu-id="2c2a6-126">现在可以返回到该代码，取消注释，并添加必要的控制器和视图以支持登录功能。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-126">Now it's time to return to that code, uncomment it, and add in the necessary controllers and views to support login functionality.</span></span>
+<span data-ttu-id="ed2cf-124">通过Identity为应用配置的服务和使用实体框架和 SQL Server 配置的数据访问，我们已准备好添加注册和登录到应用的支持。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-124">With Identity services configured for the app and data access configured using Entity Framework and SQL Server, we're ready to add support for registration and login to the app.</span></span> <span data-ttu-id="ed2cf-125">请记住，在[迁移过程](xref:migration/mvc#migrate-the-layout-file)中，我们已注释掉对 *_Layout*中 *_LoginPartial*的引用。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-125">Recall that [earlier in the migration process](xref:migration/mvc#migrate-the-layout-file) we commented out a reference to *_LoginPartial* in *_Layout.cshtml*.</span></span> <span data-ttu-id="ed2cf-126">现在可以返回到该代码，取消注释，并添加必要的控制器和视图以支持登录功能。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-126">Now it's time to return to that code, uncomment it, and add in the necessary controllers and views to support login functionality.</span></span>
 
-<span data-ttu-id="2c2a6-127">取消注释 *_Layout*中的 `@Html.Partial` 行：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-127">Uncomment the `@Html.Partial` line in *_Layout.cshtml*:</span></span>
+<span data-ttu-id="ed2cf-127">取消注释`@Html.Partial` *_Layout*中的行：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-127">Uncomment the `@Html.Partial` line in *_Layout.cshtml*:</span></span>
 
 ```cshtml
       <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -115,9 +121,9 @@ using Microsoft.Extensions.DependencyInjection;
 </div>
 ```
 
-<span data-ttu-id="2c2a6-128">现在，将名为 *_LoginPartial*的新 Razor 视图添加到*Views/Shared*文件夹：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-128">Now, add a new Razor view called *_LoginPartial* to the *Views/Shared* folder:</span></span>
+<span data-ttu-id="ed2cf-128">现在，将名为Razor *_LoginPartial*的新视图添加到*Views/Shared*文件夹中：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-128">Now, add a new Razor view called *_LoginPartial* to the *Views/Shared* folder:</span></span>
 
-<span data-ttu-id="2c2a6-129">用以下代码更新 *_LoginPartial.* # （替换其所有内容）：</span><span class="sxs-lookup"><span data-stu-id="2c2a6-129">Update *_LoginPartial.cshtml* with the following code (replace all of its contents):</span></span>
+<span data-ttu-id="ed2cf-129">用以下代码更新 *_LoginPartial.* # （替换其所有内容）：</span><span class="sxs-lookup"><span data-stu-id="ed2cf-129">Update *_LoginPartial.cshtml* with the following code (replace all of its contents):</span></span>
 
 ```cshtml
 @inject SignInManager<ApplicationUser> SignInManager
@@ -145,8 +151,8 @@ else
 }
 ```
 
-<span data-ttu-id="2c2a6-130">此时，您应该能够在浏览器中刷新站点。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-130">At this point, you should be able to refresh the site in your browser.</span></span>
+<span data-ttu-id="ed2cf-130">此时，您应该能够在浏览器中刷新站点。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-130">At this point, you should be able to refresh the site in your browser.</span></span>
 
-## <a name="summary"></a><span data-ttu-id="2c2a6-131">总结</span><span class="sxs-lookup"><span data-stu-id="2c2a6-131">Summary</span></span>
+## <a name="summary"></a><span data-ttu-id="ed2cf-131">总结</span><span class="sxs-lookup"><span data-stu-id="ed2cf-131">Summary</span></span>
 
-<span data-ttu-id="2c2a6-132">ASP.NET Core 引入 ASP.NET 标识功能更改。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-132">ASP.NET Core introduces changes to the ASP.NET Identity features.</span></span> <span data-ttu-id="2c2a6-133">在本文中，你看到了如何将 ASP.NET 标识的身份验证和用户管理功能迁移到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="2c2a6-133">In this article, you have seen how to migrate the authentication and user management features of ASP.NET Identity to ASP.NET Core.</span></span>
+<span data-ttu-id="ed2cf-132">ASP.NET Core 引入了对 ASP.NET Identity功能的更改。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-132">ASP.NET Core introduces changes to the ASP.NET Identity features.</span></span> <span data-ttu-id="ed2cf-133">本文介绍了如何将 ASP.NET Identity的身份验证和用户管理功能迁移到 ASP.NET Core。</span><span class="sxs-lookup"><span data-stu-id="ed2cf-133">In this article, you have seen how to migrate the authentication and user management features of ASP.NET Identity to ASP.NET Core.</span></span>

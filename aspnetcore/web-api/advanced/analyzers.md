@@ -6,30 +6,36 @@ monikerRange: '>= aspnetcore-2.2'
 ms.author: prkrishn
 ms.custom: mvc
 ms.date: 09/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 7b6a7328deb8718a2a1c67c104cec359a4f13497
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 530ce2d2a7f67f549f6d188a0c571a5d58518377
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653052"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776241"
 ---
-# <a name="use-web-api-analyzers"></a><span data-ttu-id="c7ba1-103">使用 Web API 分析器</span><span class="sxs-lookup"><span data-stu-id="c7ba1-103">Use web API analyzers</span></span>
+# <a name="use-web-api-analyzers"></a><span data-ttu-id="66b36-103">使用 Web API 分析器</span><span class="sxs-lookup"><span data-stu-id="66b36-103">Use web API analyzers</span></span>
 
-<span data-ttu-id="c7ba1-104">ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器包。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-104">ASP.NET Core 2.2 and later provides an MVC analyzers package intended for use with web API projects.</span></span> <span data-ttu-id="c7ba1-105">分析器使用带有 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 批注的控制器，同时构建 [Web API 约定](xref:web-api/advanced/conventions)。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-105">The analyzers work with controllers annotated with <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute>, while building on [web API conventions](xref:web-api/advanced/conventions).</span></span>
+<span data-ttu-id="66b36-104">ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器包。</span><span class="sxs-lookup"><span data-stu-id="66b36-104">ASP.NET Core 2.2 and later provides an MVC analyzers package intended for use with web API projects.</span></span> <span data-ttu-id="66b36-105">分析器使用带有 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 批注的控制器，同时构建 [Web API 约定](xref:web-api/advanced/conventions)。</span><span class="sxs-lookup"><span data-stu-id="66b36-105">The analyzers work with controllers annotated with <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute>, while building on [web API conventions](xref:web-api/advanced/conventions).</span></span>
 
-<span data-ttu-id="c7ba1-106">分析器包会通知你执行以下操作的任何控制器操作：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-106">The analyzers package notifies you of any controller action that:</span></span>
+<span data-ttu-id="66b36-106">分析器包会通知你执行以下操作的任何控制器操作：</span><span class="sxs-lookup"><span data-stu-id="66b36-106">The analyzers package notifies you of any controller action that:</span></span>
 
-* <span data-ttu-id="c7ba1-107">返回未声明的状态代码。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-107">Returns an undeclared status code.</span></span>
-* <span data-ttu-id="c7ba1-108">返回未声明的成功结果。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-108">Returns an undeclared success result.</span></span>
-* <span data-ttu-id="c7ba1-109">记录不返回的状态代码。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-109">Documents a status code that isn't returned.</span></span>
-* <span data-ttu-id="c7ba1-110">包含显式模型验证检查。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-110">Includes an explicit model validation check.</span></span>
+* <span data-ttu-id="66b36-107">返回未声明的状态代码。</span><span class="sxs-lookup"><span data-stu-id="66b36-107">Returns an undeclared status code.</span></span>
+* <span data-ttu-id="66b36-108">返回未声明的成功结果。</span><span class="sxs-lookup"><span data-stu-id="66b36-108">Returns an undeclared success result.</span></span>
+* <span data-ttu-id="66b36-109">记录不返回的状态代码。</span><span class="sxs-lookup"><span data-stu-id="66b36-109">Documents a status code that isn't returned.</span></span>
+* <span data-ttu-id="66b36-110">包含显式模型验证检查。</span><span class="sxs-lookup"><span data-stu-id="66b36-110">Includes an explicit model validation check.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="reference-the-analyzer-package"></a><span data-ttu-id="c7ba1-111">引用分析器包</span><span class="sxs-lookup"><span data-stu-id="c7ba1-111">Reference the analyzer package</span></span>
+## <a name="reference-the-analyzer-package"></a><span data-ttu-id="66b36-111">引用分析器包</span><span class="sxs-lookup"><span data-stu-id="66b36-111">Reference the analyzer package</span></span>
 
-<span data-ttu-id="c7ba1-112">在 ASP.NET Core 3.0 或更高版本中，分析器随附在 .NET Core SDK 中。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-112">In ASP.NET Core 3.0 or later, the analyzers are included in the .NET Core SDK.</span></span> <span data-ttu-id="c7ba1-113">若要在项目中启用分析器，请在项目文件中包含 `IncludeOpenAPIAnalyzers` 属性：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-113">To enable the analyzer in your project, include the `IncludeOpenAPIAnalyzers` property in the project file:</span></span>
+<span data-ttu-id="66b36-112">在 ASP.NET Core 3.0 或更高版本中，分析器随附在 .NET Core SDK 中。</span><span class="sxs-lookup"><span data-stu-id="66b36-112">In ASP.NET Core 3.0 or later, the analyzers are included in the .NET Core SDK.</span></span> <span data-ttu-id="66b36-113">若要在项目中启用分析器，请在项目文件中包含 `IncludeOpenAPIAnalyzers` 属性：</span><span class="sxs-lookup"><span data-stu-id="66b36-113">To enable the analyzer in your project, include the `IncludeOpenAPIAnalyzers` property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -41,39 +47,39 @@ ms.locfileid: "78653052"
 
 ::: moniker range="= aspnetcore-2.2"
 
-## <a name="package-installation"></a><span data-ttu-id="c7ba1-114">包安装</span><span class="sxs-lookup"><span data-stu-id="c7ba1-114">Package installation</span></span>
+## <a name="package-installation"></a><span data-ttu-id="66b36-114">包安装</span><span class="sxs-lookup"><span data-stu-id="66b36-114">Package installation</span></span>
 
-<span data-ttu-id="c7ba1-115">通过以下方法之一安装 [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-115">Install the [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet package with one of the following approaches:</span></span>
+<span data-ttu-id="66b36-115">通过以下方法之一安装 [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet 包：</span><span class="sxs-lookup"><span data-stu-id="66b36-115">Install the [Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet package with one of the following approaches:</span></span>
 
-### <a name="visual-studio"></a>[<span data-ttu-id="c7ba1-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c7ba1-116">Visual Studio</span></span>](#tab/visual-studio)
+### <a name="visual-studio"></a>[<span data-ttu-id="66b36-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="66b36-116">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="c7ba1-117">从“程序包管理器控制台”窗口：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-117">From the **Package Manager Console** window:</span></span>
-  * <span data-ttu-id="c7ba1-118">>**其他 Windows** >**程序包管理器控制台**中转到 "**查看**"。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-118">Go to **View** > **Other Windows** > **Package Manager Console**.</span></span>
-  * <span data-ttu-id="c7ba1-119">导航到 ApiConventions.csproj 文件所在的目录。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-119">Navigate to the directory in which the *ApiConventions.csproj* file exists.</span></span>
-  * <span data-ttu-id="c7ba1-120">执行以下命令：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-120">Execute the following command:</span></span>
+<span data-ttu-id="66b36-117">从“程序包管理器控制台”\*\*\*\* 窗口：</span><span class="sxs-lookup"><span data-stu-id="66b36-117">From the **Package Manager Console** window:</span></span>
+  * <span data-ttu-id="66b36-118">转到“视图”“其他窗口”“包管理器控制台”\*\*\*\* > \*\*\*\* > \*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="66b36-118">Go to **View** > **Other Windows** > **Package Manager Console**.</span></span>
+  * <span data-ttu-id="66b36-119">导航到 ApiConventions.csproj 文件所在的目录\*\*。</span><span class="sxs-lookup"><span data-stu-id="66b36-119">Navigate to the directory in which the *ApiConventions.csproj* file exists.</span></span>
+  * <span data-ttu-id="66b36-120">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="66b36-120">Execute the following command:</span></span>
 
     ```powershell
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
     ```
 
-### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="c7ba1-121">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c7ba1-121">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="66b36-121">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="66b36-121">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="c7ba1-122">右键单击**Solution Pad** >**添加包 ...** "中的"*包*"文件夹。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-122">Right-click the *Packages* folder in **Solution Pad** > **Add Packages...**.</span></span>
-* <span data-ttu-id="c7ba1-123">将“添加包”窗口的“源”下拉列表设置为“nuget.org”。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-123">Set the **Add Packages** window's **Source** drop-down to "nuget.org".</span></span>
-* <span data-ttu-id="c7ba1-124">在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-124">Enter "Microsoft.AspNetCore.Mvc.Api.Analyzers" in the search box.</span></span>
-* <span data-ttu-id="c7ba1-125">从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-125">Select the "Microsoft.AspNetCore.Mvc.Api.Analyzers" package from the results pane and click **Add Package**.</span></span>
+* <span data-ttu-id="66b36-122">右键单击**Solution Pad** > **添加包 ...**"中的"*包*"文件夹。</span><span class="sxs-lookup"><span data-stu-id="66b36-122">Right-click the *Packages* folder in **Solution Pad** > **Add Packages...**.</span></span>
+* <span data-ttu-id="66b36-123">将“添加包”窗口的“源”下拉列表设置为“nuget.org”\*\*\*\*\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="66b36-123">Set the **Add Packages** window's **Source** drop-down to "nuget.org".</span></span>
+* <span data-ttu-id="66b36-124">在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。</span><span class="sxs-lookup"><span data-stu-id="66b36-124">Enter "Microsoft.AspNetCore.Mvc.Api.Analyzers" in the search box.</span></span>
+* <span data-ttu-id="66b36-125">从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="66b36-125">Select the "Microsoft.AspNetCore.Mvc.Api.Analyzers" package from the results pane and click **Add Package**.</span></span>
 
-### <a name="visual-studio-code"></a>[<span data-ttu-id="c7ba1-126">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c7ba1-126">Visual Studio Code</span></span>](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[<span data-ttu-id="66b36-126">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="66b36-126">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="c7ba1-127">从“集成终端”中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-127">Run the following command from the **Integrated Terminal**:</span></span>
+<span data-ttu-id="66b36-127">从“集成终端”\*\*\*\* 中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="66b36-127">Run the following command from the **Integrated Terminal**:</span></span>
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 ```
 
-### <a name="net-core-cli"></a>[<span data-ttu-id="c7ba1-128">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="c7ba1-128">.NET Core CLI</span></span>](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[<span data-ttu-id="66b36-128">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="66b36-128">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="c7ba1-129">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-129">Run the following command:</span></span>
+<span data-ttu-id="66b36-129">运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="66b36-129">Run the following command:</span></span>
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
@@ -83,19 +89,19 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 ::: moniker-end
 
-## <a name="analyzers-for-web-api-conventions"></a><span data-ttu-id="c7ba1-130">Web API 约定的分析器</span><span class="sxs-lookup"><span data-stu-id="c7ba1-130">Analyzers for web API conventions</span></span>
+## <a name="analyzers-for-web-api-conventions"></a><span data-ttu-id="66b36-130">Web API 约定的分析器</span><span class="sxs-lookup"><span data-stu-id="66b36-130">Analyzers for web API conventions</span></span>
 
-<span data-ttu-id="c7ba1-131">OpenAPI 文档包含操作可能返回的状态代码和响应类型。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-131">OpenAPI documents contain status codes and response types that an action may return.</span></span> <span data-ttu-id="c7ba1-132">在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-132">In ASP.NET Core MVC, attributes such as <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> and <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> are used to document an action.</span></span> <span data-ttu-id="c7ba1-133"><xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-133"><xref:tutorials/web-api-help-pages-using-swagger> goes into further detail on documenting your web API.</span></span>
+<span data-ttu-id="66b36-131">OpenAPI 文档包含操作可能返回的状态代码和响应类型。</span><span class="sxs-lookup"><span data-stu-id="66b36-131">OpenAPI documents contain status codes and response types that an action may return.</span></span> <span data-ttu-id="66b36-132">在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。</span><span class="sxs-lookup"><span data-stu-id="66b36-132">In ASP.NET Core MVC, attributes such as <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> and <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> are used to document an action.</span></span> <span data-ttu-id="66b36-133"><xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。</span><span class="sxs-lookup"><span data-stu-id="66b36-133"><xref:tutorials/web-api-help-pages-using-swagger> goes into further detail on documenting your web API.</span></span>
 
-<span data-ttu-id="c7ba1-134">包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-134">One of the analyzers in the package inspects controllers annotated with <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> and identifies actions that don't entirely document their responses.</span></span> <span data-ttu-id="c7ba1-135">请考虑以下示例：</span><span class="sxs-lookup"><span data-stu-id="c7ba1-135">Consider the following example:</span></span>
+<span data-ttu-id="66b36-134">包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。</span><span class="sxs-lookup"><span data-stu-id="66b36-134">One of the analyzers in the package inspects controllers annotated with <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> and identifies actions that don't entirely document their responses.</span></span> <span data-ttu-id="66b36-135">请看下面的示例：</span><span class="sxs-lookup"><span data-stu-id="66b36-135">Consider the following example:</span></span>
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 
-<span data-ttu-id="c7ba1-136">上述操作记录了 HTTP 200 成功返回类型，但未记录 HTTP 404 失败状态代码。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-136">The preceding action documents the HTTP 200 success return type but doesn't document the HTTP 404 failure status code.</span></span> <span data-ttu-id="c7ba1-137">分析器将 HTTP 404 状态代码的缺失文档报告为警告。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-137">The analyzer reports the missing documentation for the HTTP 404 status code as a warning.</span></span> <span data-ttu-id="c7ba1-138">提供了修复此问题的选项。</span><span class="sxs-lookup"><span data-stu-id="c7ba1-138">An option to fix the problem is provided.</span></span>
+<span data-ttu-id="66b36-136">上述操作记录了 HTTP 200 成功返回类型，但未记录 HTTP 404 失败状态代码。</span><span class="sxs-lookup"><span data-stu-id="66b36-136">The preceding action documents the HTTP 200 success return type but doesn't document the HTTP 404 failure status code.</span></span> <span data-ttu-id="66b36-137">分析器将 HTTP 404 状态代码的缺失文档报告为警告。</span><span class="sxs-lookup"><span data-stu-id="66b36-137">The analyzer reports the missing documentation for the HTTP 404 status code as a warning.</span></span> <span data-ttu-id="66b36-138">提供了修复此问题的选项。</span><span class="sxs-lookup"><span data-stu-id="66b36-138">An option to fix the problem is provided.</span></span>
 
 ![报告警告的分析器](conventions/_static/Analyzer.gif)
 
-## <a name="additional-resources"></a><span data-ttu-id="c7ba1-140">其他资源</span><span class="sxs-lookup"><span data-stu-id="c7ba1-140">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="66b36-140">其他资源</span><span class="sxs-lookup"><span data-stu-id="66b36-140">Additional resources</span></span>
 
 * <xref:web-api/advanced/conventions>
 * <xref:tutorials/web-api-help-pages-using-swagger>
