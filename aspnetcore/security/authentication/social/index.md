@@ -5,13 +5,19 @@ description: 本教程演示如何使用外部身份验证提供程序通过 OAu
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/social/index
-ms.openlocfilehash: c698edbd85d665509366287b1dcad08e276e71cc
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 880aeea4dce5f5ae6533a3293067d89f98587e72
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644814"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777145"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>ASP.NET Core 中的 Facebook、Google 和外部提供程序身份验证
 
@@ -99,7 +105,7 @@ ms.locfileid: "78644814"
 
 使用外部提供程序在登录过程中设置的电子邮箱创建密码和登录：
 
-* 选择右上角的“Hello **电子邮件别名&lt;”链接，导航到“管理”视图&gt;**  。
+* 选择右上角的“Hello &lt;电子邮件别名&gt;”链接，导航到“管理”视图   。
 
 ![Web 应用程序“管理”视图](index/_static/pass1a.png)
 
@@ -114,4 +120,4 @@ ms.locfileid: "78644814"
 * 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/10563)，了解有关如何自定义登录按钮的信息。
 * 本文介绍了外部身份验证，并说明了向 ASP.NET Core 应用添加外部登录所需的先决条件。
 * 引用特定于提供程序的页，为应用所需的提供程序配置登录。
-* 可能需要保留有关用户及其访问和刷新令牌的其他数据。 有关更多信息，请参见 <xref:security/authentication/social/additional-claims>。
+* 可能需要保留有关用户及其访问和刷新令牌的其他数据。 有关详细信息，请参阅 <xref:security/authentication/social/additional-claims>。

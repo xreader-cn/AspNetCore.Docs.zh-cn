@@ -1,92 +1,98 @@
 ---
-title: ASP.NET核心中的内存管理和模式
+title: ASP.NET Core 中的内存管理和模式
 author: rick-anderson
-description: 了解如何在ASP.NET核心中管理内存，以及垃圾回收器 （GC） 的工作原理。
+description: 了解 ASP.NET Core 如何管理内存，以及垃圾回收器（GC）的工作方式。
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: performance/memory
-ms.openlocfilehash: b2af9cb567cdb1d7b2d0942601fcc3ebd999a5d9
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: db6f8e867fc83a211170aa59f5bad604d9c2730d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440943"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776111"
 ---
-# <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET核心中的内存管理和垃圾回收 （GC）
+# <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core 中的内存管理和垃圾回收（GC）
 
-由[塞巴斯蒂安·罗斯](https://github.com/sebastienros)和[里克·安德森](https://twitter.com/RickAndMSFT)
+作者： [Sébastien Ros](https://github.com/sebastienros)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-内存管理很复杂，即使在像 .NET 这样的托管框架中也是如此。 分析和理解内存问题可能具有挑战性。 本文：
+内存管理是很复杂的，即使在 .NET 等托管框架中也是如此。 分析和了解内存问题可能非常困难。 本文：
 
-* 受许多*内存泄漏*和*GC 不工作*问题引起的。 这些问题大多是由于不了解内存消耗在 .NET Core 中的工作方式，或者不了解如何测量内存消耗造成的。
-* 演示有问题的内存使用，并建议替代方法。
+* 有很多*内存泄漏*和*GC 不起作用*的问题。 其中的大多数问题都是由不了解 .NET Core 中的内存使用情况或不了解其测量方式导致的。
+* 演示内存使用情况，并提出替代方法。
 
-## <a name="how-garbage-collection-gc-works-in-net-core"></a>垃圾回收 （GC） 在 .NET 核心中的工作方式
+## <a name="how-garbage-collection-gc-works-in-net-core"></a>如何在 .NET Core 中使用垃圾回收（GC）
 
-GC 分配堆段，其中每个段是连续的内存范围。 放置在堆中的对象分为 3 代之一：0、1 或 2。 生成确定 GC 尝试释放应用程序不再引用的托管对象上的内存的频率。 编号较低的代是 GC 更频繁地使用。
+GC 分配堆段，其中每个段都是一系列连续的内存。 位于堆中的对象归类为三个代之一：0、1或2。 该代确定 GC 尝试释放应用程序不再引用的托管对象上内存的频率。 较低编号的生成更为频繁。
 
-对象根据其生存期从一代移动到另一代。 随着对象寿命的延长，它们被移动到更高的一代。 如前所述，较高一代是 GC 的较少频率。 短期生存对象始终保留在第 0 代中。 例如，在 Web 请求期间引用的对象是短暂的。 应用程序级[单例](xref:fundamentals/dependency-injection#service-lifetimes)通常迁移到第 2 代。
+根据对象的生存期，将对象从一代移到另一代。 随着对象的运行时间较长，它们会移到较高的代中。 如前所述，较高的版本是不太常见的垃圾回收。 短期生存期的对象始终保留在第0代中。 例如，在 web 请求过程中引用的对象的生存期很短。 应用程序级别[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)通常迁移到第2代。
 
-当 ASP.NET 核心应用启动时，GC：
+当 ASP.NET Core 应用启动时，GC：
 
 * 为初始堆段保留一些内存。
-* 加载运行时时提交一小部分内存。
+* 加载运行时，提交一小部分内存。
 
-出于性能原因，上述内存分配完成。 性能优势来自连续内存中的堆段。
+出于性能方面的原因，上述内存分配已完成。 性能优势来自连续内存中的堆段。
 
 ### <a name="call-gccollect"></a>调用 GC。收集
 
 调用[GC。显式收集](xref:System.GC.Collect*)：
 
-* **不应**通过生产ASP.NET核心应用来完成。
-* 在调查内存泄漏时很有用。
-* 调查时，验证 GC 从内存中删除了所有悬空对象，以便可以测量内存。
+* **不**应由生产 ASP.NET Core 应用完成。
+* 调查内存泄漏时非常有用。
+* 调查时，验证 GC 是否已从内存中删除所有无关联的对象，以便可以测量内存。
 
 ## <a name="analyzing-the-memory-usage-of-an-app"></a>分析应用的内存使用情况
 
-专用工具可帮助分析内存使用情况：
+专用工具可帮助分析内存使用量：
 
-- 计数对象引用
-- 测量 GC 对 CPU 使用率的影响
-- 测量每一代使用的内存空间
+- 计算对象引用数
+- 度量 GC 对 CPU 使用的影响程度
+- 测量每代使用的内存空间
 
-使用以下工具分析内存使用情况：
+使用以下工具分析内存使用量：
 
-* [点网跟踪](/dotnet/core/diagnostics/dotnet-trace)：可用于生产机器。
+* [dotnet](/dotnet/core/diagnostics/dotnet-trace)：可在生产计算机上使用。
 * [分析不使用 Visual Studio 调试器情况下的内存使用情况](/visualstudio/profiling/memory-usage-without-debugging2)
 * [Visual Studio 中的配置文件内存使用](/visualstudio/profiling/memory-usage)
 
 ### <a name="detecting-memory-issues"></a>检测内存问题
 
-任务管理器可用于了解应用使用的ASP.NET内存量。 任务管理器内存值：
+任务管理器可用于了解 ASP.NET 应用正在使用的内存量。 任务管理器内存值：
 
-* 表示ASP.NET进程使用的内存量。
-* 包括应用的活对象和其他内存使用者，如本机内存使用情况。
+* 表示 ASP.NET 进程使用的内存量。
+* 包括应用的活对象和其他内存使用者（如本机内存使用情况）。
 
-如果任务管理器内存值无限增加且从不变展，则应用会泄漏内存。 以下各节演示并解释几种内存使用模式。
+如果任务管理器内存值无限增加且从未平展，则应用程序的内存泄漏。 以下部分演示并解释了几种内存使用模式。
 
 ## <a name="sample-display-memory-usage-app"></a>示例显示内存使用情况应用
 
-[内存泄漏示例应用](https://github.com/sebastienros/memoryleak)在 GitHub 上可用。 内存泄漏应用：
+GitHub 上提供了[MemoryLeak 示例应用](https://github.com/sebastienros/memoryleak)。 MemoryLeak 应用：
 
-* 包括一个诊断控制器，用于收集应用的实时内存和 GC 数据。
-* 具有显示内存和 GC 数据的索引页。 每秒刷新一次索引页。
-* 包含一个 API 控制器，该控制器提供各种内存加载模式。
-* 不是受支持的工具，但是，它可用于显示ASP.NET核心应用的内存使用模式。
+* 包括一个收集应用程序的实时内存和 GC 数据的诊断控制器。
+* 具有显示内存和 GC 数据的索引页。 索引页每秒刷新一次。
+* 包含提供各种内存负载模式的 API 控制器。
+* 不是受支持的工具，但它可用于显示 ASP.NET Core 应用的内存使用模式。
 
-运行内存泄漏。 分配的内存会缓慢增加，直到发生 GC。 内存增加，因为该工具分配自定义对象以捕获数据。 下图显示了发生第 0 代 GC 时内存泄漏索引页。 该图表显示 0 RPS（每秒请求），因为未调用来自 API 控制器的 API 终结点。
+运行 MemoryLeak。 分配的内存缓慢增加，直到 GC 发生。 内存增加是因为该工具分配自定义对象来捕获数据。 下图显示了 Gen 0 GC 发生时的 MemoryLeak 索引页。 此图表显示 0 RPS （每秒请求数），因为未调用 API 控制器中的任何 API 终结点。
 
-![前一图表](memory/_static/0RPS.png)
+![上图](memory/_static/0RPS.png)
 
-图表显示内存使用情况的两个值：
+此图表显示内存使用量的两个值：
 
 - 已分配：托管对象占用的内存量
-- [工作集](/windows/win32/memory/working-set)：进程虚拟地址空间中的页面集，当前驻留在物理内存中。 显示的工作集与任务管理器显示的值相同。
+- [工作集](/windows/win32/memory/working-set)：进程的虚拟地址空间中当前驻留在物理内存中的页集。 显示的工作集与任务管理器显示的值相同。
 
-### <a name="transient-objects"></a>瞬态对象
+### <a name="transient-objects"></a>暂时性对象
 
-以下 API 创建一个 10 KB 字符串实例并将其返回到客户端。 在每个请求上，一个新对象在内存中分配并写入响应。 字符串在 .NET 中存储为 UTF-16 字符，因此每个字符在内存中需要 2 个字节。
+以下 API 创建一个 10 KB 的字符串实例，并将其返回给客户端。 对于每个请求，将在内存中分配一个新的对象，并将其写入响应中。 字符串作为 UTF-16 字符存储在 .NET 中，因此每个字符需要2个字节的内存。
 
 ```csharp
 [HttpGet("bigstring")]
@@ -96,40 +102,40 @@ public ActionResult<string> GetBigString()
 }
 ```
 
-以下图形的负载相对较小，以显示内存分配如何受到 GC 的影响。
+下面的关系图是使用相对较小的负载生成的，用于显示 GC 如何影响内存分配。
 
-![前一图表](memory/_static/bigstring.png)
+![上图](memory/_static/bigstring.png)
 
-上图显示：
+上面的图表显示：
 
-* 4K RPS（每秒请求）。
-* 第 0 代 GC 集合大约每两秒发生一次。
-* 工作集保持不变，约为 500 MB。
-* CPU 为 12%。
-* 内存消耗和释放（通过 GC）稳定。
+* 4K RPS （每秒请求数）。
+* 第0代垃圾回收大约每两秒发生一次。
+* 工作集的大小约为 500 MB。
+* CPU 为12%。
+* 内存消耗和发布（通过 GC）是稳定的。
 
-下图以机器可以处理的最大吞吐量进行。
+以下图表采用可由计算机处理的最大吞吐量。
 
-![前一图表](memory/_static/bigstring2.png)
+![上图](memory/_static/bigstring2.png)
 
-上图显示：
+上面的图表显示：
 
 * 22K RPS
-* 第 0 代 GC 集合每秒发生多次。
-* 第 1 代集合被触发，因为应用每秒分配的内存显著增加。
-* 工作集保持不变，约为 500 MB。
-* CPU 为 33%。
-* 内存消耗和释放（通过 GC）稳定。
-* CPU （33%）未过度使用，因此垃圾回收可以跟上大量分配。
+* 第0代垃圾回收每秒发生多次。
+* 由于每秒分配的内存量明显增加，因此将触发第1代回收。
+* 工作集的大小约为 500 MB。
+* CPU 为33%。
+* 内存消耗和发布（通过 GC）是稳定的。
+* CPU （33%）不会过度使用，因此垃圾回收可以跟上大量分配。
 
 ### <a name="workstation-gc-vs-server-gc"></a>工作站 GC 与服务器 GC
 
-.NET 垃圾回收器有两种不同的模式：
+.NET 垃圾回收器具有两种不同的模式：
 
 * **工作站 GC**：针对桌面进行了优化。
-* **服务器 GC**。 ASP.NET核心应用的默认 GC。 针对服务器进行了优化。
+* **服务器 GC**。 ASP.NET Core 应用的默认 GC。 针对服务器进行了优化。
 
-GC 模式可以在项目文件或已发布应用程序的*运行时 config.json*文件中显式设置。 以下标记显示项目文件中的`ServerGarbageCollection`设置：
+GC 模式可以在项目文件中或在已发布应用的*runtimeconfig.template.json*文件中显式设置。 以下标记显示项目文件`ServerGarbageCollection`中的设置：
 
 ```xml
 <PropertyGroup>
@@ -137,33 +143,33 @@ GC 模式可以在项目文件或已发布应用程序的*运行时 config.json*
 </PropertyGroup>
 ```
 
-在`ServerGarbageCollection`项目文件中更改需要重新生成应用。
+更改`ServerGarbageCollection`项目文件需要重新生成应用。
 
-**注：** 服务器垃圾回收在具有单个内核的计算机上**不可用**。 有关详细信息，请参阅 <xref:System.Runtime.GCSettings.IsServerGC>。
+**注意：** 服务器垃圾回收在具有单个核心的计算机上**不可用。** 有关详细信息，请参阅 <xref:System.Runtime.GCSettings.IsServerGC>。
 
-下图显示了使用工作站 GC 的 5K RPS 下的内存配置文件。
+下图显示了使用工作站 GC 的占用大量 RPS 的内存配置文件。
 
-![前一图表](memory/_static/workstation.png)
+![上图](memory/_static/workstation.png)
 
-此图表和服务器版本之间的差异很大：
+此图表与服务器版本之间的区别非常重要：
 
-- 工作集从 500 MB 下降到 70 MB。
-- GC 每秒生成数次集合，而不是每两秒生成一次。
-- GC 从 300 MB 下降到 10 MB。
+- 工作集从 500 MB 降到 70 MB。
+- GC 每秒生成0次（而不是每隔两秒）回收一次。
+- GC 从 300 MB 降到 10 MB。
 
-在典型的 Web 服务器环境中，CPU 使用率比内存更重要，因此服务器 GC 更好。 如果内存利用率高且 CPU 使用率相对较低，则工作站 GC 可能更具有性能。 例如，高密度托管多个内存不足的 Web 应用。
+在典型的 web 服务器环境中，CPU 使用率比内存更重要，因此服务器 GC 更好。 如果内存使用率很高且 CPU 使用率相对较低，则工作站 GC 可能会更高的性能。 例如，在内存不足的情况下承载几个 web 应用的高密度。
 
 <a name="sc"></a>
 
 ### <a name="gc-using-docker-and-small-containers"></a>使用 Docker 和小型容器的 GC
 
-当在一台计算机上运行多个容器化应用时，工作站 GC 可能比服务器 GC 更具预制功能。 有关详细信息，请参阅[在小型容器中使用服务器 GC 运行](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/)，并在[小型容器方案第 1 部分中使用服务器 GC 运行 = GC 堆的硬限制](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/)。
+当在一台计算机上运行多个容器化应用程序时，工作站 GC 可能比服务器 GC 更 preformant。 有关详细信息，请参阅在小型[容器中运行服务器 gc](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/)和[在小型容器方案中运行服务器 GC 部分– GC 堆的硬限制](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/)。
 
-### <a name="persistent-object-references"></a>持久对象引用
+### <a name="persistent-object-references"></a>持久性对象引用
 
-GC 无法释放引用的对象。 引用但不再需要的对象会导致内存泄漏。 如果应用经常分配对象，并且在不再需要对象后无法释放它们，则内存使用量将随着时间的推移而增加。
+GC 无法释放所引用的对象。 引用但不再需要的对象将导致内存泄露。 如果应用经常分配对象，但在不再需要对象之后无法释放它们，则内存使用量将随着时间的推移而增加。
 
-以下 API 创建一个 10 KB 字符串实例并将其返回到客户端。 与上一个示例的区别是此实例由静态成员引用，这意味着它永远不会可用于收集。
+以下 API 创建一个 10 KB 的字符串实例，并将其返回给客户端。 与上一示例的不同之处在于，此实例由静态成员引用，这意味着它不能用于收集。
 
 ```csharp
 private static ConcurrentBag<string> _staticStrings = new ConcurrentBag<string>();
@@ -179,24 +185,24 @@ public ActionResult<string> GetStaticString()
 
 前面的代码：
 
-* 是典型的内存泄漏的示例。
-* 频繁调用时，会导致应用内存增加，直到进程崩溃，`OutOfMemory`出现异常。
+* 典型内存泄漏的示例。
+* 如果频繁调用，会导致应用内存增加，直到进程因`OutOfMemory`异常而崩溃。
 
-![前一图表](memory/_static/eternal.png)
+![上图](memory/_static/eternal.png)
 
-在前面的图像中：
+在上图中：
 
 * 负载测试`/api/staticstring`终结点会导致内存线性增加。
-* GC 尝试通过调用第 2 代集合来释放内存，因为内存压力增大。
-* GC 无法释放泄漏的内存。 分配和工作集会随时间而增加。
+* GC 在内存压力增加时，通过调用第2代回收来尝试释放内存。
+* GC 无法释放泄漏的内存。 已分配和工作集增加了时间。
 
-某些方案（如缓存）要求保持对象引用，直到内存压力强制释放它们。 类<xref:System.WeakReference>可用于这种类型的缓存代码。 对象`WeakReference`是在内存压力下收集的。 <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>使用的`WeakReference`默认实现。
+某些方案（如缓存）需要保留对象引用，直到内存压力强制释放它们。 <xref:System.WeakReference>类可用于这种类型的缓存代码。 `WeakReference`对象在内存压力下收集。 的<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>默认实现使用`WeakReference`。
 
 ### <a name="native-memory"></a>本机内存
 
-某些 .NET Core 对象依赖于本机内存。 GC**无法**收集本机内存。 使用本机内存的 .NET 对象必须使用本机代码释放它。
+某些 .NET Core 对象依赖本机内存。 GC**无法**收集本机内存。 使用本机内存的 .NET 对象必须使用本机代码释放它。
 
-.NET 提供<xref:System.IDisposable>允许开发人员释放本机内存的接口。 即使<xref:System.IDisposable.Dispose*>未调用，在[终结器](/dotnet/csharp/programming-guide/classes-and-structs/destructors)运行时，也会`Dispose`正确实现类调用。
+.NET 提供了<xref:System.IDisposable>接口，使开发人员能够释放本机内存。 即使未<xref:System.IDisposable.Dispose*>调用，也会在[终结器](/dotnet/csharp/programming-guide/classes-and-structs/destructors)运行`Dispose`时正确实现类调用。
 
 考虑下列代码：
 
@@ -209,33 +215,33 @@ public void GetFileProvider()
 }
 ```
 
-[物理文件提供程序](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)是托管类，因此将在请求结束时收集任何实例。
+[PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)是托管类，因此将在请求结束时收集任何实例。
 
-下图显示连续调用 API 时的`fileprovider`内存配置文件。
+下图显示了连续调用`fileprovider` API 时的内存配置文件。
 
-![前一图表](memory/_static/fileprovider.png)
+![上图](memory/_static/fileprovider.png)
 
-前面的图表显示了此类实现的一个明显问题，因为它不断增加内存使用量。 这是一个已知的问题，正在跟踪[在此问题](https://github.com/dotnet/aspnetcore/issues/3110)。
+上面的图表显示了此类的实现的一个明显问题，因为它会不断增加内存使用量。 这是[此问题](https://github.com/dotnet/aspnetcore/issues/3110)中正在跟踪的已知问题。
 
-用户代码中也可能发生相同的泄漏，其原因之一如下：
+可以通过以下方式之一在用户代码中发生相同的泄漏：
 
-* 未正确释放类。
-* 忘记调用应释放的`Dispose`从属对象的方法。
+* 不能正确释放类。
+* 忘记调用应释放`Dispose`的依赖对象的方法。
 
 ### <a name="large-objects-heap"></a>大型对象堆
 
-频繁的内存分配/空闲周期可能会分散内存，尤其是在分配大块内存时。 对象以连续的内存块分配。 为了缓解碎片，当 GC 释放内存时，它会尝试对它进行碎片整理。 此过程称为**压缩**。 压实涉及移动对象。 移动大型对象会造成性能损失。 因此，GC 会为_大型_对象（称为[大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)（LOH） 创建特殊内存区域。 大于 85，000 字节（约 83 KB）的对象是：
+频繁的内存分配/空闲周期可以分段内存，尤其是在分配大块内存时。 对象在连续内存块中分配。 为了缓解碎片，当 GC 释放内存时，它会 trys 对内存进行碎片整理。 此过程称为**压缩**。 压缩涉及移动对象。 移动大型对象会对性能产生负面影响。 出于此原因，GC 将为_大型_对象（称为[大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)（LOH））创建特殊的内存区域。 大于85000字节（大约 83 KB）的对象为：
 
 * 放置在 LOH 上。
 * 未压缩。
-* 在第 2 代 GC 期间收集。
+* 在第2代 Gc 期间收集。
 
-当 LOH 已满时，GC 将触发第 2 代集合。 第 2 代集合：
+当 LOH 已满时，GC 将触发第2代回收。 第2代回收：
 
-* 本质上是缓慢的。
-* 此外，还要承担触发所有其他代的集合的成本。
+* 的速度非常慢。
+* 此外，还会产生在所有其他代上触发集合的成本。
 
-以下代码可立即压缩 LOH：
+以下代码会立即压缩 LOH：
 
 ```csharp
 GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
@@ -244,9 +250,9 @@ GC.Collect();
 
 有关<xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode>压缩 LOH 的信息，请参阅。
 
-在使用 .NET Core 3.0 及更高版本的容器中，LOH 会自动压缩。
+在使用 .NET Core 3.0 和更高版本的容器中，LOH 将自动压缩。
 
-以下说明此行为的 API：
+以下 API 演示了此行为：
 
 ```csharp
 [HttpGet("loh/{size=85000}")]
@@ -256,48 +262,48 @@ public int GetLOH1(int size)
 }
 ```
 
-下图显示了在最大负载下调用终结点的`/api/loh/84975`内存配置文件：
+下图显示了在最大负载下调用`/api/loh/84975`终结点的内存配置文件：
 
-![前一图表](memory/_static/loh1.png)
+![上图](memory/_static/loh1.png)
 
-下图显示了调用终结点的`/api/loh/84976`内存配置文件，仅分配*了一个字节*：
+下图显示调用`/api/loh/84976`终结点的内存配置文件，只分配*一个字节*：
 
-![前一图表](memory/_static/loh2.png)
+![上图](memory/_static/loh2.png)
 
-注意：结构`byte[]`具有开销字节。 这就是为什么 84，976 字节触发 85，000 限制的原因。
+注意：此`byte[]`结构具有开销字节。 这就是84976字节触发85000限制的原因。
 
-比较前面的两个图表：
+比较上述两个图表：
 
-* 这两种情况的工作集都类似，大约 450 MB。
-* LOH 下的请求（84，975 字节）主要显示第 0 代集合。
-* 过 LOH 请求生成恒定的第 2 代集合。 第 2 代集合成本高昂。 需要更多的 CPU，吞吐量下降近 50%。
+* 对于这两种方案（约 450 MB），工作集都是类似的。
+* LOH 请求（84975字节）下面显示第0代回收。
+* Over LOH 请求生成常量第2代回收。 第2代回收成本高昂。 需要更多 CPU，吞吐量几乎会下降到50%。
 
-临时大型对象特别成问题，因为它们会导致第 2 代 GC。
+临时大型对象尤其有问题，因为它们会导致 gen2 Gc。
 
-为了达到最佳性能，应尽量减少大型对象的使用。 如果可能，拆分大型对象。 例如，ASP.NET Core 中的[响应缓存](xref:performance/caching/response)中间件将缓存条目拆分为小于 85，000 字节的块。
+为了获得最佳性能，应最大程度地减少使用的大型对象。 如果可能，请拆分大型对象。 例如，ASP.NET Core 中的[响应缓存](xref:performance/caching/response)中间件会将缓存项拆分为小于85000个字节的块。
 
-以下链接显示了将对象保持在 LOH 限制下的ASP.NET核心方法：
+以下链接显示了在 LOH 限制下保留对象的 ASP.NET Core 方法：
 
-* [响应缓存/流/流实用程序。cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
-* [响应缓存/内存响应缓存.cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
+* [ResponseCaching/StreamUtilities](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
+* [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-有关详细信息，请参见:
+有关详细信息，请参阅：
 
-* [未覆盖的大对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
+* [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)
 
 ### <a name="httpclient"></a>HttpClient
 
 使用<xref:System.Net.Http.HttpClient>不当可能会导致资源泄漏。 系统资源，如数据库连接、套接字、文件句柄等：
 
-* 比记忆更稀缺。
-* 泄漏时比内存问题更大。
+* 比内存更稀有。
+* 泄漏内存时，问题更多。
 
-经验丰富的 .NET 开发人员知道<xref:System.IDisposable.Dispose*>调用实现<xref:System.IDisposable>的对象。 不释放实现`IDisposable`的对象通常会导致内存泄漏或系统资源泄漏。
+经验丰富的 .NET 开发人员<xref:System.IDisposable.Dispose*>知道要对实现<xref:System.IDisposable>的对象调用。 不释放实现`IDisposable`的对象通常会导致内存泄漏或泄漏系统资源。
 
-`HttpClient`实现`IDisposable`，但**不应**在每一次调用时都处置。 相反，`HttpClient`应该重复使用。
+`HttpClient`实现`IDisposable`，但**不**应在每次调用时都释放。 `HttpClient`应重复使用。
 
-以下终结点在每个请求上创建并释放一`HttpClient`个新实例：
+以下终结点创建并释放每个`HttpClient`请求的一个新实例：
 
 ```csharp
 [HttpGet("httpclient1")]
@@ -311,7 +317,7 @@ public async Task<int> GetHttpClient1(string url)
 }
 ```
 
-在负载下，将记录以下错误消息：
+在 "负载" 下，将记录以下错误消息：
 
 ```
 fail: Microsoft.AspNetCore.Server.Kestrel[13]
@@ -325,9 +331,9 @@ System.Net.Http.HttpRequestException: Only one usage of each socket address
     CancellationToken cancellationToken)
 ```
 
-即使`HttpClient`实例已释放，操作系统也会释放实际网络连接。 通过不断创建新连接，_端口耗尽_。 每个客户端连接都需要其自己的客户端端口。
+即使`HttpClient`实例被释放，实际的网络连接也需要一些时间才能由操作系统释放。 通过持续创建新的连接，会发生_端口耗尽_。 每个客户端连接都需要自己的客户端端口。
 
-防止端口耗尽的一种方法是重用同一`HttpClient`实例：
+防止端口耗尽的一种方法是重复使用同`HttpClient`一个实例：
 
 ```csharp
 private static readonly HttpClient _httpClient = new HttpClient();
@@ -340,27 +346,27 @@ public async Task<int> GetHttpClient2(string url)
 }
 ```
 
-`HttpClient`当应用停止时，实例将被释放。 此示例显示，在每次使用后，不应释放每个一次性资源。
+当`HttpClient`应用程序停止时，将释放该实例。 此示例说明，每次使用后都不应释放每个可释放资源。
 
-有关处理`HttpClient`实例生存期的更好方法，请参阅以下内容：
+请参阅以下内容，了解更好的方法来处理`HttpClient`实例的生存期：
 
 * [HttpClient 和生存期管理](/aspnet/core/fundamentals/http-requests#httpclient-and-lifetime-management)
 * [HTTPClient 工厂博客](https://devblogs.microsoft.com/aspnet/asp-net-core-2-1-preview1-introducing-httpclient-factory/)
  
 ### <a name="object-pooling"></a>对象池
 
-前面的示例演示如何使`HttpClient`实例成为静态的，并被所有请求重用。 重用可防止资源耗尽。
+前面的示例演示了如何`HttpClient`将实例设为静态的，并由所有请求重复使用。 重复使用会阻止资源耗尽。
 
 对象池：
 
-* 使用重用模式。
-* 专为创建成本高昂的对象而设计。
+* 使用重复使用模式。
+* 适用于创建成本很高的对象。
 
-池是预初始化对象的集合，可以在线程之间保留和释放。 池可以定义分配规则，如限制、预定义大小或增长率。
+池是预初始化对象的集合，这些对象可以在线程之间保留和释放。 池可以定义分配规则，例如限制、预定义大小或增长速率。
 
-NuGet 包[Microsoft.扩展.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)包含有助于管理此类池的类。
+NuGet 包[ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)包含有助于管理此类池的类。
 
-以下 API 终结点实例化了`byte`在每个请求上填充随机数的缓冲区：
+以下 API 终结点将实例`byte`化一个缓冲区，该缓冲区使用每个请求的随机数字填充：
 
 ```csharp
         [HttpGet("array/{size}")]
@@ -374,25 +380,25 @@ NuGet 包[Microsoft.扩展.ObjectPool](https://www.nuget.org/packages/Microsoft.
         }
 ```
 
-下图显示了使用中等负载调用前面的 API 的图表显示：
+以下图表显示了如何通过中等负载调用前面的 API：
 
-![前一图表](memory/_static/array.png)
+![上图](memory/_static/array.png)
 
-在前面的图表中，第 0 代集合大约每秒发生一次。
+在上图中，第0代回收大约每秒发生一次。
 
-可以通过使用[ArrayPool\<T>](xref:System.Buffers.ArrayPool`1)`byte`池化缓冲区来优化前面的代码。 静态实例跨请求重用。
+可以通过使用`byte` [ArrayPool\<T>](xref:System.Buffers.ArrayPool`1)来池缓冲来优化前面的代码。 静态实例可跨请求重复使用。
 
-此方法的不同做法是从 API 返回池对象。 这意味着：
+此方法的不同之处在于，将从 API 返回一个共用对象。 这意味着：
 
-* 从 方法返回时，对象将失去控制。
-* 无法释放对象。
+* 从方法返回后，将立即从控件中排除对象。
+* 不能释放对象。
 
-要设置对象的处置：
+设置对象的释放：
 
-* 将池数组封装在一次性对象中。
-* 使用[HttpContext.Response.注册为 Dispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*)注册池对象。
+* 将池数组封装到可释放对象中。
+* 将此池对象注册为[RegisterForDispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*)。
 
-`RegisterForDispose`将负责对目标对象的`Dispose`调用，以便仅在 HTTP 请求完成时释放它。
+`RegisterForDispose`将负责调用`Dispose`目标对象，以便仅当 HTTP 请求完成时才会释放该对象。
 
 ```csharp
 private static ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();
@@ -426,15 +432,15 @@ public byte[] GetPooledArray(int size)
 }
 ```
 
-应用与非池式版本相同的负载会导致以下图表：
+应用与非池版本相同的负载会导致以下图表：
 
-![前一图表](memory/_static/pooledarray.png)
+![上图](memory/_static/pooledarray.png)
 
-主要区别是分配字节，因此，第 0 代集合要少得多。
+主要区别是分配的字节数，因此产生的第0代回收量更少。
 
 ## <a name="additional-resources"></a>其他资源
 
 * [垃圾回收](/dotnet/standard/garbage-collection/)
-* [使用并发可视化工具了解不同的 GC 模式](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)
-* [未覆盖的大对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
+* [利用并发可视化工具了解不同的 GC 模式](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)
+* [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)

@@ -1,22 +1,28 @@
 ---
-title: 基于 ASP.NET Core 项目使用单个用户帐户创建项目
+title: 基于通过单独用户帐户创建的 ASP.NET Core 项目的项目
 author: rick-anderson
-description: 发现基于 ASP.NET Core 项目使用单个用户帐户创建的文章。
+description: 基于通过单独用户帐户创建的 ASP.NET Core 项目发现文章。
 ms.author: riande
 ms.date: 12/11/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/individual
-ms.openlocfilehash: 7ef0d5eabded61d04fb9fe7be384a663ad7ea5f4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 26f53b6452e307bbd0816c1a3604f38b04c6af15
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651954"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768645"
 ---
-# <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于 ASP.NET Core 项目使用单个用户帐户创建项目
+# <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>基于通过单独用户帐户创建的 ASP.NET Core 项目的项目
 
-ASP.NET Core标识包含在 Visual Studio 中使用"单个用户帐户"选项的项目模板中。
+ASP.NET Core 标识包含在 Visual Studio 中具有 "单独用户帐户" 选项的项目模板中。
 
-使用 `-au Individual`的 .NET Core CLI 提供身份验证模板：
+.NET Core CLI 中提供了身份验证模板`-au Individual`：
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -42,7 +48,7 @@ dotnet new razor -au Individual
 
 ## <a name="no-authentication"></a>无身份验证
 
-身份验证在 .NET Core CLI 中通过 `-au` 选项指定。 在 Visual Studio 中，"**更改身份验证**" 对话框可用于新的 web 应用程序。 Visual Studio 中新 web 应用的默认值为 "**无身份验证**"。
+在 .NET Core CLI 中通过`-au`选项指定了身份验证。 在 Visual Studio 中，"**更改身份验证**" 对话框可用于新的 web 应用程序。 Visual Studio 中新 web 应用的默认值为 "**无身份验证**"。
 
 用无身份验证创建的项目：
 
@@ -53,7 +59,7 @@ dotnet new razor -au Individual
 
 ## <a name="windows-authentication"></a>Windows 身份验证
 
-Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 web 应用指定的。 在 Visual Studio 中，"**更改身份验证**" 对话框提供**Windows 身份验证**选项。
+Windows 身份验证是通过`-au Windows`选项在 .NET Core CLI 中为新 web 应用指定的。 在 Visual Studio 中，"**更改身份验证**" 对话框提供**Windows 身份验证**选项。
 
 如果选择了 "Windows 身份验证"，则会将应用程序配置为使用[Windows 身份验证 IIS 模块](xref:host-and-deploy/iis/modules)。 Windows 身份验证适用于 Intranet 网站。
 
@@ -66,8 +72,8 @@ Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 we
 | 无            |  无身份验证 | | 
 | 个人      |  单个身份验证 | <xref:security/authentication/identity>
 | IndividualB2C   |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
-| SingleOrg       |  单个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| MultiOrg        |  多个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| SingleOrg       |  对一个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| MultiOrg        |  对多个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | Windows         |  Windows 身份验证 | [Windows 身份验证](xref:security/authentication/windowsauth)
 
 ## <a name="visual-studio-new-webapp-authentication-options"></a>Visual Studio new webapp authentication 选项
@@ -79,8 +85,8 @@ Windows 身份验证是通过 `-au Windows` 选项在 .NET Core CLI 中为新 we
 | 无            |  无身份验证 | | 
 | 应用中的单个用户帐户/存储用户帐户 |  单个身份验证 | <xref:security/authentication/identity> |
 | 单个用户帐户/连接到云中的现有用户存储 |  Azure AD B2C 的云托管的单个身份验证 | [Azure AD B2C](/azure/active-directory-b2c/) |
-| 工作或学校云/单个组织  |  单个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| 工作或学校云/多个组织 |  多个租户的组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| 工作或学校云/单个组织  |  对一个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| 工作或学校云/多个组织 |  对多个租户进行组织身份验证 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | Windows         |  Windows 身份验证 | [Windows 身份验证](xref:security/authentication/windowsauth)
 
 ## <a name="additional-resources"></a>其他资源

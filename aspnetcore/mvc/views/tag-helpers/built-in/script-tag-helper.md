@@ -5,13 +5,19 @@ ms.author: riande
 description: 了解 ASP.NET Core 脚本标记帮助程序属性以及每个属性在扩展 HTML 脚本标记的行为中所起的作用。
 ms.custom: mvc
 ms.date: 12/02/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: a037abb6a454e6d06305e7d7f6ecad0c2a0ca717
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 4162221ef3401427c44fb54dee9c36b78b39564f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652092"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774660"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的脚本标记帮助程序
 
@@ -23,7 +29,7 @@ ms.locfileid: "78652092"
 
 可以使用脚本标记帮助程序指定脚本文件的 CDN 以及回退文件（CDN 不可用时）。 脚本标记帮助程序借助本地宿主的可靠性提供 CDN 性能优势。
 
-以下 Razor 标记显示了带有一个回退操作的 `script` 元素：
+以下Razor标记显示了具有`script`回退的元素：
 
 ```html
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -34,7 +40,7 @@ ms.locfileid: "78652092"
 </script>
 ```
 
-请勿使用 `<script>` 元素的 [defer](https://developer.mozilla.org/docs/Web/HTML/Element/script) 属性来延迟加载 CDN 脚本。 脚本标记帮助程序呈现能够立即执行 [asp-fallback-test](#asp-fallback-test) 表达式的 JavaScript。 如果延迟加载 CDN 脚本，则该表达式失败。
+请勿使用 `<script>` 元素的 [](https://developer.mozilla.org/docs/Web/HTML/Element/script) 属性来延迟加载 CDN 脚本。 脚本标记帮助程序呈现能够立即执行 [asp-fallback-test](#asp-fallback-test) 表达式的 JavaScript。 如果延迟加载 CDN 脚本，则该表达式失败。
 
 ## <a name="commonly-used-script-tag-helper-attributes"></a>常用的脚本标记帮助程序属性
 

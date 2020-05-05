@@ -1,23 +1,29 @@
 ---
-title: 在 ASP.NET Core中的核心加密可扩展性
+title: ASP.NET Core 中的核心加密扩展性
 author: rick-anderson
 description: 了解 IAuthenticatedEncryptor、IAuthenticatedEncryptorDescriptor、IAuthenticatedEncryptorDescriptorDeserializer 和顶层工厂。
 ms.author: riande
 ms.date: 08/11/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: a5f651e3313cc579b995b45905826a5bffcc241c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c63cc124e1893f23c18581841194fa66848a2a1e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653544"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776417"
 ---
-# <a name="core-cryptography-extensibility-in-aspnet-core"></a>在 ASP.NET Core中的核心加密可扩展性
+# <a name="core-cryptography-extensibility-in-aspnet-core"></a>ASP.NET Core 中的核心加密扩展性
 
 <a name="data-protection-extensibility-core-crypto"></a>
 
 >[!WARNING]
-> 实现以下接口的任何类型应该是线程安全的多个调用方。
+> 实现以下任何接口的类型对于多个调用方应是线程安全的。
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptor"></a>
 
@@ -100,7 +106,7 @@ byte[] roundTripped = encryptor2.Decrypt(new ArraySegment<byte>(ciphertext), aad
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor"></a>
 
-## <a name="iauthenticatedencryptordescriptor-aspnet-core-2x-only"></a>IAuthenticatedEncryptorDescriptor （ASP.NET Core 2.x 仅）
+## <a name="iauthenticatedencryptordescriptor-aspnet-core-2x-only"></a>IAuthenticatedEncryptorDescriptor （仅 ASP.NET Core 2.x）
 
 # <a name="aspnet-core-2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
 
@@ -139,9 +145,9 @@ ImportFromXml 方法采用[IAuthenticatedEncryptorDescriptor](xref:security/data
 
 实现 IAuthenticatedEncryptorDescriptorDeserializer 的类型应具有以下两个公共构造函数之一：
 
-* .ctor(IServiceProvider)
+* .ctor （IServiceProvider）
 
-* .ctor()
+* .ctor （）
 
 > [!NOTE]
 > 传递给构造函数的 IServiceProvider 可能为 null。

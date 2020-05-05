@@ -6,25 +6,31 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 269be9ece674b39d03cb50720f4fb182c565a639
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: d3207969dfbeb9a81e0da88f38a38c6889bbfba9
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651966"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775864"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的部分标记帮助程序
 
 作者：[Scott Addie](https://github.com/scottaddie)
 
-有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="overview"></a>概述
 
-Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部视图](xref:mvc/views/partial)。 请考虑：
+部分标记帮助器用于在页面和 MVC 应用中Razor呈现[分部视图](xref:mvc/views/partial)。 请考虑：
 
 * 需要 ASP.NET Core 2.1 或更高版本。
 * 是 [HTML 帮助程序语法](xref:mvc/views/partial#reference-a-partial-view)的替代方法。
@@ -37,7 +43,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 * [`@Html.Partial`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.partial)
 * [`@Html.RenderPartial`](/dotnet/api/microsoft.aspnetcore.mvc.rendering.htmlhelperpartialextensions.renderpartial)
 
-本文档中的示例均使用产品模型：
+本文档中的示例均使用产品模型**：
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Models/Product.cs)]
 
@@ -47,7 +53,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 需要 `name` 属性。 它指示要呈现的分部视图的名称或路径。 提供分部视图名称时，会启动[视图发现](xref:mvc/views/overview#view-discovery)进程。 提供显式路径时，将绕过该进程。 有关所有可接受的 `name` 值，请参阅[分部视图发现](xref:mvc/views/partial#partial-view-discovery)。
 
-以下标记使用显式路径，指示要从共享文件夹加载 _ProductPartial.cshtml。 使用 [for](#for) 属性，将模型传递给分部视图进行绑定。
+以下标记使用显式路径，指示要从共享文件夹加载 _ProductPartial.cshtml****。 使用 [for](#for) 属性，将模型传递给分部视图进行绑定。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_Name)]
 
@@ -55,7 +61,7 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 `for` 属性分配要根据当前模型评估的 [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression)。 `ModelExpression` 推断 `@Model.` 语法。 例如，可使用 `for="Product"` 而非 `for="@Model.Product"`。 通过使用 `@` 符号定义内联表达式来替代此默认推理行为。
 
-以下标记加载 _ProductPartial.cshtml：
+以下标记加载 _ProductPartial.cshtml**：
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_For)]
 
@@ -81,11 +87,11 @@ Partial 标记帮助程序用于在 Razor 页面和 MVC 应用中呈现[分部�
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Shared/_ProductViewDataPartial.cshtml?highlight=5)]
 
-在此示例中，`ViewData["IsNumberReadOnly"]` 的值确定 Number 字段是否显示为只读。
+在此示例中，`ViewData["IsNumberReadOnly"]` 的值确定 Number 字段是否显示为只读**。
 
 ## <a name="migrate-from-an-html-helper"></a>从 HTML 帮助程序迁移
 
-请考虑以下异步 HTML 帮助程序示例。 循环访问和显示产品集合。 依据 `PartialAsync` 方法的第一个参数，加载 _ProductPartial.cshtml 分部视图。 `Product` 模型的实例传递给分部视图进行绑定。
+请考虑以下异步 HTML 帮助程序示例。 循环访问和显示产品集合。 依据 `PartialAsync` 方法的第一个参数，加载 _ProductPartial.cshtml 分部视图**。 `Product` 模型的实例传递给分部视图进行绑定。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_HtmlHelper&highlight=3)]
 

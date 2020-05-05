@@ -1,18 +1,24 @@
 ---
-title: ASP.NET Core中的密钥管理
+title: ASP.NET Core 中的密钥管理
 author: rick-anderson
-description: 了解管理 ASP.NET Core 数据保护 Api 的实现详细信息。
+description: 了解 ASP.NET Core 的数据保护密钥管理 Api 的实现细节。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: c571222d734fa69183563aefa5cc6ce5a10e7612
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0f54ceedf3558fb4fa2349903461fdfdb4dc02e6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653988"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776898"
 ---
-# <a name="key-management-in-aspnet-core"></a>ASP.NET Core中的密钥管理
+# <a name="key-management-in-aspnet-core"></a>ASP.NET Core 中的密钥管理
 
 <a name="data-protection-implementation-key-management"></a>
 
@@ -59,7 +65,7 @@ services.AddDataProtection()
        .SetDefaultKeyLifetime(TimeSpan.FromDays(14));
 ```
 
-管理员还可以更改默认系统范围，尽管对 `SetDefaultKeyLifetime` 的显式调用将覆盖任何系统范围内的策略。 默认密钥生存期不能短于7天。
+管理员还可以更改系统范围内的默认值，尽管对`SetDefaultKeyLifetime`的显式调用将覆盖任何系统范围内的策略。 默认密钥生存期不能短于7天。
 
 ## <a name="automatic-key-ring-refresh"></a>自动密钥环刷新
 
@@ -68,11 +74,11 @@ services.AddDataProtection()
 >[!WARNING]
 > 开发人员极少需要直接使用密钥管理 Api。 数据保护系统将执行上述自动密钥管理。
 
-数据保护系统公开了可用于检查和更改密钥环的接口 `IKeyManager`。 提供 `IDataProtectionProvider` 实例的 DI 系统还可以为你的消耗提供 `IKeyManager` 的实例。 或者，可以直接从 `IServiceProvider` 拉取 `IKeyManager`，如以下示例中所示。
+数据保护系统公开了一个接口`IKeyManager` ，该接口可用于检查和更改密钥环。 提供实例的 DI 系统还`IDataProtectionProvider`可以`IKeyManager`为你的消耗提供的实例。 或者，你可以`IKeyManager`直接从中拉取， `IServiceProvider`如以下示例中所示。
 
-修改密钥环（显式创建新密钥或执行吊销）的任何操作都会使内存中缓存失效。 对 `Protect` 或 `Unprotect` 的下一次调用将导致数据保护系统重新读取密钥环并重新创建缓存。
+修改密钥环（显式创建新密钥或执行吊销）的任何操作都会使内存中缓存失效。 对`Protect`或`Unprotect`的下一个调用将导致数据保护系统重新读取键环并重新创建缓存。
 
-下面的示例演示如何使用 `IKeyManager` 接口来检查和操作密钥环，包括吊销现有密钥并手动生成新密钥。
+下面的示例演示如何使用`IKeyManager`接口来检查和操作密钥环，包括吊销现有密钥并手动生成新密钥。
 
 [!code-csharp[](key-management/samples/key-management.cs)]
 

@@ -1,25 +1,31 @@
 ---
 title: ASP.NET Core MVC 中的模型验证
 author: rick-anderson
-description: 了解 ASP.NET Core MVC 和 Razor Pages 中的模型验证。
+description: 了解 ASP.NET Core MVC 和Razor页面中的模型验证。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: 0e3d4f4705dbfdae00943de2d85c603b6762a2f8
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: a0f7c070514de26ae007526a5587c13d26d1eb1b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205886"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777171"
 ---
-# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和 Razor Pages 中的模型验证
+# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和Razor页面中的模型验证
 
 ::: moniker range=">= aspnetcore-3.0"
 
 作者：[Kirk Larkin](https://github.com/serpent5)
 
-本文介绍如何在 ASP.NET Core MVC 或 Razor Pages 应用中验证用户输入。
+本文介绍如何在 ASP.NET Core MVC 或Razor页面应用中验证用户输入。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples)（[如何下载](xref:index#how-to-download-a-sample)）。
 
@@ -27,7 +33,7 @@ ms.locfileid: "82205886"
 
 模型状态表示两个子系统的错误：模型绑定和模型验证。 源自[模型绑定](model-binding.md)的错误通常是数据转换错误。 例如，在一个整数字段中输入一个“x”。 模型验证在模型绑定后发生，并报告数据不符合业务规则的错误。 例如，在需要 1 到 5 之间评分的字段中输入 0。
 
-模型绑定和模型验证都在执行控制器操作或 Razor Pages 处理程序方法之前进行。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
+模型绑定和模型验证在执行控制器操作或Razor页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
@@ -367,7 +373,7 @@ $.get({
 
 ## <a name="disable-client-side-validation"></a>禁用客户端验证
 
-以下代码禁用 Razor Pages 中的客户端验证：
+下面的代码在页中Razor禁用客户端验证：
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_DisableClientValidation&highlight=2-5)]
 
@@ -376,7 +382,7 @@ $.get({
 * 在所有 *.cshtml* 文件中注释掉对 `_ValidationScriptsPartial` 的引用。
 * 删除 *Pages\Shared\_ValidationScriptsPartial.cshtml* 文件的内容。
 
-上述方法不会阻止 ASP.NET Core Identity Razor Class Library 的客户端验证。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
+上述方法不会阻止 ASP.NET Core Identity Razor类库的客户端验证。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -387,7 +393,7 @@ $.get({
 
 ::: moniker range="< aspnetcore-3.0"
 
-本文介绍如何在 ASP.NET Core MVC 或 Razor Pages 应用中验证用户输入。
+本文介绍如何在 ASP.NET Core MVC 或Razor页面应用中验证用户输入。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)（[如何下载](xref:index#how-to-download-a-sample)）。
 
@@ -395,7 +401,7 @@ $.get({
 
 模型状态表示两个子系统的错误：模型绑定和模型验证。 [模型绑定](model-binding.md)的错误通常是数据转换错误（例如，在要求为整数的字段中输入“x”）。 模型验证在模型绑定之后进行，并在数据不符合业务规则时报告错误（例如，在要求评级为 1 至 5 之间的字段中输入 0）。
 
-模型绑定和验证都在执行控制器操作或 Razor Pages 处理程序方法之前进行。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
+模型绑定和验证都在执行控制器操作或Razor页面处理程序方法之前发生。 Web 应用负责检查 `ModelState.IsValid` 并做出相应响应。 Web 应用通常会重新显示带有错误消息的页面：
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
@@ -418,7 +424,7 @@ $.get({
 内置验证特性包括：
 
 * `[CreditCard]`：验证属性是否具有信用卡格式。
-* `[Compare]`：验证模型中的两个属性是否匹配。 例如，*Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架标识](xref:security/authentication/scaffold-identity)可查看注册代码。
+* `[Compare]`：验证模型中的两个属性是否匹配。 例如，*Register.cshtml.cs* 文件使用 `[Compare]` 来验证输入的两个密码是否匹配。 [基架Identity ](xref:security/authentication/scaffold-identity)查看注册代码。
 * `[EmailAddress]`：验证属性是否具有电子邮件格式。
 * `[Phone]`：验证属性是否具有电话号码格式。
 * `[Range]`：验证属性值是否在指定的范围内。
@@ -742,7 +748,7 @@ $.get({
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup2.cs?name=snippet_DisableClientValidation)]
 
-在 Razor Pages 中：
+Razor页面：
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 

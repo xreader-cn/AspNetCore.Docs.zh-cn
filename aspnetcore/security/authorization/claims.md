@@ -1,22 +1,28 @@
 ---
-title: ASP.NET Core 中基于声明的授权
+title: ASP.NET Core 中的基于声明的授权
 author: rick-anderson
-description: 了解如何在 ASP.NET Core 应用中添加声明授权检查。
+description: 了解如何在 ASP.NET Core 的应用程序中添加对授权的声明检查。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/claims
-ms.openlocfilehash: e289851aafcbc7e3b3f60ab9fbe4b182a78bdf8a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: de8ab915e6a8529c7401f89fad067ec33d5d0713
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652968"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774413"
 ---
-# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于声明的授权
+# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于声明的授权
 
 <a name="security-authorization-claims-based"></a>
 
-创建标识后，可以为其分配一个或多个由受信任方颁发的声明。 声明是表示使用者的名称值对，而不是主题可执行的操作。 例如，你可能有一个由本地驾驶许可证机构颁发的驾照。 你的驱动程序许可证有你的出生日期。 在这种情况下，声明名称将 `DateOfBirth`，声明值将是你的出生日期，例如 `8th June 1970`，颁发者为驾驶许可证授权机构。 基于声明的授权最简单的检查声明的值并允许基于该值的资源访问。 例如，如果你想要访问晚间俱乐部，授权过程可能是：
+创建标识后，可以为其分配一个或多个由受信任方颁发的声明。 声明是表示使用者的名称值对，而不是主题可执行的操作。 例如，你可能有一个由本地驾驶许可证机构颁发的驾照。 你的驱动程序许可证有你的出生日期。 在这种情况下，声明名称`DateOfBirth`为，声明值将是你的出生日期，例如`8th June 1970` ，颁发者为驾驶许可证颁发机构。 基于声明的授权最简单的检查声明的值并允许基于该值的资源访问。 例如，如果你想要访问晚间俱乐部，授权过程可能是：
 
 门安全官员会评估你的出生日期的价值，以及他们是否信任颁发者（驾驶许可证授权），然后才授予你访问权限。
 
@@ -24,11 +30,11 @@ ms.locfileid: "78652968"
 
 ## <a name="adding-claims-checks"></a>添加声明检查
 
-基于声明的授权检查是声明性的-开发人员将其嵌入到代码中，针对控制器或控制器中的操作，指定当前用户必须拥有的声明，并选择性地指定声明必须持有的值才能访问请求的资源。 声明要求基于策略，开发人员必须构建并注册一个表示声明要求的策略。
+基于声明的授权检查是声明性的：开发人员将其嵌入到代码中，针对控制器或控制器中的操作，指定当前用户必须拥有的声明，并选择性地指定声明必须持有的值才能访问请求的资源。 声明要求基于策略，开发人员必须构建并注册一个表示声明要求的策略。
 
 最简单类型的声明策略将查找声明是否存在，而不检查值。
 
-首先需要构建并注册策略。 这会在授权服务配置过程中发生，这通常会在*Startup.cs*文件中包含 `ConfigureServices()`。
+首先需要构建并注册策略。 这会作为授权服务配置的一部分进行，此配置通常会在`ConfigureServices()` *Startup.cs*文件中加入。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -63,9 +69,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-在这种情况下，`EmployeeOnly` 策略会检查当前标识上是否存在 `EmployeeNumber` 声明。
+在这种情况`EmployeeOnly`下，策略会检查当前标识`EmployeeNumber`上是否存在声明。
 
-然后，使用 `AuthorizeAttribute` 属性的 `Policy` 属性来指定策略名称;
+然后，使用属性上`Policy` `AuthorizeAttribute`的属性来指定策略名称;
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -75,7 +81,7 @@ public IActionResult VacationBalance()
 }
 ```
 
-`AuthorizeAttribute` 特性可应用于整个控制器，在此实例中，只允许与策略匹配的标识访问控制器上的任何操作。
+该`AuthorizeAttribute`属性可应用于整个控制器，在此实例中，只允许与策略匹配的标识访问控制器上的任何操作。
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -87,7 +93,7 @@ public class VacationController : Controller
 }
 ```
 
-如果你的控制器受 `AuthorizeAttribute` 属性保护，但希望允许匿名访问特定操作，请应用 `AllowAnonymousAttribute` 属性。
+如果有受`AuthorizeAttribute`属性保护的控制器，但希望允许匿名访问特定操作，请应用该`AllowAnonymousAttribute`属性。
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -163,6 +169,6 @@ public class SalaryController : Controller
 }
 ```
 
-在上面的示例中，满足 `EmployeeOnly` 策略的任何标识都可以访问 `Payslip` 操作，因为该策略是在控制器上强制实施的。 但是，若要调用 `UpdateSalary` 操作，标识必须*同时*满足 `EmployeeOnly` 策略和 `HumanResources` 策略。
+在上面的示例中，满足`EmployeeOnly`策略的任何标识都可以`Payslip`访问该操作，因为该策略是在控制器上强制实施的。 但是，若要`UpdateSalary`调用操作，标识必须*同时*满足`EmployeeOnly`策略和`HumanResources`策略。
 
 如果需要更复杂的策略，例如拍摄一个出生日期、计算该日期的年龄，然后检查年龄是否为21或更低，则需要编写[自定义策略处理程序](xref:security/authorization/policies)。

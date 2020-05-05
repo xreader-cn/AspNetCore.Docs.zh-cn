@@ -1,23 +1,27 @@
 ---
-title: SignalR 和 ASP.NET Core 之间的差异 SignalR
+title: 和 ASP.NET Core SignalR之间的差异SignalR
 author: bradygaster
-description: SignalR 和 ASP.NET Core 之间的差异 SignalR
+description: 和 ASP.NET Core SignalR之间的差异SignalR
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.date: 11/21/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: cca9a0cb0c46fc25eb5d1f7127d31fd3ab92f0b4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 58d134ae971bace178561322f1c8a6351432be03
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653532"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772551"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>ASP.NET SignalR 和 ASP.NET Core SignalR 之间的差异
 
-ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 本文详细介绍 ASP.NET Core SignalR 中已删除或已更改的功能。
+ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 本文详细介绍了 ASP.NET Core SignalR 中删除或更改的功能。
 
 ## <a name="how-to-identify-the-signalr-version"></a>如何识别 SignalR 版本
 
@@ -29,8 +33,8 @@ ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 �
 | 客户端 NuGet 包 | [SignalR。](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[SignalR）](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore. SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
 | JavaScript 客户端 npm 包 | [signalr](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
 | Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| 服务器应用类型 | ASP.NET (System.Web) 或 OWIN 自承载 | ASP.NET Core |
-| 支持的服务器平台 | .NET framework 4.5 或更高版本 | .NET Core 3.0 或更高版本 |
+| 服务器应用类型 | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
+| 支持的服务器平台 | .NET Framework 4.5 或更高版本 | .NET Core 3.0 或更高版本 |
 
 ::: moniker-end
 
@@ -38,12 +42,12 @@ ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 �
 
 |                      | ASP.NET SignalR | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
-| 服务器 NuGet 包 | [SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) （.net Core）<br>[AspNetCore。SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
-| 客户端 NuGet 包 | [SignalR。机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[SignalR。JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore.SignalR。机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
+| 服务器 NuGet 包 | [Microsoft。SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) （.net Core）<br>[AspNetCore。SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
+| 客户端 NuGet 包 | [Microsoft。SignalR.机](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft。SignalR.JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [AspNetCore。SignalR.机](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
 | JavaScript 客户端 npm 包 | [signalr](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
 | Java 客户端 | [GitHub 存储库](https://github.com/SignalR/java-client)（已弃用）  | Maven 包[signalr](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| 服务器应用类型 | ASP.NET (System.Web) 或 OWIN 自承载 | ASP.NET Core |
-| 支持的服务器平台 | .NET framework 4.5 或更高版本 | .NET Framework 4.6.1 或更高版本<br>.NET core 2.1 或更高版本 |
+| 服务器应用类型 | ASP.NET （System.web）或 OWIN 自承载 | ASP.NET Core |
+| 支持的服务器平台 | .NET Framework 4.5 或更高版本 | .NET Framework 4.6.1 或更高版本<br>.NET Core 2.1 或更高版本 |
 
 ::: moniker-end
 
@@ -53,11 +57,11 @@ ASP.NET Core SignalR 与 ASP.NET SignalR 的客户端或服务器不兼容。 �
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET 中 SignalR：
+在 ASP.NET SignalR中：
 
-* 默认情况下，如果连接被删除，SignalR 会尝试重新连接到服务器。 
+* 默认情况下SignalR ，如果断开连接，则将尝试重新连接到服务器。 
 
-在 ASP.NET Core SignalR：
+在 ASP.NET Core SignalR中：
 
 * 自动重新连接同时选择[.net 客户](xref:signalr/dotnet-client#automatically-reconnect)[端和 JavaScript 客户端](xref:signalr/javascript-client#automatically-reconnect)：
 
@@ -79,23 +83,23 @@ const connection = new signalR.HubConnectionBuilder()
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 3.0 之前，SignalR 不支持自动重新连接。 如果客户端已断开连接，用户必须显式启动新连接才能重新连接。 在 ASP.NET SignalR中，SignalR 在断开连接时尝试重新连接到服务器。
+ASP.NET Core 3.0 之前， SignalR不支持自动重新连接。 如果客户端已断开连接，用户必须显式启动新连接才能重新连接。 如果断开SignalR连接SignalR ，则在 ASP.NET 中尝试重新连接到服务器。
 
 ::: moniker-end
 
 ### <a name="protocol-support"></a>协议支持
 
-ASP.NET Core SignalR 支持 JSON，以及基于[MessagePack](xref:signalr/messagepackhubprotocol)的新二进制协议。 此外，还可创建自定义协议。
+ASP.NET Core SignalR支持 JSON，以及基于[MessagePack](xref:signalr/messagepackhubprotocol)的新二进制协议。 此外，还可以创建自定义协议。
 
 ### <a name="transports"></a>传输
 
-ASP.NET Core SignalR不支持永久帧传输。
+ASP.NET Core SignalR中不支持永久帧传输。
 
 ## <a name="differences-on-the-server"></a>服务器上的差异
 
-ASP.NET Core SignalR 服务器端库包含在[AspNetCore](xref:fundamentals/metapackage-app)中，该应用程序用于 RAZOR 和 MVC 项目的**ASP.NET Core Web 应用程序**模板。
+ASP.NET Core SignalR的服务器端库包含在[AspNetCore](xref:fundamentals/metapackage-app)中，该应用程序用于Razor和 MVC 项目的**ASP.NET Core Web 应用程序**模板。
 
-ASP.NET Core SignalR 是 ASP.NET Core 中间件。 必须通过在 `Startup.ConfigureServices`中调用 <xref:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddSignalR%2A> 来配置它。
+ASP.NET Core SignalR是 ASP.NET Core 的中间件。 必须通过在中<xref:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddSignalR%2A> `Startup.ConfigureServices`调用来配置它。
 
 ```csharp
 services.AddSignalR()
@@ -103,7 +107,7 @@ services.AddSignalR()
 
 ::: moniker range=">= aspnetcore-3.0"
 
-若要配置路由，请将路由映射到 `Startup.Configure` 方法中 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> 方法调用内的中心。
+若要配置路由，请将路由映射到<xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> `Startup.Configure`方法中的方法调用内的中心。
 
 ```csharp
 app.UseRouting();
@@ -118,7 +122,7 @@ app.UseEndpoints(endpoints =>
 
 ::: moniker range="<= aspnetcore-2.2"
 
-若要配置路由，请将路由映射到 `Startup.Configure` 方法中 <xref:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR%2A> 方法调用内的中心。
+若要配置路由，请将路由映射到<xref:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR%2A> `Startup.Configure`方法中的方法调用内的中心。
 
 ```csharp
 app.UseSignalR(routes =>
@@ -131,19 +135,19 @@ app.UseSignalR(routes =>
 
 ### <a name="sticky-sessions"></a>粘滞会话
 
-ASP.NET SignalR 的扩展模型使客户端可以重新连接到场中的任何服务器并向其发送消息。 在 ASP.NET Core SignalR中，客户端必须在连接期间与同一服务器交互。 对于使用 Redis 的横向扩展，这意味着需要粘滞会话。 对于使用[Azure SignalR 服务](/azure/azure-signalr/)的扩展，无需使用粘滞会话，因为服务会处理与客户端的连接。
+ASP.NET SignalR的扩展模型允许客户端将消息重新连接到场中的任何服务器并向其发送消息。 在 ASP.NET Core SignalR中，客户端必须在连接期间与同一服务器交互。 对于使用 Redis 的扩展，这意味着需要使用粘滞会话。 对于使用[Azure SignalR服务](/azure/azure-signalr/)的扩展，无需使用粘滞会话，因为服务会处理与客户端的连接。
 
-### <a name="single-hub-per-connection"></a>一个连接一个中心
+### <a name="single-hub-per-connection"></a>单个集线器每个连接
 
-在 ASP.NET Core SignalR中，连接模型已简化。 可直接连接到单个中心，而不是连接到用于共享对多个中心的访问的单个连接。
+在 ASP.NET Core SignalR中，连接模型已简化。 直接连接到单个集线器，而不是使用单个连接来共享对多个中心的访问。
 
 ### <a name="streaming"></a>流式处理
 
-ASP.NET Core SignalR 现在支持从中心到客户端的[流数据](xref:signalr/streaming)。
+ASP.NET Core SignalR现在支持从中心到客户端的[流数据](xref:signalr/streaming)。
 
 ### <a name="state"></a>状态
 
-能够在客户端和中心之间传递任意状态（通常称为 `HubState`），并支持进度消息。 目前没有中心代理的对应项。
+可在客户端和中心之间传递任意状态（通常称为`HubState`）的功能已被删除，并且支持进度消息。 目前没有集线器代理。
 
 ### <a name="persistentconnection-removal"></a>删除 PersistentConnection
 
@@ -151,23 +155,23 @@ ASP.NET Core SignalR 现在支持从中心到客户端的[流数据](xref:signal
 
 ### <a name="globalhost"></a>GlobalHost
 
-ASP.NET Core 在框架中内置了依赖关系注入 (DI)。 服务可以使用 DI 来访问[HubContext](xref:signalr/hubcontext)。 在 ASP.NET SignalR 中用于获取 `HubContext` 的 `GlobalHost` 对象在 ASP.NET Core SignalR中不存在。
+ASP.NET Core 在框架中内置了依赖关系注入（DI）。 服务可以使用 DI 来访问[HubContext](xref:signalr/hubcontext)。 在`GlobalHost` ASP.NET SignalR中用于获取的`HubContext`对象在 ASP.NET Core SignalR中不存在。
 
 ### <a name="hubpipeline"></a>HubPipeline
 
-ASP.NET Core SignalR 不支持 `HubPipeline` 模块。
+ASP.NET Core SignalR不支持`HubPipeline`模块。
 
-## <a name="differences-on-the-client"></a>客户端上的差异
+## <a name="differences-on-the-client"></a>与客户端之间的差异
 
 ### <a name="typescript"></a>TypeScript
 
-SignalR 客户端 ASP.NET Core 是以[TypeScript](https://www.typescriptlang.org/)编写的。 使用[javascript 客户端](xref:signalr/javascript-client)时，可以使用 Javascript 或 TypeScript 来编写。
+ASP.NET Core SignalR客户端是以[TypeScript](https://www.typescriptlang.org/)编写的。 使用[javascript 客户端](xref:signalr/javascript-client)时，可以使用 Javascript 或 TypeScript 来编写。
 
 ### <a name="the-javascript-client-is-hosted-at-npm"></a>JavaScript 客户端托管在 npm
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET 版本中，JavaScript 客户端通过 Visual Studio 中的 NuGet 包获得。 在 ASP.NET Core 版本中， [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) npm 包包含 JavaScript 库。 此包不包含在**ASP.NET Core Web 应用程序**模板中。 使用 npm 获取并安装 `@microsoft/signalr` npm 包。
+在 ASP.NET 版本中，JavaScript 客户端通过 Visual Studio 中的 NuGet 包获得。 在 ASP.NET Core 版本中， [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) npm 包包含 JavaScript 库。 此包不包含在**ASP.NET Core Web 应用程序**模板中。 使用 npm 获取和安装`@microsoft/signalr` npm 包。
 
 ```console
 npm init -y
@@ -178,7 +182,7 @@ npm install @microsoft/signalr
 
 ::: moniker range="<= aspnetcore-2.2"
 
-在 ASP.NET 版本中，JavaScript 客户端通过 Visual Studio 中的 NuGet 包获得。 在 ASP.NET Core 版本中， [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) npm 包包含 JavaScript 库。 此包不包含在**ASP.NET Core Web 应用程序**模板中。 使用 npm 获取并安装 `@aspnet/signalr` npm 包。
+在 ASP.NET 版本中，JavaScript 客户端通过 Visual Studio 中的 NuGet 包获得。 在 ASP.NET Core 版本中， [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) npm 包包含 JavaScript 库。 此包不包含在**ASP.NET Core Web 应用程序**模板中。 使用 npm 获取和安装`@aspnet/signalr` npm 包。
 
 ```console
 npm init -y
@@ -189,17 +193,17 @@ npm install @aspnet/signalr
 
 ### <a name="jquery"></a>jQuery
 
-已删除对 jQuery 的依赖关系，但项目仍然可以使用 jQuery。
+已移除 jQuery 的依赖项，但项目仍可使用 jQuery。
 
 ### <a name="internet-explorer-support"></a>Internet Explorer 支持
 
-ASP.NET Core SignalR 需要 Microsoft Internet Explorer 11 或更高版本（ASP.NET SignalR 支持的 Microsoft Internet Explorer 8 及更高版本）。
+ASP.NET Core SignalR需要 Microsoft internet explorer 11 或更高版本SignalR （ASP.NET 支持的 microsoft internet explorer 8 及更高版本）。
 
 ### <a name="javascript-client-method-syntax"></a>JavaScript 客户端方法语法
 
 ::: moniker range=">= aspnetcore-3.0"
 
-JavaScript 语法已在 SignalR的 ASP.NET 版本中发生了更改。 不要使用 `$connection` 对象，而是使用[HubConnectionBuilder](/javascript/api/@aspnet/signalr/hubconnectionbuilder) API 创建连接。
+JavaScript 语法已在的 ASP.NET 版本中发生了SignalR更改。 不要使用`$connection`对象，而是使用[HubConnectionBuilder](/javascript/api/@aspnet/signalr/hubconnectionbuilder) API 创建连接。
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -213,7 +217,7 @@ const connection = new signalR.HubConnectionBuilder()
 
 ::: moniker range="<= aspnetcore-2.2"
 
-JavaScript 语法已在 SignalR的 ASP.NET 版本中发生了更改。 不要使用 `$connection` 对象，而是使用[HubConnectionBuilder](/javascript/api/@microsoft/signalr/hubconnectionbuilder) API 创建连接。
+JavaScript 语法已在的 ASP.NET 版本中发生了SignalR更改。 不要使用`$connection`对象，而是使用[HubConnectionBuilder](/javascript/api/@microsoft/signalr/hubconnectionbuilder) API 创建连接。
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -233,7 +237,7 @@ connection.on("ReceiveMessage", (user, message) => {
 });
 ```
 
-创建客户端方法后，启动中心连接。 将[catch](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)方法链接到日志或处理错误。
+创建客户端方法后，启动集线器连接。 将[catch](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)方法链接到日志或处理错误。
 
 ```javascript
 connection.start().catch(err => console.error(err));
@@ -255,9 +259,9 @@ connection.start().catch(err => console.error(err));
 
 ### <a name="net-and-other-clients"></a>.NET 和其他客户端
 
-[AspNetCore.SignalR。客户端](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)NuGet 包包含用于 ASP.NET Core SignalR的 .net 客户端库。
+[AspNetCore.SignalR客户端](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)NuGet 包包含用于 ASP.NET Core SignalR的 .net 客户端库。
 
-使用 <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder> 创建和生成与集线器的连接的实例。
+<xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>使用创建和生成与集线器的连接的实例。
 
 ```csharp
 connection = new HubConnectionBuilder()
@@ -265,19 +269,19 @@ connection = new HubConnectionBuilder()
     .Build();
 ```
 
-## <a name="scaleout-differences"></a>横向扩展差异
+## <a name="scaleout-differences"></a>扩展差异
 
-ASP.NET SignalR 支持 SQL Server 和 Redis。 ASP.NET Core SignalR 支持 Azure SignalR 服务和 Redis。
+ASP.NET SignalR支持 SQL Server 和 Redis。 ASP.NET Core SignalR支持 Azure SignalR服务和 Redis。
 
 ### <a name="aspnet"></a>ASP.NET
 
-* [与 Azure 服务总线 SignalR 扩展](/aspnet/signalr/overview/performance/scaleout-with-windows-azure-service-bus)
-* [SignalR Redis 的扩展](/aspnet/signalr/overview/performance/scaleout-with-redis)
-* [SignalR 扩展与 SQL Server](/aspnet/signalr/overview/performance/scaleout-with-sql-server)
+* [SignalR与 Azure 服务总线扩展](/aspnet/signalr/overview/performance/scaleout-with-windows-azure-service-bus)
+* [SignalR带 Redis 的扩展](/aspnet/signalr/overview/performance/scaleout-with-redis)
+* [SignalR扩展与 SQL Server](/aspnet/signalr/overview/performance/scaleout-with-sql-server)
 
 ### <a name="aspnet-core"></a>ASP.NET Core
 
-* [Azure SignalR 服务](/azure/azure-signalr/)
+* [Azure SignalR服务](/azure/azure-signalr/)
 * [Redis 底板](xref:signalr/redis-backplane)
 
 ## <a name="additional-resources"></a>其他资源

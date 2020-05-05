@@ -4,13 +4,19 @@ author: rick-anderson
 description: 发现各种 ASP.NET Core 数据保护实现主题。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/index
-ms.openlocfilehash: a21738ee2c092a9d14b7d448f7d3c7694f456ca8
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: aa5ebc3bfec996298ef5d203a9aa93ebbac521b0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644730"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776937"
 ---
 # <a name="aspnet-core-data-protection-implementation"></a>ASP.NET Core 数据保护实现
 

@@ -1,18 +1,24 @@
 ---
-title: 在 ASP.NET Core的上下文标头
+title: ASP.NET Core 中的上下文标题
 author: rick-anderson
-description: 了解 ASP.NET Core 数据保护上下文标头的实现详细信息。
+description: 了解 ASP.NET Core 数据保护上下文标题的实现细节。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 518423f5df93924d3df144994e4beb1755cd0bfc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 381cc137d1de87e87f36c3b32a6a551a318ed3cf
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654576"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776950"
 ---
-# <a name="context-headers-in-aspnet-core"></a>在 ASP.NET Core的上下文标头
+# <a name="context-headers-in-aspnet-core"></a>ASP.NET Core 中的上下文标题
 
 <a name="data-protection-implementation-context-headers"></a>
 
@@ -20,9 +26,9 @@ ms.locfileid: "78654576"
 
 在数据保护系统中，"密钥" 是指可提供经过身份验证的加密服务的对象。 每个密钥都是由唯一 id （GUID）标识的，它附带了算法信息和 entropic 材料。 它的目的是，每个密钥都具有唯一的平均信息量，但系统不能强制实施这一点，并且我们还需要考虑到通过修改密钥环中现有密钥的算法信息来手动更改密钥环的开发人员。 为实现安全要求，在这种情况下，数据保护系统具有[加密灵活性](https://www.microsoft.com/en-us/research/publication/cryptographic-agility-and-its-relation-to-circular-encryption/)，这允许使用跨多个加密算法的单个 entropic 值安全地使用。
 
-大多数支持加密灵活性的系统通过在有效负载中包含有关算法的一些识别信息来实现此目的。 通常，该算法的 OID 是一个不错的候选项。 但遇到的一个问题是，有多种方法可以指定同一算法： "AES" （CNG）和托管 Aes、AesManaged、AesCryptoServiceProvider、AesCng 和 RijndaelManaged （给定特定参数）类完全相同事情，我们需要维护所有这些内容到正确 OID 的映射。 如果开发人员想要提供自定义算法（甚至是 AES！的另一实现），则必须告诉我们其 OID。 此额外注册步骤使系统配置特别令人头痛。
+大多数支持加密灵活性的系统通过在有效负载中包含有关算法的一些识别信息来实现此目的。 通常，该算法的 OID 是一个不错的候选项。 但我们遇到的一个问题是，有多种方法可以指定相同的算法： "AES" （CNG），托管的 Aes、AesManaged、AesCryptoServiceProvider、AesCng 和 RijndaelManaged （给定特定参数）类实际上是相同的，因此我们需要维护所有这些类的映射到正确的 OID。 如果开发人员想要提供自定义算法（甚至是 AES！的另一实现），则必须告诉我们其 OID。 此额外注册步骤使系统配置特别令人头痛。
 
-再回顾一步，我们决定我们从错误的方向接近问题。 OID 告诉您算法是什么，但我们并不真正关心这一点。 如果需要以两个不同的算法安全地使用单个 entropic 值，我们不需要知道算法的实际含义。 我们真正关心的是它们的行为方式。 任何适当的对称块加密算法也是一种强伪伪随机排列（PRP）：修复输入（键、链接模式、IV、纯文本），并且密码文本输出的概率与任何其他对称块密码不同给定相同输入的算法。 同样，任何适当的键控哈希函数也是强伪随机函数（PRF），并且给定固定输入集，其输出将充分与任何其他键控哈希函数不同。
+再回顾一步，我们决定我们从错误的方向接近问题。 OID 告诉您算法是什么，但我们并不真正关心这一点。 如果需要以两个不同的算法安全地使用单个 entropic 值，我们不需要知道算法的实际含义。 我们真正关心的是它们的行为方式。 任何适当的对称块加密算法也是一种强大的伪随机排列（PRP）：修复输入（键、链接模式、IV、纯文本），并且密码文本输出的概率与任何其他对称块加密算法相比，提供的输入相同。 同样，任何适当的键控哈希函数也是强伪随机函数（PRF），并且给定固定输入集，其输出将充分与任何其他键控哈希函数不同。
 
 我们使用强 PRPs 和 PRFs 这一概念来构建上下文标头。 此上下文标头本质上可充当用于任何给定操作的算法的稳定指纹，并提供数据保护系统所需的加密灵活性。 此标头可重复使用，稍后将用作[子项派生过程](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation)的一部分。 可以通过两种不同的方式生成上下文标题，具体取决于基础算法的操作模式。
 
@@ -50,7 +56,7 @@ ms.locfileid: "78654576"
 
 相反，我们以计数器模式使用 NIST SP800-108 KDF （请参阅[NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)，Sec. 5.1），其长度为零、标签和上下文，HMACSHA512 为基础 PRF。 派生 |K_E |+ |K_H |输出字节数，然后将结果分解为 K_E 并 K_H 自身。 从数学上来说，这种情况如下所示。
 
-( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")
+（K_E | |K_H） = SP800_108_CTR （prf = HMACSHA512，key = ""，label = ""，context = ""）
 
 ### <a name="example-aes-192-cbc--hmacsha256"></a>示例： AES-192-CBC + HMACSHA256
 
@@ -118,7 +124,7 @@ result： = ABB100F81E53E10E
 
 接下来，为 HMACSHA1 给定 K_H 计算 MAC （K_H ""），如上所述。
 
-result := 76EB189B35CF03461DDF877CD9F4B1B4D63A7555
+result： = 76EB189B35CF03461DDF877CD9F4B1B4D63A7555
 
 这将生成完整的上下文标题，该标头是经过身份验证的加密算法对（3DES-192-CBC encryption + HMACSHA1 验证）的指纹，如下所示：
 
@@ -162,13 +168,13 @@ result := 76EB189B35CF03461DDF877CD9F4B1B4D63A7555
 
 使用与在 CBC 加密 + HMAC 身份验证方案中相同的机制来派生 K_E。 不过，由于这里没有任何 K_H，因此我们实质上有 |K_H |= 0，算法折叠到下面的窗体。
 
-K_E = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")
+K_E = SP800_108_CTR （prf = HMACSHA512，key = ""，label = ""，context = ""）
 
 ### <a name="example-aes-256-gcm"></a>示例： AES-256-GCM
 
 首先，让 K_E = SP800_108_CTR （prf = HMACSHA512，key = ""，label = ""，context = ""），其中 |K_E |= 256 位。
 
-K_E := 22BC6F1B171C08C4AE2F27444AF8FC8B3087A90006CAEA91FDCFB47C1B8733B8
+K_E： = 22BC6F1B171C08C4AE2F27444AF8FC8B3087A90006CAEA91FDCFB47C1B8733B8
 
 接下来，计算 256-GCM 给定 nonce = 096 的 Enc_GCM （K_E，nonce，""）的身份验证标记，并按上述方式 K_E。
 

@@ -5,21 +5,27 @@ description: 定义的 ASP.NET Core 环境标记帮助程序（包括所有属�
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-ms.openlocfilehash: 308e7db47104ebd4d6bb8d08c64f14bbd118898b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 144cc8988ba5797265b38f0f7364f528e0dbb97e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653766"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777418"
 ---
 # <a name="environment-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的环境标记帮助程序
 
 作者：[Peter Kellner](https://peterkellner.net) 和 [Hisham Bin Ateya](https://twitter.com/hishambinateya)
 
-环境标记帮助程序根据当前[宿主环境](xref:fundamentals/environments)，有条件地呈现其包含的内容。 环境标记帮助程序的单个属性 `names` 是以逗号分隔的环境名称列表。 任何提供的环境名称与当前环境匹配时，都会呈现包含的内容。
+环境标记帮助程序根据当前[宿主环境](xref:fundamentals/environments)有条件地呈现其包含的内容。 环境标记帮助程序的单个属性 `names` 是以逗号分隔的环境名称列表。 任何提供的环境名称与当前环境匹配时，都会呈现包含的内容。
 
-有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 ## <a name="environment-tag-helper-attributes"></a>环境标记帮助程序属性
 
@@ -41,7 +47,7 @@ ms.locfileid: "78653766"
 
 ## <a name="include-and-exclude-attributes"></a>include 和 exclude 属性
 
-`include` & `exclude` 特性控件基于包含或已排除的宿主环境名称呈现包含的内容。
+`include`&属性控件基于包含或排除的宿主环境名称呈现包含的`exclude`内容。
 
 ### <a name="include"></a>include
 
@@ -55,7 +61,7 @@ ms.locfileid: "78653766"
 
 ### <a name="exclude"></a>exclude
 
-与 `include` 属性相反，当托管环境与 `<environment>` 属性值中列出的环境不匹配时，将呈现 `exclude` 标记的内容。
+与 `include` 属性相反，当托管环境与 `exclude` 属性值中列出的环境不匹配时，将呈现 `<environment>` 标记的内容。
 
 ```cshtml
 <environment exclude="Development">

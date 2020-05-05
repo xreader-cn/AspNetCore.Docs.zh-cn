@@ -4,19 +4,25 @@ author: rick-anderson
 description: 了解如何在 ASP.NET 中替换 machineKey，以允许使用新的、更安全的数据保护系统。
 ms.author: riande
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 2317cb50cfe63226baf336ebfc5d681d1cebe5c6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 72e736f820ec243a7ad1461fc70e2711ac8b76ee
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655080"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777457"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>替换 ASP.NET Core 中的 ASP.NET machineKey
 
 <a name="compatibility-replacing-machinekey"></a>
 
-ASP.NET 中的 `<machineKey>` 元素的实现[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)的。 这样，就可以通过一种替代数据保护机制（包括新的数据保护系统）来路由对 ASP.NET 加密例程的大多数调用。
+ASP.NET 中`<machineKey>`元素的实现[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)的。 这样，就可以通过一种替代数据保护机制（包括新的数据保护系统）来路由对 ASP.NET 加密例程的大多数调用。
 
 ## <a name="package-installation"></a>包安装
 
@@ -32,7 +38,7 @@ ASP.NET 中的 `<machineKey>` 元素的实现[是可替换](https://blogs.msdn.m
 ```
 
 >[!TIP]
-> 可以通过检查 `__VIEWSTATE`的字段（如下面的示例中所示的 "CfDJ8"）来确定新的数据保护系统是否处于活动状态。 "CfDJ8" 是用于标识受数据保护系统保护的有效负载的幻 "09 F0 C9 F0" 标头的 base64 表示形式。
+> 可以通过检查（如`__VIEWSTATE`下面的示例中应以 "CfDJ8" 开头）等字段来判断新的数据保护系统是否处于活动状态。 "CfDJ8" 是用于标识受数据保护系统保护的有效负载的幻 "09 F0 C9 F0" 标头的 base64 表示形式。
 
 ```html
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk...">
@@ -67,9 +73,9 @@ namespace DataProtectionDemo
 ```
 
 >[!TIP]
-> 你还可以使用 `<machineKey applicationName="my-app" ... />` 来代替对 SetApplicationName 的显式调用。 这是一种简便的机制，可避免开发人员在要配置的所有应用程序名称设置的情况下，强制创建 DataProtectionStartup 派生的类型。
+> 你还可以使用`<machineKey applicationName="my-app" ... />`来代替对 SetApplicationName 的显式调用。 这是一种简便的机制，可避免开发人员在要配置的所有应用程序名称设置的情况下，强制创建 DataProtectionStartup 派生的类型。
 
-若要启用此自定义配置，请返回到 web.config，查找包安装添加到配置文件中的 `<appSettings>` 元素。 它将类似于以下标记：
+若要启用此自定义配置，请返回到 web.config，查找包安装`<appSettings>`添加到配置文件中的元素。 它将类似于以下标记：
 
 ```xml
 <appSettings>

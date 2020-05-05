@@ -1,16 +1,22 @@
 ---
-title: ASP.NET Core 上的标识简介
+title: Identity ASP.NET Core 简介
 author: rick-anderson
-description: 将身份用于 ASP.NET Core 应用。 了解如何设置密码要求（RequireDigit、RequiredLength、RequiredUniqueChars 等）。
+description: 与Identity ASP.NET Core 应用一起使用。 了解如何设置密码要求（RequireDigit、RequiredLength、RequiredUniqueChars 等）。
 ms.author: riande
 ms.date: 01/15/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 4bc5f206b3aee7c2d34055703acc5b6c5218f964
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: d596a8357c5c812b94950809eedf35718328747c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205938"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777002"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
 
@@ -49,7 +55,7 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件** > " "**新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -275,7 +281,7 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 选择 "**文件** > " "**新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
+* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -391,30 +397,30 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-identity"></a>测试标识
+## <a name="test-identity"></a>考试Identity
 
-默认 web 项目模板允许匿名访问主页。 若要测试标识， [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)请将添加到 "隐私" 页。
+默认 web 项目模板允许匿名访问主页。 若要Identity进行测试[`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) ，请将添加到 "隐私" 页。
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
 如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 将被重定向到登录页。
 
-### <a name="explore-identity"></a>浏览标识
+### <a name="explore-identity"></a>浏览Identity
 
-更详细地了解标识：
+Identity了解更多详细信息：
 
 * [创建完全标识 UI 源](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * 检查每个页面的源，并单步执行调试程序。
 
-## <a name="identity-components"></a>标识组件
+## <a name="identity-components"></a>Identity组分
 
-所有标识相关 NuGet 包都包含在[AspNetCore 元包](xref:fundamentals/metapackage-app)中。
+所有Identity相关 NuGet 包都包含在[AspNetCore 元包](xref:fundamentals/metapackage-app)中。
 
-标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此程序包包含用于 ASP.NET Core 标识的核心接口集，由`Microsoft.AspNetCore.Identity.EntityFrameworkCore`提供。
+的主包Identity为[AspNetCore。Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此程序包包含用于 ASP.NET Core Identity的核心接口集，由`Microsoft.AspNetCore.Identity.EntityFrameworkCore`提供。
 
-## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core 标识
+## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET CoreIdentity
 
-有关迁移现有标识存储的详细信息和指南，请参阅[迁移身份验证和标识](xref:migration/identity)。
+有关迁移现有Identity存储的详细信息和指南，请参阅[迁移身份验证Identity和](xref:migration/identity)。
 
 ## <a name="setting-password-strength"></a>设置密码强度
 
@@ -422,8 +428,8 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="next-steps"></a>后续步骤
 
-* 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
-* [配置标识](xref:security/authentication/identity-configuration)
+* 有关使用 SQLite 进行配置Identity的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)。
+* [对Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>

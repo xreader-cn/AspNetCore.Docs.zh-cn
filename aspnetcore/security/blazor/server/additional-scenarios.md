@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/27/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/additional-scenarios
-ms.openlocfilehash: 1a3e5a215daedbb9b97c1924275701915806983e
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 95e9e57889fdbb5270f895874c9b8148ae4ca48d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206346"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772799"
 ---
 # <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server 其他安全方案
 
@@ -23,9 +26,9 @@ ms.locfileid: "82206346"
 
 ## <a name="pass-tokens-to-a-blazor-server-app"></a>将令牌传递给Blazor服务器应用
 
-可以使用本节中所述的方法， Blazor将服务器应用程序中的 Razor 组件以外可用的令牌传递给组件。 有关示例代码，包括完整`Startup.ConfigureServices`的示例，请参阅将[令牌传递给服务器端Blazor应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
+可以使用本节中所Razor述的方法Blazor ，将服务器应用程序中组件以外可用的令牌传递给组件。 有关示例代码，包括完整`Startup.ConfigureServices`的示例，请参阅将[令牌传递给服务器端Blazor应用程序](https://github.com/javiercn/blazor-server-aad-sample)。
 
-对Blazor服务器应用程序进行身份验证，就像使用常规 RAZOR PAGES 或 MVC 应用程序一样。 预配令牌并将其保存到身份验证 cookie。 例如：
+对Blazor服务器应用进行身份验证，就像使用Razor常规页面或 MVC 应用一样。 预配令牌并将其保存到身份验证 cookie。 例如：
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;

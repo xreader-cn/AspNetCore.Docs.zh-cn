@@ -5,13 +5,19 @@ description: 了解如何在 ASP.NET Core 中使用视图组件，以及如何�
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 910fffbf360ed0f62f7fe20bc8bfdf5be8198876
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 28696d246c5e1e6874e0d9058813750ed1955003
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652314"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774647"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core 中的视图组件
 
@@ -21,7 +27,7 @@ ms.locfileid: "78652314"
 
 ## <a name="view-components"></a>视图组件
 
-视图组件与分部视图类似，但它们的功能更加强大。 视图组件不使用模型绑定，并且仅依赖调用时提供的数据。 本文是使用控制器和视图编写的，但视图组件也适用于 Razor Pages。
+视图组件与分部视图类似，但它们的功能更加强大。 视图组件不使用模型绑定，并且仅依赖调用时提供的数据。 本文是使用控制器和视图编写的，但视图组件也适用于Razor页。
 
 视图组件：
 
@@ -42,7 +48,7 @@ ms.locfileid: "78652314"
 
 视图组件由两部分组成：类（通常派生自 [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)）及其返回的结果（通常为视图）。 与控制器一样，视图组件也可以是 POCO，但大多数开发人员都希望利用派生自 `ViewComponent` 的可用方法和属性。
 
-在考虑视图组件是否符合应用的规范时，请考虑改用 Razor 组件。 Razor 组件还将标记与 C# 代码组合来生成可重用的 UI 单元。 Razor 组件专用于让开发人员在提供客户端 UI 逻辑和组合时保持高效。 有关详细信息，请参阅 <xref:blazor/components>。
+考虑视图组件是否满足应用的规范时，请考虑改用Razor组件。 Razor组件还将标记与 c # 代码结合起来，以生成可重用的 UI 单元。 Razor在提供客户端 UI 逻辑和组合时，组件旨在提高开发人员的工作效率。 有关详细信息，请参阅 <xref:blazor/components>。
 
 ## <a name="creating-a-view-component"></a>创建视图组件
 
@@ -52,9 +58,9 @@ ms.locfileid: "78652314"
 
 可通过以下任一方法创建视图组件类：
 
-* 从 ViewComponent 派生
+* 从 ViewComponent 派生**
 * 使用 `[ViewComponent]` 属性修饰类，或者从具有 `[ViewComponent]` 属性的类派生
-* 创建名称以 ViewComponent 后缀结尾的类
+* 创建名称以 ViewComponent 后缀结尾的类**
 
 与控制器一样，视图组件必须是公共、非嵌套和非抽象的类。 视图组件名称是删除了“ViewComponent”后缀的类名。 也可以使用 `ViewComponentAttribute.Name` 属性显式指定它。
 
@@ -66,10 +72,10 @@ ms.locfileid: "78652314"
 
 ### <a name="view-component-methods"></a>视图组件方法
 
-视图组件以返回 `InvokeAsync` 的 `Task<IViewComponentResult>` 方法，或是以返回 `Invoke` 的同步 `IViewComponentResult` 方法定义其逻辑。 参数直接来自视图组件的调用，而不是来自模型绑定。 视图组件从不直接处理请求。 通常，视图组件通过调用 `View` 方法来初始化模型并将其传递到视图。 总之，视图组件方法：
+视图组件以返回 `Task<IViewComponentResult>` 的 `InvokeAsync` 方法，或是以返回 `IViewComponentResult` 的同步 `Invoke` 方法定义其逻辑。 参数直接来自视图组件的调用，而不是来自模型绑定。 视图组件从不直接处理请求。 通常，视图组件通过调用 `View` 方法来初始化模型并将其传递到视图。 总之，视图组件方法：
 
-* 定义返回 `InvokeAsync` 的 `Task<IViewComponentResult>` 方法，或是返回 `Invoke` 的同步 `IViewComponentResult` 方法。
-* 一般通过调用 `ViewComponent` `View` 方法来初始化模型并将其传递到视图。
+* 定义返回 `Task<IViewComponentResult>` 的 `InvokeAsync` 方法，或是返回 `IViewComponentResult` 的同步 `Invoke` 方法。
+* 通常通过调用`ViewComponent` `View`方法来初始化模型并将其传递给视图。
 * 参数来自调用方法，而不是 HTTP。 没有模型绑定。
 * 不可直接作为 HTTP 终结点进行访问。 通过代码调用它们（通常在视图中）。 视图组件从不处理请求。
 * 在签名上重载，而不是当前 HTTP 请求的任何详细信息。
@@ -82,15 +88,15 @@ ms.locfileid: "78652314"
 * /Views/Shared/Components/{View Component Name}/{View Name}
 * /Pages/Shared/Components/{View Component Name}/{View Name}
 
-搜索路径适用于使用控制器 + 视图和 Razor Pages 的项目。
+搜索路径适用于使用控制器 + 视图和Razor页的项目。
 
-视图组件的默认视图名称为“默认”，这意味着视图文件通常命名为“Default.cshtml”。 可以在创建视图组件结果或调用 `View` 方法时指定不同的视图名称。
+视图组件的默认视图名称为“默认”，这意味着视图文件通常命名为“Default.cshtml”****。 可以在创建视图组件结果或调用 `View` 方法时指定不同的视图名称。
 
-建议将视图文件命名为 Default.cshtml 并使用 Views/Shared/Components/{View Component Name}/{View Name} 路径。 此示例中使用的 `PriorityList` 视图组件对视图组件视图使用 Views/Shared/Components/PriorityList/Default.cshtml。
+建议将视图文件命名为 Default.cshtml 并使用 Views/Shared/Components/{View Component Name}/{View Name} 路径。**** 此示例中使用的 `PriorityList` 视图组件对视图组件视图使用 Views/Shared/Components/PriorityList/Default.cshtml**。
 
 ### <a name="customize-the-view-search-path"></a>自定义视图搜索路径
 
-修改 Razor 的 <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> 集合，以自定义视图搜索路径。 例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：
+若要自定义视图搜索路径， Razor请<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats>修改的集合。 例如，将新项添加到集合，以搜索路径“/Components/{视图组件名称}/{视图名称}”中的视图：
 
 [!code-cs[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
 
@@ -104,7 +110,7 @@ ms.locfileid: "78652314"
 @await Component.InvokeAsync("Name of view component", {Anonymous Type Containing Parameters})
 ```
 
-参数将传递给 `InvokeAsync` 方法。 本文中开发的 `PriorityList` 视图组件调用自 Views/ToDo/Index.cshtml 视图文件。 在下例中，使用两个参数调用 `InvokeAsync` 方法：
+参数将传递给 `InvokeAsync` 方法。 本文中开发的 `PriorityList` 视图组件调用自 Views/ToDo/Index.cshtml** 视图文件。 在下例中，使用两个参数调用 `InvokeAsync` 方法：
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
@@ -125,7 +131,7 @@ ms.locfileid: "78652314"
 </vc:[view-component-name]>
 ```
 
-若要将视图组件用作标记帮助程序，请使用 `@addTagHelper` 指令注册包含视图组件的程序集。 如果视图组件位于名为“`MyWebApp`”的程序集中，请将以下指令添加到 _ViewImports.cshtml 文件：
+若要将视图组件用作标记帮助程序，请使用 `@addTagHelper` 指令注册包含视图组件的程序集。 如果视图组件位于名为“`MyWebApp`”的程序集中，请将以下指令添加到 _ViewImports.cshtml** 文件：
 
 ```cshtml
 @addTagHelper *, MyWebApp
@@ -155,20 +161,20 @@ ms.locfileid: "78652314"
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>演练：创建简单的视图组件
 
-[下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `ToDo` 控制器的简单项目，该控制器显示 ToDo 项的列表。
+[下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、生成和测试起始代码。 它是一个带有 `ToDo` 控制器的简单项目，该控制器显示 ToDo** 项的列表。
 
 ![ToDo 列表](view-components/_static/2dos.png)
 
 ### <a name="add-a-viewcomponent-class"></a>添加 ViewComponent 类
 
-创建一个 ViewComponents 文件夹并添加以下  *类*`PriorityListViewComponent`：
+创建一个 ViewComponents 文件夹并添加以下 `PriorityListViewComponent` 类**：
 
 [!code-csharp[](view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponent1.cs?name=snippet1)]
 
 代码说明：
 
-* 视图组件类可以包含在项目的任意文件夹中。
-* 因为类名 PriorityListViewComponent 以后缀 ViewComponent 结尾，所以运行时将在从视图引用类组件时使用字符串“PriorityList”。 我稍后将进行详细解释。
+* 视图组件类可以包含在项目的任意文件夹中****。
+* 因为类名 PriorityListViewComponent 以后缀 ViewComponent 结尾，所以运行时将在从视图引用类组件时使用字符串“PriorityList”********。 我稍后将进行详细解释。
 * `[ViewComponent]` 属性可以更改用于引用视图组件的名称。 例如，我们可以将类命名为 `XYZ` 并应用 `ViewComponent` 属性：
 
   ```csharp
@@ -179,24 +185,24 @@ ms.locfileid: "78652314"
 * 上面的 `[ViewComponent]` 属性通知视图组件选择器在查找与组件相关联的视图时使用名称 `PriorityList`，以及在从视图引用类组件时使用字符串“PriorityList”。 我稍后将进行详细解释。
 * 组件使用[依赖关系注入](../../fundamentals/dependency-injection.md)以使数据上下文可用。
 * `InvokeAsync` 公开可以从视图调用的方法，且可以采用任意数量的参数。
-* `InvokeAsync` 方法返回满足 `ToDo` 和 `isDone` 参数的 `maxPriority` 项集。
+* `InvokeAsync` 方法返回满足 `isDone` 和 `maxPriority` 参数的 `ToDo` 项集。
 
-### <a name="create-the-view-component-razor-view"></a>创建视图组件 Razor 视图
+### <a name="create-the-view-component-razor-view"></a>创建视图组件Razor视图
 
-* 创建 Views/Shared/Components 文件夹。 此文件夹 **必须** 命名为 *Components*。
+* 创建 Views/Shared/Components 文件夹**。 此文件夹 **必须** 命名为 *Components*。
 
-* 创建 Views/Shared/Components/PriorityList 文件夹。 此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配。 如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。
+* 创建 Views/Shared/Components/PriorityList 文件夹**。 此文件夹名称必须与视图组件类的名称或类名去掉后缀（如果遵照约定并在类名中使用了“ViewComponent”后缀）的名称相匹配**。 如果使用了 `ViewComponent` 属性，则类名称需要匹配指定的属性。
 
-* 创建 Views/Shared/Components/PriorityList/Default.cshtml Razor 视图：
+* 创建*Views/Shared/Components/PriorityList/Default ...* Razor view：
 
 
   [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
 
-   Razor 视图获取并显示 `TodoItem` 列表。 如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称。 在本教程后面部分，我将演示如何传递视图名称。 要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml）。
+   Razor视图采用列表`TodoItem` ，并显示它们。 如果视图组件 `InvokeAsync` 方法不传递视图名称（如示例中所示），则按照约定使用“默认”作为视图名称**。 在本教程后面部分，我将演示如何传递视图名称。 要替代特定控制器的默认样式，请将视图添加到控制器特定的视图文件夹（例如 Views/ToDo/Components/PriorityList/Default.cshtml**）。
 
-    如果视图组件是控制器特定的，则可将其添加到控制器特定的文件夹 (Views/ToDo/Components/PriorityList/Default.cshtml)。
+    如果视图组件是控制器特定的，则可将其添加到控制器特定的文件夹 (Views/ToDo/Components/PriorityList/Default.cshtml**)。
 
-* 将包含优先级列表组件调用的 `div` 添加到 Views/ToDo/index.cshtml 文件底部：
+* 将包含优先级列表组件调用的 `div` 添加到 Views/ToDo/index.cshtml** 文件底部：
 
     [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
@@ -214,15 +220,15 @@ ms.locfileid: "78652314"
 
 ### <a name="specifying-a-view-name"></a>指定视图名称
 
-在某些情况下，复杂的视图组件可能需要指定非默认视图。 以下代码显示如何从 `InvokeAsync` 方法指定“PVC”视图。 更新 `InvokeAsync` 类中的 `PriorityListViewComponent` 方法。
+在某些情况下，复杂的视图组件可能需要指定非默认视图。 以下代码显示如何从 `InvokeAsync` 方法指定“PVC”视图。 更新 `PriorityListViewComponent` 类中的 `InvokeAsync` 方法。
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponentFinal.cs?highlight=4,5,6,7,8,9&range=28-39)]
 
-将 Views/Shared/Components/PriorityList/Default.cshtml 文件复制到名为 Views/Shared/Components/PriorityList/PVC.cshtml 的视图。 添加标题以指示正在使用 PVC 视图。
+将 Views/Shared/Components/PriorityList/Default.cshtml 文件复制到名为 Views/Shared/Components/PriorityList/PVC.cshtml 的视图****。 添加标题以指示正在使用 PVC 视图。
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-更新 Views/ToDo/Index.cshtml：
+更新 Views/ToDo/Index.cshtml**：
 
 <!-- Views/ToDo/Index.cshtml is never imported, so change to test tutorial -->
 
@@ -237,7 +243,7 @@ ms.locfileid: "78652314"
 ### <a name="examine-the-view-path"></a>检查视图路径
 
 * 将优先级参数更改为 3 或更低，从而不返回优先级视图。
-* 将 Views/ToDo/Components/PriorityList/Default.cshtml 暂时重命名为 1Default.cshtml。
+* 将 Views/ToDo/Components/PriorityList/Default.cshtml** 暂时重命名为 1Default.cshtml**。
 * 测试应用，你将收到以下错误：
 
    ```
@@ -248,9 +254,9 @@ ms.locfileid: "78652314"
    EnsureSuccessful
    ```
 
-* 将 Views/ToDo/Components/PriorityList/1Default.cshtml 复制到 Views/Shared/Components/PriorityList/Default.cshtml。
-* 将一些标记添加到共享 ToDo 视图组件视图，以指示视图来自“Shared”文件夹。
-* 测试“共享”组件视图。
+* 将 Views/ToDo/Components/PriorityList/1Default.cshtml** 复制到 Views/Shared/Components/PriorityList/Default.cshtml**。
+* 将一些标记添加到共享** ToDo 视图组件视图，以指示视图来自“Shared”** 文件夹。
+* 测试“共享”组件视图****。
 
 ![有共享组件视图的 ToDo 输出](view-components/_static/shared.png)
 
@@ -260,7 +266,7 @@ ms.locfileid: "78652314"
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityList.cs?highlight=10&range=5-35)]
 
-将 `using` 语句添加到 Razor 视图文件，并使用 `nameof` 运算符：
+向`using` Razor视图文件添加语句，并使用`nameof`运算符：
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexNameof.cshtml?range=1-6,35-)]
 
@@ -279,7 +285,7 @@ public class PriorityList : ViewComponent
 }
 ```
 
-视图组件的 Razor 文件列出了传递给 `Invoke` 方法的字符串（Views/Home/Components/PriorityList/Default.cshtml）：
+视图组件的Razor文件列出传递给`Invoke`方法的字符串（*Views/Home/Components/PriorityList/* default.aspx）：
 
 ```cshtml
 @model List<string>
@@ -295,7 +301,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range=">= aspnetcore-1.1"
 
-使用以下方法之一在 Razor 文件（例如，Views/Home/Index.cshtml）中调用视图组件：
+使用以下方法之一在Razor文件中调用视图组件（例如， *Views/Home/Index*）：
 
 * <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>
 * [标记帮助程序](xref:mvc/views/tag-helpers/intro)
@@ -306,7 +312,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range="< aspnetcore-1.1"
 
-使用  *在 Razor 文件（例如，Views/Home/Index.cshtml*<xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>）中调用视图组件。
+视图组件在Razor文件中调用（例如， *Views/Home/Index*） <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>。
 
 调用 `Component.InvokeAsync`：
 
@@ -324,7 +330,7 @@ public class PriorityList : ViewComponent
 @addTagHelper *, MyWebApp
 ```
 
-在 Razor 标记文件中使用视图组件标记帮助程序：
+使用Razor标记文件中的 "查看组件标记帮助器"：
 
 ```cshtml
 <vc:priority-list max-priority="999" is-done="false">
@@ -333,7 +339,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker-end
 
-`PriorityList.Invoke` 的方法签名是同步的，但 Razor 在标记文件中使用 `Component.InvokeAsync` 找到并调用该方法。
+的`PriorityList.Invoke`方法签名是同步的，但Razor会`Component.InvokeAsync`在标记文件中查找并调用方法。
 
 ## <a name="all-view-component-parameters-are-required"></a>所有视图组件参数都是必需的
 

@@ -4,13 +4,19 @@ author: ardalis
 description: 了解 ASP.NET Core MVC 控制器如何使用 ASP.NET Core 中的依赖项注入通过构造函数显式请求其依赖项。
 ms.author: riande
 ms.date: 02/24/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 202b62d4b30c5c61c407abdc8509a2a75e181cb6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a7df6a5fa2d49efc332c4684ea8192f143cdebf5
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652152"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775695"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>在 ASP.NET Core 中将依赖项注入到控制器
 
@@ -52,7 +58,7 @@ ASP.NET Core MVC 控制器通过构造函数显式请求依赖关系。 ASP.NET 
 
 ## <a name="access-settings-from-a-controller"></a>从控制器访问设置
 
-从控制器中访问应用或配置设置是一种常见模式。 *中所述的选项模式是管理设置的首选方法*<xref:fundamentals/configuration/options>。 通常情况下，不直接将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入到控制器。
+从控制器中访问应用或配置设置是一种常见模式。 <xref:fundamentals/configuration/options> 中所述的选项模式是管理设置的首选方法**。 通常情况下，不直接将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入到控制器。
 
 创建表示选项的类。 例如：
 

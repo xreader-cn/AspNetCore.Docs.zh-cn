@@ -5,17 +5,20 @@ description: 了解如何将 Blazor 服务器应用作为 ASP.NET Core 应用程
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/27/2020
+ms.date: 05/02/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/index
-ms.openlocfilehash: 0021911b731e57bc6eabf857c27a13462e7400ae
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: bbd8b6fcd357b8929bf097450854d98fbea2570e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206328"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772630"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>为 ASP.NET Core Blazor 服务器应用提供保护
 
@@ -101,3 +104,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 有关详细信息，请参阅 .NET Core 指南中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。
 
 ---
+
+## <a name="secure-an-existing-app"></a>保护现有应用
+
+Blazor 服务器应用采用与 ASP.NET Core 应用相同方式的安全配置。 有关详细信息，请参阅 <xref:security/index> 下的文章。

@@ -4,13 +4,19 @@ author: rick-anderson
 description: 了解 ASP.NET Core MVC 如何使用路由中间件来匹配传入请求的 URL 并将它们映射到操作。
 ms.author: riande
 ms.date: 3/25/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 974a5e7653f2b71b124a96650733ff460e60637a
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 4208ef8fb7a9b10621f214f79679ff8d7fd83996
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206107"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775019"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
@@ -195,7 +201,9 @@ Endpoint 路由 ASP.NET Core 3.0 及更高版本：
 ### <a name="conventional-routing-order"></a>传统路由顺序
 
 传统路由仅匹配应用定义的操作和控制器的组合。 这旨在简化传统路由重叠的情况。
-使用<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*>、 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*>和<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*>添加路由时，会根据调用顺序，自动将其分配给终结点。 与前面显示的路由的匹配具有更高的优先级。 传统路由依赖于顺序。 通常情况下，应将具有区域的路由置于更早的位置，因为它们比没有区域的路由更具体。 使用捕获所有路由参数的[专用传统路由](#dcr) `{*article}`可以使路由过于[贪婪](xref:fundamentals/routing#greedy)，这意味着它与你打算与其他路由匹配的 url 相匹配。 将贪婪路由置于路由表中，以防止贪婪匹配。
+使用<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*>、 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*>和<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*>添加路由时，会根据调用顺序，自动将其分配给终结点。 与前面显示的路由的匹配具有更高的优先级。 传统路由依赖于顺序。 通常情况下，应将具有区域的路由置于更早的位置，因为它们比没有区域的路由更具体。 使用全部捕获路由参数的[专用传统路由](#dcr) `{*article}`可以使路由过于[贪婪](xref:fundamentals/routing#greedy)，这意味着它与你打算与其他路由匹配的 url 相匹配。 将贪婪路由置于路由表中，以防止贪婪匹配。
+
+[!INCLUDE[](~/includes/catchall.md)]
 
 <a name="best"></a>
 
@@ -416,7 +424,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了上述`[Route]`代码中的属性：
 
-| 特性               | 结合`[Route("Home")]` | 定义路由模板 |
+| Attribute               | 结合`[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
@@ -463,7 +471,7 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 * 上面的代码是一个示例或不良路由设计。 它用于说明`Order`属性。
 * `Order`属性只解析多义性，该模板无法匹配。 最好删除该`[Route("Home")]`模板。
 
-有关 Razor Pages 的路由顺序的信息，请参阅[Razor Pages 路由和应用约定：路由顺序](xref:razor-pages/razor-pages-conventions#route-order)。
+请参阅[ Razor页面路由和应用约定：路由](xref:razor-pages/razor-pages-conventions#route-order)顺序获取有关Razor页面的路由顺序的信息。
 
 在某些情况下，将返回具有不明确路由的 HTTP 500 错误。 使用[日志记录](xref:fundamentals/logging/index)查看导致的终结点`AmbiguousMatchException`。
 
@@ -713,7 +721,7 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由`{controller}/{action}/{id?}`中遇到此问题。 此问题在实践中很罕见`Url.Action` ，因为始终显式`controller`指定`action`和值。
 
-多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除`controller`和`action`以外的路由参数提供值。 路由值对象经常与`id`一起使用。 例如，`Url.Action("Buy", "Products", new { id = 17 })` 。 路由值对象：
+多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除`controller`和`action`以外的路由参数提供值。 路由值对象经常与`id`一起使用。 例如，`Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是， `IDictionary<>`也可以是[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)。
@@ -744,13 +752,13 @@ result: /UrlGeneration/Destination
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/UrlGeneration2Controller.cs?name=snippet_1)]
 
-以下 Razor 文件生成一个到的`Destination_Route`HTML 链接：
+下面Razor的文件生成一个到的`Destination_Route`HTML 链接：
 
 [!code-cshtml[](routing/samples/3.x/main/Views/Shared/MyLink.cshtml)]
 
 <a name="routing-gen-urls-html-ref-label"></a>
 
-### <a name="generate-urls-in-html-and-razor"></a>以 HTML 和 Razor 生成 Url
+### <a name="generate-urls-in-html-and-razor"></a>在 HTML 和中生成 UrlRazor
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper>提供方法<xref:Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper> [html.beginform](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.BeginForm*)和[html.actionlink](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.ActionLink*)分别生成`<form>`和`<a>`元素的方法。 这些方法使用[Url 操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)方法来生成 url，并接受类似参数。 `HtmlHelper` 的配套 `Url.RouteUrl` 为 `Html.BeginRouteForm` 和 `Html.RouteLink`，两者具有相似的功能。
 
@@ -843,7 +851,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 控制器上的公共方法（具有[NonAction](xref:Microsoft.AspNetCore.Mvc.NonActionAttribute)特性的方法除外）是操作。
 
-## <a name="sample-code"></a>示例代码
+## <a name="sample-code"></a>代码示例
 
  * [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)中包含了[MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs)方法，用于显示路由信息。
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）
@@ -1212,7 +1220,7 @@ public class HomeController : Controller
 > [!TIP]
 > 避免依赖 `Order`。 如果 URL 空间需要有显式顺序值才能正确进行路由，则同样可能使客户端混淆不清。 属性路由通常选择与 URL 匹配的正确路由。 如果用于 URL 生成的默认顺序不起作用，使用路由名称作为替代项通常比应用 `Order` 属性更简单。
 
-Razor Pages 路由和 MVC 控制器路由共享一个实现。 可在 [ 路由和应用约定：路由顺序](xref:razor-pages/razor-pages-conventions#route-order)中找到有关 Razor Pages 主题中路由顺序的信息。
+Razor页面路由和 MVC 控制器路由共享一个实现。 页面上的Razor路由顺序信息主题中提供了[ Razor页面路由和应用约定：路由顺序](xref:razor-pages/razor-pages-conventions#route-order)。
 
 <a name="routing-token-replacement-templates-ref-label"></a>
 

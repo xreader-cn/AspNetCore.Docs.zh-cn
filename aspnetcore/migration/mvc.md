@@ -1,18 +1,24 @@
 ---
-title: 将从 ASP.NET MVC 迁移到 ASP.NET Core MVC
+title: 从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 author: ardalis
-description: 了解如何开始迁移到 ASP.NET Core MVC ASP.NET MVC 项目。
+description: 了解如何开始将 ASP.NET MVC 项目迁移到 ASP.NET Core MVC。
 ms.author: riande
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/mvc
-ms.openlocfilehash: 6c9449fb43960d05db8aa6dcba64d3d830834cdb
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 59a10c002958e5f719dbd59686f21df69da5f43e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652548"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777041"
 ---
-# <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>将从 ASP.NET MVC 迁移到 ASP.NET Core MVC
+# <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>从 ASP.NET MVC 迁移到 ASP.NET Core MVC
 
 作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Daniel Roth](https://github.com/danroth27)、 [Steve Smith](https://ardalis.com/)和[Scott Addie](https://scottaddie.com)
 
@@ -37,7 +43,7 @@ ms.locfileid: "78652548"
 
 ![“新建项目”对话框](mvc/_static/new_core.png)
 
-![新建 ASP.NET Web 应用程序对话框： 在 ASP.NET Core 模板面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
+![New ASP.NET Web 应用程序对话框：在 ASP.NET Core 模板 "面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
 
 * *可选：* 使用 " *Web 应用程序*" 项目模板创建新的 ASP.NET Core 应用程序。 将项目命名为 " *WebApp1*"，并选择**单个用户帐户**的身份验证选项。 将此应用重命名为*FullAspNetCore*。 创建此项目可在转换时节省时间。 您可以查看模板生成的代码以查看最终结果或将代码复制到转换项目。 当您停滞转换步骤以与模板生成的项目进行比较时，这也很有用。
 
@@ -61,13 +67,13 @@ ms.locfileid: "78652548"
 
 ::: moniker-end
 
-`Microsoft.AspNetCore.Mvc` 是 ASP.NET Core MVC 框架。 `Microsoft.AspNetCore.StaticFiles` 是静态文件处理程序。 ASP.NET Core 运行时是模块化的，你必须明确选择提供静态文件（请参阅[静态文件](xref:fundamentals/static-files)）。
+`Microsoft.AspNetCore.Mvc`是 ASP.NET Core MVC 框架。 `Microsoft.AspNetCore.StaticFiles`为静态文件处理程序。 ASP.NET Core 运行时是模块化的，你必须明确选择提供静态文件（请参阅[静态文件](xref:fundamentals/static-files)）。
 
 * 打开*Startup.cs*文件并更改代码，使其与以下内容匹配：
 
   [!code-csharp[](mvc/sample/Startup.cs?highlight=13,26-31)]
 
-`UseStaticFiles` 扩展方法添加静态文件处理程序。 如前所述，ASP.NET 运行时是模块化的，你必须明确选择提供静态文件。 `UseMvc` 扩展方法将添加路由。 有关详细信息，请参阅[应用程序启动](xref:fundamentals/startup)和[路由](xref:fundamentals/routing)。
+`UseStaticFiles`扩展方法添加静态文件处理程序。 如前所述，ASP.NET 运行时是模块化的，你必须明确选择提供静态文件。 `UseMvc`扩展方法将添加路由。 有关详细信息，请参阅[应用程序启动](xref:fundamentals/startup)和[路由](xref:fundamentals/routing)。
 
 ## <a name="add-a-controller-and-view"></a>添加控制器和视图
 
@@ -83,7 +89,7 @@ ms.locfileid: "78652548"
 
 * 添加 "*视图"/"主*文件夹"。
 
-* 将名为*Index*的**Razor 视图**添加到*Views/Home*文件夹中。
+* 将名为*Index*的** Razor视图**添加到*Views/Home*文件夹中。
 
 ![“添加新项”对话框](mvc/_static/view.png)
 
@@ -103,7 +109,7 @@ ms.locfileid: "78652548"
 
 有关详细信息，请参阅[控制器](xref:mvc/controllers/actions)和[视图](xref:mvc/views/overview)。
 
-现在，我们已最小的工作 ASP.NET Core 项目，我们可以开始从 ASP.NET MVC 项目迁移功能。 我们需要移动以下内容：
+现在，我们有了最小的工作 ASP.NET Core 项目，接下来可以开始从 ASP.NET MVC 项目迁移功能。 我们需要移动以下内容：
 
 * 客户端内容（CSS、字体和脚本）
 
@@ -117,15 +123,15 @@ ms.locfileid: "78652548"
 
 * 筛选器
 
-* 登录/注销、标识（在下一教程中完成此操作。）
+* 登录/注销， Identity （在下一教程中完成此操作。）
 
 ## <a name="controllers-and-views"></a>控制器和视图
 
-* 将 ASP.NET MVC `HomeController` 中的每个方法复制到新 `HomeController`。 请注意，在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法改为返回 `IActionResult`。 `ActionResult` 实现 `IActionResult`，因此无需更改操作方法的返回类型。
+* 将 ASP.NET MVC `HomeController`中的每个方法复制到新`HomeController`的。 请注意，在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将`IActionResult`改为返回。 `ActionResult`实现`IActionResult`，因此无需更改操作方法的返回类型。
 
-* 将 "*关于* *"、"ASP.NET" 和*"*索引*" Razor 视图文件复制到 ASP.NET Core 项目。
+* 将 ASP.NET MVC 项目中的*About*、 *Contact*和*Index.cshtml* Razor视图文件复制到 ASP.NET Core 项目。
 
-* 运行 ASP.NET Core 应用和测试每个方法。 尚未迁移布局文件或样式，因此呈现的视图仅包含视图文件中的内容。 你没有 `About` 和 `Contact` 视图的布局文件生成链接，因此你必须从浏览器调用它们（将**4492**替换为项目中使用的端口号）。
+* 运行 ASP.NET Core 应用并测试每个方法。 尚未迁移布局文件或样式，因此呈现的视图仅包含视图文件中的内容。 你没有`About`和`Contact`视图的布局文件生成链接，因此你必须从浏览器调用它们（将**4492**替换为项目中使用的端口号）。
 
   * `http://localhost:4492/home/about`
 
@@ -155,15 +161,15 @@ ms.locfileid: "78652548"
 
 打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：
 
-* 将 `@Styles.Render("~/Content/css")` 替换为 `<link>` 元素以加载*启动 .css* （请参阅下文）。
+* 替换`@Styles.Render("~/Content/css")`为加载`<link>` *启动 .css*的元素（见下文）。
 
 * 删除 `@Scripts.Render("~/bundles/modernizr")`。
 
-* 注释掉 `@Html.Partial("_LoginPartial")` 行（将行括在 `@*...*@`）。 有关详细信息，请参阅[将身份验证和标识迁移到 ASP.NET Core](xref:migration/identity)
+* 注释掉`@Html.Partial("_LoginPartial")`行（将该行环绕`@*...*@`）。 有关详细信息，请参阅[迁移Identity身份验证和 ASP.NET Core](xref:migration/identity)
 
-* 将 `@Scripts.Render("~/bundles/jquery")` 替换为 `<script>` 元素（见下文）。
+* 替换`@Scripts.Render("~/bundles/jquery")`为`<script>`元素（见下文）。
 
-* 将 `@Scripts.Render("~/bundles/bootstrap")` 替换为 `<script>` 元素（见下文）。
+* 替换`@Scripts.Render("~/bundles/bootstrap")`为`<script>`元素（见下文）。
 
 用于启动 CSS 的替换标记包含：
 
@@ -190,17 +196,17 @@ JQuery 和启动 JavaScript 的替换标记包含：
 
 * *可选：* 你可能想要尝试使用新的布局文件。 对于此项目，您可以从*FullAspNetCore*项目复制布局文件。 新的布局文件使用[标记帮助](xref:mvc/views/tag-helpers/intro)程序，并具有其他改进功能。
 
-## <a name="configure-bundling-and-minification"></a>配置捆绑和缩减
+## <a name="configure-bundling-and-minification"></a>配置捆绑和缩小
 
 有关如何配置绑定和缩减的信息，请参阅[捆绑和缩减](../client-side/bundling-and-minification.md)。
 
 ## <a name="solve-http-500-errors"></a>解决 HTTP 500 错误
 
-有许多问题可能会导致 HTTP 500 错误消息，其中不包含问题根源的相关信息。 例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会收到 HTTP 500 错误。 默认情况下，在 ASP.NET Core 应用中，`UseDeveloperExceptionPage` 扩展将添加到 `IApplicationBuilder`，并在配置为*开发*时执行。 下面的代码对此进行了详细说明：
+有许多问题可能会导致 HTTP 500 错误消息，其中不包含问题根源的相关信息。 例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会收到 HTTP 500 错误。 默认情况下，在 ASP.NET Core 应用`UseDeveloperExceptionPage`中，会将扩展`IApplicationBuilder`添加到，并在配置为*开发*时执行。 下面的代码对此进行了详细说明：
 
 [!code-csharp[](mvc/sample/Startup.cs?highlight=19-22)]
 
-ASP.NET Core 将在 web 应用程序中未经处理的异常转换为 HTTP 500 错误响应。 通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。 有关详细信息，请参阅 "[处理错误](../fundamentals/error-handling.md) **" 中的使用开发者异常页**。
+ASP.NET Core 将 web 应用中的未处理异常转换为 HTTP 500 错误响应。 通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。 有关详细信息，请参阅 "[处理错误](../fundamentals/error-handling.md) **" 中的使用开发者异常页**。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -1,29 +1,35 @@
 ---
-title: ASP.NET核心中的关键存储格式
+title: ASP.NET Core 中的密钥存储格式
 author: rick-anderson
-description: 了解ASP.NET核心数据保护密钥存储格式的实现详细信息。
+description: 了解 ASP.NET Core 数据保护密钥存储格式的实现细节。
 ms.author: riande
 ms.date: 04/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-storage-format
-ms.openlocfilehash: 3072c673791b589027a910b80eaba52052eb9311
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: d284927e8ff4315b813fe36b9c335d8bd75ece11
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80976932"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776859"
 ---
-# <a name="key-storage-format-in-aspnet-core"></a>ASP.NET核心中的关键存储格式
+# <a name="key-storage-format-in-aspnet-core"></a>ASP.NET Core 中的密钥存储格式
 
 <a name="data-protection-implementation-key-storage-format"></a>
 
-对象以 XML 表示形式保存。 密钥存储的默认目录是：
+对象静态存储在 XML 表示形式中。 密钥存储的默认目录为：
 
-* 窗口： _%本地应用数据%%\ASP.NET_数据保护-密钥\*
-* macOS / Linux： *$HOME/.aspnet/数据保护-密钥*
+* Windows： *%LOCALAPPDATA%\ASP.NET\DataProtection-Keys\*
+* macOS/Linux： *$HOME/.aspnet/dataprotection-keys*
 
-## <a name="the-key-element"></a>键\<>元素
+## <a name="the-key-element"></a>\<Key> 元素
 
-密钥作为顶级对象存在于密钥存储库中。 根据约定键具有文件名**键-{guid}.xml，** 其中{guid} 是密钥的 ID。 每个此类文件都包含一个键。 文件的格式如下。
+键作为顶级对象存在于密钥存储库中。 按约定键具有文件名**key {guid} .xml**，其中 {guid} 是密钥的 id。 每个这样的文件都包含一个键。 文件的格式如下所示。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -46,35 +52,35 @@ ms.locfileid: "80976932"
 </key>
 ```
 
-\<键>元素包含以下属性和子元素：
+\<Key> 元素包含以下属性和子元素：
 
-* 密钥 ID。此值被视为权威值;文件名对于人类的可读性来说简直就是一个不错的。
+* 密钥 id。此值被视为权威值;文件名只是一种 nicety 的可读性。
 
-* \<键>元素的版本，当前固定在 1。
+* \<密钥> 元素的版本，当前已固定为1。
 
 * 密钥的创建、激活和到期日期。
 
-* \<描述符>元素，其中包含有关此密钥中包含的经过身份验证的加密实现的信息。
+* \<描述符> 元素，其中包含有关此密钥中包含的经过身份验证的加密实现的信息。
 
-在上面的示例中，密钥的 ID 是 {80732141-ec8f-4b80-af9c-c4d2d1ff8901}，它于 2015 年 3 月 19 日创建并激活，其生存期为 90 天。 （有时激活日期可能稍微早于创建日期，如本示例所示。 这是由于 API 的工作方式中一点原因，并且在实践中是无害的。
+在上面的示例中，密钥 id 是 {80732141-ec8f-4b80-af9c-c4d2d1ff8901}，它是在年3月 2015 19 日创建和激活的，它的生存期为90天。 （有时激活日期可能会略微早于创建日期，如本示例中所示。 这是因为 Api 的工作方式吹毛求疵，在实践中是无害的。）
 
-## <a name="the-descriptor-element"></a>\<描述符>元素
+## <a name="the-descriptor-element"></a>\<描述符> 元素
 
-外部\<描述符>元素包含一个属性反序列化类型，该类型是实现 IAuthenticatedEncryptor 描述器解序列化的类型的程序集限定名称。 此类型负责读取内部\<描述符>元素并分析 中包含的信息。
+外部\<描述符> 元素包含 deserializerType 属性，该属性是实现 IAuthenticatedEncryptorDescriptorDeserializer 的类型的程序集限定名称。 此类型负责读取内部\<描述符> 元素和分析中包含的信息。
 
-\<描述符>元素的特定格式取决于由密钥封装的经过身份验证的加密器实现，并且每种反序列化器类型都期望为此采用略有不同的格式。 但是，通常，此元素将包含算法信息（名称、类型、OID 或类似）和密钥材料。 在上面的示例中，描述符指定此密钥包装 AES-256-CBC 加密 + HMACSHA256 验证。
+\<描述符> 元素的特定格式取决于由密钥封装的经过身份验证的加密器实现，并且每个反序列化程序类型都需要与此类型略有不同的格式。 但一般情况下，此元素将包含算法信息（名称、类型、Oid 或类似）和密钥材料。 在上面的示例中，描述符指定此密钥包装 AES-256-CBC encryption + HMACSHA256 验证。
 
-## <a name="the-encryptedsecret-element"></a>加密\<的机密>元素
+## <a name="the-encryptedsecret-element"></a>\<EncryptedSecret> 元素
 
-如果[启用静态机密加密](xref:security/data-protection/implementation/key-encryption-at-rest)加密，则可能存在包含密钥材料加密形式的**&lt;加密&gt;机密**元素。 该属性`decryptorType`是实现[IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor)的类型的程序集限定名称。 此类型负责读取内部**&lt;加密密钥&gt;** 元素并解密它以恢复原始纯文本。
+如果[启用静态加密机密，](xref:security/data-protection/implementation/key-encryption-at-rest)则包含加密形式的密钥材料的** &lt;encryptedSecret&gt; **元素可能存在。 特性`decryptorType`是实现[IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor)的类型的程序集限定名称。 此类型负责读取内部** &lt;encryptedKey&gt; **元素，并对其进行解密以恢复原始纯文本。
 
-与`<descriptor>`，`<encryptedSecret>`元素的特定格式取决于正在使用的静态加密机制。 在上面的示例中，主密钥根据注释使用 Windows DPAPI 进行加密。
+与`<descriptor>`一样， `<encryptedSecret>`元素的特定格式依赖于正在使用的静态加密机制。 在上面的示例中，使用 Windows DPAPI 按注释对主密钥进行加密。
 
-## <a name="the-revocation-element"></a>吊销\<>元素
+## <a name="the-revocation-element"></a>\<吊销> 元素
 
-吊销作为顶级对象存在于密钥存储库中。 根据约定吊销具有文件名**吊销-[时间戳].xml（** 用于在特定日期之前撤消所有密钥）或**吊销-{guid_.xml（** 用于撤销特定密钥）。 每个文件包含一个\<吊销>元素。
+吊销作为顶级对象存在于密钥存储库中。 按照约定吊销具有文件名**吊销-{timestamp} .xml** （用于在特定日期前撤销所有密钥）或**吊销-{guid} .xml** （用于吊销特定密钥）。 每个文件都包含\<一个吊销> 元素。
 
-对于单个键的吊销，文件内容如下。
+对于单个密钥的吊销，文件内容将如下所示。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -85,7 +91,7 @@ ms.locfileid: "80976932"
 </revocation>
 ```
 
-在这种情况下，仅吊销指定的密钥。 但是，如果密钥 ID 为"*"，则如以下示例所示，创建日期早于指定吊销日期的所有密钥将被吊销。
+在这种情况下，仅吊销指定的密钥。 不过，如果密钥 id 为 "*"，如以下示例中所示，创建日期早于指定吊销日期的所有密钥都将被吊销。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -97,4 +103,4 @@ ms.locfileid: "80976932"
 </revocation>
 ```
 
-系统\<永远不会读取>元素的原因。 它只是一个方便的地方，存储一个人类可读的理由的撤销。
+系统\<永远不会读取> 元素的原因。 这只是一个方便的位置，用于存储可供用户阅读的吊销原因。

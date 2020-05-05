@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: performance/response-compression
-ms.openlocfilehash: 8fc68f2303bfcf16d279b829ab9441a80119f1bb
-ms.sourcegitcommit: 755952496316fdb0923689109b536b609ce525ee
+ms.openlocfilehash: 12a39ccfefdcaec6251a9804011aefde3bbae7b2
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/01/2020
-ms.locfileid: "82643082"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776664"
 ---
 # <a name="response-compression-in-aspnet-core"></a>ASP.NET Core 中的响应压缩
 
@@ -62,7 +68,7 @@ ms.locfileid: "82643082"
 
 下表介绍了请求、发送、缓存和接收压缩内容所涉及的标头。
 
-| Header             | Role |
+| 标头             | 角色 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | 从客户端发送到服务器，以指示客户端可接受的内容编码方案。 |
 | `Content-Encoding` | 从服务器发送到客户端，以指示有效负载中内容的编码。 |
@@ -76,7 +82,7 @@ ms.locfileid: "82643082"
 * 使用 Gzip 和自定义压缩提供程序的应用程序响应的压缩。
 * 如何将 MIME 类型添加到 MIME 类型的默认列表以进行压缩。
 
-## <a name="package"></a>包
+## <a name="package"></a>程序包
 
 响应压缩中间件由[AspNetCore. ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)包提供，后者隐式包含在 ASP.NET Core 应用中。
 
@@ -308,7 +314,7 @@ public void ConfigureServices(IServiceCollection services)
 
 下表介绍了请求、发送、缓存和接收压缩内容所涉及的标头。
 
-| Header             | Role |
+| 标头             | 角色 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | 从客户端发送到服务器，以指示客户端可接受的内容编码方案。 |
 | `Content-Encoding` | 从服务器发送到客户端，以指示有效负载中内容的编码。 |
@@ -322,7 +328,7 @@ public void ConfigureServices(IServiceCollection services)
 * 使用 Gzip 和自定义压缩提供程序的应用程序响应的压缩。
 * 如何将 MIME 类型添加到 MIME 类型的默认列表以进行压缩。
 
-## <a name="package"></a>包
+## <a name="package"></a>程序包
 
 若要将中间件包含在项目中，请添加对[AspNetCore 元包](xref:fundamentals/metapackage-app)的引用，其中包括[AspNetCore. ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)包。
 
@@ -553,7 +559,7 @@ public void ConfigureServices(IServiceCollection services)
 
 下表介绍了请求、发送、缓存和接收压缩内容所涉及的标头。
 
-| Header             | Role |
+| 标头             | 角色 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | 从客户端发送到服务器，以指示客户端可接受的内容编码方案。 |
 | `Content-Encoding` | 从服务器发送到客户端，以指示有效负载中内容的编码。 |
@@ -567,7 +573,7 @@ public void ConfigureServices(IServiceCollection services)
 * 使用 Gzip 和自定义压缩提供程序的应用程序响应的压缩。
 * 如何将 MIME 类型添加到 MIME 类型的默认列表以进行压缩。
 
-## <a name="package"></a>包
+## <a name="package"></a>程序包
 
 若要将中间件包含在项目中，请添加对[AspNetCore 元包](xref:fundamentals/metapackage-app)的引用，其中包括[AspNetCore. ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)包。
 
