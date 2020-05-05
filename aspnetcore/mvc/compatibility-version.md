@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 9/25/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/compatibility-version
-ms.openlocfilehash: b29e2ee49aaf0f557f1acd0cf03e9e82d5ea0105
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 45eca0bedc2e4e5c74936ae5d1bf525774467b2a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654804"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774205"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>ASP.NET Core MVC 的兼容性版本
 
@@ -20,7 +26,7 @@ ms.locfileid: "78654804"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法为 ASP.NET Core 3.0 应用的无操作方法。 也就是说，使用 `SetCompatibilityVersion` 的任何值调用 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> 都不会影响应用程序。
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法为 ASP.NET Core 3.0 应用的无操作方法。 也就是说，使用 <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> 的任何值调用 `SetCompatibilityVersion` 都不会影响应用程序。
 
 * ASP.NET Core 的下一个次版本可能提供新的 `CompatibilityVersion` 值。
 * `CompatibilityVersion` 值 `Version_2_0` 到 `Version_2_2` 被标记为 `[Obsolete(...)]`。
@@ -32,7 +38,7 @@ ms.locfileid: "78654804"
 
 ::: moniker range="< aspnetcore-3.0"
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许 ASP.NET Core 2.x 应用选择加入或退出 ASP.NET Core MVC 2.1 或 2.2 中引入的潜在重大行为变更。 这些潜在的中断行为变更通常取决于 MVC 子系统的行为方式以及运行时调用“代码”的方式。 通过选择加入，你将获取最新的行为以及 ASP.NET Core 的长期行为。
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许 ASP.NET Core 2.x 应用选择加入或退出 ASP.NET Core MVC 2.1 或 2.2 中引入的潜在重大行为变更。 这些潜在的中断行为变更通常取决于 MVC 子系统的行为方式以及运行时调用“代码”的方式****。 通过选择加入，你将获取最新的行为以及 ASP.NET Core 的长期行为。
 
 以下代码将兼容模式设置为 ASP.NET Core 2.2：
 
@@ -45,7 +51,7 @@ ms.locfileid: "78654804"
 * 不适用于所有 2.1 和更高版本的更改，它的目标是潜在地中断 MVC 子系统中的 ASP.NET Core 运行时行为变更。
 * 不扩展到 ASP.NET Core 3.0。
 
-未调用 `SetCompatibilityVersion` 的 ASP.NET Core 2.1 和 2.2 版本的应用的默认兼容性是 2.0 兼容性。 即，未调用 `SetCompatibilityVersion` 与调用 `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` 相同。
+未**** 调用 `SetCompatibilityVersion` 的 ASP.NET Core 2.1 和 2.2 版本的应用的默认兼容性是 2.0 兼容性。 即，未调用 `SetCompatibilityVersion` 与调用 `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` 相同。
 
 以下代码将兼容模式设置为 ASP.NET Core 2.2（以下行为除外）：
 

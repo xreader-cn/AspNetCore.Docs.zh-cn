@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
 ms.date: 12/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: e445fb3d50973643c9cea60395d1ed02c2f5f675
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 7c641fb12e0d06ebd7bb3ce9f878f0469b4a3d8e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652392"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775058"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>处理 ASP.NET Core Web API 中的错误
 
@@ -115,7 +121,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 ::: moniker-end
 
 > [!WARNING]
-> 仅当应用程序在开发环境中运行时才启用开发人员异常页。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
+> 仅当应用程序在开发环境中运行时才启用开发人员异常页****。 否则当应用程序在生产环境中运行时，详细的异常信息会向公众泄露 有关配置环境的详细信息，请参阅 <xref:fundamentals/environments>。
 
 ## <a name="exception-handler"></a>异常处理程序
 
@@ -244,7 +250,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 ## <a name="validation-failure-error-response"></a>验证失败错误响应
 
-对于 Web API 控制器，如果模型验证失败，MVC 将使用 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 响应类型做出响应。 MVC 使用 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> 的结果来构造验证失败的错误响应。 下面的示例使用工厂在 <xref:Microsoft.AspNetCore.Mvc.SerializableError> 中将默认响应类型更改为 `Startup.ConfigureServices`：
+对于 Web API 控制器，如果模型验证失败，MVC 将使用 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 响应类型做出响应。 MVC 使用 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> 的结果来构造验证失败的错误响应。 下面的示例使用工厂在 `Startup.ConfigureServices` 中将默认响应类型更改为 <xref:Microsoft.AspNetCore.Mvc.SerializableError>：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -266,7 +272,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 ## <a name="client-error-response"></a>客户端错误响应
 
-错误结果定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
+错误结果** 定义为具有 HTTP 状态代码 400 或更高的结果。 对于 Web API 控制器，MVC 会将错误结果转换为具有 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 的结果。
 
 ::: moniker range="= aspnetcore-2.1"
 
@@ -286,7 +292,7 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 MVC 使用 `Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` 生成 <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> 和 <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> 的所有实例。 这包括客户端错误响应、验证失败错误响应以及 `Microsoft.AspNetCore.Mvc.ControllerBase.Problem` 和 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem> 帮助程序方法。
 
-若要自定义问题详细信息响应，请在 `ProblemDetailsFactory` 中注册 `Startup.ConfigureServices` 的自定义实现：
+若要自定义问题详细信息响应，请在 `Startup.ConfigureServices` 中注册 `ProblemDetailsFactory` 的自定义实现：
 
 ```csharp
 public void ConfigureServices(IServiceCollection serviceCollection)

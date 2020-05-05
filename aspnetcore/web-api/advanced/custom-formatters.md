@@ -4,19 +4,25 @@ author: rick-anderson
 description: 了解如何为 ASP.NET Core 中的 Web API 创建和使用自定义格式化程序。
 ms.author: riande
 ms.date: 02/08/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: dd25cda460ba758cd07de094eaadd1f2d8c28657
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0836fc288a015adb9a6223c5a2b681b1b03bded4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654954"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777314"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 
 作者：[Tom Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据交换。 [模型绑定](xref:mvc/models/model-binding)使用输入格式化程序。 [格式响应](xref:web-api/advanced/formatting)使用输出格式化程序。
+ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据交换。 [模型绑定](xref:mvc/models/model-binding)使用输入格式化程序。 输出格式化程序用于[设置响应的格式](xref:web-api/advanced/formatting)。
 
 该框架为 JSON 和 XML 提供内置的输入和输出格式化程序。 它为纯文本提供内置的输出格式化程序，但不为纯文本提供输入格式化程序。
 
@@ -36,7 +42,7 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
 
 * 如果想对要发送到客户端的数据进行序列化，则创建输出格式化程序类。
 * 如果想对从客户端接收的数据进行反序列化，则创建输入格式化程序类。
-* 将格式化程序的实例添加到 `InputFormatters`MvcOptions`OutputFormatters` 中的 [ 和 ](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions) 集合。
+* 将格式化程序的实例添加到 [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions) 中的 `InputFormatters` 和 `OutputFormatters` 集合。
 
 以下部分针对其中每个步骤提供了指南和代码示例。
 
@@ -86,7 +92,7 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
 * 具有可能在运行时返回的派生类。
 * 需要知道操作在运行时返回了哪个派生类。
 
-例如，假设操作方法签名返回 `Person` 类型，但它可能返回从 `Student` 派生的 `Instructor` 或 `Person` 类型。 如果希望格式化程序仅处理 `Student` 对象，请检查提供给 [ 方法的上下文对象中的](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)对象`CanWriteResult`类型。 请注意，当操作方法返回 `CanWriteResult` 时，不必使用 `IActionResult`；在这种情况下，`CanWriteType` 方法可接收运行时类型。
+例如，假设操作方法签名返回 `Person` 类型，但它可能返回从 `Person` 派生的 `Student` 或 `Instructor` 类型。 如果希望格式化程序仅处理 `Student` 对象，请检查提供给 `CanWriteResult` 方法的上下文对象中的[对象](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)类型。 请注意，当操作方法返回 `IActionResult` 时，不必使用 `CanWriteResult`；在这种情况下，`CanWriteType` 方法可接收运行时类型。
 
 <a id="read-write"></a>
 
@@ -115,7 +121,8 @@ BEGIN:VCARD
 VERSION:2.1
 N:Davolio;Nancy
 FN:Nancy Davolio
-UID:20293482-9240-4d68-b475-325df4a83728
+no-loc: [Blazor, "Identity", "Let's Encrypt", Razor, SignalR]
+uid:20293482-9240-4d68-b475-325df4a83728
 END:VCARD
 ```
 

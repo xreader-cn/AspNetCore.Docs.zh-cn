@@ -1,18 +1,24 @@
 ---
-title: ASP.NET Core 中的数据保护密钥管理和生存期
+title: ASP.NET Core 中的数据保护密钥管理和生存期信息
 author: rick-anderson
 description: 了解 ASP.NET Core 中的数据保护密钥管理和生存期。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: 2f022a4c7519485fe629ce47c27d214c8c27d5bc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1db5177230fd4076af080e208f094ce4d6537c62
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655068"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777444"
 ---
-# <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>ASP.NET Core 中的数据保护密钥管理和生存期
+# <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>ASP.NET Core 中的数据保护密钥管理和生存期信息
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -29,16 +35,16 @@ ms.locfileid: "78655068"
 
    同时还必须启用应用池的 [setProfileEnvironment attribute](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration)。 `setProfileEnvironment` 的默认值为 `true`。 在某些情况下（例如，Windows 操作系统），将 `setProfileEnvironment` 设置为 `false`。 如果密钥未按预期存储在用户配置文件目录中，请执行以下操作：
 
-   1. 导航到 %windir%/system32/inetsrv/config 文件夹。
-   1. 打开 applicationHost.config 文件。
-   1. 找到 `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>` 元素。
+   1. 导航到 %windir%/system32/inetsrv/config  文件夹。
+   1. 打开 applicationHost.config  文件。
+   1. 查找 `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>` 元素。
    1. 确认 `setProfileEnvironment` 属性不存在，这会将值默认设置为 `true`，或者将属性的值显式设置为 `true`。
 
 1. 如果应用托管在 IIS 中，则密钥将保留在仅列入工作进程帐户的特殊注册表项中的 HKLM 注册表中。 使用 DPAPI 对密钥静态加密。
 
 1. 如果这些条件都不匹配，则不会在当前进程的外部保留键。 当进程关闭时，所有生成的密钥都将丢失。
 
-开发人员始终处于完全控制下，并且可以重写存储键的方式和位置。 上述前三个选项应为大多数应用提供良好的默认设置，这与 ASP.NET **\<machineKey >** 自动生成例程在过去的工作方式类似。 最终的回退选项是要求开发人员在需要进行密钥持久性的情况下预先指定[配置](xref:security/data-protection/configuration/overview)的唯一方案，但只有在极少数情况下才会发生此回退。
+开发人员始终处于完全控制下，并且可以重写存储键的方式和位置。 上述前三个选项应为大多数应用提供良好的默认设置，这与 ASP.NET ** \<machineKey>** 自动生成例程在过去的工作方式类似。 最终的回退选项是要求开发人员在需要进行密钥持久性的情况下预先指定[配置](xref:security/data-protection/configuration/overview)的唯一方案，但只有在极少数情况下才会发生此回退。
 
 在 Docker 容器中托管时，密钥应保留在一个文件夹中，该文件夹是 Docker 卷（共享卷或主机装载的卷，该卷会超出容器的生存期）或外部提供程序（如[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)或[Redis](https://redis.io/)）。 如果应用无法访问共享的网络卷，则外部提供程序在 web 场方案中也很有用（有关详细信息，请参阅[PersistKeysToFileSystem](xref:security/data-protection/configuration/overview#persistkeystofilesystem) ）。
 

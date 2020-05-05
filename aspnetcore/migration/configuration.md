@@ -4,13 +4,19 @@ author: ardalis
 description: 了解如何将配置从 ASP.NET MVC 项目迁移到 ASP.NET Core MVC 项目。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/configuration
-ms.openlocfilehash: 2c50ea768a42aa38d14c55d8c403fea4176b3650
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: f65db927d79224695861101aff00897315c6e0b2
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651882"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777223"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>将配置迁移到 ASP.NET Core
 
@@ -22,7 +28,7 @@ ms.locfileid: "78651882"
 
 ## <a name="setup-configuration"></a>设置配置
 
-ASP.NET Core 不再使用以前版本的 ASP.NET 使用的*global.asax* *和 web.config 文件。* 在早期版本的 ASP.NET 中，应用程序启动逻辑放置在*global.asax*内的 `Application_StartUp` 方法中。 稍后，在 ASP.NET MVC 中， *Startup.cs*文件包含在项目的根目录中;并在应用程序启动时调用。 ASP.NET Core 通过将所有启动逻辑放在*Startup.cs*文件中来完全采用这种方法。
+ASP.NET Core 不再使用以前版本的 ASP.NET 使用的*global.asax* *和 web.config 文件。* 在早期版本的 ASP.NET 中，应用程序启动逻辑放置在`Application_StartUp` *global.asax*内的方法中。 稍后，在 ASP.NET MVC 中， *Startup.cs*文件包含在项目的根目录中;并在应用程序启动时调用。 ASP.NET Core 通过将所有启动逻辑放在*Startup.cs*文件中来完全采用这种方法。
 
 Web.config*文件也*已替换为 ASP.NET Core。 配置本身现在可以配置为*Startup.cs*中所述的应用程序启动过程的一部分。 配置仍可利用 XML 文件，但通常 ASP.NET Core 项目会将配置值放入 JSON 格式的文件中，如*appsettings*。 ASP.NET Core 的配置系统还可以轻松地访问环境变量，从而为特定于环境的值提供[更安全、更可靠的位置](xref:security/app-secrets)。 对于不应签入源控件的机密（如连接字符串和 API 密钥），尤其如此。 若要详细了解 ASP.NET Core 中的配置，请参阅[配置](xref:fundamentals/configuration/index)。
 
@@ -30,7 +36,7 @@ Web.config*文件也*已替换为 ASP.NET Core。 配置本身现在可以配置
 
 [!code-csharp[](configuration/samples/WebApp1/src/WebApp1/Startup.cs?range=11-16)]
 
-请注意，此时， *Startup.cs*文件不会进行编译，因为我们仍需要添加以下 `using` 语句：
+请注意，此时， *Startup.cs*文件不会进行编译，因为我们仍需要添加以下`using`语句：
 
 ```csharp
 using Microsoft.Extensions.Configuration;
@@ -42,7 +48,7 @@ using Microsoft.Extensions.Configuration;
 
 ## <a name="migrate-configuration-settings-from-webconfig"></a>从 web.config 迁移配置设置
 
-在 `<connectionStrings>` 元素中，我们的 ASP.NET MVC 项目包含*web.config 中*所需的数据库连接字符串。 在 ASP.NET Core 项目中，我们要将此信息存储在*appsettings*文件中。 打开*appsettings*，注意它已经包含以下内容：
+ASP.NET MVC 项目的`<connectionStrings>` *元素中包含 web.config 中所*需的数据库连接字符串。 在 ASP.NET Core 项目中，我们要将此信息存储在*appsettings*文件中。 打开*appsettings*，注意它已经包含以下内容：
 
 [!code-json[](../migration/configuration/samples/WebApp1/src/WebApp1/appsettings.json?highlight=4)]
 
@@ -50,4 +56,4 @@ using Microsoft.Extensions.Configuration;
 
 ## <a name="summary"></a>总结
 
-ASP.NET Core 将置于单个文件，在其中的必要的服务和依赖项可以定义和配置应用程序的所有启动逻辑。 它*将 web.config 文件替换*为灵活的配置功能，该功能可利用各种文件格式（如 JSON）以及环境变量。
+ASP.NET Core 将应用程序的所有启动逻辑放在一个文件中，可以在其中定义和配置所需的服务和依赖项。 它*将 web.config 文件替换*为灵活的配置功能，该功能可利用各种文件格式（如 JSON）以及环境变量。

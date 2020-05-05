@@ -7,14 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/05/2019
 no-loc:
+- Blazor
+- Identity
 - Let's Encrypt
+- Razor
+- SignalR
 uid: security/docker-https
-ms.openlocfilehash: f2a615093e7b1190962bd1c6ecbcc63f65bfbe7e
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.openlocfilehash: 74d4a215b81259674fa6c14bdc8f306a3508f71a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/18/2020
-ms.locfileid: "79511582"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775110"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -36,14 +40,14 @@ ms.locfileid: "79511582"
 
 针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/)是提供免费证书的证书颁发机构。
 
-本文档使用[自签名开发证书](https://en.wikipedia.org/wiki/Self-signed_certificate)来托管 `localhost`上的预建映像。 说明类似于使用生产证书。
+本文档使用[自签名开发证书](https://en.wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像`localhost`。 说明类似于使用生产证书。
 
 对于生产证书：
 
-* `dotnet dev-certs` 工具不是必需的。
+* 此`dotnet dev-certs`工具不是必需的。
 * 证书不需要存储在说明中使用的位置。 尽管不建议在网站目录中存储证书，但任何位置都应有效。
 
-以下部分中包含的说明使用 Docker 的 `-v` 命令行选项将证书装载到容器中。 可以使用*Dockerfile*中的 `COPY` 命令将证书添加到容器映像中，但不建议这样做。 由于以下原因，不建议将证书复制到映像：
+以下部分中包含的说明使用 Docker 的`-v`命令行选项将证书装载到容器中。 可以使用`COPY` *Dockerfile*中的命令将证书添加到容器映像中，但不建议这样做。 由于以下原因，不建议将证书复制到映像：
 
 * 使用同一个映像测试开发人员证书非常困难。
 * 使用同一个映像通过生产证书进行托管很困难。
@@ -62,7 +66,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将 `{ password here }` 替换为密码。
+在上述命令中，将`{ password here }`替换为密码。
 
 运行容器映像，并为 HTTPS 配置 ASP.NET Core：
 
@@ -82,9 +86,9 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-只有 macOS 和 Windows 支持 `dotnet dev-certs https --trust`。 你需要以发行版支持的方式信任 Linux 上的证书。 可能需要在浏览器中信任该证书。
+`dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以发行版支持的方式信任 Linux 上的证书。 可能需要在浏览器中信任该证书。
 
-在上述命令中，将 `{ password here }` 替换为密码。
+在上述命令中，将`{ password here }`替换为密码。
 
 运行容器映像，并为 HTTPS 配置 ASP.NET Core：
 
@@ -104,7 +108,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将 `{ password here }` 替换为密码。
+在上述命令中，将`{ password here }`替换为密码。
 
 运行容器映像，并为 HTTPS 配置 ASP.NET Core：
 

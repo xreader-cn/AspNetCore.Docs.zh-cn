@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/27/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/threat-mitigation
-ms.openlocfilehash: 9a5e313153e5c5c17fc723cc9768c49ffd828007
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 2c87e6cef5a16b394b03dac1635f18d09593eb94
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206340"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774179"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Blazor 服务器的威胁缓解指南
 
@@ -36,7 +39,7 @@ Blazor Server apps 采用有*状态*数据处理模型，其中服务器和客�
 
 当客户端与服务器交互并导致服务器消耗过多资源时，可能会发生资源耗尽。 过度消耗资源主要影响：
 
-* CPU[](#cpu)
+* [CPU](#cpu)
 * [内存](#memory)
 * [客户端连接](#client-connections)
 
@@ -342,9 +345,9 @@ Blazor服务器框架采用一些步骤来防范前面的一些威胁：
 
 要使 XSS 漏洞存在，应用必须将用户输入合并到呈现的页面中。 Blazor服务器组件执行编译时步骤，在该步骤中，将*razor*文件中的标记转换为过程 c # 逻辑。 在运行时，c # 逻辑生成描述元素、文本和子组件的*呈现树*。 此操作通过一系列 JavaScript 指令应用于浏览器的 DOM （或者在预呈现时序列化为 HTML）：
 
-* 通过普通 Razor 语法（例如`@someStringValue`）呈现的用户输入不会公开 XSS 漏洞，因为 Razor 语法通过只能写入文本的命令添加到 DOM。 即使该值包含 HTML 标记，该值也会显示为静态文本。 预呈现时，输出是 HTML 编码的，它还将内容显示为静态文本。
+* 通过常规Razor语法呈现的用户输入（例如） `@someStringValue`不会公开 XSS 漏洞，因为该Razor语法通过只能写入文本的命令添加到 DOM。 即使该值包含 HTML 标记，该值也会显示为静态文本。 预呈现时，输出是 HTML 编码的，它还将内容显示为静态文本。
 * 不允许使用脚本标记，也不应将其包含在应用的组件呈现树中。 如果某个脚本标记包含在组件的标记中，则会生成编译时错误。
-* 组件作者可以在 c # 中创作组件，而无需使用 Razor。 组件作者负责发出输出时使用正确的 Api。 例如，使用`builder.AddContent(0, someUserSuppliedString)`而*不* `builder.AddMarkupContent(0, someUserSuppliedString)`是，因为后者可能会创建 XSS 漏洞。
+* 组件作者可以使用 c # 编写组件， Razor而无需使用。 组件作者负责发出输出时使用正确的 Api。 例如，使用`builder.AddContent(0, someUserSuppliedString)`而*不* `builder.AddMarkupContent(0, someUserSuppliedString)`是，因为后者可能会创建 XSS 漏洞。
 
 作为防范 XSS 攻击的一部分，请考虑实施 XSS 缓解，如[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)。
 
