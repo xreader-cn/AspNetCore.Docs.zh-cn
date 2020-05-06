@@ -5,21 +5,27 @@ description: 了解如何迁移使用 non-ASP.NET 的核心应用程序。日志
 ms.author: pakrym
 ms.custom: mvc
 ms.date: 01/04/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/logging-nonaspnetcore
-ms.openlocfilehash: 2519ddc02cee5978483bcaef4341a52aad3ba2a6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 3a84d53cb925a518f6c3e244dd342a3228a1fe17
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651876"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777054"
 ---
 # <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
 
-本文概述了迁移使用2.1 到2.2 或 3.0 `Microsoft.Extensions.Logging` 的 non-ASP.NET 核心应用程序的常见步骤。
+本文概述了将使用`Microsoft.Extensions.Logging` 2.1 的 non-ASP.NET 核心应用程序迁移到2.2 或3.0 的常见步骤。
 
 ## <a name="21-to-22"></a>2.1 到 2.2
 
-手动创建 `ServiceCollection` 并调用 `AddLogging`。
+手动创建`ServiceCollection`并调用`AddLogging`。
 
 2.1 示例：
 
@@ -47,7 +53,7 @@ using (var loggerFactory = serviceProvider.GetService<ILoggerFactory>())
 
 ## <a name="21-to-30"></a>2.1 至3。0
 
-在3.0 中，使用 `LoggingFactory.Create`。
+在3.0 中， `LoggingFactory.Create`使用。
 
 2.1 示例：
 

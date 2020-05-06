@@ -5,13 +5,19 @@ description: 演示如何使用图像标记帮助程序。
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
-ms.openlocfilehash: 964072ad276f7e3e411ee41cb03a2efb9d05c585
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e1e3566f09c44d70650fa1f21e1921e76e46d384
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653772"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777405"
 ---
 # <a name="image-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的图像标记帮助程序
 
@@ -26,19 +32,19 @@ ms.locfileid: "78653772"
 * 将唯一缓存破坏字符串作为图像源的查询参数进行追加。
 * 如果主机 Web 服务器上的文件发生更改，将生成包含已更新请求参数的唯一请求 URL。
 
-有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 ## <a name="image-tag-helper-attributes"></a>图像标记帮助程序属性
 
 ### <a name="src"></a>src
 
-若要激活图像标记帮助程序，`src` 元素需要有 `<img>` 属性。
+若要激活图像标记帮助程序，`<img>` 元素需要有 `src` 属性。
 
 图像源 (`src`) 必须指向服务器上的物理静态文件。 如果 `src` 是一个远程 URI，则不会生成缓存破坏查询字符串参数。
 
 ### <a name="asp-append-version"></a>asp-append-version
 
-如果使用 `asp-append-version` 值和 `true` 属性指定 `src`，则会调用图像标记帮助程序。
+如果使用 `true` 值和 `src` 属性指定 `asp-append-version`，则会调用图像标记帮助程序。
 
 下面的示例使用图像标记帮助程序：
 
@@ -46,13 +52,13 @@ ms.locfileid: "78653772"
 <img src="~/images/asplogo.png" asp-append-version="true">
 ```
 
-如果目录 /wwwroot/images/ 中存在静态文件，则生成的 html 与下面类似（哈希有所不同）：
+如果目录 /wwwroot/images/** 中存在静态文件，则生成的 html 与下面类似（哈希有所不同）：
 
 ```html
 <img src="/images/asplogo.png?v=Kl_dqr9NVtnMdsM2MUg4qthUnWZm5T1fCEimBPWDNgM">
 ```
 
-分配给参数 `v` 的值是磁盘上的 asplogo.png 文件的哈希值。 如果 Web 服务器无法获取对静态文件的读取访问权限，则不会向呈现在标记中的 `v` 属性添加 `src` 参数。
+分配给参数 `v` 的值是磁盘上的 asplogo.png 文件的哈希值。** 如果 Web 服务器无法获取对静态文件的读取访问权限，则不会向呈现在标记中的 `src` 属性添加 `v` 参数。
 
 ## <a name="hash-caching-behavior"></a>哈希缓存行为
 

@@ -4,13 +4,19 @@ author: ardalis
 description: 了解如何读取和控制应用程序模型，从而修改 MVC 元素在 ASP.NET Core 中的行为。
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5e31d2e6611321bec7442534ce41350de10478e0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654552"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768658"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>使用 ASP.NET Core 中的应用程序模型
 
@@ -38,7 +44,7 @@ ASP.NET Core MVC 应用程序模型具有以下结构：
 
 ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iapplicationmodelprovider) 接口定义）加载应用程序模型。 此部分介绍此提供程序的工作原理的一些内部实现细节。 这是一项高级主题 — 利用应用程序模型的大多数应用应使用约定来执行此操作。
 
-`IApplicationModelProvider` 接口的实现相互“包装”，每个实现都基于其 `OnProvidersExecuting` 属性以升序调用 `Order`。 然后，按相反的顺序调用 `OnProvidersExecuted` 方法。 该框架定义了多个提供程序：
+`IApplicationModelProvider` 接口的实现相互“包装”，每个实现都基于其 `Order` 属性以升序调用 `OnProvidersExecuting`。 然后，按相反的顺序调用 `OnProvidersExecuted` 方法。 该框架定义了多个提供程序：
 
 首先 (`Order=-1000`)：
 
@@ -63,7 +69,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 * 将操作方法参数添加到上下文
 * 应用路由和其他属性
 
-某些内置行为由 `DefaultApplicationModelProvider` 实现。 此提供程序负责构造 [`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel)，后者又引用 [`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel)、[`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel) 和 [`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) 实例。 `DefaultApplicationModelProvider` 类是一个内部框架实现细节，未来将对其进行更改。 
+某些内置行为由 `DefaultApplicationModelProvider` 实现。 此提供程序负责[`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel)构造，后者又引用[`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel)、 [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel)和[`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel)实例。 `DefaultApplicationModelProvider` 类是一个内部框架实现细节，未来将对其进行更改。 
 
 `AuthorizationApplicationModelProvider` 负责应用与 `AuthorizeFilter` 和 `AllowAnonymousFilter` 属性关联的行为。 [详细了解这些属性](xref:security/authorization/simple)。
 
@@ -80,7 +86,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 * [`IActionModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iactionmodelconvention)
 * [`IParameterModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iparametermodelconvention)
 
-可通过以下方式应用约定：将它们添加到 MVC 选项，或实现 `Attribute` 并将它们应用于控制器、操作或操作参数（类似于 [`Filters`](xref:mvc/controllers/filters)）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
+约定的应用方法是将它们添加到 MVC 选项， `Attribute`或通过实现并将其应用于控制器、操作或操作参数（ [`Filters`](xref:mvc/controllers/filters)类似于）。 与筛选器不同的是，约定仅在应用启动时执行，而不作为每个请求的一部分执行。
 
 ### <a name="sample-modifying-the-applicationmodel"></a>示例：修改 ApplicationModel
 
@@ -88,7 +94,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/ApplicationDescription.cs)]
 
-当在 `ConfigureServices` 的 `Startup` 中添加 MVC 时，应用程序模型约定作为选项应用。
+当在 `Startup` 的 `ConfigureServices` 中添加 MVC 时，应用程序模型约定作为选项应用。
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=5)]
 
@@ -154,7 +160,7 @@ ASP.NET Core MVC 使用提供程序模式（由 [IApplicationModelProvider](/dot
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=6)]
 
 > [!TIP]
-> 可以使用 [ 来访问 ](xref:fundamentals/middleware/index)，以将约定添加到`MvcOptions`中间件`services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
+> 可以使用 `services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));` 来访问 `MvcOptions`，以将约定添加到[中间件](xref:fundamentals/middleware/index)
 
 此示例将此约定应用于未使用属性路由的路由，其中，控制器名称包含“Namespace”。 以下控制器演示了此约定：
 
@@ -167,7 +173,7 @@ ASP.NET Core MVC 使用一组不同于 ASP.NET Web API 2 的约定。 使用自�
 > [!NOTE]
 > 详细了解[从 ASP.NET Web API 迁移](xref:migration/webapi)。
 
-若要使用 Web API Compatibility Shim，需将该包添加到项目中，然后通过调用 `AddWebApiConventions` 中的 `Startup`，将约定添加到 MVC：
+若要使用 Web API Compatibility Shim，需将该包添加到项目中，然后通过调用 `Startup` 中的 `AddWebApiConventions`，将约定添加到 MVC：
 
 ```csharp
 services.AddMvc().AddWebApiConventions();
@@ -200,7 +206,7 @@ services.AddMvc().AddWebApiConventions();
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>使用 ApiExplorer 记录应用
 
-应用程序模型在每个级别公开了 [`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel) 属性，该属性可用于遍历应用的结构。 这可用于[使用 Swagger 等工具为 Web API 生成帮助页](xref:tutorials/web-api-help-pages-using-swagger)。 `ApiExplorer` 属性公开了 `IsVisible` 属性，后者可设置为指定应公开的应用模型部分。 可以使用约定配置此设置：
+应用程序模型在每[`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel)个级别公开一个属性，该属性可用于遍历应用的结构。 这可用于[使用 Swagger 等工具为 Web API 生成帮助页](xref:tutorials/web-api-help-pages-using-swagger)。 `ApiExplorer` 属性公开了 `IsVisible` 属性，后者可设置为指定应公开的应用模型部分。 可以使用约定配置此设置：
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/EnableApiExplorerApplicationConvention.cs)]
 

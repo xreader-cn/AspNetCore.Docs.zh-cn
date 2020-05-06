@@ -5,13 +5,19 @@ description: 介绍与表单配合使用的内置标记帮助程序。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 5af532db35b858d157f61a6aca30f55d15e9ff1e
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: ba523fba60153e2ae804f5a875cfaa1aa8fffedd
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/16/2020
-ms.locfileid: "79416196"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82769097"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core 表单中的标记帮助程序
 
@@ -27,11 +33,11 @@ ms.locfileid: "79416196"
 
 [表单](https://www.w3.org/TR/html401/interact/forms.html)标记帮助程序：
 
-* 为 MVC 控制器操作或命名路由生成 HTML [\<FORM>](https://www.w3.org/TR/html401/interact/forms.html) `action` 属性值
+* 为 MVC 控制器操作或命名路由生成 HTML [ \<窗体>](https://www.w3.org/TR/html401/interact/forms.html) `action`特性值
 
 * 生成隐藏的[请求验证令牌](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)，防止跨站点请求伪造（在 HTTP Post 操作方法中与 `[ValidateAntiForgeryToken]` 属性配合使用时）
 
-* 提供 `asp-route-<Parameter Name>` 属性，其中 `<Parameter Name>` 添加到路由值。 `routeValues` 和 `Html.BeginForm` 的 `Html.BeginRouteForm` 参数提供类似的功能。
+* 提供 `asp-route-<Parameter Name>` 属性，其中 `<Parameter Name>` 添加到路由值。 `Html.BeginForm` 和 `Html.BeginRouteForm` 的 `routeValues` 参数提供类似的功能。
 
 * 具有 HTML 帮助程序替代项 `Html.BeginForm` 和 `Html.BeginRouteForm`
 
@@ -48,11 +54,11 @@ ms.locfileid: "79416196"
 </form>
 ```
 
-MVC 运行时通过表单标记帮助程序属性 `action` 和 `asp-controller` 生成 `asp-action` 属性值。 表单标记帮助程序还会生成隐藏的[请求验证令牌](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)，防止跨站点请求伪造（在 HTTP Post 操作方法中与 `[ValidateAntiForgeryToken]` 属性配合使用时）。 保护纯 HTML 表单免受跨站点请求伪造的影响很难，但表单标记帮助程序可提供此服务。
+MVC 运行时通过表单标记帮助程序属性 `asp-controller` 和 `asp-action` 生成 `action` 属性值。 表单标记帮助程序还会生成隐藏的[请求验证令牌](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)，防止跨站点请求伪造（在 HTTP Post 操作方法中与 `[ValidateAntiForgeryToken]` 属性配合使用时）。 保护纯 HTML 表单免受跨站点请求伪造的影响很难，但表单标记帮助程序可提供此服务。
 
 ### <a name="using-a-named-route"></a>使用命名路由
 
-`asp-route` 标记帮助程序属性还可为 HTML `action` 属性生成标记。 具有名为 [ 的](../../fundamentals/routing.md)路由`register`的应用可将以下标记用于注册页：
+`asp-route` 标记帮助程序属性还可为 HTML `action` 属性生成标记。 具有名为 `register` 的[路由](../../fundamentals/routing.md)的应用可将以下标记用于注册页：
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
 
@@ -69,11 +75,11 @@ MVC 运行时通过表单标记帮助程序属性 `action` 和 `asp-controller` 
 
 ## <a name="the-form-action-tag-helper"></a>窗体操作标记帮助程序
 
-窗体操作标记帮助程序在生成的 `formaction` 或 `<button ...>` 标记上生成 `<input type="image" ...>` 属性。 `formaction` 属性控制窗体在何处提交数据。 它绑定到 [ 类型的 \<](https://www.w3.org/wiki/HTML/Elements/input)input>`image` 元素以及 [\<button>](https://www.w3.org/wiki/HTML/Elements/button) 元素。 窗体操作标记帮助程序允许使用多个 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-` 属性来控制为相应元素生成的 `formaction` 链接。
+窗体操作标记帮助程序在生成的 `<button ...>` 或 `<input type="image" ...>` 标记上生成 `formaction` 属性。 `formaction` 属性控制窗体在何处提交数据。 它绑定`image`到[ \<类型的输入>](https://www.w3.org/wiki/HTML/Elements/input)元素和[ \<按钮>](https://www.w3.org/wiki/HTML/Elements/button)元素。 窗体操作标记帮助程序允许使用多个 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-` 属性来控制为相应元素生成的 `formaction` 链接。
 
-用于控制 [ 值的受支持的 ](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)AnchorTagHelper`formaction` 属性：
+用于控制 `formaction` 值的受支持的 [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性：
 
-|Attribute|说明|
+|属性|说明|
 |---|---|
 |[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|控制器的名称。|
 |[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|操作方法的名称。|
@@ -81,13 +87,13 @@ MVC 运行时通过表单标记帮助程序属性 `action` 和 `asp-controller` 
 |[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Razor Page 的名称。|
 |[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Razor Page 处理程序的名称。|
 |[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|路由的名称。|
-|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如，`asp-route-id="1234"` 。|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|单个 URL 路由值。 例如，`asp-route-id="1234"`。|
 |[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|所有路由值。|
 |[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|URL 片段。|
 
 ### <a name="submit-to-controller-example"></a>提交到控制器示例
 
-选中输入或按钮时，下面的标记将窗体提交到 `Index` 的 `HomeController` 操作：
+选中输入或按钮时，下面的标记将窗体提交到 `HomeController` 的 `Index` 操作：
 
 ```cshtml
 <form method="post">
@@ -161,7 +167,7 @@ public class HomeController : Controller
 
 ## <a name="the-input-tag-helper"></a>输入标记帮助程序
 
-输入标记帮助程序将 HTML [\<input>](https://www.w3.org/wiki/HTML/Elements/input) 元素绑定到 Razor 视图中的模型表达式。
+输入标记帮助程序将 HTML [ \<输入>](https://www.w3.org/wiki/HTML/Elements/input)元素绑定到 razor 视图中的模型表达式。
 
 语法：
 
@@ -171,13 +177,13 @@ public class HomeController : Controller
 
 输入标记帮助程序：
 
-* 为 `id` 属性中指定的表达式名称生成 `name` 和 `asp-for` HTML 属性。 `asp-for="Property1.Property2"` 等效于 `m => m.Property1.Property2`。 表达式的名称用于 `asp-for` 属性值。 有关其他信息，请参阅[表达式名称](#expression-names)部分。
+* 为 `asp-for` 属性中指定的表达式名称生成 `id` 和 `name` HTML 属性。 `asp-for="Property1.Property2"` 等效于 `m => m.Property1.Property2`。 表达式的名称用于 `asp-for` 属性值。 有关其他信息，请参阅[表达式名称](#expression-names)部分。
 
-* 根据模型类型和应用于模型属性的`type`数据注释[特性设置 HTML ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) 特性值
+* 根据模型类型和应用于模型属性的[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)特性设置 HTML `type` 特性值
 
 * 如果已经指定，不会覆盖 HTML `type` 属性值
 
-* 通过应用于模型属性的[数据注释](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)特性生成 [HTML5](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) 验证特性
+* 通过应用于模型属性的[数据注释](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)特性生成 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) 验证特性
 
 * 具有与 `Html.TextBoxFor` 和 `Html.EditorFor` 重叠的 HTML 帮助程序功能。 有关详细信息，请参阅**输入标记帮助程序的 HTML 帮助程序替代项**部分。
 
@@ -241,7 +247,7 @@ Type expected
    </form>
 ```
 
-应用于 `Email` 和 `Password` 属性的数据注释在模型中生成元数据。 输入标记帮助程序使用模型元数据并生成 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` 属性（请参阅[模型验证](../models/validation.md)）。 这些属性描述要附加到输入字段的验证程序。 这样可以提供非介入式 HTML5 和 [jQuery](https://jquery.com/) 验证。 非引人注目特性的格式 `data-val-rule="Error Message"`，其中 rule 是验证规则的名称（如 `data-val-required`、`data-val-email`、`data-val-maxlength`等）如果属性中提供错误消息，则该消息将显示为 `data-val-rule` 特性的值。 还有表单 `data-val-ruleName-argumentName="argumentValue"` 的属性，这些属性提供有关规则的其他详细信息，例如，`data-val-maxlength-max="1024"`。
+应用于 `Email` 和 `Password` 属性的数据注释在模型中生成元数据。 输入标记帮助程序使用模型元数据并生成 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` 属性（请参阅[模型验证](../models/validation.md)）。 这些属性描述要附加到输入字段的验证程序。 这样可以提供非介入式 HTML5 和 [jQuery](https://jquery.com/) 验证。 不引人注目的特性具有格式`data-val-rule="Error Message"`，其中 rule 是验证规则的名称（例如`data-val-required`、 `data-val-email` `data-val-maxlength`、等）。如果属性中提供错误消息，则该消息将显示为该`data-val-rule`属性的值。 还有表单 `data-val-ruleName-argumentName="argumentValue"` 的属性，这些属性提供有关规则的其他详细信息，例如，`data-val-maxlength-max="1024"`。
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>输入标记帮助程序的 HTML 帮助程序替代项
 
@@ -249,7 +255,7 @@ Type expected
 
 ### <a name="htmlattributes"></a>HtmlAttributes
 
-`@Html.Editor()` 和 `@Html.EditorFor()` 在执行其默认模板时使用名为 `ViewDataDictionary` 的特殊 `htmlAttributes` 条目。 此行为可选择使用 `additionalViewData` 参数增强。 键“htmlAttributes”区分大小写。 键“htmlAttributes”的处理方式与传递到输入帮助程序的 `htmlAttributes` 对象（例如 `@Html.TextBox()`）的处理方式类似。
+`@Html.Editor()` 和 `@Html.EditorFor()` 在执行其默认模板时使用名为 `htmlAttributes` 的特殊 `ViewDataDictionary` 条目。 此行为可选择使用 `additionalViewData` 参数增强。 键“htmlAttributes”区分大小写。 键“htmlAttributes”的处理方式与传递到输入帮助程序的 `htmlAttributes` 对象（例如 `@Html.TextBox()`）的处理方式类似。
 
 ```cshtml
 @Html.EditorFor(model => model.YourProperty, 
@@ -274,7 +280,7 @@ Type expected
 <input type="text" id="joe" name="joe" value="Joe">
 ```
 
-使用集合属性时，`asp-for="CollectionProperty[23].Member"` 在 `asp-for="CollectionProperty[i].Member"` 具有值 `i` 时生成与 `23` 相同的名称。
+使用集合属性时，`asp-for="CollectionProperty[23].Member"` 在 `i` 具有值 `23` 时生成与 `asp-for="CollectionProperty[i].Member"` 相同的名称。
 
 在 ASP.NET Core MVC 计算 `ModelExpression` 的值时，它会检查多个源，包括 `ModelState`。 以 `<input type="text" asp-for="@Name">` 为例。 计算出的 `value` 属性是第一个非 null 值，属于：
 
@@ -335,7 +341,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
-应尽量在 `foreach` 或 `asp-for` 等效上下文中使用值 `Html.DisplayFor`。 一般情况下，`for` 优于 `foreach`（如果情况允许使用的话），因为它不需要分配枚举器，但在 LINQ 表达式中评估索引器的成本高昂，应最大限度地减少使用它。
+应尽量在 `asp-for` 或 `Html.DisplayFor` 等效上下文中使用值 `foreach`。 一般情况下，`for` 优于 `foreach`（如果情况允许使用的话），因为它不需要分配枚举器，但在 LINQ 表达式中评估索引器的成本高昂，应最大限度地减少使用它。
 
 &nbsp;
 
@@ -346,7 +352,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 `Textarea Tag Helper` 标记帮助程序类似于输入标记帮助程序。
 
-* 通过模型为 `id``name`textarea>[ 元素生成 \< 和 ](https://www.w3.org/wiki/HTML/Elements/textarea) 属性以及数据验证属性。
+* 生成`id`和`name`属性，并为[ \<](https://www.w3.org/wiki/HTML/Elements/textarea)文本区>元素的模型生成数据验证特性。
 
 * 提供强类型化。
 
@@ -376,7 +382,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ## <a name="the-label-tag-helper"></a>标签标记帮助程序
 
-* 在 `for`[label>\< 元素中为表达式名称生成标签描述和 ](https://www.w3.org/wiki/HTML/Elements/label) 属性
+* 为表达式名称生成标签`for`标题和属性[ \<>](https://www.w3.org/wiki/HTML/Elements/label)元素
 
 * HTML 帮助程序替代项：`Html.LabelFor`。
 
@@ -408,13 +414,13 @@ public IActionResult Edit(int id, int colorIndex)
 
 ### <a name="the-validation-message-tag-helper"></a>验证消息标记帮助程序
 
-* 将 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-valmsg-for="property"` 属性添加到 [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 元素中，该元素会附加指定模型属性的输入字段中的验证错误消息。 [jQuery](https://jquery.com/) 会在发生客户端验证错误时在 `<span>` 元素中显示错误消息。
+* 将 [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)  `data-valmsg-for="property"` 属性添加到 [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 元素中，该元素会附加指定模型属性的输入字段中的验证错误消息。 [jQuery](https://jquery.com/) 会在发生客户端验证错误时在 `<span>` 元素中显示错误消息。
 
 * 还会在服务器上执行验证。 客户端可能已禁用 JavaScript，一些验证仅可在服务器端执行。
 
 * HTML 帮助程序替代项：`Html.ValidationMessageFor`
 
-`Validation Message Tag Helper` 与 HTML `asp-validation-for`span[ 元素中的 ](https://developer.mozilla.org/docs/Web/HTML/Element/span) 属性配合使用。
+`Validation Message Tag Helper` 与 HTML [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 元素中的 `asp-validation-for` 属性配合使用。
 
 ```cshtml
 <span asp-validation-for="Email"></span>
@@ -428,7 +434,7 @@ public IActionResult Edit(int id, int colorIndex)
   data-valmsg-replace="true"></span>
 ```
 
-对于同一属性，通常在 `Validation Message Tag Helper` 标记帮助程序后使用 `Input`。 这样做可在导致错误的输入附近显示所有验证错误消息。
+对于同一属性，通常在 `Input` 标记帮助程序后使用 `Validation Message Tag Helper`。 这样做可在导致错误的输入附近显示所有验证错误消息。
 
 > [!NOTE]
 > 必须拥有包含正确的 JavaScript 和 [jQuery](https://jquery.com/) 脚本引用的视图才能执行客户端验证。 有关详细信息，请参阅[模型验证](../models/validation.md)。
@@ -444,7 +450,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ### <a name="the-validation-summary-tag-helper"></a>验证摘要标记帮助程序
 
-* 针对具有 `<div>` 属性的 `asp-validation-summary` 元素
+* 针对具有 `asp-validation-summary` 属性的 `<div>` 元素
 
 * HTML 帮助程序替代项：`@Html.ValidationSummary`
 
@@ -453,7 +459,7 @@ public IActionResult Edit(int id, int colorIndex)
 |asp-validation-summary|显示的验证消息|
 |--- |--- |
 |ValidationSummary.All|属性和模型级别|
-|ValidationSummary.ModelOnly|“模型”|
+|ValidationSummary.ModelOnly|型号|
 |ValidationSummary.None|无|
 
 ### <a name="sample"></a>示例
@@ -534,7 +540,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 ### <a name="enum-binding"></a>枚举绑定
 
-通常可方便地将 `<select>` 与 `enum` 属性配合使用并通过 `SelectListItem` 值生成 `enum` 元素。
+通常可方便地将 `<select>` 与 `enum` 属性配合使用并通过 `enum` 值生成 `SelectListItem` 元素。
 
 示例：
 
@@ -570,7 +576,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 ### <a name="option-group"></a>选项组
 
-如果视图模型包含一个或多个 [ 对象，则会生成 HTML \<](https://www.w3.org/wiki/HTML/Elements/optgroup)optgroup>`SelectListGroup` 元素。
+当视图模型包含一个或多个`SelectListGroup`对象时，将生成 HTML [ \<选项组>](https://www.w3.org/wiki/HTML/Elements/optgroup)元素。
 
 `CountryViewModelGroup` 将 `SelectListItem` 元素分组为“North America”组和“Europe”组：
 
@@ -603,7 +609,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 ### <a name="multiple-select"></a>多重选择
 
-如果 [ 属性中指定的属性为 ](https://w3c.github.io/html-reference/select.html)，选择标记帮助程序会自动生成 `asp-for`multiple = "multiple"`IEnumerable` 属性。 例如，如果给定以下模型：
+如果 `asp-for` 属性中指定的属性为 `IEnumerable`，选择标记帮助程序会自动生成 [multiple = "multiple"](https://w3c.github.io/html-reference/select.html) 属性。 例如，如果给定以下模型：
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 
@@ -611,7 +617,7 @@ HTTP POST `Index` 方法显示选定内容：
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexMultiSelect.cshtml?highlight=4)]
 
-生成以下 HTML：
+则会生成以下 HTML：
 
 ```html
 <form method="post" action="/Home/IndexMultiSelect">
@@ -629,7 +635,7 @@ HTTP POST `Index` 方法显示选定内容：
 </form>
 ```
 
-### <a name="no-selection"></a>无选择
+### <a name="no-selection"></a>无选定内容
 
 如果发现自己在多个页面中使用“未指定”选项，可创建模板用于消除重复的 HTML：
 
@@ -639,13 +645,13 @@ HTTP POST `Index` 方法显示选定内容：
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
 
-添加 HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 元素并不局限于*无选定内容*用例。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
+添加 HTML [ \<选项>](https://www.w3.org/wiki/HTML/Elements/option)元素不限于*无选择*事例。 例如，以下视图和操作方法会生成与上述代码类似的 HTML：
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
-根据当前的 `<option>` 值选择正确的 `selected="selected"` 元素（包含 `Country` 属性）。
+根据当前的 `Country` 值选择正确的 `<option>` 元素（包含 `selected="selected"` 属性）。
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 
@@ -665,7 +671,7 @@ HTTP POST `Index` 方法显示选定内容：
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:mvc/views/tag-helpers/intro>
-* [HTML Form 元素](https://www.w3.org/TR/html401/interact/forms.html)
+* [HTML 窗体元素](https://www.w3.org/TR/html401/interact/forms.html)
 * [请求验证令牌](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)
 * <xref:mvc/models/model-binding>
 * <xref:mvc/models/validation>

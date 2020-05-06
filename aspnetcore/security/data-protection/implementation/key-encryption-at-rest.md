@@ -1,18 +1,24 @@
 ---
-title: 在 ASP.NET Core 中存放的密钥加密
+title: ASP.NET Core 中的静态密钥加密
 author: rick-anderson
-description: 了解 ASP.NET Core 数据保护密钥的加密对静止的实现详细信息。
+description: 了解 ASP.NET Core 静态数据保护密钥加密的实现细节。
 ms.author: riande
 ms.date: 07/16/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: 52c3137dbe467096364b42430c92aecc7c15e313
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e68b8e09dbd876c6f0d37242ebaa415994b3b808
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651630"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776924"
 ---
-# <a name="key-encryption-at-rest-in-aspnet-core"></a>在 ASP.NET Core 中存放的密钥加密
+# <a name="key-encryption-at-rest-in-aspnet-core"></a>ASP.NET Core 中的静态密钥加密
 
 默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应如何对加密密钥进行静态加密。 开发人员可以重写发现机制，并手动指定密钥的加密方式。
 
@@ -23,7 +29,7 @@ ms.locfileid: "78651630"
 
 ## <a name="azure-key-vault"></a>Azure Key Vault
 
-若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在 `Startup` 类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统：
+若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) `Startup`类中配置 ProtectKeysWithAzureKeyVault 的系统：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -53,7 +59,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果在没有参数的情况下调用 `ProtectKeysWithDpapi`，则只有当前的 Windows 用户帐户才能解密持久的密钥环。 您可以选择指定计算机上的任何用户帐户（而不只是当前用户帐户）能够破译密钥环：
+如果`ProtectKeysWithDpapi`在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。 您可以选择指定计算机上的任何用户帐户（而不只是当前用户帐户）能够破译密钥环：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -100,7 +106,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-还有 `ProtectKeysWithDpapiNG`的无参数重载。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：
+还有一个无参数的`ProtectKeysWithDpapiNG`重载。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
