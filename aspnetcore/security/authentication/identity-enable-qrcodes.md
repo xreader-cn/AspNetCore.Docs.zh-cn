@@ -1,51 +1,57 @@
 ---
-title: 启用在 ASP.NET Core TOTP 身份验证器应用的 QR 代码生成
+title: 为 ASP.NET Core 中的 TOTP 验证器应用启用 QR 代码生成
 author: rick-anderson
-description: 了解如何启用 TOTP 使用 ASP.NET Core 双因素身份验证的身份验证器应用的 QR 代码生成。
+description: 了解如何为使用 ASP.NET Core 双因素身份验证的 TOTP 验证器应用启用 QR 码生成。
 ms.author: riande
 ms.date: 08/14/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: a7fdc86b3fe94e714e5147c89a32fce13757d1c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 42ddddeaa329ac5ff5b2b40cbf9ebffa68f6d4cf
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654156"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774426"
 ---
-# <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a><span data-ttu-id="31aaf-103">启用在 ASP.NET Core TOTP 身份验证器应用的 QR 代码生成</span><span class="sxs-lookup"><span data-stu-id="31aaf-103">Enable QR Code generation for TOTP authenticator apps in ASP.NET Core</span></span>
+# <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a><span data-ttu-id="4fb07-103">为 ASP.NET Core 中的 TOTP 验证器应用启用 QR 代码生成</span><span class="sxs-lookup"><span data-stu-id="4fb07-103">Enable QR Code generation for TOTP authenticator apps in ASP.NET Core</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="31aaf-104">QR 码需要 ASP.NET Core 2.0 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="31aaf-104">QR Codes requires ASP.NET Core 2.0 or later.</span></span>
+<span data-ttu-id="4fb07-104">QR 码需要 ASP.NET Core 2.0 或更高版本。</span><span class="sxs-lookup"><span data-stu-id="4fb07-104">QR Codes requires ASP.NET Core 2.0 or later.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="31aaf-105">ASP.NET Core 附带的单个身份验证的身份验证器应用程序的支持。</span><span class="sxs-lookup"><span data-stu-id="31aaf-105">ASP.NET Core ships with support for authenticator applications for individual authentication.</span></span> <span data-ttu-id="31aaf-106">两个身份验证 (2FA) 身份验证器应用程序，使用基于时间的一次性密码算法 (TOTP)，是推荐的方法用于 2FA 的行业。</span><span class="sxs-lookup"><span data-stu-id="31aaf-106">Two factor authentication (2FA) authenticator apps, using a Time-based One-time Password Algorithm (TOTP), are the industry recommended approach for 2FA.</span></span> <span data-ttu-id="31aaf-107">2FA 使用 TOTP 优于 SMS 2FA。</span><span class="sxs-lookup"><span data-stu-id="31aaf-107">2FA using TOTP is preferred to SMS 2FA.</span></span> <span data-ttu-id="31aaf-108">验证器应用提供6到8位的数字代码，用户在确认其用户名和密码后必须输入。</span><span class="sxs-lookup"><span data-stu-id="31aaf-108">An authenticator app provides a 6 to 8 digit code which users must enter after confirming their username and password.</span></span> <span data-ttu-id="31aaf-109">通常会在智能手机上安装验证器应用。</span><span class="sxs-lookup"><span data-stu-id="31aaf-109">Typically an authenticator app is installed on a smart phone.</span></span>
+<span data-ttu-id="4fb07-105">ASP.NET Core 附带了对验证程序应用程序的支持，以便进行单个身份验证。</span><span class="sxs-lookup"><span data-stu-id="4fb07-105">ASP.NET Core ships with support for authenticator applications for individual authentication.</span></span> <span data-ttu-id="4fb07-106">使用基于时间的一次性密码算法（TOTP）的双因素身份验证（2FA）验证器应用是适用于2FA 的行业建议方法。</span><span class="sxs-lookup"><span data-stu-id="4fb07-106">Two factor authentication (2FA) authenticator apps, using a Time-based One-time Password Algorithm (TOTP), are the industry recommended approach for 2FA.</span></span> <span data-ttu-id="4fb07-107">2FA 使用 TOTP 是 SMS 2FA 的首选。</span><span class="sxs-lookup"><span data-stu-id="4fb07-107">2FA using TOTP is preferred to SMS 2FA.</span></span> <span data-ttu-id="4fb07-108">验证器应用提供6到8位的数字代码，用户在确认其用户名和密码后必须输入。</span><span class="sxs-lookup"><span data-stu-id="4fb07-108">An authenticator app provides a 6 to 8 digit code which users must enter after confirming their username and password.</span></span> <span data-ttu-id="4fb07-109">通常会在智能手机上安装验证器应用。</span><span class="sxs-lookup"><span data-stu-id="4fb07-109">Typically an authenticator app is installed on a smart phone.</span></span>
 
-<span data-ttu-id="31aaf-110">ASP.NET Core web 应用程序模板支持身份验证器，但不提供对 QRCode 生成的支持。</span><span class="sxs-lookup"><span data-stu-id="31aaf-110">The ASP.NET Core web app templates support authenticators, but don't provide support for QRCode generation.</span></span> <span data-ttu-id="31aaf-111">QRCode 生成器简化了2FA 的设置。</span><span class="sxs-lookup"><span data-stu-id="31aaf-111">QRCode generators ease the setup of 2FA.</span></span> <span data-ttu-id="31aaf-112">本文档将指导你完成将[QR 代码](https://wikipedia.org/wiki/QR_code)生成添加到 "2FA" 配置页的步骤。</span><span class="sxs-lookup"><span data-stu-id="31aaf-112">This document will guide you through adding [QR Code](https://wikipedia.org/wiki/QR_code) generation to the 2FA configuration page.</span></span>
+<span data-ttu-id="4fb07-110">ASP.NET Core web 应用模板支持验证器，但不要为 QRCode 生成提供支持。</span><span class="sxs-lookup"><span data-stu-id="4fb07-110">The ASP.NET Core web app templates support authenticators, but don't provide support for QRCode generation.</span></span> <span data-ttu-id="4fb07-111">QRCode 生成器简化了2FA 的设置。</span><span class="sxs-lookup"><span data-stu-id="4fb07-111">QRCode generators ease the setup of 2FA.</span></span> <span data-ttu-id="4fb07-112">本文档将指导你完成将[QR 代码](https://wikipedia.org/wiki/QR_code)生成添加到 "2FA" 配置页的步骤。</span><span class="sxs-lookup"><span data-stu-id="4fb07-112">This document will guide you through adding [QR Code](https://wikipedia.org/wiki/QR_code) generation to the 2FA configuration page.</span></span>
 
-<span data-ttu-id="31aaf-113">使用外部身份验证提供程序（如[Google](xref:security/authentication/google-logins)或[Facebook](xref:security/authentication/facebook-logins)）不会进行双重身份验证。</span><span class="sxs-lookup"><span data-stu-id="31aaf-113">Two factor authentication does not happen using an external authentication provider, such as [Google](xref:security/authentication/google-logins) or [Facebook](xref:security/authentication/facebook-logins).</span></span> <span data-ttu-id="31aaf-114">外部登录名受外部登录提供程序所提供的任何机制的保护。</span><span class="sxs-lookup"><span data-stu-id="31aaf-114">External logins are protected by whatever mechanism the external login provider provides.</span></span> <span data-ttu-id="31aaf-115">例如，请考虑[Microsoft](xref:security/authentication/microsoft-logins)身份验证提供程序需要硬件密钥或其他2FA 方法。</span><span class="sxs-lookup"><span data-stu-id="31aaf-115">Consider, for example, the [Microsoft](xref:security/authentication/microsoft-logins) authentication provider requires a hardware key or another 2FA approach.</span></span> <span data-ttu-id="31aaf-116">如果默认模板强制实施了 "本地" 2FA，则用户需要满足两种2FA 方法，这并不是一种常用方案。</span><span class="sxs-lookup"><span data-stu-id="31aaf-116">If the default templates enforced "local" 2FA then users would be required to satisfy two 2FA approaches, which is not a commonly used scenario.</span></span>
+<span data-ttu-id="4fb07-113">使用外部身份验证提供程序（如[Google](xref:security/authentication/google-logins)或[Facebook](xref:security/authentication/facebook-logins)）不会进行双重身份验证。</span><span class="sxs-lookup"><span data-stu-id="4fb07-113">Two factor authentication does not happen using an external authentication provider, such as [Google](xref:security/authentication/google-logins) or [Facebook](xref:security/authentication/facebook-logins).</span></span> <span data-ttu-id="4fb07-114">外部登录名受外部登录提供程序所提供的任何机制的保护。</span><span class="sxs-lookup"><span data-stu-id="4fb07-114">External logins are protected by whatever mechanism the external login provider provides.</span></span> <span data-ttu-id="4fb07-115">例如，请考虑[Microsoft](xref:security/authentication/microsoft-logins)身份验证提供程序需要硬件密钥或其他2FA 方法。</span><span class="sxs-lookup"><span data-stu-id="4fb07-115">Consider, for example, the [Microsoft](xref:security/authentication/microsoft-logins) authentication provider requires a hardware key or another 2FA approach.</span></span> <span data-ttu-id="4fb07-116">如果默认模板强制实施了 "本地" 2FA，则用户需要满足两种2FA 方法，这并不是一种常用方案。</span><span class="sxs-lookup"><span data-stu-id="4fb07-116">If the default templates enforced "local" 2FA then users would be required to satisfy two 2FA approaches, which is not a commonly used scenario.</span></span>
 
-## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a><span data-ttu-id="31aaf-117">将 QR 代码添加到 "2FA" 配置页</span><span class="sxs-lookup"><span data-stu-id="31aaf-117">Adding QR Codes to the 2FA configuration page</span></span>
+## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a><span data-ttu-id="4fb07-117">将 QR 代码添加到 "2FA" 配置页</span><span class="sxs-lookup"><span data-stu-id="4fb07-117">Adding QR Codes to the 2FA configuration page</span></span>
 
-<span data-ttu-id="31aaf-118">这些说明使用 https://davidshimjs.github.io/qrcodejs/ 存储库中的*qrcode* 。</span><span class="sxs-lookup"><span data-stu-id="31aaf-118">These instructions use *qrcode.js* from the https://davidshimjs.github.io/qrcodejs/ repo.</span></span>
+<span data-ttu-id="4fb07-118">这些说明使用*qrcode.js*存储库中的https://davidshimjs.github.io/qrcodejs/ qrcode。</span><span class="sxs-lookup"><span data-stu-id="4fb07-118">These instructions use *qrcode.js* from the https://davidshimjs.github.io/qrcodejs/ repo.</span></span>
 
-* <span data-ttu-id="31aaf-119">将[qrcode javascript 库](https://davidshimjs.github.io/qrcodejs/)下载到项目中的 `wwwroot\lib` 文件夹。</span><span class="sxs-lookup"><span data-stu-id="31aaf-119">Download the [qrcode.js javascript library](https://davidshimjs.github.io/qrcodejs/) to the `wwwroot\lib` folder in your project.</span></span>
+* <span data-ttu-id="4fb07-119">将[qrcode javascript 库](https://davidshimjs.github.io/qrcodejs/)下载到项目中的`wwwroot\lib`文件夹。</span><span class="sxs-lookup"><span data-stu-id="4fb07-119">Download the [qrcode.js javascript library](https://davidshimjs.github.io/qrcodejs/) to the `wwwroot\lib` folder in your project.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* <span data-ttu-id="31aaf-120">按照[基架标识](xref:security/authentication/scaffold-identity)中的说明生成 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*。</span><span class="sxs-lookup"><span data-stu-id="31aaf-120">Follow the instructions in [Scaffold Identity](xref:security/authentication/scaffold-identity) to generate */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span></span>
-* <span data-ttu-id="31aaf-121">在 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*中，找到文件末尾的 `Scripts` 部分：</span><span class="sxs-lookup"><span data-stu-id="31aaf-121">In */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*, locate the `Scripts` section at the end of the file:</span></span>
+* <span data-ttu-id="4fb07-120">按照[ Identity基架](xref:security/authentication/scaffold-identity)中的说明生成 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*。</span><span class="sxs-lookup"><span data-stu-id="4fb07-120">Follow the instructions in [Scaffold Identity](xref:security/authentication/scaffold-identity) to generate */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span></span>
+* <span data-ttu-id="4fb07-121">在 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*中，找到`Scripts`文件末尾的部分：</span><span class="sxs-lookup"><span data-stu-id="4fb07-121">In */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*, locate the `Scripts` section at the end of the file:</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* <span data-ttu-id="31aaf-122">在*页面/帐户/管理/EnableAuthenticator* （Razor Pages）或*视图/管理/EnableAuthenticator* （MVC）中，找到文件末尾的 `Scripts` 部分：</span><span class="sxs-lookup"><span data-stu-id="31aaf-122">In *Pages/Account/Manage/EnableAuthenticator.cshtml* (Razor Pages) or *Views/Manage/EnableAuthenticator.cshtml* (MVC), locate the `Scripts` section at the end of the file:</span></span>
+* <span data-ttu-id="4fb07-122">在*pages/Account/manage/EnableAuthenticator* （Razor pages）或*Views/manage/EnableAuthenticator* （MVC）中，找到文件末尾的`Scripts`部分：</span><span class="sxs-lookup"><span data-stu-id="4fb07-122">In *Pages/Account/Manage/EnableAuthenticator.cshtml* (Razor Pages) or *Views/Manage/EnableAuthenticator.cshtml* (MVC), locate the `Scripts` section at the end of the file:</span></span>
 
 ::: moniker-end
 
@@ -57,7 +63,7 @@ ms.locfileid: "78654156"
 }
 ```
 
-* <span data-ttu-id="31aaf-123">更新 `Scripts` 部分，以添加对添加的 `qrcodejs` 库的引用，并调用以生成 QR 代码。</span><span class="sxs-lookup"><span data-stu-id="31aaf-123">Update the `Scripts` section to add a reference to the `qrcodejs` library you added and a call to generate the QR Code.</span></span> <span data-ttu-id="31aaf-124">其外观应如下所示：</span><span class="sxs-lookup"><span data-stu-id="31aaf-124">It should look as follows:</span></span>
+* <span data-ttu-id="4fb07-123">更新`Scripts`节以添加对添加的`qrcodejs`库的引用，并调用以生成 QR 代码。</span><span class="sxs-lookup"><span data-stu-id="4fb07-123">Update the `Scripts` section to add a reference to the `qrcodejs` library you added and a call to generate the QR Code.</span></span> <span data-ttu-id="4fb07-124">其外观应如下所示：</span><span class="sxs-lookup"><span data-stu-id="4fb07-124">It should look as follows:</span></span>
 
 ```cshtml
 @section Scripts {
@@ -75,29 +81,29 @@ ms.locfileid: "78654156"
 }
 ```
 
-* <span data-ttu-id="31aaf-125">删除链接到这些说明的段落。</span><span class="sxs-lookup"><span data-stu-id="31aaf-125">Delete the paragraph which links you to these instructions.</span></span>
+* <span data-ttu-id="4fb07-125">删除链接到这些说明的段落。</span><span class="sxs-lookup"><span data-stu-id="4fb07-125">Delete the paragraph which links you to these instructions.</span></span>
 
-<span data-ttu-id="31aaf-126">运行你的应用，并确保你可以扫描 QR 代码并验证验证器证明的代码。</span><span class="sxs-lookup"><span data-stu-id="31aaf-126">Run your app and ensure that you can scan the QR code and validate the code the authenticator proves.</span></span>
+<span data-ttu-id="4fb07-126">运行你的应用，并确保你可以扫描 QR 代码并验证验证器证明的代码。</span><span class="sxs-lookup"><span data-stu-id="4fb07-126">Run your app and ensure that you can scan the QR code and validate the code the authenticator proves.</span></span>
 
-## <a name="change-the-site-name-in-the-qr-code"></a><span data-ttu-id="31aaf-127">更改 QR 码中的站点名称</span><span class="sxs-lookup"><span data-stu-id="31aaf-127">Change the site name in the QR Code</span></span>
+## <a name="change-the-site-name-in-the-qr-code"></a><span data-ttu-id="4fb07-127">更改 QR 码中的站点名称</span><span class="sxs-lookup"><span data-stu-id="4fb07-127">Change the site name in the QR Code</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="31aaf-128">QR 代码中的站点名称取自最初创建项目时选择的项目名称。</span><span class="sxs-lookup"><span data-stu-id="31aaf-128">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="31aaf-129">可以通过在 */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*中查找 `GenerateQrCodeUri(string email, string unformattedKey)` 方法来更改该方法。</span><span class="sxs-lookup"><span data-stu-id="31aaf-129">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.</span></span>
+<span data-ttu-id="4fb07-128">QR 代码中的站点名称取自最初创建项目时选择的项目名称。</span><span class="sxs-lookup"><span data-stu-id="4fb07-128">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="4fb07-129">可以通过在`GenerateQrCodeUri(string email, string unformattedKey)` */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*中查找方法来更改该方法。</span><span class="sxs-lookup"><span data-stu-id="4fb07-129">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-<span data-ttu-id="31aaf-130">QR 代码中的站点名称取自最初创建项目时选择的项目名称。</span><span class="sxs-lookup"><span data-stu-id="31aaf-130">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="31aaf-131">您可以通过在*页面/帐户/管理/EnableAuthenticator* （Razor Pages）文件或*控制器/ManageController* （MVC）文件中查找 `GenerateQrCodeUri(string email, string unformattedKey)` 方法来更改它。</span><span class="sxs-lookup"><span data-stu-id="31aaf-131">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the *Pages/Account/Manage/EnableAuthenticator.cshtml.cs* (Razor Pages) file or the *Controllers/ManageController.cs* (MVC) file.</span></span>
+<span data-ttu-id="4fb07-130">QR 代码中的站点名称取自最初创建项目时选择的项目名称。</span><span class="sxs-lookup"><span data-stu-id="4fb07-130">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="4fb07-131">您可以通过在`GenerateQrCodeUri(string email, string unformattedKey)` *页面/帐户/管理/EnableAuthenticator* （Razor页）文件或*控制器/ManageController* （MVC）文件中查找方法来更改该方法。</span><span class="sxs-lookup"><span data-stu-id="4fb07-131">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the *Pages/Account/Manage/EnableAuthenticator.cshtml.cs* (Razor Pages) file or the *Controllers/ManageController.cs* (MVC) file.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="31aaf-132">模板中的默认代码如下所示：</span><span class="sxs-lookup"><span data-stu-id="31aaf-132">The default code from the template looks as follows:</span></span>
+<span data-ttu-id="4fb07-132">模板中的默认代码如下所示：</span><span class="sxs-lookup"><span data-stu-id="4fb07-132">The default code from the template looks as follows:</span></span>
 
 ```csharp
 private string GenerateQrCodeUri(string email, string unformattedKey)
@@ -110,19 +116,19 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 }
 ```
 
-<span data-ttu-id="31aaf-133">调用 `string.Format` 的第二个参数是你的站点名称，从你的解决方案名称获取。</span><span class="sxs-lookup"><span data-stu-id="31aaf-133">The second parameter in the call to `string.Format` is your site name, taken from your solution name.</span></span> <span data-ttu-id="31aaf-134">可以将其更改为任何值，但必须始终以 URL 编码。</span><span class="sxs-lookup"><span data-stu-id="31aaf-134">It can be changed to any value, but it must always be URL encoded.</span></span>
+<span data-ttu-id="4fb07-133">对的调用中的第二`string.Format`个参数是您的站点名称，从您的解决方案名称获取。</span><span class="sxs-lookup"><span data-stu-id="4fb07-133">The second parameter in the call to `string.Format` is your site name, taken from your solution name.</span></span> <span data-ttu-id="4fb07-134">可以将其更改为任何值，但必须始终以 URL 编码。</span><span class="sxs-lookup"><span data-stu-id="4fb07-134">It can be changed to any value, but it must always be URL encoded.</span></span>
 
-## <a name="using-a-different-qr-code-library"></a><span data-ttu-id="31aaf-135">使用其他 QR 码库</span><span class="sxs-lookup"><span data-stu-id="31aaf-135">Using a different QR Code library</span></span>
+## <a name="using-a-different-qr-code-library"></a><span data-ttu-id="4fb07-135">使用其他 QR 码库</span><span class="sxs-lookup"><span data-stu-id="4fb07-135">Using a different QR Code library</span></span>
 
-<span data-ttu-id="31aaf-136">可以将 QR 代码库替换为首选库。</span><span class="sxs-lookup"><span data-stu-id="31aaf-136">You can replace the QR Code library with your preferred library.</span></span> <span data-ttu-id="31aaf-137">HTML 包含一个 `qrCode` 元素，你可以在其中放置 QR 码，方法是库提供的任何机制。</span><span class="sxs-lookup"><span data-stu-id="31aaf-137">The HTML contains a `qrCode` element into which you can place a QR Code by whatever mechanism your library provides.</span></span>
+<span data-ttu-id="4fb07-136">可以将 QR 代码库替换为首选库。</span><span class="sxs-lookup"><span data-stu-id="4fb07-136">You can replace the QR Code library with your preferred library.</span></span> <span data-ttu-id="4fb07-137">HTML 包含一个`qrCode`元素，你可以在其中放置 QR 码，方法是使用库提供的任何机制。</span><span class="sxs-lookup"><span data-stu-id="4fb07-137">The HTML contains a `qrCode` element into which you can place a QR Code by whatever mechanism your library provides.</span></span>
 
-<span data-ttu-id="31aaf-138">可以在中找到 QR 码的格式正确的 URL：</span><span class="sxs-lookup"><span data-stu-id="31aaf-138">The correctly formatted URL for the QR Code is available in the:</span></span>
+<span data-ttu-id="4fb07-138">可以在中找到 QR 码的格式正确的 URL：</span><span class="sxs-lookup"><span data-stu-id="4fb07-138">The correctly formatted URL for the QR Code is available in the:</span></span>
 
-* <span data-ttu-id="31aaf-139">模型的 `AuthenticatorUri` 属性。</span><span class="sxs-lookup"><span data-stu-id="31aaf-139">`AuthenticatorUri` property of the model.</span></span>
-* <span data-ttu-id="31aaf-140">`qrCodeData` 元素中的 `data-url` 属性。</span><span class="sxs-lookup"><span data-stu-id="31aaf-140">`data-url` property in the `qrCodeData` element.</span></span>
+* <span data-ttu-id="4fb07-139">`AuthenticatorUri`模型的属性。</span><span class="sxs-lookup"><span data-stu-id="4fb07-139">`AuthenticatorUri` property of the model.</span></span>
+* <span data-ttu-id="4fb07-140">`data-url`元素中的`qrCodeData`属性。</span><span class="sxs-lookup"><span data-stu-id="4fb07-140">`data-url` property in the `qrCodeData` element.</span></span>
 
-## <a name="totp-client-and-server-time-skew"></a><span data-ttu-id="31aaf-141">TOTP 客户端和服务器时间偏差</span><span class="sxs-lookup"><span data-stu-id="31aaf-141">TOTP client and server time skew</span></span>
+## <a name="totp-client-and-server-time-skew"></a><span data-ttu-id="4fb07-141">TOTP 客户端和服务器时间偏差</span><span class="sxs-lookup"><span data-stu-id="4fb07-141">TOTP client and server time skew</span></span>
 
-<span data-ttu-id="31aaf-142">TOTP （基于时间的一次性密码）身份验证取决于服务器和验证器设备的时间是否准确。</span><span class="sxs-lookup"><span data-stu-id="31aaf-142">TOTP (Time-based One-Time Password) authentication depends on both the server and authenticator device having an accurate time.</span></span> <span data-ttu-id="31aaf-143">标记只持续30秒。</span><span class="sxs-lookup"><span data-stu-id="31aaf-143">Tokens only last for 30 seconds.</span></span> <span data-ttu-id="31aaf-144">如果 TOTP 2FA 登录失败，请检查服务器时间是否准确，并最好是同步到准确的 NTP 服务。</span><span class="sxs-lookup"><span data-stu-id="31aaf-144">If TOTP 2FA logins are failing, check that the server time is accurate, and preferably synchronized to an accurate NTP service.</span></span>
+<span data-ttu-id="4fb07-142">TOTP （基于时间的一次性密码）身份验证取决于服务器和验证器设备的时间是否准确。</span><span class="sxs-lookup"><span data-stu-id="4fb07-142">TOTP (Time-based One-Time Password) authentication depends on both the server and authenticator device having an accurate time.</span></span> <span data-ttu-id="4fb07-143">标记只持续30秒。</span><span class="sxs-lookup"><span data-stu-id="4fb07-143">Tokens only last for 30 seconds.</span></span> <span data-ttu-id="4fb07-144">如果 TOTP 2FA 登录失败，请检查服务器时间是否准确，并最好是同步到准确的 NTP 服务。</span><span class="sxs-lookup"><span data-stu-id="4fb07-144">If TOTP 2FA logins are failing, check that the server time is accurate, and preferably synchronized to an accurate NTP service.</span></span>
 
 ::: moniker-end

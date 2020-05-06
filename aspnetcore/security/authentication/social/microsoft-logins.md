@@ -1,56 +1,62 @@
 ---
-title: 微软帐户外部登录设置与ASP.NET核心
+title: Microsoft 帐户外部登录设置与 ASP.NET Core
 author: rick-anderson
-description: 此示例演示了 Microsoft 帐户用户身份验证集成到现有ASP.NET核心应用。
+description: 此示例演示如何将 Microsoft 帐户用户身份验证集成到现有 ASP.NET Core 应用中。
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 12c86456dad86731b86487a3a4dd725f36677002
-ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
+ms.openlocfilehash: 731a17085a1fd01852bb3fe2f0fc9f3e7a9ac30f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81384045"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775656"
 ---
-# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a><span data-ttu-id="cb340-103">微软帐户外部登录设置与ASP.NET核心</span><span class="sxs-lookup"><span data-stu-id="cb340-103">Microsoft Account external login setup with ASP.NET Core</span></span>
+# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a><span data-ttu-id="ced3d-103">Microsoft 帐户外部登录设置与 ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ced3d-103">Microsoft Account external login setup with ASP.NET Core</span></span>
 
-<span data-ttu-id="cb340-104">作者：[Valeriy Novytskyy](https://github.com/01binary) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="cb340-104">By [Valeriy Novytskyy](https://github.com/01binary) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="ced3d-104">作者：[Valeriy Novytskyy](https://github.com/01binary) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="ced3d-104">By [Valeriy Novytskyy](https://github.com/01binary) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="cb340-105">此示例演示如何允许用户使用[上一页上](xref:security/authentication/social/index)创建的 ASP.NET Core 3.0 项目使用他们的工作、学校或个人 Microsoft 帐户登录。</span><span class="sxs-lookup"><span data-stu-id="cb340-105">This sample shows you how to enable users to sign in with their work, school, or personal Microsoft account using the ASP.NET Core 3.0 project created on the [previous page](xref:security/authentication/social/index).</span></span>
+<span data-ttu-id="ced3d-105">此示例演示如何使用户能够使用在[前一页](xref:security/authentication/social/index)上创建的 ASP.NET Core 3.0 项目，使用其工作、学校或个人 Microsoft 帐户登录。</span><span class="sxs-lookup"><span data-stu-id="ced3d-105">This sample shows you how to enable users to sign in with their work, school, or personal Microsoft account using the ASP.NET Core 3.0 project created on the [previous page](xref:security/authentication/social/index).</span></span>
 
-## <a name="create-the-app-in-microsoft-developer-portal"></a><span data-ttu-id="cb340-106">在 Microsoft 开发人员门户中创建应用</span><span class="sxs-lookup"><span data-stu-id="cb340-106">Create the app in Microsoft Developer Portal</span></span>
+## <a name="create-the-app-in-microsoft-developer-portal"></a><span data-ttu-id="ced3d-106">在 Microsoft 开发人员门户中创建应用</span><span class="sxs-lookup"><span data-stu-id="ced3d-106">Create the app in Microsoft Developer Portal</span></span>
 
-* <span data-ttu-id="cb340-107">将[Microsoft.AspNetCore.身份验证.Microsoft 帐户](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/)NuGet 包添加到项目中。</span><span class="sxs-lookup"><span data-stu-id="cb340-107">Add the [Microsoft.AspNetCore.Authentication.MicrosoftAccount](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) NuGet package to the project.</span></span>
-* <span data-ttu-id="cb340-108">导航到[Azure 门户 - 应用注册](https://go.microsoft.com/fwlink/?linkid=2083908)页面，然后创建或登录 Microsoft 帐户：</span><span class="sxs-lookup"><span data-stu-id="cb340-108">Navigate to the [Azure portal - App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page and create or sign into a Microsoft account:</span></span>
+* <span data-ttu-id="ced3d-107">将[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) NuGet 包添加到项目。</span><span class="sxs-lookup"><span data-stu-id="ced3d-107">Add the [Microsoft.AspNetCore.Authentication.MicrosoftAccount](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) NuGet package to the project.</span></span>
+* <span data-ttu-id="ced3d-108">导航到 " [Azure 门户应用注册](https://go.microsoft.com/fwlink/?linkid=2083908)" 页，创建或登录到 Microsoft 帐户：</span><span class="sxs-lookup"><span data-stu-id="ced3d-108">Navigate to the [Azure portal - App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page and create or sign into a Microsoft account:</span></span>
 
-<span data-ttu-id="cb340-109">如果您没有 Microsoft 帐户，请选择"**创建一个**"。</span><span class="sxs-lookup"><span data-stu-id="cb340-109">If you don't have a Microsoft account, select **Create one**.</span></span> <span data-ttu-id="cb340-110">登录后，您将重定向到**应用注册**页面：</span><span class="sxs-lookup"><span data-stu-id="cb340-110">After signing in, you are redirected to the **App registrations** page:</span></span>
+<span data-ttu-id="ced3d-109">如果没有 Microsoft 帐户，请选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="ced3d-109">If you don't have a Microsoft account, select **Create one**.</span></span> <span data-ttu-id="ced3d-110">登录后，会重定向到**应用注册**页面：</span><span class="sxs-lookup"><span data-stu-id="ced3d-110">After signing in, you are redirected to the **App registrations** page:</span></span>
 
-* <span data-ttu-id="cb340-111">选择**新注册**</span><span class="sxs-lookup"><span data-stu-id="cb340-111">Select **New registration**</span></span>
-* <span data-ttu-id="cb340-112">输入“名称”\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="cb340-112">Enter a **Name**.</span></span>
-* <span data-ttu-id="cb340-113">为**受支持的帐户类型**选择一个选项。</span><span class="sxs-lookup"><span data-stu-id="cb340-113">Select an option for **Supported account types**.</span></span>  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts. It took 24 hours after setting this up for the keys to work -->
-* <span data-ttu-id="cb340-114">在**重定向 URI**下，输入追加`/signin-microsoft`的开发 URL。</span><span class="sxs-lookup"><span data-stu-id="cb340-114">Under **Redirect URI**, enter your development URL with `/signin-microsoft` appended.</span></span> <span data-ttu-id="cb340-115">例如，`https://localhost:5001/signin-microsoft` 。</span><span class="sxs-lookup"><span data-stu-id="cb340-115">For example, `https://localhost:5001/signin-microsoft`.</span></span> <span data-ttu-id="cb340-116">本示例中稍后配置的 Microsoft 身份验证方案将自动处理路由中`/signin-microsoft`实现 OAuth 流的请求。</span><span class="sxs-lookup"><span data-stu-id="cb340-116">The Microsoft authentication scheme configured later in this sample will automatically handle requests at `/signin-microsoft` route to implement the OAuth flow.</span></span>
-* <span data-ttu-id="cb340-117">选择 **"注册"**</span><span class="sxs-lookup"><span data-stu-id="cb340-117">Select **Register**</span></span>
+* <span data-ttu-id="ced3d-111">选择**新注册**</span><span class="sxs-lookup"><span data-stu-id="ced3d-111">Select **New registration**</span></span>
+* <span data-ttu-id="ced3d-112">输入**名称**。</span><span class="sxs-lookup"><span data-stu-id="ced3d-112">Enter a **Name**.</span></span>
+* <span data-ttu-id="ced3d-113">为**支持的帐户类型**选择一个选项。</span><span class="sxs-lookup"><span data-stu-id="ced3d-113">Select an option for **Supported account types**.</span></span>  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts. It took 24 hours after setting this up for the keys to work -->
+* <span data-ttu-id="ced3d-114">在 "**重定向 URI**" 下，输入`/signin-microsoft`追加的开发 URL。</span><span class="sxs-lookup"><span data-stu-id="ced3d-114">Under **Redirect URI**, enter your development URL with `/signin-microsoft` appended.</span></span> <span data-ttu-id="ced3d-115">例如，`https://localhost:5001/signin-microsoft`。</span><span class="sxs-lookup"><span data-stu-id="ced3d-115">For example, `https://localhost:5001/signin-microsoft`.</span></span> <span data-ttu-id="ced3d-116">稍后在本示例中配置的 Microsoft 身份验证方案将自动处理`/signin-microsoft`路由中的请求以实现 OAuth 流。</span><span class="sxs-lookup"><span data-stu-id="ced3d-116">The Microsoft authentication scheme configured later in this sample will automatically handle requests at `/signin-microsoft` route to implement the OAuth flow.</span></span>
+* <span data-ttu-id="ced3d-117">选择**注册**</span><span class="sxs-lookup"><span data-stu-id="ced3d-117">Select **Register**</span></span>
 
-### <a name="create-client-secret"></a><span data-ttu-id="cb340-118">创建客户端机密</span><span class="sxs-lookup"><span data-stu-id="cb340-118">Create client secret</span></span>
+### <a name="create-client-secret"></a><span data-ttu-id="ced3d-118">创建客户端机密</span><span class="sxs-lookup"><span data-stu-id="ced3d-118">Create client secret</span></span>
 
-* <span data-ttu-id="cb340-119">在左窗格中，选择“证书和机密”\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="cb340-119">In the left pane, select **Certificates & secrets**.</span></span>
-* <span data-ttu-id="cb340-120">在 **"客户端机密**"下，选择 **"新客户端机密**"</span><span class="sxs-lookup"><span data-stu-id="cb340-120">Under **Client secrets**, select **New client secret**</span></span>
+* <span data-ttu-id="ced3d-119">在左窗格中，选择“证书和机密”\*\*\*\*。</span><span class="sxs-lookup"><span data-stu-id="ced3d-119">In the left pane, select **Certificates & secrets**.</span></span>
+* <span data-ttu-id="ced3d-120">在 "**客户端密码**" 下，选择**新的客户端密码**</span><span class="sxs-lookup"><span data-stu-id="ced3d-120">Under **Client secrets**, select **New client secret**</span></span>
 
-  * <span data-ttu-id="cb340-121">添加客户端机密的说明。</span><span class="sxs-lookup"><span data-stu-id="cb340-121">Add a description for the client secret.</span></span>
-  * <span data-ttu-id="cb340-122">选择"**添加**"按钮。</span><span class="sxs-lookup"><span data-stu-id="cb340-122">Select the **Add** button.</span></span>
+  * <span data-ttu-id="ced3d-121">添加客户端密码的说明。</span><span class="sxs-lookup"><span data-stu-id="ced3d-121">Add a description for the client secret.</span></span>
+  * <span data-ttu-id="ced3d-122">选择“添加”按钮。 </span><span class="sxs-lookup"><span data-stu-id="ced3d-122">Select the **Add** button.</span></span>
 
-* <span data-ttu-id="cb340-123">在**客户端机密**下，复制客户端机密的值。</span><span class="sxs-lookup"><span data-stu-id="cb340-123">Under **Client secrets**, copy the value of the client secret.</span></span>
+* <span data-ttu-id="ced3d-123">在 "**客户端**密码" 下，复制 "客户端密钥" 的值。</span><span class="sxs-lookup"><span data-stu-id="ced3d-123">Under **Client secrets**, copy the value of the client secret.</span></span>
 
-<span data-ttu-id="cb340-124">URI 段`/signin-microsoft`设置为 Microsoft 身份验证提供程序的默认回调。</span><span class="sxs-lookup"><span data-stu-id="cb340-124">The URI segment `/signin-microsoft` is set as the default callback of the Microsoft authentication provider.</span></span> <span data-ttu-id="cb340-125">您可以通过 Microsoft[帐户选项](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)类的继承[远程身份验证选项.callbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性配置 Microsoft 身份验证中间件时更改默认回调 URI。</span><span class="sxs-lookup"><span data-stu-id="cb340-125">You can change the default callback URI while configuring the Microsoft authentication middleware via the inherited [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) property of the [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions) class.</span></span>
+<span data-ttu-id="ced3d-124">URI 段`/signin-microsoft`设置为 Microsoft 身份验证提供程序的默认回调。</span><span class="sxs-lookup"><span data-stu-id="ced3d-124">The URI segment `/signin-microsoft` is set as the default callback of the Microsoft authentication provider.</span></span> <span data-ttu-id="ced3d-125">通过[MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性配置 Microsoft 身份验证中间件时，可以更改默认的回调 URI。</span><span class="sxs-lookup"><span data-stu-id="ced3d-125">You can change the default callback URI while configuring the Microsoft authentication middleware via the inherited [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) property of the [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions) class.</span></span>
 
-## <a name="store-the-microsoft-client-id-and-secret"></a><span data-ttu-id="cb340-126">存储 Microsoft 客户端 ID 和机密</span><span class="sxs-lookup"><span data-stu-id="cb340-126">Store the Microsoft client ID and secret</span></span>
+## <a name="store-the-microsoft-client-id-and-secret"></a><span data-ttu-id="ced3d-126">存储 Microsoft 客户端 ID 和机密</span><span class="sxs-lookup"><span data-stu-id="ced3d-126">Store the Microsoft client ID and secret</span></span>
 
-<span data-ttu-id="cb340-127">使用[密钥管理器](xref:security/app-secrets)存储敏感设置，如 Microsoft 客户端 ID 和机密值。</span><span class="sxs-lookup"><span data-stu-id="cb340-127">Store sensitive settings such as the Microsoft client ID and secret values with [Secret Manager](xref:security/app-secrets).</span></span> <span data-ttu-id="cb340-128">对于此示例，请使用以下步骤：</span><span class="sxs-lookup"><span data-stu-id="cb340-128">For this sample, use the following steps:</span></span>
+<span data-ttu-id="ced3d-127">用[机密管理器](xref:security/app-secrets)存储敏感设置，如 Microsoft 客户端 ID 和机密值。</span><span class="sxs-lookup"><span data-stu-id="ced3d-127">Store sensitive settings such as the Microsoft client ID and secret values with [Secret Manager](xref:security/app-secrets).</span></span> <span data-ttu-id="ced3d-128">对于本示例，请使用以下步骤：</span><span class="sxs-lookup"><span data-stu-id="ced3d-128">For this sample, use the following steps:</span></span>
 
-1. <span data-ttu-id="cb340-129">根据[启用密钥存储](xref:security/app-secrets#enable-secret-storage)的指令初始化了机密存储的项目。</span><span class="sxs-lookup"><span data-stu-id="cb340-129">Initialize the project for secret storage per the instructions at [Enable secret storage](xref:security/app-secrets#enable-secret-storage).</span></span>
-1. <span data-ttu-id="cb340-130">使用密钥`Authentication:Microsoft:ClientId`和 将敏感设置存储在本地机密存储中`Authentication:Microsoft:ClientSecret`：</span><span class="sxs-lookup"><span data-stu-id="cb340-130">Store the sensitive settings in the local secret store with the secret keys `Authentication:Microsoft:ClientId` and `Authentication:Microsoft:ClientSecret`:</span></span>
+1. <span data-ttu-id="ced3d-129">按照[启用密钥存储](xref:security/app-secrets#enable-secret-storage)中的说明初始化密钥存储的项目。</span><span class="sxs-lookup"><span data-stu-id="ced3d-129">Initialize the project for secret storage per the instructions at [Enable secret storage](xref:security/app-secrets#enable-secret-storage).</span></span>
+1. <span data-ttu-id="ced3d-130">将敏感设置存储在本地密钥存储中，并提供机密`Authentication:Microsoft:ClientId`密钥`Authentication:Microsoft:ClientSecret`和：</span><span class="sxs-lookup"><span data-stu-id="ced3d-130">Store the sensitive settings in the local secret store with the secret keys `Authentication:Microsoft:ClientId` and `Authentication:Microsoft:ClientSecret`:</span></span>
 
     ```dotnetcli
     dotnet user-secrets set "Authentication:Microsoft:ClientId" "<client-id>"
@@ -59,40 +65,40 @@ ms.locfileid: "81384045"
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-## <a name="configure-microsoft-account-authentication"></a><span data-ttu-id="cb340-131">配置 Microsoft 帐户身份验证</span><span class="sxs-lookup"><span data-stu-id="cb340-131">Configure Microsoft Account Authentication</span></span>
+## <a name="configure-microsoft-account-authentication"></a><span data-ttu-id="ced3d-131">配置 Microsoft 帐户身份验证</span><span class="sxs-lookup"><span data-stu-id="ced3d-131">Configure Microsoft Account Authentication</span></span>
 
-<span data-ttu-id="cb340-132">将 Microsoft 帐户服务添加到`Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="cb340-132">Add the Microsoft Account service to the `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="ced3d-132">将 Microsoft 帐户服务添加到`Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="ced3d-132">Add the Microsoft Account service to the `Startup.ConfigureServices`:</span></span>
 
 [!code-csharp[](~/security/authentication/social/social-code/3.x/StartupMS3x.cs?name=snippet&highlight=10-14)]
 
 [!INCLUDE [default settings configuration](includes/default-settings.md)]
 
-<span data-ttu-id="cb340-133">有关 Microsoft 帐户身份验证支持的配置选项的详细信息，请参阅[Microsoft 帐户选项](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions)API 参考。</span><span class="sxs-lookup"><span data-stu-id="cb340-133">For more information about configuration options supported by Microsoft Account authentication, see the [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) API reference.</span></span> <span data-ttu-id="cb340-134">这可用于请求有关用户的不同信息。</span><span class="sxs-lookup"><span data-stu-id="cb340-134">This can be used to request different information about the user.</span></span>
+<span data-ttu-id="ced3d-133">有关 Microsoft 帐户身份验证支持的配置选项的详细信息，请参阅[MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) API 参考。</span><span class="sxs-lookup"><span data-stu-id="ced3d-133">For more information about configuration options supported by Microsoft Account authentication, see the [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) API reference.</span></span> <span data-ttu-id="ced3d-134">这可用于请求有关用户的其他信息。</span><span class="sxs-lookup"><span data-stu-id="ced3d-134">This can be used to request different information about the user.</span></span>
 
-## <a name="sign-in-with-microsoft-account"></a><span data-ttu-id="cb340-135">使用 Microsoft 帐户登录</span><span class="sxs-lookup"><span data-stu-id="cb340-135">Sign in with Microsoft Account</span></span>
+## <a name="sign-in-with-microsoft-account"></a><span data-ttu-id="ced3d-135">Microsoft 登录帐户</span><span class="sxs-lookup"><span data-stu-id="ced3d-135">Sign in with Microsoft Account</span></span>
 
-<span data-ttu-id="cb340-136">运行应用并单击"**登录**"。</span><span class="sxs-lookup"><span data-stu-id="cb340-136">Run the app and click **Log in**.</span></span> <span data-ttu-id="cb340-137">将显示一个与 Microsoft 登录的选项。</span><span class="sxs-lookup"><span data-stu-id="cb340-137">An option to sign in with Microsoft appears.</span></span> <span data-ttu-id="cb340-138">单击 Microsoft 时，您将重定向到 Microsoft 进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="cb340-138">When you click on Microsoft, you are redirected to Microsoft for authentication.</span></span> <span data-ttu-id="cb340-139">使用 Microsoft 帐户登录后，系统将提示您让应用访问您的信息：</span><span class="sxs-lookup"><span data-stu-id="cb340-139">After signing in with your Microsoft Account, you will be prompted to let the app access your info:</span></span>
+<span data-ttu-id="ced3d-136">运行应用程序，并单击 "**登录"**。</span><span class="sxs-lookup"><span data-stu-id="ced3d-136">Run the app and click **Log in**.</span></span> <span data-ttu-id="ced3d-137">此时会显示一个用于使用 Microsoft 登录的选项。</span><span class="sxs-lookup"><span data-stu-id="ced3d-137">An option to sign in with Microsoft appears.</span></span> <span data-ttu-id="ced3d-138">当你单击 "Microsoft" 时，你将重定向到 Microsoft 进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ced3d-138">When you click on Microsoft, you are redirected to Microsoft for authentication.</span></span> <span data-ttu-id="ced3d-139">使用你的 Microsoft 帐户登录后，系统会提示你让应用访问你的信息：</span><span class="sxs-lookup"><span data-stu-id="ced3d-139">After signing in with your Microsoft Account, you will be prompted to let the app access your info:</span></span>
 
-<span data-ttu-id="cb340-140">点按 **"是**"，您将被重定向回网站，您可以在该网站设置电子邮件。</span><span class="sxs-lookup"><span data-stu-id="cb340-140">Tap **Yes** and you will be redirected back to the web site where you can set your email.</span></span>
+<span data-ttu-id="ced3d-140">点击 **"是"** ，你会被重定向回到网站，你可以在其中设置电子邮件。</span><span class="sxs-lookup"><span data-stu-id="ced3d-140">Tap **Yes** and you will be redirected back to the web site where you can set your email.</span></span>
 
-<span data-ttu-id="cb340-141">您现在使用 Microsoft 凭据登录：</span><span class="sxs-lookup"><span data-stu-id="cb340-141">You are now logged in using your Microsoft credentials:</span></span>
+<span data-ttu-id="ced3d-141">你现在已使用 Microsoft 凭据登录：</span><span class="sxs-lookup"><span data-stu-id="ced3d-141">You are now logged in using your Microsoft credentials:</span></span>
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
-## <a name="troubleshooting"></a><span data-ttu-id="cb340-142">疑难解答</span><span class="sxs-lookup"><span data-stu-id="cb340-142">Troubleshooting</span></span>
+## <a name="troubleshooting"></a><span data-ttu-id="ced3d-142">疑难解答</span><span class="sxs-lookup"><span data-stu-id="ced3d-142">Troubleshooting</span></span>
 
-* <span data-ttu-id="cb340-143">如果 Microsoft 帐户提供程序将您重定向到登录错误页，请记下错误标题和说明查询字符串参数，直接遵循 Uri`#`中的 （hashtag）。</span><span class="sxs-lookup"><span data-stu-id="cb340-143">If the Microsoft Account provider redirects you to a sign in error page, note the error title and description query string parameters directly following the `#` (hashtag) in the Uri.</span></span>
+* <span data-ttu-id="ced3d-143">如果 Microsoft 帐户提供程序将您重定向到登录错误页面，请在 Uri 中的`#` （井号）后直接记下错误标题和说明查询字符串参数。</span><span class="sxs-lookup"><span data-stu-id="ced3d-143">If the Microsoft Account provider redirects you to a sign in error page, note the error title and description query string parameters directly following the `#` (hashtag) in the Uri.</span></span>
 
-  <span data-ttu-id="cb340-144">尽管错误消息似乎表明 Microsoft 身份验证有问题，但最常见的原因是应用程序 Uri 与为**Web**平台指定的重定向**URI**不匹配。</span><span class="sxs-lookup"><span data-stu-id="cb340-144">Although the error message seems to indicate a problem with Microsoft authentication, the most common cause is your application Uri not matching any of the **Redirect URIs** specified for the **Web** platform.</span></span>
-* <span data-ttu-id="cb340-145">如果未通过调用`services.AddIdentity`配置标识`ConfigureServices`，则尝试身份验证将导致*参数异常：必须提供"SignInScheme"选项*。</span><span class="sxs-lookup"><span data-stu-id="cb340-145">If Identity isn't configured by calling `services.AddIdentity` in `ConfigureServices`, attempting to authenticate will result in *ArgumentException: The 'SignInScheme' option must be provided*.</span></span> <span data-ttu-id="cb340-146">此示例中使用的项目模板可确保完成此操作。</span><span class="sxs-lookup"><span data-stu-id="cb340-146">The project template used in this sample ensures that this is done.</span></span>
-* <span data-ttu-id="cb340-147">如果尚未通过应用初始迁移创建站点数据库，则在处理请求错误时，将获取*数据库操作失败*。</span><span class="sxs-lookup"><span data-stu-id="cb340-147">If the site database has not been created by applying the initial migration, you will get *A database operation failed while processing the request* error.</span></span> <span data-ttu-id="cb340-148">点按 **"应用迁移**"以创建数据库并刷新以继续结束错误。</span><span class="sxs-lookup"><span data-stu-id="cb340-148">Tap **Apply Migrations** to create the database and refresh to continue past the error.</span></span>
+  <span data-ttu-id="ced3d-144">尽管错误消息似乎指出了 Microsoft 身份验证存在问题，但最常见的原因是应用程序 Uri 与为**Web**平台指定的任何**重定向 uri**都不匹配。</span><span class="sxs-lookup"><span data-stu-id="ced3d-144">Although the error message seems to indicate a problem with Microsoft authentication, the most common cause is your application Uri not matching any of the **Redirect URIs** specified for the **Web** platform.</span></span>
+* <span data-ttu-id="ced3d-145">如果Identity未通过调用`services.AddIdentity`进行配置`ConfigureServices`，尝试进行身份验证会导致*ArgumentException：必须提供 "SignInScheme" 选项*。</span><span class="sxs-lookup"><span data-stu-id="ced3d-145">If Identity isn't configured by calling `services.AddIdentity` in `ConfigureServices`, attempting to authenticate will result in *ArgumentException: The 'SignInScheme' option must be provided*.</span></span> <span data-ttu-id="ced3d-146">本示例中使用的项目模板可确保完成此操作。</span><span class="sxs-lookup"><span data-stu-id="ced3d-146">The project template used in this sample ensures that this is done.</span></span>
+* <span data-ttu-id="ced3d-147">如果尚未通过应用初始迁移来创建站点数据库，则在处理请求错误时将会获得*数据库操作失败*。</span><span class="sxs-lookup"><span data-stu-id="ced3d-147">If the site database has not been created by applying the initial migration, you will get *A database operation failed while processing the request* error.</span></span> <span data-ttu-id="ced3d-148">点击 "**应用迁移**" 以创建数据库，然后单击 "刷新" 以继续出现错误。</span><span class="sxs-lookup"><span data-stu-id="ced3d-148">Tap **Apply Migrations** to create the database and refresh to continue past the error.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="cb340-149">后续步骤</span><span class="sxs-lookup"><span data-stu-id="cb340-149">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="ced3d-149">后续步骤</span><span class="sxs-lookup"><span data-stu-id="ced3d-149">Next steps</span></span>
 
-* <span data-ttu-id="cb340-150">本文展示了如何使用 Microsoft 进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="cb340-150">This article showed how you can authenticate with Microsoft.</span></span> <span data-ttu-id="cb340-151">您可以采用类似的方法对[上一页](xref:security/authentication/social/index)中列出的其他提供程序进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="cb340-151">You can follow a similar approach to authenticate with other providers listed on the [previous page](xref:security/authentication/social/index).</span></span>
+* <span data-ttu-id="ced3d-150">本文演示了如何向 Microsoft 进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ced3d-150">This article showed how you can authenticate with Microsoft.</span></span> <span data-ttu-id="ced3d-151">您可以遵循类似的方法向[前一页](xref:security/authentication/social/index)上列出的其他提供程序进行身份验证。</span><span class="sxs-lookup"><span data-stu-id="ced3d-151">You can follow a similar approach to authenticate with other providers listed on the [previous page](xref:security/authentication/social/index).</span></span>
 
-* <span data-ttu-id="cb340-152">将网站发布到 Azure Web 应用后，在 Microsoft 开发人员门户中创建新的客户端机密。</span><span class="sxs-lookup"><span data-stu-id="cb340-152">Once you publish your web site to Azure web app, create a new client secrets in the Microsoft Developer Portal.</span></span>
+* <span data-ttu-id="ced3d-152">将网站发布到 Azure web 应用后，在 Microsoft 开发人员门户中创建新的客户端密码。</span><span class="sxs-lookup"><span data-stu-id="ced3d-152">Once you publish your web site to Azure web app, create a new client secrets in the Microsoft Developer Portal.</span></span>
 
-* <span data-ttu-id="cb340-153">在`Authentication:Microsoft:ClientId`Azure`Authentication:Microsoft:ClientSecret`门户中将 和 设置为应用程序设置。</span><span class="sxs-lookup"><span data-stu-id="cb340-153">Set the `Authentication:Microsoft:ClientId` and `Authentication:Microsoft:ClientSecret` as application settings in the Azure portal.</span></span> <span data-ttu-id="cb340-154">配置系统设置为从环境变量读取密钥。</span><span class="sxs-lookup"><span data-stu-id="cb340-154">The configuration system is set up to read keys from environment variables.</span></span>
+* <span data-ttu-id="ced3d-153">在 Azure 门户`Authentication:Microsoft:ClientId`中`Authentication:Microsoft:ClientSecret`将和设置为应用程序设置。</span><span class="sxs-lookup"><span data-stu-id="ced3d-153">Set the `Authentication:Microsoft:ClientId` and `Authentication:Microsoft:ClientSecret` as application settings in the Azure portal.</span></span> <span data-ttu-id="ced3d-154">配置系统设置为从环境变量读取密钥。</span><span class="sxs-lookup"><span data-stu-id="ced3d-154">The configuration system is set up to read keys from environment variables.</span></span>

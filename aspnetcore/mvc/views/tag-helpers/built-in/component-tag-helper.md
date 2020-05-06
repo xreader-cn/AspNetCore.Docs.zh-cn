@@ -1,34 +1,37 @@
 ---
-title: ASP.NET核心中的组件标记帮助程序
+title: ASP.NET Core 中的组件标记帮助程序
 author: guardrex
 ms.author: riande
-description: 了解如何使用ASP.NET核心组件标记帮助器在页面和视图中呈现 Razor 组件。
+description: 了解如何使用 ASP.NET Core 组件标记帮助程序在页面和Razor视图中呈现组件。
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: aaa4b92a8912b4f52d861ed07432aa7cf3ca5240
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 4e003e5ed5e7863d8a218c0f02bb37e214e31910
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440956"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773924"
 ---
-# <a name="component-tag-helper-in-aspnet-core"></a><span data-ttu-id="b62d3-103">ASP.NET核心中的组件标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="b62d3-103">Component Tag Helper in ASP.NET Core</span></span>
+# <a name="component-tag-helper-in-aspnet-core"></a><span data-ttu-id="6745b-103">ASP.NET Core 中的组件标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="6745b-103">Component Tag Helper in ASP.NET Core</span></span>
 
-<span data-ttu-id="b62d3-104">作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="b62d3-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="6745b-104">作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="6745b-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="b62d3-105">要从页面或视图呈现组件，请使用[组件标记帮助程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper)。</span><span class="sxs-lookup"><span data-stu-id="b62d3-105">To render a component from a page or view, use the [Component Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper).</span></span>
+<span data-ttu-id="6745b-105">若要从页面或视图呈现组件，请使用[组件标记帮助程序](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper)。</span><span class="sxs-lookup"><span data-stu-id="6745b-105">To render a component from a page or view, use the [Component Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="b62d3-106">先决条件</span><span class="sxs-lookup"><span data-stu-id="b62d3-106">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="6745b-106">先决条件</span><span class="sxs-lookup"><span data-stu-id="6745b-106">Prerequisites</span></span>
 
-<span data-ttu-id="b62d3-107">按照"准备应用"中的指南在<xref:blazor/integrate-components#prepare-the-app>文章的*页面和视图部分使用组件*。</span><span class="sxs-lookup"><span data-stu-id="b62d3-107">Follow the guidance in the *Prepare the app to use components in pages and views* section of the <xref:blazor/integrate-components#prepare-the-app> article.</span></span>
+<span data-ttu-id="6745b-107">按照<xref:blazor/integrate-components#prepare-the-app>本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作。</span><span class="sxs-lookup"><span data-stu-id="6745b-107">Follow the guidance in the *Prepare the app to use components in pages and views* section of the <xref:blazor/integrate-components#prepare-the-app> article.</span></span>
 
-## <a name="component-tag-helper"></a><span data-ttu-id="b62d3-108">组件标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="b62d3-108">Component Tag Helper</span></span>
+## <a name="component-tag-helper"></a><span data-ttu-id="6745b-108">组件标记帮助程序</span><span class="sxs-lookup"><span data-stu-id="6745b-108">Component Tag Helper</span></span>
 
-<span data-ttu-id="b62d3-109">以下组件标记帮助程序在页面或视图中`Counter`呈现组件：</span><span class="sxs-lookup"><span data-stu-id="b62d3-109">The following Component Tag Helper renders the `Counter` component in a page or view:</span></span>
+<span data-ttu-id="6745b-109">以下组件标记帮助程序在页面`Counter`或视图中呈现组件：</span><span class="sxs-lookup"><span data-stu-id="6745b-109">The following Component Tag Helper renders the `Counter` component in a page or view:</span></span>
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -39,9 +42,9 @@ ms.locfileid: "81440956"
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-<span data-ttu-id="b62d3-110">前面的示例假定组件`Counter`位于应用的 *"主页"* 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="b62d3-110">The preceding example assumes that the `Counter` component is in the app's *Pages* folder.</span></span>
+<span data-ttu-id="6745b-110">前面的示例假定`Counter`组件位于应用的*Pages*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="6745b-110">The preceding example assumes that the `Counter` component is in the app's *Pages* folder.</span></span>
 
-<span data-ttu-id="b62d3-111">组件标记帮助程序还可以将参数传递给组件。</span><span class="sxs-lookup"><span data-stu-id="b62d3-111">The Component Tag Helper can also pass parameters to components.</span></span> <span data-ttu-id="b62d3-112">请考虑设置复选框`ColorfulCheckbox`标签颜色和大小的以下组件：</span><span class="sxs-lookup"><span data-stu-id="b62d3-112">Consider the following `ColorfulCheckbox` component that sets the check box label's color and size:</span></span>
+<span data-ttu-id="6745b-111">组件标记帮助器还可以将参数传递给组件。</span><span class="sxs-lookup"><span data-stu-id="6745b-111">The Component Tag Helper can also pass parameters to components.</span></span> <span data-ttu-id="6745b-112">请考虑以下`ColorfulCheckbox`用于设置复选框标签颜色和大小的组件：</span><span class="sxs-lookup"><span data-stu-id="6745b-112">Consider the following `ColorfulCheckbox` component that sets the check box label's color and size:</span></span>
 
 ```razor
 <label style="font-size:@(Size)px;color:@Color">
@@ -69,7 +72,7 @@ ms.locfileid: "81440956"
 }
 ```
 
-<span data-ttu-id="b62d3-113">`Size` （`int`）`Color`和`string`（ ）[组件参数](xref:blazor/components#component-parameters)可以由组件标记帮助程序设置：</span><span class="sxs-lookup"><span data-stu-id="b62d3-113">The `Size` (`int`) and `Color` (`string`) [component parameters](xref:blazor/components#component-parameters) can be set by the Component Tag Helper:</span></span>
+<span data-ttu-id="6745b-113">`Size` （`int`）和`Color` （`string`）[组件参数](xref:blazor/components#component-parameters)可由组件标记帮助器设置：</span><span class="sxs-lookup"><span data-stu-id="6745b-113">The `Size` (`int`) and `Color` (`string`) [component parameters](xref:blazor/components#component-parameters) can be set by the Component Tag Helper:</span></span>
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -81,9 +84,9 @@ ms.locfileid: "81440956"
     param-Size="14" param-Color="@("blue")" />
 ```
 
-<span data-ttu-id="b62d3-114">前面的示例假定组件`ColorfulCheckbox`位于应用的 *"共享"* 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="b62d3-114">The preceding example assumes that the `ColorfulCheckbox` component is in the app's *Shared* folder.</span></span>
+<span data-ttu-id="6745b-114">前面的示例假定`ColorfulCheckbox`组件位于应用的*共享*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="6745b-114">The preceding example assumes that the `ColorfulCheckbox` component is in the app's *Shared* folder.</span></span>
 
-<span data-ttu-id="b62d3-115">以下 HTML 呈现在页面或视图中：</span><span class="sxs-lookup"><span data-stu-id="b62d3-115">The following HTML is rendered in the page or view:</span></span>
+<span data-ttu-id="6745b-115">在页面或视图中呈现以下 HTML：</span><span class="sxs-lookup"><span data-stu-id="6745b-115">The following HTML is rendered in the page or view:</span></span>
 
 ```html
 <label style="font-size:24px;color:blue">
@@ -92,13 +95,13 @@ ms.locfileid: "81440956"
 </label>
 ```
 
-<span data-ttu-id="b62d3-116">传递引用的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如前面的`param-Color`示例所示。</span><span class="sxs-lookup"><span data-stu-id="b62d3-116">Passing a quoted string requires an [explicit Razor expression](xref:mvc/views/razor#explicit-razor-expressions), as shown for `param-Color` in the preceding example.</span></span> <span data-ttu-id="b62d3-117">`string`类型值的 Razor 解析行为不适用于属性，`param-*`因为属性是一种`object`类型。</span><span class="sxs-lookup"><span data-stu-id="b62d3-117">The Razor parsing behavior for a `string` type value doesn't apply to a `param-*` attribute because the attribute is an `object` type.</span></span>
+<span data-ttu-id="6745b-116">传递带引号的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如前面的`param-Color`示例中所示。</span><span class="sxs-lookup"><span data-stu-id="6745b-116">Passing a quoted string requires an [explicit Razor expression](xref:mvc/views/razor#explicit-razor-expressions), as shown for `param-Color` in the preceding example.</span></span> <span data-ttu-id="6745b-117">由于属性是`string` `object`类型，因此类型值的 Razor 分析行为`param-*`不适用于特性。</span><span class="sxs-lookup"><span data-stu-id="6745b-117">The Razor parsing behavior for a `string` type value doesn't apply to a `param-*` attribute because the attribute is an `object` type.</span></span>
 
-<span data-ttu-id="b62d3-118">参数类型必须是 JSON 可序列化的，这通常意味着类型必须具有默认构造函数和可设置属性。</span><span class="sxs-lookup"><span data-stu-id="b62d3-118">The parameter type must be JSON serializable, which typically means that the type must have a default constructor and settable properties.</span></span> <span data-ttu-id="b62d3-119">例如，`Size`您可以为 和 在前面的示例中`Color`指定值，因为 和`Size``Color`的类型是基元类型`int`（`string`和 ），JSON 序列化器支持。</span><span class="sxs-lookup"><span data-stu-id="b62d3-119">For example, you can specify a value for `Size` and `Color` in the preceding example because the types of `Size` and `Color` are primitive types (`int` and `string`), which are supported by the JSON serializer.</span></span>
+<span data-ttu-id="6745b-118">参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。</span><span class="sxs-lookup"><span data-stu-id="6745b-118">The parameter type must be JSON serializable, which typically means that the type must have a default constructor and settable properties.</span></span> <span data-ttu-id="6745b-119">例如，在前面的示例中，可以`Size`为`Color`和指定一个值， `Size`因为和`Color`的类型为基元类型（`int`和`string`），这些类型是 JSON 序列化程序支持的。</span><span class="sxs-lookup"><span data-stu-id="6745b-119">For example, you can specify a value for `Size` and `Color` in the preceding example because the types of `Size` and `Color` are primitive types (`int` and `string`), which are supported by the JSON serializer.</span></span>
 
-<span data-ttu-id="b62d3-120">在下面的示例中，类对象传递给组件：</span><span class="sxs-lookup"><span data-stu-id="b62d3-120">In the following example, a class object is passed to the component:</span></span>
+<span data-ttu-id="6745b-120">在下面的示例中，将类对象传递到组件：</span><span class="sxs-lookup"><span data-stu-id="6745b-120">In the following example, a class object is passed to the component:</span></span>
 
-<span data-ttu-id="b62d3-121">*MyClass.cs*：</span><span class="sxs-lookup"><span data-stu-id="b62d3-121">*MyClass.cs*:</span></span>
+<span data-ttu-id="6745b-121">*MyClass.cs*：</span><span class="sxs-lookup"><span data-stu-id="6745b-121">*MyClass.cs*:</span></span>
 
 ```csharp
 public class MyClass
@@ -112,9 +115,9 @@ public class MyClass
 }
 ```
 
-<span data-ttu-id="b62d3-122">**类必须具有公共无参数构造函数。**</span><span class="sxs-lookup"><span data-stu-id="b62d3-122">**The class must have a public parameterless constructor.**</span></span>
+<span data-ttu-id="6745b-122">**该类必须具有公共的无参数构造函数。**</span><span class="sxs-lookup"><span data-stu-id="6745b-122">**The class must have a public parameterless constructor.**</span></span>
 
-<span data-ttu-id="b62d3-123">*共享/我的组件.razor*：</span><span class="sxs-lookup"><span data-stu-id="b62d3-123">*Shared/MyComponent.razor*:</span></span>
+<span data-ttu-id="6745b-123">*Shared/MyComponent*：</span><span class="sxs-lookup"><span data-stu-id="6745b-123">*Shared/MyComponent.razor*:</span></span>
 
 ```razor
 <h2>MyComponent</h2>
@@ -129,7 +132,7 @@ public class MyClass
 }
 ```
 
-<span data-ttu-id="b62d3-124">*页面/MyPage.cshtml*：</span><span class="sxs-lookup"><span data-stu-id="b62d3-124">*Pages/MyPage.cshtml*:</span></span>
+<span data-ttu-id="6745b-124">*Pages/m y*：</span><span class="sxs-lookup"><span data-stu-id="6745b-124">*Pages/MyPage.cshtml*:</span></span>
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -148,24 +151,24 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-<span data-ttu-id="b62d3-125">前面的示例假定组件`MyComponent`位于应用的 *"共享"* 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="b62d3-125">The preceding example assumes that the `MyComponent` component is in the app's *Shared* folder.</span></span> <span data-ttu-id="b62d3-126">`MyClass`在应用的命名空间中 。`{APP ASSEMBLY}`</span><span class="sxs-lookup"><span data-stu-id="b62d3-126">`MyClass` is in the app's namespace (`{APP ASSEMBLY}`).</span></span>
+<span data-ttu-id="6745b-125">前面的示例假定`MyComponent`组件位于应用的*共享*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="6745b-125">The preceding example assumes that the `MyComponent` component is in the app's *Shared* folder.</span></span> <span data-ttu-id="6745b-126">`MyClass`位于应用程序的命名空间（`{APP ASSEMBLY}`）中。</span><span class="sxs-lookup"><span data-stu-id="6745b-126">`MyClass` is in the app's namespace (`{APP ASSEMBLY}`).</span></span>
 
-<span data-ttu-id="b62d3-127"><xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>配置组件是否：</span><span class="sxs-lookup"><span data-stu-id="b62d3-127"><xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> configures whether the component:</span></span>
+<span data-ttu-id="6745b-127"><xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>配置组件是否：</span><span class="sxs-lookup"><span data-stu-id="6745b-127"><xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> configures whether the component:</span></span>
 
-* <span data-ttu-id="b62d3-128">预置到页面中。</span><span class="sxs-lookup"><span data-stu-id="b62d3-128">Is prerendered into the page.</span></span>
-* <span data-ttu-id="b62d3-129">在页面上呈现为静态 HTML，或者如果它包含从用户代理引导 Blazor 应用的必要信息。</span><span class="sxs-lookup"><span data-stu-id="b62d3-129">Is rendered as static HTML on the page or if it includes the necessary information to bootstrap a Blazor app from the user agent.</span></span>
+* <span data-ttu-id="6745b-128">在页面中预呈现。</span><span class="sxs-lookup"><span data-stu-id="6745b-128">Is prerendered into the page.</span></span>
+* <span data-ttu-id="6745b-129">在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。</span><span class="sxs-lookup"><span data-stu-id="6745b-129">Is rendered as static HTML on the page or if it includes the necessary information to bootstrap a Blazor app from the user agent.</span></span>
 
-| <span data-ttu-id="b62d3-130">渲染模式</span><span class="sxs-lookup"><span data-stu-id="b62d3-130">Render Mode</span></span> | <span data-ttu-id="b62d3-131">说明</span><span class="sxs-lookup"><span data-stu-id="b62d3-131">Description</span></span> |
+| <span data-ttu-id="6745b-130">呈现模式</span><span class="sxs-lookup"><span data-stu-id="6745b-130">Render Mode</span></span> | <span data-ttu-id="6745b-131">描述</span><span class="sxs-lookup"><span data-stu-id="6745b-131">Description</span></span> |
 | ----------- | ----------- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | <span data-ttu-id="b62d3-132">将组件呈现为静态 HTML，并包含服务器应用的Blazor标记。</span><span class="sxs-lookup"><span data-stu-id="b62d3-132">Renders the component into static HTML and includes a marker for a Blazor Server app.</span></span> <span data-ttu-id="b62d3-133">当用户代理启动时，此标记用于引导Blazor应用。</span><span class="sxs-lookup"><span data-stu-id="b62d3-133">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | <span data-ttu-id="b62d3-134">渲染服务器应用的Blazor标记。</span><span class="sxs-lookup"><span data-stu-id="b62d3-134">Renders a marker for a Blazor Server app.</span></span> <span data-ttu-id="b62d3-135">不包括组件的输出。</span><span class="sxs-lookup"><span data-stu-id="b62d3-135">Output from the component isn't included.</span></span> <span data-ttu-id="b62d3-136">当用户代理启动时，此标记用于引导Blazor应用。</span><span class="sxs-lookup"><span data-stu-id="b62d3-136">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | <span data-ttu-id="b62d3-137">将组件呈现为静态 HTML。</span><span class="sxs-lookup"><span data-stu-id="b62d3-137">Renders the component into static HTML.</span></span> |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | <span data-ttu-id="6745b-132">将组件呈现为静态 HTML，并包括Blazor服务器应用程序的标记。</span><span class="sxs-lookup"><span data-stu-id="6745b-132">Renders the component into static HTML and includes a marker for a Blazor Server app.</span></span> <span data-ttu-id="6745b-133">用户代理启动时，此标记用于启动 Blazor 应用。</span><span class="sxs-lookup"><span data-stu-id="6745b-133">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | <span data-ttu-id="6745b-134">呈现 Blazor 服务器应用的标记。</span><span class="sxs-lookup"><span data-stu-id="6745b-134">Renders a marker for a Blazor Server app.</span></span> <span data-ttu-id="6745b-135">不包括组件的输出。</span><span class="sxs-lookup"><span data-stu-id="6745b-135">Output from the component isn't included.</span></span> <span data-ttu-id="6745b-136">用户代理启动时，此标记用于启动 Blazor 应用。</span><span class="sxs-lookup"><span data-stu-id="6745b-136">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | <span data-ttu-id="6745b-137">将组件呈现为静态 HTML。</span><span class="sxs-lookup"><span data-stu-id="6745b-137">Renders the component into static HTML.</span></span> |
 
-<span data-ttu-id="b62d3-138">虽然页面和视图可以使用组件，但事实并非如此。</span><span class="sxs-lookup"><span data-stu-id="b62d3-138">While pages and views can use components, the converse isn't true.</span></span> <span data-ttu-id="b62d3-139">组件无法使用特定于视图和页面的功能，如部分视图和节。</span><span class="sxs-lookup"><span data-stu-id="b62d3-139">Components can't use view- and page-specific features, such as partial views and sections.</span></span> <span data-ttu-id="b62d3-140">要使用组件中部分视图的逻辑，将部分视图逻辑分解到组件中。</span><span class="sxs-lookup"><span data-stu-id="b62d3-140">To use logic from a partial view in a component, factor out the partial view logic into a component.</span></span>
+<span data-ttu-id="6745b-138">尽管页面和视图可以使用组件，但不是这样。</span><span class="sxs-lookup"><span data-stu-id="6745b-138">While pages and views can use components, the converse isn't true.</span></span> <span data-ttu-id="6745b-139">组件不能使用视图和页特定的功能，如分部视图和节。</span><span class="sxs-lookup"><span data-stu-id="6745b-139">Components can't use view- and page-specific features, such as partial views and sections.</span></span> <span data-ttu-id="6745b-140">若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。</span><span class="sxs-lookup"><span data-stu-id="6745b-140">To use logic from a partial view in a component, factor out the partial view logic into a component.</span></span>
 
-<span data-ttu-id="b62d3-141">不支持从静态 HTML 页呈现服务器组件。</span><span class="sxs-lookup"><span data-stu-id="b62d3-141">Rendering server components from a static HTML page isn't supported.</span></span>
+<span data-ttu-id="6745b-141">不支持从静态 HTML 页面呈现服务器组件。</span><span class="sxs-lookup"><span data-stu-id="6745b-141">Rendering server components from a static HTML page isn't supported.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="b62d3-142">其他资源</span><span class="sxs-lookup"><span data-stu-id="b62d3-142">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="6745b-142">其他资源</span><span class="sxs-lookup"><span data-stu-id="6745b-142">Additional resources</span></span>
 
 * <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>
 * <xref:mvc/views/tag-helpers/intro>
