@@ -1,23 +1,29 @@
 ---
-title: 在 ASP.NET Core 中的密钥存储提供程序
+title: ASP.NET Core 中的密钥存储提供程序
 author: rick-anderson
-description: 了解有关 ASP.NET Core 以及如何配置密钥的存储位置中的密钥存储提供程序。
+description: 了解 ASP.NET Core 中的密钥存储提供程序以及如何配置密钥存储位置。
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 19f64e816d88d2fc156915e31dc147645c5a630a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a8d38f17b066a0aa9a38b1bdfea3491f733cf1bc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653382"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776872"
 ---
-# <a name="key-storage-providers-in-aspnet-core"></a>在 ASP.NET Core 中的密钥存储提供程序
+# <a name="key-storage-providers-in-aspnet-core"></a>ASP.NET Core 中的密钥存储提供程序
 
-默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应在何处保存加密密钥。 开发人员可以重写默认的发现机制，并手动指定的位置。
+默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应在何处保存加密密钥。 开发人员可以重写默认发现机制并手动指定位置。
 
 > [!WARNING]
-> 如果指定了显式密钥持久性位置，数据保护系统注销 rest 机制，在默认密钥加密，因此不再静态加密密钥。 建议你另外指定用于生产部署的[显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest)。
+> 如果指定显式密钥持久性位置，数据保护系统将注销静态密钥加密机制，这样密钥就不再静态加密。 建议你另外指定用于生产部署的[显式密钥加密机制](xref:security/data-protection/implementation/key-encryption-at-rest)。
 
 ## <a name="file-system"></a>文件系统
 
@@ -31,11 +37,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`DirectoryInfo` 可以指向本地计算机上的目录，也可以指向网络共享上的文件夹。 如果指向本地计算机上的目录（并且方案为仅本地计算机上的应用需要使用此存储库的访问权限），请考虑使用[WINDOWS DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) （在 windows 上）对静态密钥进行加密。 否则，请考虑使用[x.509 证书](xref:security/data-protection/implementation/key-encryption-at-rest)来加密静态密钥。
+`DirectoryInfo`可以指向本地计算机上的目录，也可以指向网络共享上的文件夹。 如果指向本地计算机上的目录（并且方案为仅本地计算机上的应用需要使用此存储库的访问权限），请考虑使用[WINDOWS DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) （在 windows 上）对静态密钥进行加密。 否则，请考虑使用[x.509 证书](xref:security/data-protection/implementation/key-encryption-at-rest)来加密静态密钥。
 
 ## <a name="azure-storage"></a>Azure 存储
 
-[AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) package 允许将数据保护密钥存储在 Azure Blob 存储中。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) package 允许将数据保护密钥存储在 Azure Blob 存储中。 可在 web 应用的多个实例之间共享密钥。 应用可在多个服务器之间共享身份验证 cookie 或 CSRF 保护。
 
 若要配置 Azure Blob 存储提供程序，请调用[PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)重载之一。
 
@@ -70,13 +76,13 @@ services.AddDataProtection()
 
 ::: moniker range=">= aspnetcore-2.2"
 
-[AspNetCore. DataProtection. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) package 允许在 Redis 缓存中存储数据保护密钥。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) package 允许在 Redis 缓存中存储数据保护密钥。 可在 web 应用的多个实例之间共享密钥。 应用可在多个服务器之间共享身份验证 cookie 或 CSRF 保护。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-[AspNetCore. DataProtection. Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) package 允许在 Redis 缓存中存储数据保护密钥。 可以在 web 应用的多个实例之间共享密钥。 应用可以跨多个服务器共享身份验证 cookie 或 CSRF 保护。
+[AspNetCore. DataProtection. Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) package 允许在 Redis 缓存中存储数据保护密钥。 可在 web 应用的多个实例之间共享密钥。 应用可在多个服务器之间共享身份验证 cookie 或 CSRF 保护。
 
 ::: moniker-end
 
@@ -120,7 +126,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **仅适用于 Windows 部署。**
 
-有时应用程序可能没有到文件系统的写访问权限。 请考虑一个应用以虚拟服务帐户（例如*w3wp.exe*的应用程序池标识）运行的方案。 在这些情况下，管理员可以预配的服务帐户标识都可访问的注册表项。 调用[PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry)扩展方法，如下所示。 提供一个[RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ，指向应存储加密密钥的位置：
+有时应用程序可能没有对文件系统的写访问权限。 请考虑一个应用以虚拟服务帐户（例如*w3wp.exe*的应用程序池标识）运行的方案。 在这些情况下，管理员可以设置可由服务帐户标识访问的注册表项。 调用[PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry)扩展方法，如下所示。 提供一个[RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ，指向应存储加密密钥的位置：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -137,17 +143,17 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-[AspNetCore. DataProtection. microsoft.entityframeworkcore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)包提供了一种机制，用于使用 Entity Framework Core 将数据保护密钥存储到数据库。 必须将 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet 包添加到项目文件中，它不是[AspNetCore 元包](xref:fundamentals/metapackage-app)的一部分。
+[AspNetCore. DataProtection. microsoft.entityframeworkcore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)包提供了一种机制，用于使用 Entity Framework Core 将数据保护密钥存储到数据库。 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet 包必须添加到项目文件，而不是[AspNetCore 元包](xref:fundamentals/metapackage-app)的一部分。
 
-通过此包，可以在 web 应用的多个实例之间共享密钥。
+使用此包，可以在 web 应用的多个实例之间共享密钥。
 
-若要配置 EF Core 提供程序，请调用[PersistKeysToDbContext\<TContext >](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext)方法：
+若要配置 EF Core 提供程序，请[调用\<PersistKeysToDbContext TContext>](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext)方法：
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-泛型参数 `TContext`必须继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)并实现[IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext)：
+泛型参数`TContext`必须从[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)继承，并实现[IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext)：
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
@@ -173,9 +179,9 @@ dotnet ef database update --context MyKeysContext
 
 ---
 
-`MyKeysContext` 是前面的代码示例中定义的 `DbContext`。 如果你使用的是其他名称的 `DbContext`，请将 `DbContext` 名称替换为 `MyKeysContext`。
+`MyKeysContext`是前面`DbContext`的代码示例中定义的。 如果你使用的是`DbContext`其他名称，请将你`DbContext`的名称替换`MyKeysContext`为。
 
-`DataProtectionKeys` 类/实体采用下表所示的结构。
+`DataProtectionKeys`类/实体采用下表所示的结构。
 
 | 属性/字段 | CLR 类型 | SQL 类型              |
 | -------------- | -------- | --------------------- |

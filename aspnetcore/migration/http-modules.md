@@ -1,24 +1,30 @@
 ---
-title: 将 HTTP 处理程序和模块迁移到 ASP.NET Core中间件
+title: 将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 author: rick-anderson
 description: ''
 ms.author: riande
 ms.date: 12/07/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/http-modules
-ms.openlocfilehash: bdf27ccb742d4bc05bac71e6c96d71c38dcb4b62
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c2b49976d2063679eab2403aae432660e8c8932d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651996"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775409"
 ---
-# <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core中间件
+# <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>将 HTTP 处理程序和模块迁移到 ASP.NET Core 中间件
 
 本文介绍如何将现有[的 ASP.NET HTTP 模块和处理程序从 system.webserver](/iis/configuration/system.webserver/)迁移到 ASP.NET Core[中间件](xref:fundamentals/middleware/index)。
 
 ## <a name="modules-and-handlers-revisited"></a>模块和处理程序被
 
-在继续之前到 ASP.NET Core 中间件，让我们首先会扼要重述 HTTP 模块和处理程序的工作原理：
+在继续 ASP.NET Core 中间件之前，让我们先回顾一下 HTTP 模块和处理程序的工作原理：
 
 ![模块处理程序](http-modules/_static/moduleshandlers.png)
 
@@ -88,7 +94,7 @@ ms.locfileid: "78651996"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyModule.cs?highlight=6,8,24,31)]
 
-如[中间件](xref:fundamentals/middleware/index)页中所示，ASP.NET Core 中间件是一个类，该类公开采用 `HttpContext` 并返回 `Task`的 `Invoke` 方法。 新的中间件将如下所示：
+如[中间件](xref:fundamentals/middleware/index)页中所示，ASP.NET Core 中间件是一个类，该类`Invoke`公开采用`HttpContext`并返回的`Task`方法。 新的中间件将如下所示：
 
 <a name="http-modules-usemiddleware"></a>
 
@@ -96,7 +102,7 @@ ms.locfileid: "78651996"
 
 前面的中间件模板取自[编写中间件](xref:fundamentals/middleware/write)的部分。
 
-*MyMiddlewareExtensions* helper 类使你可以更轻松地在 `Startup` 类中配置中间件。 `UseMyMiddleware` 方法将中间件类添加到请求管道。 中间件的构造函数中插入了中间件所需的服务。
+*MyMiddlewareExtensions* helper 类使你可以更轻松地在`Startup`类中配置中间件。 `UseMyMiddleware`方法将中间件类添加到请求管道。 中间件的构造函数中插入了中间件所需的服务。
 
 <a name="http-modules-shortcircuiting-middleware"></a>
 
@@ -104,11 +110,11 @@ ms.locfileid: "78651996"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyTerminatingModule.cs?highlight=9,10,11,12,13&name=snippet_Terminate)]
 
-中间件通过不在管道中的下一个中间件上调用 `Invoke` 来处理这种情况。 请记住，这并不完全终止请求，因为当响应通过管道返回以前的中间件时，仍然会调用以前的。
+中间件通过不调用`Invoke`管道中的下一个中间件来处理这种情况。 请记住，这并不完全终止请求，因为当响应通过管道返回以前的中间件时，仍然会调用以前的。
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyTerminatingMiddleware.cs?highlight=7,8&name=snippet_Terminate)]
 
-当您将模块的功能迁移到新的中间件时，您可能会发现您的代码不会进行编译，因为 `HttpContext` 类在 ASP.NET Core 中发生了重大更改。 [稍后](#migrating-to-the-new-httpcontext)，你将了解如何迁移到新的 ASP.NET Core HttpContext。
+当您将模块的功能迁移到新的中间件时，您可能会发现您的代码不`HttpContext`会进行编译，因为在 ASP.NET Core 中，类发生了重大更改。 [稍后](#migrating-to-the-new-httpcontext)，你将了解如何迁移到新的 ASP.NET Core HttpContext。
 
 ## <a name="migrating-module-insertion-into-the-request-pipeline"></a>将模块插入迁移到请求管道中
 
@@ -116,13 +122,13 @@ HTTP 模块*通常使用 web.config*添加到请求管道：
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32-33,36,43,50,101)]
 
-通过[将新的中间件添加](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)到 `Startup` 类中的请求管道来转换此项：
+通过在`Startup`类中将[新的中间件添加](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)到请求管道来转换此项：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=16)]
 
-插入新中间件的管道中的确切位置取决于它作为模块（`BeginRequest`、`EndRequest`等）*及其在 web.config*中的模块列表中的顺序。
+插入新中间件的管道中的确切位置取决于它在*web.config 中的*模块列表中处理为模块`BeginRequest`（ `EndRequest`、等）的事件及其顺序。
 
-如前面所述，没有任何应用程序生命周期中 ASP.NET Core，中间件处理响应的顺序不同于使用模块的顺序。 这可能会使你的排序决策更具挑战性。
+如前所述，ASP.NET Core 中没有应用程序生命周期，中间件的处理响应顺序与模块使用的顺序不同。 这可能会使你的排序决策更具挑战性。
 
 如果排序会成为一个问题，则可以将模块拆分为多个中间件组件，这些组件可以独立排序。
 
@@ -132,11 +138,11 @@ HTTP 处理程序如下所示：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/HttpHandlers/ReportHandler.cs?highlight=5,7,13,14,15,16)]
 
-在 ASP.NET Core 项目中，你将翻译以下到中间件类似于以下内容：
+在 ASP.NET Core 项目中，将其转换为类似于下面的中间件：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/ReportHandlerMiddleware.cs?highlight=7,9,13,20,21,22,23,40,42,44)]
 
-此中间件与与模块对应的中间件非常类似。 唯一的区别在于，这里不会调用 `_next.Invoke(context)`。 这样做很有意义，因为处理程序位于请求管道的末尾，因此没有要调用的下一个中间件。
+此中间件与与模块对应的中间件非常类似。 唯一的区别在于，这里不会调用`_next.Invoke(context)`。 这样做很有意义，因为处理程序位于请求管道的末尾，因此没有要调用的下一个中间件。
 
 ## <a name="migrating-handler-insertion-into-the-request-pipeline"></a>将处理程序插入迁移到请求管道中
 
@@ -144,17 +150,17 @@ HTTP 处理程序如下所示：
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32,46-48,50,101)]
 
-可以通过将新的处理程序中间件添加到 `Startup` 类中的请求管道来转换此转换，类似于从模块转换的中间件。 此方法的问题是，它会将所有请求发送到新的处理程序中间件。 但是，只需要具有给定扩展的请求来访问中间件。 这将为你提供与 HTTP 处理程序相同的功能。
+可以通过将新的处理程序中间件添加到`Startup`类中的请求管道来转换此转换，类似于从模块转换的中间件。 此方法的问题是，它会将所有请求发送到新的处理程序中间件。 但是，只需要具有给定扩展的请求来访问中间件。 这将为你提供与 HTTP 处理程序相同的功能。
 
-一种解决方案是使用 `MapWhen` 扩展方法为具有给定扩展的请求分支管道。 在添加其他中间件的相同 `Configure` 方法中执行此操作：
+一种解决方法是使用`MapWhen`扩展方法分支具有给定扩展的请求的管道。 可在添加其他中间件`Configure`的相同方法中执行此操作：
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=27-34)]
 
-`MapWhen` 采用以下参数：
+`MapWhen`采用以下参数：
 
-1. 一个 lambda，它采用 `HttpContext` 并在请求应向下移动时返回 `true`。 这意味着，不仅可以根据请求的扩展来分支请求，还可以处理请求标头、查询字符串参数等。
+1. 一个采用的`HttpContext` lambda，如果请求`true`应向下分支，则返回。 这意味着，不仅可以根据请求的扩展来分支请求，还可以处理请求标头、查询字符串参数等。
 
-2. 采用 `IApplicationBuilder` 并添加分支的所有中间件的 lambda。 这意味着，可以将其他中间件添加到处理程序中间件前面的分支。
+2. 一个采用`IApplicationBuilder`并添加分支的所有中间件的 lambda。 这意味着，可以将其他中间件添加到处理程序中间件前面的分支。
 
 将在所有请求上调用分支之前添加到管道的中间件;该分支不会对它们产生任何影响。
 
@@ -182,11 +188,11 @@ HTTP 处理程序如下所示：
 
 3. 将选项值与 options 类相关联
 
-    Options 模式使用 ASP.NET Core 的依赖项注入框架将选项类型（如 `MyMiddlewareOptions`）与具有实际选项的 `MyMiddlewareOptions` 对象相关联。
+    Options 模式使用 ASP.NET Core 的依赖项注入框架将选项类型（如`MyMiddlewareOptions`）与具有实际选项的`MyMiddlewareOptions`对象相关联。
 
-    更新 `Startup` 类：
+    更新你`Startup`的类：
 
-   1. 如果使用的是*appsettings*，请将其添加到 `Startup` 构造函数中的配置生成器：
+   1. 如果使用的是*appsettings*，请将其添加到`Startup`构造函数中的配置生成器：
 
       [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Ctor&highlight=5-6)]
 
@@ -202,9 +208,9 @@ HTTP 处理程序如下所示：
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_MiddlewareWithParams&highlight=4,7,10,15-16)]
 
-   [UseMiddleware](#http-modules-usemiddleware)扩展方法，用于将中间件添加到 `IApplicationBuilder` 处理依赖关系注入。
+   将[UseMiddleware](#http-modules-usemiddleware)中间件添加到中`IApplicationBuilder`的 UseMiddleware 扩展方法会处理依赖关系注入。
 
-   这并不限于 `IOptions` 的对象。 中间件所需的任何其他对象都可以通过这种方式注入。
+   这并不限于`IOptions`对象。 中间件所需的任何其他对象都可以通过这种方式注入。
 
 ## <a name="loading-middleware-options-through-direct-injection"></a>通过直接注入加载中间件选项
 
@@ -212,7 +218,7 @@ Options 模式的优点在于，它在选项值与其使用者之间产生松散
 
 如果要使用不同的选项两次使用同一中间件，则会出现这种情况。 例如，在不同的分支中使用的授权中间件允许不同角色。 不能将两个不同的选项对象与一个 options 类相关联。
 
-解决方法是在 `Startup` 类中获取 options 对象以及实际选项值，并将这些选项直接传递给中间件的每个实例。
+解决方法是在`Startup`类中获取选项对象，并将其直接传递给中间件的每个实例。
 
 1. 将第二个键添加到*appsettings*
 
@@ -220,25 +226,25 @@ Options 模式的优点在于，它在选项值与其使用者之间产生松散
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,10-18&highlight=2-5)]
 
-2. 检索选项值并将其传递给中间件。 `Use...` 扩展方法（该方法将中间件添加到管道）是要传入选项值的逻辑位置： 
+2. 检索选项值并将其传递给中间件。 `Use...`扩展方法（将中间件添加到管道）是要传入选项值的逻辑位置： 
 
    [!code-csharp[](http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=20-23)]
 
-3. 启用中间件以采用 options 参数。 提供 `Use...` 扩展方法的重载（该方法采用 options 参数，并将其传递到 `UseMiddleware`）。 如果调用带参数的 `UseMiddleware`，则在实例化中间件对象时，它会将参数传递给中间件构造函数。
+3. 启用中间件以采用 options 参数。 提供`Use...`扩展方法（采用 options 参数并将其传递给`UseMiddleware`）的重载。 当`UseMiddleware`用参数调用时，它会在实例化中间件对象时将参数传递给中间件构造函数。
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_Extensions&highlight=9-14)]
 
-   请注意这如何包装 `OptionsWrapper` 对象中的 options 对象。 这会按照中间件构造函数的预期实现 `IOptions`。
+   请注意这如何包装`OptionsWrapper`对象中的选项对象。 这实现`IOptions`了中间件构造函数的预期。
 
 ## <a name="migrating-to-the-new-httpcontext"></a>迁移到新的 HttpContext
 
-你以前看到，中间件中的 `Invoke` 方法采用 `HttpContext`类型的参数：
+你以前看到，中间`Invoke`件中的方法采用类型`HttpContext`为的参数：
 
 ```csharp
 public async Task Invoke(HttpContext context)
 ```
 
-`HttpContext` 在 ASP.NET Core 中发生了重大更改。 本部分演示如何将[system.web](/dotnet/api/system.web.httpcontext)的最常用属性转换为新 `Microsoft.AspNetCore.Http.HttpContext`。
+`HttpContext`在 ASP.NET Core 中进行了重大更改。 本部分演示如何将 system.servicemodel 最[常用的属性转换为新](/dotnet/api/system.web.httpcontext) `Microsoft.AspNetCore.Http.HttpContext`的。
 
 ### <a name="httpcontext"></a>HttpContext
 
@@ -252,7 +258,7 @@ public async Task Invoke(HttpContext context)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Trace)]
 
-### <a name="httpcontextrequest"></a>HttpContext.Request
+### <a name="httpcontextrequest"></a>Httpcontext.current 请求
 
 **HttpMethod**转换为：
 
@@ -316,7 +322,7 @@ public async Task Invoke(HttpContext context)
 >
 >这并不适用于读取如上所示的窗体，因为这是从缓冲区中完成的。
 
-### <a name="httpcontextresponse"></a>HttpContext.Response
+### <a name="httpcontextresponse"></a>HttpContext 响应
 
 **Httpcontext.current**转换为（ **StatusDescription** ）：
 
@@ -342,9 +348,9 @@ public async Task Invoke(HttpContext context)
 
 发送响应标头比较复杂，因为如果在将任何内容写入响应正文后设置这些标头，则不会发送这些标头。
 
-解决方法是设置一个回调方法，该方法将在开始写入响应之前被调用。 最好在中间件中的 `Invoke` 方法的开头完成此操作。 这是设置响应标头的此回调方法。
+解决方法是设置一个回调方法，该方法将在开始写入响应之前被调用。 最好在中间件中的`Invoke`方法的开头完成此操作。 这是设置响应标头的此回调方法。
 
-下面的代码设置一个名为 `SetHeaders`的回调方法：
+下面的代码设置一个名`SetHeaders`为的回调方法：
 
 ```csharp
 public async Task Invoke(HttpContext httpContext)
@@ -353,7 +359,7 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-`SetHeaders` 回调方法如下所示：
+`SetHeaders`回调方法将如下所示：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetHeaders)]
 
@@ -369,7 +375,7 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-`SetCookies` 回调方法如下所示：
+`SetCookies`回调方法将如下所示：
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetCookies)]
 

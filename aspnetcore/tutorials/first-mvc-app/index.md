@@ -4,13 +4,19 @@ author: rick-anderson
 description: 查看 ASP.NET Core MVC 简介目录。
 ms.author: riande
 ms.date: 10/26/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-mvc-app/index
-ms.openlocfilehash: 04ab19644d68428246c29a5dac980e8bb91867d0
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 3dce7b14bfbf73edcdab035af869054faaa31a8d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644778"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777561"
 ---
 # <a name="create-a-web-app-with-aspnet-core-mvc"></a>使用 ASP.NET Core MVC 创建 Web 应用
 

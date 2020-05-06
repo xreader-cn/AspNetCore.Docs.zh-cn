@@ -1,19 +1,25 @@
 ---
-title: 在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
+title: 在 ASP.NET Core 中阻止跨站点请求伪造（XSRF/CSRF）攻击
 author: steve-smith
 description: 了解如何防止恶意网站可能会影响客户端浏览器与应用程序之间的交互的 web 应用程序的攻击。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/anti-request-forgery
-ms.openlocfilehash: 3da73b8fe3e3d73d5d7754e0642e55feeb785de3
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 4e7e7a89daaee533f648efdb2c621399225f57be
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651774"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773999"
 ---
-# <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 防止跨站点请求伪造 (XSRF/CSRF) 攻击
+# <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 中阻止跨站点请求伪造（XSRF/CSRF）攻击
 
 作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Fiyaz Hasan](https://twitter.com/FiyazBinHasan)和[Steve Smith](https://ardalis.com/)
 
@@ -21,10 +27,10 @@ ms.locfileid: "78651774"
 
 CSRF 攻击的示例：
 
-1. 用户使用窗体身份验证登录 `www.good-banking-site.com`。 服务器对用户进行身份验证，并发出包含身份验证 cookie 的响应。 此站点容易受到攻击，因为它信任使用有效的身份验证 cookie 接收的任何请求。
-1. 用户访问恶意网站 `www.bad-crook-site.com`。
+1. 用户`www.good-banking-site.com`使用窗体身份验证登录。 服务器对用户进行身份验证，并发出包含身份验证 cookie 的响应。 此站点容易受到攻击，因为它信任使用有效的身份验证 cookie 接收的任何请求。
+1. 用户访问恶意网站`www.bad-crook-site.com`。
 
-   恶意网站 `www.bad-crook-site.com`包含如下所示的 HTML 格式：
+   恶意站点`www.bad-crook-site.com`包含如下所示的 HTML 格式：
 
    ```html
    <h1>Congratulations! You're a Winner!</h1>
@@ -35,10 +41,10 @@ CSRF 攻击的示例：
    </form>
    ```
 
-   请注意，窗体的 `action` 会发布到易受攻击的站点，而不是恶意站点。 这是 CSRF 的 "跨站点" 部分。
+   请注意，表单会`action`发布到易受攻击的站点，而不是恶意站点。 这是 CSRF 的 "跨站点" 部分。
 
-1. 用户选择 "提交" 按钮。 浏览器发出请求并自动包含请求域的身份验证 cookie，`www.good-banking-site.com`。
-1. 请求使用用户的身份验证上下文在 `www.good-banking-site.com` 服务器上运行，并可执行允许经过身份验证的用户执行的任何操作。
+1. 用户选择 "提交" 按钮。 浏览器发出请求并自动包含请求域的身份验证 cookie `www.good-banking-site.com`。
+1. 请求在`www.good-banking-site.com`服务器上使用用户的身份验证上下文运行，并可执行允许用户执行的任何操作。
 
 除了用户选择按钮以提交窗体的情况外，恶意网站还可以：
 
@@ -48,7 +54,7 @@ CSRF 攻击的示例：
 
 除最初访问恶意网站外，这些备选方案不需要用户执行任何操作或输入。
 
-使用 HTTPS 不会阻止 CSRF 攻击。 恶意站点可以发送 `https://www.good-banking-site.com/` 请求，就像发送不安全请求一样容易。
+使用 HTTPS 不会阻止 CSRF 攻击。 恶意站点可以发送`https://www.good-banking-site.com/`请求，就像发送不安全请求一样容易。
 
 某些攻击目标是响应 GET 请求的终结点，在这种情况下，可以使用图像标记执行操作。 这种形式的攻击在允许图像但阻止 JavaScript 的论坛站点上很常见。 在 GET 请求上更改状态的应用（其中变量或资源被更改）很容易受到恶意攻击。 **更改状态的 GET 请求是不安全的。最佳做法是从不更改 GET 请求的状态。**
 
@@ -58,9 +64,9 @@ CSRF 攻击的示例：
 * 存储的 cookie 包括经过身份验证的用户的会话 cookie。
 * 无论在浏览器中生成应用程序请求的方式如何，浏览器都会将与域关联的所有 cookie 发送到 web 应用。
 
-但是，CSRF 攻击并不局限于利用 cookie。 例如，基本身份验证和摘要式身份验证也容易受到攻击。 用户使用基本或摘要式身份验证登录后，浏览器会自动发送凭据，直到会话&dagger; 结束。
+但是，CSRF 攻击并不局限于利用 cookie。 例如，基本身份验证和摘要式身份验证也容易受到攻击。 用户使用基本或摘要式身份验证登录后，浏览器会自动发送凭据，直到会话&dagger;结束。
 
-&dagger;在此上下文中， *session*是指在其中对用户进行身份验证的客户端会话。 它与服务器端会话或[ASP.NET Core 会话中间件](xref:fundamentals/app-state)无关。
+&dagger;在这种情况下，*会话*是指在其中对用户进行身份验证的客户端会话。 它与服务器端会话或[ASP.NET Core 会话中间件](xref:fundamentals/app-state)无关。
 
 用户可以采取预防措施来防止 CSRF 漏洞：
 
@@ -85,18 +91,18 @@ CSRF 攻击的示例：
 
 共享宿主环境容易遭受会话劫持、登录 CSRF 和其他攻击。
 
-尽管 `example1.contoso.net` 和 `example2.contoso.net` 是不同主机，但 `*.contoso.net` 域下的主机之间存在隐式信任关系。 这种隐式信任关系允许可能不受信任的主机影响彼此的 cookie （控制 AJAX 请求的相同来源策略并不一定适用于 HTTP cookie）。
+尽管`example1.contoso.net`和`example2.contoso.net`是不同的主机，但`*.contoso.net`该域下的主机之间存在隐式信任关系。 这种隐式信任关系允许可能不受信任的主机影响彼此的 cookie （控制 AJAX 请求的相同来源策略并不一定适用于 HTTP cookie）。
 
 如果不共享域，则可以阻止利用同一域中托管的应用之间的受信任 cookie 的攻击。 当每个应用托管在其自己的域中时，没有要利用的隐式 cookie 信任关系。
 
-## <a name="aspnet-core-antiforgery-configuration"></a>ASP.NET Core antiforgery 配置
+## <a name="aspnet-core-antiforgery-configuration"></a>ASP.NET Core 防伪配置
 
 > [!WARNING]
 > ASP.NET Core 使用[ASP.NET Core 数据保护](xref:security/data-protection/introduction)来实现防伪。 必须将数据保护堆栈配置为在服务器场中运行。 有关详细信息，请参阅[配置数据保护](xref:security/data-protection/configuration/overview)。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 `Startup.ConfigureServices`中调用以下某个 Api 时，会将防伪中间件添加到[依赖关系注入](xref:fundamentals/dependency-injection)容器中：
+当在中调用以下某个 Api 时，防伪中间件将添加到[依赖关系注入](xref:fundamentals/dependency-injection)容器中`Startup.ConfigureServices`：
 
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*>
 * <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>
@@ -107,7 +113,7 @@ CSRF 攻击的示例：
 
 ::: moniker range="< aspnetcore-3.0"
 
-当在中调用 <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> 时，防伪中间件将添加到[依赖关系注入](xref:fundamentals/dependency-injection)容器 `Startup.ConfigureServices`
+当在中调用时<xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> ，防伪中间件将添加到[依赖关系注入](xref:fundamentals/dependency-injection)容器中`Startup.ConfigureServices`
 
 ::: moniker-end
 
@@ -121,14 +127,14 @@ CSRF 攻击的示例：
 
 同样，如果窗体的方法不获取，则默认情况下， [IHtmlHelper](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform)将生成防伪标记。
 
-当 `<form>` 标记包含 `method="post"` 属性并且满足以下任一条件时，会自动生成 HTML 窗体元素的防伪令牌：
+当`<form>`标记包含`method="post"`属性并且满足以下任一条件时，会自动生成 HTML 窗体元素的防伪令牌：
 
 * 操作属性为空（`action=""`）。
-* 未提供操作属性（`<form method="post">`）。
+* 操作属性（`<form method="post">`）未提供。
 
 可以禁用 HTML 窗体元素的自动生成防伪标记：
 
-* 显式禁用 `asp-antiforgery` 属性的防伪令牌：
+* 显式禁用`asp-antiforgery`属性为的防伪令牌：
 
   ```cshtml
   <form method="post" asp-antiforgery="false">
@@ -144,7 +150,7 @@ CSRF 攻击的示例：
   </!form>
   ```
 
-* 从视图中删除 `FormTagHelper`。 可以通过将以下指令添加到 Razor 视图来从视图中删除 `FormTagHelper`：
+* `FormTagHelper`从视图中删除。 `FormTagHelper`可以通过将以下指令添加到 Razor 视图来从视图中删除：
 
   ```cshtml
   @removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -159,7 +165,7 @@ CSRF 攻击的示例：
 1. 客户端将该令牌发送回服务器以进行验证。
 1. 如果服务器收到的令牌与经过身份验证的用户的标识不匹配，则会拒绝该请求。
 
-该令牌是唯一的且不可预测的。 令牌还可用于确保对一系列请求进行正确排序（例如，确保的请求序列为： page 1 &ndash; 第2页 &ndash; 第3页）。 ASP.NET Core MVC 和 Razor 页模板中的窗体的所有生成 antiforgery 令牌。 以下对视图示例将生成防伪令牌：
+该令牌是唯一的且不可预测的。 令牌还可用于确保对一系列请求进行正确排序（例如，确保的请求序列为： page 1 &ndash;第 2 &ndash;页）。 ASP.NET Core MVC 和 Razor Pages 模板中的所有表单都生成防伪标记。 以下对视图示例将生成防伪令牌：
 
 ```cshtml
 <form asp-controller="Manage" asp-action="ChangePassword" method="post">
@@ -172,7 +178,7 @@ CSRF 攻击的示例：
 }
 ```
 
-将防伪标记显式添加到 `<form>` 元素，而不将标记帮助程序与 HTML helper [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)一起使用：
+将防伪标记显式添加到`<form>`元素，而不将标记帮助程序与 HTML [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)帮助程序一起使用：
 
 ```cshtml
 <form action="/" method="post">
@@ -180,7 +186,7 @@ CSRF 攻击的示例：
 </form>
 ```
 
-在每个前面的情况下，ASP.NET Core 添加类似于以下一个隐藏的表单字段：
+在上述每种情况下，ASP.NET Core 添加如下所示的隐藏窗体字段：
 
 ```cshtml
 <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NrAkS ... s2-m9Yw">
@@ -194,7 +200,7 @@ ASP.NET Core 包括三个用于处理防伪令牌的[筛选器](xref:mvc/control
 
 ## <a name="antiforgery-options"></a>防伪选项
 
-自定义 `Startup.ConfigureServices`中的[防伪选项](/dotnet/api/Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions)：
+自定义[防伪选项](/dotnet/api/Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions) `Startup.ConfigureServices`：
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -208,14 +214,14 @@ services.AddAntiforgery(options =>
 });
 ```
 
-&dagger;使用[CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder)类的属性设置防伪 `Cookie` 属性。
+&dagger;使用 CookieBuilder 类`Cookie`的属性设置防伪属性。 [CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder)
 
 | 选项 | 说明 |
 | ------ | ----------- |
 | [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪 cookie 的设置。 |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
-| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果 `null`，系统只考虑窗体数据。 |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果`null`为，则系统仅考虑窗体数据。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成`X-Frame-Options`标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
 
 ::: moniker-end
 
@@ -241,9 +247,9 @@ services.AddAntiforgery(options =>
 | [CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Cookie 的名称。 如果未设置，系统将生成一个以[DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) （"。AspNetCore. 防伪. "）。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie.Name。 |
 | [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cookie 上设置的路径。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
-| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果 `null`，系统只考虑窗体数据。 |
-| [RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | 指定防伪系统是否需要 HTTPS。 如果 `true`，则非 HTTPS 请求会失败。 默认为 `false`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为设置 SecurePolicy。 |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果`null`为，则系统仅考虑窗体数据。 |
+| [RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | 指定防伪系统是否需要 HTTPS。 如果`true`为，则非 HTTPS 请求会失败。 默认为 `false`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为设置 SecurePolicy。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成`X-Frame-Options`标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
 
 ::: moniker-end
 
@@ -251,7 +257,7 @@ services.AddAntiforgery(options =>
 
 ## <a name="configure-antiforgery-features-with-iantiforgery"></a>通过 IAntiforgery 配置防伪功能
 
-[IAntiforgery](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgery)提供用于配置防伪功能的 API。 可在 `Startup` 类的 `Configure` 方法中请求 `IAntiforgery`。 下面的示例使用应用程序主页中的中间件来生成防伪标记，并将其作为 cookie 发送到响应中（使用本主题后面部分介绍的默认角度命名约定）：
+[IAntiforgery](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgery)提供用于配置防伪功能的 API。 `IAntiforgery`可以在`Configure` `Startup`类的方法中请求。 下面的示例使用应用程序主页中的中间件来生成防伪标记，并将其作为 cookie 发送到响应中（使用本主题后面部分介绍的默认角度命名约定）：
 
 ```csharp
 public void Configure(IApplicationBuilder app, IAntiforgery antiforgery)
@@ -305,21 +311,21 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 }
 ```
 
-`ValidateAntiForgeryToken` 特性要求对其标记的操作方法（包括 HTTP GET 请求）发出请求的令牌。 如果在应用的控制器上应用 `ValidateAntiForgeryToken` 属性，则可以通过 `IgnoreAntiforgeryToken` 属性将其重写。
+`ValidateAntiForgeryToken`特性要求对其标记的操作方法的请求进行标记，包括 HTTP GET 请求。 如果该`ValidateAntiForgeryToken`特性应用于应用控制器，则可以用`IgnoreAntiforgeryToken`特性重写它。
 
 > [!NOTE]
-> ASP.NET Core 不支持自动将 antiforgery 令牌添加到 GET 请求。
+> ASP.NET Core 不支持添加防伪令牌来自动获取请求。
 
 ### <a name="automatically-validate-antiforgery-tokens-for-unsafe-http-methods-only"></a>仅自动验证不安全 HTTP 方法的防伪令牌
 
-ASP.NET Core 应用不生成 antiforgery 令牌进行安全的 HTTP 方法 （GET、 HEAD、 选项和跟踪）。 可以使用[AutoValidateAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)属性，而不是广泛应用 `ValidateAntiForgeryToken` 属性，然后使用 `IgnoreAntiforgeryToken` 属性将其重写。 此特性与 `ValidateAntiForgeryToken` 特性的工作方式相同，不同之处在于，它不需要使用以下 HTTP 方法发出的请求的令牌：
+ASP.NET Core 应用不生成安全 HTTP 方法（GET、HEAD、OPTIONS 和 TRACE）的防伪令牌。 可以使用 AutoValidateAntiforgeryToken 属性， `ValidateAntiForgeryToken`而不是广泛应用该`IgnoreAntiforgeryToken`属性，然后[AutoValidateAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute)使用特性重写它。 此属性与属性的`ValidateAntiForgeryToken`工作方式相同，不同之处在于，它不需要使用以下 HTTP 方法发出的请求的令牌：
 
 * GET
 * HEAD
 * OPTIONS
 * TRACE
 
-建议为非 API 方案广泛使用 `AutoValidateAntiforgeryToken`。 这可确保默认情况下保护后操作。 另一种方法是默认忽略防伪标记，除非将 `ValidateAntiForgeryToken` 应用到各个操作方法。 在这种情况下，更有可能在此方案中，不受错误阻止的 POST 操作方法，使应用容易受到 CSRF 攻击。 所有Post请求都应发送防伪令牌。
+我们建议将`AutoValidateAntiforgeryToken`广泛用于非 API 方案。 这可确保默认情况下保护后操作。 另一种方法是默认忽略防伪标记，除非`ValidateAntiForgeryToken`应用于各个操作方法。 在这种情况下，更有可能在此方案中，不受错误阻止的 POST 操作方法，使应用容易受到 CSRF 攻击。 所有文章都应发送防伪令牌。
 
 Api 没有用于发送令牌的非 cookie 部分的自动机制。 实现可能取决于客户端代码实现。 下面显示了一些示例：
 
@@ -336,7 +342,7 @@ public class ManageController : Controller
 
 ::: moniker range="< aspnetcore-3.0"
 
-服务器.Addmvc 以（options = > 选项。Filters。 Add （new AutoValidateAntiforgeryTokenAttribute （）））;
+服务器.Addmvc 以（options => 选项。Filters。 Add （new AutoValidateAntiforgeryTokenAttribute （）））;
 
 ::: moniker-end
 
@@ -351,7 +357,7 @@ services.AddControllersWithViews(options =>
 
 ### <a name="override-global-or-controller-antiforgery-attributes"></a>重写全局或控制器防伪属性
 
-[IgnoreAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.ignoreantiforgerytokenattribute)筛选器用于消除给定操作（或控制器）的防伪标记的需要。 应用此筛选器时，会覆盖在更高级别（全局或控制器上）指定 `ValidateAntiForgeryToken` 和 `AutoValidateAntiforgeryToken` 筛选器。
+[IgnoreAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.ignoreantiforgerytokenattribute)筛选器用于消除给定操作（或控制器）的防伪标记的需要。 应用此筛选器时， `ValidateAntiForgeryToken`此`AutoValidateAntiforgeryToken`筛选器会覆盖在更高级别指定的筛选器和筛选器。
 
 ```csharp
 [Authorize]
@@ -369,7 +375,7 @@ public class ManageController : Controller
 
 ## <a name="refresh-tokens-after-authentication"></a>身份验证后刷新令牌
 
-通过将用户重定向到视图或 Razor Pages 页面来对用户进行身份验证后，应刷新标记。
+用户通过将用户重定向到 "视图" 或Razor "页面" 页进行身份验证后，应刷新标记。
 
 ## <a name="javascript-ajax-and-spas"></a>JavaScript、AJAX 和 Spa
 
@@ -394,7 +400,7 @@ context.Response.Cookies.Append("CSRF-TOKEN", tokens.RequestToken,
     new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
 ```
 
-假设脚本请求将令牌发送到名为 `X-CSRF-TOKEN`的标头，请将防伪服务配置为查找 `X-CSRF-TOKEN` 标头：
+假设脚本请求将令牌发送到名`X-CSRF-TOKEN`为的标头，请将防伪服务配置为查找`X-CSRF-TOKEN`标头：
 
 ```csharp
 services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
@@ -439,12 +445,12 @@ xhttp.send(JSON.stringify({ "newPassword": "ReallySecurePassword999$$$" }));
 
 ### <a name="angularjs"></a>AngularJS
 
-AngularJS 使用约定来寻址 CSRF。 如果服务器发送 `XSRF-TOKEN`名称的 cookie，则在向服务器发送请求时，AngularJS `$http` 服务会将 cookie 值添加到标头。 此过程是自动进行的。 不需要在客户端中显式设置标头。 标头名称为 `X-XSRF-TOKEN`。 服务器应检测此标头并验证其内容。
+AngularJS 使用约定来寻址 CSRF。 如果服务器发送的 cookie 的名称`XSRF-TOKEN`为，则在将`$http`请求发送到服务器时，AngularJS 服务会将 cookie 值添加到标头。 此过程是自动进行的。 不需要在客户端中显式设置标头。 标头的名称`X-XSRF-TOKEN`为。 服务器应检测此标头并验证其内容。
 
 对于在应用程序启动时使用此约定的 ASP.NET Core API：
 
-* 将应用配置为在名为 `XSRF-TOKEN`的 cookie 中提供令牌。
-* 配置防伪服务以查找名为 `X-XSRF-TOKEN`的标头。
+* 配置应用程序以在名`XSRF-TOKEN`为的 cookie 中提供标记。
+* 配置防伪服务以查找名为`X-XSRF-TOKEN`的标头。
 
 ```csharp
 public void Configure(IApplicationBuilder app, IAntiforgery antiforgery)
@@ -479,7 +485,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="extend-antiforgery"></a>扩展防伪
 
-[IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider)类型允许开发人员通过往返每个标记中的其他数据来扩展反 CSRF 系统的行为。 每次生成字段标记时都会调用[GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata)方法，并且返回值嵌入到生成的标记中。 在验证令牌时，实施者可以返回时间戳、nonce 或任何其他值，然后调用[ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata)来验证此数据。 客户端的用户名已嵌入到生成的令牌中，因此不需要包含此信息。 如果令牌包含补充数据但未配置 `IAntiForgeryAdditionalDataProvider`，则不会验证补充数据。
+[IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider)类型允许开发人员通过往返每个标记中的其他数据来扩展反 CSRF 系统的行为。 每次生成字段标记时都会调用[GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata)方法，并且返回值嵌入到生成的标记中。 在验证令牌时，实施者可以返回时间戳、nonce 或任何其他值，然后调用[ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata)来验证此数据。 客户端的用户名已嵌入到生成的令牌中，因此不需要包含此信息。 如果令牌包含补充数据但未`IAntiForgeryAdditionalDataProvider`配置，则不会验证补充数据。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -5,13 +5,19 @@ description: 了解如何使用缓存标记帮助程序。
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: db9e1a968588410f11e5f137dfdd4542df505ebc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ced10a7b7b221188fdac2a4e3c54f66292110ece
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653304"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773937"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的缓存标记帮助程序
 
@@ -19,7 +25,7 @@ ms.locfileid: "78653304"
 
 缓存标记帮助程序通过将其内容缓存到内部 ASP.NET Core 缓存提供程序中，极大地提高了 ASP.NET Core 应用的性能。
 
-有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 以下 Razor 标记缓存当前日期：
 
@@ -35,9 +41,9 @@ ms.locfileid: "78653304"
 
 | 属性类型  | 示例        | 默认 |
 | --------------- | --------------- | ------- |
-| Boolean         | `true`、`false` | `true`  |
+| 布尔         | `true`, `false` | `true`  |
 
-`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认为 `true`。 如果设置为 `false`，则不会缓存呈现的输出。
+`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认为 `true`。 如果设置为 `false`，则不会缓存呈现的输出****。
 
 示例：
 
@@ -101,7 +107,7 @@ Razor 视图引擎将默认的 `expires-after` 值设置为 20 分钟。
 
 | 属性类型 | 示例                                    |
 | -------------- | ------------------------------------------- |
-| String         | `User-Agent`、`User-Agent,content-encoding` |
+| String         | `User-Agent`, `User-Agent,content-encoding` |
 
 `vary-by-header` 接受逗号分隔的标头值列表，在标头值发生更改时触发缓存刷新。
 
@@ -117,9 +123,9 @@ Razor 视图引擎将默认的 `expires-after` 值设置为 20 分钟。
 
 | 属性类型 | 示例             |
 | -------------- | -------------------- |
-| String         | `Make`、`Make,Model` |
+| String         | `Make`, `Make,Model` |
 
-`vary-by-query` 接受查询字符串(<xref:Microsoft.AspNetCore.Http.IQueryCollection.Keys*>) 中逗号分隔的 <xref:Microsoft.AspNetCore.Http.HttpRequest.Query*> 列表，它们在任何列出的键值发生更改时触发缓存刷新。
+`vary-by-query` 接受查询字符串(<xref:Microsoft.AspNetCore.Http.HttpRequest.Query*>) 中逗号分隔的 <xref:Microsoft.AspNetCore.Http.IQueryCollection.Keys*> 列表，它们在任何列出的键值发生更改时触发缓存刷新。
 
 以下示例监视 `Make` 和 `Model` 值。 该示例将缓存提供给 Web 服务器的每个不同 `Make` 和 `Model` 的内容：
 
@@ -133,7 +139,7 @@ Razor 视图引擎将默认的 `expires-after` 值设置为 20 分钟。
 
 | 属性类型 | 示例             |
 | -------------- | -------------------- |
-| String         | `Make`、`Make,Model` |
+| String         | `Make`, `Make,Model` |
 
 `vary-by-route` 接受路由参数名称的逗号分隔列表，用于在路由数据参数值发生更改时触发缓存刷新。
 
@@ -147,7 +153,7 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{Make?}/{Model?}");
 ```
 
-Index.cshtml：
+*索引 cshtml*：
 
 ```cshtml
 <cache vary-by-route="Make,Model">
@@ -159,7 +165,7 @@ Index.cshtml：
 
 | 属性类型 | 示例                                                                         |
 | -------------- | -------------------------------------------------------------------------------- |
-| String         | `.AspNetCore.Identity.Application`、`.AspNetCore.Identity.Application,HairColor` |
+| String         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
 
 `vary-by-cookie` 接受 Cookie 名称的逗号分隔列表，用于在 Cookie 值发生更改时触发缓存刷新。
 
@@ -175,7 +181,7 @@ Index.cshtml：
 
 | 属性类型  | 示例        | 默认 |
 | --------------- | --------------- | ------- |
-| Boolean         | `true`、`false` | `true`  |
+| 布尔         | `true`, `false` | `true`  |
 
 `vary-by-user` 指定当已登录用户（或上下文主体）发生更改时是否应重置缓存。 当前用户也称为请求上下文主体，可通过引用 `@User.Identity.Name` 在 Razor 视图中查看。
 
@@ -187,7 +193,7 @@ Index.cshtml：
 </cache>
 ```
 
-通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存无效是因为用户进行身份验证时生成了一个新的唯一 cookie 值。 如果 cookie 不存在或已过期，则会维持缓存以呈现匿名状态。 如果用户未经过身份验证，则会维持缓存。
+通过登录和注销周期，使用此属性将内容维护在缓存中。 当值设置为 `true` 时，身份验证周期会使已经过身份验证的用户的缓存失效。 缓存无效是因为用户进行身份验证时生成了一个新的唯一 cookie 值。 如果 cookie 不存在或已过期，则会维持缓存以呈现匿名状态。 如果用户未经过**** 身份验证，则会维持缓存。
 
 ### <a name="vary-by"></a>vary-by
 
@@ -212,7 +218,7 @@ public IActionResult Index(string myParam1, string myParam2, string myParam3)
 }
 ```
 
-Index.cshtml：
+*索引 cshtml*：
 
 ```cshtml
 <cache vary-by="@Model">
@@ -224,7 +230,7 @@ Index.cshtml：
 
 | 属性类型      | 示例                               | 默认  |
 | ------------------- | -------------------------------------- | -------- |
-| `CacheItemPriority` | `High`、`Low`、`NeverRemove`、`Normal` | `Normal` |
+| `CacheItemPriority` | `High`, `Low`, `NeverRemove`, `Normal` | `Normal` |
 
 `priority` 为内置缓存提供程序提供缓存逐出指导。 在内存压力下，Web 服务器将首先逐出 `Low` 缓存项。
 

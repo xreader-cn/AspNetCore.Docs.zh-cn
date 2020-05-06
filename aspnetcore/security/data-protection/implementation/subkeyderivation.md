@@ -1,39 +1,45 @@
 ---
-title: 子项派生和 ASP.NET Core 中的经过身份验证的加密
+title: ASP.NET Core 中的子项派生和已验证的加密
 author: rick-anderson
-description: 了解实现详细信息的 ASP.NET Core 数据保护子项派生和身份验证加密。
+description: 了解 ASP.NET Core 数据保护子项派生和经过身份验证的加密的实现细节。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: bbfde378755b09cd5b1217b8cf66249b9fa1d6ad
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c4b4076d532e33b48b3438f842507a8cda2d71b6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652242"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776846"
 ---
-# <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>子项派生和 ASP.NET Core 中的经过身份验证的加密
+# <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>ASP.NET Core 中的子项派生和已验证的加密
 
 <a name="data-protection-implementation-subkey-derivation"></a>
 
 密钥环中的大多数密钥将包含某种形式的熵，并将具有说明 "CBC-模式加密 + HMAC 验证" 或 "GCM 加密 + 验证" 的算法信息。 在这些情况下，我们将嵌入的平均信息量称为此密钥的主密钥材料（或千米），并执行密钥派生函数来派生用于实际加密操作的密钥。
 
 > [!NOTE]
-> 键是抽象的，自定义实现的行为可能不如下。 如果密钥提供自己的 `IAuthenticatedEncryptor` 实现，而不是使用我们的某个内置工厂，则本部分中所述的机制将不再适用。
+> 键是抽象的，自定义实现的行为可能不如下。 如果密钥提供自己的`IAuthenticatedEncryptor`实现而不是使用我们的某个内置工厂，则本部分中所述的机制将不再适用。
 
 <a name="data-protection-implementation-subkey-derivation-aad"></a>
 
 ## <a name="additional-authenticated-data-and-subkey-derivation"></a>附加经过身份验证的数据和子项派生
 
-`IAuthenticatedEncryptor` 接口充当所有经过身份验证的加密操作的核心接口。 它的 `Encrypt` 方法采用两个缓冲区：纯文本和 additionalAuthenticatedData （AAD）。 纯文本内容在对 `IDataProtector.Protect`的调用中保持不变，但 AAD 由系统生成并由三个部分组成：
+`IAuthenticatedEncryptor`接口用作所有经过身份验证的加密操作的核心接口。 它`Encrypt`的方法采用两个缓冲区：纯文本和 ADDITIONALAUTHENTICATEDDATA （AAD）。 纯文本内容在对的调用`IDataProtector.Protect`中保持不变，但 AAD 由系统生成并由三个部分组成：
 
 1. 32位幻标头 09 F0 C9 F0，用于标识此版本的数据保护系统。
 
 2. 128位密钥 id。
 
-3. 由创建了执行此操作的 `IDataProtector` 的用途链构成的可变长度字符串。
+3. 由创建了`IDataProtector`执行此操作的的、用于创建的可变长度字符串。
 
-由于 AAD 对于所有三个组件的元组都是唯一的，因此我们可以使用它从公里派生新密钥，而不是在我们的所有加密操作中使用公里本身。 对于每次调用 `IAuthenticatedEncryptor.Encrypt`，都将发生以下密钥派生过程：
+由于 AAD 对于所有三个组件的元组都是唯一的，因此我们可以使用它从公里派生新密钥，而不是在我们的所有加密操作中使用公里本身。 对于每个调用`IAuthenticatedEncryptor.Encrypt`，将发生以下密钥派生过程：
 
 （K_E，K_H） = SP800_108_CTR_HMACSHA512 （K_M，AAD，contextHeader | | keyModifier）
 
@@ -47,7 +53,7 @@ ms.locfileid: "78652242"
 
 * context = contextHeader | |keyModifier
 
-上下文标头的长度是可变的，主要作为要 K_E 和 K_H 派生的算法的指纹。 密钥修饰符是为每次调用 `Encrypt` 随机生成的128位字符串，可以确保 KE 和 KH 对于此特定身份验证加密操作是唯一的，即使 KDF 的所有其他输入都是常量，也是如此。
+上下文标头的长度是可变的，主要作为要 K_E 和 K_H 派生的算法的指纹。 密钥修饰符是为每次调用`Encrypt`随机生成的128位字符串，可确保 KE 和 KH 对于此特定身份验证加密操作是唯一的，即使 KDF 的所有其他输入都是常量，也是如此。
 
 对于 CBC 模式加密 + HMAC 验证操作，|K_E |对称块加密密钥的长度和 |K_H |是 HMAC 例程的摘要大小。 对于 GCM 加密 + 验证操作，|K_H |= 0。
 
@@ -60,7 +66,7 @@ ms.locfileid: "78652242"
 *output： = keyModifier | |iv | |E_cbc （K_E，iv，数据） | |HMAC （K_H，iv | |E_cbc （K_E，iv，数据））*
 
 > [!NOTE]
-> `IDataProtector.Protect` 实现将[在将幻标头和密钥 id](xref:security/data-protection/implementation/authenticated-encryption-details)返回到调用方之前，先将其添加到输出中。 由于幻标头和密钥 id 是[AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad)的一部分，并且由于密钥修饰符作为输入送回 KDF，这意味着最终返回的有效负载的每个字节都由 MAC 进行身份验证。
+> 在`IDataProtector.Protect`将[幻标题和密钥 id](xref:security/data-protection/implementation/authenticated-encryption-details)返回到调用方之前，实现会将其追加到输出之前。 由于幻标头和密钥 id 是[AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad)的一部分，并且由于密钥修饰符作为输入送回 KDF，这意味着最终返回的有效负载的每个字节都由 MAC 进行身份验证。
 
 ## <a name="galoiscounter-mode-encryption--validation"></a>Galois/Counter 模式加密 + 验证
 

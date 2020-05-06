@@ -1,18 +1,24 @@
 ---
-title: 经过身份验证的加密在 ASP.NET Core 的详细信息
+title: ASP.NET Core 中经过身份验证的加密详细信息
 author: rick-anderson
-description: 了解实现的身份验证的 ASP.NET Core 数据保护加密的详细信息。
+description: 了解 ASP.NET Core 数据保护身份验证加密的实现细节。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/authenticated-encryption-details
-ms.openlocfilehash: 9def03e6b27e19fc34a839e923d6152e086889db
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 3066cd505781ed2ddad46626dda9d9ce35307877
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655002"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776963"
 ---
-# <a name="authenticated-encryption-details-in-aspnet-core"></a>经过身份验证的加密在 ASP.NET Core 的详细信息
+# <a name="authenticated-encryption-details-in-aspnet-core"></a>ASP.NET Core 中经过身份验证的加密详细信息
 
 <a name="data-protection-implementation-authenticated-encryption-details"></a>
 
@@ -55,4 +61,4 @@ AA FF EE 57 57 2F 40 4C 3F 7F CC 9D CC D9 32 3E
 余数包含负载并且特定于所使用的格式。
 
 > [!WARNING]
-> 所有受指定密钥保护的有效负载将以相同的20字节（幻值，key id）标头开头。 管理员可以将此事实用于诊断目的，以大致了解生成负载的时间。 例如，上面的负载对应于键 {0c819c80-6619-4019-9536-53f8aaffee57}。 如果在检查密钥存储库之后发现此特定密钥的激活日期为2015-01-01，并且其到期日期为2015-03-01，则必须假定在该时段内生成了有效负载（如果不被篡改），并提供或花费少量两侧的奶油因素。
+> 所有受指定密钥保护的有效负载将以相同的20字节（幻值，key id）标头开头。 管理员可以将此事实用于诊断目的，以大致了解生成负载的时间。 例如，上面的负载对应于键 {0c819c80-6619-4019-9536-53f8aaffee57}。 如果在检查密钥存储库之后发现此特定密钥的激活日期为2015-01-01，并且其到期日期为2015-03-01，则必须假定在该时段内生成了有效负载（如果不被篡改），请在任一端提供或采用小奶油因素。
