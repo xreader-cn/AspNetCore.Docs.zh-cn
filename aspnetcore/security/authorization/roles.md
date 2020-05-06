@@ -1,18 +1,24 @@
 ---
-title: ASP.NET Core 中基于角色的授权
+title: ASP.NET Core 中的基于角色的授权
 author: rick-anderson
-description: 了解如何通过将角色传递给 Authorize 属性限制 ASP.NET Core 控制器和操作访问。
+description: 了解如何通过将角色传递到授权属性来限制 ASP.NET Core 控制器和操作访问。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/roles
-ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 01d4239377b128f711a110a821e1afea58ca14a7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651636"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776534"
 ---
-# <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core 中基于角色的授权
+# <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core 中的基于角色的授权
 
 <a name="security-authorization-role-based"></a>
 
@@ -20,9 +26,9 @@ ms.locfileid: "78651636"
 
 ## <a name="adding-role-checks"></a>添加角色检查
 
-基于角色的授权检查是声明性&mdash;开发人员将其嵌入到代码中，针对控制器或控制器中的操作，指定当前用户必须是其成员的角色才能访问请求的资源。
+基于角色的授权检查是声明&mdash;性的，开发人员将其嵌入到代码中、控制器或控制器内的操作，指定当前用户必须是其成员的角色才能访问请求的资源。
 
-例如，以下代码将对 `AdministrationController` 上的任何操作的访问权限限制为作为 `Administrator` 角色成员的用户：
+例如，以下代码将访问权限限制为属于`AdministrationController` `Administrator`角色成员的用户的任何操作：
 
 ```csharp
 [Authorize(Roles = "Administrator")]
@@ -40,9 +46,9 @@ public class SalaryController : Controller
 }
 ```
 
-只有作为 `HRManager` 角色成员的用户或 `Finance` 角色的成员才能访问此控制器。
+此控制器仅可供作为`HRManager`角色或`Finance`角色成员的用户访问。
 
-如果应用多个属性，则访问用户必须是所有指定角色的成员;下面的示例要求用户必须同时是 `PowerUser` 和 `ControlPanelUser` 角色的成员。
+如果应用多个属性，则访问用户必须是所有指定角色的成员;下面的示例要求用户必须是`PowerUser`和`ControlPanelUser`角色的成员。
 
 ```csharp
 [Authorize(Roles = "PowerUser")]
@@ -69,7 +75,7 @@ public class ControlPanelController : Controller
 }
 ```
 
-在前面的代码片段中，`Administrator` 角色或 `PowerUser` 角色的成员可以访问控制器和 `SetTime` 操作，但只有 `Administrator` 角色的成员才能访问 `ShutDown` 操作。
+在前面的代码`Administrator`片段中，角色或`PowerUser`角色的成员可以访问控制器和`SetTime`操作，但只有`Administrator`角色的成员才能访问该`ShutDown`操作。
 
 你还可以锁定控制器，但允许对单个操作进行匿名、未经身份验证的访问。
 
@@ -90,10 +96,10 @@ public class ControlPanelController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-对于 Razor Pages，可以通过以下任一方法应用 `AuthorizeAttribute`：
+对于Razor页面， `AuthorizeAttribute`可以通过以下任一方法来应用：
 
 * 使用[约定](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)，或
-* 将 `AuthorizeAttribute` 应用到 `PageModel` 实例：
+* 将应用`AuthorizeAttribute`到`PageModel`实例：
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -106,14 +112,14 @@ public class UpdateModel : PageModel
 ```
 
 > [!IMPORTANT]
-> 筛选器属性（包括 `AuthorizeAttribute`）只能应用于 PageModel，而不能应用于特定页面处理程序方法。
+> 筛选器属性（ `AuthorizeAttribute`包括）只能应用于 PageModel，不能应用于特定页面处理程序方法。
 ::: moniker-end
 
 <a name="security-authorization-role-policy"></a>
 
 ## <a name="policy-based-role-checks"></a>基于策略的角色检查
 
-还可以使用新策略语法来表示角色要求，开发人员可在其中将在启动时作为授权服务配置的一部分注册策略。 这通常出现在*Startup.cs*文件 `ConfigureServices()` 中。
+还可以使用新策略语法来表示角色要求，开发人员可在其中将在启动时作为授权服务配置的一部分注册策略。 这通常出现在`ConfigureServices()` *Startup.cs*文件中。
 
 ::: moniker range=">= aspnetcore-3.0"
 ```csharp
@@ -146,7 +152,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 ::: moniker-end
 
-使用 `AuthorizeAttribute` 属性上的 `Policy` 属性应用策略：
+策略是使用属性上`Policy` `AuthorizeAttribute`的属性应用的：
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -156,16 +162,16 @@ public IActionResult Shutdown()
 }
 ```
 
-如果要在某个要求中指定多个允许的角色，则可以将它们指定为 `RequireRole` 方法的参数：
+如果要在某个要求中指定多个允许的角色，则可以将它们指定为方法`RequireRole`的参数：
 
 ```csharp
 options.AddPolicy("ElevatedRights", policy =>
                   policy.RequireRole("Administrator", "PowerUser", "BackupAdministrator"));
 ```
 
-此示例授权属于 `Administrator`、`PowerUser` 或 `BackupAdministrator` 角色的用户。
+此示例授权属于`Administrator` `PowerUser`或`BackupAdministrator`角色的用户。
 
-### <a name="add-role-services-to-identity"></a>将角色服务添加到标识
+### <a name="add-role-services-to-identity"></a>将角色服务添加到Identity
 
 追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)以添加角色服务：
 

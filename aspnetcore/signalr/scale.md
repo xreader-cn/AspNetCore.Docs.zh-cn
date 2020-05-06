@@ -1,20 +1,24 @@
 ---
-title: ASP.NET Core SignalR 生产托管和缩放
+title: ASP.NET Core SignalR生产承载和扩展
 author: bradygaster
-description: 了解如何避免使用 ASP.NET Core SignalR的应用程序的性能和缩放问题。
+description: 了解如何避免使用 ASP.NET Core SignalR的应用程序中的性能和缩放问题。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/17/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 260e2f0c16288fec2e0a694d070f357529782d8d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 23ac2b1c80b9d73d6e9ac57f0ef774ac2ea54be4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655158"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775071"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR 托管和缩放
 
@@ -32,7 +36,7 @@ SignalR 要求对特定连接的所有 HTTP 请求都由同一服务器进程处
 
 在所有其他情况下（包括使用 Redis 底板时），必须为粘滞会话配置服务器环境。
 
-有关为 SignalR 配置 Azure App Service 的指南，请参阅 <xref:signalr/publish-to-azure-web-app>。
+有关为 SignalR 配置 Azure App Service 的指南，请<xref:signalr/publish-to-azure-web-app>参阅。
 
 ## <a name="tcp-connection-resources"></a>TCP 连接资源
 
@@ -94,8 +98,8 @@ Azure SignalR 服务是一种代理，而不是底板。 每次客户端启动�
   * 所有客户端都配置为**仅**使用 websocket。
   * 在客户端配置中启用了[SkipNegotiation 设置](xref:signalr/configuration#configure-additional-options)。 
    在服务器上启动连接后，连接必须停留在该服务器上。
-* 即使发送的消息太少，SignalR 应用也必须基于客户端数量进行扩展。
-* SignalR 应用比没有 SignalR的 web 应用使用的连接资源要多得多。
+* 即使SignalR发送的消息太少，应用程序也必须基于客户端数进行扩展。
+* SignalR应用比 web 应用使用的连接资源明显更多SignalR。
 
 ## <a name="iis-limitations-on-windows-client-os"></a>Windows 客户端操作系统上的 IIS 限制
 
@@ -111,7 +115,7 @@ Windows 10 和 Windows 8.x 是客户端操作系统。 客户端操作系统上�
 
 ## <a name="linux-with-nginx"></a>Linux 与 Nginx
 
-对于 SignalR Websocket，将代理的 `Connection` 和 `Upgrade` 标头设置为以下内容：
+对于SignalR websocket，请`Connection`将`Upgrade`代理和标头设置为以下内容：
 
 ```nginx
 proxy_set_header Upgrade $http_upgrade;
@@ -120,14 +124,14 @@ proxy_set_header Connection $connection_upgrade;
 
 有关详细信息，请参阅 [NGINX 作为 WebSocket 代理](https://www.nginx.com/blog/websocket-nginx/)。
 
-## <a name="third-party-opno-locsignalr-backplane-providers"></a>第三方 SignalR 底板提供程序
+## <a name="third-party-signalr-backplane-providers"></a>第三方SignalR底板提供程序
 
 * [NCache](https://www.alachisoft.com/ncache/asp-net-core-signalr.html)
 * [Orleans](https://github.com/OrleansContrib/SignalR.Orleans)
 
 ## <a name="next-steps"></a>后续步骤
 
-有关详细信息，请参阅以下资源：
+有关更多信息，请参见以下资源：
 
-* [Azure SignalR 服务文档](/azure/azure-signalr/signalr-overview)
+* [Azure SignalR服务文档](/azure/azure-signalr/signalr-overview)
 * [设置 Redis 底板](xref:signalr/redis-backplane)

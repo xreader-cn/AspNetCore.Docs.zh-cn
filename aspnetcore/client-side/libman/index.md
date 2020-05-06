@@ -5,13 +5,19 @@ description: 了解如何使用库管理器 (LibMan) 在 ASP.NET Core 项目中�
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/14/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/libman/index
-ms.openlocfilehash: 87987446b7f2c625da90951510e697e06569ba36
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 8dc94bd8dc15eaf3b778a8bd2905fcce08398a95
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644574"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82770488"
 ---
 # <a name="client-side-library-acquisition-in-aspnet-core-with-libman"></a>通过 LibMan 在 ASP.NET Core 中获取客户端库
 
@@ -27,7 +33,7 @@ LibMan 提供以下优势：
 * 无需使用其他工具（例如 [Node.js](https://nodejs.org)、[npm](https://www.npmjs.com) 和 [ WebPack](https://webpack.js.org)），即可获取库中文件的子集。
 * 可将文件放置在特定位置，无需执行生成任务，也不需手动进行文件复制。
 
-有关 LibMan 优势的详细信息，请观看 [Modern front-end web development in Visual Studio 2017: LibMan segment](https://channel9.msdn.com/Events/Build/2017/B8073#time=43m34s)（Visual Studio 2017 中的新式前端 Web 开发：LibMan 段）。
+有关 LibMan 优势的详细信息，请观看 [Visual Studio 2017 中的新式前端 Web 开发：LibMan 段](https://channel9.msdn.com/Events/Build/2017/B8073#time=43m34s)。
 
 LibMan 不是程序包管理系统。 如果已在使用包管理器（例如 npm 或[yarn](https://yarnpkg.com)），请继续使用它们。 LibMan 不是为取代这些工具而开发的。
 

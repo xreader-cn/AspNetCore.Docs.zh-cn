@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 8557ea1695f18fbe1ee3543ff438228ced27465d
-ms.sourcegitcommit: 6d271f4b4c3cd1e82267f51d9bfb6de221c394fe
+ms.openlocfilehash: 3a2f3bdd194b9153c5d59af7adfad3a3c8c56b23
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82150021"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776033"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护Blazor ASP.NET Core WebAssembly 托管应用
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a>使用 Azure Active Directory 保护Blazor ASP.NET Core WebAssembly 托管应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
 
@@ -48,13 +51,13 @@ ms.locfileid: "82150021"
 
 在中**公开 API**：
 
-1. 选择 "**添加作用域**"。
+1. 选择“添加范围”。 
 1. 选择“保存并继续”。 
 1. 提供**作用域名称**（例如`API.Access`）。
 1. 提供**管理员同意显示名称**（例如`Access API`）。
 1. 提供**管理员同意说明**（例如`Allows the app to access server app API endpoints.`）。
 1. 确认 "**状态**" 设置为 "**已启用**"。
-1. 选择 "**添加作用域**"。
+1. 选择“添加作用域”。 
 
 记录以下信息：
 
@@ -80,7 +83,7 @@ ms.locfileid: "82150021"
 1. 确认存在的**重定向 URI** `https://localhost:5001/authentication/login-callback` 。
 1. 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。
 1. 此体验可接受应用的其余默认值。
-1. 选择 "**保存**" 按钮。
+1. 选择“保存”按钮  。
 
 在 " **API 权限**：
 
@@ -90,11 +93,11 @@ ms.locfileid: "82150021"
 1. 打开**API**列表。
 1. 启用对 API 的访问（例如`API.Access`）。
 1. 选择“添加权限”  。
-1. 选择 "**为 {租户名称} 授予管理内容**" 按钮。 请选择“是”以确认。****
+1. 选择 "**为 {租户名称} 授予管理内容**" 按钮。 单击“是”  以确认。
 
 记录*客户端应用*应用程序 Id （客户端 id）（例如`33333333-3333-3333-3333-333333333333`）。
 
-### <a name="create-the-app"></a>创建应用
+### <a name="create-the-app"></a>创建应用程序
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
@@ -139,7 +142,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-### <a name="useridentityname"></a>User.Identity.Name
+### <a name="useridentityname"></a>用户.Identity.路径名
 
 默认情况下，服务器应用 API 使用`User.Identity.Name` `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name`声明类型中的值（例如`2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`）进行填充。
 
@@ -236,7 +239,7 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与标识提供程序（IP）交互所需的所有服务。
+使用`AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal`包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与Identity提供程序（IP）交互所需的所有服务。
 
 Program.cs  :
 
@@ -338,7 +341,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用
+## <a name="run-the-app"></a>运行应用程序
 
 从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
 

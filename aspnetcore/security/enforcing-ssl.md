@@ -1,19 +1,25 @@
 ---
-title: 强制实施 HTTPS 在 ASP.NET Core
+title: 在 ASP.NET Core 强制实施 HTTPS
 author: rick-anderson
 description: 了解如何在 ASP.NET Core web 应用中要求使用 HTTPS/TLS。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 2a7b4152004cb65ee12487eb4793d42d0b7165d0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: aac52ac760de31c4ba6e7215b95cdbb558d6640b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653238"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777366"
 ---
-# <a name="enforce-https-in-aspnet-core"></a>强制实施 HTTPS 在 ASP.NET Core
+# <a name="enforce-https-in-aspnet-core"></a>在 ASP.NET Core 强制实施 HTTPS
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -29,7 +35,7 @@ ms.locfileid: "78653238"
 > [!WARNING]
 > ## <a name="api-projects"></a>API 项目
 >
-> 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute` 使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
+> 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute`使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
 >
 > * 不侦听 HTTP。
 > * 关闭状态代码为400（错误请求）的连接，并且不为请求提供服务。
@@ -45,18 +51,18 @@ ms.locfileid: "78653238"
 > [!WARNING]
 > ## <a name="api-projects"></a>API 项目
 >
-> 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute` 使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
+> 不要**对**接收敏感信息的 Web Api 使用[RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) 。 `RequireHttpsAttribute`使用 HTTP 状态代码将浏览器从 HTTP 重定向到 HTTPS。 API 客户端可能不理解或遵循从 HTTP 到 HTTPS 的重定向。 此类客户端可以通过 HTTP 发送信息。 Web Api 应：
 >
 > * 不侦听 HTTP。
 > * 关闭状态代码为400（错误请求）的连接，并且不为请求提供服务。
 
 ::: moniker-end
 
-## <a name="require-https"></a>需要 HTTPS
+## <a name="require-https"></a>要求使用 HTTPS
 
 建议将生产 ASP.NET Core web 应用使用：
 
-* HTTPS 重定向中间件（<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>），用于将 HTTP 请求重定向到 HTTPS。
+* HTTPS 重定向中间<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>件（），用于将 HTTP 请求重定向到 HTTPS。
 * HSTS 中间件（[UseHsts](#http-strict-transport-security-protocol-hsts)）用于向客户端发送 HTTP 严格传输安全协议（HSTS）标头。
 
 > [!NOTE]
@@ -64,7 +70,7 @@ ms.locfileid: "78653238"
 
 ### <a name="usehttpsredirection"></a>UseHttpsRedirection
 
-下面的代码调用 `Startup` 类中 `UseHttpsRedirection`：
+下面的代码在`UseHttpsRedirection` `Startup`类中调用：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -81,7 +87,7 @@ ms.locfileid: "78653238"
 前面突出显示的代码：
 
 * 使用默认的[HttpsRedirectionOptions. RedirectStatusCode](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.redirectstatuscode) （[Status307TemporaryRedirect](/dotnet/api/microsoft.aspnetcore.http.statuscodes.status307temporaryredirect)）。
-* 除非由 `ASPNETCORE_HTTPS_PORT` 环境变量或[IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature)重写，否则将使用默认的 HttpsPort （null） [。](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport)
+* 除非由`ASPNETCORE_HTTPS_PORT`环境变量或[IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature)重写，否则将使用默认的[HttpsRedirectionOptions HttpsPort](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport) （null）。
 
 建议使用临时重定向，而不是永久重定向。 链接缓存会导致开发环境中的行为不稳定。 如果希望在应用处于非开发环境中时发送永久重定向状态代码，请参阅在[生产中配置永久重定向](#configure-permanent-redirects-in-production)部分。 建议使用[HSTS](#http-strict-transport-security-protocol-hsts)向仅应将安全资源请求发送到应用的客户端发送信号（仅在生产中）。
 
@@ -98,38 +104,38 @@ ms.locfileid: "78653238"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* 设置 "`https_port`[主机" 设置](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#https_port)：
+* `https_port`设置[主机设置](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#https_port)：
 
   * 在 "主机配置" 中。
-  * 通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。
+  * 通过设置`ASPNETCORE_HTTPS_PORT`环境变量。
   * 通过在*appsettings*中添加顶级条目：
 
     [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
-* 使用[ASPNETCORE_URLS 环境变量](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#urls)指示包含安全方案的端口。 环境变量配置服务器。 中间件通过 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>来间接发现 HTTPS 端口。 此方法在反向代理部署中不起作用。
+* 使用[ASPNETCORE_URLS 环境变量](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#urls)指示包含安全方案的端口。 环境变量配置服务器。 中间件通过<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>间接发现 HTTPS 端口。 此方法在反向代理部署中不起作用。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-* 设置 "`https_port`[主机" 设置](xref:fundamentals/host/web-host#https-port)：
+* `https_port`设置[主机设置](xref:fundamentals/host/web-host#https-port)：
 
   * 在 "主机配置" 中。
-  * 通过设置 `ASPNETCORE_HTTPS_PORT` 环境变量。
+  * 通过设置`ASPNETCORE_HTTPS_PORT`环境变量。
   * 通过在*appsettings*中添加顶级条目：
 
     [!code-json[](enforcing-ssl/sample-snapshot/2.x/appsettings.json?highlight=2)]
 
-* 使用[ASPNETCORE_URLS 环境变量](xref:fundamentals/host/web-host#server-urls)指示包含安全方案的端口。 环境变量配置服务器。 中间件通过 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>来间接发现 HTTPS 端口。 此方法在反向代理部署中不起作用。
+* 使用[ASPNETCORE_URLS 环境变量](xref:fundamentals/host/web-host#server-urls)指示包含安全方案的端口。 环境变量配置服务器。 中间件通过<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>间接发现 HTTPS 端口。 此方法在反向代理部署中不起作用。
 
 ::: moniker-end
 
 * 在开发中，在*launchsettings.json*中设置 HTTPS URL。 当使用 IIS Express 时，启用 HTTPS。
 
-* 为[Kestrel](xref:fundamentals/servers/kestrel) Server 或[http.sys](xref:fundamentals/servers/httpsys)服务器的面向公众的边缘部署配置 HTTPS URL 终结点。 此应用只使用**一个 HTTPS 端口**。 中间件通过 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>发现端口。
+* 为[Kestrel](xref:fundamentals/servers/kestrel) Server 或[http.sys](xref:fundamentals/servers/httpsys)服务器的面向公众的边缘部署配置 HTTPS URL 终结点。 此应用只使用**一个 HTTPS 端口**。 中间件通过<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>发现端口。
 
 > [!NOTE]
-> 在反向代理配置中运行应用时，<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> 不可用。 使用本部分中所述的其他方法之一设置端口。
+> 当应用在反向代理配置中运行时， <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>不可用。 使用本部分中所述的其他方法之一设置端口。
 
 ### <a name="edge-deployments"></a>Edge 部署 
 
@@ -140,13 +146,13 @@ ms.locfileid: "78653238"
 
 客户端必须能够访问不安全的端口，以便应用接收不安全的请求，并将客户端重定向到安全端口。
 
-有关详细信息，请参阅[Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)或 <xref:fundamentals/servers/httpsys>。
+有关详细信息，请参阅[Kestrel 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)或<xref:fundamentals/servers/httpsys>。
 
 ### <a name="deployment-scenarios"></a>部署方案
 
 客户端和服务器之间的任何防火墙都必须为流量打开通信端口。
 
-如果在反向代理配置中转发请求，请在调用 HTTPS 重定向中间件前使用[转发的标头中间件](xref:host-and-deploy/proxy-load-balancer)。 转发的标头中间件使用 `X-Forwarded-Proto` 标头更新 `Request.Scheme`。 中间件允许重定向 Uri 和其他安全策略正常工作。 当未使用转发的标头中间件时，后端应用程序可能无法接收正确的方案并最终出现在重定向循环中。 常见的最终用户错误消息是发生了太多的重定向。
+如果在反向代理配置中转发请求，请在调用 HTTPS 重定向中间件前使用[转发的标头中间件](xref:host-and-deploy/proxy-load-balancer)。 转发的`Request.Scheme`标头中间件使用`X-Forwarded-Proto`标头更新。 中间件允许重定向 Uri 和其他安全策略正常工作。 当未使用转发的标头中间件时，后端应用程序可能无法接收正确的方案并最终出现在重定向循环中。 常见的最终用户错误消息是发生了太多的重定向。
 
 部署到 Azure App Service 时，请按照[教程：将现有的自定义 SSL 证书绑定到 Azure Web 应用](/azure/app-service/app-service-web-tutorial-custom-ssl)中的指导进行操作。
 
@@ -168,11 +174,11 @@ ms.locfileid: "78653238"
 ::: moniker-end
 
 
-仅在更改 `HttpsPort` 或 `RedirectStatusCode`的值时，才需要调用 `AddHttpsRedirection`。
+只有`AddHttpsRedirection`在更改`HttpsPort`或`RedirectStatusCode`的值时，才需要调用。
 
 前面突出显示的代码：
 
-* 将[HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)设置为 <xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>，这是默认值。 使用 <xref:Microsoft.AspNetCore.Http.StatusCodes> 类的字段来分配 `RedirectStatusCode`。
+* 将[HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)设置为<xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>，这是默认值。 使用<xref:Microsoft.AspNetCore.Http.StatusCodes>类的字段将分配给`RedirectStatusCode`。
 * 将 HTTPS 端口设置为5001。
 
 #### <a name="configure-permanent-redirects-in-production"></a>在生产环境中配置永久重定向
@@ -224,9 +230,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="https-redirection-middleware-alternative-approach"></a>HTTPS 重定向中间件备用方法
 
-使用 HTTPS 重定向中间件（`UseHttpsRedirection`）的一种替代方法是使用 URL 重写中间件（`AddRedirectToHttps`）。 `AddRedirectToHttps` 还可以在执行重定向时设置状态代码和端口。 有关详细信息，请参阅[URL 重写中间件](xref:fundamentals/url-rewriting)。
+使用 HTTPS 重定向中间件（`UseHttpsRedirection`）的一种替代方法是使用 URL`AddRedirectToHttps`重写中间件（）。 `AddRedirectToHttps`执行重定向时，还可以设置状态代码和端口。 有关详细信息，请参阅[URL 重写中间件](xref:fundamentals/url-rewriting)。
 
-重定向到 HTTPS 时，如果不需要其他重定向规则，我们建议使用本主题中介绍的 HTTPS 重定向中间件（`UseHttpsRedirection`）。
+在不需要其他重定向规则的情况下重定向到 HTTPS 时，我们建议使用`UseHttpsRedirection`本主题中介绍的 Https 重定向中间件（）。
 
 <a name="hsts"></a>
 
@@ -243,7 +249,7 @@ public void ConfigureServices(IServiceCollection services)
 * HSTS 需要至少一个成功的 HTTPS 请求才能建立 HSTS 策略。
 * 应用程序必须检查每个 HTTP 请求并重定向或拒绝 HTTP 请求。
 
-ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当应用未处于[开发模式](xref:fundamentals/environments)时，以下代码将调用 `UseHsts`：
+ASP.NET Core 2.1 和更高版本通过`UseHsts`扩展方法实现 HSTS。 当应用未处于`UseHsts` [开发模式](xref:fundamentals/environments)时，以下代码将调用：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -257,11 +263,11 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 
 ::: moniker-end
 
-由于 HSTS 设置由浏览器高度缓存，因此不建议在开发中使用。 `UseHsts` 默认情况下，`UseHsts` 会排除本地环回地址。
+`UseHsts`不建议在开发中使用，因为 HSTS 设置通过浏览器高度可缓存。 默认情况下`UseHsts` ，不包括本地环回地址。
 
-对于第一次实现 HTTPS 的生产环境，请使用 <xref:System.TimeSpan> 方法之一将初始[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS `max-age` 值;常用值为一年。
+对于第一次实现 HTTPS 的生产环境，请使用其中一种[HstsOptions.MaxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*) <xref:System.TimeSpan>方法将初始 HstsOptions 设置为较小的值。 将值从小时设置为不超过一天，以防需要将 HTTPS 基础结构还原到 HTTP。 在你确信 HTTPS 配置的可持续性后，请增加 HSTS `max-age`值;常用值为一年。
 
-以下代码：
+下面的代码：
 
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -277,12 +283,12 @@ ASP.NET Core 2.1 和更高版本通过 `UseHsts` 扩展方法实现 HSTS。 当�
 ::: moniker-end
 
 
-* 设置 `Strict-Transport-Security` 标头的预载参数。 预加载不属于[RFC HSTS 规范](https://tools.ietf.org/html/rfc6797)，但 web 浏览器支持在全新安装时预加载 HSTS 站点。 有关详细信息，请参阅 [https://hstspreload.org/](https://hstspreload.org/)。
+* 设置`Strict-Transport-Security`标头的预载参数。 预加载不属于[RFC HSTS 规范](https://tools.ietf.org/html/rfc6797)，但 web 浏览器支持在全新安装时预加载 HSTS 站点。 有关详细信息，请参阅 [https://hstspreload.org/](https://hstspreload.org/)。
 * 启用[includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2)，这会将 HSTS 策略应用到托管子域。
-* 将 `Strict-Transport-Security` 标头的 `max-age` 参数显式设置为60天。 如果未设置，则默认值为30天。 有关详细信息，请参阅[最大期限指令](https://tools.ietf.org/html/rfc6797#section-6.1.1)。
-* 将 `example.com` 添加到要排除的主机列表。
+* 将`Strict-Transport-Security`标头`max-age`的参数显式设置为60天。 如果未设置，则默认值为30天。 有关详细信息，请参阅[最大期限指令](https://tools.ietf.org/html/rfc6797#section-6.1.1)。
+* 添加`example.com`到要排除的主机列表。
 
-`UseHsts` 排除以下环回主机：
+`UseHsts`排除以下环回主机：
 
 * `localhost`： IPv4 环回地址。
 * `127.0.0.1`： IPv4 环回地址。
@@ -325,7 +331,7 @@ dotnet new webapp --no-https
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>信任 Windows 和 macOS 上的 ASP.NET Core HTTPS 开发证书
 
-.NET Core SDK 包含 HTTPS 开发证书。 此证书作为首次运行体验的一部分进行安装。 例如，`dotnet --info` 生成以下输出的变体：
+.NET Core SDK 包含 HTTPS 开发证书。 此证书作为首次运行体验的一部分进行安装。 例如， `dotnet --info`会生成以下输出的变体：
 
 ```
 ASP.NET Core
@@ -336,7 +342,7 @@ For establishing trust on other platforms refer to the platform specific documen
 For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
 ```
 
-安装 .NET Core SDK 会将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储。 已安装证书，但该证书不受信任。 若要信任该证书，请执行一次性步骤以运行 dotnet `dev-certs` 工具：
+安装 .NET Core SDK 会将 ASP.NET Core HTTPS 开发证书安装到本地用户证书存储。 已安装证书，但该证书不受信任。 若要信任该证书，请执行一次性步骤来运行 dotnet `dev-certs`工具：
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -358,8 +364,8 @@ dotnet dev-certs https --help
 
 适用于 Linux 的 Windows 子系统（WSL）生成 HTTPS 自签名证书。若要将 Windows 证书存储配置为信任 WSL 证书，请执行以下操作：
 
-* 运行以下命令以导出 WSL 生成的证书： `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
-* 在 WSL 窗口中运行以下命令： `ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
+* 运行以下命令以导出 WSL 生成的证书：`dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
+* 在 WSL 窗口中运行以下命令：`ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   上述命令将设置环境变量，以便 Linux 使用 Windows 受信任的证书。
 
@@ -383,12 +389,12 @@ dotnet dev-certs https --trust
 ### <a name="docker---certificate-not-trusted"></a>Docker-证书不受信任
 
 * 删除*C:\Users\{USER} \AppData\Roaming\ASP.NET\Https*文件夹。
-* 清理解决方案。 删除 bin 和 obj 文件夹。
+* 清理解决方案。 删除 bin  和 obj  文件夹。
 * 重新启动开发工具。 例如，Visual Studio、Visual Studio Code 或 Visual Studio for Mac。
 
 ### <a name="windows---certificate-not-trusted"></a>Windows-证书不受信任
 
-* 检查证书存储区中的证书。 在 `Current User > Personal > Certificates` 和 `Current User > Trusted root certification authorities > Certificates` 都应有一个具有 `ASP.NET Core HTTPS development certificate` 友好名称的 `localhost` 证书。
+* 检查证书存储区中的证书。 在`Current User > Personal > Certificates`和中`ASP.NET Core HTTPS development certificate`应有`localhost`一个具有友好名称的证书`Current User > Trusted root certification authorities > Certificates`
 * 从 "个人" 和 "受信任的根证书颁发机构" 中删除所有找到的证书。 请勿**删除 IIS Express** localhost 证书。
 * 运行以下命令：
 
@@ -404,7 +410,7 @@ dotnet dev-certs https --trust
 * 打开密钥链访问。
 * 选择系统密钥链。
 * 检查是否存在 localhost 证书。
-* 检查它是否在图标上包含 `+` 符号，以指示其对所有用户都是受信任的。
+* 检查它是否在图标`+`上包含符号，以指示其对所有用户都是受信任的。
 * 从系统密钥链中删除证书。
 * 运行以下命令：
 
@@ -421,7 +427,7 @@ dotnet dev-certs https --trust
 
 若要解决 IIS Express 证书的问题，请从 Visual Studio 安装程序中选择 "**修复**"。 有关详细信息，请参阅[此 GitHub 问题](https://github.com/dotnet/aspnetcore/issues/16892)。
 
-## <a name="additional-information"></a>其他信息
+## <a name="additional-information"></a>附加信息
 
 * <xref:host-and-deploy/proxy-load-balancer>
 * [在 Linux 上利用 Apache： HTTPS 配置托管 ASP.NET Core](xref:host-and-deploy/linux-apache#https-configuration)

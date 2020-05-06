@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/index
-ms.openlocfilehash: 464d19bd63e1f0f06bd7d218e7644afde04a5672
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 796d7da76da6723ea996b57510da9c45ab21b3e7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644148"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775916"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>托管和部署 ASP.NET Core
 
@@ -34,7 +40,7 @@ ms.locfileid: "78644148"
 
 .NET Core 应用可以发布为“独立式部署”  ，也可以发布为“依赖框架的部署”  。 如果应用是独立式，“发布”  文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
-除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关更多信息，请参见 <xref:host-and-deploy/directory-structure>。
+除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
 
 ## <a name="set-up-a-process-manager"></a>设置进程管理器
 
@@ -71,9 +77,9 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 请参阅 <xref:host-and-deploy/visual-studio-publish-profiles>，了解如何使用 Visual Studio 发布配置文件发布应用，其中包括在 Windows 命令提示符处使用 [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) 命令。
 
-## <a name="internet-information-services-iis"></a>Internet Information Services (IIS)
+## <a name="internet-information-services-iis"></a>Internet 信息服务 (IIS)
 
-要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅  *下的文章*<xref:host-and-deploy/iis/index>。
+要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章  。
 
 ## <a name="host-in-a-web-farm"></a>在 Web 场中托管
 
@@ -81,11 +87,11 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="host-on-docker"></a>在 Docker 中托管
 
-有关更多信息，请参见 <xref:host-and-deploy/docker/index>。
+有关详细信息，请参阅 <xref:host-and-deploy/docker/index>。
 
 ## <a name="perform-health-checks"></a>执行运行状况检查
 
-使用运行状况检查中间件，对应用及其依赖项执行运行状况检查。 有关更多信息，请参见 <xref:host-and-deploy/health-checks>。
+使用运行状况检查中间件，对应用及其依赖项执行运行状况检查。 有关详细信息，请参阅 <xref:host-and-deploy/health-checks>。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -112,7 +118,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 .NET Core 应用可以发布为“独立式部署”  ，也可以发布为“依赖框架的部署”  。 如果应用是独立式，“发布”  文件夹中有包含 .NET 运行时的程序集文件。 如果应用依赖于框架，.NET 运行时文件就不包含在内，因为应用包含对服务器上安装的 .NET 版本的引用。 默认部署模型是依赖于框架的模型。 有关详细信息，请参阅 [.NET Core 应用程序部署](/dotnet/core/deploying/)。
 
-除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关更多信息，请参见 <xref:host-and-deploy/directory-structure>。
+除了“.exe”  和“.dll”  文件以外，ASP.NET Core 应用的“发布”  文件夹通常包含配置文件、静态资产和 MVC 视图。 有关详细信息，请参阅 <xref:host-and-deploy/directory-structure>。
 
 ## <a name="set-up-a-process-manager"></a>设置进程管理器
 
@@ -149,9 +155,9 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 请参阅 <xref:host-and-deploy/visual-studio-publish-profiles>，了解如何使用 Visual Studio 发布配置文件发布应用，其中包括在 Windows 命令提示符处使用 [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) 命令。
 
-## <a name="internet-information-services-iis"></a>Internet Information Services (IIS)
+## <a name="internet-information-services-iis"></a>Internet 信息服务 (IIS)
 
-要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅  *下的文章*<xref:host-and-deploy/iis/index>。
+要使用 web.config 文件提供的配置部署到 Internet Information Services (IIS)，请参阅 <xref:host-and-deploy/iis/index> 下的文章  。
 
 ## <a name="host-in-a-web-farm"></a>在 Web 场中托管
 
@@ -159,7 +165,7 @@ ASP.NET Core 应用是一个控制台应用，在服务器启动时必须启动�
 
 ## <a name="host-on-docker"></a>在 Docker 中托管
 
-有关更多信息，请参见 <xref:host-and-deploy/docker/index>。
+有关详细信息，请参阅 <xref:host-and-deploy/docker/index>。
 
 ## <a name="additional-resources"></a>其他资源
 

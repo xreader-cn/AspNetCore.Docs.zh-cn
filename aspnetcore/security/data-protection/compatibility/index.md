@@ -4,13 +4,19 @@ author: rick-anderson
 description: 此文档充当各 ASP.NET Core 数据保护兼容性主题的目录。
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/compatibility/index
-ms.openlocfilehash: c5e277d812bb5d16fa5a3ab1b6acc091ed3b32ce
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 103cd3529fa25c9e4c7e1afe32fef1f84748dd71
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644796"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777470"
 ---
 # <a name="compatibility-in-aspnet-core"></a>ASP.NET Core 中的兼容性
 

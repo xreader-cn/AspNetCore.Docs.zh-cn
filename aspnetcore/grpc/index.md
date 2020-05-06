@@ -5,13 +5,19 @@ description: 了解使用 Kestrel 服务器和 ASP.NET Core 堆栈的 gRPC 服�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/index
-ms.openlocfilehash: d97eea1da28424680a3cfa38102637b1e20ff661
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2d7d683051fd1eb97f3f57d75bd582109166a6cd
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644718"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768843"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core 上的 gRPC 的简介
 
@@ -33,7 +39,7 @@ gRPC 的主要优点是：
 
 ## <a name="c-tooling-support-for-proto-files"></a>.proto 文件的 C# 工具支持
 
-gRPC 使用协定优先方法进行 API 开发。 在 *.proto\** 文件中定义服务和消息：
+gRPC 使用协定优先方法进行 API 开发。 在 \*.proto  文件中定义服务和消息：
 
 ```protobuf
 syntax = "proto3";
@@ -51,10 +57,10 @@ message HelloReply {
 }
 ```
 
-通过在项目中包含 *.proto\** 文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
+通过在项目中包含 \*.proto  文件，可以自动生成用于服务、客户端和消息的 .NET 类型：
 
 * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
-* 将 *.proto\** 文件添加到 `<Protobuf>` 项目组。
+* 将 \*.proto  文件添加到 `<Protobuf>` 项目组。
 
 ```xml
 <ItemGroup>
@@ -92,7 +98,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService` 继承自 `GreeterBase` 类型，后者是从 `Greeter`.proto *\* 文件的*  服务生成的。 Startup.cs  中的客户端可以访问该服务：
+`GreeterService` 继承自 `GreeterBase` 类型，后者是从 \*.proto  文件的 `Greeter` 服务生成的。 Startup.cs  中的客户端可以访问该服务：
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -105,7 +111,7 @@ app.UseEndpoints(endpoints =>
 
 ## <a name="call-grpc-services-with-a-net-client"></a>使用 .NET 客户端调用 gRPC 服务
 
-gRPC 客户端是从 [ *.proto\** 文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 *.proto\** 文件中 gRPC 服务的方法。
+gRPC 客户端是从 [\*.proto  文件生成的](xref:grpc/basics#generated-c-assets)具体客户端类型。 具体 gRPC 客户端具有转换为 \*.proto  文件中 gRPC 服务的方法。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
