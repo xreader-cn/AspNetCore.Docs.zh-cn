@@ -5,17 +5,20 @@ description: 了解 Blazor 身份验证和授权方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: ced8e90147b08bc75aec4534fdd8d8552506f88c
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: d55880265ed1ceedf8f115412e5ac47309521239
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206094"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772890"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -35,7 +38,7 @@ Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由�
 
 Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
-[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization)不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/integrate-components#render-components-from-a-page-or-view)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
+[Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization) 不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/integrate-components#render-components-from-a-page-or-view)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
 
 > [!NOTE]
 > Razor 组件中不支持 <xref:Microsoft.AspNetCore.Identity.SignInManager%601> 和 <xref:Microsoft.AspNetCore.Identity.UserManager%601>。
@@ -246,7 +249,7 @@ builder.Services.AddAuthorizationCore();
 * 用户具有声明  。
 * 满足策略要求  。
 
-上述所有概念都与 ASP.NET Core MVC 或 Razor Pages 应用程序中的概念相同。 有关 ASP.NET Core 安全性的详细信息，请参阅 [ASP.NET Core 安全性和标识](xref:security/index)下的文章。
+上述所有概念都与 ASP.NET Core MVC 或 Razor Pages 应用中的概念相同。 有关 ASP.NET Core 安全性的详细信息，请参阅 [ASP.NET Core 安全性和 Identity](xref:security/index) 下的文章。
 
 ## <a name="authorizeview-component"></a>AuthorizeView 组件
 
@@ -426,6 +429,7 @@ Not authorized.
 如果作为过程逻辑的一部分应用程序需要检查授权规则，请使用 `Task<AuthenticationState>` 类型的级联参数获取用户的 <xref:System.Security.Claims.ClaimsPrincipal>。 `Task<AuthenticationState>` 可以与其他服务（例如 `IAuthorizationService`）结合使用以评估策略。
 
 ```razor
+@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
 <button @onclick="@DoSomething">Do something important</button>

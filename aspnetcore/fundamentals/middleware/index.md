@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 6bf8ed823386ca4e1cf78982f7fba41fba429db8
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: f78358907d79ae71e8168cc381dce86b0a869e57
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80751079"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776007"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 

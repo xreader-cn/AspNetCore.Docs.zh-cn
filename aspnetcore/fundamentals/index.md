@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/index
-ms.openlocfilehash: c675644d8480ef7a5290045067e6cec2ea6f4764
-ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
+ms.openlocfilehash: 0f0e97246b6e1381b85866bd831ee9b4b150650d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81384061"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774322"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core 基础知识
 
@@ -449,7 +455,7 @@ ASP.NET Core 具有用于处理错误的内置功能，例如：
 * 托管应用程序的可执行文件 (.exe  )。
 * 构成应用程序的已编译程序集 (.dll  )。
 * 应用使用的非代码内容文件，例如：
-  * Razor 文件（.cshtml  、.razor  ）
+  * Razor 文件（.cshtml、.razor）  
   * 配置文件（.json  、.xml  ）
   * 数据文件 (.db  )
 * [Web 根目录](#web-root)，通常是已发布的 wwwroot  文件夹。
@@ -483,7 +489,7 @@ Web 根路径默认为 {content root}/wwwroot  ，但[构建主机](#host)时可
 </ItemGroup>
 ```
 
-在 Razor (.cshtml  ) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录。 以 `~/` 开头的路径称为虚拟路径  。
+在 Razor (.cshtml) 文件中，波浪号斜杠 (`~/`) 指向 Web 根目录  。 以 `~/` 开头的路径称为虚拟路径  。
 
 有关详细信息，请参阅 <xref:fundamentals/static-files>。
 

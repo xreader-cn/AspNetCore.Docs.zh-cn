@@ -12,18 +12,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/ws-federation
-ms.openlocfilehash: ce0c484e84bc2ddb4a1d287246c63663f3875924
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: fede3887ad7dacd40cf3bb5d1b785392a9bc1480
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768424"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850456"
 ---
 # <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>在 ASP.NET Core 中用 WS 联合身份验证用户
 
-本教程演示如何使用户能够使用 WS 联合身份验证提供程序（例如 Active Directory 联合身份验证服务（ADFS）或[Azure Active Directory](/azure/active-directory/) （AAD））登录。 它使用[Facebook、Google 和 external 提供程序身份验证](xref:security/authentication/social/index)中介绍的 ASP.NET Core 2.0 示例应用。
+本教程演示如何使用户能够使用 WS 联合身份验证提供程序（例如 Active Directory 联合身份验证服务（ADFS）或[Azure Active Directory](/azure/active-directory/) （AAD））登录。 它使用[Facebook、Google 和 external 提供程序身份验证](xref:security/authentication/social/index)中介绍的 ASP.NET Core 示例应用。
 
-对于 ASP.NET Core 2.0 应用， [WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation)提供 WS 联合身份验证支持。 此组件从[Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.WsFederation)移植，并共享该组件的许多机制。 不过，这些组件在一些重要的方面有所不同。
+对于 ASP.NET Core 的应用程序，WS 联合身份验证支持由[WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation)提供。 此组件从[Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.WsFederation)移植，并共享该组件的许多机制。 不过，这些组件在一些重要的方面有所不同。
 
 默认情况下，新的中间件：
 

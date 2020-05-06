@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 77f07ba89de4449c6d13006a5fd61499cb5cdfc0
-ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
+ms.openlocfilehash: 72f433ffdc7d08e23fb68fc6ed9903a39959363b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/18/2020
-ms.locfileid: "81642749"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775981"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -1492,7 +1498,7 @@ ASP.NET Core 采用共享框架包的修补程序版本的前滚行为。 当 II
 
 1. 确认进程模型标识拥有适当的权限。
 
-   如果将应用池的默认标识（“进程模型” > “标识”）从 ApplicationPoolIdentity 更改为另一标识，请验证新标识拥有所需的权限，可访问应用的文件夹、数据库和其他所需资源    。 例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。
+   如果将应用池的默认标识（“进程模型” > “Identity”）从 ApplicationPoolIdentity 更改为另一标识，请确保新标识拥有对应用文件夹、数据库和其他所需资源的必需访问权限    。 例如，应用池需要对文件夹的读取和写入权限，以便应用在其中读取和写入文件。
 
 **Windows 身份验证配置（可选）**  
 有关详细信息，请参阅[配置 Windows 身份验证](xref:security/authentication/windowsauth)。
@@ -1676,9 +1682,9 @@ ASP.NET Core 应用不会使用 web.config  中的 ASP.NET 4.x 应用的配置�
 
 在服务器上托管多个网站时，建议在每个应用自己的应用池中运行各应用，以彼此隔离。 IIS“添加网站”对话框默认执行此配置  。 提供了站点名称时，该文本会自动传输到“应用程序池”文本框   。 添加站点时，会使用该站点名称创建新的应用池。
 
-## <a name="application-pool-identity"></a>应用程序池标识
+## <a name="application-pool-identity"></a>应用程序池 Identity
 
-通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。 在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。 在 IIS 管理控制台中，确保应用池“高级设置”下的“标识”设置为使用 ApplicationPoolIdentity    ：
+通过应用池标识帐户，可以在唯一帐户下运行应用，而无需创建和管理域或本地帐户。 在 IIS 8.0 或更高版本上，IIS 管理员工作进程 (WAS) 将使用新应用池的名称创建一个虚拟帐户，并默认在此帐户下运行应用池的工作进程。 在 IIS 管理控制台中，确保应用池“高级设置”下的“Identity”设置为使用 ApplicationPoolIdentity    ：
 
 ![应用程序池“高级设置”对话框](index/_static/apppool-identity.png)
 

@@ -5,7 +5,7 @@ description: 了解如何缓解对Blazor服务器应用的安全威胁。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/27/2020
+ms.date: 05/05/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/server/threat-mitigation
-ms.openlocfilehash: 2c87e6cef5a16b394b03dac1635f18d09593eb94
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
+ms.openlocfilehash: f43a46f53dc50cde43c88460b8bd3d6fb7a7076f
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774179"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850495"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Blazor 服务器的威胁缓解指南
 
@@ -281,7 +281,7 @@ Blazor服务器事件是异步的，因此在应用程序有时间通过生成�
 
 * [日志记录和敏感数据](#logging-and-sensitive-data)
 * [通过 HTTPS 保护传输中的信息](#protect-information-in-transit-with-https)
-* [跨站点脚本（XSS）](#cross-site-scripting-xss)）
+* [跨站点脚本（XSS）](#cross-site-scripting-xss)
 * [跨源保护](#cross-origin-protection)
 * [单击-点击劫持](#click-jacking)
 * [打开重定向](#open-redirects)

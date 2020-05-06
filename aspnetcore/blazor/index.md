@@ -8,20 +8,23 @@ ms.custom: mvc, seoapril2019
 ms.date: 03/25/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 6d2e95cd2ec92f97a97cb558fb39e4540450c766
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: ced3e2cc0428fccf6f0b2eba7a3f045e07002234
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405958"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771945"
 ---
-# <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 简介
+# <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-*欢迎使用 Blazor！*
+ *欢迎使用 Blazor！*
 
 Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
@@ -48,11 +51,11 @@ Blazor应用基于组件  。 Blazor 中的组件是指 UI 元素，例如页面
 * 定义灵活的 UI 呈现逻辑。
 * 处理用户事件。
 * 可以嵌套和重用。
-* 可以作为 [Razor 类库](xref:razor-pages/ui-class)或 [NuGet 包](/nuget/what-is-nuget)共享和分发。
+* 可作为 [Razor 类库](xref:razor-pages/ui-class)或 [NuGet 包](/nuget/what-is-nuget)共享和分发。
 
-组件类通常以 [Razor](xref:mvc/views/razor) 标记页（文件扩展名为 .razor  ）的形式编写。 Blazor 中的组件有时被称为 Razor 组件  。 Razor 是用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起的语法。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与围绕请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
+组件类通常以 [Razor](xref:mvc/views/razor) 标记页（文件扩展名为 .razor）的形式编写  。 Blazor 中的组件有时被称为 Razor 组件  。 Razor 是一种语法，用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与基于请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
 
-以下 Razor 标记演示组件 (Dialog.razor  )，该组件可以嵌套在另一个组件中：
+以下 Razor 标记演示组件 (Dialog.razor)，该组件可以嵌套在另一个组件中  ：
 
 ```razor
 <div>
@@ -105,7 +108,7 @@ Welcome to your new app.
 
 组件呈现为浏览器文档对象模型 (DOM) 的内存中表现形式，称为“呈现树”  ，用于以灵活高效的方式更新 UI。
 
-## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -129,7 +132,7 @@ WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性  或 Jav
 * 压缩 HTTP 响应。
 * .NET 运行时和程序集缓存在浏览器中。
 
-## <a name="opno-locblazor-server"></a>Blazor 服务器
+## <a name="blazor-server"></a>Blazor 服务器
 
 Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 [SignalR](xref:signalr/introduction) 连接处理 UI 更新。
 

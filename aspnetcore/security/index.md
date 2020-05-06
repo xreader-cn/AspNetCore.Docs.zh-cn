@@ -5,13 +5,19 @@ description: 了解 ASP.NET Core 中的身份验证、授权和安全基础知�
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/index
-ms.openlocfilehash: 0f8e96fb7d5246e746b95f8907745f849de60e24
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: b507832e34ac850d2bd4e80bab3066e73ea2ad95
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644028"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776508"
 ---
 # <a name="overview-of-aspnet-core-security"></a>ASP.NET Core 安全性概述
 
@@ -19,7 +25,7 @@ ms.locfileid: "78644028"
 
 ## <a name="aspnet-core-security-features"></a>ASP.NET Core 安全性功能
 
-ASP.NET Core 提供许多用于保护应用安全的工具和库（包括内置标识提供程序），但也可使用第三方标识服务（如 Facebook、Twitter 或 LinkedIn）。 利用 ASP.NET Core 可以轻松管理应用机密，无需将机密信息暴露在代码中就可存储和使用它们。
+ASP.NET Core 提供许多用于保护应用安全的工具和库（包括内置 Identity 提供程序），但也可使用第三方标识服务（如 Facebook、Twitter 或 LinkedIn）。 利用 ASP.NET Core 可以轻松管理应用机密，无需将机密信息暴露在代码中就可存储和使用它们。
 
 ## <a name="authentication-vs-authorization"></a>身份验证 vs授权
 
@@ -36,4 +42,4 @@ ASP.NET Core 和 EF 提供维护应用安全、预防安全漏洞的功能。 �
 * [跨站点请求伪造 (CSRF)](xref:security/anti-request-forgery)
 * [打开重定向攻击](xref:security/preventing-open-redirects)
 
-还应注意其他漏洞。 有关详细信息，请参阅目录的“安全性和标识”部分中的其他文章  。
+还应注意其他漏洞。 有关详细信息，请参阅目录的“安全性和 Identity”部分中的其他文章  。

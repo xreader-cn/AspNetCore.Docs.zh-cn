@@ -1,18 +1,24 @@
 ---
-title: 教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
+title: 教程：使用 ASP.NET Core 创建 Razor Pages Web 应用
 author: rick-anderson
-description: 使用 Visual Studio、ASP.NET Core 和 EF Core 创建 Razor 页面 Web 应用。
+description: 使用 Visual Studio、ASP.NET Core 和 EF Core 创建 Razor Pages Web 应用。
 ms.author: riande
 ms.date: 08/09/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: 03acfc381cf5dca2f8b834da75191cd8053e0da4
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2a75c4c4133642d53349437ea83413e96c40baf5
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78644592"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774530"
 ---
-# <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor 页面 Web 应用
+# <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Razor Pages Web 应用
 
 此系列教程介绍了生成 Razor Pages Web 应用的基础知识。 
 
@@ -20,11 +26,11 @@ ms.locfileid: "78644592"
 
 本系列包括以下教程：
 
-1. [创建 Razor 页面 Web 应用](xref:tutorials/razor-pages/razor-pages-start)
-1. [向 Razor 页面应用添加模型](xref:tutorials/razor-pages/model)
-1. [基架（生成）Razor 页面](xref:tutorials/razor-pages/page)
+1. [创建 Razor Pages Web 应用](xref:tutorials/razor-pages/razor-pages-start)
+1. [向 Razor Pages 应用添加模型](xref:tutorials/razor-pages/model)
+1. [基架（生成）Razor Pages](xref:tutorials/razor-pages/page)
 1. [使用数据库](xref:tutorials/razor-pages/sql)
-1. [更新 Razor 页面](xref:tutorials/razor-pages/da1)
+1. [更新 Razor Pages](xref:tutorials/razor-pages/da1)
 1. [添加搜索](xref:tutorials/razor-pages/search)
 1. [添加新字段](xref:tutorials/razor-pages/new-field)
 1. [添加验证](xref:tutorials/razor-pages/validation)
