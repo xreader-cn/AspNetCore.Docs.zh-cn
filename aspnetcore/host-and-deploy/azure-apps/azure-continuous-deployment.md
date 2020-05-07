@@ -5,13 +5,19 @@ description: 了解如何使用 Visual Studio 创建 ASP.NET Core Web 应用并�
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/azure-apps/azure-continuous-deployment
-ms.openlocfilehash: 3b344505739bb4292ed1683c73ff314b6e4e01e9
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0b9f5f15403c7d18d68a41baa2a59582cf039f44
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648108"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850560"
 ---
 # <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>使用 Visual Studio 和 Git 将 ASP.NET Core 持续部署到 Azure
 
@@ -24,7 +30,7 @@ ms.locfileid: "78648108"
 另请参阅[使用 Azure Pipelines 创建你的第一个管道](/azure/devops/pipelines/get-started-yaml)，该文档介绍如何使用 Azure DevOps Services 为 [Azure 应用服务](/azure/app-service/app-service-web-overview)配置持续交付 (CD) 工作流。 Azure Pipelines（一种 Azure DevOps Services 服务）简化了可靠部署管道的设置，便于为 Azure 应用服务内托管的应用发布更新。 可以从 Azure 门户配置管道以生成、运行测试、部署到过渡槽，然后部署到生产。
 
 > [!NOTE]
-> 若要完成本教程，需要一个 Microsoft Azure 帐户。 要获取帐户，可[激活 MSDN 订阅者权益](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F)或[注册免费试用版](https://azure.microsoft.com/free/?WT.mc_id=A261C142F)。
+> 若要完成本教程，需要一个 Microsoft Azure 帐户。 要获取帐户，可[激活 MSDN 订阅者权益](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F)或[注册免费试用版](https://azure.microsoft.com/free/dotnet/?WT.mc_id=A261C142F)。
 
 ## <a name="prerequisites"></a>系统必备
 
