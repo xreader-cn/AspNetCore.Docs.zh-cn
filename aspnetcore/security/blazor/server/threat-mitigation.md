@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/server/threat-mitigation
-ms.openlocfilehash: f43a46f53dc50cde43c88460b8bd3d6fb7a7076f
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
-ms.translationtype: HT
+ms.openlocfilehash: 7c71da690efc0a515b289fd575173f2d3093d1c1
+ms.sourcegitcommit: d4527df91f2c15bbe1cbf5a541adbea5747897aa
+ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850495"
+ms.locfileid: "82852394"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Blazor 服务器的威胁缓解指南
 
@@ -34,6 +34,10 @@ Blazor Server apps 采用有*状态*数据处理模型，其中服务器和客�
 
 * 不适用于受约束的环境中。
 * 由于受约束的环境中的安全风险不足，因此不值得实施。
+
+## <a name="blazor-and-shared-state"></a>Blazor 和 shared 状态
+
+[!INCLUDE[](~/includes/blazor-security/blazor-shared-state.md)]
 
 ## <a name="resource-exhaustion"></a>资源耗尽
 

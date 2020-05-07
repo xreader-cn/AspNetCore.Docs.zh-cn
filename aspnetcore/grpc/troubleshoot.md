@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
 ms.date: 10/16/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/troubleshoot
-ms.openlocfilehash: c501cda14f3bac9297695ece59cbc4634e4b7895
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 6f496b71c86762b35bdb3de33405a5aea6d8f8a5
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78649362"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775370"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>对 .NET Core 上的 gRPC 进行故障排除
 

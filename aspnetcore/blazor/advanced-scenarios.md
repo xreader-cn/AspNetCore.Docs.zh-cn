@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 5edbbe36e8389bac0335594b1e4331aee1c02867
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 9f1e5ea4d883a027f40ac0eccc7a9bba1435139d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647412"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767195"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
@@ -218,7 +221,7 @@ builder.AddContent(seq++, "Second");
 * 如果序列号已硬编码，则差分算法仅要求序列号的值增加。 初始值和间隔不相关。 一个合理选择是使用代码行号作为序列号，或者从零开始并以 1 或 100 的间隔（或任何首选间隔）增加。 
 * Blazor 使用序列号，而其他树上差分 UI 框架不使用它们。 使用序列号时，差分速度要快得多，并且 Blazor 的优势在于编译步骤可为编写 *.razor* 文件的开发人员自动处理序列号。
 
-## <a name="perform-large-data-transfers-in-opno-locblazor-server-apps"></a>在 Blazor Server 应用中执行大型数据传输
+## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>在 Blazor Server 应用中执行大型数据传输
 
 在某些方案中，必须在 JavaScript 和 Blazor 之间传输大量数据。 通常，大型数据传输在以下情况中发生：
 

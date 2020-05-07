@@ -5,13 +5,19 @@ author: rick-anderson
 ms.author: riande
 ms.date: 03/27/2019
 ms.topic: tutorial
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 99bf9ed59b47e8fbba838b97c3e032b9808f6a94
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d9cd3a74c35d531b5e8c91fc7f922b0cdf8e9558
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646050"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773505"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>教程：添加排序、筛选和分页 - ASP.NET MVC 和 EF Core
 

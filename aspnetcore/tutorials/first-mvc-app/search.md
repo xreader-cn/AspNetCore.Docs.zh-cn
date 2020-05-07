@@ -4,13 +4,19 @@ author: rick-anderson
 description: 演示如何将搜索添加到基本 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 89f1fa84783430f160ca0b840bf7ae9699520cb7
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 00213f9ffab13f23099e60240fa236bd1b41427f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648828"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775331"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>将搜索添加到 ASP.NET Core MVC 应用
 
@@ -18,7 +24,7 @@ ms.locfileid: "78648828"
 
 在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影   。
 
-使用以下代码更新 Controllers/MoviesController.cs`Index`*中的* 方法：
+使用以下代码更新 Controllers/MoviesController.cs  中的 `Index` 方法：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_1stSearch)]
 
@@ -37,7 +43,7 @@ var movies = from m in _context.Movie
 
 上面的 `s => s.Title.Contains()` 代码是 [Lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)。 Lambda 在基于方法的 [LINQ](/dotnet/standard/using-linq) 查询中用作标准查询运算符方法的参数，如 [Where](/dotnet/api/system.linq.enumerable.where) 方法或 `Contains`（上述的代码中所使用的）。 在对 LINQ 查询进行定义或通过调用方法（如 `Where`、`Contains` 或 `OrderBy`）进行修改后，此查询不会被执行。 相反，会延迟执行查询。  这意味着表达式的计算会延迟，直到真正循环访问其实现的值或者调用 `ToListAsync` 方法为止。 有关延迟执行查询的详细信息，请参阅[Query Execution](/dotnet/framework/data/adonet/ef/language-reference/query-execution)（查询执行）。
 
-注意：[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 方法在数据库上运行，而不是在上面显示的 c# 代码中运行。 查询是否区分大小写取决于数据库和排序规则。 在 SQL Server 上，[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 映射到 [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql)，这是不区分大小写的。 在 SQLite 中，由于使用了默认排序规则，因此需要区分大小写。
+注意：[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 方法在数据库上运行，而不是在上面显示的 C# 代码中运行。 查询是否区分大小写取决于数据库和排序规则。 在 SQL Server 上，[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) 映射到 [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql)，这是不区分大小写的。 在 SQLite 中，由于使用了默认排序规则，因此需要区分大小写。
 
 导航到 `/Movies/Index`。 将查询字符串（如 `?searchString=Ghost`）追加到 URL。 筛选的电影将显示出来。
 
@@ -53,7 +59,7 @@ var movies = from m in _context.Movie
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
-更新后带 `Index` 参数的 `id` 方法：
+更新后带 `id` 参数的 `Index` 方法：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_SearchID)]
 
@@ -65,7 +71,7 @@ var movies = from m in _context.Movie
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
-打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的  *标记*`<form>`：
+打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记  ：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
 
@@ -73,7 +79,7 @@ var movies = from m in _context.Movie
 
 ![显示标题筛选器文本框中键入了 ghost 一词的索引视图](~/tutorials/first-mvc-app/search/_static/filter.png)
 
-如你所料，不存在 `[HttpPost]` 方法的 `Index` 重载。 无需重载，因为该方法不更改应用的状态，仅筛选数据。
+如你所料，不存在 `Index` 方法的 `[HttpPost]` 重载。 无需重载，因为该方法不更改应用的状态，仅筛选数据。
 
 可添加以下 `[HttpPost] Index` 方法。
 
@@ -85,17 +91,17 @@ var movies = from m in _context.Movie
 
 ![显示“来自 HttpPost 索引: 筛选 ghost”应用程序响应的浏览器窗口](~/tutorials/first-mvc-app/search/_static/fo.png)
 
-但是，即使添加 `[HttpPost]` 方法的 `Index` 版本，其实现方式也受到限制。 假设你想要将特定搜索加入书签，或向朋友发送一个链接，让他们单击链接即可查看筛选出的相同电影列表。 请注意 HTTP POST 请求的 URL 与 GET 请求的 URL (localhost:{PORT}/Movies/Index) 相同，URL 中没有任何搜索信息。 搜索字符串信息作为[表单域值](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)发送给服务器。 可使用浏览器开发人员工具或出色的 [Fiddler 工具](https://www.telerik.com/fiddler)对其进行验证。 下图展示了 Chrome 浏览器开发人员工具：
+但是，即使添加 `Index` 方法的 `[HttpPost]` 版本，其实现方式也受到限制。 假设你想要将特定搜索加入书签，或向朋友发送一个链接，让他们单击链接即可查看筛选出的相同电影列表。 请注意 HTTP POST 请求的 URL 与 GET 请求的 URL (localhost:{PORT}/Movies/Index) 相同，URL 中没有任何搜索信息。 搜索字符串信息作为[表单域值](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)发送给服务器。 可使用浏览器开发人员工具或出色的 [Fiddler 工具](https://www.telerik.com/fiddler)对其进行验证。 下图展示了 Chrome 浏览器开发人员工具：
 
 ![Microsoft Edge 中开发人员工具的“网络”选项卡，显示了 ghost 的 searchString 值的请求正文](~/tutorials/first-mvc-app/search/_static/f12_rb.png)
 
 在请求正文中，可看到搜索参数和 [XSRF](xref:security/anti-request-forgery) 标记。 请注意，正如之前教程所述，[表单标记帮助程序](xref:mvc/views/working-with-forms) 会生成一个 [XSRF](xref:security/anti-request-forgery) 防伪标记。 不会修改数据，因此无需验证控制器方法中的标记。
 
-搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml`HTTP GET`*文件中的*。
+搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml  文件中的 `HTTP GET`。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
-现在提交搜索后，URL 将包含搜索查询字符串。 即使具备 `HttpGet Index` 方法，搜索也将转到 `HttpPost Index` 操作方法。
+现在提交搜索后，URL 将包含搜索查询字符串。 即使具备 `HttpPost Index` 方法，搜索也将转到 `HttpGet Index` 操作方法。
 
 ![URL 中显示 searchString=ghost 且返回了 Ghostbusters 和 Ghostbusters 2 的浏览器窗口包含 ghost 一词](~/tutorials/first-mvc-app/search/_static/search_get.png)
 
@@ -118,7 +124,7 @@ var movies = from m in _context.Movie
 * 包含所选流派的 `MovieGenre`。
 * `SearchString`包含用户在搜索文本框中输入的文本。
 
-将 `Index` 中的 `MoviesController.cs` 方法替换为以下代码：
+将 `MoviesController.cs` 中的 `Index` 方法替换为以下代码：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_SearchGenre)]
 
@@ -132,7 +138,7 @@ var movies = from m in _context.Movie
 
 ## <a name="add-search-by-genre-to-the-index-view"></a>向“索引”视图添加“按流派搜索”
 
-按如下所示更新 Views/Movies/`Index.cshtml`*中的*：
+按如下所示更新 Views/Movies/  中的 `Index.cshtml`：
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 
@@ -140,7 +146,7 @@ var movies = from m in _context.Movie
 
 `@Html.DisplayNameFor(model => model.Movies[0].Title)`
 
-在上述代码中，`DisplayNameFor` HTML 帮助程序检查 Lambda 表达式中引用的 `Title` 属性来确定显示名称。 由于只检查但未计算 Lambda 表达式，因此当 `model`、`model.Movies` 或 `model.Movies[0]` 为 `null` 或空时，你不会收到访问冲突。 对 Lambda 表达式求值时（例如，`@Html.DisplayFor(modelItem => item.Title)`），将求得该模型的属性值。
+在上述代码中，`DisplayNameFor` HTML 帮助程序检查 Lambda 表达式中引用的 `Title` 属性来确定显示名称。 由于只检查但未计算 Lambda 表达式，因此当 `model`、`model.Movies[0]` 或 `model.Movies` 为 `null` 或空时，你不会收到访问冲突。 对 Lambda 表达式求值时（例如，`@Html.DisplayFor(modelItem => item.Title)`），将求得该模型的属性值。
 
 通过按流派搜索、按电影标题搜索以及按流派和电影标题搜索来测试应用：
 

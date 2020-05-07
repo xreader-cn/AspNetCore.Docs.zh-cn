@@ -5,19 +5,25 @@ description: 了解使用 ASP.NET Core 编写 gRPC 服务时的基本概念。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: 6107704a4b4d9c629a7abe907efd5b1932019130
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: c14ae1fb3c2e046ae577c63824eebb4411a6e804
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78651000"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776215"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
 本文档演示如何通过 ASP.NET Core 开始使用 gRPC 服务。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 

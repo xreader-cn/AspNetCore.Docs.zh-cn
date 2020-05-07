@@ -6,13 +6,19 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 83d662659fb4bc7a2867be563e4e36927d2adafe
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 32d3a22b85675d817286e3e72b8b9c8e63df6ca6
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646056"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850417"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>教程：更新相关数据 - ASP.NET MVC 和 EF Core
 
@@ -225,7 +231,7 @@ Course 和 Instructor 实体之间是多对多的关系。 若要添加和删除
 
 <a id="notepad"></a>
 > [!NOTE]
-> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。 如果粘贴后代码看起来不同，按 Ctrl+Z 一次可撤消自动格式设置。 这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 Visual Studio 2019 修复了此问题。
+> 将代码粘贴到 Visual Studio 中时，换行符会发生更改，从而导致代码中断。 如果粘贴后代码看起来不同，按 Ctrl+Z 一次可撤消自动格式设置。 这样可以修复换行符，使其看起来如此处所示。 缩进不一定要完美，但 `@:</tr><tr>`、`@:<td>`、`@:</td>` 和 `@:</tr>` 行必须各成一行（如下所示），否则会出现运行时错误。 选中新的代码块后，按 Tab 三次，使新代码与现有代码对齐。 Visual Studio 2019 修复了此问题。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 

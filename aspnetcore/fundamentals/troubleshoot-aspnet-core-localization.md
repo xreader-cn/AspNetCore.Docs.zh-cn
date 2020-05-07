@@ -4,13 +4,19 @@ author: hishamco
 description: 了解如何诊断 ASP.NET Core 应用中本地化的问题。
 ms.author: riande
 ms.date: 01/24/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 229e274a22e170d984a16d3b1ee64ebc38c4ef77
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: f5c2be93be4f896b1822bf93deef24f091e30442
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647892"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774283"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>对 ASP.NET Core 本地化进行故障排除
 

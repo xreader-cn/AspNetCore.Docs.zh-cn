@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 03/17/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: e8a1959a8fc05ea59362bb5824181a9d2e418811
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 75d9a66eb25201c2993b8f922754b8aa7ab84615
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218864"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771154"
 ---
-# <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状态管理
+# <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -34,7 +37,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 > [!NOTE]
 > 本文介绍 Blazor 服务器应用中的状态暂留。 Blazor WebAssembly 应用可以利用[浏览器中的客户端状态暂留](#client-side-in-the-browser)，但需要自定义解决方案或第三方包（这些并不在本文的讨论范围之内）。
 
-## <a name="opno-locblazor-circuits"></a>Blazor 线路
+## <a name="blazor-circuits"></a>Blazor 线路
 
 如果用户遇到暂时的网络连接丢失问题，Blazor 会尝试将用户重新连接到其原始线路，以便用户继续使用该应用。 但是，将用户重新连接到服务器内存中的原始电路并非总是能够实现的：
 

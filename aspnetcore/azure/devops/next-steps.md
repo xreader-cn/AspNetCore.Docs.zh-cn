@@ -5,13 +5,19 @@ description: 通过 ASP.NET Core 和 Azure 实现 DevOps 的其他学习路径�
 ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/next-steps
-ms.openlocfilehash: a775dc42551a43bcce72b5f9ca364ed00b1dc4e6
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 92401d45d36dd3b93d175e08a8fa8697217ca7c7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647430"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82766519"
 ---
 # <a name="next-steps"></a>后续步骤
 
@@ -29,7 +35,7 @@ ms.locfileid: "78647430"
 
 [Cosmos DB](/azure/cosmos-db/) 是一种全球分布式多模型 NoSQL 数据库服务。 有多个 API 可用，包括 SQL API（以前称为 DocumentDB）、Cassandra 和 MongoDB。
 
-## <a name="identity"></a>标识
+## Identity
 
 [Azure Active Directory](/azure/active-directory/) 和 [Azure Active Directory B2C](/azure/active-directory-b2c/) 均为标识服务。 Azure Active Directory 为企业场景而设计，可实现 Azure AD B2B（企业到企业）协作，而 Azure Active Directory B2C 用于企业到客户场景，包括社交网络登录。
 

@@ -1,23 +1,26 @@
 ---
-title: 从 ASP.NET Core Blazor 调用 Web API
+title: 从 ASP.NET Core Blazor WebAssembly 调用 Web API
 author: guardrex
-description: 了解如何使用 JSON 帮助程序从 Blazor 应用程序调用 Web API，包括进行跨域资源共享 (CORS) 请求。
+description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用调用 Web API，包括发出跨域资源共享 (CORS) 请求。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: e6996f0e6731b05038d0a9329152b8afd5f6796d
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d823db3688e05f6befefacc9f390e0dcdbf329a7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647730"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767143"
 ---
-# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>从 ASP.NET Core Blazor 调用 Web API
+# <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)
 
@@ -36,9 +39,19 @@ ms.locfileid: "78647730"
 
 ## <a name="packages"></a>package
 
-在项目文件中引用试验  [Microsoft.AspNetCore.Blazor.HttpClient](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/) NuGet 包。 `Microsoft.AspNetCore.Blazor.HttpClient` 基于 `HttpClient` 和 [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/)。
+在项目文件中引用 [System.Net.Http.Json](https://www.nuget.org/packages/System.Net.Http.Json/) NuGet 包。
 
-若要使用稳定 API，请使用 [Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/) 包，它使用 [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/)/[Json.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)。 在 `Microsoft.AspNet.WebApi.Client` 中使用稳定 API 并不提供本主题中所述的 JSON 帮助程序（它们对于试验 `Microsoft.AspNetCore.Blazor.HttpClient` 包是唯一的）。
+## <a name="add-the-httpclient-service"></a>添加 HttpClient 服务
+
+在 `Program.Main` 中个，如果 `HttpClient` 服务尚不存在，则添加它：
+
+```csharp
+builder.Services.AddTransient(sp => 
+    new HttpClient
+    {
+        BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+    });
+```
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient 和 JSON 帮助程序
 
@@ -72,7 +85,7 @@ private class TodoItem
 
 JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并处理响应：
 
-* `GetJsonAsync` &ndash; 发送 HTTP GET 请求并分析 JSON 响应正文以创建对象。
+* `GetFromJsonAsync` &ndash; 发送 HTTP GET 请求并分析 JSON 响应正文以创建对象。
 
   在下面的代码中，`_todoItems` 由组件显示。 当组件完成呈现 ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)) 时，会触发 `GetTodoItems` 方法。 有关完整的示例，请参阅示例应用。
 
@@ -84,11 +97,11 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
       private TodoItem[] _todoItems;
 
       protected override async Task OnInitializedAsync() => 
-          _todoItems = await Http.GetJsonAsync<TodoItem[]>("api/TodoItems");
+          _todoItems = await Http.GetFromJsonAsync<TodoItem[]>("api/TodoItems");
   }
   ```
 
-* `PostJsonAsync` &ndash; 发送 HTTP POST 请求（包括 JSON 编码的内容），并分析 JSON 响应正文以创建对象。
+* `PostAsJsonAsync` &ndash; 发送 HTTP POST 请求（包括 JSON 编码的内容），并分析 JSON 响应正文以创建对象。
 
   在下面的代码中，`_newItemName` 由组件的绑定元素提供。 通过选择 `<button>` 元素来触发 `AddItem` 方法。 有关完整的示例，请参阅示例应用。
 
@@ -105,12 +118,18 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
       private async Task AddItem()
       {
           var addItem = new TodoItem { Name = _newItemName, IsComplete = false };
-          await Http.PostJsonAsync("api/TodoItems", addItem);
+          await Http.PostAsJsonAsync("api/TodoItems", addItem);
       }
   }
   ```
+  
+  调用 `PostAsJsonAsync` 会返回 <xref:System.Net.Http.HttpResponseMessage>。 若要对响应消息中的 JSON 内容进行反序列化处理，请使用 `ReadFromJsonAsync<T>` 扩展方法：
+  
+  ```csharp
+  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
+  ```
 
-* `PutJsonAsync` &ndash; 发送 HTTP PUT 请求（包括 JSON 编码的内容）。
+* `PutAsJsonAsync` &ndash; 发送 HTTP PUT 请求（包括 JSON 编码的内容）。
 
   在下面的代码中，`Name` 和 `IsCompleted` 的 `_editItem` 值由组件的绑定元素提供。 当在 UI 的另一个部分中选择项并调用 `EditItem` 时，会设置项的 `Id`。 通过选择 Save `<button>` 元素来触发 `SaveItem` 方法。 有关完整的示例，请参阅示例应用。
 
@@ -133,8 +152,14 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
       }
 
       private async Task SaveItem() =>
-          await Http.PutJsonAsync($"api/TodoItems/{_editItem.Id}, _editItem);
+          await Http.PutAsJsonAsync($"api/TodoItems/{_editItem.Id}, _editItem);
   }
+  ```
+  
+  调用 `PutAsJsonAsync` 会返回 <xref:System.Net.Http.HttpResponseMessage>。 若要对响应消息中的 JSON 内容进行反序列化处理，请使用 `ReadFromJsonAsync<T>` 扩展方法：
+  
+  ```csharp
+  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
 <xref:System.Net.Http> 包括用于发送 HTTP 请求和接收 HTTP 响应的附加扩展方法。 [HttpClient.DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*) 用于将 HTTP DELETE 请求发送到 Web API。
@@ -164,67 +189,10 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 若要允许其他站点对应用进行跨域资源共享 (CORS) 请求，请参阅 <xref:security/cors>。
 
-## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>具有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
-
-在 Blazor WebAssembly 应用中的 WebAssembly 上运行时，可使用 [HttpClient](xref:fundamentals/http-requests) 和 <xref:System.Net.Http.HttpRequestMessage> 自定义请求。 例如，可以指定请求 URI、HTTP 方法以及任何所需的请求标头。
-
-```razor
-@using System.Net.Http
-@using System.Net.Http.Headers
-@inject HttpClient Http
-
-@code {
-    private async Task PostRequest()
-    {
-        Http.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", "{OAUTH TOKEN}");
-
-        var requestMessage = new HttpRequestMessage()
-        {
-            Method = new HttpMethod("POST"),
-            RequestUri = new Uri("https://localhost:10000/api/TodoItems"),
-            Content = 
-                new StringContent(
-                    @"{""name"":""A New Todo Item"",""isComplete"":false}")
-        };
-
-        requestMessage.Content.Headers.ContentType = 
-            new System.Net.Http.Headers.MediaTypeHeaderValue(
-                "application/json");
-
-        requestMessage.Content.Headers.TryAddWithoutValidation(
-            "x-custom-header", "value");
-
-        var response = await Http.SendAsync(requestMessage);
-        var responseStatusCode = response.StatusCode;
-        var responseBody = await response.Content.ReadAsStringAsync();
-    }
-}
-```
-
-有关 Fetch API 选项的详细信息，请参阅 [MDN Web 文档：WindowOrWorkerGlobalScope.fetch():Parameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
-
-在 CORS 请求中发送凭据（授权 cookie/标头）时，CORS 策略必须允许使用 `Authorization` 标头。
-
-以下策略包括的配置用于：
-
-* 请求来源（`http://localhost:5000`、`https://localhost:5001`）。
-* Any 方法（谓词）。
-* `Content-Type` 和 `Authorization` 标头。 若要允许使用自定义标头（例如 `x-custom-header`），请在调用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> 时列出标头。
-* 由客户端 JavaScript 代码设置的凭据（`credentials` 属性设置为 `include`）。
-
-```csharp
-app.UseCors(policy => 
-    policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
-    .AllowAnyMethod()
-    .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
-    .AllowCredentials());
-```
-
-有关详细信息，请参阅 <xref:security/cors> 和示例应用的 HTTP 请求测试器组件 (Components/HTTPRequestTester.razor  )。
-
 ## <a name="additional-resources"></a>其他资源
 
+* <xref:security/blazor/webassembly/index>
+* <xref:security/blazor/webassembly/additional-scenarios>
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
 * [Kestrel HTTPS 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)
