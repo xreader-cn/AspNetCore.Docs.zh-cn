@@ -5,19 +5,22 @@ description: 了解 ASP.NET Core Blazor 如何管理未经处理的异常以及�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/29/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 4fdaf7fb90d126b8f7f029aac3af49eec3b69e74
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 7eefc988da275c0efccd97958d04e76f04e7cad4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80382270"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772108"
 ---
-# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
+# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -80,7 +83,7 @@ ms.locfileid: "80382270"
 }
 ```
 
-## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor 服务器应用如何应对未经处理的异常
+## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor 服务器应用如何应对未经处理的异常
 
 Blazor 服务器是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接  。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
@@ -113,6 +116,8 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 在开发过程中，Blazor 通常会将异常的完整详细信息发送到浏览器的控制台，以帮助进行调试。 在生产环境中，浏览器控制台中的错误详细信息默认禁用，也就是说错误信息不会发送到客户端，但异常的完整详细信息仍记录在服务器端。 有关详细信息，请参阅 <xref:fundamentals/error-handling>。
 
 必须确定要记录的事件以及已记录的事件的严重性级别。 恶意用户也许能刻意触发错误。 例如，若显示产品详细信息的组件的 URL 中提供了未知的 `ProductId`，则请勿记录错误中的事件。 不是所有的错误都应被视为高严重性事件进行记录。
+
+有关详细信息，请参阅 <xref:fundamentals/logging/index#create-logs-in-blazor>。
 
 ## <a name="places-where-errors-may-occur"></a>可能发生错误的位置
 
@@ -214,7 +219,7 @@ Blazor 将大部分未经处理的异常视为发生该异常的线路的严重�
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="opno-locblazor-server-prerendering"></a>Blazor 服务器预呈现
+### <a name="blazor-server-prerendering"></a>Blazor 服务器预呈现
 
 Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)进行预呈现，以便在用户的初始 HTTP 请求过程中返回其呈现的 HTML 标记。 实现方式如下：
 

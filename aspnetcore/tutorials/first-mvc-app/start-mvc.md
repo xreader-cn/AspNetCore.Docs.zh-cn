@@ -4,13 +4,19 @@ author: rick-anderson
 description: 了解如何开始使用 ASP.NET Core MVC。
 ms.author: riande
 ms.date: 10/16/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 901257efdfbc7b36249233745175f5ed253da2c7
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0b28e99d9c56d92e157e9010880e58ec5165196a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648666"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774980"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 

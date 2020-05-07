@@ -5,13 +5,19 @@ description: 通过 ASP.NET Core 和 Azure 实现 DevOps 所需的工具和下�
 ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 9c1042dd48b9167209b46e97a09e011b80e2609c
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 1917a329a5dcbe60542541cfcdc746799307e3d5
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511140"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850404"
 ---
 # <a name="tools-and-downloads"></a>工具和下载
 
@@ -21,7 +27,7 @@ Azure 拥有多个用于预配和管理资源的界面，例如 [Azure 门户](h
 
 需要以下订阅：
 
-* Azure &mdash; 如果没有帐户，请[获取免费试用版](https://azure.microsoft.com/free/)。
+* Azure &mdash; 如果没有帐户，请[获取免费试用版](https://azure.microsoft.com/free/dotnet/)。
 * Azure DevOps Services &mdash; 在第 4 章中创建 Azure DevOps 订阅和组织。
 * GitHub &mdash; 如果没有帐户，请[免费注册](https://github.com/join)。
 

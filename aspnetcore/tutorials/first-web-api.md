@@ -5,13 +5,19 @@ description: 了解如何使用 ASP.NET Core 生成 Web API。
 ms.author: riande
 ms.custom: mvc
 ms.date: 2/25/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 7418e962076fae3ebdbb25381838757b09046578
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ddc14aba14e31c5530cda14b4792736da001246a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80417661"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767234"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>教程：使用 ASP.NET Core 创建 Web API
 
@@ -38,11 +44,11 @@ ms.locfileid: "80417661"
 
 |API | 描述 | 请求正文 | 响应正文 |
 |--- | ---- | ---- | ---- |
-|GET /api/TodoItems | 获取所有待办事项 | None | 待办事项的数组|
-|GET /api/TodoItems/{id} | 按 ID 获取项 | None | 待办事项|
-|POST /api/TodoItems | 添加新项 | 待办事项 | 待办事项 |
-|PUT /api/TodoItems/{id} | 更新现有项 &nbsp; | 待办事项 | None |
-|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | 删除项 &nbsp;&nbsp; | None | None|
+|`GET /api/TodoItems` | 获取所有待办事项 | None | 待办事项的数组|
+|`GET /api/TodoItems/{id}` | 按 ID 获取项 | None | 待办事项|
+|`POST /api/TodoItems` | 添加新项 | 待办事项 | 待办事项 |
+|`PUT /api/TodoItems/{id}` | 更新现有项 &nbsp; | 待办事项 | None |
+|`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | 删除项 &nbsp;&nbsp; | None | None|
 
 下图显示了应用的设计。
 

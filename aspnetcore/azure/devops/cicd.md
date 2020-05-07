@@ -5,13 +5,19 @@ description: 在 DevOps 中使用 ASP.NET Core 和 Azure 进行持续集成和�
 ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: mvc, seodec18
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: 5fdf52235b49119503885f92c370dc588e809ffe
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: f5b0e0ee1c903de26188815c7dc01ed547cca97e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78645126"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767130"
 ---
 # <a name="continuous-integration-and-deployment"></a>持续集成和持续部署
 

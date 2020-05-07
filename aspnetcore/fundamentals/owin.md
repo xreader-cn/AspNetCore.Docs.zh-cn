@@ -5,13 +5,19 @@ description: 了解 ASP.NET Core 如何支持 .NET 的开放 Web 接口 (OWIN)�
 ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: 14b23ba6d284413e20417bbd4142e19a656350ac
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: defbf428634a04e6fa3862926136dc98b88da589
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650562"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775955"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>ASP.NET Core 中 .NET 的开放 Web 接口 (OWIN)
 
