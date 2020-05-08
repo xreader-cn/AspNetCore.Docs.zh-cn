@@ -665,6 +665,8 @@
       uid: test/razor-pages-tests
     - name: 测试控制器
       uid: mvc/controllers/testing
+    - name: 测试中间件
+      uid: test/middleware
     - name: 远程调试
       href: /visualstudio/debugger/remote-debugging-azure
     - name: 快照调试
