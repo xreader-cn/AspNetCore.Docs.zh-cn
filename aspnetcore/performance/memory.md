@@ -287,7 +287,7 @@ public int GetLOH1(int size)
 * [ResponseCaching/StreamUtilities](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-有关详细信息，请参阅：
+有关详细信息，请参见:
 
 * [发现的大型对象堆](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大型对象堆](/dotnet/standard/garbage-collection/large-object-heap)

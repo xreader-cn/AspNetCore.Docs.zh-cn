@@ -51,7 +51,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 指定要从提供程序检索的权限的列表<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供程序  | 作用域                                                            |
+| 提供程序  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -191,7 +191,7 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 指定要从提供程序检索的权限的列表<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>。 常见外部提供程序的身份验证范围如下表中所示。
 
-| 提供程序  | 作用域                                                            |
+| 提供程序  | 范围                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |

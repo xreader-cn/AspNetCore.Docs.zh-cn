@@ -1,4 +1,4 @@
-`LoginDisplay` 组件（*shared/LoginDisplay*）在 `MainLayout` 组件（*shared/MainLayout*）中呈现并管理以下行为：
+组件（*shared/LoginDisplay* `MainLayout` ）在组件（*shared/MainLayout*）中呈现并管理以下行为： `LoginDisplay`
 
 * 对于经过身份验证的用户：
   * 显示当前用户名。

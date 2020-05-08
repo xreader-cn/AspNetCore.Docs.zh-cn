@@ -20,7 +20,7 @@ ms.locfileid: "82775019"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>在 ASP.NET Core 中路由到控制器操作
 
-作者：[Ryan Nowak](https://github.com/rynowak)、[Kirk Larkinn](https://twitter.com/serpent5) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
+作者： [Ryan Nowak](https://github.com/rynowak)、 [Kirk Larkin](https://twitter.com/serpent5)和[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -424,7 +424,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了上述`[Route]`代码中的属性：
 
-| Attribute               | 结合`[Route("Home")]` | 定义路由模板 |
+| 特性               | 结合`[Route("Home")]` | 定义路由模板 |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | 是 | `"Home"` |
 | `[Route("Index")]` | 是 | `"Home/Index"` |
@@ -721,7 +721,7 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由`{controller}/{action}/{id?}`中遇到此问题。 此问题在实践中很罕见`Url.Action` ，因为始终显式`controller`指定`action`和值。
 
-多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除`controller`和`action`以外的路由参数提供值。 路由值对象经常与`id`一起使用。 例如，`Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
+多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除`controller`和`action`以外的路由参数提供值。 路由值对象经常与`id`一起使用。 例如 `Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是， `IDictionary<>`也可以是[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)。
@@ -851,7 +851,7 @@ TagHelper 通过 `form` TagHelper 和 `<a>` TagHelper 生成 URL。 两者均通
 
 控制器上的公共方法（具有[NonAction](xref:Microsoft.AspNetCore.Mvc.NonActionAttribute)特性的方法除外）是操作。
 
-## <a name="sample-code"></a>代码示例
+## <a name="sample-code"></a>示例代码
 
  * [示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)中包含了[MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs)方法，用于显示路由信息。
 * [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)（[如何下载](xref:index#how-to-download-a-sample)）

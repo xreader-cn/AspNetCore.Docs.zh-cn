@@ -1,3 +1,3 @@
-命名<xref:Microsoft.AspNetCore.Components.Authorization?displayProperty=fullName>空间通过 *_Imports.razor*文件在整个应用中可用：
+通过<xref:Microsoft.AspNetCore.Components.Authorization?displayProperty=fullName> *_Imports*文件在整个应用中提供命名空间：
 
 [!code-razor[](imports-standalone.razor?highlight=3)]

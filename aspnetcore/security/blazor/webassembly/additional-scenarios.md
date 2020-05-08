@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: e69b598431027aa540227b87dedfd091057a1af4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e804c43ebea8f6a79443e24047a7be47587cbd8a
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768164"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967541"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -35,6 +35,11 @@ ms.locfileid: "82768164"
 在下面的示例中`AuthorizationMessageHandler` ， `HttpClient`在中`Program.Main`配置（*Program.cs*）：
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddTransient(sp =>
 {
     return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
@@ -47,9 +52,14 @@ builder.Services.AddTransient(sp =>
 });
 ```
 
-为方便起见， `BaseAddressAuthorizationMessageHandler`将包含的应用程序基址预配置为授权 URL。 启用身份验证的 Blazor WebAssembly 模板现在使用[IHttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) `HttpClient`通过`BaseAddressAuthorizationMessageHandler`以下方式设置：
+为方便起见， `BaseAddressAuthorizationMessageHandler`将包含的应用程序基址预配置为授权 URL。 启用身份验证的 Blazor WebAssembly 模板现在在<xref:System.Net.Http.IHttpClientFactory>服务器 API 项目中使用，以使用设置<xref:System.Net.Http.HttpClient> `BaseAddressAuthorizationMessageHandler`：
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddHttpClient("BlazorWithIdentityApp1.ServerAPI", 
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
         .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
@@ -58,11 +68,16 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("BlazorWithIdentityApp1.ServerAPI"));
 ```
 
-在前面的示例中使用`CreateClient`创建客户端的位置提供`HttpClient`了在向服务器项目发出请求时提供访问令牌的实例。
+在前面的示例中使用`CreateClient`创建客户端的位置提供<xref:System.Net.Http.HttpClient>了在向服务器项目发出请求时提供访问令牌的实例。
 
-然后， `HttpClient`将使用配置的来使用简单`try-catch`模式发出授权请求。 以下`FetchData`组件请求天气预测数据：
+然后， <xref:System.Net.Http.HttpClient>将使用配置的来使用简单`try-catch`模式发出授权请求。 以下`FetchData`组件请求天气预测数据：
 
 ```csharp
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+
+...
+
 protected override async Task OnInitializedAsync()
 {
     try
@@ -82,6 +97,13 @@ protected override async Task OnInitializedAsync()
 *WeatherClient.cs*：
 
 ```csharp
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using static {APP ASSEMBLY}.Data;
+
 public class WeatherClient
 {
     private readonly HttpClient httpClient;
@@ -99,6 +121,8 @@ public class WeatherClient
         {
             forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
                 "WeatherForecast");
+
+            ...
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -113,6 +137,11 @@ public class WeatherClient
 Program.cs  :
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddHttpClient<WeatherClient>(
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();

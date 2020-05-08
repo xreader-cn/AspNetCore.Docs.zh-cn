@@ -1,1 +1,1 @@
-如果您正在以英语以外的语言阅读本文，如果您想查看母语的代码注释，请在此[GitHub 讨论中](https://github.com/aspnet/AspNetCore.Docs/issues/16455)告知我们。
+如果你使用的语言不是英语，请在此[GitHub 讨论问题](https://github.com/aspnet/AspNetCore.Docs/issues/16455)中告诉我们，如果你想要在本地语言中查看代码注释。
