@@ -5,7 +5,7 @@ description: 了解如何配置Blazor WebAssembly 以实现其他安全方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/04/2020
+ms.date: 05/08/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: e804c43ebea8f6a79443e24047a7be47587cbd8a
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: e8a088b3f1a4e0eb7d5d1c5c09ef53c4a2bd3628
+ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
 ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967541"
+ms.locfileid: "82976787"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -554,7 +554,7 @@ builder.Services.AddApiAuthorization(options => {
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
-public class OidcAccount : RemoteUserAccount
+public class CustomUserAccount : RemoteUserAccount
 {
     [JsonPropertyName("amr")]
     public string[] AuthenticationMethod { get; set; }
@@ -571,7 +571,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 
 public class CustomAccountFactory 
-    : AccountClaimsPrincipalFactory<OidcAccount>
+    : AccountClaimsPrincipalFactory<CustomUserAccount>
 {
     public CustomAccountFactory(NavigationManager navigationManager, 
         IAccessTokenProviderAccessor accessor) : base(accessor)
@@ -579,7 +579,7 @@ public class CustomAccountFactory
     }
   
     public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
-        OidcAccount account, RemoteAuthenticationUserOptions options)
+        CustomUserAccount account, RemoteAuthenticationUserOptions options)
     {
         var initialUser = await base.CreateUserAsync(account, options);
         
@@ -597,17 +597,55 @@ public class CustomAccountFactory
 }
 ```
 
-注册服务以使用`CustomAccountFactory`：
+注册`CustomAccountFactory`要使用的身份验证提供程序。 以下任何注册都是有效的： 
 
-```csharp
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+* `AddOidcAuthentication`:
 
-...
+  ```csharp
+  using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
-builder.Services.AddApiAuthorization<RemoteAuthenticationState, OidcAccount>()
-    .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, OidcAccount, 
-        CustomAccountFactory>();
-```
+  ...
+
+  builder.Services.AddOidcAuthentication<RemoteAuthenticationState, 
+      CustomUserAccount>(options =>
+  {
+      ...
+  })
+  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+      CustomUserAccount, CustomAccountFactory>();
+  ```
+
+* `AddMsalAuthentication`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+  ...
+
+  builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
+      CustomUserAccount>(options =>
+  {
+      ...
+  })
+  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+      CustomUserAccount, CustomAccountFactory>();
+  ```
+  
+* `AddApiAuthorization`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+  ...
+
+  builder.Services.AddApiAuthorization<RemoteAuthenticationState, 
+      CustomUserAccount>(options =>
+  {
+      ...
+  })
+  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+      CustomUserAccount, CustomAccountFactory>();
+  ```
 
 ## <a name="support-prerendering-with-authentication"></a>支持预呈现身份验证
 

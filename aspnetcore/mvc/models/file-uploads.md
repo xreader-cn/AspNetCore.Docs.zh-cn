@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 0da9e124b884337c63dd91b06df60ef7ca89cf3e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b613ccd8df65e41b86793466a0ed5dc7bf7e8772
+ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774127"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82976748"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -1478,7 +1478,7 @@ The request filtering module is configured to deny a request that exceeds the re
 
 ## <a name="additional-resources"></a>其他资源
 
-* [HTTP 连接请求排出](xref:fundamentals/servers/kestrel#http-connection-request-draining)
+* [HTTP 连接请求排出](xref:fundamentals/servers/kestrel#http11-request-draining)
 * [Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)（不受限制的文件上传）
 * [Azure 安全：安全框架：输入验证 |措施](/azure/security/azure-security-threat-modeling-tool-input-validation)
 * [Azure 云设计模式：附属密钥模式](/azure/architecture/patterns/valet-key)
