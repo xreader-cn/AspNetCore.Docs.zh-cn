@@ -339,14 +339,16 @@
                   uid: security/blazor/webassembly/standalone-with-azure-active-directory
                 - name: 包含 AAD B2C 的独立产品
                   uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-                - name: 由标识服务器托管
-                  uid: security/blazor/webassembly/hosted-with-identity-server
                 - name: 由 AAD 托管
                   uid: security/blazor/webassembly/hosted-with-azure-active-directory
                 - name: 由 AAD B2C 托管
                   uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                - name: 由标识服务器托管
+                  uid: security/blazor/webassembly/hosted-with-identity-server
                 - name: 其他方案
                   uid: security/blazor/webassembly/additional-scenarios
+                - name: AAD 组和角色
+                  uid: security/blazor/webassembly/aad-groups-roles
             - name: Blazor 服务器
               items:
                 - name: 概述
@@ -1134,14 +1136,16 @@
               uid: security/blazor/webassembly/standalone-with-azure-active-directory
             - name: 包含 AAD B2C 的独立产品
               uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-            - name: 由标识服务器托管
-              uid: security/blazor/webassembly/hosted-with-identity-server
             - name: 由 AAD 托管
               uid: security/blazor/webassembly/hosted-with-azure-active-directory
             - name: 由 AAD B2C 托管
               uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+            - name: 由标识服务器托管
+              uid: security/blazor/webassembly/hosted-with-identity-server
             - name: 其他方案
               uid: security/blazor/webassembly/additional-scenarios
+            - name: AAD 组和角色
+              uid: security/blazor/webassembly/aad-groups-roles
         - name: Blazor 服务器
           items:
             - name: 概述
