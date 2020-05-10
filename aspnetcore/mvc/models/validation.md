@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: a0f7c070514de26ae007526a5587c13d26d1eb1b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 56c8d799b98cc09b8cfff12744c6eeb46af4f8e6
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777171"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003165"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC 和Razor页面中的模型验证
 
@@ -55,7 +55,7 @@ ms.locfileid: "82777171"
 
 以下是一些内置验证特性：
 
-* `[CreditCard]`：验证属性是否具有信用卡格式。
+* `[CreditCard]`：验证属性是否具有信用卡格式。 需要[JQuery 验证其他方法](https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js)。
 * `[Compare]`：验证模型中的两个属性是否匹配。
 * `[EmailAddress]`：验证属性是否具有电子邮件格式。
 * `[Phone]`：验证属性是否具有电话号码格式。
@@ -122,7 +122,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
 
 若要实现远程验证：
 
-1. 创建可供 JavaScript 调用的操作方法。  jQuery Validate [远程](https://jqueryvalidation.org/remote-method/)方法要求 JSON 响应：
+1. 创建可供 JavaScript 调用的操作方法。  JQuery 验证[远程](https://jqueryvalidation.org/remote-method/)方法需要 JSON 响应：
 
    * `true` 表示输入数据有效。
    * `false`、`undefined` 或 `null` 表示输入无效。 显示默认错误消息。
@@ -166,7 +166,7 @@ public string MiddleName { get; set; }
 * [创建自定义特性](#custom-attributes)。
 * [实现 IValidatableObject](#ivalidatableobject)。
 
-## <a name="custom-attributes"></a>自定义属性
+## <a name="custom-attributes"></a>自定义特性
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 
@@ -248,7 +248,7 @@ public string MiddleName { get; set; }
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_ValidationScriptsPartial.cshtml?name=snippet_Scripts)]
 
-[jQuery 非介入式验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一个基于热门 [jQuery Validate](https://jqueryvalidation.org/) 插件的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证分析 `data-` 特性并将逻辑传递给 jQuery Validate，从而将服务器端验证逻辑有效地“复制”到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
+JQuery 非介入式[验证](https://github.com/aspnet/jquery-validation-unobtrusive)脚本是一种基于常用[jQuery 验证](https://jqueryvalidation.org/)插件构建的自定义 Microsoft 前端库。 如果没有 jQuery 非介入式验证，则必须在两个位置编码相同的验证逻辑：一次是在模型属性上的服务器端验证特性中，一次是在客户端脚本中。 [标记帮助程序](xref:mvc/views/tag-helpers/intro)和 [HTML 帮助程序](xref:mvc/views/overview)则使用模型属性中的验证特性和类型元数据，呈现需要验证的表单元素的 HTML 5 `data-` 特性。 jQuery 非介入式验证`data-`分析属性，并将逻辑传递到 jQuery 验证，从而有效地将服务器端验证逻辑 "复制" 到客户端。 可以使用标记帮助程序在客户端上显示验证错误，如下所示：
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=3-4)]
 
@@ -265,7 +265,7 @@ public string MiddleName { get; set; }
 </div>
 ```
 
-请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jQuery 非介入式验证将此值传递给 jQuery Validate [required()](https://jqueryvalidation.org/required-method/) 方法，该方法随后在随附的 **\<span>** 元素中显示该消息。
+请注意，HTML 输出中的 `data-` 特性与 `Movie.ReleaseDate` 属性的验证特性相对应。 `data-val-required` 特性包含在用户未填写上映日期字段时将显示的错误消息。 jquery 非介入式验证将此值传递给[所需](https://jqueryvalidation.org/required-method/)的 jQuery 验证（）方法，该方法随后会在伴随** \<的范围>** 元素中显示该消息。
 
 如果 `[DataType]` 特性未替代属性的 .NET 类型，则数据类型验证基于该类型。 浏览器具有自己的默认错误消息，但是 jQuery 验证非介入式验证包可以替代这些消息。 通过 `[DataType]` 特性和 `[EmailAddress]` 等子类可以指定错误消息。
 
@@ -275,7 +275,7 @@ public string MiddleName { get; set; }
 
 ### <a name="add-validation-to-dynamic-forms"></a>向动态表单添加验证
 
-jQuery 非介入式验证会在第一次加载页面时将验证逻辑和参数传递到 jQuery Validate。 因此，不会对动态生成的表单自动执行验证。 若要启用验证，指示 jQuery 非介入式验证在创建动态表单后立即对其进行分析。 例如，以下代码在通过 AJAX 添加的表单上设置客户端验证。
+当首次加载页面时，jQuery 非引人注目验证会将验证逻辑和参数传递给 jQuery 验证。 因此，不会对动态生成的表单自动执行验证。 若要启用验证，指示 jQuery 非介入式验证在创建动态表单后立即对其进行分析。 例如，以下代码在通过 AJAX 添加的表单上设置客户端验证。
 
 ```javascript
 $.get({
@@ -294,7 +294,7 @@ $.get({
 })
 ```
 
-`$.validator.unobtrusive.parse()` 方法采用 jQuery 选择器作为它的一个参数。 此方法指示 jQuery 非介入式验证分析该选择器内表单的 `data-` 属性。 然后将这些特性的值传递给 jQuery Validate 插件。
+`$.validator.unobtrusive.parse()` 方法采用 jQuery 选择器作为它的一个参数。 此方法指示 jQuery 非介入式验证分析该选择器内表单的 `data-` 属性。 然后，将这些属性的值传递给 jQuery 验证插件。
 
 ### <a name="add-validation-to-dynamic-controls"></a>向动态控件添加验证
 
@@ -310,7 +310,7 @@ $.get({
     success: function(newInputHTML) {
         var form = document.getElementById("my-form");
         form.insertAdjacentHTML("beforeend", newInputHTML);
-        $(form).removeData("validator")    // Added by jQuery Validate
+        $(form).removeData("validator")    // Added by jQuery Validation
                .removeData("unobtrusiveValidation");   // Added by jQuery Unobtrusive Validation
         $.validator.unobtrusive.parse(form);
     }
@@ -319,11 +319,11 @@ $.get({
 
 ## <a name="custom-client-side-validation"></a>自定义客户端验证
 
-生成适用于自定义 jQuery Validate 适配器的 `data-` HTML 特性，完成自定义客户端验证。 以下示例适配器代码是为本文前面部分介绍的 `[ClassicMovie]` 和 `[ClassicMovieWithClientValidator]` 特性编写的：
+自定义客户端验证是通过生成`data-`适用于自定义 jQuery 验证适配器的 HTML 特性来完成的。 以下示例适配器代码是为本文前面部分介绍的 `[ClassicMovie]` 和 `[ClassicMovieWithClientValidator]` 特性编写的：
 
 [!code-javascript[](validation/samples/3.x/ValidationSample/wwwroot/js/classicMovieValidator.js)]
 
-有关如何编写适配器的信息，请参阅 [jQuery Validate 文档](https://jqueryvalidation.org/documentation/)。
+有关如何编写适配器的信息，请参阅[JQuery 验证文档](https://jqueryvalidation.org/documentation/)。
 
 给定字段的适配器的使用由 `data-` 特性触发，这些特性：
 
@@ -532,7 +532,7 @@ public string MiddleName { get; set; }
 * [创建自定义特性](#custom-attributes)。
 * [实现 IValidatableObject](#ivalidatableobject)。
 
-## <a name="custom-attributes"></a>自定义属性
+## <a name="custom-attributes"></a>自定义特性
 
 对于内置验证特性无法处理的情况，可以创建自定义验证特性。 创建继承自 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> 的类，并替代 <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> 方法。
 

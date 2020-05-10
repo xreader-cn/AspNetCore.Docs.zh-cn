@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/google-logins
-ms.openlocfilehash: 06a5cf77e47d9fc618fddf3a096001a4f31688be
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 8b1eee7ff088fb1229ec1d2dd538ea4f01e094c3
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776989"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003097"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>ASP.NET Core 中的 Google 外部登录设置
 
@@ -28,7 +28,7 @@ ms.locfileid: "82776989"
 ## <a name="create-a-google-api-console-project-and-client-id"></a>创建 Google API 控制台项目和客户端 ID
 
 * 请安装[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google)。
-* 导航到 "将[Google 登录集成到你的 web 应用"](https://developers.google.com/identity/sign-in/web/devconsole-project) ，然后选择 "**配置项目**"。
+* 导航到 "将[Google 登录集成到你的 web 应用"](https://developers.google.com/identity/sign-in/web/sign-in) ，然后选择 "**配置项目**"。
 * 在 "**配置 OAuth 客户端**" 对话框中，选择 " **Web 服务器**"。
 * 在 "**授权重定向 uri** " 文本输入框中，设置重定向 URI。 例如： `https://localhost:44312/signin-google`
 * 保存**客户端 ID**和**客户端密码**。
@@ -74,7 +74,7 @@ ms.locfileid: "82776989"
 
 URI 段`/signin-google`设置为 Google 身份验证提供程序的默认回调。 通过[GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性配置 Google 身份验证中间件时，可以更改默认的回叫 URI。
 
-## <a name="troubleshooting"></a>疑难解答
+## <a name="troubleshooting"></a>故障排除
 
 * 如果登录不起作用，并且没有出现任何错误，请切换到开发模式，以便更轻松地进行调试。
 * 如果Identity未通过调用`services.AddIdentity`进行配置`ConfigureServices`，则尝试在 ArgumentException 中对结果进行身份验证 *：必须提供 "SignInScheme" 选项*。 本教程中使用的项目模板可确保完成此操作。
