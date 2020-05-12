@@ -7,13 +7,17 @@ ms.custom: mvc
 ms.date: 12/16/2019
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 5374d7eec4334223a4bba7ee26cb6e2f208ed20b
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: 85c0d850922b7118b101126c09b208b0db420f7e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977192"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776482"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>使用类库中的 ASP.NET Core API
 
@@ -48,7 +52,7 @@ Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-
 
 ### <a name="support-both-hosting-models"></a>同时支持两种托管模型
 
-请按照适合你的编辑器的以下说明操作，以同时支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
+请按照适合你的编辑器的以下说明操作，以同时支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -82,7 +86,7 @@ dotnet new razorclasslib
 
 ### <a name="support-a-specific-hosting-model"></a>支持特定托管模型
 
-支持单个 Blazor 托管模型的情况并不常见。 例如，完成以下操作可仅支持 [Blazor Server](xref:blazor/hosting-models#blazor-server) 项目的 Razor 组件消耗：
+支持单个 Blazor 托管模型的情况并不常见。 例如，完成以下操作可仅支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)项目的 Razor 组件消耗：
 
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
@@ -146,7 +150,7 @@ dotnet new razorclasslib -s
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如：
+若面向 .NET Standard（以支持 ASP.NET Core 3.x 之前的版本），则添加对 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的包引用。 `Microsoft.AspNetCore.Mvc.Razor` 包移到了共享框架，因此不再发布。 例如：
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
@@ -175,7 +179,7 @@ dotnet new razorclasslib -s
 上面的项目文件将完成以下操作：
 
 * 为所有使用者添加 `Markdig` 包。
-* 为面向 .NET Framework 4.6.1 或更高版本或者 .NET Core 2.x 的使用者添加 [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的引用。 由于向后兼容性，此包的版本 2.1.0 适用于 ASP.NET Core 2.2。
+* [Microsoft.AspNetCore.Mvc.Razor](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) 的引用 已针对面向 .NET Framework 4.6.1 或更高版本或者 .NET Core 2.x 的使用者添加。 由于向后兼容性，此包的版本 2.1.0 适用于 ASP.NET Core 2.2。
 * 为面向 .NET Core 3.x 的使用者引用共享框架。 共享框架中包括 `Microsoft.AspNetCore.Mvc.Razor` 包。
 
 或者，可以面向 .NET Standard 2.0，而不面向 .NET Core 2.1 和 .NET Framework 4.6.1：

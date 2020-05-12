@@ -5,13 +5,19 @@ description: 了解如何使用 Visual Studio 将 ASP.NET Core 应用发布到 A
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 7fc3644df3dcb957f2537538aaa9506c6b38a480
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 634fb821ef0478dbcf57fdbb991a2e8bbb9402f1
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648492"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777080"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>使用 Visual Studio 将 ASP.NET Core 应用发布到 Azure
 
@@ -158,7 +164,7 @@ Visual Studio 在 Azure 上创建 Web 应用和 SQL Server。 此步骤可能需
 
 ### <a name="update-the-app"></a>更新应用
 
-* 编辑“Pages/About.cshtml”Razor 页面并更改其内容  。 例如，可以将段落修改为显示“Hello ASP.NET Core!”：
+* 编辑 Pages/About.cshtml Razor 页面并更改其内容  。 例如，可以将段落修改为显示“Hello ASP.NET Core!”：
 
     [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
 

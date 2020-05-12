@@ -8,15 +8,19 @@ ms.custom: mvc
 ms.date: 03/20/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 138057c2ceb9ed01bdf958c01f5cf2275387df23
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 5a5a56ee646cba21a883df2cf686cb1ccb18d7f9
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79989434"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776599"
 ---
-# <a name="build-your-first-opno-locblazor-app"></a>生成首个 Blazor 应用
+# <a name="build-your-first-blazor-app"></a>生成首个 Blazor 应用
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -28,7 +32,7 @@ ms.locfileid: "79989434"
 
 1. 按照 <xref:blazor/get-started> 文章中的指南创建用于本教程的 Blazor 项目。 将项目命名为 ToDoList  。
 
-1. 在 Pages  文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor  、Counter.razor  和 FetchData.razor  ）实现。
+1. 在 Pages  文件夹中浏览应用的三个页面：主页、计数器和提取数据。 这些页面由 Razor 组件文件（Index.razor、Counter.razor 和 FetchData.razor）实现    。
 
 1. 在“计数器”页上，选择“单击我”  按钮，在不刷新页面的情况下增加计数器值。 增加网页的计数器值通常需要编写 JavaScript。 通过 Blazor，可以改为编写 C#。
 
@@ -101,7 +105,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 ## <a name="dependency-injection"></a>依赖关系注入
 
-### <a name="opno-locblazor-server-experience"></a>Blazor Server 体验
+### <a name="blazor-server-experience"></a>Blazor Server 体验
 
 如果使用的是 Blazor Server 应用，则 `WeatherForecastService` 服务在 `Startup.ConfigureServices` 中注册为[单一实例](xref:fundamentals/dependency-injection#service-lifetimes)。 可通过[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 在整个应用中使用服务的实例：
 
@@ -117,7 +121,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="opno-locblazor-webassembly-experience"></a>Blazor WebAssembly 体验
+### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly 体验
 
 如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据。  
 
@@ -133,7 +137,7 @@ Counter.razor  文件顶部的 `@page` 指令指定 `Counter` 组件是路由终
 
 向应用添加一个实现简单待办事项列表的新组件。
 
-1. 向“页面”文件夹中的应用添加一个新的 `Todo` Razor 组件  。 在 Visual Studio 中，右键单击“页面”文件夹，然后选择“添加” > “新项目” > “Razor 组件”     。 将组件的文件命名为 Todo.razor  。 在其他开发环境中，将空白文件添加到名为 Todo.razor 的“页面”文件夹中   。
+1. 向 Pages 文件夹中的应用添加一个新的 `Todo` Razor 组件  。 在 Visual Studio 中，右键单击 Pages 文件夹，然后选择“添加” > “新项目” > “Razor 组件”     。 将组件的文件命名为 Todo.razor  。 在其他开发环境中，将空白文件添加到名为 Todo.razor 的“页面”文件夹中   。
 
 1. 为组件提供初始标记：
 

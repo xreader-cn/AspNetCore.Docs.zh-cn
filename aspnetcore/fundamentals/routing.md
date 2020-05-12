@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/1/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 0fc89ccf15c14c67f284a7084a21159af300a195
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: 2dd44a561debddac13250174a8e74dd912302d60
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277218"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850508"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core 中的路由
 
@@ -348,7 +354,7 @@ URL 匹配在可配置的阶段集中运行。 在每个阶段中，输出为一
 * 带有文本的段比参数段更具体。
 * 具有约束的参数段比没有约束的参数段更具体。
 * 复杂段与具有约束的参数段同样具体。
-* Catch all 参数是最不具体的参数。
+* catch-all 参数是最不具体的参数。 有关 catch-all 路由的重要信息，请参阅 [路由模板参考](#rtr) 中的“catch-all”  。
 
 有关确切值的参考，请参阅 [GitHub 上的源代码](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Template/RoutePrecedence.cs#L189)。
 
@@ -415,6 +421,8 @@ URL 生成：
 * 称为 catch-all 参数  。 例如，`blog/{**slug}`：
   * 匹配以 `/blog` 开头并在其后面包含任何值的任何 URI。
   * `/blog` 后的值分配给 [slug](https://developer.mozilla.org/docs/Glossary/Slug) 路由值。
+
+[!INCLUDE[](~/includes/catchall.md)]
 
 全方位参数还可以匹配空字符串。
 
@@ -573,6 +581,8 @@ ASP.NET Core 框架将向正则表达式构造函数添加 `RegexOptions.IgnoreC
 可实现 <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> 接口来创建自定义路由约束。 `IRouteConstraint` 接口包含 <xref:System.Web.Routing.IRouteConstraint.Match*>，当满足约束时，它返回 `true`，否则返回 `false`。
 
 很少需要自定义路由约束。 在实现自定义路由约束之前，请考虑替代方法，如模型绑定。
+
+ASP.NET Core [Constraints](https://github.com/dotnet/aspnetcore/tree/master/src/Http/Routing/src/Constraints) 文件夹提供了创建约束的经典示例。 例如 [GuidRouteConstraint](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Constraints/GuidRouteConstraint.cs#L18)。
 
 若要使用自定义 `IRouteConstraint`，必须在服务容器中使用应用的 <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> 注册路由约束类型。 `ConstraintMap` 是将路由约束键映射到验证这些约束的 `IRouteConstraint` 实现的目录。 应用的 `ConstraintMap` 可作为 [services.AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) 调用的一部分在 `Startup.ConfigureServices` 中进行更新，也可以通过使用 `services.Configure<RouteOptions>` 直接配置 <xref:Microsoft.AspNetCore.Routing.RouteOptions> 进行更新。 例如：
 
@@ -935,7 +945,7 @@ app.UseEndpoints(endpoints =>
 
 路由测试具有非更新数据源的[基本示例](https://github.com/aspnet/AspNetCore/blob/master/src/Http/Routing/test/testassets/RoutingSandbox/Framework/FrameworkEndpointDataSource.cs#L17)。
 
-默认情况下，请不要尝试注册 `EndpointDataSource`  。 要求用户在 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> 中注册你的框架。 路由的理念是，默认情况下不包含任何内容，并且 `UseEndpoints` 是注册终结点的位置。
+默认情况下，请不要尝试注册 `EndpointDataSource` 。 要求用户在 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> 中注册你的框架。 路由的理念是，默认情况下不包含任何内容，并且 `UseEndpoints` 是注册终结点的位置。
 
 ### <a name="creating-routing-integrated-middleware"></a>创建路由集成式中间件
 

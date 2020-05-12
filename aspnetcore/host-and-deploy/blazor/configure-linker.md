@@ -5,17 +5,20 @@ description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 109da5ef400c3b9d64ccf3ceb33a5387ea6b5618
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: b274752b375f68cca0c0a9adf9c146bc525d9eba
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218656"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775175"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
@@ -86,7 +89,7 @@ LinkerConfig.xml  ：
 </linker>
 ```
 
-有关详细信息，请参阅[链接 xml 文件示例（mono/链接器 GitHub 存储库）](https://github.com/mono/linker#link-xml-file-examples)。
+有关详细信息和示例，请参阅[数据格式（mono/链接器 GitHub 存储库）](https://github.com/mono/linker/blob/master/docs/data-formats.md)。
 
 ## <a name="add-an-xml-linker-configuration-file-to-a-library"></a>将 XML 链接器配置文件添加到库
 
@@ -106,11 +109,11 @@ LinkerConfig.xml  ：
 
 默认情况下，用于 Blazor WebAssembly 应用的 Blazor 链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
 
-要控制保留哪些国际化程序集，请在项目文件中设置 `<MonoLinkerI18NAssemblies>` MSBuild 属性：
+要控制保留哪些国际化程序集，请在项目文件中设置 `<BlazorWebAssemblyI18NAssemblies>` MSBuild 属性：
 
 ```xml
 <PropertyGroup>
-  <MonoLinkerI18NAssemblies>{all|none|REGION1,REGION2,...}</MonoLinkerI18NAssemblies>
+  <BlazorWebAssemblyI18NAssemblies>{all|none|REGION1,REGION2,...}</BlazorWebAssemblyI18NAssemblies>
 </PropertyGroup>
 ```
 

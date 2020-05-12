@@ -1,20 +1,24 @@
 ---
 title: ASP.NET Core Razor SDK
 author: Rick-Anderson
-description: 了解 ASP.NET Core 中的 Razor 页面如何使基于页面的编码方式比使用 MVC 更简单高效。
+description: 了解 ASP.NET Core 中的 Razor Pages 如何使基于页面的编码方式比使用 MVC 更简单高效。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/26/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: razor-pages/sdk
-ms.openlocfilehash: 2284131ce2d45ec6bc01ce38f91e2c951b108605
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: a49f183c4c037a1654e79bdb672b758684137cbe
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80321000"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776729"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -52,7 +56,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` glo
 
 ::: moniker range=">= aspnetcore-3.0"
 
-若要使用 Razor SDK 生成包含 Razor 视图或 Razor Pages 的类库，建议从 Razor 类库 (RCL) 项目模板开始。 用于生成 Blazor (.razor) 文件的 RCL 至少需要引用 [ Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components) 包  。 用于生成 Razor 视图或页面（.cshtml 文件）的 RCL 至少需要面向 `netcoreapp3.0` 或更高版本，且其项目文件中至少具有指向 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)的 `FrameworkReference`  。
+若要使用 Razor SDK 生成包含 Razor 视图或 Razor Pages 的类库，建议从 Razor 类库 (RCL) 项目模板开始。 用于生成 Blazor (.razor) 文件的 RCL 至少需要引用 [ Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components) 包  。 用于生成 Razor 视图或页面（.cshtml 文件）的 RCL 至少需要面向 `netcoreapp3.0` 或更高版本，且其项目文件中至少具有指向 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)的 `FrameworkReference` 。
 
 ::: moniker-end
 
@@ -125,7 +129,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` glo
 | `GenerateRazorTargetAssemblyInfo` | 若为 `true`，则生成 .cs 文件（其中包含由 `RazorAssemblyAttribute` 指定的属性），并将文件包含在编译输出中  。 |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | 为 `true` 时，将一组默认的程序集属性添加到 `RazorAssemblyAttribute`。 |
 | `CopyRazorGenerateFilesToPublishDirectory` | 若为 `true`，则将 `RazorGenerate` 项 (.cshtml) 文件复制到发布目录  。 如果在生成时或发布时参与编译，则通常发布的应用无需 Razor 文件。 默认为 `false`。 |
-| `PreserveCompilationReferences` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true`  。 默认为 `false`。 |
+| `PreserveCompilationReferences` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true` 。 默认为 `false`。 |
 | `IncludeRazorContentInPack` | 若为 `true`，则所有 Razor 内容项（.cshtml 文件）标记为包含在生成的 NuGet 包中  。 默认为 `false`。 |
 | `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中  。 默认为 `false`。 |
 | `UseRazorBuildServer` | 为 `true` 时，使用永久生成服务器进程来卸载代码生成工作。 默认值为 `UseSharedCompilation`。 |
@@ -149,7 +153,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` glo
 | `GenerateRazorTargetAssemblyInfo` | 若为 `true`，则生成 .cs 文件（其中包含由 `RazorAssemblyAttribute` 指定的属性），并将文件包含在编译输出中  。 |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | 为 `true` 时，将一组默认的程序集属性添加到 `RazorAssemblyAttribute`。 |
 | `CopyRazorGenerateFilesToPublishDirectory` | 若为 `true`，则将 `RazorGenerate` 项 (.cshtml) 文件复制到发布目录  。 如果在生成时或发布时参与编译，则通常发布的应用无需 Razor 文件。 默认为 `false`。 |
-| `CopyRefAssembliesToPublishDirectory` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true`  。 默认为 `false`。 |
+| `CopyRefAssembliesToPublishDirectory` | 为 `true` 时，将引用程序集项复制到发布目录。 如果在生成时或发布时出现 Razor 编译，则通常发布的应用无需引用程序集。 如果发布的应用需要运行时编译，则设置为 `true`。 例如，如果应用在运行时修改 .cshtml 文件或使用嵌入视图，则将值设置为 `true` 。 默认为 `false`。 |
 | `IncludeRazorContentInPack` | 若为 `true`，则所有 Razor 内容项（.cshtml 文件）标记为包含在生成的 NuGet 包中  。 默认为 `false`。 |
 | `EmbedRazorGenerateSources` | 为 `true` 时，将 RazorGenerate (.cshtml) 项作为嵌入的文件添加到生成的 Razor 程序集中  。 默认为 `false`。 |
 | `UseRazorBuildServer` | 为 `true` 时，使用永久生成服务器进程来卸载代码生成工作。 默认值为 `UseSharedCompilation`。 |
@@ -157,7 +161,7 @@ Razor SDK 包含 `Content` 项，其 `Include` 属性设置为 `**\*.cshtml` glo
 | `DefaultWebContentItemExcludes` | 要从面向 Web 或 Razor SDK 的项目的 `Content` 项组中排除的项元素的 glob 模式 |
 | `ExcludeConfigFilesFromBuildOutput` | 若为 `true`，则 .config 和 .json 文件不会复制到生成输出目录   。 |
 | `AddRazorSupportForMvc` | 若为 `true`，则配置 Razor SDK，以添加对生成包含 MVC 视图或 Razor Pages 的应用程序时所需的 MVC 配置的支持。 对于面向 Web SDK 的 .NET Core 3.0 或更高版本的项目，隐式设置该属性 |
-| `RazorLangVersion` | 面向的 Razor 语言版本。 |
+| `RazorLangVersion` | 要面向的 Razor 语言版本。 |
 
 ::: moniker-end
 

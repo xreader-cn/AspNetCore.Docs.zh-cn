@@ -1,16 +1,22 @@
 ---
-title: 教程：开始使用ASP.NET Core中的Razor Pages
+title: 教程：在 ASP.NET Core 中开始使用 Razor Pages
 author: rick-anderson
 description: 此系列教程演示了如何在 ASP.NET Core 中使用 Razor Pages。 了解如何创建模型、为 Razor Pages 生成代码、将 Entity Framework Core 和 SQL Server 用于数据访问、添加搜索功能、添加输入验证及使用迁移更新模型。
 ms.author: riande
 ms.date: 11/12/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 6e1d58ccd83f7d7c1083dc2bf9ce7476650812a1
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 8ed12b1778673962fe0b174e005bd6d8a7f54168
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646902"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774868"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>教程：开始使用ASP.NET Core中的Razor Pages
 
@@ -325,7 +331,7 @@ ms.locfileid: "78646902"
 
 包含 Razor 页面和支持文件。 每个 Razor 页面都是一对文件：
 
-* 一个 .cshtml 文件，其中包含使用 Razor 语法的 C＃ 代码的 HTML 标记  。
+* 一个 .cshtml 文件，其中包含使用 Razor 语法的 C# 代码的 HTML 标记  。
 * 一个 .cshtml.cs 文件，其中包含处理页面事件的 C# 代码  。
 
 支持文件的名称以下划线开头。 例如，_Layout.cshtml 文件可配置所有页面通用的 UI 元素  。 此文件设置页面顶部的导航菜单和页面底部的版权声明。 有关详细信息，请参阅 <xref:mvc/views/layout>。

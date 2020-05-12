@@ -5,26 +5,32 @@ description: 了解 ASP.NET Core 2.0 的新增功能。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: aspnetcore-2.0
-ms.openlocfilehash: 5ca43bab1496aa9fda65282cbb0b1177ad8689eb
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: b1fc486633ab7c7d7bee4f8981a978747b2890da
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650856"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775812"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 中的新增功能
 
 本文重点介绍 ASP.NET Core 2.0 中最重要的更改，并提供相关文档的链接。
 
-## <a name="razor-pages"></a>Razor 页面
+## <a name="razor-pages"></a>Razor Pages
 
-Razor 页面是 ASP.NET Core MVC 的一个新功能，它可以使基于页面的编码方式更简单高效。
+Razor Pages 是 ASP.NET Core MVC 的一个新功能，它可以使基于页面的编码方式更简单高效。
 
 有关详细信息，请参阅相关介绍和教程：
 
-* [Razor 页面介绍](xref:razor-pages/index)
-* [Razor 页面入门](xref:tutorials/razor-pages/razor-pages-start)
+* [Razor Pages 简介](xref:razor-pages/index)
+* [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)
 
 ## <a name="aspnet-core-metapackage"></a>ASP.NET Core 元包
 
@@ -64,15 +70,15 @@ ASP.NET Core 2.0 包面向 NET Standard 2.0。 这些包可以由其他 .NET Sta
 
 有关已规划文档的状态的信息，请参阅 [GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/3054)。
 
-## <a name="identity-update"></a>标识更新
+## <a name="identity-update"></a>Identity 更新
 
-在 ASP.NET Core 2.0 中，我们简化了使用标识生成安全的 Web API 的过程。 可以使用 [Microsoft 身份验证库 (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client)获取用于访问 Web API 的访问令牌。
+在 ASP.NET Core 2.0 中，我们简化了使用 Identity 生成安全的 Web API 的过程。 可以使用 [Microsoft 身份验证库 (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client)获取用于访问 Web API 的访问令牌。
 
 有关 2.0 中的身份验证更改的详细信息，请参阅以下资源：
 
 * [ASP.NET Core 中的帐户确认和密码恢复](xref:security/authentication/accconfirm)
 * [为 ASP.NET Core 中的验证器应用启用 QR 码生成](xref:security/authentication/identity-enable-qrcodes)
-* [将身份验证和标识迁移到 ASP.NET Core 2.0](xref:migration/1x-to-2x/identity-2x)
+* [将身份验证和 Identity 迁移到 ASP.NET Core 2.0](xref:migration/1x-to-2x/identity-2x)
 
 ## <a name="spa-templates"></a>SPA 模板
 
@@ -152,7 +158,7 @@ Razor 视图引擎已更新为可使用新的 Roslyn 编译器。 其中包含�
 有关如何将 ASP.NET Core 1.x 应用程序迁移到 ASP.NET Core 2.0 的指南，请参阅以下资源：
 
 * [从 ASP.NET Core 1.x 迁移到 ASP.NET Core 2.0](xref:migration/1x-to-2x/index)
-* [将身份验证和标识迁移到 ASP.NET Core 2.0](xref:migration/1x-to-2x/identity-2x)
+* [将身份验证和 Identity 迁移到 ASP.NET Core 2.0](xref:migration/1x-to-2x/identity-2x)
 
 ## <a name="additional-information"></a>其他信息
 

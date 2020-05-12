@@ -5,13 +5,19 @@ description: 了解如何配置 ASP.NET Core 上的 gRPC 服务，以使其可�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 04/15/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/browser
-ms.openlocfilehash: a20e604488b1fb919f18932599ba690bfa308f0c
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: a74f7acb54b4601a0c30ff1a39dc30231e2b5a78
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440761"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774738"
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 

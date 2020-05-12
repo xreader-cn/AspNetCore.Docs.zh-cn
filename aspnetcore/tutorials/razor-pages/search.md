@@ -1,18 +1,24 @@
 ---
-title: 将搜索添加到 ASP.NET Core Razor 页面
+title: 将搜索添加到 ASP.NET Core Razor Pages
 author: rick-anderson
-description: 演示如何将搜索添加到 ASP.NET Core Razor 页面
+description: 演示如何将搜索添加到 ASP.NET Core Razor Pages
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 8228207b0f37a6923b29891ac3115dd0be115501
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: baa5e1cb2098a60155a4196f0e602feeff04f102
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78651042"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774993"
 ---
-# <a name="add-search-to-aspnet-core-razor-pages"></a>将搜索添加到 ASP.NET Core Razor 页面
+# <a name="add-search-to-aspnet-core-razor-pages"></a>将搜索添加到 ASP.NET Core Razor Pages
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 

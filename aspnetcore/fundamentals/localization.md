@@ -4,13 +4,19 @@ author: rick-anderson
 description: 了解 ASP.NET Core 如何提供服务和中间件，将内容本地化为不同的语言和区域性。
 ms.author: riande
 ms.date: 11/30/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 91db83eb8685c7bee5e976f386c2a12c4090b734
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 1111c0c57baf5bfd52b26b553179338100b9ba79
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440813"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776560"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core 全球化和本地化
 
@@ -372,7 +378,7 @@ Views/Shared/_SelectLanguagePartial.cshtml 文件添加到了布局文件的 `fo
 
 [!code-csharp[](localization/sample/Localization/Controllers/HomeController.cs?range=57-67)]
 
-不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码  。 [GitHub](https://github.com/aspnet/entropy) 上的项目 Localization.StarterWeb 包含代码，可部分通过[依赖关系注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor  。
+不能将 _SelectLanguagePartial.cshtml 插入此项目的示例代码  。 [GitHub](https://github.com/aspnet/entropy) 上的 Localization.StarterWeb 项目包含的代码可通过[依赖项注入](dependency-injection.md)容器将 `RequestLocalizationOptions` 流到 Razor 部分  。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>模型绑定路由数据和查询字符串
 

@@ -5,13 +5,19 @@ description: 了解如何在 ASP.NET Core Web 应用中提供和保护静态文�
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: 95a77defc7e98328e1f4e3615648b1d14485e51e
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: f7697260e6ab29d0e9ba955dfdf0c8c81e4e1130
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647712"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775487"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core 中的静态文件
 
@@ -247,7 +253,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 ### <a name="considerations"></a>注意事项
 
 > [!WARNING]
-> `UseDirectoryBrowser` 和 `UseStaticFiles` 可能会泄漏机密。 强烈建议在生产中禁用目录浏览。 请仔细查看 `UseStaticFiles` 或 `UseDirectoryBrowser` 启用了哪些目录。 整个目录及其子目录均可公开访问。 将适合公开的文件存储在专用目录中，如 \<content_root>/wwwroot  。 将这些文件与 MVC 视图、Razor 页面（仅限 2.x）和配置文件等分开
+> `UseDirectoryBrowser` 和 `UseStaticFiles` 可能会泄漏机密。 强烈建议在生产中禁用目录浏览。 请仔细查看 `UseStaticFiles` 或 `UseDirectoryBrowser` 启用了哪些目录。 整个目录及其子目录均可公开访问。 将适合公开的文件存储在专用目录中，如 \<content_root>/wwwroot  。 将这些文件与 MVC 视图、Razor 页面（仅限 2.x）和配置文件等分开。
 
 * 使用 `UseDirectoryBrowser` 和 `UseStaticFiles` 公开的内容的 URL 受大小写和基础文件系统字符限制的影响。 例如，Windows 不区分大小写 &mdash; macOS 和 Linux 却要区分。
 

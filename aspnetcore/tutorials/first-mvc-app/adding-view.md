@@ -4,13 +4,19 @@ author: rick-anderson
 description: 将视图添加到简单的 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 8/04/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 5510fb6844452571ca764e21640f0bd16444c782
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: c89e0f0428fa7556fcd6b75cdfc1dd19109ec1c8
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647784"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774595"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>将视图添加到 ASP.NET Core MVC 应用
 
@@ -151,7 +157,7 @@ Index.cshtml 视图模板中的内容与 Views/Shared/_Layout.cshtml 视图模�
 
 创建一个名为 Views/HelloWorld/Welcome.cshtml 的 Welcome 视图模板  。
 
-在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes`  。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容  ：
+在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes` 。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容  ：
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
@@ -311,7 +317,7 @@ Views/_ViewStart.cshtml 文件将 Views/Shared/_Layout.cshtml 文件引入到每
 
 创建一个名为 Views/HelloWorld/Welcome.cshtml 的 Welcome 视图模板  。
 
-在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes`  。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容  ：
+在 Welcome.cshtml 视图模板中创建一个循环，显示“Hello” `NumTimes` 。 使用以下内容替换 Views/HelloWorld/Welcome.cshtml 的内容  ：
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 

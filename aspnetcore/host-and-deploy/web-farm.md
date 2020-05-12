@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 316c87e5f49593c05991a94cbe5e55d175a49bb3
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 3474b6b1d85774a15a912efcb37ec8f206695eaf
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647340"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776352"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
@@ -61,7 +67,7 @@ Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用�
 | 方案 | 依赖&hellip; |
 | -------- | ------------------- |
 | 身份验证 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 |
-| 标识 | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
+| Identity | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
 | 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 |
 | TempData | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 |
 | 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
@@ -77,7 +83,7 @@ Web 场  包含两个或多个 Web 服务器（亦称为“节点”  ），用�
 如果以下任一症状间歇性  出现，问题原因通常是为 Web 场环境配置的数据保护或缓存不正确：
 
 * 身份验证中断 &ndash; 身份验证 Cookie 配置不正确或无法解密。 OAuth（Facebook、Microsoft、Twitter）或 OpenIdConnect 登录失败，出现错误“关联失败”。
-* 授权中断 &ndash; 标识丢失。
+* 授权中断 &ndash; Identity 丢失。
 * 会话状态丢失数据。
 * 缓存项消失。
 * TempData 失败。

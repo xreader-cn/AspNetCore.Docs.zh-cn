@@ -1,25 +1,31 @@
 ---
-title: ASP.NET Core 中的 Razor 页面的筛选方法
+title: ASP.NET Core 中的 Razor Pages 的筛选方法
 author: Rick-Anderson
-description: 了解如何为 ASP.NET Core 中的 Razor 页面创建筛选方法。
+description: 了解如何为 ASP.NET Core 中的 Razor Pages 创建筛选方法。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 2/18/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: razor-pages/filter
-ms.openlocfilehash: cd772da8ed565bc779d8c6bcc7c9949a0c1c7c60
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 68962d5a3a49e52510d72899e7dead2c1983d8b6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648048"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775513"
 ---
-# <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面的筛选方法
+# <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor Pages 的筛选方法
 
 ::: moniker range=">= aspnetcore-3.0"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor 页面在运行 Razor 页面处理程序的前后运行代码。 Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。
+Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor Pages 在运行 Razor 页面处理程序的前后运行代码。 Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。
 
 Razor 页面筛选器：
 
@@ -38,8 +44,8 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 * 同步方法：
 
-  * [OnPageHandlerSelected](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerselected?view=aspnetcore-2.0)：在选择处理程序方法后但在模型绑定发生前调用。
-  * [OnPageHandlerExecuting](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuting?view=aspnetcore-2.0)：在执行处理器方法前，模型绑定完成后调用。
+  * [OnPageHandlerSelected](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerselected?view=aspnetcore-2.0)：在选择处理程序方法后，但在模型绑定发生之前调用。
+  * [OnPageHandlerExecuting](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuting?view=aspnetcore-2.0)：在模型绑定完成后，执行处理程序方法之前调用。
   * [OnPageHandlerExecuted](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuted?view=aspnetcore-2.0)：在执行处理器方法后，生成操作结果前调用。
 
 * 异步方法：
@@ -57,7 +63,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 在前面的代码中，`ProcessUserAgent.Write` 是用户提供的与用户代理字符串一起使用的代码。
 
-以下代码启用 `SampleAsyncPageFilter` 类中的 `Startup`：
+以下代码启用 `Startup` 类中的 `SampleAsyncPageFilter`：
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Startup.cs?name=snippet2)]
 
@@ -91,7 +97,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Pages/Movies/Test.cshtml.cs)]
 
-使用浏览器开发人员工具等工具来检查标头。 在响应标头下，将显示  `author: Rick`。
+使用浏览器开发人员工具等工具来检查标头。 在响应标头下，将显示 `author: Rick` 。
 
 有关重写顺序的说明，请参阅[重写默认顺序](xref:mvc/controllers/filters#overriding-the-default-order)。
 
@@ -111,7 +117,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor 页面在运行 Razor 页面处理程序的前后运行代码。 Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。
+Razor 页面筛选器 [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) 和 [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) 允许 Razor Pages 在运行 Razor 页面处理程序的前后运行代码。 Razor 页面筛选器与 [ASP.NET Core MVC 操作筛选器](xref:mvc/controllers/filters#action-filters)类似，但它们不能应用于单个页面处理程序方法。
 
 Razor 页面筛选器：
 
@@ -129,8 +135,8 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 * 同步方法：
 
-  * [OnPageHandlerSelected](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerselected?view=aspnetcore-2.0)：在选择处理程序方法后但在模型绑定发生前调用。
-  * [OnPageHandlerExecuting](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuting?view=aspnetcore-2.0)：在执行处理器方法前，模型绑定完成后调用。
+  * [OnPageHandlerSelected](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerselected?view=aspnetcore-2.0)：在选择处理程序方法后，但在模型绑定发生之前调用。
+  * [OnPageHandlerExecuting](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuting?view=aspnetcore-2.0)：在模型绑定完成后，执行处理程序方法之前调用。
   * [OnPageHandlerExecuted](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter.onpagehandlerexecuted?view=aspnetcore-2.0)：在执行处理器方法后，生成操作结果前调用。
 
 * 异步方法：
@@ -149,7 +155,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 在前面的代码中，[ILogger](/dotnet/api/microsoft.extensions.logging.ilogger?view=aspnetcore-2.0) 不是必需的。 它在示例中用于提供应用程序的跟踪信息。
 
-以下代码启用 `SampleAsyncPageFilter` 类中的 `Startup`：
+以下代码启用 `Startup` 类中的 `SampleAsyncPageFilter`：
 
 [!code-csharp[Main](filter/sample/PageFilter/Startup.cs?name=snippet2&highlight=11)]
 
@@ -171,7 +177,7 @@ Razor 页面筛选器提供的以下方法可在全局或页面级应用：
 
 ## <a name="implement-razor-page-filters-by-overriding-filter-methods"></a>通过重写筛选器方法实现 Razor 页面筛选器
 
-以下代码替代同步的 Razor 页面筛选器：
+以下代码替代同步 Razor 页面筛选器：
 
 [!code-csharp[Main](filter/sample/PageFilter/Pages/Index.cshtml.cs)]
 

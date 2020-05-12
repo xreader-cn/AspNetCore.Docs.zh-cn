@@ -5,13 +5,19 @@ description: 了解如何将验证添加到 ASP.NET Core 中的 Razor 页面。
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: f283234ed8a32dc9b7904bc6fee1cc9c04741029
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 91f0ac5fcd607f2423f9fc4647413b2bbb2336fc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650340"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773770"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
 
@@ -211,7 +217,7 @@ SQLite 不需要迁移。
 
 若要了解如何部署到 Azure，请参阅[教程：使用 SQL 数据库在 Azure 中生成 ASP.NET Core 应用](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)。
 
-感谢读完这篇 Razor 页面简介。 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。
+感谢读完这篇 Razor Pages 简介。 [Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)是本教程的优选后续教程。
 
 ## <a name="additional-resources"></a>其他资源
 

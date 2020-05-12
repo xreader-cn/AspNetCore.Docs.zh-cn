@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 5c6771dd7249bfb8280ba20e1ce75967f279971c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647922"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771580"
 ---
-# <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Core Blazor 布局
+# <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -30,7 +33,7 @@ ms.locfileid: "78647922"
 * 继承自 `LayoutComponentBase`，后者为布局内的呈现内容定义 `Body` 属性。
 * 使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。
 
-以下代码示例显示布局组件 *MainLayout.razor* 的 Razor 模板。 布局继承 `LayoutComponentBase` 并在导航栏和页脚之间设置 `@Body`：
+以下代码示例显示布局组件 MainLayout.razor 的 Razor 模板  。 布局继承 `LayoutComponentBase` 并在导航栏和页脚之间设置 `@Body`：
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
@@ -38,11 +41,11 @@ ms.locfileid: "78647922"
 
 ## <a name="default-layout"></a>默认布局
 
-在应用的 `Router`App.razor*文件的* 组件中指定默认应用布局。 默认 `Router` 模板提供的以下 Blazor 组件将默认布局设置为 `MainLayout` 组件：
+在应用的 *App.razor* 文件的 `Router` 组件中指定默认应用布局。 默认 Blazor 模板提供的以下 `Router` 组件将默认布局设置为 `MainLayout` 组件：
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-若要为 `NotFound` 内容提供默认布局，请为 `LayoutView` 内容指定 `NotFound`：
+若要为 `NotFound` 内容提供默认布局，请为 `NotFound` 内容指定 `LayoutView`：
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
@@ -58,21 +61,21 @@ ms.locfileid: "78647922"
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
-直接在组件中指定布局会替代路由器中设置的*默认布局*或从 `@layout`_Imports.razor*导入的* 指令。
+直接在组件中指定布局会替代路由器中设置的*默认布局*或从 *_Imports.razor* 导入的 `@layout` 指令。
 
 ## <a name="centralized-layout-selection"></a>集中式布局选择
 
-应用的每个文件夹都可以选择包含名为 *_Imports.razor* 的模板文件。 编译器将导入文件中指定的指令包括在同一文件夹中的所有 Razor 模板内，并在其所有子文件夹中以递归方式包括。 因此，包含 *的*_Imports.razor`@layout MyCoolLayout` 文件可确保文件夹中的所有组件都使用 `MyCoolLayout`。 无需将 `@layout MyCoolLayout` 重复添加到文件夹和子文件夹内的所有 *.razor* 文件。 `@using` 指令也以相同的方式应用于组件。
+应用的每个文件夹都可以选择包含名为 *_Imports.razor* 的模板文件。 编译器将导入文件中指定的指令包括在同一文件夹中的所有 Razor 模板内，并在其所有子文件夹中以递归方式包括。 因此，包含 `@layout MyCoolLayout` 的 *_Imports.razor* 文件可确保文件夹中的所有组件都使用 `MyCoolLayout`。 无需将 `@layout MyCoolLayout` 重复添加到文件夹和子文件夹内的所有 *.razor* 文件。 `@using` 指令也以相同的方式应用于组件。
 
 以下 *_Imports.razor* 文件导入：
 
-* `MyCoolLayout`
+* `MyCoolLayout`。
 * 同一文件夹以及任何子文件夹中的所有 Razor 组件。
 * `BlazorApp1.Data` 命名空间。
  
 [!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-*_Imports.razor* 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件。
+_Imports.razor 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件  。
 
 在 *_Imports.razor* 中指定布局会替代指定为路由器*默认布局*的布局。
 
@@ -88,13 +91,13 @@ ms.locfileid: "78647922"
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-最后，`MasterLayout`MasterLayout.razor*中的* 包含顶级布局元素，例如页眉、主菜单和页脚。 具有 `MasterListLayout` 的 `EpisodesComponent` 在 `@Body` 显示的位置呈现：
+最后，*MasterLayout.razor* 中的 `MasterLayout` 包含顶级布局元素，例如页眉、主菜单和页脚。 具有 `EpisodesComponent` 的 `MasterListLayout` 在 `@Body` 显示的位置呈现：
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>与集成组件共享 Razor Pages 布局
 
-当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。 有关更多信息，请参见 <xref:blazor/integrate-components>。
+当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。 有关详细信息，请参阅 <xref:blazor/integrate-components>。
 
 ## <a name="additional-resources"></a>其他资源
 

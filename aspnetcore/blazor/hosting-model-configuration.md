@@ -5,31 +5,284 @@ description: 了解 Blazor 托管模型配置，包括如何将 Razor 组件集�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: bd44643877e45c5b48b0972bcc2f637fbc5d98f2
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 17ed43a12643f067da73658bec72400acbe1be43
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78646788"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772069"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor 托管模型配置
 
-作者：[Daniel Roth](https://github.com/danroth27)
+作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 本文介绍了托管模型配置。
 
-<!-- For future use:
+## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-## Blazor WebAssembly
+### <a name="environment"></a>环境
 
--->
+在本地运行应用时，环境默认为开发环境。 发布应用时，环境默认为生产环境。
+
+托管的 Blazor WebAssembly 应用会通过中间件从服务器中提取环境，该中间件通过添加 `blazor-environment` 标头将该环境传达给浏览器。 标头的值就是环境。 托管的 Blazor 应用和服务器应用共享同一个环境。 有关详细信息（包括如何配置环境），请参阅 <xref:fundamentals/environments>。
+
+对于在本地运行的独立应用，开发服务器会添加 `blazor-environment` 标头来指定开发环境。 要为其他宿主环境指定环境，请添加 `blazor-environment` 标头。
+
+在下面的 IIS 示例中，将自定义标头添加到已发布的 web.config 文件中  。 web.config 文件位于 bin/Release/{TARGET FRAMEWORK}/publish 文件夹中   ：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <system.webServer>
+
+    ...
+
+    <httpProtocol>
+      <customHeaders>
+        <add name="blazor-environment" value="Staging" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+</configuration>
+```
+
+> [!NOTE]
+> 要对 IIS 使用在将应用发布到 publish 文件夹时不会被覆盖的自定义 web.config 文件，请参阅 <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>   。
+
+通过注入 `IWebAssemblyHostEnvironment` 并读取 `Environment` 属性，在组件中获取应用的环境：
+
+```razor
+@page "/"
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment HostEnvironment
+
+<h1>Environment example</h1>
+
+<p>Environment: @HostEnvironment.Environment</p>
+```
+
+在启动过程中，`WebAssemblyHostBuilder` 会通过 `HostEnvironment` 属性公开 `IWebAssemblyHostEnvironment`，这让开发人员能够在其代码中拥有环境特定的逻辑：
+
+```csharp
+if (builder.HostEnvironment.Environment == "Custom")
+{
+    ...
+};
+```
+
+通过下面的便捷扩展方法，可在当前环境中检查开发环境、生产环境、暂存环境和自定义环境名称：
+
+* `IsDevelopment()`
+* `IsProduction()`
+* `IsStaging()`
+* `IsEnvironment("{ENVIRONMENT NAME}")
+
+```csharp
+if (builder.HostEnvironment.IsStaging())
+{
+    ...
+};
+
+if (builder.HostEnvironment.IsEnvironment("Custom"))
+{
+    ...
+};
+```
+
+如果 `NavigationManager` 服务不可用，则启动期间可使用 `IWebAssemblyHostEnvironment.BaseAddress` 属性。
+
+### <a name="configuration"></a>Configuration
+
+Blazor WebAssembly 加载以下来源的配置：
+
+* 应用设置文件（默认）：
+  * wwwroot/appsettings.json 
+  * wwwroot/appsettings.{ENVIRONMENT}.json 
+* 应用注册的其他 [配置提供程序](xref:fundamentals/configuration/index)。 并非所有提供程序都适用于 Blazor WebAssembly 应用。 [阐明 Blazor WASM 的配置提供程序 (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134)跟踪了 Blazor WebAssembly 的哪些提供程序受支持的说明。
+
+> [!WARNING]
+> Blazor WebAssembly 应用中的配置对用户可见。 请勿在配置中存储应用机密或凭据  。
+
+有关配置提供程序的详细信息，请参阅 <xref:fundamentals/configuration/index>。
+
+#### <a name="app-settings-configuration"></a>应用设置配置
+
+wwwroot/appsettings.json  ：
+
+```json
+{
+  "message": "Hello from config!"
+}
+```
+
+将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：
+
+```razor
+@page "/"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<h1>Configuration example</h1>
+
+<p>Message: @Configuration["message"]</p>
+```
+
+#### <a name="provider-configuration"></a>提供程序配置
+
+以下示例使用 <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> 提供其他配置：
+
+`Program.Main`：
+
+```csharp
+using Microsoft.Extensions.Configuration.Memory;
+
+...
+
+var vehicleData = new Dictionary<string, string>()
+{
+    { "color", "blue" },
+    { "type", "car" },
+    { "wheels:count", "3" },
+    { "wheels:brand", "Blazin" },
+    { "wheels:brand:type", "rally" },
+    { "wheels:year", "2008" },
+};
+
+var memoryConfig = new MemoryConfigurationSource { InitialData = vehicleData };
+
+...
+
+builder.Configuration.Add(memoryConfig);
+```
+
+将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 实例注入组件，以访问配置数据：
+
+```razor
+@page "/"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<h1>Configuration example</h1>
+
+<h2>Wheels</h2>
+
+<ul>
+    <li>Count: @Configuration["wheels:count"]</li>
+    <li>Brand: @Configuration["wheels:brand"]</li>
+    <li>Type: @Configuration["wheels:brand:type"]</li>
+    <li>Year: @Configuration["wheels:year"]</li>
+</ul>
+
+@code {
+    var wheelsSection = Configuration.GetSection("wheels");
+    
+    ...
+}
+```
+
+若要将 wwwroot 文件夹中的其他配置文件读入配置，请使用 `HttpClient` 获取文件内容  。 使用此方法时，现有 `HttpClient` 服务注册可以使用创建的本地客户端来读取文件，如以下示例所示：
+
+wwwroot/cars.json  ：
+
+```json
+{
+    "size": "tiny"
+}
+```
+
+`Program.Main`：
+
+```csharp
+using Microsoft.Extensions.Configuration;
+
+...
+
+var client = new HttpClient()
+{
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+};
+
+builder.Services.AddTransient(sp => client);
+
+using var response = await client.GetAsync("cars.json");
+using var stream = await response.Content.ReadAsStreamAsync();
+
+builder.Configuration.AddJsonStream(stream);
+```
+
+#### <a name="authentication-configuration"></a>身份验证配置
+
+wwwroot/appsettings.json  ：
+
+```json
+{
+  "AzureAD": {
+    "Authority": "https://login.microsoftonline.com/",
+    "ClientId": "aeaebf0f-d416-4d92-a08f-e1d5b51fc494"
+  }
+}
+```
+
+`Program.Main`：
+
+```csharp
+builder.Services.AddOidcAuthentication(options =>
+    builder.Configuration.Bind("AzureAD", options);
+```
+
+#### <a name="logging-configuration"></a>日志记录配置
+
+wwwroot/appsettings.json  ：
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+```
+
+`Program.Main`：
+
+```csharp
+builder.Logging.AddConfiguration(
+    builder.Configuration.GetSection("Logging"));
+```
+
+#### <a name="host-builder-configuration"></a>主机生成器配置
+
+`Program.Main`：
+
+```csharp
+var hostname = builder.Configuration["HostName"];
+```
+
+#### <a name="cached-configuration"></a>缓存的配置
+
+配置文件会缓存以供脱机使用。 使用[渐进式 Web 应用程序 (PWA)](xref:blazor/progressive-web-app) 时，只能在创建新部署时更新配置文件。 在部署之间编辑配置文件不起作用，原因如下：
+
+* 用户已拥有继续使用的文件的缓存版本。
+* PWA 的 service-worker.js 和 service-worker-assets.js 文件必须在编译时重新生成，这会在用户下一次联机访问时通知应用，指示应用已重新部署   。
+
+有关 PWA 如何处理后台更新的详细信息，请参阅 <xref:blazor/progressive-web-app#background-updates>。
+
+### <a name="logging"></a>Logging
+
+要了解 Blazor WebAssembly 日志记录支持，请参阅 <xref:fundamentals/logging/index#create-logs-in-blazor>。
 
 ## <a name="blazor-server"></a>Blazor 服务器
 
@@ -81,54 +334,7 @@ ms.locfileid: "78646788"
 
 不支持从静态 HTML 页面呈现服务器组件。
 
-### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现有状态的交互式组件
-
-可以将有状态的交互式组件添加到 Razor 页面或视图。
-
-呈现页面或视图时：
-
-* 该组件通过页面或视图预呈现。
-* 用于预呈现的初始组件状态丢失。
-* 建立 SignalR 连接时，将创建新的组件状态。
-
-以下 Razor 页面将呈现 `Counter` 组件：
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-InitialValue="InitialValue" />
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>从 Razor 页面和视图呈现非交互式组件
-
-在以下 Razor 页面中，使用以下格式通过指定的初始值静态呈现 `Counter` 组件：
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<form>
-    <input type="number" asp-for="InitialValue" />
-    <button type="submit">Set initial value</button>
-</form>
-
-<component type="typeof(Counter)" render-mode="Static" 
-    param-InitialValue="InitialValue" />
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-由于 `MyComponent` 是以静态方式呈现的，因此该组件不能是交互式的。
-
-### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>为 Blazor 服务器应用配置 SignalR 客户端
+### <a name="configure-the-signalr-client-for-blazor-server-apps"></a>为 Blazor 服务器应用配置 SignalR 客户端
 
 有时，需要配置 Blazor 服务器应用使用的 SignalR 客户端。 例如，可能需要在 SignalR 客户端上配置日志记录以诊断连接问题。
 
@@ -147,3 +353,7 @@ ms.locfileid: "78646788"
   });
 </script>
 ```
+
+### <a name="logging"></a>Logging
+
+有关 Blazor 服务器日志记录支持的信息，请参阅 <xref:fundamentals/logging/index#create-logs-in-blazor>。

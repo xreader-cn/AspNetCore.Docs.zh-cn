@@ -5,17 +5,20 @@ description: 了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/14/2020
+ms.date: 04/25/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: c242fbef70d289929d5c005abc0aa431619862b3
-ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
+ms.openlocfilehash: eb4378223c40594ac52f50b7b890785067515555
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81383973"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771769"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
@@ -67,7 +70,7 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    @using MyAppNamespace
    ```
 
-1. 在 `Startup.ConfigureServices` 中，注册 Blazor Server 服务：
+1. 在 `Startup.ConfigureServices` 中，注册 Blazor 服务器服务：
 
    ```csharp
    services.AddServerSideBlazor();
@@ -245,11 +248,54 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 
 若要从页面或视图呈现组件，请使用[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)。
 
-有关如何呈现组件、组件状态以及 `Component` 标记帮助程序的详细信息，请参阅以下文章：
+### <a name="render-stateful-interactive-components"></a>呈现有状态交互式组件
 
-* <xref:blazor/hosting-models>
-* <xref:blazor/hosting-model-configuration>
-* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>
+可以将有状态的交互式组件添加到 Razor 页面或视图。
+
+呈现页面或视图时：
+
+* 该组件通过页面或视图预呈现。
+* 用于预呈现的初始组件状态丢失。
+* 建立 SignalR 连接时，将创建新的组件状态。
+
+以下 Razor 页面将呈现 `Counter` 组件：
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<component type="typeof(Counter)" render-mode="ServerPrerendered" 
+    param-InitialValue="InitialValue" />
+
+@functions {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
+
+### <a name="render-noninteractive-components"></a>呈现非交互式组件
+
+在以下 Razor 页面中，使用以下格式通过指定的初始值静态呈现 `Counter` 组件。 由于该组件是以静态方式呈现的，因此它不是交互式组件：
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<form>
+    <input type="number" asp-for="InitialValue" />
+    <button type="submit">Set initial value</button>
+</form>
+
+<component type="typeof(Counter)" render-mode="Static" 
+    param-InitialValue="InitialValue" />
+
+@functions {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+有关详细信息，请参阅 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 
 ## <a name="component-namespaces"></a>组件命名空间
 
@@ -262,6 +308,6 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
 @using MyAppNamespace.Components
 ```
 
-_ViewImports.cshtml  文件位于 Razor Pages 应用的 Pages  文件夹中，或是 MVC 应用的 Views  文件夹中。
+_ViewImports.cshtml 文件位于 Razor Pages 应用的 Pages 文件夹中，或是 MVC 应用的 Views 文件夹中    。
 
 有关详细信息，请参阅 <xref:blazor/components#import-components>。

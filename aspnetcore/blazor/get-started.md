@@ -5,17 +5,20 @@ description: 使用所选的工具生成 Blazor 应用，开始使用 Blazor。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 05/02/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 2f10b00adce31c020d46d107c087159c17341beb
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: 052a787fbe6411dbaa953f10fcd982dfbd41f1af
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82111066"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82769450"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -33,10 +36,10 @@ ms.locfileid: "82111066"
 
    有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>   。
 
-1. 通过运行以下命令来安装 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 预览版模板：
+1. 通过运行以下命令来安装 Blazor WebAssembly 预览版模板：
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
 
 1. 创建新项目。
@@ -56,11 +59,13 @@ ms.locfileid: "82111066"
 1. 或者，通过运行以下命令安装 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 预览版模板：
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
+   
+   有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>   。
 
    > [!NOTE]
-   > 要使用 3.2 预览版 4 的 Blazor WebAssembly 模板，需要 [.NET Core SDK 版本 3.1.201 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)  。 通过在命令行界面中运行 `dotnet --version` 来确认所安装的 .NET Core SDK 版本。
+   > 要使用 3.2 预览版的 Blazor WebAssembly 模板，需要 [.NET Core SDK 版本 3.1.201 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)  。 通过在命令行界面中运行 `dotnet --version` 来确认所安装的 .NET Core SDK 版本。
 
 1. 安装 [Visual Studio Code](https://code.visualstudio.com/)。
 
@@ -78,8 +83,6 @@ ms.locfileid: "82111066"
    dotnet new blazorwasm -o WebApplication1
    ```
 
-   有关 *Blazor Server* 和 *Blazor WebAssembly* 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。
-
 1. 在 Visual Studio Code 中打开 *WebApplication1* 文件夹。
 
 1. IDE 要求添加资产以用于生成和调试项目。 选择 **“是”** 。
@@ -92,38 +95,66 @@ ms.locfileid: "82111066"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-Visual Studio for Mac 支持 Blazor Server。 目前不支持 Blazor WebAssembly。 若要在 macOS 上生成 Blazor WebAssembly 应用，请按照 .NET Core CLI 选项卡上的指导进行操作  。
+Visual Studio for Mac 支持 Blazor Server。 目前不支持 Blazor WebAssembly。 若要在 macOS 上创建 Blazor WebAssembly 应用，请按照 .NET Core CLI 选项卡上的指导进行操作  。有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>   。
 
 1. 安装 [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)。
 
-1. 选择“文件” > “新建解决方案”或创建“新项目”    。
+1. 选择“文件” > “新建解决方案”或从“启动窗口”创建“新项目”     。
 
 1. 在边栏中选择“.NET Core” > “应用”   。
 
-1. 选择“Blazor Server 应用”模板  。 选择“创建”  。
+1. 选择“Blazor Server 应用”模板  。 选择“下一步”  。
 
-   有关 Blazor Server 托管模型的信息，请参阅 <xref:blazor/hosting-models>。
+1. 确认以下配置：
 
-1. 将“目标框架”设置为“.NET Core 3.1”，然后选择“下一步”    。
+   * “目标框架”设置为“.NET Core 3.1”   。
+   * “身份验证”设置为“无身份验证”   。
+   
+   选择“下一步”  。
 
 1. 在“项目名称”字段中，将应用命名为 `WebApplication1` 。 选择“创建”  。
 
-1. 选择“运行” > “运行而不调试”以*不使用调试程序*运行应用   。 使用“开始调试”运行应用，以*使用调试程序*运行应用  。
+1. 选择“运行” > “启动而不调试”以不使用调试程序运行应用    。 此时不支持调试。
 
-如果出现信任开发证书的提示，请信任证书并继续操作。
+<!-- HOLD FOR 8.6 GA
+
+1. Select **File** > **New Solution** or create a **New** project from the **Start Window**.
+
+1. In the sidebar, select **Web and Console** > **App**.
+
+1. For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template. For a Blazor Server experience, choose the **Blazor Server App** template. Select **Next**.
+
+   For information on the two Blazor hosting models, *Blazor WebAssembly* and *Blazor Server*, see <xref:blazor/hosting-models>.
+
+1. Confirm the following configurations:
+
+   * **Target Framework** set to **.NET Core 3.1**.
+   * **Authentication** set to **No Authentication**.
+   
+   Select **Next**.
+
+1. In the **Project Name** field, name the app `WebApplication1`. Select **Create**.
+
+1. Select **Run** > **Start Without Debugging** to run the app *without the debugger*. Run the app with **Run** > **Start Debugging** or the Run (&#9654;) button to run the app *with the debugger*.
+
+-->
+
+如果出现信任开发证书的提示，请信任证书并继续操作。 信任证书需要使用用户密码和密钥链密码。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. 安装 [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
 
-1. 或者，通过运行以下命令安装 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 预览版模板：
+1. 或者，通过运行以下命令安装 Blazor WebAssembly 预览版模板：
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
+   
+   有关 Blazor WebAssembly 和 Blazor Server 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>   。
 
    > [!NOTE]
-   > 要使用 3.2 预览版 4 的 Blazor WebAssembly 模板，需要 [.NET Core SDK 版本 3.1.201 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)  。 通过在命令行界面中运行 `dotnet --version` 来确认所安装的 .NET Core SDK 版本。
+   > 要使用 3.2 预览版的 Blazor WebAssembly 模板，需要 [.NET Core SDK 版本 3.1.201 或更高版本](https://dotnet.microsoft.com/download/dotnet-core/3.1)  。 通过在命令行界面中运行 `dotnet --version` 来确认所安装的 .NET Core SDK 版本。
 
 1. 若要获得 Blazor Server 体验，请在命令行界面中执行以下命令：
 
@@ -140,8 +171,6 @@ Visual Studio for Mac 支持 Blazor Server。 目前不支持 Blazor WebAssembly
    cd WebApplication1
    dotnet run
    ```
-
-   有关 *Blazor Server* 和 *Blazor WebAssembly* 这两个 Blazor 托管模型的信息，请参阅 <xref:blazor/hosting-models>。
 
 1. 在浏览器中导航到 `https://localhost:5001`。
 

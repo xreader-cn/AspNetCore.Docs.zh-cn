@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 635c4cf6f12e62ca7e795b3b3b47e9445b945551
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 7b3454fbd891ca26d44125810a10eb3b3c2c3933
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511595"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775201"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Azure 应用服务和 IIS 上 ASP.NET Core 的常见错误参考
 
@@ -165,7 +171,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
-* 请确保将“应用程序池”>“进程模型”>“标识”设置为 ApplicationPoolIdentity，或确保自定义标识具有访问应用部署文件夹的相应权限     。
+* 请确保将“应用程序池”>“进程模型”>“Identity”设置为“ApplicationPoolIdentity”，或确保自定义标识具有访问应用部署文件夹的相应权限     。
 
 * 如果卸载了 ASP.NET Core 托管捆绑包并已安装了一个早期版本的托管捆绑包，则 applicationHost.config  文件将不包含 ASP.NET Core 模块分区。 可打开 %windir%/System32/inetsrv/config 处的 applicationHost.config 文件并找到 `<configuration><configSections><sectionGroup name="system.webServer">` 分区组   。 如果分区组中缺少 ASP.NET Core 模块分区，请添加以下分区元素：
 
@@ -189,7 +195,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 确认应用在 Kestrel 上本地运行。 进程失败可能是由应用的内部问题导致的。 有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
 
-* 检查 web.config 中 `<aspNetCore>` 元素的 processPath 属性，对于依赖框架的部署 (FDD)，确保它为 `dotnet`，对于[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，确保它为 `.\{ASSEMBLY}.exe`   。
+* 检查 web.config 中 `<aspNetCore>` 元素的 processPath 属性，对于依赖框架的部署 (FDD)，确保它为 `dotnet`，对于[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，确保它为 `.\{ASSEMBLY}.exe`  。
 
 * 对于 FDD，可能无法通过路径设置访问 dotnet.exe  。 确认“系统路径”设置中存在“C:\Program Files\dotnet”\\  。
 
@@ -443,7 +449,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
   有关详细信息，请参阅[安装 .NET Core 托管捆绑包](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)。
 
-* 请确保将“应用程序池”>“进程模型”>“标识”设置为 ApplicationPoolIdentity，或确保自定义标识具有访问应用部署文件夹的相应权限     。
+* 请确保将“应用程序池”>“进程模型”>“Identity”设置为“ApplicationPoolIdentity”，或确保自定义标识具有访问应用部署文件夹的相应权限     。
 
 * 如果卸载了 ASP.NET Core 托管捆绑包并已安装了一个早期版本的托管捆绑包，则 applicationHost.config  文件将不包含 ASP.NET Core 模块分区。 可打开 %windir%/System32/inetsrv/config 处的 applicationHost.config 文件并找到 `<configuration><configSections><sectionGroup name="system.webServer">` 分区组   。 如果分区组中缺少 ASP.NET Core 模块分区，请添加以下分区元素：
 
@@ -465,7 +471,7 @@ OS 升级期间不会保留 C:\Windows\SysWOW64\inetsrv 目录中的非 OS 文�
 
 * 确认应用在 Kestrel 上本地运行。 进程失败可能是由应用的内部问题导致的。 有关详细信息，请参阅 <xref:test/troubleshoot-azure-iis>。
 
-* 检查 web.config 中 `<aspNetCore>` 元素的 processPath 属性，对于依赖框架的部署 (FDD)，确保它为 `dotnet`，对于[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，确保它为 `.\{ASSEMBLY}.exe`   。
+* 检查 web.config 中 `<aspNetCore>` 元素的 processPath 属性，对于依赖框架的部署 (FDD)，确保它为 `dotnet`，对于[独立部署 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd)，确保它为 `.\{ASSEMBLY}.exe`  。
 
 * 对于 FDD，可能无法通过路径设置访问 dotnet.exe  。 确认“系统路径”设置中存在“C:\Program Files\dotnet”\\  。
 

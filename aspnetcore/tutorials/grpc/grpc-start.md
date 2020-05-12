@@ -4,13 +4,19 @@ author: juntaoluo
 description: 本教程演示了如何在 ASP.NET Core 中创建 gRPC 服务和 gRPC 客户端。 了解如何创建 gRPC 服务项目、编辑原型文件并添加双工流式处理调用。
 ms.author: johluo
 ms.date: 04/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 2bbd40b4b89af170dae40b8a5277749d6bcd5faf
-ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
+ms.openlocfilehash: 0541a85756e0084f4a420a0742ad923d732a9365
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/09/2020
-ms.locfileid: "80994630"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850547"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>教程：在 ASP.NET Core 中创建 gRPC 客户端和服务器
 
@@ -33,15 +39,15 @@ ms.locfileid: "80994630"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
@@ -130,7 +136,7 @@ GrpcGreeter 项目文件  ：
 
 * 打开 Visual Studio 的第二个实例并选择“创建新项目”  。
 * 在“创建新项目”对话框中，选择“控制台应用(.NET Core)”，然后选择“下一步”    。
-* 在“名称”文本框中，输入“GrpcGreeterClient”，然后选择“创建”    。
+* 在“项目名称”文本框中，输入“GrpcGreeterClient”，然后选择“创建”    。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

@@ -4,13 +4,19 @@ author: rick-anderson
 description: 说明如何使用数据库和 ASP.NET Core。
 ms.author: riande
 ms.date: 7/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 159588ec750f0ede534522aa9397fc2aefb58cd6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78649512"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775604"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>使用数据库和 ASP.NET Core
 
@@ -297,7 +303,7 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
 * [本教程的 YouTube 版本](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> [上一篇：已搭建基架的 Razor Pages](xref:tutorials/razor-pages/page)
+> [上一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)
 > [下一篇：更新页面](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end

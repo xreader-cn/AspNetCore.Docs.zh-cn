@@ -6,13 +6,17 @@ ms.author: riande
 ms.date: 01/25/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: razor-pages/web-sdk
-ms.openlocfilehash: 6a9d531efd2188aed525c949bb124914c31119db
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 2797f0b3003b8ad89093fe1115dee2acc8650c73
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78648204"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777158"
 ---
 # <a name="aspnet-core-web-sdk"></a>ASP.NET Core Web SDK
 

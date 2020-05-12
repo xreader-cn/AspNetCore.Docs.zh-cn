@@ -1,15 +1,6 @@
 ---
-no-loc:
-- Blazor
-- SignalR
-ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647526"
 ---
-在 Blazor 服务器应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。
+在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，因此无法执行调用 JavaScript 等特定操作。 预呈现时，组件可能需要进行不同的呈现。
 
 要将 JavaScript 互操作调用延迟到与浏览器建立连接之后，可使用 [OnAfterRenderAsync 组件生命周期事件](xref:blazor/lifecycle#after-component-render)。 仅在完成呈现应用并与客户端建立连接后，才会调用此事件。
 
@@ -33,7 +24,7 @@ ms.locfileid: "78647526"
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html`setElementText``<head>` ( *WebAssembly) 或 Pages/_Host.cshtml*Blazor（*服务器）的* 元素中，提供了一个 Blazor JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
+对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数   。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
 
 ```html
 <script>
@@ -48,7 +39,7 @@ ms.locfileid: "78647526"
 
 如果调用 `JSRuntime.InvokeAsync`，则 `ElementRef` 仅在 `OnAfterRenderAsync` 中使用，而不在任何更早的生命周期方法中使用，因为呈现组件后才会有 JavaScript 元素。
 
-会调用 [StateHasChanged](xref:blazor/lifecycle#state-changes)，使用从 JavaScript 互操作调用中获取的新状态重新呈现该组件。 此代码不会创建无限循环，因为仅在 `StateHasChanged` 为 `infoFromJs` 时才调用 `null`。
+会调用 [StateHasChanged](xref:blazor/lifecycle#state-changes)，使用从 JavaScript 互操作调用中获取的新状态重新呈现该组件。 此代码不会创建无限循环，因为仅在 `infoFromJs` 为 `null` 时才调用 `StateHasChanged`。
 
 ```cshtml
 @page "/prerendered-interop"
@@ -81,7 +72,7 @@ Set value via JS interop call:
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html`setElementText``<head>` ( *WebAssembly) 或 Pages/_Host.cshtml*Blazor（*服务器）的* 元素中，提供了一个 Blazor JavaScript 函数。 该函数通过 `IJSRuntime.InvokeAsync` 进行调用，会返回值：
+对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数   。 该函数通过 `IJSRuntime.InvokeAsync` 进行调用，会返回值：
 
 ```html
 <script>

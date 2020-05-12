@@ -4,13 +4,19 @@ author: rick-anderson
 description: 了解如何使用 Entity Framework Core (EF Core) 添加用于管理数据库中的影片的类。
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 7f7c2a09b74e6007ee3ea9c038398bac54988186
-ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
+ms.openlocfilehash: d093d7c4dc1b355c0042f300f70a830653b168c0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81488866"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82769827"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>在 ASP.NET Core 中向 Razor Pages 应用添加模型
 
@@ -534,6 +540,6 @@ Login failed for user 'User-name'.
 
 > [!div class="step-by-step"]
 > [上一篇：入门](xref:tutorials/razor-pages/razor-pages-start)
-> [下一篇：已搭建基架的 Razor Pages](xref:tutorials/razor-pages/page)
+> [下一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)
 
 ::: moniker-end

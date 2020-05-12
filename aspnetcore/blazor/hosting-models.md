@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 03/31/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 48f5b09199091b2b55974010a2b0715c28eb1bae
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 524fd015278d1a5f784fa306f077d06b865201c4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205964"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772082"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 

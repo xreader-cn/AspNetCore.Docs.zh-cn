@@ -6,20 +6,24 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 12/05/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 2dff64f1f2d67b8a1e676acf6cf131b684099750
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ab103adc20c5332f71d5f6e3348d0b14c69fce34
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405871"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774699"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>比较 gRPC 服务和 HTTP API
 
 作者：[James Newton-King](https://twitter.com/jamesnk)
 
-本文介绍如何将 [gRPC 服务](https://grpc.io/docs/guides/)与 HTTP API（包括 ASP.NET Core [Web API](xref:web-api/index)）进行比较。 用于为应用提供 API 的技术是一个重要选择，与 HTTP API 相比，gRPC 提供独特优势。 本文讨论 gRPC 的优点和缺点，并提供优先于其他技术选择使用 gRPC 的建议方案。
+本文介绍如何将 [gRPC 服务](https://grpc.io/docs/guides/)与具有 JSON 的 HTTP API（包括 ASP.NET Core [Web API](xref:web-api/index)）进行比较。 用于为应用提供 API 的技术是一个重要选择，与 HTTP API 相比，gRPC 提供独特优势。 本文讨论 gRPC 的优点和缺点，并提供优先于其他技术选择使用 gRPC 的建议方案。
 
 ## <a name="high-level-comparison"></a>概括比较
 
@@ -46,6 +50,8 @@ gRPC 专为 HTTP/2（HTTP 的主要版本）而设计，与 HTTP 1.x 相比，HT
 
 * 二进制组帧和压缩。 HTTP/2 协议在发送和接收方面均紧凑且高效。
 * 在单个 TCP 连接上多路复用多个 HTTP/2 调用。 多路复用可消除[队头阻塞](https://en.wikipedia.org/wiki/Head-of-line_blocking)。
+
+HTTP/2 不是 gRPC 独占的。 许多请求类型（包括使用 JSON 的 HTTP API）都可以使用 HTTP/2，并受益于其性能改进。
 
 ### <a name="code-generation"></a>代码生成
 

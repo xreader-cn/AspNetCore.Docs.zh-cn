@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/error-handling
-ms.openlocfilehash: 28b463bccfb8aff4d10b95aa9a984455b4f4b976
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: bbd16e2e045a24f018eb59b67dfdf50d9bed6f32
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647070"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775032"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>处理 ASP.NET Core 中的错误
 
@@ -53,7 +59,7 @@ ms.locfileid: "78647070"
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-Razor Pages 应用模板提供“页面”  文件夹中的 Error 页 (.cshtml  ) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)。 对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。 操作方法如下：
+Razor Pages 应用模板在 Pages 文件夹中提供了一个“错误”页面 (.cshtml) 和 <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 类 (`ErrorModel`)   。 对于 MVC 应用，项目模板包括 Error 操作方法和 Error 视图。 操作方法如下：
 
 ```csharp
 [AllowAnonymous]
@@ -156,7 +162,7 @@ URL 模板可能会包括状态代码的 `{0}` 占位符，如上面的示例所
 * 处理请求，但不重定向到不同终结点。 对于 Web 应用，客户端的浏览器地址栏反映最初请求的终结点。
 * 保留原始状态代码并通过响应返回该代码。
 
-URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)。 URL 模板必须以斜杠 (`/`) 开头。 若要在路径中使用占位符，请确认终结点（页或控制器）能否处理路径段。 例如，错误的 Razor Page 应通过 `@page` 指令接受可选路径段值：
+URL 模板和查询字符串模板可能包括状态代码的占位符 (`{0}`)。 URL 模板必须以斜杠 (`/`) 开头。 若要在路径中使用占位符，请确认终结点（页或控制器）能否处理路径段。 例如，错误的 Razor 页面应通过 `@page` 指令接受可选路径段值：
 
 ```cshtml
 @page "{code?}"

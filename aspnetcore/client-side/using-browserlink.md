@@ -6,14 +6,18 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: 19cc3c2ed91bd9e05df3c036123c78ecbf81fcc0
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 619d19ba90298b2455d4a558fea138c86a751f07
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78647100"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773652"
 ---
 # <a name="browser-link-in-aspnet-core"></a>ASP.NET Core 中的浏览器链接
 
@@ -25,7 +29,7 @@ ms.locfileid: "78647100"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-将 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) 包添加到项目。 对于 ASP.NET Core Razor Pages 或 MVC 项目，还需按照 <xref:mvc/views/view-compilation> 中所述启用 Razor (.cshtml  ) 文件的运行时编译。 仅当已启用运行时编译时，才会应用 Razor 语法更改。
+将 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) 包添加到项目。 对于 ASP.NET Core Razor Pages 或 MVC 项目，还需按照 <xref:mvc/views/view-compilation> 中所述的步骤，启用 Razor (.cshtml) 文件的运行时编译  。 仅当已启用运行时编译时，才会应用 Razor 语法更改。
 
 ::: moniker-end
 

@@ -6,14 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: af5807b782d4acec8c7d40111dc508dfa6127057
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 1f68bd5347ba1f67e56b7a2fe8914ffdaef8010c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650970"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774075"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 的新增功能
 
@@ -25,7 +29,7 @@ ms.locfileid: "78650970"
 
 * 简化横向扩展模型。
 * 新 JavaScript 客户端不具有 jQuery 依赖项。
-* 新的基于 MessagePack 的紧凑型二进制协议。
+* 新紧凑型二进制协议基于 MessagePack。
 * 支持自定义协议。
 * 新的流式处理响应模型。
 * 支持基于裸机 WebSocket 的客户端。
@@ -41,30 +45,30 @@ ms.locfileid: "78650970"
 
 有关详细信息，请参阅[使用 Razor 类库项目创建可重用 UI](xref:razor-pages/ui-class)。
 
-## <a name="identity-ui-library--scaffolding"></a>标识 UI 库和基架
+## <a name="identity-ui-library--scaffolding"></a>Identity UI 库和基架
 
-ASP.NET Core 2.1 提供 [ASP.NET Core 标识](xref:security/authentication/identity)作为 [Razor 类库](xref:razor-pages/ui-class)。 包含标识的应用可以应用新的标识基架，以便有选择地添加标识 Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于标识 RCL 中的相同代码。
+ASP.NET Core 2.1 提供 [ASP.NET Core Identity](xref:security/authentication/identity) 作为 [Razor 类库](xref:razor-pages/ui-class)。 包含 Identity 的应用可以应用新的 Identity 基架，以便有选择地添加 Identity Razor 类库 (RCL) 中包含的源代码。 建议生成源代码，以便修改代码和更改行为。 例如，可以指示基架生成在注册过程中使用的代码。 生成的代码优先于 Identity RCL 中的相同代码。
 
-不包含身份验证的应用可以应用标识基架以添加 RCL 标识包  。 可以选择要生成的标识代码。
+不包含身份验证的应用可以应用 Identity 基架来添加 RCL Identity 包  。 可以选择要生成的 Identity 代码。
 
-有关详细信息，请参阅 [ASP.NET Core 项目中的基架标识](xref:security/authentication/scaffold-identity)。
+有关详细信息，请参阅 [ASP.NET Core 项目中的基架 Identity](xref:security/authentication/scaffold-identity)。
 
 ## <a name="https"></a>HTTPS
 
-随着对安全和隐私的关注度日益增加，为 Web 应用启用 HTTPS 变得非常重要。 Web 上强制使用 HTTPS 的要求日趋严格。 不使用 HTTPS 的站点被视为不安全的站点。 浏览器（Chromium、Mozilla）开始强制要求必须在安全的上下文中使用 Web 功能。 [GDPR](xref:security/gdpr) 要求使用 HTTPS 保护用户隐私。 不仅在生产环境中使用 HTTPS 至关重要，在开发环境中使用 HTTPS 还有助于防止部署中的各种问题（例如，不安全的链接）。 ASP.NET Core 2.1 包含大量改进，更便于在开发环境中使用 HTTPS 和在生产环境中配置 HTTPS。 有关详细信息，请参阅[强制使用 HTTPS](xref:security/enforcing-ssl)。
+随着对安全和隐私的关注度日益增加，为 Web 应用启用 HTTPS 变得非常重要。 Web 上强制使用 HTTPS 的要求日趋严格。 不使用 HTTPS 的站点被视为不安全的站点。 浏览器（Chromium、Mozilla）开始强制要求必须在安全的上下文中使用 Web 功能。 [GDPR](xref:security/gdpr) 要求使用 HTTPS 保护用户隐私。 不仅在生产环境中使用 HTTPS 至关重要，而且在开发环境中使用 HTTPS 还可以帮助防止部署中的各种问题（例如，不安全的链接）。 ASP.NET Core 2.1 包含大量改进，更方便在开发环境使用 HTTPS 和在生产环境配置 HTTPS。 有关详细信息，请参阅[强制使用 HTTPS](xref:security/enforcing-ssl)。
 
 ### <a name="on-by-default"></a>默认开启
 
 为了提高网站开发的安全性，现在默认启用 HTTPS。 从 2.1 开始，当本地具有开发证书时，Kestrel 将侦听 `https://localhost:5001`。 关于开发证书的创建：
 
 * 首次使用 SDK 时，在首次运行 .NET Core SDK 时会创建开发证书。
-* 需手动使用新的 `dev-certs` 工具来创建。
+* 手动使用新 `dev-certs` 工具。
 
 运行 `dotnet dev-certs https --trust` 以信任证书。
 
 ### <a name="https-redirection-and-enforcement"></a>HTTPS 重定向和强制使用
 
-Web 应用通常需要侦听 HTTP 和 HTTPS，但随后会将所有 HTTP 流量重定向到 HTTPS。 在 2.1 中，引入了专用的 HTTPS 重定向中间件，可根据配置或绑定的服务器端口智能执行重定向。
+Web 应用通常需要侦听 HTTP 和 HTTPS，但随后会将所有 HTTP 流量重定向到 HTTPS。 在 2.1 中，引入了专用的 HTTPS 重定向中间件，可根据配置或绑定服务器端口的存在智能执行重定向。
 
 使用 [HTTP 严格传输安全协议 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) 可进一步强制使用 HTTPS。 HSTS 指示浏览器始终通过 HTTPS 访问站点。 ASP.NET Core 2.1 添加 HSTS 中间件，该中间件支持选择最大年限、子域和 HSTS 预加载列表。
 
@@ -83,7 +87,7 @@ ASP.NET Core 提供 API 和模板，帮助满足[欧盟一般数据保护条例 
 
 引入了可简化创建和执行测试的新包。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/) 包可处理以下任务：
 
-* 将依赖项文件 ( *.deps) 从已测试的应用复制到测试项目的 bin 文件夹中\**  。
+* 将依赖项文件 (\*.deps) 从已测试的应用复制到测试项目的 bin 文件夹中   。
 * 将内容根目录设置为已测试应用的项目根目录，以便可在执行测试时找到静态文件和页面/视图。
 * 提供 [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) 类，以简化已测试应用在 [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) 中的启动过程。
 
@@ -169,7 +173,7 @@ Razor Pages 现在支持[区域](xref:mvc/controllers/areas)。 要查看区域�
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> 方法允许应用选择加入或退出 ASP.NET Core MVC 2.1 或更高版本中引入的潜在中断行为变更。
 
-有关更多信息，请参见 <xref:mvc/compatibility-version>。
+有关详细信息，请参阅 <xref:mvc/compatibility-version>。
 
 ## <a name="migrate-from-20-to-21"></a>从 2.0 迁移到 2.1
 

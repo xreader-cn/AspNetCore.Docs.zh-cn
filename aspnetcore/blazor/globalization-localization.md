@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/14/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 1b0db66b23c0caffc6b7c4e4af723c020609612a
-ms.sourcegitcommit: d5d45d84fe488427d418de770000f7df44a08370
+ms.openlocfilehash: b39695f8b506744b4af27a1d7e09bfac9594d7ca
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/17/2020
-ms.locfileid: "81539656"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772486"
 ---
-# <a name="aspnet-core-opno-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
+# <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -60,7 +63,7 @@ Blazor 的 `@bind` 功能基于用户的当前区域性执行格式并分析值�
 
 ## <a name="localization"></a>本地化
 
-### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)设置区域性。
 
@@ -70,7 +73,7 @@ Blazor WebAssembly 应用使用用户的[语言首选项](https://developer.mozi
 
 虽然 Blazor 默认选择的区域性可能足以满足大多数用户的需求，但请考虑为用户提供一种指定其首选区域设置的方法。 如需获取具有区域性选取器的 Blazor WebAssembly 示例应用，请参阅 [LocSample](https://github.com/pranavkm/LocSample) 本地化示例应用。
 
-### <a name="opno-locblazor-server"></a>Blazor 服务器
+### <a name="blazor-server"></a>Blazor 服务器
 
 Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#localization-middleware)进行本地化。 中间件为从应用请求资源的用户选择相应的区域性。
 

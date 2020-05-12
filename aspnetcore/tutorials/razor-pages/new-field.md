@@ -5,13 +5,19 @@ description: 演示如何使用 Entity Framework Core 将新字段添加到 Razo
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: d34b938dbd1b512ddb167cac0c035837889cd38f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 683d6718f4dcdb73c45cbcf94f6ac4f477b71bcd
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78646602"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82769729"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
 
@@ -35,13 +41,13 @@ ms.locfileid: "78646602"
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-打开 Models/Movie.cs 文件，并添加  *属性：* `Rating`
+打开 Models/Movie.cs 文件，并添加 `Rating` 属性： 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 构建应用程序。
 
-编辑 Pages/Movies/Index.cshtml，并添加  *字段：* `Rating`
+编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
 
 <a name="addrat"></a>
 
@@ -50,7 +56,7 @@ ms.locfileid: "78646602"
 更新以下页面：
 
 * 将 `Rating` 字段添加到“删除”和“详细信息”页面。
-* 使用 [ 字段更新 ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)Create.cshtml`Rating`。
+* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
 在 DB 更新为包括新字段之前，应用将不会正常工作。 在不更新数据库的情况下运行应用会引发 `SqlException`：
@@ -162,20 +168,20 @@ dotnet ef database update
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-打开 Models/Movie.cs 文件，并添加  *属性：* `Rating`
+打开 Models/Movie.cs 文件，并添加 `Rating` 属性： 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 构建应用程序。
 
-编辑 Pages/Movies/Index.cshtml，并添加  *字段：* `Rating`
+编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml?highlight=40-42,61-63)]
 
 更新以下页面：
 
 * 将 `Rating` 字段添加到“删除”和“详细信息”页面。
-* 使用 [ 字段更新 ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)Create.cshtml`Rating`。
+* 使用 `Rating` 字段更新 [Create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml)。
 * 将 `Rating` 字段添加到“编辑”页面。
 
 在 DB 更新为包括新字段之前，应用将不会正常工作。 如果立即运行，应用会引发 `SqlException`：

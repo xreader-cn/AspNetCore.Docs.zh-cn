@@ -7,14 +7,17 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 4886673a9b16b8be8d9a0b0d5c7002a91760544e
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: aa0b2b51632cff729449018f9823c38cc26ce612
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80976971"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774088"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -40,11 +43,11 @@ Blazor 框架支持的方案：
 
 有关详细信息，请参阅 <xref:blazor/index>。
 
-### <a name="opno-locblazor-server"></a>Blazor 服务器
+### <a name="blazor-server"></a>Blazor 服务器
 
 Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazor 服务器在 ASP.NET Core 应用中添加了对在服务器上托管 Razor 组件的支持。 可通过 SignalR 连接处理 UI 更新。 ASP.NET Core 3.0 支持 Blazor Server。
 
-### <a name="opno-locblazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
+### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
 
 还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。  ASP.NET Core 的未来版本将支持 Blazor WebAssembly。
 
@@ -324,7 +327,7 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 
-ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。 用于验证和存储用户身份信息的 ASP.NET Core 标识与用于实现 Open ID Connect 的 [IdentityServer4](https://identityserver.io/) 结合使用。
+ASP.NET Core 3.0 使用 Web API 授权的支持在单页应用 (SPA) 中提供身份验证。 用于验证和存储用户身份信息的 ASP.NET Core Identity 与用于实现 Open ID Connect 的 [IdentityServer4](https://identityserver.io/) 结合使用。
 
 IdentityServer4 是适用于 ASP.NET Core 3.0 的 OpenID Connect 和 OAuth 2.0 框架。 它提供了以下安全功能：
 

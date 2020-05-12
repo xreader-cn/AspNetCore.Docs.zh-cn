@@ -5,13 +5,19 @@ description: 理解 ASP.NET Core 项目的警告和错误，并对其进行故�
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: test/troubleshoot
-ms.openlocfilehash: 345967f08cf99ef5f18d0c9bcd59ab29c74454f1
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 74b494f6d16637a54ab7f1b5c0cf9fbb86248fe7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511504"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776612"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>ASP.NET Core 项目故障排除和调试
 
@@ -75,7 +81,7 @@ ms.locfileid: "79511504"
 
 * 请求 &ndash; 方法、方案、主机、基路径、路径、查询字符串、标头
 * 连接 &ndash; 远程 IP 地址、远程端口、本地 IP 地址、本地端口、客户端证书
-* 标识 &ndash; 名称、显示名称
+* Identity &ndash; 名称、显示名称
 * 配置设置
 * 环境变量
 

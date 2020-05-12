@@ -6,13 +6,19 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: fc6f8d8c4ab09848cf316be2e522bf5ce3b9ac76
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 74153b9a185d382a3418dd9470ce6ca4c3c70041
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79416178"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773609"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>教程：了解高级方案 - ASP.NET MVC 和 EF Core
 
@@ -93,7 +99,7 @@ ms.locfileid: "79416178"
 
 在“解决方案资源管理器”中，右键单击“Views/Courses”文件夹，然后依次单击“添加”和“新建项”    。
 
-在“添加新项”  对话框中，在左侧窗格的“已安装”  下单击“ASP.NET Core”  ，单击“Razor 视图”  ，并将新视图命名为“UpdateCourseCredits.cshtml”  。
+在“添加新项”对话框中，在左侧窗格的“已安装”下单击“ASP.NET Core”，单击“Razor 视图”，并将新视图命名为“UpdateCourseCredits.cshtml”      。
 
 在*Views/Courses/UpdateCourseCredits.cshtml*中，将模板代码替换为以下代码：
 

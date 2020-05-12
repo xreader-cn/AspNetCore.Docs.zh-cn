@@ -4,13 +4,19 @@ author: rick-anderson
 description: 了解如何在 ASP.NET Core 应用中更新生成的页面。
 ms.author: riande
 ms.date: 12/20/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d9ab20b7ed4b394c154141efe3a94481efaf063c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650424"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774543"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>在 ASP.NET Core 应用中更新生成的页面
 
@@ -56,7 +62,7 @@ ms.locfileid: "78650424"
 
 ### <a name="add-route-template"></a>添加路由模板
 
-更新“编辑”、“详细信息”和“删除”Razor 页面以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
+更新“编辑”、“详细信息”和“删除”Razor Pages 以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
 ```html
 <td>
@@ -74,7 +80,7 @@ ms.locfileid: "78650424"
 
 若要测试 `@page "{id:int?}"` 的行为：
 
-* 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"`  。
+* 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"` 。
 * 在 `public async Task<IActionResult> OnGetAsync(int? id)` 中（位于 Pages/Movies/Details.cshtml.cs  中）设置断点。
 * 导航到 `https://localhost:5001/Movies/Details/`。
 
@@ -106,7 +112,7 @@ ms.locfileid: "78650424"
 当对 Movies/Edit 页面进行 HTTP GET 请求时（例如 `http://localhost:5000/Movies/Edit/2`）：
 
 * `OnGetAsync` 方法从数据库提取电影并返回 `Page` 方法。
-* `Page` 方法呈现“Pages/Movies/Edit.cshtml”Razor 页面。  Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。 
+* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面  。 Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。 
 * “编辑”表单中会显示电影的值。
 
 当发布 Movies/Edit 页面时：
@@ -169,7 +175,7 @@ ms.locfileid: "78650424"
 
 动态生成的链接通过查询字符串传递电影 ID（例如，`https://localhost:5001/Movies/Details?id=1` 中的 `?id=1`）。
 
-更新“编辑”、“详细信息”和“删除”Razor 页面以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
+更新“编辑”、“详细信息”和“删除”Razor Pages 以使用“{id:int?}”路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。 运行应用，然后查看源。 生成的 HTML 会将 ID 添加到 URL 的路径部分：
 
 ```html
 <td>
@@ -187,7 +193,7 @@ ms.locfileid: "78650424"
 
 若要测试 `@page "{id:int?}"` 的行为：
 
-* 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"`  。
+* 在 Pages/Movies/Details.cshtml 中将 page 指令设置为 `@page "{id:int?}"` 。
 * 在 `public async Task<IActionResult> OnGetAsync(int? id)` 中（位于 Pages/Movies/Details.cshtml.cs  中）设置断点。
 * 导航到 `https://localhost:5001/Movies/Details/`。
 
@@ -219,7 +225,7 @@ ms.locfileid: "78650424"
 当对 Movies/Edit 页面进行 HTTP GET 请求时（例如 `http://localhost:5000/Movies/Edit/2`）：
 
 * `OnGetAsync` 方法从数据库提取电影并返回 `Page` 方法。 
-* `Page` 方法呈现“Pages/Movies/Edit.cshtml”Razor 页面。  Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。 
+* `Page` 方法呈现 Pages/Movies/Edit.cshtml Razor 页面  。 Pages/Movies/Edit.cshtml 文件包含模型指令 (`@model RazorPagesMovie.Pages.Movies.EditModel`)，这使电影模型在页面上可用。 
 * “编辑”表单中会显示电影的值。
 
 当发布 Movies/Edit 页面时：

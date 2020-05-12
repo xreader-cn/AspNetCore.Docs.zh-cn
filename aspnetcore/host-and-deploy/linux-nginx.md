@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/10/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: ceb2ad857649dcfa8d04420dcc37792495edc3ff
-ms.sourcegitcommit: 6f1b516e0c899a49afe9a29044a2383ce2ada3c7
+ms.openlocfilehash: af2bea1b3a149ef8d80970031e939dc083d94a03
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/13/2020
-ms.locfileid: "81224019"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775890"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>使用 Nginx 在 Linux 上托管 ASP.NET Core
 
