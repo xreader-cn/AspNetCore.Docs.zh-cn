@@ -5,7 +5,7 @@ description: 了解如何在 Windows Server Internet Information Services (IIS) 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/17/2020
+ms.date: 5/7/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 72f433ffdc7d08e23fb68fc6ed9903a39959363b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c3841babe213a9a3f303b8f9b83a947fd33ad647
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775981"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003135"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>使用 IIS 在 Windows 上托管 ASP.NET Core
 
@@ -60,6 +60,8 @@ ms.locfileid: "82775981"
 * 需要更大 IIS 堆栈大小。
 * 具有 64 位本机依赖项。
 
+为 32 位 (x86) 发布的应用必须已为其 IIS 应用程序池启用 32 位。 有关详细信息，请参阅[创建 IIS 站点](#create-the-iis-site)部分。
+
 使用 64 位 (x64) .NET Core SDK 发布 64 位应用。 主机系统必须具有 64 位运行时。
 
 ## <a name="hosting-models"></a>托管模型
@@ -75,22 +77,26 @@ ms.locfileid: "82775981"
   * 调用 `Program.Main`。
 * 处理 IIS 本机请求的生存期。
 
-定目标到 .NET Framework 的 ASP.NET Core 应用不支持进程内托管模型。
-
 下图说明了 IIS、ASP.NET Core 模块和进程内托管的应用之间的关系：
 
 ![进程内托管方案中的 ASP.NET Core 模块](index/_static/ancm-inprocess.png)
 
-请求从 Web 到达内核模式 HTTP.sys 驱动程序。 驱动程序将本机请求路由到网站的配置端口上的 IIS，通常为 80 (HTTP) 或 443 (HTTPS)。 ASP.NET Core 模块接收本机请求，并将其传递给 IIS HTTP 服务器 (`IISHttpServer`)。 IIS HTTP 服务器是将请求从本机转换为托管的 IIS 进程内服务器实现。
+1. 请求从 Web 到达内核模式 HTTP.sys 驱动程序。
+1. 驱动程序将本机请求路由到网站的配置端口上的 IIS，通常为 80 (HTTP) 或 443 (HTTPS)。
+1. ASP.NET Core 模块接收本机请求，并将其传递给 IIS HTTP 服务器 (`IISHttpServer`)。 IIS HTTP 服务器是将请求从本机转换为托管的 IIS 进程内服务器实现。
 
-IIS HTTP 服务器处理请求之后，请求会被推送到 ASP.NET Core 中间件管道中。 中间件管道处理该请求并将其作为 `HttpContext` 实例传递给应用的逻辑。 应用的响应通过 IIS HTTP 服务器传递回 IIS。 IIS 将响应发送到发起请求的客户端。
+在 IIS HTTP 服务器处理请求后：
 
-进程内托管选择使用现有应用，但 [dotnet new](/dotnet/core/tools/dotnet-new) 模板默认使用所有 IIS 和 IIS Express 方案的进程内托管模型。
+1. 请求被发送到 ASP.NET Core 中间件管道。
+1. 中间件管道处理该请求并将其作为 `HttpContext` 实例传递给应用的逻辑。
+1. 应用的响应通过 IIS HTTP 服务器传递回 IIS。
+1. IIS 将响应发送到发起请求的客户端。
 
-`CreateDefaultBuilder` 将通过调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> 方法添加 <xref:Microsoft.AspNetCore.Hosting.Server.IServer> 实例，来启动 [CoreCLR](/dotnet/standard/glossary#coreclr) 并在 IIS 工作进程（w3wp.exe 或 iisexpress.exe）内托管应用。   性能测试表明，与在进程外托管应用并将请求代理到 [Kestrel](xref:fundamentals/servers/kestrel) 服务器相比，在进程中托管 .NET Core 应用可以大大提升请求吞吐量。
+对于现有应用，进程内托管是可选功能。 ASP.NET Core Web 模板使用进程内托管模型。
 
-> [!NOTE]
-> 作为单个文件可执行文件发布的应用无法由进程内托管模型加载。
+`CreateDefaultBuilder` 将通过调用 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> 方法添加 <xref:Microsoft.AspNetCore.Hosting.Server.IServer> 实例，来启动 [CoreCLR](/dotnet/standard/glossary#coreclr) 并在 IIS 工作进程（w3wp.exe 或 iisexpress.exe）内托管应用。   性能测试表明，与在进程外托管应用并将请求代理传入 [Kestrel](xref:fundamentals/servers/kestrel) 相比，在进程中托管 .NET Core 应用可提供明显更高的请求吞吐量。
+
+作为单个文件可执行文件发布的应用无法由进程内托管模型加载。
 
 ### <a name="out-of-process-hosting-model"></a>进程外托管模型
 
@@ -100,11 +106,14 @@ IIS HTTP 服务器处理请求之后，请求会被推送到 ASP.NET Core 中间
 
 ![进程外托管方案中的 ASP.NET Core 模块](index/_static/ancm-outofprocess.png)
 
-请求从 Web 到达内核模式 HTTP.sys 驱动程序。 驱动程序将请求路由到网站的配置端口上的 IIS，通常为 80 (HTTP) 或 443 (HTTPS)。 该模块将该请求转发到应用的随机端口（非端口 80/443）上的 Kestrel。
+1. 请求从 Web 到达内核模式 HTTP.sys 驱动程序。
+1. 驱动程序将请求路由到网站的配置端口上的 IIS。 配置的端口通常是 80 (HTTP) 或 443 (HTTPS)。
+1. 此模块将该请求转发到应用的随机端口上的 Kestrel。 随机端口不是 80 或 443。
 
-该模块在启动时通过环境变量指定端口，<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 扩展将服务器配置为侦听 `http://localhost:{PORT}`。 执行其他检查，拒绝不是来自该模块的请求。 该模块不支持 HTTPS 转发，因此即使请求由 IIS 通过 HTTPS 接收，它们还是通过 HTTP 转发。
+<!-- make this a bullet list -->
+ASP.NET Core 模块在启动时通过环境变量指定端口。 <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> 扩展将服务器配置为侦听 `http://localhost:{PORT}`。 执行其他检查，拒绝不是来自该模块的请求。 此模块不支持 HTTPS 转发。 即使请求由 IIS 通过 HTTPS 接收，它们还是通过 HTTP 转发。
 
-Kestrel 从模块获取请求后，请求会被推送到 ASP.NET Core 中间件管道中。 中间件管道处理该请求并将其作为 `HttpContext` 实例传递给应用的逻辑。 IIS 集成添加的中间件会将方案、远程 IP 和 pathbase 更新到帐户以将请求转发到 Kestrel。 应用的响应传递回 IIS，IIS 将响应推送回发起请求的 HTTP 客户端。
+Kestrel 从模块获取请求后，请求会被转发到 ASP.NET Core 中间件管道中。 中间件管道处理该请求并将其作为 `HttpContext` 实例传递给应用的逻辑。 IIS 集成添加的中间件会将方案、远程 IP 和 pathbase 更新到帐户以将请求转发到 Kestrel。 应用的响应传递回 IIS，IIS 将响应转发回发起请求的 HTTP 客户端。
 
 有关 ASP.NET Core 模块配置指南，请参阅 <xref:host-and-deploy/aspnet-core-module>。
 
@@ -163,7 +172,14 @@ services.Configure<IISOptions>(options =>
 
 ### <a name="proxy-server-and-load-balancer-scenarios"></a>代理服务器和负载均衡器方案
 
-配置转发头中间件的 [IIS 集成中间件](#enable-the-iisintegration-components)和 ASP.NET Core 模块将配置为转发方案 (HTTP/HTTPS) 和发出请求的远程 IP 地址。 对于托管在其他代理服务器和负载均衡器后方的应用，可能需要附加配置。 有关详细信息，请参阅[配置 ASP.NET Core 以使用代理服务器和负载均衡器](xref:host-and-deploy/proxy-load-balancer)。
+将 [IIS 集成中间件](#enable-the-iisintegration-components)和 ASP.NET Core 模块配置为转发：
+
+* 方案 (HTTP/HTTPS)。
+* 发起请求的远程 IP 地址。
+
+[IIS 集成中间件](#enable-the-iisintegration-components)配置转发的标头中间件。
+
+对于托管在其他代理服务器和负载均衡器后方的应用，可能需要附加配置。 有关详细信息，请参阅[配置 ASP.NET Core 以使用代理服务器和负载均衡器](xref:host-and-deploy/proxy-load-balancer)。
 
 ### <a name="webconfig-file"></a>web.config 文件
 
@@ -199,7 +215,7 @@ web.config  文件可能会提供其他 IIS 配置设置，以控制活动的 II
 
 ### <a name="transform-webconfig"></a>转换 web.config
 
-如果需要在发布时转换 web.config（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>  。
+如果需要在发布时转换 web.config  ，请参阅 <xref:host-and-deploy/iis/transform-webconfig>。 你可能需要在发布时转换 web.config，以便基于配置、配置文件或环境设置环境变量  。
 
 ## <a name="iis-configuration"></a>IIS 配置
 
@@ -326,11 +342,13 @@ net start w3svc
 
    ![将“.NET CLR 版本”设置为“无托管代码”。](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载：将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR) ，在工作进程中托管应用。 将“.NET CLR 版本”  设置为“无托管代码”  是可选步骤，但建议采用此设置。
+    ASP.NET Core 在单独的进程中运行，并管理运行时。 ASP.NET Core 不依赖桌面 CLR (.NET CLR) 加载。 将启动 .NET Core 的 Core 公共语言运行时 (CoreCLR)，在工作进程中托管应用。 将“.NET CLR 版本”  设置为“无托管代码”  是可选步骤，但建议采用此设置。
 
-1. *ASP.NET Core 2.2 或更高版本*：对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。
+1. *ASP.NET Core 2.2 或更高版本*：
 
-   在 IIS 管理器 >“应用程序池”  的“操作”  侧栏中，选择“设置应用程序池默认设置”  或“高级设置”  。 找到“启用 32 位应用程序”并将值设置为 `False` 。 此设置不会影响针对[进程外托管](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model)部署的应用。
+   * 对于使用 32 位 SDK 发布的 32 位 (x86) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，且该 SDK 使用[进程内托管模型](#in-process-hosting-model)，请为 32 位启用应用程序池。 在 IIS 管理器中，导航到“连接”边栏中的“应用程序池”   。 选择应用的应用程序池。 在“操作”边栏中，选择，“高级设置”   。 将“启用 32 位应用程序”设置为 `True` 。 
+
+   * 对于使用[进程内托管模型](#in-process-hosting-model)的 64 位 (x64) [独立部署](/dotnet/core/deploying/#self-contained-deployments-scd)，为 32 位 (x86) 进程禁用应用池。 在 IIS 管理器中，导航到“连接”边栏中的“应用程序池”   。 选择应用的应用程序池。 在“操作”边栏中，选择，“高级设置”   。 将“启用 32 位应用程序”设置为 `False` 。 
 
 1. 确认进程模型标识拥有适当的权限。
 
@@ -678,7 +696,11 @@ Windows Server 2008 R2 或更高版本：
 
 ### <a name="in-process-hosting-model"></a>进程内托管模型
 
-使用进程内托管，ASP.NET Core 在与其 IIS 工作进程相同的进程中运行。 进程内承载相较进程外承载提供更优的性能，因为请求并不通过环回适配器进行代理，环回适配器是一个网络接口，用于将传出的网络流量返回给同一计算机。 IIS 使用 [Windows 进程激活服务 (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was) 处理进程管理。
+使用进程内托管，ASP.NET Core 在与其 IIS 工作进程相同的进程中运行。 进程内托管的性能高于进程外托管的性能，因为：
+
+* 请求并不通过环回适配器进行代理。 环回适配器是一个网络接口，用于将传出的网络流量返回给同一计算机。
+
+IIS 使用 [Windows 进程激活服务 (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was) 处理进程管理。
 
 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)：
 
