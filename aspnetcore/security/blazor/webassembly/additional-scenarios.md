@@ -1,11 +1,11 @@
 ---
 title: ASP.NET Core Blazor WebAssembly 其他安全方案
 author: guardrex
-description: 了解如何配置Blazor WebAssembly 以实现其他安全方案。
+description: 了解如何配置 Blazor WebAssembly 以实现其他安全方案。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/08/2020
+ms.date: 05/11/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: e8a088b3f1a4e0eb7d5d1c5c09ef53c4a2bd3628
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
+ms.openlocfilehash: d460f65e996f1f77136a426b03d6eb548d9e309e
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976787"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153475"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
@@ -30,9 +30,9 @@ ms.locfileid: "82976787"
 
 ## <a name="attach-tokens-to-outgoing-requests"></a>将令牌附加到传出请求
 
-`AuthorizationMessageHandler`服务可用于`HttpClient`将访问令牌附加到传出请求。 使用现有`IAccessTokenProvider`服务获取令牌。 如果无法获取令牌， `AccessTokenNotAvailableException`则会引发。 `AccessTokenNotAvailableException`提供了`Redirect`一个方法，该方法可用于将用户导航到标识提供程序以获取新令牌。 使用`AuthorizationMessageHandler` `ConfigureHandler`方法，可以配置授权 url、范围和返回 URL。
+`AuthorizationMessageHandler`服务可用于 `HttpClient` 将访问令牌附加到传出请求。 使用现有服务获取令牌 `IAccessTokenProvider` 。 如果无法获取令牌， `AccessTokenNotAvailableException` 则会引发。 `AccessTokenNotAvailableException`提供了一个 `Redirect` 方法，该方法可用于将用户导航到标识提供程序以获取新令牌。 `AuthorizationMessageHandler`使用方法，可以配置授权 url、范围和返回 URL `ConfigureHandler` 。
 
-在下面的示例中`AuthorizationMessageHandler` ， `HttpClient`在中`Program.Main`配置（*Program.cs*）：
+在下面的示例中， `AuthorizationMessageHandler` `HttpClient` 在中配置 `Program.Main` （*Program.cs*）：
 
 ```csharp
 using System.Net.Http;
@@ -52,7 +52,7 @@ builder.Services.AddTransient(sp =>
 });
 ```
 
-为方便起见， `BaseAddressAuthorizationMessageHandler`将包含的应用程序基址预配置为授权 URL。 启用身份验证的 Blazor WebAssembly 模板现在在<xref:System.Net.Http.IHttpClientFactory>服务器 API 项目中使用，以使用设置<xref:System.Net.Http.HttpClient> `BaseAddressAuthorizationMessageHandler`：
+为方便起见， `BaseAddressAuthorizationMessageHandler` 将包含的应用程序基址预配置为授权 URL。 启用身份验证的 Blazor WebAssembly 模板现在 <xref:System.Net.Http.IHttpClientFactory> 在服务器 API 项目中使用，以使用设置 <xref:System.Net.Http.HttpClient> `BaseAddressAuthorizationMessageHandler` ：
 
 ```csharp
 using System.Net.Http;
@@ -60,21 +60,23 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 ...
 
-builder.Services.AddHttpClient("BlazorWithIdentityApp1.ServerAPI", 
+builder.Services.AddHttpClient("BlazorWithIdentity.ServerAPI", 
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
         .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
-    .CreateClient("BlazorWithIdentityApp1.ServerAPI"));
+    .CreateClient("BlazorWithIdentity.ServerAPI"));
 ```
 
-在前面的示例中使用`CreateClient`创建客户端的位置提供<xref:System.Net.Http.HttpClient>了在向服务器项目发出请求时提供访问令牌的实例。
+在前面的示例中使用创建客户端的位置提供了在 `CreateClient` <xref:System.Net.Http.HttpClient> 向服务器项目发出请求时提供访问令牌的实例。
 
-然后， <xref:System.Net.Http.HttpClient>将使用配置的来使用简单`try-catch`模式发出授权请求。 以下`FetchData`组件请求天气预测数据：
+然后，将使用配置的 <xref:System.Net.Http.HttpClient> 来使用简单模式发出授权请求 `try-catch` 。
+
+`FetchData`组件（*Pages/FetchData*）：
 
 ```csharp
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject HttpClient Http
+@inject HttpClient Client
 
 ...
 
@@ -83,7 +85,7 @@ protected override async Task OnInitializedAsync()
     try
     {
         forecasts = 
-            await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            await Client.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
     catch (AccessTokenNotAvailableException exception)
     {
@@ -92,37 +94,36 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-或者，您可以定义一个类型化的客户端，用于处理一个类中的所有 HTTP 和标记获取问题：
+## <a name="typed-httpclient"></a>类型化 HttpClient
 
-*WeatherClient.cs*：
+可以定义一个类型化客户端，用于处理单个类中的所有 HTTP 和标记获取问题。
+
+*WeatherForecastClient.cs*：
 
 ```csharp
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using static {APP ASSEMBLY}.Data;
 
-public class WeatherClient
+public class WeatherForecastClient
 {
-    private readonly HttpClient httpClient;
+    private readonly HttpClient client;
  
-    public WeatherClient(HttpClient httpClient)
+    public WeatherForecastClient(HttpClient client)
     {
-        this.httpClient = httpClient;
+        this.client = client;
     }
  
-    public async Task<IEnumerable<WeatherForecast>> GetWeatherForeacasts()
+    public async Task<WeatherForecast[]> GetForecastAsync()
     {
-        IEnumerable<WeatherForecast> forecasts = new WeatherForecast[0];
+        var forecasts = new WeatherForecast[0];
 
         try
         {
-            forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
+            forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
                 "WeatherForecast");
-
-            ...
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -134,7 +135,7 @@ public class WeatherClient
 }
 ```
 
-Program.cs  :
+`Program.Main`（*Program.cs*）：
 
 ```csharp
 using System.Net.Http;
@@ -142,29 +143,80 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 ...
 
-builder.Services.AddHttpClient<WeatherClient>(
+builder.Services.AddHttpClient<WeatherForecastClient>(
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 ```
 
-*FetchData*：
+`FetchData`组件（*Pages/FetchData*）：
 
 ```razor
-@inject WeatherClient WeatherClient
+@inject WeatherForecastClient Client
 
 ...
 
 protected override async Task OnInitializedAsync()
 {
-    forecasts = await WeatherClient.GetWeatherForeacasts();
+    forecasts = await Client.GetForecastAsync();
 }
 ```
 
+## <a name="configure-the-httpclient-handler"></a>配置 HttpClient 处理程序
+
+可以进一步 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> 为出站 HTTP 请求配置处理程序。
+
+`Program.Main`（*Program.cs*）：
+
+```csharp
+builder.Services.AddHttpClient<WeatherForecastClient>(client => client.BaseAddress = new Uri("https://www.example.com/base"))
+    .AddHttpMessageHandler(sp => sp.GetRequiredService<AuthorizationMessageHandler>()
+    .ConfigureHandler(new [] { "https://www.example.com/base" },
+        scopes: new[] { "example.read", "example.write" }));
+```
+
+## <a name="unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client"></a>使用安全的默认客户端的应用中未经身份验证或未授权的 web API 请求
+
+如果 Blazor WebAssembly 应用程序通常使用安全默认值 <xref:System.Net.Http.HttpClient> ，则该应用程序还可以通过配置命名的来进行未经身份验证或未授权的 WEB API 请求 <xref:System.Net.Http.HttpClient> ：
+
+`Program.Main`（*Program.cs*）：
+
+```csharp
+builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient", 
+    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+```
+
+除了现有的安全默认注册以外，以上注册也是如此 <xref:System.Net.Http.HttpClient> 。
+
+组件从创建， <xref:System.Net.Http.HttpClient> <xref:System.Net.Http.IHttpClientFactory> 以发出未经身份验证或未授权的请求：
+
+```razor
+@inject IHttpClientFactory ClientFactory
+
+...
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("ServerAPI.NoAuthenticationClient");
+
+        forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
+            "WeatherForecastNoAuthentication");
+    }
+}
+```
+
+> [!NOTE]
+> 对于前面的示例，服务器 API 中的控制器 `WeatherForecastNoAuthenticationController` 未标记为 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
+
 ## <a name="request-additional-access-tokens"></a>请求其他访问令牌
 
-可以通过调用`IAccessTokenProvider.RequestAccessToken`手动获取访问令牌。
+可以通过调用手动获取访问令牌 `IAccessTokenProvider.RequestAccessToken` 。
 
-在下面的示例中，应用程序需要其他 Azure Active Directory （AAD） Microsoft Graph API 作用域来读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，会在客户端应用（`Program.Main`， *Program.cs*）中配置其他范围：
+在下面的示例中，应用程序需要其他 Azure Active Directory （AAD） Microsoft Graph API 作用域来读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，会在客户端应用中配置其他作用域。
+
+`Program.Main`（*Program.cs*）：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -178,9 +230,11 @@ builder.Services.AddMsalAuthentication(options =>
 }
 ```
 
-`IAccessTokenProvider.RequestToken`方法提供了一个重载，该重载允许应用程序使用一组给定的范围设置访问令牌，如以下示例中所示：
+`IAccessTokenProvider.RequestToken`方法提供了一个重载，该重载允许应用程序使用一组给定的范围设置访问令牌。
 
-```csharp
+在 Razor 组件中：
+
+```razor
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IAccessTokenProvider TokenProvider
 
@@ -206,7 +260,7 @@ if (tokenResult.TryGetToken(out var token))
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>带有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
 
-在 Blazor WebAssembly 应用中的 WebAssembly 上运行时[HttpClient](xref:fundamentals/http-requests) ，HttpClient <xref:System.Net.Http.HttpRequestMessage>并可用于自定义请求。 例如，可以指定 HTTP 方法和请求标头。 下面的示例向服务器`POST`上的待办事项列表 API 终结点发出请求，并显示响应正文：
+在 Blazor WebAssembly 应用中的 WebAssembly 上运行时， [HttpClient](xref:fundamentals/http-requests)并 <xref:System.Net.Http.HttpRequestMessage> 可用于自定义请求。 例如，可以指定 HTTP 方法和请求标头。 以下组件向 `POST` 服务器上的待办事项列表 API 终结点发出请求，并显示响应正文：
 
 ```razor
 @page "/todorequest"
@@ -268,9 +322,9 @@ if (tokenResult.TryGetToken(out var token))
 }
 ```
 
-.NET WebAssembly 的实现`HttpClient`使用[WindowOrWorkerGlobalScope （）](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch)。 提取允许配置几个[特定于请求的选项](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。 
+.NET WebAssembly 的实现 `HttpClient` 使用[WindowOrWorkerGlobalScope （）](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch)。 提取允许配置几个[特定于请求的选项](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。 
 
-HTTP fetch 请求选项可配置如下表`HttpRequestMessage`中所示的扩展方法。
+HTTP fetch 请求选项可配置 `HttpRequestMessage` 如下表中所示的扩展方法。
 
 | `HttpRequestMessage`extension 方法 | 提取请求属性 |
 | ------------------------------------- | ---------------------- |
@@ -279,11 +333,11 @@ HTTP fetch 请求选项可配置如下表`HttpRequestMessage`中所示的扩展�
 | `SetBrowserRequestMode`               | [mode](https://developer.mozilla.org/docs/Web/API/Request/mode) |
 | `SetBrowserRequestIntegrity`          | [完整性](https://developer.mozilla.org/docs/Web/API/Request/integrity) |
 
-您可以使用更通用`SetBrowserRequestOption`的扩展方法来设置其他选项。
+您可以使用更通用的扩展方法来设置其他选项 `SetBrowserRequestOption` 。
  
-HTTP 响应通常在 Blazor WebAssembly 应用中进行缓冲，以支持对响应内容进行同步读取。 若要启用对响应流的支持， `SetBrowserResponseStreamingEnabled`请对请求使用扩展方法。
+HTTP 响应通常在 Blazor WebAssembly 应用中进行缓冲，以支持对响应内容进行同步读取。 若要启用对响应流的支持，请 `SetBrowserResponseStreamingEnabled` 对请求使用扩展方法。
 
-若要在跨域请求中包含凭据，请使用`SetBrowserRequestCredentials`扩展方法：
+若要在跨域请求中包含凭据，请使用 `SetBrowserRequestCredentials` 扩展方法：
 
 ```csharp
 requestMessage.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
@@ -291,14 +345,14 @@ requestMessage.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
 
 有关获取 API 选项的详细信息，请参阅[MDN web 文档： WindowOrWorkerGlobalScope （）:P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
 
-在 CORS 请求上发送凭据（授权 cookie/标头）时`Authorization` ，cors 策略必须允许标头。
+在 CORS 请求上发送凭据（授权 cookie/标头）时， `Authorization` cors 策略必须允许标头。
 
 以下策略包括的配置：
 
-* 请求源（`http://localhost:5000`、 `https://localhost:5001`）。
+* 请求源（ `http://localhost:5000` 、 `https://localhost:5001` ）。
 * 任何方法（谓词）。
-* `Content-Type`和`Authorization`标头。 若要允许自定义标头（例如`x-custom-header`），请在调用<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>时列出标头。
-* 由客户端 JavaScript 代码设置的凭据（`credentials`属性设置为`include`）。
+* `Content-Type`和 `Authorization` 标头。 若要允许自定义标头（例如 `x-custom-header` ），请在调用时列出标头 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> 。
+* 由客户端 JavaScript 代码设置的凭据（ `credentials` 属性设置为 `include` ）。
 
 ```csharp
 app.UseCors(policy => 
@@ -308,7 +362,7 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
-有关详细信息，请<xref:security/cors>参阅和示例应用的 HTTP 请求测试器组件（*组件/HTTPRequestTester*）。
+有关详细信息，请参阅 <xref:security/cors> 和示例应用的 HTTP 请求测试器组件（*组件/HTTPRequestTester*）。
 
 ## <a name="handle-token-request-errors"></a>处理令牌请求错误
 
@@ -316,7 +370,7 @@ app.UseCors(policy =>
 
 通常情况下，IP 为用户发出的令牌通常有效一小时，因此，客户端应用程序必须定期获取新令牌。 否则，用户将在授予的令牌过期后注销。 在大多数情况下，OIDC 客户端可以预配新令牌，而无需用户重新进行身份验证，这是因为保留在 IP 中的身份验证状态或 "会话"。
 
-在某些情况下，客户端在没有用户交互的情况下无法获取令牌，例如，由于某种原因，用户明确地从 IP 注销。 如果用户访问`https://login.microsoftonline.com`和注销，则会发生这种情况。在这些情况下，应用程序不会立即知道用户已注销。客户端持有的任何令牌都可能不再有效。 此外，当当前令牌过期后，客户端将无法预配无用户交互的新令牌。
+在某些情况下，客户端在没有用户交互的情况下无法获取令牌，例如，由于某种原因，用户明确地从 IP 注销。 如果用户访问和注销，则会发生这种情况 `https://login.microsoftonline.com` 。在这些情况下，应用程序不会立即知道用户已注销。客户端持有的任何令牌都可能不再有效。 此外，当当前令牌过期后，客户端将无法预配无用户交互的新令牌。
 
 这些方案不特定于基于令牌的身份验证。 它们是 Spa 的性质组成部分。 如果删除了身份验证 cookie，使用 cookie 的 SPA 也无法调用服务器 API。
 
@@ -332,7 +386,7 @@ app.UseCors(policy =>
 
 如果令牌请求失败，则需要确定是否要在执行重定向之前保存任何当前状态。 增加复杂程度的方法有多种：
 
-* 将当前页面状态存储在会话存储中。 在`OnInitializeAsync`期间，请检查是否可以在继续操作之前还原状态。
+* 将当前页面状态存储在会话存储中。 在期间 `OnInitializeAsync` ，请检查是否可以在继续操作之前还原状态。
 * 添加查询字符串参数，并使用该参数以向应用程序发出信号，指出需要重新冻结以前保存的状态。
 * 添加具有唯一标识符的查询字符串参数，以便在会话存储中存储数据，而不会导致与其他项发生冲突。
 
@@ -450,9 +504,9 @@ app.UseCors(policy =>
 
 ## <a name="customize-app-routes"></a>自定义应用路由
 
-默认情况下， `Microsoft.AspNetCore.Components.WebAssembly.Authentication`该库使用下表中显示的路由来表示不同的身份验证状态。
+默认情况下， `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 该库使用下表中显示的路由来表示不同的身份验证状态。
 
-| 路由                            | 目标 |
+| 路由                            | 目的 |
 | -------------------------------- | ------- |
 | `authentication/login`           | 触发登录操作。 |
 | `authentication/login-callback`  | 处理任何登录操作的结果。 |
@@ -464,9 +518,9 @@ app.UseCors(policy =>
 | `authentication/profile`         | 触发操作以编辑用户配置文件。 |
 | `authentication/register`        | 触发操作以注册新用户。 |
 
-可以通过`RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`配置上表中显示的路由。 设置用于提供自定义路由的选项时，请确认该应用程序具有处理每个路径的路由。
+可以通过配置上表中显示的路由 `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths` 。 设置用于提供自定义路由的选项时，请确认该应用程序具有处理每个路径的路由。
 
-在下面的示例中，所有路径都以`/security`为前缀。
+在下面的示例中，所有路径都以为前缀 `/security` 。
 
 `Authentication`组件（*Pages/Authentication*）：
 
@@ -498,7 +552,7 @@ builder.Services.AddApiAuthorization(options => {
 });
 ```
 
-如果要求调用完全不同的路径，请按前面所述设置路由，并`RemoteAuthenticatorView`使用显式操作参数呈现：
+如果要求调用完全不同的路径，请按前面所述设置路由，并 `RemoteAuthenticatorView` 使用显式操作参数呈现：
 
 ```razor
 @page "/register"
@@ -510,7 +564,7 @@ builder.Services.AddApiAuthorization(options => {
 
 ## <a name="customize-the-authentication-user-interface"></a>自定义身份验证用户界面
 
-`RemoteAuthenticatorView`为每个身份验证状态包含一组默认的 UI 段。 可以通过传入自定义`RenderFragment`来自定义每个状态。 若要在初始登录过程中自定义显示的文本，可以`RemoteAuthenticatorView`更改，如下所示。
+`RemoteAuthenticatorView`为每个身份验证状态包含一组默认的 UI 段。 可以通过传入自定义来自定义每个状态 `RenderFragment` 。 若要在初始登录过程中自定义显示的文本，可以更改，如下所示 `RemoteAuthenticatorView` 。
 
 `Authentication`组件（*Pages/Authentication*）：
 
@@ -546,9 +600,9 @@ builder.Services.AddApiAuthorization(options => {
 
 ## <a name="customize-the-user"></a>自定义用户
 
-绑定到应用的用户可以自定义。 在下面的示例中，所有经过身份验证`amr`的用户都将收到每个用户身份验证方法的声明。
+绑定到应用的用户可以自定义。 在下面的示例中，所有经过身份验证的用户都 `amr` 将收到每个用户身份验证方法的声明。
 
-创建扩展`RemoteUserAccount`类的类：
+创建扩展类的类 `RemoteUserAccount` ：
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -561,7 +615,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-创建一个扩展`AccountClaimsPrincipalFactory<TAccount>`的工厂：
+创建一个扩展的工厂 `AccountClaimsPrincipalFactory<TAccount>` ：
 
 ```csharp
 using System.Security.Claims;
@@ -597,7 +651,7 @@ public class CustomAccountFactory
 }
 ```
 
-注册`CustomAccountFactory`要使用的身份验证提供程序。 以下任何注册都是有效的： 
+注册 `CustomAccountFactory` 要使用的身份验证提供程序。 以下任何注册都是有效的： 
 
 * `AddOidcAuthentication`:
 
@@ -754,13 +808,13 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a>使用第三方提供程序对用户进行身份验证，并在主机服务器和第三方调用受保护的 API
 
-使用Identity第三方登录提供程序进行配置。 获取第三方 API 访问所需的令牌并进行存储。
+Identity使用第三方登录提供程序进行配置。 获取第三方 API 访问所需的令牌并进行存储。
 
-当用户登录时， Identity会在身份验证过程中收集访问令牌和刷新令牌。 此时，可通过几种方法向第三方 API 进行 API 调用。
+当用户登录时，会在 Identity 身份验证过程中收集访问令牌和刷新令牌。 此时，可通过几种方法向第三方 API 进行 API 调用。
 
 #### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a>使用服务器访问令牌检索第三方访问令牌
 
-使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在该处，使用第三方访问令牌直接从Identity客户端调用第三方 API 资源。
+使用服务器上生成的访问令牌从服务器 API 终结点检索第三方访问令牌。 在该处，使用第三方访问令牌直接从客户端调用第三方 API 资源 Identity 。
 
 我们不建议使用此方法。 此方法需要将第三方访问令牌视为针对公共客户端生成。 在 OAuth 范畴，公共应用没有客户端机密，因为不能信任此类应用可以安全地存储机密，将为机密客户端生成访问令牌。 机密客户端具有客户端机密，并且假定能够安全地存储机密。
 

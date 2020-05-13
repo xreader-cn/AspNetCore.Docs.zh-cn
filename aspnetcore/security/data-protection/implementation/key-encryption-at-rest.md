@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core 中的静态密钥加密
+title: Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core
 author: rick-anderson
 description: 了解 ASP.NET Core 静态数据保护密钥加密的实现细节。
 ms.author: riande
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: e68b8e09dbd876c6f0d37242ebaa415994b3b808
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c927c926212aeb1263d15fd3fdc753c377b2e305
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776924"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153568"
 ---
-# <a name="key-encryption-at-rest-in-aspnet-core"></a>ASP.NET Core 中的静态密钥加密
+# <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a>Windows 和 Azure 中的静态密钥加密使用 ASP.NET Core
 
 默认情况下，数据保护系统[使用发现机制](xref:security/data-protection/configuration/default-settings)来确定应如何对加密密钥进行静态加密。 开发人员可以重写发现机制，并手动指定密钥的加密方式。
 
@@ -29,7 +29,7 @@ ms.locfileid: "82776924"
 
 ## <a name="azure-key-vault"></a>Azure Key Vault
 
-若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) `Startup`类中配置 ProtectKeysWithAzureKeyVault 的系统：
+若要在[Azure Key Vault](https://azure.microsoft.com/services/key-vault/)中存储密钥，请在类中配置[ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault)的系统 `Startup` ：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -59,7 +59,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果`ProtectKeysWithDpapi`在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。 您可以选择指定计算机上的任何用户帐户（而不只是当前用户帐户）能够破译密钥环：
+如果 `ProtectKeysWithDpapi` 在没有参数的情况下调用，则只有当前的 Windows 用户帐户才能解密持久化密钥环。 您可以选择指定计算机上的任何用户帐户（而不只是当前用户帐户）能够破译密钥环：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -106,7 +106,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-还有一个无参数的`ProtectKeysWithDpapiNG`重载。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：
+还有一个无参数的重载 `ProtectKeysWithDpapiNG` 。 使用此简便方法指定规则 "SID = {CURRENT_ACCOUNT_SID}"，其中*CURRENT_ACCOUNT_SID*是当前 Windows 用户帐户的 SID：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
