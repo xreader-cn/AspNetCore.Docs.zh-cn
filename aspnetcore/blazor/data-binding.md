@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 03/26/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/data-binding
-ms.openlocfilehash: a7b3730dad48b5bbb6134dab181051da4e3651b4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: b4951c5eb712b15db3a7c1ccd57ae01c530a23ef
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80320951"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967163"
 ---
-# <a name="aspnet-core-opno-locblazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
+# <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -51,7 +54,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 用户在文本框中键入并更改元素焦点时，会激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更加复杂，因为 `@bind` 会处理执行类型转换的情况。 原则上，`@bind` 将表达式的当前值与 `value` 属性关联，并使用注册的处理程序处理更改。
 
-通过同时包含带有 `@bind:event` 参数的 `event` 属性，在其他事件上绑定属性或字段。 以下示例在 `CurrentValue` 事件上绑定 `oninput` 属性：
+通过同时包含带有 `event` 参数的 `@bind:event` 属性，在其他事件上绑定属性或字段。 以下示例在 `oninput` 事件上绑定 `CurrentValue` 属性：
 
 ```razor
 <input @bind="CurrentValue" @bind:event="oninput" />
@@ -63,21 +66,21 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 与在元素失去焦点时激发的 `onchange` 不同，`oninput` 在文本框的值更改时激发。
 
-通过 `@bind-{ATTRIBUTE}` 语法使用 `@bind-{ATTRIBUTE}:event` 可绑定除 `value` 之外的元素属性。 在下面的示例中，当 `_paragraphStyle` 值更改时，段落的样式会更新：
+通过 `@bind-{ATTRIBUTE}:event` 语法使用 `@bind-{ATTRIBUTE}` 可绑定除 `value` 之外的元素属性。 在下面的示例中，当 `paragraphStyle` 值更改时，段落的样式会更新：
 
 ```razor
 @page "/binding-example"
 
 <p>
-    <input type="text" @bind="_paragraphStyle" />
+    <input type="text" @bind="paragraphStyle" />
 </p>
 
-<p @bind-style="_paragraphStyle" @bind-style:event="onchange">
+<p @bind-style="paragraphStyle" @bind-style:event="onchange">
     Blazorify the app!
 </p>
 
 @code {
-    private string _paragraphStyle = "color:red";
+    private string paragraphStyle = "color:red";
 }
 ```
 
@@ -103,7 +106,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 在上面的方案中，元素的值会还原为 `123`。 如果拒绝值 `123.45` 以采用原始值 `123`，则用户会了解其值不被接受。
 
-默认情况下，绑定适用于元素的 `onchange` 事件 (`@bind="{PROPERTY OR FIELD}"`)。 使用 `@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` 对其他事件触发绑定。 对于 `oninput` 事件 (`@bind:event="oninput"`)，在任何引入无法分析的值的击键之后，会进行还原。 当使用 `oninput` 绑定类型以 `int` 事件为目标时，会阻止用户键入 `.` 字符。 `.` 字符会立即删除，因此用户会收到仅允许整数的即时反馈。 在某些情况下，在 `oninput` 事件中还原值并不理想，例如在应该允许用户清除无法解析的 `<input>` 值时。 替代方案包括：
+默认情况下，绑定适用于元素的 `onchange` 事件 (`@bind="{PROPERTY OR FIELD}"`)。 使用 `@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` 对其他事件触发绑定。 对于 `oninput` 事件 (`@bind:event="oninput"`)，在任何引入无法分析的值的击键之后，会进行还原。 当使用 `int` 绑定类型以 `oninput` 事件为目标时，会阻止用户键入 `.` 字符。 `.` 字符会立即删除，因此用户会收到仅允许整数的即时反馈。 在某些情况下，在 `oninput` 事件中还原值并不理想，例如在应该允许用户清除无法解析的 `<input>` 值时。 替代方案包括：
 
 * 不使用 `oninput` 事件。 使用默认 `onchange` 事件（仅指定 `@bind="{PROPERTY OR FIELD}"`），其中无效值在元素失去焦点之前不会还原。
 * 绑定到可以为 null 的类型（如 `int?` 或 `string`），并提供自定义逻辑来处理无效条目。
@@ -113,7 +116,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 ## <a name="format-strings"></a>格式字符串
 
-数据绑定使用 <xref:System.DateTime>[`@bind:format` 处理 ](xref:mvc/views/razor#bind) 格式字符串。 目前无法使用其他格式表达式，如货币或数字格式。
+数据绑定使用 [`@bind:format`](xref:mvc/views/razor#bind) 处理 <xref:System.DateTime> 格式字符串。 目前无法使用其他格式表达式，如货币或数字格式。
 
 ```razor
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -131,9 +134,9 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-`@bind:format` 属性指定要应用于 `value` 元素的 `<input>` 的日期格式。 该格式还用于在 `onchange` 事件发生时分析值。
+`@bind:format` 属性指定要应用于 `<input>` 元素的 `value` 的日期格式。 该格式还用于在 `onchange` 事件发生时分析值。
 
-不建议为 `date` 字段类型指定格式，因为 Blazor 具有用于设置日期格式的内置支持。 尽管提出了建议，但如果使用 `yyyy-MM-dd` 字段类型提供格式，则只有使用 `date` 日期格式才能使绑定正常工作：
+不建议为 `date` 字段类型指定格式，因为 Blazor 具有用于设置日期格式的内置支持。 尽管提出了建议，但如果使用 `date` 字段类型提供格式，则只有使用 `yyyy-MM-dd` 日期格式才能使绑定正常工作：
 
 ```razor
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
@@ -164,7 +167,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 以下父组件使用：
 
 * `ChildComponent` 并将 `ParentYear` 参数从父级绑定到子组件上的 `Year` 参数。
-* `onclick` 事件用于触发 `ChangeTheYear` 方法。 有关更多信息，请参见 <xref:blazor/event-handling>。
+* `onclick` 事件用于触发 `ChangeTheYear` 方法。 有关详细信息，请参阅 <xref:blazor/event-handling>。
 
 ```razor
 @page "/ParentComponent"
@@ -202,7 +205,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 <p>Year: 1978</p>
 ```
 
-如果通过在 `ParentYear` 中选择按钮来更改 `ParentComponent` 属性的值，则会更新 `Year` 的 `ChildComponent` 属性。 当重新呈现 `Year` 时，`ParentComponent` 的新值会呈现在 UI 中：
+如果通过在 `ParentComponent` 中选择按钮来更改 `ParentYear` 属性的值，则会更新 `ChildComponent` 的 `Year` 属性。 当重新呈现 `ParentComponent` 时，`Year` 的新值会呈现在 UI 中：
 
 ```html
 <h1>Parent Component</h1>
@@ -214,7 +217,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 <p>Year: 1986</p>
 ```
 
-`Year` 参数是可绑定的，因为它具有与 `YearChanged` 参数类型相匹配的伴随 `Year` 事件。
+`Year` 参数是可绑定的，因为它具有与 `Year` 参数类型相匹配的伴随 `YearChanged` 事件。
 
 按照约定，`<ChildComponent @bind-Year="ParentYear" />` 在本质上等效于编写：
 
@@ -237,8 +240,8 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 以下 `PasswordField` 组件 (PasswordField.razor  )：
 
 * 将 `<input>` 元素的值设置为 `Password` 属性。
-* 使用 `Password`EventCallback[ 向父组件公开 ](xref:blazor/event-handling#eventcallback) 属性的更改。
-* 使用 `onclick` 事件触发 `ToggleShowPassword` 方法。 有关更多信息，请参见 <xref:blazor/event-handling>。
+* 使用 [EventCallback](xref:blazor/event-handling#eventcallback) 向父组件公开 `Password` 属性的更改。
+* 使用 `onclick` 事件触发 `ToggleShowPassword` 方法。 有关详细信息，请参阅 <xref:blazor/event-handling>。
 
 ```razor
 <h1>Child Component</h1>
@@ -247,7 +250,7 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(_showPassword ? "text" : "password")" 
+       type="@(showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
@@ -255,7 +258,7 @@ Password:
 </button>
 
 @code {
-    private bool _showPassword;
+    private bool showPassword;
 
     [Parameter]
     public string Password { get; set; }
@@ -272,7 +275,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        _showPassword = !_showPassword;
+        showPassword = !showPassword;
     }
 }
 ```
@@ -284,16 +287,16 @@ Password:
 
 <h1>Parent Component</h1>
 
-<PasswordField @bind-Password="_password" />
+<PasswordField @bind-Password="password" />
 
 @code {
-    private string _password;
+    private string password;
 }
 ```
 
 对前面示例中的密码执行检查或捕获错误：
 
-* 为 `Password` 创建支持字段（在下面的示例代码中为 `_password`）。
+* 为 `Password` 创建支持字段（在下面的示例代码中为 `password`）。
 * 在 `Password` 资源库中执行检查或捕获错误。
 
 如果密码的值中使用了空格，则以下示例会向用户提供即时反馈：
@@ -305,36 +308,36 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(_showPassword ? "text" : "password")" 
+       type="@(showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
 </button>
 
-<span class="text-danger">@_validationMessage</span>
+<span class="text-danger">@validationMessage</span>
 
 @code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
+    private bool showPassword;
+    private string password;
+    private string validationMessage;
 
     [Parameter]
     public string Password
     {
-        get { return _password ?? string.Empty; }
+        get { return password ?? string.Empty; }
         set
         {
-            if (_password != value)
+            if (password != value)
             {
                 if (value.Contains(' '))
                 {
-                    _validationMessage = "Spaces not allowed!";
+                    validationMessage = "Spaces not allowed!";
                 }
                 else
                 {
-                    _password = value;
-                    _validationMessage = string.Empty;
+                    password = value;
+                    validationMessage = string.Empty;
                 }
             }
         }
@@ -352,7 +355,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        _showPassword = !_showPassword;
+        showPassword = !showPassword;
     }
 }
 ```

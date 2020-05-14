@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: a9b0d0efd4afd4941bd4d93f33adecdf3288992f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: aa338bbe61eec14bc1e1b3606e11e26bfb0e6a09
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767065"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967462"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
@@ -108,7 +108,7 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 关闭附加值通常很方便，例如在循环访问一组元素时。 下面的示例创建了三个按钮。在 UI 中选中这些按钮时，每个按钮都调用 `UpdateHeading`传递事件参数 (`MouseEventArgs`) 和其按钮编号 (`buttonNumber`)：
 
 ```razor
-<h2>@_message</h2>
+<h2>@message</h2>
 
 @for (var i = 1; i < 4; i++)
 {
@@ -121,11 +121,11 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 }
 
 @code {
-    private string _message = "Select a button to learn its position.";
+    private string message = "Select a button to learn its position.";
 
     private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
-        _message = $"You selected Button #{buttonNumber} at " +
+        message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
     }
 }
@@ -157,28 +157,28 @@ Pages/ParentComponent  ：
     by the parent component.
 </ChildComponent>
 
-<p><b>@_messageText</b></p>
+<p><b>@messageText</b></p>
 
 @code {
-    private string _messageText;
+    private string messageText;
 
     private void ShowMessage(MouseEventArgs e)
     {
-        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
     }
 }
 ```
 
 在 `ChildComponent` 中选择该按钮时：
 
-* 调用 `ParentComponent` 的 `ShowMessage` 方法。 `_messageText` 更新并显示在 `ParentComponent` 中。
+* 调用 `ParentComponent` 的 `ShowMessage` 方法。 `messageText` 更新并显示在 `ParentComponent` 中。
 * 回调方法 (`ShowMessage`) 中不需要对 [StateHasChanged](xref:blazor/lifecycle#state-changes) 的调用。 自动调用 `StateHasChanged` 以重新呈现 `ParentComponent`，就像子事件触发组件重新呈现于在子级中执行的事件处理程序中一样。
 
 `EventCallback` 和 `EventCallback<T>` 允许异步委托。 `EventCallback<T>` 为强类型，需要特定的参数类型。 `EventCallback` 为弱类型，允许任何参数类型。
 
 ```razor
 <ChildComponent 
-    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
+    OnClickCallback="@(async () => { await Task.Yield(); messageText = "Blaze It!"; })" />
 ```
 
 使用 `InvokeAsync` 调用 `EventCallback` 或 `EventCallback<T>` 并等待 <xref:System.Threading.Tasks.Task>：
@@ -198,16 +198,16 @@ await callback.InvokeAsync(arg);
 在输入设备上选择某个键并且元素焦点位于某个文本框上时，浏览器通常在该文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令属性来阻止默认行为。 计数器递增，且 + 键不会捕获到 `<input>` 元素的值中  ：
 
 ```razor
-<input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
+<input value="@count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 
 @code {
-    private int _count = 0;
+    private int count = 0;
 
     private void KeyHandler(KeyboardEventArgs e)
     {
         if (e.Key == "+")
         {
-            _count++;
+            count++;
         }
     }
 }
@@ -215,10 +215,10 @@ await callback.InvokeAsync(arg);
 
 指定没有值的 `@on{EVENT}:preventDefault` 属性等同于 `@on{EVENT}:preventDefault="true"`。
 
-属性的值也可以是表达式。 在下面的示例中，`_shouldPreventDefault` 是设置为 `true` 或 `false` 的 `bool` 字段：
+属性的值也可以是表达式。 在下面的示例中，`shouldPreventDefault` 是设置为 `true` 或 `false` 的 `bool` 字段：
 
 ```razor
-<input @onkeypress:preventDefault="_shouldPreventDefault" />
+<input @onkeypress:preventDefault="shouldPreventDefault" />
 ```
 
 不需要事件处理程序来阻止默认操作。 事件处理程序和阻止默认操作场景可以独立使用。
@@ -231,7 +231,7 @@ await callback.InvokeAsync(arg);
 
 ```razor
 <label>
-    <input @bind="_stopPropagation" type="checkbox" />
+    <input @bind="stopPropagation" type="checkbox" />
     Stop Propagation
 </label>
 
@@ -242,13 +242,13 @@ await callback.InvokeAsync(arg);
         Child div that doesn't stop propagation when selected.
     </div>
 
-    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="_stopPropagation">
+    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="stopPropagation">
         Child div that stops propagation when selected.
     </div>
 </div>
 
 @code {
-    private bool _stopPropagation = false;
+    private bool stopPropagation = false;
 
     private void OnSelectParentDiv() => 
         Console.WriteLine($"The parent div was selected. {DateTime.Now}");
