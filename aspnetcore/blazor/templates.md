@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/19/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 0a4a508beeae3d7bc665372d925989aa4e34ad52
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
+ms.openlocfilehash: 705fa32ee72221b3c18653e9f3495b9cd61e9ad1
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661716"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967423"
 ---
-# <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor 模板
+# <a name="aspnet-core-blazor-templates"></a>ASP.NET Core Blazor 模板
 
 作者：[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
@@ -39,7 +42,7 @@ dotnet new blazorwasm --help
 dotnet new blazorserver --help
 ```
 
-## <a name="opno-locblazor-project-structure"></a>Blazor 项目结构
+## <a name="blazor-project-structure"></a>Blazor 项目结构
 
 以下文件和文件夹构成了基于 Blazor 模板生成的 Blazor 应用：
 
@@ -53,9 +56,9 @@ dotnet new blazorserver --help
 
 * *Startup.cs* (Blazor Server) &ndash; 包含应用的启动逻辑。 `Startup` 类定义两个方法：
 
-  * `ConfigureServices` &ndash; 配置应用的 [ 依赖项注入 (DI)](xref:fundamentals/dependency-injection) 服务。 在 Blazor Server 应用中，通过调用 <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*> 添加服务，并将 `WeatherForecastService` 添加到服务容器以供示例 `FetchData` 组件使用。
+  * `ConfigureServices` &ndash; 配置应用的 [ 依赖项注入 (DI)](xref:fundamentals/dependency-injection) 服务。 在 Blazor Server 应用中，通过调用 <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor%2A> 添加服务，并将 `WeatherForecastService` 添加到服务容器以供示例 `FetchData` 组件使用。
   * `Configure` &ndash; 配置应用的请求处理管道：
-    * 调用 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*> 可以为与浏览器的实时连接设置终结点。 使用 [SignalR](xref:signalr/introduction) 创建连接，该框架用于向应用添加实时 Web 功能。
+    * 调用 <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> 可以为与浏览器的实时连接设置终结点。 使用 [SignalR](xref:signalr/introduction) 创建连接，该框架用于向应用添加实时 Web 功能。
     * 调用 [MapFallbackToPage("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) 可以设置应用的根页面 (*Pages/_Host.cshtml*) 并启用导航。
 
 * *wwwroot/index.html* (Blazor WebAssembly) &ndash; 实现为 HTML 页面的应用根页面：
@@ -67,7 +70,7 @@ dotnet new blazorserver --help
 
 * App.razor &ndash; 应用的根组件，它使用 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件设置客户端路由  。 `Router` 组件会截获浏览器导航并呈现与请求的地址匹配的页面。
 
-* Pages 文件夹 &ndash; 包含构成 Blazor 应用的可路由组件/页面 (  .razor) 和 Blazor Server 应用的根 Razor 页面  。 每个页面的路由都是使用 [`@page`](xref:mvc/views/razor#page) 指令指定的。 该模板包括以下组件：
+* Pages 文件夹 &ndash; 包含构成 Blazor 应用的可路由组件/页面 (.razor) 和 Blazor Server 应用的根 Razor 页面   。 每个页面的路由都是使用 [`@page`](xref:mvc/views/razor#page) 指令指定的。 该模板包括以下组件：
   * _Host.cshtml (Blazor Server) &ndash; 实现为 Razor 页面的应用的根页面  ：
     * 最初请求应用的任何页面时，都会呈现此页面并在响应中返回。
     * 加载 `_framework/blazor.server.js` JavaScript 文件，该文件用于在浏览器和服务器之间建立实时 SignalR 连接。
@@ -81,7 +84,7 @@ dotnet new blazorserver --help
   * `MainLayout` (*MainLayout.razor*) &ndash; 应用的布局组件。
   * `NavMenu` (*NavMenu.razor*) &ndash; 实现侧栏导航。 包括 [NavLink 组件](xref:blazor/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 `NavLink` 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
 
-* _Imports.razor &ndash; 包括要包含在应用组件 (.razor  ) 中的常见 Razor 指令，例如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令  。
+* _Imports.razor &ndash; 包括要包含在应用组件 (.razor) 中的常见 Razor 指令，例如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令   。
 
 * *Data* 文件夹 (Blazor Server) &ndash; 包含 `WeatherForecast` 类和 `WeatherForecastService` 的实现，它们向应用的 `FetchData` 组件提供示例天气数据。
 
