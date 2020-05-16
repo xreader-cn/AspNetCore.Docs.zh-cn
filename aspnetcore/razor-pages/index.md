@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: 827a0df4c914fd012c55e6612a987713bfbaa5c2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 6939d285838a6dd971f530c1d65d73273b5b14e7
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777210"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424567"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core 中的 Razor 页面介绍
 
@@ -61,9 +61,7 @@ ms.locfileid: "82777210"
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-在命令行中运行 `dotnet new webapp`。
-
-在 Visual Studio for Mac 中打开生成的 .csproj  文件。
+请参阅 [Razor Pages 入门](xref:tutorials/razor-pages/razor-pages-start)，获取关于如何创建 Razor Pages 项目的详细说明。
 
 ---
 
