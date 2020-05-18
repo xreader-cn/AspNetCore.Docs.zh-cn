@@ -367,6 +367,8 @@
           uid: blazor/debug
         - name: 从 WebAssembly 调用 Web API
           uid: blazor/call-web-api
+        - name: WebAssembly 性能
+          uid: performance/blazor/webassembly-best-practices
         - name: 渐进式 Web 应用程序
           uid: blazor/progressive-web-app
         - name: 托管和部署
@@ -557,7 +559,7 @@
     - name: 客户端
       displayName: signalr
       items:
-        - name: SignalR 客户端功能
+        - name: 概述
           uid: signalr/client-features
           displayName: signalr
         - name: .NET 客户端
@@ -1180,6 +1182,8 @@
       uid: performance/diagnostic-tools
     - name: 负载测试和压力测试
       uid: test/loadtests
+    - name: Blazor WebAssembly
+      uid: performance/blazor/webassembly-best-practices
 - name: 全球化和本地化
   items:
     - name: 概述
