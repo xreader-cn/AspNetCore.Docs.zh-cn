@@ -1,18 +1,7 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
-author: rick-anderson
-description: 介绍了如何使用 Entity Framework Core 创建 Razor 页面应用
-ms.author: riande
-ms.custom: mvc, seodec18
-ms.date: 09/26/2019
-uid: data/ef-rp/intro
-ms.openlocfilehash: 07faf5e596e7ea8b134d13caa0259c1e9d74ff1b
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661619"
+title:ASP.NET Core 中的 Razor Pages 和 Entity Framework Core - 第 1 个教程（共 8 个）author: rick-anderson description:介绍如何使用 Entity Framework Core 创建 Razor Pages 应用 ms.author: riande ms.custom: "mvc, seodec18" ms.date:09/26/2019 no-loc: [Blazor, "Identity", "Let's Encrypt", Razor, SignalR] uid: data/ef-rp/intro
 ---
+
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core 中的 Razor 页面和 Entity Framework Core - 第 1 个教程（共 8 个）
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
@@ -65,7 +54,6 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 
 若要在下载完成的项目之后运行应用，请执行以下操作：
 
-* 删除名称中包含 SQLite 的三个文件和一个文件夹  。
 * 生成项目。
 * 在包管理器控制台 (PMC) 中运行以下命令：
 
@@ -83,6 +71,7 @@ Visual Studio Code 指令使用 [SQLite](https://www.sqlite.org/)，一种跨平
 * 删除 Startup.cs，然后将 StartupSQLite.cs 重命名为 Startup.cs *** *** 。
 * 删除 appSettings.json，然后将 appSettingsSQLite.json 重命名为 appSettings.json ****** 。
 * 删除“Migrations”文件夹，然后将 MigrationsSQL 重命名为 Migrations    。
+* 对 `#if SQLiteVersion` 执行全局搜索，并删除 `#if SQLiteVersion` 和相关 `#endif` 语句。
 * 生成项目。
 * 在项目文件夹中的命令提示符下运行以下命令：
 
@@ -367,7 +356,7 @@ ASP.NET Core 通过[依赖关系注入](xref:fundamentals/dependency-injection)�
 `EnsureCreated` 方法将创建空数据库。 本节添加用测试数据填充数据库的代码。
 
 使用以下代码创建 Data/DbInitializer.cs  ：
-
+<!-- next update, keep this file in the project and surround with #if -->
   [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Data/DbInitializer.cs)]
 
   该代码会检查数据库中是否存在任何学生。 如果不存在学生，它将向数据库添加测试数据。 该代码使用数组创建测试数据而不是使用 `List<T>` 集合是为了优化性能。
