@@ -5,33 +5,42 @@ description: 了解如何使用 ASP.NET Core、内容分发网络 (CDN)、文件
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/06/2020
+ms.date: 05/07/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: f364d94085d175fde5596c222ef21852c0106ec1
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: e136a401beffe9cc7e29906b3631ab3f068b30fd
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80751129"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967592"
 ---
-# <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
+# <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>托管和部署 ASP.NET Core Blazor WebAssembly
 
-作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com) 和 [Daniel Roth](https://github.com/danroth27)
+作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com)、[Daniel Roth](https://github.com/danroth27)、[Ben Adams](https://twitter.com/ben_a_adams) 和 [Safia Abdalla](https://safia.rocks)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 使用 [Blazor WebAssembly 托管模型](xref:blazor/hosting-models#blazor-webassembly)：
 
-* 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。
+* 将 Blazor 应用、其依赖项及 .NET 运行时并行下载到浏览器。
 * 应用将在浏览器线程中直接执行。
 
 支持以下部署策略：
 
 * Blazor 应用由 ASP.NET Core 应用提供服务。 [使用 ASP.NET Core 进行托管部署](#hosted-deployment-with-aspnet-core)部分中介绍了此策略。
-* Blazor 应用位于静态托管 Web 服务器或服务中，其中未使用 .NET 对 Blazor 应用提供服务。 [独立部署](#standalone-deployment)部分介绍了此策略，包括有关将 Blazor WebAssembly 应用作为 IIS 子应用托管的信息。
+* Blazor 应用位于静态托管 Web 服务器或服务中，其中未使用 .NET 对 Blazor 应用提供服务。 [独立部署](#standalone-deployment)部分介绍了此策略，好介绍了有关将 Blazor WebAssembly 应用作为 IIS 子应用托管的信息。
+
+## <a name="brotli-precompression"></a>Brotli 预压缩
+
+Blazor WebAssembly 应用发布时，会在最基本的层面上使用 [Brotli 压缩算法](https://tools.ietf.org/html/rfc7932)对输出内容进行预压缩，从而减少应用大小并消除对运行时压缩的需求。
+
+有关 IIS web.config  压缩配置，请参阅 [IIS：Brotli 和 Gzip 压缩](#brotli-and-gzip-compression) 部分。
 
 ## <a name="rewrite-urls-for-correct-routing"></a>重写 URL，以实现正确路由
 
@@ -47,7 +56,7 @@ ms.locfileid: "80751129"
 1. index.html 启动应用  。
 1. Blazor 的路由器进行加载，然后呈现 Razor `Main` 组件。
 
-在 Main 页中，选择指向 `About` 组件的链接适用于客户端，因为 Blazor 路由器阻止浏览器在 Internet 上发出请求，针对 `About` 转到 `www.contoso.com`，并为呈现的 `About` 组件本身提供服务。 针对 Blazor WebAssembly 应用中的  内部终结点的所有请求，工作原理都相同：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
+在 Main 页中，选择指向 `About` 组件的链接适用于客户端，因为 Blazor 路由器阻止浏览器在 Internet 上发出请求，针对 `www.contoso.com` 转到 `About`，并为呈现的 `About` 组件本身提供服务。 针对 Blazor WebAssembly 应用中的内部终结点的所有请求，工作原理都相同  ：这些请求不会触发对 Internet 上的服务器托管资源的基于浏览器的请求。 路由器将在内部处理请求。
 
 如果针对 `www.contoso.com/About` 使用浏览器的地址栏发出请求，则请求会失败。 应用的 Internet 主机上不存在此类资源，所以返回的是“404 - 找不到”  响应。
 
@@ -57,9 +66,9 @@ ms.locfileid: "80751129"
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>使用 ASP.NET Core 进行托管部署
 
-托管部署  通过在 Web 服务器上运行的 [ASP.NET Core](xref:index) 应用为浏览器提供 Blazor WebAssembly 应用。
+托管部署通过在 Web 服务器上运行的 [ASP.NET Core 应用](xref:index)为浏览器提供 Blazor WebAssembly 应用  。
 
-客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹  。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择“托管”选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new)命令时为 `blazorwasm` 模板）   。
+客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹  。 这两个应用一起部署。 需要能够托管 ASP.NET Core 应用的 Web 服务器。 对于托管部署，Visual Studio 会在选择“托管”选项（使用 `dotnet new` 命令时为 `-ho|--hosted`）的情况下，包含 Blazor WebAssembly App 项目模板（使用 [dotnet new](/dotnet/core/tools/dotnet-new) 命令时为 `blazorwasm` 模板）   。
 
 有关托管和部署 ASP.NET Core 应用的详细信息，请参阅 <xref:host-and-deploy/index>。
 
@@ -71,6 +80,12 @@ ms.locfileid: "80751129"
 
 独立部署资产发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹中  。
 
+### <a name="azure-app-service"></a>Azure 应用服务
+
+可以将 Blazor WebAssembly 应用部署到 Windows 上的 Azure 应用服务，该服务在 [IIS](#iis) 上托管应用程序。
+
+目前不支持将独立的 Blazor WebAssembly 应用部署到适用于 Linux 的 Azure 应用服务。 目前无法提供用于托管应用的 Linux 服务器映像。 正在进行此工作以支持此场景。
+
 ### <a name="iis"></a>IIS
 
 IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS 以托管 Blazor，请参阅[在 IIS 上生成静态网站](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis)。
@@ -79,7 +94,7 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 #### <a name="webconfig"></a>web.config
 
-发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config  文件：
+发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config 文件  ：
 
 * 对以下文件扩展名设置 MIME 类型：
   * .dll  &ndash; `application/octet-stream`
@@ -96,19 +111,7 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
   
 #### <a name="use-a-custom-webconfig"></a>使用自定义 web.config
 
-要使用自定义的 web.config 文件，请按以下步骤操作  ：
-
-1. 将自定义 web.config 文件置于项目文件夹的根目录下  。
-1. 将以下目标添加到项目文件 (.csproj  )：
-
-   ```xml
-   <Target Name="CopyWebConfigOnPublish" AfterTargets="Publish">
-     <Copy SourceFiles="web.config" DestinationFolder="$(PublishDir)" />
-   </Target>
-   ```
-   
-> [!NOTE]
-> Blazor WebAssembly 应用中不支持将 MSBuild 属性 `<IsWebConfigTransformDisabled>` 设置为 `true`，因为它[适用于部署到 IIS 的 ASP.NET Core 应用](xref:host-and-deploy/iis/index#webconfig-file)。 有关详细信息，请参阅[复制所需目标以提供自定义 Blazor WASM web.config (dotnet/aspnetcore #20569)](https://github.com/dotnet/aspnetcore/issues/20569)。
+要使用自定义 web.config 文件，请将自定义 web.config 文件放在项目文件夹的根目录下，然后发布该项目   。
 
 #### <a name="install-the-url-rewrite-module"></a>安装 URL 重写模块
 
@@ -130,7 +133,7 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 * 禁用继承的 ASP.NET Core 模块处理程序。
 
-  通过向文件添加 `<handlers>` 部分，删除 Blazor 应用已发布 web.config  文件中的处理程序：
+  通过向文件添加 `<handlers>` 部分，删除 Blazor 应用已发布 web.config 文件中的处理程序  ：
 
   ```xml
   <handlers>
@@ -156,6 +159,10 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 
 除[配置应用的基路径](xref:host-and-deploy/blazor/index#app-base-path)外，还需删除处理程序或禁用继承。 在 IIS 中配置子应用时，在应用的 index.html 文件中将应用基路径设置为 IIS 别名  。
 
+#### <a name="brotli-and-gzip-compression"></a>Brotli 和 Gzip 压缩
+
+通过 web.config 可将 IIS 配置为提供 Brotli 或 Gzip 压缩的 Blazor 资产  。 有关示例配置，请参阅 [web.config](webassembly/_samples/web.config?raw=true)。
+
 #### <a name="troubleshooting"></a>疑难解答
 
 如果你看到“500 - 内部服务器错误”  ，且 IIS 管理器在尝试访问网站配置时抛出错误，请确认是否已安装 URL 重写模块。 如果未安装该模块，则 IIS 无法分析 web.config 文件  。 这可以防止 IIS 管理器加载网站配置，并防止网站对 Blazor 的静态文件提供服务。
@@ -169,7 +176,7 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 为存储帐户上的静态网站承载启用 blob 服务时：
 
 * 设置“索引文档名称”  到 `index.html`。
-* 设置“错误文档路径”  到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”  错误会将此请求路由到“错误文档路径”  。 返回 Index.html  blob，Blazor 路由器会加载并处理此路径。
+* 设置“错误文档路径”  到 `index.html`。 Razor 组件和其他非文件终结点不会驻留在由 blob 服务存储的静态内容中的物理路径。 当收到 Blazor 路由器应处理的对这些资源之一的请求时，由 blob 服务生成的“404 - 未找到”  错误会将此请求路由到“错误文档路径”  。 Index.html  blob 返回，Blazor 路由器加载并处理此路径。
 
 有关更多信息，请参阅 [Azure 存储中的静态网站承载](/azure/storage/blobs/storage-blob-static-website)。
 
@@ -335,3 +342,122 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ## <a name="configure-the-linker"></a>配置链接器
 
 Blazor 对每个发布版本执行中间语言 (IL) 链接，以从输出程序集中删除不必要的 IL。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/configure-linker>。
+
+## <a name="custom-boot-resource-loading"></a>自定义启动资源加载
+
+Blazor WebAssembly 应用可使用 `loadBootResource` 函数初始化，以替代内置启动资源加载机制。 在以下场景中使用 `loadBootResource`：
+
+* 允许用户从 CDN 加载静态资源，例如时区数据或 dotnet wasm  。
+* 使用 HTTP 请求加载压缩的程序集，并将其解压缩到不支持从服务器提取压缩内容的主机的客户端上。
+* 将每个 `fetch` 请求重定向到新名称，从而为资源提供别名。
+
+`loadBootResource` 参数如下表所示。
+
+| 参数    | 描述 |
+| ------------ | ----------- |
+| `type`       | 资源类型。 允许使用的类型：`assembly`、`pdb`、`dotnetjs`、`dotnetwasm`、`timezonedata` |
+| `name`       | 资源的名称。 |
+| `defaultUri` | 资源的相对或绝对 URI。 |
+| `integrity`  | 表示响应中的预期内容的完整性字符串。 |
+
+`loadBootResource` 返回以下任何内容以替代加载过程：
+
+* URI 字符串。 在以下示例中 (wwwroot/index.html)，以下文件来自 CDN (`https://my-awesome-cdn.com/`)  ：
+
+  * dotnet.\*.js 
+  * dotnet.wasm 
+  * 时区数据
+
+  ```html
+  ...
+
+  <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+  <script>
+    Blazor.start({
+      loadBootResource: function (type, name, defaultUri, integrity) {
+        console.log(`Loading: '${type}', '${name}', '${defaultUri}', '${integrity}'`);
+        switch (type) {
+          case 'dotnetjs':
+          case 'dotnetwasm':
+          case 'timezonedata':
+            return `https://my-awesome-cdn.com/blazorwebassembly/3.2.0/${name}`;
+        }
+      }
+    });
+  </script>
+  ```
+
+* `Promise<Response>`。 在标头中传递 `integrity` 参数以保持默认的完整性检查行为。
+
+  以下示例 (wwwroot/index.html) 将一个自定义 HTTP 标头添加到出站请求，并将 `integrity` 参数传递到 `fetch` 调用  ：
+  
+  ```html
+  <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+  <script>
+    Blazor.start({
+      loadBootResource: function (type, name, defaultUri, integrity) {
+        return fetch(defaultUri, { 
+          cache: 'no-cache',
+          integrity: integrity,
+          headers: { 'MyCustomHeader': 'My custom value' }
+        });
+      }
+    });
+  </script>
+  ```
+
+* `null`/`undefined`，这将导致默认的加载行为。
+
+外部源必须返回浏览器所需的 CORS 标头以允许跨域资源加载。 CDN 通常会默认提供所需的标头。
+
+你只需指定自定义行为的类型。 框架会根据默认的加载行为加载未指定到 `loadBootResource` 的类型。
+
+## <a name="change-the-filename-extension-of-dll-files"></a>更改 DLL 文件的文件扩展名
+
+如果需要更改应用的已发布 .dll 文件的文件扩展名，请按照本部分中的指导进行操作  。
+
+发布应用后，使用 shell 脚本或 DevOps 生成管道将 .dll 文件重命名，以使用其他文件扩展名  。 将 .dll 文件的目标位置设为应用的已发布输出的 wwwroot 目录中（例如 {CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot）    。
+
+在下面的示例中，重命名 .dll 文件，以使用 .bin 文件扩展名   。
+
+在 Windows 上：
+
+```powershell
+dir .\_framework\_bin | rename-item -NewName { $_.name -replace ".dll\b",".bin" }
+((Get-Content .\_framework\blazor.boot.json -Raw) -replace '.dll"','.bin"') | Set-Content .\_framework\blazor.boot.json
+```
+
+在 Linux 或 macOS 上：
+
+```console
+for f in _framework/_bin/*; do mv "$f" "`echo $f | sed -e 's/\.dll\b/.bin/g'`"; done
+sed -i 's/\.dll"/.bin"/g' _framework/blazor.boot.json
+```
+   
+要使用不同于 .bin 的其他文件扩展名，请在前面的命令中替换 .bin   。
+
+要处理压缩的 blazor.boot.json.gz 和 blazor.boot.json.br 文件，请采用以下方法之一   ：
+
+* 删除压缩的 blazor.boot.json.gz 和 blazor.boot.json.br 文件   。 此方法禁用压缩。
+* 重新压缩更新后的 blazor.boot.json 文件  。
+
+以下 Windows 示例使用项目根目录中的 PowerShell 脚本。
+
+ChangeDLLExtensions.ps1:  ：
+
+```powershell
+param([string]$filepath,[string]$tfm)
+dir $filepath\bin\Release\$tfm\wwwroot\_framework\_bin | rename-item -NewName { $_.name -replace ".dll\b",".bin" }
+((Get-Content $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json -Raw) -replace '.dll"','.bin"') | Set-Content $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json
+Remove-Item $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json.gz
+```
+
+在项目文件中，在发布应用后运行脚本：
+
+```xml
+<Target Name="ChangeDLLFileExtensions" AfterTargets="Publish" Condition="'$(Configuration)'=='Release'">
+  <Exec Command="powershell.exe -command &quot;&amp; { .\ChangeDLLExtensions.ps1 '$(SolutionDir)' '$(TargetFramework)'}&quot;" />
+</Target>
+```
+
+若要提供反馈，请访问 [aspnetcore/issues #5477](https://github.com/dotnet/aspnetcore/issues/5477)。

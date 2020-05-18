@@ -5,19 +5,22 @@ description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 05/07/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: e7450ad57acc87500bb977aa8349c6ee009e3bf4
-ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
+ms.openlocfilehash: 81699158a161d0e9c9621235840979ebcd634a7e
+ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/22/2020
-ms.locfileid: "81791457"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82976696"
 ---
-# <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
+# <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
 作者：[Luke Latham](https://github.com/guardrex) 和 [Daniel Roth](https://github.com/danroth27)
 
@@ -27,7 +30,7 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 ### <a name="component-initialization-methods"></a>组件初始化方法
 
-组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*>。 在组件执行异步操作时使用 `OnInitializedAsync`，并应在操作完成后刷新。
+组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>。 在组件执行异步操作时使用 `OnInitializedAsync`，并应在操作完成后刷新。
 
 对于同步操作，替代 `OnInitialized`：
 
@@ -60,7 +63,7 @@ protected override async Task OnInitializedAsync()
 
 ### <a name="before-parameters-are-set"></a>设置参数之前
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> 在呈现树中设置组件的父组件提供的参数：
+<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 在呈现树中设置组件的父组件提供的参数：
 
 ```csharp
 public override async Task SetParametersAsync(ParameterView parameters)
@@ -81,7 +84,7 @@ public override async Task SetParametersAsync(ParameterView parameters)
 
 ### <a name="after-parameters-are-set"></a>设置参数之后
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> 在以下情况下调用：
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> 在以下情况下调用：
 
 * 当组件被初始化并从其父组件收到其第一组参数时。
 * 当父组件重新呈现并提供以下内容时：
@@ -109,7 +112,7 @@ protected override void OnParametersSet()
 
 ### <a name="after-component-render"></a>组件呈现之后
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> 在组件完成呈现后调用。 此时会填充元素和组件引用。 在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 在组件完成呈现后调用。 此时会填充元素和组件引用。 在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。
 
 `OnAfterRenderAsync` 和 `OnAfterRender` 的 `firstRender` 参数：
 
@@ -147,7 +150,7 @@ protected override void OnAfterRender(bool firstRender)
 
 ### <a name="suppress-ui-refreshing"></a>禁止 UI 刷新
 
-替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> 以禁止 UI 刷新。 如果实现返回 `true`，则刷新 UI：
+替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 以禁止 UI 刷新。 如果实现返回 `true`，则刷新 UI：
 
 ```csharp
 protected override bool ShouldRender()
@@ -164,7 +167,7 @@ protected override bool ShouldRender()
 
 ## <a name="state-changes"></a>状态更改
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> 通知组件其状态已更改。 如果适用，调用 `StateHasChanged` 会导致组件重新呈现。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。 如果适用，调用 `StateHasChanged` 会导致组件重新呈现。
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>处理呈现时的不完整异步操作
 
@@ -195,7 +198,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 ```
 
 > [!NOTE]
-> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*>。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
+> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
 
 取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
 
@@ -231,7 +234,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 ```csharp
 public class WeatherForecastService
 {
-    private static readonly string[] _summaries = new[]
+    private static readonly string[] summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild",
         "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -262,7 +265,7 @@ public class WeatherForecastService
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = _summaries[rng.Next(_summaries.Length)]
+                Summary = summaries[rng.Next(summaries.Length)]
             }).ToArray();
         });
     }
@@ -274,3 +277,73 @@ public class WeatherForecastService
 ## <a name="detect-when-the-app-is-prerendering"></a>检测应用何时预呈现
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
+
+## <a name="cancelable-background-work"></a>可取消的后台工作
+
+组件通常会执行长时间运行的后台工作，如进行网络调用 (<xref:System.Net.Http.HttpClient>) 以及与数据库交互。 在几种情况下，最好停止后台工作以节省系统资源。 例如，当用户离开组件时，后台异步操作不会自动停止。
+
+后台工作项可能需要取消的其他原因包括：
+
+* 正在执行的后台任务由错误的输入数据或处理参数启动。
+* 正在执行的一组后台工作项必须替换为一组新的工作项。
+* 必须更改当前正在执行的任务的优先级。
+* 必须关闭应用才能将其重新部署到服务器。
+* 服务器资源受到限制，需要重新计划后台工作项。
+
+要在组件中实现可取消的后台工作模式：
+
+* 使用 <xref:System.Threading.CancellationTokenSource> 和 <xref:System.Threading.CancellationToken>。
+* 在[释放组件](#component-disposal-with-idisposable)时，以及需要随时通过手动取消标记进行取消时，请调用 [CancellationTokenSource.Cancel](xref:System.Threading.CancellationTokenSource.Cancel%2A) 以指示应取消后台工作。
+* 异步调用返回后，对该标记调用 <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A>。
+
+如下示例中：
+
+* `await Task.Delay(5000, cts.Token);` 表示长时间运行的异步后台工作。
+* `BackgroundResourceMethod` 表示如果在调用方法之前释放 `Resource`，则不应启动的长时间运行的后台方法。
+
+```razor
+@implements IDisposable
+@using System.Threading
+
+<button @onclick="LongRunningWork">Trigger long running work</button>
+
+@code {
+    private Resource resource = new Resource();
+    private CancellationTokenSource cts = new CancellationTokenSource();
+
+    protected async Task LongRunningWork()
+    {
+        await Task.Delay(5000, cts.Token);
+
+        cts.Token.ThrowIfCancellationRequested();
+        resource.BackgroundResourceMethod();
+    }
+
+    public void Dispose()
+    {
+        cts.Cancel();
+        cts.Dispose();
+        resource.Dispose();
+    }
+
+    private class Resource : IDisposable
+    {
+        private bool disposed;
+
+        public void BackgroundResourceMethod()
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Resource));
+            }
+            
+            ...
+        }
+        
+        public void Dispose()
+        {
+            disposed = true;
+        }
+    }
+}
+```

@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/26/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 4e990329b7ebcfc9cbbff8a3c9895604a22461d3
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
+ms.openlocfilehash: 3e31be02f21f8c28c1d98d47d9a744b3a8502253
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661700"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003185"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>在 ASP.NET Core 依赖注入
 
@@ -540,6 +546,12 @@ public void ConfigureServices(IServiceCollection services)
 
 DI 是静态/全局对象访问模式的替代方法  。 如果将其与静态对象访问混合使用，则可能无法实现 DI 的优点。
 
+## <a name="recommended-patterns-for-multi-tenancy-in-di"></a>DI 中多租户的推荐模式
+
+[Orchard Core](https://github.com/OrchardCMS/OrchardCore) 提供多租户。 有关详细信息，请参阅 [Orchard Core 文档](https://docs.orchardcore.net/en/dev/)。
+
+请参阅 https://github.com/OrchardCMS/OrchardCore.Samples 上的示例应用，获取有关如何仅使用 Orchard Core Framework 而无需任何 CMS 特定功能来构建模块化和多租户应用的示例。
+
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:mvc/views/dependency-injection>
@@ -950,7 +962,7 @@ public class Program
 * 避免在服务中直接实例化依赖类。 直接实例化将代码耦合到特定实现。
 * 不在应用类中包含过多内容，确保设计规范，并易于测试。
 
-如果一个类似乎有过多的注入依赖关系，这通常表明该类拥有过多的责任并且违反了[单一责任原则 (SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility)。 尝试通过将某些职责移动到一个新类来重构类。 请记住，Razor Pages 页模型类和 MVC 控制器类应关注用户界面问题。 业务规则和数据访问实现细节应保留在适用于这些[分离的关注点](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)的类中。
+如果一个类似乎有过多的注入依赖关系，这通常表明该类拥有过多的责任并且违反了[单一责任原则 (SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility)。 尝试通过将某些职责移动到一个新类来重构类。 请记住，Razor Pages 页面模型类和 MVC 控制器类应关注用户界面问题。 业务规则和数据访问实现细节应保留在适用于这些[分离的关注点](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)的类中。
 
 ### <a name="disposal-of-services"></a>服务处理
 

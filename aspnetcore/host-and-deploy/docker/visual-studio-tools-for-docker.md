@@ -5,13 +5,19 @@ description: 了解如何使用 Visual Studio 工具和用于 Windows 的 Docker
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: ba79f0af8192ad9e8b263d4304ccc0df36c50f00
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 8b62e27033bf0b7c05a70050807970fe0c74e2f8
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440748"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967566"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>带有 ASP.NET Core 的 Visual Studio 容器工具
 
@@ -84,7 +90,11 @@ Dockerfile  ，用作创建最终 Docker 映像的方案，添加到项目根目
 
 Visual Studio 2017 版本 15.7 或更早版本支持 [Docker Compose](https://docs.docker.com/compose/overview/) 作为唯一的容器业务流程解决方案。 可通过“添加” > “Docker 支持”添加 Docker Compose   。
 
-Visual Studio 2017 版本 15.8 或更高版本仅在获得指示时添加业务流程解决方案。 右键单击“解决方案资源管理器”中的项目，然后选择“添加” > “容器业务流程协调程序支持”    。 提供了以下两个不同的选择：[Docker Compose](#docker-compose) 和 [Service Fabric](#service-fabric)。
+Visual Studio 2017 版本 15.8 或更高版本仅在获得指示时添加业务流程解决方案。 右键单击“解决方案资源管理器”中的项目，然后选择“添加” > “容器业务流程协调程序支持”    。 可用选项如下： 
+
+* [Docker Compose](#docker-compose)
+* [Service Fabric](#service-fabric)
+* [Kubernetes/Helm ](https://helm.sh/)
 
 ### <a name="docker-compose"></a>Docker Compose
 

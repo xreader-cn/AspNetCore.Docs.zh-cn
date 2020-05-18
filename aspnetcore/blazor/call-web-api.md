@@ -5,7 +5,7 @@ description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/04/2020
+ms.date: 05/11/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: d823db3688e05f6befefacc9f390e0dcdbf329a7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7ed2d51c0d41a50a2e139d739a0a06cd9f392a83
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767143"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153500"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
@@ -87,37 +87,37 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 * `GetFromJsonAsync` &ndash; 发送 HTTP GET 请求并分析 JSON 响应正文以创建对象。
 
-  在下面的代码中，`_todoItems` 由组件显示。 当组件完成呈现 ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)) 时，会触发 `GetTodoItems` 方法。 有关完整的示例，请参阅示例应用。
+  在下面的代码中，`todoItems` 由组件显示。 当组件完成呈现 ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)) 时，会触发 `GetTodoItems` 方法。 有关完整的示例，请参阅示例应用。
 
   ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
   @code {
-      private TodoItem[] _todoItems;
+      private TodoItem[] todoItems;
 
       protected override async Task OnInitializedAsync() => 
-          _todoItems = await Http.GetFromJsonAsync<TodoItem[]>("api/TodoItems");
+          todoItems = await Http.GetFromJsonAsync<TodoItem[]>("api/TodoItems");
   }
   ```
 
 * `PostAsJsonAsync` &ndash; 发送 HTTP POST 请求（包括 JSON 编码的内容），并分析 JSON 响应正文以创建对象。
 
-  在下面的代码中，`_newItemName` 由组件的绑定元素提供。 通过选择 `<button>` 元素来触发 `AddItem` 方法。 有关完整的示例，请参阅示例应用。
+  在下面的代码中，`newItemName` 由组件的绑定元素提供。 通过选择 `<button>` 元素来触发 `AddItem` 方法。 有关完整的示例，请参阅示例应用。
 
   ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
-  <input @bind="_newItemName" placeholder="New Todo Item" />
+  <input @bind="newItemName" placeholder="New Todo Item" />
   <button @onclick="@AddItem">Add</button>
 
   @code {
-      private string _newItemName;
+      private string newItemName;
 
       private async Task AddItem()
       {
-          var addItem = new TodoItem { Name = _newItemName, IsComplete = false };
+          var addItem = new TodoItem { Name = newItemName, IsComplete = false };
           await Http.PostAsJsonAsync("api/TodoItems", addItem);
       }
   }
@@ -131,28 +131,28 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 * `PutAsJsonAsync` &ndash; 发送 HTTP PUT 请求（包括 JSON 编码的内容）。
 
-  在下面的代码中，`Name` 和 `IsCompleted` 的 `_editItem` 值由组件的绑定元素提供。 当在 UI 的另一个部分中选择项并调用 `EditItem` 时，会设置项的 `Id`。 通过选择 Save `<button>` 元素来触发 `SaveItem` 方法。 有关完整的示例，请参阅示例应用。
+  在下面的代码中，`Name` 和 `IsCompleted` 的 `editItem` 值由组件的绑定元素提供。 当在 UI 的另一个部分中选择项并调用 `EditItem` 时，会设置项的 `Id`。 通过选择 Save `<button>` 元素来触发 `SaveItem` 方法。 有关完整的示例，请参阅示例应用。
 
   ```razor
   @using System.Net.Http
   @inject HttpClient Http
 
-  <input type="checkbox" @bind="_editItem.IsComplete" />
-  <input @bind="_editItem.Name" />
+  <input type="checkbox" @bind="editItem.IsComplete" />
+  <input @bind="editItem.Name" />
   <button @onclick="@SaveItem">Save</button>
 
   @code {
-      private TodoItem _editItem = new TodoItem();
+      private TodoItem editItem = new TodoItem();
 
       private void EditItem(long id)
       {
-          var editItem = _todoItems.Single(i => i.Id == id);
-          _editItem = new TodoItem { Id = editItem.Id, Name = editItem.Name, 
+          var editItem = todoItems.Single(i => i.Id == id);
+          editItem = new TodoItem { Id = editItem.Id, Name = editItem.Name, 
               IsComplete = editItem.IsComplete };
       }
 
       private async Task SaveItem() =>
-          await Http.PutAsJsonAsync($"api/TodoItems/{_editItem.Id}, _editItem);
+          await Http.PutAsJsonAsync($"api/TodoItems/{editItem.Id}, editItem);
   }
   ```
   
@@ -170,16 +170,142 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 @using System.Net.Http
 @inject HttpClient Http
 
-<input @bind="_id" />
+<input @bind="id" />
 <button @onclick="@DeleteItem">Delete</button>
 
 @code {
-    private long _id;
+    private long id;
 
     private async Task DeleteItem() =>
-        await Http.DeleteAsync($"api/TodoItems/{_id}");
+        await Http.DeleteAsync($"api/TodoItems/{id}");
 }
 ```
+
+## <a name="named-httpclient-with-ihttpclientfactory"></a>已命名的 HttpClient 和 IHttpClientFactory
+
+支持已命名的 <xref:System.Net.Http.HttpClient> 的 <xref:System.Net.Http.IHttpClientFactory> 服务和配置。
+
+`Program.Main` (*Program.cs*)：
+
+```csharp
+builder.Services.AddHttpClient("ServerAPI", client => 
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+```
+
+`FetchData` component (*Pages/FetchData.razor*)：
+
+```razor
+@inject IHttpClientFactory ClientFactory
+
+...
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("ServerAPI");
+
+        forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
+            "WeatherForecast");
+    }
+}
+```
+
+## <a name="typed-httpclient"></a>类型化 HttpClient
+
+类型化 <xref:System.Net.Http.HttpClient> 使用应用的一个或多个 <xref:System.Net.Http.HttpClient> 实例（默认或命名）从一个或多个 web API 终结点返回数据。
+
+WeatherForecastClient.cs  ：
+
+```csharp
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+public class WeatherForecastClient
+{
+    private readonly HttpClient client;
+
+    public WeatherForecastClient(HttpClient client)
+    {
+        this.client = client;
+    }
+
+    public async Task<WeatherForecast[]> GetForecastAsync()
+    {
+        var forecasts = new WeatherForecast[0];
+    
+        try
+        {
+            forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
+                "WeatherForecast");
+        }
+        catch
+        {
+            ...
+        }
+    
+        return forecasts;
+    }
+}
+```
+
+`Program.Main` (*Program.cs*)：
+
+```csharp
+builder.Services.AddHttpClient<WeatherForecastClient>(client => 
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+```
+
+组件插入类型化的 `HttpClient` 来调用 web API。
+
+`FetchData` component (*Pages/FetchData.razor*)：
+
+```razor
+@inject WeatherForecastClient Client
+
+...
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Client.GetForecastAsync();
+    }
+}
+```
+
+## <a name="handle-errors"></a>处理错误
+
+如果在与 web API 交互时出现错误，开发人员代码可以处理这些错误。 例如，`GetFromJsonAsync` 需要服务器 API 的 JSON 响应，其中 `Content-Type` 为 `application/json`。 如果响应不是 JSON 格式，则内容验证会引发 <xref:System.NotSupportedException>。
+
+在下面的示例中，天气预测数据请求的 URI 终结点拼写错误。 URI 应该为 `WeatherForecast`，但在单元格中显示为 `WeatherForcast`（缺少“e”）。
+
+`GetFromJsonAsync` 调用需要返回 JSON，但服务器为服务器上的未处理异常返回 HTML，其中 `Content-Type` 为 `text/html`。 由于找不到路径并且中间件无法为请求提供页面或视图，因此服务器上发生未处理的异常。
+
+在客户端上的 `OnInitializedAsync` 中，当响应内容验证为非 JSON 时，将引发 <xref:System.NotSupportedException>。 在 `catch` 块中捕获到异常，其中自定义逻辑可以记录错误或向用户显示友好错误消息：
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+    try
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>(
+            "WeatherForcast");
+    }
+    catch (NotSupportedException exception)
+    {
+        ...
+    }
+}
+```
+
+> [!NOTE]
+> 前面示例代码为了方便本文演示。 即使终结点不存在或服务器上发生未处理的异常，也可将 web API 服务器应用配置为返回 JSON。
+
+有关详细信息，请参阅 <xref:blazor/handle-errors>。
 
 ## <a name="cross-origin-resource-sharing-cors"></a>跨域资源共享 (CORS)
 
@@ -191,8 +317,7 @@ JSON 帮助程序方法将请求发送到 URI（以下示例中的 Web API）并
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:security/blazor/webassembly/index>
-* <xref:security/blazor/webassembly/additional-scenarios>
+* <xref:security/blazor/webassembly/additional-scenarios> &ndash; 包括有关使用 `HttpClient` 进行安全 web API 请求的覆盖范围。
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
 * [Kestrel HTTPS 终结点配置](xref:fundamentals/servers/kestrel#endpoint-configuration)

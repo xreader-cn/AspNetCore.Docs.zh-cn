@@ -5,17 +5,20 @@ description: 了解如何创建和使用 Razor 组件，包括如何绑定到数
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/21/2020
+ms.date: 05/11/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: a9ae84c36716bfc07ae3cf86214e48ad24770401
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: a7009bf1cf99a15f3617b47a904d52f5787b9ce1
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205951"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153519"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -37,15 +40,15 @@ Blazor 应用是使用组件构建的  。 组件是自包含的用户界面 (UI
 
 可以使用以 `@` 开头的 C# 表达式将组件成员作为组件的呈现逻辑的一部分。 例如，通过为字段名称添加 `@` 前缀来呈现 C# 字段。 下面的示例计算并呈现：
 
-* `font-style` 的 CSS 属性值的 `_headingFontStyle`。
-* `<h1>` 元素内容的 `_headingText`。
+* `font-style` 的 CSS 属性值的 `headingFontStyle`。
+* `<h1>` 元素内容的 `headingText`。
 
 ```razor
-<h1 style="font-style:@_headingFontStyle">@_headingText</h1>
+<h1 style="font-style:@headingFontStyle">@headingText</h1>
 
 @code {
-    private string _headingFontStyle = "italic";
-    private string _headingText = "Put on your new Blazor!";
+    private string headingFontStyle = "italic";
+    private string headingText = "Put on your new Blazor!";
 }
 ```
 
@@ -58,13 +61,19 @@ Blazor 应用是使用组件构建的  。 组件是自包含的用户界面 (UI
 * `Counter` 组件的命名空间为 `BlazorApp.Pages`。
 * 组件的完全限定类型名称为 `BlazorApp.Pages.Counter`。
 
-有关详细信息，请参阅[导入组件](#import-components)部分。
-
-若要使用自定义文件夹，请将自定义文件夹的命名空间添加到父组件或应用的 _Imports.razor 文件中  。 例如，当应用的根命名空间为 `BlazorApp` 时，以下命名空间使 Components 文件夹中的组件可用  ：
+对于保存组件的自定义文件夹，将 `using` 语句添加到父组件或应用的 _Imports.razor  文件中。 下面的示例提供“Components”文件夹中的组件  ：
 
 ```razor
 @using BlazorApp.Components
 ```
+
+或者，可以直接引用组件：
+
+```razor
+<BlazorApp.Components.MyCoolComponent />
+```
+
+有关详细信息，请参阅[导入组件](#import-components)部分。
 
 ## <a name="static-assets"></a>静态资产
 
@@ -104,7 +113,7 @@ Components/HeadingComponent.razor  ：
 
 可以通过为应用中的每个可访问组件提供路由模板来实现 Blazor 中的路由。
 
-编译具有 `@page` 指令的 Razor 文件时，将为生成的类提供 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 指定路由模板。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
+编译具有 `@page` 指令的 Razor 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute>。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
 
 ```razor
 @page "/ParentComponent"
@@ -288,22 +297,22 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 * 定义与子组件类型相同的字段。
 
 ```razor
-<MyLoginDialog @ref="_loginDialog" ... />
+<MyLoginDialog @ref="loginDialog" ... />
 
 @code {
-    private MyLoginDialog _loginDialog;
+    private MyLoginDialog loginDialog;
 
     private void OnSomething()
     {
-        _loginDialog.Show();
+        loginDialog.Show();
     }
 }
 ```
 
-呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `_loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
+呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `_loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在这之前，没有任何内容可引用。 若要在组件完成呈现后操作组件引用，请使用 [OnAfterRenderAsync 或 OnAfterRender 方法](xref:blazor/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在这之前，没有任何内容可引用。 若要在组件完成呈现后操作组件引用，请使用 [OnAfterRenderAsync 或 OnAfterRender 方法](xref:blazor/lifecycle#after-component-render)。
 
 要引用循环中的组件，请参阅[捕获对多个相似子组件的引用 (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358)。
 
@@ -314,9 +323,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
-Blazor 使用 `SynchronizationContext` 来强制执行单个逻辑线程。 组件的[生命周期方法](xref:blazor/lifecycle)和 Blazor 引发的任何事件回调都在此 `SynchronizationContext` 上执行。 如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的 `SynchronizationContext`。
+Blazor 使用同步上下文 (`SynchronizationContext`) 来强制执行单个逻辑线程。 组件的[生命周期方法](xref:blazor/lifecycle)和 Blazor 引发的任何事件回调都在此同步上下文上执行。
 
-例如，假设有一个可通知任何侦听组件更新状态的通告程序服务  ：
+Blazor 服务器的同步上下文尝试模拟单线程环境，使其与浏览器（单线程）中的 WebAssembly 模型密切匹配。 在任意给定的时间点，工作只在一个线程上执行，从而造成单个逻辑线程的印象。 不会同时执行两个操作。
+
+如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务  ：
 
 ```csharp
 public class NotifierService
@@ -355,10 +366,10 @@ public class NotifierService
 @inject NotifierService Notifier
 @implements IDisposable
 
-<p>Last update: @_lastNotification.key = @_lastNotification.value</p>
+<p>Last update: @lastNotification.key = @lastNotification.value</p>
 
 @code {
-    private (string key, int value) _lastNotification;
+    private (string key, int value) lastNotification;
 
     protected override void OnInitialized()
     {
@@ -369,7 +380,7 @@ public class NotifierService
     {
         await InvokeAsync(() =>
         {
-            _lastNotification = (key, value);
+            lastNotification = (key, value);
             StateHasChanged();
         });
     }
@@ -381,7 +392,7 @@ public class NotifierService
 }
 ```
 
-在前面的示例中，`NotifierService` 在 Blazor 的 `SynchronizationContext` 之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。
+在前面的示例中，`NotifierService` 在 Blazor 的同步上下文之外调用组件的 `OnNotify` 方法。 `InvokeAsync` 用于切换到正确的上下文，并将呈现排入队列。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>使用 \@ 键控制是否保留元素和组件
 
@@ -516,14 +527,14 @@ public class NotifierService
 以下 `Expander` 组件：
 
 * 接受父项中的 `Expanded` 组件参数值。
-* 将组件参数值分配给 [OnInitialized 事件](xref:blazor/lifecycle#component-initialization-methods)中的私有字段 (`_expanded`)  。
+* 将组件参数值分配给 [OnInitialized 事件](xref:blazor/lifecycle#component-initialization-methods)中的私有字段 (`expanded`)  。
 * 使用私有字段来维持它的内部切换状态。
 
 ```razor
 <div @onclick="@Toggle">
-    Toggle (Expanded = @_expanded)
+    Toggle (Expanded = @expanded)
 
-    @if (_expanded)
+    @if (expanded)
     {
         @ChildContent
     }
@@ -536,16 +547,16 @@ public class NotifierService
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
-    private bool _expanded;
+    private bool expanded;
 
     protected override void OnInitialized()
     {
-        _expanded = Expanded;
+        expanded = Expanded;
     }
 
     private void Toggle()
     {
-        _expanded = !_expanded;
+        expanded = !expanded;
     }
 }
 ```
@@ -566,16 +577,16 @@ Counter.razor  ：
 
 <h1>Counter</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int _currentCount = 0;
+    private int currentCount = 0;
 
     void IncrementCount()
     {
-        _currentCount++;
+        currentCount++;
     }
 }
 ```
@@ -589,7 +600,7 @@ Counter.razor  ：
 
 <h1>Counter</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
@@ -601,11 +612,11 @@ namespace BlazorApp.Pages
 {
     public partial class Counter
     {
-        private int _currentCount = 0;
+        private int currentCount = 0;
 
         void IncrementCount()
         {
-            _currentCount++;
+            currentCount++;
         }
     }
 }
@@ -738,10 +749,10 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 下面的示例演示如何使用 `MarkupString` 类型向组件的呈现输出添加静态 HTML 内容块：
 
 ```html
-@((MarkupString)_myMarkup)
+@((MarkupString)myMarkup)
 
 @code {
-    private string _myMarkup = 
+    private string myMarkup = 
         "<p class='markup'>This is a <em>markup string</em>.</p>";
 }
 ```
@@ -779,7 +790,7 @@ public class ThemeInfo
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="_theme">
+            <CascadingValue Value="theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -789,7 +800,7 @@ public class ThemeInfo
 </div>
 
 @code {
-    private ThemeInfo _theme = new ThemeInfo { ButtonClass = "btn-success" };
+    private ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
 }
 ```
 
@@ -806,7 +817,7 @@ public class ThemeInfo
 
 <h1>Cascading Values & Parameters</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <p>
     <button class="btn" @onclick="IncrementCount">
@@ -821,14 +832,14 @@ public class ThemeInfo
 </p>
 
 @code {
-    private int _currentCount = 0;
+    private int currentCount = 0;
 
     [CascadingParameter]
     protected ThemeInfo ThemeInfo { get; set; }
 
     private void IncrementCount()
     {
-        _currentCount++;
+        currentCount++;
     }
 }
 ```
@@ -836,14 +847,14 @@ public class ThemeInfo
 若要在同一子树内级联多个相同类型的值，请为每个 `CascadingValue` 组件及其相应的 `CascadingParameter` 提供唯一的 `Name` 字符串。 在下面的示例中，两个 `CascadingValue` 组件按名称级联 `MyCascadingType` 的不同实例：
 
 ```razor
-<CascadingValue Value=@_parentCascadeParameter1 Name="CascadeParam1">
+<CascadingValue Value=@parentCascadeParameter1 Name="CascadeParam1">
     <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
         ...
     </CascadingValue>
 </CascadingValue>
 
 @code {
-    private MyCascadingType _parentCascadeParameter1;
+    private MyCascadingType parentCascadeParameter1;
 
     [Parameter]
     public MyCascadingType ParentCascadeParameter2 { get; set; }
@@ -923,13 +934,13 @@ public class ThemeInfo
 下面的示例演示如何在组件中指定 `RenderFragment` 和 `RenderFragment<T>` 值并直接呈现模板。 还可以将呈现片段作为参数传递给[模板化组件](xref:blazor/templated-components)。
 
 ```razor
-@_timeTemplate
+@timeTemplate
 
-@_petTemplate(new Pet { Name = "Rex" })
+@petTemplate(new Pet { Name = "Rex" })
 
 @code {
-    private RenderFragment _timeTemplate = @<p>The time is @DateTime.Now.</p>;
-    private RenderFragment<Pet> _petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
+    private RenderFragment timeTemplate = @<p>The time is @DateTime.Now.</p>;
+    private RenderFragment<Pet> petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
 
     private class Pet
     {

@@ -4,7 +4,7 @@ author: rick-anderson
 description: 了解如何使用 Docker 注册表中发布的 .NET Core Docker 映像。 拉取映像并生成你自己的映像。
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2020
+ms.date: 05/12/2020
 no-loc:
 - Blazor
 - Identity
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: bce04caf20dcf23ab7160066d55a279b29dca1ae
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7394cba07109fce5a8718998b4e2a3b5bf752b0b
+ms.sourcegitcommit: e87dfa08fec0be1008249b1be678e5f79dcc5acb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774101"
+ms.lasthandoff: 05/13/2020
+ms.locfileid: "83382512"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 的 Docker 映像
 
@@ -209,7 +209,6 @@ COPY aspnetapp/. ./aspnetapp/
 WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
 
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
 COPY --from=build /app/aspnetapp/out ./
@@ -245,21 +244,15 @@ COPY aspnetapp/. ./aspnetapp/
 WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
 
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
-::: moniker-end
+如前面的 Dockerfile 中所述，将 `*.csproj` 文件作为不同的层进行复制和还原  。 当 `docker build` 命令生成映像时，它将使用内置缓存。 如果自上次运行 `docker build` 命令后，`*.csproj` 文件未发生更改，则 `dotnet restore` 命令无需再次运行。 但是，将重复使用相应 `dotnet restore` 层的内置缓存。 有关详细信息，请参阅[编写 Dockerfile 的最佳做法](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)。
 
-```dockerfile
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
-WORKDIR /app
-COPY published/aspnetapp.dll ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
-```
+::: moniker-end
 
 ## <a name="additional-resources"></a>其他资源
 
