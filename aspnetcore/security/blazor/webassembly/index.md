@@ -5,7 +5,7 @@ description: 了解如何将 Blazor WebAssemlby 应用作为单页应用程序 (
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/24/2020
+ms.date: 05/14/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: e8ea5e6b6d7e28906e6109e6730ac25f190b4191
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 153e88bb5bd99803f0ac4a0c50213e22a3278cad
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767995"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424529"
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
@@ -57,8 +57,22 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 * 当 Blazor WebAssembly 应用加载登录回叫终结点 (`/authentication/login-callback`) 时，就处理了身份验证进程。
   * 如果身份验证进程成功完成，则用户通过身份验证，可以选择返回该用户请求的原受保护 URL。
   * 如果身份验证进程由于任何原因而失败，会将用户导向登录失败页 (`/authentication/login-failed`)，并显示错误。
+  
+## <a name="implementation-guidance"></a>实施指南
 
-## <a name="additional-resources"></a>其他资源
+此概述下的文章介绍了如何针对特定提供商对 Blazor WebAssembly 应用中的用户进行身份验证  。
 
-* 此概述下的文章介绍了如何针对特定提供商对 Blazor WebAssembly 应用中的用户进行身份验证  。
-* <xref:security/blazor/webassembly/additional-scenarios>
+独立 Blazor WebAssembly 应用：
+
+* [OIDC 提供程序和 WebAssembly 身份验证库的通用指南](xref:security/blazor/webassembly/standalone-with-authentication-library)
+* [Microsoft 帐户](xref:security/blazor/webassembly/standalone-with-microsoft-accounts)
+* [Azure Active Directory (AAD)](xref:security/blazor/webassembly/standalone-with-azure-active-directory)
+* [Azure Active Directory (AAD) B2C](xref:security/blazor/webassembly/standalone-with-azure-active-directory-b2c)
+
+托管的 Blazor WebAssembly 应用：
+
+* [Azure Active Directory (AAD)](xref:security/blazor/webassembly/hosted-with-azure-active-directory)
+* [Azure Active Directory (AAD) B2C](xref:security/blazor/webassembly/hosted-with-azure-active-directory-b2c)
+* [Identity 服务器](xref:security/blazor/webassembly/hosted-with-identity-server)
+
+有关配置方面的更多指南，请参阅 <xref:security/blazor/webassembly/additional-scenarios>。
