@@ -8,8 +8,8 @@
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. 创建新项目。
-1. 在侧栏中的“.NET Core”  下，选择“应用”  。
-1. 在“ASP.NET Core”  下，选择“辅助角色”  。 选择“下一步”  。
+1. 在侧栏中的“.NET Core”下，选择“应用”。
+1. 在“ASP.NET Core”下，选择“辅助角色”。 选择“下一步”  。
 1. 对于“目标框架”，选择“.NET Core 3.0”或更高版本   。 选择“下一步”  。
 1. 在“项目名称”  字段中提供名称。 选择“创建”  。
 
