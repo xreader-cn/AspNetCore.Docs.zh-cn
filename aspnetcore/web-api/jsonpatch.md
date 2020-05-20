@@ -1,24 +1,13 @@
 ---
-title: ASP.NET Core Web API 中的 JSON 修补程序
-author: rick-anderson
-description: 了解如何处理 ASP.NET Core Web API 中的 JSON 修补程序请求。
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/02/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: web-api/jsonpatch
-ms.openlocfilehash: 3a78fa268cce8cff10fedf5814d61ce0e5faaf4b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766662"
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
 ---
+
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的 JSON 修补程序
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Kirk Larkin](https://github.com/serpent5)
@@ -31,8 +20,8 @@ ms.locfileid: "82766662"
 
 若要在应用中启用 JSON 修补程序支持，请完成以下步骤：
 
-1. 安装 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet 包。
-1. 更新项目的`Startup.ConfigureServices`要调用<xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>的方法。 例如：
+1. 安装 [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet 包。
+1. 更新项目的 `Startup.ConfigureServices` 要调用的方法 <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*> 。 例如：
 
     ```csharp
     services
@@ -48,11 +37,11 @@ ms.locfileid: "82766662"
 
 ## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON Patch、AddNewtonsoftJson 和 System.object
 
-`AddNewtonsoftJson`替换用于`System.Text.Json`格式化**所有**JSON 内容的基于的输入和输出格式化程序。 若要使用`Newtonsoft.Json`添加对 JSON 修补程序的支持，而使其他格式化程序保持不变`Startup.ConfigureServices` ，请按如下所示更新项目的方法：
+`AddNewtonsoftJson`替换 `System.Text.Json` 用于格式化**所有**JSON 内容的基于的输入和输出格式化程序。 若要使用添加对 JSON 修补程序的支持 `Newtonsoft.Json` ，而使其他格式化程序保持不变，请按如下所示更新项目的 `Startup.ConfigureServices` 方法：
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
-前面的代码需要`Microsoft.AspNetCore.Mvc.NewtonsoftJson`包和以下`using`语句：
+前面的代码需要 `Microsoft.AspNetCore.Mvc.NewtonsoftJson` 包和以下 `using` 语句：
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet1)]
 
@@ -108,22 +97,152 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="path-syntax"></a>路径语法
 
-操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"`。
+操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"` 。
 
-使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若`add`要到数组的末尾，请使用连字符（`-`）而不是索引号： `/addresses/-`。
+使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要到 `add` 数组的末尾，请使用连字符（ `-` ）而不是索引号： `/addresses/-` 。
 
 ### <a name="operations"></a>操作
 
 下表显示了 [JSON 修补程序规范](https://tools.ietf.org/html/rfc6902)中定义的支持操作：
 
-|操作  | 注释 |
-|-----------|--------------------------------|
-| `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
-| `remove`  | 删除属性或数组元素。 |
-| `replace` | 与在相同位置后跟 `add` 的 `remove` 相同。 |
-| `move`    | 与从后跟 `add` 的源到使用源中的值的目标的 `remove` 相同。 |
-| `copy`    | 与到使用源中的值的目标的 `add` 相同。 |
-| `test`    | 如果 `path` 处的值 = 提供的 `value`，则返回成功状态代码。|
+|操作  | 说明 |
+|---
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+------|---
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+----------------| |`add`     |添加属性或数组元素。 对于 "现有属性：设置值"。 ||`remove`  |删除属性或数组元素。 | |`replace` |与 `remove` 后跟 `add` 同一位置。 | |`move`    |与 `remove` from 源相同，后面是 `add` 使用源中的值。 | |`copy`    |与 `add` 通过源中的值与目标相同。 | |`test`    |如果值为，则返回成功状态代码 `path` `value` 。 |
 
 ## <a name="json-patch-in-aspnet-core"></a>ASP.NET Core 中的 JSON 修补程序
 
@@ -137,11 +256,11 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * 接受 `JsonPatchDocument<T>`，通常带有 `[FromBody]`。
 * 在修补程序文档上调用 `ApplyTo` 以应用更改。
 
-下面是一个示例：
+下面的示例说明：
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
-此示例应用程序中的代码可用于以下`Customer`模型：
+此示例应用程序中的代码可用于以下 `Customer` 模型：
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Customer.cs?name=snippet_Customer)]
 
@@ -194,7 +313,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
     * 如果属性可以为 Null：将其设置为 null。
     * 如果属性不可以为 Null，将其设置为 `default<T>`。
 
-下面的示例将修补文档`CustomerName`集设置为 null `Orders[0]`并删除：
+下面的示例将修补文档集设置 `CustomerName` 为 null 并删除 `Orders[0]` ：
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
@@ -202,7 +321,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 此操作在功能上与后跟 `add` 的 `remove` 相同。
 
-以下示例修补文档设置的值`CustomerName` ，并将替换`Orders[0]`为新`Order`的对象：
+以下示例修补文档设置的值 `CustomerName` ，并将替换 `Orders[0]` 为新的 `Order` 对象：
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
@@ -245,7 +364,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="get-the-code"></a>获取代码
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples)。 （[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples)。 （[下载方法](xref:index#how-to-download-a-sample)）。
 
 若要测试此示例，请使用以下设置运行应用并发送 HTTP 请求：
 
@@ -320,7 +439,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="path-syntax"></a>路径语法
 
-操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"`。
+操作对象的[路径](https://tools.ietf.org/html/rfc6901)属性的级别之间有斜杠。 例如，`"/address/zipCode"` 。
 
 使用从零开始的索引来指定数组元素。 `addresses` 数组的第一个元素将位于 `/addresses/0`。 若要将 `add` 置于数组末尾，请使用连字符 (-)，而不是索引号：`/addresses/-`。
 
@@ -328,14 +447,144 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 下表显示了 [JSON 修补程序规范](https://tools.ietf.org/html/rfc6902)中定义的支持操作：
 
-|操作  | 注释 |
-|-----------|--------------------------------|
-| `add`     | 添加属性或数组元素。 对于现有属性：设置值。|
-| `remove`  | 删除属性或数组元素。 |
-| `replace` | 与在相同位置后跟 `add` 的 `remove` 相同。 |
-| `move`    | 与从后跟 `add` 的源到使用源中的值的目标的 `remove` 相同。 |
-| `copy`    | 与到使用源中的值的目标的 `add` 相同。 |
-| `test`    | 如果 `path` 处的值 = 提供的 `value`，则返回成功状态代码。|
+|操作  | 说明 |
+|---
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+------|---
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+----------------| |`add`     |添加属性或数组元素。 对于 "现有属性：设置值"。 ||`remove`  |删除属性或数组元素。 | |`replace` |与 `remove` 后跟 `add` 同一位置。 | |`move`    |与 `remove` from 源相同，后面是 `add` 使用源中的值。 | |`copy`    |与 `add` 通过源中的值与目标相同。 | |`test`    |如果值为，则返回成功状态代码 `path` `value` 。 |
 
 ## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core 中的 JSON 修补程序
 
@@ -349,7 +598,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 * 接受 `JsonPatchDocument<T>`，通常带有 `[FromBody]`。
 * 在修补程序文档上调用 `ApplyTo` 以应用更改。
 
-下面是一个示例：
+下面的示例说明：
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
@@ -457,7 +706,7 @@ PUT 和 [PATCH](https://tools.ietf.org/html/rfc5789) 方法用于更新现有资
 
 ## <a name="get-the-code"></a>获取代码
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)。 （[如何下载](xref:index#how-to-download-a-sample)）。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)。 （[下载方法](xref:index#how-to-download-a-sample)）。
 
 若要测试此示例，请使用以下设置运行应用并发送 HTTP 请求：
 

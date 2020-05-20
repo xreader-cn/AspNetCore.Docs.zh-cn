@@ -1,32 +1,16 @@
 ---
-title: ASP.NET Core Blazor WebAssembly 其他安全方案
-author: guardrex
-description: 了解如何配置 Blazor WebAssembly 以实现其他安全方案。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/11/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: d460f65e996f1f77136a426b03d6eb548d9e309e
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153475"
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
 ## <a name="attach-tokens-to-outgoing-requests"></a>将令牌附加到传出请求
 
@@ -72,7 +56,7 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
 
 然后，将使用配置的 <xref:System.Net.Http.HttpClient> 来使用简单模式发出授权请求 `try-catch` 。
 
-`FetchData`组件（*Pages/FetchData*）：
+`FetchData` component (*Pages/FetchData.razor*)：
 
 ```csharp
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -98,7 +82,7 @@ protected override async Task OnInitializedAsync()
 
 可以定义一个类型化客户端，用于处理单个类中的所有 HTTP 和标记获取问题。
 
-*WeatherForecastClient.cs*：
+WeatherForecastClient.cs  ：
 
 ```csharp
 using System.Net.Http;
@@ -135,7 +119,7 @@ public class WeatherForecastClient
 }
 ```
 
-`Program.Main`（*Program.cs*）：
+`Program.Main` (*Program.cs*)：
 
 ```csharp
 using System.Net.Http;
@@ -148,7 +132,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 ```
 
-`FetchData`组件（*Pages/FetchData*）：
+`FetchData` component (*Pages/FetchData.razor*)：
 
 ```razor
 @inject WeatherForecastClient Client
@@ -165,7 +149,7 @@ protected override async Task OnInitializedAsync()
 
 可以进一步 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> 为出站 HTTP 请求配置处理程序。
 
-`Program.Main`（*Program.cs*）：
+`Program.Main` (*Program.cs*)：
 
 ```csharp
 builder.Services.AddHttpClient<WeatherForecastClient>(client => client.BaseAddress = new Uri("https://www.example.com/base"))
@@ -176,9 +160,9 @@ builder.Services.AddHttpClient<WeatherForecastClient>(client => client.BaseAddre
 
 ## <a name="unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client"></a>使用安全的默认客户端的应用中未经身份验证或未授权的 web API 请求
 
-如果 Blazor WebAssembly 应用程序通常使用安全默认值 <xref:System.Net.Http.HttpClient> ，则该应用程序还可以通过配置命名的来进行未经身份验证或未授权的 WEB API 请求 <xref:System.Net.Http.HttpClient> ：
+如果 Blazor WebAssembly 应用程序通常使用安全默认值 <xref:System.Net.Http.HttpClient> ，则该应用程序还可以通过配置命名的来进行未经身份验证或未授权的 web API 请求 <xref:System.Net.Http.HttpClient> ：
 
-`Program.Main`（*Program.cs*）：
+`Program.Main` (*Program.cs*)：
 
 ```csharp
 builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient", 
@@ -216,7 +200,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 在下面的示例中，应用程序需要其他 Azure Active Directory （AAD） Microsoft Graph API 作用域来读取用户数据和发送邮件。 在 Azure AAD 门户中添加 Microsoft Graph API 权限后，会在客户端应用中配置其他作用域。
 
-`Program.Main`（*Program.cs*）：
+`Program.Main` (*Program.cs*)：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -260,7 +244,7 @@ if (tokenResult.TryGetToken(out var token))
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>带有 Fetch API 请求选项的 HttpClient 和 HttpRequestMessage
 
-在 Blazor WebAssembly 应用中的 WebAssembly 上运行时， [HttpClient](xref:fundamentals/http-requests)并 <xref:System.Net.Http.HttpRequestMessage> 可用于自定义请求。 例如，可以指定 HTTP 方法和请求标头。 以下组件向 `POST` 服务器上的待办事项列表 API 终结点发出请求，并显示响应正文：
+在 WebAssembly 应用程序的 WebAssembly 上运行时 Blazor ， [HttpClient](xref:fundamentals/http-requests)和 <xref:System.Net.Http.HttpRequestMessage> 可用于自定义请求。 例如，可以指定 HTTP 方法和请求标头。 以下组件向 `POST` 服务器上的待办事项列表 API 终结点发出请求，并显示响应正文：
 
 ```razor
 @page "/todorequest"
@@ -327,11 +311,231 @@ if (tokenResult.TryGetToken(out var token))
 HTTP fetch 请求选项可配置 `HttpRequestMessage` 如下表中所示的扩展方法。
 
 | `HttpRequestMessage`extension 方法 | 提取请求属性 |
-| ------------------------------------- | ---------------------- |
-| `SetBrowserRequestCredentials`        | [凭据](https://developer.mozilla.org/docs/Web/API/Request/credentials) |
-| `SetBrowserRequestCache`              | [区](https://developer.mozilla.org/docs/Web/API/Request/cache) |
-| `SetBrowserRequestMode`               | [mode](https://developer.mozilla.org/docs/Web/API/Request/mode) |
-| `SetBrowserRequestIntegrity`          | [完整性](https://developer.mozilla.org/docs/Web/API/Request/integrity) |
+| ---
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+------------------- |---标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" 作者：说明： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+----------- | |`SetBrowserRequestCredentials`         |  [凭据](https://developer.mozilla.org/docs/Web/API/Request/credentials)| `SetBrowserRequestCache` |               | [缓存](https://developer.mozilla.org/docs/Web/API/Request/cache)| |`SetBrowserRequestMode`                |  [模式](https://developer.mozilla.org/docs/Web/API/Request/mode)| `SetBrowserRequestIntegrity` |           | [完整性](https://developer.mozilla.org/docs/Web/API/Request/integrity) |
 
 您可以使用更通用的扩展方法来设置其他选项 `SetBrowserRequestOption` 。
  
@@ -366,7 +570,7 @@ app.UseCors(policy =>
 
 ## <a name="handle-token-request-errors"></a>处理令牌请求错误
 
-在单页面应用程序（SPA）使用开放 ID Connect （OIDC）对用户进行身份验证时，身份验证状态以本地方式在 SPA 和标识提供程序（IP）中进行维护，其形式为用户提供其凭据的用户。
+当单页面应用程序（SPA）使用 Open ID Connect （OIDC）对用户进行身份验证时，身份验证状态将 Identity 以会话 cookie （设置为用户提供凭据的用户的结果）的形式保留在 SPA 中的本地和提供程序（IP）中。
 
 通常情况下，IP 为用户发出的令牌通常有效一小时，因此，客户端应用程序必须定期获取新令牌。 否则，用户将在授予的令牌过期后注销。 在大多数情况下，OIDC 客户端可以预配新令牌，而无需用户重新进行身份验证，这是因为保留在 IP 中的身份验证状态或 "会话"。
 
@@ -506,17 +710,142 @@ app.UseCors(policy =>
 
 默认情况下， `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 该库使用下表中显示的路由来表示不同的身份验证状态。
 
-| 路由                            | 目的 |
-| -------------------------------- | ------- |
-| `authentication/login`           | 触发登录操作。 |
-| `authentication/login-callback`  | 处理任何登录操作的结果。 |
-| `authentication/login-failed`    | 当登录操作因某种原因失败时显示错误消息。 |
-| `authentication/logout`          | 触发注销操作。 |
-| `authentication/logout-callback` | 处理注销操作的结果。 |
-| `authentication/logout-failed`   | 出于某些原因，在注销操作失败时显示错误消息。 |
-| `authentication/logged-out`      | 指示用户已成功注销。 |
-| `authentication/profile`         | 触发操作以编辑用户配置文件。 |
-| `authentication/register`        | 触发操作以注册新用户。 |
+| 路由                            | 目标 |
+| ---
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+---------------- |---标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" 作者：说明： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+---- | |`authentication/login`           |触发登录操作。 | |`authentication/login-callback`  |处理任何登录操作的结果。 | |`authentication/login-failed`    |当登录操作因某种原因失败时显示错误消息。 | |`authentication/logout`          |触发注销操作。 | |`authentication/logout-callback` |处理注销操作的结果。 | |`authentication/logout-failed`   |出于某些原因，在注销操作失败时显示错误消息。 | |`authentication/logged-out`      |指示用户已成功注销。 | |`authentication/profile`         |触发操作以编辑用户配置文件。 | |`authentication/register`        |触发操作以注册新用户。 |
 
 可以通过配置上表中显示的路由 `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths` 。 设置用于提供自定义路由的选项时，请确认该应用程序具有处理每个路径的路由。
 
@@ -536,7 +865,7 @@ app.UseCors(policy =>
 }
 ```
 
-`Program.Main`（*Program.cs*）：
+`Program.Main` (*Program.cs*)：
 
 ```csharp
 builder.Services.AddApiAuthorization(options => { 
@@ -587,16 +916,213 @@ builder.Services.AddApiAuthorization(options => {
 `RemoteAuthenticatorView`有一个可用于下表中所示的每个身份验证路由的片段。
 
 | 路由                            | 片段                |
-| -------------------------------- | ----------------------- |
-| `authentication/login`           | `<LoggingIn>`           |
-| `authentication/login-callback`  | `<CompletingLoggingIn>` |
-| `authentication/login-failed`    | `<LogInFailed>`         |
-| `authentication/logout`          | `<LogOut>`              |
-| `authentication/logout-callback` | `<CompletingLogOut>`    |
-| `authentication/logout-failed`   | `<LogOutFailed>`        |
-| `authentication/logged-out`      | `<LogOutSucceeded>`     |
-| `authentication/profile`         | `<UserProfile>`         |
-| `authentication/register`        | `<Registering>`         |
+| ---
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+---------------- |---标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" 作者：说明： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+-
+标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
+monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
+------------ | | `authentication/login`           | `<LoggingIn>`           | | `authentication/login-callback`  | `<CompletingLoggingIn>` | | `authentication/login-failed`    | `<LogInFailed>`         | | `authentication/logout`          | `<LogOut>`              | | `authentication/logout-callback` | `<CompletingLogOut>`    | | `authentication/logout-failed`   | `<LogOutFailed>`        | | `authentication/logged-out`      | `<LogOutSucceeded>`     | | `authentication/profile`         | `<UserProfile>`         | | `authentication/register`        | `<Registering>`         |
 
 ## <a name="customize-the-user"></a>自定义用户
 
@@ -829,3 +1355,31 @@ Identity使用第三方登录提供程序进行配置。 获取第三方 API 访
 
 * 服务器可以存储刷新令牌，并确保应用不会失去对第三方资源的访问权限。
 * 应用无法从服务器泄漏可能包含更多敏感权限的访问令牌。
+
+## <a name="use-open-id-connect-oidc-v20-endpoints"></a>使用 Open ID Connect （OIDC） v2.0 终结点
+
+身份验证库和 Blazor 模板使用 OPEN ID Connect （OIDC） v2.0 终结点。 若要使用 v2.0 终结点，请配置 JWT 持有者 <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> 选项。 在下面的示例中，通过将一个段附加到属性，为 v2.0 配置了 AAD `v2.0` `Authority` ：
+
+```csharp
+builder.Services.Configure<JwtBearerOptions>(
+    AzureADDefaults.JwtBearerAuthenticationScheme, 
+    options =>
+    {
+        options.Authority += "/v2.0";
+    });
+```
+
+或者，可以在应用设置（*appsettings*）文件中进行设置：
+
+```json
+{
+  "Local": {
+    "Authority": "https://login.microsoftonline.com/common/oauth2/v2.0/",
+    ...
+  }
+}
+```
+
+如果追踪的段上的 OIDC 不适合应用的提供程序（如使用非 AAD 提供程序），请 `Authority` 直接设置属性。 在 `JwtBearerOptions` 应用设置文件中或在应用设置文件中用键设置属性 `Authority` 。
+
+对于 v2.0 终结点，ID 令牌中的声明列表会发生更改。 有关详细信息，请参阅[为什么要更新到 Microsoft 标识平台（v2.0）？](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)。

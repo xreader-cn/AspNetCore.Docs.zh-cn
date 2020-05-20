@@ -1,32 +1,15 @@
 ---
-title: Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 托管应用
-author: guardrex
-description: ''
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/11/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: e8b1a1f86becb1e9f0affe14a667253bd0ec16bf
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153661"
+标题： " Blazor 使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 的托管应用作者：说明： monikerRange： ms. 作者： ms. 自定义：毫秒：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： 
+
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 托管应用
 
 作者： [Javier Calvarro 使用](https://github.com/javiercn)和[Luke Latham](https://github.com/guardrex)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
 本文介绍如何创建 Blazor 使用[AZURE ACTIVE DIRECTORY （AAD） B2C](/azure/active-directory-b2c/overview)进行身份验证的 WebAssembly 独立应用程序。
 
@@ -34,21 +17,29 @@ ms.locfileid: "83153661"
 
 ### <a name="create-a-tenant"></a>创建租户
 
-按照[教程：创建 Azure Active Directory B2C 租户](/azure/active-directory-b2c/tutorial-create-tenant)中的指导创建 AAD B2C 租户并记录以下信息：
+按照[教程：创建 Azure Active Directory B2C 租户](/azure/active-directory-b2c/tutorial-create-tenant)中的指导创建 AAD B2C 租户。
+
+记录以下信息：
 
 * AAD B2C 实例（例如， `https://contoso.b2clogin.com/` 包含尾随斜杠）
 * AAD B2C 租户域（例如 `contoso.onmicrosoft.com` ）
 
 ### <a name="register-a-server-api-app"></a>注册服务器 API 应用
 
-遵循[教程：在 Azure Active Directory B2C 中注册应用程序](/azure/active-directory-b2c/tutorial-register-applications)中的指导，在 Azure 门户的**Azure Active Directory**应用注册区域中注册*服务器 API 应用*的 AAD 应用  >  **App registrations** ：
+遵循[教程：在 Azure Active Directory B2C 中注册应用程序中](/azure/active-directory-b2c/tutorial-register-applications)的指南，为*服务器 API 应用*注册 AAD 应用：
 
-1. 选择“新注册”。 
+1. 在**Azure Active Directory**  >  **应用注册**中，选择 "**新建注册**"。
 1. 提供应用的**名称**（例如， ** Blazor 服务器 AAD B2C**）。
-1. 对于**支持的帐户类型**，请选择**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。** （多租户）。
+1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
 1. 在这种情况下，*服务器 API 应用*不需要**重定向 uri** ，因此请将下拉集设置为 " **Web** "，并不要输入 "重定向 uri"。
 1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
 1. 选择“注册”  。
+
+记录以下信息：
+
+* *服务器 API 应用*应用程序 ID （客户端 ID）（例如， `11111111-1111-1111-1111-111111111111` ）
+* 目录 ID （租户 ID）（例如， `222222222-2222-2222-2222-222222222222` ）
+* AAD 租户域（例如， `contoso.onmicrosoft.com` ） &ndash; 域可作为已注册应用的 Azure 门户的**品牌**边栏选项卡中的**发布者域**。
 
 在中**公开 API**：
 
@@ -62,33 +53,31 @@ ms.locfileid: "83153661"
 
 记录以下信息：
 
-* *服务器 API 应用*应用程序 ID （客户端 ID）（例如， `11111111-1111-1111-1111-111111111111` ）
 * 应用 ID URI （例如，、 `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111` `api://11111111-1111-1111-1111-111111111111` 或提供的自定义值）
-* 目录 ID （租户 ID）（例如， `222222222-2222-2222-2222-222222222222` ）
-* *服务器 API 应用*应用 ID URI （例如 `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111` ，Azure 门户可能会将值默认为 "客户端 ID"）
 * 默认作用域（例如 `API.Access` ）
 
 ### <a name="register-a-client-app"></a>注册客户端应用
 
-遵循[教程：将应用程序注册到 Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-register-applications)中的指导，在 Azure 门户的**Azure Active Directory**应用注册区域中注册*客户端应用*的 AAD 应用  >  **App registrations** ：
+遵循[教程：将应用程序注册到 Azure Active Directory B2C 中](/azure/active-directory-b2c/tutorial-register-applications)的指南，以便为*客户端应用程序*注册 AAD 应用程序：
 
-1. 选择“新注册”。 
+1. 在**Azure Active Directory**  >  **应用注册**中，选择 "**新建注册**"。
 1. 提供应用的**名称**（例如， ** Blazor 客户端 AAD B2C**）。
-1. 对于**支持的帐户类型**，请选择**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。** （多租户）。
-1. 将 "**重定向 uri** " 下拉状态设置为 " **Web**"，并提供的重定向 uri `https://localhost:5001/authentication/login-callback` 。
+1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
+1. 将 "**重定向 uri** " 下拉项设置为 " **Web**"，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 对于 IIS Express，可以在 "**调试**" 面板的服务器应用的属性中找到随机生成的端口。
 1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
 1. 选择“注册”  。
 
+记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111` ）。
+
 在 "**身份验证**  >  **平台配置**"  >  **Web**：
 
-1. 确认存在的**重定向 URI** `https://localhost:5001/authentication/login-callback` 。
+1. 确认存在的**重定向 URI** `https://localhost:{PORT}/authentication/login-callback` 。
 1. 对于 "**隐式授予**"，选中 "**访问令牌**" 和 " **ID 令牌**" 对应的复选框。
 1. 此体验可接受应用的其余默认值。
 1. 选择“保存”按钮  。
 
 在 " **API 权限**：
 
-1. 确认应用程序具有**Microsoft Graph**的 "  >  **用户**" 权限。
 1. 选择 "**添加权限**"，然后选择 **"我的 api"**。
 1. 从 "**名称**" 列中选择 "*服务器 API 应用*" （例如，" ** Blazor 服务器 AAD B2C**"）。
 1. 打开**API**列表。
@@ -102,23 +91,22 @@ ms.locfileid: "83153661"
 
 至少，选择 "**应用程序声明**  >  **显示名称**用户" 属性以 `context.User.Identity.Name` 在组件中填充 `LoginDisplay` （*Shared/LoginDisplay*）。
 
-记录以下信息：
-
-* 记录*客户端应用*应用程序 Id （客户端 id）（例如 `33333333-3333-3333-3333-333333333333` ）。
-* 记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin` ）。
+记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin` ）。
 
 ### <a name="create-the-app"></a>创建应用程序
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
 ```dotnetcli
-dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
+dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
 ```
 
 若要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径的 output 选项（例如， `-o BlazorSample` ）。 文件夹名称还会成为项目名称的一部分。
 
 > [!NOTE]
 > 将应用 ID URI 传递给 `app-id-uri` 选项，但请注意，可能需要在客户端应用中进行配置更改，这在 "[访问令牌范围](#access-token-scopes)" 部分中进行了介绍。
+>
+> 此外，由托管模板设置的范围 Blazor 可能会重复应用 ID URI 主机。 确认为集合配置的作用域 `DefaultAccessTokenScopes` 在 `Program.Main` *客户端应用*的（*Program.cs*）中是正确的。
 
 ## <a name="server-app-configuration"></a>服务器应用配置
 
@@ -130,7 +118,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI" 
-    Version="{VERSION}" />
+  Version="3.2.0" />
 ```
 
 ### <a name="authentication-service-support"></a>身份验证服务支持
@@ -159,6 +147,10 @@ app.UseAuthorization();
 若要将应用配置为接收来自 `name` 声明类型的值，请在中配置[TokenValidationParameters](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType) <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> `Startup.ConfigureServices` ：
 
 ```csharp
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+...
+
 services.Configure<JwtBearerOptions>(
     AzureADB2CDefaults.JwtBearerAuthenticationScheme, options =>
     {
@@ -173,9 +165,9 @@ services.Configure<JwtBearerOptions>(
 ```json
 {
   "AzureAdB2C": {
-    "Instance": "https://{ORGANIZATION}.b2clogin.com/",
+    "Instance": "https://{TENANT}.b2clogin.com/",
     "ClientId": "{SERVER API APP CLIENT ID}",
-    "Domain": "{DOMAIN}",
+    "Domain": "{TENANT DOMAIN}",
     "SignUpSignInPolicyId": "{SIGN UP OR SIGN IN POLICY}"
   }
 }
@@ -227,10 +219,8 @@ public class WeatherForecastController : ControllerBase
 
 ```xml
 <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" 
-    Version="{VERSION}" />
+  Version="3.2.0" />
 ```
-
-`{VERSION}`将前面的包引用中的替换为 `Microsoft.AspNetCore.Blazor.Templates` 本文中所示的包版本 <xref:blazor/get-started> 。
 
 `Microsoft.Authentication.WebAssembly.Msal`包可传递将 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 包添加到应用。
 
@@ -242,14 +232,14 @@ Program.cs  :
 
 ```csharp
 builder.Services.AddHttpClient("{APP ASSEMBLY}.ServerAPI", client => 
-        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-使用包提供的扩展方法在服务容器中注册对用户进行身份验证的支持 `AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal` 。 此方法设置应用与 Identity 提供程序（IP）交互所需的所有服务。
+使用包提供的扩展方法在服务容器中注册对用户进行身份验证的支持 `AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal` 。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
 
 Program.cs  :
 
@@ -268,7 +258,7 @@ builder.Services.AddMsalAuthentication(options =>
 ```json
 {
   "AzureAdB2C": {
-    "Authority": "{AAD B2C INSTANCE}{DOMAIN}/{SIGN UP OR SIGN IN POLICY}",
+    "Authority": "{AAD B2C INSTANCE}{TENANT DOMAIN}/{SIGN UP OR SIGN IN POLICY}",
     "ClientId": "{CLIENT APP CLIENT ID}",
     "ValidateAuthority": false
   }
@@ -304,18 +294,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-> [!NOTE]
-> 如果 Azure 门户提供了作用域 URI，并且应用在从 API 收到*401 的未经授权*响应时**引发了未处理的异常**，请尝试使用不包括方案和主机的范围 uri。 例如，Azure 门户可能提供以下作用域 URI 格式之一：
->
-> * `https://{ORGANIZATION}.onmicrosoft.com/{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
-> * `api://{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
->
-> 提供不含方案和主机的作用域 URI：
->
-> ```csharp
-> options.ProviderOptions.DefaultAccessTokenScopes.Add(
->     "{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}");
-> ```
+[!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
 
 有关详细信息，请参阅*其他方案*一文中的以下部分：
 
@@ -351,9 +330,12 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用
+## <a name="run-the-app"></a>运行应用程序
 
-从服务器项目运行应用。 使用 Visual Studio 时，请在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单启动应用程序。
+从服务器项目运行应用。 使用 Visual Studio 时，可以执行以下任一操作：
+
+* 将工具栏中的 "**启动项目**" 下拉列表设置为 "*服务器 API 应用*"，然后选择 "**运行**" 按钮。
+* 在**解决方案资源管理器**中选择服务器项目，并在工具栏中选择 "**运行**" 按钮，或从 "**调试**" 菜单中启动该应用程序。
 
 <!-- HOLD
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]

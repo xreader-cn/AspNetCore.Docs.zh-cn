@@ -1,7 +1,7 @@
 ---
 title: razor 语法参考 ASP.NET Core
 author: rick-anderson
-description: 了解将Razor基于服务器的代码嵌入网页的标记语法。
+description: 了解将 Razor 基于服务器的代码嵌入网页的标记语法。
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 3e77b25e2660688d0040d47840e47dab8f260197
-ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
+ms.openlocfilehash: 2831fd2edd029043e9457cd213e32f1a82c2872e
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/09/2020
-ms.locfileid: "83003188"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424425"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core 的 Razor 语法参考
 
@@ -473,7 +473,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-对于 Razor 组件， `@code`是的[`@functions`](#functions)别名，建议使用`@functions`。 允许多个 `@code` 块。
+对于 Razor 组件， `@code` 是的别名， [`@functions`](#functions) 建议使用 `@functions` 。 允许多个 `@code` 块。
 
 ::: moniker-end
 
@@ -707,13 +707,15 @@ Razor 公开了 `Model` 属性，用于访问传递到视图的模型：
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在[Razor 组件](xref:blazor/components)中`@using` ，还控制哪些组件在范围内。
+在[Razor 组件](xref:blazor/components)中， `@using` 还控制哪些组件在范围内。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="directive-attributes"></a>指令属性
+
+Razor 指令特性由带有符号后的保留关键字的隐式表达式表示 `@` 。 指令特性通常会改变元素的分析方式，或实现不同的功能。
 
 ### <a name="attributes"></a>\@attributes
 
@@ -896,51 +898,51 @@ public class Pet
 * section
 * helper（ASP.NET Core 当前不支持）
 
-Razor关键字通过`@(Razor Keyword)` （例如`@(functions)`）进行转义。
+Razor关键字通过 `@(Razor Keyword)` （例如）进行转义 `@(functions)` 。
 
-### <a name="c-razor-keywords"></a>C Razor # 关键字
+### <a name="c-razor-keywords"></a>C # Razor 关键字
 
 * case
 * do
 * default
-* for
+* 针对
 * foreach
 * if
 * else
 * 锁 (lock)
-* switch
+* 开关
 * 尝试
 * catch
 * finally
-* using
+* 借助
 * while
 
-C Razor # 关键字必须与`@(@C# Razor Keyword)` （例如`@(@case)`）进行双转义。 第一个`@`转义Razor分析器。 第二个 `@` 对 C# 分析器转义。
+C # Razor 关键字必须与 `@(@C# Razor Keyword)` （例如）进行双转义 `@(@case)` 。 第一个 `@` 转义 Razor 分析器。 第二个 `@` 对 C# 分析器转义。
 
 ### <a name="reserved-keywords-not-used-by-razor"></a>不使用的保留关键字Razor
 
 * class
 
-## <a name="inspect-the-razor-c-class-generated-for-a-view"></a>检查为Razor视图生成的 c # 类
+## <a name="inspect-the-razor-c-class-generated-for-a-view"></a>检查 Razor 为视图生成的 c # 类
 
 ::: moniker range=">= aspnetcore-2.1"
 
-对于 .NET Core SDK 2.1 或更高版本， [ Razor SDK](xref:razor-pages/sdk)会处理Razor文件的编译。 生成项目时， Razor SDK 会在项目根目录中生成一个 *<build_configuration>/<target_framework_moniker>Razor /* 目录。 *Razor* 目录中的目录结构反映了项目的目录结构。
+对于 .NET Core SDK 2.1 或更高版本， [ Razor SDK](xref:razor-pages/sdk)会处理 Razor 文件的编译。 生成项目时，SDK 会 Razor 在项目根目录中生成一个 *<build_configuration>/<target_framework_moniker> Razor /* 目录。 目录中的目录结构 *Razor* 反映了项目的目录结构。
 
-请考虑面向 .NET Core 2.1 的 ASP.NET Core 2.1 Razor页项目中的以下目录结构：
+请考虑面向 .NET Core 2.1 的 ASP.NET Core 2.1 页项目中的以下目录结构 Razor ：
 
 * **区域**
   * **Admin**
     * **页**
       * *Index.cshtml*
-      * Index.cshtml.cs**
+      * *Index.cshtml.cs*
 * **页**
   * **共享**
     * *_Layout cshtml*
   * _ViewImports.cshtml**
   * *_ViewStart.cshtml*
   * *Index.cshtml*
-  * Index.cshtml.cs**
+  * *Index.cshtml.cs*
 
 在 Debug 配置下生成项目将生成以下 obj 目录****：
 
@@ -959,7 +961,7 @@ C Razor # 关键字必须与`@(@C# Razor Keyword)` （例如`@(@case)`）进行�
           * _ViewStart.g.cshtml.cs**
           * Index.g.cshtml.cs**
 
-若要查看*页面/索引*生成的类，请打开*obj/Debug/netcoreapp 2.1/Razor/Pages/Index.g.cshtml.cs*。
+若要查看*页面/索引*生成的类，请打开*obj/Debug/netcoreapp 2.1/ Razor /Pages/Index.g.cshtml.cs*。
 
 ::: moniker-end
 
@@ -997,4 +999,4 @@ Razor视图引擎为视图执行区分大小写的查找。 但是，实际查�
 
 ## <a name="additional-resources"></a>其他资源
 
-[使用Razor语法 ASP.NET Web 编程简介](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c)提供了许多使用Razor语法编程的示例。
+[使用 Razor ASP.NET Web 编程简介语法](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c)提供了许多用语法编程的示例 Razor 。
