@@ -4,9 +4,9 @@
 
 ## <a name="call-web-api-example"></a>调用 Web API 示例
 
-Web API 示例需要一个基于示例应用运行的 Web API，以用于<a href="https://docs.microsoft.com/aspnet/core/tutorials/first-web-api">使用 ASP.NET Core 创建 Web API</a> 主题，该主题默认使用与 Blazor 示例应用相同的 HTTPS 端口 (5001)。 若要同时在同一台计算机上使用两个应用，请更改 Web API 的端口（例如，使用端口 10000）。 示例应用通过 `https://localhost:10000/api/TodoItems` 向 Web API 发出请求。 如果使用其他 Web API 地址，请更新 Razor 组件的 `ServiceEndpoint` 块中的 `@code` 常量值。</p>
+Web API 示例需要一个基于示例应用运行的 Web API，以用于<a href="https://docs.microsoft.com/aspnet/core/tutorials/first-web-api">使用 ASP.NET Core 创建 Web API</a> 主题，该主题默认使用与 Blazor 示例应用相同的 HTTPS 端口 (5001)。 若要同时在同一台计算机上使用两个应用，请更改 Web API 的端口（例如，使用端口 10000）。 示例应用通过 `https://localhost:10000/api/TodoItems` 向 Web API 发出请求。 如果使用其他 Web API 地址，请更新 Razor 组件的 `@code` 块中的 `ServiceEndpoint` 常量值。</p>
 
-示例应用从 <a href="https://docs.microsoft.com/aspnet/core/security/cors"> 或 </a> 向 Web API 发出`http://localhost:5000`跨域资源共享 (CORS)`https://localhost:5001` 请求。 允许使用凭据（授权 cookie/标头）。 将以下 CORS 中间件配置添加到 Web API 的 `Startup.Configure` 方法：</p>
+示例应用从 `http://localhost:5000` 或 `https://localhost:5001` 向 Web API 发出<a href="https://docs.microsoft.com/aspnet/core/security/cors">跨域资源共享 (CORS)</a> 请求。 允许使用凭据（授权 cookie/标头）。 将以下 CORS 中间件配置添加到 Web API 的 `Startup.Configure` 方法：</p>
 
 ```csharp
 app.UseCors(policy => 

@@ -33,7 +33,7 @@ using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-使用 [ 中的](xref:fundamentals/dependency-injection)依赖关系注入`Startup.ConfigureServices`容器注册数据库上下文。
+使用 `Startup.ConfigureServices` 中的[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -66,7 +66,7 @@ using RazorPagesMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-使用 [ 中的](xref:fundamentals/dependency-injection)依赖关系注入`Startup.ConfigureServices`容器注册数据库上下文。
+使用 `Startup.ConfigureServices` 中的[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
