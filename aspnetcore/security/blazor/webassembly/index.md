@@ -1,32 +1,16 @@
 ---
-title: 保护 ASP.NET Core Blazor WebAssembly
-author: guardrex
-description: 了解如何将 Blazor WebAssemlby 应用作为单页应用程序 (SPA) 进行保护。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/14/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/webassembly/index
-ms.openlocfilehash: 153e88bb5bd99803f0ac4a0c50213e22a3278cad
-ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/15/2020
-ms.locfileid: "83424529"
+title:'Secure ASP.NET Core Blazor WebAssembly' author: description:'Learn how to secure Blazor WebAssemlby apps as Single Page Applications (SPAs).'
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
 Blazor WebAssembly 应用与单页应用程序 (SPA) 的保护方式相同。 可通过多种方式向 SPA 进行用户身份验证，但最常用、最全面的方式是使用基于 [OAuth 2.0 协议](https://oauth.net/)的实现，例如 [Open ID Connect (OIDC)](https://openid.net/connect/)。
 
@@ -60,7 +44,7 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
   
 ## <a name="implementation-guidance"></a>实施指南
 
-此概述下的文章介绍了如何针对特定提供商对 Blazor WebAssembly 应用中的用户进行身份验证  。
+此概述下的文章介绍了如何针对特定提供商对 Blazor WebAssembly 应用中的用户进行身份验证。
 
 独立 Blazor WebAssembly 应用：
 

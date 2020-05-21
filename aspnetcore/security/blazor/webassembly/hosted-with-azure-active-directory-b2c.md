@@ -63,7 +63,7 @@
 1. 在**Azure Active Directory**  >  **应用注册**中，选择 "**新建注册**"。
 1. 提供应用的**名称**（例如， ** Blazor 客户端 AAD B2C**）。
 1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
-1. 将 "**重定向 uri** " 下拉项设置为 " **Web**"，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 对于 IIS Express，可以在 "**调试**" 面板的服务器应用的属性中找到随机生成的端口。
+1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的服务器应用的属性中找到该应用的随机生成的端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 "[创建应用"](#create-the-app)部分中将出现一个批注，以提醒 IIS Express 的用户更新重定向 URI。
 1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
 1. 选择“注册”  。
 
@@ -108,6 +108,13 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 >
 > 此外，由托管模板设置的范围 Blazor 可能会重复应用 ID URI 主机。 确认为集合配置的作用域 `DefaultAccessTokenScopes` 在 `Program.Main` *客户端应用*的（*Program.cs*）中是正确的。
 
+> [!NOTE]
+> 在 Azure 门户中，*客户端应用的***身份验证**  >  **平台配置**  >  **Web**  >  **重定向 URI**为端口5001配置，适用于在 Kestrel 服务器上用默认设置运行的应用。
+>
+> 如果*客户端应用*是在随机 IIS Express 端口上运行，则可以在 "**调试**" 面板中的*服务器应用*的属性中找到该应用的端口。
+>
+> 如果先前未将此端口配置为*客户端应用的*已知端口，请返回到 Azure 门户中的*客户端应用*注册，并更新具有正确端口的重定向 URI。
+
 ## <a name="server-app-configuration"></a>服务器应用配置
 
 *本部分适用于解决方案的**服务器**应用。*
@@ -118,7 +125,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI" 
-  Version="3.2.0" />
+  Version="3.1.4" />
 ```
 
 ### <a name="authentication-service-support"></a>身份验证服务支持

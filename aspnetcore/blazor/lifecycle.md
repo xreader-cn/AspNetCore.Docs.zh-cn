@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: 81699158a161d0e9c9621235840979ebcd634a7e
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
+ms.openlocfilehash: e4fcd86b6e6a84d9e34a83688f9fb80c6907e5f3
+ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976696"
+ms.lasthandoff: 05/16/2020
+ms.locfileid: "83438910"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -50,7 +50,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-[预呈现其内容](xref:blazor/hosting-model-configuration#render-mode)的 Blazor Server 应用调用 `OnInitializedAsync` **_两次_** ：
+[预呈现其内容](xref:blazor/hosting-model-configuration#render-mode)的 Blazor Server 应用调用 `OnInitializedAsync` **_两次_**：
 
 * 在组件最初作为页面的一部分静态呈现时调用一次。
 * 在浏览器重新建立与服务器的连接时调用第二次。
@@ -164,6 +164,8 @@ protected override bool ShouldRender()
 每次呈现组件时都会调用 `ShouldRender`。
 
 即使 `ShouldRender` 被替代，组件也始终在最初呈现。
+
+有关详细信息，请参阅 <xref:performance/blazor/webassembly-best-practices#avoid-unnecessary-component-renders>。
 
 ## <a name="state-changes"></a>状态更改
 

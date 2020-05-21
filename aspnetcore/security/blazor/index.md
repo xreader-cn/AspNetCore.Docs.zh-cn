@@ -1,33 +1,16 @@
 ---
-title: ASP.NET Core Blazor 身份验证和授权
-author: guardrex
-description: 了解 Blazor 身份验证和授权方案。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/04/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/index
-ms.openlocfilehash: d55880265ed1ceedf8f115412e5ac47309521239
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82772890"
+title:'ASP.NET Core Blazor authentication and authorization' author: description:'Learn about Blazor authentication and authorization scenarios.'
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS) 及 [Luke Latham](https://github.com/guardrex)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-> [!NOTE]
-> 对于本文中适用于 Blazor WebAssembly 的指导，ASP.NET Core Blazor WebAssembly 模板必须是 3.2 或更高版本。 如果不使用 Visual Studio 版本 16.6 预览版 2 或更高版本，可按照以下 <xref:blazor/get-started> 中的指导获取最新的 Blazor WebAssembly 模板。
 
 ASP.NET Core 支持 Blazor 应用中的安全配置和管理。
 
@@ -36,7 +19,7 @@ Blazor 服务器和 Blazor WebAssembly 应用的安全方案存在差异。 由�
 * 向用户呈现的 UI 选项（例如，用户可以使用哪些菜单条目）。
 * 应用程序和组件区域的访问规则。
 
-Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项  。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
+Blazor WebAssembly 应用在客户端上运行。 授权仅用于确定要显示的 UI 选项。 由于用户可修改或绕过客户端检查，因此 Blazor WebAssembly 应用无法强制执行授权访问规则。
 
 [Razor Pages 授权约定](xref:security/authorization/razor-pages-authorization) 不适用于可路由的 Razor 组件。 如果非可路由的 Razor 组件[嵌入在页面中](xref:blazor/integrate-components#render-components-from-a-page-or-view)，则页面的授权约定会间接影响 Razor 组件以及其余页面内容。
 
@@ -154,7 +137,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 }
 ```
 
-在 Blazor WebAssembly 应用中，`CustomAuthStateProvider` 服务已在 Program.cs  的 `Main` 中注册：
+在 Blazor WebAssembly 应用中，`CustomAuthStateProvider` 服务已在 Program.cs 的 `Main` 中注册：
 
 ```csharp
 using Microsoft.AspNetCore.Components.Authorization;
@@ -212,7 +195,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
-使用 `App` 组件 (App.razor )  中的 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
+使用 `App` 组件 (App.razor ) 中的 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
 
 ```razor
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -240,20 +223,20 @@ builder.Services.AddAuthorizationCore();
 
 ## <a name="authorization"></a>授权
 
-对用户进行身份验证后，应用授权规则来控制用户可以执行的操作  。
+对用户进行身份验证后，应用授权规则来控制用户可以执行的操作。
 
 通常根据以下几点确定是授权访问还是拒绝访问：
 
 * 已对用户进行身份验证（已登录）。
-* 用户属于某个角色  。
-* 用户具有声明  。
-* 满足策略要求  。
+* 用户属于某个角色。
+* 用户具有声明。
+* 满足策略要求。
 
 上述所有概念都与 ASP.NET Core MVC 或 Razor Pages 应用中的概念相同。 有关 ASP.NET Core 安全性的详细信息，请参阅 [ASP.NET Core 安全性和 Identity](xref:security/index) 下的文章。
 
 ## <a name="authorizeview-component"></a>AuthorizeView 组件
 
-`AuthorizeView` 组件根据用户是否有权查看来选择性地显示 UI。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用  。
+`AuthorizeView` 组件根据用户是否有权查看来选择性地显示 UI。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用。
 
 该组件公开了一个 `AuthenticationState` 类型的 `context` 变量，可以使用该变量来访问有关已登录用户的信息：
 
@@ -279,7 +262,7 @@ builder.Services.AddAuthorizationCore();
 </AuthorizeView>
 ```
 
-可以在 `NavMenu` 组件 (Shared/NavMenu.razor)  中使用 `AuthorizeView` 组件来显示 `NavLink` 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
+可以在 `NavMenu` 组件 (Shared/NavMenu.razor) 中使用 `AuthorizeView` 组件来显示 `NavLink` 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
 
 `<Authorized>` 和 `<NotAuthorized>` 标记的内容可以包括任意项，如其他交互式组件。
 
@@ -292,7 +275,7 @@ builder.Services.AddAuthorizationCore();
 
 ### <a name="role-based-and-policy-based-authorization"></a>基于角色和基于策略的授权
 
-`AuthorizeView` 组件支持基于角色或基于策略的授权   。
+`AuthorizeView` 组件支持基于角色或基于策略的授权 。
 
 对于基于角色的授权，请使用 `Roles` 参数：
 
@@ -320,7 +303,7 @@ builder.Services.AddAuthorizationCore();
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>异步身份验证期间显示的内容
 
-通过 Blazor，可通过异步方式确定身份验证状态  。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求来进行身份验证。
+通过 Blazor，可通过异步方式确定身份验证状态。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求来进行身份验证。
 
 正在进行身份验证时，`AuthorizeView` 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
 
@@ -351,7 +334,7 @@ You can only see this if you're signed in.
 ```
 
 > [!IMPORTANT]
-> 仅对通过 Blazor 路由器到达的 `@page` 组件使用 `[Authorize]`。 授权仅作为路由的一个方面执行，而不是作为页面中呈现的子组件来执行  。 若要授权在页面中显示特定部分，请改用 `AuthorizeView`。
+> 仅对通过 Blazor 路由器到达的 `@page` 组件使用 `[Authorize]`。 授权仅作为路由的一个方面执行，而不是作为页面中呈现的子组件来执行。 若要授权在页面中显示特定部分，请改用 `AuthorizeView`。
 
 `[Authorize]` 属性还支持基于角色或基于策略的授权。 对于基于角色的授权，请使用 `Roles` 参数：
 
@@ -470,7 +453,7 @@ Not authorized.
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
 >
-> 可以通过将这些命名空间添加到应用的 _Imports razor 文件来全局提供它们。 
+> 可以通过将这些命名空间添加到应用的 _Imports razor 文件来全局提供它们。
 
 ## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly 应用中的授权
 
@@ -488,7 +471,7 @@ Not authorized.
 
 * **对于 `authenticationStateTask`，收到了 `null` 值**
 
-项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面 `App` 组件 (App.razor) 中所示  ：
+项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面 `App` 组件 (App.razor) 中所示：
 
 ```razor
 <CascadingAuthenticationState>

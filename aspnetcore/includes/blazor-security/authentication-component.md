@@ -1,4 +1,4 @@
-`Authentication`组件生成的页面（*Pages/Authentication*）定义处理不同的身份验证阶段所需的路由。
+组件生成的页面 `Authentication` （*Pages/Authentication*）定义处理不同的身份验证阶段所需的路由。
 
 `RemoteAuthenticatorView`组件：
 

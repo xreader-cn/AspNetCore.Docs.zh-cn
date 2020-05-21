@@ -19,7 +19,7 @@
 
 1. 提供应用的**名称**（例如， ** Blazor 独立 AAD**）。
 1. 选择**受支持的帐户类型**。 你**只能在此组织目录中选择帐户**。
-1. 将 "**重定向 uri** " 下拉项设置为 " **Web**"，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 对于 IIS Express，可以在 "**调试**" 面板的应用程序属性中找到随机生成的端口。
+1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的应用程序属性中找到应用程序的随机生成端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 本主题稍后会显示一个批注，以提醒 IIS Express 用户更新重定向 URI。
 1. 禁用 "**将**  >  **管理员以免授予 openid 并 offline_access 权限**" 复选框。
 1. 选择“注册”  。
 
@@ -42,6 +42,13 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "{TENA
 ```
 
 若要指定输出位置（如果它不存在，则创建一个项目文件夹），请在命令中包含带有路径的 output 选项（例如， `-o BlazorSample` ）。 文件夹名称还会成为项目名称的一部分。
+
+> [!NOTE]
+> 在 Azure 门户中，将为在**Authentication**  >  **Platform configurations**  >  **Web**  >  Kestrel 服务器上运行的应用配置默认设置，为端口5001配置应用的身份验证平台配置 Web**重定向 URI** 。
+>
+> 如果应用在随机 IIS Express 端口上运行，则可在 "**调试**" 面板的应用属性中找到应用的端口。
+>
+> 如果先前未将此端口配置为应用的已知端口，请返回到 Azure 门户中的应用注册，并更新具有正确端口的重定向 URI。
 
 创建应用后，应该能够：
 
