@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor Server 其他安全方案
-author: guardrex
-description: 了解如何 Blazor 为其他安全方案配置服务器。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/19/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/server/additional-scenarios
-ms.openlocfilehash: 9d26cde4d8964a8285241bb0158d8e6f8d5f8dbc
-ms.sourcegitcommit: 16b3abec1ed70f9a206f0cfa7cf6404eebaf693d
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/17/2020
-ms.locfileid: "83444069"
+标题： "ASP.NET Core Blazor 服务器其他安全方案作者：说明：" 了解如何 Blazor 为其他安全方案配置服务器。 "
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server 其他安全方案
 
@@ -171,7 +159,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
 }
 ```
 
-如果追踪的段上的 OIDC 不适合应用的提供程序（如使用非 AAD 提供程序），请 `Authority` 直接设置属性。 在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 应用设置文件中或在应用设置文件中用键设置属性 `Authority` 。
+如果追踪的段上的 OIDC 不适合应用的提供程序（如使用非 AAD 提供程序），请 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> 直接设置属性。 在 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> 应用设置文件中或在应用设置文件中用键设置属性 <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> 。
 
 ### <a name="code-changes"></a>代码更改
 

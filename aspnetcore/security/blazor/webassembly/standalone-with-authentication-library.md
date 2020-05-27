@@ -4,7 +4,7 @@
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- 'SignalR' uid: 
 
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>Blazor使用身份验证库保护 ASP.NET Core WebAssembly 独立应用
@@ -13,7 +13,7 @@
 
 *对于 Azure Active Directory （AAD）和 Azure Active Directory B2C （AAD B2C），请勿按照本主题中的指导进行操作。请参阅此目录节点中的 AAD 和 AAD B2C 主题。*
 
-若要创建 Blazor 使用库的 WebAssembly 独立应用程序 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` ，请在命令行界面中执行以下命令：
+若要创建 Blazor 使用[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)库的 WebAssembly 独立应用程序，请在命令行界面中执行以下命令：
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual
@@ -25,7 +25,7 @@ dotnet new blazorwasm -au Individual
 
 ## <a name="authentication-package"></a>身份验证包
 
-创建应用以使用单个用户帐户时，应用会 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 在应用的项目文件中自动接收包的包引用。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
+当创建应用程序以使用单个用户帐户时，应用程序会自动在应用程序的项目文件中接收[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)包的包引用。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
 
 如果向应用程序中添加身份验证，请将包手动添加到应用的项目文件中：
 
@@ -37,7 +37,7 @@ dotnet new blazorwasm -au Individual
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用包提供的扩展方法在服务容器中注册对用户进行身份验证的支持 `AddOidcAuthentication` `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
+使用 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A> [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
 
 Program.cs  :
 
@@ -59,11 +59,11 @@ builder.Services.AddOidcAuthentication(options =>
 }
 ```
 
-使用 Open ID Connect （OIDC）提供对独立应用程序的身份验证支持。 `AddOidcAuthentication`方法接受回调来配置使用 OIDC 对应用进行身份验证所需的参数。 配置应用所需的值可以从 OIDC 兼容的 IP 获得。 注册应用时获取值，此操作通常发生在其联机门户中。
+使用 Open ID Connect （OIDC）提供对独立应用程序的身份验证支持。 <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A>方法接受回调来配置使用 OIDC 对应用进行身份验证所需的参数。 配置应用所需的值可以从 OIDC 兼容的 IP 获得。 注册应用时获取值，此操作通常发生在其联机门户中。
 
 ## <a name="access-token-scopes"></a>访问令牌范围
 
-BlazorWebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将访问令牌设置为登录流的一部分，请将作用域添加到的默认令牌范围中 `OidcProviderOptions` ：
+BlazorWebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将访问令牌设置为登录流的一部分，请将作用域添加到的默认令牌范围中 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions> ：
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>

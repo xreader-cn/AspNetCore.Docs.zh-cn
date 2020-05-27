@@ -4,7 +4,7 @@
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- 'SignalR' uid: 
 
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>Blazor使用 Microsoft 帐户保护 ASP.NET Core WebAssembly 独立应用程序
@@ -50,13 +50,13 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "commo
 创建应用后，应该能够：
 
 * 使用 Microsoft 帐户登录到应用。
-* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参见:
+* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参阅：
   * [访问令牌范围](#access-token-scopes)
   * [快速入门：将应用程序配置为公开 Web api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)。
 
 ## <a name="authentication-package"></a>身份验证包
 
-创建应用以使用工作或学校帐户（ `SingleOrg` ）时，应用会自动接收[Microsoft 身份验证库](/azure/active-directory/develop/msal-overview)（）的包引用 `Microsoft.Authentication.WebAssembly.Msal` 。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
+创建应用以使用工作或学校帐户（ `SingleOrg` ）时，应用会自动接收[Microsoft 身份验证库](/azure/active-directory/develop/msal-overview)（[WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)）的包引用。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
 
 如果向应用程序中添加身份验证，请将包手动添加到应用的项目文件中：
 
@@ -65,11 +65,11 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "commo
   Version="3.2.0" />
 ```
 
-`Microsoft.Authentication.WebAssembly.Msal`包可传递将 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 包添加到应用。
+[WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包可向应用程序中添加[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)包，并将其添加到应用中。
 
 ## <a name="authentication-service-support"></a>身份验证服务支持
 
-使用包提供的扩展方法在服务容器中注册对用户进行身份验证的支持 `AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal` 。 此方法设置应用与 Identity 提供程序（IP）交互所需的所有服务。
+使用 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> [Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供程序（IP）交互所需的所有服务。
 
 Program.cs  :
 
@@ -80,7 +80,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-`AddMsalAuthentication`方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 AAD 配置获取配置应用所需的值。
+<xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 AAD 配置获取配置应用所需的值。
 
 配置由*wwwroot/appsettings*文件提供：
 
@@ -108,7 +108,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="access-token-scopes"></a>访问令牌范围
 
-BlazorWebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将访问令牌设置为登录流的一部分，请将作用域添加到的默认访问令牌作用域中 `MsalProviderOptions` ：
+BlazorWebAssembly 模板不会自动配置应用以请求安全 API 的访问令牌。 若要将访问令牌设置为登录流的一部分，请将作用域添加到的默认访问令牌作用域中 <xref:Microsoft.Authentication.WebAssembly.Msal.Models.MsalProviderOptions> ：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

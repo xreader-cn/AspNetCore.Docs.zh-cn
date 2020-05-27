@@ -15,7 +15,7 @@ Cookie 和站点数据可跨应用程序更新保持不变，并干扰测试和�
   * 请确保在应用程序、测试用户或提供程序配置的任何更改之间手动或通过 IDE 关闭浏览器。
 * 在 Visual Studio 中使用自定义命令以 incognito 或 private 模式打开浏览器：
   * 从 Visual Studio 的 "**运行**" 按钮打开 "**浏览方式**" 对话框。
-  * 选择“添加”按钮。 
+  * 选择“添加”按钮。
   * 在 "**程序**" 字段中提供浏览器的路径。
   * 在 "**参数**" 字段中，提供浏览器用来在 incognito 或专用模式下打开的命令行选项以及应用的 URL。 例如：
     * Google Chrome &ndash;`--incognito --new-window https://localhost:5001`
@@ -29,6 +29,10 @@ Cookie 和站点数据可跨应用程序更新保持不变，并干扰测试和�
 
 在对托管的 Blazor 应用进行测试和故障排除时，请确保从**服务器**项目运行应用。 例如，在 Visual Studio 中，确认在用以下任一方法启动应用之前**解决方案资源管理器**中突出显示了服务器项目：
 
-* 选择“运行”按钮。****
+* 选择“运行”按钮。
 * 使用菜单中的 "**调试**" "  >  **开始调试**"。
 * 按 <kbd>F5</kbd>。
+
+### <a name="inspect-the-content-of-a-json-web-token-jwt"></a>检查 JSON Web 令牌的内容（JWT）
+
+若要对 JSON Web 令牌（JWT）进行解码，请使用 Microsoft 的[jwt.ms](https://jwt.ms/)工具。 UI 中的值永远不会离开浏览器。

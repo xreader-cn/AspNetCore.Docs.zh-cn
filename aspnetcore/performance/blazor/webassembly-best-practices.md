@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor WebAssembly 性能最佳做法
-author: pranavkm
-description: 提高 ASP.NET Core Blazor WebAssembly 应用程序的性能并避免出现常见性能问题的提示。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/13/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: performance/blazor/webassembly-best-practices
-ms.openlocfilehash: 9e9b166cb9ce9870a8ff275b72bb12f04b84751b
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83439421"
+标题： "ASP.NET Core Blazor WebAssembly 性能最佳做法作者：说明：在 ASP.NET Core WebAssembly 应用中提高性能 Blazor 并避免常见性能问题的提示。"
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -28,9 +16,9 @@ ms.locfileid: "83439421"
 
 ## <a name="avoid-unnecessary-component-renders"></a>避免不必要的组件呈现
 
-Blazor如果算法感觉组件未发生更改，则其比较算法可避免 rerendering 组件。 重写[ComponentBase ShouldRender](xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A)以精确控制组件呈现。
+Blazor如果算法感觉组件未发生更改，则其比较算法可避免 rerendering 组件。 重写 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> 以对组件呈现进行精细控制。
 
-如果创作一个仅限 UI 的组件，而该组件在初始呈现后永不更改，则将配置 `ShouldRender` 为返回 `false` ：
+如果创作一个仅限 UI 的组件，而该组件在初始呈现后永不更改，则将配置 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 为返回 `false` ：
 
 ```razor
 @code {
@@ -42,9 +30,9 @@ Blazor如果算法感觉组件未发生更改，则其比较算法可避免 rere
 
 如下示例中：
 
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>被重写并设置为该字段的值 `shouldRender` ，这是最初 `false` 加载组件时的值。
-* 选择该按钮时，将 `shouldRender` 设置为 `true` ，这会强制组件诸如此类已更新 `currentCount` 。
-* 在 rerendering 后， <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 将返回的值设置 `shouldRender` 为， `false` 以防止在下一次选中按钮之前 rerendering 进一步。
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>被重写并设置为该字段的值 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> ，这是最初 `false` 加载组件时的值。
+* 选择该按钮时，将 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 设置为 `true` ，这会强制组件诸如此类已更新 `currentCount` 。
+* 在 rerendering 后， <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 将返回的值设置 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 为， `false` 以防止在下一次选中按钮之前 rerendering 进一步。
 
 ```razor
 <p>Current count: @currentCount</p>

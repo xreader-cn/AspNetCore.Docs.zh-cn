@@ -4,7 +4,7 @@
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- 'SignalR' uid: 
 
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a>Blazor使用 Azure Active Directory 保护 ASP.NET Core WebAssembly 托管应用
@@ -40,13 +40,13 @@
 
 在中**公开 API**：
 
-1. 选择“添加范围”。 
+1. 选择“添加范围”。
 1. 选择“保存并继续”。 
 1. 提供**作用域名称**（例如 `API.Access` ）。
 1. 提供**管理员同意显示名称**（例如 `Access API` ）。
 1. 提供**管理员同意说明**（例如 `Allows the app to access server app API endpoints.` ）。
 1. 确认 "**状态**" 设置为 "**已启用**"。
-1. 选择“添加作用域”。 
+1. 选择“添加范围”。
 
 记录以下信息：
 
@@ -80,7 +80,7 @@
 1. 从 "**名称**" 列中选择*服务器 API 应用*（例如， ** Blazor 服务器 AAD**）。
 1. 打开**API**列表。
 1. 启用对 API 的访问（例如 `API.Access` ）。
-1. 选择“添加权限”  。
+1. 选择“添加权限”。
 1. 选择 "**为 {租户名称} 授予管理内容**" 按钮。 请选择“是”以确认。 
 
 ### <a name="create-the-app"></a>创建应用程序
@@ -109,7 +109,7 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 ### <a name="authentication-package"></a>身份验证包
 
-提供对 ASP.NET Core Web Api 的身份验证和授权的支持是由提供的 `Microsoft.AspNetCore.Authentication.AzureAD.UI` ：
+对 ASP.NET Core Web Api 进行身份验证和授权的支持是由[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.AzureAD.UI/)包提供的：
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" 
@@ -118,14 +118,14 @@ dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}"
 
 ### <a name="authentication-service-support"></a>身份验证服务支持
 
-`AddAuthentication`方法在应用中设置身份验证服务，并将 JWT 持有者处理程序配置为默认的身份验证方法。 `AddAzureADBearer`方法在验证 Azure Active Directory 发出的令牌所需的 JWT 持有者处理程序中设置特定参数：
+`AddAuthentication`方法在应用中设置身份验证服务，并将 JWT 持有者处理程序配置为默认的身份验证方法。 <xref:Microsoft.AspNetCore.Authentication.AzureADAuthenticationBuilderExtensions.AddAzureADBearer%2A>方法在验证 Azure Active Directory 发出的令牌所需的 JWT 持有者处理程序中设置特定参数：
 
 ```csharp
 services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
     .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
 ```
 
-`UseAuthentication`并 `UseAuthorization` 确保：
+<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A>并 <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A> 确保：
 
 * 应用尝试分析和验证传入请求的令牌。
 * 任何试图访问受保护资源的请求均不正确。
@@ -183,10 +183,10 @@ services.Configure<JwtBearerOptions>(
 
 ### <a name="weatherforecast-controller"></a>WeatherForecast 控制器
 
-WeatherForecast 控制器（*控制器/WeatherForecastController*）公开受保护的 API，该 API 的 `[Authorize]` 属性应用到控制器。 **务必**要了解：
+WeatherForecast 控制器（*控制器/WeatherForecastController*）公开受保护的 API，该 API 的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性应用到控制器。 **务必**要了解：
 
-* `[Authorize]`此 api 控制器中的属性只是保护此 api 不受未经授权的访问。
-* `[Authorize]`WebAssembly 应用程序中使用的属性 Blazor 仅作为对应用程序的提示，用户应授权该应用程序正常工作。
+* [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)此 api 控制器中的属性只是保护此 api 不受未经授权的访问。
+* [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)WebAssembly 应用程序中使用的属性 Blazor 仅作为对应用程序的提示，用户应授权该应用程序正常工作。
 
 ```csharp
 [Authorize]
@@ -208,7 +208,7 @@ public class WeatherForecastController : ControllerBase
 
 ### <a name="authentication-package"></a>身份验证包
 
-创建应用以使用工作或学校帐户（ `SingleOrg` ）时，应用会自动接收[Microsoft 身份验证库](/azure/active-directory/develop/msal-overview)（）的包引用 `Microsoft.Authentication.WebAssembly.Msal` 。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
+创建应用以使用工作或学校帐户（ `SingleOrg` ）时，应用会自动接收[Microsoft 身份验证库](/azure/active-directory/develop/msal-overview)（[WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)）的包引用。 包提供一组基元，可帮助应用对用户进行身份验证，并获取令牌以调用受保护的 Api。
 
 如果向应用程序中添加身份验证，请将包手动添加到应用的项目文件中：
 
@@ -217,11 +217,11 @@ public class WeatherForecastController : ControllerBase
   Version="3.2.0" />
 ```
 
-`Microsoft.Authentication.WebAssembly.Msal`包可传递将 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` 包添加到应用。
+[WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包可向应用程序中添加[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)包，并将其添加到应用中。
 
 ### <a name="authentication-service-support"></a>身份验证服务支持
 
-添加了对实例的支持 `HttpClient` ，其中包括对服务器项目发出请求时的访问令牌。
+添加了对实例的支持 <xref:System.Net.Http.HttpClient> ，其中包括对服务器项目发出请求时的访问令牌。
 
 Program.cs  :
 
@@ -234,7 +234,7 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-使用包提供的扩展方法在服务容器中注册对用户进行身份验证的支持 `AddMsalAuthentication` `Microsoft.Authentication.WebAssembly.Msal` 。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
+使用 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> [Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
 
 Program.cs  :
 
@@ -246,7 +246,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-`AddMsalAuthentication`方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 Azure 门户 AAD 配置获取配置应用所需的值。
+<xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 Azure 门户 AAD 配置获取配置应用所需的值。
 
 配置由*wwwroot/appsettings*文件提供：
 

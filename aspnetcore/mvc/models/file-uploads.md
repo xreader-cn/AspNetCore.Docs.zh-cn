@@ -1,24 +1,11 @@
 ---
-title: 在 ASP.NET Core 中上传文件
-author: rick-anderson
-description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上传文件。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/03/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: mvc/models/file-uploads
-ms.openlocfilehash: b613ccd8df65e41b86793466a0ed5dc7bf7e8772
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976748"
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -42,9 +29,9 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 * 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
 * 请勿将上传的文件保存在与应用相同的目录树中****。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示（Razor自动对输出进行 HTML 编码）。
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示（自动对 Razor 输出进行 HTML 编码）。
 * 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* 验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
+* 验证是否在服务器上执行了客户端检查。 &dagger;客户端检查很容易规避。
 * 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
@@ -119,7 +106,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。
 
-下面的示例演示如何使用Razor页面窗体上传一个文件（示例应用中的*Pages/BufferedSingleFileUploadPhysical* ）：
+下面的示例演示 Razor 如何使用页面窗体上传一个文件（示例应用中的*Pages/BufferedSingleFileUploadPhysical* ）：
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -248,7 +235,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+下面的示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -346,7 +333,7 @@ public class BufferedSingleFileUploadDb
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。 前面的示例使用绑定模型属性。
 
-`FileUpload`在Razor页面窗体中使用：
+`FileUpload`在 Razor 页面窗体中使用：
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -420,7 +407,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-在示例应用中， `GenerateAntiforgeryTokenCookieAttribute`和`DisableFormValueModelBindingAttribute` `Startup.ConfigureServices`使用[ Razor页面约定](xref:razor-pages/razor-pages-conventions)作为筛选器应用于`/StreamedSingleFileUploadDb`和`/StreamedSingleFileUploadPhysical`的页面应用程序模型：
+在示例应用中， `GenerateAntiforgeryTokenCookieAttribute` 和 `DisableFormValueModelBindingAttribute` `/StreamedSingleFileUploadDb` `/StreamedSingleFileUploadPhysical` `Startup.ConfigureServices` 使用[ Razor 页面约定](xref:razor-pages/razor-pages-conventions)作为筛选器应用于和的页面应用程序模型：
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Startup.cs?name=snippet_AddRazorPages&highlight=8-11,17-20)]
 
@@ -520,7 +507,7 @@ Razor自动对属性值进行 HTML 编码以便显示。 以下代码安全可�
 }
 ```
 
-在之外Razor，始终<xref:System.Net.WebUtility.HtmlEncode*>根据用户的请求来命名内容。
+在之外 Razor ，始终 <xref:System.Net.WebUtility.HtmlEncode*> 根据用户的请求来命名内容。
 
 许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。 提供其他逻辑以符合应用的规范。
 
@@ -563,7 +550,7 @@ if (formFile.Length > _fileSizeLimit)
 
 ### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a>使名称属性值与 POST 方法的参数名称匹配
 
-在发布窗Razor体数据或直接使用 JavaScript 的`FormData`非窗体中，在窗体的元素中指定的`FormData`名称或必须与控制器的操作中参数的名称匹配。
+在 Razor 发布窗体数据或直接使用 JavaScript 的非窗体中 `FormData` ，在窗体的元素中指定的名称或 `FormData` 必须与控制器的操作中参数的名称匹配。
 
 如下示例中：
 
@@ -585,7 +572,7 @@ if (formFile.Length > _fileSizeLimit)
 
 将匹配的名称用于 C# 方法的参数 (`battlePlans`)：
 
-* Razor对于名`Upload`为的页页面处理程序方法：
+* 对于名为的页 Razor 页面处理程序方法 `Upload` ：
 
   ```csharp
   public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> battlePlans)
@@ -616,7 +603,7 @@ public void ConfigureServices(IServiceCollection services)
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。
 
-在Razor页面应用中，将筛选器应用于[convention](xref:razor-pages/razor-pages-conventions)中`Startup.ConfigureServices`的约定：
+在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddRazorPages()
@@ -633,7 +620,7 @@ services.AddRazorPages()
     });
 ```
 
-在Razor页面应用或 MVC 应用中，将筛选器应用于页面模型或操作方法：
+在 Razor 页面应用或 MVC 应用中，将筛选器应用于页面模型或操作方法：
 
 ```csharp
 // Set the limit to 256 MB
@@ -651,20 +638,20 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-        .ConfigureKestrel((context, options) =>
-        {
-            // Handle requests up to 50 MB
-            options.Limits.MaxRequestBodySize = 52428800;
-        })
         .ConfigureWebHostDefaults(webBuilder =>
         {
-            webBuilder.UseStartup<Startup>();
+            webBuilder.ConfigureKestrel((context, options) =>
+            {
+                // Handle requests up to 50 MB
+                options.Limits.MaxRequestBodySize = 52428800;
+            })
+            .UseStartup<Startup>();
         });
 ```
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。
 
-在Razor页面应用中，将筛选器应用于[convention](xref:razor-pages/razor-pages-conventions)中`Startup.ConfigureServices`的约定：
+在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddRazorPages()
@@ -681,7 +668,7 @@ services.AddRazorPages()
     });
 ```
 
-在Razor页面应用或 MVC 应用中，将筛选器应用于页面处理程序类或操作方法：
+在 Razor 页面应用或 MVC 应用中，将筛选器应用于页面处理程序类或操作方法：
 
 ```csharp
 // Handle requests up to 50 MB
@@ -692,7 +679,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-还`RequestSizeLimitAttribute`可以使用[`@attribute`](xref:mvc/views/razor#attribute) Razor指令应用：
+`RequestSizeLimitAttribute`还可以使用 [`@attribute`](xref:mvc/views/razor#attribute) Razor 指令应用：
 
 ```cshtml
 @attribute [RequestSizeLimitAttribute(52428800)]
@@ -720,7 +707,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求\<限制 requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
+此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 
@@ -771,9 +758,9 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 * 将文件上传到专用文件上传区域，最好是非系统驱动器。 使用专用位置便于对上传的文件实施安全限制。 禁用对文件上传位置的执行权限。&dagger;
 * 请勿将上传的文件保存在与应用相同的目录树中****。&dagger;
-* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。&dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示（Razor自动对输出进行 HTML 编码）。
+* 使用应用确定的安全的文件名。 请勿使用用户提供的文件名或上载文件的不受信任的文件名。 &dagger;显示时，HTML 对不受信任的文件名进行编码。 例如，记录文件名或在 UI 中显示（自动对 Razor 输出进行 HTML 编码）。
 * 仅允许应用设计规范的已批准文件扩展名。&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
-* 验证是否在服务器上执行了客户端检查。&dagger;客户端检查很容易规避。
+* 验证是否在服务器上执行了客户端检查。 &dagger;客户端检查很容易规避。
 * 检查已上传文件的大小。 设置大小上限以防止上传大型文件。&dagger;
 * 文件不应该被具有相同名称的上传文件覆盖时，先在数据库或物理存储上检查文件名，然后再上传文件。
 * **先对上传的内容运行病毒/恶意软件扫描程序，然后再存储文件。**
@@ -848,7 +835,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 
 要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。
 
-下面的示例演示如何使用Razor页面窗体上传一个文件（示例应用中的*Pages/BufferedSingleFileUploadPhysical* ）：
+下面的示例演示 Razor 如何使用页面窗体上传一个文件（示例应用中的*Pages/BufferedSingleFileUploadPhysical* ）：
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -977,7 +964,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-如下示例中：
+下面的示例：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -1075,7 +1062,7 @@ public class BufferedSingleFileUploadDb
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Http.IFormFile> 可以直接用作操作方法参数或绑定模型属性。 前面的示例使用绑定模型属性。
 
-`FileUpload`在Razor页面窗体中使用：
+`FileUpload`在 Razor 页面窗体中使用：
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -1149,7 +1136,7 @@ public async Task<IActionResult> OnPostUploadAsync()
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-在示例应用中， `GenerateAntiforgeryTokenCookieAttribute`和`DisableFormValueModelBindingAttribute` `Startup.ConfigureServices`使用[ Razor页面约定](xref:razor-pages/razor-pages-conventions)作为筛选器应用于`/StreamedSingleFileUploadDb`和`/StreamedSingleFileUploadPhysical`的页面应用程序模型：
+在示例应用中， `GenerateAntiforgeryTokenCookieAttribute` 和 `DisableFormValueModelBindingAttribute` `/StreamedSingleFileUploadDb` `/StreamedSingleFileUploadPhysical` `Startup.ConfigureServices` 使用[ Razor 页面约定](xref:razor-pages/razor-pages-conventions)作为筛选器应用于和的页面应用程序模型：
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Startup.cs?name=snippet_AddMvc&highlight=8-11,17-20)]
 
@@ -1249,7 +1236,7 @@ Razor自动对属性值进行 HTML 编码以便显示。 以下代码安全可�
 }
 ```
 
-在之外Razor，始终<xref:System.Net.WebUtility.HtmlEncode*>根据用户的请求来命名内容。
+在之外 Razor ，始终 <xref:System.Net.WebUtility.HtmlEncode*> 根据用户的请求来命名内容。
 
 许多实现都必须包含关于文件是否存在的检查；否则文件会被使用相同名称的文件覆盖。 提供其他逻辑以符合应用的规范。
 
@@ -1292,7 +1279,7 @@ if (formFile.Length > _fileSizeLimit)
 
 ### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a>使名称属性值与 POST 方法的参数名称匹配
 
-在发布窗Razor体数据或直接使用 JavaScript 的`FormData`非窗体中，在窗体的元素中指定的`FormData`名称或必须与控制器的操作中参数的名称匹配。
+在 Razor 发布窗体数据或直接使用 JavaScript 的非窗体中 `FormData` ，在窗体的元素中指定的名称或 `FormData` 必须与控制器的操作中参数的名称匹配。
 
 如下示例中：
 
@@ -1314,7 +1301,7 @@ if (formFile.Length > _fileSizeLimit)
 
 将匹配的名称用于 C# 方法的参数 (`battlePlans`)：
 
-* Razor对于名`Upload`为的页页面处理程序方法：
+* 对于名为的页 Razor 页面处理程序方法 `Upload` ：
 
   ```csharp
   public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> battlePlans)
@@ -1345,7 +1332,7 @@ public void ConfigureServices(IServiceCollection services)
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> 设置单个页面或操作的 <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>。
 
-在Razor页面应用中，将筛选器应用于[convention](xref:razor-pages/razor-pages-conventions)中`Startup.ConfigureServices`的约定：
+在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddMvc()
@@ -1363,7 +1350,7 @@ services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-在Razor页面应用或 MVC 应用中，将筛选器应用于页面模型或操作方法：
+在 Razor 页面应用或 MVC 应用中，将筛选器应用于页面模型或操作方法：
 
 ```csharp
 // Set the limit to 256 MB
@@ -1391,7 +1378,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 使用 <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> 设置单个页面或操作的 [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size)。
 
-在Razor页面应用中，将筛选器应用于[convention](xref:razor-pages/razor-pages-conventions)中`Startup.ConfigureServices`的约定：
+在 Razor 页面应用中，将筛选器应用于中的[约定](xref:razor-pages/razor-pages-conventions) `Startup.ConfigureServices` ：
 
 ```csharp
 services.AddMvc()
@@ -1409,7 +1396,7 @@ services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-在Razor页面应用或 MVC 应用中，将筛选器应用于页面处理程序类或操作方法：
+在 Razor 页面应用或 MVC 应用中，将筛选器应用于页面处理程序类或操作方法：
 
 ```csharp
 // Handle requests up to 50 MB
@@ -1442,7 +1429,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求\<限制 requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
+此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 
