@@ -18,9 +18,9 @@ Cookie 和站点数据可跨应用程序更新保持不变，并干扰测试和�
   * 选择“添加”按钮。
   * 在 "**程序**" 字段中提供浏览器的路径。
   * 在 "**参数**" 字段中，提供浏览器用来在 incognito 或专用模式下打开的命令行选项以及应用的 URL。 例如：
-    * Google Chrome &ndash;`--incognito --new-window https://localhost:5001`
-    * Mozilla Firefox &ndash;`-private -url https://localhost:5001`
-  * 在 "**友好名称**" 字段中提供名称。 例如，`Firefox Auth Testing` 。
+    * Google Chrome：`--incognito --new-window https://localhost:5001`
+    * Mozilla Firefox：`-private -url https://localhost:5001`
+  * 在 "**友好名称**" 字段中提供名称。 例如，`Firefox Auth Testing`。
   * 选择“确定”  按钮。
   * 若要避免必须为应用的每个测试迭代选择浏览器配置文件，请使用 "**设置为默认值**" 按钮将配置文件设置为默认配置文件。
   * 请确保在对应用程序、测试用户或提供程序配置进行任何更改之间的 IDE 关闭浏览器。

@@ -1,44 +1,32 @@
 ---
-title: ASP.NET Core 中的日志记录和诊断SignalR
-author: anurse
-description: 了解如何从 ASP.NET Core 应用收集诊断信息 SignalR 。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: anurse
-ms.custom: signalr
-ms.date: 11/12/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: signalr/diagnostics
-ms.openlocfilehash: 0dda4fb55b1e2275d9cdb2af0b55824b12121dee
-ms.sourcegitcommit: 16b3abec1ed70f9a206f0cfa7cf6404eebaf693d
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/17/2020
-ms.locfileid: "83444212"
+标题： "ASP.NET Core" 作者中的日志记录和诊断 SignalR ：说明： "了解如何从 ASP.NET Core 应用收集诊断 SignalR 。"
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR 中的日志记录和诊断
+# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
 
 作者： [Andrew Stanton](https://twitter.com/anurse)
 
-本文介绍如何从 ASP.NET Core SignalR 应用收集诊断信息，以帮助解决问题。
+本文提供了从 ASP.NET Core 应用收集诊断 SignalR 信息以帮助解决问题的指南。
 
 ## <a name="server-side-logging"></a>服务器端日志记录
 
 > [!WARNING]
 > 服务器端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
 
-由于 SignalR 是 ASP.NET Core 的一部分，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，SignalR 记录的信息非常小，但这可以进行配置。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅有关[ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)的文档。
+由于 SignalR 是 ASP.NET Core 的一部分，因此它使用 ASP.NET Core 日志记录系统。 在默认配置中，只 SignalR 记录很少信息，但可以配置这种信息。 有关配置 ASP.NET Core 日志记录的详细信息，请参阅有关[ASP.NET Core 日志记录](xref:fundamentals/logging/index#configuration)的文档。
 
-SignalR 使用两个记录器类别：
+SignalR使用两个记录器类别：
 
-* `Microsoft.AspNetCore.SignalR`&ndash;对于与集线器协议相关的日志，激活集线器，调用方法，以及其他与中心相关的活动。
-* `Microsoft.AspNetCore.Http.Connections`&ndash;对于与传输相关的日志，例如 websocket、长轮询和服务器发送事件以及低级别 SignalR 基础结构。
+* `Microsoft.AspNetCore.SignalR`：用于与集线器协议相关的日志、激活集线器、调用方法以及其他与中心相关的活动。
+* `Microsoft.AspNetCore.Http.Connections`：用于与传输相关的日志，例如 Websocket、长轮询、服务器发送事件和低级别 SignalR 基础结构。
 
-若要从 SignalR 启用详细日志，请 `Debug` 通过将以下项添加到*appsettings*文件中的子部分，将上述两个前缀配置为文件中的级别 `LogLevel` `Logging` ：
+若要从中启用详细日志 SignalR ，请 `Debug` 通过将以下项添加到*appsettings*文件 `LogLevel` 中的子部分，将上述两个前缀配置为级别 `Logging` ：
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -61,7 +49,7 @@ SignalR 使用两个记录器类别：
 
 ### <a name="as-a-console-app-outside-iis"></a>作为 IIS 外部的控制台应用
 
-如果在控制台应用中运行，则默认情况下应启用[控制台记录器](xref:fundamentals/logging/index#console)。 SignalR 日志将显示在控制台中。
+如果在控制台应用中运行，则默认情况下应启用[控制台记录器](xref:fundamentals/logging/index#console)。 SignalR日志将显示在控制台中。
 
 ### <a name="within-iis-express-from-visual-studio"></a>在 Visual Studio IIS Express 中
 
@@ -89,14 +77,34 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 下表显示了可用于 JavaScript 客户端的日志级别。 将日志级别设置为这些值之一，可以在表中对该级别和其之上的所有级别进行日志记录。
 
 | 级别 | 说明 |
-| ----- | ----------- |
-| `None` | 不记录任何消息。 |
-| `Critical` | 指示整个应用程序中的失败的消息。 |
-| `Error` | 指示当前操作失败的消息。 |
-| `Warning` | 指示非严重问题的消息。 |
-| `Information` | 信息性消息。 |
-| `Debug` | 诊断消息对于调试很有用。 |
-| `Trace` | 旨在诊断特定问题的详细诊断消息。 |
+| ----- | ---
+标题： "ASP.NET Core" 作者中的日志记录和诊断 SignalR ：说明： "了解如何从 ASP.NET Core 应用收集诊断 SignalR 。"
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题： "ASP.NET Core" 作者中的日志记录和诊断 SignalR ：说明： "了解如何从 ASP.NET Core 应用收集诊断 SignalR 。"
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题： "ASP.NET Core" 作者中的日志记录和诊断 SignalR ：说明： "了解如何从 ASP.NET Core 应用收集诊断 SignalR 。"
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | |`None` |不记录任何消息。 | |`Critical` |指示整个应用程序中的失败的消息。 | |`Error` |指示当前操作失败的消息。 | |`Warning` |指示非严重问题的消息。 | |`Information` |信息性消息。 | |`Debug` |诊断消息对于调试很有用。 | |`Trace` |旨在诊断特定问题的详细诊断消息。 |
 
 配置详细级别后，日志将写入浏览器控制台（或 NodeJS 应用中的标准输出）。
 

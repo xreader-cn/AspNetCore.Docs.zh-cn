@@ -92,7 +92,7 @@ endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"
 > 使用 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> 和中间件配置路由 <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> 。 使用控制器：
 >
 > * <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>在内部调用 `UseEndpoints` ，以映射[属性路由](#ar)控制器。
-> * 调用 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> 或 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> 以映射[传统路由](#cr)控制器。
+> * 调用 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> 或 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> 以映射[逆路由](#cr)控制器和[属性路由](#ar)控制器。
 
 <a name="routing-conventional-ref-label"></a>
 <a name="crd"></a>
@@ -257,7 +257,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 属性路由使用一组属性将操作直接映射到路由模板。 下面 `StartUp.Configure` 是 REST API 的典型代码，并在下一个示例中使用：
 
-[!code-csharp[](routing/samples/3.x/main/StartupApi.cs?name=snippet)]
+[!code-csharp[](routing/samples/3.x/main/StartupAPI.cs?name=snippet)]
 
 在前面的代码中，在 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> 中调用， `UseEndpoints` 以映射属性路由控制器。
 
@@ -272,10 +272,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 此示例突出显示了属性路由与[传统路由](#cr)之间的主要编程区别。 属性路由需要更多输入才能指定路由。 传统的默认路由会更简洁地处理路由。 但是，特性路由允许和要求精确控制哪些路由模板适用于每个[操作](#action)。
 
-在以下代码中：
-
-* 控制器名称和操作名称**不**扮演操作匹配的角色。
-* 与上一示例中的 Url 匹配：
+使用属性路由时，控制器和操作名称不会播放任何操作，除非使用[令牌替换](#routing-token-replacement-templates-ref-label)。 下面的示例匹配与上一示例相同的 Url：
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/MyDemoController.cs?name=snippet)]
 
@@ -416,7 +413,7 @@ REST Api 应使用属性路由将应用功能建模为一组资源，其中的�
 
 下表说明了 `[Route]` 上述代码中的属性：
 
-| Attribute               | 结合`[Route("Home")]` | 定义路由模板 |
+| 属性               | 结合`[Route("Home")]` | 定义路由模板 |
 | ---
 标题：作者：说明： ms-chap： ms. 日期：非 loc：
 - 'Blazor'
@@ -656,8 +653,6 @@ AmbiguousMatchException: The request matched multiple endpoints. Matches:
 
 在上面的代码中， `[HttpPost("product/{id:int}")]` 应用路由约束。 此 `ProductsController.ShowProduct` 操作仅由类似的 URL 路径进行匹配 `/product/3` 。 路由模板部分 `{id:int}` 仅限制整数。
 
-[!code-csharp[](routing/samples/3.x/main/Controllers/HomeController.cs?name=snippet24)]
-
 有关路由模板语法的详细说明，请参阅[路由模板参考](xref:fundamentals/routing#route-template-reference)。
 
 <a name="routing-cust-rt-attr-irt-ref-label"></a>
@@ -806,7 +801,7 @@ result: /UrlGeneration/Destination
 
 你可能希望在默认路由中遇到此问题 `{controller}/{action}/{id?}` 。 此问题在实践中很罕见，因为 `Url.Action` 始终显式指定 `controller` 和 `action` 值。
 
-多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })` 。 路由值对象：
+多个[Url 重载。操作](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*)采用路由值对象为除和以外的路由参数提供值 `controller` `action` 。 路由值对象经常与一起使用 `id` 。 例如，`Url.Action("Buy", "Products", new { id = 17 })`。 路由值对象：
 
 * 按约定通常是匿名类型的对象。
 * 可以是， `IDictionary<>` 也可以是[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)。

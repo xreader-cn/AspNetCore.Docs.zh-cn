@@ -1,11 +1,11 @@
 ---
 标题： "对 ASP.NET Core 的作者强制实施内容安全策略 Blazor ：说明：" 了解如何结合使用内容安全策略（CSP）与 ASP.NET Core 的 Blazor 应用程序来帮助防范跨站点脚本（XSS）攻击。
-monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- 'SignalR' uid: 
 
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>为 ASP.NET Core 强制实施内容安全策略Blazor
@@ -28,14 +28,14 @@ monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
 
 至少，为应用指定以下指令和源 Blazor 。 根据需要添加其他指令和源。 以下指令用于本文的[应用策略](#apply-the-policy)部分，其中 Blazor 提供了 WebAssembly 和服务器的示例安全策略 Blazor ：
 
-* [基-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri) &ndash;限制页标记的 Url `<base>` 。 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
-* [块-全部混合内容](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) &ndash;阻止加载混合 HTTP 和 HTTPS 内容。
-* [默认值-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src) &ndash;指示策略未显式指定的源指令的回退。 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
-* [img-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/img-src) &ndash;指示图像的有效源。
+* [基 uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri)：限制页标记的 url `<base>` 。 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
+* [块所有混合内容](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content)：阻止加载混合 HTTP 和 HTTPS 内容。
+* [默认值-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src)：指示策略未显式指定的源指令的回退。 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
+* [img-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/img-src)：指示映像的有效源。
   * 指定 `data:` 以允许从 url 加载图像 `data:` 。
   * 指定 `https:` 以允许从 HTTPS 终结点加载图像。
-* [对象-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src) &ndash;指示 `<object>` 、和标记的有效源 `<embed>` `<applet>` 。 指定 `none` 以防止所有 URL 源。
-* [脚本-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) &ndash;指示脚本的有效源。
+* [对象-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src)：指示 `<object>` 、 `<embed>` 和标记的有效源 `<applet>` 。 指定 `none` 以防止所有 URL 源。
+* [脚本-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src)：指示脚本的有效源。
   * 指定 `https://stackpath.bootstrapcdn.com/` 启动脚本的主机源。
   * 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
   * 在 Blazor WebAssembly 应用中：
@@ -45,11 +45,11 @@ monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
     * 指定 `unsafe-eval` 使用 `eval()` 和方法从字符串创建代码。
   * 在 Blazor 服务器应用中，指定为 `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` 样式表执行回退检测的内联脚本的哈希。
-* [样式-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src) &ndash;指示样式表的有效源。
+* [样式-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src)：指示样式表的有效源。
   * 指定 `https://stackpath.bootstrapcdn.com/` 用于启动样式表的主机源。
   * 指定 `self` 以指示应用程序的源（包括方案和端口号）是有效的源。
   * 指定 `unsafe-inline` 允许使用内联样式。 服务器应用中的 UI 需要内联声明， Blazor 以便在初始请求后重新连接客户端和服务器。 在将来的版本中，可能会删除内联样式，这样 `unsafe-inline` 就不再需要。
-* [升级-不安全-请求](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests) &ndash;指示应通过 HTTPS 安全地获取来自不安全（HTTP）源的内容 Url。
+* [upgrade-不安全-请求](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests)：表示不应通过 HTTPS 安全地获取来自不安全（HTTP）源的内容 url。
 
 除 Microsoft Internet Explorer 外，所有浏览器都支持前面的指令。
 
@@ -140,7 +140,7 @@ monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
 
 每次发布时测试和更新应用的策略。
 
-## <a name="troubleshoot"></a>故障排除
+## <a name="troubleshoot"></a>疑难解答
 
 * 浏览器的 "开发人员工具" 控制台中会出现错误。 浏览器提供以下信息：
   * 不符合策略的元素。

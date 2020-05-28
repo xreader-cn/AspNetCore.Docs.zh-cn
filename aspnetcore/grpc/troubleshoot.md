@@ -1,24 +1,11 @@
 ---
-title: 对 .NET Core 上的 gRPC 进行故障排除
-author: jamesnk
-description: 排查使用 .NET Core 上的 gRPC 时遇到的错误。
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.custom: mvc
-ms.date: 10/16/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/troubleshoot
-ms.openlocfilehash: 6f496b71c86762b35bdb3de33405a5aea6d8f8a5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775370"
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>对 .NET Core 上的 gRPC 进行故障排除
 
@@ -66,14 +53,13 @@ static async Task Main(string[] args)
 如果要在另一台计算机上调用 gRPC 服务且无法信任该证书，则可以将 gRPC 客户端配置为忽略无效的证书。 下面的代码使用 [HttpClientHandler.ServerCertificateCustomValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback) 来允许在没有受信任证书的情况下进行调用：
 
 ```csharp
-var httpClientHandler = new HttpClientHandler();
+var httpHandler = new HttpClientHandler();
 // Return `true` to allow certificates that are untrusted/invalid
-httpClientHandler.ServerCertificateCustomValidationCallback = 
+httpHandler.ServerCertificateCustomValidationCallback = 
     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-var httpClient = new HttpClient(httpClientHandler);
 
 var channel = GrpcChannel.ForAddress("https://localhost:5001",
-    new GrpcChannelOptions { HttpClient = httpClient });
+    new GrpcChannelOptions { HttpHandler = httpHandler });
 var client = new Greet.GreeterClient(channel);
 ```
 
@@ -100,9 +86,9 @@ Kestrel 不支持 macOS 和更早的 Windows 版本（如 Windows 7）上的带�
 
 > 无法绑定到 IPv4 环回接口上的 https://localhost:5001 ：“由于缺少 ALPN 支持，macOS 不支持使用 TLS 的 HTTP/2。”。
 
-若要解决此问题，请将 Kestrel 和 gRPC 客户端配置为使用不带有 TLS 的 HTTP/2  。 应仅在开发过程中执行此操作。 如果不使用 TLS，将会在不加密的情况下发送 gRPC 消息。
+若要解决此问题，请将 Kestrel 和 gRPC 客户端配置为使用不带有 TLS 的 HTTP/2。 应仅在开发过程中执行此操作。 如果不使用 TLS，将会在不加密的情况下发送 gRPC 消息。
 
-Kestrel 必须在 Program.cs 中配置不带有 TLS 的 HTTP/2 终结点  ：
+Kestrel 必须在 Program.cs 中配置不带有 TLS 的 HTTP/2 终结点：
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -130,7 +116,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 具体客户端和服务基类的 gRPC 代码生成需要从项目引用 protobuf 文件和工具。 必须包括：
 
-* 要在 `<Protobuf>` 项目组中使用的 .proto 文件  。 [导入的 .proto 文件](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions)必须由项目引用  。
+* 要在 `<Protobuf>` 项目组中使用的 .proto 文件。 [导入的 .proto 文件](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions)必须由项目引用。
 * 对 gRPC 工具包 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 的包引用。
 
 有关生成 gRPC C# 资产的详细信息，请参阅 <xref:grpc/basics>。
@@ -160,16 +146,16 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 ## <a name="wpf-projects-unable-to-generate-grpc-c-assets-from-proto-files"></a>WPF 项目无法从 .proto 文件生成 gRPC C# 资产
 
-WPF 项目存在一个[已知问题](https://github.com/dotnet/wpf/issues/810)，其阻止 gRPC 代码生成正常运行。 在 WPF 项目中通过引用 `Grpc.Tools` 和 .proto 文件生成的任何 gRPC 类型在使用时都将创建编译错误  ：
+WPF 项目存在一个[已知问题](https://github.com/dotnet/wpf/issues/810)，其阻止 gRPC 代码生成正常运行。 在 WPF 项目中通过引用 `Grpc.Tools` 和 .proto 文件生成的任何 gRPC 类型在使用时都将创建编译错误：
 
 > 错误 CS0246：找不到类型名称或命名空间名称 ’MyGrpcServices’ (是否缺少 using 指令或程序集引用?)
 
 可以通过以下方式解决此问题：
 
 1. 创建新的 .NET Core 类库项目。
-2. 在新项目中，添加引用以[从 \*.proto 文件启用 C# 代码生成](xref:grpc/basics#generated-c-assets)  ：
+2. 在新项目中，添加引用以[从 \*.proto 文件启用 C# 代码生成](xref:grpc/basics#generated-c-assets)：
     * 将包引用添加到 [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) 包。
-    * 将 \*.proto  文件添加到 `<Protobuf>` 项目组。
+    * 将 \*.proto 文件添加到 `<Protobuf>` 项目组。
 3. 在 WPF 应用程序中，添加对新项目的引用。
 
 WPF 应用程序可以使用来自新类库项目的 gRPC 生成的类型。

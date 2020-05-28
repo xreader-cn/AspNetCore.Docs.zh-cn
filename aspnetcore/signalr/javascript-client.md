@@ -1,11 +1,11 @@
 ---
 标题： "ASP.NET Core SignalR javascript 客户端" author：说明： "ASP.NET Core SignalR JavaScript 客户端概述"。
-monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- 'SignalR' uid: 
 
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript 客户端
@@ -141,10 +141,10 @@ SignalR通过匹配和中定义的方法名称和参数，确定要调用的客�
 
 设置客户端日志跟踪，方法是在建立连接时将记录器和事件类型传递给日志。 记录的消息具有指定的日志级别和更高的日志级别。 可用的日志级别如下所示：
 
-* `signalR.LogLevel.Error`&ndash;错误消息。 `Error`仅记录消息。
-* `signalR.LogLevel.Warning`&ndash;有关潜在错误的警告消息。 日志 `Warning` 和 `Error` 消息。
-* `signalR.LogLevel.Information`&ndash;无错误的状态消息。 日志 `Information` 、 `Warning` 和 `Error` 消息。
-* `signalR.LogLevel.Trace`&ndash;跟踪消息。 记录所有内容，包括中心和客户端之间传输的数据。
+* `signalR.LogLevel.Error`：错误消息。 `Error`仅记录消息。
+* `signalR.LogLevel.Warning`：有关潜在错误的警告消息。 日志 `Warning` 和 `Error` 消息。
+* `signalR.LogLevel.Information`：无错误的状态消息。 日志 `Information` 、 `Warning` 和 `Error` 消息。
+* `signalR.LogLevel.Trace`：跟踪消息。 记录所有内容，包括中心和客户端之间传输的数据。
 
 使用[HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder)上的[configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging)方法配置日志级别。 消息将记录到浏览器控制台。
 

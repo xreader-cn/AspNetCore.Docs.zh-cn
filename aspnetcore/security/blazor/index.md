@@ -39,7 +39,7 @@ Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份�
 * 在应用的项目文件中添加 [Microsoft.AspNetCore.Components.Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
 * 在应用的 *_Imports.razor* 文件中添加 `Microsoft.AspNetCore.Components.Authorization` 命名空间。
 
-为处理身份验证，需实现内置或自定义 `AuthenticationStateProvider` 服务，以下几节对此进行了介绍。
+为处理身份验证，需实现内置或自定义 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务，以下几节对此进行了介绍。
 
 有关创建应用和配置的详细信息，请参阅 <xref:security/blazor/webassembly/index>。
 
@@ -51,13 +51,13 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider 服务
 
-内置的 `AuthenticationStateProvider` 服务可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 身份验证状态就是这样与现有 ASP.NET Core 身份验证机制集成。
+内置的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务可从 ASP.NET Core 的 `HttpContext.User` 获取身份验证状态数据。 身份验证状态就是这样与现有 ASP.NET Core 身份验证机制集成。
 
-`AuthenticationStateProvider` 是 `AuthorizeView` 组件和 `CascadingAuthenticationState` 组件用于获取身份验证状态的基础服务。
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 是 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件用于获取身份验证状态的基础服务。
 
-通常不直接使用 `AuthenticationStateProvider`。 使用本文后面介绍的 [AuthorizeView 组件](#authorizeview-component) 或 [Task\<AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) 方法。 直接使用 `AuthenticationStateProvider` 的主要缺点是，如果基础身份验证状态数据发生更改，不会自动通知组件。
+通常不直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>。 使用本文后面介绍的 [AuthorizeView 组件](#authorizeview-component) 或 [Task\<AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) 方法。 直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 的主要缺点是，如果基础身份验证状态数据发生更改，不会自动通知组件。
 
-`AuthenticationStateProvider` 服务可以提供当前用户的 <xref:System.Security.Claims.ClaimsPrincipal> 数据，如以下示例所示：
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务可以提供当前用户的 <xref:System.Security.Claims.ClaimsPrincipal> 数据，如以下示例所示：
 
 ```razor
 @page "/"
@@ -114,7 +114,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 ## <a name="implement-a-custom-authenticationstateprovider"></a>现自定义 AuthenticationStateProvider
 
-如果应用需要自定义提供程序，请实现 `AuthenticationStateProvider` 并替代 `GetAuthenticationStateAsync`：
+如果应用需要自定义提供程序，请实现 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 并替代 `GetAuthenticationStateAsync`：
 
 ```csharp
 using System.Security.Claims;
@@ -161,7 +161,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 ## <a name="expose-the-authentication-state-as-a-cascading-parameter"></a>公开身份验证状态作为级联参数
 
-如果过程逻辑需要身份验证状态数据（例如在执行用户触发的操作时），请通过定义 `Task<AuthenticationState>` 类型的级联参数来获取身份验证状态数据：
+如果过程逻辑需要身份验证状态数据（如在执行用户触发的操作时），请通过定义类型为 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 的级联参数来获取身份验证状态数据：
 
 ```razor
 @page "/"
@@ -195,7 +195,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
-使用 `App` 组件 (App.razor ) 中的 `AuthorizeRouteView` 和 `CascadingAuthenticationState` 组件设置 `Task<AuthenticationState>` 级联参数：
+使用 `App` 组件 (App.razor) 中的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件来设置 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 级联参数：
 
 ```razor
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -236,9 +236,9 @@ builder.Services.AddAuthorizationCore();
 
 ## <a name="authorizeview-component"></a>AuthorizeView 组件
 
-`AuthorizeView` 组件根据用户是否有权查看来选择性地显示 UI。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用。
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件根据用户是否有权查看来选择性地显示 UI。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用。
 
-该组件公开了一个 `AuthenticationState` 类型的 `context` 变量，可以使用该变量来访问有关已登录用户的信息：
+该组件公开了一个 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> 类型的 `context` 变量，可以使用该变量来访问有关已登录用户的信息：
 
 ```razor
 <AuthorizeView>
@@ -262,22 +262,22 @@ builder.Services.AddAuthorizationCore();
 </AuthorizeView>
 ```
 
-可以在 `NavMenu` 组件 (Shared/NavMenu.razor) 中使用 `AuthorizeView` 组件来显示 `NavLink` 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
+可以在 `NavMenu` 组件 (Shared/NavMenu.razor) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [NavLink 组件](xref:blazor/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法只从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
 
 `<Authorized>` 和 `<NotAuthorized>` 标记的内容可以包括任意项，如其他交互式组件。
 
 [授权](#authorization)一节中介绍了授权条件，如用于控制 UI 选项或访问权限的角色或策略。
 
-如果未指定授权条件，则 `AuthorizeView` 使用默认策略，并且：
+如果未指定授权条件，则 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 使用默认策略，并且：
 
 * 将经过身份验证（已登录）的用户视为已授权。
 * 将未经过身份验证（已注销）的用户视为未授权。
 
 ### <a name="role-based-and-policy-based-authorization"></a>基于角色和基于策略的授权
 
-`AuthorizeView` 组件支持基于角色或基于策略的授权 。
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件支持基于角色或基于策略的授权 。
 
-对于基于角色的授权，请使用 `Roles` 参数：
+对于基于角色的授权，请使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Roles> 参数：
 
 ```razor
 <AuthorizeView Roles="admin, superuser">
@@ -287,7 +287,7 @@ builder.Services.AddAuthorizationCore();
 
 有关详细信息，请参阅 <xref:security/authorization/roles>。
 
-对于基于策略的授权，请使用 `Policy` 参数：
+对于基于策略的授权，请使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Policy> 参数：
 
 ```razor
 <AuthorizeView Policy="content-editor">
@@ -299,13 +299,13 @@ builder.Services.AddAuthorizationCore();
 
 这些 API 可用于 Blazor 服务器或 Blazor WebAssembly 应用。
 
-如果 `Roles` 或 `Policy` 均未指定，则 `AuthorizeView` 使用默认策略。
+如果 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Roles> 或 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Policy> 均未指定，则 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 使用默认策略。
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>异步身份验证期间显示的内容
 
 通过 Blazor，可通过异步方式确定身份验证状态。 此方法的主要应用场景是 Blazor WebAssembly 应用向外部终结点发出请求来进行身份验证。
 
-正在进行身份验证时，`AuthorizeView` 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
+正在进行身份验证时，<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 默认情况下不显示任何内容。 若要在进行身份验证期间显示内容，请使用 `<Authorizing>` 元素：
 
 ```razor
 <AuthorizeView>
@@ -320,11 +320,11 @@ builder.Services.AddAuthorizationCore();
 </AuthorizeView>
 ```
 
-此方法通常不适用于 Blazor 服务器应用。 身份验证状态一经确立，Blazor 服务器应用便会立即获知身份验证状态。 `Authorizing` 内容可在 Blazor 服务器应用的 `AuthorizeView` 组件中提供，但该内容永远不会显示。
+此方法通常不适用于 Blazor 服务器应用。 身份验证状态一经确立，Blazor 服务器应用便会立即获知身份验证状态。 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeViewCore.Authorizing> 内容可在 Blazor 服务器应用的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件中提供，但该内容永远不会显示。
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
-`[Authorize]` 属性可在 Razor 组件中使用：
+[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性可以在 Razor 组件中使用：
 
 ```razor
 @page "/"
@@ -334,9 +334,9 @@ You can only see this if you're signed in.
 ```
 
 > [!IMPORTANT]
-> 仅对通过 Blazor 路由器到达的 `@page` 组件使用 `[Authorize]`。 授权仅作为路由的一个方面执行，而不是作为页面中呈现的子组件来执行。 若要授权在页面中显示特定部分，请改用 `AuthorizeView`。
+> 只在通过 Blazor 路由器到达的 `@page` 组件上使用 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)。 授权仅作为路由的一个方面执行，而不是作为页面中呈现的子组件来执行。 若要授权在页面中显示特定部分，请改用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>。
 
-`[Authorize]` 属性还支持基于角色或基于策略的授权。 对于基于角色的授权，请使用 `Roles` 参数：
+[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性还支持基于角色或基于策略的授权。 对于基于角色的授权，请使用 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute.Roles> 参数：
 
 ```razor
 @page "/"
@@ -345,7 +345,7 @@ You can only see this if you're signed in.
 <p>You can only see this if you're in the 'admin' or 'superuser' role.</p>
 ```
 
-对于基于策略的授权，请使用 `Policy` 参数：
+对于基于策略的授权，请使用 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute.Policy> 参数：
 
 ```razor
 @page "/"
@@ -354,17 +354,17 @@ You can only see this if you're signed in.
 <p>You can only see this if you satisfy the 'content-editor' policy.</p>
 ```
 
-如果 `Roles` 或 `Policy` 均未指定，则 `[Authorize]` 使用默认策略，默认情况下，它会：
+如果既没有指定 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute.Roles> 也没有指定 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute.Policy>，则 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 使用默认策略，此策略默认：
 
 * 将经过身份验证（已登录）的用户视为已授权。
 * 将未经过身份验证（已注销）的用户视为未授权。
 
 ## <a name="customize-unauthorized-content-with-the-router-component"></a>使用路由器组件自定义未授权的内容
 
-`Router` 组件与 `AuthorizeRouteView` 组件搭配使用时，可允许应用程序在以下情况下指定自定义内容：
+<xref:Microsoft.AspNetCore.Components.Routing.Router> 组件与 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 组件搭配使用时，可允许应用程序在以下情况下指定自定义内容：
 
 * 找不到内容。
-* 用户不符合应用于组件的 `[Authorize]` 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 `[Authorize]` 属性。
+* 用户不符合应用于组件的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
 * 正在进行异步身份验证。
 
 在默认的 Blazor 服务器项目模板中，`App` 组件 (App.razor) 演示了如何设置自定义内容：
@@ -397,7 +397,7 @@ You can only see this if you're signed in.
 
 `<NotFound>`、`<NotAuthorized>` 和 `<Authorizing>` 标记的内容可以包括任意项，如其他交互式组件。
 
-如果未指定 `<NotAuthorized>` 元素，`AuthorizeRouteView` 就会使用以下回退消息：
+如果未指定 `<NotAuthorized>` 元素，<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 就会使用以下回退消息：
 
 ```html
 Not authorized.
@@ -405,11 +405,11 @@ Not authorized.
 
 ## <a name="notification-about-authentication-state-changes"></a>有关身份验证状态更改的通知
 
-如果应用确定基础身份验证状态数据已更改（例如由于用户注销或其他用户更改了其角色），自定义 [custom AuthenticationStateProvider](#implement-a-custom-authenticationstateprovider) 可以选择对 `AuthenticationStateProvider` 基类调用 `NotifyAuthenticationStateChanged` 方法。 这会通知身份验证状态数据（例如 `AuthorizeView`）使用者使用新数据重新呈现。
+如果应用确定基础身份验证状态数据已更改（例如由于用户注销或其他用户更改了其角色），自定义 [custom AuthenticationStateProvider](#implement-a-custom-authenticationstateprovider) 可以选择对 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 基类调用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider.NotifyAuthenticationStateChanged%2A> 方法。 这会通知身份验证状态数据（例如 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>）使用者使用新数据重新呈现。
 
 ## <a name="procedural-logic"></a>过程逻辑
 
-如果作为过程逻辑的一部分应用程序需要检查授权规则，请使用 `Task<AuthenticationState>` 类型的级联参数获取用户的 <xref:System.Security.Claims.ClaimsPrincipal>。 `Task<AuthenticationState>` 可以与其他服务（例如 `IAuthorizationService`）结合使用以评估策略。
+如果需要应用在过程逻辑中检查授权规则，请使用类型为 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 的级联参数来获取用户的 <xref:System.Security.Claims.ClaimsPrincipal>。 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 可以与其他服务（如 `IAuthorizationService`）结合使用来评估策略。
 
 ```razor
 @using Microsoft.AspNetCore.Authorization
@@ -446,7 +446,7 @@ Not authorized.
 ```
 
 > [!NOTE]
-> 在 Blazor WebAssembly 应用组件中，添加 `Microsoft.AspNetCore.Authorization` 和 `Microsoft.AspNetCore.Components.Authorization` 命名空间：
+> 在 Blazor WebAssembly 应用组件中，添加 <xref:Microsoft.AspNetCore.Authorization> 和 <xref:Microsoft.AspNetCore.Components.Authorization> 命名空间：
 >
 > ```razor
 > @using Microsoft.AspNetCore.Authorization
@@ -481,7 +481,7 @@ Not authorized.
 </CascadingAuthenticationState>
 ```
 
-`CascadingAuthenticationState` 提供 `Task<AuthenticationState>` 级联参数，这是它从基础 `AuthenticationStateProvider` DI 服务那里接收的参数。
+<xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 提供 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 级联参数，它反过来又从基础 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> DI 服务接收此参数。
 
 ## <a name="additional-resources"></a>其他资源
 

@@ -34,7 +34,7 @@
 
 * *服务器 API 应用*应用程序 ID （客户端 ID）（例如， `11111111-1111-1111-1111-111111111111` ）
 * 目录 ID （租户 ID）（例如， `222222222-2222-2222-2222-222222222222` ）
-* AAD 租户域（例如， `contoso.onmicrosoft.com` ） &ndash; 域可作为已注册应用的 Azure 门户的**品牌**边栏选项卡中的**发布者域**。
+* AAD 租户域（例如， `contoso.onmicrosoft.com` ）：在注册的应用的 Azure 门户的 "**品牌**" 边栏选项卡中，该域作为**发布者域**提供。
 
 在 " **API 权限**" 中，删除**Microsoft Graph**  >  **用户. 读取**权限，因为应用无需登录或用户配置文件访问。
 
@@ -325,7 +325,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用程序
+## <a name="run-the-app"></a>运行应用
 
 从服务器项目运行应用。 使用 Visual Studio 时，可以执行以下任一操作：
 

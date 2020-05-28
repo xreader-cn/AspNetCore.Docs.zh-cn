@@ -1,24 +1,11 @@
 ---
-title: 在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
-author: rick-anderson
-description: 了解如何建立来自外部提供程序的其他声明和标记。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 10/15/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 6acc1d78bf5cc39fd69329bad1cff0fbe52d9358
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769025"
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>在 ASP.NET Core 中保存外部提供程序的其他声明和令牌
 
@@ -49,16 +36,270 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 ## <a name="establish-the-authentication-scope"></a>建立身份验证范围
 
-指定要从提供程序检索的权限的列表<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>。 常见外部提供程序的身份验证范围如下表中所示。
+指定要从提供程序检索的权限的列表 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*> 。 常见外部提供程序的身份验证范围如下表中所示。
 
 | 提供程序  | 范围                                                            |
-| --------- | ---------------------------------------------------------------- |
-| Facebook  | `https://www.facebook.com/dialog/oauth`                          |
-| Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
-| Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
+| ---
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
 
-在示例应用中，当在`userinfo.profile`上调用时<xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> ，由框架自动添加 Google 的作用域<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>。 如果应用需要其他作用域，请将它们添加到选项。 在以下示例中，添加了`https://www.googleapis.com/auth/user.birthday.read` Google 范围以便检索用户的生日：
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-------------------------------- | |Facebook |`https://www.facebook.com/dialog/oauth`                          |
+|Google |`https://www.googleapis.com/auth/userinfo.profile`               |
+|Microsoft |`https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+|Twitter |`https://api.twitter.com/oauth/authenticate`                     |
+
+在示例应用中， `userinfo.profile` 当在上调用时，由框架自动添加 Google 的作用域 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> 。 如果应用需要其他作用域，请将它们添加到选项。 在以下示例中，添加了 Google `https://www.googleapis.com/auth/user.birthday.read` 范围以便检索用户的生日：
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -66,15 +307,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>映射用户数据密钥并创建声明
 
-在提供程序的选项中，为<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*>外部<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*>提供程序的 JSON 用户数据中的每个键/子项指定或，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请<xref:System.Security.Claims.ClaimTypes>参阅。
+在提供程序的选项中，为 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> 外部提供程序的 JSON 用户数据中的每个键/子项指定或，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请参阅 <xref:System.Security.Claims.ClaimTypes> 。
 
-该示例应用在 Google 用户`urn:google:locale`数据中的`urn:google:picture` `locale`和`picture`密钥中创建区域设置（）和图片（）声明：
+该示例应用 `urn:google:locale` `urn:google:picture` `locale` `picture` 在 Google 用户数据中的和密钥中创建区域设置（）和图片（）声明：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在`Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`中， <xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用<xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>登录到应用。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601>可以存储提供的用户`ApplicationUser`数据的声明<xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>。
+在中 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` ， <xref:Microsoft.AspNetCore.Identity.IdentityUser> （ `ApplicationUser` ）使用登录到应用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> 。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 `ApplicationUser` 提供的用户数据的声明 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 。
 
-在示例应用程序中`OnPostConfirmationAsync` ，（*Account/ExternalLogin*）为已登录的提供区域设置`urn:google:locale`（）和图片`urn:google:picture`（）声明`ApplicationUser`，包括的声明： <xref:System.Security.Claims.ClaimTypes.GivenName>
+在示例应用程序中， `OnPostConfirmationAsync` （*Account/ExternalLogin*） `urn:google:locale` 为已登录的提供区域设置（）和图片（ `urn:google:picture` ）声明 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -86,25 +327,25 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 如果需要大量用户数据来处理用户请求：
 
 * 将请求处理的用户声明的数量和大小限制为仅应用需要的内容。
-* 使用 Cookie 身份<xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore>验证中间件的<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore>自定义来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
+* 使用 <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> Cookie 身份验证中间件的自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> 来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
 
 ## <a name="save-the-access-token"></a>保存访问令牌
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>定义在授权成功<xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties>后是否应将访问和刷新令牌存储在中。 `SaveTokens`默认情况下`false` ，设置为以减小最终身份验证 cookie 的大小。
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>定义在授权成功后是否应将访问和刷新令牌存储在中 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 。 `SaveTokens`默认情况下，设置为以 `false` 减小最终身份验证 cookie 的大小。
 
-示例应用将的`SaveTokens`值设置为`true`中<xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>的：
+示例应用将的值设置 `SaveTokens` 为 `true` 中的 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> ：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-执行`OnPostConfirmationAsync`时，从的外部提供`ApplicationUser`程序存储访问令牌（ `AuthenticationProperties`[ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
+`OnPostConfirmationAsync`执行时，从的外部提供程序存储访问令牌（[ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)） `ApplicationUser` `AuthenticationProperties` 。
 
-该示例应用程序将访问令牌保存`OnPostConfirmationAsync`在*帐户/ExternalLogin*中（ `OnGetCallbackAsync`新用户注册）和（以前注册的用户）中：
+该示例应用程序将访问令牌保存在 `OnPostConfirmationAsync` 帐户/ExternalLogin 中（新用户注册）和 `OnGetCallbackAsync` （ *Account/ExternalLogin.cshtml.cs*以前注册的用户）中：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>如何添加其他自定义令牌
 
-为了演示如何添加作为的一部分存储的自定义令牌，示例应用`SaveTokens`程序<xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>会<xref:System.DateTime>为的`TicketCreated` [AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)添加一个，其中包含：
+为了演示如何添加作为的一部分存储的自定义令牌， `SaveTokens` 示例应用程序会 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> <xref:System.DateTime> 为的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)添加一个，其中包含 `TicketCreated` ：
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -112,13 +353,13 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 框架提供用于创建声明并将其添加到集合的常见操作和扩展方法。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> 和 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>。
 
-用户可以通过从<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction>派生并实现抽象<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>方法来定义自定义操作。
+用户可以通过从派生 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 并实现抽象方法来定义自定义操作 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 。
 
 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
-[ClaimActionCollection （String）](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)从集合中移除给定<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType>的所有声明操作。 [ClaimActionCollectionMapExtensions. DeleteClaim （ClaimActionCollection，String）](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)从标识中删除给定<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType>的声明。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*>主要与[OpenID connect （OIDC）](/azure/active-directory/develop/v2-protocols-oidc)一起使用，以删除协议生成的声明。
+[ClaimActionCollection （String）](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)从集合中移除给定的所有声明操作 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> 。 [ClaimActionCollectionMapExtensions. DeleteClaim （ClaimActionCollection，String）](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)从标识中删除给定的声明 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> 。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*>主要与[OpenID connect （OIDC）](/azure/active-directory/develop/v2-protocols-oidc)一起使用，以删除协议生成的声明。
 
 ## <a name="sample-app-output"></a>示例应用程序输出
 
@@ -189,16 +430,270 @@ OAuth 身份验证提供程序使用客户端 ID 和客户端密码与应用程�
 
 ## <a name="establish-the-authentication-scope"></a>建立身份验证范围
 
-指定要从提供程序检索的权限的列表<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>。 常见外部提供程序的身份验证范围如下表中所示。
+指定要从提供程序检索的权限的列表 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*> 。 常见外部提供程序的身份验证范围如下表中所示。
 
 | 提供程序  | 范围                                                            |
-| --------- | ---------------------------------------------------------------- |
-| Facebook  | `https://www.facebook.com/dialog/oauth`                          |
-| Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
-| Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
+| ---
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
 
-在示例应用中，当在`userinfo.profile`上调用时<xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> ，由框架自动添加 Google 的作用域<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>。 如果应用需要其他作用域，请将它们添加到选项。 在以下示例中，添加了`https://www.googleapis.com/auth/user.birthday.read` Google 范围以便检索用户的生日：
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-------------------------------- | |Facebook |`https://www.facebook.com/dialog/oauth`                          |
+|Google |`https://www.googleapis.com/auth/userinfo.profile`               |
+|Microsoft |`https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+|Twitter |`https://api.twitter.com/oauth/authenticate`                     |
+
+在示例应用中， `userinfo.profile` 当在上调用时，由框架自动添加 Google 的作用域 <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> 。 如果应用需要其他作用域，请将它们添加到选项。 在以下示例中，添加了 Google `https://www.googleapis.com/auth/user.birthday.read` 范围以便检索用户的生日：
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -206,15 +701,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>映射用户数据密钥并创建声明
 
-在提供程序的选项中，为<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*>外部<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*>提供程序的 JSON 用户数据中的每个键/子项指定或，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请<xref:System.Security.Claims.ClaimTypes>参阅。
+在提供程序的选项中，为 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> 外部提供程序的 JSON 用户数据中的每个键/子项指定或，以便在登录时读取应用程序标识。 有关声明类型的详细信息，请参阅 <xref:System.Security.Claims.ClaimTypes> 。
 
-该示例应用在 Google 用户`urn:google:locale`数据中的`urn:google:picture` `locale`和`picture`密钥中创建区域设置（）和图片（）声明：
+该示例应用 `urn:google:locale` `urn:google:picture` `locale` `picture` 在 Google 用户数据中的和密钥中创建区域设置（）和图片（）声明：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-在`Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`中， <xref:Microsoft.AspNetCore.Identity.IdentityUser> （`ApplicationUser`）使用<xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>登录到应用。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601>可以存储提供的用户`ApplicationUser`数据的声明<xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>。
+在中 `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` ， <xref:Microsoft.AspNetCore.Identity.IdentityUser> （ `ApplicationUser` ）使用登录到应用 <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> 。 在登录过程中， <xref:Microsoft.AspNetCore.Identity.UserManager%601> 可以存储 `ApplicationUser` 提供的用户数据的声明 <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*> 。
 
-在示例应用程序中`OnPostConfirmationAsync` ，（*Account/ExternalLogin*）为已登录的提供区域设置`urn:google:locale`（）和图片`urn:google:picture`（）声明`ApplicationUser`，包括的声明： <xref:System.Security.Claims.ClaimTypes.GivenName>
+在示例应用程序中， `OnPostConfirmationAsync` （*Account/ExternalLogin*） `urn:google:locale` 为已登录的提供区域设置（）和图片（ `urn:google:picture` ）声明 `ApplicationUser` ，包括的声明 <xref:System.Security.Claims.ClaimTypes.GivenName> ：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -226,25 +721,25 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 如果需要大量用户数据来处理用户请求：
 
 * 将请求处理的用户声明的数量和大小限制为仅应用需要的内容。
-* 使用 Cookie 身份<xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore>验证中间件的<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore>自定义来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
+* 使用 <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> Cookie 身份验证中间件的自定义 <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> 来跨请求存储标识。 在服务器上保留大量标识信息，同时仅向客户端发送一个小型会话标识符密钥。
 
 ## <a name="save-the-access-token"></a>保存访问令牌
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>定义在授权成功<xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties>后是否应将访问和刷新令牌存储在中。 `SaveTokens`默认情况下`false` ，设置为以减小最终身份验证 cookie 的大小。
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>定义在授权成功后是否应将访问和刷新令牌存储在中 <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> 。 `SaveTokens`默认情况下，设置为以 `false` 减小最终身份验证 cookie 的大小。
 
-示例应用将的`SaveTokens`值设置为`true`中<xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>的：
+示例应用将的值设置 `SaveTokens` 为 `true` 中的 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> ：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-执行`OnPostConfirmationAsync`时，从的外部提供`ApplicationUser`程序存储访问令牌（ `AuthenticationProperties`[ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)）。
+`OnPostConfirmationAsync`执行时，从的外部提供程序存储访问令牌（[ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)） `ApplicationUser` `AuthenticationProperties` 。
 
-该示例应用程序将访问令牌保存`OnPostConfirmationAsync`在*帐户/ExternalLogin*中（ `OnGetCallbackAsync`新用户注册）和（以前注册的用户）中：
+该示例应用程序将访问令牌保存在 `OnPostConfirmationAsync` 帐户/ExternalLogin 中（新用户注册）和 `OnGetCallbackAsync` （ *Account/ExternalLogin.cshtml.cs*以前注册的用户）中：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>如何添加其他自定义令牌
 
-为了演示如何添加作为的一部分存储的自定义令牌，示例应用`SaveTokens`程序<xref:Microsoft.AspNetCore.Authentication.AuthenticationToken>会<xref:System.DateTime>为的`TicketCreated` [AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)添加一个，其中包含：
+为了演示如何添加作为的一部分存储的自定义令牌， `SaveTokens` 示例应用程序会 <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> <xref:System.DateTime> 为的[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)添加一个，其中包含 `TicketCreated` ：
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -252,13 +747,13 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 框架提供用于创建声明并将其添加到集合的常见操作和扩展方法。 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> 和 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>。
 
-用户可以通过从<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction>派生并实现抽象<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>方法来定义自定义操作。
+用户可以通过从派生 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> 并实现抽象方法来定义自定义操作 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> 。
 
 有关详细信息，请参阅 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>删除声明操作和声明
 
-[ClaimActionCollection （String）](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)从集合中移除给定<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType>的所有声明操作。 [ClaimActionCollectionMapExtensions. DeleteClaim （ClaimActionCollection，String）](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)从标识中删除给定<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType>的声明。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*>主要与[OpenID connect （OIDC）](/azure/active-directory/develop/v2-protocols-oidc)一起使用，以删除协议生成的声明。
+[ClaimActionCollection （String）](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)从集合中移除给定的所有声明操作 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> 。 [ClaimActionCollectionMapExtensions. DeleteClaim （ClaimActionCollection，String）](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)从标识中删除给定的声明 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> 。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*>主要与[OpenID connect （OIDC）](/azure/active-directory/develop/v2-protocols-oidc)一起使用，以删除协议生成的声明。
 
 ## <a name="sample-app-output"></a>示例应用程序输出
 
@@ -304,4 +799,4 @@ Authentication Properties
 
 ## <a name="additional-resources"></a>其他资源
 
-* [dotnet/AspNetCore 工程 SocialSample 应用](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) &ndash; ： [dotnet/AspNetCore GitHub](https://github.com/dotnet/AspNetCore) `master`存储库的工程分支上已链接的示例应用。 `master`分支包含处于活动开发下的下一版本 ASP.NET Core 的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择一个发布分支（例如`release/{X.Y}`）。
+* [dotnet/AspNetCore 工程 SocialSample 应用](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)：链接的示例应用位于[Dotnet/AspNetCore GitHub 存储库的](https://github.com/dotnet/AspNetCore) `master` 工程分支中。 `master`分支包含处于活动开发下的下一版本 ASP.NET Core 的代码。 若要查看 ASP.NET Core 的已发布版本的示例应用的版本，请使用**分支**下拉列表选择一个发布分支（例如 `release/{X.Y}` ）。
