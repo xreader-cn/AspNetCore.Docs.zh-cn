@@ -1,162 +1,117 @@
 ---
-title: ASP.NET Core 中的配置
-author: rick-anderson
-description: 理解如何使用配置 API 配置 ASP.NET Core 应用。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 3/29/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/configuration/index
-ms.openlocfilehash: c2a7ef9c1523bc179524f328905f3a4b1460a1a5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774491"
----
-# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="fb3ea-103">ASP.NET Core 中的配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-103">Configuration in ASP.NET Core</span></span>
+<span data-ttu-id="172d1-101">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-101">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-102">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-102">'Blazor'</span></span>
+- <span data-ttu-id="172d1-103">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-103">'Identity'</span></span>
+- <span data-ttu-id="172d1-104">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-104">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-105">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-105">'Razor'</span></span>
+- <span data-ttu-id="172d1-106">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-106">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-104">作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Kirk Larkin](https://twitter.com/serpent5)</span><span class="sxs-lookup"><span data-stu-id="fb3ea-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)</span></span>
+---
+# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="172d1-107">ASP.NET Core 中的配置</span><span class="sxs-lookup"><span data-stu-id="172d1-107">Configuration in ASP.NET Core</span></span>
+
+<span data-ttu-id="172d1-108">作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Kirk Larkin](https://twitter.com/serpent5)</span><span class="sxs-lookup"><span data-stu-id="172d1-108">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="fb3ea-105">ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-105">Configuration in ASP.NET Core is performed using one or more [configuration providers](#cp).</span></span> <span data-ttu-id="fb3ea-106">配置提供程序使用各种配置源从键值对读取配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-106">Configuration providers read configuration data from key-value pairs using a variety of configuration sources:</span></span>
+<span data-ttu-id="172d1-109">ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行的。</span><span class="sxs-lookup"><span data-stu-id="172d1-109">Configuration in ASP.NET Core is performed using one or more [configuration providers](#cp).</span></span> <span data-ttu-id="172d1-110">配置提供程序使用各种配置源从键值对读取配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-110">Configuration providers read configuration data from key-value pairs using a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="fb3ea-107">设置文件，例如 appsettings.json </span><span class="sxs-lookup"><span data-stu-id="fb3ea-107">Settings files, such as *appsettings.json*</span></span>
-* <span data-ttu-id="fb3ea-108">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-108">Environment variables</span></span>
-* <span data-ttu-id="fb3ea-109">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="fb3ea-109">Azure Key Vault</span></span>
-* <span data-ttu-id="fb3ea-110">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-110">Azure App Configuration</span></span>
-* <span data-ttu-id="fb3ea-111">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-111">Command-line arguments</span></span>
-* <span data-ttu-id="fb3ea-112">已安装或已创建的自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-112">Custom providers, installed or created</span></span>
-* <span data-ttu-id="fb3ea-113">目录文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-113">Directory files</span></span>
-* <span data-ttu-id="fb3ea-114">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="fb3ea-114">In-memory .NET objects</span></span>
+* <span data-ttu-id="172d1-111">设置文件，例如 appsettings.json</span><span class="sxs-lookup"><span data-stu-id="172d1-111">Settings files, such as *appsettings.json*</span></span>
+* <span data-ttu-id="172d1-112">环境变量</span><span class="sxs-lookup"><span data-stu-id="172d1-112">Environment variables</span></span>
+* <span data-ttu-id="172d1-113">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="172d1-113">Azure Key Vault</span></span>
+* <span data-ttu-id="172d1-114">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="172d1-114">Azure App Configuration</span></span>
+* <span data-ttu-id="172d1-115">命令行参数</span><span class="sxs-lookup"><span data-stu-id="172d1-115">Command-line arguments</span></span>
+* <span data-ttu-id="172d1-116">已安装或已创建的自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-116">Custom providers, installed or created</span></span>
+* <span data-ttu-id="172d1-117">目录文件</span><span class="sxs-lookup"><span data-stu-id="172d1-117">Directory files</span></span>
+* <span data-ttu-id="172d1-118">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="172d1-118">In-memory .NET objects</span></span>
 
-<span data-ttu-id="fb3ea-115">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-115">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="172d1-119">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="172d1-119">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
 <a name="default"></a>
 
-## <a name="default-configuration"></a><span data-ttu-id="fb3ea-116">默认配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-116">Default configuration</span></span>
+## <a name="default-configuration"></a><span data-ttu-id="172d1-120">默认配置</span><span class="sxs-lookup"><span data-stu-id="172d1-120">Default configuration</span></span>
 
-<span data-ttu-id="fb3ea-117">通过 [dotnet new](/dotnet/core/tools/dotnet-new) 或 Visual Studio 创建的 ASP.NET Core Web 应用会生成以下代码：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-117">ASP.NET Core web apps created with [dotnet new](/dotnet/core/tools/dotnet-new) or Visual Studio generate the following code:</span></span>
+<span data-ttu-id="172d1-121">通过 [dotnet new](/dotnet/core/tools/dotnet-new) 或 Visual Studio 创建的 ASP.NET Core Web 应用会生成以下代码：</span><span class="sxs-lookup"><span data-stu-id="172d1-121">ASP.NET Core web apps created with [dotnet new](/dotnet/core/tools/dotnet-new) or Visual Studio generate the following code:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Program.cs?name=snippet&highlight=9)]
 
- <span data-ttu-id="fb3ea-118"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-118"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
+ <span data-ttu-id="172d1-122"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-122"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
 
-1. <span data-ttu-id="fb3ea-119">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource)：添加现有 `IConfiguration` 作为源。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-119">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) :  Adds an existing `IConfiguration` as a source.</span></span> <span data-ttu-id="fb3ea-120">在默认配置示例中，添加[主机](#hvac)配置，并将它设置为应用  配置的第一个源。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-120">In the default configuration case, adds the [host](#hvac) configuration and setting it as the first source for the _app_ configuration.</span></span>
-1. <span data-ttu-id="fb3ea-121">使用 [JSON 配置提供程序](#file-configuration-provider)通过 [appsettings.json](#appsettingsjson) 提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-121">[appsettings.json](#appsettingsjson) using the [JSON configuration provider](#file-configuration-provider).</span></span>
-1. <span data-ttu-id="fb3ea-122">使用 [JSON 配置提供程序](#file-configuration-provider)通过 appsettings.`Environment`.json 提供   。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-122">*appsettings.*`Environment`*.json* using the [JSON configuration provider](#file-configuration-provider).</span></span> <span data-ttu-id="fb3ea-123">例如，appsettings.Production.json 和 appsettings.Development.json       。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-123">For example, *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json*.</span></span>
-1. <span data-ttu-id="fb3ea-124">应用在 `Development` 环境中运行时的[应用机密](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-124">[App secrets](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
-1. <span data-ttu-id="fb3ea-125">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-125">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
-1. <span data-ttu-id="fb3ea-126">使用[命令行配置提供程序](#command-line)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-126">Command-line arguments using the [Command-line configuration provider](#command-line).</span></span>
+1. <span data-ttu-id="172d1-123">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource)：添加现有 `IConfiguration` 作为源。</span><span class="sxs-lookup"><span data-stu-id="172d1-123">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) :  Adds an existing `IConfiguration` as a source.</span></span> <span data-ttu-id="172d1-124">在默认配置示例中，添加[主机](#hvac)配置，并将它设置为应用配置的第一个源。</span><span class="sxs-lookup"><span data-stu-id="172d1-124">In the default configuration case, adds the [host](#hvac) configuration and setting it as the first source for the _app_ configuration.</span></span>
+1. <span data-ttu-id="172d1-125">使用 [JSON 配置提供程序](#file-configuration-provider)通过 [appsettings.json](#appsettingsjson) 提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-125">[appsettings.json](#appsettingsjson) using the [JSON configuration provider](#file-configuration-provider).</span></span>
+1. <span data-ttu-id="172d1-126">使用 [JSON 配置提供程序](#file-configuration-provider)通过 appsettings.`Environment`.json 提供 。</span><span class="sxs-lookup"><span data-stu-id="172d1-126">*appsettings.*`Environment`*.json* using the [JSON configuration provider](#file-configuration-provider).</span></span> <span data-ttu-id="172d1-127">例如，appsettings.Production.json 和 appsettings.Development.json 。</span><span class="sxs-lookup"><span data-stu-id="172d1-127">For example, *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json*.</span></span>
+1. <span data-ttu-id="172d1-128">应用在 `Development` 环境中运行时的[应用机密](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="172d1-128">[App secrets](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
+1. <span data-ttu-id="172d1-129">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-129">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
+1. <span data-ttu-id="172d1-130">使用[命令行配置提供程序](#command-line)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-130">Command-line arguments using the [Command-line configuration provider](#command-line).</span></span>
 
-<span data-ttu-id="fb3ea-127">后来添加的配置提供程序会替代之前的密钥设置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-127">Configuration providers that are added later override previous key settings.</span></span> <span data-ttu-id="fb3ea-128">例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-128">For example, if `MyKey` is set in both *appsettings.json* and the environment, the environment value is used.</span></span> <span data-ttu-id="fb3ea-129">使用默认配置提供程序，[命令行配置提供程序](#command-line-configuration-provider)将替代所有其他的提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-129">Using the default configuration providers, the  [Command-line configuration provider](#command-line-configuration-provider) overrides all other providers.</span></span>
+<span data-ttu-id="172d1-131">后来添加的配置提供程序会替代之前的密钥设置。</span><span class="sxs-lookup"><span data-stu-id="172d1-131">Configuration providers that are added later override previous key settings.</span></span> <span data-ttu-id="172d1-132">例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值。</span><span class="sxs-lookup"><span data-stu-id="172d1-132">For example, if `MyKey` is set in both *appsettings.json* and the environment, the environment value is used.</span></span> <span data-ttu-id="172d1-133">使用默认配置提供程序，[命令行配置提供程序](#command-line-configuration-provider)将替代所有其他的提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-133">Using the default configuration providers, the  [Command-line configuration provider](#command-line-configuration-provider) overrides all other providers.</span></span>
 
-<span data-ttu-id="fb3ea-130">若要详细了解 `CreateDefaultBuilder`，请参阅[默认生成器设置](xref:fundamentals/host/generic-host#default-builder-settings)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-130">For more information on `CreateDefaultBuilder`, see [Default builder settings](xref:fundamentals/host/generic-host#default-builder-settings).</span></span>
+<span data-ttu-id="172d1-134">若要详细了解 `CreateDefaultBuilder`，请参阅[默认生成器设置](xref:fundamentals/host/generic-host#default-builder-settings)。</span><span class="sxs-lookup"><span data-stu-id="172d1-134">For more information on `CreateDefaultBuilder`, see [Default builder settings](xref:fundamentals/host/generic-host#default-builder-settings).</span></span>
 
-<span data-ttu-id="fb3ea-131">以下代码按添加顺序显示了已启用的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-131">The following code displays the enabled configuration providers in the order they were added:</span></span>
+<span data-ttu-id="172d1-135">以下代码按添加顺序显示了已启用的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-135">The following code displays the enabled configuration providers in the order they were added:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-### <a name="appsettingsjson"></a><span data-ttu-id="fb3ea-132">appsettings.json</span><span class="sxs-lookup"><span data-stu-id="fb3ea-132">appsettings.json</span></span>
+### <a name="appsettingsjson"></a><span data-ttu-id="172d1-136">appsettings.json</span><span class="sxs-lookup"><span data-stu-id="172d1-136">appsettings.json</span></span>
 
-<span data-ttu-id="fb3ea-133">请考虑使用以下 appsettings.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-133">Consider the following *appsettings.json* file:</span></span>
+<span data-ttu-id="172d1-137">请考虑使用以下 appsettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-137">Consider the following *appsettings.json* file:</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
-<span data-ttu-id="fb3ea-134">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-134">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
+<span data-ttu-id="172d1-138">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-138">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-135">默认的 <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 会按以下顺序加载配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-135">The default <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration in the following order:</span></span>
+<span data-ttu-id="172d1-139">默认的 <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 会按以下顺序加载配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-139">The default <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration in the following order:</span></span>
 
-1. <span data-ttu-id="fb3ea-136">*appsettings.json*</span><span class="sxs-lookup"><span data-stu-id="fb3ea-136">*appsettings.json*</span></span>
-1. <span data-ttu-id="fb3ea-137">appsettings.`Environment`.json   ：例如，appsettings.Production.json 和 appsettings.Development.json       文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-137">*appsettings.*`Environment`*.json* : For example, the *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json* files.</span></span> <span data-ttu-id="fb3ea-138">文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-138">The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span> <span data-ttu-id="fb3ea-139">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-139">For more information, see <xref:fundamentals/environments>.</span></span>
+1. <span data-ttu-id="172d1-140">*appsettings.json*</span><span class="sxs-lookup"><span data-stu-id="172d1-140">*appsettings.json*</span></span>
+1. <span data-ttu-id="172d1-141">appsettings.`Environment`.json ：例如，appsettings.Production.json 和 appsettings.Development.json  文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-141">*appsettings.*`Environment`*.json* : For example, the *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json* files.</span></span> <span data-ttu-id="172d1-142">文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。</span><span class="sxs-lookup"><span data-stu-id="172d1-142">The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span> <span data-ttu-id="172d1-143">有关详细信息，请参阅 <xref:fundamentals/environments>。</span><span class="sxs-lookup"><span data-stu-id="172d1-143">For more information, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="fb3ea-140">appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-140">*appsettings*.`Environment`.*json* values override keys in *appsettings.json*.</span></span> <span data-ttu-id="fb3ea-141">例如，默认情况下：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-141">For example, by default:</span></span>
+<span data-ttu-id="172d1-144">appsettings.`Environment`.json 值将替代 appsettings.json 中的密钥  。</span><span class="sxs-lookup"><span data-stu-id="172d1-144">*appsettings*.`Environment`.*json* values override keys in *appsettings.json*.</span></span> <span data-ttu-id="172d1-145">例如，默认情况下：</span><span class="sxs-lookup"><span data-stu-id="172d1-145">For example, by default:</span></span>
 
-* <span data-ttu-id="fb3ea-142">在开发环境中，appsettings.Development.json 配置将覆盖在 appsettings.json 中找到的值     。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-142">In development, *appsettings*.***Development***.*json* configuration overwrites values found in *appsettings.json*.</span></span>
-* <span data-ttu-id="fb3ea-143">在生产环境中，appsettings.Production.json 配置将覆盖在 appsettings.json 中找到的值     。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-143">In production, *appsettings*.***Production***.*json* configuration overwrites values found in *appsettings.json*.</span></span> <span data-ttu-id="fb3ea-144">例如，在将应用部署到 Azure 时。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-144">For example, when deploying the app to Azure.</span></span>
+* <span data-ttu-id="172d1-146">在开发环境中，appsettings.Development.json 配置将覆盖在 appsettings.json 中找到的值 。</span><span class="sxs-lookup"><span data-stu-id="172d1-146">In development, *appsettings*.***Development***.*json* configuration overwrites values found in *appsettings.json*.</span></span>
+* <span data-ttu-id="172d1-147">在生产环境中，appsettings.Production.json 配置将覆盖在 appsettings.json 中找到的值 。</span><span class="sxs-lookup"><span data-stu-id="172d1-147">In production, *appsettings*.***Production***.*json* configuration overwrites values found in *appsettings.json*.</span></span> <span data-ttu-id="172d1-148">例如，在将应用部署到 Azure 时。</span><span class="sxs-lookup"><span data-stu-id="172d1-148">For example, when deploying the app to Azure.</span></span>
 
 <a name="optpat"></a>
 
-#### <a name="bind-hierarchical-configuration-data-using-the-options-pattern"></a><span data-ttu-id="fb3ea-145">使用选项模式绑定分层配置数据</span><span class="sxs-lookup"><span data-stu-id="fb3ea-145">Bind hierarchical configuration data using the options pattern</span></span>
+### <a name="bind-hierarchical-configuration-data-using-the-options-pattern"></a><span data-ttu-id="172d1-149">使用选项模式绑定分层配置数据</span><span class="sxs-lookup"><span data-stu-id="172d1-149">Bind hierarchical configuration data using the options pattern</span></span>
 
-<span data-ttu-id="fb3ea-146">读取相关配置值的首选方法是使用[选项模式](xref:fundamentals/configuration/options)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-146">The preferred way to read related configuration values is using the [options pattern](xref:fundamentals/configuration/options).</span></span> <span data-ttu-id="fb3ea-147">例如，若要读取以下配置值，请执行以下操作：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-147">For example, to read the following configuration values:</span></span>
+[!INCLUDE[](~/includes/bind.md)]
 
-```json
-  "Position": {
-    "Title": "Editor",
-    "Name": "Joe Smith"
-  }
-```
+<span data-ttu-id="172d1-150">使用[默认](#default)配置，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="172d1-150">Using the [default](#default) configuration, the *appsettings.json* and *appsettings.*`Environment`*.json* files are enabled with [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span></span> <span data-ttu-id="172d1-151">应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件做出的更改将由 [JSON 配置提供程序](#jcp)读取  。</span><span class="sxs-lookup"><span data-stu-id="172d1-151">Changes made to the *appsettings.json* and *appsettings.*`Environment`*.json* file ***after*** the app starts are read by the [JSON configuration provider](#jcp).</span></span>
 
-<span data-ttu-id="fb3ea-148">创建以下 `PositionOptions` 类：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-148">Create the following `PositionOptions` class:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Options/PositionOptions.cs?name=snippet)]
-
-<span data-ttu-id="fb3ea-149">类型的所有公共读写属性均已绑定。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-149">All the public read-write properties of the type are bound.</span></span> <span data-ttu-id="fb3ea-150">不会绑定字段。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-150">Fields are ***not*** bound.</span></span>
-
-<span data-ttu-id="fb3ea-151">下面的代码：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-151">The following code:</span></span>
-
-* <span data-ttu-id="fb3ea-152">调用 [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) 将 `PositionOptions` 类绑定到 `Position` 部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-152">Calls [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) to bind the `PositionOptions` class to the `Position` section.</span></span>
-* <span data-ttu-id="fb3ea-153">显示 `Position` 配置数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-153">Displays the `Position` configuration data.</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test22.cshtml.cs?name=snippet)]
-
-<span data-ttu-id="fb3ea-154">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 绑定并返回指定的类型。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-154">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="fb3ea-155">使用 `ConfigurationBinder.Get<T>` 可能比使用 `ConfigurationBinder.Bind` 更方便。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-155">`ConfigurationBinder.Get<T>` may be more convenient than using `ConfigurationBinder.Bind`.</span></span> <span data-ttu-id="fb3ea-156">下面的代码演示如何将 `ConfigurationBinder.Get<T>` 与 `PositionOptions` 类配合使用：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-156">The following code shows how to use `ConfigurationBinder.Get<T>` with the `PositionOptions` class:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test21.cshtml.cs?name=snippet)]
-
-<span data-ttu-id="fb3ea-157">使用选项模式时的替代方法是绑定 `Position` 部分并将它添加到[依赖项注入服务容器](xref:fundamentals/dependency-injection)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-157">An alternative approach when using the ***options pattern*** is to bind the `Position` section and add it to the [dependency injection service container](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="fb3ea-158">在以下代码中，`PositionOptions` 已通过 <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> 被添加到了服务容器并已绑定到了配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-158">In the following code, `PositionOptions` is added to the service container with <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> and bound to configuration:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Startup.cs?name=snippet)]
-
-<span data-ttu-id="fb3ea-159">通过使用前面的代码，以下代码将读取位置选项：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-159">Using the preceding code, the following code reads the position options:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test2.cshtml.cs?name=snippet)]
-
-<span data-ttu-id="fb3ea-160">使用[默认](#default)配置，会通过 [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75) 启用 appsettings.json 和 appsettings.`Environment`.json 文件    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-160">Using the [default](#default) configuration, the *appsettings.json* and *appsettings.*`Environment`*.json* files are enabled with [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span></span> <span data-ttu-id="fb3ea-161">应用启动后，对 appsettings.json 和 appsettings.`Environment`.json 文件做出的更改将由 [JSON 配置提供程序](#jcp)读取    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-161">Changes made to the *appsettings.json* and *appsettings.*`Environment`*.json* file ***after*** the app starts are read by the [JSON configuration provider](#jcp).</span></span>
-
-<span data-ttu-id="fb3ea-162">有关添加其他 JSON 配置文件的信息，请参阅本文档中的 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-162">See [JSON configuration provider](#jcp) in this document for information on adding additional JSON configuration files.</span></span>
+<span data-ttu-id="172d1-152">有关添加其他 JSON 配置文件的信息，请参阅本文档中的 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-152">See [JSON configuration provider](#jcp) in this document for information on adding additional JSON configuration files.</span></span>
 
 <a name="security"></a>
 
-## <a name="security-and-secret-manager"></a><span data-ttu-id="fb3ea-163">安全和机密管理器</span><span class="sxs-lookup"><span data-stu-id="fb3ea-163">Security and secret manager</span></span>
+## <a name="security-and-secret-manager"></a><span data-ttu-id="172d1-153">安全和机密管理器</span><span class="sxs-lookup"><span data-stu-id="172d1-153">Security and secret manager</span></span>
 
-<span data-ttu-id="fb3ea-164">配置数据指南：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-164">Configuration data guidelines:</span></span>
+<span data-ttu-id="172d1-154">配置数据指南：</span><span class="sxs-lookup"><span data-stu-id="172d1-154">Configuration data guidelines:</span></span>
 
-* <span data-ttu-id="fb3ea-165">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-165">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span> <span data-ttu-id="fb3ea-166">[机密管理器](xref:security/app-secrets)可用于存储开发环境中的机密。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-166">The [Secret manager](xref:security/app-secrets) can be used to store secrets in development.</span></span>
-* <span data-ttu-id="fb3ea-167">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-167">Don't use production secrets in development or test environments.</span></span>
-* <span data-ttu-id="fb3ea-168">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-168">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
+* <span data-ttu-id="172d1-155">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-155">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span> <span data-ttu-id="172d1-156">[机密管理器](xref:security/app-secrets)可用于存储开发环境中的机密。</span><span class="sxs-lookup"><span data-stu-id="172d1-156">The [Secret manager](xref:security/app-secrets) can be used to store secrets in development.</span></span>
+* <span data-ttu-id="172d1-157">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="172d1-157">Don't use production secrets in development or test environments.</span></span>
+* <span data-ttu-id="172d1-158">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="172d1-158">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="fb3ea-169">[默认情况下](#default)，[机密管理器](xref:security/app-secrets)会在 appsettings.json 和 appsettings.`Environment`.json 之后读取配置设置    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-169">By [default](#default), [Secret manager](xref:security/app-secrets) reads configuration settings after *appsettings.json* and *appsettings.*`Environment`*.json*.</span></span>
+<span data-ttu-id="172d1-159">[默认情况下](#default)，[机密管理器](xref:security/app-secrets)会在 appsettings.json 和 appsettings.`Environment`.json 之后读取配置设置  。</span><span class="sxs-lookup"><span data-stu-id="172d1-159">By [default](#default), [Secret manager](xref:security/app-secrets) reads configuration settings after *appsettings.json* and *appsettings.*`Environment`*.json*.</span></span>
 
-<span data-ttu-id="fb3ea-170">有关存储密码或其他敏感数据的详细信息：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-170">For more information on storing passwords or other sensitive data:</span></span>
+<span data-ttu-id="172d1-160">有关存储密码或其他敏感数据的详细信息：</span><span class="sxs-lookup"><span data-stu-id="172d1-160">For more information on storing passwords or other sensitive data:</span></span>
 
 * <xref:fundamentals/environments>
-* <span data-ttu-id="fb3ea-171"><xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-171"><xref:security/app-secrets>:  Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="fb3ea-172">机密管理器使用[文件配置提供程序](#fcp)将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-172">The Secret Manager uses the [File configuration provider](#fcp) to store user secrets in a JSON file on the local system.</span></span>
+* <span data-ttu-id="172d1-161"><xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。</span><span class="sxs-lookup"><span data-stu-id="172d1-161"><xref:security/app-secrets>:  Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="172d1-162">机密管理器使用[文件配置提供程序](#fcp)将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="172d1-162">The Secret Manager uses the [File configuration provider](#fcp) to store user secrets in a JSON file on the local system.</span></span>
 
-<span data-ttu-id="fb3ea-173">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-173">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="fb3ea-174">有关详细信息，请参阅 <xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-174">For more information, see <xref:security/key-vault-configuration>.</span></span>
+<span data-ttu-id="172d1-163">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。</span><span class="sxs-lookup"><span data-stu-id="172d1-163">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="172d1-164">有关详细信息，请参阅 <xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="172d1-164">For more information, see <xref:security/key-vault-configuration>.</span></span>
 
 <a name="evcp"></a>
 
-## <a name="environment-variables"></a><span data-ttu-id="fb3ea-175">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-175">Environment variables</span></span>
+## <a name="environment-variables"></a><span data-ttu-id="172d1-165">环境变量</span><span class="sxs-lookup"><span data-stu-id="172d1-165">Environment variables</span></span>
 
-<span data-ttu-id="fb3ea-176">使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)后从环境变量键值对加载配置    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-176">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs after reading *appsettings.json*, *appsettings.*`Environment`*.json*, and [Secret manager](xref:security/app-secrets).</span></span> <span data-ttu-id="fb3ea-177">因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-177">Therefore, key values read from the environment override values read from *appsettings.json*, *appsettings.*`Environment`*.json*, and Secret manager.</span></span>
+<span data-ttu-id="172d1-166">使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 会在读取 appsettings.json、appsettings.`Environment`.json 和[机密管理器](xref:security/app-secrets)后从环境变量键值对加载配置  。</span><span class="sxs-lookup"><span data-stu-id="172d1-166">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs after reading *appsettings.json*, *appsettings.*`Environment`*.json*, and [Secret manager](xref:security/app-secrets).</span></span> <span data-ttu-id="172d1-167">因此，从环境中读取的键值会替代从 appsettings.json、appsettings.`Environment`.json 和机密管理器中读取的值  。</span><span class="sxs-lookup"><span data-stu-id="172d1-167">Therefore, key values read from the environment override values read from *appsettings.json*, *appsettings.*`Environment`*.json*, and Secret manager.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-<span data-ttu-id="fb3ea-178">以下 `set` 命令：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-178">The following `set` commands:</span></span>
+<span data-ttu-id="172d1-168">以下 `set` 命令：</span><span class="sxs-lookup"><span data-stu-id="172d1-168">The following `set` commands:</span></span>
 
-* <span data-ttu-id="fb3ea-179">在 Windows 上设置[上述示例](#appsettingsjson)的环境键和值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-179">Set the environment keys and values of the [preceding example](#appsettingsjson) on Windows.</span></span>
-* <span data-ttu-id="fb3ea-180">在使用[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)时测试设置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-180">Test the settings when using the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample).</span></span> <span data-ttu-id="fb3ea-181">`dotnet run` 命令必须在项目目录中运行。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-181">The `dotnet run` command must be run in the project directory.</span></span>
+* <span data-ttu-id="172d1-169">在 Windows 上设置[上述示例](#appsettingsjson)的环境键和值。</span><span class="sxs-lookup"><span data-stu-id="172d1-169">Set the environment keys and values of the [preceding example](#appsettingsjson) on Windows.</span></span>
+* <span data-ttu-id="172d1-170">在使用[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)时测试设置。</span><span class="sxs-lookup"><span data-stu-id="172d1-170">Test the settings when using the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample).</span></span> <span data-ttu-id="172d1-171">`dotnet run` 命令必须在项目目录中运行。</span><span class="sxs-lookup"><span data-stu-id="172d1-171">The `dotnet run` command must be run in the project directory.</span></span>
 
 ```dotnetcli
 set MyKey="My key from Environment"
@@ -165,12 +120,12 @@ set Position__Name=Environment_Rick
 dotnet run
 ```
 
-<span data-ttu-id="fb3ea-182">前面的环境设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-182">The preceding environment settings:</span></span>
+<span data-ttu-id="172d1-172">前面的环境设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-172">The preceding environment settings:</span></span>
 
-* <span data-ttu-id="fb3ea-183">仅在进程中设置，这些进程是从设置进程的命令窗口启动的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-183">Are only set in processes launched from the command window they were set in.</span></span>
-* <span data-ttu-id="fb3ea-184">不会由通过 Visual Studio 启动的浏览器读取。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-184">Won't be read by browsers launched with Visual Studio.</span></span>
+* <span data-ttu-id="172d1-173">仅在进程中设置，这些进程是从设置进程的命令窗口启动的。</span><span class="sxs-lookup"><span data-stu-id="172d1-173">Are only set in processes launched from the command window they were set in.</span></span>
+* <span data-ttu-id="172d1-174">不会由通过 Visual Studio 启动的浏览器读取。</span><span class="sxs-lookup"><span data-stu-id="172d1-174">Won't be read by browsers launched with Visual Studio.</span></span>
 
-<span data-ttu-id="fb3ea-185">以下 [setx](/windows-server/administration/windows-commands/setx) 命令可用于在 Windows 上设置环境键和值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-185">The following [setx](/windows-server/administration/windows-commands/setx) commands can be used to set the environment keys and values on Windows.</span></span> <span data-ttu-id="fb3ea-186">与 `set` 不同，`setx` 设置是持久的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-186">Unlike `set`, `setx` settings are persisted.</span></span> <span data-ttu-id="fb3ea-187">`/M` 在系统环境中设置变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-187">`/M` sets the variable in the system environment.</span></span> <span data-ttu-id="fb3ea-188">如果未使用 `/M` 开关，则会设置用户环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-188">If the `/M` switch isn't used, a user environment variable is set.</span></span>
+<span data-ttu-id="172d1-175">以下 [setx](/windows-server/administration/windows-commands/setx) 命令可用于在 Windows 上设置环境键和值。</span><span class="sxs-lookup"><span data-stu-id="172d1-175">The following [setx](/windows-server/administration/windows-commands/setx) commands can be used to set the environment keys and values on Windows.</span></span> <span data-ttu-id="172d1-176">与 `set` 不同，`setx` 设置是持久的。</span><span class="sxs-lookup"><span data-stu-id="172d1-176">Unlike `set`, `setx` settings are persisted.</span></span> <span data-ttu-id="172d1-177">`/M` 在系统环境中设置变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-177">`/M` sets the variable in the system environment.</span></span> <span data-ttu-id="172d1-178">如果未使用 `/M` 开关，则会设置用户环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-178">If the `/M` switch isn't used, a user environment variable is set.</span></span>
 
 ```cmd
 setx MyKey "My key from setx Environment" /M
@@ -178,23 +133,23 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-<span data-ttu-id="fb3ea-189">测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：   </span><span class="sxs-lookup"><span data-stu-id="fb3ea-189">To test that the preceding commands override *appsettings.json* and *appsettings.*`Environment`*.json*:</span></span>
+<span data-ttu-id="172d1-179">测试前面的命令是否会替代 appsettings.json 和 appsettings.`Environment`.json：  </span><span class="sxs-lookup"><span data-stu-id="172d1-179">To test that the preceding commands override *appsettings.json* and *appsettings.*`Environment`*.json*:</span></span>
 
-* <span data-ttu-id="fb3ea-190">使用 Visual Studio：退出并重启 Visual Studio。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-190">With Visual Studio: Exit and restart Visual Studio.</span></span>
-* <span data-ttu-id="fb3ea-191">使用 CLI：启动新的命令窗口并输入 `dotnet run`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-191">With the CLI: Start a new command window and enter `dotnet run`.</span></span>
+* <span data-ttu-id="172d1-180">使用 Visual Studio：退出并重启 Visual Studio。</span><span class="sxs-lookup"><span data-stu-id="172d1-180">With Visual Studio: Exit and restart Visual Studio.</span></span>
+* <span data-ttu-id="172d1-181">使用 CLI：启动新的命令窗口并输入 `dotnet run`。</span><span class="sxs-lookup"><span data-stu-id="172d1-181">With the CLI: Start a new command window and enter `dotnet run`.</span></span>
 
-<span data-ttu-id="fb3ea-192">使用字符串调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 以指定环境变量的前缀：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-192">Call <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> with a string to specify a prefix for environment variables:</span></span>
+<span data-ttu-id="172d1-182">使用字符串调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 以指定环境变量的前缀：</span><span class="sxs-lookup"><span data-stu-id="172d1-182">Call <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> with a string to specify a prefix for environment variables:</span></span>
 
-[!code-csharp[](index/samples/3.x/ConfigSample/Program.cs?name=snippet4&highlight=12)]
+[!code-csharp[](~/fundamentals/configuration/index/samples/3.x/ConfigSample/Program.cs?name=snippet4&highlight=12)]
 
-<span data-ttu-id="fb3ea-193">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-193">In the preceding code:</span></span>
+<span data-ttu-id="172d1-183">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="172d1-183">In the preceding code:</span></span>
 
-* <span data-ttu-id="fb3ea-194">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` 被添加到[默认配置提供程序](#default)之后。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-194">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="fb3ea-195">有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-195">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
-* <span data-ttu-id="fb3ea-196">使用 `MyCustomPrefix_` 前缀设置的环境变量将替代[默认配置提供程序](#default)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-196">Environment variables set with the `MyCustomPrefix_` prefix override the [default configuration providers](#default).</span></span> <span data-ttu-id="fb3ea-197">这包括没有前缀的环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-197">This includes environment variables without the prefix.</span></span>
+* <span data-ttu-id="172d1-184">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` 被添加到[默认配置提供程序](#default)之后。</span><span class="sxs-lookup"><span data-stu-id="172d1-184">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="172d1-185">有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-185">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
+* <span data-ttu-id="172d1-186">使用 `MyCustomPrefix_` 前缀设置的环境变量将替代[默认配置提供程序](#default)。</span><span class="sxs-lookup"><span data-stu-id="172d1-186">Environment variables set with the `MyCustomPrefix_` prefix override the [default configuration providers](#default).</span></span> <span data-ttu-id="172d1-187">这包括没有前缀的环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-187">This includes environment variables without the prefix.</span></span>
 
-<span data-ttu-id="fb3ea-198">前缀会在读取配置键值对时被去除。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-198">The prefix is stripped off when the configuration key-value pairs are read.</span></span>
+<span data-ttu-id="172d1-188">前缀会在读取配置键值对时被去除。</span><span class="sxs-lookup"><span data-stu-id="172d1-188">The prefix is stripped off when the configuration key-value pairs are read.</span></span>
 
-<span data-ttu-id="fb3ea-199">以下命令对自定义前缀进行测试：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-199">The following commands test the custom prefix:</span></span>
+<span data-ttu-id="172d1-189">以下命令对自定义前缀进行测试：</span><span class="sxs-lookup"><span data-stu-id="172d1-189">The following commands test the custom prefix:</span></span>
 
 ```dotnetcli
 set MyCustomPrefix_MyKey="My key with MyCustomPrefix_ Environment"
@@ -203,287 +158,966 @@ set MyCustomPrefix_Position__Name=Environment_Rick_cp
 dotnet run
 ```
 
-<span data-ttu-id="fb3ea-200">[默认配置](#default)会加载前缀为 `DOTNET_` 和 `ASPNETCORE_` 的环境变量和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-200">The [default configuration](#default) loads environment variables and command line arguments prefixed with `DOTNET_` and `ASPNETCORE_`.</span></span> <span data-ttu-id="fb3ea-201">`DOTNET_` 和 `ASPNETCORE_` 前缀会由 ASP.NET Core 用于[主机和应用配置](xref:fundamentals/host/generic-host#host-configuration)，但不用于用户配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-201">The `DOTNET_` and `ASPNETCORE_` prefixes are used by ASP.NET Core for [host and app configuration](xref:fundamentals/host/generic-host#host-configuration), but not for user configuration.</span></span> <span data-ttu-id="fb3ea-202">有关主机和应用配置的详细信息，请参阅 [.NET 通用主机](xref:fundamentals/host/generic-host)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-202">For more information on host and app configuration, see [.NET Generic Host](xref:fundamentals/host/generic-host).</span></span>
+<span data-ttu-id="172d1-190">[默认配置](#default)会加载前缀为 `DOTNET_` 和 `ASPNETCORE_` 的环境变量和命令行参数。</span><span class="sxs-lookup"><span data-stu-id="172d1-190">The [default configuration](#default) loads environment variables and command line arguments prefixed with `DOTNET_` and `ASPNETCORE_`.</span></span> <span data-ttu-id="172d1-191">`DOTNET_` 和 `ASPNETCORE_` 前缀会由 ASP.NET Core 用于[主机和应用配置](xref:fundamentals/host/generic-host#host-configuration)，但不用于用户配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-191">The `DOTNET_` and `ASPNETCORE_` prefixes are used by ASP.NET Core for [host and app configuration](xref:fundamentals/host/generic-host#host-configuration), but not for user configuration.</span></span> <span data-ttu-id="172d1-192">有关主机和应用配置的详细信息，请参阅 [.NET 通用主机](xref:fundamentals/host/generic-host)。</span><span class="sxs-lookup"><span data-stu-id="172d1-192">For more information on host and app configuration, see [.NET Generic Host](xref:fundamentals/host/generic-host).</span></span>
 
-<span data-ttu-id="fb3ea-203">在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)上，选择“设置”>“配置”页面上的“新应用程序设置”   。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-203">On [Azure App Service](https://azure.microsoft.com/services/app-service/), select **New application setting** on the **Settings > Configuration** page.</span></span> <span data-ttu-id="fb3ea-204">Azure 应用服务应用程序设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-204">Azure App Service application settings are:</span></span>
+<span data-ttu-id="172d1-193">在 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)上，选择“设置”>“配置”页面上的“新应用程序设置” 。</span><span class="sxs-lookup"><span data-stu-id="172d1-193">On [Azure App Service](https://azure.microsoft.com/services/app-service/), select **New application setting** on the **Settings > Configuration** page.</span></span> <span data-ttu-id="172d1-194">Azure 应用服务应用程序设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-194">Azure App Service application settings are:</span></span>
 
-* <span data-ttu-id="fb3ea-205">已静态加密且通过加密的通道进行传输。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-205">Encrypted at rest and transmitted over an encrypted channel.</span></span>
-* <span data-ttu-id="fb3ea-206">已作为环境变量公开。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-206">Exposed as environment variables.</span></span>
+* <span data-ttu-id="172d1-195">已静态加密且通过加密的通道进行传输。</span><span class="sxs-lookup"><span data-stu-id="172d1-195">Encrypted at rest and transmitted over an encrypted channel.</span></span>
+* <span data-ttu-id="172d1-196">已作为环境变量公开。</span><span class="sxs-lookup"><span data-stu-id="172d1-196">Exposed as environment variables.</span></span>
 
-<span data-ttu-id="fb3ea-207">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-207">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
+<span data-ttu-id="172d1-197">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="172d1-197">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
 
-<span data-ttu-id="fb3ea-208">有关 Azure 数据库连接字符串的信息，请参阅[连接字符串前缀](#constr)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-208">See [Connection string prefixes](#constr) for information on Azure database connection strings.</span></span>
+<span data-ttu-id="172d1-198">有关 Azure 数据库连接字符串的信息，请参阅[连接字符串前缀](#constr)。</span><span class="sxs-lookup"><span data-stu-id="172d1-198">See [Connection string prefixes](#constr) for information on Azure database connection strings.</span></span>
 
 <a name="clcp"></a>
 
-## <a name="command-line"></a><span data-ttu-id="fb3ea-209">命令行</span><span class="sxs-lookup"><span data-stu-id="fb3ea-209">Command-line</span></span>
+## <a name="command-line"></a><span data-ttu-id="172d1-199">命令行</span><span class="sxs-lookup"><span data-stu-id="172d1-199">Command-line</span></span>
 
-<span data-ttu-id="fb3ea-210">使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 会从以下配置源后的命令行参数键值对中加载配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-210">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs after the following configuration sources:</span></span>
+<span data-ttu-id="172d1-200">使用[默认](#default)配置，<xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 会从以下配置源后的命令行参数键值对中加载配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-200">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs after the following configuration sources:</span></span>
 
-* <span data-ttu-id="fb3ea-211">appsettings.json 和 appsettings.`Environment`.json 文件    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-211">*appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
-* <span data-ttu-id="fb3ea-212">开发环境中的[应用机密（机密管理器）](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-212">[App secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="fb3ea-213">环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-213">Environment variables.</span></span>
+* <span data-ttu-id="172d1-201">appsettings.json 和 appsettings.`Environment`.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="172d1-201">*appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
+* <span data-ttu-id="172d1-202">开发环境中的[应用机密（机密管理器）](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="172d1-202">[App secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="172d1-203">环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-203">Environment variables.</span></span>
 
-<span data-ttu-id="fb3ea-214">[默认情况下](#default)，在命令行上设置的配置值会替代通过所有其他配置提供程序设置的配置值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-214">By [default](#default), configuration values set on the command-line override configuration values set with all the other configuration providers.</span></span>
+<span data-ttu-id="172d1-204">[默认情况下](#default)，在命令行上设置的配置值会替代通过所有其他配置提供程序设置的配置值。</span><span class="sxs-lookup"><span data-stu-id="172d1-204">By [default](#default), configuration values set on the command-line override configuration values set with all the other configuration providers.</span></span>
 
-### <a name="command-line-arguments"></a><span data-ttu-id="fb3ea-215">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-215">Command-line arguments</span></span>
+### <a name="command-line-arguments"></a><span data-ttu-id="172d1-205">命令行参数</span><span class="sxs-lookup"><span data-stu-id="172d1-205">Command-line arguments</span></span>
 
-<span data-ttu-id="fb3ea-216">以下命令使用 `=` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-216">The following command sets keys and values using `=`:</span></span>
+<span data-ttu-id="172d1-206">以下命令使用 `=` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="172d1-206">The following command sets keys and values using `=`:</span></span>
 
 ```dotnetcli
 dotnet run MyKey="My key from command line" Position:Title=Cmd Position:Name=Cmd_Rick
 ```
 
-<span data-ttu-id="fb3ea-217">以下命令使用 `/` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-217">The following command sets keys and values using `/`:</span></span>
+<span data-ttu-id="172d1-207">以下命令使用 `/` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="172d1-207">The following command sets keys and values using `/`:</span></span>
 
 ```dotnetcli
 dotnet run /MyKey "Using /" /Position:Title=Cmd_ /Position:Name=Cmd_Rick
 ```
 
-<span data-ttu-id="fb3ea-218">以下命令使用 `--` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-218">The following command sets keys and values using `--`:</span></span>
+<span data-ttu-id="172d1-208">以下命令使用 `--` 设置键和值：</span><span class="sxs-lookup"><span data-stu-id="172d1-208">The following command sets keys and values using `--`:</span></span>
 
 ```dotnetcli
 dotnet run --MyKey "Using --" --Position:Title=Cmd-- --Position:Name=Cmd--Rick
 ```
 
-<span data-ttu-id="fb3ea-219">键值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-219">The key value:</span></span>
+<span data-ttu-id="172d1-209">键值：</span><span class="sxs-lookup"><span data-stu-id="172d1-209">The key value:</span></span>
 
-* <span data-ttu-id="fb3ea-220">必须后跟 `=`，或者当值后跟一个空格时，键必须具有一个 `--` 或 `/` 的前缀。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-220">Must follow `=`, or the key must have a prefix of `--` or `/` when the value follows a space.</span></span>
-* <span data-ttu-id="fb3ea-221">如果使用 `=`，则不是必需的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-221">Isn't required if `=` is used.</span></span> <span data-ttu-id="fb3ea-222">例如 `MySetting=`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-222">For example, `MySetting=`.</span></span>
+* <span data-ttu-id="172d1-210">必须后跟 `=`，或者当值后跟一个空格时，键必须具有一个 `--` 或 `/` 的前缀。</span><span class="sxs-lookup"><span data-stu-id="172d1-210">Must follow `=`, or the key must have a prefix of `--` or `/` when the value follows a space.</span></span>
+* <span data-ttu-id="172d1-211">如果使用 `=`，则不是必需的。</span><span class="sxs-lookup"><span data-stu-id="172d1-211">Isn't required if `=` is used.</span></span> <span data-ttu-id="172d1-212">例如 `MySetting=`。</span><span class="sxs-lookup"><span data-stu-id="172d1-212">For example, `MySetting=`.</span></span>
 
-<span data-ttu-id="fb3ea-223">在同一命令中，请勿将使用 `=` 的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-223">Within the same command, don't mix command-line argument key-value pairs that use `=` with key-value pairs that use a space.</span></span>
+<span data-ttu-id="172d1-213">在同一命令中，请勿将使用 `=` 的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="172d1-213">Within the same command, don't mix command-line argument key-value pairs that use `=` with key-value pairs that use a space.</span></span>
 
-### <a name="switch-mappings"></a><span data-ttu-id="fb3ea-224">交换映射</span><span class="sxs-lookup"><span data-stu-id="fb3ea-224">Switch mappings</span></span>
+### <a name="switch-mappings"></a><span data-ttu-id="172d1-214">交换映射</span><span class="sxs-lookup"><span data-stu-id="172d1-214">Switch mappings</span></span>
 
-<span data-ttu-id="fb3ea-225">交换映射支持键名替换逻辑  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-225">Switch mappings allow **key** name replacement logic.</span></span> <span data-ttu-id="fb3ea-226">提供针对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法的交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-226">Provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
+<span data-ttu-id="172d1-215">交换映射支持键名替换逻辑。</span><span class="sxs-lookup"><span data-stu-id="172d1-215">Switch mappings allow **key** name replacement logic.</span></span> <span data-ttu-id="172d1-216">提供针对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法的交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="172d1-216">Provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
 
-<span data-ttu-id="fb3ea-227">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-227">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="fb3ea-228">如果在字典中找到了命令行键，则会传回字典值将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-228">If the command-line key is found in the dictionary, the dictionary value is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="fb3ea-229">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-229">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
+<span data-ttu-id="172d1-217">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="172d1-217">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="172d1-218">如果在字典中找到了命令行键，则会传回字典值将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-218">If the command-line key is found in the dictionary, the dictionary value is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="172d1-219">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="172d1-219">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
 
-<span data-ttu-id="fb3ea-230">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-230">Switch mappings dictionary key rules:</span></span>
+<span data-ttu-id="172d1-220">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="172d1-220">Switch mappings dictionary key rules:</span></span>
 
-* <span data-ttu-id="fb3ea-231">交换必须以 `-` 或 `--` 开头。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-231">Switches must start with `-` or `--`.</span></span>
-* <span data-ttu-id="fb3ea-232">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-232">The switch mappings dictionary must not contain duplicate keys.</span></span>
+* <span data-ttu-id="172d1-221">交换必须以 `-` 或 `--` 开头。</span><span class="sxs-lookup"><span data-stu-id="172d1-221">Switches must start with `-` or `--`.</span></span>
+* <span data-ttu-id="172d1-222">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="172d1-222">The switch mappings dictionary must not contain duplicate keys.</span></span>
 
-<span data-ttu-id="fb3ea-233">若要使用交换映射字典，请将它传递到对 `AddCommandLine` 的调用中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-233">To use a switch mappings dictionary, pass it into the call to `AddCommandLine`:</span></span>
+<span data-ttu-id="172d1-223">若要使用交换映射字典，请将它传递到对 `AddCommandLine` 的调用中：</span><span class="sxs-lookup"><span data-stu-id="172d1-223">To use a switch mappings dictionary, pass it into the call to `AddCommandLine`:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramSwitch.cs?name=snippet&highlight=10-18,23)]
 
-<span data-ttu-id="fb3ea-234">下面的代码显示了替换后的键的键值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-234">The following code shows the key values for the replaced keys:</span></span>
+<span data-ttu-id="172d1-224">下面的代码显示了替换后的键的键值：</span><span class="sxs-lookup"><span data-stu-id="172d1-224">The following code shows the key values for the replaced keys:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test3.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-235">运行以下命令以测试键替换：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-235">Run the following command to test the key replacement:</span></span>
+<span data-ttu-id="172d1-225">运行以下命令以测试键替换：</span><span class="sxs-lookup"><span data-stu-id="172d1-225">Run the following command to test the key replacement:</span></span>
 
 ```dotnetcli
 dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
 ```
 
-<span data-ttu-id="fb3ea-236">注意：目前，`=` 不能用于设置带有单划线 `-` 的键替换值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-236">Note: Currently, `=` cannot be used to set key-replacement values with a single dash `-`.</span></span> <span data-ttu-id="fb3ea-237">请参阅[此 GitHub 问题](https://github.com/dotnet/extensions/issues/3059)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-237">See [this GitHub issue](https://github.com/dotnet/extensions/issues/3059).</span></span>
+<span data-ttu-id="172d1-226">注意：目前，`=` 不能用于设置带有单划线 `-` 的键替换值。</span><span class="sxs-lookup"><span data-stu-id="172d1-226">Note: Currently, `=` cannot be used to set key-replacement values with a single dash `-`.</span></span> <span data-ttu-id="172d1-227">请参阅[此 GitHub 问题](https://github.com/dotnet/extensions/issues/3059)。</span><span class="sxs-lookup"><span data-stu-id="172d1-227">See [this GitHub issue](https://github.com/dotnet/extensions/issues/3059).</span></span>
 
-<span data-ttu-id="fb3ea-238">以下命令可用于测试键替换：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-238">The following command works to test key replacement:</span></span>
+<span data-ttu-id="172d1-228">以下命令可用于测试键替换：</span><span class="sxs-lookup"><span data-stu-id="172d1-228">The following command works to test key replacement:</span></span>
 
 ```dotnetcli
 dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
 ```
 
-<span data-ttu-id="fb3ea-239">对于使用交换映射的应用，调用 `CreateDefaultBuilder` 不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-239">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="fb3ea-240">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-240">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch-mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="fb3ea-241">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-241">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch-mapping dictionary.</span></span>
+<span data-ttu-id="172d1-229">对于使用交换映射的应用，调用 `CreateDefaultBuilder` 不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="172d1-229">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="172d1-230">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="172d1-230">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch-mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="172d1-231">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="172d1-231">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch-mapping dictionary.</span></span>
 
-## <a name="hierarchical-configuration-data"></a><span data-ttu-id="fb3ea-242">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="fb3ea-242">Hierarchical configuration data</span></span>
+## <a name="hierarchical-configuration-data"></a><span data-ttu-id="172d1-232">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="172d1-232">Hierarchical configuration data</span></span>
 
-<span data-ttu-id="fb3ea-243">配置 API 在配置键中使用分隔符来展平分层数据，以此来读取分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-243">The Configuration API reads hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+<span data-ttu-id="172d1-233">配置 API 在配置键中使用分隔符来展平分层数据，以此来读取分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-233">The Configuration API reads hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
 
-<span data-ttu-id="fb3ea-244">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 appsettings.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-244">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *appsettings.json* file:</span></span>
+<span data-ttu-id="172d1-234">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 appsettings.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-234">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *appsettings.json* file:</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
-<span data-ttu-id="fb3ea-245">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-245">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the configurations settings:</span></span>
+<span data-ttu-id="172d1-235">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-235">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-246">读取分层配置数据的首选方法是使用选项模式。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-246">The preferred way to read hierarchical configuration data is using the options pattern.</span></span> <span data-ttu-id="fb3ea-247">有关详细信息，请参阅本文档中的[绑定分层配置数据](#optpat)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-247">For more information, see [Bind hierarchical configuration data](#optpat) in this document.</span></span>
+<span data-ttu-id="172d1-236">读取分层配置数据的首选方法是使用选项模式。</span><span class="sxs-lookup"><span data-stu-id="172d1-236">The preferred way to read hierarchical configuration data is using the options pattern.</span></span> <span data-ttu-id="172d1-237">有关详细信息，请参阅本文档中的[绑定分层配置数据](#optpat)。</span><span class="sxs-lookup"><span data-stu-id="172d1-237">For more information, see [Bind hierarchical configuration data](#optpat) in this document.</span></span>
 
-<span data-ttu-id="fb3ea-248"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-248"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="fb3ea-249">稍后将在 [GetSection、GetChildren 和 Exists](#getsection) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-249">These methods are described later in [GetSection, GetChildren, and Exists](#getsection).</span></span>
+<span data-ttu-id="172d1-238"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="172d1-238"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="172d1-239">稍后将在 [GetSection、GetChildren 和 Exists](#getsection) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-239">These methods are described later in [GetSection, GetChildren, and Exists](#getsection).</span></span>
 
 <!--
 [Azure Key Vault configuration provider](xref:security/key-vault-configuration) implement change detection.
 -->
 
-## <a name="configuration-keys-and-values"></a><span data-ttu-id="fb3ea-250">配置键和值</span><span class="sxs-lookup"><span data-stu-id="fb3ea-250">Configuration keys and values</span></span>
+## <a name="configuration-keys-and-values"></a><span data-ttu-id="172d1-240">配置键和值</span><span class="sxs-lookup"><span data-stu-id="172d1-240">Configuration keys and values</span></span>
 
-<span data-ttu-id="fb3ea-251">配置键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-251">Configuration keys:</span></span>
+<span data-ttu-id="172d1-241">配置键：</span><span class="sxs-lookup"><span data-stu-id="172d1-241">Configuration keys:</span></span>
 
-* <span data-ttu-id="fb3ea-252">不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-252">Are case-insensitive.</span></span> <span data-ttu-id="fb3ea-253">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-253">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
-* <span data-ttu-id="fb3ea-254">如果在多个配置提供程序中设置了某一键和值，则会使用最后添加的提供程序中的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-254">If a key and value is set in more than one configuration providers, the value from the last provider added is used.</span></span> <span data-ttu-id="fb3ea-255">有关详细信息，请参阅[默认配置](#default)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-255">For more information, see [Default configuration](#default).</span></span>
-* <span data-ttu-id="fb3ea-256">分层键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-256">Hierarchical keys</span></span>
-  * <span data-ttu-id="fb3ea-257">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-257">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
-  * <span data-ttu-id="fb3ea-258">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-258">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="fb3ea-259">所有平台均支持采用双下划线 `__`，并且它会自动转换为冒号 `:`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-259">A double underscore, `__`, is supported by all platforms and is automatically converted into a colon `:`.</span></span>
-  * <span data-ttu-id="fb3ea-260">在 Azure Key Vault 中，分层键使用 `--` 作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-260">In Azure Key Vault, hierarchical keys use `--` as a separator.</span></span> <span data-ttu-id="fb3ea-261">当机密加载到应用的配置中时，[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration) 会自动将 `--` 替换为 `:`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-261">The [Azure Key Vault configuration provider](xref:security/key-vault-configuration) automatically replaces `--` with a `:` when the secrets are loaded into the app's configuration.</span></span>
-* <span data-ttu-id="fb3ea-262"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-262">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="fb3ea-263">数组绑定将在[将数组绑定到类](#boa)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-263">Array binding is described in the [Bind an array to a class](#boa) section.</span></span>
+* <span data-ttu-id="172d1-242">不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="172d1-242">Are case-insensitive.</span></span> <span data-ttu-id="172d1-243">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="172d1-243">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
+* <span data-ttu-id="172d1-244">如果在多个配置提供程序中设置了某一键和值，则会使用最后添加的提供程序中的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-244">If a key and value is set in more than one configuration providers, the value from the last provider added is used.</span></span> <span data-ttu-id="172d1-245">有关详细信息，请参阅[默认配置](#default)。</span><span class="sxs-lookup"><span data-stu-id="172d1-245">For more information, see [Default configuration](#default).</span></span>
+* <span data-ttu-id="172d1-246">分层键</span><span class="sxs-lookup"><span data-stu-id="172d1-246">Hierarchical keys</span></span>
+  * <span data-ttu-id="172d1-247">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="172d1-247">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
+  * <span data-ttu-id="172d1-248">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="172d1-248">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="172d1-249">所有平台均支持采用双下划线 `__`，并且它会自动转换为冒号 `:`。</span><span class="sxs-lookup"><span data-stu-id="172d1-249">A double underscore, `__`, is supported by all platforms and is automatically converted into a colon `:`.</span></span>
+  * <span data-ttu-id="172d1-250">在 Azure Key Vault 中，分层键使用 `--` 作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="172d1-250">In Azure Key Vault, hierarchical keys use `--` as a separator.</span></span> <span data-ttu-id="172d1-251">当机密加载到应用的配置中时，[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration) 会自动将 `--` 替换为 `:`。</span><span class="sxs-lookup"><span data-stu-id="172d1-251">The [Azure Key Vault configuration provider](xref:security/key-vault-configuration) automatically replaces `--` with a `:` when the secrets are loaded into the app's configuration.</span></span>
+* <span data-ttu-id="172d1-252"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-252">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="172d1-253">数组绑定将在[将数组绑定到类](#boa)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="172d1-253">Array binding is described in the [Bind an array to a class](#boa) section.</span></span>
 
-<span data-ttu-id="fb3ea-264">配置值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-264">Configuration values:</span></span>
+<span data-ttu-id="172d1-254">配置值：</span><span class="sxs-lookup"><span data-stu-id="172d1-254">Configuration values:</span></span>
 
-* <span data-ttu-id="fb3ea-265">为字符串。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-265">Are strings.</span></span>
-* <span data-ttu-id="fb3ea-266">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-266">Null values can't be stored in configuration or bound to objects.</span></span>
+* <span data-ttu-id="172d1-255">为字符串。</span><span class="sxs-lookup"><span data-stu-id="172d1-255">Are strings.</span></span>
+* <span data-ttu-id="172d1-256">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-256">Null values can't be stored in configuration or bound to objects.</span></span>
 
 <a name="cp"></a>
 
-## <a name="configuration-providers"></a><span data-ttu-id="fb3ea-267">配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-267">Configuration providers</span></span>
+## <a name="configuration-providers"></a><span data-ttu-id="172d1-257">配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-257">Configuration providers</span></span>
 
-<span data-ttu-id="fb3ea-268">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-268">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+<span data-ttu-id="172d1-258">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-258">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
 
-| <span data-ttu-id="fb3ea-269">提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-269">Provider</span></span> | <span data-ttu-id="fb3ea-270">通过以下对象提供配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-270">Provides configuration from</span></span> |
-| -------- | ----------------------------------- |
-| [<span data-ttu-id="fb3ea-271">Azure Key Vault 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-271">Azure Key Vault configuration provider</span></span>](xref:security/key-vault-configuration) | <span data-ttu-id="fb3ea-272">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="fb3ea-272">Azure Key Vault</span></span> |
-| [<span data-ttu-id="fb3ea-273">Azure 应用配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-273">Azure App configuration provider</span></span>](/azure/azure-app-configuration/quickstart-aspnet-core-app) | <span data-ttu-id="fb3ea-274">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-274">Azure App Configuration</span></span> |
-| [<span data-ttu-id="fb3ea-275">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-275">Command-line configuration provider</span></span>](#clcp) | <span data-ttu-id="fb3ea-276">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-276">Command-line parameters</span></span> |
-| [<span data-ttu-id="fb3ea-277">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-277">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="fb3ea-278">自定义源</span><span class="sxs-lookup"><span data-stu-id="fb3ea-278">Custom source</span></span> |
-| [<span data-ttu-id="fb3ea-279">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-279">Environment Variables configuration provider</span></span>](#evcp) | <span data-ttu-id="fb3ea-280">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-280">Environment variables</span></span> |
-| [<span data-ttu-id="fb3ea-281">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-281">File configuration provider</span></span>](#file-configuration-provider) | <span data-ttu-id="fb3ea-282">INI、JSON 和 XML 文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-282">INI, JSON, and XML files</span></span> |
-| [<span data-ttu-id="fb3ea-283">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-283">Key-per-file configuration provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="fb3ea-284">目录文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-284">Directory files</span></span> |
-| [<span data-ttu-id="fb3ea-285">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-285">Memory configuration provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="fb3ea-286">内存中集合</span><span class="sxs-lookup"><span data-stu-id="fb3ea-286">In-memory collections</span></span> |
-| [<span data-ttu-id="fb3ea-287">机密管理器</span><span class="sxs-lookup"><span data-stu-id="fb3ea-287">Secret Manager</span></span>](xref:security/app-secrets)  | <span data-ttu-id="fb3ea-288">用户配置文件目录中的文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-288">File in the user profile directory</span></span> |
+| <span data-ttu-id="172d1-259">提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-259">Provider</span></span> | <span data-ttu-id="172d1-260">通过以下对象提供配置</span><span class="sxs-lookup"><span data-stu-id="172d1-260">Provides configuration from</span></span> |
+| ---
+<span data-ttu-id="172d1-261">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-261">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-262">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-262">'Blazor'</span></span>
+- <span data-ttu-id="172d1-263">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-263">'Identity'</span></span>
+- <span data-ttu-id="172d1-264">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-264">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-265">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-265">'Razor'</span></span>
+- <span data-ttu-id="172d1-266">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-266">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-289">按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-289">Configuration sources are read in the order that their configuration providers are specified.</span></span> <span data-ttu-id="fb3ea-290">代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-290">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+-
+<span data-ttu-id="172d1-267">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-267">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-268">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-268">'Blazor'</span></span>
+- <span data-ttu-id="172d1-269">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-269">'Identity'</span></span>
+- <span data-ttu-id="172d1-270">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-270">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-271">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-271">'Razor'</span></span>
+- <span data-ttu-id="172d1-272">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-272">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-291">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-291">A typical sequence of configuration providers is:</span></span>
+<span data-ttu-id="172d1-273">---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-273">---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-274">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-274">'Blazor'</span></span>
+- <span data-ttu-id="172d1-275">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-275">'Identity'</span></span>
+- <span data-ttu-id="172d1-276">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-276">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-277">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-277">'Razor'</span></span>
+- <span data-ttu-id="172d1-278">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-278">'SignalR' uid:</span></span> 
 
-1. <span data-ttu-id="fb3ea-292">*appsettings.json*</span><span class="sxs-lookup"><span data-stu-id="fb3ea-292">*appsettings.json*</span></span>
-1. <span data-ttu-id="fb3ea-293">appsettings.`Environment`.json  </span><span class="sxs-lookup"><span data-stu-id="fb3ea-293">*appsettings*.`Environment`.*json*</span></span>
-1. [<span data-ttu-id="fb3ea-294">机密管理器</span><span class="sxs-lookup"><span data-stu-id="fb3ea-294">Secret Manager</span></span>](xref:security/app-secrets)
-1. <span data-ttu-id="fb3ea-295">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-295">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
-1. <span data-ttu-id="fb3ea-296">使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-296">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
+-
+<span data-ttu-id="172d1-279">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-279">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-280">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-280">'Blazor'</span></span>
+- <span data-ttu-id="172d1-281">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-281">'Identity'</span></span>
+- <span data-ttu-id="172d1-282">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-282">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-283">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-283">'Razor'</span></span>
+- <span data-ttu-id="172d1-284">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-284">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-297">通常的做法是将命令行配置提供程序添加到一系列提供程序的末尾，使命令行参数能够替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-297">A common practice is to add the Command-line configuration provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+-
+<span data-ttu-id="172d1-285">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-285">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-286">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-286">'Blazor'</span></span>
+- <span data-ttu-id="172d1-287">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-287">'Identity'</span></span>
+- <span data-ttu-id="172d1-288">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-288">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-289">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-289">'Razor'</span></span>
+- <span data-ttu-id="172d1-290">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-290">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-298">[默认配置](#default)中使用了上述提供程序顺序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-298">The preceding sequence of providers is used in the [default configuration](#default).</span></span>
+-
+<span data-ttu-id="172d1-291">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-291">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-292">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-292">'Blazor'</span></span>
+- <span data-ttu-id="172d1-293">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-293">'Identity'</span></span>
+- <span data-ttu-id="172d1-294">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-294">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-295">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-295">'Razor'</span></span>
+- <span data-ttu-id="172d1-296">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-296">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-297">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-297">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-298">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-298">'Blazor'</span></span>
+- <span data-ttu-id="172d1-299">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-299">'Identity'</span></span>
+- <span data-ttu-id="172d1-300">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-300">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-301">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-301">'Razor'</span></span>
+- <span data-ttu-id="172d1-302">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-302">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-303">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-303">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-304">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-304">'Blazor'</span></span>
+- <span data-ttu-id="172d1-305">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-305">'Identity'</span></span>
+- <span data-ttu-id="172d1-306">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-306">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-307">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-307">'Razor'</span></span>
+- <span data-ttu-id="172d1-308">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-308">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-309">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-309">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-310">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-310">'Blazor'</span></span>
+- <span data-ttu-id="172d1-311">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-311">'Identity'</span></span>
+- <span data-ttu-id="172d1-312">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-312">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-313">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-313">'Razor'</span></span>
+- <span data-ttu-id="172d1-314">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-314">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-315">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-315">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-316">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-316">'Blazor'</span></span>
+- <span data-ttu-id="172d1-317">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-317">'Identity'</span></span>
+- <span data-ttu-id="172d1-318">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-318">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-319">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-319">'Razor'</span></span>
+- <span data-ttu-id="172d1-320">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-320">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-321">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-321">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-322">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-322">'Blazor'</span></span>
+- <span data-ttu-id="172d1-323">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-323">'Identity'</span></span>
+- <span data-ttu-id="172d1-324">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-324">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-325">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-325">'Razor'</span></span>
+- <span data-ttu-id="172d1-326">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-326">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-327">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-327">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-328">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-328">'Blazor'</span></span>
+- <span data-ttu-id="172d1-329">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-329">'Identity'</span></span>
+- <span data-ttu-id="172d1-330">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-330">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-331">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-331">'Razor'</span></span>
+- <span data-ttu-id="172d1-332">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-332">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-333">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-333">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-334">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-334">'Blazor'</span></span>
+- <span data-ttu-id="172d1-335">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-335">'Identity'</span></span>
+- <span data-ttu-id="172d1-336">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-336">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-337">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-337">'Razor'</span></span>
+- <span data-ttu-id="172d1-338">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-338">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-339">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-339">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-340">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-340">'Blazor'</span></span>
+- <span data-ttu-id="172d1-341">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-341">'Identity'</span></span>
+- <span data-ttu-id="172d1-342">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-342">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-343">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-343">'Razor'</span></span>
+- <span data-ttu-id="172d1-344">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-344">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-345">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-345">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-346">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-346">'Blazor'</span></span>
+- <span data-ttu-id="172d1-347">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-347">'Identity'</span></span>
+- <span data-ttu-id="172d1-348">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-348">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-349">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-349">'Razor'</span></span>
+- <span data-ttu-id="172d1-350">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-350">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-351">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-351">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-352">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-352">'Blazor'</span></span>
+- <span data-ttu-id="172d1-353">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-353">'Identity'</span></span>
+- <span data-ttu-id="172d1-354">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-354">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-355">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-355">'Razor'</span></span>
+- <span data-ttu-id="172d1-356">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-356">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-357">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-357">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-358">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-358">'Blazor'</span></span>
+- <span data-ttu-id="172d1-359">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-359">'Identity'</span></span>
+- <span data-ttu-id="172d1-360">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-360">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-361">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-361">'Razor'</span></span>
+- <span data-ttu-id="172d1-362">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-362">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-363">------------------ | | [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration) | Azure Key Vault | | [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app) | Azure 应用程序配置 | | [命令行配置提供程序](#clcp) | 命令行参数 | | [自定义配置提供程序](#custom-configuration-provider) | 自定义源 | | [环境变量配置提供程序](#evcp) | 环境变量 | | [文件配置提供程序](#file-configuration-provider) | INI、JSON 和 XML 文件 | | [每文件密钥配置提供程序](#key-per-file-configuration-provider) | 目录文件 | | [内存配置提供程序](#memory-configuration-provider) | 内存中集合 | | [机密管理器](xref:security/app-secrets) | 用户配置文件目录中的文件 |</span><span class="sxs-lookup"><span data-stu-id="172d1-363">------------------ | | [Azure Key Vault configuration provider](xref:security/key-vault-configuration) | Azure Key Vault | | [Azure App configuration provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) | Azure App Configuration | | [Command-line configuration provider](#clcp) | Command-line parameters | | [Custom configuration provider](#custom-configuration-provider) | Custom source | | [Environment Variables configuration provider](#evcp) | Environment variables | | [File configuration provider](#file-configuration-provider) | INI, JSON, and XML files | | [Key-per-file configuration provider](#key-per-file-configuration-provider) | Directory files | | [Memory configuration provider](#memory-configuration-provider) | In-memory collections | | [Secret Manager](xref:security/app-secrets)  | File in the user profile directory |</span></span>
+
+<span data-ttu-id="172d1-364">按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="172d1-364">Configuration sources are read in the order that their configuration providers are specified.</span></span> <span data-ttu-id="172d1-365">代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="172d1-365">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+
+<span data-ttu-id="172d1-366">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="172d1-366">A typical sequence of configuration providers is:</span></span>
+
+1. <span data-ttu-id="172d1-367">*appsettings.json*</span><span class="sxs-lookup"><span data-stu-id="172d1-367">*appsettings.json*</span></span>
+1. <span data-ttu-id="172d1-368">appsettings.`Environment`.json </span><span class="sxs-lookup"><span data-stu-id="172d1-368">*appsettings*.`Environment`.*json*</span></span>
+1. [<span data-ttu-id="172d1-369">机密管理器</span><span class="sxs-lookup"><span data-stu-id="172d1-369">Secret Manager</span></span>](xref:security/app-secrets)
+1. <span data-ttu-id="172d1-370">使用[环境变量配置提供程序](#evcp)通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-370">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
+1. <span data-ttu-id="172d1-371">使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-371">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
+
+<span data-ttu-id="172d1-372">通常的做法是将命令行配置提供程序添加到一系列提供程序的末尾，使命令行参数能够替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-372">A common practice is to add the Command-line configuration provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+
+<span data-ttu-id="172d1-373">[默认配置](#default)中使用了上述提供程序顺序。</span><span class="sxs-lookup"><span data-stu-id="172d1-373">The preceding sequence of providers is used in the [default configuration](#default).</span></span>
 
 <a name="constr"></a>
 
-### <a name="connection-string-prefixes"></a><span data-ttu-id="fb3ea-299">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-299">Connection string prefixes</span></span>
+### <a name="connection-string-prefixes"></a><span data-ttu-id="172d1-374">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="172d1-374">Connection string prefixes</span></span>
 
-<span data-ttu-id="fb3ea-300">对于四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-300">The Configuration API has special processing rules for four connection string environment variables.</span></span> <span data-ttu-id="fb3ea-301">这些连接字符串涉及了为应用环境配置 Azure 连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-301">These connection strings are involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="fb3ea-302">使用[默认配置](#default)或没有向 `AddEnvironmentVariables` 应用前缀时，具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-302">Environment variables with the prefixes shown in the table are loaded into the app with the [default configuration](#default) or when no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="172d1-375">对于四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="172d1-375">The Configuration API has special processing rules for four connection string environment variables.</span></span> <span data-ttu-id="172d1-376">这些连接字符串涉及了为应用环境配置 Azure 连接字符串。</span><span class="sxs-lookup"><span data-stu-id="172d1-376">These connection strings are involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="172d1-377">使用[默认配置](#default)或没有向 `AddEnvironmentVariables` 应用前缀时，具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="172d1-377">Environment variables with the prefixes shown in the table are loaded into the app with the [default configuration](#default) or when no prefix is supplied to `AddEnvironmentVariables`.</span></span>
 
-| <span data-ttu-id="fb3ea-303">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-303">Connection string prefix</span></span> | <span data-ttu-id="fb3ea-304">提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-304">Provider</span></span> |
-| ------------------------ | -------- |
-| `CUSTOMCONNSTR_` | <span data-ttu-id="fb3ea-305">自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-305">Custom provider</span></span> |
-| `MYSQLCONNSTR_` | [<span data-ttu-id="fb3ea-306">MySQL</span><span class="sxs-lookup"><span data-stu-id="fb3ea-306">MySQL</span></span>](https://www.mysql.com/) |
-| `SQLAZURECONNSTR_` | [<span data-ttu-id="fb3ea-307">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="fb3ea-307">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
-| `SQLCONNSTR_` | [<span data-ttu-id="fb3ea-308">SQL Server</span><span class="sxs-lookup"><span data-stu-id="fb3ea-308">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
+| <span data-ttu-id="172d1-378">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="172d1-378">Connection string prefix</span></span> | <span data-ttu-id="172d1-379">提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-379">Provider</span></span> |
+| ---
+<span data-ttu-id="172d1-380">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-380">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-381">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-381">'Blazor'</span></span>
+- <span data-ttu-id="172d1-382">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-382">'Identity'</span></span>
+- <span data-ttu-id="172d1-383">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-383">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-384">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-384">'Razor'</span></span>
+- <span data-ttu-id="172d1-385">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-385">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-309">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-309">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+-
+<span data-ttu-id="172d1-386">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-386">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-387">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-387">'Blazor'</span></span>
+- <span data-ttu-id="172d1-388">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-388">'Identity'</span></span>
+- <span data-ttu-id="172d1-389">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-389">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-390">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-390">'Razor'</span></span>
+- <span data-ttu-id="172d1-391">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-391">'SignalR' uid:</span></span> 
 
-* <span data-ttu-id="fb3ea-310">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-310">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
-* <span data-ttu-id="fb3ea-311">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-311">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+-
+<span data-ttu-id="172d1-392">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-392">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-393">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-393">'Blazor'</span></span>
+- <span data-ttu-id="172d1-394">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-394">'Identity'</span></span>
+- <span data-ttu-id="172d1-395">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-395">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-396">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-396">'Razor'</span></span>
+- <span data-ttu-id="172d1-397">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-397">'SignalR' uid:</span></span> 
 
-| <span data-ttu-id="fb3ea-312">环境变量键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-312">Environment variable key</span></span> | <span data-ttu-id="fb3ea-313">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-313">Converted configuration key</span></span> | <span data-ttu-id="fb3ea-314">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="fb3ea-314">Provider configuration entry</span></span>                                                    |
-| ------------------------ | --------------------------- | ------------------------------------------------------------------------------- |
-| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-315">配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-315">Configuration entry not created.</span></span>                                                |
-| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-316">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-316">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-317">值：`MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-317">Value: `MySql.Data.MySqlClient`</span></span> |
-| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-318">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-318">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-319">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-319">Value: `System.Data.SqlClient`</span></span>  |
-| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-320">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-320">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-321">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-321">Value: `System.Data.SqlClient`</span></span>  |
+-
+<span data-ttu-id="172d1-398">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-398">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-399">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-399">'Blazor'</span></span>
+- <span data-ttu-id="172d1-400">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-400">'Identity'</span></span>
+- <span data-ttu-id="172d1-401">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-401">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-402">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-402">'Razor'</span></span>
+- <span data-ttu-id="172d1-403">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-403">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-404">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-404">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-405">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-405">'Blazor'</span></span>
+- <span data-ttu-id="172d1-406">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-406">'Identity'</span></span>
+- <span data-ttu-id="172d1-407">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-407">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-408">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-408">'Razor'</span></span>
+- <span data-ttu-id="172d1-409">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-409">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-410">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-410">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-411">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-411">'Blazor'</span></span>
+- <span data-ttu-id="172d1-412">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-412">'Identity'</span></span>
+- <span data-ttu-id="172d1-413">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-413">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-414">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-414">'Razor'</span></span>
+- <span data-ttu-id="172d1-415">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-415">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-416">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-416">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-417">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-417">'Blazor'</span></span>
+- <span data-ttu-id="172d1-418">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-418">'Identity'</span></span>
+- <span data-ttu-id="172d1-419">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-419">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-420">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-420">'Razor'</span></span>
+- <span data-ttu-id="172d1-421">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-421">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-422">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-422">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-423">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-423">'Blazor'</span></span>
+- <span data-ttu-id="172d1-424">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-424">'Identity'</span></span>
+- <span data-ttu-id="172d1-425">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-425">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-426">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-426">'Razor'</span></span>
+- <span data-ttu-id="172d1-427">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-427">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-428">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-428">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-429">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-429">'Blazor'</span></span>
+- <span data-ttu-id="172d1-430">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-430">'Identity'</span></span>
+- <span data-ttu-id="172d1-431">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-431">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-432">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-432">'Razor'</span></span>
+- <span data-ttu-id="172d1-433">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-433">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-434">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-434">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-435">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-435">'Blazor'</span></span>
+- <span data-ttu-id="172d1-436">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-436">'Identity'</span></span>
+- <span data-ttu-id="172d1-437">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-437">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-438">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-438">'Razor'</span></span>
+- <span data-ttu-id="172d1-439">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-439">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-440">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-440">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-441">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-441">'Blazor'</span></span>
+- <span data-ttu-id="172d1-442">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-442">'Identity'</span></span>
+- <span data-ttu-id="172d1-443">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-443">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-444">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-444">'Razor'</span></span>
+- <span data-ttu-id="172d1-445">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-445">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-446">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-446">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-447">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-447">'Blazor'</span></span>
+- <span data-ttu-id="172d1-448">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-448">'Identity'</span></span>
+- <span data-ttu-id="172d1-449">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-449">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-450">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-450">'Razor'</span></span>
+- <span data-ttu-id="172d1-451">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-451">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-452">---- | | `CUSTOMCONNSTR_` | 自定义提供程序 | | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [Azure SQL 数据库](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [SQL Server](https://www.microsoft.com/sql-server/) |</span><span class="sxs-lookup"><span data-stu-id="172d1-452">---- | | `CUSTOMCONNSTR_` | Custom provider | | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [Azure SQL Database](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [SQL Server](https://www.microsoft.com/sql-server/) |</span></span>
+
+<span data-ttu-id="172d1-453">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="172d1-453">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+
+* <span data-ttu-id="172d1-454">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="172d1-454">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
+* <span data-ttu-id="172d1-455">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="172d1-455">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+
+| <span data-ttu-id="172d1-456">环境变量键</span><span class="sxs-lookup"><span data-stu-id="172d1-456">Environment variable key</span></span> | <span data-ttu-id="172d1-457">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="172d1-457">Converted configuration key</span></span> | <span data-ttu-id="172d1-458">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="172d1-458">Provider configuration entry</span></span>                                                    |
+| ---
+<span data-ttu-id="172d1-459">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-459">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-460">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-460">'Blazor'</span></span>
+- <span data-ttu-id="172d1-461">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-461">'Identity'</span></span>
+- <span data-ttu-id="172d1-462">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-462">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-463">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-463">'Razor'</span></span>
+- <span data-ttu-id="172d1-464">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-464">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-465">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-465">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-466">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-466">'Blazor'</span></span>
+- <span data-ttu-id="172d1-467">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-467">'Identity'</span></span>
+- <span data-ttu-id="172d1-468">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-468">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-469">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-469">'Razor'</span></span>
+- <span data-ttu-id="172d1-470">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-470">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-471">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-471">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-472">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-472">'Blazor'</span></span>
+- <span data-ttu-id="172d1-473">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-473">'Identity'</span></span>
+- <span data-ttu-id="172d1-474">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-474">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-475">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-475">'Razor'</span></span>
+- <span data-ttu-id="172d1-476">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-476">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-477">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-477">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-478">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-478">'Blazor'</span></span>
+- <span data-ttu-id="172d1-479">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-479">'Identity'</span></span>
+- <span data-ttu-id="172d1-480">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-480">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-481">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-481">'Razor'</span></span>
+- <span data-ttu-id="172d1-482">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-482">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-483">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-483">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-484">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-484">'Blazor'</span></span>
+- <span data-ttu-id="172d1-485">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-485">'Identity'</span></span>
+- <span data-ttu-id="172d1-486">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-486">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-487">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-487">'Razor'</span></span>
+- <span data-ttu-id="172d1-488">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-488">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-489">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-489">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-490">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-490">'Blazor'</span></span>
+- <span data-ttu-id="172d1-491">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-491">'Identity'</span></span>
+- <span data-ttu-id="172d1-492">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-492">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-493">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-493">'Razor'</span></span>
+- <span data-ttu-id="172d1-494">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-494">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-495">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-495">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-496">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-496">'Blazor'</span></span>
+- <span data-ttu-id="172d1-497">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-497">'Identity'</span></span>
+- <span data-ttu-id="172d1-498">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-498">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-499">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-499">'Razor'</span></span>
+- <span data-ttu-id="172d1-500">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-500">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-501">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-501">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-502">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-502">'Blazor'</span></span>
+- <span data-ttu-id="172d1-503">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-503">'Identity'</span></span>
+- <span data-ttu-id="172d1-504">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-504">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-505">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-505">'Razor'</span></span>
+- <span data-ttu-id="172d1-506">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-506">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-507">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-507">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-508">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-508">'Blazor'</span></span>
+- <span data-ttu-id="172d1-509">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-509">'Identity'</span></span>
+- <span data-ttu-id="172d1-510">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-510">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-511">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-511">'Razor'</span></span>
+- <span data-ttu-id="172d1-512">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-512">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-513">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-513">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-514">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-514">'Blazor'</span></span>
+- <span data-ttu-id="172d1-515">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-515">'Identity'</span></span>
+- <span data-ttu-id="172d1-516">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-516">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-517">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-517">'Razor'</span></span>
+- <span data-ttu-id="172d1-518">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-518">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-519">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-519">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-520">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-520">'Blazor'</span></span>
+- <span data-ttu-id="172d1-521">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-521">'Identity'</span></span>
+- <span data-ttu-id="172d1-522">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-522">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-523">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-523">'Razor'</span></span>
+- <span data-ttu-id="172d1-524">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-524">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-525">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-525">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-526">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-526">'Blazor'</span></span>
+- <span data-ttu-id="172d1-527">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-527">'Identity'</span></span>
+- <span data-ttu-id="172d1-528">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-528">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-529">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-529">'Razor'</span></span>
+- <span data-ttu-id="172d1-530">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-530">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-531">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-531">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-532">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-532">'Blazor'</span></span>
+- <span data-ttu-id="172d1-533">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-533">'Identity'</span></span>
+- <span data-ttu-id="172d1-534">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-534">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-535">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-535">'Razor'</span></span>
+- <span data-ttu-id="172d1-536">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-536">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-537">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-537">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-538">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-538">'Blazor'</span></span>
+- <span data-ttu-id="172d1-539">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-539">'Identity'</span></span>
+- <span data-ttu-id="172d1-540">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-540">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-541">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-541">'Razor'</span></span>
+- <span data-ttu-id="172d1-542">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-542">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-543">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-543">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-544">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-544">'Blazor'</span></span>
+- <span data-ttu-id="172d1-545">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-545">'Identity'</span></span>
+- <span data-ttu-id="172d1-546">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-546">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-547">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-547">'Razor'</span></span>
+- <span data-ttu-id="172d1-548">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-548">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-549">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-549">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-550">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-550">'Blazor'</span></span>
+- <span data-ttu-id="172d1-551">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-551">'Identity'</span></span>
+- <span data-ttu-id="172d1-552">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-552">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-553">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-553">'Razor'</span></span>
+- <span data-ttu-id="172d1-554">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-554">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-555">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-555">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-556">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-556">'Blazor'</span></span>
+- <span data-ttu-id="172d1-557">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-557">'Identity'</span></span>
+- <span data-ttu-id="172d1-558">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-558">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-559">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-559">'Razor'</span></span>
+- <span data-ttu-id="172d1-560">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-560">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-561">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-561">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-562">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-562">'Blazor'</span></span>
+- <span data-ttu-id="172d1-563">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-563">'Identity'</span></span>
+- <span data-ttu-id="172d1-564">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-564">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-565">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-565">'Razor'</span></span>
+- <span data-ttu-id="172d1-566">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-566">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-567">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-567">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-568">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-568">'Blazor'</span></span>
+- <span data-ttu-id="172d1-569">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-569">'Identity'</span></span>
+- <span data-ttu-id="172d1-570">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-570">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-571">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-571">'Razor'</span></span>
+- <span data-ttu-id="172d1-572">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-572">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-573">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-573">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-574">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-574">'Blazor'</span></span>
+- <span data-ttu-id="172d1-575">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-575">'Identity'</span></span>
+- <span data-ttu-id="172d1-576">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-576">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-577">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-577">'Razor'</span></span>
+- <span data-ttu-id="172d1-578">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-578">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-579">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-579">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-580">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-580">'Blazor'</span></span>
+- <span data-ttu-id="172d1-581">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-581">'Identity'</span></span>
+- <span data-ttu-id="172d1-582">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-582">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-583">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-583">'Razor'</span></span>
+- <span data-ttu-id="172d1-584">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-584">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-585">-------------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-585">-------------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-586">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-586">'Blazor'</span></span>
+- <span data-ttu-id="172d1-587">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-587">'Identity'</span></span>
+- <span data-ttu-id="172d1-588">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-588">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-589">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-589">'Razor'</span></span>
+- <span data-ttu-id="172d1-590">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-590">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-591">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-591">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-592">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-592">'Blazor'</span></span>
+- <span data-ttu-id="172d1-593">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-593">'Identity'</span></span>
+- <span data-ttu-id="172d1-594">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-594">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-595">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-595">'Razor'</span></span>
+- <span data-ttu-id="172d1-596">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-596">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-597">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-597">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-598">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-598">'Blazor'</span></span>
+- <span data-ttu-id="172d1-599">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-599">'Identity'</span></span>
+- <span data-ttu-id="172d1-600">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-600">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-601">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-601">'Razor'</span></span>
+- <span data-ttu-id="172d1-602">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-602">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-603">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-603">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-604">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-604">'Blazor'</span></span>
+- <span data-ttu-id="172d1-605">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-605">'Identity'</span></span>
+- <span data-ttu-id="172d1-606">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-606">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-607">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-607">'Razor'</span></span>
+- <span data-ttu-id="172d1-608">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-608">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-609">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-609">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-610">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-610">'Blazor'</span></span>
+- <span data-ttu-id="172d1-611">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-611">'Identity'</span></span>
+- <span data-ttu-id="172d1-612">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-612">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-613">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-613">'Razor'</span></span>
+- <span data-ttu-id="172d1-614">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-614">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-615">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-615">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-616">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-616">'Blazor'</span></span>
+- <span data-ttu-id="172d1-617">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-617">'Identity'</span></span>
+- <span data-ttu-id="172d1-618">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-618">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-619">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-619">'Razor'</span></span>
+- <span data-ttu-id="172d1-620">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-620">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-621">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-621">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-622">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-622">'Blazor'</span></span>
+- <span data-ttu-id="172d1-623">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-623">'Identity'</span></span>
+- <span data-ttu-id="172d1-624">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-624">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-625">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-625">'Razor'</span></span>
+- <span data-ttu-id="172d1-626">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-626">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-627">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-627">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-628">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-628">'Blazor'</span></span>
+- <span data-ttu-id="172d1-629">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-629">'Identity'</span></span>
+- <span data-ttu-id="172d1-630">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-630">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-631">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-631">'Razor'</span></span>
+- <span data-ttu-id="172d1-632">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-632">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-633">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-633">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-634">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-634">'Blazor'</span></span>
+- <span data-ttu-id="172d1-635">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-635">'Identity'</span></span>
+- <span data-ttu-id="172d1-636">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-636">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-637">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-637">'Razor'</span></span>
+- <span data-ttu-id="172d1-638">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-638">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-639">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-639">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-640">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-640">'Blazor'</span></span>
+- <span data-ttu-id="172d1-641">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-641">'Identity'</span></span>
+- <span data-ttu-id="172d1-642">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-642">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-643">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-643">'Razor'</span></span>
+- <span data-ttu-id="172d1-644">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-644">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-645">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-645">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-646">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-646">'Blazor'</span></span>
+- <span data-ttu-id="172d1-647">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-647">'Identity'</span></span>
+- <span data-ttu-id="172d1-648">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-648">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-649">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-649">'Razor'</span></span>
+- <span data-ttu-id="172d1-650">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-650">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-651">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-651">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-652">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-652">'Blazor'</span></span>
+- <span data-ttu-id="172d1-653">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-653">'Identity'</span></span>
+- <span data-ttu-id="172d1-654">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-654">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-655">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-655">'Razor'</span></span>
+- <span data-ttu-id="172d1-656">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-656">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-657">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-657">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-658">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-658">'Blazor'</span></span>
+- <span data-ttu-id="172d1-659">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-659">'Identity'</span></span>
+- <span data-ttu-id="172d1-660">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-660">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-661">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-661">'Razor'</span></span>
+- <span data-ttu-id="172d1-662">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-662">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-663">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-663">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-664">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-664">'Blazor'</span></span>
+- <span data-ttu-id="172d1-665">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-665">'Identity'</span></span>
+- <span data-ttu-id="172d1-666">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-666">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-667">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-667">'Razor'</span></span>
+- <span data-ttu-id="172d1-668">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-668">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-669">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-669">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-670">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-670">'Blazor'</span></span>
+- <span data-ttu-id="172d1-671">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-671">'Identity'</span></span>
+- <span data-ttu-id="172d1-672">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-672">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-673">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-673">'Razor'</span></span>
+- <span data-ttu-id="172d1-674">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-674">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-675">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-675">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-676">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-676">'Blazor'</span></span>
+- <span data-ttu-id="172d1-677">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-677">'Identity'</span></span>
+- <span data-ttu-id="172d1-678">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-678">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-679">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-679">'Razor'</span></span>
+- <span data-ttu-id="172d1-680">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-680">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-681">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-681">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-682">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-682">'Blazor'</span></span>
+- <span data-ttu-id="172d1-683">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-683">'Identity'</span></span>
+- <span data-ttu-id="172d1-684">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-684">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-685">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-685">'Razor'</span></span>
+- <span data-ttu-id="172d1-686">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-686">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-687">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-687">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-688">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-688">'Blazor'</span></span>
+- <span data-ttu-id="172d1-689">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-689">'Identity'</span></span>
+- <span data-ttu-id="172d1-690">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-690">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-691">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-691">'Razor'</span></span>
+- <span data-ttu-id="172d1-692">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-692">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-693">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-693">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-694">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-694">'Blazor'</span></span>
+- <span data-ttu-id="172d1-695">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-695">'Identity'</span></span>
+- <span data-ttu-id="172d1-696">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-696">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-697">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-697">'Razor'</span></span>
+- <span data-ttu-id="172d1-698">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-698">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-699">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-699">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-700">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-700">'Blazor'</span></span>
+- <span data-ttu-id="172d1-701">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-701">'Identity'</span></span>
+- <span data-ttu-id="172d1-702">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-702">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-703">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-703">'Razor'</span></span>
+- <span data-ttu-id="172d1-704">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-704">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-705">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-705">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-706">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-706">'Blazor'</span></span>
+- <span data-ttu-id="172d1-707">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-707">'Identity'</span></span>
+- <span data-ttu-id="172d1-708">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-708">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-709">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-709">'Razor'</span></span>
+- <span data-ttu-id="172d1-710">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-710">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-711">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-711">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-712">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-712">'Blazor'</span></span>
+- <span data-ttu-id="172d1-713">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-713">'Identity'</span></span>
+- <span data-ttu-id="172d1-714">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-714">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-715">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-715">'Razor'</span></span>
+- <span data-ttu-id="172d1-716">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-716">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-717">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-717">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-718">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-718">'Blazor'</span></span>
+- <span data-ttu-id="172d1-719">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-719">'Identity'</span></span>
+- <span data-ttu-id="172d1-720">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-720">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-721">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-721">'Razor'</span></span>
+- <span data-ttu-id="172d1-722">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-722">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-723">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-723">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-724">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-724">'Blazor'</span></span>
+- <span data-ttu-id="172d1-725">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-725">'Identity'</span></span>
+- <span data-ttu-id="172d1-726">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-726">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-727">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-727">'Razor'</span></span>
+- <span data-ttu-id="172d1-728">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-728">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-729">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-729">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-730">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-730">'Blazor'</span></span>
+- <span data-ttu-id="172d1-731">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-731">'Identity'</span></span>
+- <span data-ttu-id="172d1-732">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-732">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-733">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-733">'Razor'</span></span>
+- <span data-ttu-id="172d1-734">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-734">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-735">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-735">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-736">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-736">'Blazor'</span></span>
+- <span data-ttu-id="172d1-737">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-737">'Identity'</span></span>
+- <span data-ttu-id="172d1-738">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-738">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-739">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-739">'Razor'</span></span>
+- <span data-ttu-id="172d1-740">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-740">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-741">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-741">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-742">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-742">'Blazor'</span></span>
+- <span data-ttu-id="172d1-743">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-743">'Identity'</span></span>
+- <span data-ttu-id="172d1-744">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-744">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-745">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-745">'Razor'</span></span>
+- <span data-ttu-id="172d1-746">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-746">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-747">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-747">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-748">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-748">'Blazor'</span></span>
+- <span data-ttu-id="172d1-749">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-749">'Identity'</span></span>
+- <span data-ttu-id="172d1-750">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-750">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-751">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-751">'Razor'</span></span>
+- <span data-ttu-id="172d1-752">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-752">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-753">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-753">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-754">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-754">'Blazor'</span></span>
+- <span data-ttu-id="172d1-755">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-755">'Identity'</span></span>
+- <span data-ttu-id="172d1-756">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-756">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-757">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-757">'Razor'</span></span>
+- <span data-ttu-id="172d1-758">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-758">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-759">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-759">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-760">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-760">'Blazor'</span></span>
+- <span data-ttu-id="172d1-761">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-761">'Identity'</span></span>
+- <span data-ttu-id="172d1-762">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-762">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-763">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-763">'Razor'</span></span>
+- <span data-ttu-id="172d1-764">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-764">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-765">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-765">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-766">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-766">'Blazor'</span></span>
+- <span data-ttu-id="172d1-767">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-767">'Identity'</span></span>
+- <span data-ttu-id="172d1-768">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-768">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-769">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-769">'Razor'</span></span>
+- <span data-ttu-id="172d1-770">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-770">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-771">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-771">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-772">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-772">'Blazor'</span></span>
+- <span data-ttu-id="172d1-773">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-773">'Identity'</span></span>
+- <span data-ttu-id="172d1-774">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-774">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-775">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-775">'Razor'</span></span>
+- <span data-ttu-id="172d1-776">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-776">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-777">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-777">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-778">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-778">'Blazor'</span></span>
+- <span data-ttu-id="172d1-779">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-779">'Identity'</span></span>
+- <span data-ttu-id="172d1-780">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-780">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-781">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-781">'Razor'</span></span>
+- <span data-ttu-id="172d1-782">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-782">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-783">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-783">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-784">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-784">'Blazor'</span></span>
+- <span data-ttu-id="172d1-785">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-785">'Identity'</span></span>
+- <span data-ttu-id="172d1-786">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-786">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-787">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-787">'Razor'</span></span>
+- <span data-ttu-id="172d1-788">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-788">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-789">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-789">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-790">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-790">'Blazor'</span></span>
+- <span data-ttu-id="172d1-791">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-791">'Identity'</span></span>
+- <span data-ttu-id="172d1-792">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-792">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-793">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-793">'Razor'</span></span>
+- <span data-ttu-id="172d1-794">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-794">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-795">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-795">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-796">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-796">'Blazor'</span></span>
+- <span data-ttu-id="172d1-797">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-797">'Identity'</span></span>
+- <span data-ttu-id="172d1-798">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-798">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-799">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-799">'Razor'</span></span>
+- <span data-ttu-id="172d1-800">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-800">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-801">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-801">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-802">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-802">'Blazor'</span></span>
+- <span data-ttu-id="172d1-803">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-803">'Identity'</span></span>
+- <span data-ttu-id="172d1-804">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-804">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-805">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-805">'Razor'</span></span>
+- <span data-ttu-id="172d1-806">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-806">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-807">---------------------------------------- | | `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}` | 配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="172d1-807">---------------------------------------- | | `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | Configuration entry not created.</span></span>                                                <span data-ttu-id="172d1-808">| | `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-808">| | `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-809">值：`MySql.Data.MySqlClient` | | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-809">Value: `MySql.Data.MySqlClient` | | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-810">值：`System.Data.SqlClient`  | | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-810">Value: `System.Data.SqlClient`  | | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-811">值：`System.Data.SqlClient`  |</span><span class="sxs-lookup"><span data-stu-id="172d1-811">Value: `System.Data.SqlClient`  |</span></span>
 
 <a name="jcp"></a>
 
-### <a name="json-configuration-provider"></a><span data-ttu-id="fb3ea-322">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-322">JSON configuration provider</span></span>
+### <a name="json-configuration-provider"></a><span data-ttu-id="172d1-812">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-812">JSON configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-323"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-323">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs.</span></span>
+<span data-ttu-id="172d1-813"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-813">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs.</span></span>
 
-<span data-ttu-id="fb3ea-324">重载可以指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-324">Overloads can specify:</span></span>
+<span data-ttu-id="172d1-814">重载可以指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-814">Overloads can specify:</span></span>
 
-* <span data-ttu-id="fb3ea-325">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-325">Whether the file is optional.</span></span>
-* <span data-ttu-id="fb3ea-326">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-326">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="172d1-815">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="172d1-815">Whether the file is optional.</span></span>
+* <span data-ttu-id="172d1-816">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-816">Whether the configuration is reloaded if the file changes.</span></span>
 
-<span data-ttu-id="fb3ea-327">考虑下列代码：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-327">Consider the following code:</span></span>
+<span data-ttu-id="172d1-817">考虑下列代码：</span><span class="sxs-lookup"><span data-stu-id="172d1-817">Consider the following code:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON.cs?name=snippet&highlight=12-14)]
 
-<span data-ttu-id="fb3ea-328">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-328">The preceding code:</span></span>
+<span data-ttu-id="172d1-818">前面的代码：</span><span class="sxs-lookup"><span data-stu-id="172d1-818">The preceding code:</span></span>
 
-* <span data-ttu-id="fb3ea-329">通过以下选项将 JSON 配置提供程序配置为加载 MyConfig.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-329">Configures the JSON configuration provider to load the *MyConfig.json* file with the following options:</span></span>
-  * <span data-ttu-id="fb3ea-330">`optional: true`：文件是可选的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-330">`optional: true`: The file is optional.</span></span>
-  * <span data-ttu-id="fb3ea-331">`reloadOnChange: true`：保存更改后会重载文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-331">`reloadOnChange: true` : The file is reloaded when changes are saved.</span></span>
-* <span data-ttu-id="fb3ea-332">读取 MyConfig.json 文件之前的[默认配置提供程序](#default)  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-332">Reads the [default configuration providers](#default) before the *MyConfig.json* file.</span></span> <span data-ttu-id="fb3ea-333">MyConfig.json 文件中的设置会替代默认配置提供程序中的设置，包括[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-333">Settings in the *MyConfig.json* file override setting in the default configuration providers, including the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
+* <span data-ttu-id="172d1-819">通过以下选项将 JSON 配置提供程序配置为加载 MyConfig.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-819">Configures the JSON configuration provider to load the *MyConfig.json* file with the following options:</span></span>
+  * <span data-ttu-id="172d1-820">`optional: true`：文件是可选的。</span><span class="sxs-lookup"><span data-stu-id="172d1-820">`optional: true`: The file is optional.</span></span>
+  * <span data-ttu-id="172d1-821">`reloadOnChange: true`：保存更改后会重载文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-821">`reloadOnChange: true` : The file is reloaded when changes are saved.</span></span>
+* <span data-ttu-id="172d1-822">读取 MyConfig.json 文件之前的[默认配置提供程序](#default)。</span><span class="sxs-lookup"><span data-stu-id="172d1-822">Reads the [default configuration providers](#default) before the *MyConfig.json* file.</span></span> <span data-ttu-id="172d1-823">MyConfig.json 文件中的设置会替代默认配置提供程序中的设置，包括[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-823">Settings in the *MyConfig.json* file override setting in the default configuration providers, including the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="fb3ea-334">通常情况下，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-334">You typically ***don't*** want a custom JSON file overriding values set in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
+<span data-ttu-id="172d1-824">通常情况下，你不会希望自定义 JSON 文件替代在[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中设置的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-824">You typically ***don't*** want a custom JSON file overriding values set in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="fb3ea-335">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-335">The following code clears all the configuration providers and adds several configuration providers:</span></span>
+<span data-ttu-id="172d1-825">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-825">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-336">在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置    ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-336">In the preceding code, settings in the *MyConfig.json* and  *MyConfig*.`Environment`.*json* files:</span></span>
+<span data-ttu-id="172d1-826">在前面的代码中，MyConfig.json 和 MyConfig.`Environment`.json 文件中的设置  ：</span><span class="sxs-lookup"><span data-stu-id="172d1-826">In the preceding code, settings in the *MyConfig.json* and  *MyConfig*.`Environment`.*json* files:</span></span>
 
-* <span data-ttu-id="fb3ea-337">会替代 appsettings.json 和 appsettings.`Environment`.json 文件中的设置    。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-337">Override settings in the *appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
-* <span data-ttu-id="fb3ea-338">会被[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中的设置所替代。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-338">Are overridden by settings in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
+* <span data-ttu-id="172d1-827">会替代 appsettings.json 和 appsettings.`Environment`.json 文件中的设置  。</span><span class="sxs-lookup"><span data-stu-id="172d1-827">Override settings in the *appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
+* <span data-ttu-id="172d1-828">会被[环境变量配置提供程序](#evcp)和[命令行配置提供程序](#clcp)中的设置所替代。</span><span class="sxs-lookup"><span data-stu-id="172d1-828">Are overridden by settings in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="fb3ea-339">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyConfig.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-339">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *MyConfig.json* file:</span></span>
+<span data-ttu-id="172d1-829">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyConfig.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-829">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *MyConfig.json* file:</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/MyConfig.json)]
 
-<span data-ttu-id="fb3ea-340">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-340">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
+<span data-ttu-id="172d1-830">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-830">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
 <a name="fcp"></a>
 
-## <a name="file-configuration-provider"></a><span data-ttu-id="fb3ea-341">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-341">File configuration provider</span></span>
+## <a name="file-configuration-provider"></a><span data-ttu-id="172d1-831">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-831">File configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-342"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-342"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="fb3ea-343">以下配置提供程序派生自 `FileConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-343">The following configuration providers derive from `FileConfigurationProvider`:</span></span>
+<span data-ttu-id="172d1-832"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="172d1-832"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="172d1-833">以下配置提供程序派生自 `FileConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="172d1-833">The following configuration providers derive from `FileConfigurationProvider`:</span></span>
 
-* [<span data-ttu-id="fb3ea-344">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-344">INI configuration provider</span></span>](#ini-configuration-provider)
-* [<span data-ttu-id="fb3ea-345">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-345">JSON configuration provider</span></span>](#jcp)
-* [<span data-ttu-id="fb3ea-346">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-346">XML configuration provider</span></span>](#xml-configuration-provider)
+* [<span data-ttu-id="172d1-834">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-834">INI configuration provider</span></span>](#ini-configuration-provider)
+* [<span data-ttu-id="172d1-835">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-835">JSON configuration provider</span></span>](#jcp)
+* [<span data-ttu-id="172d1-836">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-836">XML configuration provider</span></span>](#xml-configuration-provider)
 
-### <a name="ini-configuration-provider"></a><span data-ttu-id="fb3ea-347">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-347">INI configuration provider</span></span>
+### <a name="ini-configuration-provider"></a><span data-ttu-id="172d1-837">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-837">INI configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-348"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-348">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
+<span data-ttu-id="172d1-838"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-838">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="fb3ea-349">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-349">The following code clears all the configuration providers and adds several configuration providers:</span></span>
+<span data-ttu-id="172d1-839">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-839">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
 
-<span data-ttu-id="fb3ea-350">在前面的代码中，MyIniConfig.ini 和 MyIniConfig.`Environment`.ini 文件中的设置会被以下提供程序中的设置替代    ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-350">In the preceding code, settings in the *MyIniConfig.ini* and  *MyIniConfig*.`Environment`.*ini* files are overridden by settings in the:</span></span>
+<span data-ttu-id="172d1-840">在前面的代码中，MyIniConfig.ini 和 MyIniConfig.`Environment`.ini 文件中的设置会被以下提供程序中的设置替代  ：</span><span class="sxs-lookup"><span data-stu-id="172d1-840">In the preceding code, settings in the *MyIniConfig.ini* and  *MyIniConfig*.`Environment`.*ini* files are overridden by settings in the:</span></span>
 
-* [<span data-ttu-id="fb3ea-351">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-351">Environment variables configuration provider</span></span>](#evcp)
-* <span data-ttu-id="fb3ea-352">[命令行配置提供程序](#clcp)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-352">[Command-line configuration provider](#clcp).</span></span>
+* [<span data-ttu-id="172d1-841">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-841">Environment variables configuration provider</span></span>](#evcp)
+* <span data-ttu-id="172d1-842">[命令行配置提供程序](#clcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-842">[Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="fb3ea-353">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyIniConfig.ini 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-353">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyIniConfig.ini* file:</span></span>
+<span data-ttu-id="172d1-843">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyIniConfig.ini 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-843">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyIniConfig.ini* file:</span></span>
 
 [!code-ini[](index/samples/3.x/ConfigSample/MyIniConfig.ini)]
 
-<span data-ttu-id="fb3ea-354">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-354">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
+<span data-ttu-id="172d1-844">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-844">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-### <a name="xml-configuration-provider"></a><span data-ttu-id="fb3ea-355">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-355">XML configuration provider</span></span>
+### <a name="xml-configuration-provider"></a><span data-ttu-id="172d1-845">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-845">XML configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-356"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-356">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
+<span data-ttu-id="172d1-846"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-846">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="fb3ea-357">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-357">The following code clears all the configuration providers and adds several configuration providers:</span></span>
+<span data-ttu-id="172d1-847">以下代码会清除所有配置提供程序并添加多个配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-847">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramXML.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-358">在前面的代码中，MyXMLFile.xml 和 MyXMLFile.`Environment`.xml 文件中的设置会被以下提供程序中的设置替代    ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-358">In the preceding code, settings in the *MyXMLFile.xml* and  *MyXMLFile*.`Environment`.*xml* files are overridden by settings in the:</span></span>
+<span data-ttu-id="172d1-848">在前面的代码中，MyXMLFile.xml 和 MyXMLFile.`Environment`.xml 文件中的设置会被以下提供程序中的设置替代  ：</span><span class="sxs-lookup"><span data-stu-id="172d1-848">In the preceding code, settings in the *MyXMLFile.xml* and  *MyXMLFile*.`Environment`.*xml* files are overridden by settings in the:</span></span>
 
-* [<span data-ttu-id="fb3ea-359">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-359">Environment variables configuration provider</span></span>](#evcp)
-* <span data-ttu-id="fb3ea-360">[命令行配置提供程序](#clcp)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-360">[Command-line configuration provider](#clcp).</span></span>
+* [<span data-ttu-id="172d1-849">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-849">Environment variables configuration provider</span></span>](#evcp)
+* <span data-ttu-id="172d1-850">[命令行配置提供程序](#clcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-850">[Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="fb3ea-361">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyXMLFile.xml 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-361">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyXMLFile.xml* file:</span></span>
+<span data-ttu-id="172d1-851">[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)包含以下 MyXMLFile.xml 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-851">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyXMLFile.xml* file:</span></span>
 
 [!code-xml[](index/samples/3.x/ConfigSample/MyXMLFile.xml)]
 
-<span data-ttu-id="fb3ea-362">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-362">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
+<span data-ttu-id="172d1-852">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述的一些配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-852">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-363">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-363">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
+<span data-ttu-id="172d1-853">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="172d1-853">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
 
 [!code-xml[](index/samples/3.x/ConfigSample/MyXMLFile3.xml)]
 
-<span data-ttu-id="fb3ea-364">以下代码会读取前面的配置文件并显示键和值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-364">The following code reads the previous configuration file and displays the keys and values:</span></span>
+<span data-ttu-id="172d1-854">以下代码会读取前面的配置文件并显示键和值：</span><span class="sxs-lookup"><span data-stu-id="172d1-854">The following code reads the previous configuration file and displays the keys and values:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/XML/Index.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-365">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-365">Attributes can be used to supply values:</span></span>
+<span data-ttu-id="172d1-855">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="172d1-855">Attributes can be used to supply values:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -495,25 +1129,25 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 </configuration>
 ```
 
-<span data-ttu-id="fb3ea-366">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-366">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="172d1-856">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="172d1-856">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="fb3ea-367">key:attribute</span><span class="sxs-lookup"><span data-stu-id="fb3ea-367">key:attribute</span></span>
-* <span data-ttu-id="fb3ea-368">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="fb3ea-368">section:key:attribute</span></span>
+* <span data-ttu-id="172d1-857">key:attribute</span><span class="sxs-lookup"><span data-stu-id="172d1-857">key:attribute</span></span>
+* <span data-ttu-id="172d1-858">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="172d1-858">section:key:attribute</span></span>
 
-## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="fb3ea-369">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-369">Key-per-file configuration provider</span></span>
+## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="172d1-859">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-859">Key-per-file configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-370"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-370">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="fb3ea-371">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-371">The key is the file name.</span></span> <span data-ttu-id="fb3ea-372">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-372">The value contains the file's contents.</span></span> <span data-ttu-id="fb3ea-373">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-373">The Key-per-file configuration provider is used in Docker hosting scenarios.</span></span>
+<span data-ttu-id="172d1-860"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-860">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="172d1-861">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="172d1-861">The key is the file name.</span></span> <span data-ttu-id="172d1-862">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="172d1-862">The value contains the file's contents.</span></span> <span data-ttu-id="172d1-863">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="172d1-863">The Key-per-file configuration provider is used in Docker hosting scenarios.</span></span>
 
-<span data-ttu-id="fb3ea-374">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-374">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="fb3ea-375">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-375">The `directoryPath` to the files must be an absolute path.</span></span>
+<span data-ttu-id="172d1-864">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-864">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="172d1-865">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="172d1-865">The `directoryPath` to the files must be an absolute path.</span></span>
 
-<span data-ttu-id="fb3ea-376">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-376">Overloads permit specifying:</span></span>
+<span data-ttu-id="172d1-866">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-866">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="fb3ea-377">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-377">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
-* <span data-ttu-id="fb3ea-378">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-378">Whether the directory is optional and the path to the directory.</span></span>
+* <span data-ttu-id="172d1-867">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="172d1-867">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
+* <span data-ttu-id="172d1-868">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="172d1-868">Whether the directory is optional and the path to the directory.</span></span>
 
-<span data-ttu-id="fb3ea-379">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-379">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="fb3ea-380">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-380">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
+<span data-ttu-id="172d1-869">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="172d1-869">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="172d1-870">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="172d1-870">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
 
-<span data-ttu-id="fb3ea-381">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-381">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="172d1-871">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-871">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -526,83 +1160,83 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 <a name="mcp"></a>
 
-## <a name="memory-configuration-provider"></a><span data-ttu-id="fb3ea-382">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-382">Memory configuration provider</span></span>
+## <a name="memory-configuration-provider"></a><span data-ttu-id="172d1-872">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-872">Memory configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-383"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-383">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
+<span data-ttu-id="172d1-873"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-873">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
 
-<span data-ttu-id="fb3ea-384">以下代码将内存集合添加到配置系统中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-384">The following code adds a memory collection to the configuration system:</span></span>
+<span data-ttu-id="172d1-874">以下代码将内存集合添加到配置系统中：</span><span class="sxs-lookup"><span data-stu-id="172d1-874">The following code adds a memory collection to the configuration system:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet6)]
 
-<span data-ttu-id="fb3ea-385">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述配置设置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-385">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays the preceding configurations settings:</span></span>
+<span data-ttu-id="172d1-875">以下来自[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)的代码显示了上述配置设置：</span><span class="sxs-lookup"><span data-stu-id="172d1-875">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays the preceding configurations settings:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-386">在前面的代码中，`config.AddInMemoryCollection(Dict)` 会被添加到[默认配置提供程序](#default)之后。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-386">In the preceding code, `config.AddInMemoryCollection(Dict)` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="fb3ea-387">有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-387">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
+<span data-ttu-id="172d1-876">在前面的代码中，`config.AddInMemoryCollection(Dict)` 会被添加到[默认配置提供程序](#default)之后。</span><span class="sxs-lookup"><span data-stu-id="172d1-876">In the preceding code, `config.AddInMemoryCollection(Dict)` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="172d1-877">有关对配置提供程序进行排序的示例，请参阅 [JSON 配置提供程序](#jcp)。</span><span class="sxs-lookup"><span data-stu-id="172d1-877">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
 
-<span data-ttu-id="fb3ea-388">有关使用 `MemoryConfigurationProvider` 的其他示例，请参阅[绑定数组](#boa)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-388">See [Bind an array](#boa) for another example using `MemoryConfigurationProvider`.</span></span>
+<span data-ttu-id="172d1-878">有关使用 `MemoryConfigurationProvider` 的其他示例，请参阅[绑定数组](#boa)。</span><span class="sxs-lookup"><span data-stu-id="172d1-878">See [Bind an array](#boa) for another example using `MemoryConfigurationProvider`.</span></span>
 
-## <a name="getvalue"></a><span data-ttu-id="fb3ea-389">GetValue</span><span class="sxs-lookup"><span data-stu-id="fb3ea-389">GetValue</span></span>
+## <a name="getvalue"></a><span data-ttu-id="172d1-879">GetValue</span><span class="sxs-lookup"><span data-stu-id="172d1-879">GetValue</span></span>
 
-<span data-ttu-id="fb3ea-390">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将它转换为指定的类型：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-390">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified type:</span></span>
+<span data-ttu-id="172d1-880">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将它转换为指定的类型：</span><span class="sxs-lookup"><span data-stu-id="172d1-880">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified type:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestNum.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-391">在前面的代码中，如果在配置中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-391">In the preceding code,  if `NumberKey` isn't found in the configuration, the default value of `99` is used.</span></span>
+<span data-ttu-id="172d1-881">在前面的代码中，如果在配置中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="172d1-881">In the preceding code,  if `NumberKey` isn't found in the configuration, the default value of `99` is used.</span></span>
 
-## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="fb3ea-392">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="fb3ea-392">GetSection, GetChildren, and Exists</span></span>
+## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="172d1-882">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="172d1-882">GetSection, GetChildren, and Exists</span></span>
 
-<span data-ttu-id="fb3ea-393">对于下面的示例，请考虑以下 MySubsection.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-393">For the examples that follow, consider the following *MySubsection.json* file:</span></span>
+<span data-ttu-id="172d1-883">对于下面的示例，请考虑以下 MySubsection.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-883">For the examples that follow, consider the following *MySubsection.json* file:</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/MySubsection.json)]
 
-<span data-ttu-id="fb3ea-394">以下代码将 MySubsection.json 添加到配置提供程序  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-394">The following code adds *MySubsection.json* to the configuration providers:</span></span>
+<span data-ttu-id="172d1-884">以下代码将 MySubsection.json 添加到配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-884">The following code adds *MySubsection.json* to the configuration providers:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONsection.cs?name=snippet)]
 
-### <a name="getsection"></a><span data-ttu-id="fb3ea-395">GetSection</span><span class="sxs-lookup"><span data-stu-id="fb3ea-395">GetSection</span></span>
+### <a name="getsection"></a><span data-ttu-id="172d1-885">GetSection</span><span class="sxs-lookup"><span data-stu-id="172d1-885">GetSection</span></span>
 
-<span data-ttu-id="fb3ea-396">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 会返回具有指定子节键的配置子节。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-396">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) returns a configuration subsection with the specified subsection key.</span></span>
+<span data-ttu-id="172d1-886">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 会返回具有指定子节键的配置子节。</span><span class="sxs-lookup"><span data-stu-id="172d1-886">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) returns a configuration subsection with the specified subsection key.</span></span>
 
-<span data-ttu-id="fb3ea-397">以下代码将返回 `section1` 的值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-397">The following code returns values for `section1`:</span></span>
+<span data-ttu-id="172d1-887">以下代码将返回 `section1` 的值：</span><span class="sxs-lookup"><span data-stu-id="172d1-887">The following code returns values for `section1`:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-398">以下代码将返回 `section2:subsection0` 的值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-398">The following code returns values for `section2:subsection0`:</span></span>
+<span data-ttu-id="172d1-888">以下代码将返回 `section2:subsection0` 的值：</span><span class="sxs-lookup"><span data-stu-id="172d1-888">The following code returns values for `section2:subsection0`:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection2.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-399">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-399">`GetSection` never returns `null`.</span></span> <span data-ttu-id="fb3ea-400">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-400">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
+<span data-ttu-id="172d1-889">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="172d1-889">`GetSection` never returns `null`.</span></span> <span data-ttu-id="172d1-890">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="172d1-890">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
 
-<span data-ttu-id="fb3ea-401">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-401">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="fb3ea-402">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-402">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
+<span data-ttu-id="172d1-891">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="172d1-891">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="172d1-892">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-892">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
 
-### <a name="getchildren-and-exists"></a><span data-ttu-id="fb3ea-403">GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="fb3ea-403">GetChildren and Exists</span></span>
+### <a name="getchildren-and-exists"></a><span data-ttu-id="172d1-893">GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="172d1-893">GetChildren and Exists</span></span>
 
-<span data-ttu-id="fb3ea-404">以下代码将调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 并返回 `section2:subsection0` 的值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-404">The following code calls [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) and returns values for `section2:subsection0`:</span></span>
+<span data-ttu-id="172d1-894">以下代码将调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 并返回 `section2:subsection0` 的值：</span><span class="sxs-lookup"><span data-stu-id="172d1-894">The following code calls [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) and returns values for `section2:subsection0`:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection4.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-405">前面的代码将调用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 以验证该节是否存在：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-405">The preceding code calls [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to verify the  section exists:</span></span>
+<span data-ttu-id="172d1-895">前面的代码将调用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 以验证该节是否存在：</span><span class="sxs-lookup"><span data-stu-id="172d1-895">The preceding code calls [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to verify the  section exists:</span></span>
 
  <a name="boa"></a>
 
-## <a name="bind-an-array"></a><span data-ttu-id="fb3ea-406">绑定数组</span><span class="sxs-lookup"><span data-stu-id="fb3ea-406">Bind an array</span></span>
+## <a name="bind-an-array"></a><span data-ttu-id="172d1-896">绑定数组</span><span class="sxs-lookup"><span data-stu-id="172d1-896">Bind an array</span></span>
 
-<span data-ttu-id="fb3ea-407">[ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-407">The [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="fb3ea-408">公开数值键段的任何数组格式都能够与 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-408">Any array format that exposes a numeric key segment is capable of array binding to a [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) class array.</span></span>
+<span data-ttu-id="172d1-897">[ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-897">The [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="172d1-898">公开数值键段的任何数组格式都能够与 [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="172d1-898">Any array format that exposes a numeric key segment is capable of array binding to a [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) class array.</span></span>
 
-<span data-ttu-id="fb3ea-409">请考虑[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)中的 MyArray.json  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-409">Consider *MyArray.json* from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample):</span></span>
+<span data-ttu-id="172d1-899">请考虑[示例下载](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)中的 MyArray.json：</span><span class="sxs-lookup"><span data-stu-id="172d1-899">Consider *MyArray.json* from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample):</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/MyArray.json)]
 
-<span data-ttu-id="fb3ea-410">以下代码将 MyArray.json 添加到配置提供程序  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-410">The following code adds *MyArray.json* to the configuration providers:</span></span>
+<span data-ttu-id="172d1-900">以下代码将 MyArray.json 添加到配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-900">The following code adds *MyArray.json* to the configuration providers:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONarray.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-411">以下代码将读取配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-411">The following code reads the configuration and displays the values:</span></span>
+<span data-ttu-id="172d1-901">以下代码将读取配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="172d1-901">The following code reads the configuration and displays the values:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-412">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-412">The preceding code returns the following output:</span></span>
+<span data-ttu-id="172d1-902">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="172d1-902">The preceding code returns the following output:</span></span>
 
 ```text
 Index: 0  Value: value00
@@ -612,17 +1246,17 @@ Index: 3  Value: value40
 Index: 4  Value: value50
 ```
 
-<span data-ttu-id="fb3ea-413">在前面的输出中，索引 3 具有值 `value40`，与 MyArray.json 中的 `"4": "value40",` 相对应  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-413">In the preceding output, Index 3 has value `value40`, corresponding to `"4": "value40",` in *MyArray.json*.</span></span> <span data-ttu-id="fb3ea-414">绑定的数组索引是连续的，并且未绑定到配置键索引。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-414">The bound array indices are continuous and not bound to the configuration key index.</span></span> <span data-ttu-id="fb3ea-415">配置绑定器不能绑定 NULL 值，也不能在绑定的对象中创建 NULL 条目</span><span class="sxs-lookup"><span data-stu-id="fb3ea-415">The configuration binder isn't capable of binding null values or creating null entries in bound objects</span></span>
+<span data-ttu-id="172d1-903">在前面的输出中，索引 3 具有值 `value40`，与 MyArray.json 中的 `"4": "value40",` 相对应。</span><span class="sxs-lookup"><span data-stu-id="172d1-903">In the preceding output, Index 3 has value `value40`, corresponding to `"4": "value40",` in *MyArray.json*.</span></span> <span data-ttu-id="172d1-904">绑定的数组索引是连续的，并且未绑定到配置键索引。</span><span class="sxs-lookup"><span data-stu-id="172d1-904">The bound array indices are continuous and not bound to the configuration key index.</span></span> <span data-ttu-id="172d1-905">配置绑定器不能绑定 NULL 值，也不能在绑定的对象中创建 NULL 条目</span><span class="sxs-lookup"><span data-stu-id="172d1-905">The configuration binder isn't capable of binding null values or creating null entries in bound objects</span></span>
 
-<span data-ttu-id="fb3ea-416">以下代码将通过 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法加载 `array:entries` 配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-416">The  following code loads the `array:entries` configuration with the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method:</span></span>
+<span data-ttu-id="172d1-906">以下代码将通过 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法加载 `array:entries` 配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-906">The  following code loads the `array:entries` configuration with the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-417">以下代码将读取 `arrayDict` `Dictionary` 中的配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-417">The following code reads the configuration in the `arrayDict` `Dictionary` and displays the values:</span></span>
+<span data-ttu-id="172d1-907">以下代码将读取 `arrayDict` `Dictionary` 中的配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="172d1-907">The following code reads the configuration in the `arrayDict` `Dictionary` and displays the values:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-418">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-418">The preceding code returns the following output:</span></span>
+<span data-ttu-id="172d1-908">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="172d1-908">The preceding code returns the following output:</span></span>
 
 ```text
 Index: 0  Value: value0
@@ -632,21 +1266,21 @@ Index: 3  Value: value4
 Index: 4  Value: value5
 ```
 
-<span data-ttu-id="fb3ea-419">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-419">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="fb3ea-420">当绑定包含数组的配置数据时，配置键中的数组索引用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-420">When configuration data containing an array is bound, the array indices in the configuration keys are used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="fb3ea-421">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-421">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
+<span data-ttu-id="172d1-909">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="172d1-909">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="172d1-910">当绑定包含数组的配置数据时，配置键中的数组索引用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-910">When configuration data containing an array is bound, the array indices in the configuration keys are used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="172d1-911">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="172d1-911">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
 
-<span data-ttu-id="fb3ea-422">可以在由任何读取索引 &num;3 键/值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-422">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that reads the index &num;3 key/value pair.</span></span> <span data-ttu-id="fb3ea-423">请考虑示例下载中的以下 Value3.json 文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-423">Consider the following *Value3.json* file from the sample download:</span></span>
+<span data-ttu-id="172d1-912">可以在由任何读取索引 &num;3 键/值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="172d1-912">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that reads the index &num;3 key/value pair.</span></span> <span data-ttu-id="172d1-913">请考虑示例下载中的以下 Value3.json 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-913">Consider the following *Value3.json* file from the sample download:</span></span>
 
 [!code-json[](index/samples/3.x/ConfigSample/Value3.json)]
 
-<span data-ttu-id="fb3ea-424">以下代码包含 Value3.json 和 `arrayDict` `Dictionary` 的配置  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-424">The following code includes configuration for *Value3.json* and the `arrayDict` `Dictionary`:</span></span>
+<span data-ttu-id="172d1-914">以下代码包含 Value3.json 和 `arrayDict` `Dictionary` 的配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-914">The following code includes configuration for *Value3.json* and the `arrayDict` `Dictionary`:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet2)]
 
-<span data-ttu-id="fb3ea-425">以下代码将读取上述配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-425">The following code reads the preceding configuration and displays the values:</span></span>
+<span data-ttu-id="172d1-915">以下代码将读取上述配置并显示值：</span><span class="sxs-lookup"><span data-stu-id="172d1-915">The following code reads the preceding configuration and displays the values:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="fb3ea-426">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-426">The preceding code returns the following output:</span></span>
+<span data-ttu-id="172d1-916">前面的代码会返回以下输出：</span><span class="sxs-lookup"><span data-stu-id="172d1-916">The preceding code returns the following output:</span></span>
 
 ```text
 Index: 0  Value: value0
@@ -657,197 +1291,221 @@ Index: 4  Value: value4
 Index: 5  Value: value5
 ```
 
-<span data-ttu-id="fb3ea-427">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-427">Custom configuration providers aren't required to implement array binding.</span></span>
+<span data-ttu-id="172d1-917">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="172d1-917">Custom configuration providers aren't required to implement array binding.</span></span>
 
-## <a name="custom-configuration-provider"></a><span data-ttu-id="fb3ea-428">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-428">Custom configuration provider</span></span>
+## <a name="custom-configuration-provider"></a><span data-ttu-id="172d1-918">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-918">Custom configuration provider</span></span>
 
-<span data-ttu-id="fb3ea-429">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-429">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
+<span data-ttu-id="172d1-919">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-919">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
 
-<span data-ttu-id="fb3ea-430">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-430">The provider has the following characteristics:</span></span>
+<span data-ttu-id="172d1-920">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="172d1-920">The provider has the following characteristics:</span></span>
 
-* <span data-ttu-id="fb3ea-431">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-431">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="fb3ea-432">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-432">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
-* <span data-ttu-id="fb3ea-433">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-433">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="fb3ea-434">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-434">The provider doesn't query the database on a per-key basis.</span></span>
-* <span data-ttu-id="fb3ea-435">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-435">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
+* <span data-ttu-id="172d1-921">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="172d1-921">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="172d1-922">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="172d1-922">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
+* <span data-ttu-id="172d1-923">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-923">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="172d1-924">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="172d1-924">The provider doesn't query the database on a per-key basis.</span></span>
+* <span data-ttu-id="172d1-925">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="172d1-925">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
 
-<span data-ttu-id="fb3ea-436">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-436">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
+<span data-ttu-id="172d1-926">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="172d1-926">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
 
-<span data-ttu-id="fb3ea-437">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-437">*Models/EFConfigurationValue.cs*:</span></span>
+<span data-ttu-id="172d1-927">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-927">*Models/EFConfigurationValue.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-438">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-438">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
+<span data-ttu-id="172d1-928">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-928">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
 
-<span data-ttu-id="fb3ea-439">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-439">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
+<span data-ttu-id="172d1-929">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-929">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-440">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-440">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
+<span data-ttu-id="172d1-930">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="172d1-930">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
 
-<span data-ttu-id="fb3ea-441">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-441">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
+<span data-ttu-id="172d1-931">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-931">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-442">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-442">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="fb3ea-443">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-443">The configuration provider initializes the database when it's empty.</span></span> <span data-ttu-id="fb3ea-444">由于[配置密钥不区分大小写](#keys)，因此用来初始化数据库的字典是用不区分大小写的比较程序 ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)) 创建的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-444">Since [configuration keys are case-insensitive](#keys), the dictionary used to initialize the database is created with the case-insensitive comparer ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span></span>
+<span data-ttu-id="172d1-932">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-932">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="172d1-933">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="172d1-933">The configuration provider initializes the database when it's empty.</span></span> <span data-ttu-id="172d1-934">由于[配置密钥不区分大小写](#keys)，因此用来初始化数据库的字典是用不区分大小写的比较程序 ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)) 创建的。</span><span class="sxs-lookup"><span data-stu-id="172d1-934">Since [configuration keys are case-insensitive](#keys), the dictionary used to initialize the database is created with the case-insensitive comparer ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span></span>
 
-<span data-ttu-id="fb3ea-445">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-445">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
+<span data-ttu-id="172d1-935">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-935">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-446">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-446">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
+<span data-ttu-id="172d1-936">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="172d1-936">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
 
-<span data-ttu-id="fb3ea-447">Extensions/EntityFrameworkExtensions.cs  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-447">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
+<span data-ttu-id="172d1-937">Extensions/EntityFrameworkExtensions.cs：</span><span class="sxs-lookup"><span data-stu-id="172d1-937">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-448">下面的代码演示如何在 Program.cs  中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-448">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
+<span data-ttu-id="172d1-938">下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="172d1-938">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
 <a name="acs"></a>
 
-## <a name="access-configuration-in-startup"></a><span data-ttu-id="fb3ea-449">访问 Startup 中的配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-449">Access configuration in Startup</span></span>
+## <a name="access-configuration-in-startup"></a><span data-ttu-id="172d1-939">访问 Startup 中的配置</span><span class="sxs-lookup"><span data-stu-id="172d1-939">Access configuration in Startup</span></span>
 
-<span data-ttu-id="fb3ea-450">以下代码显示 `Startup` 方法中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-450">The following code displays configuration data in `Startup` methods:</span></span>
+<span data-ttu-id="172d1-940">以下代码显示 `Startup` 方法中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-940">The following code displays configuration data in `Startup` methods:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigSample/StartupKey.cs?name=snippet&highlight=13,18)]
 
-<span data-ttu-id="fb3ea-451">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-451">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
+<span data-ttu-id="172d1-941">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="172d1-941">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-razor-pages"></a><span data-ttu-id="fb3ea-452">访问 Razor Pages 中的配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-452">Access configuration in Razor Pages</span></span>
+## <a name="access-configuration-in-razor-pages"></a><span data-ttu-id="172d1-942">访问 Razor Pages 中的配置</span><span class="sxs-lookup"><span data-stu-id="172d1-942">Access configuration in Razor Pages</span></span>
 
-<span data-ttu-id="fb3ea-453">以下代码显示 Razor 页面中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-453">The following code displays configuration data in a Razor Page:</span></span>
+<span data-ttu-id="172d1-943">以下代码显示 Razor Pages 中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-943">The following code displays configuration data in a Razor Page:</span></span>
 
 [!code-cshtml[](index/samples/3.x/ConfigSample/Pages/Test5.cshtml)]
 
-## <a name="access-configuration-in-a-mvc-view-file"></a><span data-ttu-id="fb3ea-454">访问 MVC 视图文件中的配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-454">Access configuration in a MVC view file</span></span>
+<span data-ttu-id="172d1-944">在以下代码中，`MyOptions` 已通过 <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> 被添加到了服务容器并已绑定到了配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-944">In the following code, `MyOptions` is added to the service container with <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> and bound to configuration:</span></span>
 
-<span data-ttu-id="fb3ea-455">以下代码显示 MVC 视图中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-455">The following code displays configuration data in a MVC view:</span></span>
+[!code-csharp[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/Startup3.cs?name=snippet_Example2)]
+
+<span data-ttu-id="172d1-945">以下标记使用 [`@inject`](xref:mvc/views/razor#inject) Razor 指令来解析和显示选项值：</span><span class="sxs-lookup"><span data-stu-id="172d1-945">The following markup uses the [`@inject`](xref:mvc/views/razor#inject) Razor directive to resolve and display the options values:</span></span>
+
+[!code-cshtml[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/Pages/Test3.cshtml)]
+
+## <a name="access-configuration-in-a-mvc-view-file"></a><span data-ttu-id="172d1-946">访问 MVC 视图文件中的配置</span><span class="sxs-lookup"><span data-stu-id="172d1-946">Access configuration in a MVC view file</span></span>
+
+<span data-ttu-id="172d1-947">以下代码显示 MVC 视图中的配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-947">The following code displays configuration data in a MVC view:</span></span>
 
 [!code-cshtml[](index/samples/3.x/ConfigSample/Views/Home2/Index.cshtml)]
 
+## <a name="configure-options-with-a-delegate"></a><span data-ttu-id="172d1-948">使用委托来配置选项</span><span class="sxs-lookup"><span data-stu-id="172d1-948">Configure options with a delegate</span></span>
+
+<span data-ttu-id="172d1-949">在委托中配置的选项替代在配置提供程序中设置的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-949">Options configured in a delegate override values set in the configuration providers.</span></span>
+
+<span data-ttu-id="172d1-950">示例应用中的示例 2 展示了如何使用委托来配置选项。</span><span class="sxs-lookup"><span data-stu-id="172d1-950">Configuring options with a delegate is demonstrated as Example 2 in the sample app.</span></span>
+
+<span data-ttu-id="172d1-951">在以下代码中，向服务容器添加了 <xref:Microsoft.Extensions.Options.IConfigureOptions%601> 服务。</span><span class="sxs-lookup"><span data-stu-id="172d1-951">In the following code, an <xref:Microsoft.Extensions.Options.IConfigureOptions%601> service is added to the service container.</span></span> <span data-ttu-id="172d1-952">它使用委托来配置 `MyOptions` 的值：</span><span class="sxs-lookup"><span data-stu-id="172d1-952">It uses a delegate to configure values for `MyOptions`:</span></span>
+
+[!code-csharp[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/Startup2.cs?name=snippet_Example2)]
+
+<span data-ttu-id="172d1-953">以下代码显示选项值：</span><span class="sxs-lookup"><span data-stu-id="172d1-953">The following code displays the options values:</span></span>
+
+[!code-csharp[](options/samples/3.x/OptionsSample/Pages/Test2.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="172d1-954">在前面的示例中，`Option1` 和 `Option2` 的值在 appsettings.json 中指定，然后被配置的委托替代。</span><span class="sxs-lookup"><span data-stu-id="172d1-954">In the preceding example, the values of `Option1` and `Option2` are specified in *appsettings.json* and then overridden by the configured delegate.</span></span>
+
 <a name="hvac"></a>
 
-## <a name="host-versus-app-configuration"></a><span data-ttu-id="fb3ea-456">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-456">Host versus app configuration</span></span>
+## <a name="host-versus-app-configuration"></a><span data-ttu-id="172d1-955">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="172d1-955">Host versus app configuration</span></span>
 
-<span data-ttu-id="fb3ea-457">在配置并启动应用之前，配置并启动主机  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-457">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="fb3ea-458">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-458">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="fb3ea-459">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-459">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="fb3ea-460">应用的配置中也包含主机配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-460">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="fb3ea-461">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-461">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
+<span data-ttu-id="172d1-956">在配置并启动应用之前，配置并启动主机。</span><span class="sxs-lookup"><span data-stu-id="172d1-956">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="172d1-957">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="172d1-957">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="172d1-958">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-958">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="172d1-959">应用的配置中也包含主机配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-959">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="172d1-960">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。</span><span class="sxs-lookup"><span data-stu-id="172d1-960">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
 
 <a name="dhc"></a>
 
-## <a name="default-host-configuration"></a><span data-ttu-id="fb3ea-462">默认主机配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-462">Default host configuration</span></span>
+## <a name="default-host-configuration"></a><span data-ttu-id="172d1-961">默认主机配置</span><span class="sxs-lookup"><span data-stu-id="172d1-961">Default host configuration</span></span>
 
-<span data-ttu-id="fb3ea-463">有关使用 [Web 主机](xref:fundamentals/host/web-host)时默认配置的详细信息，请参阅[本主题的 ASP.NET Core 2.2 版本](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-463">For details on the default configuration when using the [Web Host](xref:fundamentals/host/web-host), see the [ASP.NET Core 2.2 version of this topic](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span></span>
+<span data-ttu-id="172d1-962">有关使用 [Web 主机](xref:fundamentals/host/web-host)时默认配置的详细信息，请参阅[本主题的 ASP.NET Core 2.2 版本](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2)。</span><span class="sxs-lookup"><span data-stu-id="172d1-962">For details on the default configuration when using the [Web Host](xref:fundamentals/host/web-host), see the [ASP.NET Core 2.2 version of this topic](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span></span>
 
-* <span data-ttu-id="fb3ea-464">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-464">Host configuration is provided from:</span></span>
-  * <span data-ttu-id="fb3ea-465">使用[环境变量配置提供程序](#environment-variables-configuration-provider)通过前缀为 `DOTNET_`的环境变量（例如，`DOTNET_ENVIRONMENT`）提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-465">Environment variables prefixed with `DOTNET_` (for example, `DOTNET_ENVIRONMENT`) using the [Environment Variables configuration provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="fb3ea-466">在配置键值对加载后，前缀 (`DOTNET_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-466">The prefix (`DOTNET_`) is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="fb3ea-467">使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-467">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
-* <span data-ttu-id="fb3ea-468">已建立 Web 主机默认配置 (`ConfigureWebHostDefaults`)：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-468">Web Host default configuration is established (`ConfigureWebHostDefaults`):</span></span>
-  * <span data-ttu-id="fb3ea-469">Kestrel 用作 Web 服务器，并使用应用的配置提供程序对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-469">Kestrel is used as the web server and configured using the app's configuration providers.</span></span>
-  * <span data-ttu-id="fb3ea-470">添加主机筛选中间件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-470">Add Host Filtering Middleware.</span></span>
-  * <span data-ttu-id="fb3ea-471">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 环境变量设置为 `true`，则添加转发的标头中间件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-471">Add Forwarded Headers Middleware if the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable is set to `true`.</span></span>
-  * <span data-ttu-id="fb3ea-472">启用 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-472">Enable IIS integration.</span></span>
+* <span data-ttu-id="172d1-963">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="172d1-963">Host configuration is provided from:</span></span>
+  * <span data-ttu-id="172d1-964">使用[环境变量配置提供程序](#environment-variables-configuration-provider)通过前缀为 `DOTNET_`的环境变量（例如，`DOTNET_ENVIRONMENT`）提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-964">Environment variables prefixed with `DOTNET_` (for example, `DOTNET_ENVIRONMENT`) using the [Environment Variables configuration provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="172d1-965">在配置键值对加载后，前缀 (`DOTNET_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="172d1-965">The prefix (`DOTNET_`) is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="172d1-966">使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-966">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="172d1-967">已建立 Web 主机默认配置 (`ConfigureWebHostDefaults`)：</span><span class="sxs-lookup"><span data-stu-id="172d1-967">Web Host default configuration is established (`ConfigureWebHostDefaults`):</span></span>
+  * <span data-ttu-id="172d1-968">Kestrel 用作 Web 服务器，并使用应用的配置提供程序对其进行配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-968">Kestrel is used as the web server and configured using the app's configuration providers.</span></span>
+  * <span data-ttu-id="172d1-969">添加主机筛选中间件。</span><span class="sxs-lookup"><span data-stu-id="172d1-969">Add Host Filtering Middleware.</span></span>
+  * <span data-ttu-id="172d1-970">如果 `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 环境变量设置为 `true`，则添加转发的标头中间件。</span><span class="sxs-lookup"><span data-stu-id="172d1-970">Add Forwarded Headers Middleware if the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable is set to `true`.</span></span>
+  * <span data-ttu-id="172d1-971">启用 IIS 集成。</span><span class="sxs-lookup"><span data-stu-id="172d1-971">Enable IIS integration.</span></span>
 
-## <a name="other-configuration"></a><span data-ttu-id="fb3ea-473">其他配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-473">Other configuration</span></span>
+## <a name="other-configuration"></a><span data-ttu-id="172d1-972">其他配置</span><span class="sxs-lookup"><span data-stu-id="172d1-972">Other configuration</span></span>
 
-<span data-ttu-id="fb3ea-474">本主题仅与应用配置相关  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-474">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="fb3ea-475">运行和托管 ASP.NET Core 应用的其他方面是使用本主题中未包含的配置文件进行配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-475">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
+<span data-ttu-id="172d1-973">本主题仅与应用配置相关。</span><span class="sxs-lookup"><span data-stu-id="172d1-973">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="172d1-974">运行和托管 ASP.NET Core 应用的其他方面是使用本主题中未包含的配置文件进行配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-974">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
 
-* <span data-ttu-id="fb3ea-476">launch.json  /launchSettings.json  是用于开发环境的工具配置文件，如</span><span class="sxs-lookup"><span data-stu-id="fb3ea-476">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
-  * <span data-ttu-id="fb3ea-477"><xref:fundamentals/environments#development> 中所述。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-477">In <xref:fundamentals/environments#development>.</span></span>
-  * <span data-ttu-id="fb3ea-478">整个文档集中的文件用于为开发方案配置 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-478">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
-* <span data-ttu-id="fb3ea-479">web.config  是服务器配置文件，如以下主题中所述：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-479">*web.config* is a server configuration file, described in the following topics:</span></span>
+* <span data-ttu-id="172d1-975">launch.json/launchSettings.json 是用于开发环境的工具配置文件，如</span><span class="sxs-lookup"><span data-stu-id="172d1-975">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
+  * <span data-ttu-id="172d1-976"><xref:fundamentals/environments#development> 中所述。</span><span class="sxs-lookup"><span data-stu-id="172d1-976">In <xref:fundamentals/environments#development>.</span></span>
+  * <span data-ttu-id="172d1-977">整个文档集中的文件用于为开发方案配置 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-977">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
+* <span data-ttu-id="172d1-978">web.config 是服务器配置文件，如以下主题中所述：</span><span class="sxs-lookup"><span data-stu-id="172d1-978">*web.config* is a server configuration file, described in the following topics:</span></span>
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
-<span data-ttu-id="fb3ea-480">若要详细了解如何从旧版 ASP.NET 迁移应用配置，请参阅 <xref:migration/proper-to-2x/index#store-configurations>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-480">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
+<span data-ttu-id="172d1-979">若要详细了解如何从旧版 ASP.NET 迁移应用配置，请参阅 <xref:migration/proper-to-2x/index#store-configurations>。</span><span class="sxs-lookup"><span data-stu-id="172d1-979">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
 
-## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="fb3ea-481">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-481">Add configuration from an external assembly</span></span>
+## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="172d1-980">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="172d1-980">Add configuration from an external assembly</span></span>
 
-<span data-ttu-id="fb3ea-482">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-482">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="fb3ea-483">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-483">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="172d1-981">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="172d1-981">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="172d1-982">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="172d1-982">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="fb3ea-484">其他资源</span><span class="sxs-lookup"><span data-stu-id="fb3ea-484">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="172d1-983">其他资源</span><span class="sxs-lookup"><span data-stu-id="172d1-983">Additional resources</span></span>
 
-* [<span data-ttu-id="fb3ea-485">配置源代码</span><span class="sxs-lookup"><span data-stu-id="fb3ea-485">Configuration source code</span></span>](https://github.com/dotnet/extensions/tree/master/src/Configuration)
+* [<span data-ttu-id="172d1-984">配置源代码</span><span class="sxs-lookup"><span data-stu-id="172d1-984">Configuration source code</span></span>](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="fb3ea-486">ASP.NET Core 中的应用配置基于配置提供程序  建立的键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-486">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="fb3ea-487">配置提供程序将配置数据从各种配置源读取到键值对：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-487">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
+<span data-ttu-id="172d1-985">ASP.NET Core 中的应用配置基于配置提供程序建立的键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-985">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="172d1-986">配置提供程序将配置数据从各种配置源读取到键值对：</span><span class="sxs-lookup"><span data-stu-id="172d1-986">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="fb3ea-488">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="fb3ea-488">Azure Key Vault</span></span>
-* <span data-ttu-id="fb3ea-489">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-489">Azure App Configuration</span></span>
-* <span data-ttu-id="fb3ea-490">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-490">Command-line arguments</span></span>
-* <span data-ttu-id="fb3ea-491">（已安装或已创建的）自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-491">Custom providers (installed or created)</span></span>
-* <span data-ttu-id="fb3ea-492">目录文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-492">Directory files</span></span>
-* <span data-ttu-id="fb3ea-493">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-493">Environment variables</span></span>
-* <span data-ttu-id="fb3ea-494">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="fb3ea-494">In-memory .NET objects</span></span>
-* <span data-ttu-id="fb3ea-495">设置文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-495">Settings files</span></span>
+* <span data-ttu-id="172d1-987">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="172d1-987">Azure Key Vault</span></span>
+* <span data-ttu-id="172d1-988">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="172d1-988">Azure App Configuration</span></span>
+* <span data-ttu-id="172d1-989">命令行参数</span><span class="sxs-lookup"><span data-stu-id="172d1-989">Command-line arguments</span></span>
+* <span data-ttu-id="172d1-990">（已安装或已创建的）自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-990">Custom providers (installed or created)</span></span>
+* <span data-ttu-id="172d1-991">目录文件</span><span class="sxs-lookup"><span data-stu-id="172d1-991">Directory files</span></span>
+* <span data-ttu-id="172d1-992">环境变量</span><span class="sxs-lookup"><span data-stu-id="172d1-992">Environment variables</span></span>
+* <span data-ttu-id="172d1-993">内存中的 .NET 对象</span><span class="sxs-lookup"><span data-stu-id="172d1-993">In-memory .NET objects</span></span>
+* <span data-ttu-id="172d1-994">设置文件</span><span class="sxs-lookup"><span data-stu-id="172d1-994">Settings files</span></span>
 
-<span data-ttu-id="fb3ea-496">[Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) 中包含通用配置提供程序方案的配置包 ([Microsoft Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/))。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-496">Configuration packages for common configuration provider scenarios ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="172d1-995">[Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) 中包含通用配置提供程序方案的配置包 ([Microsoft Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/))。</span><span class="sxs-lookup"><span data-stu-id="172d1-995">Configuration packages for common configuration provider scenarios ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="fb3ea-497">后面的代码示例和示例应用中的代码示例使用 <xref:Microsoft.Extensions.Configuration> 命名空间：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-497">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
+<span data-ttu-id="172d1-996">后面的代码示例和示例应用中的代码示例使用 <xref:Microsoft.Extensions.Configuration> 命名空间：</span><span class="sxs-lookup"><span data-stu-id="172d1-996">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration;
 ```
 
-<span data-ttu-id="fb3ea-498">选项模式  是本主题中描述的配置概念的扩展。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-498">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="fb3ea-499">选项使用类来表示相关设置的组。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-499">Options use classes to represent groups of related settings.</span></span> <span data-ttu-id="fb3ea-500">有关详细信息，请参阅 <xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-500">For more information, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="172d1-997">选项模式是本主题中描述的配置概念的扩展。</span><span class="sxs-lookup"><span data-stu-id="172d1-997">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="172d1-998">选项使用类来表示相关设置的组。</span><span class="sxs-lookup"><span data-stu-id="172d1-998">Options use classes to represent groups of related settings.</span></span> <span data-ttu-id="172d1-999">有关详细信息，请参阅 <xref:fundamentals/configuration/options>。</span><span class="sxs-lookup"><span data-stu-id="172d1-999">For more information, see <xref:fundamentals/configuration/options>.</span></span>
 
-<span data-ttu-id="fb3ea-501">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-501">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="172d1-1000">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="172d1-1000">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="host-versus-app-configuration"></a><span data-ttu-id="fb3ea-502">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-502">Host versus app configuration</span></span>
+## <a name="host-versus-app-configuration"></a><span data-ttu-id="172d1-1001">主机与应用配置</span><span class="sxs-lookup"><span data-stu-id="172d1-1001">Host versus app configuration</span></span>
 
-<span data-ttu-id="fb3ea-503">在配置并启动应用之前，配置并启动主机  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-503">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="fb3ea-504">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-504">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="fb3ea-505">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-505">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="fb3ea-506">应用的配置中也包含主机配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-506">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="fb3ea-507">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-507">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
+<span data-ttu-id="172d1-1002">在配置并启动应用之前，配置并启动主机。</span><span class="sxs-lookup"><span data-stu-id="172d1-1002">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="172d1-1003">主机负责应用程序启动和生存期管理。</span><span class="sxs-lookup"><span data-stu-id="172d1-1003">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="172d1-1004">应用和主机均使用本主题中所述的配置提供程序进行配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1004">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="172d1-1005">应用的配置中也包含主机配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-1005">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="172d1-1006">有关在构建主机时如何使用配置提供程序以及配置源如何影响主机配置的详细信息，请参阅 <xref:fundamentals/index#host>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1006">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
 
-## <a name="other-configuration"></a><span data-ttu-id="fb3ea-508">其他配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-508">Other configuration</span></span>
+## <a name="other-configuration"></a><span data-ttu-id="172d1-1007">其他配置</span><span class="sxs-lookup"><span data-stu-id="172d1-1007">Other configuration</span></span>
 
-<span data-ttu-id="fb3ea-509">本主题仅与应用配置相关  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-509">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="fb3ea-510">运行和托管 ASP.NET Core 应用的其他方面是使用本主题中未包含的配置文件进行配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-510">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
+<span data-ttu-id="172d1-1008">本主题仅与应用配置相关。</span><span class="sxs-lookup"><span data-stu-id="172d1-1008">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="172d1-1009">运行和托管 ASP.NET Core 应用的其他方面是使用本主题中未包含的配置文件进行配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-1009">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
 
-* <span data-ttu-id="fb3ea-511">launch.json  /launchSettings.json  是用于开发环境的工具配置文件，如</span><span class="sxs-lookup"><span data-stu-id="fb3ea-511">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
-  * <span data-ttu-id="fb3ea-512"><xref:fundamentals/environments#development> 中所述。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-512">In <xref:fundamentals/environments#development>.</span></span>
-  * <span data-ttu-id="fb3ea-513">整个文档集中的文件用于为开发方案配置 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-513">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
-* <span data-ttu-id="fb3ea-514">web.config  是服务器配置文件，如以下主题中所述：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-514">*web.config* is a server configuration file, described in the following topics:</span></span>
+* <span data-ttu-id="172d1-1010">launch.json/launchSettings.json 是用于开发环境的工具配置文件，如</span><span class="sxs-lookup"><span data-stu-id="172d1-1010">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
+  * <span data-ttu-id="172d1-1011"><xref:fundamentals/environments#development> 中所述。</span><span class="sxs-lookup"><span data-stu-id="172d1-1011">In <xref:fundamentals/environments#development>.</span></span>
+  * <span data-ttu-id="172d1-1012">整个文档集中的文件用于为开发方案配置 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1012">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
+* <span data-ttu-id="172d1-1013">web.config 是服务器配置文件，如以下主题中所述：</span><span class="sxs-lookup"><span data-stu-id="172d1-1013">*web.config* is a server configuration file, described in the following topics:</span></span>
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
-<span data-ttu-id="fb3ea-515">若要详细了解如何从旧版 ASP.NET 迁移应用配置，请参阅 <xref:migration/proper-to-2x/index#store-configurations>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-515">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
+<span data-ttu-id="172d1-1014">若要详细了解如何从旧版 ASP.NET 迁移应用配置，请参阅 <xref:migration/proper-to-2x/index#store-configurations>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1014">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
 
-## <a name="default-configuration"></a><span data-ttu-id="fb3ea-516">默认配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-516">Default configuration</span></span>
+## <a name="default-configuration"></a><span data-ttu-id="172d1-1015">默认配置</span><span class="sxs-lookup"><span data-stu-id="172d1-1015">Default configuration</span></span>
 
-<span data-ttu-id="fb3ea-517">基于 ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new)模板的 Web 应用在生成主机时会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-517">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="fb3ea-518">`CreateDefaultBuilder` 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-518">`CreateDefaultBuilder` provides default configuration for the app in the following order:</span></span>
+<span data-ttu-id="172d1-1016">基于 ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new)模板的 Web 应用在生成主机时会调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1016">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="172d1-1017">`CreateDefaultBuilder` 按照以下顺序为应用提供默认配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-1017">`CreateDefaultBuilder` provides default configuration for the app in the following order:</span></span>
 
-<span data-ttu-id="fb3ea-519">以下内容适用于使用 [Web 主机](xref:fundamentals/host/web-host)的应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-519">The following applies to apps using the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="fb3ea-520">有关使用[通用主机](xref:fundamentals/host/generic-host)时默认配置的详细信息，请参阅[本主题的最新版本](xref:fundamentals/configuration/index)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-520">For details on the default configuration when using the [Generic Host](xref:fundamentals/host/generic-host), see the [latest version of this topic](xref:fundamentals/configuration/index).</span></span>
+<span data-ttu-id="172d1-1018">以下内容适用于使用 [Web 主机](xref:fundamentals/host/web-host)的应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1018">The following applies to apps using the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="172d1-1019">有关使用[通用主机](xref:fundamentals/host/generic-host)时默认配置的详细信息，请参阅[本主题的最新版本](xref:fundamentals/configuration/index)。</span><span class="sxs-lookup"><span data-stu-id="172d1-1019">For details on the default configuration when using the [Generic Host](xref:fundamentals/host/generic-host), see the [latest version of this topic](xref:fundamentals/configuration/index).</span></span>
 
-* <span data-ttu-id="fb3ea-521">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-521">Host configuration is provided from:</span></span>
-  * <span data-ttu-id="fb3ea-522">使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-522">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="fb3ea-523">在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-523">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="fb3ea-524">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-524">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
-* <span data-ttu-id="fb3ea-525">应用配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-525">App configuration is provided from:</span></span>
-  * <span data-ttu-id="fb3ea-526">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json  提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-526">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="fb3ea-527">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json  提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-527">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="fb3ea-528">应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-528">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
-  * <span data-ttu-id="fb3ea-529">使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-529">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
-  * <span data-ttu-id="fb3ea-530">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-530">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="172d1-1020">主机配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="172d1-1020">Host configuration is provided from:</span></span>
+  * <span data-ttu-id="172d1-1021">使用[环境变量配置提供程序](#environment-variables-configuration-provider)，通过前缀为 `ASPNETCORE_`（例如，`ASPNETCORE_ENVIRONMENT`）的环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1021">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="172d1-1022">在配置键值对加载后，前缀 (`ASPNETCORE_`) 会遭去除。</span><span class="sxs-lookup"><span data-stu-id="172d1-1022">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="172d1-1023">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1023">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="172d1-1024">应用配置通过以下方式提供：</span><span class="sxs-lookup"><span data-stu-id="172d1-1024">App configuration is provided from:</span></span>
+  * <span data-ttu-id="172d1-1025">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.json 提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1025">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="172d1-1026">使用[文件配置提供程序](#file-configuration-provider)，通过 appsettings.{Environment}.json 提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1026">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="172d1-1027">应用在使用入口程序集的 `Development` 环境中运行时的[机密管理器](xref:security/app-secrets)。</span><span class="sxs-lookup"><span data-stu-id="172d1-1027">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
+  * <span data-ttu-id="172d1-1028">使用 [ 环境变量配置提供程序](#environment-variables-configuration-provider)，通过环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1028">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
+  * <span data-ttu-id="172d1-1029">使用 [ 命令行配置提供程序](#command-line-configuration-provider)，通过命令行参数提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1029">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
 
-## <a name="security"></a><span data-ttu-id="fb3ea-531">安全性</span><span class="sxs-lookup"><span data-stu-id="fb3ea-531">Security</span></span>
+## <a name="security"></a><span data-ttu-id="172d1-1030">安全性</span><span class="sxs-lookup"><span data-stu-id="172d1-1030">Security</span></span>
 
-<span data-ttu-id="fb3ea-532">采用以下做法来保护敏感配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-532">Adopt the following practices to secure sensitive configuration data:</span></span>
+<span data-ttu-id="172d1-1031">采用以下做法来保护敏感配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-1031">Adopt the following practices to secure sensitive configuration data:</span></span>
 
-* <span data-ttu-id="fb3ea-533">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-533">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
-* <span data-ttu-id="fb3ea-534">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-534">Don't use production secrets in development or test environments.</span></span>
-* <span data-ttu-id="fb3ea-535">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-535">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
+* <span data-ttu-id="172d1-1032">请勿在配置提供程序代码或纯文本配置文件中存储密码或其他敏感数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-1032">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
+* <span data-ttu-id="172d1-1033">不要在开发或测试环境中使用生产机密。</span><span class="sxs-lookup"><span data-stu-id="172d1-1033">Don't use production secrets in development or test environments.</span></span>
+* <span data-ttu-id="172d1-1034">请在项目外部指定机密，避免将其意外提交到源代码存储库。</span><span class="sxs-lookup"><span data-stu-id="172d1-1034">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="fb3ea-536">有关详细信息，请参阅下列主题：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-536">For more information, see the following topics:</span></span>
+<span data-ttu-id="172d1-1035">有关详细信息，请参阅下列主题：</span><span class="sxs-lookup"><span data-stu-id="172d1-1035">For more information, see the following topics:</span></span>
 
 * <xref:fundamentals/environments>
-* <span data-ttu-id="fb3ea-537"><xref:security/app-secrets> &ndash; 包含有关如何使用环境变量来存储敏感数据的建议。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-537"><xref:security/app-secrets> &ndash; Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="fb3ea-538">Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-538">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="fb3ea-539">本主题后面将介绍文件配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-539">The File Configuration Provider is described later in this topic.</span></span>
+* <span data-ttu-id="172d1-1036"><xref:security/app-secrets> &ndash; 包含有关如何使用环境变量来存储敏感数据的建议。</span><span class="sxs-lookup"><span data-stu-id="172d1-1036"><xref:security/app-secrets> &ndash; Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="172d1-1037">Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。</span><span class="sxs-lookup"><span data-stu-id="172d1-1037">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="172d1-1038">本主题后面将介绍文件配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-1038">The File Configuration Provider is described later in this topic.</span></span>
 
-<span data-ttu-id="fb3ea-540">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-540">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="fb3ea-541">有关详细信息，请参阅 <xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-541">For more information, see <xref:security/key-vault-configuration>.</span></span>
+<span data-ttu-id="172d1-1039">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。</span><span class="sxs-lookup"><span data-stu-id="172d1-1039">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="172d1-1040">有关详细信息，请参阅 <xref:security/key-vault-configuration>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1040">For more information, see <xref:security/key-vault-configuration>.</span></span>
 
-## <a name="hierarchical-configuration-data"></a><span data-ttu-id="fb3ea-542">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="fb3ea-542">Hierarchical configuration data</span></span>
+## <a name="hierarchical-configuration-data"></a><span data-ttu-id="172d1-1041">分层配置数据</span><span class="sxs-lookup"><span data-stu-id="172d1-1041">Hierarchical configuration data</span></span>
 
-<span data-ttu-id="fb3ea-543">配置 API 能够通过在配置键中使用分隔符来展平分层数据以保持分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-543">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+<span data-ttu-id="172d1-1042">配置 API 能够通过在配置键中使用分隔符来展平分层数据以保持分层配置数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-1042">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
 
-<span data-ttu-id="fb3ea-544">在以下 JSON 文件中，两个节的结构化层次结构中存在四个键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-544">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
+<span data-ttu-id="172d1-1043">在以下 JSON 文件中，两个节的结构化层次结构中存在四个键：</span><span class="sxs-lookup"><span data-stu-id="172d1-1043">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
 
 ```json
 {
@@ -862,26 +1520,26 @@ using Microsoft.Extensions.Configuration;
 }
 ```
 
-<span data-ttu-id="fb3ea-545">将文件读入配置时，将创建唯一键以保持配置源的原始分层数据结构。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-545">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="fb3ea-546">使用冒号 (`:`) 展平节和键以保持原始结构：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-546">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
+<span data-ttu-id="172d1-1044">将文件读入配置时，将创建唯一键以保持配置源的原始分层数据结构。</span><span class="sxs-lookup"><span data-stu-id="172d1-1044">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="172d1-1045">使用冒号 (`:`) 展平节和键以保持原始结构：</span><span class="sxs-lookup"><span data-stu-id="172d1-1045">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
 
-* <span data-ttu-id="fb3ea-547">section0:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-547">section0:key0</span></span>
-* <span data-ttu-id="fb3ea-548">section0:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-548">section0:key1</span></span>
-* <span data-ttu-id="fb3ea-549">section1:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-549">section1:key0</span></span>
-* <span data-ttu-id="fb3ea-550">section1:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-550">section1:key1</span></span>
+* <span data-ttu-id="172d1-1046">section0:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-1046">section0:key0</span></span>
+* <span data-ttu-id="172d1-1047">section0:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-1047">section0:key1</span></span>
+* <span data-ttu-id="172d1-1048">section1:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-1048">section1:key0</span></span>
+* <span data-ttu-id="172d1-1049">section1:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-1049">section1:key1</span></span>
 
-<span data-ttu-id="fb3ea-551"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-551"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="fb3ea-552">稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-552">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span>
+<span data-ttu-id="172d1-1050"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> 和 <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> 方法可用于隔离各个节和配置数据中某节的子节。</span><span class="sxs-lookup"><span data-stu-id="172d1-1050"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="172d1-1051">稍后将在 [GetSection、GetChildren 和 Exists](#getsection-getchildren-and-exists) 中介绍这些方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-1051">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="fb3ea-553">约定</span><span class="sxs-lookup"><span data-stu-id="fb3ea-553">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="172d1-1052">约定</span><span class="sxs-lookup"><span data-stu-id="172d1-1052">Conventions</span></span>
 
-### <a name="sources-and-providers"></a><span data-ttu-id="fb3ea-554">源和提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-554">Sources and providers</span></span>
+### <a name="sources-and-providers"></a><span data-ttu-id="172d1-1053">源和提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1053">Sources and providers</span></span>
 
-<span data-ttu-id="fb3ea-555">在应用启动时，将按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-555">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
+<span data-ttu-id="172d1-1054">在应用启动时，将按照指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="172d1-1054">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
 
-<span data-ttu-id="fb3ea-556">实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-556">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="fb3ea-557">例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-557">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
+<span data-ttu-id="172d1-1055">实现更改检测的配置提供程序能够在基础设置更改时重新加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1055">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="172d1-1056">例如，文件配置提供程序（本主题后面将对此进行介绍）和 [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)实现更改检测。</span><span class="sxs-lookup"><span data-stu-id="172d1-1056">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
 
-<span data-ttu-id="fb3ea-558">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-558"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="fb3ea-559"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 或 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 来获取以下类的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-559"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
+<span data-ttu-id="172d1-1057">应用的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 容器中提供了 <xref:Microsoft.Extensions.Configuration.IConfiguration>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1057"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="172d1-1058"><xref:Microsoft.Extensions.Configuration.IConfiguration> 可注入到 Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 或 MVC <xref:Microsoft.AspNetCore.Mvc.Controller> 中，以获取类的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1058"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
 
-<span data-ttu-id="fb3ea-560">在下面的示例中，使用 `_config` 字段来访问配置值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-560">In the following examples, the `_config` field is used to access configuration values:</span></span>
+<span data-ttu-id="172d1-1059">在下面的示例中，使用 `_config` 字段来访问配置值：</span><span class="sxs-lookup"><span data-stu-id="172d1-1059">In the following examples, the `_config` field is used to access configuration values:</span></span>
 
 ```csharp
 public class IndexModel : PageModel
@@ -907,60 +1565,186 @@ public class HomeController : Controller
 }
 ```
 
-<span data-ttu-id="fb3ea-561">配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-561">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
+<span data-ttu-id="172d1-1060">配置提供程序不能使用 DI，因为主机在设置这些提供程序时 DI 不可用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1060">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
 
-### <a name="keys"></a><span data-ttu-id="fb3ea-562">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-562">Keys</span></span>
+### <a name="keys"></a><span data-ttu-id="172d1-1061">键</span><span class="sxs-lookup"><span data-stu-id="172d1-1061">Keys</span></span>
 
-<span data-ttu-id="fb3ea-563">配置键采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-563">Configuration keys adopt the following conventions:</span></span>
+<span data-ttu-id="172d1-1062">配置键采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="172d1-1062">Configuration keys adopt the following conventions:</span></span>
 
-* <span data-ttu-id="fb3ea-564">键不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-564">Keys are case-insensitive.</span></span> <span data-ttu-id="fb3ea-565">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-565">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
-* <span data-ttu-id="fb3ea-566">如果由相同或不同的配置提供程序设置相同键的值，则键上设置的最后一个值就是所使用的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-566">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
-* <span data-ttu-id="fb3ea-567">分层键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-567">Hierarchical keys</span></span>
-  * <span data-ttu-id="fb3ea-568">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-568">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
-  * <span data-ttu-id="fb3ea-569">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-569">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="fb3ea-570">所有平台均支持采用双下划线 (`__`)，并可以将其自动转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-570">A double underscore (`__`) is supported by all platforms and is automatically converted into a colon.</span></span>
-  * <span data-ttu-id="fb3ea-571">在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-571">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="fb3ea-572">将机密加载到应用的配置中时，用冒号替换破折号。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-572">Write code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
-* <span data-ttu-id="fb3ea-573"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-573">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="fb3ea-574">数组绑定将在[将数组绑定到类](#bind-an-array-to-a-class)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-574">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
+* <span data-ttu-id="172d1-1063">键不区分大小写。</span><span class="sxs-lookup"><span data-stu-id="172d1-1063">Keys are case-insensitive.</span></span> <span data-ttu-id="172d1-1064">例如，`ConnectionString` 和 `connectionstring` 被视为等效键。</span><span class="sxs-lookup"><span data-stu-id="172d1-1064">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
+* <span data-ttu-id="172d1-1065">如果由相同或不同的配置提供程序设置相同键的值，则键上设置的最后一个值就是所使用的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-1065">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
+* <span data-ttu-id="172d1-1066">分层键</span><span class="sxs-lookup"><span data-stu-id="172d1-1066">Hierarchical keys</span></span>
+  * <span data-ttu-id="172d1-1067">在配置 API 中，冒号分隔符 (`:`) 适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="172d1-1067">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
+  * <span data-ttu-id="172d1-1068">在环境变量中，冒号分隔符可能无法适用于所有平台。</span><span class="sxs-lookup"><span data-stu-id="172d1-1068">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="172d1-1069">所有平台均支持采用双下划线 (`__`)，并可以将其自动转换为冒号。</span><span class="sxs-lookup"><span data-stu-id="172d1-1069">A double underscore (`__`) is supported by all platforms and is automatically converted into a colon.</span></span>
+  * <span data-ttu-id="172d1-1070">在 Azure Key Vault 中，分层键使用 `--`（两个破折号）作为分隔符。</span><span class="sxs-lookup"><span data-stu-id="172d1-1070">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="172d1-1071">将机密加载到应用的配置中时，用冒号替换破折号。</span><span class="sxs-lookup"><span data-stu-id="172d1-1071">Write code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
+* <span data-ttu-id="172d1-1072"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-1072">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="172d1-1073">数组绑定将在[将数组绑定到类](#bind-an-array-to-a-class)部分中进行介绍。</span><span class="sxs-lookup"><span data-stu-id="172d1-1073">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
 
-### <a name="values"></a><span data-ttu-id="fb3ea-575">值</span><span class="sxs-lookup"><span data-stu-id="fb3ea-575">Values</span></span>
+### <a name="values"></a><span data-ttu-id="172d1-1074">值</span><span class="sxs-lookup"><span data-stu-id="172d1-1074">Values</span></span>
 
-<span data-ttu-id="fb3ea-576">配置值采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-576">Configuration values adopt the following conventions:</span></span>
+<span data-ttu-id="172d1-1075">配置值采用以下约定：</span><span class="sxs-lookup"><span data-stu-id="172d1-1075">Configuration values adopt the following conventions:</span></span>
 
-* <span data-ttu-id="fb3ea-577">值是字符串。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-577">Values are strings.</span></span>
-* <span data-ttu-id="fb3ea-578">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-578">Null values can't be stored in configuration or bound to objects.</span></span>
+* <span data-ttu-id="172d1-1076">值是字符串。</span><span class="sxs-lookup"><span data-stu-id="172d1-1076">Values are strings.</span></span>
+* <span data-ttu-id="172d1-1077">NULL 值不能存储在配置中或绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-1077">Null values can't be stored in configuration or bound to objects.</span></span>
 
-## <a name="providers"></a><span data-ttu-id="fb3ea-579">提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-579">Providers</span></span>
+## <a name="providers"></a><span data-ttu-id="172d1-1078">提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1078">Providers</span></span>
 
-<span data-ttu-id="fb3ea-580">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-580">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+<span data-ttu-id="172d1-1079">下表显示了 ASP.NET Core 应用可用的配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-1079">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
 
-| <span data-ttu-id="fb3ea-581">提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-581">Provider</span></span> | <span data-ttu-id="fb3ea-582">通过以下对象提供配置&hellip;</span><span class="sxs-lookup"><span data-stu-id="fb3ea-582">Provides configuration from&hellip;</span></span> |
-| -------- | ----------------------------------- |
-| <span data-ttu-id="fb3ea-583">[Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（安全  主题）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-583">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="fb3ea-584">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="fb3ea-584">Azure Key Vault</span></span> |
-| <span data-ttu-id="fb3ea-585">[Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-585">[Azure App Configuration Provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure documentation)</span></span> | <span data-ttu-id="fb3ea-586">Azure 应用程序配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-586">Azure App Configuration</span></span> |
-| [<span data-ttu-id="fb3ea-587">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-587">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="fb3ea-588">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-588">Command-line parameters</span></span> |
-| [<span data-ttu-id="fb3ea-589">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-589">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="fb3ea-590">自定义源</span><span class="sxs-lookup"><span data-stu-id="fb3ea-590">Custom source</span></span> |
-| [<span data-ttu-id="fb3ea-591">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-591">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="fb3ea-592">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-592">Environment variables</span></span> |
-| [<span data-ttu-id="fb3ea-593">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-593">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="fb3ea-594">文件（INI、JSON、XML）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-594">Files (INI, JSON, XML)</span></span> |
-| [<span data-ttu-id="fb3ea-595">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-595">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="fb3ea-596">目录文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-596">Directory files</span></span> |
-| [<span data-ttu-id="fb3ea-597">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-597">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="fb3ea-598">内存中集合</span><span class="sxs-lookup"><span data-stu-id="fb3ea-598">In-memory collections</span></span> |
-| <span data-ttu-id="fb3ea-599">[用户机密 (Secret Manager)](xref:security/app-secrets)（安全  主题）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-599">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="fb3ea-600">用户配置文件目录中的文件</span><span class="sxs-lookup"><span data-stu-id="fb3ea-600">File in the user profile directory</span></span> |
+| <span data-ttu-id="172d1-1080">提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1080">Provider</span></span> | <span data-ttu-id="172d1-1081">通过以下对象提供配置&hellip;</span><span class="sxs-lookup"><span data-stu-id="172d1-1081">Provides configuration from&hellip;</span></span> |
+| ---
+<span data-ttu-id="172d1-1082">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1082">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1083">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1083">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1084">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1084">'Identity'</span></span>
+- <span data-ttu-id="172d1-1085">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1085">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1086">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1086">'Razor'</span></span>
+- <span data-ttu-id="172d1-1087">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1087">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-601">按照启动时指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-601">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="fb3ea-602">本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-602">The configuration providers described in this topic are described in alphabetical order, not in the order that the code arranges them.</span></span> <span data-ttu-id="fb3ea-603">代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-603">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+-
+<span data-ttu-id="172d1-1088">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1088">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1089">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1089">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1090">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1090">'Identity'</span></span>
+- <span data-ttu-id="172d1-1091">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1091">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1092">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1092">'Razor'</span></span>
+- <span data-ttu-id="172d1-1093">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1093">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-604">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-604">A typical sequence of configuration providers is:</span></span>
+<span data-ttu-id="172d1-1094">---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1094">---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1095">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1095">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1096">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1096">'Identity'</span></span>
+- <span data-ttu-id="172d1-1097">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1097">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1098">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1098">'Razor'</span></span>
+- <span data-ttu-id="172d1-1099">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1099">'SignalR' uid:</span></span> 
 
-1. <span data-ttu-id="fb3ea-605">文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境）  </span><span class="sxs-lookup"><span data-stu-id="fb3ea-605">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
-1. [<span data-ttu-id="fb3ea-606">Azure 密钥保管库</span><span class="sxs-lookup"><span data-stu-id="fb3ea-606">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
-1. <span data-ttu-id="fb3ea-607">[用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）</span><span class="sxs-lookup"><span data-stu-id="fb3ea-607">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
-1. <span data-ttu-id="fb3ea-608">环境变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-608">Environment variables</span></span>
-1. <span data-ttu-id="fb3ea-609">命令行参数</span><span class="sxs-lookup"><span data-stu-id="fb3ea-609">Command-line arguments</span></span>
+-
+<span data-ttu-id="172d1-1100">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1100">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1101">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1101">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1102">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1102">'Identity'</span></span>
+- <span data-ttu-id="172d1-1103">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1103">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1104">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1104">'Razor'</span></span>
+- <span data-ttu-id="172d1-1105">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1105">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-610">通常的做法是将命令行配置提供程序置于一系列提供程序的末尾，以允许命令行参数替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-610">A common practice is to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+-
+<span data-ttu-id="172d1-1106">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1106">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1107">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1107">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1108">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1108">'Identity'</span></span>
+- <span data-ttu-id="172d1-1109">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1109">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1110">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1110">'Razor'</span></span>
+- <span data-ttu-id="172d1-1111">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1111">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-611">使用 `CreateDefaultBuilder` 初始化新的主机生成器时，将使用上述提供程序序列。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-611">The preceding sequence of providers is used when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="fb3ea-612">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-612">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+-
+<span data-ttu-id="172d1-1112">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1112">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1113">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1113">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1114">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1114">'Identity'</span></span>
+- <span data-ttu-id="172d1-1115">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1115">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1116">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1116">'Razor'</span></span>
+- <span data-ttu-id="172d1-1117">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1117">'SignalR' uid:</span></span> 
 
-## <a name="configure-the-host-builder-with-useconfiguration"></a><span data-ttu-id="fb3ea-613">用 UseConfiguration 配置主机生成器</span><span class="sxs-lookup"><span data-stu-id="fb3ea-613">Configure the host builder with UseConfiguration</span></span>
+-
+<span data-ttu-id="172d1-1118">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1118">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1119">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1119">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1120">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1120">'Identity'</span></span>
+- <span data-ttu-id="172d1-1121">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1121">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1122">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1122">'Razor'</span></span>
+- <span data-ttu-id="172d1-1123">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1123">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-614">若要配置主机生成器，请使用配置在主机生成器上调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-614">To configure the host builder, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> on the host builder with the configuration.</span></span>
+-
+<span data-ttu-id="172d1-1124">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1124">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1125">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1125">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1126">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1126">'Identity'</span></span>
+- <span data-ttu-id="172d1-1127">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1127">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1128">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1128">'Razor'</span></span>
+- <span data-ttu-id="172d1-1129">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1129">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1130">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1130">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1131">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1131">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1132">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1132">'Identity'</span></span>
+- <span data-ttu-id="172d1-1133">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1133">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1134">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1134">'Razor'</span></span>
+- <span data-ttu-id="172d1-1135">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1135">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1136">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1136">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1137">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1137">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1138">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1138">'Identity'</span></span>
+- <span data-ttu-id="172d1-1139">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1139">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1140">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1140">'Razor'</span></span>
+- <span data-ttu-id="172d1-1141">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1141">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1142">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1142">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1143">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1143">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1144">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1144">'Identity'</span></span>
+- <span data-ttu-id="172d1-1145">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1145">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1146">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1146">'Razor'</span></span>
+- <span data-ttu-id="172d1-1147">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1147">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1148">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1148">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1149">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1149">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1150">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1150">'Identity'</span></span>
+- <span data-ttu-id="172d1-1151">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1151">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1152">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1152">'Razor'</span></span>
+- <span data-ttu-id="172d1-1153">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1153">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1154">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1154">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1155">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1155">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1156">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1156">'Identity'</span></span>
+- <span data-ttu-id="172d1-1157">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1157">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1158">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1158">'Razor'</span></span>
+- <span data-ttu-id="172d1-1159">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1159">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1160">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1160">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1161">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1161">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1162">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1162">'Identity'</span></span>
+- <span data-ttu-id="172d1-1163">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1163">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1164">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1164">'Razor'</span></span>
+- <span data-ttu-id="172d1-1165">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1165">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1166">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1166">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1167">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1167">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1168">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1168">'Identity'</span></span>
+- <span data-ttu-id="172d1-1169">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1169">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1170">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1170">'Razor'</span></span>
+- <span data-ttu-id="172d1-1171">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1171">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1172">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1172">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1173">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1173">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1174">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1174">'Identity'</span></span>
+- <span data-ttu-id="172d1-1175">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1175">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1176">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1176">'Razor'</span></span>
+- <span data-ttu-id="172d1-1177">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1177">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1178">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1178">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1179">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1179">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1180">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1180">'Identity'</span></span>
+- <span data-ttu-id="172d1-1181">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1181">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1182">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1182">'Razor'</span></span>
+- <span data-ttu-id="172d1-1183">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1183">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1184">------------------ | | [Azure Key Vault 配置提供程序](xref:security/key-vault-configuration)（“安全性”主题）| Azure Key Vault | | [Azure 应用程序配置提供程序](/azure/azure-app-configuration/quickstart-aspnet-core-app)（Azure 文档）| Azure 应用程序配置 | | [命令行配置提供程序](#command-line-configuration-provider) | 命令行参数 | | [自定义配置提供程序](#custom-configuration-provider) | 自定义源 | | [环境变量配置提供程序](#environment-variables-configuration-provider) | 环境变量 | | [文件配置提供程序](#file-configuration-provider) | 文件（INI、JSON、XML）| | [每文件密钥配置提供程序](#key-per-file-configuration-provider) | 目录文件 | | [内存配置提供程序](#memory-configuration-provider) | 内存中集合 | | [用户机密（机密管理器）](xref:security/app-secrets)（“安全性” 主题）| 用户配置文件目录中的文件 |</span><span class="sxs-lookup"><span data-stu-id="172d1-1184">------------------ | | [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics) | Azure Key Vault | | [Azure App Configuration Provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure documentation) | Azure App Configuration | | [Command-line Configuration Provider](#command-line-configuration-provider) | Command-line parameters | | [Custom configuration provider](#custom-configuration-provider) | Custom source | | [Environment Variables Configuration Provider](#environment-variables-configuration-provider) | Environment variables | | [File Configuration Provider](#file-configuration-provider) | Files (INI, JSON, XML) | | [Key-per-file Configuration Provider](#key-per-file-configuration-provider) | Directory files | | [Memory Configuration Provider](#memory-configuration-provider) | In-memory collections | | [User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics) | File in the user profile directory |</span></span>
+
+<span data-ttu-id="172d1-1185">按照启动时指定的配置提供程序的顺序读取配置源。</span><span class="sxs-lookup"><span data-stu-id="172d1-1185">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="172d1-1186">本主题中所述的配置提供程序按字母顺序进行介绍，而不是按代码排列顺序进行介绍。</span><span class="sxs-lookup"><span data-stu-id="172d1-1186">The configuration providers described in this topic are described in alphabetical order, not in the order that the code arranges them.</span></span> <span data-ttu-id="172d1-1187">代码中的配置提供程序应以特定顺序排列，从而满足应用所需的基础配置源的优先级。</span><span class="sxs-lookup"><span data-stu-id="172d1-1187">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+
+<span data-ttu-id="172d1-1188">配置提供程序的典型顺序为：</span><span class="sxs-lookup"><span data-stu-id="172d1-1188">A typical sequence of configuration providers is:</span></span>
+
+1. <span data-ttu-id="172d1-1189">文件（appsettings.json、appsettings.{Environment}.json，其中 `{Environment}` 是应用的当前托管环境） </span><span class="sxs-lookup"><span data-stu-id="172d1-1189">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
+1. [<span data-ttu-id="172d1-1190">Azure 密钥保管库</span><span class="sxs-lookup"><span data-stu-id="172d1-1190">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
+1. <span data-ttu-id="172d1-1191">[用户机密 (Secret Manager)](xref:security/app-secrets)（仅限开发环境中）</span><span class="sxs-lookup"><span data-stu-id="172d1-1191">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
+1. <span data-ttu-id="172d1-1192">环境变量</span><span class="sxs-lookup"><span data-stu-id="172d1-1192">Environment variables</span></span>
+1. <span data-ttu-id="172d1-1193">命令行参数</span><span class="sxs-lookup"><span data-stu-id="172d1-1193">Command-line arguments</span></span>
+
+<span data-ttu-id="172d1-1194">通常的做法是将命令行配置提供程序置于一系列提供程序的末尾，以允许命令行参数替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1194">A common practice is to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+
+<span data-ttu-id="172d1-1195">使用 `CreateDefaultBuilder` 初始化新的主机生成器时，将使用上述提供程序序列。</span><span class="sxs-lookup"><span data-stu-id="172d1-1195">The preceding sequence of providers is used when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="172d1-1196">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-1196">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+
+## <a name="configure-the-host-builder-with-useconfiguration"></a><span data-ttu-id="172d1-1197">用 UseConfiguration 配置主机生成器</span><span class="sxs-lookup"><span data-stu-id="172d1-1197">Configure the host builder with UseConfiguration</span></span>
+
+<span data-ttu-id="172d1-1198">若要配置主机生成器，请使用配置在主机生成器上调用 <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*>。</span><span class="sxs-lookup"><span data-stu-id="172d1-1198">To configure the host builder, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> on the host builder with the configuration.</span></span>
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args)
@@ -981,15 +1765,15 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 }
 ```
 
-## <a name="configureappconfiguration"></a><span data-ttu-id="fb3ea-615">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="fb3ea-615">ConfigureAppConfiguration</span></span>
+## <a name="configureappconfiguration"></a><span data-ttu-id="172d1-1199">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="172d1-1199">ConfigureAppConfiguration</span></span>
 
-<span data-ttu-id="fb3ea-616">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置提供程序以及 `CreateDefaultBuilder` 自动添加的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-616">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration providers in addition to those added automatically by `CreateDefaultBuilder`:</span></span>
+<span data-ttu-id="172d1-1200">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置提供程序以及 `CreateDefaultBuilder` 自动添加的配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-1200">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration providers in addition to those added automatically by `CreateDefaultBuilder`:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
 
-### <a name="override-previous-configuration-with-command-line-arguments"></a><span data-ttu-id="fb3ea-617">用命令行参数替代以前的配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-617">Override previous configuration with command-line arguments</span></span>
+### <a name="override-previous-configuration-with-command-line-arguments"></a><span data-ttu-id="172d1-1201">用命令行参数替代以前的配置</span><span class="sxs-lookup"><span data-stu-id="172d1-1201">Override previous configuration with command-line arguments</span></span>
 
-<span data-ttu-id="fb3ea-618">若要提供命令行参数可替代的应用配置，最后请调用 `AddCommandLine`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-618">To provide app configuration that can be overridden with command-line arguments, call `AddCommandLine` last:</span></span>
+<span data-ttu-id="172d1-1202">若要提供命令行参数可替代的应用配置，最后请调用 `AddCommandLine`：</span><span class="sxs-lookup"><span data-stu-id="172d1-1202">To provide app configuration that can be overridden with command-line arguments, call `AddCommandLine` last:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -999,9 +1783,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-### <a name="remove-providers-added-by-createdefaultbuilder"></a><span data-ttu-id="fb3ea-619">删除 CreateDefaultBuilder 添加的提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-619">Remove providers added by CreateDefaultBuilder</span></span>
+### <a name="remove-providers-added-by-createdefaultbuilder"></a><span data-ttu-id="172d1-1203">删除 CreateDefaultBuilder 添加的提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1203">Remove providers added by CreateDefaultBuilder</span></span>
 
-<span data-ttu-id="fb3ea-620">要删除 `CreateDefaultBuilder` 添加的提供程序，请先对 [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) 调用 [Clear](/dotnet/api/system.collections.generic.icollection-1.clear)：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-620">To remove the providers added by `CreateDefaultBuilder`, call [Clear](/dotnet/api/system.collections.generic.icollection-1.clear) on the [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) first:</span></span>
+<span data-ttu-id="172d1-1204">要删除 `CreateDefaultBuilder` 添加的提供程序，请先对 [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) 调用 [Clear](/dotnet/api/system.collections.generic.icollection-1.clear)：</span><span class="sxs-lookup"><span data-stu-id="172d1-1204">To remove the providers added by `CreateDefaultBuilder`, call [Clear](/dotnet/api/system.collections.generic.icollection-1.clear) on the [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) first:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1011,29 +1795,29 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-### <a name="consume-configuration-during-app-startup"></a><span data-ttu-id="fb3ea-621">在应用启动期间使用配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-621">Consume configuration during app startup</span></span>
+### <a name="consume-configuration-during-app-startup"></a><span data-ttu-id="172d1-1205">在应用启动期间使用配置</span><span class="sxs-lookup"><span data-stu-id="172d1-1205">Consume configuration during app startup</span></span>
 
-<span data-ttu-id="fb3ea-622">在应用启动期间，可以使用 `ConfigureAppConfiguration` 中提供给应用的配置，包括 `Startup.ConfigureServices`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-622">Configuration supplied to the app in `ConfigureAppConfiguration` is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="fb3ea-623">有关详细信息，请参阅[在启动期间访问配置](#access-configuration-during-startup)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-623">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
+<span data-ttu-id="172d1-1206">在应用启动期间，可以使用 `ConfigureAppConfiguration` 中提供给应用的配置，包括 `Startup.ConfigureServices`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1206">Configuration supplied to the app in `ConfigureAppConfiguration` is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="172d1-1207">有关详细信息，请参阅[在启动期间访问配置](#access-configuration-during-startup)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-1207">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
 
-## <a name="command-line-configuration-provider"></a><span data-ttu-id="fb3ea-624">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-624">Command-line Configuration Provider</span></span>
+## <a name="command-line-configuration-provider"></a><span data-ttu-id="172d1-1208">命令行配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1208">Command-line Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-625"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 在运行时从命令行参数键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-625">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
+<span data-ttu-id="172d1-1209"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> 在运行时从命令行参数键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1209">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="fb3ea-626">要激活命令行配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-626">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="172d1-1210">要激活命令行配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-1210">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="fb3ea-627">调用 `CreateDefaultBuilder(string [])` 时会自动调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-627">`AddCommandLine` is automatically called when `CreateDefaultBuilder(string [])` is called.</span></span> <span data-ttu-id="fb3ea-628">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-628">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="172d1-1211">调用 `CreateDefaultBuilder(string [])` 时会自动调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1211">`AddCommandLine` is automatically called when `CreateDefaultBuilder(string [])` is called.</span></span> <span data-ttu-id="172d1-1212">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-1212">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="fb3ea-629">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-629">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="172d1-1213">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="172d1-1213">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="fb3ea-630">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置   。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-630">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="fb3ea-631">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-631">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="fb3ea-632">环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-632">Environment variables.</span></span>
+* <span data-ttu-id="172d1-1214">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="172d1-1214">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="172d1-1215">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="172d1-1215">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="172d1-1216">环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-1216">Environment variables.</span></span>
 
-<span data-ttu-id="fb3ea-633">`CreateDefaultBuilder` 最后添加命令行配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-633">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="fb3ea-634">在运行时传递的命令行参数会替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-634">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
+<span data-ttu-id="172d1-1217">`CreateDefaultBuilder` 最后添加命令行配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-1217">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="172d1-1218">在运行时传递的命令行参数会替代由其他提供程序设置的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1218">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
 
-<span data-ttu-id="fb3ea-635">`CreateDefaultBuilder` 在构造主机时起作用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-635">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="fb3ea-636">因此，`CreateDefaultBuilder` 激活的命令行配置可能会影响主机的配置方式。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-636">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
+<span data-ttu-id="172d1-1219">`CreateDefaultBuilder` 在构造主机时起作用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1219">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="172d1-1220">因此，`CreateDefaultBuilder` 激活的命令行配置可能会影响主机的配置方式。</span><span class="sxs-lookup"><span data-stu-id="172d1-1220">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
 
-<span data-ttu-id="fb3ea-637">对于基于 ASP.NET Core 模板的应用，`CreateDefaultBuilder` 已调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-637">For apps based on the ASP.NET Core templates, `AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="fb3ea-638">若要添加其他配置提供程序并保持能够用命令行参数替代这些提供程序的配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并最后调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-638">To add additional configuration providers and maintain the ability to override configuration from those providers with command-line arguments, call the app's additional providers in `ConfigureAppConfiguration` and call `AddCommandLine` last.</span></span>
+<span data-ttu-id="172d1-1221">对于基于 ASP.NET Core 模板的应用，`CreateDefaultBuilder` 已调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1221">For apps based on the ASP.NET Core templates, `AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="172d1-1222">若要添加其他配置提供程序并保持能够用命令行参数替代这些提供程序的配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并最后调用 `AddCommandLine`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1222">To add additional configuration providers and maintain the ability to override configuration from those providers with command-line arguments, call the app's additional providers in `ConfigureAppConfiguration` and call `AddCommandLine` last.</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1043,28 +1827,308 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-<span data-ttu-id="fb3ea-639">**示例**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-639">**Example**</span></span>
+<span data-ttu-id="172d1-1223">**示例**</span><span class="sxs-lookup"><span data-stu-id="172d1-1223">**Example**</span></span>
 
-<span data-ttu-id="fb3ea-640">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 的调用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-640">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
+<span data-ttu-id="172d1-1224">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 的调用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1224">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
 
-1. <span data-ttu-id="fb3ea-641">在项目的目录中打开命令提示符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-641">Open a command prompt in the project's directory.</span></span>
-1. <span data-ttu-id="fb3ea-642">为 `dotnet run` 命令提供命令行参数 `dotnet run CommandLineKey=CommandLineValue`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-642">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
-1. <span data-ttu-id="fb3ea-643">应用运行后，在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-643">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="fb3ea-644">观察输出是否包含提供给 `dotnet run` 的配置命令行参数的键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-644">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
+1. <span data-ttu-id="172d1-1225">在项目的目录中打开命令提示符。</span><span class="sxs-lookup"><span data-stu-id="172d1-1225">Open a command prompt in the project's directory.</span></span>
+1. <span data-ttu-id="172d1-1226">为 `dotnet run` 命令提供命令行参数 `dotnet run CommandLineKey=CommandLineValue`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1226">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
+1. <span data-ttu-id="172d1-1227">应用运行后，在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="172d1-1227">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="172d1-1228">观察输出是否包含提供给 `dotnet run` 的配置命令行参数的键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-1228">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
 
-### <a name="arguments"></a><span data-ttu-id="fb3ea-645">自变量</span><span class="sxs-lookup"><span data-stu-id="fb3ea-645">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="172d1-1229">自变量</span><span class="sxs-lookup"><span data-stu-id="172d1-1229">Arguments</span></span>
 
-<span data-ttu-id="fb3ea-646">该值必须后跟一个等号 (`=`)，否则当值后跟一个空格时，键必须具有前缀（`--` 或 `/`）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-646">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="fb3ea-647">如果使用等号（例如 `CommandLineKey=`），则不需要该值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-647">The value isn't required if an equals sign is used (for example, `CommandLineKey=`).</span></span>
+<span data-ttu-id="172d1-1230">该值必须后跟一个等号 (`=`)，否则当值后跟一个空格时，键必须具有前缀（`--` 或 `/`）。</span><span class="sxs-lookup"><span data-stu-id="172d1-1230">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="172d1-1231">如果使用等号（例如 `CommandLineKey=`），则不需要该值。</span><span class="sxs-lookup"><span data-stu-id="172d1-1231">The value isn't required if an equals sign is used (for example, `CommandLineKey=`).</span></span>
 
-| <span data-ttu-id="fb3ea-648">键前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-648">Key prefix</span></span>               | <span data-ttu-id="fb3ea-649">示例</span><span class="sxs-lookup"><span data-stu-id="fb3ea-649">Example</span></span>                                                |
-| ------------------------ | ------------------------------------------------------ |
-| <span data-ttu-id="fb3ea-650">无前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-650">No prefix</span></span>                | `CommandLineKey1=value1`                               |
-| <span data-ttu-id="fb3ea-651">双划线 (`--`)</span><span class="sxs-lookup"><span data-stu-id="fb3ea-651">Two dashes (`--`)</span></span>        | <span data-ttu-id="fb3ea-652">`--CommandLineKey2=value2`，`--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-652">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
-| <span data-ttu-id="fb3ea-653">正斜杠 (`/`)</span><span class="sxs-lookup"><span data-stu-id="fb3ea-653">Forward slash (`/`)</span></span>      | <span data-ttu-id="fb3ea-654">`/CommandLineKey3=value3`，`/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-654">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
+| <span data-ttu-id="172d1-1232">键前缀</span><span class="sxs-lookup"><span data-stu-id="172d1-1232">Key prefix</span></span>               | <span data-ttu-id="172d1-1233">示例</span><span class="sxs-lookup"><span data-stu-id="172d1-1233">Example</span></span>                                                |
+| ---
+<span data-ttu-id="172d1-1234">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1234">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1235">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1235">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1236">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1236">'Identity'</span></span>
+- <span data-ttu-id="172d1-1237">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1237">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1238">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1238">'Razor'</span></span>
+- <span data-ttu-id="172d1-1239">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1239">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-655">在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-655">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
+-
+<span data-ttu-id="172d1-1240">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1240">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1241">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1241">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1242">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1242">'Identity'</span></span>
+- <span data-ttu-id="172d1-1243">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1243">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1244">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1244">'Razor'</span></span>
+- <span data-ttu-id="172d1-1245">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1245">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-656">示例命令：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-656">Example commands:</span></span>
+-
+<span data-ttu-id="172d1-1246">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1246">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1247">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1247">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1248">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1248">'Identity'</span></span>
+- <span data-ttu-id="172d1-1249">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1249">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1250">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1250">'Razor'</span></span>
+- <span data-ttu-id="172d1-1251">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1251">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1252">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1252">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1253">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1253">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1254">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1254">'Identity'</span></span>
+- <span data-ttu-id="172d1-1255">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1255">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1256">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1256">'Razor'</span></span>
+- <span data-ttu-id="172d1-1257">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1257">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1258">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1258">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1259">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1259">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1260">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1260">'Identity'</span></span>
+- <span data-ttu-id="172d1-1261">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1261">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1262">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1262">'Razor'</span></span>
+- <span data-ttu-id="172d1-1263">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1263">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1264">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1264">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1265">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1265">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1266">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1266">'Identity'</span></span>
+- <span data-ttu-id="172d1-1267">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1267">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1268">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1268">'Razor'</span></span>
+- <span data-ttu-id="172d1-1269">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1269">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1270">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1270">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1271">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1271">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1272">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1272">'Identity'</span></span>
+- <span data-ttu-id="172d1-1273">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1273">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1274">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1274">'Razor'</span></span>
+- <span data-ttu-id="172d1-1275">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1275">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1276">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1276">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1277">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1277">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1278">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1278">'Identity'</span></span>
+- <span data-ttu-id="172d1-1279">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1279">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1280">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1280">'Razor'</span></span>
+- <span data-ttu-id="172d1-1281">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1281">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1282">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1282">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1283">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1283">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1284">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1284">'Identity'</span></span>
+- <span data-ttu-id="172d1-1285">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1285">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1286">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1286">'Razor'</span></span>
+- <span data-ttu-id="172d1-1287">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1287">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1288">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1288">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1289">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1289">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1290">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1290">'Identity'</span></span>
+- <span data-ttu-id="172d1-1291">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1291">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1292">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1292">'Razor'</span></span>
+- <span data-ttu-id="172d1-1293">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1293">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1294">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1294">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1295">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1295">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1296">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1296">'Identity'</span></span>
+- <span data-ttu-id="172d1-1297">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1297">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1298">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1298">'Razor'</span></span>
+- <span data-ttu-id="172d1-1299">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1299">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1300">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1300">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1301">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1301">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1302">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1302">'Identity'</span></span>
+- <span data-ttu-id="172d1-1303">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1303">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1304">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1304">'Razor'</span></span>
+- <span data-ttu-id="172d1-1305">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1305">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1306">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1306">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1307">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1307">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1308">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1308">'Identity'</span></span>
+- <span data-ttu-id="172d1-1309">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1309">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1310">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1310">'Razor'</span></span>
+- <span data-ttu-id="172d1-1311">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1311">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1312">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1312">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1313">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1313">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1314">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1314">'Identity'</span></span>
+- <span data-ttu-id="172d1-1315">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1315">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1316">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1316">'Razor'</span></span>
+- <span data-ttu-id="172d1-1317">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1317">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1318">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1318">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1319">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1319">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1320">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1320">'Identity'</span></span>
+- <span data-ttu-id="172d1-1321">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1321">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1322">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1322">'Razor'</span></span>
+- <span data-ttu-id="172d1-1323">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1323">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1324">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1324">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1325">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1325">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1326">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1326">'Identity'</span></span>
+- <span data-ttu-id="172d1-1327">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1327">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1328">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1328">'Razor'</span></span>
+- <span data-ttu-id="172d1-1329">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1329">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1330">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1330">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1331">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1331">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1332">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1332">'Identity'</span></span>
+- <span data-ttu-id="172d1-1333">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1333">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1334">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1334">'Razor'</span></span>
+- <span data-ttu-id="172d1-1335">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1335">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1336">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1336">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1337">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1337">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1338">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1338">'Identity'</span></span>
+- <span data-ttu-id="172d1-1339">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1339">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1340">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1340">'Razor'</span></span>
+- <span data-ttu-id="172d1-1341">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1341">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1342">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1342">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1343">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1343">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1344">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1344">'Identity'</span></span>
+- <span data-ttu-id="172d1-1345">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1345">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1346">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1346">'Razor'</span></span>
+- <span data-ttu-id="172d1-1347">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1347">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1348">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1348">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1349">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1349">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1350">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1350">'Identity'</span></span>
+- <span data-ttu-id="172d1-1351">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1351">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1352">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1352">'Razor'</span></span>
+- <span data-ttu-id="172d1-1353">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1353">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1354">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1354">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1355">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1355">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1356">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1356">'Identity'</span></span>
+- <span data-ttu-id="172d1-1357">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1357">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1358">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1358">'Razor'</span></span>
+- <span data-ttu-id="172d1-1359">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1359">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1360">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1360">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1361">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1361">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1362">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1362">'Identity'</span></span>
+- <span data-ttu-id="172d1-1363">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1363">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1364">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1364">'Razor'</span></span>
+- <span data-ttu-id="172d1-1365">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1365">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1366">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1366">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1367">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1367">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1368">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1368">'Identity'</span></span>
+- <span data-ttu-id="172d1-1369">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1369">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1370">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1370">'Razor'</span></span>
+- <span data-ttu-id="172d1-1371">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1371">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1372">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1372">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1373">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1373">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1374">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1374">'Identity'</span></span>
+- <span data-ttu-id="172d1-1375">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1375">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1376">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1376">'Razor'</span></span>
+- <span data-ttu-id="172d1-1377">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1377">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1378">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1378">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1379">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1379">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1380">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1380">'Identity'</span></span>
+- <span data-ttu-id="172d1-1381">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1381">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1382">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1382">'Razor'</span></span>
+- <span data-ttu-id="172d1-1383">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1383">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1384">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1384">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1385">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1385">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1386">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1386">'Identity'</span></span>
+- <span data-ttu-id="172d1-1387">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1387">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1388">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1388">'Razor'</span></span>
+- <span data-ttu-id="172d1-1389">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1389">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1390">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1390">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1391">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1391">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1392">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1392">'Identity'</span></span>
+- <span data-ttu-id="172d1-1393">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1393">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1394">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1394">'Razor'</span></span>
+- <span data-ttu-id="172d1-1395">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1395">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1396">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1396">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1397">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1397">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1398">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1398">'Identity'</span></span>
+- <span data-ttu-id="172d1-1399">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1399">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1400">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1400">'Razor'</span></span>
+- <span data-ttu-id="172d1-1401">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1401">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1402">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1402">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1403">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1403">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1404">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1404">'Identity'</span></span>
+- <span data-ttu-id="172d1-1405">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1405">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1406">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1406">'Razor'</span></span>
+- <span data-ttu-id="172d1-1407">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1407">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1408">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1408">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1409">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1409">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1410">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1410">'Identity'</span></span>
+- <span data-ttu-id="172d1-1411">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1411">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1412">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1412">'Razor'</span></span>
+- <span data-ttu-id="172d1-1413">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1413">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1414">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1414">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1415">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1415">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1416">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1416">'Identity'</span></span>
+- <span data-ttu-id="172d1-1417">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1417">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1418">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1418">'Razor'</span></span>
+- <span data-ttu-id="172d1-1419">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1419">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1420">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1420">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1421">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1421">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1422">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1422">'Identity'</span></span>
+- <span data-ttu-id="172d1-1423">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1423">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1424">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1424">'Razor'</span></span>
+- <span data-ttu-id="172d1-1425">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1425">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1426">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1426">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1427">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1427">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1428">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1428">'Identity'</span></span>
+- <span data-ttu-id="172d1-1429">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1429">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1430">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1430">'Razor'</span></span>
+- <span data-ttu-id="172d1-1431">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1431">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1432">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1432">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1433">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1433">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1434">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1434">'Identity'</span></span>
+- <span data-ttu-id="172d1-1435">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1435">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1436">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1436">'Razor'</span></span>
+- <span data-ttu-id="172d1-1437">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1437">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1438">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1438">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1439">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1439">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1440">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1440">'Identity'</span></span>
+- <span data-ttu-id="172d1-1441">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1441">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1442">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1442">'Razor'</span></span>
+- <span data-ttu-id="172d1-1443">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1443">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1444">--------------------------- | | 无前缀                | `CommandLineKey1=value1`                               |
+| 双破折号 (`--`)        | `--CommandLineKey2=value2`、`--CommandLineKey2 value2` |
+| 正斜杠 (`/`)      | `/CommandLineKey3=value3`、`/CommandLineKey3 value3`   |</span><span class="sxs-lookup"><span data-stu-id="172d1-1444">--------------------------- | | No prefix                | `CommandLineKey1=value1`                               |
+| Two dashes (`--`)        | `--CommandLineKey2=value2`, `--CommandLineKey2 value2` |
+| Forward slash (`/`)      | `/CommandLineKey3=value3`, `/CommandLineKey3 value3`   |</span></span>
+
+<span data-ttu-id="172d1-1445">在同一命令中，不要将使用等号的命令行参数键值对与使用空格的键值对混合使用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1445">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
+
+<span data-ttu-id="172d1-1446">示例命令：</span><span class="sxs-lookup"><span data-stu-id="172d1-1446">Example commands:</span></span>
 
 ```dotnetcli
 dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
@@ -1072,18 +2136,18 @@ dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
 dotnet run CommandLineKey1= CommandLineKey2=value2
 ```
 
-### <a name="switch-mappings"></a><span data-ttu-id="fb3ea-657">交换映射</span><span class="sxs-lookup"><span data-stu-id="fb3ea-657">Switch mappings</span></span>
+### <a name="switch-mappings"></a><span data-ttu-id="172d1-1447">交换映射</span><span class="sxs-lookup"><span data-stu-id="172d1-1447">Switch mappings</span></span>
 
-<span data-ttu-id="fb3ea-658">交换映射支持键名替换逻辑。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-658">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="fb3ea-659">使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，需要为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-659">When manually building configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
+<span data-ttu-id="172d1-1448">交换映射支持键名替换逻辑。</span><span class="sxs-lookup"><span data-stu-id="172d1-1448">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="172d1-1449">使用 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 手动构建配置时，需要为 <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 方法提供交换替换字典。</span><span class="sxs-lookup"><span data-stu-id="172d1-1449">When manually building configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
 
-<span data-ttu-id="fb3ea-660">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-660">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="fb3ea-661">如果在字典中找到命令行键，则传回字典值（键替换）以将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-661">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="fb3ea-662">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-662">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
+<span data-ttu-id="172d1-1450">当使用交换映射字典时，会检查字典中是否有与命令行参数提供的键匹配的键。</span><span class="sxs-lookup"><span data-stu-id="172d1-1450">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="172d1-1451">如果在字典中找到命令行键，则传回字典值（键替换）以将键值对设置为应用的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1451">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="172d1-1452">对任何具有单划线 (`-`) 前缀的命令行键而言，交换映射都是必需的。</span><span class="sxs-lookup"><span data-stu-id="172d1-1452">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
 
-<span data-ttu-id="fb3ea-663">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-663">Switch mappings dictionary key rules:</span></span>
+<span data-ttu-id="172d1-1453">交换映射字典键规则：</span><span class="sxs-lookup"><span data-stu-id="172d1-1453">Switch mappings dictionary key rules:</span></span>
 
-* <span data-ttu-id="fb3ea-664">交换必须以单划线 (`-`) 或双划线 (`--`) 开头。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-664">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
-* <span data-ttu-id="fb3ea-665">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-665">The switch mappings dictionary must not contain duplicate keys.</span></span>
+* <span data-ttu-id="172d1-1454">交换必须以单划线 (`-`) 或双划线 (`--`) 开头。</span><span class="sxs-lookup"><span data-stu-id="172d1-1454">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
+* <span data-ttu-id="172d1-1455">交换映射字典不得包含重复键。</span><span class="sxs-lookup"><span data-stu-id="172d1-1455">The switch mappings dictionary must not contain duplicate keys.</span></span>
 
-<span data-ttu-id="fb3ea-666">创建交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-666">Create a switch mappings dictionary.</span></span> <span data-ttu-id="fb3ea-667">在以下示例中，创建了两个交换映射：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-667">In the following example, two switch mappings are created:</span></span>
+<span data-ttu-id="172d1-1456">创建交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="172d1-1456">Create a switch mappings dictionary.</span></span> <span data-ttu-id="172d1-1457">在以下示例中，创建了两个交换映射：</span><span class="sxs-lookup"><span data-stu-id="172d1-1457">In the following example, two switch mappings are created:</span></span>
 
 ```csharp
 public static readonly Dictionary<string, string> _switchMappings = 
@@ -1094,7 +2158,7 @@ public static readonly Dictionary<string, string> _switchMappings =
     };
 ```
 
-<span data-ttu-id="fb3ea-668">生成主机后，使用交换映射字典来调用 `AddCommandLine`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-668">When the host is built, call `AddCommandLine` with the switch mappings dictionary:</span></span>
+<span data-ttu-id="172d1-1458">生成主机后，使用交换映射字典来调用 `AddCommandLine`：</span><span class="sxs-lookup"><span data-stu-id="172d1-1458">When the host is built, call `AddCommandLine` with the switch mappings dictionary:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1103,50 +2167,176 @@ public static readonly Dictionary<string, string> _switchMappings =
 })
 ```
 
-<span data-ttu-id="fb3ea-669">对于使用交换映射的应用，调用 `CreateDefaultBuilder` 不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-669">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="fb3ea-670">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-670">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="fb3ea-671">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-671">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
+<span data-ttu-id="172d1-1459">对于使用交换映射的应用，调用 `CreateDefaultBuilder` 不应传递参数。</span><span class="sxs-lookup"><span data-stu-id="172d1-1459">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="172d1-1460">`CreateDefaultBuilder` 方法的 `AddCommandLine` 调用不包括映射的交换，并且无法将交换映射字典传递给 `CreateDefaultBuilder`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1460">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="172d1-1461">解决方案不是将参数传递给 `CreateDefaultBuilder`，而是允许 `ConfigurationBuilder` 方法的 `AddCommandLine` 方法处理参数和交换映射字典。</span><span class="sxs-lookup"><span data-stu-id="172d1-1461">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
 
-<span data-ttu-id="fb3ea-672">创建交换映射字典后，它将包含下表所示的数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-672">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
+<span data-ttu-id="172d1-1462">创建交换映射字典后，它将包含下表所示的数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-1462">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
 
-| <span data-ttu-id="fb3ea-673">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-673">Key</span></span>       | <span data-ttu-id="fb3ea-674">“值”</span><span class="sxs-lookup"><span data-stu-id="fb3ea-674">Value</span></span>             |
-| --------- | ----------------- |
-| `-CLKey1` | `CommandLineKey1` |
-| `-CLKey2` | `CommandLineKey2` |
+| <span data-ttu-id="172d1-1463">键</span><span class="sxs-lookup"><span data-stu-id="172d1-1463">Key</span></span>       | <span data-ttu-id="172d1-1464">“值”</span><span class="sxs-lookup"><span data-stu-id="172d1-1464">Value</span></span>             |
+| ---
+<span data-ttu-id="172d1-1465">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1465">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1466">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1466">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1467">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1467">'Identity'</span></span>
+- <span data-ttu-id="172d1-1468">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1468">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1469">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1469">'Razor'</span></span>
+- <span data-ttu-id="172d1-1470">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1470">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-675">如果在启动应用时使用了交换映射的键，则配置将接收字典提供的密钥上的配置值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-675">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
+-
+<span data-ttu-id="172d1-1471">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1471">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1472">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1472">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1473">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1473">'Identity'</span></span>
+- <span data-ttu-id="172d1-1474">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1474">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1475">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1475">'Razor'</span></span>
+- <span data-ttu-id="172d1-1476">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1476">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1477">----- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1477">----- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1478">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1478">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1479">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1479">'Identity'</span></span>
+- <span data-ttu-id="172d1-1480">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1480">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1481">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1481">'Razor'</span></span>
+- <span data-ttu-id="172d1-1482">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1482">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1483">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1483">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1484">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1484">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1485">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1485">'Identity'</span></span>
+- <span data-ttu-id="172d1-1486">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1486">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1487">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1487">'Razor'</span></span>
+- <span data-ttu-id="172d1-1488">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1488">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1489">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1489">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1490">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1490">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1491">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1491">'Identity'</span></span>
+- <span data-ttu-id="172d1-1492">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1492">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1493">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1493">'Razor'</span></span>
+- <span data-ttu-id="172d1-1494">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1494">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1495">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1495">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1496">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1496">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1497">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1497">'Identity'</span></span>
+- <span data-ttu-id="172d1-1498">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1498">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1499">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1499">'Razor'</span></span>
+- <span data-ttu-id="172d1-1500">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1500">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1501">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1501">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1502">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1502">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1503">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1503">'Identity'</span></span>
+- <span data-ttu-id="172d1-1504">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1504">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1505">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1505">'Razor'</span></span>
+- <span data-ttu-id="172d1-1506">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1506">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1507">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1507">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1508">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1508">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1509">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1509">'Identity'</span></span>
+- <span data-ttu-id="172d1-1510">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1510">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1511">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1511">'Razor'</span></span>
+- <span data-ttu-id="172d1-1512">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1512">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1513">--------- | | `-CLKey1` | `CommandLineKey1` |
+| `-CLKey2` | `CommandLineKey2` |</span><span class="sxs-lookup"><span data-stu-id="172d1-1513">--------- | | `-CLKey1` | `CommandLineKey1` |
+| `-CLKey2` | `CommandLineKey2` |</span></span>
+
+<span data-ttu-id="172d1-1514">如果在启动应用时使用了交换映射的键，则配置将接收字典提供的密钥上的配置值：</span><span class="sxs-lookup"><span data-stu-id="172d1-1514">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
 
 ```dotnetcli
 dotnet run -CLKey1=value1 -CLKey2=value2
 ```
 
-<span data-ttu-id="fb3ea-676">运行上述命令后，配置包含下表中显示的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-676">After running the preceding command, configuration contains the values shown in the following table.</span></span>
+<span data-ttu-id="172d1-1515">运行上述命令后，配置包含下表中显示的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-1515">After running the preceding command, configuration contains the values shown in the following table.</span></span>
 
-| <span data-ttu-id="fb3ea-677">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-677">Key</span></span>               | <span data-ttu-id="fb3ea-678">“值”</span><span class="sxs-lookup"><span data-stu-id="fb3ea-678">Value</span></span>    |
-| ----------------- | -------- |
-| `CommandLineKey1` | `value1` |
-| `CommandLineKey2` | `value2` |
+| <span data-ttu-id="172d1-1516">键</span><span class="sxs-lookup"><span data-stu-id="172d1-1516">Key</span></span>               | <span data-ttu-id="172d1-1517">“值”</span><span class="sxs-lookup"><span data-stu-id="172d1-1517">Value</span></span>    |
+| ---
+<span data-ttu-id="172d1-1518">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1518">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1519">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1519">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1520">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1520">'Identity'</span></span>
+- <span data-ttu-id="172d1-1521">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1521">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1522">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1522">'Razor'</span></span>
+- <span data-ttu-id="172d1-1523">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1523">'SignalR' uid:</span></span> 
 
-## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="fb3ea-679">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-679">Environment Variables Configuration Provider</span></span>
+-
+<span data-ttu-id="172d1-1524">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1524">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1525">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1525">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1526">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1526">'Identity'</span></span>
+- <span data-ttu-id="172d1-1527">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1527">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1528">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1528">'Razor'</span></span>
+- <span data-ttu-id="172d1-1529">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1529">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-680"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 在运行时从环境变量键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-680">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
+-
+<span data-ttu-id="172d1-1530">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1530">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1531">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1531">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1532">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1532">'Identity'</span></span>
+- <span data-ttu-id="172d1-1533">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1533">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1534">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1534">'Razor'</span></span>
+- <span data-ttu-id="172d1-1535">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1535">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-681">要激活环境变量配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-681">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+-
+<span data-ttu-id="172d1-1536">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1536">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1537">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1537">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1538">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1538">'Identity'</span></span>
+- <span data-ttu-id="172d1-1539">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1539">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1540">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1540">'Razor'</span></span>
+- <span data-ttu-id="172d1-1541">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1541">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1542">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1542">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1543">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1543">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1544">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1544">'Identity'</span></span>
+- <span data-ttu-id="172d1-1545">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1545">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1546">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1546">'Razor'</span></span>
+- <span data-ttu-id="172d1-1547">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1547">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1548">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1548">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1549">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1549">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1550">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1550">'Identity'</span></span>
+- <span data-ttu-id="172d1-1551">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1551">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1552">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1552">'Razor'</span></span>
+- <span data-ttu-id="172d1-1553">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1553">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1554">--------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1554">--------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1555">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1555">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1556">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1556">'Identity'</span></span>
+- <span data-ttu-id="172d1-1557">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1557">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1558">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1558">'Razor'</span></span>
+- <span data-ttu-id="172d1-1559">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1559">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1560">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1560">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1561">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1561">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1562">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1562">'Identity'</span></span>
+- <span data-ttu-id="172d1-1563">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1563">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1564">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1564">'Razor'</span></span>
+- <span data-ttu-id="172d1-1565">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1565">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1566">---- | | `CommandLineKey1` | `value1` |
+| `CommandLineKey2` | `value2` |</span><span class="sxs-lookup"><span data-stu-id="172d1-1566">---- | | `CommandLineKey1` | `value1` |
+| `CommandLineKey2` | `value2` |</span></span>
+
+## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="172d1-1567">环境变量配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1567">Environment Variables Configuration Provider</span></span>
+
+<span data-ttu-id="172d1-1568"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> 在运行时从环境变量键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1568">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
+
+<span data-ttu-id="172d1-1569">要激活环境变量配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-1569">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-<span data-ttu-id="fb3ea-682">借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，可在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-682">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits setting environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="fb3ea-683">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-683">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
+<span data-ttu-id="172d1-1570">借助 [Azure 应用服务](https://azure.microsoft.com/services/app-service/)，可在 Azure 门户中设置使用环境变量配置提供程序替代应用配置的环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-1570">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits setting environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="172d1-1571">有关详细信息，请参阅 [Azure 应用：使用 Azure 门户替代应用配置](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)。</span><span class="sxs-lookup"><span data-stu-id="172d1-1571">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
 
-<span data-ttu-id="fb3ea-684">如果使用 [Web 主机](xref:fundamentals/host/web-host)初始化新的主机生成器，且调用 `CreateDefaultBuilder`，则使用 `AddEnvironmentVariables` 为[主机配置](#host-versus-app-configuration)加载前缀为 `ASPNETCORE_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-684">`AddEnvironmentVariables` is used to load environment variables prefixed with `ASPNETCORE_` for [host configuration](#host-versus-app-configuration) when a new host builder is initialized with the [Web Host](xref:fundamentals/host/web-host) and `CreateDefaultBuilder` is called.</span></span> <span data-ttu-id="fb3ea-685">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-685">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="172d1-1572">如果使用 [Web 主机](xref:fundamentals/host/web-host)初始化新的主机生成器，且调用 `CreateDefaultBuilder`，则使用 `AddEnvironmentVariables` 为[主机配置](#host-versus-app-configuration)加载前缀为 `ASPNETCORE_` 的环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-1572">`AddEnvironmentVariables` is used to load environment variables prefixed with `ASPNETCORE_` for [host configuration](#host-versus-app-configuration) when a new host builder is initialized with the [Web Host](xref:fundamentals/host/web-host) and `CreateDefaultBuilder` is called.</span></span> <span data-ttu-id="172d1-1573">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-1573">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="fb3ea-686">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-686">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="172d1-1574">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="172d1-1574">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="fb3ea-687">来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-687">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
-* <span data-ttu-id="fb3ea-688">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置   。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-688">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="fb3ea-689">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-689">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="fb3ea-690">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-690">Command-line arguments.</span></span>
+* <span data-ttu-id="172d1-1575">来自没有前缀的环境变量的应用配置，方法是通过调用不带前缀的 `AddEnvironmentVariables`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1575">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
+* <span data-ttu-id="172d1-1576">appsettings.json 和 appsettings.{Environment}.json 文件中的可选配置 。</span><span class="sxs-lookup"><span data-stu-id="172d1-1576">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="172d1-1577">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="172d1-1577">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="172d1-1578">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="172d1-1578">Command-line arguments.</span></span>
 
-<span data-ttu-id="fb3ea-691">环境变量配置提供程序是在配置已根据用户机密和 appsettings  文件建立后调用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-691">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="fb3ea-692">在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings  文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-692">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
+<span data-ttu-id="172d1-1579">环境变量配置提供程序是在配置已根据用户机密和 appsettings 文件建立后调用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1579">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="172d1-1580">在此位置调用提供程序允许在运行时读取的环境变量替代由用户机密和 appsettings 文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-1580">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
 
-<span data-ttu-id="fb3ea-693">要从其他环境变量提供应用配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-693">To provide app configuration from additional environment variables, call the app's additional providers in `ConfigureAppConfiguration` and call `AddEnvironmentVariables` with the prefix:</span></span>
+<span data-ttu-id="172d1-1581">要从其他环境变量提供应用配置，请在 `ConfigureAppConfiguration` 中调用应用的其他提供程序，并使用前缀调用 `AddEnvironmentVariables`：</span><span class="sxs-lookup"><span data-stu-id="172d1-1581">To provide app configuration from additional environment variables, call the app's additional providers in `ConfigureAppConfiguration` and call `AddEnvironmentVariables` with the prefix:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1155,26 +2345,26 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 })
 ```
 
-<span data-ttu-id="fb3ea-694">最后调用 `AddEnvironmentVariables`让带给定前缀的环境变量可替代其他提供程序中的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-694">Call `AddEnvironmentVariables` last to allow environment variables with the given prefix to override values from other providers.</span></span>
+<span data-ttu-id="172d1-1582">最后调用 `AddEnvironmentVariables`让带给定前缀的环境变量可替代其他提供程序中的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-1582">Call `AddEnvironmentVariables` last to allow environment variables with the given prefix to override values from other providers.</span></span>
 
-<span data-ttu-id="fb3ea-695">**示例**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-695">**Example**</span></span>
+<span data-ttu-id="172d1-1583">**示例**</span><span class="sxs-lookup"><span data-stu-id="172d1-1583">**Example**</span></span>
 
-<span data-ttu-id="fb3ea-696">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 `AddEnvironmentVariables` 的调用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-696">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="172d1-1584">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括一个对 `AddEnvironmentVariables` 的调用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1584">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
 
-1. <span data-ttu-id="fb3ea-697">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-697">Run the sample app.</span></span> <span data-ttu-id="fb3ea-698">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-698">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="fb3ea-699">观察输出是否包含环境变量 `ENVIRONMENT` 的键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-699">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="fb3ea-700">该值反映了应用运行的环境，在本地运行时通常为 `Development`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-700">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
+1. <span data-ttu-id="172d1-1585">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-1585">Run the sample app.</span></span> <span data-ttu-id="172d1-1586">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="172d1-1586">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="172d1-1587">观察输出是否包含环境变量 `ENVIRONMENT` 的键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-1587">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="172d1-1588">该值反映了应用运行的环境，在本地运行时通常为 `Development`。</span><span class="sxs-lookup"><span data-stu-id="172d1-1588">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
 
-<span data-ttu-id="fb3ea-701">为了缩短应用呈现的环境变量列表，应用会筛选环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-701">To keep the list of environment variables rendered by the app short, the app filters environment variables.</span></span> <span data-ttu-id="fb3ea-702">请参阅示例应用的“Pages/Index.cshtml.cs”文件  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-702">See the sample app's *Pages/Index.cshtml.cs* file.</span></span>
+<span data-ttu-id="172d1-1589">为了缩短应用呈现的环境变量列表，应用会筛选环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-1589">To keep the list of environment variables rendered by the app short, the app filters environment variables.</span></span> <span data-ttu-id="172d1-1590">请参阅示例应用的“Pages/Index.cshtml.cs”文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-1590">See the sample app's *Pages/Index.cshtml.cs* file.</span></span>
 
-<span data-ttu-id="fb3ea-703">要公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs 中的 `FilteredConfiguration` 更改为以下内容  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-703">To expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
+<span data-ttu-id="172d1-1591">要公开应用可用的所有环境变量，请将 Pages/Index.cshtml.cs 中的 `FilteredConfiguration` 更改为以下内容：</span><span class="sxs-lookup"><span data-stu-id="172d1-1591">To expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
 
 ```csharp
 FilteredConfiguration = _config.AsEnumerable();
 ```
 
-### <a name="prefixes"></a><span data-ttu-id="fb3ea-704">前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-704">Prefixes</span></span>
+### <a name="prefixes"></a><span data-ttu-id="172d1-1592">前缀</span><span class="sxs-lookup"><span data-stu-id="172d1-1592">Prefixes</span></span>
 
-<span data-ttu-id="fb3ea-705">为 `AddEnvironmentVariables` 方法提供前缀时，将筛选加载到应用的配置中的环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-705">Environment variables loaded into the app's configuration are filtered when supplying a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="fb3ea-706">例如，要筛选前缀 `CUSTOM_` 上的环境变量，请将前缀提供给配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-706">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
+<span data-ttu-id="172d1-1593">为 `AddEnvironmentVariables` 方法提供前缀时，将筛选加载到应用的配置中的环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-1593">Environment variables loaded into the app's configuration are filtered when supplying a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="172d1-1594">例如，要筛选前缀 `CUSTOM_` 上的环境变量，请将前缀提供给配置提供程序：</span><span class="sxs-lookup"><span data-stu-id="172d1-1594">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -1182,69 +2372,622 @@ var config = new ConfigurationBuilder()
     .Build();
 ```
 
-<span data-ttu-id="fb3ea-707">创建配置键值对时，将去除前缀。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-707">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
+<span data-ttu-id="172d1-1595">创建配置键值对时，将去除前缀。</span><span class="sxs-lookup"><span data-stu-id="172d1-1595">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
 
-<span data-ttu-id="fb3ea-708">若已创建主机生成器，则主机配置由环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-708">When the host builder is created, host configuration is provided by environment variables.</span></span> <span data-ttu-id="fb3ea-709">有关用于这些环境变量的前缀的详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-709">For more information on the prefix used for these environment variables, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="172d1-1596">若已创建主机生成器，则主机配置由环境变量提供。</span><span class="sxs-lookup"><span data-stu-id="172d1-1596">When the host builder is created, host configuration is provided by environment variables.</span></span> <span data-ttu-id="172d1-1597">有关用于这些环境变量的前缀的详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-1597">For more information on the prefix used for these environment variables, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="fb3ea-710">**连接字符串前缀**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-710">**Connection string prefixes**</span></span>
+<span data-ttu-id="172d1-1598">**连接字符串前缀**</span><span class="sxs-lookup"><span data-stu-id="172d1-1598">**Connection string prefixes**</span></span>
 
-<span data-ttu-id="fb3ea-711">针对为应用环境配置 Azure 连接字符串所涉及的四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-711">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="fb3ea-712">如果没有向 `AddEnvironmentVariables` 提供前缀，则具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-712">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="172d1-1599">针对为应用环境配置 Azure 连接字符串所涉及的四个连接字符串环境变量，配置 API 具有特殊的处理规则。</span><span class="sxs-lookup"><span data-stu-id="172d1-1599">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="172d1-1600">如果没有向 `AddEnvironmentVariables` 提供前缀，则具有表中所示前缀的环境变量将加载到应用中。</span><span class="sxs-lookup"><span data-stu-id="172d1-1600">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
 
-| <span data-ttu-id="fb3ea-713">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="fb3ea-713">Connection string prefix</span></span> | <span data-ttu-id="fb3ea-714">提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-714">Provider</span></span> |
-| ------------------------ | -------- |
-| `CUSTOMCONNSTR_` | <span data-ttu-id="fb3ea-715">自定义提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-715">Custom provider</span></span> |
-| `MYSQLCONNSTR_` | [<span data-ttu-id="fb3ea-716">MySQL</span><span class="sxs-lookup"><span data-stu-id="fb3ea-716">MySQL</span></span>](https://www.mysql.com/) |
-| `SQLAZURECONNSTR_` | [<span data-ttu-id="fb3ea-717">Azure SQL 数据库</span><span class="sxs-lookup"><span data-stu-id="fb3ea-717">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
-| `SQLCONNSTR_` | [<span data-ttu-id="fb3ea-718">SQL Server</span><span class="sxs-lookup"><span data-stu-id="fb3ea-718">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
+| <span data-ttu-id="172d1-1601">连接字符串前缀</span><span class="sxs-lookup"><span data-stu-id="172d1-1601">Connection string prefix</span></span> | <span data-ttu-id="172d1-1602">提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-1602">Provider</span></span> |
+| ---
+<span data-ttu-id="172d1-1603">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1603">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1604">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1604">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1605">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1605">'Identity'</span></span>
+- <span data-ttu-id="172d1-1606">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1606">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1607">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1607">'Razor'</span></span>
+- <span data-ttu-id="172d1-1608">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1608">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-719">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-719">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+-
+<span data-ttu-id="172d1-1609">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1609">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1610">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1610">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1611">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1611">'Identity'</span></span>
+- <span data-ttu-id="172d1-1612">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1612">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1613">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1613">'Razor'</span></span>
+- <span data-ttu-id="172d1-1614">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1614">'SignalR' uid:</span></span> 
 
-* <span data-ttu-id="fb3ea-720">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-720">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
-* <span data-ttu-id="fb3ea-721">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-721">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+-
+<span data-ttu-id="172d1-1615">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1615">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1616">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1616">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1617">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1617">'Identity'</span></span>
+- <span data-ttu-id="172d1-1618">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1618">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1619">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1619">'Razor'</span></span>
+- <span data-ttu-id="172d1-1620">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1620">'SignalR' uid:</span></span> 
 
-| <span data-ttu-id="fb3ea-722">环境变量键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-722">Environment variable key</span></span> | <span data-ttu-id="fb3ea-723">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-723">Converted configuration key</span></span> | <span data-ttu-id="fb3ea-724">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="fb3ea-724">Provider configuration entry</span></span>                                                    |
-| ------------------------ | --------------------------- | ------------------------------------------------------------------------------- |
-| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-725">配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-725">Configuration entry not created.</span></span>                                                |
-| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-726">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-726">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-727">值：`MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-727">Value: `MySql.Data.MySqlClient`</span></span> |
-| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-728">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-728">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-729">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-729">Value: `System.Data.SqlClient`</span></span>  |
-| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="fb3ea-730">键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-730">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="fb3ea-731">值：`System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-731">Value: `System.Data.SqlClient`</span></span>  |
+-
+<span data-ttu-id="172d1-1621">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1621">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1622">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1622">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1623">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1623">'Identity'</span></span>
+- <span data-ttu-id="172d1-1624">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1624">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1625">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1625">'Razor'</span></span>
+- <span data-ttu-id="172d1-1626">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1626">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-732">**示例**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-732">**Example**</span></span>
+-
+<span data-ttu-id="172d1-1627">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1627">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1628">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1628">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1629">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1629">'Identity'</span></span>
+- <span data-ttu-id="172d1-1630">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1630">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1631">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1631">'Razor'</span></span>
+- <span data-ttu-id="172d1-1632">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1632">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-733">在服务器上创建了一个自定义连接字符串环境变量：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-733">A custom connection string environment variable is created on the server:</span></span>
+-
+<span data-ttu-id="172d1-1633">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1633">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1634">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1634">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1635">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1635">'Identity'</span></span>
+- <span data-ttu-id="172d1-1636">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1636">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1637">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1637">'Razor'</span></span>
+- <span data-ttu-id="172d1-1638">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1638">'SignalR' uid:</span></span> 
 
-* <span data-ttu-id="fb3ea-734">名称 &ndash; `CUSTOMCONNSTR_ReleaseDB`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-734">Name &ndash; `CUSTOMCONNSTR_ReleaseDB`</span></span>
-* <span data-ttu-id="fb3ea-735">值 &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span><span class="sxs-lookup"><span data-stu-id="fb3ea-735">Value &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span></span>
+-
+<span data-ttu-id="172d1-1639">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1639">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1640">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1640">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1641">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1641">'Identity'</span></span>
+- <span data-ttu-id="172d1-1642">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1642">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1643">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1643">'Razor'</span></span>
+- <span data-ttu-id="172d1-1644">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1644">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-736">如果 `IConfiguration` 已引入并分配给名为 `_config` 的字段，请读取值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-736">If `IConfiguration` is injected and assigned to a field named `_config`, read the value:</span></span>
+-
+<span data-ttu-id="172d1-1645">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1645">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1646">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1646">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1647">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1647">'Identity'</span></span>
+- <span data-ttu-id="172d1-1648">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1648">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1649">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1649">'Razor'</span></span>
+- <span data-ttu-id="172d1-1650">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1650">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1651">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1651">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1652">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1652">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1653">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1653">'Identity'</span></span>
+- <span data-ttu-id="172d1-1654">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1654">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1655">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1655">'Razor'</span></span>
+- <span data-ttu-id="172d1-1656">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1656">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1657">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1657">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1658">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1658">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1659">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1659">'Identity'</span></span>
+- <span data-ttu-id="172d1-1660">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1660">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1661">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1661">'Razor'</span></span>
+- <span data-ttu-id="172d1-1662">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1662">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1663">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1663">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1664">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1664">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1665">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1665">'Identity'</span></span>
+- <span data-ttu-id="172d1-1666">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1666">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1667">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1667">'Razor'</span></span>
+- <span data-ttu-id="172d1-1668">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1668">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1669">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1669">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1670">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1670">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1671">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1671">'Identity'</span></span>
+- <span data-ttu-id="172d1-1672">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1672">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1673">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1673">'Razor'</span></span>
+- <span data-ttu-id="172d1-1674">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1674">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1675">---- | | `CUSTOMCONNSTR_` | 自定义提供程序 | | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [Azure SQL 数据库](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [SQL Server](https://www.microsoft.com/sql-server/) |</span><span class="sxs-lookup"><span data-stu-id="172d1-1675">---- | | `CUSTOMCONNSTR_` | Custom provider | | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [Azure SQL Database](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [SQL Server](https://www.microsoft.com/sql-server/) |</span></span>
+
+<span data-ttu-id="172d1-1676">当发现环境变量并使用表中所示的四个前缀中的任何一个加载到配置中时：</span><span class="sxs-lookup"><span data-stu-id="172d1-1676">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+
+* <span data-ttu-id="172d1-1677">通过删除环境变量前缀并添加配置键节 (`ConnectionStrings`) 来创建配置键。</span><span class="sxs-lookup"><span data-stu-id="172d1-1677">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
+* <span data-ttu-id="172d1-1678">创建一个新的配置键值对，表示数据库连接提供程序（`CUSTOMCONNSTR_` 除外，它没有声明的提供程序）。</span><span class="sxs-lookup"><span data-stu-id="172d1-1678">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+
+| <span data-ttu-id="172d1-1679">环境变量键</span><span class="sxs-lookup"><span data-stu-id="172d1-1679">Environment variable key</span></span> | <span data-ttu-id="172d1-1680">转换的配置键</span><span class="sxs-lookup"><span data-stu-id="172d1-1680">Converted configuration key</span></span> | <span data-ttu-id="172d1-1681">提供程序配置条目</span><span class="sxs-lookup"><span data-stu-id="172d1-1681">Provider configuration entry</span></span>                                                    |
+| ---
+<span data-ttu-id="172d1-1682">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1682">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1683">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1683">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1684">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1684">'Identity'</span></span>
+- <span data-ttu-id="172d1-1685">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1685">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1686">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1686">'Razor'</span></span>
+- <span data-ttu-id="172d1-1687">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1687">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1688">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1688">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1689">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1689">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1690">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1690">'Identity'</span></span>
+- <span data-ttu-id="172d1-1691">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1691">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1692">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1692">'Razor'</span></span>
+- <span data-ttu-id="172d1-1693">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1693">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1694">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1694">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1695">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1695">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1696">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1696">'Identity'</span></span>
+- <span data-ttu-id="172d1-1697">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1697">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1698">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1698">'Razor'</span></span>
+- <span data-ttu-id="172d1-1699">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1699">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1700">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1700">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1701">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1701">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1702">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1702">'Identity'</span></span>
+- <span data-ttu-id="172d1-1703">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1703">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1704">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1704">'Razor'</span></span>
+- <span data-ttu-id="172d1-1705">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1705">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1706">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1706">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1707">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1707">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1708">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1708">'Identity'</span></span>
+- <span data-ttu-id="172d1-1709">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1709">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1710">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1710">'Razor'</span></span>
+- <span data-ttu-id="172d1-1711">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1711">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1712">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1712">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1713">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1713">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1714">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1714">'Identity'</span></span>
+- <span data-ttu-id="172d1-1715">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1715">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1716">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1716">'Razor'</span></span>
+- <span data-ttu-id="172d1-1717">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1717">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1718">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1718">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1719">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1719">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1720">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1720">'Identity'</span></span>
+- <span data-ttu-id="172d1-1721">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1721">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1722">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1722">'Razor'</span></span>
+- <span data-ttu-id="172d1-1723">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1723">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1724">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1724">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1725">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1725">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1726">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1726">'Identity'</span></span>
+- <span data-ttu-id="172d1-1727">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1727">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1728">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1728">'Razor'</span></span>
+- <span data-ttu-id="172d1-1729">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1729">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1730">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1730">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1731">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1731">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1732">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1732">'Identity'</span></span>
+- <span data-ttu-id="172d1-1733">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1733">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1734">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1734">'Razor'</span></span>
+- <span data-ttu-id="172d1-1735">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1735">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1736">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1736">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1737">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1737">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1738">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1738">'Identity'</span></span>
+- <span data-ttu-id="172d1-1739">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1739">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1740">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1740">'Razor'</span></span>
+- <span data-ttu-id="172d1-1741">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1741">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1742">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1742">------------ | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1743">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1743">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1744">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1744">'Identity'</span></span>
+- <span data-ttu-id="172d1-1745">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1745">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1746">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1746">'Razor'</span></span>
+- <span data-ttu-id="172d1-1747">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1747">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1748">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1748">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1749">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1749">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1750">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1750">'Identity'</span></span>
+- <span data-ttu-id="172d1-1751">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1751">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1752">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1752">'Razor'</span></span>
+- <span data-ttu-id="172d1-1753">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1753">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1754">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1754">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1755">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1755">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1756">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1756">'Identity'</span></span>
+- <span data-ttu-id="172d1-1757">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1757">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1758">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1758">'Razor'</span></span>
+- <span data-ttu-id="172d1-1759">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1759">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1760">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1760">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1761">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1761">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1762">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1762">'Identity'</span></span>
+- <span data-ttu-id="172d1-1763">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1763">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1764">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1764">'Razor'</span></span>
+- <span data-ttu-id="172d1-1765">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1765">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1766">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1766">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1767">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1767">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1768">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1768">'Identity'</span></span>
+- <span data-ttu-id="172d1-1769">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1769">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1770">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1770">'Razor'</span></span>
+- <span data-ttu-id="172d1-1771">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1771">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1772">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1772">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1773">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1773">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1774">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1774">'Identity'</span></span>
+- <span data-ttu-id="172d1-1775">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1775">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1776">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1776">'Razor'</span></span>
+- <span data-ttu-id="172d1-1777">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1777">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1778">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1778">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1779">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1779">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1780">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1780">'Identity'</span></span>
+- <span data-ttu-id="172d1-1781">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1781">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1782">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1782">'Razor'</span></span>
+- <span data-ttu-id="172d1-1783">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1783">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1784">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1784">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1785">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1785">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1786">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1786">'Identity'</span></span>
+- <span data-ttu-id="172d1-1787">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1787">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1788">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1788">'Razor'</span></span>
+- <span data-ttu-id="172d1-1789">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1789">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1790">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1790">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1791">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1791">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1792">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1792">'Identity'</span></span>
+- <span data-ttu-id="172d1-1793">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1793">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1794">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1794">'Razor'</span></span>
+- <span data-ttu-id="172d1-1795">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1795">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1796">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1796">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1797">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1797">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1798">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1798">'Identity'</span></span>
+- <span data-ttu-id="172d1-1799">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1799">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1800">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1800">'Razor'</span></span>
+- <span data-ttu-id="172d1-1801">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1801">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1802">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1802">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1803">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1803">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1804">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1804">'Identity'</span></span>
+- <span data-ttu-id="172d1-1805">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1805">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1806">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1806">'Razor'</span></span>
+- <span data-ttu-id="172d1-1807">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1807">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-1808">-------------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1808">-------------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1809">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1809">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1810">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1810">'Identity'</span></span>
+- <span data-ttu-id="172d1-1811">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1811">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1812">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1812">'Razor'</span></span>
+- <span data-ttu-id="172d1-1813">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1813">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1814">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1814">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1815">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1815">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1816">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1816">'Identity'</span></span>
+- <span data-ttu-id="172d1-1817">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1817">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1818">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1818">'Razor'</span></span>
+- <span data-ttu-id="172d1-1819">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1819">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1820">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1820">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1821">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1821">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1822">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1822">'Identity'</span></span>
+- <span data-ttu-id="172d1-1823">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1823">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1824">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1824">'Razor'</span></span>
+- <span data-ttu-id="172d1-1825">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1825">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1826">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1826">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1827">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1827">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1828">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1828">'Identity'</span></span>
+- <span data-ttu-id="172d1-1829">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1829">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1830">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1830">'Razor'</span></span>
+- <span data-ttu-id="172d1-1831">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1831">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1832">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1832">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1833">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1833">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1834">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1834">'Identity'</span></span>
+- <span data-ttu-id="172d1-1835">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1835">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1836">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1836">'Razor'</span></span>
+- <span data-ttu-id="172d1-1837">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1837">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1838">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1838">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1839">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1839">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1840">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1840">'Identity'</span></span>
+- <span data-ttu-id="172d1-1841">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1841">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1842">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1842">'Razor'</span></span>
+- <span data-ttu-id="172d1-1843">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1843">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1844">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1844">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1845">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1845">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1846">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1846">'Identity'</span></span>
+- <span data-ttu-id="172d1-1847">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1847">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1848">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1848">'Razor'</span></span>
+- <span data-ttu-id="172d1-1849">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1849">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1850">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1850">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1851">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1851">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1852">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1852">'Identity'</span></span>
+- <span data-ttu-id="172d1-1853">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1853">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1854">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1854">'Razor'</span></span>
+- <span data-ttu-id="172d1-1855">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1855">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1856">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1856">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1857">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1857">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1858">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1858">'Identity'</span></span>
+- <span data-ttu-id="172d1-1859">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1859">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1860">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1860">'Razor'</span></span>
+- <span data-ttu-id="172d1-1861">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1861">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1862">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1862">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1863">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1863">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1864">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1864">'Identity'</span></span>
+- <span data-ttu-id="172d1-1865">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1865">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1866">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1866">'Razor'</span></span>
+- <span data-ttu-id="172d1-1867">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1867">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1868">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1868">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1869">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1869">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1870">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1870">'Identity'</span></span>
+- <span data-ttu-id="172d1-1871">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1871">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1872">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1872">'Razor'</span></span>
+- <span data-ttu-id="172d1-1873">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1873">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1874">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1874">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1875">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1875">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1876">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1876">'Identity'</span></span>
+- <span data-ttu-id="172d1-1877">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1877">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1878">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1878">'Razor'</span></span>
+- <span data-ttu-id="172d1-1879">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1879">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1880">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1880">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1881">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1881">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1882">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1882">'Identity'</span></span>
+- <span data-ttu-id="172d1-1883">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1883">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1884">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1884">'Razor'</span></span>
+- <span data-ttu-id="172d1-1885">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1885">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1886">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1886">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1887">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1887">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1888">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1888">'Identity'</span></span>
+- <span data-ttu-id="172d1-1889">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1889">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1890">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1890">'Razor'</span></span>
+- <span data-ttu-id="172d1-1891">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1891">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1892">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1892">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1893">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1893">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1894">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1894">'Identity'</span></span>
+- <span data-ttu-id="172d1-1895">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1895">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1896">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1896">'Razor'</span></span>
+- <span data-ttu-id="172d1-1897">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1897">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1898">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1898">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1899">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1899">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1900">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1900">'Identity'</span></span>
+- <span data-ttu-id="172d1-1901">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1901">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1902">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1902">'Razor'</span></span>
+- <span data-ttu-id="172d1-1903">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1903">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1904">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1904">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1905">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1905">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1906">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1906">'Identity'</span></span>
+- <span data-ttu-id="172d1-1907">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1907">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1908">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1908">'Razor'</span></span>
+- <span data-ttu-id="172d1-1909">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1909">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1910">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1910">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1911">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1911">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1912">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1912">'Identity'</span></span>
+- <span data-ttu-id="172d1-1913">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1913">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1914">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1914">'Razor'</span></span>
+- <span data-ttu-id="172d1-1915">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1915">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1916">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1916">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1917">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1917">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1918">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1918">'Identity'</span></span>
+- <span data-ttu-id="172d1-1919">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1919">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1920">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1920">'Razor'</span></span>
+- <span data-ttu-id="172d1-1921">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1921">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1922">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1922">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1923">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1923">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1924">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1924">'Identity'</span></span>
+- <span data-ttu-id="172d1-1925">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1925">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1926">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1926">'Razor'</span></span>
+- <span data-ttu-id="172d1-1927">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1927">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1928">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1928">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1929">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1929">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1930">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1930">'Identity'</span></span>
+- <span data-ttu-id="172d1-1931">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1931">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1932">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1932">'Razor'</span></span>
+- <span data-ttu-id="172d1-1933">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1933">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1934">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1934">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1935">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1935">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1936">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1936">'Identity'</span></span>
+- <span data-ttu-id="172d1-1937">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1937">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1938">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1938">'Razor'</span></span>
+- <span data-ttu-id="172d1-1939">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1939">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1940">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1940">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1941">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1941">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1942">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1942">'Identity'</span></span>
+- <span data-ttu-id="172d1-1943">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1943">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1944">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1944">'Razor'</span></span>
+- <span data-ttu-id="172d1-1945">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1945">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1946">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1946">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1947">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1947">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1948">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1948">'Identity'</span></span>
+- <span data-ttu-id="172d1-1949">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1949">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1950">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1950">'Razor'</span></span>
+- <span data-ttu-id="172d1-1951">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1951">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1952">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1952">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1953">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1953">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1954">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1954">'Identity'</span></span>
+- <span data-ttu-id="172d1-1955">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1955">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1956">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1956">'Razor'</span></span>
+- <span data-ttu-id="172d1-1957">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1957">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1958">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1958">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1959">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1959">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1960">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1960">'Identity'</span></span>
+- <span data-ttu-id="172d1-1961">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1961">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1962">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1962">'Razor'</span></span>
+- <span data-ttu-id="172d1-1963">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1963">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1964">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1964">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1965">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1965">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1966">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1966">'Identity'</span></span>
+- <span data-ttu-id="172d1-1967">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1967">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1968">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1968">'Razor'</span></span>
+- <span data-ttu-id="172d1-1969">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1969">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1970">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1970">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1971">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1971">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1972">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1972">'Identity'</span></span>
+- <span data-ttu-id="172d1-1973">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1973">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1974">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1974">'Razor'</span></span>
+- <span data-ttu-id="172d1-1975">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1975">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1976">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1976">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1977">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1977">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1978">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1978">'Identity'</span></span>
+- <span data-ttu-id="172d1-1979">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1979">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1980">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1980">'Razor'</span></span>
+- <span data-ttu-id="172d1-1981">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1981">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1982">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1982">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1983">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1983">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1984">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1984">'Identity'</span></span>
+- <span data-ttu-id="172d1-1985">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1985">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1986">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1986">'Razor'</span></span>
+- <span data-ttu-id="172d1-1987">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1987">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1988">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1988">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1989">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1989">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1990">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1990">'Identity'</span></span>
+- <span data-ttu-id="172d1-1991">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1991">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1992">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1992">'Razor'</span></span>
+- <span data-ttu-id="172d1-1993">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1993">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-1994">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-1994">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-1995">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1995">'Blazor'</span></span>
+- <span data-ttu-id="172d1-1996">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-1996">'Identity'</span></span>
+- <span data-ttu-id="172d1-1997">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-1997">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-1998">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-1998">'Razor'</span></span>
+- <span data-ttu-id="172d1-1999">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-1999">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2000">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2000">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2001">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2001">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2002">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2002">'Identity'</span></span>
+- <span data-ttu-id="172d1-2003">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2003">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2004">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2004">'Razor'</span></span>
+- <span data-ttu-id="172d1-2005">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2005">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2006">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2006">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2007">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2007">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2008">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2008">'Identity'</span></span>
+- <span data-ttu-id="172d1-2009">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2009">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2010">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2010">'Razor'</span></span>
+- <span data-ttu-id="172d1-2011">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2011">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2012">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2012">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2013">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2013">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2014">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2014">'Identity'</span></span>
+- <span data-ttu-id="172d1-2015">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2015">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2016">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2016">'Razor'</span></span>
+- <span data-ttu-id="172d1-2017">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2017">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2018">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2018">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2019">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2019">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2020">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2020">'Identity'</span></span>
+- <span data-ttu-id="172d1-2021">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2021">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2022">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2022">'Razor'</span></span>
+- <span data-ttu-id="172d1-2023">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2023">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2024">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2024">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2025">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2025">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2026">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2026">'Identity'</span></span>
+- <span data-ttu-id="172d1-2027">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2027">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2028">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2028">'Razor'</span></span>
+- <span data-ttu-id="172d1-2029">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2029">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2030">---------------------------------------- | | `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}` | 配置条目未创建。</span><span class="sxs-lookup"><span data-stu-id="172d1-2030">---------------------------------------- | | `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | Configuration entry not created.</span></span>                                                <span data-ttu-id="172d1-2031">| | `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-2031">| | `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-2032">值：`MySql.Data.MySqlClient` | | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-2032">Value: `MySql.Data.MySqlClient` | | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-2033">值：`System.Data.SqlClient`  | | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}` | 键：`ConnectionStrings:{KEY}_ProviderName`：</span><span class="sxs-lookup"><span data-stu-id="172d1-2033">Value: `System.Data.SqlClient`  | | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="172d1-2034">值：`System.Data.SqlClient`  |</span><span class="sxs-lookup"><span data-stu-id="172d1-2034">Value: `System.Data.SqlClient`  |</span></span>
+
+<span data-ttu-id="172d1-2035">**示例**</span><span class="sxs-lookup"><span data-stu-id="172d1-2035">**Example**</span></span>
+
+<span data-ttu-id="172d1-2036">在服务器上创建了一个自定义连接字符串环境变量：</span><span class="sxs-lookup"><span data-stu-id="172d1-2036">A custom connection string environment variable is created on the server:</span></span>
+
+* <span data-ttu-id="172d1-2037">名称 &ndash; `CUSTOMCONNSTR_ReleaseDB`</span><span class="sxs-lookup"><span data-stu-id="172d1-2037">Name &ndash; `CUSTOMCONNSTR_ReleaseDB`</span></span>
+* <span data-ttu-id="172d1-2038">值 &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span><span class="sxs-lookup"><span data-stu-id="172d1-2038">Value &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span></span>
+
+<span data-ttu-id="172d1-2039">如果 `IConfiguration` 已引入并分配给名为 `_config` 的字段，请读取值：</span><span class="sxs-lookup"><span data-stu-id="172d1-2039">If `IConfiguration` is injected and assigned to a field named `_config`, read the value:</span></span>
 
 ```csharp
 _config["ConnectionStrings:ReleaseDB"]
 ```
 
-## <a name="file-configuration-provider"></a><span data-ttu-id="fb3ea-737">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-737">File Configuration Provider</span></span>
+## <a name="file-configuration-provider"></a><span data-ttu-id="172d1-2040">文件配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2040">File Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-738"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-738"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="fb3ea-739">以下配置提供程序专用于特定文件类型：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-739">The following configuration providers are dedicated to specific file types:</span></span>
+<span data-ttu-id="172d1-2041"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> 是从文件系统加载配置的基类。</span><span class="sxs-lookup"><span data-stu-id="172d1-2041"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="172d1-2042">以下配置提供程序专用于特定文件类型：</span><span class="sxs-lookup"><span data-stu-id="172d1-2042">The following configuration providers are dedicated to specific file types:</span></span>
 
-* [<span data-ttu-id="fb3ea-740">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-740">INI Configuration Provider</span></span>](#ini-configuration-provider)
-* [<span data-ttu-id="fb3ea-741">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-741">JSON Configuration Provider</span></span>](#json-configuration-provider)
-* [<span data-ttu-id="fb3ea-742">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-742">XML Configuration Provider</span></span>](#xml-configuration-provider)
+* [<span data-ttu-id="172d1-2043">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2043">INI Configuration Provider</span></span>](#ini-configuration-provider)
+* [<span data-ttu-id="172d1-2044">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2044">JSON Configuration Provider</span></span>](#json-configuration-provider)
+* [<span data-ttu-id="172d1-2045">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2045">XML Configuration Provider</span></span>](#xml-configuration-provider)
 
-### <a name="ini-configuration-provider"></a><span data-ttu-id="fb3ea-743">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-743">INI Configuration Provider</span></span>
+### <a name="ini-configuration-provider"></a><span data-ttu-id="172d1-2046">INI 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2046">INI Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-744"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-744">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
+<span data-ttu-id="172d1-2047"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> 在运行时从 INI 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2047">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="fb3ea-745">若要激活 INI 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-745">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="172d1-2048">若要激活 INI 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-2048">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="fb3ea-746">冒号可用作 INI 文件配置中的节分隔符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-746">The colon can be used to as a section delimiter in INI file configuration.</span></span>
+<span data-ttu-id="172d1-2049">冒号可用作 INI 文件配置中的节分隔符。</span><span class="sxs-lookup"><span data-stu-id="172d1-2049">The colon can be used to as a section delimiter in INI file configuration.</span></span>
 
-<span data-ttu-id="fb3ea-747">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-747">Overloads permit specifying:</span></span>
+<span data-ttu-id="172d1-2050">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-2050">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="fb3ea-748">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-748">Whether the file is optional.</span></span>
-* <span data-ttu-id="fb3ea-749">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-749">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="fb3ea-750"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-750">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="172d1-2051">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="172d1-2051">Whether the file is optional.</span></span>
+* <span data-ttu-id="172d1-2052">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2052">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="172d1-2053"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2053">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="fb3ea-751">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-751">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="172d1-2054">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2054">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1254,7 +2997,7 @@ _config["ConnectionStrings:ReleaseDB"]
 })
 ```
 
-<span data-ttu-id="fb3ea-752">INI 配置文件的通用示例：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-752">A generic example of an INI configuration file:</span></span>
+<span data-ttu-id="172d1-2055">INI 配置文件的通用示例：</span><span class="sxs-lookup"><span data-stu-id="172d1-2055">A generic example of an INI configuration file:</span></span>
 
 ```ini
 [section0]
@@ -1271,42 +3014,42 @@ key=value
 key=value
 ```
 
-<span data-ttu-id="fb3ea-753">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-753">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="172d1-2056">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="172d1-2056">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="fb3ea-754">section0:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-754">section0:key0</span></span>
-* <span data-ttu-id="fb3ea-755">section0:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-755">section0:key1</span></span>
-* <span data-ttu-id="fb3ea-756">section1:subsection:key</span><span class="sxs-lookup"><span data-stu-id="fb3ea-756">section1:subsection:key</span></span>
-* <span data-ttu-id="fb3ea-757">section2:subsection0:key</span><span class="sxs-lookup"><span data-stu-id="fb3ea-757">section2:subsection0:key</span></span>
-* <span data-ttu-id="fb3ea-758">section2:subsection1:key</span><span class="sxs-lookup"><span data-stu-id="fb3ea-758">section2:subsection1:key</span></span>
+* <span data-ttu-id="172d1-2057">section0:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2057">section0:key0</span></span>
+* <span data-ttu-id="172d1-2058">section0:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2058">section0:key1</span></span>
+* <span data-ttu-id="172d1-2059">section1:subsection:key</span><span class="sxs-lookup"><span data-stu-id="172d1-2059">section1:subsection:key</span></span>
+* <span data-ttu-id="172d1-2060">section2:subsection0:key</span><span class="sxs-lookup"><span data-stu-id="172d1-2060">section2:subsection0:key</span></span>
+* <span data-ttu-id="172d1-2061">section2:subsection1:key</span><span class="sxs-lookup"><span data-stu-id="172d1-2061">section2:subsection1:key</span></span>
 
-### <a name="json-configuration-provider"></a><span data-ttu-id="fb3ea-759">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-759">JSON Configuration Provider</span></span>
+### <a name="json-configuration-provider"></a><span data-ttu-id="172d1-2062">JSON 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2062">JSON Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-760"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 在运行时期间从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-760">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
+<span data-ttu-id="172d1-2063"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> 在运行时期间从 JSON 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2063">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
 
-<span data-ttu-id="fb3ea-761">若要激活 JSON 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-761">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="172d1-2064">若要激活 JSON 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-2064">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="fb3ea-762">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-762">Overloads permit specifying:</span></span>
+<span data-ttu-id="172d1-2065">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-2065">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="fb3ea-763">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-763">Whether the file is optional.</span></span>
-* <span data-ttu-id="fb3ea-764">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-764">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="fb3ea-765"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-765">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="172d1-2066">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="172d1-2066">Whether the file is optional.</span></span>
+* <span data-ttu-id="172d1-2067">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2067">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="172d1-2068"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2068">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="fb3ea-766">使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-766">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="fb3ea-767">调用该方法来从以下文件加载配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-767">The method is called to load configuration from:</span></span>
+<span data-ttu-id="172d1-2069">使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2069">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="172d1-2070">调用该方法来从以下文件加载配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2070">The method is called to load configuration from:</span></span>
 
-* <span data-ttu-id="fb3ea-768">appsettings.json &ndash; 首先读取此文件  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-768">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="fb3ea-769">该文件的环境版本可以替代 appsettings.json  文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-769">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
-* <span data-ttu-id="fb3ea-770">appsettings.{Environment}.json &ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-770">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
+* <span data-ttu-id="172d1-2071">appsettings.json &ndash; 首先读取此文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2071">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="172d1-2072">该文件的环境版本可以替代 appsettings.json 文件提供的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2072">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
+* <span data-ttu-id="172d1-2073">appsettings.{Environment}.json &ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本。</span><span class="sxs-lookup"><span data-stu-id="172d1-2073">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
 
-<span data-ttu-id="fb3ea-771">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-771">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="172d1-2074">有关详细信息，请参阅[默认配置](#default-configuration)部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-2074">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="fb3ea-772">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-772">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="172d1-2075">此外，`CreateDefaultBuilder` 也会加载：</span><span class="sxs-lookup"><span data-stu-id="172d1-2075">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="fb3ea-773">环境变量。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-773">Environment variables.</span></span>
-* <span data-ttu-id="fb3ea-774">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-774">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="fb3ea-775">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-775">Command-line arguments.</span></span>
+* <span data-ttu-id="172d1-2076">环境变量。</span><span class="sxs-lookup"><span data-stu-id="172d1-2076">Environment variables.</span></span>
+* <span data-ttu-id="172d1-2077">[用户机密 (Secret Manager)](xref:security/app-secrets)（在开发环境中）。</span><span class="sxs-lookup"><span data-stu-id="172d1-2077">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="172d1-2078">命令行参数。</span><span class="sxs-lookup"><span data-stu-id="172d1-2078">Command-line arguments.</span></span>
 
-<span data-ttu-id="fb3ea-776">首先建立 JSON 配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-776">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="fb3ea-777">因此，用户机密、环境变量和命令行参数会替代由 appsettings  文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-777">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
+<span data-ttu-id="172d1-2079">首先建立 JSON 配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-2079">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="172d1-2080">因此，用户机密、环境变量和命令行参数会替代由 appsettings 文件设置的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2080">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
 
-<span data-ttu-id="fb3ea-778">构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置：  </span><span class="sxs-lookup"><span data-stu-id="fb3ea-778">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
+<span data-ttu-id="172d1-2081">构建主机时调用 `ConfigureAppConfiguration` 以指定除 appsettings.json 和 appsettings.{Environment}.json 以外的文件的应用配置： </span><span class="sxs-lookup"><span data-stu-id="172d1-2081">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1316,41 +3059,41 @@ key=value
 })
 ```
 
-<span data-ttu-id="fb3ea-779">**示例**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-779">**Example**</span></span>
+<span data-ttu-id="172d1-2082">**示例**</span><span class="sxs-lookup"><span data-stu-id="172d1-2082">**Example**</span></span>
 
-<span data-ttu-id="fb3ea-780">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-780">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
+<span data-ttu-id="172d1-2083">示例应用利用静态便捷方法 `CreateDefaultBuilder` 来生成主机，其中包括两个对 `AddJsonFile` 的调用：</span><span class="sxs-lookup"><span data-stu-id="172d1-2083">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
 
-* <span data-ttu-id="fb3ea-781">第一次调用 `AddJsonFile` 会从 appsettings 加载配置  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-781">The first call to `AddJsonFile` loads configuration from *appsettings.json*:</span></span>
+* <span data-ttu-id="172d1-2084">第一次调用 `AddJsonFile` 会从 appsettings 加载配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2084">The first call to `AddJsonFile` loads configuration from *appsettings.json*:</span></span>
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
 
-* <span data-ttu-id="fb3ea-782">第二次调用 `AddJsonFile` 会从 appsettings.{Environment}.json 加载配置  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-782">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="fb3ea-783">对于示例应用中的 appsettings.Development.json，将加载以下文件  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-783">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
+* <span data-ttu-id="172d1-2085">第二次调用 `AddJsonFile` 会从 appsettings.{Environment}.json 加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2085">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="172d1-2086">对于示例应用中的 appsettings.Development.json，将加载以下文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-2086">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
 
-1. <span data-ttu-id="fb3ea-784">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-784">Run the sample app.</span></span> <span data-ttu-id="fb3ea-785">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-785">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="fb3ea-786">输出包含配置的键值对（由应用的环境而定）。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-786">The output contains key-value pairs for the configuration based on the app's environment.</span></span> <span data-ttu-id="fb3ea-787">在开发环境中运行应用时，键 `Logging:LogLevel:Default` 的日志级别为 `Debug`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-787">The log level for the key `Logging:LogLevel:Default` is `Debug` when running the app in the Development environment.</span></span>
-1. <span data-ttu-id="fb3ea-788">再次在生产环境中运行示例应用：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-788">Run the sample app again in the Production environment:</span></span>
-   1. <span data-ttu-id="fb3ea-789">打开 Properties/launchSettings.json 文件  。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-789">Open the *Properties/launchSettings.json* file.</span></span>
-   1. <span data-ttu-id="fb3ea-790">在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-790">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
-   1. <span data-ttu-id="fb3ea-791">保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-791">Save the file and run the app with `dotnet run` in a command shell.</span></span>
-1. <span data-ttu-id="fb3ea-792">appsettings.Development.json 中的设置不再替代 appsettings.json 中的设置   。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-792">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="fb3ea-793">键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-793">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
+1. <span data-ttu-id="172d1-2087">运行示例应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-2087">Run the sample app.</span></span> <span data-ttu-id="172d1-2088">在 `http://localhost:5000` 打开应用的浏览器。</span><span class="sxs-lookup"><span data-stu-id="172d1-2088">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="172d1-2089">输出包含配置的键值对（由应用的环境而定）。</span><span class="sxs-lookup"><span data-stu-id="172d1-2089">The output contains key-value pairs for the configuration based on the app's environment.</span></span> <span data-ttu-id="172d1-2090">在开发环境中运行应用时，键 `Logging:LogLevel:Default` 的日志级别为 `Debug`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2090">The log level for the key `Logging:LogLevel:Default` is `Debug` when running the app in the Development environment.</span></span>
+1. <span data-ttu-id="172d1-2091">再次在生产环境中运行示例应用：</span><span class="sxs-lookup"><span data-stu-id="172d1-2091">Run the sample app again in the Production environment:</span></span>
+   1. <span data-ttu-id="172d1-2092">打开 Properties/launchSettings.json 文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2092">Open the *Properties/launchSettings.json* file.</span></span>
+   1. <span data-ttu-id="172d1-2093">在 `ConfigurationSample` 配置文件中，将 `ASPNETCORE_ENVIRONMENT` 环境变量的值更改为 `Production`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2093">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
+   1. <span data-ttu-id="172d1-2094">保存文件，然后在命令外壳中使用 `dotnet run` 运行应用。</span><span class="sxs-lookup"><span data-stu-id="172d1-2094">Save the file and run the app with `dotnet run` in a command shell.</span></span>
+1. <span data-ttu-id="172d1-2095">appsettings.Development.json 中的设置不再替代 appsettings.json 中的设置 。</span><span class="sxs-lookup"><span data-stu-id="172d1-2095">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="172d1-2096">键 `Logging:LogLevel:Default` 的日志级别为 `Warning`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2096">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
 
-### <a name="xml-configuration-provider"></a><span data-ttu-id="fb3ea-794">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-794">XML Configuration Provider</span></span>
+### <a name="xml-configuration-provider"></a><span data-ttu-id="172d1-2097">XML 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2097">XML Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-795"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-795">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
+<span data-ttu-id="172d1-2098"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> 在运行时从 XML 文件键值对加载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2098">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="fb3ea-796">若要激活 XML 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-796">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="172d1-2099">若要激活 XML 文件配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-2099">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="fb3ea-797">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-797">Overloads permit specifying:</span></span>
+<span data-ttu-id="172d1-2100">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-2100">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="fb3ea-798">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-798">Whether the file is optional.</span></span>
-* <span data-ttu-id="fb3ea-799">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-799">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="fb3ea-800"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-800">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="172d1-2101">文件是否可选。</span><span class="sxs-lookup"><span data-stu-id="172d1-2101">Whether the file is optional.</span></span>
+* <span data-ttu-id="172d1-2102">如果文件更改，是否重载配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2102">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="172d1-2103"><xref:Microsoft.Extensions.FileProviders.IFileProvider> 用于访问该文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2103">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="fb3ea-801">创建配置键值对时，将忽略配置文件的根节点。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-801">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="fb3ea-802">不要在文件中指定文档类型定义 (DTD) 或命名空间。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-802">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
+<span data-ttu-id="172d1-2104">创建配置键值对时，将忽略配置文件的根节点。</span><span class="sxs-lookup"><span data-stu-id="172d1-2104">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="172d1-2105">不要在文件中指定文档类型定义 (DTD) 或命名空间。</span><span class="sxs-lookup"><span data-stu-id="172d1-2105">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
 
-<span data-ttu-id="fb3ea-803">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-803">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="172d1-2106">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2106">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1360,7 +3103,7 @@ key=value
 })
 ```
 
-<span data-ttu-id="fb3ea-804">XML 配置文件可以为重复节使用不同的元素名称：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-804">XML configuration files can use distinct element names for repeating sections:</span></span>
+<span data-ttu-id="172d1-2107">XML 配置文件可以为重复节使用不同的元素名称：</span><span class="sxs-lookup"><span data-stu-id="172d1-2107">XML configuration files can use distinct element names for repeating sections:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1376,14 +3119,14 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="fb3ea-805">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-805">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="172d1-2108">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="172d1-2108">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="fb3ea-806">section0:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-806">section0:key0</span></span>
-* <span data-ttu-id="fb3ea-807">section0:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-807">section0:key1</span></span>
-* <span data-ttu-id="fb3ea-808">section1:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-808">section1:key0</span></span>
-* <span data-ttu-id="fb3ea-809">section1:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-809">section1:key1</span></span>
+* <span data-ttu-id="172d1-2109">section0:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2109">section0:key0</span></span>
+* <span data-ttu-id="172d1-2110">section0:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2110">section0:key1</span></span>
+* <span data-ttu-id="172d1-2111">section1:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2111">section1:key0</span></span>
+* <span data-ttu-id="172d1-2112">section1:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2112">section1:key1</span></span>
 
-<span data-ttu-id="fb3ea-810">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-810">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
+<span data-ttu-id="172d1-2113">如果使用 `name` 属性来区分元素，则使用相同元素名称的重复元素可以正常工作：</span><span class="sxs-lookup"><span data-stu-id="172d1-2113">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1399,14 +3142,14 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="fb3ea-811">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-811">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="172d1-2114">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="172d1-2114">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="fb3ea-812">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-812">section:section0:key:key0</span></span>
-* <span data-ttu-id="fb3ea-813">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-813">section:section0:key:key1</span></span>
-* <span data-ttu-id="fb3ea-814">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-814">section:section1:key:key0</span></span>
-* <span data-ttu-id="fb3ea-815">section:section1:key:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-815">section:section1:key:key1</span></span>
+* <span data-ttu-id="172d1-2115">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2115">section:section0:key:key0</span></span>
+* <span data-ttu-id="172d1-2116">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2116">section:section0:key:key1</span></span>
+* <span data-ttu-id="172d1-2117">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2117">section:section1:key:key0</span></span>
+* <span data-ttu-id="172d1-2118">section:section1:key:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2118">section:section1:key:key1</span></span>
 
-<span data-ttu-id="fb3ea-816">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-816">Attributes can be used to supply values:</span></span>
+<span data-ttu-id="172d1-2119">属性可用于提供值：</span><span class="sxs-lookup"><span data-stu-id="172d1-2119">Attributes can be used to supply values:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1418,25 +3161,25 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="fb3ea-817">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-817">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="172d1-2120">以前的配置文件使用 `value` 加载以下键：</span><span class="sxs-lookup"><span data-stu-id="172d1-2120">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="fb3ea-818">key:attribute</span><span class="sxs-lookup"><span data-stu-id="fb3ea-818">key:attribute</span></span>
-* <span data-ttu-id="fb3ea-819">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="fb3ea-819">section:key:attribute</span></span>
+* <span data-ttu-id="172d1-2121">key:attribute</span><span class="sxs-lookup"><span data-stu-id="172d1-2121">key:attribute</span></span>
+* <span data-ttu-id="172d1-2122">section:key:attribute</span><span class="sxs-lookup"><span data-stu-id="172d1-2122">section:key:attribute</span></span>
 
-## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="fb3ea-820">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-820">Key-per-file Configuration Provider</span></span>
+## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="172d1-2123">Key-per-file 配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2123">Key-per-file Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-821"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-821">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="fb3ea-822">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-822">The key is the file name.</span></span> <span data-ttu-id="fb3ea-823">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-823">The value contains the file's contents.</span></span> <span data-ttu-id="fb3ea-824">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-824">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
+<span data-ttu-id="172d1-2124"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> 使用目录的文件作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-2124">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="172d1-2125">该键是文件名。</span><span class="sxs-lookup"><span data-stu-id="172d1-2125">The key is the file name.</span></span> <span data-ttu-id="172d1-2126">该值包含文件的内容。</span><span class="sxs-lookup"><span data-stu-id="172d1-2126">The value contains the file's contents.</span></span> <span data-ttu-id="172d1-2127">Key-per-file 配置提供程序用于 Docker 托管方案。</span><span class="sxs-lookup"><span data-stu-id="172d1-2127">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
 
-<span data-ttu-id="fb3ea-825">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-825">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="fb3ea-826">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-826">The `directoryPath` to the files must be an absolute path.</span></span>
+<span data-ttu-id="172d1-2128">若要激活 Key-per-file 配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-2128">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="172d1-2129">文件的 `directoryPath` 必须是绝对路径。</span><span class="sxs-lookup"><span data-stu-id="172d1-2129">The `directoryPath` to the files must be an absolute path.</span></span>
 
-<span data-ttu-id="fb3ea-827">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-827">Overloads permit specifying:</span></span>
+<span data-ttu-id="172d1-2130">重载允许指定：</span><span class="sxs-lookup"><span data-stu-id="172d1-2130">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="fb3ea-828">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-828">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
-* <span data-ttu-id="fb3ea-829">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-829">Whether the directory is optional and the path to the directory.</span></span>
+* <span data-ttu-id="172d1-2131">配置源的 `Action<KeyPerFileConfigurationSource>` 委托。</span><span class="sxs-lookup"><span data-stu-id="172d1-2131">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
+* <span data-ttu-id="172d1-2132">目录是否可选以及目录的路径。</span><span class="sxs-lookup"><span data-stu-id="172d1-2132">Whether the directory is optional and the path to the directory.</span></span>
 
-<span data-ttu-id="fb3ea-830">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-830">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="fb3ea-831">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-831">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
+<span data-ttu-id="172d1-2133">双下划线字符 (`__`) 用作文件名中的配置键分隔符。</span><span class="sxs-lookup"><span data-stu-id="172d1-2133">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="172d1-2134">例如，文件名 `Logging__LogLevel__System` 生成配置键 `Logging:LogLevel:System`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2134">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
 
-<span data-ttu-id="fb3ea-832">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-832">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="172d1-2135">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2135">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1447,17 +3190,17 @@ key=value
 })
 ```
 
-## <a name="memory-configuration-provider"></a><span data-ttu-id="fb3ea-833">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-833">Memory Configuration Provider</span></span>
+## <a name="memory-configuration-provider"></a><span data-ttu-id="172d1-2136">内存配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2136">Memory Configuration Provider</span></span>
 
-<span data-ttu-id="fb3ea-834"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-834">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
+<span data-ttu-id="172d1-2137"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> 使用内存中集合作为配置键值对。</span><span class="sxs-lookup"><span data-stu-id="172d1-2137">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
 
-<span data-ttu-id="fb3ea-835">若要激活内存中集合配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-835">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="172d1-2138">若要激活内存中集合配置，请在 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> 的实例上调用 <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> 扩展方法。</span><span class="sxs-lookup"><span data-stu-id="172d1-2138">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="fb3ea-836">可以使用 `IEnumerable<KeyValuePair<String,String>>` 初始化配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-836">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
+<span data-ttu-id="172d1-2139">可以使用 `IEnumerable<KeyValuePair<String,String>>` 初始化配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-2139">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
 
-<span data-ttu-id="fb3ea-837">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-837">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration.</span></span>
+<span data-ttu-id="172d1-2140">构建主机时调用 `ConfigureAppConfiguration` 以指定应用的配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2140">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration.</span></span>
 
-<span data-ttu-id="fb3ea-838">在下面的示例中，创建了配置字典：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-838">In the following example, a configuration dictionary is created:</span></span>
+<span data-ttu-id="172d1-2141">在下面的示例中，创建了配置字典：</span><span class="sxs-lookup"><span data-stu-id="172d1-2141">In the following example, a configuration dictionary is created:</span></span>
 
 ```csharp
 public static readonly Dictionary<string, string> _dict = 
@@ -1468,7 +3211,7 @@ public static readonly Dictionary<string, string> _dict =
     };
 ```
 
-<span data-ttu-id="fb3ea-839">通过 `AddInMemoryCollection` 的调用使用字典，以提供配置：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-839">The dictionary is used with a call to `AddInMemoryCollection` to provide the configuration:</span></span>
+<span data-ttu-id="172d1-2142">通过 `AddInMemoryCollection` 的调用使用字典，以提供配置：</span><span class="sxs-lookup"><span data-stu-id="172d1-2142">The dictionary is used with a call to `AddInMemoryCollection` to provide the configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1477,15 +3220,15 @@ public static readonly Dictionary<string, string> _dict =
 })
 ```
 
-## <a name="getvalue"></a><span data-ttu-id="fb3ea-840">GetValue</span><span class="sxs-lookup"><span data-stu-id="fb3ea-840">GetValue</span></span>
+## <a name="getvalue"></a><span data-ttu-id="172d1-2143">GetValue</span><span class="sxs-lookup"><span data-stu-id="172d1-2143">GetValue</span></span>
 
-<span data-ttu-id="fb3ea-841">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将它转换为指定的非集合类型。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-841">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified noncollection type.</span></span> <span data-ttu-id="fb3ea-842">重载接受默认值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-842">An overload accepts a default value.</span></span>
+<span data-ttu-id="172d1-2144">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) 从配置中提取一个具有指定键的值，并将它转换为指定的非集合类型。</span><span class="sxs-lookup"><span data-stu-id="172d1-2144">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified noncollection type.</span></span> <span data-ttu-id="172d1-2145">重载接受默认值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2145">An overload accepts a default value.</span></span>
 
-<span data-ttu-id="fb3ea-843">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-843">The following example:</span></span>
+<span data-ttu-id="172d1-2146">如下示例中：</span><span class="sxs-lookup"><span data-stu-id="172d1-2146">The following example:</span></span>
 
-* <span data-ttu-id="fb3ea-844">使用键 `NumberKey` 从配置中提取字符串值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-844">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="fb3ea-845">如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-845">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
-* <span data-ttu-id="fb3ea-846">键入值作为 `int`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-846">Types the value as an `int`.</span></span>
-* <span data-ttu-id="fb3ea-847">存储 `NumberConfig` 属性中的值，以供页面使用。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-847">Stores the value in the `NumberConfig` property for use by the page.</span></span>
+* <span data-ttu-id="172d1-2147">使用键 `NumberKey` 从配置中提取字符串值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2147">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="172d1-2148">如果在配置键中找不到 `NumberKey`，则使用默认值 `99`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2148">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
+* <span data-ttu-id="172d1-2149">键入值作为 `int`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2149">Types the value as an `int`.</span></span>
+* <span data-ttu-id="172d1-2150">存储 `NumberConfig` 属性中的值，以供页面使用。</span><span class="sxs-lookup"><span data-stu-id="172d1-2150">Stores the value in the `NumberConfig` property for use by the page.</span></span>
 
 ```csharp
 public class IndexModel : PageModel
@@ -1504,9 +3247,9 @@ public class IndexModel : PageModel
 }
 ```
 
-## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="fb3ea-848">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="fb3ea-848">GetSection, GetChildren, and Exists</span></span>
+## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="172d1-2151">GetSection、GetChildren 和 Exists</span><span class="sxs-lookup"><span data-stu-id="172d1-2151">GetSection, GetChildren, and Exists</span></span>
 
-<span data-ttu-id="fb3ea-849">对于下面的示例，请考虑以下 JSON 文件。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-849">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="fb3ea-850">在两个节中找到四个键，其中一个包含一对子节：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-850">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
+<span data-ttu-id="172d1-2152">对于下面的示例，请考虑以下 JSON 文件。</span><span class="sxs-lookup"><span data-stu-id="172d1-2152">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="172d1-2153">在两个节中找到四个键，其中一个包含一对子节：</span><span class="sxs-lookup"><span data-stu-id="172d1-2153">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
 
 ```json
 {
@@ -1531,42 +3274,42 @@ public class IndexModel : PageModel
 }
 ```
 
-<span data-ttu-id="fb3ea-851">将文件读入配置时，会创建以下唯一的分层键来保存配置值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-851">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
+<span data-ttu-id="172d1-2154">将文件读入配置时，会创建以下唯一的分层键来保存配置值：</span><span class="sxs-lookup"><span data-stu-id="172d1-2154">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
 
-* <span data-ttu-id="fb3ea-852">section0:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-852">section0:key0</span></span>
-* <span data-ttu-id="fb3ea-853">section0:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-853">section0:key1</span></span>
-* <span data-ttu-id="fb3ea-854">section1:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-854">section1:key0</span></span>
-* <span data-ttu-id="fb3ea-855">section1:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-855">section1:key1</span></span>
-* <span data-ttu-id="fb3ea-856">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-856">section2:subsection0:key0</span></span>
-* <span data-ttu-id="fb3ea-857">section2:subsection0:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-857">section2:subsection0:key1</span></span>
-* <span data-ttu-id="fb3ea-858">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-858">section2:subsection1:key0</span></span>
-* <span data-ttu-id="fb3ea-859">section2:subsection1:key1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-859">section2:subsection1:key1</span></span>
+* <span data-ttu-id="172d1-2155">section0:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2155">section0:key0</span></span>
+* <span data-ttu-id="172d1-2156">section0:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2156">section0:key1</span></span>
+* <span data-ttu-id="172d1-2157">section1:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2157">section1:key0</span></span>
+* <span data-ttu-id="172d1-2158">section1:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2158">section1:key1</span></span>
+* <span data-ttu-id="172d1-2159">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2159">section2:subsection0:key0</span></span>
+* <span data-ttu-id="172d1-2160">section2:subsection0:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2160">section2:subsection0:key1</span></span>
+* <span data-ttu-id="172d1-2161">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="172d1-2161">section2:subsection1:key0</span></span>
+* <span data-ttu-id="172d1-2162">section2:subsection1:key1</span><span class="sxs-lookup"><span data-stu-id="172d1-2162">section2:subsection1:key1</span></span>
 
-### <a name="getsection"></a><span data-ttu-id="fb3ea-860">GetSection</span><span class="sxs-lookup"><span data-stu-id="fb3ea-860">GetSection</span></span>
+### <a name="getsection"></a><span data-ttu-id="172d1-2163">GetSection</span><span class="sxs-lookup"><span data-stu-id="172d1-2163">GetSection</span></span>
 
-<span data-ttu-id="fb3ea-861">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-861">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span>
+<span data-ttu-id="172d1-2164">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) 使用指定的子节键提取配置子节。</span><span class="sxs-lookup"><span data-stu-id="172d1-2164">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span>
 
-<span data-ttu-id="fb3ea-862">若要返回仅包含 `section1` 中键值对的 <xref:Microsoft.Extensions.Configuration.IConfigurationSection>，请调用 `GetSection` 并提供节名称：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-862">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
+<span data-ttu-id="172d1-2165">若要返回仅包含 `section1` 中键值对的 <xref:Microsoft.Extensions.Configuration.IConfigurationSection>，请调用 `GetSection` 并提供节名称：</span><span class="sxs-lookup"><span data-stu-id="172d1-2165">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section1");
 ```
 
-<span data-ttu-id="fb3ea-863">`configSection` 不具有值，只有密钥和路径。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-863">The `configSection` doesn't have a value, only a key and a path.</span></span>
+<span data-ttu-id="172d1-2166">`configSection` 不具有值，只有密钥和路径。</span><span class="sxs-lookup"><span data-stu-id="172d1-2166">The `configSection` doesn't have a value, only a key and a path.</span></span>
 
-<span data-ttu-id="fb3ea-864">同样，若要获取 `section2:subsection0` 中键的值，请调用 `GetSection` 并提供节路径：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-864">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
+<span data-ttu-id="172d1-2167">同样，若要获取 `section2:subsection0` 中键的值，请调用 `GetSection` 并提供节路径：</span><span class="sxs-lookup"><span data-stu-id="172d1-2167">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section2:subsection0");
 ```
 
-<span data-ttu-id="fb3ea-865">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-865">`GetSection` never returns `null`.</span></span> <span data-ttu-id="fb3ea-866">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-866">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
+<span data-ttu-id="172d1-2168">`GetSection` 永远不会返回 `null`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2168">`GetSection` never returns `null`.</span></span> <span data-ttu-id="172d1-2169">如果找不到匹配的节，则返回空 `IConfigurationSection`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2169">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
 
-<span data-ttu-id="fb3ea-867">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-867">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="fb3ea-868">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-868">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
+<span data-ttu-id="172d1-2170">当 `GetSection` 返回匹配的部分时，<xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> 未填充。</span><span class="sxs-lookup"><span data-stu-id="172d1-2170">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="172d1-2171">存在该部分时，返回一个 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> 和 <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> 部分。</span><span class="sxs-lookup"><span data-stu-id="172d1-2171">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
 
-### <a name="getchildren"></a><span data-ttu-id="fb3ea-869">GetChildren</span><span class="sxs-lookup"><span data-stu-id="fb3ea-869">GetChildren</span></span>
+### <a name="getchildren"></a><span data-ttu-id="172d1-2172">GetChildren</span><span class="sxs-lookup"><span data-stu-id="172d1-2172">GetChildren</span></span>
 
-<span data-ttu-id="fb3ea-870">在 `section2` 上调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 会获得 `IEnumerable<IConfigurationSection>`，其中包括：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-870">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
+<span data-ttu-id="172d1-2173">在 `section2` 上调用 [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) 会获得 `IEnumerable<IConfigurationSection>`，其中包括：</span><span class="sxs-lookup"><span data-stu-id="172d1-2173">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
 
 * `subsection0`
 * `subsection1`
@@ -1577,29 +3320,29 @@ var configSection = _config.GetSection("section2");
 var children = configSection.GetChildren();
 ```
 
-### <a name="exists"></a><span data-ttu-id="fb3ea-871">存在</span><span class="sxs-lookup"><span data-stu-id="fb3ea-871">Exists</span></span>
+### <a name="exists"></a><span data-ttu-id="172d1-2174">存在</span><span class="sxs-lookup"><span data-stu-id="172d1-2174">Exists</span></span>
 
-<span data-ttu-id="fb3ea-872">使用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 确定配置节是否存在：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-872">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
+<span data-ttu-id="172d1-2175">使用 [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) 确定配置节是否存在：</span><span class="sxs-lookup"><span data-stu-id="172d1-2175">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
 
 ```csharp
 var sectionExists = _config.GetSection("section2:subsection2").Exists();
 ```
 
-<span data-ttu-id="fb3ea-873">给定示例数据，`sectionExists` 为 `false`，因为配置数据中没有 `section2:subsection2` 节。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-873">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
+<span data-ttu-id="172d1-2176">给定示例数据，`sectionExists` 为 `false`，因为配置数据中没有 `section2:subsection2` 节。</span><span class="sxs-lookup"><span data-stu-id="172d1-2176">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
 
-## <a name="bind-to-an-object-graph"></a><span data-ttu-id="fb3ea-874">绑定至对象图</span><span class="sxs-lookup"><span data-stu-id="fb3ea-874">Bind to an object graph</span></span>
+## <a name="bind-to-an-object-graph"></a><span data-ttu-id="172d1-2177">绑定至对象图</span><span class="sxs-lookup"><span data-stu-id="172d1-2177">Bind to an object graph</span></span>
 
-<span data-ttu-id="fb3ea-875"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-875"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="fb3ea-876">与绑定简单对象一样，只绑定公共读取/写入属性。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-876">As with binding a simple object, only public read/write properties are bound.</span></span>
+<span data-ttu-id="172d1-2178"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 能够绑定整个 POCO 对象图。</span><span class="sxs-lookup"><span data-stu-id="172d1-2178"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="172d1-2179">与绑定简单对象一样，只绑定公共读取/写入属性。</span><span class="sxs-lookup"><span data-stu-id="172d1-2179">As with binding a simple object, only public read/write properties are bound.</span></span>
 
-<span data-ttu-id="fb3ea-877">该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs  )：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-877">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
+<span data-ttu-id="172d1-2180">该示例包含 `TvShow` 模型，其对象图包含 `Metadata` 和 `Actors` 类 (Models/TvShow.cs)：</span><span class="sxs-lookup"><span data-stu-id="172d1-2180">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-878">示例应用有一个包含配置数据的 tvshow.xml  文件：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-878">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
+<span data-ttu-id="172d1-2181">示例应用有一个包含配置数据的 tvshow.xml 文件：</span><span class="sxs-lookup"><span data-stu-id="172d1-2181">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
 
 [!code-xml[](index/samples/2.x/ConfigurationSample/tvshow.xml)]
 
-<span data-ttu-id="fb3ea-879">使用 `Bind` 方法将配置绑定到整个 `TvShow` 对象图。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-879">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="fb3ea-880">将绑定实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-880">The bound instance is assigned to a property for rendering:</span></span>
+<span data-ttu-id="172d1-2182">使用 `Bind` 方法将配置绑定到整个 `TvShow` 对象图。</span><span class="sxs-lookup"><span data-stu-id="172d1-2182">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="172d1-2183">将绑定实例分配给用于呈现的属性：</span><span class="sxs-lookup"><span data-stu-id="172d1-2183">The bound instance is assigned to a property for rendering:</span></span>
 
 ```csharp
 var tvShow = new TvShow();
@@ -1607,67 +3350,264 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-<span data-ttu-id="fb3ea-881">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 绑定并返回指定的类型。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-881">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="fb3ea-882">`Get<T>` 比使用 `Bind` 更方便。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-882">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="fb3ea-883">以下代码演示了如何通过前述示例使用 `Get<T>`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-883">The following code shows how to use `Get<T>` with the preceding example:</span></span>
+<span data-ttu-id="172d1-2184">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 绑定并返回指定的类型。</span><span class="sxs-lookup"><span data-stu-id="172d1-2184">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="172d1-2185">`Get<T>` 比使用 `Bind` 更方便。</span><span class="sxs-lookup"><span data-stu-id="172d1-2185">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="172d1-2186">以下代码演示了如何通过前述示例使用 `Get<T>`：</span><span class="sxs-lookup"><span data-stu-id="172d1-2186">The following code shows how to use `Get<T>` with the preceding example:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
 
-## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="fb3ea-884">将数组绑定至类</span><span class="sxs-lookup"><span data-stu-id="fb3ea-884">Bind an array to a class</span></span>
+## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="172d1-2187">将数组绑定至类</span><span class="sxs-lookup"><span data-stu-id="172d1-2187">Bind an array to a class</span></span>
 
-<span data-ttu-id="fb3ea-885">示例应用演示了本部分中介绍的概念。 </span><span class="sxs-lookup"><span data-stu-id="fb3ea-885">*The sample app demonstrates the concepts explained in this section.*</span></span>
+<span data-ttu-id="172d1-2188">示例应用演示了本部分中介绍的概念。</span><span class="sxs-lookup"><span data-stu-id="172d1-2188">*The sample app demonstrates the concepts explained in this section.*</span></span>
 
-<span data-ttu-id="fb3ea-886"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-886">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="fb3ea-887">公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-887">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span>
+<span data-ttu-id="172d1-2189"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> 支持使用配置键中的数组索引将数组绑定到对象。</span><span class="sxs-lookup"><span data-stu-id="172d1-2189">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="172d1-2190">公开数字键段（`:0:`、`:1:`、&hellip; `:{n}:`）的任何数组格式都能够与 POCO 类数组进行数组绑定。</span><span class="sxs-lookup"><span data-stu-id="172d1-2190">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="fb3ea-888">绑定是按约定提供的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-888">Binding is provided by convention.</span></span> <span data-ttu-id="fb3ea-889">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-889">Custom configuration providers aren't required to implement array binding.</span></span>
+> <span data-ttu-id="172d1-2191">绑定是按约定提供的。</span><span class="sxs-lookup"><span data-stu-id="172d1-2191">Binding is provided by convention.</span></span> <span data-ttu-id="172d1-2192">不需要自定义配置提供程序实现数组绑定。</span><span class="sxs-lookup"><span data-stu-id="172d1-2192">Custom configuration providers aren't required to implement array binding.</span></span>
 
-<span data-ttu-id="fb3ea-890">**内存中数组处理**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-890">**In-memory array processing**</span></span>
+<span data-ttu-id="172d1-2193">**内存中数组处理**</span><span class="sxs-lookup"><span data-stu-id="172d1-2193">**In-memory array processing**</span></span>
 
-<span data-ttu-id="fb3ea-891">请考虑下表中所示的配置键和值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-891">Consider the configuration keys and values shown in the following table.</span></span>
+<span data-ttu-id="172d1-2194">请考虑下表中所示的配置键和值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2194">Consider the configuration keys and values shown in the following table.</span></span>
 
-| <span data-ttu-id="fb3ea-892">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-892">Key</span></span>             | <span data-ttu-id="fb3ea-893">“值”</span><span class="sxs-lookup"><span data-stu-id="fb3ea-893">Value</span></span>  |
-| :-------------: | :----: |
-| <span data-ttu-id="fb3ea-894">array:entries:0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-894">array:entries:0</span></span> | <span data-ttu-id="fb3ea-895">value0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-895">value0</span></span> |
-| <span data-ttu-id="fb3ea-896">array:entries:1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-896">array:entries:1</span></span> | <span data-ttu-id="fb3ea-897">value1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-897">value1</span></span> |
-| <span data-ttu-id="fb3ea-898">array:entries:2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-898">array:entries:2</span></span> | <span data-ttu-id="fb3ea-899">value2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-899">value2</span></span> |
-| <span data-ttu-id="fb3ea-900">array:entries:4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-900">array:entries:4</span></span> | <span data-ttu-id="fb3ea-901">value4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-901">value4</span></span> |
-| <span data-ttu-id="fb3ea-902">array:entries:5</span><span class="sxs-lookup"><span data-stu-id="fb3ea-902">array:entries:5</span></span> | <span data-ttu-id="fb3ea-903">value5</span><span class="sxs-lookup"><span data-stu-id="fb3ea-903">value5</span></span> |
+| <span data-ttu-id="172d1-2195">键</span><span class="sxs-lookup"><span data-stu-id="172d1-2195">Key</span></span>             | <span data-ttu-id="172d1-2196">“值”</span><span class="sxs-lookup"><span data-stu-id="172d1-2196">Value</span></span>  |
+| :---
+<span data-ttu-id="172d1-2197">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2197">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2198">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2198">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2199">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2199">'Identity'</span></span>
+- <span data-ttu-id="172d1-2200">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2200">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2201">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2201">'Razor'</span></span>
+- <span data-ttu-id="172d1-2202">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2202">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-904">使用内存配置提供程序在示例应用中加载这些键和值：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-904">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
+-
+<span data-ttu-id="172d1-2203">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2203">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2204">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2204">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2205">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2205">'Identity'</span></span>
+- <span data-ttu-id="172d1-2206">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2206">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2207">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2207">'Razor'</span></span>
+- <span data-ttu-id="172d1-2208">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2208">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2209">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2209">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2210">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2210">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2211">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2211">'Identity'</span></span>
+- <span data-ttu-id="172d1-2212">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2212">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2213">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2213">'Razor'</span></span>
+- <span data-ttu-id="172d1-2214">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2214">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2215">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2215">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2216">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2216">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2217">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2217">'Identity'</span></span>
+- <span data-ttu-id="172d1-2218">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2218">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2219">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2219">'Razor'</span></span>
+- <span data-ttu-id="172d1-2220">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2220">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2221">-------: | :----: | | array:entries:0 | value0 | | array:entries:1 | value1 | | array:entries:2 | value2 | | array:entries:4 | value4 | | array:entries:5 | value5 |</span><span class="sxs-lookup"><span data-stu-id="172d1-2221">-------: | :----: | | array:entries:0 | value0 | | array:entries:1 | value1 | | array:entries:2 | value2 | | array:entries:4 | value4 | | array:entries:5 | value5 |</span></span>
+
+<span data-ttu-id="172d1-2222">使用内存配置提供程序在示例应用中加载这些键和值：</span><span class="sxs-lookup"><span data-stu-id="172d1-2222">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,22)]
 
-<span data-ttu-id="fb3ea-905">该数组跳过索引 &num;3 的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-905">The array skips a value for index &num;3.</span></span> <span data-ttu-id="fb3ea-906">配置绑定程序无法绑定 null 值，也无法在绑定对象中创建 null 条目，这在演示将此数组绑定到对象的结果时变得清晰。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-906">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
+<span data-ttu-id="172d1-2223">该数组跳过索引 &num;3 的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2223">The array skips a value for index &num;3.</span></span> <span data-ttu-id="172d1-2224">配置绑定程序无法绑定 null 值，也无法在绑定对象中创建 null 条目，这在演示将此数组绑定到对象的结果时变得清晰。</span><span class="sxs-lookup"><span data-stu-id="172d1-2224">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
 
-<span data-ttu-id="fb3ea-907">在示例应用中，POCO 类可用于保存绑定的配置数据：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-907">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
+<span data-ttu-id="172d1-2225">在示例应用中，POCO 类可用于保存绑定的配置数据：</span><span class="sxs-lookup"><span data-stu-id="172d1-2225">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-908">将配置数据绑定至对象：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-908">The configuration data is bound to the object:</span></span>
+<span data-ttu-id="172d1-2226">将配置数据绑定至对象：</span><span class="sxs-lookup"><span data-stu-id="172d1-2226">The configuration data is bound to the object:</span></span>
 
 ```csharp
 var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-<span data-ttu-id="fb3ea-909">还可以使用 [`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 语法，这样会得到更精简的代码：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-909">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
+<span data-ttu-id="172d1-2227">还可以使用 [`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 语法，这样会得到更精简的代码：</span><span class="sxs-lookup"><span data-stu-id="172d1-2227">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
 
-<span data-ttu-id="fb3ea-910">绑定对象（`ArrayExample` 的实例）从配置接收数组数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-910">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
+<span data-ttu-id="172d1-2228">绑定对象（`ArrayExample` 的实例）从配置接收数组数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-2228">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
 
-| <span data-ttu-id="fb3ea-911">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="fb3ea-911">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="fb3ea-912">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="fb3ea-912">`ArrayExample.Entries` Value</span></span> |
-| :--------------------------: | :--------------------------: |
-| <span data-ttu-id="fb3ea-913">0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-913">0</span></span>                            | <span data-ttu-id="fb3ea-914">value0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-914">value0</span></span>                       |
-| <span data-ttu-id="fb3ea-915">1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-915">1</span></span>                            | <span data-ttu-id="fb3ea-916">value1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-916">value1</span></span>                       |
-| <span data-ttu-id="fb3ea-917">2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-917">2</span></span>                            | <span data-ttu-id="fb3ea-918">value2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-918">value2</span></span>                       |
-| <span data-ttu-id="fb3ea-919">3</span><span class="sxs-lookup"><span data-stu-id="fb3ea-919">3</span></span>                            | <span data-ttu-id="fb3ea-920">value4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-920">value4</span></span>                       |
-| <span data-ttu-id="fb3ea-921">4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-921">4</span></span>                            | <span data-ttu-id="fb3ea-922">value5</span><span class="sxs-lookup"><span data-stu-id="fb3ea-922">value5</span></span>                       |
+| <span data-ttu-id="172d1-2229">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="172d1-2229">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="172d1-2230">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="172d1-2230">`ArrayExample.Entries` Value</span></span> |
+| :---
+<span data-ttu-id="172d1-2231">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2231">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2232">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2232">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2233">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2233">'Identity'</span></span>
+- <span data-ttu-id="172d1-2234">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2234">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2235">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2235">'Razor'</span></span>
+- <span data-ttu-id="172d1-2236">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2236">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-923">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-923">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="fb3ea-924">当绑定包含数组的配置数据时，配置键中的数组索引仅用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-924">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="fb3ea-925">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-925">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
+-
+<span data-ttu-id="172d1-2237">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2237">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2238">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2238">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2239">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2239">'Identity'</span></span>
+- <span data-ttu-id="172d1-2240">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2240">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2241">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2241">'Razor'</span></span>
+- <span data-ttu-id="172d1-2242">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2242">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-926">可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-926">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="fb3ea-927">如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-927">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
+-
+<span data-ttu-id="172d1-2243">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2243">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2244">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2244">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2245">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2245">'Identity'</span></span>
+- <span data-ttu-id="172d1-2246">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2246">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2247">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2247">'Razor'</span></span>
+- <span data-ttu-id="172d1-2248">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2248">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-928">*missing_value.json*:</span><span class="sxs-lookup"><span data-stu-id="fb3ea-928">*missing_value.json*:</span></span>
+-
+<span data-ttu-id="172d1-2249">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2249">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2250">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2250">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2251">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2251">'Identity'</span></span>
+- <span data-ttu-id="172d1-2252">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2252">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2253">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2253">'Razor'</span></span>
+- <span data-ttu-id="172d1-2254">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2254">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2255">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2255">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2256">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2256">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2257">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2257">'Identity'</span></span>
+- <span data-ttu-id="172d1-2258">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2258">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2259">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2259">'Razor'</span></span>
+- <span data-ttu-id="172d1-2260">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2260">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2261">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2261">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2262">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2262">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2263">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2263">'Identity'</span></span>
+- <span data-ttu-id="172d1-2264">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2264">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2265">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2265">'Razor'</span></span>
+- <span data-ttu-id="172d1-2266">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2266">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2267">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2267">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2268">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2268">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2269">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2269">'Identity'</span></span>
+- <span data-ttu-id="172d1-2270">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2270">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2271">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2271">'Razor'</span></span>
+- <span data-ttu-id="172d1-2272">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2272">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2273">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2273">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2274">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2274">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2275">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2275">'Identity'</span></span>
+- <span data-ttu-id="172d1-2276">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2276">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2277">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2277">'Razor'</span></span>
+- <span data-ttu-id="172d1-2278">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2278">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2279">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2279">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2280">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2280">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2281">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2281">'Identity'</span></span>
+- <span data-ttu-id="172d1-2282">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2282">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2283">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2283">'Razor'</span></span>
+- <span data-ttu-id="172d1-2284">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2284">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2285">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2285">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2286">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2286">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2287">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2287">'Identity'</span></span>
+- <span data-ttu-id="172d1-2288">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2288">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2289">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2289">'Razor'</span></span>
+- <span data-ttu-id="172d1-2290">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2290">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2291">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2291">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2292">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2292">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2293">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2293">'Identity'</span></span>
+- <span data-ttu-id="172d1-2294">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2294">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2295">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2295">'Razor'</span></span>
+- <span data-ttu-id="172d1-2296">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2296">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2297">-------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2297">-------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2298">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2298">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2299">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2299">'Identity'</span></span>
+- <span data-ttu-id="172d1-2300">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2300">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2301">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2301">'Razor'</span></span>
+- <span data-ttu-id="172d1-2302">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2302">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2303">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2303">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2304">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2304">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2305">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2305">'Identity'</span></span>
+- <span data-ttu-id="172d1-2306">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2306">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2307">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2307">'Razor'</span></span>
+- <span data-ttu-id="172d1-2308">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2308">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2309">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2309">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2310">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2310">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2311">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2311">'Identity'</span></span>
+- <span data-ttu-id="172d1-2312">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2312">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2313">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2313">'Razor'</span></span>
+- <span data-ttu-id="172d1-2314">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2314">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2315">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2315">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2316">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2316">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2317">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2317">'Identity'</span></span>
+- <span data-ttu-id="172d1-2318">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2318">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2319">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2319">'Razor'</span></span>
+- <span data-ttu-id="172d1-2320">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2320">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2321">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2321">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2322">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2322">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2323">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2323">'Identity'</span></span>
+- <span data-ttu-id="172d1-2324">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2324">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2325">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2325">'Razor'</span></span>
+- <span data-ttu-id="172d1-2326">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2326">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2327">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2327">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2328">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2328">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2329">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2329">'Identity'</span></span>
+- <span data-ttu-id="172d1-2330">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2330">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2331">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2331">'Razor'</span></span>
+- <span data-ttu-id="172d1-2332">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2332">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2333">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2333">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2334">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2334">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2335">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2335">'Identity'</span></span>
+- <span data-ttu-id="172d1-2336">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2336">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2337">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2337">'Razor'</span></span>
+- <span data-ttu-id="172d1-2338">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2338">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2339">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2339">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2340">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2340">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2341">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2341">'Identity'</span></span>
+- <span data-ttu-id="172d1-2342">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2342">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2343">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2343">'Razor'</span></span>
+- <span data-ttu-id="172d1-2344">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2344">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2345">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2345">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2346">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2346">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2347">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2347">'Identity'</span></span>
+- <span data-ttu-id="172d1-2348">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2348">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2349">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2349">'Razor'</span></span>
+- <span data-ttu-id="172d1-2350">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2350">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2351">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2351">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2352">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2352">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2353">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2353">'Identity'</span></span>
+- <span data-ttu-id="172d1-2354">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2354">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2355">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2355">'Razor'</span></span>
+- <span data-ttu-id="172d1-2356">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2356">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2357">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2357">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2358">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2358">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2359">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2359">'Identity'</span></span>
+- <span data-ttu-id="172d1-2360">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2360">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2361">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2361">'Razor'</span></span>
+- <span data-ttu-id="172d1-2362">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2362">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2363">-------------: | | 0                            | value0                       | | 1                            | value1                       | | 2                            | value2                       | | 3                            | value4                       | | 4                            | value5                       |</span><span class="sxs-lookup"><span data-stu-id="172d1-2363">-------------: | | 0                            | value0                       | | 1                            | value1                       | | 2                            | value2                       | | 3                            | value4                       | | 4                            | value5                       |</span></span>
+
+<span data-ttu-id="172d1-2364">绑定对象中的索引 &num;3 保留 `array:4` 配置键的配置数据及其值 `value4`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2364">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="172d1-2365">当绑定包含数组的配置数据时，配置键中的数组索引仅用于在创建对象时迭代配置数据。</span><span class="sxs-lookup"><span data-stu-id="172d1-2365">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="172d1-2366">无法在配置数据中保留 null 值，并且当配置键中的数组跳过一个或多个索引时，不会在绑定对象中创建 null 值条目。</span><span class="sxs-lookup"><span data-stu-id="172d1-2366">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
+
+<span data-ttu-id="172d1-2367">可以在由任何在配置中生成正确键值对的配置提供程序绑定到 `ArrayExample` 实例之前提供索引 &num;3 的缺失配置项。</span><span class="sxs-lookup"><span data-stu-id="172d1-2367">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="172d1-2368">如果示例包含具有缺失键值对的其他 JSON 配置提供程序，则 `ArrayExample.Entries` 与完整配置数组相匹配：</span><span class="sxs-lookup"><span data-stu-id="172d1-2368">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
+
+<span data-ttu-id="172d1-2369">*missing_value.json*:</span><span class="sxs-lookup"><span data-stu-id="172d1-2369">*missing_value.json*:</span></span>
 
 ```json
 {
@@ -1675,104 +3615,592 @@ _config.GetSection("array").Bind(arrayExample);
 }
 ```
 
-<span data-ttu-id="fb3ea-929">在 `ConfigureAppConfiguration`中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-929">In `ConfigureAppConfiguration`:</span></span>
+<span data-ttu-id="172d1-2370">在 `ConfigureAppConfiguration`中：</span><span class="sxs-lookup"><span data-stu-id="172d1-2370">In `ConfigureAppConfiguration`:</span></span>
 
 ```csharp
 config.AddJsonFile(
     "missing_value.json", optional: false, reloadOnChange: false);
 ```
 
-<span data-ttu-id="fb3ea-930">将表中所示的键值对加载到配置中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-930">The key-value pair shown in the table is loaded into configuration.</span></span>
+<span data-ttu-id="172d1-2371">将表中所示的键值对加载到配置中。</span><span class="sxs-lookup"><span data-stu-id="172d1-2371">The key-value pair shown in the table is loaded into configuration.</span></span>
 
-| <span data-ttu-id="fb3ea-931">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-931">Key</span></span>             | <span data-ttu-id="fb3ea-932">“值”</span><span class="sxs-lookup"><span data-stu-id="fb3ea-932">Value</span></span>  |
-| :-------------: | :----: |
-| <span data-ttu-id="fb3ea-933">array:entries:3</span><span class="sxs-lookup"><span data-stu-id="fb3ea-933">array:entries:3</span></span> | <span data-ttu-id="fb3ea-934">value3</span><span class="sxs-lookup"><span data-stu-id="fb3ea-934">value3</span></span> |
+| <span data-ttu-id="172d1-2372">键</span><span class="sxs-lookup"><span data-stu-id="172d1-2372">Key</span></span>             | <span data-ttu-id="172d1-2373">“值”</span><span class="sxs-lookup"><span data-stu-id="172d1-2373">Value</span></span>  |
+| :---
+<span data-ttu-id="172d1-2374">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2374">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2375">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2375">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2376">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2376">'Identity'</span></span>
+- <span data-ttu-id="172d1-2377">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2377">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2378">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2378">'Razor'</span></span>
+- <span data-ttu-id="172d1-2379">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2379">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-935">如果在 JSON 配置提供程序包含索引 &num;3 的条目之后绑定 `ArrayExample` 类实例，则 `ArrayExample.Entries` 数组包含该值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-935">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
+-
+<span data-ttu-id="172d1-2380">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2380">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2381">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2381">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2382">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2382">'Identity'</span></span>
+- <span data-ttu-id="172d1-2383">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2383">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2384">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2384">'Razor'</span></span>
+- <span data-ttu-id="172d1-2385">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2385">'SignalR' uid:</span></span> 
 
-| <span data-ttu-id="fb3ea-936">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="fb3ea-936">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="fb3ea-937">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="fb3ea-937">`ArrayExample.Entries` Value</span></span> |
-| :--------------------------: | :--------------------------: |
-| <span data-ttu-id="fb3ea-938">0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-938">0</span></span>                            | <span data-ttu-id="fb3ea-939">value0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-939">value0</span></span>                       |
-| <span data-ttu-id="fb3ea-940">1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-940">1</span></span>                            | <span data-ttu-id="fb3ea-941">value1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-941">value1</span></span>                       |
-| <span data-ttu-id="fb3ea-942">2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-942">2</span></span>                            | <span data-ttu-id="fb3ea-943">value2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-943">value2</span></span>                       |
-| <span data-ttu-id="fb3ea-944">3</span><span class="sxs-lookup"><span data-stu-id="fb3ea-944">3</span></span>                            | <span data-ttu-id="fb3ea-945">value3</span><span class="sxs-lookup"><span data-stu-id="fb3ea-945">value3</span></span>                       |
-| <span data-ttu-id="fb3ea-946">4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-946">4</span></span>                            | <span data-ttu-id="fb3ea-947">value4</span><span class="sxs-lookup"><span data-stu-id="fb3ea-947">value4</span></span>                       |
-| <span data-ttu-id="fb3ea-948">5</span><span class="sxs-lookup"><span data-stu-id="fb3ea-948">5</span></span>                            | <span data-ttu-id="fb3ea-949">value5</span><span class="sxs-lookup"><span data-stu-id="fb3ea-949">value5</span></span>                       |
+-
+<span data-ttu-id="172d1-2386">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2386">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2387">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2387">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2388">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2388">'Identity'</span></span>
+- <span data-ttu-id="172d1-2389">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2389">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2390">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2390">'Razor'</span></span>
+- <span data-ttu-id="172d1-2391">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2391">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-950">**JSON 数组处理**</span><span class="sxs-lookup"><span data-stu-id="fb3ea-950">**JSON array processing**</span></span>
+-
+<span data-ttu-id="172d1-2392">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2392">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2393">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2393">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2394">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2394">'Identity'</span></span>
+- <span data-ttu-id="172d1-2395">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2395">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2396">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2396">'Razor'</span></span>
+- <span data-ttu-id="172d1-2397">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2397">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-951">如果 JSON 文件包含数组，则会为具有从零开始的节索引的数组元素创建配置键。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-951">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="fb3ea-952">在以下配置文件中，`subsection` 是一个数组：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-952">In the following configuration file, `subsection` is an array:</span></span>
+<span data-ttu-id="172d1-2398">-------: | :----: | | array:entries:3 | value3 |</span><span class="sxs-lookup"><span data-stu-id="172d1-2398">-------: | :----: | | array:entries:3 | value3 |</span></span>
+
+<span data-ttu-id="172d1-2399">如果在 JSON 配置提供程序包含索引 &num;3 的条目之后绑定 `ArrayExample` 类实例，则 `ArrayExample.Entries` 数组包含该值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2399">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
+
+| <span data-ttu-id="172d1-2400">`ArrayExample.Entries` 索引</span><span class="sxs-lookup"><span data-stu-id="172d1-2400">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="172d1-2401">`ArrayExample.Entries` 值</span><span class="sxs-lookup"><span data-stu-id="172d1-2401">`ArrayExample.Entries` Value</span></span> |
+| :---
+<span data-ttu-id="172d1-2402">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2402">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2403">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2403">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2404">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2404">'Identity'</span></span>
+- <span data-ttu-id="172d1-2405">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2405">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2406">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2406">'Razor'</span></span>
+- <span data-ttu-id="172d1-2407">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2407">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2408">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2408">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2409">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2409">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2410">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2410">'Identity'</span></span>
+- <span data-ttu-id="172d1-2411">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2411">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2412">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2412">'Razor'</span></span>
+- <span data-ttu-id="172d1-2413">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2413">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2414">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2414">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2415">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2415">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2416">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2416">'Identity'</span></span>
+- <span data-ttu-id="172d1-2417">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2417">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2418">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2418">'Razor'</span></span>
+- <span data-ttu-id="172d1-2419">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2419">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2420">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2420">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2421">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2421">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2422">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2422">'Identity'</span></span>
+- <span data-ttu-id="172d1-2423">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2423">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2424">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2424">'Razor'</span></span>
+- <span data-ttu-id="172d1-2425">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2425">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2426">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2426">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2427">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2427">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2428">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2428">'Identity'</span></span>
+- <span data-ttu-id="172d1-2429">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2429">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2430">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2430">'Razor'</span></span>
+- <span data-ttu-id="172d1-2431">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2431">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2432">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2432">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2433">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2433">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2434">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2434">'Identity'</span></span>
+- <span data-ttu-id="172d1-2435">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2435">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2436">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2436">'Razor'</span></span>
+- <span data-ttu-id="172d1-2437">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2437">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2438">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2438">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2439">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2439">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2440">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2440">'Identity'</span></span>
+- <span data-ttu-id="172d1-2441">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2441">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2442">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2442">'Razor'</span></span>
+- <span data-ttu-id="172d1-2443">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2443">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2444">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2444">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2445">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2445">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2446">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2446">'Identity'</span></span>
+- <span data-ttu-id="172d1-2447">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2447">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2448">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2448">'Razor'</span></span>
+- <span data-ttu-id="172d1-2449">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2449">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2450">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2450">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2451">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2451">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2452">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2452">'Identity'</span></span>
+- <span data-ttu-id="172d1-2453">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2453">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2454">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2454">'Razor'</span></span>
+- <span data-ttu-id="172d1-2455">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2455">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2456">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2456">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2457">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2457">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2458">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2458">'Identity'</span></span>
+- <span data-ttu-id="172d1-2459">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2459">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2460">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2460">'Razor'</span></span>
+- <span data-ttu-id="172d1-2461">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2461">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2462">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2462">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2463">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2463">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2464">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2464">'Identity'</span></span>
+- <span data-ttu-id="172d1-2465">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2465">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2466">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2466">'Razor'</span></span>
+- <span data-ttu-id="172d1-2467">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2467">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2468">-------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2468">-------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2469">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2469">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2470">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2470">'Identity'</span></span>
+- <span data-ttu-id="172d1-2471">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2471">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2472">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2472">'Razor'</span></span>
+- <span data-ttu-id="172d1-2473">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2473">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2474">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2474">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2475">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2475">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2476">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2476">'Identity'</span></span>
+- <span data-ttu-id="172d1-2477">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2477">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2478">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2478">'Razor'</span></span>
+- <span data-ttu-id="172d1-2479">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2479">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2480">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2480">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2481">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2481">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2482">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2482">'Identity'</span></span>
+- <span data-ttu-id="172d1-2483">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2483">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2484">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2484">'Razor'</span></span>
+- <span data-ttu-id="172d1-2485">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2485">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2486">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2486">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2487">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2487">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2488">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2488">'Identity'</span></span>
+- <span data-ttu-id="172d1-2489">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2489">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2490">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2490">'Razor'</span></span>
+- <span data-ttu-id="172d1-2491">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2491">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2492">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2492">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2493">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2493">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2494">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2494">'Identity'</span></span>
+- <span data-ttu-id="172d1-2495">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2495">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2496">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2496">'Razor'</span></span>
+- <span data-ttu-id="172d1-2497">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2497">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2498">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2498">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2499">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2499">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2500">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2500">'Identity'</span></span>
+- <span data-ttu-id="172d1-2501">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2501">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2502">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2502">'Razor'</span></span>
+- <span data-ttu-id="172d1-2503">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2503">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2504">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2504">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2505">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2505">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2506">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2506">'Identity'</span></span>
+- <span data-ttu-id="172d1-2507">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2507">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2508">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2508">'Razor'</span></span>
+- <span data-ttu-id="172d1-2509">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2509">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2510">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2510">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2511">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2511">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2512">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2512">'Identity'</span></span>
+- <span data-ttu-id="172d1-2513">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2513">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2514">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2514">'Razor'</span></span>
+- <span data-ttu-id="172d1-2515">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2515">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2516">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2516">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2517">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2517">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2518">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2518">'Identity'</span></span>
+- <span data-ttu-id="172d1-2519">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2519">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2520">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2520">'Razor'</span></span>
+- <span data-ttu-id="172d1-2521">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2521">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2522">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2522">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2523">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2523">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2524">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2524">'Identity'</span></span>
+- <span data-ttu-id="172d1-2525">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2525">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2526">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2526">'Razor'</span></span>
+- <span data-ttu-id="172d1-2527">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2527">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2528">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2528">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2529">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2529">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2530">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2530">'Identity'</span></span>
+- <span data-ttu-id="172d1-2531">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2531">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2532">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2532">'Razor'</span></span>
+- <span data-ttu-id="172d1-2533">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2533">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2534">-------------: | | 0                            | value0                       | | 1                            | value1                       | | 2                            | value2                       | | 3                            | value3                       | | 4                            | value4                       | | 5                            | value5                       |</span><span class="sxs-lookup"><span data-stu-id="172d1-2534">-------------: | | 0                            | value0                       | | 1                            | value1                       | | 2                            | value2                       | | 3                            | value3                       | | 4                            | value4                       | | 5                            | value5                       |</span></span>
+
+<span data-ttu-id="172d1-2535">**JSON 数组处理**</span><span class="sxs-lookup"><span data-stu-id="172d1-2535">**JSON array processing**</span></span>
+
+<span data-ttu-id="172d1-2536">如果 JSON 文件包含数组，则会为具有从零开始的节索引的数组元素创建配置键。</span><span class="sxs-lookup"><span data-stu-id="172d1-2536">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="172d1-2537">在以下配置文件中，`subsection` 是一个数组：</span><span class="sxs-lookup"><span data-stu-id="172d1-2537">In the following configuration file, `subsection` is an array:</span></span>
 
 [!code-json[](index/samples/2.x/ConfigurationSample/json_array.json)]
 
-<span data-ttu-id="fb3ea-953">JSON 配置提供程序将配置数据读入以下键值对：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-953">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
+<span data-ttu-id="172d1-2538">JSON 配置提供程序将配置数据读入以下键值对：</span><span class="sxs-lookup"><span data-stu-id="172d1-2538">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
 
-| <span data-ttu-id="fb3ea-954">键</span><span class="sxs-lookup"><span data-stu-id="fb3ea-954">Key</span></span>                     | <span data-ttu-id="fb3ea-955">“值”</span><span class="sxs-lookup"><span data-stu-id="fb3ea-955">Value</span></span>  |
-| ----------------------- | :----: |
-| <span data-ttu-id="fb3ea-956">json_array:key</span><span class="sxs-lookup"><span data-stu-id="fb3ea-956">json_array:key</span></span>          | <span data-ttu-id="fb3ea-957">valueA</span><span class="sxs-lookup"><span data-stu-id="fb3ea-957">valueA</span></span> |
-| <span data-ttu-id="fb3ea-958">json_array:subsection:0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-958">json_array:subsection:0</span></span> | <span data-ttu-id="fb3ea-959">valueB</span><span class="sxs-lookup"><span data-stu-id="fb3ea-959">valueB</span></span> |
-| <span data-ttu-id="fb3ea-960">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-960">json_array:subsection:1</span></span> | <span data-ttu-id="fb3ea-961">valueC</span><span class="sxs-lookup"><span data-stu-id="fb3ea-961">valueC</span></span> |
-| <span data-ttu-id="fb3ea-962">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-962">json_array:subsection:2</span></span> | <span data-ttu-id="fb3ea-963">valueD</span><span class="sxs-lookup"><span data-stu-id="fb3ea-963">valueD</span></span> |
+| <span data-ttu-id="172d1-2539">键</span><span class="sxs-lookup"><span data-stu-id="172d1-2539">Key</span></span>                     | <span data-ttu-id="172d1-2540">“值”</span><span class="sxs-lookup"><span data-stu-id="172d1-2540">Value</span></span>  |
+| ---
+<span data-ttu-id="172d1-2541">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2541">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2542">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2542">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2543">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2543">'Identity'</span></span>
+- <span data-ttu-id="172d1-2544">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2544">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2545">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2545">'Razor'</span></span>
+- <span data-ttu-id="172d1-2546">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2546">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-964">在示例应用中，以下 POCO 类可用于绑定配置键值对：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-964">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
+-
+<span data-ttu-id="172d1-2547">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2547">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2548">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2548">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2549">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2549">'Identity'</span></span>
+- <span data-ttu-id="172d1-2550">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2550">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2551">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2551">'Razor'</span></span>
+- <span data-ttu-id="172d1-2552">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2552">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2553">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2553">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2554">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2554">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2555">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2555">'Identity'</span></span>
+- <span data-ttu-id="172d1-2556">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2556">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2557">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2557">'Razor'</span></span>
+- <span data-ttu-id="172d1-2558">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2558">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2559">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2559">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2560">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2560">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2561">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2561">'Identity'</span></span>
+- <span data-ttu-id="172d1-2562">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2562">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2563">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2563">'Razor'</span></span>
+- <span data-ttu-id="172d1-2564">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2564">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2565">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2565">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2566">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2566">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2567">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2567">'Identity'</span></span>
+- <span data-ttu-id="172d1-2568">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2568">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2569">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2569">'Razor'</span></span>
+- <span data-ttu-id="172d1-2570">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2570">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2571">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2571">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2572">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2572">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2573">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2573">'Identity'</span></span>
+- <span data-ttu-id="172d1-2574">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2574">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2575">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2575">'Razor'</span></span>
+- <span data-ttu-id="172d1-2576">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2576">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2577">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2577">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2578">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2578">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2579">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2579">'Identity'</span></span>
+- <span data-ttu-id="172d1-2580">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2580">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2581">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2581">'Razor'</span></span>
+- <span data-ttu-id="172d1-2582">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2582">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2583">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2583">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2584">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2584">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2585">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2585">'Identity'</span></span>
+- <span data-ttu-id="172d1-2586">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2586">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2587">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2587">'Razor'</span></span>
+- <span data-ttu-id="172d1-2588">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2588">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2589">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2589">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2590">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2590">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2591">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2591">'Identity'</span></span>
+- <span data-ttu-id="172d1-2592">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2592">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2593">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2593">'Razor'</span></span>
+- <span data-ttu-id="172d1-2594">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2594">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2595">------------ | :----: | | json_array:key          | valueA | | json_array:subsection:0 | valueB | | json_array:subsection:1 | valueC | | json_array:subsection:2 | valueD |</span><span class="sxs-lookup"><span data-stu-id="172d1-2595">------------ | :----: | | json_array:key          | valueA | | json_array:subsection:0 | valueB | | json_array:subsection:1 | valueC | | json_array:subsection:2 | valueD |</span></span>
+
+<span data-ttu-id="172d1-2596">在示例应用中，以下 POCO 类可用于绑定配置键值对：</span><span class="sxs-lookup"><span data-stu-id="172d1-2596">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-965">绑定后，`JsonArrayExample.Key` 保存值 `valueA`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-965">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="fb3ea-966">子节值存储在 POCO 数组属性 `Subsection` 中。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-966">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
+<span data-ttu-id="172d1-2597">绑定后，`JsonArrayExample.Key` 保存值 `valueA`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2597">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="172d1-2598">子节值存储在 POCO 数组属性 `Subsection` 中。</span><span class="sxs-lookup"><span data-stu-id="172d1-2598">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
 
-| <span data-ttu-id="fb3ea-967">`JsonArrayExample.Subsection` 索引</span><span class="sxs-lookup"><span data-stu-id="fb3ea-967">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="fb3ea-968">`JsonArrayExample.Subsection` 值</span><span class="sxs-lookup"><span data-stu-id="fb3ea-968">`JsonArrayExample.Subsection` Value</span></span> |
-| :---------------------------------: | :---------------------------------: |
-| <span data-ttu-id="fb3ea-969">0</span><span class="sxs-lookup"><span data-stu-id="fb3ea-969">0</span></span>                                   | <span data-ttu-id="fb3ea-970">valueB</span><span class="sxs-lookup"><span data-stu-id="fb3ea-970">valueB</span></span>                              |
-| <span data-ttu-id="fb3ea-971">1</span><span class="sxs-lookup"><span data-stu-id="fb3ea-971">1</span></span>                                   | <span data-ttu-id="fb3ea-972">valueC</span><span class="sxs-lookup"><span data-stu-id="fb3ea-972">valueC</span></span>                              |
-| <span data-ttu-id="fb3ea-973">2</span><span class="sxs-lookup"><span data-stu-id="fb3ea-973">2</span></span>                                   | <span data-ttu-id="fb3ea-974">valueD</span><span class="sxs-lookup"><span data-stu-id="fb3ea-974">valueD</span></span>                              |
+| <span data-ttu-id="172d1-2599">`JsonArrayExample.Subsection` 索引</span><span class="sxs-lookup"><span data-stu-id="172d1-2599">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="172d1-2600">`JsonArrayExample.Subsection` 值</span><span class="sxs-lookup"><span data-stu-id="172d1-2600">`JsonArrayExample.Subsection` Value</span></span> |
+| :---
+<span data-ttu-id="172d1-2601">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2601">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2602">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2602">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2603">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2603">'Identity'</span></span>
+- <span data-ttu-id="172d1-2604">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2604">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2605">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2605">'Razor'</span></span>
+- <span data-ttu-id="172d1-2606">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2606">'SignalR' uid:</span></span> 
 
-## <a name="custom-configuration-provider"></a><span data-ttu-id="fb3ea-975">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="fb3ea-975">Custom configuration provider</span></span>
+-
+<span data-ttu-id="172d1-2607">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2607">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2608">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2608">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2609">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2609">'Identity'</span></span>
+- <span data-ttu-id="172d1-2610">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2610">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2611">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2611">'Razor'</span></span>
+- <span data-ttu-id="172d1-2612">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2612">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-976">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-976">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
+-
+<span data-ttu-id="172d1-2613">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2613">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2614">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2614">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2615">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2615">'Identity'</span></span>
+- <span data-ttu-id="172d1-2616">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2616">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2617">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2617">'Razor'</span></span>
+- <span data-ttu-id="172d1-2618">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2618">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-977">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-977">The provider has the following characteristics:</span></span>
+-
+<span data-ttu-id="172d1-2619">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2619">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2620">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2620">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2621">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2621">'Identity'</span></span>
+- <span data-ttu-id="172d1-2622">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2622">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2623">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2623">'Razor'</span></span>
+- <span data-ttu-id="172d1-2624">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2624">'SignalR' uid:</span></span> 
 
-* <span data-ttu-id="fb3ea-978">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-978">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="fb3ea-979">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-979">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
-* <span data-ttu-id="fb3ea-980">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-980">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="fb3ea-981">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-981">The provider doesn't query the database on a per-key basis.</span></span>
-* <span data-ttu-id="fb3ea-982">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-982">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
+-
+<span data-ttu-id="172d1-2625">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2625">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2626">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2626">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2627">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2627">'Identity'</span></span>
+- <span data-ttu-id="172d1-2628">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2628">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2629">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2629">'Razor'</span></span>
+- <span data-ttu-id="172d1-2630">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2630">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-983">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-983">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
+-
+<span data-ttu-id="172d1-2631">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2631">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2632">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2632">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2633">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2633">'Identity'</span></span>
+- <span data-ttu-id="172d1-2634">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2634">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2635">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2635">'Razor'</span></span>
+- <span data-ttu-id="172d1-2636">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2636">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="fb3ea-984">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-984">*Models/EFConfigurationValue.cs*:</span></span>
+-
+<span data-ttu-id="172d1-2637">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2637">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2638">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2638">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2639">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2639">'Identity'</span></span>
+- <span data-ttu-id="172d1-2640">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2640">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2641">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2641">'Razor'</span></span>
+- <span data-ttu-id="172d1-2642">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2642">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2643">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2643">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2644">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2644">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2645">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2645">'Identity'</span></span>
+- <span data-ttu-id="172d1-2646">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2646">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2647">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2647">'Razor'</span></span>
+- <span data-ttu-id="172d1-2648">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2648">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2649">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2649">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2650">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2650">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2651">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2651">'Identity'</span></span>
+- <span data-ttu-id="172d1-2652">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2652">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2653">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2653">'Razor'</span></span>
+- <span data-ttu-id="172d1-2654">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2654">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2655">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2655">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2656">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2656">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2657">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2657">'Identity'</span></span>
+- <span data-ttu-id="172d1-2658">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2658">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2659">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2659">'Razor'</span></span>
+- <span data-ttu-id="172d1-2660">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2660">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2661">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2661">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2662">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2662">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2663">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2663">'Identity'</span></span>
+- <span data-ttu-id="172d1-2664">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2664">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2665">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2665">'Razor'</span></span>
+- <span data-ttu-id="172d1-2666">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2666">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2667">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2667">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2668">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2668">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2669">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2669">'Identity'</span></span>
+- <span data-ttu-id="172d1-2670">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2670">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2671">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2671">'Razor'</span></span>
+- <span data-ttu-id="172d1-2672">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2672">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2673">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2673">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2674">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2674">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2675">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2675">'Identity'</span></span>
+- <span data-ttu-id="172d1-2676">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2676">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2677">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2677">'Razor'</span></span>
+- <span data-ttu-id="172d1-2678">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2678">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2679">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2679">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2680">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2680">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2681">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2681">'Identity'</span></span>
+- <span data-ttu-id="172d1-2682">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2682">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2683">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2683">'Razor'</span></span>
+- <span data-ttu-id="172d1-2684">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2684">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2685">-----------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2685">-----------------: | :--- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2686">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2686">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2687">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2687">'Identity'</span></span>
+- <span data-ttu-id="172d1-2688">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2688">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2689">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2689">'Razor'</span></span>
+- <span data-ttu-id="172d1-2690">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2690">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2691">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2691">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2692">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2692">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2693">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2693">'Identity'</span></span>
+- <span data-ttu-id="172d1-2694">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2694">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2695">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2695">'Razor'</span></span>
+- <span data-ttu-id="172d1-2696">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2696">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2697">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2697">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2698">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2698">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2699">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2699">'Identity'</span></span>
+- <span data-ttu-id="172d1-2700">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2700">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2701">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2701">'Razor'</span></span>
+- <span data-ttu-id="172d1-2702">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2702">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2703">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2703">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2704">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2704">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2705">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2705">'Identity'</span></span>
+- <span data-ttu-id="172d1-2706">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2706">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2707">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2707">'Razor'</span></span>
+- <span data-ttu-id="172d1-2708">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2708">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2709">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2709">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2710">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2710">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2711">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2711">'Identity'</span></span>
+- <span data-ttu-id="172d1-2712">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2712">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2713">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2713">'Razor'</span></span>
+- <span data-ttu-id="172d1-2714">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2714">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2715">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2715">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2716">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2716">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2717">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2717">'Identity'</span></span>
+- <span data-ttu-id="172d1-2718">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2718">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2719">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2719">'Razor'</span></span>
+- <span data-ttu-id="172d1-2720">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2720">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2721">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2721">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2722">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2722">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2723">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2723">'Identity'</span></span>
+- <span data-ttu-id="172d1-2724">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2724">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2725">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2725">'Razor'</span></span>
+- <span data-ttu-id="172d1-2726">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2726">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2727">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2727">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2728">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2728">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2729">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2729">'Identity'</span></span>
+- <span data-ttu-id="172d1-2730">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2730">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2731">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2731">'Razor'</span></span>
+- <span data-ttu-id="172d1-2732">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2732">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2733">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2733">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2734">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2734">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2735">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2735">'Identity'</span></span>
+- <span data-ttu-id="172d1-2736">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2736">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2737">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2737">'Razor'</span></span>
+- <span data-ttu-id="172d1-2738">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2738">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2739">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2739">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2740">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2740">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2741">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2741">'Identity'</span></span>
+- <span data-ttu-id="172d1-2742">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2742">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2743">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2743">'Razor'</span></span>
+- <span data-ttu-id="172d1-2744">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2744">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2745">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2745">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2746">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2746">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2747">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2747">'Identity'</span></span>
+- <span data-ttu-id="172d1-2748">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2748">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2749">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2749">'Razor'</span></span>
+- <span data-ttu-id="172d1-2750">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2750">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2751">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2751">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2752">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2752">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2753">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2753">'Identity'</span></span>
+- <span data-ttu-id="172d1-2754">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2754">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2755">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2755">'Razor'</span></span>
+- <span data-ttu-id="172d1-2756">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2756">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2757">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2757">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2758">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2758">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2759">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2759">'Identity'</span></span>
+- <span data-ttu-id="172d1-2760">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2760">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2761">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2761">'Razor'</span></span>
+- <span data-ttu-id="172d1-2762">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2762">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="172d1-2763">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="172d1-2763">title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="172d1-2764">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2764">'Blazor'</span></span>
+- <span data-ttu-id="172d1-2765">'Identity'</span><span class="sxs-lookup"><span data-stu-id="172d1-2765">'Identity'</span></span>
+- <span data-ttu-id="172d1-2766">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="172d1-2766">'Let's Encrypt'</span></span>
+- <span data-ttu-id="172d1-2767">'Razor'</span><span class="sxs-lookup"><span data-stu-id="172d1-2767">'Razor'</span></span>
+- <span data-ttu-id="172d1-2768">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="172d1-2768">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="172d1-2769">-----------------: | | 0                                   | valueB                              | | 1                                   | valueC                              | | 2                                   | valueD                              |</span><span class="sxs-lookup"><span data-stu-id="172d1-2769">-----------------: | | 0                                   | valueB                              | | 1                                   | valueC                              | | 2                                   | valueD                              |</span></span>
+
+## <a name="custom-configuration-provider"></a><span data-ttu-id="172d1-2770">自定义配置提供程序</span><span class="sxs-lookup"><span data-stu-id="172d1-2770">Custom configuration provider</span></span>
+
+<span data-ttu-id="172d1-2771">该示例应用演示了如何使用[实体框架 (EF)](/ef/core/) 创建从数据库读取配置键值对的基本配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-2771">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
+
+<span data-ttu-id="172d1-2772">提供程序具有以下特征：</span><span class="sxs-lookup"><span data-stu-id="172d1-2772">The provider has the following characteristics:</span></span>
+
+* <span data-ttu-id="172d1-2773">EF 内存中数据库用于演示目的。</span><span class="sxs-lookup"><span data-stu-id="172d1-2773">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="172d1-2774">若要使用需要连接字符串的数据库，请实现辅助 `ConfigurationBuilder` 以从另一个配置提供程序提供连接字符串。</span><span class="sxs-lookup"><span data-stu-id="172d1-2774">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
+* <span data-ttu-id="172d1-2775">提供程序在启动时将数据库表读入配置。</span><span class="sxs-lookup"><span data-stu-id="172d1-2775">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="172d1-2776">提供程序不会基于每个键查询数据库。</span><span class="sxs-lookup"><span data-stu-id="172d1-2776">The provider doesn't query the database on a per-key basis.</span></span>
+* <span data-ttu-id="172d1-2777">未实现更改时重载，因此在应用启动后更新数据库对应用的配置没有任何影响。</span><span class="sxs-lookup"><span data-stu-id="172d1-2777">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
+
+<span data-ttu-id="172d1-2778">定义用于在数据库中存储配置值的 `EFConfigurationValue` 实体。</span><span class="sxs-lookup"><span data-stu-id="172d1-2778">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
+
+<span data-ttu-id="172d1-2779">*Models/EFConfigurationValue.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-2779">*Models/EFConfigurationValue.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-985">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-985">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
+<span data-ttu-id="172d1-2780">添加 `EFConfigurationContext` 以存储和访问配置的值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2780">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
 
-<span data-ttu-id="fb3ea-986">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-986">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
+<span data-ttu-id="172d1-2781">*EFConfigurationProvider/EFConfigurationContext.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-2781">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-987">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-987">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
+<span data-ttu-id="172d1-2782">创建用于实现 <xref:Microsoft.Extensions.Configuration.IConfigurationSource> 的类。</span><span class="sxs-lookup"><span data-stu-id="172d1-2782">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
 
-<span data-ttu-id="fb3ea-988">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-988">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
+<span data-ttu-id="172d1-2783">*EFConfigurationProvider/EFConfigurationSource.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-2783">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-989">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-989">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="fb3ea-990">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-990">The configuration provider initializes the database when it's empty.</span></span>
+<span data-ttu-id="172d1-2784">通过从 <xref:Microsoft.Extensions.Configuration.ConfigurationProvider> 继承来创建自定义配置提供程序。</span><span class="sxs-lookup"><span data-stu-id="172d1-2784">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="172d1-2785">当数据库为空时，配置提供程序将对其进行初始化。</span><span class="sxs-lookup"><span data-stu-id="172d1-2785">The configuration provider initializes the database when it's empty.</span></span>
 
-<span data-ttu-id="fb3ea-991">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-991">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
+<span data-ttu-id="172d1-2786">*EFConfigurationProvider/EFConfigurationProvider.cs*：</span><span class="sxs-lookup"><span data-stu-id="172d1-2786">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-992">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-992">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
+<span data-ttu-id="172d1-2787">可以使用 `AddEFConfiguration` 扩展方法将配置源添加到 `ConfigurationBuilder`。</span><span class="sxs-lookup"><span data-stu-id="172d1-2787">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
 
-<span data-ttu-id="fb3ea-993">Extensions/EntityFrameworkExtensions.cs  ：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-993">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
+<span data-ttu-id="172d1-2788">Extensions/EntityFrameworkExtensions.cs：</span><span class="sxs-lookup"><span data-stu-id="172d1-2788">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-<span data-ttu-id="fb3ea-994">下面的代码演示如何在 Program.cs  中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-994">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
+<span data-ttu-id="172d1-2789">下面的代码演示如何在 Program.cs 中使用自定义的 `EFConfigurationProvider`：</span><span class="sxs-lookup"><span data-stu-id="172d1-2789">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
-## <a name="access-configuration-during-startup"></a><span data-ttu-id="fb3ea-995">在启动期间访问配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-995">Access configuration during startup</span></span>
+## <a name="access-configuration-during-startup"></a><span data-ttu-id="172d1-2790">在启动期间访问配置</span><span class="sxs-lookup"><span data-stu-id="172d1-2790">Access configuration during startup</span></span>
 
-<span data-ttu-id="fb3ea-996">将 `IConfiguration` 注入 `Startup` 构造函数以访问 `Startup.ConfigureServices` 中的配置值。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-996">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="fb3ea-997">若要访问 `Startup.Configure` 中的配置，请将 `IConfiguration` 直接注入方法或使用构造函数中的实例：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-997">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
+<span data-ttu-id="172d1-2791">将 `IConfiguration` 注入 `Startup` 构造函数以访问 `Startup.ConfigureServices` 中的配置值。</span><span class="sxs-lookup"><span data-stu-id="172d1-2791">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="172d1-2792">若要访问 `Startup.Configure` 中的配置，请将 `IConfiguration` 直接注入方法或使用构造函数中的实例：</span><span class="sxs-lookup"><span data-stu-id="172d1-2792">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
 
 ```csharp
 public class Startup
@@ -1796,13 +4224,13 @@ public class Startup
 }
 ```
 
-<span data-ttu-id="fb3ea-998">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-998">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
+<span data-ttu-id="172d1-2793">有关使用启动便捷方法访问配置的示例，请参阅[应用启动：便捷方法](xref:fundamentals/startup#convenience-methods)。</span><span class="sxs-lookup"><span data-stu-id="172d1-2793">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="fb3ea-999">在 Razor Pages 页面或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-999">Access configuration in a Razor Pages page or MVC view</span></span>
+## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="172d1-2794">在 Razor Pages 页面或 MVC 视图中访问配置</span><span class="sxs-lookup"><span data-stu-id="172d1-2794">Access configuration in a Razor Pages page or MVC view</span></span>
 
-<span data-ttu-id="fb3ea-1000">若要访问 Razor Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1000">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
+<span data-ttu-id="172d1-2795">若要访问 Razor Pages 页面或 MVC 视图中的配置设置，请为 [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) 命名空间添加 [using 指令](xref:mvc/views/razor#using)（[C# 参考：using 指令](/dotnet/csharp/language-reference/keywords/using-directive)）并将 <xref:Microsoft.Extensions.Configuration.IConfiguration> 注入该页面或视图。</span><span class="sxs-lookup"><span data-stu-id="172d1-2795">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
 
-<span data-ttu-id="fb3ea-1001">在 Razor Pages 页面中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1001">In a Razor Pages page:</span></span>
+<span data-ttu-id="172d1-2796">在 Razor Pages 页面中：</span><span class="sxs-lookup"><span data-stu-id="172d1-2796">In a Razor Pages page:</span></span>
 
 ```cshtml
 @page
@@ -1822,7 +4250,7 @@ public class Startup
 </html>
 ```
 
-<span data-ttu-id="fb3ea-1002">在 MVC 视图中：</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1002">In an MVC view:</span></span>
+<span data-ttu-id="172d1-2797">在 MVC 视图中：</span><span class="sxs-lookup"><span data-stu-id="172d1-2797">In an MVC view:</span></span>
 
 ```cshtml
 @using Microsoft.Extensions.Configuration
@@ -1840,11 +4268,11 @@ public class Startup
 </html>
 ```
 
-## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="fb3ea-1003">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1003">Add configuration from an external assembly</span></span>
+## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="172d1-2798">从外部程序集添加配置</span><span class="sxs-lookup"><span data-stu-id="172d1-2798">Add configuration from an external assembly</span></span>
 
-<span data-ttu-id="fb3ea-1004">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1004">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="fb3ea-1005">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1005">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="172d1-2799">通过 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> 实现，可在启动时从应用 `Startup` 类之外的外部程序集向应用添加增强功能。</span><span class="sxs-lookup"><span data-stu-id="172d1-2799">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="172d1-2800">有关详细信息，请参阅 <xref:fundamentals/configuration/platform-specific-configuration>。</span><span class="sxs-lookup"><span data-stu-id="172d1-2800">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="fb3ea-1006">其他资源</span><span class="sxs-lookup"><span data-stu-id="fb3ea-1006">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="172d1-2801">其他资源</span><span class="sxs-lookup"><span data-stu-id="172d1-2801">Additional resources</span></span>
 
 * <xref:fundamentals/configuration/options>
 
