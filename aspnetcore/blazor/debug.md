@@ -25,13 +25,8 @@ monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 目前，无法执行以下操作：
 
-* 检查数组。
-* 悬停以检查成员。
-* 逐步调试托管代码。
-* 对检查值类型提供完全支持。
 * 出现未经处理的异常时中断。
 * 在应用启动期间命中断点。
-* 使用服务工作进程调试应用。
 
 在即将发布的版本中，我们将继续改进调试体验。
 
@@ -78,7 +73,7 @@ monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
 
-1. 在 `OnInitializedAsync` 的 FetchData.razor 页面中设置一个断点。
+1. 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 的 FetchData.razor 页面中设置一个断点。
 1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
 1. 浏览到“提取数据”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中断点：
 

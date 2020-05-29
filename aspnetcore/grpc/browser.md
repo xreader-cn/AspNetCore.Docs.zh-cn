@@ -11,16 +11,6 @@ title: author: description: monikerRange: ms.author: ms.date: no-loc:
 
 作者：[James Newton-King](https://twitter.com/jamesnk)
 
-> [!IMPORTANT]
-> **.NET 中的 gRPC-Web 支持是试验性的**
->
-> 适用于 .NET 的 gRPC-Web 是一个试验性项目，而不是已完善的产品。 我们希望：
->
-> * 测试我们实现 gRPC-Web 的方法是否有效。
-> * 获得此方法是否对 .NET 开发人员有用（与通过代理设置 gRPC-Web 的传统方法相比）的反馈。
->
-> 请通过 [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) 提供反馈，以确保我们生成的内容受到开发人员欢迎并能帮助他们提高工作效率。
-
 无法从基于浏览器的应用中调用 HTTP/2 gRPC 服务。 [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) 是一种允许浏览器 JavaScript 和 Blazor 应用调用 gRPC 服务的协议。 本文介绍如何使用 .NET Core 中的 gRPC-Web。
 
 ## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>.NET Core 中的 gRPC-Web 与Envoy

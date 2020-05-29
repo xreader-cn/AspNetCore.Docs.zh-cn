@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7601e448a52be5e1064326929281e72ad28a0e65
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: cca4d8ce0c783f26f33cb7b2b1535a4bc53384d6
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967150"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424345"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>处理 ASP.NET Core Blazor 应用中的错误
 
@@ -35,7 +35,7 @@ ms.locfileid: "82967150"
 
 此错误处理体验的 UI 属于 Blazor 项目模板。
 
-在 Blazor WebAssembly 应用的 wwwroot/index.html 文件中自定义体验  ：
+在 Blazor WebAssembly 应用的 wwwroot/index.html 文件中自定义体验：
 
 ```html
 <div id="blazor-error-ui">
@@ -45,7 +45,7 @@ ms.locfileid: "82967150"
 </div>
 ```
 
-在 Blazor 服务器应用的 Pages/_Host.cshtml 文件中自定义体验  ：
+在 Blazor 服务器应用的 Pages/_Host.cshtml 文件中自定义体验：
 
 ```cshtml
 <div id="blazor-error-ui">
@@ -85,14 +85,14 @@ ms.locfileid: "82967150"
 
 ## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor 服务器应用如何应对未经处理的异常
 
-Blazor 服务器是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接  。 线路包含活动组件实例，以及状态的许多其他方面，例如：
+Blazor 服务器是一种有状态框架。 用户与应用进行交互时，会与服务器保持名为“线路”的连接。 线路包含活动组件实例，以及状态的许多其他方面，例如：
 
 * 最新呈现的组件输出。
 * 可由客户端事件触发的事件处理委托的当前集合。
 
 如果用户在多个浏览器标签页中打开应用，则具有多条独立线路。
 
-Blazor 将大部分未经处理的异常视为发生该异常的线路的严重异常。 如果线路由于未经处理的异常而终止，则用户只能重新加载页面来创建新线路，从而继续与应用进行交互。 终止的线路以外的其他线路（即其他用户或其他浏览器标签页的线路）不会受到影响。 这种情况类似于桌面应用故障 &mdash; 出现故障的应用必须重启，但其他应用不受影响。
+Blazor 将大部分未经处理的异常视为发生该异常的线路的严重异常。 如果线路由于未经处理的异常而终止，则用户只能重新加载页面来创建新线路，从而继续与应用进行交互。 终止的线路以外的其他线路（即其他用户或其他浏览器标签页的线路）不会受到影响。 此场景类似于出现故障的桌面应用。 出现故障的应用必须重新启动，但其他应用不受影响。
 
 当发生未经处理的异常时，线路会终止，原因如下：
 
@@ -262,7 +262,7 @@ Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/buil
 
 ### <a name="custom-render-tree-logic"></a>自定义呈现器树逻辑
 
-大多数 Blazor 组件都实现为 .razor 文件，并经过编译以生成在 `RenderTreeBuilder` 上运行的逻辑，目的是呈现其输出  。 开发人员可使用程序 C# 代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>。
+大多数 Blazor 组件都实现为 .razor 文件，并经过编译以生成在 `RenderTreeBuilder` 上运行的逻辑，目的是呈现其输出。 开发人员可使用程序 C# 代码手动实现 `RenderTreeBuilder` 逻辑。 有关详细信息，请参阅 <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>。
 
 > [!WARNING]
 > 手动呈现树生成器逻辑被视为一种高级且不安全的方案，不建议开发人员在常规组件开发工作中采用。
@@ -274,4 +274,4 @@ Blazor 组件可使用[组件标记帮助程序](xref:mvc/views/tag-helpers/buil
 
 若手动呈现树生成器逻辑不正确，则可能出现任意未定义的行为（包括崩溃和服务器挂起）以及安全漏洞。
 
-请知悉：手动呈现树生成器逻辑的复杂程度和危险程度与手动编写程序集代码或 MSIL 指令是一样的  。
+请知悉：手动呈现树生成器逻辑的复杂程度和危险程度与手动编写程序集代码或 MSIL 指令是一样的。
