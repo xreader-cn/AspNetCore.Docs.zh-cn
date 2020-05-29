@@ -1,24 +1,12 @@
 ---
-title: 创建和使用 ASP.NET Core Razor 组件
-author: guardrex
-description: 了解如何创建和使用 Razor 组件，包括如何绑定到数据、处理事件和管理组件生命周期。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/11/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/components
-ms.openlocfilehash: a7009bf1cf99a15f3617b47a904d52f5787b9ce1
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153519"
+title:“创建和使用 ASP.NET Core Razor 组件”author: description:“了解如何创建和使用 Razor 组件，包括如何绑定到数据、处理事件和管理组件生命周期。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -26,17 +14,17 @@ ms.locfileid: "83153519"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-Blazor 应用是使用组件构建的  。 组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻量。 可在项目之间嵌套、重复使用和共享。
+Blazor 应用是使用组件构建的。 组件是自包含的用户界面 (UI) 块，例如页、对话框或窗体。 组件包含插入数据或响应 UI 事件所需的 HTML 标记和处理逻辑。 组件非常灵活且轻量。 可在项目之间嵌套、重复使用和共享。
 
 ## <a name="component-classes"></a>组件类
 
-组件是使用 C# 和 HTML 标记的组合在 [Razor](xref:mvc/views/razor) 组件文件 (.razor) 中实现的  。 Blazor 中的组件正式称为 Razor 组件  。
+组件是使用 C# 和 HTML 标记的组合在 [Razor](xref:mvc/views/razor) 组件文件 (.razor) 中实现的。 Blazor 中的组件正式称为 Razor 组件。
 
-组件的名称必须以大写字符开头。 例如，MyCoolComponent.razor 有效，myCoolComponent.razor 无效   。
+组件的名称必须以大写字符开头。 例如，MyCoolComponent.razor 有效，myCoolComponent.razor 无效 。
 
-使用 HTML 定义组件的 UI。 动态呈现逻辑（例如，循环、条件、表达式）是使用名为 [Razor](xref:mvc/views/razor) 的嵌入式 C# 语法添加的。 在编译应用时，HTML 标记和 C# 呈现逻辑转换为组件类。 生成的类的名称与文件名匹配。
+使用 HTML 定义组件的 UI。 动态呈现逻辑（例如，循环、条件、表达式）是使用名为 *Razor* 的嵌入式 C# 语法添加的。 在编译应用时，HTML 标记和 C# 呈现逻辑转换为组件类。 生成的类的名称与文件名匹配。
 
-组件类的成员在 `@code` 块中定义。 在 `@code` 块中，通过用于处理事件或定义其他组件逻辑的方法指定组件状态（属性、字段）。 允许多个 `@code` 块。
+组件类的成员在 [`@code`][1] 块中定义。 在 [`@code`][1] 块中，通过用于处理事件或定义其他组件逻辑的方法指定组件状态（属性、字段）。 允许多个 [`@code`][1] 块。
 
 可以使用以 `@` 开头的 C# 表达式将组件成员作为组件的呈现逻辑的一部分。 例如，通过为字段名称添加 `@` 前缀来呈现 C# 字段。 下面的示例计算并呈现：
 
@@ -54,14 +42,14 @@ Blazor 应用是使用组件构建的  。 组件是自包含的用户界面 (UI
 
 最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新呈现树与前一个呈现树进行比较，并对浏览器文档对象模型 (DOM) 应用任何修改。
 
-组件是普通 C# 类，可以放置在项目中的任何位置。 生成网页的组件通常位于 Pages 文件夹中  。 非页面组件通常放置在 Shared 文件夹或添加到项目的自定义文件夹中  。
+组件是普通 C# 类，可以放置在项目中的任何位置。 生成网页的组件通常位于 Pages 文件夹中。 非页面组件通常放置在 Shared 文件夹或添加到项目的自定义文件夹中。
 
-通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp`，并且 `Counter` 组件位于 Pages 文件夹中  ：
+通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp`，并且 `Counter` 组件位于 Pages 文件夹中：
 
 * `Counter` 组件的命名空间为 `BlazorApp.Pages`。
 * 组件的完全限定类型名称为 `BlazorApp.Pages.Counter`。
 
-对于保存组件的自定义文件夹，将 `using` 语句添加到父组件或应用的 _Imports.razor  文件中。 下面的示例提供“Components”文件夹中的组件  ：
+对于保存组件的自定义文件夹，将 `using` 语句添加到父组件或应用的 _Imports.razor 文件中。 下面的示例提供“Components”文件夹中的组件：
 
 ```razor
 @using BlazorApp.Components
@@ -75,45 +63,54 @@ Blazor 应用是使用组件构建的  。 组件是自包含的用户界面 (UI
 
 有关详细信息，请参阅[导入组件](#import-components)部分。
 
+## <a name="razor-syntax"></a>Razor 语法
+
+Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 Razor 标记语言，建议先阅读 <xref:mvc/views/razor>，然后再继续。
+
+访问 Razor 语法上的内容时，请特别注意以下各节：
+
+* [指令](xref:mvc/views/razor#directives) &ndash; `@`-前缀保留关键字，通常会更改组件标记的分析或工作方式。
+* [指令属性](xref:mvc/views/razor#directive-attributes) &ndash; `@`-前缀保留关键字，通常会更改组件元素的分析或工作方式。
+
 ## <a name="static-assets"></a>静态资产
 
 Blazor 遵循 ASP.NET Core 应用的约定，将静态资产放在项目的 [Web 根 (wwwroot) 文件夹下](xref:fundamentals/index#web-root)。
 
-使用基相对路径 (`/`) 来引用静态资产的 Web 根。 在下面的示例中，logo.png 物理上位置位于 {PROJECT ROOT}/wwwroot/images 文件夹中   ：
+使用基相对路径 (`/`) 来引用静态资产的 Web 根。 在下面的示例中，logo.png 物理上位置位于 {PROJECT ROOT}/wwwroot/images 文件夹中 ：
 
 ```razor
 <img alt="Company logo" src="/images/logo.png" />
 ```
 
-Razor 组件不支持波浪符斜杠表示法 (`~/`)  。
+Razor 组件不支持波浪符斜杠表示法 (`~/`)。
 
 有关设置应用基路径的信息，请参阅 <xref:host-and-deploy/blazor/index#app-base-path>。
 
 ## <a name="tag-helpers-arent-supported-in-components"></a>组件中不支持标记帮助程序
 
-Razor 组件（.razor 文件）不支持[标记帮助程序](xref:mvc/views/tag-helpers/intro)  。 若要在 Blazor 中提供类似标记帮助程序的功能，请创建一个具有与标记帮助程序相同功能的组件，并改为使用该组件。
+Razor 组件（.razor 文件）不支持[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 若要在 Blazor 中提供类似标记帮助程序的功能，请创建一个具有与标记帮助程序相同功能的组件，并改为使用该组件。
 
 ## <a name="use-components"></a>使用组件
 
 通过使用 HTML 元素语法声明组件，组件可以包含其他组件。 使用组件的标记类似于 HTML 标记，其中标记的名称是组件类型。
 
-Index.razor 中的以下标记呈现了 `HeadingComponent` 实例  ：
+Index.razor 中的以下标记呈现了 `HeadingComponent` 实例：
 
 ```razor
 <HeadingComponent />
 ```
 
-Components/HeadingComponent.razor  ：
+Components/HeadingComponent.razor：
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
-如果某个组件包含一个 HTML 元素，该元素的大写首字母与组件名称不匹配，则会发出警告，指示该元素名称异常。 为组件的命名空间添加 `@using` 指令使组件可用，这可解决此警告。
+如果某个组件包含一个 HTML 元素，该元素的大写首字母与组件名称不匹配，则会发出警告，指示该元素名称异常。 为组件的命名空间添加 [`@using`][2] 指令使组件可用，从而解决此警告。
 
 ## <a name="routing"></a>路由
 
 可以通过为应用中的每个可访问组件提供路由模板来实现 Blazor 中的路由。
 
-编译具有 `@page` 指令的 Razor 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute>。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
+编译具有 [`@page`][9] 指令的 Razor 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute>。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
 
 ```razor
 @page "/ParentComponent"
@@ -127,32 +124,32 @@ Components/HeadingComponent.razor  ：
 
 ### <a name="route-parameters"></a>路由参数
 
-组件可以接收 `@page` 指令中提供的路由模板中的路由参数。 路由器使用路由参数来填充相应的组件参数。
+组件可以接收来自 [`@page`][9] 指令所提供的路由模板的路由参数。 路由器使用路由参数来填充相应的组件参数。
 
-Pages/RouteParameter.razor  ：
+Pages/RouteParameter.razor：
 
 [!code-razor[](components/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
 
-不支持可选参数，因此在前面的示例中应用了两个 `@page` 指令。 第一个指令允许导航到没有参数的组件。 第二个 `@page` 指令接收 `{text}` 路由参数，并将值分配给 `Text` 属性。
+不支持可选参数，因此在前面的示例中应用了两个 [`@page`][9] 指令。 第一个指令允许导航到没有参数的组件。 第二个 [`@page`][9] 指令会接收 `{text}` 路由参数，并将值赋予 `Text` 属性。
 
-Razor 组件 (.razor) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕获跨多个文件夹边界的路径    。
+Razor 组件 (.razor) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕获跨多个文件夹边界的路径。
 
 ### <a name="component-parameters"></a>组件参数
 
-组件可以具有组件参数，这些参数由具有 `[Parameter]` 属性的组件类上的公共属性定义  。 使用这些属性在标记中为组件指定参数。
+组件可以具有组件参数，这些参数由具有 `[Parameter]` 属性的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
 
-Components/ChildComponent.razor  ：
+Components/ChildComponent.razor：
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
 
 在示例应用的以下示例中，`ParentComponent` 设置 `ChildComponent` 的 `Title` 属性的值。
 
-Pages/ParentComponent  ：
+Pages/ParentComponent：
 
 [!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 > [!WARNING]
-> 请勿创建会写入其自己的组件参数的组件，而是使用私有字段  。 有关详细信息，请参阅[请勿创建会写入其自己的组参数属性的组件](#dont-create-components-that-write-to-their-own-parameter-properties)部分。
+> 请勿创建会写入其自己的组件参数的组件，而是使用私有字段。 有关详细信息，请参阅[请勿创建会写入其自己的组参数属性的组件](#dont-create-components-that-write-to-their-own-parameter-properties)部分。
 
 ## <a name="child-content"></a>子内容
 
@@ -160,7 +157,7 @@ Pages/ParentComponent  ：
 
 在下面的示例中，`ChildComponent` 具有一个表示 `RenderFragment`（表示要呈现的 UI 段）的 `ChildContent` 属性。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值是从父组件接收的，并呈现在启动面板的 `panel-body` 中。
 
-Components/ChildComponent.razor  ：
+Components/ChildComponent.razor：
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
@@ -169,13 +166,13 @@ Components/ChildComponent.razor  ：
 
 示例应用中的 `ParentComponent` 可以通过将内容置于 `<ChildComponent>` 标记中，提供用于呈现 `ChildComponent` 的内容。
 
-Pages/ParentComponent.razor  ：
+Pages/ParentComponent.razor：
 
 [!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=7-8)]
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>属性展开和任意参数
 
-除了组件的声明参数外，组件还可以捕获和呈现其他属性。 其他属性可以在字典中捕获，然后在使用 [`@attributes`](xref:mvc/views/razor#attributes) Razor 指令呈现组件时，将其展开到元素上  。 此方案在定义生成支持各种自定义项的标记元素的组件时非常有用。 例如，为支持多个参数的 `<input>` 单独定义属性可能比较繁琐。
+除了组件的声明参数外，组件还可以捕获和呈现其他属性。 其他属性可以在字典中捕获，然后在使用 [`@attributes`][3] Razor 指令呈现组件时，将其展开到元素上。 此方案在定义生成支持各种自定义项的标记元素的组件时非常有用。 例如，为支持多个参数的 `<input>` 单独定义属性可能比较繁琐。
 
 在下面的示例中，第一个 `<input>` 元素 (`id="useIndividualParams"`) 使用单个组件参数，第二个 `<input>` 元素 (`id="useAttributesDict"`) 使用属性展开：
 
@@ -243,15 +240,15 @@ Pages/ParentComponent.razor  ：
 
 `[Parameter]` 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的特性。 组件只能使用 `CaptureUnmatchedValues` 定义单个参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须可以使用字符串键从 `Dictionary<string, object>` 中分配。 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>` 也是此方案中的选项。
 
-相对于元素特性位置的 `@attributes` 位置很重要。 在元素上展开 `@attributes` 时，将从右到左（从最后一个到第一个）处理特性。 请考虑以下使用 `Child` 组件的组件示例：
+相对于元素特性位置的 [`@attributes`][3] 位置很重要。 在元素上展开 [`@attributes`][3] 时，将从右到左（从最后一个到第一个）处理特性。 请考虑以下使用 `Child` 组件的组件示例：
 
-ParentComponent.razor  ：
+ParentComponent.razor：
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-ChildComponent.razor  ：
+ChildComponent.razor：
 
 ```razor
 <div @attributes="AdditionalAttributes" extra="5" />
@@ -260,21 +257,21 @@ ChildComponent.razor  ：
 public IDictionary<string, object> AdditionalAttributes { get; set; }
 ```
 
-`Child` 组件的 `extra` 属性设置为 `@attributes` 右侧。 通过附加特性传递时，`Parent` 组件的呈现的 `<div>` 包含 `extra="5"`，因为特性是从右到左（从最后一个到第一个）处理的：
+`Child` 组件的 `extra` 属性设置为 [`@attributes`][3] 右侧。 通过附加特性传递时，`Parent` 组件的呈现的 `<div>` 包含 `extra="5"`，因为特性是从右到左（从最后一个到第一个）处理的：
 
 ```html
 <div extra="5" />
 ```
 
-在下面的示例中，`extra` 和 `@attributes` 的顺序在 `Child` 组件的 `<div>` 中反转：
+在下面的示例中，`extra` 和 [`@attributes`][3] 的顺序在 `Child` 组件的 `<div>` 中反转：
 
-ParentComponent.razor  ：
+ParentComponent.razor：
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-ChildComponent.razor  ：
+ChildComponent.razor：
 
 ```razor
 <div extra="5" @attributes="AdditionalAttributes" />
@@ -293,7 +290,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 组件引用提供了一种引用组件实例的方法，以便可以向该实例发出命令，例如 `Show` 或 `Reset`。 若要捕获组件引用，请执行以下操作：
 
-* 向子组件添加 [`@ref`](xref:mvc/views/razor#ref) 特性。
+* 向子组件添加 [`@ref`][4] 特性。
 * 定义与子组件类型相同的字段。
 
 ```razor
@@ -316,10 +313,10 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 要引用循环中的组件，请参阅[捕获对多个相似子组件的引用 (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358)。
 
-尽管捕获组件引用使用与[捕获元素引用](xref:blazor/call-javascript-from-dotnet#capture-references-to-elements)类似的语法，但它不是 JavaScript 互操作功能。 组件引用不会传递给 JavaScript 代码&mdash;它们只在 .NET 代码中使用。
+尽管捕获组件引用使用与[捕获元素引用](xref:blazor/call-javascript-from-dotnet#capture-references-to-elements)类似的语法，但它不是 JavaScript 互操作功能。 组件引用不会传递给 JavaScript 代码。 组件引用只在 .NET 代码中使用。
 
 > [!NOTE]
-> 不要使用组件引用来改变子组件的状态  。 请改用常规声明性参数将数据传递给子组件。 使用常规声明性参数使子组件在正确的时间自动重新呈现。
+> 不要使用组件引用来改变子组件的状态。 请改用常规声明性参数将数据传递给子组件。 使用常规声明性参数使子组件在正确的时间自动重新呈现。
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
@@ -327,7 +324,7 @@ Blazor 使用同步上下文 (`SynchronizationContext`) 来强制执行单个逻
 
 Blazor 服务器的同步上下文尝试模拟单线程环境，使其与浏览器（单线程）中的 WebAssembly 模型密切匹配。 在任意给定的时间点，工作只在一个线程上执行，从而造成单个逻辑线程的印象。 不会同时执行两个操作。
 
-如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务  ：
+如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务：
 
 ```csharp
 public class NotifierService
@@ -414,7 +411,7 @@ public class NotifierService
 
 `People` 集合的内容可能会随插入、删除或重新排序的条目而更改。 当组件重新呈现时，`<DetailsEditor>` 组件可能会更改以接收不同的 `Details` 参数值。 这可能导致重新呈现比预期更复杂。 在某些情况下，重新呈现可能会导致可见行为差异，如失去元素焦点。
 
-可通过 [`@key`](xref:mvc/views/razor#key) 指令属性来控制映射过程。 `@key` 使比较算法保证基于键的值保留元素或组件：
+可通过 [`@key`][5] 指令属性来控制映射过程。 [`@key`][5] 使比较算法保证基于键的值保留元素或组件：
 
 ```csharp
 @foreach (var person in People)
@@ -434,16 +431,16 @@ public class NotifierService
 * 如果在列表中的某个位置插入 `Person`，则会在相应位置插入一个新的 `<DetailsEditor>` 实例。 其他实例保持不变。
 * 如果对 `Person` 项进行重新排序，则保留相应的 `<DetailsEditor>` 实例，并在 UI 中重新排序。
 
-在某些场景中，使用 `@key` 可最大程度降低重新呈现的复杂性，并避免在 DOM 的有状态部分发生变化时出现潜在问题，如焦点位置。
+在某些场景中，使用 [`@key`][5] 可最大程度降低重新呈现的复杂性，并避免在 DOM 的有状态部分发生变化时出现潜在问题，如焦点位置。
 
 > [!IMPORTANT]
 > 对于每个容器元素或组件而言，键是本地的。 不会在整个文档中全局地比较键。
 
 ### <a name="when-to-use-key"></a>何时使用 \@key
 
-通常，每当呈现列表（例如，在 `@foreach` 块中）以及存在适当的值定义 `@key` 时，都可以使用 `@key`。
+通常，每当呈现列表（例如，在 `@foreach` 块中）以及存在适当的值定义 [`@key`][5] 时，都可以使用 [`@key`][5]。
 
-还可以使用 `@key` 来防止 Blazor 在对象发生更改时保留元素或组件子树：
+还可以使用 [`@key`][5] 来防止 Blazor 在对象发生更改时保留元素或组件子树：
 
 ```razor
 <div @key="currentPerson">
@@ -451,22 +448,22 @@ public class NotifierService
 </div>
 ```
 
-如果 `@currentPerson` 更改，则 `@key` 属性指令强制 Blazor 放弃整个 `<div>` 及其子代，并利用新的元素和组件在 UI 中重新生成子树。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
+如果 `@currentPerson` 更改，则 [`@key`][5] 属性指令强制 Blazor 放弃整个 `<div>` 及其子代，并利用新的元素和组件在 UI 中重新生成子树。 如果需要确保在 `@currentPerson` 更改时不保留 UI 状态，这会很有用。
 
 ### <a name="when-not-to-use-key"></a>何时不使用 \@key
 
-与 `@key` 进行比较时，会产生性能费用。 性能费用不是很大，但仅在控制元素或组件保留规则对应用有利的情况下才指定 `@key`。
+与 [`@key`][5] 进行比较时，会产生性能成本。 性能成本不是很大，但仅在控制元素或组件保留规则对应用有利的情况下才指定 [`@key`][5]。
 
-即使未使用 `@key`，Blazor 也会尽可能地保留子元素和组件实例。 使用 `@key` 的唯一优点是控制如何将模型实例映射到保留的组件实例，而不是选择映射的比较算法  。
+即使未使用 [`@key`][5]，Blazor 也会尽可能地保留子元素和组件实例。 使用 [`@key`][5] 的唯一优点是控制如何将模型实例映射到保留的组件实例，而不是选择映射的比较算法。
 
 ### <a name="what-values-to-use-for-key"></a>\@key 使用哪些值
 
-通常，为 `@key` 提供以下类型之一的值：
+通常，为 [`@key`][5] 提供以下类型之一的值：
 
 * 模型对象实例（例如，先前示例中的 `Person` 实例）。 这可确保基于对象引用相等性的保留。
 * 唯一标识符（例如，`int`、`string` 或 `Guid` 类型的主键值）。
 
-确保用于 `@key` 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 引发异常，因为它无法明确地将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
+确保用于 [`@key`][5] 的值不冲突。 如果在同一父元素内检测到冲突值，则 Blazor 引发异常，因为它无法明确地将旧元素或组件映射到新元素或组件。 仅使用非重复值，例如对象实例或主键值。
 
 ## <a name="dont-create-components-that-write-to-their-own-parameter-properties"></a>请勿创建会写入其自己的组参数属性的组件
 
@@ -522,12 +519,12 @@ public class NotifierService
 
 最初，在切换 `Expanded` 属性时，`Expander` 组件独立地作出行为。 子组件会按预期方式维护其状态。 在父组件中调用 `StateHasChanged` 时，第一个子组件的 `Expanded` 会重新重置为它的初始值 (`true`)。 第二个 `Expander` 组件的 `Expanded` 值不会重置，因为第二个组件中没有呈现任何子内容。
 
-要维持在前述情况中的状态，请在 `Expander` 组件中使用私有字段来保留它的切换状态  。
+要维持在前述情况中的状态，请在 `Expander` 组件中使用私有字段来保留它的切换状态。
 
 以下 `Expander` 组件：
 
 * 接受父项中的 `Expanded` 组件参数值。
-* 将组件参数值分配给 [OnInitialized 事件](xref:blazor/lifecycle#component-initialization-methods)中的私有字段 (`expanded`)  。
+* 将组件参数值分配给 [OnInitialized 事件](xref:blazor/lifecycle#component-initialization-methods)中的私有字段 (`expanded`)。
 * 使用私有字段来维持它的内部切换状态。
 
 ```razor
@@ -565,12 +562,12 @@ public class NotifierService
 
 Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件：
 
-* 在 [`@code`](xref:mvc/views/razor#code) 块中使用单个文件中的 HTML 标记和 Razor 代码定义 C# 代码。 Blazor 模板使用此方法来定义其 Razor 组件。
+* 在 [`@code`][1] 块中使用单个文件中的 HTML 标记和 Razor 代码定义 C# 代码。 Blazor 模板使用此方法来定义其 Razor 组件。
 * C# 代码位于定义为分部类的代码隐藏文件中。
 
-下面的示例显示了从 Blazor 模板生成的应用中具有 `@code` 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和 C# 代码位于同一个文件中：
+下面的示例显示了从 Blazor 模板生成的应用中具有 [`@code`][1] 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和 C# 代码位于同一个文件中：
 
-Counter.razor  ：
+Counter.razor：
 
 ```razor
 @page "/counter"
@@ -593,7 +590,7 @@ Counter.razor  ：
 
 还可以使用具有分部类的代码隐藏文件创建 `Counter` 组件：
 
-Counter.razor  ：
+Counter.razor：
 
 ```razor
 @page "/counter"
@@ -605,7 +602,7 @@ Counter.razor  ：
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
 
-Counter.razor.cs  ：
+Counter.razor.cs：
 
 ```csharp
 namespace BlazorApp.Pages
@@ -635,9 +632,9 @@ using Microsoft.AspNetCore.Components.Web;
 
 ## <a name="specify-a-base-class"></a>指定基类
 
-[`@inherits`](xref:mvc/views/razor#inherits) 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 `ComponentBase`。
+[`@inherits`][6] 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 `ComponentBase`。
 
-Pages/BlazorRocks.razor  ：
+Pages/BlazorRocks.razor：
 
 ```razor
 @page "/BlazorRocks"
@@ -646,7 +643,7 @@ Pages/BlazorRocks.razor  ：
 <h1>@BlazorRocksText</h1>
 ```
 
-BlazorRocksBase.cs  ：
+BlazorRocksBase.cs：
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -663,7 +660,7 @@ namespace BlazorSample
 
 ## <a name="specify-an-attribute"></a>指定属性
 
-可以通过 [`@attribute`](xref:mvc/views/razor#attribute) 指令在 Razor 组件中指定属性。 下面的示例将 `[Authorize]` 属性应用于组件类：
+可以通过 [`@attribute`][7] 指令在 Razor 组件中指定属性。 下面的示例将 `[Authorize]` 属性应用于组件类：
 
 ```razor
 @page "/"
@@ -674,15 +671,15 @@ namespace BlazorSample
 
 使用 Razor 创建的组件的命名空间基于（按优先级顺序）：
 
-* Razor 文件 (.razor) 标记 (`@namespace BlazorSample.MyNamespace`) 中的 [`@namespace`](xref:mvc/views/razor#namespace) 指定内容  。
+* Razor 文件 (.razor) 标记 (`@namespace BlazorSample.MyNamespace`) 中的 [`@namespace`][8] 指定内容。
 * 项目文件 (`<RootNamespace>BlazorSample</RootNamespace>`) 中项目的 `RootNamespace`。
-* 项目名称，取自项目文件的文件名 (.csproj)，以及从项目根到组件的路径  。 例如，框架将 {PROJECT ROOT}/Pages/Index.razor (BlazorSample.csproj) 解析为命名空间 `BlazorSample.Pages`  。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
-  * 在同一文件夹 Pages 中  。
+* 项目名称，取自项目文件的文件名 (.csproj)，以及从项目根到组件的路径。 例如，框架将 {PROJECT ROOT}/Pages/Index.razor (BlazorSample.csproj) 解析为命名空间 `BlazorSample.Pages` 。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
+  * 在同一文件夹 Pages 中。
   * 未显式指定其他命名空间的项目根中的组件。
 
-使用 Razor 的 [`@using`](xref:mvc/views/razor#using) 指令将不同命名空间中定义的组件引入范围中。
+使用 Razor 的 [`@using`][2] 指令将不同命名空间中定义的组件引入范围中。
 
-如果 BlazorSample/Shared/ 文件夹中存在另一个组件 `NavMenu.razor`，则可以通过以下 `@using` 语句在 `Index.razor` 中使用该组件  ：
+如果 BlazorSample/Shared/ 文件夹中存在另一个组件 `NavMenu.razor`，则可以通过以下 [`@using`][2] 语句在 `Index.razor` 中使用该组件：
 
 ```razor
 @using BlazorSample.Shared
@@ -692,7 +689,7 @@ This is the Index page.
 <NavMenu></NavMenu>
 ```
 
-还可以使用其完全限定的名称来引用组件，而不需要 [`@using`](xref:mvc/views/razor#using) 指令：
+还可以使用其完全限定的名称来引用组件，而不需要 [`@using`][2] 指令：
 
 ```razor
 This is the Index page.
@@ -744,7 +741,7 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 通常使用 DOM 文本节点呈现字符串，这意味着将忽略它们可能包含的任何标记，并将其视为文字文本。 若要呈现原始 HTML，请将 HTML 内容包装在 `MarkupString` 值中。 将该值分析为 HTML 或 SVG，并插入到 DOM 中。
 
 > [!WARNING]
-> 呈现从任何不受信任的源构造的原始 HTML 存在安全风险，应避免  ！
+> 呈现从任何不受信任的源构造的原始 HTML 存在安全风险，应避免！
 
 下面的示例演示如何使用 `MarkupString` 类型向组件的呈现输出添加静态 HTML 内容块：
 
@@ -765,7 +762,7 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 
 在示例应用的以下示例中，`ThemeInfo` 类指定了要沿组件层次结构向下传递的主题信息，以便应用中给定部分内的所有按钮共享相同样式。
 
-UIThemeClasses/ThemeInfo.cs  ：
+UIThemeClasses/ThemeInfo.cs：
 
 ```csharp
 public class ThemeInfo
@@ -879,7 +876,7 @@ public class ThemeInfo
 
 ### <a name="tabset-example"></a>TabSet 示例
 
-级联参数还允许组件跨组件层次结构进行协作。 例如，请考虑示例应用中的以下 TabSet 示例  。
+级联参数还允许组件跨组件层次结构进行协作。 例如，请考虑示例应用中的以下 TabSet 示例。
 
 该示例应用包含一个选项卡实现的 `ITab` 接口：
 
@@ -911,7 +908,7 @@ public class ThemeInfo
 </TabSet>
 ```
 
-子 `Tab` 组件不会作为参数显式传递给 `TabSet`。 子 `Tab` 组件是 `TabSet` 的子内容的一部分。 但 `TabSet` 仍需要了解每个 `Tab` 组件，以便它可以呈现标头和活动选项卡。若要在不需要额外代码的情况下启用此协调，`TabSet` 组件可以将自身作为级联值提供，然后由子代 `Tab` 组件选取  。
+子 `Tab` 组件不会作为参数显式传递给 `TabSet`。 子 `Tab` 组件是 `TabSet` 的子内容的一部分。 但 `TabSet` 仍需要了解每个 `Tab` 组件，以便它可以呈现标头和活动选项卡。若要在不需要额外代码的情况下启用此协调，`TabSet` 组件可以将自身作为级联值提供，然后由子代 `Tab` 组件选取。
 
 `TabSet` 组件：
 
@@ -959,13 +956,13 @@ public class ThemeInfo
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形 (SVG) 图像
 
-由于 Blazor 呈现 HTML，因此通过 `<img>` 标记支持浏览器支持的图像，包括可缩放的矢量图形 (SVG) 图像(.svg)  ：
+由于 Blazor 呈现 HTML，因此通过 `<img>` 标记支持浏览器支持的图像，包括可缩放的矢量图形 (SVG) 图像(.svg)：
 
 ```html
 <img alt="Example image" src="some-image.svg" />
 ```
 
-同样，样式表文件 (.css) 的 CSS 规则支持 SVG 图像  ：
+同样，样式表文件 (.css) 的 CSS 规则支持 SVG 图像：
 
 ```css
 .my-element {
@@ -973,8 +970,20 @@ public class ThemeInfo
 }
 ```
 
-但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (.razor)，则支持基本图像呈现，但很多高级场景尚不受支持  。 例如，当前未遵循 `<use>` 标记，并且 `@bind` 不能与某些 SVG 标记一起使用。 我们预计会在将来的版本中解决这些限制。
+但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (.razor)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 `@bind` 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
 
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:security/blazor/server/threat-mitigation> &ndash; 包含有关生成必须应对资源耗尽的 Blazor 服务器应用的指南。
+
+<!--Reference links in article-->
+[1]: <xref:mvc/views/razor#code>
+[2]: <xref:mvc/views/razor#using>
+[3]: <xref:mvc/views/razor#attributes>
+[4]: <xref:mvc/views/razor#ref>
+[5]: <xref:mvc/views/razor#key>
+[6]: <xref:mvc/views/razor#inherits>
+[7]: <xref:mvc/views/razor#attribute>
+[8]: <xref:mvc/views/razor#namespace>
+[9]: <xref:mvc/views/razor#page>
+[10]: <xref:mvc/views/razor#bind>

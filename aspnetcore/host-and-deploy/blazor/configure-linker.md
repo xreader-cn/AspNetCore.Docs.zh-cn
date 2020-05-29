@@ -1,30 +1,16 @@
 ---
-title: 配置 ASP.NET Core Blazor 链接器
-author: guardrex
-description: 了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/04/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: b274752b375f68cca0c0a9adf9c146bc525d9eba
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775175"
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>配置 ASP.NET Core Blazor 链接器
 
 作者：[Luke Latham](https://github.com/guardrex)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) 链接，以从应用的输出程序集中剪裁不必要的 IL。 在调试配置中生成时，将禁用链接器。 应用必须在发布配置中生成才能启用链接器。 部署 Blazor WebAssembly 应用时，建议在发布中生成。 
 
@@ -57,7 +43,7 @@ Blazor WebAssembly 在生成期间执行[中间语言 (IL)](/dotnet/standard/man
 </ItemGroup>
 ```
 
-LinkerConfig.xml  ：
+LinkerConfig.xml：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -95,7 +81,7 @@ LinkerConfig.xml  ：
 
 要针对特定库配置链接器，请将 XML 链接器配置文件作为嵌入的资源添加到库中。 嵌入的资源必须与程序集同名。
 
-在以下示例中，LinkerConfig.xml 文件被指定为与库的程序集同名的嵌入资源  ：
+在以下示例中，LinkerConfig.xml 文件被指定为与库的程序集同名的嵌入资源：
 
 ```xml
 <ItemGroup>
@@ -107,7 +93,7 @@ LinkerConfig.xml  ：
 
 ### <a name="configure-the-linker-for-internationalization"></a>配置链接器以实现国际化
 
-默认情况下，用于 Blazor WebAssembly 应用的 Blazor 链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
+默认情况下，Blazor 对于 Blazor WebAssembly 应用的链接器配置会去除国际化信息（显式请求的区域设置除外）。 删除这些程序集可最大程度地缩减应用的大小。
 
 要控制保留哪些国际化程序集，请在项目文件中设置 `<BlazorWebAssemblyI18NAssemblies>` MSBuild 属性：
 
@@ -118,15 +104,146 @@ LinkerConfig.xml  ：
 ```
 
 | 区域值     | Mono 区域程序集    |
-| ---------------- | ----------------------- |
-| `all`            | 包含的所有程序集 |
-| `cjk`            | I18N.CJK.dll           |
-| `mideast`        | I18N.MidEast.dll       |
-| `none`（默认值） | None                    |
-| `other`          | I18N.Other.dll         |
-| `rare`           | I18N.Rare.dll          |
-| `west`           | I18N.West.dll          |
+| ---
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-------- | --- title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“配置 ASP.NET Core Blazor 链接器”author: description:“了解在构建 Blazor 应用时如何控制中间语言 (IL) 链接器。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------------ | | `all`            | 包含的所有程序集 | | `cjk`            | *I18N.CJK.dll*          | | `mideast`        | *I18N.MidEast.dll*      | | `none`（默认）| 无                    | | `other`          | *I18N.Other.dll*        | | `rare`           | *I18N.Rare.dll*         | | `west`           | *I18N.West.dll*         |
 
 各个值之间用逗号分隔（例如：`mideast,west`）。
 
 有关详细信息，请参阅[国际化：Pnetlib 国际化框架库（mono/mono GitHub 存储库）](https://github.com/mono/mono/tree/master/mcs/class/I18N)。
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:performance/blazor/webassembly-best-practices#intermediate-language-il-linking>

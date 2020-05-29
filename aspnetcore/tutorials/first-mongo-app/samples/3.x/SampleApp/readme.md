@@ -8,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 09d73e25667822b8748a00cc76ad6d4f0e5fe290
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 6f6022bee678af92066f45032b43b6b87e5f901e
+ms.sourcegitcommit: 7a42bc1e594de36c854fd4363c11821548a9efa7
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511400"
+ms.lasthandoff: 05/19/2020
+ms.locfileid: "83608663"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -30,16 +30,16 @@ ms.locfileid: "79511400"
 ## <a name="prerequisites"></a>先决条件
 
 * [.NET Core SDK 3.0 或更高版本](https://dotnet.microsoft.com/download/dotnet-core)
-* [Visual Studio 2019 预览版](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&ch=pre&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019preview) 与 ASP.NET 和 Web 开发  工作负载
+* [Visual Studio 2019 预览版](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&ch=pre&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019preview) 与 ASP.NET 和 Web 开发工作负载
 * [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
 ## <a name="configure-mongodb"></a>配置 MongoDB
 
-如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB  中。 将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin  添加到 `Path` 环境变量中。 通过此更改可以从开发计算机上的任意位置访问 MongoDB。
+如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB 中。 将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin 添加到 `Path` 环境变量中。 通过此更改可以从开发计算机上的任意位置访问 MongoDB。
 
 使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。 有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。
 
-1. 选择开发计算机上用于存储数据的目录。 例如，Windows 上的 C:\\BooksData  。 创建目录（如果不存在）。 mongo Shell 不会创建新目录。
+1. 选择开发计算机上用于存储数据的目录。 例如，Windows 上的 C:\\BooksData。 创建目录（如果不存在）。 mongo Shell 不会创建新目录。
 1. 打开命令行界面。 运行以下命令以连接到默认端口 27017 上的 MongoDB。 请记得将 `<data_directory_path>` 替换为上一步中选择的目录。
 
     ```console
@@ -58,7 +58,7 @@ ms.locfileid: "79511400"
     use BookstoreDb
     ```
 
-    如果它不存在，则将创建名为 BookstoreDb  的数据库。 如果该数据库存在，则将为事务打开其连接。
+    如果它不存在，则将创建名为 BookstoreDb 的数据库。 如果该数据库存在，则将为事务打开其连接。
 
 1. 使用以下命令创建 `Books` 集合：
 
@@ -124,11 +124,11 @@ ms.locfileid: "79511400"
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>创建 ASP.NET Core Web API 项目
 
-1. 转到“文件” > “新建” > “项目”    。
-1. 选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步”   。
-1. 将项目命名为“BooksApi”，然后选择“创建”   。
-1. 选择“.NET Core”  目标框架和“ASP.NET Core 3.0”  。 选择“API”项目模板，然后选择“创建”   。
-1. 访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。 在“包管理器控制台”  窗口中，导航到项目根。 运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：
+1. 转到“文件” > “新建” > “项目”  。
+1. 选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步” 。
+1. 将项目命名为“BooksApi”，然后选择“创建”。
+1. 选择“.NET Core”目标框架和“ASP.NET Core 3.0”。 选择“API”项目模板，然后选择“创建” 。
+1. 访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。 在“包管理器控制台”窗口中，导航到项目根。 运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：
 
     ```powershell
     Install-Package MongoDB.Driver -Version {VERSION}
@@ -136,8 +136,8 @@ ms.locfileid: "79511400"
 
 ## <a name="add-an-entity-model"></a>添加实体模型
 
-1. 将 Models  目录添加到项目根。
-1. 使用以下代码将 `Book` 类添加到 Models  目录：
+1. 将 Models 目录添加到项目根。
+1. 使用以下代码将 `Book` 类添加到 Models 目录：
 
     ```csharp
     using MongoDB.Bson;
@@ -173,7 +173,7 @@ ms.locfileid: "79511400"
 
 ## <a name="add-a-configuration-model"></a>添加配置模型
 
-1. 向 appsettings.json 添加以下数据库配置值  ：
+1. 向 appsettings.json 添加以下数据库配置值：
 
     ```javascript
     {
@@ -185,7 +185,7 @@ ms.locfileid: "79511400"
 
     ```
 
-1. 使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录   ：
+1. 使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录 ：
 
     ```csharp
     namespace BooksApi.Models
@@ -206,7 +206,7 @@ ms.locfileid: "79511400"
     }
     ```
 
-    前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值  。 JSON 和 C# 具有相同的属性名称，目的是简化映射过程。
+    前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值。 JSON 和 C# 具有相同的属性名称，目的是简化映射过程。
 
 1. 将以下突出显示的代码添加到 `Startup.ConfigureServices`：
 
@@ -225,10 +225,10 @@ ms.locfileid: "79511400"
 
     在上述代码中：
 
-    * appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册  。 例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充  。
+    * appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。 例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。
     * `IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。 在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。
 
-1. 在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用  ：
+1. 在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用：
 
     ```csharp
     using BooksApi.Models;
@@ -236,8 +236,8 @@ ms.locfileid: "79511400"
 
 ## <a name="add-a-crud-operations-service"></a>添加 CRUD 操作服务
 
-1. 将 Services  目录添加到项目根。
-1. 使用以下代码将 `BookService` 类添加到 Services  目录：
+1. 将 Services 目录添加到项目根。
+1. 使用以下代码将 `BookService` 类添加到 Services 目录：
 
     ```csharp
     using BooksApi.Models;
@@ -283,7 +283,7 @@ ms.locfileid: "79511400"
     }
     ```
 
-    上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值  。
+    上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。 使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值。
 
 1. 将以下突出显示的代码添加到 `Startup.ConfigureServices`：
 
@@ -304,7 +304,7 @@ ms.locfileid: "79511400"
 
     上面的代码向 DI 注册了 `BookService` 类，以支持消费类中的构造函数注入。 单一实例服务生存期是最合适的，因为 `BookService` 直接依赖于 `MongoClient`。 根据官方 [Mongo Client 重用准则](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)，应使用单一实例服务生存期在 DI 中注册 `MongoClient`。
 
-1. 在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用  ：
+1. 在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用：
 
 
     ```csharp
@@ -338,7 +338,7 @@ ms.locfileid: "79511400"
 
 ## <a name="add-a-controller"></a>添加控制器
 
-使用以下代码将 `BooksController` 类添加到 Controllers  目录：
+使用以下代码将 `BooksController` 类添加到 Controllers 目录：
 
 ```csharp
 using BooksApi.Models;
@@ -469,7 +469,7 @@ namespace BooksApi.Controllers
 
 为满足上述要求，请进行以下更改：
 
-1. JSON.NET 已从 ASP.NET 共享框架中删除。 将包引用添加到 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson)。
+1. JSON.NET 已从 ASP.NET 共享框架中删除。 将包引用添加到 [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson)。
 
 1. 在 `Startup.ConfigureServices` 中，将以下突出显示的代码链接到 `AddMvc` 方法调用：
 
@@ -491,7 +491,7 @@ namespace BooksApi.Controllers
 
     通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。 例如，`Book` 类的 `Author` 属性序列化为 `Author`。
 
-1. 在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性  ：
+1. 在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性：
 
     ```csharp
     [BsonElement("Name")]
@@ -501,7 +501,7 @@ namespace BooksApi.Controllers
 
     `[JsonProperty]` 属性的 `Name` 值表示 Web API 的序列化 JSON 响应中的属性名称。
 
-1. 在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用  ：
+1. 在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用：
 
     ```csharp
     using Newtonsoft.Json;

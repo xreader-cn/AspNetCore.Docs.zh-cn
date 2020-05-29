@@ -4,7 +4,7 @@ author: tratcher
 description: 了解如何通过 TestServer 测试 ASP.NET Core 中间件。
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/6/2019
+ms.date: 5/12/2020
 no-loc:
 - Blazor
 - Identity
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/middleware
-ms.openlocfilehash: 06ff7167e32fbd613c18709e31ecd078b3dfc926
-ms.sourcegitcommit: 30fcf69556b6b6ec54a3879e280d5f61f018b48f
+ms.openlocfilehash: ea7fc0e889ab32cbaf23257b3e866519af0727aa
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/07/2020
-ms.locfileid: "82876421"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424541"
 ---
 # <a name="test-aspnet-core-middleware"></a>测试 ASP.NET Core 中间件
 
@@ -52,7 +52,7 @@ ms.locfileid: "82876421"
 
 断言结果。 首先，将断言语句设置为与预期结果相反的结果。 初次运行时，将断言语句设为假正会在中间件正常执行时确认测试未通过。 运行测试并确认测试未通过。
 
-在下面的示例中，在请求根终结点时，中间件应返回 404 状态代码（找不到）  。 使用 `Assert.NotEqual( ... );` 进行首测测试运行，该运行应该会失败：
+在下面的示例中，在请求根终结点时，中间件应返回 404 状态代码（找不到）。 使用 `Assert.NotEqual( ... );` 进行首测测试运行，该运行应该会失败：
 
 [!code-csharp[](middleware/samples_snapshot/3.x/false-failure-check.cs?highlight=22)]
 
@@ -113,4 +113,21 @@ public async Task TestMiddleware_ExpectedResponse()
 
 <xref:Microsoft.AspNetCore.TestHost.TestServer.SendAsync%2A> 允许直接配置 <xref:Microsoft.AspNetCore.Http.HttpContext> 对象，而不是使用 <xref:System.Net.Http.HttpClient> 抽象进行配置。 使用 <xref:Microsoft.AspNetCore.TestHost.TestServer.SendAsync%2A> 操作仅在服务器上可用的结构，如 [HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Items) 或 [HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Features)。
 
-如测试是否出现“404 - 找不到”响应的前述示例一样，请检查前面测试中每个 `Assert` 语句的相反结果  。 该检查确认中间件正常运行时测试是否正常失败。 确认假正测试正常工作后，为测试的预期条件和值设置最终的 `Assert` 语句。 再次运行测试，确认该测试通过。
+如测试是否出现“404 - 找不到”响应的前述示例一样，请检查前面测试中每个 `Assert` 语句的相反结果。 该检查确认中间件正常运行时测试是否正常失败。 确认假正测试正常工作后，为测试的预期条件和值设置最终的 `Assert` 语句。 再次运行测试，确认该测试通过。
+
+## <a name="testserver-limitations"></a>TestServer 限制
+
+TestServer：
+
+* 用于复制服务器行为以测试中间件。
+* 请勿尝试复制所有 <xref:System.Net.Http.HttpClient> 行为。
+* 尝试授予客户端对服务器尽可能多控制权的访问权限，并尽可能深入地了解服务器上发生的情况。 例如，它可能引发 `HttpClient` 通常不会引发的异常，以便直接传输服务器状态。
+* 默认情况下，不会设置某些传输特定标头，因为这些标头通常与中间件无关。 有关更多信息，请参见下一节。
+
+### <a name="content-length-and-transfer-encoding-headers"></a>Content-Length 和 Transfer-Encoding 标头
+
+TestServer 不设置与传输相关的请求或响应标头，如 [Content-Length](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Length) 或 [Transfer-Encoding](https://developer.mozilla.org/docs/Web/HTTP/Headers/Transfer-Encoding)。 应用程序应避免依赖于这些标头，因为它们的用法因客户端、方案和协议而异。 如果需要 `Content-Length` 和 `Transfer-Encoding` 来测试特定方案，则可以在编写 <xref:System.Net.Http.HttpRequestMessage> 或 <xref:Microsoft.AspNetCore.Http.HttpContext> 时在测试中指定它们。 有关详细信息，请查看以下 GitHub 问题：
+
+* [dotnet/aspnetcore#21677](https://github.com/dotnet/aspnetcore/issues/21677)
+* [dotnet/aspnetcore#18463](https://github.com/dotnet/aspnetcore/issues/18463)
+* [dotnet/aspnetcore#13273](https://github.com/dotnet/aspnetcore/issues/13273)

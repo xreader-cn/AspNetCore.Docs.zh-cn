@@ -5,7 +5,7 @@ description: 了解如何在 Visual Studio 中创建发布配置文件，并将�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 05/14/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 0de20b93929162f79d4d15fc4731959e48bb3b6c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 42d790ad4942ea238fb3bbe56cb92ae4a26ddc2d
+ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776365"
+ms.lasthandoff: 05/16/2020
+ms.locfileid: "83439001"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -34,9 +34,9 @@ ms.locfileid: "82776365"
 </Project>
 ```
 
-前导 `<Project>` 元素的 `Sdk` 属性分别从 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.props  和 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets  导入 MSBuild [属性](/visualstudio/msbuild/msbuild-properties)和[目标](/visualstudio/msbuild/msbuild-targets)。 `$(MSBuildSDKsPath)`（装有 Visual Studio 2019 Enterprise）的默认位置是 %programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks  文件夹。
+前导 `<Project>` 元素的 `Sdk` 属性分别从 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.props 和 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets 导入 MSBuild [属性](/visualstudio/msbuild/msbuild-properties)和[目标](/visualstudio/msbuild/msbuild-targets)。 `$(MSBuildSDKsPath)`（装有 Visual Studio 2019 Enterprise）的默认位置是 %programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks 文件夹。
 
-`Microsoft.NET.Sdk.Web` (Web SDK) 依赖于其他 SDK，包括 `Microsoft.NET.Sdk` (.NET Core SDK) 和 `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk))。 将导入与每个从属 SDK 关联的 MSBuild 属性和目标。 发布目标将根据使用的发布方法，导入相应的目标集。
+`Microsoft.NET.Sdk.Web` ([Web SDK](xref:razor-pages/web-sdk)) 依赖于其他 SDK，包括 `Microsoft.NET.Sdk` ([.NET Core SDK](/dotnet/core/project-sdk/msbuild-props)) 和 `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk))。 将导入与每个从属 SDK 关联的 MSBuild 属性和目标。 发布目标将根据使用的发布方法，导入相应的目标集。
 
 MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 
@@ -46,25 +46,25 @@ MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 
 ## <a name="compute-project-items"></a>计算项目项
 
-加载项目时，将计算 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)（文件）。 项类型确定如何处理该文件。 默认情况下，.cs  文件包含在 `Compile` 项列表内。 会对 `Compile` 项列表中的文件进行编译。
+加载项目时，将计算 [MSBuild 项目项](/visualstudio/msbuild/common-msbuild-project-items)（文件）。 项类型确定如何处理该文件。 默认情况下，.cs 文件包含在 `Compile` 项列表内。 会对 `Compile` 项列表中的文件进行编译。
 
-除了生成输出，`Content` 项列表还包含已发布的文件。 默认情况下，匹配模式 `wwwroot\**`、`**\*.config` 和 `**\*.json` 的文件包含在 `Content` 项列表内。 例如，`wwwroot\**`[glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)与 wwwroot 文件夹及其子文件夹中的所有文件相匹配  。
+除了生成输出，`Content` 项列表还包含已发布的文件。 默认情况下，匹配模式 `wwwroot\**`、`**\*.config` 和 `**\*.json` 的文件包含在 `Content` 项列表内。 例如，`wwwroot\**`[glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)与 wwwroot 文件夹及其子文件夹中的所有文件相匹配。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Web SDK 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配模式 `**\*.cshtml` 和 `**\*.razor` 的文件也同时包含在 `Content` 项列表内。
+[Web SDK](xref:razor-pages/web-sdk) 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配模式 `**\*.cshtml` 和 `**\*.razor` 的文件也同时包含在 `Content` 项列表内。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Web SDK 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配 `**\*.cshtml` 模式的文件也同时包含在 `Content` 项列表内。
+[Web SDK](xref:razor-pages/web-sdk) 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配 `**\*.cshtml` 模式的文件也同时包含在 `Content` 项列表内。
 
 ::: moniker-end
 
-若要将文件显式添加到发布列表，请直接在 .csproj  文件中添加文件，如[包含文件](#include-files)一节中所示。
+若要将文件显式添加到发布列表，请直接在 .csproj 文件中添加文件，如[包含文件](#include-files)一节中所示。
 
-在 Visual Studio 中选择“发布”  按钮时或从命令行发布时：
+在 Visual Studio 中选择“发布”按钮时或从命令行发布时：
 
 * 计算属性/项目（需要生成的文件）。
 * **仅限 Visual Studio**：NuGet 包已还原。 （用户需要在 CLI 上执行显式还原。）
@@ -72,11 +72,11 @@ Web SDK 导入 [Razor SDK](xref:razor-pages/sdk)。 因此，匹配 `**\*.cshtml
 * 计算发布项（需要发布的文件）。
 * 文件已发布（计算的文件将被复制到发布目标）。
 
-当 ASP.NET Core 项目在项目文件中引用 `Microsoft.NET.Sdk.Web` 时，会将 app_offline.htm  文件放在 Web 应用目录的根目录下。 该文件存在时，ASP.NET Core 模块会在部署过程中正常关闭该应用并提供 app_offline.htm 文件  。 有关详细信息，请参阅 [ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module#app_offlinehtm)。
+当 ASP.NET Core 项目在项目文件中引用 `Microsoft.NET.Sdk.Web` 时，会将 app_offline.htm 文件放在 Web 应用目录的根目录下。 该文件存在时，ASP.NET Core 模块会在部署过程中正常关闭该应用并提供 app_offline.htm 文件。 有关详细信息，请参阅 [ASP.NET Core 模块配置参考](xref:host-and-deploy/aspnet-core-module#app_offlinehtm)。
 
 ## <a name="basic-command-line-publishing"></a>基本命令行发布
 
-命令行发布适用于所有支持 .NET Core 的平台，而且不需要 Visual Studio。 在下面的示例中，从项目目录（其中包含 .csproj文件）运行 .NET Core CLI 的 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令  。 如果当前工作目录中没有项目文件夹，则在项目文件路径中显式传递。 例如：
+命令行发布适用于所有支持 .NET Core 的平台，而且不需要 Visual Studio。 在下面的示例中，从项目目录（其中包含 .csproj文件）运行 .NET Core CLI 的 [dotnet publish](/dotnet/core/tools/dotnet-publish) 命令。 如果当前工作目录中没有项目文件夹，则在项目文件路径中显式传递。 例如：
 
 ```dotnetcli
 dotnet publish C:\Webs\Web1
@@ -102,7 +102,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   Web1 -> C:\Webs\Web1\bin\Debug\{TARGET FRAMEWORK MONIKER}\publish\
 ```
 
-默认发布文件夹格式为 bin\Debug\\{TARGET FRAMEWORK MONIKER}\publish\\  。 例如 bin\Debug\netcoreapp2.2\publish\\  。
+默认发布文件夹格式为 bin\Debug\\{TARGET FRAMEWORK MONIKER}\publish\\。 例如 bin\Debug\netcoreapp2.2\publish\\。
 
 以下命令指定 `Release` 生成和发布目录：
 
@@ -117,13 +117,13 @@ dotnet publish -c Release -o C:\MyWebs\test
 * `p:<NAME>=<VALUE>`
 * `/p:<NAME>=<VALUE>`
 
-例如，以下命令将 `Release` 版本发布到网络共享。 网络共享通过正斜杠指定 (//r8/  ) 并适用于所有支持 .NET Core 的平台。
+例如，以下命令将 `Release` 版本发布到网络共享。 网络共享通过正斜杠指定 (//r8/) 并适用于所有支持 .NET Core 的平台。
 
 ```dotnetcli
 dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb
 ```
 
-确认用于部署的发布应用未在运行。 如果应用正在运行，publish 文件夹中的文件会被锁定  。 部署不会发生，因为无法复制锁定的文件。
+确认用于部署的发布应用未在运行。 如果应用正在运行，publish 文件夹中的文件会被锁定。 部署不会发生，因为无法复制锁定的文件。
 
 ## <a name="publish-profiles"></a>发布配置文件
 
@@ -131,10 +131,10 @@ dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb
 
 通过选择以下路径之一在 Visual Studio 中创建发布配置文件：
 
-* 在“解决方案资源管理器”  中，右键单击该项目并选择“发布”  。
-* 可以从“生成”菜单中选择“发布 {项目名称}”   。
+* 在“解决方案资源管理器”中，右键单击该项目并选择“发布”。
+* 可以从“生成”菜单中选择“发布 {项目名称}” 。
 
-随即显示应用程序容量页的“发布”选项卡  。 如果项目缺少发布配置文件，将显示“选择发布目标”页面  。 系统会要求选择下述发布目标之一：
+随即显示应用程序容量页的“发布”选项卡。 如果项目缺少发布配置文件，将显示“选择发布目标”页面。 系统会要求选择下述发布目标之一：
 
 * Azure 应用服务
 * Linux 上的 Azure 应用服务
@@ -145,24 +145,24 @@ dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb
 
 要确定最适合的发布目标，请参阅[哪些发布选项适合我](/visualstudio/ide/not-in-toc/web-publish-options)。
 
-当选择“文件夹”发布目标时，指定一个文件夹路径来存储发布的资产  。 默认文件夹路径为 bin\\{PROJECT CONFIGURATION}\\{TARGET FRAMEWORK MONIKER}\publish\\  。 例如 bin\Release\netcoreapp2.2\publish\\  。 选择“创建配置文件”按钮完成操作  。
+当选择“文件夹”发布目标时，指定一个文件夹路径来存储发布的资产。 默认文件夹路径为 bin\\{PROJECT CONFIGURATION}\\{TARGET FRAMEWORK MONIKER}\publish\\。 例如 bin\Release\netcoreapp2.2\publish\\。 选择“创建配置文件”按钮完成操作。
 
-创建发布配置文件后，“发布”选项卡的内容将更改  。 新创建的配置文件显示在下拉列表中。 在下拉列表中，选择“创建新配置文件”，再新建一个配置文件  。
+创建发布配置文件后，“发布”选项卡的内容将更改。 新创建的配置文件显示在下拉列表中。 在下拉列表中，选择“创建新配置文件”，再新建一个配置文件。
 
-Visual Studio 的生成工具会生成一个 Properties/PublishProfiles/{PROFILE NAME}.pubxml MSBuild 文件，它描述了发布配置文件  。 .pubxml 文件  ：
+Visual Studio 的生成工具会生成一个 Properties/PublishProfiles/{PROFILE NAME}.pubxml MSBuild 文件，它描述了发布配置文件。 .pubxml 文件：
 
 * 包含发布配置设置并由发布过程使用。
 * 可更改它来自定义生成和发布过程。
 
-发布到 Azure 目标时，.pubxml  文件包含 Azure 订阅标识符。 不建议使用该目标类型将此文件添加到源代码管理。 发布到非 Azure 目标时，签入 .pubxml  文件是安全的。
+发布到 Azure 目标时，.pubxml 文件包含 Azure 订阅标识符。 不建议使用该目标类型将此文件添加到源代码管理。 发布到非 Azure 目标时，签入 .pubxml 文件是安全的。
 
-敏感信息（如发布密码）在每个用户/机器级别均进行加密。 它存储在 Properties/PublishProfiles/{PROFILE NAME}.pubxml.user 文件中  。 由于此文件可以存储敏感信息，因此不应将其签入源代码管理。
+敏感信息（如发布密码）在每个用户/机器级别均进行加密。 它存储在 Properties/PublishProfiles/{PROFILE NAME}.pubxml.user 文件中。 由于此文件可以存储敏感信息，因此不应将其签入源代码管理。
 
 要简要了解如何发布 ASP.NET Core Web 应用，请参阅 <xref:host-and-deploy/index>。 发布 ASP.NET Core Web 应用所需的 MSBuild 任务和目标已在 [aspnet/websdk repository](https://github.com/aspnet/websdk) 中开源。
 
 以下命令可使用文件夹、MSDeploy 和 [Kudu](https://github.com/projectkudu/kudu/wiki) 发布配置文件。 MSDeploy 缺少跨平台支持，因此仅支持在 Windows 上使用以下 MSDeploy 选项。
 
-文件夹（跨平台工作）  ：
+文件夹（跨平台工作）：
 
 <!--
 
@@ -178,7 +178,7 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfileName>
 ```
 
-MSDeploy  ：
+MSDeploy：
 
 ```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
@@ -188,7 +188,7 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:
 dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
 ```
 
-MSDeploy 包  ：
+MSDeploy 包：
 
 ```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
@@ -205,7 +205,7 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 
 有关详细信息，请参阅 [Microsoft.NET.Sdk.Publish](https://github.com/aspnet/websdk#microsoftnetsdkpublish)。
 
-向项目的 Properties/PublishProfiles 文件夹添加包含以下内容的发布配置文件  ：
+向项目的 Properties/PublishProfiles 文件夹添加包含以下内容的发布配置文件：
 
 ```xml
 <Project>
@@ -220,7 +220,7 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 
 ## <a name="folder-publish-example"></a>文件夹发布示例
 
-发布名为 FolderProfile  的配置文件时，使用以下命令之一：
+发布名为 FolderProfile 的配置文件时，使用以下命令之一：
 
 <!--
 
@@ -266,7 +266,7 @@ MSBuild file.
 
 在上面的示例中：
 
-* `<ExcludeApp_Data>` 属性仅为满足 XML 架构要求。 `<ExcludeApp_Data>` 属性不影响发布过程，即使项目根中存在 App_Data 文件夹也是如此  。 App_Data 文件夹不会像在 ASP.NET 4.x 项目中那样得到特殊对待  。
+* `<ExcludeApp_Data>` 属性仅为满足 XML 架构要求。 `<ExcludeApp_Data>` 属性不影响发布过程，即使项目根中存在 App_Data 文件夹也是如此。 App_Data 文件夹不会像在 ASP.NET 4.x 项目中那样得到特殊对待。
 
 <!--
 
@@ -295,9 +295,9 @@ NOTE: Temporarily removed from 'Using the .NET Core CLI' below until https://git
 
 ## <a name="publish-to-an-msdeploy-endpoint-from-the-command-line"></a>从命令行发布到 MSDeploy 终结点
 
-下面的示例使用由 Visual Studio 创建的 ASP.NET Core Web 应用，名为 AzureWebApp  。 通过 Visual Studio 添加 Azure 应用发布配置文件。 有关如何创建配置文件的详细信息，请参阅[发布配置文件](#publish-profiles)部分。
+下面的示例使用由 Visual Studio 创建的 ASP.NET Core Web 应用，名为 AzureWebApp。 通过 Visual Studio 添加 Azure 应用发布配置文件。 有关如何创建配置文件的详细信息，请参阅[发布配置文件](#publish-profiles)部分。
 
-若要使用发布配置文件部署应用，请在 Visual Studio 开发人员命令提示中执行 `msbuild` 命令  。 Windows 任务栏上的“开始”菜单的“Visual Studio”文件夹中提供命令提示符   。 为了便于访问，可将命令提示符添加到 Visual Studio 中的“工具”菜单中  。 有关详细信息，请参阅 [Visual Studio 开发人员命令提示符](/dotnet/framework/tools/developer-command-prompt-for-vs#run-the-command-prompt-from-inside-visual-studio)。
+若要使用发布配置文件部署应用，请在 Visual Studio 开发人员命令提示中执行 `msbuild` 命令。 Windows 任务栏上的“开始”菜单的“Visual Studio”文件夹中提供命令提示符。 为了便于访问，可将命令提示符添加到 Visual Studio 中的“工具”菜单中。 有关详细信息，请参阅 [Visual Studio 开发人员命令提示符](/dotnet/framework/tools/developer-command-prompt-for-vs#run-the-command-prompt-from-inside-visual-studio)。
 
 MSBuild 使用以下命令语法：
 
@@ -312,11 +312,11 @@ msbuild {PATH}
 * {PATH} &ndash; 应用的项目文件路径。
 * {PROFILE} &ndash; 发布配置文件的名称。
 * {USERNAME} &ndash; MSDeploy 用户名。 可在发布配置文件中找到 {USERNAME}。
-* {PASSWORD} &ndash; MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 {PASSWORD}  。 可以从以下位置下载 .PublishSettings  文件：
-  * 解决方案资源管理器  ：选择“视图” > “Cloud Explorer”   。 连接你的 Azure 订阅。 打开“应用服务”  。 右键单击应用。 选择“下载发布配置文件”  。
-  * Azure 门户：选择 Web 应用“概述”面板上的“获取发布配置文件”   。
+* {PASSWORD} &ndash; MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 {PASSWORD}。 可以从以下位置下载 .PublishSettings 文件：
+  * 解决方案资源管理器：选择“视图” > “Cloud Explorer” 。 连接你的 Azure 订阅。 打开“应用服务”。 右键单击应用。 选择“下载发布配置文件”。
+  * Azure 门户：选择 Web 应用“概述”面板上的“获取发布配置文件” 。
 
-下面的示例使用名为“AzureWebApp - Web 部署”的发布配置文件  ：
+下面的示例使用名为“AzureWebApp - Web 部署”的发布配置文件：
 
 ```console
 msbuild "AzureWebApp.csproj" 
@@ -341,7 +341,7 @@ dotnet msbuild "AzureWebApp.csproj"
 
 ## <a name="set-the-environment"></a>设置环境
 
-将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml  ）或项目文件中，以设置应用的[环境](xref:fundamentals/environments)：
+将 `<EnvironmentName>` 属性包含在发布配置文件（.pubxml）或项目文件中，以设置应用的[环境](xref:fundamentals/environments)：
 
 ```xml
 <PropertyGroup>
@@ -349,7 +349,7 @@ dotnet msbuild "AzureWebApp.csproj"
 </PropertyGroup>
 ```
 
-如果需要 web.config  转换（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>。
+如果需要 web.config 转换（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>。
 
 ## <a name="exclude-files"></a>排除文件
 
@@ -357,11 +357,11 @@ dotnet msbuild "AzureWebApp.csproj"
 
 * 生成工件
 * 与以下 glob 模式匹配的文件夹和文件：
-  * `**\*.config`（例如，web.config  ）
-  * `**\*.json`（例如，appsettings.json  ）
+  * `**\*.config`（例如，web.config）
+  * `**\*.json`（例如，appsettings.json）
   * `wwwroot\**`
 
-MSBuild 支持 [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)。 例如，以下 `<Content>` 元素禁止在 wwwroot\content  文件夹及其子文件夹中复制文本 (.txt  ) 文件：
+MSBuild 支持 [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patterns)。 例如，以下 `<Content>` 元素禁止在 wwwroot\content 文件夹及其子文件夹中复制文本 (.txt) 文件：
 
 ```xml
 <ItemGroup>
@@ -369,9 +369,9 @@ MSBuild 支持 [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patt
 </ItemGroup>
 ```
 
-可以将上面的标记添加到发布配置文件或 .csproj  文件。 添加到 .csproj  文件时，会将该规则添加到项目中的所有发布配置文件中。
+可以将上面的标记添加到发布配置文件或 .csproj 文件。 添加到 .csproj 文件时，会将该规则添加到项目中的所有发布配置文件中。
 
-以下 `<MsDeploySkipRules>` 元素排除 wwwroot\content  文件夹中的所有文件：
+以下 `<MsDeploySkipRules>` 元素排除 wwwroot\content 文件夹中的所有文件：
 
 ```xml
 <ItemGroup>
@@ -382,7 +382,7 @@ MSBuild 支持 [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patt
 </ItemGroup>
 ```
 
-`<MsDeploySkipRules>` 不会从部署站点删除跳过  目标。 从部署站点中删除 `<Content>` 目标文件和文件夹。 例如，假设部署的 Web 应用具有以下文件：
+`<MsDeploySkipRules>` 不会从部署站点删除跳过目标。 从部署站点中删除 `<Content>` 目标文件和文件夹。 例如，假设部署的 Web 应用具有以下文件：
 
 * *Views/Home/About1.cshtml*
 * *Views/Home/About2.cshtml*
@@ -409,7 +409,7 @@ MSBuild 支持 [glob 模式](https://gruntjs.com/configuring-tasks#globbing-patt
 </ItemGroup>
 ```
 
-之前的 `<MsDeploySkipRules>` 元素阻止部署跳过的  文件。 一旦部署这些文件就不会删除它们。
+之前的 `<MsDeploySkipRules>` 元素阻止部署跳过的文件。 一旦部署这些文件就不会删除它们。
 
 以下 `<Content>` 元素将在部署站点中删除目标文件：
 
@@ -440,7 +440,7 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 ## <a name="include-files"></a>包含文件
 
-下列各部分简要介绍了发布时用于包含文件的不同方法。 [常规文件包含](#general-file-inclusion)部分使用了 `DotNetPublishFiles` 项，后者由 Web SDK 中的发布目标文件提供。 [选择性文件包含](#selective-file-inclusion)部分使用的是 `ResolvedFileToPublish` 项，它由 .NET Core SDK 中的发布目标文件提供。 Web SDK 依赖于 .NET Core SDK，因此上述任一项都可在 ASP.NET Core 项目中使用。
+下列各部分简要介绍了发布时用于包含文件的不同方法。 [常规文件包含](#general-file-inclusion)部分使用了 `DotNetPublishFiles` 项，后者由 [Web SDK](xref:razor-pages/web-sdk) 中的发布目标文件提供。 [选择性文件包含](#selective-file-inclusion)部分使用了 `ResolvedFileToPublish` 项，它由 [.NET Core SDK](/dotnet/core/project-sdk/msbuild-props) 中的发布目标文件提供。 Web SDK 依赖于 .NET Core SDK，因此上述任一项都可在 ASP.NET Core 项目中使用。
 
 ### <a name="general-file-inclusion"></a>常规文件包含
 
@@ -457,17 +457,17 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 前面的标记：
 
-* 可以将标记添加到 .csproj  文件或发布配置文件。 如果将其添加到 .csproj  文件，它会包含在项目的每个发布配置文件中。
-* 声明一个 `_CustomFiles` 项来存储与 `Include` 属性的 glob 模式匹配的文件。 模式中引用的“图像”文件夹未在项目目录中  。 名为 `$(MSBuildProjectDirectory)` 的[保留属性](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)会解析为项目文件的绝对路径。
-* 向 `DotNetPublishFiles` 项提供一个文件列表。 默认情况下，该项的 `<DestinationRelativePath>` 元素为空。 默认值在标记中重写，且使用 `%(RecursiveDir)` 等[常见的项元数据](/visualstudio/msbuild/msbuild-well-known-item-metadata)。 内部文本表示已发布的站点的 wwwroot/images 文件夹  。
+* 可以将标记添加到 .csproj 文件或发布配置文件。 如果将其添加到 .csproj 文件，它会包含在项目的每个发布配置文件中。
+* 声明一个 `_CustomFiles` 项来存储与 `Include` 属性的 glob 模式匹配的文件。 模式中引用的“图像”文件夹未在项目目录中。 名为 `$(MSBuildProjectDirectory)` 的[保留属性](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)会解析为项目文件的绝对路径。
+* 向 `DotNetPublishFiles` 项提供一个文件列表。 默认情况下，该项的 `<DestinationRelativePath>` 元素为空。 默认值在标记中重写，且使用 `%(RecursiveDir)` 等[常见的项元数据](/visualstudio/msbuild/msbuild-well-known-item-metadata)。 内部文本表示已发布的站点的 wwwroot/images 文件夹。
 
 ### <a name="selective-file-inclusion"></a>选择性文件包含
 
 下例中突出显示的标记展示了：
 
-* 将项目之外的文件复制到已发布的站点的 wwwroot 文件夹  。 保留文件名 ReadMe2.md  。
-* 排除 wwwroot\Content 文件夹  。
-* 排除 Views\Home\About2.cshtml  。
+* 将项目之外的文件复制到已发布的站点的 wwwroot 文件夹。 保留文件名 ReadMe2.md。
+* 排除 wwwroot\Content 文件夹。
+* 排除 Views\Home\About2.cshtml。
 
 [!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
 

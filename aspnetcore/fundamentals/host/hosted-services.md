@@ -1,24 +1,11 @@
 ---
-title: 在 ASP.NET Core 中使用托管服务实现后台任务
-author: rick-anderson
-description: 了解如何在 ASP.NET Core 中使用托管服务实现后台任务。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/10/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 9ffb91226368643d1e1526847ed32f5c93e31080
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775565"
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>在 ASP.NET Core 中使用托管服务实现后台任务
 
@@ -26,7 +13,7 @@ ms.locfileid: "82775565"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 ASP.NET Core 中，后台任务作为托管服务实现  。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
+在 ASP.NET Core 中，后台任务作为托管服务实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
 
 * 在计时器上运行的后台任务。
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)。
@@ -46,7 +33,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!INCLUDE[](~/includes/worker-template-instructions.md)]
 
-## <a name="package"></a>包
+## <a name="package"></a>Package
 
 基于辅助角色服务模板的应用使用 `Microsoft.NET.Sdk.Worker` SDK，并且具有对 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包的显式包引用。 有关示例，请参阅示例应用的项目文件 (*BackgroundTasksSample.csproj*)。
 
@@ -56,12 +43,12 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口为主机托管的对象定义了两种方法：
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`  ：
+* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`：
 
   * 已配置应用的请求处理管道 (`Startup.Configure`)。
   * 已启动服务器且已触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*)。
 
-  可以更改默认行为，以便在配置应用的管道并调用 `StartAsync` 之后，运行托管服务的 `ApplicationStarted`。 若要更改默认行为，请在调用 `VideosWatcher` 后添加托管服务（以下示例中的 `ConfigureWebHostDefaults`）：
+  可以更改默认行为，以便在配置应用的管道并调用 `ApplicationStarted` 之后，运行托管服务的 `StartAsync`。 若要更改默认行为，请在调用 `ConfigureWebHostDefaults` 后添加托管服务（以下示例中的 `VideosWatcher`）：
 
   ```csharp
   using Microsoft.AspNetCore.Hosting;
@@ -101,10 +88,10 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
   若要延长默认值为 5 秒的关闭超时值，请设置：
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>（当使用通用主机时）。 有关更多信息，请参见 <xref:fundamentals/host/generic-host#shutdown-timeout>。
-  * 使用 Web 主机时为关闭超时值主机配置设置。 有关更多信息，请参见 <xref:fundamentals/host/web-host#shutdown-timeout>。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>（当使用通用主机时）。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#shutdown-timeout>。
+  * 使用 Web 主机时为关闭超时值主机配置设置。 有关详细信息，请参阅 <xref:fundamentals/host/web-host#shutdown-timeout>。
 
-托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `Dispose`，也应调用 `StopAsync`。
+托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
 
 ## <a name="backgroundservice-base-class"></a>BackgroundService 基类
 
@@ -122,13 +109,13 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 <xref:System.Threading.Timer> 不等待先前的 `DoWork` 执行完成，因此所介绍的方法可能并不适用于所有场景。 使用 [Interlocked.Increment](xref:System.Threading.Interlocked.Increment*) 以原子操作的形式将执行计数器递增，这可确保多个线程不会并行更新 `executionCount`。
 
-已使用 `IHostBuilder.ConfigureServices` 扩展方法在  *(* Program.cs`AddHostedService`) 中注册该服务：
+已使用 `AddHostedService` 扩展方法在 `IHostBuilder.ConfigureServices` (*Program.cs*) 中注册该服务：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet1)]
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>在后台任务中使用有作用域的服务
 
-要在 [BackgroundService](xref:fundamentals/dependency-injection#service-lifetimes) 中使用[有作用域的服务](#backgroundservice-base-class)，请创建作用域。 默认情况下，不会为托管服务创建作用域。
+要在 [BackgroundService](#backgroundservice-base-class) 中使用[有作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)，请创建作用域。 默认情况下，不会为托管服务创建作用域。
 
 作用域后台任务服务包含后台任务的逻辑。 如下示例中：
 
@@ -137,7 +124,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/ScopedProcessingService.cs?name=snippet1)]
 
-托管服务创建一个作用域来解决作用域后台任务服务以调用其 `DoWork` 方法。 `DoWork` 返回 `Task` 等待的 `ExecuteAsync`：
+托管服务创建一个作用域来解决作用域后台任务服务以调用其 `DoWork` 方法。 `DoWork` 返回 `ExecuteAsync` 等待的 `Task`：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/ConsumeScopedServiceHostedService.cs?name=snippet1&highlight=19,22-35)]
 
@@ -153,13 +140,13 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 在以下 `QueueHostedService` 示例中：
 
-* `BackgroundProcessing` 方法返回 `Task` 中等待的 `ExecuteAsync`。
+* `BackgroundProcessing` 方法返回 `ExecuteAsync` 中等待的 `Task`。
 * 在 `BackgroundProcessing` 中，取消排队并执行队列中的后台任务。
 * 服务在 `StopAsync` 中停止之前，将等待工作项。
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=28-29,33)]
 
-每当在输入设备上选择 `MonitorLoop` 键时，`w` 服务将处理托管服务的排队任务：
+每当在输入设备上选择 `w` 键时，`MonitorLoop` 服务将处理托管服务的排队任务：
 
 * `IBackgroundTaskQueue` 注入到 `MonitorLoop` 服务中。
 * 调用 `IBackgroundTaskQueue.QueueBackgroundWorkItem` 来将工作项排入队列。
@@ -173,7 +160,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet3)]
 
-已在 `MontiorLoop` 中启动 `Program.Main`：
+已在 `Program.Main` 中启动 `MonitorLoop`：
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet4)]
 
@@ -181,7 +168,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 ::: moniker range="< aspnetcore-3.0"
 
-在 ASP.NET Core 中，后台任务作为托管服务实现  。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
+在 ASP.NET Core 中，后台任务作为托管服务实现。 托管服务是一个类，具有实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口的后台任务逻辑。 本主题提供了三个托管服务示例：
 
 * 在计时器上运行的后台任务。
 * 激活有[作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)的托管服务。 有作用域的服务可使用[依赖项注入 (DI)](xref:fundamentals/dependency-injection)
@@ -189,7 +176,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="package"></a>包
+## <a name="package"></a>Package
 
 引用 [Microsoft.AspNetCore.App 元包](xref:fundamentals/metapackage-app)或将包引用添加到 [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) 包。
 
@@ -197,7 +184,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 托管服务实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口。 该接口为主机托管的对象定义了两种方法：
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 当使用 [Web 主机](xref:fundamentals/host/web-host)时，会在启动服务器并触发 `StartAsync`IApplicationLifetime.ApplicationStarted[ 后调用 ](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*)。 当使用[通用主机](xref:fundamentals/host/generic-host)时，会在触发 `StartAsync` 之前调用 `ApplicationStarted`。
+* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 当使用 [Web 主机](xref:fundamentals/host/web-host)时，会在启动服务器并触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) 后调用 `StartAsync`。 当使用[通用主机](xref:fundamentals/host/generic-host)时，会在触发 `ApplicationStarted` 之前调用 `StartAsync`。
 
 * [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; 主机正常关闭时触发。 `StopAsync` 包含结束后台任务的逻辑。 实现 <xref:System.IDisposable> 和[终结器（析构函数）](/dotnet/csharp/programming-guide/classes-and-structs/destructors)以处置任何非托管资源。
 
@@ -212,10 +199,10 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
   若要延长默认值为 5 秒的关闭超时值，请设置：
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>（当使用通用主机时）。 有关更多信息，请参见 <xref:fundamentals/host/generic-host#shutdown-timeout>。
-  * 使用 Web 主机时为关闭超时值主机配置设置。 有关更多信息，请参见 <xref:fundamentals/host/web-host#shutdown-timeout>。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>（当使用通用主机时）。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host#shutdown-timeout>。
+  * 使用 Web 主机时为关闭超时值主机配置设置。 有关详细信息，请参阅 <xref:fundamentals/host/web-host#shutdown-timeout>。
 
-托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `Dispose`，也应调用 `StopAsync`。
+托管服务在应用启动时激活一次，在应用关闭时正常关闭。 如果在执行后台任务期间引发错误，即使未调用 `StopAsync`，也应调用 `Dispose`。
 
 ## <a name="timed-background-tasks"></a>计时的后台任务
 
@@ -225,13 +212,13 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 <xref:System.Threading.Timer> 不等待先前的 `DoWork` 执行完成，因此所介绍的方法可能并不适用于所有场景。
 
-已使用 `Startup.ConfigureServices` 扩展方法在 `AddHostedService` 中注册该服务：
+已使用 `AddHostedService` 扩展方法在 `Startup.ConfigureServices` 中注册该服务：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Startup.cs?name=snippet1)]
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>在后台任务中使用有作用域的服务
 
-要在 [ 中使用](xref:fundamentals/dependency-injection#service-lifetimes)有作用域的服务`IHostedService`，请创建一个作用域。 默认情况下，不会为托管服务创建作用域。
+要在 `IHostedService` 中使用[有作用域的服务](xref:fundamentals/dependency-injection#service-lifetimes)，请创建一个作用域。 默认情况下，不会为托管服务创建作用域。
 
 作用域后台任务服务包含后台任务的逻辑。 在以下示例中，将 <xref:Microsoft.Extensions.Logging.ILogger> 注入到服务中：
 
@@ -241,7 +228,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/ConsumeScopedServiceHostedService.cs?name=snippet1&highlight=29-36)]
 
-已在 `Startup.ConfigureServices` 中注册这些服务。 已使用 `IHostedService` 扩展方法注册 `AddHostedService` 实现：
+已在 `Startup.ConfigureServices` 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册 `IHostedService` 实现：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Startup.cs?name=snippet2)]
 
@@ -255,7 +242,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=21,25)]
 
-已在 `Startup.ConfigureServices` 中注册这些服务。 已使用 `IHostedService` 扩展方法注册 `AddHostedService` 实现：
+已在 `Startup.ConfigureServices` 中注册这些服务。 已使用 `AddHostedService` 扩展方法注册 `IHostedService` 实现：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Startup.cs?name=snippet3)]
 
@@ -266,7 +253,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Pages/Index.cshtml.cs?name=snippet1)]
 
-在索引页上选择“添加任务”按钮时，会执行  **方法**`OnPostAddTask`。 调用 `QueueBackgroundWorkItem` 来将工作项排入队列：
+在索引页上选择“添加任务”按钮时，会执行 `OnPostAddTask` 方法。 调用 `QueueBackgroundWorkItem` 来将工作项排入队列：
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Pages/Index.cshtml.cs?name=snippet2)]
 

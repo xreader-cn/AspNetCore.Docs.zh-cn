@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 5c6771dd7249bfb8280ba20e1ce75967f279971c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 09cca9c4af23c35fdbc2ee92169913c960b0a68d
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771580"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424325"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Luke Latham](https://github.com/guardrex)
 
-有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件中并不是高效的方法 &mdash; 每当其中一个元素需要更新，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局*可解决此问题。
+有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局*可解决此问题。
 
 从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/data-binding)、[依赖项注入](xref:blazor/dependency-injection)和其他组件方案。
 
@@ -33,7 +33,7 @@ ms.locfileid: "82771580"
 * 继承自 `LayoutComponentBase`，后者为布局内的呈现内容定义 `Body` 属性。
 * 使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。
 
-以下代码示例显示布局组件 MainLayout.razor 的 Razor 模板  。 布局继承 `LayoutComponentBase` 并在导航栏和页脚之间设置 `@Body`：
+以下代码示例显示布局组件 MainLayout.razor 的 Razor 模板。 布局继承 `LayoutComponentBase` 并在导航栏和页脚之间设置 `@Body`：
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
@@ -75,7 +75,7 @@ ms.locfileid: "82771580"
  
 [!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-_Imports.razor 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件  。
+_Imports.razor 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文件](xref:mvc/views/layout#importing-shared-directives)，但专门应用于 Razor 组件文件。
 
 在 *_Imports.razor* 中指定布局会替代指定为路由器*默认布局*的布局。
 

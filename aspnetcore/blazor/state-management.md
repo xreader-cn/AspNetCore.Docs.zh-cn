@@ -1,36 +1,22 @@
 ---
-title: ASP.NET Core Blazor 状态管理
-author: guardrex
-description: 了解如何在 Blazor 服务器应用中保留状态。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/17/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/state-management
-ms.openlocfilehash: 5e14a0697fbc98575970b93dfa12c68e9f561c56
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967410"
+title:“ASP.NET Core Blazor 状态管理”author: description:“了解如何在 Blazor 服务器应用中保留状态。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
 作者：[Steve Sanderson](https://github.com/SteveSandersonMS)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持与服务器的持续连接。 用户的状态保留在线路中的服务器内存中  。 
+Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持与服务器的持续连接。 用户的状态保留在线路中的服务器内存中。 
 
 为用户线路保留的状态示例包括：
 
-* 呈现的 UI &mdash; 组件实例的层次结构及其最新的呈现输出。
+* 呈现的 UI：组件实例的层次结构及其最新的呈现输出。
 * 组件实例中的任何字段和属性的值。
 * 在线路范围内的[依赖关系注入 (DI)](xref:fundamentals/dependency-injection) 服务实例中保留的数据。
 
@@ -56,7 +42,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 通常情况下，跨线路保持状态适用于用户主动创建数据，而不是简单地读取已存在的数据的应用场景。
 
-若要在单个电路之外保留状态，请勿只是将数据存储在服务器的内存中  。 应用必须将数据保留到其他存储位置。 状态暂留并非是自动进行的 &mdash; 必须在开发应用时采取措施来实现有状态的数据暂留。
+若要在单个电路之外保留状态，请勿只是将数据存储在服务器的内存中。 应用必须将数据保留到其他存储位置。 状态暂留并非是自动进行的。 必须在开发应用时采取措施来实现有状态的数据暂留。
 
 通常，只有用户投入了大量精力所创建的高价值状态才需要数据暂留。 在下面的示例中，保留状态可以节省时间或有助于商业活动：
 
@@ -66,7 +52,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 通常不需要保留易于重新创建的状态，例如在登录对话框中输入的尚未提交的用户名。
 
 > [!IMPORTANT]
-> 应用只能保留应用状态  。 不能保留 UI，如组件实例及其呈现树。 组件和呈现树通常不能序列化。 若要保留类似于 UI 状态的内容（如 TreeView 的展开节点），应用必须具有自定义代码，以便将行为建模为可序列化应用状态。
+> 应用只能保留应用状态。 不能保留 UI，如组件实例及其呈现树。 组件和呈现树通常不能序列化。 若要保留类似于 UI 状态的内容（如 TreeView 的展开节点），应用必须具有自定义代码，以便将行为建模为可序列化应用状态。
 
 ## <a name="where-to-persist-state"></a>保留状态的位置
 
@@ -99,7 +85,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 保留浏览器地址栏的内容：
 
 * 如果用户手动重载页面。
-* 如果 Web 服务器不可用 &mdash; 用户被强制重载页面，以便连接到其他服务器。
+* 如果 Web 服务器不可用，且用户被强制重载页面，以便连接到其他服务器。
 
 有关使用 `@page` 指令定义 URL 模式的信息，请参阅 <xref:blazor/routing>。
 
@@ -133,7 +119,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 第三方 NuGet 包提供使用 `localStorage` 和 `sessionStorage` 时采用的 API。
 
-值得考虑的是，选择一个透明地使用 ASP.NET Core [数据保护](xref:security/data-protection/introduction)的包。 ASP.NET Core 数据保护可对存储的数据进行加密，并降低篡改存储数据的潜在风险。 如果 JSON 序列化的数据以纯文本形式存储，则用户可以使用浏览器开发人员工具查看数据，还可以修改存储的数据。 保护数据并非总是一个问题，因为有些数据本质上可能是无足轻重的。 例如，读取或修改 UI 元素的存储颜色不会对用户或组织造成严重的安全风险。 避免允许用户检查或篡改敏感数据  。
+值得考虑的是，选择一个透明地使用 ASP.NET Core [数据保护](xref:security/data-protection/introduction)的包。 ASP.NET Core 数据保护可对存储的数据进行加密，并降低篡改存储数据的潜在风险。 如果 JSON 序列化的数据以纯文本形式存储，则用户可以使用浏览器开发人员工具查看数据，还可以修改存储的数据。 保护数据并非总是一个问题，因为有些数据本质上可能是无足轻重的。 例如，读取或修改 UI 元素的存储颜色不会对用户或组织造成严重的安全风险。 避免允许用户检查或篡改敏感数据。
 
 ## <a name="protected-browser-storage-experimental-package"></a>受保护的浏览器存储实验性包
 
@@ -147,7 +133,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 安装 `Microsoft.AspNetCore.ProtectedBrowserStorage` 包：
 
 1. 在 Blazor 服务器应用项目中，将包引用添加到 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)。
-1. 在顶级 HTML（例如，在默认项目模板中的“Pages/_Host.cshtml”文件中）中，添加以下 `<script>` 标记  ：
+1. 在顶级 HTML（例如，在默认项目模板中的“Pages/_Host.cshtml”文件中）中，添加以下 `<script>` 标记：
 
    ```html
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
@@ -173,7 +159,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
-可将 `@using` 语句放置在“_Imports.razor”文件而不是组件中  。 使用“_Imports.razor”文件可使命名空间可用于应用的较大部分或整个应用  。
+可将 `@using` 语句放置在“_Imports.razor”文件而不是组件中。 使用“_Imports.razor”文件可使命名空间可用于应用的较大部分或整个应用。
 
 若要在项目模板的 `Counter` 组件中保留 `currentCount` 值，请修改 `IncrementCount` 方法以使用 `ProtectedSessionStore.SetAsync`：
 
@@ -217,7 +203,7 @@ protected override async Task OnInitializedAsync()
 private int? currentCount;
 ```
 
-请勿无条件地显示计数和“增量”按钮  ，而选择仅在数据已加载后才显示这些元素：
+请勿无条件地显示计数和“增量”按钮，而选择仅在数据已加载后才显示这些元素：
 
 ```razor
 @if (currentCount.HasValue)
@@ -245,7 +231,7 @@ else
 
 解决此错误的一种方法是禁用预呈现。 如果应用大量使用基于浏览器的存储，则这通常是最佳选择。 预呈现会增加复杂性，且不会给应用带来好处，因为在 `localStorage` 或 `sessionStorage` 可用之前，应用无法预呈现任何有用的内容。
 
-若要禁用预呈现，请打开“Pages/_Host.cshtml”文件，并将[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)的 `render-mode` 更改为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>  。
+若要禁用预呈现，请打开“Pages/_Host.cshtml”文件，并将[组件标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)的 `render-mode` 更改为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>。
 
 对于不使用 `localStorage` 或 `sessionStorage` 的其他页面，预呈现可能很有用。 若要使预呈现保持启用状态，可延迟加载操作，直到浏览器连接到线路。 以下是存储计数器值的示例：
 
@@ -286,7 +272,7 @@ else
 
 ### <a name="factor-out-the-state-preservation-to-a-common-location"></a>将状态保留提取到常见位置
 
-如果多个组件依赖于基于浏览器的存储，则多次重新实现状态提供程序代码会造成代码重复。 若要避免代码重复，一种方法是创建一个封装了状态提供程序逻辑的状态提供程序父组件  。 子组件可处理保留的数据，而无需考虑状态暂留机制。
+如果多个组件依赖于基于浏览器的存储，则多次重新实现状态提供程序代码会造成代码重复。 若要避免代码重复，一种方法是创建一个封装了状态提供程序逻辑的状态提供程序父组件。 子组件可处理保留的数据，而无需考虑状态暂留机制。
 
 在 `CounterStateProvider` 组件的以下示例中，保留计数器数据：
 
@@ -328,7 +314,7 @@ else
 
 `CounterStateProvider` 组件处理加载阶段的方式是在加载完成后才呈现其子内容。
 
-若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (App.razor) 中的 `Router` 来包装 `CounterStateProvider` 组件  ：
+若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (App.razor) 中的 `Router` 来包装 `CounterStateProvider` 组件：
 
 ```razor
 <CounterStateProvider>
@@ -363,7 +349,7 @@ else
 
 如前所述，若要处理预呈现，可对 `CounterStateProvider` 进行修改，以便所有使用计数器数据的组件均可自动处理预呈现。 有关详细信息，请参阅[处理预呈现](#handle-prerendering)一节。
 
-通常，建议在以下情况下使用状态提供程序父组件模式  ：
+通常，建议在以下情况下使用状态提供程序父组件模式：
 
 * 在多个其他组件中使用状态时。
 * 只有一个顶级状态对象要保留时。

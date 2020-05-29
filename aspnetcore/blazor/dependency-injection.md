@@ -1,36 +1,22 @@
 ---
-title: ASP.NET Core Blazor 依赖关系注入
-author: guardrex
-description: 了解 Blazor 应用如何将服务注入组件。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/04/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/dependency-injection
-ms.openlocfilehash: e96698bd0bd8f3f3b290ba24bc8169efb16f1d03
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967527"
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依赖关系注入
 
 作者：[Rainer Stropek](https://www.timecockpit.com) 和 [Mike Rousos](https://github.com/mjrousos)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
 Blazor 支持[依赖关系注入 (DI)](xref:fundamentals/dependency-injection)。 应用可通过将内置服务注入组件来使用这些服务。 应用还可定义和注册自定义服务，并通过 DI 使其在整个应用中可用。
 
 DI 是一种技术，它用于访问配置在中心位置的服务。 该技术可在 Blazor 应用中用于以下方面：
 
-* 跨多个组件共享服务类的单个实例，称为“单一实例”服务  。
+* 跨多个组件共享服务类的单个实例，称为“单一实例”服务。
 * 通过使用引用抽象将组件与具体服务类分离。 例如，请考虑用接口 `IDataAccess` 来访问应用中数据。 该接口由具体的 `DataAccess` 类实现，并在应用的服务容器中注册为服务。 当组件使用 DI 接收 `IDataAccess` 实现时，组件不与具体类型耦合。 可交换实现，目的可能是为了单元测试中的模拟实现。
 
 ## <a name="default-services"></a>默认服务
@@ -38,10 +24,59 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 默认服务会自动添加到应用的服务集合中。
 
 | 服务 | 生存期 | 描述 |
-| ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | 暂时 | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包含配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。 |
-| `IJSRuntime` | Singleton (Blazor WebAssembly)<br>Scoped（Blazor 服务器） | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 |
-| `NavigationManager` | Singleton (Blazor WebAssembly)<br>Scoped（Blazor 服务器） | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/routing#uri-and-navigation-state-helpers)。 |
+| ---
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---- | --- title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---- | --- title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | <xref:System.Net.Http.HttpClient> | Transient | 提供用于发送 HTTP 请求以及从 URI 标识的资源接收 HTTP 响应的方法。<br><br>Blazor WebAssembly 应用中 `HttpClient` 的实例使用浏览器在后台处理 HTTP 流量。<br><br>默认情况下，Blazor 服务器应用不包含配置为服务的 `HttpClient`。 向 Blazor 服务器应用提供 `HttpClient`。<br><br>有关详细信息，请参阅 <xref:blazor/call-web-api>。 | | `IJSRuntime` | Singleton (Blazor WebAssembly)<br>Scoped (Blazor Server) | 表示在其中调度 JavaScript 调用的 JavaScript 运行时实例。 有关详细信息，请参阅 <xref:blazor/call-javascript-from-dotnet>。 | | `NavigationManager` | Singleton (Blazor WebAssembly)<br>Scoped (Blazor Server) | 包含用于处理 URI 和导航状态的帮助程序。 有关详细信息，请参阅 [URI 和导航状态帮助程序](xref:blazor/routing#uri-and-navigation-state-helpers)。 |
 
 自定义服务提供程序不会自动提供表中列出的默认服务。 如果你使用自定义服务提供程序且需要表中所示的任何服务，请将所需服务添加到新的服务提供程序。
 
@@ -49,7 +84,7 @@ DI 是一种技术，它用于访问配置在中心位置的服务。 该技术�
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-在 Program.cs 的 `Main` 方法中配置应用服务集合的服务  。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
+在 Program.cs 的 `Main` 方法中配置应用服务集合的服务。 在下例中，为 `IMyDependency` 注册了 `MyDependency` 实现：
 
 ```csharp
 public class Program
@@ -86,7 +121,7 @@ public class Program
 }
 ```
 
-主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 appsettings.json）传递到 `InitializeWeatherAsync` ：
+主机还会为应用提供中心配置实例。 在上述示例的基础上，天气服务的 URL 将从默认配置源（例如 appsettings.json）传递到 `InitializeWeatherAsync`：
 
 ```csharp
 public class Program
@@ -133,10 +168,51 @@ public void ConfigureServices(IServiceCollection services)
 可使用下表中所示的生存期配置服务。
 
 | 生存期 | 描述 |
-| -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，Scoped 服务注册的范围为“连接”  。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例  。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例  。 |
+| ---
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---- | --- title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 依赖关系注入”author: description:“了解 Blazor 应用如何将服务注入组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssembly 应用当前没有 DI 范围的概念。 已注册 `Scoped` 的服务的行为与 `Singleton` 服务类似。 但是，Blazor 服务器托管模型支持 `Scoped` 生存期。 在 Blazor 服务器应用中，Scoped 服务注册的范围为“连接”。 因此，即使当前意图是在浏览器中运行客户端，对于范围应限定为当前用户的服务来说，首选使用 Scoped 服务。 | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI 创建服务的单个实例。 需要 `Singleton` 服务的所有组件都会接收同一服务的实例。 | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | 每当组件从服务容器获取 `Transient` 服务的实例时，它都会接收该服务的新实例。 |
 
 DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 <xref:fundamentals/dependency-injection>。
 
@@ -153,7 +229,7 @@ DI 系统基于 ASP.NET Core 中的 DI 系统。 有关详细信息，请参阅 
 
 下面的示例说明如何使用 `@inject`。 将实现 `Services.IDataAccess` 的服务注入组件的 `DataRepository` 属性中。 请注意代码是如何仅使用 `IDataAccess` 抽象的：
 
-[!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
+[!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,20)]
 
 在内部，生成的属性 (`DataRepository`) 使用 `InjectAttribute` 特性。 通常，不直接使用此特性。 如果组件需要基类，而基类也需要注入的属性，则请手动添加 `InjectAttribute`：
 
@@ -178,7 +254,7 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>在服务中使用 DI
 
-复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 `HttpClient` 默认服务。 `@inject`（或 `InjectAttribute`）不可用于服务。 必须改用构造函数注入  。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。
+复杂的服务可能需要其他服务。 在前面的示例中，`DataAccess` 可能需要 `HttpClient` 默认服务。 `@inject`（或 `InjectAttribute`）不可用于服务。 必须改用构造函数注入。 通过向服务的构造函数添加参数来添加所需服务。 当 DI 创建服务时，它会在构造函数中识别其所需的服务，并相应地提供这些服务。
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -195,7 +271,7 @@ public class DataAccess : IDataAccess
 构造函数注入的先决条件：
 
 * 必须存在一个构造函数，其参数可完全通过 DI 实现。 如果指定默认值，则允许使用 DI 未涵盖的其他参数。
-* 适用的构造函数必须是公共函数  。
+* 适用的构造函数必须是公共函数。
 * 必须存在一个适用的构造函数。 如果出现歧义，DI 会引发异常。
 
 ## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>用于管理 DI 范围的实用工具基组件类
@@ -260,7 +336,7 @@ public class DataAccess : IDataAccess
 
 从 Web 应用中的 DI 检索的一种常见服务类型是实体框架 (EF) `DbContext` 对象。 默认情况下，使用 `IServiceCollection.AddDbContext` 注册 EF 服务会将 `DbContext` 添加为一项 Scoped 服务。 注册为 Scoped 服务可能会导致 Blazor 应用中出现问题，因为这会导致 `DbContext` 实例生存期较长且跨应用共享。 `DbContext` 不是线程安全的且不得同时使用。
 
-根据应用的不同，使用 `OwningComponentBase` 将 `DbContext` 的范围限制为单个组件可能会解决此问题  。 如果组件不并行使用 `DbContext`，则从 `OwningComponentBase` 派生该组件并从 `ScopedServices` 检索 `DbContext` 就已足够，因为它可确保：
+根据应用的不同，使用 `OwningComponentBase` 将 `DbContext` 的范围限制为单个组件可能会解决此问题。 如果组件不并行使用 `DbContext`，则从 `OwningComponentBase` 派生该组件并从 `ScopedServices` 检索 `DbContext` 就已足够，因为它可确保：
 
 * 单独的组件不共享 `DbContext`。
 * `DbContext` 的生存期与依赖它的组件的生存期一样长。

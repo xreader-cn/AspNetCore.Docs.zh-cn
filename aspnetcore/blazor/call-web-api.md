@@ -1,41 +1,27 @@
 ---
-title: 从 ASP.NET Core Blazor WebAssembly 调用 Web API
-author: guardrex
-description: 了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用调用 Web API，包括发出跨域资源共享 (CORS) 请求。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/11/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/call-web-api
-ms.openlocfilehash: 7ed2d51c0d41a50a2e139d739a0a06cd9f392a83
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153500"
+title:“从 ASP.NET Core Blazor WebAssembly 调用 Web API”author: description:“了解如何使用 JSON 帮助程序从 Blazor WebAssembly 应用调用 Web API，包括发出跨域资源共享 (CORS) 请求。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 调用 Web API
 
 作者：[Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27) 和 [Juan De la Cruz](https://github.com/juandelacruz23)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) 应用使用预配置的 `HttpClient` 服务调用 Web API。 使用 Blazor JSON 帮助程序或通过 <xref:System.Net.Http.HttpRequestMessage> 撰写请求，其中可以包含 JavaScript [Fetch API ](https://developer.mozilla.org/docs/Web/API/Fetch_API) 选项。 Blazor WebAssembly 应用中的 `HttpClient` 服务侧重于使请求返回源服务器。 本主题中的指导仅适用于 Blazor WebAssembly 应用。
 
 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)应用使用 <xref:System.Net.Http.HttpClient> 实例（通常是使用 <xref:System.Net.Http.IHttpClientFactory> 创建）调用 Web API。 本主题中的指导不适用于 Blazor 服务器应用。 开发 Blazor 服务器应用时，请按照 <xref:fundamentals/http-requests> 中的指导进行操作。
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）&ndash; 选择 BlazorWebAssemblySample  应用。
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）&ndash; 选择 BlazorWebAssemblySample 应用。
 
-请查看 BlazorWebAssemblySample  示例应用中的以下组件：
+请查看 BlazorWebAssemblySample 示例应用中的以下组件：
 
-* 调用 Web API (Pages/CallWebAPI.razor  )
-* HTTP 请求测试器 (Components/HTTPRequestTester.razor  )
+* 调用 Web API (Pages/CallWebAPI.razor)
+* HTTP 请求测试器 (Components/HTTPRequestTester.razor)
 
 ## <a name="packages"></a>package
 
@@ -216,7 +202,7 @@ builder.Services.AddHttpClient("ServerAPI", client =>
 
 类型化 <xref:System.Net.Http.HttpClient> 使用应用的一个或多个 <xref:System.Net.Http.HttpClient> 实例（默认或命名）从一个或多个 web API 终结点返回数据。
 
-WeatherForecastClient.cs  ：
+WeatherForecastClient.cs：
 
 ```csharp
 using System.Net.Http;
@@ -309,9 +295,9 @@ protected override async Task OnInitializedAsync()
 
 ## <a name="cross-origin-resource-sharing-cors"></a>跨域资源共享 (CORS)
 
-浏览器安全可防止网页向不同域（而不是向网页提供服务的域）进行请求。 此限制称为同域策略  。 同域策略可防止恶意站点从另一站点读取敏感数据。 若要从浏览器向具有不同源的终结点进行请求，终结点  必须启用[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/)。
+浏览器安全可防止网页向不同域（而不是向网页提供服务的域）进行请求。 此限制称为同域策略。 同域策略可防止恶意站点从另一站点读取敏感数据。 若要从浏览器向具有不同源的终结点进行请求，终结点必须启用[跨域资源共享 (CORS)](https://www.w3.org/TR/cors/)。
 
-[Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (Pages/CallWebAPI.razor  ) 中使用 CORS。
+[Blazor WebAssembly 示例应用 (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) 演示如何在调用 Web API 组件 (Pages/CallWebAPI.razor) 中使用 CORS。
 
 若要允许其他站点对应用进行跨域资源共享 (CORS) 请求，请参阅 <xref:security/cors>。
 

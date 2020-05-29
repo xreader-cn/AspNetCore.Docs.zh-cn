@@ -76,7 +76,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
     <ul>
         @foreach (var claim in _claims)
         {
-            <li>@claim.Type &ndash; @claim.Value</li>
+            <li>@claim.Type: @claim.Value</li>
         }
     </ul>
 }

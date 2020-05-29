@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: aa338bbe61eec14bc1e1b3606e11e26bfb0e6a09
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: 610cb9124f59ed07f1fe6193f92052b4513450c8
+ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967462"
+ms.lasthandoff: 05/15/2020
+ms.locfileid: "83424255"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor 事件处理
 
@@ -132,19 +132,19 @@ UI 中的该复选框更改时，以下代码调用 `CheckChanged` 方法：
 ```
 
 > [!NOTE]
-> 不要在 Lambda 表达式中直接使用 `for` 循环中的循环变量 (`i`)  。 否则，所有 Lambda 表达式将使用相同的变量，导致所有 Lambda 中的 `i` 值相同。 始终在本地变量中捕获其值（在前面的示例中为 `buttonNumber`），然后使用它。
+> 不要在 Lambda 表达式中直接使用 `for` 循环中的循环变量 (`i`)。 否则，所有 Lambda 表达式将使用相同的变量，导致所有 Lambda 中的 `i` 值相同。 始终在本地变量中捕获其值（在前面的示例中为 `buttonNumber`），然后使用它。
 
 ## <a name="eventcallback"></a>EventCallback
 
-嵌套组件的一个常见场景：希望在子组件事件发生时运行父组件的方法 &mdash; 例如当子组件中发生 `onclick` 事件时。 若要跨组件公开事件，请使用 `EventCallback`。 父组件可向子组件的 `EventCallback` 分配回调方法。
+嵌套组件的一个常见场景：希望在子组件事件发生时运行父组件的方法。 子组件中发生的 `onclick` 事件是一个常见用例。 若要跨组件公开事件，请使用 `EventCallback`。 父组件可向子组件的 `EventCallback` 分配回调方法。
 
-示例应用 (Components/ChildComponent.razor) 中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序以从示例的 `ParentComponent` 接收 `EventCallback` 委托  。 `EventCallback` 是用 `MouseEventArgs` 键入的，这适用于来自外围设备的 `onclick` 事件：
+示例应用 (Components/ChildComponent.razor) 中的 `ChildComponent` 演示如何设置按钮的 `onclick` 处理程序以从示例的 `ParentComponent` 接收 `EventCallback` 委托。 `EventCallback` 是用 `MouseEventArgs` 键入的，这适用于来自外围设备的 `onclick` 事件：
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 `ParentComponent` 将子级的 `EventCallback<T>` (`OnClickCallback`) 设置为其 `ShowMessage` 方法。
 
-Pages/ParentComponent  ：
+Pages/ParentComponent：
 
 ```razor
 @page "/ParentComponent"
@@ -195,7 +195,7 @@ await callback.InvokeAsync(arg);
 
 使用 [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) 指令属性可阻止事件的默认操作。
 
-在输入设备上选择某个键并且元素焦点位于某个文本框上时，浏览器通常在该文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令属性来阻止默认行为。 计数器递增，且 + 键不会捕获到 `<input>` 元素的值中  ：
+在输入设备上选择某个键并且元素焦点位于某个文本框上时，浏览器通常在该文本框中显示该键的字符。 在下面的示例中，通过指定 `@onkeypress:preventDefault` 指令属性来阻止默认行为。 计数器递增，且 + 键不会捕获到 `<input>` 元素的值中：
 
 ```razor
 <input value="@count" @onkeypress="KeyHandler" @onkeypress:preventDefault />

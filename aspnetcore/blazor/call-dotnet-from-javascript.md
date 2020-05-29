@@ -1,32 +1,18 @@
 ---
-title: 从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
-author: guardrex
-description: 了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET 方法。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/07/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: 9eab35f3fd856debf9f0305aedf012d63b9b800a
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967319"
+title:“在 ASP.NET Core Blazor 中从 JavaScript 函数调用 .NET 方法”author: description:“了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET 方法。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27)、[Shashikant Rudrawadi](http://wisne.co) 和 [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作）   。
+Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作） 。
 
 本文介绍如何从 JavaScript 调用 .NET 方法。 要详细了解如何通过 .NET 调用 JavaScript 函数，请参阅 <xref:blazor/call-javascript-from-dotnet>。
 
@@ -38,7 +24,7 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 该示例应用包含一个 C# 方法，用于返回 `int` 数组。 `JSInvokable` 特性应用于该方法。
 
-Pages/JsInterop.razor  ：
+Pages/JsInterop.razor：
 
 ```razor
 <button type="button" class="btn btn-primary"
@@ -57,11 +43,11 @@ Pages/JsInterop.razor  ：
 
 为客户端提供的 JavaScript 会调用 C# .net 方法。
 
-wwwroot/exampleJsInterop.js  ：
+wwwroot/exampleJsInterop.js：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
-如果选择了“触发 .NET 静态方法 ReturnArrayAsync”按钮，请在浏览器的 Web 开发人员工具中检查控制台输出  。
+如果选择了“触发 .NET 静态方法 ReturnArrayAsync”按钮，请在浏览器的 Web 开发人员工具中检查控制台输出。
 
 控制台输出为：
 
@@ -107,9 +93,9 @@ returnArrayAsyncJs: function () {
 > [!NOTE]
 > 示例应用会将消息记录到客户端控制台。 对于示例应用展示的以下示例，请在浏览器的开发人员工具中检查浏览器的控制台输出。
 
-选择“触发 .NET 实例方法 HelloHelper.SayHello”按钮时，将调用 `ExampleJsInterop.CallHelloHelperSayHello`，并将名称 `Blazor` 传递到方法  。
+选择“触发 .NET 实例方法 HelloHelper.SayHello”按钮时，将调用 `ExampleJsInterop.CallHelloHelperSayHello`，并将名称 `Blazor` 传递到方法。
 
-Pages/JsInterop.razor  ：
+Pages/JsInterop.razor：
 
 ```razor
 <button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
@@ -127,17 +113,17 @@ Pages/JsInterop.razor  ：
 
 `CallHelloHelperSayHello` 使用 `HelloHelper` 的新实例调用 JavaScript 函数 `sayHello`。
 
-JsInteropClasses/ExampleJsInterop.cs  ：
+JsInteropClasses/ExampleJsInterop.cs：
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
 
-wwwroot/exampleJsInterop.js  ：
+wwwroot/exampleJsInterop.js：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 该名称将传递给 `HelloHelper` 的构造函数，该构造函数设置 `HelloHelper.Name` 属性。 执行 JavaScript 函数 `sayHello` 时，`HelloHelper.SayHello` 返回 `Hello, {Name}!` 消息，JavaScript 函数将该消息写入控制台。
 
-JsInteropClasses/HelloHelper.cs  ：
+JsInteropClasses/HelloHelper.cs：
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
@@ -235,7 +221,7 @@ function updateMessageCallerJS() {
 }
 ```
 
-Pages/JSInteropComponent.razor  ：
+Pages/JSInteropComponent.razor：
 
 ```razor
 @page "/JSInteropComponent"
@@ -279,7 +265,7 @@ Pages/JSInteropComponent.razor  ：
 * 每个 `ListItem` 组件都由一个消息和一个按钮组成。
 * 选择 `ListItem` 组件按钮后，`ListItem` 的 `UpdateMessage` 方法会更改列表项文本并隐藏该按钮。
 
-MessageUpdateInvokeHelper.cs  ：
+MessageUpdateInvokeHelper.cs：
 
 ```csharp
 using System;
@@ -311,7 +297,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-Shared/ListItem.razor  ：
+Shared/ListItem.razor：
 
 ```razor
 @inject IJSRuntime JsRuntime
@@ -346,7 +332,7 @@ Shared/ListItem.razor  ：
 }
 ```
 
-Pages/JSInterop.razor  ：
+Pages/JSInterop.razor：
 
 ```razor
 @page "/JSInterop"

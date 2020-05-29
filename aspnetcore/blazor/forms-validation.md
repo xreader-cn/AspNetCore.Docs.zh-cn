@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: ec2bc2867acdd1c9be42f77cb38be36abb8c8108
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: d7182594fbc22d056caff0864a053a0a92fa4e84
+ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967475"
+ms.lasthandoff: 05/16/2020
+ms.locfileid: "83438884"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -65,7 +65,7 @@ public class ExampleModel
 
 * 该窗体使用 `ExampleModel` 类型中定义的验证来验证 `name` 字段中的用户输入。 该模型在组件的 `@code` 块中创建，并保存在私有字段 (`exampleModel`) 中。 该字段分配给 `<EditForm>` 元素的 `Model` 属性。
 * `InputText` 组件的 `@bind-Value` 进行以下绑定：
-  * 将模型属性 (`exampleModel.Name`) 绑定到 `InputText` 组件的 `Value` 属性。
+  * 将模型属性 (`exampleModel.Name`) 绑定到 `InputText` 组件的 `Value` 属性。 有关属性绑定的详细信息，请参阅 <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters>。
   * 将更改事件委托绑定到 `InputText` 组件的 `ValueChanged` 属性。
 * `DataAnnotationsValidator` 组件使用数据注释附加验证支持。
 * `ValidationSummary` 组件汇总验证消息。
@@ -196,13 +196,13 @@ public class Starship
 
 如下示例中：
 
-* 选择“提交”按钮时，将运行 `HandleSubmit` 方法  。
+* 选择“提交”按钮时，将运行 `HandleSubmit` 方法。
 * 使用窗体的 `EditContext` 验证窗体。
 * 通过将 `EditContext` 传递给 `ServerValidate` 方法来进一步验证窗体，该方法会调用服务器上的 Web API 终结点（*未显示*）。
 * 通过检查 `isValid` 获得客户端和服务器端验证的结果，并根据该结果运行其他代码。
 
 ```razor
-<EditForm EditContext="@editContext" OnSubmit="@HandleSubmit">
+<EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
 
     ...
 
@@ -405,13 +405,13 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制  。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 `[Compare]` 属性。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> 不适用于 `DataAnnotationsValidator` 组件，因为它不会将验证结果与特定成员关联。 这可能会导致字段级验证的行为与提交时整个模型的验证行为不一致。 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 试验性包引入了一个附加的验证属性 `ComparePropertyAttribute`，它可以克服这些限制。 在 Blazor 应用中，`[CompareProperty]` 可直接替代 `[Compare]` 属性。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>嵌套模型、集合类型和复杂类型
 
 Blazor 支持结合使用数据注释和内置的 `DataAnnotationsValidator` 来验证窗体输入。 但是，`DataAnnotationsValidator` 仅验证绑定到窗体的模型的顶级属性（不包括集合类型或复杂类型的属性）。
 
-若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用试验性 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`  ：
+若要验证绑定模型的整个对象图（包括集合类型和复杂类型的属性），请使用试验性 [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) 包提供的 `ObjectGraphDataAnnotationsValidator`：
 
 ```razor
 <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">

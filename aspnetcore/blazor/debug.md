@@ -1,30 +1,16 @@
 ---
-title: 调试 ASP.NET Core Blazor WebAssembly
-author: guardrex
-description: 了解如何调试 Blazor 应用。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/16/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/debug
-ms.openlocfilehash: 9acbb8e7b122a8d527d16ce33af01c2e7e7608bf
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767533"
+title:“调试 ASP.NET Core Blazor WebAssembly”author: description:“了解如何调试 Blazor 应用。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>调试 ASP.NET Core Blazor WebAssembly
 
 [Daniel Roth](https://github.com/danroth27)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 可以使用基于 Chromium 的浏览器 (Microsoft Edge/Chrome) 中的浏览器开发工具调试 Blazor WebAssembly 应用。  也可以使用 Visual Studio 或 Visual Studio Code 调试应用。
 
@@ -34,10 +20,10 @@ ms.locfileid: "82767533"
 * 使用 Visual Studio 和 Visual Studio Code 中的调试支持来运行应用（<kbd>F5</kbd> 支持）。
 * 单步执行代码 (<kbd>F10</kbd>)。
 * 在浏览器中使用 <kbd>F8</kbd> 恢复代码执行，在 Visual Studio 或 Visual Studio Code 中使用 <kbd>F5</kbd> 恢复代码执行。
-* 在“局部变量”视图中，观察局部变量的值  。
+* 在“局部变量”视图中，观察局部变量的值。
 * 查看调用堆栈，包括从 JavaScript 到 .NET 以及从 .NET 到 JavaScript 的调用链。
 
-目前，无法执行以下操作  ：
+目前，无法执行以下操作：
 
 * 检查数组。
 * 悬停以检查成员。
@@ -58,15 +44,13 @@ ms.locfileid: "82767533"
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>在 Visual Studio 和 Visual Studio Code 中启用调试
 
-对于使用 ASP.NET Core 3.2 预览版 3 或更高版本的 Blazor WebAssembly 项目模板（[当前版本为 3.2 预览版 4](xref:blazor/get-started)）创建的新项目，已自动启用调试功能。
-
-若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 launchSettings.json 文件，使每个启动配置文件包含以下 `inspectUri` 属性  ：
+若要为现有 Blazor WebAssembly 应用启用调试，请更新启动项目中的 launchSettings.json 文件，使每个启动配置文件包含以下 `inspectUri` 属性：
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
 ```
 
-更新后，launchSettings.json 文件应类似于以下示例  ：
+更新后，launchSettings.json 文件应类似于以下示例：
 
 [!code-json[](debug/launchSettings.json?highlight=14,22)]
 
@@ -79,11 +63,10 @@ ms.locfileid: "82767533"
 
 要在 Visual Studio 中调试 Blazor WebAssembly 应用，请按以下步骤执行：
 
-1. 确保已[安装 Visual Studio 2019 16.6 的最新预览版本](https://visualstudio.com/preview)（预览版 2 或更高版本）。
 1. 创建一个由 ASP.NET Core 托管的新 Blazor WebAssembly 应用。
 1. 按 <kbd>F5</kbd> 在调试器中运行应用。
-1. 在 `IncrementCount` 方法的 Counter.razor 中设置一个断点  。
-1. 浏览到“计数器”选项卡，选择该按钮以命中断点  ：
+1. 在 `IncrementCount` 方法的 Counter.razor 中设置一个断点。
+1. 浏览到“计数器”选项卡，选择该按钮以命中断点：
 
    ![调试计数器](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
 
@@ -95,9 +78,9 @@ ms.locfileid: "82767533"
 
 调试 Blazor WebAssembly 应用时，还可以调试服务器代码：
 
-1. 在 `OnInitializedAsync` 的 FetchData.razor 页面中设置一个断点  。
+1. 在 `OnInitializedAsync` 的 FetchData.razor 页面中设置一个断点。
 1. 在 `Get` 操作方法的 `WeatherForecastController` 中设置一个断点。
-1. 浏览到“提取数据”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中断点  ：
+1. 浏览到“提取数据”选项卡，在 `FetchData` 组件中的首个断点向服务器发出 HTTP 请求前命中断点：
 
    ![调试提取数据](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
 
@@ -123,17 +106,17 @@ ms.locfileid: "82767533"
 
    * 如果收到以下通知告知你需要其他设置才能启用调试，请确认是否已安装正确的扩展并已启用 JavaScript 预览版调试，然后重新加载此窗口：
 
-     ![需要其他设置](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+     ![其他设置要求](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
 
-   * 系统显示一个通知，询问是否将所需资产添加到应用以进行构建和调试。 选择“是”  ：
+   * 系统显示一个通知，询问是否将所需资产添加到应用以进行构建和调试。 选择“是”：
 
      ![添加所需资产](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
 
 1. 按照以下两个步骤在调试程序中启动应用：
 
-   1\. 首先，使用“.NET Core 启动 (Blazor 独立版)”启动配置启动应用   。
+   1\. 首先，使用“.NET Core 启动 (Blazor 独立版)”启动配置启动应用 。
 
-   2\. 应用启动后，使用“Chrome 中的 .NET Core 调试 Blazor Web 程序集”启动配置来启动浏览器（需要使用 Chrome）   。 若要使用 Microsoft Edge 而不是 Chrome，请将 .vscode/launch.json 中的启动配置的 `type` 从 `pwa-chrome` 更改为 `pwa-msedge` 。
+   2\. 应用启动后，使用“Chrome 中的 .NET Core 调试 Blazor Web 程序集”启动配置来启动浏览器（需要使用 Chrome） 。 若要使用 Microsoft Edge 而不是 Chrome，请将 .vscode/launch.json 中的启动配置的 `type` 从 `pwa-chrome` 更改为 `pwa-msedge`。
 
 1. 在 `Counter` 组件的 `IncrementCount` 方法中设置一个断点，然后选择该按钮命中该断点。
 
@@ -145,9 +128,9 @@ ms.locfileid: "82767533"
 
 1. 按 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>。
 
-1. 浏览器必须在启用远程调试的情况下运行。 如果远程调试未启用，则系统会生成“无法找到可调试的浏览器标签页”错误页面  。 该错误页面包含有关一些说明，指示应在调试端口处于打开状态的情况下运行浏览器以便 Blazor 调试代理可以连接到应用。 请关闭所有浏览器实例，并按照说明重启浏览器  。
+1. 浏览器必须在启用远程调试的情况下运行。 如果远程调试未启用，则系统会生成“无法找到可调试的浏览器标签页”错误页面。 该错误页面包含有关一些说明，指示应在调试端口处于打开状态的情况下运行浏览器以便 Blazor 调试代理可以连接到应用。 请关闭所有浏览器实例，并按照说明重启浏览器。
 
-在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表  。 展开每个程序集并找到可用于调试的 *.cs*/ *.razor* 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
+在启用远程调试的情况下运行浏览器后，按调试键盘快捷方式会打开新的调试程序标签页。片刻后，“源”选项卡显示应用中的 .NET 程序集的列表。 展开每个程序集并找到可用于调试的 *.cs*/ *.razor* 源文件。 设置断点，然后切换回应用的选项卡，断点在代码执行时被命中。 命中断点后，正常单步执行代码 (<kbd>F10</kbd>) 或恢复代码执行 (<kbd>F8</kbd>)。
 
 Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)，并使用特定于 .NET 的信息扩展该协议。 按下调试键盘快捷方式后，Blazor 会将 Chrome 开发者工具指向代理。 代理连接到要调试的浏览器窗口（因此需要启用远程调试）。
 
@@ -159,4 +142,4 @@ Blazor 提供调试代理，该代理实现 [Chrome DevTools Protocol](https://c
 
 如果遇到错误，以下提示可能有所帮助：
 
-在“调试程序”选项卡中，在浏览器中打开开发人员工具  。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。
+在“调试程序”选项卡中，在浏览器中打开开发人员工具。 在控制台中，执行 `localStorage.clear()` 以删除所有断点。

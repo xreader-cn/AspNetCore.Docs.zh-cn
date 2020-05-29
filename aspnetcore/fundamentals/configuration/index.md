@@ -1495,7 +1495,7 @@ using Microsoft.Extensions.Configuration;
 有关详细信息，请参阅下列主题：
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets> &ndash; 包含有关如何使用环境变量来存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
+* <xref:security/app-secrets>：包含有关如何使用环境变量来存储敏感数据的建议。 Secret Manager 使用文件配置提供程序将用户机密存储在本地系统上的 JSON 文件中。 本主题后面将介绍文件配置提供程序。
 
 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) 安全存储 ASP.NET Core 应用的应用机密。 有关详细信息，请参阅 <xref:security/key-vault-configuration>。
 
@@ -2948,8 +2948,8 @@ title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 在服务器上创建了一个自定义连接字符串环境变量：
 
-* 名称 &ndash; `CUSTOMCONNSTR_ReleaseDB`
-* 值 &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`
+* 名称：`CUSTOMCONNSTR_ReleaseDB`
+* 值：`Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`
 
 如果 `IConfiguration` 已引入并分配给名为 `_config` 的字段，请读取值：
 
@@ -3028,8 +3028,8 @@ key=value
 
 使用 `CreateDefaultBuilder` 初始化新的主机生成器时，会自动调用两次 `AddJsonFile`。 调用该方法来从以下文件加载配置：
 
-* appsettings.json &ndash; 首先读取此文件。 该文件的环境版本可以替代 appsettings.json 文件提供的值。
-* appsettings.{Environment}.json &ndash; 根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载文件的环境版本。
+* appsettings.json：先读取此文件。 该文件的环境版本可以替代 appsettings.json 文件提供的值。
+* appsettings.{Environment}.json：文件的环境版本是根据 [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) 加载的。
 
 有关详细信息，请参阅[默认配置](#default-configuration)部分。
 

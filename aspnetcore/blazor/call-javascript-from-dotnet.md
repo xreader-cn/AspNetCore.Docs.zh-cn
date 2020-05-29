@@ -1,32 +1,18 @@
 ---
-title: 在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
-author: guardrex
-description: 了解如何在 Blazor 应用中从 JavaScript 函数调用 .NET 方法。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/07/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 064f504e94cd65862370d4551c6cb44210a8238f
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967293"
+title:“在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数”author: description:“了解如何在 Blazor 应用中从 .NET 方法调用 JavaScript 函数。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
 作者：[Javier Calvarro Nelson](https://github.com/javiercn)、[Daniel Roth](https://github.com/danroth27) 和 [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作）   。
+Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript 函数调用 .NET 方法。 这被称为 JavaScript 互操作（JS 互操作） 。
 
 本文介绍如何从 .NET 调用 JavaScript 函数。 有关如何从 JavaScript 调用 .NET 方法的信息，请参阅 <xref:blazor/call-dotnet-from-javascript>。
 
@@ -38,11 +24,11 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 下面的示例基于 [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 该示例演示如何从 C# 方法调用 JavaScript 函数。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
 
-在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
+在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
 
 [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-convertarray.html)]
 
-JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本文件的引用，从 JavaScript 文件 (.js  ) 加载：
+JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本文件的引用，从 JavaScript 文件 (.js) 加载：
 
 ```html
 <script src="exampleJsInterop.js"></script>
@@ -50,7 +36,7 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 以下组件：
 
-* 在选择了组件按钮（“转换数组”  ）时使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
+* 在选择了组件按钮（“转换数组”）时使用 `JSRuntime` 调用 `convertArray` JavaScript 函数。
 * 调用 JavaScript 函数之后，传递的数组会转换为字符串。 该字符串会返回给组件进行显示。
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
@@ -59,19 +45,19 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 若要使用 `IJSRuntime` 抽象，请采用以下任何方法：
 
-* 将 `IJSRuntime` 抽象注入 Razor 组件 (.razor) 中  ：
+* 将 `IJSRuntime` 抽象注入 Razor 组件 (.razor) 中：
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
+  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
-* 将 `IJSRuntime` 抽象注入一个类 (.cs  )：
+* 将 `IJSRuntime` 抽象注入一个类 (.cs)：
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  在 wwwroot/index.html  (Blazor WebAssembly) 或 Pages/_Host.cshtml  （Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
+  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `JSRuntime.InvokeAsync` 进行调用，会返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -87,23 +73,23 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 * `showPrompt` &ndash; 生成一个提示，以接受用户输入（用户名）并将名称返回给调用方。
 * `displayWelcome` &ndash; 将来自调用方的欢迎消息分配给 `id` 为 `welcome` 的 DOM 对象。
 
-wwwroot/exampleJsInterop.js  ：
+wwwroot/exampleJsInterop.js：
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-将引用 JavaScript 文件的 `<script>` 标记置于 wwwroot/index.html  文件 (Blazor WebAssembly) 或 Pages/_Host.cshtml  文件（Blazor 服务器）中。
+将引用 JavaScript 文件的 `<script>` 标记置于 wwwroot/index.html 文件 (Blazor WebAssembly) 或 Pages/_Host.cshtml 文件（Blazor 服务器）中。
 
-wwwroot/index.html  (Blazor WebAssembly)：
+wwwroot/index.html (Blazor WebAssembly)：
 
 [!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=22)]
 
-Pages/_Host.cshtml  （Blazor 服务器）：
+Pages/_Host.cshtml（Blazor 服务器）：
 
 [!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=35)]
 
 请勿将 `<script>` 标记置于组件文件中，因为 `<script>` 标记无法动态更新。
 
-.NET 方法通过调用 `IJSRuntime.InvokeAsync<T>` 与 exampleJsInterop.js  文件中的 JavaScript 函数进行互操作。
+.NET 方法通过调用 `IJSRuntime.InvokeAsync<T>` 与 exampleJsInterop.js 文件中的 JavaScript 函数进行互操作。
 
 `IJSRuntime` 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 `IJSInProcessRuntime` 并改为调用 `Invoke<T>`。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
@@ -113,7 +99,7 @@ Pages/_Host.cshtml  （Blazor 服务器）：
 * 将文本返回给组件进行处理。
 * 调用第二个 JavaScript 函数，该函数与 DOM 交互以显示欢迎消息。
 
-Pages/JSInterop.razor  ：
+Pages/JSInterop.razor：
 
 ```razor
 @page "/JSInterop"
@@ -144,7 +130,7 @@ Pages/JSInterop.razor  ：
 }
 ```
 
-1. 通过选择组件的“触发 JavaScript 提示符”  按钮来执行 `TriggerJsPrompt` 时，则会调用在 wwwroot/exampleJsInterop.js  文件中提供的 JavaScript `showPrompt` 函数。
+1. 通过选择组件的“触发 JavaScript 提示符”按钮来执行 `TriggerJsPrompt` 时，则会调用在 wwwroot/exampleJsInterop.js 文件中提供的 JavaScript `showPrompt` 函数。
 1. `showPrompt` 函数接受进行 HTML 编码并返回给组件的用户输入（用户的名称）。 组件将用户的名称存储在本地变量 `name` 中。
 1. 存储在 `name` 中的字符串会合并为欢迎消息，而该消息会传递给 JavaScript 函数 `displayWelcome`（它将欢迎消息呈现到标题标记中）。
 
@@ -178,7 +164,7 @@ Pages/JSInterop.razor  ：
 > [!WARNING]
 > 只使用元素引用改变不与 Blazor 交互的空元素的内容。 当第三方 API 向元素提供内容时，此方案十分有用。 由于 Blazor 不与元素交互，因此在 Blazor 的元素表示形式与 DOM 之间不可能存在冲突。
 >
-> 在下面的示例中，改变无序列表 (`ul`) 的内容具有危险性  ，因为 Blazor 会与 DOM 交互以填充此元素的列表项 (`<li>`)：
+> 在下面的示例中，改变无序列表 (`ul`) 的内容具有危险性，因为 Blazor 会与 DOM 交互以填充此元素的列表项 (`<li>`)：
 >
 > ```razor
 > <ul ref="MyList">
@@ -191,11 +177,11 @@ Pages/JSInterop.razor  ：
 >
 > 如果 JS 互操作改变元素 `MyList` 的内容，并且 Blazor 尝试将差异应用于元素，则差异与 DOM 不匹配。
 
-就 .NET 代码而言，`ElementReference` 是不透明的句柄。 可以对 `ElementReference` 执行的唯一  操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
+就 .NET 代码而言，`ElementReference` 是不透明的句柄。 可以对 `ElementReference` 执行的唯一操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
 
 例如，以下代码定义一个 .NET 扩展方法，通过该方法可在元素上设置焦点：
 
-exampleJsInterop.js  ：
+exampleJsInterop.js：
 
 ```javascript
 window.exampleJsFunctions = {
@@ -252,7 +238,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 以下 Blazor WebAssembly 示例演示了该方法。
 
-在 wwwroot/index.html  的 `<head>` 中：
+在 wwwroot/index.html 的 `<head>` 中：
 
 ```html
 <style>
@@ -260,7 +246,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </style>
 ```
 
-在 wwwroot/index.html  的 `<body>` 中：
+在 wwwroot/index.html 的 `<body>` 中：
 
 ```html
 <script>
@@ -272,7 +258,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </script>
 ```
 
-Pages/Index.razor  （父组件）：
+Pages/Index.razor（父组件）：
 
 ```razor
 @page "/"
@@ -284,7 +270,7 @@ Welcome to your new app.
 <SurveyPrompt Parent="this" Title="How is Blazor working for you?" />
 ```
 
-Pages/Index.razor.cs  ：
+Pages/Index.razor.cs：
 
 ```csharp
 using System;
@@ -368,7 +354,7 @@ namespace BlazorSample.Pages
 }
 ```
 
-Shared/SurveyPrompt.razor  （子组件）：
+Shared/SurveyPrompt.razor（子组件）：
 
 ```razor
 @inject IJSRuntime JS
@@ -391,7 +377,7 @@ Shared/SurveyPrompt.razor  （子组件）：
 }
 ```
 
-Shared/SurveyPrompt.razor.cs  ：
+Shared/SurveyPrompt.razor.cs：
 
 ```csharp
 using System;

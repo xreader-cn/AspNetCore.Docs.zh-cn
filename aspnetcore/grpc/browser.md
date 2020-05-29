@@ -1,23 +1,11 @@
 ---
-title: 在浏览器应用中使用 gRPC
-author: jamesnk
-description: 了解如何配置 ASP.NET Core 上的 gRPC 服务，以使其可以从使用 gRPC-Web 的浏览器应用中进行调用。
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.date: 04/15/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/browser
-ms.openlocfilehash: a74f7acb54b4601a0c30ff1a39dc30231e2b5a78
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774738"
+title: author: description: monikerRange: ms.author: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="use-grpc-in-browser-apps"></a>在浏览器应用中使用 gRPC
 
@@ -51,7 +39,7 @@ ms.locfileid: "82774738"
 若要使用 ASP.NET Core gRPC 服务启用 gRPC-Web：
 
 * 添加对 [Grpc.AspNetCore.Web](https://www.nuget.org/packages/Grpc.AspNetCore.Web) 包的引用。
-* 配置应用以使用 gRPC-Web，方法是将 `AddGrpcWeb` 和 `UseGrpcWeb` 添加到 Startup.cs  ：
+* 配置应用以使用 gRPC-Web，方法是将 `UseGrpcWeb` 和 `EnableGrpcWeb` 添加到 Startup.cs：
 
 [!code-csharp[](~/grpc/browser/sample/Startup.cs?name=snippet_1&highlight=10,14)]
 
@@ -60,9 +48,9 @@ ms.locfileid: "82774738"
 * 在路由之后、终结点之前添加 gRPC-Web 中间件 `UseGrpcWeb`。
 * 指定 `endpoints.MapGrpcService<GreeterService>()` 方法支持带有 `EnableGrpcWeb` 的 gRPC-Web。 
 
-或者，将所有服务配置为支持 gRPC-Web，方法是将 `services.AddGrpcWeb(o => o.GrpcWebEnabled = true);` 添加到 ConfigureServices。
+或者，可以配置 gRPC-Web 中间件，使所有服务在默认情况下都支持 gRPC-Web，而不需要 `EnableGrpcWeb`。 在添加中间件时指定 `new GrpcWebOptions { DefaultEnabled = true }`。
 
-[!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=6,13)]
+[!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=12)]
 
 > [!NOTE]
 > 存在一个已知问题，它导致在 .NET Core 3.x 中[由 Http.sys 托管](xref:fundamentals/servers/httpsys)时 gRPC-Web 会失败。
@@ -102,7 +90,7 @@ ms.locfileid: "82774738"
 若要使用 gRPC-Web：
 
 * 添加对 [Grpc.Net.Client.Web](https://www.nuget.org/packages/Grpc.Net.Client.Web) 包的引用。
-* 确保对 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 包的引用为 2.27.0 或更高版本。
+* 确保对 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) 包的引用为 2.29.0 或更高版本。
 * 配置通道以使用 `GrpcWebHandler`：
 
 [!code-csharp[](~/grpc/browser/sample/Handler.cs?name=snippet_1)]
@@ -112,10 +100,10 @@ ms.locfileid: "82774738"
 * 配置通道以使用 gRPC-Web。
 * 创建一个客户端并使用通道发出调用。
 
-创建后，`GrpcWebHandler` 具有以下配置选项：
+`GrpcWebHandler` 具有以下配置选项：
 
 * **InnerHandler**：发出 gRPC HTTP 请求的基础 <xref:System.Net.Http.HttpMessageHandler>，例如 `HttpClientHandler`。
-* **模式**：枚举类型，指定 gRPC HTTP 请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
+* GrpcWebMode：枚举类型，指定 gRPC HTTP 请求 `Content-Type` 是 `application/grpc-web` 还是 `application/grpc-web-text`。
     * `GrpcWebMode.GrpcWeb` 配置不进行编码即发送的内容。 默认值。
     * `GrpcWebMode.GrpcWebText` 配置需进行 base64 编码的内容。 对于浏览器中的服务器流式处理调用是必需的。
 * **HttpVersion**：HTTP 协议 `Version` 用于在基础 gRPC HTTP 请求上设置 [HttpRequestMessage.Version](xref:System.Net.Http.HttpRequestMessage.Version)。 gRPC-Web 不需要特定版本，且除非指定，否则不会替代默认版本。
