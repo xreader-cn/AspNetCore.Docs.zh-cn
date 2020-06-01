@@ -69,11 +69,11 @@ monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 ## <a name="component-parameters"></a>组件参数
 
-组件也可以有参数。 组件参数由具有 `[Parameter]` 的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
+组件也可以有参数。 组件参数是使用组件类中包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共属性定义的。 使用这些属性在标记中为组件指定参数。
 
 1. 更新组件的 `@code` C# 代码，如下所示：
 
-   * 使用 `[Parameter]` 特性添加公共 `IncrementAmount` 属性。
+   * 添加包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共 `IncrementAmount` 属性。
    * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount` 属性。
 
    *Pages/Counter.razor*：
@@ -105,7 +105,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-`@inject` 指令用于将 `WeatherForecastService` 服务的实例注入到 `FetchData` 组件中。
+[`@inject`](xref:mvc/views/razor#inject) 指令用于将 `WeatherForecastService` 服务的实例注入到 `FetchData` 组件中。
 
 *Pages/FetchData.razor*：
 
@@ -117,7 +117,7 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 
 ### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly 体验
 
-如果使用的是 Blazor WebAssembly 应用，则注入了 `HttpClient`，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据。 
+如果使用的是 Blazor WebAssembly 应用，则注入了 <xref:System.Net.Http.HttpClient>，以从 wwwroot/sample-data 文件夹的 weather.json 文件中获取天气预测数据。 
 
 *Pages/FetchData.razor*：
 

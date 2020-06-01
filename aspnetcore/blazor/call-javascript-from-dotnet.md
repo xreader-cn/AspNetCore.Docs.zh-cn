@@ -18,11 +18,11 @@ Blazor 应用可从 .NET 方法调用 JavaScript 函数，也可从 JavaScript �
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)（[如何下载](xref:index#how-to-download-a-sample)）
 
-若要从 .NET 调入 JavaScript，请使用 `IJSRuntime` 抽象。 若要发出 JS 互操作调用，请在组件中注入 `IJSRuntime` 抽象。 `InvokeAsync<T>` 方法采用要与任意数量的 JSON 可序列化参数一起调用的 JavaScript 函数的标识符。 函数标识符相对于全局范围 (`window`)。 如果要调用 `window.someScope.someFunction`，则标识符是 `someScope.someFunction`。 无需在调用函数之前进行注册。 返回类型 `T` 也必须可进行 JSON 序列化。 `T` 应该与最能映射到所返回 JSON 类型的 .NET 类型匹配。
+若要从 .NET 调入 JavaScript，请使用 <xref:Microsoft.JSInterop.IJSRuntime> 抽象。 若要发出 JS 互操作调用，请在组件中注入 <xref:Microsoft.JSInterop.IJSRuntime> 抽象。 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> 需要使用你要调用的 JavaScript 函数的标识符，以及任意数量的 JSON 可序列化参数。 函数标识符相对于全局范围 (`window`)。 如果要调用 `window.someScope.someFunction`，则标识符是 `someScope.someFunction`。 无需在调用函数之前进行注册。 返回类型 `T` 也必须可进行 JSON 序列化。 `T` 应该与最能映射到所返回 JSON 类型的 .NET 类型匹配。
 
 对于启用了预呈现的 Blazor 服务器应用，初始预呈现期间无法调入 JavaScript。 在建立与浏览器的连接之后，必须延迟 JavaScript 互操作调用。 有关详细信息，请参阅[检测 Blazor 服务器应用进行预呈现的时间](#detect-when-a-blazor-server-app-is-prerendering)部分。
 
-下面的示例基于 [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 该示例演示如何从 C# 方法调用 JavaScript 函数。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
+下面的示例基于 [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)（一种基于 JavaScript 的解码器）。 此示例展示了如何通过 C# 方法调用 JavaScript 函数，以将要求从开发人员代码卸载到现有 JavaScript API。 JavaScript 函数从 C# 方法接受字节数组，对数组进行解码，并将文本返回给组件进行显示。
 
 在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 JavaScript 函数，该函数使用 `TextDecoder` 对传递的数组进行解码并返回解码后的值：
 
@@ -43,17 +43,17 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 ## <a name="ijsruntime"></a>IJSRuntime
 
-若要使用 `IJSRuntime` 抽象，请采用以下任何方法：
+若要使用 <xref:Microsoft.JSInterop.IJSRuntime> 抽象，请采用以下任何方法：
 
-* 将 `IJSRuntime` 抽象注入 Razor 组件 (.razor) 中：
+* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入 Razor 组件 (.razor) 中：
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
+  在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml（Blazor 服务器）的 `<head>` 元素中，提供了一个 `handleTickerChanged` JavaScript 函数。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
-* 将 `IJSRuntime` 抽象注入一个类 (.cs)：
+* 将 <xref:Microsoft.JSInterop.IJSRuntime> 抽象注入一个类 (.cs)：
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
@@ -70,8 +70,8 @@ JavaScript 代码（如前面示例中所示的代码）也可以通过对脚本
 
 在本主题附带的客户端示例应用中，向应用提供了两个 JavaScript 函数，可与 DOM 交互以接收用户输入并显示欢迎消息：
 
-* `showPrompt` &ndash; 生成一个提示，以接受用户输入（用户名）并将名称返回给调用方。
-* `displayWelcome` &ndash; 将来自调用方的欢迎消息分配给 `id` 为 `welcome` 的 DOM 对象。
+* `showPrompt`：生成一个提示，用于接受用户输入（用户名），并将用户名返回给调用方。
+* `displayWelcome`：将来自调用方的欢迎消息分配给 `id` 为 `welcome` 的 DOM 对象。
 
 wwwroot/exampleJsInterop.js：
 
@@ -89,9 +89,9 @@ Pages/_Host.cshtml（Blazor 服务器）：
 
 请勿将 `<script>` 标记置于组件文件中，因为 `<script>` 标记无法动态更新。
 
-.NET 方法通过调用 `IJSRuntime.InvokeAsync<T>` 与 exampleJsInterop.js 文件中的 JavaScript 函数进行互操作。
+.NET 方法通过调用 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 与 exampleJsInterop.js 文件中的 JavaScript 函数进行互操作。
 
-`IJSRuntime` 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 `IJSInProcessRuntime` 并改为调用 `Invoke<T>`。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
+<xref:Microsoft.JSInterop.IJSRuntime> 抽象是异步的，以便可以实现 Blazor 服务器方案。 如果应用是 Blazor WebAssembly 应用，并且要同步调用 JavaScript 函数，则向下转换为 <xref:Microsoft.JSInterop.IJSInProcessRuntime> 并改为调用 <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A>。 建议大多数 JS 互操作库使用异步 API，以确保库在所有方案中都可用。
 
 该示例应用包含一个用于演示 JS 互操作的组件。 该组件：
 
@@ -136,7 +136,7 @@ Pages/JSInterop.razor：
 
 ## <a name="call-a-void-javascript-function"></a>调用 void JavaScript 函数
 
-返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数使用 `IJSRuntime.InvokeVoidAsync` 进行调用。
+返回 [void(0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) 或 [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) 的 JavaScript 函数使用 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用。
 
 ## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>检测 Blazor 服务器应用进行预呈现的时间
  
@@ -149,7 +149,7 @@ Pages/JSInterop.razor：
 使用以下方法在组件中捕获对 HTML 元素的引用：
 
 * 向 HTML 元素添加 `@ref` 属性。
-* 定义一个类型为 `ElementReference` 字段，其名称与 `@ref` 属性的值匹配。
+* 定义一个类型为 <xref:Microsoft.AspNetCore.Components.ElementReference> 字段，其名称与 `@ref` 属性的值匹配。
 
 以下示例演示如何捕获对 `username` `<input>` 元素的引用：
 
@@ -177,7 +177,7 @@ Pages/JSInterop.razor：
 >
 > 如果 JS 互操作改变元素 `MyList` 的内容，并且 Blazor 尝试将差异应用于元素，则差异与 DOM 不匹配。
 
-就 .NET 代码而言，`ElementReference` 是不透明的句柄。 可以对 `ElementReference` 执行的唯一操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
+就 .NET 代码而言，<xref:Microsoft.AspNetCore.Components.ElementReference> 是不透明的句柄。 可以对 <xref:Microsoft.AspNetCore.Components.ElementReference> 执行的唯一操作是通过 JS 互操作将它传递给 JavaScript 代码。 执行此操作时，JavaScript 端代码会收到一个 `HTMLElement` 实例，该实例可以与常规 DOM API 一起使用。
 
 例如，以下代码定义一个 .NET 扩展方法，通过该方法可在元素上设置焦点：
 
@@ -191,11 +191,11 @@ window.exampleJsFunctions = {
 }
 ```
 
-若要调用不返回值的 JavaScript 函数，请使用 `IJSRuntime.InvokeVoidAsync`。 下面的代码通过使用捕获的 `ElementReference` 调用前面的 JavaScript 函数，在用户名输入上设置焦点：
+若要调用不返回值的 JavaScript 函数，请使用 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType>。 下面的代码通过使用捕获的 <xref:Microsoft.AspNetCore.Components.ElementReference> 调用前面的 JavaScript 函数，在用户名输入上设置焦点：
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
-若要使用扩展方法，请创建接收 `IJSRuntime` 实例的静态扩展方法：
+若要使用扩展方法，请创建接收 <xref:Microsoft.JSInterop.IJSRuntime> 实例的静态扩展方法：
 
 ```csharp
 public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
@@ -210,9 +210,9 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 `ElementReference` 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 <xref:Microsoft.AspNetCore.Components.ElementReference> 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/lifecycle#after-component-render)。
 
-使用泛型类型并返回值时，请使用 [ValueTask\<T>](xref:System.Threading.Tasks.ValueTask`1)：
+使用泛型类型并返回值时，请使用 <xref:System.Threading.Tasks.ValueTask%601>：
 
 ```csharp
 public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef, 
@@ -229,12 +229,12 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 ## <a name="reference-elements-across-components"></a>跨组件引用元素
 
-`ElementReference` 仅保证在组件的 `OnAfterRender` 方法中有效（并且元素引用为 `struct`），因此无法在组件之间传递元素引用。
+<xref:Microsoft.AspNetCore.Components.ElementReference> 仅保证在组件的 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 方法中有效（并且元素引用为 `struct`），因此无法在组件之间传递元素引用。
 
 若要使父组件可以向其他组件提供元素引用，父组件可以：
 
 * 允许子组件注册回调。
-* 在 `OnAfterRender` 事件期间，通过传递的元素引用调用注册的回调。 此方法间接地允许子组件与父级的元素引用交互。
+* 在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 事件期间，通过传递的元素引用调用注册的回调。 此方法间接地允许子组件与父级的元素引用交互。
 
 以下 Blazor WebAssembly 示例演示了该方法。
 
@@ -431,7 +431,7 @@ namespace BlazorSample.Shared
 
 ## <a name="harden-js-interop-calls"></a>强化 JS 互操作调用
 
-JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 默认情况下，Blazor 服务器应用会在一分钟后，使服务器上的 JS 互操作调用超时。 如果应用可以容忍更严格的超时（如 10秒），请使用以下方法之一设置超时：
+JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 默认情况下，Blazor 服务器应用会在一分钟后，使服务器上的 JS 互操作调用超时。 如果应用可以容忍更激进的超时，请使用以下方法之一设置超时：
 
 * 在 `Startup.ConfigureServices` 中全局指定超时：
 
@@ -449,7 +449,7 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
 
 有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server/threat-mitigation>。
 
-[!INCLUDE[Share interop code in a class library](~/includes/blazor-share-interop-code.md)]
+[!INCLUDE[](~/includes/blazor-share-interop-code.md)]
 
 ## <a name="avoid-circular-object-references"></a>避免循环引用对象
 

@@ -143,7 +143,7 @@ Razor Pages 应用与 MVC 应用的测试配置之间几乎没有任何区别。
 
    SUT 的数据库上下文在其 `Startup.ConfigureServices` 方法中注册。 测试应用的 `builder.ConfigureServices` 回调在执行应用的 `Startup.ConfigureServices` 代码之后执行。 随着 ASP.NET Core 3.0 的发布，执行顺序是针对[泛型主机](xref:fundamentals/host/generic-host)的一个重大更改。 若要将与应用数据库不同的数据库用于测试，必须在 `builder.ConfigureServices` 中替换应用的数据库上下文。
 
-   对于仍使用 [Web Host}(xref:fundamentals/host/web-host) 的 SUT，将在 SUT 的 `Startup.ConfigureServices` 代码之前执行测试应用的 `builder.ConfigureServices` 回调。 之后执行测试应用的 `builder.ConfigureTestServices` 回调。
+   对于仍使用 [Web 主机](xref:fundamentals/host/web-host)的 SUT，测试应用的 `builder.ConfigureServices` 回调先于 SUT 的 `Startup.ConfigureServices` 代码。 之后执行测试应用的 `builder.ConfigureTestServices` 回调。
 
    示例应用会查找数据库上下文的服务描述符，并使用该描述符删除服务注册。 接下来，工厂会添加一个新 `ApplicationDbContext`，它使用内存中数据库进行测试。
 
@@ -178,7 +178,7 @@ Razor Pages 应用与 MVC 应用的测试配置之间几乎没有任何区别。
 
 [示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 `SendAsync` 帮助程序扩展方法 (Helpers/HttpClientExtensions.cs) 和 `GetDocumentAsync` 帮助程序方法 (Helpers/HtmlHelpers.cs) 使用 [AngleSharp](https://anglesharp.github.io/) 分析程序，通过以下方法处理防伪检查：
 
-* `GetDocumentAsync` &ndash; 接收 [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) 并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用一个基于原始 `HttpResponseMessage` 准备虚拟响应的工厂。 有关详细信息，请参阅 [AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
+* `GetDocumentAsync`：接收 [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)，并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用一个基于原始 `HttpResponseMessage` 准备虚拟响应的工厂。 有关详细信息，请参阅 [AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
 * `HttpClient` 的 `SendAsync` 扩展方法撰写 [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) 并调用 [SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)，以向 SUT 提交请求。 `SendAsync` 的重载接受 HTML 窗体 (`IHtmlFormElement`) 和以下内容：
   * 窗体的“提交”按钮 (`IHtmlElement`)
   * 窗体值集合 (`IEnumerable<KeyValuePair<string, string>>`)
@@ -573,7 +573,7 @@ title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 SUT 的数据库上下文在其 `Startup.ConfigureServices` 方法中注册。 测试应用的 `builder.ConfigureServices` 回调在执行应用的 `Startup.ConfigureServices` 代码之后执行。 若要将不同的数据库用于测试，必须在 `builder.ConfigureServices` 中替换应用的数据库上下文。 有关详细信息，请参阅[自定义 WebApplicationFactory](#customize-webapplicationfactory) 部分。
 
-对于仍使用 [Web Host}(xref:fundamentals/host/web-host) 的 SUT，将在 SUT 的 `Startup.ConfigureServices` 代码之前执行测试应用的 `builder.ConfigureServices` 回调。 之后执行测试应用的 `builder.ConfigureTestServices` 回调。
+对于仍使用 [Web 主机](xref:fundamentals/host/web-host)的 SUT，测试应用的 `builder.ConfigureServices` 回调先于 SUT 的 `Startup.ConfigureServices` 代码。 之后执行测试应用的 `builder.ConfigureTestServices` 回调。
 
 ::: moniker-end
 
@@ -719,7 +719,7 @@ Razor Pages 应用与 MVC 应用的测试配置之间几乎没有任何区别。
 
 [示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)中的 `SendAsync` 帮助程序扩展方法 (Helpers/HttpClientExtensions.cs) 和 `GetDocumentAsync` 帮助程序方法 (Helpers/HtmlHelpers.cs) 使用 [AngleSharp](https://anglesharp.github.io/) 分析程序，通过以下方法处理防伪检查：
 
-* `GetDocumentAsync` &ndash; 接收 [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) 并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用一个基于原始 `HttpResponseMessage` 准备虚拟响应的工厂。 有关详细信息，请参阅 [AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
+* `GetDocumentAsync`：接收 [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)，并返回 `IHtmlDocument`。 `GetDocumentAsync` 使用一个基于原始 `HttpResponseMessage` 准备虚拟响应的工厂。 有关详细信息，请参阅 [AngleSharp 文档](https://github.com/AngleSharp/AngleSharp#documentation)。
 * `HttpClient` 的 `SendAsync` 扩展方法撰写 [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) 并调用 [SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)，以向 SUT 提交请求。 `SendAsync` 的重载接受 HTML 窗体 (`IHtmlFormElement`) 和以下内容：
   * 窗体的“提交”按钮 (`IHtmlElement`)
   * 窗体值集合 (`IEnumerable<KeyValuePair<string, string>>`)

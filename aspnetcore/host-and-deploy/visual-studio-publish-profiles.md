@@ -1,24 +1,11 @@
 ---
-title: 用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
-author: rick-anderson
-description: 了解如何在 Visual Studio 中创建发布配置文件，并将它们用于管理针对各种目标的 ASP.NET Core 应用部署。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/14/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 42d790ad4942ea238fb3bbe56cb92ae4a26ddc2d
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83439001"
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>用于 ASP.NET Core 应用部署的 Visual Studio 发布配置文件 (.pubxml)
 
@@ -26,7 +13,7 @@ ms.locfileid: "83439001"
 
 本文档重点介绍了如何通过 Visual Studio 2019 或更高版本创建和使用发布配置文件。 通过 Visual Studio 创建的发布配置文件可用于 MSBuild 和 Visual Studio。 要查看说明了解如何发布到 Azure，请参阅 <xref:tutorials/publish-to-azure-webapp-using-vs>。
 
-`dotnet new mvc` 命令会生成包含以下根级 [\<Project> 元素](/visualstudio/msbuild/project-element-msbuild)的项目文件：
+`dotnet new mvc` 命令生成包含以下根级别 [\<Project> 元素](/visualstudio/msbuild/project-element-msbuild)的项目文件：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -36,7 +23,7 @@ ms.locfileid: "83439001"
 
 前导 `<Project>` 元素的 `Sdk` 属性分别从 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.props 和 $(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets 导入 MSBuild [属性](/visualstudio/msbuild/msbuild-properties)和[目标](/visualstudio/msbuild/msbuild-targets)。 `$(MSBuildSDKsPath)`（装有 Visual Studio 2019 Enterprise）的默认位置是 %programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks 文件夹。
 
-`Microsoft.NET.Sdk.Web` ([Web SDK](xref:razor-pages/web-sdk)) 依赖于其他 SDK，包括 `Microsoft.NET.Sdk` ([.NET Core SDK](/dotnet/core/project-sdk/msbuild-props)) 和 `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk))。 将导入与每个从属 SDK 关联的 MSBuild 属性和目标。 发布目标将根据使用的发布方法，导入相应的目标集。
+`Microsoft.NET.Sdk.Web` ([Web SDK](xref:razor-pages/web-sdk)) 依赖其他 SDK，包括 `Microsoft.NET.Sdk` ([.NET Core SDK](/dotnet/core/project-sdk/msbuild-props)) 和 `Microsoft.NET.Sdk.Razor` ([Razor Razor SDK](xref:razor-pages/sdk))。 将导入与每个从属 SDK 关联的 MSBuild 属性和目标。 发布目标将根据使用的发布方法，导入相应的目标集。
 
 MSBuild 或 Visual Studio 加载项目时，执行下列高级别操作：
 
@@ -309,10 +296,10 @@ msbuild {PATH}
     /p:Password={PASSWORD}
 ```
 
-* {PATH} &ndash; 应用的项目文件路径。
-* {PROFILE} &ndash; 发布配置文件的名称。
-* {USERNAME} &ndash; MSDeploy 用户名。 可在发布配置文件中找到 {USERNAME}。
-* {PASSWORD} &ndash; MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 {PASSWORD}。 可以从以下位置下载 .PublishSettings 文件：
+* {PATH}：应用的项目文件的路径。
+* {PROFILE}：发布配置文件的名称。
+* {USERNAME}：MSDeploy 用户名。 可在发布配置文件中找到 {USERNAME}。
+* {PASSWORD}：MSDeploy 密码。 从 {PROFILE}.PublishSettings 文件中获取 {PASSWORD}。 可以从以下位置下载 .PublishSettings 文件：
   * 解决方案资源管理器：选择“视图” > “Cloud Explorer” 。 连接你的 Azure 订阅。 打开“应用服务”。 右键单击应用。 选择“下载发布配置文件”。
   * Azure 门户：选择 Web 应用“概述”面板上的“获取发布配置文件” 。
 
@@ -510,9 +497,174 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 要查看 Azure 应用服务 Web 应用部署中的文件，请使用 [Kudu 服务](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service)。 将 `scm` 令牌追加到 Web 应用名称。 例如：
 
 | URL                                    | 结果       |
-| -------------------------------------- | ------------ |
-| `http://mysite.azurewebsites.net/`     | Web 应用      |
-| `http://mysite.scm.azurewebsites.net/` | Kudu 服务 |
+| ---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------------------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | `http://mysite.azurewebsites.net/`     | Web 应用      | | `http://mysite.scm.azurewebsites.net/` | Kudu 服务 |
 
 选择[调试控制台](https://github.com/projectkudu/kudu/wiki/Kudu-console)菜单项来查看、编辑、删除或添加文件。
 

@@ -8,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 6f6022bee678af92066f45032b43b6b87e5f901e
-ms.sourcegitcommit: 7a42bc1e594de36c854fd4363c11821548a9efa7
+ms.openlocfilehash: 95a2a6fcda0a4f7148183981f7dbacd06388329d
+ms.sourcegitcommit: 58722eb309767e462bdbf3082bd38737a4ef168f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/19/2020
-ms.locfileid: "83608663"
+ms.lasthandoff: 05/27/2020
+ms.locfileid: "84106515"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>使用 ASP.NET Core 和 MongoDB 创建 Web API
 
@@ -313,7 +313,7 @@ ms.locfileid: "83608663"
 
 `BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：
 
-* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; 读取服务器实例，以执行数据库操作。 此类的构造函数提供了 MongoDB 连接字符串：
+* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm)：读取用于执行数据库操作的服务器实例。 此类的构造函数提供了 MongoDB 连接字符串：
 
     ```csharp
     public BookService(IBookstoreDatabaseSettings settings)
@@ -325,16 +325,16 @@ ms.locfileid: "83608663"
     }
     ```
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; 表示用于执行操作的 Mongo 数据库。 本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。 调用此方法后，对集合执行 CRUD 操作。 在 `GetCollection<TDocument>(collection)` 方法调用中：
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm)：表示用于执行操作的 Mongo 数据库。 本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。 调用此方法后，对集合执行 CRUD 操作。 在 `GetCollection<TDocument>(collection)` 方法调用中：
   * `collection` 表示集合名称。
   * `TDocument` 表示存储在集合中的 CLR 对象类型。
 
 `GetCollection<TDocument>(collection)` 返回表示集合的 [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) 对象。 在本教程中，对集合调用以下方法：
 
-* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; 删除与提供的搜索条件匹配的单个文档。
-* [Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; 返回集合中与提供的搜索条件匹配的所有文档。
-* [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; 插入提供的对象作为集合中的新文档。
-* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; 将与提供的搜索条件匹配的单个文档替换为提供的对象。
+* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm)：删除与提供的搜索条件匹配的单个文档。
+* [Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm)：返回集合中与提供的搜索条件匹配的所有文档。
+* [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm)：插入提供的对象作为集合中的新文档。
+* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm)：将与提供的搜索条件匹配的单个文档替换为提供的对象。
 
 ## <a name="add-a-controller"></a>添加控制器
 

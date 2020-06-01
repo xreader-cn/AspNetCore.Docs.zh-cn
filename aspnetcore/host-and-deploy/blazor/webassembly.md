@@ -32,8 +32,8 @@ Blazor WebAssembly 应用发布时，会在最基本的层面上使用 [Brotli �
 
 在 Blazor WebAssembly 应用中路由对页组件的请求不如在 Blazor Server 对托管应用中路由请求直接。 假设有一个 Blazor WebAssembly 应用包含以下两个组件：
 
-* Main.razor &ndash; 在应用的根目录处加载并包含指向 `About` 组件 (`href="About"`) 的链接。
-* About.razor &ndash; `About` 组件。
+* Main.razor：在应用的根目录处加载，并包含指向 `About` 组件 (`href="About"`) 的链接。
+* About.razor：`About` 组件。
 
 使用浏览器的地址栏（例如，`https://www.contoso.com/`）请求应用的默认文档：
 
@@ -83,11 +83,11 @@ IIS 是适用于 Blazor 应用的强大静态文件服务器。 要配置 IIS �
 发布 Blazor 项目时，将使用以下 IIS 配置创建 web.config 文件：
 
 * 对以下文件扩展名设置 MIME 类型：
-  * .dll &ndash; `application/octet-stream`
-  * .json &ndash; `application/json`
-  * .wasm &ndash; `application/wasm`
-  * .woff &ndash; `application/font-woff`
-  * .woff2 &ndash; `application/font-woff`
+  * .dll：`application/octet-stream`
+  * .json：`application/json`
+  * .wasm：`application/wasm`
+  * .woff：`application/font-woff`
+  * .woff2：`application/font-woff`
 * 对以下 MIME 类型启用 HTTP 压缩：
   * `application/octet-stream`
   * `application/wasm`

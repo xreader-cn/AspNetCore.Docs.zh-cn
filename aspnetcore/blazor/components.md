@@ -69,8 +69,8 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 
 访问 Razor 语法上的内容时，请特别注意以下各节：
 
-* [指令](xref:mvc/views/razor#directives) &ndash; `@`-前缀保留关键字，通常会更改组件标记的分析或工作方式。
-* [指令属性](xref:mvc/views/razor#directive-attributes) &ndash; `@`-前缀保留关键字，通常会更改组件元素的分析或工作方式。
+* [指令](xref:mvc/views/razor#directives)：前缀为 `@` 的保留关键字，通常会更改组件标记的分析或运行方式。
+* [指令特性](xref:mvc/views/razor#directive-attributes)：前缀为 `@` 的保留关键字，通常会更改组件元素的分析或运行方式。
 
 ## <a name="static-assets"></a>静态资产
 
@@ -110,7 +110,7 @@ Components/HeadingComponent.razor：
 
 可以通过为应用中的每个可访问组件提供路由模板来实现 Blazor 中的路由。
 
-编译具有 [`@page`][9] 指令的 Razor 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute>。 在运行时，路由器将使用 `RouteAttribute` 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
+编译具有 [`@page`][9] 指令的 Razor 文件时，将为生成的类提供指定路由模板的 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute>。 在运行时，路由器将使用 <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> 查找组件类，并呈现具有与请求的 URL 匹配的路由模板的任何组件。
 
 ```razor
 @page "/ParentComponent"
@@ -136,7 +136,7 @@ Razor 组件 (.razor) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕
 
 ### <a name="component-parameters"></a>组件参数
 
-组件可以具有组件参数，这些参数由具有 `[Parameter]` 属性的组件类上的公共属性定义。 使用这些属性在标记中为组件指定参数。
+组件可以有组件参数，这些参数是使用组件类中包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共属性定义的。 使用这些属性在标记中为组件指定参数。
 
 Components/ChildComponent.razor：
 
@@ -155,14 +155,14 @@ Pages/ParentComponent：
 
 组件可以设置另一个组件的内容。 分配组件提供指定接收组件的标记之间的内容。
 
-在下面的示例中，`ChildComponent` 具有一个表示 `RenderFragment`（表示要呈现的 UI 段）的 `ChildContent` 属性。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值是从父组件接收的，并呈现在启动面板的 `panel-body` 中。
+在下面的示例中，`ChildComponent` 具有一个表示 <xref:Microsoft.AspNetCore.Components.RenderFragment>（表示要呈现的 UI 段）的 `ChildContent` 属性。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值是从父组件接收的，并呈现在启动面板的 `panel-body` 中。
 
 Components/ChildComponent.razor：
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
-> 必须按约定将接收 `RenderFragment` 内容的属性命名为 `ChildContent`。
+> 必须按约定将接收 <xref:Microsoft.AspNetCore.Components.RenderFragment> 内容的属性命名为 `ChildContent`。
 
 示例应用中的 `ParentComponent` 可以通过将内容置于 `<ChildComponent>` 标记中，提供用于呈现 `ChildComponent` 的内容。
 
@@ -229,7 +229,7 @@ Pages/ParentComponent.razor：
        size="50">
 ```
 
-若要接受任意属性，请使用 `[Parameter]` 特性定义组件参数，并将 `CaptureUnmatchedValues` 属性设置为 `true`：
+若要接受任意特性，请使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性定义组件参数，并将 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 属性设置为 `true`：
 
 ```razor
 @code {
@@ -238,7 +238,7 @@ Pages/ParentComponent.razor：
 }
 ```
 
-`[Parameter]` 上的 `CaptureUnmatchedValues` 属性允许参数匹配所有不匹配任何其他参数的特性。 组件只能使用 `CaptureUnmatchedValues` 定义单个参数。 与 `CaptureUnmatchedValues` 一起使用的属性类型必须可以使用字符串键从 `Dictionary<string, object>` 中分配。 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>` 也是此方案中的选项。
+借助 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 上的 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 属性，参数可以匹配所有不匹配其他任何参数的特性。 组件只能使用 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 定义单个参数。 与 <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> 一起使用的属性类型必须可以使用字符串键从 `Dictionary<string, object>` 中分配。 `IEnumerable<KeyValuePair<string, object>>` 或 `IReadOnlyDictionary<string, object>` 也是此方案中的选项。
 
 相对于元素特性位置的 [`@attributes`][3] 位置很重要。 在元素上展开 [`@attributes`][3] 时，将从右到左（从最后一个到第一个）处理特性。 请考虑以下使用 `Child` 组件的组件示例：
 
@@ -320,11 +320,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>在外部调用组件方法以更新状态
 
-Blazor 使用同步上下文 (`SynchronizationContext`) 来强制执行单个逻辑线程。 组件的[生命周期方法](xref:blazor/lifecycle)和 Blazor 引发的任何事件回调都在此同步上下文上执行。
+Blazor 使用同步上下文 (<xref:System.Threading.SynchronizationContext>) 来强制执行单个逻辑线程。 组件的[生命周期方法](xref:blazor/lifecycle)和 Blazor 引发的任何事件回调都在此同步上下文上执行。
 
 Blazor 服务器的同步上下文尝试模拟单线程环境，使其与浏览器（单线程）中的 WebAssembly 模型密切匹配。 在任意给定的时间点，工作只在一个线程上执行，从而造成单个逻辑线程的印象。 不会同时执行两个操作。
 
-如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法，该方法将调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务：
+如果组件必须根据外部事件（如计时器或其他通知）进行更新，请使用 `InvokeAsync` 方法来调度到 Blazor 的同步上下文。 例如，假设有一个可通知任何侦听组件更新状态的通告程序服务：
 
 ```csharp
 public class NotifierService
@@ -438,7 +438,7 @@ public class NotifierService
 
 ### <a name="when-to-use-key"></a>何时使用 \@key
 
-通常，每当呈现列表（例如，在 `@foreach` 块中）以及存在适当的值定义 [`@key`][5] 时，都可以使用 [`@key`][5]。
+通常，每当列表呈现（例如，在 [foreach](/dotnet/csharp/language-reference/keywords/foreach-in) 块中）且存在合适的值来定义 [`@key`][5] 时，最好使用 [`@key`][5]。
 
 还可以使用 [`@key`][5] 来防止 Blazor 在对象发生更改时保留元素或组件子树：
 
@@ -469,7 +469,7 @@ public class NotifierService
 
 在以下情况中，会重写参数：
 
-* 子组件的内容使用 `RenderFragment` 进行呈现。
+* 子组件的内容使用 <xref:Microsoft.AspNetCore.Components.RenderFragment> 进行呈现。
 * <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 在父组件中调用。
 
 由于在调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 且向子组件提供新的参数值时，会重新呈现父组件，因此将重置参数。
@@ -503,7 +503,7 @@ public class NotifierService
 }
 ```
 
-`Expander` 组件会添加到可调用 `StateHasChanged`的父组件中：
+`Expander` 组件会添加到可调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>的父组件中：
 
 ```razor
 <Expander Expanded="true">
@@ -517,7 +517,7 @@ public class NotifierService
 </button>
 ```
 
-最初，在切换 `Expanded` 属性时，`Expander` 组件独立地作出行为。 子组件会按预期方式维护其状态。 在父组件中调用 `StateHasChanged` 时，第一个子组件的 `Expanded` 会重新重置为它的初始值 (`true`)。 第二个 `Expander` 组件的 `Expanded` 值不会重置，因为第二个组件中没有呈现任何子内容。
+最初，在切换 `Expanded` 属性时，`Expander` 组件独立地作出行为。 子组件会按预期方式维护其状态。 在父组件中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 时，第一个子组件的 `Expanded` 会重新重置为它的初始值 (`true`)。 第二个 `Expander` 组件的 `Expanded` 值不会重置，因为第二个组件中没有呈现任何子内容。
 
 要维持在前述情况中的状态，请在 `Expander` 组件中使用私有字段来保留它的切换状态。
 
@@ -632,7 +632,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 ## <a name="specify-a-base-class"></a>指定基类
 
-[`@inherits`][6] 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 `ComponentBase`。
+[`@inherits`][6] 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 <xref:Microsoft.AspNetCore.Components.ComponentBase>。
 
 Pages/BlazorRocks.razor：
 
@@ -660,7 +660,7 @@ namespace BlazorSample
 
 ## <a name="specify-an-attribute"></a>指定属性
 
-可以通过 [`@attribute`][7] 指令在 Razor 组件中指定属性。 下面的示例将 `[Authorize]` 属性应用于组件类：
+可以通过 [`@attribute`][7] 指令在 Razor 组件中指定属性。 下面的示例将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 特性应用于组件类：
 
 ```razor
 @page "/"
@@ -700,9 +700,9 @@ This is the Index page.
 > [!NOTE]
 > 不支持 `global::` 限定。
 >
-> 不支持导入具有别名 `using` 语句的组件（例如，`@using Foo = Bar`）。
+> 不支持导入具有别名化 [using](/dotnet/csharp/language-reference/keywords/using-statement) 语句的组件（例如，`@using Foo = Bar`）。
 >
-> 不支持部分限定名称。 例如，不支持使用 `<Shared.NavMenu></Shared.NavMenu>` 添加 `@using BlazorSample` 和引用 `NavMenu.razor`。
+> 不支持部分限定名称。 例如，不支持使用 `<Shared.NavMenu></Shared.NavMenu>` 添加 `@using BlazorSample` 和引用 `NavMenu` 组件 (`NavMenu.razor`)。
 
 ## <a name="conditional-html-element-attributes"></a>条件 HTML 元素属性
 
@@ -771,7 +771,7 @@ public class ThemeInfo
 }
 ```
 
-祖先组件可以使用级联值组件提供级联值。 `CascadingValue` 组件包装组件层次结构的子树，并向该子树内的所有组件提供单个值。
+祖先组件可以使用级联值组件提供级联值。 <xref:Microsoft.AspNetCore.Components.CascadingValue%601> 组件包装组件层次结构的子树，并向该子树内的所有组件提供单个值。
 
 例如，示例应用将应用布局之一中的主题信息 (`ThemeInfo`) 指定为组成 `@Body` 属性布局正文的所有组件的级联参数。 在布局组件中为 `ButtonClass` 分配了 `btn-success` 的值。 任何子代组件都可以通过 `ThemeInfo` 级联对象使用此属性。
 
@@ -801,7 +801,7 @@ public class ThemeInfo
 }
 ```
 
-为了使用级联值，组件使用 `[CascadingParameter]` 属性声明级联参数。 级联值按类型绑定到级联参数。
+为了使用级联值，组件使用 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性来声明级联参数。 级联值按类型绑定到级联参数。
 
 在示例应用中，`CascadingValuesParametersTheme` 组件将 `ThemeInfo` 级联值绑定到级联参数。 该参数用于为组件显示的按钮之一设置 CSS 类。
 
@@ -841,7 +841,7 @@ public class ThemeInfo
 }
 ```
 
-若要在同一子树内级联多个相同类型的值，请为每个 `CascadingValue` 组件及其相应的 `CascadingParameter` 提供唯一的 `Name` 字符串。 在下面的示例中，两个 `CascadingValue` 组件按名称级联 `MyCascadingType` 的不同实例：
+若要在同一子树内级联多个相同类型的值，请向每个 <xref:Microsoft.AspNetCore.Components.CascadingValue%601> 组件及其相应的 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性提供唯一的 <xref:Microsoft.AspNetCore.Components.CascadingValue%601.Name%2A> 字符串。 在下面的示例中，两个 <xref:Microsoft.AspNetCore.Components.CascadingValue%601> 组件按名称级联 `MyCascadingType` 的不同实例：
 
 ```razor
 <CascadingValue Value=@parentCascadeParameter1 Name="CascadeParam1">
@@ -928,7 +928,7 @@ public class ThemeInfo
 @<{HTML tag}>...</{HTML tag}>
 ```
 
-下面的示例演示如何在组件中指定 `RenderFragment` 和 `RenderFragment<T>` 值并直接呈现模板。 还可以将呈现片段作为参数传递给[模板化组件](xref:blazor/templated-components)。
+下面的示例演示如何在组件中指定 <xref:Microsoft.AspNetCore.Components.RenderFragment> 和 <xref:Microsoft.AspNetCore.Components.RenderFragment%601> 值并直接呈现模板。 还可以将呈现片段作为参数传递给[模板化组件](xref:blazor/templated-components)。
 
 ```razor
 @timeTemplate
@@ -970,11 +970,11 @@ public class ThemeInfo
 }
 ```
 
-但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (.razor)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 `@bind` 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
+但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (.razor)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 [`@bind`][10] 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
 
 ## <a name="additional-resources"></a>其他资源
 
-* <xref:security/blazor/server/threat-mitigation> &ndash; 包含有关生成必须应对资源耗尽的 Blazor 服务器应用的指南。
+* <xref:security/blazor/server/threat-mitigation>：包括有关如何生成必须应对资源耗尽的 Blazor 服务器应用的指南。
 
 <!--Reference links in article-->
 [1]: <xref:mvc/views/razor#code>

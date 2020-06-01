@@ -43,7 +43,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口为主机托管的对象定义了两种方法：
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`：
+* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*)：`StartAsync` 包含用于启动后台任务的逻辑。 在以下操作之前调用 `StartAsync`：
 
   * 已配置应用的请求处理管道 (`Startup.Configure`)。
   * 已启动服务器且已触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*)。
@@ -75,7 +75,7 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
   }
   ```
 
-* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; 主机正常关闭时触发。 `StopAsync` 包含结束后台任务的逻辑。 实现 <xref:System.IDisposable> 和[终结器（析构函数）](/dotnet/csharp/programming-guide/classes-and-structs/destructors)以处置任何非托管资源。
+* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*)：当主机执行正常关机时触发。 `StopAsync` 包含结束后台任务的逻辑。 实现 <xref:System.IDisposable> 和[终结器（析构函数）](/dotnet/csharp/programming-guide/classes-and-structs/destructors)以处置任何非托管资源。
 
   默认情况下，取消令牌会有五秒超时，以指示关闭进程不再正常。 在令牌上请求取消时：
 
@@ -184,9 +184,9 @@ ASP.NET Core 辅助角色服务模板可作为编写长期服务应用的起点�
 
 托管服务实现 <xref:Microsoft.Extensions.Hosting.IHostedService> 接口。 该接口为主机托管的对象定义了两种方法：
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` 包含启动后台任务的逻辑。 当使用 [Web 主机](xref:fundamentals/host/web-host)时，会在启动服务器并触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) 后调用 `StartAsync`。 当使用[通用主机](xref:fundamentals/host/generic-host)时，会在触发 `ApplicationStarted` 之前调用 `StartAsync`。
+* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*)：`StartAsync` 包含用于启动后台任务的逻辑。 当使用 [Web 主机](xref:fundamentals/host/web-host)时，会在启动服务器并触发 [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) 后调用 `StartAsync`。 当使用[通用主机](xref:fundamentals/host/generic-host)时，会在触发 `ApplicationStarted` 之前调用 `StartAsync`。
 
-* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; 主机正常关闭时触发。 `StopAsync` 包含结束后台任务的逻辑。 实现 <xref:System.IDisposable> 和[终结器（析构函数）](/dotnet/csharp/programming-guide/classes-and-structs/destructors)以处置任何非托管资源。
+* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*)：当主机执行正常关机时触发。 `StopAsync` 包含结束后台任务的逻辑。 实现 <xref:System.IDisposable> 和[终结器（析构函数）](/dotnet/csharp/programming-guide/classes-and-structs/destructors)以处置任何非托管资源。
 
   默认情况下，取消令牌会有五秒超时，以指示关闭进程不再正常。 在令牌上请求取消时：
 

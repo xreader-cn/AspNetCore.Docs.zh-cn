@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor 布局
-author: guardrex
-description: 了解如何为 Blazor 应用创建可重用布局组件。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/12/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/layouts
-ms.openlocfilehash: 09cca9c4af23c35fdbc2ee92169913c960b0a68d
-ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/15/2020
-ms.locfileid: "83424325"
+title:'ASP.NET Core Blazor 布局' author: description:“了解如何为 Blazor 应用创建可重用布局组件。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -30,10 +18,10 @@ ms.locfileid: "83424325"
 
 若要将*组件*转换为*布局*，该组件应：
 
-* 继承自 `LayoutComponentBase`，后者为布局内的呈现内容定义 `Body` 属性。
+* 继承自 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase>，后者为布局内的呈现内容定义 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> 属性。
 * 使用 Razor 语法 `@Body` 在布局标记中指定呈现内容的位置。
 
-以下代码示例显示布局组件 MainLayout.razor 的 Razor 模板。 布局继承 `LayoutComponentBase` 并在导航栏和页脚之间设置 `@Body`：
+以下代码示例显示布局组件 MainLayout.razor 的 Razor 模板。 布局继承 <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> 并在导航栏和页脚之间设置 `@Body`：
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
@@ -41,21 +29,21 @@ ms.locfileid: "83424325"
 
 ## <a name="default-layout"></a>默认布局
 
-在应用的 *App.razor* 文件的 `Router` 组件中指定默认应用布局。 默认 Blazor 模板提供的以下 `Router` 组件将默认布局设置为 `MainLayout` 组件：
+在应用的 *App.razor* 文件的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件中指定默认应用布局。 默认 Blazor 模板提供的以下 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件将默认布局设置为 `MainLayout` 组件：
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-若要为 `NotFound` 内容提供默认布局，请为 `NotFound` 内容指定 `LayoutView`：
+若要为 <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> 内容提供默认布局，请为 <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> 内容指定 <xref:Microsoft.AspNetCore.Components.LayoutView>：
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-有关 `Router` 组件的详细信息，请参阅 <xref:blazor/routing>。
+有关 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件的详细信息，请参阅 <xref:blazor/routing>。
 
 在路由器中将布局指定为默认布局是一种有用的做法，因为可以按组件或按文件夹进行替代。 最好使用路由器来设置应用的默认布局，因为这是最常规的方法。
 
 ## <a name="specify-a-layout-in-a-component"></a>在组件中指定布局
 
-使用 Razor 指令 `@layout` 将布局应用于组件。 编译器将 `@layout` 转换为 `LayoutAttribute`，后者应用于组件类。
+使用 Razor 指令 `@layout` 将布局应用于组件。 编译器将 `@layout` 转换为 <xref:Microsoft.AspNetCore.Components.LayoutAttribute>，后者应用于组件类。
 
 以下 `MasterList` 组件的内容插入到 `MasterLayout` 中 `@Body` 的位置：
 

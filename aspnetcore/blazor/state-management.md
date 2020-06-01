@@ -46,8 +46,8 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 通常，只有用户投入了大量精力所创建的高价值状态才需要数据暂留。 在下面的示例中，保留状态可以节省时间或有助于商业活动：
 
-* 多步骤 Web 窗体 &ndash; 在一个多步骤进程中，如果用户的状态丢失，则需为多个已完成步骤重新输入数据，而这非常耗时。 如果用户离开多步骤窗体并在稍后返回，在这种应用场景下，用户将失去状态。
-* 购物车 &ndash; 代表潜在收入的应用的所有具有重要商业价值的组件都可进行维护。 如果用户丢失了其状态，进而丢失了其购物车，则在他们稍后返回站点时可购买较少的产品或服务。
+* 多步骤 Web 窗体：如果多步骤流程的多个已完成步骤的状态丢失，用户重新输入这些步骤的数据会非常耗时。 如果用户离开多步骤窗体并在稍后返回，在这种应用场景下，用户将失去状态。
+* 购物车：应用中任何代表潜在收入且具有重要商业价值的组件都可以保留。 如果用户丢失了其状态，进而丢失了其购物车，则在他们稍后返回站点时可购买较少的产品或服务。
 
 通常不需要保留易于重新创建的状态，例如在登录对话框中输入的尚未提交的用户名。
 
@@ -147,7 +147,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 
 ### <a name="save-and-load-data-within-a-component"></a>保存和加载组件中的数据
 
-在需要将数据加载或保存到浏览器存储的任何组件中，使用 [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) 注入以下任意一项的实例：
+在需要将数据加载或保存到浏览器存储的任何组件中，使用 [`@inject`](xref:mvc/views/razor#inject) 注入以下任意一项的实例：
 
 * `ProtectedLocalStorage`
 * `ProtectedSessionStorage`
@@ -184,7 +184,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync` 并将结果分配给 `OnParametersSetAsync`，而不是 `OnInitializedAsync`。 `OnInitializedAsync` 仅在首次实例化组件时调用一次。 如果用户导航到不同的 URL，而仍然停留在相同的页面上，则 `OnInitializedAsync` 之后不会再次调用。 有关详细信息，请参阅 <xref:blazor/lifecycle>。
+如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync` 并将结果分配给 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>，而不是 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 仅在首次实例化组件时调用一次。 如果用户导航到不同的 URL，而仍然停留在相同的页面上，则 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 之后不会再次调用。 有关详细信息，请参阅 <xref:blazor/lifecycle>。
 
 > [!WARNING]
 > 本节中的示例仅在服务器未启用预呈现的情况下有效。 启用预呈现后，将生成如下错误：
@@ -314,7 +314,7 @@ else
 
 `CounterStateProvider` 组件处理加载阶段的方式是在加载完成后才呈现其子内容。
 
-若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (App.razor) 中的 `Router` 来包装 `CounterStateProvider` 组件：
+若要使用 `CounterStateProvider` 组件，请围绕需要访问计数器状态的任何其他组件包装该组件的实例。 若要使某个应用中的所有组件都可以访问该状态，请围绕 `App` 组件 (App.razor) 中的 <xref:Microsoft.AspNetCore.Components.Routing.Router> 来包装 `CounterStateProvider` 组件：
 
 ```razor
 <CounterStateProvider>
