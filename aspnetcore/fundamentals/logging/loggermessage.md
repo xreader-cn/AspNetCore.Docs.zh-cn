@@ -1,24 +1,11 @@
 ---
-title: 在 ASP.NET Core 中使用 LoggerMessage 的高性能日志记录
-author: rick-anderson
-description: 了解如何使用 LoggerMessage 创建可缓存的委托。对于高性能日志记录方案，这些委托需要更少的对象分配。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 08/26/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/logging/loggermessage
-ms.openlocfilehash: 67281b99f1ed8955ee29eb68b446d71a0c5c7838
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768359"
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>在 ASP.NET Core 中使用 LoggerMessage 的高性能日志记录
 
@@ -41,7 +28,7 @@ ms.locfileid: "82768359"
 
 提供给 <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> 方法的字符串是一个模板，而不是内插字符串。 占位符按照指定类型的顺序填充。 模板中的占位符名称在各个模板中应当具备描述性和一致性。 它们在结构化的日志数据中充当属性名称。 对于占位符名称，建议使用[帕斯卡拼写法](/dotnet/standard/design-guidelines/capitalization-conventions)。 例如：`{Count}`、`{FirstName}`。
 
-每条日志消息都是一个 <xref:System.Action>，保存在由 [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) 创建的静态字段中。 例如，示例应用创建一个字段来为索引页 (Internal/LoggerExtensions.cs  ) 描述 GET 请求的日志消息：
+每条日志消息都是一个 <xref:System.Action>，保存在由 [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) 创建的静态字段中。 例如，示例应用创建一个字段来为索引页 (Internal/LoggerExtensions.cs) 描述 GET 请求的日志消息：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet1)]
 
@@ -54,7 +41,7 @@ ms.locfileid: "82768359"
 对示例应用的索引页的请求设置：
 
 * 将日志级别设置为 `Information`。
-* 将事件 ID 设置为具有 `1` 方法名称的 `IndexPageRequested`。
+* 将事件 ID 设置为具有 `IndexPageRequested` 方法名称的 `1`。
 * 将消息模板（命名的格式字符串）设置为字符串。
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet5)]
@@ -65,7 +52,7 @@ ms.locfileid: "82768359"
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet9)]
 
-在 Pages/Index.cshtml.cs`IndexPageRequested``OnGetAsync` 的 *方法中，在记录器上调用*：
+在 Pages/Index.cshtml.cs 的 `OnGetAsync` 方法中，在记录器上调用 `IndexPageRequested`：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet2&highlight=3)]
 
@@ -77,7 +64,7 @@ info: LoggerMessageSample.Pages.IndexModel[1]
       GET request for Index page
 ```
 
-要将参数传递给日志消息，创建静态字段时最多定义六种类型。 通过为 `string` 字段定义 <xref:System.Action> 类型来添加引号时，示例应用会记录一个字符串：
+要将参数传递给日志消息，创建静态字段时最多定义六种类型。 通过为 <xref:System.Action> 字段定义 `string` 类型来添加引号时，示例应用会记录一个字符串：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet2)]
 
@@ -89,7 +76,7 @@ info: LoggerMessageSample.Pages.IndexModel[1]
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet10)]
 
-在索引页的页面模型 (Pages/Index.cshtml.cs  ) 中，调用 `QuoteAdded` 来记录消息：
+在索引页的页面模型 (Pages/Index.cshtml.cs) 中，调用 `QuoteAdded` 来记录消息：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet3&highlight=6)]
 
@@ -102,7 +89,7 @@ info: LoggerMessageSample.Pages.IndexModel[2]
           consequences of avoiding reality. - Ayn Rand')
 ```
 
-本示例应用实现用于删除引号的 [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) 模式。 为成功的删除操作记录提示性信息。 引发异常时，为删除操作记录错误消息。 针对未成功的删除操作，日志消息包括异常堆栈跟踪 (Internal/LoggerExtensions.cs  )：
+本示例应用实现用于删除引号的 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 模式。 为成功的删除操作记录提示性信息。 引发异常时，为删除操作记录错误消息。 针对未成功的删除操作，日志消息包括异常堆栈跟踪 (Internal/LoggerExtensions.cs)：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet3)]
 
@@ -112,7 +99,7 @@ info: LoggerMessageSample.Pages.IndexModel[2]
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet11)]
 
-在索引页的页面模型中，成功删除引号时会在记录器上调用 `QuoteDeleted` 方法。 如果找不到要删除的引号，则会引发 <xref:System.ArgumentNullException>。 通过 [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并在 `QuoteDeleteFailed`catch[ 块 (Pages/Index.cshtml.cs) 中调用记录器上的 ](/dotnet/csharp/language-reference/keywords/try-catch) 方法来记录异常  ：
+在索引页的页面模型中，成功删除引号时会在记录器上调用 `QuoteDeleted` 方法。 如果找不到要删除的引号，则会引发 <xref:System.ArgumentNullException>。 通过 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并在 [catch](/dotnet/csharp/language-reference/keywords/try-catch) 块 (Pages/Index.cshtml.cs) 中调用记录器上的 `QuoteDeleteFailed` 方法来记录异常：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet5&highlight=9,13)]
 
@@ -141,19 +128,19 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 
 ## <a name="loggermessagedefinescope"></a>LoggerMessage.DefineScope
 
-[DefineScope（字符串）](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*)创建一个用于定义<xref:System.Func%601>日志作用域[的 ](xref:fundamentals/logging/index#log-scopes) 委托。 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 重载允许向命名的格式字符串（模板）传递最多三个类型参数。
+[DefineScope（字符串）](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*)创建一个用于定义[日志作用域](xref:fundamentals/logging/index#log-scopes)的 <xref:System.Func%601> 委托。 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 重载允许向命名的格式字符串（模板）传递最多三个类型参数。
 
 <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> 方法也一样，提供给 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 方法的字符串是一个模板，而不是内插字符串。 占位符按照指定类型的顺序填充。 模板中的占位符名称在各个模板中应当具备描述性和一致性。 它们在结构化的日志数据中充当属性名称。 对于占位符名称，建议使用[帕斯卡拼写法](/dotnet/standard/design-guidelines/capitalization-conventions)。 例如：`{Count}`、`{FirstName}`。
 
-使用 [ 方法定义一个](xref:fundamentals/logging/index#log-scopes)日志作用域<xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>，以应用到一系列日志消息中。
+使用 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 方法定义一个[日志作用域](xref:fundamentals/logging/index#log-scopes)，以应用到一系列日志消息中。
 
-示例应用含有一个“全部清除”  按钮，用于删除数据库中的所有引号。 通过一次删除一个引号来将其删除。 每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。 在这些日志消息中会添加一个日志作用域。
+示例应用含有一个“全部清除”按钮，用于删除数据库中的所有引号。 通过一次删除一个引号来将其删除。 每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。 在这些日志消息中会添加一个日志作用域。
 
-在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`  ：
+在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
-要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs  ) 的字段：
+要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet4)]
 
@@ -207,7 +194,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 
 提供给 <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> 方法的字符串是一个模板，而不是内插字符串。 占位符按照指定类型的顺序填充。 模板中的占位符名称在各个模板中应当具备描述性和一致性。 它们在结构化的日志数据中充当属性名称。 对于占位符名称，建议使用[帕斯卡拼写法](/dotnet/standard/design-guidelines/capitalization-conventions)。 例如：`{Count}`、`{FirstName}`。
 
-每条日志消息都是一个 <xref:System.Action>，保存在由 [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) 创建的静态字段中。 例如，示例应用创建一个字段来为索引页 (Internal/LoggerExtensions.cs  ) 描述 GET 请求的日志消息：
+每条日志消息都是一个 <xref:System.Action>，保存在由 [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) 创建的静态字段中。 例如，示例应用创建一个字段来为索引页 (Internal/LoggerExtensions.cs) 描述 GET 请求的日志消息：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet1)]
 
@@ -220,7 +207,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 对示例应用的索引页的请求设置：
 
 * 将日志级别设置为 `Information`。
-* 将事件 ID 设置为具有 `1` 方法名称的 `IndexPageRequested`。
+* 将事件 ID 设置为具有 `IndexPageRequested` 方法名称的 `1`。
 * 将消息模板（命名的格式字符串）设置为字符串。
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet5)]
@@ -231,7 +218,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet9)]
 
-在 Pages/Index.cshtml.cs`IndexPageRequested``OnGetAsync` 的 *方法中，在记录器上调用*：
+在 Pages/Index.cshtml.cs 的 `OnGetAsync` 方法中，在记录器上调用 `IndexPageRequested`：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet2&highlight=3)]
 
@@ -243,7 +230,7 @@ info: LoggerMessageSample.Pages.IndexModel[1]
       GET request for Index page
 ```
 
-要将参数传递给日志消息，创建静态字段时最多定义六种类型。 通过为 `string` 字段定义 <xref:System.Action> 类型来添加引号时，示例应用会记录一个字符串：
+要将参数传递给日志消息，创建静态字段时最多定义六种类型。 通过为 <xref:System.Action> 字段定义 `string` 类型来添加引号时，示例应用会记录一个字符串：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet2)]
 
@@ -255,7 +242,7 @@ info: LoggerMessageSample.Pages.IndexModel[1]
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet10)]
 
-在索引页的页面模型 (Pages/Index.cshtml.cs  ) 中，调用 `QuoteAdded` 来记录消息：
+在索引页的页面模型 (Pages/Index.cshtml.cs) 中，调用 `QuoteAdded` 来记录消息：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet3&highlight=6)]
 
@@ -268,7 +255,7 @@ info: LoggerMessageSample.Pages.IndexModel[2]
           consequences of avoiding reality. - Ayn Rand')
 ```
 
-本示例应用实现用于删除引号的 [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) 模式。 为成功的删除操作记录提示性信息。 引发异常时，为删除操作记录错误消息。 针对未成功的删除操作，日志消息包括异常堆栈跟踪 (Internal/LoggerExtensions.cs  )：
+本示例应用实现用于删除引号的 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 模式。 为成功的删除操作记录提示性信息。 引发异常时，为删除操作记录错误消息。 针对未成功的删除操作，日志消息包括异常堆栈跟踪 (Internal/LoggerExtensions.cs)：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet3)]
 
@@ -278,7 +265,7 @@ info: LoggerMessageSample.Pages.IndexModel[2]
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet11)]
 
-在索引页的页面模型中，成功删除引号时会在记录器上调用 `QuoteDeleted` 方法。 如果找不到要删除的引号，则会引发 <xref:System.ArgumentNullException>。 通过 [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并在 `QuoteDeleteFailed`catch[ 块 (Pages/Index.cshtml.cs) 中调用记录器上的 ](/dotnet/csharp/language-reference/keywords/try-catch) 方法来记录异常  ：
+在索引页的页面模型中，成功删除引号时会在记录器上调用 `QuoteDeleted` 方法。 如果找不到要删除的引号，则会引发 <xref:System.ArgumentNullException>。 通过 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句捕获异常，并在 [catch](/dotnet/csharp/language-reference/keywords/try-catch) 块 (Pages/Index.cshtml.cs) 中调用记录器上的 `QuoteDeleteFailed` 方法来记录异常：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet5&highlight=14,18)]
 
@@ -309,19 +296,19 @@ Parameter name: entity
 
 ## <a name="loggermessagedefinescope"></a>LoggerMessage.DefineScope
 
-[DefineScope（字符串）](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*)创建一个用于定义<xref:System.Func%601>日志作用域[的 ](xref:fundamentals/logging/index#log-scopes) 委托。 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 重载允许向命名的格式字符串（模板）传递最多三个类型参数。
+[DefineScope（字符串）](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*)创建一个用于定义[日志作用域](xref:fundamentals/logging/index#log-scopes)的 <xref:System.Func%601> 委托。 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 重载允许向命名的格式字符串（模板）传递最多三个类型参数。
 
 <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> 方法也一样，提供给 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 方法的字符串是一个模板，而不是内插字符串。 占位符按照指定类型的顺序填充。 模板中的占位符名称在各个模板中应当具备描述性和一致性。 它们在结构化的日志数据中充当属性名称。 对于占位符名称，建议使用[帕斯卡拼写法](/dotnet/standard/design-guidelines/capitalization-conventions)。 例如：`{Count}`、`{FirstName}`。
 
-使用 [ 方法定义一个](xref:fundamentals/logging/index#log-scopes)日志作用域<xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>，以应用到一系列日志消息中。
+使用 <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> 方法定义一个[日志作用域](xref:fundamentals/logging/index#log-scopes)，以应用到一系列日志消息中。
 
-示例应用含有一个“全部清除”  按钮，用于删除数据库中的所有引号。 通过一次删除一个引号来将其删除。 每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。 在这些日志消息中会添加一个日志作用域。
+示例应用含有一个“全部清除”按钮，用于删除数据库中的所有引号。 通过一次删除一个引号来将其删除。 每当删除一个引号时，都会在记录器上调用 `QuoteDeleted` 方法。 在这些日志消息中会添加一个日志作用域。
 
-在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`  ：
+在 appsettings.json 的控制台记录器部分启用 `IncludeScopes`：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
-要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs  ) 的字段：
+要创建日志作用域，请添加一个字段来保存该作用域的 <xref:System.Func%601> 委托。 示例应用创建一个名为 `_allQuotesDeletedScope` (Internal/LoggerExtensions.cs) 的字段：
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet4)]
 

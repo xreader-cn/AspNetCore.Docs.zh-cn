@@ -1,24 +1,11 @@
 ---
-title: ASP.NET Core 中的文件提供程序
-author: rick-anderson
-description: 了解 ASP.NET Core 如何通过文件提供程序来抽象化文件系统访问。
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/06/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/file-providers
-ms.openlocfilehash: 2f1151d7854aeeb3e315d0de2b0be5267fe2e8f0
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776280"
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core 中的文件提供程序
 
@@ -53,17 +40,77 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 
 可以使用 <xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*?displayProperty=nameWithType> 方法从该文件读取数据。
 
-FileProviderSample 示例应用演示了如何在 `Startup.ConfigureServices` 中配置文件提供程序，以便通过[依赖项注入](xref:fundamentals/dependency-injection)在应用中使用  。
+FileProviderSample 示例应用演示了如何在 `Startup.ConfigureServices` 中配置文件提供程序，以便通过[依赖项注入](xref:fundamentals/dependency-injection)在应用中使用。
 
 ## <a name="file-provider-implementations"></a>文件提供程序实现
 
 下表列出了 `IFileProvider` 的实现。
 
 | 实现 | 描述 |
-| -------------- | ----------- |
-| [CompositeFileProvider](#compositefileprovider) | 用于提供对一个或多个其他提供程序中的文件和目录的合并访问。 |
-| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 用于访问嵌入在程序集中的文件。 |
-| [PhysicalFileProvider](#physicalfileprovider) | 用于访问系统的物理文件。 |
+| ---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | [CompositeFileProvider](#compositefileprovider) | 用于提供对一个或多个其他提供程序中的文件和目录的合并访问。 | | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 用于访问程序集内嵌入的文件。 | | [PhysicalFileProvider](#physicalfileprovider) | 用于访问系统的物理文件。 |
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
@@ -88,7 +135,7 @@ var fileInfo = provider.GetFileInfo(filePath);
 
 文件提供程序可用于循环访问 `applicationRoot` 指定的目录或调用 `GetFileInfo` 来获取文件信息。 glob 模式无法传递给 `GetFileInfo` 方法。 该文件提供程序无法访问 `applicationRoot` 目录外部的任何内容。
 
-FileProviderSample 示例应用使用 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootFileProvider?displayProperty=nameWithType> 在 `Startup.ConfigureServices` 方法中创建该提供程序  ：
+FileProviderSample 示例应用使用 <xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootFileProvider?displayProperty=nameWithType> 在 `Startup.ConfigureServices` 方法中创建该提供程序：
 
 ```csharp
 var physicalProvider = _env.ContentRootFileProvider;
@@ -107,7 +154,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 使用 [glob 模式](#glob-patterns)指定要嵌入到程序集中的一个或多个文件。
 
-FileProviderSample 示例应用创建 `ManifestEmbeddedFileProvider`，并将当前正在执行的程序集传递给其构造函数  。
+FileProviderSample 示例应用创建 `ManifestEmbeddedFileProvider`，并将当前正在执行的程序集传递给其构造函数。
 
 *Startup.cs*：
 
@@ -123,16 +170,52 @@ var manifestEmbeddedProvider =
 * 为包含嵌入文件清单的嵌入资源命名。
 
 | 重载 | 描述 |
-| -------- | ----------- |
-| `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 |
-| `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 |
-| `ManifestEmbeddedFileProvider(Assembly, String, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径、`lastModified` 日期和 `manifestName` 参数。 `manifestName` 表示包含清单的嵌入资源的名称。 |
+| ---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 | | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 | | `ManifestEmbeddedFileProvider(Assembly, String, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径、`lastModified` 日期和 `manifestName` 参数。 `manifestName` 表示包含清单的嵌入资源的名称。 |
 
 ### <a name="compositefileprovider"></a>CompositeFileProvider
 
 <xref:Microsoft.Extensions.FileProviders.CompositeFileProvider> 合并 `IFileProvider` 实例，以便公开一个接口来处理多个提供程序中的文件。 创建 `CompositeFileProvider` 时，将一个或多个 `IFileProvider` 实例传递给其构造函数。
 
-在 FileProviderSample 示例应用中，`PhysicalFileProvider` 和 `ManifestEmbeddedFileProvider` 向在应用的服务容器中注册的 `CompositeFileProvider` 提供文件  。 以下代码可在项目的 `Startup.ConfigureServices` 方法中找到：
+在 FileProviderSample 示例应用中，`PhysicalFileProvider` 和 `ManifestEmbeddedFileProvider` 向在应用的服务容器中注册的 `CompositeFileProvider` 提供文件。 以下代码可在项目的 `Startup.ConfigureServices` 方法中找到：
 
 [!code-csharp[](file-providers/samples/3.x/FileProviderSample/Startup.cs?name=snippet1)]
 
@@ -145,10 +228,10 @@ var manifestEmbeddedProvider =
 
 生成的更改令牌会公开以下内容：
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; 可检查以确定是否发生更改的属性。
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; 在检测到指定的路径字符串发生更改时调用。 每个更改令牌仅调用其关联的回调来响应单个更改。 若要启用持续监视，请使用 <xref:System.Threading.Tasks.TaskCompletionSource`1>（如下所示）或重新创建 `IChangeToken` 实例以响应更改。
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged>：可检查此属性以确定是否已发生更改。
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*>：检测到指定的路径字符串发生更改时调用此属性。 每个更改令牌仅调用其关联的回调来响应单个更改。 若要启用持续监视，请使用 <xref:System.Threading.Tasks.TaskCompletionSource`1>（如下所示）或重新创建 `IChangeToken` 实例以响应更改。
 
-每当 TextFiles 目录中的 .txt 文件被修改时，WatchConsole 示例应用都会写入一条消息    ：
+每当 TextFiles 目录中的 .txt 文件被修改时，WatchConsole 示例应用都会写入一条消息  ：
 
 [!code-csharp[](file-providers/samples/3.x/WatchConsole/Program.cs?name=snippet1)]
 
@@ -156,7 +239,7 @@ var manifestEmbeddedProvider =
 
 ### <a name="glob-patterns"></a>glob 模式
 
-文件系统路径使用名为 glob（或通配）模式  的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
+文件系统路径使用名为 glob（或通配）模式的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
 
 **`*`**  
 匹配当前文件夹级别的任何内容、任何文件名或任何文件扩展名。 匹配由文件路径中的 `/` 和 `.` 字符终止。
@@ -167,11 +250,40 @@ var manifestEmbeddedProvider =
 下表提供了 glob 模式的常见示例。
 
 |模式  |描述  |
-|---------|---------|
-|`directory/file.txt`|匹配特定目录中的特定文件。|
-|`directory/*.txt`|匹配特定目录中带 .txt  扩展名的所有文件。|
-|`directory/*/appsettings.json`|匹配 directory 文件夹中下一级目录中的所有 appsettings.json 文件   。|
-|`directory/**/*.txt`|匹配在 directory 文件夹下任何位置找到的带 .txt 扩展名的所有文件   。|
+|---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-----|---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-----|
+|`directory/file.txt`| 匹配特定目录中的特定文件。| |`directory/*.txt`| 匹配特定目录中以 .txt** 为扩展名的所有文件。| |`directory/*/appsettings.json`| 匹配目录** 文件夹下一级的目录中的所有 appsettings.json** 文件。| |`directory/**/*.txt`| 配置目录** 文件夹下的任何位置中以 .txt** 为扩展名的所有文件。|
 
 ::: moniker-end
 
@@ -211,10 +323,70 @@ ASP.NET Core 通过文件提供程序来抽象化文件系统访问。 在 ASP.N
 `IFileProvider` 有三种实现。
 
 | 实现 | 描述 |
-| -------------- | ----------- |
-| [PhysicalFileProvider](#physicalfileprovider) | 物理提供程序用于访问系统的物理文件。 |
-| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 清单嵌入式提供程序用于访问程序集中嵌入的文件。 |
-| [CompositeFileProvider](#compositefileprovider) | 复合式提供程序提供对一个或多个其他提供程序中的文件和目录的合并访问。 |
+| ---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | [PhysicalFileProvider](#physicalfileprovider) | 用于访问系统的物理文件。 | | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | 清单嵌入式提供程序用于访问程序集中嵌入的文件。 | | [CompositeFileProvider](#compositefileprovider) | 复合式提供程序用于提供对一个或多个其他提供程序中的文件和目录的合并访问。 |
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
@@ -270,10 +442,46 @@ var manifestEmbeddedProvider =
 * 为包含嵌入文件清单的嵌入资源命名。
 
 | 重载 | 描述 |
-| -------- | ----------- |
-| `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 |
-| `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 |
-| `ManifestEmbeddedFileProvider(Assembly, String, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径、`lastModified` 日期和 `manifestName` 参数。 `manifestName` 表示包含清单的嵌入资源的名称。 |
+| ---
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+------ | | `ManifestEmbeddedFileProvider(Assembly, String)` | 接受一个可选的 `root` 相对路径参数。 指定 `root` 将对 <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> 的调用范围限制为提供的路径下的那些资源。 | | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径参数和一个 `lastModified` 日期 (<xref:System.DateTimeOffset>) 参数。 `lastModified` 日期限制 <xref:Microsoft.Extensions.FileProviders.IFileProvider> 返回的 <xref:Microsoft.Extensions.FileProviders.IFileInfo> 实例的上次修改日期范围。 | | `ManifestEmbeddedFileProvider(Assembly, String, String, DateTimeOffset)` | 接受一个可选的 `root` 相对路径、`lastModified` 日期和 `manifestName` 参数。 `manifestName` 表示包含清单的嵌入资源的名称。 |
 
 ### <a name="compositefileprovider"></a>CompositeFileProvider
 
@@ -287,10 +495,10 @@ var manifestEmbeddedProvider =
 
 [IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) 方法提供了一个方案来监视一个或多个文件或目录是否发生更改。 `Watch` 接受路径字符串，它可以使用 [glob 模式](#glob-patterns)指定多个文件。 `Watch` 返回 <xref:Microsoft.Extensions.Primitives.IChangeToken>。 更改令牌会公开以下内容：
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; 可检查此属性以确定是否已发生更改。
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; 检测到指定的路径字符串发生更改时调用此属性。 每个更改令牌仅调用其关联的回调来响应单个更改。 若要启用持续监视，请使用 <xref:System.Threading.Tasks.TaskCompletionSource`1>（如下所示）或重新创建 `IChangeToken` 实例以响应更改。
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged>：可检查此属性以确定是否已发生更改。
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*>：检测到指定的路径字符串发生更改时调用此属性。 每个更改令牌仅调用其关联的回调来响应单个更改。 若要启用持续监视，请使用 <xref:System.Threading.Tasks.TaskCompletionSource`1>（如下所示）或重新创建 `IChangeToken` 实例以响应更改。
 
-在示例应用中，WatchConsole  控制台应用配置为每次修改了文本文件时显示一条消息：
+在示例应用中，WatchConsole 控制台应用配置为每次修改了文本文件时显示一条消息：
 
 [!code-csharp[](file-providers/samples/2.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
 
@@ -298,7 +506,7 @@ var manifestEmbeddedProvider =
 
 ## <a name="glob-patterns"></a>glob 模式
 
-文件系统路径使用名为 glob（或通配）模式  的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
+文件系统路径使用名为 glob（或通配）模式的通配符模式。 使用这些模式指定文件的组。 两个通配符分别是 `*` 和 `**`：
 
 **`*`**  
 匹配当前文件夹级别的任何内容、任何文件名或任何文件扩展名。 匹配由文件路径中的 `/` 和 `.` 字符终止。
@@ -312,12 +520,12 @@ var manifestEmbeddedProvider =
 匹配特定目录中的特定文件。
 
 **`directory/*.txt`**  
-匹配特定目录中带 .txt  扩展名的所有文件。
+匹配特定目录中带 .txt 扩展名的所有文件。
 
 **`directory/*/appsettings.json`**  
-匹配正好位于“目录”  文件夹中下一级目录中的所有 `appsettings.json` 文件。
+匹配正好位于“目录”文件夹中下一级目录中的所有 `appsettings.json` 文件。
 
 **`directory/**/*.txt`**  
-匹配在“目录”  文件夹下任何位置找到的带 .txt  扩展名的所有文件。
+匹配在“目录”文件夹下任何位置找到的带 .txt 扩展名的所有文件。
 
 ::: moniker-end

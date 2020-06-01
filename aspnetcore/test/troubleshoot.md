@@ -1,23 +1,11 @@
 ---
-title: ASP.NET Core 项目故障排除和调试
-author: Rick-Anderson
-description: 理解 ASP.NET Core 项目的警告和错误，并对其进行故障排除。
-ms.author: riande
-ms.custom: mvc
-ms.date: 07/10/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: test/troubleshoot
-ms.openlocfilehash: 74b494f6d16637a54ab7f1b5c0cf9fbb86248fe7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776612"
+title: author: description: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>ASP.NET Core 项目故障排除和调试
 
@@ -34,7 +22,7 @@ ms.locfileid: "82776612"
 
 ### <a name="both-the-32-bit-and-64-bit-versions-of-the-net-core-sdk-are-installed"></a>同时安装了 .NET Core SDK 的 32 位和 64 位版本
 
-在 ASP.NET Core 的“新建项目”对话框中，可能会显示以下警告  ：
+在 ASP.NET Core 的“新建项目”对话框中，可能会显示以下警告：
 
 > 同时安装了 .NET Core SDK 的 32 位和 64 位版本。 仅显示安装在 C:\\Program Files\\dotnet\\sdk\\ 的 64 位版本的模板。
 
@@ -44,21 +32,21 @@ ms.locfileid: "82776612"
 * 32 位 .NET Core SDK 是由另一个应用程序安装的。
 * 下载并安装了错误的版本。
 
-卸载 32 位 .NET Core SDK 以避免出现此警告。 从“控制面板” > “程序和功能” > “卸载或更改程序”卸载    。 如果了解警告出现的原因及其含义，可以忽略此警告。
+卸载 32 位 .NET Core SDK 以避免出现此警告。 从“控制面板” > “程序和功能” > “卸载或更改程序”卸载  。 如果了解警告出现的原因及其含义，可以忽略此警告。
 
 ### <a name="the-net-core-sdk-is-installed-in-multiple-locations"></a>.NET Core SDK 安装在多个位置
 
-在 ASP.NET Core 的“新建项目”对话框中，可能会显示以下警告  ：
+在 ASP.NET Core 的“新建项目”对话框中，可能会显示以下警告：
 
 > .NET Core SDK 安装在多个位置。 仅显示安装在 C:\\Program Files\\dotnet\\sdk\\ 的 SDK 的模板。
 
-如果在 C:\\Program Files\\dotnet\\sdk\\ 之外的目录中至少安装了一个 .NET Core SDK，则会看到此消息  。 发生这种情况，通常是由于使用复制/粘贴而不是 MSI 安装程序在计算机上部署了 .NET Core SDK。
+如果在 C:\\Program Files\\dotnet\\sdk\\ 之外的目录中至少安装了一个 .NET Core SDK，则会看到此消息。 发生这种情况，通常是由于使用复制/粘贴而不是 MSI 安装程序在计算机上部署了 .NET Core SDK。
 
-卸载所有 32 位 .NET Core SDK 和运行时，以防出现此警告。 从“控制面板” > “程序和功能” > “卸载或更改程序”卸载    。 如果了解警告出现的原因及其含义，可以忽略此警告。
+卸载所有 32 位 .NET Core SDK 和运行时，以防出现此警告。 从“控制面板” > “程序和功能” > “卸载或更改程序”卸载  。 如果了解警告出现的原因及其含义，可以忽略此警告。
 
 ### <a name="no-net-core-sdks-were-detected"></a>未检测到 .NET Core SDK
 
-* 在 Visual Studio 中，ASP.NET Core 的“新建项目”对话框中可能会显示以下警告  ：
+* 在 Visual Studio 中，ASP.NET Core 的“新建项目”对话框中可能会显示以下警告：
 
   > 未检测到任何 .NET Core SDK，请确保它们包含在环境变量 `PATH` 中。
 
@@ -79,9 +67,9 @@ ms.locfileid: "82776612"
 
 如果某个应用能够响应请求，则可以使用中间件从应用获取以下数据：
 
-* 请求 &ndash; 方法、方案、主机、基路径、路径、查询字符串、标头
-* 连接 &ndash; 远程 IP 地址、远程端口、本地 IP 地址、本地端口、客户端证书
-* Identity &ndash; 名称、显示名称
+* 请求：方法、方案、主机、基路径、路径、查询字符串、标头
+* 连接: 远程 IP 地址、远程端口、本地 IP 地址、本地端口、客户端证书
+* Identity: Name, display name
 * 配置设置
 * 环境变量
 

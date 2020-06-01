@@ -1,24 +1,11 @@
 ---
-title: ASP.NET Core Blazor 模板化组件
-author: guardrex
-description: 了解模板化组件如何接受一个或多个 UI 模板作为参数，然后将其用作组件呈现逻辑的一部分。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/18/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/templated-components
-ms.openlocfilehash: de603d3520c124b278312e5167a2f8bad14cf6e9
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771062"
+title:“ASP.NET Core Blazor 模板化组件”author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-templated-components"></a>ASP.NET Core Blazor 模板化组件
 
@@ -31,7 +18,7 @@ ms.locfileid: "82771062"
 
 ## <a name="template-parameters"></a>模板参数
 
-通过指定一个或多个 `RenderFragment` 或 `RenderFragment<T>` 类型的组件参数来定义模板化组件。 呈现片段，表示要呈现的 UI 段。 `RenderFragment<T>` 采用可在调用呈现片段时指定的类型参数。
+通过指定一个或多个 <xref:Microsoft.AspNetCore.Components.RenderFragment> 或 <xref:Microsoft.AspNetCore.Components.RenderFragment%601> 类型的组件参数来定义模板化组件。 呈现片段，表示要呈现的 UI 段。 <xref:Microsoft.AspNetCore.Components.RenderFragment%601> 采用可在调用呈现片段时指定的类型参数。
 
 `TableTemplate` 组件：
 
@@ -57,7 +44,7 @@ ms.locfileid: "82771062"
 
 ## <a name="template-context-parameters"></a>模板上下文参数
 
-作为元素传递的 `RenderFragment<T>` 类型的组件实参具有一个名为 `context` 的隐式形参（例如前面的代码示例 `@context.PetId`），但可以使用子元素上的 `Context` 属性来更改形参名称。 在下面的示例中，`RowTemplate` 元素的 `Context` 属性指定了 `pet` 参数：
+作为元素传递的 <xref:Microsoft.AspNetCore.Components.RenderFragment%601> 类型的组件实参具有一个名为 `context` 的隐式形参（例如前面的代码示例 `@context.PetId`），但可以使用子元素上的 `Context` 属性来更改形参名称。 在下面的示例中，`RowTemplate` 元素的 `Context` 属性指定了 `pet` 参数：
 
 ```razor
 <TableTemplate Items="pets">

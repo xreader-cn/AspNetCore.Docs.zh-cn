@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor 高级方案
-author: guardrex
-description: 了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/18/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/advanced-scenarios
-ms.openlocfilehash: b47e7b1d7ff148bb5a8d299d3d2089999f017863
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967332"
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor 高级方案
 
@@ -26,7 +14,7 @@ ms.locfileid: "82967332"
 
 ## <a name="blazor-server-circuit-handler"></a>Blazor Server 线路处理程序
 
-Blazor Server 允许代码定义*线路处理程序*，后者允许在用户线路的状态发生更改时运行代码。 线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。 以下线路处理程序示例跟踪打开的 SignalR 连接：
+Blazor 服务器允许代码定义线路处理程序，后者允许在用户线路的状态发生更改时运行代码。 线路处理程序通过从 `CircuitHandler` 派生并在应用的服务容器中注册该类实现。 以下线路处理程序示例跟踪打开的 SignalR 连接：
 
 ```csharp
 using System.Collections.Generic;
@@ -68,16 +56,16 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-如果自定义线路处理程序的方法引发未处理异常，则该异常对于 Blazor Server 线路而言致命。 若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。
+如果自定义线路处理程序的方法引发未处理异常，则该异常会导致 Blazor Server 线路产生严重错误。 若要容忍处理程序代码或被调用方法中的异常，请使用错误处理和日志记录将代码包装到一个或多个 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) 语句中。
 
 当线路因用户断开连接而结束且框架正在清除线路状态时，框架会处置线路的 DI 范围。 处置范围时会处置所有实现 <xref:System.IDisposable?displayProperty=fullName> 的区分线路范围的 DI 服务。 如果有任何 DI 服务在处置期间引发未处理异常，则框架会记录该异常。
 
 ## <a name="manual-rendertreebuilder-logic"></a>RenderTreeBuilder 手动逻辑
 
-`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` 提供用于操作组件和元素的方法，包括在 C# 代码中手动生成组件。
+<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 提供用于操作组件和元素的方法，包括在 C# 代码中手动生成组件。
 
 > [!NOTE]
-> 使用 `RenderTreeBuilder` 创建组件是一种高级方案。 格式不正确的组件（例如，未封闭的标记标签）可能导致未定义的行为。
+> 使用 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 创建组件是一种高级方案。 格式不正确的组件（例如，未封闭的标记标签）可能导致未定义的行为。
 
 考虑以下 `PetDetails` 组件，可将其手动生成到另一个组件中：
 
@@ -93,7 +81,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-在以下示例中，`CreateComponent` 方法中的循环生成三个 `PetDetails` 组件。 调用 `RenderTreeBuilder` 方法创建组件（`OpenComponent` 和 `AddAttribute`）时，序列号为源代码行号。 Blazor 差分算法依赖于对应于不同代码行（而不是不同调用的调用）的序列号。 使用 `RenderTreeBuilder` 方法创建组件时，请对序列号的参数进行硬编码。 **通过计算或计数器生成序列号可能导致性能不佳。** 有关详细信息，请参阅[序列号与代码行号相关，而不与执行顺序相关](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)部分。
+在以下示例中，`CreateComponent` 方法中的循环生成三个 `PetDetails` 组件。 调用 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法创建组件（`OpenComponent` 和 `AddAttribute`）时，序列号为源代码行号。 Blazor 差分算法依赖于对应于不同代码行（而不是不同调用的调用）的序列号。 使用 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 方法创建组件时，请对序列号的参数进行硬编码。 **通过计算或计数器生成序列号可能导致性能不佳。** 有关详细信息，请参阅[序列号与代码行号相关，而不与执行顺序相关](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)部分。
 
 `BuiltContent` 组件：
 
@@ -129,15 +117,15 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!WARNING]
-> `Microsoft.AspNetCore.Components.RenderTree` 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部细节。 这些类型应视为*不稳定*，并且在未来版本中可能会有更改。
+> <xref:Microsoft.AspNetCore.Components.RenderTree> 中的类型允许处理呈现操作的*结果*。 这些是 Blazor 框架实现的内部细节。 这些类型应视为*不稳定*，并且在未来版本中可能会有更改。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>序列号与代码行号相关，而不与执行顺序相关
 
-Razor 组件文件 ( *.razor*) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
+Razor 组件文件 (.razor) 始终被编译。 与解释代码相比，编译具有潜在优势，因为编译步骤可用于注入信息，从而在运行时提高应用性能。
 
 这些改进的关键示例涉及*序列号*。 序列号向运行时指示哪些输出来自哪些不同的已排序代码行。 运行时使用此信息在线性时间内生成高效的树上差分，这比常规树上差分算法通常可以做到的速度快得多。
 
-考虑以下 Razor 组件 ( *.razor*) 文件：
+考虑以下 Razor 组件 (.razor) 文件：
 
 ```razor
 @if (someFlag)
@@ -161,16 +149,74 @@ builder.AddContent(1, "Second");
 
 首次执行代码时，如果 `someFlag` 为 `true`，则生成器会收到：
 
-| 序列 | 键入      | 数据   |
-| :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 序列 | 类型      | 数据   |
+| :---
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---: | --- title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- | :----: | | 0        | Text node | First  | | 1        | Text node | Second |
 
 假设 `someFlag` 变为 `false` 且标记再次呈现。 此时，生成器会收到：
 
-| 序列 | 键入       | 数据   |
-| :------: | ---------- | :----: |
-| 1        | Text 节点  | 秒 |
+| 序列 | 类型       | 数据   |
+| :---
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---: | --- title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- | :----: | | 1        | Text node  | Second |
 
 当运行时执行差分时，它会看到序列 `0` 处的项目已被删除，因此，它会生成以下普通*编辑脚本*：
 
@@ -193,16 +239,73 @@ builder.AddContent(seq++, "Second");
 
 现在，第一个输出是：
 
-| 序列 | 键入      | 数据   |
-| :------: | --------- | :----: |
-| 0        | Text 节点 | First  |
-| 1        | Text 节点 | 秒 |
+| 序列 | 类型      | 数据   |
+| :---
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---: | --- title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- | :----: | | 0        | Text node | First  | | 1        | Text node | Second |
 
 此结果与之前的示例相同，因此不存在负面问题。 在第二个呈现中，`someFlag` 为 `false`，输出为：
 
-| 序列 | 键入      | 数据   |
-| :------: | --------- | ------ |
-| 0        | Text 节点 | 秒 |
+| 序列 | 类型      | 数据   |
+| :---
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+---: | --- title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+-
+title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+----- | --- title:“ASP.NET Core Blazor 高级方案”author: description:“了解 Blazor 中的高级方案，包括如何将 RenderTreeBuilder 手动逻辑合并到应用中。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
+--- | | 0        | Text node | Second |
 
 此时，差分算法发现发生了*两个*变化，且算法生成以下编辑脚本：
 
@@ -217,7 +320,7 @@ builder.AddContent(seq++, "Second");
 
 * 如果动态生成序列号，则应用性能会受到影响。
 * 该框架无法在运行时自动创建自己的序列号，因为除非在编译时捕获了必需的信息，否则这些信息不存在。
-* 不要编写手动实现的冗长 `RenderTreeBuilder` 逻辑块。 优先使用 *.razor* 文件并允许编译器处理序列号。 如果无法避免 `RenderTreeBuilder` 手动逻辑，请将较长的代码块拆分为封装在 `OpenRegion`/`CloseRegion` 调用中的较小部分。 每个区域都有自己的独立序列号空间，因此可在每个区域内从零（或任何其他任意数）重新开始。
+* 不要编写手动实现的冗长 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 逻辑块。 优先使用 *.razor* 文件并允许编译器处理序列号。 如果无法避免 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> 手动逻辑，请将较长的代码块拆分为封装在 <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A>/<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> 调用中的较小部分。 每个区域都有自己的独立序列号空间，因此可在每个区域内从零（或任何其他任意数）重新开始。
 * 如果序列号已硬编码，则差分算法仅要求序列号的值增加。 初始值和间隔不相关。 一个合理选择是使用代码行号作为序列号，或者从零开始并以 1 或 100 的间隔（或任何首选间隔）增加。 
 * Blazor 使用序列号，而其他树上差分 UI 框架不使用它们。 使用序列号时，差分速度要快得多，并且 Blazor 的优势在于编译步骤可为编写 *.razor* 文件的开发人员自动处理序列号。
 
@@ -340,7 +443,7 @@ public class FileUploader : IDisposable
 * `ReceiveFile` 方法用于处理通过 JS 互操作进行的上传：
   * 通过与 `jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)` 的 JS 互操作确定文件大小（以字节为单位）。
   * 在 `numberOfSegments` 中计算要接收的段数并进行存储。
-  * 通过与 `for` 的 JS 互操作在 `jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` 循环中请求段。 除最后一个段外，所有段都必须为 8,192 字节才能进行解码。 客户端被强制以高效方式发送数据。
+  * 通过与 `jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` 的 JS 互操作在 `for` 循环中请求段。 除最后一个段外，所有段都必须为 8,192 字节才能进行解码。 客户端被强制以高效方式发送数据。
   * 对于接收的每个段，在使用 <xref:System.Convert.TryFromBase64String%2A> 解码之前执行检查。
   * 上传完成后，包含数据的数据流会作为新的<xref:System.IO.Stream> (`SegmentedStream`) 返回。
 

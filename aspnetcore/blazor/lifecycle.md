@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor 生命周期
-author: guardrex
-description: 了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生命周期方法。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/07/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/lifecycle
-ms.openlocfilehash: e4fcd86b6e6a84d9e34a83688f9fb80c6907e5f3
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83438910"
+title:“ASP.NET Core Blazor 生命周期的作者：说明：“了解如何使用 ASP.NET Core Blazor 应用中的 Razor 组件生命周期方法。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>ASP.NET Core Blazor 生命周期
 
@@ -30,9 +18,9 @@ Blazor 框架包括同步和异步生命周期方法。 替代生命周期方法
 
 ### <a name="component-initialization-methods"></a>组件初始化方法
 
-组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>。 在组件执行异步操作时使用 `OnInitializedAsync`，并应在操作完成后刷新。
+组件在从其父组件接收初始参数后初始化，此时，将调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>。 在组件执行异步操作时使用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>，并应在操作完成后刷新。
 
-对于同步操作，替代 `OnInitialized`：
+对于同步操作，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A>：
 
 ```csharp
 protected override void OnInitialized()
@@ -41,7 +29,7 @@ protected override void OnInitialized()
 }
 ```
 
-若要执行异步操作，请替代 `OnInitializedAsync` 并对该操作使用 `await` 关键字：
+若要执行异步操作，请替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 并对该操作使用 [await](/dotnet/csharp/language-reference/operators/await) 运算符：
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -50,12 +38,12 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-[预呈现其内容](xref:blazor/hosting-model-configuration#render-mode)的 Blazor Server 应用调用 `OnInitializedAsync` **_两次_**：
+[预呈现其内容](xref:blazor/hosting-model-configuration#render-mode)的 Blazor Server 应用调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_两次_**：
 
 * 在组件最初作为页面的一部分静态呈现时调用一次。
 * 在浏览器重新建立与服务器的连接时调用第二次。
 
-为了防止 `OnInitializedAsync` 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。
+为了防止 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中的开发人员代码运行两次，请参阅[预呈现后的有状态重新连接](#stateful-reconnection-after-prerendering)部分。
 
 在 Blazor Server 应用进行预呈现时，由于尚未建立与浏览器的连接，无法执行特定操作（例如调用 JavaScript）。 预呈现时，组件可能需要进行不同的呈现。 有关详细信息，请参阅[检测应用何时预呈现](#detect-when-the-app-is-prerendering)部分。
 
@@ -74,11 +62,11 @@ public override async Task SetParametersAsync(ParameterView parameters)
 }
 ```
 
-每次调用 `SetParametersAsync` 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含整个参数值集。
+每次调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 时，<xref:Microsoft.AspNetCore.Components.ParameterView> 都包含整个参数值集。
 
-`SetParametersAsync` 的默认实现使用 `[Parameter]` 或 `[CascadingParameter]` 特性（在 `ParameterView` 中具有对应的值）设置每个属性的值。 在 `ParameterView` 中没有对应值的参数保持不变。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> 的默认实现使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 或 [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) 特性（在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中具有对应的值）设置每个属性的值。 在 <xref:Microsoft.AspNetCore.Components.ParameterView> 中没有对应值的参数保持不变。
 
-如果未调用 `base.SetParametersAync`，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
+如果未调用 [base.SetParametersAync](xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A)，则自定义代码可使用任何需要的方式解释传入的参数值。 例如，不要求将传入参数分配给类的属性。
 
 如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
@@ -99,7 +87,7 @@ protected override async Task OnParametersSetAsync()
 ```
 
 > [!NOTE]
-> 应用参数和属性值时，异步操作必须在 `OnParametersSetAsync` 生命周期事件期间发生。
+> 应用参数和属性值时，异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> 生命周期事件期间发生。
 
 ```csharp
 protected override void OnParametersSet()
@@ -114,7 +102,7 @@ protected override void OnParametersSet()
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 在组件完成呈现后调用。 此时会填充元素和组件引用。 在此阶段中，可使用呈现的内容执行其他初始化步骤，例如激活对呈现的 DOM 元素进行操作的第三方 JavaScript 库。
 
-`OnAfterRenderAsync` 和 `OnAfterRender` 的 `firstRender` 参数：
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 的 `firstRender` 参数：
 
 * 在第一次呈现组件实例时设置为 `true`。
 * 可用于确保初始化操作仅执行一次。
@@ -130,9 +118,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> 呈现后立即进行的异步操作必须在 `OnAfterRenderAsync` 生命周期事件期间发生。
+> 呈现后立即进行的异步操作必须在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 生命周期事件期间发生。
 >
-> 即使从 `OnAfterRenderAsync` 返回 <xref:System.Threading.Tasks.Task>，框架也不会在任务完成后为组件再安排一个呈现循环。 这是为了避免无限呈现循环。 它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。
+> 即使从 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 返回 <xref:System.Threading.Tasks.Task>，框架也不会在任务完成后为组件再安排一个呈现循环。 这是为了避免无限呈现循环。 它与其他生命周期方法不同，后者在返回的任务完成后会再安排呈现循环。
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -144,7 +132,7 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-*在服务器上进行预呈现时*未调用 `OnAfterRender` 和 `OnAfterRenderAsync`。
+*在服务器上进行预呈现时*未调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> 和 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>。
 
 如果设置有事件处理程序，处置时会将其解除挂接。 有关详细信息，请参阅[使用 IDisposable 处置组件](#component-disposal-with-idisposable)部分。
 
@@ -161,21 +149,21 @@ protected override bool ShouldRender()
 }
 ```
 
-每次呈现组件时都会调用 `ShouldRender`。
+每次呈现组件时都会调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>。
 
-即使 `ShouldRender` 被替代，组件也始终在最初呈现。
+即使 <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> 被替代，组件也始终在最初呈现。
 
 有关详细信息，请参阅 <xref:performance/blazor/webassembly-best-practices#avoid-unnecessary-component-renders>。
 
 ## <a name="state-changes"></a>状态更改
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。 如果适用，调用 `StateHasChanged` 会导致组件重新呈现。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 通知组件其状态已更改。 如果适用，调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 会导致组件重新呈现。
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>处理呈现时的不完整异步操作
 
 在呈现组件之前，在生命周期事件中执行的异步操作可能尚未完成。 执行生命周期方法时，对象可能为 `null` 或未完全填充数据。 提供呈现逻辑以确认对象已初始化。 对象为 `null` 时，呈现占位符 UI 元素（例如，加载消息）。
 
-在 Blazor 模板的 `FetchData` 组件中，替代 `OnInitializedAsync` 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 `OnInitializedAsync` 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。
+在 Blazor 模板的 `FetchData` 组件中，替代 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 以异步接收预测数据 (`forecasts`)。 当 `forecasts` 为 `null` 时，将向用户显示加载消息。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 返回的 `Task` 完成后，该组件以更新后的状态重新呈现。
 
 Blazor Server 模板中的 *Pages/FetchData.razor*：
 
@@ -200,7 +188,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 ```
 
 > [!NOTE]
-> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 `StateHasChanged` 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
+> 不支持在 `Dispose` 中调用 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> 可能在拆除呈现器时调用，因此不支持在此时请求 UI 更新。
 
 取消订阅 .NET 事件中的事件处理程序。 下面的 [Blazor 窗体](xref:blazor/forms-validation)示例演示如何解除挂接 `Dispose` 方法中的事件处理程序：
 
@@ -218,7 +206,7 @@ Blazor Server 模板中的 *Pages/FetchData.razor*：
 
 ## <a name="stateful-reconnection-after-prerendering"></a>预呈现后的有状态重新连接
 
-在 Blazor Server 应用中，当 `RenderMode` 为 `ServerPrerendered` 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [OnInitialized{Async}](#component-initialization-methods) 生命周期方法，则该方法执行*两次*：
+在 Blazor Server 应用中，当 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 为 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> 时，组件最初作为页面的一部分静态呈现。 浏览器重新建立与服务器的连接后，将*再次*呈现组件，并且该组件现在为交互式。 如果存在用于初始化组件的 [OnInitialized{Async}](#component-initialization-methods) 生命周期方法，则该方法执行*两次*：
 
 * 在静态预呈现组件时执行一次。
 * 在建立服务器连接后执行一次。
@@ -274,7 +262,7 @@ public class WeatherForecastService
 }
 ```
 
-有关 `RenderMode` 的详细信息，请参阅 <xref:blazor/hosting-model-configuration#render-mode>。
+有关 <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> 的详细信息，请参阅 <xref:blazor/hosting-model-configuration#render-mode>。
 
 ## <a name="detect-when-the-app-is-prerendering"></a>检测应用何时预呈现
 

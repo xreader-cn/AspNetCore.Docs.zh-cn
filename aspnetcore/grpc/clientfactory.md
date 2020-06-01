@@ -1,23 +1,11 @@
 ---
-title: .NET Core 中的 gRPC 客户端工厂集成
-author: jamesnk
-description: 了解如何使用客户端工厂创建 gRPC 客户端。
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.date: 11/12/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/clientfactory
-ms.openlocfilehash: 42b786b9a4d9b422ccf92d7a329979894a35b275
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774712"
+title: author: description: monikerRange: ms.author: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core 中的 gRPC 客户端工厂集成
 
@@ -31,7 +19,7 @@ gRPC 与 `HttpClientFactory` 的集成提供了一种创建 gRPC 客户端的集
 
 ## <a name="register-grpc-clients"></a>注册 gRPC 客户端
 
-若要注册 gRPC 客户端，可在 `AddGrpcClient` 中使用通用的 `Startup.ConfigureServices` 扩展方法，并指定 gRPC 类型化客户端类和服务地址：
+若要注册 gRPC 客户端，可在 `Startup.ConfigureServices` 中使用通用的 `AddGrpcClient` 扩展方法，并指定 gRPC 类型化客户端类和服务地址：
 
 ```csharp
 services.AddGrpcClient<Greeter.GreeterClient>(o =>
@@ -69,7 +57,7 @@ public class AggregatorService : Aggregator.AggregatorBase
 
 ## <a name="configure-httpclient"></a>配置 HttpClient
 
-`HttpClientFactory` 创建 gRPC 客户端使用的 `HttpClient`。 标准 `HttpClientFactory` 方法可用于添加传出请求中间件或配置 `HttpClientHandler` 的基础 `HttpClient`：
+`HttpClientFactory` 创建 gRPC 客户端使用的 `HttpClient`。 标准 `HttpClientFactory` 方法可用于添加传出请求中间件或配置 `HttpClient` 的基础 `HttpClientHandler`：
 
 ```csharp
 services
@@ -109,7 +97,7 @@ services
 
 ## <a name="deadline-and-cancellation-propagation"></a>截止时间和取消传播
 
-可以使用 `EnableCallContextPropagation()` 对 gRPC 服务中工厂所创建的 gRPC 客户端进行配置，以自动将截止时间和取消令牌传播到子调用。 `EnableCallContextPropagation()`Grpc.AspNetCore.Server.ClientFactory[ NuGet 包中提供了 ](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) 扩展方法。
+可以使用 `EnableCallContextPropagation()` 对 gRPC 服务中工厂所创建的 gRPC 客户端进行配置，以自动将截止时间和取消令牌传播到子调用。 [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet 包中提供了 `EnableCallContextPropagation()` 扩展方法。
 
 调用上下文传播的工作方式是：从当前 gRPC 请求上下文中读取截止时间和取消令牌，并自动将其传播到 gRPC 客户端所发出的传出调用。 调用上下文传播是确保复杂的嵌套 gRPC 场景始终传播截止时间和取消的一种极佳方式。
 
@@ -120,6 +108,17 @@ services
         o.Address = new Uri("https://localhost:5001");
     })
     .EnableCallContextPropagation();
+```
+
+默认情况下，如果客户端在 gRPC 调用的上下文之外使用，`EnableCallContextPropagation` 将引发错误。 此错误旨在提醒你没有要传播的调用上下文。 如果要在调用上下文之外使用客户端，请使用 `SuppressContextNotFoundErrors` 在配置客户端时禁止显示该错误：
+
+```csharp
+services
+    .AddGrpcClient<Greeter.GreeterClient>(o =>
+    {
+        o.Address = new Uri("https://localhost:5001");
+    })
+    .EnableCallContextPropagation(o => o.SuppressContextNotFoundErrors = true);
 ```
 
 有关截止时间和 RPC 取消的详细信息，请参阅 [RPC 生命周期](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle)。

@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor 数据绑定
-author: guardrex
-description: 了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/26/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/data-binding
-ms.openlocfilehash: b4951c5eb712b15db3a7c1ccd57ae01c530a23ef
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967163"
+title:“ASP.NET Core Blazor 数据绑定”author: description：“了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。”
+monikerRange: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 
@@ -38,9 +26,9 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 当文本框失去焦点时，该属性的值会更新。
 
-仅当呈现组件时（而不是响应属性值更改），才会在 UI 中更新文本框。 由于组件会在事件处理程序代码执行之后呈现自己，因此在触发事件处理程序之后，通常会  在 UI 中反映属性更新。
+仅当呈现组件时（而不是响应属性值更改），才会在 UI 中更新文本框。 由于组件会在事件处理程序代码执行之后呈现自己，因此在触发事件处理程序之后，通常会在 UI 中反映属性更新。
 
-将 `@bind` 与 `CurrentValue` 属性结合使用 (`<input @bind="CurrentValue" />`) 在本质上等效于以下内容：
+将 [`@bind`](xref:mvc/views/razor#bind) 与 `CurrentValue` 属性结合使用 (`<input @bind="CurrentValue" />`) 在本质上等效于以下内容：
 
 ```razor
 <input value="@CurrentValue"
@@ -52,7 +40,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 }
 ```
 
-呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 用户在文本框中键入并更改元素焦点时，会激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更加复杂，因为 `@bind` 会处理执行类型转换的情况。 原则上，`@bind` 将表达式的当前值与 `value` 属性关联，并使用注册的处理程序处理更改。
+呈现组件时，输入元素的 `value` 来自 `CurrentValue` 属性。 用户在文本框中键入并更改元素焦点时，会激发 `onchange` 事件并将 `CurrentValue` 属性设置为更改的值。 实际上，代码生成更加复杂，因为 [`@bind`](xref:mvc/views/razor#bind) 会处理执行类型转换的情况。 原则上，[`@bind`](xref:mvc/views/razor#bind) 将表达式的当前值与 `value` 属性关联，并使用注册的处理程序处理更改。
 
 通过同时包含带有 `event` 参数的 `@bind:event` 属性，在其他事件上绑定属性或字段。 以下示例在 `oninput` 事件上绑定 `CurrentValue` 属性：
 
@@ -84,7 +72,10 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 }
 ```
 
-属性绑定是区分大小写的。 例如，`@bind` 有效，而 `@Bind` 无效。
+属性绑定区分大小写：
+
+* `@bind` 有效。
+* `@Bind` 和 `@BIND` 无效。
 
 ## <a name="unparsable-values"></a>无法分析的值
 
@@ -110,13 +101,13 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 * 不使用 `oninput` 事件。 使用默认 `onchange` 事件（仅指定 `@bind="{PROPERTY OR FIELD}"`），其中无效值在元素失去焦点之前不会还原。
 * 绑定到可以为 null 的类型（如 `int?` 或 `string`），并提供自定义逻辑来处理无效条目。
-* 使用[窗体验证组件](xref:blazor/forms-validation)，如 `InputNumber` 或 `InputDate`。 窗体验证组件具有用于管理无效输入的内置支持。 窗体验证组件：
-  * 允许用户提供无效输入并在关联的 `EditContext` 上接收验证错误。
+* 使用[窗体验证组件](xref:blazor/forms-validation)，如 <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> 或 <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601>。 窗体验证组件具有用于管理无效输入的内置支持。 窗体验证组件：
+  * 允许用户提供无效输入并在关联的 <xref:Microsoft.AspNetCore.Components.Forms.EditContext> 上接收验证错误。
   * 在 UI 中显示验证错误，而不干扰用户输入其他 webform 数据。
 
 ## <a name="format-strings"></a>格式字符串
 
-数据绑定使用 [`@bind:format`](xref:mvc/views/razor#bind) 处理 <xref:System.DateTime> 格式字符串。 目前无法使用其他格式表达式，如货币或数字格式。
+数据绑定使用 `@bind:format` 处理 <xref:System.DateTime> 格式字符串。 目前无法使用其他格式表达式，如货币或数字格式。
 
 ```razor
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -162,7 +153,7 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 }
 ```
 
-`EventCallback<T>` 在 <xref:blazor/event-handling#eventcallback> 中进行了说明。
+<xref:Microsoft.AspNetCore.Components.EventCallback%601> 在 <xref:blazor/event-handling#eventcallback> 中进行了说明。
 
 以下父组件使用：
 
@@ -233,11 +224,11 @@ Razor 组件通过名为 [`@bind`](xref:mvc/views/razor#bind) 的 HTML 元素特
 
 ## <a name="child-to-parent-binding-with-chained-bind"></a>使用链接绑定的子级到父级绑定
 
-一种常见方案是将数据绑定参数链接到组件输出中的页面元素。 此方案称为链接绑定  ，因为多个级别的绑定会同时进行。
+一种常见方案是将数据绑定参数链接到组件输出中的页面元素。 此方案称为链接绑定，因为多个级别的绑定会同时进行。
 
-无法在页面元素中使用 `@bind` 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将 `@bind` 语法用于组件的参数。
+无法在页面元素中使用 [`@bind`](xref:mvc/views/razor#bind) 语法实现链接绑定。 必须单独指定事件处理程序和值。 但是，父组件可以将 [`@bind`](xref:mvc/views/razor#bind) 语法用于组件的参数。
 
-以下 `PasswordField` 组件 (PasswordField.razor  )：
+以下 `PasswordField` 组件 (PasswordField.razor)：
 
 * 将 `<input>` 元素的值设置为 `Password` 属性。
 * 使用 [EventCallback](xref:blazor/event-handling#eventcallback) 向父组件公开 `Password` 属性的更改。

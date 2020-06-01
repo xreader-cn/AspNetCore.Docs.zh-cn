@@ -1,23 +1,11 @@
 ---
-title: ASP.NET Core 3.0 的新增功能
-author: rick-anderson
-description: 了解 ASP.NET Core 3.0 的新增功能。
-ms.author: riande
-ms.custom: mvc
-ms.date: 12/05/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: aspnetcore-3.0
-ms.openlocfilehash: aa0b2b51632cff729449018f9823c38cc26ce612
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774088"
+title: author: description: ms.author: ms.custom: ms.date: no-loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- 'SignalR' uid: 
+
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 的新增功能
 
@@ -49,7 +37,7 @@ Blazor 将组件呈现逻辑从 UI 更新的应用方式中分离出来。 Blazo
 
 ### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly（预览版）
 
-还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。  ASP.NET Core 的未来版本将支持 Blazor WebAssembly。
+还可以使用基于 WebAssembly 的 .NET 运行时直接在浏览器中运行 Blazor 应用。 Blazor WebAssembly 处于预览版阶段，ASP.NET Core 3.0 不提供支持。 ASP.NET Core 的未来版本将支持 Blazor WebAssembly。
 
 ### <a name="razor-components"></a>Razor 组件
 
@@ -76,9 +64,9 @@ Blazor 应用是基于组件构建的。 组件是自包含的用户界面 (UI) 
 
 ASP.NET Core 3.0 中的 gRPC 功能包括：
 
-* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash; 用于托管 gRPC 服务的 ASP.NET Core 框架。 ASP.NET Core 上的 gRPC 与标准 ASP.NET Core 功能（例如日志记录、依赖关系注入 (DI)、身份验证和授权）集成。
-* [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; 基于熟悉的 `HttpClient` 构建的 .NET Core 的 gRPC 客户端。
-* [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; gRPC 客户端与 `HttpClientFactory` 的集成。
+* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore)：用于托管 gRPC 服务的 ASP.NET Core 框架。 ASP.NET Core 上的 gRPC 与标准 ASP.NET Core 功能（例如日志记录、依赖关系注入 (DI)、身份验证和授权）集成。
+* [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client)：基于熟悉的 `HttpClient` 构建的 .NET Core 的 gRPC 客户端。
+* [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory)：gRPC 客户端与 `HttpClientFactory` 的集成。
 
 有关详细信息，请参阅 <xref:grpc/index>。
 
@@ -213,7 +201,7 @@ public class ChatHub : Hub
 
 创建 `DomainRestricted` 策略可能涉及：
 
-* 在 Startup.cs  中，添加新策略。
+* 在 Startup.cs 中，添加新策略。
 * 提供自定义 `DomainRestrictedRequirement` 要求作为参数。
 * 向授权中间件注册 `DomainRestricted`。
 
@@ -322,8 +310,8 @@ ASP.NET Core 3.0 现在默认使用 <xref:System.Text.Json> 进行 JSON 序列�
 
 下面的列表包含新的 Razor 指令：
 
-* [`@attribute`](xref:mvc/views/razor#attribute) &ndash;`@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
-* [`@implements`](xref:mvc/views/razor#implements) &ndash;`@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
+* [`@attribute`](xref:mvc/views/razor#attribute)：`@attribute` 指令将给定的属性应用于生成的页或视图的类。 例如 `@attribute [Authorize]`。
+* [`@implements`](xref:mvc/views/razor#implements)：`@implements` 指令为生成的类实现接口。 例如 `@implements IDisposable`。
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 支持 Web API 和 SPA 的身份验证和授权
 

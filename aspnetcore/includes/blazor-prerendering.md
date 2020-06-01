@@ -24,7 +24,7 @@
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数   。 该函数通过 `IJSRuntime.InvokeVoidAsync` 进行调用，不返回值：
+对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数 。 该函数通过 <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> 进行调用，不返回值：
 
 ```html
 <script>
@@ -35,9 +35,9 @@
 > [!WARNING]
 > 上述示例直接修改文档对象模型 (DOM)，以便仅供演示所用。 大多数情况下，不建议使用 JavaScript 直接修改 DOM，因为 JavaScript 可能会干扰 Blazor 的更改跟踪。
 
-以下组件展示了如何以一种与预呈现兼容的方式将 JavaScript 互操作用作组件初始化逻辑的一部分。 该组件显示可从 `OnAfterRenderAsync` 内部触发呈现更新。 开发人员必须避免在此场景中创建无限循环。
+以下组件展示了如何以一种与预呈现兼容的方式将 JavaScript 互操作用作组件初始化逻辑的一部分。 该组件显示可从 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 内部触发呈现更新。 开发人员必须避免在此场景中创建无限循环。
 
-如果调用 `JSRuntime.InvokeAsync`，则 `ElementRef` 仅在 `OnAfterRenderAsync` 中使用，而不在任何更早的生命周期方法中使用，因为呈现组件后才会有 JavaScript 元素。
+如果调用 <xref:Microsoft.JSInterop.JSRuntime.InvokeAsync%2A?displayProperty=nameWithType>，则 `ElementRef` 仅在 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> 中使用，而不在任何更早的生命周期方法中使用，因为呈现组件后才会有 JavaScript 元素。
 
 会调用 [StateHasChanged](xref:blazor/lifecycle#state-changes)，使用从 JavaScript 互操作调用中获取的新状态重新呈现该组件。 此代码不会创建无限循环，因为仅在 `infoFromJs` 为 `null` 时才调用 `StateHasChanged`。
 
@@ -72,7 +72,7 @@ Set value via JS interop call:
 }
 ```
 
-对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数   。 该函数通过 `IJSRuntime.InvokeAsync` 进行调用，会返回值：
+对于上述示例代码，请在 wwwroot/index.html (Blazor WebAssembly) 或 Pages/_Host.cshtml (Blazor Server) 的 `<head>` 元素中，提供一个 `setElementText` JavaScript 函数 。 该函数通过 <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> 进行调用，会返回值：
 
 ```html
 <script>
