@@ -1,23 +1,12 @@
 ---
-title: ASP.NET Core Web API 中控制器操作的返回类型
-author: scottaddie
-description: 了解在 ASP.NET Core Web API 中使用各种控制器操作方法返回类型的相关信息。
-ms.author: scaddie
-ms.custom: mvc
-ms.date: 02/03/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: web-api/action-return-types
-ms.openlocfilehash: 4db553a61ca0eeabe35a08731295333f588ee0fc
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774937"
+标题：控制器操作返回 ASP.NET Core web API 作者： scottaddie 说明：了解如何使用各种控制器操作方法返回 ASP.NET Core web API 中的类型。
+ms-chap： scaddie：自定义： mvc ms. 日期：02/03/2020 无位置：
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- " SignalR " uid： web api/操作-返回类型
+
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 
@@ -52,9 +41,9 @@ ASP.NET Core 提供以下 Web API 控制器操作返回类型选项：
 
 在执行操作期间无需防范已知条件，返回特定类型即可满足要求。 上述操作不接受任何参数，因此不需要参数约束验证。
 
-当在操作中需要考虑已知条件时，将引入多个返回路径。 在此类情况下，通常会将 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 返回类型和基元或复杂返回类型混合。 要支持此类操作，必须使用 [IActionResult](#iactionresult-type) 或 [ActionResult\<T>](#actionresultt-type)。
+当有多个返回类型时，通常会将 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 返回类型与基元或复杂返回类型混合使用。 需要[IActionResult](#iactionresult-type)或[ActionResult \<T> ](#actionresultt-type)才能容纳此类操作。 本文档中提供了多个返回类型的多个示例。
 
-### <a name="return-ienumerablet-or-iasyncenumerablet"></a>返回 IEnumerable\<T> 或 IAsyncEnumerable\<T>
+### <a name="return-ienumerablet-or-iasyncenumerablet"></a>返回 IEnumerable \<T> 或 IAsyncEnumerable\<T>
 
 在 ASP.NET Core 2.2 及更低版本中，从操作返回 <xref:System.Collections.Generic.IEnumerable%601> 会导致序列化程序同步集合迭代。 因此会阻止调用，并且可能会导致线程池资源不足。 为了说明这一点，假设 Entity Framework (EF) Core 用于满足 Web API 的数据访问需求。 序列化期间，将同步枚举以下操作的返回类型：
 
@@ -98,7 +87,7 @@ public IEnumerable<Product> GetOnSaleProducts() =>
 
 当操作中可能有多个 `ActionResult` 返回类型时，适合使用 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 返回类型。 `ActionResult` 类型表示多种 HTTP 状态代码。 派生自 `ActionResult` 的任何非抽象类都限定为有效的返回类型。 此类别中的某些常见返回类型为 <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400)、<xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404) 和 <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200)。 或者，可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase> 类中的便利方法从操作返回 `ActionResult` 类型。 例如，`return BadRequest();` 是 `return new BadRequestResult();` 的简写形式。
 
-由于这种类型的操作具有多个返回类型和路径，因此需要大量使用[`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute)特性。 此特性可针对 [Swagger](xref:tutorials/web-api-help-pages-using-swagger) 等工具生成的 Web API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
+由于这种类型的操作具有多个返回类型和路径，因此需要大量使用 [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 特性。 此特性可针对 [Swagger](xref:tutorials/web-api-help-pages-using-swagger) 等工具生成的 Web API 帮助页生成更多描述性响应详细信息。 `[ProducesResponseType]` 指示操作将返回的已知类型和 HTTP 状态代码。
 
 ### <a name="synchronous-action"></a>同步操作
 
@@ -148,13 +137,13 @@ public IEnumerable<Product> GetOnSaleProducts() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-如果应用[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) ASP.NET Core 2.1 或更高版本中的属性，则模型验证错误将导致400状态代码。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
+如果 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 应用 ASP.NET Core 2.1 或更高版本中的属性，则模型验证错误将导致400状态代码。 有关详细信息，请参阅[自动 HTTP 400 响应](xref:web-api/index#automatic-http-400-responses)。
 
-## <a name="actionresultt-type"></a>ActionResult\<T> 类型
+## <a name="actionresultt-type"></a>ActionResult \<T> 类型
 
-ASP.NET Core 2.1 引入了面向 Web API 控制器操作的 [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) 返回类型。 它支持返回从 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 派生的类型或返回[特定类型](#specific-type)。 `ActionResult<T>` 通过 [IActionResult 类型](#iactionresult-type)可提供以下优势：
+ASP.NET Core 2.1 引入了 web API 控制器操作的[ActionResult \<T> ](xref:Microsoft.AspNetCore.Mvc.ActionResult`1)返回类型。 它支持返回从 <xref:Microsoft.AspNetCore.Mvc.ActionResult> 派生的类型或返回[特定类型](#specific-type)。 `ActionResult<T>` 通过 [IActionResult 类型](#iactionresult-type)可提供以下优势：
 
-* 可以[`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute)排除特性`Type`的属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
+* [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) `Type` 可以排除特性的属性。 例如，`[ProducesResponseType(200, Type = typeof(Product))]` 简化为 `[ProducesResponseType(200)]`。 此操作的预期返回类型改为根据 `ActionResult<T>` 中的 `T` 进行推断。
 * [隐式强制转换运算符](/dotnet/csharp/language-reference/keywords/implicit)支持将 `T` 和 `ActionResult` 均转换为 `ActionResult<T>`。 将 `T` 转换为 <xref:Microsoft.AspNetCore.Mvc.ObjectResult>，也就是将 `return new ObjectResult(T);` 简化为 `return T;`。
 
 C# 不支持对接口使用隐式强制转换运算符。 因此，必须使用 `ActionResult<T>`，才能将接口转换为具体类型。 例如，在下面的示例中，使用 `IEnumerable` 不起作用：
@@ -189,7 +178,7 @@ public ActionResult<IEnumerable<Product>> Get() =>
 在上述操作中：
 
 * 在以下情况下，ASP.NET Core 运行时返回 400 状态代码 (<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>)：
-  * 已[`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)应用该属性，并且模型验证失败。
+  * [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute)已应用该属性，并且模型验证失败。
   * 产品说明包含“XYZ 小组件”。
 * 在创建产品后，<xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> 方法生成 201 状态代码。 在此代码路径中，将在响应正文中提供 `Product` 对象。 提供了包含新建产品 URL 的 `Location` 响应标头。
 

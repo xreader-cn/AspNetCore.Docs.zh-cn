@@ -1,11 +1,11 @@
 ---
-title:'Secure ASP.NET Core Blazor WebAssembly' author: description:'Learn how to secure Blazor WebAssemlby apps as Single Page Applications (SPAs).'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
+title:'Secure ASP.NET Core Blazor WebAssembly' author: guardrex description:'Learn how to secure Blazor WebAssemlby apps as Single Page Applications (SPAs).'
+monikerRange: '>= aspnetcore-3.1' ms.author: riande ms.custom: mvc ms.date:2020 年 6 月 1 日 no-loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- 'SignalR' uid: 
+- 'SignalR' uid: security/blazor/webassembly/index
 
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>保护 ASP.NET Core Blazor WebAssembly
@@ -41,7 +41,19 @@ Blazor WebAssembly 中的身份验证支持建立在 *oidc-client.js* 库的基�
 * 当 Blazor WebAssembly 应用加载登录回叫终结点 (`/authentication/login-callback`) 时，就处理了身份验证进程。
   * 如果身份验证进程成功完成，则用户通过身份验证，可以选择返回该用户请求的原受保护 URL。
   * 如果身份验证进程由于任何原因而失败，会将用户导向登录失败页 (`/authentication/login-failed`)，并显示错误。
-  
+
+## <a name="authorization"></a>授权
+
+在 Blazor WebAssembly 应用中，可绕过授权检查，因为用户可修改所有客户端代码。 所有客户端应用程序技术都是如此，其中包括 JavaScript SPA 框架或任何操作系统的本机应用程序。
+
+**始终对客户端应用程序访问的任何 API 终结点内的服务器执行授权检查。**
+
+## <a name="refresh-tokens"></a>刷新令牌
+
+在 Blazor WebAssembly 应用中，无法对刷新令牌进行客户端保护。 因此，不得将刷新令牌发送到应用以供直接使用。
+
+在托管的 Blazor WebAssembly 解决方案中，服务器端应用可以维护和使用刷新令牌来访问第三方 API。 有关详细信息，请参阅 <xref:security/blazor/webassembly/additional-scenarios#authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party>。
+
 ## <a name="implementation-guidance"></a>实施指南
 
 此概述下的文章介绍了如何针对特定提供商对 Blazor WebAssembly 应用中的用户进行身份验证。
