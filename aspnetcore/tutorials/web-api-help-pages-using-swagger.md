@@ -37,7 +37,7 @@ Swagger 是一个与语言无关的规范，用于描述 [REST](https://en.wikip
 
 ## <a name="swagger-specification-swaggerjson"></a>Swagger 规范 (swagger.json)
 
-Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json 的文档  。 它由 Swagger 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 Swagger 规范的示例：
+Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json 的文档。 它由 Swagger 工具链（或其第三方实现）根据你的服务生成。 它描述了 API 的功能以及使用 HTTP 对其进行访问的方式。 它驱动 Swagger UI，并由工具链用来启用发现和客户端代码生成。 下面是为简洁起见而缩减的 Swagger 规范的示例：
 
 ```json
 {
@@ -114,7 +114,7 @@ Swagger 流的核心是 Swagger 规范，默认情况下是名为 swagger.json �
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-控制器中的每个公共操作方法都可以从 UI 中进行测试。 单击方法名称可以展开该部分。 添加所有必要的参数，然后单击“试试看!”  。
+控制器中的每个公共操作方法都可以从 UI 中进行测试。 单击方法名称可以展开该部分。 添加所有必要的参数，然后单击“试试看!”。
 
 ![示例 Swagger GET 测试](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 

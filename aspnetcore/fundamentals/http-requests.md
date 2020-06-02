@@ -28,7 +28,7 @@ ms.locfileid: "82766545"
 
 可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 `IHttpClientFactory` 的优势如下：
 
-* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置名为 github 的客户端，使其访问 [GitHub](https://github.com/)  。 可以注册一个默认客户端用于一般性访问。
+* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置名为 github 的客户端，使其访问 [GitHub](https://github.com/)。 可以注册一个默认客户端用于一般性访问。
 * 通过 `HttpClient` 中的委托处理程序来编码出站中间件的概念。 提供基于 Polly 的中间件的扩展，以利用 `HttpClient` 中的委托处理程序。
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期。 自动管理可避免手动管理 `HttpClient` 生存期时出现的常见 DNS（域名系统）问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
@@ -297,7 +297,7 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup5.cs?name=snippet1)]
 
-`HttpClient` 实例通常可视为无需处置的 .NET 对象  。 处置既取消传出请求，又保证在调用 <xref:System.IDisposable.Dispose*> 后无法使用给定的 `HttpClient` 实例。 `IHttpClientFactory` 跟踪和处置 `HttpClient` 实例使用的资源。
+`HttpClient` 实例通常可视为无需处置的 .NET 对象。 处置既取消传出请求，又保证在调用 <xref:System.IDisposable.Dispose*> 后无法使用给定的 `HttpClient` 实例。 `IHttpClientFactory` 跟踪和处置 `HttpClient` 实例使用的资源。
 
 保持各个 `HttpClient` 实例长时间处于活动状态是在 `IHttpClientFactory` 推出前使用的常见模式。 迁移到 `IHttpClientFactory` 后，就无需再使用此模式。
 
@@ -334,9 +334,9 @@ public class ValuesController : ControllerBase
 
 通过 `IHttpClientFactory` 创建的客户端记录所有请求的日志消息。 在日志记录配置中启用合适的信息级别可以查看默认日志消息。 仅在跟踪级别包含附加日志记录（例如请求标头的日志记录）。
 
-用于每个客户端的日志类别包含客户端名称。 例如，名为 MyNamedClient 的客户端记录类别为“System.Net.Http.HttpClient.MyNamedClient.LogicalHandler”的消息   。 后缀为 LogicalHandler  的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
+用于每个客户端的日志类别包含客户端名称。 例如，名为 MyNamedClient 的客户端记录类别为“System.Net.Http.HttpClient.MyNamedClient.LogicalHandler”的消息。 后缀为 LogicalHandler 的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
 
-日志记录还在请求处理程序管道内部发生。 在 MyNamedClient 示例中，这些消息的日志类别为“System.Net.Http.HttpClient.MyNamedClient.ClientHandler”   。 在请求时，在所有其他处理程序运行后，以及刚好要发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
+日志记录还在请求处理程序管道内部发生。 在 MyNamedClient 示例中，这些消息的日志类别为“System.Net.Http.HttpClient.MyNamedClient.ClientHandler”。 在请求时，在所有其他处理程序运行后，以及刚好要发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
 
 在管道内外启用日志记录，可以检查其他管道处理程序做出的更改。 这可能包含对请求标头的更改，或者对响应状态代码的更改。
 
@@ -396,7 +396,7 @@ public class ValuesController : ControllerBase
 
 可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 这能带来以下好处：
 
-* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置 github 客户端，使其访问 [GitHub](https://github.com/)  。 可以注册一个默认客户端用于其他用途。
+* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置 github 客户端，使其访问 [GitHub](https://github.com/)。 可以注册一个默认客户端用于其他用途。
 * 通过委托 `HttpClient` 中的处理程序整理出站中间件的概念，并提供适用于基于 Polly 的中间件的扩展来利用概念。
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
@@ -428,11 +428,11 @@ public class ValuesController : ControllerBase
 
 ### <a name="named-clients"></a>命名客户端
 
-如果应用需要有许多不同的 `HttpClient` 用法（每种用法的配置都不同），可以视情况使用命名客户端  。 可以在 `HttpClient` 中注册时指定命名 `Startup.ConfigureServices` 的配置。
+如果应用需要有许多不同的 `HttpClient` 用法（每种用法的配置都不同），可以视情况使用命名客户端。 可以在 `HttpClient` 中注册时指定命名 `Startup.ConfigureServices` 的配置。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-上面的代码调用 `AddHttpClient`，同时提供名称“github”  。 此客户端应用了一些默认配置，也就是需要基址和两个标头来使用 GitHub API。
+上面的代码调用 `AddHttpClient`，同时提供名称“github”。 此客户端应用了一些默认配置，也就是需要基址和两个标头来使用 GitHub API。
 
 每次调用 `CreateClient` 时，都会创建 `HttpClient` 的新实例，并调用配置操作。
 
@@ -652,9 +652,9 @@ public class ValuesController : ControllerBase
 
 通过 `IHttpClientFactory` 创建的客户端记录所有请求的日志消息。 在日志记录配置中启用合适的信息级别可以查看默认日志消息。 仅在跟踪级别包含附加日志记录（例如请求标头的日志记录）。
 
-用于每个客户端的日志类别包含客户端名称。 例如，名为“MyNamedClient”  的客户端使用 `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler` 类别来记录消息。 后缀为 LogicalHandler  的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
+用于每个客户端的日志类别包含客户端名称。 例如，名为“MyNamedClient”的客户端使用 `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler` 类别来记录消息。 后缀为 LogicalHandler 的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
 
-日志记录还在请求处理程序管道内部发生。 在“MyNamedClient”  示例中，这些消息是针对日志类别 `System.Net.Http.HttpClient.MyNamedClient.ClientHandler` 进行记录。 在请求时，在所有其他处理程序运行后，以及刚好在通过网络发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
+日志记录还在请求处理程序管道内部发生。 在“MyNamedClient”示例中，这些消息是针对日志类别 `System.Net.Http.HttpClient.MyNamedClient.ClientHandler` 进行记录。 在请求时，在所有其他处理程序运行后，以及刚好在通过网络发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
 
 在管道内外启用日志记录，可以检查其他管道处理程序做出的更改。 例如，其中可能包含对请求标头的更改，或者对响应状态代码的更改。
 
@@ -697,7 +697,7 @@ public class ValuesController : ControllerBase
 
 可以注册 <xref:System.Net.Http.IHttpClientFactory> 并将其用于配置和创建应用中的 <xref:System.Net.Http.HttpClient> 实例。 这能带来以下好处：
 
-* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置 github 客户端，使其访问 [GitHub](https://github.com/)  。 可以注册一个默认客户端用于其他用途。
+* 提供一个中心位置，用于命名和配置逻辑 `HttpClient` 实例。 例如，可注册和配置 github 客户端，使其访问 [GitHub](https://github.com/)。 可以注册一个默认客户端用于其他用途。
 * 通过委托 `HttpClient` 中的处理程序整理出站中间件的概念，并提供适用于基于 Polly 的中间件的扩展来利用概念。
 * 管理基础 `HttpClientMessageHandler` 实例的池和生存期，避免在手动管理 `HttpClient` 生存期时出现常见的 DNS 问题。
 * （通过 `ILogger`）添加可配置的记录体验，以处理工厂创建的客户端发送的所有请求。
@@ -733,11 +733,11 @@ public class ValuesController : ControllerBase
 
 ### <a name="named-clients"></a>命名客户端
 
-如果应用需要有许多不同的 `HttpClient` 用法（每种用法的配置都不同），可以视情况使用命名客户端  。 可以在 `HttpClient` 中注册时指定命名 `Startup.ConfigureServices` 的配置。
+如果应用需要有许多不同的 `HttpClient` 用法（每种用法的配置都不同），可以视情况使用命名客户端。 可以在 `HttpClient` 中注册时指定命名 `Startup.ConfigureServices` 的配置。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-上面的代码调用 `AddHttpClient`，同时提供名称“github”  。 此客户端应用了一些默认配置，也就是需要基址和两个标头来使用 GitHub API。
+上面的代码调用 `AddHttpClient`，同时提供名称“github”。 此客户端应用了一些默认配置，也就是需要基址和两个标头来使用 GitHub API。
 
 每次调用 `CreateClient` 时，都会创建 `HttpClient` 的新实例，并调用配置操作。
 
@@ -849,7 +849,7 @@ public class ValuesController : ControllerBase
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
-在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 处理程序必须  在 DI 中注册为暂时性服务且从不设置作用域。 如果该处理程序注册为作用域服务，并且处理程序依赖的任何服务都是可释放的：
+在上述代码中通过 DI 注册了 `ValidateHeaderHandler`。 处理程序必须在 DI 中注册为暂时性服务且从不设置作用域。 如果该处理程序注册为作用域服务，并且处理程序依赖的任何服务都是可释放的：
 
 * 处理程序的服务可以在处理程序超出作用域之前被释放。
 * 已释放的处理程序服务可导致处理程序失败。
@@ -960,9 +960,9 @@ public class ValuesController : ControllerBase
 
 通过 `IHttpClientFactory` 创建的客户端记录所有请求的日志消息。 在日志记录配置中启用合适的信息级别可以查看默认日志消息。 仅在跟踪级别包含附加日志记录（例如请求标头的日志记录）。
 
-用于每个客户端的日志类别包含客户端名称。 例如，名为“MyNamedClient”  的客户端使用 `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler` 类别来记录消息。 后缀为 LogicalHandler  的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
+用于每个客户端的日志类别包含客户端名称。 例如，名为“MyNamedClient”的客户端使用 `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler` 类别来记录消息。 后缀为 LogicalHandler 的消息在请求处理程序管道外部发生。 在请求时，在管道中的任何其他处理程序处理请求之前记录消息。 在响应时，在任何其他管道处理程序接收响应之后记录消息。
 
-日志记录还在请求处理程序管道内部发生。 在“MyNamedClient”  示例中，这些消息是针对日志类别 `System.Net.Http.HttpClient.MyNamedClient.ClientHandler` 进行记录。 在请求时，在所有其他处理程序运行后，以及刚好在通过网络发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
+日志记录还在请求处理程序管道内部发生。 在“MyNamedClient”示例中，这些消息是针对日志类别 `System.Net.Http.HttpClient.MyNamedClient.ClientHandler` 进行记录。 在请求时，在所有其他处理程序运行后，以及刚好在通过网络发出请求之前记录消息。 在响应时，此日志记录包含响应在通过处理程序管道被传递回去之前的状态。
 
 在管道内外启用日志记录，可以检查其他管道处理程序做出的更改。 例如，其中可能包含对请求标头的更改，或者对响应状态代码的更改。
 

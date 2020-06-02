@@ -23,7 +23,7 @@ ms.locfileid: "82768830"
 
 作者：[John Luo](https://github.com/juntaoluo)
 
-`dotnet-grpc` 是一种 .NET Core 全局工具，用于在 .NET gRPC 项目中管理 [Protobuf (.proto  )](xref:grpc/basics#proto-file) 引用。 该工具可以用于添加、刷新、删除和列出 Protobuf 引用。
+`dotnet-grpc` 是一种 .NET Core 全局工具，用于在 .NET gRPC 项目中管理 [Protobuf (.proto)](xref:grpc/basics#proto-file) 引用。 该工具可以用于添加、刷新、删除和列出 Protobuf 引用。
 
 ## <a name="installation"></a>安装
 
@@ -35,7 +35,7 @@ dotnet tool install -g dotnet-grpc
 
 ## <a name="add-references"></a>添加引用
 
-`dotnet-grpc` 可以用于将 Protobuf 引用作为 `<Protobuf />` 项添加到 .csproj  文件：
+`dotnet-grpc` 可以用于将 Protobuf 引用作为 `<Protobuf />` 项添加到 .csproj 文件：
 
 ```xml
 <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
@@ -64,7 +64,7 @@ Protobuf 引用用于生成 C# 客户端和/或服务器资产。 `dotnet-grpc` 
 dotnet grpc add-file [options] <files>...
 ```
 
-#### <a name="arguments"></a>参数
+#### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -89,7 +89,7 @@ dotnet grpc add-file [options] <files>...
 dotnet-grpc add-url [options] <url>
 ```
 
-#### <a name="arguments"></a>参数
+#### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -107,10 +107,10 @@ dotnet-grpc add-url [options] <url>
 
 ## <a name="remove"></a>删除
 
-`remove` 命令用于从 .csproj  文件中删除 Protobuf 引用。 该命令接受路径参数和源 URL 作为参数。 工具：
+`remove` 命令用于从 .csproj 文件中删除 Protobuf 引用。 该命令接受路径参数和源 URL 作为参数。 工具：
 
 * 仅删除 Protobuf 引用。
-* 不会删除 .proto  文件，即使它最初是从远程 URL 下载也是如此。
+* 不会删除 .proto 文件，即使它最初是从远程 URL 下载也是如此。
 
 ### <a name="usage"></a>用法
 
@@ -118,7 +118,7 @@ dotnet-grpc add-url [options] <url>
 dotnet-grpc remove [options] <references>...
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|
@@ -132,7 +132,7 @@ dotnet-grpc remove [options] <references>...
 
 ## <a name="refresh"></a>刷新
 
-`refresh` 命令用于使用来自源 URL 的最新内容更新远程引用。 下载文件路径和源 URL 都可以用于指定要更新的引用。 注意:
+`refresh` 命令用于使用来自源 URL 的最新内容更新远程引用。 下载文件路径和源 URL 都可以用于指定要更新的引用。 注意：
 
 * 会比较文件内容的哈希，以确定是否应更新本地文件。
 * 不会比较时间戳信息。
@@ -145,7 +145,7 @@ dotnet-grpc remove [options] <references>...
 dotnet-grpc refresh [options] [<references>...]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 | 参数 | 描述 |
 |-|-|

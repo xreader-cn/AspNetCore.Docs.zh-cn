@@ -32,7 +32,7 @@ React 项目模板不适用于服务器端呈现 (SSR)。 对于带有 React 和
 
 如果已安装 ASP.NET Core 2.1，则无需安装 React 项目模板。
 
-在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app  目录中创建应用并切换到该目录：
+在空目录中使用命令 `dotnet new react` 从命令提示符创建一个新项目。 例如，以下命令在 my-new-app 目录中创建应用并切换到该目录：
 
 ```dotnetcli
 dotnet new react -o my-new-app
@@ -43,7 +43,7 @@ cd my-new-app
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-打开生成的 .csproj  文件，并从此文件正常运行应用。
+打开生成的 .csproj 文件，并从此文件正常运行应用。
 
 生成过程会在首次运行时还原 npm 依赖关系，这可能需要几分钟的时间。 后续版本要快得多。
 
@@ -57,17 +57,17 @@ cd my-new-app
 
 ---
 
-该项目模板创建一个 ASP.NET Core 应用和一个 React 应用。 ASP.NET Core 应用旨在用于数据访问、授权和其他服务器端问题。 位于 ClientApp  子目录中的 React 应用旨在用于所有 UI 问题。
+该项目模板创建一个 ASP.NET Core 应用和一个 React 应用。 ASP.NET Core 应用旨在用于数据访问、授权和其他服务器端问题。 位于 ClientApp 子目录中的 React 应用旨在用于所有 UI 问题。
 
 ## <a name="add-pages-images-styles-modules-etc"></a>添加页面、映像、样式、模块等。
 
- ClientApp 目录是标准的 CRA React 应用。 有关详细信息，请参阅官方 [CRA 文档](https://create-react-app.dev/docs/getting-started/)。
+ClientApp 目录是标准的 CRA React 应用。 有关详细信息，请参阅官方 [CRA 文档](https://create-react-app.dev/docs/getting-started/)。
 
 此模板创建的 React 应用与 CRA 自身创建的应用之间存在细微差异；但是，该应用的功能未变。 该模板创建的应用包含基于 [Bootstrap](https://getbootstrap.com/) 的布局和基本路由示例。
 
 ## <a name="install-npm-packages"></a>安装 npm 包
 
-要安装第三方 npm 程序包，请使用 ClientApp  子目录中的命令提示符。 例如:
+要安装第三方 npm 程序包，请使用 ClientApp 子目录中的命令提示符。 例如：
 
 ```console
 cd ClientApp
@@ -88,7 +88,7 @@ npm install --save <package_name>
 
 这种默认设置有一个缺点。 每次修改 C# 代码并且需要重启 ASP.NET Core 应用时，CRA 服务器都会重启。 大约需要几秒才能开始备份。 如果你经常进行 C# 代码编辑并且不希望等待 CRA 服务器重启，请在外部运行独立于 ASP.NET Core 进程的 CRA 服务器。 为此，请执行以下操作：
 
-1. 使用以下设置将 .env 文件添加到 ClientApp 子目录   ：
+1. 使用以下设置将 .env 文件添加到 ClientApp 子目录 ：
 
     ```
     BROWSER=none
@@ -96,14 +96,14 @@ npm install --save <package_name>
 
     这将阻止在外部启动 CRA 服务器时打开 Web 浏览器。
 
-2. 在命令提示符中，切换到 ClientApp  子目录，并启动 CRA 开发服务器：
+2. 在命令提示符中，切换到 ClientApp 子目录，并启动 CRA 开发服务器：
 
     ```console
     cd ClientApp
     npm start
     ```
 
-3. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup  类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
+3. 修改 ASP.NET Core 应用以使用外部 CRA 服务器实例，而不是启动它自己的实例。 在 Startup 类中，将 `spa.UseReactDevelopmentServer` 调用替换为以下内容：
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");

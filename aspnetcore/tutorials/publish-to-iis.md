@@ -31,13 +31,13 @@ ms.locfileid: "82774569"
 > * 在 IIS 管理器中创建 IIS 站点。
 > * 部署 ASP.NET Core 应用。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [.NET Core SDK](/dotnet/core/sdk) 安装在开发计算机上。
-* Windows Server 配置了“Web 服务器 (IIS)”服务器角色  。 如果服务器未配置为托管具有 IIS 的网站，请按照  *文章中“IIS 配置”部分的指南操作，然后返回本教程*<xref:host-and-deploy/iis/index#iis-configuration>。
+* Windows Server 配置了“Web 服务器 (IIS)”服务器角色。 如果服务器未配置为托管具有 IIS 的网站，请按照 <xref:host-and-deploy/iis/index#iis-configuration> 文章中“IIS 配置”部分的指南操作，然后返回本教程。
 
 > [!WARNING]
-> IIS 配置和网站安全涉及到本教程未介绍的概念。  在 IIS 上托管生产应用之前，请先参阅 [Microsoft IIS 文档](https://www.iis.net/)中的 IIS 指南和[有关使用 IIS 进行托管的 ASP.NET Core 文章](xref:host-and-deploy/iis/index)。
+> IIS 配置和网站安全涉及到本教程未介绍的概念。 在 IIS 上托管生产应用之前，请先参阅 [Microsoft IIS 文档](https://www.iis.net/)中的 IIS 指南和[有关使用 IIS 进行托管的 ASP.NET Core 文章](xref:host-and-deploy/iis/index)。
 >
 > 本教程未介绍的 IIS 托管的重要方案包括：
 >
@@ -47,7 +47,7 @@ ms.locfileid: "82774569"
 
 ## <a name="install-the-net-core-hosting-bundle"></a>安装 .NET Core 托管捆绑包
 
-在 IIS 服务器上安装 .NET Core 托管捆绑包  。 捆绑包可安装 .NET Core 运行时、.NET Core 库和 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)。 该模块允许 ASP.NET Core 应用在 IIS 后面运行。
+在 IIS 服务器上安装 .NET Core 托管捆绑包。 捆绑包可安装 .NET Core 运行时、.NET Core 库和 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)。 该模块允许 ASP.NET Core 应用在 IIS 后面运行。
 
 使用以下链接下载安装程序：
 
@@ -55,15 +55,15 @@ ms.locfileid: "82774569"
 
 1. 在 IIS 服务器上运行安装程序。
 
-1. 重启服务器或在命令行界面中执行 net stop was /y，后跟 net start w3svc   。
+1. 重启服务器或在命令行界面中执行 net stop was /y，后跟 net start w3svc 。
 
 ## <a name="create-the-iis-site"></a>创建 IIS 站点
 
 1. 在 IIS 服务器上，创建一个文件夹以包含应用已发布的文件夹和文件。 在接下来的步骤中，文件夹路径作为应用程序的物理路径提供给 IIS。
 
-1. 在 IIS 管理器中，打开“连接”  面板中的服务器节点。 右键单击“站点”  文件夹。 选择上下文菜单中的“添加网站”  。
+1. 在 IIS 管理器中，打开“连接”面板中的服务器节点。 右键单击“站点”文件夹。 选择上下文菜单中的“添加网站”。
 
-1. 提供网站名称，并将“物理路径”设置为所创建应用的部署文件夹   。 提供“绑定”配置，并通过选择“确定”创建网站   。
+1. 提供网站名称，并将“物理路径”设置为所创建应用的部署文件夹 。 提供“绑定”配置，并通过选择“确定”创建网站 。
 
 ## <a name="create-an-aspnet-core-razor-pages-app"></a>创建 ASP.NET Core Razor Pages 应用
 
@@ -71,18 +71,18 @@ ms.locfileid: "82774569"
 
 ## <a name="publish-and-deploy-the-app"></a>发布和部署应用
 
-发布应用意味着生成可由服务器托管的编译应用  。 部署应用意味着将发布的应用移动到托管系统  。 发布步骤由 [.NET Core SDK ](/dotnet/core/sdk) 处理，而部署步骤可以通过各种方法处理。 本教程采用“文件夹”部署方法，即  ：
+发布应用意味着生成可由服务器托管的编译应用。 部署应用意味着将发布的应用移动到托管系统。 发布步骤由 [.NET Core SDK ](/dotnet/core/sdk) 处理，而部署步骤可以通过各种方法处理。 本教程采用“文件夹”部署方法，即：
 
 * 将应用发布到一个文件夹。
-* 文件夹的内容将移动到 IIS 站点的文件夹（IIS 管理器中站点的物理路径）  。
+* 文件夹的内容将移动到 IIS 站点的文件夹（IIS 管理器中站点的物理路径）。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 在“解决方案资源管理器”  中右键单击该项目，然后选择“发布”  。
-1. 在“选择发布目标”对话框中，选择“文件夹”发布选项   。
-1. 设置“文件夹或文件共享”路径  。
+1. 在“解决方案资源管理器”中右键单击该项目，然后选择“发布”。
+1. 在“选择发布目标”对话框中，选择“文件夹”发布选项 。
+1. 设置“文件夹或文件共享”路径。
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
-   * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径  。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。
+   * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -92,14 +92,14 @@ ms.locfileid: "82774569"
    dotnet publish --configuration Release
    ```
 
-1. 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。
+1. 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. 右键单击“解决方案”中的项目，然后选择“发布” **“发布到文件夹”**   >   。
-1. 设置“选择文件夹”路径  。
+1. 右键单击“解决方案”中的项目，然后选择“发布” > “发布到文件夹”  。
+1. 设置“选择文件夹”路径。
    * 如果为开发计算机上可用作网络共享的 IIS 站点创建了一个文件夹，请提供该共享的路径。 当前用户必须具有写入权限才能发布到共享。
-   * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径  。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径   。
+   * 如果无法直接部署到 IIS 服务器上的 IIS 站点文件夹，请发布到可移动介质上的文件夹，并将已发布的应用物理移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。 将 bin/Release/{TARGET FRAMEWORK}/publish 文件夹的内容移动到服务器上的 IIS 站点文件夹，该文件夹是该站点在 IIS 管理器中的物理路径。
 
 ---
 

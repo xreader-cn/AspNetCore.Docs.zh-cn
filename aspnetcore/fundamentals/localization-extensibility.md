@@ -99,7 +99,7 @@ options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async 
 
 可以创建 <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> 的新实现，以确定来自自定义源的请求区域性信息。 例如，自定义源可以是配置文件或数据库。
 
-以下示例演示了 `AppSettingsRequestCultureProvider`，它扩展了 <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> 以确定来自 appsettings.json 的请求区域性信息  ：
+以下示例演示了 `AppSettingsRequestCultureProvider`，它扩展了 <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> 以确定来自 appsettings.json 的请求区域性信息：
 
 ```csharp
 public class AppSettingsRequestCultureProvider : RequestCultureProvider

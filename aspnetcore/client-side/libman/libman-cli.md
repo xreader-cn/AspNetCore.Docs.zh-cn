@@ -25,7 +25,7 @@ ms.locfileid: "82770547"
 
 [LibMan](xref:client-side/libman/index) CLI 是一种跨平台工具，在所有支持的 .NET Core 的位置都可得到支持。
 
-## <a name="prerequisites"></a>系统必备
+## <a name="prerequisites"></a>先决条件
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
@@ -37,7 +37,7 @@ ms.locfileid: "82770547"
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-从 [Microsoft.Web.LibraryManager.Cli](/dotnet/core/tools/global-tools#install-a-global-tool) NuGet 包安装 [.NET Core 全局工具](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)。
+从 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。
 
 从特定 NuGet 包源安装 LibMan CLI：
 
@@ -45,7 +45,7 @@ dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058a278 --add-source C:\Temp\
 ```
 
-在前面的示例中，从本地 Windows 计算机的 C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg  文件安装 .NET Core 全局工具。
+在前面的示例中，从本地 Windows 计算机的 C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg 文件安装 .NET Core 全局工具。
 
 ## <a name="usage"></a>用法
 
@@ -98,7 +98,7 @@ Use "libman [command] --help" for more information about a command.
 
 ## <a name="initialize-libman-in-the-project"></a>在项目中初始化 LibMan
 
-`libman init` 命令会创建一个 libman.json  文件（如果不存在）。 该文件会使用默认项模板内容进行创建。
+`libman init` 命令会创建一个 libman.json 文件（如果不存在）。 该文件会使用默认项模板内容进行创建。
 
 ### <a name="synopsis"></a>摘要
 
@@ -113,11 +113,11 @@ libman init [-h|--help]
 
 * `-d|--default-destination <PATH>`
 
-  相对于当前文件夹的路径。 如果未在 libman.json`destination`*中为库定义* 属性，则库文件会安装在此位置。 `<PATH>` 值会写入 libman.json`defaultDestination`*的* 属性。
+  相对于当前文件夹的路径。 如果未在 libman.json 中为库定义 `destination` 属性，则库文件会安装在此位置。 `<PATH>` 值会写入 libman.json 的 `defaultDestination` 属性。
 
 * `-p|--default-provider <PROVIDER>`
 
-  未为给定库定义提供程序时要使用的提供程序。 `<PROVIDER>` 值会写入 libman.json`defaultProvider`*的* 属性。 将 `<PROVIDER>` 替换为以下值之一：
+  未为给定库定义提供程序时要使用的提供程序。 `<PROVIDER>` 值会写入 libman.json 的 `defaultProvider` 属性。 将 `<PROVIDER>` 替换为以下值之一：
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -125,7 +125,7 @@ libman init [-h|--help]
 
 ### <a name="examples"></a>示例
 
-在 ASP.NET Core 项目中创建 libman.json  文件：
+在 ASP.NET Core 项目中创建 libman.json 文件：
 
 * 导航到项目根。
 * 运行下面的命令：
@@ -140,7 +140,7 @@ libman init [-h|--help]
 
   ![libman 初始化命令 - 默认提供程序](_static/libman-init-provider.png)
 
-具有以下内容的 libman.json  文件会添加到项目根：
+具有以下内容的 libman.json 文件会添加到项目根：
 
 ```json
 {
@@ -152,7 +152,7 @@ libman init [-h|--help]
 
 ## <a name="add-library-files"></a>添加库文件
 
-`libman install` 命令会将库文件下载并安装到项目中。 如果 libman.json  文件不存在，则会添加一个。 libman.json  文件会进行修改，以存储库文件的配置详细信息。
+`libman install` 命令会将库文件下载并安装到项目中。 如果 libman.json 文件不存在，则会添加一个。 libman.json 文件会进行修改，以存储库文件的配置详细信息。
 
 ### <a name="synopsis"></a>摘要
 
@@ -161,7 +161,7 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -173,7 +173,7 @@ libman install [-h|--help]
 
 * `-d|--destination <PATH>`
 
-  用于安装库的位置。 如果未指定，则使用默认位置。 如果 libman.json`defaultDestination`*中未指定* 属性，则此选项是必需的。
+  用于安装库的位置。 如果未指定，则使用默认位置。 如果 libman.json 中未指定 `defaultDestination` 属性，则此选项是必需的。
 
 * `--files <FILE>`
 
@@ -185,13 +185,13 @@ libman install [-h|--help]
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  如果未指定，则使用 libman.json`defaultProvider`*中的* 属性。 如果 libman.json`defaultProvider`*中未指定* 属性，则此选项是必需的。
+  如果未指定，则使用 libman.json 中的 `defaultProvider` 属性。 如果 libman.json 中未指定 `defaultProvider` 属性，则此选项是必需的。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>示例
 
-请考虑以下 libman.json  文件：
+请考虑以下 libman.json 文件：
 
 ```json
 {
@@ -201,13 +201,13 @@ libman install [-h|--help]
 }
 ```
 
-使用 CDNJS 提供程序将 jQuery 版本 3.2.1 jquery.min.js  文件安装到 wwwroot/scripts/jquery  文件夹：
+使用 CDNJS 提供程序将 jQuery 版本 3.2.1 jquery.min.js 文件安装到 wwwroot/scripts/jquery 文件夹：
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-libman.json  文件类似于以下内容：
+libman.json 文件类似于以下内容：
 
 ```json
 {
@@ -225,7 +225,7 @@ libman.json  文件类似于以下内容：
 }
 ```
 
-使用文件系统提供程序从 C:*temp*contosoCalendar  *安装 calendar.js\\\\ 和 calendar.css\\* ：
+使用文件系统提供程序从 C:\\temp\\contosoCalendar\\ 安装 calendar.js 和 calendar.css：
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
@@ -233,12 +233,12 @@ libman.json  文件类似于以下内容：
 
 由于两个原因而出现以下提示：
 
-* libman.json  文件不包含 `defaultDestination` 属性。
+* libman.json 文件不包含 `defaultDestination` 属性。
 * `libman install` 命令不包含 `-d|--destination` 选项。
 
 ![libman 安装命令 - 目标](_static/libman-install-destination.png)
 
-接受默认目标之后，libman.json  文件类似于以下内容：
+接受默认目标之后，libman.json 文件类似于以下内容：
 
 ```json
 {
@@ -267,11 +267,11 @@ libman.json  文件类似于以下内容：
 
 ## <a name="restore-library-files"></a>还原库文件
 
-`libman restore` 命令安装在 libman.json  中定义的库文件。 适用以下规则：
+`libman restore` 命令安装在 libman.json 中定义的库文件。 适用以下规则：
 
-* 如果项目根中不存在 libman.json  文件，则会返回错误。
-* 如果库指定了提供程序，则会忽略 libman.json`defaultProvider`*中的* 属性。
-* 如果库指定了目标，则会忽略 libman.json`defaultDestination`*中的* 属性。
+* 如果项目根中不存在 libman.json 文件，则会返回错误。
+* 如果库指定了提供程序，则会忽略 libman.json 中的 `defaultProvider` 属性。
+* 如果库指定了目标，则会忽略 libman.json 中的 `defaultDestination` 属性。
 
 ### <a name="synopsis"></a>摘要
 
@@ -288,7 +288,7 @@ libman restore [-h|--help]
 
 ### <a name="examples"></a>示例
 
-还原在 libman.json  中定义的库文件：
+还原在 libman.json 中定义的库文件：
 
 ```console
 libman restore
@@ -296,7 +296,7 @@ libman restore
 
 ## <a name="delete-library-files"></a>删除库文件
 
-`libman clean` 命令会删除之前通过 LibMan 还原的库文件。 在此操作之后成为空的文件夹会删除。 libman.json`libraries`*的* 属性中库文件的关联配置不会删除。
+`libman clean` 命令会删除之前通过 LibMan 还原的库文件。 在此操作之后成为空的文件夹会删除。 libman.json 的 `libraries` 属性中库文件的关联配置不会删除。
 
 ### <a name="synopsis"></a>摘要
 
@@ -323,12 +323,12 @@ libman clean
 
 `libman uninstall` 命令：
 
-* 从 libman.json  中的目标删除与指定库关联的所有文件。
-* 从 libman.json  中删除关联库配置。
+* 从 libman.json 中的目标删除与指定库关联的所有文件。
+* 从 libman.json 中删除关联库配置。
 
 在下述情况中会发生错误：
 
-* 项目根中不存在 libman.json  文件。
+* 项目根中不存在 libman.json 文件。
 * 指定库不存在。
 
 如果安装了多个具有相同名称的库，则系统会提示选择一个。
@@ -340,7 +340,7 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -354,7 +354,7 @@ libman uninstall [-h|--help]
 
 ### <a name="examples"></a>示例
 
-请考虑以下 libman.json  文件：
+请考虑以下 libman.json 文件：
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -380,7 +380,7 @@ libman uninstall [-h|--help]
 
 在下述情况中会发生错误：
 
-* 项目根中不存在 libman.json  文件。
+* 项目根中不存在 libman.json 文件。
 * 指定库不存在。
 
 如果安装了多个具有相同名称的库，则系统会提示选择一个。
@@ -392,7 +392,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `LIBRARY`
 
@@ -444,7 +444,7 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>参数
+### <a name="arguments"></a>自变量
 
 `PROVIDER`
 

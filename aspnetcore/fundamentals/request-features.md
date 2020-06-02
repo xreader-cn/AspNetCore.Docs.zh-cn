@@ -59,7 +59,7 @@ ASP.NET Core 在 `Microsoft.AspNetCore.Http.Features` 中定义了许多 HTTP �
 
 ## <a name="feature-collections"></a>功能集合
 
-`Features` 的 `HttpContext` 属性为获取和设置当前请求的可用 HTTP 功能提供了一个接口。 由于功能集合即使在请求的上下文中也是可变的，所以可使用中间件来修改集合并添加对其他功能的支持。
+`HttpContext` 的 `Features` 属性为获取和设置当前请求的可用 HTTP 功能提供了一个接口。 由于功能集合即使在请求的上下文中也是可变的，所以可使用中间件来修改集合并添加对其他功能的支持。
 
 ## <a name="middleware-and-request-features"></a>中间件和请求功能
 
@@ -69,7 +69,7 @@ ASP.NET Core 在 `Microsoft.AspNetCore.Http.Features` 中定义了许多 HTTP �
 
 通过结合自定义服务器实现和特定的中间件增强功能，可构造应用程序所需的精确功能集。 这样一来，无需更改服务器即可添加缺少的功能，并确保只公开最少的功能，从而限制攻击外围应用并提高性能。
 
-## <a name="summary"></a>摘要
+## <a name="summary"></a>总结
 
 功能接口定义给定请求可能支持的特定 HTTP 功能。 服务器定义功能的集合，以及该服务器支持的初始功能集，但中间件可用于增强这些功能。
 

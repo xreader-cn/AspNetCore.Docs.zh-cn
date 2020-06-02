@@ -35,7 +35,7 @@ ms.locfileid: "82777067"
 
 ## <a name="add-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-将 `Rating` 属性添加到 Models/Movie.cs  ：
+将 `Rating` 属性添加到 Models/Movie.cs：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
@@ -57,7 +57,7 @@ dotnet build
 
 ------
 
-因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 *和* 操作方法的 `[Bind]` 属性，以包括 `Create` 属性：`Edit``Rating`
+因为已经添加新字段到 `Movie` 类，所以需要更新绑定允许名单，将此新属性纳入其中。 在 MoviesController.cs 中，更新 `Create` 和 `Edit` 操作方法的 `[Bind]` 属性，以包括 `Rating` 属性：
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -65,11 +65,11 @@ dotnet build
 
 更新视图模板以在浏览器视图中显示、创建和编辑新的 `Rating` 属性。
 
-编辑 /Views/Movies/Index.cshtml 文件并添加  *字段*`Rating`：
+编辑 /Views/Movies/Index.cshtml 文件并添加 `Rating` 字段：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
 
-使用  *字段更新 /Views/Movies/Create.cshtml*`Rating`。
+使用 `Rating` 字段更新 /Views/Movies/Create.cshtml。
 
 # <a name="visual-studio--visual-studio-for-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
@@ -107,7 +107,7 @@ dotnet build
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 
 
   ![PMC 菜单](adding-model/_static/pmc.png)
 
@@ -128,7 +128,7 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)  。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
 
 ```dotnetcli
 dotnet ef database update
@@ -139,7 +139,7 @@ dotnet ef database update
 
 运行应用，并验证是否可以创建、编辑和显示具有 `Rating` 字段的电影。 更新应用：
 
-* 向 `Rating`、`Edit` 和 `Details` 视图模板添加 `Delete` 字段。
+* 向 `Edit`、`Details` 和 `Delete` 视图模板添加 `Rating` 字段。
 * 更新 `MoviesController` 的编辑操作方法中的绑定。
 
 > [!div class="step-by-step"]
