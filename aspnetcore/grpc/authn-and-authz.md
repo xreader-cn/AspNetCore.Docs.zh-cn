@@ -1,24 +1,24 @@
 ---
-<span data-ttu-id="32c78-101">title: author: description: monikerRange: ms.author: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="32c78-101">title: author: description: monikerRange: ms.author: ms.date: no-loc:</span></span>
-- <span data-ttu-id="32c78-102">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="32c78-102">'Blazor'</span></span>
-- <span data-ttu-id="32c78-103">'Identity'</span><span class="sxs-lookup"><span data-stu-id="32c78-103">'Identity'</span></span>
-- <span data-ttu-id="32c78-104">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="32c78-104">'Let's Encrypt'</span></span>
-- <span data-ttu-id="32c78-105">'Razor'</span><span class="sxs-lookup"><span data-stu-id="32c78-105">'Razor'</span></span>
-- <span data-ttu-id="32c78-106">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="32c78-106">'SignalR' uid:</span></span> 
+<span data-ttu-id="028c8-101">title: author: description: monikerRange: ms.author: ms.date: no-loc:</span><span class="sxs-lookup"><span data-stu-id="028c8-101">title: author: description: monikerRange: ms.author: ms.date: no-loc:</span></span>
+- <span data-ttu-id="028c8-102">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="028c8-102">'Blazor'</span></span>
+- <span data-ttu-id="028c8-103">'Identity'</span><span class="sxs-lookup"><span data-stu-id="028c8-103">'Identity'</span></span>
+- <span data-ttu-id="028c8-104">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="028c8-104">'Let's Encrypt'</span></span>
+- <span data-ttu-id="028c8-105">'Razor'</span><span class="sxs-lookup"><span data-stu-id="028c8-105">'Razor'</span></span>
+- <span data-ttu-id="028c8-106">'SignalR' uid:</span><span class="sxs-lookup"><span data-stu-id="028c8-106">'SignalR' uid:</span></span> 
 
 ---
 
-# <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a><span data-ttu-id="32c78-107">gRPC for ASP.NET Core 中的身份验证和授权</span><span class="sxs-lookup"><span data-stu-id="32c78-107">Authentication and authorization in gRPC for ASP.NET Core</span></span>
+# <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a><span data-ttu-id="028c8-107">gRPC for ASP.NET Core 中的身份验证和授权</span><span class="sxs-lookup"><span data-stu-id="028c8-107">Authentication and authorization in gRPC for ASP.NET Core</span></span>
 
-<span data-ttu-id="32c78-108">作者：[James Newton-King](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="32c78-108">By [James Newton-King](https://twitter.com/jamesnk)</span></span>
+<span data-ttu-id="028c8-108">作者：[James Newton-King](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="028c8-108">By [James Newton-King](https://twitter.com/jamesnk)</span></span>
 
-<span data-ttu-id="32c78-109">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/)[（如何下载）](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="32c78-109">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/) [(how to download)](xref:index#how-to-download-a-sample)</span></span>
+<span data-ttu-id="028c8-109">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/)[（如何下载）](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="028c8-109">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/) [(how to download)](xref:index#how-to-download-a-sample)</span></span>
 
-## <a name="authenticate-users-calling-a-grpc-service"></a><span data-ttu-id="32c78-110">对调用 gRPC 服务的用户进行身份验证</span><span class="sxs-lookup"><span data-stu-id="32c78-110">Authenticate users calling a gRPC service</span></span>
+## <a name="authenticate-users-calling-a-grpc-service"></a><span data-ttu-id="028c8-110">对调用 gRPC 服务的用户进行身份验证</span><span class="sxs-lookup"><span data-stu-id="028c8-110">Authenticate users calling a gRPC service</span></span>
 
-<span data-ttu-id="32c78-111">gRPC 可与 [ASP.NET Core 身份验证](xref:security/authentication/identity)配合使用，将用户与每个调用关联。</span><span class="sxs-lookup"><span data-stu-id="32c78-111">gRPC can be used with [ASP.NET Core authentication](xref:security/authentication/identity) to associate a user with each call.</span></span>
+<span data-ttu-id="028c8-111">gRPC 可与 [ASP.NET Core 身份验证](xref:security/authentication/identity)配合使用，将用户与每个调用关联。</span><span class="sxs-lookup"><span data-stu-id="028c8-111">gRPC can be used with [ASP.NET Core authentication](xref:security/authentication/identity) to associate a user with each call.</span></span>
 
-<span data-ttu-id="32c78-112">以下是使用 gRPC 和 ASP.NET Core 身份验证的 `Startup.Configure` 的示例：</span><span class="sxs-lookup"><span data-stu-id="32c78-112">The following is an example of `Startup.Configure` which uses gRPC and ASP.NET Core authentication:</span></span>
+<span data-ttu-id="028c8-112">以下是使用 gRPC 和 ASP.NET Core 身份验证的 `Startup.Configure` 的示例：</span><span class="sxs-lookup"><span data-stu-id="028c8-112">The following is an example of `Startup.Configure` which uses gRPC and ASP.NET Core authentication:</span></span>
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -36,11 +36,11 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="32c78-113">注册 ASP.NET Core 身份验证中间件的顺序很重要。</span><span class="sxs-lookup"><span data-stu-id="32c78-113">The order in which you register the ASP.NET Core authentication middleware matters.</span></span> <span data-ttu-id="32c78-114">始终在 `UseRouting` 之后和 `UseEndpoints` 之前调用 `UseAuthentication` 和 `UseAuthorization`。</span><span class="sxs-lookup"><span data-stu-id="32c78-114">Always call `UseAuthentication` and `UseAuthorization` after `UseRouting` and before `UseEndpoints`.</span></span>
+> <span data-ttu-id="028c8-113">注册 ASP.NET Core 身份验证中间件的顺序很重要。</span><span class="sxs-lookup"><span data-stu-id="028c8-113">The order in which you register the ASP.NET Core authentication middleware matters.</span></span> <span data-ttu-id="028c8-114">始终在 `UseRouting` 之后和 `UseEndpoints` 之前调用 `UseAuthentication` 和 `UseAuthorization`。</span><span class="sxs-lookup"><span data-stu-id="028c8-114">Always call `UseAuthentication` and `UseAuthorization` after `UseRouting` and before `UseEndpoints`.</span></span>
 
-<span data-ttu-id="32c78-115">应用在调用期间使用的身份验证机制需要进行配置。</span><span class="sxs-lookup"><span data-stu-id="32c78-115">The authentication mechanism your app uses during a call needs to be configured.</span></span> <span data-ttu-id="32c78-116">身份验证配置已添加到 `Startup.ConfigureServices` 中，并因应用使用的身份验证机制而异。</span><span class="sxs-lookup"><span data-stu-id="32c78-116">Authentication configuration is added in `Startup.ConfigureServices` and will be different depending upon the authentication mechanism your app uses.</span></span> <span data-ttu-id="32c78-117">有关如何保护 ASP.NET Core 应用的示例，请参阅[身份验证示例](xref:security/authentication/samples)。</span><span class="sxs-lookup"><span data-stu-id="32c78-117">For examples of how to secure ASP.NET Core apps, see [Authentication samples](xref:security/authentication/samples).</span></span>
+<span data-ttu-id="028c8-115">应用在调用期间使用的身份验证机制需要进行配置。</span><span class="sxs-lookup"><span data-stu-id="028c8-115">The authentication mechanism your app uses during a call needs to be configured.</span></span> <span data-ttu-id="028c8-116">身份验证配置已添加到 `Startup.ConfigureServices` 中，并因应用使用的身份验证机制而异。</span><span class="sxs-lookup"><span data-stu-id="028c8-116">Authentication configuration is added in `Startup.ConfigureServices` and will be different depending upon the authentication mechanism your app uses.</span></span> <span data-ttu-id="028c8-117">有关如何保护 ASP.NET Core 应用的示例，请参阅[身份验证示例](xref:security/authentication/samples)。</span><span class="sxs-lookup"><span data-stu-id="028c8-117">For examples of how to secure ASP.NET Core apps, see [Authentication samples](xref:security/authentication/samples).</span></span>
 
-<span data-ttu-id="32c78-118">设置身份验证后，可通过 `ServerCallContext` 使用 gRPC 服务方法访问用户。</span><span class="sxs-lookup"><span data-stu-id="32c78-118">Once authentication has been setup, the user can be accessed in a gRPC service methods via the `ServerCallContext`.</span></span>
+<span data-ttu-id="028c8-118">设置身份验证后，可通过 `ServerCallContext` 使用 gRPC 服务方法访问用户。</span><span class="sxs-lookup"><span data-stu-id="028c8-118">Once authentication has been setup, the user can be accessed in a gRPC service methods via the `ServerCallContext`.</span></span>
 
 ```csharp
 public override Task<BuyTicketsResponse> BuyTickets(
@@ -53,13 +53,13 @@ public override Task<BuyTicketsResponse> BuyTickets(
 
 ```
 
-### <a name="bearer-token-authentication"></a><span data-ttu-id="32c78-119">持有者令牌身份验证</span><span class="sxs-lookup"><span data-stu-id="32c78-119">Bearer token authentication</span></span>
+### <a name="bearer-token-authentication"></a><span data-ttu-id="028c8-119">持有者令牌身份验证</span><span class="sxs-lookup"><span data-stu-id="028c8-119">Bearer token authentication</span></span>
 
-<span data-ttu-id="32c78-120">客户端可提供用于身份验证的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="32c78-120">The client can provide an access token for authentication.</span></span> <span data-ttu-id="32c78-121">服务器验证令牌并使用它来标识用户。</span><span class="sxs-lookup"><span data-stu-id="32c78-121">The server validates the token and uses it to identify the user.</span></span>
+<span data-ttu-id="028c8-120">客户端可提供用于身份验证的访问令牌。</span><span class="sxs-lookup"><span data-stu-id="028c8-120">The client can provide an access token for authentication.</span></span> <span data-ttu-id="028c8-121">服务器验证令牌并使用它来标识用户。</span><span class="sxs-lookup"><span data-stu-id="028c8-121">The server validates the token and uses it to identify the user.</span></span>
 
-<span data-ttu-id="32c78-122">在服务器上，使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置持有者令牌身份验证。</span><span class="sxs-lookup"><span data-stu-id="32c78-122">On the server, bearer token authentication is configured using the [JWT Bearer middleware](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).</span></span>
+<span data-ttu-id="028c8-122">在服务器上，使用 [JWT 持有者中间件](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)配置持有者令牌身份验证。</span><span class="sxs-lookup"><span data-stu-id="028c8-122">On the server, bearer token authentication is configured using the [JWT Bearer middleware](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).</span></span>
 
-<span data-ttu-id="32c78-123">在 .NET gRPC 客户端中，令牌可作为标头与调用一起发送：</span><span class="sxs-lookup"><span data-stu-id="32c78-123">In the .NET gRPC client, the token can be sent with calls as a header:</span></span>
+<span data-ttu-id="028c8-123">在 .NET gRPC 客户端中，令牌可作为标头与调用一起发送：</span><span class="sxs-lookup"><span data-stu-id="028c8-123">In the .NET gRPC client, the token can be sent with calls as a header:</span></span>
 
 ```csharp
 public bool DoAuthenticatedCall(
@@ -75,9 +75,9 @@ public bool DoAuthenticatedCall(
 }
 ```
 
-<span data-ttu-id="32c78-124">在通道上配置 `ChannelCredentials` 是通过 gRPC 调用将令牌发送到服务的备用方法。</span><span class="sxs-lookup"><span data-stu-id="32c78-124">Configuring `ChannelCredentials` on a channel is an alternative way to send the token to the service with gRPC calls.</span></span> <span data-ttu-id="32c78-125">凭据在每次进行 gRPC 调用时运行，因而无需在多个位置编写代码用于自行传递令牌。</span><span class="sxs-lookup"><span data-stu-id="32c78-125">The credential is run each time a gRPC call is made, which avoids the need to write code in multiple places to pass the token yourself.</span></span>
+<span data-ttu-id="028c8-124">在通道上配置 `ChannelCredentials` 是通过 gRPC 调用将令牌发送到服务的备用方法。</span><span class="sxs-lookup"><span data-stu-id="028c8-124">Configuring `ChannelCredentials` on a channel is an alternative way to send the token to the service with gRPC calls.</span></span> <span data-ttu-id="028c8-125">凭据在每次进行 gRPC 调用时运行，因而无需在多个位置编写代码用于自行传递令牌。</span><span class="sxs-lookup"><span data-stu-id="028c8-125">The credential is run each time a gRPC call is made, which avoids the need to write code in multiple places to pass the token yourself.</span></span>
 
-<span data-ttu-id="32c78-126">以下示例中的凭据将通道配置为随每个 gRPC 调用发送令牌：</span><span class="sxs-lookup"><span data-stu-id="32c78-126">The credential in the following example configures the channel to send the token with every gRPC call:</span></span>
+<span data-ttu-id="028c8-126">以下示例中的凭据将通道配置为随每个 gRPC 调用发送令牌：</span><span class="sxs-lookup"><span data-stu-id="028c8-126">The credential in the following example configures the channel to send the token with every gRPC call:</span></span>
 
 ```csharp
 private static GrpcChannel CreateAuthenticatedChannel(string address)
@@ -101,14 +101,14 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 }
 ```
 
-### <a name="client-certificate-authentication"></a><span data-ttu-id="32c78-127">客户端证书身份验证</span><span class="sxs-lookup"><span data-stu-id="32c78-127">Client certificate authentication</span></span>
+### <a name="client-certificate-authentication"></a><span data-ttu-id="028c8-127">客户端证书身份验证</span><span class="sxs-lookup"><span data-stu-id="028c8-127">Client certificate authentication</span></span>
 
-<span data-ttu-id="32c78-128">客户端还可以提供用于身份验证的客户端证书。</span><span class="sxs-lookup"><span data-stu-id="32c78-128">A client could alternatively provide a client certificate for authentication.</span></span> <span data-ttu-id="32c78-129">[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)在 TLS 级别发生，远在到达 ASP.NET Core 之前。</span><span class="sxs-lookup"><span data-stu-id="32c78-129">[Certificate authentication](https://tools.ietf.org/html/rfc5246#section-7.4.4) happens at the TLS level, long before it ever gets to ASP.NET Core.</span></span> <span data-ttu-id="32c78-130">当请求进入 ASP.NET Core 时，可借助[客户端证书身份验证包](xref:security/authentication/certauth)将证书解析为 `ClaimsPrincipal`。</span><span class="sxs-lookup"><span data-stu-id="32c78-130">When the request enters ASP.NET Core, the [client certificate authentication package](xref:security/authentication/certauth) allows you to resolve the certificate to a `ClaimsPrincipal`.</span></span>
+<span data-ttu-id="028c8-128">客户端还可以提供用于身份验证的客户端证书。</span><span class="sxs-lookup"><span data-stu-id="028c8-128">A client could alternatively provide a client certificate for authentication.</span></span> <span data-ttu-id="028c8-129">[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)在 TLS 级别发生，远在到达 ASP.NET Core 之前。</span><span class="sxs-lookup"><span data-stu-id="028c8-129">[Certificate authentication](https://tools.ietf.org/html/rfc5246#section-7.4.4) happens at the TLS level, long before it ever gets to ASP.NET Core.</span></span> <span data-ttu-id="028c8-130">当请求进入 ASP.NET Core 时，可借助[客户端证书身份验证包](xref:security/authentication/certauth)将证书解析为 `ClaimsPrincipal`。</span><span class="sxs-lookup"><span data-stu-id="028c8-130">When the request enters ASP.NET Core, the [client certificate authentication package](xref:security/authentication/certauth) allows you to resolve the certificate to a `ClaimsPrincipal`.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="32c78-131">需要将主机配置为接受客户端证书。</span><span class="sxs-lookup"><span data-stu-id="32c78-131">The host needs to be configured to accept client certificates.</span></span> <span data-ttu-id="32c78-132">有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅[将主机配置为要求提供证书](xref:security/authentication/certauth#configure-your-host-to-require-certificates)。</span><span class="sxs-lookup"><span data-stu-id="32c78-132">See [configure your host to require certificates](xref:security/authentication/certauth#configure-your-host-to-require-certificates) for information on accepting client certificates in Kestrel, IIS and Azure.</span></span>
+> <span data-ttu-id="028c8-131">需要将主机配置为接受客户端证书。</span><span class="sxs-lookup"><span data-stu-id="028c8-131">The host needs to be configured to accept client certificates.</span></span> <span data-ttu-id="028c8-132">有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅[将主机配置为要求提供证书](xref:security/authentication/certauth#configure-your-host-to-require-certificates)。</span><span class="sxs-lookup"><span data-stu-id="028c8-132">See [configure your host to require certificates](xref:security/authentication/certauth#configure-your-host-to-require-certificates) for information on accepting client certificates in Kestrel, IIS and Azure.</span></span>
 
-<span data-ttu-id="32c78-133">在 .NET gRPC 客户端中，客户端证书已添加到 `HttpClientHandler` 中，后者之后用于创建 gRPC 客户端：</span><span class="sxs-lookup"><span data-stu-id="32c78-133">In the .NET gRPC client, the client certificate is added to `HttpClientHandler` that is then used to create the gRPC client:</span></span>
+<span data-ttu-id="028c8-133">在 .NET gRPC 客户端中，客户端证书已添加到 `HttpClientHandler` 中，后者之后用于创建 gRPC 客户端：</span><span class="sxs-lookup"><span data-stu-id="028c8-133">In the .NET gRPC client, the client certificate is added to `HttpClientHandler` that is then used to create the gRPC client:</span></span>
 
 ```csharp
 public Ticketer.TicketerClient CreateClientWithCert(
@@ -129,31 +129,31 @@ public Ticketer.TicketerClient CreateClientWithCert(
 }
 ```
 
-### <a name="other-authentication-mechanisms"></a><span data-ttu-id="32c78-134">其他身份验证机制</span><span class="sxs-lookup"><span data-stu-id="32c78-134">Other authentication mechanisms</span></span>
+### <a name="other-authentication-mechanisms"></a><span data-ttu-id="028c8-134">其他身份验证机制</span><span class="sxs-lookup"><span data-stu-id="028c8-134">Other authentication mechanisms</span></span>
 
-<span data-ttu-id="32c78-135">许多 ASP.NET Core 支持的身份验证机制都可以与 gRPC 配合使用：</span><span class="sxs-lookup"><span data-stu-id="32c78-135">Many ASP.NET Core supported authentication mechanisms work with gRPC:</span></span>
+<span data-ttu-id="028c8-135">许多 ASP.NET Core 支持的身份验证机制都可以与 gRPC 配合使用：</span><span class="sxs-lookup"><span data-stu-id="028c8-135">Many ASP.NET Core supported authentication mechanisms work with gRPC:</span></span>
 
-* <span data-ttu-id="32c78-136">Azure Active Directory</span><span class="sxs-lookup"><span data-stu-id="32c78-136">Azure Active Directory</span></span>
-* <span data-ttu-id="32c78-137">客户端证书</span><span class="sxs-lookup"><span data-stu-id="32c78-137">Client Certificate</span></span>
-* <span data-ttu-id="32c78-138">IdentityServer</span><span class="sxs-lookup"><span data-stu-id="32c78-138">IdentityServer</span></span>
-* <span data-ttu-id="32c78-139">JWT 令牌</span><span class="sxs-lookup"><span data-stu-id="32c78-139">JWT Token</span></span>
-* <span data-ttu-id="32c78-140">OAuth 2.0</span><span class="sxs-lookup"><span data-stu-id="32c78-140">OAuth 2.0</span></span>
-* <span data-ttu-id="32c78-141">OpenID Connect</span><span class="sxs-lookup"><span data-stu-id="32c78-141">OpenID Connect</span></span>
-* <span data-ttu-id="32c78-142">WS-Federation</span><span class="sxs-lookup"><span data-stu-id="32c78-142">WS-Federation</span></span>
+* <span data-ttu-id="028c8-136">Azure Active Directory</span><span class="sxs-lookup"><span data-stu-id="028c8-136">Azure Active Directory</span></span>
+* <span data-ttu-id="028c8-137">客户端证书</span><span class="sxs-lookup"><span data-stu-id="028c8-137">Client Certificate</span></span>
+* <span data-ttu-id="028c8-138">IdentityServer</span><span class="sxs-lookup"><span data-stu-id="028c8-138">IdentityServer</span></span>
+* <span data-ttu-id="028c8-139">JWT 令牌</span><span class="sxs-lookup"><span data-stu-id="028c8-139">JWT Token</span></span>
+* <span data-ttu-id="028c8-140">OAuth 2.0</span><span class="sxs-lookup"><span data-stu-id="028c8-140">OAuth 2.0</span></span>
+* <span data-ttu-id="028c8-141">OpenID Connect</span><span class="sxs-lookup"><span data-stu-id="028c8-141">OpenID Connect</span></span>
+* <span data-ttu-id="028c8-142">WS-Federation</span><span class="sxs-lookup"><span data-stu-id="028c8-142">WS-Federation</span></span>
 
-<span data-ttu-id="32c78-143">有关在服务器上配置身份验证的详细信息，请参阅 [ASP.NET Core 身份验证](xref:security/authentication/identity)。</span><span class="sxs-lookup"><span data-stu-id="32c78-143">For more information on configuring authentication on the server, see [ASP.NET Core authentication](xref:security/authentication/identity).</span></span>
+<span data-ttu-id="028c8-143">有关在服务器上配置身份验证的详细信息，请参阅 [ASP.NET Core 身份验证](xref:security/authentication/identity)。</span><span class="sxs-lookup"><span data-stu-id="028c8-143">For more information on configuring authentication on the server, see [ASP.NET Core authentication](xref:security/authentication/identity).</span></span>
 
-<span data-ttu-id="32c78-144">将 gRPC 客户端配置为使用身份验证取决于使用的身份验证机制。</span><span class="sxs-lookup"><span data-stu-id="32c78-144">Configuring the gRPC client to use authentication will depend on the authentication mechanism you are using.</span></span> <span data-ttu-id="32c78-145">之前的持有者令牌和客户端证书示例演示可将 gRPC 客户端配置为通过 gRPC 调用发送身份验证元数据的几种方法：</span><span class="sxs-lookup"><span data-stu-id="32c78-145">The previous bearer token and client certificate examples show a couple of ways the gRPC client can be configured to send authentication metadata with gRPC calls:</span></span>
+<span data-ttu-id="028c8-144">将 gRPC 客户端配置为使用身份验证取决于使用的身份验证机制。</span><span class="sxs-lookup"><span data-stu-id="028c8-144">Configuring the gRPC client to use authentication will depend on the authentication mechanism you are using.</span></span> <span data-ttu-id="028c8-145">之前的持有者令牌和客户端证书示例演示可将 gRPC 客户端配置为通过 gRPC 调用发送身份验证元数据的几种方法：</span><span class="sxs-lookup"><span data-stu-id="028c8-145">The previous bearer token and client certificate examples show a couple of ways the gRPC client can be configured to send authentication metadata with gRPC calls:</span></span>
 
-* <span data-ttu-id="32c78-146">强类型 gRPC 客户端在内部使用 `HttpClient`。</span><span class="sxs-lookup"><span data-stu-id="32c78-146">Strongly typed gRPC clients use `HttpClient` internally.</span></span> <span data-ttu-id="32c78-147">可在 [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler) 上配置身份验证，也可通过向 `HttpClient` 添加自定义 [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) 实例进行配置。</span><span class="sxs-lookup"><span data-stu-id="32c78-147">Authentication can be configured on [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler), or by adding custom [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) instances to the `HttpClient`.</span></span>
-* <span data-ttu-id="32c78-148">每个 gRPC 调用都有一个可选的 `CallOptions` 参数。</span><span class="sxs-lookup"><span data-stu-id="32c78-148">Each gRPC call has an optional `CallOptions` argument.</span></span> <span data-ttu-id="32c78-149">可使用该选项的标头集合发送自定义标头。</span><span class="sxs-lookup"><span data-stu-id="32c78-149">Custom headers can be sent using the option's headers collection.</span></span>
+* <span data-ttu-id="028c8-146">强类型 gRPC 客户端在内部使用 `HttpClient`。</span><span class="sxs-lookup"><span data-stu-id="028c8-146">Strongly typed gRPC clients use `HttpClient` internally.</span></span> <span data-ttu-id="028c8-147">可在 [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler) 上配置身份验证，也可通过向 `HttpClient` 添加自定义 [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) 实例进行配置。</span><span class="sxs-lookup"><span data-stu-id="028c8-147">Authentication can be configured on [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler), or by adding custom [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) instances to the `HttpClient`.</span></span>
+* <span data-ttu-id="028c8-148">每个 gRPC 调用都有一个可选的 `CallOptions` 参数。</span><span class="sxs-lookup"><span data-stu-id="028c8-148">Each gRPC call has an optional `CallOptions` argument.</span></span> <span data-ttu-id="028c8-149">可使用该选项的标头集合发送自定义标头。</span><span class="sxs-lookup"><span data-stu-id="028c8-149">Custom headers can be sent using the option's headers collection.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="32c78-150">Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 配合使用。</span><span class="sxs-lookup"><span data-stu-id="32c78-150">Windows Authentication (NTLM/Kerberos/Negotiate) can't be used with gRPC.</span></span> <span data-ttu-id="32c78-151">gRPC 需要 HTTP/2，而 HTTP/2 不支持 Windows 身份验证。</span><span class="sxs-lookup"><span data-stu-id="32c78-151">gRPC requires HTTP/2, and HTTP/2 doesn't support Windows Authentication.</span></span>
+> <span data-ttu-id="028c8-150">Windows 身份验证（NTLM/Kerberos/协商）不能与 gRPC 配合使用。</span><span class="sxs-lookup"><span data-stu-id="028c8-150">Windows Authentication (NTLM/Kerberos/Negotiate) can't be used with gRPC.</span></span> <span data-ttu-id="028c8-151">gRPC 需要 HTTP/2，而 HTTP/2 不支持 Windows 身份验证。</span><span class="sxs-lookup"><span data-stu-id="028c8-151">gRPC requires HTTP/2, and HTTP/2 doesn't support Windows Authentication.</span></span>
 
-## <a name="authorize-users-to-access-services-and-service-methods"></a><span data-ttu-id="32c78-152">授权用户访问服务和服务方法</span><span class="sxs-lookup"><span data-stu-id="32c78-152">Authorize users to access services and service methods</span></span>
+## <a name="authorize-users-to-access-services-and-service-methods"></a><span data-ttu-id="028c8-152">授权用户访问服务和服务方法</span><span class="sxs-lookup"><span data-stu-id="028c8-152">Authorize users to access services and service methods</span></span>
 
-<span data-ttu-id="32c78-153">默认情况下，未经身份验证的用户可以调用服务中的所有方法。</span><span class="sxs-lookup"><span data-stu-id="32c78-153">By default, all methods in a service can be called by unauthenticated users.</span></span> <span data-ttu-id="32c78-154">若要要求进行身份验证，请将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 特性应用于服务：</span><span class="sxs-lookup"><span data-stu-id="32c78-154">To require authentication, apply the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute to the service:</span></span>
+<span data-ttu-id="028c8-153">默认情况下，未经身份验证的用户可以调用服务中的所有方法。</span><span class="sxs-lookup"><span data-stu-id="028c8-153">By default, all methods in a service can be called by unauthenticated users.</span></span> <span data-ttu-id="028c8-154">若要要求进行身份验证，请将 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 特性应用于服务：</span><span class="sxs-lookup"><span data-stu-id="028c8-154">To require authentication, apply the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute to the service:</span></span>
 
 ```csharp
 [Authorize]
@@ -162,7 +162,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-<span data-ttu-id="32c78-155">可使用 `[Authorize]` 特性的构造函数参数和属性将访问权限仅限于匹配特定[授权策略](xref:security/authorization/policies)的用户。</span><span class="sxs-lookup"><span data-stu-id="32c78-155">You can use the constructor arguments and properties of the `[Authorize]` attribute to restrict access to only users matching specific [authorization policies](xref:security/authorization/policies).</span></span> <span data-ttu-id="32c78-156">例如，如果有一个名为 `MyAuthorizationPolicy` 的自定义授权策略，请使用以下代码确保仅匹配该策略的用户才能访问服务：</span><span class="sxs-lookup"><span data-stu-id="32c78-156">For example, if you have a custom authorization policy called `MyAuthorizationPolicy`, ensure that only users matching that policy can access the service using the following code:</span></span>
+<span data-ttu-id="028c8-155">可使用 `[Authorize]` 特性的构造函数参数和属性将访问权限仅限于匹配特定[授权策略](xref:security/authorization/policies)的用户。</span><span class="sxs-lookup"><span data-stu-id="028c8-155">You can use the constructor arguments and properties of the `[Authorize]` attribute to restrict access to only users matching specific [authorization policies](xref:security/authorization/policies).</span></span> <span data-ttu-id="028c8-156">例如，如果有一个名为 `MyAuthorizationPolicy` 的自定义授权策略，请使用以下代码确保仅匹配该策略的用户才能访问服务：</span><span class="sxs-lookup"><span data-stu-id="028c8-156">For example, if you have a custom authorization policy called `MyAuthorizationPolicy`, ensure that only users matching that policy can access the service using the following code:</span></span>
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -171,7 +171,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-<span data-ttu-id="32c78-157">各个服务方法也可以应用 `[Authorize]` 特性。</span><span class="sxs-lookup"><span data-stu-id="32c78-157">Individual service methods can have the `[Authorize]` attribute applied as well.</span></span> <span data-ttu-id="32c78-158">如果当前用户与**同时**应用于方法和类的策略不匹配，则会向调用方返回错误：</span><span class="sxs-lookup"><span data-stu-id="32c78-158">If the current user doesn't match the policies applied to **both** the method and the class, an error is returned to the caller:</span></span>
+<span data-ttu-id="028c8-157">各个服务方法也可以应用 `[Authorize]` 特性。</span><span class="sxs-lookup"><span data-stu-id="028c8-157">Individual service methods can have the `[Authorize]` attribute applied as well.</span></span> <span data-ttu-id="028c8-158">如果当前用户与**同时**应用于方法和类的策略不匹配，则会向调用方返回错误：</span><span class="sxs-lookup"><span data-stu-id="028c8-158">If the current user doesn't match the policies applied to **both** the method and the class, an error is returned to the caller:</span></span>
 
 ```csharp
 [Authorize]
@@ -192,7 +192,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="32c78-159">其他资源</span><span class="sxs-lookup"><span data-stu-id="32c78-159">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="028c8-159">其他资源</span><span class="sxs-lookup"><span data-stu-id="028c8-159">Additional resources</span></span>
 
-* [<span data-ttu-id="32c78-160">ASP.NET Core 中的持有者令牌身份验证</span><span class="sxs-lookup"><span data-stu-id="32c78-160">Bearer Token authentication in ASP.NET Core</span></span>](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
-* [<span data-ttu-id="32c78-161">在 ASP.NET Core 中配置客户端证书身份验证</span><span class="sxs-lookup"><span data-stu-id="32c78-161">Configure Client Certificate authentication in ASP.NET Core</span></span>](xref:security/authentication/certauth)
+* [<span data-ttu-id="028c8-160">ASP.NET Core 中的持有者令牌身份验证</span><span class="sxs-lookup"><span data-stu-id="028c8-160">Bearer Token authentication in ASP.NET Core</span></span>](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+* [<span data-ttu-id="028c8-161">在 ASP.NET Core 中配置客户端证书身份验证</span><span class="sxs-lookup"><span data-stu-id="028c8-161">Configure Client Certificate authentication in ASP.NET Core</span></span>](xref:security/authentication/certauth)
