@@ -1,11 +1,11 @@
 ---
-标题： "管理用户和组的 SignalR 作者：说明： ' 概述 ASP.NET Core SignalR 用户和组管理。"
-monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
+标题： "管理用户和组的 SignalR 作者： bradygaster 说明：" SignalR 用户和组管理 ASP.NET Core 的概述。
+monikerRange： ">= aspnetcore-2.1"。 author： bradyg：： mvc ms. 日期：05/17/2020 非 loc：
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- " SignalR " uid： signalr/groups
 
 ---
 
@@ -15,7 +15,7 @@ monikerRange： ms-chap： ms-chap： ms-chap：非 loc：
 
 SignalR允许将消息发送到与特定用户关联的所有连接以及命名连接组。
 
-[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [（如何下载）](xref:index#how-to-download-a-sample)
+[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/)[（如何下载）](xref:index#how-to-download-a-sample)
 
 ## <a name="users-in-signalr"></a>用户SignalR
 
