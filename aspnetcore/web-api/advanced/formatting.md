@@ -1,10 +1,11 @@
 ---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
+标题： ASP.NET Core Web API 作者： ardalis 说明中的格式响应数据：了解如何在 ASP.NET Core Web API 中设置响应数据的格式。
+ms-chap： riande： H1Hack27Feb2017 毫秒。日期：04/17/2020 非 loc：
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- " SignalR " uid： 
+- " SignalR " uid： web api/高级/格式
 
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
@@ -19,7 +20,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 一些操作结果类型特定于特殊格式，例如 <xref:Microsoft.AspNetCore.Mvc.JsonResult> 和 <xref:Microsoft.AspNetCore.Mvc.ContentResult>。 操作可以返回使用特定格式设置格式的结果，而不考虑客户端首选项。 例如，返回 `JsonResult`，将返回 JSON 格式的数据。 返回 `ContentResult` 或字符串，将返回纯文本格式的字符串数据。
 
-无需操作返回任意特定类型。 ASP.NET Core 支持任何对象返回值。  返回非 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 类型对象的操作结果将使用相应的 <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> 实现来进行序列化。 有关详细信息，请参阅 <xref:web-api/action-return-types>。
+无需操作返回任意特定类型。 ASP.NET Core 支持任何对象返回值。  返回非 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 类型对象的操作结果将使用相应的 <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> 实现来进行序列化。 有关详细信息，请参阅 <xref:web-api/action-return-types> 。
 
 内置的帮助程序方法 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> 返回 JSON 格式的数据：[!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
 
@@ -136,7 +137,7 @@ public IActionResult Get()
 {
     return Json(model, new JsonSerializerOptions
     {
-        options.WriteIndented = true,
+        WriteIndented = true,
     });
 }
 ```
@@ -175,7 +176,7 @@ public IActionResult Get()
 {
     return Json(model, new JsonSerializerSettings
     {
-        options.Formatting = Formatting.Indented,
+        Formatting = Formatting.Indented,
     });
 }
 ```
@@ -243,211 +244,7 @@ XML 格式需要 [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org
 上述路由将允许指定所请求格式为可选文件扩展名。 [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute)特性检查中的格式值是否存在 `RouteData` ，并在创建响应时将响应格式映射到适当的格式化程序。
 
 |           路由        |             格式化程序              |
-|---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
-------------|---标题：作者：说明： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： 
-
-------------------| |  `/api/products/5`    |   默认输出格式化程序 | |`/api/products/5.json` |JSON 格式化程序（如果已配置） | |`/api/products/5.xml`  |XML 格式化程序（如果已配置） |
+|------------------------|------------------------------------|
+|   `/api/products/5`    |    默认输出格式化程序    |
+| `/api/products/5.json` | JSON 格式化程序（如配置） |
+| `/api/products/5.xml`  | XML 格式化程序（如配置）  |
