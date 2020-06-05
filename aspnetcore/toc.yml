@@ -1168,7 +1168,7 @@
       uid: performance/performance-best-practices
     - name: 内存和 GC
       uid: performance/memory
-    - name: 响应缓存
+    - name: 缓存
       items:
         - name: 概述
           uid: performance/caching/response
