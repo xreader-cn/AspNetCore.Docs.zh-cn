@@ -1,12 +1,23 @@
 ---
-标题：控制器操作返回 ASP.NET Core web API 作者： scottaddie 说明：了解如何使用各种控制器操作方法返回 ASP.NET Core web API 中的类型。
-ms-chap： scaddie：自定义： mvc ms. 日期：02/03/2020 无位置：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： web api/操作-返回类型
-
+title: ASP.NET Core Web API 中控制器操作的返回类型
+author: scottaddie
+description: 了解在 ASP.NET Core Web API 中使用各种控制器操作方法返回类型的相关信息。
+ms.author: scaddie
+ms.custom: mvc
+ms.date: 02/03/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: web-api/action-return-types
+ms.openlocfilehash: 57bc91feb9c4242dbea120ee00db1cba46784c61
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84253781"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中控制器操作的返回类型
 

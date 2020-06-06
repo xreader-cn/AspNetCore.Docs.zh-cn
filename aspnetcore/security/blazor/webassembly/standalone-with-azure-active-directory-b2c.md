@@ -1,11 +1,24 @@
 ---
-标题： "使用 Azure Active Directory B2C 的 Secure a ASP.NET Core Blazor WebAssembly 独立应用" author： guardrex 说明： monikerRange： ">= aspnetcore-3.1" ms. author： riande 毫秒。自定义： mvc ms. 日期：05/19/2020 无位置：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： security/blazor/webassembly/单机-azure-active directory-b2c
-
+title: Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 独立应用
+author: guardrex
+description: ''
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+ms.openlocfilehash: 911eeffbe632d8f285d54ae78b62f17851205e83
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84214950"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 独立应用
 
@@ -66,7 +79,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 创建应用后，应该能够：
 
 * 使用 AAD 用户帐户登录到应用。
-* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参见:
+* 请求 Microsoft Api 的访问令牌。 有关详情，请参阅：
   * [访问令牌范围](#access-token-scopes)
   * [快速入门：将应用程序配置为公开 Web api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)。
 
@@ -87,7 +100,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 
 使用 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> [Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供程序（IP）交互所需的所有服务。
 
-Program.cs  :
+Program.cs:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

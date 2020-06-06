@@ -1,14 +1,24 @@
 ---
-标题：从 Microsoft 迁移2.2 到2.1 或3.0 作者： pakrym 说明：了解如何将使用 non-ASP.NET 的核心应用程序从2.1 迁移到2.2 或3.0。
-ms-chap： pakrym：自定义： mvc ms. 日期：01/04/2019 无位置：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid：迁移/日志记录-nonaspnetcore
-
+title: 从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
+author: pakrym
+description: 了解如何迁移使用 non-ASP.NET 的核心应用程序。日志记录2.1 到2.2 或3.0。
+ms.author: pakrym
+ms.custom: mvc
+ms.date: 01/04/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: migration/logging-nonaspnetcore
+ms.openlocfilehash: 2fd738ed0e0a06d0793e3c624d40a13725b53cd8
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84274227"
 ---
-
 # <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
 
 本文概述了将使用2.1 的 non-ASP.NET 核心应用程序迁移 `Microsoft.Extensions.Logging` 到2.2 或3.0 的常见步骤。

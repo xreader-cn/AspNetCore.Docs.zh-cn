@@ -1,17 +1,29 @@
 ---
-title: author: description: monikerRange: ms.author: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 在 ASP.NET Core 中配置证书身份验证
+author: blowdart
+description: 了解如何在 ASP.NET Core for IIS 和 http.sys 中配置证书身份验证。
+monikerRange: '>= aspnetcore-3.0'
+ms.author: bdorrans
+ms.date: 01/02/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/authentication/certauth
+ms.openlocfilehash: 4511e253ea9487c5739162b9b0180e39eb3a1b9c
+ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84454605"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
-`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。 证书身份验证发生在 TLS 级别，在它被 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。 
+`Microsoft.AspNetCore.Authentication.Certificate`包含类似于 ASP.NET Core 的[证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)的实现。 证书身份验证在 TLS 级别发生，远在到达 ASP.NET Core 之前。 更准确地说，这是验证证书的身份验证处理程序，然后向你提供可将该证书解析到的事件 `ClaimsPrincipal` 。 
 
-将[主机配置](#configure-your-host-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者其他任何所用的。
+将[服务器配置](#configure-your-server-to-require-certificates)为使用证书进行身份验证，如 IIS、Kestrel、Azure Web 应用，或者使用任何其他方法。
 
 ## <a name="proxy-and-load-balancer-scenarios"></a>代理和负载均衡器方案
 
@@ -24,7 +36,7 @@ title: author: description: monikerRange: ms.author: ms.date: no-loc:
 
 ## <a name="get-started"></a>入门
 
-获取并应用 HTTPS 证书，并将[主机配置](#configure-your-host-to-require-certificates)为需要证书。
+获取并应用 HTTPS 证书，并将[服务器配置](#configure-your-server-to-require-certificates)为需要证书。
 
 在 web 应用中，添加对包的引用 `Microsoft.AspNetCore.Authentication.Certificate` 。 然后在 `Startup.ConfigureServices` 方法中， `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` 使用你的选项调用，同时提供一个委托，用于对 `OnCertificateValidated` 随请求发送的客户端证书进行任何补充验证。 将该信息转换为 `ClaimsPrincipal` 并在属性上设置 `context.Principal` 。
 
@@ -183,7 +195,7 @@ services.AddAuthentication(
 
 从概念上讲，验证证书是一种授权问题。 例如，在授权策略中添加一个颁发者或指纹，而不是在中， `OnCertificateValidated` 这是完全可以接受的。
 
-## <a name="configure-your-host-to-require-certificates"></a>将主机配置为需要证书
+## <a name="configure-your-server-to-require-certificates"></a>将服务器配置为需要证书
 
 ### <a name="kestrel"></a>Kestrel
 
@@ -212,7 +224,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。 
+> 通过在调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> 之前调用 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> 创建的终结点将不会应用默认值。
 
 ### <a name="iis"></a>IIS
 

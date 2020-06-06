@@ -1,12 +1,24 @@
 ---
-标题： "ASP.NET Core Blazor WebAssembly 其他安全方案" author： guardrex description： "了解如何 Blazor 为其他安全方案配置 WebAssembly。
-monikerRange: '>= aspnetcore-3.1' ms.author: riande ms.custom: mvc ms.date:2020 年 6 月 1 日 no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： security/blazor/webassembly/附加方案
-
+title: ASP.NET Core Blazor WebAssembly 其他安全方案
+author: guardrex
+description: 了解如何配置 Blazor WebAssembly 以实现其他安全方案。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/01/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/webassembly/additional-scenarios
+ms.openlocfilehash: de752eb180767bbb269107ebc478a4422448f968
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84272029"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly 其他安全方案
 

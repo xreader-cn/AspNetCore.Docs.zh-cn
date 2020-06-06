@@ -5,7 +5,7 @@ description: 了解如何使用 HTTP REPL .NET Core 全局工具来浏览和测�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/11/2019
+ms.date: 05/20/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 4d0200cd412cce6eda473a64d132d74d8641db34
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4c42ad56bbdb7b66824b290cd118903cbe4311e8
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777093"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452208"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>使用 HTTP REPL 测试 Web API
 
@@ -36,9 +36,9 @@ HTTP 读取–求值–打印循环 (REPL)：
 * [GET](#test-http-get-requests)
 * [头](#test-http-head-requests)
 * [选项](#test-http-options-requests)
-* [跳](#test-http-patch-requests)
+* [修补程序](#test-http-patch-requests)
 * [POST](#test-http-post-requests)
-* [PUT](#test-http-put-requests)
+* [准备](#test-http-put-requests)
 
 若要继续操作，请[查看或下载示例 ASP.NET Core Web API](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples)（[下载方式](xref:index#how-to-download-a-sample)）。
 
@@ -56,7 +56,7 @@ dotnet tool install -g Microsoft.dotnet-httprepl
 
 从 [Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet 包安装 [.NET Core 全局工具](/dotnet/core/tools/global-tools#install-a-global-tool)。
 
-## <a name="usage"></a>用法
+## <a name="usage"></a>使用情况
 
 成功安装该工具后，运行以下命令以启动 HTTP REPL：
 
@@ -560,7 +560,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
 
 发出 HTTP PUT 请求：
 
-1. *可选*：在修改`get`之前，运行命令以查看数据：
+1. *可选*：在 `get` 修改之前，运行命令以查看数据：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -622,7 +622,7 @@ put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-fo
     Server: Kestrel
     ```
 
-1. *可选*：发出`get`命令以查看修改。 例如，如果在文本编辑器中键入“Cherry”，`get` 会返回以下内容：
+1. *可选*：发出 `get` 命令以查看修改。 例如，如果在文本编辑器中键入“Cherry”，`get` 会返回以下内容：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -673,7 +673,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
 
 发出 HTTP DELETE 请求：
 
-1. *可选*：在修改`get`之前，运行命令以查看数据：
+1. *可选*：在 `get` 修改之前，运行命令以查看数据：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -713,7 +713,7 @@ delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:b
     Server: Kestrel
     ```
 
-1. *可选*：发出`get`命令以查看修改。 在此示例中，`get` 返回以下内容：
+1. *可选*：发出 `get` 命令以查看修改。 在此示例中，`get` 返回以下内容：
 
     ```console
     https://localhost:5001/fruits~ get
@@ -820,7 +820,23 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
 
 ## <a name="test-secured-endpoints"></a>测试受保护的终结点
 
-HTTP REPL 支持通过使用 HTTP 请求标头来测试受保护的终结点。 支持的身份验证和授权方案的示例包括基本身份验证、JWT 持有者令牌和摘要式身份验证。 例如，可以使用以下命令将持有者令牌发送到终结点：
+HTTP 复制支持通过两种方式来测试受保护的终结点：通过登录用户的默认凭据或通过使用 HTTP 请求标头。 
+
+### <a name="default-credentials"></a>默认凭据
+
+假设您要测试的 web API 托管在 IIS 中，并使用 Windows 身份验证进行保护。 你需要运行该工具的用户的凭据流向正在进行测试的 HTTP 终结点。 传递已登录用户的默认凭据：
+
+1. 将 `httpClient.useDefaultCredentials` 首选项设置为 `true` ：
+
+    ```console
+    pref set httpClient.useDefaultCredentials true
+    ```
+
+1. 退出并重新启动该工具，然后将另一个请求发送到 web API。
+
+### <a name="http-request-headers"></a>HTTP 请求标头
+
+支持的身份验证和授权方案的示例包括基本身份验证、JWT 持有者令牌和摘要式身份验证。 例如，可以使用以下命令将持有者令牌发送到终结点：
 
 ```console
 set header Authorization "bearer <TOKEN VALUE>"
@@ -830,25 +846,25 @@ set header Authorization "bearer <TOKEN VALUE>"
 
 1. 登录到 Azure：
 
-    ```azcli
+    ```azurecli
     az login
     ```
 
 1. 使用以下命令获取订阅 ID：
 
-    ```azcli
+    ```azurecli
     az account show --query id
     ```
 
 1. 复制订阅 ID 并运行以下命令：
 
-    ```azcli
+    ```azurecli
     az account set --subscription "<SUBSCRIPTION ID>"
     ```
 
 1. 使用以下命令获取持有者令牌：
 
-    ```azcli
+    ```azurecli
     az account get-access-token --query accessToken
     ```
 

@@ -1,7 +1,7 @@
 ---
-title: Identity ASP.NET Core 简介
+title: ASP.NET Core 简介 Identity
 author: rick-anderson
-description: 与Identity ASP.NET Core 应用一起使用。 了解如何设置密码要求（RequireDigit、RequiredLength、RequiredUniqueChars 等）。
+description: Identity与 ASP.NET Core 应用一起使用。 了解如何设置密码要求（RequireDigit、RequiredLength、RequiredUniqueChars 等）。
 ms.author: riande
 ms.date: 01/15/2020
 no-loc:
@@ -11,36 +11,36 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: d596a8357c5c812b94950809eedf35718328747c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 6d9532ed8ff89735f41c362b27826436c37c6cb5
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777002"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452130"
 ---
-# <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 上的标识简介
+# <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core 简介 Identity
 
 ::: moniker range=">= aspnetcore-3.0"
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 标识：
+ASP.NET Core Identity ：
 
 * 是支持用户界面（UI）登录功能的 API。
 * 管理用户、密码、配置文件数据、角色、声明、令牌、电子邮件确认等。
 
-用户可以创建一个具有存储在标识中的登录信息的帐户，也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
+用户可以使用存储在中的登录信息创建一个帐户， Identity 也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
 
-GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)。 [基架标识](xref:security/authentication/scaffold-identity)并查看生成的文件以查看模板与标识的交互。
+GitHub 上提供了[ Identity 源代码](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)。 [基架 Identity ](xref:security/authentication/scaffold-identity)并查看生成的文件以查看与的模板交互 Identity 。
 
-通常使用 SQL Server 数据库配置标识，以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
+Identity通常使用 SQL Server 数据库配置以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
-本主题介绍如何使用标识注册、登录和注销用户。 注意：这些模板将用户的用户名和电子邮件视为相同。 有关创建使用标识的应用的更多详细说明，请参阅本文末尾的后续步骤部分。
+在本主题中，你将了解如何使用 Identity 注册、登录和注销用户。 注意：这些模板将用户的用户名和电子邮件视为相同。 有关创建使用的应用程序的更多详细说明 Identity ，请参阅本文末尾的后续步骤部分。
 
 [Microsoft 标识平台](/azure/active-directory/develop/)是：
 
 * Azure Active Directory （Azure AD）开发人员平台的演变。
-* 与 ASP.NET Core 标识无关。
+* 与 ASP.NET Core 无关 Identity 。
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
@@ -54,8 +54,8 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择 "**文件** > " "**新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择 "**文件**" " > **新建** > **项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -65,7 +65,7 @@ GitHub 上提供了[标识源代码](https://github.com/dotnet/AspNetCore/tree/m
 dotnet new webapp --auth Individual -o WebApp1
 ```
 
-上述命令使用 SQLite 创建 Razor web 应用。 若要创建具有 LocalDB 的 web 应用，请运行以下命令：
+上述命令 Razor 使用 SQLite 创建 web 应用。 若要创建具有 LocalDB 的 web 应用，请运行以下命令：
 
 ```dotnetcli
 dotnet new webapp --auth Individual -uld -o WebApp1
@@ -73,7 +73,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-生成的项目提供[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。 标识 Razor 类库公开带有`Identity`区域的终结点。 例如：
+生成的项目[ Razor 以类库形式](xref:razor-pages/ui-class)提供[ASP.NET Core Identity ](xref:security/authentication/identity) 。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -107,31 +107,31 @@ dotnet ef database update
 
 <a name="pw"></a>
 
-### <a name="configure-identity-services"></a>配置标识服务
+### <a name="configure-identity-services"></a>配置 Identity 服务
 
-中`ConfigureServices`添加了服务。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
+中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=10-99)]
 
-前面突出显示的代码用默认选项值配置标识。 服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
+前面突出显示的代码 Identity 用默认选项值进行配置。 服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
-标识是通过调用<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>启用的。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
+Identity通过调用启用 <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configure&highlight=19)]
 
-模板生成的应用不使用[授权](xref:security/authorization/secure-data)。 `app.UseAuthorization`包括，以确保在应用添加授权时，按正确的顺序添加。 `UseRouting``UseAuthorization` `UseEndpoints` 、 `UseAuthentication`、和必须按前面的代码中所示的顺序调用。
+模板生成的应用不使用[授权](xref:security/authorization/secure-data)。 `app.UseAuthorization`包括，以确保在应用添加授权时，按正确的顺序添加。 `UseRouting`、 `UseAuthentication` 、 `UseAuthorization` 和 `UseEndpoints` 必须按前面的代码中所示的顺序调用。
 
-有关`IdentityOptions`和`Startup`的详细信息，请<xref:Microsoft.AspNetCore.Identity.IdentityOptions>参阅和[应用程序启动](xref:fundamentals/startup)。
+有关和的详细 `IdentityOptions` 信息 `Startup` ，请参阅 <xref:Microsoft.AspNetCore.Identity.IdentityOptions> 和[应用程序启动](xref:fundamentals/startup)。
 
 ## <a name="scaffold-register-login-and-logout"></a>基架注册、登录和注销
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-添加注册、登录和注销文件。 按照[基架标识操作，并使用授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明生成本部分中所示的代码。
+添加注册、登录和注销文件。 将[基架标识置于 Razor 具有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明的项目中，以生成本部分中所示的代码。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间`ApplicationDbContext`：
+如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -140,17 +140,17 @@ dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --fil
 
 PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对文件列表中的分号进行转义，或将文件列表置于双引号中，如前面的示例所示。
 
-有关基架标识的详细信息，请参阅[使用授权将基架标识导入 Razor 项目](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)。
+有关基架的详细信息 Identity ，请参阅[ Razor 使用授权将基架标识转换为项目](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)。
 
 ---
 
 ### <a name="examine-register"></a>检查注册
 
-当用户单击 "**注册**" 链接时， `RegisterModel.OnPostAsync`将调用该操作。 用户是通过[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)对`_userManager`对象创建的。 `_userManager`由依赖关系注入提供：
+当用户单击 "**注册**" 链接时，将 `RegisterModel.OnPostAsync` 调用该操作。 用户由[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)在对象上创建 `_userManager` ：
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=9)]
 
-如果用户已成功创建，则对的调用会登录该用户`_signInManager.SignInAsync`。
+如果用户已成功创建，则对的调用会登录该用户 `_signInManager.SignInAsync` 。
 
 请参阅[帐户确认](xref:security/authentication/accconfirm#prevent-login-at-registration)以了解在注册时要阻止立即登录的步骤。
 
@@ -161,19 +161,19 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 * 选择 "**登录**" 链接。
 * 用户尝试访问他们无权访问的受限制的页面，**或**未经系统的身份验证。
 
-提交登录页上的窗体时，将调用`OnPostAsync`该操作。 `PasswordSignInAsync`对`_signInManager`对象调用（由依赖关系注入提供）。
+提交登录页上的窗体时，将 `OnPostAsync` 调用该操作。 `PasswordSignInAsync`对 `_signInManager` 对象调用。
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基类`Controller`公开了`User`可从控制器方法访问的属性。 例如，可以枚举`User.Claims`并做出授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
+有关如何做出授权决策的信息，请参阅 <xref:security/authorization/introduction> 。
 
 ### <a name="log-out"></a>注销
 
-"**注销**" 链接将调用`LogoutModel.OnPost`该操作。 
+"**注销**" 链接将调用该 `LogoutModel.OnPost` 操作。 
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Logout.cshtml.cs?highlight=36)]
 
-在前面的代码中，代码`return RedirectToPage();`需要是重定向，以便浏览器执行新请求并更新用户的标识。
+在前面的代码中，代码 `return RedirectToPage();` 需要是重定向，以便浏览器执行新请求并更新用户的标识。
 
 [SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)清除 cookie 中存储的用户声明。
 
@@ -181,30 +181,30 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
-## <a name="test-identity"></a>测试标识
+## <a name="test-identity"></a>考试Identity
 
-默认 web 项目模板允许匿名访问主页。 若要测试标识， [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)请添加：
+默认 web 项目模板允许匿名访问主页。 若要测试 Identity ，请添加 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) ：
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Privacy.cshtml.cs?highlight=7)]
 
 如果已登录，请注销。运行应用并选择 "**隐私**" 链接。 将被重定向到登录页。
 
-### <a name="explore-identity"></a>浏览标识
+### <a name="explore-identity"></a>浏览Identity
 
-更详细地了解标识：
+Identity了解更多详细信息：
 
 * [创建完全标识 UI 源](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * 检查每个页面的源，并单步执行调试程序。
 
-## <a name="identity-components"></a>标识组件
+## <a name="identity-components"></a>Identity组分
 
-所有标识相关 NuGet 包都包含在[ASP.NET Core 共享框架](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)中。
+所有 Identity 相关的 NuGet 包都包含在[ASP.NET Core 共享框架](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)中。
 
-标识的主包为[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)。 此程序包包含用于 ASP.NET Core 标识的核心接口集，由`Microsoft.AspNetCore.Identity.EntityFrameworkCore`提供。
+的主包为 Identity [AspNetCore。 Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此程序包包含用于 ASP.NET Core 的核心接口集 Identity ，由提供 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。
 
-## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET Core 标识
+## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET CoreIdentity
 
-有关迁移现有标识存储的详细信息和指南，请参阅[迁移身份验证和标识](xref:migration/identity)。
+有关迁移现有存储的详细信息和指南 Identity ，请参阅[迁移身份验证 Identity 和](xref:migration/identity)。
 
 ## <a name="setting-password-strength"></a>设置密码强度
 
@@ -212,17 +212,17 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="adddefaultidentity-and-addidentity"></a>AddDefaultIdentity 和 AddIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>是在 ASP.NET Core 2.1 中引入的。 调用`AddDefaultIdentity`类似于调用以下内容：
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>是在 ASP.NET Core 2.1 中引入的。 调用 `AddDefaultIdentity` 类似于调用以下内容：
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
+有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
 
-## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态标识资产
+## <a name="prevent-publish-of-static-identity-assets"></a>禁止发布静态 Identity 资产
 
-若要防止将静态标识资产（用于标识 UI 的样式表和 JavaScript 文件）发布到 web 根目录， `ResolveStaticWebAssetsInputsDependsOn`请将`RemoveIdentityAssets`以下属性和目标添加到应用的项目文件中：
+若要防止将静态 Identity 资产（用于 UI 的样式表和 JavaScript 文件 Identity ）发布到 web 根目录，请将以下 `ResolveStaticWebAssetsInputsDependsOn` 属性和 `RemoveIdentityAssets` 目标添加到应用的项目文件中：
 
 ```xml
 <PropertyGroup>
@@ -238,8 +238,8 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="next-steps"></a>后续步骤
 
-* 请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)，了解如何使用 SQLite 配置标识。
-* [配置标识](xref:security/authentication/identity-configuration)
+* 有关使用 SQLite 进行配置的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity 。
+* [对Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
@@ -254,25 +254,25 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资格系统。 用户可以创建一个具有存储在标识中的登录信息的帐户，也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
+ASP.NET Core Identity 是将登录功能添加到 ASP.NET Core 应用的成员资格系统。 用户可以使用存储在中的登录信息创建一个帐户， Identity 也可以使用外部登录提供程序。 支持的外部登录提供程序包括[Facebook、Google、Microsoft 帐户和 Twitter](xref:security/authentication/social/index)。
 
-可以使用 SQL Server 数据库配置标识，以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
+Identity可以使用 SQL Server 数据库配置以存储用户名、密码和配置文件数据。 另外，还可以使用另一个永久性存储，例如 Azure 表存储。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)（[如何下载）](xref:index#how-to-download-a-sample)。
 
-本主题介绍如何使用标识注册、登录和注销用户。 有关创建使用标识的应用的更多详细说明，请参阅本文末尾的后续步骤部分。
+在本主题中，你将了解如何使用 Identity 注册、登录和注销用户。 有关创建使用的应用程序的更多详细说明 Identity ，请参阅本文末尾的后续步骤部分。
 
 <a name="adi"></a>
 
 ## <a name="adddefaultidentity-and-addidentity"></a>AddDefaultIdentity 和 AddIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>是在 ASP.NET Core 2.1 中引入的。 调用`AddDefaultIdentity`类似于调用以下内容：
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>是在 ASP.NET Core 2.1 中引入的。 调用 `AddDefaultIdentity` 类似于调用以下内容：
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
+有关详细信息，请参阅[AddDefaultIdentity 源](https://github.com/dotnet/AspNetCore/blob/release/2.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)。
 
 ## <a name="create-a-web-app-with-authentication"></a>创建具有身份验证的 Web 应用
 
@@ -280,8 +280,8 @@ ASP.NET Core 标识是将登录功能添加到 ASP.NET Core 应用的成员资�
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 选择 "**文件** > " "**新建** > **项目**"。
-* 选择“ASP.NET Core Web 应用程序”  。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击 **“确定”** 。
+* 选择 "**文件**" " > **新建** > **项目**"。
+* 选择“ASP.NET Core Web 应用程序”。 将项目命名为**WebApp1** ，使其命名空间与项目下载相同。 单击" **确定**"。
 * 选择 ASP.NET Core **Web 应用程序**，然后选择 "**更改身份验证**"。
 * 选择**单个用户帐户**，然后单击 **"确定"**。
 
@@ -293,7 +293,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成的项目提供[ASP.NET Core 标识](xref:security/authentication/identity)作为[Razor 类库](xref:razor-pages/ui-class)。 标识 Razor 类库公开带有`Identity`区域的终结点。 例如：
+生成的项目[ Razor 以类库形式](xref:razor-pages/ui-class)提供[ASP.NET Core Identity ](xref:security/authentication/identity) 。 类库 Identity Razor 公开的终结点 `Identity` 。 例如：
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -327,15 +327,15 @@ dotnet ef database update
 
 <a name="pw"></a>
 
-### <a name="configure-identity-services"></a>配置标识服务
+### <a name="configure-identity-services"></a>配置 Identity 服务
 
-中`ConfigureServices`添加了服务。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
+中添加了服务 `ConfigureServices` 。 典型模式是调用所有 `Add{Service}` 方法，然后调用所有 `services.Configure{Service}` 方法。
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configureservices)]
 
-前面的代码用默认选项值配置标识。 服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
+前面的代码 Identity 用默认选项值进行配置。 服务通过[依赖关系注入](xref:fundamentals/dependency-injection)提供给应用程序。
 
-通过调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)来启用标识。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
+Identity通过调用[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)启用。 `UseAuthentication`将身份验证[中间件](xref:fundamentals/middleware/index)添加到请求管道。
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configure&highlight=18)]
 
@@ -343,7 +343,7 @@ dotnet ef database update
 
 ## <a name="scaffold-register-login-and-logout"></a>基架注册、登录和注销
 
-按照[基架标识操作，并使用授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明生成本部分中所示的代码。
+将[基架标识置于 Razor 具有授权](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)说明的项目中，以生成本部分中所示的代码。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -351,7 +351,7 @@ dotnet ef database update
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间`ApplicationDbContext`：
+如果创建的项目的名称为**WebApp1**，请运行以下命令。 否则，请使用正确的命名空间 `ApplicationDbContext` ：
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -364,11 +364,11 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 
 ### <a name="examine-register"></a>检查注册
 
-当用户单击 "**注册**" 链接时， `RegisterModel.OnPostAsync`将调用该操作。 用户是通过[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)对`_userManager`对象创建的。 `_userManager`由依赖关系注入提供：
+当用户单击 "**注册**" 链接时，将 `RegisterModel.OnPostAsync` 调用该操作。 用户由[CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)在对象上创建 `_userManager` ：
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=7)]
 
-如果用户已成功创建，则对的调用会登录该用户`_signInManager.SignInAsync`。
+如果用户已成功创建，则对的调用会登录该用户 `_signInManager.SignInAsync` 。
 
 **注意：** 请参阅[帐户确认](xref:security/authentication/accconfirm#prevent-login-at-registration)以了解在注册时要阻止立即登录的步骤。
 
@@ -379,15 +379,15 @@ PowerShell 使用分号作为命令分隔符。 使用 PowerShell 时，请对�
 * 选择 "**登录**" 链接。
 * 用户尝试访问他们无权访问的受限制的页面，**或**未经系统的身份验证。
 
-提交登录页上的窗体时，将调用`OnPostAsync`该操作。 `PasswordSignInAsync`对`_signInManager`对象调用（由依赖关系注入提供）。
+提交登录页上的窗体时，将 `OnPostAsync` 调用该操作。 `PasswordSignInAsync`对 `_signInManager` 对象调用。
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基类`Controller`公开了`User`可从控制器方法访问的属性。 例如，可以枚举`User.Claims`并做出授权决策。 有关详细信息，请参阅 <xref:security/authorization/introduction>。
+有关如何做出授权决策的信息，请参阅 <xref:security/authorization/introduction> 。
 
 ### <a name="log-out"></a>注销
 
-"**注销**" 链接将调用`LogoutModel.OnPost`该操作。 
+"**注销**" 链接将调用该 `LogoutModel.OnPost` 操作。 
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
@@ -399,7 +399,7 @@ Post 在*Pages/Shared/_LoginPartial 中指定。 cshtml*：
 
 ## <a name="test-identity"></a>考试Identity
 
-默认 web 项目模板允许匿名访问主页。 若要Identity进行测试[`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) ，请将添加到 "隐私" 页。
+默认 web 项目模板允许匿名访问主页。 若要进行测试 Identity ，请将添加 [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) 到 "隐私" 页。
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
@@ -414,13 +414,13 @@ Identity了解更多详细信息：
 
 ## <a name="identity-components"></a>Identity组分
 
-所有Identity相关 NuGet 包都包含在[AspNetCore 元包](xref:fundamentals/metapackage-app)中。
+所有 Identity 相关 NuGet 包都包含在[AspNetCore 元包](xref:fundamentals/metapackage-app)中。
 
-的主包Identity为[AspNetCore。Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此程序包包含用于 ASP.NET Core Identity的核心接口集，由`Microsoft.AspNetCore.Identity.EntityFrameworkCore`提供。
+的主包为 Identity [AspNetCore。 Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/) 此程序包包含用于 ASP.NET Core 的核心接口集 Identity ，由提供 `Microsoft.AspNetCore.Identity.EntityFrameworkCore` 。
 
 ## <a name="migrating-to-aspnet-core-identity"></a>迁移到 ASP.NET CoreIdentity
 
-有关迁移现有Identity存储的详细信息和指南，请参阅[迁移身份验证Identity和](xref:migration/identity)。
+有关迁移现有存储的详细信息和指南 Identity ，请参阅[迁移身份验证 Identity 和](xref:migration/identity)。
 
 ## <a name="setting-password-strength"></a>设置密码强度
 
@@ -428,7 +428,7 @@ Identity了解更多详细信息：
 
 ## <a name="next-steps"></a>后续步骤
 
-* 有关使用 SQLite 进行配置Identity的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131)。
+* 有关使用 SQLite 进行配置的信息，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity 。
 * [对Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

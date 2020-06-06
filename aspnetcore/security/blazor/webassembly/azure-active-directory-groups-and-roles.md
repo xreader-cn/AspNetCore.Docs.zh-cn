@@ -1,11 +1,11 @@
 ---
-title: ASP.NET Core Blazor具有 Azure Active Directory 组和角色的 WebAssembly
+title: ASP.NET Core Blazor 具有 Azure Active Directory 组和角色的 WebAssembly
 author: guardrex
-description: 了解如何配置Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
+description: 了解如何配置 Blazor WebAssembly 以使用 Azure Active Directory 组和角色。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/08/2020
+ms.date: 05/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,22 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/aad-groups-roles
-ms.openlocfilehash: afdb5ddc4d4ed08d0f1ecaf7158af283dda6b302
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
+ms.openlocfilehash: 3ed06cca7e20da381b870e642a6c616b2578cd0a
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976881"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84451870"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Azure AD 组、管理角色和用户定义的角色
 
 作者： [Luke Latham](https://github.com/guardrex)和[Javier Calvarro 使用](https://github.com/javiercn)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
-
-Azure Active Directory （AAD）提供多种授权方法，这些方法可与 ASP.NET Core 标识结合：
+Azure Active Directory （AAD）提供多种授权方法，这些方法可与 ASP.NET Core 组合 Identity ：
 
 * 用户定义的组
   * 安全性
@@ -38,7 +34,7 @@ Azure Active Directory （AAD）提供多种授权方法，这些方法可与 AS
   * 内置管理角色
   * 用户定义的角色
 
-本文中的指导适用于以下主题中所述的 Blazor WebAssembly AAD 部署方案：
+本文中的指导适用于 Blazor 以下主题中所述的 WEBASSEMBLY AAD 部署方案：
 
 * [包含 Microsoft 帐户的独立产品](xref:security/blazor/webassembly/standalone-with-microsoft-accounts)
 * [包含 AAD 的独立产品](xref:security/blazor/webassembly/standalone-with-azure-active-directory)
@@ -46,16 +42,16 @@ Azure Active Directory （AAD）提供多种授权方法，这些方法可与 AS
 
 ### <a name="user-defined-groups-and-built-in-administrative-roles"></a>用户定义的组和内置管理角色
 
-若要在 Azure 门户中配置应用以提供`groups`成员身份声明，请参阅以下 Azure 文章。 将用户分配到用户定义的 AAD 组和内置管理角色。
+若要在 Azure 门户中配置应用以提供 `groups` 成员身份声明，请参阅以下 Azure 文章。 将用户分配到用户定义的 AAD 组和内置管理角色。
 
 * [使用 Azure AD 安全组的角色](/azure/architecture/multitenant-identity/app-roles#roles-using-azure-ad-security-groups)
 * [groupMembershipClaims 属性](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
 
 以下示例假定已将用户分配给 AAD 内置*计费管理员*角色。
 
-AAD 发送`groups`的单个声明会将用户的组和角色显示为 JSON 数组中的对象 Id （guid）。 应用必须将组和角色的 JSON 数组转换为应用可`group`针对其生成[策略](xref:security/authorization/policies)的单个声明。
+AAD 发送的单个声明会将 `groups` 用户的组和角色显示为 JSON 数组中的对象 id （guid）。 应用必须将组和角色的 JSON 数组转换为 `group` 应用可针对其生成[策略](xref:security/authorization/policies)的单个声明。
 
-扩展`RemoteUserAccount`以包括组和角色的数组属性。
+扩展 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> 以包括组和角色的数组属性。
 
 *CustomUserAccount.cs*：
 
@@ -73,7 +69,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-在托管解决方案的独立应用程序或客户端应用程序中创建自定义用户工厂。 以下工厂还配置为处理`roles`声明数组，这些声明数组包含在[用户定义的角色](#user-defined-roles)部分中：
+在托管解决方案的独立应用程序或客户端应用程序中创建自定义用户工厂。 以下工厂还配置为处理 `roles` 声明数组，这些声明数组包含在[用户定义的角色](#user-defined-roles)部分中：
 
 ```csharp
 using System.Security.Claims;
@@ -117,9 +113,9 @@ public class CustomUserFactory
 }
 ```
 
-不需要提供删除原始`groups`声明的代码，因为框架会自动删除它。
+不需要提供删除原始声明的代码， `groups` 因为框架会自动删除它。
 
-注册托管解决方案的`Program.Main`独立应用或客户端应用的工厂（*Program.cs*）：
+注册 `Program.Main` 托管解决方案的独立应用或客户端应用的工厂（*Program.cs*）：
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -135,7 +131,7 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
     CustomUserFactory>();
 ```
 
-为中[policy](xref:security/authorization/policies) `Program.Main`的每个组或角色创建一个策略。 以下示例为 AAD 内置*计费管理员*角色创建策略：
+为中的每个组或角色创建一个[策略](xref:security/authorization/policies) `Program.Main` 。 以下示例为 AAD 内置*计费管理员*角色创建策略：
 
 ```csharp
 builder.Services.AddAuthorizationCore(options =>
@@ -168,7 +164,7 @@ builder.Services.AddAuthorizationCore(options =>
 </AuthorizeView>
 ```
 
-可以使用 " [ `[Authorize]`属性指令](xref:security/blazor/index#authorize-attribute)" 指令基于策略来访问整个组件：
+可以使用 [ `[Authorize]` ] attribute 指令] （x： security/blazor/index # 授权-attribute）（ <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ）：
 
 ```razor
 @page "/"
@@ -220,7 +216,7 @@ builder.Services.AddAuthorizationCore(options =>
 
 还可以将 AAD 注册的应用配置为使用用户定义的角色。
 
-若要在 Azure 门户中配置应用以提供`roles`成员身份声明，请参阅[如何：在应用程序中添加应用程序角色和在 Azure 文档中的令牌中接收这些角色](/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)。
+若要在 Azure 门户中配置应用以提供 `roles` 成员身份声明，请参阅[如何：在应用程序中添加应用程序角色和在 Azure 文档中的令牌中接收这些角色](/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)。
 
 下面的示例假定应用程序配置了两个角色：
 
@@ -228,15 +224,15 @@ builder.Services.AddAuthorizationCore(options =>
 * `developer`
 
 > [!NOTE]
-> 尽管不能将角色分配给没有 Azure AD Premium 帐户的安全组，但你可以将用户分配到角色`roles` ，并接收具有标准 Azure 帐户的用户的声明。 本部分中的指导不需要 Azure AD Premium 帐户。
+> 尽管不能将角色分配给没有 Azure AD Premium 帐户的安全组，但你可以将用户分配到角色，并接收 `roles` 具有标准 Azure 帐户的用户的声明。 本部分中的指导不需要 Azure AD Premium 帐户。
 >
 > 通过为每个附加角色分配**_重新添加用户_**，在 Azure 门户中分配多个角色。
 
-AAD 发送`roles`的单个声明会将用户定义的角色显示为`appRoles` `value`JSON 数组中的。 应用必须将角色的 JSON 数组转换为单独`role`的声明。
+`roles`AAD 发送的单个声明会将用户定义的角色显示为 `appRoles` `value` JSON 数组中的。 应用必须将角色的 JSON 数组转换为单独 `role` 的声明。
 
-[用户定义组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中显示的`roles` `CustomUserFactory`设置为对具有 JSON 数组值的声明执行操作。 `CustomUserFactory`在托管解决方案的独立应用或客户端应用中添加和注册，如[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中所示。 不需要提供删除原始`roles`声明的代码，因为框架会自动删除它。
+`CustomUserFactory`[用户定义组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中显示的设置为对 `roles` 具有 JSON 数组值的声明执行操作。 `CustomUserFactory`在托管解决方案的独立应用或客户端应用中添加和注册，如[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分中所示。 不需要提供删除原始声明的代码， `roles` 因为框架会自动删除它。
 
-在`Program.Main`托管解决方案的独立应用程序或客户端应用程序中，将名为 "`role`" 的声明指定为角色声明：
+在 `Program.Main` 托管解决方案的独立应用程序或客户端应用程序中，将名为 "" 的声明指定 `role` 为角色声明：
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -247,11 +243,11 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-此时，组件授权方法会起作用。 组件中的任何授权机制都可以使用`admin`角色来授权用户：
+此时，组件授权方法会起作用。 组件中的任何授权机制都可以使用 `admin` 角色来授权用户：
 
-* [AuthorizeView 组件](xref:security/blazor/index#authorizeview-component)（示例： `<AuthorizeView Roles="admin">`）
-* attribute 指令（示例： `@attribute [Authorize(Roles = "admin")]`） [ `[Authorize]` ](xref:security/blazor/index#authorize-attribute)
-* [过程逻辑](xref:security/blazor/index#procedural-logic)（示例： `if (user.IsInRole("admin")) { ... }`）
+* [AuthorizeView 组件](xref:security/blazor/index#authorizeview-component)（示例： `<AuthorizeView Roles="admin">` ）
+* [ `[Authorize]` ] 特性指令]（x： security/blazor/index # 授权-attribute）（ <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ）（示例： `@attribute [Authorize(Roles = "admin")]` ）
+* [过程逻辑](xref:security/blazor/index#procedural-logic)（示例： `if (user.IsInRole("admin")) { ... }` ）
 
   支持多个角色测试：
 
@@ -264,7 +260,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="aad-adminstrative-role-group-ids"></a>AAD 管理角色组 Id
 
-下表中提供的对象 Id 用于创建`group`声明[策略](xref:security/authorization/policies)。 策略允许应用向用户授权应用中的各种活动。 有关详细信息，请参阅[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分。
+下表中提供的对象 Id 用于创建声明[策略](xref:security/authorization/policies) `group` 。 策略允许应用向用户授权应用中的各种活动。 有关详细信息，请参阅[用户定义的组和 AAD 内置管理角色](#user-defined-groups-and-built-in-administrative-roles)部分。
 
 AAD 管理角色 | 对象 ID
 --- | ---
@@ -277,7 +273,7 @@ B2C IEF 键集管理员 | 0c2e87e5-94f9-4adb-ae8c-bcafe11bd368
 B2C IEF 策略管理员 | bfcab36c-10c6-4b13-b63c-4d8b62c0c44e
 B2C 用户流管理员 | baa531b7-8cf0-44ad-8f98-eded88dae827
 B2C 用户流属性管理员 | dd0baca0-a535-48c1-b871-8431abe16452
-计费管理员 | 69ff516a-b57d-4697-a429-9de4af7b5609
+帐务管理员 | 69ff516a-b57d-4697-a429-9de4af7b5609
 云应用程序管理员 | 250b5fe3-b553-458d-9a53-b782c13c34bf
 云设备管理员 | 26cd4b44-2636-4ddb-bdfa-27feae66f86d
 法规管理员 | 9d6e1dd0-c9f8-45f8-b558-b134f700116c
@@ -288,7 +284,7 @@ B2C 用户流属性管理员 | dd0baca0-a535-48c1-b871-8431abe16452
 目录读者 | e1fc84a6-7762-4b9b-8e29-518b4adbc23b
 Dynamics 365 管理员 | f20a9cfa-9fdf-49a8-a977-1afe446a1d6e
 Exchange 管理员 | b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652
-外部Identity提供商管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
+外部 Identity 提供商管理员 | febfaeb4-e478-407a-b4b3-f4d9716618a2
 全局管理员 | a45ba61b-44db-462c-924b-3b2719152588
 全局读取者 | f6903b21-6aba-4124-b44c-76671796b9d5
 组管理员 | 158b3e5a-d89d-460b-92b5-3b34985f0197

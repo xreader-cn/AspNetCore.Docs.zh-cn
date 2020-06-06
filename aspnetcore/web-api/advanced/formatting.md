@@ -1,12 +1,23 @@
 ---
-标题： ASP.NET Core Web API 作者： ardalis 说明中的格式响应数据：了解如何在 ASP.NET Core Web API 中设置响应数据的格式。
-ms-chap： riande： H1Hack27Feb2017 毫秒。日期：04/17/2020 非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： web api/高级/格式
-
+title: 设置 ASP.NET Core Web API 中响应数据的格式
+author: ardalis
+description: 了解如何设置 ASP.NET Core Web API 中响应数据的格式。
+ms.author: riande
+ms.custom: H1Hack27Feb2017
+ms.date: 04/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: web-api/advanced/formatting
+ms.openlocfilehash: 865b2e58b38c16a54815ce0923a78ac98f2247f1
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84355365"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -20,7 +31,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 
 一些操作结果类型特定于特殊格式，例如 <xref:Microsoft.AspNetCore.Mvc.JsonResult> 和 <xref:Microsoft.AspNetCore.Mvc.ContentResult>。 操作可以返回使用特定格式设置格式的结果，而不考虑客户端首选项。 例如，返回 `JsonResult`，将返回 JSON 格式的数据。 返回 `ContentResult` 或字符串，将返回纯文本格式的字符串数据。
 
-无需操作返回任意特定类型。 ASP.NET Core 支持任何对象返回值。  返回非 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 类型对象的操作结果将使用相应的 <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> 实现来进行序列化。 有关详细信息，请参阅 <xref:web-api/action-return-types> 。
+无需操作返回任意特定类型。 ASP.NET Core 支持任何对象返回值。  返回非 <xref:Microsoft.AspNetCore.Mvc.IActionResult> 类型对象的操作结果将使用相应的 <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> 实现来进行序列化。 有关详细信息，请参阅 <xref:web-api/action-return-types>。
 
 内置的帮助程序方法 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> 返回 JSON 格式的数据：[!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
 

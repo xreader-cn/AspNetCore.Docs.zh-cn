@@ -2,17 +2,21 @@
 
 在服务器应用需要时设置用户标识符声明类型：
 
-* <xref:Microsoft.AspNetCore.Identity.UserManager%601>或<xref:Microsoft.AspNetCore.Identity.SignInManager%601>在 API 终结点中。
+* <xref:Microsoft.AspNetCore.Identity.UserManager%601>或 <xref:Microsoft.AspNetCore.Identity.SignInManager%601> 在 API 终结点中。
 * <xref:Microsoft.AspNetCore.Identity.IdentityUser>详细信息，如用户的姓名、电子邮件地址或锁定结束时间。
 
 在 `Startup.ConfigureServices`中：
 
 ```csharp
+using System.Security.Claims;
+
+...
+
 services.Configure<IdentityOptions>(options => 
     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 ```
 
-调用`Get`方法`WeatherForecastController` <xref:Microsoft.AspNetCore.Identity.IdentityUser%601.UserName>时，以下记录：
+`WeatherForecastController` <xref:Microsoft.AspNetCore.Identity.IdentityUser%601.UserName> 调用方法时，以下记录 `Get` ：
 
 ```csharp
 using System;
@@ -33,7 +37,7 @@ namespace {APP NAMESPACE}.Server.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         private static readonly string[] Summaries = new[]
         {
@@ -47,7 +51,7 @@ namespace {APP NAMESPACE}.Server.Controllers
             UserManager<ApplicationUser> userManager)
         {
             this.logger = logger;
-            _userManager = userManager;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -55,7 +59,7 @@ namespace {APP NAMESPACE}.Server.Controllers
         {
             var rng = new Random();
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
 
             if (user != null)
             {

@@ -1,11 +1,24 @@
 ---
-标题： "使用 Azure Active Directory B2C 的 Secure a ASP.NET Core Blazor WebAssembly 托管应用" author： guardrex 说明： monikerRange： ">= aspnetcore-3.1" ms. author： riande 毫秒。自定义： mvc ms. 日期：05/19/2020 无位置：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- " SignalR " uid： security/blazor/webassembly/托管-azure-active directory-b2c
-
+title: Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 托管应用
+author: guardrex
+description: ''
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+ms.openlocfilehash: b369bf0e9b20bcb87345e3e10c314ae6227464d1
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84215091"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 托管应用
 
@@ -93,7 +106,7 @@
 
 记录为应用创建的注册和登录用户流名称（例如 `B2C_1_signupsignin` ）。
 
-### <a name="create-the-app"></a>创建应用程序
+### <a name="create-the-app"></a>创建应用
 
 将以下命令中的占位符替换为前面记录的信息，然后在命令行界面中执行命令：
 
@@ -235,7 +248,7 @@ public class WeatherForecastController : ControllerBase
 
 添加了对实例的支持 <xref:System.Net.Http.HttpClient> ，其中包括对服务器项目发出请求时的访问令牌。
 
-Program.cs  :
+Program.cs:
 
 ```csharp
 builder.Services.AddHttpClient("{APP ASSEMBLY}.ServerAPI", client => 
@@ -248,7 +261,7 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
 
 使用 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> [Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用程序与 Identity 提供程序（IP）进行交互所需的服务。
 
-Program.cs  :
+Program.cs:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
