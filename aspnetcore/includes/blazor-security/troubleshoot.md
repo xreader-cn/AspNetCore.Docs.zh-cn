@@ -16,8 +16,12 @@ Cookie 和站点数据可跨应用程序更新保持不变，并干扰测试和�
 * 在 Visual Studio 中使用自定义命令以 incognito 或 private 模式打开浏览器：
   * 从 Visual Studio 的 "**运行**" 按钮打开 "**浏览方式**" 对话框。
   * 选择“添加”按钮。
-  * 在 "**程序**" 字段中提供浏览器的路径。
-  * 在 "**参数**" 字段中，提供浏览器用来在 incognito 或专用模式下打开的命令行选项以及应用的 URL。 例如：
+  * 在 "**程序**" 字段中提供浏览器的路径。 以下可执行路径是适用于 Windows 10 的典型安装位置。 如果你的浏览器安装在其他位置，或者你未使用 Windows 10，请提供浏览器可执行文件的路径。
+    * Microsoft Edge：`C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
+    * Google Chrome：`C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
+    * Mozilla Firefox：`C:\Program Files\Mozilla Firefox\firefox.exe`
+  * 在 "**参数**" 字段中，提供浏览器用来在 incognito 或专用模式下打开的命令行选项。 某些浏览器需要应用程序的 URL。
+    * Microsoft Edge：`-inprivate`
     * Google Chrome：`--incognito --new-window https://localhost:5001`
     * Mozilla Firefox：`-private -url https://localhost:5001`
   * 在 "**友好名称**" 字段中提供名称。 例如，`Firefox Auth Testing`。
