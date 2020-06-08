@@ -1,21 +1,21 @@
 ### YamlMime:Hub
-title: ASP.NET 文档
+title: ASP.NET Core 文档
 summary: 了解如何使用 ASP.NET Core 创建快速、安全、跨平台和基于云的 Web 应用和服务。 浏览教程、示例代码、基础知识、API 参考和更多内容。
 brand: aspnet
 metadata:
-  title: ASP.NET 文档
+  title: ASP.NET Core 文档
   description: 了解如何使用 ASP.NET Core 创建快速、安全、跨平台和基于云的 Web 应用和服务。 浏览教程、示例代码、基础知识、API 参考和更多内容。
   ms.product: aspnet
   ms.topic: hub-page
   author: WadePickett
   ms.author: wpickett
-  ms.date: 05/01/2020
-  ms.openlocfilehash: 2d653ab5ca78fb856098fb5f250a235e3f2635d0
-  ms.sourcegitcommit: c19e388c83c981232e6f128d97440262adfe06e2
+  ms.date: 06/03/2020
+  ms.openlocfilehash: fb4b31258683c5928708e7a2a479f353972c010b
+  ms.sourcegitcommit: 829dca1d5a7dcccbfe90644101c6be1d1c94ac62
   ms.translationtype: HT
   ms.contentlocale: zh-CN
-  ms.lasthandoff: 05/02/2020
-  ms.locfileid: "82727706"
+  ms.lasthandoff: 06/04/2020
+  ms.locfileid: "84355423"
 highlightedContent:
   items:
   - title: 5 分钟内即可在任意平台上创建 ASP.NET Core 应用
@@ -39,12 +39,12 @@ highlightedContent:
   - title: 创建第一个实时 Web 应用
     itemType: get-started
     url: tutorials/signalr.md
-  - title: 创建第一个数据驱动的 MVC Web 应用
-    itemType: get-started
-    url: tutorials/first-mvc-app//start-mvc.md
+  - title: ASP.NET 4.x 文档
+    itemType: overview
+    url: https://docs.microsoft.com/aspnet/overview
 conceptualContent:
   title: 开发 ASP.NET Core 应用
-  summary: 选择交互式 Web 应用、Web API、MVC 模式的应用、实时应用等更多内容
+  summary: 选择交互式 Web 应用、Web API、MVC 模式的应用、实时应用等更多内容。 有关 ASP.NET 4.x 文档，请参阅 [ASP.NET](https://docs.microsoft.com/aspnet/overview)。
   items:
   - title: 交互式客户端 Blazor 应用
     summary: 使用可重用的 UI 组件进行开发，这些组件可以利用 WebAssembly 获得近乎本机的性能
@@ -306,7 +306,7 @@ additionalContent:
     - title: Azure 和 ASP.NET Core
       links:
       - url: https://docs.microsoft.com/azure/app-service/app-service-web-get-started-dotnet
-        text: 部署 ASP.NET Web 应用
+        text: 部署 ASP.NET Core web 应用
       - url: https://docs.microsoft.com/visualstudio/containers/container-tools?view=vs-2019.md
         text: ASP.NET Core 和 Docker
       - url: https://docs.microsoft.com/learn/modules/host-a-web-app-with-azure-app-service/
@@ -314,7 +314,7 @@ additionalContent:
       - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase
         text: 应用服务和 Azure SQL 数据库
       - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-connect-msi
-        text: 具有 ASP.NET 和 Azure SQL 数据库的托管标识
+        text: 具有 ASP.NET Core 和 Azure SQL 数据库的托管标识
       - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-rest-api
         text: Azure 应用服务中启用了 CORS 的 Web API
       - url: https://docs.microsoft.com/learn/modules/capture-application-logs-app-service/
@@ -373,4 +373,4 @@ additionalContent:
         text: 常用客户端 Web 技术
       - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/development-process-for-azure
         text: Azure 的开发过程
-  footer: 参与 ASP.NET 文档的编写。请参阅我们的[参与者指南](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md)。
+  footer: 参与 ASP.NET Core 文档。请参阅我们的[参与者指南](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md)。
