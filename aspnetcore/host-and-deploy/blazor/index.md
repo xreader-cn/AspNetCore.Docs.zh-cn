@@ -5,7 +5,7 @@ description: 了解如何托管和部署 Blazor 应用。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/30/2020
+ms.date: 05/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,18 +13,16 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 9d57b81cd813d02a65b6d3a39c7f1a1aa8a069c7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 482b066d347c2c572b0ffb78ccab1ac391195823
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775162"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452234"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>托管和部署 ASP.NET Core Blazor
 
 作者：[Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com) 和 [Daniel Roth](https://github.com/danroth27)
-
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 ## <a name="publish-the-app"></a>发布应用
 
@@ -32,14 +30,14 @@ ms.locfileid: "82775162"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 从导航栏中选择“生成”   > “发布{应用程序}”  。
-1. 选择“发布目标”  。 若要在本地发布，请选择“文件夹”  。
-1. 接受“选择文件夹”  字段中的默认位置，或指定其他位置。 选择“发布”  按钮。
+1. 从导航栏中选择“生成” > “发布{应用程序}”。
+1. 选择“发布目标”。 若要在本地发布，请选择“文件夹”。
+1. 接受“选择文件夹”字段中的默认位置，或指定其他位置。 选择“发布”按钮。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. 选择“生成” > “发布到文件夹”   。
-1. 确认用于接收发布的资产的文件夹，并选择“发布”  。
+1. 选择“生成” > “发布到文件夹” 。
+1. 确认用于接收发布的资产的文件夹，并选择“发布”。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -56,26 +54,26 @@ dotnet publish -c Release
 发布位置：
 
 * Blazor WebAssembly
-  * 独立 &ndash; 应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot  文件夹。 若要将应用部署为静态站点，请将 wwwroot 文件夹的内容复制到静态站点主机  。
-  * 托管 &ndash; 客户端 Blazor WebAssembly 应用将发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹，以及服务器应用的任何其他静态 Web 资产  。 将 publish 文件夹的内容部署到主机  。
-* Blazor 服务器 &ndash; 应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish 文件夹  。 将 publish 文件夹的内容部署到主机  。
+  * 独立：该将发布到 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹中 */* 。 若要将应用部署为静态站点，请将 wwwroot 文件夹的内容复制到静态站点主机。
+  * 托管：客户端 Blazor WebAssembly 应用将与服务器应用的任何其他静态 Web 资产一起发布到服务器应用的 /bin/Release/{TARGET FRAMEWORK}/publish/wwwroot 文件夹。 将 publish 文件夹的内容部署到主机。
+* Blazor 服务器：该应用将发布到 /bin/Release/{TARGET FRAMEWORK}/publish 文件夹中。 将 publish 文件夹的内容部署到主机。
 
 文件夹中的资产将部署到 Web 服务器。 部署可能是手动或自动化过程，具体取决于使用的开发工具。
 
 ## <a name="app-base-path"></a>应用基路径
 
-应用基路径是应用的根 URL 路径。  请考虑使用下列 ASP.NET Core 应用和 Blazor 子应用：
+应用基路径是应用的根 URL 路径。 请考虑使用下列 ASP.NET Core 应用和 Blazor 子应用：
 
 * ASP.NET Core 应用名为 `MyApp`：
-  * 该应用实际驻留在 d:/MyApp 中  。
+  * 该应用实际驻留在 d:/MyApp 中。
   * 在 `https://www.contoso.com/{MYAPP RESOURCE}` 收到请求。
 * 名为 `CoolApp` 的 Blazor 应用是 `MyApp` 的子应用：
-  * 子应用实际驻留在 d:/MyApp/CoolApp 中  。
+  * 子应用实际驻留在 d:/MyApp/CoolApp 中。
   * 在 `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}` 收到请求。
 
 如果不为 `CoolApp` 指定其他配置，此方案中的子应用将不知道其在服务器上的位置。 例如，不知道它驻留在相对 URL 路径 `/CoolApp/` 上，应用就无法构造其资源的正确相对 URL。
 
-要为 Blazor 应用的基路径 `https://www.contoso.com/CoolApp/` 提供配置，请将 `<base>` 标记的 `href` 属性设置为 Pages/_Host.cshtml 文件（Blazor 服务器）或 wwwroot/index.html 文件 (Blazor WebAssembly) 中的相对根路径   ：
+要为 Blazor 应用的基路径 `https://www.contoso.com/CoolApp/` 提供配置，请将 `<base>` 标记的 `href` 属性设置为 Pages/_Host.cshtml 文件（Blazor 服务器）或 wwwroot/index.html 文件 (Blazor WebAssembly) 中的相对根路径 ：
 
 ```html
 <base href="/CoolApp/">
@@ -91,9 +89,9 @@ app.UsePathBase("/CoolApp");
 
 在许多托管方案中，应用的相对 URL 路径为应用的根目录。 在这些情况下，应用的相对 URL 基路径为正斜杠 (`<base href="/" />`)，它是 Blazor 应用的默认配置。 在其他托管方案中（例如 GitHub 页和 IIS 子应用），应用基路径必须设置为应用的服务器相对 URL 路径。
 
-要设置应用的基路径，请更新 Pages/_Host.cshtml 文件（Blazor 服务器）或 wwwroot/index.html 文件 (Blazor WebAssembly) 的 `<head>` 标记元素中的 `<base>` 标记   。 将 `href` 属性值设置为 `/{RELATIVE URL PATH}/`（需要尾部反斜杠），其中 `{RELATIVE URL PATH}` 是应用完整相对 URL 路径。
+要设置应用的基路径，请更新 Pages/_Host.cshtml 文件（Blazor 服务器）或 wwwroot/index.html 文件 (Blazor WebAssembly) 的 `<head>` 标记元素中的 `<base>` 标记 。 将 `href` 属性值设置为 `/{RELATIVE URL PATH}/`（需要尾部反斜杠），其中 `{RELATIVE URL PATH}` 是应用完整相对 URL 路径。
 
-对于具有非根相对 URL 路径的 Blazor WebAssembly 应用（例如 `<base href="/CoolApp/">`），应用在本地运行时无法查找其资源  。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值  。 不要包含尾部反斜杠。 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
+对于具有非根相对 URL 路径的 Blazor WebAssembly 应用（例如 `<base href="/CoolApp/">`），应用在本地运行时无法查找其资源。 要在本地开发和测试过程中解决此问题，可提供 path base 参数，用于匹配运行时 `<base>` 标记的 `href` 值。 不要包含尾部反斜杠。 在本地运行应用时，若要传递路径基础参数，请使用 `--pathbase` 选项从应用的目录执行 `dotnet run` 命令：
 
 ```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}

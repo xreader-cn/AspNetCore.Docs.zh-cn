@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: 74affbb7d18d80e2e55714df100d820aed2ce427
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 9d57fcd5883a869c5421b88321d4a279f3f938c9
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776176"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452143"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core 中的 Web 服务器实现
 
@@ -36,7 +36,7 @@ Kestrel 是 ASP.NET Core 项目模板指定的默认 Web 服务器。
 
   ![Kestrel 直接与 Internet 通信，不使用反向代理服务器](kestrel/_static/kestrel-to-internet2.png)
 
-* 与反向代理服务器  （如 [Internet Information Services (IIS)](https://www.iis.net/)、[Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/)）结合使用。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
+* 与反向代理服务器（如 [Internet Information Services (IIS)](https://www.iis.net/)、[Nginx](https://nginx.org) 或 [Apache](https://httpd.apache.org/)）结合使用。 反向代理服务器接收来自 Internet 的 HTTP 请求，并将这些请求转发到 Kestrel。
 
   ![Kestrel 通过反向代理服务器（如 IIS、Nginx 或 Apache）间接与 Internet 进行通信](kestrel/_static/kestrel-to-internet.png)
 
@@ -56,7 +56,7 @@ ASP.NET Core 随附以下组件：
 
 使用 [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 时，应用会在以下其中一个进程中运行：
 
-* 在使用 IIS HTTP 服务器的 IIS 工作进程（[进程内托管模型](#hosting-models)）相同的进程中。 “进程内”  建议的配置。
+* 在使用 IIS HTTP 服务器的 IIS 工作进程（[进程内托管模型](#hosting-models)）相同的进程中。 “进程内”建议的配置。
 * 在独立于 IIS 工作进程（[进程外托管模型](#hosting-models)）和 [Kestrel 服务器](#kestrel)的进程中。
 
 [ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)是本机 IIS 模块，用于处理 IIS 和进程内 IIS HTTP 服务器或 Kestrel 之间的本机 IIS 请求。 有关详细信息，请参阅 <xref:host-and-deploy/aspnet-core-module>。
@@ -93,7 +93,7 @@ ASP.NET Core 随附以下组件：
 * [Kestrel 服务器](xref:fundamentals/servers/kestrel)是默认跨平台 HTTP 服务器。
 * [HTTP.sys 服务器](xref:fundamentals/servers/httpsys)是仅用于 Windows 的 HTTP 服务器，它基于 [HTTP.sys 核心驱动程序和 HTTP 服务器 API](/windows/desktop/Http/http-api-start-page)。
 
-使用 [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 时，应用在独立于 IIS 工作进程（进程外）  和 [Kestrel 服务器](#kestrel)的进程中运行。
+使用 [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) 或 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 时，应用在独立于 IIS 工作进程（进程外）和 [Kestrel 服务器](#kestrel)的进程中运行。
 
 由于 ASP.NET Core 应用在独立于 IIS 工作进程的进程中运行，因此该模块会处理进程管理。 该模块在第一个请求到达时启动 ASP.NET Core 应用的进程，并在应用关闭或崩溃时重新启动该应用。 这基本上与在 [Windows 进程激活服务 (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was) 托管的进程内运行的应用中出现的行为相同。
 
@@ -158,13 +158,13 @@ ASP.NET Core 随附 [Kestrel 服务器](xref:fundamentals/servers/kestrel)，这
 
 集成开发环境 (IDE) 或编辑器启动以下应用时，会启动服务器：
 
-* [Visual Studio](https://visualstudio.microsoft.com) &ndash; 可使用启动配置文件通过 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)或控制台来启动应用和服务器。
-* [Visual Studio Code](https://code.visualstudio.com/) &ndash; 由[Omnisharp](https://github.com/OmniSharp/omnisharp-vscode) 通过激活 CoreCLR 调试程序来启动应用和服务器。
-* [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) &ndash; 由 [Mono Soft-Mode Debugger](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/) 启动应用和服务器。
+* [Visual Studio](https://visualstudio.microsoft.com)：可使用启动配置文件通过 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[ASP.NET Core 模块](xref:host-and-deploy/aspnet-core-module)或控制台来启动应用和服务器。
+* [Visual Studio Code](https://code.visualstudio.com/)：由 [Omnisharp](https://github.com/OmniSharp/omnisharp-vscode) 通过激活 CoreCLR 调试程序来启动应用和服务器。
+* [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)：由 [Mono Soft-Mode Debugger](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/) 启动应用和服务器。
 
 从项目文件夹中的命令提示符启动应用时，[dotnet run](/dotnet/core/tools/dotnet-run) 会启动该应用和服务器（仅 Kestrel 和 HTTP.sys）。 可通过 `-c|--configuration` 选项指定此配置，该选项设置为 `Debug`（默认值）或 `Release`。
 
-使用 `dotnet run` 或使用工具中内置的调试程序（如 Visual Studio）启动应用时，launchSettings.json 文件会提供配置  。 如果启动配置文件位于 launchSettings.json 文件中，请结合使用 `--launch-profile {PROFILE NAME}` 选项和 `dotnet run` 命令或在 Visual Studio 中选择配置文件  。 有关详细信息，请参阅 [dotnet run](/dotnet/core/tools/dotnet-run) 和 [.NET Core 分发打包](/dotnet/core/build/distribution-packaging)。
+使用 `dotnet run` 或使用工具中内置的调试程序（如 Visual Studio）启动应用时，launchSettings.json 文件会提供配置。 如果启动配置文件位于 launchSettings.json 文件中，请结合使用 `--launch-profile {PROFILE NAME}` 选项和 `dotnet run` 命令或在 Visual Studio 中选择配置文件。 有关详细信息，请参阅 [dotnet run](/dotnet/core/tools/dotnet-run) 和 [.NET Core 分发打包](/dotnet/core/build/distribution-packaging)。
 
 ## <a name="http2-support"></a>HTTP/2 支持
 
