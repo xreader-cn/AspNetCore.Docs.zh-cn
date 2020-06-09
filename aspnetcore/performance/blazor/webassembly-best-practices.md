@@ -1,12 +1,24 @@
 ---
-标题： "ASP.NET Core Blazor WebAssembly 性能最佳做法作者：说明：在 ASP.NET Core WebAssembly 应用中提高性能 Blazor 并避免常见性能问题的提示。"
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Blazor WebAssembly 性能最佳做法
+author: pranavkm
+description: 提高 ASP.NET Core Blazor WebAssembly 应用程序的性能并避免出现常见性能问题的提示。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: performance/blazor/webassembly-best-practices
+ms.openlocfilehash: 950d87a6f09e998e47e96c93c5d68bb3f19ddafb
+ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84529627"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>ASP.NET Core Blazor WebAssembly 性能最佳做法
 
@@ -131,6 +143,12 @@ BlazorWebAssembly 提供了 <xref:Microsoft.JSInterop.IJSRuntime> 可用于服�
 ```dotnetcli
 dotnet publish -c Release
 ```
+
+### <a name="compression"></a>压缩
+
+Blazor发布 WebAssembly 应用后，会在发布过程中静态压缩输出，以减少应用的大小并消除运行时压缩的开销。 Blazor依赖于服务器来执行内容 negotation 并提供静态压缩的文件。
+
+部署应用后，验证应用是否提供压缩的文件。 检查浏览器的开发人员工具中的 "网络" 选项卡，并验证文件是否与或一起提供 `Content-Encoding: br` `Content-Encoding: gz` 。 如果主机未提供压缩的文件，请按照中的说明进行操作 <xref:host-and-deploy/blazor/webassembly#compression> 。
 
 ### <a name="disable-unused-features"></a>禁用未使用的功能
 
