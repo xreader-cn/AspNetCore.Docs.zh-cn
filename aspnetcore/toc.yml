@@ -75,7 +75,7 @@
               uid: tutorials/first-mvc-app/new-field
             - name: 添加验证
               uid: tutorials/first-mvc-app/validation
-            - name: 检查 Details 和 Delete 方法
+            - name: 检查详细信息和删除
               uid: tutorials/first-mvc-app/details
         - name: Blazor
           displayName: tutorial
