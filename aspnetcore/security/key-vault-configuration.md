@@ -1,11 +1,24 @@
 ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core 中的 Azure Key Vault 配置提供程序
+author: rick-anderson
+description: 了解如何使用 Azure Key Vault 配置提供程序通过在运行时加载的名称/值对来配置应用。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/key-vault-configuration
+ms.openlocfilehash: 4a5689af9ffea175838a869e92752de889cbb227
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106671"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core 中的 Azure Key Vault 配置提供程序
 
@@ -20,7 +33,7 @@
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="packages"></a>包
+## <a name="packages"></a>package
 
 将包引用添加到[AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
@@ -68,7 +81,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. 使用[Azure 门户](https://portal.azure.com/)中的以下方法之一打开 Azure Cloud shell：
 
-   * 选择代码块右上角的“试用”。  在文本框中使用搜索字符串 "Azure CLI"。
+   * 选择代码块右上角的“试用”。 在文本框中使用搜索字符串 "Azure CLI"。
    * 在浏览器中打开 Cloud Shell，并提供 "**启动 Cloud Shell** " 按钮。
    * 选择 Azure 门户右上角菜单中的 " **Cloud Shell** " 按钮。
 
@@ -119,8 +132,8 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings*文件中。
 1. 导航到 Azure 门户中的**密钥保管库**。
 1. 选择在[生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault)创建的密钥保管库，其中 Azure Key Vault "部分。
-1. 选择 "**访问策略**"。
-1. 选择 "**添加访问策略**"。
+1. 选择“访问策略”。
+1. 选择“添加访问策略”。
 1. 打开**机密权限**，并为应用提供**Get**和**List**权限。
 1. 选择 "**选择主体**"，并按名称选择注册的应用。 选择“选择”按钮  。
 1. 选择“确定”  。
@@ -144,7 +157,7 @@ X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configura
 * 应用程序 ID：`627e911e-43cc-61d4-992e-12db9c81b413`
 * 证书指纹：`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-appsettings.json  ：
+appsettings.json：
 
 [!code-json[](key-vault-configuration/samples/3.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -180,7 +193,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 Key vault 名称示例值：`contosovault`
     
-appsettings.json  ：
+appsettings.json：
 
 ```json
 {
@@ -206,79 +219,12 @@ config.AddAzureKeyVault(
     });
 ```
 
-| 属性         | 说明 |
-| ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--------- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | |`Client`         | <xref:Microsoft.Azure.KeyVault.KeyVaultClient>用于检索值。 | |`Manager`        | <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager>用于控制机密加载的实例。 | |`ReloadInterval` | `Timespan`如果为，则在轮询密钥保管库以进行更改之间等待。 默认值为 `null` （配置不重新加载）。 | |`Vault`          |密钥保管库 URI。 |
+| properties         | 描述 |
+| ---------------- | ----------- |
+| `Client`         | <xref:Microsoft.Azure.KeyVault.KeyVaultClient>用于检索值。 |
+| `Manager`        | <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager>用于控制机密加载的实例。 |
+| `ReloadInterval` | `Timespan`如果为，则在轮询密钥保管库以进行更改之间等待。 默认值为 `null` （配置不重新加载）。 |
+| `Vault`          | 密钥保管库 URI。 |
 
 ## <a name="use-a-key-name-prefix"></a>使用密钥名称前缀
 
@@ -378,7 +324,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 使用双短划线（ `--` ）表示法和数值段在 Azure Key Vault 中存储前面的 JSON 文件中所示的配置：
 
-| 密钥 | 值 |
+| 键 | “值” |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -417,7 +363,7 @@ Configuration.Reload();
 * <xref:fundamentals/configuration/index>
 * [Microsoft Azure： Key Vault](https://azure.microsoft.com/services/key-vault/)
 * [Microsoft Azure： Key Vault 文档](/azure/key-vault/)
-* [如何为 Azure 密钥保管库生成和传输受 HSM 保护的密钥](/azure/key-vault/key-vault-hsm-protected-keys)
+* [如何为 Azure Key Vault 生成和传输受 HSM 保护的密钥](/azure/key-vault/key-vault-hsm-protected-keys)
 * [KeyVaultClient 类](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
 * [快速入门：使用 .NET Web 应用在 Azure Key Vault 中设置和检索机密](/azure/key-vault/quick-create-net)
 * [教程：如何将 Azure Key Vault 与通过 .NET 编写的 Azure Windows 虚拟机配合使用](/azure/key-vault/tutorial-net-windows-virtual-machine)
@@ -433,7 +379,7 @@ Configuration.Reload();
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="packages"></a>包
+## <a name="packages"></a>package
 
 将包引用添加到[AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)包。
 
@@ -481,7 +427,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. 使用[Azure 门户](https://portal.azure.com/)中的以下方法之一打开 Azure Cloud shell：
 
-   * 选择代码块右上角的“试用”。  在文本框中使用搜索字符串 "Azure CLI"。
+   * 选择代码块右上角的“试用”。 在文本框中使用搜索字符串 "Azure CLI"。
    * 在浏览器中打开 Cloud Shell，并提供 "**启动 Cloud Shell** " 按钮。
    * 选择 Azure 门户右上角菜单中的 " **Cloud Shell** " 按钮。
 
@@ -532,8 +478,8 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 将密钥保管库名称、应用程序 ID 和证书指纹存储在应用的*appsettings*文件中。
 1. 导航到 Azure 门户中的**密钥保管库**。
 1. 选择在[生产环境中的机密存储中](#secret-storage-in-the-production-environment-with-azure-key-vault)创建的密钥保管库，其中 Azure Key Vault "部分。
-1. 选择 "**访问策略**"。
-1. 选择 "**添加访问策略**"。
+1. 选择“访问策略”。
+1. 选择“添加访问策略”。
 1. 打开**机密权限**，并为应用提供**Get**和**List**权限。
 1. 选择 "**选择主体**"，并按名称选择注册的应用。 选择“选择”按钮  。
 1. 选择“确定”  。
@@ -557,7 +503,7 @@ X.509 证书由操作系统管理。 应用 <xref:Microsoft.Extensions.Configura
 * 应用程序 ID：`627e911e-43cc-61d4-992e-12db9c81b413`
 * 证书指纹：`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-appsettings.json  ：
+appsettings.json：
 
 [!code-json[](key-vault-configuration/samples/2.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -593,7 +539,7 @@ az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-
 
 Key vault 名称示例值：`contosovault`
     
-appsettings.json  ：
+appsettings.json：
 
 ```json
 {
@@ -705,7 +651,7 @@ Azure Key Vault 密钥不能使用冒号作为分隔符。 本主题中所述的
 
 使用双短划线（ `--` ）表示法和数值段在 Azure Key Vault 中存储前面的 JSON 文件中所示的配置：
 
-| 密钥 | 值 |
+| 键 | “值” |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -744,7 +690,7 @@ Configuration.Reload();
 * <xref:fundamentals/configuration/index>
 * [Microsoft Azure： Key Vault](https://azure.microsoft.com/services/key-vault/)
 * [Microsoft Azure： Key Vault 文档](/azure/key-vault/)
-* [如何为 Azure 密钥保管库生成和传输受 HSM 保护的密钥](/azure/key-vault/key-vault-hsm-protected-keys)
+* [如何为 Azure Key Vault 生成和传输受 HSM 保护的密钥](/azure/key-vault/key-vault-hsm-protected-keys)
 * [KeyVaultClient 类](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
 * [快速入门：使用 .NET Web 应用在 Azure Key Vault 中设置和检索机密](/azure/key-vault/quick-create-net)
 * [教程：如何将 Azure Key Vault 与通过 .NET 编写的 Azure Windows 虚拟机配合使用](/azure/key-vault/tutorial-net-windows-virtual-machine)

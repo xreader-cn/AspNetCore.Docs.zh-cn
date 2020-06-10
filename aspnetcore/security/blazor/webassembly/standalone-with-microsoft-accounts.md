@@ -1,11 +1,24 @@
 ---
-标题： " Blazor 使用 Microsoft 帐户的 Secure a ASP.NET Core WebAssembly 独立应用作者：说明： monikerRange： ms. 作者： ms. 自定义：毫秒：非位置：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: Blazor使用 Microsoft 帐户保护 ASP.NET Core WebAssembly 独立应用程序
+author: guardrex
+description: ''
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+ms.openlocfilehash: e4c49f899d5988dc42b16c16eb5114613c7204ba
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83852333"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>Blazor使用 Microsoft 帐户保护 ASP.NET Core WebAssembly 独立应用程序
 
@@ -21,7 +34,7 @@
 1. 在 "**支持的帐户类型**" 中，选择**任何组织目录中的帐户**。
 1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的应用程序属性中找到应用程序的随机生成端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 本主题稍后会显示一个批注，以提醒 IIS Express 用户更新重定向 URI。
 1. 禁用 "**将**  >  **管理员以免授予 openid 并 offline_access 权限**" 复选框。
-1. 选择“注册”  。
+1. 选择“注册”。
 
 记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111` ）。
 
@@ -50,7 +63,7 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "commo
 创建应用后，应该能够：
 
 * 使用 Microsoft 帐户登录到应用。
-* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参阅：
+* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参见:
   * [访问令牌范围](#access-token-scopes)
   * [快速入门：将应用程序配置为公开 Web api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)。
 
@@ -71,7 +84,7 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "commo
 
 使用 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> [Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)包提供的扩展方法在服务容器中注册对用户进行身份验证的支持。 此方法设置应用与 Identity 提供程序（IP）交互所需的所有服务。
 
-Program.cs  :
+Program.cs:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

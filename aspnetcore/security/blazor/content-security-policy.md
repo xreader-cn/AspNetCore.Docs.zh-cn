@@ -1,12 +1,24 @@
 ---
-标题： "对 ASP.NET Core 的作者强制实施内容安全策略 Blazor ：说明：" 了解如何结合使用内容安全策略（CSP）与 ASP.NET Core 的 Blazor 应用程序来帮助防范跨站点脚本（XSS）攻击。
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 为 ASP.NET Core 强制实施内容安全策略Blazor
+author: guardrex
+description: 了解如何结合使用内容安全策略（CSP）与 ASP.NET Core 的 Blazor 应用，帮助防范跨站点脚本（XSS）攻击。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/content-security-policy
+ms.openlocfilehash: 8615b199373ca856c252b9f843e3635770367e4a
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106385"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>为 ASP.NET Core 强制实施内容安全策略Blazor
 

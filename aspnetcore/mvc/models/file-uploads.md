@@ -1,11 +1,24 @@
 ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 在 ASP.NET Core 中上传文件
+author: rick-anderson
+description: 如何在 ASP.NET Core MVC 中使用模型绑定和流式处理上传文件。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/03/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: mvc/models/file-uploads
+ms.openlocfilehash: 632cc9fafc5daf2923997f0113adee52491acdcc
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83838313"
 ---
 # <a name="upload-files-in-aspnet-core"></a>在 ASP.NET Core 中上传文件
 
@@ -235,7 +248,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-下面的示例：
+如下示例中：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -707,7 +720,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
+此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求 \<requestLimits> 限制](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 
@@ -964,7 +977,7 @@ ASP.NET Core 支持使用缓冲的模型绑定（针对较小文件）和无缓�
 > [!NOTE]
 > 绑定根据名称匹配窗体文件。 例如，`<input type="file" name="formFile">` 中的 HTML `name` 值必须与 C# 参数/属性绑定 (`FormFile`) 匹配。 有关详细信息，请参阅[使名称属性值与 POST 方法的参数名匹配](#match-name-attribute-value-to-parameter-name-of-post-method)部分。
 
-下面的示例：
+如下示例中：
 
 * 循环访问一个或多个上传的文件。
 * 使用 [Path.GetTempFileName](xref:System.IO.Path.GetTempFileName*) 返回文件的完整路径，包括文件名称。 
@@ -1429,7 +1442,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 </system.webServer>
 ```
 
-此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求限制 \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
+此设置仅适用于 IIS。 在 Kestrel 上托管时，默认情况下不会出现此行为。 有关详细信息，请参阅[请求 \<requestLimits> 限制](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/)。
 
 ASP.NET Core 模块中的限制或 IIS 请求筛选模块的存在可能会将上传限制在 2 或 4 GB。 有关详细信息，请参阅[无法上传大小超出 2 GB 的文件 (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711)。
 

@@ -1,11 +1,23 @@
 ---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 在 ASP.NET Core 中启用跨域请求（CORS）
+author: rick-anderson
+description: 了解如何在 ASP.NET Core 应用中允许或拒绝跨源请求的标准。
+ms.author: riande
+ms.custom: mvc
+ms.date: 04/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/cors
+ms.openlocfilehash: a78aff2d2e16f36ed034e6af110d7ed763271583
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105748"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>在 ASP.NET Core 中启用跨域请求（CORS）
 
@@ -15,7 +27,7 @@
 
 本文介绍如何在 ASP.NET Core 的应用程序中启用 CORS。
 
-浏览器安全性可防止网页向不处理网页的域发送请求。 此限制称为同域策略  。 同域策略可防止恶意站点从另一站点读取敏感数据。 有时，你可能想要允许其他站点对你的应用进行跨域请求。 有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/docs/Web/HTTP/CORS)。
+浏览器安全性可防止网页向不处理网页的域发送请求。 此限制称为同域策略。 同域策略可防止恶意站点从另一站点读取敏感数据。 有时，你可能想要允许其他站点对你的应用进行跨域请求。 有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/docs/Web/HTTP/CORS)。
 
 [跨源资源共享](https://www.w3.org/TR/cors/)（CORS）：
 
@@ -612,7 +624,7 @@ C:\Program Files\Git\mingw64\bin\
 
 本文介绍如何在 ASP.NET Core 的应用程序中启用 CORS。
 
-浏览器安全性可防止网页向不处理网页的域发送请求。 此限制称为同域策略  。 同域策略可防止恶意站点从另一站点读取敏感数据。 有时，你可能想要允许其他站点对你的应用进行跨域请求。 有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/docs/Web/HTTP/CORS)。
+浏览器安全性可防止网页向不处理网页的域发送请求。 此限制称为同域策略。 同域策略可防止恶意站点从另一站点读取敏感数据。 有时，你可能想要允许其他站点对你的应用进行跨域请求。 有关详细信息，请参阅[MOZILLA CORS 一文](https://developer.mozilla.org/docs/Web/HTTP/CORS)。
 
 [跨源资源共享](https://www.w3.org/TR/cors/)（CORS）：
 

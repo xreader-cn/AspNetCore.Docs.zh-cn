@@ -1,12 +1,24 @@
 ---
-标题： "ASP.NET Core Blazor 服务器其他安全方案作者：说明：" 了解如何 Blazor 为其他安全方案配置服务器。 "
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Blazor Server 其他安全方案
+author: guardrex
+description: 了解如何 Blazor 为其他安全方案配置服务器。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/server/additional-scenarios
+ms.openlocfilehash: f172df7f2333fd79ba175ec8a3a6925ec07f1113
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83851520"
 ---
 # <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server 其他安全方案
 

@@ -1,12 +1,24 @@
 ---
-标题： "ASP.NET Core 服务器的威胁缓解指导 Blazor " 作者：说明： "了解如何缓解对服务器应用的安全威胁 Blazor "。
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Server 的威胁缓解指南 Blazor
+author: guardrex
+description: 了解如何缓解对服务器应用的安全威胁 Blazor 。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/05/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/server/threat-mitigation
+ms.openlocfilehash: 06f9cc2d70367ea90a519ddd508a156e88adcb61
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83864626"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>ASP.NET Core Server 的威胁缓解指南 Blazor
 
@@ -89,7 +101,7 @@ Blazor只要浏览器窗口处于打开状态，客户端就会为每个会话�
 
 拒绝服务（DoS）攻击涉及客户端导致服务器耗尽其一个或多个资源，使应用不可用。 Blazor服务器应用包括一些默认限制，并依赖于其他 ASP.NET Core 和 SignalR 限制来防范设置的 DoS 攻击 <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> 。
 
-| Blazor服务器应用程序限制 | 说明 | 默认 |
+| Blazor服务器应用程序限制 | 描述 | 默认 |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | 给定服务器一次在内存中保留的最大断开连接电路数。 | 100 |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | 断开连接线路之前在内存中保留的最大时间。 | 3 分钟 |
@@ -98,7 +110,7 @@ Blazor只要浏览器窗口处于打开状态，客户端就会为每个会话�
 
 使用设置单个传入集线器消息的最大消息大小 <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> 。
 
-| SignalR和 ASP.NET Core 限制 | 说明 | 默认 |
+| SignalR和 ASP.NET Core 限制 | 描述 | 默认 |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | 单个消息的消息大小。 | 32 KB |
 

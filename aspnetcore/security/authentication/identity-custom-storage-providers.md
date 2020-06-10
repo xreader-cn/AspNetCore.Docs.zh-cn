@@ -1,12 +1,23 @@
 ---
-标题： "ASP.NET Core 的自定义存储提供程序 Identity 作者：说明： ' 了解如何为 ASP.NET Core 配置自定义存储提供程序 Identity 。"
-ms-chap： ms-chap： ms-chap：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core 的自定义存储提供程序Identity
+author: ardalis
+description: 了解如何为 ASP.NET Core 配置自定义存储提供程序 Identity 。
+ms.author: riande
+ms.custom: mvc
+ms.date: 07/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/authentication/identity-custom-storage-providers
+ms.openlocfilehash: 792a9e5f776e345fbee5726b676fe148ecaf1657
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106580"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>ASP.NET Core 的自定义存储提供程序Identity
 

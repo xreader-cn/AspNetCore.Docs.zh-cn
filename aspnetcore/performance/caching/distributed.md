@@ -1,11 +1,24 @@
 ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core 中的分布式缓存
+author: rick-anderson
+description: 了解如何使用 ASP.NET Core 分布式缓存来改善应用程序的性能和可伸缩性，尤其是在云或服务器场环境中。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: performance/caching/distributed
+ms.openlocfilehash: d655e48f9504d337b0ffdbd6819f32101730310b
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106697"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存
 

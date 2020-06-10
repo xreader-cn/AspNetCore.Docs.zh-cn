@@ -1,11 +1,23 @@
 ---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 在 ASP.NET Core 中阻止跨站点请求伪造（XSRF/CSRF）攻击
+author: steve-smith
+description: 了解如何防止恶意网站可能会影响客户端浏览器与应用程序之间的交互的 web 应用程序的攻击。
+ms.author: riande
+ms.custom: mvc
+ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/anti-request-forgery
+ms.openlocfilehash: 89a7a12c943933f745793eeccb4f3d2e4856063f
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105904"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>在 ASP.NET Core 中阻止跨站点请求伪造（XSRF/CSRF）攻击
 
@@ -204,39 +216,12 @@ services.AddAntiforgery(options =>
 
 &dagger;`Cookie`使用[CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder)类的属性设置防伪属性。
 
-| 选项 | 说明 |
-| ---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | |[Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) |确定用于创建防伪 cookie 的设置。 | |[FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) |防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 | |[HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) |防伪系统使用的标头的名称。 如果 `null` 为，则系统仅考虑窗体数据。 | |[SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) |指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
+| 选项 | 描述 |
+| ------ | ----------- |
+| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪 cookie 的设置。 |
+| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果 `null` 为，则系统仅考虑窗体数据。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
 
 ::: moniker-end
 
@@ -255,39 +240,16 @@ services.AddAntiforgery(options =>
 });
 ```
 
-| 选项 | 说明 |
-| ---
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明：毫秒。作者： ms. 自定义：毫秒：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | |[Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) |确定用于创建防伪 cookie 的设置。 | |[CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) |Cookie 的域。 默认为 `null`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 | |[CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) |Cookie 的名称。 如果未设置，系统将生成一个以[DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) （"。AspNetCore. 防伪. "）。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie.Name。 | |[CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) |Cookie 上设置的路径。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 | |[FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) |防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 | |[HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) |防伪系统使用的标头的名称。 如果 `null` 为，则系统仅考虑窗体数据。 | |[RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) |指定防伪系统是否需要 HTTPS。 如果为 `true` ，则非 HTTPS 请求会失败。 默认为 `false`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为设置 SecurePolicy。 | |[SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) |指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
+| 选项 | 描述 |
+| ------ | ----------- |
+| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 确定用于创建防伪 cookie 的设置。 |
+| [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Cookie 的域。 默认为 `null`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 |
+| [CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Cookie 的名称。 如果未设置，系统将生成一个以[DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) （"。AspNetCore. 防伪. "）。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie.Name。 |
+| [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cookie 上设置的路径。 此属性已过时，并将在将来的版本中删除。 建议的替代项为 Cookie。 |
+| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 防伪系统用于在视图中呈现防伪标记的隐藏窗体字段的名称。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 防伪系统使用的标头的名称。 如果 `null` 为，则系统仅考虑窗体数据。 |
+| [RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | 指定防伪系统是否需要 HTTPS。 如果为 `true` ，则非 HTTPS 请求会失败。 默认为 `false`。 此属性已过时，并将在将来的版本中删除。 建议的替代项为设置 SecurePolicy。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 指定是否取消生成 `X-Frame-Options` 标头。 默认情况下，会生成一个值为 "SAMEORIGIN" 的标头。 默认为 `false`。 |
 
 ::: moniker-end
 

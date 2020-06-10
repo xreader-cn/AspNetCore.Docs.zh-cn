@@ -1,11 +1,24 @@
 ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core 中的响应缓存中间件
+author: rick-anderson
+description: 了解如何在 ASP.NET Core 中配置和使用响应缓存中间件。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: performance/caching/middleware
+ms.openlocfilehash: 2ee75b1af9ffc23ff9ae1763059364de3ec8f426
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106502"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>ASP.NET Core 中的响应缓存中间件
 
@@ -17,7 +30,7 @@
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 响应缓存中间件可通过共享框架隐式地用于 ASP.NET Core 应用。
 
@@ -49,39 +62,11 @@
 
 响应缓存选项如下表中所示。
 
-| 选项 | 说明 |
-| ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> |响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> |响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> |确定是否将响应缓存在区分大小写的路径上。 默认值为 `false`。 |
+| 选项 | 描述 |
+| ------ | ----------- |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | 确定是否将响应缓存在区分大小写的路径上。 默认值为 `false`。 |
 
 下面的示例将中间件配置为：
 
@@ -118,22 +103,18 @@ if (responseCachingFeature != null)
 下表提供了有关影响响应缓存的 HTTP 标头的信息。
 
 | Header | 详细信息 |
-| ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
----- | |`Authorization` |如果标头存在，则不会缓存响应。 | |`Cache-Control` |中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 | |`Pragma` |`Pragma: no-cache`请求中的标头将产生与相同的效果 `Cache-Control: no-cache` 。 标头中的相关指令 `Cache-Control` （如果存在）将重写此标头。 考虑向后兼容 HTTP/1.0。 | |`Set-Cookie` |如果标头存在，则不会缓存响应。 请求处理管道中设置一个或多个 cookie 的任何中间件会阻止响应缓存中间件缓存响应（例如，[基于 cookie 的 TempData 提供程序](xref:fundamentals/app-state#tempdata)）。  | |`Vary` |`Vary`标头用于根据另一个标头改变缓存的响应。 例如，通过包含标头来缓存响应， `Vary: Accept-Encoding` 此标头将使用标头和单独的请求来缓存响应 `Accept-Encoding: gzip` `Accept-Encoding: text/plain` 。 永远不会存储标头值 `*` 为的响应。 | |`Expires` |除非由其他标头重写，否则不会存储或检索此标头过时的响应 `Cache-Control` 。 | |`If-None-Match` |如果值不为 `*` ，并且响应的与提供的任何值都不匹配，则将从缓存中提供完整响应 `ETag` 。 否则，将提供304（未修改）响应。 | |`If-Modified-Since` |如果 `If-None-Match` 标头不存在，则在缓存的响应日期比提供的值更新时，将从缓存中提供完整响应。 否则，将提供*304-未修改*响应。 | |`Date` |从缓存提供时， `Date` 如果未在原始响应中提供标头，中间件将设置标头。 | |`Content-Length` |从缓存提供时， `Content-Length` 如果未在原始响应中提供标头，中间件将设置标头。 | |`Age` |`Age`忽略原始响应中发送的标头。 中间件在为缓存的响应提供服务时计算一个新值。 |
+| ------ | ------- |
+| `Authorization` | 如果标头存在，则不会缓存响应。 |
+| `Cache-Control` | 中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 |
+| `Pragma` | `Pragma: no-cache`请求中的标头将产生与相同的效果 `Cache-Control: no-cache` 。 标头中的相关指令 `Cache-Control` （如果存在）将重写此标头。 考虑向后兼容 HTTP/1.0。 |
+| `Set-Cookie` | 如果标头存在，则不会缓存响应。 请求处理管道中设置一个或多个 cookie 的任何中间件会阻止响应缓存中间件缓存响应（例如，[基于 cookie 的 TempData 提供程序](xref:fundamentals/app-state#tempdata)）。  |
+| `Vary` | `Vary`标头用于根据另一个标头改变缓存的响应。 例如，通过包含标头来缓存响应， `Vary: Accept-Encoding` 此标头将使用标头和单独的请求来缓存响应 `Accept-Encoding: gzip` `Accept-Encoding: text/plain` 。 永远不会存储标头值 `*` 为的响应。 |
+| `Expires` | 除非由其他标头重写，否则不会存储或检索此标头过时的响应 `Cache-Control` 。 |
+| `If-None-Match` | 如果值不为 `*` ，并且响应的与提供的任何值都不匹配，则将从缓存中提供完整响应 `ETag` 。 否则，将提供304（未修改）响应。 |
+| `If-Modified-Since` | 如果 `If-None-Match` 标头不存在，则在缓存的响应日期比提供的值更新时，将从缓存中提供完整响应。 否则，将提供*304-未修改*响应。 |
+| `Date` | 从缓存提供时， `Date` 如果未在原始响应中提供标头，中间件将设置标头。 |
+| `Content-Length` | 从缓存提供时， `Content-Length` 如果未在原始响应中提供标头，中间件将设置标头。 |
+| `Age` | `Age`忽略原始响应中发送的标头。 中间件在为缓存的响应提供服务时计算一个新值。 |
 
 ## <a name="caching-respects-request-cache-control-directives"></a>缓存遵从请求缓存控制指令
 
@@ -193,7 +174,7 @@ if (responseCachingFeature != null)
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
-## <a name="configuration"></a>配置
+## <a name="configuration"></a>Configuration
 
 使用[AspNetCore 元包](xref:fundamentals/metapackage-app)或添加对[AspNetCore. ResponseCaching](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCaching/)包的包引用。
 
@@ -225,39 +206,11 @@ if (responseCachingFeature != null)
 
 响应缓存选项如下表中所示。
 
-| 选项 | 说明 |
-| ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> |响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> |响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 | |<xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> |确定是否将响应缓存在区分大小写的路径上。 默认值为 `false`。 |
+| 选项 | 描述 |
+| ------ | ----------- |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | 确定是否将响应缓存在区分大小写的路径上。 默认值为 `false`。 |
 
 下面的示例将中间件配置为：
 
@@ -294,22 +247,18 @@ if (responseCachingFeature != null)
 下表提供了有关影响响应缓存的 HTTP 标头的信息。
 
 | Header | 详细信息 |
-| ---
-标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- |---标题：作者：说明： monikerRange：： ms. 作者： ms. 自定义： ms. 日期：非 loc：
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
----- | |`Authorization` |如果标头存在，则不会缓存响应。 | |`Cache-Control` |中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 | |`Pragma` |`Pragma: no-cache`请求中的标头将产生与相同的效果 `Cache-Control: no-cache` 。 标头中的相关指令 `Cache-Control` （如果存在）将重写此标头。 考虑向后兼容 HTTP/1.0。 | |`Set-Cookie` |如果标头存在，则不会缓存响应。 请求处理管道中设置一个或多个 cookie 的任何中间件会阻止响应缓存中间件缓存响应（例如，[基于 cookie 的 TempData 提供程序](xref:fundamentals/app-state#tempdata)）。  | |`Vary` |`Vary`标头用于根据另一个标头改变缓存的响应。 例如，通过包含标头来缓存响应， `Vary: Accept-Encoding` 此标头将使用标头和单独的请求来缓存响应 `Accept-Encoding: gzip` `Accept-Encoding: text/plain` 。 永远不会存储标头值 `*` 为的响应。 | |`Expires` |除非由其他标头重写，否则不会存储或检索此标头过时的响应 `Cache-Control` 。 | |`If-None-Match` |如果值不为 `*` ，并且响应的与提供的任何值都不匹配，则将从缓存中提供完整响应 `ETag` 。 否则，将提供304（未修改）响应。 | |`If-Modified-Since` |如果 `If-None-Match` 标头不存在，则在缓存的响应日期比提供的值更新时，将从缓存中提供完整响应。 否则，将提供*304-未修改*响应。 | |`Date` |从缓存提供时， `Date` 如果未在原始响应中提供标头，中间件将设置标头。 | |`Content-Length` |从缓存提供时， `Content-Length` 如果未在原始响应中提供标头，中间件将设置标头。 | |`Age` |`Age`忽略原始响应中发送的标头。 中间件在为缓存的响应提供服务时计算一个新值。 |
+| ------ | ------- |
+| `Authorization` | 如果标头存在，则不会缓存响应。 |
+| `Cache-Control` | 中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 |
+| `Pragma` | `Pragma: no-cache`请求中的标头将产生与相同的效果 `Cache-Control: no-cache` 。 标头中的相关指令 `Cache-Control` （如果存在）将重写此标头。 考虑向后兼容 HTTP/1.0。 |
+| `Set-Cookie` | 如果标头存在，则不会缓存响应。 请求处理管道中设置一个或多个 cookie 的任何中间件会阻止响应缓存中间件缓存响应（例如，[基于 cookie 的 TempData 提供程序](xref:fundamentals/app-state#tempdata)）。  |
+| `Vary` | `Vary`标头用于根据另一个标头改变缓存的响应。 例如，通过包含标头来缓存响应， `Vary: Accept-Encoding` 此标头将使用标头和单独的请求来缓存响应 `Accept-Encoding: gzip` `Accept-Encoding: text/plain` 。 永远不会存储标头值 `*` 为的响应。 |
+| `Expires` | 除非由其他标头重写，否则不会存储或检索此标头过时的响应 `Cache-Control` 。 |
+| `If-None-Match` | 如果值不为 `*` ，并且响应的与提供的任何值都不匹配，则将从缓存中提供完整响应 `ETag` 。 否则，将提供304（未修改）响应。 |
+| `If-Modified-Since` | 如果 `If-None-Match` 标头不存在，则在缓存的响应日期比提供的值更新时，将从缓存中提供完整响应。 否则，将提供*304-未修改*响应。 |
+| `Date` | 从缓存提供时， `Date` 如果未在原始响应中提供标头，中间件将设置标头。 |
+| `Content-Length` | 从缓存提供时， `Content-Length` 如果未在原始响应中提供标头，中间件将设置标头。 |
+| `Age` | `Age`忽略原始响应中发送的标头。 中间件在为缓存的响应提供服务时计算一个新值。 |
 
 ## <a name="caching-respects-request-cache-control-directives"></a>缓存遵从请求缓存控制指令
 
