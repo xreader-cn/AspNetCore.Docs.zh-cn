@@ -1,11 +1,24 @@
 ---
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 在 Web 场中托管 ASP.NET Core
+author: rick-anderson
+description: 了解如何在 Web 场环境中托管包含共享资源的 ASP.NET Core 应用的多个实例。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 01/13/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: host-and-deploy/web-farm
+ms.openlocfilehash: 37a50fa2939eb31e66925fa907212d54577bd20b
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106567"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>在 Web 场中托管 ASP.NET Core
 
@@ -52,78 +65,12 @@ Web 场包含两个或多个 Web 服务器（亦称为“节点”），用于�
 下面的方案无需其他配置，但依赖需要配置 Web 场的技术。
 
 | 方案 | 依赖&hellip; |
-| ---
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
----- | --- title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
----------- | | 身份验证 | 数据保护（请参阅 <xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 | | Identity | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 | | 会话 | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 | | TempData | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 | | 防伪造 | 数据保护（请参阅 <xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
+| -------- | ------------------- |
+| 身份验证 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/authentication/cookie> 和 <xref:security/cookie-sharing>。 |
+| Identity | 身份验证和数据库配置。<br><br>有关详细信息，请参阅 <xref:security/authentication/identity>。 |
+| 会话 | 数据保护（加密 Cookie）（请参阅<xref:security/data-protection/configuration/overview>）和缓存（请参阅<xref:performance/caching/distributed>）。<br><br>有关详细信息，请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)。 |
+| TempData | 数据保护（加密 Cookie）（请参阅 <xref:security/data-protection/configuration/overview>）或会话（请参阅[会话和状态管理：会话状态](xref:fundamentals/app-state#session-state)）。<br><br>有关详细信息，请参阅[会话和状态管理：TempData](xref:fundamentals/app-state#tempdata)。 |
+| 防伪造 | 数据保护（请参阅<xref:security/data-protection/configuration/overview>）。<br><br>有关详细信息，请参阅 <xref:security/anti-request-forgery>。 |
 
 ## <a name="troubleshoot"></a>疑难解答
 

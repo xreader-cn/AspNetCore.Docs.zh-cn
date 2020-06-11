@@ -1,12 +1,24 @@
 ---
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
+author: guardrex
+description: 了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 04/25/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/integrate-components
+ms.openlocfilehash: 97515ec519c4bedb0478f510ec9ed739b5d76e4f
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105241"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用
 
@@ -117,60 +129,10 @@ Razor 组件可以集成到 Razor Pages 和 MVC 应用。 呈现页面或视图�
    * 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
 
    | 呈现模式 | 描述 |
-   | ---
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | --- title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
 
    要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 
@@ -241,60 +203,10 @@ monikerRange: ms.author: ms.custom: ms.date: no-loc:
    * 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
 
    | 呈现模式 | 描述 |
-   | ---
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | --- title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:“将 ASP.NET Core Razor 组件集成到 Razor Pages 和 MVC 应用”author: description:“了解适用于 Blazor 应用中的组件和 DOM 元素的数据绑定方案。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
------- | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 在静态 HTML 中呈现 `App` 组件，并包含 Blazor Server 应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括 `App` 组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 在静态 HTML 中呈现 `App` 组件。 |
 
    要详细了解组件标记帮助程序，请查看 <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>。
 

@@ -1,12 +1,24 @@
 ---
-title:“在 ASP.NET Core Blazor 中从 JavaScript 函数调用 .NET 方法”author: description:“了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET 方法。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: 从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
+author: guardrex
+description: 了解如何在 Blazor 应用中通过 JavaScript 函数调用 .NET 方法。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/call-dotnet-from-javascript
+ms.openlocfilehash: ec55c5834093cc8c2095f25e91374d97902dd964
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83851141"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>从 ASP.NET Core Blazor 中的 JavaScript 函数调用 .NET 方法
 

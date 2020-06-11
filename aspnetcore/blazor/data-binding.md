@@ -1,12 +1,24 @@
 ---
-title:“ASP.NET Core Blazor 数据绑定”author: description：“了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Blazor 数据绑定
+author: guardrex
+description: 了解 Blazor 应用中组件和 DOM 元素的数据绑定功能。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 03/26/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/data-binding
+ms.openlocfilehash: 3b419b4738bd3f434cf4a9d8ccdf3b3af86ba1d5
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83998492"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor 数据绑定
 

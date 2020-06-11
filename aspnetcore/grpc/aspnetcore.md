@@ -12,16 +12,18 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: c14ae1fb3c2e046ae577c63824eebb4411a6e804
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: fa38ec9f9cf882b1a62f74879b7d49706ee150ce
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776215"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452377"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>使用 ASP.NET Core 的 gRPC 服务
 
 本文档演示如何通过 ASP.NET Core 开始使用 gRPC 服务。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="prerequisites"></a>先决条件
 
@@ -59,7 +61,7 @@ gRPC 需要 [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) �
 
 ### <a name="configure-grpc"></a>配置 gRPC
 
-在 Startup.cs 中  ：
+在 Startup.cs 中：
 
 * gRPC 通过 `AddGrpc` 方法启用。
 * 每个 gRPC 服务均通过 `MapGrpcService` 方法添加到路由管道。
@@ -86,11 +88,11 @@ Kestrel 在大多数新式操作系统上[支持 HTTP/2](xref:fundamentals/serve
 
 用于 gRPC 的 Kestrel 终结点应使用 TLS 进行保护。 在开发环境中，当存在 ASP.NET Core 开发证书时，会在 `https://localhost:5001` 自动创建使用 TLS 进行保护的终结点。 不需要任何配置。 `https` 前缀验证 Kestrel 终结点是否正在使用 TLS。
 
-在生产环境中，必须显式配置 TLS。 以下 appsettings.json 示例中提供了使用 TLS 进行保护的 HTTP/2 终结点  ：
+在生产环境中，必须显式配置 TLS。 以下 appsettings.json 示例中提供了使用 TLS 进行保护的 HTTP/2 终结点：
 
 [!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
-或者，可以在 Program.cs 中配置 Kestrel 终结点  ：
+或者，可以在 Program.cs 中配置 Kestrel 终结点：
 
 [!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
 
@@ -130,7 +132,6 @@ gRPC API 提供对某些 HTTP/2 消息数据（如方法、主机、标头和尾
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
 
-[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>其他资源
 
