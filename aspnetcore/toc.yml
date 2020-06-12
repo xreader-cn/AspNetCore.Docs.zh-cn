@@ -560,6 +560,9 @@
         - name: API 设计注意事项
           uid: signalr/api-design
           displayName: signalr
+        - name: 中心筛选器
+          uid: signalr/hub-filters
+          displayName: signalr
     - name: 客户端
       displayName: signalr
       items:
