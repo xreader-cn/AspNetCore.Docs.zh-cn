@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: b369bf0e9b20bcb87345e3e10c314ae6227464d1
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 9a63d6ca0ab6b71875212d54035dfb5cf94a8cad
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84215091"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724297"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 托管应用
 
@@ -45,7 +45,7 @@ ms.locfileid: "84215091"
 1. 提供应用的**名称**（例如， ** Blazor 服务器 AAD B2C**）。
 1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
 1. 在这种情况下，*服务器 API 应用*不需要**重定向 uri** ，因此请将下拉集设置为 " **Web** "，并不要输入 "重定向 uri"。
-1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
+1. 确认**权限**  >  **授予了对 openid 的管理员同意并启用 offline_access 权限**。
 1. 选择“注册”。
 
 记录以下信息：
@@ -77,7 +77,7 @@ ms.locfileid: "84215091"
 1. 提供应用的**名称**（例如， ** Blazor 客户端 AAD B2C**）。
 1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
 1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的服务器应用的属性中找到该应用的随机生成的端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 "[创建应用"](#create-the-app)部分中将出现一个批注，以提醒 IIS Express 的用户更新重定向 URI。
-1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
+1. 确认**权限**  >  **授予了对 openid 的管理员同意并启用 offline_access 权限**。
 1. 选择“注册”。
 
 记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111` ）。
@@ -180,7 +180,7 @@ services.Configure<JwtBearerOptions>(
 
 ### <a name="app-settings"></a>应用设置
 
-*Appsettings*文件包含用于配置用于验证访问令牌的 JWT 持有者处理程序的选项。
+文件*上的appsettings.js*包含用于配置用于验证访问令牌的 JWT 持有者处理程序的选项。
 
 ```json
 {
@@ -273,7 +273,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 Azure 门户 AAD 配置获取配置应用所需的值。
 
-配置由*wwwroot/appsettings*文件提供：
+配置由文件上的*wwwroot/appsettings.js*提供：
 
 ```json
 {

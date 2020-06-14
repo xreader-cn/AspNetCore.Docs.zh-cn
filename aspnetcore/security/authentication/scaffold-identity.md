@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 116e5d27e7585e9168db433480c3a5e9d08379f3
-ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.openlocfilehash: 36afa8ece58843b434ebfba6305bffdb9eb9bca0
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84454650"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724284"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -195,7 +195,7 @@ Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详�
 * 设置身份验证令牌并将其保存到身份验证 cookie 后，可以将其传递给组件。
 * Razor组件不能 `HttpContext` 直接使用，因此无法获取要在其上发布到的注销终结点的[反请求伪造（XSRF）令牌](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
 
-有关详细信息，请参阅 <xref:security/blazor/server/index#pass-tokens-to-a-blazor-server-app>。
+有关详细信息，请参阅 <xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
 
 在*Pages/_Host cshtml*文件中，在将其添加到和类后建立该令牌 `InitialApplicationState` `TokenProvider` ：
 
@@ -229,7 +229,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 在 `Startup` 类中：
 
 * 确认 Razor 在中添加了页面服务 `Startup.ConfigureServices` 。
-* 如果使用[TokenProvider](xref:security/blazor/server/index#pass-tokens-to-a-blazor-server-app)，请注册服务。
+* 如果使用[TokenProvider](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)，请注册服务。
 * `UseDatabaseErrorPage`对于开发环境，请在中的应用程序生成器上调用 `Startup.Configure` 。
 * 调用 `UseAuthentication` and `UseAuthorization` after `UseRouting` 。
 * 添加页的终结点 Razor 。
@@ -253,7 +253,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 }
 ```
 
-将 `LoginDisplay` 组件（*LoginDisplay*）添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:security/blazor/server/index#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
+将 `LoginDisplay` 组件（*LoginDisplay*）添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization
@@ -398,7 +398,9 @@ cd RPauth
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
 -->
-## <a name="disable-register-page"></a>禁用注册页
+## <a name="disable-a-page"></a>禁用页面
+
+本部分介绍如何禁用注册页面，但该方法可用于禁用任何页面。
 
 禁用用户注册：
 
@@ -418,13 +420,13 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 * 注释掉或删除*区域/ Identity /Pages/Account/Login.cshtml*中的注册链接
 
-```cshtml
-@*
-<p>
-    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-</p>
-*@
-```
+  ```cshtml
+  @*
+  <p>
+      <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+  </p>
+  *@
+  ```
 
 * 更新 "*区域/ Identity /Pages/Account/RegisterConfirmation* " 页。
 
@@ -482,7 +484,7 @@ ASP.NET Core 2.1 和更高版本提供了[ Identity ASP.NET Core](xref:security/
 
 尽管 scaffolder 生成了大部分必要的代码，但你必须更新项目才能完成此过程。 本文档介绍完成基架更新所需的步骤 Identity 。
 
-Identity运行 scaffolder 时，将在项目目录中创建*ScaffoldingReadme*文件。 *ScaffoldingReadme*文件包含有关完成基架更新所需内容的一般说明 Identity 。 本文档包含的有关*ScaffoldingReadme*文件的完整说明。
+当 Identity scaffolder 运行时，将在项目目录中创建一个*ScaffoldingReadme.txt*文件。 *ScaffoldingReadme.txt*文件包含有关完成基架更新所需内容的一般说明 Identity 。 本文档包含与*ScaffoldingReadme.txt*文件更完整的说明。
 
 建议使用显示文件差异的源代码管理系统，并使您能够回退更改。 运行 scaffolder 后检查更改 Identity 。
 

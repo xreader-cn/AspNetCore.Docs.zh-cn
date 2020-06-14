@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: d5e0e3865702fe4e5cbe49e7f452f367a8a53de9
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 8d4488b3953a8c87033d3a092b656409a0c6a52d
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451740"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724362"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core 中的帐户确认和密码恢复
 
@@ -63,7 +63,7 @@ dotnet run
 
 在本教程中，使用[SendGrid](https://sendgrid.com)发送电子邮件。 需要使用 SendGrid 帐户和密钥来发送电子邮件。 您可以使用其他电子邮件提供程序。 建议使用 SendGrid 或其他电子邮件服务发送电子邮件。 SMTP 难于保护和正确设置。
 
-SendGrid 帐户我需要[添加发送方](https://sendgrid.com/docs/ui/sending-email/senders/)。
+SendGrid 帐户可能需要[添加发送方](https://sendgrid.com/docs/ui/sending-email/senders/)。
 
 创建一个类以获取安全电子邮件密钥。 对于本示例，请创建*服务/AuthMessageSenderOptions*：
 
@@ -80,9 +80,9 @@ dotnet user-secrets set SendGridKey <key>
 Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-在 Windows 上，机密管理器将密钥/值对存储在目录中*的一个 secret 文件中。* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`
+在 Windows 上，机密管理器将密钥/值对存储在目录中的文件*secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
 
-不会对*机密 json*文件的内容进行加密。 以下标记显示了*机密的 json*文件。 已 `SendGridKey` 删除该值。
+不会对文件*中secrets.js*的内容进行加密。 以下标记显示了文件*上的secrets.js* 。 已 `SendGridKey` 删除该值。
 
 ```json
 {
@@ -286,9 +286,9 @@ C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
 info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-在 Windows 上，机密管理器将密钥/值对存储在目录中*的一个 secret 文件中。* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`
+在 Windows 上，机密管理器将密钥/值对存储在目录中的文件*secrets.js上* `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` 。
 
-不会对*机密 json*文件的内容进行加密。 以下标记显示了*机密的 json*文件。 已 `SendGridKey` 删除该值。
+不会对文件*中secrets.js*的内容进行加密。 以下标记显示了文件*上的secrets.js* 。 已 `SendGridKey` 删除该值。
 
 ```json
 {

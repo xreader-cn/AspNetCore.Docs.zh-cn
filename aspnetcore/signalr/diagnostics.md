@@ -5,7 +5,7 @@ description: 了解如何从 ASP.NET Core 应用收集诊断信息 SignalR 。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
-ms.date: 06/08/2020
+ms.date: 06/12/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 22e1d24bc9fed5fd8588c852e07f5ca935946596
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: d26bb71a8ae06764b58a094b28d5e6f9eb581ecd
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507311"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755958"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
 
@@ -38,7 +38,7 @@ SignalR使用两个记录器类别：
 * `Microsoft.AspNetCore.SignalR`：用于与集线器协议相关的日志、激活集线器、调用方法以及其他与中心相关的活动。
 * `Microsoft.AspNetCore.Http.Connections`：用于与传输相关的日志，例如 Websocket、长轮询、服务器发送事件和低级别 SignalR 基础结构。
 
-若要从中启用详细日志 SignalR ，请 `Debug` 通过将以下项添加到*appsettings*文件 `LogLevel` 中的子部分，将上述两个前缀配置为级别 `Logging` ：
+若要从中启用详细日志 SignalR ，请 `Debug` 通过将以下项添加到中的子部分，将上述两个前缀配置为文件中的*appsettings.js*级别 `LogLevel` `Logging` ：
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -110,6 +110,8 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 > 客户端日志可能包含应用中的敏感信息。 **请勿**将原始日志从生产应用发布到 GitHub 等公共论坛。
 
 若要从 .NET 客户端获取日志，可以对使用 `ConfigureLogging` 方法 `HubConnectionBuilder` 。 这与和上的方法的工作方式相同 `ConfigureLogging` `WebHostBuilder` `HostBuilder` 。 你可以配置 ASP.NET Core 中使用的相同日志记录提供程序。 但是，您必须为单独的日志提供程序手动安装和启用 NuGet 包。
+
+若要将 .NET 客户端日志记录添加到 Blazor WebAssembly 应用程序，请参阅 <xref:fundamentals/logging/index#blazor-webassembly-signalr-net-client-logging> 。
 
 ### <a name="console-logging"></a>控制台日志记录
 

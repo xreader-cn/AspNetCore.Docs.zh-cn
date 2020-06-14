@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory
-ms.openlocfilehash: b85129d8b56f2106636b47534630f8139e100ae9
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 6d8db8f546e21ccce27cca06b4112ebc52653782
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851206"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724375"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory"></a>Blazor使用 Azure Active Directory 保护 ASP.NET Core WebAssembly 独立应用
 
@@ -33,7 +33,7 @@ ms.locfileid: "83851206"
 1. 提供应用的**名称**（例如， ** Blazor 独立 AAD**）。
 1. 选择**受支持的帐户类型**。 你**只能在此组织目录中选择帐户**。
 1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的应用程序属性中找到应用程序的随机生成端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 本主题稍后会显示一个批注，以提醒 IIS Express 用户更新重定向 URI。
-1. 禁用 "**将**  >  **管理员以免授予 openid 并 offline_access 权限**" 复选框。
+1. 禁用 " **Permissions**将  >  **管理员同意授予 openid 并 offline_access 权限**" 复选框。
 1. 选择“注册”。
 
 记录以下信息：
@@ -66,7 +66,7 @@ dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "{TENA
 创建应用后，应该能够：
 
 * 使用 AAD 用户帐户登录到应用。
-* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参见:
+* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参阅：
   * [访问令牌范围](#access-token-scopes)
   * [快速入门：将应用程序配置为公开 Web api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)。
 
@@ -98,7 +98,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 AAD 配置获取配置应用所需的值。
 
-配置由*wwwroot/appsettings*文件提供：
+配置由文件上的*wwwroot/appsettings.js*提供：
 
 ```json
 {

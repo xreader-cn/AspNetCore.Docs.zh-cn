@@ -1,7 +1,7 @@
 ---
 title: 在 ASP.NET Core 中配置证书身份验证
 author: blowdart
-description: 了解如何在 ASP.NET Core for IIS 和 http.sys 中配置证书身份验证。
+description: 了解如何在 ASP.NET Core for IIS 和 HTTP.sys 中配置证书身份验证。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 4511e253ea9487c5739162b9b0180e39eb3a1b9c
-ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.openlocfilehash: cf80f7009334f49d877d2bd296b512e23f7fded8
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84454605"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724244"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>在 ASP.NET Core 中配置证书身份验证
 
@@ -557,3 +557,36 @@ namespace AspNetCoreCertificateAuthApi
     }
 }
 ```
+
+<a name="occ"></a>
+
+## <a name="optional-client-certificates"></a>可选客户端证书
+
+本部分为必须使用证书保护应用程序子集的应用提供信息。 例如， Razor 应用中的页面或控制器可能需要客户端证书。 这是客户端证书带来的挑战：
+  
+* 是 TLS 功能，而不是 HTTP 功能。
+* 按连接进行协商，在连接开始时必须在任何 HTTP 数据可用之前进行协商。 在连接开始时，仅知道服务器名称指示（SNI） &dagger; 。 客户端和服务器证书在第一次请求连接之前进行协商，请求通常无法重新协商。 HTTP/2 中禁止重新协商。
+
+ASP.NET Core 5 预览版4及更高版本为可选的客户端证书添加了更方便的支持。 有关详细信息，请参阅[可选证书示例](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample)。
+
+以下方法支持可选的客户端证书：
+
+* 设置域和子域的绑定：
+  * 例如，在和上设置绑定 `contoso.com` `myClient.contoso.com` 。 `contoso.com`主机不需要客户端证书，而是 `myClient.contoso.com` 。
+  * 有关详细信息，请参阅：
+    * [Kestrel](/fundamentals/servers/kestrel)：
+      * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
+      * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
+      * 请注意，Kestrel 目前不支持在一个绑定上支持多个 TLS 配置，需要两个具有唯一 Ip 或端口的绑定。 请参阅https://github.com/dotnet/runtime/issues/31097
+    * IIS
+      * [承载 IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
+      * [配置 IIS 上的安全性](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
+    * Http.Sys：[配置 Windows Server](xref:fundamentals/servers/httpsys#configure-windows-server)
+* 对于需要客户端证书且没有客户端证书的 web 应用的请求：
+  * 使用客户端证书保护的子域重定向到同一页面。
+  * 例如，重定向到 `myClient.contoso.com/requestedPage` 。 由于与的请求 `myClient.contoso.com/requestedPage` 不同于的主机名 `contoso.com/requestedPage` ，因此客户端会建立一个不同的连接，并提供客户端证书。
+  * 有关详细信息，请参阅 <xref:security/authorization/introduction>。
+
+在[此 GitHub 讨论](https://github.com/dotnet/AspNetCore.Docs/issues/18720)问题中，对可选客户端证书留下疑问、评论和其他反馈。
+
+&dagger;服务器名称指示（SNI）是一种 TLS 扩展，可将虚拟域作为 SSL 协商的一部分包括在内。 这实际上意味着，可以使用虚拟域名或主机名来识别网络终结点。

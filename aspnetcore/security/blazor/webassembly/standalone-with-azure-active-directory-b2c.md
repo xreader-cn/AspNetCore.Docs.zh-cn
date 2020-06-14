@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 911eeffbe632d8f285d54ae78b62f17851205e83
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ec35614e3bc4b5b6422b254dfe579c1cb7ca8310
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84214950"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724388"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Blazor使用 Azure Active Directory B2C 保护 ASP.NET Core WebAssembly 独立应用
 
@@ -41,7 +41,7 @@ ms.locfileid: "84214950"
 1. 提供应用的**名称**（例如， ** Blazor 独立 AAD B2C**）。
 1. 对于 "**支持的帐户类型**"，请选择 "多租户" 选项：**任何组织目录或任何标识提供者中的帐户。用于对具有 Azure AD B2C 的用户进行身份验证。**
 1. 将 "**重定向 uri** " 下拉菜单保留设置为 " **Web** "，并提供以下重定向 uri： `https://localhost:{PORT}/authentication/login-callback` 。 在 Kestrel 上运行的应用的默认端口为5001。 如果应用在不同的 Kestrel 端口上运行，请使用应用的端口。 对于 IIS Express，可以在 "**调试**" 面板的应用程序属性中找到应用程序的随机生成端口。 由于此时应用不存在，并且 IIS Express 端口未知，因此在创建应用后返回到此步骤并更新重定向 URI。 本主题稍后会显示一个批注，以提醒 IIS Express 用户更新重定向 URI。
-1. 确认**权限**"  >  **授予管理员以免到 openid" 和 "offline_access" 权限**已启用。
+1. 确认**权限**  >  **授予了对 openid 的管理员同意并启用 offline_access 权限**。
 1. 选择“注册”。
 
 记录应用程序 ID （客户端 ID）（例如 `11111111-1111-1111-1111-111111111111` ）。
@@ -79,7 +79,7 @@ dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" 
 创建应用后，应该能够：
 
 * 使用 AAD 用户帐户登录到应用。
-* 请求 Microsoft Api 的访问令牌。 有关详情，请参阅：
+* 请求 Microsoft Api 的访问令牌。 有关详细信息，请参阅：
   * [访问令牌范围](#access-token-scopes)
   * [快速入门：将应用程序配置为公开 Web api](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)。
 
@@ -111,7 +111,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>方法接受回调，以配置对应用进行身份验证所需的参数。 注册应用时，可以从 AAD 配置获取配置应用所需的值。
 
-配置由*wwwroot/appsettings*文件提供：
+配置由文件上的*wwwroot/appsettings.js*提供：
 
 ```json
 {

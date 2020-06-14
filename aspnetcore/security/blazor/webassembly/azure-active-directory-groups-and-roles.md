@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/aad-groups-roles
-ms.openlocfilehash: 3ed06cca7e20da381b870e642a6c616b2578cd0a
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 87cdf02a6f6babc869d90658e6a7cd54db73bb68
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451870"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84756023"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Azure AD 组、管理角色和用户定义的角色
 
@@ -29,7 +29,7 @@ Azure Active Directory （AAD）提供多种授权方法，这些方法可与 AS
 * 用户定义的组
   * 安全性
   * O365
-  * 分发
+  * 分布
 * 角色
   * 内置管理角色
   * 用户定义的角色
@@ -164,7 +164,7 @@ builder.Services.AddAuthorizationCore(options =>
 </AuthorizeView>
 ```
 
-可以使用 [ `[Authorize]` ] attribute 指令] （x： security/blazor/index # 授权-attribute）（ <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ）：
+可以通过使用[ `[Authorize]` 属性指令](xref:security/blazor/index#authorize-attribute)（）对整个组件进行访问 <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ：
 
 ```razor
 @page "/"
@@ -246,7 +246,7 @@ builder.Services.AddMsalAuthentication(options =>
 此时，组件授权方法会起作用。 组件中的任何授权机制都可以使用 `admin` 角色来授权用户：
 
 * [AuthorizeView 组件](xref:security/blazor/index#authorizeview-component)（示例： `<AuthorizeView Roles="admin">` ）
-* [ `[Authorize]` ] 特性指令]（x： security/blazor/index # 授权-attribute）（ <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ）（示例： `@attribute [Authorize(Roles = "admin")]` ）
+* [ `[Authorize]` attribute 指令](xref:security/blazor/index#authorize-attribute)（ <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ）（示例： `@attribute [Authorize(Roles = "admin")]` ）
 * [过程逻辑](xref:security/blazor/index#procedural-logic)（示例： `if (user.IsInRole("admin")) { ... }` ）
 
   支持多个角色测试：
@@ -273,7 +273,7 @@ B2C IEF 键集管理员 | 0c2e87e5-94f9-4adb-ae8c-bcafe11bd368
 B2C IEF 策略管理员 | bfcab36c-10c6-4b13-b63c-4d8b62c0c44e
 B2C 用户流管理员 | baa531b7-8cf0-44ad-8f98-eded88dae827
 B2C 用户流属性管理员 | dd0baca0-a535-48c1-b871-8431abe16452
-帐务管理员 | 69ff516a-b57d-4697-a429-9de4af7b5609
+计费管理员 | 69ff516a-b57d-4697-a429-9de4af7b5609
 云应用程序管理员 | 250b5fe3-b553-458d-9a53-b782c13c34bf
 云设备管理员 | 26cd4b44-2636-4ddb-bdfa-27feae66f86d
 法规管理员 | 9d6e1dd0-c9f8-45f8-b558-b134f700116c
