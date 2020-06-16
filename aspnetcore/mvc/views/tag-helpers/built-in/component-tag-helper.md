@@ -2,7 +2,7 @@
 title: ASP.NET Core 中的组件标记帮助程序
 author: guardrex
 ms.author: riande
-description: 了解如何使用 ASP.NET Core 组件标记帮助程序在页面和Razor视图中呈现组件。
+description: 了解如何使用 ASP.NET Core 组件标记帮助程序 Razor 在页面和视图中呈现组件。
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 4e003e5ed5e7863d8a218c0f02bb37e214e31910
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b6e3890e13ef5ad20098d3907b6895046087aeca
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773924"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776496"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的组件标记帮助程序
 
@@ -27,11 +27,11 @@ ms.locfileid: "82773924"
 
 ## <a name="prerequisites"></a>先决条件
 
-按照<xref:blazor/integrate-components#prepare-the-app>本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作。
+按照本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作 <xref:blazor/integrate-components#prepare-the-app> 。
 
 ## <a name="component-tag-helper"></a>组件标记帮助程序
 
-以下组件标记帮助程序在页面`Counter`或视图中呈现组件：
+以下组件标记帮助程序 `Counter` 在页面或视图中呈现组件：
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -42,9 +42,9 @@ ms.locfileid: "82773924"
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-前面的示例假定`Counter`组件位于应用的*Pages*文件夹中。
+前面的示例假定 `Counter` 组件位于应用的*Pages*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如 `@using BlazorSample.Pages` ）。
 
-组件标记帮助器还可以将参数传递给组件。 请考虑以下`ColorfulCheckbox`用于设置复选框标签颜色和大小的组件：
+组件标记帮助器还可以将参数传递给组件。 请考虑以下 `ColorfulCheckbox` 用于设置复选框标签颜色和大小的组件：
 
 ```razor
 <label style="font-size:@(Size)px;color:@Color">
@@ -72,7 +72,7 @@ ms.locfileid: "82773924"
 }
 ```
 
-`Size` （`int`）和`Color` （`string`）[组件参数](xref:blazor/components#component-parameters)可由组件标记帮助器设置：
+`Size`（ `int` ）和 `Color` （ `string` ）[组件参数](xref:blazor/components#component-parameters)可由组件标记帮助器设置：
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -84,7 +84,7 @@ ms.locfileid: "82773924"
     param-Size="14" param-Color="@("blue")" />
 ```
 
-前面的示例假定`ColorfulCheckbox`组件位于应用的*共享*文件夹中。
+前面的示例假定 `ColorfulCheckbox` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如 `@using BlazorSample.Shared` ）。
 
 在页面或视图中呈现以下 HTML：
 
@@ -95,9 +95,9 @@ ms.locfileid: "82773924"
 </label>
 ```
 
-传递带引号的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如前面的`param-Color`示例中所示。 由于属性是`string` `object`类型，因此类型值的 Razor 分析行为`param-*`不适用于特性。
+传递带引号的字符串需要[显式 Razor 表达式](xref:mvc/views/razor#explicit-razor-expressions)，如 `param-Color` 前面的示例中所示。 Razor `string` 由于属性是类型，因此类型值的分析行为不适用于 `param-*` 特性 `object` 。
 
-参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，在前面的示例中，可以`Size`为`Color`和指定一个值， `Size`因为和`Color`的类型为基元类型（`int`和`string`），这些类型是 JSON 序列化程序支持的。
+参数类型必须是 JSON 可序列化的，这通常意味着该类型必须具有默认的构造函数和可设置的属性。 例如，在前面的示例中，可以为和指定一个值， `Size` `Color` 因为和的 `Size` 类型 `Color` 为基元类型（ `int` 和 `string` ），这些类型是 JSON 序列化程序支持的。
 
 在下面的示例中，将类对象传递到组件：
 
@@ -151,16 +151,16 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-前面的示例假定`MyComponent`组件位于应用的*共享*文件夹中。 `MyClass`位于应用程序的命名空间（`{APP ASSEMBLY}`）中。
+前面的示例假定 `MyComponent` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如， `@using BlazorSample` 和 `@using BlazorSample.Shared` ）。 `MyClass`在应用的命名空间中。
 
-<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>配置组件是否：
+<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> 配置组件是否：
 
 * 在页面中预呈现。
 * 在页面上呈现为静态 HTML，或者包含从用户代理启动 Blazor 应用所需的信息。
 
 | 呈现模式 | 描述 |
 | ----------- | ----------- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包括Blazor服务器应用程序的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 将组件呈现为静态 HTML。 |
 

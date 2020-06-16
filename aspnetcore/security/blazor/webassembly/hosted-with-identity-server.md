@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: ade2d88c6a2d59e169c9019e871982a74ae46b33
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: c85843c04688beefe7ea87d9e8b281d14ab85bc5
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452312"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776509"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Blazor使用服务器保护 ASP.NET Core WebAssembly 的托管应用 Identity
 
@@ -132,7 +132,7 @@ dotnet new blazorwasm -au Individual -ho
 
 ### <a name="app-settings-files"></a>应用设置文件
 
-在项目根目录下的应用设置文件（*appsettings*）中， `IdentityServer` 部分描述了已配置的客户端的列表。 在下面的示例中，有一个客户端。 客户端名称对应于应用名称，并按约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 此配置文件可在内部使用，以促进简化服务器配置过程的约定。 <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
+在项目根目录下的应用设置文件（*appsettings.js上*）中， `IdentityServer` 部分描述了已配置的客户端的列表。 在下面的示例中，有一个客户端。 客户端名称对应于应用名称，并按约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 此配置文件可在内部使用，以促进简化服务器配置过程的约定。 <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
 
 ```json
 "IdentityServer": {
@@ -143,6 +143,8 @@ dotnet new blazorwasm -au Individual -ho
   }
 }
 ```
+
+占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如 `BlazorSample.Client` ）。
 
 ## <a name="client-app-configuration"></a>客户端应用配置
 
@@ -232,7 +234,7 @@ builder.Services.AddApiAuthorization();
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a>运行应用
+## <a name="run-the-app"></a>运行应用程序
 
 从服务器项目运行应用。 使用 Visual Studio 时，可以执行以下任一操作：
 
