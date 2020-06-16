@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: ead9cb8c852ac768c8fe1f9066eb73ac1203c4ce
-ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.openlocfilehash: 9b34125fdf6c6d451a11a53874944f5d8b44aa29
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84454696"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776535"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -56,7 +56,7 @@ ASP.NET Core 中的配置是使用一个或多个[配置提供程序](#cp)执行
 1. 使用[环境变量配置提供程序](#evcp)通过环境变量提供。
 1. 使用[命令行配置提供程序](#command-line)通过命令行参数提供。
 
-后来添加的配置提供程序会替代之前的密钥设置。 例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值。 使用默认配置提供程序，[命令行配置提供程序](#command-line-configuration-provider)将替代所有其他的提供程序。
+后来添加的配置提供程序会替代之前的密钥设置。 例如，如果在 appsettings.json 和环境中设置了 `MyKey`，则会使用环境值。 使用默认配置提供程序，[命令行配置提供程序](#clcp)将替代所有其他的提供程序。
 
 若要详细了解 `CreateDefaultBuilder`，请参阅[默认生成器设置](xref:fundamentals/host/generic-host#default-builder-settings)。
 
