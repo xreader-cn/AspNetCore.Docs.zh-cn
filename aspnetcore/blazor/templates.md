@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: f582e8201a3393b848cf3f2c21ce3a7df5554100
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 3a491e43aec8291fcf03696b53240bd33e0deda1
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105527"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102492"
 ---
 # <a name="aspnet-core-blazor-templates"></a>ASP.NET Core Blazor 模板
 
@@ -80,7 +80,7 @@ dotnet new blazorserver --help
 
 * Shared 文件夹：包含应用使用的其他 UI 组件 (.razor)：
   * `MainLayout` (MainLayout.razor)：应用的布局组件。
-  * `NavMenu` (NavMenu.razor)：实现边栏导航。 包括 [NavLink 组件](xref:blazor/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
+  * `NavMenu` (NavMenu.razor)：实现边栏导航。 包括 [NavLink 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>)，该组件可向其他 Razor 组件呈现导航链接。 <xref:Microsoft.AspNetCore.Components.Routing.NavLink> 组件会在系统加载其组件时自动指示选定状态，这有助于用户了解当前显示的组件。
 
 * _Imports.razor：包括要包含在应用组件 (.razor) 中的常见 Razor 指令，如用于命名空间的 [`@using`](xref:mvc/views/razor#using) 指令。
 

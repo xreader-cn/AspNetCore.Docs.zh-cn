@@ -1,26 +1,32 @@
 ---
-title: ASP.NET Core 中的标识模型自定义
+title: IdentityASP.NET Core 中的模型自定义
 author: ajcvickers
-description: 本文介绍如何为 ASP.NET Core 标识自定义的基础的实体框架核心数据模型。
+description: 本文介绍如何为 ASP.NET Core 自定义基础 Entity Framework Core 数据模型 Identity 。
 ms.author: avickers
 ms.date: 07/01/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: f549fdff4a416b5fadcb2b1078b051bbab8e402e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 96ee703da4ced69c5d9c703139e33b76b5dcdff1
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651456"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074143"
 ---
-# <a name="identity-model-customization-in-aspnet-core"></a>ASP.NET Core 中的标识模型自定义
+# <a name="identity-model-customization-in-aspnet-core"></a>IdentityASP.NET Core 中的模型自定义
 
 作者： [Arthur Vickers](https://github.com/ajcvickers)
 
-ASP.NET Core 标识提供了一个框架，用于管理和存储 ASP.NET Core 应用中的用户帐户。 选择**单个用户帐户**作为身份验证机制时，会将标识添加到你的项目中。 默认情况下，标识使用实体框架（EF）核心数据模型。 本文介绍如何自定义标识模型。
+ASP.NET Core Identity 提供了一个框架，用于管理 ASP.NET Core 应用中的用户帐户并将其存储在其中。 Identity选择**单个用户帐户**作为身份验证机制时，将添加到你的项目中。 默认情况下， Identity 使用实体框架（EF）核心数据模型。 本文介绍如何自定义 Identity 模型。
 
-## <a name="identity-and-ef-core-migrations"></a>标识和 EF Core 迁移
+## <a name="identity-and-ef-core-migrations"></a>Identity和 EF Core 迁移
 
-在检查模型之前，了解身份如何与[EF Core 迁移](/ef/core/managing-schemas/migrations/)来创建和更新数据库，这一点很有用。 在顶级，此过程如下：
+在检查模型之前，了解如何 Identity 使用[EF Core 迁移](/ef/core/managing-schemas/migrations/)来创建和更新数据库是非常有用的。 在顶级，此过程如下：
 
 1. [在代码中](/ef/core/modeling/)定义或更新数据模型。
 1. 添加迁移，将此模型转换为可应用于数据库的更改。
@@ -36,19 +42,19 @@ ASP.NET Core 标识提供了一个框架，用于管理和存储 ASP.NET Core �
 
 ASP.NET Core 具有一个开发时错误页面处理程序。 在运行应用程序时，处理程序可以应用迁移。 生产应用通常从迁移生成 SQL 脚本，并将数据库更改作为受控应用和数据库部署的一部分进行部署。
 
-当创建使用标识的新应用时，上面的步骤1和2已经完成。 也就是说，初始数据模型已存在，初始迁移已添加到该项目中。 初始迁移仍需应用于数据库。 可以通过以下方法之一来应用初始迁移：
+当创建使用的新应用程序时 Identity ，上面的步骤1和2已经完成。 也就是说，初始数据模型已存在，初始迁移已添加到该项目中。 初始迁移仍需应用于数据库。 可以通过以下方法之一来应用初始迁移：
 
-* 在 PMC 中运行 `Update-Database`。
-* 在命令行界面中运行 `dotnet ef database update`。
+* `Update-Database`在 PMC 中运行。
+* `dotnet ef database update`在命令行界面中运行。
 * 运行应用时，单击 "错误" 页上的 "**应用迁移**" 按钮。
 
 对模型进行更改时重复前面的步骤。
 
-## <a name="the-identity-model"></a>标识模型
+## <a name="the-identity-model"></a>Identity模型
 
 ### <a name="entity-types"></a>实体类型
 
-标识模型包含以下实体类型。
+Identity模型包含以下实体类型。
 
 |实体类型|说明                                                  |
 |-----------|-------------------------------------------------------------|
@@ -64,15 +70,15 @@ ASP.NET Core 具有一个开发时错误页面处理程序。 在运行应用程
 
 [实体类型](#entity-types)通过以下方式彼此相关：
 
-* 每个 `User` 可以有多个 `UserClaims`。
-* 每个 `User` 可以有多个 `UserLogins`。
-* 每个 `User` 可以有多个 `UserTokens`。
-* 每个 `Role` 可以有多个关联的 `RoleClaims`。
-* 每个 `User` 可以有多个关联的 `Roles`，每个 `Role` 可以与多个 `Users`关联。 这是一个多对多关系，需要数据库中的联接表。 联接表由 `UserRole` 实体表示。
+* 每个都 `User` 有多个 `UserClaims` 。
+* 每个都 `User` 有多个 `UserLogins` 。
+* 每个都 `User` 有多个 `UserTokens` 。
+* 每个都 `Role` 可以有多个关联 `RoleClaims` 的。
+* 每个 `User` 可具有多个关联 `Roles` 的，并且每个可以 `Role` 与多个关联 `Users` 。 这是一个多对多关系，需要数据库中的联接表。 联接表由 `UserRole` 实体表示。
 
 ### <a name="default-model-configuration"></a>默认模型配置
 
-标识定义了许多继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)的*上下文类*来配置和使用模型。 此配置是使用上下文类的[OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating)方法中的[EF CORE Code First 熟知 API](/ef/core/modeling/)完成的。 默认配置为：
+Identity定义多个继承自[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)的*上下文类*，以配置和使用模型。 此配置是使用上下文类的[OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating)方法中的[EF CORE Code First 熟知 API](/ef/core/modeling/)完成的。 默认配置为：
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -197,7 +203,7 @@ builder.Entity<TUserRole>(b =>
 
 ### <a name="model-generic-types"></a>模型泛型类型
 
-标识为上面列出的每个实体类型定义默认的[公共语言运行时](/dotnet/standard/glossary#clr)（CLR）类型。 这些类型都带有*标识*：
+Identity为上面列出的每个实体类型定义默认的[公共语言运行时](/dotnet/standard/glossary#clr)（CLR）类型。 这些类型都带有前缀 *Identity* ：
 
 * `IdentityUser`
 * `IdentityRole`
@@ -207,9 +213,9 @@ builder.Entity<TUserRole>(b =>
 * `IdentityRoleClaim`
 * `IdentityUserRole`
 
-可以将类型用作应用自己的类型的基类，而不是直接使用这些类型。 标识定义的 `DbContext` 类是泛型类，因此，不同的 CLR 类型可用于模型中的一个或多个实体类型。 这些泛型类型还允许更改 `User` 主键（PK）数据类型。
+可以将类型用作应用自己的类型的基类，而不是直接使用这些类型。 `DbContext`定义的类 Identity 是泛型类，因此，不同的 CLR 类型可用于模型中的一个或多个实体类型。 这些泛型类型还允许 `User` 更改主键（PK）数据类型。
 
-将标识与支持角色一起使用时，应使用 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> 类。 例如：
+使用 Identity 支持角色时， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> 应使用类。 例如：
 
 ```csharp
 // Uses all the built-in Identity types
@@ -253,7 +259,7 @@ public abstract class IdentityDbContext<
          where TUserToken : IdentityUserToken<TKey>
 ```
 
-也可以使用不带角色的标识（仅限声明），在这种情况下，应使用 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> 类：
+还可以 Identity 在不使用角色（仅限声明）的情况下使用，在这种情况下， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> 应使用类：
 
 ```csharp
 // Uses the built-in non-role Identity types except with a custom User type
@@ -289,14 +295,14 @@ public abstract class IdentityUserContext<
 
 ## <a name="customize-the-model"></a>自定义模型
 
-模型自定义的起点是派生自适当的上下文类型。 请参阅[模型泛型类型](#model-generic-types)部分。 此上下文类型通常称为 `ApplicationDbContext`，由 ASP.NET Core 模板创建。
+模型自定义的起点是派生自适当的上下文类型。 请参阅[模型泛型类型](#model-generic-types)部分。 此上下文类型通常称为 `ApplicationDbContext` ，由 ASP.NET Core 模板创建。
 
 上下文用于通过两种方式配置模型：
 
 * 为泛型类型参数提供实体和键类型。
-* 重写 `OnModelCreating` 修改这些类型的映射。
+* 重写 `OnModelCreating` 以修改这些类型的映射。
 
-重写 `OnModelCreating`时，应首先调用 `base.OnModelCreating`;接下来应调用重写配置。 EF Core 通常具有配置的最后一个 wins 策略。 例如，如果先使用一个表名称调用实体类型的 `ToTable` 方法，然后使用不同的表名称再次调用该方法，则使用第二个调用中的表名。
+重写时 `OnModelCreating` ， `base.OnModelCreating` 应首先调用，然后调用重写配置。 EF Core 通常具有用于配置的最后一个 wins 策略。 例如，如果 `ToTable` 先使用一个表名称调用实体类型的方法，然后再使用另一个表名称再次调用该方法，则使用第二个调用中的表名。
 
 ### <a name="custom-user-data"></a>自定义用户数据
 
@@ -310,7 +316,7 @@ dotnet ef migrations add CreateIdentitySchema
 dotnet ef database update
  -->
 
-[自定义用户数据](xref:security/authentication/add-user-data)是通过从 `IdentityUser`继承来支持的。 建议将此类型命名 `ApplicationUser`：
+继承[自自定义用户数据](xref:security/authentication/add-user-data) `IdentityUser` 。 常见的方法是将此类型命名为 `ApplicationUser` ：
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -319,7 +325,7 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-使用 `ApplicationUser` 类型作为上下文的泛型参数：
+将 `ApplicationUser` 类型用作上下文的泛型参数：
 
 ```csharp
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -336,9 +342,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 }
 ```
 
-不需要重写 `ApplicationDbContext` 类中的 `OnModelCreating`。 EF Core 按约定映射 `CustomTag` 属性。 但是，需要更新数据库以创建新的 `CustomTag` 列。 若要创建该列，请添加迁移，然后根据[标识和 EF Core 迁移](#identity-and-ef-core-migrations)中所述更新数据库。
+不需要 `OnModelCreating` 在类中进行重写 `ApplicationDbContext` 。 EF Core `CustomTag` 按约定映射属性。 但是，需要更新数据库以创建新 `CustomTag` 列。 若要创建该列，请添加迁移，然后更新数据库，如[ Identity 和 EF Core 迁移](#identity-and-ef-core-migrations)中所述。
 
-更新*Pages/Shared/_LoginPartial* ，并将 `IdentityUser` 替换为 `ApplicationUser`：
+更新*Pages/Shared/_LoginPartial* ，并将替换 `IdentityUser` 为 `ApplicationUser` ：
 
 ```cshtml
 @using Microsoft.AspNetCore.Identity
@@ -347,18 +353,18 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 @inject UserManager<ApplicationUser> UserManager
 ```
 
-更新*Areas/Identity/IdentityHostingStartup*或 `Startup.ConfigureServices`，并将 `IdentityUser` 替换为 `ApplicationUser`。
+更新*区域/ Identity /IdentityHostingStartup.cs*或 `Startup.ConfigureServices` ，并将替换 `IdentityUser` 为 `ApplicationUser` 。
 
 ```csharp
-services.AddDefaultIdentity<ApplicationUser>()
+services.AddIdentity<ApplicationUser>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultUI();
 ```
 
-在 ASP.NET Core 2.1 或更高版本中，标识作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果使用标识 scaffolder 将标识文件添加到项目中，请删除对 `AddDefaultUI`的调用。 有关详细信息，请参阅：
+在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。 有关详细信息，请参阅：
 
-* [基架标识](xref:security/authentication/scaffold-identity)
-* [向标识添加、下载和删除自定义用户数据](xref:security/authentication/add-user-data)
+* [基架Identity](xref:security/authentication/scaffold-identity)
+* [向添加、下载和删除自定义用户数据Identity](xref:security/authentication/add-user-data)
 
 ### <a name="change-the-primary-key-type"></a>更改主键类型
 
@@ -366,9 +372,9 @@ services.AddDefaultIdentity<ApplicationUser>()
 
 按照以下步骤更改 PK 类型：
 
-1. 如果数据库是在 PK 更改之前创建的，请运行 `Drop-Database` （PMC）或 `dotnet ef database drop` （.NET Core CLI）以删除它。
-2. 确认删除数据库后，删除带有 `Remove-Migration` （PMC）或 `dotnet ef migrations remove` （.NET Core CLI）的初始迁移。
-3. 更新 `ApplicationDbContext` 类，使其从 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603>派生。 为 `TKey`指定新的密钥类型。 例如，若要使用 `Guid` 密钥类型：
+1. 如果数据库是在 PK 更改之前创建的，则运行 `Drop-Database` （PMC）或 `dotnet ef database drop` （.NET Core CLI）删除该数据库。
+2. 确认删除数据库后，删除初始迁移 `Remove-Migration` （PMC）或 `dotnet ef migrations remove` （.NET Core CLI）。
+3. 更新 `ApplicationDbContext` 类以派生自 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603> 。 为指定新的密钥类型 `TKey` 。 例如，若要使用 `Guid` 密钥类型：
 
     ```csharp
     public class ApplicationDbContext
@@ -383,24 +389,23 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     ::: moniker range=">= aspnetcore-2.0"
 
-    在前面的代码中，必须指定泛型类 <xref:Microsoft.AspNetCore.Identity.IdentityUser%601> 和 <xref:Microsoft.AspNetCore.Identity.IdentityRole%601> 才能使用新的密钥类型。
+    在前面的代码中，必须指定泛型类， <xref:Microsoft.AspNetCore.Identity.IdentityUser%601> <xref:Microsoft.AspNetCore.Identity.IdentityRole%601> 才能使用新的密钥类型。
 
     ::: moniker-end
 
     ::: moniker range="<= aspnetcore-1.1"
 
-    在前面的代码中，必须指定泛型类 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601> 和 <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601> 才能使用新的密钥类型。
+    在前面的代码中，必须指定泛型类， <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601> <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601> 才能使用新的密钥类型。
 
     ::: moniker-end
 
-    若要使用一般用户，必须更新 `Startup.ConfigureServices`：
+    `Startup.ConfigureServices`必须更新为使用一般用户：
 
     ::: moniker range=">= aspnetcore-2.1"
 
     ```csharp
     services.AddDefaultIdentity<IdentityUser<Guid>>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
     ::: moniker-end
@@ -425,7 +430,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     ::: moniker-end
 
-4. 如果正在使用自定义 `ApplicationUser` 类，请将类更新为从 `IdentityUser`继承。 例如：
+4. 如果 `ApplicationUser` 正在使用自定义类，请将类更新为从继承 `IdentityUser` 。 例如：
 
     ::: moniker range="<= aspnetcore-1.1"
 
@@ -452,12 +457,12 @@ services.AddDefaultIdentity<ApplicationUser>()
     }
     ```
 
-    在 `Startup.ConfigureServices`中添加标识服务时注册自定义数据库上下文类：
+    在中添加服务时注册自定义数据库上下文类 Identity `Startup.ConfigureServices` ：
 
     ::: moniker range=">= aspnetcore-2.1"
 
     ```csharp
-    services.AddDefaultIdentity<ApplicationUser>()
+    services.AddIdentity<ApplicationUser>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -465,7 +470,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     通过分析[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象来推断主键的数据类型。
 
-    在 ASP.NET Core 2.1 或更高版本中，标识作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果使用标识 scaffolder 将标识文件添加到项目中，请删除对 `AddDefaultUI`的调用。
+    在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。
 
     ::: moniker-end
 
@@ -489,27 +494,27 @@ services.AddDefaultIdentity<ApplicationUser>()
             .AddDefaultTokenProviders();
     ```
 
-    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*> 方法接受指示主键的数据类型的 `TKey` 类型。
+    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*>方法接受 `TKey` 指示主键的数据类型的类型。
 
     ::: moniker-end
 
-5. 如果正在使用自定义 `ApplicationRole` 类，请将类更新为从 `IdentityRole<TKey>`继承。 例如：
+5. 如果 `ApplicationRole` 正在使用自定义类，请将类更新为从继承 `IdentityRole<TKey>` 。 例如：
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationRole.cs?name=snippet_ApplicationRole&highlight=4)]
 
-    更新 `ApplicationDbContext` 以引用自定义 `ApplicationRole` 类。 例如，下面的类引用自定义 `ApplicationUser` 和自定义 `ApplicationRole`：
+    更新 `ApplicationDbContext` 以引用自定义 `ApplicationRole` 类。 例如，下面的类引用自定义的 `ApplicationUser` 和自定义的 `ApplicationRole` ：
 
     ::: moniker range=">= aspnetcore-2.1"
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    在 `Startup.ConfigureServices`中添加标识服务时注册自定义数据库上下文类：
+    在中添加服务时注册自定义数据库上下文类 Identity `Startup.ConfigureServices` ：
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=13-16)]
 
     通过分析[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)对象来推断主键的数据类型。
 
-    在 ASP.NET Core 2.1 或更高版本中，标识作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>。 如果使用标识 scaffolder 将标识文件添加到项目中，请删除对 `AddDefaultUI`的调用。
+    在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。
 
     ::: moniker-end
 
@@ -517,7 +522,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    在 `Startup.ConfigureServices`中添加标识服务时注册自定义数据库上下文类：
+    在中添加服务时注册自定义数据库上下文类 Identity `Startup.ConfigureServices` ：
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
@@ -529,17 +534,17 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     [!code-csharp[](customize-identity-model/samples/1.1/MvcSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    在 `Startup.ConfigureServices`中添加标识服务时注册自定义数据库上下文类：
+    在中添加服务时注册自定义数据库上下文类 Identity `Startup.ConfigureServices` ：
 
     [!code-csharp[](customize-identity-model/samples/1.1/MvcSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
-    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*> 方法接受指示主键的数据类型的 `TKey` 类型。
+    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*>方法接受 `TKey` 指示主键的数据类型的类型。
 
     ::: moniker-end
 
 ### <a name="add-navigation-properties"></a>添加导航属性
 
-更改关系的模型配置可能比进行其他更改更难。 必须小心替换现有关系，而不是创建新的其他关系。 特别是，更改的关系必须指定与现有关系相同的外键（FK）属性。 例如，默认情况下，`Users` 和 `UserClaims` 之间的关系按如下方式指定：
+更改关系的模型配置可能比进行其他更改更难。 必须小心替换现有关系，而不是创建新的其他关系。 特别是，更改的关系必须指定与现有关系相同的外键（FK）属性。 例如，默认情况下，与之间的关系按 `Users` `UserClaims` 如下方式指定：
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -552,9 +557,9 @@ builder.Entity<TUser>(b =>
 });
 ```
 
-此关系的 FK 作为 `UserClaim.UserId` 属性指定。 无需参数即可调用 `HasMany` 和 `WithOne` 来创建不带导航属性的关系。
+此关系的 FK 指定为 `UserClaim.UserId` 属性。 `HasMany`在不带参数的情况下 `WithOne` 调用和来创建不带导航属性的关系。
 
-向 `ApplicationUser` 添加一个导航属性，该属性允许从用户引用关联的 `UserClaims`：
+向添加一个导航属性， `ApplicationUser` 该属性允许 `UserClaims` 从用户引用关联的：
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -563,9 +568,9 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-`IdentityUserClaim<TKey>` 的 `TKey` 是为用户的 PK 指定的类型。 在这种情况下，`TKey` `string`，因为正在使用默认值。 它**不**是 `UserClaim` 实体类型的 PK 类型。
+的 `TKey` 为 `IdentityUserClaim<TKey>` 用户的 PK 指定的类型。 在本例中， `TKey` 是 `string` 因为正在使用默认值。 它**不**是实体类型的 PK 类型 `UserClaim` 。
 
-由于导航属性存在，因此必须在 `OnModelCreating`中进行配置：
+由于导航属性存在，因此必须在中进行配置 `OnModelCreating` ：
 
 ```csharp
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -591,9 +596,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 }
 ```
 
-请注意，关系的配置与之前完全相同，只是在对的调用中指定的导航属性 `HasMany`。
+请注意，关系的配置与以前完全相同，只是在对的调用中指定了导航属性 `HasMany` 。
 
-导航属性仅存在于 EF 模型中，而不存在于数据库中。 由于关系的 FK 未更改，这种类型的模型更改不需要更新数据库。 这可以通过在更改后添加迁移来进行检查。 `Up` 和 `Down` 方法为空。
+导航属性仅存在于 EF 模型中，而不存在于数据库中。 由于关系的 FK 未更改，这种类型的模型更改不需要更新数据库。 这可以通过在更改后添加迁移来进行检查。 `Up`和 `Down` 方法为空。
 
 ### <a name="add-all-user-navigation-properties"></a>添加所有用户导航属性
 
@@ -734,9 +739,9 @@ public class ApplicationDbContext
 
 说明：
 
-* 此示例还包括 `UserRole` 联接实体，该实体是从用户到角色导航多对多关系所必需的。
-* 请记住更改导航属性的类型，以反映现在正在使用 `ApplicationXxx` 类型，而不是 `IdentityXxx` 类型。
-* 请记得使用一般 `ApplicationContext` 定义中的 `ApplicationXxx`。
+* 此示例还包括 `UserRole` 联接实体，需要将多对多关系从用户导航到角色。
+* 请记住更改导航属性的类型，以反映 `ApplicationXxx` 现在正在使用的类型而不是 `IdentityXxx` 类型。
+* 请记住 `ApplicationXxx` 在泛型定义中使用 `ApplicationContext` 。
 
 ### <a name="add-all-navigation-properties"></a>添加所有导航属性
 
@@ -847,11 +852,11 @@ public class ApplicationDbContext
 
 ### <a name="use-composite-keys"></a>使用组合键
 
-前面几节演示了如何更改标识模型中使用的密钥类型。 不支持或建议将标识密钥模型更改为使用组合键。 使用带有标识的组合键涉及更改标识管理器代码与模型交互的方式。 此自定义超出了本文档的范围。
+前面几节演示了如何更改模型中使用的键的类型 Identity 。 Identity不支持或建议更改键模型以使用复合键。 结合使用组合键 Identity 涉及更改 Identity 管理器代码与模型的交互方式。 此自定义超出了本文档的范围。
 
 ### <a name="change-tablecolumn-names-and-facets"></a>更改表/列名称和方面
 
-若要更改表和列的名称，请调用 `base.OnModelCreating`。 然后，添加配置以覆盖任何默认值。 例如，若要更改所有标识表的名称，请执行以下操作：
+若要更改表和列的名称，请调用 `base.OnModelCreating` 。 然后，添加配置以覆盖任何默认值。 例如，若要更改所有表的名称，请 Identity 执行以下操作：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -895,7 +900,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-这些示例使用默认的标识类型。 如果使用 `ApplicationUser`之类的应用程序类型，请配置该类型而不是默认类型。
+这些示例使用默认 Identity 类型。 如果使用之类的应用类型 `ApplicationUser` ，请配置该类型而不是默认类型。
 
 下面的示例将更改某些列名：
 
@@ -917,7 +922,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-某些类型的数据库列可以配置某些*方面*（例如，允许的最大 `string` 长度）。 下面的示例设置了模型中多个 `string` 属性的列最大长度：
+某些类型的数据库列可以配置某些*方面*（例如，允许的最大 `string` 长度）。 下面的示例为模型中的几个属性设置列最大长度 `string` ：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -957,15 +962,15 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ### <a name="lazy-loading"></a>延迟加载
 
-在本部分中，将添加对标识模型中的延迟加载代理的支持。 延迟加载非常有用，因为它允许使用导航属性，而无需首先确保它们已加载。
+在本部分中，将添加对模型中延迟加载代理的支持 Identity 。 延迟加载非常有用，因为它允许使用导航属性，而无需首先确保它们已加载。
 
 可以通过多种方式使实体类型适用于延迟加载，如[EF Core 文档](/ef/core/querying/related-data#lazy-loading)中所述。 为简单起见，请使用延迟加载代理，这需要：
 
 * [Microsoft.entityframeworkcore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)包的安装。
-* 调用[AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)中的 <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*>。
-* 具有 `public virtual` 导航属性的公共实体类型。
+* 在 <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*> [AddDbContext \<TContext> ](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)内调用。
+* 具有导航属性的公共实体类型 `public virtual` 。
 
-下面的示例演示如何在 `Startup.ConfigureServices`中调用 `UseLazyLoadingProxies`：
+下面的示例演示如何 `UseLazyLoadingProxies` 在中调用 `Startup.ConfigureServices` ：
 
 ```csharp
 services

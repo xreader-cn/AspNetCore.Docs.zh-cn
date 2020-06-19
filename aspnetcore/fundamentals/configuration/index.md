@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9b34125fdf6c6d451a11a53874944f5d8b44aa29
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: 51c86639ef904aae1730a698758cd6b8867a445a
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/15/2020
-ms.locfileid: "84776535"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074284"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core 中的配置
 
@@ -730,7 +730,7 @@ Extensions/EntityFrameworkExtensions.cs：
 有关使用 [Web 主机](xref:fundamentals/host/web-host)时默认配置的详细信息，请参阅[本主题的 ASP.NET Core 2.2 版本](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2)。
 
 * 主机配置通过以下方式提供：
-  * 使用[环境变量配置提供程序](#environment-variables-configuration-provider)通过前缀为 `DOTNET_`的环境变量（例如，`DOTNET_ENVIRONMENT`）提供。 在配置键值对加载后，前缀 (`DOTNET_`) 会遭去除。
+  * 使用[环境变量配置提供程序](#environment-variables)通过前缀为 `DOTNET_`的环境变量（例如，`DOTNET_ENVIRONMENT`）提供。 在配置键值对加载后，前缀 (`DOTNET_`) 会遭去除。
   * 使用[命令行配置提供程序](#command-line-configuration-provider)通过命令行参数提供。
 * 已建立 Web 主机默认配置 (`ConfigureWebHostDefaults`)：
   * Kestrel 用作 Web 服务器，并使用应用的配置提供程序对其进行配置。

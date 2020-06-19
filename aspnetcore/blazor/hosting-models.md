@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 9556fea5319956ce4ae4f4faf90cb405784c733c
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: a5323534cd76cfb60008636066ca5dcb7308d134
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105488"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102273"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor 托管模型
 
@@ -28,7 +28,7 @@ Blazor 是一种 Web 框架，专用于在基于 [WebAssembly](https://webassemb
 
 若要为本文所述的托管模型创建项目，请参阅 <xref:blazor/get-started>。
 
-对于高级配置，请参阅 <xref:blazor/hosting-model-configuration>。
+对于高级配置，请参阅 <xref:blazor/fundamentals/configuration>。
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
@@ -116,7 +116,7 @@ Blazor 中的 UI 更新由以下内容触发：
 
 图已呈现，且 UI diff（差异）已计算。 此差异是更新客户端上的 UI 所需的最小一组 DOM 编辑。 差异以二进制格式发送到客户端，并由浏览器应用。
 
-用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor 服务器应用以确保充分使用服务器内存，请参阅 <xref:security/blazor/server/threat-mitigation>。
+用户在客户端上退出组件之后，组件会被丢弃。 用户与组件交互时，组件的状态（服务、资源）必须保存在服务器的内存中。 由于服务器可能同时保存多个组件的状态，因此必须解决内存不足的问题。 要了解如何创作 Blazor 服务器应用以确保充分使用服务器内存，请参阅 <xref:blazor/security/server/threat-mitigation>。
 
 ### <a name="circuits"></a>线路
 
@@ -136,10 +136,10 @@ UI 延迟是指从启动操作到 UI 更新所需的时间。 要使应用对用
 
 内存使用也会导致应用延迟。 内存使用率增大会导致垃圾收集频繁或内存分页到磁盘，两者均会降低应用性能，进而增大 UI 延迟。
 
-Blazor 服务器应用应降低网络延迟和内存使用率，从而优化以最大限度地降低 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:host-and-deploy/blazor/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅以下内容：
+Blazor 服务器应用应降低网络延迟和内存使用率，从而优化以最大限度地降低 UI 延迟。 有关测量网络延迟的方法，请参阅 <xref:blazor/host-and-deploy/server#measure-network-latency>。 有关 SignalR 和 Blazor 的详细信息，请参阅以下内容：
 
-* <xref:host-and-deploy/blazor/server>
-* <xref:security/blazor/server/threat-mitigation>
+* <xref:blazor/host-and-deploy/server>
+* <xref:blazor/security/server/threat-mitigation>
 
 ### <a name="connection-to-the-server"></a>连接到服务器
 
@@ -147,7 +147,7 @@ Blazor 服务器应用需要与服务器建立有效的 SignalR 连接。 如果
 
 Blazor 服务器应用预呈现以响应第一个客户端请求，这会在服务器上设置 UI 状态。 客户端尝试创建 SignalR 连接时，必须重新连接到同一服务器。 使用多个后端服务器的 Blazor 服务器应用应实现粘滞会话，从而建立 SignalR 连接。
 
-我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，从而为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:host-and-deploy/blazor/server#signalr-configuration>。
+我们建议将 [Azure SignalR 服务](/azure/azure-signalr)用于 Blazor Server 应用。 该服务允许将 Blazor Server 应用扩展到大量并发 SignalR 连接。 可将服务的 `ServerStickyMode` 选项或配置值设置为 `Required`，从而为 Azure SignalR 服务启用粘滞会话。 有关详细信息，请参阅 <xref:blazor/host-and-deploy/server#signalr-configuration>。
 
 使用 IIS 时，粘滞会话通过应用程序请求路由启用。 有关详细信息，请参阅[使用应用程序请求路由实现 HTTP 负载均衡](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)。
 
@@ -155,5 +155,5 @@ Blazor 服务器应用预呈现以响应第一个客户端请求，这会在服�
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>
-* <xref:blazor/hosting-model-configuration>
+* <xref:blazor/fundamentals/additional-scenarios>
 * <xref:tutorials/signalr-blazor-webassembly>

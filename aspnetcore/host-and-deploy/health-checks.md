@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: cb3ee4f3bf9061d212c1fee85f3f4a22946be097
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 00b2697a6b916718d9d0e01d1ea9f922eb2b5706
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105774"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074425"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core 中的运行状况检查
 
@@ -560,7 +560,7 @@ dotnet run --scenario writer
 
 使用 URL 模式在 `MapHealthChecks` 上调用 `RequireHost`，该 URL 模式指定一个端口，以使运行状况检查请求限于指定端口。 这通常用于在容器环境中公开用于监视服务的端口。
 
-示例应用使用[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)配置端口。 端口在 launchSettings.json 文件设置，并通过环境变量传递到配置提供程序。 还必须配置服务器以在管理端口上侦听请求。
+示例应用使用[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)配置端口。 端口在 launchSettings.json 文件设置，并通过环境变量传递到配置提供程序。 还必须配置服务器以在管理端口上侦听请求。
 
 若要使用示例应用演示管理端口配置，请在 Properties 文件夹中创建 launchSettings.json 文件。
 
@@ -789,7 +789,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-有关详细信息，请参阅 <xref:fundamentals/middleware/index#use-run-and-map>。
+有关详细信息，请参阅 <xref:fundamentals/middleware/index#branch-the-middleware-pipeline>。
 
 ::: moniker-end
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 36afa8ece58843b434ebfba6305bffdb9eb9bca0
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: f3314458a504af7f44dcdc276de890fa9485a2b3
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724284"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103040"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -195,7 +195,7 @@ Identity在*区域/ Identity /IdentityHostingStartup.cs*中配置。 有关详�
 * 设置身份验证令牌并将其保存到身份验证 cookie 后，可以将其传递给组件。
 * Razor组件不能 `HttpContext` 直接使用，因此无法获取要在其上发布到的注销终结点的[反请求伪造（XSRF）令牌](xref:security/anti-request-forgery) Identity `/Identity/Account/Logout` 。 可以将 XSRF 令牌传递给组件。
 
-有关详细信息，请参阅 <xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
+有关详细信息，请参阅 <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
 
 在*Pages/_Host cshtml*文件中，在将其添加到和类后建立该令牌 `InitialApplicationState` `TokenProvider` ：
 
@@ -229,7 +229,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 在 `Startup` 类中：
 
 * 确认 Razor 在中添加了页面服务 `Startup.ConfigureServices` 。
-* 如果使用[TokenProvider](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)，请注册服务。
+* 如果使用[TokenProvider](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)，请注册服务。
 * `UseDatabaseErrorPage`对于开发环境，请在中的应用程序生成器上调用 `Startup.Configure` 。
 * 调用 `UseAuthentication` and `UseAuthorization` after `UseRouting` 。
 * 添加页的终结点 Razor 。
@@ -253,7 +253,7 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 }
 ```
 
-将 `LoginDisplay` 组件（*LoginDisplay*）添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
+将 `LoginDisplay` 组件（*LoginDisplay*）添加到应用的*共享*文件夹。 [TokenProvider 服务](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app)提供 HTML 窗体的 XSRF 标记，该标记将发布到 Identity 注销终结点：
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization

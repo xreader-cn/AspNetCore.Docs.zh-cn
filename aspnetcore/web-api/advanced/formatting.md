@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 865b2e58b38c16a54815ce0923a78ac98f2247f1
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 46a1ccbb3b5eeaf1beb3e33bca1b6c7065d6d56a
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84355365"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074220"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 
@@ -40,7 +40,7 @@ ASP.NET Core MVC 支持设置响应数据的格式。 可以使用特定格式�
 * 将显示包含内容类型的响应标头。**** `application/json; charset=utf-8`
 * 将显示请求标头。 例如 `Accept` 标头。 上述代码将忽略 `Accept` 标头。
 
-若要返回纯文本格式数据，请使用 <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> 和 <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> 帮助程序：
+若要返回纯文本格式数据，请使用 <xref:Microsoft.AspNetCore.Mvc.ContentResult> 和 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Content%2A> 帮助程序：
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_about)]
 

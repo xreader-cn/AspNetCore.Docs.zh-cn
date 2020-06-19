@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: cfc2867baa03cbc0bedc9ad4a90244ec007094d6
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 3cc75406a1680dff4727527153a62856a594c8c7
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105657"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102502"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状态管理
 
@@ -99,7 +99,7 @@ Blazor 服务器是有状态的应用框架。 大多数情况下，应用保持
 * 如果用户手动重载页面。
 * 如果 Web 服务器不可用，且用户被强制重载页面，以便连接到其他服务器。
 
-有关使用 `@page` 指令定义 URL 模式的信息，请参阅 <xref:blazor/routing>。
+有关使用 `@page` 指令定义 URL 模式的信息，请参阅 <xref:blazor/fundamentals/routing>。
 
 ### <a name="client-side-in-the-browser"></a>浏览器中的客户端
 
@@ -196,7 +196,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync` 并将结果分配给 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>，而不是 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 仅在首次实例化组件时调用一次。 如果用户导航到不同的 URL，而仍然停留在相同的页面上，则 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 之后不会再次调用。 有关详细信息，请参阅 <xref:blazor/lifecycle>。
+如果组件的参数包括导航状态，请调用 `ProtectedSessionStore.GetAsync` 并将结果分配给 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>，而不是 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>。 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 仅在首次实例化组件时调用一次。 如果用户导航到不同的 URL，而仍然停留在相同的页面上，则 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 之后不会再次调用。 有关详细信息，请参阅 <xref:blazor/components/lifecycle>。
 
 > [!WARNING]
 > 本节中的示例仅在服务器未启用预呈现的情况下有效。 启用预呈现后，将生成如下错误：

@@ -15,4 +15,4 @@ Blazor 服务器应用位于服务器内存中。 这意味着同一进程中托
 * 在根组件中定义一个参数，用于保存即将传递给应用的数据。
 * 在应用中使用用户特定的数据；或者，将该数据复制到 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> 中的作用域内的服务，以便可以跨应用使用该数据。
 
-有关更多信息及代码示例，请参见 <xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。
+有关更多信息及代码示例，请参见 <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>。

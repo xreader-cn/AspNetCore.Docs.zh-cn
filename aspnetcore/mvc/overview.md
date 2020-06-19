@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: ae382feb152f490e46df969887401060965d8c4e
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: fcd81544385702ce72ff5fc8ae2de34d0f7afb37
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106528"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103003"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC 概述
 
@@ -68,7 +68,7 @@ ASP.NET Core MVC 包括以下功能：
 * [路由](#routing)
 * [模型绑定](#model-binding)
 * [模型验证](#model-validation)
-* [依赖关系注入](../fundamentals/dependency-injection.md)
+* [依赖项注入](../fundamentals/dependency-injection.md)
 * [筛选器](#filters)
 * [Areas](#areas)
 * [Web API](#web-apis)
@@ -147,7 +147,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 框架处理客户端和服务器上的验证请求数据。 在模型类型上指定的验证逻辑作为非介入式注释添加到呈现的视图，并使用 [jQuery 验证](https://jqueryvalidation.org/)在浏览器中强制执行。
 
-### <a name="dependency-injection"></a>依赖关系注入
+### <a name="dependency-injection"></a>依赖项注入
 
 ASP.NET Core 内置有对[依赖关系注入 (DI)](../fundamentals/dependency-injection.md) 的支持。 在 ASP.NET Core MVC 中，[控制器](controllers/dependency-injection.md)可通过其构造函数请求所需服务，使其能够遵循 [Explicit Dependencies Principle](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)（显式依赖关系原则）。
 
@@ -264,4 +264,4 @@ RazorMVC 中的视图可以基于模型进行强类型化。 控制器可以将�
 ## <a name="additional-resources"></a>其他资源
 
 * [MyTested AspNetCore-ASP.NET CORE mvc 的流畅测试库](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)：强类型单元测试库，提供用于测试 Mvc 和 web API 应用的流畅界面。 （*不由 Microsoft 进行支持或维护*。）
-* <xref:blazor/integrate-components>
+* <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>

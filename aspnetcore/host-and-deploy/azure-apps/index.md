@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 8195702a3de93bafc76dff61939dfc70d4e896b6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cc12dc2bc6720652866227dc2bbcbcf4e8af793d
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775240"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074241"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>将 ASP.NET Core 应用部署到 Azure 应用服务
 
@@ -87,17 +87,20 @@ ASP.NET Core 文档中提供以下文章：
 
 ## <a name="override-app-configuration-using-the-azure-portal"></a>使用 Azure 门户重写应用配置
 
-Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)来使用环境变量。
-
-在 Azure 门户中创建或修改应用设置并选择“保存”按钮时，Azure 应用将重启  。 服务重启后，应用即可使用环境变量。
-
 ::: moniker range=">= aspnetcore-3.0"
 
-当应用使用[一般主机](xref:fundamentals/host/generic-host)时，在调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 来构建主机时，环境变量将加载到应用程序的配置中。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host> 和[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)。
+Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)来使用环境变量。
+
+在 Azure 门户中创建或修改应用设置并选择“保存”按钮时，Azure 应用将重启。 服务重启后，应用即可使用环境变量。
+
+当应用使用[一般主机](xref:fundamentals/host/generic-host)时，在调用 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> 来构建主机时，环境变量将加载到应用程序的配置中。 有关详细信息，请参阅 <xref:fundamentals/host/generic-host> 和[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)。
 
 ::: moniker-end
-
 ::: moniker range="< aspnetcore-3.0"
+
+Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)来使用环境变量。
+
+在 Azure 门户中创建或修改应用设置并选择“保存”按钮时，Azure 应用将重启。 服务重启后，应用即可使用环境变量。
 
 当应用使用 [Web 主机](xref:fundamentals/host/web-host)时，在调用 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> 来构建主机时，环境变量将加载到应用程序的配置中。 有关详细信息，请参阅 <xref:fundamentals/host/web-host> 和[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)。
 
@@ -111,13 +114,13 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ::: moniker range=">= aspnetcore-3.0"
 
-部署到应用服务的 ASP.NET Core 应用会自动接收“ASP.NET Core 记录集成”这一应用服务扩展  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+部署到应用服务的 ASP.NET Core 应用会自动接收“ASP.NET Core 记录集成”这一应用服务扩展。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”  。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
+部署到应用服务的 ASP.NET Core 应用自动接收应用服务扩展“ASP.NET Core 日志记录扩展”。 借助该扩展，可记录 Azure 应用服务上针对 ASP.NET Core 应用的集成。
 
 ::: moniker-end
 
@@ -140,7 +143,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="data-protection-key-ring-and-deployment-slots"></a>数据保护密钥环和部署槽位
 
-[数据保护密钥](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)保存在 %HOME%\ASP.NET\DataProtection-Keys 文件夹中  。 此文件夹由网络存储提供支持，并跨托管应用的所有计算机同步。 密钥不是静态保护的。 此文件夹向单个部署槽位中应用的所有实例提供密钥环。 各部署槽位（例如过渡槽和生成槽）不共享密钥环。
+[数据保护密钥](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)保存在 %HOME%\ASP.NET\DataProtection-Keys 文件夹中。 此文件夹由网络存储提供支持，并跨托管应用的所有计算机同步。 密钥不是静态保护的。 此文件夹向单个部署槽位中应用的所有实例提供密钥环。 各部署槽位（例如过渡槽和生成槽）不共享密钥环。
 
 在部署槽位之间交换时，使用数据保护的任意系统都无法使用之前槽位中的密钥环来解密存储的数据。 ASP.NET Cookie 中间件使用数据保护来保护其 cookie。 这导致用户注销使用标准 ASP.NET Cookie 中间件的应用。 对于独立于槽位的密钥环解决方案，请使用外部密钥环提供程序，例如：
 
@@ -169,7 +172,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 #### <a name="specify-the-net-core-sdk-version"></a>指定 .NET Core SDK 版本
 
-使用应用服务部署中心创建 Azure DevOps 版本时，默认版本管道包含 `Restore`、`Build`、`Test` 和 `Publish` 的步骤。 若要指定 SDK 版本，请在“代理作业”列表中选择“添加 (+)”  按钮以添加新步骤。 在搜索栏中搜索“.NET Core SDK”  。 
+使用应用服务部署中心创建 Azure DevOps 版本时，默认版本管道包含 `Restore`、`Build`、`Test` 和 `Publish` 的步骤。 若要指定 SDK 版本，请在“代理作业”列表中选择“添加 (+)”按钮以添加新步骤。 在搜索栏中搜索“.NET Core SDK”。 
 
 ![添加 .NET Core SDK 步骤](index/add-sdk-step.png)
 
@@ -203,17 +206,17 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 1. 从 Azure 门户导航到“应用服务”。
 1. 选择 Web 应用。
 1. 在搜索框中键入“ex”以筛选“扩展”，或向下滚动管理工具列表。
-1. 选择“扩展”  。
-1. 选择“添加”  。
-1. 从列表选择“ASP.NET Core {X.Y} ({x64|x86}) 运行时”  扩展，其中 `{X.Y}` 是 ASP.NET Core 预览版本，并且 `{x64|x86}` 指定平台。
-1. 选择“确定”  以接受法律条款。
-1. 选择“确定”安装扩展  。
+1. 选择“扩展”。
+1. 选择“添加”。
+1. 从列表选择“ASP.NET Core {X.Y} ({x64|x86}) 运行时”扩展，其中 `{X.Y}` 是 ASP.NET Core 预览版本，并且 `{x64|x86}` 指定平台。
+1. 选择“确定”以接受法律条款。
+1. 选择“确定”安装扩展。
 
 操作完成时，即表示已安装最新的 .NET Core 预览版。 验证安装：
 
-1. 选择“高级工具”  。
-1. 选择“高级工具”  中的“Go”  。
-1. 选择“调试控制台”   > “PowerShell”  菜单项。
+1. 选择“高级工具”。
+1. 选择“高级工具”中的“Go”。
+1. 选择“调试控制台” > “PowerShell”菜单项。
 1. 从 PowerShell 命令提示符处执行以下命令。 在以下命令中，将 ASP.NET Core 运行时版本替换为 `{X.Y}`，并将平台替换为 `{PLATFORM}`：
 
    ```powershell
@@ -225,7 +228,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 > [!NOTE]
 > 对于在 A 系列计算（基本）上或更高级托管层上托管的应用，可在 Azure 门户中的应用设置中设置应用服务应用的平台体系结构 (x86/x64)。 请确认应用的发布设置（例如 Visual Studio 中的[发布配置文件 (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles)）与 Azure 门户中应用的服务配置设置匹配。
 >
-> 如果应用在进程内模式下运行并且平台体系结构配置为 64 位 (x64)，则 ASP.NET Core 模块会使用 64 位预览版运行时（如存在）。 使用 Azure 门户安装“ASP.NET Core {X.Y} (x64) 运行时”  扩展。
+> 如果应用在进程内模式下运行并且平台体系结构配置为 64 位 (x64)，则 ASP.NET Core 模块会使用 64 位预览版运行时（如存在）。 使用 Azure 门户安装“ASP.NET Core {X.Y} (x64) 运行时”扩展。
 >
 > 安装 x64 预览版运行时后，在 Azure Kudu PowerShell 命令窗口中运行以下命令以验证该安装。 在以下命令中，将 ASP.NET Core 运行时版本替换为 `{X.Y}`：
 >
@@ -236,7 +239,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 > 如果安装 x64 预览版运行时，该命令将返回`True`。
 
 > [!NOTE]
-> ASP.NET Core 扩展  可为 Azure 应用服务上的 ASP.NET Core 启用附加功能，例如启用 Azure 日志记录。 从 Visual Studio 进行部署时，将自动安装该扩展。 如果未安装该扩展，请为应用安装它。
+> ASP.NET Core 扩展可为 Azure 应用服务上的 ASP.NET Core 启用附加功能，例如启用 Azure 日志记录。 从 Visual Studio 进行部署时，将自动安装该扩展。 如果未安装该扩展，请为应用安装它。
 
 **通过 ARM 模板使用预览站点扩展**
 
@@ -251,7 +254,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 对于 64 位部署：
 
 * 使用 64 位 .NET Core SDK 部署 64 位的应用。
-* 在应用服务的“配置” > “常规”l“设置”中将“平台”设置为“64 位”     。 应用必须使用基本服务计划或更高级别的服务计划才能选择平台位数。
+* 在应用服务的“配置” > “常规”l“设置”中将“平台”设置为“64 位”   。 应用必须使用基本服务计划或更高级别的服务计划才能选择平台位数。
 
 ::: moniker-end
 
@@ -259,15 +262,15 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
-1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
-1. 选择“高级”  。 随即会打开“发布”对话框  。
-1. 在“发布”对话框中  ：
-   * 确认已选中“发布”配置  。
-   * 打开“部署模式”下拉列表，然后选择“依赖框架”   。
-   * 选择“可移植”作为目标运行时   。
-   * 如果需要在部署时删除其他文件，请打开“文件发布选项”，然后选中复选框以删除目标位置的其他文件  。
-   * 选择“保存”  。
+1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”   。
+1. 在“选择发布目标”对话框中，确认已选中“应用服务” 。
+1. 选择“高级”。 随即会打开“发布”对话框。
+1. 在“发布”对话框中：
+   * 确认已选中“发布”配置。
+   * 打开“部署模式”下拉列表，然后选择“依赖框架” 。
+   * 选择“可移植”作为目标运行时 。
+   * 如果需要在部署时删除其他文件，请打开“文件发布选项”，然后选中复选框以删除目标位置的其他文件。
+   * 选择“保存”。
 1. 按照发布向导的其余提示创建新站点或更新现有站点。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
@@ -280,7 +283,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    dotnet publish --configuration Release
    ```
 
-1. 将 bin/Release/{TARGET FRAMEWORK}/publish 目录的内容移动到应用服务中的站点  。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 [Kudu](https://github.com/projectkudu/kudu/wiki) 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹  。
+1. 将 bin/Release/{TARGET FRAMEWORK}/publish 目录的内容移动到应用服务中的站点。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 [Kudu](https://github.com/projectkudu/kudu/wiki) 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹。
 
 ---
 
@@ -290,15 +293,15 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”     。
-1. 在“选择发布目标”对话框中，确认已选中“应用服务”   。
-1. 选择“高级”  。 随即会打开“发布”对话框  。
-1. 在“发布”对话框中  ：
-   * 确认已选中“发布”配置  。
-   * 打开“部署模式”下拉列表，然后选择“自包含”   。
-   * 从“目标运行时”下拉列表中选择目标运行时  。 默认值为 `win-x86`。
-   * 如果需要在部署时删除其他文件，请打开“文件发布选项”，然后选中复选框以删除目标位置的其他文件  。
-   * 选择“保存”  。
+1. 从 Visual Studio 工具栏中选择“构建” > “发布 {应用程序名称}”，或者在解决方案资源管理器中右键单击项目，并选择“发布”   。
+1. 在“选择发布目标”对话框中，确认已选中“应用服务” 。
+1. 选择“高级”。 随即会打开“发布”对话框。
+1. 在“发布”对话框中：
+   * 确认已选中“发布”配置。
+   * 打开“部署模式”下拉列表，然后选择“自包含” 。
+   * 从“目标运行时”下拉列表中选择目标运行时。 默认值为 `win-x86`。
+   * 如果需要在部署时删除其他文件，请打开“文件发布选项”，然后选中复选框以删除目标位置的其他文件。
+   * 选择“保存”。
 1. 按照发布向导的其余提示创建新站点或更新现有站点。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
@@ -318,7 +321,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
    dotnet publish --configuration Release --runtime win-x86 --self-contained
    ```
 
-1. 将 bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish 目录的内容移动到应用服务中的站点  。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 Kudu 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹  。
+1. 将 bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish 目录的内容移动到应用服务中的站点。 如果将 publish 文件夹内容从本地硬盘或网络共享直接拖动到 Kudu 控制台中的应用服务，则请将文件拖动到 Kudu 控制台的 `D:\home\site\wwwroot` 文件夹。
 
 ---
 
@@ -328,7 +331,7 @@ Azure 门户中的应用设置允许为应用设置环境变量。 可以通过[
 
 ## <a name="transform-webconfig"></a>转换 web.config
 
-如果需要在发布时转换 web.config（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>  。
+如果需要在发布时转换 web.config（例如，基于配置、配置文件或环境设置环境变量），请参阅 <xref:host-and-deploy/iis/transform-webconfig>。
 
 ## <a name="additional-resources"></a>其他资源
 

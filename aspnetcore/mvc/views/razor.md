@@ -11,18 +11,18 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 53ca2a650eb6a3be0ff137953df5a546e9f0b282
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
+ms.openlocfilehash: e85c9d384361f9169035e6a3ab8770e1a96b8650
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84756127"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102730"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>RazorASP.NET Core 的语法参考
 
 作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Taylor Mullen](https://twitter.com/ntaylormullen)和[Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor是一个用于将基于服务器的代码嵌入到网页中的标记语法。 Razor语法由 Razor 标记、c # 和 HTML 组成。 通常包含 Razor 的文件的扩展名为 *...* Razor还可在[ Razor 组件](xref:blazor/components)文件（*razor*）中找到。
+Razor是一个用于将基于服务器的代码嵌入到网页中的标记语法。 Razor语法由 Razor 标记、c # 和 HTML 组成。 通常包含 Razor 的文件的扩展名为 *...* Razor还可在[ Razor 组件](xref:blazor/components/index)文件（*razor*）中找到。
 
 ## <a name="rendering-html"></a>呈现 HTML
 
@@ -465,7 +465,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-`@code`块使[ Razor 组件](xref:blazor/components)能够向组件添加 c # 成员（字段、属性和方法）：
+`@code`块使[ Razor 组件](xref:blazor/components/index)能够向组件添加 c # 成员（字段、属性和方法）：
 
 ```razor
 @code {
@@ -489,7 +489,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在[ Razor 组件](xref:blazor/components)中，使用 `@code` Over `@functions` 来添加 c # 成员。
+在[ Razor 组件](xref:blazor/components/index)中，使用 `@code` Over `@functions` 来添加 c # 成员。
 
 ::: moniker-end
 
@@ -683,7 +683,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 `@page` 指令具有不同的效果，具体取决于其所在文件的类型。 指令：
 
 * 在中， *# 文件中*的指示该文件是一个 Razor 页面。 有关详细信息，请参阅[自定义路由](xref:razor-pages/index#custom-routes)和 <xref:razor-pages/index>。
-* 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/routing>。
+* 指定 Razor 组件应直接处理请求。 有关详细信息，请参阅 <xref:blazor/fundamentals/routing>。
 
 ::: moniker-end
 
@@ -707,7 +707,7 @@ Razor公开 `Model` 用于访问传递到视图的模型的属性：
 
 ::: moniker range=">= aspnetcore-3.0"
 
-在 " [ Razor 组件](xref:blazor/components)" 中， `@using` 还控制哪些组件在范围内。
+在 " [ Razor 组件](xref:blazor/components/index)" 中， `@using` 还控制哪些组件在范围内。
 
 ::: moniker-end
 
@@ -721,19 +721,19 @@ Razor指令特性由带有符号后的保留关键字的隐式表达式表示 `@
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-`@attributes` 允许组件呈现未声明的属性。 有关详细信息，请参阅 <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>。
+`@attributes` 允许组件呈现未声明的属性。 有关详细信息，请参阅 <xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters>。
 
 ### `@bind`
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/data-binding>。
+组件中的数据绑定通过 `@bind` 属性实现。 有关详细信息，请参阅 <xref:blazor/components/data-binding>。
 
 ### `@on{EVENT}`
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-Razor为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/event-handling>。
+Razor为组件提供事件处理功能。 有关详细信息，请参阅 <xref:blazor/components/event-handling>。
 
 ::: moniker-end
 
@@ -759,19 +759,19 @@ Razor为组件提供事件处理功能。 有关详细信息，请参阅 <xref:b
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-`@key` 指令属性使组件比较算法保证基于键的值保留元素或组件。 有关详细信息，请参阅 <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>。
+`@key` 指令属性使组件比较算法保证基于键的值保留元素或组件。 有关详细信息，请参阅 <xref:blazor/components/index#use-key-to-control-the-preservation-of-elements-and-components>。
 
 ### `@ref`
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-组件引用 (`@ref`) 提供了一种引用组件实例的方法，以便可以向该实例发出命令。 有关详细信息，请参阅 <xref:blazor/components#capture-references-to-components>。
+组件引用 (`@ref`) 提供了一种引用组件实例的方法，以便可以向该实例发出命令。 有关详细信息，请参阅 <xref:blazor/components/index#capture-references-to-components>。
 
 ### `@typeparam`
 
 *此方案仅适用于 Razor 组件（razor）。*
 
-`@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/templated-components#generic-typed-components>。
+`@typeparam` 指令声明生成的组件类的泛型类型参数。 有关详细信息，请参阅 <xref:blazor/components/templated-components#generic-typed-components>。
 
 ::: moniker-end
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: ba172282d0cd6371ebc94b4fda1c13aee14d6fbd
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: fe35645aafe29838818dcaaf7c2b42ed428ac6cc
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851987"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102260"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor 布局
 
@@ -26,7 +26,7 @@ ms.locfileid: "83851987"
 
 有些应用元素（例如菜单、版权消息和公司徽标）通常是应用整体布局的一部分，并被应用中的每个组件使用。 将这些元素的代码复制到应用的所有组件并不是一种有效的方法。 每当一个元素需要更新时，每个组件都必须更新。 此类复制难以维护，并会随时间推移导致内容不一致。 *布局*可解决此问题。
 
-从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/data-binding)、[依赖项注入](xref:blazor/dependency-injection)和其他组件方案。
+从技术上讲，布局也是一个组件。 布局在 Razor 模板或 C# 代码中定义，并可使用[数据绑定](xref:blazor/components/data-binding)、[依赖项注入](xref:blazor/fundamentals/dependency-injection)和其他组件方案。
 
 若要将*组件*转换为*布局*，该组件应：
 
@@ -49,7 +49,7 @@ ms.locfileid: "83851987"
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-有关 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件的详细信息，请参阅 <xref:blazor/routing>。
+有关 <xref:Microsoft.AspNetCore.Components.Routing.Router> 组件的详细信息，请参阅 <xref:blazor/fundamentals/routing>。
 
 在路由器中将布局指定为默认布局是一种有用的做法，因为可以按组件或按文件夹进行替代。 最好使用路由器来设置应用的默认布局，因为这是最常规的方法。
 
@@ -97,7 +97,7 @@ _Imports.razor 文件类似于 [Razor 视图和页面的 _ViewImports.cshtml 文
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>与集成组件共享 Razor Pages 布局
 
-当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。 有关详细信息，请参阅 <xref:blazor/integrate-components>。
+当可路由组件集成到 Razor Pages 应用中时，该应用的共享布局可与这些组件配合使用。 有关详细信息，请参阅 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>。
 
 ## <a name="additional-resources"></a>其他资源
 

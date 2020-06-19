@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 26d371161bf5f926e50cbc141ccfaac40ee96977
-ms.sourcegitcommit: ff5c47beded9264c1395beb9c905f826261f3ba3
+ms.openlocfilehash: 6d9d8cf6ca9ca3afc570c2c68510125200b96c60
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83440173"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074462"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa 的身份验证和授权
 
 ASP.NET Core 3.0 或更高版本通过支持 API 授权在单页面应用（Spa）中提供身份验证。 Identity用于对用户进行身份验证和存储的 ASP.NET Core 与用于实现开放 ID 连接的[IdentityServer](https://identityserver.io/)结合。
 
-身份验证参数已添加到与**Web 应用程序（模型-视图-控制器）** （MVC）和**web 应用**程序（页）项目模板中的身份验证参数类似的 "**角度**" 和 "**响应**" 项目模板 Razor 。 允许的参数值为**None**和**个体**。 目前，**反应和 Redux**项目模板不支持 authentication 参数。
+身份验证参数已添加到与**Web 应用程序（模型-视图-控制器）** （MVC）和**web 应用**程序（页）项目模板中的身份验证参数类似的 "**角度**" 和 "**响应**" 项目模板 Razor 。 允许的参数值为**None**和**个体**。 **React.js 和 Redux**项目模板此时不支持身份验证参数。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>使用 API 授权支持创建应用
 
@@ -49,6 +49,8 @@ dotnet new react -o <output_directory_name> -au Individual
 以下各节介绍了在包括身份验证支持的情况下对项目添加的内容：
 
 ### <a name="startup-class"></a>Startup 类
+
+下面的代码示例依赖于[AspNetCore ApiAuthorization. IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) NuGet 包。 示例使用 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> 和扩展方法配置 API 身份验证和授权 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> 。 使用带有身份验证的响应或角 SPA 项目模板的项目包括对此包的引用。
 
 `Startup`类添加了以下内容：
 
@@ -115,7 +117,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-在项目根的*appsettings*文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 在下面的示例中，有一个客户端。 客户端名称对应于应用名称，并按约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 "[应用程序配置文件](#application-profiles)" 部分中所述。
+在项目根的*appsettings.js*文件中，有一个新 `IdentityServer` 部分描述了已配置的客户端的列表。 在下面的示例中，有一个客户端。 客户端名称对应于应用名称，并按约定映射到 OAuth `ClientId` 参数。 配置文件指示正在配置的应用类型。 它在内部用于驱动约定，以简化服务器的配置过程。 有几个配置文件可用，如 "[应用程序配置文件](#application-profiles)" 部分中所述。
 
 ```json
 "IdentityServer": {
@@ -127,9 +129,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings.开发 json
+### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.js
 
-在*appsettings 中。* 项目根的开发 json 文件，其中有一个 `IdentityServer` 描述用于对令牌进行签名的密钥的部分。 部署到生产环境时，需要在应用中预配和部署密钥，如 "[部署到生产](#deploy-to-production)" 一节中所述。
+在项目根的*appsettings.Development.js*文件中，有一个 `IdentityServer` 描述用于对令牌进行签名的密钥的部分。 部署到生产环境时，需要在应用中预配和部署密钥，如 "[部署到生产](#deploy-to-production)" 一节中所述。
 
 ```json
 "IdentityServer": {
@@ -159,12 +161,12 @@ dotnet new react -o <output_directory_name> -au Individual
 响应模板中的身份验证和 API 授权支持位于*ClientApp\src\components\api-authorization*目录中。 它由以下元素组成：
 
 * 4个组件：
-  * *Login*：处理应用的登录流。
-  * *Node.js*：处理应用程序的注销流。
-  * *LoginMenu*：显示以下链接集之一的小组件：
+  * *Login.js*：处理应用的登录流。
+  * *Logout.js*：处理应用程序的注销流。
+  * *LoginMenu.js*：显示以下链接集之一的小组件：
     * 用户进行身份验证时，用户配置文件管理和注销链接。
     * 用户未通过身份验证时的注册和登录链接。
-  * *AuthorizeRoute*：一个路由组件，需要先对用户进行身份验证，然后才能呈现参数中指示的组件 `Component` 。
+  * *AuthorizeRoute.js*：路由组件，需要先对用户进行身份验证，然后才能呈现参数中指示的组件 `Component` 。
 * `authService`类的导出实例 `AuthorizeService` ，用于处理身份验证过程的较低级别细节，并向应用程序的其余部分提供有关使用情况的已通过身份验证的用户的信息。
 
 现在，你已了解解决方案的主要组件，可以更深入地了解应用程序的各个方案。
@@ -280,7 +282,7 @@ async populateWeatherData() {
 
 本部分介绍如何使用存储在证书存储区中的证书，将应用部署到 Azure App Service。 若要将应用修改为从证书存储区中加载证书，请在稍后的步骤中配置 Azure 门户应用时，需要使用标准层服务计划或更高版本。
 
-在应用程序的*appsettings*文件中，修改 `IdentityServer` 部分以包含重要详细信息：
+在应用的文件*appsettings.js上*，修改 `IdentityServer` 部分以包含关键详细信息：
 
 ```json
 "IdentityServer": {

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: d26bb71a8ae06764b58a094b28d5e6f9eb581ecd
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
+ms.openlocfilehash: 7d7ea0fe69f258c01177c7755eaee61ab42400ce
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84755958"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102940"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core 中的日志记录和诊断SignalR
 
@@ -111,7 +111,7 @@ Visual Studio 会在 "**输出**" 窗口中显示日志输出。 选择**ASP.NET
 
 若要从 .NET 客户端获取日志，可以对使用 `ConfigureLogging` 方法 `HubConnectionBuilder` 。 这与和上的方法的工作方式相同 `ConfigureLogging` `WebHostBuilder` `HostBuilder` 。 你可以配置 ASP.NET Core 中使用的相同日志记录提供程序。 但是，您必须为单独的日志提供程序手动安装和启用 NuGet 包。
 
-若要将 .NET 客户端日志记录添加到 Blazor WebAssembly 应用程序，请参阅 <xref:fundamentals/logging/index#blazor-webassembly-signalr-net-client-logging> 。
+若要将 .NET 客户端日志记录添加到 Blazor WebAssembly 应用程序，请参阅 <xref:blazor/fundamentals/logging#blazor-webassembly-signalr-net-client-logging> 。
 
 ### <a name="console-logging"></a>控制台日志记录
 

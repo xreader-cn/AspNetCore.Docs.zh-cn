@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 9f0825f65f316ee4caf67e82fe5812e3a1ae813e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 19fdd45374ee6d5489cff38798abe27b7af3da0f
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775903"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074424"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>使用 Apache 在 Linux 上托管 ASP.NET Core
 
@@ -68,7 +68,9 @@ dotnet publish --configuration Release
 
 由于请求是通过反向代理转接的，因此使用 [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) 包中的[转接头中间件](xref:host-and-deploy/proxy-load-balancer)。 此中间件使用 `X-Forwarded-Proto` 标头来更新 `Request.Scheme`，使重定向 URI 和其他安全策略能够正常工作。
 
-调用转接头中间件后，必须放置依赖于该架构的组件，例如身份验证、链接生成、重定向和地理位置。 作为一般规则，转接头中间件应在诊断和错误处理中间件以外的其他中间件之前运行。 此顺序可确保依赖于转接头信息的中间件可以使用标头值进行处理。
+调用转接头中间件后，必须放置依赖于该架构的组件，例如身份验证、链接生成、重定向和地理位置。
+
+[!INCLUDE[](~/includes/ForwardedHeaders.md)]
 
 调用其他中间件之前，请先在 `Startup.Configure` 的基础上调用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法。 配置中间件以转接 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头：
 
@@ -223,7 +225,16 @@ TimeoutStopSec=90
 systemd-escape "<value-to-escape>"
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
 环境变量名不支持冒号 (`:`) 分隔符。 使用双下划线 (`__`) 代替冒号。 环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables-configuration-provider)将双下划线转换为冒号。 以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：
+
+::: moniker-end
+::: moniker range="< aspnetcore-3.0"
+
+环境变量名不支持冒号 (`:`) 分隔符。 使用双下划线 (`__`) 代替冒号。 环境变量读入配置时，[环境变量配置提供程序](xref:fundamentals/configuration/index#environment-variables)将双下划线转换为冒号。 以下示例中，连接字符串密钥 `ConnectionStrings:DefaultConnection` 以 `ConnectionStrings__DefaultConnection` 形式设置到服务定义文件中：
+
+::: moniker-end
 
 ```
 Environment=ConnectionStrings__DefaultConnection={Connection String}

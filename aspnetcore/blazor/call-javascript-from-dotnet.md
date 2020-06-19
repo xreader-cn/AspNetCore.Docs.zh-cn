@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 26202c45e49e64117d35fe6f1e9a65c4acc170fb
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: de04992c3e3c7ce2dc73eee801484d5e3930fa3a
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105085"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102448"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>在 ASP.NET Core Blazor 中从 .NET 方法调用 JavaScript 函数
 
@@ -222,7 +222,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 <xref:Microsoft.AspNetCore.Components.ElementReference> 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `username` 变量。 如果将未填充的 <xref:Microsoft.AspNetCore.Components.ElementReference> 传递给 JavaScript 代码，则 JavaScript 代码会收到 `null` 值。 若要在组件完成呈现之后操作元素引用（用于对元素设置初始焦点），请使用 [OnAfterRenderAsync 或 OnAfterRender 组件生命周期方法](xref:blazor/components/lifecycle#after-component-render)。
 
 使用泛型类型并返回值时，请使用 <xref:System.Threading.Tasks.ValueTask%601>：
 
@@ -459,7 +459,7 @@ JS 互操作可能会由于网络错误而失败，因此应视为不可靠。 �
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-有关资源耗尽的详细信息，请参阅 <xref:security/blazor/server/threat-mitigation>。
+有关资源耗尽的详细信息，请参阅 <xref:blazor/security/server/threat-mitigation>。
 
 [!INCLUDE[](~/includes/blazor-share-interop-code.md)]
 

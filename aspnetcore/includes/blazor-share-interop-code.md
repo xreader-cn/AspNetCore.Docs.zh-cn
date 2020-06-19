@@ -6,4 +6,4 @@
 
 按引用任何其他 NuGet 包的方式在应用的项目文件中引用生成的 NuGet 包。 包还原后，应用代码可如同是 C# 一样调入 JavaScript。
 
-有关更多信息，请参见 <xref:blazor/class-libraries>。
+有关更多信息，请参见 <xref:blazor/components/class-libraries>。

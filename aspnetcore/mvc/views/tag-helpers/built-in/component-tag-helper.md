@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: b6e3890e13ef5ad20098d3907b6895046087aeca
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: df978d49201ba1010ddf13b1b9a63ae27116616e
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/15/2020
-ms.locfileid: "84776496"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103091"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的组件标记帮助程序
 
@@ -27,7 +27,7 @@ ms.locfileid: "84776496"
 
 ## <a name="prerequisites"></a>先决条件
 
-按照本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作 <xref:blazor/integrate-components#prepare-the-app> 。
+按照本文中 "*准备应用程序以使用组件" 页和 "视图*" 部分中的指导进行操作 <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#prepare-the-app> 。
 
 ## <a name="component-tag-helper"></a>组件标记帮助程序
 
@@ -72,7 +72,7 @@ ms.locfileid: "84776496"
 }
 ```
 
-`Size`（ `int` ）和 `Color` （ `string` ）[组件参数](xref:blazor/components#component-parameters)可由组件标记帮助器设置：
+`Size`（ `int` ）和 `Color` （ `string` ）[组件参数](xref:blazor/components/index#component-parameters)可由组件标记帮助器设置：
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -172,4 +172,4 @@ public class MyClass
 
 * <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>
 * <xref:mvc/views/tag-helpers/intro>
-* <xref:blazor/components>
+* <xref:blazor/components/index>
