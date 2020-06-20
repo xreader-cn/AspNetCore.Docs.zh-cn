@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: eb8a6d2ddbd3e8f61626566878a7af5f5a2525d8
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: feca504a39624282961fbc6405876e970a20b5d4
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "83608182"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102288"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
 
@@ -126,7 +126,7 @@ WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性或 JavaS
 
 已发布应用的大小（其有效负载大小）是应用可用性的关键性能因素。 大型应用需要相对较长的时间才能下载到浏览器，这会损害用户体验。 Blazor WebAssembly 优化有效负载大小，以缩短下载时间：
 
-* 在[中间语言 (IL) 链接器](xref:host-and-deploy/blazor/configure-linker)发布应用时，会从应用删除未使用的代码。
+* 在[中间语言 (IL) 链接器](xref:blazor/host-and-deploy/configure-linker)发布应用时，会从应用删除未使用的代码。
 * 压缩 HTTP 响应。
 * .NET 运行时和程序集缓存在浏览器中。
 
