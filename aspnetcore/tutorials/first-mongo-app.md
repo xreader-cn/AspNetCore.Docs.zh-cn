@@ -13,101 +13,101 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 4d1c2d915c646dd1c8fcadd25bcd420a0a749dc9
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 46607fc92670bb46a155ddf3248bc8a36b600a4a
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774764"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452247"
 ---
-# <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a><span data-ttu-id="a4527-103">使用 ASP.NET Core 和 MongoDB 创建 Web API</span><span class="sxs-lookup"><span data-stu-id="a4527-103">Create a web API with ASP.NET Core and MongoDB</span></span>
+# <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a><span data-ttu-id="7ce8a-103">使用 ASP.NET Core 和 MongoDB 创建 Web API</span><span class="sxs-lookup"><span data-stu-id="7ce8a-103">Create a web API with ASP.NET Core and MongoDB</span></span>
 
-<span data-ttu-id="a4527-104">作者 [Pratik Khandelwal](https://twitter.com/K2Prk) 和 [Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="a4527-104">By [Pratik Khandelwal](https://twitter.com/K2Prk) and [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
+<span data-ttu-id="7ce8a-104">作者 [Pratik Khandelwal](https://twitter.com/K2Prk) 和 [Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="7ce8a-104">By [Pratik Khandelwal](https://twitter.com/K2Prk) and [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a4527-105">本教程创建对 [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL 数据库执行创建、读取、更新和删除 (CRUD) 操作的 Web API。</span><span class="sxs-lookup"><span data-stu-id="a4527-105">This tutorial creates a web API that performs Create, Read, Update, and Delete (CRUD) operations on a [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL database.</span></span>
+<span data-ttu-id="7ce8a-105">本教程创建对 [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL 数据库执行创建、读取、更新和删除 (CRUD) 操作的 Web API。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-105">This tutorial creates a web API that performs Create, Read, Update, and Delete (CRUD) operations on a [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL database.</span></span>
 
-<span data-ttu-id="a4527-106">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="a4527-106">In this tutorial, you learn how to:</span></span>
+<span data-ttu-id="7ce8a-106">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-106">In this tutorial, you learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="a4527-107">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-107">Configure MongoDB</span></span>
-> * <span data-ttu-id="a4527-108">创建 MongoDB 数据库</span><span class="sxs-lookup"><span data-stu-id="a4527-108">Create a MongoDB database</span></span>
-> * <span data-ttu-id="a4527-109">定义 MongoDB 集合和架构</span><span class="sxs-lookup"><span data-stu-id="a4527-109">Define a MongoDB collection and schema</span></span>
-> * <span data-ttu-id="a4527-110">从 Web API 执行 MongoDB CRUD 操作</span><span class="sxs-lookup"><span data-stu-id="a4527-110">Perform MongoDB CRUD operations from a web API</span></span>
-> * <span data-ttu-id="a4527-111">自定义 JSON 序列化</span><span class="sxs-lookup"><span data-stu-id="a4527-111">Customize JSON serialization</span></span>
+> * <span data-ttu-id="7ce8a-107">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-107">Configure MongoDB</span></span>
+> * <span data-ttu-id="7ce8a-108">创建 MongoDB 数据库</span><span class="sxs-lookup"><span data-stu-id="7ce8a-108">Create a MongoDB database</span></span>
+> * <span data-ttu-id="7ce8a-109">定义 MongoDB 集合和架构</span><span class="sxs-lookup"><span data-stu-id="7ce8a-109">Define a MongoDB collection and schema</span></span>
+> * <span data-ttu-id="7ce8a-110">从 Web API 执行 MongoDB CRUD 操作</span><span class="sxs-lookup"><span data-stu-id="7ce8a-110">Perform MongoDB CRUD operations from a web API</span></span>
+> * <span data-ttu-id="7ce8a-111">自定义 JSON 序列化</span><span class="sxs-lookup"><span data-stu-id="7ce8a-111">Customize JSON serialization</span></span>
 
-<span data-ttu-id="a4527-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="a4527-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="7ce8a-112">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7ce8a-112">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="a4527-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="a4527-113">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="7ce8a-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="7ce8a-113">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="a4527-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a4527-114">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="7ce8a-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7ce8a-114">Visual Studio</span></span>](#tab/visual-studio)
 
-* [<span data-ttu-id="a4527-115">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="a4527-115">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* <span data-ttu-id="a4527-116">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发  工作负载</span><span class="sxs-lookup"><span data-stu-id="a4527-116">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
-* [<span data-ttu-id="a4527-117">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-117">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+* [<span data-ttu-id="7ce8a-115">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-115">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* <span data-ttu-id="7ce8a-116">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发工作负载</span><span class="sxs-lookup"><span data-stu-id="7ce8a-116">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
+* [<span data-ttu-id="7ce8a-117">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-117">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="a4527-118">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-118">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="7ce8a-118">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-118">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* [<span data-ttu-id="a4527-119">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="a4527-119">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* [<span data-ttu-id="a4527-120">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-120">Visual Studio Code</span></span>](https://code.visualstudio.com/download)
-* [<span data-ttu-id="a4527-121">用于 Visual Studio Code 的 C#</span><span class="sxs-lookup"><span data-stu-id="a4527-121">C# for Visual Studio Code</span></span>](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-* [<span data-ttu-id="a4527-122">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-122">MongoDB</span></span>](https://docs.mongodb.com/manual/administration/install-community/)
+* [<span data-ttu-id="7ce8a-119">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-119">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* [<span data-ttu-id="7ce8a-120">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-120">Visual Studio Code</span></span>](https://code.visualstudio.com/download)
+* [<span data-ttu-id="7ce8a-121">用于 Visual Studio Code 的 C#</span><span class="sxs-lookup"><span data-stu-id="7ce8a-121">C# for Visual Studio Code</span></span>](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+* [<span data-ttu-id="7ce8a-122">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-122">MongoDB</span></span>](https://docs.mongodb.com/manual/administration/install-community/)
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a4527-123">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="a4527-123">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="7ce8a-123">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="7ce8a-123">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* [<span data-ttu-id="a4527-124">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="a4527-124">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* [<span data-ttu-id="a4527-125">Visual Studio for Mac 版本 7.7 或更高版本</span><span class="sxs-lookup"><span data-stu-id="a4527-125">Visual Studio for Mac version 7.7 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
-* [<span data-ttu-id="a4527-126">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-126">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+* [<span data-ttu-id="7ce8a-124">.NET Core SDK 3.0 或更高版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-124">.NET Core SDK 3.0 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* [<span data-ttu-id="7ce8a-125">Visual Studio for Mac 版本 7.7 或更高版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-125">Visual Studio for Mac version 7.7 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
+* [<span data-ttu-id="7ce8a-126">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-126">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
 ---
 
-## <a name="configure-mongodb"></a><span data-ttu-id="a4527-127">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-127">Configure MongoDB</span></span>
+## <a name="configure-mongodb"></a><span data-ttu-id="7ce8a-127">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-127">Configure MongoDB</span></span>
 
-<span data-ttu-id="a4527-128">如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB  中。</span><span class="sxs-lookup"><span data-stu-id="a4527-128">If using Windows, MongoDB is installed at *C:\\Program Files\\MongoDB* by default.</span></span> <span data-ttu-id="a4527-129">将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin  添加到 `Path` 环境变量中。</span><span class="sxs-lookup"><span data-stu-id="a4527-129">Add *C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin* to the `Path` environment variable.</span></span> <span data-ttu-id="a4527-130">通过此更改可以从开发计算机上的任意位置访问 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="a4527-130">This change enables MongoDB access from anywhere on your development machine.</span></span>
+<span data-ttu-id="7ce8a-128">如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB 中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-128">If using Windows, MongoDB is installed at *C:\\Program Files\\MongoDB* by default.</span></span> <span data-ttu-id="7ce8a-129">将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin 添加到 `Path` 环境变量中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-129">Add *C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin* to the `Path` environment variable.</span></span> <span data-ttu-id="7ce8a-130">通过此更改可以从开发计算机上的任意位置访问 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-130">This change enables MongoDB access from anywhere on your development machine.</span></span>
 
-<span data-ttu-id="a4527-131">使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-131">Use the mongo Shell in the following steps to create a database, make collections, and store documents.</span></span> <span data-ttu-id="a4527-132">有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。</span><span class="sxs-lookup"><span data-stu-id="a4527-132">For more information on mongo Shell commands, see [Working with the mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).</span></span>
+<span data-ttu-id="7ce8a-131">使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-131">Use the mongo Shell in the following steps to create a database, make collections, and store documents.</span></span> <span data-ttu-id="7ce8a-132">有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-132">For more information on mongo Shell commands, see [Working with the mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).</span></span>
 
-1. <span data-ttu-id="a4527-133">选择开发计算机上用于存储数据的目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-133">Choose a directory on your development machine for storing the data.</span></span> <span data-ttu-id="a4527-134">例如，Windows 上的 C:\\BooksData  。</span><span class="sxs-lookup"><span data-stu-id="a4527-134">For example, *C:\\BooksData* on Windows.</span></span> <span data-ttu-id="a4527-135">创建目录（如果不存在）。</span><span class="sxs-lookup"><span data-stu-id="a4527-135">Create the directory if it doesn't exist.</span></span> <span data-ttu-id="a4527-136">mongo Shell 不会创建新目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-136">The mongo Shell doesn't create new directories.</span></span>
-1. <span data-ttu-id="a4527-137">打开命令行界面。</span><span class="sxs-lookup"><span data-stu-id="a4527-137">Open a command shell.</span></span> <span data-ttu-id="a4527-138">运行以下命令以连接到默认端口 27017 上的 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="a4527-138">Run the following command to connect to MongoDB on default port 27017.</span></span> <span data-ttu-id="a4527-139">请记得将 `<data_directory_path>` 替换为上一步中选择的目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-139">Remember to replace `<data_directory_path>` with the directory you chose in the previous step.</span></span>
+1. <span data-ttu-id="7ce8a-133">选择开发计算机上用于存储数据的目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-133">Choose a directory on your development machine for storing the data.</span></span> <span data-ttu-id="7ce8a-134">例如，Windows 上的 C:\\BooksData。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-134">For example, *C:\\BooksData* on Windows.</span></span> <span data-ttu-id="7ce8a-135">创建目录（如果不存在）。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-135">Create the directory if it doesn't exist.</span></span> <span data-ttu-id="7ce8a-136">mongo Shell 不会创建新目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-136">The mongo Shell doesn't create new directories.</span></span>
+1. <span data-ttu-id="7ce8a-137">打开命令行界面。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-137">Open a command shell.</span></span> <span data-ttu-id="7ce8a-138">运行以下命令以连接到默认端口 27017 上的 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-138">Run the following command to connect to MongoDB on default port 27017.</span></span> <span data-ttu-id="7ce8a-139">请记得将 `<data_directory_path>` 替换为上一步中选择的目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-139">Remember to replace `<data_directory_path>` with the directory you chose in the previous step.</span></span>
 
    ```console
    mongod --dbpath <data_directory_path>
    ```
 
-1. <span data-ttu-id="a4527-140">打开另一个命令行界面实例。</span><span class="sxs-lookup"><span data-stu-id="a4527-140">Open another command shell instance.</span></span> <span data-ttu-id="a4527-141">通过运行以下命令来连接到默认测试数据库：</span><span class="sxs-lookup"><span data-stu-id="a4527-141">Connect to the default test database by running the following command:</span></span>
+1. <span data-ttu-id="7ce8a-140">打开另一个命令行界面实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-140">Open another command shell instance.</span></span> <span data-ttu-id="7ce8a-141">通过运行以下命令来连接到默认测试数据库：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-141">Connect to the default test database by running the following command:</span></span>
 
    ```console
    mongo
    ```
 
-1. <span data-ttu-id="a4527-142">在命令行界面中运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="a4527-142">Run the following in a command shell:</span></span>
+1. <span data-ttu-id="7ce8a-142">在命令行界面中运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-142">Run the following in a command shell:</span></span>
 
    ```console
    use BookstoreDb
    ```
 
-   <span data-ttu-id="a4527-143">如果它不存在，则将创建名为 BookstoreDb  的数据库。</span><span class="sxs-lookup"><span data-stu-id="a4527-143">If it doesn't already exist, a database named *BookstoreDb* is created.</span></span> <span data-ttu-id="a4527-144">如果该数据库存在，则将为事务打开其连接。</span><span class="sxs-lookup"><span data-stu-id="a4527-144">If the database does exist, its connection is opened for transactions.</span></span>
+   <span data-ttu-id="7ce8a-143">如果它不存在，则将创建名为 BookstoreDb 的数据库。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-143">If it doesn't already exist, a database named *BookstoreDb* is created.</span></span> <span data-ttu-id="7ce8a-144">如果该数据库存在，则将为事务打开其连接。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-144">If the database does exist, its connection is opened for transactions.</span></span>
 
-1. <span data-ttu-id="a4527-145">使用以下命令创建 `Books` 集合：</span><span class="sxs-lookup"><span data-stu-id="a4527-145">Create a `Books` collection using following command:</span></span>
+1. <span data-ttu-id="7ce8a-145">使用以下命令创建 `Books` 集合：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-145">Create a `Books` collection using following command:</span></span>
 
    ```console
    db.createCollection('Books')
    ```
 
-   <span data-ttu-id="a4527-146">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-146">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-146">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-146">The following result is displayed:</span></span>
 
    ```console
    { "ok" : 1 }
    ```
 
-1. <span data-ttu-id="a4527-147">使用以下命令定义 `Books` 集合的架构并插入两个文档：</span><span class="sxs-lookup"><span data-stu-id="a4527-147">Define a schema for the `Books` collection and insert two documents using the following command:</span></span>
+1. <span data-ttu-id="7ce8a-147">使用以下命令定义 `Books` 集合的架构并插入两个文档：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-147">Define a schema for the `Books` collection and insert two documents using the following command:</span></span>
 
    ```console
    db.Books.insertMany([{'Name':'Design Patterns','Price':54.93,'Category':'Computers','Author':'Ralph Johnson'}, {'Name':'Clean Code','Price':43.15,'Category':'Computers','Author':'Robert C. Martin'}])
    ```
 
-   <span data-ttu-id="a4527-148">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-148">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-148">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-148">The following result is displayed:</span></span>
 
    ```console
    {
@@ -120,15 +120,15 @@ ms.locfileid: "82774764"
    ```
   
    > [!NOTE]
-   > <span data-ttu-id="a4527-149">本文所示的 ID 与运行此示例时的 ID 不匹配。</span><span class="sxs-lookup"><span data-stu-id="a4527-149">The ID's shown in this article will not match the IDs when you run this sample.</span></span>
+   > <span data-ttu-id="7ce8a-149">本文所示的 ID 与运行此示例时的 ID 不匹配。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-149">The ID's shown in this article will not match the IDs when you run this sample.</span></span>
 
-1. <span data-ttu-id="a4527-150">使用以下命令查看数据库中的文档：</span><span class="sxs-lookup"><span data-stu-id="a4527-150">View the documents in the database using the following command:</span></span>
+1. <span data-ttu-id="7ce8a-150">使用以下命令查看数据库中的文档：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-150">View the documents in the database using the following command:</span></span>
 
    ```console
    db.Books.find({}).pretty()
    ```
 
-   <span data-ttu-id="a4527-151">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-151">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-151">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-151">The following result is displayed:</span></span>
 
    ```console
    {
@@ -147,58 +147,58 @@ ms.locfileid: "82774764"
    }
    ```
 
-   <span data-ttu-id="a4527-152">该架构将为每个文档添加类型 `ObjectId` 的自动生成的 `_id` 属性。</span><span class="sxs-lookup"><span data-stu-id="a4527-152">The schema adds an autogenerated `_id` property of type `ObjectId` for each document.</span></span>
+   <span data-ttu-id="7ce8a-152">该架构将为每个文档添加类型 `ObjectId` 的自动生成的 `_id` 属性。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-152">The schema adds an autogenerated `_id` property of type `ObjectId` for each document.</span></span>
 
-<span data-ttu-id="a4527-153">数据库可供使用了。</span><span class="sxs-lookup"><span data-stu-id="a4527-153">The database is ready.</span></span> <span data-ttu-id="a4527-154">你可以开始创建 ASP.NET Core Web API。</span><span class="sxs-lookup"><span data-stu-id="a4527-154">You can start creating the ASP.NET Core web API.</span></span>
+<span data-ttu-id="7ce8a-153">数据库可供使用了。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-153">The database is ready.</span></span> <span data-ttu-id="7ce8a-154">你可以开始创建 ASP.NET Core Web API。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-154">You can start creating the ASP.NET Core web API.</span></span>
 
-## <a name="create-the-aspnet-core-web-api-project"></a><span data-ttu-id="a4527-155">创建 ASP.NET Core Web API 项目</span><span class="sxs-lookup"><span data-stu-id="a4527-155">Create the ASP.NET Core web API project</span></span>
+## <a name="create-the-aspnet-core-web-api-project"></a><span data-ttu-id="7ce8a-155">创建 ASP.NET Core Web API 项目</span><span class="sxs-lookup"><span data-stu-id="7ce8a-155">Create the ASP.NET Core web API project</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="a4527-156">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a4527-156">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="7ce8a-156">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7ce8a-156">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="a4527-157">转到“文件”>“新建”>“项目”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-157">Go to **File** > **New** > **Project**.</span></span>
-1. <span data-ttu-id="a4527-158">选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-158">Select the **ASP.NET Core Web Application** project type, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-159">将项目命名为“BooksApi”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-159">Name the project *BooksApi*, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-160">选择“.NET Core”  目标框架和“ASP.NET Core 3.0”  。</span><span class="sxs-lookup"><span data-stu-id="a4527-160">Select the **.NET Core** target framework and **ASP.NET Core 3.0**.</span></span> <span data-ttu-id="a4527-161">选择“API”项目模板，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-161">Select the **API** project template, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-162">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="a4527-162">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="a4527-163">在“包管理器控制台”  窗口中，导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-163">In the **Package Manager Console** window, navigate to the project root.</span></span> <span data-ttu-id="a4527-164">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="a4527-164">Run the following command to install the .NET driver for MongoDB:</span></span>
+1. <span data-ttu-id="7ce8a-157">转到“文件”>“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-157">Go to **File** > **New** > **Project**.</span></span>
+1. <span data-ttu-id="7ce8a-158">选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-158">Select the **ASP.NET Core Web Application** project type, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-159">将项目命名为“BooksApi”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-159">Name the project *BooksApi*, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-160">选择“.NET Core”目标框架和“ASP.NET Core 3.0”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-160">Select the **.NET Core** target framework and **ASP.NET Core 3.0**.</span></span> <span data-ttu-id="7ce8a-161">选择“API”项目模板，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-161">Select the **API** project template, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-162">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-162">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="7ce8a-163">在“包管理器控制台”窗口中，导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-163">In the **Package Manager Console** window, navigate to the project root.</span></span> <span data-ttu-id="7ce8a-164">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-164">Run the following command to install the .NET driver for MongoDB:</span></span>
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}
    ```
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="a4527-165">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-165">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="7ce8a-165">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-165">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-1. <span data-ttu-id="a4527-166">在命令行界面中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="a4527-166">Run the following commands in a command shell:</span></span>
+1. <span data-ttu-id="7ce8a-166">在命令行界面中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-166">Run the following commands in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new webapi -o BooksApi
    code BooksApi
    ```
 
-   <span data-ttu-id="a4527-167">将在 Visual Studio Code 中生成并打开以 .NET Core 为目标的新 ASP.NET Core Web API 项目。</span><span class="sxs-lookup"><span data-stu-id="a4527-167">A new ASP.NET Core web API project targeting .NET Core is generated and opened in Visual Studio Code.</span></span>
+   <span data-ttu-id="7ce8a-167">将在 Visual Studio Code 中生成并打开以 .NET Core 为目标的新 ASP.NET Core Web API 项目。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-167">A new ASP.NET Core web API project targeting .NET Core is generated and opened in Visual Studio Code.</span></span>
 
-1. <span data-ttu-id="a4527-168">状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'BooksApi' 缺少生成和调试所需的资产。  是否添加它们?”。</span><span class="sxs-lookup"><span data-stu-id="a4527-168">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'BooksApi'. Add them?**.</span></span> <span data-ttu-id="a4527-169">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="a4527-169">Select **Yes**.</span></span>
-1. <span data-ttu-id="a4527-170">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="a4527-170">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="a4527-171">打开“集成终端”  并导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-171">Open **Integrated Terminal** and navigate to the project root.</span></span> <span data-ttu-id="a4527-172">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="a4527-172">Run the following command to install the .NET driver for MongoDB:</span></span>
+1. <span data-ttu-id="7ce8a-168">状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'BooksApi' 缺少生成和调试所需的资产。是否添加它们?”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-168">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'BooksApi'. Add them?**.</span></span> <span data-ttu-id="7ce8a-169">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-169">Select **Yes**.</span></span>
+1. <span data-ttu-id="7ce8a-170">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-170">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="7ce8a-171">打开“集成终端”并导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-171">Open **Integrated Terminal** and navigate to the project root.</span></span> <span data-ttu-id="7ce8a-172">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-172">Run the following command to install the .NET driver for MongoDB:</span></span>
 
    ```dotnetcli
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
    ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a4527-173">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="a4527-173">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="7ce8a-173">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="7ce8a-173">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="a4527-174">转到“文件”>“新建解决方案”>“.NET Core”>“应用”     。</span><span class="sxs-lookup"><span data-stu-id="a4527-174">Go to **File** > **New Solution** > **.NET Core** > **App**.</span></span>
-1. <span data-ttu-id="a4527-175">选择“ASP.NET Core Web API”C# 项目模板，然后选择“下一步”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-175">Select the **ASP.NET Core Web API** C# project template, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-176">从“目标框架”下拉列表中选择“.NET Core 3.0”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-176">Select **.NET Core 3.0** from the **Target Framework** drop-down list, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-177">输入“BooksApi”作为“项目名称”，然后选择“创建”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-177">Enter *BooksApi* for the **Project Name**, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-178">在“解决方案”  面板中，右键单击项目的“依赖项”  节点，然后选择“添加包”  。</span><span class="sxs-lookup"><span data-stu-id="a4527-178">In the **Solution** pad, right-click the project's **Dependencies** node and select **Add Packages**.</span></span>
-1. <span data-ttu-id="a4527-179">在搜索框中输入“MongoDB.Driver”，选择“MongoDB.Driver”包，然后选择“添加包”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-179">Enter *MongoDB.Driver* in the search box, select the *MongoDB.Driver* package, and select **Add Package**.</span></span>
-1. <span data-ttu-id="a4527-180">在“许可证接受”对话框中，选择“接受”按钮   。</span><span class="sxs-lookup"><span data-stu-id="a4527-180">Select the **Accept** button in the **License Acceptance** dialog.</span></span>
+1. <span data-ttu-id="7ce8a-174">在早于版本 8.6 的 Visual Studio for Mac 中，从边栏中依次选择“文件” > “新建解决方案” > “.NET Core” > “应用”。   </span><span class="sxs-lookup"><span data-stu-id="7ce8a-174">In Visual Studio for Mac earlier than version 8.6, select **File** > **New Solution** > **.NET Core** > **App** from the sidebar.</span></span> <span data-ttu-id="7ce8a-175">在版本 8.6 或更高版本中，从边栏中依次选择“文件” > “新建解决方案” > “Web 和控制台” > “应用”。   </span><span class="sxs-lookup"><span data-stu-id="7ce8a-175">In version 8.6 or later, select **File** > **New Solution** > **Web and Console** > **App** from the sidebar.</span></span>
+1. <span data-ttu-id="7ce8a-176">依次选择“ASP.NET Core”>“API”C# 项目模板，然后选择“下一步”。  </span><span class="sxs-lookup"><span data-stu-id="7ce8a-176">Select the **ASP.NET Core** > **API** C# project template, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-177">从“目标框架”下拉列表中选择“.NET Core 3.1”，然后选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-177">Select **.NET Core 3.1** from the **Target Framework** drop-down list, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-178">输入“BooksApi”作为“项目名称”，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-178">Enter *BooksApi* for the **Project Name**, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-179">在“解决方案”面板中，右键单击项目的“依赖项”节点，然后选择“添加包”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-179">In the **Solution** pad, right-click the project's **Dependencies** node and select **Add Packages**.</span></span>
+1. <span data-ttu-id="7ce8a-180">在搜索框中输入“MongoDB.Driver”，选择“MongoDB.Driver”包，然后选择“添加包” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-180">Enter *MongoDB.Driver* in the search box, select the *MongoDB.Driver* package, and select **Add Package**.</span></span>
+1. <span data-ttu-id="7ce8a-181">在“许可证接受”对话框中，选择“接受”按钮 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-181">Select the **Accept** button in the **License Acceptance** dialog.</span></span>
 
 ---
 
-## <a name="add-an-entity-model"></a><span data-ttu-id="a4527-181">添加实体模型</span><span class="sxs-lookup"><span data-stu-id="a4527-181">Add an entity model</span></span>
+## <a name="add-an-entity-model"></a><span data-ttu-id="7ce8a-182">添加实体模型</span><span class="sxs-lookup"><span data-stu-id="7ce8a-182">Add an entity model</span></span>
 
-1. <span data-ttu-id="a4527-182">将 Models  目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-182">Add a *Models* directory to the project root.</span></span>
-1. <span data-ttu-id="a4527-183">使用以下代码将 `Book` 类添加到 Models  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-183">Add a `Book` class to the *Models* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-183">将 Models 目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-183">Add a *Models* directory to the project root.</span></span>
+1. <span data-ttu-id="7ce8a-184">使用以下代码将 `Book` 类添加到 Models 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-184">Add a `Book` class to the *Models* directory with the following code:</span></span>
 
    ```csharp
    using MongoDB.Bson;
@@ -224,93 +224,93 @@ ms.locfileid: "82774764"
    }
    ```
 
-   <span data-ttu-id="a4527-184">在前面的类中，`Id`属性：</span><span class="sxs-lookup"><span data-stu-id="a4527-184">In the preceding class, the `Id` property:</span></span>
+   <span data-ttu-id="7ce8a-185">在前面的类中，`Id`属性：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-185">In the preceding class, the `Id` property:</span></span>
 
-   * <span data-ttu-id="a4527-185">需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。</span><span class="sxs-lookup"><span data-stu-id="a4527-185">Is required for mapping the Common Language Runtime (CLR) object to the MongoDB collection.</span></span>
-   * <span data-ttu-id="a4527-186">使用 [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。</span><span class="sxs-lookup"><span data-stu-id="a4527-186">Is annotated with [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) to designate this property as the document's primary key.</span></span>
-   * <span data-ttu-id="a4527-187">使用 [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而非 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构传递。</span><span class="sxs-lookup"><span data-stu-id="a4527-187">Is annotated with [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) to allow passing the parameter as type `string` instead of an [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) structure.</span></span> <span data-ttu-id="a4527-188">Mongo 处理从 `string` 到 `ObjectId` 的转换。</span><span class="sxs-lookup"><span data-stu-id="a4527-188">Mongo handles the conversion from `string` to `ObjectId`.</span></span>
+   * <span data-ttu-id="7ce8a-186">需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-186">Is required for mapping the Common Language Runtime (CLR) object to the MongoDB collection.</span></span>
+   * <span data-ttu-id="7ce8a-187">使用 [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-187">Is annotated with [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) to designate this property as the document's primary key.</span></span>
+   * <span data-ttu-id="7ce8a-188">使用 [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而非 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构传递。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-188">Is annotated with [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) to allow passing the parameter as type `string` instead of an [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) structure.</span></span> <span data-ttu-id="7ce8a-189">Mongo 处理从 `string` 到 `ObjectId` 的转换。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-189">Mongo handles the conversion from `string` to `ObjectId`.</span></span>
 
-   <span data-ttu-id="a4527-189">`BookName` 属性使用 [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。</span><span class="sxs-lookup"><span data-stu-id="a4527-189">The `BookName` property is annotated with the [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) attribute.</span></span> <span data-ttu-id="a4527-190">`Name` 的属性值表示 MongoDB 集合中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-190">The attribute's value of `Name` represents the property name in the MongoDB collection.</span></span>
+   <span data-ttu-id="7ce8a-190">`BookName` 属性使用 [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-190">The `BookName` property is annotated with the [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) attribute.</span></span> <span data-ttu-id="7ce8a-191">`Name` 的属性值表示 MongoDB 集合中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-191">The attribute's value of `Name` represents the property name in the MongoDB collection.</span></span>
 
-## <a name="add-a-configuration-model"></a><span data-ttu-id="a4527-191">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="a4527-191">Add a configuration model</span></span>
+## <a name="add-a-configuration-model"></a><span data-ttu-id="7ce8a-192">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="7ce8a-192">Add a configuration model</span></span>
 
-1. <span data-ttu-id="a4527-192">向 appsettings.json 添加以下数据库配置值  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-192">Add the following database configuration values to *appsettings.json*:</span></span>
+1. <span data-ttu-id="7ce8a-193">向 appsettings.json 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-193">Add the following database configuration values to *appsettings.json*:</span></span>
 
    [!code-json[](first-mongo-app/samples/3.x/SampleApp/appsettings.json?highlight=2-6)]
 
-1. <span data-ttu-id="a4527-193">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录   ：</span><span class="sxs-lookup"><span data-stu-id="a4527-193">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-194">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录 ：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-194">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   <span data-ttu-id="a4527-194">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值  。</span><span class="sxs-lookup"><span data-stu-id="a4527-194">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="a4527-195">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="a4527-195">The JSON and C# property names are named identically to ease the mapping process.</span></span>
+   <span data-ttu-id="7ce8a-195">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-195">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="7ce8a-196">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-196">The JSON and C# property names are named identically to ease the mapping process.</span></span>
 
-1. <span data-ttu-id="a4527-196">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="a4527-196">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
+1. <span data-ttu-id="7ce8a-197">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-197">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
    [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-8)]
 
-   <span data-ttu-id="a4527-197">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="a4527-197">In the preceding code:</span></span>
+   <span data-ttu-id="7ce8a-198">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-198">In the preceding code:</span></span>
 
-   * <span data-ttu-id="a4527-198">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册  。</span><span class="sxs-lookup"><span data-stu-id="a4527-198">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="a4527-199">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充  。</span><span class="sxs-lookup"><span data-stu-id="a4527-199">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
-   * <span data-ttu-id="a4527-200">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="a4527-200">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="a4527-201">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-201">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
+   * <span data-ttu-id="7ce8a-199">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-199">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="7ce8a-200">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-200">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
+   * <span data-ttu-id="7ce8a-201">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-201">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="7ce8a-202">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-202">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
 
-1. <span data-ttu-id="a4527-202">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-202">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
+1. <span data-ttu-id="7ce8a-203">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-203">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiModels)]
 
-## <a name="add-a-crud-operations-service"></a><span data-ttu-id="a4527-203">添加 CRUD 操作服务</span><span class="sxs-lookup"><span data-stu-id="a4527-203">Add a CRUD operations service</span></span>
+## <a name="add-a-crud-operations-service"></a><span data-ttu-id="7ce8a-204">添加 CRUD 操作服务</span><span class="sxs-lookup"><span data-stu-id="7ce8a-204">Add a CRUD operations service</span></span>
 
-1. <span data-ttu-id="a4527-204">将 Services  目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-204">Add a *Services* directory to the project root.</span></span>
-1. <span data-ttu-id="a4527-205">使用以下代码将 `BookService` 类添加到 Services  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-205">Add a `BookService` class to the *Services* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-205">将 Services 目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-205">Add a *Services* directory to the project root.</span></span>
+1. <span data-ttu-id="7ce8a-206">使用以下代码将 `BookService` 类添加到 Services 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-206">Add a `BookService` class to the *Services* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   <span data-ttu-id="a4527-206">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="a4527-206">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="a4527-207">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值  。</span><span class="sxs-lookup"><span data-stu-id="a4527-207">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
+   <span data-ttu-id="7ce8a-207">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-207">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="7ce8a-208">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-208">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
 
-1. <span data-ttu-id="a4527-208">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="a4527-208">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
+1. <span data-ttu-id="7ce8a-209">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-209">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
    [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddSingletonService.cs?highlight=9)]
 
-   <span data-ttu-id="a4527-209">上面的代码向 DI 注册了 `BookService` 类，以支持消费类中的构造函数注入。</span><span class="sxs-lookup"><span data-stu-id="a4527-209">In the preceding code, the `BookService` class is registered with DI to support constructor injection in consuming classes.</span></span> <span data-ttu-id="a4527-210">单一实例服务生存期是最合适的，因为 `BookService` 直接依赖于 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="a4527-210">The singleton service lifetime is most appropriate because `BookService` takes a direct dependency on `MongoClient`.</span></span> <span data-ttu-id="a4527-211">根据官方 [Mongo Client 重用准则](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)，应使用单一实例服务生存期在 DI 中注册 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="a4527-211">Per the official [Mongo Client reuse guidelines](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use), `MongoClient` should be registered in DI with a singleton service lifetime.</span></span>
+   <span data-ttu-id="7ce8a-210">上面的代码向 DI 注册了 `BookService` 类，以支持消费类中的构造函数注入。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-210">In the preceding code, the `BookService` class is registered with DI to support constructor injection in consuming classes.</span></span> <span data-ttu-id="7ce8a-211">单一实例服务生存期是最合适的，因为 `BookService` 直接依赖于 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-211">The singleton service lifetime is most appropriate because `BookService` takes a direct dependency on `MongoClient`.</span></span> <span data-ttu-id="7ce8a-212">根据官方 [Mongo Client 重用准则](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)，应使用单一实例服务生存期在 DI 中注册 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-212">Per the official [Mongo Client reuse guidelines](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use), `MongoClient` should be registered in DI with a singleton service lifetime.</span></span>
 
-1. <span data-ttu-id="a4527-212">在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-212">Add the following code to the top of *Startup.cs* to resolve the `BookService` reference:</span></span>
+1. <span data-ttu-id="7ce8a-213">在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-213">Add the following code to the top of *Startup.cs* to resolve the `BookService` reference:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiServices)]
 
-<span data-ttu-id="a4527-213">`BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：</span><span class="sxs-lookup"><span data-stu-id="a4527-213">The `BookService` class uses the following `MongoDB.Driver` members to perform CRUD operations against the database:</span></span>
+<span data-ttu-id="7ce8a-214">`BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-214">The `BookService` class uses the following `MongoDB.Driver` members to perform CRUD operations against the database:</span></span>
 
-* <span data-ttu-id="a4527-214">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; 读取服务器实例，以执行数据库操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-214">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; Reads the server instance for performing database operations.</span></span> <span data-ttu-id="a4527-215">此类的构造函数提供了 MongoDB 连接字符串：</span><span class="sxs-lookup"><span data-stu-id="a4527-215">The constructor of this class is provided the MongoDB connection string:</span></span>
+* <span data-ttu-id="7ce8a-215">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm)：读取用于执行数据库操作的服务器实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-215">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm): Reads the server instance for performing database operations.</span></span> <span data-ttu-id="7ce8a-216">此类的构造函数提供了 MongoDB 连接字符串：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-216">The constructor of this class is provided the MongoDB connection string:</span></span>
 
   [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* <span data-ttu-id="a4527-216">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; 表示用于执行操作的 Mongo 数据库。</span><span class="sxs-lookup"><span data-stu-id="a4527-216">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; Represents the Mongo database for performing operations.</span></span> <span data-ttu-id="a4527-217">本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。</span><span class="sxs-lookup"><span data-stu-id="a4527-217">This tutorial uses the generic [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) method on the interface to gain access to data in a specific collection.</span></span> <span data-ttu-id="a4527-218">调用此方法后，对集合执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-218">Perform CRUD operations against the collection after this method is called.</span></span> <span data-ttu-id="a4527-219">在 `GetCollection<TDocument>(collection)` 方法调用中：</span><span class="sxs-lookup"><span data-stu-id="a4527-219">In the `GetCollection<TDocument>(collection)` method call:</span></span>
+* <span data-ttu-id="7ce8a-217">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm)：表示用于执行操作的 Mongo 数据库。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-217">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm): Represents the Mongo database for performing operations.</span></span> <span data-ttu-id="7ce8a-218">本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-218">This tutorial uses the generic [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) method on the interface to gain access to data in a specific collection.</span></span> <span data-ttu-id="7ce8a-219">调用此方法后，对集合执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-219">Perform CRUD operations against the collection after this method is called.</span></span> <span data-ttu-id="7ce8a-220">在 `GetCollection<TDocument>(collection)` 方法调用中：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-220">In the `GetCollection<TDocument>(collection)` method call:</span></span>
 
-  * <span data-ttu-id="a4527-220">`collection` 表示集合名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-220">`collection` represents the collection name.</span></span>
-  * <span data-ttu-id="a4527-221">`TDocument` 表示存储在集合中的 CLR 对象类型。</span><span class="sxs-lookup"><span data-stu-id="a4527-221">`TDocument` represents the CLR object type stored in the collection.</span></span>
+  * <span data-ttu-id="7ce8a-221">`collection` 表示集合名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-221">`collection` represents the collection name.</span></span>
+  * <span data-ttu-id="7ce8a-222">`TDocument` 表示存储在集合中的 CLR 对象类型。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-222">`TDocument` represents the CLR object type stored in the collection.</span></span>
 
-<span data-ttu-id="a4527-222">`GetCollection<TDocument>(collection)` 返回表示集合的 [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) 对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-222">`GetCollection<TDocument>(collection)` returns a [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) object representing the collection.</span></span> <span data-ttu-id="a4527-223">在本教程中，对集合调用以下方法：</span><span class="sxs-lookup"><span data-stu-id="a4527-223">In this tutorial, the following methods are invoked on the collection:</span></span>
+<span data-ttu-id="7ce8a-223">`GetCollection<TDocument>(collection)` 返回表示集合的 [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) 对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-223">`GetCollection<TDocument>(collection)` returns a [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) object representing the collection.</span></span> <span data-ttu-id="7ce8a-224">在本教程中，对集合调用以下方法：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-224">In this tutorial, the following methods are invoked on the collection:</span></span>
 
-* <span data-ttu-id="a4527-224">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; 删除与提供的搜索条件匹配的单个文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-224">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; Deletes a single document matching the provided search criteria.</span></span>
-* <span data-ttu-id="a4527-225">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; 返回集合中与提供的搜索条件匹配的所有文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-225">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; Returns all documents in the collection matching the provided search criteria.</span></span>
-* <span data-ttu-id="a4527-226">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; 插入提供的对象作为集合中的新文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-226">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; Inserts the provided object as a new document in the collection.</span></span>
-* <span data-ttu-id="a4527-227">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; 将与提供的搜索条件匹配的单个文档替换为提供的对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-227">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; Replaces the single document matching the provided search criteria with the provided object.</span></span>
+* <span data-ttu-id="7ce8a-225">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm)：删除与提供的搜索条件匹配的单个文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-225">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm): Deletes a single document matching the provided search criteria.</span></span>
+* <span data-ttu-id="7ce8a-226">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm)：返回集合中与提供的搜索条件匹配的所有文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-226">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm): Returns all documents in the collection matching the provided search criteria.</span></span>
+* <span data-ttu-id="7ce8a-227">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm)：插入提供的对象作为集合中的新文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-227">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm): Inserts the provided object as a new document in the collection.</span></span>
+* <span data-ttu-id="7ce8a-228">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm)：将与提供的搜索条件匹配的单个文档替换为提供的对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-228">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm): Replaces the single document matching the provided search criteria with the provided object.</span></span>
 
-## <a name="add-a-controller"></a><span data-ttu-id="a4527-228">添加控制器</span><span class="sxs-lookup"><span data-stu-id="a4527-228">Add a controller</span></span>
+## <a name="add-a-controller"></a><span data-ttu-id="7ce8a-229">添加控制器</span><span class="sxs-lookup"><span data-stu-id="7ce8a-229">Add a controller</span></span>
 
-<span data-ttu-id="a4527-229">使用以下代码将 `BooksController` 类添加到 Controllers  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-229">Add a `BooksController` class to the *Controllers* directory with the following code:</span></span>
+<span data-ttu-id="7ce8a-230">使用以下代码将 `BooksController` 类添加到 Controllers 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-230">Add a `BooksController` class to the *Controllers* directory with the following code:</span></span>
 
 [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Controllers/BooksController.cs)]
 
-<span data-ttu-id="a4527-230">前面的 Web API 控制器：</span><span class="sxs-lookup"><span data-stu-id="a4527-230">The preceding web API controller:</span></span>
+<span data-ttu-id="7ce8a-231">前面的 Web API 控制器：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-231">The preceding web API controller:</span></span>
 
-* <span data-ttu-id="a4527-231">使用 `BookService` 类执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-231">Uses the `BookService` class to perform CRUD operations.</span></span>
-* <span data-ttu-id="a4527-232">包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="a4527-232">Contains action methods to support GET, POST, PUT, and DELETE HTTP requests.</span></span>
-* <span data-ttu-id="a4527-233">在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。</span><span class="sxs-lookup"><span data-stu-id="a4527-233">Calls <xref:System.Web.Http.ApiController.CreatedAtRoute*> in the `Create` action method to return an [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) response.</span></span> <span data-ttu-id="a4527-234">状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。</span><span class="sxs-lookup"><span data-stu-id="a4527-234">Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span> <span data-ttu-id="a4527-235">`CreatedAtRoute` 还会将 `Location` 标头添加到响应中。</span><span class="sxs-lookup"><span data-stu-id="a4527-235">`CreatedAtRoute` also adds a `Location` header to the response.</span></span> <span data-ttu-id="a4527-236">`Location` 标头指定新建书籍的 URI。</span><span class="sxs-lookup"><span data-stu-id="a4527-236">The `Location` header specifies the URI of the newly created book.</span></span>
+* <span data-ttu-id="7ce8a-232">使用 `BookService` 类执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-232">Uses the `BookService` class to perform CRUD operations.</span></span>
+* <span data-ttu-id="7ce8a-233">包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-233">Contains action methods to support GET, POST, PUT, and DELETE HTTP requests.</span></span>
+* <span data-ttu-id="7ce8a-234">在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-234">Calls <xref:System.Web.Http.ApiController.CreatedAtRoute*> in the `Create` action method to return an [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) response.</span></span> <span data-ttu-id="7ce8a-235">状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-235">Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span> <span data-ttu-id="7ce8a-236">`CreatedAtRoute` 还会将 `Location` 标头添加到响应中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-236">`CreatedAtRoute` also adds a `Location` header to the response.</span></span> <span data-ttu-id="7ce8a-237">`Location` 标头指定新建书籍的 URI。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-237">The `Location` header specifies the URI of the newly created book.</span></span>
 
-## <a name="test-the-web-api"></a><span data-ttu-id="a4527-237">测试 Web API</span><span class="sxs-lookup"><span data-stu-id="a4527-237">Test the web API</span></span>
+## <a name="test-the-web-api"></a><span data-ttu-id="7ce8a-238">测试 Web API</span><span class="sxs-lookup"><span data-stu-id="7ce8a-238">Test the web API</span></span>
 
-1. <span data-ttu-id="a4527-238">生成并运行应用。</span><span class="sxs-lookup"><span data-stu-id="a4527-238">Build and run the app.</span></span>
+1. <span data-ttu-id="7ce8a-239">生成并运行应用。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-239">Build and run the app.</span></span>
 
-1. <span data-ttu-id="a4527-239">导航到 `http://localhost:<port>/api/books`，测试控制器的无参数 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="a4527-239">Navigate to `http://localhost:<port>/api/books` to test the controller's parameterless `Get` action method.</span></span> <span data-ttu-id="a4527-240">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="a4527-240">The following JSON response is displayed:</span></span>
+1. <span data-ttu-id="7ce8a-240">导航到 `http://localhost:<port>/api/books`，测试控制器的无参数 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-240">Navigate to `http://localhost:<port>/api/books` to test the controller's parameterless `Get` action method.</span></span> <span data-ttu-id="7ce8a-241">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-241">The following JSON response is displayed:</span></span>
 
    ```json
    [
@@ -331,7 +331,7 @@ ms.locfileid: "82774764"
    ]
    ```
 
-1. <span data-ttu-id="a4527-241">导航到 `http://localhost:<port>/api/books/{id here}`，测试控制器的重载 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="a4527-241">Navigate to `http://localhost:<port>/api/books/{id here}` to test the controller's overloaded `Get` action method.</span></span> <span data-ttu-id="a4527-242">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="a4527-242">The following JSON response is displayed:</span></span>
+1. <span data-ttu-id="7ce8a-242">导航到 `http://localhost:<port>/api/books/{id here}`，测试控制器的重载 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-242">Navigate to `http://localhost:<port>/api/books/{id here}` to test the controller's overloaded `Get` action method.</span></span> <span data-ttu-id="7ce8a-243">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-243">The following JSON response is displayed:</span></span>
 
    ```json
    {
@@ -343,121 +343,121 @@ ms.locfileid: "82774764"
    }
    ```
 
-## <a name="configure-json-serialization-options"></a><span data-ttu-id="a4527-243">配置 JSON 序列化选项</span><span class="sxs-lookup"><span data-stu-id="a4527-243">Configure JSON serialization options</span></span>
+## <a name="configure-json-serialization-options"></a><span data-ttu-id="7ce8a-244">配置 JSON 序列化选项</span><span class="sxs-lookup"><span data-stu-id="7ce8a-244">Configure JSON serialization options</span></span>
 
-<span data-ttu-id="a4527-244">关于在[测试 Web API](#test-the-web-api) 部分中返回的 JSON 响应，有两个细节需要更改：</span><span class="sxs-lookup"><span data-stu-id="a4527-244">There are two details to change about the JSON responses returned in the [Test the web API](#test-the-web-api) section:</span></span>
+<span data-ttu-id="7ce8a-245">关于在[测试 Web API](#test-the-web-api) 部分中返回的 JSON 响应，有两个细节需要更改：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-245">There are two details to change about the JSON responses returned in the [Test the web API](#test-the-web-api) section:</span></span>
 
-* <span data-ttu-id="a4527-245">应更改属性名称的默认驼峰式大小写风格，以匹配 CLR 对象属性名称的 Pascal 大小写。</span><span class="sxs-lookup"><span data-stu-id="a4527-245">The property names' default camel casing should be changed to match the Pascal casing of the CLR object's property names.</span></span>
-* <span data-ttu-id="a4527-246">`bookName` 属性应作为 `Name` 返回。</span><span class="sxs-lookup"><span data-stu-id="a4527-246">The `bookName` property should be returned as `Name`.</span></span>
+* <span data-ttu-id="7ce8a-246">应更改属性名称的默认驼峰式大小写风格，以匹配 CLR 对象属性名称的 Pascal 大小写。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-246">The property names' default camel casing should be changed to match the Pascal casing of the CLR object's property names.</span></span>
+* <span data-ttu-id="7ce8a-247">`bookName` 属性应作为 `Name` 返回。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-247">The `bookName` property should be returned as `Name`.</span></span>
 
-<span data-ttu-id="a4527-247">为满足上述要求，请进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="a4527-247">To satisfy the preceding requirements, make the following changes:</span></span>
+<span data-ttu-id="7ce8a-248">为满足上述要求，请进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-248">To satisfy the preceding requirements, make the following changes:</span></span>
 
-1. <span data-ttu-id="a4527-248">JSON.NET 已从 ASP.NET 共享框架中删除。</span><span class="sxs-lookup"><span data-stu-id="a4527-248">JSON.NET has been removed from ASP.NET shared framework.</span></span> <span data-ttu-id="a4527-249">将包引用添加到 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson)。</span><span class="sxs-lookup"><span data-stu-id="a4527-249">Add a package reference to [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson).</span></span>
+1. <span data-ttu-id="7ce8a-249">JSON.NET 已从 ASP.NET 共享框架中删除。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-249">JSON.NET has been removed from ASP.NET shared framework.</span></span> <span data-ttu-id="7ce8a-250">将包引用添加到 [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson)。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-250">Add a package reference to [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson).</span></span>
 
-1. <span data-ttu-id="a4527-250">在 `Startup.ConfigureServices` 中，将以下突出显示的代码链接到 `AddControllers` 方法调用：</span><span class="sxs-lookup"><span data-stu-id="a4527-250">In `Startup.ConfigureServices`, chain the following highlighted code on to the `AddControllers` method call:</span></span>
+1. <span data-ttu-id="7ce8a-251">在 `Startup.ConfigureServices` 中，将以下突出显示的代码链接到 `AddControllers` 方法调用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-251">In `Startup.ConfigureServices`, chain the following highlighted code on to the `AddControllers` method call:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
 
-   <span data-ttu-id="a4527-251">通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。</span><span class="sxs-lookup"><span data-stu-id="a4527-251">With the preceding change, property names in the web API's serialized JSON response match their corresponding property names in the CLR object type.</span></span> <span data-ttu-id="a4527-252">例如，`Book` 类的 `Author` 属性序列化为 `Author`。</span><span class="sxs-lookup"><span data-stu-id="a4527-252">For example, the `Book` class's `Author` property serializes as `Author`.</span></span>
+   <span data-ttu-id="7ce8a-252">通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-252">With the preceding change, property names in the web API's serialized JSON response match their corresponding property names in the CLR object type.</span></span> <span data-ttu-id="7ce8a-253">例如，`Book` 类的 `Author` 属性序列化为 `Author`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-253">For example, the `Book` class's `Author` property serializes as `Author`.</span></span>
 
-1. <span data-ttu-id="a4527-253">在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-253">In *Models/Book.cs*, annotate the `BookName` property with the following [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) attribute:</span></span>
+1. <span data-ttu-id="7ce8a-254">在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-254">In *Models/Book.cs*, annotate the `BookName` property with the following [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) attribute:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/Book.cs?name=snippet_BookNameProperty&highlight=2)]
 
-   <span data-ttu-id="a4527-254">`[JsonProperty]` 属性的 `Name` 值表示 Web API 的序列化 JSON 响应中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-254">The `[JsonProperty]` attribute's value of `Name` represents the property name in the web API's serialized JSON response.</span></span>
+   <span data-ttu-id="7ce8a-255">`[JsonProperty]` 属性的 `Name` 值表示 Web API 的序列化 JSON 响应中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-255">The `[JsonProperty]` attribute's value of `Name` represents the property name in the web API's serialized JSON response.</span></span>
 
-1. <span data-ttu-id="a4527-255">在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-255">Add the following code to the top of *Models/Book.cs* to resolve the `[JsonProperty]` attribute reference:</span></span>
+1. <span data-ttu-id="7ce8a-256">在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-256">Add the following code to the top of *Models/Book.cs* to resolve the `[JsonProperty]` attribute reference:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/Book.cs?name=snippet_NewtonsoftJsonImport)]
 
-1. <span data-ttu-id="a4527-256">重复[测试 Web API](#test-the-web-api) 部分中定义的步骤。</span><span class="sxs-lookup"><span data-stu-id="a4527-256">Repeat the steps defined in the [Test the web API](#test-the-web-api) section.</span></span> <span data-ttu-id="a4527-257">注意 JSON 属性名称中的区别。</span><span class="sxs-lookup"><span data-stu-id="a4527-257">Notice the difference in JSON property names.</span></span>
+1. <span data-ttu-id="7ce8a-257">重复[测试 Web API](#test-the-web-api) 部分中定义的步骤。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-257">Repeat the steps defined in the [Test the web API](#test-the-web-api) section.</span></span> <span data-ttu-id="7ce8a-258">注意 JSON 属性名称中的区别。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-258">Notice the difference in JSON property names.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="a4527-258">本教程创建对 [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL 数据库执行创建、读取、更新和删除 (CRUD) 操作的 Web API。</span><span class="sxs-lookup"><span data-stu-id="a4527-258">This tutorial creates a web API that performs Create, Read, Update, and Delete (CRUD) operations on a [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL database.</span></span>
+<span data-ttu-id="7ce8a-259">本教程创建对 [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL 数据库执行创建、读取、更新和删除 (CRUD) 操作的 Web API。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-259">This tutorial creates a web API that performs Create, Read, Update, and Delete (CRUD) operations on a [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL database.</span></span>
 
-<span data-ttu-id="a4527-259">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="a4527-259">In this tutorial, you learn how to:</span></span>
+<span data-ttu-id="7ce8a-260">在本教程中，你将了解：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-260">In this tutorial, you learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="a4527-260">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-260">Configure MongoDB</span></span>
-> * <span data-ttu-id="a4527-261">创建 MongoDB 数据库</span><span class="sxs-lookup"><span data-stu-id="a4527-261">Create a MongoDB database</span></span>
-> * <span data-ttu-id="a4527-262">定义 MongoDB 集合和架构</span><span class="sxs-lookup"><span data-stu-id="a4527-262">Define a MongoDB collection and schema</span></span>
-> * <span data-ttu-id="a4527-263">从 Web API 执行 MongoDB CRUD 操作</span><span class="sxs-lookup"><span data-stu-id="a4527-263">Perform MongoDB CRUD operations from a web API</span></span>
-> * <span data-ttu-id="a4527-264">自定义 JSON 序列化</span><span class="sxs-lookup"><span data-stu-id="a4527-264">Customize JSON serialization</span></span>
+> * <span data-ttu-id="7ce8a-261">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-261">Configure MongoDB</span></span>
+> * <span data-ttu-id="7ce8a-262">创建 MongoDB 数据库</span><span class="sxs-lookup"><span data-stu-id="7ce8a-262">Create a MongoDB database</span></span>
+> * <span data-ttu-id="7ce8a-263">定义 MongoDB 集合和架构</span><span class="sxs-lookup"><span data-stu-id="7ce8a-263">Define a MongoDB collection and schema</span></span>
+> * <span data-ttu-id="7ce8a-264">从 Web API 执行 MongoDB CRUD 操作</span><span class="sxs-lookup"><span data-stu-id="7ce8a-264">Perform MongoDB CRUD operations from a web API</span></span>
+> * <span data-ttu-id="7ce8a-265">自定义 JSON 序列化</span><span class="sxs-lookup"><span data-stu-id="7ce8a-265">Customize JSON serialization</span></span>
 
-<span data-ttu-id="a4527-265">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="a4527-265">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="7ce8a-266">[查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)（[如何下载](xref:index#how-to-download-a-sample)）</span><span class="sxs-lookup"><span data-stu-id="7ce8a-266">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="a4527-266">先决条件</span><span class="sxs-lookup"><span data-stu-id="a4527-266">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="7ce8a-267">先决条件</span><span class="sxs-lookup"><span data-stu-id="7ce8a-267">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="a4527-267">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a4527-267">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="7ce8a-268">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7ce8a-268">Visual Studio</span></span>](#tab/visual-studio)
 
-* [<span data-ttu-id="a4527-268">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="a4527-268">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* <span data-ttu-id="a4527-269">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发  工作负载</span><span class="sxs-lookup"><span data-stu-id="a4527-269">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
-* [<span data-ttu-id="a4527-270">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-270">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+* [<span data-ttu-id="7ce8a-269">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="7ce8a-269">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* <span data-ttu-id="7ce8a-270">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) 与 ASP.NET 和 Web 开发工作负载</span><span class="sxs-lookup"><span data-stu-id="7ce8a-270">[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
+* [<span data-ttu-id="7ce8a-271">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-271">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="a4527-271">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-271">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="7ce8a-272">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-272">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* [<span data-ttu-id="a4527-272">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="a4527-272">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* [<span data-ttu-id="a4527-273">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-273">Visual Studio Code</span></span>](https://code.visualstudio.com/download)
-* [<span data-ttu-id="a4527-274">用于 Visual Studio Code 的 C#</span><span class="sxs-lookup"><span data-stu-id="a4527-274">C# for Visual Studio Code</span></span>](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
-* [<span data-ttu-id="a4527-275">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-275">MongoDB</span></span>](https://docs.mongodb.com/manual/administration/install-community/)
+* [<span data-ttu-id="7ce8a-273">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="7ce8a-273">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* [<span data-ttu-id="7ce8a-274">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-274">Visual Studio Code</span></span>](https://code.visualstudio.com/download)
+* [<span data-ttu-id="7ce8a-275">用于 Visual Studio Code 的 C#</span><span class="sxs-lookup"><span data-stu-id="7ce8a-275">C# for Visual Studio Code</span></span>](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+* [<span data-ttu-id="7ce8a-276">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-276">MongoDB</span></span>](https://docs.mongodb.com/manual/administration/install-community/)
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a4527-276">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="a4527-276">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="7ce8a-277">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="7ce8a-277">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* [<span data-ttu-id="a4527-277">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="a4527-277">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
-* [<span data-ttu-id="a4527-278">Visual Studio for Mac 版本 7.7 或更高版本</span><span class="sxs-lookup"><span data-stu-id="a4527-278">Visual Studio for Mac version 7.7 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
-* [<span data-ttu-id="a4527-279">MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-279">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+* [<span data-ttu-id="7ce8a-278">.NET Core SDK 2.2</span><span class="sxs-lookup"><span data-stu-id="7ce8a-278">.NET Core SDK 2.2</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* [<span data-ttu-id="7ce8a-279">Visual Studio for Mac 版本 7.7 或更高版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-279">Visual Studio for Mac version 7.7 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
+* [<span data-ttu-id="7ce8a-280">MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-280">MongoDB</span></span>](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
 ---
 
-## <a name="configure-mongodb"></a><span data-ttu-id="a4527-280">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="a4527-280">Configure MongoDB</span></span>
+## <a name="configure-mongodb"></a><span data-ttu-id="7ce8a-281">配置 MongoDB</span><span class="sxs-lookup"><span data-stu-id="7ce8a-281">Configure MongoDB</span></span>
 
-<span data-ttu-id="a4527-281">如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB  中。</span><span class="sxs-lookup"><span data-stu-id="a4527-281">If using Windows, MongoDB is installed at *C:\\Program Files\\MongoDB* by default.</span></span> <span data-ttu-id="a4527-282">将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin  添加到 `Path` 环境变量中。</span><span class="sxs-lookup"><span data-stu-id="a4527-282">Add *C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin* to the `Path` environment variable.</span></span> <span data-ttu-id="a4527-283">通过此更改可以从开发计算机上的任意位置访问 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="a4527-283">This change enables MongoDB access from anywhere on your development machine.</span></span>
+<span data-ttu-id="7ce8a-282">如果使用的是 Windows，MongoDB 将默认安装在 C:\\Program Files\\MongoDB 中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-282">If using Windows, MongoDB is installed at *C:\\Program Files\\MongoDB* by default.</span></span> <span data-ttu-id="7ce8a-283">将 C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin 添加到 `Path` 环境变量中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-283">Add *C:\\Program Files\\MongoDB\\Server\\\<version_number>\\bin* to the `Path` environment variable.</span></span> <span data-ttu-id="7ce8a-284">通过此更改可以从开发计算机上的任意位置访问 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-284">This change enables MongoDB access from anywhere on your development machine.</span></span>
 
-<span data-ttu-id="a4527-284">使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-284">Use the mongo Shell in the following steps to create a database, make collections, and store documents.</span></span> <span data-ttu-id="a4527-285">有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。</span><span class="sxs-lookup"><span data-stu-id="a4527-285">For more information on mongo Shell commands, see [Working with the mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).</span></span>
+<span data-ttu-id="7ce8a-285">使用以下步骤中的 mongo Shell 可以创建数据库、创建集合和存储文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-285">Use the mongo Shell in the following steps to create a database, make collections, and store documents.</span></span> <span data-ttu-id="7ce8a-286">有关 mongo Shell 命令的详细信息，请参阅[使用 mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-286">For more information on mongo Shell commands, see [Working with the mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).</span></span>
 
-1. <span data-ttu-id="a4527-286">选择开发计算机上用于存储数据的目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-286">Choose a directory on your development machine for storing the data.</span></span> <span data-ttu-id="a4527-287">例如，Windows 上的 C:\\BooksData  。</span><span class="sxs-lookup"><span data-stu-id="a4527-287">For example, *C:\\BooksData* on Windows.</span></span> <span data-ttu-id="a4527-288">创建目录（如果不存在）。</span><span class="sxs-lookup"><span data-stu-id="a4527-288">Create the directory if it doesn't exist.</span></span> <span data-ttu-id="a4527-289">mongo Shell 不会创建新目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-289">The mongo Shell doesn't create new directories.</span></span>
-1. <span data-ttu-id="a4527-290">打开命令行界面。</span><span class="sxs-lookup"><span data-stu-id="a4527-290">Open a command shell.</span></span> <span data-ttu-id="a4527-291">运行以下命令以连接到默认端口 27017 上的 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="a4527-291">Run the following command to connect to MongoDB on default port 27017.</span></span> <span data-ttu-id="a4527-292">请记得将 `<data_directory_path>` 替换为上一步中选择的目录。</span><span class="sxs-lookup"><span data-stu-id="a4527-292">Remember to replace `<data_directory_path>` with the directory you chose in the previous step.</span></span>
+1. <span data-ttu-id="7ce8a-287">选择开发计算机上用于存储数据的目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-287">Choose a directory on your development machine for storing the data.</span></span> <span data-ttu-id="7ce8a-288">例如，Windows 上的 C:\\BooksData。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-288">For example, *C:\\BooksData* on Windows.</span></span> <span data-ttu-id="7ce8a-289">创建目录（如果不存在）。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-289">Create the directory if it doesn't exist.</span></span> <span data-ttu-id="7ce8a-290">mongo Shell 不会创建新目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-290">The mongo Shell doesn't create new directories.</span></span>
+1. <span data-ttu-id="7ce8a-291">打开命令行界面。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-291">Open a command shell.</span></span> <span data-ttu-id="7ce8a-292">运行以下命令以连接到默认端口 27017 上的 MongoDB。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-292">Run the following command to connect to MongoDB on default port 27017.</span></span> <span data-ttu-id="7ce8a-293">请记得将 `<data_directory_path>` 替换为上一步中选择的目录。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-293">Remember to replace `<data_directory_path>` with the directory you chose in the previous step.</span></span>
 
    ```console
    mongod --dbpath <data_directory_path>
    ```
 
-1. <span data-ttu-id="a4527-293">打开另一个命令行界面实例。</span><span class="sxs-lookup"><span data-stu-id="a4527-293">Open another command shell instance.</span></span> <span data-ttu-id="a4527-294">通过运行以下命令来连接到默认测试数据库：</span><span class="sxs-lookup"><span data-stu-id="a4527-294">Connect to the default test database by running the following command:</span></span>
+1. <span data-ttu-id="7ce8a-294">打开另一个命令行界面实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-294">Open another command shell instance.</span></span> <span data-ttu-id="7ce8a-295">通过运行以下命令来连接到默认测试数据库：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-295">Connect to the default test database by running the following command:</span></span>
 
    ```console
    mongo
    ```
 
-1. <span data-ttu-id="a4527-295">在命令行界面中运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="a4527-295">Run the following in a command shell:</span></span>
+1. <span data-ttu-id="7ce8a-296">在命令行界面中运行下面的命令：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-296">Run the following in a command shell:</span></span>
 
    ```console
    use BookstoreDb
    ```
 
-   <span data-ttu-id="a4527-296">如果它不存在，则将创建名为 BookstoreDb  的数据库。</span><span class="sxs-lookup"><span data-stu-id="a4527-296">If it doesn't already exist, a database named *BookstoreDb* is created.</span></span> <span data-ttu-id="a4527-297">如果该数据库存在，则将为事务打开其连接。</span><span class="sxs-lookup"><span data-stu-id="a4527-297">If the database does exist, its connection is opened for transactions.</span></span>
+   <span data-ttu-id="7ce8a-297">如果它不存在，则将创建名为 BookstoreDb 的数据库。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-297">If it doesn't already exist, a database named *BookstoreDb* is created.</span></span> <span data-ttu-id="7ce8a-298">如果该数据库存在，则将为事务打开其连接。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-298">If the database does exist, its connection is opened for transactions.</span></span>
 
-1. <span data-ttu-id="a4527-298">使用以下命令创建 `Books` 集合：</span><span class="sxs-lookup"><span data-stu-id="a4527-298">Create a `Books` collection using following command:</span></span>
+1. <span data-ttu-id="7ce8a-299">使用以下命令创建 `Books` 集合：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-299">Create a `Books` collection using following command:</span></span>
 
    ```console
    db.createCollection('Books')
    ```
 
-   <span data-ttu-id="a4527-299">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-299">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-300">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-300">The following result is displayed:</span></span>
 
    ```console
    { "ok" : 1 }
    ```
 
-1. <span data-ttu-id="a4527-300">使用以下命令定义 `Books` 集合的架构并插入两个文档：</span><span class="sxs-lookup"><span data-stu-id="a4527-300">Define a schema for the `Books` collection and insert two documents using the following command:</span></span>
+1. <span data-ttu-id="7ce8a-301">使用以下命令定义 `Books` 集合的架构并插入两个文档：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-301">Define a schema for the `Books` collection and insert two documents using the following command:</span></span>
 
    ```console
    db.Books.insertMany([{'Name':'Design Patterns','Price':54.93,'Category':'Computers','Author':'Ralph Johnson'}, {'Name':'Clean Code','Price':43.15,'Category':'Computers','Author':'Robert C. Martin'}])
    ```
 
-   <span data-ttu-id="a4527-301">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-301">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-302">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-302">The following result is displayed:</span></span>
 
    ```console
    {
@@ -470,15 +470,15 @@ ms.locfileid: "82774764"
    ```
   
    > [!NOTE]
-   > <span data-ttu-id="a4527-302">本文所示的 ID 与运行此示例时的 ID 不匹配。</span><span class="sxs-lookup"><span data-stu-id="a4527-302">The ID's shown in this article will not match the IDs when you run this sample.</span></span>
+   > <span data-ttu-id="7ce8a-303">本文所示的 ID 与运行此示例时的 ID 不匹配。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-303">The ID's shown in this article will not match the IDs when you run this sample.</span></span>
 
-1. <span data-ttu-id="a4527-303">使用以下命令查看数据库中的文档：</span><span class="sxs-lookup"><span data-stu-id="a4527-303">View the documents in the database using the following command:</span></span>
+1. <span data-ttu-id="7ce8a-304">使用以下命令查看数据库中的文档：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-304">View the documents in the database using the following command:</span></span>
 
    ```console
    db.Books.find({}).pretty()
    ```
 
-   <span data-ttu-id="a4527-304">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="a4527-304">The following result is displayed:</span></span>
+   <span data-ttu-id="7ce8a-305">显示以下结果：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-305">The following result is displayed:</span></span>
 
    ```console
    {
@@ -497,58 +497,58 @@ ms.locfileid: "82774764"
    }
    ```
 
-   <span data-ttu-id="a4527-305">该架构将为每个文档添加类型 `ObjectId` 的自动生成的 `_id` 属性。</span><span class="sxs-lookup"><span data-stu-id="a4527-305">The schema adds an autogenerated `_id` property of type `ObjectId` for each document.</span></span>
+   <span data-ttu-id="7ce8a-306">该架构将为每个文档添加类型 `ObjectId` 的自动生成的 `_id` 属性。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-306">The schema adds an autogenerated `_id` property of type `ObjectId` for each document.</span></span>
 
-<span data-ttu-id="a4527-306">数据库可供使用了。</span><span class="sxs-lookup"><span data-stu-id="a4527-306">The database is ready.</span></span> <span data-ttu-id="a4527-307">你可以开始创建 ASP.NET Core Web API。</span><span class="sxs-lookup"><span data-stu-id="a4527-307">You can start creating the ASP.NET Core web API.</span></span>
+<span data-ttu-id="7ce8a-307">数据库可供使用了。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-307">The database is ready.</span></span> <span data-ttu-id="7ce8a-308">你可以开始创建 ASP.NET Core Web API。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-308">You can start creating the ASP.NET Core web API.</span></span>
 
-## <a name="create-the-aspnet-core-web-api-project"></a><span data-ttu-id="a4527-308">创建 ASP.NET Core Web API 项目</span><span class="sxs-lookup"><span data-stu-id="a4527-308">Create the ASP.NET Core web API project</span></span>
+## <a name="create-the-aspnet-core-web-api-project"></a><span data-ttu-id="7ce8a-309">创建 ASP.NET Core Web API 项目</span><span class="sxs-lookup"><span data-stu-id="7ce8a-309">Create the ASP.NET Core web API project</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="a4527-309">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a4527-309">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="7ce8a-310">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7ce8a-310">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="a4527-310">转到“文件”>“新建”>“项目”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-310">Go to **File** > **New** > **Project**.</span></span>
-1. <span data-ttu-id="a4527-311">选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-311">Select the **ASP.NET Core Web Application** project type, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-312">将项目命名为“BooksApi”，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-312">Name the project *BooksApi*, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-313">选择“.NET Core”  目标框架和“ASP.NET Core 2.2”  。</span><span class="sxs-lookup"><span data-stu-id="a4527-313">Select the **.NET Core** target framework and **ASP.NET Core 2.2**.</span></span> <span data-ttu-id="a4527-314">选择“API”项目模板，然后选择“创建”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-314">Select the **API** project template, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-315">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="a4527-315">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="a4527-316">在“包管理器控制台”  窗口中，导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-316">In the **Package Manager Console** window, navigate to the project root.</span></span> <span data-ttu-id="a4527-317">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="a4527-317">Run the following command to install the .NET driver for MongoDB:</span></span>
+1. <span data-ttu-id="7ce8a-311">转到“文件”>“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-311">Go to **File** > **New** > **Project**.</span></span>
+1. <span data-ttu-id="7ce8a-312">选择“ASP.NET Core Web 应用程序”项目类型，然后选择“下一步” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-312">Select the **ASP.NET Core Web Application** project type, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-313">将项目命名为“BooksApi”，然后选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-313">Name the project *BooksApi*, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-314">选择“.NET Core”目标框架和“ASP.NET Core 2.2”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-314">Select the **.NET Core** target framework and **ASP.NET Core 2.2**.</span></span> <span data-ttu-id="7ce8a-315">选择“API”项目模板，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-315">Select the **API** project template, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-316">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-316">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="7ce8a-317">在“包管理器控制台”窗口中，导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-317">In the **Package Manager Console** window, navigate to the project root.</span></span> <span data-ttu-id="7ce8a-318">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-318">Run the following command to install the .NET driver for MongoDB:</span></span>
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}
    ```
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="a4527-318">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a4527-318">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="7ce8a-319">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7ce8a-319">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-1. <span data-ttu-id="a4527-319">在命令行界面中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="a4527-319">Run the following commands in a command shell:</span></span>
+1. <span data-ttu-id="7ce8a-320">在命令行界面中运行以下命令：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-320">Run the following commands in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new webapi -o BooksApi
    code BooksApi
    ```
 
-   <span data-ttu-id="a4527-320">将在 Visual Studio Code 中生成并打开以 .NET Core 为目标的新 ASP.NET Core Web API 项目。</span><span class="sxs-lookup"><span data-stu-id="a4527-320">A new ASP.NET Core web API project targeting .NET Core is generated and opened in Visual Studio Code.</span></span>
+   <span data-ttu-id="7ce8a-321">将在 Visual Studio Code 中生成并打开以 .NET Core 为目标的新 ASP.NET Core Web API 项目。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-321">A new ASP.NET Core web API project targeting .NET Core is generated and opened in Visual Studio Code.</span></span>
 
-1. <span data-ttu-id="a4527-321">状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'BooksApi' 缺少生成和调试所需的资产。  是否添加它们?”。</span><span class="sxs-lookup"><span data-stu-id="a4527-321">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'BooksApi'. Add them?**.</span></span> <span data-ttu-id="a4527-322">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="a4527-322">Select **Yes**.</span></span>
-1. <span data-ttu-id="a4527-323">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="a4527-323">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="a4527-324">打开“集成终端”  并导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-324">Open **Integrated Terminal** and navigate to the project root.</span></span> <span data-ttu-id="a4527-325">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="a4527-325">Run the following command to install the .NET driver for MongoDB:</span></span>
+1. <span data-ttu-id="7ce8a-322">状态栏的 OmniSharp 火焰图标变绿后，对话框将询问“'BooksApi' 缺少生成和调试所需的资产。是否添加它们?”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-322">After the status bar's OmniSharp flame icon turns green, a dialog asks **Required assets to build and debug are missing from 'BooksApi'. Add them?**.</span></span> <span data-ttu-id="7ce8a-323">选择 **“是”** 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-323">Select **Yes**.</span></span>
+1. <span data-ttu-id="7ce8a-324">访问 [NuGet 库：MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) 来确定适用于 MongoDB 的 .NET 驱动程序的最新稳定版本。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-324">Visit the [NuGet Gallery: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) to determine the latest stable version of the .NET driver for MongoDB.</span></span> <span data-ttu-id="7ce8a-325">打开“集成终端”并导航到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-325">Open **Integrated Terminal** and navigate to the project root.</span></span> <span data-ttu-id="7ce8a-326">运行以下命令以安装适用于 MongoDB 的 .NET 驱动程序：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-326">Run the following command to install the .NET driver for MongoDB:</span></span>
 
    ```dotnetcli
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
    ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a4527-326">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="a4527-326">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="7ce8a-327">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="7ce8a-327">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="a4527-327">转到“文件”>“新建解决方案”>“.NET Core”>“应用”     。</span><span class="sxs-lookup"><span data-stu-id="a4527-327">Go to **File** > **New Solution** > **.NET Core** > **App**.</span></span>
-1. <span data-ttu-id="a4527-328">选择“ASP.NET Core Web API”C# 项目模板，然后选择“下一步”   。</span><span class="sxs-lookup"><span data-stu-id="a4527-328">Select the **ASP.NET Core Web API** C# project template, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-329">从“目标框架”下拉列表中选择“.NET Core 2.2”，然后选择“下一步”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-329">Select **.NET Core 2.2** from the **Target Framework** drop-down list, and select **Next**.</span></span>
-1. <span data-ttu-id="a4527-330">输入“BooksApi”作为“项目名称”，然后选择“创建”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-330">Enter *BooksApi* for the **Project Name**, and select **Create**.</span></span>
-1. <span data-ttu-id="a4527-331">在“解决方案”  面板中，右键单击项目的“依赖项”  节点，然后选择“添加包”  。</span><span class="sxs-lookup"><span data-stu-id="a4527-331">In the **Solution** pad, right-click the project's **Dependencies** node and select **Add Packages**.</span></span>
-1. <span data-ttu-id="a4527-332">在搜索框中输入“MongoDB.Driver”，选择“MongoDB.Driver”包，然后选择“添加包”    。</span><span class="sxs-lookup"><span data-stu-id="a4527-332">Enter *MongoDB.Driver* in the search box, select the *MongoDB.Driver* package, and select **Add Package**.</span></span>
-1. <span data-ttu-id="a4527-333">在“许可证接受”对话框中，选择“接受”按钮   。</span><span class="sxs-lookup"><span data-stu-id="a4527-333">Select the **Accept** button in the **License Acceptance** dialog.</span></span>
+1. <span data-ttu-id="7ce8a-328">在早于版本 8.6 的 Visual Studio for Mac 中，从边栏中依次选择“文件” > “新建解决方案” > “.NET Core” > “应用”。   </span><span class="sxs-lookup"><span data-stu-id="7ce8a-328">In Visual Studio for Mac earlier than version 8.6, select **File** > **New Solution** > **.NET Core** > **App** from the sidebar.</span></span> <span data-ttu-id="7ce8a-329">在版本 8.6 或更高版本中，从边栏中依次选择“文件” > “新建解决方案” > “Web 和控制台” > “应用”。   </span><span class="sxs-lookup"><span data-stu-id="7ce8a-329">In version 8.6 or later, select **File** > **New Solution** > **Web and Console** > **App** from the sidebar.</span></span>
+1. <span data-ttu-id="7ce8a-330">选择“ASP.NET Core Web API”C# 项目模板，然后选择“下一步” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-330">Select the **ASP.NET Core Web API** C# project template, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-331">从“目标框架”下拉列表中选择“.NET Core 2.2”，然后选择“下一步”  。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-331">Select **.NET Core 2.2** from the **Target Framework** drop-down list, and select **Next**.</span></span>
+1. <span data-ttu-id="7ce8a-332">输入“BooksApi”作为“项目名称”，然后选择“创建” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-332">Enter *BooksApi* for the **Project Name**, and select **Create**.</span></span>
+1. <span data-ttu-id="7ce8a-333">在“解决方案”面板中，右键单击项目的“依赖项”节点，然后选择“添加包”。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-333">In the **Solution** pad, right-click the project's **Dependencies** node and select **Add Packages**.</span></span>
+1. <span data-ttu-id="7ce8a-334">在搜索框中输入“MongoDB.Driver”，选择“MongoDB.Driver”包，然后选择“添加包” 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-334">Enter *MongoDB.Driver* in the search box, select the *MongoDB.Driver* package, and select **Add Package**.</span></span>
+1. <span data-ttu-id="7ce8a-335">在“许可证接受”对话框中，选择“接受”按钮 。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-335">Select the **Accept** button in the **License Acceptance** dialog.</span></span>
 
 ---
 
-## <a name="add-an-entity-model"></a><span data-ttu-id="a4527-334">添加实体模型</span><span class="sxs-lookup"><span data-stu-id="a4527-334">Add an entity model</span></span>
+## <a name="add-an-entity-model"></a><span data-ttu-id="7ce8a-336">添加实体模型</span><span class="sxs-lookup"><span data-stu-id="7ce8a-336">Add an entity model</span></span>
 
-1. <span data-ttu-id="a4527-335">将 Models  目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-335">Add a *Models* directory to the project root.</span></span>
-1. <span data-ttu-id="a4527-336">使用以下代码将 `Book` 类添加到 Models  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-336">Add a `Book` class to the *Models* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-337">将 Models 目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-337">Add a *Models* directory to the project root.</span></span>
+1. <span data-ttu-id="7ce8a-338">使用以下代码将 `Book` 类添加到 Models 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-338">Add a `Book` class to the *Models* directory with the following code:</span></span>
 
    ```csharp
    using MongoDB.Bson;
@@ -574,93 +574,93 @@ ms.locfileid: "82774764"
    }
    ```
 
-   <span data-ttu-id="a4527-337">在前面的类中，`Id`属性：</span><span class="sxs-lookup"><span data-stu-id="a4527-337">In the preceding class, the `Id` property:</span></span>
+   <span data-ttu-id="7ce8a-339">在前面的类中，`Id`属性：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-339">In the preceding class, the `Id` property:</span></span>
 
-   * <span data-ttu-id="a4527-338">需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。</span><span class="sxs-lookup"><span data-stu-id="a4527-338">Is required for mapping the Common Language Runtime (CLR) object to the MongoDB collection.</span></span>
-   * <span data-ttu-id="a4527-339">使用 [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。</span><span class="sxs-lookup"><span data-stu-id="a4527-339">Is annotated with [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) to designate this property as the document's primary key.</span></span>
-   * <span data-ttu-id="a4527-340">使用 [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而非 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构传递。</span><span class="sxs-lookup"><span data-stu-id="a4527-340">Is annotated with [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) to allow passing the parameter as type `string` instead of an [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) structure.</span></span> <span data-ttu-id="a4527-341">Mongo 处理从 `string` 到 `ObjectId` 的转换。</span><span class="sxs-lookup"><span data-stu-id="a4527-341">Mongo handles the conversion from `string` to `ObjectId`.</span></span>
+   * <span data-ttu-id="7ce8a-340">需要在将公共语言运行时 (CLR) 对象映射到 MongoDB 集合时使用。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-340">Is required for mapping the Common Language Runtime (CLR) object to the MongoDB collection.</span></span>
+   * <span data-ttu-id="7ce8a-341">使用 [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) 进行批注，以将此属性指定为文档的主键。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-341">Is annotated with [`[BsonId]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) to designate this property as the document's primary key.</span></span>
+   * <span data-ttu-id="7ce8a-342">使用 [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) 进行批注，以允许将参数作为类型 `string` 而非 [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) 结构传递。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-342">Is annotated with [`[BsonRepresentation(BsonType.ObjectId)]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) to allow passing the parameter as type `string` instead of an [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) structure.</span></span> <span data-ttu-id="7ce8a-343">Mongo 处理从 `string` 到 `ObjectId` 的转换。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-343">Mongo handles the conversion from `string` to `ObjectId`.</span></span>
 
-   <span data-ttu-id="a4527-342">`BookName` 属性使用 [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。</span><span class="sxs-lookup"><span data-stu-id="a4527-342">The `BookName` property is annotated with the [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) attribute.</span></span> <span data-ttu-id="a4527-343">`Name` 的属性值表示 MongoDB 集合中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-343">The attribute's value of `Name` represents the property name in the MongoDB collection.</span></span>
+   <span data-ttu-id="7ce8a-344">`BookName` 属性使用 [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) 特性进行批注。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-344">The `BookName` property is annotated with the [`[BsonElement]`](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) attribute.</span></span> <span data-ttu-id="7ce8a-345">`Name` 的属性值表示 MongoDB 集合中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-345">The attribute's value of `Name` represents the property name in the MongoDB collection.</span></span>
 
-## <a name="add-a-configuration-model"></a><span data-ttu-id="a4527-344">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="a4527-344">Add a configuration model</span></span>
+## <a name="add-a-configuration-model"></a><span data-ttu-id="7ce8a-346">添加配置模型</span><span class="sxs-lookup"><span data-stu-id="7ce8a-346">Add a configuration model</span></span>
 
-1. <span data-ttu-id="a4527-345">向 appsettings.json 添加以下数据库配置值  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-345">Add the following database configuration values to *appsettings.json*:</span></span>
+1. <span data-ttu-id="7ce8a-347">向 appsettings.json 添加以下数据库配置值：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-347">Add the following database configuration values to *appsettings.json*:</span></span>
 
    [!code-json[](first-mongo-app/samples/2.x/SampleApp/appsettings.json?highlight=2-6)]
 
-1. <span data-ttu-id="a4527-346">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录   ：</span><span class="sxs-lookup"><span data-stu-id="a4527-346">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-348">使用以下代码将 BookstoreDatabaseSettings.cs 文件添加到 Models 目录 ：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-348">Add a *BookstoreDatabaseSettings.cs* file to the *Models* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   <span data-ttu-id="a4527-347">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值  。</span><span class="sxs-lookup"><span data-stu-id="a4527-347">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="a4527-348">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="a4527-348">The JSON and C# property names are named identically to ease the mapping process.</span></span>
+   <span data-ttu-id="7ce8a-349">前面的 `BookstoreDatabaseSettings` 类用于存储 appsettings.json 文件的 `BookstoreDatabaseSettings` 属性值。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-349">The preceding `BookstoreDatabaseSettings` class is used to store the *appsettings.json* file's `BookstoreDatabaseSettings` property values.</span></span> <span data-ttu-id="7ce8a-350">JSON 和 C# 具有相同的属性名称，目的是简化映射过程。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-350">The JSON and C# property names are named identically to ease the mapping process.</span></span>
 
-1. <span data-ttu-id="a4527-349">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="a4527-349">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
+1. <span data-ttu-id="7ce8a-351">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-351">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
    [!code-csharp[](first-mongo-app/samples_snapshot/2.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-7)]
 
-   <span data-ttu-id="a4527-350">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="a4527-350">In the preceding code:</span></span>
+   <span data-ttu-id="7ce8a-352">在上述代码中：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-352">In the preceding code:</span></span>
 
-   * <span data-ttu-id="a4527-351">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册  。</span><span class="sxs-lookup"><span data-stu-id="a4527-351">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="a4527-352">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充  。</span><span class="sxs-lookup"><span data-stu-id="a4527-352">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
-   * <span data-ttu-id="a4527-353">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="a4527-353">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="a4527-354">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-354">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
+   * <span data-ttu-id="7ce8a-353">appsettings.json 文件的 `BookstoreDatabaseSettings` 部分绑定到的配置实例在依赖关系注入 (DI) 容器中注册。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-353">The configuration instance to which the *appsettings.json* file's `BookstoreDatabaseSettings` section binds is registered in the Dependency Injection (DI) container.</span></span> <span data-ttu-id="7ce8a-354">例如，`BookstoreDatabaseSettings` 对象的 `ConnectionString` 属性使用 appsettings.json 中的 `BookstoreDatabaseSettings:ConnectionString` 属性进行填充。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-354">For example, a `BookstoreDatabaseSettings` object's `ConnectionString` property is populated with the `BookstoreDatabaseSettings:ConnectionString` property in *appsettings.json*.</span></span>
+   * <span data-ttu-id="7ce8a-355">`IBookstoreDatabaseSettings` 接口使用单一实例[服务生存期](xref:fundamentals/dependency-injection#service-lifetimes)在 DI 中注册。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-355">The `IBookstoreDatabaseSettings` interface is registered in DI with a singleton [service lifetime](xref:fundamentals/dependency-injection#service-lifetimes).</span></span> <span data-ttu-id="7ce8a-356">在注入时，接口实例时将解析为 `BookstoreDatabaseSettings` 对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-356">When injected, the interface instance resolves to a `BookstoreDatabaseSettings` object.</span></span>
 
-1. <span data-ttu-id="a4527-355">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-355">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
+1. <span data-ttu-id="7ce8a-357">在 Startup.cs 顶部添加以下代码，以解析 `BookstoreDatabaseSettings` 和 `IBookstoreDatabaseSettings` 引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-357">Add the following code to the top of *Startup.cs* to resolve the `BookstoreDatabaseSettings` and `IBookstoreDatabaseSettings` references:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiModels)]
 
-## <a name="add-a-crud-operations-service"></a><span data-ttu-id="a4527-356">添加 CRUD 操作服务</span><span class="sxs-lookup"><span data-stu-id="a4527-356">Add a CRUD operations service</span></span>
+## <a name="add-a-crud-operations-service"></a><span data-ttu-id="7ce8a-358">添加 CRUD 操作服务</span><span class="sxs-lookup"><span data-stu-id="7ce8a-358">Add a CRUD operations service</span></span>
 
-1. <span data-ttu-id="a4527-357">将 Services  目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="a4527-357">Add a *Services* directory to the project root.</span></span>
-1. <span data-ttu-id="a4527-358">使用以下代码将 `BookService` 类添加到 Services  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-358">Add a `BookService` class to the *Services* directory with the following code:</span></span>
+1. <span data-ttu-id="7ce8a-359">将 Services 目录添加到项目根。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-359">Add a *Services* directory to the project root.</span></span>
+1. <span data-ttu-id="7ce8a-360">使用以下代码将 `BookService` 类添加到 Services 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-360">Add a `BookService` class to the *Services* directory with the following code:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   <span data-ttu-id="a4527-359">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="a4527-359">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="a4527-360">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值  。</span><span class="sxs-lookup"><span data-stu-id="a4527-360">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
+   <span data-ttu-id="7ce8a-361">上面的代码通过构造函数注入从 DI 检索 `IBookstoreDatabaseSettings` 实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-361">In the preceding code, an `IBookstoreDatabaseSettings` instance is retrieved from DI via constructor injection.</span></span> <span data-ttu-id="7ce8a-362">使用此方法可访问在[添加配置模型](#add-a-configuration-model)部分添加的 appsettings.json 配置值。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-362">This technique provides access to the *appsettings.json* configuration values that were added in the [Add a configuration model](#add-a-configuration-model) section.</span></span>
 
-1. <span data-ttu-id="a4527-361">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="a4527-361">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
+1. <span data-ttu-id="7ce8a-363">将以下突出显示的代码添加到 `Startup.ConfigureServices`：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-363">Add the following highlighted code to `Startup.ConfigureServices`:</span></span>
 
    [!code-csharp[](first-mongo-app/samples_snapshot/2.x/SampleApp/Startup.ConfigureServices.AddSingletonService.cs?highlight=9)]
 
-   <span data-ttu-id="a4527-362">上面的代码向 DI 注册了 `BookService` 类，以支持消费类中的构造函数注入。</span><span class="sxs-lookup"><span data-stu-id="a4527-362">In the preceding code, the `BookService` class is registered with DI to support constructor injection in consuming classes.</span></span> <span data-ttu-id="a4527-363">单一实例服务生存期是最合适的，因为 `BookService` 直接依赖于 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="a4527-363">The singleton service lifetime is most appropriate because `BookService` takes a direct dependency on `MongoClient`.</span></span> <span data-ttu-id="a4527-364">根据官方 [Mongo Client 重用准则](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)，应使用单一实例服务生存期在 DI 中注册 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="a4527-364">Per the official [Mongo Client reuse guidelines](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use), `MongoClient` should be registered in DI with a singleton service lifetime.</span></span>
+   <span data-ttu-id="7ce8a-364">上面的代码向 DI 注册了 `BookService` 类，以支持消费类中的构造函数注入。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-364">In the preceding code, the `BookService` class is registered with DI to support constructor injection in consuming classes.</span></span> <span data-ttu-id="7ce8a-365">单一实例服务生存期是最合适的，因为 `BookService` 直接依赖于 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-365">The singleton service lifetime is most appropriate because `BookService` takes a direct dependency on `MongoClient`.</span></span> <span data-ttu-id="7ce8a-366">根据官方 [Mongo Client 重用准则](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)，应使用单一实例服务生存期在 DI 中注册 `MongoClient`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-366">Per the official [Mongo Client reuse guidelines](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use), `MongoClient` should be registered in DI with a singleton service lifetime.</span></span>
 
-1. <span data-ttu-id="a4527-365">在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-365">Add the following code to the top of *Startup.cs* to resolve the `BookService` reference:</span></span>
+1. <span data-ttu-id="7ce8a-367">在 Startup.cs 顶部添加以下代码，以解析 `BookService` 引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-367">Add the following code to the top of *Startup.cs* to resolve the `BookService` reference:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiServices)]
 
-<span data-ttu-id="a4527-366">`BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：</span><span class="sxs-lookup"><span data-stu-id="a4527-366">The `BookService` class uses the following `MongoDB.Driver` members to perform CRUD operations against the database:</span></span>
+<span data-ttu-id="7ce8a-368">`BookService` 类使用以下 `MongoDB.Driver` 成员对数据库执行 CRUD 操作：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-368">The `BookService` class uses the following `MongoDB.Driver` members to perform CRUD operations against the database:</span></span>
 
-* <span data-ttu-id="a4527-367">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; 读取服务器实例，以执行数据库操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-367">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; Reads the server instance for performing database operations.</span></span> <span data-ttu-id="a4527-368">此类的构造函数提供了 MongoDB 连接字符串：</span><span class="sxs-lookup"><span data-stu-id="a4527-368">The constructor of this class is provided the MongoDB connection string:</span></span>
+* <span data-ttu-id="7ce8a-369">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm)：读取用于执行数据库操作的服务器实例。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-369">[MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm): Reads the server instance for performing database operations.</span></span> <span data-ttu-id="7ce8a-370">此类的构造函数提供了 MongoDB 连接字符串：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-370">The constructor of this class is provided the MongoDB connection string:</span></span>
 
   [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* <span data-ttu-id="a4527-369">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; 表示用于执行操作的 Mongo 数据库。</span><span class="sxs-lookup"><span data-stu-id="a4527-369">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; Represents the Mongo database for performing operations.</span></span> <span data-ttu-id="a4527-370">本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。</span><span class="sxs-lookup"><span data-stu-id="a4527-370">This tutorial uses the generic [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) method on the interface to gain access to data in a specific collection.</span></span> <span data-ttu-id="a4527-371">调用此方法后，对集合执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-371">Perform CRUD operations against the collection after this method is called.</span></span> <span data-ttu-id="a4527-372">在 `GetCollection<TDocument>(collection)` 方法调用中：</span><span class="sxs-lookup"><span data-stu-id="a4527-372">In the `GetCollection<TDocument>(collection)` method call:</span></span>
+* <span data-ttu-id="7ce8a-371">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm)：表示用于执行操作的 Mongo 数据库。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-371">[IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm): Represents the Mongo database for performing operations.</span></span> <span data-ttu-id="7ce8a-372">本教程在界面上使用泛型 [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) 方法来获取对特定集合中的数据的访问权限。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-372">This tutorial uses the generic [GetCollection\<TDocument>(collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) method on the interface to gain access to data in a specific collection.</span></span> <span data-ttu-id="7ce8a-373">调用此方法后，对集合执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-373">Perform CRUD operations against the collection after this method is called.</span></span> <span data-ttu-id="7ce8a-374">在 `GetCollection<TDocument>(collection)` 方法调用中：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-374">In the `GetCollection<TDocument>(collection)` method call:</span></span>
 
-  * <span data-ttu-id="a4527-373">`collection` 表示集合名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-373">`collection` represents the collection name.</span></span>
-  * <span data-ttu-id="a4527-374">`TDocument` 表示存储在集合中的 CLR 对象类型。</span><span class="sxs-lookup"><span data-stu-id="a4527-374">`TDocument` represents the CLR object type stored in the collection.</span></span>
+  * <span data-ttu-id="7ce8a-375">`collection` 表示集合名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-375">`collection` represents the collection name.</span></span>
+  * <span data-ttu-id="7ce8a-376">`TDocument` 表示存储在集合中的 CLR 对象类型。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-376">`TDocument` represents the CLR object type stored in the collection.</span></span>
 
-<span data-ttu-id="a4527-375">`GetCollection<TDocument>(collection)` 返回表示集合的 [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) 对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-375">`GetCollection<TDocument>(collection)` returns a [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) object representing the collection.</span></span> <span data-ttu-id="a4527-376">在本教程中，对集合调用以下方法：</span><span class="sxs-lookup"><span data-stu-id="a4527-376">In this tutorial, the following methods are invoked on the collection:</span></span>
+<span data-ttu-id="7ce8a-377">`GetCollection<TDocument>(collection)` 返回表示集合的 [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) 对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-377">`GetCollection<TDocument>(collection)` returns a [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) object representing the collection.</span></span> <span data-ttu-id="7ce8a-378">在本教程中，对集合调用以下方法：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-378">In this tutorial, the following methods are invoked on the collection:</span></span>
 
-* <span data-ttu-id="a4527-377">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; 删除与提供的搜索条件匹配的单个文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-377">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; Deletes a single document matching the provided search criteria.</span></span>
-* <span data-ttu-id="a4527-378">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; 返回集合中与提供的搜索条件匹配的所有文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-378">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; Returns all documents in the collection matching the provided search criteria.</span></span>
-* <span data-ttu-id="a4527-379">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; 插入提供的对象作为集合中的新文档。</span><span class="sxs-lookup"><span data-stu-id="a4527-379">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; Inserts the provided object as a new document in the collection.</span></span>
-* <span data-ttu-id="a4527-380">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; 将与提供的搜索条件匹配的单个文档替换为提供的对象。</span><span class="sxs-lookup"><span data-stu-id="a4527-380">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; Replaces the single document matching the provided search criteria with the provided object.</span></span>
+* <span data-ttu-id="7ce8a-379">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm)：删除与提供的搜索条件匹配的单个文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-379">[DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm): Deletes a single document matching the provided search criteria.</span></span>
+* <span data-ttu-id="7ce8a-380">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm)：返回集合中与提供的搜索条件匹配的所有文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-380">[Find\<TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm): Returns all documents in the collection matching the provided search criteria.</span></span>
+* <span data-ttu-id="7ce8a-381">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm)：插入提供的对象作为集合中的新文档。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-381">[InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm): Inserts the provided object as a new document in the collection.</span></span>
+* <span data-ttu-id="7ce8a-382">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm)：将与提供的搜索条件匹配的单个文档替换为提供的对象。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-382">[ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm): Replaces the single document matching the provided search criteria with the provided object.</span></span>
 
-## <a name="add-a-controller"></a><span data-ttu-id="a4527-381">添加控制器</span><span class="sxs-lookup"><span data-stu-id="a4527-381">Add a controller</span></span>
+## <a name="add-a-controller"></a><span data-ttu-id="7ce8a-383">添加控制器</span><span class="sxs-lookup"><span data-stu-id="7ce8a-383">Add a controller</span></span>
 
-<span data-ttu-id="a4527-382">使用以下代码将 `BooksController` 类添加到 Controllers  目录：</span><span class="sxs-lookup"><span data-stu-id="a4527-382">Add a `BooksController` class to the *Controllers* directory with the following code:</span></span>
+<span data-ttu-id="7ce8a-384">使用以下代码将 `BooksController` 类添加到 Controllers 目录：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-384">Add a `BooksController` class to the *Controllers* directory with the following code:</span></span>
 
 [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Controllers/BooksController.cs)]
 
-<span data-ttu-id="a4527-383">前面的 Web API 控制器：</span><span class="sxs-lookup"><span data-stu-id="a4527-383">The preceding web API controller:</span></span>
+<span data-ttu-id="7ce8a-385">前面的 Web API 控制器：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-385">The preceding web API controller:</span></span>
 
-* <span data-ttu-id="a4527-384">使用 `BookService` 类执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="a4527-384">Uses the `BookService` class to perform CRUD operations.</span></span>
-* <span data-ttu-id="a4527-385">包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="a4527-385">Contains action methods to support GET, POST, PUT, and DELETE HTTP requests.</span></span>
-* <span data-ttu-id="a4527-386">在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。</span><span class="sxs-lookup"><span data-stu-id="a4527-386">Calls <xref:System.Web.Http.ApiController.CreatedAtRoute*> in the `Create` action method to return an [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) response.</span></span> <span data-ttu-id="a4527-387">状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。</span><span class="sxs-lookup"><span data-stu-id="a4527-387">Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span> <span data-ttu-id="a4527-388">`CreatedAtRoute` 还会将 `Location` 标头添加到响应中。</span><span class="sxs-lookup"><span data-stu-id="a4527-388">`CreatedAtRoute` also adds a `Location` header to the response.</span></span> <span data-ttu-id="a4527-389">`Location` 标头指定新建书籍的 URI。</span><span class="sxs-lookup"><span data-stu-id="a4527-389">The `Location` header specifies the URI of the newly created book.</span></span>
+* <span data-ttu-id="7ce8a-386">使用 `BookService` 类执行 CRUD 操作。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-386">Uses the `BookService` class to perform CRUD operations.</span></span>
+* <span data-ttu-id="7ce8a-387">包含操作方法以支持 GET、POST、PUT 和 DELETE HTTP 请求。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-387">Contains action methods to support GET, POST, PUT, and DELETE HTTP requests.</span></span>
+* <span data-ttu-id="7ce8a-388">在 `Create` 操作方法中调用 <xref:System.Web.Http.ApiController.CreatedAtRoute*>，以返回 [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 响应。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-388">Calls <xref:System.Web.Http.ApiController.CreatedAtRoute*> in the `Create` action method to return an [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) response.</span></span> <span data-ttu-id="7ce8a-389">状态代码 201 是在服务器上创建新资源的 HTTP POST 方法的标准响应。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-389">Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span> <span data-ttu-id="7ce8a-390">`CreatedAtRoute` 还会将 `Location` 标头添加到响应中。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-390">`CreatedAtRoute` also adds a `Location` header to the response.</span></span> <span data-ttu-id="7ce8a-391">`Location` 标头指定新建书籍的 URI。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-391">The `Location` header specifies the URI of the newly created book.</span></span>
 
-## <a name="test-the-web-api"></a><span data-ttu-id="a4527-390">测试 Web API</span><span class="sxs-lookup"><span data-stu-id="a4527-390">Test the web API</span></span>
+## <a name="test-the-web-api"></a><span data-ttu-id="7ce8a-392">测试 Web API</span><span class="sxs-lookup"><span data-stu-id="7ce8a-392">Test the web API</span></span>
 
-1. <span data-ttu-id="a4527-391">生成并运行应用。</span><span class="sxs-lookup"><span data-stu-id="a4527-391">Build and run the app.</span></span>
+1. <span data-ttu-id="7ce8a-393">生成并运行应用。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-393">Build and run the app.</span></span>
 
-1. <span data-ttu-id="a4527-392">导航到 `http://localhost:<port>/api/books`，测试控制器的无参数 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="a4527-392">Navigate to `http://localhost:<port>/api/books` to test the controller's parameterless `Get` action method.</span></span> <span data-ttu-id="a4527-393">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="a4527-393">The following JSON response is displayed:</span></span>
+1. <span data-ttu-id="7ce8a-394">导航到 `http://localhost:<port>/api/books`，测试控制器的无参数 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-394">Navigate to `http://localhost:<port>/api/books` to test the controller's parameterless `Get` action method.</span></span> <span data-ttu-id="7ce8a-395">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-395">The following JSON response is displayed:</span></span>
 
    ```json
    [
@@ -681,7 +681,7 @@ ms.locfileid: "82774764"
    ]
    ```
 
-1. <span data-ttu-id="a4527-394">导航到 `http://localhost:<port>/api/books/{id here}`，测试控制器的重载 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="a4527-394">Navigate to `http://localhost:<port>/api/books/{id here}` to test the controller's overloaded `Get` action method.</span></span> <span data-ttu-id="a4527-395">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="a4527-395">The following JSON response is displayed:</span></span>
+1. <span data-ttu-id="7ce8a-396">导航到 `http://localhost:<port>/api/books/{id here}`，测试控制器的重载 `Get` 操作方法。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-396">Navigate to `http://localhost:<port>/api/books/{id here}` to test the controller's overloaded `Get` action method.</span></span> <span data-ttu-id="7ce8a-397">将显示下面的 JSON 响应：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-397">The following JSON response is displayed:</span></span>
 
    ```json
    {
@@ -693,43 +693,43 @@ ms.locfileid: "82774764"
    }
    ```
 
-## <a name="configure-json-serialization-options"></a><span data-ttu-id="a4527-396">配置 JSON 序列化选项</span><span class="sxs-lookup"><span data-stu-id="a4527-396">Configure JSON serialization options</span></span>
+## <a name="configure-json-serialization-options"></a><span data-ttu-id="7ce8a-398">配置 JSON 序列化选项</span><span class="sxs-lookup"><span data-stu-id="7ce8a-398">Configure JSON serialization options</span></span>
 
-<span data-ttu-id="a4527-397">关于在[测试 Web API](#test-the-web-api) 部分中返回的 JSON 响应，有两个细节需要更改：</span><span class="sxs-lookup"><span data-stu-id="a4527-397">There are two details to change about the JSON responses returned in the [Test the web API](#test-the-web-api) section:</span></span>
+<span data-ttu-id="7ce8a-399">关于在[测试 Web API](#test-the-web-api) 部分中返回的 JSON 响应，有两个细节需要更改：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-399">There are two details to change about the JSON responses returned in the [Test the web API](#test-the-web-api) section:</span></span>
 
-* <span data-ttu-id="a4527-398">应更改属性名称的默认驼峰式大小写风格，以匹配 CLR 对象属性名称的 Pascal 大小写。</span><span class="sxs-lookup"><span data-stu-id="a4527-398">The property names' default camel casing should be changed to match the Pascal casing of the CLR object's property names.</span></span>
-* <span data-ttu-id="a4527-399">`bookName` 属性应作为 `Name` 返回。</span><span class="sxs-lookup"><span data-stu-id="a4527-399">The `bookName` property should be returned as `Name`.</span></span>
+* <span data-ttu-id="7ce8a-400">应更改属性名称的默认驼峰式大小写风格，以匹配 CLR 对象属性名称的 Pascal 大小写。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-400">The property names' default camel casing should be changed to match the Pascal casing of the CLR object's property names.</span></span>
+* <span data-ttu-id="7ce8a-401">`bookName` 属性应作为 `Name` 返回。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-401">The `bookName` property should be returned as `Name`.</span></span>
 
-<span data-ttu-id="a4527-400">为满足上述要求，请进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="a4527-400">To satisfy the preceding requirements, make the following changes:</span></span>
+<span data-ttu-id="7ce8a-402">为满足上述要求，请进行以下更改：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-402">To satisfy the preceding requirements, make the following changes:</span></span>
 
-1. <span data-ttu-id="a4527-401">在 `Startup.ConfigureServices` 中，将以下突出显示的代码链接到 `AddMvc` 方法调用：</span><span class="sxs-lookup"><span data-stu-id="a4527-401">In `Startup.ConfigureServices`, chain the following highlighted code on to the `AddMvc` method call:</span></span>
+1. <span data-ttu-id="7ce8a-403">在 `Startup.ConfigureServices` 中，将以下突出显示的代码链接到 `AddMvc` 方法调用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-403">In `Startup.ConfigureServices`, chain the following highlighted code on to the `AddMvc` method call:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
 
-   <span data-ttu-id="a4527-402">通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。</span><span class="sxs-lookup"><span data-stu-id="a4527-402">With the preceding change, property names in the web API's serialized JSON response match their corresponding property names in the CLR object type.</span></span> <span data-ttu-id="a4527-403">例如，`Book` 类的 `Author` 属性序列化为 `Author`。</span><span class="sxs-lookup"><span data-stu-id="a4527-403">For example, the `Book` class's `Author` property serializes as `Author`.</span></span>
+   <span data-ttu-id="7ce8a-404">通过上述更改，Web API 的序列化 JSON 响应中的属性名称与 CLR 对象类型中其相应的属性名称匹配。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-404">With the preceding change, property names in the web API's serialized JSON response match their corresponding property names in the CLR object type.</span></span> <span data-ttu-id="7ce8a-405">例如，`Book` 类的 `Author` 属性序列化为 `Author`。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-405">For example, the `Book` class's `Author` property serializes as `Author`.</span></span>
 
-1. <span data-ttu-id="a4527-404">在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-404">In *Models/Book.cs*, annotate the `BookName` property with the following [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) attribute:</span></span>
+1. <span data-ttu-id="7ce8a-406">在 Models/Book.cs 中，使用以下 [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) 特性批注 `BookName` 属性：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-406">In *Models/Book.cs*, annotate the `BookName` property with the following [`[JsonProperty]`](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) attribute:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/Book.cs?name=snippet_BookNameProperty&highlight=2)]
 
-   <span data-ttu-id="a4527-405">`[JsonProperty]` 属性的 `Name` 值表示 Web API 的序列化 JSON 响应中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="a4527-405">The `[JsonProperty]` attribute's value of `Name` represents the property name in the web API's serialized JSON response.</span></span>
+   <span data-ttu-id="7ce8a-407">`[JsonProperty]` 属性的 `Name` 值表示 Web API 的序列化 JSON 响应中的属性名称。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-407">The `[JsonProperty]` attribute's value of `Name` represents the property name in the web API's serialized JSON response.</span></span>
 
-1. <span data-ttu-id="a4527-406">在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用  ：</span><span class="sxs-lookup"><span data-stu-id="a4527-406">Add the following code to the top of *Models/Book.cs* to resolve the `[JsonProperty]` attribute reference:</span></span>
+1. <span data-ttu-id="7ce8a-408">在 Models/Book.cs 顶部添加以下代码，以解析 `[JsonProperty]` 属性引用：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-408">Add the following code to the top of *Models/Book.cs* to resolve the `[JsonProperty]` attribute reference:</span></span>
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/Book.cs?name=snippet_NewtonsoftJsonImport)]
 
-1. <span data-ttu-id="a4527-407">重复[测试 Web API](#test-the-web-api) 部分中定义的步骤。</span><span class="sxs-lookup"><span data-stu-id="a4527-407">Repeat the steps defined in the [Test the web API](#test-the-web-api) section.</span></span> <span data-ttu-id="a4527-408">注意 JSON 属性名称中的区别。</span><span class="sxs-lookup"><span data-stu-id="a4527-408">Notice the difference in JSON property names.</span></span>
+1. <span data-ttu-id="7ce8a-409">重复[测试 Web API](#test-the-web-api) 部分中定义的步骤。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-409">Repeat the steps defined in the [Test the web API](#test-the-web-api) section.</span></span> <span data-ttu-id="7ce8a-410">注意 JSON 属性名称中的区别。</span><span class="sxs-lookup"><span data-stu-id="7ce8a-410">Notice the difference in JSON property names.</span></span>
 
 ::: moniker-end
 
-## <a name="add-authentication-support-to-a-web-api"></a><span data-ttu-id="a4527-409">向 Web API 添加身份验证支持</span><span class="sxs-lookup"><span data-stu-id="a4527-409">Add authentication support to a web API</span></span>
+## <a name="add-authentication-support-to-a-web-api"></a><span data-ttu-id="7ce8a-411">向 Web API 添加身份验证支持</span><span class="sxs-lookup"><span data-stu-id="7ce8a-411">Add authentication support to a web API</span></span>
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-## <a name="next-steps"></a><span data-ttu-id="a4527-410">后续步骤</span><span class="sxs-lookup"><span data-stu-id="a4527-410">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="7ce8a-412">后续步骤</span><span class="sxs-lookup"><span data-stu-id="7ce8a-412">Next steps</span></span>
 
-<span data-ttu-id="a4527-411">有关构建 ASP.NET Core Web API 的详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="a4527-411">For more information on building ASP.NET Core web APIs, see the following resources:</span></span>
+<span data-ttu-id="7ce8a-413">有关构建 ASP.NET Core Web API 的详细信息，请参阅以下资源：</span><span class="sxs-lookup"><span data-stu-id="7ce8a-413">For more information on building ASP.NET Core web APIs, see the following resources:</span></span>
 
-* [<span data-ttu-id="a4527-412">本文的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="a4527-412">YouTube version of this article</span></span>](https://www.youtube.com/watch?v=7uJt_sOenyo&feature=youtu.be)
+* [<span data-ttu-id="7ce8a-414">本文的 YouTube 版本</span><span class="sxs-lookup"><span data-stu-id="7ce8a-414">YouTube version of this article</span></span>](https://www.youtube.com/watch?v=7uJt_sOenyo&feature=youtu.be)
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>

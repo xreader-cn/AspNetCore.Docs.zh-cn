@@ -297,94 +297,134 @@
               uid: tutorials/signalr-blazor-webassembly
         - name: 模板
           uid: blazor/templates
+        - name: 基础知识
+          items:
+            - name: 路由
+              uid: blazor/fundamentals/routing
+            - name: Configuration
+              uid: blazor/fundamentals/configuration
+            - name: 依赖关系注入
+              uid: blazor/fundamentals/dependency-injection
+            - name: 环境
+              uid: blazor/fundamentals/environments
+            - name: Logging
+              uid: blazor/fundamentals/logging
+            - name: 处理错误
+              uid: blazor/fundamentals/handle-errors
+            - name: 其他方案
+              uid: blazor/fundamentals/additional-scenarios
         - name: 组件
-          uid: blazor/components
-        - name: 数据绑定
-          uid: blazor/data-binding
-        - name: 事件处理
-          uid: blazor/event-handling
-        - name: 生命周期
-          uid: blazor/lifecycle
-        - name: 模板化组件
-          uid: blazor/templated-components
-        - name: 集成组件
-          uid: blazor/integrate-components
+          items:
+            - name: 概述
+              uid: blazor/components/index
+            - name: 内置组件
+              items:
+                - name: 应用
+                  uid: blazor/templates
+                - name: 身份验证
+                  uid: blazor/security/webassembly/additional-scenarios
+                - name: AuthorizeView
+                  uid: blazor/security/index
+                - name: InputCheckbox
+                  uid: blazor/forms-validation
+                - name: InputDate
+                  uid: blazor/forms-validation
+                - name: InputNumber
+                  uid: blazor/forms-validation
+                - name: InputSelect
+                  uid: blazor/forms-validation
+                - name: InputText
+                  uid: blazor/forms-validation
+                - name: InputTextArea
+                  uid: blazor/forms-validation
+                - name: MainLayout
+                  uid: blazor/layouts
+                - name: NavLink
+                  uid: blazor/fundamentals/routing
+                - name: NavMenu
+                  uid: blazor/fundamentals/routing
+                - name: 路由器
+                  uid: blazor/fundamentals/routing
+            - name: 级联值和参数
+              uid: blazor/components/cascading-values-and-parameters
+            - name: 数据绑定
+              uid: blazor/components/data-binding
+            - name: 事件处理
+              uid: blazor/components/event-handling
+            - name: 生命周期
+              uid: blazor/components/lifecycle
+            - name: 模板化组件
+              uid: blazor/components/templated-components
+            - name: 集成组件
+              uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
+            - name: 组件库
+              uid: blazor/components/class-libraries
         - name: 全球化和本地化
           uid: blazor/globalization-localization
         - name: 布局
           uid: blazor/layouts
         - name: 窗体和验证
           uid: blazor/forms-validation
-        - name: 依赖关系注入
-          uid: blazor/dependency-injection
-        - name: 路由
-          uid: blazor/routing
         - name: 从 .NET 调用 JavaScript
           uid: blazor/call-javascript-from-dotnet
         - name: 从 JavaScript 调用 .NET
           uid: blazor/call-dotnet-from-javascript
-        - name: 托管模型配置
-          uid: blazor/hosting-model-configuration
-        - name: 组件库
-          uid: blazor/class-libraries
         - name: 安全和标识
           items:
             - name: 概述
-              uid: security/blazor/index
+              uid: blazor/security/index
             - name: Blazor WebAssembly
               items:
                 - name: 概述
-                  uid: security/blazor/webassembly/index
+                  uid: blazor/security/webassembly/index
                 - name: 包含身份验证库的独立产品
-                  uid: security/blazor/webassembly/standalone-with-authentication-library
+                  uid: blazor/security/webassembly/standalone-with-authentication-library
                 - name: 包含 Microsoft 帐户的独立产品
-                  uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+                  uid: blazor/security/webassembly/standalone-with-microsoft-accounts
                 - name: 包含 AAD 的独立产品
-                  uid: security/blazor/webassembly/standalone-with-azure-active-directory
+                  uid: blazor/security/webassembly/standalone-with-azure-active-directory
                 - name: 包含 AAD B2C 的独立产品
-                  uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+                  uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
                 - name: 由 AAD 托管
-                  uid: security/blazor/webassembly/hosted-with-azure-active-directory
+                  uid: blazor/security/webassembly/hosted-with-azure-active-directory
                 - name: 由 AAD B2C 托管
-                  uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                  uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
                 - name: 由标识服务器托管
-                  uid: security/blazor/webassembly/hosted-with-identity-server
+                  uid: blazor/security/webassembly/hosted-with-identity-server
                 - name: 其他方案
-                  uid: security/blazor/webassembly/additional-scenarios
+                  uid: blazor/security/webassembly/additional-scenarios
                 - name: AAD 组和角色
-                  uid: security/blazor/webassembly/aad-groups-roles
+                  uid: blazor/security/webassembly/aad-groups-roles
             - name: Blazor 服务器
               items:
                 - name: 概述
-                  uid: security/blazor/server/index
+                  uid: blazor/security/server/index
                 - name: 威胁缓解措施
-                  uid: security/blazor/server/threat-mitigation
+                  uid: blazor/security/server/threat-mitigation
                 - name: 其他方案
-                  uid: security/blazor/server/additional-scenarios
+                  uid: blazor/security/server/additional-scenarios
             - name: 内容安全策略
-              uid: security/blazor/content-security-policy
+              uid: blazor/security/content-security-policy
         - name: 状态管理
           uid: blazor/state-management
-        - name: 处理错误
-          uid: blazor/handle-errors
         - name: 调试 WebAssembly
           uid: blazor/debug
         - name: 从 WebAssembly 调用 Web API
           uid: blazor/call-web-api
         - name: WebAssembly 性能
-          uid: performance/blazor/webassembly-best-practices
+          uid: blazor/webassembly-performance-best-practices
         - name: 渐进式 Web 应用程序
           uid: blazor/progressive-web-app
         - name: 托管和部署
           items:
             - name: 概述
-              uid: host-and-deploy/blazor/index
+              uid: blazor/host-and-deploy/index
             - name: Blazor WebAssembly
-              uid: host-and-deploy/blazor/webassembly
+              uid: blazor/host-and-deploy/webassembly
             - name: Blazor 服务器
-              uid: host-and-deploy/blazor/server
+              uid: blazor/host-and-deploy/server
             - name: 配置链接器
-              uid: host-and-deploy/blazor/configure-linker
+              uid: blazor/host-and-deploy/configure-linker
         - name: 高级方案
           uid: blazor/advanced-scenarios
     - name: 客户端开发
@@ -445,15 +485,15 @@
             - name: 环境
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: 窗体
-              href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
+              href: mvc/views/working-with-forms.md#the-form-tag-helper
             - name: 表单操作
-              href: 'mvc/views/working-with-forms.md#the-form-action-tag-helper'
+              href: mvc/views/working-with-forms.md#the-form-action-tag-helper
             - name: 图像
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 输入
-              href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
+              href: mvc/views/working-with-forms.md#the-input-tag-helper
             - name: Label
-              href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
+              href: mvc/views/working-with-forms.md#the-label-tag-helper
             - name: 链接
               uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
             - name: 部分
@@ -461,13 +501,13 @@
             - name: 脚本
               uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
             - name: 选择
-              href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
+              href: mvc/views/working-with-forms.md#the-select-tag-helper
             - name: Textarea
-              href: 'mvc/views/working-with-forms.md#the-textarea-tag-helper'
+              href: mvc/views/working-with-forms.md#the-textarea-tag-helper
             - name: 验证消息
-              href: 'mvc/views/working-with-forms.md#the-validation-message-tag-helper'
+              href: mvc/views/working-with-forms.md#the-validation-message-tag-helper
             - name: 验证摘要
-              href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
+              href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
     - name: 高级
       items:
         - name: 应用程序部件
@@ -640,7 +680,7 @@
       items:
         - name: 开始使用 gRPC 服务
           uid: tutorials/grpc/grpc-start
-    - name: '使用 C# 的 gRPC 服务'
+    - name: 使用 C# 的 gRPC 服务
       uid: grpc/basics
     - name: 使用 ASP.NET Core 的 gRPC 服务
       uid: grpc/aspnetcore
@@ -890,13 +930,13 @@
     - name: Blazor
       items:
         - name: 概述
-          uid: host-and-deploy/blazor/index
+          uid: blazor/host-and-deploy/index
         - name: Blazor WebAssembly
-          uid: host-and-deploy/blazor/webassembly
+          uid: blazor/host-and-deploy/webassembly
         - name: Blazor 服务器
-          uid: host-and-deploy/blazor/server
+          uid: blazor/host-and-deploy/server
         - name: 配置链接器
-          uid: host-and-deploy/blazor/configure-linker
+          uid: blazor/host-and-deploy/configure-linker
 - name: 安全和标识
   displayName: 'authentication, authorization'
   items:
@@ -1132,39 +1172,39 @@
     - name: Blazor
       items:
         - name: 概述
-          uid: security/blazor/index
+          uid: blazor/security/index
         - name: Blazor WebAssembly
           items:
             - name: 概述
-              uid: security/blazor/webassembly/index
+              uid: blazor/security/webassembly/index
             - name: 包含身份验证库的独立产品
-              uid: security/blazor/webassembly/standalone-with-authentication-library
+              uid: blazor/security/webassembly/standalone-with-authentication-library
             - name: 包含 Microsoft 帐户的独立产品
-              uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+              uid: blazor/security/webassembly/standalone-with-microsoft-accounts
             - name: 包含 AAD 的独立产品
-              uid: security/blazor/webassembly/standalone-with-azure-active-directory
+              uid: blazor/security/webassembly/standalone-with-azure-active-directory
             - name: 包含 AAD B2C 的独立产品
-              uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+              uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
             - name: 由 AAD 托管
-              uid: security/blazor/webassembly/hosted-with-azure-active-directory
+              uid: blazor/security/webassembly/hosted-with-azure-active-directory
             - name: 由 AAD B2C 托管
-              uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+              uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
             - name: 由标识服务器托管
-              uid: security/blazor/webassembly/hosted-with-identity-server
+              uid: blazor/security/webassembly/hosted-with-identity-server
             - name: 其他方案
-              uid: security/blazor/webassembly/additional-scenarios
+              uid: blazor/security/webassembly/additional-scenarios
             - name: AAD 组和角色
-              uid: security/blazor/webassembly/aad-groups-roles
+              uid: blazor/security/webassembly/aad-groups-roles
         - name: Blazor 服务器
           items:
             - name: 概述
-              uid: security/blazor/server/index
+              uid: blazor/security/server/index
             - name: 威胁缓解措施
-              uid: security/blazor/server/threat-mitigation
+              uid: blazor/security/server/threat-mitigation
             - name: 其他方案
-              uid: security/blazor/server/additional-scenarios
+              uid: blazor/security/server/additional-scenarios
         - name: 内容安全策略
-          uid: security/blazor/content-security-policy
+          uid: blazor/security/content-security-policy
 - name: 性能
   items:
     - name: 概述
@@ -1190,7 +1230,7 @@
     - name: 负载测试和压力测试
       uid: test/loadtests
     - name: Blazor WebAssembly
-      uid: performance/blazor/webassembly-best-practices
+      uid: blazor/webassembly-performance-best-practices
 - name: 全球化和本地化
   items:
     - name: 概述
