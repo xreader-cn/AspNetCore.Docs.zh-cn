@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 50096ae6a77d5f8b07e6be795d9401fcbfd421e3
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cd4cc6778de7d2156243dc91fba64b2bdb79cf08
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776703"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452117"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag 和 ASP.NET Core 入门
 
@@ -55,27 +55,27 @@ NSwag 提供了下列功能：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从“程序包管理器控制台”  窗口：
-  * 转到“视图” > “其他窗口” > “程序包管理器控制台”   
-  * 导航到包含 TodoApi.csproj 文件的目录 
+* 从“程序包管理器控制台”窗口：
+  * 转到“视图” > “其他窗口” > “程序包管理器控制台”  
+  * 导航到包含 TodoApi.csproj 文件的目录
   * 请执行以下命令：
 
     ```powershell
     Install-Package NSwag.AspNetCore
     ```
 
-* 从“管理 NuGet 程序包”  对话框中：
-  * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目  
-  * 将“包源”  设置为“nuget.org”
+* 从“管理 NuGet 程序包”对话框中：
+  * 右键单击“解决方案资源管理器” > “管理 NuGet 包”中的项目 
+  * 将“包源”设置为“nuget.org”
   * 在搜索框中输入“NSwag.AspNetCore”
-  * 从“浏览”选项卡中选择“NSwag.AspNetCore”包，然后单击“安装”  
+  * 从“浏览”选项卡中选择“NSwag.AspNetCore”包，然后单击“安装” 
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击“Solution Pad”   > “添加包...”  中的“包”  文件夹
-* 将“添加包”  窗口的“源”  下拉列表设置为“nuget.org”
+* 右键单击“Solution Pad” > “添加包...”中的“包”文件夹
+* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”
 * 在搜索框中输入“NSwag.AspNetCore”
-* 从结果窗格中选择“NSwag.AspNetCore”包，然后单击“添加包” 
+* 从结果窗格中选择“NSwag.AspNetCore”包，然后单击“添加包”
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -107,22 +107,22 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 若要利用 NSwag 的代码生成功能，可选择以下选项之一：
 
-* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio) &ndash; 一款 Windows 桌面应用，用于在 C# 或 TypeScript 中生成 API 客户端代码。
+* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio)：一款 Windows 桌面应用，用于在 C# 或 TypeScript 中生成 API 客户端代码。
 * [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) 或 [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) NuGet 包 - 用于在项目中生成代码。
 * 通过[命令行](https://github.com/RicoSuter/NSwag/wiki/CommandLine)使用 NSwag。
 * [NSwag.MSBuild](https://github.com/RicoSuter/NSwag/wiki/NSwag.MSBuild) NuGet 包。
-* [Unchase OpenAPI (Swagger) 连接服务](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice) &ndash; 一种 Visual Studio 连接服务，用于在 C# 或 TypeScript 中生成 API 客户端代码。 还可以使用 NSwag 为 OpenAPI 服务生成 C# 控制器。
+* [Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice)（Unchase OpenAPI (Swagger) 连接服务）：一种 Visual Studio 连接服务，用于在 C# 或 TypeScript 中生成 API 客户端代码。 还可以使用 NSwag 为 OpenAPI 服务生成 C# 控制器。
 
 ### <a name="generate-code-with-nswagstudio"></a>使用 NSwagStudio 生成代码
 
 * 按照 [NSwagStudio GitHub 存储库](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio)中的说明操作，以安装 NSwagStudio。 在 NSwag 发布页面上，可以下载无需安装和管理员权限即可启动的 xcopy 版本。
-* 启动 NSwagStudio，并在“Swagger 规范 URL”  文本框中输入 swagger.json  文件 URL。 例如， *http://localhost:44354/swagger/v1/swagger.json* 。
-* 单击“创建本地副本”  按钮，以生成 Swagger 规范的 JSON 表示形式。
+* 启动 NSwagStudio，并在“Swagger 规范 URL”文本框中输入 swagger.json 文件 URL。 例如， *http://localhost:44354/swagger/v1/swagger.json* 。
+* 单击“创建本地副本”按钮，以生成 Swagger 规范的 JSON 表示形式。
 
   ![创建 Swagger 规范的本地副本](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
 
-* 在“输出”  区域中，单击选中“C# 客户端”复选框  。 也可以选中“TypeScript 客户端”  或“C# Web API 控制器”  ，具体视项目而定。 如果选中“C# Web API 控制器”  ，服务规范会重新生成服务，起到反向生成的作用。
-* 单击“生成输出”  ，以生成 TodoApi.NSwag  项目的完整 C# 客户端实现。 若要查看生成的客户端代码，请单击“C# 客户端”选项卡  ：
+* 在“输出”区域中，单击选中“C# 客户端”复选框。 也可以选中“TypeScript 客户端”或“C# Web API 控制器”，具体视项目而定。 如果选中“C# Web API 控制器”，服务规范会重新生成服务，起到反向生成的作用。
+* 单击“生成输出”，以生成 TodoApi.NSwag 项目的完整 C# 客户端实现。 若要查看生成的客户端代码，请单击“C# 客户端”选项卡：
 
 ```csharp
 //----------------------
@@ -163,7 +163,7 @@ namespace MyNamespace
 ```
 
 > [!TIP]
-> C# 客户端代码的生成依据是，“设置”  选项卡中的选择。修改设置以执行任务，例如默认命名空间重命名和同步方法生成。
+> C# 客户端代码的生成依据是，“设置”选项卡中的选择。修改设置以执行任务，例如默认命名空间重命名和同步方法生成。
 
 * 将生成的 C# 代码复制到使用 API 的客户端项目内的文件中。
 * 开始使用 Web API：
@@ -203,8 +203,8 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* 在“解决方案资源管理器”中右键单击该项目，然后选择“编辑 <project_name>.csproj”   。
-* 手动将突出显示的行添加到 .csproj 文件  ：
+* 在“解决方案资源管理器”中右键单击该项目，然后选择“编辑 <project_name>.csproj” 。
+* 手动将突出显示的行添加到 .csproj 文件：
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/TodoApi.csproj?name=snippet_DocumentationFileElement&highlight=1-2,4)]
 
@@ -212,8 +212,8 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* 右键单击“解决方案资源管理器”  中的项目，然后选择“属性” 
-* 查看“生成”选项卡的“输出”部分下的“XML 文档文件”框   
+* 右键单击“解决方案资源管理器”中的项目，然后选择“属性”
+* 查看“生成”选项卡的“输出”部分下的“XML 文档文件”框  
 
 ::: moniker-end
 
@@ -221,8 +221,8 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* 在 Solution Pad 中，按 control 并单击项目名称   。 导航到“工具” > “编辑文件”   。
-* 手动将突出显示的行添加到 .csproj 文件  ：
+* 在 Solution Pad 中，按 control 并单击项目名称。 导航到“工具” > “编辑文件” 。
+* 手动将突出显示的行添加到 .csproj 文件：
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/TodoApi.csproj?name=snippet_DocumentationFileElement&highlight=1-2,4)]
 
@@ -230,14 +230,14 @@ Swagger UI 显示版本的信息：
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* 打开“项目选项”对话框 >“生成”>“编译器”   
-* 查看“常规选项”部分下的“生成 xml 文档”框  
+* 打开“项目选项”对话框 >“生成”>“编译器”  
+* 查看“常规选项”部分下的“生成 xml 文档”框 
 
 ::: moniker-end
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-手动将突出显示的行添加到 .csproj 文件  ：
+手动将突出显示的行添加到 .csproj 文件：
 
 ::: moniker range=">= aspnetcore-2.0"
 

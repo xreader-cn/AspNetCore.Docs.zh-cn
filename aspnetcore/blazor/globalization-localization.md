@@ -1,12 +1,24 @@
 ---
-title:“ASP.NET Core Blazor 全球化和本地化”author: description:“了解如何使 Razor 组件能够供位于不同区域、使用不同语言的用户使用。”
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Blazor 全球化和本地化
+author: guardrex
+description: 了解如何使 Razor 组件能够供位于不同区域、使用不同语言的用户使用。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/04/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/globalization-localization
+ms.openlocfilehash: 94faaa57cc6dd3df9e4a7c3c090fe01527399658
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84419731"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor 全球化和本地化
 
@@ -74,34 +86,39 @@ Blazor 服务器应用使用[本地化中间件](xref:fundamentals/localization#
 
 #### <a name="cookies"></a>Cookie
 
-本地化区域性 cookie 可以保留用户的区域性。 该 cookie 是通过应用主机页 (Pages/Host.cshtml.cs) 的 `OnGet` 方法创建的。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
+本地化区域性 cookie 可以保留用户的区域性。 本地化中间件会在后续请求上读取 cookie，以设置用户的区域性。 
 
 使用 cookie 可确保 WebSocket 连接可以正确地传播区域性。 如果本地化方案基于 URL 路径或查询字符串，则该方案可能无法与 Websocket 协同使用，因而无法保留区域性。 因此，建议的方式是使用本地化区域性 cookie。
 
 如果在本地化 cookie 中保留了区域性，则可以使用任意方法来分配区域性。 如果该应用已经为服务器端 ASP.NET Core 建立了本地化方案，请继续使用应用的现有本地化基础结构，并在应用方案中设置本地化区域性 cookie。
 
-下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Blazor Server 应用中创建包含以下内容的 Pages/_Host.cshtml.cs 文件：
+下面的示例演示如何在可由本地化中间件读取的 cookie 中设置当前区域性。 在 Pages/_Host.cshtml 文件中的开始 `<body>` 标记内立即创建一个 Razor 表达式：
 
-```csharp
-public class HostModel : PageModel
-{
-    public void OnGet()
-    {
-        HttpContext.Response.Cookies.Append(
+```cshtml
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+
+...
+
+<body>
+    @{
+        this.HttpContext.Response.Cookies.Append(
             CookieRequestCultureProvider.DefaultCookieName,
             CookieRequestCultureProvider.MakeCookieValue(
                 new RequestCulture(
                     CultureInfo.CurrentCulture,
                     CultureInfo.CurrentUICulture)));
     }
-}
+
+    ...
+</body>
 ```
 
 本地化由应用按以下事件顺序进行处理：
 
 1. 浏览器向应用发送初始 HTTP 请求。
 1. 本地化中间件分配区域性。
-1. _Host.cshtml.cs 中的 `OnGet` 方法将区域性作为响应的一部分保留在 cookie 中。
+1. `_Host` 页面 (_Host.cshtml) 中的 Razor 表达式将区域性作为响应的一部分保留在 Cookie 中。
 1. 浏览器打开 WebSocket 连接以创建交互式 Blazor 服务器会话。
 1. 本地化中间件读取 cookie 并分配区域性。
 1. Blazor 服务器会话以正确的区域性开始。
@@ -135,6 +152,25 @@ public class CultureController : Controller
 
 > [!WARNING]
 > 使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.LocalRedirect%2A> 操作结果以阻止开放式重定向攻击。 有关详细信息，请参阅 <xref:security/preventing-open-redirects>。
+
+如果应用未配置为处理控制器操作：
+
+* 将 MVC 服务添加到 `Startup.ConfigureServices` 中的服务集合：
+
+  ```csharp
+  services.AddControllers();
+  ```
+
+* 在 `Startup.Configure` 中添加控制器终结点路由：
+
+  ```csharp
+  app.UseEndpoints(endpoints =>
+  {
+      endpoints.MapControllers();
+      endpoints.MapBlazorHub();
+      endpoints.MapFallbackToPage("/_Host");
+  });
+  ```
 
 以下组件显示了一个示例，说明如何在用户选择区域性时执行初始重定向：
 

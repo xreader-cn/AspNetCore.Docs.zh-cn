@@ -1,7 +1,7 @@
 ---
-title: 将验证添加到 ASP.NET Core MVC 应用
+title: 第 9 部分，将验证添加到 ASP.NET Core MVC 应用
 author: rick-anderson
-description: 如何将验证添加到 ASP.NET Core 应用。
+description: ASP.NET Core MVC 教程系列的第 9 部分。
 ms.author: riande
 ms.date: 04/13/2017
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 6e46a4ace7c99096f1a7d47946a21fd7a5c657e7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 70cc66955fdaee6ff93648523c2977587e6b05d6
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776189"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652444"
 ---
-# <a name="add-validation-to-an-aspnet-core-mvc-app"></a>将验证添加到 ASP.NET Core MVC 应用
+# <a name="part-9-add-validation-to-an-aspnet-core-mvc-app"></a>第 9 部分，将验证添加到 ASP.NET Core MVC 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -39,7 +39,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 运行应用并导航到电影控制器。
 
-点击“新建”连接添加新电影  的链接。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
+点击“新建”连接添加新电影的链接。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
 
 ![带有多个 jQuery 客户端验证错误的电影视图表单](~/tutorials/first-mvc-app/validation/_static/val.png)
 
@@ -47,7 +47,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 请注意表单如何自动呈现每个包含无效值的字段中相应的验证错误消息。 客户端（使用 JavaScript 和 jQuery）和服务器端（若用户禁用 JavaScript）都必定会遇到这些错误。
 
-明显的好处在于不需要在 `MoviesController` 类或 Create.cshtml 视图中更改单个代码行来启用此验证 UI  。 在本教程前面创建的控制器和视图会自动选取验证规则，这些规则是通过在 `Movie` 模型类的属性上使用验证特性所指定的。 使用 `Edit` 操作方法测试验证后，即已应用相同的验证。
+明显的好处在于不需要在 `MoviesController` 类或 Create.cshtml 视图中更改单个代码行来启用此验证 UI。 在本教程前面创建的控制器和视图会自动选取验证规则，这些规则是通过在 `Movie` 模型类的属性上使用验证特性所指定的。 使用 `Edit` 操作方法测试验证后，即已应用相同的验证。
 
 存在客户端验证错误时，不会将表单数据发送到服务器。 可通过使用 [Fiddler 工具](https://www.telerik.com/fiddler)或 [F12 开发人员工具](/microsoft-edge/devtools-guide)在 `HTTP Post` 方法中设置断点来对此进行验证。
 
@@ -55,7 +55,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 你可能想知道在不对控制器或视图中的代码进行任何更新的情况下，验证 UI 是如何生成的。 下列代码显示两种 `Create` 方法。
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Controllers/MoviesController.cs?name=snippetCreate)]
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippetCreate)]
 
 第一个 (HTTP GET) `Create` 操作方法显示初始的“创建”表单。 第二个 (`[HttpPost]`) 版本处理表单发布。 第二个 `Create` 方法（`[HttpPost]` 版本）调用 `ModelState.IsValid` 以检查电影是否有任何验证错误。 调用此方法将评估已应用于对象的任何验证特性。 如果对象有验证错误，则 `Create` 方法会重新显示此表单。 如果没有错误，此方法则将新电影保存在数据库中。 在我们的电影示例中，在检测到客户端上存在验证错误时，表单不会发布到服务器。当存在客户端验证错误时，第二个 `Create` 方法永远不会被调用。 如果在浏览器中禁用 JavaScript，客户端验证将被禁用，而你可以测试 HTTP POST `Create` 方法 `ModelState.IsValid` 检测任何验证错误。
 
@@ -73,7 +73,7 @@ MVC 和 Entity Framework Core Code First 提供的验证支持是 DRY 原则在�
 
 ![在对无效数据进行调试时，ModelState.IsValid 上的 Intellisense 显示值为 false。](~/tutorials/first-mvc-app/validation/_static/ms.png)
 
-Create.cshtml 视图模板的一部分在以下标记中显示  ：
+Create.cshtml 视图模板的一部分在以下标记中显示：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/CreateRatingBrevity.html)]
 
@@ -87,11 +87,11 @@ Create.cshtml 视图模板的一部分在以下标记中显示  ：
 
 ## <a name="using-datatype-attributes"></a>使用 DataType 特性
 
-打开 Movie.cs 文件并检查 `Movie` 类  。 除了一组内置的验证特性，`System.ComponentModel.DataAnnotations` 命名空间还提供格式特性。 我们已经在发布日期和价格字段中应用了 `DataType` 枚举值。 以下代码显示具有适当 `DataType` 特性的 `ReleaseDate` 和 `Price` 属性。
+打开 Movie.cs 文件并检查 `Movie` 类。 除了一组内置的验证特性，`System.ComponentModel.DataAnnotations` 命名空间还提供格式特性。 我们已经在发布日期和价格字段中应用了 `DataType` 枚举值。 以下代码显示具有适当 `DataType` 特性的 `ReleaseDate` 和 `Price` 属性。
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
-`DataType` 属性仅提供相关提示来帮助视图引擎设置数据格式（并提供元素/属性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。 可以使用 `RegularExpression` 特性验证数据的格式。 `DataType` 属性用于指定比数据库内部类型更具体的数据类型，它们不是验证属性。 在此示例中，我们只想跟踪日期，而不是时间。 `DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可以为 `DataType.EmailAddress` 创建 `mailto:` 链接，并且可以在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器理解。 `DataType` 特性不提供任何验证  。
+`DataType` 属性仅提供相关提示来帮助视图引擎设置数据格式（并提供元素/属性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。 可以使用 `RegularExpression` 特性验证数据的格式。 `DataType` 属性用于指定比数据库内部类型更具体的数据类型，它们不是验证属性。 在此示例中，我们只想跟踪日期，而不是时间。 `DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可以为 `DataType.EmailAddress` 创建 `mailto:` 链接，并且可以在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器理解。 `DataType` 特性不提供任何验证。
 
 `DataType.Date` 不指定显示日期的格式。 默认情况下，数据字段根据基于服务器的 `CultureInfo` 的默认格式进行显示。
 

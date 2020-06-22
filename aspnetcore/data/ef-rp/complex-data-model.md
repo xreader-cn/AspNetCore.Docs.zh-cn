@@ -1,19 +1,25 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
+title: 第 5 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型
 author: rick-anderson
-description: 本教程将添加更多实体和关系，并通过指定格式设置、验证和映射规则来自定义数据模型。
+description: Razor 页面和实体框架教程系列的第 5 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 1d81a0444487c6396bb32381ed2cb26d44312c3a
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: f44ca9857ea127cf7e662e2712cc6d4b460450e9
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650208"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652501"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型 - 第 5 个教程（共 8 个）
+# <a name="part-5-razor-pages-with-ef-core-in-aspnet-core---data-model"></a>第 5 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 数据模型
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -34,7 +40,7 @@ ms.locfileid: "78650208"
 
 ![Student 实体](complex-data-model/_static/student-entity.png)
 
-使用以下代码替换 Models/Student.cs 中的代码  ：
+使用以下代码替换 Models/Student.cs 中的代码：
 
 [!code-csharp[](intro/samples/cu30/Models/Student.cs)]
 
@@ -81,7 +87,7 @@ ms.locfileid: "78650208"
 * 浏览器可启用 HTML5 功能。 例如，显示日历控件、区域设置适用的货币符号、电子邮件链接和客户端输入验证。
 * 默认情况下，浏览器将根据区域设置采用正确的格式呈现数据。
 
-有关详细信息，请参阅 [\<input> 标记帮助器文档](xref:mvc/views/working-with-forms#the-input-tag-helper)。
+有关详细信息，请参阅 [\<input> 标记帮助程序文档](xref:mvc/views/working-with-forms#the-input-tag-helper)。
 
 ### <a name="the-stringlength-attribute"></a>StringLength 特性
 
@@ -96,12 +102,12 @@ ms.locfileid: "78650208"
 `StringLength` 特性不会阻止用户在名称中输入空格。 [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) 特性可用于向输入应用限制。 例如，以下代码要求第一个字符为大写，其余字符按字母顺序排列：
 
 ```csharp
-[RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+[RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
 ```
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在“SQL Server 对象资源管理器”(SSOX) 中，双击 Student 表，打开 Student 表设计器   。
+在“SQL Server 对象资源管理器”(SSOX) 中，双击 Student 表，打开 Student 表设计器 。
 
 ![迁移前 SSOX 中的 Student 表](complex-data-model/_static/ssox-before-migration.png)
 
@@ -210,7 +216,7 @@ SqliteException: SQLite Error 1: 'no such column: s.FirstName'.
 
 在本教程中，解决此错误的方法是删除并重新创建初始迁移。 有关详细信息，请参阅[迁移教程](xref:data/ef-rp/migrations)顶部的 SQLite 警告说明。
 
-* 删除“Migrations”文件夹  。
+* 删除“Migrations”文件夹。
 * 运行以下命令以删除数据库，创建新的初始迁移，并应用该迁移：
 
   ```dotnetcli
@@ -225,7 +231,7 @@ SqliteException: SQLite Error 1: 'no such column: s.FirstName'.
 
 * 运行应用并转到“学生”页。
 * 请注意，时间和日期既未输入，也未显示。
-* 选择“新建”，尝试输入不超过 50 个字符的名称  。
+* 选择“新建”，尝试输入不超过 50 个字符的名称。
 
 > [!Note]
 > 在以下部分中，在某些阶段生成应用会生成编译器错误。 说明用于指定生成应用的时间。
@@ -234,7 +240,7 @@ SqliteException: SQLite Error 1: 'no such column: s.FirstName'.
 
 ![Instructor 实体](complex-data-model/_static/instructor-entity.png)
 
-用以下代码创建 Models/Instructor.cs  ：
+用以下代码创建 Models/Instructor.cs：
 
 [!code-csharp[](intro/samples/cu30/Models/Instructor.cs)]
 
@@ -264,7 +270,7 @@ public OfficeAssignment OfficeAssignment { get; set; }
 
 ![OfficeAssignment 实体](complex-data-model/_static/officeassignment-entity.png)
 
-用以下代码创建 Models/OfficeAssignment.cs  ：
+用以下代码创建 Models/OfficeAssignment.cs：
 
 [!code-csharp[](intro/samples/cu30/Models/OfficeAssignment.cs)]
 
@@ -301,7 +307,7 @@ public int InstructorID { get; set; }
 
 `Course` 实体具有外键 (FK) 属性 `DepartmentID`。 `DepartmentID` 指向相关的 `Department` 实体。 `Course` 实体具有 `Department` 导航属性。
 
-当数据模型具有相关实体的导航属性时，EF Core 不要求此模型具有外键属性。 EF Core 可在数据库中的任何所需位置自动创建 FK。 EF Core 为自动创建的 FK 创建[阴影属性](/ef/core/modeling/shadow-properties)。 然而，在数据模型中显式包含 FK 可使更新更简单和更高效。 例如，假设某个模型中不包含 FK 属性 `DepartmentID`  。 当提取 Course 实体进行编辑时：
+当数据模型具有相关实体的导航属性时，EF Core 不要求此模型具有外键属性。 EF Core 可在数据库中的任何所需位置自动创建 FK。 EF Core 为自动创建的 FK 创建[阴影属性](/ef/core/modeling/shadow-properties)。 然而，在数据模型中显式包含 FK 可使更新更简单和更高效。 例如，假设某个模型中不包含 FK 属性 `DepartmentID`。 当提取 Course 实体进行编辑时：
 
 * 如果未显式加载，则 `Department` 属性为 NULL。
 * 若要更新 Course 实体，则必须先提取 `Department` 实体。
@@ -351,7 +357,7 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 ![Department 实体](complex-data-model/_static/department-entity.png)
 
-用以下代码创建 Models/Department.cs  ：
+用以下代码创建 Models/Department.cs：
 
 [!code-csharp[](intro/samples/cu30snapshots/5-complex/Models/Department1.cs)]
 
@@ -429,7 +435,7 @@ public Student Student { get; set; }
 
 ## <a name="many-to-many-relationships"></a>多对多关系
 
-`Student` 和 `Course` 实体之间存在多对多关系。 `Enrollment` 实体充当数据库中“具有有效负载”的多对多联接表  。 “具有有效负载”表示 `Enrollment` 表除了联接表的 FK 外还包含其他数据（本教程中为 PK 和 `Grade`）。
+`Student` 和 `Course` 实体之间存在多对多关系。 `Enrollment` 实体充当数据库中“具有有效负载”的多对多联接表。 “具有有效负载”表示 `Enrollment` 表除了联接表的 FK 外还包含其他数据（本教程中为 PK 和 `Grade`）。
 
 下图显示这些关系在实体关系图中的外观。 （此关系图是使用适用于 EF 6.X 的 [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) 生成的。 本教程不介绍如何创建此关系图。）
 
@@ -447,7 +453,7 @@ public Student Student { get; set; }
 
 ![CourseAssignment 实体](complex-data-model/_static/courseassignment-entity.png)
 
-用以下代码创建 Models/CourseAssignment.cs  ：
+用以下代码创建 Models/CourseAssignment.cs：
 
 [!code-csharp[](intro/samples/cu30/Models/CourseAssignment.cs)]
 
@@ -461,7 +467,7 @@ public Student Student { get; set; }
 
 ### <a name="composite-key"></a>组合键
 
-`CourseAssignment` 中的两个 FK（`InstructorID` 和 `CourseID`）共同唯一标识 `CourseAssignment` 表的每一行。 `CourseAssignment` 不需要专用的 PK。 `InstructorID` 和 `CourseID` 属性充当组合 PK。 使用 Fluent API 是向 EF Core 指定组合 PK 的唯一方法  。 下一部分演示如何配置组合 PK。
+`CourseAssignment` 中的两个 FK（`InstructorID` 和 `CourseID`）共同唯一标识 `CourseAssignment` 表的每一行。 `CourseAssignment` 不需要专用的 PK。 `InstructorID` 和 `CourseID` 属性充当组合 PK。 使用 Fluent API 是向 EF Core 指定组合 PK 的唯一方法。 下一部分演示如何配置组合 PK。
 
 组合键可确保：
 
@@ -476,7 +482,7 @@ public Student Student { get; set; }
 
 ## <a name="update-the-database-context"></a>更新数据库上下文
 
-使用以下代码更新 Data/SchoolContext.cs  ：
+使用以下代码更新 Data/SchoolContext.cs：
 
 [!code-csharp[](intro/samples/cu30/Data/SchoolContext.cs?highlight=15-18,25-31)]
 
@@ -484,7 +490,7 @@ public Student Student { get; set; }
 
 ## <a name="fluent-api-alternative-to-attributes"></a>用 Fluent API 替代特性
 
-上面代码中的 `OnModelCreating` 方法使用 Fluent API 配置 EF Core 行为  。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用。 [下面的代码](/ef/core/modeling/#use-fluent-api-to-configure-a-model)是 Fluent API 的示例：
+上面代码中的 `OnModelCreating` 方法使用 Fluent API 配置 EF Core 行为。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用。 [下面的代码](/ef/core/modeling/#use-fluent-api-to-configure-a-model)是 Fluent API 的示例：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -526,7 +532,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-更新 Data/DbInitializer.cs 中的代码  ：
+更新 Data/DbInitializer.cs 中的代码：
 
 [!code-csharp[](intro/samples/cu30/Data/DbInitializer.cs)]
 
@@ -579,7 +585,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 现已有一个数据库，需要考虑如何将更改应用到其中。 本教程演示两种替代方法：
 
 * [删除并重新创建数据库](#drop)。 如果使用 SQLite，请选择此部分。
-* [将迁移应用到现有数据库](#applyexisting)。 本部分的说明仅适用于 SQL Server，不适用于 SQLite  。 
+* [将迁移应用到现有数据库](#applyexisting)。 本部分的说明仅适用于 SQL Server，不适用于 SQLite。 
 
 这两个选项都适用于 SQL Server。 虽然应用迁移方法更复杂且耗时，但在实际应用和生产环境中为首选方法。 
 
@@ -593,13 +599,13 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“包管理器控制台”(PMC) 中运行以下命令  ：
+* 在“包管理器控制台”(PMC) 中运行以下命令：
 
   ```powershell
   Drop-Database
   ```
 
-* 删除“Migrations”文件夹，然后运行以下命令  ：
+* 删除“Migrations”文件夹，然后运行以下命令：
 
   ```powershell
   Add-Migration InitialCreate
@@ -608,7 +614,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 打开命令窗口并导航到项目文件夹。 项目文件夹包含 ContosoUniversity.csproj 文件  。
+* 打开命令窗口并导航到项目文件夹。 项目文件夹包含 ContosoUniversity.csproj 文件。
 
 * 运行下面的命令：
 
@@ -616,7 +622,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
   dotnet ef database drop --force
   ```
 
-* 删除“Migrations”文件夹，然后运行以下命令  ：
+* 删除“Migrations”文件夹，然后运行以下命令：
 
   ```dotnetcli
   dotnet ef migrations add InitialCreate
@@ -631,15 +637,15 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 在 SSOX 中打开数据库：
 
-* 如果之前已打开过 SSOX，请单击“刷新”按钮  。
-* 展开“表”节点  。 随后将显示出已创建的表。
+* 如果之前已打开过 SSOX，请单击“刷新”按钮。
+* 展开“表”节点。 随后将显示出已创建的表。
 
   ![SSOX 中的表](complex-data-model/_static/ssox-tables.png)
 
-* 查看 CourseAssignment 表  ：
+* 查看 CourseAssignment 表：
 
-  * 右键单击 CourseAssignment 表，然后选择“查看数据”   。
-  * 验证 CourseAssignment 表包含数据  。
+  * 右键单击 CourseAssignment 表，然后选择“查看数据” 。
+  * 验证 CourseAssignment 表包含数据。
 
   ![SSOX 中的 CourseAssignment 数据](complex-data-model/_static/ssox-ci-data.png)
 
@@ -648,7 +654,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 使用 SQLite 工具检查数据库：
 
 * 新的表和列。
-* 表中设定种子的数据，例如 CourseAssignment 表  。
+* 表中设定种子的数据，例如 CourseAssignment 表。
 
 ---
 
@@ -660,7 +666,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 当现有数据与迁移一起运行时，可能存在不满足现有数据的 FK 约束。 使用生产数据时，必须采取步骤来迁移现有数据。 本部分提供修复 FK 约束冲突的示例。 务必在备份后执行这些代码更改。 如果已完成上述[删除并重新创建数据库](#drop)部分，请不要更改这些代码。
 
-{timestamp}_ComplexDataModel.cs 文件包含以下代码  ：
+{timestamp}_ComplexDataModel.cs 文件包含以下代码：
 
 [!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ComplexDataModel.cs?name=snippet_DepartmentID)]
 
@@ -675,7 +681,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 在 `ComplexDataModel` 迁移类中，更新 `Up` 方法：
 
-* 打开 {timestamp}_ComplexDataModel.cs 文件  。
+* 打开 {timestamp}_ComplexDataModel.cs 文件。
 * 对将 `DepartmentID` 列添加到 `Course` 表的代码行添加注释。
 
 [!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ComplexDataModel.cs?name=snippet_CommentOut&highlight=9-13)]
@@ -693,7 +699,7 @@ For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在“包管理器控制台”(PMC) 中运行以下命令  ：
+* 在“包管理器控制台”(PMC) 中运行以下命令：
 
   ```powershell
   Update-Database
@@ -771,7 +777,7 @@ https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 * 浏览器可启用 HTML5 功能。 例如，显示日历控件、区域设置适用的货币符号、电子邮件链接、客户端输入验证等。
 * 默认情况下，浏览器将根据区域设置采用正确的格式呈现数据。
 
-有关详细信息，请参阅 [\<input> 标记帮助器文档](xref:mvc/views/working-with-forms#the-input-tag-helper)。
+有关详细信息，请参阅 [\<input> 标记帮助程序文档](xref:mvc/views/working-with-forms#the-input-tag-helper)。
 
 运行应用。 导航到学生索引页。 将不再显示时间。 使用 `Student` 模型的每个视图将显示日期，不显示时间。
 
@@ -788,18 +794,18 @@ https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intr
 上面的代码将名称限制为不超过 50 个字符。 `StringLength` 特性不会阻止用户在名称中输入空格。 [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) 特性用于向输入应用限制。 例如，以下代码要求第一个字符为大写，其余字符按字母顺序排列：
 
 ```csharp
-[RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+[RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
 ```
 
 运行应用：
 
 * 导航到学生页。
-* 选择“新建”并输入不超过 50 个字符的名称  。
-* 选择“创建”时，客户端验证会显示一条错误消息  。
+* 选择“新建”并输入不超过 50 个字符的名称。
+* 选择“创建”时，客户端验证会显示一条错误消息。
 
 ![显示字符串长度错误的“学生索引”页](complex-data-model/_static/string-length-errors.png)
 
-在“SQL Server 对象资源管理器”(SSOX) 中，双击 Student 表，打开 Student 表设计器   。
+在“SQL Server 对象资源管理器”(SSOX) 中，双击 Student 表，打开 Student 表设计器 。
 
 ![迁移前 SSOX 中的 Student 表](complex-data-model/_static/ssox-before-migration.png)
 
@@ -898,7 +904,7 @@ public string LastName { get; set; }
 
 ![Instructor 实体](complex-data-model/_static/instructor-entity.png)
 
-用以下代码创建 Models/Instructor.cs  ：
+用以下代码创建 Models/Instructor.cs：
 
 [!code-csharp[](intro/samples/cu21/Models/Instructor.cs)]
 
@@ -942,7 +948,7 @@ public OfficeAssignment OfficeAssignment { get; set; }
 
 ![OfficeAssignment 实体](complex-data-model/_static/officeassignment-entity.png)
 
-用以下代码创建 Models/OfficeAssignment.cs  ：
+用以下代码创建 Models/OfficeAssignment.cs：
 
 [!code-csharp[](intro/samples/cu21/Models/OfficeAssignment.cs)]
 
@@ -998,7 +1004,7 @@ public Instructor Instructor { get; set; }
 
 当数据模型具有相关实体的导航属性时，EF Core 不要求此模型具有 FK 属性。
 
-EF Core 可在数据库中的任何所需位置自动创建 FK。 EF Core 为自动创建的 FK 创建[阴影属性](/ef/core/modeling/shadow-properties)。 数据模型中包含 FK 后可使更新更简单和更高效。 例如，假设某个模型中不包含 FK 属性 `DepartmentID`  。 当提取 Course 实体进行编辑时：
+EF Core 可在数据库中的任何所需位置自动创建 FK。 EF Core 为自动创建的 FK 创建[阴影属性](/ef/core/modeling/shadow-properties)。 数据模型中包含 FK 后可使更新更简单和更高效。 例如，假设某个模型中不包含 FK 属性 `DepartmentID`。 当提取 Course 实体进行编辑时：
 
 * 如果未显式加载 `Department` 实体，则该实体将为 NULL。
 * 若要更新 Course 实体，则必须先提取 `Department` 实体。
@@ -1048,7 +1054,7 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 ![Department 实体](complex-data-model/_static/department-entity.png)
 
-用以下代码创建 Models/Department.cs  ：
+用以下代码创建 Models/Department.cs：
 
 [!code-csharp[](intro/samples/cu21/Models/Department.cs?name=snippet_Begin)]
 
@@ -1132,7 +1138,7 @@ public Student Student { get; set; }
 
 ## <a name="many-to-many-relationships"></a>多对多关系
 
-`Student` 和 `Course` 实体之间存在多对多关系。 `Enrollment` 实体充当数据库中“具有有效负载”的多对多联接表  。 “具有有效负载”表示 `Enrollment` 表除了联接表的 FK 外还包含其他数据（本教程中为 PK 和 `Grade`）。
+`Student` 和 `Course` 实体之间存在多对多关系。 `Enrollment` 实体充当数据库中“具有有效负载”的多对多联接表。 “具有有效负载”表示 `Enrollment` 表除了联接表的 FK 外还包含其他数据（本教程中为 PK 和 `Grade`）。
 
 下图显示这些关系在实体关系图中的外观。 （此关系图是使用适用于 EF 6.X 的 [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) 生成的。 本教程不介绍如何创建此关系图。）
 
@@ -1150,7 +1156,7 @@ public Student Student { get; set; }
 
 ![CourseAssignment 实体](complex-data-model/_static/courseassignment-entity.png)
 
-用以下代码创建 Models/CourseAssignment.cs  ：
+用以下代码创建 Models/CourseAssignment.cs：
 
 [!code-csharp[](intro/samples/cu21/Models/CourseAssignment.cs)]
 
@@ -1169,7 +1175,7 @@ public Student Student { get; set; }
 
 ### <a name="composite-key"></a>组合键
 
-FK 不能为 NULL。 `CourseAssignment` 中的两个 FK（`InstructorID` 和 `CourseID`）共同唯一标识 `CourseAssignment` 表的每一行。 `CourseAssignment` 不需要专用的 PK。 `InstructorID` 和 `CourseID` 属性充当组合 PK。 使用 Fluent API 是向 EF Core 指定组合 PK 的唯一方法  。 下一部分演示如何配置组合 PK。
+FK 不能为 NULL。 `CourseAssignment` 中的两个 FK（`InstructorID` 和 `CourseID`）共同唯一标识 `CourseAssignment` 表的每一行。 `CourseAssignment` 不需要专用的 PK。 `InstructorID` 和 `CourseID` 属性充当组合 PK。 使用 Fluent API 是向 EF Core 指定组合 PK 的唯一方法。 下一部分演示如何配置组合 PK。
 
 组合键可确保：
 
@@ -1184,7 +1190,7 @@ FK 不能为 NULL。 `CourseAssignment` 中的两个 FK（`InstructorID` 和 `Co
 
 ## <a name="update-the-db-context"></a>更新数据库上下文
 
-将以下突出显示的代码添加到 Data/SchoolContext.cs  ：
+将以下突出显示的代码添加到 Data/SchoolContext.cs：
 
 [!code-csharp[](intro/samples/cu21/Data/SchoolContext.cs?name=snippet_BeforeInheritance&highlight=15-18,25-31)]
 
@@ -1192,7 +1198,7 @@ FK 不能为 NULL。 `CourseAssignment` 中的两个 FK（`InstructorID` 和 `Co
 
 ## <a name="fluent-api-alternative-to-attributes"></a>用 Fluent API 替代特性
 
-上面代码中的 `OnModelCreating` 方法使用 Fluent API 配置 EF Core 行为  。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用。 [下面的代码](/ef/core/modeling/#use-fluent-api-to-configure-a-model)是 Fluent API 的示例：
+上面代码中的 `OnModelCreating` 方法使用 Fluent API 配置 EF Core 行为。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用。 [下面的代码](/ef/core/modeling/#use-fluent-api-to-configure-a-model)是 Fluent API 的示例：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -1234,7 +1240,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="seed-the-db-with-test-data"></a>使用测试数据为数据库设定种子
 
-更新 Data/DbInitializer.cs 中的代码  ：
+更新 Data/DbInitializer.cs 中的代码：
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Final)]
 
@@ -1288,7 +1294,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在“包管理器控制台”(PMC) 中运行以下命令  ：
+在“包管理器控制台”(PMC) 中运行以下命令：
 
 ```powershell
 Drop-Database
@@ -1299,7 +1305,7 @@ Update-Database
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-打开命令窗口并导航到项目文件夹。 项目文件夹包含 Startup.cs 文件  。
+打开命令窗口并导航到项目文件夹。 项目文件夹包含 Startup.cs 文件。
 
 在命令窗口中输入以下内容：
 
@@ -1314,15 +1320,15 @@ dotnet ef database update
 
 在 SSOX 中打开数据库：
 
-* 如果之前已打开过 SSOX，请单击“刷新”按钮  。
-* 展开“表”节点  。 随后将显示出已创建的表。
+* 如果之前已打开过 SSOX，请单击“刷新”按钮。
+* 展开“表”节点。 随后将显示出已创建的表。
 
 ![SSOX 中的表](complex-data-model/_static/ssox-tables.png)
 
-查看 CourseAssignment 表  ：
+查看 CourseAssignment 表：
 
-* 右键单击 CourseAssignment 表，然后选择“查看数据”   。
-* 验证 CourseAssignment 表包含数据  。
+* 右键单击 CourseAssignment 表，然后选择“查看数据” 。
+* 验证 CourseAssignment 表包含数据。
 
 ![SSOX 中的 CourseAssignment 数据](complex-data-model/_static/ssox-ci-data.png)
 
@@ -1334,7 +1340,7 @@ dotnet ef database update
 
 当现有数据与迁移一起运行时，可能存在不满足现有数据的 FK 约束。 使用生产数据时，必须采取步骤来迁移现有数据。 本部分提供修复 FK 约束冲突的示例。 务必在备份后执行这些代码更改。 如果已完成上述部分并更新数据库，则不要执行这些代码更改。
 
-{timestamp}_ComplexDataModel.cs 文件包含以下代码  ：
+{timestamp}_ComplexDataModel.cs 文件包含以下代码：
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_DepartmentID)]
 
@@ -1349,7 +1355,7 @@ dotnet ef database update
 
 更新 `ComplexDataModel` 类 `Up` 方法：
 
-* 打开 {timestamp}_ComplexDataModel.cs 文件  。
+* 打开 {timestamp}_ComplexDataModel.cs 文件。
 * 对将 `DepartmentID` 列添加到 `Course` 表的代码行添加注释。
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CommentOut&highlight=9-13)]

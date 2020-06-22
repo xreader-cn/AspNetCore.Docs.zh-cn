@@ -1,7 +1,7 @@
 ---
-title: 将搜索添加到 ASP.NET Core Razor Pages
+title: 第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
 author: rick-anderson
-description: 演示如何将搜索添加到 ASP.NET Core Razor Pages
+description: Razor 页面教程系列第 6 部分。
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: baa5e1cb2098a60155a4196f0e602feeff04f102
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 8c5fba8596f401f1232e8dcb4659041c2a413151
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774993"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652570"
 ---
-# <a name="add-search-to-aspnet-core-razor-pages"></a>将搜索添加到 ASP.NET Core Razor Pages
+# <a name="part-6-add-search-to-aspnet-core-razor-pages"></a>第 6 部分，将搜索添加到 ASP.NET Core Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -26,9 +26,9 @@ ms.locfileid: "82774993"
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-在以下部分中，添加了按流派  或名称  搜索电影。
+在以下部分中，添加了按流派或名称搜索电影。
 
-将以下突出显示的属性添加到 Pages/Movies/Index.cshtml.cs  ：
+将以下突出显示的属性添加到 Pages/Movies/Index.cshtml.cs：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
@@ -51,7 +51,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-此时仅对查询进行了定义，它还不会针对数据库运行   。
+此时仅对查询进行了定义，它还不会针对数据库运行。
 
 如果 `SearchString` 属性不为 null 或空，则电影查询会修改为根据搜索字符串进行筛选：
 
@@ -80,13 +80,13 @@ ASP.NET Core 运行时使用[模型绑定](xref:mvc/models/model-binding)，通�
 
 但是，不能指望用户修改 URL 来搜索电影。 在此步骤中，会添加 UI 来筛选电影。 如果已添加路由约束 `"{searchString?}"`，请将它删除。
 
-打开 Pages/Movies/Index.cshtml 文件，并添加以下代码中突出显示的 `<form>` 标记  ：
+打开 Pages/Movies/Index.cshtml 文件，并添加以下代码中突出显示的 `<form>` 标记：
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/Index2.cshtml?highlight=14-19&range=1-22)]
 
 HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/intro)：
 
-* [表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)。 提交表单时，筛选器字符串将通过查询字符串发送到 Pages/Movies/Index 页面  。
+* [表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)。 提交表单时，筛选器字符串将通过查询字符串发送到 Pages/Movies/Index 页面。
 * [输入标记帮助程序](xref:mvc/views/working-with-forms#the-input-tag-helper)
 
 保存更改并测试筛选器。
@@ -109,7 +109,7 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 ### <a name="add-search-by-genre-to-the-razor-page"></a>将按流派搜索添加到 Razor 页面
 
-更新 Index.cshtml，如下所示  ：
+更新 Index.cshtml，如下所示：
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/SnapShots/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
 
@@ -129,9 +129,9 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-在以下部分中，添加了按流派  或名称  搜索电影。
+在以下部分中，添加了按流派或名称搜索电影。
 
-将以下突出显示的属性添加到 Pages/Movies/Index.cshtml.cs  ：
+将以下突出显示的属性添加到 Pages/Movies/Index.cshtml.cs：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
@@ -154,7 +154,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-此时仅对查询进行了定义，它还不会针对数据库运行   。
+此时仅对查询进行了定义，它还不会针对数据库运行。
 
 如果 `SearchString` 属性不为 null 或空，则电影查询会修改为根据搜索字符串进行筛选：
 
@@ -182,13 +182,13 @@ ASP.NET Core 运行时使用[模型绑定](xref:mvc/models/model-binding)，通�
 
 但是，不能指望用户修改 URL 来搜索电影。 在此步骤中，会添加 UI 来筛选电影。 如果已添加路由约束 `"{searchString?}"`，请将它删除。
 
-打开 Pages/Movies/Index.cshtml 文件，并添加以下代码中突出显示的 `<form>` 标记  ：
+打开 Pages/Movies/Index.cshtml 文件，并添加以下代码中突出显示的 `<form>` 标记：
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index2.cshtml?highlight=14-19&range=1-22)]
 
 HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/intro)：
 
-* [表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)。 提交表单时，筛选器字符串将通过查询字符串发送到 Pages/Movies/Index 页面  。
+* [表单标记帮助程序](xref:mvc/views/working-with-forms#the-form-tag-helper)。 提交表单时，筛选器字符串将通过查询字符串发送到 Pages/Movies/Index 页面。
 * [输入标记帮助程序](xref:mvc/views/working-with-forms#the-input-tag-helper)
 
 保存更改并测试筛选器。
@@ -211,7 +211,7 @@ HTML `<form>` 标记使用以下[标记帮助程序](xref:mvc/views/tag-helpers/
 
 ### <a name="add-search-by-genre-to-the-razor-page"></a>将按流派搜索添加到 Razor 页面
 
-更新 Index.cshtml，如下所示  ：
+更新 Index.cshtml，如下所示：
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
 

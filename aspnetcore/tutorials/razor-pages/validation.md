@@ -1,7 +1,7 @@
 ---
-title: 将验证添加到 ASP.NET Core Razor 页面
+title: 第 8 部分，将验证添加到 ASP.NET Core Razor 页面
 author: rick-anderson
-description: 了解如何将验证添加到 ASP.NET Core 中的 Razor 页面。
+description: Razor 页面教程系列的第 8 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
@@ -12,14 +12,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 91f0ac5fcd607f2423f9fc4647413b2bbb2336fc
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f72edda54d4201915e2494b75b4d49ec6c9c6d75
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773770"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652837"
 ---
-# <a name="add-validation-to-an-aspnet-core-razor-page"></a>将验证添加到 ASP.NET Core Razor 页面
+# <a name="part-8-add-validation-to-an-aspnet-core-razor-page"></a>第 8 部分，将验证添加到 ASP.NET Core Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -27,12 +27,12 @@ ms.locfileid: "82773770"
 
 ## <a name="validation"></a>验证
 
-软件开发的一个关键原则被称为 [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself)（即“不要自我重复”）    。 Razor 页面鼓励进行仅指定一次功能的开发，且功能在整个应用中反映。 DRY 可以帮助：
+软件开发的一个关键原则被称为 [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself)（即“不要自我重复”）  。 Razor 页面鼓励进行仅指定一次功能的开发，且功能在整个应用中反映。 DRY 可以帮助：
 
 * 减少应用中的代码量。
 * 使代码更加不易出错，且更易于测试和维护。
 
-Razor 页面和 Entity Framework 提供的验证支持是 DRY 原则的极佳示例。 验证规则在模型类中的某处以声明方式指定，且在应用的所有位置强制执行。
+Razor 页面和实体框架提供的验证支持是 DRY 原则的极佳示例。 验证规则在模型类中的某处以声明方式指定，且在应用的所有位置强制执行。
 
 ## <a name="add-validation-rules-to-the-movie-model"></a>将验证规则添加到电影模型
 
@@ -61,11 +61,11 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
 
 让 ASP.NET Core 强制自动执行验证规则有助于提升你的应用的可靠性。 同时它能确保你无法忘记验证某些内容，并防止你无意中将错误数据导入数据库。
 
-### <a name="validation-error-ui-in-razor-pages"></a>Razor 页面中的“验证错误”UI
+### <a name="validation-error-ui-in-razor-pages"></a>Razor 页面中的验证错误 UI
 
 运行应用并导航到“页面/电影”。
 
-选择“新建”链接  。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
+选择“新建”链接。 使用无效值填写表单。 当 jQuery 客户端验证检测到错误时，会显示一条错误消息。
 
 ![带有多个 jQuery 客户端验证错误的电影视图表单](validation/_static/val.png)
 
@@ -73,11 +73,11 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
 
 请注意表单如何自动呈现每个包含无效值的字段中的验证错误消息。 客户端（使用 JavaScript 和 jQuery）和服务器端（若用户禁用 JavaScript）都必定会遇到这些错误。
 
-一项重要优势是，无需在“创建”或“编辑”页面中更改代码  。 在模型应用 DataAnnotations 后，即已启用验证 UI。 本教程中自动创建的 Razor 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。 使用“编辑”页面测试验证后，即已应用相同验证。
+一项重要优势是，无需在“创建”或“编辑”页面中更改代码。 在模型应用 DataAnnotations 后，即已启用验证 UI。 本教程中创建的 Razor 页面自动选取了验证规则（使用 `Movie` 模型类的属性上的验证特性）。 使用“编辑”页面测试验证后，即已应用相同验证。
 
 存在客户端验证错误时，不会将表单数据发布到服务器。 请通过以下一种或多种方法验证是否未发布表单数据：
 
-* 在 `OnPostAsync` 方法中放置一个断点。 提交表单（选择“创建”或“保存”）   。 从未命中断点。
+* 在 `OnPostAsync` 方法中放置一个断点。 提交表单（选择“创建”或“保存”） 。 从未命中断点。
 * 使用 [Fiddler 工具](https://www.telerik.com/fiddler)。
 * 使用浏览器开发人员工具监视网络流量。
 
@@ -101,7 +101,7 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
   
 或者可以[禁用服务器上的客户端验证](xref:mvc/models/validation#disable-client-side-validation)。
 
-以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分  。 它用于在“创建”和“编辑”页面中显示初始表单并在发生错误后重新显示表单。
+以下代码显示了之前在本教程中设定其基架的“Create.cshtml”的一部分。 它用于在“创建”和“编辑”页面中显示初始表单并在发生错误后重新显示表单。
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Create.cshtml?range=14-20)]
 
@@ -119,7 +119,7 @@ DataAnnotations 命名空间提供一组内置验证特性，可通过声明方�
 
 `DataType` 特性仅提供相关提示来帮助视图引擎设置数据格式（并提供特性，例如向 URL 提供 `<a>` 和向电子邮件提供 `<a href="mailto:EmailAddress.com">`）。 使用 `RegularExpression` 特性验证数据的格式。 `DataType` 属性用于指定比数据库内部类型更具体的数据类型。 `DataType` 特性不是验证特性。 示例应用程序中仅显示日期，不显示时间。
 
-`DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可为 `DataType.EmailAddress` 创建 `mailto:` 链接。 可在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器使用。 `DataType` 特性不提供任何验证  。
+`DataType` 枚举提供了多种数据类型，例如日期、时间、电话号码、货币、电子邮件地址等。 应用程序还可通过 `DataType` 特性自动提供类型特定的功能。 例如，可为 `DataType.EmailAddress` 创建 `mailto:` 链接。 可在支持 HTML5 的浏览器中为 `DataType.Date` 提供日期选择器。 `DataType` 特性发出 HTML 5 `data-`（读作 data dash）特性供 HTML 5 浏览器使用。 `DataType` 特性不提供任何验证。
 
 `DataType.Date` 不指定显示日期的格式。 默认情况下，数据字段根据基于服务器的 `CultureInfo` 的默认格式进行显示。
 
@@ -152,7 +152,7 @@ public DateTime ReleaseDate { get; set; }
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
-[Razor Pages 和 EF Core 入门](xref:data/ef-rp/intro)显示了 Razor Pages 的高级 EF Core 操作。
+[Razor 页面和 EF Core 入门](xref:data/ef-rp/intro)显示了 Razor 页面的高级 EF Core 操作。
 
 ### <a name="apply-migrations"></a>应用迁移
 
@@ -181,7 +181,7 @@ CREATE TABLE [dbo].[Movie] (
 
 前面的架构更改不会导致 EF 引发异常。 不过，请创建迁移，使架构与模型保持一致。
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 
 在 PMC 中，输入以下命令：
 
 ```powershell

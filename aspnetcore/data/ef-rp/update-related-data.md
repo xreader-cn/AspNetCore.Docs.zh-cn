@@ -1,18 +1,24 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
+title: 第 7 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据
 author: rick-anderson
-description: 本教程将通过更新外键字段和导航属性来更新相关数据。
+description: Razor 页面和实体框架教程系列的第 7 部分。
 ms.author: riande
 ms.date: 07/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: fdfdb14ff8414b8bf30f9b95be7ba0a6bcbd2995
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d86e57d50c414e4baabd00ca9675aa66266342ca
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78645456"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652600"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据 - 第 7 个教程（共 8 个）
+# <a name="part-7-razor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>第 7 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 更新相关数据
 
 作者：[Tom Dykstra](https://github.com/tdykstra) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -31,7 +37,7 @@ ms.locfileid: "78645456"
 
 ### <a name="create-a-base-class-for-course-create-and-edit"></a>创建课程“创建”和“编辑”的基类
 
-使用以下代码创建 Pages/Courses/DepartmentNamePageModel.cs 文件  ：
+使用以下代码创建 Pages/Courses/DepartmentNamePageModel.cs 文件：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/DepartmentNamePageModel.cs)]
 
@@ -45,7 +51,7 @@ ms.locfileid: "78645456"
 
 ![创建课程](update-related-data/_static/ddl30.png)
 
-使用以下代码更新 Pages/Courses/Create.cshtml.cs  ：
+使用以下代码更新 Pages/Courses/Create.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Create.cshtml.cs?highlight=7,18,27-41)]
 
@@ -57,20 +63,20 @@ ms.locfileid: "78645456"
 * 使用 `TryUpdateModelAsync` 防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 删除 `ViewData["DepartmentID"]`。 基类中的 `DepartmentNameSL` 是强类型模型，将用于 Razor 页面。 建议使用强类型而非弱类型。 有关详细信息，请参阅[弱类型数据（ViewData 和 ViewBag）](xref:mvc/views/overview#VD_VB)。
 
-### <a name="update-the-course-create-razor-page"></a>更新课程“创建”Razor 页面
+### <a name="update-the-course-create-razor-page"></a>更新“课程创建”Razor 页面
 
-使用以下代码更新 Pages/Courses/Create.cshtml  ：
+使用以下代码更新 Pages/Courses/Create.cshtml：
 
 [!code-cshtml[](intro/samples/cu30/Pages/Courses/Create.cshtml?highlight=29-34)]
 
 上面的代码执行以下更改：
 
-* 将标题从“DepartmentID”更改为“Department”   。
+* 将标题从“DepartmentID”更改为“Department” 。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 * 添加“选择系”选项。 如果尚未选择院系（而不是已选中首个院系），此更改将在下拉列表中显示“选择院系”。
 * 在未选择系时添加验证消息。
 
-Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-select-tag-helper)：
+Razor 页面使用[选择标记帮助程序](xref:mvc/views/working-with-forms#the-select-tag-helper)：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Create.cshtml?range=28-35&highlight=3-6)]
 
@@ -78,25 +84,25 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="update-the-course-edit-page-model"></a>更新课程“编辑”页模型
 
-使用以下代码更新 Pages/Courses/Edit.cshtml.cs  ：
+使用以下代码更新 Pages/Courses/Edit.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Edit.cshtml.cs?highlight=8,28,35,36,40-66)]
 
 这些更改与在“创建”页模型中所做的更改相似。 在上面的代码中，`PopulateDepartmentsDropDownList` 在院系 ID 中传递并将在下拉列表中选择该院系。
 
-### <a name="update-the-course-edit-razor-page"></a>更新课程“编辑”Razor 页面
+### <a name="update-the-course-edit-razor-page"></a>更新“课程编辑”Razor 页面
 
-使用以下代码更新 Pages/Courses/Edit.cshtml  ：
+使用以下代码更新 Pages/Courses/Edit.cshtml：
 
 [!code-cshtml[](intro/samples/cu30/Pages/Courses/Edit.cshtml?highlight=17-20,32-35)]
 
 上面的代码执行以下更改：
 
 * 显示课程 ID。 通常不显示实体的主键 (PK)。 PK 对用户不具有任何意义。 在这种情况下，PK 就是课程编号。
-* 将“院系”下拉列表的标题从“DepartmentID”更改为“Department”   。
+* 将“院系”下拉列表的标题从“DepartmentID”更改为“Department” 。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 
-该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `<label>` 的 `asp-for="Course.CourseID"` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
+该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`，以便在已发布的数据中包括课程编号。
 
 ## <a name="update-the-course-details-and-delete-pages"></a>更新课程“详细信息”和“删除”页
 
@@ -104,17 +110,17 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="update-the-course-page-models"></a>更新“课程”页模型
 
-使用以下代码更新 Pages/Courses/Delete.cshtml.cs 以添加  `AsNoTracking`：
+使用以下代码更新 Pages/Courses/Delete.cshtml.cs 以添加 `AsNoTracking`：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Delete.cshtml.cs?highlight=29)]
 
-在 Pages/Courses/Details.cshtml.cs 文件中进行相同的更改  ：
+在 Pages/Courses/Details.cshtml.cs 文件中进行相同的更改：
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Details.cshtml.cs?highlight=28)]
 
 ### <a name="update-the-course-razor-pages"></a>更新“课程”Razor 页面
 
-使用以下代码更新 Pages/Courses/Delete.cshtml  ：
+使用以下代码更新 Pages/Courses/Delete.cshtml：
 
 [!code-cshtml[](intro/samples/cu30/Pages/Courses/Delete.cshtml?highlight=15-20,37)]
 
@@ -136,7 +142,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="create-a-class-for-assigned-courses-data"></a>为已分配的课程数据创建类
 
-使用以下代码创建 SchoolViewModels/AssignedCourseData.cs  ：
+使用以下代码创建 SchoolViewModels/AssignedCourseData.cs：
 
 [!code-csharp[](intro/samples/cu30/Models/SchoolViewModels/AssignedCourseData.cs)]
 
@@ -144,13 +150,13 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="create-an-instructor-page-model-base-class"></a>创建“讲师”页模型基类
 
-创建 Pages/Instructors/InstructorCoursesPageModel.cs 基类  ：
+创建 Pages/Instructors/InstructorCoursesPageModel.cs 基类：
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/InstructorCoursesPageModel.cs?name=snippet_All)]
 
 `InstructorCoursesPageModel` 是将用于“编辑”和“创建”页模型的基类。 `PopulateAssignedCourseData` 读取所有 `Course` 实体以填充 `AssignedCourseDataList`。 该代码将设置每门课程的 `CourseID` 和标题，并决定是否为讲师分配该课程。 [HashSet](/dotnet/api/system.collections.generic.hashset-1) 用于高效查找。
 
-Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `CourseAssignments` 方法中更新 `UpdateInstructorCourses` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的是允许列表重载，并且 `CourseAssignments` 不包括在该列表中。
+Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更新 `CourseAssignments` 导航属性。 可在新的 `UpdateInstructorCourses` 方法中更新 `CourseAssignments` 导航属性，而不必使用模型绑定器。 为此，需要从模型绑定中排除 `CourseAssignments` 属性。 此操作无需对调用 `TryUpdateModel` 的代码进行任何更改，因为使用的是允许列表重载，并且 `CourseAssignments` 不包括在该列表中。
 
 如果未选中任何复选框，则 `UpdateInstructorCourses` 中的代码将使用空集合初始化 `CourseAssignments` 导航属性，并返回以下内容：
 
@@ -176,22 +182,22 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ### <a name="update-the-instructor-edit-page-model"></a>更新讲师“编辑”页模型
 
-使用以下代码更新 Pages/Instructors/Edit.cshtml.cs  ：
+使用以下代码更新 Pages/Instructors/Edit.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Edit.cshtml.cs?name=snippet_All&highlight=9,28-32,38,42-77)]
 
 前面的代码：
 
-* 使用 `Instructor`、`OfficeAssignment` 和 `CourseAssignment` 导航属性的预先加载从数据库获取当前的 `CourseAssignment.Course` 实体。
+* 使用 `OfficeAssignment`、`CourseAssignment` 和 `CourseAssignment.Course` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
 * 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
-* 调用 `PopulateAssignedCourseData` 中的 `OnGetAsync`，使用 `AssignedCourseData` 视图模型类为复选框提供信息。
-* 调用 `UpdateInstructorCourses` 中的 `OnPostAsync`，将复选框中的信息应用于将要编辑的 Instructor 实体。
-* 如果 `PopulateAssignedCourseData` 失败，则调用 `UpdateInstructorCourses` 中的 `OnPostAsync` 和 `TryUpdateModel`。 这些方法调用将在页面重新显示错误消息时还原页面上所输入的已分配课程数据。
+* 调用 `OnGetAsync` 中的 `PopulateAssignedCourseData`，使用 `AssignedCourseData` 视图模型类为复选框提供信息。
+* 调用 `OnPostAsync` 中的 `UpdateInstructorCourses`，将复选框中的信息应用于将要编辑的 Instructor 实体。
+* 如果 `TryUpdateModel` 失败，则调用 `OnPostAsync` 中的 `PopulateAssignedCourseData` 和 `UpdateInstructorCourses`。 这些方法调用将在页面重新显示错误消息时还原页面上所输入的已分配课程数据。
 
-### <a name="update-the-instructor-edit-razor-page"></a>更新讲师“编辑”Razor 页面
+### <a name="update-the-instructor-edit-razor-page"></a>更新“讲师编辑”Razor 页面
 
-使用以下代码更新 Pages/Instructors/Edit.cshtml  ：
+使用以下代码更新 Pages/Instructors/Edit.cshtml：
 
 [!code-cshtml[](intro/samples/cu30/Pages/Instructors/Edit.cshtml?highlight=29-59)]
 
@@ -205,7 +211,7 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ### <a name="update-the-instructor-create-page"></a>更新讲师“创建”页
 
-使用类似于“编辑”页的代码更新讲师“创建”页模型和 Razor 页面：
+使用类似于“编辑”页面的代码更新“讲师创建”页面模型和 Razor 页面：
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Create.cshtml.cs)]
 
@@ -215,7 +221,7 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ## <a name="update-the-instructor-delete-page"></a>更新讲师“删除”页
 
-使用以下代码更新 Pages/Instructors/Delete.cshtml.cs  ：
+使用以下代码更新 Pages/Instructors/Delete.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Delete.cshtml.cs?highlight=45-61)]
 
@@ -248,7 +254,7 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ## <a name="create-a-base-class-to-share-common-code"></a>创建基类以共享通用代码
 
-“课程/创建”和“课程/编辑”页分别需要一个系名称列表。 针对“创建”和“编辑”页创建 Pages/Courses/DepartmentNamePageModel.cshtml.cs 基类  ：
+“课程/创建”和“课程/编辑”页分别需要一个系名称列表。 针对“创建”和“编辑”页创建 Pages/Courses/DepartmentNamePageModel.cshtml.cs 基类：
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/DepartmentNamePageModel.cshtml.cs?highlight=9,11,20-21)]
 
@@ -276,18 +282,18 @@ Razor 页面没有 Course 实体的集合，因此模型绑定器无法自动更
 
 ### <a name="update-the-courses-create-page"></a>更新“课程创建”页
 
-使用以下代码更新 Pages/Courses/Create.cshtml  ：
+使用以下代码更新 Pages/Courses/Create.cshtml：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Create.cshtml?highlight=29-34)]
 
 上述标记进行以下更改：
 
-* 将标题从“DepartmentID”更改为“Department”   。
+* 将标题从“DepartmentID”更改为“Department” 。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 * 添加“选择系”选项。 此更改将导致呈现“选择系”而不是第一个系。
 * 在未选择系时添加验证消息。
 
-Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-select-tag-helper)：
+Razor 页面使用[选择标记帮助程序](xref:mvc/views/working-with-forms#the-select-tag-helper)：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Create.cshtml?range=28-35&highlight=3-6)]
 
@@ -295,23 +301,23 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="update-the-courses-edit-page"></a>更新“课程编辑”页。
 
-使用以下代码替换 Pages/Courses/Edit.cshtml.cs 中的代码  ：
+使用以下代码替换 Pages/Courses/Edit.cshtml.cs 中的代码：
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Edit.cshtml.cs?highlight=8,28,35,36,40,47-999)]
 
 这些更改与在“创建”页模型中所做的更改相似。 在上面的代码中，`PopulateDepartmentsDropDownList` 在系 ID 中传递并将选择下拉列表中指定的系。
 
-使用以下标记更新 Pages/Courses/Edit.cshtml  ：
+使用以下标记更新 Pages/Courses/Edit.cshtml：
 
 [!code-cshtml[](intro/samples/cu/Pages/Courses/Edit.cshtml?highlight=17-20,32-35)]
 
 上述标记进行以下更改：
 
 * 显示课程 ID。 通常不显示实体的主键 (PK)。 PK 对用户不具有任何意义。 在这种情况下，PK 就是课程编号。
-* 将标题从“DepartmentID”更改为“Department”   。
+* 将标题从“DepartmentID”更改为“Department” 。
 * 将 `"ViewBag.DepartmentID"` 替换为 `DepartmentNameSL`（来自基类）。
 
-该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `<label>` 的 `asp-for="Course.CourseID"` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`  ，以便在已发布的数据中包括课程编号。
+该页面包含课程编号的隐藏域 (`<input type="hidden">`)。 添加具有 `asp-for="Course.CourseID"` 的 `<label>` 标记帮助器也同样需要隐藏域。 用户单击“保存”时，需要 `<input type="hidden">`，以便在已发布的数据中包括课程编号。
 
 测试更新的代码。 创建、编辑和删除课程。
 
@@ -321,7 +327,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Delete.cshtml.cs?name=snippet&highlight=21,23,40,41)]
 
-在 Pages/Courses/Details.cshtml.cs 文件中更新 `OnGetAsync` 方法  ：
+在 Pages/Courses/Details.cshtml.cs 文件中更新 `OnGetAsync` 方法：
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Details.cshtml.cs?name=snippet)]
 
@@ -355,13 +361,13 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 前面的代码：
 
-* 使用 `Instructor` 导航属性的预先加载从数据库获取当前的 `OfficeAssignment` 实体。
+* 使用 `OfficeAssignment` 导航属性的预先加载从数据库获取当前的 `Instructor` 实体。
 * 用模型绑定器中的值更新检索到的 `Instructor` 实体。 `TryUpdateModel` 可防止[过多发布](xref:data/ef-rp/crud#overposting)。
 * 如果办公室位置为空，则将 `Instructor.OfficeAssignment` 设置为 null。 当 `Instructor.OfficeAssignment` 为 null 时，`OfficeAssignment` 表中的相关行将会删除。
 
 ### <a name="update-the-instructor-edit-page"></a>更新讲师“编辑”页
 
-使用办公室位置更新 Pages/Instructors/Edit.cshtml  ：
+使用办公室位置更新 Pages/Instructors/Edit.cshtml：
 
 [!code-cshtml[](intro/samples/cu/Pages/Instructors/Edit1.cshtml?highlight=29-33)]
 
@@ -382,13 +388,13 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 ### <a name="add-classes-to-support-create-and-edit-instructor-pages"></a>添加类以支持“创建”和“编辑”讲师页
 
-使用以下代码创建 SchoolViewModels/AssignedCourseData.cs  ：
+使用以下代码创建 SchoolViewModels/AssignedCourseData.cs：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/AssignedCourseData.cs)]
 
 `AssignedCourseData` 类包含的数据可用于为讲师已分配的课程创建复选框。
 
-创建 Pages/Instructors/InstructorCoursesPageModel.cshtml.cs 基类  ：
+创建 Pages/Instructors/InstructorCoursesPageModel.cshtml.cs 基类：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/InstructorCoursesPageModel.cshtml.cs)]
 
@@ -402,7 +408,7 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 上面的代码处理办公室分配更改。
 
-更新“讲师”Razor 视图：
+更新讲师 Razor 视图：
 
 [!code-cshtml[](intro/samples/cu/Pages/Instructors/Edit.cshtml?highlight=34-59)]
 
@@ -424,9 +430,9 @@ Razor 页面使用[选择标记帮助器](xref:mvc/views/working-with-forms#the-
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Create.cshtml.cs)]
 
-前面的代码与 Pages/Instructors/Edit.cshtml.cs 代码类似  。
+前面的代码与 Pages/Instructors/Edit.cshtml.cs 代码类似。
 
-使用以下标记更新讲师“创建”Razor 页面：
+使用以下标记更新“讲师创建”Razor 页面：
 
 [!code-cshtml[](intro/samples/cu/Pages/Instructors/Create.cshtml?highlight=32-62)]
 

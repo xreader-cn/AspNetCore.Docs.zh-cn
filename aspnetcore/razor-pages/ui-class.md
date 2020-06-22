@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: 2c2a2c1e13b2d511ecf8c1c02c235192861fd486
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 32aa1cdab0e552a1255c01b5135e9a82a0e37c77
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774270"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84451896"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>使用 ASP.NET Core 中的 Razor 类库项目创建可重用 UI
 
@@ -25,7 +25,7 @@ ms.locfileid: "82774270"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor 视图、页面、控制器、页面模型、[Razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可生成到 Razor 类库 (RCL) 中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先  。
+Razor 视图、页面、控制器、页面模型、[Razor组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以构建到 Razor 类库 (RCL) 中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -33,12 +33,12 @@ Razor 视图、页面、控制器、页面模型、[Razor 组件](xref:blazor/cl
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在 Visual Studio 中，选择“创建新项目”  。
-* 选择“Razor 类库”>“下一步”   。
-* 命名库（例如，“RazorClassLib”）>“创建”  。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
-* 如果需要支持视图，请选择“支持页面和视图”  。 默认情况下，仅支持 Razor Pages。 选择“创建”  。
+* 在 Visual Studio 中，选择“创建新项目”。
+* 依次选择“Razor 类库”>“下一步”。 
+* 命名库（例如，“RazorClassLib”）>“创建”。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
+* 如果需要支持视图，请选择“支持页面和视图”。 默认情况下，仅支持 Razor 页面。 选择“创建”。
 
-默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 “支持页面和视图”选项支持页面和视图  。
+默认情况下，Razor 类库 (RCL) 模板默认为 Razor 组件开发。 “支持页面和视图”选项支持页面和视图。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -63,15 +63,15 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
 可以通过以下方式引用 RCL：
 
 * NuGet 包。 请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。
-* {ProjectName}.csproj  。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
+* {ProjectName}.csproj。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
 
 ## <a name="override-views-partial-views-and-pages"></a>重写视图、分部视图和页面
 
-如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先  。 例如，将 *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* 添加到 WebApp1，则 WebApp1 中的 Page1 会优先于 RCL 中的 Page1。
+如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。 例如，将 *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* 添加到 WebApp1，则 WebApp1 中的 Page1 会优先于 RCL 中的 Page1。
 
-在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级   。
+在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级 。
 
-将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml   。 更新标记以指示新的位置。 生成并运行应用，验证使用部分的应用版本。
+将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml 。 更新标记以指示新的位置。 生成并运行应用，验证使用部分的应用版本。
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 
@@ -97,6 +97,8 @@ RCL 可能需要 RCL 或 RCL 的消耗应用可以引用的伴随静态资产。
 若要将伴随资产作为 RCL 的一部分包括在内，请在类库中创建 *wwwroot* 文件夹，并在该文件夹中包括所有必需的文件。
 
 打包 RCL 时，*wwwroot* 文件夹中的所有伴随资产都会自动包括在包中。
+
+使用 `dotnet pack` 命令，而不是 Nuget.exe 版本 `nuget pack`。
 
 ### <a name="exclude-static-assets"></a>排除静态资产
 
@@ -133,7 +135,7 @@ RCL 可能需要 RCL 或 RCL 的消耗应用可以引用的伴随静态资产。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>使用引用的 RCL 中的内容
 
-RCL 的 *wwwroot* 文件夹中包括的文件使用前缀 `_content/{LIBRARY NAME}/` 向 RCL 或消耗应用公开。 例如，名为 *Razor.Class.Lib* 的库会生成指向 `_content/Razor.Class.Lib/` 处的静态内容的路径。 生成 NuGet 包且程序集名称与包 ID 不同时，请将包 ID 用于 `{LIBRARY NAME}`。
+RCL 的 *wwwroot* 文件夹中包括的文件使用前缀 `_content/{LIBRARY NAME}/` 向 RCL 或消耗应用公开。 例如，名为 Razor.Class.Lib 的库会生成指向 `_content/Razor.Class.Lib/` 处的静态内容的路径。 生成 NuGet 包且程序集名称与包 ID 不同时，请将包 ID 用于 `{LIBRARY NAME}`。
 
 消耗应用使用 `<script>`、`<style>`、`<img>` 和其他 HTML 标记引用库提供的静态资产。 消耗应用必须在 `Startup.Configure` 中启用[静态文件支持](xref:fundamentals/static-files)：
 
@@ -190,7 +192,7 @@ public class Program
 
 ::: moniker range="< aspnetcore-3.0"
 
-Razor 视图、页面、控制器、页面模型、[Razor 组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可生成到 Razor 类库 (RCL) 中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先  。
+Razor 视图、页面、控制器、页面模型、[Razor组件](xref:blazor/class-libraries)、[视图组件](xref:mvc/views/view-components)和数据模型可以构建到 Razor 类库 (RCL) 中。 RCL 可以打包并重复使用。 应用程序可以包括 RCL，并重写其中包含的视图和页面。 如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -198,11 +200,11 @@ Razor 视图、页面、控制器、页面模型、[Razor 组件](xref:blazor/cl
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
-* 选择“ASP.NET Core Web 应用程序”  。
-* 命名库（例如，“RazorClassLib”）>“确定”  。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
-* 验证是否已选择 ASP.NET Core 2.1 或更高版本  。
-* 选择“Razor 类库”>“确定”   。
+* 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
+* 选择“ASP.NET Core Web 应用程序”。
+* 命名库（例如，“RazorClassLib”）>“确定”。 为避免与已生成的视图库发生文件名冲突，请确保库名称不以 `.Views` 结尾。
+* 验证是否已选择 ASP.NET Core 2.1 或更高版本。
+* 依次选择“Razor 类库”>“确定”。 
 
 RCL 具有以下项目文件：
 
@@ -229,9 +231,9 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
 可以通过以下方式引用 RCL：
 
 * NuGet 包。 请参阅[创建 NuGet 包](/nuget/create-packages/creating-a-package)、[dotnet 添加包](/dotnet/core/tools/dotnet-add-package)和[创建和发布 NuGet 包](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)。
-* {ProjectName}.csproj  。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
+* {ProjectName}.csproj。 请查看 [dotnet-add 引用](/dotnet/core/tools/dotnet-add-reference)。
 
-## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>演练：创建 RCL 项目并通过 Razor Pages 项目使用
+## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>演练：创建 RCL 项目并通过 Razor 页面项目使用
 
 可以下载并测试[完整项目](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)，无需创建项目。 示例下载包含附加代码和链接，以方便测试项目。 可以在[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/6098)中留下反馈，评论下载示例和分步说明的对比。
 
@@ -241,17 +243,17 @@ ASP.NET Core 模板假定 RCL 内容位于 *Areas* 文件夹中。 请参阅 [RC
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-在 Visual Studio 中打开 .sln 文件  。 运行应用。
+在 Visual Studio 中打开 .sln 文件。 运行应用。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-在 cli 目录中的命令提示符下生成 RCL 和 Web 应用  。
+在 cli 目录中的命令提示符下生成 RCL 和 Web 应用。
 
 ```dotnetcli
 dotnet build
 ```
 
-移动至 WebApp1 目录，并运行应用  ：
+移动至 WebApp1 目录，并运行应用：
 
 ```dotnetcli
 dotnet run
@@ -269,12 +271,12 @@ dotnet run
 
 创建 RCL 项目：
 
-* 从 Visual Studio“文件”  菜单中选择“新建”  >“项目”  。
-* 选择“ASP.NET Core Web 应用程序”  。
-* 将应用命名为“RazorUIClassLib”>“确定”   。
-* 验证是否已选择 ASP.NET Core 2.1 或更高版本  。
-* 选择“Razor 类库”>“确定”   。
-* 添加一个名为 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 的 Razor 分部视图文件  。
+* 从 Visual Studio“文件”菜单中选择“新建”>“项目”。
+* 选择“ASP.NET Core Web 应用程序”。
+* 将应用命名为“RazorUIClassLib”>“确定” 。
+* 验证是否已选择 ASP.NET Core 2.1 或更高版本。
+* 依次选择“Razor 类库”>“确定”。 
+* 添加一个名为 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 的 Razor 分部视图文件。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -292,21 +294,21 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 * 创建 Razor _Message 页面，并将其添加至 RCL。 `-np` 参数创建不含 `PageModel` 的页面。
 * 创建 [_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view) 文件并将其添加到 RCL。
 
-使用 Razor Pages 项目的布局需要 *_ViewStart.cshtml* 文件（在下一部分中添加）。
+使用 Razor 页面项目的布局需要 _ViewStart.cshtml 文件（在下一部分中添加）。
 
 ---
 
 ### <a name="add-razor-files-and-folders-to-the-project"></a>将 Razor 文件和文件夹添加到项目
 
-* 使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 中的标记  ：
+* 使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 中的标记：
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml)]
 
-* 使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml 中的标记  ：
+* 使用以下代码替换 RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml 中的标记：
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令  。 例如：
+  使用分步视图 (`<partial name="_Message" />`) 需要 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`。 可以添加一个 _ViewImports.cshtml 文件，无需包含 `@addTagHelper` 指令。 例如：
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
@@ -320,7 +322,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
   dotnet build RazorUIClassLib
   ```
 
-生成输出内容包含 RazorUIClassLib.dll 和 RazorUIClassLib.Views.dll   。 RazorUIClassLib.Views.dll 包含已编译的 Razor 内容  。
+生成输出内容包含 RazorUIClassLib.dll 和 RazorUIClassLib.Views.dll 。 RazorUIClassLib.Views.dll 包含已编译的 Razor 内容。
 
 ### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a>从 Razor 页面项目使用 Razor UI 库
 
@@ -328,23 +330,23 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 创建 Razor 页面 Web 应用：
 
-* 在“解决方案资源管理器”中，右键单击解决方案 >“添加”>“新建项目”    。
-* 选择“ASP.NET Core Web 应用程序”  。
-* 将应用命名为 WebApp1  。
-* 验证是否已选择 ASP.NET Core 2.1 或更高版本  。
-* 选择“Web 应用”>“确定”   。
+* 在“解决方案资源管理器”中，右键单击解决方案 >“添加”>“新建项目”  。
+* 选择“ASP.NET Core Web 应用程序”。
+* 将应用命名为 WebApp1。
+* 验证是否已选择 ASP.NET Core 2.1 或更高版本。
+* 选择“Web 应用”>“确定” 。
 
-* 在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”    。
-* 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“生成依赖项”>“项目依赖项”     。
-* 将 RazorUIClassLib 勾选为 WebApp1 的依赖项   。
-* 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“添加”>“引用”     。
-* 在“引用管理器”对话框中勾选“RazorUIClassLib”>“确定”    。
+* 在解决方案资源管理器中，右键单击“WebApp1”，然后选择“设为启动项目”  。
+* 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“生成依赖项”>“项目依赖项”   。
+* 将 RazorUIClassLib 勾选为 WebApp1 的依赖项 。
+* 在“解决方案资源管理器”中，右键单击“WebApp1”，然后选择“添加”>“引用”   。
+* 在“引用管理器”对话框中勾选“RazorUIClassLib”>“确定”  。
 
 运行应用。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-创建 Razor Pages Web 应用和包含 Razor Pages 应用及 RCL 的解决方案文件：
+创建 Razor 页面 Web 应用和包含 Razor 页面应用及 RCL 的解决方案文件：
 
 ```dotnetcli
 dotnet new webapp -o WebApp1
@@ -369,11 +371,11 @@ dotnet run
 
 ## <a name="override-views-partial-views-and-pages"></a>重写视图、分部视图和页面
 
-如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先  。 例如，将 *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* 添加到 WebApp1，则 WebApp1 中的 Page1 会优先于 RCL 中的 Page1。
+如果在 Web 应用和 RCL 中都能找到视图、分部视图或 Razor 页面，则 Web 应用中的 Razor 标记（.cshtml 文件）优先。 例如，将 *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* 添加到 WebApp1，则 WebApp1 中的 Page1 会优先于 RCL 中的 Page1。
 
-在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级   。
+在示例下载中，将 WebApp1/Areas/MyFeature2 重命名为 WebApp1/Areas/MyFeature 来测试优先级 。
 
-将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml   。 更新标记以指示新的位置。 生成并运行应用，验证使用部分的应用版本。
+将 RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml 分部视图复制到 WebApp1/Areas/MyFeature/Pages/Shared/_Message.cshtml 。 更新标记以指示新的位置。 生成并运行应用，验证使用部分的应用版本。
 
 ### <a name="rcl-pages-layout"></a>RCL 页面布局
 

@@ -1,7 +1,7 @@
 ---
-title: 将新字段添加到 ASP.NET Core MVC 应用
+title: 第 8 部分，将新字段添加到 ASP.NET Core MVC 应用
 author: rick-anderson
-description: 了解如何使用 Entity Framework Code First 迁移将新字段添加到模型，并将此更改迁移到数据库。
+description: ASP.NET Core MVC 教程系列的第 8 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
@@ -12,14 +12,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 0cc708734726e5779951d63ac10d1b750b1cc2ac
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 2dfaba166617c5d0a224f4b47028c141e59ce47f
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777067"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652909"
 ---
-# <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>将新字段添加到 ASP.NET Core MVC 应用
+# <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>第 8 部分，将新字段添加到 ASP.NET Core MVC 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 

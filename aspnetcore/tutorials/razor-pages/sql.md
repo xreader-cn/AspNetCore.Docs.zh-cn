@@ -1,7 +1,7 @@
 ---
-title: 使用数据库和 ASP.NET Core
+title: 第 4 部分，使用数据库和 ASP.NET Core
 author: rick-anderson
-description: 说明如何使用数据库和 ASP.NET Core。
+description: Razor 页面教程系列的第 4 部分。
 ms.author: riande
 ms.date: 7/22/2019
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 159588ec750f0ede534522aa9397fc2aefb58cd6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 21ae2ed4e91a0b3e52b1cdad1f4f4686c50614ba
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775604"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652982"
 ---
-# <a name="work-with-a-database-and-aspnet-core"></a>使用数据库和 ASP.NET Core
+# <a name="part-4-with-a-database-and-aspnet-core"></a>第 4 部分，使用数据库和 ASP.NET Core
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Joe Audette](https://twitter.com/joeaudette)
 
@@ -26,7 +26,7 @@ ms.locfileid: "82775604"
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs  的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
+`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -38,7 +38,7 @@ ms.locfileid: "82775604"
 
 ---
 
-ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串  。
+ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -61,11 +61,11 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 `C:\Users\<user>\` 目录下创建 `*.mdf` 文件。
 
 <a name="ssox"></a>
-* 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX)   。
+* 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX) 。
 
   ![“视图”菜单](sql/_static/ssox.png)
 
-* 右键单击 `Movie` 表，然后选择“视图设计器”  ：
+* 右键单击 `Movie` 表，然后选择“视图设计器”：
 
   ![Movie 表上打开的上下文菜单](sql/_static/design.png)
 
@@ -73,7 +73,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 请注意 `ID` 旁边的密钥图标。 默认情况下，EF 为该主键创建一个名为 `ID` 的属性。
 
-* 右键单击 `Movie` 表，然后选择“查看数据”  ：
+* 右键单击 `Movie` 表，然后选择“查看数据”：
 
   ![显示表数据的打开的 Movie 表](sql/_static/vd22.png)
 
@@ -86,7 +86,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-使用以下代码在 Models  文件夹中创建一个名为 `SeedData` 的新类：
+使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
@@ -103,13 +103,13 @@ if (context.Movie.Any())
 
 ### <a name="add-the-seed-initializer"></a>添加种子初始值设定项
 
-在 Program.cs 中，修改 `Main` 方法以执行以下操作  ：
+在 Program.cs 中，修改 `Main` 方法以执行以下操作：
 
 * 从依赖关系注入容器获取数据库上下文实例。
 * 调用 seed 方法，并将上下文传递给它。
 * Seed 方法完成时释放上下文。
 
-下面的代码显示更新后的 Program.cs  文件。
+下面的代码显示更新后的 Program.cs 文件。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
@@ -125,7 +125,7 @@ if (context.Movie.Any())
 * 删除 DB 中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 * 强制应用初始化（调用 `Startup` 类中的方法），使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 可以使用以下任一方法来执行此操作：
 
-  * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点”   ：
+  * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点” ：
 
     ![IIS Express 系统任务栏图标](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
 
@@ -147,7 +147,7 @@ if (context.Movie.Any())
 ## <a name="additional-resources"></a>其他资源
 
 > [!div class="step-by-step"]
-> [上一篇：已搭建基架的 Razor Pages](xref:tutorials/razor-pages/page)
+> [上一篇：基架 Razor Pages](xref:tutorials/razor-pages/page)
 > [下一篇：更新页面](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end
@@ -156,7 +156,7 @@ if (context.Movie.Any())
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs  的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
+`RazorPagesMovieContext` 对象处理连接到数据库并将 `Movie` 对象映射到数据库记录的任务。 在 Startup.cs 的 `ConfigureServices` 方法中向[依赖关系注入](xref:fundamentals/dependency-injection)容器注册数据库上下文：
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -173,7 +173,7 @@ if (context.Movie.Any())
 * 面向 `CookiePolicyOptions` 的 [ASP.NET Core 中的欧盟一般数据保护条例 (GDPR) 支持](xref:security/gdpr)。
 * [SetCompatibilityVersion](xref:mvc/compatibility-version)
 
-ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串  。
+ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `ConnectionString`。 为了进行本地开发，它会从 appsettings.json 文件获取连接字符串。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -200,11 +200,11 @@ ASP.NET Core [配置](xref:fundamentals/configuration/index)系统会读取 `Con
 LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为目标。 LocalDB 作为按需启动并在用户模式下运行的轻量级数据库没有复杂的配置。 默认情况下，LocalDB 数据库在 `C:/Users/<user/>` 目录下创建 `*.mdf` 文件。
 
 <a name="ssox"></a>
-* 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX)   。
+* 从“视图”菜单中，打开“SQL Server 对象资源管理器”(SSOX) 。
 
   ![“视图”菜单](sql/_static/ssox.png)
 
-* 右键单击 `Movie` 表，然后选择“视图设计器”  ：
+* 右键单击 `Movie` 表，然后选择“视图设计器”：
 
   ![Movie 表上打开的上下文菜单](sql/_static/design.png)
 
@@ -212,7 +212,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 请注意 `ID` 旁边的密钥图标。 默认情况下，EF 为该主键创建一个名为 `ID` 的属性。
 
-* 右键单击 `Movie` 表，然后选择“查看数据”  ：
+* 右键单击 `Movie` 表，然后选择“查看数据”：
 
   ![显示表数据的打开的 Movie 表](sql/_static/vd22.png)
 
@@ -230,7 +230,7 @@ LocalDB 是轻型版的 SQL Server Express 数据库引擎，以程序开发为�
 
 ## <a name="seed-the-database"></a>设定数据库种子
 
-使用以下代码在 Models  文件夹中创建一个名为 `SeedData` 的新类：
+使用以下代码在 Models 文件夹中创建一个名为 `SeedData` 的新类：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -247,13 +247,13 @@ if (context.Movie.Any())
 
 ### <a name="add-the-seed-initializer"></a>添加种子初始值设定项
 
-在 Program.cs 中，修改 `Main` 方法以执行以下操作  ：
+在 Program.cs 中，修改 `Main` 方法以执行以下操作：
 
 * 从依赖关系注入容器获取数据库上下文实例。
 * 调用 seed 方法，并将上下文传递给它。
 * Seed 方法完成时释放上下文。
 
-下面的代码显示更新后的 Program.cs  文件。
+下面的代码显示更新后的 Program.cs 文件。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
@@ -269,7 +269,7 @@ SqlException：无法打开登录请求的数据库“RazorPagesMovieContext-21�
 * 删除 DB 中的所有记录。 可以使用浏览器中的删除链接，也可以从 [SSOX](xref:tutorials/razor-pages/new-field#ssox) 执行此操作
 * 强制应用初始化（调用 `Startup` 类中的方法），使种子方法能够正常运行。 若要强制进行初始化，必须先停止 IIS Express，然后再重新启动它。 可以使用以下任一方法来执行此操作：
 
-  * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点”   ：
+  * 右键单击通知区域中的 IIS Express 系统任务栏图标，然后点击“退出”或“停止站点” ：
 
     ![IIS Express 系统任务栏图标](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
 

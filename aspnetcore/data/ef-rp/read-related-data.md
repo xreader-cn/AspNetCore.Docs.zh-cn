@@ -1,19 +1,25 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
+title: 第 6 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据
 author: rick-anderson
-description: 在本教程中，将读取并显示相关数据 - 即 Entity Framework 加载到导航属性中的数据。
+description: Razor 页面和实体框架教程系列第 6 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 0835dbf6b5434e4224d9f56ea3335df4b5d9e119
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: e67738015f64ca7077c2f87a8f7eabe722aac9d8
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277322"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652611"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据 - 第 6 个教程（共 8 个）
+# <a name="part-6-razor-pages-with-ef-core-in-aspnet-core---read-related-data"></a>第 6 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 读取相关数据
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -46,7 +52,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
+  注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
 * [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如：
 
@@ -73,17 +79,17 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
-  * 创建“Pages/Courses”文件夹  。
+  * 创建“Pages/Courses”文件夹。
   * 将 `Course` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 创建“Pages/Courses”文件夹  。
+* 创建“Pages/Courses”文件夹。
 
 * 运行以下命令，搭建“课程”页的基架。
 
-  在 Windows 上： 
+  在 Windows 上：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
@@ -97,9 +103,9 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ---
 
-* 打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。 基架引擎为 `Department` 导航属性指定了预先加载。 `Include` 方法指定预先加载。
+* 打开 Pages/Courses/Index.cshtml.cs 并检查 `OnGetAsync` 方法。 基架引擎为 `Department` 导航属性指定了预先加载。 `Include` 方法指定预先加载。
 
-* 运行应用并选择“课程”链接  。 院系列显示 `DepartmentID`（该项无用）。
+* 运行应用并选择“课程”链接。 院系列显示 `DepartmentID`（该项无用）。
 
 ### <a name="display-the-department-name"></a>显示院系名称
 
@@ -109,21 +115,21 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 上述代码将 `Course` 属性更改为 `Courses`，然后添加 `AsNoTracking`。 由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。 无需跟踪实体，因为未在当前的上下文中更新这些实体。
 
-使用以下代码更新 Pages/Courses/Index.cshtml  。
+使用以下代码更新 Pages/Courses/Index.cshtml。
 
 [!code-cshtml[](intro/samples/cu30/Pages/Courses/Index.cshtml?highlight=5,8,16-18,20,23,26,32,35-37,45)]
 
 对基架代码进行了以下更改：
 
 * 将 `Course` 属性名称更改为了 `Courses`。
-* 添加了显示 `CourseID` 属性值的“数字”列  。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在此情况下主键是有意义的。
-* 更改“院系”列，显示院系名称  。 该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：
+* 添加了显示 `CourseID` 属性值的“数字”列。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在此情况下主键是有意义的。
+* 更改“院系”列，显示院系名称。 该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-运行应用并选择“课程”选项卡，查看包含系名称的列表  。
+运行应用并选择“课程”选项卡，查看包含系名称的列表。
 
 ![“课程索引”页](read-related-data/_static/courses-index30.png)
 
@@ -162,7 +168,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 “讲师”页显示来自三个不同表格的数据。 需要一个视图模型，该模型中包含表示三个表格的三个属性。
 
-使用以下代码创建 SchoolViewModels/InstructorIndexData.cs  ：
+使用以下代码创建 SchoolViewModels/InstructorIndexData.cs：
 
 [!code-csharp[](intro/samples/cu30/Models/SchoolViewModels/InstructorIndexData.cs)]
 
@@ -172,17 +178,17 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
-  * 创建“Pages/Instructors”文件夹  。
+  * 创建“Pages/Instructors”文件夹。
   * 将 `Instructor` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 创建“Pages/Instructors”文件夹  。
+* 创建“Pages/Instructors”文件夹。
 
 * 运行以下命令，搭建“讲师”页的基架。
 
-  在 Windows 上： 
+  在 Windows 上：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
@@ -198,13 +204,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 若要在更新之前查看已搭建基架的页面的外观，则运行应用并导航到“讲师”页。
 
-使用以下代码更新 Pages/Instructors/Index.cshtml.cs  ：
+使用以下代码更新 Pages/Instructors/Index.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,19-53)]
 
 `OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。
 
-检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：
+检查 Pages/Instructors/Index.cshtml.cs 文件中的查询：
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_EagerLoading)]
 
@@ -237,13 +243,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="update-the-instructors-index-page"></a>更新“讲师索引”页
 
-使用以下代码更新 Pages/Instructors/Index.cshtml  。
+使用以下代码更新 Pages/Instructors/Index.cshtml。
 
 [!code-cshtml[](intro/samples/cu30/Pages/Instructors/Index.cshtml?highlight=1,5,8,16-21,25-32,43-57,67-102,104-126)]
 
 上面的代码执行以下更改：
 
-* 将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。 `"{id:int?}"` 是一个路由模板。 路由模板将 URL 中的整数查询字符串更改为路由数据。 例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：
+* 将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。 `"{id:int?}"` 是一个路由模板。 路由模板将 URL 中的整数查询字符串更改为路由数据。 例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL：
 
   `https://localhost:5001/Instructors?id=2`
 
@@ -251,7 +257,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   `https://localhost:5001/Instructors/2`
 
-* 添加仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。 由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。
+* 添加仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列。 由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -260,7 +266,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   }
   ```
 
-* 添加显示每位讲师所授课程的“课程”列  。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
+* 添加显示每位讲师所授课程的“课程”列。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
 
 * 添加向所选讲师和课程的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
 
@@ -273,7 +279,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   <tr class="@selectedRow">
   ```
 
-* 添加标记为“选择”的新的超链接  。 该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。
+* 添加标记为“选择”的新的超链接。 该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
@@ -283,9 +289,9 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 * 添加所选课程的学生注册表。
 
-运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。 如果 `OfficeAssignment` 为 NULL，则显示空白表格单元格。
+运行应用并选择“讲师”选项卡。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。 如果 `OfficeAssignment` 为 NULL，则显示空白表格单元格。
 
-单击“选择”链接，选择讲师  。 显示行样式更改和分配给该讲师的课程。
+单击“选择”链接，选择讲师。 显示行样式更改和分配给该讲师的课程。
 
 选择一门课程，查看已注册的学生及其成绩列表。
 
@@ -307,11 +313,11 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 假设用户几乎不希望课程中显示注册情况。 在此情况下，可仅在请求时加载注册数据进行优化。 在本部分中，会更新 `OnGetAsync` 以使用 `Enrollments` 和 `Students` 的显式加载。
 
-使用以下代码更新 Pages/Instructors/Index.cshtml.cs  。
+使用以下代码更新 Pages/Instructors/Index.cshtml.cs。
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Index.cshtml.cs?highlight=31-35,52-56)]
 
-上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。 如果已选中课程，则显式加载的代码会检索：
+上述代码取消针对注册和学生数据的 ThenInclude 方法调用。 如果已选中课程，则显式加载的代码会检索：
 
 * 所选课程的 `Enrollment` 实体。
 * 每个 `Enrollment` 的 `Student` 实体。
@@ -359,7 +365,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   ![单独查询示例](read-related-data/_static/separate-queries.png)
 
-  注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内  ，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
+  注意：EF Core 会将导航属性自动“修复”为之前加载到上下文实例中的任何其他实体。 即使导航属性的数据非显式包含在内，但如果先前加载了部分或所有相关实体，则仍可能填充该属性。
 
 * [显式加载](/ef/core/querying/related-data#explicit-loading)。 首次读取实体时，不检索相关数据。 必须编写代码才能在需要时检索相关数据。 使用单独查询进行显式加载时，会向数据库发送多个查询。 该代码通过显式加载指定要加载的导航属性。 使用 `Load` 方法进行显式加载。 例如：
 
@@ -400,9 +406,9 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 上述命令为 `Course` 模型创建基架。 在 Visual Studio 中打开项目。
 
-打开 Pages/Courses/Index.cshtml.cs  并检查 `OnGetAsync` 方法。 基架引擎为 `Department` 导航属性指定了预先加载。 `Include` 方法指定预先加载。
+打开 Pages/Courses/Index.cshtml.cs 并检查 `OnGetAsync` 方法。 基架引擎为 `Department` 导航属性指定了预先加载。 `Include` 方法指定预先加载。
 
-运行应用并选择“课程”链接  。 院系列显示 `DepartmentID`（该项无用）。
+运行应用并选择“课程”链接。 院系列显示 `DepartmentID`（该项无用）。
 
 使用以下代码更新 `OnGetAsync` 方法：
 
@@ -410,21 +416,21 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 上述代码添加了 `AsNoTracking`。 由于未跟踪返回的实体，因此 `AsNoTracking` 提升了性能。 未跟踪实体，因为未在当前上下文中更新这些实体。
 
-使用以下突出显示的标记更新 Pages/Courses/Index.cshtml  ：
+使用以下突出显示的标记更新 Pages/Courses/Index.cshtml：
 
 [!code-html[](intro/samples/cu/Pages/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
 对基架代码进行了以下更改：
 
 * 将标题从“索引”更改为“课程”。
-* 添加了显示 `CourseID` 属性值的“数字”列  。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在此情况下主键是有意义的。
-* 更改“院系”列，显示院系名称  。 该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：
+* 添加了显示 `CourseID` 属性值的“数字”列。 默认情况下，不针对主键进行架构，因为对最终用户而言，它们通常没有意义。 但在此情况下主键是有意义的。
+* 更改“院系”列，显示院系名称。 该代码显示已加载到 `Department` 导航属性中的 `Department` 实体的 `Name` 属性：
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-运行应用并选择“课程”选项卡，查看包含系名称的列表  。
+运行应用并选择“课程”选项卡，查看包含系名称的列表。
 
 ![“课程索引”页](read-related-data/_static/courses-index.png)
 
@@ -465,7 +471,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 “讲师”页显示来自三个不同表格的数据。 创建一个视图模型，该模型中包含表示三个表格的三个实体。
 
-在 SchoolViewModels  文件夹中，使用以下代码创建 InstructorIndexData.cs  ：
+在 SchoolViewModels 文件夹中，使用以下代码创建 InstructorIndexData.cs：
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/InstructorIndexData.cs)]
 
@@ -488,13 +494,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 上述命令为 `Instructor` 模型创建基架。 
 运行应用并导航到“讲师”页。
 
-将 Pages/Instructors/Index.cshtml.cs  替换为以下代码：
+将 Pages/Instructors/Index.cshtml.cs 替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,18-99)]
 
 `OnGetAsync` 方法接受所选讲师 ID 的可选路由数据。
 
-检查 Pages/Instructors/Index.cshtml.cs 文件中的查询  ：
+检查 Pages/Instructors/Index.cshtml.cs 文件中的查询：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index1.cshtml.cs?name=snippet_ThenInclude)]
 
@@ -505,13 +511,13 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 ### <a name="update-the-instructors-index-page"></a>更新“讲师索引”页
 
-使用以下标记更新 Pages/Instructors/Index.cshtml  ：
+使用以下标记更新 Pages/Instructors/Index.cshtml：
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=1-65&highlight=1,5,8,16-21,25-32,43-57)]
 
 上述标记进行以下更改：
 
-* 将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。 `"{id:int?}"` 是一个路由模板。 路由模板将 URL 中的整数查询字符串更改为路由数据。 例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL  ：
+* 将 `page` 指令从 `@page` 更新为 `@page "{id:int?}"`。 `"{id:int?}"` 是一个路由模板。 路由模板将 URL 中的整数查询字符串更改为路由数据。 例如，单击仅具有 `@page` 指令的讲师的“选择”链接将生成如下 URL：
 
   `http://localhost:1234/Instructors?id=2`
 
@@ -519,8 +525,8 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
   `http://localhost:1234/Instructors/2`
 
-* 页标题为“讲师”  。
-* 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列  。 由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。
+* 页标题为“讲师”。
+* 添加了仅在 `item.OfficeAssignment` 不为 null 时才显示 `item.OfficeAssignment.Location` 的“办公室”列。 由于这是一对零或一的关系，因此可能没有相关的 OfficeAssignment 实体。
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -529,7 +535,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   }
   ```
 
-* 添加了显示每位讲师所授课程的“课程”列  。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
+* 添加了显示每位讲师所授课程的“课程”列。 有关此 razor 语法的详细信息，请参阅[显式行转换](xref:mvc/views/razor#explicit-line-transition)。
 
 * 添加了向所选讲师的 `tr` 元素中动态添加 `class="success"` 的代码。 此时会使用 Bootstrap 类为所选行设置背景色。
 
@@ -542,19 +548,19 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
   <tr class="@selectedRow">
   ```
 
-* 添加了标记为“选择”的新的超链接  。 该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。
+* 添加了标记为“选择”的新的超链接。 该链接将所选讲师的 ID 发送给 `Index` 方法并设置背景色。
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-运行应用并选择“讲师”选项卡  。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。 如果 OfficeAssignment` 为 NULL，则显示空白表格单元格。
+运行应用并选择“讲师”选项卡。该页显示来自相关 `OfficeAssignment` 实体的 `Location`（办公室）。 如果 OfficeAssignment` 为 NULL，则显示空白表格单元格。
 
-单击“选择”  链接。 随即更改行样式。
+单击“选择”链接。 随即更改行样式。
 
 ### <a name="add-courses-taught-by-selected-instructor"></a>添加由所选讲师教授的课程
 
-将 Pages/Instructors/Index.cshtml.cs  中的 `OnGetAsync` 方法替换为以下代码：
+将 Pages/Instructors/Index.cshtml.cs 中的 `OnGetAsync` 方法替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_OnGetAsync&highlight=1,8,16-999)]
 
@@ -585,23 +591,23 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_courseID)]
 
-在 Pages/Instructors/Index.cshtml Razor 页面末尾添加以下标记  ：
+在 Pages/Instructors/Index.cshtml Razor 页面末尾添加以下标记：
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=60-102&highlight=7-999)]
 
 上述标记显示选中某讲师时与该讲师相关的课程列表。
 
-测试应用。 单击讲师页面上的“选择”  链接。
+测试应用。 单击讲师页面上的“选择”链接。
 
 ### <a name="show-student-data"></a>显示学生数据
 
 在本部分中，更新应用以显示所选课程的学生数据。
 
-使用以下代码在 Pages/Instructors/Index.cshtml.cs  中更新 `OnGetAsync` 方法中的查询：
+使用以下代码在 Pages/Instructors/Index.cshtml.cs 中更新 `OnGetAsync` 方法中的查询：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index.cshtml.cs?name=snippet_ThenInclude&highlight=6-9)]
 
-更新 Pages/Instructors/Index.cshtml  。 在文件末尾添加以下标记：
+更新 Pages/Instructors/Index.cshtml。 在文件末尾添加以下标记：
 
 [!code-html[](intro/samples/cu/Pages/Instructors/IndexRRD.cshtml?range=103-)]
 
@@ -631,7 +637,7 @@ EF Core 可采用多种方式将相关数据加载到实体的导航属性中：
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/IndexXp.cshtml.cs?name=snippet_OnGetAsync&highlight=9-13,29-35)]
 
-上述代码取消针对注册和学生数据的 ThenInclude 方法调用  。 如果已选中课程，则突出显示的代码会检索：
+上述代码取消针对注册和学生数据的 ThenInclude 方法调用。 如果已选中课程，则突出显示的代码会检索：
 
 * 所选课程的 `Enrollment` 实体。
 * 每个 `Enrollment` 的 `Student` 实体。

@@ -1,12 +1,24 @@
 ---
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
+title: ASP.NET Core Blazor 窗体和验证
+author: guardrex
+description: 了解如何在 Blazor 中使用窗体和字段验证方案。
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/04/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/forms-validation
+ms.openlocfilehash: 707686cdc4ceb6605d6214eeeee0f6dd2e121c90
+ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84679522"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor 窗体和验证
 
@@ -62,114 +74,13 @@ public class ExampleModel
 可使用一组内置的输入组件来接收和验证用户输入。 当更改输入和提交窗体时，将验证输入。 下表显示了可用的输入组件。
 
 | 输入组件 | 呈现为&hellip; |
-| ---
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--------- | --- title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
--
-title:'ASP.NET Core Blazor 窗体和验证' author: description:'了解如何在 Blazor 中使用窗体和字段验证方案。'
-monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
----------- | | <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` | | <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` | | <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
+| --------------- | ------------------- |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
 
 所有输入组件（包括 <xref:Microsoft.AspNetCore.Components.Forms.EditForm>）都支持任意属性。 与某个组件参数不匹配的所有属性都将添加到呈现的 HTML 元素中。
 
@@ -335,7 +246,9 @@ public class Starship
 
 使用 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 组件创建一个使用 `input` 事件而不是 `change` 事件的自定义组件。
 
-使用以下标记创建一个组件，并像使用 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 一样使用该组件：
+在下面的示例中，`CustomInputText` 组件继承框架的 `InputText` 组件，并将事件绑定 (<xref:Microsoft.AspNetCore.Components.EventCallbackFactoryBinderExtensions.CreateBinder%2A>) 设置为 `oninput` 事件。
+
+Shared/CustomInputText.razor：
 
 ```razor
 @inherits InputText
@@ -343,9 +256,48 @@ public class Starship
 <input 
     @attributes="AdditionalAttributes" 
     class="@CssClass" 
-    value="@CurrentValue" 
+    value="@CurrentValue"
     @oninput="EventCallback.Factory.CreateBinder<string>(
-        this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+         this, __value => CurrentValueAsString = __value, 
+         CurrentValueAsString)" />
+```
+
+`CustomInputText` 组件可在任何使用 <xref:Microsoft.AspNetCore.Components.Forms.InputText> 的位置使用：
+
+Pages/TestForm.razor：
+
+```razor
+@page  "/testform"
+@using System.ComponentModel.DataAnnotations;
+
+<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <CustomInputText @bind-Value="exampleModel.Name" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<p>
+    CurrentValue: @exampleModel.Name
+</p>
+
+@code {
+    private ExampleModel exampleModel = new ExampleModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+    public class ExampleModel
+    {
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string Name { get; set; }
+    }
+}
 ```
 
 ## <a name="work-with-radio-buttons"></a>使用单选按钮

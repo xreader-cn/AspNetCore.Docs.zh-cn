@@ -1,18 +1,24 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
+title: 第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
 author: rick-anderson
-description: 演示如何使用 EF Core 进行创建、读取、更新和删除。
+description: Razor 页面和实体框架教程系列第 2 部分。
 ms.author: riande
 ms.date: 07/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: 05519852fab22bd3ad5b77e3494b49191448286f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 62e35639d5e3d43bd20c9f92b75fa101d7914f82
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78650148"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652357"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - CRUD - 第 2 个教程（共 8 个）
+# <a name="part-2-razor-pages-with-ef-core-in-aspnet-core---crud"></a>第 2 部分，ASP.NET Core 中的 Razor 页面和 EF Core - CRUD
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog) 和 [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -32,7 +38,7 @@ ms.locfileid: "78650148"
 
 ### <a name="read-enrollments"></a>读取注册
 
-为了在页面上显示学生的注册数据，你需要读取这些数据。 Pages/Students/Details.cshtml.cs 中的基架代码仅读取学生数据，但不读取注册数据  ：
+为了在页面上显示学生的注册数据，你需要读取这些数据。 Pages/Students/Details.cshtml.cs 中的基架代码仅读取学生数据，但不读取注册数据：
 
 [!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Pages/Students/Details1.cshtml.cs?name=snippet_OnGetAsync&highlight=8)]
 
@@ -52,7 +58,7 @@ ms.locfileid: "78650148"
 
 上面的代码循环通过 `Enrollments` 导航属性中的实体。 它将针对每个注册显示课程标题和成绩。 课程标题从 Course 实体中检索，该实体存储在 Enrollments 实体的 `Course` 导航属性中。
 
-运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接   。 随即显示出所选学生的课程和成绩列表。
+运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接 。 随即显示出所选学生的课程和成绩列表。
 
 ### <a name="ways-to-read-one-entity"></a>读取一个实体的方法
 
@@ -67,7 +73,7 @@ ms.locfileid: "78650148"
 
 ## <a name="update-the-create-page"></a>更新“创建”页
 
-“创建”页面的基架 `OnPostAsync` 代码容易受到[过多发布攻击](#overposting)。 使用以下代码替换 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法  。
+“创建”页面的基架 `OnPostAsync` 代码容易受到[过多发布攻击](#overposting)。 使用以下代码替换 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法。
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Create.cshtml.cs?name=snippet_OnPostAsync)]
 
@@ -104,7 +110,7 @@ ms.locfileid: "78650148"
 
 应用程序模型通常称为域模型。 域模型通常包含数据库中对应实体所需的全部属性。 视图模型只包含它所用于的 UI（例如，“创建”页）所需的属性。
 
-除视图模型外，某些应用使用绑定模型或输入模型在“Razor 页面”页面模型类和浏览器之间传递数据。 
+除视图模型外，某些应用使用绑定模型或输入模型在 Razor Pages 页面模型类和浏览器之间传递数据。 
 
 请考虑以下 `Student` 视图模型：
 
@@ -120,7 +126,7 @@ ms.locfileid: "78650148"
 
 ## <a name="update-the-edit-page"></a>更新“编辑”页
 
-在 Pages/Students/Edit.cshtml.cs 中，使用以下代码替换 `OnGetAsync` 和 `OnPostAsync` 方法  。
+在 Pages/Students/Edit.cshtml.cs 中，使用以下代码替换 `OnGetAsync` 和 `OnPostAsync` 方法。
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Edit.cshtml.cs?name=snippet_OnGetPost)]
 
@@ -167,7 +173,7 @@ ms.locfileid: "78650148"
 * 捕获数据库异常。
 * 通过 `saveChangesError=true` 调用“删除”页 `OnGetAsync` 方法。
 
-向“删除”Razor 页面添加错误消息 (Pages/Students/Delete.cshtml)  ：
+向“删除”Razor 页面添加错误消息 (Pages/Students/Delete.cshtml)：
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/Students/Delete.cshtml?highlight=10)]
 
@@ -185,9 +191,9 @@ ms.locfileid: "78650148"
 
 本教程将介绍和自定义已搭建基架的 CRUD （创建、读取、更新、删除）代码。
 
-为最大程度降低复杂性并让这些教程集中介绍 EF Core，将在页面模型中使用 EF Core 代码。 某些开发人员使用服务层或存储库模式在 UI（Razor 页面）和数据访问层之间创建抽象层。
+为最大程度降低复杂性并让这些教程集中介绍 EF Core，将在页面模型中使用 EF Core 代码。 某些开发人员使用服务层或存储库模式在 UI (Razor Pages) 和数据访问层之间创建抽象层。
 
-本教程将检查“学生”文件夹中的“创建”、“编辑”、“删除”和“详细信息”Razor Pages  。
+本教程将检查 Students 文件夹中的“创建”、“编辑”、“删除”和“详细信息”Razor 页面。
 
 基架代码将以下模式用于“创建”、“编辑”和“删除”页面：
 
@@ -225,15 +231,15 @@ ms.locfileid: "78650148"
 
 ## <a name="customize-the-details-page"></a>自定义“详细信息”页
 
-浏览到 `Pages/Students` 页面。 “编辑”、“详细信息”和“删除”链接是在 Pages/Students/Index.cshtml 文件中由[定位点标记帮助器](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的     。
+浏览到 `Pages/Students` 页面。 “编辑”、“详细信息”和“删除”链接是在 Pages/Students/Index.cshtml 文件中由[定位点标记帮助器](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)生成的  。
 
 [!code-cshtml[](intro/samples/cu21/Pages/Students/Index1.cshtml?name=snippet)]
 
-运行应用并选择“详细信息”链接  。 URL 的格式为 `http://localhost:5000/Students/Details?id=2`。 “学生 ID”通过查询字符串 (`?id=2`) 进行传递。
+运行应用并选择“详细信息”链接。 URL 的格式为 `http://localhost:5000/Students/Details?id=2`。 “学生 ID”通过查询字符串 (`?id=2`) 进行传递。
 
 更新“编辑”、“详细信息”和“删除”Razor 页面以使用 `"{id:int}"` 路由模板。 将上述每个页面的页面指令从 `@page` 更改为 `@page "{id:int}"`。
 
-如果对具有不包含整数路由值的“{id:int}”路由模板的页面发起请求，则该请求将返回 HTTP 404（找不到）错误  。 例如，`http://localhost:5000/Students/Details` 返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
+如果对具有不包含整数路由值的“{id:int}”路由模板的页面发起请求，则该请求将返回 HTTP 404（找不到）错误。 例如，`http://localhost:5000/Students/Details` 返回 404 错误。 若要使 ID 可选，请将 `?` 追加到路由约束：
 
  ```cshtml
 @page "{id:int?}"
@@ -249,7 +255,7 @@ ms.locfileid: "78650148"
 
 “学生索引”页的基架代码不包括 `Enrollments` 属性。 在本部分，`Enrollments` 集合的内容显示在“详细信息”页中。
 
-Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAsync` 方法检索单个 `Student` 实体  。 添加以下突出显示的代码：
+Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAsync` 方法检索单个 `Student` 实体。 添加以下突出显示的代码：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Details.cshtml.cs?name=snippet_Details&highlight=8-12)]
 
@@ -259,7 +265,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 ### <a name="display-related-enrollments-on-the-details-page"></a>在“详细信息”页中显示相关注册
 
-打开 Pages/Students/Details.cshtml  。 添加以下突出显示的代码以显示注册列表：
+打开 Pages/Students/Details.cshtml。 添加以下突出显示的代码以显示注册列表：
 
 [!code-cshtml[](intro/samples/cu21/Pages/Students/Details.cshtml?highlight=32-53)]
 
@@ -267,11 +273,11 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 上面的代码循环通过 `Enrollments` 导航属性中的实体。 它将针对每个注册显示课程标题和成绩。 课程标题从 Course 实体中检索，该实体存储在 Enrollments 实体的 `Course` 导航属性中。
 
-运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接   。 随即显示出所选学生的课程和成绩列表。
+运行应用，选择“学生”选项卡，然后单击学生的“详细信息”链接 。 随即显示出所选学生的课程和成绩列表。
 
 ## <a name="update-the-create-page"></a>更新“创建”页
 
-将 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法更新为以下代码  ：
+将 Pages/Students/Create.cshtml.cs 中的 `OnPostAsync` 方法更新为以下代码：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Create.cshtml.cs?name=snippet_OnPostAsync)]
 
@@ -298,7 +304,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 [!code-csharp[](intro/samples/cu21/Models/StudentZsecret.cs?name=snippet_Intro&highlight=7)]
 
-即使应用的创建/更新 Razor 页面上没有 `Secret` 字段，黑客仍可利用过多发布设置 `Secret` 值。 黑客也可使用 Fiddler 等工具或通过编写某个 JavaScript 来发布 `Secret` 表单值。 原始代码不会限制模型绑定器在创建“学生”实例时使用的字段。
+即使应用的创建或更新 Razor 页面上没有 `Secret` 字段，黑客仍可利用过多发布设置 `Secret` 值。 黑客也可使用 Fiddler 等工具或通过编写某个 JavaScript 来发布 `Secret` 表单值。 原始代码不会限制模型绑定器在创建“学生”实例时使用的字段。
 
 黑客为 `Secret` 表单字段指定的任何值都会在 DB 中更新。 下图显示 Fiddler 工具正在将 `Secret` 字段（值为“OverPost”）添加到已发布的表单值。
 
@@ -310,7 +316,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 ### <a name="view-model"></a>视图模型
 
-视图模型通常包含应用程序所用的模型中包括的属性的子集。 应用程序模型通常称为域模型。 域模型通常包含 DB 中对应实体所需的全部属性。 视图模型仅包含 UI 层（例如“创建”页）所需的属性。 除视图模型外，某些应用使用绑定模型或输入模型在“Razor 页面”页面模型类和浏览器之间传递数据。 请考虑以下 `Student` 视图模型：
+视图模型通常包含应用程序所用的模型中包括的属性的子集。 应用程序模型通常称为域模型。 域模型通常包含 DB 中对应实体所需的全部属性。 视图模型仅包含 UI 层（例如“创建”页）所需的属性。 除视图模型外，某些应用使用绑定模型或输入模型在 Razor Pages 页面模型类和浏览器之间传递数据。 请考虑以下 `Student` 视图模型：
 
 [!code-csharp[](intro/samples/cu21/Models/StudentVM.cs)]
 
@@ -324,7 +330,7 @@ Pages/Students/Details.cshtml.cs 的 `OnGetAsync` 方法使用 `FirstOrDefaultAs
 
 使用 `StudentVM` 时需要更新 [CreateVM.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) 才能使用 `StudentVM` 而非 `Student`。
 
-在 Razor 页面，`PageModel` 派生类就是视图模型。
+在 Razor Pages 中，`PageModel` 派生类就是视图模型。
 
 ## <a name="update-the-edit-page"></a>更新“编辑”页
 
@@ -399,7 +405,7 @@ DB 上下文会随时跟踪内存中的实体是否已与其在 DB 中的对应�
 
 “学生/索引”或其他链接不起作用：
 
-验证确认 Razor 页面包含正确的 `@page` 指令。 例如，“学生/索引”Razor Pages 不得  包含路由模板：
+验证确认 Razor 页面包含正确的 `@page` 指令。 例如，“学生”/“索引”Razor 页面不得包含路由模板：
 
 ```cshtml
 @page "{id:int}"

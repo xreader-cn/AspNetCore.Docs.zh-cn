@@ -1,19 +1,25 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页 - 第 3 个教程（共 8 个）
+title: 第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页
 author: rick-anderson
-description: 本教程将使用 ASP.NET Core 和 Entity Framework Core 向 Razor 页面添加排序、筛选和分页功能。
+description: Razor 页面和实体框架教程系列的第 3 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 9563f3ef52ce429eb0a58b468acb8e9cd7b276e2
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 99b14c99cb99d106604f1a4edacf1da0a2d6125c
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78645492"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652590"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页 - 第 3 个教程（共 8 个）
+# <a name="part-3-razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>第 3 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 排序、筛选、分页
 
 作者：[Tom Dykstra](https://github.com/tdykstra)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Jon P Smith](https://twitter.com/thereformedprog)
 
@@ -29,7 +35,7 @@ ms.locfileid: "78645492"
 
 ## <a name="add-sorting"></a>添加排序
 
-使用以下代码替换 Pages/Students/Index.cshtml.cs 中的代码，以添加排序  。
+使用以下代码替换 Pages/Students/Index.cshtml.cs 中的代码，以添加排序。
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
 
@@ -43,13 +49,13 @@ ms.locfileid: "78645492"
 
 `sortOrder` 参数为“名称”或“日期”。 `sortOrder` 参数后面可跟“_desc”以指定降序（可选）。 默认排序顺序为升序。
 
-如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串  。 学生按姓氏升序显示。 按姓氏升序是 `switch` 语句中的默认顺序 (fall-through case)。 用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。
+如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串。 学生按姓氏升序显示。 按姓氏升序是 `switch` 语句中的默认顺序 (fall-through case)。 用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。
 
 Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
-该代码使用 C# 条件运算符 [?:](/dotnet/csharp/language-reference/operators/conditional-operator)。 `?:` 运算符是三元运算符（采用三个操作数）。 第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为“name_desc”。 如果 `sortOrder` 不为 NULL 或不为空，则 `NameSort` 设置为空字符串  。
+该代码使用 C# 条件运算符 [?:](/dotnet/csharp/language-reference/operators/conditional-operator)。 `?:` 运算符是三元运算符（采用三个操作数）。 第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为“name_desc”。 如果 `sortOrder` 不为 NULL 或不为空，则 `NameSort` 设置为空字符串。
 
 通过这两个语句，页面可如下设置列标题超链接：
 
@@ -72,7 +78,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>向“学生索引”页添加列标题超链接
 
-使用以下代码替换 Students/Index.cshtml 中的代码  。 突出显示所作更改。
+使用以下代码替换 Students/Index.cshtml 中的代码。 突出显示所作更改。
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 
@@ -85,7 +91,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 若要验证排序是否生效：
 
-* 运行应用并选择“学生”选项卡  。
+* 运行应用并选择“学生”选项卡。
 * 单击列标题。
 
 ## <a name="add-filtering"></a>添加筛选
@@ -97,7 +103,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="update-the-ongetasync-method"></a>更新 OnGetAsync 方法
 
-使用以下代码替换 Students/Index.cshtml.cs 中的代码，以添加筛选  ：
+使用以下代码替换 Students/Index.cshtml.cs 中的代码，以添加筛选：
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
 
@@ -128,7 +134,7 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
 ### <a name="update-the-razor-page"></a>更新 Razor 页面
 
-替换 Pages/Students/Index.cshtml 中的代码，以创建“搜索”按钮和各种 chrome   。
+替换 Pages/Students/Index.cshtml 中的代码，以创建“搜索”按钮和各种 chrome。
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml?highlight=14-23)]
 
@@ -136,9 +142,9 @@ Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
 测试应用：
 
-* 选择“学生”选项卡并输入搜索字符串  。 如果使用 SQLite，则只有在实现上述可选 `ToUpper` 代码时，筛选器才不区分大小写。
+* 选择“学生”选项卡并输入搜索字符串。 如果使用 SQLite，则只有在实现上述可选 `ToUpper` 代码时，筛选器才不区分大小写。
 
-* 选择“搜索”  。
+* 选择“搜索”。
 
 请注意，该 URL 包含搜索字符串。 例如：
 
@@ -148,7 +154,7 @@ https://localhost:<port>/Students?SearchString=an
 
 如果页面具有书签，该书签将包含该页面的 URL 和 `SearchString` 查询字符串。 `form` 标记中的 `method="get"` 会导致生成查询字符串。
 
-目前，选中列标题排序链接时，“搜索”框中的筛选值会丢失  。 丢失的筛选值在下一部分进行修复。
+目前，选中列标题排序链接时，“搜索”框中的筛选值会丢失。 丢失的筛选值在下一部分进行修复。
 
 ## <a name="add-paging"></a>添加分页
 
@@ -162,13 +168,13 @@ https://localhost:<port>/Students?SearchString=an
 
 [!code-csharp[Main](intro/samples/cu30/PaginatedList.cs)]
 
-上述代码中的 `CreateAsync` 方法会提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含所请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 用于启用或禁用“上一页”和“下一页”分页按钮   。
+上述代码中的 `CreateAsync` 方法会提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含所请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 用于启用或禁用“上一页”和“下一页”分页按钮 。
 
 `CreateAsync` 方法用于创建 `PaginatedList<T>`。 构造函数不能创建 `PaginatedList<T>` 对象；构造函数不能运行异步代码。
 
 ### <a name="add-paging-to-the-pagemodel-class"></a>向 PageModel 类添加分页
 
-替换 Students/Index.cshtml.cs 中的代码以添加分页  。
+替换 Students/Index.cshtml.cs 中的代码以添加分页。
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
 
@@ -182,7 +188,7 @@ https://localhost:<port>/Students?SearchString=an
 
 出现以下情况时，`OnGetAsync` 接收到的所有参数均为 NULL：
 
-* 从“学生”链接调用页面  。
+* 从“学生”链接调用页面。
 * 用户尚未单击分页或排序链接。
 
 单击分页链接后，页面索引变量将包含要显示的页码。
@@ -194,7 +200,7 @@ https://localhost:<port>/Students?SearchString=an
 * 必须包含在分页链接中才能在分页过程中保留筛选设置。
 * 必须在重新显示页面时还原到文本框。
 
-如果在分页时更改搜索字符串，页码会重置为 1。 页面必须重置为 1，因为新的筛选器会导致显示不同的数据。 输入搜索值并选择“提交”时  ：
+如果在分页时更改搜索字符串，页码会重置为 1。 页面必须重置为 1，因为新的筛选器会导致显示不同的数据。 输入搜索值并选择“提交”时：
 
   * 搜索字符串将会更改。
   * `searchString` 参数不为 NULL。
@@ -205,7 +211,7 @@ https://localhost:<port>/Students?SearchString=an
 
 ### <a name="add-paging-links-to-the-razor-page"></a>向 Razor 页面添加分页链接
 
-使用以下代码替换 Students/Index.cshtml 中的代码  。 突出显示所作更改：
+使用以下代码替换 Students/Index.cshtml 中的代码。 突出显示所作更改：
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/Students/Index.cshtml?highlight=29-32,38-41,69-87)]
 
@@ -228,26 +234,26 @@ https://localhost:<port>/Students?SearchString=an
 
 本节创建“关于”页面，页面中显示每个注册日期的注册学生数。 更新需使用分组并包括以下步骤：
 
-* 为“关于”页使用的数据创建视图模型  。
+* 为“关于”页使用的数据创建视图模型。
 * 更新“关于”页以使用视图模型。
 
 ### <a name="create-the-view-model"></a>创建视图模型
 
-创建“Models/SchoolViewModels”文件夹  。
+创建“Models/SchoolViewModels”文件夹。
 
-使用以下代码创建 SchoolViewModels/EnrollmentDateGroup.cs  ：
+使用以下代码创建 SchoolViewModels/EnrollmentDateGroup.cs：
 
 [!code-csharp[Main](intro/samples/cu30/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
 ### <a name="create-the-razor-page"></a>创建 Razor 页面
 
-使用以下代码创建 Pages/About.cshtml 文件  ：
+使用以下代码创建 Pages/About.cshtml 文件：
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/About.cshtml)]
 
 ### <a name="create-the-page-model"></a>创建页面模型
 
-使用以下代码创建 Pages/About.cshtml.cs 文件  ：
+使用以下代码创建 Pages/About.cshtml.cs 文件：
 
 [!code-csharp[Main](intro/samples/cu30/Pages/About.cshtml.cs)]
 
@@ -279,11 +285,11 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ## <a name="add-sorting-to-the-index-page"></a>向索引页添加排序
 
-向 Students/Index.cshtml.cs `PageModel` 添加字符串，使其包含排序参数  ：
+向 Students/Index.cshtml.cs `PageModel` 添加字符串，使其包含排序参数：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet1&highlight=10-13)]
 
-用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly)]
 
@@ -292,7 +298,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 `sortOrder` 参数为“名称”或“日期”。 `sortOrder` 参数后面可跟“_desc”以指定降序（可选）。 默认排序顺序为升序。
 
-如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串  。 学生按姓氏升序显示。 按姓氏升序是 `switch` 语句中的默认顺序 (fall-through case)。 用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。
+如果通过“学生”链接对“索引”页发起请求，则不会有任何查询字符串。 学生按姓氏升序显示。 按姓氏升序是 `switch` 语句中的默认顺序 (fall-through case)。 用户单击列标题链接时，查询字符串值中会提供相应的 `sortOrder` 值。
 
 Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应的查询字符串值：
 
@@ -302,7 +308,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_Ternary)]
 
-第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为“name_desc”。 如果 `sortOrder` 不为 NULL 或不为空，则 `NameSort` 设置为空字符串  。
+第一行指定当 `sortOrder` 为 NULL 或为空时，`NameSort` 设置为“name_desc”。 如果 `sortOrder` 不为 NULL 或不为空，则 `NameSort` 设置为空字符串。
 
 `?: operator` 也称为三元运算符。
 
@@ -327,7 +333,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>向“学生索引”页添加列标题超链接
 
-将 Students/Index.cshtml 中的代码替换为以下突出显示的代码  ：
+将 Students/Index.cshtml 中的代码替换为以下突出显示的代码：
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
@@ -338,15 +344,15 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 若要验证排序是否生效：
 
-* 运行应用并选择“学生”选项卡  。
-* 单击“姓氏”  。
-* 单击“注册日期”  。
+* 运行应用并选择“学生”选项卡。
+* 单击“姓氏”。
+* 单击“注册日期”。
 
 若要更好地了解此代码：
 
-* 请在 Student/Index.cshtml.cs 中的 `switch (sortOrder)` 上设置断点。 
+* 请在 Student/Index.cshtml.cs 中的 `switch (sortOrder)` 上设置断点。
 * 添加对 `NameSort` 和 `DateSort` 的监视。
-* 请在 Student/Index.cshtml.cs 中的 `@Html.DisplayNameFor(model => model.Student[0].LastName)` 上设置断点。 
+* 请在 Student/Index.cshtml.cs 中的 `@Html.DisplayNameFor(model => model.Student[0].LastName)` 上设置断点。
 
 单步执行调试程序。
 
@@ -359,7 +365,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-filtering-functionality-to-the-index-method"></a>向 Index 方法添加筛选功能
 
-用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
@@ -383,7 +389,7 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 ### <a name="add-a-search-box-to-the-student-index-page"></a>向“学生索引”页添加搜索框
 
-在 Pages/Students/Index.cshtml中，添加以下突出显示的代码以创建“搜索”按钮和各种 chrome   。
+在 Pages/Students/Index.cshtml中，添加以下突出显示的代码以创建“搜索”按钮和各种 chrome。
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
 
@@ -391,8 +397,8 @@ Razor 页面使用 `NameSort` 和 `DateSort` 为列标题超链接配置相应�
 
 测试应用：
 
-* 选择“学生”选项卡并输入搜索字符串  。
-* 选择“搜索”  。
+* 选择“学生”选项卡并输入搜索字符串。
+* 选择“搜索”。
 
 请注意，该 URL 包含搜索字符串。
 
@@ -402,7 +408,7 @@ http://localhost:5000/Students?SearchString=an
 
 如果页面具有书签，该书签将包含该页面的 URL 和 `SearchString` 查询字符串。 `form` 标记中的 `method="get"` 会导致生成查询字符串。
 
-目前，选中列标题排序链接时，“搜索”框中的筛选值会丢失  。 丢失的筛选值在下一部分进行修复。
+目前，选中列标题排序链接时，“搜索”框中的筛选值会丢失。 丢失的筛选值在下一部分进行修复。
 
 ## <a name="add-paging-functionality-to-the-students-index-page"></a>向“学生索引”页添加分页功能
 
@@ -414,17 +420,17 @@ http://localhost:5000/Students?SearchString=an
 
 [!code-csharp[](intro/samples/cu21/PaginatedList.cs)]
 
-上述代码中的 `CreateAsync` 方法会提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含所请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 用于启用或禁用“上一页”和“下一页”分页按钮   。
+上述代码中的 `CreateAsync` 方法会提取页面大小和页码，并将相应的 `Skip` 和 `Take` 语句应用于 `IQueryable`。 当在 `IQueryable` 上调用 `ToListAsync` 时，它将返回仅包含所请求页的列表。 属性 `HasPreviousPage` 和 `HasNextPage` 用于启用或禁用“上一页”和“下一页”分页按钮 。
 
 `CreateAsync` 方法用于创建 `PaginatedList<T>`。 构造函数不能创建 `PaginatedList<T>` 对象；构造函数不能运行异步代码。
 
 ## <a name="add-paging-functionality-to-the-index-method"></a>向 Index 方法添加分页功能
 
-在 Students/Index.cshtml.cs 中，将 `Student` 的类型从 `IList<Student>` 更新到 `PaginatedList<Student>`  ：
+在 Students/Index.cshtml.cs 中，将 `Student` 的类型从 `IList<Student>` 更新到 `PaginatedList<Student>`：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPageType)]
 
-用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`  ：
+用以下代码更新 Students/Index.cshtml.cs `OnGetAsync`：
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage&highlight=1-4,7-14,41-999)]
 
@@ -434,7 +440,7 @@ http://localhost:5000/Students?SearchString=an
 
 出现以下情况时，所有参数均为 NULL：
 
-* 从“学生”链接调用页面  。
+* 从“学生”链接调用页面。
 * 用户尚未单击分页或排序链接。
 
 单击分页链接后，页面索引变量将包含要显示的页码。
@@ -446,7 +452,7 @@ http://localhost:5000/Students?SearchString=an
 * 必须包含在分页链接中才能在分页过程中保留筛选设置。
 * 必须在重新显示页面时还原到文本框。
 
-如果在分页时更改搜索字符串，页码会重置为 1。 页面必须重置为 1，因为新的筛选器会导致显示不同的数据。 输入搜索值并选择“提交”时  ：
+如果在分页时更改搜索字符串，页码会重置为 1。 页面必须重置为 1，因为新的筛选器会导致显示不同的数据。 输入搜索值并选择“提交”时：
 
 * 搜索字符串将会更改。
 * `searchString` 参数不为 NULL。
@@ -461,7 +467,7 @@ http://localhost:5000/Students?SearchString=an
 
 ## <a name="add-paging-links-to-the-student-razor-page"></a>向“学生”Razor 页面添加分页链接
 
-更新 Students/Index.cshtml 中的标记  。 突出显示所作更改：
+更新 Students/Index.cshtml 中的标记。 突出显示所作更改：
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
 
@@ -482,32 +488,32 @@ http://localhost:5000/Students?SearchString=an
 
 若要更好地了解此代码：
 
-* 请在 Student/Index.cshtml.cs 中的 `switch (sortOrder)` 上设置断点。 
+* 请在 Student/Index.cshtml.cs 中的 `switch (sortOrder)` 上设置断点。
 * 添加对 `NameSort`、`DateSort`、`CurrentSort` 和 `Model.Student.PageIndex` 的监视。
-* 请在 Student/Index.cshtml.cs 中的 `@Html.DisplayNameFor(model => model.Student[0].LastName)` 上设置断点。 
+* 请在 Student/Index.cshtml.cs 中的 `@Html.DisplayNameFor(model => model.Student[0].LastName)` 上设置断点。
 
 单步执行调试程序。
 
 ## <a name="update-the-about-page-to-show-student-statistics"></a>更新“关于”页以显示学生统计信息
 
-此步骤将更新 Pages/About.cshtml，显示每个注册日期的已注册学生的数量  。 更新需使用分组并包括以下步骤：
+此步骤将更新 Pages/About.cshtml，显示每个注册日期的已注册学生的数量。 更新需使用分组并包括以下步骤：
 
-* 为“关于”页使用的数据创建视图模型  。
+* 为“关于”页使用的数据创建视图模型。
 * 更新“关于”页以使用视图模型。
 
 ### <a name="create-the-view-model"></a>创建视图模型
 
-在 Models 文件夹中创建一个 SchoolViewModels 文件夹   。
+在 Models 文件夹中创建一个 SchoolViewModels 文件夹 。
 
-在 SchoolViewModels 文件夹中，使用以下代码添加 EnrollmentDateGroup.cs   ：
+在 SchoolViewModels 文件夹中，使用以下代码添加 EnrollmentDateGroup.cs ：
 
 [!code-csharp[](intro/samples/cu21/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
 ### <a name="update-the-about-page-model"></a>更新“关于”页面模型
 
-ASP.NET Core 2.2 中的 Web 模板不包含“关于”页面。 如果使用的是 ASP.NET Core 2.2，请创建“关于 Razor”页面。
+ASP.NET Core 2.2 中的 Web 模板不包含“关于”页面。 如果使用的是 ASP.NET Core 2.2，请创建“关于”Razor页面。
 
-用以下代码更新 Pages/About.cshtml.cs 文件  ：
+用以下代码更新 Pages/About.cshtml.cs 文件：
 
 [!code-csharp[](intro/samples/cu21/Pages/About.cshtml.cs)]
 
@@ -515,7 +521,7 @@ LINQ 语句按注册日期对学生实体进行分组，计算每组中实体的
 
 ### <a name="modify-the-about-razor-page"></a>修改“关于”Razor 页面
 
-将 Pages/About.cshtml 文件中的代码替换为以下代码  ：
+将 Pages/About.cshtml 文件中的代码替换为以下代码：
 
 [!code-html[](intro/samples/cu21/Pages/About.cshtml)]
 

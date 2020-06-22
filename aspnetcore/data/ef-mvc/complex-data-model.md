@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 5e617a201cbd133e695bdadc08dc6c797f97b6be
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 10d6f0bd6f6b95efbe868e4bc21513460e1f0b67
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773622"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652474"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>教程：创建复杂数据模型 - ASP.NET MVC 和 EF Core
 
@@ -56,7 +56,7 @@ ms.locfileid: "82773622"
 
 对于学生注册日期，目前所有网页都显示有时间和日期，尽管对此字段而言重要的只是日期。 使用数据注释特性，可更改一次代码，修复每个视图中数据的显示格式。 若要查看如何执行此操作，请向 `Student` 类的 `EnrollmentDate` 属性添加一个特性。
 
-在 Models/Student.cs 中，为 `System.ComponentModel.DataAnnotations` 命名空间添加一个 `using` 语句，将 `DataType` 和 `DisplayFormat` 特性添加到 `EnrollmentDate` 属性，如以下示例所示  ：
+在 Models/Student.cs 中，为 `System.ComponentModel.DataAnnotations` 命名空间添加一个 `using` 语句，将 `DataType` 和 `DisplayFormat` 特性添加到 `EnrollmentDate` 属性，如以下示例所示：
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
@@ -78,7 +78,7 @@ ms.locfileid: "82773622"
 
 * 默认情况下，浏览器将根据区域设置采用正确的格式呈现数据。
 
-有关详细信息，请参阅 [\<input> 标记帮助器文档](../../mvc/views/working-with-forms.md#the-input-tag-helper)。
+有关详细信息，请参阅 [\<input> 标记帮助程序文档](../../mvc/views/working-with-forms.md#the-input-tag-helper)。
 
 运行应用，进入“学生”索引页，注意注册日期中不再显示时间。 任何使用“学生”模型的视图都是如此。
 
@@ -95,7 +95,7 @@ ms.locfileid: "82773622"
 `StringLength` 特性不会阻止用户在名称中输入空格。 可使用 `RegularExpression` 特性应用输入限制。 例如，以下代码要求第一个字符为大写，其余字符按字母顺序排列：
 
 ```csharp
-[RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+[RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
 ```
 
 `MaxLength` 特性的作用与 `StringLength` 特性类似，但不提供客户端验证。
@@ -112,11 +112,11 @@ dotnet ef migrations add MaxLengthOnNames
 dotnet ef database update
 ```
 
-`migrations add` 命令发出警告：可能出现数据丢失，因为更改后，有两列的最大长度缩短。  迁移时会创建一个名为 \<timeStamp>_MaxLengthOnNames.cs 的文件  。 此文件包含 `Up` 方法中的代码，该代码将更新数据库以匹配当前数据模型。 `database update` 命令运行该代码。
+`migrations add` 命令发出警告：可能出现数据丢失，因为更改后，有两列的最大长度缩短。  迁移时会创建一个名为 \<timeStamp>_MaxLengthOnNames.cs 的文件。 此文件包含 `Up` 方法中的代码，该代码将更新数据库以匹配当前数据模型。 `database update` 命令运行该代码。
 
 Entity Framework 使用迁移文件名的前缀时间戳发出迁移命令。 可在运行 update-database 命令前创建多个迁移，然后按照创建顺序应用所有迁移。
 
-运行该应用，选择“学生”  选项卡，单击“新建”  ，然后尝试输入名称（超过 50 个字符）。 应用程序应该会阻止你执行此操作。 
+运行该应用，选择“学生”选项卡，单击“新建”，然后尝试输入名称（超过 50 个字符）。 应用程序应该会阻止你执行此操作。 
 
 ### <a name="the-column-attribute"></a>Column 特性
 
@@ -124,7 +124,7 @@ Entity Framework 使用迁移文件名的前缀时间戳发出迁移命令。 �
 
 `Column` 特性指定，创建数据库时，映射到 `FirstMidName` 属性的 `Student` 表的列将被命名为 `FirstName`。 换言之，在代码引用 `Student.FirstMidName` 时，数据来源将是 `Student` 表的 `FirstName` 列或在其中进行更新。 如果不指定列名称，则其名称与属性名称相同。
 
-在 Student.cs 文件中，为 `System.ComponentModel.DataAnnotations.Schema` 添加一个 `using` 语句，并将列名称特性添加到 `FirstMidName` 属性，如以下突出显示的代码所示  ：
+在 Student.cs 文件中，为 `System.ComponentModel.DataAnnotations.Schema` 添加一个 `using` 语句，并将列名称特性添加到 `FirstMidName` 属性，如以下突出显示的代码所示：
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_Column&highlight=4,14)]
 
@@ -140,7 +140,7 @@ dotnet ef migrations add ColumnFirstName
 dotnet ef database update
 ```
 
-在 SQL Server 对象资源管理器中，双击 Student 表，打开 Student 表设计器   。
+在 SQL Server 对象资源管理器中，双击 Student 表，打开 Student 表设计器 。
 
 ![迁移后 SSOX 中的 Students 表](complex-data-model/_static/ssox-after-migration.png)
 
@@ -153,7 +153,7 @@ dotnet ef database update
 
 ![Student 实体](complex-data-model/_static/student-entity.png)
 
-在 Models/Student.cs 中，将之前添加的代码替换为以下代码  。 突出显示所作更改。
+在 Models/Student.cs 中，将之前添加的代码替换为以下代码。 突出显示所作更改。
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_BeforeInheritance&highlight=11,13,15,18,22,24-31)]
 
@@ -182,7 +182,7 @@ public string LastName { get; set; }
 
 ![Instructor 实体](complex-data-model/_static/instructor-entity.png)
 
-创建 Models/Instructor.cs，使用以下代码替换模板代码  ：
+创建 Models/Instructor.cs，使用以下代码替换模板代码：
 
 [!code-csharp[](intro/samples/cu/Models/Instructor.cs?name=snippet_BeforeInheritance)]
 
@@ -218,7 +218,7 @@ public OfficeAssignment OfficeAssignment { get; set; }
 
 ![OfficeAssignment 实体](complex-data-model/_static/officeassignment-entity.png)
 
-用以下代码创建 Models/OfficeAssignment.cs  ：
+用以下代码创建 Models/OfficeAssignment.cs：
 
 [!code-csharp[](intro/samples/cu/Models/OfficeAssignment.cs)]
 
@@ -245,7 +245,7 @@ Instructor 实体具有可为 null `OfficeAssignment` 导航属性（因为可�
 
 ![Course 实体](complex-data-model/_static/course-entity.png)
 
-在 Models/Course.cs 中，将之前添加的代码替换为以下代码  。 突出显示所作更改。
+在 Models/Course.cs 中，将之前添加的代码替换为以下代码。 突出显示所作更改。
 
 [!code-csharp[](intro/samples/cu/Models/Course.cs?name=snippet_Final&highlight=2,10,13,16,19,21,23)]
 
@@ -294,7 +294,7 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 ![Department 实体](complex-data-model/_static/department-entity.png)
 
-用以下代码创建 Models/Department.cs  ：
+用以下代码创建 Models/Department.cs：
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Begin)]
 
@@ -340,7 +340,7 @@ public ICollection<Course> Courses { get; set; }
 
 ![Enrollment 实体](complex-data-model/_static/enrollment-entity.png)
 
-在 Models/Enrollment.cs 中，将之前添加的代码替换为以下代码  ：
+在 Models/Enrollment.cs 中，将之前添加的代码替换为以下代码：
 
 [!code-csharp[](intro/samples/cu/Models/Enrollment.cs?name=snippet_Final&highlight=1-2,16)]
 
@@ -364,7 +364,7 @@ public Student Student { get; set; }
 
 ## <a name="many-to-many-relationships"></a>多对多关系
 
-Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据库中充当带有效负载的多对多联接表  。 “带有效负载”是指 Enrollment 表包含除联接表外键之外的其他数据（在此示例中为主键和 Grade 属性）。
+Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据库中充当带有效负载的多对多联接表。 “带有效负载”是指 Enrollment 表包含除联接表外键之外的其他数据（在此示例中为主键和 Grade 属性）。
 
 下图显示这些关系在实体关系图中的外观。 （该图是使用 EF 6.x 的 Entity Framework Power Tools 生成的，教程未介绍如何创建该图，此处仅作为示例使用。）
 
@@ -380,7 +380,7 @@ Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据�
 
 ![CourseAssignment 实体](complex-data-model/_static/courseassignment-entity.png)
 
-用以下代码创建 Models/CourseAssignment.cs  ：
+用以下代码创建 Models/CourseAssignment.cs：
 
 [!code-csharp[](intro/samples/cu/Models/CourseAssignment.cs)]
 
@@ -390,13 +390,13 @@ Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据�
 
 ### <a name="composite-key"></a>组合键
 
-由于外键不可为 null，且它们共同唯一标识表的每一行，因此不需要单独的主键。 InstructorID 和 CourseID 属性应充当组合主键   。 标识 EF 组合主键的唯一方法是使用 Fluent API（无法借助特性来完成）  。 下一节将介绍如何配置组合主键。
+由于外键不可为 null，且它们共同唯一标识表的每一行，因此不需要单独的主键。 InstructorID 和 CourseID 属性应充当组合主键 。 标识 EF 组合主键的唯一方法是使用 Fluent API（无法借助特性来完成）。 下一节将介绍如何配置组合主键。
 
 在一个课程可以有多个行，一个讲师可以有多个行的情况下，组合键可确保同一讲师和课程不会有多个行。 `Enrollment` 联接实体定义其自己的主键，因此可能会出现此类重复。 若要防止出现此类重复，可在外键字段上添加唯一索引，或使用类似于 `CourseAssignment` 的主组合键配置 `Enrollment`。 有关详细信息，请参阅[索引](/ef/core/modeling/indexes)。
 
 ## <a name="update-the-database-context"></a>更新数据库上下文
 
-将以下突出显示的代码添加到 Data/SchoolContext.cs 文件  ：
+将以下突出显示的代码添加到 Data/SchoolContext.cs 文件：
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_BeforeInheritance&highlight=15-18,25-31)]
 
@@ -404,7 +404,7 @@ Student 和 Course 实体间存在多对多关系，Enrollment 实体在数据�
 
 ## <a name="about-a-fluent-api-alternative"></a>Fluent API 替代方案
 
-`DbContext` 类的 `OnModelCreating` 方法中的代码使用 Fluent API 来配置 EF 行为  。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用，如 [EF Core 文档](/ef/core/modeling/#use-fluent-api-to-configure-a-model) 中的此示例所示：
+`DbContext` 类的 `OnModelCreating` 方法中的代码使用 Fluent API 来配置 EF 行为。 API 称为“Fluent”，因为它通常在将一系列方法调用连接成单个语句后才能使用，如 [EF Core 文档](/ef/core/modeling/#use-fluent-api-to-configure-a-model) 中的此示例所示：
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -431,7 +431,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="seed-database-with-test-data"></a>使用测试数据设定数据库种子
 
-使用以下代码替换 Data/DbInitializer.cs 文件中的代码，从而为创建的新实体提供种子数据  。
+使用以下代码替换 Data/DbInitializer.cs 文件中的代码，从而为创建的新实体提供种子数据。
 
 [!code-csharp[](intro/samples/cu/Data/DbInitializer.cs?name=snippet_Final)]
 
@@ -460,7 +460,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 为使此迁移处理现有数据，必须更改代码，赋予新列默认值，并创建一个名为“Temp”的存根系，作为默认系。 之后，Course 行将在 `Up` 方法运行后与“Temp”系建立联系。
 
-* 打开 {timestamp}_ComplexDataModel.cs 文件  。
+* 打开 {timestamp}_ComplexDataModel.cs 文件。
 
 * 对将 DepartmentID 列添加到 Course 表的代码行添加注释。
 
@@ -476,7 +476,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 ## <a name="change-the-connection-string"></a>更改连接字符串
 
-现在 `DbInitializer` 类中就有了新代码，可将新实体的种子数据添加到空数据库。 若要让 EF 创建新的空数据库，请将 appsettings.json 中连接字符串内的数据库名称更改为 ContosoUniversity3 或正在使用的计算机上未使用过的其他名称  。
+现在 `DbInitializer` 类中就有了新代码，可将新实体的种子数据添加到空数据库。 若要让 EF 创建新的空数据库，请将 appsettings.json 中连接字符串内的数据库名称更改为 ContosoUniversity3 或正在使用的计算机上未使用过的其他名称。
 
 ```json
 {
@@ -485,10 +485,10 @@ Done. To undo this action, use 'ef migrations remove'
   },
 ```
 
-将更改保存到 appsettings.json  。
+将更改保存到 appsettings.json。
 
 > [!NOTE]
-> 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令  ：
+> 除更改数据库名称外，删除数据库同样可行。 使用 SQL Server 对象资源管理器 (SSOX) 或 `database drop` CLI 命令：
 >
 > ```dotnetcli
 > dotnet ef database drop
@@ -504,13 +504,13 @@ dotnet ef database update
 
 运行应用，使 `DbInitializer.Initialize` 方法运行并填充新数据库。
 
-像之前一样在 SSOX 中打开数据库，然后展开 Tables 节点，查看是否已创建所有表  。 （如果之前打开的 SSOX 尚未关闭，请单击“刷新”按钮  。）
+像之前一样在 SSOX 中打开数据库，然后展开 Tables 节点，查看是否已创建所有表。 （如果之前打开的 SSOX 尚未关闭，请单击“刷新”按钮。）
 
 ![SSOX 中的表](complex-data-model/_static/ssox-tables.png)
 
 运行应用，触发设定数据库种子的初始化代码。
 
-右键单击“CourseAssignment”表，然后选择“查看数据”，验证其中是否存在数据   。
+右键单击“CourseAssignment”表，然后选择“查看数据”，验证其中是否存在数据 。
 
 ![SSOX 中的 CourseAssignment 数据](complex-data-model/_static/ssox-ci-data.png)
 

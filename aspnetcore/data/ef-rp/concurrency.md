@@ -1,19 +1,25 @@
 ---
-title: ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
+title: 第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发
 author: rick-anderson
-description: 本教程介绍如何处理多个用户同时更新同一实体时出现的冲突。
+description: Razor 页面和实体框架教程系列第 8 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: c4d43f26ba80e7922c3cbd37d9a5f8e1561b11ad
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: fb6a59a11cf31dff4866d5f5294cd9f15b173add
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78645876"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652430"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core 中的 Razor 页面和 EF Core - 并发 - 第 8 个教程（共 8 个）
+# <a name="part-8-razor-pages-with-ef-core-in-aspnet-core---concurrency"></a>第 8 部分，ASP.NET Core 中的 Razor 页面和 EF Core - 并发
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra) 和 [Jon P Smith](https://twitter.com/thereformedprog)
 
@@ -44,13 +50,13 @@ ms.locfileid: "78645876"
 
 ![将预算更改为零](concurrency/_static/change-budget30.png)
 
-在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9  。
+在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9。
 
 ![将开始日期更改为 2013](concurrency/_static/change-date30.png)
 
-Jane 单击“保存”后看到更改生效，因为浏览器会显示预算金额为零的“索引”页面  。
+Jane 单击“保存”后看到更改生效，因为浏览器会显示预算金额为零的“索引”页面。
 
-John 单击“编辑”页面上的“保存”，但页面的预算仍显示为 350,000.00 美元  。 接下来的情况取决于并发冲突的处理方式：
+John 单击“编辑”页面上的“保存”，但页面的预算仍显示为 350,000.00 美元。 接下来的情况取决于并发冲突的处理方式：
 
 * 可以跟踪用户已修改的属性，并仅更新数据库中相应的列。
 
@@ -62,7 +68,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
 
 * 可让 John 的更改覆盖 Jane 的更改。
 
-  下次有人浏览英语系时，将看到 2013/9/1 和提取的值 350,000.00 美元。 这种方法称为“客户端优先”或“最后一个优先”方案   。 （客户端的所有值优先于数据存储的值。）如果不对并发处理进行任何编码，则自动执行“客户端优先”。
+  下次有人浏览英语系时，将看到 2013/9/1 和提取的值 350,000.00 美元。 这种方法称为“客户端优先”或“最后一个优先”方案 。 （客户端的所有值优先于数据存储的值。）如果不对并发处理进行任何编码，则自动执行“客户端优先”。
 
 * 可以阻止在数据库中更新 John 的更改。 应用通常会：
 
@@ -70,7 +76,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
   * 显示数据的当前状态。
   * 允许用户重新应用更改。
 
-  这称为“存储优先”方案  。 （数据存储值优先于客户端提交的值。）本教程实施“存储优先”方案。 此方法可确保用户在未收到警报时不会覆盖任何更改。
+  这称为“存储优先”方案。 （数据存储值优先于客户端提交的值。）本教程实施“存储优先”方案。 此方法可确保用户在未收到警报时不会覆盖任何更改。
 
 ## <a name="conflict-detection-in-ef-core"></a>EF Core 中的冲突检测
 
@@ -86,7 +92,7 @@ EF Core 在检测到冲突时会引发 `DbConcurrencyException` 异常。 数据
 
 ## <a name="add-a-tracking-property"></a>添加跟踪属性
 
-在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性  ：
+在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性：
 
 [!code-csharp[](intro/samples/cu30/Models/Department.cs?highlight=26,27)]
 
@@ -164,8 +170,8 @@ modelBuilder.Entity<Department>()
 
 此命令：
 
-* 创建 Migrations/{time stamp}_RowVersion.cs 迁移文件  。
-* 更新 Migrations/SchoolContextModelSnapshot.cs 文件  。 此次更新将以下突出显示的代码添加到 `BuildModel` 方法：
+* 创建 Migrations/{time stamp}_RowVersion.cs 迁移文件。
+* 更新 Migrations/SchoolContextModelSnapshot.cs 文件。 此次更新将以下突出显示的代码添加到 `BuildModel` 方法：
 
   [!code-csharp[](intro/samples/cu30/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=15-17)]
 
@@ -204,17 +210,17 @@ modelBuilder.Entity<Department>()
 
 * 遵循[搭建“学生”页的基架](xref:data/ef-rp/intro#scaffold-student-pages)中的说明，但以下情况除外：
 
-* 创建“Pages/Departments”文件夹  。  
+* 创建“Pages/Departments”文件夹。  
 * 将 `Department` 用于模型类。
   * 使用现有的上下文类，而不是新建上下文类。
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 创建“Pages/Departments”文件夹  。
+* 创建“Pages/Departments”文件夹。
 
 * 运行以下命令，搭建“院系”页的基架。
 
-  在 Windows 上： 
+  在 Windows 上：
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages\Departments --referenceScriptLibraries
@@ -234,7 +240,7 @@ modelBuilder.Entity<Department>()
 
 基架工具为“索引”页创建了 `RowVersion` 列，但生产应用中不会显示该字段。 本教程中显示 `RowVersion` 的最后一个字节，以帮助展示并发处理的工作原理。 无法保证最后一个字节本身是唯一的。
 
-更新 Pages\Departments\Index.cshtml  页：
+更新 Pages\Departments\Index.cshtml 页：
 
 * 用院系替换索引。
 * 更改包含 `RowVersion` 的代码，以便只显示字节数组的最后一个字节。
@@ -246,7 +252,7 @@ modelBuilder.Entity<Department>()
 
 ## <a name="update-the-edit-page-model"></a>更新编辑页模型
 
-使用以下代码更新 Pages\Departments\Edit.cshtml.cs  ：
+使用以下代码更新 Pages\Departments\Edit.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_All)]
 
@@ -268,7 +274,7 @@ modelBuilder.Entity<Department>()
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_Error)]
 
-以下突出显示的代码将 `RowVersion` 值设置为从数据库检索的新值。 用户下次单击“保存”时，将仅捕获最后一次显示编辑页后发生的并发错误  。
+以下突出显示的代码将 `RowVersion` 值设置为从数据库检索的新值。 用户下次单击“保存”时，将仅捕获最后一次显示编辑页后发生的并发错误。
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_TryUpdateModel&highlight=28)]
 
@@ -276,7 +282,7 @@ modelBuilder.Entity<Department>()
 
 ### <a name="update-the-razor-page"></a>更新 Razor 页面
 
-使用以下代码更新 Pages/Departments/Edit.cshtml  ：
+使用以下代码更新 Pages/Departments/Edit.cshtml：
 
 [!code-html[](intro/samples/cu30/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
@@ -292,12 +298,12 @@ modelBuilder.Entity<Department>()
 在英语系打开编辑的两个浏览器实例：
 
 * 运行应用，然后选择“院系”。
-* 右键单击英语系的“编辑”超链接，然后选择“在新选项卡中打开”   。
-* 在第一个选项卡中，单击英语系的“编辑”超链接  。
+* 右键单击英语系的“编辑”超链接，然后选择“在新选项卡中打开” 。
+* 在第一个选项卡中，单击英语系的“编辑”超链接。
 
 两个浏览器选项卡显示相同信息。
 
-在第一个浏览器选项卡中更改名称，然后单击“保存”  。
+在第一个浏览器选项卡中更改名称，然后单击“保存”。
 
 ![更改后的“院系编辑”页 1](concurrency/_static/edit-after-change-130.png)
 
@@ -307,17 +313,17 @@ modelBuilder.Entity<Department>()
 
 ![更改后的“院系编辑”页 2](concurrency/_static/edit-after-change-230.png)
 
-单击“保存”  。 可看见所有不匹配数据库值的字段的错误消息：
+单击“保存” 。 可看见所有不匹配数据库值的字段的错误消息：
 
 ![“院系编辑”页错误消息](concurrency/_static/edit-error30.png)
 
 此浏览器窗口将不会更改名称字段。 将当前值（语言）复制并粘贴到名称字段。 退出选项卡。客户端验证将删除错误消息。
 
-再次单击“保存”  。 保存在第二个浏览器选项卡中输入的值。 在索引页中可以看到保存的值。
+再次单击“保存”。 保存在第二个浏览器选项卡中输入的值。 在索引页中可以看到保存的值。
 
 ## <a name="update-the-delete-page"></a>更新“删除”页
 
-使用以下代码更新 Pages/Departments/Delete.cshtml.cs  ：
+使用以下代码更新 Pages/Departments/Delete.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Delete.cshtml.cs)]
 
@@ -327,9 +333,9 @@ modelBuilder.Entity<Department>()
 * 引发 DbUpdateConcurrencyException 异常。
 * 使用 `concurrencyError` 调用 `OnGetAsync`。
 
-### <a name="update-the-delete-razor-page"></a>更新“删除”Razor 页面
+### <a name="update-the-delete-razor-page"></a>更新“删除 Razor”页面
 
-使用以下代码更新 Pages/Departments/Delete.cshtml  ：
+使用以下代码更新 Pages/Departments/Delete.cshtml：
 
 [!code-html[](intro/samples/cu30/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
@@ -337,7 +343,7 @@ modelBuilder.Entity<Department>()
 
 * 将 `page` 指令从 `@page` 更新为 `@page "{id:int}"`。
 * 添加错误消息。
-* 将“管理员”字段中的 FirstMidName 替换为 FullName  。
+* 将“管理员”字段中的 FirstMidName 替换为 FullName。
 * 更改 `RowVersion` 以显示最后一个字节。
 * 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发绑定值。
 
@@ -348,16 +354,16 @@ modelBuilder.Entity<Department>()
 在测试系打开删除的两个浏览器实例：
 
 * 运行应用，然后选择“院系”。
-* 右键单击测试系的“删除”超链接，然后选择“在新选项卡中打开”   。
-* 单击测试系的“编辑”超链接  。
+* 右键单击测试系的“删除”超链接，然后选择“在新选项卡中打开” 。
+* 单击测试系的“编辑”超链接。
 
 两个浏览器选项卡显示相同信息。
 
-在第一个浏览器选项卡中更改预算，然后单击“保存”  。
+在第一个浏览器选项卡中更改预算，然后单击“保存”。
 
 浏览器显示更改值并更新 rowVersion 标记后的索引页。 请注意更新后的 rowVersion 标记，它在其他选项卡的第二回发中显示。
 
-从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除  。
+从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除。
 
 ## <a name="additional-resources"></a>其他资源
 
@@ -396,15 +402,15 @@ modelBuilder.Entity<Department>()
 
 ![将预算更改为零](concurrency/_static/change-budget.png)
 
-在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9  。
+在 Jane 单击“保存”之前，John 访问了相同页面，并将开始日期字段从 2007/1/9 更改为 2013/1/9。
 
 ![将开始日期更改为 2013](concurrency/_static/change-date.png)
 
-Jane 先单击“保存”，并在浏览器显示索引页时看到她的更改  。
+Jane 先单击“保存”，并在浏览器显示索引页时看到她的更改。
 
 ![预算已更改为零](concurrency/_static/budget-zero.png)
 
-John 单击“编辑”页面上的“保存”，但页面的预算仍显示为 350,000.00 美元  。 接下来的情况取决于并发冲突的处理方式。
+John 单击“编辑”页面上的“保存”，但页面的预算仍显示为 350,000.00 美元。 接下来的情况取决于并发冲突的处理方式。
 
 乐观并发包括以下选项：
 
@@ -418,7 +424,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
 
 * 可让 John 的更改覆盖 Jane 的更改。
 
-  下次有人浏览英语系时，将看到 2013/9/1 和提取的值 350,000.00 美元。 这种方法称为“客户端优先”或“最后一个优先”方案   。 （客户端的所有值优先于数据存储的值。）如果不对并发处理进行任何编码，则自动执行“客户端优先”。
+  下次有人浏览英语系时，将看到 2013/9/1 和提取的值 350,000.00 美元。 这种方法称为“客户端优先”或“最后一个优先”方案 。 （客户端的所有值优先于数据存储的值。）如果不对并发处理进行任何编码，则自动执行“客户端优先”。
 
 * 可以阻止在数据库中更新 John 的更改。 应用通常会：
 
@@ -426,7 +432,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
   * 显示数据的当前状态。
   * 允许用户重新应用更改。
 
-  这称为“存储优先”方案  。 （数据存储值优先于客户端提交的值。）本教程实施“存储优先”方案。 此方法可确保用户在未收到警报时不会覆盖任何更改。
+  这称为“存储优先”方案。 （数据存储值优先于客户端提交的值。）本教程实施“存储优先”方案。 此方法可确保用户在未收到警报时不会覆盖任何更改。
 
 ## <a name="handling-concurrency"></a>处理并发 
 
@@ -460,7 +466,7 @@ John 单击“编辑”页面上的“保存”，但页面的预算仍显示为
 
 ### <a name="add-a-tracking-property-to-the-department-entity"></a>向 Department 实体添加跟踪属性
 
-在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性  ：
+在 Models/Department.cs 中，添加名为 RowVersion 的跟踪属性：
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Final&highlight=26,27)]
 
@@ -501,8 +507,8 @@ dotnet ef database update
 
 前面的命令：
 
-* 添加 Migrations/{time stamp}_RowVersion.cs 迁移文件  。
-* 更新 Migrations/SchoolContextModelSnapshot.cs 文件  。 此次更新将以下突出显示的代码添加到 `BuildModel` 方法：
+* 添加 Migrations/{time stamp}_RowVersion.cs 迁移文件。
+* 更新 Migrations/SchoolContextModelSnapshot.cs 文件。 此次更新将以下突出显示的代码添加到 `BuildModel` 方法：
 
   [!code-csharp[](intro/samples/cu/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=14-16)]
 
@@ -546,7 +552,7 @@ dotnet ef database update
 
 ### <a name="update-the-edit-page-model"></a>更新编辑页模型
 
-使用以下代码更新 Pages\Departments\Edit.cshtml.cs  ：
+使用以下代码更新 Pages\Departments\Edit.cshtml.cs：
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet)]
 
@@ -564,7 +570,7 @@ dotnet ef database update
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_err)]
 
-以下突出显示的代码将 `RowVersion` 值设置为从数据库检索的新值。 用户下次单击“保存”时，将仅捕获最后一次显示编辑页后发生的并发错误  。
+以下突出显示的代码将 `RowVersion` 值设置为从数据库检索的新值。 用户下次单击“保存”时，将仅捕获最后一次显示编辑页后发生的并发错误。
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_try&highlight=23)]
 
@@ -572,7 +578,7 @@ dotnet ef database update
 
 ## <a name="update-the-edit-page"></a>更新“编辑”页
 
-使用以下标记更新 Pages/Departments/Edit.cshtml  ：
+使用以下标记更新 Pages/Departments/Edit.cshtml：
 
 [!code-html[](intro/samples/cu/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
@@ -588,12 +594,12 @@ dotnet ef database update
 在英语系打开编辑的两个浏览器实例：
 
 * 运行应用，然后选择“院系”。
-* 右键单击英语系的“编辑”超链接，然后选择“在新选项卡中打开”   。
-* 在第一个选项卡中，单击英语系的“编辑”超链接  。
+* 右键单击英语系的“编辑”超链接，然后选择“在新选项卡中打开” 。
+* 在第一个选项卡中，单击英语系的“编辑”超链接。
 
 两个浏览器选项卡显示相同信息。
 
-在第一个浏览器选项卡中更改名称，然后单击“保存”  。
+在第一个浏览器选项卡中更改名称，然后单击“保存”。
 
 ![更改后的“院系编辑”页 1](concurrency/_static/edit-after-change-1.png)
 
@@ -603,7 +609,7 @@ dotnet ef database update
 
 ![更改后的“院系编辑”页 2](concurrency/_static/edit-after-change-2.png)
 
-单击“保存”  。 可看见所有不匹配数据库值的字段的错误消息：
+单击“保存” 。 可看见所有不匹配数据库值的字段的错误消息：
 
 ![“院系编辑”页错误消息](concurrency/_static/edit-error.png)
 
@@ -611,7 +617,7 @@ dotnet ef database update
 
 ![“院系编辑”页错误消息](concurrency/_static/cv.png)
 
-再次单击“保存”  。 保存在第二个浏览器选项卡中输入的值。 在索引页中可以看到保存的值。
+再次单击“保存”。 保存在第二个浏览器选项卡中输入的值。 在索引页中可以看到保存的值。
 
 ## <a name="update-the-delete-page"></a>更新“删除”页
 
@@ -627,7 +633,7 @@ dotnet ef database update
 
 ### <a name="update-the-delete-page"></a>更新“删除”页
 
-使用以下代码更新 Pages/Departments/Delete.cshtml  ：
+使用以下代码更新 Pages/Departments/Delete.cshtml：
 
 [!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
@@ -635,7 +641,7 @@ dotnet ef database update
 
 * 将 `page` 指令从 `@page` 更新为 `@page "{id:int}"`。
 * 添加错误消息。
-* 将“管理员”字段中的 FirstMidName 替换为 FullName  。
+* 将“管理员”字段中的 FirstMidName 替换为 FullName。
 * 更改 `RowVersion` 以显示最后一个字节。
 * 添加隐藏的行版本。 必须添加 `RowVersion`，以便回发绑定值。
 
@@ -646,16 +652,16 @@ dotnet ef database update
 在测试系打开删除的两个浏览器实例：
 
 * 运行应用，然后选择“院系”。
-* 右键单击测试系的“删除”超链接，然后选择“在新选项卡中打开”   。
-* 单击测试系的“编辑”超链接  。
+* 右键单击测试系的“删除”超链接，然后选择“在新选项卡中打开” 。
+* 单击测试系的“编辑”超链接。
 
 两个浏览器选项卡显示相同信息。
 
-在第一个浏览器选项卡中更改预算，然后单击“保存”  。
+在第一个浏览器选项卡中更改预算，然后单击“保存”。
 
 浏览器显示更改值并更新 rowVersion 标记后的索引页。 请注意更新后的 rowVersion 标记，它在其他选项卡的第二回发中显示。
 
-从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除  。
+从第二个选项卡中删除测试部门。并发错误显示来自数据库的当前值。 单击“删除”将删除实体，除非 `RowVersion` 已更新，院系已删除。
 
 请参阅[继承](xref:data/ef-mvc/inheritance)了解如何继承数据模型。
 

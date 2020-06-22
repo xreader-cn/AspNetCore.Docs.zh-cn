@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 0b28e99d9c56d92e157e9010880e58ec5165196a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c2b76b59ae775b9268fa77019bf8420e5e4108b6
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774980"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452266"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC 入门
 
@@ -60,17 +60,17 @@ ms.locfileid: "82774980"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在 Visual Studio 中，选择“创建新项目”  。
+* 在 Visual Studio 中，选择“创建新项目”。
 
-* 选择“ASP.NET Core Web 应用程序”，然后选择“下一步”   。
+* 选择“ASP.NET Core Web 应用程序”，然后选择“下一步” 。
 
 ![新建 ASP.NET Core Web 应用程序](start-mvc/_static/np_2.1.png)
 
-* 将项目命名为“MvcMovie”，然后选择“创建”   。 将项目命名为“MvcMovie”非常重要，这样在复制代码时，命名空间才会匹配  。
+* 将项目命名为“MvcMovie”，然后选择“创建” 。 将项目命名为“MvcMovie”非常重要，这样在复制代码时，命名空间才会匹配。
 
   ![新建 ASP.NET Core Web 应用程序](start-mvc/_static/config.png)
 
-* 选择“Web 应用程序(模型-视图-控制器)”，然后选择“创建”   。
+* 选择“Web 应用程序(模型-视图-控制器)”，然后选择“创建” 。
 
 ![“新建项目”对话框，左窗格中的“.NET Core”，ASP.NET Core Web ](start-mvc/_static/new_project30.png)
 
@@ -89,26 +89,33 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
    code -r MvcMovie
    ```
 
-  * 一个对话框随即出现，其中包含：“‘MvcMovie’中缺少进行生成和调试所需的资产。  是否添加它们?”  选择“是” 
+  * 一个对话框随即出现，其中包含：“‘MvcMovie’中缺少进行生成和调试所需的资产。是否添加它们?”  选择“是”
 
-  * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目  。
-  * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件  。
+  * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目。
+  * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件”>“新建解决方案”   。
+* 选择“文件”>“新建解决方案” 。
 
-  ![macOS 新建解决方案](./start-mvc/_static/new_project_vsmac.png)
+  ![macOS 新建解决方案](start-mvc/_static/new_project_vsmac.png)
 
-* 选择“.NET Core”  >“应用”  >“Web 应用程序(模型视图控制器)”  >“下一步”。 
+* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。    在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。   
 
-  ![macOS“新建项目”对话框](./start-mvc/_static/new_project_mvc_vsmac.png)
+  ![macOS Web 应用模板选择](start-mvc/_static/web_app_template_vsmac.png)
 
-* 在“配置新的 ASP.NET Core Web API”对话框中，将目标框架设置为“.NET Core 3.1”    。
+* 确认以下配置：
 
-  ![macOS .NET Core 3.1 选择](./start-mvc/_static/new_project_31_vsmac.png)
+  * “目标框架”设置为“.NET Core 3.1” 。
+  * “身份验证”设置为“无身份验证” 。
+   
+  选择“下一步”。
 
-* 将项目命名为“MvcMovie”，然后选择“创建”。  
+  ![macOS .NET Core 3.1 选择](start-mvc/_static/new_project_31_vsmac.png)
+
+* 将项目命名为“MvcMovie”，然后选择“创建”。 
+
+  ![macOS 命名项目](start-mvc/_static/MvcMovie.png)
 
 ---
 
@@ -116,17 +123,17 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-选择 Ctrl+F5 以在非调试模式下运行应用  。
+选择 Ctrl+F5 以在非调试模式下运行应用。
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
 * Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。 请注意，地址栏显示 `localhost:port#`，而不显示 `example.com` 之类的内容。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。
 * 使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。
-* 可以从“调试”  菜单项中以调试或非调试模式启动应用：
+* 可以从“调试”菜单项中以调试或非调试模式启动应用：
 
   ![调试菜单](start-mvc/_static/debug_menu.png)
 
-* 可以通过选择“IIS Express”按钮来调试应用 
+* 可以通过选择“IIS Express”按钮来调试应用
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
@@ -148,12 +155,12 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-选择“运行” > “开始执行(不调试)”以启动应用   。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号  。
+选择“运行” > “开始执行(不调试)”以启动应用 。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号。
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
 * 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。 运行应用时，将看到不同的端口号。
-* 可以从“运行”菜单中以调试或非调试模式启动应用。 
+* 可以从“运行”菜单中以调试或非调试模式启动应用。
 
   下图显示该应用：
 
@@ -207,18 +214,18 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在 Visual Studio 中，选择“创建新项目”  。
+* 在 Visual Studio 中，选择“创建新项目”。
 
-* 选择“ASP.NET Core Web 应用程序”，然后选择“下一步”   。
+* 选择“ASP.NET Core Web 应用程序”，然后选择“下一步” 。
 
 ![新建 ASP.NET Core Web 应用程序](start-mvc/_static/np_2.1.png)
 
-* 将项目命名为“MvcMovie”，然后选择“创建”   。 将项目命名为“MvcMovie”非常重要，这样在复制代码时，命名空间才会匹配  。
+* 将项目命名为“MvcMovie”，然后选择“创建” 。 将项目命名为“MvcMovie”非常重要，这样在复制代码时，命名空间才会匹配。
 
   ![新建 ASP.NET Core Web 应用程序](start-mvc/_static/config.png)
 
 
-* 选择“Web 应用程序(模型-视图-控制器)”，然后选择“创建”   。
+* 选择“Web 应用程序(模型-视图-控制器)”，然后选择“创建” 。
 
 ![“新建项目”对话框，左窗格中的“.NET Core”，ASP.NET Core Web ](start-mvc/_static/new_project22-21.png)
 
@@ -237,26 +244,24 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
    code -r MvcMovie
    ```
 
-  * 一个对话框随即出现，其中包含：“‘MvcMovie’中缺少进行生成和调试所需的资产。  是否添加它们?”  选择“是” 
+  * 一个对话框随即出现，其中包含：“‘MvcMovie’中缺少进行生成和调试所需的资产。是否添加它们?”  选择“是”
 
-  * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目  。
-  * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件  。
+  * `dotnet new mvc -o MvcMovie`：在 MvcMovie 文件夹中创建一个新的 ASP.NET Core MVC 项目。
+  * `code -r MvcMovie`：在 Visual Studio Code 中加载 MvcMovie.csproj 项目文件。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 选择“文件”>“新建解决方案”   。
+* 选择“文件”>“新建解决方案” 。
 
   ![macOS 新建解决方案](./start-mvc/_static/new_project_vsmac.png)
 
-* 选择“.NET Core”  >“应用”  >“Web 应用程序(模型视图控制器)”  >“下一步”。 
+* 在版本 8.6 之前的 Visual Studio for Mac 中，依次选择“.NET Core” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。    在版本 8.6 或更高版本中，依次选择“Web 和控制台” > “应用” > “Web 应用程序(模型-视图-控制器)” > “下一步”。   
 
-  ![macOS“新建项目”对话框](./start-mvc/_static/new_project_mvc_vsmac.png)
-
-* 在“配置新的 ASP.NET Core Web API”对话框中，接受默认的 .NET Core 2.2“目标框架”    。
+* 在“配置新的 ASP.NET Core Web API”对话框中，接受默认的 .NET Core 2.2“目标框架”  。
 
   ![macOS .NET Core 2.2 选择](./start-mvc/_static/new_project_22_vsmac.png)
 
-* 将项目命名为“MvcMovie”，然后选择“创建”。  
+* 将项目命名为“MvcMovie”，然后选择“创建”。 
 
 ---
 
@@ -264,21 +269,21 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-选择 Ctrl+F5 以在非调试模式下运行应用  。
+选择 Ctrl+F5 以在非调试模式下运行应用。
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
 * Visual Studio 启动 [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 并运行应用。 请注意，地址栏显示 `localhost:port#`，而不显示 `example.com` 之类的内容。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。
 * 使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式快速启动应用并查看更改。
-* 可以从“调试”  菜单项中以调试或非调试模式启动应用：
+* 可以从“调试”菜单项中以调试或非调试模式启动应用：
 
   ![调试菜单](start-mvc/_static/debug_menu.png)
 
-* 可以通过选择“IIS Express”按钮来调试应用 
+* 可以通过选择“IIS Express”按钮来调试应用
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-* 选择“接受”以同意跟踪  。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
+* 选择“接受”以同意跟踪。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
 
   ![主页或索引页](start-mvc/_static/privacy.png)
 
@@ -296,7 +301,7 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
   使用 Ctrl+F5 启动应用（非调试模式）后，可执行代码更改、保存文件、刷新浏览器和查看代码更改等操作。 许多开发人员更喜欢使用非调试模式刷新页面并查看更改。
 
-* 选择“接受”以同意跟踪  。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
+* 选择“接受”以同意跟踪。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
 
   ![主页或索引页](start-mvc/_static/privacy.png)
 
@@ -306,14 +311,14 @@ Visual Studio 为刚刚创建的 MVC 项目使用默认模板。 输入项目名
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-选择“运行” > “开始执行(不调试)”以启动应用   。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号  。
+选择“运行” > “开始执行(不调试)”以启动应用 。 Visual Studio for Mac 启动 [Kestrel](xref:fundamentals/servers/index#kestrel) 服务器，启动浏览器并导航到 `http://localhost:port`，其中的 port 是随机选择的端口号。
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
 * 地址栏显示 `localhost:port#`，而不是显示 `example.com`。 这是因为 `localhost` 是本地计算机的标准主机名。 Visual Studio 创建 Web 项目时，Web 服务器使用的是随机端口。 运行应用时，将看到不同的端口号。
-* 可以从“运行”菜单中以调试或非调试模式启动应用。 
+* 可以从“运行”菜单中以调试或非调试模式启动应用。
 
-* 选择“接受”以同意跟踪  。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
+* 选择“接受”以同意跟踪。 此应用不会跟踪个人信息。 模板生成的代码包含有助于符合[一般数据保护条例 (GDPR)](xref:security/gdpr) 的资产。
 
   ![主页或索引页](./start-mvc/_static/output_privacy_macos.png)
 

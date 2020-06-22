@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core 中的控制器方法和视图
+title: 第 6 部分，ASP.NET Core 中的控制器方法和视图
 author: rick-anderson
-description: 了解如何在 ASP.NET Core 中使用控制器方法、视图和 DataAnnotations。
+description: 第 6 部分，将模型添加到 ASP.NET Core MVC 应用
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
@@ -11,22 +11,22 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 444c870fcf9e866f0c382e32af174442d11d3af5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 50b527cee19f19316fd9034759c05817010fefbb
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777574"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84653014"
 ---
-# <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core 中的控制器方法和视图
+# <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>第 6 部分，ASP.NET Core 中的控制器方法和视图
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-电影应用的开头不错，但展示效果不理想，例如，ReleaseDate  应为两个词。
+电影应用的开头不错，但展示效果不理想，例如，ReleaseDate 应为两个词。
 
 ![索引视图：Release Date 为一个词（没有空格），每个电影发行日期都显示时间中午 12 点](working-with-sql/_static/m55.png)
 
-打开 Models/Movie.cs 文件，并添加以下代码中突出显示的行  ：
+打开 Models/Movie.cs 文件，并添加以下代码中突出显示的行：
 
 [!code-csharp[](start-mvc/sample/MvcMovie22/Models/MovieDateFixed.cs?name=snippet_1&highlight=2,3,12-13,17)]
 
@@ -34,15 +34,15 @@ ms.locfileid: "82777574"
 
 要使 Entity Framework Core 能将 `Price` 正确地映射到数据库中的货币，则必须使用 `[Column(TypeName = "decimal(18, 2)")]` 数据注释。 有关详细信息，请参阅[数据类型](/ef/core/modeling/relational/data-types)。
 
-浏览到 `Movies` 控制器，并将鼠标指针悬停在“编辑”链接上以查看目标 URL  。
+浏览到 `Movies` 控制器，并将鼠标指针悬停在“编辑”链接上以查看目标 URL。
 
 ![鼠标悬停在“编辑”链接上的浏览器窗口，显示了 https://localhost:5001/Movies/Edit/5 的链接 URL](~/tutorials/first-mvc-app/controller-methods-views/_static/edit7.png)
 
-“编辑”、“详细信息”和“删除”链接是在 Views/Movies/Index.cshtml 文件中由 Core MVC 定位标记帮助程序生成的     。
+“编辑”、“详细信息”和“删除”链接是在 Views/Movies/Index.cshtml 文件中由 Core MVC 定位标记帮助程序生成的  。
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexOriginal.cshtml?highlight=1-3&range=46-50)]
 
-[标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 在上面的代码中，`AnchorTagHelper` 从控制器操作方法和路由 ID 动态生成 HTML `href` 特性值。在最喜欢的浏览器中使用“查看源”，或使用开发人员工具来检查生成的标记  。 生成的 HTML 的一部分如下所示：
+[标记帮助程序](xref:mvc/views/tag-helpers/intro)使服务器端代码可以在 Razor 文件中参与创建和呈现 HTML 元素。 在上面的代码中，`AnchorTagHelper` 从控制器操作方法和路由 ID 动态生成 HTML `href` 特性值。在最喜欢的浏览器中使用“查看源”，或使用开发人员工具来检查生成的标记。 生成的 HTML 的一部分如下所示：
 
 ```html
  <td>
@@ -52,7 +52,7 @@ ms.locfileid: "82777574"
 </td>
 ```
 
-重新调用在 Startup.cs 文件中设置的[路由](xref:mvc/controllers/routing)的格式  ：
+重新调用在 Startup.cs 文件中设置的[路由](xref:mvc/controllers/routing)的格式：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_1&highlight=5)]
 
@@ -62,7 +62,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 <a name="get-post"></a>
 
-打开 `Movies` 控制器并检查两个 `Edit` 操作方法。 以下代码显示了 `HTTP GET Edit` 方法，此方法将提取电影并填充由 Edit.cshtml Razor 文件生成的编辑表单  。
+打开 `Movies` 控制器并检查两个 `Edit` 操作方法。 以下代码显示了 `HTTP GET Edit` 方法，此方法将提取电影并填充由 Edit.cshtml Razor 文件生成的编辑表单。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -100,9 +100,9 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 ::: moniker-end
 
-`HttpPost` 特性指定只能为 `POST` 请求调用此 `Edit` 方法  。 可将 `[HttpGet]` 属性应用于第一个编辑方法，但不是必需，因为 `[HttpGet]` 是默认设置。
+`HttpPost` 特性指定只能为 `POST` 请求调用此 `Edit` 方法。 可将 `[HttpGet]` 属性应用于第一个编辑方法，但不是必需，因为 `[HttpGet]` 是默认设置。
 
-`ValidateAntiForgeryToken` 特性用于[防止请求伪造](xref:security/anti-request-forgery)，并与编辑视图文件 (Views/Movies/Edit.cshtml) 中生成的防伪标记相配对  。 编辑视图文件使用[表单标记帮助程序](xref:mvc/views/working-with-forms)生成防伪标记。
+`ValidateAntiForgeryToken` 特性用于[防止请求伪造](xref:security/anti-request-forgery)，并与编辑视图文件 (Views/Movies/Edit.cshtml) 中生成的防伪标记相配对。 编辑视图文件使用[表单标记帮助程序](xref:mvc/views/working-with-forms)生成防伪标记。
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
 
@@ -120,7 +120,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 基架的代码使用几个标记帮助程序方法来简化 HTML 标记。 [标签标记帮助程序](xref:mvc/views/working-with-forms)显示字段的名称（“Title”、“ReleaseDate”、“Genre”或“Price”）。 [输入标记帮助程序](xref:mvc/views/working-with-forms)呈现 HTML `<input>` 元素。 [验证标记帮助程序](xref:mvc/views/working-with-forms)显示与该属性相关联的任何验证消息。
 
-运行应用程序并导航到 `/Movies` URL。 点击“编辑”链接  。 在浏览器中查看页面的源。 为 `<form>` 元素生成的 HTML 如下所示。
+运行应用程序并导航到 `/Movies` URL。 点击“编辑”链接。 在浏览器中查看页面的源。 为 `<form>` 元素生成的 HTML 如下所示。
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Shared/edit_view_source.html?highlight=1,6,10,17,24,28)]
 
@@ -146,7 +146,7 @@ ASP.NET Core 将 `https://localhost:5001/Movies/Edit/4` 转换为对 `Movies` �
 
 [模型绑定](xref:mvc/models/model-binding)系统采用发布的表单值，并创建一个作为 `movie` 参数传递的 `Movie` 对象。 `ModelState.IsValid` 方法验证表单中提交的数据是否可以用于修改（编辑或更新）`Movie` 对象。 如果数据有效，将保存此数据。 通过调用数据库上下文的 `SaveChangesAsync` 方法，将更新（编辑）的电影数据保存到数据库。 保存数据后，代码将用户重定向到 `MoviesController` 类的 `Index` 操作方法，此方法显示电影集合，包括刚才所做的更改。
 
-在表单发布到服务器之前，客户端验证会检查字段上的任何验证规则。 如果有任何验证错误，则将显示错误消息，并且不会发布表单。 如果禁用 JavaScript，则不会进行客户端验证，但服务器将检测无效的发布值，并且表单值将与错误消息一起重新显示。 稍后在本教程中，我们将更详细地研究[模型验证](xref:mvc/models/validation)。 Views/Movies/Edit.cshtml 视图模板中的[验证标记帮助程序](xref:mvc/views/working-with-forms)负责显示相应的错误消息  。
+在表单发布到服务器之前，客户端验证会检查字段上的任何验证规则。 如果有任何验证错误，则将显示错误消息，并且不会发布表单。 如果禁用 JavaScript，则不会进行客户端验证，但服务器将检测无效的发布值，并且表单值将与错误消息一起重新显示。 稍后在本教程中，我们将更详细地研究[模型验证](xref:mvc/models/validation)。 Views/Movies/Edit.cshtml 视图模板中的[验证标记帮助程序](xref:mvc/views/working-with-forms)负责显示相应的错误消息。
 
 ![“编辑”视图：不正确的“价格”值 abc 的异常，说明“价格”字段必须是一个数字。 不正确的“发布日期”值 xyz 的异常，请输入有效的日期。](~/tutorials/first-mvc-app/controller-methods-views/_static/val.png)
 

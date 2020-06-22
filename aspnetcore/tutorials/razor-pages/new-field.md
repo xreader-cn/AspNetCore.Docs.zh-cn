@@ -1,7 +1,7 @@
 ---
-title: 将新字段添加到 ASP.NET Core 中的 Razor 页面
+title: 第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 author: rick-anderson
-description: 演示如何使用 Entity Framework Core 将新字段添加到 Razor 页面
+description: Razor 页面教程系列第 7 部分。
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
@@ -12,14 +12,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 683d6718f4dcdb73c45cbcf94f6ac4f477b71bcd
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 15d4ccbe88c2147210918a3db1416983fb30132b
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769729"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652797"
 ---
-# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>将新字段添加到 ASP.NET Core 中的 Razor 页面
+# <a name="part-7-add-a-new-field-to-a-razor-page-in-aspnet-core"></a>第 7 部分，将新字段添加到 ASP.NET Core 中的 Razor 页面
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -41,13 +41,13 @@ ms.locfileid: "82769729"
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-打开 Models/Movie.cs 文件，并添加 `Rating` 属性： 
+打开 Models/Movie.cs 文件，并添加 `Rating` 属性：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 构建应用程序。
 
-编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
+编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：
 
 <a name="addrat"></a>
 
@@ -89,7 +89,7 @@ ms.locfileid: "82769729"
 
 ### <a name="add-a-migration-for-the-rating-field"></a>添加用于评级字段的迁移
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 
 在 PMC 中，输入以下命令：
 
 ```powershell
@@ -113,9 +113,9 @@ Update-Database
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 * 在 SSOX 中选择数据库。
-* 右键单击数据库，并选择“删除”。 
-* 检查“关闭现有连接”  。
-* 选择“确定”  。
+* 右键单击数据库，并选择“删除”。
+* 检查“关闭现有连接”。
+* 选择“确定”。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -168,13 +168,13 @@ dotnet ef database update
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>向电影模型添加分级属性
 
-打开 Models/Movie.cs 文件，并添加 `Rating` 属性： 
+打开 Models/Movie.cs 文件，并添加 `Rating` 属性：
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 构建应用程序。
 
-编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段： 
+编辑 Pages/Movies/Index.cshtml，并添加 `Rating` 字段：
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml?highlight=40-42,61-63)]
 
@@ -214,7 +214,7 @@ dotnet ef database update
 
 ### <a name="add-a-migration-for-the-rating-field"></a>添加用于评级字段的迁移
 
-从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。  
+从“工具”菜单中，选择“NuGet 包管理器”>“包管理器控制台”。 
 在 PMC 中，输入以下命令：
 
 ```powershell
@@ -238,9 +238,9 @@ Update-Database
 另一个方案是删除数据库，并使用迁移来重新创建该数据库。 删除 SSOX 中的数据库：
 
 * 在 SSOX 中选择数据库。
-* 右键单击数据库，并选择“删除”。 
-* 检查“关闭现有连接”  。
-* 选择“确定”  。
+* 右键单击数据库，并选择“删除”。
+* 检查“关闭现有连接”。
+* 选择“确定”。
 * 在 [PMC](xref:tutorials/razor-pages/new-field#pmc) 中更新数据库：
 
   ```powershell
@@ -253,7 +253,7 @@ Update-Database
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)  。 然后运行 `ef database update` 命令：
+删除数据库并通过迁移重新创建数据库。 若要删除该数据库，请删除数据库文件 (MvcMovie.db)。 然后运行 `ef database update` 命令：
 
 ```dotnetcli
 dotnet ef database update

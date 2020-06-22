@@ -5,7 +5,7 @@ description: 了解如何在 ASP.NET Core 中读取请求正文和写入响应�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jukotali
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 5/29/2019
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: f16bc7ec61c10600fe72a763fef96987210fbe76
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: fed9e48cdb2b33805cb05243de706b5c86853328
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775994"
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84548527"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core 中的请求和响应操作
 
@@ -26,7 +26,7 @@ ms.locfileid: "82775994"
 
 本文介绍如何读取请求正文和写入响应正文。 写入中间件时，可能需要这些操作的代码。 除写入中间件外，通常不需要自定义代码，因为操作由 MVC 和 Razor Pages 处理。
 
-请求正文和响应正文有两个抽象元素：<xref:System.IO.Stream> 和 <xref:System.IO.Pipelines.Pipe>。 对于请求读取，[HttpRequest.Body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) 是 <xref:System.IO.Stream>，`HttpRequest.BodyReader` 是 <xref:System.IO.Pipelines.PipeReader>。 对于响应写入，[HttpResponse.Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) 是 <xref:System.IO.Stream>，`HttpResponse.BodyWriter` 是 <xref:System.IO.Pipelines.PipeWriter>。
+请求正文和响应正文有两个抽象元素：<xref:System.IO.Stream> 和 <xref:System.IO.Pipelines.Pipe>。 对于请求读取，<xref:Microsoft.AspNetCore.Http.HttpRequest.Body?displayProperty=nameWithType> 为 <xref:System.IO.Stream>，`HttpRequest.BodyReader` 为 <xref:System.IO.Pipelines.PipeReader>。 对于响应写入，<xref:Microsoft.AspNetCore.Http.HttpResponse.Body?displayProperty=nameWithType> 为 <xref:System.IO.Stream>，`HttpResponse.BodyWriter` 为 <xref:System.IO.Pipelines.PipeWriter>。
 
 建议使用[管道](/dotnet/standard/io/pipelines)替代流。 在一些简单操作中，使用流会比较简单，但管道具有性能优势，并且在大多数场景中更易于使用。 ASP.NET Core 开始在内部使用管道替代流。 示例包括：
 
@@ -41,7 +41,13 @@ ms.locfileid: "82775994"
 
 假设目标是要创建一个中间件，它将整个请求正文作为一个字符串列表读取，并在新行上进行拆分。 一个简单的流实现可能如下例所示：
 
+> [!WARNING]
+> 下面的代码：
+> * 用于演示不使用管道读取请求正文的问题。
+> * 不应在生产应用中使用。
+
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringsFromStream)]
+
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 此代码有效，但存在一些问题：
@@ -50,6 +56,11 @@ ms.locfileid: "82775994"
 * 该示例在新行上进行拆分之前读取整个字符串。 检查字节数组中的新行会更有效。
 
 下面是修复上面其中一些问题的示例：
+
+> [!WARNING]
+> 下面的代码：
+> * 用于演示前面代码中的一些问题的解决方案，而不能解决所有问题。
+> * 不应在生产应用中使用。
 
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringsFromStreamMoreEfficient)]
 
@@ -67,7 +78,7 @@ ms.locfileid: "82775994"
 
 ## <a name="pipelines"></a>管道
 
-下面的示例显示了如何使用 `PipeReader` 处理相同的场景：
+下面的示例显示了如何使用 [PipeReader](/dotnet/standard/io/pipelines#pipe) 处理相同的场景：
 
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringFromPipe)]
 
@@ -75,11 +86,11 @@ ms.locfileid: "82775994"
 
 * 不需要字符串缓冲区，因为 `PipeReader` 会处理未使用的字节。
 * 编码后的字符串将直接添加到返回的字符串列表。
-* 除了字符串使用的内存之外，无需再为创建的字符串分配内存（`ToArray()` 调用除外）。
+* 除了 `ToArray` 调用以及字符串使用的内存，创建字符串时无需分配。
 
 ## <a name="adapters"></a>适配器
 
-`Body` 和 `BodyReader/BodyWriter` 属性均可用于 `HttpRequest` 和 `HttpResponse`。 将 `Body` 设置为另一个流时，一组新的适配器会自动使每种类型彼此适应。 如果将 `HttpRequest.Body` 设置为新流，则 `HttpRequest.BodyReader` 将自动设置为包装 `HttpRequest.Body` 的新 `PipeReader`。
+`Body`、`BodyReader` 和 `BodyWriter` 属性可用于 `HttpRequest` 和 `HttpResponse`。 将 `Body` 设置为另一个流时，一组新的适配器会自动使每种类型彼此适应。 如果将 `HttpRequest.Body` 设置为新流，则 `HttpRequest.BodyReader` 将自动设置为包装 `HttpRequest.Body` 的新 `PipeReader`。
 
 ## <a name="startasync"></a>StartAsync
 
@@ -87,5 +98,7 @@ ms.locfileid: "82775994"
 
 ## <a name="additional-resources"></a>其他资源
 
-* [System.IO.Pipelines 简介](https://devblogs.microsoft.com/dotnet/system-io-pipelines-high-performance-io-in-net/)
+* [.NET 中的 System.IO.Pipelines](/dotnet/standard/io/pipelines)
 * <xref:fundamentals/middleware/write>
+
+<!-- Test with Postman or other tool. See image in static directory. -->

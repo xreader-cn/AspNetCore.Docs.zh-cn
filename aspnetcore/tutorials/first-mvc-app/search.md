@@ -1,7 +1,7 @@
 ---
-title: 将搜索添加到 ASP.NET Core MVC 应用
+title: 第 7 部分，将搜索添加到 ASP.NET Core MVC 应用
 author: rick-anderson
-description: 演示如何将搜索添加到基本 ASP.NET Core MVC 应用
+description: ASP.NET Core MVC 教程系列第 7 部分。
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
@@ -11,20 +11,20 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 00213f9ffab13f23099e60240fa236bd1b41427f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 83bd904f90190456d42453653d3420c4c572fe8c
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775331"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652756"
 ---
-# <a name="add-search-to-an-aspnet-core-mvc-app"></a>将搜索添加到 ASP.NET Core MVC 应用
+# <a name="part-7-add-search-to-an-aspnet-core-mvc-app"></a>第 7 部分，将搜索添加到 ASP.NET Core MVC 应用
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影   。
+在本部分中，将向 `Index` 操作方法添加搜索功能，以实现按“类型”或“名称”搜索电影 。
 
-使用以下代码更新 Controllers/MoviesController.cs  中的 `Index` 方法：
+使用以下代码更新 Controllers/MoviesController.cs 中的 `Index` 方法：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_1stSearch)]
 
@@ -35,7 +35,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-此时仅对查询进行了定义，它还不会针对数据库运行   。
+此时仅对查询进行了定义，它还不会针对数据库运行。
 
 如果 `searchString` 参数包含一个字符串，电影查询则会被修改为根据搜索字符串的值进行筛选：
 
@@ -49,7 +49,7 @@ var movies = from m in _context.Movie
 
 ![索引视图](~/tutorials/first-mvc-app/search/_static/ghost.png)
 
-如果将 `Index` 方法的签名更改为具有名称为 `id` 的参数，则 `id` 参数将匹配 Startup.cs 中设置的默认路由的可选 `{id}` 占位符  。
+如果将 `Index` 方法的签名更改为具有名称为 `id` 的参数，则 `id` 参数将匹配 Startup.cs 中设置的默认路由的可选 `{id}` 占位符。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
@@ -71,7 +71,7 @@ var movies = from m in _context.Movie
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
-打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记  ：
+打开“Views/Movies/Index.cshtml”文件，并添加以下突出显示的 `<form>` 标记：
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
 
@@ -97,7 +97,7 @@ var movies = from m in _context.Movie
 
 在请求正文中，可看到搜索参数和 [XSRF](xref:security/anti-request-forgery) 标记。 请注意，正如之前教程所述，[表单标记帮助程序](xref:mvc/views/working-with-forms) 会生成一个 [XSRF](xref:security/anti-request-forgery) 防伪标记。 不会修改数据，因此无需验证控制器方法中的标记。
 
-搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml  文件中的 `HTTP GET`。
+搜索参数位于请求正文而非 URL 中，因此无法捕获该搜索信息进行书签设定或与他人共享。 修复方法是指定：请求应为 Views/Movies/Index.cshtml 文件中的 `HTTP GET`。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
@@ -113,7 +113,7 @@ var movies = from m in _context.Movie
 
 ## <a name="add-search-by-genre"></a>添加按流派搜索
 
-将以下 `MovieGenreViewModel` 类添加到“模型”文件夹  ：
+将以下 `MovieGenreViewModel` 类添加到“模型”文件夹：
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Models/MovieGenreViewModel.cs)]
 
@@ -138,7 +138,7 @@ var movies = from m in _context.Movie
 
 ## <a name="add-search-by-genre-to-the-index-view"></a>向“索引”视图添加“按流派搜索”
 
-按如下所示更新 Views/Movies/  中的 `Index.cshtml`：
+按如下所示更新 Views/Movies/ 中的 `Index.cshtml`：
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 

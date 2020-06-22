@@ -1,12 +1,25 @@
 ---
-title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- 'SignalR' uid: 
-
---- 
+title: ASP.NET Core 中的选项模式
+author: rick-anderson
+description: 了解如何使用选项模式来表示 ASP.NET Core 应用中的相关设置组。
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/20/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: fundamentals/configuration/options
+ms.openlocfilehash: 9a9febba060cca591f2cbcdc03cb4c35edcfdda7
+ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84529658"
+---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core 中的选项模式
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -158,9 +171,14 @@ title: author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Configuration/MyConfigOptions.cs?name=snippet)]
 
-下面的代码调用 <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> 以获取绑定到 `MyConfigOptions` 类的 [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) 并启用 `DataAnnotations` 验证：
+下面的代码：
+
+* 调用 <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> 以获取绑定到 `MyConfigOptions` 类的 [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1)。
+* 调用 <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations%2A> 以使用 `DataAnnotations` 启用验证。
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Startup.cs?name=snippet)]
+
+`ValidateDataAnnotations` 扩展方法在 [Microsoft.Extensions.Options.DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) NuGet 包中定义。 对于使用 `Microsoft.NET.Sdk.Web` SDK 的 Web 应用，通过共享框架隐式引用此包。
 
 下面的代码显示配置值或验证错误：
 

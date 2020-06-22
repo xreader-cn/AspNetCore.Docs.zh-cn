@@ -5,7 +5,7 @@ description: 了解 ASP.NET Core Blazor，用户可用它在 ASP.NET Core 应用
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 05/19/2020
+ms.date: 06/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: feca504a39624282961fbc6405876e970a20b5d4
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 086629f88ad04faed812bd16683e7d073f3e8ede
+ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102288"
+ms.lasthandoff: 06/20/2020
+ms.locfileid: "85122069"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
 
@@ -149,7 +149,7 @@ Blazor 服务器用于与浏览器通信的连接还用于处理 JavaScript 互�
 
 ## <a name="code-sharing-and-net-standard"></a>代码共享和 .NET Standard
 
-Blazor 实现 [.NET Standard 2.0](/dotnet/standard/net-standard)。 .NET Standard 是正式的 .NET API 规范，常见于 .NET 实现中。 .NET Standard 类库可以在不同 .NET 平台之间共享，例如 Blazor、.NET Framework、.NET Core、Xamarin、Mono 和 Unity。
+Blazor 实现 [.NET Standard 2.1](/dotnet/standard/net-standard)，它使 Blazor 项目引用符合 .NET Standard 2.1 或更早规范的库。 .NET Standard 是正式的 .NET API 规范，常见于 .NET 实现中。 .NET Standard 类库可以在不同 .NET 平台之间共享，例如 Blazor、.NET Framework、.NET Core、Xamarin、Mono 和 Unity。
 
 不适用于 Web 浏览器内部的 API（例如，访问文件系统、打开套接字和线程处理）将引发 <xref:System.PlatformNotSupportedException>。
 
