@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ce3f20f7ee4ccfa73afc5f80a4429d9f4fe05591
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: 0b9854b3848a204b28d0427bef08364be0139069
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507252"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102839"
 ---
 # <a name="build-your-first-blazor-app"></a>生成首个 Blazor 应用
 
@@ -233,4 +233,4 @@ Counter.razor 文件顶部的 `@page` 指令指定 `Counter` 组件是路由终�
 了解如何生成和使用组件：
 
 > [!div class="nextstepaction"]
-> <xref:blazor/components>
+> <xref:blazor/components/index>

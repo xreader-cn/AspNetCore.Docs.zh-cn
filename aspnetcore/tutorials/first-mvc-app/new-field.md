@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 2dfaba166617c5d0a224f4b47028c141e59ce47f
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: d56be93c4dd46b4712fe793ccd453807517a2022
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652909"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724329"
 ---
 # <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>第 8 部分，将新字段添加到 ASP.NET Core MVC 应用
 
@@ -137,10 +137,7 @@ dotnet ef database update
 ---
 <!-- End of VS tabs -->
 
-运行应用，并验证是否可以创建、编辑和显示具有 `Rating` 字段的电影。 更新应用：
-
-* 向 `Edit`、`Details` 和 `Delete` 视图模板添加 `Rating` 字段。
-* 更新 `MoviesController` 的编辑操作方法中的绑定。
+运行应用，并验证是否可以创建、编辑和显示具有 `Rating` 字段的电影。
 
 > [!div class="step-by-step"]
 > [上一页](search.md)

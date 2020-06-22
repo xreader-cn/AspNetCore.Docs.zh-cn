@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 08229283882928c4cc733de19840d25872846c97
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: c90c3bf7ccef420101c66fe04d579920209b066c
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452026"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102329"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor 入门
 
@@ -162,7 +162,7 @@ ms.locfileid: "84452026"
 
 运行应用。 主页拥有其自己的计数器，该计数器由 `Counter` 组件提供。
 
-组件参数使用特性或[子内容](xref:blazor/components#child-content)指定，允许在子组件上设置属性。 若要将参数添加到 `Counter` 组件，请更新组件的 `@code` 块：
+组件参数使用特性或[子内容](xref:blazor/components/index#child-content)指定，允许在子组件上设置属性。 若要将参数添加到 `Counter` 组件，请更新组件的 `@code` 块：
 
 * 使用 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性为 `IncrementAmount` 添加公共属性。
 * 增加 `currentCount` 的值时，更改 `IncrementCount` 方法以使用 `IncrementAmount`。

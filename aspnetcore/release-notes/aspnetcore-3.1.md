@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 5b6ae8173ca3d968e220faa4a060e1b42b14f8bb
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: 6a03e35495e2ae545dc0a3cdd38578b433d8df6b
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507239"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102587"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 的新增功能
 
@@ -25,7 +25,7 @@ ms.locfileid: "84507239"
 
 ## <a name="partial-class-support-for-razor-components"></a>Razor 组件的分部类支持
 
-Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐藏文件来编写 Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。 有关详细信息，请参阅[分部类支持](xref:blazor/components#partial-class-support)。
+Razor 组件现作为分部类生成。 可使用定义为分部类的代码隐藏文件来编写 Razor 组件的代码，而不是在单个文件中定义该组件的所有代码。 有关详细信息，请参阅[分部类支持](xref:blazor/components/index#partial-class-support)。
 
 ## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>Blazor 组件标记帮助程序和将参数传递到顶级组件
 
@@ -46,7 +46,7 @@ Blazor 服务器应用现可在初始呈现期间将参数传递给顶级组件�
     param-IncrementAmount="10" />
 ```
 
-有关详细信息，请参阅[将组件集成到 Razor Pages 和 MVC 应用](xref:blazor/integrate-components)。
+有关详细信息，请参阅[将组件集成到 Razor Pages 和 MVC 应用](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps)。
 
 ## <a name="support-for-shared-queues-in-httpsys"></a>HTTP.sys 中对共享队列的支持
 
@@ -66,7 +66,7 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 ```
 
-有关详细信息，请参阅[阻止默认操作](xref:blazor/event-handling#prevent-default-actions)。
+有关详细信息，请参阅[阻止默认操作](xref:blazor/components/event-handling#prevent-default-actions)。
 
 ## <a name="stop-event-propagation-in-blazor-apps"></a>在 Blazor 应用中停止事件传播
 
@@ -86,7 +86,7 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 }
 ```
 
-有关详细信息，请参阅[停止事件传播](xref:blazor/event-handling#stop-event-propagation)。
+有关详细信息，请参阅[停止事件传播](xref:blazor/components/event-handling#stop-event-propagation)。
 
 ## <a name="detailed-errors-during-blazor-app-development"></a>Blazor 应用开发过程中的错误详细信息
 
@@ -95,4 +95,4 @@ SameSite Cookie 的行为已更改，可反映出即将发生的浏览器更改�
 * 在开发过程中，黄色条框会将你定向到浏览器控制台，你可在其中查看异常。
 * 在生产过程中，黄色条框会通知用户发生了错误，并建议刷新浏览器。
 
-有关详细信息，请参阅[开发过程中的错误详细信息](xref:blazor/handle-errors#detailed-errors-during-development)。
+有关详细信息，请参阅[开发过程中的错误详细信息](xref:blazor/fundamentals/handle-errors#detailed-errors-during-development)。
