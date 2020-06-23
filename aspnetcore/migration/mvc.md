@@ -1,9 +1,9 @@
 ---
-title: 从 ASP.NET MVC 迁移到 ASP.NET Core MVC
-author: ardalis
+title: 了解如何从 ASP.NET MVC 迁移到 ASP.NET Core MVC
+author: wadepickett
 description: 了解如何开始将 ASP.NET MVC 项目迁移到 ASP.NET Core MVC。
-ms.author: riande
-ms.date: 04/06/2019
+ms.author: wpickett
+ms.date: 06/18/2020
 no-loc:
 - Blazor
 - Identity
@@ -11,167 +11,133 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: 59a10c002958e5f719dbd59686f21df69da5f43e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d2b1cce4bf70893f164e77921df8122e0291be18
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777041"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85241015"
 ---
-# <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a><span data-ttu-id="fb170-103">从 ASP.NET MVC 迁移到 ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="fb170-103">Migrate from ASP.NET MVC to ASP.NET Core MVC</span></span>
+# <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a><span data-ttu-id="48f46-103">从 ASP.NET MVC 迁移到 ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="48f46-103">Migrate from ASP.NET MVC to ASP.NET Core MVC</span></span>
 
-<span data-ttu-id="fb170-104">作者： [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Daniel Roth](https://github.com/danroth27)、 [Steve Smith](https://ardalis.com/)和[Scott Addie](https://scottaddie.com)</span><span class="sxs-lookup"><span data-stu-id="fb170-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), [Steve Smith](https://ardalis.com/), and [Scott Addie](https://scottaddie.com)</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="fb170-105">本文介绍如何开始将 ASP.NET MVC 项目迁移到[ASP.NET CORE mvc](../mvc/overview.md)。</span><span class="sxs-lookup"><span data-stu-id="fb170-105">This article shows how to get started migrating an ASP.NET MVC project to [ASP.NET Core MVC](../mvc/overview.md).</span></span> <span data-ttu-id="fb170-106">在此过程中，它突出显示了从 ASP.NET MVC 中更改的许多内容。</span><span class="sxs-lookup"><span data-stu-id="fb170-106">In the process, it highlights many of the things that have changed from ASP.NET MVC.</span></span> <span data-ttu-id="fb170-107">从 ASP.NET MVC 迁移是一个多步骤过程，本文介绍了初始设置、基本控制器和视图、静态内容和客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="fb170-107">Migrating from ASP.NET MVC is a multiple step process and this article covers the initial setup, basic controllers and views, static content, and client-side dependencies.</span></span> <span data-ttu-id="fb170-108">其他文章介绍了如何迁移在许多 ASP.NET MVC 项目中找到的配置和标识代码。</span><span class="sxs-lookup"><span data-stu-id="fb170-108">Additional articles cover migrating configuration and identity code found in many ASP.NET MVC projects.</span></span>
+<span data-ttu-id="48f46-104">本文介绍如何开始将 ASP.NET MVC 项目迁移到[ASP.NET CORE mvc](xref:mvc/overview)。</span><span class="sxs-lookup"><span data-stu-id="48f46-104">This article shows how to start migrating an ASP.NET MVC project to [ASP.NET Core MVC](xref:mvc/overview).</span></span> <span data-ttu-id="48f46-105">在此过程中，它突出显示了 ASP.NET MVC 中的相关更改。</span><span class="sxs-lookup"><span data-stu-id="48f46-105">In the process, it highlights related changes from ASP.NET MVC.</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="fb170-109">示例中的版本号可能不是最新的。</span><span class="sxs-lookup"><span data-stu-id="fb170-109">The version numbers in the samples might not be current.</span></span> <span data-ttu-id="fb170-110">可能需要相应地更新项目。</span><span class="sxs-lookup"><span data-stu-id="fb170-110">You may need to update your projects accordingly.</span></span>
+<span data-ttu-id="48f46-106">从 ASP.NET MVC 迁移是一个多步骤过程。</span><span class="sxs-lookup"><span data-stu-id="48f46-106">Migrating from ASP.NET MVC is a multi-step process.</span></span> <span data-ttu-id="48f46-107">本文介绍：</span><span class="sxs-lookup"><span data-stu-id="48f46-107">This article covers:</span></span>
 
-## <a name="create-the-starter-aspnet-mvc-project"></a><span data-ttu-id="fb170-111">创建 starter ASP.NET MVC 项目</span><span class="sxs-lookup"><span data-stu-id="fb170-111">Create the starter ASP.NET MVC project</span></span>
+* <span data-ttu-id="48f46-108">初始设置。</span><span class="sxs-lookup"><span data-stu-id="48f46-108">Initial setup.</span></span>
+* <span data-ttu-id="48f46-109">基本控制器和视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-109">Basic controllers and views.</span></span>
+* <span data-ttu-id="48f46-110">静态内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-110">Static content.</span></span>
+* <span data-ttu-id="48f46-111">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="48f46-111">Client-side dependencies.</span></span>
 
-<span data-ttu-id="fb170-112">为了演示升级，我们首先创建一个 ASP.NET MVC 应用程序。</span><span class="sxs-lookup"><span data-stu-id="fb170-112">To demonstrate the upgrade, we'll start by creating a ASP.NET MVC app.</span></span> <span data-ttu-id="fb170-113">创建名为*WebApp1*的命名空间，使命名空间与我们在下一步中创建的 ASP.NET Core 项目匹配。</span><span class="sxs-lookup"><span data-stu-id="fb170-113">Create it with the name *WebApp1* so the namespace matches the ASP.NET Core project we create in the next step.</span></span>
+<span data-ttu-id="48f46-112">若要迁移配置和 Identity 代码，请参阅将[配置迁移到 ASP.NET Core](xref:migration/configuration)并[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="48f46-112">For migrating configuration and Identity code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity).</span></span>
 
-![Visual Studio“新建项目”对话框](mvc/_static/new-project.png)
+## <a name="prerequisites"></a><span data-ttu-id="48f46-113">先决条件</span><span class="sxs-lookup"><span data-stu-id="48f46-113">Prerequisites</span></span>
 
-!["新建 Web 应用程序" 对话框：在 "ASP.NET 模板" 面板中选择的 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
+[!INCLUDE [prerequisites](../includes/net-core-prereqs-vs-3.1.md)]
 
-<span data-ttu-id="fb170-116">*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。</span><span class="sxs-lookup"><span data-stu-id="fb170-116">*Optional:* Change the name of the Solution from *WebApp1* to *Mvc5*.</span></span> <span data-ttu-id="fb170-117">Visual Studio 将显示新的解决方案名称（*Mvc5*），这样就可以更轻松地从下一个项目通知此项目。</span><span class="sxs-lookup"><span data-stu-id="fb170-117">Visual Studio displays the new solution name (*Mvc5*), which makes it easier to tell this project from the next project.</span></span>
+## <a name="create-the-starter-aspnet-mvc-project"></a><span data-ttu-id="48f46-114">创建 starter ASP.NET MVC 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-114">Create the starter ASP.NET MVC project</span></span>
 
-## <a name="create-the-aspnet-core-project"></a><span data-ttu-id="fb170-118">创建 ASP.NET Core 项目</span><span class="sxs-lookup"><span data-stu-id="fb170-118">Create the ASP.NET Core project</span></span>
+<span data-ttu-id="48f46-115">在 Visual Studio 中创建一个示例 ASP.NET MVC 项目以进行迁移：</span><span class="sxs-lookup"><span data-stu-id="48f46-115">Create an example ASP.NET MVC project in Visual Studio to migrate:</span></span>
 
-<span data-ttu-id="fb170-119">使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用（*WebApp1*），以便两个项目中的命名空间匹配。</span><span class="sxs-lookup"><span data-stu-id="fb170-119">Create a new *empty* ASP.NET Core web app with the same name as the previous project (*WebApp1*) so the namespaces in the two projects match.</span></span> <span data-ttu-id="fb170-120">通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。</span><span class="sxs-lookup"><span data-stu-id="fb170-120">Having the same namespace makes it easier to copy code between the two projects.</span></span> <span data-ttu-id="fb170-121">必须在与上一个项目相同的目录中创建此项目。</span><span class="sxs-lookup"><span data-stu-id="fb170-121">You'll have to create this project in a different directory than the previous project to use the same name.</span></span>
+1. <span data-ttu-id="48f46-116">从“文件”菜单中选择“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="48f46-116">From the **File** menu, select **New** > **Project**.</span></span>
+1. <span data-ttu-id="48f46-117">选择 " **ASP.NET Web 应用程序（.NET Framework）** "，然后选择 "**下一步**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-117">Select **ASP.NET Web Application (.NET Framework)** and then select **Next**.</span></span>
+1. <span data-ttu-id="48f46-118">将项目命名为*WebApp1* ，使命名空间与下一步中创建的 ASP.NET Core 项目相匹配。</span><span class="sxs-lookup"><span data-stu-id="48f46-118">Name the project *WebApp1* so the namespace matches the ASP.NET Core project created in the next step.</span></span> <span data-ttu-id="48f46-119">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="48f46-119">Select **Create**.</span></span>
+1. <span data-ttu-id="48f46-120">选择 " **MVC**"，然后选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-120">Select **MVC**, and then select **Create**.</span></span>
 
-![“新建项目”对话框](mvc/_static/new_core.png)
+## <a name="create-the-aspnet-core-project"></a><span data-ttu-id="48f46-121">创建 ASP.NET Core 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-121">Create the ASP.NET Core project</span></span>
 
-![New ASP.NET Web 应用程序对话框：在 ASP.NET Core 模板 "面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
+<span data-ttu-id="48f46-122">使用要迁移到的新 ASP.NET Core 项目创建新的解决方案：</span><span class="sxs-lookup"><span data-stu-id="48f46-122">Create a new solution with a new ASP.NET Core project to migrate to:</span></span>
 
-* <span data-ttu-id="fb170-124">*可选：* 使用 " *Web 应用程序*" 项目模板创建新的 ASP.NET Core 应用程序。</span><span class="sxs-lookup"><span data-stu-id="fb170-124">*Optional:* Create a new ASP.NET Core app using the *Web Application* project template.</span></span> <span data-ttu-id="fb170-125">将项目命名为 " *WebApp1*"，并选择**单个用户帐户**的身份验证选项。</span><span class="sxs-lookup"><span data-stu-id="fb170-125">Name the project *WebApp1*, and select an authentication option of **Individual User Accounts**.</span></span> <span data-ttu-id="fb170-126">将此应用重命名为*FullAspNetCore*。</span><span class="sxs-lookup"><span data-stu-id="fb170-126">Rename this app to *FullAspNetCore*.</span></span> <span data-ttu-id="fb170-127">创建此项目可在转换时节省时间。</span><span class="sxs-lookup"><span data-stu-id="fb170-127">Creating this project saves you time in the conversion.</span></span> <span data-ttu-id="fb170-128">您可以查看模板生成的代码以查看最终结果或将代码复制到转换项目。</span><span class="sxs-lookup"><span data-stu-id="fb170-128">You can look at the template-generated code to see the end result or to copy code to the conversion project.</span></span> <span data-ttu-id="fb170-129">当您停滞转换步骤以与模板生成的项目进行比较时，这也很有用。</span><span class="sxs-lookup"><span data-stu-id="fb170-129">It's also helpful when you get stuck on a conversion step to compare with the template-generated project.</span></span>
+1. <span data-ttu-id="48f46-123">启动 Visual Studio 的第二个实例。</span><span class="sxs-lookup"><span data-stu-id="48f46-123">Launch a second instance of Visual Studio.</span></span>
+1. <span data-ttu-id="48f46-124">从“文件”菜单中选择“新建”>“项目”  。</span><span class="sxs-lookup"><span data-stu-id="48f46-124">From the **File** menu, select **New** > **Project**.</span></span>
+1. <span data-ttu-id="48f46-125">选择 " **ASP.NET Web Core Web 应用程序**"，然后选择 "**下一步**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-125">Select **ASP.NET Web Core Web Application** and then select **Next**.</span></span>
+1. <span data-ttu-id="48f46-126">在 "**配置新项目**" 对话框中，将项目命名为 " *WebApp1*"。</span><span class="sxs-lookup"><span data-stu-id="48f46-126">In the **Configure your new project** dialog, Name the project *WebApp1*.</span></span>
+1. <span data-ttu-id="48f46-127">将位置设置为与上一个项目不同的目录，以使用相同的项目名称。</span><span class="sxs-lookup"><span data-stu-id="48f46-127">Set the location to a different directory than the previous project to use the same project name.</span></span> <span data-ttu-id="48f46-128">使用同一个命名空间可以更轻松地在两个项目之间复制代码。</span><span class="sxs-lookup"><span data-stu-id="48f46-128">Using the same namespace makes it easier to copy code between the two projects.</span></span> <span data-ttu-id="48f46-129">选择“创建”。</span><span class="sxs-lookup"><span data-stu-id="48f46-129">Select **Create**.</span></span>
+1. <span data-ttu-id="48f46-130">在“创建新的 ASP.NET Core Web 应用程序”对话框中，确认选择“.NET Core”和“ASP.NET Core 3.1”  。</span><span class="sxs-lookup"><span data-stu-id="48f46-130">In the **Create a new ASP.NET Core Web Application** dialog, confirm that **.NET Core** and **ASP.NET Core 3.1** are selected.</span></span> <span data-ttu-id="48f46-131">选择 " **Web 应用程序（模型-视图-控制器）** " 项目模板，然后选择 "**创建**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-131">Select the **Web Application (Model-View-Controller)** project template, and select **Create**.</span></span>
 
-## <a name="configure-the-site-to-use-mvc"></a><span data-ttu-id="fb170-130">将站点配置为使用 MVC</span><span class="sxs-lookup"><span data-stu-id="fb170-130">Configure the site to use MVC</span></span>
+## <a name="configure-the-aspnet-core-site-to-use-mvc"></a><span data-ttu-id="48f46-132">将 ASP.NET Core 网站配置为使用 MVC</span><span class="sxs-lookup"><span data-stu-id="48f46-132">Configure the ASP.NET Core site to use MVC</span></span>
 
-::: moniker range=">= aspnetcore-2.1"
+<span data-ttu-id="48f46-133">在 ASP.NET Core 3.0 及更高版本的项目中，.NET Framework 不再是受支持的目标框架。</span><span class="sxs-lookup"><span data-stu-id="48f46-133">In ASP.NET Core 3.0 and later projects, .NET Framework is no longer a supported target framework.</span></span> <span data-ttu-id="48f46-134">你的项目必须面向 .NET Core。</span><span class="sxs-lookup"><span data-stu-id="48f46-134">Your project must target .NET Core.</span></span> <span data-ttu-id="48f46-135">包含 MVC 的 ASP.NET Core 共享框架是 .NET Core 运行时安装的一部分。</span><span class="sxs-lookup"><span data-stu-id="48f46-135">The ASP.NET Core shared framework, which includes MVC, is part of the .NET Core runtime installation.</span></span> <span data-ttu-id="48f46-136">使用项目文件中的 `Microsoft.NET.Sdk.Web` SDK 时，会自动引用共享框架：</span><span class="sxs-lookup"><span data-stu-id="48f46-136">The shared framework is automatically referenced when using the `Microsoft.NET.Sdk.Web` SDK in the project file:</span></span>
 
-* <span data-ttu-id="fb170-131">面向 .NET Core 时，默认情况下将引用[AspNetCore 元包](xref:fundamentals/metapackage-app)。</span><span class="sxs-lookup"><span data-stu-id="fb170-131">When targeting .NET Core, the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) is referenced by default.</span></span> <span data-ttu-id="fb170-132">此包包含 MVC 应用通常使用的包。</span><span class="sxs-lookup"><span data-stu-id="fb170-132">This package contains packages commonly used by MVC apps.</span></span> <span data-ttu-id="fb170-133">如果目标 .NET Framework，则包引用必须单独列出在项目文件中。</span><span class="sxs-lookup"><span data-stu-id="fb170-133">If targeting .NET Framework, package references must be listed individually in the project file.</span></span>
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-* <span data-ttu-id="fb170-134">面向 .NET Core 时，默认情况下将引用[AspNetCore。](xref:fundamentals/metapackage)</span><span class="sxs-lookup"><span data-stu-id="fb170-134">When targeting .NET Core, the [Microsoft.AspNetCore.All metapackage](xref:fundamentals/metapackage) is referenced by default.</span></span> <span data-ttu-id="fb170-135">此包包含由 MVC 应用程序使用的包。</span><span class="sxs-lookup"><span data-stu-id="fb170-135">This package contains packages commonly used packages by MVC apps.</span></span> <span data-ttu-id="fb170-136">如果目标 .NET Framework，则包引用必须单独列出在项目文件中。</span><span class="sxs-lookup"><span data-stu-id="fb170-136">If targeting .NET Framework, package references must be listed individually in the project file.</span></span>
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-* <span data-ttu-id="fb170-137">面向 .NET Core 或 .NET Framework 时，将在项目文件中单独列出包由 MVC 应用程序使用的常用包。</span><span class="sxs-lookup"><span data-stu-id="fb170-137">When targeting .NET Core or .NET Framework, packages commonly used packages by MVC apps are listed individually in the project file.</span></span>
-
-::: moniker-end
-
-<span data-ttu-id="fb170-138">`Microsoft.AspNetCore.Mvc`是 ASP.NET Core MVC 框架。</span><span class="sxs-lookup"><span data-stu-id="fb170-138">`Microsoft.AspNetCore.Mvc` is the ASP.NET Core MVC framework.</span></span> <span data-ttu-id="fb170-139">`Microsoft.AspNetCore.StaticFiles`为静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="fb170-139">`Microsoft.AspNetCore.StaticFiles` is the static file handler.</span></span> <span data-ttu-id="fb170-140">ASP.NET Core 运行时是模块化的，你必须明确选择提供静态文件（请参阅[静态文件](xref:fundamentals/static-files)）。</span><span class="sxs-lookup"><span data-stu-id="fb170-140">The ASP.NET Core runtime is modular, and you must explicitly opt in to serve static files (see [Static files](xref:fundamentals/static-files)).</span></span>
-
-* <span data-ttu-id="fb170-141">打开*Startup.cs*文件并更改代码，使其与以下内容匹配：</span><span class="sxs-lookup"><span data-stu-id="fb170-141">Open the *Startup.cs* file and change the code to match the following:</span></span>
-
-  [!code-csharp[](mvc/sample/Startup.cs?highlight=13,26-31)]
-
-<span data-ttu-id="fb170-142">`UseStaticFiles`扩展方法添加静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="fb170-142">The `UseStaticFiles` extension method adds the static file handler.</span></span> <span data-ttu-id="fb170-143">如前所述，ASP.NET 运行时是模块化的，你必须明确选择提供静态文件。</span><span class="sxs-lookup"><span data-stu-id="fb170-143">As mentioned previously, the ASP.NET runtime is modular, and you must explicitly opt in to serve static files.</span></span> <span data-ttu-id="fb170-144">`UseMvc`扩展方法将添加路由。</span><span class="sxs-lookup"><span data-stu-id="fb170-144">The `UseMvc` extension method adds routing.</span></span> <span data-ttu-id="fb170-145">有关详细信息，请参阅[应用程序启动](xref:fundamentals/startup)和[路由](xref:fundamentals/routing)。</span><span class="sxs-lookup"><span data-stu-id="fb170-145">For more information, see [Application Startup](xref:fundamentals/startup) and [Routing](xref:fundamentals/routing).</span></span>
-
-## <a name="add-a-controller-and-view"></a><span data-ttu-id="fb170-146">添加控制器和视图</span><span class="sxs-lookup"><span data-stu-id="fb170-146">Add a controller and view</span></span>
-
-<span data-ttu-id="fb170-147">在本部分中，你将添加一个最小控制器和视图，用作 ASP.NET MVC 控制器的占位符，以及将在下一部分中迁移的视图。</span><span class="sxs-lookup"><span data-stu-id="fb170-147">In this section, you'll add a minimal controller and view to serve as placeholders for the ASP.NET MVC controller and views you'll migrate in the next section.</span></span>
-
-* <span data-ttu-id="fb170-148">添加 "*控制器*" 文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-148">Add a *Controllers* folder.</span></span>
-
-* <span data-ttu-id="fb170-149">将名为*HomeController.cs*的**控制器类**添加到 "*控制器*" 文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-149">Add a **Controller Class** named *HomeController.cs* to the *Controllers* folder.</span></span>
-
-![“添加新项”对话框](mvc/_static/add_mvc_ctl.png)
-
-* <span data-ttu-id="fb170-151">添加*Views*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-151">Add a *Views* folder.</span></span>
-
-* <span data-ttu-id="fb170-152">添加 "*视图"/"主*文件夹"。</span><span class="sxs-lookup"><span data-stu-id="fb170-152">Add a *Views/Home* folder.</span></span>
-
-* <span data-ttu-id="fb170-153">将名为*Index*的\*\* Razor视图\**添加到*Views/Home\*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="fb170-153">Add a **Razor View** named *Index.cshtml* to the *Views/Home* folder.</span></span>
-
-![“添加新项”对话框](mvc/_static/view.png)
-
-<span data-ttu-id="fb170-155">项目结构如下所示：</span><span class="sxs-lookup"><span data-stu-id="fb170-155">The project structure is shown below:</span></span>
-
-![显示 WebApp1 的文件和文件夹的解决方案资源管理器](mvc/_static/project-structure-controller-view.png)
-
-<span data-ttu-id="fb170-157">将*Views/Home/Index. cshtml*文件的内容替换为以下内容：</span><span class="sxs-lookup"><span data-stu-id="fb170-157">Replace the contents of the *Views/Home/Index.cshtml* file with the following:</span></span>
-
-```html
-<h1>Hello world!</h1>
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-<span data-ttu-id="fb170-158">运行应用。</span><span class="sxs-lookup"><span data-stu-id="fb170-158">Run the app.</span></span>
+<span data-ttu-id="48f46-137">有关详细信息，请参阅[框架引用](xref:migration/22-to-30#framework-reference)。</span><span class="sxs-lookup"><span data-stu-id="48f46-137">For more information, see [Framework reference](xref:migration/22-to-30#framework-reference).</span></span>
 
-![在 Microsoft Edge 中打开的 Web 应用](mvc/_static/hello-world.png)
+<span data-ttu-id="48f46-138">在 ASP.NET Core 中， `Startup` 类：</span><span class="sxs-lookup"><span data-stu-id="48f46-138">In ASP.NET Core, the `Startup` class:</span></span>
 
-<span data-ttu-id="fb170-160">有关详细信息，请参阅[控制器](xref:mvc/controllers/actions)和[视图](xref:mvc/views/overview)。</span><span class="sxs-lookup"><span data-stu-id="fb170-160">See [Controllers](xref:mvc/controllers/actions) and [Views](xref:mvc/views/overview) for more information.</span></span>
+* <span data-ttu-id="48f46-139">替换*global.asax*。</span><span class="sxs-lookup"><span data-stu-id="48f46-139">Replaces *Global.asax*.</span></span>
+* <span data-ttu-id="48f46-140">处理所有应用启动任务。</span><span class="sxs-lookup"><span data-stu-id="48f46-140">Handles all app startup tasks.</span></span>
 
-<span data-ttu-id="fb170-161">现在，我们有了最小的工作 ASP.NET Core 项目，接下来可以开始从 ASP.NET MVC 项目迁移功能。</span><span class="sxs-lookup"><span data-stu-id="fb170-161">Now that we have a minimal working ASP.NET Core project, we can start migrating functionality from the ASP.NET MVC project.</span></span> <span data-ttu-id="fb170-162">我们需要移动以下内容：</span><span class="sxs-lookup"><span data-stu-id="fb170-162">We need to move the following:</span></span>
+<span data-ttu-id="48f46-141">有关详细信息，请参阅 <xref:fundamentals/startup>。</span><span class="sxs-lookup"><span data-stu-id="48f46-141">For more information, see <xref:fundamentals/startup>.</span></span>
 
-* <span data-ttu-id="fb170-163">客户端内容（CSS、字体和脚本）</span><span class="sxs-lookup"><span data-stu-id="fb170-163">client-side content (CSS, fonts, and scripts)</span></span>
+<span data-ttu-id="48f46-142">在 ASP.NET Core 项目中，打开*Startup.cs*文件：</span><span class="sxs-lookup"><span data-stu-id="48f46-142">In the ASP.NET Core project, open the *Startup.cs* file:</span></span>
 
-* <span data-ttu-id="fb170-164">控制器</span><span class="sxs-lookup"><span data-stu-id="fb170-164">controllers</span></span>
+[!code-csharp[](mvc/samples/3.x/Startup.cs?highlight=13,30,32&name=snippet)]
 
-* <span data-ttu-id="fb170-165">视图</span><span class="sxs-lookup"><span data-stu-id="fb170-165">views</span></span>
+<span data-ttu-id="48f46-143">ASP.NET Core 应用必须选择包含中间件的框架功能。</span><span class="sxs-lookup"><span data-stu-id="48f46-143">ASP.NET Core apps must opt in to framework features with middleware.</span></span> <span data-ttu-id="48f46-144">上一个模板生成的代码添加以下服务和中间件：</span><span class="sxs-lookup"><span data-stu-id="48f46-144">The previous template-generated code adds the following services and middleware:</span></span>
 
-* <span data-ttu-id="fb170-166">模型</span><span class="sxs-lookup"><span data-stu-id="fb170-166">models</span></span>
+* <span data-ttu-id="48f46-145"><xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews%2A>扩展方法为控制器、API 相关的功能和视图注册 MVC 服务支持。</span><span class="sxs-lookup"><span data-stu-id="48f46-145">The <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews%2A> extension method registers MVC service support for controllers, API-related features, and views.</span></span> <span data-ttu-id="48f46-146">有关 MVC 服务注册选项的详细信息，请参阅[mvc 服务注册](xref:migration/22-to-30#mvc-service-registration)</span><span class="sxs-lookup"><span data-stu-id="48f46-146">For more information on MVC service registration options, see [MVC service registration](xref:migration/22-to-30#mvc-service-registration)</span></span>
+* <span data-ttu-id="48f46-147"><xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A>扩展方法添加静态文件处理程序 `Microsoft.AspNetCore.StaticFiles` 。</span><span class="sxs-lookup"><span data-stu-id="48f46-147">The <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A> extension method adds the static file handler `Microsoft.AspNetCore.StaticFiles`.</span></span> <span data-ttu-id="48f46-148">`UseStaticFiles`必须先调用扩展方法 `UseRouting` 。</span><span class="sxs-lookup"><span data-stu-id="48f46-148">The `UseStaticFiles` extension method must be called before `UseRouting`.</span></span> <span data-ttu-id="48f46-149">有关详细信息，请参阅 <xref:fundamentals/static-files>。</span><span class="sxs-lookup"><span data-stu-id="48f46-149">For more information, see <xref:fundamentals/static-files>.</span></span>
+* <span data-ttu-id="48f46-150"><xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A>扩展方法将添加路由。</span><span class="sxs-lookup"><span data-stu-id="48f46-150">The <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> extension method adds routing.</span></span> <span data-ttu-id="48f46-151">有关详细信息，请参阅 <xref:fundamentals/routing>。</span><span class="sxs-lookup"><span data-stu-id="48f46-151">For more information, see <xref:fundamentals/routing>.</span></span>
 
-* <span data-ttu-id="fb170-167">销售</span><span class="sxs-lookup"><span data-stu-id="fb170-167">bundling</span></span>
+<span data-ttu-id="48f46-152">此现有配置包括迁移示例 ASP.NET MVC 项目所需的内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-152">This existing configuration includes what is needed to migrate the example ASP.NET MVC project.</span></span> <span data-ttu-id="48f46-153">有关 ASP.NET Core 中间件选项的详细信息，请参阅 <xref:fundamentals/startup> 。</span><span class="sxs-lookup"><span data-stu-id="48f46-153">For more information on ASP.NET Core middleware options, see <xref:fundamentals/startup>.</span></span>
 
-* <span data-ttu-id="fb170-168">筛选器</span><span class="sxs-lookup"><span data-stu-id="fb170-168">filters</span></span>
+## <a name="migrate-controllers-and-views"></a><span data-ttu-id="48f46-154">迁移控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-154">Migrate controllers and views</span></span>
 
-* <span data-ttu-id="fb170-169">登录/注销， Identity （在下一教程中完成此操作。）</span><span class="sxs-lookup"><span data-stu-id="fb170-169">Log in/out, Identity (This is done in the next tutorial.)</span></span>
+<span data-ttu-id="48f46-155">在 ASP.NET Core 项目中，将添加新的空控制器类和视图类作为占位符，使用与要从中进行迁移的任何 ASP.NET MVC 项目中的控制器和视图类相同的名称。</span><span class="sxs-lookup"><span data-stu-id="48f46-155">In the ASP.NET Core project, a new empty controller class and view class would be added to serve as placeholders using the same names as the controller and view classes in any ASP.NET MVC project to migrate from.</span></span>
 
-## <a name="controllers-and-views"></a><span data-ttu-id="fb170-170">控制器和视图</span><span class="sxs-lookup"><span data-stu-id="fb170-170">Controllers and views</span></span>
+<span data-ttu-id="48f46-156">ASP.NET Core *WebApp1*项目已包含与 ASP.NET MVC 项目相同的名称的最小示例控制器和视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-156">The ASP.NET Core *WebApp1* project already includes a minimal example controller and view by the same name as the ASP.NET MVC project.</span></span> <span data-ttu-id="48f46-157">因此，这些占位符将用作 ASP.NET MVC 控制器的占位符，以及要从 ASP.NET MVC *WebApp1*项目迁移的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-157">So those will serve as placeholders for the ASP.NET MVC controller and views to be migrated from the ASP.NET MVC *WebApp1* project.</span></span>
 
-* <span data-ttu-id="fb170-171">将 ASP.NET MVC `HomeController`中的每个方法复制到新`HomeController`的。</span><span class="sxs-lookup"><span data-stu-id="fb170-171">Copy each of the methods from the ASP.NET MVC `HomeController` to the new `HomeController`.</span></span> <span data-ttu-id="fb170-172">请注意，在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将`IActionResult`改为返回。</span><span class="sxs-lookup"><span data-stu-id="fb170-172">Note that in ASP.NET MVC, the built-in template's controller action method return type is [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="fb170-173">`ActionResult`实现`IActionResult`，因此无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="fb170-173">`ActionResult` implements `IActionResult`, so there's no need to change the return type of your action methods.</span></span>
+1. <span data-ttu-id="48f46-158">复制 ASP.NET MVC 中的方法 `HomeController` 以替换新的 ASP.NET Core `HomeController` 方法。</span><span class="sxs-lookup"><span data-stu-id="48f46-158">Copy the methods from the ASP.NET MVC `HomeController` to replace the new ASP.NET Core `HomeController` methods.</span></span> <span data-ttu-id="48f46-159">无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="48f46-159">There's no need to change the return type of the action methods.</span></span> <span data-ttu-id="48f46-160">ASP.NET MVC 内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。</span><span class="sxs-lookup"><span data-stu-id="48f46-160">The ASP.NET MVC built-in template's controller action method return type is [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="48f46-161">`ActionResult` 可实现 `IActionResult`。</span><span class="sxs-lookup"><span data-stu-id="48f46-161">`ActionResult` implements `IActionResult`.</span></span>
+1. <span data-ttu-id="48f46-162">在 ASP.NET Core 项目中，右键单击 "*视图"/"主*" 目录，选择 "**添加** > **现有项**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-162">In the ASP.NET Core project, right-click the *Views/Home* directory, select **Add** > **Existing Item**.</span></span>
+1. <span data-ttu-id="48f46-163">在 "**添加现有项**" 对话框中，导航到 ASP.NET MVC *WebApp1*项目的 "*视图"/"主*目录"。</span><span class="sxs-lookup"><span data-stu-id="48f46-163">In the **Add Existing Item** dialog, navigate to the ASP.NET MVC *WebApp1* project's *Views/Home* directory.</span></span>
+1. <span data-ttu-id="48f46-164">选择 "*关于* *"，然后依次选择 "* *Index.cshtml* Razor **添加**"、"替换现有文件"。</span><span class="sxs-lookup"><span data-stu-id="48f46-164">Select the *About.cshtml*, *Contact.cshtml*, and *Index.cshtml* Razor view files, then select **Add**, replacing the existing files.</span></span>
 
-* <span data-ttu-id="fb170-174">将 ASP.NET MVC 项目中的*About*、 *Contact*和*Index.cshtml* Razor视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="fb170-174">Copy the *About.cshtml*, *Contact.cshtml*, and *Index.cshtml* Razor view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
+<span data-ttu-id="48f46-165">有关详细信息，请参阅 <xref:mvc/controllers/actions> 和 <xref:mvc/views/overview>。</span><span class="sxs-lookup"><span data-stu-id="48f46-165">For more information, see <xref:mvc/controllers/actions> and <xref:mvc/views/overview>.</span></span>
 
-* <span data-ttu-id="fb170-175">运行 ASP.NET Core 应用并测试每个方法。</span><span class="sxs-lookup"><span data-stu-id="fb170-175">Run the ASP.NET Core app and test each method.</span></span> <span data-ttu-id="fb170-176">尚未迁移布局文件或样式，因此呈现的视图仅包含视图文件中的内容。</span><span class="sxs-lookup"><span data-stu-id="fb170-176">We haven't migrated the layout file or styles yet, so the rendered views only contain the content in the view files.</span></span> <span data-ttu-id="fb170-177">你没有`About`和`Contact`视图的布局文件生成链接，因此你必须从浏览器调用它们（将**4492**替换为项目中使用的端口号）。</span><span class="sxs-lookup"><span data-stu-id="fb170-177">You won't have the layout file generated links for the `About` and `Contact` views, so you'll have to invoke them from the browser (replace **4492** with the port number used in your project).</span></span>
+## <a name="test-each-method"></a><span data-ttu-id="48f46-166">测试每个方法</span><span class="sxs-lookup"><span data-stu-id="48f46-166">Test each method</span></span>
 
-  * `http://localhost:4492/home/about`
+<span data-ttu-id="48f46-167">可以测试每个控制器终结点，但在本文档的后面部分介绍了布局和样式。</span><span class="sxs-lookup"><span data-stu-id="48f46-167">Each controller endpoint can be tested, however, layout and styles are covered later in the document.</span></span>
 
-  * `http://localhost:4492/home/contact`
+1. <span data-ttu-id="48f46-168">运行 ASP.NET Core 应用。</span><span class="sxs-lookup"><span data-stu-id="48f46-168">Run the ASP.NET Core app.</span></span>
+1. <span data-ttu-id="48f46-169">通过将当前端口号替换为 ASP.NET Core 项目中使用的端口号，在运行 ASP.NET Core 应用程序的浏览器中调用呈现的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-169">Invoke the rendered views from the browser on the running ASP.NET Core app by replacing the current port number with the port number used in the ASP.NET Core project.</span></span> <span data-ttu-id="48f46-170">例如，`https://localhost:44375/home/about`。</span><span class="sxs-lookup"><span data-stu-id="48f46-170">For example, `https://localhost:44375/home/about`.</span></span>
 
-![联系人页](mvc/_static/contact-page.png)
+## <a name="migrate-static-content"></a><span data-ttu-id="48f46-171">迁移静态内容</span><span class="sxs-lookup"><span data-stu-id="48f46-171">Migrate static content</span></span>
 
-<span data-ttu-id="fb170-179">请注意缺少样式和菜单项。</span><span class="sxs-lookup"><span data-stu-id="fb170-179">Note the lack of styling and menu items.</span></span> <span data-ttu-id="fb170-180">此问题将在下一部分得以解决。</span><span class="sxs-lookup"><span data-stu-id="fb170-180">We'll fix that in the next section.</span></span>
+<span data-ttu-id="48f46-172">在 ASP.NET MVC 5 及更早版本中，静态内容是从 web 项目的根目录承载的，与服务器端文件混合。</span><span class="sxs-lookup"><span data-stu-id="48f46-172">In ASP.NET MVC 5 and earlier, static content was hosted from the web project's root directory and was intermixed with server-side files.</span></span> <span data-ttu-id="48f46-173">在 ASP.NET Core 中，静态文件存储在项目的[web 根目录](xref:fundamentals/index#web-root)中。</span><span class="sxs-lookup"><span data-stu-id="48f46-173">In ASP.NET Core, static files are stored within the project's [web root](xref:fundamentals/index#web-root) directory.</span></span> <span data-ttu-id="48f46-174">默认目录为 *{content root}/wwwroot*，但可以对其进行更改。</span><span class="sxs-lookup"><span data-stu-id="48f46-174">The default directory is *{content root}/wwwroot*, but it can be changed.</span></span> <span data-ttu-id="48f46-175">有关详细信息，请参阅 [ASP.NET Core 中的静态文件](xref:fundamentals/static-files#serve-static-files)。</span><span class="sxs-lookup"><span data-stu-id="48f46-175">For more information, see [Static files in ASP.NET Core](xref:fundamentals/static-files#serve-static-files).</span></span>
 
-## <a name="static-content"></a><span data-ttu-id="fb170-181">静态内容</span><span class="sxs-lookup"><span data-stu-id="fb170-181">Static content</span></span>
+<span data-ttu-id="48f46-176">将 ASP.NET MVC *WebApp1*项目中的静态内容复制到 ASP.NET Core *WebApp1*项目中的*wwwroot*目录：</span><span class="sxs-lookup"><span data-stu-id="48f46-176">Copy the static content from the ASP.NET MVC *WebApp1* project to the *wwwroot* directory in the ASP.NET Core *WebApp1* project:</span></span>
 
-<span data-ttu-id="fb170-182">在以前版本的 ASP.NET MVC 中，静态内容是从 web 项目的根托管的，与服务器端文件混合。</span><span class="sxs-lookup"><span data-stu-id="fb170-182">In previous versions of ASP.NET MVC, static content was hosted from the root of the web project and was intermixed with server-side files.</span></span> <span data-ttu-id="fb170-183">在 ASP.NET Core 中，静态内容承载于*wwwroot*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="fb170-183">In ASP.NET Core, static content is hosted in the *wwwroot* folder.</span></span> <span data-ttu-id="fb170-184">需要将静态内容从旧的 ASP.NET MVC 应用复制到 ASP.NET Core 项目中的*wwwroot*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-184">You'll want to copy the static content from your old ASP.NET MVC app to the *wwwroot* folder in your ASP.NET Core project.</span></span> <span data-ttu-id="fb170-185">在此示例转换中：</span><span class="sxs-lookup"><span data-stu-id="fb170-185">In this sample conversion:</span></span>
+1. <span data-ttu-id="48f46-177">在 ASP.NET Core 项目中，右键单击*wwwroot*目录，选择 "**添加** > **现有项**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-177">In the ASP.NET Core project, right-click the *wwwroot* directory, select **Add** > **Existing Item**.</span></span>
+1. <span data-ttu-id="48f46-178">在 "**添加现有项**" 对话框中，导航到 "ASP.NET MVC *WebApp1* " 项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-178">In the **Add Existing Item** dialog, navigate to the ASP.NET MVC *WebApp1* project.</span></span>
+1. <span data-ttu-id="48f46-179">选择*favicon*文件，然后选择 "**添加**"，替换现有文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-179">Select the *favicon.ico* file, then select **Add**, replacing the existing file.</span></span>
 
-* <span data-ttu-id="fb170-186">将旧 MVC 项目中的*favicon*文件复制到 ASP.NET Core 项目中的*wwwroot*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-186">Copy the *favicon.ico* file from the old MVC project to the *wwwroot* folder in the ASP.NET Core project.</span></span>
+## <a name="migrate-the-layout-files"></a><span data-ttu-id="48f46-180">迁移布局文件</span><span class="sxs-lookup"><span data-stu-id="48f46-180">Migrate the layout files</span></span>
 
-<span data-ttu-id="fb170-187">旧的 ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在 "*内容*" 和 "*脚本*" 文件夹中。</span><span class="sxs-lookup"><span data-stu-id="fb170-187">The old ASP.NET MVC project uses [Bootstrap](https://getbootstrap.com/) for its styling and stores the Bootstrap files in the *Content* and *Scripts* folders.</span></span> <span data-ttu-id="fb170-188">生成旧的 ASP.NET MVC 项目的模板引用布局文件（*Views/Shared/_Layout*）中的启动。</span><span class="sxs-lookup"><span data-stu-id="fb170-188">The template, which generated the old ASP.NET MVC project, references Bootstrap in the layout file (*Views/Shared/_Layout.cshtml*).</span></span> <span data-ttu-id="fb170-189">可以将 ASP.NET MVC 项目中的*node.js*和*启动 .css*文件复制到新项目中的*wwwroot*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-189">You could copy the *bootstrap.js* and *bootstrap.css* files from the ASP.NET MVC project to the *wwwroot* folder in the new project.</span></span> <span data-ttu-id="fb170-190">相反，我们将在下一节中使用 Cdn 添加对启动（和其他客户端库）的支持。</span><span class="sxs-lookup"><span data-stu-id="fb170-190">Instead, we'll add support for Bootstrap (and other client-side libraries) using CDNs in the next section.</span></span>
+<span data-ttu-id="48f46-181">将 ASP.NET MVC 项目布局文件复制到 ASP.NET Core 项目：</span><span class="sxs-lookup"><span data-stu-id="48f46-181">Copy the ASP.NET MVC project layout files to the ASP.NET Core project:</span></span>
 
-## <a name="migrate-the-layout-file"></a><span data-ttu-id="fb170-191">迁移布局文件</span><span class="sxs-lookup"><span data-stu-id="fb170-191">Migrate the layout file</span></span>
+1. <span data-ttu-id="48f46-182">在 ASP.NET Core 项目中，右键单击 "*视图*" 目录，选择 "**添加** > **现有项**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-182">In the ASP.NET Core project, right-click the *Views* directory, select **Add** > **Existing Item**.</span></span>
+1. <span data-ttu-id="48f46-183">在 "**添加现有项**" 对话框中，导航到 "ASP.NET MVC *WebApp1* " 项目的 "*视图*" 目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-183">In the **Add Existing Item** dialog, navigate to the ASP.NET MVC *WebApp1* project's *Views* directory.</span></span>
+1. <span data-ttu-id="48f46-184">选择 *_ViewStart*的文件，然后选择 "**添加**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-184">Select the *_ViewStart.cshtml* file then select **Add**.</span></span>
 
-* <span data-ttu-id="fb170-192">将 *_ViewStart*的 ASP.NET 文件从旧的 MVC 项目的*views*文件夹复制到 ASP.NET Core 项目的*views*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="fb170-192">Copy the *_ViewStart.cshtml* file from the old ASP.NET MVC project's *Views* folder into the ASP.NET Core project's *Views* folder.</span></span> <span data-ttu-id="fb170-193">未在 ASP.NET Core MVC 中更改 *_ViewStart cshtml*文件。</span><span class="sxs-lookup"><span data-stu-id="fb170-193">The *_ViewStart.cshtml* file has not changed in ASP.NET Core MVC.</span></span>
+<span data-ttu-id="48f46-185">将 ASP.NET MVC 项目共享布局文件复制到 ASP.NET Core 项目：</span><span class="sxs-lookup"><span data-stu-id="48f46-185">Copy the ASP.NET MVC project shared layout files to the ASP.NET Core project:</span></span>
 
-* <span data-ttu-id="fb170-194">创建*视图/共享*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-194">Create a *Views/Shared* folder.</span></span>
+1. <span data-ttu-id="48f46-186">在 ASP.NET Core 项目中，右键单击 "*视图"/"共享*" 目录，选择 "**添加** > **现有项**"。</span><span class="sxs-lookup"><span data-stu-id="48f46-186">In the ASP.NET Core project, right-click the *Views/Shared* directory, select **Add** > **Existing Item**.</span></span>
+1. <span data-ttu-id="48f46-187">在 "**添加现有项**" 对话框中，导航到 "ASP.NET MVC *WebApp1* " 项目的 "*视图"/"共享*目录"。</span><span class="sxs-lookup"><span data-stu-id="48f46-187">In the **Add Existing Item** dialog, navigate to the ASP.NET MVC *WebApp1* project's *Views/Shared* directory.</span></span>
+1. <span data-ttu-id="48f46-188">选择 *_Layout*的文件，然后选择 "**添加**"，替换现有文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-188">Select the *_Layout.cshtml* file, then select **Add**, replacing the existing file.</span></span>
 
-* <span data-ttu-id="fb170-195">*可选：* 将*FullAspNetCore* MVC 项目的*views*文件夹中 *_ViewImports*为 ASP.NET Core 项目的*views*文件夹。</span><span class="sxs-lookup"><span data-stu-id="fb170-195">*Optional:* Copy *_ViewImports.cshtml* from the *FullAspNetCore* MVC project's *Views* folder into the ASP.NET Core project's *Views* folder.</span></span> <span data-ttu-id="fb170-196">删除 *_ViewImports cshtml*文件中的任何命名空间声明。</span><span class="sxs-lookup"><span data-stu-id="fb170-196">Remove any namespace declaration in the *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="fb170-197">*_ViewImports 的 cshtml*文件提供所有视图文件的命名空间，并提供[标记帮助](xref:mvc/views/tag-helpers/intro)程序。</span><span class="sxs-lookup"><span data-stu-id="fb170-197">The *_ViewImports.cshtml* file provides namespaces for all the view files and brings in [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span> <span data-ttu-id="fb170-198">标记帮助程序在新的布局文件中使用。</span><span class="sxs-lookup"><span data-stu-id="fb170-198">Tag Helpers are used in the new layout file.</span></span> <span data-ttu-id="fb170-199">*_ViewImports* ASP.NET Core 的新文件。</span><span class="sxs-lookup"><span data-stu-id="fb170-199">The *_ViewImports.cshtml* file is new for ASP.NET Core.</span></span>
+<span data-ttu-id="48f46-189">在 ASP.NET Core 项目中，打开 *_Layout。*</span><span class="sxs-lookup"><span data-stu-id="48f46-189">In the ASP.NET Core project, open the *_Layout.cshtml* file.</span></span> <span data-ttu-id="48f46-190">进行以下更改，使其与下面显示的已完成代码相匹配：</span><span class="sxs-lookup"><span data-stu-id="48f46-190">Make the following changes to match the completed code shown below:</span></span>
 
-* <span data-ttu-id="fb170-200">将 *_Layout*的 ASP.NET 文件从旧的 MVC 项目的*视图/共享*文件夹复制到 ASP.NET Core 项目的*视图/共享*文件夹中。</span><span class="sxs-lookup"><span data-stu-id="fb170-200">Copy the *_Layout.cshtml* file from the old ASP.NET MVC project's *Views/Shared* folder into the ASP.NET Core project's *Views/Shared* folder.</span></span>
+<span data-ttu-id="48f46-191">更新启动 CSS 包含项以匹配以下已完成的代码：</span><span class="sxs-lookup"><span data-stu-id="48f46-191">Update the Bootstrap CSS inclusion to match the completed code below:</span></span>
 
-<span data-ttu-id="fb170-201">打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：</span><span class="sxs-lookup"><span data-stu-id="fb170-201">Open *_Layout.cshtml* file and make the following changes (the completed code is shown below):</span></span>
+1. <span data-ttu-id="48f46-192">替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-192">Replace `@Styles.Render("~/Content/css")` with a `<link>` element to load *bootstrap.css* (see below).</span></span>
+1. <span data-ttu-id="48f46-193">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="48f46-193">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
 
-* <span data-ttu-id="fb170-202">替换`@Styles.Render("~/Content/css")`为加载`<link>` *启动 .css*的元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="fb170-202">Replace `@Styles.Render("~/Content/css")` with a `<link>` element to load *bootstrap.css* (see below).</span></span>
-
-* <span data-ttu-id="fb170-203">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="fb170-203">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
-
-* <span data-ttu-id="fb170-204">注释掉`@Html.Partial("_LoginPartial")`行（将该行环绕`@*...*@`）。</span><span class="sxs-lookup"><span data-stu-id="fb170-204">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="fb170-205">有关详细信息，请参阅[迁移Identity身份验证和 ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="fb170-205">For more information see [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity)</span></span>
-
-* <span data-ttu-id="fb170-206">替换`@Scripts.Render("~/bundles/jquery")`为`<script>`元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="fb170-206">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
-
-* <span data-ttu-id="fb170-207">替换`@Scripts.Render("~/bundles/bootstrap")`为`<script>`元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="fb170-207">Replace `@Scripts.Render("~/bundles/bootstrap")` with a `<script>` element (see below).</span></span>
-
-<span data-ttu-id="fb170-208">用于启动 CSS 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="fb170-208">The replacement markup for Bootstrap CSS inclusion:</span></span>
+<span data-ttu-id="48f46-194">已完成的启动 CSS 包含的替换标记：</span><span class="sxs-lookup"><span data-stu-id="48f46-194">The completed replacement markup for Bootstrap CSS inclusion:</span></span>
 
 ```html
 <link rel="stylesheet"
@@ -180,7 +146,12 @@ ms.locfileid: "82777041"
     crossorigin="anonymous">
 ```
 
-<span data-ttu-id="fb170-209">JQuery 和启动 JavaScript 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="fb170-209">The replacement markup for jQuery and Bootstrap JavaScript inclusion:</span></span>
+<span data-ttu-id="48f46-195">更新 jQuery 和启动 JavaScript 包含项以匹配以下已完成的代码：</span><span class="sxs-lookup"><span data-stu-id="48f46-195">Update the jQuery and Bootstrap JavaScript inclusion to match the completed code below:</span></span>
+
+1. <span data-ttu-id="48f46-196">替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-196">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
+1. <span data-ttu-id="48f46-197">替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-197">Replace `@Scripts.Render("~/bundles/bootstrap")` with a `<script>` element (see below).</span></span>
+
+<span data-ttu-id="48f46-198">JQuery 和启动 JavaScript 包含的已完成替换标记：</span><span class="sxs-lookup"><span data-stu-id="48f46-198">The completed replacement markup for jQuery and Bootstrap JavaScript inclusion:</span></span>
 
 ```html
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -188,27 +159,403 @@ ms.locfileid: "82777041"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 ```
 
-<span data-ttu-id="fb170-210">更新后的 *_Layout cshtml*文件如下所示：</span><span class="sxs-lookup"><span data-stu-id="fb170-210">The updated *_Layout.cshtml* file is shown below:</span></span>
+<span data-ttu-id="48f46-199">更新后的 *_Layout cshtml*文件如下所示：</span><span class="sxs-lookup"><span data-stu-id="48f46-199">The updated *_Layout.cshtml* file is shown below:</span></span>
 
-[!code-cshtml[](mvc/sample/Views/Shared/_Layout.cshtml?highlight=7-10,29,41-44)]
+[!code-cshtml[](mvc/samples/3.x/Views/Shared/_Layout.cshtml?highlight=7-10,40-42)]
 
-<span data-ttu-id="fb170-211">在浏览器中查看站点。</span><span class="sxs-lookup"><span data-stu-id="fb170-211">View the site in the browser.</span></span> <span data-ttu-id="fb170-212">它现在应正确加载，并具有所需的样式。</span><span class="sxs-lookup"><span data-stu-id="fb170-212">It should now load correctly, with the expected styles in place.</span></span>
+<span data-ttu-id="48f46-200">在浏览器中查看站点。</span><span class="sxs-lookup"><span data-stu-id="48f46-200">View the site in the browser.</span></span> <span data-ttu-id="48f46-201">它应采用所需的样式进行呈现。</span><span class="sxs-lookup"><span data-stu-id="48f46-201">It should render with the expected styles in place.</span></span>
 
-* <span data-ttu-id="fb170-213">*可选：* 你可能想要尝试使用新的布局文件。</span><span class="sxs-lookup"><span data-stu-id="fb170-213">*Optional:* You might want to try using the new layout file.</span></span> <span data-ttu-id="fb170-214">对于此项目，您可以从*FullAspNetCore*项目复制布局文件。</span><span class="sxs-lookup"><span data-stu-id="fb170-214">For this project you can copy the layout file from the *FullAspNetCore* project.</span></span> <span data-ttu-id="fb170-215">新的布局文件使用[标记帮助](xref:mvc/views/tag-helpers/intro)程序，并具有其他改进功能。</span><span class="sxs-lookup"><span data-stu-id="fb170-215">The new layout file uses [Tag Helpers](xref:mvc/views/tag-helpers/intro) and has other improvements.</span></span>
+## <a name="configure-bundling-and-minification"></a><span data-ttu-id="48f46-202">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="48f46-202">Configure bundling and minification</span></span>
 
-## <a name="configure-bundling-and-minification"></a><span data-ttu-id="fb170-216">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="fb170-216">Configure bundling and minification</span></span>
+<span data-ttu-id="48f46-203">ASP.NET Core 与若干开源绑定和缩减解决方案（例如[WebOptimizer](https://github.com/ligershark/WebOptimizer)和其他类似库）兼容。</span><span class="sxs-lookup"><span data-stu-id="48f46-203">ASP.NET Core is compatible with several open-source bundling and minification solutions such as [WebOptimizer](https://github.com/ligershark/WebOptimizer) and other similar libraries.</span></span> <span data-ttu-id="48f46-204">ASP.NET Core 不提供本机绑定和缩减解决方案。</span><span class="sxs-lookup"><span data-stu-id="48f46-204">ASP.NET Core doesn't provide a native bundling and minification solution.</span></span> <span data-ttu-id="48f46-205">有关配置绑定和缩减的信息，请参阅[捆绑和缩减](xref:client-side/bundling-and-minification)。</span><span class="sxs-lookup"><span data-stu-id="48f46-205">For information on configuring bundling and minification, see [Bundling and Minification](xref:client-side/bundling-and-minification).</span></span>
 
-<span data-ttu-id="fb170-217">有关如何配置绑定和缩减的信息，请参阅[捆绑和缩减](../client-side/bundling-and-minification.md)。</span><span class="sxs-lookup"><span data-stu-id="fb170-217">For information about how to configure bundling and minification, see [Bundling and Minification](../client-side/bundling-and-minification.md).</span></span>
+## <a name="solve-http-500-errors"></a><span data-ttu-id="48f46-206">解决 HTTP 500 错误</span><span class="sxs-lookup"><span data-stu-id="48f46-206">Solve HTTP 500 errors</span></span>
 
-## <a name="solve-http-500-errors"></a><span data-ttu-id="fb170-218">解决 HTTP 500 错误</span><span class="sxs-lookup"><span data-stu-id="fb170-218">Solve HTTP 500 errors</span></span>
+<span data-ttu-id="48f46-207">有许多问题可能会导致 HTTP 500 错误消息，其中不包含问题根源的相关信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-207">There are many problems that can cause an HTTP 500 error message that contains no information on the source of the problem.</span></span> <span data-ttu-id="48f46-208">例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会生成 HTTP 500 错误。</span><span class="sxs-lookup"><span data-stu-id="48f46-208">For example, if the *Views/_ViewImports.cshtml* file contains a namespace that doesn't exist in the project, an HTTP 500 error is generated.</span></span> <span data-ttu-id="48f46-209">默认情况下，在 ASP.NET Core 应用中， `UseDeveloperExceptionPage` 会将扩展添加到， `IApplicationBuilder` 并在*开发*环境时执行。</span><span class="sxs-lookup"><span data-stu-id="48f46-209">By default in ASP.NET Core apps, the `UseDeveloperExceptionPage` extension is added to the `IApplicationBuilder` and executed when the environment is *Development*.</span></span> <span data-ttu-id="48f46-210">下面的代码对此进行了详细说明：</span><span class="sxs-lookup"><span data-stu-id="48f46-210">This is detailed in the following code:</span></span>
 
-<span data-ttu-id="fb170-219">有许多问题可能会导致 HTTP 500 错误消息，其中不包含问题根源的相关信息。</span><span class="sxs-lookup"><span data-stu-id="fb170-219">There are many problems that can cause a HTTP 500 error message that contain no information on the source of the problem.</span></span> <span data-ttu-id="fb170-220">例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会收到 HTTP 500 错误。</span><span class="sxs-lookup"><span data-stu-id="fb170-220">For example, if the *Views/_ViewImports.cshtml* file contains a namespace that doesn't exist in your project, you'll get a HTTP 500 error.</span></span> <span data-ttu-id="fb170-221">默认情况下，在 ASP.NET Core 应用`UseDeveloperExceptionPage`中，会将扩展`IApplicationBuilder`添加到，并在配置为*开发*时执行。</span><span class="sxs-lookup"><span data-stu-id="fb170-221">By default in ASP.NET Core apps, the `UseDeveloperExceptionPage` extension is added to the `IApplicationBuilder` and executed when the configuration is *Development*.</span></span> <span data-ttu-id="fb170-222">下面的代码对此进行了详细说明：</span><span class="sxs-lookup"><span data-stu-id="fb170-222">This is detailed in the following code:</span></span>
+[!code-csharp[](mvc/samples/3.x/Startup.cs?highlight=17-21&name=snippet)]
 
-[!code-csharp[](mvc/sample/Startup.cs?highlight=19-22)]
+<span data-ttu-id="48f46-211">ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。</span><span class="sxs-lookup"><span data-stu-id="48f46-211">ASP.NET Core converts unhandled exceptions into HTTP 500 error responses.</span></span> <span data-ttu-id="48f46-212">通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-212">Normally, error details aren't included in these responses to prevent disclosure of potentially sensitive information about the server.</span></span> <span data-ttu-id="48f46-213">有关详细信息，请参阅[开发者异常页](xref:fundamentals/error-handling#developer-exception-page)。</span><span class="sxs-lookup"><span data-stu-id="48f46-213">For more information, see [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page).</span></span>
 
-<span data-ttu-id="fb170-223">ASP.NET Core 将 web 应用中的未处理异常转换为 HTTP 500 错误响应。</span><span class="sxs-lookup"><span data-stu-id="fb170-223">ASP.NET Core converts unhandled exceptions in a web app into HTTP 500 error responses.</span></span> <span data-ttu-id="fb170-224">通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。</span><span class="sxs-lookup"><span data-stu-id="fb170-224">Normally, error details aren't included in these responses to prevent disclosure of potentially sensitive information about the server.</span></span> <span data-ttu-id="fb170-225">有关详细信息，请参阅 "[处理错误](../fundamentals/error-handling.md) **" 中的使用开发者异常页**。</span><span class="sxs-lookup"><span data-stu-id="fb170-225">See **Using the Developer Exception Page** in [Handle errors](../fundamentals/error-handling.md) for more information.</span></span>
+## <a name="next-steps"></a><span data-ttu-id="48f46-214">后续步骤</span><span class="sxs-lookup"><span data-stu-id="48f46-214">Next steps</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="fb170-226">其他资源</span><span class="sxs-lookup"><span data-stu-id="fb170-226">Additional resources</span></span>
+* <xref:migration/identity>
+
+## <a name="additional-resources"></a><span data-ttu-id="48f46-215">其他资源</span><span class="sxs-lookup"><span data-stu-id="48f46-215">Additional resources</span></span>
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
+
+<span data-ttu-id="48f46-216">本文介绍如何开始将 ASP.NET MVC 项目迁移到[ASP.NET CORE mvc](xref:mvc/overview) 2.2。</span><span class="sxs-lookup"><span data-stu-id="48f46-216">This article shows how to start migrating an ASP.NET MVC project to [ASP.NET Core MVC](xref:mvc/overview) 2.2.</span></span> <span data-ttu-id="48f46-217">在此过程中，它突出显示了从 ASP.NET MVC 中更改的许多内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-217">In the process, it highlights many of the things that have changed from ASP.NET MVC.</span></span> <span data-ttu-id="48f46-218">从 ASP.NET MVC 迁移是一个多步骤过程。</span><span class="sxs-lookup"><span data-stu-id="48f46-218">Migrating from ASP.NET MVC is a multi-step process.</span></span> <span data-ttu-id="48f46-219">本文介绍：</span><span class="sxs-lookup"><span data-stu-id="48f46-219">This article covers:</span></span>
+
+* <span data-ttu-id="48f46-220">初始设置</span><span class="sxs-lookup"><span data-stu-id="48f46-220">Initial setup</span></span>
+* <span data-ttu-id="48f46-221">基本控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-221">Basic controllers and views</span></span>
+* <span data-ttu-id="48f46-222">静态内容</span><span class="sxs-lookup"><span data-stu-id="48f46-222">Static content</span></span>
+* <span data-ttu-id="48f46-223">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="48f46-223">Client-side dependencies.</span></span>
+
+<span data-ttu-id="48f46-224">有关迁移配置和 Identity 代码的详细，请参阅 <xref:migration/configuration> 和 <xref:migration/identity> 。</span><span class="sxs-lookup"><span data-stu-id="48f46-224">For migrating configuration and Identity code, see <xref:migration/configuration> and <xref:migration/identity>.</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="48f46-225">示例中的版本号可能不是最新的，请相应地更新项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-225">The version numbers in the samples might not be current, update the projects accordingly.</span></span>
+
+## <a name="create-the-starter-aspnet-mvc-project"></a><span data-ttu-id="48f46-226">创建 starter ASP.NET MVC 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-226">Create the starter ASP.NET MVC project</span></span>
+
+<span data-ttu-id="48f46-227">为了演示升级，我们首先创建一个 ASP.NET MVC 应用程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-227">To demonstrate the upgrade, we'll start by creating an ASP.NET MVC app.</span></span> <span data-ttu-id="48f46-228">创建名称为*WebApp1*的命名空间，使命名空间与下一步中创建的 ASP.NET Core 项目匹配。</span><span class="sxs-lookup"><span data-stu-id="48f46-228">Create it with the name *WebApp1* so the namespace matches the ASP.NET Core project created in the next step.</span></span>
+
+![Visual Studio“新建项目”对话框](mvc/_static/new-project.png)
+
+!["新建 Web 应用程序" 对话框：在 "ASP.NET 模板" 面板中选择的 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
+
+<span data-ttu-id="48f46-231">*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。</span><span class="sxs-lookup"><span data-stu-id="48f46-231">*Optional:* Change the name of the Solution from *WebApp1* to *Mvc5*.</span></span> <span data-ttu-id="48f46-232">Visual Studio 将显示新的解决方案名称（*Mvc5*），这样就可以更轻松地从下一个项目通知此项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-232">Visual Studio displays the new solution name (*Mvc5*), which makes it easier to tell this project from the next project.</span></span>
+
+## <a name="create-the-aspnet-core-project"></a><span data-ttu-id="48f46-233">创建 ASP.NET Core 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-233">Create the ASP.NET Core project</span></span>
+
+<span data-ttu-id="48f46-234">使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用（*WebApp1*），以便两个项目中的命名空间匹配。</span><span class="sxs-lookup"><span data-stu-id="48f46-234">Create a new *empty* ASP.NET Core web app with the same name as the previous project (*WebApp1*) so the namespaces in the two projects match.</span></span> <span data-ttu-id="48f46-235">通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。</span><span class="sxs-lookup"><span data-stu-id="48f46-235">Having the same namespace makes it easier to copy code between the two projects.</span></span> <span data-ttu-id="48f46-236">在与前一个项目相同的目录中创建此项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-236">Create this project in a different directory than the previous project to use the same name.</span></span>
+
+![“新建项目”对话框](mvc/_static/new_core.png)
+
+![New ASP.NET Web 应用程序对话框：在 ASP.NET Core 模板 "面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
+
+* <span data-ttu-id="48f46-239">*可选：* 使用 " *Web 应用程序*" 项目模板创建新的 ASP.NET Core 应用程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-239">*Optional:* Create a new ASP.NET Core app using the *Web Application* project template.</span></span> <span data-ttu-id="48f46-240">将项目命名为 " *WebApp1*"，并选择**单个用户帐户**的身份验证选项。</span><span class="sxs-lookup"><span data-stu-id="48f46-240">Name the project *WebApp1*, and select an authentication option of **Individual User Accounts**.</span></span> <span data-ttu-id="48f46-241">将此应用重命名为*FullAspNetCore*。</span><span class="sxs-lookup"><span data-stu-id="48f46-241">Rename this app to *FullAspNetCore*.</span></span> <span data-ttu-id="48f46-242">创建此项目将在转换时节省时间。</span><span class="sxs-lookup"><span data-stu-id="48f46-242">Creating this project saves time in the conversion.</span></span> <span data-ttu-id="48f46-243">可在模板生成的代码中查看最终结果，可以将代码复制到转换项目，或者将代码与模板生成的项目进行比较。</span><span class="sxs-lookup"><span data-stu-id="48f46-243">The end result can be viewed in the template-generated code, code can be copied to the conversion project, or compared with the template-generated project.</span></span>
+
+## <a name="configure-the-site-to-use-mvc"></a><span data-ttu-id="48f46-244">将站点配置为使用 MVC</span><span class="sxs-lookup"><span data-stu-id="48f46-244">Configure the site to use MVC</span></span>
+
+* <span data-ttu-id="48f46-245">面向 .NET Core 时，默认情况下将引用[AspNetCore 元包](xref:fundamentals/metapackage-app)。</span><span class="sxs-lookup"><span data-stu-id="48f46-245">When targeting .NET Core, the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) is referenced by default.</span></span> <span data-ttu-id="48f46-246">此包包含 MVC 应用通常使用的包。</span><span class="sxs-lookup"><span data-stu-id="48f46-246">This package contains packages commonly used by MVC apps.</span></span> <span data-ttu-id="48f46-247">如果目标 .NET Framework，则包引用必须单独列出在项目文件中。</span><span class="sxs-lookup"><span data-stu-id="48f46-247">If targeting .NET Framework, package references must be listed individually in the project file.</span></span>
+
+<span data-ttu-id="48f46-248">`Microsoft.AspNetCore.Mvc`是 ASP.NET Core MVC 框架。</span><span class="sxs-lookup"><span data-stu-id="48f46-248">`Microsoft.AspNetCore.Mvc` is the ASP.NET Core MVC framework.</span></span> <span data-ttu-id="48f46-249">`Microsoft.AspNetCore.StaticFiles`为静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-249">`Microsoft.AspNetCore.StaticFiles` is the static file handler.</span></span> <span data-ttu-id="48f46-250">ASP.NET Core 应用明确选择用于中间件，如用于提供静态文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-250">ASP.NET Core apps explicitly opt in for middleware, such as for serving static files.</span></span> <span data-ttu-id="48f46-251">有关详细信息，请参阅[静态文件](xref:fundamentals/static-files)。</span><span class="sxs-lookup"><span data-stu-id="48f46-251">For more information, see [Static files](xref:fundamentals/static-files).</span></span>
+
+* <span data-ttu-id="48f46-252">打开*Startup.cs*文件并更改代码，使其与以下内容匹配：</span><span class="sxs-lookup"><span data-stu-id="48f46-252">Open the *Startup.cs* file and change the code to match the following:</span></span>
+
+[!code-csharp[](mvc/samples/2.x/Startup.cs?highlight=7,20-25&name=snippet)]
+
+<span data-ttu-id="48f46-253"><xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>扩展方法添加静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-253">The <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> extension method adds the static file handler.</span></span> <span data-ttu-id="48f46-254">有关详细信息，请参阅[应用程序启动](xref:fundamentals/startup)和[路由](xref:fundamentals/routing)。</span><span class="sxs-lookup"><span data-stu-id="48f46-254">For more information, see [Application Startup](xref:fundamentals/startup) and [Routing](xref:fundamentals/routing).</span></span>
+
+## <a name="add-a-controller-and-view"></a><span data-ttu-id="48f46-255">添加控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-255">Add a controller and view</span></span>
+
+<span data-ttu-id="48f46-256">在本部分中，将添加最小控制器和视图，作为 ASP.NET MVC 控制器的占位符和下一部分中迁移的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-256">In this section, a minimal controller and view are added to serve as placeholders for the ASP.NET MVC controller and views migrated in the next section.</span></span>
+
+* <span data-ttu-id="48f46-257">添加*控制器*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-257">Add a *Controllers* directory.</span></span>
+
+* <span data-ttu-id="48f46-258">将名为*HomeController.cs*的**控制器类**添加到*控制器*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-258">Add a **Controller Class** named *HomeController.cs* to the *Controllers* directory.</span></span>
+
+![“添加新项”对话框](mvc/_static/add_mvc_ctl.png)
+
+* <span data-ttu-id="48f46-260">添加*Views*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-260">Add a *Views* directory.</span></span>
+
+* <span data-ttu-id="48f46-261">添加*视图/主*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-261">Add a *Views/Home* directory.</span></span>
+
+* <span data-ttu-id="48f46-262">将名为*Index*的\*\* Razor 视图\**添加到*Views/Home\*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-262">Add a **Razor View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
+
+![“添加新项”对话框](mvc/_static/view.png)
+
+<span data-ttu-id="48f46-264">项目结构如下所示：</span><span class="sxs-lookup"><span data-stu-id="48f46-264">The project structure is shown below:</span></span>
+
+![显示 WebApp1 的文件和目录的解决方案资源管理器](mvc/_static/project-structure-controller-view.png)
+
+<span data-ttu-id="48f46-266">将 Views/Home/Index.cshtml 文件的内容\*\* 替换为以下标记：</span><span class="sxs-lookup"><span data-stu-id="48f46-266">Replace the contents of the *Views/Home/Index.cshtml* file with the following markup:</span></span>
+
+```html
+<h1>Hello world!</h1>
+```
+
+<span data-ttu-id="48f46-267">运行应用。</span><span class="sxs-lookup"><span data-stu-id="48f46-267">Run the app.</span></span>
+
+![在 Microsoft Edge 中打开的 Web 应用](mvc/_static/hello-world.png)
+
+<span data-ttu-id="48f46-269">有关详细信息，请参阅[控制器](xref:mvc/controllers/actions)和[视图](xref:mvc/views/overview)。</span><span class="sxs-lookup"><span data-stu-id="48f46-269">For more information, see [Controllers](xref:mvc/controllers/actions) and [Views](xref:mvc/views/overview).</span></span>
+
+<span data-ttu-id="48f46-270">以下功能需要从示例 ASP.NET MVC 项目迁移到 ASP.NET Core 项目：</span><span class="sxs-lookup"><span data-stu-id="48f46-270">The following functionality requires migration from the example ASP.NET MVC project to the ASP.NET Core project:</span></span>
+
+* <span data-ttu-id="48f46-271">客户端内容（CSS、字体和脚本）</span><span class="sxs-lookup"><span data-stu-id="48f46-271">client-side content (CSS, fonts, and scripts)</span></span>
+
+* <span data-ttu-id="48f46-272">控制器</span><span class="sxs-lookup"><span data-stu-id="48f46-272">controllers</span></span>
+
+* <span data-ttu-id="48f46-273">视图</span><span class="sxs-lookup"><span data-stu-id="48f46-273">views</span></span>
+
+* <span data-ttu-id="48f46-274">模型</span><span class="sxs-lookup"><span data-stu-id="48f46-274">models</span></span>
+
+* <span data-ttu-id="48f46-275">销售</span><span class="sxs-lookup"><span data-stu-id="48f46-275">bundling</span></span>
+
+* <span data-ttu-id="48f46-276">筛选器</span><span class="sxs-lookup"><span data-stu-id="48f46-276">filters</span></span>
+
+* <span data-ttu-id="48f46-277">登录/注销， Identity （在下一教程中完成此操作。）</span><span class="sxs-lookup"><span data-stu-id="48f46-277">Log in/out, Identity (This is done in the next tutorial.)</span></span>
+
+## <a name="controllers-and-views"></a><span data-ttu-id="48f46-278">控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-278">Controllers and views</span></span>
+
+* <span data-ttu-id="48f46-279">将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。</span><span class="sxs-lookup"><span data-stu-id="48f46-279">Copy each of the methods from the ASP.NET MVC `HomeController` to the new `HomeController`.</span></span> <span data-ttu-id="48f46-280">在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。</span><span class="sxs-lookup"><span data-stu-id="48f46-280">In ASP.NET MVC, the built-in template's controller action method return type is [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="48f46-281">`ActionResult`实现 `IActionResult` ，因此无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="48f46-281">`ActionResult` implements `IActionResult`, so there's no need to change the return type of the action methods.</span></span>
+
+* <span data-ttu-id="48f46-282">将 ASP.NET MVC 项目中的*About*、 *Contact\*\*和* Razor 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-282">Copy the *About.cshtml*, *Contact.cshtml*, and *Index.cshtml* Razor view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
+
+## <a name="test-each-method"></a><span data-ttu-id="48f46-283">测试每个方法</span><span class="sxs-lookup"><span data-stu-id="48f46-283">Test each method</span></span>
+
+<span data-ttu-id="48f46-284">尚未迁移布局文件和样式，因此呈现的视图仅包含视图文件中的内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-284">The layout file and styles have not been migrated yet, so the rendered views only contain the content in the view files.</span></span> <span data-ttu-id="48f46-285">和视图的布局文件生成的 `About` 链接 `Contact` 尚不可用。</span><span class="sxs-lookup"><span data-stu-id="48f46-285">The layout file generated links for the `About` and `Contact` views will not be available yet.</span></span>
+
+<span data-ttu-id="48f46-286">通过将当前端口号替换为 ASP.NET core 项目中使用的端口号，从正在运行的 ASP.NET core 应用上的浏览器中调用呈现的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-286">Invoke the rendered views from the browser on the running ASP.NET core app by replacing the current port number with the port number used in the ASP.NET core project.</span></span> <span data-ttu-id="48f46-287">例如：`https://localhost:44375/home/about`。</span><span class="sxs-lookup"><span data-stu-id="48f46-287">For example: `https://localhost:44375/home/about`.</span></span>
+
+![联系人页](mvc/_static/contact-page.png)
+
+<span data-ttu-id="48f46-289">请注意缺少样式和菜单项。</span><span class="sxs-lookup"><span data-stu-id="48f46-289">Note the lack of styling and menu items.</span></span> <span data-ttu-id="48f46-290">下一节将对样式进行固定。</span><span class="sxs-lookup"><span data-stu-id="48f46-290">The styling will be fixed in the next section.</span></span>
+
+## <a name="static-content"></a><span data-ttu-id="48f46-291">静态内容</span><span class="sxs-lookup"><span data-stu-id="48f46-291">Static content</span></span>
+
+<span data-ttu-id="48f46-292">在 ASP.NET MVC 5 及更早版本中，静态内容是从 web 项目的根托管的，与服务器端文件混合。</span><span class="sxs-lookup"><span data-stu-id="48f46-292">In ASP.NET MVC 5 and earlier, static content was hosted from the root of the web project and was intermixed with server-side files.</span></span> <span data-ttu-id="48f46-293">在 ASP.NET Core 中，静态内容托管在*wwwroot*目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-293">In ASP.NET Core, static content is hosted in the *wwwroot* directory.</span></span> <span data-ttu-id="48f46-294">将 ASP.NET MVC 应用的静态内容复制到 ASP.NET Core 项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-294">Copy the static content from the ASP.NET MVC app to the *wwwroot* directory in the ASP.NET Core project.</span></span> <span data-ttu-id="48f46-295">在此示例转换中：</span><span class="sxs-lookup"><span data-stu-id="48f46-295">In this sample conversion:</span></span>
+
+* <span data-ttu-id="48f46-296">将*favicon*文件从 ASP.NET MVC 项目复制到 ASP.NET Core 项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-296">Copy the *favicon.ico* file from the ASP.NET MVC project to the *wwwroot* directory in the ASP.NET Core project.</span></span>
+
+<span data-ttu-id="48f46-297">ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-297">The ASP.NET MVC project uses [Bootstrap](https://getbootstrap.com/) for its styling and stores the Bootstrap files in the *Content* and *Scripts* directories.</span></span> <span data-ttu-id="48f46-298">生成 ASP.NET MVC 项目的模板引用布局文件（*Views/Shared/_Layout*）中的启动。</span><span class="sxs-lookup"><span data-stu-id="48f46-298">The template, which generated the ASP.NET MVC project, references Bootstrap in the layout file (*Views/Shared/_Layout.cshtml*).</span></span> <span data-ttu-id="48f46-299">*bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-299">The *bootstrap.js* and *bootstrap.css* files could be copied from the ASP.NET MVC project to the *wwwroot* directory in the new project.</span></span> <span data-ttu-id="48f46-300">本文档改为在下一部分中使用 Cdn 添加对启动（和其他客户端库）的支持。</span><span class="sxs-lookup"><span data-stu-id="48f46-300">Instead, this document adds support for Bootstrap (and other client-side libraries) using CDNs, in the next section.</span></span>
+
+## <a name="migrate-the-layout-file"></a><span data-ttu-id="48f46-301">迁移布局文件</span><span class="sxs-lookup"><span data-stu-id="48f46-301">Migrate the layout file</span></span>
+
+* <span data-ttu-id="48f46-302">将 *_ViewStart*的 ASP.NET 文件从 MVC 项目的 "*视图*" 目录复制到 ASP.NET Core 项目的 "*视图*" 目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-302">Copy the *_ViewStart.cshtml* file from the ASP.NET MVC project's *Views* directory into the ASP.NET Core project's *Views* directory.</span></span> <span data-ttu-id="48f46-303">未在 ASP.NET Core MVC 中更改 *_ViewStart cshtml*文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-303">The *_ViewStart.cshtml* file has not changed in ASP.NET Core MVC.</span></span>
+
+* <span data-ttu-id="48f46-304">创建*视图/共享*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-304">Create a *Views/Shared* directory.</span></span>
+
+* <span data-ttu-id="48f46-305">*可选：* 将*FullAspNetCore* MVC 项目的*views*目录中 *_ViewImports*为 ASP.NET Core 项目的*视图*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-305">*Optional:* Copy *_ViewImports.cshtml* from the *FullAspNetCore* MVC project's *Views* directory into the ASP.NET Core project's *Views* directory.</span></span> <span data-ttu-id="48f46-306">删除 *_ViewImports cshtml*文件中的任何命名空间声明。</span><span class="sxs-lookup"><span data-stu-id="48f46-306">Remove any namespace declaration in the *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="48f46-307">*_ViewImports 的 cshtml*文件提供所有视图文件的命名空间，并提供[标记帮助](xref:mvc/views/tag-helpers/intro)程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-307">The *_ViewImports.cshtml* file provides namespaces for all the view files and brings in [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span> <span data-ttu-id="48f46-308">标记帮助程序在新的布局文件中使用。</span><span class="sxs-lookup"><span data-stu-id="48f46-308">Tag Helpers are used in the new layout file.</span></span> <span data-ttu-id="48f46-309">*_ViewImports* ASP.NET Core 的新文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-309">The *_ViewImports.cshtml* file is new for ASP.NET Core.</span></span>
+
+* <span data-ttu-id="48f46-310">将 *_Layout*的 ASP.NET 文件从 MVC 项目的*视图/共享*目录复制到 ASP.NET Core 项目的 "*视图"/"共享*目录" 中。</span><span class="sxs-lookup"><span data-stu-id="48f46-310">Copy the *_Layout.cshtml* file from the ASP.NET MVC project's *Views/Shared* directory into the ASP.NET Core project's *Views/Shared* directory.</span></span>
+
+<span data-ttu-id="48f46-311">打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：</span><span class="sxs-lookup"><span data-stu-id="48f46-311">Open *_Layout.cshtml* file and make the following changes (the completed code is shown below):</span></span>
+
+* <span data-ttu-id="48f46-312">替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-312">Replace `@Styles.Render("~/Content/css")` with a `<link>` element to load *bootstrap.css* (see below).</span></span>
+
+* <span data-ttu-id="48f46-313">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="48f46-313">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
+
+* <span data-ttu-id="48f46-314">注释掉 `@Html.Partial("_LoginPartial")` 行（将该行环绕 `@*...*@` ）。</span><span class="sxs-lookup"><span data-stu-id="48f46-314">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="48f46-315">有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="48f46-315">For more information, see [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity)</span></span>
+
+* <span data-ttu-id="48f46-316">替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-316">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
+
+* <span data-ttu-id="48f46-317">替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-317">Replace `@Scripts.Render("~/bundles/bootstrap")` with a `<script>` element (see below).</span></span>
+
+<span data-ttu-id="48f46-318">用于启动 CSS 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="48f46-318">The replacement markup for Bootstrap CSS inclusion:</span></span>
+
+```html
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+```
+
+<span data-ttu-id="48f46-319">JQuery 和启动 JavaScript 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="48f46-319">The replacement markup for jQuery and Bootstrap JavaScript inclusion:</span></span>
+
+```html
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+```
+
+<span data-ttu-id="48f46-320">更新后的 *_Layout cshtml*文件如下所示：</span><span class="sxs-lookup"><span data-stu-id="48f46-320">The updated *_Layout.cshtml* file is shown below:</span></span>
+
+[!code-cshtml[](mvc/samples/2.x/Views/Shared/_Layout.cshtml?highlight=7-10,29,41-44)]
+
+<span data-ttu-id="48f46-321">在浏览器中查看站点。</span><span class="sxs-lookup"><span data-stu-id="48f46-321">View the site in the browser.</span></span> <span data-ttu-id="48f46-322">它现在应正确加载，并具有所需的样式。</span><span class="sxs-lookup"><span data-stu-id="48f46-322">It should now load correctly, with the expected styles in place.</span></span>
+
+* <span data-ttu-id="48f46-323">*可选：* 尝试使用新的布局文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-323">*Optional:* Try using the new layout file.</span></span> <span data-ttu-id="48f46-324">复制*FullAspNetCore*项目中的布局文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-324">Copy the layout file from the *FullAspNetCore* project.</span></span> <span data-ttu-id="48f46-325">新的布局文件使用[标记帮助](xref:mvc/views/tag-helpers/intro)程序，并具有其他改进功能。</span><span class="sxs-lookup"><span data-stu-id="48f46-325">The new layout file uses [Tag Helpers](xref:mvc/views/tag-helpers/intro) and has other improvements.</span></span>
+
+## <a name="configure-bundling-and-minification"></a><span data-ttu-id="48f46-326">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="48f46-326">Configure bundling and minification</span></span>
+
+<span data-ttu-id="48f46-327">有关如何配置绑定和缩减的信息，请参阅[捆绑和缩减](xref:client-side/bundling-and-minification)。</span><span class="sxs-lookup"><span data-stu-id="48f46-327">For information about how to configure bundling and minification, see [Bundling and Minification](xref:client-side/bundling-and-minification).</span></span>
+
+## <a name="solve-http-500-errors"></a><span data-ttu-id="48f46-328">解决 HTTP 500 错误</span><span class="sxs-lookup"><span data-stu-id="48f46-328">Solve HTTP 500 errors</span></span>
+
+<span data-ttu-id="48f46-329">有许多问题可能会导致 HTTP 500 错误消息，这些错误消息不包含问题根源的相关信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-329">There are many problems that can cause an HTTP 500 error messages that contain no information on the source of the problem.</span></span> <span data-ttu-id="48f46-330">例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会生成 HTTP 500 错误。</span><span class="sxs-lookup"><span data-stu-id="48f46-330">For example, if the *Views/_ViewImports.cshtml* file contains a namespace that doesn't exist in the project, a HTTP 500 error is generated.</span></span> <span data-ttu-id="48f46-331">默认情况下，在 ASP.NET Core 应用中，会将 `UseDeveloperExceptionPage` 扩展添加到， `IApplicationBuilder` 并在配置为*开发*时执行。</span><span class="sxs-lookup"><span data-stu-id="48f46-331">By default in ASP.NET Core apps, the `UseDeveloperExceptionPage` extension is added to the `IApplicationBuilder` and executed when the configuration is *Development*.</span></span> <span data-ttu-id="48f46-332">请参阅以下代码中的示例：</span><span class="sxs-lookup"><span data-stu-id="48f46-332">See an example in the following code:</span></span>
+
+[!code-csharp[](mvc/samples/2.x/Startup.cs?highlight=11-15&name=snippet)]
+
+<span data-ttu-id="48f46-333">ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。</span><span class="sxs-lookup"><span data-stu-id="48f46-333">ASP.NET Core converts unhandled exceptions into HTTP 500 error responses.</span></span> <span data-ttu-id="48f46-334">通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-334">Normally, error details aren't included in these responses to prevent disclosure of potentially sensitive information about the server.</span></span> <span data-ttu-id="48f46-335">有关详细信息，请参阅[开发者异常页](xref:fundamentals/error-handling#developer-exception-page)。</span><span class="sxs-lookup"><span data-stu-id="48f46-335">For more information, see [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page).</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="48f46-336">其他资源</span><span class="sxs-lookup"><span data-stu-id="48f46-336">Additional resources</span></span>
+
+* <xref:blazor/index>
+* <xref:mvc/views/tag-helpers/intro>
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.1"
+
+<span data-ttu-id="48f46-337">本文介绍如何开始将 ASP.NET MVC 项目迁移到[ASP.NET CORE mvc](xref:mvc/overview) 2.1。</span><span class="sxs-lookup"><span data-stu-id="48f46-337">This article shows how to start migrating an ASP.NET MVC project to [ASP.NET Core MVC](xref:mvc/overview) 2.1.</span></span> <span data-ttu-id="48f46-338">在此过程中，它突出显示了从 ASP.NET MVC 中更改的许多内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-338">In the process, it highlights many of the things that have changed from ASP.NET MVC.</span></span> <span data-ttu-id="48f46-339">从 ASP.NET MVC 迁移是一个多步骤过程。</span><span class="sxs-lookup"><span data-stu-id="48f46-339">Migrating from ASP.NET MVC is a multi-step process.</span></span> <span data-ttu-id="48f46-340">本文介绍：</span><span class="sxs-lookup"><span data-stu-id="48f46-340">This article covers:</span></span>
+
+* <span data-ttu-id="48f46-341">初始设置</span><span class="sxs-lookup"><span data-stu-id="48f46-341">Initial setup</span></span>
+* <span data-ttu-id="48f46-342">基本控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-342">Basic controllers and views</span></span>
+* <span data-ttu-id="48f46-343">静态内容</span><span class="sxs-lookup"><span data-stu-id="48f46-343">Static content</span></span>
+* <span data-ttu-id="48f46-344">客户端依赖关系。</span><span class="sxs-lookup"><span data-stu-id="48f46-344">Client-side dependencies.</span></span>
+
+<span data-ttu-id="48f46-345">若要迁移配置和 Identity 代码，请参阅将[配置迁移到 ASP.NET Core](xref:migration/configuration)并[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)。</span><span class="sxs-lookup"><span data-stu-id="48f46-345">For migrating configuration and Identity code, see [Migrate configuration to ASP.NET Core](xref:migration/configuration) and [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity).</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="48f46-346">示例中的版本号可能不是最新的，请相应地更新项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-346">The version numbers in the samples might not be current, update the projects accordingly.</span></span>
+
+## <a name="create-the-starter-aspnet-mvc-project"></a><span data-ttu-id="48f46-347">创建 starter ASP.NET MVC 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-347">Create the starter ASP.NET MVC project</span></span>
+
+<span data-ttu-id="48f46-348">为了演示升级，我们首先创建一个 ASP.NET MVC 应用程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-348">To demonstrate the upgrade, we'll start by creating a ASP.NET MVC app.</span></span> <span data-ttu-id="48f46-349">创建名称为*WebApp1*的命名空间，使命名空间与下一步中创建的 ASP.NET Core 项目匹配。</span><span class="sxs-lookup"><span data-stu-id="48f46-349">Create it with the name *WebApp1* so the namespace matches the ASP.NET Core project created in the next step.</span></span>
+
+![Visual Studio“新建项目”对话框](mvc/_static/new-project.png)
+
+!["新建 Web 应用程序" 对话框：在 "ASP.NET 模板" 面板中选择的 MVC 项目模板](mvc/_static/new-project-select-mvc-template.png)
+
+<span data-ttu-id="48f46-352">*可选：* 将解决方案的名称从*WebApp1*更改为*Mvc5*。</span><span class="sxs-lookup"><span data-stu-id="48f46-352">*Optional:* Change the name of the Solution from *WebApp1* to *Mvc5*.</span></span> <span data-ttu-id="48f46-353">Visual Studio 将显示新的解决方案名称（*Mvc5*），这样就可以更轻松地从下一个项目通知此项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-353">Visual Studio displays the new solution name (*Mvc5*), which makes it easier to tell this project from the next project.</span></span>
+
+## <a name="create-the-aspnet-core-project"></a><span data-ttu-id="48f46-354">创建 ASP.NET Core 项目</span><span class="sxs-lookup"><span data-stu-id="48f46-354">Create the ASP.NET Core project</span></span>
+
+<span data-ttu-id="48f46-355">使用与上一个项目相同的名称创建新的*空*ASP.NET Core web 应用（*WebApp1*），以便两个项目中的命名空间匹配。</span><span class="sxs-lookup"><span data-stu-id="48f46-355">Create a new *empty* ASP.NET Core web app with the same name as the previous project (*WebApp1*) so the namespaces in the two projects match.</span></span> <span data-ttu-id="48f46-356">通过具有相同的命名空间，可以更轻松地在两个项目之间复制代码。</span><span class="sxs-lookup"><span data-stu-id="48f46-356">Having the same namespace makes it easier to copy code between the two projects.</span></span> <span data-ttu-id="48f46-357">在与前一个项目相同的目录中创建此项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-357">Create this project in a different directory than the previous project to use the same name.</span></span>
+
+![“新建项目”对话框](mvc/_static/new_core.png)
+
+![New ASP.NET Web 应用程序对话框：在 ASP.NET Core 模板 "面板中选择的空项目模板](mvc/_static/new-project-select-empty-aspnet5-template.png)
+
+* <span data-ttu-id="48f46-360">*可选：* 使用 " *Web 应用程序*" 项目模板创建新的 ASP.NET Core 应用程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-360">*Optional:* Create a new ASP.NET Core app using the *Web Application* project template.</span></span> <span data-ttu-id="48f46-361">将项目命名为 " *WebApp1*"，并选择**单个用户帐户**的身份验证选项。</span><span class="sxs-lookup"><span data-stu-id="48f46-361">Name the project *WebApp1*, and select an authentication option of **Individual User Accounts**.</span></span> <span data-ttu-id="48f46-362">将此应用重命名为*FullAspNetCore*。</span><span class="sxs-lookup"><span data-stu-id="48f46-362">Rename this app to *FullAspNetCore*.</span></span> <span data-ttu-id="48f46-363">创建此项目将在转换时节省时间。</span><span class="sxs-lookup"><span data-stu-id="48f46-363">Creating this project saves time in the conversion.</span></span> <span data-ttu-id="48f46-364">可在模板生成的代码中查看最终结果，可以将代码复制到转换项目，或者将代码与模板生成的项目进行比较。</span><span class="sxs-lookup"><span data-stu-id="48f46-364">The end result can be viewed in the template-generated code, code can be copied to the conversion project, or compared with the template-generated project.</span></span>
+
+## <a name="configure-the-site-to-use-mvc"></a><span data-ttu-id="48f46-365">将站点配置为使用 MVC</span><span class="sxs-lookup"><span data-stu-id="48f46-365">Configure the site to use MVC</span></span>
+
+* <span data-ttu-id="48f46-366">面向 .NET Core 时，默认情况下将引用[AspNetCore 元包](xref:fundamentals/metapackage-app)。</span><span class="sxs-lookup"><span data-stu-id="48f46-366">When targeting .NET Core, the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) is referenced by default.</span></span> <span data-ttu-id="48f46-367">此包包含 MVC 应用通常使用的包。</span><span class="sxs-lookup"><span data-stu-id="48f46-367">This package contains packages commonly used by MVC apps.</span></span> <span data-ttu-id="48f46-368">如果目标 .NET Framework，则包引用必须单独列出在项目文件中。</span><span class="sxs-lookup"><span data-stu-id="48f46-368">If targeting .NET Framework, package references must be listed individually in the project file.</span></span>
+
+<span data-ttu-id="48f46-369">`Microsoft.AspNetCore.Mvc`是 ASP.NET Core MVC 框架。</span><span class="sxs-lookup"><span data-stu-id="48f46-369">`Microsoft.AspNetCore.Mvc` is the ASP.NET Core MVC framework.</span></span> <span data-ttu-id="48f46-370">`Microsoft.AspNetCore.StaticFiles`为静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-370">`Microsoft.AspNetCore.StaticFiles` is the static file handler.</span></span> <span data-ttu-id="48f46-371">ASP.NET Core 应用明确选择用于中间件，如用于提供静态文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-371">ASP.NET Core apps explicitly opt in for middleware, such as for serving static files.</span></span> <span data-ttu-id="48f46-372">有关详细信息，请参阅[静态文件](xref:fundamentals/static-files)。</span><span class="sxs-lookup"><span data-stu-id="48f46-372">For more information, see [Static files](xref:fundamentals/static-files).</span></span>
+
+* <span data-ttu-id="48f46-373">打开*Startup.cs*文件并更改代码，使其与以下内容匹配：</span><span class="sxs-lookup"><span data-stu-id="48f46-373">Open the *Startup.cs* file and change the code to match the following:</span></span>
+
+[!code-csharp[](mvc/samples/2.x/Startup.cs?highlight=7,20-25&name=snippet)]
+
+<span data-ttu-id="48f46-374"><xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>扩展方法添加静态文件处理程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-374">The <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> extension method adds the static file handler.</span></span> <span data-ttu-id="48f46-375">`UseMvc`扩展方法将添加路由。</span><span class="sxs-lookup"><span data-stu-id="48f46-375">The `UseMvc` extension method adds routing.</span></span> <span data-ttu-id="48f46-376">有关详细信息，请参阅[应用程序启动](xref:fundamentals/startup)和[路由](xref:fundamentals/routing)。</span><span class="sxs-lookup"><span data-stu-id="48f46-376">For more information, see [Application Startup](xref:fundamentals/startup) and [Routing](xref:fundamentals/routing).</span></span>
+
+## <a name="add-a-controller-and-view"></a><span data-ttu-id="48f46-377">添加控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-377">Add a controller and view</span></span>
+
+<span data-ttu-id="48f46-378">在本部分中，将添加最小控制器和视图，作为 ASP.NET MVC 控制器的占位符和下一部分中迁移的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-378">In this section, a minimal controller and view are added to serve as placeholders for the ASP.NET MVC controller and views migrated in the next section.</span></span>
+
+* <span data-ttu-id="48f46-379">添加*控制器*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-379">Add a *Controllers* directory.</span></span>
+
+* <span data-ttu-id="48f46-380">将名为*HomeController.cs*的**控制器类**添加到*控制器*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-380">Add a **Controller Class** named *HomeController.cs* to the *Controllers* directory.</span></span>
+
+![“添加新项”对话框](mvc/_static/add_mvc_ctl.png)
+
+* <span data-ttu-id="48f46-382">添加*Views*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-382">Add a *Views* directory.</span></span>
+
+* <span data-ttu-id="48f46-383">添加*视图/主*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-383">Add a *Views/Home* directory.</span></span>
+
+* <span data-ttu-id="48f46-384">将名为*Index*的\*\* Razor 视图\**添加到*Views/Home\*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-384">Add a **Razor View** named *Index.cshtml* to the *Views/Home* directory.</span></span>
+
+![“添加新项”对话框](mvc/_static/view.png)
+
+<span data-ttu-id="48f46-386">项目结构如下所示：</span><span class="sxs-lookup"><span data-stu-id="48f46-386">The project structure is shown below:</span></span>
+
+![显示 WebApp1 的文件和目录的解决方案资源管理器](mvc/_static/project-structure-controller-view.png)
+
+<span data-ttu-id="48f46-388">将 Views/Home/Index.cshtml 文件的内容\*\* 替换为以下标记：</span><span class="sxs-lookup"><span data-stu-id="48f46-388">Replace the contents of the *Views/Home/Index.cshtml* file with the following markup:</span></span>
+
+```html
+<h1>Hello world!</h1>
+```
+
+<span data-ttu-id="48f46-389">运行应用。</span><span class="sxs-lookup"><span data-stu-id="48f46-389">Run the app.</span></span>
+
+![在 Microsoft Edge 中打开的 Web 应用](mvc/_static/hello-world.png)
+
+<span data-ttu-id="48f46-391">有关详细信息，请参阅[控制器](xref:mvc/controllers/actions)和[视图](xref:mvc/views/overview)。</span><span class="sxs-lookup"><span data-stu-id="48f46-391">For more information, see [Controllers](xref:mvc/controllers/actions) and [Views](xref:mvc/views/overview).</span></span>
+
+<span data-ttu-id="48f46-392">以下功能需要从示例 ASP.NET MVC 项目迁移到 ASP.NET Core 项目：</span><span class="sxs-lookup"><span data-stu-id="48f46-392">The following functionality requires migration from the example ASP.NET MVC project to the ASP.NET Core project:</span></span>
+
+* <span data-ttu-id="48f46-393">客户端内容（CSS、字体和脚本）</span><span class="sxs-lookup"><span data-stu-id="48f46-393">client-side content (CSS, fonts, and scripts)</span></span>
+
+* <span data-ttu-id="48f46-394">控制器</span><span class="sxs-lookup"><span data-stu-id="48f46-394">controllers</span></span>
+
+* <span data-ttu-id="48f46-395">视图</span><span class="sxs-lookup"><span data-stu-id="48f46-395">views</span></span>
+
+* <span data-ttu-id="48f46-396">模型</span><span class="sxs-lookup"><span data-stu-id="48f46-396">models</span></span>
+
+* <span data-ttu-id="48f46-397">销售</span><span class="sxs-lookup"><span data-stu-id="48f46-397">bundling</span></span>
+
+* <span data-ttu-id="48f46-398">筛选器</span><span class="sxs-lookup"><span data-stu-id="48f46-398">filters</span></span>
+
+* <span data-ttu-id="48f46-399">登录/注销， Identity （在下一教程中完成此操作。）</span><span class="sxs-lookup"><span data-stu-id="48f46-399">Log in/out, Identity (This is done in the next tutorial.)</span></span>
+
+## <a name="controllers-and-views"></a><span data-ttu-id="48f46-400">控制器和视图</span><span class="sxs-lookup"><span data-stu-id="48f46-400">Controllers and views</span></span>
+
+* <span data-ttu-id="48f46-401">将 ASP.NET MVC 中的每个方法复制 `HomeController` 到新的 `HomeController` 。</span><span class="sxs-lookup"><span data-stu-id="48f46-401">Copy each of the methods from the ASP.NET MVC `HomeController` to the new `HomeController`.</span></span> <span data-ttu-id="48f46-402">在 ASP.NET MVC 中，内置模板的控制器操作方法返回类型为[ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx);在 ASP.NET Core MVC 中，操作方法将 `IActionResult` 改为返回。</span><span class="sxs-lookup"><span data-stu-id="48f46-402">In ASP.NET MVC, the built-in template's controller action method return type is [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); in ASP.NET Core MVC, the action methods return `IActionResult` instead.</span></span> <span data-ttu-id="48f46-403">`ActionResult`实现 `IActionResult` ，因此无需更改操作方法的返回类型。</span><span class="sxs-lookup"><span data-stu-id="48f46-403">`ActionResult` implements `IActionResult`, so there's no need to change the return type of the action methods.</span></span>
+
+* <span data-ttu-id="48f46-404">将 ASP.NET MVC 项目中的*About*、 *Contact\*\*和* Razor 视图文件复制到 ASP.NET Core 项目。</span><span class="sxs-lookup"><span data-stu-id="48f46-404">Copy the *About.cshtml*, *Contact.cshtml*, and *Index.cshtml* Razor view files from the ASP.NET MVC project to the ASP.NET Core project.</span></span>
+
+## <a name="test-each-method"></a><span data-ttu-id="48f46-405">测试每个方法</span><span class="sxs-lookup"><span data-stu-id="48f46-405">Test each method</span></span>
+
+<span data-ttu-id="48f46-406">尚未迁移布局文件和样式，因此呈现的视图仅包含视图文件中的内容。</span><span class="sxs-lookup"><span data-stu-id="48f46-406">The layout file and styles have not been migrated yet, so the rendered views only contain the content in the view files.</span></span> <span data-ttu-id="48f46-407">和视图的布局文件生成的 `About` 链接 `Contact` 尚不可用。</span><span class="sxs-lookup"><span data-stu-id="48f46-407">The layout file generated links for the `About` and `Contact` views will not be available yet.</span></span>
+
+* <span data-ttu-id="48f46-408">通过将当前端口号替换为 ASP.NET core 项目中使用的端口号，从正在运行的 ASP.NET core 应用上的浏览器中调用呈现的视图。</span><span class="sxs-lookup"><span data-stu-id="48f46-408">Invoke the rendered views from the browser on the running ASP.NET core app by replacing the current port number with the port number used in the ASP.NET core project.</span></span> <span data-ttu-id="48f46-409">例如：`https://localhost:44375/home/about`。</span><span class="sxs-lookup"><span data-stu-id="48f46-409">For example: `https://localhost:44375/home/about`.</span></span>
+
+![联系人页](mvc/_static/contact-page.png)
+
+<span data-ttu-id="48f46-411">请注意缺少样式和菜单项。</span><span class="sxs-lookup"><span data-stu-id="48f46-411">Note the lack of styling and menu items.</span></span> <span data-ttu-id="48f46-412">下一节将对样式进行固定。</span><span class="sxs-lookup"><span data-stu-id="48f46-412">The styling will be fixed in the next section.</span></span>
+
+## <a name="static-content"></a><span data-ttu-id="48f46-413">静态内容</span><span class="sxs-lookup"><span data-stu-id="48f46-413">Static content</span></span>
+
+<span data-ttu-id="48f46-414">在 ASP.NET MVC 5 及更早版本中，静态内容是从 web 项目的根托管的，与服务器端文件混合。</span><span class="sxs-lookup"><span data-stu-id="48f46-414">In ASP.NET MVC 5 and earlier, static content was hosted from the root of the web project and was intermixed with server-side files.</span></span> <span data-ttu-id="48f46-415">在 ASP.NET Core 中，静态内容托管在*wwwroot*目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-415">In ASP.NET Core, static content is hosted in the *wwwroot* directory.</span></span> <span data-ttu-id="48f46-416">将 ASP.NET MVC 应用的静态内容复制到 ASP.NET Core 项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-416">Copy the static content from the ASP.NET MVC app to the *wwwroot* directory in the ASP.NET Core project.</span></span> <span data-ttu-id="48f46-417">在此示例转换中：</span><span class="sxs-lookup"><span data-stu-id="48f46-417">In this sample conversion:</span></span>
+
+* <span data-ttu-id="48f46-418">将*favicon*文件从 ASP.NET MVC 项目复制到 ASP.NET Core 项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-418">Copy the *favicon.ico* file from the ASP.NET MVC project to the *wwwroot* directory in the ASP.NET Core project.</span></span>
+
+<span data-ttu-id="48f46-419">ASP.NET MVC 项目使用[启动](https://getbootstrap.com/)来设置其样式，并将启动文件存储在*Content*和*Scripts*目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-419">The ASP.NET MVC project uses [Bootstrap](https://getbootstrap.com/) for its styling and stores the Bootstrap files in the *Content* and *Scripts* directories.</span></span> <span data-ttu-id="48f46-420">生成 ASP.NET MVC 项目的模板引用布局文件（*Views/Shared/_Layout*）中的启动。</span><span class="sxs-lookup"><span data-stu-id="48f46-420">The template, which generated the ASP.NET MVC project, references Bootstrap in the layout file (*Views/Shared/_Layout.cshtml*).</span></span> <span data-ttu-id="48f46-421">*bootstrap.js*和*启动 .css*文件可从 ASP.NET MVC 项目复制到新项目中的*wwwroot*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-421">The *bootstrap.js* and *bootstrap.css* files could be copied from the ASP.NET MVC project to the *wwwroot* directory in the new project.</span></span> <span data-ttu-id="48f46-422">本文档改为在下一部分中使用 Cdn 添加对启动（和其他客户端库）的支持。</span><span class="sxs-lookup"><span data-stu-id="48f46-422">Instead, this document adds support for Bootstrap (and other client-side libraries) using CDNs, in the next section.</span></span>
+
+## <a name="migrate-the-layout-file"></a><span data-ttu-id="48f46-423">迁移布局文件</span><span class="sxs-lookup"><span data-stu-id="48f46-423">Migrate the layout file</span></span>
+
+* <span data-ttu-id="48f46-424">将 *_ViewStart*的 ASP.NET 文件从 MVC 项目的 "*视图*" 目录复制到 ASP.NET Core 项目的 "*视图*" 目录中。</span><span class="sxs-lookup"><span data-stu-id="48f46-424">Copy the *_ViewStart.cshtml* file from the ASP.NET MVC project's *Views* directory into the ASP.NET Core project's *Views* directory.</span></span> <span data-ttu-id="48f46-425">未在 ASP.NET Core MVC 中更改 *_ViewStart cshtml*文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-425">The *_ViewStart.cshtml* file has not changed in ASP.NET Core MVC.</span></span>
+
+* <span data-ttu-id="48f46-426">创建*视图/共享*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-426">Create a *Views/Shared* directory.</span></span>
+
+* <span data-ttu-id="48f46-427">*可选：* 将*FullAspNetCore* MVC 项目的*views*目录中 *_ViewImports*为 ASP.NET Core 项目的*视图*目录。</span><span class="sxs-lookup"><span data-stu-id="48f46-427">*Optional:* Copy *_ViewImports.cshtml* from the *FullAspNetCore* MVC project's *Views* directory into the ASP.NET Core project's *Views* directory.</span></span> <span data-ttu-id="48f46-428">删除 *_ViewImports cshtml*文件中的任何命名空间声明。</span><span class="sxs-lookup"><span data-stu-id="48f46-428">Remove any namespace declaration in the *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="48f46-429">*_ViewImports 的 cshtml*文件提供所有视图文件的命名空间，并提供[标记帮助](xref:mvc/views/tag-helpers/intro)程序。</span><span class="sxs-lookup"><span data-stu-id="48f46-429">The *_ViewImports.cshtml* file provides namespaces for all the view files and brings in [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span> <span data-ttu-id="48f46-430">标记帮助程序在新的布局文件中使用。</span><span class="sxs-lookup"><span data-stu-id="48f46-430">Tag Helpers are used in the new layout file.</span></span> <span data-ttu-id="48f46-431">*_ViewImports* ASP.NET Core 的新文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-431">The *_ViewImports.cshtml* file is new for ASP.NET Core.</span></span>
+
+* <span data-ttu-id="48f46-432">将 *_Layout*的 ASP.NET 文件从 MVC 项目的*视图/共享*目录复制到 ASP.NET Core 项目的 "*视图"/"共享*目录" 中。</span><span class="sxs-lookup"><span data-stu-id="48f46-432">Copy the *_Layout.cshtml* file from the ASP.NET MVC project's *Views/Shared* directory into the ASP.NET Core project's *Views/Shared* directory.</span></span>
+
+<span data-ttu-id="48f46-433">打开 *_Layout 的 cshtml*文件并进行以下更改（完成的代码如下所示）：</span><span class="sxs-lookup"><span data-stu-id="48f46-433">Open *_Layout.cshtml* file and make the following changes (the completed code is shown below):</span></span>
+
+* <span data-ttu-id="48f46-434">替换为 `@Styles.Render("~/Content/css")` `<link>` 加载*启动 .css*的元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-434">Replace `@Styles.Render("~/Content/css")` with a `<link>` element to load *bootstrap.css* (see below).</span></span>
+
+* <span data-ttu-id="48f46-435">删除 `@Scripts.Render("~/bundles/modernizr")`。</span><span class="sxs-lookup"><span data-stu-id="48f46-435">Remove `@Scripts.Render("~/bundles/modernizr")`.</span></span>
+
+* <span data-ttu-id="48f46-436">注释掉 `@Html.Partial("_LoginPartial")` 行（将该行环绕 `@*...*@` ）。</span><span class="sxs-lookup"><span data-stu-id="48f46-436">Comment out the `@Html.Partial("_LoginPartial")` line (surround the line with `@*...*@`).</span></span> <span data-ttu-id="48f46-437">有关详细信息，请参阅[迁移身份验证和 Identity ASP.NET Core](xref:migration/identity)</span><span class="sxs-lookup"><span data-stu-id="48f46-437">For more information, see [Migrate Authentication and Identity to ASP.NET Core](xref:migration/identity)</span></span>
+
+* <span data-ttu-id="48f46-438">替换 `@Scripts.Render("~/bundles/jquery")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-438">Replace `@Scripts.Render("~/bundles/jquery")` with a `<script>` element (see below).</span></span>
+
+* <span data-ttu-id="48f46-439">替换 `@Scripts.Render("~/bundles/bootstrap")` 为 `<script>` 元素（见下文）。</span><span class="sxs-lookup"><span data-stu-id="48f46-439">Replace `@Scripts.Render("~/bundles/bootstrap")` with a `<script>` element (see below).</span></span>
+
+<span data-ttu-id="48f46-440">用于启动 CSS 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="48f46-440">The replacement markup for Bootstrap CSS inclusion:</span></span>
+
+```html
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+```
+
+<span data-ttu-id="48f46-441">JQuery 和启动 JavaScript 的替换标记包含：</span><span class="sxs-lookup"><span data-stu-id="48f46-441">The replacement markup for jQuery and Bootstrap JavaScript inclusion:</span></span>
+
+```html
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+```
+
+<span data-ttu-id="48f46-442">更新后的 *_Layout cshtml*文件如下所示：</span><span class="sxs-lookup"><span data-stu-id="48f46-442">The updated *_Layout.cshtml* file is shown below:</span></span>
+
+[!code-cshtml[](mvc/samples/2.x/Views/Shared/_Layout.cshtml?highlight=7-10,29,41-44)]
+
+<span data-ttu-id="48f46-443">在浏览器中查看站点。</span><span class="sxs-lookup"><span data-stu-id="48f46-443">View the site in the browser.</span></span> <span data-ttu-id="48f46-444">它现在应正确加载，并具有所需的样式。</span><span class="sxs-lookup"><span data-stu-id="48f46-444">It should now load correctly, with the expected styles in place.</span></span>
+
+* <span data-ttu-id="48f46-445">*可选：* 尝试使用新的布局文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-445">*Optional:* Try using the new layout file.</span></span> <span data-ttu-id="48f46-446">复制*FullAspNetCore*项目中的布局文件。</span><span class="sxs-lookup"><span data-stu-id="48f46-446">Copy the layout file from the *FullAspNetCore* project.</span></span> <span data-ttu-id="48f46-447">新的布局文件使用[标记帮助](xref:mvc/views/tag-helpers/intro)程序，并具有其他改进功能。</span><span class="sxs-lookup"><span data-stu-id="48f46-447">The new layout file uses [Tag Helpers](xref:mvc/views/tag-helpers/intro) and has other improvements.</span></span>
+
+## <a name="configure-bundling-and-minification"></a><span data-ttu-id="48f46-448">配置捆绑和缩小</span><span class="sxs-lookup"><span data-stu-id="48f46-448">Configure bundling and minification</span></span>
+
+<span data-ttu-id="48f46-449">有关如何配置绑定和缩减的信息，请参阅[捆绑和缩减](xref:client-side/bundling-and-minification)。</span><span class="sxs-lookup"><span data-stu-id="48f46-449">For information about how to configure bundling and minification, see [Bundling and Minification](xref:client-side/bundling-and-minification).</span></span>
+
+## <a name="solve-http-500-errors"></a><span data-ttu-id="48f46-450">解决 HTTP 500 错误</span><span class="sxs-lookup"><span data-stu-id="48f46-450">Solve HTTP 500 errors</span></span>
+
+<span data-ttu-id="48f46-451">有许多问题可能会导致 HTTP 500 错误消息，这些错误消息不包含问题根源的相关信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-451">There are many problems that can cause an HTTP 500 error messages that contain no information on the source of the problem.</span></span> <span data-ttu-id="48f46-452">例如，如果*Views/_ViewImports cshtml*文件包含项目中不存在的命名空间，则会生成 HTTP 500 错误。</span><span class="sxs-lookup"><span data-stu-id="48f46-452">For example, if the *Views/_ViewImports.cshtml* file contains a namespace that doesn't exist in the project, a HTTP 500 error is generated.</span></span> <span data-ttu-id="48f46-453">默认情况下，在 ASP.NET Core 应用中，会将 `UseDeveloperExceptionPage` 扩展添加到， `IApplicationBuilder` 并在配置为*开发*时执行。</span><span class="sxs-lookup"><span data-stu-id="48f46-453">By default in ASP.NET Core apps, the `UseDeveloperExceptionPage` extension is added to the `IApplicationBuilder` and executed when the configuration is *Development*.</span></span> <span data-ttu-id="48f46-454">请参阅以下代码中的示例：</span><span class="sxs-lookup"><span data-stu-id="48f46-454">See an example in the following code:</span></span>
+
+[!code-csharp[](mvc/samples/2.x/Startup.cs?highlight=11-15&name=snippet)]
+
+<span data-ttu-id="48f46-455">ASP.NET Core 将未经处理的异常转换为 HTTP 500 错误响应。</span><span class="sxs-lookup"><span data-stu-id="48f46-455">ASP.NET Core converts unhandled exceptions into HTTP 500 error responses.</span></span> <span data-ttu-id="48f46-456">通常，这些响应中不包含错误详细信息，以防止泄露有关服务器的可能敏感信息。</span><span class="sxs-lookup"><span data-stu-id="48f46-456">Normally, error details aren't included in these responses to prevent disclosure of potentially sensitive information about the server.</span></span> <span data-ttu-id="48f46-457">有关详细信息，请参阅[开发者异常页](xref:fundamentals/error-handling#developer-exception-page)。</span><span class="sxs-lookup"><span data-stu-id="48f46-457">For more information, see [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page).</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="48f46-458">其他资源</span><span class="sxs-lookup"><span data-stu-id="48f46-458">Additional resources</span></span>
+
+* <xref:blazor/index>
+* <xref:mvc/views/tag-helpers/intro>
+
+::: moniker-end
