@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: f29d15fc1e2d2ad84526598be14638110f08614e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 004ca5724517bf3fbf6512c0b9653793f4e0f702
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774777"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85241011"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>在 ASP.NET Core 中使用 ObjectPool 进行对象重用
 
@@ -31,7 +31,7 @@ ms.locfileid: "82774777"
 - 表示某些有限资源。
 - 使用可预测和频繁。
 
-例如，在某些位置，ASP.NET Core 框架使用对象池来重复使用<xref:System.Text.StringBuilder>实例。 `StringBuilder`分配并管理自己的用于保存字符数据的缓冲区。 ASP.NET Core 会定期`StringBuilder`使用来实现功能，并重复使用这些功能，从而提高了性能。
+例如，在某些位置，ASP.NET Core 框架使用对象池来重复使用 <xref:System.Text.StringBuilder> 实例。 `StringBuilder`分配并管理自己的用于保存字符数据的缓冲区。 ASP.NET Core 会定期使用 `StringBuilder` 来实现功能，并重复使用这些功能，从而提高了性能。
 
 对象池并不总是能提高性能：
 
@@ -40,7 +40,7 @@ ms.locfileid: "82774777"
 
 仅在使用应用或库的现实方案收集性能数据后，才使用对象池。
 
-**警告： `ObjectPool`没有实现`IDisposable`。建议不要将其与需要处置的类型一起使用。**
+**警告： `ObjectPool` 没有实现 `IDisposable` 。建议不要将其与需要处置的类型一起使用。**
 
 **注意： ObjectPool 不会对它将分配的对象数量施加限制，它会限制将保留的对象数。**
 
@@ -61,18 +61,20 @@ ms.locfileid: "82774777"
 
 ## <a name="how-to-use-objectpool"></a>如何使用 ObjectPool
 
-调用<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1>以获取对象并<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*>返回对象。  不要求你返回每个对象。 如果不返回对象，将对其进行垃圾回收。
+调用 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1> 以获取对象并 <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*> 返回对象。  不要求你返回每个对象。 如果不返回对象，将对其进行垃圾回收。
 
 ## <a name="objectpool-sample"></a>ObjectPool 示例
 
 下面的代码：
 
-* 添加`ObjectPoolProvider`到[依赖关系注入](xref:fundamentals/dependency-injection)（DI）容器中。
-* 向 DI 容器`ObjectPool<StringBuilder>`添加并配置。
-* 添加`BirthdayMiddleware`。
+* 添加 `ObjectPoolProvider` 到[依赖关系注入](xref:fundamentals/dependency-injection)（DI）容器中。
+* 向 DI 容器添加并配置 `ObjectPool<StringBuilder>` 。
+* 添加 `BirthdayMiddleware` 。
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/Startup.cs?name=snippet)]
 
 下面的代码实现`BirthdayMiddleware`
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/BirthdayMiddleware.cs?name=snippet)]
+
+[!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]

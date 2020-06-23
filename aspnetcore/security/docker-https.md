@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-https
-ms.openlocfilehash: 74d4a215b81259674fa6c14bdc8f306a3508f71a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 096e679846899fd742fa2a353f1313976c0e11fb
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775110"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85240967"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>通过 HTTPS 在 Docker 上宿主 ASP.NET Core 映像
 
@@ -40,14 +40,14 @@ ms.locfileid: "82775110"
 
 针对域的[生产主机](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)需要[证书颁发机构颁发](https://wikipedia.org/wiki/Certificate_authority)的证书。 [Let's Encrypt](https://letsencrypt.org/)是提供免费证书的证书颁发机构。
 
-本文档使用[自签名开发证书](https://en.wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像`localhost`。 说明类似于使用生产证书。
+本文档使用[自签名开发证书](https://en.wikipedia.org/wiki/Self-signed_certificate)来托管预生成的映像 `localhost` 。 说明类似于使用生产证书。
 
 对于生产证书：
 
-* 此`dotnet dev-certs`工具不是必需的。
+* 此 `dotnet dev-certs` 工具不是必需的。
 * 证书不需要存储在说明中使用的位置。 尽管不建议在网站目录中存储证书，但任何位置都应有效。
 
-以下部分中包含的说明使用 Docker 的`-v`命令行选项将证书装载到容器中。 可以使用`COPY` *Dockerfile*中的命令将证书添加到容器映像中，但不建议这样做。 由于以下原因，不建议将证书复制到映像：
+以下部分中包含的说明使用 Docker 的命令行选项将证书装载到容器中 `-v` 。 可以使用 Dockerfile 中的命令将证书添加到容器映像 `COPY` 中，但不建议这样做。 *Dockerfile* 由于以下原因，不建议将证书复制到映像：
 
 * 使用同一个映像测试开发人员证书非常困难。
 * 使用同一个映像通过生产证书进行托管很困难。
@@ -66,14 +66,16 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。
 
-运行容器映像，并为 HTTPS 配置 ASP.NET Core：
+在命令行界面中使用为 HTTPS 配置的 ASP.NET Core 运行容器映像：
 
 ```console
 docker pull mcr.microsoft.com/dotnet/core/samples:aspnetapp
 docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8001 -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx -v %USERPROFILE%\.aspnet\https:/https/ mcr.microsoft.com/dotnet/core/samples:aspnetapp
 ```
+
+使用[PowerShell](/powershell/scripting/overview)时，请将替换 `%USERPROFILE%` 为 `$env:USERPROFILE` 。
 
 密码必须与用于证书的密码匹配。
 
@@ -88,7 +90,7 @@ dotnet dev-certs https --trust
 
 `dotnet dev-certs https --trust`仅在 macOS 和 Windows 上受支持。 你需要以发行版支持的方式信任 Linux 上的证书。 可能需要在浏览器中信任该证书。
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。
 
 运行容器映像，并为 HTTPS 配置 ASP.NET Core：
 
@@ -108,7 +110,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-在上述命令中，将`{ password here }`替换为密码。
+在上述命令中，将替换 `{ password here }` 为密码。 使用[PowerShell](/powershell/scripting/overview)时，请将替换 `%USERPROFILE%` 为 `$env:USERPROFILE` 。
 
 运行容器映像，并为 HTTPS 配置 ASP.NET Core：
 
@@ -117,4 +119,4 @@ docker pull mcr.microsoft.com/dotnet/core/samples:aspnetapp
 docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8001 -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" -e ASPNETCORE_Kestrel__Certificates__Default__Path=\https\aspnetapp.pfx -v %USERPROFILE%\.aspnet\https:C:\https\ mcr.microsoft.com/dotnet/core/samples:aspnetapp
 ```
 
-密码必须与用于证书的密码匹配。
+密码必须与用于证书的密码匹配。 使用[PowerShell](/powershell/scripting/overview)时，请将替换 `%USERPROFILE%` 为 `$env:USERPROFILE` 。
