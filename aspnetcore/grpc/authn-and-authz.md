@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/authn-and-authz
-ms.openlocfilehash: f9d2e73f57d69e1eb5039019dc9e64193cf67820
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 61ddcdc75a627fe777fab88b41bdbc4c7f9be9f3
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105787"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84723985"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>gRPC for ASP.NET Core 中的身份验证和授权
 
@@ -117,7 +117,7 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 客户端还可以提供用于身份验证的客户端证书。 [证书身份验证](https://tools.ietf.org/html/rfc5246#section-7.4.4)在 TLS 级别发生，远在到达 ASP.NET Core 之前。 当请求进入 ASP.NET Core 时，可借助[客户端证书身份验证包](xref:security/authentication/certauth)将证书解析为 `ClaimsPrincipal`。
 
 > [!NOTE]
-> 需要将主机配置为接受客户端证书。 有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅[将主机配置为要求提供证书](xref:security/authentication/certauth#configure-your-host-to-require-certificates)。
+> 将服务器配置为接受客户端证书。 有关在 Kestrel、IIS 和 Azure 中接受客户端证书的信息，请参阅 <xref:security/authentication/certauth#configure-your-server-to-require-certificates>。
 
 在 .NET gRPC 客户端中，客户端证书已添加到 `HttpClientHandler` 中，后者之后用于创建 gRPC 客户端：
 
