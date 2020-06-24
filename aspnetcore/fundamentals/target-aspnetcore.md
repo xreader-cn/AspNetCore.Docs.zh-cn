@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 85c0d850922b7118b101126c09b208b0db420f7e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 70a445d109a1a9553178e94d79df87cd373e6b06
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776482"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103022"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>使用类库中的 ASP.NET Core API
 
@@ -29,8 +29,8 @@ ms.locfileid: "82776482"
 
 ASP.NET Core 遵从 [.NET Core 支持策略](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)。 确定库要支持哪些 ASP.NET Core 版本时，请参阅支持策略。 库应符合以下条件：
 
-* 努力支持列为“长期支持”(LTS) 类别的所有 ASP.NET Core 版本。 
-* 无需支持列为“生命周期结束”(EOL) 类别的 ASP.NET Core 版本。 
+* 努力支持列为“长期支持”(LTS) 类别的所有 ASP.NET Core 版本。**
+* 无需支持列为“生命周期结束”(EOL) 类别的 ASP.NET Core 版本。**
 
 由于 ASP.NET Core 预览版已推出，因此已在 [aspnet/Announcements](https://github.com/aspnet/Announcements/issues) GitHub 存储库中发布中断性变更。 开发框架功能时，可执行库兼容性测试。
 
@@ -46,17 +46,17 @@ ASP.NET Core 遵从 [.NET Core 支持策略](https://dotnet.microsoft.com/platfo
 
 仅面向 .NET Core 3.x 的项目支持使用此方式引用 ASP.NET Core。
 
-## <a name="include-blazor-extensibility"></a>包含 Blazor 扩展性
+## <a name="include-blazor-extensibility"></a>包括 Blazor 扩展性
 
-Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-models)。 除非出于特定原因无法实现支持，否则 [Razor 组件](xref:blazor/components)库应同时支持这两种托管模型。 Razor 组件库必须使用 [Microsoft.NET.Sdk.Razor SDK](xref:razor-pages/sdk)。
+Blazor 支持 WebAssembly (WASM) 和服务器[托管模型](xref:blazor/hosting-models)。 除非出于特定原因无法实现支持，否则 [Razor 组件](xref:blazor/components/index)库应同时支持这两种托管模型。 Razor 组件库必须使用 [Microsoft.NET.Sdk.RazorSDK](xref:razor-pages/sdk)。
 
 ### <a name="support-both-hosting-models"></a>同时支持两种托管模型
 
-请按照适合你的编辑器的以下说明操作，以同时支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
+请针对自己的编辑器使用以下说明，以同时支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)和 [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) 项目的 Razor 组件消耗。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用“Razor 类库”项目模板  。 应取消选中此模板的“支持页和视图”复选框。 
+使用 Razor 类库项目模板****。 应取消选中此模板的“支持页和视图”复选框。****
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -68,7 +68,7 @@ dotnet new razorclasslib
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-使用“Razor 类库”项目模板  。
+使用 Razor 类库项目模板****。
 
 ---
 
@@ -86,7 +86,7 @@ dotnet new razorclasslib
 
 ### <a name="support-a-specific-hosting-model"></a>支持特定托管模型
 
-支持单个 Blazor 托管模型的情况并不常见。 例如，完成以下操作可仅支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)项目的 Razor 组件消耗：
+支持单个 Blazor 托管模型并不常见。 例如，通过完成以下操作来仅支持 [Blazor 服务器](xref:blazor/hosting-models#blazor-server)项目的 Razor 组件消耗：
 
 * 面向 .NET Core 3.x。
 * 添加针对共享框架的 `<FrameworkReference>` 元素。
@@ -95,32 +95,32 @@ dotnet new razorclasslib
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
-有关包含 Razor 组件的库的详细信息，请参阅 [ASP.NET Core Razor 组件类库](xref:blazor/class-libraries)。
+有关包含 Razor 组件的库的详细信息，请参阅 [ASP.NET Core Razor 组件类库](xref:blazor/components/class-libraries)。
 
 ## <a name="include-mvc-extensibility"></a>包括 MVC 扩展性
 
 此部分概述了针对包括以下内容的库的建议：
 
-* [Razor 视图或 Razor Pages](#razor-views-or-razor-pages)
+* [Razor 视图或 Razor 页面](#razor-views-or-razor-pages)
 * [标记帮助程序](#tag-helpers)
 * [视图组件](#view-components)
 
 此部分未探讨用于支持多个 MVC 版本的多目标。 若要查看关于支持多个 ASP.NET Core 版本的指南，请参阅[支持多个 ASP.NET Core 版本](#support-multiple-aspnet-core-versions)。
 
-### <a name="razor-views-or-razor-pages"></a>Razor 视图或 Razor Pages
+### <a name="razor-views-or-razor-pages"></a>Razor 视图或 Razor 页面
 
-包括 [Razor 视图](xref:mvc/views/overview)或 [Razor Pages](xref:razor-pages/index) 的项目必须使用 [Microsoft.NET.Sdk.Razor SDK](xref:razor-pages/sdk)。
+包括 [Razor 视图](xref:mvc/views/overview)或 [Razor 页面](xref:razor-pages/index)的项目必须使用 [Microsoft.NET.Sdk.RazorSDK](xref:razor-pages/sdk)。
 
 若项目面向 .NET Core 3.x，它必须满足以下要求：
 
 * `AddRazorSupportForMvc` MSBuild 属性设置为 `true`。
 * 具有针对共享框架的 `<FrameworkReference>` 元素。
 
-“Razor 类库”项目模板符合针对面向 .NET Core 3.x 的项目的上述要求。  请针对自己的编辑器使用以下说明。
+Razor 类库项目模板符合针对面向 .NET Core 3.x 的项目的上述要求****。 请针对自己的编辑器使用以下说明。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-使用“Razor 类库”项目模板  。 应选中此模板的“支持页和视图”复选框。 
+使用 Razor 类库项目模板****。 应选中此模板的“支持页和视图”复选框。****
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -286,6 +286,6 @@ public class ScriptInliningTagHelper : TagHelper
 ## <a name="additional-resources"></a>其他资源
 
 * <xref:razor-pages/ui-class>
-* <xref:blazor/class-libraries>
+* <xref:blazor/components/class-libraries>
 * [.NET 实现支持](/dotnet/standard/net-standard#net-implementation-support)
 * [.NET 支持策略](https://dotnet.microsoft.com/platform/support/policy)

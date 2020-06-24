@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 9299117b45a71b7aaf761fc3a0a4e541373dd970
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: ad4c3bbb30a672dcd56b51fb949285c9da326c96
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106292"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074342"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>配置 ASP.NET Core 以使用代理服务器和负载均衡器
 
@@ -53,7 +53,7 @@ ms.locfileid: "84106292"
 
 可以配置转接头中间件[默认设置](#forwarded-headers-middleware-options)。 默认设置为：
 
-* 应用和请求源之间只有一个代理。
+* 应用和请求源之间只有一个代理**。
 * 仅将环回地址配置为已知代理和已知网络。
 * 转接头被命名为 `X-Forwarded-For` 和 `X-Forwarded-Proto`。
 
@@ -67,39 +67,19 @@ ms.locfileid: "84106292"
 
 除在[进程外](xref:host-and-deploy/iis/index#out-of-process-hosting-model)托管时使用 [IIS 集成](xref:host-and-deploy/iis/index#enable-the-iisintegration-components)之外，不会默认启用转接头中间件。 必须启用应用的转接头中间件才能处理带有 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 的转接头。 启用中间件后，如果没有为中间件指定 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，那么默认的 [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) 是 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。
 
-为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `Startup.ConfigureServices` 中的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头。 调用其他中间件之前，先调用 `Startup.Configure` 中的 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 方法：
+为中间件配置 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> 以转接 `Startup.ConfigureServices` 中的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 标头。
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddMvc();
+<a name="fhmo"></a>
 
-    services.Configure<ForwardedHeadersOptions>(options =>
-    {
-        options.ForwardedHeaders = 
-            ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    });
-}
+### <a name="forwarded-headers-middleware-order"></a>转接头中间件顺序
 
-public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-{
-    app.UseForwardedHeaders();
+转接头中间件应在其他中间件之前运行。 此顺序可确保依赖于转接头信息的中间件可以使用标头值进行处理。 转接头中间件可以在诊断和错误处理之后运行，但必须在调用 `UseHsts` 之前运行：
 
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Home/Error");
-    }
+[!code-csharp[](~/host-and-deploy/proxy-load-balancer/3.1samples/Startup.cs?name=snippet&highlight=13-17,25,30)]
 
-    app.UseStaticFiles();
-    // In ASP.NET Core 1.x, replace the following line with: app.UseIdentity();
-    app.UseAuthentication();
-    app.UseMvc();
-}
-```
+或者，在诊断之前调用 `UseForwardedHeaders`：
+
+[!code-csharp[](~/host-and-deploy/proxy-load-balancer/3.1samples/Startup2.cs?name=snippet)]
 
 > [!NOTE]
 > 如果没有在 `Startup.ConfigureServices` 中指定任何 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>，或未使用 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> 直接指定到扩展方法，则要转接的默认标头为 [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)。 必须为 <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> 属性配置要转接的标头。
@@ -431,7 +411,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 可以配置转接头中间件[默认设置](#forwarded-headers-middleware-options)。 默认设置为：
 
-* 应用和请求源之间只有一个代理。
+* 应用和请求源之间只有一个代理**。
 * 仅将环回地址配置为已知代理和已知网络。
 * 转接头被命名为 `X-Forwarded-For` 和 `X-Forwarded-Proto`。
 
