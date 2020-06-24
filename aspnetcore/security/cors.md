@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cors
-ms.openlocfilehash: a78aff2d2e16f36ed034e6af110d7ed763271583
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 1a52a2425eeba2bc62253e96fe6d2465562c154e
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105748"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292758"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>在 ASP.NET Core 中启用跨域请求（CORS）
 
@@ -64,6 +64,9 @@ ms.locfileid: "84105748"
 
 通过命名策略使用[[EnableCors]](#attr)属性，可在限制支持 CORS 的终结点时提供最佳控制。
 
+> [!WARNING]
+> <xref:Owin.CorsExtensions.UseCors%2A>使用时，必须调用 <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> `UseResponseCaching` 。
+
 以下各节详细介绍了每种方法。
 
 <a name="np"></a>
@@ -72,7 +75,7 @@ ms.locfileid: "84105748"
 
 CORS 中间件处理跨域请求。 以下代码将 CORS 策略应用到具有指定来源的所有应用的终结点：
 
-[!code-csharp[](cors/3.1sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=3,9,31)]
+[!code-csharp[](cors/3.1sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=3,9,32)]
 
 前面的代码：
 
@@ -80,6 +83,7 @@ CORS 中间件处理跨域请求。 以下代码将 CORS 策略应用到具有�
 * 调用 <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> 扩展方法并指定 `_myAllowSpecificOrigins` CORS 策略。 `UseCors`添加 CORS 中间件。 必须将对的调用 `UseCors` 置于之后 `UseRouting` 但在之前 `UseAuthorization` 。 有关详细信息，请参阅[中间件顺序](xref:fundamentals/middleware/index#middleware-order)。
 * <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*>使用[lambda 表达式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)调用。 Lambda 采用 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> 对象。 本文稍后将介绍[配置选项](#cors-policy-options)，如 `WithOrigins` 。
 * 启用 `_myAllowSpecificOrigins` 所有控制器终结点的 CORS 策略。 请参阅[终结点路由](#ecors)，将 CORS 策略应用到特定终结点。
+* 使用[响应缓存中间件](xref:performance/caching/middleware)时，请 <xref:Owin.CorsExtensions.UseCors%2A> 先调用 <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> 。
 
 通过终结点路由，CORS 中间件**必须**配置为在对和的调用之间执行 `UseRouting` `UseEndpoints` 。
 
@@ -551,7 +555,7 @@ User-Agent: Mozilla/5.0
 
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/Controllers/ValuesController.cs?name=snippet)]
 
-[MyDisplayRouteInfo](https://github.com/Rick-Anderson/RouteInfo/blob/master/Microsoft.Docs.Samples.RouteInfo/ControllerContextExtensions.cs)由[RouteInfo](https://www.nuget.org/packages/Rick.Docs.Samples.RouteInfo) NuGet 包提供，并显示路由信息。
+[MyDisplayRouteInfo](https://github.com/Rick-Anderson/RouteInfo/blob/master/Microsoft.Docs.Samples.RouteInfo/ControllerContextExtensions.cs)由[Rick.DocRouteInfo](https://www.nuget.org/packages/Rick.Docs.Samples.RouteInfo) NuGet 包提供，并显示路由信息。
 
 使用以下方法之一测试前面的示例代码：
 

@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/ws-federation
-ms.openlocfilehash: fede3887ad7dacd40cf3bb5d1b785392a9bc1480
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.openlocfilehash: 62b8e33d8b7eb17a65a7a54df2a9aa298acdfe36
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850456"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292799"
 ---
 # <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>在 ASP.NET Core 中用 WS 联合身份验证用户
 
@@ -27,8 +27,8 @@ ms.locfileid: "82850456"
 
 默认情况下，新的中间件：
 
-* 不允许未经请求的登录。 WS 联合身份验证协议的此功能容易受到 XSRF 攻击。 但是，可以通过`AllowUnsolicitedLogins`选项启用。
-* 不会检查每个窗体张贴内容中的登录消息。 仅检查对的`CallbackPath`请求。 `CallbackPath`默认为，但可以通过`/signin-wsfed` [WsFederationOptions](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性更改为。 通过启用[SkipUnrecognizedRequests](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions.skipunrecognizedrequests)选项，可以将此路径与其他身份验证提供程序共享。
+* 不允许未经请求的登录。 WS 联合身份验证协议的此功能容易受到 XSRF 攻击。 但是，可以通过 `AllowUnsolicitedLogins` 选项启用。
+* 不会检查每个窗体张贴内容中的登录消息。 仅检查对的请求 `CallbackPath` 。 `CallbackPath` 默认为， `/signin-wsfed` 但可以通过[WsFederationOptions](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions)类的继承的[RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)属性更改为。 通过启用[SkipUnrecognizedRequests](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions.skipunrecognizedrequests)选项，可以将此路径与其他身份验证提供程序共享。
 
 ## <a name="register-the-app-with-active-directory"></a>将应用注册到 Active Directory
 
@@ -57,7 +57,7 @@ ms.locfileid: "82850456"
 
 * 在向导的其余部分中单击 "**下一步**"，然后**关闭**。
 
-* ASP.NET Core Identity需要**名称 ID**声明。 从 "**编辑声明规则**" 对话框中添加一个：
+* ASP.NET Core Identity 需要**名称 ID**声明。 从 "**编辑声明规则**" 对话框中添加一个：
 
 ![编辑声明规则](ws-federation/_static/EditClaimRules.png)
 
@@ -65,7 +65,7 @@ ms.locfileid: "82850456"
 
 ![添加转换声明规则向导：配置声明规则](ws-federation/_static/AddTransformClaimRule.png)
 
-* 单击 "**编辑声明规则**" 窗口中的 "**完成** > **"** 。
+* 单击**Finish**  >  "**编辑声明规则**" 窗口中的 **"完成"** 。
 
 ### <a name="azure-active-directory"></a>Azure Active Directory
 
@@ -78,17 +78,17 @@ ms.locfileid: "82850456"
 
 ![Azure Active Directory：创建应用注册](ws-federation/_static/AadCreateAppRegistration.png)
 
-* 单击 "**终结点**" 并记下 "**联合元数据文档**" URL。 这是 WS 联合身份验证中间件`MetadataAddress`的：
+* 单击 "**终结点**" 并记下 "**联合元数据文档**" URL。 这是 WS 联合身份验证中间件的 `MetadataAddress` ：
 
 ![Azure Active Directory：终结点](ws-federation/_static/AadFederationMetadataDocument.png)
 
-* 导航到新的应用注册。 单击 "**设置** > " "**属性**"，并记下 "**应用 ID URI**"。 这是 WS 联合身份验证中间件`Wtrealm`的：
+* 导航到新的应用注册。 单击 "**公开 API**"。 单击 "应用程序 ID URI**集**  >  **保存**"。 记下**应用程序 ID URI**。 这是 WS 联合身份验证中间件的 `Wtrealm` ：
 
 ![Azure Active Directory：应用注册属性](ws-federation/_static/AadAppIdUri.png)
 
 ## <a name="use-ws-federation-without-aspnet-core-identity"></a>使用不带 ASP.NET Core 的 WS 联合身份验证Identity
 
-无需Identity使用 WS 联合身份验证中间件。 例如：
+无需使用 WS 联合身份验证中间件 Identity 。 例如：
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](ws-federation/samples/StartupNon31.cs?name=snippet)]
 ::: moniker-end
@@ -100,7 +100,7 @@ ms.locfileid: "82850456"
 ## <a name="add-ws-federation-as-an-external-login-provider-for-aspnet-core-identity"></a>添加 WS-FEDERATION 作为 ASP.NET Core 的外部登录提供程序Identity
 
 * 将[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation)上的依赖项添加到项目。
-* 将 WS 联合身份验证`Startup.ConfigureServices`添加到：
+* 将 WS 联合身份验证添加到 `Startup.ConfigureServices` ：
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](ws-federation/samples/Startup31.cs?name=snippet)]
@@ -114,10 +114,10 @@ ms.locfileid: "82850456"
 
 ### <a name="log-in-with-ws-federation"></a>用 WS 联合身份验证登录
 
-浏览到应用，并单击导航头中的 "**登录**" 链接。 有一个选项可以使用 WsFederation： ![登录页登录](ws-federation/_static/WsFederationButton.png)
+浏览到应用，并单击导航头中的 "**登录**" 链接。 有一个选项可以使用 WsFederation： ![ 登录页登录](ws-federation/_static/WsFederationButton.png)
 
-使用 ADFS 作为提供程序时，按钮会重定向到 ADFS 登录页： ![adfs 登录页](ws-federation/_static/AdfsLoginPage.png)
+使用 ADFS 作为提供程序时，按钮会重定向到 ADFS 登录页： ![ adfs 登录页](ws-federation/_static/AdfsLoginPage.png)
 
-使用 Azure Active Directory 作为提供程序时，该按钮将重定向到 AAD 登录页： ![aad 登录页](ws-federation/_static/AadSignIn.png)
+使用 Azure Active Directory 作为提供程序时，该按钮将重定向到 AAD 登录页： ![ aad 登录页](ws-federation/_static/AadSignIn.png)
 
-成功登录新用户重定向到应用的用户注册页面： ![注册页面](ws-federation/_static/Register.png)
+成功登录新用户重定向到应用的用户注册页面： ![ 注册页面](ws-federation/_static/Register.png)

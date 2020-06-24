@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/middleware
-ms.openlocfilehash: 2ee75b1af9ffc23ff9ae1763059364de3ec8f426
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 93ac4e7e159f2b1f031e48a44c2297a741ba7b1c
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106502"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292641"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>ASP.NET Core 中的响应缓存中间件
 
@@ -40,7 +40,10 @@ ms.locfileid: "84106502"
 
 将应用程序配置为将中间件与 <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching*> 扩展方法一起使用，该扩展方法将中间件添加到中的请求处理管道 `Startup.Configure` ：
 
-[!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=16)]
+[!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=17)]
+
+> [!WARNING]
+> <xref:Owin.CorsExtensions.UseCors%2A><xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A>使用[CORS 中间件](xref:security/cors)之前，必须先调用。
 
 示例应用添加标头以在后续请求时控制缓存：
 
@@ -62,7 +65,7 @@ ms.locfileid: "84106502"
 
 响应缓存选项如下表中所示。
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 |
@@ -83,7 +86,7 @@ services.AddResponseCaching(options =>
 
 ## <a name="varybyquerykeys"></a>VaryByQueryKeys
 
-使用 MVC/web API 控制器或 Razor 页面页面模型时， [`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) 属性指定为响应缓存设置适当的标头所需的参数。 `[ResponseCache]`严格要求中间件的属性的唯一参数是 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys> ，它不对应于实际 HTTP 标头。 有关详细信息，请参阅 <xref:performance/caching/response#responsecache-attribute>。
+使用 MVC/web API 控制器或 Razor 页面页面模型时， [`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) 属性指定为响应缓存设置适当的标头所需的参数。 `[ResponseCache]`严格要求中间件的属性的唯一参数是 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys> ，它不对应于实际 HTTP 标头。 有关详细信息，请参阅 <xref:performance/caching/response#responsecache-attribute> 。
 
 如果不使用 `[ResponseCache]` 属性，响应缓存可能会随而变化 `VaryByQueryKeys` 。 <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingFeature>直接从[HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Features)使用：
 
@@ -102,7 +105,7 @@ if (responseCachingFeature != null)
 
 下表提供了有关影响响应缓存的 HTTP 标头的信息。
 
-| Header | 详细信息 |
+| 标头 | 详细信息 |
 | ------ | ------- |
 | `Authorization` | 如果标头存在，则不会缓存响应。 |
 | `Cache-Control` | 中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 |
@@ -140,7 +143,7 @@ if (responseCachingFeature != null)
 
 * 请求必须导致服务器响应，状态代码为200（正常）。
 * 请求方法必须为 GET 或 HEAD。
-* 在中 `Startup.Configure` ，必须将响应缓存中间件置于需要缓存的中间件之前。 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
+* 在中 `Startup.Configure` ，必须将响应缓存中间件置于需要缓存的中间件之前。 有关详细信息，请参阅 <xref:fundamentals/middleware/index> 。
 * `Authorization`标题不得存在。
 * `Cache-Control`标头参数必须是有效的，并且响应必须标记 `public` 且未标记 `private` 。
 * `Pragma: no-cache`如果标头不存在，则标头不得出现 `Cache-Control` ，因为标头会 `Cache-Control` `Pragma` 在存在时覆盖标头。
@@ -206,7 +209,7 @@ if (responseCachingFeature != null)
 
 响应缓存选项如下表中所示。
 
-| 选项 | 描述 |
+| 选项 | 说明 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 响应正文的最大可缓存大小（以字节为单位）。 默认值为 `64 * 1024 * 1024` （64 MB）。 |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 响应缓存中间件的大小限制（以字节为单位）。 默认值为 `100 * 1024 * 1024` （100 MB）。 |
@@ -227,7 +230,7 @@ services.AddResponseCaching(options =>
 
 ## <a name="varybyquerykeys"></a>VaryByQueryKeys
 
-使用 MVC/web API 控制器或 Razor 页面页面模型时， [`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) 属性指定为响应缓存设置适当的标头所需的参数。 `[ResponseCache]`严格要求中间件的属性的唯一参数是 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys> ，它不对应于实际 HTTP 标头。 有关详细信息，请参阅 <xref:performance/caching/response#responsecache-attribute>。
+使用 MVC/web API 控制器或 Razor 页面页面模型时， [`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) 属性指定为响应缓存设置适当的标头所需的参数。 `[ResponseCache]`严格要求中间件的属性的唯一参数是 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute.VaryByQueryKeys> ，它不对应于实际 HTTP 标头。 有关详细信息，请参阅 <xref:performance/caching/response#responsecache-attribute> 。
 
 如果不使用 `[ResponseCache]` 属性，响应缓存可能会随而变化 `VaryByQueryKeys` 。 <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingFeature>直接从[HttpContext](xref:Microsoft.AspNetCore.Http.HttpContext.Features)使用：
 
@@ -246,7 +249,7 @@ if (responseCachingFeature != null)
 
 下表提供了有关影响响应缓存的 HTTP 标头的信息。
 
-| Header | 详细信息 |
+| 标头 | 详细信息 |
 | ------ | ------- |
 | `Authorization` | 如果标头存在，则不会缓存响应。 |
 | `Cache-Control` | 中间件仅考虑用缓存指令标记的缓存响应 `public` 。 具有以下参数的控件缓存：<ul><li>最大期限</li><li>最大过期&#8224;</li><li>最小-新</li><li>must-revalidate</li><li>no-cache</li><li>无-商店</li><li>仅限-缓存</li><li>private</li><li>public</li><li>s-maxage</li><li>代理重新验证&#8225;</li></ul>&#8224;如果未指定任何限制 `max-stale` ，则中间件不会执行任何操作。<br>&#8225;`proxy-revalidate` 的效果与相同 `must-revalidate` 。<br><br>有关详细信息，请参阅[RFC 7231：请求缓存控制指令](https://tools.ietf.org/html/rfc7234#section-5.2.1)。 |
@@ -284,7 +287,7 @@ if (responseCachingFeature != null)
 
 * 请求必须导致服务器响应，状态代码为200（正常）。
 * 请求方法必须为 GET 或 HEAD。
-* 在中 `Startup.Configure` ，必须将响应缓存中间件置于需要缓存的中间件之前。 有关详细信息，请参阅 <xref:fundamentals/middleware/index>。
+* 在中 `Startup.Configure` ，必须将响应缓存中间件置于需要缓存的中间件之前。 有关详细信息，请参阅 <xref:fundamentals/middleware/index> 。
 * `Authorization`标题不得存在。
 * `Cache-Control`标头参数必须是有效的，并且响应必须标记 `public` 且未标记 `private` 。
 * `Pragma: no-cache`如果标头不存在，则标头不得出现 `Cache-Control` ，因为标头会 `Cache-Control` `Pragma` 在存在时覆盖标头。
