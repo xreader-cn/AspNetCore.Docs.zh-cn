@@ -13,16 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: a8604ca6ea60386bb3c54c950205ee695d37c689
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 2811e08fd2f6c66112ffa0bb40f474158f4c7a59
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103110"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292680"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>为 ASP.NET Core Blazor 服务器应用提供保护
 
 作者：[Luke Latham](https://github.com/guardrex)
+
+Blazor 服务器应用采用与 ASP.NET Core 应用相同方式的安全配置。 有关详细信息，请参阅 <xref:security/index> 下的文章。 本概述下的主题特别适用于 Blazor 服务器。 
 
 ## <a name="blazor-server-project-template"></a>Blazor 服务器项目模板
 
@@ -67,7 +69,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 * 为项目创建文件夹。
 * 为该项目命名。
 
-有关详细信息，请参阅 .NET Core 指南中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。
+有关详细信息，请参阅 .NET Core 指南中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -101,13 +103,9 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 * 为项目创建文件夹。
 * 为该项目命名。
 
-有关详细信息，请参阅 .NET Core 指南中的 [dotnet new](/dotnet/core/tools/dotnet-new) 命令。
+有关详细信息，请参阅 .NET Core 指南中的 [`dotnet new`](/dotnet/core/tools/dotnet-new) 命令。
 
 ---
-
-## <a name="secure-an-existing-app"></a>保护现有应用
-
-Blazor 服务器应用采用与 ASP.NET Core 应用相同方式的安全配置。 有关详细信息，请参阅 <xref:security/index> 下的文章。
 
 ## <a name="scaffold-identity"></a>设置Identity的基架
 

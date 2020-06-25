@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: b2468220d0c059a94a085357f2be7bbb3b89adc4
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: 81a0da65215bc41f6dfad0de28a95bdc455bd8fb
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074195"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292784"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core 中间件
 
@@ -91,7 +91,9 @@ ASP.NET Core 请求管道包含一系列请求委托，依次调用。 下图演
 在上述代码中：
 
 * 在使用[单个用户帐户](xref:security/authentication/identity)创建新的 Web 应用时未添加的中间件已被注释掉。
-* 并非所有中间件都需要准确按照此顺序运行，但许多中间件必须遵循这个顺序。 例如，`UseCors`、`UseAuthentication` 和 `UseAuthorization` 必须按照上述顺序运行。
+* 并非所有中间件都需要准确按照此顺序运行，但许多中间件必须遵循这个顺序。 例如：
+  * `UseCors`、`UseAuthentication` 和 `UseAuthorization` 必须按照上述顺序运行。
+  * 由于[此错误](https://github.com/dotnet/aspnetcore/issues/23218)，`UseCors` 当前必须在 `UseResponseCaching` 之前运行。
 
 以下 `Startup.Configure` 方法将为常见应用方案添加中间件组件：
 
@@ -248,7 +250,7 @@ ASP.NET Core 附带以下中间件组件。 “顺序”列提供备注，以说
 | [身份验证](xref:security/authentication/identity) | 提供身份验证支持。 | 在需要 `HttpContext.User` 之前。 OAuth 回叫的终端。 |
 | [授权](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*) | 提供身份验证支持。 | 紧接在身份验证中间件之后。 |
 | [Cookie 策略](xref:security/gdpr) | 跟踪用户是否同意存储个人信息，并强制实施 cookie 字段（如 `secure` 和 `SameSite`）的最低标准。 | 在发出 cookie 的中间件之前。 示例：身份验证、会话、MVC (TempData)。 |
-| [CORS](xref:security/cors) | 配置跨域资源共享。 | 在使用 CORS 的组件之前。 |
+| [CORS](xref:security/cors) | 配置跨域资源共享。 | 在使用 CORS 的组件之前。 由于[此错误](https://github.com/dotnet/aspnetcore/issues/23218)，`UseCors` 当前必须在 `UseResponseCaching` 之前运行。|
 | [诊断](xref:fundamentals/error-handling) | 提供新应用的开发人员异常页、异常处理、状态代码页和默认网页的几个单独的中间件。 | 在生成错误的组件之前。 异常终端或为新应用提供默认网页的终端。 |
 | [转接头](xref:host-and-deploy/proxy-load-balancer) | 将代理标头转发到当前请求。 | 在使用已更新字段的组件之前。 示例：方案、主机、客户端 IP、方法。 |
 | [运行状况检查](xref:host-and-deploy/health-checks) | 检查 ASP.NET Core 应用及其依赖项的运行状况，如检查数据库可用性。 | 如果请求与运行状况检查终结点匹配，则为终端。 |
@@ -258,7 +260,7 @@ ASP.NET Core 附带以下中间件组件。 “顺序”列提供备注，以说
 | [HTTP 严格传输安全性 (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | 添加特殊响应标头的安全增强中间件。 | 在发送响应之前，修改请求的组件之后。 示例：转接头、URL 重写。 |
 | [MVC](xref:mvc/overview) | 用 MVC/Razor Pages 处理请求。 | 如果请求与路由匹配，则为终端。 |
 | [OWIN](xref:fundamentals/owin) | 与基于 OWIN 的应用、服务器和中间件进行互操作。 | 如果 OWIN 中间件处理完请求，则为终端。 |
-| [响应缓存](xref:performance/caching/middleware) | 提供对缓存响应的支持。 | 在需要缓存的组件之前。 |
+| [响应缓存](xref:performance/caching/middleware) | 提供对缓存响应的支持。 | 在需要缓存的组件之前。 `UseCORS` 必须在 `UseResponseCaching` 之前。|
 | [响应压缩](xref:performance/response-compression) | 提供对压缩响应的支持。 | 在需要压缩的组件之前。 |
 | [请求本地化](xref:fundamentals/localization) | 提供本地化支持。 | 在对本地化敏感的组件之前。 |
 | [终结点路由](xref:fundamentals/routing) | 定义和约束请求路由。 | 用于匹配路由的终端。 |

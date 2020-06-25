@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 8c5e6c6ba741cae2634e2852e9ca141a0a7c33ce
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 14cf614bf5d4f2ad6a34c49cb08277a2deae8d00
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103111"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242945"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor 身份验证和授权
 
@@ -48,8 +48,8 @@ Blazor 使用现有的 ASP.NET Core 身份验证机制来确立用户的身份�
 
 添加以下内容：
 
-* 在应用的项目文件中添加 [Microsoft.AspNetCore.Components.Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
-* 在应用的 *_Imports.razor* 文件中添加 `Microsoft.AspNetCore.Components.Authorization` 命名空间。
+* 应用项目文件 [`Microsoft.AspNetCore.Components.Authorization`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) 的包引用。
+* 应用的 `_Imports.razor` 文件的 `Microsoft.AspNetCore.Components.Authorization` 命名空间。
 
 为处理身份验证，需实现内置或自定义 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务，以下几节对此进行了介绍。
 
@@ -67,7 +67,7 @@ Blazor 服务器应用通过使用 SignalR 创建的实时连接执行操作。 
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 是 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件用于获取身份验证状态的基础服务。
 
-通常不直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>。 使用本文后面介绍的 [AuthorizeView 组件](#authorizeview-component) 或 [Task\<AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) 方法。 直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 的主要缺点是，如果基础身份验证状态数据发生更改，不会自动通知组件。
+通常不直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>。 使用本文后面介绍的 [`AuthorizeView` 组件](#authorizeview-component) 或 [`Task<AuthenticationState>`](#expose-the-authentication-state-as-a-cascading-parameter) 方法。 直接使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 的主要缺点是，如果基础身份验证状态数据发生更改，不会自动通知组件。
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 服务可以提供当前用户的 <xref:System.Security.Claims.ClaimsPrincipal> 数据，如以下示例所示：
 
@@ -149,7 +149,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 }
 ```
 
-在 Blazor WebAssembly 应用中，`CustomAuthStateProvider` 服务已在 Program.cs 的 `Main` 中注册：
+在 Blazor WebAssembly 应用中，`CustomAuthStateProvider` 服务已在 `Program.cs` 的 `Main` 中注册：
 
 ```csharp
 using Microsoft.AspNetCore.Components.Authorization;
@@ -207,7 +207,7 @@ services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 如果 `user.Identity.IsAuthenticated` 为 `true`，可以枚举声明并评估角色成员身份。
 
-使用 `App` 组件 (App.razor) 中的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件来设置 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 级联参数：
+使用 `App` 组件 (`App.razor`) 中的 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> 和 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> 组件来设置 `Task<`<xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState>`>` 级联参数：
 
 ```razor
 <CascadingAuthenticationState>
@@ -275,7 +275,7 @@ builder.Services.AddAuthorizationCore();
 </AuthorizeView>
 ```
 
-可以在 `NavMenu` 组件 (Shared/NavMenu.razor) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [NavLink 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法只从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
+可以在 `NavMenu` 组件 (`Shared/NavMenu.razor`) 中使用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> 组件来显示 [`NavLink` 组件](xref:blazor/fundamentals/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) 的列表项 (`<li>...</li>`)，但请注意，此方法仅从呈现的输出中删除列表项。 它不会阻止用户导航到该组件。
 
 `<Authorized>` 和 `<NotAuthorized>` 标记的内容可以包括任意项，如其他交互式组件。
 
@@ -380,7 +380,7 @@ You can only see this if you're signed in.
 * 用户不符合应用于组件的 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 条件。 [`[Authorize]` 属性](#authorize-attribute)一节中介绍了 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) 属性。
 * 正在进行异步身份验证。
 
-在默认的 Blazor 服务器项目模板中，`App` 组件 (App.razor) 演示了如何设置自定义内容：
+在默认的 Blazor 服务器项目模板中，`App` 组件 (`App.razor`) 演示了如何设置自定义内容：
 
 ```razor
 <CascadingAuthenticationState>
@@ -419,7 +419,7 @@ Not authorized.
 
 ## <a name="notification-about-authentication-state-changes"></a>有关身份验证状态更改的通知
 
-如果应用确定基础身份验证状态数据已更改（例如由于用户注销或其他用户更改了其角色），自定义 [custom AuthenticationStateProvider](#implement-a-custom-authenticationstateprovider) 可以选择对 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 基类调用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider.NotifyAuthenticationStateChanged%2A> 方法。 这会通知身份验证状态数据（例如 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>）使用者使用新数据重新呈现。
+如果应用确定基础身份验证状态数据已更改（例如，由于用户已注销或其他用户已更改其角色），则[自定义 `AuthenticationStateProvider`](#implement-a-custom-authenticationstateprovider) 可以选择对 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> 基类调用 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider.NotifyAuthenticationStateChanged%2A> 方法。 这会通知身份验证状态数据（例如 <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>）使用者使用新数据重新呈现。
 
 ## <a name="procedural-logic"></a>过程逻辑
 
@@ -467,17 +467,17 @@ Not authorized.
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
 >
-> 可以通过将这些命名空间添加到应用的 _Imports razor 文件来全局提供它们。
+> 可以通过将这些命名空间添加到应用的 `_Imports.razor` 文件来全局提供它们。
 
 ## <a name="troubleshoot-errors"></a>排查错误
 
 常见错误：
 
-* **授权需要 Task\<AuthenticationState> 类型的级联参数。考虑使用 CascadingAuthenticationState 来提供此参数。**
+* **授权需要 `Task\<AuthenticationState>` 类型的级联参数。请考虑使用 `CascadingAuthenticationState` 来提供此参数。**
 
 * **对于 `authenticationStateTask`，收到了 `null` 值**
 
-项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面 `App` 组件 (App.razor) 中所示：
+项目可能不是使用启用了身份验证的 Blazor 服务器模板创建的。 使用 `<CascadingAuthenticationState>` 将 UI 树的某些部分括起来，例如下面 `App` 组件 (`App.razor`) 中所示：
 
 ```razor
 <CascadingAuthenticationState>

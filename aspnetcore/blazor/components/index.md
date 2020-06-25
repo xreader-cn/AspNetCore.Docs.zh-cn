@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: a97fbe07251a61b30985695e3d207f0e3c3a777b
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: e1778d865edcfed8f5f45f4f53a57f1b3a3bd9aa
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103120"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242429"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>创建和使用 ASP.NET Core Razor 组件
 
@@ -30,7 +30,7 @@ Blazor 应用是使用组件构建的。 组件是自包含的用户界面 (UI) 
 
 ## <a name="component-classes"></a>组件类
 
-组件是使用 C# 和 HTML 标记的组合在 [Razor](xref:mvc/views/razor) 组件文件 (.razor) 中实现的。 Blazor 中的组件正式称为 Razor 组件。
+组件是使用 C# 和 HTML 标记的组合在 [Razor](xref:mvc/views/razor) 组件文件 (`.razor`) 中实现的。 Blazor 中的组件正式称为 Razor 组件。
 
 ### <a name="razor-syntax"></a>Razor 语法
 
@@ -43,7 +43,7 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 
 ### <a name="names"></a>名称
 
-组件的名称必须以大写字符开头。 例如，MyCoolComponent.razor 有效，myCoolComponent.razor 无效 。
+组件的名称必须以大写字符开头。 例如，`MyCoolComponent.razor` 有效，而 `myCoolComponent.razor` 无效。
 
 ### <a name="routing"></a>路由
 
@@ -77,16 +77,16 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 
 最初呈现组件后，组件会为响应事件而重新生成其呈现树。 然后 Blazor 将新呈现树与前一个呈现树进行比较，并对浏览器文档对象模型 (DOM) 应用任何修改。
 
-组件是普通 C# 类，可以放置在项目中的任何位置。 生成网页的组件通常位于 Pages 文件夹中。 非页面组件通常放置在 Shared 文件夹或添加到项目的自定义文件夹中。
+组件是普通 C# 类，可以放置在项目中的任何位置。 生成网页的组件通常位于 `Pages` 文件夹中。 非页面组件通常放置在 `Shared` 文件夹或添加到项目的自定义文件夹中。
 
 ### <a name="namespaces"></a>命名空间
 
-通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp`，并且 `Counter` 组件位于 Pages 文件夹中：
+通常，组件的命名空间是从应用的根命名空间和该组件在应用内的位置（文件夹）派生而来的。 如果应用的根命名空间是 `BlazorApp`，并且 `Counter` 组件位于 `Pages` 文件夹中：
 
 * `Counter` 组件的命名空间为 `BlazorApp.Pages`。
 * 组件的完全限定类型名称为 `BlazorApp.Pages.Counter`。
 
-对于保存组件的自定义文件夹，将 [`@using`][2] 指令添加到父组件或应用的 _Imports.razor 文件。 下面的示例提供“Components”文件夹中的组件：
+对于保存组件的自定义文件夹，将 [`@using`][2] 指令添加到父组件或应用的 `_Imports.razor` 文件。 下面的示例提供 `Components` 文件夹中的组件：
 
 ```razor
 @using BlazorApp.Components
@@ -100,16 +100,16 @@ Blazor 应用中的 Razor 组件广泛使用 Razor 语法。 如果你不熟悉 
 
 使用 Razor 创建的组件的命名空间基于（按优先级顺序）：
 
-* Razor 文件 (.razor) 标记 (`@namespace BlazorSample.MyNamespace`) 中的 [`@namespace`][8] 指定内容。
+* Razor 文件 (`.razor`) 标记 (`@namespace BlazorSample.MyNamespace`) 中的 [`@namespace`][8] 指定内容。
 * 项目文件 (`<RootNamespace>BlazorSample</RootNamespace>`) 中项目的 `RootNamespace`。
-* 项目名称，取自项目文件的文件名 (.csproj)，以及从项目根到组件的路径。 例如，框架将 {PROJECT ROOT}/Pages/Index.razor (BlazorSample.csproj) 解析为命名空间 `BlazorSample.Pages` 。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
-  * 在同一文件夹 Pages 中。
+* 项目名称，取自项目文件的文件名 (`.csproj`)，以及从项目根到组件的路径。 例如，框架将 `{PROJECT ROOT}/Pages/Index.razor` (`BlazorSample.csproj`) 解析为命名空间 `BlazorSample.Pages`。 组件遵循 C# 名称绑定规则。 对于本示例中的 `Index` 组件，范围内的组件是所有组件：
+  * 在同一文件夹 `Pages` 中。
   * 未显式指定其他命名空间的项目根中的组件。
 
 > [!NOTE]
 > 不支持 `global::` 限定。
 >
-> 不支持导入具有别名化 [using](/dotnet/csharp/language-reference/keywords/using-statement) 语句的组件（例如，`@using Foo = Bar`）。
+> 不支持导入具有别名 [`using`](/dotnet/csharp/language-reference/keywords/using-statement) 语句的组件（例如，`@using Foo = Bar`）。
 >
 > 不支持部分限定名称。 例如，不支持使用 `<Shared.NavMenu></Shared.NavMenu>` 添加 `@using BlazorSample` 和引用 `NavMenu` 组件 (`NavMenu.razor`)。
 
@@ -122,7 +122,7 @@ Razor 组件作为分部类生成。 使用以下方法之一创建 Razor 组件
 
 下面的示例显示了从 Blazor 模板生成的应用中具有 [`@code`][1] 块的默认 `Counter` 组件。 HTML 标记、Razor 代码和 C# 代码位于同一个文件中：
 
-Counter.razor：
+`Pages/Counter.razor`：
 
 ```razor
 @page "/counter"
@@ -145,7 +145,7 @@ Counter.razor：
 
 还可以使用具有分部类的代码隐藏文件创建 `Counter` 组件：
 
-Counter.razor：
+`Pages/Counter.razor`：
 
 ```razor
 @page "/counter"
@@ -157,7 +157,7 @@ Counter.razor：
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
 
-Counter.razor.cs：
+`Counter.razor.cs`：
 
 ```csharp
 namespace BlazorApp.Pages
@@ -189,7 +189,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 [`@inherits`][6] 指令可用于指定组件的基类。 下面的示例演示组件如何继承基类 `BlazorRocksBase` 以提供组件的属性和方法。 基类应派生自 <xref:Microsoft.AspNetCore.Components.ComponentBase>。
 
-Pages/BlazorRocks.razor：
+`Pages/BlazorRocks.razor`：
 
 ```razor
 @page "/BlazorRocks"
@@ -198,7 +198,7 @@ Pages/BlazorRocks.razor：
 <h1>@BlazorRocksText</h1>
 ```
 
-BlazorRocksBase.cs：
+`BlazorRocksBase.cs`：
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -217,13 +217,13 @@ namespace BlazorSample
 
 通过使用 HTML 元素语法声明组件，组件可以包含其他组件。 使用组件的标记类似于 HTML 标记，其中标记的名称是组件类型。
 
-Index.razor 中的以下标记呈现了 `HeadingComponent` 实例：
+`Pages/Index.razor` 中的以下标记呈现了 `HeadingComponent` 实例：
 
 ```razor
 <HeadingComponent />
 ```
 
-Components/HeadingComponent.razor：
+`Components/HeadingComponent.razor`：
 
 [!code-razor[](index/samples_snapshot/HeadingComponent.razor)]
 
@@ -235,25 +235,25 @@ Components/HeadingComponent.razor：
 
 组件可以接收来自 [`@page`][9] 指令所提供的路由模板的路由参数。 路由器使用路由参数来填充相应的组件参数。
 
-Pages/RouteParameter.razor：
+`Pages/RouteParameter.razor`：
 
 [!code-razor[](index/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
 
 不支持可选参数，因此在前面的示例中应用了两个 [`@page`][9] 指令。 第一个指令允许导航到没有参数的组件。 第二个 [`@page`][9] 指令会接收 `{text}` 路由参数，并将值赋予 `Text` 属性。
 
-Razor 组件 (.razor) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕获跨多个文件夹边界的路径。
+Razor 组件 (`.razor`) 不支持 Catch-all 参数语法 (`*`/`**`)，该语法捕获跨多个文件夹边界的路径。
 
 ### <a name="component-parameters"></a>组件参数
 
 组件可以有组件参数，这些参数是使用组件类中包含 [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) 特性的公共属性定义的。 使用这些属性在标记中为组件指定参数。
 
-Components/ChildComponent.razor：
+`Components/ChildComponent.razor`：
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
 
 在示例应用的以下示例中，`ParentComponent` 设置 `ChildComponent` 的 `Title` 属性的值。
 
-Pages/ParentComponent：
+`Pages/ParentComponent.razor`：
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
@@ -266,7 +266,7 @@ Pages/ParentComponent：
 
 在下面的示例中，`ChildComponent` 具有一个表示 <xref:Microsoft.AspNetCore.Components.RenderFragment>（表示要呈现的 UI 段）的 `ChildContent` 属性。 `ChildContent` 的值放置在应呈现内容的组件标记中。 `ChildContent` 的值是从父组件接收的，并呈现在启动面板的 `panel-body` 中。
 
-Components/ChildComponent.razor：
+`Components/ChildComponent.razor`：
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
@@ -275,7 +275,7 @@ Components/ChildComponent.razor：
 
 示例应用中的 `ParentComponent` 可以通过将内容置于 `<ChildComponent>` 标记中，提供用于呈现 `ChildComponent` 的内容。
 
-Pages/ParentComponent.razor：
+`Pages/ParentComponent.razor`：
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=7-8)]
 
@@ -351,13 +351,13 @@ Pages/ParentComponent.razor：
 
 相对于元素特性位置的 [`@attributes`][3] 位置很重要。 在元素上展开 [`@attributes`][3] 时，将从右到左（从最后一个到第一个）处理特性。 请考虑以下使用 `Child` 组件的组件示例：
 
-ParentComponent.razor：
+`ParentComponent.razor`：
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-ChildComponent.razor：
+`ChildComponent.razor`：
 
 ```razor
 <div @attributes="AdditionalAttributes" extra="5" />
@@ -374,13 +374,13 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 在下面的示例中，`extra` 和 [`@attributes`][3] 的顺序在 `Child` 组件的 `<div>` 中反转：
 
-ParentComponent.razor：
+`ParentComponent.razor`：
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-ChildComponent.razor：
+`ChildComponent.razor`：
 
 ```razor
 <div extra="5" @attributes="AdditionalAttributes" />
@@ -418,7 +418,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 呈现组件时，将用 `MyLoginDialog` 子组件实例填充 `loginDialog` 字段。 然后，可以在组件实例上调用 .NET 方法。
 
 > [!IMPORTANT]
-> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在这之前，没有任何内容可引用。 若要在组件完成呈现后操作组件引用，请使用 [OnAfterRenderAsync 或 OnAfterRender 方法](xref:blazor/components/lifecycle#after-component-render)。
+> 仅在呈现组件后填充 `loginDialog` 变量，其输出包含 `MyLoginDialog` 元素。 在这之前，没有任何内容可引用。 若要在组件完成呈现后操作组件引用，请使用 [`OnAfterRenderAsync` 或 `OnAfterRender` 方法](xref:blazor/components/lifecycle#after-component-render)。
 
 要引用循环中的组件，请参阅[捕获对多个相似子组件的引用 (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358)。
 
@@ -706,7 +706,7 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 有关详细信息，请参阅 <xref:mvc/views/razor>。
 
 > [!WARNING]
-> .NET 类型为 `bool` 时，某些 HTML 属性（如 [aria-pressed](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）无法正常运行。 在这些情况下，请使用 `string` 类型，而不是 `bool`。
+> .NET 类型为 `bool` 时，某些 HTML 属性（如 [`aria-pressed`](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)）无法正常运行。 在这些情况下，请使用 `string` 类型，而不是 `bool`。
 
 ## <a name="raw-html"></a>原始 HTML
 
@@ -762,9 +762,9 @@ HTML 元素属性基于 .NET 值有条件地呈现。 如果值为 `false` 或 `
 
 ## <a name="static-assets"></a>静态资产
 
-Blazor 遵循 ASP.NET Core 应用的约定，将静态资产放在项目的 [Web 根 (wwwroot) 文件夹下](xref:fundamentals/index#web-root)。
+Blazor 遵循 ASP.NET Core 应用的约定，将静态资产放在项目的 [`web root (wwwroot)` 文件夹](xref:fundamentals/index#web-root)下。
 
-使用基相对路径 (`/`) 来引用静态资产的 Web 根。 在下面的示例中，logo.png 物理上位置位于 {PROJECT ROOT}/wwwroot/images 文件夹中 ：
+使用基相对路径 (`/`) 来引用静态资产的 Web 根。 在下面的示例中，`logo.png` 实际位于 `{PROJECT ROOT}/wwwroot/images` 文件夹中：
 
 ```razor
 <img alt="Company logo" src="/images/logo.png" />
@@ -776,17 +776,17 @@ Razor 组件不支持波浪符斜杠表示法 (`~/`)。
 
 ## <a name="tag-helpers-arent-supported-in-components"></a>组件中不支持标记帮助程序
 
-Razor 组件（.razor 文件）不支持[标记帮助程序](xref:mvc/views/tag-helpers/intro)。 若要在 Blazor 中提供类似标记帮助程序的功能，请创建一个具有与标记帮助程序相同功能的组件，并改为使用该组件。
+Razor 组件（`.razor` 文件）不支持 [`Tag Helpers`](xref:mvc/views/tag-helpers/intro)。 若要在 Blazor 中提供类似标记帮助程序的功能，请创建一个具有与标记帮助程序相同功能的组件，并改为使用该组件。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>可缩放的向量图形 (SVG) 图像
 
-由于 Blazor 呈现 HTML，因此通过 `<img>` 标记支持浏览器支持的图像，包括可缩放的矢量图形 (SVG) 图像(.svg)：
+由于 Blazor 呈现 HTML，因此通过 `<img>` 标记支持浏览器支持的图像，包括可缩放的矢量图形 (SVG) 图像(`.svg`)：
 
 ```html
 <img alt="Example image" src="some-image.svg" />
 ```
 
-同样，样式表文件 (.css) 的 CSS 规则支持 SVG 图像：
+同样，样式表文件 (`.css`) 的 CSS 规则支持 SVG 图像：
 
 ```css
 .my-element {
@@ -794,7 +794,7 @@ Razor 组件（.razor 文件）不支持[标记帮助程序](xref:mvc/views/tag-
 }
 ```
 
-但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (.razor)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 [`@bind`][10] 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
+但是，并非在所有情况下都支持内联的 SVG 标记。 如果将 `<svg>` 标记直接放入组件文件 (`.razor`)，则支持基本图像呈现，但很多高级场景尚不受支持。 例如，当前未遵循 `<use>` 标记，并且 [`@bind`][10] 不能与某些 SVG 标记一起使用。 有关详细信息，请参阅 [Blazor (dotnet/aspnetcore #18271) 中的 SVG 支持](https://github.com/dotnet/aspnetcore/issues/18271)。
 
 ## <a name="additional-resources"></a>其他资源
 

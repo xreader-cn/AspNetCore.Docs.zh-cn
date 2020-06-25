@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 086629f88ad04faed812bd16683e7d073f3e8ede
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
+ms.openlocfilehash: 694be6317aaac211f5099dfca749ff8a69d146d1
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122069"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243507"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor 简介
 
@@ -53,9 +53,9 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 * 可以嵌套和重用。
 * 可作为 [Razor 类库](xref:razor-pages/ui-class)或 [NuGet 包](/nuget/what-is-nuget)共享和分发。
 
-组件类通常以 [Razor](xref:mvc/views/razor) 标记页（文件扩展名为 .razor）的形式编写。 Blazor 中的组件有时被称为 Razor 组件。 Razor 是一种语法，用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与基于请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
+组件类通常以 [Razor](xref:mvc/views/razor) 标记页（文件扩展名为 `.razor`）的形式编写。 Blazor 中的组件有时被称为 Razor 组件。 Razor 是一种语法，用于将 HTML 标记与专为提高开发人员工作效率而设计的 C# 代码结合在一起。 借助 Razor，可以使用 [IntelliSense](/visualstudio/ide/using-intellisense) 支持在同一文件中的 HTML 标记和 C# 之间切换。 Razor Pages 和 MVC 也使用 Razor。 与基于请求/响应模型生成的 Razor Pages 和 MVC 不同，组件专门用于处理客户端 UI 逻辑和构成。
 
-以下 Razor 标记演示组件 (Dialog.razor)，该组件可以嵌套在另一个组件中：
+以下 Razor 标记演示组件 (`Dialog.razor`)，该组件可以嵌套在另一个组件中：
 
 ```razor
 <div>
@@ -86,7 +86,7 @@ Blazor 使用 UI 构成的自然 HTML 标记。 HTML 元素指定组件，并且
 
 在以下示例中，`Index` 组件使用 `Dialog` 组件。 `ChildContent` 和 `Title` 由 `<Dialog>` 元素的属性和内容设置。
 
-Index.razor：
+`Pages/Index.razor`：
 
 ```razor
 @page "/"
@@ -100,7 +100,7 @@ Welcome to your new app.
 </Dialog>
 ```
 
-在浏览器中访问父级 (Index.razor) 时，将呈现该对话框：
+在浏览器中访问父级 (`Pages/Index.razor`) 时，将呈现该对话框：
 
 ![浏览器中呈现的对话框组件](index/_static/dialog.png)
 
@@ -112,7 +112,7 @@ Welcome to your new app.
 
 Blazor WebAssembly 是一个单页应用框架，可用它通过 .NET 生成交互式客户端 Web 应用。 Blazor WebAssembly 使用开放的 Web 标准（没有插件或代码转换），适用于移动浏览器等各种新式 Web 浏览器。
 
-通过 [WebAssembly](https://webassembly.org)（缩写为 wasm），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
+通过 [WebAssembly](https://webassembly.org)（缩写为 `wasm`），可在 Web 浏览器内运行 .NET 代码。 WebAssembly 是针对快速下载和最大执行速度优化的压缩字节码格式。 WebAssembly 是开放的 Web 标准，支持用于无插件的 Web 浏览器。
 
 WebAssembly 代码可通过 JavaScript（称为 JavaScript 互操作性或 JavaScript 互操作）访问浏览器的完整功能。 通过浏览器中的 WebAssembly 执行的 .NET 代码在浏览器的 JavaScript 沙盒中运行，沙盒提供的保护可防御客户端计算机上的恶意操作。
 
