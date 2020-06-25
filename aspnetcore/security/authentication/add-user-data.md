@@ -1,7 +1,7 @@
 ---
-title: Identity在 ASP.NET Core 项目中添加、下载和删除用户数据
+title: 在 ASP.NET Core 项目中添加、下载和删除用户数据 Identity
 author: rick-anderson
-description: 了解如何将自定义用户数据添加Identity到 ASP.NET Core 项目中的。 删除每个 GDPR 的数据。
+description: 了解如何将自定义用户数据添加到 Identity ASP.NET Core 项目中的。 删除每个 GDPR 的数据。
 ms.author: riande
 ms.date: 03/26/2020
 ms.custom: mvc, seodec18
@@ -12,23 +12,23 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 29c23e10d11eb1042b64fc071c221a9ead857fcc
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 6b4de0a47cd7882852512040a08832942f20aa4c
+ms.sourcegitcommit: 1833870ad0845326fb764fef1b530a07b9b5b099
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777327"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85347107"
 ---
-# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>向 ASP.NET Core 项目中的标识添加、下载和删除自定义用户数据
+# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>在 ASP.NET Core 项目中添加、下载和删除自定义用户数据 Identity
 
 作者：[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 本文介绍以下操作：
 
 * 向 ASP.NET Core web 应用添加自定义用户数据。
-* 使用<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>属性标记自定义用户数据模型，使其自动可供下载和删除。 使数据能够下载和删除有助于满足[GDPR](xref:security/gdpr)要求。
+* 使用属性标记自定义用户数据模型 <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> ，使其自动可供下载和删除。 使数据能够下载和删除有助于满足[GDPR](xref:security/gdpr)要求。
 
-此项目示例是从 Razor Pages web 应用创建的，但是 ASP.NET Core MVC web 应用的说明类似。
+项目示例是从 Razor 页面 web 应用创建的，但 ASP.NET CORE MVC web 应用的说明类似。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data)（[如何下载](xref:index#how-to-download-a-sample)）
 
@@ -46,7 +46,7 @@ ms.locfileid: "82777327"
 
 ::: moniker-end
 
-## <a name="create-a-razor-web-app"></a>创建 Razor Web 应用
+## <a name="create-a-razor-web-app"></a>创建 Razor web 应用
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -79,20 +79,20 @@ dotnet new webapp -o WebApp1
 
 ---
 
-## <a name="run-the-identity-scaffolder"></a>运行标识 scaffolder
+## <a name="run-the-identity-scaffolder"></a>运行 Identity scaffolder
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* 在**解决方案资源管理器**中，右键单击项目 > "**添加** > **新的基架项**"。
-* 在 "**添加基架**" 对话框的左窗格中，选择 "**标识** > " "**添加**"。
-* 在 "**添加标识**" 对话框中，选择以下选项：
+* 在**解决方案资源管理器**中，右键单击项目 > "**添加**  >  **新的基架项**"。
+* 在 "**添加基架**" 对话框的左窗格中，选择 " **Identity**  >  **添加**"。
+* 在 "**添加 Identity ** " 对话框中，选择以下选项：
   * 选择现有的布局文件 *~/Pages/Shared/_Layout cshtml*
   * 选择以下要重写的文件：
     * **帐户/注册**
     * **帐户/管理/索引**
-  * 选择**+** 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**，则接受类型（**WebApp1. WebApp1Context。**
-  * 选择**+** 按钮以创建新的**用户类**。 接受类型（如果项目命名为 " **WebApp1**"，则为**WebApp1User** ） > "**添加**"。
-* 选择“添加”   。
+  * 选择 **+** 按钮以创建新的**数据上下文类**。 如果项目命名为**WebApp1**，则接受类型（**WebApp1. WebApp1Context。**
+  * 选择 **+** 按钮以创建新的**用户类**。 接受类型（如果项目命名为 " **WebApp1**"，则为**WebApp1User** ） > "**添加**"。
+* 选择“添加”  。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -115,7 +115,7 @@ dotnet restore
 dotnet aspnet-codegenerator identity -h
 ```
 
-在项目文件夹中，运行标识 scaffolder：
+在项目文件夹中，运行 Identity scaffolder：
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
@@ -127,17 +127,17 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 * 创建迁移并更新数据库。
 * 将 `UseAuthentication` 添加到 `Startup.Configure`。
-* 添加`<partial name="_LoginPartial" />`到布局文件中。
+* 添加 `<partial name="_LoginPartial" />` 到布局文件中。
 * 测试应用：
   * 注册用户
   * 选择新用户名（"**注销**" 链接旁边）。 可能需要展开窗口或选择导航栏图标来显示用户名和其他链接。
   * 选择 "**个人数据**" 选项卡。
-  * 选择 "**下载**" 按钮，然后检查*PersonalData*文件。
+  * 选择 "**下载**" 按钮，并检查文件*上的PersonalData.js* 。
   * 测试**删除**按钮，该按钮将删除已登录的用户。
 
-## <a name="add-custom-user-data-to-the-identity-db"></a>向标识数据库添加自定义用户数据
+## <a name="add-custom-user-data-to-the-identity-db"></a>向数据库添加自定义用户数据 Identity
 
-用自`IdentityUser`定义属性更新派生类。 如果已将项目命名为 WebApp1，则该文件的名称为*Areas/Identity/Data/WebApp1User*。 用以下代码更新文件：
+`IdentityUser`用自定义属性更新派生类。 如果已将项目命名为 WebApp1，则该文件将命名为*Areas/ Identity /Data/WebApp1User.cs*。 用以下代码更新文件：
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -153,18 +153,18 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 具有[PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute)属性的属性为：
 
-* 当*区域/标识/页/帐户/管理/DeletePersonalData* Razor Razor 页面调用`UserManager.Delete`时删除。
-* 按*区域/标识/页面/帐户/管理/DownloadPersonalData* Razor 页面包含在下载的数据中。
+* 当*Areas/ Identity /Pages/Account/Manage/DeletePersonalData.cshtml* Razor 页调用时删除 `UserManager.Delete` 。
+* 由*Areas/ Identity /Pages/Account/Manage/DownloadPersonalData.cshtml*页包含在下载的数据中 Razor 。
 
 ### <a name="update-the-accountmanageindexcshtml-page"></a>更新 "帐户/管理/索引" 页
 
-用以下`InputModel`突出显示的代码在*区域/标识/页/帐户/管理/索引. .cs*中更新。
+`InputModel`用以下突出显示的代码更新*区域/ Identity /Pages/Account/Manage/Index.cshtml.cs*中的：
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=24-32,48-49,96-104,106)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/管理/索引。 cshtml* ：
+用以下突出显示的标记更新*区域/ Identity /Pages/Account/Manage/Index.cshtml* ：
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=18-25)]
 
@@ -174,7 +174,7 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=28-36,63-64,98-106,119)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/管理/索引。 cshtml* ：
+用以下突出显示的标记更新*区域/ Identity /Pages/Account/Manage/Index.cshtml* ：
 
 [!code-cshtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=35-42)]
 
@@ -182,13 +182,13 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 ### <a name="update-the-accountregistercshtml-page"></a>更新帐户/注册. cshtml 页
 
-用以下`InputModel`突出显示的代码在*区域/标识/页/帐户/注册. .cs*中更新。
+`InputModel`用以下突出显示的代码更新*区域/ Identity /Pages/Account/Register.cshtml.cs*中的：
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=30-38,70-71)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/注册. cshtml* ：
+用以下突出显示的标记更新*区域/ Identity /Pages/Account/Register.cshtml* ：
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -198,7 +198,7 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=28-36,67,66)]
 
-用以下突出显示的标记更新*区域/标识/页/帐户/注册. cshtml* ：
+用以下突出显示的标记更新*区域/ Identity /Pages/Account/Register.cshtml* ：
 
 [!code-cshtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -232,12 +232,15 @@ dotnet ef database update
 测试应用：
 
 * 注册新用户。
-* 在`/Identity/Account/Manage`页面上查看自定义用户数据。
-* 从`/Identity/Account/Manage/PersonalData`页面下载并查看用户的个人数据。
+* 在页面上查看自定义用户数据 `/Identity/Account/Manage` 。
+* 从页面下载并查看用户的个人数据 `/Identity/Account/Manage/PersonalData` 。
 
 ## <a name="add-claims-to-identity-using-iuserclaimsprincipalfactoryapplicationuser"></a>Identity使用 IUserClaimsPrincipalFactory 添加声明<ApplicationUser>
 
-可以使用`IUserClaimsPrincipalFactory<T>`接口将其他声明添加Identity到 ASP.NET Core。 可在`Startup.ConfigureServices`方法中将此类添加到应用。 添加类的自定义实现，如下所示：
+> [!NOTE]
+> 本部分不是上一教程的扩展。 若要将以下步骤应用到使用本教程构建的应用，请参阅[此 GitHub 问题](https://github.com/dotnet/AspNetCore.Docs/issues/18797)。
+
+可以使用接口将其他声明添加到 ASP.NET Core Identity `IUserClaimsPrincipalFactory<T>` 。 可在方法中将此类添加到应用 `Startup.ConfigureServices` 。 添加类的自定义实现，如下所示：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -250,7 +253,7 @@ public void ConfigureServices(IServiceCollection services)
         AdditionalUserClaimsPrincipalFactory>();
 ```
 
-演示代码使用`ApplicationUser`类。 此类添加一个`IsAdmin`属性，该属性用于添加其他声明。
+演示代码使用 `ApplicationUser` 类。 此类添加一个 `IsAdmin` 属性，该属性用于添加其他声明。
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -259,7 +262,7 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-`AdditionalUserClaimsPrincipalFactory` 实现 `UserClaimsPrincipalFactory` 接口。 新的角色声明将添加到中`ClaimsPrincipal`。
+`AdditionalUserClaimsPrincipalFactory` 实现 `UserClaimsPrincipalFactory` 接口。 新的角色声明将添加到中 `ClaimsPrincipal` 。
 
 ```csharp
 public class AdditionalUserClaimsPrincipalFactory 
@@ -293,7 +296,7 @@ public class AdditionalUserClaimsPrincipalFactory
 }
 ```
 
-然后，可以在应用中使用其他声明。 在Razor页中，可以`IAuthorizationService`使用实例访问声明值。
+然后，可以在应用中使用其他声明。 在 Razor 页中， `IAuthorizationService` 可以使用实例访问声明值。
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization

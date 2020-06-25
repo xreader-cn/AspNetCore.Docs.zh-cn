@@ -11,57 +11,55 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 0836fc288a015adb9a6223c5a2b681b1b03bded4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 89fbb9d52d99d0eff6656eb6a5a9b4e1c01bc65c
+ms.sourcegitcommit: 1833870ad0845326fb764fef1b530a07b9b5b099
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777314"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85347081"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API 中的自定义格式化程序
 
-作者：[Tom Dykstra](https://github.com/tdykstra)
+作者： [Kirk Larkin](https://twitter.com/serpent5)和[Tom Dykstra](https://github.com/tdykstra)。
 
 ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据交换。 [模型绑定](xref:mvc/models/model-binding)使用输入格式化程序。 输出格式化程序用于[设置响应的格式](xref:web-api/advanced/formatting)。
 
 该框架为 JSON 和 XML 提供内置的输入和输出格式化程序。 它为纯文本提供内置的输出格式化程序，但不为纯文本提供输入格式化程序。
 
-本文展示如何通过创建自定义格式化程序，添加对其他格式的支持。 有关纯文本的自定义输入格式化程序的示例，请参阅 GitHub 上的 [TextPlainInputFormatter](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.Formatters/TextPlainInputFormatter.cs)。
+本文展示如何通过创建自定义格式化程序，添加对其他格式的支持。 有关自定义纯文本输入格式化程序的示例，请参阅 GitHub 上的[TextPlainInputFormatter](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.Formatters/TextPlainInputFormatter.cs) 。
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)（[如何下载](xref:index#how-to-download-a-sample)）
 
 ## <a name="when-to-use-custom-formatters"></a>何时使用自定义格式化程序
 
-如果希望[内容协商](xref:web-api/advanced/formatting#content-negotiation)过程支持内置格式化程序所不支持的内容类型，可使用自定义格式化程序。
-
-例如，如果 Web API 的某些客户端可以处理 [Protobuf](https://github.com/google/protobuf) 格式，你可能想在这些客户端上使用 Protobuf，因为它更高效。 或者，你可能希望 Web API 使用 [vCard](https://wikipedia.org/wiki/VCard) 格式发送联系人姓名和地址，这种格式经常用于交换联系人数据。 本文提供的示例应用可实现简单的 vCard 格式化程序。
+使用自定义格式化程序添加对不是由 bult 格式化程序处理的内容类型的支持。
 
 ## <a name="overview-of-how-to-use-a-custom-formatter"></a>有关如何使用自定义格式化程序的概述
 
-创建和使用自定义格式化程序的步骤如下：
+创建自定义格式化程序：
 
-* 如果想对要发送到客户端的数据进行序列化，则创建输出格式化程序类。
-* 如果想对从客户端接收的数据进行反序列化，则创建输入格式化程序类。
-* 将格式化程序的实例添加到 [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions) 中的 `InputFormatters` 和 `OutputFormatters` 集合。
-
-以下部分针对其中每个步骤提供了指南和代码示例。
+* 若要对发送到客户端的数据进行序列化，请创建输出格式化程序类。
+* 对于从客户端收到的 deserialzing 数据，请创建一个输入格式化程序类。
+* 将格式化程序类的实例添加 `InputFormatters` 到 `OutputFormatters` [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions)中的和集合。
 
 ## <a name="how-to-create-a-custom-formatter-class"></a>如何创建自定义格式化程序类
 
 若要创建格式化程序，请执行以下操作：
 
-* 从相应的基类中派生类。
+* 从相应的基类中派生类。 该示例应用派生自 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter> 和 <xref:Microsoft.AspNetCore.Mvc.Formatters.TextInputFormatter> 。
 * 在构造函数中指定有效的媒体类型和编码。
-* 重写 `CanReadType`/`CanWriteType` 方法
-* 重写 `ReadRequestBodyAsync`/`WriteResponseBodyAsync` 方法
+* 替代 <xref:Microsoft.AspNetCore.Mvc.Formatters.InputFormatter.CanReadType%2A> 和 <xref:Microsoft.AspNetCore.Mvc.Formatters.OutputFormatter.CanWriteType%2A> 方法。
+* 替代 <xref:Microsoft.AspNetCore.Mvc.Formatters.InputFormatter.ReadRequestBodyAsync%2A> 和 `WriteResponseBodyAsync` 方法。
+
+下面的代码演示了 `VcardOutputFormatter` [示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/3.1sample)中的类：
+
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardOutputFormatter.cs?name=snippet)]
   
 ### <a name="derive-from-the-appropriate-base-class"></a>从相应的基类中派生
 
 对于文本媒体类型（例如，vCard），从 [TextInputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.textinputformatter) 或 [TextOutputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.textoutputformatter) 基类派生。
 
-[!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=classdef)]
-
-有关输入格式化程序示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardOutputFormatter.cs?name=classdef)]
 
 对于二进制类型，从 [InputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.inputformatter) 或 [OutputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformatter) 基类派生。
 
@@ -69,63 +67,87 @@ ASP.NET Core MVC 使用输入和输出格式化程序支持 Web API 中的数据
 
 在构造函数中，通过添加到 `SupportedMediaTypes` 和 `SupportedEncodings` 集合来指定有效的媒体类型和编码。
 
-[!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=ctor&highlight=3,5-6)]
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardOutputFormatter.cs?name=ctor)]
 
-有关输入格式化程序示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。
+格式化程序类**不**能将构造函数注入用于其依赖项。 例如， `ILogger<VcardOutputFormatter>` 不能作为参数添加到构造函数。 若要访问服务，请使用传递给方法的上下文对象。 本文中的代码示例和[示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/3.1sample)演示了如何执行此操作。
 
-> [!NOTE]
-> 不能在格式化程序类中执行构造函数依赖关系注入。 例如，不能通过向构造函数添加记录器参数来获取记录器。 若要访问服务，必须使用传递到方法的上下文对象。 [下面](#read-write)的代码示例展示了如何执行此操作。
+### <a name="override-canreadtype-and-canwritetype"></a>重写 CanReadType 和 CanWriteType
 
-### <a name="override-canreadtypecanwritetype"></a>重写 CanReadType/CanWriteType
+通过重写或方法指定要反序列化或序列化的类型 `CanReadType` `CanWriteType` 。 例如，从某一类型创建 vCard 文本， `Contact` 反之亦然。
 
-通过重写 `CanReadType` 或 `CanWriteType` 方法，指定可反序列化为或从其序列化的类型。 例如，可能只能从 `Contact` 类型创建 vCard 文本，反之亦然。
-
-[!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
-
-有关输入格式化程序示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
 
 #### <a name="the-canwriteresult-method"></a>CanWriteResult 方法
 
-在某些情况下，必须重写 `CanWriteResult`，而不是 `CanWriteType`。 如果满足以下条件，则使用 `CanWriteResult`：
+在某些情况下， `CanWriteResult` 必须重写而不是 `CanWriteType` 。 如果满足以下条件，则使用 `CanWriteResult`：
 
 * 操作方法返回模型类。
 * 具有可能在运行时返回的派生类。
-* 需要知道操作在运行时返回了哪个派生类。
+* 操作返回的派生类必须在运行时已知。
 
-例如，假设操作方法签名返回 `Person` 类型，但它可能返回从 `Person` 派生的 `Student` 或 `Instructor` 类型。 如果希望格式化程序仅处理 `Student` 对象，请检查提供给 `CanWriteResult` 方法的上下文对象中的[对象](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)类型。 请注意，当操作方法返回 `IActionResult` 时，不必使用 `CanWriteResult`；在这种情况下，`CanWriteType` 方法可接收运行时类型。
+例如，假定操作方法：
+
+* 签名返回一个 `Person` 类型。
+* 可以返回 `Student` `Instructor` 派生自的或类型 `Person` 。 
+
+要使格式化程序仅处理 `Student` 对象，请在提供给方法的上下文对象中检查[对象](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)的类型 `CanWriteResult` 。 当操作方法返回时 `IActionResult` ：
+
+* 不需要使用 `CanWriteResult` 。
+* `CanWriteType`方法接收运行时类型。
 
 <a id="read-write"></a>
 
-### <a name="override-readrequestbodyasyncwriteresponsebodyasync"></a>重写 ReadRequestBodyAsync/WriteResponseBodyAsync
+### <a name="override-readrequestbodyasync-and-writeresponsebodyasync"></a>重写 ReadRequestBodyAsync 和 WriteResponseBodyAsync
 
-实际的反序列化或序列化工作在 `ReadRequestBodyAsync` 或 `WriteResponseBodyAsync` 中执行。 以下示例中突出显示的行展示了如何从依赖关系注入容器中获取服务（不能从构造函数参数中获取它们）。
+反序列化或序列化在或中执行 `ReadRequestBodyAsync` `WriteResponseBodyAsync` 。 下面的示例演示如何从依赖关系注入容器中获取服务。 无法从构造函数参数获取服务。
 
-[!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=writeresponse&highlight=3-4)]
-
-有关输入格式化程序示例，请参阅[示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardOutputFormatter.cs?name=writeresponse)]
 
 ## <a name="how-to-configure-mvc-to-use-a-custom-formatter"></a>如何将 MVC 配置为使用自定义格式化程序
 
 若要使用自定义格式化程序，请将格式化程序类的实例添加到 `InputFormatters` 或 `OutputFormatters` 集合。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](custom-formatters/3.1sample/Startup.cs?name=mvcoptions)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](custom-formatters/sample/Startup.cs?name=mvcoptions&highlight=3-4)]
+
+::: moniker-end
 
 按格式化程序的插入顺序对其进行计算。 第一个优先。
 
-## <a name="next-steps"></a>后续步骤
+## <a name="the-completed-vcardinputformatter-class"></a>已完成 `VcardInputFormatter` 类
 
-* [此文档的示例应用](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)，它可实现简单的 vCard 输入和输出格式化程序。 该应用可读取和写入与以下示例类似的 vCard：
+下面的代码演示了 `VcardInputFormatter` [示例](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/3.1sample)中的类：
+
+[!code-csharp[](custom-formatters/3.1sample/Formatters/VcardInputFormatter.cs?name=snippet)]
+
+## <a name="test-the-app"></a>测试应用
+
+[运行本文的示例应用程序](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)，它实现基本 vCard 输入和输出格式化程序。 此应用程序读取和写入电子名片，如下所示：
 
 ```
 BEGIN:VCARD
 VERSION:2.1
 N:Davolio;Nancy
 FN:Nancy Davolio
-no-loc: [Blazor, "Identity", "Let's Encrypt", Razor, SignalR]
-uid:20293482-9240-4d68-b475-325df4a83728
 END:VCARD
 ```
 
-若要查看 vCard 输出，请运行该应用程序，并向 `http://localhost:63313/api/contacts/`（从 Visual Studio 运行时）或 `http://localhost:5000/api/contacts/`（从命令行运行时）发送具有 Accept 标头“text/vcard”的 Get 请求。
+若要查看 vCard 输出，请运行应用，并将 Get 请求发送到 Accept 标头 `text/vcard` `https://localhost:5001/api/contacts` 。
 
-若要将 vCard 添加到内存中联系人集合，请向相同的 URL 发送具有 Content-Type 标头“text/vcard”且正文中包含 vCard 文本的 Post 请求，格式化方式与上面的示例类似。
+将 vCard 添加到内存中的联系人集合：
+
+* `Post` `/api/contacts` 使用 Postman 之类的工具将请求发送到。
+* 将 `Content-Type` 标头设置为 `text/vcard`。
+* 设置 `vCard` 正文中的文本，格式与前面的示例类似。
+
+## <a name="additional-resources"></a>其他资源
+
+* <xref:web-api/advanced/formatting>
+* <xref:grpc/dotnet-grpc>
