@@ -1,24 +1,26 @@
 ---
-title: 与 ASP.NET Core 中的应用Razor程序部件共享控制器、视图和页面等
+title: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视图和页面等
 author: rick-anderson
-description: 与 ASP.NET Core 中的应用Razor程序部件共享控制器、视图、页面及更多内容
+description: Razor与 ASP.NET Core 中的应用程序部件共享控制器、视图、页面及更多内容
 ms.author: riande
 ms.date: 11/11/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 68991a3df5e09b63dc52bdadae55f055a721ad3c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cb1f8b045b8f2b143afc7895234733fbfb02cb07
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774400"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399746"
 ---
-# <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>与应用程序部件共享Razor控制器、视图、页和更多内容
+# <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>与应用程序部件共享控制器、视图、 Razor 页和更多内容
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -26,9 +28,9 @@ ms.locfileid: "82774400"
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
 
-应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序Razor 、页面、razor 编译源等。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
+应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 是应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
-[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
+[功能提供程序](#fp)使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
 
 ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。
 
@@ -46,7 +48,7 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="include-views"></a>包含视图
 
-使用类库将视图包含在程序集中。 [ Razor ](xref:razor-pages/ui-class)
+使用类库[ Razor 将视图](xref:razor-pages/ui-class)包含在程序集中。
 
 ### <a name="prevent-loading-resources"></a>阻止加载资源
 
@@ -116,9 +118,9 @@ View Components:
 
 [查看或下载示例代码](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)（[如何下载](xref:index#how-to-download-a-sample)）
 
-应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序Razor 、页面、razor 编译源等。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
+应用程序部件是对应用资源的抽象化。** 应用程序部件允许 ASP.NET Core 发现控制器、查看组件、标记帮助程序、 Razor 页面、razor 编译源等。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) 是一种应用程序部件。 `AssemblyPart` 用于封装程序集引用，并公开类型和编译引用。
 
-*功能提供程序*使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
+*功能提供程序*使用应用程序部件填充 ASP.NET Core 应用的功能。 应用程序部件的主要用例是将应用配置为从程序集中发现（或避免加载）ASP.NET Core 功能。 例如，可能需要在多个应用之间共享通用功能。 使用应用程序部件，你可以使用多个应用共享包含控制器、视图、 Razor 页面、razor 编译源、标记帮助程序以及更多应用程序的程序集（DLL）。 相对于在多个项目中复制代码，首选共享程序集。
 
 ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> 类表示受程序集支持的应用程序部件。
 
@@ -136,7 +138,7 @@ ASP.NET Core 应用从 <xref:System.Web.WebPages.ApplicationPart> 加载功能�
 
 ### <a name="include-views"></a>包含视图
 
-使用类库将视图包含在程序集中。 [ Razor ](xref:razor-pages/ui-class)
+使用类库[ Razor 将视图](xref:razor-pages/ui-class)包含在程序集中。
 
 ### <a name="prevent-loading-resources"></a>阻止加载资源
 

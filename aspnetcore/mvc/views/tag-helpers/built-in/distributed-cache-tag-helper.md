@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/24/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
-ms.openlocfilehash: df1daa68a3e18f7aad4507ce9526d76ff6a2114d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4b8e393542c56502a825000773bbf714d91e4128
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773911"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399226"
 ---
 # <a name="distributed-cache-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的分布式缓存标记帮助程序
 
@@ -25,7 +27,7 @@ ms.locfileid: "82773911"
 
 分布式缓存标记帮助程序将其内容缓存到分布式缓存源，从而大幅提高 ASP.NET Core 应用的性能。
 
-有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
 分布式缓存标记帮助程序与缓存标记帮助程序继承自相同的基类。 分布式标记帮助程序可以使用所有[缓存标记帮助程序](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)属性。
 
@@ -54,7 +56,7 @@ ms.locfileid: "82773911"
 | -------------- | ------------------------------------- |
 | String         | `my-distributed-cache-unique-key-101` |
 
-需要 `name`。 `name` 属性用作每个存储的缓存实例的键。 与缓存标记帮助程序不同的是，基于Razor页面名称和Razor页面中的位置将缓存键分配给每个实例，分布式缓存标记帮助程序只将其密钥基于`name`属性。
+需要 `name`。 `name` 属性用作每个存储的缓存实例的键。 与缓存标记帮助程序不同的是，基于页面名称和页面中的位置将缓存键分配给每个实例 Razor Razor ，分布式缓存标记帮助程序只将其密钥基于属性 `name` 。
 
 示例：
 

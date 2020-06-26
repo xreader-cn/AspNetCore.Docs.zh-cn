@@ -7,17 +7,19 @@ ms.custom: H1Hack27Feb2017
 ms.date: 04/17/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 46a1ccbb3b5eeaf1beb3e33bca1b6c7065d6d56a
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: e6b78af3eeb858310eb772fdf0034510c10351c0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074220"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400357"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>设置 ASP.NET Core Web API 中响应数据的格式
 

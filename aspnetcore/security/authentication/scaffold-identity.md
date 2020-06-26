@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 5/1/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: f3314458a504af7f44dcdc276de890fa9485a2b3
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 155bdfbeea06022d35bbb551d5b2d0ee5a51a093
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103040"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400812"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>IdentityASP.NET Core 项目中的基架
 
@@ -178,7 +180,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-## <a name="scaffold-identity-into-a-blazor-server-project-without-existing-authorization"></a>基架 Identity 到 Blazor 无现有授权的服务器项目中
+## <a name="scaffold-identity-into-a-blazor-server-project-without-existing-authorization"></a>基架 Identity 到 Blazor Server 无现有授权的项目
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
@@ -289,11 +291,11 @@ TokenProvider.XsrfToken = InitialState.XsrfToken;
 
 ### <a name="style-authentication-endpoints"></a>样式身份验证终结点
 
-由于 Blazor 服务器使用 Razor 页面 Identity 页，当访问者在页面和组件之间导航时，UI 的样式会发生变化 Identity 。 可以使用两个选项来处理 incongruous 样式：
+由于 Blazor Server 使用 Razor 页面 Identity 页，当访问者在页面和组件间导航时，UI 的样式会发生变化 Identity 。 可以使用两个选项来处理 incongruous 样式：
 
 #### <a name="build-identity-components"></a>生成 Identity 组件
 
-使用而不是页的组件的方法 Identity 是生成 Identity 组件。 由于 `SignInManager` `UserManager` 在组件中不支持和 Razor ，因此请使用服务器应用中的 API 终结点 Blazor 来处理用户帐户操作。
+使用而不是页的组件的方法 Identity 是生成 Identity 组件。 由于 `SignInManager` `UserManager` 在组件中不支持和 Razor ，因此在应用程序中使用 API 终结点 Blazor Server 来处理用户帐户操作。
 
 #### <a name="use-a-custom-layout-with-blazor-app-styles"></a>在应用程序样式中使用自定义布局 Blazor
 
@@ -360,7 +362,7 @@ Identity可以修改页面布局和样式，以生成使用默认主题的页面
   <script src="_framework/blazor.server.js"></script>
   ```
 
-## <a name="scaffold-identity-into-a-blazor-server-project-with-authorization"></a>Identity Blazor 使用授权基架到服务器项目中
+## <a name="scaffold-identity-into-a-blazor-server-project-with-authorization"></a>Identity Blazor Server 使用授权基架到项目中
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 

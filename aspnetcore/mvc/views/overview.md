@@ -6,27 +6,29 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/overview
-ms.openlocfilehash: bda00a416ac34883e0a70a265156fa3ddcde3c6f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b646908c070a51aac2e376c2acaa8e0e091790b0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777132"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400461"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的视图
 
 作者：[Steve Smith](https://ardalis.com/)
 
-本文档介绍在 ASP.NET Core MVC 应用程序中使用的视图。 有关 Razor 页的信息，请参阅 [Razor 页简介](xref:razor-pages/index)。
+本文档介绍在 ASP.NET Core MVC 应用程序中使用的视图。 有关页面的信息 Razor ，请参阅[ Razor 页面简介](xref:razor-pages/index)。
 
-在“模型-视图-控制器(MVC)”模式中，视图处理应用的数据表示和用户交互**。 视图是嵌入了 [Razor 标记](xref:mvc/views/razor)的 HTML 模板。 Razor 标记一个代码，用于与 HTML 标记交互以生成发送给客户端的网页。
+在“模型-视图-控制器(MVC)”模式中，视图处理应用的数据表示和用户交互**。 视图是具有嵌入[ Razor 标记](xref:mvc/views/razor)的 HTML 模板。 Razor标记是与 HTML 标记交互以生成发送到客户端的网页的代码。
 
-在 ASP.NET Core MVC 中，视图是在 Razor 标记中使用 [C# 编程语言](/dotnet/csharp/)的 .cshtml 文件**。 通常，视图文件会分组到以每个应用的[控制器](xref:mvc/controllers/actions)命名的文件夹中。 此文件夹存储在应用根目录的“Views”文件夹中**：
+在 ASP.NET Core MVC 中，视图是在标记中使用[c # 编程语言](/dotnet/csharp/)的*cshtml*文件。 Razor 通常，视图文件会分组到以每个应用的[控制器](xref:mvc/controllers/actions)命名的文件夹中。 此文件夹存储在应用根目录的“Views”文件夹中**：
 
 ![Visual Studio 解决方案资源管理器中的“Views”文件夹与“Home”文件夹一同打开，显示 About.cshtml、Contact.cshtml 和 Index.cshtml 文件](overview/_static/views_solution_explorer.png)
 
@@ -53,7 +55,7 @@ ms.locfileid: "82777132"
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/Home/About.cshtml)]
 
-Razor 标记以 `@` 符号开头**。 通过将 C# 代码放置在用大括号 (`{ ... }`) 括住的 [Razor 代码块](xref:mvc/views/razor#razor-code-blocks)内，运行 C# 语句。 有关示例，请参阅上面显示的“About”到 `ViewData["Title"]` 的分配。 只需用 `@` 符号来引用值，即可在 HTML 中显示这些值。 请参阅上面的 `<h2>` 和 `<h3>` 元素的内容。
+*Razor* 标记以符号开头 `@` 。 运行 c # 语句，方法是将 c # 代码置于由大括号（）设置的[ Razor 代码块](xref:mvc/views/razor#razor-code-blocks)中 `{ ... }` 。 有关示例，请参阅上面显示的“About”到 `ViewData["Title"]` 的分配。 只需用 `@` 符号来引用值，即可在 HTML 中显示这些值。 请参阅上面的 `<h2>` 和 `<h3>` 元素的内容。
 
 以上所示的视图内容只是呈现给用户的整个网页中的一部分。 其他视图文件中指定了页面布局的其余部分和视图的其他常见方面。 要了解详细信息，请参阅[布局主题](xref:mvc/views/layout)。
 
@@ -93,12 +95,12 @@ HomeController.cs**
 
 操作返回一个视图时，会发生称为“视图发现”的过程**。 此过程基于视图名称确定使用哪个视图文件。 
 
-`View` 方法 的默认行为 (`return View();`) 旨在返回与其从中调用的操作方法同名的视图。 例如，控制器的 "*关于* `ActionResult` " 方法名称用于搜索名为 "*关于*" 的视图文件。 运行时首先在 Views/[ControllerName] 文件夹中搜索该视图**。 如果在此处找不到匹配的视图，则会在“Shared”文件夹中搜索该视图**。
+`View` 方法 的默认行为 (`return View();`) 旨在返回与其从中调用的操作方法同名的视图。 例如，控制器的 "*关于*" `ActionResult` 方法名称用于搜索名为 "*关于*" 的视图文件。 运行时首先在 Views/[ControllerName] 文件夹中搜索该视图**。 如果在此处找不到匹配的视图，则会在“Shared”文件夹中搜索该视图**。
 
 用 `return View();` 隐式返回 `ViewResult` 还是用 `return View("<ViewName>");` 将视图名称显式传递给 `View` 方法并不重要。 在这两种情况下，视图发现都会按以下顺序搜索匹配的视图文件：
 
-   1. *Views/\[ControllerName]/\[ViewName] cshtml*
-   1. *Views/Shared/\[ViewName] cshtml*
+   1. *Views/ \[ ControllerName]/ \[ ViewName] cshtml*
+   1. *Views/Shared/ \[ ViewName] cshtml*
 
 可以提供视图文件路径而不提供视图名称。 如果使用从应用根目录开始的绝对路径（可选择以“/”或“~/”开头），则须指定 .cshtml 扩展名**：
 
@@ -198,17 +200,17 @@ namespace WebApplication1.ViewModels
 
 ### <a name="weakly-typed-data-viewdata-viewdata-attribute-and-viewbag"></a>弱类型数据（ViewData、ViewData 属性和 ViewBag）
 
-`ViewBag` *不适用于 Razor Pages。*
+`ViewBag`*在中 Razor 不可用页面。*
 
 除了强类型视图，视图还可以访问弱类型（也称为松散类型）的数据集合****。 与强类型不同，弱类型（或松散类型）意味着不显式声明要使用的数据类型****。 可以使用弱类型数据集合将少量数据传入及传出控制器和视图。
 
 | 传递数据于...                        | 示例                                                                        |
 | ------------------------------------------------- | ------------------------------------------------------------------------------ |
 | 控制器和视图                             | 用数据填充下拉列表。                                          |
-| 视图和[布局视图](xref:mvc/views/layout)   | 从视图文件设置布局视图中>元素内容的** \<标题**。  |
+| 视图和[布局视图](xref:mvc/views/layout)   | 在 **\<title>** 视图文件的布局视图中设置元素内容。  |
 | [分部视图](xref:mvc/views/partial)和视图 | 基于用户请求的网页显示数据的小组件。      |
 
-可以通过控制器和视图上的 `ViewData` 或 `ViewBag` 属性来引用此集合。 `ViewData` 属性是弱类型对象的字典。 `ViewBag` 属性是 `ViewData` 的包装器，为基础 `ViewData` 集合提供动态属性。 注意：对于`ViewData`和， `ViewBag`键查找不区分大小写。
+可以通过控制器和视图上的 `ViewData` 或 `ViewBag` 属性来引用此集合。 `ViewData` 属性是弱类型对象的字典。 `ViewBag` 属性是 `ViewData` 的包装器，为基础 `ViewData` 集合提供动态属性。 注意：对于和，键查找不区分大小 `ViewData` 写 `ViewBag` 。
 
 `ViewData` 和 `ViewBag` 在运行时进行动态解析。 由于它们不提供编译时类型检查，因此使用这两者通常比使用 viewmodel 更容易出错。 出于上述原因，一些开发者希望尽量减少或根本不使用 `ViewData` 和 `ViewBag`。
 
@@ -258,7 +260,7 @@ public IActionResult SomeAction()
 
 **ViewData 特性**
 
-另一种会使用 [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) 的方法是 [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute)。 使用`[ViewData]`属性标记的Razor控制器或页模型上的属性将存储其值并从字典中加载它们。
+另一种会使用 [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) 的方法是 [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute)。 使用属性标记的控制器或页模型上的属性 Razor `[ViewData]` 将存储其值并从字典中加载它们。
 
 在下面的示例中，“主页”控制器包含使用 `[ViewData]` 标记的 `Title` 属性。 `About` 方法设置“关于”视图的标题：
 
@@ -292,9 +294,9 @@ public class HomeController : Controller
 
 **ViewBag**
 
-`ViewBag`*页中Razor不可用。*
+`ViewBag`*在中 Razor 不可用页面。*
 
-`ViewBag`是一个[DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata)对象，它提供对存储在中`ViewData`的对象的动态访问。 `ViewBag` 不需要强制转换，因此使用起来更加方便。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
+`ViewBag`是一个[DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata)对象，它提供对存储在中的对象的动态访问 `ViewData` 。 `ViewBag` 不需要强制转换，因此使用起来更加方便。 下例演示如何使用与上述 `ViewData` 有相同结果的 `ViewBag`：
 
 ```csharp
 public IActionResult SomeAction()
@@ -325,7 +327,7 @@ public IActionResult SomeAction()
 
 **同时使用 ViewData 和 ViewBag**
 
-`ViewBag`*页中Razor不可用。*
+`ViewBag`*在中 Razor 不可用页面。*
 
 由于 `ViewData` 和 `ViewBag` 引用相同的基础 `ViewData` 集合，因此在读取和写入值时，可以同时使用 `ViewData` 和 `ViewBag`，并在两者之间进行混合和匹配。
 
@@ -365,10 +367,10 @@ public IActionResult SomeAction()
 
 **ViewData 和 ViewBag 之间差异的摘要**
 
- `ViewBag`Razor页中不可用。
+ `ViewBag`页中不可用 Razor 。
 
 * `ViewData`
-  * 派生自[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)，因此它具有可有用的字典属性， `ContainsKey`例如、 `Add` `Remove`、和。 `Clear`
+  * 派生自[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary)，因此它具有可有用的字典属性，例如、、 `ContainsKey` `Add` `Remove` 和 `Clear` 。
   * 字典中的键是字符串，因此允许有空格。 示例： `ViewData["Some Key With Whitespace"]`
   * 任何非 `string` 类型均须在视图中进行强制转换才能使用 `ViewData`。
 * `ViewBag`

@@ -7,17 +7,19 @@ ms.author: riande
 ms.date: 12/18/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: 2e604cd1869ea077fc0465df91ec083b9db83763
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b3dcb3a80e8d5150d8513ef558531749d0884568
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768965"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400149"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core 中的模型绑定
 
@@ -29,10 +31,10 @@ ms.locfileid: "82768965"
 
 ## <a name="what-is-model-binding"></a>什么是模型绑定
 
-控制器和Razor页面处理来自 HTTP 请求的数据。 例如，路由数据可以提供一个记录键，而发布的表单域可以为模型的属性提供一个值。 编写代码以检索这些值，并将其从字符串转换为 .NET 类型不仅繁琐，而且还容易出错。 模型绑定会自动化该过程。 模型绑定系统：
+控制器和 Razor 页面处理来自 HTTP 请求的数据。 例如，路由数据可以提供一个记录键，而发布的表单域可以为模型的属性提供一个值。 编写代码以检索这些值，并将其从字符串转换为 .NET 类型不仅繁琐，而且还容易出错。 模型绑定会自动化该过程。 模型绑定系统：
 
 * 从各种源（如路由数据、表单域和查询字符串）中检索数据。
-* 在方法参数和公共属性Razor中向控制器和页面提供数据。
+* Razor在方法参数和公共属性中向控制器和页面提供数据。
 * 将字符串数据转换为 .NET 类型。
 * 更新复杂类型的属性。
 
@@ -66,7 +68,7 @@ http://contoso.com/api/pets/2?DogsOnly=true
 模型绑定尝试查找以下类型目标的值：
 
 * 将请求路由到的控制器操作方法的参数。
-* 请求路由到Razor的页处理程序方法的参数。 
+* Razor请求路由到的页处理程序方法的参数。 
 * 控制器或 `PageModel` 类的公共属性（若由特性指定）。
 
 ### <a name="bindproperty-attribute"></a>[BindProperty] 属性
@@ -174,7 +176,7 @@ public class Pet
 * 对于复杂类型，模型绑定使用默认构造函数来创建实例，而不设置属性。
 * 数组设置为 `Array.Empty<T>()`，但 `byte[]` 数组设置为 `null`。
 
-如果在模型属性的窗体字段中未找到任何内容时模型状态应失效，请[`[BindRequired]`](#bindrequired-attribute)使用特性。
+如果在模型属性的窗体字段中未找到任何内容时模型状态应失效，请使用 [`[BindRequired]`](#bindrequired-attribute) 特性。
 
 请注意，此 `[BindRequired]` 行为适用于发布的表单数据中的模型绑定，而不适用于请求正文中的 JSON 或 XML 数据。 请求正文数据由[输入格式化程序](#input-formatters)进行处理。
 
@@ -184,11 +186,11 @@ public class Pet
 
 在具有 `[ApiController]` 属性的 API 控制器中，无效的模型状态会导致自动 HTTP 400 响应。
 
-在Razor页面中，重新显示页面并显示一条错误消息：
+在 Razor 页面中，重新显示页面并显示一条错误消息：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
 
-客户端验证将捕获大多数提交到Razor页面窗体的错误数据。 此验证使得先前突出显示的代码难以被触发。 示例应用包含一个“提交无效日期”按钮，该按钮将错误数据置于“雇用日期”字段中并提交表单********。 此按钮显示在发生数据转换错误时用于重新显示页的代码将如何工作。
+客户端验证将捕获大多数提交到 Razor 页面窗体的错误数据。 此验证使得先前突出显示的代码难以被触发。 示例应用包含一个“提交无效日期”按钮，该按钮将错误数据置于“雇用日期”字段中并提交表单********。 此按钮显示在发生数据转换错误时用于重新显示页的代码将如何工作。
 
 在使用先前的代码重新显示页时，表单域中不会显示无效的输入。 这是因为模型属性已设置为 NULL 或默认值。 无效输入会出现在错误消息中。 但是，如果要在表单域中重新显示错误数据，可以考虑将模型属性设置为字符串并手动执行数据转换。
 
@@ -203,16 +205,16 @@ public class Pet
 * [Char](xref:System.ComponentModel.CharConverter)
 * [DateTime](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* 十进制 
+* [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
 * [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [时间](xref:System.ComponentModel.TimeSpanConverter)
+* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
-* [Oma-uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [Uri](xref:System.UriTypeConverter)
+* [版本](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 
@@ -280,13 +282,13 @@ public IActionResult OnPost(
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
-只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
+只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
 ### <a name="bindnever-attribute"></a>[BindNever] 属性
 
-只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
+只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
@@ -486,13 +488,13 @@ ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 
 
 ## <a name="manual-model-binding"></a>手动模型绑定 
 
-可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 下面是一个示例：
+可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 
 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 使用值提供程序从窗体正文、查询字符串和路由数据获取数据。 `TryUpdateModelAsync` 通常有以下特点： 
 
-* 与使用Razor控制器和视图的页面和 MVC 应用一起使用，以防止过度发布。
+* 与 Razor 使用控制器和视图的页面和 MVC 应用一起使用，以防止过度发布。
 * 不用于 Web API（除非窗体数据、查询字符串和路由数据使用它）。 使用 JSON 的 Web API 终结点使用[输入格式化程序](#input-formatters)将请求正文反序列化为对象。
 
 有关详细信息，请参阅 [TryUpdateModelAsync](xref:data/ef-rp/crud#TryUpdateModelAsync)。
@@ -515,10 +517,10 @@ ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 
 
 ## <a name="what-is-model-binding"></a>什么是模型绑定
 
-控制器和Razor页面处理来自 HTTP 请求的数据。 例如，路由数据可以提供一个记录键，而发布的表单域可以为模型的属性提供一个值。 编写代码以检索这些值，并将其从字符串转换为 .NET 类型不仅繁琐，而且还容易出错。 模型绑定会自动化该过程。 模型绑定系统：
+控制器和 Razor 页面处理来自 HTTP 请求的数据。 例如，路由数据可以提供一个记录键，而发布的表单域可以为模型的属性提供一个值。 编写代码以检索这些值，并将其从字符串转换为 .NET 类型不仅繁琐，而且还容易出错。 模型绑定会自动化该过程。 模型绑定系统：
 
 * 从各种源（如路由数据、表单域和查询字符串）中检索数据。
-* 在方法参数和公共属性Razor中向控制器和页面提供数据。
+* Razor在方法参数和公共属性中向控制器和页面提供数据。
 * 将字符串数据转换为 .NET 类型。
 * 更新复杂类型的属性。
 
@@ -552,7 +554,7 @@ http://contoso.com/api/pets/2?DogsOnly=true
 模型绑定尝试查找以下类型目标的值：
 
 * 将请求路由到的控制器操作方法的参数。
-* 请求路由到Razor的页处理程序方法的参数。 
+* Razor请求路由到的页处理程序方法的参数。 
 * 控制器或 `PageModel` 类的公共属性（若由特性指定）。
 
 ### <a name="bindproperty-attribute"></a>[BindProperty] 属性
@@ -660,7 +662,7 @@ public class Pet
 * 对于复杂类型，模型绑定使用默认构造函数来创建实例，而不设置属性。
 * 数组设置为 `Array.Empty<T>()`，但 `byte[]` 数组设置为 `null`。
 
-如果在模型属性的窗体字段中未找到任何内容时模型状态应失效，请[`[BindRequired]`](#bindrequired-attribute)使用特性。
+如果在模型属性的窗体字段中未找到任何内容时模型状态应失效，请使用 [`[BindRequired]`](#bindrequired-attribute) 特性。
 
 请注意，此 `[BindRequired]` 行为适用于发布的表单数据中的模型绑定，而不适用于请求正文中的 JSON 或 XML 数据。 请求正文数据由[输入格式化程序](#input-formatters)进行处理。
 
@@ -670,11 +672,11 @@ public class Pet
 
 在具有 `[ApiController]` 属性的 API 控制器中，无效的模型状态会导致自动 HTTP 400 响应。
 
-在Razor页面中，重新显示页面并显示一条错误消息：
+在 Razor 页面中，重新显示页面并显示一条错误消息：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
 
-客户端验证将捕获大多数提交到Razor页面窗体的错误数据。 此验证使得先前突出显示的代码难以被触发。 示例应用包含一个“提交无效日期”按钮，该按钮将错误数据置于“雇用日期”字段中并提交表单********。 此按钮显示在发生数据转换错误时用于重新显示页的代码将如何工作。
+客户端验证将捕获大多数提交到 Razor 页面窗体的错误数据。 此验证使得先前突出显示的代码难以被触发。 示例应用包含一个“提交无效日期”按钮，该按钮将错误数据置于“雇用日期”字段中并提交表单********。 此按钮显示在发生数据转换错误时用于重新显示页的代码将如何工作。
 
 在使用先前的代码重新显示页时，表单域中不会显示无效的输入。 这是因为模型属性已设置为 NULL 或默认值。 无效输入会出现在错误消息中。 但是，如果要在表单域中重新显示错误数据，可以考虑将模型属性设置为字符串并手动执行数据转换。
 
@@ -689,16 +691,16 @@ public class Pet
 * [Char](xref:System.ComponentModel.CharConverter)
 * [DateTime](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* 十进制 
+* [小数](xref:System.ComponentModel.DecimalConverter)
 * [双精度](xref:System.ComponentModel.DoubleConverter)
 * [枚举](xref:System.ComponentModel.EnumConverter)
 * [Guid.empty](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter)、[Int32](xref:System.ComponentModel.Int32Converter)、[Int64](xref:System.ComponentModel.Int64Converter)
 * [单精度](xref:System.ComponentModel.SingleConverter)
-* [时间](xref:System.ComponentModel.TimeSpanConverter)
+* [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
-* [Oma-uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [Uri](xref:System.UriTypeConverter)
+* [版本](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>复杂类型
 
@@ -766,13 +768,13 @@ public IActionResult OnPost(
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
-只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 下面是一个示例：
+只能应用于模型属性，不能应用于方法参数。 如果无法对模型属性进行绑定，则会导致模型绑定添加模型状态错误。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
 ### <a name="bindnever-attribute"></a>[BindNever] 属性
 
-只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 下面是一个示例：
+只能应用于模型属性，不能应用于方法参数。 防止模型绑定设置模型的属性。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
@@ -954,7 +956,7 @@ ASP.NET Core 基于 [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) 
 
 ## <a name="manual-model-binding"></a>手动模型绑定
 
-可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 下面是一个示例：
+可以使用 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> 方法手动调用模型绑定。 `ControllerBase` 和 `PageModel` 类上均定义了此方法。 方法重载允许指定要使用的前缀和值提供程序。 如果模型绑定失败，该方法返回 `false`。 以下是一个示例：
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 

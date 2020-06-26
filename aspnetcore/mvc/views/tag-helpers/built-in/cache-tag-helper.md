@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: ced10a7b7b221188fdac2a4e3c54f66292110ece
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 65d8bbcdaed76a308b924ba024219e8f520bb585
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773937"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399278"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC 中的缓存标记帮助程序
 
@@ -25,9 +27,9 @@ ms.locfileid: "82773937"
 
 缓存标记帮助程序通过将其内容缓存到内部 ASP.NET Core 缓存提供程序中，极大地提高了 ASP.NET Core 应用的性能。
 
-有关标签帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
+有关标记帮助程序的概述，请参阅 <xref:mvc/views/tag-helpers/intro>。
 
-以下 Razor 标记缓存当前日期：
+以下 Razor 标记将缓存当前日期：
 
 ```cshtml
 <cache>@DateTime.Now</cache>
@@ -43,7 +45,7 @@ ms.locfileid: "82773937"
 | --------------- | --------------- | ------- |
 | 布尔         | `true`, `false` | `true`  |
 
-`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认为 `true`。 如果设置为 `false`，则不会缓存呈现的输出****。
+`enabled` 确定是否缓存了缓存标记帮助程序所包含的内容。 默认值为 `true`。 如果设置为 `false`，则不会缓存呈现的输出****。
 
 示例：
 
@@ -85,7 +87,7 @@ ms.locfileid: "82773937"
 </cache>
 ```
 
-Razor 视图引擎将默认的 `expires-after` 值设置为 20 分钟。
+Razor视图引擎将默认值设置 `expires-after` 为20分钟。
 
 ### <a name="expires-sliding"></a>expires-sliding
 
@@ -169,7 +171,7 @@ routes.MapRoute(
 
 `vary-by-cookie` 接受 Cookie 名称的逗号分隔列表，用于在 Cookie 值发生更改时触发缓存刷新。
 
-下例监视与 ASP.NET Core 标识相关联的 cookie。 当用户进行身份验证时，标识 cookie 中的更改就会触发缓存刷新：
+以下示例监视与 ASP.NET Core 关联的 cookie Identity 。 对用户进行身份验证时，cookie 中的更改会 Identity 触发缓存刷新：
 
 ```cshtml
 <cache vary-by-cookie=".AspNetCore.Identity.Application">
@@ -183,7 +185,7 @@ routes.MapRoute(
 | --------------- | --------------- | ------- |
 | 布尔         | `true`, `false` | `true`  |
 
-`vary-by-user` 指定当已登录用户（或上下文主体）发生更改时是否应重置缓存。 当前用户也称为请求上下文主体，可通过引用 `@User.Identity.Name` 在 Razor 视图中查看。
+`vary-by-user` 指定当已登录用户（或上下文主体）发生更改时是否应重置缓存。 当前用户也称为请求上下文主体，可以 Razor 通过引用在视图中查看 `@User.Identity.Name` 。
 
 下面的示例监视当前登录的用户触发缓存刷新：
 

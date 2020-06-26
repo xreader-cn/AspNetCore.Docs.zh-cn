@@ -7,27 +7,29 @@ ms.custom: mvc
 ms.date: 06/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 1bce6b9cdc876062b050eae6eb3c4acf0127ce92
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 47bd91f4d2bf166a4d0c9a0829e24cbe26a81a10
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777119"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399707"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core 中的分部视图
 
 作者：[Steve Smith](https://ardalis.com/)、[Maher JENDOUBI](https://twitter.com/maherjend)、[Rick Anderson](https://twitter.com/RickAndMSFT) 和 [Scott Sauber](https://twitter.com/scottsauber)
 
-分部视图是一个[Razor](xref:mvc/views/razor)标记文件（*cshtml*），用于在另一个标记文件呈现的输出*中*呈现 HTML 输出。
+分部视图是一个 [Razor](xref:mvc/views/razor) 标记文件（*cshtml*），用于在另一个标记文件呈现的输出*中*呈现 HTML 输出。
 
 ::: moniker range=">= aspnetcore-2.1"
 
-当开发 MVC 应用程序时，将使用术语*分部视图*，其中标记文件称为*视图*，或Razor页面应用，其中的标记文件被称为*页*。 本主题一般将 MVC 视图和Razor页面页称为*标记文件*。
+当开发 MVC 应用程序时，将使用术语*分部视图*，其中标记文件称为*视图*，或 Razor 页面应用，其中的标记文件被称为*页*。 本主题一般将 MVC 视图和 Razor 页面页称为*标记文件*。
 
 ::: moniker-end
 
@@ -52,9 +54,9 @@ ms.locfileid: "82777119"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-分部视图是在*Views*文件夹（MVC）或*页面*文件夹（Razor页面）内维护的一个 *.* 标记文件。
+分部视图是在*Views*文件夹（MVC）或*页面*文件夹（页面）内维护的一个 *.* 标记文件 Razor 。
 
-在 ASP.NET Core MVC 中，控制器的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 能够返回视图或分部视图。 在Razor页中， <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel>可以返回以<xref:Microsoft.AspNetCore.Mvc.PartialViewResult>对象形式表示的分部视图。 [引用分部视图](#reference-a-partial-view)部分介绍了引用和呈现分部视图。
+在 ASP.NET Core MVC 中，控制器的 <xref:Microsoft.AspNetCore.Mvc.ViewResult> 能够返回视图或分部视图。 在 Razor 页中， <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> 可以返回以对象形式表示的分部视图 <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> 。 [引用分部视图](#reference-a-partial-view)部分介绍了引用和呈现分部视图。
 
 与 MVC 视图或页面呈现不同，分部视图不会运行 _ViewStart.cshtml**。 有关 _ViewStart.cshtml** 的详细信息，请参阅 <xref:mvc/views/layout>。
 
@@ -78,9 +80,9 @@ ms.locfileid: "82777119"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>在Razor页面中使用分部视图 PageModel
+### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>在页面中使用分部视图 Razor PageModel
 
-在 ASP.NET Core 2.0 或2.1 中，以下处理程序方法将* \_AuthorPartialRP*分部视图呈现给响应：
+在 ASP.NET Core 2.0 或2.1 中，以下处理程序方法将* \_ AuthorPartialRP*分部视图呈现给响应：
 
 ```csharp
 public IActionResult OnGetPartial() =>
@@ -207,7 +209,7 @@ public IActionResult OnGetPartial() =>
 @await Html.PartialAsync("../Account/_LoginPartial.cshtml")
 ```
 
-或者，也可以使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*> 呈现分部视图。 此方法不返回 <xref:Microsoft.AspNetCore.Html.IHtmlContent>。 它将呈现的输出直接流式传输到响应。 因为该方法不返回结果，所以必须在Razor代码块中调用该方法：
+或者，也可以使用 <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*> 呈现分部视图。 此方法不返回 <xref:Microsoft.AspNetCore.Html.IHtmlContent>。 它将呈现的输出直接流式传输到响应。 因为该方法不返回结果，所以必须在代码块中调用该方法 Razor ：
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Home/Discovery.cshtml?name=snippet_RenderPartialAsync)]
 
@@ -226,7 +228,7 @@ public IActionResult OnGetPartial() =>
 
 > 使用 IHtmlHelper.Partial 可能会导致应用程序死锁。 考虑使用 &lt;分部&gt; 标记帮助程序或 IHtmlHelper.PartialAsync。
 
-将对的`@Html.Partial` `@await Html.PartialAsync`调用替换为或[部分标记帮助器](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 有关分部标记帮助程序迁移的详细信息，请参阅[从 HTML 帮助程序迁移](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper)。
+将对的调用替换为 `@Html.Partial` `@await Html.PartialAsync` 或[部分标记帮助器](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)。 有关分部标记帮助程序迁移的详细信息，请参阅[从 HTML 帮助程序迁移](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper)。
 
 ::: moniker-end
 
@@ -269,10 +271,10 @@ public IActionResult OnGetPartial() =>
 
 * 当分部视图位于不同的文件夹中时，允许使用具有相同文件名的不同分部视图。
 * 当按名称（无文件扩展名）引用分部视图且分部视图出现在调用方的文件夹和** 文件夹中时，调用方文件夹中的分部视图会提供分部视图。 如果调用方文件夹中不存在分部视图，则会从** 文件夹中提供分部视图。 ** 文件夹中的分部视图称为“共享分部视图”** 或“默认分部视图”**。
-* 分部视图可以*链接*&mdash;到分部视图，如果不是由调用形成循环引用，则可以调用另一个分部视图。 相对路径始终相对于当前文件，而不是相对于文件的根视图或父视图。
+* 分部视图可以*链接* &mdash; 到分部视图，如果不是由调用形成循环引用，则可以调用另一个分部视图。 相对路径始终相对于当前文件，而不是相对于文件的根视图或父视图。
 
 > [!NOTE]
-> 分部[Razor](xref:mvc/views/razor) `section`视图中定义的对于父标记文件是不可见的。 `section` 仅对定义它时所在的分部视图可见。
+> [Razor](xref:mvc/views/razor) `section` 分部视图中定义的对于父标记文件是不可见的。 `section` 仅对定义它时所在的分部视图可见。
 
 ## <a name="access-data-from-partial-views"></a>通过分部视图访问数据
 

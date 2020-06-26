@@ -6,17 +6,19 @@ ms.author: avickers
 ms.date: 07/01/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 96ee703da4ced69c5d9c703139e33b76b5dcdff1
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: 3a5bac0e3e34602b1f8a85a7bcde1ba92b372607
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074143"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399161"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>IdentityASP.NET Core 中的模型自定义
 
@@ -361,7 +363,7 @@ services.AddIdentity<ApplicationUser>()
         .AddDefaultUI();
 ```
 
-在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。 有关详细信息，请参阅：
+在 ASP.NET Core 2.1 或更高版本中， Identity 作为 Razor 类库提供。 有关详细信息，请参阅 <xref:security/authentication/scaffold-identity>。 因此，前面的代码需要调用 <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> 。 如果 Identity scaffolder 用于将 Identity 文件添加到项目中，请删除对的调用 `AddDefaultUI` 。 有关详情，请参阅：
 
 * [基架Identity](xref:security/authentication/scaffold-identity)
 * [向添加、下载和删除自定义用户数据Identity](xref:security/authentication/add-user-data)
@@ -737,7 +739,7 @@ public class ApplicationDbContext
 }
 ```
 
-说明：
+注意：
 
 * 此示例还包括 `UserRole` 联接实体，需要将多对多关系从用户导航到角色。
 * 请记住更改导航属性的类型，以反映 `ApplicationXxx` 现在正在使用的类型而不是 `IdentityXxx` 类型。

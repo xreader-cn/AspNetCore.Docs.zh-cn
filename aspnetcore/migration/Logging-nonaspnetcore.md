@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/04/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/logging-nonaspnetcore
-ms.openlocfilehash: 2fd738ed0e0a06d0793e3c624d40a13725b53cd8
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 0c85ca637c1e93bbde93c7d5d12408637476558e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84274227"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399785"
 ---
 # <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>从 Microsoft 进行迁移。日志记录2.1 到2.2 或3。0
 

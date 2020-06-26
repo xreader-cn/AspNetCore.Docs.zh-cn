@@ -6,39 +6,41 @@ ms.author: riande
 ms.date: 04/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 72e736f820ec243a7ad1461fc70e2711ac8b76ee
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: db041ab4939fc7c39ac01cc02e350aca2fbee93e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777457"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400539"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>替换 ASP.NET Core 中的 ASP.NET machineKey
 
 <a name="compatibility-replacing-machinekey"></a>
 
-ASP.NET 中`<machineKey>`元素的实现[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)的。 这样，就可以通过一种替代数据保护机制（包括新的数据保护系统）来路由对 ASP.NET 加密例程的大多数调用。
+`<machineKey>`ASP.NET 中元素的实现[是可替换](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)的。 这样，就可以通过一种替代数据保护机制（包括新的数据保护系统）来路由对 ASP.NET 加密例程的大多数调用。
 
 ## <a name="package-installation"></a>包安装
 
 > [!NOTE]
 > 新的数据保护系统只能安装到面向 .NET 4.5.1 或更高版本的现有 ASP.NET 应用程序中。 如果应用程序面向 .NET 4.5 或更低版本，则安装将失败。
 
-若要将新的数据保护系统安装到现有的 ASP.NET 4.5.1 + 项目中，请安装 AspNetCore DataProtection SystemWeb。 这将使用[默认配置](xref:security/data-protection/configuration/default-settings)设置来实例化数据保护系统。
+若要在现有的 ASP.NET 4.5.1 + 项目中安装新的数据保护系统，请 Microsoft.AspNetCore.DataProtection.SystemWeb 安装包。 这将使用[默认配置](xref:security/data-protection/configuration/default-settings)设置来实例化数据保护系统。
 
-安装包时，它会*在 web.config 中*插入一行，告诉 ASP.NET 将其用于[大多数加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括 forms 身份验证、视图状态和对 MachineKey 的调用。 插入的行如下所示。
+安装包时，它会在*Web.config*中插入一行，告诉 ASP.NET 将其用于[大多数加密操作](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/)，包括 forms 身份验证、视图状态和对 MachineKey 的调用。 插入的行如下所示。
 
 ```xml
 <machineKey compatibilityMode="Framework45" dataProtectorType="..." />
 ```
 
 >[!TIP]
-> 可以通过检查（如`__VIEWSTATE`下面的示例中应以 "CfDJ8" 开头）等字段来判断新的数据保护系统是否处于活动状态。 "CfDJ8" 是用于标识受数据保护系统保护的有效负载的幻 "09 F0 C9 F0" 标头的 base64 表示形式。
+> 可以通过检查 `__VIEWSTATE` （如下面的示例中应以 "CfDJ8" 开头）等字段来判断新的数据保护系统是否处于活动状态。 "CfDJ8" 是用于标识受数据保护系统保护的有效负载的幻 "09 F0 C9 F0" 标头的 base64 表示形式。
 
 ```html
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk...">
@@ -73,9 +75,9 @@ namespace DataProtectionDemo
 ```
 
 >[!TIP]
-> 你还可以使用`<machineKey applicationName="my-app" ... />`来代替对 SetApplicationName 的显式调用。 这是一种简便的机制，可避免开发人员在要配置的所有应用程序名称设置的情况下，强制创建 DataProtectionStartup 派生的类型。
+> 你还可以使用 `<machineKey applicationName="my-app" ... />` 来代替对 SetApplicationName 的显式调用。 这是一种简便的机制，可避免开发人员在要配置的所有应用程序名称设置的情况下，强制创建 DataProtectionStartup 派生的类型。
 
-若要启用此自定义配置，请返回到 web.config，查找包安装`<appSettings>`添加到配置文件中的元素。 它将类似于以下标记：
+若要启用此自定义配置，请返回 Web.config，并查找 `<appSettings>` 包安装添加到配置文件中的元素。 它将类似于以下标记：
 
 ```xml
 <appSettings>

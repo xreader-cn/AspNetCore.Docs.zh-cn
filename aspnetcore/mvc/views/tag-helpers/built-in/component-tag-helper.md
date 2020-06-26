@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: df978d49201ba1010ddf13b1b9a63ae27116616e
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: c088cb7dd4f446b6a42c63357ccf2a080d852382
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103091"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399239"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>ASP.NET Core 中的组件标记帮助程序
 
@@ -42,7 +44,7 @@ ms.locfileid: "85103091"
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-前面的示例假定 `Counter` 组件位于应用的*Pages*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如 `@using BlazorSample.Pages` ）。
+前面的示例假定 `Counter` 组件位于应用的*Pages*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Pages`）。
 
 组件标记帮助器还可以将参数传递给组件。 请考虑以下 `ColorfulCheckbox` 用于设置复选框标签颜色和大小的组件：
 
@@ -84,7 +86,7 @@ ms.locfileid: "85103091"
     param-Size="14" param-Color="@("blue")" />
 ```
 
-前面的示例假定 `ColorfulCheckbox` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用程序的程序集名称（例如 `@using BlazorSample.Shared` ）。
+前面的示例假定 `ColorfulCheckbox` 组件位于应用的*共享*文件夹中。 占位符 `{APP ASSEMBLY}` 是应用的程序集名称（例如 `@using BlazorSample.Shared`）。
 
 在页面或视图中呈现以下 HTML：
 
@@ -160,8 +162,8 @@ public class MyClass
 
 | 呈现模式 | 描述 |
 | ----------- | ----------- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包含 Blazor 服务器应用的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现 Blazor 服务器应用的标记。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | 将组件呈现为静态 HTML，并包括 Blazor Server 应用程序的标记。 用户代理启动时，此标记用于启动 Blazor 应用。 |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | 呈现应用的标记 Blazor Server 。 不包括组件的输出。 用户代理启动时，此标记用于启动 Blazor 应用。 |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | 将组件呈现为静态 HTML。 |
 
 尽管页面和视图可以使用组件，但不是这样。 组件不能使用视图和页特定的功能，如分部视图和节。 若要在组件中通过分部视图使用逻辑，请将分部视图逻辑分解为一个组件。

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 09/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 530ce2d2a7f67f549f6d188a0c571a5d58518377
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 1f44fd65836cc42ffb2303890eefb053b61c4c30
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776241"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399460"
 ---
 # <a name="use-web-api-analyzers"></a>使用 Web API 分析器
 
@@ -53,8 +55,8 @@ ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器�
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-从“程序包管理器控制台”**** 窗口：
-  * 转到“视图”“其他窗口”“包管理器控制台”**** > **** > ****。
+从“程序包管理器控制台”窗口：
+  * 请参阅**查看** > **其他 Windows** > **程序包管理器控制台**。
   * 导航到 ApiConventions.csproj 文件所在的目录**。
   * 运行以下命令：
 
@@ -64,8 +66,8 @@ ASP.NET Core 2.2 和更高版本提供了用于 Web API 项目的 MVC 分析器�
 
 ### <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* 右键单击**Solution Pad** > **添加包 ...**"中的"*包*"文件夹。
-* 将“添加包”窗口的“源”下拉列表设置为“nuget.org”********。
+* 右键单击*Packages* **Solution Pad** > **添加包 ...**"中的" 包 "文件夹。
+* 将 "**添加包**" 窗口的 "**源**" 下拉箭头设置为 "nuget.org"。
 * 在搜索框中输入“Microsoft.AspNetCore.Mvc.Api.Analyzers”。
 * 从结果窗格中选择“Microsoft.AspNetCore.Mvc.Api.Analyzers”包，然后单击“添加包”****。
 
@@ -79,7 +81,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-运行以下命令：
+运行下面的命令：
 
 ```dotnetcli
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
@@ -93,7 +95,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 OpenAPI 文档包含操作可能返回的状态代码和响应类型。 在 ASP.NET Core MVC 中，<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> 和 <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> 等属性用于记录操作。 <xref:tutorials/web-api-help-pages-using-swagger> 进一步介绍有关记录 Web API 的详细信息。
 
-包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请考虑以下示例：
+包中的其中一个分析器检查使用 <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> 进行批注的控制器，并标识不完全记录其响应的操作。 请看下面的示例：
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 
